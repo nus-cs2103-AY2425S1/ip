@@ -15,7 +15,7 @@ GLaDOS is a versatile chatbot for managing tasks, based off of the video game ch
 
 ---
 
-### Quick Start
+## Quick Start
 
 1. Ensure you have Java 17 or above installed on your computer.
 2. Download the latest `.jar` file from the [releases page](https://github.com/jayjay19630/ip/releases).
@@ -30,7 +30,7 @@ GLaDOS is a versatile chatbot for managing tasks, based off of the video game ch
 
 ---
 
-### Features
+## Features
 
 Note: Words in UPPER_CASE are parameters to be supplied by the user.
 
@@ -80,7 +80,7 @@ Format: `event TASK_DESCRIPTION /from START_DATE /to END_DATE`
 
 Deletes a task from the task list based on list index
 
-Format: delete INDEX
+Format: `delete INDEX`
 
 - `INDEX` is the index of the task to delete. Must be a positive integer (e.g., 1, 2, 3, …​).
 - If `INDEX` does not exist within range of task list, error will be shown.
@@ -91,51 +91,44 @@ Example:
 
 ### Marking a Task as Done: `mark`
 
-Marks a task as completed.
+Marks a task as completed based on list idnex
 
-Format: mark TASK_DESCRIPTION
+Format: `mark INDEX`
 
-TASK_DESCRIPTION: The description of the task to mark as done.
+- `INDEX` is the index of the task to delete. Must be a positive integer (e.g., 1, 2, 3, …​).
+- If `INDEX` does not exist within range of task list, error will be shown.
+
+### Unmarking a Task: `unmark`
+
+Marks a task as not completed based on list index
+
+Format: `unmark INDEX`
+
+- `INDEX` is the index of the task to delete. Must be a positive integer (e.g., 1, 2, 3, …​).
+- If `INDEX` does not exist within range of task list, error will be shown.
+
+### Updating a Task: `update`
+
+Updates the description of an existing task
+
+Format: `update INDEX NEW_TASK_DESCRIPTION`
+
+- `INDEX` is the index of the task to delete. Must be a positive integer (e.g., 1, 2, 3, …​).
+- If `INDEX` does not exist within range of task list, error will be shown.
+
 Example:
 
-mark Finish report
-Unmarking a Task: unmark
-Marks a task as not completed.
+- `update 1 Eat dinner` changes the task description of the first task in the task list to "Eat dinner".
 
-Format: unmark TASK_DESCRIPTION
+### Finding a Task: `find`
 
-TASK_DESCRIPTION: The description of the task to unmark.
+Finds the appropriate task inside the tasklist that has the input as a substring of its description.
+
+Format: `find TASK_DESCRIPTION`
+
 Example:
 
-unmark Finish report
-Updating a Task: update
-Updates the description of an existing task.
-
-Format: update NEW_TASK_DESCRIPTION
-
-NEW_TASK_DESCRIPTION: The updated description of the task.
-Example:
-
-update Finish the final report
-
-Command Summary
-Action Format, Examples
-Add add TASK_DESCRIPTION INDEX
-e.g., add Finish report 3
-Delete delete INDEX
-e.g., delete 2
-List list
-Mark mark TASK_DESCRIPTION
-e.g., mark Finish report
-Unmark unmark TASK_DESCRIPTION
-e.g., unmark Finish report
-Update update NEW_TASK_DESCRIPTION
-e.g., update Finish the final report
-Print Error printError EXCEPTION
-Exit exit
-FAQ
-Q: How do I transfer my data to another computer?
-A: Install the app on the other computer and copy the data file from the previous GLaDOS home folder to the new one.
+- `find eat` lists all tasks that have a description with the string "eat" in it.
 
 ---
 
@@ -146,3 +139,23 @@ A: Install the app on the other computer and copy the data file from the previou
 ---
 
 ## Command Summary
+
+| Action       | Format, Examples                                             |
+| ------------ | ------------------------------------------------------------ |
+| **List**     | `list`                                                       |
+| **Todo**     | `todo TASK_DESCRIPTION`                                      |
+|              | e.g., `todo eat some cake`                                   |
+| **Deadline** | `deadline TASK_DESCRIPTION /by DEADLINE_DATE`                |
+|              | e.g., `deadline finish project /by 2024-12-31`               |
+| **Event**    | `event TASK_DESCRIPTION /from START_DATE /to END_DATE`       |
+|              | e.g., `event birthday party /from 2024-11-01 /to 2024-11-01` |
+| **Delete**   | `delete INDEX`                                               |
+|              | e.g., `delete 2`                                             |
+| **Mark**     | `mark INDEX`                                                 |
+|              | e.g., `mark 3`                                               |
+| **Unmark**   | `unmark INDEX`                                               |
+|              | e.g., `unmark 3`                                             |
+| **Update**   | `update INDEX NEW_TASK_DESCRIPTION`                          |
+|              | e.g., `update 1 Eat dinner`                                  |
+| **Find**     | `find TASK_DESCRIPTION`                                      |
+|              | e.g., `find eat`                                             |
