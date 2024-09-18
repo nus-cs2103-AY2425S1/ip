@@ -1,3 +1,3 @@
 T | 1 | Study for Mid-Terms
 D | 0 | Return Book | 19/9/2024 1800
-E | 1 | Career Counselling Session | 1/11/2024 1200 | 1/11/2024 1500
+E | 0 | Career Counselling Session | 1/11/2024 1200 | 1/11/2024 1500

@@ -141,7 +141,7 @@ public class Ui {
     }
 
     public String showUnmarkTask(Task task) {
-        String response = "Darn!, I've marked this task as not done yet:\n" +
+        String response = "Darn! I've marked this task as not done yet:\n" +
                 " " + task;
 
         return response;

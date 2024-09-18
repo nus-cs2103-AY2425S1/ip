@@ -5,8 +5,11 @@ import hue.storage.Storage;
 import hue.task.TaskList;
 import hue.ui.Ui;
 import hue.parser.Parser;
+import javafx.application.Platform;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.File;
 
 
 /**
@@ -27,6 +30,7 @@ public class Hue {
      * @param filePath The path to the file where tasks are stored.
      */
     public Hue(String filePath) {
+        createDataFile(filePath);
         this.ui = new Ui();
         storage = new Storage(filePath);
 
@@ -39,10 +43,37 @@ public class Hue {
             tasks = new TaskList();
         }
     }
-
-    public Hue() {
-        this.ui = new Ui();
-    }
+    /**
+     * Creates a new data file at the specified file path if it does not already exist.
+     * <p>
+     * This method checks whether a file exists at the given {@code filePath}. If the file does not
+     * exist, it creates the necessary directories and then create the file. If the file already
+     * exists, no action is taken. 
+     * </p>
+     * <p>
+     * This method also handles any {@code IOException} that may occur during file creation, printing
+     * the stack trace for debugging purposes.
+     * </p>
+     *
+     * @param filePath The path where the file should be created. This can include directory names,
+     *                 which will be created if they do not exist.
+     * @throws IOException If an I/O error occurs while creating the file or directories.
+     */
+  public static void createDataFile(String filePath) {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            try {
+                file.getParentFile().mkdirs();
+                if (file.createNewFile()) {
+                    System.out.println("File created: " + file.getName());
+                } else {
+                    System.out.println("File already exists");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+  }
     /**
      * Runs the main loop of the application. Reads user commands, parses them, and executes them.
      * Continues until an exit command is issued.
@@ -50,6 +81,8 @@ public class Hue {
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
+
+
 
         while (!isExit) {
             try {
@@ -76,9 +109,6 @@ public class Hue {
         }
     }
 
-    public String varagsAttempt (String... words) {
-        return words[0]; //here
-    }
 
     public String getCommandType() {
         return commandType;
