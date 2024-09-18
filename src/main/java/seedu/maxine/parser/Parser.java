@@ -1,5 +1,8 @@
-package seedu.maxine;
+package seedu.maxine.parser;
 
+import seedu.maxine.Storage;
+import seedu.maxine.TaskList;
+import seedu.maxine.Ui;
 import seedu.maxine.command.Command;
 import seedu.maxine.exception.MaxineException;
 

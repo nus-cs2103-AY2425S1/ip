@@ -1,17 +1,11 @@
 package seedu.maxine.exception;
 
+/**
+ * Custom exception class for the Maxine application.
+ * This exception is thrown to indicate specific error conditions
+ * related to the application.
+ */
 public class MaxineException extends Exception {
-
-    /**
-     * Default constructor for MaxineException.
-     * <p>
-     * This constructor creates a MaxineException with no specific detail message.
-     * </p>
-     */
-    public MaxineException() {
-        // nothing
-    }
-
     /**
      * Constructs a new MaxineException with the specified detail message.
      * <p>
@@ -24,5 +18,4 @@ public class MaxineException extends Exception {
     public MaxineException(String message) {
         super(message);
     }
-    
 }

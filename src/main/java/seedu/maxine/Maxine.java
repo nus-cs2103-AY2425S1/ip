@@ -3,9 +3,14 @@ package seedu.maxine;
 import java.util.Scanner;
 
 import seedu.maxine.command.Command;
-
+import seedu.maxine.parser.Parser;
+/**
+ * The Maxine class represents a command-line task management application.
+ * It handles user interaction, parses commands, and manages tasks using
+ * various components such as the UI, storage, and task lists.
+ */
 public class Maxine {
-    static Scanner scanner = new Scanner(System.in);
+    private static Scanner scanner = new Scanner(System.in);
     private Ui ui;
     private Storage storage;
     private TaskList tasks;
