@@ -40,7 +40,7 @@ public class EventCommand extends Command {
     }
 
     public Event parseEventCommand() throws WrongFormatException {
-        Event event = null;
+        Event event;
 
         assert message.contains("event");
 
@@ -49,7 +49,7 @@ public class EventCommand extends Command {
         try {
             event = new Event(description[1].trim(), DateTimeUtil.parseDateTime(description[2].trim()), DateTimeUtil.parseDateTime(description[3].trim()));
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
-            throw new WrongFormatException("event", "Event task should in the format of \"event [description] /from [" + DATE_TIME_PATTERN + "] /to [" + DATE_TIME_PATTERN + "]");
+            throw new WrongFormatException("event", "Event task should in the format of \"event [task name] /from [" + DATE_TIME_PATTERN + "] /to [" + DATE_TIME_PATTERN + "]");
         }
 
         return event;
