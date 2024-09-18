@@ -36,6 +36,17 @@ public class Botty {
      */
     public Botty() {
         commands = new HashMap<>();
+        taskManager = new TaskManager();
+        storageHandler = new StorageHandler("./data", "tasks");
+
+        initializeCommands();
+        loadTaskList();
+    }
+
+    /**
+     * Adds all the commands to {@code commands}
+     */
+    private void initializeCommands() {
         commands.put("list", new ListCommand());
         commands.put("mark", new MarkCommand());
         commands.put("unmark", new UnmarkCommand());
@@ -46,11 +57,6 @@ public class Botty {
         commands.put("find", new FindCommand());
         commands.put("update", new UpdateCommand());
         commands.put("bye", new ExitCommand());
-
-        taskManager = new TaskManager();
-        storageHandler = new StorageHandler("./data", "tasks");
-
-        loadTaskList();
     }
 
     /**

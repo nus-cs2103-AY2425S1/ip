@@ -2,10 +2,10 @@ package botty.commands;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import botty.exceptions.ArgumentNotFoundException;
-import botty.exceptions.BottyException;
 import botty.exceptions.EmptyCommandException;
 
 /**
@@ -63,47 +63,79 @@ public class ParsedInput {
      * Parses the given input string to return a {@code ParsedInput} with the appropriate command and arguments.
      * @param input the string input.
      * @return a {@code ParsedInput} with the given command and arguments.
-     * @throws BottyException if the command or arguments are invalid.
+     * @throws EmptyCommandException if the command is empty.
      */
     public static ParsedInput parse(String input) throws EmptyCommandException {
-        // take in user input and return a command input
-        // that splits all the argument
-
-        // ex. deadline finish homework /by tomorrow
-
-        // first, process the input
         input = input.trim();
 
-        // ensure that the command is not empty
         if (input.isEmpty()) {
             throw new EmptyCommandException();
         }
 
-        String[] splitInput = input.split("\\s+");
+        String command = extractCommand(input);
+        String arguments = extractArguments(input);
 
-        String command = splitInput[0];
-
-        Map<String, String> argumentMap = new HashMap<>();
-
-
-        ArrayList<String> currentArgumentValueAsWordList = new ArrayList<>();
-        String currentArgumentFlag = "main";
-
-        for (int i = 1; i < splitInput.length; i++) {
-            if (isFlag(splitInput[i])) {
-                String argument = String.join(" ", currentArgumentValueAsWordList);
-                argumentMap.put(currentArgumentFlag, argument);
-                currentArgumentFlag = getFlag(splitInput[i]);
-
-                currentArgumentValueAsWordList = new ArrayList<>();
-            } else {
-                currentArgumentValueAsWordList.add(splitInput[i]);
-            }
-        }
-        String argument = String.join(" ", currentArgumentValueAsWordList);
-        argumentMap.put(currentArgumentFlag, argument);
+        Map<String, String> argumentMap = parseArguments(arguments);
 
         return new ParsedInput(command, argumentMap);
+    }
+
+    /**
+     * Extracts the command from the input string.
+     * @param input the full input string.
+     * @return the command.
+     */
+    private static String extractCommand(String input) {
+        return input.split("\\s+", 2)[0];
+    }
+
+    /**
+     * Extracts the arguments from the input string.
+     * @param input the full input string.
+     * @return the arguments part of the input.
+     */
+    private static String extractArguments(String input) {
+        String[] splitInput = input.split("\\s+", 2);
+        return splitInput.length > 1 ? splitInput[1] : "";
+    }
+
+    /**
+     * Parses the arguments part of the input string into a map of flags and their corresponding values.
+     * @param arguments the arguments part of the input.
+     * @return a map of flags to argument values.
+     */
+    private static Map<String, String> parseArguments(String arguments) {
+        Map<String, String> argumentMap = new HashMap<>();
+
+        List<String> currentArgumentValue = new ArrayList<>();
+        String currentFlag = "main";
+
+        String[] words = arguments.split("\\s+");
+        for (String word : words) {
+            if (isFlag(word)) {
+                storeArgument(argumentMap, currentFlag, currentArgumentValue);
+                currentFlag = extractFlag(word);
+                currentArgumentValue = new ArrayList<>();
+            } else {
+                currentArgumentValue.add(word);
+            }
+        }
+        storeArgument(argumentMap, currentFlag, currentArgumentValue);
+
+        return argumentMap;
+    }
+
+    /**
+     * Stores the collected words as an argument in the argument map.
+     * @param argumentMap the map to store arguments.
+     * @param flag the flag under which to store the argument.
+     * @param words the list of words constituting the argument value.
+     */
+    private static void storeArgument(Map<String, String> argumentMap, String flag, List<String> words) {
+        String argument = String.join(" ", words).trim();
+        if (!argument.isEmpty()) {
+            argumentMap.put(flag, argument);
+        }
     }
 
     /**
@@ -120,7 +152,7 @@ public class ParsedInput {
      * @param word the word in flag format.
      * @return the flag from the word.
      */
-    private static String getFlag(String word) {
+    private static String extractFlag(String word) {
         return word.replaceAll("/(.*)", "$1");
     }
 
