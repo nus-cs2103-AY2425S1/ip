@@ -21,6 +21,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Zero");
             fxmlLoader.<MainWindow>getController().setZero(zero);  // inject the zero instance
             stage.setResizable(true);
             stage.show();
