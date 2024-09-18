@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import seedu.maxine.parser.FileParser;
 import seedu.maxine.task.Task;
 
 /**

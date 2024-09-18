@@ -1,4 +1,4 @@
-package seedu.maxine;
+package seedu.maxine.parser;
 
 import seedu.maxine.task.Deadline;
 import seedu.maxine.task.Event;

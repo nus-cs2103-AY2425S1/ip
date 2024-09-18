@@ -1,8 +1,15 @@
-package seedu.maxine;
+package seedu.maxine.parser;
 
+import seedu.maxine.Storage;
+import seedu.maxine.TaskList;
+import seedu.maxine.Ui;
 import seedu.maxine.command.Command;
 import seedu.maxine.exception.MaxineException;
-
+/**
+ * The Parser class handles the parsing of user inputs in the Maxine application.
+ * It interprets commands related to task management and delegates the operations
+ * to the appropriate command handlers.
+ */
 public class Parser {
     private Ui ui;
     private TaskList list;

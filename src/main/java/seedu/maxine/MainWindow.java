@@ -23,15 +23,18 @@ public class MainWindow extends AnchorPane {
     private Maxine maxine;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaMaxine.png"));
+    private Image maxineImage = new Image(this.getClass().getResourceAsStream("/images/DaMaxine.png"));
 
+    /**
+     * Initialises the dialog container
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
         String initialPrompt = "What can I do for you today?";
         dialogContainer.getChildren().add(
-                DialogBox.getMaxineDialog(initialPrompt, dukeImage)
+                DialogBox.getMaxineDialog(initialPrompt, maxineImage)
         );
     }
 
@@ -41,16 +44,28 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke.Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Maxine.
+     * Maxine's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        if (input.equals("bye")) {
+            String response = maxine.getResponse(input);
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getMaxineDialog(response, maxineImage)
+            );
+            userInput.clear();
+            userInput.setDisable(true);
+            sendButton.setDisable(true);
+            return;
+        }
         String response = maxine.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getMaxineDialog(response, dukeImage)
+                DialogBox.getMaxineDialog(response, maxineImage)
         );
         userInput.clear();
     }
