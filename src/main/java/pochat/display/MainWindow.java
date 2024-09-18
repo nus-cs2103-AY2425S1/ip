@@ -1,5 +1,7 @@
 package pochat.display;
 
+import java.io.File;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -23,7 +25,7 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private PoChat poChat;
-    private final ChatData chatData = new ChatData("src//main//chat_data.txt");
+    private final ChatData chatData = new ChatData(new File("src//main//chat_data.txt"));
 
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/cat.png"));
     private final Image poChatImage = new Image(this.getClass().getResourceAsStream("/images/pochat.png"));

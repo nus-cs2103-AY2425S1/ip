@@ -163,4 +163,8 @@ And the window will `clear`. Feel free to start using PoChat again anytime you w
 
 And now you have it! A chatbot made just for you to get everything in order :)
 
+## Acknowledgements
+
+Photos for the user and PoChat are generated with Meta AI. All rights reserved.
+
 

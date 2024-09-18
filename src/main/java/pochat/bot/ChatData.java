@@ -1,6 +1,7 @@
 package pochat.bot;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,11 +16,12 @@ import pochat.tasks.Task;
  *     information from this file
  */
 public class ChatData {
-    private final String filename;
+    private final File file;
 
-    public ChatData(String filename) {
-        this.filename = filename;
+    public ChatData(File file) {
+        this.file = file;
     }
+
 
     /**
      * Loads the chat history as saved in the TaskList into the current
@@ -30,10 +32,11 @@ public class ChatData {
     public void save(TaskList chatHistory) {
         ArrayList<Task> arrayListOfTasks = chatHistory.toList();
         try {
-            FileWriter fileWriter = new FileWriter(this.filename, false);
+            FileWriter fileWriter = new FileWriter(this.file, false);
             for (Task task : arrayListOfTasks) {
                 try {
                     fileWriter.write(task.toString() + "\n");
+                    System.out.println("saved");
                 } catch (IOException e) {
                     throw new ChatHistoryFileMissingException();
                 }
@@ -53,7 +56,7 @@ public class ChatData {
     public TaskList toTaskList() {
         ArrayList<Task> list = new ArrayList<Task>();
         try {
-            FileReader fileReader = new FileReader(this.filename);
+            FileReader fileReader = new FileReader(this.file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
             boolean hasNextLine = true;
@@ -73,6 +76,17 @@ public class ChatData {
             fileReader.close();
             return new TaskList(list);
         } catch (IOException e) {
+            return initialiseFile();
+        }
+    }
+
+    private TaskList initialiseFile() throws ChatHistoryFileMissingException {
+        try {
+            this.file.getParentFile().mkdirs();
+            this.file.createNewFile();
+            this.file.exists();
+            return new TaskList();
+        } catch (IOException error) {
             throw new ChatHistoryFileMissingException();
         }
     }
