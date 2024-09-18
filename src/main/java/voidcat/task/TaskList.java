@@ -1,11 +1,14 @@
 package voidcat.task;
 
 import voidcat.exception.VoidCatException;
-import voidcat.ui.Ui;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
 
 /**
  * Represents a list of tasks and provides methods for managing tasks
@@ -101,14 +104,19 @@ public class TaskList {
     }
 
     /**
-     * Finds and lists tasks that match the keyword.
+     * Finds and lists tasks that match the keyword using partial and case-insensitive search.
      *
-     * @param keyword The keyword to find in description of task.
+     * @param keyword The keyword to find in the description of tasks.
+     * @return The formatted string of matching tasks.
+     * @throws VoidCatException If no matching tasks are found.
      */
     public String findTasks(String keyword) throws VoidCatException {
         ArrayList<Task> matchingTasks = new ArrayList<>();
+        String lowerCaseKeyword = keyword.toLowerCase(Locale.ROOT);
+
         for (Task task : tasks) {
-            boolean hasKeyword = task.description.contains(keyword);
+            String lowerCaseDescription = task.description.toLowerCase(Locale.ROOT);
+            boolean hasKeyword = lowerCaseDescription.contains(lowerCaseKeyword);
             if (!hasKeyword) {
                 continue;
             }

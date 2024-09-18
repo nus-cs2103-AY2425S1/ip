@@ -34,7 +34,6 @@ public class VoidCat {
             "What can I do for you?"
     };
 
-    // Example of exits
     private String[] exits = {
                 "Purr... Until next time, friend.",
             "Meow! I shall vanish into the shadows now."
