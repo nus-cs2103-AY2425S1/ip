@@ -229,6 +229,12 @@ public class WansBot {
         }
     }
 
+    private void checkAnswerFormat(String userInput) {
+        String[] splitUser = userInput.split("answer");
+        if (splitUser.length < 2 || splitUser[1].equals(" ")) {
+            throw new InputEmptyException(userInput, "/by");
+        }
+    }
     /**
      * Takes user input and turns it into an Event
      *
@@ -345,18 +351,22 @@ public class WansBot {
      * Returns the answer to the matching question. Returns empty string if no matching questions.
      */
     public String matchQuestion(String userInput) {
+        try {
+            checkAnswerFormat(userInput);
+            Question qn = questionBank.getQuestion(userInput.split("answer ")[1]);
 
-        Question qn = questionBank.getQuestion(userInput.split("answer ")[1]);
+            if (qn == null) {
+                return ui.handleWrongAnswerFormat();
+            }
 
-        if (qn == null) {
+            if (qn.toString().equalsIgnoreCase(userInput.split("answer ")[1])) {
+                return qn.getAnswer();
+            }
+
+            return "";
+        } catch (InputEmptyException e) {
             return ui.handleWrongAnswerFormat();
         }
-
-        if (qn.toString().equalsIgnoreCase(userInput.split("answer ")[1])) {
-            return qn.getAnswer();
-        }
-
-        return "";
     }
 
     /**
