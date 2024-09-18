@@ -59,8 +59,8 @@ public class History {
         }
         try {
             BufferedReader br = new BufferedReader(new FileReader(filePath));
-            String line = br.readLine();
-            String complete = "X";
+            String line = br.readLine(), complete = "X";
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
             Task task;
             while (line != null) {
                 if (line.startsWith("T")) {
@@ -68,16 +68,13 @@ public class History {
                     task = new Todos(instr[2], (complete.equals(instr[1]) ? true : false));
                 } else if (line.startsWith("D")) {
                     String[] instr = line.split(" \\| ");
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
                     LocalDateTime deadline = LocalDateTime.parse(instr[3], formatter);
                     task = new Deadline(instr[2], (complete.equals(instr[1]) ? true : false), deadline);
                 } else {
                     String[] instr = line.split(" \\| ");
                     String[] when = instr[3].split(" - ");
-                    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-                    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-                    LocalDateTime start = LocalDateTime.parse(when[0], dateFormatter);
-                    LocalDateTime end = LocalDateTime.parse(when[1], dateFormatter);
+                    LocalDateTime start = LocalDateTime.parse(when[0], formatter);
+                    LocalDateTime end = LocalDateTime.parse(when[1], formatter);
                     task = new Event(instr[2], (complete.equals(instr[1]) ? true : false), start, end);
                 }
                 taskList.add(task);
