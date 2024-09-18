@@ -10,11 +10,15 @@ import victor.Handler;
 import victor.commands.Command;
 import victor.messages.ReturnMessage;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 /**
  * Controller for the main GUI.
  */
 public class MainWindow {
-    private static final String WELCOME_MESSAGE = "Hi, I'm Victor! Let's get started with tracking your tasks!";
+    private static final String WELCOME_MESSAGE = "  ~  Hi, I'm Victor! Let's get started with tracking your tasks!";
+    private static final Path DATA_PATH = Paths.get("data", "data.txt");
     @FXML
     private VBox dialogContainer;
     @FXML
@@ -68,12 +72,22 @@ public class MainWindow {
         if (command.isExit()) {
             stage.close();
         }
-        ReturnMessage returnMessage = command.execute();
-        String response = returnMessage.getMessagesAsString();
+        String response = getCommandOutput(command);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getVictorDialog(response, victorImage)
         );
         userInput.clear();
+    }
+
+    /**
+     * Executes, writes command to file, and gets response from command execution.
+     * @param command A Command that needs to be executed, written, and made to give a return message.
+     * @return A string of the return message from executing the command.
+     */
+    private String getCommandOutput(Command command) {
+        ReturnMessage returnMessage = command.execute();
+        command.write(DATA_PATH);
+        return returnMessage.getMessagesAsString();
     }
 }

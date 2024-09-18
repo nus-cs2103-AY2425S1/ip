@@ -29,7 +29,7 @@ public class Command {
     }
 
     /**
-     * Generic return method that returns a message responding to blank input.
+     * Returns a message responding to blank input.
      * @return A return message with a prompt to the user to enter the correct input.
      */
     public ReturnMessage execute() {

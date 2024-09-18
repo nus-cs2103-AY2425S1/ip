@@ -114,4 +114,12 @@ public class EventCommand extends Command {
             throw new RuntimeException("Problem writing to file.");
         }
     }
+
+    /**
+     * Returns event associated with event command.
+     * @return An event object created by the event command.
+     */
+    public Event getEvent() {
+        return this.event;
+    }
 }
