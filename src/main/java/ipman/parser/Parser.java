@@ -35,39 +35,48 @@ public class Parser {
         Message messageRecord = parseMessage(message);
         String keyword = messageRecord.keyword;
         switch (keyword) {
+        case "exit":
         case "bye": {
             return new ExitCommand();
         }
+        case "l":
         case "list": {
             return new ListCommand();
         }
+        case "m":
         case "mark": {
             String[] args = parseArgs(messageRecord.args);
             int index = parseInt(args[0]) - 1;
             return new MarkCommand(index);
         }
+        case "um":
         case "unmark": {
             String[] args = parseArgs(messageRecord.args);
             int index = parseInt(args[0]) - 1;
             return new UnmarkCommand(index);
         }
+        case "t":
         case "todo": {
             String[] args = parseArgs(messageRecord.args);
             return new CreateToDoCommand(args[0]);
         }
+        case "d":
         case "deadline": {
             String[] args = parseArgs(messageRecord.args, "/by");
             return new CreateDeadlineCommand(args[0], parseDate(args[1]));
         }
+        case "e":
         case "event": {
             String[] args = parseArgs(messageRecord.args, "/from", "/to");
             return new CreateEventCommand(args[0], parseDate(args[1]), parseDate(args[2]));
         }
+        case "del":
         case "delete": {
             String[] args = parseArgs(messageRecord.args);
             int index = parseInt(args[0]);
             return new DeleteCommand(index);
         }
+        case "f":
         case "find": {
             String[] args = parseArgs(messageRecord.args);
             return new FindCommand(args[0]);
