@@ -40,12 +40,17 @@ TheRatchetCat is here to organise tasks for you!
 
 // Give examples of usage
 
-Example: `keyword (optional arguments)`
+Example: `list`
 
 // A description of the expected outcome goes here
 
 ```
-expected output
+RatchetCat says:
+Here are the tasks in your list:
+1.[E][ ] CS2100 (from: Sep 11 2024 to: Sep 12 2024)
+2.[E][ ] CS2101 (from: Sep 21 2024 to: Sep 30 2024)
+3.[D][X] CS2103T (by: Nov 28 2024)
+4.[E][X] CS2102 (from: Jan 15 2025 to: Apr 29 2025)
 ```
 
 ## Feature ABC
