@@ -37,31 +37,44 @@ public abstract class Task {
      * @return the status icon as a String
      */
     public String getStatusIcon() {
-        return (isDone ? "✔️" : " ");
+        return (isDone ? "✔" : " ");
     }
 
     /**
      * Returns the priority icon of the task.
-     * 🟢 for low, 🟡 for medium, 🔴 for high.
+     * Uses different icons for macOS and Windows.
      *
      * @return the priority icon as a String
      */
     public String getPriorityIcon() {
-        switch(this.priority.toLowerCase()) {
-        case "high":
-            return "🔴"; // High priority
-            // Fallthrough
-        case "medium":
-            return "🟡"; // Medium priority
-            // Fallthrough
-        case "low":
-            return "🟢"; // Low priority
-            // Fallthrough
-        default:
-            return "🟡"; // Default to medium if not specified
-            // Fallthrough
+        String os = System.getProperty("os.name").toLowerCase();
+        if (os.contains("mac")) {
+            // macOS emoji icons
+            switch(this.priority.toLowerCase()) {
+            case "high":
+                return "🔴"; // High priority
+            case "medium":
+                return "🟡"; // Medium priority
+            case "low":
+                return "🟢"; // Low priority
+            default:
+                return "🟡"; // Default to medium if not specified
+            }
+        } else {
+            // other os emoji fallback
+            switch(this.priority.toLowerCase()) {
+            case "high":
+                return "[HIGH]"; // High priority
+            case "medium":
+                return "[MED]";  // Medium priority
+            case "low":
+                return "[LOW]";  // Low priority
+            default:
+                return "[MED]";  // Default to medium if not specified
+            }
         }
     }
+
 
     /**
      * Marks the task as done.

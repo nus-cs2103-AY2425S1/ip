@@ -118,7 +118,7 @@ Outcome: Marks the task as done and updates the task list.
 
 ```
 Nice! I've marked this task as done:
-🟡 📋 |✔️| sleep
+🟡 📋 |✔| sleep
 ```
 
 ## Mark task as not done

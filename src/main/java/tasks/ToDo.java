@@ -22,10 +22,18 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
-        return this.getPriorityIcon()
-                + " 📋 | "
-                + this.getStatusIcon()
-                + " | " + this.description;
+        String os = System.getProperty("os.name").toLowerCase();
+        if (os.contains("mac")) {
+            return this.getPriorityIcon()
+                    + " 📋 | "
+                    + this.getStatusIcon()
+                    + " | " + this.description;
+        } else {
+            return this.getPriorityIcon()
+                    + " T | "
+                    + this.getStatusIcon()
+                    + " | " + this.description;
+        }
     }
 
     /**

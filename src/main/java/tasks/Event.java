@@ -33,12 +33,23 @@ public class Event extends Task {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
-        return this.getPriorityIcon()
-                + " 🎉 | "
-                + this.getStatusIcon()
-                + " | " + this.description
-                + " (from: " + this.startWhen.format(formatter)
-                + " to: " + this.endWhen.format(formatter) + ")";
+        String os = System.getProperty("os.name").toLowerCase();
+        if (os.contains("mac")) {
+            return this.getPriorityIcon()
+                    + " 🎉 | "
+                    + this.getStatusIcon()
+                    + " | " + this.description
+                    + " (from: " + this.startWhen.format(formatter)
+                    + " to: " + this.endWhen.format(formatter) + ")";
+        } else {
+            return this.getPriorityIcon()
+                    + " E | "
+                    + this.getStatusIcon()
+                    + " | " + this.description
+                    + " (from: " + this.startWhen.format(formatter)
+                    + " to: " + this.endWhen.format(formatter) + ")";
+        }
+
     }
 
     /**

@@ -30,11 +30,21 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
-        return this.getPriorityIcon()
-                + " 📆 | "
-                + this.getStatusIcon()
-                + " | " + this.description
-                + " (by: " + this.dueWhen.format(formatter) + ")";
+        String os = System.getProperty("os.name").toLowerCase();
+        if (os.contains("mac")) {
+            return this.getPriorityIcon()
+                    + " 📆 | "
+                    + this.getStatusIcon()
+                    + " | " + this.description
+                    + " (by: " + this.dueWhen.format(formatter) + ")";
+        } else {
+            return this.getPriorityIcon()
+                    + " D | "
+                    + this.getStatusIcon()
+                    + " | " + this.description
+                    + " (by: " + this.dueWhen.format(formatter) + ")";
+        }
+
     }
 
     /**
