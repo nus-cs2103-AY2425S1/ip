@@ -1,0 +1,12 @@
+D | 1 | book flight | 2024-12-12
+E | 1 | lunch w friends |             2pm             |             3pm
+T | 1 | cook breakfast
+T | 0 | submit iP
+D | 0 | submit iP | 2024-09-20
+E | 0 |  |     now     |     later
+E | 0 | meow |     now     |     later
+T | 0 | buy mouse
+T | 0 | sleep
+D | 0 | sleep | 2024-12-12
+E | 0 | sleep |  12am  |  12pm
+T | 0 | sleep more
