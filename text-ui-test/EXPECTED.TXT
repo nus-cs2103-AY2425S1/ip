@@ -1,7 +1,329 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+____________________________________________________________________________________________
+$$   $$   $$$$    $$$$ $$$$   $$   $$  $$$$$$
+$$   $$  $$  $$  $$  $$$  $$  $$   $$  $$  $$
+$$$$$$$  $$$$$$  $$  $$$  $$  $$$$$$$  $$  $$
+$$   $$  $$  $$  $$  $$$  $$       $$  $$  $$
+$$   $$  $$  $$  $$  $$$  $$  $$$$$$   $$$$$$
 
+Annyeonghaseyo! Hamyo here!
+How may I assist you today?
+____________________________________________________________________________________________
+These are your tasks:
+1. [T] [ ] TEST_MEMORY_TODO
+2. [D] [X] TEST_MEMORY_DEADLINE (by: Sep 18 2002)
+3. [E] [ ] TEST_MEMORY_EVENT (from: Sep 18 2002 to: Sep 20 2002)
+4. [E] [ ] TEST_MEMORY_EVENT_DATETIME (from: Sep 18 2024 23:59HRS to: Sep 19 2024 00:01HRS)
+____________________________________________________________________________________________
+Noted. I've removed this task:
+[T] [ ] TEST_MEMORY_TODO
+There are 3 tasks in the list now.
+____________________________________________________________________________________________
+Noted. I've removed this task:
+[D] [X] TEST_MEMORY_DEADLINE (by: Sep 18 2002)
+There are 2 tasks in the list now.
+____________________________________________________________________________________________
+Noted. I've removed this task:
+[E] [ ] TEST_MEMORY_EVENT (from: Sep 18 2002 to: Sep 20 2002)
+There are 1 tasks in the list now.
+____________________________________________________________________________________________
+Noted. I've removed this task:
+[E] [ ] TEST_MEMORY_EVENT_DATETIME (from: Sep 18 2024 23:59HRS to: Sep 19 2024 00:01HRS)
+There are 0 tasks in the list now.
+____________________________________________________________________________________________
+Oh No! Usage: todo [task description]
+____________________________________________________________________________________________
+Got it. I've added this task:
+[T] [ ] apple
+There are 1 tasks in the list now.
+____________________________________________________________________________________________
+Oh No! Usage: deadline [task description] /by [deadline]
+____________________________________________________________________________________________
+Oh No! Usage: deadline [task description] /by [deadline]
+____________________________________________________________________________________________
+Oh No! Usage: deadline [task description] /by [deadline]
+____________________________________________________________________________________________
+Got it. I've added this task:
+[D] [ ] banana (by: Nov 11 2011)
+There are 2 tasks in the list now.
+____________________________________________________________________________________________
+Oh No! Usage: event [task description] /from [start timestamp] /to [end timestamp]
+____________________________________________________________________________________________
+Oh No! Usage: event [task description] /from [start timestamp] /to [end timestamp]
+____________________________________________________________________________________________
+Oh No! Usage: event [task description] /from [start timestamp] /to [end timestamp]
+____________________________________________________________________________________________
+Oh No! Usage: event [task description] /from [start timestamp] /to [end timestamp]
+____________________________________________________________________________________________
+Oh No! Usage: event [task description] /from [start timestamp] /to [end timestamp]
+____________________________________________________________________________________________
+Got it. I've added this task:
+[E] [ ] chiku (from: Dec 31 2024 to: Jan 1 2025)
+There are 3 tasks in the list now.
+____________________________________________________________________________________________
+These are your tasks:
+1. [T] [ ] apple
+2. [D] [ ] banana (by: Nov 11 2011)
+3. [E] [ ] chiku (from: Dec 31 2024 to: Jan 1 2025)
+____________________________________________________________________________________________
+Oh No! This task was already marked as incomplete!
+____________________________________________________________________________________________
+Yay! This task has been marked as completed.
+[T] [X] apple
+____________________________________________________________________________________________
+Oh No! This task was already marked as completed!
+____________________________________________________________________________________________
+Yay! This task has been marked as completed.
+[D] [X] banana (by: Nov 11 2011)
+____________________________________________________________________________________________
+Yay! This task has been marked as completed.
+[E] [X] chiku (from: Dec 31 2024 to: Jan 1 2025)
+____________________________________________________________________________________________
+Oh No! Invalid index 4 provided!
+____________________________________________________________________________________________
+These are your tasks:
+1. [T] [X] apple
+2. [D] [X] banana (by: Nov 11 2011)
+3. [E] [X] chiku (from: Dec 31 2024 to: Jan 1 2025)
+____________________________________________________________________________________________
+Oki! This task has been marked as incomplete.
+[E] [ ] chiku (from: Dec 31 2024 to: Jan 1 2025)
+____________________________________________________________________________________________
+These are your tasks:
+1. [T] [X] apple
+2. [D] [X] banana (by: Nov 11 2011)
+3. [E] [ ] chiku (from: Dec 31 2024 to: Jan 1 2025)
+____________________________________________________________________________________________
+Oh No! Invalid Command!
+____________________________________________________________________________________________
+Oh No! Invalid index apple provided!
+____________________________________________________________________________________________
+Oh No! Invalid index apple provided!
+____________________________________________________________________________________________
+Oh No! Invalid index apple provided!
+____________________________________________________________________________________________
+Noted. I've removed this task:
+[T] [X] apple
+There are 2 tasks in the list now.
+____________________________________________________________________________________________
+These are your tasks:
+1. [D] [X] banana (by: Nov 11 2011)
+2. [E] [ ] chiku (from: Dec 31 2024 to: Jan 1 2025)
+____________________________________________________________________________________________
+Noted. I've removed this task:
+[D] [X] banana (by: Nov 11 2011)
+There are 1 tasks in the list now.
+____________________________________________________________________________________________
+These are your tasks:
+1. [E] [ ] chiku (from: Dec 31 2024 to: Jan 1 2025)
+____________________________________________________________________________________________
+Noted. I've removed this task:
+[E] [ ] chiku (from: Dec 31 2024 to: Jan 1 2025)
+There are 0 tasks in the list now.
+____________________________________________________________________________________________
+These are your tasks:
+No tasks found!
+____________________________________________________________________________________________
+Oh No! Invalid index 1 provided!
+____________________________________________________________________________________________
+Got it. I've added this task:
+[D] [ ] TEST_DEADLINE_DATETIME (by: Dec 31 1999 20:00HRS)
+There are 1 tasks in the list now.
+____________________________________________________________________________________________
+Got it. I've added this task:
+[E] [ ] TEST_EVENT_DATE_DATETIME (from: Jan 1 2000 to: Feb 2 2000 20:00HRS)
+There are 2 tasks in the list now.
+____________________________________________________________________________________________
+Got it. I've added this task:
+[E] [ ] TEST_EVENT_DATETIME_DATE (from: Jan 1 2000 20:00HRS to: Feb 2 2000)
+There are 3 tasks in the list now.
+____________________________________________________________________________________________
+Got it. I've added this task:
+[E] [ ] TEST_EVENT_DATETIME_DATETIME (from: Jan 2 2000 00:00HRS to: Feb 3 2000 00:00HRS)
+There are 4 tasks in the list now.
+____________________________________________________________________________________________
+These are your tasks:
+1. [D] [ ] TEST_DEADLINE_DATETIME (by: Dec 31 1999 20:00HRS)
+2. [E] [ ] TEST_EVENT_DATE_DATETIME (from: Jan 1 2000 to: Feb 2 2000 20:00HRS)
+3. [E] [ ] TEST_EVENT_DATETIME_DATE (from: Jan 1 2000 20:00HRS to: Feb 2 2000)
+4. [E] [ ] TEST_EVENT_DATETIME_DATETIME (from: Jan 2 2000 00:00HRS to: Feb 3 2000 00:00HRS)
+____________________________________________________________________________________________
+Noted. I've removed this task:
+[E] [ ] TEST_EVENT_DATETIME_DATETIME (from: Jan 2 2000 00:00HRS to: Feb 3 2000 00:00HRS)
+There are 3 tasks in the list now.
+____________________________________________________________________________________________
+Noted. I've removed this task:
+[E] [ ] TEST_EVENT_DATETIME_DATE (from: Jan 1 2000 20:00HRS to: Feb 2 2000)
+There are 2 tasks in the list now.
+____________________________________________________________________________________________
+Noted. I've removed this task:
+[E] [ ] TEST_EVENT_DATE_DATETIME (from: Jan 1 2000 to: Feb 2 2000 20:00HRS)
+There are 1 tasks in the list now.
+____________________________________________________________________________________________
+Noted. I've removed this task:
+[D] [ ] TEST_DEADLINE_DATETIME (by: Dec 31 1999 20:00HRS)
+There are 0 tasks in the list now.
+____________________________________________________________________________________________
+Got it. I've added this task:
+[T] [ ] TEST_MEMORY_TODO
+There are 1 tasks in the list now.
+____________________________________________________________________________________________
+Got it. I've added this task:
+[D] [ ] TEST_MEMORY_DEADLINE (by: Sep 18 2002)
+There are 2 tasks in the list now.
+____________________________________________________________________________________________
+Got it. I've added this task:
+[E] [ ] TEST_MEMORY_EVENT (from: Sep 18 2002 to: Sep 20 2002)
+There are 3 tasks in the list now.
+____________________________________________________________________________________________
+Got it. I've added this task:
+[E] [ ] TEST_MEMORY_EVENT_DATETIME (from: Sep 18 2024 23:59HRS to: Sep 19 2024 00:01HRS)
+There are 4 tasks in the list now.
+____________________________________________________________________________________________
+Yay! This task has been marked as completed.
+[D] [X] TEST_MEMORY_DEADLINE (by: Sep 18 2002)
+____________________________________________________________________________________________
+These are your tasks on Sep 18 2002.
+1. [D] [X] TEST_MEMORY_DEADLINE (by: Sep 18 2002)
+2. [E] [ ] TEST_MEMORY_EVENT (from: Sep 18 2002 to: Sep 20 2002)
+____________________________________________________________________________________________
+These are your tasks on Sep 18 2024.
+1. [E] [ ] TEST_MEMORY_EVENT_DATETIME (from: Sep 18 2024 23:59HRS to: Sep 19 2024 00:01HRS)
+____________________________________________________________________________________________
+These are your tasks on Sep 19 2024.
+1. [E] [ ] TEST_MEMORY_EVENT_DATETIME (from: Sep 18 2024 23:59HRS to: Sep 19 2024 00:01HRS)
+____________________________________________________________________________________________
+Oh No! Usage: listDate yyyy-MM-dd.
+____________________________________________________________________________________________
+Here are the matching tasks in your list for TODO.
+1. [T] [ ] TEST_MEMORY_TODO
+____________________________________________________________________________________________
+Here are the matching tasks in your list for 2002.
+1. [D] [X] TEST_MEMORY_DEADLINE (by: Sep 18 2002)
+2. [E] [ ] TEST_MEMORY_EVENT (from: Sep 18 2002 to: Sep 20 2002)
+____________________________________________________________________________________________
+Here are the matching tasks in your list for MEMORY.
+1. [T] [ ] TEST_MEMORY_TODO
+2. [D] [X] TEST_MEMORY_DEADLINE (by: Sep 18 2002)
+3. [E] [ ] TEST_MEMORY_EVENT (from: Sep 18 2002 to: Sep 20 2002)
+4. [E] [ ] TEST_MEMORY_EVENT_DATETIME (from: Sep 18 2024 23:59HRS to: Sep 19 2024 00:01HRS)
+____________________________________________________________________________________________
+Here are the matching tasks in your list for DATETIME.
+1. [E] [ ] TEST_MEMORY_EVENT_DATETIME (from: Sep 18 2024 23:59HRS to: Sep 19 2024 00:01HRS)
+____________________________________________________________________________________________
+Got it. I've added this task:
+[T] [ ] first task
+There are 5 tasks in the list now.
+____________________________________________________________________________________________
+Got it. I've added this task:
+[T] [ ] second task
+There are 6 tasks in the list now.
+____________________________________________________________________________________________
+Got it. I've added this task:
+[T] [ ] third task
+There are 7 tasks in the list now.
+____________________________________________________________________________________________
+Got it. I've added this task:
+[T] [ ] fourth task
+There are 8 tasks in the list now.
+____________________________________________________________________________________________
+Got it. I've added this task:
+[T] [ ] fifth task
+There are 9 tasks in the list now.
+____________________________________________________________________________________________
+Got it. I've added this task:
+[T] [ ] sixth task
+There are 10 tasks in the list now.
+____________________________________________________________________________________________
+Oh No! Invalid index apple provided!
+____________________________________________________________________________________________
+Oh No! Invalid index banana provided!
+____________________________________________________________________________________________
+Aight Bet! I am marking 3 tasks!
+____________________________________________________________________________________________
+Yay! This task has been marked as completed.
+[T] [X] first task
+____________________________________________________________________________________________
+Yay! This task has been marked as completed.
+[T] [X] third task
+____________________________________________________________________________________________
+Yay! This task has been marked as completed.
+[T] [X] sixth task
+____________________________________________________________________________________________
+These are your tasks:
+1. [T] [ ] TEST_MEMORY_TODO
+2. [D] [X] TEST_MEMORY_DEADLINE (by: Sep 18 2002)
+3. [E] [ ] TEST_MEMORY_EVENT (from: Sep 18 2002 to: Sep 20 2002)
+4. [E] [ ] TEST_MEMORY_EVENT_DATETIME (from: Sep 18 2024 23:59HRS to: Sep 19 2024 00:01HRS)
+5. [T] [X] first task
+6. [T] [ ] second task
+7. [T] [X] third task
+8. [T] [ ] fourth task
+9. [T] [ ] fifth task
+10. [T] [X] sixth task
+____________________________________________________________________________________________
+Oh No! Invalid index pineapple provided!
+____________________________________________________________________________________________
+Oh No! Invalid index orange provided!
+____________________________________________________________________________________________
+Aight Bet! I am unmarking 3 tasks!
+____________________________________________________________________________________________
+Oki! This task has been marked as incomplete.
+[T] [ ] third task
+____________________________________________________________________________________________
+Oh No! This task was already marked as incomplete!
+____________________________________________________________________________________________
+Oki! This task has been marked as incomplete.
+[T] [ ] sixth task
+____________________________________________________________________________________________
+These are your tasks:
+1. [T] [ ] TEST_MEMORY_TODO
+2. [D] [X] TEST_MEMORY_DEADLINE (by: Sep 18 2002)
+3. [E] [ ] TEST_MEMORY_EVENT (from: Sep 18 2002 to: Sep 20 2002)
+4. [E] [ ] TEST_MEMORY_EVENT_DATETIME (from: Sep 18 2024 23:59HRS to: Sep 19 2024 00:01HRS)
+5. [T] [X] first task
+6. [T] [ ] second task
+7. [T] [ ] third task
+8. [T] [ ] fourth task
+9. [T] [ ] fifth task
+10. [T] [ ] sixth task
+____________________________________________________________________________________________
+Oh No! Invalid index durian provided!
+____________________________________________________________________________________________
+Oh No! Invalid index dragonfruit provided!
+____________________________________________________________________________________________
+Aight Bet! I am deleting 6 tasks!
+____________________________________________________________________________________________
+Noted. I've removed this task:
+[T] [ ] sixth task
+There are 9 tasks in the list now.
+____________________________________________________________________________________________
+Noted. I've removed this task:
+[T] [ ] fifth task
+There are 8 tasks in the list now.
+____________________________________________________________________________________________
+Noted. I've removed this task:
+[T] [ ] fourth task
+There are 7 tasks in the list now.
+____________________________________________________________________________________________
+Noted. I've removed this task:
+[T] [ ] third task
+There are 6 tasks in the list now.
+____________________________________________________________________________________________
+Noted. I've removed this task:
+[T] [ ] second task
+There are 5 tasks in the list now.
+____________________________________________________________________________________________
+Noted. I've removed this task:
+[T] [X] first task
+There are 4 tasks in the list now.
+____________________________________________________________________________________________
+Oh No! Invalid date/time format. yyyy-MM-dd OR yyyy-MM-dd HH:mm.
+____________________________________________________________________________________________
+Oh No! From date/time must be earlier than To date/time.
+____________________________________________________________________________________________
+Oh No! From date/time must be earlier than To date/time.
+____________________________________________________________________________________________
+Oh No! From date/time must be earlier than To date/time.
+____________________________________________________________________________________________
+Annyeong! Till we meet again. <3
+____________________________________________________________________________________________

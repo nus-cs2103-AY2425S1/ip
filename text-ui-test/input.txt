@@ -1,0 +1,76 @@
+list
+delete 1
+delete 1
+delete 1
+delete 1
+todo
+todo apple
+deadline
+deadline banana
+deadline banana /by
+deadline banana /by 2011-11-11
+event
+event chiku
+event chiku /from
+event chiku /from 2024-12-31
+event chiku /from 2024-12-31 /to
+event chiku /from 2024-12-31 /to 2025-01-01
+list
+unmark 1
+mark 1
+mark 1
+mark 2
+mark 3
+mark 4
+list
+unmark 3
+list
+invalid command
+mark apple
+unmark apple
+delete apple
+delete 1
+list
+delete 1
+list
+delete 1
+list
+delete 1
+deadline TEST_DEADLINE_DATETIME /by 1999-12-31 20:00
+event TEST_EVENT_DATE_DATETIME /from 2000-01-01 /to 2000-02-02 20:00
+event TEST_EVENT_DATETIME_DATE /from 2000-01-01 20:00 /to 2000-02-02
+event TEST_EVENT_DATETIME_DATETIME /from 2000-01-01 24:00 /to 2000-02-02 24:00
+list
+delete 4
+delete 3
+delete 2
+delete 1
+todo TEST_MEMORY_TODO
+deadline TEST_MEMORY_DEADLINE /by 2002-09-18
+event TEST_MEMORY_EVENT /from 2002-09-18 /to 2002-09-20
+event TEST_MEMORY_EVENT_DATETIME /from 2024-09-18 23:59 /to 2024-09-19 00:01
+mark 2
+listDate 2002-09-18
+listDate 2024-09-18
+listDate 2024-09-19
+listDate
+find tODo
+find 2002
+find mEmoRy
+find dATetImE
+todo first task
+todo second task
+todo third task
+todo fourth task
+todo fifth task
+todo sixth task
+mark 10 apple 7 5 5 banana
+list
+unmark 10 10 pineapple 7 7 8 orange
+list
+delete 5 durian 8 10 9 7 6 dragonfruit
+deadline TEST_INVALID_DATE /by 2024-02-30
+event TEST_INVALID_DATE /from 2024-02-28 /to 2024-02-01 00:01
+event TEST_INVALID_DATE /from 2024-02-28 00:01 /to 2024-02-01
+event TEST_INVALID_DATE /from 2024-02-28 00:01 /to 2024-02-01 00:01
+bye
