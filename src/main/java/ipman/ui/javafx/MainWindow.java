@@ -34,7 +34,7 @@ public class MainWindow extends AnchorPane implements Initializable {
         this.dialogContainer.prefWidthProperty().bind(this.scrollPane.widthProperty());
 
         // @@author Brendan-reused
-        // Reused from https://stackoverflow.com/questions/13880638/how-do-i-pick-up-the-enter-key-being-pressed-in-javafx2
+        // Reused from https://stackoverflow.com/a/13881757/4428725
         // with minor modifications
         this.inputTextField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
