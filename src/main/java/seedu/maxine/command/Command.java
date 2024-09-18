@@ -18,7 +18,7 @@ import seedu.maxine.task.Todo;
  * It manages the interaction with the task list, storage, and user interface.
  */
 public class Command {
-    private static boolean isRunning;
+    private static boolean isRunning = true;
     private MaxineStorage storage;
     private MaxineUi ui;
     private MaxineList list;
@@ -31,7 +31,6 @@ public class Command {
      * @param list The list of tasks being managed.
      */
     public Command(MaxineStorage storage, MaxineUi ui, MaxineList list) {
-        isRunning = true;
         this.storage = storage;
         this.ui = ui;
         this.list = list;

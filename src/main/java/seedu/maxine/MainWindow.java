@@ -44,13 +44,23 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke.
-     * Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Maxine.
+     * Maxine's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        if (input.equals("bye")) {
+            String response = maxine.getResponse(input);
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getMaxineDialog(response, dukeImage)
+            );
+            userInput.clear();
+            userInput.setDisable(true); // Disable the input field
+            return; // Exit the method early
+        }
         String response = maxine.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
