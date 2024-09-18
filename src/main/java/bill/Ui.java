@@ -15,7 +15,7 @@ public class Ui {
     private Parser parser;
 
     private enum Route {
-        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID, FIND, BYE
+        HELP, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID, FIND, BYE
     }
 
     /**
@@ -191,6 +191,10 @@ public class Ui {
         }
     }
 
+    public String handleHelp(String[] parsedInput) throws BillException {
+        return parser.handleHelpParser(parsedInput);
+    }
+
     /**
      * Handles routing based on user command, to call appropriate functions
      *
@@ -204,6 +208,8 @@ public class Ui {
         Route route = getRouteEnum(parsedInput[0]);
         try {
             switch (route) {
+            case HELP:
+                return handleHelp(parsedInput);
             case LIST:
                 return tasks.showList(userList);
             case MARK:
