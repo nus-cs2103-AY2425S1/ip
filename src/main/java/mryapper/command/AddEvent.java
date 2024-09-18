@@ -1,7 +1,7 @@
 package mryapper.command;
 
 import mryapper.parser.DateTimeParser;
-import mryapper.storagemanager.StorageManager;
+import mryapper.storage.Storage;
 import mryapper.task.Event;
 import mryapper.task.Task;
 import mryapper.task.TaskList;
@@ -22,7 +22,7 @@ public class AddEvent extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, StorageManager storage) {
+    public String execute(TaskList tasks, Storage storage) {
         assert !description.isEmpty(): "description should not be empty";
         assert !startTime.isEmpty(): "start time/date should not be empty";
         assert !endTime.isEmpty(): "end time/date should not be empty";

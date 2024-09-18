@@ -1,6 +1,6 @@
 package mryapper.command;
 
-import mryapper.storagemanager.StorageManager;
+import mryapper.storage.Storage;
 import mryapper.task.Task;
 import mryapper.task.TaskList;
 import mryapper.task.Todo;
@@ -17,7 +17,7 @@ public class AddTodoTask extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, StorageManager storage) {
+    public String execute(TaskList tasks, Storage storage) {
         assert !description.isEmpty() : "description should not be empty";
 
         Task newTask = new Todo(description);

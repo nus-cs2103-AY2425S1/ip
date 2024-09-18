@@ -1,6 +1,6 @@
 package mryapper.command;
 
-import mryapper.storagemanager.StorageManager;
+import mryapper.storage.Storage;
 import mryapper.task.Task;
 import mryapper.task.TaskList;
 
@@ -15,7 +15,7 @@ public class FindTask extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, StorageManager storage) {
+    public String execute(TaskList tasks, Storage storage) {
         assert !searchInput.isEmpty(): "searchInput should not be empty";
 
         ArrayList<Task> searchResult = tasks.searchTasks(searchInput);

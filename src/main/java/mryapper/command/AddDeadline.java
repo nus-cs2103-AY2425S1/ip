@@ -1,7 +1,7 @@
 package mryapper.command;
 
 import mryapper.parser.DateTimeParser;
-import mryapper.storagemanager.StorageManager;
+import mryapper.storage.Storage;
 import mryapper.task.Deadline;
 import mryapper.task.Task;
 import mryapper.task.TaskList;
@@ -20,7 +20,7 @@ public class AddDeadline extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, StorageManager storage) {
+    public String execute(TaskList tasks, Storage storage) {
         assert !description.isEmpty(): "description should not be empty";
         assert !deadline.isEmpty(): "deadline should not be empty";
 

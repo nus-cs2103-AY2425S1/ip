@@ -1,4 +1,4 @@
-package mryapper.storagemanager;
+package mryapper.storage;
 
 import mryapper.exception.InvalidFileDataException;
 import mryapper.task.TaskList;
@@ -18,7 +18,7 @@ import java.util.Scanner;
 /**
  * Manages saving and loading data between the Chatbot and data file.
  */
-public class StorageManager {
+public class Storage {
     private final String filePath;
 
     /**
@@ -26,7 +26,7 @@ public class StorageManager {
      *
      * @param filePath The relative file path of the data txt file.
      */
-    public StorageManager(String filePath) {
+    public Storage(String filePath) {
         this.filePath = filePath;
         assert this.filePath != null: "filePath of data file should not be null";
     }

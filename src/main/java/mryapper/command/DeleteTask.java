@@ -1,6 +1,6 @@
 package mryapper.command;
 
-import mryapper.storagemanager.StorageManager;
+import mryapper.storage.Storage;
 import mryapper.task.Task;
 import mryapper.task.TaskList;
 
@@ -16,7 +16,7 @@ public class DeleteTask extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, StorageManager storage) {
+    public String execute(TaskList tasks, Storage storage) {
         assert taskNumber > 0: "taskNumber should be greater than 0";
 
         String response;

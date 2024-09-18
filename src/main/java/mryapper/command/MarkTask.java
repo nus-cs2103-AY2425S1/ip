@@ -1,6 +1,6 @@
 package mryapper.command;
 
-import mryapper.storagemanager.StorageManager;
+import mryapper.storage.Storage;
 import mryapper.task.TaskList;
 
 /**
@@ -15,7 +15,7 @@ public class MarkTask extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, StorageManager storage) {
+    public String execute(TaskList tasks, Storage storage) {
         assert taskNumber > 0: "taskNumber should be greater than 0";
         assert taskNumber <= tasks.count(): "taskNumber should be less than or equal to number of tasks";
 

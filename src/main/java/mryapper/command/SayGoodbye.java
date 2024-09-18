@@ -1,6 +1,6 @@
 package mryapper.command;
 
-import mryapper.storagemanager.StorageManager;
+import mryapper.storage.Storage;
 import mryapper.task.TaskList;
 
 /**
@@ -9,7 +9,7 @@ import mryapper.task.TaskList;
 public class SayGoodbye extends Command {
 
     @Override
-    public String execute(TaskList tasks, StorageManager storage) {
+    public String execute(TaskList tasks, Storage storage) {
         return "Bye. Hope to see you again soon!";
     }
 }

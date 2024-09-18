@@ -1,6 +1,6 @@
 package mryapper.task;
 
-import mryapper.storagemanager.StorageManager;
+import mryapper.storage.Storage;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -85,7 +85,7 @@ public class TaskList {
      *
      * @param storage The storage to save the list of tasks to.
      */
-    public void saveToStorage(StorageManager storage) {
+    public void saveToStorage(Storage storage) {
         try {
             storage.saveTasks(this.taskList);
         } catch (IOException e) {
