@@ -32,6 +32,7 @@ public class UnmarkCommand extends Command {
             taskList.changeTaskStatus("unmark", indexToUnmark);
             resultString.append("Alright, this task is not done yet faster finish leh:\n")
                     .append(taskList.get(indexToUnmark));
+            taskList.writeToStorage();
             return resultString.toString();
         } catch (IndexOutOfBoundsException e) {
             return "No valid index was given!!";

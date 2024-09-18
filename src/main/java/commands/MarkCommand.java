@@ -31,6 +31,7 @@ public class MarkCommand extends Command {
             taskList.changeTaskStatus("mark", indexToMark);
             resultString.append("\"GOOD RIDDANCE! Finally, this task is done: \n")
                     .append(taskList.get(indexToMark));
+            taskList.writeToStorage();
             return resultString.toString();
         } catch (IndexOutOfBoundsException e) {
             return "No valid index was given!!";
