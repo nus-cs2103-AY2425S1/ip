@@ -58,12 +58,18 @@ public class Ui {
      * @return String of formatted tasks in to-do list.
      */
     public String displayTasks(ArrayList<Task> tasks) {
-        String output = "Sure! Here are the tasks in your list:\n";
-        for (int i = 0; i < tasks.size(); i++) {
-            int index = i + 1;
-            // string concatenation returns a new string, must reassign
-            output = output.concat(index + ". " + tasks.get(i).toString() + "\n");
+        String output = "";
+        if (tasks.isEmpty()) {
+            output = output.concat("You have no tasks in your list currently!\nGo take a break :)");
+        } else {
+            output = output.concat("Sure! Here are the tasks in your list:\n");
+            for (int i = 0; i < tasks.size(); i++) {
+                int index = i + 1;
+                // string concatenation returns a new string, must reassign
+                output = output.concat(index + ". " + tasks.get(i).toString() + "\n");
+            }
         }
+
         return output;
     }
 
