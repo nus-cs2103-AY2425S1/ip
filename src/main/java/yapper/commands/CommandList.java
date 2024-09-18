@@ -10,7 +10,7 @@ import yapper.exceptions.YapperException;
  * A class to contain all default available commands for the Yapper application.
  */
 public class CommandList {
-    private static final String DUNNO = "¯\\_(ツ)_/¯";
+    private static final String DUNNO = "...";
     private static final HashSet<String> unaliasableCommands = new HashSet<>(
             Set.of("bind", "unbind", "reset", "help", "clear")
     );
