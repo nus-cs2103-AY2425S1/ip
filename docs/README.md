@@ -1,6 +1,5 @@
 # Bibi User Guide
-
-![Image of Bibi at work](http://domokunx.github.io/ip/Ui.png)
+<img src="http://domokunx.github.io/ip/Ui.png" alt="Image of Bibi at work" width="300">
 
 Bibi is a **desktop app** for managing tasks, optimized for use via a Command Line Interface (CLI).
 A simple Graphical User Interface (GUI) is implemented to enhance user experience.
@@ -10,7 +9,9 @@ A simple Graphical User Interface (GUI) is implemented to enhance user experienc
 2. Download any of the jar files from [one the releases](https://github.com/Domokunx/ip/releases/tag/A-Jar). Recommended to download the latest.
 3. Place the jar into a folder you want to use as the home directory for Bibi.
 4. Double-click the jar to execute the app. You should see something like this:
-![Image of Bibi at launch](http://domokunx.github.io/ip/Launch.png)
+
+<img src="http://domokunx.github.io/ip/Launch.png" alt="Image of Bibi at Launch" width="300">
+
 
 ## Features
 > [!TIP]
@@ -18,21 +19,53 @@ A simple Graphical User Interface (GUI) is implemented to enhance user experienc
 ### Get list of commands: `help`
 Shows a list of commands and their behaviours in the chat box.
 
-![Image of help command](http://domokunx.github.io/ip/Help.png)
+<img src="http://domokunx.github.io/ip/Help.png" alt="Image of Help command" width="300">
+
 
 Syntax: `help`
 
 ### Get list of tasks: `list`
 Shows all tasks and their completion status.
 
-![Image of list of tasks](http://domokunx.github.io/ip/List.png)
+<img src="http://domokunx.github.io/ip/List.png" alt="Image of List Command" width="300">
+
 
 Syntax: `list`
 
 ### Mark task as done: `mark`
 Marks the specified task in the task list as done using an 'X'.
 
-![Image of task before marking](http://domokunx.github.io/ip/MarkBefore.png)
-![Image of task marked as done](http://domokunx.github.io/ip/MarkAfter.png)
+<img src="http://domokunx.github.io/ip/MarkBefore.png" alt="Image of unmarked task" height="150">
+<img src="http://domokunx.github.io/ip/MarkAfter.png" alt="Image of marked task" height="150">
 
 Syntax: `mark <index>`. Where index is the number in the task list as in seen in `list`.
+
+### Mark task as not done: `unmark`
+Marks the specified task in the task list as not done.
+
+<img src="http://domokunx.github.io/ip/MarkBefore.png" alt="Image of marked task" height="150">
+<img src="http://domokunx.github.io/ip/UnmarkAfter.png" alt="Image of unmarked task" height="150">
+
+Syntax: `mark <index>`. Where index is the number in the task list as in seen in `list`.
+
+### Adding a ToDo task: `todo`
+A ToDo task is a task with description of a task, with no specified deadline.
+
+Command adds a ToDo task, denoted with a **[T]** to the bottom of the list. 
+New task count is also echoed for user convenience.
+
+<img src="http://domokunx.github.io/ip/MarkBefore.png" alt="Image of initial task list" height="150">
+<img src="http://domokunx.github.io/ip/ToDoAfter.png" alt="Image of task list with a new ToDo task" height="150">
+
+>[!TIPS]
+> Description of task cannot be blank.
+
+Syntax: `todo <description>`
+
+### Remove a task: `remove`
+Removes a task with specified index from the task list. New task count is echoed for user convenience.
+
+<img src="http://domokunx.github.io/ip/RemoveBefore.png" alt="Image of initial task list" height="150">
+<img src="http://domokunx.github.io/ip/RemoveAfter.png" alt="Image of task list after removing 1 task" height="150">
+
+Syntax: `remove <index>`. Where index is the number in the task list as in seen in `list`.
