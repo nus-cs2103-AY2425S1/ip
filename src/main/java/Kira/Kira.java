@@ -20,30 +20,15 @@ public class Kira {
         this.ui = new Ui();
     }
 
-    public List getList() {
-        return this.list;
-    }
-
     public String getResponse(String input) {
 
         Parser parser = new Parser(this.list);
-        /*
-            if (userInput.equalsIgnoreCase("bye")) {
-                System.out.println(line +
-                        "Bye. Hope to see you again soon!\n" +
-                        line);
-                break;
-            }
-
-         */
 
         try {
             Parser.CommandType command = parser.intepreteCommand(input);
             Task task = parser.execute(command, input);
             this.storage.save(this.list);
             return parser.getResponse(command, input, task);
-            //System.out.println(ui.addLines(response));
-
         } catch (UnreadableException | EmptyException | InvalidTaskException e) {
             this.ui.showLoadingError();
             System.out.println(e.getMessage());

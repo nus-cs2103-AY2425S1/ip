@@ -10,8 +10,8 @@ public class Deadline extends Task {
 
     private LocalDateTime localDateTime;
 
-    public Deadline(String input, String deadline) {
-        super(input);
+    public Deadline(String taskName, String deadline) {
+        super(taskName);
         String[] strings = deadline.split("/");
         int dayOfMonth = Integer.parseInt(strings[0]);
         int month = Integer.parseInt(strings[1]);
@@ -27,6 +27,18 @@ public class Deadline extends Task {
         LocalDateTime localDateTime = LocalDateTime.of(
                 localDate, localTime);
         this.localDateTime = localDateTime;
+    }
+
+    public static String extractName(String input) {
+        String[] strings = input.split("\\s+", 2);
+        String detail = strings[1];
+        return detail.split(" /by ")[0];
+    }
+
+    public static String extractDate(String input) {
+        String[] strings = input.split("\\s+", 2);
+        String detail = strings[1];
+        return detail.split(" /by ")[1];
     }
 
     @Override

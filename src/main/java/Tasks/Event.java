@@ -11,8 +11,8 @@ public class Event extends Task {
     private LocalDateTime startLocalDateTime;
     private LocalDateTime endLocalDateTime;
 
-    public Event(String input, String start, String end) {
-        super(input);
+    public Event(String taskName, String start, String end) {
+        super(taskName);
 
         String[] startStrings = start.split("/");
         int startDayOfMonth = Integer.parseInt(startStrings[0]);
@@ -47,6 +47,25 @@ public class Event extends Task {
         this.endLocalDateTime = endLocalDateTime;
 
     }
+
+    public static String extractName(String input) {
+        String[] strings = input.split("\\s+", 2);
+        String detail = strings[1];
+        return detail.split(" /from ")[0];
+    }
+
+    public static String extractDate(String input, boolean isStart) {
+        String[] strings = input.split("\\s+", 2);
+        String detail = strings[1];
+        String period = detail.split(" /from ")[1];
+        if (isStart) {
+            return period.split(" /to ")[0];
+        } else {
+            return period.split(" /to ")[1];
+        }
+    }
+
+
 
     @Override
     public String displayTask() {

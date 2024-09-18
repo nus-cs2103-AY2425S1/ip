@@ -4,12 +4,12 @@ import java.util.Objects;
 
 public abstract class Task {
 
-    private String input;
+    private String taskName;
     private boolean done;
     String line = "____________________________________________________________\n";
 
-    public Task(String input) {
-        this.input = input;
+    public Task(String taskName) {
+        this.taskName = taskName;
         this.done = false;
     }
 
@@ -30,14 +30,14 @@ public abstract class Task {
      */
     public String displayTask() {
         if (done) {
-            return "[X] " + this.input + "\n";
+            return "[X] " + this.taskName + "\n";
         } else {
-            return "[ ] " + this.input + "\n";
+            return "[ ] " + this.taskName + "\n";
         }
     }
 
     public String getInput() {
-        return this.input;
+        return this.taskName;
     }
 
     public boolean getDone() {
@@ -136,6 +136,6 @@ public abstract class Task {
      * @return boolean of whether the task name contains the keyword or not
      */
     public boolean containsKeyword(String keyword) {
-        return this.input.contains(keyword);
+        return this.taskName.contains(keyword);
     }
 }

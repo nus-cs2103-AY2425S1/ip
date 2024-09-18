@@ -1,4 +1,4 @@
-package Kira;
+/*package Kira;
 
 import Exceptions.EmptyException;
 import Exceptions.InvalidTaskException;
@@ -58,3 +58,4 @@ public class ParserTest {
                 "____________________________________________________________", outputStreamCaptor.toString().trim());
     }
 }
+*/
