@@ -29,14 +29,8 @@ public class FindCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ChatBabyException {
         try {
             String target = commandBody.substring(5).trim();
-            boolean hasMatch = false;
-            TaskList matchedList = new TaskList();
-            for (Task task : tasks.getTasks()) {
-                if (task.getName().contains(target)) {
-                    matchedList.addTask(task);
-                    hasMatch = true;
-                }
-            }
+            TaskList matchedList = findTasks(tasks, target);
+            boolean hasMatch = matchedList.hasTask();
             if (!hasMatch) {
                 System.out.println("There is no task that matches.");
             } else {
@@ -45,5 +39,15 @@ public class FindCommand extends Command {
         } catch (IndexOutOfBoundsException e) {
             throw new ChatBabyException("Oh no!!! The search keyword cannot be empty!");
         }
+    }
+
+    private TaskList findTasks(TaskList tasks, String target) {
+        TaskList matchedList = new TaskList();
+        for (Task task : tasks.getTasks()) {
+            if (task.getName().contains(target)) {
+                matchedList.addTask(task);
+            }
+        }
+        return matchedList;
     }
 }

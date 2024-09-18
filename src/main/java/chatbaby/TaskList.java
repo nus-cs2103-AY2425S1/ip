@@ -74,6 +74,15 @@ public class TaskList {
     }
 
     /**
+     * Returns true if the TaskList is empty, false otherwise.
+     *
+     * @return True if the TaskList is empty, false otherwise.
+     */
+    public boolean hasTask() {
+        return !tasks.isEmpty();
+    }
+
+    /**
      * Sorts the task list in the TaskList.
      */
     public void sortTasks() {
