@@ -15,7 +15,7 @@ GLaDOS is a versatile chatbot for managing tasks, based off of the video game ch
 
 ---
 
-## Quick Start
+### Quick Start
 
 1. Ensure you have Java 17 or above installed on your computer.
 2. Download the latest `.jar` file from the [releases page](https://github.com/jayjay19630/ip/releases).
@@ -30,7 +30,7 @@ GLaDOS is a versatile chatbot for managing tasks, based off of the video game ch
 
 ---
 
-## Features
+### Features
 
 Note: Words in UPPER_CASE are parameters to be supplied by the user.
 
@@ -41,13 +41,13 @@ Extraneous parameters for commands that do not take in parameters will be ignore
 Viewing Help: help
 Shows a message explaining how to access the help page.
 
-# Listing all tasks: `list`
+### Listing all tasks: `list`
 
 Shows list of all tasks in the system
 
 Format: `list`
 
-# Adding a ToDo: `todo`
+### Adding a ToDo: `todo`
 
 Adds a ToDo to the task list, which is a task with a description.
 
@@ -58,7 +58,7 @@ Examples:
 - `todo eat some cake`
 - `todo buy some ice cream`
 
-# Adding a Deadline: `deadline`
+### Adding a Deadline: `deadline`
 
 Adds a deadline to the task list, which is an task with a description and deadline date.
 
@@ -67,7 +67,7 @@ Format: `deadline TASK_DESCRIPTION /by DEADLINE_DATE`
 - All parameters must be filled in order or else invalid argument error will be shown
 - `DEADLINE_DATE` must be in the form YYYY-MM-DD
 
-# Adding an Event: `event`
+### Adding an Event: `event`
 
 Adds an Event to the task list, which is an task with a description, start date and end date.
 
@@ -76,7 +76,7 @@ Format: `event TASK_DESCRIPTION /from START_DATE /to END_DATE`
 - All parameters must be filled in order or else invalid argument error will be shown
 - `START_DATE` and `END_DATE` must be in the form YYYY-MM-DD
 
-# Deleting a Task: `delete`
+### Deleting a Task: `delete`
 
 Deletes a task from the task list based on list index
 
@@ -89,7 +89,7 @@ Example:
 
 - `delete 2`
 
-# Marking a Task as Done: `mark`
+### Marking a Task as Done: `mark`
 
 Marks a task as completed.
 
