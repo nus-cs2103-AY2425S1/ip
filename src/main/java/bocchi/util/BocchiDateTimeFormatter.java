@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
+import java.util.Locale;
 
 /**
  * A utility class to parse date/time strings.
@@ -51,7 +52,8 @@ public class BocchiDateTimeFormatter {
                     .parseDefaulting(ChronoField.YEAR, LocalDate.now().getYear())
                     .parseDefaulting(ChronoField.MONTH_OF_YEAR, LocalDate.now().getMonthValue())
                     .parseDefaulting(ChronoField.DAY_OF_MONTH, LocalDate.now().getDayOfMonth())
-                    .toFormatter();
+                    .toFormatter()
+                    .withLocale(Locale.ENGLISH);
         }
 
         // Initialize DATE_FORMATTERS
@@ -61,7 +63,8 @@ public class BocchiDateTimeFormatter {
             DATE_FORMATTERS[i] = new DateTimeFormatterBuilder()
                     .appendPattern(DATE_FORMATS[i])
                     .parseDefaulting(ChronoField.YEAR, LocalDate.now().getYear())
-                    .toFormatter();
+                    .toFormatter()
+                    .withLocale(Locale.ENGLISH);
         }
 
         // Initialize DATE_TIME_FORMATTERS
@@ -72,7 +75,8 @@ public class BocchiDateTimeFormatter {
                 DATE_TIME_FORMATTERS[i * TIME_FORMATS.length + j] = new DateTimeFormatterBuilder()
                         .appendPattern(DATE_FORMATS[i] + " " + TIME_FORMATS[j])
                         .parseDefaulting(ChronoField.YEAR, LocalDate.now().getYear())
-                        .toFormatter();
+                        .toFormatter()
+                        .withLocale(Locale.ENGLISH);
             }
         }
     }
