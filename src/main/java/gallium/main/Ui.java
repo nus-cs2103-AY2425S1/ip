@@ -92,7 +92,7 @@ public class Ui {
      * @param todo The Todo task that was added.
      */
     public void printAddTodo(Todo todo) {
-        append("Got it. I've added this task: \n"
+        append("Got it. I've added this todo: \n"
                 + todo.toString()
                 + "\nNow you have " + Task.count + " " + Task.taskCount() + " in the list."
                 + "\n");
@@ -104,8 +104,7 @@ public class Ui {
      * @param deadline The Deadline task that was added.
      */
     public void printAddDeadline(Deadline deadline) {
-        System.out
-                .println("Got it. I've added this task: \n"
+        append("Got it. I've added this deadline: \n"
                         + deadline.toString()
                         + "\nNow you have " + Task.count + " " + Task.taskCount() + " in the list."
                         + "\n");
@@ -117,7 +116,7 @@ public class Ui {
      * @param event The Event task that was added.
      */
     public void printAddEvent(Event event) {
-        append("Got it. I've added this task: \n"
+        append("Got it. I've added this event: \n"
                 + event.toString()
                 + "\nNow you have " + Task.count + " " + Task.taskCount() + " in the list.\n");
     }
