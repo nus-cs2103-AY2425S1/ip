@@ -1,5 +1,6 @@
 package task;
 
+import mollyexception.MollyException;
 import task.Task;
 
 import java.time.LocalDateTime;
@@ -22,7 +23,7 @@ public class Event extends Task {
      * @param startTime
      * @param endTime
      */
-    public Event(String description, String startTime, String endTime) {
+    public Event(String description, String startTime, String endTime) throws MollyException {
         super(description);
         this.startTime = startTime;
         this.endTime = endTime;
@@ -33,6 +34,9 @@ public class Event extends Task {
         }
         try {
             this.endDateTime = LocalDateTime.parse(endTime, INPUT_FORMAT);
+            if (startDateTime.equals(endDateTime) || startDateTime.isAfter(endDateTime)) {
+                throw new MollyException("Start date time can't be equal to or after end date time.");
+            }
         } catch (DateTimeParseException e) {
             this.endDateTime = null;
         }

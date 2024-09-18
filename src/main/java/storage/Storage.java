@@ -5,6 +5,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import mollyexception.MollyException;
 import tasklist.TaskList;
 import task.*;
 
@@ -31,9 +33,13 @@ public class Storage {
                 while (fileScanner.hasNextLine()) {
                     String taskData = fileScanner.nextLine();
                     assert taskData != null && !taskData.isEmpty() : "Task data should not be null or empty";
-                    Task task = parseTask(taskData);
-                    if (task != null) {
-                        botMemory.add(task);
+                    try {
+                        Task task = parseTask(taskData);
+                        if (task != null) {
+                            botMemory.add(task);
+                        }
+                    } catch (MollyException e) {
+                        System.out.println(e.getMessage());
                     }
                 }
                 fileScanner.close();
@@ -52,7 +58,7 @@ public class Storage {
      * @param taskData
      * @return
      */
-    public Task parseTask(String taskData) {
+    public Task parseTask(String taskData) throws MollyException {
         assert taskData != null : "Task data should not be null";
         if (taskData.startsWith("[T]")) {
             String description = taskData.substring(7);
