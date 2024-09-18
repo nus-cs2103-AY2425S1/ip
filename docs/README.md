@@ -1,52 +1,30 @@
-# Skywalker Chatbot
-◝(ᵔᵕᵔ)◜
-Welcome to **Skywalker Chatbot**! Skywalker is here to help you manage your tasks efficiently, keeping you on top of your to-do list with an easy-to-use interface. With its fun personality, Skywalker makes task management interactive and engaging.
-(❀❛ ֊ ❛„)♡
-## Features
+# Duke User Guide
 
-- **Add tasks**: Supports various types of tasks (ToDos, Events, and Deadlines).
-- **List tasks**: Displays all current tasks in your list.
-- **Mark tasks**: Mark tasks as done or undone.
-- **Find tasks**: Search for tasks by keyword.
-- **Delete tasks**: Remove tasks from your list.
-- **Error Handling**: Handles common errors with user-friendly messages.
+// Update the title above to match the actual product name
 
-## Commands and Usage
+// Product screenshot goes here
 
-Here are the main commands you can use with Skywalker:
-**1. todo [task description]**
-Adds a ToDo task.  
-Example:  
-todo Read book
+// Product intro goes here
 
-**2. deadline [task] /by [date]**
-Adds a task with a deadline.
-Example:
-deadline Submit assignment /by 2024-09-30
+## Adding deadlines
 
-**3. event [task] /from [start] /to [end]**
-Adds an event with a start and end date.
-Example:
-event Project meeting /from 2024-09-15 /to 2024-09-15
+// Describe the action and its outcome.
 
-**4. list**
-Displays all tasks in your task list.
+// Give examples of usage
 
-**5. mark [task number]**
-Marks the specified task as done.
-Example:
-mark 2
+Example: `keyword (optional arguments)`
 
-**6. unmark [task number]**
-Marks the specified task as undone.
-Example:
-unmark 2
+// A description of the expected outcome goes here
 
-**7. delete [task number]**
-Deletes the specified task.
-Example:
-delete 3
+```
+expected output
+```
 
-**8. bye**
-Exits the application.
+## Feature ABC
 
+// Feature details
+
+
+## Feature XYZ
+
+// Feature details
