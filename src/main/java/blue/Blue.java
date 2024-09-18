@@ -28,6 +28,7 @@ public class Blue {
 
     /**
      * Runs the Blue application by greeting the user, processing user input, and saying farewell.
+     * Basically starts the application
      */
     public void run() {
         UI.greet();
