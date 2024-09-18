@@ -39,7 +39,7 @@ public class Parser {
      * Pattern to match arguments with date and time.
      */
     private static final Pattern DATETIME_COMMAND_PATTERN =
-            Pattern.compile("(?<task>.+?)\\s*/\\s*(?<keyword>by|from|on)?\\s*(?<date>\\d{4}-\\d{2}-\\d{2})\\s*(?<time>\\d{1,2}:\\d{2})?(?:\\s*/\\s*(?<tags>(#\\w+\\s*)*))?");
+            Pattern.compile("(?<task>.+?)\\s*/\\s*(?<keyword>by|from|on)?\\s*(?<date>\\d{4}-\\d{2}-\\d{2})?\\s*(?<time>\\d{1,2}:\\d{2})?(?:\\s*/\\s*(?<tags>(#\\w+\\s*)*))?");
 
     /**
      * Pattern to match commands with an index.
