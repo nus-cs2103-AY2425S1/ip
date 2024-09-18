@@ -10,6 +10,7 @@ import evan.command.DeadlineCommand;
 import evan.command.DeleteCommand;
 import evan.command.EventCommand;
 import evan.command.FindCommand;
+import evan.command.HelpCommand;
 import evan.command.ListCommand;
 import evan.command.MarkCommand;
 import evan.command.TodoCommand;
@@ -47,6 +48,9 @@ public class UserInputParser {
             switch (keyword) {
             case "list" -> {
                 return new ListCommand();
+            }
+            case "help" -> {
+                return new HelpCommand();
             }
             case "todo" -> {
                 Matcher todoMatcher = todoPattern.matcher(userInput);
