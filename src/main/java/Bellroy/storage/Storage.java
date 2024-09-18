@@ -49,6 +49,8 @@ public class Storage {
                         Task tempEvent = createEvent(remainder, isDone);
                         taskList.add(tempEvent);
                         break;
+                    default:
+                        break;
                 }
                 line = reader.readLine();
             }

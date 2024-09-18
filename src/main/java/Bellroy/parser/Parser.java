@@ -79,10 +79,11 @@ public class Parser {
                     String assoc = input[1].trim();
                     TaskList result = taskList.filterAssociation(assoc);
                     return ui.filterTask(result);
+                default:
+                    return ("ERROR: Invalid Input!");
             }
         } catch (Exception e) {
             return e.getMessage();
         }
-        return ("ERROR: Invalid Input!");
     }
 }
