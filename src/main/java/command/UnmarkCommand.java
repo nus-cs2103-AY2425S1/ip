@@ -29,6 +29,9 @@ public class UnmarkCommand extends Command {
             throws ChatterboxExceptions.ChatterBoxNoInput,
             ChatterboxExceptions.ChatterBoxMissingParameter {
         int index = parser.extractNum(input) - 1;
+        if (index < 0 || index >= taskList.size()) {
+            return guiResponses.invalidIndexMessage();
+        }
         return guiResponses.unmarkMsg(taskList.unmarkTask(index));
     }
 }
