@@ -8,6 +8,7 @@ import gopher.exception.InvalidDurationException;
 import gopher.exception.InvalidTaskNumberException;
 import gopher.exception.InvalidTokenException;
 import gopher.exception.MissingTaskNumberException;
+import gopher.message.Message;
 import gopher.storage.TaskManager;
 import gopher.ui.UI;
 
@@ -64,7 +65,7 @@ public class TaskList {
      * @param tokens tokens from the update command
      * @return UI message showing the detail of the updated task
      */
-    public String update(String[] tokens)
+    public Message update(String[] tokens)
             throws InvalidTokenException, MissingTaskNumberException,
             InvalidTaskNumberException, InvalidDurationException {
         try {

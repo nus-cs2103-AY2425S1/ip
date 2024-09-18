@@ -2,6 +2,7 @@ package gopher.gui;
 
 import gopher.Gopher;
 import gopher.exception.UnknownCommandException;
+import gopher.message.Message;
 import gopher.ui.UI;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -64,7 +65,7 @@ public class MainWindow extends AnchorPane {
             return;
         }
         try {
-            String response = gopher.getResponse(input);
+            Message response = gopher.getResponse(input);
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
                     DialogBox.getGopherDialog(response, gopherImage)
