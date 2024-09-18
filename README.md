@@ -6,10 +6,10 @@ It's named after my friends whom I like to call my bosses! I've included below i
 ## User Commands
 
 Use the boss to create tasks!
-1. todo {description} to create a Todo task.
-2. deadline {description} /by {date/string} to create a Deadline task.
-3. event {description} /from {date/string} /to {date/string} to create an Event task.
-4. {description} to create a simple task.
+1. {description} to create a simple task.
+2. todo {description} to create a Todo task.
+3. deadline {description} /by {date/string} to create a Deadline task.
+4. event {description} /from {date/string} /to {date/string} to create an Event task.
 
 You can mark/unmark/delete tasks using these commands:
 - mark {number}
