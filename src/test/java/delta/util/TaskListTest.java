@@ -64,7 +64,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void testMarkTask() {
+    public void markTask_unmarkedTask_taskMarked() {
         TaskList taskList = new TaskList(createTestList());
         Todo todo = new Todo("test2");
         todo.markAsDone();
@@ -74,19 +74,25 @@ public class TaskListTest {
         } catch (Exception e) {
             fail(e.getMessage());
         }
+    }
 
-        // Marking an empty list throws error.
+    @Test
+    public void markTask_emptyList_exceptionThrown() {
+        TaskList testList = new TaskList();
+
         try {
-            TaskList testList = new TaskList();
             testList.markTask(1);
             fail();
         } catch (Exception e) {
             assertEquals("OOPS!!! List is empty! Please add tasks!", e.getMessage());
         }
+    }
 
-        // Mark task index out of range throws error.
+    @Test
+    public void markTask_indexOutOfRange_exceptionThrown() {
+        TaskList testList = new TaskList(createTestList());
+
         try {
-            TaskList testList = new TaskList(createTestList());
             testList.markTask(0);
             fail();
         } catch (Exception e) {
@@ -95,9 +101,7 @@ public class TaskListTest {
                     \t Please provide a valid Task.""", e.getMessage());
         }
 
-        // Mark task index out of range throws error.
         try {
-            TaskList testList = new TaskList(createTestList());
             testList.markTask(4);
             fail();
         } catch (Exception e) {
@@ -105,10 +109,13 @@ public class TaskListTest {
                     OOPS!!! Task not found in list.
                     \t Please provide a valid Task.""", e.getMessage());
         }
+    }
 
-        // Marking a marked task throws error.
+    @Test
+    public void markTask_markedTask_exceptionThrown() {
+        TaskList testList = new TaskList(createTestList());
+
         try {
-            TaskList testList = new TaskList(createTestList());
             testList.markTask(1);
             testList.markTask(1);
             fail();
