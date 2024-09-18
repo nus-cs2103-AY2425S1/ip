@@ -1,10 +1,13 @@
 package alex;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import alex.task.Priority;
@@ -35,22 +38,38 @@ public class Storage {
      * @throws AlexException If there is an issue converting text in the file into a Task object,
      *                       likely due to incorrect formatting in the file.
      */
-    public ArrayList<Task> load() throws AlexException, FileNotFoundException {
-        Scanner scanner = readFileIntoScanner(); // Create a Scanner using the File as the source
+    public ArrayList<Task> load() throws AlexException, java.io.IOException {
+        List<String> lines = readFileIntoList();
         ArrayList<Task> list = new ArrayList<>();
 
         // Creates an ArrayList of Tasks based on the stored list of tasks such that user can retrieve
         // previously stored task information
-        while (scanner.hasNext()) {
-            Task task = createTask(scanner);
+        for (int i = 0; i < lines.size(); i++) {
+            Task task = createTask(lines.get(i));
             list.add(task);
         }
 
         return list;
     }
 
-    private Task createTask(Scanner scanner) throws AlexException {
-        String lineOfWords = scanner.nextLine();
+    private List<String> readFileIntoList() throws java.io.IOException {
+        Path path = Paths.get(filePath);
+        Path parentDir = path.getParent();
+
+        //check if parent directory exists and create it if it doesn't
+        if (parentDir != null && !Files.exists(parentDir)) {
+            Files.createDirectories(parentDir);
+        }
+
+        //check if file exists and create it if it doesn't
+        if (!Files.exists(path)) {
+            Files.createFile(path);
+        }
+
+        return Files.readAllLines(path);
+    }
+
+    private Task createTask(String lineOfWords) throws AlexException {
         assert !lineOfWords.isEmpty() : "Empty line in Alex.txt";
         Scanner lineScanner = new Scanner(lineOfWords);
         String category = lineScanner.next();
@@ -83,15 +102,6 @@ public class Storage {
             //do nothing
         }
         return task;
-    }
-
-    private Scanner readFileIntoScanner() throws AlexException, FileNotFoundException {
-        File file = new File(this.filePath); // Create a File object for the given file path
-        if (file.getParentFile() == null) {
-            throw new AlexException("Oops! Data file could not be found. Aborting...");
-        }
-        file.getParentFile().mkdirs();
-        return new Scanner(file); // Create a Scanner using the File as the source
     }
 
     /**

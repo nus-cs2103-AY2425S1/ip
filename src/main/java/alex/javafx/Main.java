@@ -15,7 +15,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Alex alex = new Alex("src/main/resources/data/Alex.txt");
+    private Alex alex = new Alex("./data/Alex.txt");
 
     @Override
     public void start(Stage stage) {
@@ -26,6 +26,7 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
+            stage.setTitle("Alex");
             fxmlLoader.<MainWindow>getController().setAlex(alex); // inject the Alex instance
             stage.show();
             this.alex.loadTasksFromFile();
