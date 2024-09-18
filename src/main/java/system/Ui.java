@@ -30,6 +30,7 @@ public class Ui {
 
     /**
      * Displays a message saying goodbye as a salutation.
+     *
      * @return a String message displaying goodbye.
      */
     public String goodbye() {
@@ -38,13 +39,16 @@ public class Ui {
 
     /**
      * Displays a message saying hello as a salutation.
+     *
      * @return a String message displaying hello.
      */
     public String hi() {
         return "Hello! What can I do for you?";
     }
+
     /**
      * Displays a message giving self introduction.
+     *
      * @return a String message displaying an introduction message.
      */
     public String introduction() {
@@ -58,6 +62,7 @@ public class Ui {
 
     /**
      * Displays a message indicating that the task list is currently empty.
+     *
      * @return a String message displaying empty list.
      */
     public String emptyList() {
@@ -66,6 +71,7 @@ public class Ui {
 
     /**
      * Displays a message indicating that the task does not exist.
+     *
      * @return a String message displaying task does not exist.
      */
     public String doesNotExist() {
@@ -74,6 +80,7 @@ public class Ui {
 
     /**
      * Displays a message indicating that the task has already been marked.
+     *
      * @return a String message displaying task is already marked.
      */
     public String alreadyMarked() {
@@ -82,6 +89,7 @@ public class Ui {
 
     /**
      * Displays a message indicating that the task has already been unmarked.
+     *
      * @return a String message displaying task is already unmarked.
      */
     public String alreadyUnmarked() {
@@ -152,6 +160,7 @@ public class Ui {
 
     /**
      * Displays a message indicating that the date provided is invalid.
+     *
      * @return a String message displaying invalid date format.
      */
     public String invalidDate() {
@@ -160,13 +169,16 @@ public class Ui {
 
     /**
      * Displays a message indicating that the command provided is in invalid format.
+     *
      * @return a String message displaying invalid command format.
      */
     public String invalidCommand() {
         return "The command is not in the correct format! Please try again!";
     }
+
     /**
      * Displays a message indicating that no task has been found.
+     *
      * @return a String message displaying no task has been found.
      */
     public String noTaskFound() {
@@ -175,6 +187,7 @@ public class Ui {
 
     /**
      * Displays a message indicating that the deadline format provided is invalid.
+     *
      * @return a String message displaying invalid deadline format.
      */
     public String invalidDeadlineInput() {
@@ -183,6 +196,7 @@ public class Ui {
 
     /**
      * Displays a message indicating that the event format provided is invalid.
+     *
      * @return a String message displaying invalid event format.
      */
     public String invalidEventInput() {
@@ -206,6 +220,7 @@ public class Ui {
 
     /**
      * Displays a message indicating that the task has been marked.
+     *
      * @return a String message displaying the marking of a task.
      */
     public String mark_message(String s) {
@@ -215,6 +230,7 @@ public class Ui {
 
     /**
      * Displays a message indicating that the task has been unmarked.
+     *
      * @return a String message displaying the unmarking of a task.
      */
     public String unmark_message(String s) {
@@ -224,6 +240,7 @@ public class Ui {
 
     /**
      * Displays a message indicating that the to-do task cannot be empty.
+     *
      * @return a String message displaying that a to-do task cannot be empty.
      */
     public String empty_todo() {
@@ -232,6 +249,7 @@ public class Ui {
 
     /**
      * Displays a message indicating the adding of a to-do task.
+     *
      * @return a String message displaying the success of adding a to-do task.
      */
     public String addTodoMessage(ToDos t) {
@@ -239,8 +257,10 @@ public class Ui {
                 + "[T][_] " + t.getName()
                 + "\nNow you have " + t.get_list_size() + " tasks in the list.";
     }
+
     /**
      * Displays a message indicating the adding of a deadline task.
+     *
      * @return a String message displaying the success of adding a deadline task.
      */
     public String addDeadlineMessage(Deadlines d, LocalDateTime date) {
@@ -249,8 +269,10 @@ public class Ui {
                 + "[D][_] " + d.getName() + "(by: " + dateTimeSystem.formatLocalTimeDate(date) + ")\n"
                 + "Now you have " + d.get_list_size() + " tasks in the list.";
     }
+
     /**
      * Displays a message indicating the adding of an event task.
+     *
      * @return a String message displaying the success of adding an event task.
      */
     public String addEventMessage(Events e, LocalDateTime start, LocalDateTime end) {
@@ -264,6 +286,7 @@ public class Ui {
 
     /**
      * Displays a message indicating that the deadline format is invalid.
+     *
      * @return a String message displaying the invalid deadline format.
      */
     public String empty_deadline() {
@@ -272,6 +295,7 @@ public class Ui {
 
     /**
      * Displays a message indicating that the event format is invalid.
+     *
      * @return a String message displaying the invalid event format.
      */
     public String empty_event() {
@@ -280,21 +304,26 @@ public class Ui {
 
     /**
      * Displays a message indicating that the input format is not understandable.
+     *
      * @return a String message displaying the invalid input format.
      */
     public String invalidInput() {
         return "OOPS!!! I'm sorry, but I don't know what that means :-(";
     }
+
     /**
      * Displays a message indicating that the date/time is invalid.
+     *
      * @return a String message displaying the invalid date/time.
      */
     public String dateBeforeCurrent() {
         return "Invalid date/time as it is before current date/time!";
     }
+
     /**
      * Displays a message indicating that the list number is
      * out of bounds and does not exist.
+     *
      * @return a String message displaying the invalid list number.
      */
     public String indexOutOfBounds() {

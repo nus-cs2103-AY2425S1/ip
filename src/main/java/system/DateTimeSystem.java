@@ -29,14 +29,15 @@ public class DateTimeSystem {
 
         return LocalDateTime.of(year, month, day, hour, minute);
     }
+
     /**
      * Creates a LocalDate object from the provided date components.
      * The components include year, month, and day, all provided as strings.
      * These strings are parsed into integers to construct the LocalDate object.
      *
-     * @param y   Year as a string.
-     * @param m   Month as a string.
-     * @param d   Day of the month as a string.
+     * @param y Year as a string.
+     * @param m Month as a string.
+     * @param d Day of the month as a string.
      * @return a LocalDate object representing the specified date.
      */
     public LocalDate createDate(String y, String m, String d) {
@@ -45,6 +46,7 @@ public class DateTimeSystem {
         int day = Integer.parseInt(d);
         return LocalDate.of(year, month, day);
     }
+
     /**
      * Formats the LocalDate object into a string representation based on a pattern, "yyyy-MM-dd".
      * The pattern specifies this format, year-month-day.

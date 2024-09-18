@@ -2,6 +2,7 @@ package task;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+
 /**
  * Represents a deadline task in a task management system.
  * A deadline task is a type of task that has a specific due date and time by which it must be completed.
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
  */
 public class Deadlines extends Task {
     private LocalDateTime date;
+
     /**
      * Constructs a new Deadline task with the specified name and due date.
      *
@@ -20,6 +22,7 @@ public class Deadlines extends Task {
         super(name, "D");
         this.date = date;
     }
+
     /**
      * Adds the deadline task to the task list and updates the storage with the task information.
      *

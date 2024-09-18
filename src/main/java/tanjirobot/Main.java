@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
 /**
  * The Main class serves as the entry point for the Tanjiro Bot application.
  * It extends Application class from JavaFX and is responsible for
@@ -17,11 +18,12 @@ import javafx.stage.Stage;
 public class Main extends Application {
     private Tanjiro tanjiro = new Tanjiro();
     private Image logo = new Image(this.getClass().getResourceAsStream("/images/dslogo.png"));
+
     /**
      * @param stage the primary stage for this application, onto which
-     *                     the application scene can be set.
-     *                     Applications may create other stages, if needed, but they will not be
-     *                     primary stages.
+     *              the application scene can be set.
+     *              Applications may create other stages, if needed, but they will not be
+     *              primary stages.
      * @throws Exception
      */
     @Override

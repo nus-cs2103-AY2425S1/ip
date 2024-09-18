@@ -1,4 +1,5 @@
 package controller;
+
 import java.io.IOException;
 
 import javafx.fxml.FXML;
@@ -26,12 +27,15 @@ public class MainWindowController extends AnchorPane {
     @FXML
     private Button sendButton;
     private Tanjiro tanjiro;
+
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
+    /**
+     * Injects the Duke instance
+     */
     public void setTanjiro(Tanjiro t) {
         tanjiro = t;
         greetMessage();

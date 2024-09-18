@@ -2,6 +2,7 @@ package task;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+
 /**
  * Represents an event task in a task management system.
  * An event task is a type of task that has a specific start and end date and time.
@@ -10,12 +11,13 @@ import java.time.LocalDateTime;
 public class Events extends Task {
     private LocalDateTime start;
     private LocalDateTime end;
+
     /**
      * Constructs a new Event task with the specified name, start time, and end time.
      *
-     * @param name Name of the event task.
+     * @param name  Name of the event task.
      * @param start Start date and time of the event.
-     * @param end End date and time of the event.
+     * @param end   End date and time of the event.
      * @throws IOException If an I/O error occurs while initializing the event task.
      */
     public Events(String name, LocalDateTime start, LocalDateTime end) throws IOException {
