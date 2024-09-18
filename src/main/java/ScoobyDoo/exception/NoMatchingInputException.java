@@ -11,6 +11,8 @@ public class NoMatchingInputException extends InputFormatException{
                  unmark
                  list
                  delete
-                 bye""");
+                 bye
+                 undo
+                 redo""");
     }
 }
