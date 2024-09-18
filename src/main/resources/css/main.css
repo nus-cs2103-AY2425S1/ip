@@ -45,3 +45,16 @@
     -fx-opacity: 0;
 }
 
+.dialog-box {
+    -fx-margin: 0;
+}
+
+.dialog-box .label {
+    -fx-padding: 0;
+}
+
+#dialogContainer {
+    -fx-spacing: 0;  // Ensure spacing is minimal
+    -fx-padding: 0 2 0 2;  // Ensure no extra padding is within the container
+}
+

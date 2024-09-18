@@ -1,6 +1,7 @@
 package bao.main;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -23,7 +24,6 @@ public class MainWindow extends AnchorPane {
 
     private Bao bao;
 
-    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private final Image baoImage = new Image(this.getClass().getResourceAsStream("/images/bao.png"));
 
     /**
@@ -35,6 +35,9 @@ public class MainWindow extends AnchorPane {
         assert scrollPane != null : "ScrollPane should not be null";
         assert dialogContainer != null : "DialogueContainer should not be null";
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
+        dialogContainer.setSpacing(0);
+        dialogContainer.setPadding(new Insets(0, 2, 0, 2));
     }
 
     /**
@@ -66,7 +69,7 @@ public class MainWindow extends AnchorPane {
 
         String response = Parser.parse(input, bao.getTaskList(), bao.getStorage());
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getUserDialog(input, null),
                 DialogBox.getBaoDialog(response, baoImage)
         );
         userInput.clear();

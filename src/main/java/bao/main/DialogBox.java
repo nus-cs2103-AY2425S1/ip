@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -36,7 +37,16 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         dialog.setWrapText(true);
-        displayPicture.setImage(img);
+        if (displayPicture != null) {
+            displayPicture.setImage(img);
+            displayPicture.setVisible(true);
+            displayPicture.setManaged(true);
+        } else {
+            displayPicture.setVisible(false);
+            displayPicture.setManaged(false);
+        }
+//        setSpacing(2);
+//        setPadding(new Insets(5, 0, 5,0));
     }
 
     /**
@@ -51,12 +61,27 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var db = new DialogBox(text, img);
+        if (img == null) {
+            db.displayPicture.setVisible(false);
+            db.displayPicture.setManaged(false);
+        } else {
+            db.displayPicture.setVisible(true);
+            db.displayPicture.setManaged(true);
+        }
+        return db;
     }
 
     public static DialogBox getBaoDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+        if (img == null) {
+            db.displayPicture.setVisible(false);
+            db.displayPicture.setManaged(false);
+        } else {
+            db.displayPicture.setVisible(true);
+            db.displayPicture.setManaged(true);
+        }
         return db;
     }
 }
