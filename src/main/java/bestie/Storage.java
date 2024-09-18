@@ -106,7 +106,6 @@ public class Storage {
                     newTask = null;
                 }
 
-
                 if (newTask != null) {
                     if (isCompleted) {
                         newTask.markTaskDone();
