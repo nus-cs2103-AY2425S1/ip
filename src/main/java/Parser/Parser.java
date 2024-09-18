@@ -69,14 +69,7 @@ public class Parser {
             case RETRIEVE_ARCHIVE:
                 return retrieveArchive();
             default:
-                try {
-                    taskList.add(Task.of(userInput));
-                    storage.save();
-                } catch (DateTimeParseException e) {
-                    throw new CommandNotRecognisedException("Dates should be in the format below:\nyyyy-mm-dd");
-                }
-
-                return ui.add(taskList);
+                return defaultCase(userInput);
             }
         } catch (TestamentException e) {
             return ui.exception(e);
@@ -221,6 +214,17 @@ public class Parser {
         String description = userInput[1];
         TaskList relevantTasks = taskList.findDescription(description);
         return ui.find(relevantTasks);
+    }
+
+    private String defaultCase(String userInput) throws TestamentException {
+        try {
+            taskList.add(Task.of(userInput));
+            storage.save();
+        } catch (DateTimeParseException e) {
+            throw new CommandNotRecognisedException("Dates should be in the format below:\nyyyy-mm-dd");
+        }
+
+        return ui.add(taskList);
     }
 
 }
