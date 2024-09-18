@@ -1,6 +1,6 @@
 # Bocchi User Guide
 
-![Bocchi](Ui.png)
+<img src="Ui.png" alt="Product Screenshot" width="500">
 
 ## Introduction
 Bocchi is here to help you keep track of your tasks!  
