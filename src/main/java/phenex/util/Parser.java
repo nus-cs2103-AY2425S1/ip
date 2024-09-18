@@ -3,6 +3,7 @@ package phenex.util;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -150,6 +151,31 @@ public class Parser {
         matcher.matches();
         updateCommand(command, matcher, line);
         return command;
+    }
+
+    /**
+     * Parses task details from memory line.
+     * @param data the memory line.
+     * @return string array representing the parsed task details.
+     * @throws PhenexException if the data is invalid.
+     */
+    public static String[] parseTaskDetailsFromMemoryLine(String data) throws PhenexException {
+        assert data.isEmpty() : "Error: invalid input when reading data.";
+        String[] taskDetails = data.split(", ");
+        if (taskDetails.length <= 1) {
+            throw new PhenexException("Error, corrupted memory.");
+        }
+
+        // initialise hashmap which stores the valid task details length for each symbol.
+        HashMap<String, Integer> validLengthMap = new HashMap<>();
+        validLengthMap.put("T", 3);
+        validLengthMap.put("D", 4);
+        validLengthMap.put("E", 5);
+        String symbol = taskDetails[0];
+        if (taskDetails.length != validLengthMap.get(symbol)) {
+            throw new PhenexException("Error, corrupted memory.");
+        }
+        return taskDetails;
     }
 
     public int getIndexOfTask(String line, Command command) throws PhenexException {

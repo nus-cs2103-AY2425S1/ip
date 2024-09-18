@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import phenex.exception.PhenexException;
 import phenex.storage.Storage;
 import phenex.ui.Ui;
-
+import phenex.util.Parser;
 
 
 /**
@@ -167,45 +167,40 @@ public class TaskList {
      */
     private void addTaskFromMemoryLine(String data) throws PhenexException {
         assert data.isEmpty() : "Error: invalid input when reading data.";
-        String[] taskDetails = data.split(", ");
-        if (taskDetails.length <= 1) {
-            throw new PhenexException("Error, corrupted memory.");
-        }
+        String[] taskDetails = Parser.parseTaskDetailsFromMemoryLine(data);
+        Task taskToAdd = generateTaskFromDetails(taskDetails);
+        this.tasks.add(taskToAdd);
+    }
 
+    /**
+     * Generates task from task details.
+     * @param taskDetails the task details.
+     * @return Task generated from task details.
+     * @throws PhenexException if invalid task details.
+     */
+    private Task generateTaskFromDetails(String[] taskDetails) throws PhenexException {
         String symbol = taskDetails[0];
         String status = taskDetails[1];
-        String name;
+        String name = taskDetails[2];
         Task taskToAdd;
 
         switch (symbol) {
         case "T":
-            if (taskDetails.length != 3) {
-                throw new PhenexException("Error, corrupted memory.");
-            }
-            name = taskDetails[2];
             taskToAdd = new ToDo(name);
             break;
         case "D":
-            if (taskDetails.length != 4) {
-                throw new PhenexException("Error, corrupted memory.");
-            }
-            name = taskDetails[2];
             String byDate = taskDetails[3];
             LocalDate date = LocalDate.parse(byDate);
             taskToAdd = new Deadline(name, date);
             break;
         case "E":
-            if (taskDetails.length != 5) {
-                throw new PhenexException("Error, corrupted memory.");
-            }
-            name = taskDetails[2];
             try {
                 LocalDate fromDate = LocalDate.parse(taskDetails[3]);
                 LocalDate toDate = LocalDate.parse(taskDetails[4]);
                 taskToAdd = new Event(name, fromDate, toDate);
                 break;
             } catch (DateTimeParseException e) {
-                throw new PhenexException(e.getMessage());
+                throw new PhenexException("Error: invalid date.");
             }
         default:
             throw new PhenexException("Error, corrupted memory");
@@ -214,6 +209,6 @@ public class TaskList {
         if (status.equals("1")) {
             taskToAdd.setCompleted();
         }
-        this.tasks.add(taskToAdd);
+        return taskToAdd;
     }
 }
