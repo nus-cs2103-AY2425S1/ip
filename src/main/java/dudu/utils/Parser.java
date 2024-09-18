@@ -4,7 +4,18 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Stack;
 
-import dudu.command.*;
+import dudu.command.AddCommand;
+import dudu.command.ByeCommand;
+import dudu.command.Command;
+import dudu.command.DeleteCommand;
+import dudu.command.FindCommand;
+import dudu.command.HelpCommand;
+import dudu.command.InvalidCommand;
+import dudu.command.ListCommand;
+import dudu.command.MarkCommand;
+import dudu.command.UndoCommand;
+import dudu.command.UnmarkCommand;
+import dudu.exception.DuduException;
 import dudu.exception.InvalidFormatException;
 import dudu.exception.MissingDateTimeException;
 import dudu.exception.MissingDescriptionException;
@@ -22,6 +33,7 @@ public class Parser {
 
     private static final Stack<Command> undoStack = new Stack<>();
     private static final String missingDescriptionMessage = "Please include a description";
+    private static final String invalidDateMessage = "Please use YYYY-MM-DD as the date format";
     private static final String invalidNumberMessage = "Please input a valid number";
 
     /**
@@ -35,7 +47,7 @@ public class Parser {
      * @throws MissingDateTimeException If date is missing
      */
     public static Command parse(String command) throws MissingDescriptionException,
-            InvalidFormatException, DateTimeParseException, MissingDateTimeException {
+            InvalidFormatException, DuduException, MissingDateTimeException {
         CommandType commandType = getCommandTypeFromInput(command);
         switch (commandType) {
         case BYE:
@@ -123,7 +135,7 @@ public class Parser {
      * @throws MissingDateTimeException If deadline is missing
      */
     private static Deadline createDeadline(String command) throws MissingDescriptionException,
-            InvalidFormatException, MissingDateTimeException {
+            InvalidFormatException, MissingDateTimeException, DuduException {
         String content = parseDeadlineContent(command);
         String description = parseDeadlineDescription(content);
         LocalDate by = parseDeadlineDate(content);
@@ -170,13 +182,18 @@ public class Parser {
      * @return Description for deadline task
      * @throws MissingDateTimeException If no deadline is available
      */
-    private static LocalDate parseDeadlineDate(String content) throws MissingDateTimeException {
+    private static LocalDate parseDeadlineDate(String content) throws MissingDateTimeException, DuduException {
         String[] splitContent = content.split("/by", 2);
         String deadlineDate = splitContent[1].trim();
         if (deadlineDate.isEmpty()) {
             throw new MissingDateTimeException("Missing by time");
         }
-        return LocalDate.parse(deadlineDate);
+        try {
+            return LocalDate.parse(deadlineDate);
+        } catch (DateTimeParseException exception) {
+            throw new DuduException(invalidDateMessage);
+        }
+
     }
 
     /**
@@ -189,7 +206,7 @@ public class Parser {
      * @throws MissingDateTimeException If from date or to date is missing
      */
     private static Event createEvent(String command) throws MissingDescriptionException,
-            InvalidFormatException, MissingDateTimeException {
+            InvalidFormatException, MissingDateTimeException, DuduException {
         String content = parseEventContent(command);
         String description = parseEventDescription(content);
         String dates = parseEventDates(content);
@@ -247,15 +264,20 @@ public class Parser {
      * @param dates Event command dates
      * @return From date as LocalDate instance
      * @throws MissingDateTimeException If from date is missing
-     * @throws DateTimeParseException If from date is invalid
+     * @throws DuduException If from date is invalid
      */
-    private static LocalDate parseEventFromDate(String dates) throws MissingDateTimeException, DateTimeParseException {
+    private static LocalDate parseEventFromDate(String dates) throws MissingDateTimeException, DuduException {
         String[] splitDates = dates.split("/to", 2);
         String fromDate = splitDates[0].trim();
         if (fromDate.isEmpty()) {
             throw new MissingDateTimeException("Missing from date");
         }
-        return LocalDate.parse(fromDate);
+        try {
+            return LocalDate.parse(fromDate);
+        } catch (DateTimeParseException exception) {
+            throw new DuduException(invalidDateMessage);
+        }
+
     }
 
     /**
@@ -264,15 +286,19 @@ public class Parser {
      * @param dates Event command dates
      * @return To date as LocalDate instance
      * @throws MissingDateTimeException If to date is missing
-     * @throws DateTimeParseException If to date is invalid
+     * @throws DuduException If to date is invalid
      */
-    private static LocalDate parseEventToDate(String dates) throws MissingDateTimeException, DateTimeParseException {
+    private static LocalDate parseEventToDate(String dates) throws MissingDateTimeException, DuduException {
         String[] splitDates = dates.split("/to", 2);
         String toDate = splitDates[1].trim();
         if (toDate.isEmpty()) {
             throw new MissingDateTimeException("Missing to date");
         }
-        return LocalDate.parse(toDate);
+        try {
+            return LocalDate.parse(toDate);
+        } catch (DateTimeParseException exception) {
+            throw new DuduException(invalidDateMessage);
+        }
     }
 
     /**

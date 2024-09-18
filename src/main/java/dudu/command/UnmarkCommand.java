@@ -44,6 +44,6 @@ public class UnmarkCommand extends Command {
         Task unmarkedTask = taskList.unmarkTask(this.index);
         assert unmarkedTask != null : "Task was not unmarked successfully";
         storage.rewriteFile(taskList);
-        return ui.unmarkTask(unmarkedTask);
+        return ui.getUnmarkTaskMessage(unmarkedTask);
     }
 }

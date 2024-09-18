@@ -33,6 +33,6 @@ public class FindCommand extends Command {
     @Override
     public String execute(TaskList taskList, UI ui, Storage storage) {
         ArrayList<Task> filteredTasks = taskList.findTasks(this.query.split(" "));
-        return ui.findTasks(filteredTasks);
+        return ui.getFindTasksMessage(filteredTasks);
     }
 }

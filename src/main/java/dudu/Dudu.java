@@ -55,15 +55,15 @@ public class Dudu {
             Command c = Parser.parse(input);
             return c.execute(tasks, ui, storage);
         } catch (IOException e) {
-            return ui.showError(e);
+            return ui.getErrorMessage(e);
         } catch (MissingDescriptionException e) {
-            return ui.showError(e);
+            return ui.getErrorMessage(e);
         } catch (InvalidFormatException e) {
-            return ui.showError(e);
-        } catch (DateTimeParseException e) {
-            return ui.showError(e);
+            return ui.getErrorMessage(e);
+        } catch (DuduException e) {
+            return ui.getErrorMessage(e);
         } catch (MissingDateTimeException e) {
-            return ui.showError(e);
+            return ui.getErrorMessage(e);
         }
     }
 }

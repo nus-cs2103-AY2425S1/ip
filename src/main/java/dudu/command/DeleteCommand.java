@@ -44,6 +44,6 @@ public class DeleteCommand extends Command {
             Parser.pushToUndoStack(new AddCommand(deletedTask, true));
         }
         storage.rewriteFile(taskList);
-        return ui.deleteTask(deletedTask);
+        return ui.getDeleteTaskMessage(deletedTask);
     }
 }

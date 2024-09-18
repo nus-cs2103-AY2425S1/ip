@@ -25,7 +25,7 @@ public class AddCommand extends Command {
             Parser.pushToUndoStack(new DeleteCommand(size - 1, true));
         }
         storage.rewriteFile(taskList);
-        return ui.addTask(task, size);
+        return ui.getAddTaskMessage(task, size);
     }
 
     @Override

@@ -44,6 +44,6 @@ public class MarkCommand extends Command {
         Task markedTask = taskList.markTask(this.index);
         assert markedTask != null : "Task was not marked successfully";
         storage.rewriteFile(taskList);
-        return ui.markTask(markedTask);
+        return ui.getMarkTaskMessage(markedTask);
     }
 }
