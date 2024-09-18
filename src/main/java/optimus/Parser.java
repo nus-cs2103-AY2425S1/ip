@@ -68,7 +68,7 @@ public class Parser {
             }
             return taskNum - 1;
         } catch (NumberFormatException e) {
-            throw new InvalidTaskNumberException("Invalid number format: " + e.getMessage());
+            throw new InvalidTaskNumberException("Invalid task number input");
         }
     }
 

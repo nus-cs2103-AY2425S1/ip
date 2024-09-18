@@ -16,6 +16,7 @@ Optimus is a task management tool which allows you to track all your tasks with 
 * Marking tasks as complete
 * Unmarking tasks
 * Deleting tasks
+* Exit
 
 ## General guidlines
 
@@ -133,3 +134,9 @@ Removes a task from the list of tasks
 Format: `delete TASK_NUMBER`
 
 Example: `delete 1`
+
+## Exit
+
+Stops the programme and closes the window
+
+Format: `bye`
