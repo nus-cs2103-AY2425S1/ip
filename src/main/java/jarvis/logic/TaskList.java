@@ -142,13 +142,13 @@ public class TaskList {
 
     // Generates the message for the delete dialog
     public String deleteDialog(int i) {
-        boolean validIndex = i - 1 < 0 || i > this.getNumTasks();
-        if(validIndex){
+        boolean notValidIndex = i - 1 < 0 || i > this.getNumTasks();
+        if(notValidIndex){
             return "index error!";
         }
         return String.format("Noted. I've removed this task:\n" +
                 " %s\nNow you have %d tasks in the list.\n" , this.list.get(i - 1),
-                this.list.size());
+                this.list.size() - 1);
     }
 
     /**

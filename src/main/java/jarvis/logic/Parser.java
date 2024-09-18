@@ -13,6 +13,8 @@ public class Parser {
      * @param tasklist the {@code TaskList} object on which the commands will be executed.
      */
     public static void parse(String input, TaskList tasklist) {
+        input = input.trim().toLowerCase();  // Normalize input to lowercase and remove leading/trailing spaces
+
         if (input.equals("bye")) {
             return;  // Early exit if input is "bye"
         }
@@ -45,7 +47,6 @@ public class Parser {
             tasklist.find(toFind);
         }
     }
-
     /**
      * Parses the input command and returns the corresponding result as a dialog string.
      *
@@ -56,13 +57,15 @@ public class Parser {
     public static String parseDialog(String input, TaskList tasklist) {
         StringBuilder result = new StringBuilder();
 
+        input = input.trim().toLowerCase();  // Normalize input: trim whitespace and convert to lowercase
+
         if (input.equals("list")) {
             result.append(tasklist.list());
             return result.toString();
         }
 
         if (input.equals("bye")) {
-            return result.toString(); // Early exit if input is "bye"
+            return result.toString();  // Early exit if input is "bye"
         }
 
         if (input.startsWith("mark") || input.startsWith("unmark")
@@ -73,23 +76,24 @@ public class Parser {
             }
 
             try {
-                int taskIndex = Integer.parseInt(parts[1]);
+                int taskIndex = Integer.parseInt(parts[1]);  // Parse task index
                 if (input.startsWith("mark")) {
                     result.append(tasklist.markDialog(taskIndex));
                 } else if (input.startsWith("unmark")) {
                     result.append(tasklist.unmarkDialog(taskIndex));
                 } else if (input.startsWith("delete")) {
                     result.append(tasklist.deleteDialog(taskIndex));
+                    tasklist.handleDelete(taskIndex);
                 }
             } catch (IndexOutOfBoundsException e) {
                 result.append("index error!\n");
             }
 
-            return result.toString(); // Return after processing mark, unmark, or delete
+            return result.toString();  // Return after processing mark, unmark, or delete
         }
 
         if (input.startsWith("find")) {
-            String toFind = input.substring(5).trim();
+            String toFind = input.substring(5).trim();  // Extract the search query after "find"
             result.append(tasklist.find(toFind));
             return result.toString();
         }
@@ -106,7 +110,6 @@ public class Parser {
         } catch (Exception e) {
             result.append("error\n");
         }
-
         return result.toString();
     }
 }

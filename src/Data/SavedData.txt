@@ -1,2 +1,4 @@
-[T] [ ] ii
+[T] [ ] say hi!
+
+[T] [ ] attend the event
 
