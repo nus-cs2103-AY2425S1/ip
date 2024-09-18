@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import bobby.exception.BobbyException;
 import bobby.exception.EmptyDescriptionException;
 import bobby.tasks.Event;
 
@@ -18,7 +19,7 @@ public class EventTest {
      * Validates that a Event task is correctly created.
      */
     @Test
-    public void validEventTask() throws EmptyDescriptionException {
+    public void validEventTask() throws BobbyException {
         String input = "event Watch Lecture /from Monday /to Thursday";
         Event eventTask = Event.createEvent(input);
         assertEquals("Watch Lecture", eventTask.getDescription());
@@ -29,7 +30,7 @@ public class EventTest {
      * Tests the {@link Event#toString()} method.
      * Validates that a Event task is correctly formatted as a string.
      */
-    @Test public void validEventStringFormat() throws EmptyDescriptionException {
+    @Test public void validEventStringFormat() throws BobbyException {
         String input = "event Watch Lecture /from Monday /to Thursday";
         Event eventTask = Event.createEvent(input);
         assertEquals("[E][ ] Watch Lecture (from: Monday to: Thursday)", eventTask.toString());
@@ -41,7 +42,7 @@ public class EventTest {
      * Validates that a Event task is correctly formatted in a file.
      */
     @Test
-    public void validDeadlineTaskFormatInFile() throws EmptyDescriptionException {
+    public void validDeadlineTaskFormatInFile() throws BobbyException {
         String input = "event Watch Lecture /from Monday /to Thursday";
         Event eventTask = Event.createEvent(input);
         assertEquals("E |  | Watch Lecture | /from Monday /to Thursday", eventTask.taskInFile());

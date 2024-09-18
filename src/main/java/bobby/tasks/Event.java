@@ -1,5 +1,6 @@
 package bobby.tasks;
 
+import bobby.exception.BobbyException;
 import bobby.exception.EmptyDescriptionException;
 
 /**
@@ -30,11 +31,15 @@ public class Event extends Task {
      * @return The Event task created from the input.
      * @throws EmptyDescriptionException If the user did not provide any description.
      */
-    public static Event createEvent(String input) throws EmptyDescriptionException {
+    public static Event createEvent(String input) throws BobbyException {
         String eventDescription = input.substring(5).trim();
         if (eventDescription.isEmpty()) {
             throw new EmptyDescriptionException("event");
         }
+        if (!eventDescription.contains("/from") || !eventDescription.contains("/to")) {
+            throw new BobbyException("Please enter in the correct format: event TASK_DESC /from START /to END");
+        }
+
         String eventName = eventDescription.split(" /")[0];
         String eventStart = eventDescription.split(" /")[1].substring(5);
         String eventEnd = eventDescription.split(" /")[2].substring(3);

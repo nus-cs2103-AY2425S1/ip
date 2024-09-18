@@ -11,6 +11,6 @@ public class EmptyDescriptionException extends BobbyException {
      * @param task Type of task.
      */
     public EmptyDescriptionException(String task) {
-        super("Please fill in the description in this format: " + task + " [desc]");
+        super("Please fill in the description in for the " + task + " task.");
     }
 }

@@ -2,7 +2,9 @@ package bobby.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
+import bobby.exception.BobbyException;
 import bobby.exception.EmptyDescriptionException;
 
 /**
@@ -28,14 +30,23 @@ public class Deadline extends Task {
      * @return The Deadline task created from the input.
      * @throws EmptyDescriptionException If the user did not provide any description.
      */
-    public static Deadline createDeadline(String input) throws EmptyDescriptionException {
+    public static Deadline createDeadline(String input) throws BobbyException {
         String deadlineDescription = input.substring(8).trim();
         if (deadlineDescription.isEmpty()) {
             throw new EmptyDescriptionException("deadline");
         }
+        if (!deadlineDescription.contains("/by")) {
+            throw new BobbyException("Please enter in the correct format: deadline TASK_DESC /by YYYY-MM-DD");
+        }
+
+
         String deadlineName = deadlineDescription.split(" /by ")[0];
         String deadlineDay = deadlineDescription.split(" /by ")[1];
-        return new Deadline(deadlineName, deadlineDay);
+        try {
+            return new Deadline(deadlineName, deadlineDay);
+        } catch (DateTimeParseException e) {
+            throw new BobbyException("Please enter in the correct format: deadline TASK_DESC /by YYYY-MM-DD");
+        }
     }
 
     /**

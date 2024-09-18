@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import bobby.exception.BobbyException;
 import bobby.exception.EmptyDescriptionException;
 import bobby.tasks.Deadline;
 
@@ -18,7 +19,7 @@ public class DeadlineTest {
      * Validates that a Deadline task is correctly created.
      */
     @Test
-    public void validDeadlineTask() throws EmptyDescriptionException {
+    public void validDeadlineTask() throws BobbyException {
         String input = "deadline Watch Lecture /by 2024-09-01";
         Deadline deadlineTask = Deadline.createDeadline(input);
         assertEquals("Watch Lecture", deadlineTask.getDescription());
@@ -29,7 +30,7 @@ public class DeadlineTest {
      * Tests the {@link Deadline#toString()} method.
      * Validates that a Deadline task is correctly formatted as a string.
      */
-    @Test public void validDeadlineStringFormat() throws EmptyDescriptionException {
+    @Test public void validDeadlineStringFormat() throws BobbyException {
         String input = "deadline Watch Lecture /by 2024-09-01";
         Deadline deadlineTask = Deadline.createDeadline(input);
         assertEquals("[D][ ] Watch Lecture (by: Sep 1 2024)", deadlineTask.toString());
@@ -40,7 +41,7 @@ public class DeadlineTest {
      * Validates that a Deadline task is correctly formatted in a file.
      */
     @Test
-    public void validDeadlineTaskFormatInFile() throws EmptyDescriptionException {
+    public void validDeadlineTaskFormatInFile() throws BobbyException {
         String input = "deadline Watch Lecture /by 2024-09-01";
         Deadline deadlineTask = Deadline.createDeadline(input);
         assertEquals("D |  | Watch Lecture | /by 2024-09-01", deadlineTask.taskInFile());
