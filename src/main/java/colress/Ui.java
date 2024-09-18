@@ -10,6 +10,7 @@ import colress.command.AddCommand;
 import colress.command.Command;
 import colress.command.DateCommand;
 import colress.exception.EmptyInputException;
+import colress.exception.EndTimeException;
 import colress.exception.UnknownCommandException;
 import colress.exception.UnknownTaskTypeException;
 
@@ -304,8 +305,14 @@ public final class Ui {
     public String processEndTime(String input, TaskList taskList) {
         try {
             LocalTime result = parser.readTime(input);
+            AddCommand c = (AddCommand) currCommand;
+            if (!c.isValidEndTime(result)) {
+                throw new EndTimeException();
+            }
             currCommand.initialise(result);
             return currCommand.execute(this, taskList);
+        } catch (EndTimeException e) {
+            return e.getMessage();
         } catch (DateTimeParseException e) {
             return MESSAGE_NOT_A_VALID_DATE_TIME_ERROR;
         }

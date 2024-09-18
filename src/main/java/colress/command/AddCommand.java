@@ -64,6 +64,10 @@ public final class AddCommand extends Command {
         return taskType;
     }
 
+    public boolean isValidEndTime(LocalTime endTime) {
+        return endTime.isAfter(startTime);
+    }
+
     /**
      * Facilitates adding a task to the provided TaskList as not done, using the provided Ui object to receive input
      * from the user regarding what type of task to add and the various fields of the task to be added.
