@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  * A GUI for Duke using FXML.
  */
 public class Main extends Application {
-    private static final String FILE_PATH = "Documents/Github/IP/data/tasks.txt";
+    private static final String FILE_PATH = "./data/tasks.txt";
     private static final Gravitas GRAVITAS = new Gravitas(FILE_PATH);
 
     @Override

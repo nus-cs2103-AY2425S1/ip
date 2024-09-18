@@ -14,7 +14,6 @@ import javafx.scene.layout.VBox;
  * Controller for the main GUI.
  */
 public class MainWindow extends AnchorPane {
-    private static final String FILE_PATH = "Documents/Github/IP/data/tasks.txt";
     private static final String NAME = "Gravitas";
     private static final String GREET = "Hello! I'm " + NAME
             + "\nWhat can I do for you?\n";

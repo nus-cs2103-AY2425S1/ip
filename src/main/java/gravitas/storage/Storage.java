@@ -28,10 +28,11 @@ public class Storage {
      * @param filePath File path to load and save file
      */
     public Storage(String filePath) {
-        String home = System.getProperty("user.home");
-        this.filePath = Paths.get(home, filePath);
-
+        this.filePath = Paths.get(filePath);
         File f = new File(this.filePath.toString());
+        if (!f.getParentFile().exists()) {
+            f.getParentFile().mkdirs();
+        }
         //Create file if needed
         if (!f.isFile()) {
             try {
