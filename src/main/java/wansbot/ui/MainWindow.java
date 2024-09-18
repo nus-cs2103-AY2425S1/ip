@@ -1,5 +1,7 @@
 package wansbot.ui;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import wansbot.WansBot;
 
 /**
@@ -55,8 +58,16 @@ public class MainWindow extends AnchorPane {
                 botBox
         );
         if (input.equals("bye")) {
-            System.exit(0);
+            delay();
         }
         userInput.clear();
+    }
+
+    private void delay() {
+        PauseTransition pause = new PauseTransition(Duration.seconds(2));
+        userInput.setDisable(true);
+        sendButton.setDisable(true);
+        pause.setOnFinished(event -> Platform.exit());
+        pause.play();
     }
 }
