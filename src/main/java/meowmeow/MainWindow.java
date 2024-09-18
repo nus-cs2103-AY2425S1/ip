@@ -37,11 +37,15 @@ public class MainWindow extends AnchorPane {
 
     /** Injects the Duke instance */
     public void setMeowMeow(MeowMeow m) throws IOException {
+        assert m != null : "MeowMeow instance should not be null";
         meowmeow = m;
         meowmeow.run();
+
         dialogContainer.getChildren().addAll(
         DialogBox.getMeowMeowDialog("Hello! I'm MeowMeow\n" + "What can I do for you?\n", meowMeowImage));
+
         this.parser = meowmeow.getParser();
+        assert parser != null : "Parser should not be null";
     }
 
     /**
@@ -50,8 +54,10 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() throws IOException, InterruptedException {
+        assert userInput != null : "UserInput should not be null";
         String input = userInput.getText();
         String response = parser.parse(input);
+        assert response != null : "Response from parser should not be null";
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getMeowMeowDialog(response, meowMeowImage)
