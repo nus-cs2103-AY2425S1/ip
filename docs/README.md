@@ -113,10 +113,10 @@ Example: `find homework`
 
 sort
 
-sorts all tasks by date
-todo tasks will be at the top (no date)
-deadline tasks will be sorted by their by date
-event tasks will be sorted by their from date
+sorts all tasks by date  
+todo tasks will be at the top (no date)  
+deadline tasks will be sorted by their by date  
+event tasks will be sorted by their from date  
 
 Example: `find homework`
 
