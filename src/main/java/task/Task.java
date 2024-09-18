@@ -31,14 +31,14 @@ public class Task {
     }
 
     /**
-     * Mark a task as done.
+     * Marks a task as done.
      */
     public void markAsDone() {
         this.isDone = true;
     }
 
     /**
-     * Mark a task as not done.
+     * Marks a task as not done.
      */
     public void markAsNotDone() {
         this.isDone = false;

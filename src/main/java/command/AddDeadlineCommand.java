@@ -12,7 +12,7 @@ public class AddDeadlineCommand implements Command {
     private String description;
 
     /**
-     * Construct a new {@code AddDeadlineCommand} with the specified description
+     * Constructs a new {@code AddDeadlineCommand} with the specified description
      *
      * @param description the remaining description of the Deadline command, after command is removed
      */

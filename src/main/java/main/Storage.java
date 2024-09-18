@@ -58,7 +58,6 @@ public class Storage {
             if (!file.exists()) {
                 return allTasks;
             }
-            // iterate through the buffered reader
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split("\\| ");
@@ -81,7 +80,6 @@ public class Storage {
                 }
                 allTasks.add(currTask);
             }
-
         } catch (IOException e) {
             System.out.println("Error when reading file. " + e.getMessage());
         }
