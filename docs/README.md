@@ -8,9 +8,22 @@ You can quickly add tasks, set reminders for upcoming deadlines, and even mark i
 day progresses. Need to check what's on your plate? Oliver can list all your tasks or help you find specific ones 
 in a snap. With Oliver, staying organized has never been easier—your smart, efficient task manager is just a chat away! 
 
+## Quick Start
+1. Download the jar file from [here](https://github.com/SQ77/ip/releases/tag/v0.3)
+2. Open your terminal
+3. Run the command `java -jar "{filename}.jar"`
+4. Oliver is now ready to manage your tasks! 🪄 🌟
+
+## Features
+Notes about the command format:
+- Words in brackets( ) are the parameters to be supplied by the user
+- Items in square brackets[ ] are optional
+
 ## Adding todos
 
 Adds a todo task to the list.
+
+Format: `todo (task_name)`
 
 Example: `todo finish my homework`
 
@@ -24,6 +37,8 @@ Now you have 1 task to keep you busy.
 
 Adds a task with a deadline to the list.
 
+Format: `deadline (task_name) /by (YYYY-MM-DD) [HHmm]`
+
 Example: `deadline submit assignment /by 2024-09-30`
 
 ```
@@ -35,6 +50,8 @@ Now you have 1 task to keep you busy.
 ## Adding events
 
 Adds an event with a start time and end time to the list.
+
+Format: `event (task_name) /from (YYYY-MM-DD) (HHmm) /to (YYYY-MM-DD) (HHmm)`
 
 Example: `event party /from 2024-09-25 1800 /to 2024-09-25 2100`
 
@@ -54,6 +71,8 @@ Format: `list`
 
 Marks a task as completed.
 
+Format: `mark (task_number)`
+
 Example: `mark 1`
 
 ```
@@ -65,6 +84,8 @@ Pawsome work! I've marked this task as done:
 
 Marks a task as incomplete.
 
+Format: `unmark (task_number)`
+
 Example: `unmark 1`
 
 ```
@@ -75,6 +96,8 @@ Alright, I've marked this task as still pending:
 ## Deleting a task
 
 Deletes the specified task from the task list.
+
+Format: `delete (task_number)`
 
 Example: `delete 1`
 
@@ -88,11 +111,24 @@ You are down to 2 tasks now.
 
 Finds tasks that contain a specific keyword.
 
+Format: `find (keyword)`
+
 Example: `find homework`
 
 ```
 Here are the matching tasks in your list I managed to dig up:
 1. [T][] finish my homework
+```
+
+## Getting Reminders
+
+Displays reminders about upcoming tasks in the next two days.
+
+Format: `remind`
+
+```
+Here are the upcoming tasks in your list:
+1. [D][] submit assignment (by: Sep 30 2024, 12.00 am)
 ```
 
 ## Exiting the program
