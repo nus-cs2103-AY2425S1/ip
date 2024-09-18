@@ -18,6 +18,7 @@ bin/
 
 # Storage file
 src/main/data/level-hundred.txt
+data/level-hundred.txt
 
 # Testing files
 /text-ui-test/ACTUAL.TXT
