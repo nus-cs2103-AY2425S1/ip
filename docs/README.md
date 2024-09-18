@@ -35,7 +35,8 @@ TheRatchetCat is here to organise tasks for you!
 **"todo"** todo command adds a new ToDo Task
 > todo "TaskDescription"
 
-
+**"bye"** For you to find out!
+> bye
 
 // Give examples of usage
 
