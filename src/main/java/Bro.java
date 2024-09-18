@@ -13,6 +13,17 @@ public class Bro {
         return "";
     }
 
+    public String[] parseInputWord(String word) {
+        String[] result= new String[2];
+        result[0] = word.split(" ", 2)[0];
+        if (word.split(" ", 2).length == 1) {
+            result[1] = "";
+        } else {
+            result[1] = word.split(" ", 2)[1];
+        }
+        return result;
+    }
+
     /**
      * Processes a user command and returns a response based on the action specified.
      * Commands include listing tasks, marking/unmarking tasks as done, adding new tasks,
@@ -35,13 +46,9 @@ public class Bro {
         if (word.equalsIgnoreCase("list")) {
             return ui.printList(tasks);
         } else {
-            String action = word.split(" ", 2)[0];
-            String info;
-            if (word.split(" ", 2).length == 1) {
-                info = "";
-            } else {
-                info = word.split(" ", 2)[1];
-            }
+            String[] parsed = this.parseInputWord(word);
+            String action = parsed[0];
+            String info = parsed[1];
             try {
                 String result;
                 String prevTasks = ui.printList(tasks);
