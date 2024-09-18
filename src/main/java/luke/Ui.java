@@ -27,25 +27,29 @@ public class Ui {
      * @return command output
      */
     public static String handleCommand(Command command, boolean isLoadingFromDisk) {
-        switch (command.getCommand()) {
-        case "bye" -> {
-            return Constants.BYE_MESSAGE;
-        }
-        case "list" -> {
-            return showList();
-        }
-        case "mark", "unmark" -> {
-            return handleTaskMarking(command);
-        }
-        case "delete" -> {
-            return handleDelete(command);
-        }
-        case "find" -> {
-            return handleFind(command);
-        }
-        default -> {
-            return handleAddTask(command, isLoadingFromDisk);
-        }
+        try {
+            switch (command.getCommand()) {
+            case "bye" -> {
+                return Constants.BYE_MESSAGE;
+            }
+            case "list" -> {
+                return showList();
+            }
+            case "mark", "unmark" -> {
+                return handleTaskMarking(command);
+            }
+            case "delete" -> {
+                return handleDelete(command);
+            }
+            case "find" -> {
+                return handleFind(command);
+            }
+            default -> {
+                return handleAddTask(command, isLoadingFromDisk);
+            }
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return Constants.BAD_COMMAND;
         }
     }
 

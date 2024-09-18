@@ -4,6 +4,7 @@ import java.util.List;
 
 public class Constants {
     public static final String INDENT = "  ";
+    public static final String BAD_COMMAND = "hmmmm...the command doesn't really make sense to me. try again?";
     public static final String BYE_MESSAGE = "yeah bye bye to you too human being <3";
     public static final List<String> TASK_TYPES = List.of(new String[]{"todo", "event", "deadline"});
     public static final String FILE_PATH = "./data/Luke.txt";
