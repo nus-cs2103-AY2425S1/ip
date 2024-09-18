@@ -1,9 +1,5 @@
 package yapper.components;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.application.Platform;
-import javafx.util.Duration;
 import yapper.commands.CommandList;
 import yapper.exceptions.YapperException;
 

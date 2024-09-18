@@ -87,6 +87,12 @@ public class CommandList {
         return String.format("%s now bound to %s", alias, getCommandToExecute(commandToAlias).toString());
     }
 
+    /**
+     * Allow users to unbind an existing alias of a command they had set
+     * @param commandName      the alias of the command they had set
+     * @return                 a string that reflects the changes
+     * @throws YapperException if that command should not be unbound or it does not exist
+     */
     public String unbindCustomCommandAlias(String commandName) throws YapperException {
         if (unaliasableCommands.contains(commandName)) {
             throw new YapperException("I REALLY don't recommend doing that.");

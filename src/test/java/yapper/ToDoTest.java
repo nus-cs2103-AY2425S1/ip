@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import yapper.exceptions.YapperException;
 import yapper.components.ToDo;
+import yapper.exceptions.YapperException;
 
 public class ToDoTest {
 

@@ -7,7 +7,6 @@ import javafx.util.Duration;
 import yapper.components.Parser;
 import yapper.components.Storage;
 import yapper.components.TaskList;
-import yapper.components.Ui;
 import yapper.exceptions.YapperException;
 
 /**
