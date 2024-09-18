@@ -4,6 +4,15 @@ import bro.*;
 public class Bro {
     private static boolean isDupe = false;
 
+    public String ifDupe(String s, TaskList tasks) {
+        String res = tasks.findDuplicate(s);
+        if (!res.isEmpty()) {
+            Bro.isDupe = true;
+            return res;
+        }
+        return "";
+    }
+
     /**
      * Processes a user command and returns a response based on the action specified.
      * Commands include listing tasks, marking/unmarking tasks as done, adding new tasks,
@@ -34,51 +43,32 @@ public class Bro {
                 info = word.split(" ", 2)[1];
             }
             try {
+                String result;
+                String prevTasks = ui.printList(tasks);
                 switch (action.toLowerCase()) {
                     case "mark":
-                        String mark = tasks.markTask(Integer.parseInt(info));
-                        storage.saveToFile();
-                        return mark;
+                        result = tasks.markTask(Integer.parseInt(info));
+                        break;
                     case "unmark":
-                        String unmark = tasks.unmarkTask(Integer.parseInt(info));
-                        storage.saveToFile();
-                        return unmark;
+                        result = tasks.unmarkTask(Integer.parseInt(info));
+                        break;
                     case "delete":
-                        String delete = tasks.deleteTask(Integer.parseInt(info));
-                        storage.saveToFile();
-                        return delete;
+                        result = tasks.deleteTask(Integer.parseInt(info));
+                        break;
                     case "find":
                         return tasks.findTasks(info);
                     case "todo":
-                        String sT = ui.printList(tasks);
-                        String todo = tasks.addTodo(info);
-                        String dupeT = tasks.findDuplicate(sT);
-                        if (!dupeT.isEmpty()) {
-                            Bro.isDupe = true;
-                            todo += dupeT;
-                        }
-                        storage.saveToFile();
-                        return todo;
+                        result = tasks.addTodo(info);
+                        result += this.ifDupe(prevTasks, tasks);
+                        break;
                     case "deadline":
-                        String sD = ui.printList(tasks);
-                        String deadline = tasks.addDeadline(info);
-                        String dupeD = tasks.findDuplicate(sD);
-                        if (!dupeD.isEmpty()) {
-                            Bro.isDupe = true;
-                            deadline += dupeD;
-                        }
-                        storage.saveToFile();
-                        return deadline;
+                        result = tasks.addDeadline(info);
+                        result += this.ifDupe(prevTasks, tasks);
+                        break;
                     case "event":
-                        String sE = ui.printList(tasks);
-                        String event = tasks.addEvent(info);
-                        String dupeE = tasks.findDuplicate(sE);
-                        if (!dupeE.isEmpty()) {
-                            Bro.isDupe = true;
-                            event += dupeE;
-                        }
-                        storage.saveToFile();
-                        return event;
+                        result = tasks.addEvent(info);
+                        result += this.ifDupe(prevTasks, tasks);
+                        break;
                     case "yes":
                         if (isDupe) {
                             Bro.isDupe = false;
@@ -94,6 +84,8 @@ public class Bro {
                     default:
                         return ui.printDefault();
                 }
+                storage.saveToFile();
+                return result;
             } catch (BroException be) {
                 return be.getMessage();
             } catch (NumberFormatException nfe) {
