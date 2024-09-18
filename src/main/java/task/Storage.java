@@ -16,7 +16,7 @@ import utility.Parser;
  * The Storage class deals with loading and saving tasks from the file
  */
 public class Storage {
-    private final Path path = Paths.get("src", "main", "data", "level-hundred.txt");
+    private final Path path = Paths.get("data", "level-hundred.txt");
 
     // Creates file if it does not exist
     private File createFileIfNotExists() throws InvalidStorageFileException {
