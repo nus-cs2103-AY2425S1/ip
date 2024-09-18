@@ -4,7 +4,7 @@ Bopes is a simple yet powerful task management application that allows you to ke
 
 ## Product Screenshot
 
-ui.png
+![Bopes UI](./Ui.png)
 
 ## Product Introduction
 
