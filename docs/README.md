@@ -2,22 +2,21 @@
 
 // Update the title above to match the actual product name
 
-// Product screenshot goes here
+![Ui](docs/Ui.png)
 
-// Product intro goes here
+Mediell is a helpful tool to help manage your many tasks!
 
 ## Adding deadlines
 
-// Describe the action and its outcome.
+list
 
-// Give examples of usage
+lists all tasks currently stored
 
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
+Example: `list`
 
 ```
-expected output
+1. [T][X] Create a Repo
+2. [T][] Add teammates to the Repo
 ```
 
 ## Feature ABC
