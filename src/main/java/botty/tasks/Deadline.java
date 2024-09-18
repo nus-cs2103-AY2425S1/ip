@@ -61,7 +61,8 @@ public class Deadline extends Task<DeadlineData> {
      * @throws BottyException if corrupted task string or invalid arguments
      */
     public static Deadline fromDataString(String taskString) throws BottyException {
-        if (!taskString.matches("D \\| [10] \\| (.*?) \\| (.*?)")) {
+        String standardDataStorageFormatRegex = "D \\| [10] \\| (.*?) \\| (.*?)";
+        if (!taskString.matches(standardDataStorageFormatRegex)) {
             throw new CorruptedTaskStringException();
         }
 
