@@ -12,6 +12,9 @@ import atlas.utils.Util;
 public class CommandManager {
     private static final HashMap<AtlasSimpleCommand, AtlasCommand> COMMAND_HASH_MAP = new HashMap<>();
 
+    /**
+     * Initializes the hashmap containing the mappings from the short commands to the full commands.
+     */
     public static void init() {
         COMMAND_HASH_MAP.put(AtlasSimpleCommand.B, AtlasCommand.BYE);
         COMMAND_HASH_MAP.put(AtlasSimpleCommand.L, AtlasCommand.LIST);
