@@ -10,26 +10,21 @@
     -fx-font-weight: normal;
 }
 
-
 .yellow-dialog {
     -fx-border-color: #F7D358;
 }
-
 
 .green-dialog {
     -fx-border-color: #8BC34A;
 }
 
-
 .red-dialog {
     -fx-border-color: #EF9A9A;
 }
 
-
 .bot-dialog {
     -fx-border-color: #90CAF9;
 }
-
 
 .person-dialog {
     -fx-border-color: #FFD54F;
