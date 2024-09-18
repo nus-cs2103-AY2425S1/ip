@@ -5,7 +5,12 @@ import Bot.Parser;
 
 import java.util.Objects;
 
-// All kinds of error handlings of invalid task format can be done here instead of Bot.Chicken class
+/**
+ * The TaskBuilder class is responsible for creating different types of tasks (TODO, DEADLINE, EVENT)
+ * based on user input. It is designed as a factory class and it handles the
+ * construction of tasks and validates the task format and
+ * parameters such as date and description.
+ */
 public class TaskBuilder {
     private String description;
     private Parser.TaskType taskType;
@@ -19,7 +24,12 @@ public class TaskBuilder {
     }
 
 
-
+    /**
+     * Sets the 'by' parameter for a DEADLINE task.
+     *
+     * @param by The deadline date/time string.
+     * @return The current instance of TaskBuilder for method chaining.
+     */
     public TaskBuilder by(String by) {
         if (Objects.equals(by, "")) {
             System.out.println("by cannot be empty");
@@ -36,6 +46,12 @@ public class TaskBuilder {
         return this;
     }
 
+    /**
+     * Sets the 'from' parameter for an EVENT task.
+     *
+     * @param from The start date/time string for the event.
+     * @return The current instance of TaskBuilder for method chaining.
+     */
     public TaskBuilder from(String from) {
         if (Objects.equals(from, "")) {
             System.out.println("from cannot be empty");
@@ -51,6 +67,12 @@ public class TaskBuilder {
         return this;
     }
 
+    /**
+     * Sets the 'to' parameter for an EVENT task.
+     *
+     * @param to The end date/time string for the event.
+     * @return The current instance of TaskBuilder for method chaining.
+     */
     public TaskBuilder to(String to) {
         if (Objects.equals(to, "")) {
             System.out.println("to cannot be empty");
@@ -67,7 +89,13 @@ public class TaskBuilder {
         return this;
     }
 
-    public Task build() {
+    /**
+     * Builds the appropriate Task object based on the provided type and parameters.
+     *
+     * @return A Task object representing the built task (ToDo, Deadline, or Event).
+     * @throws IllegalArgumentException if the task parameters are not properly specified.
+     */
+    public Task build() throws IllegalArgumentException {
         switch (taskType) {
             case TODO:
                 if (!Objects.equals(description, "")) {

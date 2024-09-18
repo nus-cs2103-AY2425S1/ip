@@ -56,15 +56,22 @@ public class ListManager {
         }
     }
 
+    /**
+     * Deletes an item from the list at the specified index.
+     *
+     * @param index the 1-based index of the item to be deleted from the list
+     * @throws AssertionError if the index is out of the valid range
+     */
     public void delete(int index) {
         boolean isValidIndex = index > 0 && index <= itemList.size();
 
         assert isValidIndex : "Index out of range";
 
         if (isValidIndex) {
-            itemList.remove(index-1);
+            itemList.remove(index - 1);
         }
     }
+
 
     public int getItemSize() {
         return itemList.size();

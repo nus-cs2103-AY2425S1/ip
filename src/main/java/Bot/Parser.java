@@ -35,32 +35,32 @@ public class Parser {
         String firstWord = parts[0].toLowerCase();
 
         switch (firstWord) {
-            case "bye":
-            return ("See you again");
+        case "bye":
+        return ("See you again");
 
-            case "list":
-            return (chickenManager.listItems(""));
+        case "list":
+        return (chickenManager.listItems(""));
 
-            case "mark", "unmark":
-            return handleMarkUnmark(command, firstWord);
+        case "mark", "unmark":
+        return handleMarkUnmark(command, firstWord);
 
-            case "deadline":
-            return handleDeadline(command);
+        case "deadline":
+        return handleDeadline(command);
 
-            case "todo":
-            return handleTodo(command);
+        case "todo":
+        return handleTodo(command);
 
-            case "event":
-            return handleEvent(command);
+        case "event":
+        return handleEvent(command);
 
-            case "delete":
-            return handleDelete(command);
+        case "delete":
+        return handleDelete(command);
 
-            case "find":
-            return handleFind(command);
+        case "find":
+        return handleFind(command);
 
-            default:
-            return ("I don't understand your command!");
+        default:
+        return ("I don't understand your command!");
 
         }
     }
@@ -84,6 +84,12 @@ public class Parser {
         return (statusMessage + chickenManager.getItem(taskNumber));
     }
 
+    /**
+     * Parses the task number from the command string.
+     *
+     * @param command The user's input command.
+     * @return The parsed task number, or -1 if parsing fails.
+     */
     private int parseTaskNumber(String command) {
         String[] parts = command.split(" ");
         if (parts.length != 2) {
@@ -104,7 +110,12 @@ public class Parser {
         }
     }
 
-
+    /**
+     * Handles the "deadline" command to add a deadline task.
+     *
+     * @param command The user's input command starting with "deadline".
+     * @return A message indicating the result of the deadline task creation.
+     */
     private String handleDeadline(String command) {
         assert command.startsWith("deadline") : "Command should start with 'deadline'";
 
@@ -122,6 +133,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the "todo" command to add a to-do task.
+     *
+     * @param command The user's input command starting with "todo".
+     * @return A message indicating the result of the to-do task creation.
+     */
     private String handleTodo(String command) {
         assert command.startsWith("todo") : "Command should start with 'todo'";
 
@@ -138,6 +155,12 @@ public class Parser {
 
     }
 
+    /**
+     * Handles the "event" command to add an event task.
+     *
+     * @param command The user's input command starting with "event".
+     * @return A message indicating the result of the event task creation.
+     */
     private String handleEvent(String command) {
         assert command.startsWith("event") : "Command should start with 'event'";
 
@@ -160,6 +183,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the "delete" command to remove a task by its index.
+     *
+     * @param command The user's input command starting with "delete".
+     * @return A message indicating the result of the task deletion.
+     */
     private String handleDelete(String command) {
         assert command.startsWith("delete") : "Command should start with 'delete'";
 
@@ -174,6 +203,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the "find" command to search for tasks by description.
+     *
+     * @param command The user's input command starting with "find".
+     * @return A string listing the tasks that match the search criteria.
+     */
     private String handleFind(String command) {
         String itemName = command.replace("find ", "");
         return (chickenManager.listItems(itemName)) + "found";

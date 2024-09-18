@@ -28,12 +28,7 @@ public class Chicken {
         assert chickenFileManager != null : "FileManager is not initialized";
         assert parser != null : "Parser is not initialized";
 
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.println("Hello! I'm " + name + ". How can I assist you today?");
-//        chickenFileManager.readFile();
-//        while (scanner.hasNextLine()) {
-            String response = parser.parseCommand(input);
-            return response;
+        return parser.parseCommand(input);
     }
 
 
