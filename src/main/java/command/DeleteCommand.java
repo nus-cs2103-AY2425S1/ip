@@ -1,7 +1,6 @@
 package command;
 
 import exceptions.TaskDoesNotExistException;
-import task.Task;
 import task.TaskList;
 
 /**

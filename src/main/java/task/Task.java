@@ -14,15 +14,6 @@ public abstract class Task {
     private String description;
 
     /**
-     * Constructor for a incomplete <code>Task</code>.
-     *
-     * @param description Description of the task.
-     */
-    public Task(String description) {
-        this.description = description;
-    }
-
-    /**
      * Constructor for a <code>Task</code>.
      *
      * @param description Description of the task.

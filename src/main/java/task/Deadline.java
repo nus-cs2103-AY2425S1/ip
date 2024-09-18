@@ -24,16 +24,6 @@ public class Deadline extends Task {
     }
 
     /**
-     * Constructor for an incomplete <code>Deadline</code>.
-     *
-     * @param description Description of the deadline.
-     * @param dueDate Due date of the deadline.
-     */
-    public Deadline(String description, LocalDate dueDate) {
-        this(description, dueDate, false);
-    }
-
-    /**
      * Factory method which returns a <code>Deadline</code>.
      *
      * @param description Description of the deadline.
