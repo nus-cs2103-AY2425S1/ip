@@ -33,7 +33,7 @@ public class CommandParser {
             case "period" -> new PeriodCommand(args);
             case "clear" -> new ClearlistCommand();
             case "find" -> new FindCommand(args);
-            default -> throw new MichaelScottException("I don't understand what you mean to say!");
+            default -> throw new MichaelScottException("That’s not a command... or is it? Nope, definitely not. Let’s try again!");
         };
     }
 }

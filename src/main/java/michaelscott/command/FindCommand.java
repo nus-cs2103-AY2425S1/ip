@@ -28,7 +28,6 @@ public class FindCommand implements Command {
                     "You need to tell me what to search for! [find <Stuff>]"
             );
         }
-      
         this.keyword = keyword.trim().toLowerCase();
     }
 

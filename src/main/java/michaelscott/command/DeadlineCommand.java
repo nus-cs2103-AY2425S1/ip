@@ -29,8 +29,9 @@ public class DeadlineCommand implements Command {
         String[] deadlineParts = args.split(" /by ");
         if (deadlineParts.length != 2) {
             throw new MichaelScottException(
-                    "Please provide both the task description and deadline "
-                            + "(Here is an example: 'deadline homework /by 2024-03-02 12:00')."
+                    "Okay, here’s what I need from you. Give me the task and the deadline—easy, right?" +
+                            "Oh, and here’s an example, because I’m a great teacher:" +
+                            "'deadline homework /by 2024-03-02 12:00.' "
             );
         }
 
@@ -40,7 +41,8 @@ public class DeadlineCommand implements Command {
             this.deadlineDate = LocalDateTime.parse(deadlineParts[1], FORMATTER);
         } catch (java.time.format.DateTimeParseException e) {
             throw new MichaelScottException(
-                    "Invalid date format. Please use the format YYYY-MM-DD HH:MM."
+                    "Whoa, that date’s all messed up! Try again, but this time use the format like this:" +
+                            "YYYY-MM-DD HH:MM. It’s not rocket science... I think!"
             );
         }
     }

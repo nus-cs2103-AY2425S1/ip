@@ -1,7 +1,5 @@
 package michaelscott.utils;
 
-import java.util.Scanner;
-
 /**
  * This class represents user interface of MichaelScott.
  * Handles user input and output display.

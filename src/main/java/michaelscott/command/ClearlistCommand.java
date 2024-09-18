@@ -11,7 +11,7 @@ public class ClearlistCommand implements Command {
     @Override
     public String execute(TaskList tasks) {
         tasks.clearList();
-        return "Okay, the list has been cleared";
+        return "You know what? Forget about it. It’s gone. Just like I forgot about Toby.";
     }
 
     @Override

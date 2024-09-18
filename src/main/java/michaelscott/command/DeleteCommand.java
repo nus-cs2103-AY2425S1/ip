@@ -36,7 +36,7 @@ public class DeleteCommand implements Command {
 
         Task deletedTask = tasks.getTask(this.taskIndex);
         tasks.removeTask(this.taskIndex);
-        return "Noted. I've removed this task:\n" + deletedTask.toString()
+        return "Not finished? You miss 100% of the shots you don’t take. Or finish.\n" + deletedTask.toString()
                 + "\nNow you have " + tasks.size() + (tasks.size() > 1 ? " tasks" : " task") + " in the list.";
     }
 

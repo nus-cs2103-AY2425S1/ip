@@ -1,5 +1,0 @@
-T | 1 | collect pins from reception
-T | 1 | send fax to dwight from reception
-T | 0 | spend 30 mins at reception
-D | 0 | prank dwight | 2024-09-03 12:30
-P | 1 | stuff | 2023-03-03 | 2023-03-03
