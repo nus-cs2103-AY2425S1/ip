@@ -16,6 +16,7 @@ public class Main extends Application {
         MainWindow mw = new MainWindow();
         Scene scene = new Scene(mw);
 
+        stage.setTitle("Talker");
         stage.setScene(scene);
         stage.setMinHeight(220);
         stage.setMinWidth(417);

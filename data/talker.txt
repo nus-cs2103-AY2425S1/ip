@@ -1,6 +1,4 @@
-T |   | L | test1
-T |   | L | test2
-T |   | L | Test1
-D |   | L | test | 12-12-2002 00:00
-D |   | L | test1 | 12-12-2002 00:00
-E |   | L | test | 12-12-2002 00:00 | 12-12-2004 00:00
+T |   | L | Complete Assignment 1
+D | X | M | Submit Assignment 2 | 25-09-2024 23:59
+E |   | H | Quiz 3 | 18-09-2024 00:00 | 25-09-2024 23:59
+T |   | L | test4

@@ -1,6 +1,6 @@
 # Talker User Guide
 
-// Product screenshot goes here
+![Product Screenshot](https://xinweichong.github.io/ip/Ui.png)
 
 A friendly chatbot to help you keep track of your important tasks!
 
