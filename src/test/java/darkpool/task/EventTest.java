@@ -43,7 +43,7 @@ class EventTest {
     void testEventCreationInvalidTimeFormat() {
         DarkpoolException exception = assertThrows(DarkpoolException.class, () ->
                 new Event(description, invalidTime, validToTime, false));
-        assertTrue(exception.getMessage().contains("could not be parsed"));
+        assertTrue(exception.getMessage().contains("do i really need to tell you how to input the date and time?"));
     }
 
     @Test
