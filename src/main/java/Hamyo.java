@@ -73,6 +73,9 @@ public class Hamyo {
         try {
             storage.loadData(this.tasks);
             this.isActive = Parser.parse(this.tasks, input);
+            if (!this.isActive) {
+                return "hamyo terminated!";
+            }
             storage.saveData(this.tasks);
             String guiResponse = String.join("\n", Ui.getResponse().split("\n" + Ui.LINE));
             return guiResponse.substring(0, guiResponse.length() - 2);
