@@ -1,9 +1,9 @@
 # Maxine User Guide
 
-// Product screenshot goes here
+
 ![A screenshot of MaxineBot](Ui.png)
 
-// Product intro goes here
+
 This is Maxine, your personal chatbot assistant to help you keep track of your tasks!
 Using Maxine, you can add different types of tasks (todo tasks, deadline tasks and event tasks).
 You can also choose to mark (or unmark) your tasks to indicate your tasks completion status.
