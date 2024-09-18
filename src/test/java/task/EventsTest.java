@@ -9,14 +9,14 @@ import exception.CommandFoundButInvalidException;
 public class EventsTest {
     @Test
     public void throwExceptionTest() {
-        boolean thrown = false;
+        boolean isThrown = false;
         try {
             new Events("This is just a random String /start");
         } catch (CommandFoundButInvalidException e) {
-            thrown = true;
+            isThrown = true;
         }
 
-        assertTrue(thrown);
+        assertTrue(isThrown);
     }
 
     @Test
