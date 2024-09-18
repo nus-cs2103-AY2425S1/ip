@@ -14,7 +14,7 @@ She offers:
 
 ## Setup Guide
 
-1. Download the `KukiShinobu.jar` file from [here](#).
+1. Download the `KukiShinobu.jar` file from [here](https://github.com/apollo-tan/ip/releases/tag/v0.2).
 2. Move the downloaded file to your preferred directory.
 3. Open your terminal in this directory.
 4. Execute the command:
