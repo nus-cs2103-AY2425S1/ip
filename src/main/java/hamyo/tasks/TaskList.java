@@ -42,7 +42,7 @@ public class TaskList extends ArrayList<Task> {
             assert input.length == 3 : "incorrect number of Event input";
             this.add(new Event(input[0], input[1], input[2]));
         }
-        Ui.printAddTask(this.get(this.size() - 1), this.size());
+        Ui.setStringAddTask(this.get(this.size() - 1), this.size());
     }
 
     /**
@@ -58,7 +58,7 @@ public class TaskList extends ArrayList<Task> {
             }
             Task deletedTask = this.remove(index);
 
-            Ui.printDeleteTask(deletedTask, this.size());
+            Ui.setStringDeleteTask(deletedTask, this.size());
         } catch (NumberFormatException e) {
             throw new HamyoException("Usage: delete [index]");
         }
@@ -72,7 +72,7 @@ public class TaskList extends ArrayList<Task> {
             .mapToObj(i -> i + ". " + this.get(i - 1).toString())
             .collect(Collectors.joining("\n"));
 
-        Ui.printListTasks(tasksList);
+        Ui.setStringListTasks(tasksList);
     }
 
     /**
@@ -91,7 +91,7 @@ public class TaskList extends ArrayList<Task> {
                 .map(task -> counter.getAndIncrement() + ". " + task.toString()) // Format as String.
                 .collect(Collectors.joining("\n"));
 
-            Ui.printListTasksByDate(tasksList, date.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
+            Ui.setStringListTasksByDate(tasksList, date.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
         } catch (Exception e) {
             throw new HamyoException("Usage: listDate yyyy-MM-dd.");
         }
@@ -111,7 +111,7 @@ public class TaskList extends ArrayList<Task> {
                 .map(task -> counter.getAndIncrement() + ". " + task)
                 .collect(Collectors.joining("\n"));
 
-            Ui.printListTasksByKeyword(tasksList, keyword);
+            Ui.setStringListTasksByKeyword(tasksList, keyword);
         } catch (Exception e) {
             throw new HamyoException("Usage: listDate yyyy-MM-dd.");
         }

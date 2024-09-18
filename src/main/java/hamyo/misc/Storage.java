@@ -45,7 +45,7 @@ public class Storage {
             }
             this.file = tempFile;
         } catch (IOException e) {
-            Ui.printException(e);
+            Ui.setStringException(e);
         }
     }
 

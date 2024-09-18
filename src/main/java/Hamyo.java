@@ -1,5 +1,3 @@
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.util.Scanner;
 
 import hamyo.misc.HamyoException;
@@ -58,13 +56,13 @@ public class Hamyo {
                     this.isActive = Parser.parse(this.tasks, scanner.nextLine());
                     storage.saveData(this.tasks);
                 } catch (HamyoException e) {
-                    Ui.printException(e);
+                    Ui.setStringException(e);
                 }
             }
             ui.terminate();
             scanner.close();
         } catch (HamyoException e) {
-            Ui.printException(e);
+            Ui.setStringException(e);
         }
     }
 
@@ -79,7 +77,7 @@ public class Hamyo {
             String guiResponse = String.join("\n", Ui.getResponse().split("\n" + Ui.LINE));
             return guiResponse.substring(0, guiResponse.length() - 2);
         } catch (HamyoException e) {
-            Ui.printException(e);
+            Ui.setStringException(e);
         }
         return null;
     }

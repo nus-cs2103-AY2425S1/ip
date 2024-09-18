@@ -56,9 +56,10 @@ public class UiTest {
         HamyoException e = new HamyoException("Testing an exception.");
         setUpStreams();
 
-        Ui.printException(e);
+        Ui.setStringException(e);
+        System.out.println(Ui.getResponse());
         assertEquals(e.toString() + "\n__________________________________________"
-                + "__________________________________________________\n",
+                + "__________________________________________________\n\n",
             systemOutput.toString());
 
         restoreStreams();
