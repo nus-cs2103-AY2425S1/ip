@@ -2,18 +2,18 @@ package bro;
 
 public class Task {
     String name;
-    boolean done = false;
+    boolean isDone = false;
 
     public Task(String s) {
         name = s;
     }
 
     public void mark() {
-        this.done = true;
+        this.isDone = true;
     }
 
     public void unmark() {
-        this.done = false;
+        this.isDone = false;
     }
 
     public String toLoad() {
@@ -22,7 +22,7 @@ public class Task {
 
     @Override
     public String toString() {
-        if (done) {
+        if (isDone) {
             return "[X] " + name;
         } else {
             return "[ ] " + name;

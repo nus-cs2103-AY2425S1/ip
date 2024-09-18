@@ -2,7 +2,7 @@ import bro.*;
 
 
 public class Bro {
-    private static boolean Dupe = false;
+    private static boolean isDupe = false;
 
     /**
      * Processes a user command and returns a response based on the action specified.
@@ -54,7 +54,7 @@ public class Bro {
                         String todo = tasks.addTodo(info);
                         String dupeT = tasks.findDuplicate(sT);
                         if (!dupeT.isEmpty()) {
-                            Bro.Dupe = true;
+                            Bro.isDupe = true;
                             todo += dupeT;
                         }
                         storage.saveToFile();
@@ -64,7 +64,7 @@ public class Bro {
                         String deadline = tasks.addDeadline(info);
                         String dupeD = tasks.findDuplicate(sD);
                         if (!dupeD.isEmpty()) {
-                            Bro.Dupe = true;
+                            Bro.isDupe = true;
                             deadline += dupeD;
                         }
                         storage.saveToFile();
@@ -74,21 +74,21 @@ public class Bro {
                         String event = tasks.addEvent(info);
                         String dupeE = tasks.findDuplicate(sE);
                         if (!dupeE.isEmpty()) {
-                            Bro.Dupe = true;
+                            Bro.isDupe = true;
                             event += dupeE;
                         }
                         storage.saveToFile();
                         return event;
                     case "yes":
-                        if (Dupe) {
-                            Bro.Dupe = false;
+                        if (isDupe) {
+                            Bro.isDupe = false;
                             return "Ok, duplicate task not deleted";
                         }
                     case "no":
-                        if (Dupe) {
+                        if (isDupe) {
                             String del = tasks.deleteTask(tasks.size());
                             storage.saveToFile();
-                            Bro.Dupe = false;
+                            Bro.isDupe = false;
                             return del;
                         }
                     default:
