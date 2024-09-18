@@ -230,12 +230,17 @@ public class UI {
 
     public String handleWrongAnswerFormat() {
         return "I don't have an answer for your question! Make sure you input 'answer' followed by your question"
-                + "including the ?";
+                + " including the ?";
     }
 
     /**
      * Prints to console Goodbye message when user inputs bye
      */
+
+    public String handleOneWord() {
+        return "You can't just type one word!";
+    }
+
     public String handleGoodbye() {
         String exit = "|  _ \\ \\   / /  ____|"
                 + "\n| |_) \\ \\_/ /| |__"

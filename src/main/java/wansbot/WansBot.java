@@ -43,7 +43,9 @@ public class WansBot {
                 || userInput.strip().equalsIgnoreCase("event")
                 || userInput.strip().equalsIgnoreCase("mark")
                 || userInput.strip().equalsIgnoreCase("unmark")
-                || userInput.strip().equalsIgnoreCase("remove");
+                || userInput.strip().equalsIgnoreCase("remove")
+                || userInput.strip().equalsIgnoreCase("answer")
+                || userInput.strip().equalsIgnoreCase("question");
     }
 
     /**
@@ -84,7 +86,10 @@ public class WansBot {
      * checks the format of user input when asking WansBot to learn a question.
      */
     private static void checkFormatQuestion(String userInput) {
-        String[] splitUser = userInput.split("question ");
+        String[] splitUser = userInput.split("question");
+        if (splitUser.length < 2) {
+            throw new InputEmptyException(userInput, "/by");
+        }
         String[] splitAns = splitUser[1].split("\\?");
         if (splitAns.length < 2) {
             throw new InputEmptyException(userInput, "/by");
@@ -122,6 +127,8 @@ public class WansBot {
             return ui.handleMarkingFormat();
         } catch (NotANumMarkingException e) {
             return ui.handleInvalidNum();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return ui.handleOneWord();
         }
     }
 
@@ -139,16 +146,24 @@ public class WansBot {
             return ui.handleUnmarkingFormat();
         } catch (NotANumMarkingException e) {
             return ui.handleInvalidNum();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return ui.handleOneWord();
         }
     }
+
+    
 
     /**
      * Adds Todos to the userTaskList.
      */
     protected String addTodos(String userInput) {
-        Todos newTodo = new Todos(userInput.substring(6));
-        userTaskList.add(newTodo);
-        return ui.handleSuccessfulAdd(newTodo);
+        try {
+            Todos newTodo = new Todos(userInput.substring(6));
+            userTaskList.add(newTodo);
+            return ui.handleSuccessfulAdd(newTodo);
+        } catch (StringIndexOutOfBoundsException e) {
+            return ui.handleOneWord();
+        }
     }
 
     /**
@@ -164,6 +179,8 @@ public class WansBot {
             return ui.handleDeadlineFormat();
         } catch (DateTimeParseException e) {
             return ui.handleDateTimeException();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return ui.handleOneWord();
         }
     }
 
@@ -195,6 +212,8 @@ public class WansBot {
             return ui.handleDateTimeException();
         } catch (IllegalArgumentException e) {
             return ui.handleInvalidDates();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return ui.handleOneWord();
         }
     }
 
@@ -252,6 +271,8 @@ public class WansBot {
             return ui.handleFindTasks(filteredList, splitDate[1]);
         } catch (DateTimeParseException e) {
             return ui.handleDateTimeException();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return ui.handleOneWord();
         }
     }
 
@@ -281,14 +302,18 @@ public class WansBot {
      * Finds the current tasks in userTaskList that contain the keyword and prints to console in a list.
      */
     private String findTaskName(String userInput) { // "find [keyword]"
-        String[] splitName = userInput.split("findname ");
-        TaskList filteredList = new TaskList();
-        for (int i = 0; i < userTaskList.numOfTasks(); i++) {
-            if (userTaskList.getTask(i).hasName(splitName[1])) {
-                filteredList.add(userTaskList.getTask(i));
+        try {
+            String[] splitName = userInput.split("findname ");
+            TaskList filteredList = new TaskList();
+            for (int i = 0; i < userTaskList.numOfTasks(); i++) {
+                if (userTaskList.getTask(i).hasName(splitName[1])) {
+                    filteredList.add(userTaskList.getTask(i));
+                }
             }
+            return ui.handleFindKeyword(filteredList);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return ui.handleOneWord();
         }
-        return ui.handleFindKeyword(filteredList);
     }
 
     /**
@@ -304,8 +329,9 @@ public class WansBot {
             questionBank.addQuestion(new Question(splitAns[0] + "?", splitAns[1]));
         } catch (InputEmptyException e) {
             return ui.handleWrongQuestionFormat();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return ui.handleOneWord();
         }
-
         return ui.handleLearnQuestions();
     }
 

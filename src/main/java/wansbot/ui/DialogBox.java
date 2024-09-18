@@ -56,7 +56,8 @@ public class DialogBox extends HBox {
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
-        if (text.startsWith("I'm sorry") || text.startsWith("You need")) {
+        if (text.startsWith("I'm sorry") || text.startsWith("You need")
+        || text.startsWith("You can't")) {
             db.editDialog("-fx-border-color: red");
         }
 
