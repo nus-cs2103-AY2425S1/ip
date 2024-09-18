@@ -32,11 +32,17 @@ public class Storage {
      * @throws FileNotFoundException If the file cannot be found at that file path.
      */
     public void load(String filePath) throws FileNotFoundException {
+        assert filePath != null && !filePath.isEmpty() : "File path should not be null or empty";
+
         this.file = new File(filePath);
+        assert this.file.exists() : "File should exist at the specified path";
+
         Scanner scanner = new Scanner(this.file);
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             String[] parts = line.split(" \\| ");
+            assert parts.length >= 3 : "Line should have at least 3 parts after splitting";
+
             switch (parts[0]) {
             case "T":
                 this.loadTodo(parts[2], parts[1]);
@@ -47,6 +53,8 @@ public class Storage {
             case "E":
                 this.loadEvent(parts[2], parts[3], parts[4], parts[1]);
                 break;
+            default:
+                assert false : "Unknown task type in save file: " + parts[0];
             }
         }
         scanner.close();
@@ -83,15 +91,19 @@ public class Storage {
      * @throws IOException If an I/O error occurs when creating new directories or file.
      */
     public void getData() throws IOException {
+        assert pathName != null && !pathName.isEmpty() : "Path name should not be null or empty";
         try {
             load(pathName);
             //System.out.println("loaded file");
             //System.out.println("full path: " + file.getAbsolutePath());
         } catch (FileNotFoundException e) {
+            assert !Files.exists(saveFilePath) : "File should not exist before creation";
+
             Files.createDirectories(saveFilePath.getParent());
             Files.createFile(saveFilePath);
             this.file = new File(pathName);
             //System.out.println("created file");
+            assert this.file.exists() : "File should be created at the specified path";
         }
     }
 
@@ -101,6 +113,7 @@ public class Storage {
      * @throws IOException If an I/O error occurs when writing to the file.
      */
     public void saveData() throws IOException {
+        assert tasks != null : "Task list should not be null";
         try {
             FileWriter fw = new FileWriter(this.pathName);
             for (Task task : tasks) {
@@ -109,8 +122,7 @@ public class Storage {
             fw.close();
             //System.out.println("saved tasks");
         } catch (IOException e) {
-            System.out.println("An error occurred while saving tasks.");
-        }
+            assert false : "An error occurred while saving tasks.";        }
     }
 
     /**
