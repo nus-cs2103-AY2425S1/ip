@@ -32,14 +32,14 @@ public abstract class Task {
     }
 
     /**
-     * Mark the task as done.
+     * Marks the task as done.
      */
     protected void mark() {
         isDone = true;
     }
 
     /**
-     * Mark the task as undone.
+     * Marks the task as undone.
      */
     protected void unmark() {
         isDone = false;
@@ -60,7 +60,7 @@ public abstract class Task {
     }
 
     /**
-     * returns the data representation of the task, for storing in the data file.
+     * Returns the data representation of the task, for storing in the data file.
      *
      * @return Data representation of the task.
      */

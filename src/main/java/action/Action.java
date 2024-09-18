@@ -20,7 +20,7 @@ public abstract class Action {
     public abstract String execute(TaskList taskList) throws BotException;
 
     /**
-     * Returns if the action is an exit action.
+     * Returns true if the action is an exit action.
      *
      * @return False by default, true if the action is an exit action.
      */

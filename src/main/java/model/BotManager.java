@@ -42,7 +42,7 @@ public class BotManager {
      * Gets the response for BotManager for a given user input.
      *
      * @param input Input from the user.
-     * @return <code>Response</code> describing the status of the action.
+     * @return <code>Response</code> array describing the status of the action.
      */
     public Response[] getResponse(String input) {
         try {

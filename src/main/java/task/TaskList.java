@@ -12,7 +12,7 @@ public class TaskList {
     private final ArrayList<Task> tasks = new ArrayList<>();
 
     /**
-     * Add a <code>task</code> to the task list.
+     * Adds a <code>task</code> to the task list.
      * @param task Task to be added.
      */
     public void addTask(Task task) {
@@ -20,7 +20,7 @@ public class TaskList {
     }
 
     /**
-     * Mark a <code>task</code> in the task list as done.
+     * Marks a <code>task</code> in the task list as done.
      *
      * @param taskIndex Index of the task to be marked.
      * @return Task marked as done.
@@ -32,7 +32,7 @@ public class TaskList {
     }
 
     /**
-     * Mark a <code>task</code> in the task list as undone.
+     * Marks a <code>task</code> in the task list as undone.
      *
      * @param taskIndex Index of the task to be unmarked.
      * @return Task marked as undone.
@@ -44,7 +44,7 @@ public class TaskList {
     }
 
     /**
-     * Delete a <code>task</code> in the task list.
+     * Deletes a <code>task</code> in the task list.
      *
      * @param taskIndex Index of the task to be deleted.
      * @return Task deleted.
@@ -113,7 +113,7 @@ public class TaskList {
     }
 
     /**
-     * Returns a string all tasks in the the task list which match the given search string.
+     * Returns a string all tasks in the task list which match the given search string.
      *
      * @param  searchString Search string to compare.
      * @return String of all tasks matching the given search string.
@@ -139,7 +139,7 @@ public class TaskList {
     }
 
     /**
-     * Generate the schedule for the task list on a given date.
+     * Generates the schedule for the task list on a given date.
      * @param date Date to generate the schedule for.
      * @return List of tasks in the schedule.
      */
