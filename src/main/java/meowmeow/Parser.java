@@ -1,123 +1,171 @@
 package meowmeow;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
- * Represents a parser which deals with figuring out what to do based on the user command
+ * Represents a parser that processes the user commands and handles task management.
  */
 public class Parser {
     private TaskList tasks;
     private Storage saver;
-    private Ui ui;
-    //private String initInput;
 
-    public Parser(TaskList list, Storage saver, Ui ui) {
+    /**
+     * Initializes the Parser with the task list and storage.
+     *
+     * @param list  The task list to operate on.
+     * @param saver The storage handler to save data.
+     */
+    public Parser(TaskList list, Storage saver) {
         this.tasks = list;
         this.saver = saver;
-        this.ui = ui;
-        //this.initInput = initInput;
     }
 
     /**
-     * Parses user input and determines what to do based on it.
+     * Processes the input command and performs the appropriate action.
      *
+     * @param initInput The user's input command.
+     * @return The appropriate response based on the input.
      * @throws IOException If an I/O error occurs during saving.
      */
-    public String parse(String initInput) throws IOException, InterruptedException {
-        StringBuilder output = new StringBuilder();
+    public String parse(String initInput) throws IOException {
+        switch (getCommand(initInput)) {
+        case "list":
+            return handleList();
+        case "find":
+            return handleFind(initInput);
+        case "mark":
+            return handleMark(initInput);
+        case "unmark":
+            return handleUnmark(initInput);
+        case "todo":
+            return handleTodo(initInput);
+        case "deadline":
+            return handleDeadline(initInput);
+        case "event":
+            return handleEvent(initInput);
+        case "delete":
+            return handleDelete(initInput);
+        case "bye":
+            return Ui.getGoodbyeMessage();
+        default:
+            return Ui.getUnknownCommandMessage();
+        }
+    }
 
-        //while (!initInput.equals("bye")) {
-            if (initInput.equals("list")) {
-                // Build the task list output
-                for (int i = 0; i < tasks.size(); i++) {
-                    output.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
-                }
-            } else if (initInput.startsWith("find ")) {
-                String keyword = initInput.substring(5);
-                TaskList matchingTasks = new TaskList();
-                for (Task task : tasks) {
-                    if (task.getDescription().contains(keyword)) {
-                        matchingTasks.add(task);
-                    }
-                }
-                output.append("Here are the matching tasks in your list:\n");
-                for (int i = 0; i < matchingTasks.size(); i++) {
-                    output.append((i + 1)).append(". ").append(matchingTasks.get(i)).append("\n");
-                }
-            } else if (initInput.startsWith("mark ")) {
-                int taskNumber = Integer.parseInt(initInput.substring(5)) - 1;
-                if (taskNumber >= 0 && taskNumber < tasks.size()) {
-                    tasks.get(taskNumber).markDone();
-                    output.append("Nice! I've marked this task as done:\n");
-                    output.append("  ").append(tasks.get(taskNumber)).append("\n");
-                    saver.saveData();
-                } else {
-                    output.append("Invalid task number.\n");
-                }
-            } else if (initInput.startsWith("unmark ")) {
-                int taskNumber = Integer.parseInt(initInput.substring(7)) - 1;
-                if (taskNumber >= 0 && taskNumber < tasks.size()) {
-                    tasks.get(taskNumber).unMark();
-                    output.append("OK, I've marked this task as not done yet:\n");
-                    output.append("  ").append(tasks.get(taskNumber)).append("\n");
-                    saver.saveData();
-                } else {
-                    output.append("Invalid task number.\n");
-                }
-            } else if (initInput.startsWith("todo ")) {
-                String description = initInput.substring(5);
-                ToDo todo = new ToDo(description);
-                tasks.add(todo);
-                output.append("Got it. I've added this task:\n");
-                output.append("  ").append(todo).append("\n");
-                output.append("Now you have ").append(tasks.size()).append(" tasks in the list.\n");
-                saver.saveData();
-            } else if (initInput.startsWith("deadline ")) {
-                String[] parts = initInput.substring(9).split(" /by ");
-                if (parts.length <= 1) {
-                    output.append("Invalid deadline.\n");
-                } else {
-                    String description = parts[0];
-                    String by = parts[1];
-                    Deadline deadline = new Deadline(description, by);
-                    tasks.add(deadline);
-                    output.append("Got it. I've added this task:\n");
-                    output.append("  ").append(deadline).append("\n");
-                    output.append("Now you have ").append(tasks.size()).append(" tasks in the list.\n");
-                    saver.saveData();
-                }
-            } else if (initInput.startsWith("event ")) {
-                String[] parts = initInput.substring(6).split(" /from | /to ");
-                if (parts.length <= 1) {
-                    output.append("Invalid event.\n");
-                } else {
-                    String description = parts[0];
-                    String from = parts[1];
-                    String to = parts[2];
-                    Event event = new Event(description, from, to);
-                    tasks.add(event);
-                    output.append("Got it. I've added this task:\n");
-                    output.append("  ").append(event).append("\n");
-                    output.append("Now you have ").append(tasks.size()).append(" tasks in the list.\n");
-                    saver.saveData();
-                }
-            } else if (initInput.startsWith("delete ")) {
-                int taskNumber = Integer.parseInt(initInput.substring(7)) - 1;
-                if (taskNumber >= 0 && taskNumber < tasks.size()) {
-                    Task removedTask = tasks.remove(taskNumber);
-                    output.append("Noted. I've removed this task:\n");
-                    output.append("  ").append(removedTask).append("\n");
-                    output.append("Now you have ").append(tasks.size()).append(" tasks in the list.\n");
-                    saver.saveData();
-                } else {
-                    output.append("Invalid task number.\n");
-                }
-            } else if (initInput.startsWith("bye")) {
-                output.append("Bye. Hope to see you again soon!\n");
-            } else {
-                output.append("Sorry, I don't know what that means.\n");
+    /**
+     * Extracts the command type from the user's input.
+     *
+     * @param input The user's input.
+     * @return The command as a string.
+     */
+    private String getCommand(String input) {
+        return input.split(" ")[0];
+    }
+
+    private String handleList() {
+        return Ui.getTaskListMessage(tasks);
+    }
+
+    private String handleFind(String input) {
+        String keyword = input.substring(5);
+        TaskList matchingTasks = new TaskList();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
             }
-            //initInput = Ui.getNext();
-        return output.toString();
+        }
+        return Ui.getFindTasksMessage(matchingTasks);
+    }
+
+    private String handleMark(String input) throws IOException {
+        int taskNumber = Integer.parseInt(input.substring(5)) - 1;
+        if (taskNumber >= 0 && taskNumber < tasks.size()) {
+            tasks.get(taskNumber).markDone();
+            saver.saveData();
+            return Ui.getMarkTaskDoneMessage(tasks.get(taskNumber));
+        } else {
+            return Ui.getInvalidTaskNumberMessage();
+        }
+    }
+
+    private String handleUnmark(String input) throws IOException {
+        int taskNumber = Integer.parseInt(input.substring(7)) - 1;
+        if (taskNumber >= 0 && taskNumber < tasks.size()) {
+            tasks.get(taskNumber).unMark();
+            saver.saveData();
+            return Ui.getUnmarkTaskMessage(tasks.get(taskNumber));
+        } else {
+            return Ui.getInvalidTaskNumberMessage();
+        }
+    }
+
+    private String handleTodo(String input) throws IOException {
+        String description = input.substring(5);
+        ToDo todo = new ToDo(description);
+        tasks.add(todo);
+        saver.saveData();
+        return Ui.getAddTodoMessage(todo, tasks.size());
+    }
+
+    /**
+     * Validates if the date string matches the expected format (yyyy-MM-dd).
+     *
+     * @param date The date string to validate.
+     * @return True if the date format is valid, false otherwise.
+     */
+    private boolean isValidDate(String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try {
+            LocalDate.parse(date, formatter);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
+
+    private String handleDeadline(String input) throws IOException {
+        String[] parts = input.substring(9).split(" /by ");
+        boolean isWrongPartLength = parts.length <= 1;
+        if (isWrongPartLength || !(isValidDate(parts[1]))) {
+            return Ui.getInvalidDeadlineMessage();
+        } else {
+            String description = parts[0];
+            String by = parts[1];
+            Deadline deadline = new Deadline(description, by);
+            tasks.add(deadline);
+            saver.saveData();
+            return Ui.getAddDeadlineMessage(deadline, tasks.size());
+        }
+    }
+
+    private String handleEvent(String input) throws IOException {
+        String[] parts = input.substring(6).split(" /from | /to ");
+        boolean isWrongPartsLength = parts.length <= 1;
+        if (isWrongPartsLength || !(isValidDate(parts[1])) || !(isValidDate(parts[2]))) {
+            return Ui.getInvalidEventMessage();
+        } else {
+            String description = parts[0];
+            String from = parts[1];
+            String to = parts[2];
+            Event event = new Event(description, from, to);
+            tasks.add(event);
+            saver.saveData();
+            return Ui.getAddEventMessage(event, tasks.size());
+        }
+    }
+
+    private String handleDelete(String input) throws IOException {
+        int taskNumber = Integer.parseInt(input.substring(7)) - 1;
+        if (taskNumber >= 0 && taskNumber < tasks.size()) {
+            Task removedTask = tasks.remove(taskNumber);
+            saver.saveData();
+            return Ui.getDeleteTaskMessage(removedTask, tasks.size());
+        } else {
+            return Ui.getInvalidTaskNumberMessage();
+        }
     }
 }
+
