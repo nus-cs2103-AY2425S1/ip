@@ -9,6 +9,8 @@ import java.time.format.DateTimeParseException;
 
 import org.junit.jupiter.api.Test;
 
+import gopher.exception.MissingTaskNumberException;
+
 public class ParserTest {
     @Test
     public void parseDateString_validDate_parseSuccess() {
@@ -68,36 +70,42 @@ public class ParserTest {
     }
 
     @Test
-    public void parseMarkCommand_singleTaskNumber_parseSuccess() {
+    public void parseMarkCommand_singleTaskNumber_parseSuccess()
+            throws MissingTaskNumberException {
         assertArrayEquals(new int[]{2},
                 Parser.parseMarkCommand("mark 2"));
     }
 
     @Test
-    public void parseMarkCommand_multipleTaskNumbers_parseSuccess() {
+    public void parseMarkCommand_multipleTaskNumbers_parseSuccess()
+            throws MissingTaskNumberException {
         assertArrayEquals(new int[]{1, 2, 3},
                 Parser.parseMarkCommand("mark 1 2 3"));
     }
 
     @Test
-    public void parseUnmarkCommand_singleTaskNumber_parseSuccess() {
+    public void parseUnmarkCommand_singleTaskNumber_parseSuccess()
+            throws MissingTaskNumberException {
         assertArrayEquals(new int[]{2},
                 Parser.parseUnmarkCommand("unmark 2"));
     }
 
     @Test
-    public void parseUnmarkCommand_multipleTaskNumbers_parseSuccess() {
+    public void parseUnmarkCommand_multipleTaskNumbers_parseSuccess()
+            throws MissingTaskNumberException {
         assertArrayEquals(new int[]{1, 2, 3},
                 Parser.parseUnmarkCommand("unmark 1 2 3"));
     }
 
     @Test
-    public void parseDeleteCommand_singleTaskNumbers_parseSuccess() {
+    public void parseDeleteCommand_singleTaskNumbers_parseSuccess()
+            throws MissingTaskNumberException {
         assertArrayEquals(new int[]{1}, Parser.parseDeleteCommand("delete 1"));
     }
 
     @Test
-    public void parseDeleteCommand_multipleTaskNumber_parseSuccess() {
+    public void parseDeleteCommand_multipleTaskNumber_parseSuccess()
+            throws MissingTaskNumberException {
         assertArrayEquals(new int[]{1, 2, 3}, Parser.parseDeleteCommand("delete 1 2 3"));
     }
 }

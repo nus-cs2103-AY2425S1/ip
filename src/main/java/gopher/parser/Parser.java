@@ -7,13 +7,16 @@ import java.util.ArrayList;
 
 import gopher.exception.EmptyTaskDescriptionException;
 import gopher.exception.FileCorruptedException;
+import gopher.exception.InvalidDurationException;
 import gopher.exception.InvalidTokenException;
+import gopher.exception.MissingTaskNumberException;
 import gopher.exception.MissingTokenException;
 import gopher.exception.UnknownCommandException;
 import gopher.task.Deadline;
 import gopher.task.Event;
 import gopher.task.Task;
 import gopher.task.ToDo;
+
 
 /**
  * Groups the logic and functions for parsing input, command and data from
@@ -82,15 +85,29 @@ public class Parser {
     }
 
     /**
+     * Check for whether at least one task number is supplied in the given command.
+     */
+    public static void hasTaskNumber(int[] taskNumbers)
+            throws MissingTaskNumberException {
+        if (taskNumbers.length == 0) {
+            throw new MissingTaskNumberException();
+        }
+    }
+
+    /**
      * Parses a todo task creation command.
      *
      * @param tokens tokens within the given command
      * @return ToDo task with the correct detail
      */
-    public static Task parseCreateToDoCommand(String[] tokens) {
+    public static Task parseCreateToDoCommand(String[] tokens)
+            throws InvalidTokenException {
         // Form task name based on the given tokens
         StringBuilder taskName = new StringBuilder();
         for (int i = 1; i < tokens.length; i++) {
+            if (tokens[i].startsWith("/")) {
+                throw new InvalidTokenException("todo", tokens[i]);
+            }
             taskName.append(tokens[i]);
             if (i < tokens.length - 1) {
                 taskName.append(" ");
@@ -106,7 +123,7 @@ public class Parser {
      * @return Deadline task with the correct detail
      */
     public static Task parseCreateDeadlineCommand(String[] tokens)
-            throws MissingTokenException {
+            throws MissingTokenException, InvalidTokenException {
         // Index to keep track of the exact position of the command tokens
         int byTokenIndex = -1;
 
@@ -114,6 +131,8 @@ public class Parser {
         for (int i = 1; i < tokens.length; i++) {
             if (tokens[i].equalsIgnoreCase("/by")) {
                 byTokenIndex = i;
+            } else if (tokens[i].startsWith("/")) {
+                throw new InvalidTokenException("deadline", tokens[i]);
             }
         }
         if (byTokenIndex == -1) {
@@ -148,7 +167,8 @@ public class Parser {
      * @return Event task with the correct detail
      */
     public static Task parseCreateEventCommand(String[] tokens)
-            throws MissingTokenException {
+            throws MissingTokenException, InvalidTokenException,
+            InvalidDurationException {
         // Indexes to track the position of command tokens
         int fromTokenIndex = -1;
         int toTokenIndex = -1;
@@ -157,9 +177,10 @@ public class Parser {
         for (int i = 1; i < tokens.length; i++) {
             if (tokens[i].equalsIgnoreCase("/from")) {
                 fromTokenIndex = i;
-            }
-            if (tokens[i].equalsIgnoreCase("/to")) {
+            } else if (tokens[i].equalsIgnoreCase("/to")) {
                 toTokenIndex = i;
+            } else if (tokens[i].startsWith("/")) {
+                throw new InvalidTokenException("event", tokens[i]);
             }
         }
         if (fromTokenIndex == -1) {
@@ -195,6 +216,13 @@ public class Parser {
                 endDate.append(" ");
             }
         }
+
+        LocalDateTime start = parseDateString(startDate.toString());
+        LocalDateTime end = parseDateString(endDate.toString());
+        if (end.isBefore(start)) {
+            throw new InvalidDurationException();
+        }
+
         return new Event(taskName.toString(),
                 startDate.toString(),
                 endDate.toString());
@@ -208,7 +236,8 @@ public class Parser {
      */
     public static Task parseCreateTaskCommand(String command)
             throws UnknownCommandException, DateTimeParseException,
-            EmptyTaskDescriptionException, MissingTokenException {
+            EmptyTaskDescriptionException, MissingTokenException,
+            InvalidTokenException, InvalidDurationException {
         String[] tokens = command.split(" ");
 
         String taskType = tokens[0];
@@ -237,9 +266,10 @@ public class Parser {
      * @param tokens tokens within the given update command
      * @return new name to be updated
      */
-    public static String parseUpdateTodoTaskCommand(String[] tokens)
+    public static String[] parseUpdateTodoTaskCommand(String[] tokens)
             throws InvalidTokenException {
         StringBuilder taskName = new StringBuilder();
+        String[] result = new String[1];
         for (int i = 2; i < tokens.length; i++) {
             // If other tasks tokens are used, remind user that
             // he/she may be updating the undesired task
@@ -253,8 +283,8 @@ public class Parser {
                 taskName.append(" ");
             }
         }
-
-        return taskName.toString();
+        result[0] = taskName.toString();
+        return result;
     }
 
     /**
@@ -387,7 +417,7 @@ public class Parser {
      * @throws FileCorruptedException if file read failed
      */
     public static ArrayList<Task> parseSavedTaskData(String taskData)
-            throws FileCorruptedException {
+            throws FileCorruptedException, InvalidTokenException {
         ArrayList<Task> tasks = new ArrayList<>();
         String[] taskRows = taskData.split("\n");
         String[] tokens;
@@ -425,8 +455,9 @@ public class Parser {
                 tasks.add(newTask);
             } catch (UnknownCommandException
                      | EmptyTaskDescriptionException
-                     | MissingTokenException e) {
-                throw new FileCorruptedException("Task File is corrupted...");
+                     | MissingTokenException
+                     | InvalidDurationException e) {
+                throw new FileCorruptedException();
             }
         }
         return tasks;
@@ -438,13 +469,19 @@ public class Parser {
     * @param command mark task command
     * @return task number of the task marked as done
     */
-    public static int[] parseMarkCommand(String command) {
-        String[] tokens = command.split(" ");
-        int[] taskNumbers = new int[tokens.length - 1];
-        for (int i = 1; i < tokens.length; i++) {
-            taskNumbers[i - 1] = Integer.parseInt(tokens[i]);
+    public static int[] parseMarkCommand(String command)
+            throws MissingTaskNumberException {
+        try {
+            String[] tokens = command.split(" ");
+            int[] taskNumbers = new int[tokens.length - 1];
+            for (int i = 1; i < tokens.length; i++) {
+                taskNumbers[i - 1] = Integer.parseInt(tokens[i]);
+            }
+            hasTaskNumber(taskNumbers);
+            return taskNumbers;
+        } catch (NumberFormatException e) {
+            throw new MissingTaskNumberException();
         }
-        return taskNumbers;
     }
 
     /**
@@ -453,13 +490,19 @@ public class Parser {
      * @param command unmark task command
      * @return task number of the task marked as not done
      */
-    public static int[] parseUnmarkCommand(String command) {
-        String[] tokens = command.split(" ");
-        int[] taskNumbers = new int[tokens.length - 1];
-        for (int i = 1; i < tokens.length; i++) {
-            taskNumbers[i - 1] = Integer.parseInt(tokens[i]);
+    public static int[] parseUnmarkCommand(String command)
+            throws MissingTaskNumberException {
+        try {
+            String[] tokens = command.split(" ");
+            int[] taskNumbers = new int[tokens.length - 1];
+            for (int i = 1; i < tokens.length; i++) {
+                taskNumbers[i - 1] = Integer.parseInt(tokens[i]);
+            }
+            hasTaskNumber(taskNumbers);
+            return taskNumbers;
+        } catch (NumberFormatException e) {
+            throw new MissingTaskNumberException();
         }
-        return taskNumbers;
     }
 
     /**
@@ -468,13 +511,19 @@ public class Parser {
      * @param command delete task command
      * @return task number of the task to be deleted
      */
-    public static int[] parseDeleteCommand(String command) {
-        String[] tokens = command.split(" ");
-        int[] taskNumbers = new int[tokens.length - 1];
-        for (int i = 1; i < tokens.length; i++) {
-            taskNumbers[i - 1] = Integer.parseInt(tokens[i]);
+    public static int[] parseDeleteCommand(String command)
+            throws MissingTaskNumberException {
+        try {
+            String[] tokens = command.split(" ");
+            int[] taskNumbers = new int[tokens.length - 1];
+            for (int i = 1; i < tokens.length; i++) {
+                taskNumbers[i - 1] = Integer.parseInt(tokens[i]);
+            }
+            hasTaskNumber(taskNumbers);
+            return taskNumbers;
+        } catch (NumberFormatException e) {
+            throw new MissingTaskNumberException();
         }
-        return taskNumbers;
     }
 
     /**

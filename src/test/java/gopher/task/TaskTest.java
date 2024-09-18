@@ -5,16 +5,30 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import gopher.exception.EmptyTaskDescriptionException;
+import gopher.exception.InvalidDurationException;
+import gopher.exception.InvalidTokenException;
 import gopher.exception.MissingTokenException;
 import gopher.exception.UnknownCommandException;
 
 public class TaskTest {
+    /**
+     * A simple create task method that handles the exceptions for tester.
+     * This method assumes that the task creation command for test cases are valid
+     * and would not result in any exception, hence allowing tester to focus on
+     * testing the desired logic without wasting time on handling exception.
+     * In case an exception is thrown, the test case would still fail because the
+     * return value is null.
+     *
+     * @param command command to be tested
+     * @return task created by the command
+     */
     private Task createTask(String command) {
         try {
             return Task.of(command);
         } catch (UnknownCommandException
             | EmptyTaskDescriptionException
-            | MissingTokenException e) {
+            | MissingTokenException | InvalidTokenException
+                | InvalidDurationException e) {
             return null;
         }
     }

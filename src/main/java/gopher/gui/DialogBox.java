@@ -2,8 +2,9 @@ package gopher.gui;
 
 import java.io.IOException;
 import java.util.Collections;
-import java.util.regex.Pattern;
 
+import gopher.message.Message;
+import gopher.message.MessageType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -54,21 +55,26 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Render the background of the gopher dialog box based whether the message
+     * Renders the background of the gopher dialog box based whether the message
      * is a normal conversation or a warning
      *
-     * @param text text within the gopher's dialog box
+     * @param message text within the gopher's dialog box
      */
-    private void renderBackground(String text) {
-        Pattern warningPattern = Pattern.compile("Please try again",
-                Pattern.CASE_INSENSITIVE);
-        if (warningPattern.matcher(text).find()) {
+    private void renderBackground(Message message) {
+        if (message.getType() == MessageType.ERROR) {
             dialog.getStyleClass().add("warning-color");
-        } else {
-            dialog.getStyleClass().add("reply-color");
+            return;
         }
+        dialog.getStyleClass().add("reply-color");
     }
 
+    /**
+     * Creates a User Dialog Box to represent user's input to Gopher
+     *
+     * @param text input from the user
+     * @param img profile image for the user
+     * @return DialogBox Object that represents user's input
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         Circle clip = new Circle(32, 32, 32);
@@ -76,8 +82,15 @@ public class DialogBox extends HBox {
         return db;
     }
 
-    public static DialogBox getGopherDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+    /**
+     * Creates a Gopher Dialog Box to represent Gopher's response to user
+     *
+     * @param text response by Gopher
+     * @param img profile image for Gopher
+     * @return DialogBox Object that represents Gopher's response
+     */
+    public static DialogBox getGopherDialog(Message text, Image img) {
+        var db = new DialogBox(text.toString(), img);
         db.flip();
         db.renderBackground(text);
         return db;

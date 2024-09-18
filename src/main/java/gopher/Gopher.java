@@ -5,9 +5,14 @@ import java.nio.file.Paths;
 import java.time.format.DateTimeParseException;
 
 import gopher.exception.EmptyTaskDescriptionException;
+import gopher.exception.FileCorruptedException;
+import gopher.exception.InvalidDurationException;
+import gopher.exception.InvalidTaskNumberException;
 import gopher.exception.InvalidTokenException;
+import gopher.exception.MissingTaskNumberException;
 import gopher.exception.MissingTokenException;
 import gopher.exception.UnknownCommandException;
+import gopher.message.Message;
 import gopher.parser.Parser;
 import gopher.storage.TaskManager;
 import gopher.task.Task;
@@ -33,15 +38,31 @@ public class Gopher {
         assert Files.exists(Paths.get("./task/task.txt"))
                 : "Task save file should exist after successful initialization";
 
-        taskList = new TaskList(TaskManager.loadTasks());
+        taskList = new TaskList();
+    }
+
+    /**
+     * Executes load tasks action at the start of the program and
+     * determine the welcome message that user should see based on
+     * the load tasks result.
+     *
+     * @return Message that shows the result of loading tasks
+     */
+    public static Message executeLoadTasks() {
+        try {
+            taskList.load();
+            return UI.getGreetMessage();
+        } catch (FileCorruptedException e) {
+            return UI.getErrorMessage(e);
+        }
     }
 
     /**
      * Executes the relevant actions when user input exit program command
      *
-     * @return response by gopher after successful action
+     * @return Message object indicating response by gopher after successful action
      */
-    public static String executeExitCommand() {
+    public static Message executeExitCommand() {
         Platform.exit();
         return UI.getExitMessage();
     }
@@ -49,9 +70,9 @@ public class Gopher {
     /**
      * Executes the relevant actions when user input list tasks command
      *
-     * @return response by gopher after successful action
+     * @return Message object indicating response by gopher after successful action
      */
-    public static String executeListTasksCommand() {
+    public static Message executeListTasksCommand() {
         return UI.getTaskListMessage(taskList);
     }
 
@@ -59,57 +80,64 @@ public class Gopher {
      * Executes the relevant actions when user input mark task as done command.
      *
      * @param userInput command input by the user
-     * @return response by gopher after successful action
+     * @return Message object indicating response by gopher after successful action
      */
-    public static String executeMarkTaskCommand(String userInput) {
-        int[] taskNumbers = Parser.parseMarkCommand(userInput);
-        taskList.markAsDone(taskNumbers);
-        StringBuilder message = new StringBuilder();
-        for (int taskNumber : taskNumbers) {
-            message.append(UI.getMarkAsDoneMessage(taskList.getTask(taskNumber)));
+    public static Message executeMarkTaskCommand(String userInput) {
+        try {
+            int[] taskNumbers = Parser.parseMarkCommand(userInput);
+            taskList.markAsDone(taskNumbers);
+            return UI.getMarkAsDoneMessage(taskList, taskNumbers);
+        } catch (MissingTaskNumberException | InvalidTaskNumberException e) {
+            return UI.getErrorMessage(e);
+        } finally {
+            taskList.save();
         }
-        return message.toString();
     }
 
     /**
      * Executes the relevant actions when user input mark task as not done command.
      *
      * @param userInput command input by the user
-     * @return response by gopher after successful action
+     * @return Message object indicating response by gopher after successful action
      */
-    public static String executeUnmarkTaskCommand(String userInput) {
-        int[] taskNumbers = Parser.parseUnmarkCommand(userInput);
-        taskList.markAsUndone(taskNumbers);
-        StringBuilder message = new StringBuilder();
-        for (int taskNumber : taskNumbers) {
-            message.append(UI.getMarkAsUndoneMessage(taskList.getTask(taskNumber)));
+    public static Message executeUnmarkTaskCommand(String userInput) {
+        try {
+            int[] taskNumbers = Parser.parseUnmarkCommand(userInput);
+            taskList.markAsUndone(taskNumbers);
+            return UI.getMarkAsUndoneMessage(taskList, taskNumbers);
+        } catch (MissingTaskNumberException | InvalidTaskNumberException e) {
+            return UI.getErrorMessage(e);
+        } finally {
+            taskList.save();
         }
-        return message.toString();
     }
 
     /**
      * Executes the relevant actions when user input delete task command.
      *
      * @param userInput command input by the user
-     * @return response by gopher after successful action
+     * @return Message object indicating response by gopher after successful action
      */
-    public static String executeDeleteTaskCommand(String userInput) {
-        int[] taskNumbers = Parser.parseDeleteCommand(userInput);
-        StringBuilder message = new StringBuilder();
-        for (int taskNumber : taskNumbers) {
-            message.append(UI.getDeleteTaskMessage(taskList.getTask(taskNumber)));
+    public static Message executeDeleteTaskCommand(String userInput) {
+        try {
+            int[] taskNumbers = Parser.parseDeleteCommand(userInput);
+            Message message = UI.getDeleteTaskMessage(taskList, taskNumbers);
+            taskList.delete(taskNumbers);
+            return message;
+        } catch (MissingTaskNumberException | InvalidTaskNumberException e) {
+            return UI.getErrorMessage(e);
+        } finally {
+            taskList.save();
         }
-        taskList.delete(taskNumbers);
-        return message.toString();
     }
 
     /**
      * Executes the relevant actions when user input find task command.
      *
      * @param userInput command input by the user
-     * @return response by gopher after successful action
+     * @return Message object indicating response by gopher after successful action
      */
-    public static String executeFindTaskCommand(String userInput) {
+    public static Message executeFindTaskCommand(String userInput) {
         String keyword = Parser.parseFindCommand(userInput);
         TaskList matchedTasks = taskList.find(keyword);
         return UI.getMatchedTasksMessage(matchedTasks);
@@ -119,9 +147,9 @@ public class Gopher {
      * Executes the relevant actions when user input create task command.
      *
      * @param userInput command input by the user
-     * @return response by gopher after successful action
+     * @return Message object indicating response by gopher after successful action
      */
-    public static String executeCreateTaskCommand(String userInput)
+    public static Message executeCreateTaskCommand(String userInput)
             throws UnknownCommandException {
         try {
             Task task = Task.of(userInput);
@@ -129,8 +157,9 @@ public class Gopher {
             return UI.getAddTaskMessage(task);
         } catch (DateTimeParseException e) {
             return UI.getInvalidDateWarning();
-        } catch (EmptyTaskDescriptionException | MissingTokenException e) {
-            return e.getMessage();
+        } catch (EmptyTaskDescriptionException | MissingTokenException
+                 | InvalidTokenException | InvalidDurationException e) {
+            return UI.getErrorMessage(e);
         }
     }
 
@@ -138,27 +167,24 @@ public class Gopher {
      * Executes the relevant actions when user input update task command.
      *
      * @param userInput command input by the user
-     * @return response by gopher after successful action
+     * @return Message object indicating response by gopher after successful action
      */
-    public static String executeUpdateTaskCommand(String userInput) {
+    public static Message executeUpdateTaskCommand(String userInput) {
         try {
             String[] tokens = userInput.split(" ");
-            if (tokens.length < 2) {
-                return "I don't know how you want the task to be updated\nPlease try again...";
-            }
-            taskList.update(tokens);
-            return "Hi I have updated this task for you already!";
+            return taskList.update(tokens);
         } catch (DateTimeParseException e) {
             return UI.getInvalidDateWarning();
-        } catch (InvalidTokenException e) {
-            return e.getMessage();
+        } catch (InvalidTokenException | MissingTaskNumberException
+                 | InvalidTaskNumberException | InvalidDurationException e) {
+            return UI.getErrorMessage(e);
         }
     }
 
     /**
      * Start the main event loop.
      */
-    public static String getResponse(String userInput)
+    public static Message getResponse(String userInput)
             throws UnknownCommandException {
         if (userInput.equalsIgnoreCase("bye")) {
             return executeExitCommand();
