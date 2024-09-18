@@ -6,9 +6,6 @@
 Getting the inspiration from our talented fairy, **_Tecna_** chatbot promises to simplify and streamline task management in your everyday life. Whether you're juggling work assignments, personal errands, or project deadlines, Tecna offers an intuitive and user-friendly interface to help you stay organized and productive.
 
 
-<h2 style="color: #9370db ">Quick Start</h2> 
-- There is already some tasks stored inside the application
-
 <h2 style="color: #9370db">Features</h2>
 > 
 > ### Things to note
@@ -18,6 +15,7 @@ Getting the inspiration from our talented fairy, **_Tecna_** chatbot promises to
 > - **event** Task: The task with starting time and ending time.
 > 2. Date and time format
 > Deadlines, starting times and ending times must be all entered under the format of `yyyy-MM-dd HHmm`
+> 3. Items inside the **square brackets []** (e.g., [task name], [deadline of task in yyyy-MM-dd HHmm]) are the information required user input.
 
 ## Adding a task
 Adds a new task to the list of tasks.
@@ -41,8 +39,8 @@ Command format: `list`
 ## Searching
 Searches any tasks that contain the specified keyword in the task name.
 Command format: `find [keyword]`
-> [!NOTE]
-> Only the first word is considered as keyword. The subsequent ones will be ignored.
+> **_NOTE: _**
+> A valid keyword contains only **1 word**.
 
 Example: both `find magic` and `find magic training` return the same list
 
@@ -63,7 +61,7 @@ Deletes a task by the index number in the application task list.
 Command format: `delete [index number]`
 
 Example: `delete 1` will delete the first task in the list and shift the subsequent tasks up.
-> [!TIP]
+> **_TIP: _**
 > You should use the `list` command to see the index of the task you want to delete.
 
 ## Exit Tecna
@@ -88,3 +86,7 @@ Your input data will be automatically saved in the program's disk.
 | __Unmark__                | `unmark [index number]`<br/>e.g., `unmark 2`                                                                                                                    |
 | __Delete__                | `delete [index number]`<br/>e.g., `delete 2`                                                                                                                    |
 | __Bye__                   | `bye`                                                                                                                                                           |
+
+<h2 style="color: #9370db ">Sources</h2>
+1. Tecna's Avatar: [Avatar Abyss](https://avatars.alphacoders.com/avatars/view/318384)
+2. User's Avatar: Adapted from [SE-EDU JavaFX Tutorial](https://se-education.org/guides/tutorials/javaFx.html) 
