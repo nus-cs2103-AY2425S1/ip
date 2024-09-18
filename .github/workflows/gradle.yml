@@ -6,29 +6,50 @@ jobs:
   build:
     strategy:
       matrix:
-        platform: [ubuntu-latest, macos-latest, windows-latest]
+        platform: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.platform }}
 
     steps:
       - name: Set up repository
-        uses: actions/checkout@master
+        uses: actions/checkout@v3
 
-      - name: Set up repository
-        uses: actions/checkout@master
+      - name: Setup JDK 17
+        uses: actions/setup-java@v2
         with:
-          ref: master
+          java-version: '17'
+          distribution: 'adoptopenjdk'
 
-      - name: Merge to master
-        run: git checkout --progress --force ${{ github.sha }}
+      - name: Install JavaFX SDK
+        if: runner.os == 'Linux'
+        run: |
+          wget https://gluonhq.com/download/javafx-17.0.7-sdk-linux/ -O javafx-sdk.zip
+          unzip javafx-sdk.zip -d $HOME/javafx
+
+      - name: Install JavaFX SDK
+        if: runner.os == 'macOS'
+        run: |
+          curl -L https://gluonhq.com/download/javafx-17.0.7-sdk-macos/ -o javafx-sdk.zip
+          unzip javafx-sdk.zip -d $HOME/javafx
+
+      - name: Set Gradle Wrapper Permissions
+        run: chmod +x ./gradlew
 
       - name: Validate Gradle Wrapper
         uses: gradle/wrapper-validation-action@v1
 
-      - name: Setup JDK 17
-        uses: actions/setup-java@v1
-        with:
-          java-version: '17'
-          java-package: jdk+fx
-
       - name: Build and check with Gradle
-        run: ./gradlew check
+        run: ./gradlew build check
+        env:
+          PATH: $HOME/javafx/lib:$PATH  # Update path to include JavaFX lib
+
+      - name: Run Application (Linux)
+        if: runner.os == 'Linux'
+        run: ./gradlew run
+        env:
+          PATH: $HOME/javafx/lib:$PATH
+
+      - name: Run Application (macOS)
+        if: runner.os == 'macOS'
+        run: ./gradlew run
+        env:
+          PATH: $HOME/javafx/lib:$PATH
