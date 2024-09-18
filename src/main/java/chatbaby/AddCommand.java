@@ -62,7 +62,7 @@ public class AddCommand extends Command {
      * @throws ChatBabyException If the description is empty.
      */
     private ToDo createToDo() throws ChatBabyException {
-        if (checkEmptyDescription(commandBody)) {
+        if (commandBody.length() <= prefixLength) {
             throw new ChatBabyException("Oh no!!! The description of this "
                     + type.name().toLowerCase() + " cannot be empty.");
         }
@@ -76,7 +76,7 @@ public class AddCommand extends Command {
      * @throws ChatBabyException If the description or date format is invalid.
      */
     private Deadline createDeadline() throws ChatBabyException {
-        if (checkEmptyDescription(commandBody)) {
+        if (commandBody.length() <= prefixLength) {
             throw new ChatBabyException("Oh no!!! The description of this "
                     + type.name().toLowerCase() + " cannot be empty.");
         }
@@ -101,7 +101,7 @@ public class AddCommand extends Command {
      * @throws ChatBabyException If the description or time format is invalid.
      */
     private Event createEvent() throws ChatBabyException {
-        if (checkEmptyDescription(commandBody)) {
+        if (commandBody.length() <= prefixLength) {
             throw new ChatBabyException("Oh no!!! The description of this "
                     + type.name().toLowerCase() + " cannot be empty.");
         }
@@ -123,10 +123,5 @@ public class AddCommand extends Command {
         } catch (DateTimeParseException e) {
             throw new ChatBabyException("Invalid date format. Please use yyyy-MM-dd HH:mm.");
         }
-    }
-
-    private boolean checkEmptyDescription(String commandBody) {
-        String description = commandBody.substring(prefixLength).trim();
-        return description.length() <= prefixLength;
     }
 }
