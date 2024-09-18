@@ -36,6 +36,7 @@ public class Task {
     public boolean hasWord(String word) {
         return description.contains(word);
     }
+
     /**
      * Returns the status icon of the task.
      *
