@@ -1,6 +1,6 @@
 # Optimus User Guide
 
-![Optimus User Interface](/docs/Ui.png)
+![Optimus UI](Ui.png)
 
 ## Introduction
 
