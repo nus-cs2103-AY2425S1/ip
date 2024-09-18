@@ -54,7 +54,7 @@ public class Ui {
      * @return A random farewell message.
      */
     public static String goodbye() {
-        return "/ᐠ˵- ⩊ -˵マ" + exits[(int) (Math.random() * exits.length)];
+        return "/ᐠ ˵- ⩊ -˵マ" + exits[(int) (Math.random() * exits.length)];
 
     }
 
@@ -95,7 +95,7 @@ public class Ui {
      * @return A formatted message indicating the task has been marked.
      */
     public String showMarkTaskMessage(Task markedTask) {
-        return "/ᐠ ^ ˕ <マ ₊˚⊹♡ Good job! I've marked this task as done:\n\n" + markedTask;
+        return "/ᐠ > ˕ <マ ₊˚⊹♡ Good job! I've marked this task as done:\n\n" + markedTask;
     }
 
     /**
