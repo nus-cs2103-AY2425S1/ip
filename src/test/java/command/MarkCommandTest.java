@@ -1,5 +1,7 @@
 package command;
 
+import java.io.File;
+
 import org.junit.jupiter.api.Test;
 import task.Task;
 import task.TaskList;
@@ -18,6 +20,10 @@ public class MarkCommandTest {
         markCommand.execute();
 
         assertEquals(taskList.get(0).isDone(), true);
+        File file = new File("data/d_plus_plus_e.txt");
+        if (file.exists()) {
+            file.delete();
+        }
     }
 
     @Test
@@ -32,6 +38,10 @@ public class MarkCommandTest {
             return;
         }
 
+        File file = new File("data/d_plus_plus_e.txt");
+        if (file.exists()) {
+            file.delete();
+        }
         System.err.println("Failed to throw exception when given invalid index");
         fail();
     }

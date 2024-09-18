@@ -28,7 +28,7 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
 }
 
-mainClassName = 'seedu.duke.Launcher'
+mainClassName = 'Launcher'
 
 test {
     useJUnitPlatform()
@@ -45,7 +45,7 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Launcher")
+    mainClass.set("Launcher")
 }
 
 shadowJar {
