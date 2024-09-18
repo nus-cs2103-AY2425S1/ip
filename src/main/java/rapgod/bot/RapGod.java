@@ -11,7 +11,6 @@ import java.util.Scanner;
 public class RapGod {
     DataManager dataManager = new DataManager("data/rapgod.txt");
     public static void main(String[] args) {
-        System.out.println("Hello!");
     }
     public static final ArrayList<String> RUDE_WORDS = new ArrayList<>(Arrays.asList(
             "damn", "hell", "shit", "fuck",

@@ -85,7 +85,6 @@ public class Parser {
         String info = taskString; // The description starts after the brackets
 
         int descStartIndex = (info.contains("[ ]") ? info.indexOf("[ ]") : info.indexOf("[X]")) + 4;
-        System.out.println("DESC INDEX:" + descStartIndex);
 
         if (taskString.contains("[D]")) {
             String deadlineDesc = info.substring(descStartIndex, info.toLowerCase().indexOf(" (by:"));
@@ -96,7 +95,6 @@ public class Parser {
 
         } else if (taskString.contains("[E]")) {
             String eventDesc = info.substring(descStartIndex, info.toLowerCase().indexOf(" (from:"));
-            System.out.println("EvENT DESC:" + eventDesc);
             String from = info.substring(info.toLowerCase().indexOf(" (from:") + 8, info.toLowerCase().indexOf(" to:"));
             String to = info.substring(info.toLowerCase().indexOf("to:") + 4, info.length() - 1);
             Event event = new Event(eventDesc, from, to);
