@@ -21,7 +21,8 @@ import tasks.Todos;
 
 public class History {
     private static final String WINDE_FILE = "./src/main/java/windebot/WindeTasks.txt";
-    private static final String WINDE_ALTERNATE_FILE = "/Users/winston/Desktop/Code/CS2103/ip/src/main/java/windebot/Winde.java";
+    private static final String WINDE_ALTERNATE_FILE =
+            "/Users/winston/Desktop/Code/CS2103/ip/src/main/java/windebot/Winde.java";
     private static final String WINDE_ANOTHER_FILE = "../src/main/java/windebot/Winde.java";
 
     private static String filePath;
