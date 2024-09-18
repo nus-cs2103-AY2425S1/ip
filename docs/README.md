@@ -1,22 +1,13 @@
 # Weeny User Guide
 
-// Update the title above to match the actual product name
-
-// Product screenshot goes here
 [Product screenshot](/Ui.png)
-
-// Product intro goes here
 
 ## Adding todos
 
-// Describe the action and its outcome.
 Add general task to your task list.
-
-// Give examples of usage
 
 Example: `todo Clean the room`
 
-// A description of the expected outcome goes here
 The task gets added to the list for you to check off later
 
 ```
@@ -27,14 +18,10 @@ You have a total of 16 tasks in the list.
 
 ## Adding deadlines
 
-// Describe the action and its outcome.
 Add task which has deadlines to your task list.
-
-// Give examples of usage
 
 Example: `deadline Prepare Presentation /by 05/09/2024 0930`
 
-// A description of the expected outcome goes here
 The deadline gets added to the list for you to check off later
 
 ```
@@ -45,14 +32,10 @@ You have a total of 17 tasks in the list.
 
 ## Adding events
 
-// Describe the action and its outcome.
 Add task which has start and end date to your task list.
-
-// Give examples of usage
 
 Example: `event English Test /from 05/09/2024 0930 /to 05/09/2024 1030`
 
-// A description of the expected outcome goes here
 The event gets added to the list for you to check off later
 
 ```
@@ -63,14 +46,10 @@ You have a total of 18 tasks in the list.
 
 ## Deleting tasks
 
-// Describe the action and its outcome.
 Remove task from the task list.
-
-// Give examples of usage
 
 Example: `delete 15`
 
-// A description of the expected outcome goes here
 Task is deleted from the list.
 
 ```
@@ -80,15 +59,11 @@ You have a total of 15 tasks in the list.
 ```
 
 ## Marking tasks as done
-
-// Describe the action and its outcome. 
+ 
 Mark a task as completed in your task list.
-
-// Give examples of usage
 
 Example: 'mark 5'
 
-// A description of the expected outcome goes here 
 The task is marked as completed.
 
 ```
@@ -99,10 +74,7 @@ You have a total of 16 tasks in the list.
 
 ## Unmarking tasks as done
 
-// Describe the action and its outcome. 
 Unmark a previously completed task, indicating that it's not yet done.
-
-// Give examples of usage
 
 Example: 'unmark 5'
 
@@ -116,10 +88,8 @@ You have a total of 16 tasks in the list.
 ```
 
 ## Listing all tasks
-// Describe the action and its outcome. 
-View all tasks currently in your task list.
 
-// Give examples of usage
+View all tasks currently in your task list.
 
 Example: 'list'
 
@@ -136,14 +106,11 @@ You have a total of 16 tasks in the list.
 ```
 
 ## Finding tasks by keyword
-// Describe the action and its outcome. 
-Search for tasks in your list that match a keyword.
 
-// Give examples of usage
+Search for tasks in your list that match a keyword.
 
 Example: 'find presentation'
 
-// A description of the expected outcome goes here 
 Tasks that contain the keyword are displayed.
 
 ```
@@ -152,14 +119,12 @@ Hmm.. these are the tasks that matches
 ```
 
 ## Viewing schedule
-// Describe the action and its outcome. 
+
 View all tasks that have start and end dates, sorted chronologically.
 
-// Give examples of usage
 
 Example: 'schedule 22/08/2024'
 
-// A description of the expected outcome goes here 
 All scheduled tasks are shown in chronological order.
 
 ```
@@ -173,14 +138,11 @@ I have gathered all the tasks you have on 22/08/2024:
 ```
 
 ## Exiting the application
-// Describe the action and its outcome. 
-End the session and close the application.
 
-// Give examples of usage
+End the session and close the application.
 
 Example: 'bye'
 
-// A description of the expected outcome goes here 
 The application saves your data and exits.
 
 ```
