@@ -22,7 +22,7 @@ public class ErrorCommand extends Command{
 
     /**
      * Executes the error command by printing the error message on the UI.
-     * 
+     *
      * @param tasks User's list of tasks.
      * @param ui User Interface object that executes printing of message to console.
      * @param storage Loads list of tasks from file and writes tasks to the bestie.txt file.

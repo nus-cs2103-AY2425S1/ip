@@ -36,9 +36,8 @@ public class Parser {
             try {
                 return new MarkCommand(Integer.parseInt(parts[1]) - 1);
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Please indicate the index of the task you want to mark as complete");
+                return new ErrorCommand("Please indicate the index of the task you want to mark as complete");
             }
-            break;
 
         case("unmark"):
             try {
@@ -129,9 +128,6 @@ public class Parser {
         default:
             return new InvalidCommand();
         }
-
-        return null;
-
     }
 
 

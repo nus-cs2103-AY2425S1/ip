@@ -13,7 +13,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
-
+/**
+ * This Javadoc comment was generated with some help from ChatGPT, but edited to better suit the context.
+ * Represents a dialog box that contains a message and a display picture.
+ * This class is used to create a chat-like interface where messages can be displayed alongside user or bot images.
+ */
 public class DialogBox extends HBox {
 
     @FXML
@@ -21,6 +25,12 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Initialises a DialogBox with the specified text and image.
+     *
+     * @param text The message text to be displayed in the dialog box.
+     * @param img The image to be displayed alongside the message.
+     */
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -38,6 +48,8 @@ public class DialogBox extends HBox {
 
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
+     * This method is useful for changing the layout of the dialog box for different users
+     * providing a clear distinction between user and bot messages.
      */
     private void flip() {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
