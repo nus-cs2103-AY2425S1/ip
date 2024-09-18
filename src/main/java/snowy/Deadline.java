@@ -38,6 +38,11 @@ public class Deadline extends Task {
         return String.format("D|%s|%s", temp, date.toString());
     }
 
+    /**
+     * Changes the date of the deadline to the new date.
+     * @param date the new due date of the task, in the format of yyyy-mm-dd.
+     * @throws SnowyException if the date has the wrong format.
+     */
     public void changeDate(String date) throws SnowyException {
         try {
             this.date = LocalDate.parse(date);

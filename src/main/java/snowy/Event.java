@@ -44,7 +44,13 @@ public class Event extends Task {
         return String.format("E|%s|%s|%s", temp, fromDate, toDate);
     }
 
-    public void changeDate(String fromDate, String toDate) {
+    /**
+     * Changes the fromDate and toDate to the new date that is given.
+     * @param fromDate the new start date of the event, in the format of yyyy-mm-dd.
+     * @param toDate the new end date of the event, in the format of yyyy-mm-dd.
+     * @throws SnowyException if the date has the wrong format.
+     */
+    public void changeDate(String fromDate, String toDate) throws SnowyException {
         try {
             this.fromDate = LocalDate.parse(fromDate);
             this.toDate = LocalDate.parse(toDate);

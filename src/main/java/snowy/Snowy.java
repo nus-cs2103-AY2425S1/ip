@@ -13,6 +13,10 @@ public class Snowy {
 
     private final Ui ui;
 
+    /**
+     * Creates a new Snowy instance with local storage as specified by the filePath.
+     * @param filePath the path to a txt document which can store tasks.
+     */
     public Snowy(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -24,6 +28,11 @@ public class Snowy {
         }
     }
 
+    /**
+     * Executes the response of Snowy based on the specified input by the user.
+     * @param input the input of the user.
+     * @return the response of Snowy after the command has been executed.
+     */
     public String getResponse(String input) {
         String result;
 
