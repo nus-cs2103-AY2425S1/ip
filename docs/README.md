@@ -125,7 +125,7 @@ Examples:
 - `sort something` will not be recognised
 
 ## Exit
-Displays goodbye message
+Displays goodbye message and exits the program
 
 Format: `bye`
 - There should not be anything keyed in after the command `bye`
