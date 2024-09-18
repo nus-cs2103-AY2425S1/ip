@@ -3,7 +3,7 @@
 
 
 
-![BuddyBot](/docs/Ui.png?raw=true "Title")
+![BuddyBot](https://jalenleeruixian.github.io/ip/Ui.png?raw=true "Title")
 
 
 
