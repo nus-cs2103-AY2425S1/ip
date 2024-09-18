@@ -84,6 +84,6 @@ public class Ui {
     }
 
     public String getExceptionMessage(Exception e) {
-        return e.getClass().getName() + ": " + e.getMessage();
+        return "An error has occurred.";
     }
 }
