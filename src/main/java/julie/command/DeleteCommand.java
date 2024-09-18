@@ -1,8 +1,9 @@
 package julie.command;
-import julie.misc.UI;
-import julie.task.Task;
 
 import java.util.List;
+
+import julie.misc.Storage;
+import julie.task.Task;
 
 /**
  * The command that handles the deletion of a specified liner.
@@ -16,12 +17,12 @@ public class DeleteCommand extends Command {
         super(commandString);
     }
     @Override
-    public void run(List<Task> taskList) {
+    public String run(List<Task> taskList, Storage storage) {
         String[] tokens = commandString.split(" ");
         int x = Integer.parseInt(tokens[1]) - 1;
         Task t = taskList.get(x);
         taskList.remove(x);
-        UI.wrappedLinePrint(String.format("Okay, I'll remove this task from the list!\n    %s\n " +
-                "You still have %d tasks left!!", t, taskList.size()));
+        return String.format("Okay, I'll remove this task from the list!\n    %s\n "
+                + "You still have %d tasks left!!", t, taskList.size());
     }
 }

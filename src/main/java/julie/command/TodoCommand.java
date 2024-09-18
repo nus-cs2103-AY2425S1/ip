@@ -1,10 +1,11 @@
 package julie.command;
+
+import java.util.List;
+
 import julie.misc.Storage;
 import julie.misc.UI;
 import julie.task.Task;
 import julie.task.ToDo;
-
-import java.util.List;
 
 /**
  * The command that handles the creation of a ToDo Task.
@@ -18,10 +19,10 @@ public class TodoCommand extends Command {
         super(commandString);
     }
     @Override
-    public void run(List<Task> taskList) {
+    public String run(List<Task> taskList, Storage storage) {
         Task t = new ToDo(commandString.substring(5));
         taskList.add(t);
-        UI.addedPrompt(t, taskList);
-        Storage.save(t);
+        storage.save(t);
+        return UI.addedPrompt(t, taskList);
     }
 }

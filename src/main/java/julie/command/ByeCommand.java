@@ -1,7 +1,10 @@
 package julie.command;
-import julie.misc.UI;
-import julie.task.Task;
+
 import java.util.List;
+
+import julie.misc.Storage;
+import julie.task.Task;
+
 
 /**
  * The command that handles the closing of the app.
@@ -16,7 +19,7 @@ public class ByeCommand extends Command {
         this.isExit = true;
     }
     @Override
-    public void run(List<Task> taskList) {
-        UI.wrappedLinePrint("Bye!! See you soon!!");
+    public String run(List<Task> taskList, Storage storage) {
+        return "Bye!! See you soon!!\n This command has been deprecated.";
     }
 }

@@ -1,15 +1,15 @@
 package julie.command;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.List;
+
 import julie.exception.InvalidInputException;
 import julie.exception.JulieException;
 import julie.misc.Storage;
 import julie.misc.UI;
 import julie.task.Event;
 import julie.task.Task;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-import java.util.List;
 
 /**
  * The Command that handles the creation of a event task.
@@ -24,7 +24,7 @@ public class EventCommand extends Command {
         super(commandString);
     }
     @Override
-    public void run(List<Task> taskList) throws JulieException {
+    public String run(List<Task> taskList, Storage storage) throws JulieException {
         String[] tokens = this.commandString.split(" /from | /to ");
         if (tokens.length != 3) {
             throw new InvalidInputException("Event");
@@ -34,8 +34,8 @@ public class EventCommand extends Command {
             LocalDate to = LocalDate.parse(tokens[2]);
             Task t = new Event(tokens[0].substring(6), from, to);
             taskList.add(t);
-            UI.addedPrompt(t, taskList);
-            Storage.save(t);
+            storage.save(t);
+            return UI.addedPrompt(t, taskList);
         } catch (DateTimeParseException e) {
             throw new InvalidInputException("Event");
         }

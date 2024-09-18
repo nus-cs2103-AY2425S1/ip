@@ -1,12 +1,13 @@
 package julie.command;
-import julie.command.Command;
-import julie.misc.UI;
-import julie.task.Task;
 
 import java.util.List;
 
+import julie.misc.Storage;
+import julie.misc.UI;
+import julie.task.Task;
+
 /**
- * The command that returns the current List stored in the chat bot.
+ * The command that returns the current List stored in the Chat bot.
  */
 public class ListCommand extends Command {
     /**
@@ -18,7 +19,7 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public void run(List<Task> taskList) {
-        UI.printList(taskList);
+    public String run(List<Task> taskList, Storage storage) {
+        return UI.getListString(taskList);
     }
 }

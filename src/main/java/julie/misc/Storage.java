@@ -1,9 +1,5 @@
 package julie.misc;
 
-import julie.task.Deadline;
-import julie.task.Event;
-import julie.task.Task;
-import julie.task.ToDo;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -12,6 +8,11 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
+import julie.task.Deadline;
+import julie.task.Event;
+import julie.task.Task;
+import julie.task.ToDo;
+
 /**
  * A class that encapsulates the storage functions supported by the Chat Bots.
  */
@@ -19,19 +20,20 @@ public class Storage {
     /** The fixed relative data path that holds the storage file */
     public static final String DATA_PATH = "./data/julie.txt";
     /** The data file used for storage */
-    public static File data = new File(DATA_PATH);
+    private File data;
 
     /**
-     * Initialises the system, by ensuring that the directory and the file exists.
+     * The public constructor for a storage instance.
      */
-    public static void start() {
+    public Storage() {
+        data = new File(DATA_PATH);
         try {
             File directory = new File(data.getParent());
             if (!directory.exists()) {
-                directory.mkdirs();  // Create directory if it does not exist
+                directory.mkdirs(); // Create directory if it does not exist
             }
             if (!data.exists()) {
-                data.createNewFile();  // Create file if it does not exist
+                data.createNewFile(); // Create file if it does not exist
             }
         } catch (IOException e) {
             System.out.println("Error initializing file: " + e.getMessage());
@@ -44,7 +46,7 @@ public class Storage {
      *
      * @param taskList The list of Tasks to be loaded into.
      */
-    public static void load(List<Task> taskList) {
+    public void load(List<Task> taskList) {
         try {
             Scanner sc = new Scanner(data);
             while (sc.hasNext()) {
@@ -72,7 +74,7 @@ public class Storage {
      *
      * @param t The task to be saved into the document.
      */
-    public static void save(Task t) {
+    public void save(Task t) {
         try {
             FileWriter fw = new FileWriter(DATA_PATH, true);
             fw.write(t.toStorageString() + System.lineSeparator());

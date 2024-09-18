@@ -12,7 +12,7 @@ public class TodoCommandTest {
     public void todo_ListTest() {
         List<Task> taskList = new ArrayList<>();
         TodoCommand c = new TodoCommand("todo help");
-        c.run(taskList);
+        c.run(taskList, );
         assertEquals("[[T] [ ] help]", taskList.toString());
     }
 }

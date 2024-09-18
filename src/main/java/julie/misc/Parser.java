@@ -1,6 +1,15 @@
 package julie.misc;
 
-import julie.command.*;
+import julie.command.ByeCommand;
+import julie.command.Command;
+import julie.command.DeadlineCommand;
+import julie.command.DeleteCommand;
+import julie.command.EventCommand;
+import julie.command.FindCommand;
+import julie.command.ListCommand;
+import julie.command.MarkCommand;
+import julie.command.TodoCommand;
+import julie.command.UnmarkCommand;
 import julie.exception.InvalidCommandException;
 import julie.exception.JulieException;
 
@@ -40,15 +49,15 @@ public class Parser {
     public static Command parse(String input) throws JulieException {
         CommandToken cmd = CommandToken.fromString(input);
         return switch (cmd) {
-            case BYE -> new ByeCommand(input);
-            case LIST -> new ListCommand(input);
-            case MARK -> new MarkCommand(input);
-            case UNMARK -> new UnmarkCommand(input);
-            case DELETE -> new DeleteCommand(input);
-            case TODO -> new TodoCommand(input);
-            case DEADLINE -> new DeadlineCommand(input);
-            case EVENT -> new EventCommand(input);
-            case FIND -> new FindCommand(input);
+        case BYE -> new ByeCommand(input);
+        case LIST -> new ListCommand(input);
+        case MARK -> new MarkCommand(input);
+        case UNMARK -> new UnmarkCommand(input);
+        case DELETE -> new DeleteCommand(input);
+        case TODO -> new TodoCommand(input);
+        case DEADLINE -> new DeadlineCommand(input);
+        case EVENT -> new EventCommand(input);
+        case FIND -> new FindCommand(input);
         };
     }
     /**
