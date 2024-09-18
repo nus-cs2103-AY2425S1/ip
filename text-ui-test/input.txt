@@ -1,0 +1,12 @@
+list
+todo sample todo
+deadline sample deadline /by tmr 10pm
+event sample event /from monday 2am /to sunday 7pm
+list
+mark 1
+list
+mark 2
+list
+unmark 1
+list
+bye
