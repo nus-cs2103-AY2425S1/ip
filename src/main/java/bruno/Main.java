@@ -29,6 +29,7 @@ public class Main extends Application {
             // Display Greeting message
             controller.showGreeting();
 
+            stage.setTitle("Bruno Bucciarati Bot");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

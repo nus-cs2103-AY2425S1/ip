@@ -6,7 +6,7 @@ package bruno.task;
  */
 public class Task {
     private String description;
-    private boolean done;
+    private boolean isDone;
 
     /**
      * Constructs a Task with the given description.
@@ -16,18 +16,18 @@ public class Task {
      */
     public Task(String description) {
         this.description = description;
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
      * Constructs a Task with the given description and completion status.
      *
      * @param description The description of the task.
-     * @param done The completion status of the task (true if done, false otherwise).
+     * @param isDone The completion status of the task (true if done, false otherwise).
      */
-    public Task(String description, boolean done) {
+    public Task(String description, boolean isDone) {
         this.description = description;
-        this.done = done;
+        this.isDone = isDone;
     }
 
     /**
@@ -45,27 +45,27 @@ public class Task {
      * @return true if the task is done, false otherwise.
      */
     public boolean isDone() {
-        return this.done;
+        return this.isDone;
     }
 
     /**
      * Marks the task as complete.
      */
     public void complete() {
-        this.done = true;
+        this.isDone = true;
     }
 
     /**
      * Marks the task as not complete.
      */
     public void uncomplete() {
-        this.done = false;
+        this.isDone = false;
     }
 
     @Override
     public String toString() {
         String complete = " ";
-        if (this.done) {
+        if (this.isDone) {
             complete = "X";
         }
         return "[" + complete + "] | " + this.description;
