@@ -1,6 +1,6 @@
 T | X | task 1 
 D |   | dead 1 ( by Aug 29 2002, 14:21 ) 
-E |   | event 1 ( from Apr 02 2003, 21:12 to Feb 01 2024, 12:00 ) /tags: 21  
+E |   | event 1 ( from Apr 02 2003, 21:12 to Feb 01 2024, 12:00 ) /tags:  21 
 D |   | tmr ( by Sep 20 2024, 00:00 ) 
 D |   | test ( by Sep 20 2024, 00:00 ) 
 D |   | test ( by Sep 20 2024, 00:00 ) 
@@ -9,6 +9,3 @@ D |   | asdfasdf ( by Sep 20 2024, 00:00 )
 D |   | asdfasd ( by Sep 20 2024, 00:00 ) 
 D |   | asdfasdf ( by Sep 20 2021, 00:00 ) 
 D |   | asdf ( by Feb 02 2024, 00:00 ) 
-T |   | 1 
-T |   | 2 
-T |   | 3 

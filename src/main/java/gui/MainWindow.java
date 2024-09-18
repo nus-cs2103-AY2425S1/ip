@@ -41,7 +41,6 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
-
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
@@ -71,7 +70,6 @@ public class MainWindow extends AnchorPane {
 
         if (response.get("response") == (null)) {
             DialogBox chatterBye = DialogBox.getChatterboxDialog(chatter.getGoodbye(), chatterImage);
-
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
                     chatterBye
@@ -92,7 +90,6 @@ public class MainWindow extends AnchorPane {
                 node.setStyle("-fx-background-color: #FFCCBB");
             }
         }
-
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 chatterReply
