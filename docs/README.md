@@ -11,11 +11,16 @@ interface.
 
 You can add todos, deadlines and events simply!
 
-Examples:\
+Adding Tasks:\
 `todo (description)`\
 `deadline (title) /by yyyy-mm-dd`\
 `event (title) /from (date) /to (date)`
 
+Other features:\
+`mark (index), unmark (index)`\
+`delete (index)`\
+`event (title) /from (date) /to (date)`\
+`list`\
 Add commands using these commands!
 
 Expected Output:
