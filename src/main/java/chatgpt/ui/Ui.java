@@ -1,7 +1,5 @@
 package chatgpt.ui;
 
-import java.util.Scanner;
-
 import chatgpt.task.Task;
 import chatgpt.task.TaskList;
 
@@ -27,15 +25,6 @@ public class Ui {
     public String showExit() {
         return "Bye. Hope to see you again soon!";
     }
-
-    /**
-     * Returns the input from the users as a String.
-     *
-     * @return Input from user until a new line is captured
-     */
-//    public String readCommand() {
-//        return inputReader.nextLine();
-//    }
 
     /**
      * Displays the error message from any exceptions caught.

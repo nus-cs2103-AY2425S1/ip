@@ -71,6 +71,7 @@ public class AddCommand extends Command {
             newTask = new Events(task, startDate, endDate);
             break;
         default:
+            assert false : "Wrong task type was passed";
         }
 
         tasks.add(newTask);
