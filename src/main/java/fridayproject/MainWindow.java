@@ -27,11 +27,23 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
+
+        // Assertions to ensure that the FXML elements are not null
+        assert scrollPane != null : "fx:id=\"scrollPane\" was not injected: check your FXML file 'MainWindow.fxml'.";
+        assert dialogContainer != null : "fx:id=\"dialogContainer\" was not injected: check your FXML file 'MainWindow.fxml'.";
+        assert userInput != null : "fx:id=\"userInput\" was not injected: check your FXML file 'MainWindow.fxml'.";
+        assert sendButton != null : "fx:id=\"sendButton\" was not injected: check your FXML file 'MainWindow.fxml'.";
+        assert userImage != null : "User image not found";
+        assert fridayImage != null : "Friday image not found";
+
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
     /** Injects the Friday instance */
     public void setFriday(Friday fri) {
+        
+        // Assertion to ensure that the Friday instance is not null
+        assert fri != null : "Friday instance should not be null";
         friday = fri;
     }
 
@@ -42,6 +54,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+
+        // Assertion to ensure that the input is not null
+        assert input != null : "Input should not be null";
+
         String response = friday.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),

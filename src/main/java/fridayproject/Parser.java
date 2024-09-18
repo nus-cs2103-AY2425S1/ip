@@ -21,6 +21,12 @@ public class Parser {
      * Example: Parser parser = new Parser(taskList, storage, ui);
      */
     public Parser(TaskList taskList, Storage storage, Ui ui) {
+
+        // Assertions to ensure that the task list, storage and ui are not null
+        assert taskList != null : "Task list should not be null";
+        assert storage != null : "Storage should not be null";
+        assert ui != null : "Ui should not be null";
+
         this.taskList = taskList;
         this.storage = storage;
         this.ui = ui;
@@ -31,6 +37,10 @@ public class Parser {
      * @param input The user input.
      */
     public String parseCommand(String inputString) {
+
+        // Assertions to ensure that the input is not null
+        assert inputString != null : "Input should not be null";
+
         try {
             if (inputString.equals("hello")) {
                 return ui.displayWelcome(); // Display the welcome message
@@ -73,11 +83,15 @@ public class Parser {
     }
 
     private String markTask(String input) throws FridayException, IOException {
+        assert input != null : "Input should not be null";
+
         if (input.length() < 6) {
             throw new FridayException("I'm sorry, but I don't know what that means :(((\n" 
             + "Please enter a valid task number.");
         }
         int taskNumber = Integer.parseInt(input.substring(5)) - 1;
+        assert taskNumber >= 0 && taskNumber < taskList.size() : "Task number should not be out of range";
+
         taskList.markTaskAsDone(taskNumber);
         storage.saveTasksToFile(taskList.getTasks());
         return "Nice! I've marked this task as done:\n  " + taskList.getTask(taskNumber).getTypeIcon() 
@@ -85,11 +99,15 @@ public class Parser {
     }
 
     private String unmarkTask(String input) throws FridayException, IOException {
+        assert input != null : "Input should not be null";
+        
         if (input.length() < 8) {
             throw new FridayException("I'm sorry, but I don't know what that means :(((\n" 
             + "Please enter a valid task number.");
         }
         int taskNumber = Integer.parseInt(input.substring(7)) - 1;
+        assert taskNumber >= 0 && taskNumber < taskList.size() : "Task number should not be out of range";
+
         taskList.markTaskAsUndone(taskNumber);
         storage.saveTasksToFile(taskList.getTasks());
         return "OK, I've marked this task as not done yet:\n  " 
@@ -98,11 +116,15 @@ public class Parser {
     }
 
     private String deleteTask(String input) throws FridayException, IOException {
+        assert input != null : "Input should not be null";
+
         if (input.length() < 8) {
             throw new FridayException("I'm sorry, but I don't know what that means :(((\n" 
             + "Please enter a valid task number.");
         }
         int taskNumber = Integer.parseInt(input.substring(7)) - 1;
+        assert taskNumber >= 0 && taskNumber < taskList.size() : "Task number should not be out of range";
+
         if (taskNumber >= 0 && taskNumber < taskList.size() && taskList.getTask(taskNumber) != null) {
             Tasks deletedTask = taskList.deleteTask(taskNumber);
             storage.saveTasksToFile(taskList.getTasks());
@@ -113,6 +135,8 @@ public class Parser {
     }
 
     private String addTodo(String input) throws FridayException, IOException {
+        assert input != null : "Input should not be null";
+
         if (input.length() < 6) {
             throw new FridayException("I'm sorry, but I don't know what that means :(((\n" 
             + "Please enter a valid task description.");
@@ -125,6 +149,8 @@ public class Parser {
     }
 
     private String addDeadline(String input) throws FridayException, IOException {
+        assert input != null : "Input should not be null";
+
         if (input.length() < 10) {
             throw new FridayException("I'm sorry, but I don't know what that means :(((\n" 
             + "Please enter a valid task description.");
@@ -146,6 +172,8 @@ public class Parser {
     }
 
     private String addEvent(String input) throws FridayException, IOException {
+        assert input != null : "Input should not be null";
+
         if (input.length() < 7) {
             throw new FridayException("I'm sorry, but I don't know what that means :(((\n" 
             + "Please enter a valid task description.");
@@ -161,6 +189,8 @@ public class Parser {
     }
 
     private String findWord(String input) throws FridayException, IOException {
+        assert input != null : "Input should not be null";
+        
         String keyword = input.substring(5).trim();
         if (keyword.isEmpty()) {
             throw new FridayException("The keyword for the find command cannot be empty.\n" 

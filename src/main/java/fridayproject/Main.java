@@ -18,10 +18,22 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
+
+            // Ensure that the FXML file path is correct
+            assert Main.class.getResource("/view/MainWindow.fxml") != null : "FXML file not found";
+
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
+            
+            // Ensure that the AnchorPane is not null
+            assert ap != null : "AnchorPane should not be null";
+
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+
+            // Ensure that the controller is not null
+            assert fxmlLoader.<MainWindow>getController() != null : "Controller should not be null";
+
             fxmlLoader.<MainWindow>getController().setFriday(friday);  // inject the Friday instance
             stage.show();
         } catch (IOException e) {
