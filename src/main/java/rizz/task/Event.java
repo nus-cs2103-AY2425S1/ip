@@ -11,10 +11,10 @@ import java.time.LocalTime;
 public class Event extends Task {
     private final LocalDateTime from;
     private final LocalTime to;
-    DateTimeFormatter writeDateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
-    DateTimeFormatter readDateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-    DateTimeFormatter writeTimeFormatter = DateTimeFormatter.ofPattern("HHmm");
-    DateTimeFormatter readTimeFormatter = DateTimeFormatter.ofPattern("HHmm");
+    private DateTimeFormatter writeDateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
+    private DateTimeFormatter readDateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private DateTimeFormatter writeTimeFormatter = DateTimeFormatter.ofPattern("HHmm");
+    private DateTimeFormatter readTimeFormatter = DateTimeFormatter.ofPattern("HHmm");
 
     /**
      * Constructs a new Event task.
@@ -25,7 +25,7 @@ public class Event extends Task {
      * @param isDone The completion status of the Event. If true, the Event is marked as done.
      */
     public Event(String text, LocalDateTime from, LocalTime to, boolean isDone) {
-        super(text,isDone);
+        super(text, isDone);
         this.from = from;
         this.to = to;
     }
@@ -38,8 +38,8 @@ public class Event extends Task {
      */
     @Override
     public String export() {
-        return "E | " + (isDone ? "1" : "0") + " | " + text + " | " + from.format(readDateTimeFormatter) + " " +
-                to.format(readTimeFormatter);
+        return "E | " + (isDone ? "1" : "0") + " | " + text + " | " + from.format(readDateTimeFormatter) + " "
+                + to.format(readTimeFormatter);
     }
 
     /**
@@ -51,7 +51,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + from.format(writeDateTimeFormatter) + "-" +
-                to.format(writeTimeFormatter) + ")";
+        return "[E]" + super.toString() + " (at: " + from.format(writeDateTimeFormatter) + "-"
+                + to.format(writeTimeFormatter) + ")";
     }
 }

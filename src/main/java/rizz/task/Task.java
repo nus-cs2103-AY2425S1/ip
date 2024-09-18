@@ -62,8 +62,6 @@ public abstract class Task {
     }
 
     /**
-<<<<<<< HEAD
-=======
      * Returns the description of the task.
      *
      * @return The task description (text).
@@ -73,7 +71,6 @@ public abstract class Task {
     }
 
     /**
->>>>>>> Level-9
      * Returns a string representation of the task.
      * The format will be: "[<status>] <text>"
      * where <status> is either "X" for done or " " for not done, and <text> is the task description.

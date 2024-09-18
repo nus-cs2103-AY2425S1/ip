@@ -1,6 +1,6 @@
 package rizz.source;
 import java.util.Scanner;
-import rizz.task.*;
+import rizz.task.*; //will change
 
 public class Ui {
     public void errorSaveTasks() {
@@ -41,17 +41,17 @@ public class Ui {
     }
 
     public void greet() {
-        String str = "\t____________________________________________________________\n" +
-                "\tHello! I'm Rizz\n" +
-                "\tWhat can I do for you?\n" +
-                "\t____________________________________________________________\n";
+        String str = "\t____________________________________________________________\n"
+                + "\tHello! I'm Rizz\n"
+                + "\tWhat can I do for you?\n"
+                + "\t____________________________________________________________\n";
         System.out.println(str);
     }
 
     public void exit() {
-        String str =  "\t____________________________________________________________\n" +
-                "\tBye! Hope to see you again soon!\n" +
-                "\t____________________________________________________________\n";
+        String str = "\t____________________________________________________________\n"
+                + "\tBye! Hope to see you again soon!\n"
+                + "\t____________________________________________________________\n";
         System.out.println(str);
     }
 
@@ -74,13 +74,13 @@ public class Ui {
 
 
     public void markTask(Task task) {
-            System.out.println("\tNice! I've marked this task as done:");
-            System.out.println("\t\t" + task.toString() + "\n");
+        System.out.println("\tNice! I've marked this task as done:");
+        System.out.println("\t\t" + task.toString() + "\n");
     }
 
     public void unmarkTask(Task task) {
-            System.out.println("\tOK, I've marked this task as not done yet:");
-            System.out.println("\t\t" + task.toString() + "\n");
+        System.out.println("\tOK, I've marked this task as not done yet:");
+        System.out.println("\t\t" + task.toString() + "\n");
     }
 
     public void noMoreCommands() {
@@ -120,8 +120,8 @@ public class Ui {
         System.out.println("\t I'm sorry, but I don't know what that means :-(");
     }
 
-    public void addEvent(String Event, String taskListSize) {
-        System.out.println("\tadded event: " + Event);
+    public void addEvent(String event, String taskListSize) {
+        System.out.println("\tadded event: " + event);
         System.out.printf("\tYou have %d tasks in the list.\n", taskListSize);
     }
 
@@ -130,14 +130,14 @@ public class Ui {
         System.out.printf("\tYou have %d tasks in the list.\n", taskListSize);
     }
 
-    public void addDeadline(Deadline Deadline) {
-        System.out.println("\tadded deadline: " + Deadline.toString());
+    public void addDeadline(Deadline deadline) {
+        System.out.println("\tadded deadline: " + deadline.toString());
     }
 
-    public void deleteTask(String Task, String taskListSize) {
-            System.out.println("\tNoted. I've removed this task:");
-            System.out.println("\t " + Task);
-            System.out.printf("\tNow you have %d tasks in the list.\n\n", taskListSize);
+    public void deleteTask(String task, String taskListSize) {
+        System.out.println("\tNoted. I've removed this task:");
+        System.out.println("\t " + task);
+        System.out.printf("\tNow you have %d tasks in the list.\n\n", taskListSize);
     }
 
     public void showError(String message) {
