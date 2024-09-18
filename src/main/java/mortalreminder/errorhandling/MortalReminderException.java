@@ -19,7 +19,7 @@ public class MortalReminderException extends Exception {
     }
 
     public static String getInvalidDateFormatErrorMessage() {
-        return "Please enter a valid date in dd-MM-yyy HHmm (24hr format)!";
+        return "Please enter a valid date in dd-MM-yyyy HHmm (24hr format)!";
     }
 
     public static String getInvalidDescriptionErrorMessage() {

@@ -57,14 +57,20 @@ public class TaskRetriever {
                 .filter(x -> filterTask(x, descriptions))
                 .collect(Collectors.toCollection(ArrayList::new));
 
-        if (similarTasks.isEmpty()) {
+        TaskList similarTasksList = new TaskList();
+        similarTasksList.getTaskList().addAll(similarTasks);
+
+        if (similarTasksList.getTaskList().isEmpty()) {
             throw new MortalReminderException(MortalReminderException.getNoSimilarTasksFoundMessage());
         }
-        return FormattedOutput.printSimilarTasks(taskList);
+        return FormattedOutput.printSimilarTasks(similarTasksList);
     }
 
     private static boolean filterTask(Task task, String... descriptions) {
         for (String description : descriptions) {
+            if (description.trim().isEmpty()) {
+                continue;
+            }
             if (task.getDescription().contains(description)) {
                 return true;
             }
