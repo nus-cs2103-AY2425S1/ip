@@ -19,8 +19,10 @@ public class Ui {
             + "/_______  /___|  /__|   __/ \\___  >\n"
             + "        \\/     \\/   |__|        \\/ \n";
 
+    private static final int LINE_LENGTH = 60;
+
     /** A horizontal line used for formatting output. */
-    private static final String HORIZONTAL_LINE = "_".repeat(60);
+    private static final String HORIZONTAL_LINE = "_".repeat(LINE_LENGTH);
     public static final String WELCOME_MESSAGE = "Hello! I'm\n" + NAME + "\nWhat can I do for you?";
 
     /** The {@link Scanner} object for reading user input. */
