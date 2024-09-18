@@ -53,14 +53,12 @@ public class Storage {
                 String s = sc.nextLine();
                 String[] tokens = s.split(" \\| ");
                 String cmd = tokens[0];
-                Task t = null; // Variable
-                if (cmd.equals("T")) {
-                    t = new ToDo(tokens[1]);
-                } else if (cmd.equals("D")) {
-                    t = new Deadline(tokens[1], LocalDate.parse(tokens[2]));
-                } else if (cmd.equals("E")) {
-                    t = new Event(tokens[1], LocalDate.parse(tokens[2]), LocalDate.parse(tokens[3]));
-                }
+                Task t = switch (cmd) {
+                case "T" -> new ToDo(tokens[1]);
+                case "D" -> new Deadline(tokens[1], LocalDate.parse(tokens[2]));
+                case "E" -> new Event(tokens[1], LocalDate.parse(tokens[2]), LocalDate.parse(tokens[3]));
+                default -> null; // Variable
+                };
                 taskList.add(t);
             }
         } catch (FileNotFoundException e) {

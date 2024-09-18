@@ -1,6 +1,5 @@
 package julie.misc;
 
-import julie.command.ByeCommand;
 import julie.command.Command;
 import julie.command.DeadlineCommand;
 import julie.command.DeleteCommand;
@@ -21,7 +20,7 @@ public class Parser {
     private enum CommandToken {
         MARK, UNMARK, LIST, DELETE,
         DEADLINE, TODO, EVENT,
-        BYE, FIND;
+        FIND;
 
         /**
          * Returns the corresponding enum when given a user input string.
@@ -49,7 +48,6 @@ public class Parser {
     public static Command parse(String input) throws JulieException {
         CommandToken cmd = CommandToken.fromString(input);
         return switch (cmd) {
-        case BYE -> new ByeCommand(input);
         case LIST -> new ListCommand(input);
         case MARK -> new MarkCommand(input);
         case UNMARK -> new UnmarkCommand(input);

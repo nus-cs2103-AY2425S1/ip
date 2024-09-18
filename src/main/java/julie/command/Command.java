@@ -10,9 +10,7 @@ import julie.task.Task;
  * An abstract class that encapsulates the commands functions for the application.
  */
 public abstract class Command {
-    /** The boolean that determines whether the app continues running. */
-    public boolean isExit = false;
-    /** The string to be formatted. */
+    /** The string representation of the command. */
     final String commandString;
     /**
      * The public constructor for a command.
@@ -26,8 +24,8 @@ public abstract class Command {
      * The public method that runs the command.
      *
      * @param taskList The taskList to be updated if applicable.
-     * @param storage
-     * @return The string representation of a successful commandd.
+     * @param storage The storage object to be loaded into.
+     * @return The string representation of a successful command.
      * @throws JulieException if the command cannot be executed.
      */
     public abstract String run(List<Task> taskList, Storage storage) throws JulieException;
