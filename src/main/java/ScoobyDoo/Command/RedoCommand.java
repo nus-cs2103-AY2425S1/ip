@@ -1,7 +1,6 @@
 package ScoobyDoo.Command;
 
 import ScoobyDoo.UI.UI;
-import ScoobyDoo.exception.InputFormatException;
 import ScoobyDoo.storage.Storage;
 import ScoobyDoo.task.TaskList;
 

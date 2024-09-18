@@ -8,10 +8,10 @@ import ScoobyDoo.storage.Storage;
 import ScoobyDoo.task.TaskList;
 
 public class UndoHistory {
-    private Stack<Undoable> undos;
-    private Stack<Undoable> redos;
+    private final Stack<Undoable> undos;
+    private final Stack<Undoable> redos;
 
-    private int maxSize;
+    private final int maxSize;
 
     public UndoHistory(int size) {
         this.maxSize = size;

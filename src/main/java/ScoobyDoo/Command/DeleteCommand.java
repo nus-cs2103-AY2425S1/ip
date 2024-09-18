@@ -7,7 +7,7 @@ import ScoobyDoo.task.Task;
 import ScoobyDoo.task.TaskList;
 
 public class DeleteCommand extends Command implements Undoable {
-    private int num;
+    private final int num;
     private Task deletedTask;
 
     public DeleteCommand (int num) {
