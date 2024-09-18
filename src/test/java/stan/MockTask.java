@@ -28,12 +28,14 @@ public class MockTask extends Task {
     }
 
     /**
-     * Returns a string representation of the mock task for testing purposes.
+     * Returns a string representation of the mock task for testing purposes,
+     * simulating the behavior of a real task by including the status icon.
      *
      * @return A string.
      */
     @Override
     public String toString() {
-        return "[MockTask] " + description; // Return a mock string for testing purposes
+        // Simulate real task behavior with the correct status icon (X or empty space)
+        return "[" + getStatus() + "] " + description;
     }
 }
