@@ -1,7 +1,7 @@
 # Duke Korolev User Guide
 <img src="Ui.png">
   
-## Product Intro
+## Product Introduction
 > You can do it quickly, but badly, or you can do it slowly, but well. After a while, everyone will forget that it was fast, but will remember that it was bad. And vice versa.  - Sergei Korolev (<a href="https://en.wikiquote.org/wiki/Sergei_Korolev">source</a>)
 
 DukeKorolev is a ~~robot~~ **chatbot** that help you manage tasks in the daily lives.
@@ -24,11 +24,17 @@ can display the statistics of current
 5. run command `java -jar korolev.DukeKorolev.jar`. A GUI similar to the image above will be shown in the screen
 
 ## Features
+### Display the list of tasks
+Display all tasks that has been added to the list.
+   
+Format of input: `list`   
+Example: `list`
+
 ### Add deadline task
 Add a type of deadline task (a task with 1 deadline) to the task list.
   
 Format of input: `deadline [task description] /by [end time with format YYYY-MM-DD (HH:mm)]`  
-Example: ``  
+Example: `deadline meet with Gagarin /by 1970-01-01 12:00`  
 
 ```
 expected output
@@ -37,7 +43,11 @@ expected output
 ### Add todo task
 Add a type of todo task (a task without any time) to the task list.   
 Format of input: `todo [task description]`  
-Example: ``  
+* the keyword `todo` is case-sensitive
+* there is a space between todo is task description
+* anything appears after todo will be used as task description  
+
+Example: `todo read aerodynamics documents`  
 ```
 expected output
 ```
@@ -46,37 +56,81 @@ expected output
 Add a type of event task (a task with start and end time) to the task list.  
 Format of input: `event [task description] /from [start time with format YYYY-MM-DD (HH:mm)] 
 /to [end time with format YYYY-MM-DD (HH:mm)]`  
-Example: ``  
+* the keyword `event` is case-sensitive
+* It must contain a start date and time with `/from` keyword and an end date and time with `/to` 
+keyword 
+* The time must include the year, month and date of the event. 
+* It is optional to key in the specific time, the default time will be `00:00`
+
+Example: `event launch Sputnik satellite /from 1960-01-01 /to 1961-02-03`  
 ```
 expected output
 ```
 
 ### Mark a task as done
-Mark an incomplete task in the task list as done.   
+Mark an incomplete task in the task list as done.
 Format of input: `mark [task ID]`  
-Example: ``
+* `mark` is case-sensitive
+* an out-of-bound error message will be prompted if the task ID is out of range
+* an error will be prompted from the chatbot if the task ID is not a number 
+
+Example: `mark 4`
+
+### Unmark a completed task
+Unmark a finished task as undone.  
+Format of input: `unmark [task ID]`  
 
 ### Add tag to a task 
 Add a tag to any task.   
-Format of input: `tag [task ID] [task description]`  
-Example:  ``
+Format of input: `tag [task ID] [task description]`
+* `tag` is case-sensitive
+* each task can have at most one tag
+* an out-of-bound error message will be prompted if the task ID is out of range
+* an error will be prompted from the chatbot if the task ID is not a number
+* an empty task description will do noting to the task  
+
+Example:  `tag 2 important event`
+
+### Untag a task
+Remove a tag from the task
+Format of input: `untag [task ID]`
 
 ### Find a list of tasks by name
 Search for a list of tasks which contains the keyword.  
 Format of input: `find [keyword]`  
-Example: ``
+* `find` is case-sensitive
+* the keyword is case-sensitive
+* it will find matching word in the task description
+
+Example: `find aerodynamics`
 
 ### Delete a task
 Delete a task from the list of tasks.  
 Format of input: `delete [task ID]`
-Example: ``
+* `delete` is case-sensitive
+* an out-of-bound error message will be prompted if the task ID is out of range
+* an error will be prompted from the chatbot if the task ID is not a number
+
+Example: `delete 3`
 
 ### Display statistics of the task list
 Display the number of complete and incomplete tasks.  
-Format of input: `stats`
-Example: ``
+Format of input: `stats`   
+* `stats` is case-sensitive
+
+Example: `stats`
 
 ## Command summary
-|Command  |Format | Example |
-|---------|-------|---------|
-|test1    |test2  | test3   |
+| Command                   | Format | Example |
+|---------------------------|--------|---------|
+| Display the list of tasks | list   | list    |
+| Add deadline task         |        |         |
+| Add todo task             |        |         |
+| Add event task            |        |         |
+| Delete a task             |        |         |
+| Tag a task                |        |         |
+| Untag a task              |        |         |
+| Mark a task as done       |        |         |
+| Unmark a completed task   |        |         |
+| Find a task               |        |         | 
+| Display statistics        |        |         |
