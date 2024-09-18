@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import ponderpika.exception.InvalidPriorityException;
 import ponderpika.exception.InvalidTaskIndexException;
+import ponderpika.exception.NoMatchingTasksFoundException;
 import ponderpika.exception.PonderPikaException;
 import ponderpika.exception.TaskAlreadyMarkedException;
 import ponderpika.exception.TaskAlreadyUnmarkedException;
@@ -137,7 +138,7 @@ public class TaskList {
                 .toList();
 
         if (matchedTasks.isEmpty()) {
-            throw new PonderPikaException("No Matching tasks found in the list!");
+            throw new NoMatchingTasksFoundException();
         }
         return matchedTasks.stream().map(Task::toString).collect(Collectors.joining("\n"));
     }

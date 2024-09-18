@@ -11,6 +11,7 @@ import ponderpika.exception.MissingEventFromTimeException;
 import ponderpika.exception.MissingEventTimingException;
 import ponderpika.exception.MissingEventToTimeException;
 import ponderpika.exception.MissingFindKeywordException;
+import ponderpika.exception.MissingPriorityLevelException;
 import ponderpika.exception.MissingTaskIndexException;
 import ponderpika.exception.PonderPikaException;
 import ponderpika.exception.UnknownCommandException;
@@ -158,7 +159,7 @@ public class Parser {
     public Command parsePriorityCommand(String details) throws PonderPikaException {
         String[] taskDetail = details.split(" ");
         if (taskDetail[0].trim().isEmpty()) {
-            throw new PonderPikaException("Missing Priority Level for the task!");
+            throw new MissingPriorityLevelException();
         }
         if (taskDetail.length < 2) {
             throw new MissingTaskIndexException();
