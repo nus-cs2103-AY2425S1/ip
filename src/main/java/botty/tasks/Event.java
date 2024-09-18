@@ -72,7 +72,8 @@ public class Event extends Task<EventData> {
      * @throws BottyException if corrupted task string or invalid arguments
      */
     public static Event getEventFromDataString(String taskString) throws BottyException {
-        if (!taskString.matches("E \\| [10] \\| (.*?) \\| (.*?) \\| (.*?)")) {
+        String standardDataStorageFormatRegex = "E \\| [10] \\| (.*?) \\| (.*?)";
+        if (!taskString.matches(standardDataStorageFormatRegex)) {
             throw new CorruptedTaskStringException();
         }
 
