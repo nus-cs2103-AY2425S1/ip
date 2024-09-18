@@ -18,7 +18,7 @@ public class Ui {
         StringBuilder response = new StringBuilder();
         response.append("Got it. I've added this task:");
         response.append(String.format("  %s\n", task));
-        response.append(String.format("Now you have %d tasks in the list.", taskCount));
+        response.append(String.format("Now you have %d tasks in the list. Mamta dum dum", taskCount));
         return response.toString();
     }
 
@@ -33,7 +33,7 @@ public class Ui {
         StringBuilder response = new StringBuilder();
         response.append("Got it. I've removed this task:");
         response.append(String.format("  %s", task));
-        response.append(String.format("Now you have %d tasks in the list.", taskCount));
+        response.append(String.format("Now you have %d tasks in the list. Mamta dum dum", taskCount));
         return response.toString();
     }
 
@@ -47,6 +47,7 @@ public class Ui {
         StringBuilder response = new StringBuilder();
         response.append("Nice! I've marked this task as done:\n  ");
         response.append(task);
+        response.append(" Mamta dum dum");
         return response.toString();
     }
 
@@ -60,6 +61,7 @@ public class Ui {
         StringBuilder response = new StringBuilder();
         response.append("OK, I've marked this task as not done yet:\n  ");
         response.append(task);
+        response.append(" Mamta dum dum");
         return response.toString();
     }
 
@@ -70,7 +72,7 @@ public class Ui {
      * @return a String error message
      */
     public static String printErr(MaheshException err) {
-        return err.getMessage();
+        return err.getMessage() + " Mamta dum dum";
     }
 
     /**
@@ -82,7 +84,7 @@ public class Ui {
     public static String printNoSuchTaskErr(int taskCount) {
         StringBuilder response = new StringBuilder();
         response.append(String.format("There is no such task. You currently have %d task(s).\n", taskCount));
-        response.append("Use the \"list\" command to view all your tasks.");
+        response.append("Use the \"list\" command to view all your tasks. Mamta dum dum");
         return response.toString();
     }
 
@@ -96,6 +98,7 @@ public class Ui {
         StringBuilder response = new StringBuilder();
         response.append("The command is incomplete/incorrect.\n");
         response.append(err.getMessage());
+        response.append(" Mamta dum dum");
         return response.toString();
     }
 
@@ -105,7 +108,7 @@ public class Ui {
      * @return a String error message indicating the task list is empty
      */
     public static String printEmptyListErr() {
-        return "You have no tasks! Add a few tasks (todo, deadline or event)";
+        return "You have no tasks! Add a few tasks (todo, deadline or event) Mamta dum dum";
     }
 
     /**
@@ -114,6 +117,6 @@ public class Ui {
      * @return a String error message indicating corrupted data file
      */
     public static String printCorruptedDataErr() {
-        return "Some tasks may not have loaded correctly due to corrupted data file.";
+        return "Some tasks may not have loaded correctly due to corrupted data file. Mamta dum dum";
     }
 }
