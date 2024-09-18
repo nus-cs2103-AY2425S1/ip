@@ -2,6 +2,7 @@ package agave.Util;
 
 import agave.Task.Task;
 import agave.Task.TaskList;
+import javafx.application.Platform;
 
 
 import java.io.IOException;
@@ -24,7 +25,9 @@ public class CommandHandler {
         String command = parser.getCommand();
 
         if (command.equals("bye")) {
-            return ui.showBye();
+            ui.showBye();
+            Platform.exit();
+            return "Bye. Hope to see you again soon!";
         } else if (command.equals("list")) {
             return ui.showTasks(tasks.getTasks());
         } else if (command.equals("mark")) {

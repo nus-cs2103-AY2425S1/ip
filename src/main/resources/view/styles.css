@@ -1,30 +1,21 @@
 .dialog-box {
-    padding: 10px;
-    border-radius: 10px;
-    margin: 5px;
+    -fx-padding: 10px;
     -fx-background-color: #f9f9f9;
     -fx-border-color: #ccc;
     -fx-border-radius: 10px;
     -fx-background-radius: 10px;
-}
-
-.dialog-box .label {
-    -fx-font-size: 14px;
-    -fx-font-family: 'Arial';
-    -fx-text-fill: #333;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
 }
 
 .error-dialog {
-    -fx-background-color: #ffcccc !important;
-    -fx-border-width: 2px;
+    -fx-background-color: #ffcccc;
     -fx-border-color: #ff0000;
-    -fx-border-style: solid;
+    -fx-border-width: 2px;
     -fx-font-weight: bold;
 }
 
 .image-view {
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0.0, 2, 2);
-    -fx-border-radius: 50px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0, 2, 2);
     -fx-background-radius: 50px;
 }
 
@@ -32,21 +23,38 @@
     -fx-background-color: #4CAF50;
     -fx-text-fill: white;
     -fx-font-size: 14px;
-    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
 }
 
 .text-field {
     -fx-background-color: white;
     -fx-font-size: 14px;
-    -fx-border-radius: 15px;
+    -fx-background-radius: 15px;
     -fx-border-color: #ccc;
+    -fx-border-radius: 15px;
 }
 
 .scroll-pane {
     -fx-background-color: transparent;
 }
 
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .scroll-bar:vertical {
+    -fx-unit-increment: 20;
+    -fx-block-increment: 100;
+}
+
 .vbox-container {
     -fx-background-color: white;
     -fx-background-radius: 15px;
+    -fx-padding: 10px;
+    -fx-spacing: 10px;
+}
+
+#dialogContainer {
+    -fx-fit-to-width: true;
+    -fx-fit-to-height: true;
 }

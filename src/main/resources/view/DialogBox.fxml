@@ -14,24 +14,23 @@
          xmlns:fx="http://javafx.com/fxml/1"
          styleClass="dialog-box">
 
-        <children>
-                <Label fx:id="dialog"
-                       text="Label"
-                       wrapText="true"
-                       minHeight="-Infinity"
-                       maxHeight="Infinity"
-                       HBox.hgrow="ALWAYS"
-                       styleClass="label"/>
-
-                <ImageView fx:id="displayPicture"
-                           fitHeight="99.0"
-                           fitWidth="99.0"
-                           pickOnBounds="true"
-                           preserveRatio="true"
-                           styleClass="image-view"/>
-        </children>
-
         <padding>
-                <Insets bottom="15.0" left="10.0" right="10.0" top="15.0" />
+                <Insets bottom="15.0" left="10.0" right="10.0" top="15.0"/>
         </padding>
+
+        <Label fx:id="dialog"
+               text="Label"
+               wrapText="true"
+               minHeight="-Infinity"
+               maxHeight="Infinity"
+               prefWidth="300.0"
+               HBox.hgrow="ALWAYS"
+               styleClass="label"/>
+
+        <ImageView fx:id="displayPicture"
+                   fitHeight="99.0"
+                   fitWidth="99.0"
+                   pickOnBounds="true"
+                   preserveRatio="true"
+                   styleClass="image-view"/>
 </fx:root>

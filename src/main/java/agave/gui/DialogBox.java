@@ -1,6 +1,5 @@
 package agave.gui;
 
-import java.io.DataInputStream;
 import java.io.IOException;
 
 import javafx.fxml.FXML;
@@ -13,10 +12,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.layout.Region;
 import javafx.scene.shape.Circle;
 
 import java.util.Collections;
 
+/**
+ * A custom control using FXML that represents a dialog box consisting of an ImageView to represent the speaker's face
+ * and a label containing text from the speaker.
+ */
 public class DialogBox extends HBox {
 
     @FXML
@@ -25,6 +29,11 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Creates a DialogBox with the given text and image.
+     * @param text The text to display in the dialog box.
+     * @param image The image to display in the dialog box.
+     */
     private DialogBox(String text, Image image) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -44,6 +53,12 @@ public class DialogBox extends HBox {
         displayPicture.setClip(new Circle(25, 25, 25));
     }
 
+    /**
+     * Creates a DialogBox for error messages.
+     * @param response The error message.
+     * @param agaveImage The Agave image.
+     * @return A DialogBox with the error message.
+     */
     public static DialogBox getErrorDialog(String response, Image agaveImage) {
         DialogBox db = new DialogBox(response, agaveImage);
         db.flip();

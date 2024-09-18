@@ -36,10 +36,11 @@
             AnchorPane.bottomAnchor="10.0"
             AnchorPane.rightAnchor="10.0"/>
 
-    <ScrollPane fx:id="scrollPane"
+    <ScrollPane fx:id="scrollPane" VBox.vgrow="ALWAYS"
                 hbarPolicy="NEVER"
                 vbarPolicy="ALWAYS"
                 fitToWidth="true"
+                fitToHeight="true"
                 prefHeight="500.0"
                 prefWidth="400.0"
                 AnchorPane.topAnchor="10.0"
@@ -49,7 +50,6 @@
                 styleClass="scroll-pane">
         <VBox fx:id="dialogContainer"
               spacing="10.0"
-              prefHeight="552.0"
               prefWidth="388.0"
               VBox.vgrow="ALWAYS"
               styleClass="vbox-container">
@@ -58,5 +58,7 @@
             </padding>
         </VBox>
     </ScrollPane>
+
+
 
 </AnchorPane>
