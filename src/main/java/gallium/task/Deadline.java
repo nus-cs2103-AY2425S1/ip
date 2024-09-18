@@ -54,6 +54,8 @@ public class Deadline extends Task {
         } else if (description.startsWith("[D][ ] ")) {
             parts = description.split("\\[D\\]\\[ \\] ");
             this.isDone = false;
+        } else {
+            throw new IllegalArgumentException("Invalid deadline format");
         }
         this.desc = parts[1].split(" \\(by:")[0];
         String[] byParts = parts[1].split("\\(by: ");
