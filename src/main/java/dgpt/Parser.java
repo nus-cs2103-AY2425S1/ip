@@ -142,7 +142,7 @@ public class Parser {
 
         if (parts.length != 2) {
             throw new IncorrectInputException("You should have a date after your request. "
-                    + "(e.g. \"todo your_description /by dd/MM/yyyy\")");
+                    + "(e.g. \"deadline your_description /by dd/MM/yyyy\")");
         }
 
         try {
@@ -168,7 +168,7 @@ public class Parser {
 
         if (parts.length != 3) {
             throw new IncorrectInputException("You should have 2 timings after your request. "
-                    + "(e.g. \"todo your_description /from dd/MM/yyyy HHmm /to dd/MM/yyyy HHmm\")");
+                    + "(e.g. \"event your_description /from dd/MM/yyyy HHmm /to dd/MM/yyyy HHmm\")");
         }
 
         try {
@@ -239,7 +239,7 @@ public class Parser {
 
         if (parts.length != 2) {
             throw new IncorrectInputException("You should have a frequency after your request. "
-                    + "(e.g. \"todo your_description /every your_frequency\")");
+                    + "(e.g. \"recurring your_description /every your_frequency\")");
         }
 
         String description = parts[0];
