@@ -18,30 +18,6 @@ public class VoidCat {
     private TaskList tasks;
     private Ui ui;
 
-    private String[] greetings = {
-                "Hello! I'm your friendly void cat, \n",
-                "Purr... Hello, wanderer. I am \n",
-                "Mew! Welcome human! I'm \n",
-                "Greetings from the abyss, friend, for I am\n",
-                "Meow! Happy to help, they call me \n"
-    };
-
-    private String[] assistGreetings = {
-            "How can this void assist you today?",
-            "At your service, human.",
-            "What help does human need today?",
-            "Need any help?",
-            "What can I do for you?"
-    };
-
-    private String[] exits = {
-                "Purr... Until next time, friend.",
-            "Meow! I shall vanish into the shadows now."
-                ,
-                "Farewell! May your path be clear.",
-                "Mew! See you in the void again soon.",
-                "The void calls, but I'll return. Goodbye!"
-    };
 
     /**
      * Constructs a Void object with a specified file path for storage of tasks.
@@ -66,7 +42,7 @@ public class VoidCat {
         try {
             this.tasks = new TaskList(storage.load());
             if (input.equalsIgnoreCase("bye")) {
-                return Ui.goodbye(exits);
+                return Ui.goodbye();
             }
             assert tasks != null : "TaskList is not initialized!";
             return new Parser().parseAndExecute(input, tasks, ui, storage);

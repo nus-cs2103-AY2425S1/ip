@@ -1,20 +1,20 @@
 .root {
-    main-color: rgb(237, 255, 242);       /* Create a looked-up color called "main-color" within root. */
+    main-color: rgb(238, 223, 193);       /* Create a looked-up color called "main-color" within root. */
     -fx-background-color: main-color;
 }
 
 .text-field {
-    -fx-background-color: #d9ffe2;
+    -fx-background-color: #f1eacf;
     -fx-font: 20px "Arial";
 }
 
 .button {
-    -fx-background-color: mediumspringgreen;
+    -fx-background-color: #e5d76d;
     -fx-font: italic bold 16px "Arial";
 }
 
 .button:hover {
-    -fx-background-color:cyan;
+    -fx-background-color: #dccf77;
     -fx-font-size: 18px;
 }
 
@@ -34,7 +34,7 @@
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: #ff9cb4;
+    -fx-background-color: #4b423b;
     -fx-background-radius: 1em;
 }
 

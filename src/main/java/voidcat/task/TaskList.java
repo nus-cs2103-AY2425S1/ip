@@ -6,9 +6,6 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
-
 
 /**
  * Represents a list of tasks and provides methods for managing tasks
@@ -73,9 +70,9 @@ public class TaskList {
         if (this.tasks.isEmpty()) {
             throw new VoidCatException("No saved tasks found yet! Task list is empty.\n\tStart adding tasks and track them!");
         }
-        String responseList = "Here are the tasks from your list:\n";
+        String responseList = "Here are the tasks from your list ^•ﻌ•^ฅ♡ :\n\n";
         for (int i = 0; i < this.tasks.size(); i++) {
-            responseList += "\t" + (i + 1) + ". " + this.tasks.get(i) + "\n";
+            responseList += (i + 1) + ". " + this.tasks.get(i) + "\n";
         }
         return responseList;
     }

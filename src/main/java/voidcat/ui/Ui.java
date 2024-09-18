@@ -10,40 +10,71 @@ import java.util.Scanner;
  * greetings, and farewells.
  */
 public class Ui {
-    private static final String FORMAT = "\t%s%n";
-//    private final Scanner scanner;
+    private static final String name = "Void Cat ฅ^•ﻌ•^ฅ\n";
 
-    private static final String logo =
-        "### ###   ## ##     ####   ### ##\n" +
-        " ##  ##  ##   ##     ##     ##  ##\n" +
-        " ##  ##  ##   ##     ##     ##  ##\n" +
-        " ##  ##  ##   ##     ##     ##  ##\n" +
-        " ### ##  ##   ##     ##     ##  ##\n" +
-        "  ###    ##   ##     ##     ##  ##\n" +
-        "   ##     ## ##     ####   ### ##\n";
+    private static final String[] greetings = {
+            "Hello! I'm your friendly cat helper, \n",
+            "Purr... Hello, wanderer. I am \n",
+            "Mew! Welcome human! I'm \n",
+            "Greetings from the abyss, friend, for I am\n",
+            "Meow! Happy to help, they call me \n"
+    };
+
+    private static final String[] assistGreetings = {
+            "How can this void assist you today?",
+            "At your service, human.",
+            "What help does human need today?",
+            "Need any help?",
+            "What can I do for you?"
+    };
+
+    private static final String[] exits = {
+            "Purr... Until next time, friend.",
+            "Meow! I shall vanish into the shadows now.",
+            "Farewell! May your path be clear.",
+            "Mew! See you in the void again soon.",
+            "The void calls, but I'll return. Goodbye!"
+    };
 
     /**
      * Displays a welcome message with a random greeting and the application logo.
      *
-     * @param greetings Array of possible greeting messages.
-     * @param assistGreetings Array of possible assistance messages.
      * @return A formatted welcome message with a greeting and logo.
      */
-    public static String welcome(String[] greetings, String[] assistGreetings) {
-        return greetings[(int) (Math.random() * greetings.length)]
-                + logo.indent(4) + assistGreetings[(int) (Math.random() * assistGreetings.length)];
+    public static String welcome() {
+        return  greetings[(int) (Math.random() * greetings.length)]
+                + name
+                + assistGreetings[(int) (Math.random() * assistGreetings.length)]
+                + "\nType `help` to see a list of commands you can use.";
     }
 
     /**
      * Displays a random goodbye message from the given options.
      *
-     * @param exits Array of possible exit messages.
      * @return A random farewell message.
      */
-    public static String goodbye(String[] exits) {
-        //Display a random exit
-        return exits[(int) (Math.random() * exits.length)];
+    public static String goodbye() {
+        return "/ᐠ˵- ⩊ -˵マ" + exits[(int) (Math.random() * exits.length)];
 
+    }
+
+    /**
+     * Displays all commands and their format to help as a guide.
+     *
+     * @return A message of the formats of all commands
+     */
+    public static String getHelpMessage() {
+        return "Here are the available commands ^•ﻌ•^ฅ♡ :\n\n"
+                + "1. list - Shows all tasks\n"
+                + "2. todo <description> - Adds a ToDo task\n"
+                + "3. deadline <description> /by <yyyy-mm-dd hhmm> - Adds a Deadline task\n"
+                + "4. event <description> /from <yyyy-mm-dd hhmm> /to <yyyy-mm-dd hhmm> - Adds an Event task\n"
+                + "5. mark <task_number> - Marks a task as done\n"
+                + "6. unmark <task_number> - Unmarks a task\n"
+                + "7. delete <task_number> - Deletes a task\n"
+                + "8. find <keyword> - Finds tasks with the keyword\n"
+                + "9. help - Displays this help page\n"
+                + "10. bye - Exits the application";
     }
 
     /**
@@ -54,7 +85,7 @@ public class Ui {
      * @return A formatted message indicating the task has been removed.
      */
     public String showDeleteTaskMessage(Task removedTask, int size) {
-        return "Noted. I've removed this task:\n\t\t" + removedTask + "\nNow you have " + size + " tasks in the list";
+        return "ฅ^._.^ฅ Noted. I've removed this task:\n\n" + removedTask + "\n\nNow you have " + size + " tasks in the list";
     }
 
     /**
@@ -64,7 +95,7 @@ public class Ui {
      * @return A formatted message indicating the task has been marked.
      */
     public String showMarkTaskMessage(Task markedTask) {
-        return "Good job! I've marked this task as done:\n\t\t" + markedTask;
+        return "/ᐠ > ˕ <マ ₊˚⊹♡ Good job! I've marked this task as done:\n\n" + markedTask;
     }
 
     /**
@@ -74,7 +105,7 @@ public class Ui {
      * @return A formatted message indicating the task has been unmarked.
      */
     public String showUnmarkTaskMessage(Task unmarkedTask) {
-        return "OK, I've marked this task as not done yet:\n\t\t" + unmarkedTask;
+        return "ฅ^._.^ฅ OK, I've marked this task as not done yet:\n\n" + unmarkedTask;
     }
 
     /**
@@ -85,7 +116,7 @@ public class Ui {
      * @return A formatted message indicating the task has been added.
      */
     public String showAddTaskMessage(Task task, int size) {
-        return "Got it. I've added this task:\n\t\t" + task + "\nNow you have " + size + " tasks in the list";
+        return "/ᐠ > ˕ <マ Got it. I've added this task:\n\n" + task + "\n\nNow you have " + size + " tasks in the list";
     }
 
 }

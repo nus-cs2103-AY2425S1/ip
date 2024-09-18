@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import voidcat.ui.Ui;
 
 /**
  * Controller for the main GUI.
@@ -29,10 +30,13 @@ public class MainWindow extends AnchorPane{
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        String welcomeMessage = Ui.welcome();
+        dialogContainer.getChildren()
+                .add(DialogBox.getVoidCatDialog(welcomeMessage, voidCatImage));
     }
 
     /**
-     *Injects the VoidCat instance
+     *Injects the VoidCat instance and welcomes the user
      * @param v VoidCat instance
      */
     public void setVoidCat(VoidCat v) {

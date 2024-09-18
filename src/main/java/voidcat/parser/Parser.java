@@ -36,39 +36,19 @@ public class Parser {
         String[] splitInput = fullCommand.split(" ", 2);
         String commandWord = splitInput[0];
         String arguments = splitInput.length > 1 ? splitInput[1] : "";
-        String response = "";
+        String response = switch (commandWord.toLowerCase()) {
+            case "help" -> Ui.getHelpMessage();
+            case "list" -> tasks.listTasks();
+            case "delete" -> handleDeleteCommand(arguments, tasks, ui);
+            case "mark" -> handleMarkCommand(arguments, tasks, ui);
+            case "unmark" -> handleUnmarkCommand(arguments, tasks, ui);
+            case "todo" -> handleAddToDoCommand(arguments, tasks, ui);
+            case "deadline" -> handleAddDeadlineCommand(arguments, tasks, ui);
+            case "event" -> handleAddEventCommand(arguments, tasks, ui);
+            case "find" -> handleFindCommand(arguments, tasks);
+            default -> throw new VoidCatException("AH!! My apologies, I don't know what that means =T^T=");
+        };
 
-        switch (commandWord.toLowerCase()) {
-        case "bye":
-            break;
-        case "list":
-            response = tasks.listTasks();
-            break;
-        case "delete":
-            response = handleDeleteCommand(arguments, tasks, ui);
-            break;
-        case "mark":
-            response = handleMarkCommand(arguments, tasks, ui);
-            break;
-        case "unmark":
-            response = handleUnmarkCommand(arguments, tasks, ui);
-            break;
-        case "todo":
-            response = handleAddToDoCommand(arguments, tasks, ui);
-            break;
-        case "deadline":
-            response = handleAddDeadlineCommand(arguments, tasks, ui);
-            break;
-        case "event":
-            response = handleAddEventCommand(arguments, tasks, ui);
-            break;
-        case "find":
-            response = handleFindCommand(arguments, tasks);
-            break;
-        default:
-            throw new VoidCatException("AH!! My apologies, I don't know what that means =T^T=");
-        }
-        
         storage.save(tasks);
         return response;
     }
@@ -84,7 +64,7 @@ public class Parser {
      */
     private String handleDeleteCommand(String arguments, TaskList tasks, Ui ui) throws VoidCatException {
         if (arguments.isBlank()) {
-            throw new VoidCatException("Hm.. I dont know which to delete! Give me the task number please.");
+            throw new VoidCatException("Meow~ Hm.. I dont know which to delete! Give me the task number please.");
         } else {
             int taskIndex = parseTaskIndex(arguments, tasks);
             Task removedTask = tasks.deleteTask(taskIndex);
@@ -103,7 +83,7 @@ public class Parser {
      */
     private String handleMarkCommand(String arguments, TaskList tasks, Ui ui) throws VoidCatException {
         if (arguments.isBlank()) {
-            throw new VoidCatException("Hm.. I dont know which to mark! Give me the task number please.");
+            throw new VoidCatException("Meow~ Hm.. I dont know which to mark! Give me the task number please.");
         } else {
             int taskIndex = parseTaskIndex(arguments, tasks);
             Task markedTask = tasks.markTaskAsDone(taskIndex);
@@ -122,7 +102,7 @@ public class Parser {
      */
     private String handleUnmarkCommand(String arguments, TaskList tasks, Ui ui) throws VoidCatException {
         if (arguments.isBlank()) {
-            throw new VoidCatException("Hm.. I dont know which to unmark! Give me the task number please.");
+            throw new VoidCatException("Meow~ Hm.. I dont know which to unmark! Give me the task number please.");
         } else {
             int taskIndex = parseTaskIndex(arguments, tasks);
             Task unmarkedTask = tasks.unmarkTaskAsDone(taskIndex);
@@ -161,14 +141,14 @@ public class Parser {
     private String handleAddDeadlineCommand(String arguments, TaskList tasks, Ui ui) throws VoidCatException {
         String[] details = arguments.split(" /by ");
         if (details.length != 2) {
-            throw new VoidCatException("AH! The description of a deadline and the deadline can't be empty!\nRemember to put a /by after the description!");
+            throw new VoidCatException("Meow~ AH! The description of a deadline and the deadline can't be empty!\nRemember to put:\n/by <yyyy-mm-dd hhmm> after the description!");
         }
         try {
             Deadline newTask = new Deadline(details[0], details[1]);
             tasks.addTask(newTask);
             return ui.showAddTaskMessage(newTask, tasks.size());
         } catch (DateTimeParseException d) {
-            throw new VoidCatException("AH! Check if:\n\t1. Input time is valid\n\t2. Format of the 24h date time is in yyyy-mm-dd hhmm");
+            throw new VoidCatException("Meow~ AH! Check if:\n\t1. Input time is valid\n\t2. Format of the 24h date time is in yyyy-mm-dd hhmm");
         }
     }
 
@@ -184,19 +164,19 @@ public class Parser {
     private String handleAddEventCommand(String arguments, TaskList tasks, Ui ui) throws VoidCatException, IllegalArgumentException {
         String[] details = arguments.split(" /from | /to ");
         if (details.length != 3) {
-            throw new VoidCatException("AH! The description of an event, and the start and end time can't be empty!\nRemember to put a /from and /to after the description!");
+            throw new VoidCatException("Meow~ AH! The description of an event, and the start and end time can't be empty!\nRemember to put:\n/from <yyyy-mm-dd hhmm> /to <yyyy-mm-dd hhmm> after the description!");
         }
         try {
             LocalDateTime dfrom = LocalDateTime.parse(details[1], DateTimeFormatter.ofPattern("uuuu-MM-dd HHmm"));
             LocalDateTime dto = LocalDateTime.parse(details[2], DateTimeFormatter.ofPattern("uuuu-MM-dd HHmm"));
             if (dfrom.isAfter(dto)) {
-                throw new VoidCatException("AH! The /from date time must be before the /after");
+                throw new VoidCatException("Meow~ AH! The /from date time must be before the /after");
             }
             Event newTask = new Event(details[0], details[1], details[2], 0);
             tasks.addTask(newTask);
             return ui.showAddTaskMessage(newTask, tasks.size());
         } catch (DateTimeParseException d) {
-            throw new VoidCatException("AH! Check if:\n\t1. Input time is valid\n\t2. Format of the 24h date time is in yyyy-mm-dd hhmm");
+            throw new VoidCatException("Meow~ AH! Check if:\n\t1. Input time is valid\n\t2. Format of the 24h date time is in yyyy-mm-dd hhmm");
         }
     }
 
@@ -210,7 +190,7 @@ public class Parser {
      */
     private String handleFindCommand(String arguments, TaskList tasks) throws VoidCatException {
         if (arguments.isBlank()) {
-            throw new VoidCatException("Please provide a keyword to find.");
+            throw new VoidCatException("Meow~ AH! Please provide a keyword to find.");
         }
         return tasks.findTasks(arguments);
     }
@@ -228,11 +208,11 @@ public class Parser {
         try {
             int taskListIndex = Integer.parseInt(argument) - 1;
             if (taskListIndex < 0 || taskListIndex >= tasks.size()) {
-                throw new VoidCatException("OOPS!!! The task number provided is invalid.");
+                throw new VoidCatException("Meow~ AH!!! The task number provided is invalid.");
             }
             return taskListIndex;
         } catch (NumberFormatException e) {
-            throw new VoidCatException("OOPS!!! The task number provided is invalid.");
+            throw new VoidCatException("Meow~ AH!!! The task number provided is invalid.");
         }
     }
 }
