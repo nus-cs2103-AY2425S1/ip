@@ -1,4 +1,4 @@
-import exception.DukeException;
+import exception.DPlusPlusEException;
 import task.TaskList;
 import utilities.Storage;
 import utilities.Ui;
@@ -14,7 +14,7 @@ public class DPlusPlusE {
         storage = new Storage(filePath);
         try {
             tasks = storage.load();
-        } catch (DukeException e) {
+        } catch (DPlusPlusEException e) {
             ui.showLoadingError();
             tasks = new TaskList();
         }

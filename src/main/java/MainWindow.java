@@ -21,20 +21,20 @@ public class MainWindow extends AnchorPane {
     private DPlusPlusE dPlusPlusE;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image dPlusPlusEImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
+    /** Injects the D++E instance */
     public void setDPlusPlusE(DPlusPlusE dPlusPlusE) {
         this.dPlusPlusE = dPlusPlusE;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing D++E's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -43,7 +43,7 @@ public class MainWindow extends AnchorPane {
         String response = dPlusPlusE.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDPlusPlusEDialog(response, dPlusPlusEImage)
         );
         userInput.clear();
     }

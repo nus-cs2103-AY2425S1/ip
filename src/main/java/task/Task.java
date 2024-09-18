@@ -1,6 +1,6 @@
 package task;
 
-import exception.DukeException;
+import exception.DPlusPlusEException;
 import exception.FormatException;
 import exception.NoInputException;
 
@@ -8,7 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Task class is used to represent a task in Duke.
+ * Task class is used to represent a task in D++E.
  */
 public abstract class Task implements Comparable<Task> {
     protected String description;
@@ -75,10 +75,10 @@ public abstract class Task implements Comparable<Task> {
      * for giving task creation instructions.
      * @param s User's instruction for task creation.
      * @return The task object.
-     * @throws DukeException If the instruction is of wrong format.
+     * @throws DPlusPlusEException If the instruction is of wrong format.
      */
 
-     public static Task of(String s) throws DukeException {
+     public static Task of(String s) throws DPlusPlusEException {
         s = s.trim();
         if (s.isEmpty()) {
             throw new NoInputException();

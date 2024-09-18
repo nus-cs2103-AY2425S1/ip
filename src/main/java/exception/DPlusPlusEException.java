@@ -4,12 +4,12 @@ import java.util.InputMismatchException;
 /**
  * DukeException class is used to indicate exceptions in Duke.
  */
-public class DukeException extends InputMismatchException  {
+public class DPlusPlusEException extends InputMismatchException  {
     /**
      * Constructor for DukeException.
      * @param message The message to be displayed when the exception is thrown.
      */
-    public DukeException(String message) {
+    public DPlusPlusEException(String message) {
         super(message);
     }
 
