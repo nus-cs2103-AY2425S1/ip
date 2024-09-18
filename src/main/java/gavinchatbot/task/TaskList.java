@@ -98,8 +98,10 @@ public class TaskList {
         if (index < 0 || index >= tasks.size()) {
             throw new GavinException("Task number is invalid!");
         }
+        Task removedTask = tasks.remove(index);
         assert tasks.size() == initialSize - 1 : "TaskList size did not decrease after deleting a task";
-        return tasks.remove(index);
+
+        return removedTask;
     }
 
     /**

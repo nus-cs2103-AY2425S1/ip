@@ -66,7 +66,7 @@ public class Main extends Application {
         stage.show();
 
         // Formatting the window to look as expected
-        stage.setTitle("Duke");
+        stage.setTitle("GavinChatBot");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);

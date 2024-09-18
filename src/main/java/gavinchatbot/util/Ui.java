@@ -32,8 +32,8 @@ public class Ui {
      */
     public String showWelcome() {
         return getHorizontalLine()
-                + "Hello! I'm Gavin's Chat Bot!\n"
-                + "What can I do for you?\n"
+                + "What's up! I'm Gavin's Chat Bot!\n"
+                + "What can I do for you, kind sir?\n"
                 + getHorizontalLine();
     }
 
@@ -42,6 +42,7 @@ public class Ui {
      */
     public String showGoodbye() {
         return getHorizontalLine()
+                + "Oh, that was quick. \n"
                 + "Bye. Hope to see you again soon!\n"
                 + getHorizontalLine();
     }
@@ -56,7 +57,7 @@ public class Ui {
     public String showList(TaskList tasks) throws GavinException {
         StringBuilder sb = new StringBuilder();
         sb.append(getHorizontalLine());
-        sb.append("Here are the tasks in your list:\n");
+        sb.append("Alright, here's all the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             sb.append((i + 1) + ". " + tasks.getTask(i) + "\n");
         }
@@ -73,7 +74,7 @@ public class Ui {
      */
     public String showMarkedTask(Task task) throws GavinException {
         return getHorizontalLine()
-                + "Nice! I've marked this task as done:\n"
+                + "Wow great job! This task is now marked as done:\n"
                 + " " + task + "\n"
                 + getHorizontalLine();
     }
@@ -87,7 +88,7 @@ public class Ui {
      */
     public String showUnmarkedTask(Task task) throws GavinException {
         return getHorizontalLine()
-                + "OK, I've marked this task as not done yet:\n"
+                + "Oh no... What happened... I've unmarked this task:\n"
                 + " " + task + "\n"
                 + getHorizontalLine();
     }
@@ -102,9 +103,9 @@ public class Ui {
      */
     public String showAddedTask(Task task, int size) throws GavinException {
         return getHorizontalLine()
-                + "Got it. I've added this task:\n"
+                + "OKAY Got it. I've added this task to your list:\n"
                 + " " + task + "\n"
-                + "Now you have " + size + " tasks in the list.\n"
+                + "Now you have an astonishing " + size + " task(s) in the list.\n"
                 + getHorizontalLine();
     }
 
@@ -117,9 +118,9 @@ public class Ui {
      */
     public String showDeletedTask(Task task, int size) {
         return getHorizontalLine()
-                + "Noted. I've removed this task:\n"
+                + "Alright I gotchu. I've removed this task:\n"
                 + "  " + task + "\n"
-                + "Now you have " + size + " tasks in the list.\n"
+                + "Now you have a total of " + size + " task(s) in the list.\n"
                 + getHorizontalLine();
     }
 
@@ -155,7 +156,7 @@ public class Ui {
     public String showFoundTasks(ArrayList<Task> tasks) {
         StringBuilder sb = new StringBuilder();
         sb.append(getHorizontalLine());
-        sb.append("Here are the matching tasks in your list:\n");
+        sb.append("After some hard work, I have found the matching tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             sb.append((i + 1) + ". " + tasks.get(i) + "\n");
         }
@@ -184,7 +185,7 @@ public class Ui {
      */
     public String showTaggedMessage(ArrayList<Task> tasks, String tag) {
         StringBuilder sb = new StringBuilder();
-        sb.append("I have now tagged this task as '").append(tag).append("':\n");
+        sb.append("Okay, I have now tagged this task as '").append(tag).append("':\n");
         for (int i = 0; i < tasks.size(); i++) {
             sb.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
         }
