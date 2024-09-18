@@ -30,6 +30,7 @@ public class Storage {
     public ArrayList<String> load() throws SnowyException {
         ArrayList<String> lines = new ArrayList<>();
         try {
+            file.getParentFile().mkdir();
             file.createNewFile();
             assert file.exists() : "Storage file should have been created";
             Scanner scanner = new Scanner(file);
