@@ -221,7 +221,7 @@ public class Parser {
             throw new BimoException("Missing number and priority");
         }
         if (parsedArray.length <= 2) {
-            if (isMissingNumber(parsedArray)) {
+            if (hasMissingNumber(parsedArray)) {
                 throw new BimoException("Missing task number");
             } else {
                 throw new BimoException("Missing priority");
@@ -243,7 +243,7 @@ public class Parser {
      * @param parsedArray Array containing user input split by " ".
      * @return True if missing element is a number.
      */
-    public static boolean isMissingNumber(String[] parsedArray) {
+    public static boolean hasMissingNumber(String[] parsedArray) {
         if (parsedArray[1].matches("-?\\d+")) {
             return false;
         }

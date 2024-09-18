@@ -52,7 +52,7 @@ public class Storage {
      * @param text line of code inside data/Bimo.txt.
      * @return Task object.
      */
-    private Task convertTextToTask(String text) {
+    public Task convertTextToTask(String text) {
         String[] arrayByPriority = text.split("~");
         boolean hasPriority = arrayByPriority.length > 1;
         String[] details = hasPriority ? arrayByPriority[1].split("\\|") : text.split("\\|");
