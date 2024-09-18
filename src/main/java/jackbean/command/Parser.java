@@ -1,7 +1,5 @@
 package jackbean.command;
 
-import java.sql.SQLOutput;
-
 import jackbean.exception.InvalidTaskTypeException;
 import jackbean.exception.NotEnoughArgumentsException;
 import jackbean.exception.TooManyArgumentsException;
@@ -65,6 +63,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the find command and returns the appropriate response.
+     * This JavaDoc was written by GitHub Copilot.
+     *
+     * @param input
+     * @param taskList
+     * @return response to the find command.
+     */
     private static String handleFindCommand(String input, TaskList taskList) {
         String keyword = input.substring(5).toLowerCase();
         StringBuilder reply = new StringBuilder("Yo homie!"
@@ -91,7 +97,18 @@ public class Parser {
         return reply.toString();
     }
 
-    private static String handleEventCommand(String input, TaskList taskList) throws TooManyArgumentsException, NotEnoughArgumentsException {
+    /**
+     * Handles the event command and returns the appropriate response.
+     * This JavaDoc was written by GitHub Copilot.
+     *
+     * @param input
+     * @param taskList
+     * @return response to the event command.
+     * @throws TooManyArgumentsException   If there are too many arguments in the input.
+     * @throws NotEnoughArgumentsException If there are not enough arguments in the input.
+     */
+    private static String handleEventCommand(String input, TaskList taskList)
+            throws TooManyArgumentsException, NotEnoughArgumentsException {
         String important = input.substring(6);
         String[] splitImportant = important.split(" /");
         if (splitImportant.length > 3) {
@@ -110,7 +127,18 @@ public class Parser {
                 + taskList.getTask(taskList.getSize()) + "\n" + taskList.howManyTasks();
     }
 
-    private static String handleDeadlineCommand(String input, TaskList taskList) throws TooManyArgumentsException, NotEnoughArgumentsException {
+    /**
+     * Handles the deadline command and returns the appropriate response.
+     * This JavaDoc was written by GitHub Copilot.
+     *
+     * @param input
+     * @param taskList
+     * @return response to the deadline command.
+     * @throws TooManyArgumentsException
+     * @throws NotEnoughArgumentsException
+     */
+    private static String handleDeadlineCommand(String input, TaskList taskList)
+            throws TooManyArgumentsException, NotEnoughArgumentsException {
         String important = input.substring(9);
         String[] splitImportant = important.split(" /");
         if (splitImportant.length > 2) {
@@ -127,6 +155,15 @@ public class Parser {
                 + taskList.getTask(taskList.getSize()) + "\n" + taskList.howManyTasks();
     }
 
+    /**
+     * Handles the todo command and returns the appropriate response.
+     * This JavaDoc was written by GitHub Copilot.
+     *
+     * @param input
+     * @param taskList
+     * @return response to the todo command.
+     * @throws NotEnoughArgumentsException
+     */
     private static String handleTodoCommand(String input, TaskList taskList) throws NotEnoughArgumentsException {
         if (input.length() < 6) {
             throw new NotEnoughArgumentsException("todo", "not enough arguments");
@@ -138,6 +175,14 @@ public class Parser {
                 + "\n" + taskList.howManyTasks();
     }
 
+    /**
+     * Handles the delete command and returns the appropriate response.
+     * This JavaDoc was written by GitHub Copilot.
+     *
+     * @param input
+     * @param taskList
+     * @return response to the delete command.
+     */
     private static String handleDeleteCommand(String input, TaskList taskList) {
         // first use split and then parse the integer
         String[] splitInput = input.split(" ");
@@ -152,6 +197,14 @@ public class Parser {
         return reply.toString();
     }
 
+    /**
+     * Handles the unmark command and returns the appropriate response.
+     * This JavaDoc was written by GitHub Copilot.
+     *
+     * @param input
+     * @param taskList
+     * @return response to the unmark command.
+     */
     private static String handleUnmarkCommand(String input, TaskList taskList) {
         // first use split and then parse the integer
         String[] splitInput = input.split(" ");
@@ -169,6 +222,14 @@ public class Parser {
                 + taskList.getTask(taskNumber);
     }
 
+    /**
+     * Handles the mark command and returns the appropriate response.
+     * This JavaDoc was written by GitHub Copilot.
+     *
+     * @param input
+     * @param taskList
+     * @return response to the mark command.
+     */
     private static String handleMarkCommand(String input, TaskList taskList) {
         // first use split and then parse the integer
         String[] splitInput = input.split(" ");
@@ -186,6 +247,13 @@ public class Parser {
                 + taskList.getTask(taskNumber);
     }
 
+    /**
+     * Handles the list command and returns the appropriate response.
+     * This JavaDoc was written by GitHub Copilot.
+     *
+     * @param taskList
+     * @return response to the list command.
+     */
     private static String handleListCommand(TaskList taskList) {
         StringBuilder reply = new StringBuilder("Yo homie!, here are the tasks in your list:");
         for (int i = 1; i <= taskList.getSize(); i++) {

@@ -60,7 +60,7 @@ public class JackBean {
     }
 
     /**
-     * Main entry-point for the JackBean application.
+     * Starts the text-based UI for the JackBean application.
      * This JavaDoc was written by GitHub Copilot.
      *
      * @param args The command line arguments.

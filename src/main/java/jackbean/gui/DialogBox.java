@@ -48,10 +48,26 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Returns a dialog box representing the user's message.
+     * This JavaDoc was written by GitHub Copilot.
+     *
+     * @param text
+     * @param img
+     * @return
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Returns a dialog box representing JackBean's response.
+     * This JavaDoc was written by GitHub Copilot.
+     *
+     * @param text
+     * @param img
+     * @return
+     */
     public static DialogBox getJackBeanDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

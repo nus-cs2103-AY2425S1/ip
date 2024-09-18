@@ -16,6 +16,12 @@ public class Main extends Application {
 
     private JackBean jackBean = new JackBean();
 
+    /**
+     * Starts the GUI.
+     * This JavaDoc was written by GitHub Copilot.
+     *
+     * @param stage The stage to start the GUI on.
+     */
     @Override
     public void start(Stage stage) {
         assert stage != null : "Stage should not be null.";

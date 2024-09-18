@@ -3,7 +3,7 @@ package jackbean.task;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class getDateStringTest {
+public class GetDateStringTest {
     @Test
     public void getDateStringTest() {
         Deadline deadline = new Deadline("return book", "2021-08-24");
