@@ -48,9 +48,12 @@ public class TaskList {
     public String displaySortedList() {
         Stream<Task> temp = Stream.of(listItems).limit(size).sorted();
         StringBuilder output = new StringBuilder();
-        int i = 1;
+        var ref = new Object() {
+            int i = 1;
+        };
         temp.forEach((t) -> {
-            output.append(i).append(". ").append(t).append("\n");
+            output.append(ref.i).append(". ").append(t).append("\n");
+            ref.i++;
         });
         return output.toString();
     }
