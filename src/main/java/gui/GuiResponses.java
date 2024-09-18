@@ -27,7 +27,7 @@ public class GuiResponses {
      */
     public String greeting() {
         return "Greetings. I am " + GuiResponses.BOTNAME + ".\n"
-                + "In this moment, I am here to assist you with your thoughts and tasks. "
+                + "I am here to assist you with your thoughts and tasks. "
                 + "How may I guide you today?";
     }
 
@@ -35,8 +35,8 @@ public class GuiResponses {
      * generates String for standard goodbye
      * @return string format of the goodbye message
      */
-    public String goodBye() {
-        return "Bye! Hope to see you again!";
+    public String goodbye() {
+        return "Farewell. May our paths cross again in the future.";
 
 
     }

@@ -43,7 +43,6 @@ public class Storage {
      * @param filePath path to a file with command inputs
      */
     public Storage(String filePath) {
-        System.out.println("loading");
         this.HIST_FILE = filePath;
     }
 
@@ -78,8 +77,7 @@ public class Storage {
             writer.close();
 
         } catch (IOException e) {
-            System.out.println("Error has occurred " + e.getMessage());
-
+            System.out.println("Error: " + e.getMessage());
         }
     }
 

@@ -1,6 +1,7 @@
 package chatterbox;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -102,6 +103,7 @@ public class ChatterboxGui {
             response.put("type", "ERROR");
         }
         response.put("response", result);
+
         storage.saveHistory(tasks.getTasks());
 
         return response;
@@ -118,6 +120,9 @@ public class ChatterboxGui {
         return guiResponses.greeting();
     }
 
+    public String getGoodbye() {
+        return guiResponses.goodbye();
+    }
     /**
      * Gets the name of the chatbot
      * @return name of the chatbot
