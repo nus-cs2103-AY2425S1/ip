@@ -83,7 +83,6 @@ public class Storage {
                 }
                 if (task != null) {
                     task.setDone(isDone);
-                    //task.isDone = isDone;
                     items.add(task);
                 }
             }
