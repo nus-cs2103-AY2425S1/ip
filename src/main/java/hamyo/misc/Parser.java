@@ -62,7 +62,7 @@ public class Parser {
                 throw new HamyoException("Invalid Command!");
             }
         } catch (HamyoException e) {
-            Ui.printException(e);
+            Ui.setStringException(e);
         }
         System.out.printf(Ui.getResponse());
         return true;
@@ -173,15 +173,15 @@ public class Parser {
         }
         ArrayList<Integer> indexes = commandFieldsToIntegerList(commandFields);
         if (indexes.size() > 1) {
-            Ui.printMassOps("marking", indexes.size());
+            Ui.setStringMassOps("marking", indexes.size());
         }
         for (Integer i : indexes) {
             try {
                 tasks.markTask(i - 1);
             } catch (NumberFormatException e) {
-                Ui.printException(new HamyoException("Invalid index " + i + " provided!"));
+                Ui.setStringException(new HamyoException("Invalid index " + i + " provided!"));
             } catch (HamyoException e) {
-                Ui.printException(e);
+                Ui.setStringException(e);
             }
         }
     }
@@ -201,15 +201,15 @@ public class Parser {
         }
         ArrayList<Integer> indexes = commandFieldsToIntegerList(commandFields);
         if (indexes.size() > 1) {
-            Ui.printMassOps("unmarking", indexes.size());
+            Ui.setStringMassOps("unmarking", indexes.size());
         }
         for (Integer i : indexes) {
             try {
                 tasks.unmarkTask(i - 1);
             } catch (NumberFormatException e) {
-                Ui.printException(new HamyoException("Invalid index " + i + " provided!"));
+                Ui.setStringException(new HamyoException("Invalid index " + i + " provided!"));
             } catch (HamyoException e) {
-                Ui.printException(e);
+                Ui.setStringException(e);
             }
         }
     }
@@ -229,14 +229,14 @@ public class Parser {
         }
         ArrayList<Integer> indexes = commandFieldsToIntegerList(commandFields);
         if (indexes.size() > 1) {
-            Ui.printMassOps("deleting", indexes.size());
+            Ui.setStringMassOps("deleting", indexes.size());
         }
         indexes.sort(Collections.reverseOrder());
         for (Integer i : indexes) {
             try {
                 tasks.deleteTask(i - 1);
             } catch (HamyoException e) {
-                Ui.printException(e);
+                Ui.setStringException(e);
             }
         }
     }
@@ -257,7 +257,7 @@ public class Parser {
                 Integer index = Integer.parseInt(strLst[i]);
                 lst.add(index);
             } catch (NumberFormatException e) {
-                Ui.printException(new HamyoException("Invalid index " + strLst[i] + " provided!"));
+                Ui.setStringException(new HamyoException("Invalid index " + strLst[i] + " provided!"));
             }
         }
         lst = new ArrayList<>(new HashSet<>(lst)); // Remove duplicates.
