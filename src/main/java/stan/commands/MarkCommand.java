@@ -7,9 +7,6 @@ import stan.exceptions.StanMissingArgumentException;
 import stan.tasks.Task;
 import stan.ui.Ui;
 
-
-
-
 /**
  * Represents a command to mark a task as done.
  */
@@ -48,6 +45,12 @@ public class MarkCommand extends Command {
             throw new StanInvalidArgumentException("The task number is out of range.");
         }
         Task task = tasks.get(taskIndex);
+        if (task.isDone()) {
+            // Warning if task is already marked as done
+            return String.format("OOPS!!!\nYou have already completed this task! 🎉\n"
+                    + "Anyways GOOD JOB (๑•̀ㅂ•́)و✧\n"
+                    + "You can enter \"delete %d\" to remove it, if you wish.", taskIndex + 1);
+        }
         task.markAsDone();
         storage.saveTasks(tasks.getTasks());
         return ui.showTaskMarked(task, tasks.size());

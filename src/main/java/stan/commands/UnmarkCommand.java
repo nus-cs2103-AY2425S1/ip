@@ -45,6 +45,12 @@ public class UnmarkCommand extends Command {
             throw new StanInvalidArgumentException("The task number is out of range.");
         }
         Task task = tasks.get(taskIndex);
+        if (!task.isDone()) {
+            // Warning if task is already unmarked
+            return "OOPS!!!\nYou have not completed this task yet, so it is already unmarked! 💼\n"
+                    + "You may want to start working on it now.\n"
+                    + "ALL THE BEST!!!";
+        }
         task.markAsNotDone();
         storage.saveTasks(tasks.getTasks());
         return ui.showTaskUnmarked(task, tasks.size());
