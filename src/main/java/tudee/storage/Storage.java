@@ -53,6 +53,8 @@ public class Storage {
         File currentFile = new File(path);
 
         if (!currentFile.exists()) {
+            // If the file doesn't exist, start with an empty task list and allow the GUI to open.
+            System.out.println("File not found. Starting with an empty task list.");
             return tasks;
         }
 
@@ -69,7 +71,7 @@ public class Storage {
                 tasks.add(currentTask);
             }
         } catch (IOException | TudeeException e) {
-            System.out.println("Error in loading tasks: " + e.getMessage());
+            throw new TudeeException("Error in loading tasks: " + e.getMessage());
         }
         return tasks;
     }

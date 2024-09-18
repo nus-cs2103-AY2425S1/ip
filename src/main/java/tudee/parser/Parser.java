@@ -62,6 +62,10 @@ public class Parser {
             return new AddTaskCommand(new ToDo(inputs[OLD_DESCRIPTION_INDEX]));
 
         case DEADLINE:
+            if (inputs.length == 1) {
+                throw new TudeeException("Deadline task must contain '/by' followed by the due date.");
+            }
+
             String[] deadlineDetails = inputs[OLD_DESCRIPTION_INDEX].split("/by ");
 
             // Assert that the task description and the deadline are provided.
@@ -71,6 +75,10 @@ public class Parser {
                     deadlineDetails[DEADLINE_INDEX]));
 
         case EVENT:
+            if (inputs.length == 1) {
+                throw new TudeeException("Event task must contain '/from' for start date and '/to' for end date");
+            }
+
             String[] eventDetails = inputs[OLD_DESCRIPTION_INDEX].split("/from | /to ");
 
             // Assert that the task description, start and end date are provided.
