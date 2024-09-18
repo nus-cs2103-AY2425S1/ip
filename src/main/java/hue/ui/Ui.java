@@ -8,7 +8,7 @@ import hue.task.*;
 /**
  * Handles interactions with the user through the command line interface.
  */
-public class ui {
+public class Ui {
     private final Scanner scanner = new Scanner(System.in);
     /**
      * Displays a welcoming message to the user

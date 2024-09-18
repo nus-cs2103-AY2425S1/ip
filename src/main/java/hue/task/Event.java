@@ -34,7 +34,11 @@ public class Event extends Task {
                 + " to: "
                 + this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a")) + ")";
     }
-
+    /**
+     * Converts the task to a format suitable for saving to a file.
+     *
+     * @return A string representing the task in file format.
+     */
     @Override
     public String toFileFormat() {
         String task = "E";
@@ -46,13 +50,37 @@ public class Event extends Task {
                 + this.to.format(DateUtils.DATE_TIME_FORMATTER);
     }
 
+    /**
+     * Reschedules the event task to new start and end dates.
+     *
+     * @param newDate The new start and end dates, separated by a space.
+     * @throws HueException If the date format is invalid or both dates are not provided.
+     */
     @Override
     public void reschedule(String newDate) throws HueException {
-        try {
+       /* try {
             String[] dateParts = newDate.split(" ");
             assert dateParts.length == 2 : "Please provide both from and to dates";
             this.from = DateUtils.parseDateTime(dateParts[0]);
             this.to = DateUtils.parseDateTime(dateParts[1]);
+        } catch (DateTimeParseException e) {
+            throw new HueException("Invalid Date format");
+        }
+
+        */
+        throw new HueException("Cannot rescheudle an Event without 2 dates!");
+
+    }
+
+    public void rescheduleEvent(String newFrom, String newTo) throws HueException {
+        try {
+            String[] fromParts = newFrom.split(" ");
+            String[] toParts = newTo.split(" ");
+            assert (fromParts.length >= 0 && fromParts.length <= 2)
+                    && (toParts.length >= 0 && toParts.length <= 2)
+                    : "Please provide both from and to dates";
+            this.from = DateUtils.parseDateTime(newFrom);
+            this.to = DateUtils.parseDateTime(newTo);
         } catch (DateTimeParseException e) {
             throw new HueException("Invalid Date format");
         }

@@ -1,6 +1,6 @@
 package hue.command;
 import hue.HueException;
-import hue.ui.ui;
+import hue.ui.Ui;
 import hue.storage.Storage;
 import hue.task.Task;
 import hue.task.TaskList;
@@ -18,7 +18,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, ui ui, Storage storage) throws HueException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws HueException {
         String keyword = this.input.substring(5).trim();
         assert !keyword.isEmpty() : "Keyword should not be empty";
 

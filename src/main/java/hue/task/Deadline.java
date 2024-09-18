@@ -29,7 +29,11 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: " +
                 this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a")) + ")";
     }
-
+    /**
+     * Converts the task to a format suitable for saving to a file.
+     *
+     * @return A string representing the task in file format.
+     */
     @Override
     public String toFileFormat() {
         String task = "D";
@@ -38,6 +42,12 @@ public class Deadline extends Task {
                 + this.description + " | " + this.by.format(DateUtils.DATE_TIME_FORMATTER);
     }
 
+    /**
+     * Reschedules the deadline task to a new date.
+     *
+     * @param newDate The new deadline date in a valid date-time format.
+     * @throws HueException If the new date is in an invalid format.
+     */
     @Override
     public void reschedule(String newDate) throws HueException{
         try {

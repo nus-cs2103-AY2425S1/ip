@@ -18,6 +18,11 @@ public class Todo extends Task {
         return "[T]" + super.toString();
     }
 
+    /**
+     * Converts the task to a format suitable for saving to a file.
+     *
+     * @return A string representing the task in file format.
+     */
     @Override
     public String toFileFormat() {
         String task = "T";
