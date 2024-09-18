@@ -10,5 +10,6 @@ public class TodoTest {
     public void toStringTest() {
         Todo todo = new Todo("sleep");
         assertEquals(todo.toString(), "[T][ ] sleep");
+        assertEquals(todo.saveString(), "todo,F,sleep");
     }
 }
