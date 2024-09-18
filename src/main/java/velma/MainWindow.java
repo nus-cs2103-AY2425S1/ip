@@ -28,6 +28,9 @@ public class MainWindow extends AnchorPane{
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().add(
+                DialogBox.getVelmaDialog("Hello! I'm Velma. How can I help you today?", velmaImage)
+        );
     }
 
     /** Injects the Velma instance */
