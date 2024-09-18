@@ -14,12 +14,15 @@ public class DeadlineTask extends Task {
      * @param description description of the task
      * @param isDone if the event is done
      */
-    public DeadlineTask(String description, boolean isDone) {
+    public DeadlineTask(String description, boolean isDone) throws WrongMessageException {
         super(description, isDone);
         Parser p = new Parser(description, "/by ");
         m1 = p.getFirstHalf();
         deadline = p.getSecondHalf();
         d = LocalDate.parse(deadline.trim());
+        if (d.isBefore(LocalDate.now())) {
+            throw new WrongMessageException();
+        }
     }
     /**
      * Initialises a Deadline task object and set the isDone to false

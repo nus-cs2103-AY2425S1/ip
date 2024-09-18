@@ -6,6 +6,6 @@ public class WrongMessageException  extends Exception{
 
     @Override
     public String toString() {
-        return "Please enter your task in a proper format:(( \n";
+        return "invalid command:(( \n";
     }
 }
