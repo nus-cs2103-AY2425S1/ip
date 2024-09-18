@@ -118,6 +118,9 @@ public class ChatterboxGui {
         return guiResponses.greeting();
     }
 
+    public String getGoodbye() {
+        return guiResponses.goodbye();
+    }
     /**
      * Gets the name of the chatbot
      * @return name of the chatbot

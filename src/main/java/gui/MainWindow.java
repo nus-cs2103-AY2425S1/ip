@@ -3,6 +3,7 @@ package gui;
 import java.util.HashMap;
 
 import chatterbox.ChatterboxGui;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -60,9 +61,20 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         HashMap<String, String> response = chatter.processInput(input);
+
         if (response.get("response") == (null)) {
-            Stage stage = (Stage) dialogContainer.getScene().getWindow();
-            stage.close();
+            DialogBox chatterBye = DialogBox.getChatterboxDialog(chatter.getGoodbye(), chatterImage);
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    chatterBye
+            );
+            PauseTransition pause = new PauseTransition(javafx.util.Duration.seconds(1));
+            pause.setOnFinished(event -> {
+                Stage stage = (Stage) dialogContainer.getScene().getWindow();
+                stage.close();
+            });
+            pause.play();
+            return;
         }
 
         DialogBox chatterReply = DialogBox.getChatterboxDialog(response.get("response"), chatterImage);
