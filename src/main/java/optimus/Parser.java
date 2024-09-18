@@ -1,7 +1,6 @@
 package optimus;
 
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.Optional;
 
 import optimus.commands.AddTaskCommand;
@@ -124,12 +123,8 @@ public class Parser {
         return new UpdateTaskCommand(taskNum, desc, fromDate.orElseGet(() -> byDate.orElse("")), secondDate);
     }
 
-    private static String extractDescription(String[] commands) throws IncompleteCommandException,
-            InvalidCommandException {
+    private static String extractDescription(String[] commands) throws IncompleteCommandException {
         int endIndex = findFirstFlagIndex(commands).orElse(commands.length);
-        if (Objects.equals(commands[endIndex], "/desc")) {
-            throw new InvalidCommandException("Command does not support /desc tag");
-        }
         if (endIndex <= 1) {
             throw new IncompleteCommandException("Command needs a description");
         }
