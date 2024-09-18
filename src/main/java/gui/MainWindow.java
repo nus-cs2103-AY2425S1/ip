@@ -11,6 +11,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -52,6 +53,7 @@ public class MainWindow extends AnchorPane {
             dialogContainer.getChildren()
                     .addAll(DialogBox.getChatterboxDialog("Hmm... Have we met before?", chatterImage),
                             DialogBox.getChatterboxDialog(c.getGreeting(), chatterImage));
+
         } else {
             dialogContainer.getChildren()
                     .addAll(DialogBox.getChatterboxDialog(c.getGreeting(), chatterImage));
