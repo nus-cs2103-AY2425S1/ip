@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
-    private static final String DIVIDER = "---------------------------------------------------";
+//    private static final String DIVIDER = "---------------------------------------------------";
     private static  final String GREETING = "Hello! I'm Nebula, what can I do for you today?";
     private static  final String GOODBYE = "Bye! Hope to see you again soon :)";
     private static final String MARKED = "Nice! This task has successfully been marked:";
@@ -36,7 +36,7 @@ public class Ui {
      * @return A string containing the greeting message
      */
     public String greeting() {
-        return DIVIDER + "\n" + GREETING + "\n" + DIVIDER;
+        return GREETING;
     }
 
     /**
@@ -45,7 +45,7 @@ public class Ui {
      * @return A string containing the goodbye message
      */
     public String goodbye() {
-        return DIVIDER + "\n" + GOODBYE;
+        return GOODBYE;
     }
 
     /**
@@ -56,7 +56,7 @@ public class Ui {
      * with the task description
      */
     public String displayAddedTask(Task task) {
-        return DIVIDER + "\n" + "Got it! I've added this task:" + "\n"
+        return "Got it! I've added this task:" + "\n"
                 + "  " + task.toString() + "\n" + "Now you have "
                 + TaskList.getTaskListLength()
                 + (TaskList.getTaskListLength() == 1
@@ -71,11 +71,11 @@ public class Ui {
      * If the list is empty, a message indicating that the list is empty is returned
      */
     public String displayList() {
-        String displayList = DIVIDER + "\n" + "Here are the tasks in your list:" + "\n";
+        String displayList = "Here are the tasks in your list:" + "\n";
         int taskLength = TaskList.getTaskListLength();
         ArrayList<Task> list = TaskList.getTaskList();
         if(taskLength == 0) {
-            return DIVIDER + "\n" + "Your task list is empty!";
+            return "Your task list is empty!";
         }
         for (int i = 0; i < taskLength; i++) {
             displayList += (i + 1) + ". " + list.get(i).toString();
@@ -94,8 +94,7 @@ public class Ui {
      * description and its status icon
      */
     public String displayMarkedTask(Task task) {
-        return DIVIDER + "\n"
-                + MARKED + "\n" + "  " + task.toString();
+        return MARKED + "\n" + "  " + task.toString();
     }
 
     /**
@@ -104,7 +103,7 @@ public class Ui {
      * @return A string containing a message indicating that the task was already marked
      */
     public String displayAlreadyMarkedTask() {
-        return DIVIDER + "\n" + ALREADY_MARKED;
+        return ALREADY_MARKED;
     }
 
     /**
@@ -115,8 +114,7 @@ public class Ui {
      * description and its status icon
      */
     public String displayUnmarkedTask(Task task) {
-        return DIVIDER + "\n"
-                + UNMARKED + "\n" + "  " + task.toString();
+        return UNMARKED + "\n" + "  " + task.toString();
     }
 
     /**
@@ -125,8 +123,7 @@ public class Ui {
      * @return A string containing a message indicating that the task was already unmarked
      */
     public String displayAlreadyUnmarkedTask() {
-        return DIVIDER + "\n"
-                + ALREADY_UNMARKED;
+        return ALREADY_UNMARKED;
     }
 
     /**
@@ -136,7 +133,7 @@ public class Ui {
      * @return A string message confirming the deletion of the task and showing the current number of tasks.
      */
     public String displayDeletedTask(Task task) {
-        return DIVIDER + "\n" + "Noted. I've removed this task:" + "\n" + " "
+        return "Noted. I've removed this task:" + "\n" + " "
                 + task.toString() + "\n" + "Now you have " + TaskList.getTaskListLength()
                 + (TaskList.getTaskListLength() == 1 ? " task " : " tasks ")
                 + "in the list.";
@@ -148,8 +145,7 @@ public class Ui {
      * @return A string message indicating that the command is unknown.
      */
     public String displayUnknownCommandException() {
-        return DIVIDER + "\n"
-                + UNKNOWN_COMMAND;
+        return UNKNOWN_COMMAND;
     }
 
     /**
@@ -158,8 +154,7 @@ public class Ui {
      * @return A string message indicating that the task number is unknown.
      */
     public String displayUnknownTaskNumberException() {
-        return DIVIDER + "\n"
-                + UNKNOWN_TASK_NUMBER;
+        return UNKNOWN_TASK_NUMBER;
     }
 
     /**
@@ -168,7 +163,7 @@ public class Ui {
      * @return A string message indicating that the task number does not exist.
      */
     public String displayNonexistentTaskNumberException() {
-        return DIVIDER + "\n" + NONEXISTENT_TASK_NUMBER + "\n" + DIVIDER;
+        return NONEXISTENT_TASK_NUMBER;
     }
 
     /**
@@ -177,8 +172,7 @@ public class Ui {
      * @return A string message indicating that the task description is unknown.
      */
     public String displayUnknownMessageException() {
-        return DIVIDER + "\n"
-                + UNKNOWN_DESCRIPTION;
+        return UNKNOWN_DESCRIPTION;
     }
 
     /**
@@ -187,8 +181,7 @@ public class Ui {
      * @return A string message indicating that the deadline is unknown or incorrect.
      */
     public String displayUnknownDeadlineException() {
-        return DIVIDER + "\n"
-                + UNKNOWN_DEADLINE;
+        return UNKNOWN_DEADLINE;
     }
 
     /**
@@ -197,14 +190,13 @@ public class Ui {
      * @return A string message indicating that the event timing is unknown or incorrect.
      */
     public String displayUnknownEventTimingException() {
-        return DIVIDER + "\n"
-                + UNKNOWN_EVENT_TIMING;
+        return UNKNOWN_EVENT_TIMING;
     }
 
-    public String displayNoMatchingTasks() {return DIVIDER + "\n" + NO_MATCHING_TASKS;}
+    public String displayNoMatchingTasks() {return NO_MATCHING_TASKS;}
 
     public String displayMatchingTasks(ArrayList<Task> matchingTasks) {
-        String displayList = DIVIDER + "\n"; // Add a divider at the beginning
+        String displayList = "";
 
         displayList += "Here are the matching tasks in your list:" + "\n";
 
@@ -218,7 +210,7 @@ public class Ui {
     }
 
     public String displayOneKeywordException() {
-        return DIVIDER + "\n" + ONE_KEYWORD;
+        return ONE_KEYWORD;
     }
 
     /**
@@ -230,13 +222,6 @@ public class Ui {
         Scanner sc = new Scanner(System.in);
         String command = sc.nextLine();
         return command;
-    }
-
-    /**
-     * Displays a divider line in the console to separate sections of output.
-     */
-    public void showLine() {
-        System.out.println(DIVIDER);
     }
 
     public void showError(String errorMessage) {

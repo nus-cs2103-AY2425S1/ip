@@ -50,8 +50,6 @@ public class Nebula {
                 isExit = c.isExit();
             } catch (NebulaException e) {
                 ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
             }
         }
     }
