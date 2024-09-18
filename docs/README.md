@@ -1,6 +1,6 @@
 # Arts User Guide
 
-![Product Screenshot](./Ui.png)
+![Product Screenshot](./Ui.png) <br>
 Welcome to the **Arts** User Guide. This guide will help you navigate and utilize all the features of the Arts product efficiently.
 
 ## Adding Deadlines
