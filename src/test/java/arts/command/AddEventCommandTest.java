@@ -53,11 +53,13 @@ public class AddEventCommandTest {
         String details = "Conference /from 2024-08-29 0900 /to 2024-08-29 1700";
         AddEventCommand command = new AddEventCommand(tasks, storage, ui, details, formatters);
 
-        command.execute();
+        String result = command.execute();
 
         assertEquals(1, tasks.size(), "Task list should have one task.");
-        assertEquals("Got it. I've added this task:\n " + tasks.getTask(0)
-                + "\nNow you have 1 task in the list.", ui.getLastMessage());
+        assertEquals("Sugoi! 🌟 I've added this epic event to your adventure:"
+                        + "\n🎉 " + tasks.getTask(0)
+                        + " 🎉\nNow your journey includes 1 task to tackle! Keep up the great work, hero! 💪",
+                result);
     }
 
     /**
@@ -89,6 +91,20 @@ public class AddEventCommandTest {
     }
 
     /**
+     * Tests that an ArtsException is thrown when the event start date is not before the end date.
+     * Verifies that the exception message indicates the invalid event times.
+     */
+    @Test
+    public void testInvalidEventTimesThrowsException() {
+        String details = "Conference /from 2024-08-29 1700 /to 2024-08-29 0900";
+        AddEventCommand command = new AddEventCommand(tasks, storage, ui, details, formatters);
+
+        ArtsException exception = assertThrows(ArtsException.class, command::execute);
+        assertEquals("Event start date must be before end date.", exception.getMessage(),
+                "Exception message should indicate invalid event times.");
+    }
+
+    /**
      * A stub class for Storage used in testing.
      * Overrides the save method to do nothing, simulating a storage component without actual file operations.
      */
@@ -99,7 +115,7 @@ public class AddEventCommandTest {
 
         @Override
         public void save(ArrayList<Task> tasks) throws ArtsException {
-            // Do nothing for now
+            // Do nothing
         }
     }
 

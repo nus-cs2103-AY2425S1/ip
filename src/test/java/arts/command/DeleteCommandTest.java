@@ -50,11 +50,11 @@ public class DeleteCommandTest {
         String taskIndex = "1";
         DeleteCommand command = new DeleteCommand(tasks, storage, ui, taskIndex);
 
-        command.execute();
+        String result = command.execute();
 
         assertEquals(1, tasks.size(), "Task list should have one task after deletion.");
-        assertEquals("Noted. I've removed this task:\n [T][ ] Read a book\nNow you have 1 task in the list.",
-                ui.getLastMessage());
+        assertEquals("Farewell, brave task! 🌸 You've been removed from the quest:\n💔 [T][ ] Read a book 💔\n"
+                + "The journey continues with 1 task left. Keep going, warrior! 🗡️", result);
     }
 
     /**
@@ -67,13 +67,13 @@ public class DeleteCommandTest {
         DeleteCommand command = new DeleteCommand(tasks, storage, ui, taskIndex);
 
         ArtsException exception = assertThrows(ArtsException.class, command::execute);
-        assertEquals("Invalid task index.", exception.getMessage(),
-                "Exception message should indicate invalid task index.");
+        assertEquals("Task index is out of bounds.", exception.getMessage(),
+                "Exception message should indicate task index is out of bounds.");
     }
 
     /**
      * Tests that an ArtsException is thrown when a non-numeric task index is provided.
-     * Verifies that the exception message indicates the invalid task index.
+     * Verifies that the exception message indicates the task index is not a number.
      */
     @Test
     public void testNonNumericTaskIndexThrowsException() {
@@ -81,8 +81,8 @@ public class DeleteCommandTest {
         DeleteCommand command = new DeleteCommand(tasks, storage, ui, taskIndex);
 
         ArtsException exception = assertThrows(ArtsException.class, command::execute);
-        assertEquals("Invalid task index.", exception.getMessage(),
-                "Exception message should indicate invalid task index.");
+        assertEquals("Task index must be a number.", exception.getMessage(),
+                "Exception message should indicate task index is not a number.");
     }
 
     /**
@@ -96,7 +96,7 @@ public class DeleteCommandTest {
 
         @Override
         public void save(ArrayList<Task> tasks) throws ArtsException {
-            // Do nothing for now
+            // Do nothing
         }
     }
 

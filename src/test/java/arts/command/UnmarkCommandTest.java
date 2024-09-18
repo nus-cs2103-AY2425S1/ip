@@ -51,15 +51,16 @@ public class UnmarkCommandTest {
         String taskIndex = "1";
         UnmarkCommand command = new UnmarkCommand(tasks, storage, ui, taskIndex);
 
-        command.execute();
+        String result = command.execute();
 
         assertEquals(false, tasks.getTask(0).isDone(), "Task should be unmarked as not done.");
-        assertEquals("OK, I've marked this task as not done yet:\n [T][ ] Read a book", ui.getLastMessage());
+        assertEquals("🎌 Fear not, for this task has been unmarked! 🗒️\n"
+                + "Continue your quest with renewed vigor, valiant warrior! 🌟\n [T][ ] Read a book", result);
     }
 
     /**
      * Tests that an ArtsException is thrown when an invalid task index is provided.
-     * Verifies that the exception message indicates the invalid task index.
+     * Verifies that the exception message indicates the task index is out of bounds.
      */
     @Test
     public void testInvalidTaskIndexThrowsException() {
@@ -67,13 +68,13 @@ public class UnmarkCommandTest {
         UnmarkCommand command = new UnmarkCommand(tasks, storage, ui, taskIndex);
 
         ArtsException exception = assertThrows(ArtsException.class, command::execute);
-        assertEquals("Invalid task index.", exception.getMessage(),
-                "Exception message should indicate invalid task index.");
+        assertEquals("Task index is out of bounds.", exception.getMessage(),
+                "Exception message should indicate task index is out of bounds.");
     }
 
     /**
      * Tests that an ArtsException is thrown when a non-numeric task index is provided.
-     * Verifies that the exception message indicates the invalid task index.
+     * Verifies that the exception message indicates the task index is not a number.
      */
     @Test
     public void testNonNumericTaskIndexThrowsException() {
@@ -81,8 +82,8 @@ public class UnmarkCommandTest {
         UnmarkCommand command = new UnmarkCommand(tasks, storage, ui, taskIndex);
 
         ArtsException exception = assertThrows(ArtsException.class, command::execute);
-        assertEquals("Invalid task index.", exception.getMessage(),
-                "Exception message should indicate invalid task index.");
+        assertEquals("Task index must be a number.", exception.getMessage(),
+                "Exception message should indicate task index is not a number.");
     }
 
     /**
@@ -96,7 +97,7 @@ public class UnmarkCommandTest {
 
         @Override
         public void save(ArrayList<Task> tasks) throws ArtsException {
-            // Do nothing for now
+            // Do nothing
         }
     }
 

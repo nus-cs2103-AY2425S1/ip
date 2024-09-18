@@ -34,7 +34,7 @@ public class AddDeadlineCommandTest {
     @BeforeEach
     public void setUp() {
         tasks = new TaskList();
-        storage = new StubStorage("dummy/path/to/storage.txt"); // Provide a dummy path
+        storage = new StubStorage("dummy/path/to/storage.txt");
         ui = new StubUi();
         formatters = new DateTimeFormatter[]{
                 DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"),
@@ -53,11 +53,11 @@ public class AddDeadlineCommandTest {
         String details = "Finish report /by 2024-08-29 1800";
         AddDeadlineCommand command = new AddDeadlineCommand(tasks, storage, ui, details, formatters);
 
-        command.execute();
+        String result = command.execute();
 
         assertEquals(1, tasks.size(), "Task list should have one task.");
-        assertEquals("Got it. I've added this task:\n " + tasks.getTask(0)
-                + "\nNow you have 1 task in the list.", ui.getLastMessage());
+        assertEquals("Yatta! 🎉 I've successfully added this task to your list:\n✨ " + tasks.getTask(0)
+                + " ✨\nNow your quest has 1 task to conquer! Ganbatte! 💪", result);
     }
 
     /**
@@ -70,7 +70,8 @@ public class AddDeadlineCommandTest {
         AddDeadlineCommand command = new AddDeadlineCommand(tasks, storage, ui, details, formatters);
 
         ArtsException exception = assertThrows(ArtsException.class, command::execute);
-        assertEquals("The deadline must have a /by date.", exception.getMessage(),
+        assertEquals("Details must contain a '/by' to separate task description and deadline",
+                exception.getMessage(),
                 "Exception message should indicate missing /by date.");
     }
 
@@ -94,12 +95,12 @@ public class AddDeadlineCommandTest {
      */
     private static class StubStorage extends Storage {
         public StubStorage(String filePath) {
-            super(filePath); // Use the constructor from Storage
+            super(filePath);
         }
 
         @Override
         public void save(ArrayList<Task> tasks) throws ArtsException {
-            // Do nothing for now
+            // Do nothing
         }
     }
 

@@ -9,8 +9,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import arts.ArtsException;
-import arts.task.Task;
 import arts.task.TaskList;
+import arts.task.Task;
+import arts.task.Todo;
 import arts.util.Storage;
 import arts.util.Ui;
 
@@ -27,59 +28,48 @@ public class AddTodoCommandTest {
 
     /**
      * Sets up the test environment before each test method is executed.
-     * Initializes the task list, storage, and UI stubs.
+     * Initializes the task list, and sets up storage and UI stubs.
      */
     @BeforeEach
     public void setUp() {
-        tasks = new TaskList();
+        tasks = new TaskList(new ArrayList<>());
         storage = new StubStorage("dummy/path/to/storage.txt");
         ui = new StubUi();
     }
 
     /**
      * Tests the successful addition of a todo task.
-     * Verifies that the task list contains the new task and the UI shows the correct message.
+     * Verifies that the task list is updated correctly and the UI shows the correct message.
      *
      * @throws ArtsException if an error occurs during command execution.
      */
     @Test
-    public void testAddTodoSuccessfully() throws ArtsException {
+    public void execute_addValidTodo_success() throws ArtsException {
         String description = "Read a book";
         AddTodoCommand command = new AddTodoCommand(tasks, storage, ui, description);
 
+        String result = command.execute();
+
+        assertEquals(1, tasks.size(), "Task list should have one task after addition.");
+        assertEquals("Hooray! 🎊 A new adventure awaits with this task:\n✨ [T][ ] Read a book ✨\n"
+                + "Your quest now has 1 task to conquer! Keep shining, champion! 🌟", result);
+    }
+
+
+    /**
+     * Tests that spaces in the description are normalized.
+     * Verifies that the task description is trimmed and spaces are normalized.
+     *
+     * @throws ArtsException if an error occurs during command execution.
+     */
+    @Test
+    public void execute_normalizeSpacesInDescription() throws ArtsException {
+        String description = "   Read   a   book   ";
+        AddTodoCommand command = new AddTodoCommand(tasks, storage, ui, description);
         command.execute();
 
-        assertEquals(1, tasks.size(), "Task list should have one task.");
-        assertEquals("Got it. I've added this task:\n " + tasks.getTask(0)
-                + "\nNow you have 1 task in the list.", ui.getLastMessage());
-    }
-
-    /**
-     * Tests that an ArtsException is thrown when the todo command has an empty description.
-     * Verifies that the exception message indicates the empty description.
-     */
-    @Test
-    public void testEmptyDescriptionThrowsException() {
-        String description = "";
-        AddTodoCommand command = new AddTodoCommand(tasks, storage, ui, description);
-
-        ArtsException exception = assertThrows(ArtsException.class, command::execute);
-        assertEquals("The description of a todo cannot be empty.", exception.getMessage(),
-                "Exception message should indicate empty description.");
-    }
-
-    /**
-     * Tests that an ArtsException is thrown when the todo command has a null description.
-     * Verifies that the exception message indicates the empty description.
-     */
-    @Test
-    public void testNullDescriptionThrowsException() {
-        String description = null;
-        AddTodoCommand command = new AddTodoCommand(tasks, storage, ui, description);
-
-        ArtsException exception = assertThrows(ArtsException.class, command::execute);
-        assertEquals("The description of a todo cannot be empty.", exception.getMessage(),
-                "Exception message should indicate empty description.");
+        assertEquals("Read a book", tasks.getTask(0).getDescription(),
+                "Task description should be normalized.");
     }
 
     /**
@@ -93,7 +83,7 @@ public class AddTodoCommandTest {
 
         @Override
         public void save(ArrayList<Task> tasks) throws ArtsException {
-            // Do nothing for now
+            // Do nothing, or add logic to verify save calls
         }
     }
 

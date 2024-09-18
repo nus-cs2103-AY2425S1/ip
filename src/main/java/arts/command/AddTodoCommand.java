@@ -26,17 +26,16 @@ public class AddTodoCommand implements Command {
      * @param ui The user interface for displaying messages.
      * @param description The description of the todo task to be added.
      */
-    public AddTodoCommand(TaskList tasks, Storage storage, Ui ui, String description) {
-        assert tasks != null : "TaskList cannot be null";
-        assert storage != null : "Storage cannot be null";
-        assert ui != null : "Ui cannot be null";
-        assert description != null && !description.trim().isEmpty() : "Description cannot be null or empty";
-
+    public AddTodoCommand(TaskList tasks, Storage storage, Ui ui, String description) throws ArtsException {
+        if (tasks == null || storage == null || ui == null || description == null || description.trim().isEmpty()) {
+            throw new ArtsException("Invalid input parameters");
+        }
         this.tasks = tasks;
         this.storage = storage;
         this.ui = ui;
         this.description = normalizeSpaces(description);
     }
+
 
     /**
      * Executes the command to add a todo task. Checks the task description for validity,
@@ -71,6 +70,7 @@ public class AddTodoCommand implements Command {
                 tasks.size(),
                 tasks.size() == 1 ? "task" : "tasks");
     }
+
 
     /**
      * Normalize spaces in a string by replacing multiple spaces with a single space.
