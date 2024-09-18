@@ -23,8 +23,8 @@ list.
 `list`
 
 > `list`
-> 1. [T][ ] sleep
-> 2. [T][ ] Work on CS2103T ip
+>       1. [T][ ] sleep
+>       2. [T][ ] Work on CS2103T ip
 
 ## Adding Todo
 
@@ -37,9 +37,9 @@ to handle normal tasks.
 
 > `todo Work on CS2103T ip`
 > 
->Got it! I have added: [T][ ] Work on CS2103T ip | []
+>       Got it! I have added: [T][ ] Work on CS2103T ip | []
 >
->Now you have 2 tasks in the list
+>       Now you have 2 tasks in the list
 
 ## Adding Deadlines
 
@@ -56,9 +56,9 @@ where `dd` = date, `MM` = month, `yyyy` = year,
 
 > `deadline assignment 1 /by 18/09/2024 23:59`
 > 
-> Got it! I have added: [D][ ] assignment 1 (by: 18/09/2024 23:59) | []
+>       Got it! I have added: [D][ ] assignment 1 (by: 18/09/2024 23:59) | []
 >
-> Now you have 3 tasks in the list
+>       Now you have 3 tasks in the list
 
 ## Adding Events
 
@@ -86,15 +86,15 @@ from the existing list.
 task in the `TaskList` array.
 
 >`list`
->1. [T][ ] sleep
->2. [T][ ] sleep twice
->3. [D][ ] assignment 1 (by: 18 09 2024 23:59)
+>       1. [T][ ] sleep
+>       2. [T][ ] sleep twice
+>       3. [D][ ] assignment 1 (by: 18 09 2024 23:59)
 >
 >`delete 1`
 >
->Noted. I've removed this task: [T][ ] sleep | []
+>       Noted. I've removed this task: [T][ ] sleep | []
 >
->Now you have 2 tasks in the list
+>       Now you have 2 tasks in the list
 ## Mark/Unmark tasks
 
 The feature allows you to mark a task (Deadline, Event, Todo)
@@ -117,24 +117,24 @@ Unmarks the task from being completed.
 task in the `TaskList` array.
 
 >`list`
->1. [T][ ] sleep twice
->2. [D][ ] assignment 1 (by: 18 09 2024 23:59)
+>       1. [T][ ] sleep twice
+>       2. [D][ ] assignment 1 (by: 18 09 2024 23:59)
 >
 >`mark 1`
 >
->Nice! I've marked this task as done:
+>       Nice! I've marked this task as done:
 >
->[T][X] sleep twice | []
+>       [T][X] sleep twice | []
 > 
 > `list`
->1. [T][X] sleep twice
->2. [D][ ] assignment 1 (by: 18 09 2024 23:59)
+>       1. [T][X] sleep twice
+>       2. [D][ ] assignment 1 (by: 18 09 2024 23:59)
 >
 >`unmark 1`
 > 
->Nice! I've marked this task as not done:
+>       Nice! I've marked this task as not done:
 > 
->[T][ ] sleep twice | []
+>       [T][ ] sleep twice | []
 
 
 ## Search with keywords
@@ -147,9 +147,10 @@ the keywords.
 `find <keyword>`
 
 >`find sleep`
->1. [T][ ] sleep twice
->
->Here are the matching tasks in your list:1. [T][ ] sleep twice
+> 
+>       1. [T][ ] sleep twice
+>       
+>       Here are the matching tasks in your list:1. [T][ ] sleep twice
 
 ## Managing Tags
 The feature allows you to manage tags in your tasks (Deadline,
@@ -195,36 +196,36 @@ task in the `TaskList` array.
 >
 >`addtag 1 sleep 8 hours`
 >
->Tag: sleep 8 hours has been added to task:
+>     Tag: sleep 8 hours has been added to task:
 >
->[T][ ] sleep twice | [sleep 8 hours]
+>     [T][ ] sleep twice | [sleep 8 hours]
 >
 >`addtag 1 sleep on comfortable bed`
 >
->Tag: sleep on comfortable bed has been added to task:
+>     Tag: sleep on comfortable bed has been added to task:
 >
->[T][ ] sleep twice | [sleep 8 hours, sleep on comfortable bed]
+>     [T][ ] sleep twice | [sleep 8 hours, sleep on comfortable bed]
 >
 >`gettag 1`
 >
 >Below are the list of tags related to task:
 >
->[T][ ] sleep twice | [sleep 8 hours, sleep on comfortable bed]
->1. sleep 8 hours
->2. sleep on comfortable bed
+>       [T][ ] sleep twice | [sleep 8 hours, sleep on comfortable bed]
+>       1. sleep 8 hours
+>       2. sleep on comfortable bed
 >
 >`removetag 1 2`
 >
->Tag: sleep on comfortable bed has been removed from the task:
+>       Tag: sleep on comfortable bed has been removed from the task:
 >
->[T][ ] sleep twice | [sleep 8 hours]
+>       [T][ ] sleep twice | [sleep 8 hours]
 >
 >`gettag 1`
 >
->Below are the list of tags related to task:
+>       Below are the list of tags related to task:
 >
->[T][ ] sleep twice | [sleep 8 hours]
->1. sleep 8 hours
+>       [T][ ] sleep twice | [sleep 8 hours]
+>       1. sleep 8 hours
 
 ## Bye
 The feature allows you to exit the program.
@@ -235,4 +236,4 @@ The feature allows you to exit the program.
 
 >`bye`
 > 
->Bye. Hope to see you again soon!
+>       Bye. Hope to see you again soon!
