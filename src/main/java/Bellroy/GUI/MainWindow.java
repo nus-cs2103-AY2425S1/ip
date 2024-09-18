@@ -1,7 +1,6 @@
 package Bellroy.GUI;
 
 import Bellroy.Bellroy;
-import Bellroy.GUI.DialogBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -25,18 +24,18 @@ public class MainWindow extends AnchorPane {
     private Bellroy bellroy;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Duo.png"));
+    private Image BellroyImage = new Image(this.getClass().getResourceAsStream("/images/Duo.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(Ui.welcomeMessage(), dukeImage)
+                DialogBox.getBellroyDialog(Ui.welcomeMessage(), BellroyImage)
         );
     }
 
     /** Injects the Duke instance */
-    public void setDuke(Bellroy b) {
+    public void setBellroy(Bellroy b) {
         bellroy = b;
     }
 
@@ -50,7 +49,7 @@ public class MainWindow extends AnchorPane {
         String response = bellroy.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getBellroyDialog(response, BellroyImage)
         );
         userInput.clear();
     }
