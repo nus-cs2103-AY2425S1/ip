@@ -1,5 +1,6 @@
 package snowy.common;
 
+import snowy.Snowy;
 import snowy.data.SnowyException;
 
 public class MarkCommand extends Command {
@@ -17,10 +18,14 @@ public class MarkCommand extends Command {
      */
     @Override
     public CommandResult execute() throws SnowyException {
-        if (taskList.isTaskDone(index - 1)) {
+        try {
+            if (!taskList.isTaskDone(index - 1)) {
+                String str = taskList.toggleTask(index - 1);
+                return new CommandResult(str + "\nMarked task as done at index " + index);
+            }
             throw new SnowyException("Task is already done");
+        } catch (SnowyException e) {
+            throw new SnowyException(e.getMessage());
         }
-        String str = taskList.toggleTask(index - 1);
-        return new CommandResult(str + "\nMarked task as done at index " + index);
     }
 }

@@ -17,10 +17,14 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public CommandResult execute() throws SnowyException {
-        if (!taskList.isTaskDone(index - 1)) {
-            throw new SnowyException("Cannot unmark task as it is not done");
+        try {
+            if (!taskList.isTaskDone(index - 1)) {
+                throw new SnowyException("Cannot unmark task as it is not done");
+            }
+            String str = taskList.toggleTask(index - 1);
+            return new CommandResult(str + "\nUnmarked task at index " + index);
+        } catch (SnowyException e) {
+            throw new SnowyException(e.getMessage());
         }
-        String str = taskList.toggleTask(index - 1);
-        return new CommandResult(str + "\nUnmarked task at index " + index);
     }
 }
