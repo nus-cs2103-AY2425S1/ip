@@ -42,7 +42,7 @@ deadline Submit project /by 2024-09-30
 event Attend conference /from 2024-10-01 /to 2024-10-03
 ```
 
-### 5. Deleting a Task: `delete [Date in YYYY-MM-DD]`
+### 5. Deleting a Task: `delete [Task's Serial Number]`
 **Example:**
 ```
 delete 2
