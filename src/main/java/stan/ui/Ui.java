@@ -99,6 +99,10 @@ public class Ui {
      * @return The list of tasks as a string.
      */
     public String showTaskList(TaskList taskList) {
+        if (taskList.size() == 0) {
+            return "📂 Your task list is currently empty. Time to add some tasks! 💼";
+        }
+
         StringBuilder sb = new StringBuilder("📋 Here are the tasks in your list:\n");
         for (int i = 0; i < taskList.size(); i++) {
             sb.append(" ").append(i + 1).append(". ").append(taskList.get(i)).append("\n");
