@@ -199,4 +199,4 @@ Bye. Hope to see you again soon!
 ```
 
 ## Screenshots
-![Reminderbot in action](/Ui.png?raw=true "Title")
+![Reminderbot in action](/docs/Ui.png?raw=true "Title")
