@@ -1,13 +1,7 @@
-E | 0 | Natlan Livestream | 2024-10-11 | 2024-10-11 | 2024-10-11
-T | 1 | claim primogems!  | primogems! claim
-D | 0 | return book to Lisa else she'll electrocute me to death | 2024-10-01 | #2024-10-01
-T | 1 | daily commisions | daily commisions
-E | 0 | some event lol | 2024-09-30 | 2024-09-30 | another_tag other_tag
-T | 0 | something | something
-D | 0 | watch Natlan Live Stream | 2024-02-04 | 2024-02-04
-D | 0 | to this | 2020-04-01 | 2020-04-01
-D | 0 |  | 2020-02-02 | 2020-02-02
-D | 0 | helloworld | 2020-02-02 | 2020-02-02
-D | 0 |  | 2020-02-02 | 2020-02-02
-D | 0 | nothing | 2020-02-02 | 2020-02-02
-E | 0 | nothing | 2020-02-02 | 2020-02-02 | 2020-02-02
+E | 0 | Complete weekly commissions | 2024-10-01 | 2024-10-01 | commissions_weekly
+E | 0 | Participate in Spiral Abyss | 2024-09-30 | 2024-09-30 | abyss_event
+D | 1 | Collect Electroculus | 2024-10-10 | occulus
+D | 0 | Upgrade weapon for Fischl | 2024-10-02 | weapon_upgrade
+D | 1 | Gather materials for Zhongli's ascension | 2024-10-03 | character_ascension
+D | 0 | daily commissions | 2024-09-18 | 2024-09-18
+D | 0 | daily commissions | 2024-09-18 | 
