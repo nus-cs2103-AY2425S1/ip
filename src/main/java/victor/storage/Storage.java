@@ -75,15 +75,23 @@ public class Storage {
      */
     public Command decodeTaskFromFile(String[] taskLine) {
         String[] commandInput;
-        if (taskLine[0].equals("T")) {
-            commandInput = new String[] {"todo", taskLine[2]};
-            return new ToDoCommand(commandInput);
-        } else if (taskLine[0].equals("D")) {
-            commandInput = new String[] {"deadline", taskLine[2], "/", taskLine[3]};
-            return new DeadlineCommand(commandInput);
-        } else {
-            commandInput = new String[] {"event", taskLine[2], "/", taskLine[3], "/", taskLine[4]};
-            return new EventCommand(commandInput);
+        try {
+            if (taskLine[0].equals("T")) {
+                commandInput = new String[]{"todo", taskLine[2]};
+                return new ToDoCommand(commandInput);
+            } else if (taskLine[0].equals("D")) {
+                commandInput = new String[]{"deadline", taskLine[2], "/", taskLine[3]};
+                return new DeadlineCommand(commandInput);
+            } else if (taskLine[0].equals("E")) {
+                commandInput = new String[]{"event", taskLine[2], "/", taskLine[3], "/", taskLine[4]};
+                return new EventCommand(commandInput);
+            } else {
+                // non-standard command type
+                return new Command(new String[] {});
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            // some error in input, likely less than 2 words in line
+            return new Command(new String[] {});
         }
     }
 
@@ -103,6 +111,10 @@ public class Storage {
         // Do not need to show return messages from executing these tasks
         command.execute();
 
+        // Minimum valid command length in encoding is 3 for To Do task
+        if (lineContent.length < 3) {
+            return;
+        }
         // Check if task was marked done
         if (Integer.parseInt(lineContent[1]) == 1) {
             Command markCommand = new MarkCommand(taskNumber);
@@ -126,9 +138,12 @@ public class Storage {
                 count += 1;
             }
             fileScanner.close();
+            // Write processed task list back to file - overwrites any lines with errors
+            taskList.writeToFile(filePath, true);
             return taskList;
         } catch (IOException scannerException) {
-            throw new RuntimeException(scannerException);
+            // In case of read error, return blank taskList
+            return new TaskList(filePath);
         }
     }
 }

@@ -1,5 +1,8 @@
 package victor.controls;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -9,9 +12,6 @@ import javafx.stage.Stage;
 import victor.Handler;
 import victor.commands.Command;
 import victor.messages.ReturnMessage;
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 /**
  * Controller for the main GUI.
