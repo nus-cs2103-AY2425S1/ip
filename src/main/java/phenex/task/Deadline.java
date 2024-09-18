@@ -27,7 +27,7 @@ public class Deadline extends TaskWithDate {
 
     @Override
     public boolean overlapsWith(LocalDate localDate) {
-        return localDate.equals(this.localDate);
+        return this.localDate.equals(localDate);
     }
 
     @Override
