@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" style="-fx-background-radius: 30px; -fx-background-color: mistyrose; -fx-border-width: 2px; -fx-border-color: orchid; -fx-border-radius: 30px;" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" style="-fx-background-radius: 30px; -fx-border-radius: 25px; -fx-background-color: violet;" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label fx:id="dialog" minHeight="-Infinity" text="Label" wrapText="true">
+        <Label fx:id="dialog" minHeight="-Infinity" text="Label" textFill="WHITE" wrapText="true">
          <font>
             <Font name="Georgia" size="13.0" />
          </font></Label>
