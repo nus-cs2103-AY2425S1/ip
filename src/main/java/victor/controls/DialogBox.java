@@ -23,9 +23,14 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
-    private DialogBox(String displayString, Image displayImage) {
+    private DialogBox(String displayString, Image displayImage, boolean isVictor) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
+            FXMLLoader fxmlLoader;
+            if (!isVictor) {
+                fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
+            } else {
+                fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/VictorDialogBox.fxml"));
+            }
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
@@ -45,11 +50,11 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String userInput, Image image) {
-        return new DialogBox(userInput, image);
+        return new DialogBox(userInput, image, false);
     }
 
     public static DialogBox getVictorDialog(String victorText, Image image) {
-        var db = new DialogBox(victorText, image);
+        var db = new DialogBox(victorText, image, true);
         db.flip();
         return db;
     }
