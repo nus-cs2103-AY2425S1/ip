@@ -20,9 +20,13 @@ public class TaskList {
         tasks.add(task);
     }
 
-    public void removeTask(int index) {
-        System.out.println("deleting task number : " + index);
+    public String removeTask(int index) {
+        StringBuilder message = new StringBuilder();
+
+        message.append("deleting task number : " + index);
         tasks.remove(index - 1);
+
+        return message.toString();
     }
 
     public Task getTask(int index) {
@@ -55,18 +59,23 @@ public class TaskList {
         return message.toString();
     }
 
-    public void markItem(int taskNumber) {
+    public String markItem(int taskNumber) {
+        StringBuilder message = new StringBuilder();
         Task currTask = this.getTask(taskNumber - 1);
         currTask.check();
 
-        System.out.println("checking task number : " + taskNumber);
+        message.append("checking task number : " + taskNumber);
+        return message.toString();
     }
 
-    public void unmarkItem(int taskNumber) {
+    public String unmarkItem(int taskNumber) {
+        StringBuilder message = new StringBuilder();
+
         Task currTask = this.getTask(taskNumber - 1);
         currTask.uncheck();
 
-        System.out.println("unchecking task number : " + taskNumber);
+        message.append("unchecking task number : " + taskNumber);
+        return message.toString();
     }
 
     public TaskList findTask(String taskToFind) {

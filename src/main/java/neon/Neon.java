@@ -20,7 +20,6 @@ public class Neon {
     }
 
     public void run() {
-        System.out.println(ui.printGreetingLine());
         boolean isExited = false;
 
         Scanner scanner = new Scanner(System.in);
@@ -31,7 +30,7 @@ public class Neon {
             isExited = (boolean)processedInput[0];
         }
 
-        System.out.println(ui.printClosingLine());
+        //System.out.println(ui.printClosingLine());
 
         storage.save(tasks.getTasks());
     }

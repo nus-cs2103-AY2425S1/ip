@@ -22,25 +22,20 @@ public class MainWindow extends AnchorPane {
 
     private Neon neon;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream()); //user icon
-    private Image botImage = new Image(this.getClass().getResourceAsStream()); //bot image
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.jpg")); //user icon
+    private Image botImage = new Image(this.getClass().getResourceAsStream("/images/neon.jpg")); //bot image
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
     public void startNeon(Neon neon) {
         this.neon = neon;
     }
-
-    /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
-     */
+    
     @FXML
-    private void handleUserInput() { //figure this part out later
+    private void handleUserInput() {
         String input = userInput.getText();
         String response = neon.getResponse(input);
         dialogContainer.getChildren().addAll(

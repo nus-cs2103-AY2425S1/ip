@@ -26,76 +26,85 @@ public class Parser {
             response = tasks.printList();
             break;
 
-            //continue here!!!
         case "mark":
-            tasks.markItem(extractTaskIndex(input));
+            response = tasks.markItem(extractTaskIndex(input));
             break;
 
         case "unmark":
-            tasks.unmarkItem(extractTaskIndex(input));
+            response = tasks.unmarkItem(extractTaskIndex(input));
             break;
 
         case "delete":
-            tasks.removeTask(extractTaskIndex(input));
+            response = tasks.removeTask(extractTaskIndex(input));
             break;
 
         case "find":
             String taskToFind = input.replace("find", "").trim();
             if (taskToFind.isEmpty()) {
-                System.out.println("found no description of task! do try again");
+                response = "found no description of task! do try again";
                 break;
             }
-            System.out.println("list of tasks:");
+            StringBuilder message = new StringBuilder();
+            message.append("list of tasks:\n");
+
             TaskList foundTask = tasks.findTask(taskToFind);
 
             for (int i = 0; i < foundTask.getSize(); i++) {
-                System.out.println(foundTask.getTask(i));
+                message.append(foundTask.getTask(i));
             }
+
+            response = message.toString();
             break;
 
         case "todo":
             String taskTodo = input.replace("todo", "").trim();
             if (taskTodo.isEmpty()) {
-                System.out.println("found no description of task! do try again");
+                response = "found no description of task! do try again";
                 break;
             }
             Todo newTodo = new Todo(taskTodo, false);
+
             tasks.addTask(newTodo);
-            System.out.println("adding todo to list : " + taskTodo);
+
+            response = "adding todo to list : " + taskTodo;
             break;
 
         case "deadline":
             String taskDeadline = input.replace("deadline", "").trim();
             String[] partsDeadline = taskDeadline.split("\\s*/by\\s*");
             if (partsDeadline.length == 1) {
-                System.out.println("found no description of task! do try again");
+                response = "found no description of task! do try again";
                 break;
             }
             Deadline newDeadline = new Deadline(partsDeadline[0], false,
                     removeSpace(partsDeadline[1]));
+
             tasks.addTask(newDeadline);
-            System.out.println("adding deadline to list : " + newDeadline.getName());
+
+            response = "adding deadline to list : " + newDeadline.getName();
             break;
 
         case "event":
             String taskEvent = input.replace("event", "").trim();
             String[] partsEvent = taskEvent.split("\\s*/from\\s*|\\s*/to\\s*");
             if (partsEvent.length == 1) {
-                System.out.println("found no description of task! do try again");
+                response = "found no description of task! do try again";
                 break;
             } else if (partsEvent.length < 3 || partsEvent[1].isEmpty()) {
-                System.out.println("dates are incomplete! do try again");
+                response = "dates are incomplete! do try again";
                 break;
             }
 
             Event newEvent = new Event(partsEvent[0], false,
                     partsEvent[1], partsEvent[2]);
+
             tasks.addTask(newEvent);
-            System.out.println("adding event to list : " + newEvent.getName());
+
+            response = "adding event to list : " + newEvent.getName();
             break;
 
         default:
-            System.out.println("cannot read : " + inputArray[0]);
+            response = "cannot read : " + inputArray[0];
             break;
         }
         //ui.printLine();
