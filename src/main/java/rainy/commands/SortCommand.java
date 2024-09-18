@@ -2,6 +2,10 @@ package rainy.commands;
 
 import rainy.tasks.TaskTracker;
 
+/**
+ * Processes and sorts the task list according to date of task. For ToDo tasks without a date, they
+ * will be sorted to the bottom of the list.
+ */
 public class SortCommand extends Command {
     private TaskTracker taskTracker;
 

@@ -7,17 +7,17 @@ package rainy.database;
  * If count is not a -1, tasks will either be marked, unmarked, or deleted.
  */
 public class Parser {
+    private static final int MAX_LENGTH = 100000;
+    private static final int MINIMUM_INPUT_LENGTH = 2;
+    private static final int INVALID_RESPONSE = -1;
+    private static final String SPLIT_SPACE = " ";
+    private static final String SPLIT_SLASH = "/";
+    private static final String SPLIT_COMMA = ", ";
     private String message;
     private int count;
     private String[] input;
     private String[] splitByTask;
     private String[] updateParameters;
-    private static int MAX_LENGTH = 100000;
-    private static int MINIMUM_INPUT_LENGTH = 2;
-    private static int INVALID_RESPONSE = -1;
-    private static String SPLIT_SPACE = " ";
-    private static String SPLIT_SLASH = "/";
-    private static String SPLIT_COMMA = ", ";
 
     /**
      * Constructs a new <code>Parser</code> object.
@@ -71,7 +71,7 @@ public class Parser {
         this.splitByTask = userInput.split(SPLIT_SLASH);
         this.updateParameters = userInput.split(SPLIT_COMMA);
         String[] tempArray = new String[updateParameters.length - 1];
-        for (int i = 0; i < updateParameters.length - 1; i++)  {
+        for (int i = 0; i < updateParameters.length - 1; i++) {
             tempArray[i] = updateParameters[i + 1];
         }
         this.updateParameters = tempArray;
@@ -89,8 +89,7 @@ public class Parser {
             } catch (Exception e) {
                 this.count = INVALID_RESPONSE;
             }
-        }
-        else {
+        } else {
             this.count = INVALID_RESPONSE;
         }
     }

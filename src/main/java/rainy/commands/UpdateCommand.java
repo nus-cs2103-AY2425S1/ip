@@ -6,11 +6,21 @@ import rainy.tasks.Deadline;
 import rainy.tasks.Event;
 import rainy.tasks.TaskTracker;
 
+/**
+ * Parent class of the separate Update classes for each type of class.
+ */
 public class UpdateCommand extends Command {
     protected int validResponse;
     protected TaskTracker taskTracker;
     protected String[] updateParameters;
 
+    /**
+     * Constructs a new <code>UpdateCommand</code>
+     * @param validResponse     If validResponse is -1 then the input is invalid else validResponse
+     *                          refers to the index number of the task list.
+     * @param taskTracker       <code>TaskTracker</code> object to be updated.
+     * @param updateParameters  List containing the set of update parameters.
+     */
     public UpdateCommand(int validResponse, TaskTracker taskTracker, String[] updateParameters) {
         this.validResponse = validResponse;
         this.taskTracker = taskTracker;
@@ -30,6 +40,4 @@ public class UpdateCommand extends Command {
         }
         return this.taskTracker;
     }
-
-
 }

@@ -18,12 +18,12 @@ public class Storage {
     /**
      * Constructs a new <code>Storage</code> object.
      */
-    private static int START_INDEX = 0;
-    private static int TASK_TYPE = 8;
-    private static int MARKED_TASK = 4;
-    private static int SKIP_FIRST = 1;
-    private static int START_TASK_DESC = 11;
-    private static char MARKED_LABEL = 'X';
+    private static final int START_INDEX = 0;
+    private static final int TASK_TYPE = 8;
+    private static final int MARKED_TASK = 4;
+    private static final int SKIP_FIRST = 1;
+    private static final int START_TASK_DESC = 11;
+    private static final char MARKED_LABEL = 'X';
 
     public Storage() {
 
@@ -40,7 +40,8 @@ public class Storage {
      * @throws InvalidMarkAndUnmarkException Thrown by <code>Task</code> object when user wants to mark a
      *                                       marked tasked or unmark an unmarked task.
      */
-    public TaskTracker copyPreviousFiles(File newFile) throws InvalidIndexException, InvalidMarkAndUnmarkException, IOException {
+    public TaskTracker copyPreviousFiles(File newFile) throws InvalidIndexException, InvalidMarkAndUnmarkException,
+            IOException {
         TaskTracker newTask;
         try {
             newTask = this.processFile(newFile);
@@ -52,6 +53,13 @@ public class Storage {
         return newTask;
     }
 
+    /**
+     * Processes each individual line of the file and updates the <code>TaskTracker</code> object
+     * with the appropriate object type.
+     * @param newFile        Input file containing individual tasks previously input
+     * @return               Returns the updated <code>TaskTracker</code> object.
+     * @throws IOException
+     */
     public TaskTracker processFile(File newFile) throws IOException {
         TaskTracker newTask = new TaskTracker();
         TaskTracker[] taskHolder = new TaskTracker[]{newTask};
@@ -59,7 +67,8 @@ public class Storage {
         AtomicInteger nextCounter = new AtomicInteger(TASK_TYPE);
         AtomicInteger markedCounter = new AtomicInteger(MARKED_TASK);
         Files.lines(newFile.toPath()).skip(SKIP_FIRST).forEach(x -> {
-            int charLabel, markedLabel = 0;
+            int charLabel = 0;
+            int markedLabel = 0;
             if ((trace.get() + 1) % 10 == 0) {
                 charLabel = nextCounter.incrementAndGet();
                 markedLabel = markedCounter.incrementAndGet();
@@ -84,7 +93,18 @@ public class Storage {
         return taskHolder[START_INDEX];
     }
 
-    public TaskTracker markSavedTask(TaskTracker taskTracker, String userInput, int taskCount, int markedLabel) throws InvalidIndexException, InvalidMarkAndUnmarkException {
+    /**
+     * Marks each task as done based on an input integer.
+     * @param taskTracker                      Input <code>TaskTracker</code> object.
+     * @param userInput                        User Input to determine if the previous input has been marked.
+     * @param taskCount                        Index Nnmber of <code>Task</code>.
+     * @param markedLabel                      Index Number where the marked label occurs at on the input line.
+     * @return                                 Returns the updated <code>TaskTracker</code> object.
+     * @throws InvalidIndexException           Throws Exception when an invalid index is entered.
+     * @throws InvalidMarkAndUnmarkException   Throws Exception when non-task index is entered.
+     */
+    public TaskTracker markSavedTask(TaskTracker taskTracker, String userInput, int taskCount, int markedLabel)
+            throws InvalidIndexException, InvalidMarkAndUnmarkException {
         if (userInput.charAt(markedLabel) == MARKED_LABEL) {
             try {
                 taskTracker.markDone(taskCount);
@@ -95,11 +115,23 @@ public class Storage {
         return taskTracker;
     }
 
+    /**
+     * Update the parameters of the ToDo task with a String entered by the user.
+     * @param taskTracker  Represents the <code>TaskTracker</code> object to be updated.
+     * @param userInput    Represents the input String.
+     * @return             Returns the updated <code>TaskTracker</code> object.
+     */
     public TaskTracker updateToDo(TaskTracker taskTracker, String userInput) {
         taskTracker.addListToDo(userInput.substring(START_TASK_DESC));
         return taskTracker;
     }
 
+    /**
+     * Update the parameters of the Deadline task with a String entered by the user.
+     * @param taskTracker   Represents the <code>TaskTracker</code> object to be updated.
+     * @param userInput     Represents the input String.
+     * @return              Returns the updated <code>TaskTracker</code> object.
+     */
     public TaskTracker updateDeadline(TaskTracker taskTracker, String userInput) {
         String updatedOldData = userInput.substring(START_TASK_DESC, userInput.length() - 1);
         String[] deadlineSplit = updatedOldData.split(" \\(");
@@ -107,6 +139,12 @@ public class Storage {
         return taskTracker;
     }
 
+    /**
+     * Update the parameters of the Event task with a String entered by the user.
+     * @param taskTracker   Represents the <code>TaskTracker</code> object to be updated.
+     * @param userInput     Represents the input String.
+     * @return              Returns the updated <code>TaskTracker</code> object.
+     */
     public TaskTracker updateEvent(TaskTracker taskTracker, String userInput) {
         String updatedOldData = userInput.substring(START_TASK_DESC, userInput.length() - 1);
         String[] eventSplit = updatedOldData.split(" \\(");

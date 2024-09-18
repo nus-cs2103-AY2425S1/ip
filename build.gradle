@@ -61,5 +61,5 @@ run{
 }
 
 checkstyleMain {
-    // source = fileTree('src/main/java/rainy/gui/NewOutputStream.java')
+    // source = fileTree('src/main/java/rainy/commands/UpdateToDo.java')
 }

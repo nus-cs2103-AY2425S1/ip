@@ -42,15 +42,15 @@ public class UI {
     /**
      * Displays message if user only provides the deadline category and does not specify anything else.
      */
-    public void noDeadlineDescription() {
-        System.out.println("You need to provide a description of your Deadline, please try again!");
+    public String noDeadlineDescription() {
+        return "You need to provide a description of your Deadline, please try again!";
     }
 
     /**
      * Displays message when the user does not provide an end date for the deadline.
      */
-    public void noEndDateDeadline() {
-        System.out.println("Please provide an end date for your Deadline!");
+    public String noEndDateDeadline() {
+        return "Please provide an end date for your Deadline!";
     }
 
     /**

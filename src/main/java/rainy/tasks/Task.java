@@ -10,11 +10,12 @@ import rainy.rainyexceptions.InvalidMarkAndUnmarkException;
  * name, date, and a <code>UI</code> object to display chatbot messages.
  */
 public class Task implements Comparable<Task> {
+    private static final char END_OF_OUTPUT = '^';
+    private static final char ERROR_OUTPUT = '`';
     protected String name;
     protected LocalDate compareDate;
     private boolean isDone;
     private UI ui;
-    private static char END_OF_OUTPUT = '^';
 
     /**
      * Constructs a <code>Task</code> object. The date of the object is initially set to MAX.
@@ -47,7 +48,7 @@ public class Task implements Comparable<Task> {
      */
     public void mark() throws InvalidMarkAndUnmarkException {
         if (this.isDone == true) {
-            System.out.println(this.ui.taskDone() + END_OF_OUTPUT);
+            System.out.println(this.ui.taskDone() + ERROR_OUTPUT);
             throw new InvalidMarkAndUnmarkException(this.ui.taskDone());
         } else {
             this.isDone = true;
@@ -60,7 +61,7 @@ public class Task implements Comparable<Task> {
      */
     public void unmark() throws InvalidMarkAndUnmarkException {
         if (this.isDone == false) {
-            System.out.println(this.ui.taskNotDone() + END_OF_OUTPUT);
+            System.out.println(this.ui.taskNotDone() + ERROR_OUTPUT);
             throw new InvalidMarkAndUnmarkException(this.ui.taskNotDone());
         } else {
             this.isDone = false;

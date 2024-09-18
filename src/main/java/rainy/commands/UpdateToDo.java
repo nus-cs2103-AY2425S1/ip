@@ -2,6 +2,9 @@ package rainy.commands;
 
 import rainy.tasks.TaskTracker;
 
+/**
+ * Processes the user input and attempts to update the <code>ToDo</code> object with new parameters.
+ */
 public class UpdateToDo extends UpdateCommand {
 
     public UpdateToDo(int validResponse, TaskTracker taskTracker, String[] updateParameters) {

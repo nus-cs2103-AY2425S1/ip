@@ -4,7 +4,17 @@ import java.io.File;
 import java.io.IOException;
 
 import javafx.application.Application;
-import rainy.commands.*;
+import rainy.commands.ByeCommand;
+import rainy.commands.DeadlineCommand;
+import rainy.commands.Delete;
+import rainy.commands.EventCommand;
+import rainy.commands.FindCommand;
+import rainy.commands.List;
+import rainy.commands.Mark;
+import rainy.commands.SortCommand;
+import rainy.commands.ToDoCommand;
+import rainy.commands.Unmark;
+import rainy.commands.UpdateCommand;
 import rainy.gui.Main;
 import rainy.rainyexceptions.InvalidDeadlineParametersException;
 import rainy.rainyexceptions.InvalidEventParametersException;
@@ -25,10 +35,10 @@ public class Rainy {
      *
      * @param args  Command-line arguments passed to the program as an array of {@code String} objects.
      */
-    private static int INVALID_RESPONSE = -1;
-    private static int TASK_INDEX = 0;
-    private static int START_INDEX = 5;
-    private static String END_OF_OUTPUT = "^";
+    private static final int INVALID_RESPONSE = -1;
+    private static final int TASK_INDEX = 0;
+    private static final int START_INDEX = 5;
+    private static final String END_OF_OUTPUT = "^";
 
     public static void main(String[] args) {
         Application.launch(Main.class, args);

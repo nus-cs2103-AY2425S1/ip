@@ -14,12 +14,13 @@ import rainy.rainyexceptions.InvalidMarkAndUnmarkException;
  *
  */
 public class TaskTracker {
+    private static final int START_DESC = 4;
+    private static final char END_OF_OUTPUT = '^';
+    private static final char ERROR_OUTPUT = '`';
     private ArrayList<Task> taskList;
     private int counter;
     private boolean receivedInputs;
     private UI ui;
-    private static int START_DESC = 4;
-    private static char END_OF_OUTPUT = '^';
 
     /**
      * Constructs a new <code>TaskTracker</code> object.
@@ -55,11 +56,11 @@ public class TaskTracker {
      */
     public String printList() {
         assert(this.counter >= 0);
-        List<Task> newList = this.taskList;
         AtomicInteger numMatch = new AtomicInteger(1);
-        return (this.counter == 0) ? "No tasks currently!" : (this.taskList.stream().map(t -> t.getIsDone() == false ? "\n" + numMatch.getAndIncrement() + ". [ ] " + t
+        return (this.counter == 0) ? "No tasks currently!" : (this.taskList.stream()
+                    .map(t -> t.getIsDone() == false ? "\n" + numMatch.getAndIncrement() + ". [ ] " + t
                         : "\n" + numMatch.getAndIncrement() + ". [X] " + t)
-                .reduce("Here are your tasks!!! Remember to complete them!!!", (a, b) -> a + b));
+                    .reduce("Here are your tasks!!! Remember to complete them!!!", (a, b) -> a + b));
     }
 
 
@@ -76,7 +77,7 @@ public class TaskTracker {
         if (this.counter == 0) {
             this.ui.noTasksAdded();
         } else if (z < 0 || z >= this.counter) {
-            System.out.println(this.ui.invalidTask() + END_OF_OUTPUT);
+            System.out.println(this.ui.invalidTask() + ERROR_OUTPUT);
             throw new InvalidIndexException(this.ui.invalidTask());
         } else {
             Task newTask = this.taskList.get(z);
@@ -102,7 +103,7 @@ public class TaskTracker {
         if (this.counter == 0) {
             this.ui.noTasksAdded();
         } else if (q < 0 || q >= this.counter) {
-            System.out.println(this.ui.invalidTask() + '^');
+            System.out.println(this.ui.invalidTask() + ERROR_OUTPUT);
             throw new InvalidIndexException(this.ui.invalidTask());
         } else {
             Task newTask = this.taskList.get(q);
@@ -118,7 +119,6 @@ public class TaskTracker {
     /**
      * Sorts the list according to the date of the task.
      */
-
     public void sortList() {
         String tempStorage;
         for (Task t: this.taskList) {
@@ -134,7 +134,6 @@ public class TaskTracker {
      * Updates the list with a todo task as specified by the user.
      * @param s  Represents the name of the todo task.
      */
-
     public void addListToDo(String s) {
         this.taskList.add(new ToDo(s));
         this.counter++;
@@ -206,7 +205,7 @@ public class TaskTracker {
         if (this.counter == 0) {
             this.ui.noTasksBeforeDelete();
         } else if (i < 0 || i >= this.counter) {
-            System.out.println(this.ui.invalidTask() + END_OF_OUTPUT);
+            System.out.println(this.ui.invalidTask() + '`');
             throw new InvalidIndexException(this.ui.invalidTask());
         } else {
             this.ui.removedTask();
@@ -227,7 +226,8 @@ public class TaskTracker {
         AtomicInteger numMatch = new AtomicInteger(1);
         List<Task> newList = this.taskList;
         String output = newList.stream()
-                .filter(t -> t.toString().substring(START_DESC).split("\\(")[0].toUpperCase().contains(compareTask.toUpperCase()))
+                .filter(t -> t.toString().substring(START_DESC)
+                        .split("\\(")[0].toUpperCase().contains(compareTask.toUpperCase()))
                 .map(x -> ((x.getIsDone()) ? "\n" + (numMatch.getAndIncrement()) + ". [X] " + x
                         : "\n" + (numMatch.getAndIncrement()) + ". [ ] " + x))
                 .reduce("Here are some tasks matching your description: ", (a, b) -> a + b);
@@ -238,6 +238,11 @@ public class TaskTracker {
         }
     }
 
+    /**
+     * Updates the description of the deadline
+     * @param taskNumber  The index number of the <code>Task</code> in the task list.
+     * @param name        The new description of the <code>Deadline</code> to be updated.
+     */
     public void updateDeadlineName(int taskNumber, String name) {
         Task currentEdit = this.taskList.get(taskNumber);
         if (currentEdit instanceof Deadline currentDeadline) {
@@ -245,6 +250,11 @@ public class TaskTracker {
         }
     }
 
+    /**
+     * Updates the date of the deadline.
+     * @param taskNumber   The index number of the <code>Task</code> in the task list.
+     * @param date         The new date of the <code>Deadline</code> to be updated.
+     */
     public void updateDeadlineDate(int taskNumber, String date) {
         Task currentEdit = this.taskList.get(taskNumber);
         if (currentEdit instanceof Deadline currentDeadline) {
@@ -252,6 +262,11 @@ public class TaskTracker {
         }
     }
 
+    /**
+     * Updates the description of the event.
+     * @param taskNumber   The index number of the <code>Task</code> in the task list.
+     * @param name         The new description of the <code>Event</code> to be updated.
+     */
     public void updateEventName(int taskNumber, String name) {
         Task currentEdit = this.taskList.get(taskNumber);
         if (currentEdit instanceof Event currentEvent) {
@@ -259,6 +274,11 @@ public class TaskTracker {
         }
     }
 
+    /**
+     * Updates the date of the event.
+     * @param taskNumber   The index number of the <code>Task</code> in the task list.
+     * @param date         The new date of the <code>Event</code> to be updated.
+     */
     public void updateEventDate(int taskNumber, String date) {
         Task currentEdit = this.taskList.get(taskNumber);
         if (currentEdit instanceof Event currentEvent) {
@@ -266,6 +286,11 @@ public class TaskTracker {
         }
     }
 
+    /**
+     * Updates the timeframe of the event.
+     * @param taskNumber   The index number of the <code>Task</code> in the task list.
+     * @param time         The new timeframe of the <code>Event</code> to be updated.
+     */
     public void updateEventTime(int taskNumber, String time) {
         Task currentEdit = this.taskList.get(taskNumber);
         if (currentEdit instanceof Event currentEvent) {
@@ -273,6 +298,11 @@ public class TaskTracker {
         }
     }
 
+    /**
+     * Updates the description of the ToDo.
+     * @param taskNumber   The index number of the <code>Task</code> in the task list.
+     * @param description  The new description of the <code>ToDo</code> to be updated.
+     */
     public void updateToDo(int taskNumber, String description) {
         Task currentEdit = this.taskList.get(taskNumber);
         if (currentEdit instanceof ToDo currentToDo) {

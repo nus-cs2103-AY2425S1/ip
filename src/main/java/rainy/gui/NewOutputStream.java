@@ -38,6 +38,12 @@ public class NewOutputStream extends OutputStream {
             Platform.runLater(() -> {
                 dialogContainer.getChildren().add(DialogBox.getRainyDialog(text, rainyImage));
             });
+        } else if (b == '`') {
+            String text = stringBuilder.toString().trim();
+            stringBuilder.setLength(0);
+            Platform.runLater(() -> {
+                dialogContainer.getChildren().add(DialogBoxError.getRainyDialog(text, rainyImage));
+            });
         } else {
             stringBuilder.append((char) b);
         }

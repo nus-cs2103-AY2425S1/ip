@@ -1,8 +1,10 @@
 package rainy.commands;
 
-import rainy.tasks.Task;
 import rainy.tasks.TaskTracker;
 
+/**
+ * Processes the user input and prints the list into the console.
+ */
 public class List extends Command {
     private TaskTracker taskTracker;
 
@@ -14,6 +16,4 @@ public class List extends Command {
         System.out.println(this.taskTracker.printList());
         return new TaskTracker();
     }
-
-
 }

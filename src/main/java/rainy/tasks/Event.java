@@ -8,16 +8,16 @@ import java.time.format.DateTimeFormatter;
  * Represents a deadline task. This class is a sub-class of the <code>Task</code> class.
  */
 public class Event extends Task {
+    private static final String DATE_FORMAT = "MMM d yyyy";
+    private static final String TIME_FORMAT = "HH:mm";
+    private static final int FIRST_TIME_HOUR_START = 0;
+    private static final int FIRST_TIME_HOUR_END = 2;
+    private static final int FIRST_TIME_MIN_START = 2;
+    private static final int FIRST_TIME_MIN_END = 4;
+    private static final int FIRST_TIME_START = 2;
+    private static final int SECOND_TIME_START = 10;
     private String date;
     private String time;
-    private static String DATE_FORMAT = "MMM d yyyy";
-    private static String TIME_FORMAT = "HH:mm";
-    private static int FIRST_TIME_HOUR_START = 0;
-    private static int FIRST_TIME_HOUR_END = 2;
-    private static int FIRST_TIME_MIN_START = 2;
-    private static int FIRST_TIME_MIN_END = 4;
-    private static int FIRST_TIME_START = 2;
-    private static int SECOND_TIME_START = 10;
 
     /**
      * Constructs a new <code>Event</code> object.
