@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import skibidi.SkibidiException;
+
 /**
  * Manages the storage of tasks in a file.
  */
@@ -91,7 +93,7 @@ public class StorageManager {
      * @param line The line containing the task data.
      * @return The task parsed from the line.
      */
-    private Task parseTask(String line) {
+    private Task parseTask(String line) throws SkibidiException {
         String[] parts = line.split(" \\| ");
         String type = parts[0];
         boolean isDone = parts[1].trim().equals("1");

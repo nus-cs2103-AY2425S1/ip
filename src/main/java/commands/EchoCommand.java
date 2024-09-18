@@ -16,6 +16,10 @@ public class EchoCommand extends Command {
      * @param message The message to be echoed.
      */
     public EchoCommand(String message) {
+        if (message.split(" ", 2).length == 1) {
+            this.message = "";
+            return;
+        }
         this.message = message.split(" ", 2)[1];
     }
 
