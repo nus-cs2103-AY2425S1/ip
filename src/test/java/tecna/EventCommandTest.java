@@ -19,7 +19,7 @@ public class EventCommandTest {
         try {
             nothingBehind.parseEventCommand();
         } catch (WrongFormatException e) {
-            assertEquals(new WrongFormatException("event",  "Event task should in the format of \"event [description] /from [" + DATE_TIME_PATTERN + "] /to [" + DATE_TIME_PATTERN + "]"), e);
+            assertEquals(new WrongFormatException("event",  "Event task should in the format of \"event [task name] /from [" + DATE_TIME_PATTERN + "] /to [" + DATE_TIME_PATTERN + "]").getMessage(), e.getMessage());
         }
 
         EventCommand blankBehind = new EventCommand("event      ");
@@ -27,26 +27,29 @@ public class EventCommandTest {
         try {
             blankBehind.parseEventCommand();
         } catch (WrongFormatException e) {
-            assertEquals(new WrongFormatException("event",  "Event task should in the format of \"event [description] /from [" + DATE_TIME_PATTERN + "] /to [" + DATE_TIME_PATTERN + "]"), e);
+            assertEquals(new WrongFormatException("event",  "Event task should in the format of \"event [task name] /from [" + DATE_TIME_PATTERN + "] /to [" + DATE_TIME_PATTERN + "]").getMessage(), e.getMessage());
         }
     }
 
     @Test
-    public void parseEventCommand_emptyTaskName_exceptionThrown() {
+    public void parseEventCommand_missingTaskName_exceptionThrown() {
         EventCommand emptyTaskName = new EventCommand("event /from 2024-02-02 1200 /to 2024-02-02 1300");
 
         try {
             emptyTaskName.parseEventCommand();
         } catch (WrongFormatException e) {
-            assertEquals(new WrongFormatException("event", "Event task's [task name] must not be empty"), e);
+            assertEquals(new WrongFormatException("event", "Event task should in the format of \"event [task name] /from [" + DATE_TIME_PATTERN + "] /to [" + DATE_TIME_PATTERN + "]").getMessage(), e.getMessage());
         }
+    }
 
+    @Test
+    public void parseEventCommand_emptyTaskName_exceptionThrown() {
         EventCommand blankTaskName= new EventCommand("event        /from 2024-02-02 1200 /to 2024-02-02 1300");
 
         try {
             blankTaskName.parseEventCommand();
         } catch (WrongFormatException e) {
-            assertEquals(new WrongFormatException("event", "Event task's [task name] must not be empty"), e);
+            assertEquals(new WrongFormatException("event", "Event task's [task name] must not be empty").getMessage(), e.getMessage());
         }
     }
 
@@ -57,7 +60,7 @@ public class EventCommandTest {
         try {
             wrongDateFormat.parseEventCommand();
         } catch (WrongFormatException e) {
-            assertEquals(new WrongFormatException("event",  "Event task should in the format of \"event [description] /from [" + DATE_TIME_PATTERN + "] /to [" + DATE_TIME_PATTERN + "]"), e);
+            assertEquals(new WrongFormatException("event",  "Event task should in the format of \"event [task name] /from [" + DATE_TIME_PATTERN + "] /to [" + DATE_TIME_PATTERN + "]").getMessage(), e.getMessage());
         }
     }
 
@@ -71,10 +74,15 @@ public class EventCommandTest {
 
         Event correct = new Event("hi", DateTimeUtil.parseDateTime("2023-12-12 1200"), DateTimeUtil.parseDateTime("2023-12-12 1300"));
 
-        assertEquals(correct, space1);
-        assertEquals(correct, space2);
-        assertEquals(correct, space3);
-        assertEquals(correct, space4);
-        assertEquals(correct, space5);
+        try {
+            assertEquals(correct, space1.parseEventCommand());
+            assertEquals(correct, space2.parseEventCommand());
+            assertEquals(correct, space3.parseEventCommand());
+            assertEquals(correct, space4.parseEventCommand());
+            assertEquals(correct, space5.parseEventCommand());
+        } catch (WrongFormatException e) {
+            fail();
+        }
+
     }
 }
