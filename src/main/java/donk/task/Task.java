@@ -73,6 +73,7 @@ public abstract class Task {
         return "[" + this.getStatusIcon() + "] " + description;
     }
 
+    public abstract String getIsoDate();
 
     /**
      * Returns task description
@@ -88,6 +89,8 @@ public abstract class Task {
      * @return A string representation of the task for file storage.
      */
     public abstract String toFileSaveString();
+
+    public abstract int compareTo(Task task);
 
 
 }

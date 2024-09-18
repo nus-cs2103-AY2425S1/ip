@@ -157,7 +157,14 @@ public class Donk {
      * @return String list of tasks
      */
     private String list(String[] inputArray) {
-
+        if (inputArray.length > 1 && inputArray[1].equalsIgnoreCase("sorted")) {
+            // return "wtf";
+            return tasks.sorted().toString();
+        }
+        String s = "";
+        for (String word: inputArray) {
+            s += word;
+        }
         return ui.listTasks(tasks);
     }
 
