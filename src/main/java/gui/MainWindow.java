@@ -52,10 +52,10 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
-        System.out.println("Send button clicked"); // Debugging statement
+
 
         String input = userInput.getText();
-        System.out.println("User input: " + input);
+
 
         if (input.isEmpty()) {
             return; // Do nothing if input is empty

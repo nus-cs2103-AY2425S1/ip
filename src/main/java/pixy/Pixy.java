@@ -88,7 +88,7 @@ public class Pixy {
                 ui.showGoodbyeMessage();
                 break;
             }
-            System.out.println(response); // Output the response to the user
+            System.out.println(response);
         }
         saveTasks();
     }

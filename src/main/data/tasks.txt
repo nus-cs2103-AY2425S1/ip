@@ -2,3 +2,4 @@ D |   | return book | Dec 2 2019, 6:00 pm
 E |   | wit | Dec 2 2019, 6:00 pm | Dec 2 2019, 8:00 pm
 T |   | buy bread
 T |   | buy milk
+T |   | borrow book

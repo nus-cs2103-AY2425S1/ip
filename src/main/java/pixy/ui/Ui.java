@@ -17,33 +17,6 @@ public class Ui {
         System.out.println("Hello! I'm Pixy.\nWhat can I do for you?\n");
     }
 
-    /**
-     * Displays the task after it has been added to the list in the desired format.
-     *
-     * @param task The task that has been added.
-     * @param size The size of the task list.
-     * @return Task added message.
-     */
-    public String showTaskAdded(Task task, int size) {
-        return "Got it. I've added this task:\n" + task
-                + "\nNow you have " + size + " tasks in the list.";
-    }
-
-    /**
-     * Displays message when task list is empty.
-     *
-     * @return List empty message.
-     */
-    public String showListEmpty() {
-        return "List is Empty! Add tasks to list.";
-    }
-
-    /**
-     * Prints the tasks sequentially from the task list.
-     *
-     * @param list The Task list.
-     * @return List of tasks message.
-     */
     public String showTasks(List<Task> list) {
         StringBuilder sb = new StringBuilder();
         sb.append("Here are the tasks in your list:\n");
@@ -51,39 +24,8 @@ public class Ui {
             Task task = list.get(i);
             sb.append((i + 1) + ". " + task.toString() + "\n");
         }
+        System.out.println(sb.toString());
         return sb.toString();
-    }
-
-    /**
-     * Displays the task with appropriate message after it has been marked.
-     *
-     * @param task The task to mark.
-     * @return Task marked message.
-     */
-    public String showTaskMarked(Task task) {
-        return "Nice! I've marked this task as done:\n" + task.toString();
-    }
-
-    /**
-     * Displays the task with appropriate message after it has been unmarked.
-     *
-     * @param task The task to unmark.
-     * @return Task unmarked message.
-     */
-    public String showTaskUnmarked(Task task) {
-        return "OK, I've marked this task as not done yet:\n" + task.toString();
-    }
-
-    /**
-     * Displays the task with appropriate message after it has been deleted.
-     *
-     * @param task The task to delete.
-     * @param size The size of the task list.
-     * @return Task deleted message.
-     */
-    public String showTaskRemoved(Task task, int size) {
-        return "Noted. I've removed this task:\n" + task.toString()
-                + "\nNow you have " + size + " tasks in the list.";
     }
 
     /**
