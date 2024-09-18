@@ -197,6 +197,20 @@ public class GuiResponses {
                 + "adding another layer to its significance:\n"
                 + "%s", tagName.toLowerCase(), task.descNoTags());
     }
+
+    /**
+     * Gets String representation of already tagged task message
+     * @param task Task that is already tagged
+     * @param tagName name of tag
+     * @return response to an already tagged message
+     */
+    public String alreadyTaggedMsg(Task task, String tagName) {
+        return String.format("The task \n'%s' \nalready bears the tag '%s'. "
+                        + "\nOne might wonder if you’re simply repeating the same actions without much thought. "
+                        + "\nPerhaps it’s time to reconsider if these tags are serving any real purpose.",
+                task.getDescription(), tagName);
+    }
+
     /**
      * Gets String representation of all tags
      * @param tagKeys set of strings of tags

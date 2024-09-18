@@ -45,7 +45,9 @@ public class TagCommand extends Command {
         tagIndex = tagIndex - 1;
         Tag tag;
         tag = getTag(tagList, tagText);
-
+        if (tag.isTagged(taskList.getTask(tagIndex))) {
+            return guiResponses.alreadyTaggedMsg(taskList.getTask(tagIndex), tagText);
+        }
         tag.tagTask(taskList.getTask(tagIndex));
         taskList.getTask(tagIndex).addTag(tag);
         result = guiResponses.tagTaskMsg(taskList.getTask(tagIndex), tagText);
