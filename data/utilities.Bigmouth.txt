@@ -3,3 +3,5 @@ T | 0 | kms then descend
 T | 0 | eat shit
 T | 0 | kys
 T | 0 | rigjw
+D | 0 | Submit project report | 2024-09-30T23:59
+E | 0 | Attend seminar | 2024-10-10T14:00 | 2024-10-10T16:00

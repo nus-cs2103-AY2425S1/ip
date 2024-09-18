@@ -28,28 +28,36 @@ public class Storage {
      *
      * @param filename The file path where tasks will be saved and loaded from.
      */
-    public Storage (String filename) {
+    public Storage(String filename) {
         this.rootPath = filename;
     }
 
     /**
      * Saves the current task list to the specified file.
-     * Each task is written in a format suitable for loading later.
      */
     protected void saveToFile() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(rootPath))) {
-            for (Task task : tasks) {
-                writer.write(task.toSaveFormat());
-                writer.newLine();
-            }
+            writeTasksToFile(writer);
         } catch (IOException e) {
             System.out.println("Error saving tasks to file: " + e.getMessage());
         }
     }
 
     /**
-     * Loads tasks from the specified file. Each task is parsed from the saved format
-     * and added to the task list. If the file does not exist, no action is taken.
+     * Writes the list of tasks to the file using the writer.
+     *
+     * @param writer The BufferedWriter to write the tasks to the file.
+     */
+    private void writeTasksToFile(BufferedWriter writer) throws IOException {
+        for (Task task : tasks) {
+            writer.write(task.toSaveFormat());
+            writer.newLine();
+        }
+    }
+
+    /**
+     * Loads tasks from the specified file.
+     * If the file does not exist, no action is taken.
      */
     protected void loadFromFile() {
         File file = new File(rootPath);
@@ -58,39 +66,60 @@ public class Storage {
         }
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(" \\| ");
-                String type = parts[0];
-                boolean isDone = parts[1].equals("1");
-                String description = parts[2];
-
-                Task task = null;
-                switch (type) {
-                    case "T":
-                        task = new Todo(description);
-                        break;
-                    case "D":
-                        LocalDateTime by = LocalDateTime.parse(parts[3], DATE_FORMATTER);
-                        task = new Deadline(description, by);
-                        break;
-                    case "E":
-                        LocalDateTime from = LocalDateTime.parse(parts[3], DATE_FORMATTER);
-                        LocalDateTime to = LocalDateTime.parse(parts[4], DATE_FORMATTER);
-                        task = new Event(description, from, to);
-                        break;
-                }
-
-                if (task != null) {
-                    if (isDone) {
-                        task.markAsDone();
-                    }
-                    tasks.add(task);
-                }
-            }
+            readTasksFromFile(reader);
         } catch (IOException e) {
             System.out.println("Error loading tasks from file: " + e.getMessage());
         }
+    }
+
+    /**
+     * Reads tasks from the file and adds them to the task list.
+     *
+     * @param reader The BufferedReader to read tasks from the file.
+     */
+    private void readTasksFromFile(BufferedReader reader) throws IOException {
+        String line;
+        while ((line = reader.readLine()) != null) {
+            Task task = parseTask(line);
+            if (task != null) {
+                tasks.add(task);
+            }
+        }
+    }
+
+    /**
+     * Parses a line from the file to create the corresponding task.
+     *
+     * @param line The line from the file representing a task.
+     * @return The created Task object, or null if parsing fails.
+     */
+    private Task parseTask(String line) {
+        String[] parts = line.split(" \\| ");
+        String type = parts[0];
+        boolean isDone = parts[1].equals("1");
+        String description = parts[2];
+
+        Task task = null;
+        switch (type) {
+        case "T":
+            task = new Todo(description);
+            break;
+        case "D":
+            LocalDateTime by = LocalDateTime.parse(parts[3], DATE_FORMATTER);
+            task = new Deadline(description, by);
+            break;
+        case "E":
+            LocalDateTime from = LocalDateTime.parse(parts[3], DATE_FORMATTER);
+            LocalDateTime to = LocalDateTime.parse(parts[4], DATE_FORMATTER);
+            task = new Event(description, from, to);
+            break;
+        }
+
+        if (task != null && isDone) {
+            task.markAsDone();
+        }
+
+        return task;
     }
 
     /**

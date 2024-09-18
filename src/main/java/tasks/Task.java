@@ -1,9 +1,14 @@
 package tasks;
 
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a task with a description and its completion status.
  */
 public abstract class Task {
+    protected static final DateTimeFormatter DISPLAY_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
+    protected static final DateTimeFormatter SAVE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+
     protected String description;
     protected boolean isDone;
 
