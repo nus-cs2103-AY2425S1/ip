@@ -17,12 +17,12 @@ import phenex.util.Parser;
  */
 public class Phenex {
 
-    private static final Path DEFAULT_FILEPATH = Paths.get(System.getProperty("user.home"),
-                                                    "Downloads",
-                                                           "CS2103T_AY2425",
-                                                           "iP",
-                                                           "data",
-                                                           "phenex.txt");
+    public static final Path DEFAULT_FILEPATH = Paths.get(System.getProperty("user.home"),
+                                                   "Downloads",
+                                                          "CS2103T_AY2425",
+                                                          "iP",
+                                                          "data",
+                                                          "phenex.txt");
 
     /** Encapsulates the Ui of Phenex. */
     private Ui ui;
@@ -77,8 +77,8 @@ public class Phenex {
         phenex.ui.greet();
 
         Scanner scanner = new Scanner(System.in);
-        boolean programIsExecuting = true;
-        while (scanner.hasNext() && programIsExecuting) {
+        boolean isExecuting = true;
+        while (scanner.hasNext() && isExecuting) {
             String userInput = scanner.nextLine();
 
             phenex.ui.printLine();
@@ -87,7 +87,7 @@ public class Phenex {
                 Command command = phenex.parser.parseCommandFromLine(userInput);
                 command.execute(phenex.tasks, phenex.ui, phenex.storage);
                 if (command.isTerminatingCommand()) {
-                    programIsExecuting = false;
+                    isExecuting = false;
                 }
             } catch (PhenexException e) {
                 Ui.printExceptionMessage(e);

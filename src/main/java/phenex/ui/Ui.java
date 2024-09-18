@@ -47,7 +47,7 @@ public class Ui {
      */
     public String printTaskList(TaskList taskList) {
         String stringToPrint = generateTaskListString(taskList);
-        System.out.println(stringToPrint);
+        System.out.print(stringToPrint);
         return stringToPrint;
     }
 
@@ -60,7 +60,7 @@ public class Ui {
         StringBuilder stringBuilder = new StringBuilder();
         int size = taskList.getTasks().size();
         if (size == 0) {
-            stringBuilder.append("\t No scheduled missions. Rest up for the next battle, soldier!");
+            stringBuilder.append("\t No scheduled missions. Rest up for the next battle, soldier!\n");
             return stringBuilder.toString();
         }
 
@@ -69,6 +69,7 @@ public class Ui {
             String row = "\t " + (i + 1) + ". " + taskList.getTaskByIdx(i) + "\n";
             stringBuilder.append(row);
         }
+        stringBuilder.append("\n");
         return stringBuilder.toString();
     }
 
@@ -91,7 +92,7 @@ public class Ui {
      */
     public String printTaskMarkedCompleteMessage(Task taskMarked) {
         String stringToPrint = generateTaskMarkedCompleteMessage(taskMarked);
-        System.out.println(stringToPrint);
+        System.out.print(stringToPrint);
         return stringToPrint;
     }
 
@@ -103,7 +104,7 @@ public class Ui {
     public String generateTaskMarkedCompleteMessage(Task taskMarked) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("\t Mission marked as complete. Good job, soldier!\n");
-        stringBuilder.append("\t\t" + taskMarked + "\n");
+        stringBuilder.append("\t\t" + taskMarked + "\n\n");
         return stringBuilder.toString();
     }
 
@@ -115,7 +116,7 @@ public class Ui {
      */
     public String printTaskMarkedIncompleteMessage(Task taskMarked) {
         String stringToPrint = generateTaskMarkedIncompleteMessage(taskMarked);
-        System.out.println(stringToPrint);
+        System.out.print(stringToPrint);
         return stringToPrint;
     }
 
@@ -127,7 +128,7 @@ public class Ui {
     public String generateTaskMarkedIncompleteMessage(Task taskMarked) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("\t Mission marked as incomplete.\n");
-        stringBuilder.append("\t\t" + taskMarked + "\n");
+        stringBuilder.append("\t\t" + taskMarked + "\n\n");
         return stringBuilder.toString();
     }
 
@@ -140,7 +141,7 @@ public class Ui {
      */
     public String printTaskDeletedMessage(Task taskDeleted, int taskListSize) {
         String stringToPrint = generateTaskDeletedMessage(taskDeleted, taskListSize);
-        System.out.println(stringToPrint);
+        System.out.print(stringToPrint);
         return stringToPrint;
     }
 
@@ -154,7 +155,7 @@ public class Ui {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("\t OK. Mission aborted, retreat!\n");
         stringBuilder.append("\t  " + taskDeleted + "\n");
-        stringBuilder.append("\t " + taskListSize + " missions remaining. Destroy the enemy!\n");
+        stringBuilder.append("\t " + taskListSize + " missions remaining. Destroy the enemy!\n\n");
         return stringBuilder.toString();
     }
 
@@ -167,7 +168,7 @@ public class Ui {
      */
     public String printTaskAddedMessage(Task taskAdded, int taskListSize) {
         String stringToPrint = generateTaskAddedMessage(taskAdded, taskListSize);
-        System.out.println(stringToPrint);
+        System.out.print(stringToPrint);
         return stringToPrint;
     }
 
@@ -181,7 +182,7 @@ public class Ui {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("\t Mission " + taskAdded.getName() + " added:\n");
         stringBuilder.append("\t   " + taskAdded + "\n");
-        stringBuilder.append("\t Total upcoming missions: " + taskListSize + "\n");
+        stringBuilder.append("\t Total upcoming missions: " + taskListSize + "\n\n");
         return stringBuilder.toString();
     }
 

@@ -78,7 +78,7 @@ public class Parser {
         try {
             return LocalDate.parse(line.substring(12));
         } catch (DateTimeParseException e) {
-            throw new PhenexException(e.getMessage());
+            throw new PhenexException("Invalid date! Correct format: YYYY-MM-DD");
         }
     }
 
