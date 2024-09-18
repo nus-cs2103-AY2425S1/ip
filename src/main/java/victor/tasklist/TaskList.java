@@ -152,7 +152,7 @@ public class TaskList {
     }
 
     /**
-     * Method finds all tasks in the current TaskList that contain the string that is input.
+     * Finds all tasks in the current TaskList that contain the string that is input.
      * If there are no matches, returns an empty array.
      * @param toMatch A string whose content is searched for in all the task names contained in the task list.
      * @return An array of strings formatted to show the task's order in the list of all strings containing

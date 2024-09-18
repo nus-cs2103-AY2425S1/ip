@@ -38,7 +38,7 @@ public class ReturnMessage {
         for (String string : getMessages()) {
             returnString += string + "\n";
         }
-        return returnString.trim();
+        return "  " + returnString.trim();
     }
 
     public boolean isEmpty() {

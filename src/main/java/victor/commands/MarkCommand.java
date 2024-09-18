@@ -70,4 +70,12 @@ public class MarkCommand extends Command {
         }
         super.taskList.writeToFile(filePath, true);
     }
+
+    /**
+     * Return this mark command's number.
+     * @return A string with the number meant to be marked done.
+     */
+    public String getNumber() {
+        return this.taskNumber;
+    }
 }

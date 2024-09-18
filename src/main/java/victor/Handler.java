@@ -4,7 +4,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import victor.commands.Command;
-import victor.messages.ReturnMessage;
 import victor.parser.Parser;
 import victor.storage.Storage;
 import victor.tasklist.TaskList;
@@ -39,7 +38,6 @@ public class Handler {
     public Command handleRequest(String request) {
         Command command = parser.parseInput(request);
         command.setData(taskList);
-        command.write(DATA_PATH);
         return command;
     }
 }
