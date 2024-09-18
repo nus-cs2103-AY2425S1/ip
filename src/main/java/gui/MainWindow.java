@@ -73,6 +73,7 @@ public class MainWindow extends AnchorPane {
                     DialogBox.getUserDialog(input, userImage),
                     chatterBye
             );
+            userInput.clear();
             PauseTransition pause = new PauseTransition(javafx.util.Duration.seconds(1));
             pause.setOnFinished(event -> {
                 Stage stage = (Stage) dialogContainer.getScene().getWindow();
@@ -85,7 +86,7 @@ public class MainWindow extends AnchorPane {
         DialogBox chatterReply = DialogBox.getChatterboxDialog(response.get("response"), chatterImage);
         if (response.get("type").equals("ERROR")) {
             for (Node node : chatterReply.getChildren()) {
-                node.setStyle("-fx-background-color: #FF0000");
+                node.setStyle("-fx-background-color: #FFCCBB");
             }
         }
         dialogContainer.getChildren().addAll(
