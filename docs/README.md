@@ -21,7 +21,7 @@ The `priority` tag indicates the priority of the task, and you can choose betwee
 
 Example command: `todo read book /priority low`
 
-### Adding deadlines: `deadline`
+### Adding Deadlines: `deadline`
 
 To add a new deadline task, use the command
 
@@ -36,8 +36,7 @@ Example command: `deadline submit work /by 2024-09-20 1800 /priority high`
 
 To add a new event, use the command 
 
-`event (name of event) /from (beginning in the form YYYY-MM-DD HHMM) /to
-(end in the form of YYYY-MM-DD HHMM) /priority (low/medium/high)`
+`event (name of event) /from YYYY-MM-DD HHMM /to YYYY-MM-DD HHMM /priority (low/medium/high)`
 
 Ensure that the date is of the correct format of Year-Month-Day and the time is in 24 hour time.
 
