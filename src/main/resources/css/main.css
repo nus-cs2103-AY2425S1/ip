@@ -3,7 +3,6 @@
     -fx-background-color: #F2F2F2;
 }
 
-
 .text-field {
     -fx-background-color: #FFFFFF;
     -fx-text-fill: #333333;
@@ -30,7 +29,6 @@
     -fx-background-color: #2A62A1;
     -fx-font-size: 18px;
 }
-
 
 .scroll-pane,
 .scroll-pane .viewport {
