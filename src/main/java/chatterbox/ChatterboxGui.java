@@ -94,7 +94,8 @@ public class ChatterboxGui {
         try {
             result = currCommand.execute(input, guiResponses, userTags, tasks, parser);
         } catch (ChatterboxExceptions.ChatterBoxError e) {
-            result = ("Sorry there was an error: " + e.getMessage());
+            result = ("It seems an error has occurred " + e.getMessage())
+            + "Even in moments like these, there is something to be learned";
         }
         storage.saveHistory(tasks.getTasks());
         return result;

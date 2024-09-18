@@ -247,6 +247,9 @@ public class Parser {
         if (toStart < 0) {
             throw new ChatterboxExceptions.ChatterBoxMissingParameter("Event End Date");
         }
+        if (toStart < fromStart) {
+            throw new ChatterboxExceptions.ChatterBoxMissingParameter("Wrong argument order");
+        }
         StringBuilder plainDesc = new StringBuilder();
         StringBuilder startDate = new StringBuilder();
         StringBuilder endDate = new StringBuilder();
