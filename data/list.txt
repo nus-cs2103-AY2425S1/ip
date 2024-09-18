@@ -6,4 +6,6 @@ T | playyyy | 1
 T | play | 0
 T | study | 1
 T | watch lecturess | 1
-T | goo homme | 0
+T | goo homme | 1
+T | 7 7 | 0
+T | later /by | 0
