@@ -4,9 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 public class MainWindow {
 
@@ -41,6 +41,7 @@ public class MainWindow {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getBopesDialog(response, bopesImage)
         );
+        VBox.setVgrow(dialogContainer, Priority.ALWAYS);
         userInput.clear();
     }
 }
