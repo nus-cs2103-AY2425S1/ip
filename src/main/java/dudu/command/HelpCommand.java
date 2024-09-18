@@ -7,19 +7,18 @@ import dudu.utils.TaskList;
 import dudu.utils.UI;
 
 /**
- * Represents a help user command into the chatbot
+ * Represents a command to help user with command syntax.
  */
 public class HelpCommand extends Command {
     /**
-     * Executes the exit command by displaying a goodbye message to the user
+     * Returns a help message.
      *
-     * @param taskList The task list
-     * @param ui The user interface to display the goodbye message
-     * @param storage The storage
-     * @return Help response
+     * @param taskList Task list containing the tasks.
+     * @param ui User interface to interact with the user.
+     * @param storage Storage to save tasks.
      */
     @Override
-    public String execute(TaskList taskList, UI ui, Storage storage) throws IOException {
+    public String execute(TaskList taskList, UI ui, Storage storage) {
         return ui.getHelpMessage();
     }
 }

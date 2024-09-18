@@ -9,17 +9,17 @@ import dudu.utils.TaskList;
 import dudu.utils.UI;
 
 /**
- * Represents a delete task user command into the chatbot
+ * Represents a command to delete a task from a task list.
  */
 public class DeleteCommand extends Command {
     private int index;
     private boolean isUndoCommand;
 
     /**
-     * Constructs a CommandDelete with the specified index
+     * Constructs a CommandDelete.
      *
-     * @param index The index of the task to be deleted
-     * @param isUndoCommand Status if command is from an undo command
+     * @param index Index of the task to be deleted in the task list.
+     * @param isUndoCommand True if command is from an undo command else false.
      */
     public DeleteCommand(int index, boolean isUndoCommand) {
         this.index = index;
@@ -27,14 +27,16 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Executes the command by deleting the task from the task list, updating
-     * the user interface with the deleted task, and saving the updated task list to storage
+     * Executes the delete task command.
+     * Deletes the task from the task list.
+     * Rewrites the local file to reflect the changes.
+     * Adds an AddCommand to the undo stack if this command is not from an undo command.
      *
-     * @param taskList The task list on which the command is executed
-     * @param ui The user interface to interact with the user
-     * @param storage The storage to save the task
-     * @return Successful delete task response
-     * @throws IOException If there is an error during saving the task to storage
+     * @param taskList Task list containing the tasks.
+     * @param ui User interface to interact with the user.
+     * @param storage Storage to save tasks.
+     * @return Message notifying user of deleting the task.
+     * @throws IOException If there is an error during rewriting the local file in storage.
      */
     @Override
     public String execute(TaskList taskList, UI ui, Storage storage) throws IOException {

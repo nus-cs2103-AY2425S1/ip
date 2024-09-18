@@ -9,17 +9,17 @@ import dudu.utils.TaskList;
 import dudu.utils.UI;
 
 /**
- * Represents a unmark task user command into the chatbot
+ * Represents a command to mark a task as uncompleted.
  */
 public class UnmarkCommand extends Command {
     private int index;
     private boolean isUndoCommand;
 
     /**
-     * Constructs a CommandUnmark with the specified task
+     * Constructs a CommandMark with the specified task.
      *
-     * @param index The index of the task to be unmarked
-     * @param isUndoCommand Status if command is from an undo command
+     * @param index Index of the task to be unmarked in the task list.
+     * @param isUndoCommand True if command is from an undo command else false.
      */
     public UnmarkCommand(int index, boolean isUndoCommand) {
         this.index = index;
@@ -27,14 +27,16 @@ public class UnmarkCommand extends Command {
     }
 
     /**
-     * Executes the command by unmarking the task in the task list, updating
-     * the user interface with the deleted task, and saving the updated task list to storage
+     * Executes the unmark task command.
+     * Marks the task in the task list as uncompleted.
+     * Rewrites the local file to reflect the changes.
+     * Adds an MarkCommand to the undo stack if this command is not from an undo command.
      *
-     * @param taskList The task list on which the command is executed
-     * @param ui The user interface to interact with the user
-     * @param storage The storage to save the task
-     * @return Successful unmark task response
-     * @throws IOException If there is an error during saving the task to storage
+     * @param taskList Task list containing the tasks.
+     * @param ui User interface to interact with the user.
+     * @param storage Storage to save tasks.
+     * @return Message notifying user of unmarking the task.
+     * @throws IOException If there is an error during rewriting the local file in storage.
      */
     @Override
     public String execute(TaskList taskList, UI ui, Storage storage) throws IOException {

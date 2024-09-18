@@ -7,17 +7,16 @@ import dudu.utils.TaskList;
 import dudu.utils.UI;
 
 /**
- * Represents an abstract user command into the chatbot
+ * Represents an abstract user command.
  */
 public abstract class Command {
     /**
-     * Executes the command with the provided task list, user interface, and storage
-     * Subclasses will implement the specific command logic
+     * Executes the command with the provided task list, user interface and storage.
      *
-     * @param taskList The task list on which the command is executed
-     * @param ui The user interface to interact with the user
-     * @param storage The storage to save tasks
-     * @throws IOException If there is an error during rewriting the local data
+     * @param taskList Task list containing the tasks.
+     * @param ui User interface to interact with the user.
+     * @param storage Storage to save tasks.
+     * @throws IOException If there is an error during rewriting the local file in storage.
      */
     public abstract String execute(TaskList taskList, UI ui, Storage storage) throws IOException;
 }

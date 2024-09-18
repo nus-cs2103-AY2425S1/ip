@@ -8,15 +8,36 @@ import dudu.utils.Storage;
 import dudu.utils.TaskList;
 import dudu.utils.UI;
 
+/**
+ * Represents a command to add a task to a task list.
+ */
 public class AddCommand extends Command {
     private Task task;
     private boolean isUndoCommand;
 
+    /**
+     * Constructs an AddCommand.
+     *
+     * @param task Task to be added.
+     * @param isUndoCommand True if command is from an undo command else false.
+     */
     public AddCommand(Task task, boolean isUndoCommand) {
         this.task = task;
         this.isUndoCommand = isUndoCommand;
     }
 
+    /**
+     * Executes the add task command.
+     * Adds the task to the task list.
+     * Rewrites the local file to reflect the changes.
+     * Adds a DeleteCommand to the undo stack if this command is not from an undo command.
+     *
+     * @param taskList Task list containing the tasks.
+     * @param ui User interface to interact with the user.
+     * @param storage Storage to save tasks.
+     * @return Message notifying user of adding the task.
+     * @throws IOException If there is an error during rewriting the local file in storage.
+     */
     @Override
     public String execute(TaskList taskList, UI ui, Storage storage) throws IOException {
         int size = taskList.addTask(task);

@@ -5,16 +5,15 @@ import dudu.utils.TaskList;
 import dudu.utils.UI;
 
 /**
- * Represents a list tasks user command into the chatbot
+ * Represents a command to list current tasks.
  */
 public class ListCommand extends Command {
     /**
-     * Displays a list of tasks to the user
+     * Returns the current list of tasks
      *
-     * @param taskList The task list
-     * @param ui The user interface to display the goodbye message
-     * @param storage The storage
-     * @return Successful listing of task response
+     * @param taskList Task list containing the tasks.
+     * @param ui User interface to interact with the user.
+     * @param storage Storage to save tasks.
      */
     @Override
     public String execute(TaskList taskList, UI ui, Storage storage) {
@@ -22,17 +21,16 @@ public class ListCommand extends Command {
     }
 
     /**
-     * Compares this CommandList to another object for equality. Two CommandList
-     * objects are considered equal if they are of the same class
+     * Checks if an object is of type ListCommand.
      *
-     * @param o The object to compare this CommandList with
-     * @return true if the other object is a CommandList, false otherwise
+     * @param object Object to compare with.
+     * @return True if object is a ListCommand object else false.
      */
     @Override
-    public boolean equals(Object o) {
-        if (o == this) {
+    public boolean equals(Object object) {
+        if (object == this) {
             return true;
         }
-        return o instanceof ListCommand;
+        return object instanceof ListCommand;
     }
 }

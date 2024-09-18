@@ -8,13 +8,13 @@ import dudu.utils.TaskList;
 import dudu.utils.UI;
 
 /**
- * Represents a find user command into the chatbot
+ * Represents command to find matching tasks using descriptions.
  */
 public class FindCommand extends Command {
     private String query;
 
     /**
-     * Constructs a find user command with the user query
+     * Constructs a FindCommand.
      *
      * @param query User query to search the tasks' descriptions
      */
@@ -23,12 +23,11 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Filters and returns tasks that has description containing the query
+     * Returns tasks with description containing the query.
      *
-     * @param taskList The task list on which the command is executed
-     * @param ui The user interface to interact with the user
-     * @param storage The storage to save tasks
-     * @return List of tasks with descriptions containing the query
+     * @param taskList Task list containing the tasks.
+     * @param ui User interface to interact with the user.
+     * @param storage Storage to save tasks.
      */
     @Override
     public String execute(TaskList taskList, UI ui, Storage storage) {

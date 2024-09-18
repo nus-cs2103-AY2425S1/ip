@@ -8,16 +8,15 @@ import javafx.application.Platform;
 import javafx.util.Duration;
 
 /**
- * Represents a bye user command into the chatbot
+ * Represents a command to wish user goodbye.
  */
 public class ByeCommand extends Command {
     /**
-     * Executes the exit command by displaying a goodbye message to the user
+     * Returns a goodbye message.
      *
-     * @param taskList The task list
-     * @param ui The user interface to display the goodbye message
-     * @param storage The storage
-     * @return Bye response
+     * @param taskList Task list containing the tasks.
+     * @param ui User interface to interact with the user.
+     * @param storage Storage to save tasks.
      */
     @Override
     public String execute(TaskList taskList, UI ui, Storage storage) {

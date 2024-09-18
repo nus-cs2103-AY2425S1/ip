@@ -7,35 +7,35 @@ import dudu.utils.TaskList;
 import dudu.utils.UI;
 
 /**
- * Represents an undo command
+ * Represents an undo command.
  */
 public class UndoCommand extends Command {
     private Command command;
 
     /**
-     * Constructs an undo command with no command to execute
+     * Constructs an UndoCommand with no command to execute.
      */
     public UndoCommand() {
         this.command = null;
     }
 
     /**
-     * Constructs an undo command with a command to execute
+     * Constructs an UndoCommand with a command to execute
      *
-     * @param command Command to execute
+     * @param command Command to execute.
      */
     public UndoCommand(Command command) {
         this.command = command;
     }
 
     /**
-     * Executes the stored task. If there is no task, it informs user accordingly
+     * Executes the stored command if it exists.
      *
-     * @param taskList The task list on which the command is executed
-     * @param ui The user interface to interact with the user
-     * @param storage The storage to save tasks
-     * @return Successful undo response if task is execute, else empty undo command response
-     * @throws IOException If there is an error during saving the task to storage
+     * @param taskList Task list containing the tasks.
+     * @param ui User interface to interact with the user.
+     * @param storage Storage to save tasks.
+     * @return Message notifying user of stored command execution.
+     * @throws IOException If there is an error during rewriting the local file in storage.
      */
     @Override
     public String execute(TaskList taskList, UI ui, Storage storage) throws IOException {
