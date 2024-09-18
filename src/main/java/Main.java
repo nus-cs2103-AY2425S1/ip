@@ -22,6 +22,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setZero(zero);  // inject the zero instance
+            stage.setResizable(true);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

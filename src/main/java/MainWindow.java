@@ -11,8 +11,6 @@ import zero.Zero;
  */
 public class MainWindow extends AnchorPane {
     @FXML
-    private ScrollPane scrollPane;
-    @FXML
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
@@ -21,12 +19,6 @@ public class MainWindow extends AnchorPane {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaPengi.jpeg"));
     private Image zeroImage = new Image(this.getClass().getResourceAsStream("/images/DaChad.png"));
-
-    @FXML
-    public void initialize() {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-
-    }
 
     /** Injects the Zero instance */
     public void setZero(Zero z) {
