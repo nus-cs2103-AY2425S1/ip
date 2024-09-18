@@ -72,13 +72,13 @@ public class TrackList {
         PrintWriter writer = new PrintWriter(stringWriter, true);
         Task existingTask = findDuplicate(task);
         if (existingTask != null) {
-            writer.println("Failed to add task. This task already exists: \n" + existingTask);
+            writer.println("Failed to add task. This task already exists:\n  " + existingTask);
             writer.println("Please delete the existing task to add a new one :D");
             return stringWriter.toString();
         }
         tasks.add(task);
         saveList();
-        writer.println("Successfully added this task:\n  " + "  " + task);
+        writer.println("Successfully added this task:\n  " + task);
         writer.println("Now you have " + tasks.size() + " tasks in the list.");
         return stringWriter.toString();
     }
