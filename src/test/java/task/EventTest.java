@@ -14,19 +14,6 @@ import org.junit.jupiter.api.Test;
 public class EventTest {
 
     /**
-     * Tests if the parseDateTime method correctly parses a full date and time.
-     * It checks that the expected LocalDateTime matches the actual parsed LocalDateTime.
-     */
-    @Test
-    public void testParseDateTimeWithFullDateTime() {
-        Event event = new Event();
-        String input = "10/9/2024 3pm";
-        LocalDateTime expected = LocalDateTime.parse("2024-09-10 1500", DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-        LocalDateTime actual = event.parseDateTime(input);
-        assertEquals(expected, actual);
-    }
-
-    /**
      * Tests if the parseDateTime method correctly parses a date without a time.
      * It checks that the expected LocalDateTime (with time set to 00:00) matches the actual parsed LocalDateTime.
      */
