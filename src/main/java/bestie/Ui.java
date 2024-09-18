@@ -30,7 +30,9 @@ public class Ui {
     }
 
     /**
-     * Prints the welcome message when chatbot is first started.
+     * String of the welcome message when chatbot is first started.
+     *
+     * @return Welcome message from Bestie.
      */
     public String greetUser() {
         // greet user at the start
@@ -40,17 +42,20 @@ public class Ui {
     }
 
     /**
-     * Prints goodbye message when user exits the chatbot.
+     * String of goodbye message when user exits the chatbot.
+     *
+     * @return Goodbye message from Bestie.
      */
     public String sayGoodbye() {
         return ("Bye. Hope to see you again soon! :)");
     }
 
     /**
-     * Prints nicely formatted tasks in the user's task list.
+     * String message of nicely formatted tasks in the user's task list.
      * Each task is preceded by its index in the list, the type of task and whether it has been completed.
      *
      * @param tasks Tasks in the user's list of tasks.
+     * @return String of formatted tasks in to-do list.
      */
     public String displayTasks(ArrayList<Task> tasks) {
         String output = "Sure! Here are the tasks in your list:\n";
@@ -63,10 +68,11 @@ public class Ui {
     }
 
     /**
-     * Prints message that is displayed to show that a task has been successfully added to user's task list.
+     * String message that is displayed to show that a task has been successfully added to user's task list.
      *
      * @param task Task to be added to the user's task list. Includes the type of task and deadline, if applicable.
      * @param size Number of tasks in the task list, after the new task has been added.
+     * @return String message showing that task has been successfully added to list.
      */
     public String showTaskAdded(Task task, int size) {
         return ("Gotcha! I've added the following task to your list: \n" + task.toString() + "\n"
@@ -74,9 +80,10 @@ public class Ui {
     }
 
     /**
-     * Prints message after task has been marked, to show that task has been marked.
+     * String message after task has been marked, to show that task has been marked.
      *
      * @param task Task that user wants to mark as completed.
+     * @return String message showing task has been successfully marked.
      */
     public String showTaskMarked(Task task) {
         return ("Amazing! I've marked this task as done.\n"
@@ -84,9 +91,10 @@ public class Ui {
     }
 
     /**
-     * Prints message to show that user has successfully unmarked a task in the task list.
+     * String message to show that user has successfully unmarked a task in the task list.
      *
      * @param task  Task that user wants to mark as undone.
+     * @return Message that task has been successfully unmarked.
      */
     public String showTaskUnmarked(Task task) {
         return ("Okay! I've marked this task as not done yet:\n"
@@ -94,10 +102,11 @@ public class Ui {
     }
 
     /**
-     * Prints message to show that task has been successfully deleted.
+     * Returns string message to show that task has been successfully deleted.
      * Displays remaining number of tasks in the user's task list.
      *
      * @param size Number of tasks remaining in user's task list.
+     * @return Message showing successful deletion and number of remaining tasks.
      */
     public String showTaskDeleted(int size) {
         String output = "Noted! The task has been removed.\n";
@@ -111,9 +120,10 @@ public class Ui {
     }
 
     /**
-     * Prints message to show that user has tried to perform a command on a task that is out of bounds.
+     * Returns string message to show that user has tried to perform a command on a task that is out of bounds.
      *
      * @param taskSize Number of tasks in the list of tasks.
+     * @return Index out of bounds message.
      */
     public String showIndexOutOfBoundsMessage(int taskSize, TaskList tasks) {
         String output = "";
@@ -128,7 +138,9 @@ public class Ui {
     }
 
     /**
-     * Prints message that user has keyed in an invalid command, that is not one of the accepted commands.
+     * Returns string of message that user has keyed in an invalid command, that is not one of the accepted commands.
+     *
+     * @return Invalid command message.
      */
     public String invalidCommand() {
         return ("Invalid command! Please remember to start with \"todo\", \"deadline\" "
@@ -136,9 +148,10 @@ public class Ui {
     }
 
     /**
-     * Prints list of tasks that having description matching the keyword entered by user.
+     * Returns string representation of list of tasks that having description matching the keyword entered by user.
      *
      * @param tasks List of all of user's tasks.
+     * @return List of tasks with description containing keyword.
      */
     public String showFoundTasks(ArrayList<Task> tasks) {
         String output = "Here are the matching tasks in your list: \n";
@@ -153,7 +166,7 @@ public class Ui {
      *
      * @param tasks List of all of user's tasks.
      * @param priority Priority of the tasks user wants to obtain a list of.
-     * @return String displayin
+     * @return String List of tasks with the particular priority.
      */
     public String showTasksOfPriority(ArrayList<Task> tasks, Priority priority) {
         if (tasks.isEmpty()) {

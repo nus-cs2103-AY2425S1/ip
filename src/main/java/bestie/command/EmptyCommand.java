@@ -4,9 +4,6 @@ import bestie.Storage;
 import bestie.TaskList;
 import bestie.Ui;
 
-/**
- *
- */
 public class EmptyCommand extends Command {
 
     @Override
