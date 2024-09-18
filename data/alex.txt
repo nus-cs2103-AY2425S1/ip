@@ -1,5 +1,5 @@
-[D][X] rrrr #urgent #cool #fun // by: 2020-02-02
 [T][ ] paint wall #cool
-[E][ ] speak // from: 2022-02-03 // to: 2022-12-12
+[E][X] speak // from: 2022-02-03 // to: 2022-12-12
 [D][X] buy food // by: 2023-03-03
-[E][ ] submit // from: 2020-02-02 // to: 2023-03-03
+[D][ ] submit ip // by: 2024-09-20
+[T][ ] submit application form
