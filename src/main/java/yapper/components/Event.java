@@ -1,6 +1,8 @@
 package yapper.components;
 
 
+import yapper.exceptions.YapperException;
+
 /**
  * Represents an event with a description and a time range.
  */
@@ -17,6 +19,9 @@ public class Event extends Task {
      */
     public Event(String description, String from, String to) {
         super(description);
+        if (from.isEmpty() || to.isEmpty()) {
+            throw new YapperException("Empty start/end dates given");
+        }
         this.from = from;
         this.to = to;
     }
