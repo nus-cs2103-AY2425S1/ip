@@ -30,7 +30,7 @@ public class Luffy {
     public Luffy() {
         this.isRunning = true;
         this.luffyBot = new LuffyUI();
-        this.taskCache = new Storage(DEST_FILE);
+        this.taskCache = new Storage();
         this.luffyParser = new LuffyParser(new Scanner(System.in));
         this.taskList = null;
     }
@@ -49,7 +49,6 @@ public class Luffy {
      */
     private void startLuffy() {
         try {
-            taskList = taskCache.loadFromFile();
             taskList = taskCache.loadFromFile();
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
