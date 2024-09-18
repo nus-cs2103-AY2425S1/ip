@@ -26,6 +26,7 @@ It is able to track ToDo Task, Deadlines as well as Event!
 # Commands
 
 > [!NOTE]
+
 > Words in brackets are the parameters to be supplied by the user.  
 > e.g. in todo (task name), 'task name' is to be given by the user, so
 > `todo Read Up on Maths` is adding a todo task with the task 
