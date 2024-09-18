@@ -10,7 +10,7 @@ java -jar ollie.jar
 ```
 5. Referring to the key commands below, start playing around with Ollie the chatbot!
 
-**Note:** Data is saved with the `bye` command and stored in the directory `./data/ollie.txt`.
+**Note:** Data is saved with the `bye` command and stored in the directory `./data/tasks.txt`.
 
 ## Key Commands
 
