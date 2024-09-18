@@ -10,6 +10,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import garfield.exceptions.GarfieldException;
 import garfield.tasks.Deadline;
 import garfield.tasks.Event;
 import garfield.tasks.Task;
@@ -90,6 +91,8 @@ public class Storage {
         } catch (FileNotFoundException e) {
             // You don't have a save file todo: add some error
             return new ArrayList<>();
+        } catch (GarfieldException e) {
+            throw new RuntimeException(e);
         }
     }
 

@@ -1,5 +1,7 @@
 package garfield.tasks;
 
+import garfield.exceptions.GarfieldException;
+
 /**
  * The Task class represents a task with a description and a completion status.
  * It provides methods to mark the task as done or undone, retrieve the task description,

@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import garfield.exceptions.GarfieldException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +15,7 @@ public class EventTest {
     private Event event;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws GarfieldException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         this.event = new Event("Test Event Description",
                 LocalDateTime.parse("2024-03-25 00:00", formatter),
