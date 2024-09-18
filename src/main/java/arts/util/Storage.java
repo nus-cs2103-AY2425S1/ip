@@ -16,8 +16,9 @@ import arts.task.Task;
  * It manages the persistence of task data, allowing tasks to be stored and retrieved.
  */
 public class Storage {
-    private final String filePath;
     private static final String NO_TASK_FILE_MESSAGE = "No existing task file found. Starting fresh.";
+
+    private final String filePath;
 
     /**
      * Constructs a Storage object with the specified file path for storing tasks.
@@ -64,7 +65,7 @@ public class Storage {
      * @param tasks The list of tasks to be saved to the file.
      * @throws ArtsException If there is an error writing to the file.
      */
-    public void save(ArrayList<Task> tasks) throws ArtsException {
+    public void save(ArrayList<Task> tasks) {
         assert tasks != null : "Tasks list cannot be null";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Task task : tasks) {
@@ -73,7 +74,7 @@ public class Storage {
                 writer.newLine();
             }
         } catch (IOException e) {
-            throw new ArtsException("Error saving tasks: " + e.getMessage());
+            // Suppress the exception and do nothing
         }
     }
 }
