@@ -69,7 +69,7 @@ public class Ui {
      * @param size Number of tasks in the task list, after the new task has been added.
      */
     public String showTaskAdded(Task task, int size) {
-        return ("I've added the following task to your list: \n" + task.toString() + "\n"
+        return ("Gotcha! I've added the following task to your list: \n" + task.toString() + "\n"
                 + "Now you have " + size + " tasks in your list.");
     }
 

@@ -1,5 +1,7 @@
 package bestie;
 
+import java.lang.reflect.Array;
+import java.lang.reflect.InvocationTargetException;
 import java.time.format.DateTimeParseException;
 
 import bestie.command.*;
@@ -63,13 +65,16 @@ public class Parser {
                 String priorityString = partsOfTodo[1].trim().toUpperCase();
                 // distinguish the priority label
                 Priority priority = Priority.valueOf(priorityString);
-
                 return new AddCommand(new Todo(description, priority));
             } catch (StringIndexOutOfBoundsException e) {
-                return new ErrorCommand("The description of a todo cannot be empty." +
+                return new ErrorCommand("The description of a todo cannot be empty.\n" +
                         "Please input your todo again!");
             } catch (IllegalArgumentException e) {
-                return new ErrorCommand("Invalid priority :(. Please specify as 'high', 'medium' or 'low'.");
+                return new ErrorCommand("Invalid priority :(. " +
+                        " Please specify as 'high', 'medium' or 'low'.");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return new ErrorCommand("You did not key in the priority of your task! " +
+                        "Remember to indicate the priority with the command \"/priority\"");
             }
 
         case("deadline"):
@@ -84,10 +89,12 @@ public class Parser {
                 return new AddCommand(new Deadline(description, deadline, priority));
             } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
                 String errorMessage = "You did not input the deadline in a valid format." +
-                        "Please follow the format \"deadline (name of task) /by (deadline)\"";
+                        "Please follow the format \"deadline (name of task) /by (deadline) " +
+                        "/priority (high/medium/low)\".\n Please stick to the correct format: YYYY-MM-DD HHMM " +
+                        "for the deadline";
                 return new ErrorCommand(errorMessage);
             } catch (DateTimeParseException e) {
-                String errorMessage = "You did not input the date and time in the correct format." +
+                String errorMessage = "You did not input the date and time in the correct format, or does not exist." +
                         "Please stick to the correct format: YYYY-MM-DD HHMM";
                 return new ErrorCommand(errorMessage);
             } catch (IllegalArgumentException e) {
@@ -104,9 +111,10 @@ public class Parser {
                 Priority priority = Priority.valueOf(priorityString);
                 return new AddCommand(new Event(description, start, end, priority));
             } catch (ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
-                String errorMessage = "You did not input the event in a valid format." +
+                String errorMessage = "You did not input the event in a valid format. " +
                         "Please follow the format \"event (name of event) /from (start time) "
-                        + "/to (end time)\" so that I can correctly add this event!";
+                        + "/to (end time) /priority (high/medium/low)\" so that I can correctly add this event!\n" +
+                        "Please stick to the correct format: YYYY-MM-DD HHMM for the start and end times.";
                 return new ErrorCommand(errorMessage);
 
             } catch (DateTimeParseException e) {
