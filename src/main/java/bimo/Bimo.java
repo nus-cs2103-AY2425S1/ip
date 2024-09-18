@@ -79,7 +79,10 @@ public class Bimo {
         //Solution below adapted from
         //https://stackoverflow.com/questions/30543619/how-to-use-pausetransition-method-in-javafx
         PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
-        delay.setOnFinished(e -> Platform.exit());
+        delay.setOnFinished(e -> {
+            Platform.exit();
+            System.exit(0);
+        });
         delay.play();
     }
 }
