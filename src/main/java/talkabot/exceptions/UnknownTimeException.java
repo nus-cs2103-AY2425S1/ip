@@ -6,7 +6,7 @@ package talkabot.exceptions;
 public class UnknownTimeException extends TalkaBotException {
 
     /**
-     * Constructor for UnknownTimeException class.
+     * Constructs an instance of UnknownTimeException class.
      */
     public UnknownTimeException(String action) {
         super("Please let me know when it " + action + " so I can record it for you!");

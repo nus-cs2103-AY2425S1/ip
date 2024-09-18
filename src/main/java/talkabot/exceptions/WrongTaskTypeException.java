@@ -6,7 +6,7 @@ package talkabot.exceptions;
 public class WrongTaskTypeException extends TalkaBotException {
 
     /**
-     * Constructor for WrongTaskTypeException class.
+     * Constructs an instance of WrongTaskTypeException class.
      */
     public WrongTaskTypeException(String message) {
         super("Sorry, this task " + message);

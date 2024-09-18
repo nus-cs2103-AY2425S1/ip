@@ -6,7 +6,7 @@ package talkabot.exceptions;
 public class InvalidScheduleException extends TalkaBotException {
 
     /**
-     * Constructor for InvalidScheduleException class.
+     * Constructs an instance of InvalidScheduleException class.
      */
     public InvalidScheduleException() {
         super("Sorry, what task were you trying to schedule again?");

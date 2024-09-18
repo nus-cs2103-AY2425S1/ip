@@ -13,7 +13,7 @@ public class Deadline extends Task {
     private LocalDate deadline;
 
     /**
-     * Constructor for Deadline class.
+     * Constructs an instance of Deadline class.
      */
     public Deadline(String[] details) {
         super(details[0]);

@@ -14,7 +14,7 @@ public class Event extends Task {
     private LocalDate to;
 
     /**
-     * Constructor for Event class.
+     * Constructs an instance of Event class.
      */
     public Event(String[] details) {
         super(details[0]);

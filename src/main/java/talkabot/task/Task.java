@@ -8,7 +8,7 @@ public class Task {
     protected boolean isDone;
 
     /**
-     * Constructor for Task class.
+     * Constructs an instance of Task class.
      */
     public Task(String description) {
         this.description = description;
@@ -17,6 +17,7 @@ public class Task {
 
     /**
      * Returns status icon of task.
+     * If done return X, else return a blank space.
      *
      * @return Status icon.
      */

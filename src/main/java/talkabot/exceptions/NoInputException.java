@@ -6,7 +6,7 @@ package talkabot.exceptions;
 public class NoInputException extends TalkaBotException {
 
     /**
-     * Constructor for NoInputException class.
+     * Constructs an instance of NoInputException class.
      */
     public NoInputException() {
         super("Oh no! Did you forget what you were going to say?");
