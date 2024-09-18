@@ -54,7 +54,7 @@
 }
 
 #dialogContainer {
-    -fx-spacing: 0;  // Ensure spacing is minimal
-    -fx-padding: 0 2 0 2;  // Ensure no extra padding is within the container
+    -fx-spacing: 0;
+    -fx-padding: 0 2 0 2;
 }
 

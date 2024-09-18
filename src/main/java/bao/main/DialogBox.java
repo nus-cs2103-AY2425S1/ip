@@ -45,8 +45,6 @@ public class DialogBox extends HBox {
             displayPicture.setVisible(false);
             displayPicture.setManaged(false);
         }
-//        setSpacing(2);
-//        setPadding(new Insets(5, 0, 5,0));
     }
 
     /**
@@ -56,32 +54,21 @@ public class DialogBox extends HBox {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
-        setAlignment(Pos.TOP_LEFT);
+        setAlignment(Pos.CENTER_LEFT);
         dialog.getStyleClass().add("reply-label");
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
         var db = new DialogBox(text, img);
-        if (img == null) {
-            db.displayPicture.setVisible(false);
-            db.displayPicture.setManaged(false);
-        } else {
-            db.displayPicture.setVisible(true);
-            db.displayPicture.setManaged(true);
-        }
+        db.dialog.getStyleClass().add("user-message-label");
+        db.displayPicture.setFitHeight(0);
+        db.displayPicture.setFitWidth(0);
         return db;
     }
 
     public static DialogBox getBaoDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
-        if (img == null) {
-            db.displayPicture.setVisible(false);
-            db.displayPicture.setManaged(false);
-        } else {
-            db.displayPicture.setVisible(true);
-            db.displayPicture.setManaged(true);
-        }
         return db;
     }
 }
