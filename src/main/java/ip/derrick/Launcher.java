@@ -1,3 +1,4 @@
+package ip.derrick;
 import javafx.application.Application;
 
 /**
