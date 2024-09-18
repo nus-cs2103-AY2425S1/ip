@@ -66,15 +66,9 @@ public class Parser {
         } catch (GalliumException e) {
             ui.showGalliumException(e);
         } catch (ArrayIndexOutOfBoundsException e) {
-            if (message.startsWith(DEADLINE)) {
-                ui.showIncompleteDeadline();
-            } else if (message.startsWith(EVENT)) {
-                ui.showIncompleteEvent();
-            }
+            handleArrayIndexOutOfBounds(message);
         } catch (IndexOutOfBoundsException e) {
-            if (message.startsWith(MARK) || message.startsWith(UNMARK) || message.startsWith(DELETE)) {
-                ui.showWrongIndex();
-            }
+            handleIndexOutOfBounds(message);
         }
         return new ErrorCommand();
     }
@@ -96,6 +90,20 @@ public class Parser {
             return new ByeCommand();
         } else {
             throw new GalliumException("OOPS!!! I'm sorry, but I don't know what that means :(");
+        }
+    }
+
+    private void handleArrayIndexOutOfBounds(String message) {
+        if (message.startsWith(DEADLINE)) {
+            ui.showIncompleteDeadline();
+        } else if (message.startsWith(EVENT)) {
+            ui.showIncompleteEvent();
+        }
+    }
+
+    private void handleIndexOutOfBounds(String message) {
+        if (message.startsWith(MARK) || message.startsWith(UNMARK) || message.startsWith(DELETE)) {
+            ui.showWrongIndex();
         }
     }
 
