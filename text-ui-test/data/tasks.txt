@@ -1,0 +1,6 @@
+T | 1 | read book
+D | 0 | return book | Jun 6 2025 6PM
+T | 1 | join sports club
+T | 0 | borrow book
+D | 0 | return book | Aug 30 2025 6PM
+E | 0 | project meeting | Aug 30 2025 2PM | Aug 30 2025 4PM
