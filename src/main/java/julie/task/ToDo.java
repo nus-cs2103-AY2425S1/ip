@@ -18,6 +18,6 @@ public class ToDo extends Task {
     }
     @Override
     public String toStorageString() {
-        return String.format("T | %s",this.taskString);
+        return String.format("T | %s", this.taskString);
     }
 }
