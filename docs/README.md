@@ -2,7 +2,7 @@
 # Chicken the Chatbot
 ## Preview of Chicken the chatbot
 ![bot preview](Ui.png)
-## Features (Only some)
+## Features 
 
 ### 1. Adding Deadlines
 
@@ -95,3 +95,6 @@ To delete an item, use the command:
 - **Command Format:** `delete <item number>`
 
 This will delete the specified item.
+
+## Saving
+Data in every session is automatically saved and retrieved from "data.txt" file
