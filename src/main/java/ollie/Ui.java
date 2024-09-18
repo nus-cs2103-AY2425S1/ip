@@ -1,5 +1,6 @@
 package ollie;
 
+import ollie.exception.OllieException;
 import ollie.task.Task;
 
 /**
@@ -26,7 +27,11 @@ public class Ui {
      *
      * @param tasks List of tasks.
      */
-    public String getTaskListMessage(TaskList tasks) {
+    public String getTaskListMessage(TaskList tasks) throws OllieException {
+        assert (tasks != null);
+        if (tasks.toString().isEmpty()) {
+            throw new OllieException("No task recorded in list!");
+        }
         return tasks.toString();
     }
 
