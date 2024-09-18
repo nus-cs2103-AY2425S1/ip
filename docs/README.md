@@ -2,14 +2,11 @@
 
 
 ![Example of Rasputin in use](Ui.png)
-
 Rasputin is the only reminder app you'll need from now on. 
 Rasputin helps you remember all the tasks you need to do, including the deadlines and time. 
 It's intuitive, easy to learn, ~~fast~~ SUPER fast to use and best of all, it's FREE!
 
 ## Features
-
----
 
 ### Legend
 
