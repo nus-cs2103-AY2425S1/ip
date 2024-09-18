@@ -4,8 +4,6 @@ import java.util.List;
 
 import denim.commands.CommandUsages;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 /**
@@ -29,7 +27,7 @@ public class HelpWindow extends VBox {
         assert (CommandUsages.TOTAL_USER_COMMANDS == commandUsages.size());
         assert (CommandUsages.TOTAL_USER_COMMANDS == commandExamples.size());
 
-        for (int i=0; i<commandUsages.size(); i++) {
+        for (int i = 0; i < commandUsages.size(); i++) {
             String usage = commandUsages.get(i);
             String example = commandExamples.get(i);
             addInstruction(usage, example);
