@@ -2,7 +2,7 @@
 
 Blue Chatbot is a Java-based application that helps users manage their tasks through simple text commands. It supports adding, listing, marking, unmarking, deleting, finding tasks, and avoiding duplicate entries.
 
-![Blue Chatbot Logo](docs/UI.png)
+![Blue Chatbot Logo](docs/Ui.png)
 ## Setting up in Intellij & Prerequisites
 
 - JDK 17
