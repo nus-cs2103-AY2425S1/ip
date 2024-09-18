@@ -16,7 +16,7 @@ public class TaskList {
     private ArrayList<Task> listOfTasks;
 
     /**
-     * Constructs a new TaskList with an empty list of tasks.
+     * Constructs a new {@code TaskList} with an empty list of tasks.
      */
     public TaskList() {
         this.listOfTasks = new ArrayList<>();
@@ -26,144 +26,132 @@ public class TaskList {
      * Marks a task as done by its number in the list.
      *
      * @param number The number of the task to mark as done.
+     * @return A confirmation message indicating the task has been marked as done.
+     * @throws StobberiException If the number is invalid (too large or too small).
      */
     public String markTask(int number) throws StobberiException {
-        if (number > listOfTasks.size()) {
-            throw new InvalidNumberStobberiException("The number you gave is too bigggg!");
-        }
-        if (number < 1) {
-            throw new InvalidNumberStobberiException("The number you gave is too smallllll!");
+        if (number > listOfTasks.size() || number < 1) {
+            throw new InvalidNumberStobberiException("The number you gave is invalid!");
         }
         listOfTasks.get(number - 1).setDone();
-        String done = "Yayyyyyye! I've marked this task as done:\n"
-                + "  ";
-        done += listOfTasks.get(number - 1).toString();
-        return done;
+        return "Yay! I've marked this task as done:\n" + "  " + listOfTasks.get(number - 1);
     }
 
     /**
      * Marks a task as not done by its number in the list.
      *
      * @param number The number of the task to mark as not done.
+     * @return A confirmation message indicating the task has been marked as not done.
+     * @throws StobberiException If the number is invalid (too large or too small).
      */
     public String unmarkTask(int number) throws StobberiException {
-        if (number > listOfTasks.size()) {
-            throw new InvalidNumberStobberiException("The number you gave is too bigggg!");
-        }
-        if (number < 1) {
-            throw new InvalidNumberStobberiException("The number you gave is too smallllll!");
+        if (number > listOfTasks.size() || number < 1) {
+            throw new InvalidNumberStobberiException("The number you gave is invalid!");
         }
         listOfTasks.get(number - 1).setNotDone();
-        String done = "OK, I've marked this task as not done yet:\n"
-                + "  ";
-        done += listOfTasks.get(number - 1).toString();
-        return done;
+        return "OK, I've marked this task as not done:\n" + "  " + listOfTasks.get(number - 1);
     }
 
     /**
      * Displays the list of all tasks.
+     *
+     * @return A string listing all tasks.
+     * @throws StobberiException If there are no tasks to display.
      */
-    public String displayList() throws StobberiException{
-        String list = "Here are the tasks in your list:";
-        int i;
-
-        for (i = 1; i < listOfTasks.size() + 1; i++) {
-            list += "\n" + i + ". " + listOfTasks.get(i - 1);
+    public String displayList() throws StobberiException {
+        if (listOfTasks.isEmpty()) {
+            throw new NoSuchTaskStobberiException("There are no tasks in the list.");
         }
 
-        if (i == 1) {
-            throw new NoSuchTaskStobberiException("There is no task at all!\n" +
-                    "Come on, add a new task!!\n" +
-                    "I'm sure you have stuff to dooo riteee???");
+        StringBuilder list = new StringBuilder("Here are the tasks in your list:");
+        for (int i = 0; i < listOfTasks.size(); i++) {
+            list.append("\n").append(i + 1).append(". ").append(listOfTasks.get(i));
         }
-
-        return list;
+        return list.toString();
     }
 
     /**
      * Deletes a task by its number in the list.
      *
      * @param number The number of the task to delete.
+     * @return A confirmation message indicating the task has been deleted.
+     * @throws StobberiException If the number is invalid (too large or too small).
      */
-    public String delete(int number) throws StobberiException{
-        if (number > listOfTasks.size()) {
-            throw new InvalidNumberStobberiException("The number you gave is too bigggg!");
+    public String delete(int number) throws StobberiException {
+        if (number > listOfTasks.size() || number < 1) {
+            throw new InvalidNumberStobberiException("The number you gave is invalid!");
         }
-        if (number < 1) {
-            throw new InvalidNumberStobberiException("The number you gave is too smallllll!");
-        }
-
-        Task temp = listOfTasks.get(number - 1);
-        listOfTasks.remove(number - 1);
-        return "Okiieee! I've removed this task:\n"
-                + "  " + temp
-                + "\nNow you have " + listOfTasks.size() + " tasks in the list.";
+        Task removedTask = listOfTasks.remove(number - 1);
+        return "Ookiiee! This task is now gone:\n" + "  " + removedTask + "\nNoww you have " + listOfTasks.size() + " tasks in the list.";
     }
 
     /**
      * Displays the last added task.
+     *
+     * @return A string confirming the last added task.
      */
     public String displayLastAddedTask() {
-        return "Okiiiiee! I've added this task:\n    "
-                + listOfTasks.get(listOfTasks.size() - 1)
-                + "\n"
-                + "Now you have " + listOfTasks.size() + " in the list.";
+        if (listOfTasks.isEmpty()) {
+            return "No tasks available.";
+        }
+        return "Yayyy! I've added a new task:\n    " + listOfTasks.get(listOfTasks.size() - 1) + "\nNoww you have " + listOfTasks.size() + " in the list.";
     }
 
     /**
      * Filters and displays tasks that contain the specified word in their description.
      *
-     * @param word the word to search for in the task descriptions
+     * @param word The word to search for in the task descriptions.
+     * @return A string listing tasks that match the keyword.
+     * @throws StobberiException If no tasks contain the specified word.
      */
     public String filterListByWord(String word) throws StobberiException {
-        String list = "Here ya go! The matching tasks in your list:";
-        int n = 1;
+        StringBuilder list = new StringBuilder("Here are the matching tasks in your list:");
+        int count = 0;
 
-        for (int i = 1; i < listOfTasks.size() + 1; i++) {
-            Task task = listOfTasks.get(i - 1);
+        for (int i = 0; i < listOfTasks.size(); i++) {
+            Task task = listOfTasks.get(i);
             if (task.hasWord(word)) {
-                list += "\n" + n + ". " + task;
-                n++;
+                list.append("\n").append(++count).append(". ").append(task);
             }
         }
 
-        if (n == 1) {
-            throw new NoSuchTaskStobberiException("I can't find any task which has: " + word);
+        if (count == 0) {
+            throw new NoSuchTaskStobberiException("I can't find any tasks with: " + word);
         }
 
-        return list;
+        return list.toString();
     }
+
     /**
      * Filters and displays tasks by the specified date.
      *
      * @param date The date to filter tasks by.
+     * @return A string listing tasks that occur on the specified date.
+     * @throws StobberiException If no tasks occur on the specified date.
      */
     public String filterListByDate(String date) throws StobberiException {
-        String list = "Here ya go! The tasks in your list that you have to do on " + date + ":\n";
-        int n = 1;
+        StringBuilder list = new StringBuilder("Here are the tasks on " + date + ":");
+        int count = 0;
 
-        for (int i = 1; i < listOfTasks.size() + 1; i++) {
-            Task task = listOfTasks.get(i - 1);
-            if (task instanceof Deadline deadline && deadline.isDuring(date)) {
-                list += n + ". " + listOfTasks.get(i - 1) + "\n";
-                n++;
-            } else if (task instanceof Event event && event.isDuring(date)) {
-                list += n + ". " + listOfTasks.get(i - 1) + "\n";
-                n++;
+        for (int i = 0; i < listOfTasks.size(); i++) {
+            Task task = listOfTasks.get(i);
+            if ((task instanceof Deadline deadline && deadline.isDuring(date)) ||
+                    (task instanceof Event event && event.isDuring(date))) {
+                list.append("\n").append(++count).append(". ").append(task);
             }
         }
 
-        if (n == 1) {
-            throw new NoSuchTaskStobberiException("There is no task I can find on " + date);
+        if (count == 0) {
+            throw new NoSuchTaskStobberiException("I can't find any task on " + date);
         }
-
-        return list;
+        return list.toString();
     }
 
     /**
      * Adds a task to the list.
      *
      * @param task The task to be added.
+     * @return A confirmation message indicating the task has been added.
      */
     public String addTask(Task task) {
         listOfTasks.add(task);
@@ -179,11 +167,14 @@ public class TaskList {
         this.listOfTasks = taskList;
     }
 
+    /**
+     * Checks if a task with the specified description exists in the list.
+     *
+     * @param description The description of the task to check.
+     * @return True if a task with the description exists, otherwise false.
+     */
     public boolean hasTask(String description) {
-        return listOfTasks
-                .stream()
-                .map(task -> task.isSame(description))
-                .reduce(false, (hasString, element) -> hasString || element);
+        return listOfTasks.stream().anyMatch(task -> task.isSame(description));
     }
 
     /**
