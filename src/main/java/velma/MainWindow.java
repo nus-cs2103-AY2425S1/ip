@@ -63,6 +63,7 @@ public class MainWindow extends AnchorPane{
         sendSound.play();
     }
 
+
     /**
      * Displays a goodbye message and exits the application
      */
