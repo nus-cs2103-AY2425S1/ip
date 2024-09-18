@@ -146,8 +146,7 @@ public class Parser {
         assert parts.length == 2 : "Deadline command must contain a description and a date/time";
         if (parts.length < 2) {
             throw new SilverWolfException("Wrong usage. Correct usage: deadline <description> /by dd/mm/yyyy hhmm"
-                    + "[date/time] \" +\n"
-                    + " \"e.g deadline submit report /by 11/10/2019 1810");
+                    + "\n e.g deadline submit report /by 11/10/2019 1810");
         }
         try {
             String description = parts[0].trim();
