@@ -1,5 +1,3 @@
-T | 0 | sijfseigj
-T | 1 | test
-D | 1 | poo | 1/1/2019 0000
-E | 0 | wedding | 1/1/2019 0000 | 1/1/2019 0000
-D | 0 | submit report | 1/1/2019 0000
+T | 1 | Study for Mid-Terms
+D | 0 | Return Book | 19/9/2024 1800
+E | 1 | Career Counselling Session | 1/11/2024 1200 | 1/11/2024 1500

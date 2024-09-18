@@ -106,7 +106,7 @@ public class Ui {
         if (taskListSize != 1) {
             sb.append("s");
         }
-        sb.append(" in the list!. :)");
+        sb.append(" in the list! :)");
 
         return sb.toString();
     }
