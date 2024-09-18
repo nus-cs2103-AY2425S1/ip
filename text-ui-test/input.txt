@@ -13,6 +13,7 @@ event project meeting /from not a date
 event project meeting /from not a date /to 10/10/2024 1200
 event project meeting /from 8/8/2024 1200
 event project meeting /from 8/8/2024 1200 /to not a date
+event project meeting /from 8/8/2024 1200 /from 10/10/2024 1200
 event project meeting /to 10/10/2024 1200
 event project meeting /from 8/8/2024 1200 /to 10/10/2024 1200
 event project meeting /to 8/8/2024 1200 /from 10/10/2024 1200
