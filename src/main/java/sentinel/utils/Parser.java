@@ -71,14 +71,25 @@ public class Parser {
             }
         }
         case event -> {
-            String fromTime = parseTime(input, "/from");
+            String fromTime = parseTime(input, "/from", "/to");
             String toTime = parseTime(input, "/to");
-            LocalDateTime fromDateTime = GeminiApi.formatDateTime(fromTime);
-            LocalDateTime toDateTime = GeminiApi.formatDateTime(toTime);
+            LocalDateTime fromDateTime = null;
+            LocalDateTime toDateTime;
+            try {
+                fromDateTime = LocalDateTime.parse(fromTime);
+                toDateTime = LocalDateTime.parse(toTime);
+            } catch (DateTimeParseException e) {
+                if (fromDateTime == null) {
+                    fromDateTime = GeminiApi.formatDateTime(fromTime);
+                }
+                toDateTime = GeminiApi.formatDateTime(toTime);
+            }
             if (fromDateTime == null || toDateTime == null) {
                 ui.showEventCommandGuidelines();
+                throw new EventException(SentinelString.stringEventCommandGuidelines());
             } else if (fromDateTime.isAfter(toDateTime)) {
                 ui.showEventDateOrder();
+                throw new EventException(SentinelString.stringEventDateOrder());
             } else {
                 return new Event(taskName, fromDateTime, toDateTime);
             }
@@ -141,6 +152,27 @@ public class Parser {
         String[] parts = input.split(delimiter);
         return parts.length > 1 ? parts[1].trim() : "";
     }
+
+    /**
+     * Parses the time from the user input based on a given delimiter (e.g., "/by", "/from").
+     * For the "/from" case, it will capture the time between "/from" and "/to".
+     *
+     * @param input The user's input string.
+     * @param delimiter The delimiter used to start parsing the time in the input (e.g., "/from").
+     * @param endDelimiter The delimiter used to end parsing the time in the input (e.g., "/to").
+     * @return The parsed time as a string.
+     */
+    public static String parseTime(String input, String delimiter, String endDelimiter) {
+        String[] parts = input.split(delimiter);
+        if (parts.length > 1) {
+            String remainingInput = parts[1].trim(); // get the part after the start delimiter
+            // If there's an end delimiter, split by it and take the first part (i.e., before "/to")
+            String[] subParts = remainingInput.split(endDelimiter);
+            return subParts[0].trim(); // return the text between "/from" and "/to"
+        }
+        return "";
+    }
+
 
     /**
      * Parses an index from the user input, typically used for identifying task numbers.

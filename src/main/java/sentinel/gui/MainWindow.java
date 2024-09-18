@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import sentinel.Sentinel;
-import sentinel.exception.InvalidCommandException;
+import sentinel.exception.SentinelException;
 
 /**
  * Controller for the main GUI.
@@ -71,7 +71,7 @@ public class MainWindow extends AnchorPane {
             try {
                 response = this.sentinel.getResponse(input);
                 sentinelReply = SentinelDialogBox.getDialog(response, sentinelImage);
-            } catch (InvalidCommandException e) {
+            } catch (SentinelException e) {
                 sentinelReply = SentinelErrorBox.getDialog(e.getMessage(), sadSentinelImage);
             }
             dialogContainer.getChildren().addAll(
