@@ -14,7 +14,7 @@ Example:
 deadline return book /by 15/09/2024 1800
 ```
 
-// A description of the expected outcome goes here
+Expected Outcome:
 
 ```
 Got it! I've added this task:
