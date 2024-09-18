@@ -41,21 +41,17 @@ public class Storage {
     public ArrayList<Task> load() throws IOException, VoidCatException, SecurityException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
-        if (file.exists()) {
-            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-                String line;
-                while ((line = br.readLine()) != null) {
-                    Task task = parseTask(line);
-                    if (task != null) {
-                        tasks.add(task);
-                    }
-                }
-                if (tasks.isEmpty()) {
-                    throw new VoidCatException("No saved tasks found yet! voidcat.task.Task list is empty.\n\tStart adding tasks and track them!");
+        if (!file.exists()) {
+            ensureFileAndDirectoryExist(file);
+        }
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                Task task = parseTask(line);
+                if (task != null) {
+                    tasks.add(task);
                 }
             }
-        } else {
-            ensureFileAndDirectoryExist(file);
         }
         return tasks;
     }
@@ -84,15 +80,17 @@ public class Storage {
     private void ensureFileAndDirectoryExist(File file) throws VoidCatException, SecurityException, IOException {
         File directory = new File(file.getParent());
         if (!directory.exists()) {
-            if (!directory.mkdirs()) {
+            boolean isDirectoryMade = directory.mkdirs();
+            assert isDirectoryMade : "Error in creating directory!";
+            if (!isDirectoryMade) {
                 throw new VoidCatException("Error in creating directory!");
             }
         }
         if (!file.exists()) {
-            if (!file.createNewFile()) {
+            boolean isFileMade = file.createNewFile();
+            assert isFileMade : "Error in creating file!";
+            if (!isFileMade) {
                 throw new VoidCatException("Error in creating file!");
-            } else {
-                throw new VoidCatException("No saved tasks found yet! Task list is empty.\n\tStart adding tasks and track them!");
             }
         }
     }
