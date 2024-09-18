@@ -19,7 +19,7 @@ public class Gui extends Application {
     private Evelyn evelyn = new Evelyn();
 
     /**
-     * Constructor for the GUI.
+     * Constructors for the GUI.
      * @param filePath the designated filepath for the data and stored information.
      */
     public Gui(String filePath) {
