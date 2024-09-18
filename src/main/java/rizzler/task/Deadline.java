@@ -48,11 +48,17 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: " + this.deadlineTime + ")";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getType() {
         return "Deadline";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toTsv() {
         return getType() + "\t" + super.toTsv() + "\t" + this.deadlineTime;

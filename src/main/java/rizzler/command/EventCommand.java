@@ -31,8 +31,12 @@ public class EventCommand extends Command {
     public String[] execute(Storage storage, TaskLog taskLog) {
         taskLog.addTask(event);
         storage.storeTasks(taskLog);
+        return createConfirmationMessage(taskLog.getNumTasks());
+    }
+
+    private String[] createConfirmationMessage(int numTasks) {
         return new String[] {"certainly, i'll keep track of this event for you ;)",
                 "\t" + event,
-                "now we have " + taskLog.getNumTasks() + " tasks to work on."};
+                "now we have " + numTasks + " tasks to work on."};
     }
 }
