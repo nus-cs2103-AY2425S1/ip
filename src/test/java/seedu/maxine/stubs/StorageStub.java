@@ -1,12 +1,15 @@
 package seedu.maxine.stubs;
 
-import seedu.maxine.task.MaxineList;
+import java.util.ArrayList;
+
 import seedu.maxine.storage.MaxineStorage;
+import seedu.maxine.task.MaxineList;
 import seedu.maxine.task.Task;
 import seedu.maxine.task.Todo;
 
-import java.util.ArrayList;
-
+/**
+ * This is a stub for the storage class to test the Command class
+ */
 public class StorageStub implements MaxineStorage {
     public StorageStub(String filePath) {
         // nothing

@@ -1,5 +1,11 @@
 package seedu.maxine;
 
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -8,12 +14,6 @@ import seedu.maxine.task.Deadline;
 import seedu.maxine.task.Event;
 import seedu.maxine.task.Task;
 import seedu.maxine.task.Todo;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class FileParserTest {
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();

@@ -5,6 +5,9 @@ import seedu.maxine.task.Event;
 import seedu.maxine.task.Task;
 import seedu.maxine.task.Todo;
 
+/**
+ * This is a class to parse the storage to return the corresponding task
+ */
 public class FileParser {
 
     /**

@@ -1,11 +1,14 @@
 package seedu.maxine.stubs;
 
-import seedu.maxine.task.MaxineList;
-import seedu.maxine.ui.MaxineUi;
-import seedu.maxine.task.Task;
-
 import java.util.ArrayList;
 
+import seedu.maxine.task.MaxineList;
+import seedu.maxine.task.Task;
+import seedu.maxine.ui.MaxineUi;
+
+/**
+ * This is a stub created for the Ui class to test the command class
+ */
 public class UiStub implements MaxineUi {
     /**
      * Constructs new instance of Ui class
@@ -55,13 +58,13 @@ public class UiStub implements MaxineUi {
     /**
      * Updates and displays the status of the specified task.
      * <p>
-     * If the task is marked as completed (i.e., its status is true), 
+     * If the task is marked as completed (i.e., its status is true),
      * this method prints a congratulatory message along with the task details.
-     * If the task is not completed (i.e., its status is false), 
+     * If the task is not completed (i.e., its status is false),
      * it prints a different message along with the task details.
      * </p>
      *
-     * @param task The task whose status is to be updated and displayed. 
+     * @param task The task whose status is to be updated and displayed.
      *             The task's status is used to determine which message to print.
      */
     public String mark(Task task) {
@@ -74,8 +77,8 @@ public class UiStub implements MaxineUi {
     /**
      * Displays all tasks in the given task list.
      * <p>
-     * This method prints each task in the list, preceded by its index (starting from 1). 
-     * The index is used to help users identify and refer to tasks in the list. 
+     * This method prints each task in the list, preceded by its index (starting from 1).
+     * The index is used to help users identify and refer to tasks in the list.
      * Each task is printed on a new line with its corresponding index.
      * </p>
      *
@@ -90,7 +93,7 @@ public class UiStub implements MaxineUi {
      * Displays an error message to the console.
      * <p>
      * This method prints the provided error message to the console. It allows for
-     * flexible error reporting by taking a string message as a parameter and 
+     * flexible error reporting by taking a string message as a parameter and
      * outputting it directly.
      * </p>
      *
@@ -105,8 +108,8 @@ public class UiStub implements MaxineUi {
      * Performs a search for tasks matching the provided search term and displays the results.
      * <p>
      * This method queries the storage for tasks that contain the given search term, then
-     * prints out the results with each matching task indexed. The search results are 
-     * prefixed with "Here are the results to your search:" to indicate the start of the 
+     * prints out the results with each matching task indexed. The search results are
+     * prefixed with "Here are the results to your search:" to indicate the start of the
      * search results.
      * </p>
      *

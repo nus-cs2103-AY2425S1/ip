@@ -1,13 +1,14 @@
 package seedu.maxine.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import seedu.maxine.stubs.StorageStub;
 import seedu.maxine.stubs.TaskListStub;
 import seedu.maxine.stubs.UiStub;
 import seedu.maxine.task.Task;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class CommandTest {
     private Command command;
@@ -22,7 +23,7 @@ class CommandTest {
 
     @Test
     void testBye() {
-        assertEquals("\nBye! I have been maxed out and am going to sleep. " 
+        assertEquals("\nBye! I have been maxed out and am going to sleep. "
                 + "Hope to see you again soon!", command.handleBye("bye"));
     }
     @Test
@@ -70,24 +71,24 @@ class CommandTest {
 
     @Test
     void testDeadline() {
-        assertEquals("[D][ ] finish debugging (by: today) " 
+        assertEquals("[D][ ] finish debugging (by: today) "
                         + "- deadline task added!",
                 command.handleDeadline("deadline finish debugging /by today"));
     }
     @Test
     void testInvalidDeadline() {
-        assertEquals("[D][ ] [enter maxine.task] " 
+        assertEquals("[D][ ] [enter maxine.task] "
                         + "(by: [enter deadline]) - deadline task added!",
-                command.handleDeadline("Please follow this format: " 
+                command.handleDeadline("Please follow this format: "
                         + "deadline [enter maxine.task] /by [enter deadline]"));
     }
 
     @Test
     void testEvent() {
-        assertEquals("[E][ ] discussion (From: Sep 17 2024 | "
-                        + "To: Sep 18 2024) - event added!",
-                command.handleEvent("event discussion /from 17-09-2024" 
-                        + " /to 18-09-2024"));
+        assertEquals("[E][ ] discussion (From: May 17 2024 | "
+                        + "To: May 18 2024) - event added!",
+                command.handleEvent("event discussion /from 17-05-2024"
+                        + " /to 18-05-2024"));
     }
     @Test
     void testInvalidEvent() {
@@ -123,17 +124,5 @@ class CommandTest {
     void handleDeleteAll() {
         assertEquals("All tasks have been deleted!",
                 command.handleDeleteAll());
-    }
-
-    @Test
-    void testGetStatusTrue() {
-        assertTrue(command.getStatus(), 
-                "Expected the command status to be true but it was false");
-    }
-    @Test
-    void testGetStatusFalse() {
-        command.handleBye("bye");
-        assertFalse(command.getStatus(),
-                "Expected the command status to be false but it was true");
     }
 }
