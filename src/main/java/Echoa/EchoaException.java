@@ -6,9 +6,7 @@ package echoa;
  */
 
 public class EchoaException extends Exception {
-
     String errorMessage;
-
     public EchoaException() {
         super();
     }

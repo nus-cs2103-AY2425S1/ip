@@ -14,7 +14,7 @@ public class DeadlineTest {
         String result = deadline.toText();
 
         String expected = "D | 1 | Finish IP | 2024-08-30 14:30";
-        assertEquals(expected, result, "The toText() method should return the correct string representation for a completed task.");
+        assertEquals(expected, result);
     }
 
     @Test
@@ -25,7 +25,7 @@ public class DeadlineTest {
         String result = deadline.toText();
 
         String expected = "D | 0 | Submit IP | 2024-08-30 16:00";
-        assertEquals(expected, result, "The toText() method should return the correct string representation for an uncompleted task.");
+        assertEquals(expected, result);
     }
 }
 

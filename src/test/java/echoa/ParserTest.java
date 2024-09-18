@@ -10,12 +10,12 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class ParserTest {
 
-    private static String removeFirstOccurrence(String str, char letter) {
-        int index = str.indexOf(letter);
+    private static String removeFirstOccurrence(String s, char c) {
+        int index = s.indexOf(c);
         if (index == -1) {
-            return str;
+            return s;
         }
-        return str.substring(0, index) + str.substring(index + 1);
+        return s.substring(0, index) + s.substring(index + 1);
     }
 
     @Test

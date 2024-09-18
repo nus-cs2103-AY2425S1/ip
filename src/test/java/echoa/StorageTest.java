@@ -15,6 +15,7 @@ public class StorageTest {
         assertEquals(expected, dateTime);
     }
 
+    // Solution below is inspired by AI: assertThrows
     @Test
     void testCreateDate_InvalidDate() {
         assertThrows(DateTimeParseException.class, () -> {
@@ -22,6 +23,7 @@ public class StorageTest {
         });
     }
 
+    // Solution below is inspired by AI: assertThrows
     @Test
     void testCreateDate_InvalidTime() {
         assertThrows(DateTimeParseException.class, () -> {
