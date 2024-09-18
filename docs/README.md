@@ -1,6 +1,6 @@
 # Alice User Guide
 
-![Representative Screenshot]("./Ui.png")
+![Representative Screenshot](/docs/Ui.png)
 
 `Alice` is a chatbot for task management.
 
