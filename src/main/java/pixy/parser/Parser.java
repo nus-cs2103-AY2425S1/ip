@@ -20,6 +20,7 @@ public class Parser {
      * @return CommandType The type of the command
      */
     public CommandType parseCommandType(String command) {
+        assert command != null : "Command cannot be null";
         if (command.equalsIgnoreCase("list")) {
             return CommandType.LIST;
         } else if (command.equalsIgnoreCase("bye")) {
@@ -52,6 +53,10 @@ public class Parser {
      * @return A string response that can be returned to the user.
      */
     public String executeCommand(String command, TaskList tasks, Ui ui) {
+        assert command != null : "Command cannot be null";
+        assert tasks != null : "TaskList cannot be null";
+        assert ui != null : "Ui cannot be null";
+
         try {
             CommandType commandType = parseCommandType(command);
             int taskNumber;
@@ -69,19 +74,23 @@ public class Parser {
                 return "Bye. See you again!";
             case MARK:
                 taskNumber = Integer.parseInt(command.split(" ")[1]);
+                assert taskNumber > 0 && taskNumber <= tasks.size() : "Invalid task number";
                 tasks.get(taskNumber - 1).markAsDone(true);
                 return "Task marked as done: " + tasks.get(taskNumber - 1).getDescription();
             case UNMARK:
                 taskNumber = Integer.parseInt(command.split(" ")[1]);
+                assert taskNumber > 0 && taskNumber <= tasks.size() : "Invalid task number";
                 tasks.get(taskNumber - 1).markAsDone(false);
                 return "Task unmarked: " + tasks.get(taskNumber - 1).getDescription();
             case DELETE:
                 taskNumber = Integer.parseInt(command.split(" ")[1]);
+                assert taskNumber > 0 && taskNumber <= tasks.size() : "Invalid task number";
                 Task task = tasks.get(taskNumber - 1);
                 tasks.remove(task);
                 return "Task deleted: " + task.getDescription() + ". You now have " + tasks.size() + " task(s).";
             case FIND:
                 description = command.substring(5);
+                assert !description.isEmpty() : "Search description cannot be empty";
                 return ui.showMatchedTasks(tasks.find(description));
             case TODO:
                 description = command.substring(5);

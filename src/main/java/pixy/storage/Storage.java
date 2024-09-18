@@ -27,6 +27,8 @@ public class Storage {
      * @param filePath The file path to store or load the tasks.
      */
     public Storage(String filePath) {
+
+        assert filePath != null : "File Path should not be null";
         this.filePath = filePath;
     }
 
@@ -48,6 +50,7 @@ public class Storage {
                 String taskType = parts[0];
                 boolean isDone = parts[1].equals("X");
                 Task task = getTask(parts, taskType, isDone);
+                assert task != null : "Failed to get task.";
                 tasks.add(task);
             }
             s.close();
@@ -80,6 +83,7 @@ public class Storage {
             task = new Event(description, from, to);
             break;
         default:
+            assert false : "Unknown task type: " + taskType;
             break;
         }
         if (task != null && isDone) {
@@ -98,7 +102,9 @@ public class Storage {
         File file = new File(filePath);
         file.getParentFile().mkdirs();
         FileWriter fw = new FileWriter(filePath);
+        assert tasks != null : "Task list cannot be null";
         for (Task task : tasks) {
+            assert task != null : "Null task encountered while saving";
             fw.write(taskToFileFormat(task)
                     + System.lineSeparator());
         }
@@ -112,6 +118,7 @@ public class Storage {
      * @return A string representation of the task in the desired file format.
      */
     public String taskToFileFormat(Task task) {
+        assert task != null : "Null task passed to taskToFileFormat";
         if (task instanceof ToDos) {
             return "T | " + task.getStatusIcon() + " | "
                     + task.getDescription();
@@ -124,6 +131,7 @@ public class Storage {
             return "E | " + event.getStatusIcon() + " | " + event.getDescription()
                     + " | " + event.getFrom() + " | " + event.getTo();
         }
+        assert false : "Unknown task type in taskToFileFormat";
         return "";
     }
 }
