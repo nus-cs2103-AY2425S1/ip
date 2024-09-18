@@ -130,16 +130,13 @@ public class TaskList {
             if (ToDo.isToDoFormat(tasks[i])) {
                 listItems[i] = new ToDo();
                 listItems[i].initStorageFormat(tasks[i]);
-            }
-            else if (Event.isEventFormat(tasks[i])) {
+            } else if (Event.isEventFormat(tasks[i])) {
                 listItems[i] = new Event();
                 listItems[i].initStorageFormat(tasks[i]);
-            }
-            else if (Deadline.isDeadlineFormat(tasks[i])) {
+            } else if (Deadline.isDeadlineFormat(tasks[i])) {
                 listItems[i] = new Deadline();
                 listItems[i].initStorageFormat(tasks[i]);
-            }
-            else {
+            } else {
                 listItems[i] = new Event();
                 listItems[i].initStorageFormat(tasks[i]);
             }
