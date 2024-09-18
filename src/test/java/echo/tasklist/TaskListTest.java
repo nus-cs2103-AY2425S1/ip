@@ -31,7 +31,7 @@ public class TaskListTest {
             Task actual = taskList.getTaskAndDelete("2");
             fail();
         } catch (Exception e) {
-            assertEquals("There is not enough task. "
+            assertEquals("Index out of range."
                     + "\nPlease add more task or change another index.", e.getMessage());
         }
     }

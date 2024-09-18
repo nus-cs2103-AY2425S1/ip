@@ -72,7 +72,7 @@ public class MainWindow extends AnchorPane {
             alert.setTitle("List of Commands");
             alert.setContentText(echoText);
             alert.getDialogPane().getButtonTypes().add(ButtonType.CLOSE);
-            alert.getDialogPane().setPrefSize(400,500);
+            alert.getDialogPane().setPrefSize(400, 500);
 
             alert.showAndWait();
         } else {

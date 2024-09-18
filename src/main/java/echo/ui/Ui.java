@@ -156,16 +156,16 @@ public class Ui {
                 1. list --> list
                    - Prints the list of task you have
                 2. mark --> mark [index]
-                   - Marks the task at index to be completed                   
+                   - Marks the task at index to be completed
                 3. unmark --> unmark [index]
                    - Unmark the task at index to be not completed
                 4. todo --> todo [task description]
                    - Adds a todo task with task description into your tasklist
                 5. deadline --> deadline [task description] /by [dd-MM-yyyy HHmm]
-                   - Adds a deadline task with task description 
+                   - Adds a deadline task with task description
                      and deadline into your tasklist
                 6. event --> event [task description] /from [dd-MM-yyyy HHmm] /to [dd-MM-yyyy HHmm]
-                   - Adds an event task with task description, start time 
+                   - Adds an event task with task description, start time
                      and end time to your tasklist
                 7. delete --> delete [index]
                    - Delete a task at index

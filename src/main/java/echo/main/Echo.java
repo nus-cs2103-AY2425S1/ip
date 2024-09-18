@@ -66,9 +66,11 @@ public class Echo {
      *
      * @param index the index of the task that is required to be marked in String
      * @return string of display message after marking a task
+     * @throws IOException if there is an invalid output or input
      */
-    public String handleMarkCommand(String index) {
+    public String handleMarkCommand(String index) throws IOException {
         Task task = taskList.markAndGetTask(index);
+        storage.saveTaskList(taskList);
         return ui.printMarkMessage(task);
     }
 
@@ -77,9 +79,11 @@ public class Echo {
      *
      * @param index the index of the task that is required to be unmarked in String
      * @return string of display message after unmarking a task
+     * @throws IOException if there is an invalid output or input
      */
-    public String handleUnmarkCommand(String index) {
+    public String handleUnmarkCommand(String index) throws IOException {
         Task task = taskList.unmarkAndGetTask(index);
+        storage.saveTaskList(taskList);
         return ui.printUnmarkMessage(task);
     }
 
@@ -89,11 +93,13 @@ public class Echo {
      *
      * @param taskDescription description of the ToDos task
      * @return string of message after adding the ToDos object
+     * @throws IOException if there is an invalid output or input
      */
-    public String handleToDoCommand(String taskDescription) {
+    public String handleToDoCommand(String taskDescription) throws IOException {
         String[] description = parser.parseToDo(taskDescription);
         ToDo toDoTask = new ToDo(description);
         taskList.addTask(toDoTask);
+        storage.saveTaskList(taskList);
         return ui.printAddTaskMessage(toDoTask, taskList);
     }
 
@@ -103,11 +109,13 @@ public class Echo {
      *
      * @param taskDescription description and deadline of the Deadline task
      * @return string of message after adding the Deadlines object
+     * @throws IOException if there is an invalid output or input
      */
-    public String handleDeadlineCommand(String taskDescription) {
+    public String handleDeadlineCommand(String taskDescription) throws IOException {
         String[] deadlineArray = parser.parseDeadline(taskDescription);
         Deadline deadlineTask = new Deadline(deadlineArray);
         taskList.addTask(deadlineTask);
+        storage.saveTaskList(taskList);
         return ui.printAddTaskMessage(deadlineTask, taskList);
     }
 
@@ -117,11 +125,13 @@ public class Echo {
      *
      * @param taskDescription description, start time and end time of the Event task
      * @return string of message after adding the Events object
+     * @throws IOException if there is an invalid output or input
      */
-    public String handleEventCommand(String taskDescription) {
+    public String handleEventCommand(String taskDescription) throws IOException {
         String[] eventArray = parser.parseEvent(taskDescription);
         Event eventTask = new Event(eventArray);
         taskList.addTask(eventTask);
+        storage.saveTaskList(taskList);
         return ui.printAddTaskMessage(eventTask, taskList);
     }
 
@@ -131,9 +141,11 @@ public class Echo {
      *
      * @param index the index of the task that is required to be deleted in String
      * @return a string of message after deleting task
+     * @throws IOException if there is an invalid output or input
      */
-    public String handleDeleteCommand(String index) {
+    public String handleDeleteCommand(String index) throws IOException {
         Task deletedTask = taskList.getTaskAndDelete(index);
+        storage.saveTaskList(taskList);
         return ui.printDeleteMessage(deletedTask, taskList);
     }
 
@@ -208,7 +220,8 @@ public class Echo {
             default:
                 throw new EchoException("Sorry! I don't get what you mean. Try again with the list of commands above.");
             }
-        } catch (EchoException | DateTimeParseException | NumberFormatException e) {
+        } catch (EchoException | DateTimeParseException | IOException
+                 | NumberFormatException e) {
             return ui.printErrorMessage(e);
         }
     }

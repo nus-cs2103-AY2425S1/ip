@@ -69,7 +69,7 @@ public class TaskList {
 
         assert index >= 0 : "index of the task should not be negative";
         assert largestIndex >= 0 : "largest index of the task array cannot be less than 0";
-        
+
         if (index > largestIndex) {
             throw new EchoException("There are not enough task. "
                     + "\nPlease add more task or change another index.");

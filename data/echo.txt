@@ -1,2 +1,4 @@
-ToDo | 1 | task
-ToDo | 0 | code
+ToDo | 0 | task
+ToDo | 1 | code
+Deadline | 0 | work | /by 12-12-1212 1212
+Event | 0 | work | /from 12-12-1212 1212 /to 11-11-1111 1111
