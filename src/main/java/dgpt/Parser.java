@@ -161,7 +161,7 @@ public class Parser {
     private static String handleEventCommand(String[] inputs, TaskList taskList) throws IncorrectInputException {
         if (inputs.length != 2) {
             throw new IncorrectInputException("You should have a description after your request. "
-                    + "(e.g. \"event your_description /from your_start_time /to your_end_time\")");
+                    + "(e.g. \"event your_description /from dd/MM/yyyy HHmm /to dd/MM/yyyy HHmm\")");
         }
 
         String[] parts = inputs[1].split(" /");
@@ -232,14 +232,14 @@ public class Parser {
     private static String handleRecurringCommand(String[] inputs, TaskList taskList) throws IncorrectInputException {
         if (inputs.length != 2) {
             throw new IncorrectInputException("You should have a description after your request. "
-                    + "(e.g. \"recurring your_description /event your_frequency\")");
+                    + "(e.g. \"recurring your_description /every your_frequency\")");
         }
 
         String[] parts = inputs[1].split(" /every ", 2);
 
         if (parts.length != 2) {
-            throw new IncorrectInputException("You should have a timing after your request. "
-                    + "(e.g. \"todo your_description /event your_frequency\")");
+            throw new IncorrectInputException("You should have a frequency after your request. "
+                    + "(e.g. \"todo your_description /every your_frequency\")");
         }
 
         String description = parts[0];
