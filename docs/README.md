@@ -1,6 +1,6 @@
 # Froggy User Guide
 
-![Screenshot of product](ui.png)
+![Screenshot of product](Ui.png)
 
 Froggy can keep track of and save your various tasks.
 
