@@ -43,7 +43,7 @@ public class AddDeadlineCommand extends Command {
         String desc = input.substring(9, index).trim();
         String by = input.substring(index + 3).trim();
         Deadline current = new Deadline(desc, by);
-        if (taskList.isDuplicate(current)){
+        if (taskList.isDuplicate(current)) {
             return "Duplicate Task found. Adding failed";
         }
         taskList.add(current, storage);

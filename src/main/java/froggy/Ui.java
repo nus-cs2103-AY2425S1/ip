@@ -2,6 +2,11 @@ package froggy;
 
 import java.util.Scanner;
 
+/**
+ * Represents the Ui for interacting with user.
+ * Mostly used CLI output.
+ * Used in GUI for getting common messages.
+ */
 public class Ui {
     private static final String GREETING = """
             Hello! I'm Froggy!

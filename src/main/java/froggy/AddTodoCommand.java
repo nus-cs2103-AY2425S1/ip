@@ -18,7 +18,7 @@ public class AddTodoCommand extends Command {
 
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        if (input.length() == 5) {
+        if (input.length() <= 5) {
             System.out.println("Error: No description for ToDo task.");
             System.out.println("Please input a description for the task.");
             ui.showLine();
@@ -34,7 +34,7 @@ public class AddTodoCommand extends Command {
 
     @Override
     public String executeAndGetOutput(TaskList taskList, Ui ui, Storage storage) {
-        if (input.length() == 5) {
+        if (input.length() <= 5) {
             return "[INFO] Error: No description for ToDo task.\n"
                     + "Please input a description for the task.\n" + ui.getLine();
         }
@@ -42,7 +42,7 @@ public class AddTodoCommand extends Command {
         String output = "";
         String desc = input.substring(5).trim();
         Todo current = new Todo(desc);
-        if (taskList.isDuplicate(current)){
+        if (taskList.isDuplicate(current)) {
             return "Duplicate Task found. Adding failed";
         }
         taskList.add(current, storage);

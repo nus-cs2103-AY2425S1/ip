@@ -24,8 +24,7 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
-            //stage.setMaxWidth(417); // Add this if you didn't automatically resize elements
-            fxmlLoader.<MainWindow>getController().setFroggy(froggy);  // inject the Froggy instance
+            fxmlLoader.<MainWindow>getController().setFroggy(froggy);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
