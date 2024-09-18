@@ -20,6 +20,14 @@ public class Event extends Task {
         this.to = to;
     }
 
+    public void setFrom(LocalDateTime from) {
+        this.from = from;
+    }
+
+    public void setTo(LocalDateTime to) {
+        this.to = to;
+    }
+
     /**
      * Formats the event's description, status, start and end datetime and
      * tags task with an E to be saved into a txt file.

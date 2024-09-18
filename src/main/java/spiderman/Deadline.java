@@ -16,6 +16,10 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    public void setBy(LocalDate by) {
+        this.by = by;
+    }
+
     /**
      * Formats the deadline's description, status and due date and
      * tags the deadline with a "D" to be saved into the txt file.

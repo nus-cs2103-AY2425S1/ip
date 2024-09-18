@@ -25,6 +25,10 @@ public class Task {
         return this.description;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     /**
      * Get the status of the task instance.
      * True for task done and false for task not done.

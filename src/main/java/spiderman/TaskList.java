@@ -1,5 +1,9 @@
 package spiderman;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 /**
@@ -97,7 +101,7 @@ public class TaskList {
             return "There is no current tasks available.";
         }
 
-        String listOfTasks = "";
+        String listOfTasks = "Alright! Here is your current tasks list: \n";
         for (int i = 0; i < this.tasks.size(); i++) {
             listOfTasks += i + 1 + ". " + this.tasks.get(i).toString() + "\n";
         }
@@ -124,6 +128,79 @@ public class TaskList {
         }
         return "Here are the matching tasks in your list:\n"
                 + matchingTasks;
+    }
+
+    public String updateTask(int index, String[] updateDetails) {
+        if (index >= this.tasks.size()) {
+            return "The list number given is not valid!";
+        }
+
+        Task taskToUpdate = this.tasks.get(index);
+
+        // Format: update {task number} /description /from /to /by -> these can be empty but one field is required
+        String newDescription = extractField(updateDetails, "description");
+        String newFromInString = extractField(updateDetails, "from");
+        String newToInString = extractField(updateDetails, "to");
+        String newByInString = extractField(updateDetails, "by");
+
+        String message = "Error updating given task!";
+
+        if (newDescription != null) {
+            taskToUpdate.setDescription(newDescription);
+            message = "Updated task: " + taskToUpdate;
+        }
+
+        if (newByInString != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+            try {
+                LocalDate newBy = LocalDate.parse(newByInString, formatter);
+                ((Deadline) taskToUpdate).setBy(newBy);
+                message = "Updated task: " + taskToUpdate;
+            } catch (DateTimeParseException e) {
+                return "The date is not in the correct format! It should be YYYY-MM-DD";
+            } catch (Exception e) {
+                return "The parameters given does not exist in the type of task to update!";
+            }
+        }
+
+        if (newFromInString != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+            try {
+                LocalDateTime newFrom = LocalDateTime.parse(newFromInString, formatter);
+                ((Event) taskToUpdate).setFrom(newFrom);
+                message = "Updated task: " + taskToUpdate;
+            } catch (DateTimeParseException e) {
+                return "The date and time is not in the correct format! It should be YYYY-MM-DD HH:mm";
+            } catch (Exception e) {
+                return "The parameters given does not exist in the type of task to update!";
+            }
+        }
+
+        if (newToInString != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+            try {
+                LocalDateTime newTo = LocalDateTime.parse(newToInString, formatter);
+                ((Event) taskToUpdate).setFrom(newTo);
+                message = "Updated task: " + taskToUpdate;
+            } catch (DateTimeParseException e) {
+                return "The date and time is not in the correct format! It should be YYYY-MM-DD HH:mm";
+            } catch (Exception e) {
+                return "The parameters given does not exist in the type of task to update!";
+            }
+        }
+        return message;
+    }
+
+    private String extractField(String[] inputString, String field) {
+        for (String parameter : inputString) {
+            if (parameter.contains(field)) {
+                return parameter.replaceFirst(field, "").trim();
+            }
+        }
+        return null;
     }
 
     /**

@@ -28,6 +28,7 @@ public class Parser {
             case "find" -> command.find(input, tasks);
             case "mark" -> command.mark(splitInput, tasks);
             case "unmark" -> command.unmark(splitInput, tasks);
+            case "update" -> command.update(splitInputByCommand, tasks);
             case "bye" -> {
                 isExit = true;
                 yield command.bye();

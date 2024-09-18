@@ -186,6 +186,30 @@ public class Command {
     }
 
     /**
+     * Updates a task in the task list.
+     *
+     * @param input The user input split into a string array.
+     * @param tasks The task list containing the task to be updated.
+     * @return A message indicating the result of updating the task.
+     */
+    public String update(String[] input, TaskList tasks) {
+        assert input != null : "Input for update command should have a task number and new details";
+
+        if (input.length < 2) {
+            return "Input for update command should have a task number and new details!";
+        }
+
+        try {
+            int number = Integer.parseInt(input[0].replaceFirst("update", "").trim()) - 1;
+            return tasks.updateTask(number, input);
+        } catch (NumberFormatException e) {
+            return "Detected task number as a non-integer value! The right format is update {task number} /description {new details} ";
+        } catch (Exception e) {
+            return "An error occurred while updating the task.";
+        }
+    }
+
+    /**
      * Exits the program with a goodbye message.
      *
      * @return A goodbye message.
