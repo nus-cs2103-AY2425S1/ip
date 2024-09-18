@@ -34,7 +34,6 @@ public class Parser {
      * @return response corresponding to the function that was called depending on user input
      */
     public String parseCommand(String input, TaskList taskList, Ui ui) {
-
         // check if input is empty
         if (input.trim().isEmpty()) {
             return ui.displayError(INPUT_ERROR_MESSAGE);

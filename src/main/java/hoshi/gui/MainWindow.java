@@ -101,7 +101,7 @@ public class MainWindow extends AnchorPane {
         TextArea textArea = new TextArea();
         textArea.setEditable(false);
         textArea.setText("Hoshi provides you with the following commands and examples!\n"
-                + "1.) Add todo/deadline/event - Add deadline 2022-12-12\n"
+                + "1.) Add todo/deadline/event - Add deadline ASG1 2022-12-12\n"
                 + "2.) Mark/Unmark - Mark 1\n"
                 + "3.) Delete - Delete 1\n"
                 + "4.) Find - Find 1\n"
