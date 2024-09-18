@@ -1,23 +1,36 @@
 # SilverWolf User Guide
 
-Welcome to the SilverWolf User Guide! This guide will help you understand how to use SilverWolf chat bot effectively.
+![](Ui.png)
 
-## List of commands:
- - deadline
- - event
- - todo
- - list
- - mark
- - unmark
- - find
- - delete
- - bye
+Having short term memory and not keeping track of your task?
+
+Wanna chat with Silver Wolf?
+
+Introducing the Silver Wolf bot, your ultimate companion to keep track of tasks.
+
+## Main functions:
+
+You can add 3 types of tasks:
+- Todos
+- Deadlines
+- Events
+
+## List of commands and its friendlier syntax :
+ - deadline (d)
+ - event (e)
+ - todo (t)
+ - list (l)
+ - mark (m)
+ - unmark (u)
+ - find (f)
+ - delete (d)
+ - bye (b)
 ## Adding Deadlines
 
 To add a deadline in SilverWolf, use the following command:
 
 ### Command
-`deadline <description> /by <date>`
+`deadline <description> /by <yyyy-mm-dd>`
 
 ### Example
 ```shell
@@ -28,7 +41,7 @@ deadline Finish CS2103T assignment /by 2024-08-31
 To add an event in SilverWolf, use the following command:
 
 ### Command
-`event <description> /from <date> /to <date>`
+`event <description> /from <yyyy-mm-dd> /to <yyyy-mm-dd>`
 
 ### Example
 ```shell
@@ -114,7 +127,8 @@ To terminate the chatbot, use the following command:
 ### Command
 `bye`
 
-Doing so will save your list to a file. Note that the chatbot will load the save file if an of create a new save file when the chat bot application is running.
+Doing so will save your list to a file. Note that the chatbot will load the save file if an of create 
+a new save file when the chat bot application is running.
 
 
 

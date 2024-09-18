@@ -20,7 +20,7 @@ public class ExitCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        feedback = ui.showGoodbye(); // Display a goodbye message to the user.
+        System.exit(0); // close the program
     }
 
     /**
