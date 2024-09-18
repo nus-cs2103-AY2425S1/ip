@@ -30,73 +30,69 @@ public class Storage {
      * This method was partially inspired by code examples provided by ChatGPT and W3Schools.
      * Solution below inspired by https://www.w3schools.com/java/java_files_create.asp
      * ChatGPT suggested to catch IOException
+     * ChatGPT suggested how to shorten method
      *
      * @return The list of tasks loaded from the file.
-     * @throws IOException If an I/O error occurs while loading the file.
      */
     public ArrayList<Task> loadTasks() throws IOException {
         ArrayList<Task> taskList = new ArrayList<>();
-        try {
-            // Create directory and file if they do not exist
-            File directory = new File("data");
-            File file = new File(filePath);
+        File directory = new File("data");
+        File file = new File(filePath);
 
-            if (!directory.exists()) {
-                directory.mkdir();
-            }
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
 
-            if (!file.exists()) {
-                //remove after testing
-                file.createNewFile();
-                ui.showToUser("Created new data file optimus.txt");
-            } else {
-                // Read tasks from the file
-                Scanner scanner = new Scanner(file);
-                while (scanner.hasNextLine()) {
-                    String line = scanner.nextLine();
-                    String[] parts = line.split("\\|");
-                    String taskType = parts[0].trim();
-
-                    Task task;
-                    if (taskType.equals("T")) {
-                        String description = parts[2].trim();
-                        task = new Todo(description);
-                    } else if (taskType.equals("D")) {
-                        String description = parts[2].trim();
-                        String by = parts[3].trim();
-                        try {
-                            task = new Deadline(description, by);
-                        } catch (OptimusException e) {
-                            ui.showToUser("Error loading deadline task: " + e.getMessage());
-                            continue;
-                        }
-                    } else {
-                        String description = parts[2].trim();
-                        String from = parts[3].trim();
-                        String to = parts[4].trim();
-                        try {
-                            task = new Event(description, from, to);
-                        } catch (OptimusException e) {
-                            ui.showToUser("Error loading event task: " + e.getMessage());
-                            continue;
-                        }
-                    }
-                    // Mark task as done if indicated in the file
-                    task.isDone = parts[1].trim().equals("1");
+        if (!file.exists()) {
+            file.createNewFile();
+            ui.showToUser("Created new data file optimus.txt");
+            return taskList;
+        }
+        // Read tasks from the file
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                try {
+                    Task task = parseTaskFromLine(line);
                     taskList.add(task);
+                } catch (OptimusException | ArrayIndexOutOfBoundsException e) {
+                    // Suggested by ChatGPT
+                    ui.showToUser("Error loading task: " + e.getMessage());
                 }
-                scanner.close();
-                ui.showToUser("Loaded tasks from file optimus.txt");
             }
-        } catch (IOException e) {
-            // Handle file I/O exceptions
-            ui.showToUser("Error loading tasks from file: " + e.getMessage());
-        } catch (ArrayIndexOutOfBoundsException e) {
-            // Handle invalid file formatting
-            // Suggested by ChatGPT
-            ui.showToUser("Invalid task format in file.");
+            ui.showToUser("Loaded tasks from file optimus.txt");
         }
         return taskList;
+    }
+
+    /**
+     * Parses a task from a line of text.
+     *
+     * @param line The line of text representing the task.
+     * @return The parsed Task object.
+     * @throws OptimusException If there is an issue with parsing.
+     */
+    private Task parseTaskFromLine(String line) throws OptimusException {
+        String[] parts = line.split("\\|");
+        String taskType = parts[0].trim();
+        boolean isDone = parts[1].trim().equals("1");
+
+        Task task;
+        switch (taskType) {
+            case "T":
+                task = new Todo(parts[2].trim());
+                break;
+            case "D":
+                task = new Deadline(parts[2].trim(), parts[3].trim());
+                break;
+            case "E":
+                task = new Event(parts[2].trim(), parts[3].trim(), parts[4].trim());
+                break;
+            default:
+                throw new OptimusException("Invalid task type: " + taskType);
+        }
+        task.isDone = isDone;
+        return task;
     }
 
     /**

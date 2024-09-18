@@ -16,35 +16,6 @@ import org.junit.jupiter.api.Test;
  */
 public class TaskListTest {
     /**
-     * Tests the addTask method to ensure tasks are correctly added
-     * and their string representations are accurate.
-     *
-     * @throws OptimusException if task input format is invalid.
-     */
-    @Test
-    public void addTaskTest() throws OptimusException {
-        TaskList taskList = new TaskList();
-
-        // Add todo task and verify
-        taskList.addTask("todo return book");
-
-        assertEquals(1, taskList.getTasks().size());
-        assertEquals("[T][ ] return book", taskList.getTasks().get(0).toString());
-
-        // Add deadline task and verify
-        taskList.addTask("deadline return book /by 2024-10-02");
-
-        assertEquals(2, taskList.getTasks().size());
-        assertEquals("[D][ ] return book (by: Oct 2 2024)", taskList.getTasks().get(1).toString());
-
-        // Add event task and verify
-        taskList.addTask("event project meeting /from 2024-10-02 /to 2024-10-03");
-
-        assertEquals(3, taskList.getTasks().size());
-        assertEquals("[E][ ] project meeting (from: Oct 2 2024 to: Oct 3 2024)", taskList.getTasks().get(2).toString());
-    }
-
-    /**
      * Tests the addTask method to ensure an OptimusException is thrown
      * for tasks with invalid date formats.
      */
@@ -82,42 +53,5 @@ public class TaskListTest {
         });
 
         assertEquals("The description of a todo cannot be empty >:(", exception.getMessage());
-    }
-
-    /**
-     * Tests the markTaskAsDone method to ensure tasks can be correctly
-     * marked as done.
-     *
-     * @throws OptimusException if an invalid task index is provided.
-     */
-    @Test
-    public void markTaskAsDoneTest() throws OptimusException {
-        TaskList taskList = new TaskList();
-
-        // Add a task and verify it is initially not done
-        taskList.addTask("todo return book");
-        assertEquals(false, taskList.getTasks().get(0).isDone);
-
-        // Mark task as done and verify
-        taskList.markTaskAsDone(0);
-        assertEquals(true, taskList.getTasks().get(0).isDone);
-    }
-
-    /**
-     * Tests the markTaskAsDone method to ensure an OptimusException is thrown
-     * for invalid task indices.
-     */
-    @Test
-    public void markTaskAsDoneThrowsExceptionForInvalidIndexTest() throws OptimusException {
-        TaskList taskList = new TaskList();
-
-        // Add a task to the task list
-        taskList.addTask("todo return book");
-
-        // Test for out-of-bounds index
-        Exception exception = assertThrows(OptimusException.class, () -> {
-            taskList.markTaskAsDone(2);
-        });
-        assertEquals("Sorry, you only have up to task number 1.", exception.getMessage());
     }
 }

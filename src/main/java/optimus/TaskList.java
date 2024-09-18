@@ -88,35 +88,11 @@ public class TaskList {
         // Check and create task based on input type (todo, deadline, or event)
         // Used ChatGPT to find how to extract relevant words from user input
         if (userInput.startsWith("todo")) {
-            if (userInput.length() <= 5) { // Check if description is provided
-                throw new OptimusException("The description of a todo cannot be empty >:(");
-            }
-            String description = userInput.substring(5).trim();
-            task = new Todo(description);
+        task = createTodoTask(userInput);
         } else if (userInput.startsWith("deadline")) {
-            if (userInput.length() <= 9) { // Check if description is provided
-                throw new OptimusException("The description of a deadline cannot be empty >:(");
-            }
-            String[] parts = userInput.substring(9).split("/by");
-            if (parts.length < 2) { // Ensure input is valid
-                throw new OptimusException("Invalid input. Use this format: deadline return book /by 2019-12-02");
-            }
-            String description = parts[0].trim();
-            String by = parts[1].trim();
-            task = new Deadline(description, by);
+            task = createDeadlineTask(userInput);
         } else if (userInput.startsWith("event")) {
-            if (userInput.length() <= 6) { // Check if description is provided
-                throw new OptimusException("The description of an event cannot be empty >:(");
-            }
-            String[] parts = userInput.substring(6).split("/from|/to");
-            if (parts.length < 3) { // Ensure input is valid
-                throw new OptimusException("Invalid input. "
-                        + "Use this format: event project meeting /from 2019-12-02 /to 2019-12-03");
-            }
-            String description = parts[0].trim();
-            String from = parts[1].trim();
-            String to = parts[2].trim();
-            task = new Event(description, from, to);
+            task = createEventTask(userInput);
         } else {
             throw new OptimusException("Sorry, you need to start your input with either todo, deadline, or event.\n"
                     + "For example:\n"
@@ -128,5 +104,40 @@ public class TaskList {
         taskList.add(task);
         ui.showToUser("Got it. I've added this task:\n" + task + "\n"
                 + "Now you have " + taskList.size() + " tasks in the list.");
+    }
+
+    private Task createTodoTask(String input) throws OptimusException {
+        if (input.length() <= 5) {
+            throw new OptimusException("The description of a todo cannot be empty >:(");
+        }
+        return new Todo(input.substring(5).trim());
+    }
+
+    private Task createDeadlineTask(String input) throws OptimusException {
+        if (input.length() <= 9) {
+            throw new OptimusException("The description of a deadline cannot be empty >:(");
+        }
+        String[] parts = input.substring(9).split("/by", 2);
+        if (parts.length < 2) { // Ensure input is valid
+            throw new OptimusException("Invalid input. Use this format: deadline return book /by 2019-12-02");
+        }
+        String description = parts[0].trim();
+        String by = parts[1].trim();
+        return new Deadline(description, by);
+    }
+
+    private Task createEventTask(String input) throws OptimusException {
+        if (input.length() <= 6) { // Check if description is provided
+            throw new OptimusException("The description of an event cannot be empty >:(");
+        }
+        String[] parts = input.substring(6).split("/from|/to", 3);
+        if (parts.length < 3) { // Ensure input is valid
+            throw new OptimusException("Invalid input. "
+                    + "Use this format: event project meeting /from 2019-12-02 /to 2019-12-03");
+        }
+        String description = parts[0].trim();
+        String from = parts[1].trim();
+        String to = parts[2].trim();
+        return new Event(description, from, to);
     }
 }
