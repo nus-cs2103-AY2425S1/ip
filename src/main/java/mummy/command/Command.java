@@ -44,18 +44,18 @@ public abstract class Command {
         HashMap<String, String> arguments = Parser.parse(fullCommand);
 
         return switch (arguments.getOrDefault("command", "")) {
-            case "bye" -> new ByeCommand(arguments);
-            case "list" -> new ListCommand(arguments);
-            case "mark" -> new MarkCommand(arguments);
-            case "unmark" -> new UnmarkCommand(arguments);
-            case "todo" -> new ToDoCommand(arguments);
-            case "deadline" -> new DeadlineCommand(arguments);
-            case "event" -> new EventCommand(arguments);
-            case "delete" -> new DeleteCommand(arguments);
-            case "find" -> new FindCommand(arguments);
-            case "undo" -> new UndoCommand(arguments);
-            case "redo" -> new RedoCommand(arguments);
-            default -> throw new MummyException("I'm sorry, but I don't know what that means :-(");
+        case "bye" -> new ByeCommand(arguments);
+        case "list" -> new ListCommand(arguments);
+        case "mark" -> new MarkCommand(arguments);
+        case "unmark" -> new UnmarkCommand(arguments);
+        case "todo" -> new ToDoCommand(arguments);
+        case "deadline" -> new DeadlineCommand(arguments);
+        case "event" -> new EventCommand(arguments);
+        case "delete" -> new DeleteCommand(arguments);
+        case "find" -> new FindCommand(arguments);
+        case "undo" -> new UndoCommand(arguments);
+        case "redo" -> new RedoCommand(arguments);
+        default -> throw new MummyException("I'm sorry, but I don't know what that means :-(");
         };
     }
 
