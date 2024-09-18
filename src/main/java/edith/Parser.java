@@ -59,7 +59,9 @@ public class Parser {
         } else if (userInput.startsWith("find ")) {
             String keyword = userInput.substring(5).trim();
             return new FindCommand(keyword);
-        } else if (userInput.startsWith("todo ") || userInput.startsWith("deadline ") || userInput.startsWith("event ")) {
+        } else if (userInput.startsWith("todo ") || userInput.startsWith("t ")
+                || userInput.startsWith("deadline ") || userInput.startsWith("d ")
+                || userInput.startsWith("event ") || userInput.startsWith("e ")) {
             return new AddCommand(userInput);
         } else {
             throw new EdithException("Sorry but that is not an instruction I can execute.");
