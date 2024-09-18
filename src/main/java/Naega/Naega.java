@@ -5,6 +5,7 @@ import Naega.Parser.Parser;
 import Naega.Storage.Storage;
 import Naega.Task.*;
 import Naega.Ui.Ui;
+
 import java.io.IOException;
 
 public class Naega {
@@ -13,6 +14,13 @@ public class Naega {
     private TaskList tasks;
     private final Ui ui;
 
+    /**
+     * Creates a new Naega instance with the specified file path.
+     * Initializes the user interface and storage. Loads tasks from the storage
+     * if available, otherwise initializes a new TaskList.
+     *
+     * @param filePath the path to the file where tasks are stored
+     */
     public Naega(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -24,7 +32,11 @@ public class Naega {
         }
     }
 
-
+    /**
+     * Starts the main loop of the application. Continuously reads commands from
+     * the user, parses and executes them, and handles errors. The loop terminates
+     * when an exit command is encountered.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -45,6 +57,12 @@ public class Naega {
         }
     }
 
+    /**
+     * The entry point of the application. Creates a new Naega instance with
+     * the specified file path and starts the application by calling the run method.
+     *
+     * @param args command-line arguments (not used)
+     */
     public static void main(String[] args) {
         new Naega("data/tasks.txt").run();
     }
