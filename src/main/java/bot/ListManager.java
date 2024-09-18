@@ -17,7 +17,7 @@ import bot.Parser.TaskType;
  */
 public class ListManager {
     private ArrayList<Task> itemList = new ArrayList<>();
-    private FileManager chickenFileManager = new FileManager("src/main/java/data");
+    private FileManager chickenFileManager = new FileManager("data");
 
 
     /**
@@ -27,7 +27,7 @@ public class ListManager {
      */
     public ListManager() {
         try {
-            File file = new File("src/main/java/data");
+            File file = new File("data");
             if (!file.exists()) {
                 file.createNewFile();
             }

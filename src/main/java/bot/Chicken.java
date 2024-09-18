@@ -9,7 +9,7 @@ package bot;
 public class Chicken {
     private final String name = "Bot.Chicken";
     private final ListManager chickenManager = new ListManager();
-    private final FileManager chickenFileManager = new FileManager("src/main/java/data");
+    private final FileManager chickenFileManager = new FileManager("data");
     private final Parser parser = new Parser(chickenManager, chickenFileManager);
 
 

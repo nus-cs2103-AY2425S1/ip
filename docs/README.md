@@ -1,6 +1,5 @@
-# README
 # Chicken the Chatbot
-## Preview of Chicken the chatbot
+### Preview of Chicken the chatbot
 ![bot preview](Ui.png)
 ## Features 
 

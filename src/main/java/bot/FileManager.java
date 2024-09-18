@@ -7,12 +7,26 @@ import java.util.Scanner;
 
 public class FileManager {
 
-    private String filePath = "src/main/java/data";
+    private String filePath = "data";
 
     public FileManager(String pathname) {
-        assert pathname != null && !pathname.isEmpty() : "Pathname must not be null or empty";
+        if (pathname == null || pathname.isEmpty()) {
+            System.out.println("Pathname must not be null or empty");
+        }
+
+        File file = new File(pathname);
+        if (!file.exists()) {
+            System.out.println("File or directory does not exist. Creating new file.");
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                throw new RuntimeException("Could not create the file: " + pathname, e);
+            }
+        }
+
         this.filePath = pathname;
     }
+
 
 
     /**
@@ -24,7 +38,7 @@ public class FileManager {
         assert this.filePath != null && !this.filePath.isEmpty() : "File path must not be null or empty";
 
         try {
-            File file = new File("src/main/java/data");
+            File file = new File("data");
             if (!file.exists()) {
                 file.createNewFile();
             }
@@ -129,7 +143,7 @@ public class FileManager {
     }
 
     public static void main(String[] args) {
-        FileManager fileManager = new FileManager("src/main/java/data");
+        FileManager fileManager = new FileManager("data");
         fileManager.readFile();
     }
 
