@@ -36,6 +36,7 @@ public class UiTest {
             systemOutput.toString());
 
         restoreStreams();
+        Ui.resetResponse();
     }
 
     @Test
@@ -49,6 +50,7 @@ public class UiTest {
             systemOutput.toString());
 
         restoreStreams();
+        Ui.resetResponse();
     }
 
     @Test
@@ -63,5 +65,6 @@ public class UiTest {
             systemOutput.toString());
 
         restoreStreams();
+        Ui.resetResponse();
     }
 }
