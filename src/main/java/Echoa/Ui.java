@@ -5,7 +5,19 @@ package echoa;
  */
 
 public class Ui {
-    public static final String[] INSTRUCTION_LIST = {"todo", "deadline", "event", "mark", "unmark", "delete", "list", "bye"};
+    public static final String[] INSTRUCTION_LIST = {
+            "hi",
+            "mark",
+            "unmark",
+            "delete",
+            "list",
+            "find",
+            "update",
+            "todo",
+            "deadline",
+            "event",
+            "bye"
+    };
 
     public String getStartMessage() {
         return "Hello, I'm Echoa!\n" +
@@ -56,6 +68,14 @@ public class Ui {
             message = "No tasks in the requested list.\n";
         }
 
+        return message;
+    }
+
+    public static String getListOfCommandsMessage() {
+        String message = "Here are the valid instructions: \n";
+        for (String command : INSTRUCTION_LIST) {
+            message += "- " + command + "\n";
+        }
         return message;
     }
 

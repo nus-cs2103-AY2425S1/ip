@@ -14,8 +14,7 @@ import java.util.regex.Pattern;
 
 public class Parser {
 
-    private static final String DATE_REGEX = "\"\\\\b(\\\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\\\d|3[01]))\\\\b";
-//            "\\b\\d{4}-\\d{2}-\\d{2}\\b";
+    private static final String DATE_REGEX = "\\b(\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))\\b";
     private static final String TIME_REGEX = "\\b(?:[01]\\d|2[0-3]):[0-5]\\d\\b";
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -158,7 +157,7 @@ public class Parser {
      * @param letter letter that has to be removed.
      * @return String without the first occurrence of the letter.
      */
-    private static String removeFirstOccurrence(String str, char letter) {
+    public static String removeFirstOccurrence(String str, char letter) {
         int index = str.indexOf(letter);
 
         if (index == -1) {

@@ -19,10 +19,7 @@ public class InvalidInstructionException extends EchoaException {
     @Override
     public String getMessage() {
         String message = this.getInstruction() + " is not a valid command!\n" +
-                         "Here are the valid instructions: \n";
-        for (String i : Ui.INSTRUCTION_LIST) {
-            message = message + "- " + i + "\n";
-        }
+                         Ui.getListOfCommandsMessage();
         return message;
     }
 }
