@@ -1,6 +1,6 @@
 # Hyperion User Guide
 
-![img.png](img.png)
+![img.png](Ui.png)
 
 Welcome to **Hyperion** your all-in-one solution for task management.
 
