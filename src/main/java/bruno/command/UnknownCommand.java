@@ -14,6 +14,6 @@ public class UnknownCommand extends Command {
 
     @Override
     public String toString() {
-        return "I did not understand, please tell me something I can comprehend";
+        return "Sorry, my brain couldn't comprehend such complex words.";
     }
 }

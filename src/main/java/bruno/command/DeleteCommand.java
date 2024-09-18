@@ -42,7 +42,7 @@ public class DeleteCommand extends Command {
         for (Task task : deletedTasks) {
             tasksAsString += task + "\n";
         }
-        return "Noted! I've removed these tasks:\n" + tasksAsString
-                + "Now you have " + getTaskList().getTasks().size() + " tasks in the list";
+        return "I've unzipped open my brain and removed these tasks:\n" + tasksAsString
+                + "Now you have " + getTaskList().getTasks().size() + " tasks stored in my brain";
     }
 }

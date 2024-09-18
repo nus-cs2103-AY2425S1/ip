@@ -37,6 +37,6 @@ public class ListCommand extends Command {
         for (int i = 0; i < tasks.size(); i++) {
             tasksAsString += (i + 1) + ". " + tasks.get(i) + "\n";
         }
-        return "Here are the tasks in your list:\n" + tasksAsString;
+        return "Here are the tasks stored in my brain:\n" + tasksAsString;
     }
 }

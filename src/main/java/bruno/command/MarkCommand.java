@@ -41,6 +41,6 @@ public class MarkCommand extends Command {
         for (Task task : markedTasks) {
             tasksAsString += task + "\n";
         }
-        return "Nice! I've marked these tasks as done:\n" + tasksAsString;
+        return "I've marked these tasks as done:\n" + tasksAsString;
     }
 }

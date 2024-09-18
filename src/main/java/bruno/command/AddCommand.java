@@ -40,7 +40,7 @@ public class AddCommand extends Command {
 
     @Override
     public String toString() {
-        return "Got it. I've added this task:\n" + task
-                + "\nNow you have " + getTaskList().getTasks().size() + " tasks in the list.";
+        return "I've unzipped open my brain and added this task to it:\n" + task
+                + "\nNow you have " + getTaskList().getTasks().size() + " tasks stored in my brain.";
     }
 }

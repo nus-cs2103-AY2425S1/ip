@@ -12,28 +12,8 @@
     -fx-border-radius: 1em 1em 1em 0;
 }
 
-.add-label {
+.known-label {
     -fx-background-color: #7f236c;
-    -fx-text-fill: #FFD700;
-}
-
-.mark-label {
-    -fx-background-color: #7f236c;
-    -fx-text-fill: #FFD700;
-}
-
-.mark-label {
-    -fx-background-color: #7f236c;
-    -fx-text-fill: #FFD700;
-}
-
-.delete-label {
-    -fx-background-color: #7f236c;
-    -fx-text-fill: #FFD700;
-}
-
-.unknown-label {
-    -fx-background-color: #fa2852;
     -fx-text-fill: #FFD700;
 }
 

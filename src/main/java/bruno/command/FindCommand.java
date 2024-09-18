@@ -40,8 +40,8 @@ public class FindCommand extends Command {
         }
 
         if (foundTasks.isEmpty()) {
-            return "No tasks found with the given keyword";
+            return "I looked all over in my brain but I couldn't find a task with this keyword";
         }
-        return "Here are the matching tasks in your list:\n" + tasksAsString;
+        return "Here are the matching tasks I found stored in my brain:\n" + tasksAsString;
     }
 }

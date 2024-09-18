@@ -31,6 +31,6 @@ public class ExitCommand extends Command {
 
     @Override
     public String toString() {
-        return "Bye. Hope to see you again soon!";
+        return "Alright, let's hangout again sometime soon!";
     }
 }

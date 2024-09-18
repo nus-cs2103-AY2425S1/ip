@@ -41,6 +41,6 @@ public class UnmarkCommand extends Command {
         for (Task task : unmarkedTasks) {
             tasksAsString += task + "\n";
         }
-        return "I've unmarked these tasks as done:\n" + tasksAsString;
+        return "I've unmarked these tasks:\n" + tasksAsString;
     }
 }

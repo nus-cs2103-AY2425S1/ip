@@ -5,6 +5,6 @@ package bruno.exceptions;
  */
 public class EmptyTaskException extends BrunoException {
     public EmptyTaskException() {
-        super("You entered an empty task! NOT COOL!");
+        super("empty task?! do you think I'm stupid?! NOT COOL!");
     }
 }
