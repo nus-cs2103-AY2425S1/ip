@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Rectangle;
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
@@ -36,6 +37,13 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+        Rectangle clip = new Rectangle(
+                displayPicture.getFitWidth(), // Use the width of the ImageView
+                displayPicture.getFitHeight() // Use the height of the ImageView
+        );
+        clip.setArcWidth(20);
+        clip.setArcHeight(20);
+        displayPicture.setClip(clip);
     }
 
     /**
