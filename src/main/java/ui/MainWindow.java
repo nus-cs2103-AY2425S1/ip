@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import levelhundred.LevelHundred;
 
 /**
@@ -50,5 +51,10 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getLevelHundredDialog(response, levelHundredImage)
         );
         userInput.clear();
+
+        if (this.levelHundred.isExited()) {
+            Stage stage = (Stage) dialogContainer.getScene().getWindow();
+            stage.close();
+        }
     }
 }

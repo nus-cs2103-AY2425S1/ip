@@ -21,11 +21,13 @@ public class LevelHundred {
     private final Ui ui;
     private final Storage storage;
     private final TaskList taskList;
+    private boolean isRunning;
 
     /**
      * Constructor for a LevelHundred bot
      */
     public LevelHundred() {
+        this.isRunning = true;
         this.ui = new Ui();
         this.storage = new Storage();
         this.taskList = new TaskList();
@@ -69,10 +71,20 @@ public class LevelHundred {
         try {
             UserCommand c = Parser.parseUserCommand(userInput);
             c.execute(userInput, this.ui, this.storage, this.taskList);
+            this.isRunning = c.continueRunning();
+
             return c.getResponse();
         } catch (LevelHundredException e) {
             return "Error: " + e.toString();
         }
+    }
+
+    /**
+     * Checks whether the bot has exited
+     * @return Boolean representing whether the bot has exited
+     */
+    public boolean isExited() {
+        return !this.isRunning;
     }
 
     public static void main(String[] args) {
