@@ -27,8 +27,8 @@ public class ParserTest {
     public void parseCommandTest() throws InvalidInputException, MissingArgumentException, InvalidTaskNumberException, EmptyArgumentException {
         assertInstanceOf(ByeCommand.class, Parser.parseCommand("bye"));
         assertInstanceOf(ListCommand.class, Parser.parseCommand("list"));
-        assertInstanceOf(MarkCommand.class, Parser.parseCommand("mark 0"));
-        assertInstanceOf(UnmarkCommand.class, Parser.parseCommand("unmark 0"));
+        assertInstanceOf(MarkCommand.class, Parser.parseCommand("mark 1"));
+        assertInstanceOf(UnmarkCommand.class, Parser.parseCommand("unmark 1"));
         assertInstanceOf(AddTaskCommand.class, Parser.parseCommand("todo hello"));
         assertInstanceOf(AddTaskCommand.class, Parser.parseCommand("deadline hello /by 19/12/2001"));
         assertInstanceOf(AddTaskCommand.class, Parser.parseCommand("event hello /from 19/02/2001 /to 20/02/2001"));

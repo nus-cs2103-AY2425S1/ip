@@ -20,6 +20,7 @@ public class FindCommand extends Command {
      */
     public FindCommand(String searchString) {
         super(true);
+        assert !searchString.isEmpty();
         this.searchString = searchString;
     }
 
@@ -29,6 +30,7 @@ public class FindCommand extends Command {
      * @param taskList TaskList that is to be filtered
      */
     public void execute(TaskList taskList) {
+        assert taskList != null;
         UI.printMessage(taskList.filter(this.searchString));
     }
 }

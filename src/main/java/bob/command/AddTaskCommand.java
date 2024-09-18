@@ -21,6 +21,7 @@ public class AddTaskCommand extends Command {
      */
     public AddTaskCommand(Task task) {
         super(true);
+        assert task != null;
         this.task = task;
     }
 
@@ -30,6 +31,7 @@ public class AddTaskCommand extends Command {
      * @param taskList TaskList which the task should be added into
      */
     public void execute(TaskList taskList) {
+        assert taskList != null;
         taskList.addTask(this.task);
         UI.printAddTask(this.task);
         UI.printCurrentTaskListStatus(taskList);

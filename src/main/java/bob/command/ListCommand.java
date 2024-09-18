@@ -24,6 +24,7 @@ public class ListCommand extends Command {
      * @param taskList TaskList to be printed
      */
     public void execute(TaskList taskList) {
+        assert taskList != null;
         UI.printTaskList(taskList);
     }
 }

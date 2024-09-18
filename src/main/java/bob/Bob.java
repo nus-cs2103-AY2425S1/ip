@@ -1,7 +1,6 @@
 package bob;
 
 import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
 import java.io.PrintStream;
 import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
@@ -56,6 +55,7 @@ public class Bob {
         while (isRunning) {
             try {
                 String userCommand = UI.readCommand();
+                assert !userCommand.isEmpty();
                 UI.printLine();
                 Command command = Parser.parseCommand(userCommand);
                 command.execute(myTasks);
@@ -76,14 +76,17 @@ public class Bob {
     }
 
     public String getResponse(String input) {
+        assert !input.isEmpty();
         try {
             Storage.writeData(myTasks, this.filePath);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             PrintStream ps = new PrintStream(baos);
+            PrintStream sysOut = new PrintStream(System.out);
             System.setOut(ps);
             Command command = Parser.parseCommand(input);
             command.execute(myTasks);
             System.out.flush();
+            System.setOut(sysOut);
             return baos.toString();
         } catch (EmptyArgumentException | MissingArgumentException
                 | InvalidTaskNumberException e) {

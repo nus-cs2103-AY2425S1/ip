@@ -153,12 +153,12 @@ public class TaskListTest {
         eventTask.mark();
         myTasks.addTask(eventTask);
         assertEquals(" Here are the tasks in your list:\n"
-                + " 1.[T][ ] Hello\n"
-                + " 2.[D][ ] Hello (by: Dec 18 2024)\n"
-                + " 3.[E][ ] Hello (from: Dec 18 2024 to: Dec 18 2025)\n"
-                + " 4.[T][X] Hello\n"
-                + " 5.[D][X] Hello (by: Dec 18 2024)\n"
-                + " 6.[E][X] Hello (from: Dec 18 2024 to: Dec 18 2025)", myTasks.toString());
+                + " 1. [T][ ] Hello\n"
+                + " 2. [D][ ] Hello (by: Dec 18 2024)\n"
+                + " 3. [E][ ] Hello (from: Dec 18 2024 to: Dec 18 2025)\n"
+                + " 4. [T][X] Hello\n"
+                + " 5. [D][X] Hello (by: Dec 18 2024)\n"
+                + " 6. [E][X] Hello (from: Dec 18 2024 to: Dec 18 2025)", myTasks.toString());
     }
 
 }

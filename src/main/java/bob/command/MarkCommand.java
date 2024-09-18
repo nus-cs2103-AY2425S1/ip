@@ -22,6 +22,7 @@ public class MarkCommand extends Command {
      */
     public MarkCommand(int index) {
         super(true);
+        assert index >= 0;
         this.index = index;
     }
 
@@ -33,6 +34,7 @@ public class MarkCommand extends Command {
      * @throws InvalidTaskNumberException Is thrown when user inputs an invalid Task Number
      */
     public void execute(TaskList taskList) throws InvalidTaskNumberException {
+        assert taskList != null;
         taskList.markTaskAtIndex(index);
         UI.printMarkTask();
     }
