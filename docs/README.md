@@ -1,6 +1,6 @@
 # Genji User Guide
 
-![](/docs/Ui.png)
+![](Ui.png)
 
 Genji frees your mind of having to remember things you need to do.
 
