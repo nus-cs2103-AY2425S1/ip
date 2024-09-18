@@ -1,30 +1,108 @@
-# Duke User Guide
+# Johnson Chatbot User Guide
 
-// Update the title above to match the actual product name
+## Adding a ToDo: `todo`
+Adds a ToDo task to the task list.
 
-// Product screenshot goes here
+**Format:** `todo TASK_DESCRIPTION /#TAG1…​`
 
-// Product intro goes here
+💡 **Tip:** A ToDo task can have any number of tags (including 0).
 
-## Adding deadlines
+**Examples:**
+- `todo read book /#leisure`
+- `todo buy groceries`
 
-// Describe the action and its outcome.
+## Adding a Deadline: `deadline`
+Adds a Deadline task to the task list.
 
-// Give examples of usage
+**Format:** `deadline TASK_DESCRIPTION /by DATE TIME /#TAG1…​`
 
-Example: `keyword (optional arguments)`
+💡 **Tip:** A Deadline task can have any number of tags (including 0).
 
-// A description of the expected outcome goes here
+💡 **Tip:** The time is also optional.
 
-```
-expected output
-```
+**Examples:**
+- `deadline submit report /by 2024-12-12 12:00 /#work #urgent`
+- `deadline finish project /by 2024-11-30 23:59`
 
-## Feature ABC
+## Adding an Event: `event`
+Adds an Event task to the task list.
 
-// Feature details
+**Format:** `event TASK_DESCRIPTION /from START_DATE START_TIME /#TAG1…​`
 
+💡 **Tip:** An Event task can have any number of tags (including 0).
 
-## Feature XYZ
+💡 **Tip:** The time is also optional.
+**Examples:**
+- `event team meeting /from 2024-12-01 10:00 /#work`
+- `event birthday party /from 2024-11-20`
 
-// Feature details
+## Marking a Task as Done: `mark`
+Marks a task as completed.
+
+**Format:** `mark INDEX`
+
+💡 **Tip:** The index refers to the position of the task in the task list.
+
+**Examples:**
+- `mark 1`
+- `mark 3`
+
+## Unmarking a Task: `unmark`
+Marks a task as not completed.
+
+**Format:** `unmark INDEX`
+
+💡 **Tip:** The index refers to the position of the task in the task list.
+
+**Examples:**
+- `unmark 2`
+- `unmark 4`
+
+## Deleting a Task: `delete`
+Deletes a task from the task list.
+
+**Format:** `delete INDEX`
+
+💡 **Tip:** The index refers to the position of the task in the task list.
+
+**Examples:**
+- `delete 1`
+- `delete 5`
+
+## Finding Tasks: `find`
+Finds tasks that contain a specific keyword.
+
+**Format:** `find KEYWORD`
+
+💡 **Tip:** The search is case-sensitive.
+
+**Examples:**
+- `find report`
+- `find meeting`
+
+## Finding Tasks by Tag: `findtag`
+Finds tasks that contain a specific tag.
+
+**Format:** `findtag TAG`
+
+💡 **Tip:** The search is case-sensitive.
+
+**Examples:**
+- `findtag work`
+- `findtag urgent`
+
+## Listing All Tasks: `list`
+Lists all tasks in the task list.
+
+**Format:** `list`
+
+**Example:**
+- `list`
+
+## Exiting the Program: `quit`
+Exits the chatbot.
+
+**Format:** `quit`
+
+**Example:**
+- `quit`
