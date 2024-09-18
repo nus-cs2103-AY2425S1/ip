@@ -32,12 +32,7 @@ public class Deadline extends Task {
             if (description.startsWith("deadline ")) {
                 this.desc = description.split("deadline ")[1].split(" /by")[0];
                 this.by = description.split("/by ")[1];
-                String dateString = by.split(" ")[0];
-                this.date = LocalDate.parse(dateString).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-                SimpleDateFormat inputTime = new SimpleDateFormat("HHmm");
-                SimpleDateFormat outputTime = new SimpleDateFormat("hh:mm a");
-                Date time24 = inputTime.parse(by.split(" ")[1]);
-                this.time = outputTime.format(time24);
+                parseDateTime();
             } else {
                 parse(description);
             }
@@ -92,5 +87,14 @@ public class Deadline extends Task {
      */
     public String getTime() {
         return this.time;
+    }
+
+    private void parseDateTime() throws ParseException {
+        String dateString = by.split(" ")[0];
+        this.date = LocalDate.parse(dateString).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        SimpleDateFormat inputTime = new SimpleDateFormat("HHmm");
+        SimpleDateFormat outputTime = new SimpleDateFormat("hh:mm a");
+        Date time24 = inputTime.parse(by.split(" ")[1]);
+        this.time = outputTime.format(time24);
     }
 }

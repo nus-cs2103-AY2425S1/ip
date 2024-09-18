@@ -44,16 +44,7 @@ public class Event extends Task {
                 this.desc = description.split(EVENT)[1].split(SPACE_FROM)[0];
                 this.from = description.split(FROM_SPACE)[1].split(SPACE_TO)[0];
                 this.to = description.split(TO_SPACE)[1];
-                String fromDateString = from.split(" ")[0];
-                this.fromDate = LocalDate.parse(fromDateString).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-                SimpleDateFormat inputTime = new SimpleDateFormat("HHmm");
-                SimpleDateFormat outputTime = new SimpleDateFormat("hh:mm a");
-                Date time24 = inputTime.parse(from.split(" ")[1]);
-                this.fromTime = outputTime.format(time24);
-                String toDateString = to.split(" ")[0];
-                this.toDate = LocalDate.parse(toDateString).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-                time24 = inputTime.parse(to.split(" ")[1]);
-                this.toTime = outputTime.format(time24);
+                parseDateTime();               
             } else {
                 parse(description);
             }
@@ -112,6 +103,19 @@ public class Event extends Task {
             this.fromTime = from.split(", ")[1];
             this.toDate = to.split(", ")[0];
             this.toTime = to.split(", ")[1];
+    }
+
+    private void parseDateTime() throws ParseException {
+        String fromDateString = from.split(" ")[0];
+        this.fromDate = LocalDate.parse(fromDateString).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        SimpleDateFormat inputTime = new SimpleDateFormat("HHmm");
+        SimpleDateFormat outputTime = new SimpleDateFormat("hh:mm a");
+        Date time24 = inputTime.parse(from.split(" ")[1]);
+        this.fromTime = outputTime.format(time24);
+        String toDateString = to.split(" ")[0];
+        this.toDate = LocalDate.parse(toDateString).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        time24 = inputTime.parse(to.split(" ")[1]);
+        this.toTime = outputTime.format(time24);
     }
     
 }
