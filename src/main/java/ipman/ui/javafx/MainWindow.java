@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -31,6 +32,16 @@ public class MainWindow extends AnchorPane implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         this.scrollPane.vvalueProperty().bind(this.dialogContainer.heightProperty());
         this.dialogContainer.prefWidthProperty().bind(this.scrollPane.widthProperty());
+
+        // @@author Brendan-reused
+        // Reused from https://stackoverflow.com/questions/13880638/how-do-i-pick-up-the-enter-key-being-pressed-in-javafx2
+        // with minor modifications
+        this.inputTextField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                handleOnSendClick();
+            }
+        });
+        // @@author
 
         // Bind dialogContainer to the viewModel's messages
         this.viewModel.addMessagesListener(c -> {
