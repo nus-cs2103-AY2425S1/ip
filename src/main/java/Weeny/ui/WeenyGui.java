@@ -58,6 +58,7 @@ public class WeenyGui extends AnchorPane {
             FXMLLoader fxmlLoader = new FXMLLoader(Weeny.class.getResource("/view/WeenyGui.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            stage.setTitle("Weeny");
             stage.setScene(scene);
             fxmlLoader.<WeenyGui>getController().setWeeny(this.weenyApp);
             stage.show();

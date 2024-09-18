@@ -89,14 +89,14 @@ public class Weeny extends Application {
                     break;
 
                 case "mark":
-                    validateMarkUnmarkDeleteInput(input);
+                    validateMarkInput(input);
                     int markIndex = parser.extractEndNumber(input) - 1;
                     validateIndex(markIndex, taskList.size(), "mark");
                     taskList.markAsDone(markIndex);
                     return ui.showMarkMessage(taskList.getTask(markIndex));
 
                 case "unmark":
-                    validateMarkUnmarkDeleteInput(input);
+                    validateUnmarkDeleteInput(input);
                     int unmarkIndex = parser.extractEndNumber(input) - 1;
                     validateIndex(unmarkIndex, taskList.size(), "unmark");
                     taskList.markAsNotDone(unmarkIndex);
@@ -130,7 +130,7 @@ public class Weeny extends Application {
                     return ui.printTaskAddedMessage(deadlineTask, taskList.size());
 
                 case "delete":
-                    validateMarkUnmarkDeleteInput(input);
+                    validateUnmarkDeleteInput(input);
                     int initialDeleteSize = taskList.size();
                     int deleteIndex = parser.extractEndNumber(input) - 1;
                     validateIndex(deleteIndex, taskList.size(), "delete");
@@ -224,13 +224,25 @@ public class Weeny extends Application {
     }
 
     /**
-     * Validates input for a "mark", "unmark" and "delete" command.
+     * Validates input for a "mark" command.
      *
      * @param input The command input.
      * @throws IllegalArgumentException if the index is missing or invalid.
      */
-    private void validateMarkUnmarkDeleteInput(String input) {
+    private void validateMarkInput(String input) {
         if (input.length() <= 5 || !input.substring(5).matches("\\d+")) {
+            throw new IllegalArgumentException("Index is missing or invalid.");
+        }
+    }
+
+    /**
+     * Validates input for a "unmark" and "delete" command.
+     *
+     * @param input The command input.
+     * @throws IllegalArgumentException if the index is missing or invalid.
+     */
+    private void validateUnmarkDeleteInput(String input) {
+        if (input.length() <= 7 || !input.substring(7).matches("\\d+")) {
             throw new IllegalArgumentException("Index is missing or invalid.");
         }
     }
