@@ -34,11 +34,16 @@ public class MarkCommand extends Command {
     @Override
     public String execute() throws StobberiException {
         int taskNumber;
+        String[] parts = restOfCommand.split(" ");
+
         if (restOfCommand.matches("\\d+")) {
             taskNumber = Integer.parseInt(restOfCommand);
-        } else {
+        } else if (parts.length == 1) {
             throw new NoNumberStobberiException("Where is the number???");
+        } else {
+            throw new NoNumberStobberiException("Please put only 1 number after the exit command.");
         }
+
         return taskList.markTask(taskNumber);
     }
 }

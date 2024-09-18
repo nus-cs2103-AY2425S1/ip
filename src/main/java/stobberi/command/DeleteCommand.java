@@ -35,12 +35,11 @@ public class DeleteCommand extends Command {
     @Override
     public String execute() throws StobberiException {
         int taskNumber;
-        boolean b = restOfCommand.matches("\\d+");
         String[] parts = restOfCommand.split(" ");
 
-        if (b) {
+        if (restOfCommand.matches("\\d+")) {
             taskNumber = Integer.parseInt(restOfCommand);
-        } else if (!b && parts.length == 1) {
+        } else if (parts.length == 1) {
             throw new NoNumberStobberiException("Where is the number???");
         } else {
             throw new NoNumberStobberiException("Please put only 1 number after the exit command.");
