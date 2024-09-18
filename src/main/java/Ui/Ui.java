@@ -95,7 +95,7 @@ public class Ui {
     }
 
     public String archive() {
-        return "All tasks in the taskList have been archived.";
+        return "All tasks in the schedule have been archived.";
     }
 
     public String retrieveArchive() {
