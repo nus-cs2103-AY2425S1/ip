@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 
 /**
- * The Duke class serves as the main entry point for the bot application.
+ * The Chicken class serves as the main entry point for the bot application.
  * It handles user interaction, file management, and task management by using other classes.
  * The class initializes the necessary managers and the parser to process commands.
  */
@@ -24,28 +24,20 @@ public class Chicken {
      * Reads any existing data from the file first and continues to interact
      * with the user until an exit command is issued.
      */
-    private void greet() {
+    public String getResponse(String input) {
         assert chickenFileManager != null : "FileManager is not initialized";
         assert parser != null : "Parser is not initialized";
 
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Hello! I'm " + name + ". How can I assist you today?");
-        chickenFileManager.readFile();
-        while (scanner.hasNextLine()) {
-            String command = scanner.nextLine();
-            parser.parseCommand(command);
-        }
+//        Scanner scanner = new Scanner(System.in);
+//        System.out.println("Hello! I'm " + name + ". How can I assist you today?");
+//        chickenFileManager.readFile();
+//        while (scanner.hasNextLine()) {
+            String response = parser.parseCommand(input);
+            return response;
     }
 
-    /**
-     * Generates a response for the user's chat message.
-     */
-    public String getResponse(String input) {
-        return "Chicken heard: " + input;
-    }
 
     public static void main(String[] args) {
-        Chicken duke = new Chicken();
-        duke.greet();
+
     }
 }

@@ -5,7 +5,7 @@ import Bot.Parser;
 
 import java.util.Objects;
 
-// All kinds of error handlings of invalid task format can be done here instead of Bot.Duke class
+// All kinds of error handlings of invalid task format can be done here instead of Bot.Chicken class
 public class TaskBuilder {
     private String description;
     private Parser.TaskType taskType;
@@ -23,7 +23,15 @@ public class TaskBuilder {
     public TaskBuilder by(String by) {
         if (Objects.equals(by, "")) {
             System.out.println("by cannot be empty");
+            this.by = null;
+            return this;
         }
+        String date = DateConverter.convertDate(by);
+        if (Objects.equals(date, "Invalid date format!")) {
+            this.by = null;
+            return this;
+        }
+
         this.by = DateConverter.convertDate(by);
         return this;
     }
@@ -31,6 +39,13 @@ public class TaskBuilder {
     public TaskBuilder from(String from) {
         if (Objects.equals(from, "")) {
             System.out.println("from cannot be empty");
+            this.by = null;
+            return this;
+        }
+        String date = DateConverter.convertDate(from);
+        if (Objects.equals(date, "Invalid date format!")) {
+            this.from = null;
+            return this;
         }
         this.from = DateConverter.convertDate(from);
         return this;
@@ -39,6 +54,14 @@ public class TaskBuilder {
     public TaskBuilder to(String to) {
         if (Objects.equals(to, "")) {
             System.out.println("to cannot be empty");
+            this.by = null;
+            return this;
+        }
+
+        String date = DateConverter.convertDate(to);
+        if (Objects.equals(date, "Invalid date format!")) {
+            this.to = null;
+            return this;
         }
         this.to = DateConverter.convertDate(to);
         return this;
@@ -53,7 +76,8 @@ public class TaskBuilder {
                     return todo;
                 } else {
                     System.out.println("Todo requires a description!");
-                    throw new IllegalArgumentException("Todo requires a description!");
+                    throw new IllegalArgumentException("Todo requires a description " +
+                            "and in a proper format!");
                 }
             case DEADLINE:
                 if (by != null) {
@@ -62,8 +86,8 @@ public class TaskBuilder {
                     return deadline;
                 } else {
                     System.out.println("deadline requires a 'by' parameter man!");
-
-                    throw new IllegalArgumentException("deadline requires a 'by' parameter man!");
+                    throw new IllegalArgumentException("deadline requires a 'by' " +
+                            "parameter and in a proper format man!");
                 }
             case EVENT:
                 if (from != null && to != null) {
@@ -73,7 +97,8 @@ public class TaskBuilder {
                 } else {
                     System.out.println("event requires 'from' and 'to' parameter");
 
-                    throw new IllegalArgumentException("event requires 'from' and 'to' parameter");
+                    throw new IllegalArgumentException("event requires 'from' and 'to' parameter " +
+                            "and in a proper format");
                 }
             default:
                 throw new IllegalArgumentException("invalid task type.");

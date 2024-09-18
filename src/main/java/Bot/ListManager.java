@@ -12,13 +12,10 @@ import java.util.ArrayList;
 public class ListManager {
     private ArrayList<Task> itemList = new ArrayList<>();
 
-    public Task createItem(TaskBuilder builder) {
+    public Task createItem(TaskBuilder builder) throws IllegalArgumentException {
         Task task = builder.build();
-        System.out.println("Printing out task infomation");
         for (int i = 0; i < itemList.size(); i++) {
             Task task2 = itemList.get(i);
-            System.out.println(task2 + "task2 info");
-            System.out.println(task + "current task info");
             if (task2.isEqual(task)) {
                 System.out.println("This item already exists!");
                 return task;
@@ -29,14 +26,16 @@ public class ListManager {
     }
 
     /**
-     * Method that takes in a string and returns all tasks that includes that string. Can be used
-     * to list all items by just passing in a "" argument
+     * Method that takes in a string and returns all tasks that include that string.
+     * Can be used to list all items by just passing in a "" argument.
      */
     public String listItems(String item) {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < itemList.size(); i++) {
             Task task = itemList.get(i);
-            result.append(i + 1).append(". ").append(task.toString()).append("\n");
+            if (task.toString().toLowerCase().contains(item.toLowerCase())) {
+                result.append(i + 1).append(". ").append(task.toString()).append("\n");
+            }
         }
         return result.toString();
     }

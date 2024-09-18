@@ -18,6 +18,7 @@ public class DateConverter {
      * @return The formatted date string or an error message if the format is invalid.
      */
     public static String convertDate(String input) {
+        System.out.println(input);
         if (isDateTimeFormat(input)) {
             return convertDateTime(input);
         } else if (isDateFormat(input)) {

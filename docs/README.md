@@ -1,4 +1,4 @@
-# Bot.Duke User Guide
+# Bot.Chicken User Guide
 
 // Update the title above to match the actual product name
 

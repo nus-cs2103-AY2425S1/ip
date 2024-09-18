@@ -25,7 +25,6 @@ public class FileManager {
 
         try {
             File file = new File("src/main/java/data");
-            System.out.println("Absolute path: " + file.getAbsolutePath());
             if (!file.exists()) {
                 file.createNewFile();
             }
@@ -46,11 +45,10 @@ public class FileManager {
     /**
      * Writes the specified text to the file. This method appends the text to the file,
      * ensuring that existing content is not overwritten. Every item added will end with a line break (to a new line)
-     *
+     * File to write to will always exist as will call readFile method first always on boot up which would automatically
+     * Create a new file if it doesn't exist
      * @param textToAdd The text to be added to the file.
      */
-    // File to write to will always exist as will call readFile method first always on boot up which would automatically
-    // Create a new file if it doesn't exist
     public void writeFile(String textToAdd) {
         assert textToAdd != null : "Text to add must not be null";
 

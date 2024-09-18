@@ -17,9 +17,9 @@ public class Parser {
     public enum TaskType {
         TODO,EVENT,DEADLINE
     }
-    public Parser(ListManager dukeManager, FileManager dukeFileManager) {
-        this.chickenManager = dukeManager;
-        this.chickenFileManager = dukeFileManager;
+    public Parser(ListManager chickenManager, FileManager chickenFileManager) {
+        this.chickenManager = chickenManager;
+        this.chickenFileManager = chickenFileManager;
     }
 
     /**
@@ -27,7 +27,7 @@ public class Parser {
      *
      * @param command The user's input command.
      */
-    public void parseCommand(String command) {
+    public String parseCommand(String command) {
         assert command != null && !command.trim().isEmpty() : "Command cannot be null or empty";
 
         String commandLowerCase = command.toLowerCase();
@@ -36,40 +36,31 @@ public class Parser {
 
         switch (firstWord) {
             case "bye":
-            System.out.println("See you again");
-            break;
+            return ("See you again");
 
             case "list":
-            System.out.println(chickenManager.listItems(""));
-            break;
+            return (chickenManager.listItems(""));
 
             case "mark", "unmark":
-            handleMarkUnmark(command, firstWord);
-            break;
+            return handleMarkUnmark(command, firstWord);
 
             case "deadline":
-            handleDeadline(command);
-            break;
+            return handleDeadline(command);
 
             case "todo":
-            handleTodo(command);
-            break;
+            return handleTodo(command);
 
             case "event":
-            handleEvent(command);
-            break;
+            return handleEvent(command);
 
             case "delete":
-            handleDelete(command);
-            break;
+            return handleDelete(command);
 
             case "find":
-            handleFind(command);
-            break;
+            return handleFind(command);
 
             default:
-            System.out.println("I don't understand your command!");
-            break;
+            return ("I don't understand your command!");
 
         }
     }
@@ -80,16 +71,17 @@ public class Parser {
      * @param command The full input string from the user.
      * @param action  The action to perform ("mark" or "unmark").
      */
-    private void handleMarkUnmark(String command, String action) {
+    private String handleMarkUnmark(String command, String action) {
         assert action.equals("mark") || action.equals("unmark") : "Action must be 'mark' or 'unmark'";
 
         int taskNumber = parseTaskNumber(command);
-        if (taskNumber == -1) return;  // parseTaskNumber returns -1 if invalid command given
+        if (taskNumber == -1) return "Invalid command format. Please use the correct format.";
+        // parseTaskNumber returns "invalid..." if invalid command given
 
         boolean isMarking = action.equals("mark");
         chickenManager.setDone(isMarking, taskNumber);
         String statusMessage = isMarking ? "Nice! I've marked this task as done:\n" : "OK, I've marked this task as not done yet:\n";
-        System.out.println(statusMessage + chickenManager.getItem(taskNumber));
+        return (statusMessage + chickenManager.getItem(taskNumber));
     }
 
     private int parseTaskNumber(String command) {
@@ -113,7 +105,7 @@ public class Parser {
     }
 
 
-    private void handleDeadline(String command) {
+    private String handleDeadline(String command) {
         assert command.startsWith("deadline") : "Command should start with 'deadline'";
 
         String[] part = command.replaceFirst("deadline ", "").split("/by", 2);
@@ -121,21 +113,32 @@ public class Parser {
         String by = part.length > 1 ? part[1].trim() : "";
 
         TaskBuilder taskBuilder = new TaskBuilder(description, TaskType.DEADLINE);
-        String task = chickenManager.createItem(taskBuilder.by(by)).toString();
-        chickenFileManager.writeFile(task);
+        try {
+            String task = chickenManager.createItem(taskBuilder.by(by)).toString();
+            chickenFileManager.writeFile(task);
+            return task + " added";
+        } catch (IllegalArgumentException e) {
+            return e.getMessage();
+        }
     }
 
-    private void handleTodo(String command) {
+    private String handleTodo(String command) {
         assert command.startsWith("todo") : "Command should start with 'todo'";
 
         String description = command.substring("todo".length()).trim();
         TaskBuilder taskBuilder = new TaskBuilder(description, TaskType.TODO);
 
-        String task = chickenManager.createItem(taskBuilder).toString();
-        chickenFileManager.writeFile(task);
+        try {
+            String task = chickenManager.createItem(taskBuilder).toString();
+            chickenFileManager.writeFile(task);
+            return task + " added";
+        } catch (IllegalArgumentException e) {
+            return e.getMessage();
+        }
+
     }
 
-    private void handleEvent(String command) {
+    private String handleEvent(String command) {
         assert command.startsWith("event") : "Command should start with 'event'";
 
         // Remove the word 'event' and split by '/from'
@@ -148,11 +151,16 @@ public class Parser {
         String to = dateParts.length > 1 ? dateParts[1].trim() : "";
 
         TaskBuilder taskBuilder = new TaskBuilder(description, TaskType.EVENT);
-        String task = chickenManager.createItem(taskBuilder.from(from).to(to)).toString();
-        chickenFileManager.writeFile(task);
+        try {
+            String task = chickenManager.createItem(taskBuilder.from(from).to(to)).toString();
+            chickenFileManager.writeFile(task);
+            return task + " added";
+        } catch (IllegalArgumentException e) {
+            return e.getMessage();
+        }
     }
 
-    private void handleDelete(String command) {
+    private String handleDelete(String command) {
         assert command.startsWith("delete") : "Command should start with 'delete'";
 
         String index = command.substring("delete".length()).trim();
@@ -160,15 +168,15 @@ public class Parser {
             int indexNumber = Integer.parseInt(index);
             String tempTask = chickenManager.getItem(indexNumber);
             chickenManager.delete(indexNumber);
-            System.out.println("Task deleted: " + tempTask + ". You have " + chickenManager.getItemSize() + " items left.");
+            return ("Task deleted: " + tempTask + ". You have " + chickenManager.getItemSize() + " items left.");
         } catch (NumberFormatException e) {
-            System.out.println("Invalid task number.");
+            return ("Invalid task number.");
         }
     }
 
-    private void handleFind(String command) {
+    private String handleFind(String command) {
         String itemName = command.replace("find ", "");
-        System.out.println(chickenManager.listItems(itemName));
+        return (chickenManager.listItems(itemName)) + "found";
     }
 
 }
