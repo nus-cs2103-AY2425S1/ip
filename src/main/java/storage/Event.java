@@ -3,6 +3,8 @@ package storage;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import skibidi.SkibidiException;
+
 /**
  * Represents an event task.
  */
@@ -18,10 +20,13 @@ public class Event extends Task {
      * @param to The end date and time of the event.
      * @param isDone Whether the event is done.
      */
-    public Event(String description, String from, String to, boolean isDone) {
+    public Event(String description, String from, String to, boolean isDone) throws SkibidiException {
         super(description, isDone);
         this.from = LocalDateTime.parse(from);
         this.to = LocalDateTime.parse(to);
+        if (this.from.isAfter(this.to)) {
+            throw new SkibidiException("Start time should be before end time");
+        }
     }
 
     /**
@@ -32,7 +37,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"))
-                + " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")" + " | " + getTags();
+                + " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
     }
 
     /**
@@ -42,6 +47,6 @@ public class Event extends Task {
      */
     @Override
     public String toFileFormat() {
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from + " | " + to;
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from + " | " + to + " | " + getTags();
     }
 }

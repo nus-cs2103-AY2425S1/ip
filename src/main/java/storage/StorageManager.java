@@ -101,7 +101,7 @@ public class StorageManager {
         List<Tag> tags = new ArrayList<>();
 
         if (parts.length > 3) {
-            String[] tagParts = parts[3].split(",");
+            String[] tagParts = parts[parts.length - 1].split(",");
             for (String tagName : tagParts) {
                 tags.add(new Tag(tagName.trim()));
             }

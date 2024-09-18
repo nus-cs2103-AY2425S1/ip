@@ -17,7 +17,7 @@ public class Tag {
         if (name.trim() == "") {
             throw new SkibidiException("Tag name cannot be empty.");
         }
-        this.name = name;
+        this.name = name.trim();
     }
 
     /**
