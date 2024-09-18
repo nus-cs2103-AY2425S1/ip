@@ -90,7 +90,7 @@ public class History {
     }
 
     /**
-     * Saves the reminder list to the text file.
+     * Saves the reminder list to the text file. Default Winde Text File
      *
      * @param reminder The list of tasks to be saved.
      */
