@@ -9,7 +9,7 @@ TheRatchetCat is here to organise tasks for you!
 > list
 
 **"cp"** command changes the priority of specified task for you
-> cp <Task index> <Task priority>
+> cp <Task number> <Task priority>
 
 **"deadline"** deadline adds a new Task with a deadline for you  
 > deadline <Task Description> /by <YYYY-MM-DD>
