@@ -1,0 +1,4 @@
+T | 0 | laundry
+D | 0 | homework | 2024-09-22 2359
+T | 0 | read book
+T | 0 | buy book
