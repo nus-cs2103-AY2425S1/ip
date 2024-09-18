@@ -41,7 +41,7 @@ public class UnmarkCommand extends Command {
             task.markUndone();
             storage.updateTaskFile(tasks);
 
-            return "Ok! I've unmarked this task as done:"
+            return "Ok! I've unmarked this task as done:\n"
                    + "     " + task;
         } catch (IndexOutOfBoundsException e) {
             return "Index out of bounds! Try calling the command 'list' to "

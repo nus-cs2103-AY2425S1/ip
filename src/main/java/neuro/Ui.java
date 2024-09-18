@@ -38,7 +38,6 @@ public class Ui {
      * Shows the Goodbye message for Neuro.
      */
     public String showGoodbye() {
-        // System.out.println("    Goodbyeee!");
         return """
 
 
@@ -102,7 +101,6 @@ public class Ui {
      * @param errorMessage the error message to be shown
      */
     public String showError(String errorMessage) {
-        // System.out.println("    Oops! " + errorMessage);
         return errorMessage;
     }
 

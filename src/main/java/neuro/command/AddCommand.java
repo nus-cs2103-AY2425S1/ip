@@ -45,7 +45,7 @@ public class AddCommand extends Command {
         case EVENT -> getEventTask();
         default ->
                 throw new IllegalArgumentException("UH OH! I'm sorry but I don't recognise that command."
-                        + " Try the following: 'todo', 'deadline', 'event', 'list', 'find', 'mark', "
+                        + " Try the following:\n'todo', 'deadline', 'event', 'list', 'find', 'mark', "
                         + "'unmark', 'delete', 'bye'.");
         };
 

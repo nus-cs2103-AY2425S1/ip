@@ -36,6 +36,12 @@ public class MainWindow extends AnchorPane {
     public void setNeuro(Neuro n) {
         assert n != null : "Neuro object should not be null";
         neuro = n;
+
+        String welcomeMessage = "Hii, I'm Neuro, your chatbot assistant!"
+                + "\nHow can I help you?";
+        dialogContainer.getChildren().add(
+                DialogBox.getNeuroDialog(welcomeMessage, neuroImage)
+        );
     }
 
     /**
