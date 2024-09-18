@@ -10,10 +10,10 @@ import talker.task.TaskList;
  */
 public class FindCommand extends Command {
     // string representing keyword
-    private String[] parsed;
+    private String input;
 
-    public FindCommand(String[] parsed) {
-        this.parsed = parsed;
+    public FindCommand(String input) {
+        this.input = input;
     }
 
     /**
@@ -27,6 +27,10 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) throws TalkerException {
-        return list.findTask(parsed[1], ui);
+        if (input.length() == 4) {
+            throw new TalkerException("Missing keywords! Try again with: find <keyword(s)> ");
+        }
+        String keywords = input.substring(5).strip();
+        return list.findTask(keywords, ui);
     }
 }
