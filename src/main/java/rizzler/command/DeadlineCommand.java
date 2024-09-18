@@ -31,8 +31,12 @@ public class DeadlineCommand extends Command {
     public String[] execute(Storage storage, TaskLog taskLog) {
         taskLog.addTask(deadline);
         storage.storeTasks(taskLog);
+        return createConfirmationMessage(taskLog.getNumTasks());
+    }
+
+    private String[] createConfirmationMessage(int newNumTasks) {
         return new String[] {"certainly, i'll keep track of this deadline for you ;)",
                 "\t" + deadline,
-                "now we have " + taskLog.getNumTasks() + " tasks to work on."};
+                "now we have " + newNumTasks + " tasks to work on."};
     }
 }
