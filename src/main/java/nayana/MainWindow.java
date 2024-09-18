@@ -50,6 +50,7 @@ public class MainWindow extends AnchorPane {
         nayana = n;
         nayana.getUi().setVbox(dialogContainer); // Sets the dialog container in the Nayana UI.
         nayana.getUi().showWelcomeMessage(); // Displays a welcome message.
+        nayana.setFilePath("data/nayana.txt"); //Sets the Filepath for Nayana
     }
 
     /**

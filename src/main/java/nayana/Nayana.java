@@ -13,6 +13,10 @@ public class Nayana {
 
     boolean isExit = false;
 
+    public Nayana() {
+        this.ui = new Ui();
+    }
+
     /**
      * Constructs a Nayana instance with the specified file path for task storage.
      *
@@ -25,6 +29,16 @@ public class Nayana {
             tasks = new TaskList(storage.load());
         } catch (NayanaException e) {
             System.out.println("no correct file");
+            tasks = new TaskList();
+        }
+    }
+
+    public void setFilePath(String filepath) {
+        storage = new Storage(filepath);
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (NayanaException e) {
+            ui.showError("no correct file in " + filepath);
             tasks = new TaskList();
         }
     }
