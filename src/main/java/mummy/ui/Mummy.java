@@ -3,6 +3,7 @@ package mummy.ui;
 import java.io.IOException;
 
 import mummy.command.Command;
+import mummy.command.CommandManager;
 import mummy.task.TaskList;
 import mummy.utility.Storage;
 
@@ -17,11 +18,7 @@ public class Mummy {
 
     private static final String IO_PATH = "./data/mummy.txt";
 
-    private final Storage storage;
-
-    private final TaskList taskList;
-
-    private Command currentCommand;
+    private final CommandManager commandManager;
 
     /**
      * Constructs a new instance of the Mummy class.
@@ -30,55 +27,34 @@ public class Mummy {
      * otherwise creates a new empty task list.
      */
     public Mummy() {
-        this.storage = new Storage(IO_PATH);
+        Storage storage = new Storage(IO_PATH);
         TaskList taskList;
+
         try {
-            taskList = new TaskList(this.storage.load());
+            taskList = new TaskList(storage.load());
         } catch (IOException e) {
             taskList = new TaskList();
         }
 
-        this.taskList = taskList;
+        this.commandManager = new CommandManager(taskList, storage);
     }
 
     public String getResponse(String input) {
         try {
             Command command = Command.of(input);
-
-            if (command.getCommandType().equals(Command.CommandType.UNDO)) {
-                return undoCommand(command);
-            }
-
-            this.currentCommand = command;
-            return this.currentCommand.execute(this.taskList, this.storage);
+            return commandManager.execute(command);
         } catch (MummyException exception) {
             return exception.getMessage();
         }
     }
 
-    private String undoCommand(Command undoCommand) throws MummyException {
-        assert (undoCommand.getCommandType().equals(Command.CommandType.UNDO));
-
-        if (currentCommand == null) {
-            throw new MummyException("No command to undo");
-        }
-
-        String message = String.format(
-                "%s\n%s",
-                undoCommand.execute(this.taskList, this.storage),
-                this.currentCommand.undo(this.taskList, this.storage)
-        );
-
-        this.currentCommand = undoCommand;
-        return message;
-    }
-
     public Command.CommandType getCommandType() {
-        if (this.currentCommand == null) {
+        try {
+            Command command = commandManager.getMostRecentCommand();
+            return command.getCommandType();
+        } catch (MummyException exception) {
             return Command.CommandType.UNKNOWN;
         }
-
-        return this.currentCommand.getCommandType();
     }
 
     public String generateWelcomeMessage() {
@@ -86,6 +62,11 @@ public class Mummy {
     }
 
     public boolean hasExitCommand() {
-        return this.currentCommand != null && this.currentCommand.isExit();
+        try {
+            Command command = commandManager.getMostRecentCommand();
+            return command.isExit();
+        } catch (MummyException exception) {
+            return false;
+        }
     }
 }
