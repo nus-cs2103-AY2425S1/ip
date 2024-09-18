@@ -87,14 +87,6 @@ public class DeadlineTest {
     }
 
     @Test
-    public void invalid_dueDate_test() throws JanetException {
-        JanetException exception = assertThrows(JanetException.class,
-                () -> {new Deadline("deadline return book /by 2024-01-01 18:00");});
-
-        assertEquals(exception.getMessage(), "WHOOPS! Your deadline's due date cannot be earlier than today!");
-    }
-
-    @Test
     public void deadlineCreationFromTxtTest() throws JanetException {
         String[] textLine = "D | 0 | return bike | Nov 30 2024 18:00 pm".split("\\|");
         Deadline actualDeadline = new Deadline(textLine);

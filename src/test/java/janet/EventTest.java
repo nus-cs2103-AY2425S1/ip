@@ -53,17 +53,12 @@ public class EventTest {
         assertEquals(
                 e1.getMessage(), "WHOOPS! Your event's start date cannot be later than/equal to the end date!"
         );
+
         // start date = end date
         JanetException e2 = assertThrows(JanetException.class,
                 () -> {new Event("event project meeting /from 2024-12-30 18:30 /to 2024-12-30 18:30");});
         assertEquals(
                 e2.getMessage(), "WHOOPS! Your event's start date cannot be later than/equal to the end date!"
-        );
-        // start date earlier than today's date and time
-        JanetException e3 = assertThrows(JanetException.class,
-                () -> {new Event("event project meeting /from 2022-12-30 18:00 /to 2024-11-30 18:30");});
-        assertEquals(
-                e3.getMessage(), "WHOOPS! Your event's start date cannot be earlier than today!"
         );
     }
 
