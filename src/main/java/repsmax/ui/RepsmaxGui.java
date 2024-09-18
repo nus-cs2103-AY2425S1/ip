@@ -13,7 +13,7 @@ public class RepsmaxGui extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        repsmax = new Repsmax("C:/Users/nicla/OneDrive/Desktop/Cs2103/repo/src/data.txt");
+        repsmax = new Repsmax("src/data.txt");
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/MainWindow.fxml"));
         Parent root = fxmlLoader.load();

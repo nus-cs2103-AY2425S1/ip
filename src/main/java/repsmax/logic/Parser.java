@@ -112,16 +112,20 @@ public class Parser {
      */
     private String handleMarkCommand(String[] splitInput, TaskList tasks, Ui ui, Storage storage) {
         try {
-            int markIndex = Integer.parseInt(splitInput[1]) - 1;
-            if (markIndex >= 0 && markIndex < tasks.size()) {
-                tasks.get(markIndex).setDone();
-                storage.save(tasks);
-                return "Nice! I've marked this task as done:\n" + tasks.get(markIndex);
-            } else {
-                return "OOPS!!! The task number is out of range.";
+            if (splitInput.length < 2 || !splitInput[1].matches("\\d+")) {
+                return "OOPS!!! The mark command must be followed by a task number.";
             }
-        } catch (NumberFormatException e) {
-            return "OOPS!!! The task number must be an integer.";
+
+            int taskIndex = Integer.parseInt(splitInput[1]) - 1;
+            Task taskToMark = tasks.get(taskIndex);
+            taskToMark.setDone();
+            storage.save(tasks);
+
+            return "Nice! I've marked this task as done:\n" + taskToMark;
+        } catch (IndexOutOfBoundsException e) {
+            return "OOPS!!! The task number you provided is out of range.";
+        } catch (Exception e) {
+            return "Something went wrong while processing the mark command.";
         }
     }
 
@@ -136,16 +140,20 @@ public class Parser {
      */
     private String handleUnmarkCommand(String[] splitInput, TaskList tasks, Ui ui, Storage storage) {
         try {
-            int unmarkIndex = Integer.parseInt(splitInput[1]) - 1;
-            if (unmarkIndex >= 0 && unmarkIndex < tasks.size()) {
-                tasks.get(unmarkIndex).setUndone();
-                storage.save(tasks);
-                return "OK, I've marked this task as not done yet:\n" + tasks.get(unmarkIndex);
-            } else {
-                return "OOPS!!! The task number is out of range.";
+            if (splitInput.length < 2 || !splitInput[1].matches("\\d+")) {
+                return "OOPS!!! The unmark command must be followed by a task number.";
             }
-        } catch (NumberFormatException e) {
-            return "OOPS!!! The task number must be an integer.";
+
+            int taskIndex = Integer.parseInt(splitInput[1]) - 1;
+            Task taskToUnmark = tasks.get(taskIndex);
+            taskToUnmark.setUndone();
+            storage.save(tasks);
+
+            return "OK, I've marked this task as not done yet:\n" + taskToUnmark;
+        } catch (IndexOutOfBoundsException e) {
+            return "OOPS!!! The task number you provided is out of range.";
+        } catch (Exception e) {
+            return "Something went wrong while processing the unmark command.";
         }
     }
 
@@ -314,19 +322,25 @@ public class Parser {
      */
     private String handleDeleteCommand(String[] splitInput, TaskList tasks, Ui ui, Storage storage) {
         try {
-            int deleteIndex = Integer.parseInt(splitInput[1]) - 1;
-            if (deleteIndex >= 0 && deleteIndex < tasks.size()) {
-                Task removedTask = tasks.remove(deleteIndex);
-                storage.save(tasks);
-                return "Noted. I've removed this task:\n" + removedTask +
-                        "\nNow you have " + tasks.size() + " tasks in the list.";
-            } else {
-                return "OOPS!!! The task number is out of range.";
+            // Ensure the command is followed by a number
+            if (splitInput.length < 2 || !splitInput[1].matches("\\d+")) {
+                return "OOPS!!! The delete command must be followed by a task number.";
             }
-        } catch (NumberFormatException e) {
-            return "OOPS!!! The task number must be an integer.";
+
+            int taskIndex = Integer.parseInt(splitInput[1]) - 1;
+            Task taskToRemove = tasks.get(taskIndex);
+            tasks.remove(taskIndex);
+            storage.save(tasks);
+
+            return "Noted. I've removed this task:\n" + taskToRemove +
+                    "\nNow you have " + tasks.size() + " tasks in the list.";
+        } catch (IndexOutOfBoundsException e) {
+            return "OOPS!!! The task number you provided is out of range.";
+        } catch (Exception e) {
+            return "Something went wrong while processing the delete command.";
         }
     }
+
 
     /**
      * Handles the "bye" command, saving the current tasks and exiting the program.
