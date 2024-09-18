@@ -1,5 +1,6 @@
 package him;
 
+import command.ArchiveCommand;
 import command.Command;
 import command.AddCommand;
 import command.ExitCommand;
@@ -66,6 +67,10 @@ public class Parser {
         case "find" -> {
             String keyword = parseFind(args);
             yield new FindCommand(keyword);
+        }
+        case "archive" -> {
+            int index = parseArchive(args);
+            yield new ArchiveCommand(index);
         }
         case "bye" -> new ExitCommand();
         default -> new UnknownCommand(command);
@@ -142,5 +147,12 @@ public class Parser {
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidFindFormatException();
         }
+    }
+
+    private static int parseArchive(String[] args) {
+        if (args.length == 1) {
+            return -1;
+        }
+        return Integer.parseInt(args[1]) - 1;
     }
 }
