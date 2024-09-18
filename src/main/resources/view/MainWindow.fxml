@@ -18,7 +18,7 @@
                    fitHeight="400.0"
                    fitWidth="800.0" />
         <ScrollPane fx:id="scrollPane"
-                    styleClass="translucent-scrollpane"
+                    styleClass="scrollpane"
                     layoutY="300.0"
                     hbarPolicy="NEVER"
                     hvalue="1.0"
@@ -27,7 +27,7 @@
                     vvalue="0.0">
             <content>
                 <VBox fx:id="dialogContainer"
-                      styleClass="translucent-scrollpane"
+                      styleClass="scrollpane"
                       prefHeight="100.0"
                       prefWidth="800.0" />
             </content>

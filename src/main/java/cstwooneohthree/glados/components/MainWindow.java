@@ -26,11 +26,13 @@ public class MainWindow extends AnchorPane {
     private Glados glados;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image gladosImage = new Image(this.getClass().getResourceAsStream("/images/DaGlados.png"));
+    private Image gladosImage = new Image(this.getClass().getResourceAsStream("/images/GladosIcon.png"));
     private Image gladosBackgroundImage = new Image(this.getClass().getResourceAsStream("/images/GladosBackground.gif"));
+    private String styleSheet = this.getClass().getResource("/css/main.css").toExternalForm();
 
     @FXML
     public void initialize() {
+        getStylesheets().add(styleSheet);
         gladosBackground.setImage(gladosBackgroundImage);
     }
 
