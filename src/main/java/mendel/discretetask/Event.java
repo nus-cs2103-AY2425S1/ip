@@ -1,10 +1,10 @@
 package mendel.discretetask;
 
+import java.time.LocalDate;
+
 import mendel.datetime.DateTimeManager;
 import mendel.mendelexception.ConditionalExceptionHandler;
 import mendel.mendelexception.MendelException;
-
-import java.time.LocalDate;
 
 /**
  * Represents an event task.
@@ -140,7 +140,7 @@ public class Event extends Task {
                         "OOPS! Start day is earlier than today.\nPlease ensure valid time period.")
                 .conditionTriggerException(new DateTimeManager(endMsg)
                                 .isEarlierThan(new DateTimeManager(LocalDate.now().toString())),
-                        "OOPS! End day is later than today.\nPlease ensure valid time period.")
+                        "OOPS! End day is earlier than today.\nPlease ensure valid time period.")
                 .conditionTriggerException(new DateTimeManager(endMsg).isEarlierThan(new DateTimeManager(startMsg)),
                         "OOPS! Start day is later than end day.\nPlease ensure valid time period.")
                 .conditionTriggerException(startMsg.isEmpty() && endMsg.isEmpty(),
@@ -161,6 +161,12 @@ public class Event extends Task {
                 .equals(new DateTimeManager(this.to).removeTimeStamp());
     }
 
+    /**
+     * Checks if Event deadline is before the date specified and is after today
+     *
+     * @param formattedDate date to look back from
+     * @return true if Event deadline is before the date specified and is after today contains pattern, false otherwise
+     */
     @Override
     public boolean isIncompleteWithinTargetDueDate(String formattedDate) {
         DateTimeManager inputDate = new DateTimeManager(formattedDate);
@@ -176,15 +182,21 @@ public class Event extends Task {
     }
 
     /**
-     * Parses the details of this Event task into a string format suitable for storage in a database.
+     * Checks description contains input pattern specified
      *
-     * @return A string containing the task type, status, description, start date, and end date.
+     * @param matchingString  pattern to look for
+     * @return true if description contains pattern, false otherwise
      */
     @Override
     public boolean isMatchingDescription(String matchingString) {
         return this.description.contains(matchingString);
     }
 
+    /**
+     * Parses the details of this Event task into a string format suitable for storage in a database.
+     *
+     * @return A string containing the task type, status, description, start date, and end date.
+     */
     @Override
     public String parseDetailsForDB() {
         return String.format("E | %d | %s | %s | %s", super.getStatus() ? 1 : 0, this.description, this.from, this.to);

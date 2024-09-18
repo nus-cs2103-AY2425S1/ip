@@ -68,8 +68,20 @@ public abstract class Task {
      */
     public abstract boolean isTargetDueDate(String formattedDate);
 
+    /**
+     * Checks if task's deadline is before the date specified and is after today
+     *
+     * @param formattedDate date to look back from
+     * @return true if task's deadline is before the date specified and is after today contains pattern, false otherwise
+     */
     public abstract boolean isIncompleteWithinTargetDueDate(String formattedDate);
 
+    /**
+     * Checks description contains input pattern specified
+     *
+     * @param matchingString  pattern to look for
+     * @return true if description contains pattern, false otherwise
+     */
     public abstract boolean isMatchingDescription(String matchingString);
 
     /**

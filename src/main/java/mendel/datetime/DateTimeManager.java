@@ -1,12 +1,12 @@
 package mendel.datetime;
 
-import mendel.mendelexception.MendelException;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import mendel.mendelexception.MendelException;
 
 /**
  * The DateTimeManager class parses inputted of date-time strings to a consistent form.
@@ -17,9 +17,10 @@ public class DateTimeManager {
         "dd-MM-yyyy HH:mm", "dd/MM/yyyy HH:mm", "d-MMM-yyyy HH:mm", "d/MMM/yyyy HH:mm", "d MMM yyyy HH:mm",
         "d-M-yyyy HH:mm", "d/M/yyyy HH:mm", "dd-MMM-yyyy HHmm", "dd/MMM/yyyy HHmm", "dd MMM yyyy HHmm",
         "dd-MM-yyyy HHmm", "dd/MM/yyyy HHmm", "dd-MMM-yyyy HH mm", "dd/MMM/yyyy HH mm", "dd MMM yyyy HH mm",
-        "dd-MM-yyyy HH mm", "dd/MM/yyyy HH mm", "d/M/yyyy HH mm", "d/M/yyyy HHmm", "d/MMM/yyyy HH mm",
+        "d MMM yyyy HHmm", "dd-MM-yyyy HH mm", "dd/MM/yyyy HH mm", "d/M/yyyy HH mm", "d/M/yyyy HHmm",
         "d/MMM/yyyy HHmm", "d-M-yyyy HH mm", "d-M-yyyy HHmm", "d-MMM-yyyy HH mm", "d-MMM-yyyy HHmm",
-        "d MMM yyyy HHmm"
+        "d MMM yyyy HHmm", "MMM dd yyyy, HH mm", "MMM dd yyyy, HH:mm", "MMM dd yyyy, HHmm", "MMM dd yyyy HH:mm",
+        "d/MMM/yyyy HH mm"
     };
     private static final String[] POSSIBLE_FORMATTED_UNTIME = new String[] {
         "dd-MMM-yyyy", "dd/MMM/yyyy", "dd MMM yyyy", "MMM dd yyyy", "MMM, dd yyyy",
@@ -30,7 +31,7 @@ public class DateTimeManager {
         "M d yyyy", "d M yyyy", "d/M/yyyy", "M/d/yyyy", "yyyy d M", "yyyy, d M", "d-M-yyyy", "yyyy-MM-dd"
     };
     private final String rawDate;
-    private final String formattedDate;
+    private String formattedDate;
 
     /**
      * Constructs a DateTimeManager object by attempting to parse a raw date string into a standard format.
@@ -41,12 +42,20 @@ public class DateTimeManager {
     public DateTimeManager(String rawDate) throws MendelException {
         this.rawDate = rawDate;
         if (!this.isValidFormat()) {
+            handleUnCompliantDate(rawDate);
+        }
+        this.formattedDate = parseDate();
+    }
+    private void handleUnCompliantDate(String rawDate) {
+        try {
+            LocalDateTime date = LocalDateTime.parse(rawDate);
+            this.formattedDate = date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        } catch (DateTimeParseException e) {
             String message = String.format(
                     "The date %s is not correctly formatted.\nWrite in form Month Day Year such as Aug 09 2024",
                     rawDate);
             throw new MendelException(message);
         }
-        this.formattedDate = parseDate();
     }
 
     /**

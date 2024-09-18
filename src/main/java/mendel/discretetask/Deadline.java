@@ -1,10 +1,10 @@
 package mendel.discretetask;
 
+import java.time.LocalDate;
+
 import mendel.datetime.DateTimeManager;
 import mendel.mendelexception.ConditionalExceptionHandler;
 import mendel.mendelexception.MendelException;
-
-import java.time.LocalDate;
 
 /**
  * Represents deadline task. The Deadline class extends the Task class
@@ -120,7 +120,7 @@ public class Deadline extends Task {
                 .conditionTriggerException(endMsg.isEmpty(), "OOPS! I am unsure of due.\nPlease specify a due.")
                 .conditionTriggerException(new DateTimeManager(endMsg)
                                 .isEarlierThan(new DateTimeManager(LocalDate.now().toString())),
-                        "OOPS! Start day is later than end day.\nPlease ensure valid time period.");
+                        "OOPS! Start day is later than today.\nPlease ensure valid time period.");
     }
 
     /**
@@ -135,6 +135,12 @@ public class Deadline extends Task {
                 .equals(new DateTimeManager(this.by).removeTimeStamp());
     }
 
+    /**
+     * Checks if deadline is before the date specified and is after today
+     *
+     * @param formattedDate date to look back from
+     * @return true if deadline is before the date specified and is after today contains pattern, false otherwise
+     */
     @Override
     public boolean isIncompleteWithinTargetDueDate(String formattedDate) {
         DateTimeManager inputDate = new DateTimeManager(formattedDate);
@@ -157,15 +163,21 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a string representation of the Deadline task, including its type and status.
+     * Checks description contains input pattern specified
      *
-     * @return A string representing the Deadline task.
+     * @param matchingString  pattern to look for
+     * @return true if description contains pattern, false otherwise
      */
     @Override
     public boolean isMatchingDescription(String matchingString) {
         return this.description.contains(matchingString);
     }
 
+    /**
+     * Returns a string representation of the Deadline task, including its type and status.
+     *
+     * @return A string representing the Deadline task.
+     */
     @Override
     public String toString() {
         return String.format("[D]%s", super.toString());
