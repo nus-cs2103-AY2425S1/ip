@@ -7,22 +7,22 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 /**
- * API of the storage class
+ * API of the storage class.
  */
 public class Storage {
     private String filePath;
 
     /**
-     * Initialise a storage class
-     * @param filePath File path to tasks
+     * Initialises a storage class.
+     * @param filePath File path to tasks.
      */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
     /**
-     * Saves tasks to file in initialised file path
-     * @param tasks Task list
+     * Saves tasks to file in initialised file path.
+     * @param tasks Task list.
      */
     public void saveTasks(ArrayList<Task> tasks) {
         try {
@@ -36,9 +36,9 @@ public class Storage {
     }
 
     /**
-     * Loads task list from file
-     * @return task list
-     * @throws AssitinatorException If file not in provided file path
+     * Loads task list from file.
+     * @return Task list.
+     * @throws AssitinatorException If file not in provided file path.
      */
     public ArrayList<Task> loadTasks() throws AssitinatorException {
         try {
@@ -55,10 +55,10 @@ public class Storage {
     }
 
     /**
-     * Converts lines in files to tasks
-     * @param parts Task information
-     * @param type Type of task
-     * @return Task
+     * Converts lines in files to tasks.
+     * @param parts Task information.
+     * @param type Type of task.
+     * @return Task.
      */
     public Task getTask(String[] parts, String type) {
         boolean isDone = TaskStatus.isDone(parts[1].trim());

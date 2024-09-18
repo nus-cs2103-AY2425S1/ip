@@ -4,15 +4,15 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents deadline task
+ * Represents deadline task.
  */
 public class Deadline extends Task {
     protected LocalDate by;
 
     /**
-     * Initialise deadline task
-     * @param description task description
-     * @param by deadline
+     * Initialises a deadline task
+     * @param description Task description.
+     * @param by Deadline.
      */
     public Deadline(String description, String by) {
         super(description);
@@ -20,8 +20,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Convert task to formatted string
-     * @return formatted string
+     * {@inheritDoc}
      */
     @Override
     public String toString() {
@@ -29,8 +28,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Generate string to print onto file
-     * @return String for file
+     * {@inheritDoc}
      */
     public String toFileString() {
         return String.format("D | %s | %s | %s", isDone ? TaskStatus.NOTDONE : TaskStatus.DONE, description, by);

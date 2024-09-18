@@ -1,7 +1,7 @@
 package assistinator;
 
 /**
- * Represents status of task
+ * Represents status of task.
  */
 public enum TaskStatus {
     NOTDONE, DONE;

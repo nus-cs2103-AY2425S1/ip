@@ -1,7 +1,7 @@
 package assistinator;
 
 /**
- * Main application
+ * Main application.
  */
 public class Assistinator {
     private final Storage storage;
@@ -11,8 +11,8 @@ public class Assistinator {
     private boolean isError;
 
     /**
-     * Initialising an Assistinator class
-     * @param filePath path to storage file
+     * Initialises an Assistinator class.
+     * @param filePath Path to storage file.
      */
     public Assistinator(String filePath) {
         ui = new Ui();
@@ -28,7 +28,7 @@ public class Assistinator {
     }
 
     /**
-     * Runs the application
+     * Runs the application.
      */
     public void run() {
         ui.showWelcome();
@@ -49,6 +49,11 @@ public class Assistinator {
         }
     }
 
+    /**
+     * Gets response for GUI.
+     * @param input User input.
+     * @return Response to user.
+     */
     public String getResponse(String input) {
         try {
             Command command = commandExecutor.parseCommand(input);
@@ -62,6 +67,10 @@ public class Assistinator {
         }
     }
 
+    /**
+     * Checks if an error has occurred.
+     * @return True if an error has occurred, otherwise false.
+     */
     public boolean isError() {
         return isError;
     }

@@ -1,7 +1,7 @@
 package assistinator;
 
 /**
- * Custom exception for Assistinator
+ * Custom exception for Assistinator.
  */
 public class AssitinatorException extends Exception {
     public AssitinatorException(String message) {

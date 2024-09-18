@@ -1,21 +1,20 @@
 package assistinator;
 
 /**
- * Represents todo task
+ * Represents todo task.
  */
 public class Todo extends Task {
 
     /**
-     * Initialise task
-     * @param description Task description
+     * Initialises a todo task.
+     * @param description Task description.
      */
     public Todo(String description) {
         super(description);
     }
 
     /**
-     * Convert task to formatted string
-     * @return formatted string
+     * {@inheritDoc}
      */
     @Override
     public String toString() {
@@ -23,8 +22,7 @@ public class Todo extends Task {
     }
 
     /**
-     * Generate string to print onto file
-     * @return String for file
+     * {@inheritDoc}
      */
     public String toFileString() {
         return String.format("T | %s | %s", isDone ? TaskStatus.DONE : TaskStatus.NOTDONE, description);

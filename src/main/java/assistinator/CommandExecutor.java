@@ -12,9 +12,9 @@ public class CommandExecutor {
     /**
      * Initializes the CommandExecutor with the necessary dependencies.
      *
-     * @param ui      the user interface
-     * @param tasks   the task list
-     * @param storage the storage for tasks
+     * @param ui The user interface.
+     * @param tasks The task list.
+     * @param storage The storage for tasks.
      */
     public CommandExecutor(Ui ui, TaskList tasks, Storage storage) {
         this.ui = ui;
@@ -26,9 +26,9 @@ public class CommandExecutor {
     /**
      * Parses the user command from the given input.
      *
-     * @param fullCommand the full user input
-     * @return the parsed command
-     * @throws AssitinatorException if the command cannot be parsed
+     * @param fullCommand The full user input.
+     * @return The parsed command.
+     * @throws AssitinatorException If the command cannot be parsed.
      */
     public Command parseCommand(String fullCommand) throws AssitinatorException {
         return parser.parseCommand(fullCommand);
@@ -37,10 +37,10 @@ public class CommandExecutor {
     /**
      * Executes the given command with the provided input.
      *
-     * @param command     the command to execute
-     * @param fullCommand the full user input
-     * @return the response to the executed command
-     * @throws AssitinatorException if the command cannot be executed
+     * @param command The command to execute.
+     * @param fullCommand The full user input.
+     * @return The response to the executed command.
+     * @throws AssitinatorException If the command cannot be executed.
      */
     public String executeCommand(Command command, String fullCommand) throws AssitinatorException {
         switch (command) {

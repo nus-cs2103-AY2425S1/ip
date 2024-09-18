@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
- * Represents list of task
+ * Represents list of task.
  */
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -20,16 +20,16 @@ public class TaskList {
     }
 
     /**
-     * Add task to task list
+     * Adds task to task list.
      */
     public void addTask(Task task) {
         tasks.add(task);
     }
 
     /**
-     * Delete specified task
-     * @param index Index of task
-     * @throws AssitinatorException If index is invalid
+     * Deletes specified task.
+     * @param index Index of task.
+     * @throws AssitinatorException If index is invalid.
      */
     public void deleteTask(int index) throws AssitinatorException {
         if (index < 0 || index >= tasks.size()) {
@@ -39,10 +39,10 @@ public class TaskList {
     }
 
     /**
-     * Marks specified task as done or undone
-     * @param index Task index
-     * @param isDone Whether task is done or not done
-     * @throws AssitinatorException If task index is invalid
+     * Marks specified task as done or undone.
+     * @param index Task index.
+     * @param isDone Whether task is done or not done.
+     * @throws AssitinatorException If task index is invalid.
      */
     public void markTask(int index, boolean isDone) throws AssitinatorException {
         if (index < 0 || index >= tasks.size()) {
@@ -56,8 +56,8 @@ public class TaskList {
     }
 
     /**
-     * Return formatted string for task list for list command
-     * @return formatted string
+     * Returns formatted string for task list for list command.
+     * @return Formatted string.
      */
     public String listTasks() {
         return IntStream.range(0, tasks.size())
@@ -66,9 +66,9 @@ public class TaskList {
     }
 
     /**
-     * Filters and generates output string
-     * @param keyword Search keyword
-     * @return Filtered string
+     * Filters and generates output string.
+     * @param keyword Search keyword.
+     * @return Filtered string.
      */
     public String filterTasks(String keyword) {
         return IntStream.range(0, tasks.size())
@@ -78,16 +78,16 @@ public class TaskList {
     }
 
     /**
-     * Returns task list size
-     * @return task list size
+     * Returns task list size.
+     * @return Task list size.
      */
     public int size() {
         return tasks.size();
     }
 
     /**
-     * Return task list
-     * @return Task list
+     * Returns task list.
+     * @return Task list.
      */
     public ArrayList<Task> getTasks() {
         return tasks;
@@ -96,8 +96,8 @@ public class TaskList {
     /**
      * Checks if the new task clashes with any existing tasks.
      *
-     * @param newTask the task to check for clashes
-     * @return true if there's a clash, false otherwise
+     * @param newTask The task to check for clashes.
+     * @return True if there's a clash, false otherwise.
      */
     public Event hasTimeClash(Task newTask) {
         if (newTask instanceof Todo || newTask instanceof Deadline) {

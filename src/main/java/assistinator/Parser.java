@@ -1,16 +1,16 @@
 package assistinator;
 
 /**
- * Parses input and creates respective command
+ * Parses input and creates respective command.
  */
 public class Parser {
     static final int DEADLINE_INPUT_LENGTH = 2;
     static final int EVENT_INPUT_LENGTH = 3;
 
     /**
-     * Parses command from user input
-     * @param input User input from UI
-     * @return Command to be used by
+     * Parses command from user input.
+     * @param input User input from UI.
+     * @return Command to be used by.
      */
     public Command parseCommand(String input) {
         String commandType = input.split(" ")[0].toUpperCase();
