@@ -18,6 +18,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
+        assert stage != null : "Stage must not be null";
+        assert kj != null : "KillJoy instance must not be null";
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
