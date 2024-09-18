@@ -39,11 +39,17 @@ public class Parser {
             .appendPattern("d/M/yyyy") // Single or double-digit day and month
             .toFormatter()
             .withResolverStyle(ResolverStyle.SMART);
+
+    private static final DateTimeFormatter SINGLEDIGITDATETIME = new DateTimeFormatterBuilder()
+            .appendPattern("d/M/yyyy") // Single or double-digit day and month
+            .appendPattern(" HHmm")    // Time in 24-hour format, without a separator
+            .toFormatter()
+            .withResolverStyle(ResolverStyle.SMART);
     private static final DateTimeFormatter DASHONLYDATE = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private static final DateTimeFormatter SLASHONLYDATE = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private static final DateTimeFormatter PRINTDATEFORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
     private static final DateTimeFormatter[] DATE_TIME_FORMATTERS =
-            new DateTimeFormatter[] {DASHFORMATTER, SLASHFORMATTER, PRINTDATEFORMATTER};
+            new DateTimeFormatter[] {DASHFORMATTER, SLASHFORMATTER, PRINTDATEFORMATTER, SINGLEDIGITDATETIME};
     private static final DateTimeFormatter[] DATE_ONLY_FORMATTERS =
             new DateTimeFormatter[] {DASHONLYDATE, SLASHONLYDATE, SINGLEDIGITDATE};
 
