@@ -23,15 +23,8 @@ public class Parser {
         try {
             String[] commandsArray = fullCommand.split(" ");
             assert commandsArray.length > 0 : "Commands array should have at least 1 element";
-            String commandString = commandsArray[0].toUpperCase();
-            AtlasCommand command;
-            if (commandString.length() == 1) {
-                AtlasSimpleCommand simpleCommand = AtlasSimpleCommand.valueOf(commandString);
-                command = CommandManager.getFullCommandFromSimpleCommand(simpleCommand);
-            } else {
-                command = AtlasCommand.valueOf(commandString);
-            }
 
+            AtlasCommand command = Parser.parseCommandsArray(commandsArray);
             return switch (command) {
             case BYE -> CommandManager.getExitCommand();
             case LIST -> CommandManager.getListCommand(commandsArray);
@@ -50,5 +43,24 @@ public class Parser {
         } catch (DateTimeException e) {
             throw new AtlasException("Invalid DateTime format. Please use yyyy-mm-dd HHmm");
         }
+    }
+
+    /**
+     * @param commandsArray The array of commands that consist all the words the user has typed in the chatbot as an
+     * entire command.
+     * @return AtlasCommand The command that the user would like the chatbot to execute.
+     * @throws IllegalArgumentException The error thrown when a user types in a command that does not exist.
+     */
+    public static AtlasCommand parseCommandsArray(String[] commandsArray) throws IllegalArgumentException {
+        AtlasCommand command;
+        String commandString = commandsArray[0].toUpperCase();
+        if (commandString.length() == 1) {
+            AtlasSimpleCommand simpleCommand = AtlasSimpleCommand.valueOf(commandString);
+            command = CommandManager.getFullCommandFromSimpleCommand(simpleCommand);
+        } else {
+            command = AtlasCommand.valueOf(commandString);
+        }
+
+        return command;
     }
 }

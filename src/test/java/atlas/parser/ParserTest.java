@@ -1,5 +1,6 @@
 package atlas.parser;
 
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
@@ -15,19 +16,19 @@ public class ParserTest {
     @Test
     public void exitCommand_byeInput_success() throws AtlasException {
         Command c = Parser.parse("bye");
-        assert(c instanceof ExitCommand);
+        assertInstanceOf(ExitCommand.class, c);
     }
 
     @Test
     public void listCommand_listInput_success() throws AtlasException {
         Command c = Parser.parse("list");
-        assert(c instanceof ListCommand);
+        assertInstanceOf(ListCommand.class, c);
     }
 
     @Test
     public void markCommand_indexInput_success() throws AtlasException {
         Command c = Parser.parse("mark 1");
-        assert(c instanceof MarkCommand);
+        assertInstanceOf(MarkCommand.class, c);
     }
 
     @Test
@@ -43,7 +44,7 @@ public class ParserTest {
     @Test
     public void unmarkCommand_indexInput_success() throws AtlasException {
         Command c = Parser.parse("unmark 1");
-        assert(c instanceof UnmarkCommand);
+        assertInstanceOf(UnmarkCommand.class, c);
     }
 
     @Test
