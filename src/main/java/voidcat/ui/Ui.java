@@ -95,7 +95,7 @@ public class Ui {
      * @return A formatted message indicating the task has been marked.
      */
     public String showMarkTaskMessage(Task markedTask) {
-        return "/ᐠ > ˕ <マ ₊˚⊹♡ Good job! I've marked this task as done:\n\n" + markedTask;
+        return "/ᐠ ^ ˕ <マ ₊˚⊹♡ Good job! I've marked this task as done:\n\n" + markedTask;
     }
 
     /**
@@ -116,7 +116,7 @@ public class Ui {
      * @return A formatted message indicating the task has been added.
      */
     public String showAddTaskMessage(Task task, int size) {
-        return "/ᐠ > ˕ <マ Got it. I've added this task:\n\n" + task + "\n\nNow you have " + size + " tasks in the list";
+        return "/ᐠ ^ ˕ ^マ Got it. I've added this task:\n\n" + task + "\n\nNow you have " + size + " tasks in the list";
     }
 
 }

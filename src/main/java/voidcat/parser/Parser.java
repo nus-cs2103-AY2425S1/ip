@@ -46,7 +46,7 @@ public class Parser {
             case "deadline" -> handleAddDeadlineCommand(arguments, tasks, ui);
             case "event" -> handleAddEventCommand(arguments, tasks, ui);
             case "find" -> handleFindCommand(arguments, tasks);
-            default -> throw new VoidCatException("AH!! My apologies, I don't know what that means =T^T=");
+            default -> throw new VoidCatException("Mew?? My apologies, I don't know what that means");
         };
 
         storage.save(tasks);
