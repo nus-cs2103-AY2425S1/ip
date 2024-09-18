@@ -33,13 +33,6 @@ public class Ui {
         System.out.println("Hello! I'm Winde\n" + "What can I do for you?");
     }
 
-    /*
-    public static void exit(History history, Reminder reminder) {
-        history.save(reminder.getSchedule());
-        System.out.println("Bye. Hope to see you again soon!");
-    }
-     */
-
     /**
      * Reads the next line of user input.
      *
