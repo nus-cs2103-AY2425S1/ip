@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import toothless.exceptions.InvalidTimelineException;
 import toothless.exceptions.ToothlessExceptions;
 
 /**
@@ -26,7 +27,13 @@ public class Deadline extends Task {
         super(description);
         assert deadline != null : "Deadline should not be null";
         try {
-            this.deadline = LocalDateTime.parse(deadline.trim().replace("-", "/"), INPUT_FORMATTER);
+            LocalDateTime deadlineTimeline = LocalDateTime.parse(deadline.trim().replace("-", "/"),
+                    INPUT_FORMATTER);
+            if (deadlineTimeline.isBefore(LocalDateTime.now())) {
+                throw new InvalidTimelineException("the deadline is earlier than today! "
+                        + "Please enter a valid deadline.\n");
+            }
+            this.deadline = deadlineTimeline;
         } catch (DateTimeParseException e) {
             throw new ToothlessExceptions("Please enter a valid date and time\n"
                     + "in the format: dd/MM/yyyy HHmm or dd-MM-yyyy HHmm\n");
@@ -45,7 +52,13 @@ public class Deadline extends Task {
         super(description, isDone);
         assert deadline != null : "Deadline should not be null";
         try {
-            this.deadline = LocalDateTime.parse(deadline.trim().replace("-", "/"), INPUT_FORMATTER);
+            LocalDateTime deadlineTimeline = LocalDateTime.parse(deadline.trim().replace("-", "/"),
+                    INPUT_FORMATTER);
+            if (deadlineTimeline.isBefore(LocalDateTime.now())) {
+                throw new InvalidTimelineException("the deadline is earlier than today! "
+                        + "Please enter a valid deadline.\n");
+            }
+            this.deadline = deadlineTimeline;
         } catch (DateTimeParseException e) {
             throw new ToothlessExceptions("Please enter a valid date and time\n"
                     + "in the format: dd/MM/yyyy HHmm or dd-MM-yyyy HHmm\n");

@@ -2,7 +2,9 @@ package toothless.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
+import toothless.exceptions.InvalidTimelineException;
 import toothless.exceptions.ToothlessExceptions;
 
 /**
@@ -28,10 +30,20 @@ public class Event extends Task {
         assert eventStart != null : "Event start should not be null";
         assert eventEnd != null : "Event end should not be null";
         try {
-            this.eventStart = LocalDateTime.parse(eventStart.trim().replace("-", "/"), INPUT_FORMATTER);
-            this.eventEnd = LocalDateTime.parse(eventEnd.trim().replace("-", "/"), INPUT_FORMATTER);
-            assert this.eventStart.isBefore(this.eventEnd) : "The start date and time should be before the end date and time";
-        } catch (Exception e) {
+            LocalDateTime startTimeline = LocalDateTime.parse(eventStart.trim().replace("-", "/"),
+                    INPUT_FORMATTER);
+            LocalDateTime endTimeline = LocalDateTime.parse(eventEnd.trim().replace("-", "/"),
+                    INPUT_FORMATTER);
+
+            if (startTimeline.isBefore(LocalDateTime.now()) || endTimeline.isBefore(LocalDateTime.now())) {
+                throw new InvalidTimelineException("the event start or end date and time is earlier than today! "
+                        + "Please enter a valid date and time.\n");
+            } else if (startTimeline.isAfter(endTimeline)) {
+                throw new InvalidTimelineException("the start date and time should be before the end date and time.\n");
+            }
+            this.eventStart = startTimeline;
+            this.eventEnd = endTimeline;
+        } catch (DateTimeParseException e) {
             throw new ToothlessExceptions("Please enter a valid date and time\n"
                     + "in the format: dd/MM/yyyy HHmm or dd-MM-yyyy HHmm\n");
         }
@@ -51,9 +63,20 @@ public class Event extends Task {
         assert eventStart != null : "Event start should not be null";
         assert eventEnd != null : "Event end should not be null";
         try {
-            this.eventStart = LocalDateTime.parse(eventStart.trim().replace("-", "/"), INPUT_FORMATTER);
-            this.eventEnd = LocalDateTime.parse(eventEnd.trim().replace("-", "/"), INPUT_FORMATTER);
-        } catch (Exception e) {
+            LocalDateTime startTimeline = LocalDateTime.parse(eventStart.trim().replace("-", "/"),
+                    INPUT_FORMATTER);
+            LocalDateTime endTimeline = LocalDateTime.parse(eventEnd.trim().replace("-", "/"),
+                    INPUT_FORMATTER);
+
+            if (startTimeline.isBefore(LocalDateTime.now()) || endTimeline.isBefore(LocalDateTime.now())) {
+                throw new InvalidTimelineException("the event start or end date and time is earlier than today! "
+                        + "Please enter a valid date and time.\n");
+            } else if (startTimeline.isAfter(endTimeline)) {
+                throw new InvalidTimelineException("the start date and time should be before the end date and time.\n");
+            }
+            this.eventStart = startTimeline;
+            this.eventEnd = endTimeline;
+        } catch (DateTimeParseException e) {
             throw new ToothlessExceptions("Please enter a valid date and time\n"
                     + "in the format: dd/MM/yyyy HHmm or dd-MM-yyyy HHmm\n");
         }
