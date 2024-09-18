@@ -54,7 +54,7 @@ public class Parser {
     }
 
     /**
-     * Parses a string representation of a task to create and return a {@link Task} object.
+     * Parses a string representation of a task to create and return a Task object.
      * The string should be in a specific format, with task details separated by commas. The task type
      * determines the type of Task to be created (ToDo, Deadline, or Event).
      *
@@ -121,11 +121,11 @@ public class Parser {
     }
 
     /**
-     * Parses a string representation of date and time into a {@link LocalDateTime} object.
+     * Parses a string representation of date and time into a LocalDateTime object.
      * The expected format is "yyyy-MM-dd HHmm".
      *
      * @param dateTimeStr The string representation of the date and time.
-     * @return A {@link LocalDateTime} object representing the parsed date and time.
+     * @return A LocalDateTime object representing the parsed date and time.
      * @throws BobException If incorrect data or time format.
      */
     public static LocalDateTime parseDateTime(String dateTimeStr) throws BobException {
