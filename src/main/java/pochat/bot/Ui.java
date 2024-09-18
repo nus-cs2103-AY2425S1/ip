@@ -32,8 +32,9 @@ class Ui {
 
     public String getInvalidInputMessage() {
         return "Please enter a valid input and try again! Some examples of valid inputs are:\n"
-                + "todo [description]\ndeadline [description] /by [deadline]\n"
-                + "event [description] /from [start time] /to [end time]";
+                + "todo [description]\ndeadline [description] /by [dd/mm/yyyy HHMM]\n"
+                + "event [description] /from [dd/mm/yyyy HHMM] /to [dd/mm/yyyy HHMM]\n"
+                + "For more commands, refer to the project's README";
     }
 
     public String getDeleteTaskMessage(Task task, int numTasks) {
