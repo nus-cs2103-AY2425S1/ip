@@ -41,7 +41,6 @@ public class Storage {
         assert filePath != null && !filePath.isEmpty() : "File path should not be null or empty";
 
         this.file = new File(filePath);
-        assert this.file.exists() : "File should exist at the specified path";
 
         Scanner scanner = new Scanner(this.file);
         while (scanner.hasNextLine()) {
