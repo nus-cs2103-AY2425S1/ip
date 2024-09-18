@@ -1,6 +1,6 @@
 # Tako User Guide
 
-![](https://github.com/nigellqx/ip/blob/master/docs/Ui.png.png)
+![](https://github.com/nigellqx/ip/blob/master/docs/Ui.png)
 
 Tako is a chat bot that helps you keep track of the tasks you have
 using Graphical User Interface(GUI).  
