@@ -68,6 +68,23 @@ Got it. I've added this task:
 Now you have (number of tasks) task(s) in this list
 ```
 
+## Deleting Tasks
+Once you no longer have use for a Task, you may delete them.
+To delete tasks, input the following command into Evelyn:
+
+`delete [index]`
+
+Ensure that you swap out "[index]" with the index of the task in your list that you want to delete.
+```dtd
+Noted. I've removed this task:
+    [Task description]
+Now you have (number of tasks) task(s) in this list
+```
+
+## Exiting Evelyn
+To exit Evelyn, input the following command into the text box:
+`bye`
+
 ## Evelyn's Commands
 The following is a list of all of evelyn's commands:
 

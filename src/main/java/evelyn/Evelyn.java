@@ -59,7 +59,6 @@ public class Evelyn {
     }
 
     public static void main(String[] args) throws IOException {
-        String dataFilePath = "src/main/data/evelyn.txt";
         Application.launch(Gui.class, args);
     }
 
