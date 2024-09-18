@@ -86,7 +86,7 @@ public class Events extends Task {
     private static void checkValidityOfEventInput(String desc) throws EmptyEventException, EmptyEventTimingException, EmptyEventDateException {
         if (desc.isEmpty()) {
             throw new EmptyEventException
-                    ("     OOPS! Event start time not given leh. " +
+                    ("OOPS!!! Event start time not given leh. " +
                             "Pls provide in the following format: " +
                             "event project meeting /from 16:00 /to 18:00 /on yyyy-MM-dd or dd/MM/yyyy");
         }
@@ -97,7 +97,7 @@ public class Events extends Task {
         //throw exception if start time not given, or it is whitespace
         if (parts1.length < 2 || parts1[1].trim().isEmpty()) {
             throw new EmptyEventTimingException
-                    ("     OOPS! Event start time not given leh. " +
+                    ("OOPS!!! Event start time not given leh. " +
                             "Pls provide in the following format: " +
                             "event project meeting /from 16:00 /to 18:00 /on yyyy-MM-dd or dd/MM/yyyy");
         }
@@ -107,7 +107,7 @@ public class Events extends Task {
         //throw exception if end time not given or it is whitespace
         if (parts2.length < 2 || parts2[1].trim().isEmpty()) {
             throw new EmptyEventTimingException
-                    ("     OOPS! Event end time not given leh. " +
+                    ("OOPS!!! Event end time not given leh. " +
                             "Pls provide in the following format: " +
                             "event project meeting /from 16:00 /to 18:00 /on yyyy-MM-dd or dd/MM/yyyy");
         }
@@ -116,7 +116,7 @@ public class Events extends Task {
         //throw exception if date not given or it is whitespace
         if (parts3.length < 2 || parts3[1].trim().isEmpty()) {
             throw new EmptyEventDateException
-                    ("     OOPS! Event date not given leh. " +
+                    ("OOPS!!! Event date not given leh. " +
                             "Pls provide in the following format: " +
                             "event project meeting /from 16:00 /to 18:00 /on yyyy-MM-dd or dd/MM/yyyy");
         }

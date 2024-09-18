@@ -2,6 +2,7 @@ package Commands;
 
 import Data.StoreList;
 import Exceptions.InvalidIndexException;
+import Exceptions.UnknownCommandException;
 
 /**
  * Parent class for all types of commands
@@ -15,6 +16,6 @@ public abstract class Command {
         this.storeList = storeList;
     }
 
-    public abstract String execute() throws InvalidIndexException;
+    public abstract String execute() throws InvalidIndexException, UnknownCommandException;
     public abstract boolean isExit();
 }

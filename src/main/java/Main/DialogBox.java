@@ -61,6 +61,33 @@ public class DialogBox extends HBox {
 
 
     /**
+     * Creates and returns an error dialog box with the specified message and image.
+     * The dialog box is styled to indicate an error.
+     *
+     * @param message The error message to display.
+     * @param image   The image to display as the profile picture.
+     * @return A DialogBox representing an error message.
+     */
+    public static DialogBox getErrorDialog(String message, Image image) {
+        var db = new DialogBox(message, image);
+        db.applyErrorStyle();
+        db.flip(); // If needed to position the image correctly
+        return db;
+    }
+
+    /**
+     * Applies the error style to the dialog box.
+     * This method ensures that the dialog box is styled to highlight error messages.
+     */
+    private void applyErrorStyle() {
+        dialog.getStyleClass().add("error-label");
+        // Ensure other styles are removed if necessary
+        dialog.getStyleClass().removeAll("add-label", "marked-label", "delete-label", "unmark-label", "due-label");
+    }
+
+
+
+    /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
      */
     private void flip() {
@@ -73,13 +100,16 @@ public class DialogBox extends HBox {
 
     /**
      * Creates and returns a dialog box for the user with the specified text and image.
+     * The dialog box is styled to represent the user's input.
      *
      * @param s The text to display.
      * @param i The user's profile picture.
      * @return A DialogBox representing the user's input.
      */
     public static DialogBox getUserDialog(String s, Image i) {
-        return new DialogBox(s, i);
+        var db = new DialogBox(s, i);
+        db.dialog.getStyleClass().add("user-label");
+        return db;
     }
 
     /**

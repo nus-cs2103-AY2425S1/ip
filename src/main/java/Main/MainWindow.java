@@ -4,6 +4,7 @@ import Commands.Command;
 import Data.Storage;
 import Data.StoreList;
 import Exceptions.InvalidIndexException;
+import Exceptions.UnknownCommandException;
 import Parser.Parser;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -86,15 +87,30 @@ public class MainWindow extends AnchorPane{
             flashText = flashCommand.execute();
             commandType = flashCommand.getClass().getSimpleName();
             Storage.saveTasksToFile(storeList.getItems());
-        } catch (InvalidIndexException e) {
-            flashText = e.getMessage();
+
+            if (flashText.startsWith("OOPS!!!")) {
+                // Display error dialog
+                dialogContainer.getChildren().addAll(
+                        DialogBox.getUserDialog(userText, userImage),
+                        DialogBox.getErrorDialog(flashText, dukeImage) // Show error message
+                );
+            } else {
+
+                // Display both user input and the command output in the dialog box
+                dialogContainer.getChildren().addAll(
+                        DialogBox.getUserDialog(userText, userImage),
+                        DialogBox.getDukeDialog(flashText, dukeImage, commandType)
+                );
+            }
+
+        } catch (InvalidIndexException | UnknownCommandException e) {
+            // Display error dialog
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(userText, userImage),
+                    DialogBox.getErrorDialog(e.getMessage(), dukeImage) // Show error message
+            );
         }
 
-        // Display both user input and the command output in the dialog box
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, userImage),
-                DialogBox.getDukeDialog(flashText, dukeImage, commandType)
-        );
 
         userInput.clear();
     }

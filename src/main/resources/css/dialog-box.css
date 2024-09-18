@@ -12,6 +12,19 @@
     -fx-border-radius: 1em 1em 1em 0;
 }
 
+.error-label {
+    -fx-background-color: linear-gradient(to bottom right, #f8d7da, #f5c6cb); /* Light red gradient */
+    -fx-border-color: #f5c6cb; /* Red border */
+    -fx-text-fill: #721c24; /* Dark red text color */
+}
+
+
+.user-label {
+    -fx-background-color: linear-gradient(to bottom right, #f0f0f0, #e0e0e0); /* Light grey gradient */
+    -fx-border-color: #c0c0c0; /* Slightly darker grey for the border */
+    -fx-text-fill: #333333; /* Dark grey text color */
+}
+
 .add-label {
  -fx-background-color: linear-gradient(to bottom right, #a2c9e1, #6db3f2); /* Sadness's light blue */
     -fx-border-color: #4a90d0; /* Darker blue */

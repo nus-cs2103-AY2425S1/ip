@@ -1,6 +1,7 @@
 package Commands;
 
 import Exceptions.InvalidIndexException;
+import Exceptions.UnknownCommandException;
 
 /**
  * Represents a command to update a task in the list.
@@ -33,15 +34,16 @@ public class UpdateCommand extends Command {
      * @return the result of the update operation, or an error message if
      * the input format is invalid.
      * @throws InvalidIndexException if the task number provided is out of bounds.
+     * @throws UnknownCommandException if the task number provided is out of bounds.
      */
     @Override
-    public String execute() throws InvalidIndexException {
+    public String execute() throws InvalidIndexException, UnknownCommandException {
         // Split the string by /to
         String[] words = userInput.split(" /to ");
 
         // Ensure that there are enough parts after the split
         if (words.length < 2) {
-            return "Invalid command format. Please use the format: 'update <num> <type> /to <newValue>'.";
+            throw new UnknownCommandException("Invalid command format. Please use the format: 'update <num> <type> /to <newValue>'.");
         }
 
         //Split first half by spaces to get update and num and type(date/time/desc etc)
@@ -49,7 +51,7 @@ public class UpdateCommand extends Command {
 
         // Ensure that there are enough parts in words1
         if (words1.length < 3) {
-            return "Invalid command format. Please use the format: 'update <num> <type> /to <newValue>'.";
+            throw new UnknownCommandException("Invalid command format. Please use the format: 'update <num> <type> /to <newValue>'.");
         }
 
         String num = words1[1];
