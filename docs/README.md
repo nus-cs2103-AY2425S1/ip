@@ -22,9 +22,9 @@ Welcome to **Yapper**, your personal assistant for managing tasks, deadlines, an
     -   Adds a task with a deadline.
     -   Example: `deadline submit report /by 2024-09-30 1800`
 -   **Event Task**:
-    -   **Command**: `event DESCRIPTION /from START_TIME /to END_TIME`
-    -   Adds an event with a start and end time.
-    -   Example: `event team meeting /from 2pm /to 4pm`
+    -   **Command**: `event DESCRIPTION /from START_DATE_TIME /to END_DATE_TIME`
+    -   Adds an event with a start and end time, where both times should follow the format yyyy-MM-dd HHmm (24-hour format).
+    -   Example: `event team meeting /from 2024-09-30 1400 /to 2024-09-30 1600`
 
 ### 3\. **Mark Tasks as Done or Not Done**
 
