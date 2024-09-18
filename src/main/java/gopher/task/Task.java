@@ -1,6 +1,7 @@
 package gopher.task;
 
 import gopher.exception.EmptyTaskDescriptionException;
+import gopher.exception.InvalidDurationException;
 import gopher.exception.InvalidTokenException;
 import gopher.exception.MissingTokenException;
 import gopher.exception.UnknownCommandException;
@@ -40,7 +41,7 @@ public abstract class Task {
      */
     public static Task of(String command) throws UnknownCommandException,
             EmptyTaskDescriptionException, MissingTokenException,
-            InvalidTokenException {
+            InvalidDurationException, InvalidTokenException {
         return Parser.parseCreateTaskCommand(command);
     }
 
@@ -50,7 +51,8 @@ public abstract class Task {
      * @param tokens tokens within the given update task command
      * @throws InvalidTokenException if an invalid token exists in the given command
      */
-    public abstract void update(String[] tokens) throws InvalidTokenException;
+    public abstract void update(String[] tokens) throws InvalidTokenException,
+            InvalidDurationException;
 
     /**
      * Gets the save file message representation of this task.

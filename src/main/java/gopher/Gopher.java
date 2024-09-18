@@ -5,6 +5,7 @@ import java.nio.file.Paths;
 import java.time.format.DateTimeParseException;
 
 import gopher.exception.EmptyTaskDescriptionException;
+import gopher.exception.InvalidDurationException;
 import gopher.exception.InvalidTaskNumberException;
 import gopher.exception.InvalidTokenException;
 import gopher.exception.MissingTaskNumberException;
@@ -150,7 +151,7 @@ public class Gopher {
         } catch (DateTimeParseException e) {
             return UI.getInvalidDateWarning();
         } catch (EmptyTaskDescriptionException | MissingTokenException
-                 | InvalidTokenException e) {
+                 | InvalidTokenException | InvalidDurationException e) {
             return e.getMessage();
         }
     }
@@ -168,7 +169,7 @@ public class Gopher {
         } catch (DateTimeParseException e) {
             return UI.getInvalidDateWarning();
         } catch (InvalidTokenException | MissingTaskNumberException
-                 | InvalidTaskNumberException e) {
+                 | InvalidTaskNumberException | InvalidDurationException e) {
             return e.getMessage();
         }
     }

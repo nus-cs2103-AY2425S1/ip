@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import gopher.exception.EmptyTaskDescriptionException;
 import gopher.exception.FileCorruptedException;
+import gopher.exception.InvalidDurationException;
 import gopher.exception.InvalidTokenException;
 import gopher.exception.MissingTaskNumberException;
 import gopher.exception.MissingTokenException;
@@ -166,7 +167,8 @@ public class Parser {
      * @return Event task with the correct detail
      */
     public static Task parseCreateEventCommand(String[] tokens)
-            throws MissingTokenException, InvalidTokenException {
+            throws MissingTokenException, InvalidTokenException,
+            InvalidDurationException {
         // Indexes to track the position of command tokens
         int fromTokenIndex = -1;
         int toTokenIndex = -1;
@@ -214,6 +216,13 @@ public class Parser {
                 endDate.append(" ");
             }
         }
+
+        LocalDateTime start = parseDateString(startDate.toString());
+        LocalDateTime end = parseDateString(endDate.toString());
+        if (end.isBefore(start)) {
+            throw new InvalidDurationException();
+        }
+
         return new Event(taskName.toString(),
                 startDate.toString(),
                 endDate.toString());
@@ -228,7 +237,7 @@ public class Parser {
     public static Task parseCreateTaskCommand(String command)
             throws UnknownCommandException, DateTimeParseException,
             EmptyTaskDescriptionException, MissingTokenException,
-            InvalidTokenException {
+            InvalidTokenException, InvalidDurationException {
         String[] tokens = command.split(" ");
 
         String taskType = tokens[0];
@@ -446,7 +455,8 @@ public class Parser {
                 tasks.add(newTask);
             } catch (UnknownCommandException
                      | EmptyTaskDescriptionException
-                     | MissingTokenException e) {
+                     | MissingTokenException
+                     | InvalidDurationException e) {
                 throw new FileCorruptedException("Task File is corrupted...");
             }
         }

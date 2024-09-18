@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import gopher.exception.EmptyTaskDescriptionException;
+import gopher.exception.InvalidDurationException;
 import gopher.exception.InvalidTokenException;
 import gopher.exception.MissingTokenException;
 import gopher.exception.UnknownCommandException;
@@ -26,7 +27,8 @@ public class TaskTest {
             return Task.of(command);
         } catch (UnknownCommandException
             | EmptyTaskDescriptionException
-            | MissingTokenException | InvalidTokenException e) {
+            | MissingTokenException | InvalidTokenException
+                | InvalidDurationException e) {
             return null;
         }
     }

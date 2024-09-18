@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import gopher.exception.InvalidDurationException;
 import gopher.exception.InvalidTaskNumberException;
 import gopher.exception.InvalidTokenException;
 import gopher.exception.MissingTaskNumberException;
@@ -65,7 +66,7 @@ public class TaskList {
      */
     public String update(String[] tokens)
             throws InvalidTokenException, MissingTaskNumberException,
-            InvalidTaskNumberException {
+            InvalidTaskNumberException, InvalidDurationException {
         try {
             if (tokens.length < 2) {
                 throw new MissingTaskNumberException();
