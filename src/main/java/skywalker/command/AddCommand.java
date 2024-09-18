@@ -28,17 +28,14 @@ public class AddCommand extends Command {
      * @throws IOException IOException happens if an I/O error occurs
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         if (tasks.isDuplicate(task)) {
-            ui.showDuplicateTaskMessage(task);  // Show message that task is duplicate
+            return "Duplicate task: " + task.getDescription() + " already exists!";
         } else {
             tasks.addTask(task);
-            ui.showLine();
-            System.out.println("Got it. I've added this task:");
-            System.out.println(task);
-            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-            ui.showLine();
             storage.save(tasks);
+            return "Got it. I've added this task:\n" + task + "\nNow you have " + tasks.size() + " tasks in the list.";
         }
     }
+
 }

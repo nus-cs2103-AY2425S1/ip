@@ -33,16 +33,18 @@ public class MarkCommand extends Command {
      * @throws IOException Handles the case whereby the I/O is invalid.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         Task task = tasks.get(index);
+        String result;
         if (isMark) {
             task.markDone();
-            System.out.println("Nice! I've marked this task as done:");
+            result = "Nice! I've marked this task as done:\n" + task;
         } else {
             task.unmarkDone();
-            System.out.println("OK, I've marked this task as not done yet:");
+            result = "OK, I've marked this task as not done yet:\n" + task;
         }
-        System.out.println(task);
         storage.save(tasks);
+        return result;
     }
+
 }

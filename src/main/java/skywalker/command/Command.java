@@ -20,7 +20,7 @@ public abstract class Command {
      * @param storage The storage object used to save or load the task list.
      * @throws IOException If an I/O error occurs during command execution.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws IOException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws IOException;
     public boolean isExit() {
         return false;
     }

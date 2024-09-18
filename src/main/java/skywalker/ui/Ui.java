@@ -12,6 +12,8 @@ import skywalker.task.TaskList;
  */
 public class Ui {
     private Scanner scanner;
+    private String lastMessage;
+
 
     /**
      * Constructs a Ui object that initializes a Scanner to read user input.
@@ -95,6 +97,12 @@ public class Ui {
     public void showDuplicateTaskMessage(Task task) {
         System.out.println("Duplicate task: " + task.getDescription() + " already exists!");
     }
+
+    public String getLastMessage() {
+        return lastMessage;
+    }
+
+
 }
 
 
