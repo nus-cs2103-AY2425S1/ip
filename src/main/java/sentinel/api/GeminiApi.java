@@ -73,6 +73,7 @@ Format this date into {YYYY}-{MM}-{DD}T{Hour}:{Minute}:{Second}.
 If there is a missing time, put T00:00:00. Else if there is a missing field or no such date, just return 'null'.
 Don't give any explanation or any other answer other than 'null' or '{YYYY}-{MM}-{DD}T{Hour}:{Minute}:{Second}'. \n
             """ + dateInput);
+        System.out.println("Gem output = " + res);
         if (res == null || res.contains("null")) {
             return null;
         }
