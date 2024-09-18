@@ -8,7 +8,7 @@ public class DPlusPlusE {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    private static final String FILE_PATH = "./data/duke.txt";
+    private static final String FILE_PATH = "./data/d_plus_plus_e.txt";
 
     public DPlusPlusE(String filePath) {
         storage = new Storage(filePath);
