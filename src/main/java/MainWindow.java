@@ -50,14 +50,14 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = this.hamyo.getResponse(input);
+        if (!this.hamyo.getStatus()) {
+            Platform.exit();
+        }
+
         dialogContainer.getChildren().addAll(
             DialogBox.getUserDialog(input, userIcon),
             DialogBox.getHamyoDialog(response, hamyoIcon)
         );
         userInput.clear();
-
-        if (!this.hamyo.getStatus()) {
-            Platform.exit();
-        }
     }
 }
