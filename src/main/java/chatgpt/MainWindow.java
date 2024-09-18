@@ -35,6 +35,11 @@ public class MainWindow extends AnchorPane {
     /** Injects the ChatGPT instance */
     public void setChat(ChatGpt c) {
         chatGpt = c;
+        if (chatGpt.hasErrorLoading()) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getChatDialog(ChatGpt.getLoadingError(), chatImage)
+            );
+        }
     }
 
     /**

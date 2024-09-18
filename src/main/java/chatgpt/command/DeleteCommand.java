@@ -37,15 +37,19 @@ public class DeleteCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage)
             throws ChatBotException {
+        Task removedTask = deleteTask(tasks);
+        storage.save(tasks);
+        return ui.showDeleteTask(removedTask, tasks.size());
+    }
+
+    private Task deleteTask(TaskList tasks) throws ChatBotException {
         if (index > tasks.size()) {
             throw new ChatBotException("\tNo task exists for that index");
         }
 
         Task removedTask = tasks.get(index - 1);
         tasks.remove(index - 1);
-        storage.save(tasks);
-        return ui.showDeleteTask(removedTask, tasks.size());
-
+        return removedTask;
     }
 
     /**

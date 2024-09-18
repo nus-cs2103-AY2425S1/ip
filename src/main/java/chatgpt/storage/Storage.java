@@ -62,40 +62,44 @@ public class Storage {
                 String[] inputs = fileReader.nextLine()
                         .split("\\|");
 
-                String taskName;
-                boolean isCompleted;
-                switch(Tasks.valueOf(taskType)) {
-                case T:
-                    taskName = inputs[2];
-                    isCompleted = inputs[1].equals("1");
-
-                    data.add(new ToDos(taskName, isCompleted));
-                    break;
-
-                case D:
-                    taskName = inputs[2];
-                    isCompleted = inputs[1].equals("1");
-                    String deadline = inputs[3];
-
-                    data.add(new Deadlines(taskName, deadline, isCompleted));
-                    break;
-
-                case E:
-                    taskName = inputs[2];
-                    isCompleted = inputs[1].equals("1");
-                    String startDate = inputs[3];
-                    String endDate = inputs[4];
-
-                    data.add(new Events(taskName, startDate, endDate, isCompleted));
-                    break;
-                default:
-                    assert false : "Data stored as wrong format";
-                }
-
+                Task savedTask = parseSaveData(taskType, inputs);
+                data.add(savedTask);
             }
             return data;
         } catch (FileNotFoundException e) {
             throw new ChatBotException("Problem with reading from file");
+        }
+    }
+
+    private Task parseSaveData(String taskType, String[] inputs)
+            throws ChatBotException {
+        String taskName;
+        boolean isCompleted;
+
+        switch(Tasks.valueOf(taskType)) {
+        case T:
+            taskName = inputs[2];
+            isCompleted = inputs[1].equals("1");
+
+            return new ToDos(taskName, isCompleted);
+
+        case D:
+            taskName = inputs[2];
+            isCompleted = inputs[1].equals("1");
+            String deadline = inputs[3];
+
+            return new Deadlines(taskName, deadline, isCompleted);
+
+        case E:
+            taskName = inputs[2];
+            isCompleted = inputs[1].equals("1");
+            String startDate = inputs[3];
+            String endDate = inputs[4];
+
+            return new Events(taskName, startDate, endDate, isCompleted);
+        default:
+            assert false : "Data stored as wrong format";
+            return null;
         }
     }
 

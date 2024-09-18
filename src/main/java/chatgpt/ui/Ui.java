@@ -133,7 +133,7 @@ public class Ui {
     /**
      * Displays an error message when there is a problem loading data from the save file.
      */
-    public String showLoadingError() {
+    public static String showLoadingError() {
         String message = "There was a problem with the save file"
         + "\nYou can either: "
         + "\n(1) Fix the save file manually and restart the program"
