@@ -97,15 +97,7 @@ public class Storage {
         File taskFile = new File(filePath);
 
         // check if the file exists. If it does not, make the directory
-        if (!taskFile.exists()) {
-            if (taskFile.getParentFile().mkdir()) {
-                taskFile.createNewFile();
-                return tasks;
-            } else {
-                // throw an error if there is issue creating directory
-                throw new IOException("Problem creating the directory: " + taskFile.getParent());
-            }
-        }
+        checkFileExist(taskFile);
 
         // if the file exists, need to buffer the content
         FileReader fr = new FileReader(filePath);

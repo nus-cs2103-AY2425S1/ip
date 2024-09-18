@@ -128,7 +128,7 @@ public class Ui {
      */
     public String exceptionErrorMessage(NuffleException e) {
         return printLine() +
-                "Nuffle caught an error > " + e.getMessage() + "\n" +
+                "Nuffle caught an error:\n " + e.getMessage() + "\n" +
                 printLine();
     }
 
