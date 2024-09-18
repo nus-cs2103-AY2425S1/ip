@@ -36,7 +36,7 @@ public class Pixy {
     private CommandType c;
 
     /** File path */
-    private static final String FILE_NAME = "./data/tasks.txt";
+    private static final String FILE_NAME = "src/main/data/tasks.txt";
 
     /**
      * Creates Pixy object to start the chatbot.
@@ -100,6 +100,7 @@ public class Pixy {
         String response = parser.executeCommand(input, tasks, ui);
         CommandType type = parser.parseCommandType(input);
         commandType = type != null ? type.getCommand() : "Unknown Command"; // Ensure non-null value
+        saveTasks();
         return response;
     }
 

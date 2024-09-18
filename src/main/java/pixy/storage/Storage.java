@@ -108,6 +108,7 @@ public class Storage {
             fw.write(taskToFileFormat(task)
                     + System.lineSeparator());
         }
+        fw.flush();
         fw.close();
     }
 

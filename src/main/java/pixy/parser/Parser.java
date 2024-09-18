@@ -70,8 +70,7 @@ public class Parser {
                     return ui.showTasks(tasks.getList());
                 }
             case BYE:
-                ui.showGoodbyeMessage();
-                return "Bye. See you again!";
+                return "Bye. Hope to see you again!";
             case MARK:
                 taskNumber = Integer.parseInt(command.split(" ")[1]);
                 assert taskNumber > 0 && taskNumber <= tasks.size() : "Invalid task number";

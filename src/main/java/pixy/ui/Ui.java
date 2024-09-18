@@ -14,9 +14,7 @@ public class Ui {
      *
      */
     public void showWelcomeMessage() {
-        System.out .println("____________________________________________________________\n"
-                + " Hello! I'm Pixy.\n" + " What can I do for you?\n"
-                + "____________________________________________________________\n");
+        System.out.println("Hello! I'm Pixy.\nWhat can I do for you?\n");
     }
 
     /**
@@ -27,10 +25,8 @@ public class Ui {
      * @return Task added message.
      */
     public String showTaskAdded(Task task, int size) {
-        return "____________________________________________________________\n"
-                + "Got it. I've added this task:\n " + task
-                + "\nNow you have " + size + " tasks in the list."
-                + "\n____________________________________________________________\n";
+        return "Got it. I've added this task:\n" + task
+                + "\nNow you have " + size + " tasks in the list.";
     }
 
     /**
@@ -39,9 +35,7 @@ public class Ui {
      * @return List empty message.
      */
     public String showListEmpty() {
-        return "____________________________________________________________\n"
-                + "List is Empty! Add tasks to list.\n"
-                + "\n____________________________________________________________\n";
+        return "List is Empty! Add tasks to list.";
     }
 
     /**
@@ -52,13 +46,11 @@ public class Ui {
      */
     public String showTasks(List<Task> list) {
         StringBuilder sb = new StringBuilder();
-        sb.append("____________________________________________________________\n")
-                .append("Here are the tasks in your list:\n");
+        sb.append("Here are the tasks in your list:\n");
         for (int i = 0; i < list.size(); i++) {
             Task task = list.get(i);
             sb.append((i + 1) + ". " + task.toString() + "\n");
         }
-        sb.append("____________________________________________________________\n");
         return sb.toString();
     }
 
@@ -69,10 +61,7 @@ public class Ui {
      * @return Task marked message.
      */
     public String showTaskMarked(Task task) {
-        return "____________________________________________________________\n"
-                + "Nice! I've marked this task as done:\n"
-                + task.toString()
-                + "\n____________________________________________________________\n";
+        return "Nice! I've marked this task as done:\n" + task.toString();
     }
 
     /**
@@ -82,10 +71,7 @@ public class Ui {
      * @return Task unmarked message.
      */
     public String showTaskUnmarked(Task task) {
-        return "____________________________________________________________\n"
-                + "OK, I've marked this task as not done yet:\n"
-                + task.toString()
-                + "\n____________________________________________________________\n";
+        return "OK, I've marked this task as not done yet:\n" + task.toString();
     }
 
     /**
@@ -96,11 +82,8 @@ public class Ui {
      * @return Task deleted message.
      */
     public String showTaskRemoved(Task task, int size) {
-        return "____________________________________________________________\n"
-                + "Noted. I've removed this task:\n"
-                + task.toString() + "\n"
-                + "Now you have " + size + " tasks in the list."
-                + "\n____________________________________________________________\n";
+        return "Noted. I've removed this task:\n" + task.toString()
+                + "\nNow you have " + size + " tasks in the list.";
     }
 
     /**
@@ -110,7 +93,6 @@ public class Ui {
      */
     public String showMatchedTasks(List<Task> matchedTasks) {
         StringBuilder sb = new StringBuilder();
-        sb.append("____________________________________________________________\n");
         if (matchedTasks.isEmpty()) {
             sb.append("No tasks found with matching description.\n");
         } else {
@@ -120,7 +102,6 @@ public class Ui {
                 sb.append((i + 1) + ". " + task.toString() + "\n");
             }
         }
-        sb.append("____________________________________________________________\n");
         return sb.toString();
     }
 
@@ -129,9 +110,7 @@ public class Ui {
      *
      */
     public void showGoodbyeMessage() {
-        System.out.println("____________________________________________________________\n"
-                + "Bye. Hope to see you again soon!\n"
-                + "____________________________________________________________\n");
+        System.out.println("Bye. Hope to see you again soon!");
     }
 
     /**
@@ -140,6 +119,6 @@ public class Ui {
      * @param message Error message.
      */
     public void showError(String message) {
-        System.out.println(message + "\n____________________________________________________________\n");
+        System.out.println(message);
     }
 }

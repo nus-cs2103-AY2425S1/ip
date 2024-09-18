@@ -39,20 +39,27 @@ public class DialogBox extends HBox {
         displayPicture.setImage(img);
     }
     private void changeDialogStyle(String commandType) {
-        switch(commandType) {
-        case "Add":
-            dialog.getStyleClass().add("add-label");
+        dialog.getStyleClass().clear();
+        dialog.getStyleClass().add("dialog-box");
+        switch (commandType.toLowerCase()) {
+        case "event", "todo", "deadline":
+            dialog.getStyleClass().add("yellow-dialog");
             break;
-        case "Mark":
-            dialog.getStyleClass().add("marked-label");
+        case "mark", "find":
+            dialog.getStyleClass().add("green-dialog");
             break;
-        case "Delete":
-            dialog.getStyleClass().add("delete-label");
+        case "unmark", "delete":
+            dialog.getStyleClass().add("red-dialog");
+            break;
+        case "user":
+            dialog.getStyleClass().add("person-dialog");
             break;
         default:
-            // Do nothing
+            dialog.getStyleClass().add("bot-dialog");
+            break;
         }
     }
+
 
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
@@ -62,11 +69,12 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
-        dialog.getStyleClass().add("reply-label");
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var db = new DialogBox(text, img);
+        db.changeDialogStyle("user");
+        return db;
     }
 
     public static DialogBox getPixyDialog(String text, Image img, String commandType) {
