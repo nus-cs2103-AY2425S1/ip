@@ -1,0 +1,18 @@
+Hi!
+My name is Anna
+:(
+list
+todo
+todo
+todo watch anime
+deadline do book review /by Friday
+deadline do book review /by 2024-01-20 23:59
+event lecture /from Mon 6am /to Fri 5pm
+list
+mark 1
+unmark 3
+mark 3
+delete 2
+list
+lisd
+bye

@@ -1,7 +1,76 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Hi! I'm elsa.ui.Elsa
+It's nice to meet you.
+How can I help you?
+______________________________________
+______________________________________
+Sorry, I'm unable to perform this action: Hi!
+______________________________________
+______________________________________
+Sorry, I'm unable to perform this action: My name is Anna
+______________________________________
+______________________________________
+Sorry, I'm unable to perform this action: :(
+______________________________________
+______________________________________
+Here are the tasks in your list:
+______________________________________
+______________________________________
+Oh, it appears that the description of your ToDo item is empty...
+______________________________________
+______________________________________
+Oh, it appears that the description of your ToDo item is empty...
+______________________________________
+______________________________________
+Alright, I've added this task:
+  [T][ ] watch anime
+We have 1 tasks in our list now.
+______________________________________
+______________________________________
+You need to follow the following format for a deadline task.
+deadline [activity] /by yyyy-mm-dd hh:mm
+______________________________________
+______________________________________
+Alright, I've added this task:
+  [D][ ] do book review (by: Jan 20, 2024 23:59)
+We have 2 tasks in our list now.
+______________________________________
+______________________________________
+Alright, I've added this task:
+  [E][ ] lecture (from: Mon 6am to: Fri 5pm)
+We have 3 tasks in our list now.
+______________________________________
+______________________________________
+Here are the tasks in your list:
+1.[T][ ] watch anime
+2.[D][ ] do book review (by: Jan 20, 2024 23:59)
+3.[E][ ] lecture (from: Mon 6am to: Fri 5pm)
+______________________________________
+______________________________________
+Great! I've marked it as done:
+  [T][X] watch anime
+______________________________________
+______________________________________
+Alright, I've unchecked this task:
+  [E][ ] lecture (from: Mon 6am to: Fri 5pm)
+______________________________________
+______________________________________
+Great! I've marked it as done:
+  [E][X] lecture (from: Mon 6am to: Fri 5pm)
+______________________________________
+______________________________________
+Okay, I've removed this task:
+  [D][ ] do book review (by: Jan 20, 2024 23:59)
+We have 2 tasks in our list now.
+______________________________________
+______________________________________
+Here are the tasks in your list:
+1.[T][X] watch anime
+2.[E][X] lecture (from: Mon 6am to: Fri 5pm)
+______________________________________
+______________________________________
+Sorry, I'm unable to perform this action: lisd
+______________________________________
+______________________________________
+Bye! It was so nice chatting with you.
+See you again soon!
+______________________________________
