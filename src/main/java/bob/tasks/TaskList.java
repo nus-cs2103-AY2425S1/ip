@@ -45,7 +45,7 @@ public class TaskList {
     }
 
     /**
-     * Get the size of the taskList
+     * Returns the size of the taskList
      *
      * @return the size of the taskList
      */
@@ -82,6 +82,7 @@ public class TaskList {
     /**
      * Filters all the tasks in the task list based on the search string given and
      * returns a string of all the match cases
+     *
      * @param searchString String to search for in the task name of the tasks
      * @return String format of all the match cases in the task list for printing
      */
@@ -98,7 +99,7 @@ public class TaskList {
     }
 
     /**
-     * Export all the tasks in the taskList to string to be saved in a text file
+     * Exports all the tasks in the taskList to string to be saved in a text file
      *
      * @return String format of all the tasks in the taskList to be exported
      */
