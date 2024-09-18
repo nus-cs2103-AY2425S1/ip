@@ -18,7 +18,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             
             scene.getStylesheets().add(Main.class.getResource("/view/style.css").toExternalForm());
-            
+            stage.setTitle("Bopes Task Manager");
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setBopes(bopes);
             stage.show();
