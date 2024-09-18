@@ -1,10 +1,8 @@
 package cstwooneohthree.glados.components;
 
 import cstwooneohthree.glados.Glados;
-
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -12,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
  * Controller for the main GUI.
@@ -34,9 +33,13 @@ public class MainWindow extends AnchorPane {
 
     private Image gladosImage = new Image(this.getClass().getResourceAsStream("/images/GladosIcon.png"));
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/UserIcon.jpg"));
-    private Image gladosBackgroundImage = new Image(this.getClass().getResourceAsStream("/images/GladosBackground.gif"));
+    private Image gladosBackgroundImage = new Image(this.getClass()
+            .getResourceAsStream("/images/GladosBackground.gif"));
     private String styleSheet = this.getClass().getResource("/css/main.css").toExternalForm();
 
+    /**
+     *  Initialises a new main window with appropriate stylesheets and background image.
+     */
     @FXML
     public void initialize() {
         getStylesheets().add(styleSheet);

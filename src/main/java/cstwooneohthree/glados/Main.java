@@ -39,7 +39,7 @@ public class Main extends Application {
             stage.setMaxWidth(800);
             stage.setTitle("GLaDOS");
 
-            mainWindowLoader.<MainWindow>getController().setGlados(glados, historyWindowController, historyScene); // inject the Glados instance
+            mainWindowLoader.<MainWindow>getController().setGlados(glados, historyWindowController, historyScene);
             historyWindowLoader.<HistoryWindow>getController().setMainScene(mainScene);
 
             stage.show();

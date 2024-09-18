@@ -99,7 +99,8 @@ public class Ui {
      * @param index Number of tasks left.
      */
     public String delete(String task, String index) {
-        String message = "Oh, finally decided to get rid of some work? I have removed the following task from the list...\n"
+        String message = "Oh, finally decided to get rid of some work?"
+                        + "I have removed the following task from the list...\n"
                         + task + "\n"
                         + "Now you have " + index + (Integer.parseInt(index) == 1 ? " task." : " tasks.");
 

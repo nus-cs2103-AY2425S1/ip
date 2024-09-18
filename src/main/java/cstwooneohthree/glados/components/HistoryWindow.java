@@ -1,10 +1,11 @@
 package cstwooneohthree.glados.components;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
-import javafx.stage.Stage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.Scene;
+import javafx.stage.Stage;
+
 /**
  * Controller for the main GUI.
  */
