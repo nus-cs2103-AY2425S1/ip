@@ -2,8 +2,11 @@ package snowy.storage;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+
+import snowy.data.SnowyException;
 import snowy.tasklist.Todo;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -26,7 +29,7 @@ public class StorageTest {
     }
 
     @Test
-    public void writeTaskToFile_validTask_taskIsSaved() {
+    public void writeTaskToFile_validTask_taskIsSaved() throws SnowyException {
         Storage storage = new Storage(testFolder.toString(), "tasks.txt");
         Todo todo = new Todo("Test Task");
 
@@ -38,7 +41,7 @@ public class StorageTest {
     }
 
     @Test
-    public void deleteTaskFromFile_taskExists_taskIsDeleted() {
+    public void deleteTaskFromFile_taskExists_taskIsDeleted() throws SnowyException {
         Storage storage = new Storage(testFolder.toString(), "tasks.txt");
         Todo todo = new Todo("Test Task");
         storage.writeTaskToFile(todo);
@@ -50,7 +53,7 @@ public class StorageTest {
     }
 
     @Test
-    public void loadTasksFromFile_fileExists_loadsTasksCorrectly() {
+    public void loadTasksFromFile_fileExists_loadsTasksCorrectly() throws SnowyException {
         Storage storage = new Storage(testFolder.toString(), "tasks.txt");
         Todo todo1 = new Todo("Task1");
         Todo todo2 = new Todo("Task2");

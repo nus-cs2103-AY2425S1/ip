@@ -3,6 +3,7 @@ package snowy.tasklist;
 import snowy.data.SnowyException;
 import snowy.storage.Storage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -19,7 +20,7 @@ public class TaskList {
      *
      * @param t the task to be added
      */
-    public String addTask(Task t) {
+    public String addTask(Task t) throws SnowyException {
         taskList.add(t);
         storage.writeTaskToFile(t);
         return String.format(" %s\nNow you have %d task(s) in your list\n", t, this.taskList.size());
@@ -63,11 +64,11 @@ public class TaskList {
         if (taskList.isEmpty()) {
             throw new SnowyException("No tasks, make a list first.");
         }
-        String str = "Your list of tasks:\n";
+        StringBuilder str = new StringBuilder("Your list of tasks:\n");
         for (int i = 0; i < taskList.size(); i++) {
-            str += String.format("%d. %s", i + 1, taskList.get(i));
+            str.append(String.format("%d. %s", i + 1, taskList.get(i)));
         }
-        return str;
+        return str.toString();
     }
 
     /**

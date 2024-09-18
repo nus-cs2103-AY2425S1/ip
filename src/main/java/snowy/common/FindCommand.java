@@ -20,8 +20,8 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        final List<Task> tasksFound = getTasksWithKeywordInDescription(keyword);
-        return new CommandResult(getMessageForTaskListShownSummary(tasksFound));
+        final List<Task> tasksFound = findMatchingTasks(keyword);
+        return new CommandResult(displayMatchingTasks(tasksFound));
     }
 
     /**
@@ -30,7 +30,7 @@ public class FindCommand extends Command {
      * @param keyword for searching
      * @return list of tasks found
      */
-    private List<Task> getTasksWithKeywordInDescription(String keyword) {
+    private List<Task> findMatchingTasks(String keyword) {
         final List<Task> matchedTasks = new ArrayList<>();
         for (int i = 0; i < taskList.getSize(); i++) {
             Task task = taskList.getTask(i);
@@ -44,7 +44,7 @@ public class FindCommand extends Command {
     /**
      * Formats the task list for display.
      */
-    private String getMessageForTaskListShownSummary(List<Task> tasks) {
+    private String displayMatchingTasks(List<Task> tasks) {
         StringBuilder formattedTasks = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             String index = String.format("%d. ", i + 1);

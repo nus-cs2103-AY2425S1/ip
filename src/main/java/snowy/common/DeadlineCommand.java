@@ -1,6 +1,9 @@
 package snowy.common;
 
+import snowy.data.SnowyException;
 import snowy.tasklist.Deadline;
+
+import java.io.IOException;
 
 /**
  * Represents a command to add a task with a deadline.
@@ -24,7 +27,7 @@ public class DeadlineCommand extends Command {
      * @return a CommandResult indicating the task has been added
      */
     @Override
-    public CommandResult execute() {
+    public CommandResult execute() throws SnowyException {
         Deadline deadline = new Deadline(description, date);
         String str = taskList.addTask(deadline);
         return new CommandResult(str + "\nAdded a task with a deadline to your list of tasks");
