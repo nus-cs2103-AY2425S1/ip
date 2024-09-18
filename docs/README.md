@@ -72,7 +72,7 @@ Example: `update 2 /from 20/9/24 5:30pm /to 20/9/24 8:30pm` (updates the 2nd tas
 
 The parameters can be in any order.
 
-Note: Trying to update an invalid paramter (ex: the start datetime of a `Todo`) will fail but not throw an error. It is not possible to add parameters to a task once created, only to change those parameters that already exist.
+_Note: Trying to update an invalid paramter (ex: the start datetime of a `Todo`) will fail but not throw an error. It is not possible to add parameters to a task once created, only to change those parameters that already exist._
 
 ## Finding Tasks
 It is possible to query the list of tasks for a particular keyword/phrase using the `find` command: `find <query>`
