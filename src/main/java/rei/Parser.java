@@ -128,9 +128,10 @@ public class Parser {
                 prompt = prompt.substring(FIND_COMMAND_LENGTH).trim();
 
                 if (prompt.isEmpty()) {
-                    Ui.print("State the keyword");
+                    Ui.print("Please state the keyword!");
                     return Prompt.UNKNOWN;
                 }
+
 
                 return Prompt.FIND;
             case "annyeong":

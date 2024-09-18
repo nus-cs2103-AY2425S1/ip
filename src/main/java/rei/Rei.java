@@ -77,10 +77,11 @@ public class Rei {
                     //do nothing
                     break;
             }
+            storage.save(tasks);
         }
 
         scanner.close();
-        storage.save(tasks);
+
     }
 
     /**

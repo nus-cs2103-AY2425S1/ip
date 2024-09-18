@@ -20,7 +20,10 @@ public abstract class Task {
         this.isDone = false;
     }
 
-
+    /**
+     * Get the task name
+     * @return the task name
+     */
     public String getTaskName() {
         return this.taskName;
     }
