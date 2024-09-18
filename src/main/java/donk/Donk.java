@@ -98,7 +98,7 @@ public class Donk {
      *
      * @param command
      * @param input
-     * @return
+     * @return String to display to user
      * @throws Exception
      */
     private String execute(String command, String input) throws Exception {
@@ -160,32 +160,11 @@ public class Donk {
             TaskList results = tasks.find(searchTerm);
             return ui.listTasks(results);
         case "delete":
-            if (inputArray.length < 2) {
-                throw new IllegalArgumentException("Please provide the index of the task to delete");
-            }
-            if (!Parser.validNum(inputArray[1])) {
-                throw new IllegalArgumentException("Please provide a valid index");
-            }
-            int index = Integer.parseInt(inputArray[1]) - 1;
-            tasks.remove(index);
-            return "Alright bro I deleted that for you\ndeleted: " + tasks.getTask(index).toString()
-                    + "You now have" + tasks.size() + " tasks";
+            return delete(Parser.parseIndex(inputArray));
         case "unmark":
-            if (!inputArray[1].matches("\\d+")) {
-                throw new Exception("Invalid input");
-            }
-            index = Integer.parseInt(inputArray[1]) - 1;
-            Task temp = tasks.getTask(index);
-            temp.unmarkDone();
-            return "Aights now it's unmarked again\n" + temp.toString();
+            return unmark(Parser.parseIndex(inputArray));
         case "mark":
-            if (!inputArray[1].matches("\\d+")) {
-                throw new Exception("Invalid input");
-            }
-            index = Integer.parseInt(inputArray[1]) - 1;
-            temp = tasks.getTask(index);
-            temp.markDone();
-            return "Yo I've marked this thingy as done\n" + temp.toString();
+            return mark(Parser.parseIndex(inputArray));
         case "list":
             return ui.listTasks(tasks);
         default:
@@ -196,9 +175,38 @@ public class Donk {
 
     }
 
+    /**
+     * mark task as done
+     * @param index
+     * @return String message to user
+     */
+    private String mark(int index) {
+        Task temp = tasks.getTask(index);
+        temp.markDone();
+        return "Yo I've marked this thingy as done\n" + temp.toString();
+
+    }
+
+    /**
+     * Mark task as undone
+     * @param index
+     * @return String message to user
+     */
+    private String unmark(int index) {
+        Task temp = tasks.getTask(index);
+        temp.unmarkDone();
+        return "Aights now it's unmarked again\n" + temp.toString();
+
+    }
 
 
+    private String delete(int index) {
+        Task tp = tasks.getTask(index);
+        tasks.remove(index);
+        return "Alright bro I deleted that for you\ndeleted: " + tp.toString()
+                + "\nYou now have " + tasks.size() + " tasks";
 
+    }
 
 
 }

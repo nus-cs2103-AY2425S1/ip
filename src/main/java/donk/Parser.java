@@ -38,5 +38,18 @@ public class Parser {
         return command;
     }
 
+    /**
+     * Parse input array and return index for mark or unmark commands
+     * @param inputArray
+     * @return int, index
+     * @throws Exception
+     */
+    public static int parseIndex(String[] inputArray) throws Exception {
+        if (!inputArray[1].matches("\\d+")) {
+            throw new Exception("Invalid input");
+        }
+        int index = Integer.parseInt(inputArray[1]) - 1;
+        return index;
+    }
 
 }
