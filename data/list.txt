@@ -1,11 +1,5 @@
-E | play | 17-08-1909 1200hrs | 17-08-1909 2359hrs | 0
-D | playy | 19-09-2050 1900hrs | 1
-T | unplayyy | 0
-T | sleepppp | 1
-T | playyyy | 1
-T | play | 0
-T | study | 1
-T | watch lecturess | 1
-T | goo homme | 1
-T | 7 7 | 0
-T | later /by | 0
+T | CS2101 Assignment | 1
+E | Birthday | 14-10-2024 0000hrs | 14-10-2024 2359hrs | 0
+E | Overseas trip | 03-12-2024 0600hrs | 12-12-2024 1800hrs | 0
+D | CCA Project | 01-11-2024 2359hrs | 1
+D | Buy household items | 14-10-2024 1000hrs | 0
