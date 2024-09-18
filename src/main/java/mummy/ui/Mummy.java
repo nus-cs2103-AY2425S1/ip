@@ -61,6 +61,11 @@ public class Mummy {
         return String.format("Hello from %s\nWhat can I do for you?", LOGO);
     }
 
+    /**
+     * Checks if the most recent command is an exit command.
+     *
+     * @return true if the most recent command is an exit command, false otherwise
+     */
     public boolean hasExitCommand() {
         try {
             Command command = commandManager.getMostRecentCommand();

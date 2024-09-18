@@ -7,6 +7,12 @@ import mummy.task.TaskList;
 import mummy.ui.MummyException;
 import mummy.utility.Storage;
 
+/**
+ * Manages the execution, undoing, and redoing of commands.
+ * The CommandManager maintains two stacks: one for commands that have been executed
+ * (backwardStack) and one for commands that have been undone (forwardStack). This allows
+ * for commands to be undone and redone as needed.
+ */
 public class CommandManager {
     private final Stack<Command> backwardStack = new Stack<>();
 
@@ -16,11 +22,23 @@ public class CommandManager {
 
     private final Storage storage;
 
+    /**
+     * Constructs a CommandManager with the specified TaskList and Storage.
+     *
+     * @param taskList the TaskList to be managed by this CommandManager
+     * @param storage the Storage to be used by this CommandManager
+     */
     public CommandManager(TaskList taskList, Storage storage) {
         this.taskList = taskList;
         this.storage = storage;
     }
 
+    /**
+     * Retrieves the most recent command.
+     *
+     * @return The most recent {@code Command} object
+     * @throws MummyException If there are no recent commands in the stack
+     */
     public Command getMostRecentCommand() throws MummyException {
         try {
             return backwardStack.peek();
@@ -29,6 +47,13 @@ public class CommandManager {
         }
     }
 
+    /**
+     * Executes the given command.
+     *
+     * @param command The command to be executed.
+     * @return The result of the command execution as a String.
+     * @throws MummyException If an error occurs during command execution.
+     */
     public String execute(Command command) throws MummyException {
         switch (command.getCommandType()) {
         case UNDO:
