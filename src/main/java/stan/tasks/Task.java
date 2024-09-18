@@ -51,6 +51,15 @@ public abstract class Task {
     }
 
     /**
+     * Returns whether the task is done or not.
+     *
+     * @return True if the task is done, false otherwise.
+     */
+    public boolean isDone() {
+        return isDone;
+    }
+
+    /**
      * Converts the task to a storage format.
      *
      * @return The string representation of the task in storage format.
