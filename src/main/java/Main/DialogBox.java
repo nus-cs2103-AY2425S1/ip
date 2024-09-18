@@ -158,7 +158,7 @@ public class DialogBox extends HBox {
      * @param commandType The type of command executed, used to determine the style.
      * @return A DialogBox representing Duke's response with the appropriate style and image.
      */
-    public static DialogBox getDukeDialog(String text, Image img, String commandType) {
+    public static DialogBox getEmoteXDialog(String text, Image img, String commandType) {
         var db = new DialogBox(text, img);
         // Update the existing dialog style and image
         db.changeDialogStyle(commandType);

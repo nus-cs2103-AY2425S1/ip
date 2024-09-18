@@ -24,7 +24,7 @@ import javafx.scene.layout.AnchorPane;
 public class MainWindow extends AnchorPane{
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Joy.png"));
+    private Image EmoteXImage = new Image(this.getClass().getResourceAsStream("/images/Joy.png"));
 
     @FXML
     private ScrollPane scrollPane;
@@ -66,7 +66,7 @@ public class MainWindow extends AnchorPane{
      * @param parser The parser responsible for interpreting user input.
      * @param storeList The list of tasks to be managed.
      */
-    public void setFlash(Parser parser, StoreList storeList) {
+    public void setEmoteX(Parser parser, StoreList storeList) {
         this.parser = parser;
         this.storeList = storeList;
     }
@@ -80,26 +80,26 @@ public class MainWindow extends AnchorPane{
     @FXML
     private void handleUserInput() {
         String userText = userInput.getText();
-        Command flashCommand = parser.makeSenseOfUserInput(userInput.getText());
-        String flashText;
+        Command EmoteXCommand = parser.makeSenseOfUserInput(userInput.getText());
+        String EmoteXText;
         try {
-            flashCommand.setData(storeList);
-            flashText = flashCommand.execute();
-            commandType = flashCommand.getClass().getSimpleName();
+            EmoteXCommand.setData(storeList);
+            EmoteXText = EmoteXCommand.execute();
+            commandType = EmoteXCommand.getClass().getSimpleName();
             Storage.saveTasksToFile(storeList.getItems());
 
-            if (flashText.startsWith("OOPS!!!")) {
+            if (EmoteXText.startsWith("OOPS!!!")) {
                 // Display error dialog
                 dialogContainer.getChildren().addAll(
                         DialogBox.getUserDialog(userText, userImage),
-                        DialogBox.getErrorDialog(flashText, dukeImage) // Show error message
+                        DialogBox.getErrorDialog(EmoteXText, EmoteXImage) // Show error message
                 );
             } else {
 
                 // Display both user input and the command output in the dialog box
                 dialogContainer.getChildren().addAll(
                         DialogBox.getUserDialog(userText, userImage),
-                        DialogBox.getDukeDialog(flashText, dukeImage, commandType)
+                        DialogBox.getEmoteXDialog(EmoteXText, EmoteXImage, commandType)
                 );
             }
 
@@ -107,7 +107,7 @@ public class MainWindow extends AnchorPane{
             // Display error dialog
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(userText, userImage),
-                    DialogBox.getErrorDialog(e.getMessage(), dukeImage) // Show error message
+                    DialogBox.getErrorDialog(e.getMessage(), EmoteXImage) // Show error message
             );
         }
 
