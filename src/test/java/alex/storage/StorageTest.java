@@ -7,6 +7,9 @@ import java.time.format.DateTimeParseException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * List of tests to check whether the storage class is running correctly
+ */
 public class StorageTest {
     @Test
     public void saveTasksToFile_validDate_success() {

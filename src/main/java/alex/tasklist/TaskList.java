@@ -48,7 +48,7 @@ public class TaskList {
         if (isValidIndex) {
             Task task = list.get(index);
             task.markAsDone();
-            reply = "Nice! I've marked this task as done: \n" +
+            reply = "You deserve a pat on the back! I've marked this task as done: \n" +
                     task.toString();
         } else {
             reply = "It seems that task does not exist. Please try again.";
@@ -208,7 +208,7 @@ public class TaskList {
             newList.removeIf(task -> task.dueDate == null);
             for (Task task : newList) {
                 if (task.dueDate.isEqual(dateToFind)) {
-                    reply = reply + "\n" + task;
+                    reply = reply.isEmpty() ? task.toString() : reply + "\n" + task;
                 }
             }
         } catch (DateTimeParseException e) {
