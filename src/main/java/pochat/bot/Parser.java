@@ -1,6 +1,7 @@
 package pochat.bot;
 
 import pochat.exceptions.TaskDescriptionEmptyException;
+import pochat.exceptions.TaskIndexInvalidException;
 import pochat.tasks.Deadline;
 import pochat.tasks.Event;
 import pochat.tasks.Task;
@@ -38,7 +39,7 @@ class Parser {
             int taskIndex = Integer.parseInt(textInput.substring(descriptionStartIndex)) - 1;
             return replyAndMarkTaskDone(taskIndex);
         } else if (textInput.startsWith("unmark")) {
-            int descriptionStartIndex = 5;
+            int descriptionStartIndex = 7;
             int taskIndex = Integer.parseInt(textInput.substring(descriptionStartIndex)) - 1;
             return replyAndMarkTaskUndone(taskIndex);
         } else if (textInput.startsWith("delete")) {
@@ -92,13 +93,21 @@ class Parser {
     }
 
     private String replyAndMarkTaskDone(int index) {
-        Task task = this.taskList.markTaskAsDone(index);
-        return this.ui.getMarkTaskDoneMessage(task);
+        try {
+            Task task = this.taskList.markTaskAsDone(index);
+            return this.ui.getMarkTaskDoneMessage(task);
+        } catch (TaskIndexInvalidException e) {
+            return this.ui.getInvalidIndexMessage();
+        }
     }
 
     private String replyAndMarkTaskUndone(int index) {
-        Task task = this.taskList.unmarkTaskAsDone(index);
-        return this.ui.getMarkTaskUndoneMessage(task);
+        try {
+            Task task = this.taskList.unmarkTaskAsDone(index);
+            return this.ui.getMarkTaskUndoneMessage(task);
+        } catch (TaskIndexInvalidException e) {
+            return this.ui.getInvalidIndexMessage();
+        }
     }
 
     private String replyToInvalidInput() {
@@ -106,8 +115,12 @@ class Parser {
     }
 
     private String replyAndDeleteTask(int index) {
-        Task task = this.taskList.remove(index);
-        return ui.getDeleteTaskMessage(task, this.getNumTasks());
+        try {
+            Task task = this.taskList.remove(index);
+            return ui.getDeleteTaskMessage(task, this.getNumTasks());
+        } catch (TaskIndexInvalidException e) {
+            return this.ui.getInvalidIndexMessage();
+        }
     }
 
     private String replyAndAddToDo(String textInput) throws TaskDescriptionEmptyException {

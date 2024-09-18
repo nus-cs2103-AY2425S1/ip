@@ -74,6 +74,14 @@ class Ui {
     }
 
     /**
+     * Returns the message to be sent to the user for an invalid index
+     * @return message to be sent to the user for invalid index
+     */
+    public String getInvalidIndexMessage() {
+        return "Task index out of range! Please enter a valid task index";
+    }
+
+    /**
      * Returns the message to be sent to the user after deleting the specified task
      * @param task to be deleted
      * @param numTasks after deletion

@@ -2,6 +2,7 @@ package pochat.bot;
 
 import java.util.ArrayList;
 
+import pochat.exceptions.TaskIndexInvalidException;
 import pochat.tasks.Task;
 
 /**
@@ -44,11 +45,16 @@ public class TaskList {
     }
 
     /**
-     * Removes the task at the index specified from the TaskList
+     * Removes the task at the index specified from the TaskList. If the task index
+     *     is invalid, this would throw a TaskIndexInvalidException instead
      * @param index of the task to be removed
      * @return the task of type <code>Task</code>
      */
-    public Task remove(int index) {
+    public Task remove(int index) throws TaskIndexInvalidException {
+        if (isInvalid(index)) {
+            throw new TaskIndexInvalidException();
+        }
+
         Task task = this.listTasks.get(index);
         this.listTasks.remove(task);
         return task;
@@ -100,22 +106,33 @@ public class TaskList {
     }
 
     /**
-     * Marks task as done and returns the Task object
+     * Marks task as done and returns the Task object. If the index is out
+     *     of range, this would throw a TaskIndexInvalidException instead
      * @param index of the task to mark as done
      * @return Task object that has been marked as done
      */
-    public Task markTaskAsDone(int index) {
+    public Task markTaskAsDone(int index) throws TaskIndexInvalidException {
+        if (isInvalid(index)) {
+            throw new TaskIndexInvalidException();
+        }
+
         Task task = this.listTasks.get(index);
         task.markAsDone();
         return task;
     }
 
     /**
-     * Marks task as undone and returns the Task object
+     * Marks task as undone and returns the Task object. If the task
+     *     index is out of range, this would throw a TaskIndexInvalidException
+     *     instead
      * @param index of the task to mark as undone
      * @return Task object that has been marked as undone
      */
-    public Task unmarkTaskAsDone(int index) {
+    public Task unmarkTaskAsDone(int index) throws TaskIndexInvalidException {
+        if (isInvalid(index)) {
+            throw new TaskIndexInvalidException();
+        }
+
         Task task = this.listTasks.get(index);
         task.unmarkAsDone();
         return task;
@@ -127,6 +144,10 @@ public class TaskList {
      */
     public boolean isEmpty() {
         return this.listTasks.isEmpty();
+    }
+
+    private boolean isInvalid(int index) {
+        return index < 0 || index >= this.listTasks.size();
     }
 
     /**
