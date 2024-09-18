@@ -5,34 +5,29 @@ import jude.command.Command;
 /**
  * Represents a jude.Jude, the personal assistant chatbot.
  *
- * This class helps a person to keep track of various things by simulating the chatbot features
+ * This class helps a person to keep track of various things by simulating the chatbot features.
  */
 public class Jude {
 
     private String name = "jude.Jude";
     private TaskList tasks;
     private Storage storage;
-    private Parser parser;
     private String commandType;
     private boolean isExit = false;
+
     /**
      * Takes filePath to initialise the setups for Jude the Chatbot.
      *
-     * @param filePath
+     * @param filePath Path to where the files are stored.
      */
     public Jude(String filePath) {
         this.storage = new Storage(filePath);
-        this.parser = new Parser();
         try {
             this.tasks = new TaskList(storage.load());
         } catch (JudeException je) {
             //TODO: Show more informative error message depending on the error that was thrown
             tasks = new TaskList();
         }
-    }
-
-    public static void main(String[] args) {
-        new Jude("data/jude.txt").run();
     }
 
     /**
@@ -43,16 +38,27 @@ public class Jude {
     public String generateWelcomeMessage() {
         return "Hi, I'm Jude."
                 + System.lineSeparator()
-                + "Just let me know if you ever find yourself in a pinch. I can help you out.";
+                + "What can I help you?";
     }
 
-
+    /**
+     * Processes user input and generates a response.
+     *
+     * <p>
+     * Parses the given user input to create a command, executes the command, and updates the task list
+     * and storage. If an exception is thrown during parsing or execution, the error message is returned.
+     * </p>
+     *
+     * @param input The user input to process.
+     * @return The response generated from the command execution or an error message.
+     */
     public String getResponse(String input) {
         try {
-            Command c = Parser.parse(input);
-            c.execute(tasks, storage);
-            commandType = c.getClass().getSimpleName();
-            return c.getMessage();
+            Command command = Parser.parse(input);
+            command.execute(tasks, storage);
+            this.isExit = command.isExit();
+            commandType = command.getClass().getSimpleName();
+            return command.getMessage();
         } catch (JudeException e) {
             return "Error: " + e.getMessage();
         }
@@ -60,6 +66,10 @@ public class Jude {
 
     public String getCommandType() {
         return commandType;
+    }
+
+    public boolean isExit() {
+        return this.isExit;
     }
 }
 

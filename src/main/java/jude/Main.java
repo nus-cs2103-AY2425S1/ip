@@ -5,6 +5,7 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import jude.ui.MainWindow;
 
@@ -20,18 +21,16 @@ public class Main extends Application {
     public void start(Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
-            MainWindow mainWindow = new MainWindow();
-            fxmlLoader.setController(mainWindow);
-            fxmlLoader.setRoot(mainWindow);
-            fxmlLoader.load();
-
-            stage.setMinHeight(220);
-            stage.setMinWidth(417);
-
-            Scene scene = new Scene(mainWindow);
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setJude(jude); // inject the Jude instance
+
+            MainWindow controller = fxmlLoader.getController();
+            controller.setJude(jude);
+
+            controller.setStage(stage);
             stage.show();
+            controller.displayWelcomeMessage();
         } catch (IOException e) {
             e.printStackTrace();
         }
