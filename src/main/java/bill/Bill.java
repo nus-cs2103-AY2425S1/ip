@@ -25,7 +25,7 @@ public class Bill {
     }
 
     /**
-     * Load bill.txt saved list data into Bill chatbot, in the Gui.
+     * Loads bill txt saved list data into Bill chatbot, in the Gui.
      */
     public void loadData() {
         ui.silenceLoadingData(storage, tasks.getUserList(), tasks);
