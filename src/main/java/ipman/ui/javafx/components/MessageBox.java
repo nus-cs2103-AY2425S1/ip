@@ -67,7 +67,7 @@ public class MessageBox extends GridPane {
      * @return message box for the user
      */
     public static MessageBox createUserBox(String message) {
-        Image image = loadImage("/images/messageUserAvatar.png");
+        Image image = loadImage("/images/messageUserAvatar.jpg");
         MessageBox box = new MessageBox(message, image);
         box.flip();
         return box;
@@ -80,7 +80,7 @@ public class MessageBox extends GridPane {
      * @return message box for the system
      */
     public static MessageBox createSystemBox(String message) {
-        Image image = loadImage("/images/messageSystemAvatar.png");
+        Image image = loadImage("/images/messageSystemAvatar.jpg");
         return new MessageBox(message, image);
     }
 }

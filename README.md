@@ -22,3 +22,12 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
    That's enough for today. See you another time.
    ____________________________________________________________
    ```
+
+## Image Credits
+- System avatar picture:
+
+User name: x-emerlilly-x, CC BY-NC-ND 3.0 <https://creativecommons.org/licenses/by-nc-nd/3.0/>, via [DeviantArt](https://www.deviantart.com/x-emerlilly-x/art/Ip-Man-Digital-Painting-368181312)
+
+- User avatar picture:
+
+User name: Aung Kyaw Swar, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
