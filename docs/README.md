@@ -31,7 +31,7 @@ Now you have 1 tasks in the list.
 
 You can add a task and set the date it should be completed by.
 
-This adds a task with a deadline to your task list.
+This adds a task with a deadline to your task list (date must be in YYYY-MM-DD format).
 
 Example: `deadline read book /by 2024-09-17`
 
@@ -45,7 +45,7 @@ Now you have 1 tasks in the list.
 
 You can add an event.
 
-This adds a task that falls within a time frame to your task list.
+This adds a task that falls within a time frame to your task list (date must be in YYYY-DD-MM format).
 
 Example: `event read book /from 2024-09-17 /to 2024-09-18`
 
