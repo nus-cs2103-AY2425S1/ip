@@ -1,0 +1,23 @@
+/* CSS file for styling dialog box components */
+
+/* Style for bot label */
+.bot-label {
+    -fx-background-color: #f0f0f0;
+    -fx-text-fill: black;
+    -fx-padding: 10;
+    -fx-background-radius: 0 10 10 10;
+}
+
+/* Style for reply label */
+.user-label {
+    -fx-background-color: #ffe4cc;
+    -fx-text-fill: black;
+    -fx-padding: 10;
+    -fx-background-radius: 10 0 10 10;
+}
+
+/* Optional styling for ImageView */
+.image-view {
+    -fx-effect: dropshadow(gaussian, white, 10, 0.5, 0, 0);
+    -fx-background-color: transparent;
+}

@@ -32,8 +32,9 @@ public class DialogBox extends HBox {
      *
      * @param text The text to be displayed in the dialog box.
      * @param img  The image to be displayed next to the text in the dialog box.
+     * @param styleClass The style class to apply for different background colors.
      */
-    private DialogBox(String text, Image img) {
+    private DialogBox(String text, Image img, String styleClass) {
         assert text != null : "Label text should not be null";
         assert img != null : "Image should not be null";
         try {
@@ -47,6 +48,7 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+        dialog.getStyleClass().add(styleClass);
     }
 
     /**
@@ -72,7 +74,7 @@ public class DialogBox extends HBox {
     public static DialogBox getUserDialog(String text, Image img) {
         assert text != null : "Label text should not be null";
         assert img != null : "Image should not be null";
-        return new DialogBox(text, img);
+        return new DialogBox(text, img, "user-label");
     }
 
     /**
@@ -86,7 +88,7 @@ public class DialogBox extends HBox {
     public static DialogBox getDukeDialog(String text, Image img) {
         assert text != null : "Label text should not be null";
         assert img != null : "Image should not be null";
-        var db = new DialogBox(text, img);
+        var db = new DialogBox(text, img, "bot-label");
         db.flip();
         return db;
     }

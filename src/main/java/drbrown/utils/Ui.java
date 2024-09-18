@@ -73,7 +73,7 @@ public class Ui {
      */
     public String showUnmarkTask(Task unmarkTask) {
         assert unmarkTask != null : "Task should not be null";
-        return "Looks like we're going back to the future—task unmarked! Time to revisit this one.\n\n" + unmarkTask;
+        return "Looks like we're going back to the future-task unmarked! Time to revisit this one.\n\n" + unmarkTask;
     }
 
     /**
