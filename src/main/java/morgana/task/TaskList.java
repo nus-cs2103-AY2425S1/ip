@@ -10,8 +10,9 @@ import java.util.List;
 import morgana.exceptions.MorganaException;
 
 /**
- * Represents a list of tasks, providing methods to add, remove, and
- * retrieve tasks from the list.
+ * Represents a list of tasks, providing methods to add, remove, update, and
+ * search for tasks. Additionally, it supports checking for clashing events
+ * based on their scheduled time periods.
  */
 public class TaskList implements Iterable<Task> {
     private final List<Task> tasks;

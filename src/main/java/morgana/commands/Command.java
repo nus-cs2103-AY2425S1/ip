@@ -22,7 +22,8 @@ public abstract class Command {
     public abstract String execute(TaskList tasks, Storage storage) throws MorganaException;
 
     /**
-     * Returns the style class for this command, which can be applied to the {@code dialog} in {@link DialogBox}.
+     * Returns the style class for this command, which can be applied to the
+     * {@code dialog} in {@link DialogBox}.
      *
      * @return The style class for this command, or {@code null} if none is specified.
      */
