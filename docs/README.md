@@ -1,30 +1,59 @@
-# Duke User Guide
+# Azir User Guide
 
 // Update the title above to match the actual product name
 
 // Product screenshot goes here
 
-// Product intro goes here
+Azir is a **task management chatbot that allows you 
+to easily track your tasks**, optimized for use 
+via a Command Line Interface. If you can type fast, 
+Azir will be ***WAY FASTER*** than traditional task tracking apps!
 
-## Adding deadlines
+:information_source: **Notes about the command format:**
 
-// Describe the action and its outcome.
+- Words in `UPPERCASE` are compulsory parameters to be supplied by user
+- Tasks with duplicate task descriptions will not be added
+## Features
 
-// Give examples of usage
+### Viewing task list: `list`
+Shows the list of tasks currently in the list
 
-Example: `keyword (optional arguments)`
+Format: `list`   
 
-// A description of the expected outcome goes here
+### Mark completed task: `mark`
+Marks a task as completed in the list
 
-```
-expected output
-```
+Format: `mark TASKNUMBER`
 
-## Feature ABC
+### Mark incomplete task: `unmark`
+Marks a task as incomplete in the list
 
-// Feature details
+Format: `unmark TASKNUMBER`
 
+### Delete task: `delete`
+Deletes a task from the list
 
-## Feature XYZ
+Format: `delete TASKNUMBER`
 
-// Feature details
+### Add Todo task: `todo`
+Adds a todo task to the list
+
+Format: `todo TASKDESCRIPTION`
+
+### Add deadline task: `deadline`
+Adds a deadline task to the list
+
+Format: `deadline TASKDESCRIPTION /by DATE`
+- DATE should be of the format yyy-mm-dd
+
+### Add event task: `event`
+Adds an event task to the list
+
+Format: `event TASKDESCRIPTION /from STARTDAY /by ENDDAY`
+- No restrictions on format of STARTDAY or ENDDAY
+
+### Locating tasks by description: `find`
+Finds tasks that match the description keyword
+
+Format: `find KEYWORD`
+- DATE should be of the format yyy-mm-dd
