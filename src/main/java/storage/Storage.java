@@ -143,7 +143,7 @@ public class Storage {
                     line = deadline.toFileString();
                 } else if (task.getTaskType().equals("E")) {
                     Events event = (Events) task;
-                    line = String.format("E | %d | %s | %s | %s", task.isDone ? 1 : 0, event.description, localDateTimeString(event.start), localDateTimeString(event.end));
+                    line = event.toFileString();
                 }
                 writer.write(line + System.lineSeparator());
             }

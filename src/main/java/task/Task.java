@@ -18,7 +18,7 @@ public abstract class Task {
         TODO, DEADLINE, EVENT
     }
 
-    public String description;
+    private String description;
     public boolean isDone;
     protected final TaskType taskType;
 
@@ -44,6 +44,10 @@ public abstract class Task {
     }
 
     public String toString() {
+        return description;
+    }
+
+    public String getDescription() {
         return description;
     }
 

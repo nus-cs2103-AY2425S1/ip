@@ -25,16 +25,6 @@ public class Ui {
         return "Bye! See ya soon!";
     }
 
-    public String displayUpdate(int index, TaskList list) {
-        return String.format(
-                "Alright buddy, let's update this task!\n" +
-                        "    [%s][%s] %s\n",
-                list.getTasks().get(index).getTaskType(),
-                list.getTasks().get(index).getStatusIcon(),
-                list.getTasks().get(index).description
-        );
-    }
-
     public String displayUpdateSuccess() {
         return "Task is updated!";
     }

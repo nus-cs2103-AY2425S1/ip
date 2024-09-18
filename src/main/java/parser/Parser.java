@@ -1,6 +1,14 @@
 package parser;
 
-import command.*;
+import command.AddCommand;
+import command.Command;
+import command.DeleteCommand;
+import command.ExitCommand;
+import command.FindCommand;
+import command.ListCommand;
+import command.MarkCommand;
+import command.UnmarkCommand;
+import command.UpdateCommand;
 import exceptions.BuddyException;
 
 import java.util.regex.Matcher;
@@ -48,30 +56,34 @@ public class Parser {
      * @throws BuddyException If the command is not recognized or is invalid.
      */
     public static Command parse(String command) throws BuddyException {
-        String[] commandParts = command.split(" ");
+        // Normalize the command string by trimming and replacing multiple spaces with a single space.
+        String normalizedCommand = command.trim().replaceAll("\\s+", " ");
+
+        // Split the command string into parts
+        String[] commandParts = normalizedCommand.split(" ");
         String mainCommand = commandParts[0].toLowerCase();
         CommandType commandType = fromString(mainCommand);
 
         switch (commandType) {
-            case TODO, DEADLINE, EVENT:
-                return new AddCommand(command);
-            case DELETE:
-                return new DeleteCommand(parseTaskIndex(commandParts));
-            case MARK:
-                return new MarkCommand(parseTaskIndex(commandParts));
-            case UNMARK:
-                return new UnmarkCommand(parseTaskIndex(commandParts));
-            case BYE:
-                return new ExitCommand();
-            case LIST:
-                return new ListCommand();
-            case FIND:
-                String searchValue = commandParts[1].trim();
-                return new FindCommand(searchValue);
-            case UPDATE:
-                return parseUpdateCommand(command);
-            default:
-                throw new BuddyException("Unknown command.");
+        case TODO, DEADLINE, EVENT:
+            return new AddCommand(normalizedCommand);
+        case DELETE:
+            return new DeleteCommand(parseTaskIndex(commandParts));
+        case MARK:
+            return new MarkCommand(parseTaskIndex(commandParts));
+        case UNMARK:
+            return new UnmarkCommand(parseTaskIndex(commandParts));
+        case BYE:
+            return new ExitCommand();
+        case LIST:
+            return new ListCommand();
+        case FIND:
+            String searchValue = commandParts[1].trim();
+            return new FindCommand(searchValue);
+        case UPDATE:
+            return parseUpdateCommand(normalizedCommand);
+        default:
+            throw new BuddyException("Not too sure what command is that?");
         }
     }
 
@@ -108,7 +120,7 @@ public class Parser {
      */
     private static int parseTaskIndex(String[] commandParts) throws BuddyException {
         try {
-            return Integer.parseInt(commandParts[1]) - 1;
+            return Integer.parseInt(commandParts[1].trim()) - 1;
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             throw new BuddyException("Invalid task index provided.");
         }

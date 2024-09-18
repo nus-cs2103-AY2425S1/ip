@@ -1,6 +1,13 @@
 T | 1 | read
 T | 1 | read book
-D | 0 | work | 12/12/2024 1500
-T | 0 | read book
+D | 1 | work | 12/12/2024 1500
+T | 1 | read book
 D | 0 | return book | 12/12/2024 1600
 E | 0 | hi | 12/11/2024 1500 | 12/12/2024 1600
+T | 0 | read book
+T | 0 | read book
+T | 0 | read book
+T | 0 | read book
+T | 1 | read
+T | 0 | hi
+E | 0 | meeting | 12/12/2024 1600 | 12/12/2024 1700

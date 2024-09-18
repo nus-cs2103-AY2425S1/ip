@@ -49,6 +49,7 @@ application {
 shadowJar {
     archiveBaseName = "Buddy"
     archiveClassifier = null
+    archiveFileName = 'buddy.jar'
 }
 
 run{
