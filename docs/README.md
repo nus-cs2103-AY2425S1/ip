@@ -194,6 +194,7 @@ Q: How do I transfer my data to another Computer?
 A: You can just replace the data folder in the new computer with the data folder in the old computer.
 
 ## Command Summary
+
 | Command  | Format                                               | Example                                                |
 |----------|------------------------------------------------------|--------------------------------------------------------|
 | todo     | `todo [DESCRIPTION]`                                 | `todo read book`                                       |
