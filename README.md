@@ -1,10 +1,7 @@
-# Duke project template
-
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
-
 # LBot
 
-> Your personal dedicated hyper assistant 
+> Your personal dedicated hyper assistant
+> Visit the user guide [here](https://ghos7ie.github.io/ip/) 
 
 LBot has the following functionalities:
 - text-based
