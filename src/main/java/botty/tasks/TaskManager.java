@@ -13,22 +13,22 @@ import botty.exceptions.TasksNotFoundException;
  */
 public class TaskManager {
     // The list of tasks
-    private final ArrayList<Task<? extends TaskData>> taskList = new ArrayList<>(100);
+    private final ArrayList<Task<? extends TaskData>> tasks = new ArrayList<>(100);
 
     /**
      * Returns a string representation of the list of tasks
      * @throws TaskListEmptyException if the task list is empty
      */
     public String list() throws TaskListEmptyException {
-        if (size() == 0) {
+        if (getTaskCount() == 0) {
             throw new TaskListEmptyException();
         }
         StringBuilder content = new StringBuilder();
 
-        for (int i = 0; i < taskList.size() - 1; i++) {
-            content.append((i + 1)).append(". ").append(taskList.get(i)).append("\n");
+        for (int i = 0; i < tasks.size() - 1; i++) {
+            content.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
         }
-        content.append(taskList.size()).append(". ").append(taskList.get(taskList.size() - 1));
+        content.append(tasks.size()).append(". ").append(tasks.get(tasks.size() - 1));
         return content.toString();
     }
 
@@ -40,13 +40,13 @@ public class TaskManager {
      * @throws TaskNumberNotFoundException if the task number is out of range
      */
     public Task<? extends TaskData> markTask(int index) throws TaskListEmptyException, TaskNumberNotFoundException {
-        if (size() == 0) {
+        if (getTaskCount() == 0) {
             throw new TaskListEmptyException();
         }
-        if (index < 0 || index > size() - 1) {
-            throw new TaskNumberNotFoundException(index + 1, size());
+        if (index < 0 || index > getTaskCount() - 1) {
+            throw new TaskNumberNotFoundException(index + 1, getTaskCount());
         }
-        Task<? extends TaskData> task = taskList.get(index);
+        Task<? extends TaskData> task = tasks.get(index);
         task.setCompleted(true);
         return task;
     }
@@ -58,13 +58,13 @@ public class TaskManager {
      * @throws TaskNumberNotFoundException if the task number is out of range
      */
     public Task<? extends TaskData> unmarkTask(int index) throws TaskListEmptyException, TaskNumberNotFoundException {
-        if (size() == 0) {
+        if (getTaskCount() == 0) {
             throw new TaskListEmptyException();
         }
-        if (index < 0 || index > size() - 1) {
-            throw new TaskNumberNotFoundException(index + 1, size());
+        if (index < 0 || index > getTaskCount() - 1) {
+            throw new TaskNumberNotFoundException(index + 1, getTaskCount());
         }
-        Task<? extends TaskData> task = taskList.get(index);
+        Task<? extends TaskData> task = tasks.get(index);
         task.setCompleted(false);
         return task;
     }
@@ -76,14 +76,14 @@ public class TaskManager {
      * @throws TaskNumberNotFoundException if the index is out of range
      */
     public Task<? extends TaskData> deleteTask(int index) throws TaskListEmptyException, TaskNumberNotFoundException {
-        if (size() == 0) {
+        if (getTaskCount() == 0) {
             throw new TaskListEmptyException();
         }
-        if (index < 0 || index > size() - 1) {
-            throw new TaskNumberNotFoundException(index + 1, size());
+        if (index < 0 || index > getTaskCount() - 1) {
+            throw new TaskNumberNotFoundException(index + 1, getTaskCount());
         }
-        Task<? extends TaskData> task = taskList.get(index);
-        taskList.remove(index);
+        Task<? extends TaskData> task = tasks.get(index);
+        tasks.remove(index);
         return task;
     }
     /**
@@ -92,14 +92,14 @@ public class TaskManager {
      */
     public void addTask(Task<? extends TaskData> task) {
         assert task != null : "Cannot add a null task";
-        taskList.add(task);
+        tasks.add(task);
     }
 
     /**
      * Returns the current number of tasks in the task list
      */
-    public int size() {
-        return taskList.size();
+    public int getTaskCount() {
+        return tasks.size();
     }
 
     /**
@@ -110,13 +110,13 @@ public class TaskManager {
      * @throws TaskNumberNotFoundException if the index is out of range
      */
     public Task<? extends TaskData> getTask(int index) throws TaskListEmptyException, TaskNumberNotFoundException {
-        if (size() == 0) {
+        if (getTaskCount() == 0) {
             throw new TaskListEmptyException();
         }
-        if (index < 0 || index > size() - 1) {
-            throw new TaskNumberNotFoundException(index + 1, size());
+        if (index < 0 || index > getTaskCount() - 1) {
+            throw new TaskNumberNotFoundException(index + 1, getTaskCount());
         }
-        return taskList.get(index);
+        return tasks.get(index);
     }
 
     /**
@@ -127,16 +127,16 @@ public class TaskManager {
      * @throws TasksNotFoundException when no tasks are found matching the keyword
      */
     public String findTasks(String keyword) throws TaskListEmptyException, TasksNotFoundException {
-        if (taskList.isEmpty()) {
+        if (tasks.isEmpty()) {
             throw new TaskListEmptyException();
         }
 
         String containsKeywordRegex = ".*\\b" + keyword.toLowerCase() + "\\b.*";
 
         StringBuilder result = new StringBuilder();
-        IntStream.range(0, taskList.size())
-                .filter(index -> taskList.get(index).toString().toLowerCase().matches(containsKeywordRegex))
-                .mapToObj(index -> (index + 1) + ". " + taskList.get(index).toString())
+        IntStream.range(0, tasks.size())
+                .filter(index -> tasks.get(index).toString().toLowerCase().matches(containsKeywordRegex))
+                .mapToObj(index -> (index + 1) + ". " + tasks.get(index).toString())
                 .forEach(str -> result.append(str).append("\n"));
 
         if (result.isEmpty()) {

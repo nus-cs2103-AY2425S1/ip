@@ -73,14 +73,14 @@ public abstract class Task<T extends TaskData> {
      * @return the constructed task
      * @throws BottyException if corrupted task string or invalid arguments
      */
-    public static Task<? extends TaskData> fromDataString(String taskString) throws BottyException {
+    public static Task<? extends TaskData> getTaskFromDataString(String taskString) throws BottyException {
         switch (taskString.charAt(0)) {
         case 'E':
-            return Event.fromDataString(taskString);
+            return Event.getEventFromDataString(taskString);
         case 'D':
-            return Deadline.fromDataString(taskString);
+            return Deadline.getDeadlineFromDataString(taskString);
         case 'T':
-            return Todo.fromDataString(taskString);
+            return Todo.getTodoFromDataString(taskString);
         default:
             throw new CorruptedTaskStringException();
         }
@@ -89,7 +89,7 @@ public abstract class Task<T extends TaskData> {
     /**
      * Returns a string representation of the {@code Task} that is used for local storage
      */
-    public abstract String toDataString();
+    public abstract String getDataString();
 
     /**
      * Returns the task type of the task

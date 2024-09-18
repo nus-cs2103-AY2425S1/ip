@@ -38,7 +38,7 @@ public class Todo extends Task<TodoData> {
      * @return the constructed task
      * @throws BottyException if corrupted task string or invalid arguments
      */
-    public static Todo fromDataString(String taskString) throws BottyException {
+    public static Todo getTodoFromDataString(String taskString) throws BottyException {
         String standardDataStorageFormatRegex = "T \\| [10] \\| (.*?) \\| (.*?)";
         if (!taskString.matches(standardDataStorageFormatRegex)) {
             throw new CorruptedTaskStringException();
@@ -55,7 +55,7 @@ public class Todo extends Task<TodoData> {
      * Returns a string representation of the {@code Todo} that is used for local storage
      */
     @Override
-    public String toDataString() {
+    public String getDataString() {
         return "T | " + getCompletedAndDescription();
     }
 

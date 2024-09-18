@@ -14,7 +14,7 @@ public class DeadlineCommandTest {
         Command command = new DeadlineCommand();
         ParsedInput parsedInput = ParsedInput.parse("deadline do homework /by 2024-08-31");
         command.execute(taskManager, parsedInput);
-        assertEquals(1, taskManager.size());
+        assertEquals(1, taskManager.getTaskCount());
     }
     @Test
     public void runDeadlineCommand_noInput_exceptionThrown() {
