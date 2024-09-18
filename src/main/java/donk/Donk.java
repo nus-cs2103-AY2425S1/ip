@@ -3,7 +3,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
-import donk.task.*;
+import donk.task.Deadline;
+import donk.task.Event;
+import donk.task.Task;
+import donk.task.TaskList;
+import donk.task.TaskType;
+import donk.task.ToDo;
 
 
 /**
@@ -124,41 +129,13 @@ public class Donk {
             storage.writeToFile("./save.txt", tasks);
             break;
         case "todo":
-            if (inputArray.length < 2 || input.length() < 5) {
-                return ui.invalidFormat(TaskType.TODO);
-            }
-            Task t = new ToDo(input.substring(5));
-            tasks.add(t);
-            return ui.notifyAddedTask(t, tasks);
+            return todo(input, inputArray);
         case "deadline":
-            String[] split = input.split("/by");
-            if (split.length < 2) {
-                return ui.invalidFormat(TaskType.DEADLINE);
-            }
-            String bef = split[0].substring(9);
-            String aft = split[1];
-            t = new Deadline(bef, aft.strip());
-            tasks.add(t);
-            return ui.notifyAddedTask(t, tasks);
+            return deadline(input);
         case "event":
-            String[] split1 = input.split("/start");
-            if (split1.length < 2) {
-                return ui.invalidFormat(TaskType.EVENT);
-            }
-            String[] split2 = split1[1].split("/end");
-            if (split1.length < 2 || split2.length < 2) {
-                return ui.invalidFormat(TaskType.EVENT);
-            }
-            String start = split2[0];
-            String end = split2[1];
-            String description = split1[0].substring(6);
-            t = new Event(description, start.strip(), end.strip());
-            tasks.add(t);
-            return ui.notifyAddedTask(t, tasks);
+            return event(input);
         case "find":
-            String searchTerm = input.substring(5);
-            TaskList results = tasks.find(searchTerm);
-            return ui.listTasks(results);
+            return find(input);
         case "delete":
             return delete(Parser.parseIndex(inputArray));
         case "unmark":
@@ -200,6 +177,11 @@ public class Donk {
     }
 
 
+    /**
+     * delete task
+     * @param index
+     * @return String message to display to user
+     */
     private String delete(int index) {
         Task tp = tasks.getTask(index);
         tasks.remove(index);
@@ -208,6 +190,69 @@ public class Donk {
 
     }
 
+    /**
+     * return String of list of tasks matching the query
+     * @param input
+     * @return list of matching tasks
+     */
+    private String find(String input) {
+        String searchTerm = input.substring(5);
+        TaskList results = tasks.find(searchTerm);
+        return ui.listTasks(results);
+    }
+
+    /**
+     * Add event to task list
+     * @param input
+     * @return String msg to display to user
+     */
+    private String event(String input) {
+        String[] split1 = input.split("/start");
+        if (split1.length < 2) {
+            return ui.invalidFormat(TaskType.EVENT);
+        }
+        String[] split2 = split1[1].split("/end");
+        if (split1.length < 2 || split2.length < 2) {
+            return ui.invalidFormat(TaskType.EVENT);
+        }
+        String start = split2[0];
+        String end = split2[1];
+        String description = split1[0].substring(6);
+        Task t = new Event(description, start.strip(), end.strip());
+        tasks.add(t);
+        return ui.notifyAddedTask(t, tasks);
+    }
+
+    /**
+     * add deadline to tasklist
+     * @param input
+     * @return String msg to display to user
+     */
+    private String deadline(String input) {
+        String[] split = input.split("/by");
+        if (split.length < 2) {
+            return ui.invalidFormat(TaskType.DEADLINE);
+        }
+        String bef = split[0].substring(9);
+        String aft = split[1];
+        Task t = new Deadline(bef, aft.strip());
+        tasks.add(t);
+        return ui.notifyAddedTask(t, tasks);
+    }
+
+    /**
+     * Add todo to tasklist
+     * @param input
+     * @return String msg to display to user
+     */
+    private String todo(String input, String[] inputArray) {
+        if (inputArray.length < 2 || input.length() < 5) {
+            return ui.invalidFormat(TaskType.TODO);
+        }
+        Task t = new ToDo(input.substring(5));
+        tasks.add(t);
+        return ui.notifyAddedTask(t, tasks);
+    }
 
 }
 
