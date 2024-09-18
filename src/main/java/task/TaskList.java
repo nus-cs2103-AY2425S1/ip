@@ -56,7 +56,8 @@ public class TaskList {
                 }
             }
         } catch (IOException e) {
-            System.out.println("Error while reading from file");
+            // this line should never run because storage will create the correct file
+            // if one does not already exist
         }
     }
 
@@ -76,7 +77,6 @@ public class TaskList {
 
             writer.close();
         } catch (IOException e) {
-            System.out.println("An error occurred while writing to the file");
             e.printStackTrace();
         }
     }
@@ -115,12 +115,8 @@ public class TaskList {
         Task task = inputHistory.get(indexToChange);
         if (action.equals("mark")) {
             task.changeStatus(true);
-            System.out.println("GOOD RIDDANCE! Finally, this task is done:\n"
-                    + task);
         } else {
             task.changeStatus(false);
-            System.out.println("Alright, this task is not done yet faster finish leh:\n"
-                    + task);
         }
         return task.isDone;
     }
