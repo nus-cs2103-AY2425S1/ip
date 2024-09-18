@@ -33,7 +33,7 @@ public class Parser {
     public static Command parse(String input) throws UnsupportedCommandException {
         String[] parts = input.split(" ", 2);
         SubCommandType command = getCommandType(parts[0]);
-        String arguments = (parts.length > 1) ? parts[1] : "";
+        // String arguments = (parts.length > 1) ? parts[1] : "";
         Command commands = new ErrorCommand();
         try {
             switch (command) {
