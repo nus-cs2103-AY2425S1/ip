@@ -83,7 +83,7 @@ public class Ui {
             int count = 1;
             for (Task task : tasks) {
                 //System.out.println(count + ". " + task);
-                ans.append(count).append(". ").append(task);
+                ans.append(count).append(". ").append(task).append("\n");
                 count++;
             }
         }
