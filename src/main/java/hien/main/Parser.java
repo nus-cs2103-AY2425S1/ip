@@ -22,28 +22,28 @@ class Parser {
         String commandType = parts[0].toLowerCase();
         String rest = parts.length > 1 ? parts[1] : "";
         switch (commandType) {
-            case "list":
-                return new ListCommand(false);
-            case "mark":
-                return new MarkCommand(input, true, false);
-            case "unmark":
-                return new MarkCommand(input, false, false);
-            case "todo":
-                return new TodoCommand(input, false);
-            case "deadline":
-                // Parse deadline details and create Deadline object
-                return new DeadlineCommand(input, false);
-            case "event":
-                // Parse event details and create Event object
-                return new EventCommand(input, false);
-            case "delete":
-                return new DeleteCommand(input, false, false);
-            case "deleteall":
-                return new DeleteCommand(input, false, true);
-            case "bye":
-                return new ExitCommand(true);
-            default:
-                throw new HienException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+        case "list":
+            return new ListCommand(false);
+        case "mark":
+            return new MarkCommand(input, true, false);
+        case "unmark":
+            return new MarkCommand(input, false, false);
+        case "todo":
+            return new TodoCommand(input, false);
+        case "deadline":
+            // Parse deadline details and create Deadline object
+            return new DeadlineCommand(input, false);
+        case "event":
+            // Parse event details and create Event object
+            return new EventCommand(input, false);
+        case "delete":
+            return new DeleteCommand(input, false, false);
+        case "deleteall":
+            return new DeleteCommand(input, false, true);
+        case "bye":
+            return new ExitCommand(true);
+        default:
+            throw new HienException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 }
