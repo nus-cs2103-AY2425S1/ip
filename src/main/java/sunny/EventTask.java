@@ -25,7 +25,7 @@ public class EventTask extends Task {
         m3 = timeline.split("/to ", 2)[1];
         startTime = LocalDate.parse(m2.trim());
         endTime = LocalDate.parse(m3.trim());
-        if (startTime.isBefore((endTime))) {
+        if (endTime.isBefore((startTime))) {
             throw new WrongMessageException();
         }
     }

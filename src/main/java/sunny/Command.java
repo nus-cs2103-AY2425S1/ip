@@ -3,7 +3,7 @@ package sunny;
 import java.util.List;
 
 /**
- * Represent all command classes
+ * Represents all command classes
  */
 public abstract class Command {
     public static final String line = "     ────────────────────";
