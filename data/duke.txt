@@ -1,3 +1,2 @@
-T|1|A todo task
-D|0|Description for deadline|tomorrow
+T|0|A todo task
 T|0|hi
