@@ -1,22 +1,22 @@
 # Struggling User Guide
 
-* [Quick start](#Quick-start)
-* Features
-    * Listing all Tasks : `list`
-    * Locating Tasks by Description: `find`
-    * Adding a ToDo Task: `todo`
-    * Adding a Deadline Task: `deadline`
-    * Adding a Event Task: `event`
-    * Deleting a Task : `delete`
-    * Mark a Task : `mark`
-    * Unmark a Task : unmark
-    * Set a Task's priority to high : `highPriority`
-    * Set a Task's priority to low : `lowPriority`
-    * Exiting the program : `bye`
-    * Saving the data
-    * Editing the data file
-* FAQ
-* Command summary
+* [Quick start](#quick-start)
+* [Features](#features)
+    * [Listing all Tasks : `list`](#listing-all-tasks--list)
+    * [Locating Tasks by Description: `find`](#locating-tasks-by-description-find)
+    * [Adding a ToDo Task: `todo`](#adding-a-todo-task-todo)
+    * [Adding a Deadline Task: `deadline`](#adding-a-deadline-task-deadline)
+    * [Adding a Event Task: `event`](#adding-a-event-task-event)
+    * [Deleting a Task : `delete`](#deleting-a-task--delete)
+    * [Mark a Task : `mark`](#mark-a-task--mark)
+    * [Unmark a Task : `unmark`](#unmark-a-task--unmark)
+    * [Set a Task's priority to high : `highPriority`](#set-a-tasks-priority-to-high--highpriority)
+    * [Set a Task's priority to low : `lowPriority`](#set-a-tasks-priority-to-low--lowpriority)
+    * [Exiting the program : `bye`](#exiting-the-program--bye)
+    * [Saving the data](#saving-the-data)
+    * [Editing the data file](#editing-the-data-file)
+* [FAQ](#faq)
+* [Command summary](#command-summary)
 
 ## Quick start
 
@@ -48,10 +48,10 @@
 >
 > - Parameters must be in order specified.  
     >     e.g. if the command specifies  `DESCRIPTION /from DATE`,  `/from DATE DESCRIPTION`  is **NOT**
-    acceptable.
+    > acceptable.
 >
-> - No extraneous parameters should be provided for commands that do not take in parameters (such as `list`,
-    `bye`).
+> - No extraneous parameters should be provided for commands that do not take in parameters (such as
+    > `list`, `bye`).
 
 ### Listing all Tasks : `list`
 
@@ -155,5 +155,5 @@ contains the data of your previous Struggling chatbot home folder.
 | Mark          | `mark INDEX`                            | e.g., `mark 2`                                            |
 | Unmark        | `unmark INDEX`                          | e.g., `unmark 3`                                          |
 | High Priority | `highPriority INDEX`                    | e.g., `highPriority 4`                                    |
-| Low Priority	 | `lowPriority INDEX`                     | e.g., `lowPriority 5`                                     |
+| Low Priority  | `lowPriority INDEX`                     | e.g., `lowPriority 5`                                     |
 | Exit          | `bye`                                   |                                                           |
