@@ -14,9 +14,9 @@ import tars.tasks.TaskList;
  */
 public class Tars {
 
-    Storage storage = new Storage();
-    Response response = new Response();
-    TaskList tasks = new TaskList(storage.updateTasks());
+    private final Storage storage = new Storage();
+    private final Response response = new Response();
+    private final TaskList tasks = new TaskList(storage.updateTasks());
 
     public String displayIntro() {
         return response.displayIntro();
@@ -24,6 +24,9 @@ public class Tars {
 
     /**
      * Generates a response for the user's chat message.
+     *
+     * @param input The input of the user to the chatbot,
+     * @return A {@link String} representing the response of the chatbot
      */
     public String getResponse(String input) {
 
