@@ -35,6 +35,7 @@ public class MainWindow extends AnchorPane {
 
     /** Injects the Rizzler instance */
     public void setRizzler(Rizzler d) {
+        assert d != null : "rizzler must not be null";
         rizzler = d;
     }
 
@@ -45,7 +46,9 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        assert input != null : "userInput must not be null";
         String response = rizzler.getResponse(input);
+        assert response != null : "response must not be null";
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getRizzlerDialog(response, rizzlerImage)

@@ -30,11 +30,14 @@ public class Rizzler {
      * @return Rizzler's output in response to user input
      */
     public String getResponse(String userInput) {
+        assert userInput != null : "userInput is null";
         StringBuilder response = new StringBuilder();
         Command userCommand = parser.parseInput(userInput);
+        assert userCommand != null : "userCommand is null";
         String[] responseLines = userCommand.execute(storage, taskLog);
         userIsDone = userCommand.shouldEnd();
         for (String responseLine : responseLines) {
+            assert responseLine != null : "responseLine is null";
             response.append(responseLine);
             response.append("\n");
         }

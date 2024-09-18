@@ -16,20 +16,25 @@ import rizzler.task.TaskLog;
 import rizzler.task.ToDo;
 
 /**
- * Handles reading and writing between TaskLogs and files.
+ * Storage object to handle reading and writing between TaskLogs and files.
  * Default directory is <code>taskStorage/taskLog.tsv</code>, relative to where <code>Rizzler</code> is run.
  */
 public class Storage {
     private static final Path STORAGE_PATH = Paths.get("taskStorage", "taskLog.tsv");
     private File file;
 
+    /**
+     * Constructor for a <code>Storage</code> object.
+     */
     protected Storage() {
         File file = new File(STORAGE_PATH.toString());
-        if (!file.getParentFile().exists()) {
-            file.getParentFile().mkdirs();
+        if (!file.getParentFile().exists()) {       // if the taskStorage directory does not exist, create it
+            boolean parentDirCreated = file.getParentFile().mkdirs();
+            assert parentDirCreated : "Failed to create parent directory";
         }
-        if (!file.isFile()) {
-            createFile(file);
+        if (!file.isFile()) {                       // if the file does not exist, create it
+            boolean fileCreated = createFile(file);
+            assert fileCreated : "Failed to create file";
         }
         this.file = file;
     }
@@ -78,19 +83,18 @@ public class Storage {
 
     }
 
-    private static void createFile(File file) {
+    private static boolean createFile(File file) {
         try {
-            file.createNewFile();
+            return file.createNewFile();
         } catch (IOException e) {
-            // don't create it
-            System.out.println("Cannot create storage file");
-            System.out.println(e.getMessage());
+            return false;
         }
     }
 
-    private Task tsvToTask(String tsv) throws DateTimeParseException {
+    private Task tsvToTask(String tsv) {
         String[] tsvFields = tsv.split("\t");
         Task newTask;
+        assert tsvFields.length > 0 : "Invalid tsv fields";
         switch (tsvFields[0]) {
         case "ToDo":
             boolean todoIsDone = Boolean.parseBoolean(tsvFields[1]);
