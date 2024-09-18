@@ -59,7 +59,7 @@ public class Parser {
         case UNDO:
             return parseUndoCommand();
         default:
-            return new CommandHelp();
+            return new InvalidCommand();
         }
     }
 
