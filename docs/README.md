@@ -5,10 +5,15 @@
 TheRatchetCat is here to organise tasks for you! 
 
 ## Commands
+**"list"** command lists all the for you
+> list
+**"cp"** command changes the priority of specified task for you
+> cp <Task index> <Task priority>
+**"deadline"** deadline adds a new Task with a deadline for you  
+> deadline <Task Description> /by <YYYY-MM-DD>
+**"delete"** deletes a task for you
+> delete <Task index>
 
-> **"list"** command lists all the for you
-> **"cp <Task index> <Task priority>"** command changes the priority of specified task for you
-> **"deadline <Task Description> /by <YYYY-MM-DD>"** deadline adds a new Task with a deadline for you  
 
 // Give examples of usage
 
