@@ -19,6 +19,7 @@ Available Features:
 6. Add a deadline task
 7. Delete a task in the tasklist
 8. Find a task in the tasklist
+9. Exit the bot
 
 ### List Tasks
 
@@ -80,7 +81,7 @@ Sample outcome:
 
 Add a deadline task to the tasklist
 
-Format: `deadlind <task description> \by <time string>` or `d <task description> \by <time string>` 
+Format: `deadline <task description> \by <time string>` or `d <task description> \by <time string>` 
 
 Constrain: `<time string>` must be in the form of `yyyy-mm-dd` if not, 
 the bot will inform you that the format is not correct
@@ -110,6 +111,14 @@ Format: `Find <string for matching>`
 Sample outcome:
 
 ![find_pic](images/Find.png)
+
+### Exit the bot
+
+Format: `bye`
+
+Sample outcome:
+
+![exit_pic](images/Exit.png)
 
 ## How to use GreetBot on your local laptop
 - Download the `.jar` file under `Releases`,
