@@ -60,6 +60,12 @@ public abstract class Task {
     private static final String PRINT_FORMAT_LOW_PRIORITY = "[%s] %s";
     private static final String PRINT_FORMAT_HIGH_PRIORITY = "[%s] %s *HIGH PRIORITY*";
     private static final String SAVE_FORMAT = "%d | %s | %s";
+    private static final String ATTEMPT_MARK_COMPLETED_MESSAGE = """
+            PSST! This task is already marked complete!
+            Next time please check before wasting my time!""";
+    private static final String ATTEMPT_UNMARK_INCOMPLETE_MESSAGE = """
+            Don't you feel embarrassed that you tried to un-mark an incomplete task!
+            Does un-marking completed tasks not feel embarrassing enough for you?""";
 
     /** The description of the task */
     protected String description;
@@ -258,7 +264,10 @@ public abstract class Task {
      *
      * @see Task#markAsUndone()
      */
-    public void markAsDone() {
+    public void markAsDone() throws EkudException {
+        if (isDone) {
+            throw new EkudException(ATTEMPT_MARK_COMPLETED_MESSAGE);
+        }
         isDone = true;
     }
 
@@ -267,7 +276,10 @@ public abstract class Task {
      *
      * @see Task#markAsDone()
      */
-    public void markAsUndone() {
+    public void markAsUndone() throws EkudException {
+        if (!isDone) {
+            throw new EkudException(ATTEMPT_UNMARK_INCOMPLETE_MESSAGE);
+        }
         isDone = false;
     }
 
