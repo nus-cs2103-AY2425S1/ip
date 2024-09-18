@@ -69,4 +69,8 @@ list
 unmark 10 10 pineapple 7 7 8 orange
 list
 delete 5 durian 8 10 9 7 6 dragonfruit
+deadline TEST_INVALID_DATE /by 2024-02-30
+event TEST_INVALID_DATE /from 2024-02-28 /to 2024-02-01 00:01
+event TEST_INVALID_DATE /from 2024-02-28 00:01 /to 2024-02-01
+event TEST_INVALID_DATE /from 2024-02-28 00:01 /to 2024-02-01 00:01
 bye

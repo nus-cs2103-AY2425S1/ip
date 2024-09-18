@@ -61,6 +61,17 @@ public class Event extends Task {
         } catch (Exception e) {
             throw new HamyoException("Invalid date/time format. yyyy-MM-dd OR yyyy-MM-dd HH:mm.");
         }
+
+        // Validate from date is earlier than to date
+        if (this.fromDate.isAfter(this.toDate)) {
+            throw new HamyoException("From date/time must be earlier than To date/time.");
+        }
+        if (this.fromDateTime == null || this.toDateTime == null) {
+            return;
+        }
+        if (this.fromDateTime.isAfter(this.toDateTime)) {
+            throw new HamyoException("From date/time must be earlier than To date/time.");
+        }
     }
 
     /**
