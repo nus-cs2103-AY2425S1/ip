@@ -6,12 +6,9 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
-import bimo.exception.BimoException;
-
-
 public class EventTest {
     @Test
-    public void toString_emptyInput() throws BimoException {
+    public void testStringConversion() {
         LocalDate startDate = LocalDate.parse("2022-12-19");
         LocalDate endDate = LocalDate.parse("2023-06-18");
         Event event = new Event("Go to work everyday from 8am to 5pm", startDate, endDate);
@@ -20,7 +17,7 @@ public class EventTest {
     }
 
     @Test
-    public void getDateAsText_emptyInput() {
+    public void testTaskConversionToText() {
         LocalDate deadLine = LocalDate.parse("2023-06-18");
         Deadline deadline = new Deadline("Leave work at mattar", deadLine);
         assertEquals("|2023-06-18", deadline.getDateAsText());

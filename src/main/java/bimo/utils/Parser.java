@@ -40,35 +40,25 @@ public class Parser {
      */
     public static Command parse(String input) throws BimoException {
         CommandType command = getCommandType(input.split(" ")[0].toUpperCase());
-        String [] parsedArray = input.split(" ");
         switch (command) {
         case LIST:
             return new ListCommand();
         case MARK:
-            int indexToMark = parseIndex(parsedArray);
-            return new MarkCommand(indexToMark);
+            return new MarkCommand(parseIndex(input));
         case UNMARK:
-            int indexToUnmark = parseIndex(parsedArray);
-            return new UnmarkCommand(indexToUnmark);
+            return new UnmarkCommand(parseIndex(input));
         case TODO:
-            String toDodescription = parseDescription(input);
-            return new AddCommand(new ToDo(toDodescription));
+            return new AddCommand(new ToDo(parseDescription(input)));
         case EVENT:
-            Task eventTask = createEventTask(input);
-            return new AddCommand(eventTask);
+            return new AddCommand(createEventTask(input));
         case DEADLINE:
-            Task deadlineTask = createDeadlineTask(input);
-            return new AddCommand(deadlineTask);
+            return new AddCommand(createDeadlineTask(input));
         case DELETE:
-            int indexToDelete = parseIndex(parsedArray);
-            return new DeleteCommand(indexToDelete);
+            return new DeleteCommand(parseIndex(input));
         case FIND:
-            String[] wordsToInclude = input.split(" ");
-            return new FindCommand(wordsToInclude);
+            return new FindCommand(input.split(" "));
         case SET:
-            int index = parseIndex(parsedArray);
-            Priority priority = parsePriority(parsedArray);
-            return new SetCommand(priority, index);
+            return new SetCommand(parsePriority(input), parseIndex(input));
         case BYE:
             return new ByeCommand();
         case HELP:
@@ -111,11 +101,12 @@ public class Parser {
     /**
      * Returns index of specified task in list.
      *
-     * @param parsedArray Array of words specified by user.
+     * @param input Words specified by user.
      * @return The index of target task in list.
      * @throws InvalidTaskNumberException Thrown if user does not provide a task number.
      */
-    public static int parseIndex(String[] parsedArray) throws InvalidTaskNumberException {
+    public static int parseIndex(String input) throws InvalidTaskNumberException {
+        String[] parsedArray = input.split(" ");
         if (parsedArray.length <= 1) {
             throw new InvalidTaskNumberException();
         }
@@ -155,7 +146,7 @@ public class Parser {
             String[] array) throws MissingDateException {
         String [] splitArrayByKey = array;
         if (splitArrayByKey.length <= 1) {
-            String type = isDeadlineTask ? "/by  yyyy-mm-dd" : "/from yyyy-mm-dd /to  yyyy-mm-dd";
+            String type = isDeadlineTask ? "/by yyyy-mm-dd" : "/from yyyy-mm-dd /to yyyy-mm-dd";
             throw new MissingDateException("Please provide a date using " + type);
         } else if (!isDeadlineTask) {
             splitArrayByKey = splitArrayByKey[1].split(" /to ");
@@ -220,11 +211,12 @@ public class Parser {
     /**
      * Retrieves the priority level from user input.
      *
-     * @param parsedArray Array of User input split by " ".
+     * @param input User input.
      * @return Priority object.
      * @throws BimoException If no priority is given or invalid priority given.
      */
-    public static Priority parsePriority(String[] parsedArray) throws BimoException {
+    public static Priority parsePriority(String input) throws BimoException {
+        String[] parsedArray = input.split(" ");
         if (parsedArray.length <= 2) {
             throw new BimoException("Missing priority");
         }
@@ -233,7 +225,7 @@ public class Parser {
             Priority priority = Priority.valueOf(priorityLevel.toUpperCase());
             return priority;
         } catch (IllegalArgumentException e) {
-            throw new BimoException("Please choose either HIGH, MEDIIUM or LOW priority only"
+            throw new BimoException("Please choose either HIGH, MEDIUM or LOW priority only"
                     + "\n e.g set 2 high");
         }
     }
