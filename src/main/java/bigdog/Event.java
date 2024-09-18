@@ -46,9 +46,8 @@ public class Event extends Task {
      * @throws BigdogException if the input string is empty or does not contain valid dates.
      */
     public static Event of(String s) throws BigdogException {
-        if (MIN_LENGTH_FOR_EMPTY_CHECK <= 6) {
-            throw new BigdogException("event can't be empty! If theres no event then go and sleep!");
-        }
+
+        assert s.length() > MIN_LENGTH_FOR_EMPTY_CHECK : "event can't be empty! If theres no event then go and sleep!";
 
         int dashCounter = 0;
         for (int j = s.length() - 1; j > 5; j--) {
@@ -78,10 +77,7 @@ public class Event extends Task {
      */
     public static Event of(String s, boolean marked) throws BigdogException {
 
-
-        if (s.length() <= MIN_LENGTH_FOR_CORRUPTION_CHECK) {
-            throw new BigdogException("data file corrupted! Cause: " + s);
-        }
+        assert s.length() > MIN_LENGTH_FOR_CORRUPTION_CHECK : "data file corrupted! Cause: " + s;
 
         for (int j = s.length() - 1; j > 3; j--) {
             if (s.charAt(j) != '|') {
@@ -108,9 +104,8 @@ public class Event extends Task {
      * @throws BigdogException if the input string has an invalid format.
      */
     private static LocalDateTime stringToDate(String str) throws BigdogException {
-        if (str.chars().filter(x -> x == '/').count() != 2) {
-            throw new BigdogException("Invalid date format: " + str);
-        }
+
+        assert str.chars().filter(x -> x == '/').count() == 2 : "Invalid date format: " + str;
 
         String[] parts = str.split(" ");
         String[] dateParts = parts[0].split("/");
@@ -126,6 +121,7 @@ public class Event extends Task {
             throw new BigdogException("Invalid date format: " + str +
                     "\nExample correct format: event meeting with John /from 02/07/2019 18:00 /to 02/07/2019 20:00");
         }
+
     }
 
     /**

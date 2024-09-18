@@ -40,9 +40,8 @@ public class Deadline extends Task {
      * @throws BigdogException if the input string is empty or does not contain a valid deadline.
      */
     public static Deadline of(String s) throws BigdogException {
-        if (s.isEmpty() || s.charAt(0) == '/') {
-            throw new BigdogException("deadline can't be empty! Theres nothing to do!\n");
-        }
+
+        assert (!s.isEmpty() && s.charAt(0) != '/') : "deadline can't be empty! Theres nothing to do!\n";
 
         for (int i = 0; i < s.length(); i++) {
             if (s.charAt(i) == '/') {
@@ -62,9 +61,8 @@ public class Deadline extends Task {
      * @throws BigdogException if the input string is corrupted or invalid.
      */
     public static Deadline of(String s, boolean marked) throws BigdogException {
-        if (s.length() <= MIN_LENGTH_FOR_CORRUPTION_CHECK) {
-            throw new BigdogException("Data file corrupted! Cause: " + s);
-        }
+
+        assert s.length() > MIN_LENGTH_FOR_CORRUPTION_CHECK : "data file corrupted! Cause: " + s + "\n";
 
         int index = s.indexOf('|');
         if (index != -1) {
@@ -85,9 +83,8 @@ public class Deadline extends Task {
      * @throws BigdogException if the input string has an invalid format.
      */
     private static LocalDateTime stringToDate(String str) throws BigdogException {
-        if (str.chars().filter(x -> x == '/').count() != 2) {
-            throw new BigdogException("Invalid date format: " + str);
-        }
+
+        assert str.chars().filter(x -> x == '/').count() == 2 : "Invalid date format :" + str + "\n";
 
         String[] parts = str.split(" ");
         String[] dateParts = parts[0].split("/");
@@ -104,6 +101,7 @@ public class Deadline extends Task {
             throw new BigdogException("Invalid date format: " + str +
                     "\nExample correct format: deadline return book /by 02/07/2019 18:00");
         }
+
     }
 
     /**

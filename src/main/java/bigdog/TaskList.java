@@ -40,9 +40,8 @@ public class TaskList {
      * @throws BigdogException if the index is out of the valid range.
      */
     public String delete(int i) {
-        if (i <= 0 || i > this.list.size()) {
-            throw new BigdogException("TaskList Error: That's out of your list!\n");
-        }
+
+        assert (i > 0 && i <= this.list.size()) : "TaskList Error: That's out of your list!\n";
 
         // Conversion from a 1-based index to a 0 based index, hence i -1.
         Task temp = this.list.get(i - 1);
@@ -69,9 +68,8 @@ public class TaskList {
      * @throws BigdogException if the index is out of the valid range.
      */
     public String mark(int i) {
-        if (i <= 0 || i > this.list.size()) {
-            throw new BigdogException("TaskList Error: That's out of your list!\n");
-        }
+      
+        assert (i > 0 && i <= this.list.size()) : "TaskList Error: That's out of your list!\n";
 
         // Conversion from a 1-based index to a 0 based index, hence i -1.
         this.list.get(i - 1).mark();
@@ -87,9 +85,8 @@ public class TaskList {
      * @throws BigdogException if the index is out of the valid range.
      */
     public String unmark(int i) {
-        if (i <= 0 || i > this.list.size()) {
-            throw new BigdogException("TaskList Error: That's out of your list!\n");
-        }
+
+        assert (i > 0 && i <= this.list.size()) : "TaskList Error: That's out of your list!\n";
 
         // Conversion from a 1-based index to a 0 based index, hence i -1.
         this.list.get(i - 1).unmark();
@@ -110,9 +107,10 @@ public class TaskList {
                 result.append(i + 1).append(". ").append(this.list.get(i).toString()).append("\n");
             }
         }
-        if (result.toString().equals("Here are the tasks in your list:\n")) {
-            return "There are no similar tasks in your list!\n";
-        }
+
+        assert !result.toString().equals("Here are the tasks in your list:\n")
+                : "There are no similar tasks in your list!\n";
+
         return result.toString();
     }
 
