@@ -17,14 +17,14 @@ public class StorageTest {
 
     @Test
     public void testReadFile() {
-        Storage storage = new Storage("src/main/data/rasputin.txt");
+        Storage storage = new Storage("data/storagetest.txt");
         ArrayList<Task> tasks = new ArrayList<>();
-        Deadline deadline1 = new Deadline("return book", "2024-08-29 1800");
-        Event event = new Event("project meeting","2024-08-28 1400", "2024-08-28 1500");
+        Deadline deadline1 = new Deadline("return book", "2024-09-29 1800");
+        Event event = new Event("project meeting","2024-09-28 1400", "2024-09-28 1500");
         event.markAsDone();
         Todo todo = new Todo("read book");
         todo.markAsDone();
-        Deadline deadline2 = new Deadline("update calendar", "2024-08-30");
+        Deadline deadline2 = new Deadline("update calendar", "2024-09-30");
         tasks.add(deadline1);
         tasks.add(event);
         tasks.add(todo);
