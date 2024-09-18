@@ -7,7 +7,7 @@ import java.time.format.DateTimeParseException;
  * This command handles adding ToDo, Deadline, and Event tasks.
  */
 public class AddCommand extends Command {
-    private static final int VALIDPARTSNUM = 2;
+    private static final int VALID_PARTS_NUM = 2;
     private int prefixLength;
     private final TaskType type;
 
@@ -28,12 +28,6 @@ public class AddCommand extends Command {
         default -> {
             break;
         }
-        }
-
-        String description = commandBody.substring(prefixLength).trim();
-        if (description.isEmpty()) {
-            throw new ChatBabyException("Oh no!!! The description of a "
-                    + type.name().toLowerCase() + " cannot be empty.");
         }
     }
 
@@ -68,6 +62,10 @@ public class AddCommand extends Command {
      * @throws ChatBabyException If the description is empty.
      */
     private ToDo createToDo() throws ChatBabyException {
+        if (checkEmptyDescription(commandBody)) {
+            throw new ChatBabyException("Oh no!!! The description of this "
+                    + type.name().toLowerCase() + " cannot be empty.");
+        }
         return new ToDo(commandBody);
     }
 
@@ -78,10 +76,14 @@ public class AddCommand extends Command {
      * @throws ChatBabyException If the description or date format is invalid.
      */
     private Deadline createDeadline() throws ChatBabyException {
-        String[] deadlineParts = commandBody.split("/by ");
-        if (deadlineParts.length != VALIDPARTSNUM) {
+        if (checkEmptyDescription(commandBody)) {
             throw new ChatBabyException("Oh no!!! The description of this "
                     + type.name().toLowerCase() + " cannot be empty.");
+        }
+        String[] deadlineParts = commandBody.split("/by ");
+        if (deadlineParts.length != VALID_PARTS_NUM) {
+            throw new ChatBabyException("Oh no!!! The description of this "
+                    + type.name().toLowerCase() + " is invalid.");
         }
         try {
             String taskDescription = deadlineParts[0].trim();
@@ -99,14 +101,18 @@ public class AddCommand extends Command {
      * @throws ChatBabyException If the description or time format is invalid.
      */
     private Event createEvent() throws ChatBabyException {
-        String[] eventParts = commandBody.split("/from ");
-        if (eventParts.length != VALIDPARTSNUM) {
+        if (checkEmptyDescription(commandBody)) {
             throw new ChatBabyException("Oh no!!! The description of this "
                     + type.name().toLowerCase() + " cannot be empty.");
         }
+        String[] eventParts = commandBody.split("/from ");
+        if (eventParts.length != VALID_PARTS_NUM) {
+            throw new ChatBabyException("Oh no!!! The description of this "
+                    + type.name().toLowerCase() + " is invalid.");
+        }
         String name = eventParts[0].trim();
         String[] eventTimes = eventParts[1].split("/to ");
-        if (eventTimes.length != VALIDPARTSNUM) {
+        if (eventTimes.length != VALID_PARTS_NUM) {
             throw new ChatBabyException("Oh no!!! The time of this "
                     + type.name().toLowerCase() + " is invalid.");
         }
@@ -117,5 +123,10 @@ public class AddCommand extends Command {
         } catch (DateTimeParseException e) {
             throw new ChatBabyException("Invalid date format. Please use yyyy-MM-dd HH:mm.");
         }
+    }
+
+    private boolean checkEmptyDescription(String commandBody) {
+        String description = commandBody.substring(prefixLength).trim();
+        return description.length() <= prefixLength;
     }
 }
