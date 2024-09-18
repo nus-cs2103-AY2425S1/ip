@@ -38,6 +38,7 @@ public class TaskList {
      * @return The ArrayList of Task objects.
      */
     public ArrayList<Task> getListOfTasks() {
+        assert listOfTasks != null : "Task list should never be null";
         return this.listOfTasks;
     }
 
@@ -47,6 +48,7 @@ public class TaskList {
      * @param task The task to add to the list.
      */
     public void addTask(Task task) {
+        assert task != null : "Task should not be null";
         listOfTasks.add(task);
     }
 
@@ -56,6 +58,7 @@ public class TaskList {
      * @param index The index of the task to delete.
      */
     public void deleteTask(int index) {
+        assert index >= 0 && index < listOfTasks.size() : "Index out of bounds when deleting task";
         listOfTasks.remove(index);
     }
 
@@ -66,6 +69,7 @@ public class TaskList {
      * @return The Task at the specified index.
      */
     public Task getTask(int index) {
+        assert index >= 0 && index < listOfTasks.size() : "Index out of bounds when retrieving task";
         return listOfTasks.get(index);
     }
 

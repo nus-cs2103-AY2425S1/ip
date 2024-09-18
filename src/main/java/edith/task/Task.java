@@ -16,6 +16,7 @@ public abstract class Task {
      * @param task The description of the task.
      */
     public Task(String typeOfTask, String task) {
+        assert task != null && !task.isEmpty() : "Task description should not be null or empty";
         this.typeOfTask = typeOfTask;
         this.task = task;
         this.isDone = false;
