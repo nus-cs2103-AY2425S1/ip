@@ -1,13 +1,15 @@
 package stan;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import stan.tasks.Task;
-
 
 /**
  * Unit tests for the TaskList class.
@@ -92,5 +94,54 @@ class TaskListTest {
         } catch (IndexOutOfBoundsException e) {
             assertEquals(2, taskList.size()); // Ensure size has not changed
         }
+    }
+
+    /**
+     * Tests the behavior of finding tasks with a matching keyword in the TaskList.
+     */
+    @Test
+    void testFindTasksWithMatchingKeyword() {
+        Task task1 = new MockTask("Read a book");
+        Task task2 = new MockTask("Write an essay");
+        Task task3 = new MockTask("Do homework");
+        taskList.add(task1);
+        taskList.add(task2);
+        taskList.add(task3);
+
+        List<Task> matchingTasks = taskList.findTasks("book");
+        assertEquals(1, matchingTasks.size());
+        assertEquals(task1, matchingTasks.get(0));
+    }
+
+    /**
+     * Tests the behavior of finding tasks with no matching keyword in the TaskList.
+     */
+    @Test
+    void testFindTasksNoMatchingKeyword() {
+        Task task1 = new MockTask("Read a book");
+        Task task2 = new MockTask("Write an essay");
+        taskList.add(task1);
+        taskList.add(task2);
+
+        List<Task> matchingTasks = taskList.findTasks("homework");
+        assertTrue(matchingTasks.isEmpty());
+    }
+
+    /**
+     * Tests the behavior of finding multiple tasks with the same keyword in the TaskList.
+     */
+    @Test
+    void testFindTasksMultipleMatches() {
+        Task task1 = new MockTask("Read a book");
+        Task task2 = new MockTask("Write a book report");
+        Task task3 = new MockTask("Do homework");
+        taskList.add(task1);
+        taskList.add(task2);
+        taskList.add(task3);
+
+        List<Task> matchingTasks = taskList.findTasks("book");
+        assertEquals(2, matchingTasks.size());
+        assertEquals(task1, matchingTasks.get(0));
+        assertEquals(task2, matchingTasks.get(1));
     }
 }
