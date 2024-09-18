@@ -32,9 +32,10 @@ public class MainWindow extends AnchorPane {
     }
 
     /** Injects the Duke instance */
-    public void setDudu(Dudu d) {
-        dudu = d;
+    public void setDudu(Dudu dudu) {
+        this.dudu = dudu;
         welcomeUser();
+        loadLocalTasks();
     }
 
     /**
@@ -46,6 +47,19 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().addAll(
                 DialogBox.getDuduDialog(message, duduImage)
         );
+    }
+
+    /**
+     * Loads tasks from local file and notifies user if there is an error.
+     */
+    @FXML
+    private void loadLocalTasks() {
+        String message = dudu.loadLocalTasks();
+        if (!message.isEmpty()) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getDuduDialog(message, duduImage)
+            );
+        }
     }
 
     /**

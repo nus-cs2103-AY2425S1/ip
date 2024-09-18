@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents an event task
+ * Represents an event task.
  */
 public class Event extends Task {
     private static final String displayDateFormat = "MMM d yyyy";
@@ -15,12 +15,11 @@ public class Event extends Task {
     private LocalDate toDate;
 
     /**
-     * Constructs a deadline task with the specified description, start date and due date.
-     * By default, the task is uncompleted.
+     * Constructs an Event task.
      *
-     * @param description
-     * @param fromDate
-     * @param toDate
+     * @param description Task Description.
+     * @param fromDate Date to do task from.
+     * @param toDate Date to do task until.
      */
     public Event(String description, LocalDate fromDate, LocalDate toDate) {
         super(description);
@@ -29,22 +28,17 @@ public class Event extends Task {
     }
 
     /**
-     * Formats the task into a string for storage, including the task type ("E" for event),
-     * its completion status, description, start date and due date.
-     *
-     * @return The formatted string representation of the deadline task for storage.
+     * Returns task in storage format.
      */
-    public String formatString() {
+    @Override
+    public String toStorageString() {
         String formattedFromDate = this.fromDate.format(DateTimeFormatter.ofPattern(storageDateFormat));
         String formattedToDate = this.toDate.format(DateTimeFormatter.ofPattern(storageDateFormat));
-        return String.format("E | %s | %s | %s", super.formatString(), formattedFromDate, formattedToDate);
+        return String.format("E | %s | %s | %s", super.toStorageString(), formattedFromDate, formattedToDate);
     }
 
     /**
-     * Returns a string representation of the task, including its status
-     * (marked or unmarked), its description, start date and due date.
-     *
-     * @return The string representation of the task.
+     * Returns task in display format.
      */
     @Override
     public String toString() {

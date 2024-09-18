@@ -1,7 +1,6 @@
 package dudu;
 
 import java.io.IOException;
-import java.time.format.DateTimeParseException;
 
 import dudu.command.Command;
 import dudu.exception.DuduException;
@@ -14,7 +13,7 @@ import dudu.utils.TaskList;
 import dudu.utils.UI;
 
 /**
- * Represents the main class of the chatbot.
+ * Represents the main class Dudu chatbot.
  */
 public class Dudu {
     private TaskList tasks;
@@ -22,33 +21,40 @@ public class Dudu {
     private Storage storage;
 
     /**
-     * The constructor for a chatbot instance
+     * Constructs Dudu.
      *
-     * @param filePath The file path of the file containing existing tasks
+     * @param filePath File path of the file containing existing tasks.
      */
     public Dudu(String filePath) {
         storage = new Storage(filePath);
+    }
+
+    /**
+     * Loads tasks from local file.
+     *
+     * @return Error message if there is an error reading the file.
+     */
+    public String loadLocalTasks() {
         try {
             tasks = new TaskList(storage.load());
+            return "";
         } catch (DuduException exception) {
             tasks = new TaskList();
+            return "There was an error reading tasks from local file";
         }
     }
 
     /**
-     * Returns a welcome message
-     *
-     * @return Welcome message
+     * Returns a welcome message.
      */
     public String welcomeUser() {
         return ui.getWelcomeMessage();
     }
 
     /**
-     * Returns a response to a user input
+     * Returns a response to a user input.
      *
-     * @param input User input
-     * @return Response to user
+     * @param input User input.
      */
     public String getResponse(String input) {
         try {

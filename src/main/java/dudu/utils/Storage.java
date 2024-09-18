@@ -17,7 +17,7 @@ import dudu.task.Task;
 import dudu.task.ToDo;
 
 /**
- * Represents the class that reads and updates the local file of tasks
+ * Represents the class that reads and updates the local file of tasks.
  */
 public class Storage {
     enum TaskType {
@@ -25,22 +25,23 @@ public class Storage {
     }
 
     private static final String fileReadingError = "Error reading the file";
+    private static final String invalidFormatMessage = "Invalid format found";
 
     private String filePath;
 
     /**
-     * Creates a storage instance
+     * Creates a Storage.
      *
-     * @param filePath The file path of the local file that has existing tasks
+     * @param filePath File path of the local file that contains existing tasks.
      */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
     /**
-     * Reads the existing tasks from a local file at the stored file path
+     * Reads the existing tasks from a local file at the stored file path.
      *
-     * @return The list of tasks currently in the local file
+     * @return List of tasks currently in the local file.
      */
     public ArrayList<Task> load() throws DuduException {
         File file = loadFile();
@@ -48,10 +49,10 @@ public class Storage {
     }
 
     /**
-     * Loads the file containing tasks stored locally
+     * Loads the file containing tasks stored locally.
      *
-     * @return File containing tasks
-     * @throws DuduException If there is an error loading the file
+     * @return File containing tasks.
+     * @throws DuduException If there is an error loading the file.
      */
     private File loadFile() throws DuduException {
         File file = new File(filePath);
@@ -65,11 +66,11 @@ public class Storage {
     }
 
     /**
-     * Adds each task from file into an ArrayList
+     * Reads and collates each task from the local file.
      *
-     * @param file File containing tasks stored locally
-     * @return ArrayList containing tasks stored
-     * @throws DuduException If task is stored has invalid format
+     * @param file File containing tasks stored locally.
+     * @return List of tasks stored locally.
+     * @throws DuduException If task is stored has invalid format.
      */
     private ArrayList<Task> loadTask(File file) throws DuduException {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -89,6 +90,13 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Adds a task represented by the line to a list of tasks.
+     *
+     * @param line Line containing task to be added in storage format.
+     * @param tasks Current added lists of tasks.
+     * @throws InvalidFormatException If line has invalid storage format.
+     */
     private void addTask(String line, ArrayList<Task> tasks) throws InvalidFormatException {
         checkLineFormat(line);
         TaskType type = parseTaskType(line);
@@ -104,15 +112,15 @@ public class Storage {
             break;
         }
         default:
-            System.out.println("Something went wrong");
+            System.out.println("Wrong task type was not detected earlier");
         }
     }
 
     /**
-     * Checks that the line is has a correct command type, marked, and description present
+     * Checks that the line is has a correct command type, marked, and description.
      *
-     * @param line Line containing a task from local file
-     * @throws InvalidFormatException If line is not of correct format specified above
+     * @param line Line containing a task from local file.
+     * @throws InvalidFormatException If line is not of correct format specified previously.
      */
     private void checkLineFormat(String line) throws InvalidFormatException {
         if (!line.matches("^[TDE] \\| .+")) {
@@ -124,11 +132,11 @@ public class Storage {
     }
 
     /**
-     * Retrieves task type from line
+     * Retrieves task type from line.
      *
-     * @param line Line containing a task in local file
-     * @return Task type from TaskType enum
-     * @throws InvalidFormatException If task type is invalid
+     * @param line Line containing a task in local file.
+     * @return Task type from TaskType enum.
+     * @throws InvalidFormatException If task type is invalid.
      */
     private TaskType parseTaskType(String line) throws InvalidFormatException {
         String[] input = line.split("\\|", 2);
@@ -140,10 +148,10 @@ public class Storage {
     }
 
     /**
-     * Retrieves content from line by stripping the task type and marked status
+     * Retrieves content from line by stripping the task type and marked status.
      *
-     * @param line Line containing a task in local file
-     * @return Content from line
+     * @param line Line containing a task in local file.
+     * @return Content from line.
      */
     private String parseTaskContent(String line) {
         String[] input = line.split("\\|", 3);
@@ -151,40 +159,40 @@ public class Storage {
     }
 
     /**
-     * Retrieves marked status from line
+     * Retrieves marked status from line.
      *
-     * @param line Line containing a task in local file
-     * @return Marked status
-     * @throws InvalidFormatException Status is not represented by 0 or 1
+     * @param line Line containing a task in local file.
+     * @return Marked status.
+     * @throws InvalidFormatException If status is not represented by 0 or 1.
      */
     private boolean parseTaskMarked(String line) throws InvalidFormatException {
         String[] input = line.split("\\|", 3);
         try {
             return Integer.parseInt(input[1].trim()) == 1;
         } catch (NumberFormatException exception) {
-            throw new InvalidFormatException("");
+            throw new InvalidFormatException(invalidFormatMessage);
         }
     }
 
     /**
-     * Parses line and creates a To-do instance
+     * Parses line and creates a To-do instance.
      *
-     * @param line Line containing a task in local file
-     * @return To-do instance represented by the line
-     * @throws InvalidFormatException If line is not of to-do format
+     * @param line Line containing a task in local file.
+     * @return To-do instance represented by the line.
+     * @throws InvalidFormatException If line is not of to-do storage format.
      */
     private ToDo parseTodoTask(String line) throws InvalidFormatException {
         checkTodoFormat(line);
         String content = parseTaskContent(line);
-        boolean marked = parseTaskMarked(line);
-        return createTodoTask(content, marked);
+        boolean isMarked = parseTaskMarked(line);
+        return createTodoTask(content, isMarked);
     }
 
     /**
-     * Checks if line has a valid format for to-do task
+     * Checks if line has a valid format for to-do task.
      *
-     * @param line Line containing a task in local file
-     * @throws InvalidFormatException If line format is invalid
+     * @param line Line containing a task in local file.
+     * @throws InvalidFormatException If line format is invalid.
      */
     private void checkTodoFormat(String line) throws InvalidFormatException {
         if (!line.matches("^T \\| [01] \\| .+")) {
@@ -193,41 +201,41 @@ public class Storage {
     }
 
     /**
-     * Creates to-do task and marks it as completed if appropriate
+     * Creates to-do task and marks it as completed if appropriate.
      *
-     * @param description Description of task
-     * @param marked Marked status of task
-     * @return Created to-do task
+     * @param description Description of task.
+     * @param isMarked Marked status of task.
+     * @return Created to-do task.
      */
-    private ToDo createTodoTask(String description, boolean marked) {
+    private ToDo createTodoTask(String description, boolean isMarked) {
         ToDo task = new ToDo(description);
-        if (marked) {
+        if (isMarked) {
             task.markCompleted();
         }
         return task;
     }
 
     /**
-     * Parses line and creates a Deadline instance
+     * Parses line and creates a Deadline instance.
      *
-     * @param line Line containing a task in local file
-     * @return Deadline instance represented by the line
-     * @throws InvalidFormatException If line is not of deadline format
+     * @param line Line containing a task in local file.
+     * @return Deadline instance represented by the line.
+     * @throws InvalidFormatException If line is not of deadline storage format.
      */
     private Deadline parseDeadlineTask(String line) throws InvalidFormatException {
         checkDeadlineFormat(line);
         String content = parseTaskContent(line);
         String description = parseDescription(content);
         LocalDate byDate = parseDeadlineDate(content);
-        boolean marked = parseTaskMarked(line);
-        return createDeadlineTask(description, byDate, marked);
+        boolean isMarked = parseTaskMarked(line);
+        return createDeadlineTask(description, byDate, isMarked);
     }
 
     /**
-     * Checks if line has a valid format for deadline task
+     * Checks if line has a valid format for deadline task.
      *
-     * @param line Line containing a task in local file
-     * @throws InvalidFormatException If line format is invalid
+     * @param line Line containing a task in local file.
+     * @throws InvalidFormatException If line format is invalid.
      */
     private void checkDeadlineFormat(String line) throws InvalidFormatException {
         if (!line.matches("^D \\| [01] \\| .+ \\| \\d{4}-\\d{2}-\\d{2}")) {
@@ -236,10 +244,10 @@ public class Storage {
     }
 
     /**
-     * Retrieves description for a task
+     * Retrieves description for a task.
      *
-     * @param content Line containing task without task type and marked status
-     * @return Remaining content for task
+     * @param content Line containing task without task type and marked status.
+     * @return Remaining content for task.
      */
     private String parseDescription(String content) {
         String[] splitContent = content.split("\\|", 2);
@@ -247,43 +255,43 @@ public class Storage {
     }
 
     /**
-     * Retrieves by date for deadline task
+     * Retrieves by date for deadline task.
      *
-     * @param content Line containing task without task type and marked status
-     * @return By date for deadline task
-     * @throws InvalidFormatException If date format is invalid
+     * @param content Line containing task without task type and marked status.
+     * @return By date for deadline task.
+     * @throws InvalidFormatException If date format is invalid.
      */
     private LocalDate parseDeadlineDate(String content) throws InvalidFormatException {
         String byDate = content.split("\\|")[1].trim();
         try {
             return LocalDate.parse(byDate);
         } catch (DateTimeParseException exception) {
-            throw new InvalidFormatException("");
+            throw new InvalidFormatException(invalidFormatMessage);
         }
     }
 
     /**
-     * Creates deadline task and marks it as completed if appropriate
+     * Creates deadline task and marks it as completed if appropriate.
      *
-     * @param description Description of task
-     * @param byDate By date of task
-     * @param marked Marked status of task
-     * @return Created deadline task
+     * @param description Description of task.
+     * @param byDate By date of task.
+     * @param isMarked Marked status of task.
+     * @return Created deadline task.
      */
-    private Deadline createDeadlineTask(String description, LocalDate byDate, boolean marked) {
+    private Deadline createDeadlineTask(String description, LocalDate byDate, boolean isMarked) {
         Deadline task = new Deadline(description, byDate);
-        if (marked) {
+        if (isMarked) {
             task.markCompleted();
         }
         return task;
     }
 
     /**
-     * Parses line and creates a Event instance
+     * Parses line and creates an Event instance.
      *
-     * @param line Line containing a task in local file
-     * @return Event instance represented by the line
-     * @throws InvalidFormatException If line is not of event format
+     * @param line Line containing a task in local file.
+     * @return Event instance represented by the line.
+     * @throws InvalidFormatException If line is not of event format.
      */
     private Event parseEventTask(String line) throws InvalidFormatException {
         checkEventFormat(line);
@@ -291,15 +299,15 @@ public class Storage {
         String description = parseDescription(content);
         LocalDate fromDate = parseEventFromDate(content);
         LocalDate toDate = parseEventToDate(content);
-        boolean marked = parseTaskMarked(line);
-        return createEventTask(description, fromDate, toDate, marked);
+        boolean isMarked = parseTaskMarked(line);
+        return createEventTask(description, fromDate, toDate, isMarked);
     }
 
     /**
-     * Checks if line has a valid format for event task
+     * Checks if line has a valid format for event task.
      *
-     * @param line Line containing a task in local file
-     * @throws InvalidFormatException If line format is invalid
+     * @param line Line containing a task in local file.
+     * @throws InvalidFormatException If line format is invalid.
      */
     private void checkEventFormat(String line) throws InvalidFormatException {
         if (!line.matches("^E \\| [01] \\| .+ \\| \\d{4}-\\d{2}-\\d{2} \\| \\d{4}-\\d{2}-\\d{2}")) {
@@ -309,27 +317,27 @@ public class Storage {
     }
 
     /**
-     * Retrieves from date for event task
+     * Retrieves from date for event task.
      *
-     * @param content Line containing task without task type and marked status
-     * @return From date for event task
-     * @throws InvalidFormatException If date format is invalid
+     * @param content Line containing task without task type and marked status.
+     * @return From date for event task.
+     * @throws InvalidFormatException If date format is invalid.
      */
     private LocalDate parseEventFromDate(String content) throws InvalidFormatException {
         String fromDate = content.split("\\|")[1].trim();
         try {
             return LocalDate.parse(fromDate);
         } catch (DateTimeParseException exception) {
-            throw new InvalidFormatException("");
+            throw new InvalidFormatException(invalidFormatMessage);
         }
     }
 
     /**
-     * Retrieves to date for event task
+     * Retrieves to date for event task.
      *
-     * @param content Line containing task without task type and marked status
-     * @return To date for event task
-     * @throws InvalidFormatException If date format is invalid
+     * @param content Line containing task without task type and marked status.
+     * @return To date for event task.
+     * @throws InvalidFormatException If date format is invalid.
      */
     private LocalDate parseEventToDate(String content) throws InvalidFormatException {
         String toDate = content.split("\\|")[2].trim();
@@ -341,33 +349,33 @@ public class Storage {
     }
 
     /**
-     * Creates event task and marks it as completed if appropriate
+     * Creates event task and marks it as completed if appropriate.
      *
-     * @param description Description of task
-     * @param fromDate From date of task
-     * @param toDate To date of task
-     * @param marked Marked status of task
-     * @return Created event task
+     * @param description Description of task.
+     * @param fromDate From date of task.
+     * @param toDate To date of task.
+     * @param isMarked Marked status of task.
+     * @return Created event task.
      */
-    private Event createEventTask(String description, LocalDate fromDate, LocalDate toDate, boolean marked) {
+    private Event createEventTask(String description, LocalDate fromDate, LocalDate toDate, boolean isMarked) {
         Event task = new Event(description, fromDate, toDate);
-        if (marked) {
+        if (isMarked) {
             task.markCompleted();
         }
         return task;
     }
 
     /**
-     * Rewrites to file to reflect any changes to the tasks
+     * Rewrites to file to reflect any changes to the tasks.
      *
-     * @param taskList The TaskList instance containing the updated list of tasks
-     * @throws IOException If there is an error during saving the task to storage.
+     * @param taskList The TaskList instance containing the updated list of tasks.
+     * @throws IOException If there is an error during rewriting the file.
      */
     public void rewriteFile(TaskList taskList) throws IOException {
         ArrayList<Task> tasks = taskList.getTasks();
         FileWriter fw = new FileWriter(this.filePath);
         for (Task task : tasks) {
-            fw.write(String.format("%s\n", task.formatString()));
+            fw.write(String.format("%s\n", task.toStorageString()));
         }
         fw.close();
     }

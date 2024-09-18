@@ -49,6 +49,13 @@ public class AddCommand extends Command {
         return ui.getAddTaskMessage(task, size);
     }
 
+    /**
+     * Compares this object with another object.
+     * Compares for same stored task and undo command status.
+     *
+     * @param object Object to compare with.
+     * @return True if object has the same fields else false.
+     */
     @Override
     public boolean equals(Object object) {
         if (object == this) {

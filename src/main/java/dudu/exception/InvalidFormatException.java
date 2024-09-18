@@ -1,13 +1,13 @@
 package dudu.exception;
 
 /**
- * Represents a custom checked exception where the user inputs a wrong format of command
+ * Represents a custom checked exception where the user inputs a wrong format of command.
  */
 public class InvalidFormatException extends Exception {
     /**
-     * Constructs an InvalidFormatException with the specified detail message.
+     * Constructs an InvalidFormatException.
      *
-     * @param message The detail message which explains the reason for the exception.
+     * @param message Error message.
      */
     public InvalidFormatException(String message) {
         super(message);

@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents a deadline task
+ * Represents a deadline task.
  */
 public class Deadline extends Task {
     private static final String displayDateFormat = "MMM d yyyy";
@@ -13,11 +13,10 @@ public class Deadline extends Task {
     private LocalDate byDate;
 
     /**
-     * Constructs a deadline task with the specified description and due date.
-     * By default, the task is uncompleted.
+     * Constructs a Deadline task.
      *
-     * @param description The description of the task.
-     * @param byDate The date by which the task should be completed.
+     * @param description Task description.
+     * @param byDate Date to do task by.
      */
     public Deadline(String description, LocalDate byDate) {
         super(description);
@@ -25,21 +24,16 @@ public class Deadline extends Task {
     }
 
     /**
-     * Formats the task into a string for storage, including the task type ("D" for deadline),
-     * its completion status, description, and due date.
-     *
-     * @return The formatted string representation of the deadline task for storage.
+     * Returns task in storage format.
      */
-    public String formatString() {
+    @Override
+    public String toStorageString() {
         String by = this.byDate.format(DateTimeFormatter.ofPattern(storageDateFormat));
-        return String.format("D | %s | %s", super.formatString(), by);
+        return String.format("D | %s | %s", super.toStorageString(), by);
     }
 
     /**
-     * Returns a string representation of the task, including its status
-     * (marked or unmarked), its description and due date.
-     *
-     * @return The string representation of the task.
+     * Returns task in display format.
      */
     @Override
     public String toString() {
@@ -48,11 +42,11 @@ public class Deadline extends Task {
     }
 
     /**
-     * Compares this Task to another object for equality. Two tasks are considered
-     * equal if they have the same description, completion status and due date.
+     * Compares this object with another object.
+     * Compares for same descriptions and date to do task by.
      *
-     * @param object The object to compare this Task with.
-     * @return true if the other object is a Task with the same description, status and due date, false otherwise.
+     * @param object Object to compare with.
+     * @return True if object has the same fields else false.
      */
     @Override
     public boolean equals(Object object) {

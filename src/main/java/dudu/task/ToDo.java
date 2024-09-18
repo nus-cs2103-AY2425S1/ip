@@ -6,30 +6,24 @@ package dudu.task;
 public class ToDo extends Task {
 
     /**
-     * Constructs a to-do task with the specified description and due date.
-     * By default, the task is uncompleted.
+     * Constructs a to-do task.
      *
-     * @param description The description of the task.
+     * @param description Task description.
      */
     public ToDo(String description) {
         super(description);
     }
 
     /**
-     * Formats the task into a string for storage, including the task type ("D" for deadline),
-     * its completion status, description, and due date.
-     *
-     * @return The formatted string representation of the deadline task for storage.
+     * Returns task in storage format.
      */
-    public String formatString() {
-        return String.format("T | %s", super.formatString());
+    @Override
+    public String toStorageString() {
+        return String.format("T | %s", super.toStorageString());
     }
 
     /**
-     * Returns a string representation of the task, including its status
-     * (marked or unmarked) and its description.
-     *
-     * @return The string representation of the task.
+     * Returns task in display format.
      */
     @Override
     public String toString() {

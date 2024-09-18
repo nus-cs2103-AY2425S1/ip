@@ -1,7 +1,7 @@
 package dudu.task;
 
 /**
- * Represents an abstract class for a task
+ * Represents a task.
  */
 public class Task {
 
@@ -10,9 +10,9 @@ public class Task {
     private String description;
 
     /**
-     * Constructs a Task with the specified description. By default, the task is uncompleted.
+     * Constructs a Task.
      *
-     * @param description The description of the task.
+     * @param description Task description.
      */
     public Task(String description) {
         this.description = description;
@@ -33,10 +33,10 @@ public class Task {
     }
 
     /**
-     * Returns if the task description contains any of the queries
+     * Checks if the task description contains any of the queries.
      *
-     * @param queries Queries to search the task description for
-     * @return True if task description contains any of the queries else false
+     * @param queries Queries to search the task description for.
+     * @return True if task description contains any of the queries else false.
      */
     public boolean includes(String ... queries) {
         for (String query : queries) {
@@ -48,21 +48,15 @@ public class Task {
     }
 
     /**
-     * Formats the task into a string for storage, including the task type ("T" for to-do),
-     * its completion status and description.
-     *
-     * @return The formatted string representation of the deadline task for storage.
+     * Returns task in storage format.
      */
-    public String formatString() {
+    public String toStorageString() {
         String markedString = this.isMarked ? "1" : "0";
         return String.format("%s | %s", markedString, this.description);
     }
 
     /**
-     * Returns a string representation of the task, including its status
-     * (marked or unmarked) and its description.
-     *
-     * @return The string representation of the task.
+     * Returns task in display format.
      */
     @Override
     public String toString() {
@@ -71,11 +65,11 @@ public class Task {
     }
 
     /**
-     * Compares this Task to another object for equality. Two tasks are considered
-     * equal if they have the same description and completion status.
+     * Compares this object with another object.
+     * Compares for same description and marked status.
      *
-     * @param object The object to compare this Task with.
-     * @return true if the other object is a Task with the same description and status, false otherwise.
+     * @param object Object to compare with.
+     * @return True if object has the same fields else false.
      */
     @Override
     public boolean equals(Object object) {

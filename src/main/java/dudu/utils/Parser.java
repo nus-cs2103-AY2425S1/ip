@@ -24,7 +24,7 @@ import dudu.task.Event;
 import dudu.task.ToDo;
 
 /**
- * Represents the class that parses user commands
+ * Represents the class that parses user commands.
  */
 public class Parser {
     enum CommandType {
@@ -37,17 +37,17 @@ public class Parser {
     private static final String invalidNumberMessage = "Please input a valid number";
 
     /**
-     * Parses a user command and returns the corresponding Command instance
+     * Parses a user command and returns the corresponding Command instance.
      *
-     * @param command User input
-     * @return Respective Command instance
-     * @throws MissingDescriptionException If description is missing
-     * @throws InvalidFormatException If command format is invalid
-     * @throws DateTimeParseException If date is invalid
-     * @throws MissingDateTimeException If date is missing
+     * @param command User input.
+     * @throws MissingDescriptionException If description is missing.
+     * @throws InvalidFormatException If command format is invalid.
+     * @throws DateTimeParseException If date is invalid.
+     * @throws MissingDateTimeException If date is missing.
+     * @throws DuduException If other errors occur.
      */
     public static Command parse(String command) throws MissingDescriptionException,
-            InvalidFormatException, DuduException, MissingDateTimeException {
+            InvalidFormatException, MissingDateTimeException, DuduException {
         CommandType commandType = getCommandTypeFromInput(command);
         switch (commandType) {
         case BYE:
@@ -81,10 +81,9 @@ public class Parser {
     }
 
     /**
-     * Get command type from user input
+     * Returns command type from user input.
      *
-     * @param command User input
-     * @return Command type
+     * @param command User input.
      */
     private static CommandType getCommandTypeFromInput(String command) {
         String[] splitCommand = command.split(" ", 2);
@@ -96,11 +95,11 @@ public class Parser {
     }
 
     /**
-     * Removes command from user input
+     * Removes command type from user input.
      *
-     * @param command User input
-     * @return Content after commandType
-     * @throws MissingDescriptionException If content is missing
+     * @param command User input.
+     * @return Content after command type.
+     * @throws MissingDescriptionException If content is missing.
      */
     private static String parseContent(String command) throws MissingDescriptionException {
         String[] splitCommand = command.split(" ", 2);
@@ -115,24 +114,24 @@ public class Parser {
     }
 
     /**
-     * Create a To-do task
+     * Creates a To-do task.
      *
-     * @param command User input without command at the front
-     * @return Created to-do task
-     * @throws MissingDescriptionException If description is missing
+     * @param command User input.
+     * @return Created to-do task.
+     * @throws MissingDescriptionException If description is missing.
      */
     private static ToDo createTodo(String command) throws MissingDescriptionException {
         return new ToDo(parseContent(command));
     }
 
     /**
-     * Create a Deadline task
+     * Creates a Deadline task.
      *
-     * @param command User input without command at the front
-     * @return Created deadline event
-     * @throws MissingDescriptionException If description is missing
-     * @throws InvalidFormatException If command format is invalid
-     * @throws MissingDateTimeException If deadline is missing
+     * @param command User input.
+     * @return Created deadline task.
+     * @throws MissingDescriptionException If description is missing.
+     * @throws InvalidFormatException If command format is invalid.
+     * @throws MissingDateTimeException If deadline is missing.
      */
     private static Deadline createDeadline(String command) throws MissingDescriptionException,
             InvalidFormatException, MissingDateTimeException, DuduException {
@@ -143,12 +142,12 @@ public class Parser {
     }
 
     /**
-     * Removes command from user input and check for valid deadline task format
+     * Removes command type from user input and check for valid deadline task format.
      *
-     * @param command User input
-     * @return Content after commandType
-     * @throws MissingDescriptionException If description is missing
-     * @throws InvalidFormatException If deadline command format is invalid
+     * @param command User input.
+     * @return Content after commandType.
+     * @throws MissingDescriptionException If description is missing.
+     * @throws InvalidFormatException If deadline command format is invalid.
      */
     private static String parseDeadlineContent(String command) throws MissingDescriptionException,
             InvalidFormatException {
@@ -160,11 +159,11 @@ public class Parser {
     }
 
     /**
-     * Retrieves description from deadline commands
+     * Retrieves description from deadline command.
      *
-     * @param content User input stripped of command
-     * @return Description for deadline task
-     * @throws MissingDescriptionException If no description is available
+     * @param content User input without command type.
+     * @return Description for deadline task.
+     * @throws MissingDescriptionException If description is missing.
      */
     private static String parseDeadlineDescription(String content) throws MissingDescriptionException {
         String[] splitContent = content.split("/by", 2);
@@ -176,11 +175,11 @@ public class Parser {
     }
 
     /**
-     * Retrieves deadline from deadline commands
+     * Retrieves deadline from deadline commands.
      *
-     * @param content User input stripped of command
-     * @return Description for deadline task
-     * @throws MissingDateTimeException If no deadline is available
+     * @param content User input without command type.
+     * @return Description for deadline task.
+     * @throws MissingDateTimeException If deadline is missing.
      */
     private static LocalDate parseDeadlineDate(String content) throws MissingDateTimeException, DuduException {
         String[] splitContent = content.split("/by", 2);
@@ -197,31 +196,31 @@ public class Parser {
     }
 
     /**
-     * Create an event task
+     * Creates an event task.
      *
-     * @param command User input
-     * @return Created event task
-     * @throws MissingDescriptionException If description is missing
-     * @throws InvalidFormatException If event command format is invalid
-     * @throws MissingDateTimeException If from date or to date is missing
+     * @param command User input.
+     * @return Created event task.
+     * @throws MissingDescriptionException If description is missing.
+     * @throws InvalidFormatException If event command format is invalid.
+     * @throws MissingDateTimeException If from date or to date is missing.
      */
     private static Event createEvent(String command) throws MissingDescriptionException,
             InvalidFormatException, MissingDateTimeException, DuduException {
         String content = parseEventContent(command);
         String description = parseEventDescription(content);
         String dates = parseEventDates(content);
-        LocalDate from = parseEventFromDate(dates);
-        LocalDate to = parseEventToDate(dates);
-        return new Event(description, from, to);
+        LocalDate fromDate = parseEventFromDate(dates);
+        LocalDate toDate = parseEventToDate(dates);
+        return new Event(description, fromDate, toDate);
     }
 
     /**
-     * Removes command from event command and check for valid event task format
+     * Removes command from event command and check for valid event task format.
      *
-     * @param command User input
-     * @return Content after commandType
-     * @throws MissingDescriptionException If description is missing
-     * @throws InvalidFormatException If event command format is invalid
+     * @param command User input.
+     * @return Content after commandType.
+     * @throws MissingDescriptionException If description is missing.
+     * @throws InvalidFormatException If event command format is invalid.
      */
     private static String parseEventContent(String command) throws MissingDescriptionException, InvalidFormatException {
         String content = parseContent(command);
@@ -232,11 +231,11 @@ public class Parser {
     }
 
     /**
-     * Retrieves description from event command
+     * Retrieves description from event command.
      *
-     * @param content User input stripped of command
-     * @return Description for event task
-     * @throws MissingDescriptionException If description is missing
+     * @param content User input without command type.
+     * @return Description for event task.
+     * @throws MissingDescriptionException If description is missing.
      */
     private static String parseEventDescription(String content) throws MissingDescriptionException {
         String[] splitContent = content.split("/from", 2);
@@ -248,10 +247,10 @@ public class Parser {
     }
 
     /**
-     * Retrieves from date and to date from event command
+     * Retrieves from date and to date from event command.
      *
-     * @param content User input stripped of command
-     * @return Dates from event command
+     * @param content User input without command type.
+     * @return From and to dates from event command.
      */
     private static String parseEventDates(String content) {
         String[] splitContent = content.split("/from", 2);
@@ -259,12 +258,12 @@ public class Parser {
     }
 
     /**
-     * Retrieves from date from event command dates
+     * Retrieves from date from event command dates.
      *
-     * @param dates Event command dates
-     * @return From date as LocalDate instance
-     * @throws MissingDateTimeException If from date is missing
-     * @throws DuduException If from date is invalid
+     * @param dates Event command dates.
+     * @return From date as LocalDate instance.
+     * @throws MissingDateTimeException If from date is missing.
+     * @throws DuduException If from date is invalid.
      */
     private static LocalDate parseEventFromDate(String dates) throws MissingDateTimeException, DuduException {
         String[] splitDates = dates.split("/to", 2);
@@ -281,12 +280,12 @@ public class Parser {
     }
 
     /**
-     * Retrieves to date from event command dates
+     * Retrieves to date from event command dates.
      *
-     * @param dates Event command dates
-     * @return To date as LocalDate instance
-     * @throws MissingDateTimeException If to date is missing
-     * @throws DuduException If to date is invalid
+     * @param dates Event command dates.
+     * @return To date as LocalDate instance.
+     * @throws MissingDateTimeException If to date is missing.
+     * @throws DuduException If to date is invalid.
      */
     private static LocalDate parseEventToDate(String dates) throws MissingDateTimeException, DuduException {
         String[] splitDates = dates.split("/to", 2);
@@ -302,12 +301,12 @@ public class Parser {
     }
 
     /**
-     * Retrieves index from mark, unmark and delete commands
+     * Retrieves index from mark, unmark and delete commands.
      *
-     * @param command User input
-     * @return Index from command
-     * @throws MissingDescriptionException If no index is available
-     * @throws IllegalArgumentException If index is not a number or number is zero or negative
+     * @param command User input.
+     * @return Index from command.
+     * @throws MissingDescriptionException If no index is available.
+     * @throws IllegalArgumentException If index is not a number or number is zero or negative.
      */
     private static int parseIndex(String command) throws MissingDescriptionException, IllegalArgumentException {
         String content = parseContent(command);
@@ -323,6 +322,10 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns an UndoCommand with the latest command to undo.
+     * If no command is available to undo, it returns an empty UndoCommand instead.
+     */
     private static UndoCommand parseUndoCommand() {
         if (undoStack.isEmpty()) {
             return new UndoCommand();
@@ -331,6 +334,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Adds command to undo stack.
+     *
+     * @param command Command to be added to undo stack.
+     */
     public static void pushToUndoStack(Command command) {
         undoStack.push(command);
     }

@@ -21,7 +21,7 @@ public class ListCommand extends Command {
     }
 
     /**
-     * Checks if an object is of type ListCommand.
+     * Compares this object with another object.
      *
      * @param object Object to compare with.
      * @return True if object is a ListCommand object else false.
