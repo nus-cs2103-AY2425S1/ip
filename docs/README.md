@@ -4,9 +4,10 @@
 
 TheRatchetCat is here to organise tasks for you! 
 
-## Adding deadlines
+## Commands
 
-// Describe the action and its outcome.
+> **"list"** command lists all the for you
+>    
 
 // Give examples of usage
 
