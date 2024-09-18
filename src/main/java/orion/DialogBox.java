@@ -1,4 +1,4 @@
-package orion.ui;
+package orion;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -15,14 +15,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 /**
- * A {@code DialogBox} is a horizontal box that contains a dialog bubble and
- * an optional image. The dialog bubble is a label that displays some text.
- * The image is an image view that displays the image. The dialog bubble and
- * the image are positioned horizontally next to each other. The dialog bubble
- * can be either on the left or right side of the box, depending on the value
- * of the {@code flip} property.
- *
- * @author Pradyumna
+ * Represents a dialog box consisting of an ImageView to represent the speaker's
+ * face
+ * and a label containing text from the speaker.
  */
 public class DialogBox extends HBox {
     @FXML
@@ -32,7 +27,7 @@ public class DialogBox extends HBox {
 
     private DialogBox(String text, Image img) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/DialogBox.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
@@ -41,16 +36,13 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
-        dialog.setWrapText(true);
-        dialog.setMaxWidth(Double.MAX_VALUE);
-        if (img != null) {
-            displayPicture.setImage(img);
-            displayPicture.setVisible(true);
-        } else {
-            displayPicture.setVisible(false);
-        }
+        displayPicture.setImage(img);
     }
 
+    /**
+     * Flips the dialog box such that the ImageView is on the left and text on the
+     * right.
+     */
     private void flip() {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
@@ -62,8 +54,8 @@ public class DialogBox extends HBox {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getOrionDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+    public static DialogBox getOrionDialog(String s, Image i) {
+        var db = new DialogBox(s, i);
         db.flip();
         return db;
     }

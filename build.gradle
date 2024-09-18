@@ -22,7 +22,7 @@ sourceSets {
 }
 
 application {
-    mainClassName = 'orion.Launcher'  // Your main class
+    mainClassName = 'orion.Orion'  // Your main class
 }
 
 javafx {
