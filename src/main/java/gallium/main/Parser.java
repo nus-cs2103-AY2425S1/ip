@@ -49,20 +49,16 @@ public class Parser {
      * @return The Command to be executed.
      */
     public Command parse(String message) {
-        assert message != null && message != "": "Message cannot be empty";
+        assert message != null && !message.isEmpty(): "Message cannot be empty";
+        message = message.trim();
         try {
             switch (message) {
             case LIST:
                 return new ListCommand();
-
-            case "todo":
-            case "todo ":
-            case "deadline":
-            case "deadline ":
-            case "event":
-            case "event ":
+            case TODO:
+            case DEADLINE:
+            case EVENT:
                 throw new GalliumException("OOPS!!! The description of a " + message + " cannot be empty.");
-
             default:
             return returnCommand(message);
             }
