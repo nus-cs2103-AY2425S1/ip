@@ -1,7 +1,5 @@
 package slave.task;
 
-import slave.InvalidChronologicalOrderException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -113,6 +111,7 @@ public class Deadline extends RecurringTypeTask {
             while (today.isAfter(newDeadline)) {
                 newDeadline = newDeadline.plusYears(1);
             }
+            break;
         default:
             // do nothing
             // code should not reach here as the load() function cannot allocate an undefined recurrence type

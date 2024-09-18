@@ -5,8 +5,6 @@ import java.time.format.DateTimeFormatter;
 
 import slave.InvalidChronologicalOrderException;
 
-import com.sun.scenario.animation.shared.SingleLoopClipEnvelope;
-
 /**
  * An Event object is a Task with a start and end date.
  */
@@ -147,6 +145,7 @@ public class Event extends RecurringTypeTask {
             while (today.isAfter(newStart)) {
                 newStart = newStart.plusYears(1);
             }
+            break;
         default:
             // do nothing
             // code should not reach here as the load() function cannot allocate an undefined recurrence type

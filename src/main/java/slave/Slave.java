@@ -10,9 +10,9 @@ import slave.task.Task;
  * It is the main class for the program
  */
 public class Slave {
-    private final LinkedList<Task> list = new LinkedList<>();
     public static final String UNKNOWN_USER_INPUT = "You're spouting gibberish...";
-    LinkedList<Task> tasksPastEndDate = new LinkedList<>();
+    private final LinkedList<Task> list = new LinkedList<>();
+    private final LinkedList<Task> tasksPastEndDate = new LinkedList<>();
     private Storage storage;
     private Ui ui;
     private Parser parser;

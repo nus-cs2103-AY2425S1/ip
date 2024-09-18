@@ -52,7 +52,8 @@ public class StorageTest {
             List<Task> list = new LinkedList<>();
             Storage storage = new Storage(list, "./src/test/datafiles/saveTest.txt");
             Todo todo = new Todo("fly", false);
-            Deadline deadline = new Deadline("die", RecurringTypeTask.RecurringType.NEVER, LocalDate.parse("2022-02-02"));
+            Deadline deadline = new Deadline("die", RecurringTypeTask.RecurringType.NEVER,
+                    LocalDate.parse("2022-02-02"));
             Event event = new Event("revive", RecurringTypeTask.RecurringType.NEVER, LocalDate.parse("2022-02-02"),
                     LocalDate.parse("2022-03-03"));
             storage.save();

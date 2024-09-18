@@ -60,7 +60,8 @@ public class ParserTest {
         list.add(new Todo("fly", false));
         list.add(new Deadline("eat", RecurringTypeTask.RecurringType.NEVER, LocalDate.parse("2022-02-02")));
         try {
-            list.add(new Event("sleep", RecurringTypeTask.RecurringType.NEVER, LocalDate.parse("2022-02-02"), LocalDate.parse("2022-02-05")));
+            list.add(new Event("sleep", RecurringTypeTask.RecurringType.NEVER,
+                    LocalDate.parse("2022-02-02"), LocalDate.parse("2022-02-05")));
         } catch (InvalidChronologicalOrderException icoe) {
             // do nothing
             // event will not be added

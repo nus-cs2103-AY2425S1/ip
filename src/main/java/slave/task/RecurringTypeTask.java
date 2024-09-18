@@ -8,6 +8,9 @@ import java.time.LocalDate;
 public abstract class RecurringTypeTask extends Task {
     private RecurringType recurringType;
 
+    /**
+     * The enum specifies the different frequencies of at which tasks can recur.
+     */
     public enum RecurringType {
         NEVER, DAILY, WEEKLY, BIMONTHLY, MONTHLY, QUARTERLY, BIANNUALLY, ANNUALLY
     }

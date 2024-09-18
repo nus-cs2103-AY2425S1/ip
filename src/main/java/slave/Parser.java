@@ -19,8 +19,8 @@ import slave.task.Todo;
  * corresponding action
  */
 public class Parser {
-    public static String ERROR_MARKER = "ERROR";
-    public static String SUCCESS_MARKER = "OK";
+    public static final String ERROR_MARKER = "ERROR";
+    public static final String SUCCESS_MARKER = "OK";
     private List<Task> list;
 
     /**
@@ -201,8 +201,8 @@ public class Parser {
             result[2] = SUCCESS_MARKER;
             return result;
         } catch (InvalidTaskFormatException e) {
-            return new String[]{"Can you not even tell me all the details for your event? Do you even want my help?",
-                    ERROR_MARKER};
+            return new String[]{"Can you not even tell me all the details for your event? "
+                    + "Do you even want my help?", ERROR_MARKER};
         } catch (DateTimeParseException dtpe) {
             return new String[]{"Give me the date in yyyy-mm-dd or I won't remember it for you", ERROR_MARKER};
         } catch (InvalidChronologicalOrderException icoe) {
