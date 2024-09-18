@@ -25,7 +25,7 @@ public class Main extends Application {
             assert ap != null : "AnchorPane cannot be loaded";
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setGallium(gallium);  // inject the Gallium instance
+            fxmlLoader.<MainWindow>getController().setGallium(gallium); 
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

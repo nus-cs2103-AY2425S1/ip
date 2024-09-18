@@ -49,20 +49,16 @@ public class Parser {
      * @return The Command to be executed.
      */
     public Command parse(String message) {
-        assert message != null && message != "": "Message cannot be empty";
+        assert message != null && !message.isEmpty(): "Message cannot be empty";
+        message = message.trim();
         try {
             switch (message) {
             case LIST:
                 return new ListCommand();
-
-            case "todo":
-            case "todo ":
-            case "deadline":
-            case "deadline ":
-            case "event":
-            case "event ":
+            case TODO:
+            case DEADLINE:
+            case EVENT:
                 throw new GalliumException("OOPS!!! The description of a " + message + " cannot be empty.");
-
             default:
             return returnCommand(message);
             }
@@ -70,15 +66,9 @@ public class Parser {
         } catch (GalliumException e) {
             ui.showGalliumException(e);
         } catch (ArrayIndexOutOfBoundsException e) {
-            if (message.startsWith(DEADLINE)) {
-                ui.showIncompleteDeadline();
-            } else if (message.startsWith(EVENT)) {
-                ui.showIncompleteEvent();
-            }
+            handleArrayIndexOutOfBounds(message);
         } catch (IndexOutOfBoundsException e) {
-            if (message.startsWith(MARK) || message.startsWith(UNMARK) || message.startsWith(DELETE)) {
-                ui.showWrongIndex();
-            }
+            handleIndexOutOfBounds(message);
         }
         return new ErrorCommand();
     }
@@ -100,6 +90,20 @@ public class Parser {
             return new ByeCommand();
         } else {
             throw new GalliumException("OOPS!!! I'm sorry, but I don't know what that means :(");
+        }
+    }
+
+    private void handleArrayIndexOutOfBounds(String message) {
+        if (message.startsWith(DEADLINE)) {
+            ui.showIncompleteDeadline();
+        } else if (message.startsWith(EVENT)) {
+            ui.showIncompleteEvent();
+        }
+    }
+
+    private void handleIndexOutOfBounds(String message) {
+        if (message.startsWith(MARK) || message.startsWith(UNMARK) || message.startsWith(DELETE)) {
+            ui.showWrongIndex();
         }
     }
 

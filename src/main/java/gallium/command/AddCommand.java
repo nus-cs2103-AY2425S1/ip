@@ -52,8 +52,8 @@ public class AddCommand extends Command {
                 Task.count++;
             } else if (desc.startsWith("deadline ")) {
                 Deadline deadline = new Deadline(desc);
-                ui.printAddDeadline(deadline);
                 taskList.add(deadline);
+                ui.printAddDeadline(deadline);
                 Task.count++;
             } else if (desc.startsWith("event ")) {
                 Event event = new Event(desc);

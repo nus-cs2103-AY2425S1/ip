@@ -55,23 +55,14 @@ public class Ui {
     }
 
     /**
-     * Prints any message wrapped with a divider.
-     * 
-     * @param message The message to be printed.
-     */
-    public void printAnyMessage(String message) {
-        append(message);
-    }
-
-    /**
      * Prints the list of tasks.
      * 
      * @param taskList The TaskList to be printed.
      */
     public void printList(TaskList taskList) {
         String message = "Here are the tasks in your list: \n";
-        printAnyMessage(message);
-        printAnyMessage(taskList.toStringIndent());
+        append(message);
+        append(taskList.toStringIndent());
     }
 
     /**
@@ -92,7 +83,7 @@ public class Ui {
      * @param todo The Todo task that was added.
      */
     public void printAddTodo(Todo todo) {
-        append("Got it. I've added this task: \n"
+        append("Got it. I've added this todo: \n"
                 + todo.toString()
                 + "\nNow you have " + Task.count + " " + Task.taskCount() + " in the list."
                 + "\n");
@@ -104,8 +95,7 @@ public class Ui {
      * @param deadline The Deadline task that was added.
      */
     public void printAddDeadline(Deadline deadline) {
-        System.out
-                .println("Got it. I've added this task: \n"
+        append("Got it. I've added this deadline: \n"
                         + deadline.toString()
                         + "\nNow you have " + Task.count + " " + Task.taskCount() + " in the list."
                         + "\n");
@@ -117,7 +107,7 @@ public class Ui {
      * @param event The Event task that was added.
      */
     public void printAddEvent(Event event) {
-        append("Got it. I've added this task: \n"
+        append("Got it. I've added this event: \n"
                 + event.toString()
                 + "\nNow you have " + Task.count + " " + Task.taskCount() + " in the list.\n");
     }
@@ -151,7 +141,7 @@ public class Ui {
      */
     public void printMatchingFind(String tasks) {
         if (tasks.equals("")) {
-            printAnyMessage("Aw man no matching tasks :(");
+            append("Aw man no matching tasks :(");
         } else {
             append("Matching tasks in your list: ");
             append(tasks);
@@ -159,14 +149,14 @@ public class Ui {
     }
 
     public void showCreateFileError(IOException e) {
-        printAnyMessage("Error creating file:" + e.getMessage());
+        append("Error creating file:" + e.getMessage());
     }
 
     /**
      * Prints an error message when there is error loading tasks.
      */
     public void showLoadingError() {
-        printAnyMessage("Oh no! Error loading task list :(");
+        append("Oh no! Error loading task list :(");
     }
 
     /**
@@ -175,21 +165,21 @@ public class Ui {
      * @param e The GalliumException that was thrown.
      */
     public void showGalliumException(GalliumException e) {
-        printAnyMessage(e.getMessage());
+        append(e.getMessage());
     }
 
     /**
      * Prints a message to show that the deadline date is missing.
      */
     public void showIncompleteDeadline() {
-        printAnyMessage("Please put the date of the deadline!!");
+        append("Please put the date of the deadline!!");
     }
 
     /**
      * Prints a message to show that the event details are incomplete.
      */
     public void showIncompleteEvent() {
-        printAnyMessage("Please put the from and to of the event!!");
+        append("Please put the from and to of the event!!");
     }
 
     /**
@@ -198,7 +188,7 @@ public class Ui {
      * @param index The index that was out of range.
      */
     public void showWrongIndex() {
-        printAnyMessage("Please put a number between 1 and " + (Task.count - 1)
+        append("Please put a number between 1 and " + (Task.count - 1)
                 + "!" + "\nNow you have " + (Task.count - 1) + " " + Task.taskCountDelete()
                 + " in the list.");
     }
@@ -209,20 +199,20 @@ public class Ui {
      * @param e The IOException that was thrown.
      */
     public void showIOException(IOException e) {
-        printAnyMessage("Something went wrong: " + e.getMessage());
+        append("Something went wrong: " + e.getMessage());
     }
 
     /**
      * Prints a message to show invalid date/time format.
      */
     public void showWrongDateTimeFormat() {
-        printAnyMessage("Invalid date/time format! Please put in YYYY-MM-DD and 24 hours (HHMM) format!");
+        append("Invalid date/time format! Please put in YYYY-MM-DD and 24 hours (HHMM) format!");
     }
 
     /**
      * Prints a bye message when the program exits.
      */
     public void printByeMessage() {
-        printAnyMessage("Bye. Hope to see you again soon!");
+        append("Bye. Hope to see you again soon!");
     }
 }
