@@ -11,7 +11,7 @@ public class TaskList {
     private ArrayList<Task> taskList;
 
     /**
-     * Constructor for TaskList class.
+     * Constructs an instance of TaskList class.
      */
     public TaskList() {
         this.taskList = new ArrayList<>();

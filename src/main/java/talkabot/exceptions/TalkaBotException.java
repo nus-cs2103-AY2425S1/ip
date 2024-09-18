@@ -6,7 +6,7 @@ package talkabot.exceptions;
 public class TalkaBotException extends RuntimeException {
 
     /**
-     * Constructor for TalkaBotException class.
+     * Constructs an instance of TalkaBotException class.
      */
     public TalkaBotException(String message) {
         super(message);

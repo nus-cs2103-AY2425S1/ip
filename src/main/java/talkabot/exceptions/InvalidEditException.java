@@ -6,7 +6,7 @@ package talkabot.exceptions;
 public class InvalidEditException extends TalkaBotException {
 
     /**
-     * Constructor for InvalidEditException class.
+     * Constructs an instance of InvalidEditException class.
      */
     public InvalidEditException(String edit) {
         super("Sorry, what were you trying to " + edit + " again?");
