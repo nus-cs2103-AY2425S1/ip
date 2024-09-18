@@ -48,12 +48,18 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var db = new DialogBox(text, img);
+        // Apply user-specific styling
+        db.setAlignment(Pos.TOP_RIGHT);
+        db.dialog.getStyleClass().add("user-label");
+        return db;
     }
 
     public static DialogBox getKronaDialog(String text, Image img) {
         var db = new DialogBox(text, img);
-        db.flip();
+        db.flip(); // Flip to align ImageView on the left
+        // Apply app-specific styling
+        db.dialog.getStyleClass().add("krona-label");
         return db;
     }
 }

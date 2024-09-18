@@ -22,3 +22,19 @@
     /* Rotate image clockwise by degrees. */
     -fx-rotate: 0;
 }
+
+.user-label {
+    -fx-background-color: lightblue;
+    -fx-padding: 10;
+    -fx-background-radius: 10;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}
+
+.krona-label {
+    -fx-background-color: lightgray;
+    -fx-padding: 10;
+    -fx-background-radius: 10;
+    -fx-text-fill: black;
+    -fx-font-style: italic;
+}
