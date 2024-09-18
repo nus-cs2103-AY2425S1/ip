@@ -57,8 +57,8 @@ public abstract class Task {
      * @return A string to show that task is marked as done
      */
     public String markedNotification() {
-        return line + "Nice! I've marked this task as done:\n"
-                + this.displayTask() + line;
+        return "Nice! I've marked this task as done:\n"
+                + this.displayTask();
     }
 
     /**
@@ -66,8 +66,8 @@ public abstract class Task {
      */
     public void markAsUndone() {
         this.done = false;
-        System.out.println(line + "OK, I've marked this task as not done yet:\n"
-                + this.displayTask() + line);
+        System.out.println("OK, I've marked this task as not done yet:\n"
+                + this.displayTask());
     }
 
     /**
@@ -108,6 +108,7 @@ public abstract class Task {
      * @return The specific task
      */
     public static Task intepreteTask(String description, String type) {
+        assert description != null : "description cannot be null";
         if (Objects.equals(type, "T")) {    // To Do
             return new ToDo(description);
 

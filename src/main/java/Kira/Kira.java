@@ -27,34 +27,24 @@ public class Kira {
     public String getResponse(String input) {
 
         Parser parser = new Parser(this.list);
-        /*
-            if (userInput.equalsIgnoreCase("bye")) {
-                System.out.println(line +
-                        "Bye. Hope to see you again soon!\n" +
-                        line);
-                break;
-            }
-
-         */
 
         try {
             Parser.CommandType command = parser.intepreteCommand(input);
+            assert command != null : "command returned cannot be null";
             Task task = parser.execute(command, input);
             this.storage.save(this.list);
             return parser.getResponse(command, input, task);
-            //System.out.println(ui.addLines(response));
 
         } catch (UnreadableException | EmptyException | InvalidTaskException e) {
             this.ui.showLoadingError();
-            System.out.println(e.getMessage());
+            return e.getMessage();
         } catch (IOException e) {
             this.ui.showLoadingError();
-            System.out.println("File cannot be saved" + e.getMessage());
+            return "File cannot be saved" + e.getMessage();
         } catch (Exception e) {
             this.ui.showLoadingError();
-            System.out.println("something went wrong");
+            return "something went wrong";
         }
-        return "";
     }
 
 
