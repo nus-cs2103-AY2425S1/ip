@@ -1,7 +1,8 @@
-package seedu.maxine;
+package seedu.maxine.storage;
 
 import java.util.ArrayList;
 
+import seedu.maxine.task.MaxineList;
 import seedu.maxine.task.Task;
 /**
  * The MaxineStorage interface defines the methods for managing the

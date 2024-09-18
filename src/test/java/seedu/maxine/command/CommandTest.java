@@ -51,7 +51,7 @@ class CommandTest {
 
     @Test
     void testUnmark() {
-        Task task = list.get(0);
+        Task task = list.getTask(0);
         task.markUndone();
         assertEquals("Undoing... this task? :'( :[T][ ] test command class",
                 command.handleUnmark("unmark 1"));

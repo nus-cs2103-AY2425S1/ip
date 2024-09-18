@@ -1,5 +1,11 @@
 package seedu.maxine.task;
-
+/**
+ * Represents a to-do task with a description.
+ * <p>
+ * This class extends the {@link Task} class and is used to represent simple tasks that do not have
+ * any associated date or time. A to-do task consists of a description and a completion status.
+ * </p>
+ */
 public class Todo extends Task {
 
     /**

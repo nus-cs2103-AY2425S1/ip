@@ -1,9 +1,10 @@
-package seedu.maxine;
+package seedu.maxine.task;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import seedu.maxine.task.Task;
+import seedu.maxine.storage.Storage;
+
 /**
  * The TaskList class manages a collection of tasks in the Maxine application.
  * It provides methods for adding, deleting, and retrieving tasks, as well as
@@ -45,7 +46,7 @@ public class TaskList implements MaxineList {
      * @param num
      * @return task
      */
-    public Task get(int num) {
+    public Task getTask(int num) {
         return list.get(num);
     }
 

@@ -1,5 +1,14 @@
 package seedu.maxine.task;
 
+import seedu.maxine.exception.MaxineException;
+/**
+ * Represents an event task with a description, start date, and end date.
+ * <p>
+ * This class extends the {@link Task} class, adding functionality specific to event tasks.
+ * An event task includes a description, a start date, and an end date, which can be represented
+ * in various date-time formats.
+ * </p>
+ */
 public class Event extends Task {
 
     protected String start;
@@ -24,7 +33,7 @@ public class Event extends Task {
         try {
             this.start = dateTimeParser(start.trim());
             this.end = dateTimeParser(end.trim());
-        } catch (Exception e) {
+        } catch (MaxineException e) {
             this.start = start;
             this.end = end;
         }

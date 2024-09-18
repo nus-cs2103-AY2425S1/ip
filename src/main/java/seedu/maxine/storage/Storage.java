@@ -1,4 +1,4 @@
-package seedu.maxine;
+package seedu.maxine.storage;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import seedu.maxine.parser.FileParser;
+import seedu.maxine.task.MaxineList;
 import seedu.maxine.task.Task;
 
 /**
@@ -36,31 +37,31 @@ public class Storage implements MaxineStorage {
      * @return ArrayList of collection of current tasks
      */
     public ArrayList<Task> load() {
-        ArrayList<Task> list = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<>();
         try {
             File f = new File(filePath);
             Scanner s = new Scanner(f);
             while (s.hasNextLine()) {
                 String line = s.nextLine();
                 Task task = fileParser.parse(line);
-                list.add(task);
+                tasks.add(task);
             }
         } catch (FileNotFoundException e) {
             System.out.println("Oh no! I can't seem to find the file :(");
         }
-        return list;
+        return tasks;
     }
     /**
-     * Adds new lines to the txt file, based on updated list.
-     * @param list updated TaskList
+     * Adds new lines to the txt file, based on updated tasks.
+     * @param tasks updated TaskList
      */
-    public void refreshStorage(MaxineList list) {
+    public void refreshStorage(MaxineList tasks) {
 
         File file = new File(filePath);
 
         try (BufferedWriter writer =
                      new BufferedWriter(new FileWriter(file, false))) {
-            for (Task item : list) {
+            for (Task item : tasks) {
                 writer.write(item.writeToFile());
                 writer.newLine();
             }
