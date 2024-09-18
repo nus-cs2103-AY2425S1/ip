@@ -1,0 +1,4 @@
+event abc /from Monday 2pm /to 4pm
+deadline deadline task /by Sunday
+todo todo task
+bye
