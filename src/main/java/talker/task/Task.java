@@ -7,7 +7,7 @@ public class Task {
     // String describing task
     protected String description;
     // Status of task
-    protected boolean complete;
+    protected boolean isComplete;
     // Type of task
     protected TaskType taskType;
     // Priority of task, default set to low
@@ -21,7 +21,7 @@ public class Task {
      */
     public Task(String description, TaskType type) {
         this.description = description;
-        this.complete = false;
+        this.isComplete = false;
         this.taskType = type;
         this.priorityType = PriorityType.LOW;
     }
@@ -36,7 +36,7 @@ public class Task {
      */
     public Task(String description, TaskType type, boolean isComplete, PriorityType priorityType) {
         this.description = description;
-        this.complete = isComplete;
+        this.isComplete = isComplete;
         this.taskType = type;
         this.priorityType = priorityType;
     }
@@ -47,7 +47,16 @@ public class Task {
      * @return "X" if completed else " "
      */
     private String getComplete() {
-        return this.complete ? "X" : " ";
+        return this.isComplete ? "X" : " ";
+    }
+
+    /**
+     * Returns boolean representing status of task
+     *
+     * @return true if completed else false
+     */
+    public boolean isComplete() {
+        return this.isComplete;
     }
 
     /**
@@ -109,21 +118,12 @@ public class Task {
     }
 
     /**
-     * Returns boolean representing status of task
-     *
-     * @return true if complete else false
-     */
-    public boolean isComplete() {
-        return this.complete;
-    }
-
-    /**
      * Marks task as complete
      *
      * @return String describing task
      */
     public String mark() {
-        this.complete = true;
+        this.isComplete = true;
         return String.format("Nice! I've marked this task as done:\n%s", this);
     }
 
@@ -133,7 +133,7 @@ public class Task {
      * @return String describing task
      */
     public String unmark() {
-        this.complete = false;
+        this.isComplete = false;
         return String.format("OK, I've marked this task as not done yet:\n%s", this);
     }
 
@@ -156,9 +156,9 @@ public class Task {
             type = "E";
             break;
         default:
-            assert taskType != taskType.TODO;
-            assert taskType != taskType.DEADLINE;
-            assert taskType != taskType.EVENT;
+            assert taskType != TaskType.TODO;
+            assert taskType != TaskType.DEADLINE;
+            assert taskType != TaskType.EVENT;
         }
 
         return String.format("%s | %s | %s | %s",
