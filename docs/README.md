@@ -2,6 +2,19 @@
 
 GLaDOS is a versatile chatbot for managing tasks, based off of the video game character in _Portal_. If you can type fast, GLaDOS can assist with your task management quickly and efficiently (albeit a little reluctantly).
 
+- [Quick Start](#quick-start)
+- [Features](#features)
+  - [Listing all tasks: `list`](#listing-all-tasks-list)
+  - [Adding a ToDo: `todo`](#adding-a-todo-todo)
+  - [Adding a Deadline: `deadline`](#adding-a-deadline-deadline)
+  - [Adding an Event: `event`](#adding-an-event-event)
+  - [Deleting a Task: `delete`](#deleting-a-task-delete)
+  - []
+- [Known Issues](#known-issues)
+- [Command Summary](#command-summary)
+
+---
+
 ## Quick Start
 
 1. Ensure you have Java 17 or above installed on your computer.
@@ -15,7 +28,7 @@ GLaDOS is a versatile chatbot for managing tasks, based off of the video game ch
 
 ![Glados Image](./Ui.png)
 
-Type a command in the command box and press Enter to execute it.
+---
 
 ## Features
 
@@ -28,34 +41,56 @@ Extraneous parameters for commands that do not take in parameters will be ignore
 Viewing Help: help
 Shows a message explaining how to access the help page.
 
-Format: help
+# Listing all tasks: `list`
 
-Adding a Task: add
-Adds a task to the task list.
+Shows list of all tasks in the system
 
-Format: add TASK_DESCRIPTION INDEX
+Format: `list`
 
-TASK_DESCRIPTION: The description of the task.
-INDEX: The number of tasks after addition.
+# Adding a ToDo: `todo`
+
+Adds a ToDo to the task list, which is a task with a description.
+
+Format: `todo TASK_DESCRIPTION`
+
 Examples:
 
-add Finish report 3
-add Call mom 1
-Deleting a Task: delete
-Deletes a task from the task list.
+- `todo eat some cake`
+- `todo buy some ice cream`
+
+# Adding a Deadline: `deadline`
+
+Adds a deadline to the task list, which is an task with a description and deadline date.
+
+Format: `deadline TASK_DESCRIPTION /by DEADLINE_DATE`
+
+- All parameters must be filled in order or else invalid argument error will be shown
+- `DEADLINE_DATE` must be in the form YYYY-MM-DD
+
+# Adding an Event: `event`
+
+Adds an Event to the task list, which is an task with a description, start date and end date.
+
+Format: `event TASK_DESCRIPTION /from START_DATE /to END_DATE`
+
+- All parameters must be filled in order or else invalid argument error will be shown
+- `START_DATE` and `END_DATE` must be in the form YYYY-MM-DD
+
+# Deleting a Task: `delete`
+
+Deletes a task from the task list based on list index
 
 Format: delete INDEX
 
-INDEX: The index of the task to delete. Must be a positive integer (e.g., 1, 2, 3, …​).
+- `INDEX` is the index of the task to delete. Must be a positive integer (e.g., 1, 2, 3, …​).
+- If `INDEX` does not exist within range of task list, error will be shown.
+
 Example:
 
-delete 2
-Listing All Tasks: list
-Displays a list of all tasks in the task list.
+- `delete 2`
 
-Format: list
+# Marking a Task as Done: `mark`
 
-Marking a Task as Done: mark
 Marks a task as completed.
 
 Format: mark TASK_DESCRIPTION
@@ -82,16 +117,6 @@ NEW_TASK_DESCRIPTION: The updated description of the task.
 Example:
 
 update Finish the final report
-Printing an Error: printError
-Displays an error message caught by GLaDOS.
-
-Format: printError EXCEPTION
-
-EXCEPTION: The error to be printed.
-Exiting the Program: exit
-Exits the program.
-
-Format: exit
 
 Command Summary
 Action Format, Examples
@@ -112,6 +137,12 @@ FAQ
 Q: How do I transfer my data to another computer?
 A: Install the app on the other computer and copy the data file from the previous GLaDOS home folder to the new one.
 
-Known Issues
-UI Glitches: If you encounter any UI glitches when using multiple screens, try restarting the application.
-Help Window Minimization: If the help window is minimized and you run the help command again, it might not reappear. To resolve this, manually restore the minimized help window.
+---
+
+## Known Issues
+
+- UI Issues: If you expand the window vertically, you may see some empty space. GLaDOS is currently not expandable-friendly.
+
+---
+
+## Command Summary
