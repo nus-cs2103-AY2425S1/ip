@@ -120,7 +120,7 @@ public class Parser {
             break;
         case "E":
             commandEnum = CommandEnum.EVENT;
-            String[] fromAndTo = lineSplit[3].split("-");
+            String[] fromAndTo = lineSplit[3].split("&");
             simulatedTaskStringInput = String.format(
                     "event %s /from %s /to %s", lineSplit[2], fromAndTo[0], fromAndTo[1]);
             break;
@@ -184,7 +184,11 @@ public class Parser {
                 splitDescription, fromIdxPair.getSecond() + 1, "");
         String from = fromIdxPair.getFirst();
         String to = toIdxPair.getFirst();
-        return new Event(taskDescription, from, to);
+        try {
+            return new Event(taskDescription, from, to);
+        } catch (DateTimeParseException e) {
+            throw new DumplingException("    Uh-oh... Please enter the date in the correct format of YYYY-MM-DD.");
+        }
     }
 
     private static ToDo createTodoTaskFromString(String[] splitDescription) {

@@ -13,7 +13,7 @@ public class TaskListTest {
         Task[] tasksToBeAdded = {
             new ToDo("task 1", "task notes"),
             new Deadline("task 2", "2024-09-17"),
-            new Event("task 3", "today", "tommorrow")
+            new Event("task 3", "2024-09-17", "2024-09-18")
         };
         String[] expectedOutputs = {
             "     Hungry? Here are the tasks in your list:\n"
@@ -24,7 +24,7 @@ public class TaskListTest {
             "     Hungry? Here are the tasks in your list:\n"
                     + "     1.[T][ ] task 1 (task notes)\n"
                     + "     2.[D][ ] task 2 (by: Sep 17 2024)\n"
-                    + "     3.[E][ ] task 3 (from: today to: tommorrow)",
+                    + "     3.[E][ ] task 3 (from: Sep 17 2024 to: Sep 18 2024)",
         };
         assertEquals(
                 "      I'm hungry cause there are no tasks in your list...",

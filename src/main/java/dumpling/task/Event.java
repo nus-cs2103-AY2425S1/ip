@@ -1,11 +1,15 @@
 package dumpling.task;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * Event class, a special type of task
  */
 public class Event extends Task {
-    private String from;
-    private String to;
+    private LocalDate from;
+    private LocalDate to;
 
     /**
      * Event constructor.
@@ -13,7 +17,7 @@ public class Event extends Task {
      * @param from Starting date / date time of event
      * @param to Ending date / date time of event
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, String from, String to) throws DateTimeParseException {
         this(description, "", from, to);
     }
 
@@ -24,19 +28,19 @@ public class Event extends Task {
      * @param from Starting date / date time of event
      * @param to Ending date / date time of event
      */
-    public Event(String description, String notes, String from, String to) {
+    public Event(String description, String notes, String from, String to) throws DateTimeParseException {
         super(description, notes);
-        this.from = from;
-        this.to = to;
+        this.from = LocalDate.parse(from);
+        this.to = LocalDate.parse(to);
     }
 
     @Override
     public String getTaskForSaving() {
-        return String.format("E | %d | %s | %s-%s | %s\n", (
+        return String.format("E | %d | %s | %s&%s | %s\n", (
                 this.isDone ? 1 : 0),
                 this.description,
-                this.from,
-                this.to,
+                this.from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                this.to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
                 this.notes);
     }
 
@@ -44,8 +48,8 @@ public class Event extends Task {
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)%s",
                 super.toString(),
-                this.from,
-                this.to,
+                this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy")),
+                this.to.format(DateTimeFormatter.ofPattern("MMM dd yyyy")),
                 this.notes.isEmpty() ? "" : String.format(" (%s)", this.notes)
         );
     }

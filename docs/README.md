@@ -17,11 +17,11 @@ where content is expected between the square brackets:
 ```
 todo [task description]
 deadline [task description] /by [yyyy-MM-dd]
-event [task description] /from [starting time] /to [ending time]
+event [task description] /from [yyyy-MM-dd] /to [yyyy-MM-dd]
 ```
 
 Examples of adding tasks:
-* `event project meeting /from 9 Sep. 9pm /to 10pm` adds an event task
+* `event project meeting /from 2024-09-18 /to 2024-09-18` adds an event task
 * `todo go to the gym` adds a simple todo task
 
 ## Adding Notes: `note`
@@ -54,10 +54,10 @@ find [substring of target task description]
 tasks in the full list, but instead the order in the lists of matching tasks.
 For example, if the command `find project` displays the following output:
 ```
-     Waaa! Here are the matching tasks in your list:"
-      1.[T][ ] prepare for project meeting (my part is part A)"
-      2.[D][ ] project submission (by: Oct 10 2024)"
-      3.[E][ ] project meeting (from: today 9pm to: 10pm)"
+     Waaa! Here are the matching tasks in your list:
+      1.[T][ ] prepare for project meeting (my part is part A)
+      2.[D][ ] project submission (by: Oct 10 2024)
+      3.[E][ ] project meeting (from: today 9pm to: 10pm)
 ```
 It does not necessarily mean that the task `prepare for project meeting` is also at `index 1`
 in the full list of tasks! 
