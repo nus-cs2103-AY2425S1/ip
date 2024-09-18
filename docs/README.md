@@ -21,6 +21,7 @@ RoTodo is a simple task managing bot, optimized for use via a Command Line Inter
   8. [Saving the tasklist]()
 - [FAQ](#faq)
 - [Command Summary](#command-summary)
+
 ---
 ## Quick Start
 1. Ensure you have `Java 17` or above installed in your Computer.
