@@ -1,10 +1,8 @@
 T | 0 | kms then ascend
 T | 0 | kms then descend
-T | 0 | eat shit
-T | 0 | kys
-T | 0 | rigjw
+T | 0 | eat poop
+D | 0 | Submit project report | 2024-09-30T23:59
+E | 0 | Attend seminar | 2024-10-10T14:00 | 2024-10-10T16:00
 T | 0 | ur mom
-T | 0 | gay shit
 T | 0 | buy a noose
 D | 0 | return book | 2019-02-12T18:00
-E | 0 | my funeral | 2019-02-12T18:00 | 2019-03-12T08:00

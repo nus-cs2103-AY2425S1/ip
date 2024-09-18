@@ -35,13 +35,13 @@ public class Storage {
 
     /**
      * Saves the current task list to the specified file.
-     * Each task is written in a format suitable for loading later.
      */
     protected void saveToFile() {
         assert rootPath != null && !rootPath.isEmpty() : "rootPath must not be null or empty";
         assert tasks != null : "Task list must not be null";
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(rootPath))) {
+            writeTasksToFile(writer);
             for (Task task : tasks) {
                 assert task != null : "Task must not be null";
                 writer.write(task.toSaveFormat());
@@ -53,8 +53,20 @@ public class Storage {
     }
 
     /**
-     * Loads tasks from the specified file. Each task is parsed from the saved format
-     * and added to the task list. If the file does not exist, no action is taken.
+     * Writes the list of tasks to the file using the writer.
+     *
+     * @param writer The BufferedWriter to write the tasks to the file.
+     */
+    private void writeTasksToFile(BufferedWriter writer) throws IOException {
+        for (Task task : tasks) {
+            writer.write(task.toSaveFormat());
+            writer.newLine();
+        }
+    }
+
+    /**
+     * Loads tasks from the specified file.
+     * If the file does not exist, no action is taken.
      */
     protected void loadFromFile() {
         assert rootPath != null && !rootPath.isEmpty() : "rootPath must not be null or empty";
@@ -65,46 +77,69 @@ public class Storage {
         }
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(" \\| ");
-                assert parts.length >= 3 : "Invalid task format";
+            readTasksFromFile(reader);
 
-                String type = parts[0];
-                boolean isDone = parts[1].equals("1");
-                String description = parts[2];
-                assert description != null && !description.isEmpty() : "Task description must not be null or empty";
-
-                Task task = null;
-                switch (type) {
-                case "T":
-                    task = new Todo(description);
-                    break;
-                case "D":
-                    assert parts.length == 4 : "Deadline format must contain 4 parts";
-                    LocalDateTime by = LocalDateTime.parse(parts[3], DATE_FORMATTER);
-                    task = new Deadline(description, by);
-                    break;
-                case "E":
-                    assert parts.length == 5 : "Event format must contain 5 parts";
-                    LocalDateTime from = LocalDateTime.parse(parts[3], DATE_FORMATTER);
-                    LocalDateTime to = LocalDateTime.parse(parts[4], DATE_FORMATTER);
-                    task = new Event(description, from, to);
-                    break;
-                default:
-                    assert false : "Unknown task type";
-                }
-
-                if (task != null) {
-                    if (isDone) {
-                        task.markAsDone();
-                    }
-                    tasks.add(task);
-                }
-            }
         } catch (IOException e) {
             System.out.println("Error loading tasks from file: " + e.getMessage());
         }
+    }
+
+    /**
+     * Reads tasks from the file and adds them to the task list.
+     *
+     * @param reader The BufferedReader to read tasks from the file.
+     */
+    private void readTasksFromFile(BufferedReader reader) throws IOException {
+        String line;
+        while ((line = reader.readLine()) != null) {
+            Task task = parseTask(line);
+            if (task != null) {
+                tasks.add(task);
+            }
+        }
+    }
+
+    /**
+     * Parses a line from the file to create the corresponding task.
+     *
+     * @param line The line from the file representing a task.
+     * @return The created Task object, or null if parsing fails.
+     */
+    private Task parseTask(String line) {
+        String[] parts = line.split(" \\| ");
+        assert parts.length >= 3 : "Invalid task format";
+
+        String type = parts[0];
+        boolean isDone = parts[1].equals("1");
+        String description = parts[2];
+        assert description != null && !description.isEmpty() : "Task description must not be null or empty";
+      
+        Task task = null;
+      
+        switch (type) {
+        case "T":
+            task = new Todo(description);
+            break;
+        case "D":
+            assert parts.length == 4 : "Deadline format must contain 4 parts";
+            LocalDateTime by = LocalDateTime.parse(parts[3], DATE_FORMATTER);
+            task = new Deadline(description, by);
+            break;
+        case "E":
+            assert parts.length == 5 : "Event format must contain 5 parts";
+            LocalDateTime from = LocalDateTime.parse(parts[3], DATE_FORMATTER);
+            LocalDateTime to = LocalDateTime.parse(parts[4], DATE_FORMATTER);
+            task = new Event(description, from, to);
+            break;
+        default:
+            assert false : "Unknown task type";
+        }
+
+        if (task != null && isDone) {
+            task.markAsDone();
+        }
+
+        return task;
     }
 
     /**

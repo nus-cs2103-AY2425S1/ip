@@ -23,17 +23,6 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 
-
-
-//    /**
-//     * Displays a goodbye message when the chatbot is exited.
-//     */
-//    public void showGoodbyeMessage() {
-//        System.out.println("____________________________________________________________");
-//        System.out.println("Bye. Hope to see you again soon!");
-//        System.out.println("____________________________________________________________");
-//    }
-
     /**
      * Returns a message indicating that a task has been added.
      *

@@ -20,9 +20,9 @@ public class Parser {
     private TaskList tasks;
 
     /**
-     * Constructs a new Parser with the specified Ui, TaskList, Storage, and Scanner.
+     * Constructs a new Parser with the specified Ui, TaskList, and Storage.
      *
-     * @param ui    The Ui that handles response strings in the commands
+     * @param ui    The Ui that handles response strings in the commands.
      * @param tasks The task list that stores all the tasks.
      * @param s     The storage handler for saving and loading tasks.
      */
@@ -54,8 +54,10 @@ public class Parser {
     }
 
     /**
-     * Continuously reads user input, parses commands, and performs actions such as adding tasks,
-     * marking tasks as done, or displaying the task list. Terminates when the user types 'bye'.
+     * Parses the user input string and returns the corresponding Command object based on the action.
+     *
+     * @param userInput The input string entered by the user.
+     * @return A Command object representing the user's action.
      */
     public Command parseInput(String userInput) {
         assert userInput != null : "User input cannot be null";
@@ -91,6 +93,12 @@ public class Parser {
         return new Command("Idk what ur sayin leh :/");
     }
 
+    /**
+     * Processes the "list" command, which displays the current list of tasks.
+     *
+     * @return A Command object that shows the list of tasks.
+     * @throws BigmouthException If the task list is empty.
+     */
     private Command sendListCommand() throws BigmouthException {
         assert tasks != null : "Task list cannot be null";
         if (tasks.isEmpty()) {
@@ -100,6 +108,13 @@ public class Parser {
         return new Command(response);
     }
 
+    /**
+     * Processes the "mark" command to mark a task as done.
+     *
+     * @param userInput The input string containing the task number to be marked.
+     * @return A Command object showing the updated task list.
+     * @throws BigmouthException If the task number is invalid.
+     */
     private Command sendMarkCommand(String userInput) throws BigmouthException {
         assert userInput.split(" ").length > 1 : "User input for mark command must have a task number";
         int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
@@ -114,6 +129,13 @@ public class Parser {
         return new Command(ui.showTaskMarked(tasks.get(taskNumber)));
     }
 
+    /**
+     * Processes the "unmark" command to mark a task as not done.
+     *
+     * @param userInput The input string containing the task number to be unmarked.
+     * @return A Command object showing the updated task list.
+     * @throws BigmouthException If the task number is invalid.
+     */
     private Command sendUnmarkCommand(String userInput) throws BigmouthException {
         assert userInput.split(" ").length > 1 : "User input for unmark command must have a task number";
         int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
@@ -128,6 +150,13 @@ public class Parser {
         return new Command(ui.showTaskUnmarked(tasks.get(taskNumber)));
     }
 
+    /**
+     * Processes the "todo" command to add a new Todo task.
+     *
+     * @param userInput The input string containing the description of the Todo task.
+     * @return A Command object confirming the addition of the Todo task.
+     * @throws BigmouthException If the description of the Todo task is empty.
+     */
     private Command sendTodoCommand(String userInput) throws BigmouthException {
         assert userInput.length() > 5 : "Todo command must have a description";
         String description = userInput.substring(5).trim();
@@ -141,6 +170,13 @@ public class Parser {
         return new Command(ui.showTaskAdded(curr, tasks.size()));
     }
 
+    /**
+     * Processes the "deadline" command to add a new Deadline task.
+     *
+     * @param userInput The input string containing the description and deadline of the task.
+     * @return A Command object confirming the addition of the Deadline task.
+     * @throws BigmouthException If the description or deadline is missing or invalid.
+     */
     private Command sendDeadlineCommand(String userInput) throws BigmouthException {
         assert userInput.contains(" /by ") : "Deadline command must have a description and due date";
         String[] parts = userInput.split(" /by ");
@@ -160,11 +196,17 @@ public class Parser {
         return new Command(ui.showTaskAdded(curr, tasks.size()));
     }
 
+    /**
+     * Processes the "event" command to add a new Event task.
+     *
+     * @param userInput The input string containing the description, start, and end time of the event.
+     * @return A Command object confirming the addition of the Event task.
+     * @throws BigmouthException If the description, start, or end time is missing or invalid.
+     */
     private Command sendEventCommand(String userInput) throws BigmouthException {
         assert userInput.contains(" /from ") && userInput.contains(" /to ") : "Event command must have a description, start, and end time";
         String[] parts = userInput.split(" /from | /to ");
-        if (parts.length < 3 || parts[1].trim().isEmpty()
-                || parts[2].trim().isEmpty()) {
+        if (parts.length < 3 || parts[1].trim().isEmpty() || parts[2].trim().isEmpty()) {
             throw new BigmouthException("OOPS! The event command " +
                     "is missing a start or end time.");
         }
@@ -181,6 +223,13 @@ public class Parser {
         return new Command(ui.showTaskAdded(curr, tasks.size()));
     }
 
+    /**
+     * Processes the "delete" command to delete a task from the list.
+     *
+     * @param userInput The input string containing the task number to be deleted.
+     * @return A Command object confirming the deletion of the task.
+     * @throws BigmouthException If the task number is invalid.
+     */
     private Command sendDeleteCommand(String userInput) throws BigmouthException {
         assert userInput.split(" ").length > 1 : "Delete command must have a task number";
         int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
@@ -195,6 +244,13 @@ public class Parser {
         return new Command(ui.showTaskRemoved(removedTask, tasks.size()));
     }
 
+    /**
+     * Processes the "find" command to search for tasks containing a keyword.
+     *
+     * @param userInput The input string containing the keyword to search for.
+     * @return A Command object showing the tasks that match the search keyword.
+     * @throws BigmouthException If the keyword is missing.
+     */
     private Command sendFindCommand(String userInput) throws BigmouthException {
         assert userInput.length() > 5 : "Find command must have a keyword";
         String keyword = userInput.substring(5).trim();
