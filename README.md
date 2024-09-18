@@ -32,7 +32,7 @@ Example of usage:
 
 ##### Adding Deadline
 To add a deadline, type `deadline <description> /by <date>`
-<date> can be in String format or of the format 
+`<date>` can be in String format or of the format 
 <br>
 * `dd-MM-yyyy HH:mm`
 * `dd-MM-yyyy` 
