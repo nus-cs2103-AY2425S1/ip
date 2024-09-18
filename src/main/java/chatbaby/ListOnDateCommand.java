@@ -29,6 +29,9 @@ public class ListOnDateCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ChatBabyException {
+        if (commandBody.length() <= BEGIN_INDEX) {
+            throw new ChatBabyException("Oh no!!! The task description cannot be empty.");
+        }
         try {
             // Parse the input date
             String time = commandBody.substring(BEGIN_INDEX).trim();

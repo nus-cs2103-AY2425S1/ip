@@ -26,6 +26,9 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ChatBabyException {
+        if (commandBody.length() <= BEGIN_INDEX) {
+            throw new ChatBabyException("Oh no!!! The task description cannot be empty.");
+        }
         assert tasks.size() > 0 : "Task list should have at least one task before removing";
         try {
             int index = Integer.parseInt(commandBody.substring(BEGIN_INDEX).trim()) - 1;

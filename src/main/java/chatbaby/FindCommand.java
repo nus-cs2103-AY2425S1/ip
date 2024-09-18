@@ -5,6 +5,7 @@ package chatbaby;
  * The keyword is extracted from the command body and used to search through the task list.
  */
 public class FindCommand extends Command {
+    private static final int BEGIN_INDEX = 5;
 
     /**
      * Constructs a FindCommand with the specified command body.
@@ -27,8 +28,11 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ChatBabyException {
+        if (commandBody.length() <= BEGIN_INDEX) {
+            throw new ChatBabyException("Oh no!!! The task description cannot be empty.");
+        }
         try {
-            String target = commandBody.substring(5).trim();
+            String target = commandBody.substring(BEGIN_INDEX).trim();
             TaskList matchedList = findTasks(tasks, target);
             boolean hasMatch = matchedList.hasTask();
             if (!hasMatch) {

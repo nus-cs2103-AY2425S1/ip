@@ -26,6 +26,9 @@ public class MarkCommand extends Command {
      * @throws ChatBabyException If the task index is invalid or cannot be parsed.
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) throws ChatBabyException {
+        if (commandBody.length() <= BEGIN_INDEX) {
+            throw new ChatBabyException("Oh no!!! The task description cannot be empty.");
+        }
         try {
             int index = Integer.parseInt(commandBody.substring(BEGIN_INDEX).trim()) - 1;
             if (index < 0 && index > tasks.size()) {
