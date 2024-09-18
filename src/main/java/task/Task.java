@@ -28,6 +28,11 @@ public class Task {
         this.priority = priority;
     }
 
+    /**
+     * Gets a letter representing the priority of the task.
+     *
+     * @return one word string to represent priority of task
+     */
     public String getShortPriority() {
         if (priority == Priority.HIGH) {
             return "H";

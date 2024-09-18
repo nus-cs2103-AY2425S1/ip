@@ -89,8 +89,9 @@ public class Storage {
     /**
      * Helps to load ToDo Task into the list of tasks when the chatbot starts.
      *
-     * @param task ToDo Task to be loaded.
-     * @param isTaskDone Whether the ToDo task has already been completed.
+     * @param task ToDo Task to be loaded
+     * @param isTaskDone Whether the ToDo task has already been completed
+     * @param priorityOfTask Current priority of the task
      */
     public void loadTodoTask(String task, char isTaskDone, char priorityOfTask) {
         String description = task.substring(10);
@@ -109,8 +110,9 @@ public class Storage {
     /**
      * Helps to load Deadline Task into the list of tasks when the chatbot starts.
      *
-     * @param task Deadline Task to be loaded.
-     * @param isTaskDone Whether the Deadline task has already been completed.
+     * @param task Deadline Task to be loaded
+     * @param isTaskDone Whether the Deadline task has already been completed
+     * @param priorityOfTask Current priority of the task
      */
     public void loadDeadlineTask(String task, char isTaskDone, char priorityOfTask) {
         int byPosition = task.indexOf("(by:");
@@ -133,6 +135,7 @@ public class Storage {
      *
      * @param task Event Task to be loaded
      * @param isTaskDone Whether the Event task has already been completed
+     * @param priorityOfTask Current priority of the task
      */
     public void loadEventTask(String task, char isTaskDone, char priorityOfTask) {
         int fromPosition = task.indexOf("(from:");

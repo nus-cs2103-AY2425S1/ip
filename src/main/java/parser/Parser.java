@@ -58,6 +58,13 @@ public class Parser {
     }
 
 
+    /**
+     * Changes the priority of the task to either 'low', 'medium' or 'high'.
+     *
+     * @param command priority command input by user
+     * @return message to show priority of the specified task has changed
+     * @throws TakoException if the priority command is not in the right form
+     */
     public static String parsePriority(String command) {
         try {
             String[] commandDetails = command.trim().split(" ");
@@ -84,6 +91,7 @@ public class Parser {
      * Finds the task which consists of the 'command' input
      *
      * @param command find command input by user
+     * @return list of task which consist of the keyword specified by user
      * @throws TakoException if the find command is not in the right form
      */
     public static String parseFind(String command) {
@@ -103,6 +111,7 @@ public class Parser {
      * Marks the task as complete according to the input
      *
      * @param command mark command input by user
+     * @return message to show that the task specified is marked
      * @throws TakoException if the mark command is not in the right form
      */
     public static String parseMark(String command) {
@@ -126,6 +135,7 @@ public class Parser {
      * Marks the task as incomplete according to the input
      *
      * @param command unmark command input by user
+     * @return message to show that the task specified is unmarked
      * @throws TakoException if the unmark command is not in the right form
      */
     public static String parseUnmark(String command) {
@@ -149,6 +159,7 @@ public class Parser {
      * Deletes the task according to the input from the list
      *
      * @param command delete command input by user
+     * @return message to show that the task specified is deleted
      * @throws TakoException if the delete command is not in the right form
      */
     public static String parseDelete(String command) {
@@ -173,6 +184,7 @@ public class Parser {
      * Make the todo task according to the description
      *
      * @param command todo task command input by user
+     * @return message to show that todo task has been added
      * @throws TakoException if the todo command is not in the right form
      */
     public static String parseTodo(String command) {
@@ -192,6 +204,7 @@ public class Parser {
      * Make the deadline task according to the description and its due date
      *
      * @param command deadline task command input by user
+     * @return message to show that deadline task has been added
      * @throws TakoException if the deadline command is not in the right form
      */
     public static String parseDeadline(String command) {
@@ -220,6 +233,7 @@ public class Parser {
      * Make the event task according to the description, start and end date
      *
      * @param command event command input by user
+     * @return message to show that event task has been added
      * @throws TakoException if the event command is not in the right form
      */
     public static String parseEvent(String command) {

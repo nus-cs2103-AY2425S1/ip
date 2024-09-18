@@ -18,8 +18,7 @@ public class TakoException extends Exception {
     }
 
     /**
-     * Returns the error message that is input to the constructor
-     * of TakoException
+     * Returns the error message that corresponds to the errorType.
      *
      * @return error message
      */

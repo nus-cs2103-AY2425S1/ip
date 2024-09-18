@@ -26,7 +26,8 @@ public class TaskList {
     /**
      * Adds a specific task into the list of tasks.
      *
-     * @param task task to be added.
+     * @param task task to be added
+     * @return message to show task has been added
      */
     public static String addTask(Task task) {
         taskLists.add(task);
@@ -36,13 +37,19 @@ public class TaskList {
     /**
      * Lists out the string representation of the all task.
      *
-     * @param i the task number to be output.
-     * @return String the string representation of all the task.
+     * @param i the task number to be output
+     * @return String the string representation of all the task
      */
     public static String listTask(int i) {
         return (i + 1) + "." + taskLists.get(i).toString();
     }
 
+    /**
+     * Mark the task that is number 'i' on the list
+     *
+     * @param i the task to be marked
+     * @return message of whether the task has been marked
+     */
     public static String markTask(int i) {
         if (i > TaskList.length()) {
             return Ui.noSuchTaskMessage();
@@ -51,6 +58,12 @@ public class TaskList {
         return Ui.markTaskMessage(taskLists.get(i - 1));
     }
 
+    /**
+     * Unmark the task that is number 'i' on the list
+     *
+     * @param i the task to be unmarked
+     * @return message of whether the task has been unmarked
+     */
     public static String unmarkTask(int i) {
         if (i > TaskList.length()) {
             return Ui.noSuchTaskMessage();
@@ -59,6 +72,13 @@ public class TaskList {
         return Ui.unmarkTaskMessage(taskLists.get(i - 1));
     }
 
+    /**
+     * Delete the task that is number 'i' on the list
+     *
+     *
+     * @param i the task to be deleted
+     * @return message of whether the task has been deleted
+     */
     public static String deleteTask(int i) {
         if (i > TaskList.length()) {
             return Ui.noSuchTaskMessage();
@@ -71,7 +91,7 @@ public class TaskList {
     /**
      * Gets the string representation of all the tasks in the list.
      *
-     * @return String string representing every tasks in the list.
+     * @return String string representing every tasks in the list
      */
     public static String getAllTask() {
         String tasks = "";
@@ -99,14 +119,31 @@ public class TaskList {
         taskLists.get(i).markAsDone();
     }
 
+    /**
+     * Helps to set the priority of the task from the file when the chatbot just starts to medium.
+     *
+     * @param i the index of the task that is being set to medium priority
+     */
     public static void priorityMediumTaskLoad(int i) {
         taskLists.get(i).setPriority(Task.Priority.MEDIUM);
     }
 
+    /**
+     * Helps to set the priority of the task from the file when the chatbot just starts to high.
+     *
+     * @param i the index of the task that is being set to high priority
+     */
     public static void priorityHighTaskLoad(int i) {
         taskLists.get(i).setPriority(Task.Priority.HIGH);
     }
 
+    /**
+     * Changes the priority of the task.
+     *
+     * @param priority the priority to be changed to
+     * @param i the index of the task to be changed
+     * @return message whether the change of priority is successful
+     */
     public static String changePriority(String priority, int i) {
         if (i >= TaskList.length()) {
             return Ui.noSuchTaskMessage();
@@ -124,6 +161,10 @@ public class TaskList {
         return Ui.changePriorityMessage(priority, i);
     }
 
+    /**
+     * Rearranges the task so that 'high' priority task will be listed at the
+     * top, followed by 'medium' task then 'low' task.
+     */
     public static void rearrangeTaskList() {
         ArrayList<Task> highTask = new ArrayList<>();
         ArrayList<Task> mediumTask = new ArrayList<>();
