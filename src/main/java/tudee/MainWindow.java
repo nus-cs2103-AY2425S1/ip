@@ -44,7 +44,7 @@ public class MainWindow extends AnchorPane {
      */
     private void showWelcome() {
         String welcomeMessage = "Hello! I'm Tudee, your chatbot bestie! How can I help you today? :)";
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeMessage, tudeeImage));
+        dialogContainer.getChildren().add(DialogBox.getTudeeDialog(welcomeMessage, tudeeImage));
     }
 
     /**
@@ -57,7 +57,7 @@ public class MainWindow extends AnchorPane {
         String response = tudee.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, tudeeImage)
+                DialogBox.getTudeeDialog(response, tudeeImage)
         );
         userInput.clear();
         if (input.trim().equalsIgnoreCase("bye")) {

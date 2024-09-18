@@ -2,8 +2,5 @@ D | 0 | return book | 2024-06-04
 T | 0 | join sports club
 D | 1 | return book | 2024-08-29
 T | 1 | play games
-T | 0 | complete analysis
 D | 0 | apply job  | 2024-09-10
 E | 0 | hackathon  | 2024-09-10 | 2024-09-11
-D | 0 | finish assessment  | 2024-09-12
-E | 0 | concert  | 2024-10-01 | 2024-10-02
