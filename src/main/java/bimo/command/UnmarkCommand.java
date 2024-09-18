@@ -29,7 +29,7 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        if (!ui.findTaskInList(this.indexToUnmark, tasks)) {
+        if (!ui.isTaskInList(this.indexToUnmark, tasks)) {
             return ui.showTaskNotFoundError();
         }
         assert indexToUnmark >= 0 && indexToUnmark < tasks.getLength()

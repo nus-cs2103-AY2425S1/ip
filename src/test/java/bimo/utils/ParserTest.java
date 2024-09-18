@@ -110,9 +110,9 @@ public class ParserTest {
         String userInput = "set 2";
         try {
             Parser.parsePriority(userInput);
-            assertEquals(true, false);
+            assertEquals(false, true);
         } catch (BimoException e) {
-            assertEquals(e.getMessage(), "Missing priority");
+            assertEquals("Missing priority", e.getMessage());
         }
     }
 

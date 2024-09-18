@@ -15,7 +15,8 @@ public class SetCommand extends Command {
     /**
      * Instantiates the SetCommand.
      *
-     * @param priority
+     * @param priority Priority level indicated by user.
+     * @param index Task number specified in list.
      */
     public SetCommand(Priority priority, int index) {
         this.priority = priority;
@@ -32,7 +33,7 @@ public class SetCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        if (!ui.findTaskInList(this.index, tasks)) {
+        if (!ui.isTaskInList(this.index, tasks)) {
             return ui.showTaskNotFoundError();
         }
         if (index < 0) {

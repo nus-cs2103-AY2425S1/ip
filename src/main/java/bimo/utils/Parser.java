@@ -63,8 +63,10 @@ public class Parser {
             return new ByeCommand();
         case HELP:
             return new HelpCommand();
-        default:
+        case UNKNOWN:
             return new UnknownCommand();
+        default:
+            throw new BimoException("Something went wrong");
         }
     }
 
@@ -87,7 +89,7 @@ public class Parser {
      *
      * @param input Input typed in by user.
      * @return String value of task description.
-     * @throws BimoException If there is no description typed in.
+     * @throws MissingDescriptionException If there is no description typed in.
      */
     public static String parseDescription(String input) throws MissingDescriptionException {
         String[] parsedArray = input.split(" ");
@@ -103,7 +105,7 @@ public class Parser {
      *
      * @param input Words specified by user.
      * @return The index of target task in list.
-     * @throws InvalidTaskNumberException Thrown if user does not provide a task number.
+     * @throws InvalidTaskNumberException Thrown if missing task number or non-numeric input.
      */
     public static int parseIndex(String input) throws InvalidTaskNumberException {
         String[] parsedArray = input.split(" ");
@@ -178,7 +180,7 @@ public class Parser {
      *
      * @param input User input String.
      * @return EventTask object.
-     * @throws BimoException if no error.
+     * @throws BimoException If there are invalid or missing dates.
      */
     public static Task createEventTask(String input) throws BimoException {
         String[] array = input.split("/from ");
@@ -187,8 +189,7 @@ public class Parser {
         String endDate = parseDate(false, true, array);
         LocalDate startDateObject = convertDateToLocalDate(startDate);
         LocalDate endDateObject = convertDateToLocalDate(endDate);
-        Task eventTask = new Event(eventDescription, startDateObject,
-                endDateObject);
+        Task eventTask = new Event(eventDescription, startDateObject, endDateObject);
         return eventTask;
     }
 
@@ -196,8 +197,8 @@ public class Parser {
      * Creates a Event task with start and due date.
      *
      * @param input User input String.
-     * @return Deadline task object
-     * @throws BimoException
+     * @return Deadline task object.
+     * @throws BimoException If there are invalid or missing dates.
      */
     public static Task createDeadlineTask(String input) throws BimoException {
         String[] arrayString = input.split("/by ");
@@ -220,12 +221,10 @@ public class Parser {
         if (parsedArray.length <= 1) {
             throw new BimoException("Missing number and priority");
         }
-        if (parsedArray.length <= 2) {
-            if (hasMissingNumber(parsedArray)) {
-                throw new BimoException("Missing task number");
-            } else {
-                throw new BimoException("Missing priority");
-            }
+        if (hasMissingNumber(parsedArray)) {
+            throw new BimoException("Missing task number");
+        } else if (parsedArray.length == 2) {
+            throw new BimoException("Missing priority");
         }
         String priorityLevel = parsedArray[2];
         try {
@@ -238,13 +237,14 @@ public class Parser {
     }
 
     /**
-     * Checks if missing element is a number or priority.
+     * Checks if missing element in user input is a number or priority.
      *
      * @param parsedArray Array containing user input split by " ".
      * @return True if missing element is a number.
      */
     public static boolean hasMissingNumber(String[] parsedArray) {
-        if (parsedArray[1].matches("-?\\d+")) {
+        boolean isNumber = parsedArray[1].matches("-?\\d+");
+        if (isNumber) {
             return false;
         }
         return true;

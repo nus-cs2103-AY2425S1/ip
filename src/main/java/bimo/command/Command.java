@@ -10,6 +10,7 @@ import bimo.utils.Ui;
 public abstract class Command {
     /**
      * Decides what action to take and what response to return.
+     *
      * @param tasks List of user tasks.
      * @param ui User interface that interacts with users.
      * @param storage Storage that writes and load files

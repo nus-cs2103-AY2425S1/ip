@@ -21,7 +21,7 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Deletes specified at index in task list.
+     * Deletes task specified at index in task list.
      *
      * @param tasks List of user tasks.
      * @param ui User interface that interacts with users.
@@ -30,7 +30,7 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        if (!ui.findTaskInList(this.index, tasks)) {
+        if (!ui.isTaskInList(this.index, tasks)) {
             return ui.showTaskNotFoundError();
         }
         assert tasks != null : "Task list must not be null";

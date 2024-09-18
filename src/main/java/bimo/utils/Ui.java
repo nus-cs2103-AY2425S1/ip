@@ -31,12 +31,16 @@ public class Ui {
      */
     public String getListOfCommands() {
         String list = "Available commands:\n\n"
-                + "1. todo <task>\n\n2. deadline <task> /by yyyy-mm-dd\n\n"
+                + "1. todo <task>\n\n"
+                + "2. deadline <task> /by yyyy-mm-dd\n\n"
                 + "3. event <task> /from yyyy-mm-dd /to yyyy-mm-dd\n\n"
-                + "4. mark <task number>\n\n5. unmark <task number>\n\n"
-                + "6. delete <task number>\n\n7. find <keyword keyword keyword>\n\n"
+                + "4. mark <task number>\n\n"
+                + "5. unmark <task number>\n\n"
+                + "6. delete <task number>\n\n"
+                + "7. find <keyword keyword keyword>\n\n"
                 + "8. list\n\n"
-                + "9. set <task number> <high, medium, low>\n\n10. help\n\n"
+                + "9. set <task number> <high, medium, low>\n\n"
+                + "10. help\n\n"
                 + "11. bye\n";
         return list;
     }
@@ -81,7 +85,7 @@ public class Ui {
     /**
      * Creates a response to the Bye command.
      *
-     * @return Response to bye command
+     * @return Response to bye command.
      */
     public String sendExitMessage() {
         return "Bye Bye!!! Have a good day!";
@@ -135,7 +139,7 @@ public class Ui {
      * @param tasks List of tasks.
      * @return True if task is inside list.
      */
-    public boolean findTaskInList(int index, TaskList tasks) {
+    public boolean isTaskInList(int index, TaskList tasks) {
         boolean isExceedSize = index >= tasks.getLength();
         boolean isNegative = index < 0;
         if (isExceedSize || isNegative) {

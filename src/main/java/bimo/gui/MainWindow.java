@@ -54,15 +54,26 @@ public class MainWindow extends AnchorPane {
         String response = bimo.getResponse(input);
         assert userImage != null : "User image must exist";
         assert bimoImage != null : "Bot image must exist";
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getBimoDialog(response, bimoImage)
-        );
+        setDialogContainer(input, response);
         userInput.clear();
     }
 
     /**
-     * Creates a dialogbox with user greeting and list of commands.
+     * Adds user and chatbot Dialog Box to the Dialog container.
+     *
+     * @param input User input message.
+     * @param response Chatbot response message.
+     */
+    private void setDialogContainer(String input, String response) {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getBimoDialog(response, bimoImage)
+        );
+    }
+
+    /**
+     * Creates a DialogBox with user greeting and list of commands.
+     * This represents what the user initially sees when the chatbot opens.
      */
     @FXML
     private void handleIntroduction() {

@@ -15,9 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 /**
- * Represents a controller.
- * A dialog box consisting of an ImageView to represent the user/chatbot's face
- * and a label containing text from the user or chatbot.
+ * Represents a controller that contains a profile picture and text label.
  */
 public class DialogBox extends HBox {
     @FXML
@@ -41,7 +39,8 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Flips the dialog box such that the ImageView is on the left and text on the right.
+     * Flips the dialog box so that chat bot response is mirror image of
+     * user text input.
      */
     private void flip() {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
@@ -60,7 +59,8 @@ public class DialogBox extends HBox {
      * @return DialogBox controller that contains user input and picture.
      */
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var userDialogBox = new DialogBox(text, img);
+        return userDialogBox;
     }
 
     /**
@@ -72,8 +72,8 @@ public class DialogBox extends HBox {
      * @return DialogBox controller that contains Bimo response and picture.
      */
     public static DialogBox getBimoDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
-        db.flip();
-        return db;
+        var bimoDialogBox = new DialogBox(text, img);
+        bimoDialogBox.flip();
+        return bimoDialogBox;
     }
 }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import bimo.tasks.Task;
 
 /**
- * Contains the list of tasks.
+ * Represents the list of tasks.
  */
 public class TaskList {
     private ArrayList<Task> tasks;

@@ -4,7 +4,7 @@ package bimo.tasks;
  * Creates a Task with completion status and description.
  */
 public class Task {
-    private boolean status = false;
+    private boolean isCompleted = false;
     private String priority = "";
     private String details;
 
@@ -21,14 +21,14 @@ public class Task {
      * Sets task as completed.
      */
     public void markCompleted() {
-        this.status = true;
+        this.isCompleted = true;
     }
 
     /**
      * Sets task as uncompleted.
      */
     public void markUncompleted() {
-        this.status = false;
+        this.isCompleted = false;
     }
 
     /**
@@ -38,7 +38,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        String status = this.status ? "X" : " ";
+        String status = this.isCompleted ? "X" : " ";
         String taskString = String.format("[%s] %s",
                 status, this.details);
         return taskString;
@@ -50,13 +50,14 @@ public class Task {
      * @return Text format of status and description separated by |.
      */
     public String getTaskText() {
-        String state = this.status ? "1" : "0";
+        String state = this.isCompleted ? "1" : "0";
         String taskAsText = state + "|" + this.details;
         return taskAsText;
     }
 
     /**
      * Returns details of tasks.
+     *
      * @return Description of task.
      */
     public String getDetails() {
@@ -77,23 +78,23 @@ public class Task {
      *
      * @return Representation of priority in text file.
      */
-    public String priorityToText() {
+    public String convertPriorityToText() {
         String priorityLevel = this.priority.isEmpty()
-                ? ""
-                : this.priority + "~";
+                               ? ""
+                               : this.priority + "~";
         return priorityLevel;
     }
 
 
     /**
-     * Formats priority of task to use for subclass toString
+     * Formats priority of task to use for subclass toString.
      *
      * @return String representation of priority.
      */
-    public String priorityString() {
+    public String convertPriorityToString() {
         String priorityLevel = this.priority.equals("")
-                ? ""
-                : "<" + this.priority + "> ";
+                               ? ""
+                               : "<" + this.priority + "> ";
         return priorityLevel;
     }
 }

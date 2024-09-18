@@ -13,7 +13,7 @@ public class Deadline extends Task {
      * Instantiates a Deadline object.
      *
      * @param details Description of task.
-     * @param dueDate Deadline of task.
+     * @param dueDate Deadline of task as LocalDate object.
      */
     public Deadline(String details, LocalDate dueDate) {
         super(details);
@@ -32,7 +32,7 @@ public class Deadline extends Task {
 
 
     /**
-     * Converts task to string value with task type, description
+     * Converts task to string value with priority, task type, description
      * and due date.
      *
      * @return String value of task.
@@ -40,7 +40,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         String dueDateFormat = this.dueDate.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
-        String deadlineString = priorityString() + String.format("[D]%s (by: %s)", super.toString(),
+        String deadlineString = convertPriorityToString() + String.format("[D]%s (by: %s)", super.toString(),
                 dueDateFormat);
         return deadlineString;
     }

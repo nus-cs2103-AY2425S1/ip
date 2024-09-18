@@ -15,7 +15,8 @@ public class FindCommand extends Command {
     private String[] specifiedWords;
 
     /**
-     * Instantiates a command to list tasks by words
+     * Instantiates a command to list tasks by words.
+     *
      * @param specifiedWords Array of words specified by user.
      */
     public FindCommand(String... specifiedWords) {

@@ -43,7 +43,7 @@ public class Storage {
         } else {
             throw new IllegalArgumentException("Invalid task type");
         }
-        return task.priorityToText() + text;
+        return task.convertPriorityToText() + text;
     }
 
     /**
@@ -59,7 +59,7 @@ public class Storage {
         String type = details[0];
         Task task = null;
 
-        boolean status = details[1].equals("0") ? false : true;
+        boolean isCompleted = details[1].equals("0") ? false : true;
         if (type.equals("T")) {
             task = new ToDo(details[2]);
         } else if (type.equals("D")) {
@@ -71,7 +71,7 @@ public class Storage {
             LocalDate endDateObject = LocalDate.parse(dates[1]);
             task = new Event(details[2], startDateObject, endDateObject);
         }
-        if (status) {
+        if (isCompleted) {
             task.markCompleted();
         }
         if (hasPriority) {

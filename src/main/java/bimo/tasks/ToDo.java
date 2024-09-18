@@ -15,13 +15,14 @@ public class ToDo extends Task {
     }
 
     /**
-     * Converts task to string value with task type, description,
+     * Converts task to string value with task type and description
+     * and priority.
      *
      * @return String value of task.
      */
     @Override
     public String toString() {
-        String todoString = priorityString() + "[T]" + super.toString();
+        String todoString = convertPriorityToString() + "[T]" + super.toString();
         return todoString;
     }
 }
