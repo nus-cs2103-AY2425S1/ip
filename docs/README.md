@@ -1,6 +1,6 @@
 # Tako User Guide
 
-![](https://github.com/nigellqx/ip/blob/master/docs/Ui.png)
+![](Ui.png)
 
 Tako is a chat bot that helps you keep track of the tasks you have
 using Graphical User Interface(GUI).  
@@ -25,12 +25,12 @@ It is able to track ToDo Task, Deadlines as well as Event!
 
 # Commands
 
-> [!NOTE]
+## Note
 
-> Words in brackets are the parameters to be supplied by the user.  
-> e.g. in todo (task name), 'task name' is to be given by the user, so
-> `todo Read Up on Maths` is adding a todo task with the task 
-> name 'Read Up on Maths'.
+Words in brackets are the parameters to be supplied by the user.  
+e.g. in todo (task name), 'task name' is to be given by the user, so
+`todo Read Up on Maths` is adding a todo task with the task 
+name 'Read Up on Maths'.
 
 ## Adding Tasks
 
@@ -118,3 +118,9 @@ Shows a list of all the tasks stored by the bot.
 ### Exiting the program `bye`
 Exits the program
 - Format: `bye`
+
+
+# Credits
+
+- Tako picture from Pinterest - https://mx.pinterest.com/pin/377387643792836973/
+- User picture from Pinterest - https://mx.pinterest.com/pin/84724036731575360/
