@@ -1,4 +1,4 @@
-Hello! I'm WindeBot.WindeBot
+Hello! I'm windebot.windebot
 What can I do for you?
 Got it. I've added this task:
     [T][ ] read book
