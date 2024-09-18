@@ -21,8 +21,6 @@ public class DeleteCommand extends Command {
      * @param index The index to delete.
      */
     public DeleteCommand(int index) {
-        assert index >= 0 : "index should be non negative";
-
         this.index = index;
     }
 
