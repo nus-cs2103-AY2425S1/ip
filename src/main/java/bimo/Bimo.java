@@ -21,7 +21,7 @@ import javafx.util.Duration;
  * Represents a chatbot class.
  */
 public class Bimo {
-    public static final String NAME = "bimo";
+    public static final String NAME = "Bimo";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;

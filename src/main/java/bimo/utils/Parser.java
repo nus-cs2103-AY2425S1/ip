@@ -217,8 +217,15 @@ public class Parser {
      */
     public static Priority parsePriority(String input) throws BimoException {
         String[] parsedArray = input.split(" ");
+        if (parsedArray.length <= 1) {
+            throw new BimoException("Missing number and priority");
+        }
         if (parsedArray.length <= 2) {
-            throw new BimoException("Missing priority");
+            if (isMissingNumber(parsedArray)) {
+                throw new BimoException("Missing task number");
+            } else {
+                throw new BimoException("Missing priority");
+            }
         }
         String priorityLevel = parsedArray[2];
         try {
@@ -228,5 +235,18 @@ public class Parser {
             throw new BimoException("Please choose either HIGH, MEDIUM or LOW priority only"
                     + "\n e.g set 2 high");
         }
+    }
+
+    /**
+     * Checks if missing element is a number or priority.
+     *
+     * @param parsedArray Array containing user input split by " ".
+     * @return True if missing element is a number.
+     */
+    public static boolean isMissingNumber(String[] parsedArray) {
+        if (parsedArray[1].matches("-?\\d+")) {
+            return false;
+        }
+        return true;
     }
 }
