@@ -64,8 +64,7 @@ public class Parser {
         case deleteNote, mark, unmark, delete -> parseIndex(tokens);
         case event -> parseEvent(line.substring(5));
         case deadline -> parseDeadLine(line.substring(8));
-        default -> {
-        }
+        default -> { }
         }
     }
 
@@ -121,7 +120,7 @@ public class Parser {
                     .parseDate(input.substring(beginIndex).trim())
                     .format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         } catch (DateTimeParseException e) {
-            throw new LukeException("Invalid Date format");
+            throw new LukeException("Invalid Date, must be of format: yyyy-MM-dd and valid date");
         }
     }
 
@@ -131,7 +130,7 @@ public class Parser {
                     .parseDate(input.substring(beginIndex, endIndex).trim())
                     .format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         } catch (DateTimeParseException e) {
-            throw new LukeException("Invalid Date format");
+            throw new LukeException("Invalid Date, must be of format: yyyy-MM-dd and valid date");
         }
     }
 

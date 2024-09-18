@@ -31,17 +31,13 @@ public class Ui {
         return String.format("Aight, I've added the note:\n" + t);
     }
 
-    public String deleteNoteDialog(Note n) {
-        return String.format("Aight, this note is removed:\n" + n);
-    }
-
     /**
      * Shows a dialog when a task is added.
      * @param t Is the task that is added.
      * @param size Is the number of tasks after adding the new task.
      */
     public String addTaskDialog(Task t, int size) {
-        return String.format("Got it. I've added this task:\n+" +
+        return String.format("Got it. I've added this task:\n" +
                 t + "\n" +
                 "Now you have %d tasks in the list.\n", size);
     }
@@ -53,7 +49,7 @@ public class Ui {
      */
     public String deleteTaskDialog(Task t, int size) {
         return String.format("Noted. I've removed this task:\n" +
-                "%s" +
+                "%s\n" +
                 "Now you have %d tasks in the list.", t.toString(), size);
     }
 

@@ -34,8 +34,13 @@ public class Luke {
         return ui.greetDialog();
     }
 
-    public String handleUserInput(String input) throws IOException, LukeException {
-        parser.parse(input);
+    public String handleUserInput(String input) throws IOException {
+        try {
+            parser.parse(input);
+        } catch (LukeException e) {
+            return "Parse failed: " + e.getMessage();
+        }
+
         switch (parser.getCommand()) {
         case list -> {
             return ui.listTaskDialog(taskList.getTasks());
@@ -46,10 +51,12 @@ public class Luke {
         case note -> {
             Note n = new Note(parser.getDescription());
             this.taskList.addTask(n);
+            taskList.save(storage);
             return ui.addNoteDialog(n);
         }
         case deleteNote -> {
             Note n = (Note) taskList.deleteTask(parser.getIndex() - 1);
+            taskList.save(storage);
             if (n != null) {
                 return ui.addNoteDialog(n);
             } else {
@@ -58,6 +65,7 @@ public class Luke {
         }
         case mark -> {
             Task t = taskList.markTask(parser.getIndex() - 1);
+            taskList.save(storage);
             if (t != null) {
                 return ui.markDialog(t);
             } else {
@@ -66,6 +74,7 @@ public class Luke {
         }
         case unmark -> {
             Task t = taskList.unMarkTask(parser.getIndex() - 1);
+            taskList.save(storage);
             if (t != null) {
                 return ui.unMarkDialog(t);
             } else {
@@ -74,6 +83,7 @@ public class Luke {
         }
         case delete -> {
             Task deletedTask = this.taskList.deleteTask(parser.getIndex() - 1);
+            taskList.save(storage);
             if (deletedTask != null) {
                 return ui.deleteTaskDialog(deletedTask, this.taskList.getTaskListSize());
             } else {
@@ -83,16 +93,19 @@ public class Luke {
         case todo -> {
             Task t = new Todo(parser.getDescription());
             this.taskList.addTask(t);
+            taskList.save(storage);
             return ui.addTaskDialog(t, taskList.getTaskListSize());
         }
         case event -> {
             Task t = new Event(parser.getDescription(), parser.getFrom(), parser.getTo());
             this.taskList.addTask(t);
+            taskList.save(storage);
             return ui.addTaskDialog(t, taskList.getTaskListSize());
         }
         case deadline -> {
             Task t = new DeadLine(parser.getDescription(), parser.getBy());
             this.taskList.addTask(t);
+            taskList.save(storage);
             return ui.addTaskDialog(t, taskList.getTaskListSize());
         }
         case bye -> {
@@ -113,9 +126,8 @@ public class Luke {
     public String getResponse(String input) {
         try {
             return handleUserInput(input);
-        } catch (IOException | LukeException e) {
-            e.printStackTrace();
-            return "An error occurred.";
+        } catch (IOException e) {
+            return "Dude, I cannot save the file: " + e.getMessage();
         }
     }
 }
