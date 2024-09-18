@@ -41,6 +41,12 @@ public class DatedTask extends Task {
         super();
     }
 
+    public DatedTask(String task, String date, String time) {
+        super(task);
+        this.date = LocalDate.parse(date);
+        this.time = LocalTime.parse(time);
+    }
+
 
     public LocalDate getDate() {
         return this.date;
