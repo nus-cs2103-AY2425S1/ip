@@ -33,7 +33,7 @@ public class EventCommand extends CreateTaskCommand {
     }
 
     public void setDates(LocalDate from, LocalDate to) throws PhenexException {
-        if (to.isBefore(from)) {
+        if (to.isBefore(from) || to.equals(from)) {
             throw new PhenexException("Error: invalid event dates");
         }
         this.fromDate = from;
