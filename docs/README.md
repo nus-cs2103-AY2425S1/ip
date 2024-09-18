@@ -118,7 +118,7 @@ todo tasks will be at the top (no date)
 deadline tasks will be sorted by their by date  
 event tasks will be sorted by their from date  
 
-Example: `find homework`
+Example: `sort`
 
 ```
 1. [T][X] Create a Repo
