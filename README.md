@@ -1,24 +1,69 @@
-# Duke project template
+# Maxine User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
 
-## Setting up in Intellij
+![A screenshot of MaxineBot](Ui.png)
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+This is Maxine, your personal chatbot assistant to help you keep track of your tasks!
+Using Maxine, you can add different types of tasks (todo tasks, deadline tasks and event tasks).
+You can also choose to mark (or unmark) your tasks to indicate your tasks completion status.
+Maxine remembers your tasks even from the previous session.
+
+## Adding Tasks with no deadlines
+
+To add a "Todo" task (ie. a task with no deadline), use the command:
+
+todo [task] (eg. "todo homework")
+
+## Adding deadlines
+
+To add a "Deadline" task (ie. a task with a deadline), use the command:
+
+deadline [task] /by [deadline] (eg. "deadline homework /by 20-09-2024")
+
+It is also possible to put a date as a deadline that does not follow the normal format of a date.
+
+eg. you can use the command "deadline homework /by tomorrow"
+
+## Adding events
+
+To add an "Event" task (ie. a task with a start and end date), use the command:
+
+event [task] /from [start time] /to [end time] (eg. "event discussion /from today /to tomorrow")
+
+Similar to the deadline task, you can use both a string which follows date format (or not)
+to fill in the start and end times of your event
+
+## View list
+
+Want to refer back to your task list? 
+No worries! Just type in the command "list" (without the inverted commas) to view your tasks
+
+## Mark your tasks when they are completed
+
+To mark you tasks as done, you can put in the command:
+
+"mark [number]", where the number corresponds to the number on of the task on the task list
+(eg. "mark 1" to mark the first task on the list)
+
+## Unmark your tasks
+
+Accidentally marked a task as complete?
+
+Don't fret! Similar to marking a task, you can unmark a task by typing the command "unmark [number]"
+
+## Deleting a task
+
+If you would like to delete a task by using the command:
+
+"delete [number]", where the number corresponds to the task number in the task list.
+
+## Clearing the list (Extension BCD)
+
+To delete everything in the list, use the command: "delete all"
+
+## Finding specific tasks in your list
+
+If your list is too long and you would like to search for a specific task, just use the command:
+
+"find [keyword]", where keyword is the name of the task you would like to find
