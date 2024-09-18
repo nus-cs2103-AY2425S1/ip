@@ -145,7 +145,7 @@ public class Ui {
      * @param count The number of tasks operated on.
      */
     public static void setStringMassOps(String command, int count) {
-        Ui.currString = "Aight Bet! I am " + command + " " + count + " tasks!\n";
+        Ui.currString += "Aight Bet! I am " + command + " " + count + " tasks!\n";
         Ui.currString += Ui.LINE + "\n";
     }
 
