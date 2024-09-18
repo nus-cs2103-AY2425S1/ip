@@ -23,7 +23,7 @@ You can add 3 types of tasks:
  - mark (m)
  - unmark (u)
  - find (f)
- - delete (d)
+ - delete (r)
  - bye (b)
 ## Adding Deadlines
 

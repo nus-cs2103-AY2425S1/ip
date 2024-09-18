@@ -42,11 +42,12 @@ public class Parser {
         aliasMap.put("t", "todo");
         aliasMap.put("d", "deadline");
         aliasMap.put("e", "event");
-        aliasMap.put("x", "mark");
+        aliasMap.put("m", "mark");
         aliasMap.put("u", "unmark");
         aliasMap.put("l", "list");
         aliasMap.put("b", "bye");
         aliasMap.put("f", "find");
+        aliasMap.put("r", "delete");
 
         // Use aliases if present
         commandWord = aliasMap.getOrDefault(commandWord, commandWord);
