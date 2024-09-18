@@ -3,7 +3,6 @@ package jude.command;
 import jude.JudeException;
 import jude.Storage;
 import jude.TaskList;
-import jude.Ui;
 import jude.task.Task;
 
 /**
@@ -20,16 +19,14 @@ public class AddCommand extends Command {
     /**
      * Adds task to the TaskList. Notifies the user that the task has been added.
      * @param list that will store the task added.
-     * @param ui displays the message that the task has been added
      * @param storage will write the task data onto the save file
      * @throws JudeException if any one of the method fails
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) throws JudeException {
+    public void execute(TaskList list, Storage storage) throws JudeException {
         list.addTask(task);
         setMessage("Task " + task + " has been added.");
         storage.save(list);
-        ui.showMessage(getMessage());
     }
 
     @Override
