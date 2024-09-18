@@ -39,7 +39,7 @@ public class Parser {
         CommandType commandType = getCommandTypeFromInput(command);
         switch (commandType) {
         case BYE:
-            return new CommandBye();
+            return new ByeCommand();
         case LIST:
             return new CommandList();
         case HELP:
@@ -55,9 +55,9 @@ public class Parser {
         } case UNMARK: {
             return new CommandUnmark(parseIndex(command), false);
         } case DELETE: {
-            return new CommandDelete(parseIndex(command), false);
+            return new DeleteCommand(parseIndex(command), false);
         } case FIND:
-            return new CommandFind(parseContent(command));
+            return new FindCommand(parseContent(command));
         case UNDO:
             return parseUndoCommand();
         case INVALID:

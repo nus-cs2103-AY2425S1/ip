@@ -22,7 +22,7 @@ public class AddCommand extends Command {
         int size = taskList.addTask(task);
         assert size > 0 : "Task not added to task list";
         if (!isUndoCommand) {
-            Parser.pushToUndoStack(new CommandDelete(size - 1, true));
+            Parser.pushToUndoStack(new DeleteCommand(size - 1, true));
         }
         storage.rewriteFile(taskList);
         return ui.addTask(task, size);

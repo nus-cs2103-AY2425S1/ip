@@ -2,10 +2,7 @@ package dudu.command;
 
 import java.io.IOException;
 
-import dudu.task.Deadline;
-import dudu.task.Event;
 import dudu.task.Task;
-import dudu.task.ToDo;
 import dudu.utils.Parser;
 import dudu.utils.Storage;
 import dudu.utils.TaskList;
@@ -14,7 +11,7 @@ import dudu.utils.UI;
 /**
  * Represents a delete task user command into the chatbot
  */
-public class CommandDelete extends Command {
+public class DeleteCommand extends Command {
     private int index;
     private boolean isUndoCommand;
 
@@ -24,7 +21,7 @@ public class CommandDelete extends Command {
      * @param index The index of the task to be deleted
      * @param isUndoCommand Status if command is from an undo command
      */
-    public CommandDelete(int index, boolean isUndoCommand) {
+    public DeleteCommand(int index, boolean isUndoCommand) {
         this.index = index;
         this.isUndoCommand = isUndoCommand;
     }
@@ -44,13 +41,7 @@ public class CommandDelete extends Command {
         Task deletedTask = taskList.deleteTask(index);
         assert deletedTask != null : "No task is deleted as index is out of range";
         if (!isUndoCommand) {
-            if (deletedTask instanceof ToDo) {
-                Parser.pushToUndoStack(new AddCommand(deletedTask, true));
-            } else if (deletedTask instanceof Deadline) {
-                Parser.pushToUndoStack(new AddCommand(deletedTask, true));
-            } else if (deletedTask instanceof Event) {
-                Parser.pushToUndoStack(new AddCommand(deletedTask, true));
-            }
+            Parser.pushToUndoStack(new AddCommand(deletedTask, true));
         }
         storage.rewriteFile(taskList);
         return ui.deleteTask(deletedTask);

@@ -7,11 +7,10 @@ import dudu.utils.Storage;
 import dudu.utils.TaskList;
 import dudu.utils.UI;
 
-
 /**
  * Represents a find user command into the chatbot
  */
-public class CommandFind extends Command {
+public class FindCommand extends Command {
     private String query;
 
     /**
@@ -19,7 +18,7 @@ public class CommandFind extends Command {
      *
      * @param query User query to search the tasks' descriptions
      */
-    public CommandFind(String query) {
+    public FindCommand(String query) {
         this.query = query;
     }
 

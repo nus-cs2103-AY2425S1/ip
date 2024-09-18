@@ -10,7 +10,7 @@ import javafx.util.Duration;
 /**
  * Represents a bye user command into the chatbot
  */
-public class CommandBye extends Command {
+public class ByeCommand extends Command {
     /**
      * Executes the exit command by displaying a goodbye message to the user
      *
