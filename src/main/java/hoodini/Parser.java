@@ -235,8 +235,14 @@ public class Parser {
         if (str.trim().equalsIgnoreCase("event")) {
             throw new HandleException(TASK_ERROR);
         } else {
-            Event event = new Event(str);
-            return store.store(event);
+            try {
+                Event event = new Event(str);
+                return store.store(event);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return "Please enter event in the format "
+                        + "event <task> /from <input> /to <input>";
+            }
+
         }
     }
 
