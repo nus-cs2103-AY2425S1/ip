@@ -3,6 +3,7 @@ package nether.parser;
 import java.util.Objects;
 
 import nether.NetherException;
+import nether.Ui;
 import nether.command.AddCommand;
 import nether.command.Command;
 import nether.command.DeleteCommand;
@@ -11,6 +12,7 @@ import nether.command.FindCommand;
 import nether.command.ListCommand;
 import nether.command.MarkDoneCommand;
 import nether.command.MarkNotDoneCommand;
+import nether.command.NetherCommand;
 import nether.task.DeadlineTask;
 import nether.task.EventTask;
 import nether.task.TodoTask;
@@ -55,6 +57,8 @@ public class Parser {
         case "find":
             processedInput = extractInputDetails(userInput, "find");
             return new FindCommand(processedInput[0]);
+        case "nether":
+            return new NetherCommand();
         case "bye":
             return new ExitCommand();
         default:

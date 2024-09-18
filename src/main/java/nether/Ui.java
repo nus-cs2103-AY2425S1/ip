@@ -1,5 +1,6 @@
 package nether;
 
+import java.util.Random;
 import java.util.Scanner;
 
 import nether.task.Task;
@@ -106,5 +107,22 @@ public class Ui {
             response.append((i + 1)).append(".").append(matchingTasks.getTask(i).toString()).append("\n");
         }
         return response.toString();
+    }
+
+    /**
+     * Returns a string that shows of the personality of Nether.
+     * It will randomly choose to return 1 out of 2 phrases.
+     *
+     * @return A string that shows Nether's personality.
+     */
+    public String printSelf() {
+        Random random = new Random();
+        int num = random.nextInt(100) + 1; // Random number between 1 and 100
+
+        if (num % 2 == 0) {
+            return "Hello there, is there anything I may help you with?";
+        } else {
+            return "Yes sir? I am here, please enter your command.";
+        }
     }
 }
