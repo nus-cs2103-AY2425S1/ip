@@ -4,8 +4,8 @@ package mryapper.task;
  * An event task that occurs within the specified time.
  */
 public class Event extends Task {
-    private final String eventStart;
-    private final String eventEnd;
+    private String eventStart;
+    private String eventEnd;
 
     /**
      * Creates an event task.
@@ -18,6 +18,23 @@ public class Event extends Task {
         super(description);
         this.eventStart = start;
         this.eventEnd = end;
+    }
+
+    @Override
+    public Task edit(TaskField field, String newString) {
+        switch (field) {
+            case DESCRIPTION:
+                setDescription(newString);
+                return this;
+            case START_TIME:
+                this.eventStart = newString;
+                return this;
+            case END_TIME:
+                this.eventEnd = newString;
+            default:
+                throw new IllegalArgumentException("You can only edit an event with "
+                        + "/description, /from or /to");
+        }
     }
 
     @Override

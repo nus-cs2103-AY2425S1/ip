@@ -5,7 +5,7 @@ package mryapper.task;
  * All tasks have a description and can be marked as done.
  */
 public abstract class Task {
-    private final String description;
+    private String description;
     private boolean isDone = false;
 
     /**
@@ -16,6 +16,19 @@ public abstract class Task {
     public Task(String description) {
         this.description = description;
     }
+
+    public void setDescription(String newDescription) {
+        this.description = newDescription;
+    }
+
+    /**
+     * Checks whether the task has this given field and edit it.
+     *
+     * @param field The field to edit.
+     * @param newString The string to update the field to.
+     * @return The task with updated fields.
+     */
+    public abstract Task edit(TaskField field, String newString);
 
     /**
      * Marks the task as done.

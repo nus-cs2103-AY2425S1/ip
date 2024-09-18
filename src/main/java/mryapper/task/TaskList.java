@@ -29,6 +29,16 @@ public class TaskList {
     }
 
     /**
+     * Gets the task from the list with the given index.
+     *
+     * @param i The index of the task to get starting from 1.
+     * @return The ith task in the list.
+     */
+    public Task get(int i) {
+        return this.taskList.get(i - 1);
+    }
+
+    /**
      * Adds a task to the list.
      *
      * @param task The task to be added to the list.

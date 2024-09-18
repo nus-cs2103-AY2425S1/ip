@@ -2,6 +2,7 @@ package mryapper.parser;
 
 import mryapper.command.*;
 import mryapper.exception.InvalidSyntaxException;
+import mryapper.task.TaskField;
 
 /**
  * Responsible for parsing the inputs sent from the user to the Chatbot.
@@ -38,18 +39,20 @@ public class Parser {
             return parseDeadlineTask(processedInput);
         case "event":
             return parseEventTask(processedInput);
+        case "edit":
+            return parseEditCommand(processedInput);
         default:
             throw new InvalidSyntaxException("Sorry, I'm not sure what you're trying to do :(");
         }
     }
 
     private static Command parseDeleteCommand(String[] processedInput) throws InvalidSyntaxException {
-        try {
-            if (processedInput.length <= 1) {
-                throw new InvalidSyntaxException("You have to give me a valid task number!",
-                        DeleteTask.SYNTAX);
-            }
+        if (processedInput.length <= 1) {
+            throw new InvalidSyntaxException("You have to give me a valid task number!",
+                    DeleteTask.SYNTAX);
+        }
 
+        try {
             int taskNumber = Integer.parseInt(processedInput[1]);
             return new DeleteTask(taskNumber);
         } catch (NumberFormatException e) {
@@ -62,16 +65,17 @@ public class Parser {
         if (processedInput.length <= 1) {
             throw new InvalidSyntaxException("You need to enter a search input!", FindTask.SYNTAX);
         }
+
         return new FindTask(processedInput[1]);
     }
 
     private static Command parseMarkCommand(String[] processedInput) throws InvalidSyntaxException {
-        try {
-            if (processedInput.length <= 1) {
-                throw new InvalidSyntaxException(
-                        "You have to give me a valid task number!", MarkTask.SYNTAX);
-            }
+        if (processedInput.length <= 1) {
+            throw new InvalidSyntaxException(
+                    "You have to give me a valid task number!", MarkTask.SYNTAX);
+        }
 
+        try {
             int taskNumber = Integer.parseInt(processedInput[1]);
             return new MarkTask(taskNumber);
         } catch (NumberFormatException e) {
@@ -81,12 +85,12 @@ public class Parser {
     }
 
     private static Command parseUnmarkCommand(String[] processedInput) throws InvalidSyntaxException {
-        try {
-            if (processedInput.length <= 1) {
-                throw new InvalidSyntaxException(
-                        "You have to give me a valid task number!", UnmarkTask.SYNTAX);
-            }
+        if (processedInput.length <= 1) {
+            throw new InvalidSyntaxException(
+                    "You have to give me a valid task number!", UnmarkTask.SYNTAX);
+        }
 
+        try {
             int taskNumber = Integer.parseInt(processedInput[1]);
             return new UnmarkTask(taskNumber);
         } catch (NumberFormatException e) {
@@ -161,5 +165,56 @@ public class Parser {
         }
 
         return new AddEvent(eventDescription, eventStart, eventEnd);
+    }
+
+    private static Command parseEditCommand(String[] processedInput) throws InvalidSyntaxException {
+        String[] params = verifyEditCommandSyntax(processedInput);
+        int taskNumber = parseEditCommandTaskNumber(params[0]);
+        TaskField field = parseForFieldToEdit(params[1]);
+
+        return new EditTask(taskNumber, field, params[2]);
+    }
+
+    private static String[] verifyEditCommandSyntax(
+            String[] processedInput) throws InvalidSyntaxException {
+        if (processedInput.length < 2) {
+            throw new InvalidSyntaxException("You need to give me a valid task number"
+                    + " followed by the edit parameters", EditTask.SYNTAX);
+        }
+
+        String[] params = processedInput[1].trim().split("\\s+", 3);
+        if (params.length < 3) {
+            throw new InvalidSyntaxException("You need to give me a valid task number"
+                    + " followed by the edit parameters", EditTask.SYNTAX);
+        }
+
+        return params;
+    }
+
+    private static int parseEditCommandTaskNumber(String taskNumber) throws InvalidSyntaxException {
+        try {
+            return Integer.parseInt(taskNumber);
+        } catch (NumberFormatException e) {
+            throw new InvalidSyntaxException("You need to give me a valid task number" +
+                    " followed by the edit parameters", EditTask.SYNTAX);
+        }
+    }
+
+    private static TaskField parseForFieldToEdit(String field) throws InvalidSyntaxException {
+        String possibleFields = "Possible parameters: /description, /by, /from, /to";
+
+        switch (field) {
+        case "/description":
+            return TaskField.DESCRIPTION;
+        case "/by":
+            return TaskField.DEADLINE;
+        case "/from":
+            return TaskField.START_TIME;
+        case "/to":
+            return TaskField.END_TIME;
+        default:
+            throw new InvalidSyntaxException("There is no such parameter to edit in any task",
+                    possibleFields);
+        }
     }
 }

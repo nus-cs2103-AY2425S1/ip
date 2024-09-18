@@ -4,7 +4,7 @@ package mryapper.task;
  * A type of task which has a deadline.
  */
 public class Deadline extends Task {
-    private final String deadline;
+    private String deadline;
 
     /**
      * Creates a task with a deadline.
@@ -16,6 +16,22 @@ public class Deadline extends Task {
         super(description);
         this.deadline = deadline;
     }
+
+    @Override
+    public Task edit(TaskField field, String newString) {
+        switch (field) {
+        case DESCRIPTION:
+            setDescription(newString);
+            return this;
+        case DEADLINE:
+            this.deadline = newString;
+            return this;
+        default:
+            throw new IllegalArgumentException("You can only edit a deadline task with /description"
+                    + " or /deadline");
+        }
+    }
+
 
     @Override
     public String getDataString() {
