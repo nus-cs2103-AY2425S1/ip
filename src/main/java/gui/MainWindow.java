@@ -52,7 +52,14 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+        System.out.println("Send button clicked"); // Debugging statement
+
         String input = userInput.getText();
+        System.out.println("User input: " + input);
+
+        if (input.isEmpty()) {
+            return; // Do nothing if input is empty
+        }
         String response = pixy.getResponse(input);
         String commandType = pixy.getCommandType();
         dialogContainer.getChildren().addAll(

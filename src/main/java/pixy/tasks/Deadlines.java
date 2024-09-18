@@ -28,7 +28,8 @@ public class Deadlines extends Task {
             try {
                 this.dueDateTime = LocalDateTime.parse(by.trim(), displayFormatter);
             } catch (DateTimeParseException ex) {
-                throw new IllegalArgumentException("Invalid date format: " + by);
+                throw new IllegalArgumentException("Invalid date format: " + by +
+                        ". Please use 'd/M/yyyy HHmm' or 'MMM d yyyy, h:mm a'.");
             }
         }
     }

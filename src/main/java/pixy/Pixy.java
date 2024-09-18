@@ -68,6 +68,7 @@ public class Pixy {
      */
     private void saveTasks() {
         try {
+            tasks.sort();
             storage.save(tasks.getList());
         } catch (IOException e) {
             ui.showError("An error occurred while saving tasks.");
@@ -99,7 +100,7 @@ public class Pixy {
     public String getResponse(String input) {
         String response = parser.executeCommand(input, tasks, ui);
         CommandType type = parser.parseCommandType(input);
-        commandType = type != null ? type.getCommand() : "Unknown Command"; // Ensure non-null value
+        commandType = type != null ? type.getCommand() : "Unknown Command";
         saveTasks();
         return response;
     }
