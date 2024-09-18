@@ -35,7 +35,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
+    /** Injects the MeowMeow instance */
     public void setMeowMeow(MeowMeow m) throws IOException {
         meowmeow = m;
         meowmeow.run();
