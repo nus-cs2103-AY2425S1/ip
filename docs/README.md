@@ -14,7 +14,7 @@ BuddyBot is your all-in-one assistant to help you organise your tasks!
 
 ## Adding Todos
 
-You can add a todo.
+You can add a todo by using the 'todo' command.
 
 This adds a task without any time limit to your task list.
 
@@ -29,7 +29,7 @@ Now you have 1 tasks in the list.
 
 ## Adding Deadlines
 
-You can add a task and set the date it should be completed by.
+You can add a task and set the date it should be completed by using the 'deadline' and '/by' commands.
 
 This adds a task with a deadline to your task list (date must be in YYYY-MM-DD format).
 
@@ -43,7 +43,7 @@ Now you have 1 tasks in the list.
 ```
 ## Adding Events
 
-You can add an event.
+You can add an event and set the dates it falls between by using the 'event', '/from' and '/to' commands.
 
 This adds a task that falls within a time frame to your task list (date must be in YYYY-DD-MM format).
 
