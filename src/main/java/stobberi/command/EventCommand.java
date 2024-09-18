@@ -42,8 +42,8 @@ public class EventCommand extends Command {
             throw new EmptyStobberiException("Where is the task?");
         }
         if (getTaskList().hasTask(descriptions)) {
-            throw new SameTaskStobberiException("This task has already been added!\n" +
-                    "Pwease change your description!!");
+            throw new SameTaskStobberiException("This task has already been added!\n"
+                    + "Pwease change your description!!");
         }
 
         String[] eventParts = descriptions.split(" /from ");

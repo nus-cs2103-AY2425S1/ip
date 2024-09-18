@@ -2,5 +2,5 @@ T | CS2101 Assignment | 1
 E | Birthday | 14-10-2024 0000hrs | 14-10-2024 2359hrs | 1
 E | Overseas trip | 03-12-2024 0600hrs | 12-12-2024 1800hrs | 0
 D | CCA Project | 01-11-2024 2359hrs | 1
-D | Buy household items | 14-10-2024 1000hrs | 0
+D | Buy household items | 14-10-2024 1000hrs | 1
 T | Watch lecture videos | 0

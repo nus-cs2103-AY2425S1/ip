@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import stobberi.command.Command;
 import stobberi.command.DateCommand;
 import stobberi.command.DeadlineCommand;
@@ -19,7 +20,6 @@ import stobberi.command.MarkCommand;
 import stobberi.command.TodoCommand;
 import stobberi.command.UnmarkCommand;
 import stobberi.stobberiexception.InvalidNumberStobberiException;
-
 import stobberi.stobberiexception.NoSuchTaskStobberiException;
 import stobberi.stobberiexception.StobberiException;
 
@@ -29,7 +29,7 @@ public class ParserTest {
 
     @BeforeEach
     public void setUp() {
-        taskList = new TaskList();  // Initialize an empty TaskList
+        taskList = new TaskList(); // Initialize an empty TaskList
     }
 
     @Test
@@ -103,17 +103,17 @@ public class ParserTest {
         Exception exception = assertThrows(NoSuchTaskStobberiException.class, () -> {
             Parser.parse("invalidCommand", taskList);
         });
-        assertEquals("UMmmmmm, I'm weallly sowwyyy!!!!\n\n" +
-                "I just don't know how to do that yettt.", exception.getMessage());
+        assertEquals("UMmmmmm, I'm weallly sowwyyy!!!!\n\n"
+                + "I just don't know how to do that yettt.", exception.getMessage());
     }
 
     @Test
     public void testParseWithInvalidSpacing() {
         Exception exception = assertThrows(InvalidNumberStobberiException.class, () -> {
-            Parser.parse("todo   Read book", taskList);  // Extra spaces in the command
+            Parser.parse("todo   Read book", taskList); // Extra spaces in the command
         });
-        assertEquals("UMmmmmm, I'm weallly sowwyyy!!!!\n\n" +
-                "Please ensure your spacing are all correct.\nThankieww.", exception.getMessage());
+        assertEquals("UMmmmmm, I'm weallly sowwyyy!!!!\n\n"
+                + "Please ensure your spacing are all correct.\nThankieww.", exception.getMessage());
     }
 }
 

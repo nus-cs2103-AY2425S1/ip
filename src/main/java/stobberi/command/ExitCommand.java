@@ -23,7 +23,8 @@ public class ExitCommand extends Command {
 
     /**
      * Executes the command by setting the exit flag to true, which indicates that the application should terminate.
-     * If there is any additional text in the command, a {@link NoSuchTaskStobberiException} is thrown with a message asking
+     * If there is any additional text in the command,
+     * a {@link NoSuchTaskStobberiException} is thrown with a message asking
      * if the user wants to exit by simply saying 'bye'.
      *
      * @return A string indicating that the application is saying goodbye.

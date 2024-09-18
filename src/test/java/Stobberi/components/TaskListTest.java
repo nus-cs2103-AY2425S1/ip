@@ -5,8 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import stobberi.stobberiexception.InvalidNumberStobberiException;
 import stobberi.stobberiexception.NoSuchTaskStobberiException;
 import stobberi.stobberiexception.StobberiException;
@@ -14,8 +17,6 @@ import stobberi.task.Deadline;
 import stobberi.task.Event;
 import stobberi.task.Task;
 import stobberi.task.Todo;
-
-import java.util.ArrayList;
 
 public class TaskListTest {
 
@@ -38,8 +39,8 @@ public class TaskListTest {
     public void testMarkTask_validNumber() throws StobberiException {
         taskList.addTask(task1);
         String result = taskList.markTask(1);
-        assertEquals("Yay! I've marked this task as done:\n" +
-                "  [T] [X] Task 1", result);
+        assertEquals("Yay! I've marked this task as done:\n"
+                + "  [T] [X] Task 1", result);
         assertTrue(task1.isDone());
     }
 
@@ -54,8 +55,8 @@ public class TaskListTest {
         taskList.addTask(task1);
         taskList.markTask(1); // First mark as done
         String result = taskList.unmarkTask(1);
-        assertEquals("OK, I've marked this task as not done:\n" +
-                "  [T] [ ] Task 1", result);
+        assertEquals("OK, I've marked this task as not done:\n"
+                + "  [T] [ ] Task 1", result);
         assertFalse(task1.isDone());
     }
 
@@ -75,9 +76,9 @@ public class TaskListTest {
         taskList.addTask(task1);
         taskList.addTask(task2);
         String result = taskList.displayList();
-        assertEquals("Here are the tasks in your list:\n" +
-                "1. [T] [ ] Task 1\n" +
-                "2. [T] [ ] Task 2", result);
+        assertEquals("Here are the tasks in your list:\n"
+                + "1. [T] [ ] Task 1\n"
+                + "2. [T] [ ] Task 2", result);
     }
 
     @Test
@@ -85,9 +86,9 @@ public class TaskListTest {
         taskList.addTask(task1);
         taskList.addTask(task2);
         String result = taskList.delete(1);
-        assertEquals("Ookiiee! This task is now gone:\n" +
-                "  [T] [ ] Task 1\n" +
-                "Noww you have 1 tasks in the list.", result);
+        assertEquals("Ookiiee! This task is now gone:\n"
+                + "  [T] [ ] Task 1\n"
+                + "Noww you have 1 tasks in the list.", result);
     }
 
     @Test
@@ -100,9 +101,9 @@ public class TaskListTest {
     public void testDisplayLastAddedTask() {
         taskList.addTask(task1);
         String result = taskList.displayLastAddedTask();
-        assertEquals("Yayyy! I've added a new task:\n" +
-                "    [T] [ ] Task 1\n" +
-                "Noww you have 1 in the list.", result);
+        assertEquals("Yayyy! I've added a new task:\n"
+                + "    [T] [ ] Task 1\n"
+                + "Noww you have 1 in the list.", result);
     }
 
     @Test
@@ -117,9 +118,9 @@ public class TaskListTest {
         taskList.addTask(task1);
         taskList.addTask(task2);
         String result = taskList.filterListByWord("Task");
-        assertEquals("Here are the matching tasks in your list:\n" +
-                "1. [T] [ ] Task 1\n" +
-                "2. [T] [ ] Task 2", result);
+        assertEquals("Here are the matching tasks in your list:\n"
+                + "1. [T] [ ] Task 1\n"
+                + "2. [T] [ ] Task 2", result);
     }
 
     @Test
@@ -134,17 +135,17 @@ public class TaskListTest {
         taskList.addTask(deadline);
         taskList.addTask(event);
         String result = taskList.filterListByDate("18-09-2024");
-        assertEquals("Here are the tasks on 18-09-2024:\n" +
-                "1. [D] [ ] Deadline Task (by: 18 September 2024 9am)\n" +
-                "2. [E] [ ] Event Task (from: 18 September 2024 8am to: 18 October 2024 5pm)", result);
+        assertEquals("Here are the tasks on 18-09-2024:\n"
+                + "1. [D] [ ] Deadline Task (by: 18 September 2024 9:00am)\n"
+                + "2. [E] [ ] Event Task (from: 18 September 2024 8:00am to: 18 October 2024 5:00pm)", result);
     }
 
     @Test
     public void testAddTask() {
         String result = taskList.addTask(task1);
-        assertEquals("Yayyy! I've added a new task:\n" +
-                "    [T] [ ] Task 1\n" +
-                "Noww you have 1 in the list.", result);
+        assertEquals("Yayyy! I've added a new task:\n"
+                + "    [T] [ ] Task 1\n"
+                + "Noww you have 1 in the list.", result);
     }
 
     @Test

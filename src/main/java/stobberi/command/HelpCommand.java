@@ -29,7 +29,7 @@ public class HelpCommand extends Command {
                    unmark {task number in the list} : Marks the task as not done
                    ? : Displays the possible commands
 
-            Remember all commands entered has to be in lowercase!""" ;
+            Remember all commands entered has to be in lowercase!""";
 
     /**
      * Constructs a new {@code HelpCommand}.
@@ -53,7 +53,7 @@ public class HelpCommand extends Command {
         if (getRestOfCommand().isEmpty()) {
             return HELP_MESSAGE;
         }
-        throw new InvalidInputStobberiException("Do you mean 'list'? " +
-                "Pwease don't add unnecessary stuff!");
+        throw new InvalidInputStobberiException("Do you mean 'list'? "
+                + "Pwease don't add unnecessary stuff!");
     }
 }

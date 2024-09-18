@@ -1,5 +1,8 @@
 package stobberi.components;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import stobberi.command.Command;
 import stobberi.command.DateCommand;
 import stobberi.command.DeadlineCommand;
@@ -16,9 +19,6 @@ import stobberi.stobberiexception.InvalidNumberStobberiException;
 import stobberi.stobberiexception.NoNumberStobberiException;
 import stobberi.stobberiexception.NoSuchTaskStobberiException;
 import stobberi.stobberiexception.StobberiException;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * This class is responsible for parsing user commands and creating the corresponding {@link Command} objects.

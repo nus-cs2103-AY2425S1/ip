@@ -82,7 +82,9 @@ public class TaskList {
             throw new InvalidNumberStobberiException("The number you gave is invalid!");
         }
         Task removedTask = listOfTasks.remove(number - 1);
-        return "Ookiiee! This task is now gone:\n" + "  " + removedTask + "\nNoww you have " + listOfTasks.size() + " tasks in the list.";
+        return "Ookiiee! This task is now gone:\n"
+                + "  " + removedTask
+                + "\nNoww you have " + listOfTasks.size() + " tasks in the list.";
     }
 
     /**
@@ -94,7 +96,9 @@ public class TaskList {
         if (listOfTasks.isEmpty()) {
             return "No tasks available.";
         }
-        return "Yayyy! I've added a new task:\n    " + listOfTasks.get(listOfTasks.size() - 1) + "\nNoww you have " + listOfTasks.size() + " in the list.";
+        return "Yayyy! I've added a new task:\n    "
+                + listOfTasks.get(listOfTasks.size() - 1)
+                + "\nNoww you have " + listOfTasks.size() + " in the list.";
     }
 
     /**
@@ -135,8 +139,8 @@ public class TaskList {
 
         for (int i = 0; i < listOfTasks.size(); i++) {
             Task task = listOfTasks.get(i);
-            if ((task instanceof Deadline deadline && deadline.isDuring(date)) ||
-                    (task instanceof Event event && event.isDuring(date))) {
+            if ((task instanceof Deadline deadline && deadline.isDuring(date))
+                    || (task instanceof Event event && event.isDuring(date))) {
                 list.append("\n").append(++count).append(". ").append(task);
             }
         }

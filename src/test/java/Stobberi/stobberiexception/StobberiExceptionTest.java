@@ -25,7 +25,8 @@ public class StobberiExceptionTest {
 
         // Check if the prefix is still added even when the message is empty
         String expectedMessage = "UMmmmmm, I'm weallly sowwyyy!!!!\n\n";
-        assertEquals(expectedMessage, exception.getMessage(), "The exception message should only contain the prefix for empty input.");
+        assertEquals(expectedMessage, exception.getMessage(),
+                "The exception message should only contain the prefix for empty input.");
     }
 
     @Test
@@ -36,7 +37,8 @@ public class StobberiExceptionTest {
 
         // Check if the message is "null" after being prefixed
         String expectedMessage = "UMmmmmm, I'm weallly sowwyyy!!!!\n\nnull";
-        assertEquals(expectedMessage, exception.getMessage(), "The exception message should correctly handle null values.");
+        assertEquals(expectedMessage, exception.getMessage(),
+                "The exception message should correctly handle null values.");
     }
 
     @Test
@@ -47,7 +49,8 @@ public class StobberiExceptionTest {
 
         // Check if the message is correctly prefixed
         String expectedMessage = "UMmmmmm, I'm weallly sowwyyy!!!!\n\n" + message;
-        assertEquals(expectedMessage, exception.getMessage(), "The exception message should handle long messages correctly.");
+        assertEquals(expectedMessage, exception.getMessage(),
+                "The exception message should handle long messages correctly.");
     }
 
     @Test
@@ -58,6 +61,7 @@ public class StobberiExceptionTest {
 
         // Check if the message with special characters is correctly prefixed
         String expectedMessage = "UMmmmmm, I'm weallly sowwyyy!!!!\n\n" + message;
-        assertEquals(expectedMessage, exception.getMessage(), "The exception message should handle special characters correctly.");
+        assertEquals(expectedMessage, exception.getMessage(),
+                "The exception message should handle special characters correctly.");
     }
 }

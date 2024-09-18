@@ -3,16 +3,17 @@ package stobberi;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import stobberi.components.Storage;
-import stobberi.stobberiexception.StobberiException;
-import stobberi.task.Task;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import stobberi.components.Storage;
+import stobberi.stobberiexception.StobberiException;
+import stobberi.task.Task;
 
 public class StobberiTest {
 
@@ -69,6 +70,7 @@ public class StobberiTest {
 
         // Verify the response
         assertNotNull(response);
-        assertTrue(response.contains("I just don't know how to do that yettt."), "Response should indicate an invalid command.");
+        assertTrue(response.contains("I just don't know how to do that yettt."),
+                "Response should indicate an invalid command.");
     }
 }

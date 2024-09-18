@@ -32,7 +32,7 @@ public class ListCommand extends Command {
         if (getRestOfCommand().isEmpty()) {
             return getTaskList().displayList();
         }
-        throw new InvalidInputStobberiException("Do you mean 'list'? " +
-                "Pwease don't add unnecessary stuff!");
+        throw new InvalidInputStobberiException("Do you mean 'list'? "
+                + "Pwease don't add unnecessary stuff!");
     }
 }

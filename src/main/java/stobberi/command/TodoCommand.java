@@ -37,8 +37,8 @@ public class TodoCommand extends Command {
             throw new EmptyStobberiException("Where is the task?");
         }
         if (getTaskList().hasTask(descriptions)) {
-            throw new SameTaskStobberiException("This task has already been added!\n" +
-                    "Pwease change your description!!");
+            throw new SameTaskStobberiException("This task has already been added!\n"
+                    + "Pwease change your description!!");
         }
         return getTaskList().addTask(new Todo(descriptions));
     }

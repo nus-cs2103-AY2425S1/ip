@@ -4,18 +4,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import stobberi.stobberiexception.NotPossibleDurationStobberiException;
 import stobberi.task.Deadline;
 import stobberi.task.Event;
 import stobberi.task.Task;
 import stobberi.task.Todo;
-import stobberi.stobberiexception.NotPossibleDurationStobberiException;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 
 public class StorageTest {
 
@@ -93,7 +94,7 @@ public class StorageTest {
     }
 
     @Test
-    public void testSaveAndLoadTasks_withDifferentAttributes() throws IOException, NotPossibleDurationStobberiException {
+    public void testSaveAndLoadTasks_withDifferentAttributes() throws NotPossibleDurationStobberiException {
         ArrayList<Task> tasks = new ArrayList<>();
 
         // Create tasks with various attributes

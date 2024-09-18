@@ -1,13 +1,12 @@
 package stobberi;
+import java.io.IOException;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.image.Image;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 /**
  * A GUI for Duke using FXML.
@@ -30,7 +29,7 @@ public class Main extends Application {
             stage.setTitle("Stobberi TaskBot");
             stage.getIcons().add(icon);
 
-            fxmlLoader.<MainWindow>getController().setStobberi(stobberi);  // inject the Stobberi instance
+            fxmlLoader.<MainWindow>getController().setStobberi(stobberi); // inject the Stobberi instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

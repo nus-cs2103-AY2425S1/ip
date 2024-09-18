@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import stobberi.stobberiexception.StobberiException;
 
 public class TaskTest {
@@ -49,7 +50,8 @@ public class TaskTest {
     public void testTodoToString() {
         assertEquals("[T] [ ] Read book", todoTask.toString(), "toString should return '[ ] Read book' for Todo.");
         todoTask.setDone();
-        assertEquals("[T] [X] Read book", todoTask.toString(), "toString should return '[X] Read book' when Todo is done.");
+        assertEquals("[T] [X] Read book", todoTask.toString(),
+                "toString should return '[X] Read book' when Todo is done.");
     }
 
     // ================== Tests for Deadline ==================
@@ -74,10 +76,10 @@ public class TaskTest {
 
     @Test
     public void testDeadlineToString() {
-        assertEquals("[D] [ ] Submit report (by: 19 September 2024 9am)", deadlineTask.toString(),
+        assertEquals("[D] [ ] Submit report (by: 19 September 2024 9:00am)", deadlineTask.toString(),
                 "Deadline toString isn't correct when task not done");
         deadlineTask.setDone();
-        assertEquals("[D] [X] Submit report (by: 19 September 2024 9am)", deadlineTask.toString(),
+        assertEquals("[D] [X] Submit report (by: 19 September 2024 9:00am)", deadlineTask.toString(),
                 "Deadline toString isn't correct when task is done");
     }
 
@@ -103,10 +105,12 @@ public class TaskTest {
 
     @Test
     public void testEventToString() {
-        assertEquals("[E] [ ] Conference (from: 21 September 2024 9am to: 21 September 2024 5pm)", eventTask.toString(),
+        assertEquals("[E] [ ] Conference (from: 21 September 2024 9:00am to: 21 September 2024 5:00pm)",
+                eventTask.toString(),
                 "Event toString() isn't correct");
         eventTask.setDone();
-        assertEquals("[E] [X] Conference (from: 21 September 2024 9am to: 21 September 2024 5pm)", eventTask.toString(),
+        assertEquals("[E] [X] Conference (from: 21 September 2024 9:00am to: 21 September 2024 5:00pm)",
+                eventTask.toString(),
                 "Event toString() isn't correct");
     }
 }
