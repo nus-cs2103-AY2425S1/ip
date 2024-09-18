@@ -84,6 +84,16 @@ public class GUITaskList {
         return foundTasks;
     }
 
+    /**
+     * Sorts the task list by arranging the deadline tasks first followed by the non-deadline tasks.
+     *
+     * The method starts by getting all the non-deadline tasks by filtering the tasks and collecting them into an ArrayList.
+     * Next, the method retrieves the sorted list of deadline tasks using the helper method getSortedDeadlineTasks.
+     * Then, it creates a new ArrayList called combinedList and adds all the deadline tasks to it.
+     * Finally, it adds all the non-deadline tasks to the combinedList. The taskList is then updated with the combinedList.
+     *
+     * This method does not return any value.
+     */
     protected static void sort() {
         ArrayList<Task> nonDeadlineTasks = getTasks().stream() // Get non deadline tasks
                 .filter(task -> !(task instanceof Deadline))
@@ -95,6 +105,13 @@ public class GUITaskList {
         return;
     }
 
+    /**
+     * Retrieves and returns a sorted list of Deadline tasks from the given list of tasks,
+     * sorted by chronological order, earliest to latest
+     *
+     * @param tasks The list of tasks.
+     * @return A sorted ArrayList of Deadline tasks.
+     */
     protected static ArrayList<Deadline> getSortedDeadlineTasks(ArrayList<Task> tasks) {
         ArrayList<Deadline> deadlineTasks = tasks.stream()
                                             .filter(task -> task instanceof Deadline)

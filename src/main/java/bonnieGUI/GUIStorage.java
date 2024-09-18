@@ -31,7 +31,12 @@ public class GUIStorage {
         }
     }
 
-    // Note that initialiseFile should only be used within the storage
+    /**
+     * This method is used to populate the task list array by reading from the tasks.txt file.
+     * Only to be used within the GUIStorage class.
+     *
+     * @param file The file to read tasks from.
+     */
     private static void initialiseFile(File file) {
         try {
             // Idea is to copy the stuff from the tasks.txt to populate the tasklist array (so the app has the tasks)
@@ -65,6 +70,9 @@ public class GUIStorage {
         }
     }
 
+    /**
+     * Updates the file with the current tasks in the task list.
+     */
     protected static void updateFile() {
         try {
             FileWriter writer = new FileWriter(filePath);
