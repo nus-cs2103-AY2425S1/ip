@@ -11,7 +11,7 @@ import mummy.utility.Storage;
  * Represents a command to add an event task.
  * Inherits from the Command class.
  */
-public final class EventCommand extends Command {
+public final class EventCommand extends AddCommand {
 
     public EventCommand(HashMap<String, String> arguments) {
         super(arguments);
@@ -28,15 +28,5 @@ public final class EventCommand extends Command {
         }
 
         return this.addTask(new Event(description, from, to), taskList, storage);
-    }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
-    @Override
-    public CommandType getCommandType() {
-        return CommandType.EVENT;
     }
 }

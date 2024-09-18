@@ -3,7 +3,6 @@ package mummy.command;
 import java.io.IOException;
 import java.util.HashMap;
 
-import mummy.task.Task;
 import mummy.task.TaskList;
 import mummy.ui.MummyException;
 import mummy.utility.Storage;
@@ -21,8 +20,8 @@ public abstract class Command {
      * Represents the types of commands that can be executed.
      */
     public enum CommandType {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE,
-        EVENT, DELETE, FIND, UNKNOWN
+        BYE, LIST, MARK, UNMARK, ADD, DELETE, FIND,
+        UNDO, REDO, UNKNOWN
     }
 
     /**
@@ -44,36 +43,29 @@ public abstract class Command {
     public static Command of(String fullCommand) throws MummyException {
         HashMap<String, String> arguments = Parser.parse(fullCommand);
 
-        CommandType commandType;
-
-        try {
-            commandType = CommandType.valueOf(
-                    arguments.getOrDefault("command", "")
-                            .toUpperCase()
-            );
-        } catch (IllegalArgumentException exception) {
-            commandType = CommandType.UNKNOWN;
-        }
-
-        switch (commandType) {
-        case BYE:
+        switch (arguments.getOrDefault("command", "")) {
+        case "bye":
             return new ByeCommand(arguments);
-        case LIST:
+        case "list":
             return new ListCommand(arguments);
-        case MARK:
+        case "mark":
             return new MarkCommand(arguments);
-        case UNMARK:
+        case "unmark":
             return new UnmarkCommand(arguments);
-        case TODO:
+        case "todo":
             return new ToDoCommand(arguments);
-        case DEADLINE:
+        case "deadline":
             return new DeadlineCommand(arguments);
-        case EVENT:
+        case "event":
             return new EventCommand(arguments);
-        case DELETE:
+        case "delete":
             return new DeleteCommand(arguments);
-        case FIND:
+        case "find":
             return new FindCommand(arguments);
+        case "undo":
+            return new UndoCommand(arguments);
+        case "redo":
+            return new RedoCommand(arguments);
         default:
             throw new MummyException("I'm sorry, but I don't know what that means :-(");
         }
@@ -103,12 +95,22 @@ public abstract class Command {
     public abstract CommandType getCommandType();
 
     /**
+     * Undoes this command and updates the given task list and storage if necessary.
+     *
+     * @param taskList The task list to undo the command on.
+     * @param storage The storage to undo the command on.
+     * @return A string message indicating the result of the undo operation.
+     * @throws MummyException If an error occurs during the undo operation.
+     */
+    public abstract String undo(TaskList taskList, Storage storage) throws MummyException;
+
+    /**
      * Retrieves the value associated with the specified key from the arguments map.
      *
      * @param key the key whose associated value is to be retrieved
      * @return the value associated with the specified key, or null if the key is not present in the map
      */
-    public String getArgument(String key) {
+    public final String getArgument(String key) {
         return this.arguments.get(key);
     }
 
@@ -119,7 +121,7 @@ public abstract class Command {
      * @param defaultArgument The default value to return if the key is not found.
      * @return The value associated with the key, or the default argument if the key is not found.
      */
-    public String getArgument(String key, String defaultArgument) {
+    public final String getArgument(String key, String defaultArgument) {
         return this.arguments.getOrDefault(key, defaultArgument);
     }
 
@@ -139,20 +141,59 @@ public abstract class Command {
         }
     }
 
-    /**
-     * Adds a task to the task list.
-     *
-     * @param task the task to be added
-     * @param taskList the task list to add the task to
-     * @param storage the storage to save the task list
-     * @throws MummyException if there is an error adding the task or saving the task list
-     */
-    public String addTask(Task task, TaskList taskList, Storage storage) throws MummyException {
-        taskList.add(task);
-        saveTaskListToStorage(taskList, storage);
-        return String.format(
-                "Got it. I've added this task:\n\t%s\nNow you have %d tasks in the list.\n",
-                task, taskList.count()
-        );
+    private static final class UndoCommand extends Command {
+        public UndoCommand(HashMap<String, String> arguments) {
+            super(arguments);
+        }
+
+        @Override
+        public String execute(TaskList taskList, Storage storage) {
+            return "Command undone.";
+        }
+
+        @Override
+        public boolean isExit() {
+            return false;
+        }
+
+        @Override
+        public CommandType getCommandType() {
+            return CommandType.UNDO;
+        }
+
+        @Override
+        public String undo(TaskList taskList, Storage storage) throws MummyException {
+            throw new MummyException("Undo command cannot be undone.\n"
+                    + "Undo is an irreversible action."
+            );
+        }
+    }
+
+    private static final class RedoCommand extends Command {
+        public RedoCommand(HashMap<String, String> arguments) {
+            super(arguments);
+        }
+
+        @Override
+        public String execute(TaskList taskList, Storage storage) {
+            return "Command redone.";
+        }
+
+        @Override
+        public boolean isExit() {
+            return false;
+        }
+
+        @Override
+        public CommandType getCommandType() {
+            return CommandType.REDO;
+        }
+
+        @Override
+        public String undo(TaskList taskList, Storage storage) throws MummyException {
+            throw new MummyException("Redo command cannot be undone.\n"
+                    + "Undo is an irreversible action."
+            );
+        }
     }
 }
