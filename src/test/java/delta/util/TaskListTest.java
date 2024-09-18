@@ -125,41 +125,39 @@ public class TaskListTest {
     }
 
     @Test
-    public void testUnmarkTask() {
+    public void unmarkTask_markedTask_taskUnmarked() {
         ArrayList<Task> tasks = new ArrayList<>();
         Todo todo1 = new Todo("test1");
-        Todo todo2 = new Todo("test2");
-        Todo todo3 = new Todo("test3");
         todo1.markAsDone();
-        todo2.markAsDone();
-        todo3.markAsDone();
         tasks.add(todo1);
-        tasks.add(todo2);
-        tasks.add(todo3);
         TaskList taskList = new TaskList(tasks);
 
-        Todo todo4 = new Todo("test2");
-        todo4.markAsDone();
-        todo4.markAsNotDone();
+        Todo todo2 = new Todo("test1");
 
         try {
-            assertEquals(todo4.toString(), taskList.unmarkTask(2).toString());
+            assertEquals(todo2.toString(), taskList.unmarkTask(1).toString());
         } catch (Exception e) {
             fail(e.getMessage());
         }
+    }
 
-        // Unmarking an empty list throws error.
+    @Test
+    public void unmarkTask_emptyList_exceptionThrown() {
+        TaskList testList = new TaskList();
+
         try {
-            TaskList testList = new TaskList();
             testList.unmarkTask(1);
             fail();
         } catch (Exception e) {
             assertEquals("OOPS!!! List is empty! Please add tasks!", e.getMessage());
         }
+    }
 
-        // Unmark task index out of range throws error.
+    @Test
+    public void unmarkTask_indexOutOfRange_exceptionThrown() {
+        TaskList testList = new TaskList(createTestList());
+
         try {
-            TaskList testList = new TaskList(createTestList());
             testList.unmarkTask(0);
             fail();
         } catch (Exception e) {
@@ -168,9 +166,7 @@ public class TaskListTest {
                     \t Please provide a valid Task.""", e.getMessage());
         }
 
-        // Unmark task index out of range throws error.
         try {
-            TaskList testList = new TaskList(createTestList());
             testList.unmarkTask(4);
             fail();
         } catch (Exception e) {
@@ -178,11 +174,13 @@ public class TaskListTest {
                     OOPS!!! Task not found in list.
                     \t Please provide a valid Task.""", e.getMessage());
         }
+    }
 
-        // Unmarking an unmarked task throws error.
+    @Test
+    public void unmarkTask_unmarkedTask_exceptionThrown() {
+        TaskList testList = new TaskList(createTestList());
+
         try {
-            TaskList testList = new TaskList(tasks);
-            testList.unmarkTask(1);
             testList.unmarkTask(1);
             fail();
         } catch (Exception e) {
