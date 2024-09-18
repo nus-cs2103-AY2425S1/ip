@@ -69,7 +69,7 @@ public class Parser {
             case "to-do":
                 return new AddCommand(new Todo(split[1]));
             case "deadline":
-                descriptions = split[1].split(" /by ", 2); // deadline
+                descriptions = split[1].split(" /by ", 2);
                 return new AddCommand(new Deadline(descriptions[0], descriptions[1]));
             case "event":
                 descriptions = split[1].split(" /from | /to ", 3);

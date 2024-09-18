@@ -84,8 +84,6 @@ public class Storage {
      * @throws JudeException if there was an error while creating a save file.
      */
     public void save(TaskList list) throws JudeException {
-        File save = new File(filePath);
-
         // Write to the save file
         try {
             writer = new FileWriter(filePath);

@@ -3,7 +3,6 @@ package jude.command;
 import jude.JudeException;
 import jude.Storage;
 import jude.TaskList;
-import jude.Ui;
 
 /**
  * Represents the instruction in series of action the program has to execute
@@ -14,7 +13,13 @@ public abstract class Command {
     private boolean isExit;
     private String message = "";
 
-    public abstract void execute(TaskList list, Ui ui, Storage storage) throws JudeException;
+    /**
+     * Executes the task that has to be done by the command.
+     * @param list represents tasklist
+     * @param storage represents save file handler
+     * @throws JudeException if any one of the method call fails
+     */
+    public abstract void execute(TaskList list, Storage storage) throws JudeException;
 
     public void exit() {
         this.isExit = true;

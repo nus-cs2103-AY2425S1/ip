@@ -1,4 +1,4 @@
-package jude;
+package jude.ui;
 
 import java.io.IOException;
 
@@ -75,6 +75,12 @@ public class DialogBox extends HBox {
 
     public static DialogBox getUserDialog(String s, Image i) {
         return new DialogBox(s, i);
+    }
+
+    public static DialogBox getJudeDialog(String s, Image i) {
+        var db = new DialogBox(s, i);
+        db.flip();
+        return db;
     }
 
     public static DialogBox getJudeDialog(String s, Image i, String commandType) {

@@ -23,6 +23,7 @@ public class TaskList {
         this.list = list;
     }
 
+    /** Add the Task by taking in its index. */
     public void addTask(Task task) {
         list.add(task);
     }
@@ -74,7 +75,9 @@ public class TaskList {
 
     private void validateIndex(int index) throws JudeException {
         if (index < 0 || index >= list.size()) {
-            throw new JudeException("You are trying to get an element of index out of the list size." + list.size());
+            throw new JudeException(
+                    "You are trying to get an element of index out of the list size." + list.size()
+            );
         }
     }
 

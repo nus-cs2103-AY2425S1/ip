@@ -1,5 +1,4 @@
-package jude;
-
+package jude.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -8,9 +7,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import jude.Jude;
 
 /**
- * Responsible for the main window of the chatbot interface.
+ * Controller for the main GUI.
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -23,20 +24,39 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Jude jude;
+    private Stage stage;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image judeImage = new Image(this.getClass().getResourceAsStream("/images/jude.png"));
 
+    /**
+     * Initializes the chatbot screen and displays a welcome message.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
     /**
-     * Injects the Jude instance
+     * Injects the Jude instance.
      */
     public void setJude(Jude d) {
         jude = d;
+    }
+
+    /**
+     * Displays the welcome message.
+     */
+    public void displayWelcomeMessage() {
+        String welcomeMessage = this.jude.generateWelcomeMessage();
+        this.dialogContainer.getChildren().add(DialogBox.getJudeDialog(welcomeMessage, judeImage));
+    }
+
+    /**
+     * Sets the Stage instance.
+     */
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 
     /**
@@ -53,7 +73,10 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getJudeDialog(response, judeImage, commandType)
         );
+
+        if (jude.isExit()) {
+            stage.close();
+        }
         userInput.clear();
     }
-
 }
