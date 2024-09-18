@@ -16,13 +16,13 @@
         - [Find task via tags](#find-tag)
 - [How To Use](#how-to-use)
 - [Acknowledgements](#acknowledgements)
--- -
+---
 ## Introduction
 ___Elliot___ is a task manager that can keep track of all your tasks.
--- -
+---
 ## Quick Preview
 ![representative screenshot](./Ui.png)
--- -
+---
 ## Features
 Available Features:
 - Display the entire list of tasks
@@ -35,7 +35,7 @@ Available Features:
 - Find a task in the tasklist
 - Add tags to a Task
 - Find task by tags
--- -
+---
 ### List
 Displays all the task you have currently.
 Example use of the following command:
@@ -43,8 +43,8 @@ Example use of the following command:
 list
 ```
 Expected Result:
-![list](./list.png)
--- -
+![list](./images/list.png)
+---
 ### Mark
 Marks task as done.
 Example use of the following command:
@@ -52,8 +52,8 @@ Example use of the following command:
 mark 1 2 3
 ```
 Expected Result:
-![mark](./mark.png)
--- -
+![mark](./images/mark.png)
+---
 ### Unmark
 Unmarks task as not done.
 Example use of the following command:
@@ -61,8 +61,8 @@ Example use of the following command:
 unmark 1 2 3
 ```
 Expected Result:
-![unmark](./unmark.png)
--- -
+![unmark](./images/unmark.png)
+---
 ### Add Task
 Add different types task to the list of tasks.
 #### Todo Task
@@ -72,7 +72,7 @@ Example use of the following command:
 todo ride bike
 ```
 Expected Result:
-![todotask](./todotask.png)
+![todotask](./images/todotask.png)
 #### Deadline Task
 Add a task with a deadline to the task list.
 Example use of the following command:
@@ -80,7 +80,7 @@ Example use of the following command:
 deadline homework /by 02-02-2001 1200
 ```
 Expected Result:
-![deadlinetask](./deadlinetask.png)
+![deadlinetask](./images/deadlinetask.png)
 #### Event Task
 Add a event to the task list.
 Example use of the following command:
@@ -88,8 +88,8 @@ Example use of the following command:
 event party /from 02-02-2001 1200 /to 02-02-2001 1400
 ```
 Expected Result:
-![eventtask](./eventtask.png)
--- -
+![eventtask](./images/eventtask.png)
+---
 ### Delete
 Delete task from task list.
 Example use of the following command:
@@ -97,8 +97,8 @@ Example use of the following command:
 delete 3 2 1
 ```
 Expected Result:
-![delete](./delete.png)
--- -
+![delete](./images/delete.png)
+---
 ### Find
 Find task with the same task description.
 Example use of the following command:
@@ -106,8 +106,8 @@ Example use of the following command:
 find math
 ```
 Expected Result:
-![find](./find.png)
--- -
+![find](./images/find.png)
+---
 ### Tag
 Tags task.
 Example use of the following command:
@@ -115,8 +115,8 @@ Example use of the following command:
 todo math assignment 3 #hw
 ```
 Expected Result:
-![tag](./tag.png)
--- -
+![tag](./images/tag.png)
+---
 #### Find Tag
 Since task now can have tags, we can also search tasks with same tags.
 Example use of the following command:
@@ -124,8 +124,8 @@ Example use of the following command:
 findtag #hw
 ```
 Expected Result:
-![findtag](./findtag.png)
--- -
+![findtag](./images/findtag.png)
+---
 ## How to use 
 Make sure you have at least Version 17 of `java` first.
 - download the latest `elliot.jar` from [releases](https://github.com/LimKaiWei/ip/releases).
@@ -133,6 +133,6 @@ Make sure you have at least Version 17 of `java` first.
 - open a terminal in that folder.
 - run the command `java -jar elliot.jar`.
 - enjoy.
--- -
+---
 ## Acknowledgements
 use of _ImList_ from CS2030
