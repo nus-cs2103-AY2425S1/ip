@@ -10,7 +10,6 @@ import tasks.Todo;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 
 /**
  * The Parser class processes user input and executes the corresponding actions in the Bigmouth chatbot.
@@ -28,6 +27,10 @@ public class Parser {
      * @param s     The storage handler for saving and loading tasks.
      */
     public Parser(Ui ui, TaskList tasks, Storage s) {
+        assert ui != null : "Ui object cannot be null";
+        assert tasks != null : "TaskList object cannot be null";
+        assert s != null : "Storage object cannot be null";
+
         this.ui = ui;
         this.tasks = tasks;
         this.storage = s;
@@ -41,6 +44,7 @@ public class Parser {
      * @throws BigmouthException If the input format is incorrect.
      */
     static LocalDateTime parseDateTime(String input) throws BigmouthException {
+        assert input != null : "Input date/time string cannot be null";
         try {
             return LocalDateTime.parse(input, DateTimeFormatter.ofPattern("M/d/yyyy HHmm"));
         } catch (DateTimeParseException e) {
@@ -54,7 +58,9 @@ public class Parser {
      * marking tasks as done, or displaying the task list. Terminates when the user types 'bye'.
      */
     public Command parseInput(String userInput) {
+        assert userInput != null : "User input cannot be null";
         String firstWord = userInput.contains(" ") ? userInput.split(" ")[0] : userInput;
+
         try {
             switch (firstWord) {
             case "bye":
@@ -81,10 +87,12 @@ public class Parser {
         } catch (NumberFormatException e) {
             return new Command("OOPS! Please enter a valid number.");
         }
+
         return new Command("Idk what ur sayin leh :/");
     }
 
     private Command sendListCommand() throws BigmouthException {
+        assert tasks != null : "Task list cannot be null";
         if (tasks.isEmpty()) {
             throw new BigmouthException("Your task list is empty!");
         }
@@ -93,7 +101,10 @@ public class Parser {
     }
 
     private Command sendMarkCommand(String userInput) throws BigmouthException {
+        assert userInput.split(" ").length > 1 : "User input for mark command must have a task number";
         int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
+        assert taskNumber >= 0 && taskNumber < tasks.size() : "Task number must be valid";
+
         if (taskNumber < 0 || taskNumber >= tasks.size()) {
             throw new BigmouthException("Invalid task number. " +
                     "Please enter a valid task number.");
@@ -104,7 +115,10 @@ public class Parser {
     }
 
     private Command sendUnmarkCommand(String userInput) throws BigmouthException {
+        assert userInput.split(" ").length > 1 : "User input for unmark command must have a task number";
         int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
+        assert taskNumber >= 0 && taskNumber < tasks.size() : "Task number must be valid";
+
         if (taskNumber < 0 || taskNumber >= tasks.size()) {
             throw new BigmouthException("Invalid task number. " +
                     "Please enter a valid task number.");
@@ -115,6 +129,7 @@ public class Parser {
     }
 
     private Command sendTodoCommand(String userInput) throws BigmouthException {
+        assert userInput.length() > 5 : "Todo command must have a description";
         String description = userInput.substring(5).trim();
         if (description.isEmpty()) {
             throw new BigmouthException("OOPS! The description of " +
@@ -127,6 +142,7 @@ public class Parser {
     }
 
     private Command sendDeadlineCommand(String userInput) throws BigmouthException {
+        assert userInput.contains(" /by ") : "Deadline command must have a description and due date";
         String[] parts = userInput.split(" /by ");
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
             throw new BigmouthException("OOPS! The deadline " +
@@ -145,6 +161,7 @@ public class Parser {
     }
 
     private Command sendEventCommand(String userInput) throws BigmouthException {
+        assert userInput.contains(" /from ") && userInput.contains(" /to ") : "Event command must have a description, start, and end time";
         String[] parts = userInput.split(" /from | /to ");
         if (parts.length < 3 || parts[1].trim().isEmpty()
                 || parts[2].trim().isEmpty()) {
@@ -165,7 +182,10 @@ public class Parser {
     }
 
     private Command sendDeleteCommand(String userInput) throws BigmouthException {
+        assert userInput.split(" ").length > 1 : "Delete command must have a task number";
         int taskNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
+        assert taskNumber >= 0 && taskNumber < tasks.size() : "Task number must be valid";
+
         if (taskNumber < 0 || taskNumber >= tasks.size()) {
             throw new BigmouthException("Invalid task number. " +
                     "Please enter a valid task number.");
@@ -176,9 +196,9 @@ public class Parser {
     }
 
     private Command sendFindCommand(String userInput) throws BigmouthException {
+        assert userInput.length() > 5 : "Find command must have a keyword";
         String keyword = userInput.substring(5).trim();
         TaskList foundTasks = tasks.find(keyword);
         return new Command(ui.showMatchingTasks(foundTasks, tasks.size()));
     }
 }
-
