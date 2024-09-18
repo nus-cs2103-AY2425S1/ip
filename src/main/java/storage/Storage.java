@@ -32,7 +32,6 @@ public class Storage {
         try {
             Path path = Paths.get(FILE_PATH);
             Files.createDirectories(path.getParent()); // Create directories if they don't exist
-            // BufferedWriter is simply more efficient than FileWriter - speeds up the writing process
             BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH));
             for (Task task : items) {
                 writer.write(task.toDataString());
