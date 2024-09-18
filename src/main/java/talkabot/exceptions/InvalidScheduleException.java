@@ -9,6 +9,7 @@ public class InvalidScheduleException extends TalkaBotException {
      * Constructs an instance of InvalidScheduleException class.
      */
     public InvalidScheduleException() {
-        super("Sorry, what task were you trying to schedule again?");
+        super("Sorry pal, what task were you trying to"
+                + "schedule again?");
     }
 }

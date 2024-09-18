@@ -47,7 +47,7 @@ public class TalkaBot {
      */
     private void run() {
         boolean isEnd = false;
-        this.ui.printHello();
+        System.out.println(Ui.getHello());
         ui.printDashedLine();
         while (!isEnd) {
             try {
@@ -57,7 +57,8 @@ public class TalkaBot {
                     throw new NoInputException();
                 } else if (input.equalsIgnoreCase("bye")) {
                     isEnd = true;
-                } else if (input.equalsIgnoreCase("list")) {
+                } else if (input.equalsIgnoreCase("list")
+                    || input.equalsIgnoreCase("l")) {
                     System.out.println(this.command.handleList(this.taskList));
                 } else if (input.toLowerCase().startsWith("mark")
                     || input.toLowerCase().startsWith("m ")) {
@@ -84,14 +85,14 @@ public class TalkaBot {
                         || input.toLowerCase().startsWith("e ")) {
                     System.out.println(this.command.handleEvent(input, this.taskList));
                 } else {
-                    throw new UnknownInputException(input);
+                    throw new UnknownInputException();
                 }
             } catch (TalkaBotException e) {
                 System.out.println(this.command.handleTalkaBotException(e));
             } catch (DateTimeException e) {
                 System.out.println(this.command.handleDateTimeException(e));
             } catch (IOException e) {
-                System.out.println(this.command.handleIOException(e));
+                System.out.println(this.command.handleIoException(e));
             }
             if (!isEnd) {
                 ui.printDashedLine();
@@ -112,7 +113,8 @@ public class TalkaBot {
                 throw new NoInputException();
             } else if (input.equalsIgnoreCase("bye")) {
                 return this.command.handleBye();
-            } else if (input.equalsIgnoreCase("list")) {
+            } else if (input.equalsIgnoreCase("list")
+                    || input.equalsIgnoreCase("l")) {
                 return this.command.handleList(this.taskList);
             } else if (input.toLowerCase().startsWith("mark")
                     || input.toLowerCase().startsWith("m ")) {
@@ -139,14 +141,14 @@ public class TalkaBot {
                     || input.toLowerCase().startsWith("e ")) {
                 return this.command.handleEvent(input, this.taskList);
             } else {
-                throw new UnknownInputException(input);
+                throw new UnknownInputException();
             }
         } catch (TalkaBotException e) {
             return this.command.handleTalkaBotException(e);
         } catch (DateTimeException e) {
             return this.command.handleDateTimeException(e);
         } catch (IOException e) {
-            return this.command.handleIOException(e);
+            return this.command.handleIoException(e);
         }
     }
 

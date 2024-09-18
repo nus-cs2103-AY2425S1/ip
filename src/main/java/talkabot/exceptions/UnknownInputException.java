@@ -8,7 +8,7 @@ public class UnknownInputException extends TalkaBotException {
     /**
      * Constructs an instance of UnknownInputException class.
      */
-    public UnknownInputException(String str) {
-        super("\"" + str + "\"...? What does that mean?");
+    public UnknownInputException() {
+        super("Could you explain that a bit more, pal?");
     }
 }

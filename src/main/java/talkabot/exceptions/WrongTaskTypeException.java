@@ -9,6 +9,6 @@ public class WrongTaskTypeException extends TalkaBotException {
      * Constructs an instance of WrongTaskTypeException class.
      */
     public WrongTaskTypeException(String message) {
-        super("Sorry, this task " + message);
+        super("Sorry pal, this task " + message);
     }
 }

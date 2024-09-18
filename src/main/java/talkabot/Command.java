@@ -1,5 +1,8 @@
 package talkabot;
 
+import java.io.IOException;
+import java.time.DateTimeException;
+
 import talkabot.exceptions.InvalidEditException;
 import talkabot.exceptions.InvalidScheduleException;
 import talkabot.exceptions.TalkaBotException;
@@ -8,9 +11,6 @@ import talkabot.task.Event;
 import talkabot.task.Task;
 import talkabot.task.TaskList;
 import talkabot.task.ToDo;
-
-import java.io.IOException;
-import java.time.DateTimeException;
 
 /**
  * Command class handles the different commands by the user.
@@ -289,7 +289,7 @@ public class Command {
      * @param e IOException.
      * @return Error message to be printed.
      */
-    public String handleIOException(IOException e) {
+    public String handleIoException(IOException e) {
         this.commandType = "Error";
         return this.ui.error(e.getMessage());
     }
@@ -309,7 +309,7 @@ public class Command {
      * @return String representation of goodbye message.
      */
     public String handleBye() {
-        this.commandType = "GreetingCommand";
+        this.commandType = "ByeCommand";
         return this.ui.getGoodbye();
     }
 

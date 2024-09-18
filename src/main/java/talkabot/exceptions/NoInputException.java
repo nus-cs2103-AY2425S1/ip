@@ -9,7 +9,7 @@ public class NoInputException extends TalkaBotException {
      * Constructs an instance of NoInputException class.
      */
     public NoInputException() {
-        super("Oh no! Did you forget what you were going to say?");
+        super("I'm afraid I did not catch what you said, pal!");
     }
 
 }
