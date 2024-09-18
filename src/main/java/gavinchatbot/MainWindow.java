@@ -35,7 +35,7 @@ public class MainWindow {
         assert userImage != null : "User image must be initialized";
         assert dukeImage != null : "Duke image must be initialized";
 
-        // Welcome message from Duke
+        // Welcome message
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog("Welcome to GavinChatBot!", dukeImage)
         );
