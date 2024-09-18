@@ -1,30 +1,66 @@
 # Primo User Guide
 
-// Update the title above to match the actual product name
+![Ui.png](Ui.png)
 
-// Product screenshot goes here
+**El Primo is here!** Introducing a text based chat with yours truly, 
+El Primo himself! El Primo will help you to _manage your tasks_, so that you 
+will no longer miss deadlines, and be an organised good person :)
 
-// Product intro goes here
+> El Primo, is here.
 
-## Adding deadlines
 
-// Describe the action and its outcome.
+## Add a task
+Add a todo task!
 
-// Give examples of usage
+`todo (description)`
 
-Example: `keyword (optional arguments)`
+*Add a deadline task that has a deadline!*
 
-// A description of the expected outcome goes here
+`deadline (description) /by YYYY-MM-DD`
+
+*Add a event task that has a duration!*
+
+`event (description) /from YYYY-MM-DD /to YYYY-MM-DD`
+
+## Mark and unmark tasks
+*Mark and unmark tasks as done by its index!*
+
+`mark <index> / unmark <index>`
+
+Result:
+```
+Task PUNCHED! For pain and for glory!
+[D][X] (description) (by: MMM dd YYYY)
+Note: -
+```
+
+## Adding notes
+*You can add notes to the tasks, simply by adding /n at the back of the command*
+
+`todo nothing /n Sleep more`
+
+Result:
 
 ```
-expected output
+New todo task! Grrr
+[T][ ] nothing
+Note: Sleep more
+
+Now you have 4 tasks to PUNCH!
 ```
 
-## Feature ABC
+## Delete a task
+*You can delete a task by its index*
 
-// Feature details
+`delete <index>`
 
 
-## Feature XYZ
+## Find a task
+*You can find a task by its relevant part or detail*
 
-// Feature details
+`find (text)`
+
+## List everything!
+*Get a list of all your tasks!*
+
+`list`
