@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import seedu.maxine.task.Task;
 /**
- * The MaxineStorage interface defines the methods for managing the 
- * storage of tasks in the Maxine application. It allows for loading 
+ * The MaxineStorage interface defines the methods for managing the
+ * storage of tasks in the Maxine application. It allows for loading
  * tasks from storage and refreshing the storage with the current list of tasks.
  */
 public interface MaxineStorage {

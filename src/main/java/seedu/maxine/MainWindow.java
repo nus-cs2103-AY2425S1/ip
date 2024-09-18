@@ -23,7 +23,7 @@ public class MainWindow extends AnchorPane {
     private Maxine maxine;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaMaxine.png"));
+    private Image maxineImage = new Image(this.getClass().getResourceAsStream("/images/DaMaxine.png"));
 
     /**
      * Initialises the dialog container
@@ -34,7 +34,7 @@ public class MainWindow extends AnchorPane {
 
         String initialPrompt = "What can I do for you today?";
         dialogContainer.getChildren().add(
-                DialogBox.getMaxineDialog(initialPrompt, dukeImage)
+                DialogBox.getMaxineDialog(initialPrompt, maxineImage)
         );
     }
 
@@ -55,16 +55,17 @@ public class MainWindow extends AnchorPane {
             String response = maxine.getResponse(input);
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getMaxineDialog(response, dukeImage)
+                    DialogBox.getMaxineDialog(response, maxineImage)
             );
             userInput.clear();
-            userInput.setDisable(true); // Disable the input field
-            return; // Exit the method early
+            userInput.setDisable(true);
+            sendButton.setDisable(true);
+            return;
         }
         String response = maxine.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getMaxineDialog(response, dukeImage)
+                DialogBox.getMaxineDialog(response, maxineImage)
         );
         userInput.clear();
     }
