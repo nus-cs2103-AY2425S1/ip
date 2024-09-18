@@ -1,6 +1,6 @@
 # Chatterbox 
 
-![Chatterbox](docs/Ui.png)
+![Chatterbox](Ui.png)
 Your personal assistant to navigating this troubled world
 
 ## Table of Contents
