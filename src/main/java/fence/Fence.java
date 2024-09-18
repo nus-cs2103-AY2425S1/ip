@@ -80,8 +80,10 @@ public class Fence {
             } else if (commandType.equals("find")) {
                 String keyword = parser.getString();
                 return ui.list(tasks.find(keyword));
-            } else {
+            } else if (commandType.equals("unknown command")){
                 return ui.printUnknownCommand();
+            } else {
+                throw new AssertionError("commandType should be one of the default strings");
             }
         } catch (NoSuchElementException e) {
             return ui.printMissingFieldError();
