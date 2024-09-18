@@ -40,7 +40,7 @@ public class Parser {
     public static Command parse(String fullCommand) throws RoseException {
         String[] input = fullCommand.split(" ", 2);
         String command = input[0].toLowerCase();
-        String message = (input.length > 1) ? input[1] : "";
+        String message = (input.length > 1) ? input[1].trim() : "";
 
         try {
             switch (command) {

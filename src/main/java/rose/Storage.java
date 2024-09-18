@@ -23,6 +23,7 @@ import rose.task.Todo;
  * directories.</p>
  */
 public class Storage {
+    private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private String filePath;
 
     public Storage(String filePath) {
@@ -48,7 +49,6 @@ public class Storage {
 
         if (file.exists()) {
             List<String> entries = Files.readAllLines(Paths.get(filePath));
-            DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
             try {
                 for (String entry : entries) {

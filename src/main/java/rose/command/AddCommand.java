@@ -46,6 +46,7 @@ public class AddCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             Task newTask = createTask(taskType, taskName);
+            assert newTask != null : "Task added cannot be null.";
             tasks.addTask(newTask);
             saveTasks(storage, tasks, ui);
             return ui.showAdd(newTask, tasks.size());
@@ -57,6 +58,7 @@ public class AddCommand extends Command {
     }
 
     private Task createTask(TaskType taskType, String taskName) throws RoseException, DateTimeParseException {
+        assert taskName != null : "Task name cannot be null.";
         String tag = "";
         String taskDesc = taskName;
         if (taskName.contains("#")) {

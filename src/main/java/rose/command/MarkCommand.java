@@ -28,7 +28,6 @@ public class MarkCommand extends Command {
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
-            assert idx >= 0 : "Task index has to be non-negative";
             tasks.getTask(idx - 1).mark();
             try {
                 storage.save(tasks.getTaskList());
