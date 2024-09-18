@@ -207,5 +207,7 @@ A: You can just replace the data folder in the new computer with the data folder
 | set      | `set [TASK INDEX] [PRIORITY]`                        | `set 2 high`                                           |
 | help     | `help`                                               | `help`                                                 |
 | bye      | `bye`                                                | `bye`                                                  |
-```
+
+
+Have fun managing your tasks with Jay! 🎉
 
