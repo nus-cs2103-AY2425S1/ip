@@ -189,7 +189,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void testDeleteTask() {
+    public void deleteTask_taskInList_taskDeleted() {
         TaskList taskList = new TaskList(createTestList());
         Todo todo = new Todo("test2");
 
@@ -198,19 +198,25 @@ public class TaskListTest {
         } catch (Exception e) {
             fail(e.getMessage());
         }
+    }
 
-        // Deleting an empty list throws error.
+    @Test
+    public void deleteTask_emptyList_exceptionThrown() {
+        TaskList testList = new TaskList();
+
         try {
-            TaskList testList = new TaskList();
             testList.deleteTask(1);
             fail();
         } catch (Exception e) {
             assertEquals("OOPS!!! List is empty! Please add tasks!", e.getMessage());
         }
+    }
 
-        // Delete task index out of range throws error.
+    @Test
+    public void deleteTask_indexOutOfRange_exceptionThrown() {
+        TaskList testList = new TaskList(createTestList());
+
         try {
-            TaskList testList = new TaskList(createTestList());
             testList.deleteTask(0);
             fail();
         } catch (Exception e) {
@@ -219,9 +225,7 @@ public class TaskListTest {
                     \t Please provide a valid Task.""", e.getMessage());
         }
 
-        // Delete task index out of range throws error.
         try {
-            TaskList testList = new TaskList(createTestList());
             testList.deleteTask(4);
             fail();
         } catch (Exception e) {
