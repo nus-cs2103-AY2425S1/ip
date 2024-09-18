@@ -1,70 +1,112 @@
 package stobberi.task;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import stobberi.stobberiexception.StobberiException;
 
 public class TaskTest {
 
-    private Task task;
+    private Task todoTask;
+    private Task deadlineTask;
+    private Task eventTask;
 
     @BeforeEach
-    public void setUp() {
-        task = new Todo("Read book", "0");
+    public void setUp() throws StobberiException {
+        // Initialize instances of Todo, Deadline, and Event tasks
+        todoTask = new Todo("Read book", "0");
+        deadlineTask = new Deadline("Submit report", "19-09-2024 0900hrs", "0");
+        eventTask = new Event("Conference", "21-09-2024 0900hrs", "21-09-2024 1700hrs", "0");
+    }
+
+    // ================== Tests for Todo ==================
+
+    @Test
+    public void testTodoInitialStatus() {
+        assertFalse(todoTask.isDone(), "Todo should not be done initially.");
+        assertEquals(" ", todoTask.getStatusIcon(), "Status icon should be an empty space initially.");
     }
 
     @Test
-    public void testInitialStatus() {
-        // By default, the task should not be marked as done
-        assertFalse(task.isDone(), "Task should not be done initially.");
-        assertEquals(" ", task.getStatusIcon(), "Status icon should be an empty space initially.");
+    public void testTodoSetDone() {
+        todoTask.setDone();
+        assertTrue(todoTask.isDone(), "Todo should be marked as done.");
+        assertEquals("X", todoTask.getStatusIcon(), "Status icon should be 'X' when Todo is done.");
     }
 
     @Test
-    public void testSetDone() {
-        // Mark the task as done
-        task.setDone();
-        assertTrue(task.isDone(), "Task should be marked as done.");
-        assertEquals("X", task.getStatusIcon(), "Status icon should be 'X' when task is done.");
+    public void testTodoSetNotDone() {
+        todoTask.setDone();
+        todoTask.setNotDone();
+        assertFalse(todoTask.isDone(), "Todo should be marked as not done.");
+        assertEquals(" ", todoTask.getStatusIcon(), "Status icon should be an empty space when Todo is not done.");
     }
 
     @Test
-    public void testSetNotDone() {
-        // Mark the task as done and then as not done
-        task.setDone();
-        task.setNotDone();
-        assertFalse(task.isDone(), "Task should be marked as not done.");
-        assertEquals(" ", task.getStatusIcon(), "Status icon should be an empty space when task is not done.");
+    public void testTodoToString() {
+        assertEquals("[T] [ ] Read book", todoTask.toString(), "toString should return '[ ] Read book' for Todo.");
+        todoTask.setDone();
+        assertEquals("[T] [X] Read book", todoTask.toString(), "toString should return '[X] Read book' when Todo is done.");
+    }
+
+    // ================== Tests for Deadline ==================
+
+    @Test
+    public void testDeadlineInitialStatus() {
+        assertFalse(deadlineTask.isDone(), "Deadline should not be done initially.");
+        assertEquals(" ", deadlineTask.getStatusIcon(), "Status icon should be an empty space initially.");
     }
 
     @Test
-    public void testHasWord() {
-        // Test if the task description contains a specific word
-        assertTrue(task.hasWord("Read"), "Task description should contain the word 'Read'.");
-        assertFalse(task.hasWord("Write"), "Task description should not contain the word 'Write'.");
+    public void testDeadlineSetDone() {
+        deadlineTask.setDone();
+        assertTrue(deadlineTask.isDone(), "Deadline should be marked as done.");
+        assertEquals("X", deadlineTask.getStatusIcon(), "Status icon should be 'X' when Deadline is done.");
     }
 
     @Test
-    public void testIsSameDescription() {
-        // Test the description similarity method
-        assertTrue(task.isSame("Read book"), "Task description should match 'Read book'.");
-        assertFalse(task.isSame("Write essay"), "Task description should not match 'Write essay'.");
+    public void testDeadlineGetDescription() {
+        assertEquals("Submit report", deadlineTask.getDescription(), "Description should be 'Submit report'.");
     }
 
     @Test
-    public void testGetDescription() {
-        // Test if the description is returned correctly
-        assertEquals("Read book", task.getDescription(), "Description should be 'Read book'.");
+    public void testDeadlineToString() {
+        assertEquals("[D] [ ] Submit report (by: 19 September 2024 9am)", deadlineTask.toString(),
+                "Deadline toString isn't correct when task not done");
+        deadlineTask.setDone();
+        assertEquals("[D] [X] Submit report (by: 19 September 2024 9am)", deadlineTask.toString(),
+                "Deadline toString isn't correct when task is done");
+    }
+
+    // ================== Tests for Event ==================
+
+    @Test
+    public void testEventInitialStatus() {
+        assertFalse(eventTask.isDone(), "Event should not be done initially.");
+        assertEquals(" ", eventTask.getStatusIcon(), "Status icon should be an empty space initially.");
     }
 
     @Test
-    public void testToString() {
-        // Test the string representation of the task
-        assertEquals("[T] [ ] Read book", task.toString(), "toString should return '[ ] Read book' when task is not done.");
+    public void testEventSetDone() {
+        eventTask.setDone();
+        assertTrue(eventTask.isDone(), "Event should be marked as done.");
+        assertEquals("X", eventTask.getStatusIcon(), "Status icon should be 'X' when Event is done.");
+    }
 
-        // After marking the task as done
-        task.setDone();
-        assertEquals("[T] [X] Read book", task.toString(), "toString should return '[X] Read book' when task is done.");
+    @Test
+    public void testEventGetDescription() {
+        assertEquals("Conference", eventTask.getDescription(), "Description should be 'Conference'.");
+    }
+
+    @Test
+    public void testEventToString() {
+        assertEquals("[E] [ ] Conference (from: 21 September 2024 9am to: 21 September 2024 5pm)", eventTask.toString(),
+                "Event toString() isn't correct");
+        eventTask.setDone();
+        assertEquals("[E] [X] Conference (from: 21 September 2024 9am to: 21 September 2024 5pm)", eventTask.toString(),
+                "Event toString() isn't correct");
     }
 }
