@@ -42,7 +42,8 @@ public class AddCommandTest {
             addDeadline.execute(tasklist, null, null);
             addEvent.execute(tasklist, null, null);
         } catch (Exception e) {
-            // should not have exception here
+            assertEquals(e, null, "Instantiating and executing AddCommand should not have exceptions.\n"
+                    + "(Ideal params were used)");
         }
 
         // Assert

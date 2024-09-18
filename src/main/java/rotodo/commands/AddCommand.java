@@ -1,5 +1,6 @@
 package rotodo.commands;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -50,23 +51,13 @@ public class AddCommand extends Command {
                 break;
 
             case DEADLINE:
-                if (values.length < 2) {
-                    throw new IncompleteInputException(
-                            "RoTodo can't read your mind, otherwise "
-                            + "RoTodo's creator would be rich!\n"
-                            + "  RoTodo needs a task description and deadline");
-                }
+                assert values.length < 2 : "Insufficient arguments for Deadline";
                 this.value = values[0];
                 this.byOrTo = LocalDateTime.parse(values[1], formatter);
                 break;
 
             case EVENT:
-                if (values.length < 3) {
-                    throw new IncompleteInputException(
-                            "RoTodo can't read your mind, otherwise "
-                            + "RoTodo's creator would be rich!\n"
-                            + "  RoTodo needs a task description, from and to date/time");
-                }
+                assert values.length < 3 : "Insufficient arguments for Event";
                 this.value = values[0];
                 LocalDateTime t1 = LocalDateTime.parse(values[1], formatter);
                 LocalDateTime t2 = LocalDateTime.parse(values[2], formatter);
@@ -118,6 +109,11 @@ public class AddCommand extends Command {
         }
         if (gui != null) {
             gui.addMessage(msg);
+            try {
+                storage.saveList(tasks);
+            } catch (IOException e) {
+                gui.addMessage("\nUnable to save list :(\nRoTodo is sorry");
+            }
         }
     }
 }
