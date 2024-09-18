@@ -10,62 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class ParserTest {
 
-    private static String removeFirstOccurrence(String s, char c) {
-        int index = s.indexOf(c);
-        if (index == -1) {
-            return s;
-        }
-        return s.substring(0, index) + s.substring(index + 1);
-    }
-
-    @Test
-    public void testRemoveFirstOccurrence_charExistAtTheStart() {
-        String result = removeFirstOccurrence("apple", 'a');
-        assertEquals("pple", result);
-    }
-
-    @Test
-    public void testRemoveFirstOccurrence_charExistsInTheMiddle() {
-        String result = removeFirstOccurrence("hello", 'l');
-        assertEquals("helo", result);
-    }
-
-    @Test
-    public void testRemoveFirstOccurrence_charExistsAtTheEnd() {
-        String result = removeFirstOccurrence("cat", 't');
-        assertEquals("ca", result);
-    }
-
-    @Test
-    public void testRemoveFirstOccurrence_charDoesNotExist() {
-        String result = removeFirstOccurrence("hello", 'x');
-        assertEquals("hello", result);
-    }
-
-    @Test
-    public void testRemoveFirstOccurrence_emptyString() {
-        String result = removeFirstOccurrence("", 'a');
-        assertEquals("", result);
-    }
-
-    @Test
-    public void testRemoveFirstOccurrence_charOccursMultipleTimesConsecutively() {
-        String result = removeFirstOccurrence("ball", 'l');
-        assertEquals("bal", result);
-    }
-
-    @Test
-    public void testRemoveFirstOccurrence_charOccursMultipleTimesSeparately() {
-        String result = removeFirstOccurrence("banana", 'a');
-        assertEquals("bnana", result);
-    }
-
-    @Test
-    public void testRemoveFirstOccurrence_charIsANumber() {
-        String result = removeFirstOccurrence("1 date and time", '1');
-        assertEquals(" date and time", result);
-    }
-
     private static final String DATE_REGEX = "\\b(\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))\\b";
 
     private static String findDate(String s) {

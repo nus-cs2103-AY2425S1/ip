@@ -15,7 +15,7 @@ public class UpdateCommand extends Command {
     public void execute(String line) throws InvalidIndexInputException, UpdateFormatException, IOException, DateFormatException, TimeFormatException {
         index = parser.parseUpdateIndex(line);
         task = taskList.getSpecificTask(index);
-        String updateDetails = Parser.removeFirstOccurrence(line, (char) ('0' + (index + 1)));
+        String updateDetails = Parser.removeFirstOccurrence(line, String.valueOf (index + 1));
         Object[] details = {};
 
         assert task instanceof ToDo ||

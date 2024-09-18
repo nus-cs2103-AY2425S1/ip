@@ -161,12 +161,12 @@ public class Parser {
      * @return String without the first occurrence of the letter.
      */
     // Solution below is inspired by AI
-    public static String removeFirstOccurrence(String s, char c) {
+    public static String removeFirstOccurrence(String s, String c) {
         int index = s.indexOf(c);
         if (index == -1) {
             return s;
         }
-        return s.substring(0, index) + s.substring(index + 1);
+        return s.substring(0, index) + s.substring(index + c.length());
     }
 
     public static String[] splitAndTrimCommand(String taskLine) {
@@ -393,7 +393,7 @@ public class Parser {
             }
             switch (s.charAt(0)) {
             case 'd':
-            s = removeFirstOccurrence(s, 'd').trim();
+            s = removeFirstOccurrence(s, "d").trim();
             description = s;
             break;
             default:
@@ -425,11 +425,11 @@ public class Parser {
             }
             switch (s.charAt(0)) {
             case 'd':
-                s = removeFirstOccurrence(s, 'd').trim();
+                s = removeFirstOccurrence(s, "d").trim();
                 description = s;
                 break;
             case 'e':
-                s = removeFirstOccurrence(s, 'e').trim();
+                s = removeFirstOccurrence(s, "e").trim();
                 endDate = getLocalDate(s);
                 endTime = getLocalTime(s);
                 break;
@@ -461,7 +461,7 @@ public class Parser {
             }
             switch (s.charAt(0)) {
             case 'd':
-                s = removeFirstOccurrence(s, 'd').trim();
+                s = removeFirstOccurrence(s, "d").trim();
                 description = s;
                 break;
             case 's':
