@@ -27,6 +27,7 @@ public class Gui extends Application {
             AnchorPane anchorPane = fxmlLoader.load();
             Scene scene = new Scene(anchorPane);
             stage.setScene(scene);
+            stage.setTitle("Jay");
             fxmlLoader.<MainWindow>getController().setJay(jay); // inject the Jay instance
             stage.show();
         } catch (IOException e) {
