@@ -30,6 +30,8 @@ public class TaskList {
 
     /**
      * Adds the given task to the task list.
+     *
+     * @param task the task to be added to the list.
      */
     public void add(Task task) {
         this.tasks.add(task);
@@ -37,6 +39,9 @@ public class TaskList {
 
     /**
      * Returns the task at the provided index.
+     *
+     * @param index the index to be retrieved from the list.
+     * @return Task the task of the specified index.
      */
     public Task get(int index) {
         return this.tasks.get(index);
@@ -54,6 +59,8 @@ public class TaskList {
 
     /**
      * Returns the size of the task list.
+     *
+     * @return the size of the task list.
      */
     public int size() {
         return this.tasks.size();
@@ -61,6 +68,8 @@ public class TaskList {
 
     /**
      * Returns true if there are no tasks and false if there is at least 1 task in the list.
+     *
+     * @return a boolean indicating true if empty and false if not empty
      */
     public boolean isEmpty() {
         return this.tasks.isEmpty();

@@ -52,6 +52,8 @@ public class MainWindow extends AnchorPane {
 
     /**
      * Injects the Hoshi instance
+     *
+     * @param d the hoshi instance to be injected.
      */
     public void setHoshi(Hoshi d) {
         hoshi = d;

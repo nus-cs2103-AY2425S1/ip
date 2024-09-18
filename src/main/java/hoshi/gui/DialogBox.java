@@ -52,10 +52,24 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Gets the dialog of the user by returning a new Dialog Box with specified text and image.
+     *
+     * @param text the text to display in the dialog.
+     * @param img the image to display in the dialog.
+     * @return db the dialog box with text and image.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Gets the dialog of Hoshi by returning a new Dialog Box with specified text and image.
+     *
+     * @param text the text to display in the dialog.
+     * @param img the image to display in the dialog.
+     * @return db the dialog box with text and image.
+     */
     public static DialogBox getHoshiDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

@@ -33,6 +33,9 @@ public class Hoshi {
 
     /**
      * Runs the main flow of Hoshi
+     *
+     * @param input the text that the user inputs.
+     * @return the response of Hoshi.
      */
     public String run(String input) {
 
