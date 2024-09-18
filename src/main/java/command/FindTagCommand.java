@@ -24,7 +24,6 @@ public class FindTagCommand extends Command {
         if (!tagList.containsTag(tagName)) {
             return guiResponses.tagNotFoundMsg(tagName);
         }
-        System.out.println(tagList.getTag(tagName).getTaggedTasks());;
         return guiResponses.getTaggedTasks(tagList.getTag(tagName)
                 .getTaggedTasks());
 

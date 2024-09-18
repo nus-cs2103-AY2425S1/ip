@@ -89,12 +89,13 @@ public class ChatterboxGui {
     public String processInput(String input) {
         input = input.trim();
         Command currCommand = parser.parseCommandType(input);
-        String result = null;
+
+        String result;
         try {
             result = currCommand.execute(input, guiResponses, userTags, tasks, parser);
         } catch (ChatterboxExceptions.ChatterBoxError e) {
-            result = ("It seems an error has occurred " + e.getMessage())
-            + "Even in moments like these, there is something to be learned";
+
+            result = guiResponses.getErrorMessage(e.getMessage());
         }
         storage.saveHistory(tasks.getTasks());
         return result;

@@ -35,7 +35,7 @@ public class TagCommand extends Command {
 
         int tagIndex = parser.tagCommandParseTaskIndex(input);
         if (tagIndex < 1 || tagIndex > taskList.size()) {
-            return guiResponses.invalidIndexMessage();
+            return guiResponses.getInvalidIndexMessage();
         }
         tagIndex = tagIndex - 1;
         Tag tag;

@@ -5,8 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.HashSet;
 import java.util.Set;
 
-import chatterboxexceptions.ChatterboxExceptions;
 import org.junit.jupiter.api.Test;
+
+import chatterboxexceptions.ChatterboxExceptions;
 import tasks.Task;
 import tasks.Todo;
 

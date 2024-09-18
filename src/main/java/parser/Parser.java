@@ -164,7 +164,7 @@ public class Parser {
         StringBuilder plainDesc = new StringBuilder();
         StringBuilder deadline = new StringBuilder();
         boolean commandEncountered = false;
-        for (int i = 9; i < desc.length(); i++) {
+        for (int i = 8; i < desc.length(); i++) {
 
             if (i < endDate) {
                 plainDesc.append(desc.charAt(i));
@@ -172,7 +172,7 @@ public class Parser {
 
             }
             if (desc.charAt(i) == '/' && !commandEncountered) {
-                i += 3;
+                i += 2;
                 commandEncountered = true;
                 continue;
             }
@@ -215,15 +215,15 @@ public class Parser {
                 plainDesc.append(desc.charAt(i));
                 continue;
             }
-           if (i < toStart) {
-               if (desc.charAt(i) == '/' && !fromCommandFound) {
-                       i += 4;
-                       fromCommandFound = true;
-                       continue;
-               }
-              startDate.append(desc.charAt(i));
-              continue;
-           }
+            if (i < toStart) {
+                if (desc.charAt(i) == '/' && !fromCommandFound) {
+                    i += 4;
+                    fromCommandFound = true;
+                    continue;
+                }
+                startDate.append(desc.charAt(i));
+                continue;
+            }
 
 
             if (desc.charAt(i) == '/' && !toCommandFound) {

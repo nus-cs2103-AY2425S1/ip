@@ -106,17 +106,18 @@ public class Storage {
         File f = new File(this.HIST_FILE);
         Scanner s = new Scanner(f);
 
-        try {
-            while (s.hasNext()) {
+        while (s.hasNext()) {
+            try {
                 String nextLine = s.nextLine();
                 //parse the Line for task
                 parseTask(parser, nextLine, loadedTasks, loadedTags);
 
-            }
-        } catch (ChatterboxExceptions.ChatterBoxNoInput e) {
-            System.out.println("Error: " + e.getMessage());
-        }
+            } catch (ChatterboxExceptions.ChatterBoxNoInput e) {
+                System.out.println("Error: " + e.getMessage());
 
+            }
+
+        }
     }
 
     /**
@@ -137,17 +138,7 @@ public class Storage {
         // parse tags if available
         Set<Tag> taskTagSet = new HashSet<>(); //stores the current tags for this task
 
-        if (tagStart != -1) { //if /tag found
-            String tags = nextLine.substring(tagStart + 7);
-            String[] tagList = tags.split(" ");
-
-            for (String tag : tagList) {
-
-                Tag nextTag = loadedTags.addTagFromString(tag);
-                taskTagSet.add(nextTag);
-            }
-
-        }
+        extractTags(nextLine, loadedTags, tagStart, taskTagSet);
         //rest includes text ( deadline/event )
         String rest = nextLine.substring(8); //moves to start of description
         Task nextTask;
@@ -170,10 +161,28 @@ public class Storage {
 
     }
 
-    private static Event loadEvent(Parser parser, String rest, int tagStart) throws ChatterboxExceptions.ChatterBoxNoInput {
+    private static void extractTags(String nextLine, TagList loadedTags, int tagStart, Set<Tag> taskTagSet) {
+        if (tagStart != -1) { //if /tag found
+            String tags = nextLine.substring(tagStart + 7);
+            String[] tagList = tags.split(" ");
+
+            for (String tag : tagList) {
+
+                Tag nextTag = loadedTags.addTagFromString(tag);
+                taskTagSet.add(nextTag);
+            }
+
+        }
+    }
+
+    private static Event loadEvent(Parser parser, String rest, int tagStart)
+            throws ChatterboxExceptions.ChatterBoxNoInput {
         Event nextTask;
         int startBracket = rest.indexOf("( from");
         int toStart = rest.indexOf("to");
+        if (startBracket < 0 || toStart < 0) {
+            throw new ChatterboxExceptions.ChatterBoxNoInput("Error loading event");
+        }
         String desc = rest.substring(0, startBracket).trim();
         String startDate = rest.substring(startBracket + 7, toStart).trim();
         LocalDateTime startDateObj = parser.parseDateTime(startDate);
@@ -197,10 +206,14 @@ public class Storage {
         return nextTask;
     }
 
-    private static Deadline loadDeadline(Parser parser, String rest, int tagStart) throws ChatterboxExceptions.ChatterBoxNoInput {
+    private static Deadline loadDeadline(Parser parser, String rest, int tagStart)
+            throws ChatterboxExceptions.ChatterBoxNoInput {
         Deadline nextTask;
         int startBracket = rest.indexOf("( by");
         int bracketEnd = rest.indexOf(") /tags");
+        if (startBracket < 0 || bracketEnd < 0) {
+            throw new ChatterboxExceptions.ChatterBoxNoInput("Error loading deadline");
+        }
         String desc = rest.substring(0, startBracket).trim();
         String deadline;
         if (tagStart == -1) {

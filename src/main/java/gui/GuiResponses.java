@@ -84,7 +84,7 @@ public class GuiResponses {
      * @return msg for marking a task
      */
     public String markMsg(Task task) {
-        return "You've completed the task %s" + "\n" + task.getDescription()
+        return String.format("You've completed the task") +  "\n" + task.getDescription()
                 + "\n" + "Each completed task is a step closer to clarity, "
                 + "though the journey may still feel long...";
     }
@@ -169,7 +169,7 @@ public class GuiResponses {
      * @return String representation of tagged task
      */
     public String untagTagMsg(Task task, String tagName) {
-        return String.format("Ah, it appears the tag '%s' has been removed from the task \n%s. "
+        return String.format("Ah, it appears the tag '%s' has been removed from the task \n[%s]. "
                 + "\nSometimes, the tools at our disposal may seem somewhat inadequate. "
                 + "Rest assured, even in these moments of apparent simplicity, "
                 + "there is always room for growth and improvement.", tagName, task.getDescription());
@@ -184,7 +184,7 @@ public class GuiResponses {
         return String.format("The task has been tagged with '%s'.\n"
                 + "This addition might change how you perceive and approach this task, "
                 + "adding another layer to its significance:\n"
-                + "%s", tagName, task.descNoTags());
+                + "%s", tagName.toLowerCase(), task.descNoTags());
     }
     /**
      * Gets String representation of all tags
@@ -218,17 +218,24 @@ public class GuiResponses {
      * @return String representation of invalid command response
      */
     public String getInvalidCommandMessage() {
-        return "It seems I didn't quite grasp that command. Communication can be a delicate thing, can’t it?"
-                +" Perhaps, you could try again.";
+        return "It seems I didn't quite grasp that command. Communication can be a delicate thing, can't it?"
+                + " Perhaps, you could try again.";
     }
 
     /**
      * Gets String representation of invalid index
      * @return String representation of invalid index
      */
-    public String invalidIndexMessage() {
+    public String getInvalidIndexMessage() {
         return "It seems the index you have entered is invalid. "
                 + "Sometimes, the path to clarity is not as straightforward as we would like, don't you think?";
+    }
+
+    public String getErrorMessage(String errorMessage) {
+        return "It seems an error has occurred\n" + errorMessage
+                + "\nEven in moments like these, there is something to be learned";
+
+
     }
 
 }

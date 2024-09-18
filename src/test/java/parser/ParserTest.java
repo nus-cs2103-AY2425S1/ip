@@ -6,14 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import chatterboxexceptions.ChatterboxExceptions;
-import command.Command;
 import command.ByeCommand;
 import command.DeadlineCommand;
-import command.EventCommand;
-import command.FindCommand;
-import command.InvalidCommand;
-import command.ListCommand;
-import command.MarkCommand;
 import command.TodoCommand;
 
 
@@ -99,7 +93,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseDeadline_DateTime() {
+    public void parseDeadline_dateTime() {
         try {
             assertArrayEquals(new String[]{"deadline text", "Apr 02 2003, 00:00"},
                     testParser.parseDeadline("deadline deadline text /by Apr 02 2003, 00:00"));
@@ -112,7 +106,7 @@ public class ParserTest {
     public void parseEvent_normalText() {
         try {
             assertArrayEquals(new String[] {"event start", "4pm", "9pm"},
-                    testParser.parseEvent("event event start /from 4pm /to 9pm"));
+                    testParser.parseEvent("event event start /from4pm /to9pm"));
         } catch (ChatterboxExceptions.ChatterBoxMissingParameter e) {
             System.out.println("error" + e.getMessage());
         }
@@ -121,8 +115,8 @@ public class ParserTest {
     @Test
     public void parseEvent_plainText() {
         try {
-            assertArrayEquals(new String[] {"start", "4pm", "9pm"},
-                    testParser.parseEvent("event start /from 4pm /to 9pm"));
+            assertArrayEquals(new String[] {"start", "/from 4pm", "9pm"},
+                    testParser.parseEvent("event start /from /from 4pm /to 9pm"));
         } catch (ChatterboxExceptions.ChatterBoxMissingParameter e) {
             System.out.println("error" + e.getMessage());
         }
