@@ -1,0 +1,81 @@
+/* Main styling for the entire application */
+.root {
+  -fx-font-family: "Arial";
+  -fx-font-size: 14px;
+}
+
+/* Styling for the DialogBox */
+.dialog-box {
+  -fx-background-color: #f0f0f0;
+  -fx-background-radius: 10px;
+  -fx-padding: 10;
+  -fx-border-radius: 10px;
+  -fx-border-color: lightgrey;
+  -fx-border-width: 1px;
+}
+
+/* Style for user dialog */
+.user-dialog {
+  -fx-background-color: #d1e7dd; /* Light green for user messages */
+  -fx-text-fill: black;
+}
+
+/* Style for Bopes dialog */
+.bopes-dialog {
+  -fx-background-color: #f8d7da; /* Light red for Bopes messages */
+  -fx-text-fill: black;
+}
+
+/* ImageView styling for rounded images */
+.dialog-box .image-view {
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 0, 0);
+  -fx-clip: null;
+  -fx-padding: 5;
+}
+
+.dialog-box .image-view img {
+  -fx-clip: null;
+  -fx-shape: "M100,50 a50,50 0 1,0 100,0 a50,50 0 1,0 -100,0"; /* Clip the image into a circular shape */
+}
+
+/* Button styling */
+.button {
+  -fx-background-color: #007bff;
+  -fx-text-fill: white;
+  -fx-font-size: 14px;
+  -fx-padding: 10 20;
+  -fx-background-radius: 5px;
+  -fx-border-radius: 5px;
+  -fx-cursor: hand;
+}
+
+.button:hover {
+  -fx-background-color: #0056b3;
+}
+
+/* ScrollPane styling */
+.scroll-pane {
+  -fx-background-color: transparent;
+}
+
+/* Dialog style for valid commands (blue background) */
+.valid-command {
+  -fx-background-color: #007bff; /* Blue color */
+  -fx-text-fill: white;
+  -fx-background-radius: 10px;
+  -fx-padding: 10;
+  -fx-border-radius: 10px;
+  -fx-border-color: lightblue;
+  -fx-border-width: 1px;
+}
+
+/* Dialog style for errors (red background) */
+.error-command {
+  -fx-background-color: #dc3545; /* Red color */
+  -fx-text-fill: white;
+  -fx-background-radius: 10px;
+  -fx-padding: 10;
+  -fx-border-radius: 10px;
+  -fx-border-color: lightcoral;
+  -fx-border-width: 1px;
+}

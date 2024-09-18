@@ -28,18 +28,24 @@ public class DialogBox extends HBox {
      * @param text The text to display.
      * @param img  The image to display.
      */
-    private DialogBox(String text, Image img) {
+    private DialogBox(String text, Image img, boolean isError) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
-            fxmlLoader.setRoot(this);  // This sets the root to this HBox
+            fxmlLoader.setRoot(this); 
             fxmlLoader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+    
         dialog.setText(text);
         displayPicture.setImage(img);
+    
+        if (isError) {
+            this.getStyleClass().add("error-command");
+        } else {
+            this.getStyleClass().add("valid-command");
+        }
     }
 
     /**
@@ -59,8 +65,8 @@ public class DialogBox extends HBox {
      * @param img  The user's avatar.
      * @return A DialogBox containing the user's input.
      */
-    public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+    public static DialogBox getUserDialog(String text, Image img, boolean isError) {
+        return new DialogBox(text, img, isError);
     }
 
     /**
@@ -70,8 +76,8 @@ public class DialogBox extends HBox {
      * @param img  The system's avatar.
      * @return A DialogBox containing the system's response.
      */
-    public static DialogBox getBopesDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+    public static DialogBox getBopesDialog(String text, Image img, boolean isError) {
+        var db = new DialogBox(text, img, isError);
         db.flip();
         return db;
     }

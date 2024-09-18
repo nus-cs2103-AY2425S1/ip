@@ -16,8 +16,11 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            
+            scene.getStylesheets().add(Main.class.getResource("/view/style.css").toExternalForm());
+            
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setBopes(bopes);  // Inject the Bopes instance
+            fxmlLoader.<MainWindow>getController().setBopes(bopes);
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();

@@ -23,38 +23,37 @@ public class Parser {
      * @param storage     the Storage object for saving and loading tasks
      * @return the response after executing the command
      */
-    public static String parse(String fullCommand, TaskList tasks, Storage storage) {
+    public static CommandResult parse(String fullCommand, TaskList tasks, Storage storage) {
         try {
             String[] commandWords = fullCommand.split(" ", 2);
             assert commandWords.length > 0 : "Command should not be empty.";
             String commandType = commandWords[0];
-    
+            
             switch (commandType) {
-            case "bye":
-                return handleByeCommand();
-            case "list":
-                return handleListCommand(tasks);
-            case "find":
-                return handleFind(commandWords, tasks);
-            case "mark":
-                return handleMark(commandWords, tasks, storage);
-            case "unmark":
-                return handleUnmark(commandWords, tasks, storage);
-            case "delete":
-                return handleDelete(commandWords, tasks, storage);
-            default:
-                return handleAddTask(fullCommand, tasks, storage);
+                case "bye":
+                    return new CommandResult(handleByeCommand(), false); // `false` means no error
+                case "list":
+                    return new CommandResult(handleListCommand(tasks), false);
+                case "find":
+                    return new CommandResult(handleFind(commandWords, tasks), false);
+                case "mark":
+                    return new CommandResult(handleMark(commandWords, tasks, storage), false);
+                case "unmark":
+                    return new CommandResult(handleUnmark(commandWords, tasks, storage), false);
+                case "delete":
+                    return new CommandResult(handleDelete(commandWords, tasks, storage), false);
+                default:
+                    return new CommandResult(handleAddTask(fullCommand, tasks, storage), false);
             }
         } catch (BopesException e) {
-            return "Error: " + e.getMessage();
+            return new CommandResult("Error: " + e.getMessage(), true);
         } catch (NumberFormatException e) {
-            return "Error: Invalid number format.";
+            return new CommandResult("Error: Invalid number format.", true);
         } catch (Exception e) {
-            return "Error: An unexpected error occurred.";
+            return new CommandResult("Error: An unexpected error occurred.", true);
         }
     }
 
-    // Handles the 'bye' command
     private static String handleByeCommand() {
         String goodbyeMessage = "Goodbye! The program will exit in 5 seconds...";
         new Thread(() -> {
@@ -68,12 +67,10 @@ public class Parser {
         return goodbyeMessage;
     }
 
-    // Handles the 'list' command
     private static String handleListCommand(TaskList tasks) {
         return tasks.toString();
     }
 
-    // Handles the 'find' command
     private static String handleFind(String[] commandWords, TaskList tasks) throws BopesException {
         if (commandWords.length > 1) {
             return handleFindCommand(commandWords[1], tasks);
@@ -82,7 +79,6 @@ public class Parser {
         }
     }
 
-    // Handles the 'mark' command
     private static String handleMark(String[] commandWords, TaskList tasks, Storage storage) throws BopesException {
         if (commandWords.length > 1) {
             return handleMarkCommand(commandWords[1], tasks, storage);
@@ -91,7 +87,6 @@ public class Parser {
         }
     }
 
-    // Handles the 'unmark' command
     private static String handleUnmark(String[] commandWords, TaskList tasks, Storage storage) throws BopesException {
         if (commandWords.length > 1) {
             return handleUnmarkCommand(commandWords[1], tasks, storage);
@@ -100,7 +95,6 @@ public class Parser {
         }
     }
 
-    // Handles the 'delete' command
     private static String handleDelete(String[] commandWords, TaskList tasks, Storage storage) throws BopesException {
         if (commandWords.length > 1) {
             return handleDeleteCommand(commandWords[1], tasks, storage);
@@ -109,7 +103,6 @@ public class Parser {
         }
     }
 
-    // Handles the 'add task' command
     private static String handleAddTask(String input, TaskList tasks, Storage storage) throws BopesException {
         return handleAddTaskCommand(input, tasks, storage);
     }
