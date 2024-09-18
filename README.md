@@ -33,14 +33,15 @@ Example of usage:
 ##### Adding Deadline
 To add a deadline, type `deadline <description> /by <date>`
 <date> can be in String format or of the format 
-- `dd-MM-yyyy HH:mm`
-- `dd-MM-yyyy` 
-- `dd/MM/yyyy HH:mm`, 
-- `dd/MM/yyyy`
+<br>
+* `dd-MM-yyyy HH:mm`
+* `dd-MM-yyyy` 
+* `dd/MM/yyyy HH:mm`, 
+* `dd/MM/yyyy`
 
 
 Example of usage
-```deadline submit assignment /by 12-12-2021 23:59```
+`deadline submit assignment /by 12-12-2021 23:59`
 
 ##### Adding Event
 To add an event type `event <description> /from <date> /to <date>`
@@ -56,7 +57,7 @@ To view all current tasks, type `list`.
 ```list```
 <br> 
 Chatterbox will display
-```dtd
+```
 [T][ ] task 1 /tags: tag1 
 [D][ ] dead 1 ( by Aug 29 2002, 14:21 )
 [E][ ] event 1 ( from Apr 02 2003, 21:12 to Feb 01 2024, 12:00 )
