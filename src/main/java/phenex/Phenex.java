@@ -1,7 +1,5 @@
 package phenex;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Scanner;
 
 import phenex.command.Command;
@@ -17,7 +15,7 @@ import phenex.util.Parser;
  */
 public class Phenex {
 
-    public static final Path DEFAULT_FILEPATH = Paths.get("data", "phenex.txt");
+    public static final String DEFAULT_FILEPATH = "./data/phenex.txt";
 
     /** Encapsulates the Ui of Phenex. */
     private Ui ui;
@@ -33,7 +31,7 @@ public class Phenex {
      * Creates a Phenex object with a specified filePath.
      * @param filePath the filePath to be used.
      */
-    public Phenex(Path filePath) {
+    public Phenex(String filePath) {
         this.storage = new Storage(filePath);
         this.tasks = new TaskList(this.storage);
         this.ui = new Ui();

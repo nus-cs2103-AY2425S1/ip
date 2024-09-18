@@ -2,7 +2,9 @@ package phenex.util;
 
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -71,13 +73,15 @@ public class Parser {
     /**
      * Parses local date from a line.
      *
-     * @param line the line to check.
+     * @param line the string representation of local date.
      * @return a LocalDate object representing the local date.
      * @throws PhenexException if parsing error occurs.
      */
     public LocalDate parseLocalDateFromLine(String line) throws PhenexException {
         try {
-            return LocalDate.parse(line.substring(12));
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+                    .withResolverStyle(ResolverStyle.SMART);
+            return LocalDate.parse(line, dateTimeFormatter);
         } catch (DateTimeParseException e) {
             throw new PhenexException("Invalid date! Correct format: YYYY-MM-DD");
         }
@@ -109,17 +113,18 @@ public class Parser {
             commandWithIndex.setIndex(this.getIndexOfTask(line, command));
         } else if (command instanceof DateCheckCommand) {
             DateCheckCommand dateCheckCommand = (DateCheckCommand) command;
-            dateCheckCommand.setLocalDate(this.parseLocalDateFromLine(line));
+            String date = line.substring(12);
+            dateCheckCommand.setLocalDate(this.parseLocalDateFromLine(date));
         } else if (command instanceof CreateTaskCommand) {
 
             if (command instanceof DeadlineCommand) {
                 String deadlineBy = matcher.group(2);
-                LocalDate localDate = LocalDate.parse(deadlineBy);
+                LocalDate localDate = parseLocalDateFromLine(deadlineBy);
                 DeadlineCommand deadlineCommand = (DeadlineCommand) command;
                 deadlineCommand.setDate(localDate);
             } else if (command instanceof EventCommand) {
-                LocalDate fromDate = LocalDate.parse(matcher.group(2));
-                LocalDate toDate = LocalDate.parse(matcher.group(3));
+                LocalDate fromDate = parseLocalDateFromLine(matcher.group(2));
+                LocalDate toDate = parseLocalDateFromLine(matcher.group(3));
                 EventCommand eventCommand = (EventCommand) command;
                 eventCommand.setDates(fromDate, toDate);
             }

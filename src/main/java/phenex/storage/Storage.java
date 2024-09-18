@@ -3,8 +3,6 @@ package phenex.storage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 import phenex.task.Task;
 import phenex.task.TaskList;
@@ -17,7 +15,7 @@ import phenex.util.Parser;
  */
 public class Storage {
     /** Encapsulates the filePath in storage. */
-    protected final Path filePath;
+    protected final String filePath;
     /** Encapsulates the File in storage. */
     protected File file;
 
@@ -25,21 +23,21 @@ public class Storage {
      * Creates a Storage object which encapsulates the storage for Phenex.
      * @param filePath the filePath in which to create the storage file.
      */
-    public Storage(Path filePath) {
+    public Storage(String filePath) {
         this.filePath = filePath;
+        File file = new File(this.filePath);
 
-        if (!Files.exists(this.filePath)) {
+        if (!file.exists()) {
             // create file if it doesn't exist
             try {
-                Files.createFile(this.filePath);
+                file.getParentFile().mkdir();
                 Ui.printMemoryInitialisedMessage();
-            } catch (IOException e) {
+            } catch (SecurityException e) {
                 Ui.printMemoryInitialisingFailureMessage();
                 Ui.printExceptionMessage(e);
             }
         }
-
-        this.file = new File(this.filePath.toString());
+        this.file = file;
     }
 
     public File getFile() {
@@ -53,7 +51,7 @@ public class Storage {
      */
     public void storeTasksToMemory(TaskList taskList) {
         try {
-            FileWriter fileWriter = new FileWriter(this.filePath.toString());
+            FileWriter fileWriter = new FileWriter(this.filePath);
             for (Task task : taskList.getTasks()) {
                 String line = Parser.parseTaskInfo(task);
                 fileWriter.write(line);
