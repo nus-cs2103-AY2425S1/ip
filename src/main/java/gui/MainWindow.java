@@ -9,7 +9,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import utilities.Bigmouth;
 import javafx.application.Platform;
-
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.util.Duration;
 
 /**
  * Controller for the main GUI.
@@ -27,7 +29,7 @@ public class MainWindow extends AnchorPane {
     private Bigmouth bigmouth;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/gui/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/gui/images/DaDuke.png"));
+    private Image bigmouthImage = new Image(this.getClass().getResourceAsStream("/gui/images/DaDuke.png"));
 
     @FXML
     public void initialize() {
@@ -37,6 +39,11 @@ public class MainWindow extends AnchorPane {
     /** Injects the Bigmouth instance */
     public void setBigmouth(Bigmouth b) {
         bigmouth = b;
+        String welcomeMessage = b.greetUser();
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(welcomeMessage, bigmouthImage)
+        );
+
     }
 
     /**
@@ -50,13 +57,15 @@ public class MainWindow extends AnchorPane {
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(response, bigmouthImage)
         );
 
         if (response.equals("Goodbye")) {
-            Platform.exit();  // This is the correct way to close a JavaFX application
+            // Create a delay before exiting
+            PauseTransition delay = new PauseTransition(Duration.seconds(2)); // 2-second delay
+            delay.setOnFinished(event -> Platform.exit()); // Close the application after the delay
+            delay.play(); // Start the delay
         }
-
         userInput.clear();
     }
 }
