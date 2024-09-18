@@ -2,6 +2,7 @@ package chatterbox;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import chatterboxexceptions.ChatterboxExceptions;
 import command.Command;
@@ -86,20 +87,24 @@ public class ChatterboxGui {
     /**
      * Processes the user input to return the appropriate response
      */
-    public String processInput(String input) {
+    public HashMap<String, String> processInput(String input) {
         input = input.trim();
         Command currCommand = parser.parseCommandType(input);
 
+        HashMap<String, String> response = new HashMap<String, String>();
         String result;
         try {
             result = currCommand.execute(input, guiResponses, userTags, tasks, parser);
+            response.put("type", "OK");
         } catch (ChatterboxExceptions.ChatterBoxError e) {
 
             result = guiResponses.getErrorMessage(e.getMessage());
+            response.put("type", "ERROR");
         }
+        response.put("response", result);
         storage.saveHistory(tasks.getTasks());
-        return result;
 
+        return response;
     }
 
 

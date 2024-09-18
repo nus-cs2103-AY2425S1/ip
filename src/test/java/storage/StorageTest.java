@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import chatterboxexceptions.ChatterboxExceptions;
 import parser.Parser;
+import tags.Tag;
 import tags.TagList;
 import tasks.Deadline;
 import tasks.Event;
@@ -60,6 +61,7 @@ public class StorageTest {
             input.add(new Event("event 1",
                     LocalDateTime.of(2003, 4, 2, 21, 12, 0),
                     LocalDateTime.of(2024, 2, 1, 12, 00, 0)));
+
             testStorage.saveHistory(input);
 
             ArrayList<Task> output = new ArrayList<>();
@@ -111,8 +113,14 @@ public class StorageTest {
             TagList tags = new TagList();
             testStorage.parseTask(testParser, "D |   | dead 1 ( by tmr ) /tags #tag1 #tag2",
                     taskList, tags);
-            assertEquals(new Deadline("dead 1", "tmr").getDescription(),
+            Deadline test = new Deadline("dead 1", "tmr");
+            Tag tag1 = new Tag("#tag1");
+            Tag tag2 = new Tag("#tag2");
+            test.addTag(tag2);
+            test.addTag(tag1);
+            assertEquals(new Deadline("dead 1", "tmr").descNoTags(),
                     taskList.get(0).descNoTags());
+            assertEquals(test.getDescription(), taskList.get(0).getDescription());
         } catch (ChatterboxExceptions.ChatterBoxNoInput e) {
             System.out.println("error" + e.getMessage());
         }
@@ -125,7 +133,7 @@ public class StorageTest {
             TagList tags = new TagList();
             testStorage.parseTask(testParser, "E |   | event 1 ( from 4pm to 6pm ) /tags #tag1 #tag2",
                     taskList, tags);
-            assertEquals(new Event("event 1", "4pm", "6pm").getDescription(),
+            assertEquals(new Event("event 1", "4pm", "6pm").descNoTags(),
                     taskList.get(0).descNoTags());
         } catch (ChatterboxExceptions.ChatterBoxNoInput e) {
             System.out.println("error" + e.getMessage());

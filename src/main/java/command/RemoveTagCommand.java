@@ -21,7 +21,7 @@ public class RemoveTagCommand extends Command {
                           TaskList taskList, Parser parser) throws ChatterboxExceptions.ChatterBoxNoInput,
             ChatterboxExceptions.ChatterBoxMissingParameter {
         // input will be in format "removeTag /i <index> /t <tag>"
-        int index = parser.parseRemoveTagIndex(input) -1;
+        int index = parser.parseRemoveTagIndex(input) - 1;
         if (index < 0 || index >= taskList.size()) {
             return guiResponses.getInvalidIndexMessage();
         }

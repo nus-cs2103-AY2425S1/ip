@@ -84,7 +84,7 @@ public class GuiResponses {
      * @return msg for marking a task
      */
     public String markMsg(Task task) {
-        return String.format("You've completed the task") +  "\n" + task.getDescription()
+        return String.format("You've completed the task") + "\n" + task.getDescription()
                 + "\n" + "Each completed task is a step closer to clarity, "
                 + "though the journey may still feel long...";
     }

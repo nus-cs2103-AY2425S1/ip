@@ -163,7 +163,7 @@ public class Storage {
 
     private static void extractTags(String nextLine, TagList loadedTags, int tagStart, Set<Tag> taskTagSet) {
         if (tagStart != -1) { //if /tag found
-            String tags = nextLine.substring(tagStart + 7);
+            String tags = nextLine.substring(tagStart + 6);
             String[] tagList = tags.split(" ");
 
             for (String tag : tagList) {
@@ -179,7 +179,7 @@ public class Storage {
             throws ChatterboxExceptions.ChatterBoxNoInput {
         Event nextTask;
         int startBracket = rest.indexOf("( from");
-        int toStart = rest.indexOf("to");
+        int toStart = rest.indexOf("to ");
         if (startBracket < 0 || toStart < 0) {
             throw new ChatterboxExceptions.ChatterBoxNoInput("Error loading event");
         }
@@ -211,6 +211,9 @@ public class Storage {
         Deadline nextTask;
         int startBracket = rest.indexOf("( by");
         int bracketEnd = rest.indexOf(") /tags");
+        if (bracketEnd == -1) { //if no tags
+            bracketEnd = rest.length() - 2;
+        }
         if (startBracket < 0 || bracketEnd < 0) {
             throw new ChatterboxExceptions.ChatterBoxNoInput("Error loading deadline");
         }
