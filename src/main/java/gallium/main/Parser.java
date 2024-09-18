@@ -49,6 +49,7 @@ public class Parser {
      * @return The Command to be executed.
      */
     public Command parse(String message) {
+        assert message != null && message != "": "Message cannot be empty";
         try {
             switch (message) {
             case LIST:
@@ -63,22 +64,7 @@ public class Parser {
                 throw new GalliumException("OOPS!!! The description of a " + message + " cannot be empty.");
 
             default:
-                if (message.matches(MARK + " \\d+") || message.matches(UNMARK + " \\d+")) {
-                    return new MarkCommand(message);
-                } else if (message.startsWith(TODO) || message.startsWith(DEADLINE)
-                        || message.startsWith(EVENT)) {
-                    return new AddCommand(message);
-                } else if (message.startsWith(DELETE)) {
-                    return new DeleteCommand(message);
-                } else if (message.startsWith(DATE)) {
-                    return new DateCommand(message);
-                } else if (message.startsWith(FIND)) {
-                    return new FindCommand(message);
-                } else if (message.startsWith(BYE)) {
-                    return new ByeCommand();
-                } else {
-                    throw new GalliumException("OOPS!!! I'm sorry, but I don't know what that means :(");
-                }
+            return returnCommand(message);
             }
 
         } catch (GalliumException e) {
@@ -95,6 +81,26 @@ public class Parser {
             }
         }
         return new ErrorCommand();
+    }
+
+    private Command returnCommand(String message) throws GalliumException {
+        assert message != null && message != "": "Message cannot be empty";
+        if (message.matches(MARK + " \\d+") || message.matches(UNMARK + " \\d+")) {
+            return new MarkCommand(message);
+        } else if (message.startsWith(TODO) || message.startsWith(DEADLINE)
+                || message.startsWith(EVENT)) {
+            return new AddCommand(message);
+        } else if (message.startsWith(DELETE)) {
+            return new DeleteCommand(message);
+        } else if (message.startsWith(DATE)) {
+            return new DateCommand(message);
+        } else if (message.startsWith(FIND)) {
+            return new FindCommand(message);
+        } else if (message.startsWith(BYE)) {
+            return new ByeCommand();
+        } else {
+            throw new GalliumException("OOPS!!! I'm sorry, but I don't know what that means :(");
+        }
     }
 
 }
