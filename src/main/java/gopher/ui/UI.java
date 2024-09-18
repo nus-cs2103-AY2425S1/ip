@@ -34,10 +34,11 @@ public class UI {
      * @param tasks TaskList object to be printed
      */
     public static String getTaskListMessage(TaskList tasks) {
-        return String.format("You currently have %d %s in the task list\n%s",
+        return String.format("You currently have %d %s in the task list\n%s%s",
                 tasks.getSize(),
-                tasks.getSize() == 1 ? "task" : "tasks",
-                tasks);
+                tasks.getSize() <= 1 ? "task" : "tasks",
+                tasks,
+                tasks.getSize() == 0 ? "Good job! There's no pending tasks to be done!" : "");
     }
 
     /**
@@ -46,6 +47,9 @@ public class UI {
      * @param tasks TaskList object containing all the matched tasks
      */
     public static String getMatchedTasksMessage(TaskList tasks) {
+        if (tasks.getSize() == 0) {
+            return "Sorry, I can't find any tasks that matches your keyword...";
+        }
         return String.format("I have found %d matching %s in your task list:\n%s",
                 tasks.getSize(),
                 tasks.getSize() == 1 ? "task" : "tasks",
@@ -130,5 +134,20 @@ public class UI {
                 + "Currently I can read date inputs in the following formats:\n"
                 + "    1. YYYY-MM-DD\n"
                 + "    2. YYYY-MM-DD hh:mm");
+    }
+
+    /**
+     * Get the message when a given task is successfully updated with the given information.
+     */
+    public static String getUpdateTaskMessage(Task task) {
+        return String.format("Alright! I have already updated this task with the given information:\n%s",
+                task);
+    }
+
+    /**
+     * Get the warning message when user inputs an update command without any information.
+     */
+    public static String getEmptyUpdateCommandWarning() {
+        return "Sorry, I don't know how you want the task to be updated...\nPlease try again...";
     }
 }

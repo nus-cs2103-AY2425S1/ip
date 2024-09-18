@@ -5,7 +5,10 @@ import java.nio.file.Paths;
 import java.time.format.DateTimeParseException;
 
 import gopher.exception.EmptyTaskDescriptionException;
+import gopher.exception.InvalidDurationException;
+import gopher.exception.InvalidTaskNumberException;
 import gopher.exception.InvalidTokenException;
+import gopher.exception.MissingTaskNumberException;
 import gopher.exception.MissingTokenException;
 import gopher.exception.UnknownCommandException;
 import gopher.parser.Parser;
@@ -33,7 +36,7 @@ public class Gopher {
         assert Files.exists(Paths.get("./task/task.txt"))
                 : "Task save file should exist after successful initialization";
 
-        taskList = new TaskList(TaskManager.loadTasks());
+        taskList = new TaskList();
     }
 
     /**
@@ -62,13 +65,19 @@ public class Gopher {
      * @return response by gopher after successful action
      */
     public static String executeMarkTaskCommand(String userInput) {
-        int[] taskNumbers = Parser.parseMarkCommand(userInput);
-        taskList.markAsDone(taskNumbers);
-        StringBuilder message = new StringBuilder();
-        for (int taskNumber : taskNumbers) {
-            message.append(UI.getMarkAsDoneMessage(taskList.getTask(taskNumber)));
+        try {
+            int[] taskNumbers = Parser.parseMarkCommand(userInput);
+            taskList.markAsDone(taskNumbers);
+            StringBuilder message = new StringBuilder();
+            for (int taskNumber : taskNumbers) {
+                message.append(UI.getMarkAsDoneMessage(taskList.getTask(taskNumber)));
+            }
+            return message.toString();
+        } catch (MissingTaskNumberException | InvalidTaskNumberException e) {
+            return e.getMessage();
+        } finally {
+            taskList.save();
         }
-        return message.toString();
     }
 
     /**
@@ -78,13 +87,19 @@ public class Gopher {
      * @return response by gopher after successful action
      */
     public static String executeUnmarkTaskCommand(String userInput) {
-        int[] taskNumbers = Parser.parseUnmarkCommand(userInput);
-        taskList.markAsUndone(taskNumbers);
-        StringBuilder message = new StringBuilder();
-        for (int taskNumber : taskNumbers) {
-            message.append(UI.getMarkAsUndoneMessage(taskList.getTask(taskNumber)));
+        try {
+            int[] taskNumbers = Parser.parseUnmarkCommand(userInput);
+            taskList.markAsUndone(taskNumbers);
+            StringBuilder message = new StringBuilder();
+            for (int taskNumber : taskNumbers) {
+                message.append(UI.getMarkAsUndoneMessage(taskList.getTask(taskNumber)));
+            }
+            return message.toString();
+        } catch (MissingTaskNumberException | InvalidTaskNumberException e) {
+            return e.getMessage();
+        } finally {
+            taskList.save();
         }
-        return message.toString();
     }
 
     /**
@@ -94,13 +109,19 @@ public class Gopher {
      * @return response by gopher after successful action
      */
     public static String executeDeleteTaskCommand(String userInput) {
-        int[] taskNumbers = Parser.parseDeleteCommand(userInput);
-        StringBuilder message = new StringBuilder();
-        for (int taskNumber : taskNumbers) {
-            message.append(UI.getDeleteTaskMessage(taskList.getTask(taskNumber)));
+        try {
+            int[] taskNumbers = Parser.parseDeleteCommand(userInput);
+            StringBuilder message = new StringBuilder();
+            for (int taskNumber : taskNumbers) {
+                message.append(UI.getDeleteTaskMessage(taskList.getTask(taskNumber)));
+            }
+            taskList.delete(taskNumbers);
+            return message.toString();
+        } catch (MissingTaskNumberException | InvalidTaskNumberException e) {
+            return e.getMessage();
+        } finally {
+            taskList.save();
         }
-        taskList.delete(taskNumbers);
-        return message.toString();
     }
 
     /**
@@ -129,7 +150,8 @@ public class Gopher {
             return UI.getAddTaskMessage(task);
         } catch (DateTimeParseException e) {
             return UI.getInvalidDateWarning();
-        } catch (EmptyTaskDescriptionException | MissingTokenException e) {
+        } catch (EmptyTaskDescriptionException | MissingTokenException
+                 | InvalidTokenException | InvalidDurationException e) {
             return e.getMessage();
         }
     }
@@ -143,14 +165,11 @@ public class Gopher {
     public static String executeUpdateTaskCommand(String userInput) {
         try {
             String[] tokens = userInput.split(" ");
-            if (tokens.length < 2) {
-                return "I don't know how you want the task to be updated\nPlease try again...";
-            }
-            taskList.update(tokens);
-            return "Hi I have updated this task for you already!";
+            return taskList.update(tokens);
         } catch (DateTimeParseException e) {
             return UI.getInvalidDateWarning();
-        } catch (InvalidTokenException e) {
+        } catch (InvalidTokenException | MissingTaskNumberException
+                 | InvalidTaskNumberException | InvalidDurationException e) {
             return e.getMessage();
         }
     }
