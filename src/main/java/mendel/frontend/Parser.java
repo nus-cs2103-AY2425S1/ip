@@ -3,6 +3,7 @@ package mendel.frontend;
 import mendel.dbmanager.Storage;
 import mendel.discretetask.Deadline;
 import mendel.discretetask.Event;
+import mendel.discretetask.Task;
 import mendel.discretetask.Todo;
 import mendel.mendelexception.ConditionalExceptionHandler;
 import mendel.mendelexception.MendelException;
@@ -34,50 +35,84 @@ public class Parser {
      * @throws MendelException If the command is invalid or if there is an error processing it.
      */
     public String manage(String currAction) throws MendelException {
-        if (currAction.equals("bye")) {
-            return new LeaveCommand().speak();
-        } else if (currAction.equals("list")) {
-            return this.taskStorage.speak();
-        } else {
-            return this.handleMultiWordCommands(currAction);
-        }
-    }
-
-    private String handleMultiWordCommands(String currAction) {
+        currAction = currAction.strip().replaceAll(" +", " ");
         String[] segments = currAction.split(" ");
-        String message;
-        if (segments[0].equals("mark")) {
-            handleSequenceNumberSizeError(segments);
-            message = taskStorage.marker(Integer.parseInt(segments[1]) - 1);
-            this.dbContoller.update(this.taskStorage);
-        } else if (segments[0].equals("unmark")) {
-            handleSequenceNumberSizeError(segments);
-            message = taskStorage.unMarker(Integer.parseInt(segments[1]) - 1);
-            this.dbContoller.update(this.taskStorage);
-        } else if (segments[0].equals("delete")) {
-            handleSequenceNumberSizeError(segments);
-            message = taskStorage.delete(Integer.parseInt(segments[1]) - 1);
-            this.dbContoller.update(this.taskStorage);
-        } else if (segments[0].equals("todo")) {
-            Todo task = Todo.of(currAction);
-            message = taskStorage.add(task);
-            this.dbContoller.create(task, taskStorage.isFirstTask());
-        } else if (segments[0].equals("deadline")) {
-            Deadline task = Deadline.of(currAction);
-            message = taskStorage.add(task);
-            this.dbContoller.create(task, taskStorage.isFirstTask());
-        } else if (segments[0].equals("event")) {
-            Event task = Event.of(currAction);
-            message = taskStorage.add(task);
-            this.dbContoller.create(task, taskStorage.isFirstTask());
-        } else if (segments[0].equals("remind")) {
-            message = taskStorage.find(currAction);
-        } else if (segments[0].equals("find")) {
-            message = taskStorage.findDescription(currAction);
+        if (isMonolithicCommand(segments[0])) {
+            return executeMonolithicCommand(segments[0], currAction);
+        } else if (isBinaryIndexCommand(segments[0])) {
+            return executeBinaryIndexCommand(segments[0], currAction);
+        } else if (isTaskCommand(segments[0])) {
+            return executeTaskCommand(segments[0], currAction);
+        } else if (isListUtilityCommand(segments[0])) {
+            return executeListUtilityCommand(segments[0], currAction);
         } else {
             throw new MendelException("OOPS! I cannot understand command\nCheck the first word.");
         }
+
+    }
+
+    private String executeMonolithicCommand(String command, String currAction) {
+        if (command.equals("bye")) {
+            return new LeaveCommand().speak();
+        } else if (command.equals("list")) {
+            return this.taskStorage.speak();
+        } else {
+            throw new MendelException("OOPS! I cannot understand command\nCheck the first word.");
+        }
+    }
+    private String executeBinaryIndexCommand(String command, String currAction) {
+        String[] segments = currAction.split(" ");
+        String message;
+        handleSequenceNumberSizeError(segments);
+        if (command.equals("mark")) {
+            message = taskStorage.marker(Integer.parseInt(segments[1]) - 1);
+        } else if (command.equals("unmark")) {
+            message = taskStorage.unMarker(Integer.parseInt(segments[1]) - 1);
+        } else if (command.equals("delete")) {
+            message = taskStorage.delete(Integer.parseInt(segments[1]) - 1);
+        } else {
+            throw new MendelException("OOPS! I cannot understand command\nCheck the first word.");
+        }
+        this.dbContoller.update(this.taskStorage);
         return message;
+    }
+    private String executeTaskCommand(String command, String currAction) {
+        Task task;
+        if (command.equals("todo")) {
+            task = Todo.of(currAction);
+        } else if (command.equals("deadline")) {
+            task = Deadline.of(currAction);
+        } else if (command.equals("event")) {
+            task = Event.of(currAction);
+        } else {
+            throw new MendelException("OOPS! I cannot understand command\nCheck the first word.");
+        }
+        String message = taskStorage.add(task);
+        this.dbContoller.create(task, taskStorage.isFirstTask());
+        return message;
+
+    }
+    private String executeListUtilityCommand(String command, String currAction) {
+        if (command.equals("remind")) {
+            return taskStorage.find(currAction);
+        } else if (command.equals("find")) {
+            return taskStorage.findDescription(currAction);
+        } else {
+            throw new MendelException("OOPS! I cannot understand command\nCheck the first word.");
+        }
+    }
+
+    private boolean isMonolithicCommand(String command) {
+        return command.equals("bye") || command.equals("list");
+    }
+    private boolean isBinaryIndexCommand(String command) {
+        return command.equals("mark") || command.equals("unmark") || command.equals("delete");
+    }
+    private boolean isTaskCommand(String command) {
+        return command.equals("todo") || command.equals("deadline") || command.equals("event");
+    }
+    private boolean isListUtilityCommand(String command) {
+        return command.equals("remind") || command.equals("find");
     }
 
     private void handleSequenceNumberSizeError(String[] segments) {
