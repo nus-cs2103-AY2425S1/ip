@@ -25,7 +25,7 @@ public class TagList {
      */
     public String createTag(String tagTitle, Ui ui) throws InvalidTagException {
         String response = "";
-        if (exists(tagTitle) == -1) {
+        if (exists(tagTitle) != -1) {
             throw new InvalidTagException("Tag already exists!");
         }
         Tag tag = new Tag(tagTitle);
@@ -46,7 +46,7 @@ public class TagList {
      * Checks tagList to see if tagTitle already exists
      *
      * @param tagTitle tagTitle to check
-     * @return true if tagTitle already exists, return index, else returns -1
+     * @return tag index if tagTitle already exists, return index, else returns -1
      */
     private int exists(String tagTitle) {
         int len = this.tagList.size();
