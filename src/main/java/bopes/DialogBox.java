@@ -32,12 +32,12 @@ public class DialogBox extends HBox {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
-            fxmlLoader.setRoot(this);  // This sets the root to this HBox
+            fxmlLoader.setRoot(this);
             fxmlLoader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+    
         dialog.setText(text);
         displayPicture.setImage(img);
     }
@@ -60,7 +60,9 @@ public class DialogBox extends HBox {
      * @return A DialogBox containing the user's input.
      */
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img);
+        db.getStyleClass().add("user-dialog"); // Add user dialog style
+        return db;
     }
 
     /**
@@ -71,8 +73,9 @@ public class DialogBox extends HBox {
      * @return A DialogBox containing the system's response.
      */
     public static DialogBox getBopesDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img);
         db.flip();
+        db.getStyleClass().add("bopes-dialog"); // Add Bopes dialog style
         return db;
     }
 }
