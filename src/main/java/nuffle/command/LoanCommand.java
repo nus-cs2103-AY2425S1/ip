@@ -22,6 +22,14 @@ public class LoanCommand extends Command {
         this.userInput = userInput;
     }
 
+    /**
+     * Extracts and returns the details of the loan command from the user's input.
+     * Validates the due date format before extracting other information.
+     *
+     * @param userInput The raw user input string.
+     * @return An ArrayList containing the borrower, lender, amount, and due date.
+     * @throws NuffleException If the date format is invalid or loan parameters are missing.
+     */
     private ArrayList<String> getLoanCommandDesc(String userInput) throws NuffleException {
         ArrayList<String> loanDesc = new ArrayList<>();
         String dueDateFormat = getDueDate();
@@ -50,6 +58,11 @@ public class LoanCommand extends Command {
 
     }
 
+    /**
+     * Extracts and returns the due date string from the user's input.
+     *
+     * @return A string representing the due date, or "-1" if no due date is found.
+     */
     public String getDueDate() {
         // Get the date and check if the date format is correct
         int dueIndex = userInput.indexOf("/due");

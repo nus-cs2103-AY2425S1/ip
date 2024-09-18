@@ -25,7 +25,15 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public Task loadLoan(String desc, String[] components) {
+    /**
+     * Loads a Loan task from the specified components.
+     * It parses the components array to extract the necessary information like
+     * the loan's description, person involved, amount, and due date.
+     *
+     * @param components An array of strings representing the saved loan data.
+     * @return The created Loan task based on the components.
+     */
+    public Task loadLoan(String[] components) {
         LocalDateTime dueDate = LocalDateTime.parse(components[5].trim(), DateTimeFormatter.ofPattern("yyyy-MMM-dd HHmm"));
         double amount = Double.parseDouble(components[4].trim());
         Loan loan = new Loan(components[2], components[3], amount, dueDate);
@@ -37,6 +45,13 @@ public class Storage {
         return loan;
     }
 
+    /**
+     * Checks if the task file exists at the specified location.
+     * If it doesn't exist, it attempts to create the file and its parent directory.
+     *
+     * @param taskFile The file object representing the task file.
+     * @throws IOException If the directory or file could not be created.
+     */
     public void checkFileExist(File taskFile) throws IOException {
         // check if the file exists. If it does not, make the directory
         if (!taskFile.exists()) {
@@ -49,6 +64,15 @@ public class Storage {
         }
     }
 
+
+    /**
+     * Loads a Todo task from the specified components.
+     * It parses the components array to extract the task description.
+     *
+     * @param desc       The description of the Todo task.
+     * @param components An array of strings representing the saved Todo task data.
+     * @return The created Todo task based on the components.
+     */
     public Task loadTask(String desc, String[] components) {
         Todo task = new Todo(desc);
         if (components[1].trim().equals("1")) {
@@ -59,6 +83,14 @@ public class Storage {
         return task;
     }
 
+    /**
+     * Loads an Event task from the specified components.
+     * It parses the components array to extract the task description, start, and end date-times.
+     *
+     * @param desc       The description of the Event task.
+     * @param components An array of strings representing the saved Event data.
+     * @return The created Event task based on the components.
+     */
     public Task loadEvent(String desc, String[] components) {
         LocalDateTime to = LocalDateTime.parse(components[3].trim(), DateTimeFormatter.ofPattern("yyyy-MMM-dd HHmm"));
         LocalDateTime from = LocalDateTime.parse(components[4].trim(), DateTimeFormatter.ofPattern("yyyy-MMM-dd HHmm"));
@@ -74,6 +106,14 @@ public class Storage {
 
     }
 
+    /**
+     * Loads a Deadline task from the specified components.
+     * It parses the components array to extract the task description and due date.
+     *
+     * @param desc       The description of the Deadline task.
+     * @param components An array of strings representing the saved Deadline data.
+     * @return The created Deadline task based on the components.
+     */
     public Task loadDeadline(String desc, String[] components) {
         LocalDateTime by = LocalDateTime.parse(components[3].trim(), DateTimeFormatter.ofPattern("yyyy-MMM-dd HHmm"));
         Deadline deadline = new Deadline(desc, by);
@@ -98,17 +138,14 @@ public class Storage {
 
         // check if the file exists. If it does not, make the directory
         checkFileExist(taskFile);
-
         // if the file exists, need to buffer the content
         FileReader fr = new FileReader(filePath);
         BufferedReader buffer = new BufferedReader(fr);
-
         String eachLine = buffer.readLine();
         while (eachLine != null) {
             // dissect eachLine based on the expected format
             // for example: D | 0 | return book | June 6th, then split it by "|"
             String[] components = eachLine.split("\\|");
-
             String category = components[0].trim();
             String desc = components[2].trim();
             // note that D contains a fourth component and E contains a fourth and fifth component
@@ -125,10 +162,9 @@ public class Storage {
                 tasks.add(event);
                 eachLine = buffer.readLine();
             } else if (Objects.equals(category, "L")) {
-                Task loan = loadLoan(desc, components);
+                Task loan = loadLoan(components);
                 tasks.add(loan);
                 eachLine = buffer.readLine();
-
             }
         }
         // close the BufferedReader
