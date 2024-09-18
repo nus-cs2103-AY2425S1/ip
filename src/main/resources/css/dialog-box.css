@@ -1,0 +1,33 @@
+.label {
+    -fx-background-color: linear-gradient(to bottom right, #4facfe, #00f2fe); /* Bright blue gradient */
+    -fx-border-color: #0288d1 #03a9f4 #29b6f6 #81d4fa;
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+
+    -fx-padding: 10px 15px;
+}
+
+.reply-label {
+    -fx-background-color: linear-gradient(to bottom right, #a1c4fd, #c2e9fb); /* Cool gradient with light blue and sky blue */
+    -fx-border-color: #4fc3f7 #81d4fa #b3e5fc #0288d1; /* Cool tone border colors */
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+
+    -fx-padding: 10px 15px;
+}
+
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+
+    /* Add margin to separate image from the text */
+    -fx-margin: 10px;
+}
