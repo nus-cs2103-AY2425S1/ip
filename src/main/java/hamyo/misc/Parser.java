@@ -15,13 +15,15 @@ import hamyo.tasks.TaskType;
 public class Parser {
 
     /**
-     * Parse method takes in user input from terminal and executes the command.
-     * If no command is found, a HamyoException occurs and prompted in terminal.
+     * Parse user input.
+     * Takes in user input from terminal and executes the command. If no
+     * command is found, a HamyoException occurs and prompted in terminal.
      *
      * @param fullCommand The full command/ input given by the user.
      * @param tasks The list of the users' tasks.
      * @return false if the user command ("bye") terminates the chatbot, true
-     *     otherwise. false: application terminates, true: application continues.
+     *     otherwise. false: application terminates, true: application
+     *     continues.
      */
     public static boolean parse(TaskList tasks, String fullCommand) {
         Ui.resetResponse();

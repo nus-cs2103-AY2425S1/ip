@@ -42,9 +42,7 @@ public class Hamyo {
     }
 
     /**
-     * Continuously scans for user input and execute commands while it is
-     * active, and terminates once this.active is set to false using the bye
-     * command.
+     * Scans for user input and execute commands.
      */
     public void run() {
         try {
@@ -86,7 +84,9 @@ public class Hamyo {
     }
 
     /**
-     * Main of Hamyo chatbot. Instantiates and runs chatbot upon application startup.
+     * Main of Hamyo chatbot.
+     * Instantiates and runs chatbot upon application startup.
+     *
      * @param args No arguments required.
      */
     public static void main(String[] args) {

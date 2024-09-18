@@ -13,7 +13,7 @@ import hamyo.misc.Ui;
 public class Task {
 
     private final String task;
-    private boolean marked;
+    private boolean isMarked;
 
     /**
      * Constructor for Task instance.
@@ -32,8 +32,8 @@ public class Task {
      * @throws HamyoException If task was already marked.
      */
     public void mark(boolean showText) throws HamyoException {
-        if (!marked) {
-            marked = true;
+        if (!isMarked) {
+            isMarked = true;
             if (showText) {
                 Ui.setStringMarkTask(this);
             }
@@ -49,8 +49,8 @@ public class Task {
      * @throws HamyoException If task was already unmarked.
      */
     public void unmark(boolean showText) throws HamyoException {
-        if (this.marked) {
-            marked = false;
+        if (this.isMarked) {
+            this.isMarked = false;
             if (showText) {
                 Ui.setStringUnmarkTask(this);
             }
@@ -67,7 +67,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        return (marked ? "[X]" : "[ ]") + " " + task;
+        return (this.isMarked ? "[X]" : "[ ]") + " " + task;
     }
 
 
@@ -78,7 +78,7 @@ public class Task {
      * @return Formatted String to represent the Task.
      */
     public String toFileFormat() {
-        return (this.marked ? "1" : "0") + " | " + this.task;
+        return (this.isMarked ? "1" : "0") + " | " + this.task;
     }
 
     /**
