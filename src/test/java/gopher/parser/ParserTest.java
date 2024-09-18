@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
-import gopher.exception.FileCorruptedException;
 import org.junit.jupiter.api.Test;
 
 import gopher.exception.InvalidTokenException;
