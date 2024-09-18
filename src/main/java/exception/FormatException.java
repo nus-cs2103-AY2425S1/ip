@@ -10,6 +10,6 @@ public class FormatException extends DPlusPlusEException {
      * @param taskType The type of task that the format is not suitable for.
      */
     public FormatException(String taskType) {
-        super(String.format("The format for &s is not suitable.", taskType));
+        super(String.format("The format for %s is not suitable.", taskType));
     }
 }

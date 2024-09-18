@@ -3,6 +3,8 @@ import task.TaskList;
 import utilities.Storage;
 import utilities.Ui;
 import java.io.File;
+import exception.FormatException;
+import exception.NoInputException;
 
 public class DPlusPlusE {
     private Storage storage;
@@ -30,6 +32,12 @@ public class DPlusPlusE {
     }
 
     public String getResponse(String input) {
-        return ui.interactWithUser(input).toString();
+        try {
+            return ui.interactWithUser(input).toString();
+        } catch (FormatException e) {
+            return e.getMessage();
+        } catch (NoInputException e) {
+            return e.getMessage();
+        }
     }
 }

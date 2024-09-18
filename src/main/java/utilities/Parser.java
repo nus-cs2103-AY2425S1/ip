@@ -25,6 +25,10 @@ public class Parser {
     private static final String DELETE_COMMAND = "delete";
     private static final String FIND_COMMAND = "find";
     private static final String SORT_COMMAND = "sort";
+    private static final String TODO_COMMAND = "todo";
+    private static final String DEADLINE_COMMAND = "deadline";
+    private static final String EVENT_COMMAND = "event";
+
     /**
      * Static method to add horizontal lines and indentation to the dialog.
      * @param dialog The dialog to be formatted.
@@ -72,8 +76,12 @@ public class Parser {
                 return handleIndexCommand(command, parts, taskList);
             case FIND_COMMAND:
                 return handleFindCommand(parts, taskList);
-            default:
+            case TODO_COMMAND:
+            case DEADLINE_COMMAND:
+            case EVENT_COMMAND:
                 return new TaskCommand(trimmedDialog, taskList);
+            default:
+                throw new FormatException(command);
         }
     }
 

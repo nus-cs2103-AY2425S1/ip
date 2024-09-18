@@ -55,13 +55,8 @@ public class Ui {
         assert taskList != null : "Task list should not be null";
         Parser parser = new Parser();
         Command command = parser.parseUserInput(dialog, taskList);
-        try {
-            command.execute();
-        } catch (FormatException e) {
-            System.out.println(e.getMessage());
-        } catch (NoInputException e) {
-            System.out.println(e.getMessage());
-        }
+        command.execute();
+        
         return command;
     }
 
