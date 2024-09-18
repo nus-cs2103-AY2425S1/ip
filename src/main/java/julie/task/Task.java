@@ -1,5 +1,7 @@
 package julie.task;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -8,8 +10,10 @@ import java.util.Objects;
 public abstract class Task {
     /** The string description of the Task. */
     public final String taskString;
-    /** The completion status of the task */
+    /** The completion status of the Task */
     private boolean isCompleted;
+    /** The List of Tags associated with this Task */
+    private List<String> tagList;
 
     /**
      * Public constructor for a Task.
@@ -18,6 +22,7 @@ public abstract class Task {
      */
     public Task(String s) {
         this.taskString = s;
+        this.tagList = new ArrayList<>();
         isCompleted = false;
     }
 
@@ -43,7 +48,7 @@ public abstract class Task {
         } else {
             output = "[ ]";
         }
-        return String.format("%s %s", output, taskString);
+        return String.format("%s %s %s", output, taskString, this.getTagsString());
     }
 
     /**
@@ -52,4 +57,24 @@ public abstract class Task {
      * @return The string representation of the task in storage format.
      */
     public abstract String toStorageString();
+
+    /**
+     * Adds the given Tag for the String.
+     * @param tag the Tag to be added.
+     */
+    public void tag(String tag) {
+        this.tagList.add(tag);
+    }
+
+    /**
+     * Retyrns the Tags associated with this task;
+     * @return The String representation of the tags.
+     */
+    private String getTagsString() {
+        if (tagList.isEmpty()) {
+            return "";
+        } else {
+            return tagList.toString();
+        }
+    }
 }
