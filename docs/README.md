@@ -13,6 +13,7 @@ GLaDOS is a versatile chatbot for managing tasks, based off of the video game ch
   - [Unmarking a Task: `unmark`](#unmarking-a-task-unmark)
   - [Updating a Task: `update`](#updating-a-task-update)
   - [Finding a Task: `find`](#finding-a-task-find)
+  - [Viewing Chat History](#viewing-chat-history)
 - [Known Issues](#known-issues)
 - [Command Summary](#command-summary)
 
@@ -130,6 +131,10 @@ Format: `find TASK_DESCRIPTION`
 Example:
 
 - `find eat` lists all tasks that have a description with the string "eat" in it.
+
+### Viewing Chat History
+
+Besides talking to GLaDOS, you can also view past chat history by clicking on the "View Chat History" button on the top right.
 
 ---
 
