@@ -52,7 +52,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getSkibidiDialog(response, skibidiImage)
         );
 
-        if (input.equals("bye")) {
+        if (input.trim().equals("bye")) {
             PauseTransition delay = new PauseTransition(javafx.util.Duration.seconds(1));
             delay.setOnFinished(event -> System.exit(0));
             delay.play();

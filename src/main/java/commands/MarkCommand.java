@@ -19,6 +19,10 @@ public class MarkCommand extends Command {
      * @param taskInput The input string containing the task number to be marked.
      */
     public MarkCommand(String taskInput) {
+        if (taskInput.length() < 5) {
+            this.taskInput = "";
+            return;
+        }
         this.taskInput = taskInput.substring(5).trim();
     }
 
