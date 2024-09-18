@@ -1,5 +1,4 @@
-package jude;
-
+package jude.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -8,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import jude.Jude;
 
 /**
  * Responsible for the main window of the chatbot interface.
@@ -33,10 +33,18 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Injects the Jude instance
+     * Injects the Jude instance.
      */
     public void setJude(Jude d) {
         jude = d;
+    }
+
+    /**
+     * Displays the welcome message.
+     */
+    public void displayWelcomeMessage() {
+        String welcomeMessage = this.jude.generateWelcomeMessage();
+        this.dialogContainer.getChildren().add(DialogBox.getJudeDialog(welcomeMessage, judeImage));
     }
 
     /**
