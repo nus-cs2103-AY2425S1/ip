@@ -44,10 +44,11 @@ test {
 }
 
 application {
-    mainClass.set("seedu.maxine.Maxine")
+    mainClass.set("seedu.maxine.Launcher")
 }
 
 shadowJar {
+    archiveFileName = 'maxine.jar'
     archiveBaseName = "maxine"
     archiveClassifier = null
 }
