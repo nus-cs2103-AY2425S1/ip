@@ -68,6 +68,11 @@ public class Task {
         return this.isDone;
     }
 
+    /**
+     * Returns the similarity of description.
+     *
+     * @return {@code true} if the description is the same, {@code false} otherwise.
+     */
     public boolean isSame(String description) {
         return this.description.equals(description);
     }
