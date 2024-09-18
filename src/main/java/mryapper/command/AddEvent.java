@@ -10,6 +10,7 @@ import mryapper.task.TaskList;
  * A command which deletes the task from the task list.
  */
 public class AddEvent extends Command {
+    public static final String SYNTAX = "e.g. event project meeting /from Mon 2pm /to 4pm";
     private final String description;
     private final String startTime;
     private final String endTime;
@@ -35,14 +36,5 @@ public class AddEvent extends Command {
                         + "Now you have %d tasks in the list",
                 newTask, tasks.count());
         return response;
-    }
-
-    /**
-     * Gets the syntax of the command.
-     *
-     * @return The syntax of the command to event command.
-     */
-    public static String getSyntax() {
-        return "e.g. event project meeting /from Mon 2pm /to 4pm";
     }
 }

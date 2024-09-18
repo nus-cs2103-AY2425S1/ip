@@ -7,6 +7,7 @@ import mryapper.task.TaskList;
  * A command which marks the task as done.
  */
 public class MarkTask extends Command {
+    public static final String SYNTAX = "e.g. mark 2";
     private final int taskNumber;
 
     public MarkTask(int taskNumber) {
@@ -27,14 +28,5 @@ public class MarkTask extends Command {
                     + "You currently have %d tasks in your list", tasks.count());
         }
         return response;
-    }
-
-    /**
-     * Gets the syntax of the command.
-     *
-     * @return The syntax of the command to mark command.
-     */
-    public static String getSyntax() {
-        return "e.g. mark 2";
     }
 }

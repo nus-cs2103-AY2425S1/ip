@@ -9,7 +9,7 @@ import mryapper.task.Todo;
  * A command which creates a "to do" task.
  */
 public class AddTodoTask extends Command {
-
+    public static final String SYNTAX = "e.g. todo CS2103T weekly quiz";
     private final String description;
 
     public AddTodoTask(String description) {
@@ -27,14 +27,5 @@ public class AddTodoTask extends Command {
                 + "Now you have %d tasks in the list",
                 newTask, tasks.count());
         return response;
-    }
-
-    /**
-     * Gets the syntax of the command.
-     *
-     * @return The syntax of the to do command.
-     */
-    public static String getSyntax() {
-        return "e.g. todo CS2103T weekly quiz";
     }
 }

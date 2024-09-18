@@ -7,7 +7,7 @@ import mryapper.task.TaskList;
 import java.util.ArrayList;
 
 public class FindTask extends Command {
-
+    public static final String SYNTAX = "e.g. find do project";
     private final String searchInput;
 
     public FindTask(String searchInput) {
@@ -31,14 +31,5 @@ public class FindTask extends Command {
             response += taskNumber + "." + searchResult.get(i).toString() + "\n";
         }
         return response;
-    }
-
-    /**
-     * Gets the syntax of the command.
-     *
-     * @return The syntax of the command to find command.
-     */
-    public static String getSyntax() {
-        return "e.g. find do project";
     }
 }

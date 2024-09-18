@@ -8,6 +8,7 @@ import mryapper.task.TaskList;
  * A command which deletes the task from the task list.
  */
 public class DeleteTask extends Command {
+    public static final String SYNTAX = "e.g. delete 2";
     private final int taskNumber;
 
     public DeleteTask(int taskNumber) {
@@ -29,14 +30,5 @@ public class DeleteTask extends Command {
                     + "You currently have %d tasks in your list", tasks.count());
         }
         return response;
-    }
-
-    /**
-     * Gets the syntax of the command.
-     *
-     * @return The syntax of the command to delete command.
-     */
-    public static String getSyntax() {
-        return "e.g. delete 2";
     }
 }

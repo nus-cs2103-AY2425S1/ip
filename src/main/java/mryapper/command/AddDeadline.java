@@ -10,6 +10,7 @@ import mryapper.task.TaskList;
  * A command which creates a task with deadline.
  */
 public class AddDeadline extends Command {
+    public static final String SYNTAX = "e.g. deadline CS2103T project /by Dec 31st";
     private final String description;
     private final String deadline;
 
@@ -30,14 +31,5 @@ public class AddDeadline extends Command {
                 + "Now you have %d tasks in the list",
                 newTask, tasks.count());
         return response;
-    }
-
-    /**
-     * Gets the syntax of the command.
-     *
-     * @return The syntax of the command to deadline command.
-     */
-    public static String getSyntax() {
-        return "e.g. deadline CS2103T project /by Dec 31st";
     }
 }

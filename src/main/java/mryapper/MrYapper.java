@@ -1,7 +1,6 @@
 package mryapper;
 
 import mryapper.command.Command;
-import mryapper.exception.IllegalTaskException;
 import mryapper.exception.InvalidFileDataException;
 import mryapper.exception.InvalidSyntaxException;
 import mryapper.parser.Parser;
@@ -64,7 +63,7 @@ public class MrYapper {
             Command c = Parser.parse(input);
             assert c != null: "Command should not be null";
             return c.execute(tasks, storageManager);
-        } catch (IllegalTaskException | InvalidSyntaxException | IllegalArgumentException e) {
+        } catch (InvalidSyntaxException | IllegalArgumentException e) {
             return e.getMessage();
         }
     }

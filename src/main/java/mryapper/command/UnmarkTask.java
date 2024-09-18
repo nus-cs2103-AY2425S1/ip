@@ -7,6 +7,7 @@ import mryapper.task.TaskList;
  * A command which marks the task as not done.
  */
 public class UnmarkTask extends Command {
+    public static final String SYNTAX = "e.g. unmark 2";
     private final int taskNumber;
 
     public UnmarkTask(int taskNumber) {
@@ -27,14 +28,5 @@ public class UnmarkTask extends Command {
                     + "You currently have %d tasks in your list", tasks.count());
         }
         return response;
-    }
-
-    /**
-     * Gets the syntax of the command.
-     *
-     * @return The syntax of the command to unmark command.
-     */
-    public static String getSyntax() {
-        return "e.g. unmark 2";
     }
 }
