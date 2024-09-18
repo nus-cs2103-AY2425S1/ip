@@ -1,6 +1,6 @@
 # OrangeRatchetCat User Guide
 
-![]()
+![Image of GUI](https://github.com/OrangeCatLoves/ip/blob/master/docs/Ui.png?raw=true)
 
 // Product screenshot goes here
 
