@@ -111,6 +111,7 @@ public class Megamind {
         if (!success) {
             throw new TaskNotFoundException("Task number does not exist.");
         }
+        storage.saveTasks(taskList.getTasks());
         return ui.showMarkTask(taskList.get(index), false);
     }
 
@@ -131,6 +132,7 @@ public class Megamind {
         if (!success) {
             throw new TaskNotFoundException("Task number does not exist.");
         }
+        storage.saveTasks(taskList.getTasks());
         return ui.showMarkTask(taskList.get(index), true);
     }
 
@@ -145,6 +147,7 @@ public class Megamind {
     public static String addTodo(String command) throws InvalidCommandException {
         String description = parser.parseDescription(command, "todo");
         taskList.add(new Todo(description));
+        storage.saveTasks(taskList.getTasks());
         return ui.showTaskAdded(taskList.get(taskList.size() - 1), taskList.size());
     }
 
@@ -161,6 +164,7 @@ public class Megamind {
     public static String addDeadline(String command) throws MissingParameterException, InvalidCommandException {
         String[] words = parser.parseDeadline(command);
         taskList.add(new Deadline(words[0], words[1]));
+        storage.saveTasks(taskList.getTasks());
         return ui.showTaskAdded(taskList.get(taskList.size() - 1), taskList.size());
     }
 
@@ -174,6 +178,7 @@ public class Megamind {
     public static String addEvent(String command) throws MissingParameterException, InvalidCommandException {
         String[] words = parser.parseEvent(command);
         taskList.add(new Event(words[0], words[1], words[2]));
+        storage.saveTasks(taskList.getTasks());
         return ui.showTaskAdded(taskList.get(taskList.size() - 1), taskList.size());
     }
 
@@ -187,6 +192,7 @@ public class Megamind {
     public static String addRecur(String command) throws MissingParameterException, InvalidCommandException {
         String[] words = parser.parseRecur(command);
         taskList.add(RecurringTask.create(words[0], words[1], words[2], words[3]));
+        storage.saveTasks(taskList.getTasks());
         return ui.showTaskAdded(taskList.get(taskList.size() - 1), taskList.size());
     }
 
@@ -206,6 +212,7 @@ public class Megamind {
         if (t == null) {
             throw new TaskNotFoundException("Task number does not exist.");
         }
+        storage.saveTasks(taskList.getTasks());
         return ui.showTaskDeleted(t.toString());
     }
 
