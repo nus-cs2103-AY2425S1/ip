@@ -179,6 +179,13 @@ public class Parser {
         return parsedInput[1];
     }
 
+    /**
+     * Generates the user help guide
+     *
+     * @param parsedInput Input of user in array format seperated by blank spaces.
+     * @return insructions for help manual
+     * @throws BillException If there is an error handling the parsing of the targeted task.
+     */
     public String handleHelpParser(String[] parsedInput) throws BillException {
         // data validation
         if (parsedInput.length != 1) {
