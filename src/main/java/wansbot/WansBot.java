@@ -55,16 +55,28 @@ public class WansBot {
     private void checkNumInput(String userInput, int taskListSize) throws NumberFormatException,
             NotANumMarkingException {
         if (userInput.startsWith("unmark")) {
+            String[] splitUser = userInput.split("unmark");
+            if (splitUser.length < 2) {
+                throw new InputEmptyException(userInput);
+            }
             int posTask = Integer.parseInt(userInput.substring(7));
             if (posTask > taskListSize || posTask < 1) {
                 throw new NotANumMarkingException(posTask);
             }
         } else if (userInput.startsWith("mark")) {
+            String[] splitUser = userInput.split("mark");
+            if (splitUser.length < 2) {
+                throw new InputEmptyException(userInput);
+            }
             int posTask = Integer.parseInt(userInput.substring(5));
             if (posTask > taskListSize || posTask < 1) {
                 throw new NotANumMarkingException(posTask);
             }
         } else if (userInput.startsWith("remove")) {
+            String[] splitUser = userInput.split("remove");
+            if (splitUser.length < 2) {
+                throw new InputEmptyException(userInput);
+            }
             int posTask = Integer.parseInt(userInput.substring(7));
             if (posTask > taskListSize || posTask < 1) {
                 throw new NotANumMarkingException(posTask);
@@ -127,8 +139,8 @@ public class WansBot {
             return ui.handleMarkingFormat();
         } catch (NotANumMarkingException e) {
             return ui.handleInvalidNum();
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return ui.handleOneWord();
+        } catch (InputEmptyException e) {
+            return ui.handleWrongMarkFormat();
         }
     }
 
@@ -146,8 +158,8 @@ public class WansBot {
             return ui.handleUnmarkingFormat();
         } catch (NotANumMarkingException e) {
             return ui.handleInvalidNum();
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return ui.handleOneWord();
+        } catch (InputEmptyException e) {
+            return ui.handleWrongUnmarkFormat();
         }
     }
 
@@ -274,6 +286,8 @@ public class WansBot {
             return ui.handleRemoveFormat();
         } catch (NotANumMarkingException e) {
             return ui.handleInvalidNum();
+        } catch (InputEmptyException e) {
+            return ui.handleWrongRemoveFormat();
         }
     }
 

@@ -241,6 +241,18 @@ public class UI {
                 + " including the ?";
     }
 
+    public String handleWrongMarkFormat() {
+        return "You need to input something after mark!";
+    }
+
+    public String handleWrongUnmarkFormat() {
+        return "You need to input something after unmark!";
+    }
+
+    public String handleWrongRemoveFormat() {
+        return "You need to input something after remove!";
+    }
+
     /**
      * Prints to console Goodbye message when user inputs bye
      */
