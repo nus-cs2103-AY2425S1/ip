@@ -1,5 +1,6 @@
 package rapgod.bot;
 
+import rapgod.exceptions.InvalidDateTimeException;
 import rapgod.exceptions.NoInputException;
 import rapgod.exceptions.RudeInputException;
 import rapgod.storage.DataManager;
@@ -143,6 +144,8 @@ public class RapGod {
         } catch (NoInputException | RudeInputException exc) {
             response = "RapGod:\n" + exc.getMessage();
         } catch(IllegalArgumentException exc) {
+            response = exc.getMessage();
+        }  catch (InvalidDateTimeException exc) {
             response = exc.getMessage();
         } finally {
             return response;

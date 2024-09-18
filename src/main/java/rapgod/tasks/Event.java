@@ -1,5 +1,6 @@
 package rapgod.tasks;
 
+import rapgod.exceptions.InvalidDateTimeException;
 import rapgod.utils.Parser;
 
 import java.time.LocalDateTime;
@@ -25,6 +26,11 @@ public class Event extends Task{
         super(description);
         this.from = Parser.parseToDateTime(from);
         this.to = Parser.parseToDateTime(to);
+
+        if (this.from.isAfter(this.to)) {
+            throw new InvalidDateTimeException("Start date and time cannot be later than end date and time!");
+        }
+
     }
 
     /**
