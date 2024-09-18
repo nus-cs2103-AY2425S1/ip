@@ -1,4 +1,4 @@
-package duke;
+package meow;
 
 import java.util.Scanner;
 

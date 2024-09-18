@@ -1,4 +1,4 @@
-package duke;
+package meow;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -25,13 +25,17 @@ public class MainWindow extends AnchorPane {
     private Meow meow;
     private Ui ui = new Ui();
 
+    /**
+     * Initializes the main window of the application.
+     *
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().add(DialogBox.getMeowDialog(Ui.getWelcomeMessage(), dukeImage));
     }
 
-    /** Injects the Duke instance */
+    /** Injects the Meow instance */
     public void setMeow(Meow m) {
         meow = m;
     }

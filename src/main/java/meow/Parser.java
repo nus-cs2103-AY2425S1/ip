@@ -1,11 +1,13 @@
-package duke;
+package meow;
+
+import java.util.ArrayList;
 
 import java.io.IOException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.DateTimeException;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 
 /**
  * Handles parsing of user input and execution of commands in the Meow application.
@@ -47,15 +49,7 @@ public class Parser {
                 if (taskList.getTaskCount() == 0) {
                     return ui.getMessage("No outstanding tasks. MEOW!");
                 } else {
-                    StringBuilder listMessage = new StringBuilder();
-                    for (int i = 0; i < taskList.getTaskCount(); i++) {
-                        if (i != taskList.getTaskCount() - 1) {
-                            listMessage.append(i + 1).append(". ").append(taskList.getTask(i)).append("\n");
-                        } else {
-                            listMessage.append(i + 1).append(". ").append(taskList.getTask(i));
-                        }
-                    }
-                    return ui.getMessage(listMessage.toString());
+                    return taskList.stringify();
                 }
             } else if (input.startsWith("mark")) {
                 if (input.startsWith("mark ")) {
@@ -95,11 +89,7 @@ public class Parser {
                             LocalDate by = parseDate(parts[1].trim());
                             taskList.addTask(new Deadline(parts[0], by));
                             storage.saveTasks(taskList.getTasks());
-                            return ui.getMessage("Got it. I've added this task:\n"
-                                    + taskList.getTask(taskList.getTaskCount() - 1) + "\n"
-                                    + (taskList.getTaskCount() <= 1
-                                    ? "Now you have " + taskList.getTaskCount() + " task in the list."
-                                    : "Now you have " + taskList.getTaskCount() + " tasks in the list."));
+                            return taskList.addTaskMessage();
                         } catch (DateTimeException | MeowException e) {
                             return e.getMessage();
                         }
@@ -120,11 +110,7 @@ public class Parser {
                             if (from.isBefore(to)) {
                                 taskList.addTask(new Event(parts[0], from, to));
                                 storage.saveTasks(taskList.getTasks());
-                                return ui.getMessage("Got it. I've added this task:\n"
-                                        + taskList.getTask(taskList.getTaskCount() - 1) + "\n"
-                                        + (taskList.getTaskCount() <= 1
-                                        ? "Now you have " + taskList.getTaskCount() + " task in the list."
-                                        : "Now you have " + taskList.getTaskCount() + " tasks in the list."));
+                                return taskList.addTaskMessage();
                             } else {
                                 throw new MeowException("GRRR! Start date cannot be after End date");
                             }
@@ -144,12 +130,7 @@ public class Parser {
                     String description = input.substring(5).trim();
                     taskList.addTask(new ToDo(description));
                     storage.saveTasks(taskList.getTasks());
-                    return ui.getMessage("Got it. I've added this task:\n" + taskList.getTask(taskList.getTaskCount() - 1)
-                            + "\n" + (taskList.getTaskCount() <= 1
-                            ? "Now you have " + taskList.getTaskCount() + " task in the list."
-                            : "Now you have " + taskList.getTaskCount() + " tasks in the list."));
-
-
+                    return taskList.addTaskMessage();
                 } else {
                     throw new MeowException("Invalid todo format. Example: todo eat lunch");
                 }
@@ -160,10 +141,7 @@ public class Parser {
                         Task removedTask = taskList.getTask(index);
                         taskList.deleteTask(index);
                         storage.saveTasks(taskList.getTasks());
-                        return ui.getMessage("Noted. I've removed this task:\n" + removedTask + "\n"
-                                + (taskList.getTaskCount() <= 1
-                                ? "Now you have " + taskList.getTaskCount() + " task in the list."
-                                : "Now you have " + taskList.getTaskCount() + " tasks in the list."));
+                        return taskList.deleteTaskMessage(removedTask);
                     } else {
                         throw new MeowException("GRRR! Invalid task number, you only have " + taskList.getTaskCount()
                                 + (taskList.getTaskCount() == 1 ? " task." : " tasks."));
@@ -182,19 +160,10 @@ public class Parser {
                             filteredList.addTask(currentTask);
                         }
                     }
-                    filteredList.getTasks();
                     if (filteredList.getTaskCount() == 0) {
                         return ui.getMessage("No tasks match your search. ROWR!");
                     } else {
-                        StringBuilder listMessage = new StringBuilder();
-                        for (int i = 0; i < filteredList.getTaskCount(); i++) {
-                            if (i != filteredList.getTaskCount() - 1) {
-                                listMessage.append(i + 1).append(". ").append(filteredList.getTask(i)).append("\n");
-                            } else {
-                                listMessage.append(i + 1).append(". ").append(filteredList.getTask(i));
-                            }
-                        }
-                        return ui.getMessage(listMessage.toString());
+                        return filteredList.stringify();
                     }
                 } else {
                     throw new MeowException("Invalid find format. Example: find book");
@@ -204,17 +173,7 @@ public class Parser {
                     return ui.getMessage("No outstanding tasks. MEOW!");
                 } else {
                     TaskList sortedList = taskList.sort();
-                    StringBuilder listMessage = new StringBuilder();
-                    listMessage.append("Done! Your list is now sorted (>^w^<)").append("\n");
-                    taskList = sortedList;
-                    for (int i = 0; i < sortedList.getTaskCount(); i++) {
-                        if (i != sortedList.getTaskCount() - 1) {
-                            listMessage.append(i + 1).append(". ").append(sortedList.getTask(i)).append("\n");
-                        } else {
-                            listMessage.append(i + 1).append(". ").append(sortedList.getTask(i));
-                        }
-                    }
-                    return ui.getMessage(listMessage.toString());
+                    return sortedList.stringify();
                 }
             } else {
                 return ui.getMessage("Whatchu sayin bruh?");

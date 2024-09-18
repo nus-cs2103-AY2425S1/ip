@@ -1,4 +1,4 @@
-package duke;
+package meow;
 
 /**
  * Exception class for the app.

@@ -1,4 +1,4 @@
-package duke;
+package meow;
 
 import java.io.Serializable;
 
@@ -14,6 +14,11 @@ public class ToDo extends Task implements Serializable {
         super(description);
     }
 
+    /**
+     * Returns the string representation of the ToDo object, including its type and description
+     *
+     * @return A string representing the ToDo object.
+     */
     @Override
     public String toString() {
         return "[T]" + super.toString();

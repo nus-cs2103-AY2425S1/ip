@@ -1,8 +1,7 @@
-package duke;
+package meow;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -27,14 +26,30 @@ public class Event extends Task implements Serializable {
         this.to = to;
     }
 
+    /**
+     * Returns the start date of the event.
+     *
+     * @return The start date as a LocalDate object.
+     */
     public LocalDate getFrom() {
         return from;
     }
 
+    /**
+     * Returns the end date of the event.
+     *
+     * @return The end date as a LocalDate object.
+     */
     public LocalDate getTo() {
         return to;
     }
 
+    /**
+     * Returns the string representation of the Event task, including its type,
+     * description, and formatted start and end date as "MMM dd yyyy".
+     *
+     * @return A string representing the Event task.
+     */
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");

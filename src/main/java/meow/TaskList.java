@@ -1,4 +1,4 @@
-package duke;
+package meow;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -116,9 +116,49 @@ public class TaskList {
         return this;
     }
 
+    /**
+     * Converts the task list into a numbered string format, with each task on a new line.
+     *
+     * @return A string representing the list of tasks.
+     * @throws MeowException If there is an error accessing the tasks.
+     */
+    public String stringify() throws MeowException {
+        StringBuilder listMessage = new StringBuilder();
+        for (int i = 0; i < this.getTaskCount(); i++) {
+            if (i != this.getTaskCount() - 1) {
+                listMessage.append(i + 1).append(". ").append(this.getTask(i)).append("\n");
+            } else {
+                listMessage.append(i + 1).append(". ").append(this.getTask(i));
+            }
+        }
+        return listMessage.toString();
+    }
 
+    /**
+     * Generates a message confirming that a task has been added to the task list.
+     *
+     * @return A message indicating the task was added, including the current task count.
+     * @throws MeowException If there is an error accessing the tasks.
+     */
+    public String addTaskMessage() throws MeowException {
+        return "Got it. I've added this task:\n"
+                + this.getTask(this.getTaskCount() - 1) + "\n"
+                + (this.getTaskCount() <= 1
+                ? "Now you have " + this.getTaskCount() + " task in the list."
+                : "Now you have " + this.getTaskCount() + " tasks in the list.");
+    }
 
-
-
-
+    /**
+     * Generates a message confirming that a task has been deleted from the task list.
+     *
+     * @param task The task that has been deleted.
+     * @return A message indicating the task was deleted, including the current task count.
+     * @throws MeowException If there is an error accessing the tasks.
+     */
+    public String deleteTaskMessage(Task task) throws MeowException {
+        return "Noted. I've removed this task:\n" + task + "\n"
+                + (this.getTaskCount() <= 1
+                ? "Now you have " + this.getTaskCount() + " task in the list."
+                : "Now you have " + this.getTaskCount() + " tasks in the list.");
+    }
 }
