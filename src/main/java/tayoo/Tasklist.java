@@ -155,7 +155,7 @@ public class Tasklist {
             int length = foundTasks.size();
             StringBuilder toReturn = new StringBuilder("Here are the matching tasks in your list: \n");
             for (int i = 0; i < length; i++) {
-                toReturn.append(i)
+                toReturn.append(i + 1)
                         .append(". ")
                         .append(foundTasks.get(i).toString())
                         .append("\n");
