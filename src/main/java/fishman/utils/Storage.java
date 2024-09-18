@@ -53,7 +53,7 @@ public class Storage {
                 assert Files.exists(filePath) : "File should exist after attempts to create it";
             }
         } catch (IOException e) {
-            System.out.println("Error creating file: " + e.getMessage());
+            System.out.println("Bloop bloop, Error creating file: " + e.getMessage());
         }
     }
 
@@ -77,7 +77,7 @@ public class Storage {
                 saveAllLinesWithErrors(validTasks, errorLines, writer);
             }
         } catch (IOException e) {
-            throw new RuntimeException("Error saving tasks to file: " + e.getMessage(), e);
+            throw new RuntimeException("Bloop bloop Error saving tasks to file: " + e.getMessage(), e);
         }
     }
 
@@ -157,7 +157,7 @@ public class Storage {
         }
 
         String combinedErrorMessage = errorMessages.isEmpty() ? null
-                : String.join("\n", errorMessages) + "\nInvalid data lines will be skipped. "
+                : String.join("\n", errorMessages) + "\nGlub glub! Invalid data lines will be skipped. "
                 + "Please check the data file!";
 
         return new LoadResults(validTasks, combinedErrorMessage, corruptedLines);

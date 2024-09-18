@@ -5,6 +5,8 @@ package fishman.exception;
  */
 public class FishmanException extends Exception {
 
+    private static final String PREFIX = "Glub glub! ";
+
     /**
      * Constructs a new FishmanException with no message.
      */
@@ -17,14 +19,14 @@ public class FishmanException extends Exception {
      * @param message The detail message.
      */
     public FishmanException(String message) {
-        super(message);
+        super(PREFIX + message);
     }
 
     /**
      * The exception thrown when an invalid command is entered.
      */
     public static class InvalidCommandException extends FishmanException {
-        private static final String MESSAGE = "Please enter a valid command such as 'list' or 'bye' :(";
+        private static final String MESSAGE = "please enter a valid command such as 'list' or 'bye' :(";
 
         /**
          * Constructs a new InvalidCommandException with the invalid command.
