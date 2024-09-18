@@ -7,6 +7,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
 
 import gale.task.Deadline;
 import gale.task.Event;
@@ -30,6 +33,7 @@ public class Storage {
     public Storage(String filePath) {
         this.filePath = filePath;
     }
+
 
     /**
      * Loads the tasks from the file specified by the file path.
@@ -98,13 +102,13 @@ public class Storage {
                 if (parts.length < 5) {
                     return null;
                 }
-                task = new Deadline(desc, parts[3], priority);
+                task = new Deadline(desc, parts[4], priority);
                 break;
             case "E":
                 if (parts.length < 6) {
                     return null;
                 }
-                task = new Event(desc, parts[3], parts[4], priority);
+                task = new Event(desc, parts[4], parts[5], priority);
                 break;
             default:
                 return null;
@@ -117,4 +121,5 @@ public class Storage {
         }
         return task;
     }
+
 }

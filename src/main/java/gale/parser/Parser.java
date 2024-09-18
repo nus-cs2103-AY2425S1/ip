@@ -20,7 +20,7 @@ import gale.task.ToDo;
  */
 public class Parser {
 
-    public static ArrayList<DateTimeFormatter> formatters = new ArrayList<>(
+    private static ArrayList<DateTimeFormatter> formatters = new ArrayList<>(
             List.of(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"),
                     DateTimeFormatter.ofPattern("d/M/yyyy HH:mm"))
     );
@@ -145,19 +145,14 @@ public class Parser {
 
     public static String[] splitInput(String input, String command, int prefixLen, String regex, int partsNum,
             String errorMsg) throws GaleException {
-        if (input.length() <= prefixLen) {
+        if (input.length() < prefixLen) {
             throw new GaleException(errorMsg);
         }
-        if (!input.contains(regex)) {
+        if (!input.contains("/from") && !input.contains("/to") && !input.contains("/by")) {
             throw new GaleException(errorMsg);
         }
         String[] parts = input.substring(prefixLen).split(regex);
-        boolean isPriorityInvalid;
         boolean isInvalidCommand = parts.length != partsNum || parts[0].trim().isEmpty() || parts[1].trim().isEmpty();
-        if (command.equals("event")) {
-            isPriorityInvalid = parts[2].trim().isEmpty();
-            isInvalidCommand = isInvalidCommand || isPriorityInvalid;
-        }
         if (isInvalidCommand) {
             throw new GaleException(errorMsg);
         }
