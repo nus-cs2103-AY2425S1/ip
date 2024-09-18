@@ -21,6 +21,7 @@ public class Parser {
         } else {
             input = userInput.split(" /", 2);
         }
+
         String type = input[0].split(" ")[0].toLowerCase();
         String description = input[0].substring(type.length());
         try {
