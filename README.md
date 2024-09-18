@@ -38,5 +38,5 @@ public class Main {
 }
 ```
 
-I used ChatGPT for some guidance on writing code and to speed up simple but tedious tasks such as some of 
+Credit: I used ChatGPT for some guidance on writing code and to speed up simple but tedious tasks such as some of 
 the JavaDocs but ensured to carefully review whatever it suggested before adapting it for my use.
