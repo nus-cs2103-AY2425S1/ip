@@ -2,7 +2,6 @@ package ip.derrick;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import ip.derrick.Derrick;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
