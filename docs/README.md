@@ -1,6 +1,7 @@
 # Buddy User Guide
 
-// Product screenshot goes here
+<img width="893" alt="Ui" src="https://github.com/user-attachments/assets/f0a47f56-0ccd-4d0d-974b-eb2eb4898973">
+
 
 Buddy (aka. AbdulBuddy) is a chatbox that helps you keep track of your tasks using intuitive commands
 
