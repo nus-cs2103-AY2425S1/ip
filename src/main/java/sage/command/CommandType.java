@@ -1,7 +1,7 @@
 package sage.command;
 
 public enum CommandType {
-    BYE, LIST, MARK, UNMARK, DELETE, FIND, SCHEDULE, TODO, DEADLINE, EVENT;
+    BYE, LIST, MARK, UNMARK, DELETE, FIND, SCHEDULE, TODO, DEADLINE, EVENT, HELP;
 
     public static boolean isValidCommand(String command) {
         try {
