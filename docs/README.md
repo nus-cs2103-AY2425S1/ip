@@ -9,7 +9,10 @@ GLaDOS is a versatile chatbot for managing tasks, based off of the video game ch
   - [Adding a Deadline: `deadline`](#adding-a-deadline-deadline)
   - [Adding an Event: `event`](#adding-an-event-event)
   - [Deleting a Task: `delete`](#deleting-a-task-delete)
-  - []
+  - [Marking a Task as Done: `mark`](#marking-a-task-as-done-mark)
+  - [Unmarking a Task: `unmark`](#unmarking-a-task-unmark)
+  - [Updating a Task: `update`](#updating-a-task-update)
+  - [Finding a Task: `find`](#finding-a-task-find)
 - [Known Issues](#known-issues)
 - [Command Summary](#command-summary)
 
@@ -38,8 +41,6 @@ Items in square brackets are optional.
 Items with …​ after them can be used multiple times.
 Parameters can be in any order.
 Extraneous parameters for commands that do not take in parameters will be ignored.
-Viewing Help: help
-Shows a message explaining how to access the help page.
 
 ### Listing all tasks: `list`
 
