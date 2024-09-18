@@ -122,17 +122,16 @@ Example: `stats`
 
 ## Command summary
 
-| Command                   | Format | Example |
-|---------------------------|--------|---------|
-| Display the list of tasks | list   | list    |
-| Add deadline task         |        |         |
-| Add todo task             |        |         |
-| Add event task            |        |         |
-| Delete a task             |        |         |
-| Tag a task                |        |         |
-| Untag a task              |        |         |
-| Mark a task as done       |        |         |
-| Unmark a completed task   |        |         |
-| Find a task               |        |         | 
-| Display statistics        |        |         |
-  
+| Command                   | Format                                                                                                                     | Example                                                          |
+|---------------------------|----------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
+| Display the list of tasks | `list`                                                                                                                     | `list`                                                           |
+| Add deadline task         | `deadline [task description] /by [end time with format YYYY-MM-DD (HH:mm)]`                                                | `deadline meet with Gagarin /by 1970-01-01 12:00`                |
+| Add todo task             | `todo [task description]`                                                                                                  | `todo read aerodynamics documents`                               |
+| Add event task            | `event [task description] /from [start time with format YYYY-MM-DD (HH:mm)] /to [end time with format YYYY-MM-DD (HH:mm)]` | `event launch Sputnik satellite /from 1960-01-01 /to 1961-02-03` |
+| Delete a task             | `delete [task ID]`                                                                                                         | `delete 3`                                                       |
+| Tag a task                | `tag [task ID] [task description]`                                                                                         | `tag 2 important event`                                          |
+| Untag a task              | `untag [task ID]`                                                                                                          | `untag 2`                                                        |
+| Mark a task as done       | `mark [task ID]`                                                                                                           | `mark 4`                                                         |
+| Unmark a completed task   | `unmark [task ID]`                                                                                                         | `unmark 4`                                                       |
+| Find a task               | `find [keyword]`                                                                                                           | `find aerodynamics`                                              |
+| Display statistics        | `stats`                                                                                                                    | `stats`                                                          |
