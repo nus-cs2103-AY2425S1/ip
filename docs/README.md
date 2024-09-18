@@ -7,7 +7,7 @@ to easily track your tasks**, optimized for use
 via a Command Line Interface. If you can type fast, 
 Azir will be ***WAY FASTER*** than traditional task tracking apps!
 
-:information_source: **Notes about the command format:**
+ℹ️ **Notes about the command format:**
 
 - Words in `UPPERCASE` are compulsory parameters to be supplied by user
 - Tasks with duplicate task descriptions will not be added
