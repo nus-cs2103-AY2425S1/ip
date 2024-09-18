@@ -86,11 +86,7 @@ public class Gopher {
         try {
             int[] taskNumbers = Parser.parseMarkCommand(userInput);
             taskList.markAsDone(taskNumbers);
-            StringBuilder message = new StringBuilder();
-            for (int taskNumber : taskNumbers) {
-                message.append(UI.getMarkAsDoneMessage(taskList.getTask(taskNumber)));
-            }
-            return UI.getMessage(message.toString());
+            return UI.getMarkAsDoneMessage(taskList, taskNumbers);
         } catch (MissingTaskNumberException | InvalidTaskNumberException e) {
             return UI.getErrorMessage(e);
         } finally {
@@ -108,11 +104,7 @@ public class Gopher {
         try {
             int[] taskNumbers = Parser.parseUnmarkCommand(userInput);
             taskList.markAsUndone(taskNumbers);
-            StringBuilder message = new StringBuilder();
-            for (int taskNumber : taskNumbers) {
-                message.append(UI.getMarkAsUndoneMessage(taskList.getTask(taskNumber)));
-            }
-            return UI.getMessage(message.toString());
+            return UI.getMarkAsUndoneMessage(taskList, taskNumbers);
         } catch (MissingTaskNumberException | InvalidTaskNumberException e) {
             return UI.getErrorMessage(e);
         } finally {
@@ -129,12 +121,9 @@ public class Gopher {
     public static Message executeDeleteTaskCommand(String userInput) {
         try {
             int[] taskNumbers = Parser.parseDeleteCommand(userInput);
-            StringBuilder message = new StringBuilder();
-            for (int taskNumber : taskNumbers) {
-                message.append(UI.getDeleteTaskMessage(taskList.getTask(taskNumber)));
-            }
+            Message message = UI.getDeleteTaskMessage(taskList, taskNumbers);
             taskList.delete(taskNumbers);
-            return UI.getMessage(message.toString());
+            return message;
         } catch (MissingTaskNumberException | InvalidTaskNumberException e) {
             return UI.getErrorMessage(e);
         } finally {

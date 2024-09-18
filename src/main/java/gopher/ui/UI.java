@@ -1,5 +1,6 @@
 package gopher.ui;
 
+import gopher.exception.InvalidTaskNumberException;
 import gopher.exception.UnknownCommandException;
 import gopher.message.Message;
 import gopher.message.MessageType;
@@ -111,37 +112,65 @@ public class UI {
     /**
      * Get the message when a given task is successfully mark as done.
      *
-     * @param task task to be marked as done
+     * @param taskList taskList involved in the operation
+     * @param taskNumbers numbers of the tasks being marked as done
      * @return Message object that shows a task is successfully marked as done
      */
-    public static Message getMarkAsDoneMessage(Task task) {
-        String text = String.format("I've marked this task as done:\n%s\nWell done! Keep up the good work!",
-                task);
-        return UI.getMessage(text);
+    public static Message getMarkAsDoneMessage(TaskList taskList, int[] taskNumbers)
+            throws InvalidTaskNumberException {
+        StringBuilder message = new StringBuilder(
+                String.format("I've marked %s %s as done:\n",
+                        taskNumbers.length <= 1 ? "this" : "these",
+                        taskNumbers.length <= 1 ? "task" : "tasks"
+                ));
+        for (int i = 1; i <= taskNumbers.length; i++) {
+            message.append(String.format("%d. %s", i, taskList.getTask(taskNumbers[i - 1])));
+            message.append("\n");
+        }
+        message.append("Well Done! Keep up the good work!");
+        return UI.getMessage(message.toString());
     }
 
     /**
      * Get the message when a given task is successfully mark as not done.
      *
-     * @param task task to be marked as not done
-     * @return Message object that shows a task is successfully marked as done
+     * @param taskList taskList involved in the operation
+     * @param taskNumbers numbers of the tasks being marked as not done
+     * @return Message object that shows a task is successfully marked as not done
      */
-    public static Message getMarkAsUndoneMessage(Task task) {
-        String text = String.format("Ok, I've marked this task as not done yet:\n%s\n",
-                task);
-        return UI.getMessage(text);
+    public static Message getMarkAsUndoneMessage(TaskList taskList, int[] taskNumbers)
+            throws InvalidTaskNumberException {
+        StringBuilder message = new StringBuilder(
+                String.format("Ok, I've marked %s %s as not done yet:\n",
+                        taskNumbers.length <= 1 ? "this" : "these",
+                        taskNumbers.length <= 1 ? "task" : "tasks"
+                ));
+        for (int i = 1; i <= taskNumbers.length; i++) {
+            message.append(String.format("%d. %s", i, taskList.getTask(taskNumbers[i - 1])));
+            message.append("\n");
+        }
+        return UI.getMessage(message.toString());
     }
 
     /**
      * Get the message when TaskList successfully delete a task.
      *
-     * @param task task to be deleted
+     * @param taskList taskList involved in the operation
+     * @param taskNumbers numbers of the tasks being deleted
      * @return Message object that shows a task is successfully deleted
      */
-    public static Message getDeleteTaskMessage(Task task) {
-        String text = String.format("Noted. I've removed this task:\n%s\n",
-                task);
-        return UI.getMessage(text);
+    public static Message getDeleteTaskMessage(TaskList taskList, int[] taskNumbers)
+            throws InvalidTaskNumberException {
+        StringBuilder message = new StringBuilder(
+                String.format("Noted. I've removed %s %s:\n",
+                        taskNumbers.length <= 1 ? "this" : "these",
+                        taskNumbers.length <= 1 ? "task" : "tasks"
+                ));
+        for (int i = 1; i <= taskNumbers.length; i++) {
+            message.append(String.format("%d. %s", i, taskList.getTask(taskNumbers[i - 1])));
+            message.append("\n");
+        }
+        return UI.getMessage(message.toString());
     }
 
     /**
