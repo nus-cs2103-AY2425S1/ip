@@ -9,7 +9,9 @@ import fishman.task.TaskList;
 import fishman.utils.Parser;
 import fishman.utils.Storage;
 import fishman.utils.Ui;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
+import javafx.util.Duration;
 
 /**
  * The main class for the Fishman bot.
@@ -32,10 +34,15 @@ public class Fishman {
         assert taskList != null : "Task list should not be null before processing";
         try {
             Command command = Parser.parse(input, taskList);
+
+            String response = command.execute(taskList, ui);
+
             if (command.isExit()) {
-                Platform.exit();
+                PauseTransition delay = new PauseTransition(Duration.seconds(2));
+                delay.setOnFinished(event -> Platform.exit());
+                delay.play();
             }
-            return command.execute(taskList, ui);
+            return response;
         } catch (FishmanException e) {
             return e.getMessage();
         }
