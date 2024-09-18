@@ -94,7 +94,7 @@ class TaskCreatorTest {
             TaskCreator.createTask("Return Book /by tmr", testTaskListStub, CommandType.DEADLINE);
             fail();
         } catch (MortalReminderException e) {
-            assertEquals("Please enter a valid date in dd-MM-yyy HHmm (24hr format)!", e.getMessage());
+            assertEquals("Please enter a valid date in dd-MM-yyyy HHmm (24hr format)!", e.getMessage());
         }
     }
 
@@ -104,7 +104,7 @@ class TaskCreatorTest {
             TaskCreator.createTask("Return Book /from tmr /to day after", testTaskListStub, CommandType.EVENT);
             fail();
         } catch (MortalReminderException e) {
-            assertEquals("Please enter a valid date in dd-MM-yyy HHmm (24hr format)!", e.getMessage());
+            assertEquals("Please enter a valid date in dd-MM-yyyy HHmm (24hr format)!", e.getMessage());
         }
     }
 }
