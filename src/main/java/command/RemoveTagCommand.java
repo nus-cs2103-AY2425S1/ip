@@ -38,4 +38,9 @@ public class RemoveTagCommand extends Command {
         taggedTask.removeTag(tagList.getTag(tagName));
         return guiResponses.untagTagMsg(taggedTask, tagName);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof RemoveTagCommand;
+    }
 }

@@ -39,12 +39,7 @@ public class TagCommand extends Command {
         }
         tagIndex = tagIndex - 1;
         Tag tag;
-        if (tagList.containsTag(tagText)) {
-            tag = tagList.getTag(tagText);
-        } else {
-            tag = new Tag(tagText);
-            tagList.addTag(tag);
-        }
+        tag = getTag(tagList, tagText);
 
         tag.tagTask(taskList.getTask(tagIndex));
         taskList.getTask(tagIndex).addTag(tag);
@@ -52,5 +47,21 @@ public class TagCommand extends Command {
 
 
         return result;
+    }
+
+    private static Tag getTag(TagList tagList, String tagText) {
+        Tag tag;
+        if (tagList.containsTag(tagText)) {
+            tag = tagList.getTag(tagText);
+        } else {
+            tag = new Tag(tagText);
+            tagList.addTag(tag);
+        }
+        return tag;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof TagCommand;
     }
 }

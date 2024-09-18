@@ -90,6 +90,21 @@ public class StorageTest {
     }
 
     @Test
+    public void parseEvent_DateTime() {
+        try {
+            ArrayList<Task> taskList = new ArrayList<>();
+            testStorage.parseTask(testParser,
+                    "E |   | event 1 ( from Apr 02 2003, 00:00 to Feb 01 2024, 00:00 )",
+                    taskList, new TagList());
+            assertEquals(new Event("event 1", LocalDateTime.of(2003,04,02, 00, 00),
+                            LocalDateTime.of(2024,02,01,00,00)).getDescription(),
+                    taskList.get(0).getDescription());
+        } catch (ChatterboxExceptions.ChatterBoxNoInput e) {
+            System.out.println("error" + e.getMessage());
+        }
+    }
+
+    @Test
     public void parseDead_tag() {
         try {
             ArrayList<Task> taskList = new ArrayList<>();

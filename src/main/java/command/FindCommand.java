@@ -27,4 +27,9 @@ public class FindCommand extends Command {
         ArrayList<Task> matches = taskList.findTasks(keywords);
         return guiResponses.getSearchList(matches);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof FindCommand;
+    }
 }

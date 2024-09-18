@@ -50,4 +50,9 @@ public class DeadlineCommand extends Command {
         return guiResponses.addTaskMsg("Deadline", taskList.size());
 
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof DeadlineCommand;
+    }
 }

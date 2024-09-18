@@ -34,4 +34,9 @@ public class UnmarkCommand extends Command {
         }
         return guiResponses.unmarkMsg(taskList.unmarkTask(index));
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof UnmarkCommand;
+    }
 }

@@ -1,7 +1,6 @@
 package chatterbox;
 
 import java.io.FileNotFoundException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import chatterboxexceptions.ChatterboxExceptions;
@@ -25,7 +24,7 @@ public class ChatterboxGui {
     private final TagList userTags;
 
     /**
-     * initiates Chatterbox with a prior history filepath
+     * initiates ChatterboxGui with a prior history filepath
      * @param filepath contains the history of tasks
      */
     public ChatterboxGui(String filepath) {
@@ -103,13 +102,7 @@ public class ChatterboxGui {
     }
 
 
-    /**
-     * Dummy echo testing
-     * @return repeats the string with haha:
-     */
-    public String getResponse(String input) {
-        return "haha: " + input;
-    }
+
 
     /**
      * Gets the greeting string
@@ -118,12 +111,12 @@ public class ChatterboxGui {
     public String getGreeting() {
         return guiResponses.greeting();
     }
-    public static void main(String[] args) {
 
-        Chatterbox myChat = new Chatterbox(
-                Paths.get(System.getProperty("user.dir"), "data" , "command1.txt").toString());
-        myChat.run();
-
-
+    /**
+     * Gets the name of the chatbot
+     * @return name of the chatbot
+     */
+    public String getName() {
+        return "Chatterbox";
     }
 }

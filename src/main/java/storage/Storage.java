@@ -112,12 +112,10 @@ public class Storage {
                 //parse the Line for task
                 parseTask(parser, nextLine, loadedTasks, loadedTags);
 
-
             }
         } catch (ChatterboxExceptions.ChatterBoxNoInput e) {
             System.out.println("Error: " + e.getMessage());
         }
-        System.out.println(String.format("Previous Task list of size: %d Loaded", loadedTasks.size()));
 
     }
 
@@ -139,7 +137,7 @@ public class Storage {
         // parse tags if available
         Set<Tag> taskTagSet = new HashSet<>(); //stores the current tags for this task
 
-        if (tagStart != -1) {
+        if (tagStart != -1) { //if /tag found
             String tags = nextLine.substring(tagStart + 7);
             String[] tagList = tags.split(" ");
 
@@ -158,12 +156,8 @@ public class Storage {
 
         } else if (type == 'D') {
             nextTask = loadDeadline(parser, rest, tagStart);
-
-
         } else {
             nextTask = loadEvent(parser, rest, tagStart);
-
-
         }
         if (status) {
             nextTask.setStatus(true);
@@ -213,9 +207,7 @@ public class Storage {
             deadline = rest.substring(startBracket + 5, rest.length() - 2).trim();
 
         } else {
-
             deadline = rest.substring(startBracket + 5, bracketEnd).trim();
-
         }
         LocalDateTime deadlineObj = parser.parseDateTime(deadline);
 

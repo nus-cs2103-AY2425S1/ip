@@ -30,4 +30,9 @@ public class FindTagCommand extends Command {
 
 
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof FindTagCommand;
+    }
 }

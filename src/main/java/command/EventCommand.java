@@ -46,4 +46,9 @@ public class EventCommand extends Command {
 
         return guiResponses.addTaskMsg("Event", taskList.size());
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof EventCommand;
+    }
 }

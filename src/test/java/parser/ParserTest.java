@@ -6,6 +6,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import chatterboxexceptions.ChatterboxExceptions;
+import command.Command;
+import command.ByeCommand;
+import command.DeadlineCommand;
+import command.EventCommand;
+import command.FindCommand;
+import command.InvalidCommand;
+import command.ListCommand;
+import command.MarkCommand;
+import command.TodoCommand;
+
 
 
 public class ParserTest {
@@ -13,17 +23,27 @@ public class ParserTest {
     private final Parser testParser = new Parser();
 
 
+
     @Test
     public void parseCommand_byeCommand() {
-        assertEquals(Parser.ValidCommand.BYE, testParser.parseCommand("bye bye sas"));
+        assertEquals(new ByeCommand(), testParser.parseCommandType("bye bye xD"));
 
     }
 
     @Test
-    public void parseCommand_invalidCommand() {
-        assertEquals(Parser.ValidCommand.INVALID, testParser.parseCommand("baye bye"));
+    public void parseCommand_todoCommand() {
+        assertEquals(new TodoCommand(), testParser.parseCommandType("todo go home"));
 
     }
+
+    @Test
+    public void parseCommand_deadlineCommand() {
+        assertEquals(new DeadlineCommand(), testParser.parseCommandType("deadline homework /by tmr"));
+
+    }
+
+
+
 
     @Test
     public void extractNum_normalText() {
@@ -73,6 +93,16 @@ public class ParserTest {
         try {
             assertArrayEquals(new String[]{"deadline text", "/by next year"},
                     testParser.parseDeadline("deadline deadline text /by/by next year"));
+        } catch (ChatterboxExceptions.ChatterBoxMissingParameter e) {
+            System.out.println("error");
+        }
+    }
+
+    @Test
+    public void parseDeadline_DateTime() {
+        try {
+            assertArrayEquals(new String[]{"deadline text", "Apr 02 2003, 00:00"},
+                    testParser.parseDeadline("deadline deadline text /by Apr 02 2003, 00:00"));
         } catch (ChatterboxExceptions.ChatterBoxMissingParameter e) {
             System.out.println("error");
         }

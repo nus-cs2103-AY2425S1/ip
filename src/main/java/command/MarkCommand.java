@@ -33,4 +33,9 @@ public class MarkCommand extends Command {
         }
         return guiResponses.markMsg(taskList.markTask(index));
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof MarkCommand;
+    }
 }

@@ -10,7 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * Main appliction for javaFx
+ * Main application for javaFx
  */
 public class Main extends Application {
 
@@ -24,6 +24,7 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setMinHeight(420);
             stage.setMinWidth(417);
+            stage.setTitle(chatterbox.getName());
             fxmlLoader.<MainWindow>getController().setChatterbox(chatterbox); // inject the Duke instance
             stage.show();
         } catch (IOException e) {

@@ -23,4 +23,9 @@ public class TodoCommand extends Command {
         taskList.addTodo(parser.parseTodo(input));
         return guiResponses.addTaskMsg("Todo", taskList.size());
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof TodoCommand;
+    }
 }
