@@ -1,0 +1,13 @@
+todo Add a todo task
+deadline Add a deadline task /by 01/02/2025 1300
+event Add a event task /from 01/02/2025 1300 /to 01/02/2025 1500
+list
+mark 1
+mark 2
+mark 3
+list
+unmark 1
+unmark 2
+unmark 3
+list
+bye

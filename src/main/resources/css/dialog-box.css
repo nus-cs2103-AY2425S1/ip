@@ -1,0 +1,29 @@
+.label {
+    -fx-font: 16px "Arial";
+    -fx-background-color: #FCFFEB;
+    -fx-background-radius: 1em 0 1em 1em;
+    -fx-border-radius: 1em 0 1em 1em;
+}
+
+.reply-label {
+    -fx-background-radius: 0 1em 1em 1em;
+    -fx-border-radius: 0 1em 1em 1em;
+}
+
+.success-label {
+    -fx-background-color: #E5FFD6;
+}
+
+.error-label {
+    -fx-background-color: #FE9448;
+}
+
+#displayPicture {
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}
+
