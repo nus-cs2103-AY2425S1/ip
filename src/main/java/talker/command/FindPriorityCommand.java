@@ -26,6 +26,9 @@ public class FindPriorityCommand extends Command {
      * @throws TalkerException if no tasks found
      */
     public String execute(TaskList list, Ui ui, Storage storage) throws TalkerException {
+        if (parsed.length != 2) {
+            throw new TalkerException("FindPriority format wrong. Try again with: findPriority <h/m/l>");
+        }
         return list.findPriorityTask(parsed[1], ui);
     }
 }

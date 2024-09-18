@@ -54,7 +54,7 @@ public class Parser {
         case "date":
             return new DateCommand(stripped);
         case "find":
-            return new FindCommand(parsed);
+            return new FindCommand(stripped);
         case "setpriority":
             return new SetPriorityCommand(parsed);
         case "findpriority":
