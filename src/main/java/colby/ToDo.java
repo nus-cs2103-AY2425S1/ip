@@ -19,7 +19,7 @@ public class ToDo extends Task {
     @Override
     public String toString() {
         String duration = checkDuration(description);
-        return "[T]" + super.toString() + " " + duration;
+        return "[T][" + getStatusIcon() + "] " + duration;
     }
 
     @Override

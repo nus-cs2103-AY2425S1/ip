@@ -50,7 +50,7 @@ public class Storage {
         String results  = "";
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNext()) {
-                results = results + scanner.nextLine();
+                results = results + scanner.nextLine() + "\n";
             }
         }
         return results;
