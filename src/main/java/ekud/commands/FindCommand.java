@@ -14,7 +14,7 @@ import ekud.ui.Ui;
  */
 public class FindCommand extends Command {
     private static final String ERROR_MESSAGE =
-            "If you are going to waste my time, could you al least not try to get me to search for nothing!!";
+            "If you are going to waste my time, could you at least not try to get me to search for nothing!!";
 
     /** The keyword {@link String} */
     private final String keyword;
