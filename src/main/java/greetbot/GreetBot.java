@@ -115,6 +115,7 @@ public class GreetBot {
     private String markAsDone(int position) throws IndexOutOfBoundsException {
         try {
             this.tasks.get(position).mark();
+            this.storage.saveData(tasks);
             return ui.showMarked(tasks.get(position), tasks.getLength());
         } catch (IndexOutOfBoundsException e) {
             return String.format("You are manipulating position out of bound!");
@@ -124,6 +125,7 @@ public class GreetBot {
     private String markAsNotDone(int position) throws IndexOutOfBoundsException {
         try {
             this.tasks.get(position).unmark();
+            this.storage.saveData(tasks);
             return ui.showUnmarked(tasks.get(position), tasks.getLength());
         } catch (IndexOutOfBoundsException e) {
             return String.format("You are manipulating position out of bound!");
@@ -139,6 +141,7 @@ public class GreetBot {
         try {
             Task deletedTask = tasks.get(position - 1);
             this.tasks.delete(position);
+            this.storage.saveData(tasks);
             return ui.showDelete(deletedTask, tasks.getLength());
         } catch (IndexOutOfBoundsException e) {
             return String.format("You are manipulating position out of bound!");
@@ -148,6 +151,7 @@ public class GreetBot {
     private String addTodo(String description) {
         Task todo = new Task.Todo(description);
         this.tasks.add(todo);
+        this.storage.saveData(tasks);
         return this.ui.showAdd(todo, this.tasks.getLength());
     }
 
@@ -157,6 +161,7 @@ public class GreetBot {
         final int toPart = 2;
         Task event = new Task.Event(args[descriptionPart], args[fromPart], args[toPart]);
         this.tasks.add(event);
+        this.storage.saveData(tasks);
         return this.ui.showAdd(event, this.tasks.getLength());
     }
 
@@ -166,6 +171,7 @@ public class GreetBot {
             final int timePart = 1;
             Task deadline = new Task.Deadline(args[descriptionPart], args[timePart]);
             this.tasks.add(deadline);
+            this.storage.saveData(tasks);
             return this.ui.showAdd(deadline, this.tasks.getLength());
         } catch (DateTimeParseException e) {
             return "wrong time format for deadline task!";
