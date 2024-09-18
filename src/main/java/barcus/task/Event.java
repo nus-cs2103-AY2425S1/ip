@@ -35,7 +35,13 @@ public class Event extends Task {
      * @param to date
      * @throws DateTimeParseException when error parsing date
      */
-    public Event(String description, boolean isDone, String tags, String from, String to) throws DateTimeParseException {
+    public Event(
+            String description,
+            boolean isDone,
+            String tags,
+            String from,
+            String to)
+            throws DateTimeParseException {
         super(description, isDone, tags);
         this.from = LocalDateTime.parse(from, fromFormatter);
         this.to = LocalDateTime.parse(to, fromFormatter);

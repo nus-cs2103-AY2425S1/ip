@@ -5,6 +5,9 @@ import barcus.storage.Storage;
 import barcus.tasklist.TaskList;
 import barcus.ui.Ui;
 
+/**
+ * Command to untag task at position pos with a tag
+ */
 public class UntagCommand extends Command {
     private int pos;
     private String tag;
@@ -26,7 +29,7 @@ public class UntagCommand extends Command {
 
         tasks.untagTask(pos - 1, tag);
         output += "Sureee, have untagged task:\n";
-        output += tasks.getTaskString(pos -1) + "\n";
+        output += tasks.getTaskString(pos - 1) + "\n";
 
     }
 

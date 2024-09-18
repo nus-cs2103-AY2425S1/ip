@@ -5,6 +5,9 @@ import barcus.storage.Storage;
 import barcus.tasklist.TaskList;
 import barcus.ui.Ui;
 
+/**
+ * Command to tag items at position pos
+ */
 public class TagCommand extends Command {
     private int pos;
     private String tag;
@@ -27,7 +30,7 @@ public class TagCommand extends Command {
 
         tasks.tagTask(pos - 1, tag);
         output += "Cool beans, have tagged task:\n";
-        output += tasks.getTaskString(pos -1) + "\n";
+        output += tasks.getTaskString(pos - 1) + "\n";
 
     }
 

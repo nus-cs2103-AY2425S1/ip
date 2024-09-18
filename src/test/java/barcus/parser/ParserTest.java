@@ -11,10 +11,13 @@ import barcus.command.AddTodoCommand;
 import barcus.command.Command;
 import barcus.command.DeleteCommand;
 import barcus.command.ExitCommand;
+import barcus.command.FindCommand;
 import barcus.command.ListCommand;
 import barcus.command.MarkCommand;
+import barcus.command.TagCommand;
 import barcus.command.UnknownCommand;
 import barcus.command.UnmarkCommand;
+import barcus.command.UntagCommand;
 import barcus.exception.BarcusException;
 
 
@@ -208,6 +211,86 @@ public class ParserTest {
             fail();
         } catch (BarcusException e) {
             assertEquals("please have an integer after 'delete'", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testParseFindCommand() {
+        try {
+            Command c = Parser.parse("find book");
+            assertEquals(c.getClass(), FindCommand.class);
+        } catch (BarcusException e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testParseWrongFindCommandWrongLength() {
+        try {
+            Command c = Parser.parse("find");
+            fail();
+        } catch (BarcusException e) {
+            assertEquals("please include what word(s) you want to find after 'find'", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testParseTagCommand() {
+        try {
+            Command c = Parser.parse("tag 2 #fun");
+            assertEquals(c.getClass(), TagCommand.class);
+        } catch (BarcusException e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testParseWrongTagCommandWrongLength() {
+        try {
+            Command c = Parser.parse("tag 5");
+            fail();
+        } catch (BarcusException e) {
+            assertEquals("please have an integer and a single word tag after 'tag'", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testParseWrongTagCommandNoInteger() {
+        try {
+            Command c = Parser.parse("tag hehe haha");
+            fail();
+        } catch (BarcusException e) {
+            assertEquals("please have an integer and a single word tag after 'tag'", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testParseUntagCommand() {
+        try {
+            Command c = Parser.parse("untag 2 #fun");
+            assertEquals(c.getClass(), UntagCommand.class);
+        } catch (BarcusException e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void testParseWrongUntagCommandWrongLength() {
+        try {
+            Command c = Parser.parse("untag 5");
+            fail();
+        } catch (BarcusException e) {
+            assertEquals("please have an integer and a single word tag after 'untag'", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testParseWrongUntagCommandNoInteger() {
+        try {
+            Command c = Parser.parse("untag hehe haha");
+            fail();
+        } catch (BarcusException e) {
+            assertEquals("please have an integer and a single word tag after 'untag'", e.getMessage());
         }
     }
 }
