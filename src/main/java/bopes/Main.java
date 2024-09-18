@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    private Bopes bopes = new Bopes("data/tasks.txt");
+    private Bopes bopes = new Bopes();
 
     @Override
     public void start(Stage stage) {

@@ -1,6 +1,7 @@
 package bopes;
 
 import java.util.ArrayList;
+import java.io.File;
 
 import bopes.exception.BopesException;
 import bopes.task.TaskList;
@@ -19,8 +20,19 @@ public class Bopes {
      * 
      * @param filePath The path to the file used for storage.
      */
-    public Bopes(String filePath) {
+    public Bopes() {
         ui = new Ui();
+         // Get the user's home directory
+         String homeDirectory = System.getProperty("user.home");
+        
+         // Define the path to store the file inside a subdirectory, e.g., Bopes
+         String filePath = homeDirectory + File.separator + "Bopes" + File.separator + "tasks.txt";
+ 
+         // Ensure the directory exists
+         File bopesDir = new File(homeDirectory + File.separator + "Bopes");
+         if (!bopesDir.exists()) {
+             bopesDir.mkdir();
+         }
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.loadTasks());
