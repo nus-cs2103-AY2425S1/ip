@@ -25,7 +25,7 @@ public abstract class Command {
      * exit.
      *
      * @return {@code true} if the command is an exit command, {@code false}
-     * otherwise.
+     *     otherwise.
      */
     public boolean isExit() {
         return false;

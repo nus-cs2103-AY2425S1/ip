@@ -3,13 +3,27 @@ package lebron;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a parser that interprets user input and translates it into commands
+ * that can be executed by the LeBron application. The Parser class is responsible
+ * for parsing input strings, creating appropriate command objects, and handling
+ * any date parsing required for tasks.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input and returns the corresponding command.
+     *
+     * @param userInput The input string entered by the user.
+     * @return The command corresponding to the user input.
+     * @throws LeBronException If the input does not correspond to any known command or is invalid.
+     */
     public Command parse(String userInput) throws LeBronException {
         String[] words = userInput.split(" ", 2);
         String commandWord = words[0];
 
-        switch (commandWord) {
+        try {
+            switch (commandWord) {
             case "bye":
                 return new ExitCommand();
             case "list":
@@ -46,15 +60,20 @@ public class Parser {
                     LocalDate[] dates = parseEventDates(splStrings[1]);
                     Event event = new Event(taskDescription, dates[0], dates[1]);
                     return new AddCommand(event);
+                } else {
+                    throw new LeBronException("Invalid format for event command.");
                 }
             default:
                 throw new LeBronException("What do you mean bro?");
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new LeBronException("The command is missing arguments, bro!");
         }
     }
 
     private LocalDate[] parseEventDates(String dateRange) {
         LocalDate start = LocalDate.now(); // Default start date
-        LocalDate end = LocalDate.now();   // Default end date
+        LocalDate end = LocalDate.now(); // Default end date
 
         if (dateRange.contains("/to")) {
             String[] timeParts = dateRange.split("/to", 2);

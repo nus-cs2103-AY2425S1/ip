@@ -28,7 +28,7 @@ public class DeleteCommand extends Command {
      * @param ui The user interface that will display the task deletion message.
      * @param storage The storage where the updated task list is saved.
      * @throws LeBronException If the specified index is invalid or an error
-     * occurs during command execution.
+     *     occurs during command execution.
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws LeBronException {
@@ -38,5 +38,4 @@ public class DeleteCommand extends Command {
         storage.saveTasks(taskList);
         return msg;
     }
-
 }

@@ -1,9 +1,10 @@
 package lebron;
 
-import java.time.LocalDate;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.Test;
 
 public class EventTest {
@@ -15,5 +16,4 @@ public class EventTest {
         assertEquals(LocalDate.of(2024, 9, 2), event.getEnd());
         assertFalse(event.getStatus());
     }
-
 }

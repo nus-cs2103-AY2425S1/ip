@@ -5,7 +5,8 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a task that is an event with a start and end date. An Event task
- * includes a description, start date, and end date.
+ * includes a description, start date, and end date. This class provides methods
+ * to retrieve, modify, and display event details.
  */
 public class Event extends Task {
 
@@ -22,7 +23,6 @@ public class Event extends Task {
      */
     public Event(String description, LocalDate start, LocalDate end) {
         super(description);
-
         this.start = start;
         this.end = end;
     }
@@ -30,7 +30,7 @@ public class Event extends Task {
     /**
      * Returns a string representation of the event task. The string includes
      * the task type, status icon, description, and formatted start and end
-     * dates.
+     * dates. The format is user-friendly and intended for display purposes.
      *
      * @return A string representing the event task.
      */
@@ -41,6 +41,11 @@ public class Event extends Task {
                 this.end.format(DateTimeFormatter.ofPattern("MMM d yyyy")));
     }
 
+    /**
+     * Reschedules the event by setting a new end date.
+     *
+     * @param newDate The new end date of the event.
+     */
     public void reschedule(LocalDate newDate) {
         this.end = newDate;
     }
@@ -48,7 +53,8 @@ public class Event extends Task {
     /**
      * Returns a string representation of the event task formatted for file
      * storage. The string includes the task type, completion status,
-     * description, and the raw start and end dates.
+     * description, and the raw start and end dates. This format is useful for
+     * saving the task information to a file.
      *
      * @return A string representing the event task for file storage.
      */

@@ -8,16 +8,31 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-
-
+/**
+ * Handles the loading and saving of tasks to and from a file.
+ * This class is responsible for reading tasks from a file and saving tasks back to it,
+ * providing persistent storage for the LeBron ChatBot application.
+ */
 public class Storage {
 
     private String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path for storing tasks.
+     *
+     * @param filePath The file path where tasks will be saved and loaded from.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file specified by the file path.
+     * If the file does not exist, an empty task list is returned.
+     *
+     * @return An ArrayList of tasks loaded from the file.
+     * @throws IOException If an error occurs while reading from the file.
+     */
     public ArrayList<Task> loadTasks() throws IOException {
         ArrayList<Task> taskList = new ArrayList<>();
         final File file = new File(filePath);
@@ -61,6 +76,12 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves the current list of tasks to the file specified by the file path.
+     * Creates the file and any necessary directories if they do not exist.
+     *
+     * @param taskList The TaskList containing tasks to be saved to the file.
+     */
     public void saveTasks(TaskList taskList) {
         FileWriter fw = null;
         try {
@@ -78,11 +99,12 @@ public class Storage {
             System.out.println(ex);
         } finally {
             try {
-                fw.close();
+                if (fw != null) {
+                    fw.close();
+                }
             } catch (IOException ex) {
                 System.out.println(ex);
             }
         }
     }
-
 }

@@ -37,18 +37,22 @@ public class LeBron {
     }
 
     /**
-     * Runs the LeBron application, handling the main loop that processes user
-     * input and executes commands until the application is instructed to exit.
+     * Processes the user's input and returns a response. This method handles
+     * the parsing of the user input, execution of the corresponding command,
+     * and generation of the response. It also manages the application's exit
+     * process.
+     *
+     * @param input The user input to be processed.
+     * @return The response generated after processing the user input.
      */
     public String getResponse(String input) {
-
         assert input != null : "Input should not be null";
-        
+
         StringBuilder response = new StringBuilder();
         try {
             // Parse the input and execute the command
-            Command command = parser.parse(input);  // Assume parser is initialized elsewhere
-            response.append(command.execute(taskList, ui, storage));  // Append the command output to response
+            Command command = parser.parse(input); // Assume parser is initialized elsewhere
+            response.append(command.execute(taskList, ui, storage)); // Append the command output to response
 
             // Check if the command is an exit command
             if (command.isExit()) {
@@ -62,5 +66,4 @@ public class LeBron {
 
         return response.toString();
     }
-
 }
