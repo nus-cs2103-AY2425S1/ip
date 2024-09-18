@@ -1,33 +1,103 @@
-# Phenex project template
+# User Guide for Phenex Chatbot
 
-Phenex is a project template for a greenfield Java project. It's named after the gundam, Phenex.
-Given below are instructions on how to use it.
+Phenex is your favourite gundam-themed chatbot,
+meant to help you keep track of your tasks through maintaining a task list! 
+Phenex supports 3 different task types: ToDo, Deadline, and Event.
+It also comes in two forms - a GUI version, or a CLI version.
 
-## Setting up in Intellij
+![Phenex](./Ui.png)
+## Features
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+### Notes about the Command Format:
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-    1. Click `Open`.
-    1. Select the project directory, and click `OK`.
-    1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Phenex.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello! I'm
-    _____    _    _   ______   _   _   ______  __   __
-   |  __ \  | |  | | |  ____| | \ | | |  ____| \ \ / /
-   | |__) | | |__| | | |__    |  \| | | |__     \ V /
-   | |      | |  | | | |____  | |\  | | |____   / . \
-   |_|      |_|  |_| |______| |_| \_| |______| /_/ \_\
-   Your favourite solid gold mobile suit!
-   ____________________________________________________________
-   What can I do for you?
-   ____________________________________________________________
-   ```
+- Words in `{}` are parameters to be supplied by the user.  
+  e.g. in `todo {description}`, `description` is a parameter which can be used as `todo Buy groceries`.
 
-## Acknowledgements
+- Parameters must be provided in the order specified by the command.
 
-ASCII Art Generator for Logo: https://patorjk.com/software/taag/
+
+### Adding a New Todo task to the task list: `todo`
+
+Adds a new todo task to the task list.
+
+**Format:** `todo (description)`
+
+**Example:**
+- `todo go grocery shopping`
+
+### Adding a New Deadline: `deadline`
+
+Adds a new deadline task to the task list, meant for tasks which must be done by a certain date.
+
+**Format:** `deadline (description) /by (YYYY-MM-DD)`
+
+**Example:**
+- `deadline pay for gym membership /by 2024-12-25`
+
+### Adding a New Event: `event`
+
+Adds a new event task to the task list with a start date and an end date, meant for tasks which occur during a period.
+
+**Format:** `event (description) /from (YYYY-MM-DD) /to (YYYY-MM-DD)`
+
+**Examples:**
+- `event holiday /from 2024-12-01 /to 2024-12-15`
+
+### Listing All Tasks: `list`
+
+Displays all tasks in the current task list.
+
+**Format:** `list`
+
+### Marking a Task as Complete: `mark`
+
+Marks a task at the specified index as completed. The `index` is the task's position in the list. 
+Index will be an integer starting from 1.
+
+**Format:** `mark (index)`
+
+**Example:**
+- `mark 2`
+
+### Unmarking a Task as Incomplete: `unmark`
+
+Marks a task at the specified index as incomplete. The `index` is the task's position in the list.
+Index will be an integer starting from 1.
+
+**Format:** `unmark (index)`
+
+**Example:**
+- `unmark 2`
+
+### Deleting a Task: `delete`
+
+Deletes a task at the specified index from the task list. The `index` is the task's position in the list.
+
+**Format:** `delete (index)`
+
+**Example:**
+- `delete 6`
+
+### Finding a Task: `find`
+
+Finds a task in the list which has a specified description.
+
+**Format:** `find (description)`
+
+**Example:**
+- `find holiday`
+
+### Finding a Task by date: `missions on`
+
+Finds a task in the list which has a specified date.
+
+**Format:** `find (YYYY-MM-DD)`
+
+**Example:**
+- `missions on 2020-01-01`
+
+### Exiting the Program: `bye`
+
+Saves current task list and terminates the session for Phenex.
+
+**Format:** `bye`
