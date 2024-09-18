@@ -49,7 +49,10 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img); // Creates and returns a new user dialog box.
+        Label textLabel = new Label(text);
+        DialogBox dialogbox = new DialogBox(text, img); // Creates a new user dialog box.
+        dialogbox.setStyle("-fx-background-color: lightblue;");
+        return dialogbox;
     }
 
     public static DialogBox getNayanaDialog(String text, Image img) {

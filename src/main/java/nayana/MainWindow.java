@@ -7,7 +7,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
+import javafx.scene.paint.Color;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.geometry.Insets;
 /**
  * Controller for the main GUI of the application.
  * Manages the interaction between user input and the display of dialog boxes.
@@ -25,7 +29,7 @@ public class MainWindow extends AnchorPane {
     private Nayana nayana; // Instance of the Nayana class for processing commands.
 
     // Image for user dialog.
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user-transparent.png"));
 
     // Image for Nayana dialog.
     private Image nayanaImage = new Image(this.getClass().getResourceAsStream("/images/Nayana.png"));
@@ -58,10 +62,12 @@ public class MainWindow extends AnchorPane {
      * Processes the user input and clears the text field after handling.
      */
     @FXML
+
     private void handleUserInput() {
         String input = userInput.getText(); // Retrieves user input from the text field.
         dialogContainer.getChildren().addAll(
               DialogBox.getUserDialog(input, userImage) // Adds user dialog box to the container.
+
         );
         nayana.parseCommand(input); // Passes the user input to Nayana for command processing.
         userInput.clear(); // Clears the text field after processing the input.

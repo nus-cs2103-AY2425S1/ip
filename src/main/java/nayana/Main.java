@@ -1,5 +1,6 @@
 package nayana;
 
+import java.io.File;
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -22,7 +23,12 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
-            stage.setScene(scene); // Creates a new Scene with the loaded layout.
+            //Apply CSS stylesheet
+            stage.setScene(scene);// Creates a new Scene with the loaded layout.
+            stage.setTitle("Resizable Window");
+            stage.setMinWidth(400); // Optional: Set minimum width
+            stage.setMinHeight(630); // Optional: Set minimum height
+
             // Injects the Nayana instance into the MainWindow controller.
             fxmlLoader.<MainWindow>getController().setNayana(nayana);
             stage.show(); // Displays the primary stage.

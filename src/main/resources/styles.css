@@ -1,0 +1,40 @@
+/* General styling for the root pane */
+.root {
+    -fx-background-color: #f0f0f0; /* Background for the root pane */
+    -fx-padding: 10px; /* Add padding around the edges of the root pane */
+}
+
+/* Style for the TextField */
+#userInput {
+    -fx-background-color: #f0f0f0; /* White background for the user input text field */
+    -fx-font-size: 14px;
+    -fx-hgrow: ALWAYS; /* Ensure it grows horizontally */
+}
+
+/* Style for the Button */
+#sendButton {
+    -fx-background-color: #f0f0f0; /* Ensure the button background is white */
+    -fx-font-size: 14px;
+}
+
+/* Style for the VBox inside the ScrollPane */
+#dialogContainer {
+    -fx-spacing: 10px;
+    -fx-background-color: #f0f0f0; /* Ensure the VBox background is white */
+    -fx-spacing: 10px; /* Spacing between dialog boxes */
+    -fx-alignment: top-left; /* Align content to the top-left */
+    -fx-fill-width: true; /* Allow VBox to fill the width of its container */
+    -fx-vgrow: always;     /* Makes sure VBox grows vertically */
+}
+
+/* Ensure the dialog label grows to fill the horizontal space */
+#dialog {
+    -fx-max-width: Infinity;
+    -fx-wrap-text: true;
+}
+
+/* Keep the ImageView with a fixed size */
+#displayPicture {
+    -fx-fit-height: 70px;
+    -fx-fit-width: 71px;
+}
