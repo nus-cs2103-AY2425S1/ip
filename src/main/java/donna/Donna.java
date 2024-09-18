@@ -44,7 +44,7 @@ public class Donna {
 
     /**
      * Runs the main loop, processing user input and executing commands.
-     * Used for a text UI
+     * Used for a text UI.
      * Handles exceptions and prints error messages as needed.
      */
     private void run() {
@@ -81,8 +81,8 @@ public class Donna {
     }
 
     /**
-     * Main method to start the Donna application.
-     * Used for a text UI
+     * Starts the Donna application.
+     * Used for a text UI.
      *
      * @param args Arguments.
      */
