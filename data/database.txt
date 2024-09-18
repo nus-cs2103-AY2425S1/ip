@@ -1,7 +1,13 @@
-E | 1 | Natlan Livestream | 2024-10-11 | 2024-10-11 | 2024-10-11
+E | 0 | Natlan Livestream | 2024-10-11 | 2024-10-11 | 2024-10-11
 T | 1 | claim primogems!  | primogems! claim
 D | 0 | return book to Lisa else she'll electrocute me to death | 2024-10-01 | #2024-10-01
 T | 1 | daily commisions | daily commisions
-T | 0 | <name> | tag1 tag2
-D | 0 | <name> | 2024-09-30 | some_tag
 E | 0 | some event lol | 2024-09-30 | 2024-09-30 | another_tag other_tag
+T | 0 | something | something
+D | 0 | watch Natlan Live Stream | 2024-02-04 | 2024-02-04
+D | 0 | to this | 2020-04-01 | 2020-04-01
+D | 0 |  | 2020-02-02 | 2020-02-02
+D | 0 | helloworld | 2020-02-02 | 2020-02-02
+D | 0 |  | 2020-02-02 | 2020-02-02
+D | 0 | nothing | 2020-02-02 | 2020-02-02
+E | 0 | nothing | 2020-02-02 | 2020-02-02 | 2020-02-02
