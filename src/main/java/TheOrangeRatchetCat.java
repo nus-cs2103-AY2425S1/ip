@@ -29,8 +29,8 @@ public class TheOrangeRatchetCat {
         Parser.initialiseMap(); // To add all the command key-value pairs in Parser
         Scanner scanner = new Scanner(System.in);
         String resultToShow = "";
-        if (input.equals("bye")) {
-            resultToShow = "MEOW! GOODBYE";
+        if (input.equals("cat")) {
+            resultToShow = TheOrangeRatchetCat.ratchetCatUniqueDialogue();
         }
 
         while (!input.equals("bye")) {
@@ -62,5 +62,21 @@ public class TheOrangeRatchetCat {
         }
         Storage.saveTasks(tasks);
         return "RatchetCat says: \n" + resultToShow;
+    }
+
+    /**
+     * The String that encapsulates the viral interaction between the cat and the owner
+     * @return
+     */
+    private static String ratchetCatUniqueDialogue() {
+        return "Stop it! \n"
+                + "Staphhhh \n"
+                + "Stop you're scaring me \n"
+                + "You're scaring me!!! \n"
+                + "I said NO! \n"
+                + "STOP being ratchet \n"
+                + "Get off me \n"
+                + "We're done \n"
+                + "We are over\n" + "Go! \n";
     }
 }
