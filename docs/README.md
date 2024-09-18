@@ -1,8 +1,6 @@
 # Azir User Guide
 
-// Update the title above to match the actual product name
-
-// Product screenshot goes here
+![Ui.png](Ui.png)
 
 Azir is a **task management chatbot that allows you 
 to easily track your tasks**, optimized for use 
@@ -13,6 +11,13 @@ Azir will be ***WAY FASTER*** than traditional task tracking apps!
 
 - Words in `UPPERCASE` are compulsory parameters to be supplied by user
 - Tasks with duplicate task descriptions will not be added
+
+## How to start
+1. Ensure you have Java 17 or above installed in your Computer. 
+2. Download the latest .jar file from here. 
+3. Open a terminal and run `java -jar Azir.jar` 
+in the folder your jar file is in
+
 ## Features
 
 ### Viewing task list: `list`
