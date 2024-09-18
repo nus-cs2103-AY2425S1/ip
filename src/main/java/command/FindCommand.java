@@ -44,7 +44,7 @@ public class FindCommand extends Command {
         try {
             return new FindCommand(Pattern.compile(unparsedArguments, Pattern.CASE_INSENSITIVE));
         } catch (PatternSyntaxException e) {
-            throw new ElliotException(e);
+            throw new ElliotException("Invalid search term. Try another search term!\n", e);
         }
     }
 
