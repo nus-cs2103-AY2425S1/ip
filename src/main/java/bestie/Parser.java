@@ -42,9 +42,8 @@ public class Parser {
             try {
                 return new UnmarkCommand(Integer.parseInt(parts[1]) - 1);
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Please indicate the index of the task you want to unmark.");
+                return new ErrorCommand("Please indicate the index of the task you want to unmark.");
             }
-            break;
 
         case("find"):
             return new FindCommand(parts[1]);
@@ -67,11 +66,10 @@ public class Parser {
 
                 return new AddCommand(new Todo(description, priority));
             } catch (StringIndexOutOfBoundsException e) {
-                System.out.println("The description of a todo cannot be empty. Please input your todo again!");
+                return new ErrorCommand("The description of a todo cannot be empty. Please input your todo again!");
             } catch (IllegalArgumentException e) {
-                System.out.println("Invalid priority. Please specify as 'HIGH', 'MEDIUM' or 'LOW'.");
+                return new ErrorCommand("Invalid priority. Please specify as 'HIGH', 'MEDIUM' or 'LOW'.");
             }
-            break;
 
         case("deadline"):
             try {
@@ -84,15 +82,16 @@ public class Parser {
                 Priority priority = Priority.valueOf(priorityString);
                 return new AddCommand(new Deadline(description, deadline, priority));
             } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
-                System.out.println("You did not input the deadline in a valid format.");
-                System.out.println("Please follow the format \"deadline (name of task) /by (deadline)\"");
+                String errorMessage = "You did not input the deadline in a valid format." +
+                        "Please follow the format \"deadline (name of task) /by (deadline)\"";
+                return new ErrorCommand(errorMessage);
             } catch (DateTimeParseException e) {
-                System.out.println("You did not input the date and time in the correct format.");
-                System.out.println("Please stick to the correct format: YYYY-MM-DD HHMM");
+                String errorMessage = "You did not input the date and time in the correct format." +
+                        "Please stick to the correct format: YYYY-MM-DD HHMM";
+                return new ErrorCommand(errorMessage);
             } catch (IllegalArgumentException e) {
-                System.out.println("Invalid priority. Please specify as 'HIGH', 'MEDIUM' or 'LOW'.");
+                return new ErrorCommand("Invalid priority. Please specify as 'HIGH', 'MEDIUM' or 'LOW'.");
             }
-            break;
 
         case("event"):
             try {
@@ -104,16 +103,19 @@ public class Parser {
                 Priority priority = Priority.valueOf(priorityString);
                 return new AddCommand(new Event(description, start, end, priority));
             } catch (ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
-                System.out.println("You did not input the event in a valid format.");
-                System.out.println("Please follow the format \"event (name of event) /from (start time) "
-                        + "/to (end time)\"");
+                String errorMessage = "You did not input the event in a valid format." +
+                        "Please follow the format \"event (name of event) /from (start time) "
+                        + "/to (end time)\"";
+                return new ErrorCommand(errorMessage);
+
             } catch (DateTimeParseException e) {
-                System.out.println("You did not input the date and time in the correct format.");
-                System.out.println("Please stick to the correct format: YYYY-MM-DD HHMM");
+                String errorMessage = "You did not input the date and time in the correct format." +
+                       "Please stick to the correct format: YYYY-MM-DD HHMM";
+                return new ErrorCommand(errorMessage);
             } catch (IllegalArgumentException e) {
-                System.out.println("Invalid priority. Please specify as 'HIGH', 'MEDIUM' or 'LOW'.");
+                String errorMessage = "Invalid priority. Please specify as 'HIGH', 'MEDIUM' or 'LOW'.";
+                return new ErrorCommand(errorMessage);
             }
-            break;
 
         default:
             return new InvalidCommand();

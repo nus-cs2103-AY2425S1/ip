@@ -161,4 +161,8 @@ public class Ui {
         }
     }
 
+    public String showErrorMessage(String errorMessage) {
+        return errorMessage;
+    }
+
 }
