@@ -80,7 +80,7 @@ public class Parser {
     public LocalDate parseLocalDateFromLine(String line) throws PhenexException {
         try {
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-                    .withResolverStyle(ResolverStyle.STRICT);
+                    .withResolverStyle(ResolverStyle.SMART);
             return LocalDate.parse(line, dateTimeFormatter);
         } catch (DateTimeParseException e) {
             throw new PhenexException("Invalid date! Correct format: YYYY-MM-DD");
