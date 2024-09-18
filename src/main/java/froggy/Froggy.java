@@ -7,7 +7,7 @@ public class Froggy {
     private Ui ui;
     private Parser parser;
 
-    public Froggy(String filePath) {
+    public Froggy(String filePath) throws FroggyException {
         storage = new Storage(filePath);
         tasks = new TaskList(storage.loadTasks());
         ui = new Ui();
@@ -41,6 +41,11 @@ public class Froggy {
     }
 
     public static void main(String[] args) {
-        new Froggy("./data/taskList.txt").run();
+        try {
+            new Froggy("./data/taskList.txt").run();
+        } catch (FroggyException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 }

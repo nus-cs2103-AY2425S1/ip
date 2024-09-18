@@ -24,7 +24,7 @@ public class MainWindow extends AnchorPane {
     private Froggy froggy;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image froggyImage = new Image(this.getClass().getResourceAsStream("/images/DaFroggy.png"));
 
     @FXML
     public void initialize() {
@@ -36,7 +36,7 @@ public class MainWindow extends AnchorPane {
         froggy = f;
         String response = froggy.getGreeting();
         dialogContainer.getChildren().addAll(
-                DialogBox.getFroggyDialog(response, dukeImage)
+                DialogBox.getFroggyDialog(response, froggyImage)
         );
     }
 
@@ -54,7 +54,7 @@ public class MainWindow extends AnchorPane {
         }
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getFroggyDialog(response, dukeImage)
+                DialogBox.getFroggyDialog(response, froggyImage)
         );
         userInput.clear();
     }

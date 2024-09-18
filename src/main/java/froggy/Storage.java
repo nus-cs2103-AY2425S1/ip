@@ -16,7 +16,7 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public List<Task> loadTasks() {
+    public List<Task> loadTasks() throws  FroggyException{
         List<Task> taskList = new ArrayList<>();
         File file = new File(filePath);
         try {
@@ -49,7 +49,7 @@ public class Storage {
                         taskList.add(newEvent);
                         break;
                     default:
-                        System.out.println("File error");
+                        throw new FroggyException("Task list file format is invalid.");
                     }
                 }
 
