@@ -1,10 +1,12 @@
-T | 1 | eat breakfast
-T | 0 | eat lunch
-E | 0 | Mid Autumn Festival|Sep 17, 2024 20:00|Sep 17, 2024 22:00
-T | 0 | sleep
-D | 0 | Homework|Sep 18, 2024 23:59
-D | 0 | Homework|Sep 18, 2024 23:59
-E | 0 | Celebration|Sep 20, 2024 20:00|Sep 20, 2024 23:00
+E | 1 | Celebration|Sep 20, 2024 20:00|Sep 20, 2024 23:00
 T | 0 | Sleep
 D | 0 | Homework 1|Sep 18, 2024 16:00
 E | 0 | eat|Sep 12, 2024 12:00|Aug 12, 2024 13:00
+T | 0 | eat
+D | 0 | eat|Dec 12, 2024 12:00
+E | 0 | eat|Jan 01, 2024 14:00|Jan 01, 2024 23:00
+D | 0 | eat|Sep 18, 2024 19:00
+D | 0 | sleep|Sep 18, 2024 23:00
+T | 0 | l
+D | 0 | eat |Sep 13, 2024 13:00
+E | 0 | eat |Sep 13, 2024 09:00|Sep 15, 2024 13:00

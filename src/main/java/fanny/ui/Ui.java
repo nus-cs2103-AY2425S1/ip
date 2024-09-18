@@ -95,9 +95,7 @@ public class Ui {
         message = "Roger that. I've added this task:\n" + task.toString() + "\n"
                 + "Now you have " + list.getLength() + " tasks in the list.";
 
-        showMessage(message);
-
-        return message;
+        return showMessage(message);
     }
 
     /**
@@ -111,9 +109,7 @@ public class Ui {
         message = "Noted. I've removed this task:\n" + list.delete(taskId) + "\n"
                 + "Now you have " + list.getLength() + " tasks in the list.";
 
-        showMessage(message);
-
-        return message;
+        return showMessage(message);
     }
 
     /**
@@ -127,9 +123,7 @@ public class Ui {
         message = "Awesome! I've marked this task as done:\n"
                 + list.markAsDone(taskId);
 
-        showMessage(message);
-
-        return message;
+        return showMessage(message);
     }
 
     /**
@@ -143,9 +137,7 @@ public class Ui {
         message = "Sadly, I've marked this task as not done yet:\n"
                 + list.markAsNotDone(taskId);
 
-        showMessage(message);
-
-        return message;
+        return showMessage(message);
     }
 
     /**
@@ -164,9 +156,7 @@ public class Ui {
             }
         }
 
-        showMessage(message);
-
-        return message;
+        return showMessage(message);
     }
 
     /**
@@ -180,16 +170,14 @@ public class Ui {
 
         if (!upcomingDeadlines.isEmpty()) {
             message = "Please complete these tasks soon:\n";
-            for (Deadline deadline : upcomingDeadlines) {
-                message += deadline.toString();
+            for (int i = 0; i < upcomingDeadlines.size(); i++) {
+                message += (i + 1) + "." + upcomingDeadlines.get(i).toString() + "\n";
             }
         } else {
             message = "Congrats!!! You have no upcoming deadlines!";
         }
 
-        showMessage(message);
-
-        return message;
+        return showMessage(message);
     }
 
 }
