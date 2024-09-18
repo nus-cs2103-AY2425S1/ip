@@ -1,6 +1,7 @@
 package sentinel.utils;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
 import sentinel.Sentinel;
@@ -31,7 +32,7 @@ public class Parser {
         try {
             return Sentinel.CommandType.valueOf(arr[0].toLowerCase());
         } catch (IllegalArgumentException e) {
-            throw new InvalidCommandException("Unable to parse");
+            throw new InvalidCommandException();
         }
     }
 
@@ -56,11 +57,17 @@ public class Parser {
         }
         case deadline -> {
             String deadlineTime = parseTime(input, "/by");
-            LocalDateTime deadlineDateTime = GeminiApi.formatDateTime(deadlineTime);
+            LocalDateTime deadlineDateTime;
+            try {
+                deadlineDateTime = LocalDateTime.parse(deadlineTime);
+            } catch (DateTimeParseException e) {
+                deadlineDateTime = GeminiApi.formatDateTime(deadlineTime);
+            }
             if (deadlineDateTime != null) {
                 return new Deadline(taskName, deadlineDateTime);
             } else {
                 ui.showDeadlineCommandGuidelines();
+                throw new DeadlineException(SentinelString.stringDeadlineCommandGuidelines());
             }
         }
         case event -> {
@@ -104,7 +111,7 @@ public class Parser {
                 taskName = String.join(" ", Arrays.copyOfRange(stringArr, 1, byIndex)).trim();
             } else {
                 ui.showDeadlineCommandGuidelines();
-                throw new DeadlineException("Deadline task command requires a '/by' date.");
+                throw new DeadlineException(SentinelString.stringDeadlineCommandGuidelines());
             }
         }
         case event -> {
@@ -114,7 +121,7 @@ public class Parser {
                 taskName = String.join(" ", Arrays.copyOfRange(stringArr, 1, fromIndex)).trim();
             } else {
                 ui.showEventCommandGuidelines();
-                throw new EventException("Event task command requires a '/from' time.");
+                throw new EventException(SentinelString.stringEventCommandGuidelines());
             }
         }
         default -> { }

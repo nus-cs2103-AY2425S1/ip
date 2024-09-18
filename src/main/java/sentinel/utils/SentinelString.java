@@ -146,7 +146,14 @@ public class SentinelString {
      * Returns an error message for unrecognized commands.
      */
     public static String stringUnrecognisedCommand() {
-        return "Unrecognised Sentinel command. Type \"help\" to list all commands.";
+        return "Oh no, I don't recognise this command... Type \"help\" to list all commands I know!";
+    }
+
+    /**
+     * Returns an error message for unhandled execution errors.
+     */
+    public static String stringExecutionErrorMessage() {
+        return "Oh no, I was unable to execute my task. Please try again!";
     }
 
     /**

@@ -1,0 +1,26 @@
+.label {
+    -fx-background-color: linear-gradient(to bottom left, #ff4d4d, #0d16ff); /* Red to bright blue gradient */
+    -fx-border-color: #ff0000; /* Red border for strong contrast */
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+}
+
+.reply-label {
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+    -fx-background-color: linear-gradient(to top right, #ff3333, #4287f5); /* Red to blue gradient */
+    -fx-border-color: #ff0000; /* Red border to match */
+}
+
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.6, 5, 5);
+
+    /* Change size of image. */
+    -fx-scale-x: 1.1; /* Slightly larger size for emphasis */
+    -fx-scale-y: 1.1;
+
+    /* Rotate image slightly for attention. */
+    -fx-rotate: 5; /* Slight rotation for emphasis */
+}
