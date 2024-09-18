@@ -1,9 +1,10 @@
 # Zero User Guide
 
 Zero is a task management chatbot that helps users manage their to-do lists efficiently through a command-line interface or a GUI.
-It allows users to add, delete, mark tasks as done, snooze deadlines, and more. 
+It allows users to add, delete, mark tasks as done, snooze deadlines, and more.
 
 ## Command List
+
 | **Feature**                | **Command**                                                  | **Example Usage**                              |
 |----------------------------|--------------------------------------------------------------|------------------------------------------------|
 | **Adding Deadlines**        | `deadline <description> /by <date and time>`                 | `deadline return book /by 2024-09-01 1800`     |
@@ -17,5 +18,5 @@ It allows users to add, delete, mark tasks as done, snooze deadlines, and more.
 | **Finding Tasks by Keyword**| `find <keyword>`                                             | `find book`                                    |
 | **Exiting the Application** | `bye`                                                        | `bye`                                          |
 
-
 ---
+
