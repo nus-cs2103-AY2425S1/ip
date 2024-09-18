@@ -8,7 +8,7 @@ package exceptions;
 public class InvalidEventFormatException extends HimException {
 
     /**
-     * Constructor for<code>InvalidEventFormatException</code>.
+     * Constructor for <code>InvalidEventFormatException</code>.
      */
     public InvalidEventFormatException() {
         super("Events need a description, a start time and an end time!\n" +

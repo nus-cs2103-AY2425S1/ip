@@ -8,7 +8,7 @@ package exceptions;
 public class TaskDoesNotExistException extends HimException {
 
     /**
-     * Constructor for<code>TaskDoesNotExistException</code>.
+     * Constructor for <code>TaskDoesNotExistException</code>.
      *
      * @param index Index Him is trying to access.
      */

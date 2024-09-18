@@ -8,7 +8,7 @@ package exceptions;
 public class AlreadyCompletedException extends HimException {
 
     /**
-     * Constructor for<code>AlreadyCompletedException</code>
+     * Constructor for< code>AlreadyCompletedException</code>
      */
     public AlreadyCompletedException() {
         super("the task has already been completed");

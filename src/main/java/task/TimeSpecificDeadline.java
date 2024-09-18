@@ -13,14 +13,14 @@ public class TimeSpecificDeadline extends Deadline {
     private LocalTime dueTime;
 
     /**
-     * Constructor for<code>TimeSpecficDeadline</code>.
+     * Constructor for <code>TimeSpecificDeadline</code>.
      *
      * @param description Description of the deadline.
      * @param dueDate Due date of the deadline.
      * @param dueTime Due time of the deadline.
      */
-    public TimeSpecificDeadline(String description, LocalDate dueDate, LocalTime dueTime) {
-        super(description, dueDate);
+    public TimeSpecificDeadline(String description, LocalDate dueDate, LocalTime dueTime, boolean isCompleted) {
+        super(description, dueDate, isCompleted);
         this.dueTime = dueTime;
     }
 

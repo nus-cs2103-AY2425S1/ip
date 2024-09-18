@@ -54,6 +54,7 @@ public class Storage {
         File file = new File(FILE_PATH);
         TaskList list = new TaskList();
         Scanner sc = new Scanner(file);
+
         while (sc.hasNextLine()) {
             String data = sc.nextLine();
             if (data.trim().isEmpty()) {

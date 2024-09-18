@@ -88,11 +88,15 @@ public class Parser {
     private static Deadline parseDeadline(String[] args) throws HimException {
         try {
             String[] details = args[1].split("/by");
+
             String description = details[0].trim();
+            String dueDate = details[1].trim();
+
             if (description.isEmpty()) {
                 throw new InvalidDeadlineFormatException();
             }
-            return Deadline.of(description, details[1].trim());
+
+            return Deadline.of(description, dueDate);
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidDeadlineFormatException();
         } catch (DateTimeParseException e) {
@@ -105,12 +109,14 @@ public class Parser {
             String[] details = args[1].split("/start");
             String description = details[0].trim();
             String[] interval = details[1].split("/end");
+            String start = interval[0].trim();
+            String end = interval[1].trim();
 
             if (description.isEmpty()) {
                 throw new InvalidEventFormatException();
             }
 
-            return new Event(description, interval[0].trim(), interval[1].trim());
+            return new Event(description, start, end);
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidEventFormatException();
         } catch (DateTimeParseException e) {
