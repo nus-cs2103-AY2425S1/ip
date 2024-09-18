@@ -25,6 +25,8 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setTitle("Stan");
+            stage.setMinHeight(600); // Minimum height for the window
+            stage.setMinWidth(400); // Minimum width for the window
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setStan(stan);
             stage.show();
