@@ -38,6 +38,7 @@ public class GraphicUi extends Application {
             Scene scene = new Scene(anchorPane);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setChatterbox(chatterbox);
+            stage.setTitle("Chatterbox");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

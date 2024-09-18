@@ -5,7 +5,6 @@ import chatterboxerrors.ChatterBoxError;
 import chatterboxerrors.ChatterBoxNullTaskError;
 import tasks.Deadline;
 import tasks.Event;
-import tasks.Task;
 import tasks.ToDo;
 import utils.Commands;
 import utils.Parser;
