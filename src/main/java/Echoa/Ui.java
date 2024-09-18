@@ -6,17 +6,17 @@ package echoa;
 
 public class Ui {
     public static final String[] INSTRUCTION_LIST = {
-            "hi",
-            "mark",
-            "unmark",
-            "delete",
-            "list",
-            "find",
-            "update",
-            "todo",
-            "deadline",
-            "event",
-            "bye"
+        "hi",
+        "mark",
+        "unmark",
+        "delete",
+        "list",
+        "find",
+        "update",
+        "todo",
+        "deadline",
+        "event",
+        "bye"
     };
 
     public String getStartMessage() {
@@ -52,7 +52,7 @@ public class Ui {
     }
 
     public String getUpdateTaskMessage(Task task, int label) {
-        return "Task " + label + " updated: " +
+        return "Task updated! \n" +
                 task.toString() +
                 "\n";
     }

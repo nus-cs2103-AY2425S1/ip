@@ -16,6 +16,6 @@ public class ListOutOfBoundsException extends EchoaException {
 
     @Override
     public String getMessage() {
-        return this.index + "is out of bounds. Please check your list again.";
+        return (this.index + 1) + "is out of bounds. Please check your list again.";
     }
 }

@@ -1,9 +1,10 @@
-D | 0 | ip final submission | 2024-09-20 23:59
+D | 1 | ip final submission | 2024-09-20 23:59
 T | 1 | debugging
-T | 1 | javadocs
-T | 0 | product website
-T | 0 | user guide
+T | 0 | javadocs
+T | 1 | product website
+T | 1 | user guide
 T | 0 | jarfile
 T | 0 | smoketest
 T | 0 | release
 E | 0 | synapse open house | 2024-09-19 18:30 | 2024-09-19 21:00
+

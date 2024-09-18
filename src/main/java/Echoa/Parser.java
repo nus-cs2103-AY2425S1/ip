@@ -257,7 +257,7 @@ public class Parser {
             throw new InvalidIndexInputException(indexString);
         }
 
-        Pattern pattern = Pattern.compile("\\d");
+        Pattern pattern = Pattern.compile("^\\d+$");
         Matcher matcher = pattern.matcher(indexString);
         if (!matcher.find()) {
             throw  new InvalidIndexInputException(indexString);
@@ -267,10 +267,10 @@ public class Parser {
     }
 
     public int parseUpdateIndex(String indexString) throws InvalidIndexInputException {
-        String[] lineArray = indexString.split("/", 2);
+        String[] lineArray = indexString.split("\\s+", 2);
         trimSplitCommands(lineArray);
 
-        Pattern pattern = Pattern.compile("\\d+");
+        Pattern pattern = Pattern.compile("^\\d+$");
         Matcher matcher = pattern.matcher(lineArray[0]);
         if (!matcher.find()) {
             throw  new InvalidIndexInputException(indexString);
