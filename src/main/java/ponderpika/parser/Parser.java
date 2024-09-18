@@ -5,7 +5,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 import ponderpika.Command;
+import ponderpika.exception.MissingDeadlineTimeException;
+import ponderpika.exception.MissingDescriptionException;
+import ponderpika.exception.MissingEventFromTimeException;
+import ponderpika.exception.MissingEventTimingException;
+import ponderpika.exception.MissingEventToTimeException;
+import ponderpika.exception.MissingFindKeywordException;
+import ponderpika.exception.MissingTaskIndexException;
 import ponderpika.exception.PonderPikaException;
+import ponderpika.exception.UnknownCommandException;
 import ponderpika.task.Deadline;
 import ponderpika.task.Event;
 
@@ -36,14 +44,20 @@ public class Parser {
             return new Command(Command.Action.LIST, null);
 
         case "mark":
+            if (commands[1].isEmpty()) {
+                throw new MissingTaskIndexException();
+            }
             return new Command(Command.Action.MARK, Integer.parseInt(commands[1]));
 
         case "unmark":
+            if (commands[1].isEmpty()) {
+                throw new MissingTaskIndexException();
+            }
             return new Command(Command.Action.UNMARK, Integer.parseInt(commands[1]));
 
         case "todo":
             if (isWithinSizeLimit) {
-                throw new PonderPikaException("Missing Description for Todo task!");
+                throw new MissingDescriptionException();
             }
             assert !Objects.equals(commands[1], "");
             return new Command(Command.Action.TODO, commands[1]);
@@ -59,7 +73,7 @@ public class Parser {
 
         case "find":
             if (isWithinSizeLimit) {
-                throw new PonderPikaException("Missing keyword for find command!");
+                throw new MissingFindKeywordException();
             }
             return new Command(Command.Action.FIND, commands[1].trim());
 
@@ -70,7 +84,7 @@ public class Parser {
             return new Command(Command.Action.BYE, null);
 
         default:
-            throw new PonderPikaException("Invalid Command, Please Try Again!");
+            throw new UnknownCommandException();
         }
     }
 
@@ -90,10 +104,10 @@ public class Parser {
     private Command parseDeadlineCommand(String details) throws PonderPikaException {
         String[] args = details.split("/by ");
         if (args.length < 2) {
-            throw new PonderPikaException("Missing Deadline time for Deadline task!");
+            throw new MissingDeadlineTimeException();
         }
         if (args[0].trim().isEmpty()) {
-            throw new PonderPikaException("Missing Description for Deadline task!");
+            throw new MissingDescriptionException();
         }
         return new Command(Command.Action.DEADLINE, new Deadline(args[0].trim(),
                 LocalDateTime.parse(args[1].trim(), FORMATTER)));
@@ -115,19 +129,19 @@ public class Parser {
     private Command parseEventCommand(String details) throws PonderPikaException {
         String[] desc = details.split("/from");
         if (desc[0].trim().isEmpty()) {
-            throw new PonderPikaException("Missing Description for Event task!");
+            throw new MissingDescriptionException();
         }
         if (desc.length < 2) {
-            throw new PonderPikaException("Missing \"From\" and \"To\" times for Event task!");
+            throw new MissingEventTimingException();
         }
         assert desc.length > 1;
 
         String[] time = desc[1].split("/to");
         if (time.length < 2) {
-            throw new PonderPikaException("Missing \"To\" timeline for Event task!");
+            throw new MissingEventToTimeException();
         }
         if (time[0].trim().isEmpty()) {
-            throw new PonderPikaException("Missing \"From\" timeline for Event task!");
+            throw new MissingEventFromTimeException();
         }
 
         return new Command(Command.Action.EVENT, new Event(desc[0].trim(),
@@ -147,7 +161,7 @@ public class Parser {
             throw new PonderPikaException("Missing Priority Level for the task!");
         }
         if (taskDetail.length < 2) {
-            throw new PonderPikaException("Task Index not mentioned for setting priority!");
+            throw new MissingTaskIndexException();
         }
 
         return new Command(Command.Action.PRIORITY, taskDetail);

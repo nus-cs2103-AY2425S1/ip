@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import ponderpika.exception.InvalidPriorityException;
+import ponderpika.exception.InvalidTaskIndexException;
 import ponderpika.exception.PonderPikaException;
+import ponderpika.exception.TaskAlreadyMarkedException;
+import ponderpika.exception.TaskAlreadyUnmarkedException;
 
 /**
  * Represents a list of Task objects and provides methods to manage them.
@@ -39,7 +43,7 @@ public class TaskList {
      */
     public void deleteTask(int index) throws PonderPikaException {
         if (index < 1 || index > tasks.size()) {
-            throw new PonderPikaException("No task available at given index to be deleted!");
+            throw new InvalidTaskIndexException();
         }
         tasks.remove(index - 1);
     }
@@ -55,10 +59,10 @@ public class TaskList {
     public String markTask(int index) throws PonderPikaException {
         boolean alreadyMarked = tasks.get(index - 1).isDone();
         if (index < 1 || index > tasks.size()) {
-            throw new PonderPikaException("No task available at given index!");
+            throw new InvalidTaskIndexException();
         }
         if (alreadyMarked) {
-            throw new PonderPikaException("Task has already been done!");
+            throw new TaskAlreadyMarkedException();
         }
 
         assert index > 0;
@@ -78,10 +82,10 @@ public class TaskList {
         boolean isIndexMoreThanLimit = (index > tasks.size());
         boolean alreadyUnmarked = tasks.get(index - 1).isDone();
         if (index < 1 || isIndexMoreThanLimit) {
-            throw new PonderPikaException("No task available at given index!");
+            throw new InvalidTaskIndexException();
         }
         if (!alreadyUnmarked) {
-            throw new PonderPikaException("Task has not been done yet!");
+            throw new TaskAlreadyUnmarkedException();
         }
 
         tasks.get(index - 1).markUndone();
@@ -90,12 +94,12 @@ public class TaskList {
 
     public String setPriorityLevel(int index, String priority) throws PonderPikaException {
         if (index < 0 || index > tasks.size()) {
-            throw new PonderPikaException("No task available at given index!");
+            throw new InvalidTaskIndexException();
         }
         boolean possiblePriority = (priority.equals("H") || priority.equals("M")
                 || priority.equals("L") || priority.equals("N"));
         if (possiblePriority) {
-            throw new PonderPikaException("No such priority level available!");
+            throw new InvalidPriorityException();
         }
         tasks.get(index).setPriority(priority);
         return String.format("Priority set to %s for %s", priority, tasks.get(index).getDescription());
