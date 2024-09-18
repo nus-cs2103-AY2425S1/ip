@@ -16,7 +16,7 @@ class ToDoTest {
 
     @Test
     void testToString() {
-        String expectedString = "[T][ ] Play game";
+        String expectedString = "[T][  ] Play game";
         assertEquals(expectedString, toDo.toString());
     }
 

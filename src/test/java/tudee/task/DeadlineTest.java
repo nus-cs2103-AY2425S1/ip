@@ -19,6 +19,17 @@ class DeadlineTest {
     }
 
     @Test
+    void testIsDueSoon() {
+        LocalDate currentDate = LocalDate.parse("2024-08-31");
+        boolean isDueSoon = deadline.isDueSoon(currentDate);
+        assertEquals(true, isDueSoon);
+
+        currentDate = LocalDate.parse("2024-08-29");
+        isDueSoon = deadline.isDueSoon(currentDate);
+        assertEquals(false, isDueSoon);
+    }
+
+    @Test
     void testGetDeadline() {
         LocalDate expectedDate = LocalDate.parse("2024-09-01");
         assertEquals(expectedDate, deadline.getDeadline());
@@ -26,7 +37,7 @@ class DeadlineTest {
 
     @Test
     void testToString() {
-        String expectedString = "[D][ ] Submit assignment (by: Sep 1 2024)";
+        String expectedString = "[D][  ] Submit assignment (by: Sep 1 2024)";
         assertEquals(expectedString, deadline.toString());
     }
 
