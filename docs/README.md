@@ -1,6 +1,6 @@
 # Tudee User Guide
 
-![Screenshot of a typical user conversation with Tudee](/docs/Ui.png)
+![Screenshot of a typical user conversation with Tudee](./Ui.png)
 
 Ever wanted a personal assistant to help you **keep track of your daily tasks**? Fret not! Tudee chatbot is here!
 Follow this README document to know the basics of using Tudee.
