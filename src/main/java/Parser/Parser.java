@@ -72,7 +72,20 @@ public class Parser {
             return new UpdateCommand(userInput);
 
         } else {
-            return new DefaultCommand("     OOPS!!! Sorry leh, but IDK what that means :-");
+            return new DefaultCommand(" OOPS!!! Sorry leh, but IDK what that means :-\n" +
+                    "\nThese are the list of commands you can use:)\n" +
+                    "\n- todo [desc] (to add a todo task)\n" +
+                    "- deadline [desc] /by [yyyy-MM-dd or dd/MM/yyy 16:00] (to add a deadline task)\n" +
+                    "- event [desc] /from [16:00] /to [18:00] /on [yyyy-MM-dd or dd/MM/yyyy] (to add an event)\n" +
+                    "- mark [index num] (to mark task as completed)\n" +
+                    "- unmark [index num] (to unmark completed task)\n" +
+                    "- delete [index num] (to delete a task)\n" +
+                    "- list (to view all tasks)\n" +
+                    "- find [keywords] (to find tasks with keyword)\n" +
+                    "- bye\n" +
+                    "- hi\n" +
+                    "- due [yyyy-MM-dd or dd/MM/yyyy] (find tasks due on date)\n" +
+                    "- update <num> <desc, date, startTime, endTime, time> /to <newValue> (to update task info)\n");
         }
     }
 }
