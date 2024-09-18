@@ -19,6 +19,8 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
+            // set the title on the top of the window
+            stage.setTitle("Slave");
             stage.setMinHeight(220);
             stage.setMinWidth(417);
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
