@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 /**
  * A class that encapsulates the dialog boxes and its properties within the GUI
@@ -43,6 +44,10 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+
+        double radius = Math.min(displayPicture.getFitWidth(), displayPicture.getFitHeight() / 2);
+        Circle clip = new Circle(radius, radius, radius);
+        displayPicture.setClip(clip);
     }
 
     /**
@@ -53,6 +58,7 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+        dialog.getStyleClass().add("reply-label");
     }
 
     /**
@@ -66,15 +72,36 @@ public class DialogBox extends HBox {
         return new DialogBox(text, img);
     }
 
+    private void changeDialogStyle(String commandType) {
+        switch(commandType) {
+        case "AddTaskCommand":
+            dialog.getStyleClass().add("add-label");
+            break;
+        case "MarkTaskCommand":
+            dialog.getStyleClass().add("marked-label");
+            break;
+        case "DeleteTaskCommand":
+        case "DeleteAllCommand":
+            dialog.getStyleClass().add("delete-label");
+            break;
+        default:
+            dialog.getStyleClass().add("reply-label");
+        }
+    }
+
     /**
      * Creates a new, flipped dialog box with Tayoo's response inside.
      * @param text text returned by Tayoo chatbot
      * @param img The image accompanying the Tayoo chatbot reply
      * @return new dialogbox instance containing Tayoo chatbot's response
      */
-    public static DialogBox getTayooDialog(String text, Image img) {
+    public static DialogBox getTayooDialog(String text, Image img, String commandType) {
         var db = new DialogBox(text, img);
         db.flip();
+        if (commandType == null) {
+            commandType = "";
+        }
+        db.changeDialogStyle(commandType);
         return db;
     }
 }

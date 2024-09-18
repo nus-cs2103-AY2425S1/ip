@@ -1,4 +1,0 @@
-Todo | false | read book
-Todo | false | plead for mercy
-Task | true | Return Book
-Event | false  | project meeting | 2024-01-01T18:00 | 19:30

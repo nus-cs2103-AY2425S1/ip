@@ -24,8 +24,8 @@ public class TasklistEmptyStub extends Tasklist{
     }
 
     @Override
-    public boolean deleteTask(int taskNumber) {
-        return false;
+    public Task deleteTask(int taskNumber) {
+        return null;
     }
 
     @Override

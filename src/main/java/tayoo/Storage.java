@@ -87,6 +87,14 @@ public class Storage {
     }
 
     /**
+     * Deletes all lines in the txt. Data is not recoverable.
+     */
+    public void deleteWholeTxt() throws TayooException{
+        List<String> lines = new ArrayList<>();
+        writeToTaskList(lines);
+    }
+
+    /**
      * Adds the string representation of a task in a plaintext format to the tasklist.txt file. The task to be added is
      * appended to the end of the tasklist.txt. The method reads the entire file into memory, appends the task to be
      * added, then writes the updated content back into the file.

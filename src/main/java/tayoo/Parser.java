@@ -43,7 +43,7 @@ public class Parser {
      * or the format of the command is wrong
      */
     public static Command parseCommand(String command) throws TayooException {
-
+        //@@author prave1n-reused
         String[] inputParts = command.split(" ", 2);
         CommandType commandType = parseCommandType(inputParts[0]);
 
@@ -78,6 +78,7 @@ public class Parser {
     }
 
     private static Command parseDeadline(String[] inputParts) {
+        //@@author prave1n-reused
         assert inputParts.length == 2: "Deadline command must have title and deadline";
 
         String[] deadlineParts = inputParts[1].split("(?i)/by", 2);
@@ -90,6 +91,7 @@ public class Parser {
     }
 
     private static Command parseEvent(String[] inputParts) {
+        //@@author prave1n-reused
         assert inputParts.length == 2: "Event command must have title, from and to";
 
         String[] eventParts = inputParts[1].split("(?i)/to|/from", 3);
@@ -277,7 +279,7 @@ public class Parser {
     }
 
     private static CommandType parseCommandType(String command) throws TayooException {
-
+        //@@author prave1n-reused
         switch(command.toUpperCase()) {
         case "LIST":
             return CommandType.LIST;

@@ -13,6 +13,7 @@ public class Tayoo {
     private Storage storage;
     private Tasklist tasks;
     private boolean isExit = false;
+    private String commandType;
 
     /**
      * Constructs a new Tayoo instance by initializing a new Ui, Storage and Tasklist object.
@@ -74,6 +75,7 @@ public class Tayoo {
         try {
             Command c = Parser.parseCommand(input);
             String toReturn = c.guiExecute(tasks, ui, storage);
+            commandType = c.getClass().getSimpleName();
             this.isExit = c.isExit();
             return toReturn;
         } catch (TayooException e) {
@@ -90,6 +92,10 @@ public class Tayoo {
         Tayoo tayoo = new Tayoo();
         tayoo.run();
         System.exit(0);
+    }
+
+    public String getCommandType() {
+        return commandType;
     }
 
 }

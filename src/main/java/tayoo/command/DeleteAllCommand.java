@@ -43,6 +43,7 @@ public class DeleteAllCommand extends Command {
     @Override
     public String guiExecute(Tasklist tasklist, Ui ui, Storage storage) throws TayooException {
         if (tasklist.deleteAll()) {
+            storage.deleteWholeTxt();
             return "Deleting all tasks";
         } else {
             return "No tasks to delete";

@@ -18,13 +18,11 @@ public class MainWindow extends AnchorPane{
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
 
     private Tayoo tayoo;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image tayooImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.jpg"));
+    private Image tayooImage = new Image(this.getClass().getResourceAsStream("/images/DaTayoo.png"));
 
     /**
      * Initializes the main window
@@ -32,6 +30,7 @@ public class MainWindow extends AnchorPane{
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        userInput.setPromptText("Type here: ");
     }
 
     /** Injects the Tayoo instance */
@@ -47,10 +46,11 @@ public class MainWindow extends AnchorPane{
     private void handleUserInput() {
         String input = userInput.getText();
         String response = tayoo.getResponse(input);
+        String commandType = tayoo.getCommandType();
         System.out.println(response);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getTayooDialog(response, tayooImage)
+                DialogBox.getTayooDialog(response, tayooImage, commandType)
         );
         userInput.clear();
         if (tayoo.getIsExit()) {

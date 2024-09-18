@@ -1,6 +1,7 @@
 package tayoo;
 
 import tayoo.tasks.Task;
+import tayoo.tasks.ToDo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +22,8 @@ public class TasklistFullStub extends Tasklist{
     }
 
     @Override
-    public boolean deleteTask(int taskNumber) {
-        return taskNumber == 5;
+    public Task deleteTask(int taskNumber) {
+        return new ToDo("Return book", true);
     }
 
     @Override
