@@ -57,7 +57,8 @@ public class DialogBox extends HBox {
         var db = new DialogBox(text, img);
         db.flip();
         if (text.startsWith("I'm sorry") || text.startsWith("You need")
-        || text.startsWith("You can't") || text.startsWith("I don't")) {
+        || text.startsWith("You can't") || text.startsWith("I don't")
+        || text.startsWith("Your date")) {
             db.editDialog("-fx-border-color: red");
         }
 

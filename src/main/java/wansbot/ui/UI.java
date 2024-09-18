@@ -228,6 +228,10 @@ public class UI {
         return "You need to input question followed by your question and then an answer after the ?";
     }
 
+    public String handleWrongFindNameFormat() {
+        return "You need to input something after findname!";
+    }
+
     public String handleWrongAnswerFormat() {
         return "I don't have an answer for your question! Make sure you input 'answer' followed by your question"
                 + " including the ?";

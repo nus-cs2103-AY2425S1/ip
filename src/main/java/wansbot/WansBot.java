@@ -158,6 +158,13 @@ public class WansBot {
         }
     }
 
+    public void checkFindNameInput(String userInput) {
+        String[] split = userInput.toLowerCase().split("findname");
+        if (split.length < 2 || split[1].equalsIgnoreCase(" ")) {
+            throw new InputEmptyException("todos");
+        }
+    }
+
     /**
      * Adds Todos to the userTaskList.
      */
@@ -315,6 +322,7 @@ public class WansBot {
      */
     private String findTaskName(String userInput) { // "find [keyword]"
         try {
+            checkFindNameInput(userInput);
             String[] splitName = userInput.split("findname ");
             TaskList filteredList = new TaskList();
             for (int i = 0; i < userTaskList.numOfTasks(); i++) {
@@ -323,8 +331,8 @@ public class WansBot {
                 }
             }
             return ui.handleFindKeyword(filteredList);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return ui.handleOneWord();
+        } catch (InputEmptyException e) {
+            return ui.handleWrongFindNameFormat();
         }
     }
 
