@@ -16,7 +16,7 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public List<Task> loadTasks() throws  FroggyException{
+    public List<Task> loadTasks() throws FroggyException {
         List<Task> taskList = new ArrayList<>();
         File file = new File(filePath);
         try {

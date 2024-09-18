@@ -26,6 +26,7 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
+            stage.setTitle("Froggy");
             froggy = new Froggy("./data/taskList.txt");
             fxmlLoader.<MainWindow>getController().setFroggy(froggy);
             stage.show();
