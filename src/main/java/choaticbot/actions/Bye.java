@@ -2,6 +2,8 @@ package choaticbot.actions;
 
 import choaticbot.exceptions.ChoaticBotException;
 import choaticbot.tasks.TaskList;
+import choaticbot.ui.MainWindow;
+import choaticbot.ui.Ui;
 
 /**
  * The {@code Bye} class represents the action that signals the end of the bot's session.
@@ -15,23 +17,27 @@ public class Bye extends Action {
      *
      * @param taskList The task list associated with the action (not used in this case).
      */
-    public Bye(TaskList tasklist) {
-        super(tasklist);
+    public Bye(TaskList taskList) {
+        super(taskList);
     }
 
     /**
-     * Executes the {@code Bye} action. Since this action is intended to terminate the session,
-     * it performs no operation.
+     * Executes the {@code Bye} action. This action is intended to terminate the session,
+     * and thus, it returns a farewell message without performing any other operation.
+     *
+     * @return an {@link ActionResult} containing the goodbye message
+     * @throws ChoaticBotException if an error occurs during execution
      */
     @Override
-    //Do nothing
-    public void execute() throws ChoaticBotException {
+    public ActionResult execute() throws ChoaticBotException {
+        MainWindow.handleExit();
+        return new ActionResult(Ui.getByeMsg());
     }
 
     /**
      * Indicates that this action signifies the end of the program.
      *
-     * @return {@code true}, indicating that this action terminates the session.
+     * @return {@code true}, indicating that this action terminates the session
      */
     @Override
     public boolean isEnd() {

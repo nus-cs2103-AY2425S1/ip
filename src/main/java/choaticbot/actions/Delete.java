@@ -29,10 +29,13 @@ public class Delete extends Action {
     /**
      * Executes the delete action. It parses the task index from the {@code details}
      * field and deletes the task at that index from the task list.
+     *
+     * @return an {@link ActionResult} containing the result of deleting a task.
+     * @throws ChoaticBotException if an error occurs during execution
      */
     @Override
-    public void execute() throws ChoaticBotException {
+    public ActionResult execute() throws ChoaticBotException {
         int index = Integer.parseInt(this.details);
-        this.taskList.deleteTask(index);
+        return this.taskList.deleteTask(index);
     }
 }

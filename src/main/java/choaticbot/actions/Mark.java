@@ -29,10 +29,13 @@ public class Mark extends Action {
     /**
      * Executes the mark action. It parses the task index from the {@code details}
      * field and marks the task at that index as completed in the task list.
+     *
+     * @return an {@link ActionResult} containing the result of marking the task as completed
+     * @throws ChoaticBotException if the task index is invalid or an error occurs during marking
      */
     @Override
-    public void execute() throws ChoaticBotException {
+    public ActionResult execute() throws ChoaticBotException {
         int index = Integer.parseInt(this.details);
-        this.taskList.markTask(index);
+        return this.taskList.markTask(index);
     }
 }

@@ -30,19 +30,21 @@ public class Ui {
     }
 
     /**
-     * Prints a welcome message to greet the user.
+     * Returns a welcome message to greet the user.
      * The message is formatted to introduce ChoaticBot and prompt the user for input.
+     *
+     * @return A {@code String} containing the welcome message.
      */
-    public static void printWelcomeMsg() {
-        String welcomeMsg = "Hello! I'm ChoaticBot\n" + "What can I do for you?\n";
-        printText(welcomeMsg);
+    public static String getWelcomeMsg() {
+        return "Hello! I'm ChoaticBot\n" + "What can I do for you?\n";
     }
 
     /**
-     * Prints a goodbye message to the user.
+     * Returns a goodbye message to the user.
+     *
+     * @return A {@code String} containing the farewell message.
      */
-    public static void printByeMsg() {
-        String byeMsg = "Bye. Hope to see you again soon!\n";
-        printText(byeMsg);
+    public static String getByeMsg() {
+        return "Bye. Hope to see you again soon!\n";
     }
 }

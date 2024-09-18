@@ -29,9 +29,12 @@ public class Find extends Action {
     /**
      * Executes the find action. It filters the task list for tasks containing
      * the specified keyword.
+     *
+     * @return an {@link ActionResult} containing the result of finding the keyword.
+     * @throws ChoaticBotException if an error occurs during execution
      */
     @Override
-    public void execute() throws ChoaticBotException {
-        this.taskList.filterByWord(word);
+    public ActionResult execute() throws ChoaticBotException {
+        return this.taskList.filterByWord(word);
     }
 }

@@ -1,15 +1,14 @@
 package choaticbot.tasks;
 
-import static choaticbot.ui.Ui.printLine;
-
 import java.util.ArrayList;
 
+import choaticbot.actions.ActionResult;
 import choaticbot.exceptions.ChoaticBotException;
 import choaticbot.exceptions.WrongInputFormatException;
 
 /**
  * Represents a list of tasks. Provides methods to manage and manipulate tasks, including adding, deleting,
- * listing, marking, unmarking, and filtering tasks.
+ * listing, marking, unmarking, filtering, and updating tasks.
  */
 public class TaskList {
     private ArrayList<Task> tasklist;
@@ -25,56 +24,64 @@ public class TaskList {
      * Adds a task to the list of tasks.
      *
      * @param task The task to be added.
+     * @return an {@link ActionResult} containing the result of adding the task
      */
-    public void addTask(Task task) {
-        printLine();
+    public ActionResult addTask(Task task) {
         this.tasklist.add(task);
-        System.out.println("added: " + task + "\n"
-                + "You have " + this.tasklist.size() + " tasks in the list");
-        printLine();
+        String message = "added: " + task + "\n"
+                + "You have " + this.tasklist.size() + " tasks in the list";
+
+        return new ActionResult(message);
     }
 
     /**
      * Deletes a task from the list of tasks based on the specified index.
      *
      * @param index The index of the task to be deleted (1-based index).
+     * @return an {@link ActionResult} containing the result of deleting the task
+     * @throws ChoaticBotException if the index is out of bounds
      */
-    public void deleteTask(int index) throws ChoaticBotException {
+    public ActionResult deleteTask(int index) throws ChoaticBotException {
         if (index <= 0 || index > tasklist.size()) {
             throw new ChoaticBotException("Index out of bounds, there is only " + tasklist.size() + " tasks");
         } else {
-            printLine();
-            System.out.println("deleted: " + this.tasklist.get(index - 1) + "\n");
+            String message1 = "deleted: " + this.tasklist.get(index - 1) + "\n";
             this.tasklist.remove(index - 1);
-            System.out.println("You have " + this.tasklist.size() + " tasks in the list");
-            printLine();
+            String message2 = "You have " + this.tasklist.size() + " tasks in the list";
+
+            return new ActionResult(message1 + message2);
         }
     }
 
     /**
      * Prints the list of tasks with their indices.
+     *
+     * @return an {@link ActionResult} containing the list of tasks
      */
-    public void listTask() {
-        printLine();
+    public ActionResult listTask() {
+        String message = "";
         for (int i = 0; i < tasklist.size(); i++) {
-            System.out.println((i + 1) + ". " + this.tasklist.get(i));
+            message = message.concat((i + 1) + ". " + this.tasklist.get(i) + "\n");
         }
-        printLine();
+
+        return new ActionResult(message);
     }
 
     /**
      * Marks a task as completed based on the specified index.
      *
      * @param index The index of the task to be marked as completed (1-based index).
+     * @return an {@link ActionResult} containing the result of marking the task as completed
+     * @throws ChoaticBotException if the index is out of bounds
      */
-    public void markTask(int index) throws ChoaticBotException{
+    public ActionResult markTask(int index) throws ChoaticBotException {
         if (index <= 0 || index > tasklist.size()) {
             throw new ChoaticBotException("Index out of bounds, there is only " + tasklist.size() + " tasks");
         } else {
-            printLine();
             this.tasklist.get(index - 1).complete();
-            System.out.println("Marked as done:\n" + this.tasklist.get(index - 1));
-            printLine();
+            String message = "Marked as done:\n" + this.tasklist.get(index - 1);
+
+            return new ActionResult(message);
         }
     }
 
@@ -82,15 +89,17 @@ public class TaskList {
      * Marks a task as incomplete based on the specified index.
      *
      * @param index The index of the task to be marked as incomplete (1-based index).
+     * @return an {@link ActionResult} containing the result of marking the task as incomplete
+     * @throws ChoaticBotException if the index is out of bounds
      */
-    public void unmarkTask(int index) throws ChoaticBotException {
+    public ActionResult unmarkTask(int index) throws ChoaticBotException {
         if (index <= 0 || index > tasklist.size()) {
             throw new ChoaticBotException("Index out of bounds, there is only " + tasklist.size() + " tasks");
         } else {
-            printLine();
             this.tasklist.get(index - 1).uncomplete();
-            System.out.println("Marked as undone:\n" + this.tasklist.get(index - 1));
-            printLine();
+            String message = "Marked as undone:\n" + this.tasklist.get(index - 1);
+
+            return new ActionResult(message);
         }
     }
 
@@ -98,15 +107,18 @@ public class TaskList {
      * Filters and prints tasks that contain the specified word in their name.
      *
      * @param word The word to search for in the task names.
+     * @return an {@link ActionResult} containing the filtered tasks
      */
-    public void filterByWord(String word) {
-        printLine();
+    public ActionResult filterByWord(String word) {
+        String message = "";
+
         for (int i = 0; i < tasklist.size(); i++) {
             if (tasklist.get(i).containWord(word)) {
-                System.out.println((i + 1) + ". " + this.tasklist.get(i));
+                message = message.concat((i + 1) + ". " + this.tasklist.get(i) + "\n");
             }
         }
-        printLine();
+
+        return new ActionResult(message);
     }
 
     /**
@@ -125,13 +137,13 @@ public class TaskList {
      * @param index The index of the task to be updated (1-based index).
      * @param details The new details to update the task with. The format of the details
      *                depends on the type of task (e.g., deadline tasks need a date).
-     * @throws WrongInputFormatException If the details provided do not match the expected format for the task type.
+     * @return an {@link ActionResult} containing the result of updating the task
+     * @throws WrongInputFormatException If the details provided do not match the expected format for the task type
      */
-    public void updateTask(int index, String details) throws WrongInputFormatException {
+    public ActionResult updateTask(int index, String details) throws WrongInputFormatException {
         this.tasklist.get(index - 1).update(details);
+        String message = "Updated task " + index + " to: " + this.tasklist.get(index - 1);
 
-        printLine();
-        System.out.println("Updated task " + index + " to: " + this.tasklist.get(index - 1));
-        printLine();
+        return new ActionResult(message);
     }
 }

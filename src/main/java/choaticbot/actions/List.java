@@ -22,9 +22,11 @@ public class List extends Action {
     /**
      * Executes the list action. It calls the {@code listTask()} method on the task list
      * to display all tasks.
+     *
+     * @return an {@link ActionResult} containing the result of listing all the tasks.
      */
     @Override
-    public void execute() throws ChoaticBotException {
-        this.taskList.listTask();
+    public ActionResult execute() throws ChoaticBotException {
+        return this.taskList.listTask();
     }
 }
