@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    private Agave agave = new Agave("./data/agave.txt");
+    private Agave agave = new Agave(System.getProperty("user.dir") + "/data/agave.txt");
 
     /**
      * Starts the application.

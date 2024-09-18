@@ -209,4 +209,6 @@ Bye. Hope to see you again soon!
 ```
 And the window closes.
 
+### Use of AI tools
+GitHub copilot was used for code auto-completion and suggestions.
 ---
