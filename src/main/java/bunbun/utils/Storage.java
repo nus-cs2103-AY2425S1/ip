@@ -50,7 +50,7 @@ public class Storage {
             File taskFile = new File(this.filePath);
             taskFile.createNewFile();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Initialising Bunbun data file");
         }
     }
 
@@ -101,7 +101,7 @@ public class Storage {
                 taskList.add(parseTask(taskDescription));
             }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("No previous file");
         }
         return taskList;
     }
