@@ -20,8 +20,11 @@ public class Gallium {
      */
     public Gallium(String filePath) {
         ui = new Ui();
+        assert ui != null: "UI cannot be null";
         storage = new Storage(filePath);
+        assert storage != null: "Storage cannot be null";
         taskList = new TaskList(storage.load(ui));
+        assert taskList != null: "TaskList cannot be empty";
         isExit = false;
     }
 
@@ -33,6 +36,7 @@ public class Gallium {
         while (!isExit) {
             String message = "";
             Parser parser = new Parser(ui);
+
             Command c = parser.parse(message);
             try {
                 c.execute(taskList, ui, storage);
@@ -59,6 +63,7 @@ public class Gallium {
             Command c = parser.parse(input);
             c.execute(taskList, ui, storage);
             isExit = c.isExit();
+            assert ui.getOutput() != null: "UI output should not be null";
             return ui.getOutput();
         } catch (GalliumException e) {
             return e.getMessage();
