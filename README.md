@@ -1,6 +1,6 @@
 # Bonnie User Guide (18 / 9 / 2024)
 
-![Ui.png](Ui.png)
+![docs/Ui.png](Ui.png)
 
 # Are you looking for an app that keep tracks of your tasks and deadlines? 
 **Look no further** as I present to you **Bonnie The Task Tracker**!
