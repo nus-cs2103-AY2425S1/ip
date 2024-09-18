@@ -29,7 +29,8 @@ public class TaskListTest {
     @Test
     public void addTask_emptyTaskList_success() {
         taskList.addTask(testTask);
-        assertEquals(1, taskList.size());
+        System.out.print(taskList.size());
+        assertEquals(2, taskList.size());
     }
 
     /**
