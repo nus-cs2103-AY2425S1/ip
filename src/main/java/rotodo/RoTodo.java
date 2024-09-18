@@ -32,7 +32,7 @@ public class RoTodo {
      * is loaded through Storage.
      */
     public RoTodo() {
-        storage = new Storage("./data/rotodo.txt");
+        storage = new Storage("./.data/rotodo.txt");
         gui = new Gui();
         tasks = new TaskList();
         storage.loadList(tasks);

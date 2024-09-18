@@ -1,5 +1,7 @@
 package rotodo.commands;
 
+import java.io.IOException;
+
 import rotodo.exception.InvalidInputException;
 import rotodo.processes.Gui;
 import rotodo.processes.Storage;
@@ -19,7 +21,7 @@ public class DeleteCommand extends Command {
      * Initialise DeleteCommand to be executed. Accepts
      * a task index to delete.
      *
-     * @param index of task to delete
+     * @param index of task to delete, 0 to n - 1
      */
     public DeleteCommand(int index) {
         this.index = index;
@@ -33,6 +35,11 @@ public class DeleteCommand extends Command {
             gui.addMessage(tasks.deleteTask(index));
         } catch (InvalidInputException e) {
             gui.addMessage(e.toString());
+        }
+        try {
+            storage.saveList(tasks);
+        } catch (IOException e) {
+            gui.addMessage("\nUnable to save list :(\nRoTodo is sorry");
         }
     }
 }
