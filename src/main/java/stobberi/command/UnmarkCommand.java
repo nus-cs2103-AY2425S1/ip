@@ -1,6 +1,7 @@
 package stobberi.command;
 
 import stobberi.components.TaskList;
+import stobberi.stobberiexception.NoNumberStobberiException;
 import stobberi.stobberiexception.StobberiException;
 
 /**
@@ -13,19 +14,19 @@ public class UnmarkCommand extends Command {
     private TaskList taskList;
 
     /**
-     * The number of the task to be marked as incomplete.
+     * The rest of the command given.
      */
-    private int taskNumber;
+    private String restOfCommand;
 
     /**
      * Constructs a new {@code UnmarkCommand} with the specified {@link TaskList} and task number.
      *
      * @param taskList   The list of tasks where the task will be marked as incomplete.
-     * @param taskNumber The number of the task to be marked as incomplete.
+     * @param restOfCommand The rest of the command given.
      */
-    public UnmarkCommand(TaskList taskList, int taskNumber) {
+    public UnmarkCommand(TaskList taskList, String restOfCommand) {
         this.taskList = taskList;
-        this.taskNumber = taskNumber;
+        this.restOfCommand = restOfCommand;
     }
 
     /**
@@ -33,6 +34,12 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public String execute() throws StobberiException {
+        int taskNumber;
+        if (restOfCommand.matches("\\d+")) {
+            taskNumber = Integer.parseInt(restOfCommand);
+        } else {
+            throw new NoNumberStobberiException("Where is the number???");
+        }
         return taskList.unmarkTask(taskNumber);
     }
 }
