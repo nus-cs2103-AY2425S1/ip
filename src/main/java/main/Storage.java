@@ -54,36 +54,49 @@ public class Storage {
      */
     public List<Task> load() throws CommandFoundButInvalidException {
         List<Task> allTasks = new ArrayList<>();
+
+        if (!file.exists()) {
+            return allTasks;
+        }
+
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            if (!file.exists()) {
-                return allTasks;
-            }
             String line;
             while ((line = br.readLine()) != null) {
-                String[] parts = line.split("\\| ");
-                Task currTask;
-                switch (parts[0].trim()) {
-                case "T":
-                    currTask = new ToDos(parts[2]);
-                    break;
-                case "D":
-                    currTask = new Deadlines(parts[2]);
-                    break;
-                case "E":
-                    currTask = new Events(parts[2]);
-                    break;
-                default:
-                    throw new InvalidSyntaxException("File is corrupted");
-                }
-                if (Integer.parseInt(parts[1].trim()) == 1) {
-                    currTask.markAsDone();
-                }
-                allTasks.add(currTask);
+                allTasks.add(parseTaskFromLine(line));
             }
         } catch (IOException e) {
-            System.out.println("Error when reading file. " + e.getMessage());
+            throw new InvalidSyntaxException("something went wrong with load() method");
         }
         return allTasks;
+    }
+
+    /**
+     * Parses a single line from the file and returns the corresponding Task object
+     *
+     * @param line the line that needs to be parsed
+     * @return the corresponding Task object
+     * @throws CommandFoundButInvalidException if the file contains invalid syntax
+     */
+    private Task parseTaskFromLine(String line) throws CommandFoundButInvalidException {
+        String[] parts = line.split("\\| ");
+        Task currTask;
+        switch (parts[0].trim()) {
+        case "T":
+            currTask = new ToDos(parts[2]);
+            break;
+        case "D":
+            currTask = new Deadlines(parts[2]);
+            break;
+        case "E":
+            currTask = new Events(parts[2]);
+            break;
+        default:
+            throw new InvalidSyntaxException("File is corrupted");
+        }
+        if (Integer.parseInt(parts[1].trim()) == 1) {
+            currTask.markAsDone();
+        }
+        return currTask;
     }
     /**
      * Saves tasks from the provided {@code TaskList} instance to the file.
