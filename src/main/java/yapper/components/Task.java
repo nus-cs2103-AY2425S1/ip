@@ -104,7 +104,7 @@ public class Task {
                     String format = new StringBuilder(dateFormat).append(" ").append(timeFormat).toString();
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
                     LocalDateTime formattedDateTime = LocalDateTime.parse(time, formatter);
-                    return formattedDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a"));
+                    return formattedDateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a")).toUpperCase();
                 } catch (DateTimeParseException e) {
                     continue;
                 }
@@ -125,7 +125,7 @@ public class Task {
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
                 LocalDate formattedDate = LocalDate.parse(time, formatter);
-                return formattedDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+                return formattedDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")).toUpperCase();
             } catch (DateTimeParseException e) {
                 continue;
             }
@@ -145,7 +145,7 @@ public class Task {
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern(timeFormat);
                 LocalTime formattedTime = LocalTime.parse(time, formatter);
-                return formattedTime.format(DateTimeFormatter.ofPattern("hh:mm a"));
+                return formattedTime.format(DateTimeFormatter.ofPattern("hh:mm a")).toUpperCase();
             } catch (DateTimeParseException e) {
                 continue;
             }
