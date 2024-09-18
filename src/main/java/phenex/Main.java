@@ -32,6 +32,8 @@ public class Main extends Application {
             controller.setPhenex(phenex);
 
             stage.show();
+            stage.setMinHeight(220);
+            stage.setMinWidth(417);
         } catch (IOException e) {
             e.printStackTrace();
         }
