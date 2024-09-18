@@ -31,7 +31,6 @@ public class AddEvent extends Command {
     public boolean execute(String input, Reminder reminder, Ui ui, History history)
             throws EmptyDescriptionException {
         String[] command = input.split(" ", 2);
-        // assert(command.length == 2);
         String[] order = command[1].split(" /from ");
         if (order.length == 2) {
             String[] fillerName = order[1].split(" /to ");
