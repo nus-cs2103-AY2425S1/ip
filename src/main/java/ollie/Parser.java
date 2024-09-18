@@ -47,7 +47,8 @@ public class Parser {
     public static String parseKeyword(String userCommand) throws OllieException {
         String[] words = userCommand.split(" ", 2);
         if (words.length < 2) {
-            throw new OllieException("The find command requires a keyword.");
+            throw new OllieException("Please enter a keyword for the find command. ☺\n"
+                    + "e.g. find book");
         }
         return words[1].trim();
     }

@@ -16,18 +16,18 @@ public class EmptyDescriptionExceptionTest {
     @Test
     public void emptyDescriptionExceptionTest_withTodoTask() {
         EmptyDescriptionException exception = new EmptyDescriptionException("TODO");
-        assertEquals("Please add a name for a TODO task!", exception.getMessage());
+        assertEquals("Please add a name for a TODO task! ☺", exception.getMessage());
     }
 
     @Test
     public void emptyDescriptionExceptionTest_withDeadlineTask() {
         EmptyDescriptionException exception = new EmptyDescriptionException("DEADLINE");
-        assertEquals("Please add a name for a DEADLINE task!", exception.getMessage());
+        assertEquals("Please add a name for a DEADLINE task! ☺", exception.getMessage());
     }
 
     @Test
     public void emptyDescriptionExceptionTest_withEventTask() {
         EmptyDescriptionException exception = new EmptyDescriptionException("EVENT");
-        assertEquals("Please add a name for a EVENT task!", exception.getMessage());
+        assertEquals("Please add a name for a EVENT task! ☺", exception.getMessage());
     }
 }

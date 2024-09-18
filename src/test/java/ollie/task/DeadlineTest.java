@@ -42,7 +42,7 @@ public class DeadlineTest {
     public void createTask_missingDescription_exceptionThrown() {
         String command = "deadline";
         OllieException exception = assertThrows(OllieException.class, () -> Deadline.createTask(command));
-        assertEquals("Please add a name for a deadline task!", exception.getMessage());
+        assertEquals("Please add a name for a deadline task! ☺", exception.getMessage());
     }
 
     @Test
