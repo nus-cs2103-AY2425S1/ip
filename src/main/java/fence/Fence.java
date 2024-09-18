@@ -134,8 +134,10 @@ public class Fence {
                 return getDeleteResponse();
             } else if (commandType.equals("find")) {
                 return getFindResponse();
-            } else {
+            } else if (commandType.equals("unknown command")) {
                 return ui.printUnknownCommand();
+            } else {
+                throw new AssertionError("commandType should be one of the default strings");
             }
         } catch (NoSuchElementException e) {
             return ui.printMissingFieldError();
