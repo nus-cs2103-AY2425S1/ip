@@ -7,8 +7,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+import gopher.exception.FileCorruptedException;
 import org.junit.jupiter.api.Test;
 
+import gopher.exception.InvalidTokenException;
 import gopher.exception.MissingTaskNumberException;
 
 public class ParserTest {
@@ -107,5 +109,108 @@ public class ParserTest {
     public void parseDeleteCommand_multipleTaskNumber_parseSuccess()
             throws MissingTaskNumberException {
         assertArrayEquals(new int[]{1, 2, 3}, Parser.parseDeleteCommand("delete 1 2 3"));
+    }
+
+    @Test
+    public void parseUpdateTodoCommand_validCommand_parseSuccess()
+            throws InvalidTokenException {
+        String[] tokens = new String[]{"update", "2", "Hello", "World"};
+        assertArrayEquals(new String[]{"Hello World"}, Parser.parseUpdateTodoTaskCommand(tokens));
+    }
+
+    @Test
+    public void parseUpdateTodoCommand_inputWithByToken_exceptionThrown() {
+        String[] tokens = new String[]{"update", "4", "Test", "/by", "2024-09-11"};
+        assertThrows(InvalidTokenException.class, () -> {
+            Parser.parseUpdateTodoTaskCommand(tokens);
+        });
+    }
+
+    @Test
+    public void parseUpdateDeadlineCommand_validCommand_parseSuccess()
+            throws InvalidTokenException {
+        String[] tokens = new String[]{"update", "3", "/by", "2024-09-11"};
+        assertArrayEquals(new String[]{"", "2024-09-11"},
+                Parser.parseUpdateDeadlineTaskCommand(tokens));
+    }
+
+    @Test
+    public void parseUpdateDeadlineCommand_inputWithToToken_exceptionThrown() {
+        assertThrows(InvalidTokenException.class, () -> {
+            String[] tokens = new String[]{"update", "3", "/to", "2024"};
+            Parser.parseUpdateDeadlineTaskCommand(tokens);
+        });
+    }
+
+    @Test
+    public void parseUpdateEventCommand_validCommand_parseSuccess()
+            throws InvalidTokenException {
+        String[] tokens = new String[]{"update", "5", "Event", "1", "/from",
+                                       "2024-09-11", "15:00", "/to", "2024-09-12", "16:00"};
+        assertArrayEquals(new String[]{"Event 1", "2024-09-11 15:00", "2024-09-12 16:00"},
+                Parser.parseUpdateEventTaskCommand(tokens));
+    }
+
+    @Test
+    public void parseUpdateEventCommand_inputWithByToken_exceptionThrown() {
+        assertThrows(InvalidTokenException.class, () -> {
+            String[] tokens = new String[]{"update", "5", "Event", "1", "/from",
+                                           "2024-09-11", "15:00", "/to", "2024-09-12",
+                                           "16:00", "/by", "2024-09-15"};
+            Parser.parseUpdateEventTaskCommand(tokens);
+        });
+    }
+
+    @Test
+    public void parseSavedTaskData_corruptedFile_exceptionThrown() {
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
+            Parser.parseSavedTaskData("""
+                    Hello World
+                    """);
+        });
+    }
+
+    @Test
+    public void parseMarkCommand_validCommand_parseSuccess()
+            throws MissingTaskNumberException {
+        assertArrayEquals(new int[]{1, 3, 5}, Parser.parseMarkCommand("mark 1 3 5"));
+    }
+
+    @Test
+    public void parseMarkCommand_missingTaskNumber_exceptionThrown() {
+        assertThrows(MissingTaskNumberException.class, () -> {
+            Parser.parseMarkCommand("mark");
+        });
+    }
+
+    @Test
+    public void parseUnmarkCommand_validCommand_parseSuccess()
+            throws MissingTaskNumberException {
+        assertArrayEquals(new int[]{2, 4, 6}, Parser.parseMarkCommand("unmark 2 4 6"));
+    }
+
+    @Test
+    public void parseUnmarkCommand_missingTaskNumber_exceptionThrown() {
+        assertThrows(MissingTaskNumberException.class, () -> {
+            Parser.parseMarkCommand("unmark");
+        });
+    }
+
+    @Test
+    public void parseDeleteCommand_validCommand_parseSuccess()
+            throws MissingTaskNumberException {
+        assertArrayEquals(new int[]{1, 2, 3}, Parser.parseMarkCommand("delete 1 2 3"));
+    }
+
+    @Test
+    public void parseDeleteCommand_missingTaskNumber_exceptionThrown() {
+        assertThrows(MissingTaskNumberException.class, () -> {
+            Parser.parseMarkCommand("delete");
+        });
+    }
+
+    @Test
+    public void parseFindCommand_validCommand_parseSuccess() {
+        assertEquals("Hello World 123", Parser.parseFindCommand("find Hello World 123"));
     }
 }

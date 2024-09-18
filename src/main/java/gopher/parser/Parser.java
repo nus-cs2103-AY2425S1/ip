@@ -417,7 +417,7 @@ public class Parser {
      * @throws FileCorruptedException if file read failed
      */
     public static ArrayList<Task> parseSavedTaskData(String taskData)
-            throws FileCorruptedException, InvalidTokenException {
+            throws FileCorruptedException {
         ArrayList<Task> tasks = new ArrayList<>();
         String[] taskRows = taskData.split("\n");
         String[] tokens;
@@ -456,6 +456,7 @@ public class Parser {
             } catch (UnknownCommandException
                      | EmptyTaskDescriptionException
                      | MissingTokenException
+                     | InvalidTokenException
                      | InvalidDurationException e) {
                 throw new FileCorruptedException();
             }
