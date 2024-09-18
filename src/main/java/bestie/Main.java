@@ -26,7 +26,7 @@ public class Main extends Application {
 
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            stage.setTitle("Bestie");
+            stage.setTitle("Bestie: Your personal assistant chatbot");
             stage.setMinHeight(400);
             stage.setMinWidth(450);
             // inject the Bestie instance

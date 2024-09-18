@@ -62,7 +62,7 @@ public class Ui {
         for (int i = 0; i < tasks.size(); i++) {
             int index = i + 1;
             // string concatenation returns a new string, must reassign
-            output = output.concat(index + "." + tasks.get(i).toString() + "\n");
+            output = output.concat(index + ". " + tasks.get(i).toString() + "\n");
         }
         return output;
     }

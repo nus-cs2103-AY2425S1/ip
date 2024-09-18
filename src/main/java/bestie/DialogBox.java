@@ -52,6 +52,7 @@ public class DialogBox extends HBox {
      * providing a clear distinction between user and bot messages.
      */
     private void flip() {
+        dialog.getStyleClass().add("reply-label");
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
