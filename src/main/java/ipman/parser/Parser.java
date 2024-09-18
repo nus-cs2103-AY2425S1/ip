@@ -73,7 +73,7 @@ public class Parser {
         case "del":
         case "delete": {
             String[] args = parseArgs(messageRecord.args);
-            int index = parseInt(args[0]);
+            int index = parseInt(args[0]) - 1;
             return new DeleteCommand(index);
         }
         case "f":
