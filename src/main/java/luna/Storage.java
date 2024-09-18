@@ -22,10 +22,8 @@ import luna.task.Todo;
  * This class is responsible for saving and loading tasks from a file.
  */
 public class Storage {
-    public static final String FILE_PATH = System.getProperty("user.home")
-            + File.separator + "luna.txt";
-    public static final String TEMP_FILE_PATH = System.getProperty("user.home")
-            + File.separator + "temp.txt";
+    public static final String FILE_PATH = "luna.txt";
+    public static final String TEMP_FILE_PATH = "temp.txt";
 
     /**
      * Loads tasks from a specified file.
