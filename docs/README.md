@@ -55,7 +55,7 @@ There are 3 types of tasks can be added to the list:
   - ```event TASK_DESCRIPTION /from START_DATE /to END_DATE```
 - **Examples**:
   - ```event Comicon /from This Monday /to This Wednesday```
-  - ```event Meetup with friends /from 2 pm /to 6 pm```
+  - ```event Meetup with friends /from 2 PM /to 6 PM```
 
 For deadlines and events, **Yapper** is able to read the input of dates and times and convert them accordingly.
 
@@ -65,7 +65,7 @@ Examples:
 
 will be converted into:
 
-```[E][ ] Comicon (from: Nov 24 2024 09:00 am to: Nov 26 2024 11:59 pm)```
+```[E][ ] Comicon (from: NOV 24 2024 09:00 AM to: NOV 26 2024 11:59 PM)```
 
 ### List tasks
 
