@@ -32,6 +32,28 @@ public abstract class Task {
     }
 
     /**
+     * Compares this Task object to the specified object for equality.
+     * <p>
+     * Two Task objects are considered equal if they are of the same class and their
+     * descriptions are equal. This method first checks if the two references are
+     * identical, then verifies that the object being compared is of the same class
+     * and is not null. If these conditions are met, it compares the description fields
+     * of both Task objects to determine equality.
+     * </p>
+     *
+     * @param o the object to be compared for equality with this Task
+     * @return true if this Task is equal to the specified object;
+     *         false otherwise
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return desc.equals(task.desc);
+    }
+
+    /**
      * Returns string representation of task completion status
      * If done, return X, else return " "
      */

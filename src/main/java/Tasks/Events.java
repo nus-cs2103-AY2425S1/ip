@@ -1,8 +1,6 @@
 package Tasks;
 
-import Exceptions.EmptyEventDateException;
-import Exceptions.EmptyEventException;
-import Exceptions.EmptyEventTimingException;
+import Exceptions.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -23,7 +21,7 @@ public class Events extends Task {
      * @throws EmptyEventTimingException if split desc string has < 2 parts(no time)
      *                                   or second part(start time) or third part(end time) is empty
      */
-    public Events(String desc) throws EmptyEventException, EmptyEventTimingException, EmptyEventDateException {
+    public Events(String desc) throws EmptyEventException, EmptyEventTimingException, EmptyEventDateException, InvalidTimeException {
         super(desc);
 
         checkValidityOfEventInput(desc);
@@ -34,6 +32,36 @@ public class Events extends Task {
         String[] parts3 = parts2[1].split(" /on ");
 
         parseEvent(parts2, parts3);
+        checkValidityOfTimeInput();
+
+    }
+
+    /**
+     * Checks the validity of the time input based on the provided description.
+     *
+     * This method verifies if the `localStartTime` is after the `localEndTime`.
+     * If `localStartTime` is found to be after `localEndTime`, it throws an
+     * `InvalidTimeException` with a descriptive error message.
+     *
+     * <p>
+     * Preconditions:
+     * - Both `localStartTime` and `localEndTime` should be non-null for the
+     *   validity check to occur.
+     * - If either `localStartTime` or `localEndTime` is null, no validation is
+     *   performed.
+     * </p>
+     *
+     * @throws InvalidTimeException If `localStartTime` is after `localEndTime`,
+     *                               indicating an invalid time range.
+     *
+     * @see InvalidTimeException
+     */
+    private void checkValidityOfTimeInput() throws InvalidTimeException {
+        if (localStartTime != null && localEndTime != null) {
+            if (localStartTime.isAfter(localEndTime)) {
+                throw new InvalidTimeException("OOPS!!! StartTime is after EndTime");
+            }
+        }
     }
 
     /**
@@ -121,6 +149,7 @@ public class Events extends Task {
                             "event project meeting /from 16:00 /to 18:00 /on yyyy-MM-dd or dd/MM/yyyy");
         }
     }
+
 
     @Override
     public String print() {

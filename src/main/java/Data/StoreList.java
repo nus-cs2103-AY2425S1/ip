@@ -47,16 +47,25 @@ public class StoreList {
             if (type.equals("todo")) {
                 // create a Tasks.ToDos object
                 t = new ToDos(item);
+                if (items.contains(t)) {
+                    throw new DuplicateTaskException("OOPS!!! Task already exists leh");
+                }
                 items.add(t);
 
             } else if (type.equals("deadline")) {
                 // create a Tasks.Deadlines object
                 t = new Deadlines(item); // Constructor might throw Exceptions.EmptyDeadlineException
+                if (items.contains(t)) {
+                    throw new DuplicateTaskException("OOPS!!! Task already exists leh");
+                }
                 items.add(t);
 
             } else {
                 // create an Tasks.Events object
                 t = new Events(item); // Constructor might throw Exceptions.EmptyEventException
+                if (items.contains(t)) {
+                    throw new DuplicateTaskException("OOPS!!! Task already exists leh");
+                }
                 items.add(t);
             }
 
@@ -65,7 +74,8 @@ public class StoreList {
 
         } catch (EmptyDescException | EmptyDeadlineException
                  | EmptyEventException | EmptyDeadlineDateException
-                 | EmptyEventTimingException | EmptyEventDateException e) {
+                 | EmptyEventTimingException | EmptyEventDateException
+                 | InvalidTimeException | DuplicateTaskException e) {
 
             return e.getMessage();
 
