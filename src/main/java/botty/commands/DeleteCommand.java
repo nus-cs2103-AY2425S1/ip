@@ -2,7 +2,6 @@ package botty.commands;
 
 import botty.exceptions.BottyException;
 import botty.tasks.Task;
-import botty.tasks.TaskData;
 import botty.tasks.TaskManager;
 
 /**
@@ -22,7 +21,7 @@ public class DeleteCommand extends Command {
             String argument = parsedInput.getArgument("main");
             int taskIndex = Integer.parseInt(argument) - 1;
 
-            Task<? extends TaskData> task = taskManager.deleteTask(taskIndex);
+            Task task = taskManager.deleteTask(taskIndex);
             return "Got it! I have removed the following task:\n"
                     + task + "\n"
                     + "You have " + taskManager.size() + " tasks left!";
