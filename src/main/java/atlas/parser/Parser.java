@@ -47,7 +47,7 @@ public class Parser {
 
     /**
      * @param commandsArray The array of commands that consist all the words the user has typed in the chatbot as an
-     * entire command.
+     *     entire command.
      * @return AtlasCommand The command that the user would like the chatbot to execute.
      * @throws IllegalArgumentException The error thrown when a user types in a command that does not exist.
      */

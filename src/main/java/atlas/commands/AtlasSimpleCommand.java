@@ -1,5 +1,8 @@
 package atlas.commands;
 
+/**
+ * Contains all possible short atlas commands.
+ */
 public enum AtlasSimpleCommand {
     B, // Short for BYE
     L, // Short for LIST
