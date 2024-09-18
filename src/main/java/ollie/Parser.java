@@ -47,8 +47,7 @@ public class Parser {
     public static String parseKeyword(String userCommand) throws OllieException {
         String[] words = userCommand.split(" ", 2);
         if (words.length < 2) {
-            throw new OllieException("Please enter a keyword for the find command. ☺\n"
-                    + "e.g. find book");
+            throw new OllieException("The find command requires a keyword.");
         }
         return words[1].trim();
     }
@@ -71,37 +70,51 @@ public class Parser {
         String command = splitInput[0].toLowerCase();
 
         try {
-            switch (command) {
-            case "hello":
-                return Ui.greet();
-            case "-b": // '-b' as an alias for 'bye'
-                return Ui.exit();
-            case "-l": // '-l' as an alias for 'list'
-                return taskList.listTasks();
-            case "-m": // '-m' as an alias for 'mark'
-                int taskNumber = Parser.parseTaskNumber(userInput, 3);
-                return taskList.markTaskAsDone(taskNumber);
-            case "-u": // '-u' as an alias for 'unmark'
-                int taskNumberToUnmark = Parser.parseTaskNumber(userInput, 3);
-                return taskList.unmarkTaskAsDone(taskNumberToUnmark);
-            case "-d": // '-d' as an alias for 'delete'
-                int taskNumberDelete = Parser.parseTaskNumber(userInput, 3);
-                return taskList.deleteTask(taskNumberDelete);
-            case "-f": // '-f' as an alias for 'find'
-                String keyword = Parser.parseKeyword(userInput);
-                return taskList.findTasksByKeyword(keyword);
-            case "todo":
-                return taskList.addTask(Todo.createTask(userInput));
-            case "deadline":
-                return taskList.addTask(Deadline.createTask(userInput));
-            case "event":
-                return taskList.addTask(Event.createTask(userInput));
-            default:
-                return Ui.returnErrorAsString(
-                        new OllieException("I am sorry, but please enter a valid command! ☺"));
-            }
+            return executeCommand(command, userInput, taskList, ui);
         } catch (OllieException e) {
             return Ui.returnErrorAsString(e);
+        }
+    }
+
+    /**
+     * Executes the command based on the input.
+     *
+     * @param command The command to execute.
+     * @param userInput The full user input.
+     * @param taskList The list of tasks.
+     * @param ui The user interface.
+     * @return The response by Ollie.
+     * @throws OllieException If there is an error in executing the command.
+     */
+    private static String executeCommand(String command, String userInput, TaskList taskList, Ui ui)
+            throws OllieException {
+        switch (command) {
+        case "hello":
+            return Ui.greet();
+        case "-b": // '-b' as an alias for 'bye'
+            return Ui.exit();
+        case "-l": // '-l' as an alias for 'list'
+            return taskList.listTasks();
+        case "-m": // '-m' as an alias for 'mark'
+            int taskNumber = Parser.parseTaskNumber(userInput, 3);
+            return taskList.markTaskAsDone(taskNumber);
+        case "-u": // '-u' as an alias for 'unmark'
+            int taskNumberToUnmark = Parser.parseTaskNumber(userInput, 3);
+            return taskList.unmarkTaskAsDone(taskNumberToUnmark);
+        case "-d": // '-d' as an alias for 'delete'
+            int taskNumberDelete = Parser.parseTaskNumber(userInput, 3);
+            return taskList.deleteTask(taskNumberDelete);
+        case "-f": // '-f' as an alias for 'find'
+            String keyword = Parser.parseKeyword(userInput);
+            return taskList.findTasksByKeyword(keyword);
+        case "todo":
+            return taskList.addTask(Todo.createTask(userInput));
+        case "deadline":
+            return taskList.addTask(Deadline.createTask(userInput));
+        case "event":
+            return taskList.addTask(Event.createTask(userInput));
+        default:
+            throw new OllieException("I am sorry, but please enter a valid command! ☺");
         }
     }
 }

@@ -38,6 +38,10 @@ public class DeadlineTest {
         assertEquals(LocalDateTime.of(2023, 9, 30, 23, 59), task.getDeadline());
     }
 
+    /**
+     * Tests the {@link Deadline#createTask(String)} method with missing description.
+     * Verifies that an exception is thrown when the description is missing.
+     */
     @Test
     public void createTask_missingDescription_exceptionThrown() {
         String command = "deadline";
@@ -45,6 +49,10 @@ public class DeadlineTest {
         assertEquals("Please add a name for a deadline task! ☺", exception.getMessage());
     }
 
+    /**
+     * Tests the {@link Deadline#createTask(String)} method with missing deadline.
+     * Verifies that an exception is thrown when the deadline is missing.
+     */
     @Test
     public void createTask_missingDeadline_exceptionThrown() {
         String command = "deadline Submit report /by: ";
@@ -52,6 +60,10 @@ public class DeadlineTest {
         assertEquals("Please enter a deadline for the task! ☺", exception.getMessage());
     }
 
+    /**
+     * Tests the {@link Deadline#createTask(String)} method with invalid date format.
+     * Verifies that an exception is thrown when the date format is invalid.
+     */
     @Test
     public void createTask_invalidDateFormat_exceptionThrown() {
         String command = "deadline Submit report /by: 2023/09/30 23:59";
@@ -77,5 +89,15 @@ public class DeadlineTest {
     public void toString_validDeadline_correctStringRepresentationReturned() {
         String expectedString = "[ ] [DEADLINE] Submit assignment (by: Aug 31 2023 23:59)";
         assertEquals(expectedString, deadlineTask.toString());
+    }
+
+    /**
+     * Tests the {@link Deadline#toString()} method.
+     * Verifies that the task is correctly represented as a string.
+     */
+    @Test
+    public void deadlineTest() {
+        Deadline deadline = new Deadline("Deadline task", LocalDateTime.of(2023, 8, 31, 23, 59));
+        assertEquals("[ ] [DEADLINE] Deadline task (by: Aug 31 2023 23:59)", deadline.toString());
     }
 }

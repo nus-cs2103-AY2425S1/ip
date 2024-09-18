@@ -45,6 +45,7 @@ public class EventTest {
         assertEquals(LocalDateTime.of(2023, 9, 30, 16, 0), task.getEnd());
     }
 
+    /** Tests the {@link Event#createTask(String)} method with missing description. */
     @Test
     public void createTask_missingDescription_exceptionThrown() {
         String command = "event ";
@@ -52,16 +53,23 @@ public class EventTest {
         assertEquals("Please add a name for a event task! ☺", exception.getMessage());
     }
 
+    /** Tests the {@link Event#createTask(String)} method with missing start time. */
     @Test
     public void createTask_missingStartTime_exceptionThrown() {
-        String command = "event Project meeting /from: ";
+        String command = "event meeting /from: /to: 2021-09-30 15:00";
         OllieException exception = assertThrows(OllieException.class, () -> Event.createTask(command));
-        assertEquals("Please enter in the format:\n"
-                        + "event <description> /from: <start time> /to: <end time>\n"
-                        + "Example: event meeting /from: 2021-09-30 14:00 /to: 2021-09-30 15:00",
-                exception.getMessage());
+        assertEquals("Please enter a start time for the task! ☺", exception.getMessage());
     }
 
+    /** Tests the {@link Event#createTask(String)} method with missing end time. */
+    @Test
+    public void createTask_missingEndTime_exceptionThrown() {
+        String command = "event meeting /from: 2021-09-30 14:00 /to: ";
+        OllieException exception = assertThrows(OllieException.class, () -> Event.createTask(command));
+        assertEquals("Please enter an end time for the task! ☺", exception.getMessage());
+    }
+
+    /** Tests the {@link Event#createTask(String)} method with a date in the wrong format. */
     @Test
     public void createTask_invalidDateFormat_exceptionThrown() {
         String command = "event Project meeting /from: 2023/09/30 14:00 /to: 2023-09-30 16:00";
@@ -70,6 +78,10 @@ public class EventTest {
                 "Please enter the date in the format: yyyy-MM-dd HH:mm", exception.getMessage());
     }
 
+    /**
+     * Tests the {@link Event#validateDescription(String)} method with valid command input.
+     * Verifies that the description is correctly validated.
+     */
     @Test
     public void validateDescription_missingParts_exceptionThrown() {
         String command = "Project meeting /from: 2023-09-30 14:00";
@@ -79,6 +91,16 @@ public class EventTest {
                 + "event <description> /from: <start time> /to: <end time>\n"
                 + "Example: event meeting /from: 2021-09-30 14:00 /to: 2021-09-30 15:00",
                 exception.getMessage());
+    }
+
+    /**
+     * Tests the {@link Event#saveAsString()} method using a unit test.
+     * Verifies that the task is correctly formatted for saving.
+     */
+    @Test
+    public void saveAsString_event_correctFormatReturned() {
+        String expectedString = "EVENT |   | Project meeting | Aug 31 2023 14:00 | Aug 31 2023 16:00";
+        assertEquals(expectedString, eventTask.saveAsString());
     }
 
     /**
@@ -105,5 +127,28 @@ public class EventTest {
                 eventTask.getStart().format(formatDate),
                 eventTask.getEnd().format(formatDate));
         assertEquals(expectedString, eventTask.toString());
+    }
+
+    /**
+     * Tests the {@link Event#toString()} method using a unit test.
+     * Verifies that the task is correctly represented as a string.
+     */
+    @Test
+    public void toString_event_correctStringRepresentationReturned() {
+        String expectedString = "[ ] [EVENT] Project meeting (from: Aug 31 2023 14:00 to: Aug 31 2023 16:00)";
+        assertEquals(expectedString, eventTask.toString());
+    }
+
+    /**
+     * Tests the {@link Event#toString()} method.
+     * Verifies that the task is correctly represented as a string.
+     */
+    @Test
+    public void eventTest() {
+        Event event = new Event("Event task",
+                LocalDateTime.of(2023, 8, 31, 14, 0),
+                LocalDateTime.of(2023, 8, 31, 16, 0));
+        assertEquals("[ ] [EVENT] Event task (from: Aug 31 2023 14:00 to: Aug 31 2023 16:00)",
+                event.toString());
     }
 }

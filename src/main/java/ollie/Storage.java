@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import ollie.exception.OllieException;
@@ -63,46 +62,57 @@ public class Storage {
         assert taskData != null : "Oops! Task data string cannot be empty.";
 
         try {
-            // Split the taskData by " | " and collect parts into a list
-            List<String> parts = Arrays.stream(taskData.trim().split(" \\| "))
-                    .map(String::trim)
-                    .collect(Collectors.toList());
-
-            // Extract information from parts
+            List<String> parts = splitTaskData(taskData);
             String taskType = parts.get(0);
             String status = parts.get(1);
             String description = parts.get(2);
             String date = parts.size() > 3 ? parts.get(3) : "";
             String end = parts.size() > 4 ? parts.get(4) : "";
 
-            boolean isDone = status.equals("[X]");
-
-            // Map task type to task creation function
-            Function<List<String>, Task> taskCreator;
-            switch (taskType) {
-            case "TODO":
-                taskCreator = p -> new Todo(description);
-                break;
-            case "DEADLINE":
-                taskCreator = p -> new Deadline(description, LocalDateTime.parse(date, Task.getFormatDate()));
-                break;
-            case "EVENT":
-                taskCreator = p -> new Event(description,
-                        LocalDateTime.parse(date, Task.getFormatDate()),
-                        LocalDateTime.parse(end, Task.getFormatDate()));
-                break;
-            default:
-                throw new OllieException("Oops! Invalid task type detected: " + taskType);
-            }
-
-            // Create the task using the mapped function
-            Task task = taskCreator.apply(parts);
-            task.markAsDone(isDone);
+            Task task = createTask(taskType, description, date, end);
+            task.markAsDone(status.equals("[X]"));
             taskList.addTaskWihoutMessage(task);
 
             return task;
         } catch (ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
             throw new OllieException("Oops! Error parsing task data: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Splits the task data string into parts.
+     *
+     * @param taskData The task data string.
+     * @return A list of task data parts.
+     */
+    private List<String> splitTaskData(String taskData) {
+        return Arrays.stream(taskData.trim().split(" \\| "))
+                .map(String::trim)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Creates a task based on the task type.
+     *
+     * @param taskType The type of the task.
+     * @param description The description of the task.
+     * @param date The start date of the task (if applicable).
+     * @param end The end date of the task (if applicable).
+     * @return A task object.
+     * @throws OllieException If the task type is invalid.
+     */
+    private Task createTask(String taskType, String description, String date, String end) throws OllieException {
+        switch (taskType) {
+        case "TODO":
+            return new Todo(description);
+        case "DEADLINE":
+            return new Deadline(description, LocalDateTime.parse(date, Task.getFormatDate()));
+        case "EVENT":
+            return new Event(description,
+                    LocalDateTime.parse(date, Task.getFormatDate()),
+                    LocalDateTime.parse(end, Task.getFormatDate()));
+        default:
+            throw new OllieException("Oops! Invalid task type detected: " + taskType);
         }
     }
 

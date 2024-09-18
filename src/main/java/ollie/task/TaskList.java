@@ -19,7 +19,6 @@ public class TaskList {
      * Constructs a ollie.task.TaskList instance.
      */
     public TaskList() {
-        assert tasks != null : "Oops! Task list cannot be null.";
         this.tasks = new ArrayList<>();
         this.taskCount = 0;
     }

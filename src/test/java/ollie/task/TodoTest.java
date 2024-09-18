@@ -34,6 +34,10 @@ public class TodoTest {
         assertEquals("Read book", task.getDescription());
     }
 
+    /**
+     * Tests the {@link Todo#createTask(String)} method with missing description.
+     * Verifies that an exception is thrown when the description is missing.
+     */
     @Test
     public void createTask_missingDescription_exceptionThrown() {
         String command = "todo ";
@@ -60,5 +64,15 @@ public class TodoTest {
     public void toString_validTodo_correctStringRepresentationReturned() {
         String expectedString = "[ ] [TODO] Read book";
         assertEquals(expectedString, todoTask.toString());
+    }
+
+    /**
+     * Tests the {@link Todo#toString()} method.
+     * Verifies that the task is correctly represented as a string.
+     */
+    @Test
+    public void todoTest() {
+        Todo todo = new Todo("Todo task");
+        assertEquals("[ ] [TODO] Todo task", todo.toString());
     }
 }

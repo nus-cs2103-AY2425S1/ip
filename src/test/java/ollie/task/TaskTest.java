@@ -32,6 +32,10 @@ public class TaskTest {
         assertEquals(" ", task.getStatusIcon());
     }
 
+    /**
+     * Tests the {@link Task#getStatusIcon()} method.
+     * Verifies that the status icon is " " for an incomplete task and "X" for a completed task.
+     */
     @Test
     public void getStatusIcon_completedTask() {
         task.markAsDone(true);
@@ -50,12 +54,20 @@ public class TaskTest {
 
     /**
      * Tests the {@link Task#markAsDone(boolean)} method.
-     * Verifies that the task's completion status can be updated.
+     * Verifies that the task's completion status can be marked as done.
      */
     @Test
-    public void markAsDone_updatesStatus() {
+    public void markAsDone_updatesStatusAsDone() {
         task.markAsDone(true);
         assertTrue(task.getIsDone());
+    }
+
+    /**
+     * Tests the {@link Task#markAsDone(boolean)} method.
+     * Verifies that the task's completion status can be marked as undone.
+     */
+    @Test
+    public void markAsDone_updatesStatusAsUndone() {
         task.markAsDone(false);
         assertFalse(task.getIsDone());
     }
