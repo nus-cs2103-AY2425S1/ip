@@ -3,15 +3,21 @@ package Naega;
 import Naega.Command.Command;
 import Naega.Parser.Parser;
 import Naega.Storage.Storage;
-import Naega.Task.*;
+import Naega.Task.TaskList;
 import Naega.Ui.Ui;
+
 import java.io.IOException;
 
+/**
+ * The main class for the Naega application.
+ * Handles initialization, command processing, and application flow.
+ */
 public class Naega {
 
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
+
 
     public Naega(String filePath) {
         ui = new Ui();
@@ -32,18 +38,20 @@ public class Naega {
             try {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
+                Command command = Parser.parse(fullCommand);
+                command.execute(tasks, ui, storage);
+                isExit = command.isExit();
             } catch (NaegaException e) {
                 ui.showError(e.getMessage());
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                // Consider logging the exception or providing a more specific message
+                throw new RuntimeException("Unexpected error occurred during IO operations.", e);
             } finally {
                 ui.showLine();
             }
         }
     }
+
 
     public static void main(String[] args) {
         new Naega("data/tasks.txt").run();
