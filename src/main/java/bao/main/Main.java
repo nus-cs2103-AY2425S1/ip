@@ -21,6 +21,7 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage stage) {
+        stage.setTitle("Bao");
         bao = new Bao("./data/bao.json.txt");
         assert bao != null : "Bao instance must not be null";
 

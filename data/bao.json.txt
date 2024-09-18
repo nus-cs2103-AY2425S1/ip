@@ -1,6 +1,4 @@
-T | 0 | hehe
-T | 0 | lalalalala
-T | 0 | lalalala
-T | 0 | gwongskjf
-T | 0 | muahahaha
-T | 0 | lalala
+T | 1 | wash clothes
+D | 0 | create repo for tP | 2024-09-18 2359
+E | 0 | meeting | 2024-09-18 1500 - 2024-09-18 1700
+T | 0 | submit iP
