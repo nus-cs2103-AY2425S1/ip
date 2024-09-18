@@ -31,8 +31,7 @@ public class DeleteTaskTest {
         }
         // before
         boolean isEmpty = taskList.getTasks().isEmpty();
-        boolean expected = false;
-        assertEquals(expected, isEmpty);
+        assertEquals(isEmpty, false);
         // after
         String input = "delete 1";
         Command command = Command.fromInput(input, taskList);
@@ -42,8 +41,7 @@ public class DeleteTaskTest {
             fail();
         }
         isEmpty = taskList.getTasks().isEmpty();
-        expected = true;
-        assertEquals(expected, isEmpty);
+        assertEquals(isEmpty, true);
     }
 
     @Test

@@ -25,7 +25,7 @@ public abstract class Command {
     }
 
     /**
-     * Return a Command based on the input type.
+     * Creates a Command based on the input type.
      * Each input line from the user starts with a verb,
      * which can be used to choose which type of Command to return.
      *

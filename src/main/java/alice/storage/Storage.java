@@ -60,7 +60,7 @@ public class Storage {
     }
 
     /**
-     * Save tasks to disk to persist data.
+     * Saves tasks to disk to persist data.
      *
      * @throws IOException if the stored file cannot be written to
      */

@@ -36,7 +36,6 @@ public class DialogBox extends HBox {
         displayPicture.setImage(img);
     }
 
-    // public static DialogBox getAliceDialog(String text, Image img, String commandType) {
     public static DialogBox getAliceDialog(String text, Image img) {
         var dialogBox = new DialogBox(text, img);
         dialogBox.flip();
