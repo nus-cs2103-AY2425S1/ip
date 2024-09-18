@@ -25,11 +25,6 @@ public class Ui {
                 + " What can I do for you?";
     }
 
-    public String showUserIobError() {
-        return "Please enter valid information after the keyword!\n"
-                + "Try again!";
-    }
-
     public String showMarkIobError(int index) {
         return "Invalid index number: " + index + " Please refer to your list.";
     }
@@ -71,17 +66,6 @@ public class Ui {
         return guide;
     }
 
-    public String showTimeParseException(DateTimeParseException dateTimeParseException) {
-        return "Invalid input date time: " + dateTimeParseException;
-    }
-    public String showFileIobError(IndexOutOfBoundsException e) {
-        return "Invalid input task file format: " + e
-                + "Remove the file and try again!";
-    }
-    public String showInvalidStateException(InvalidStateException e) {
-        return "Invalid input task file format: " + e
-                + "Remove the file and try again!";
-    }
     public String showInitializeIoeException(IOException e) {
         return "Error in initializing lists: " + e + " Try again!";
     }
@@ -103,7 +87,7 @@ public class Ui {
     }
 
     public String showUndoneTaskStatus(Task task, int size) {
-        return "Noted. I've marked this task as undone:\n"
+        return "Noted. Numby has marked this task as undone:\n"
                 + "    " + task.getStatus()
                 + "Now you have " + size + " tasks in the list.";
     }
@@ -123,7 +107,7 @@ public class Ui {
 
     public String showTargetTask(TaskList taskList) {
         if (taskList.getSize() == 0) {
-            return "No matching task found. Enter \"list\" to see current tasks.";
+            return "Numby told me there's no matching task found. Enter \"list\" to see current tasks.";
         } else {
             return "Here are matching tasks in your list:\n"
                     + taskList;
