@@ -7,7 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import pochat.exceptions.ChatHistoryFileMissingException;
+import pochat.exceptions.ChatHistoryFileInvalidException;
 import pochat.tasks.Task;
 
 /**
@@ -38,13 +38,13 @@ public class ChatData {
                     fileWriter.write(task.toString() + "\n");
                     System.out.println("saved");
                 } catch (IOException e) {
-                    throw new ChatHistoryFileMissingException();
+                    throw new ChatHistoryFileInvalidException();
                 }
             }
             fileWriter.flush();
             fileWriter.close();
         } catch (IOException e) {
-            throw new ChatHistoryFileMissingException();
+            throw new ChatHistoryFileInvalidException();
         }
     }
 
@@ -69,7 +69,7 @@ public class ChatData {
                         list.add(Task.of(line));
                     }
                 } catch (IOException e) {
-                    throw new ChatHistoryFileMissingException();
+                    throw new ChatHistoryFileInvalidException();
                 }
             }
 
@@ -80,14 +80,14 @@ public class ChatData {
         }
     }
 
-    private TaskList initialiseFile() throws ChatHistoryFileMissingException {
+    private TaskList initialiseFile() throws ChatHistoryFileInvalidException {
         try {
             this.file.getParentFile().mkdirs();
             this.file.createNewFile();
             this.file.exists();
             return new TaskList();
         } catch (IOException error) {
-            throw new ChatHistoryFileMissingException();
+            throw new ChatHistoryFileInvalidException();
         }
     }
 }

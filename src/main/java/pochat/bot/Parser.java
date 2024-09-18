@@ -32,15 +32,18 @@ class Parser {
         if (textInput.equals("bye")) {
             return replyGoodbye();
         } else if (textInput.equals(("list"))) {
-            return replyWithListOfTextsEntered();
+            return replyWithListOfTasks();
         } else if (textInput.startsWith("mark")) {
-            int taskIndex = Integer.parseInt(textInput.substring(5)) - 1;
+            int descriptionStartIndex = 5;
+            int taskIndex = Integer.parseInt(textInput.substring(descriptionStartIndex)) - 1;
             return replyAndMarkTaskDone(taskIndex);
         } else if (textInput.startsWith("unmark")) {
-            int taskIndex = Integer.parseInt(textInput.substring(7)) - 1;
+            int descriptionStartIndex = 5;
+            int taskIndex = Integer.parseInt(textInput.substring(descriptionStartIndex)) - 1;
             return replyAndMarkTaskUndone(taskIndex);
         } else if (textInput.startsWith("delete")) {
-            int taskIndex = Integer.parseInt(textInput.substring(7)) - 1;
+            int descriptionStartIndex = 7;
+            int taskIndex = Integer.parseInt(textInput.substring(descriptionStartIndex)) - 1;
             return replyAndDeleteTask(taskIndex);
         } else if (textInput.startsWith("todo")) {
             return replyAndAddToDo(textInput);
@@ -55,9 +58,6 @@ class Parser {
         }
     }
 
-    /**
-     * Prints the goodbye message to the user
-     */
     private String replyGoodbye() {
         return this.ui.getGoodbyeMessage();
     }
@@ -87,8 +87,8 @@ class Parser {
         return this.addTask(task);
     }
 
-    private String replyWithListOfTextsEntered() {
-        return this.ui.getListOfTextsEntered(this.taskList);
+    private String replyWithListOfTasks() {
+        return this.ui.getListOfTasks(this.taskList);
     }
 
     private String replyAndMarkTaskDone(int index) {
