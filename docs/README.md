@@ -83,7 +83,16 @@
     1. [D][ ] something  (by: 2020-10-11)
     2. [E][ ] project meeting  (from: 2020-10-08 to: 2020-10-26)
    ```
-3. `Sort` all tasks based on due time: sort
+3. `Sort` all tasks based on due time, the most urgent task in front:
+   - Format : sort
+   - Example output :
+   ```
+   I have sorted the list for you~ ^_^
+   This is your new task list.
+    1. [D][ ] something  (by: 2020-10-11)
+    2. [E][ ] project meeting  (from: 2020-10-08 to: 2020-10-26)
+    3. [T][X] wash clothes
+   ```
 
 ```java
 String meetKotori = """
