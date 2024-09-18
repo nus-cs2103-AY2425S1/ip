@@ -40,7 +40,7 @@ public class Parser {
         int taskID;
         // Adapted from ChatGPT
         // regex edited and tested on regex101.com
-        String regex = "^(todo|td) (.+)|^(deadline|d) (.+?) /by: (.+)|^(event|e) (.+?) "
+        String regex = "^(todo|td) (.+ )|^(deadline|d) (.+?) /by: (.+)|^(event|e) (.+?) "
                 + "/from: (.+?) /to: (.+)|^(list|l)$|^(mark|m) (\\d+)|^(delete|del) (\\d+)|^(bye|bb)|^(find|f) (.+)";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
@@ -50,7 +50,7 @@ public class Parser {
             case "todo":
                 // fallthrough
             case "td":
-                description = matcher.group(2);
+                description = matcher.group(2).trim();
                 if (description.isEmpty()) {
                     throw new ParseCommandException("Description is empty");
                 }
@@ -58,7 +58,7 @@ public class Parser {
             case "deadline":
                 // fallthrough
             case "d":
-                description = matcher.group(4);
+                description = matcher.group(4).trim();
                 if (description.isEmpty()) {
                     throw new ParseCommandException("Description is empty");
                 }
@@ -68,7 +68,7 @@ public class Parser {
             case "event":
                 // fallthrough
             case "e":
-                description = matcher.group(7);
+                description = matcher.group(7).trim();
                 if (description.isEmpty()) {
                     throw new ParseCommandException("Description is empty");
                 }
@@ -82,17 +82,17 @@ public class Parser {
             case "mark":
                 // fallthrough
             case "m":
-                taskID = Integer.parseInt(matcher.group(12));
+                taskID = Integer.parseInt(matcher.group(12).trim());
                 return new MarkCommand(taskID);
             case "delete":
                 // fallthrough
             case "del":
-                taskID = Integer.parseInt(matcher.group(14));
+                taskID = Integer.parseInt(matcher.group(14).trim());
                 return new DeleteCommand(taskID);
             case "f":
                 // fallthrough
             case "find":
-                String term = matcher.group(17);
+                String term = matcher.group(17).trim();
                 if (term.isEmpty()) {
                     throw new ParseCommandException("Search term is empty");
                 }

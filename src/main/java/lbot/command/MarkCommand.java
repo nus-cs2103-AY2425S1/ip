@@ -19,7 +19,7 @@ public class MarkCommand extends Command {
      * @param taskID is the listed id of the task to be marked.
      */
     public MarkCommand(int taskID) {
-        this.taskID = taskID;
+        this.taskID = taskID - 1;
     }
 
     /**
@@ -34,6 +34,12 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(Ui ui, Storage storage, TaskList tasks) throws ExecuteCommandException, FileException {
+        if (taskID > tasks.getTaskCount()) {
+            throw new ExecuteCommandException("Task ID out of range.");
+        }
+        if (taskID < 0) {
+            throw new ExecuteCommandException("Task ID must be positive.");
+        }
         Task task = tasks.getTask(taskID);
         tasks.markTask(taskID);
         storage.saveTaskToFile(tasks);

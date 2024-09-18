@@ -44,6 +44,9 @@ public class EventCommand extends Command {
      */
     @Override
     public String execute(Ui ui, Storage storage, TaskList tasks) throws ExecuteCommandException, FileException {
+        if (startDateTime.isAfter(endDateTime)) {
+            throw new ExecuteCommandException("Someone's travelling through time?!");
+        }
         Task event = new Event(description, startDateTime, endDateTime);
         tasks.addTask(event);
         storage.saveTaskToFile(tasks);

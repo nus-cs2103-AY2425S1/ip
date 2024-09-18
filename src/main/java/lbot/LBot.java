@@ -35,6 +35,7 @@ public class LBot {
             storage = new Storage(filePath);
             tasks = new TaskList(storage.readTasksFromFile());
         } catch (FileException e) {
+            ui.say(e.getMessage());
             tasks = new TaskList();
         }
     }

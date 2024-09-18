@@ -19,7 +19,7 @@ public class DeleteCommand extends Command {
      * @param taskID is the listed id of the task to be deleted.
      */
     public DeleteCommand(int taskID) {
-        this.taskID = taskID;
+        this.taskID = taskID - 1;
     }
 
     /**
@@ -34,6 +34,12 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(Ui ui, Storage storage, TaskList tasks) throws ExecuteCommandException, FileException {
+        if (taskID > tasks.getTaskCount()) {
+            throw new ExecuteCommandException("Task ID out of range.");
+        }
+        if (taskID < 0) {
+            throw new ExecuteCommandException("Task ID must be positive.");
+        }
         Task task = tasks.getTask(taskID);
         tasks.deleteTask(taskID);
         storage.saveTaskToFile(tasks);

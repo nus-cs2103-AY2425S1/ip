@@ -28,6 +28,15 @@ public class TaskList {
     }
 
     /**
+     * Returns number of tasks in {@link TaskList}.
+     *
+     * @return number of tasks.
+     */
+    public int getTaskCount() {
+        return taskList.size();
+    }
+
+    /**
      * Adds a {@link Task} to the list.
      *
      * @param task to be added.
@@ -42,7 +51,7 @@ public class TaskList {
      * @param id of task to be marked.
      */
     public void markTask(int id) {
-        taskList.get(id - 1).mark();
+        taskList.get(id).mark();
     }
 
     /**
@@ -51,8 +60,8 @@ public class TaskList {
      * @param id of task to be deleted.
      */
     public Task deleteTask(int id) {
-        Task task = taskList.get(id - 1);
-        taskList.remove(id - 1);
+        Task task = taskList.get(id);
+        taskList.remove(id);
         return task;
     }
 
@@ -72,7 +81,7 @@ public class TaskList {
      * @return {@link Task}.
      */
     public Task getTask(int id) {
-        return taskList.get(id - 1);
+        return taskList.get(id);
     }
 
     /**
