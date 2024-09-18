@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import testament.Testament;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Testament using FXML.
  */
 public class Main extends Application {
 
@@ -23,7 +23,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(testament); // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setTestament(testament); // inject the Testament instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
