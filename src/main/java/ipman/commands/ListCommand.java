@@ -17,6 +17,11 @@ public class ListCommand implements Command {
     @Override
     public void execute(Context context) {
         TaskList tasks = context.tasks();
+        if (tasks.size() == 0) {
+            context.ui().showMessage("There are no tasks to list.");
+            return;
+        }
+
         StringJoiner sj = new StringJoiner("\n");
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
