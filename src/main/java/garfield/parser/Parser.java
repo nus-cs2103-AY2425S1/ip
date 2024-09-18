@@ -3,6 +3,7 @@ package garfield.parser;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -298,7 +299,7 @@ public class Parser {
             LocalDateTime deadlineBy = parseDateTime(deadlineArgs[1].strip());
             return new Deadline(deadlineDescription, deadlineBy);
         } catch (DateTimeParseException e) {
-            throw new GarfieldException("Your datetime should be in the yyyy-MM-dd HH:mm (24h) format!");
+            throw new GarfieldException("Make sure your dates are valid and in the yyyy-MM-dd HH:mm (24h) format!");
         }
     }
 
@@ -338,7 +339,7 @@ public class Parser {
             LocalDateTime eventTo = parseDateTime(eventArgs[1].strip());
             return new Event(eventDescription, eventFrom, eventTo);
         } catch (DateTimeParseException e) {
-            throw new GarfieldException("Your datetime should be in the yyyy-MM-dd HH:mm (24h) format!");
+            throw new GarfieldException("Make sure your dates are valid and in the yyyy-MM-dd HH:mm (24h) format!");
         }
     }
 
@@ -350,7 +351,8 @@ public class Parser {
      * @throws DateTimeParseException Error thrown if date time format is wrong in the input.
      */
     private static LocalDateTime parseDateTime(String dateInput) throws DateTimeParseException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+                .withResolverStyle(ResolverStyle.STRICT);
         return LocalDateTime.parse(dateInput, formatter);
     }
 }
