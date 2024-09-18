@@ -48,6 +48,9 @@ public class AddTagCommand extends Command {
         assert storage != null : "TaskStorage should not be null";
         try {
             Task task = storage.getTask(taskIndex);
+            if (task.tagExists(tag)) {
+                return ui.outputMessage("Tag already exists for task:\n  " + task);
+            }
             task.addTag(tag);
             storage.saveTasks();
             return ui.outputMessage("Added tag to task:\n  " + task);

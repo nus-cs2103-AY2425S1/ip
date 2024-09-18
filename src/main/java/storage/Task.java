@@ -109,4 +109,13 @@ public abstract class Task {
         tagsString.setLength(tagsString.length() - 1); // Remove trailing comma
         return tagsString.toString();
     }
+
+    /**
+     * Returns if the tag exists in the task.
+     * @param tag The tag to check.
+     * @return True if the tag exists in the task, false otherwise.
+     */
+    public boolean tagExists(Tag tag) {
+        return tags.contains(tag);
+    }
 }
