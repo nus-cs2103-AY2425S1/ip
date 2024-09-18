@@ -37,6 +37,9 @@ public class Events extends Task {
         } catch (DateTimeParseException e) {
             throw new InvalidSyntaxException("event, please use yyyy-mm-ddThh:mm. E.g. 2024-09-11T23:59");
         }
+        if (this.startDate.isAfter(this.endDate)) {
+            throw new InvalidSyntaxException("event, start date cannot be after end date you monkey!");
+        }
     }
 
     /**
