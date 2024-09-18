@@ -1,6 +1,6 @@
 # GLaDOS Chatbot User Guide
 
-GLaDOS is a versatile chatbot for managing tasks, based off of the video game character in _Portal_. If you can type fast, GLaDOS can assist with your task management quickly and efficiently (albeit a little reluctantly).
+GLaDOS is a versatile chatbot for managing tasks, based off of the video game character in _Portal_. If you can type fast, GLaDOS can assist with your task management quickly and efficiently (albeit a little reluctantly). Additionally, following this theme of game characters, this GUI allows you to speak to her as if you were in a game, too!
 
 - [Quick Start](#quick-start)
 - [Features](#features)
