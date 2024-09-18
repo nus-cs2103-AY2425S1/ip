@@ -1,10 +1,10 @@
-package Kira;
+package kira;
 
-import Exceptions.EmptyException;
-import Exceptions.UnreadableException;
-import Exceptions.InvalidTaskException;
-import Tasks.List;
-import Tasks.Task;
+import exceptions.EmptyException;
+import exceptions.UnreadableException;
+import exceptions.InvalidTaskException;
+import tasks.List;
+import tasks.Task;
 
 import java.io.IOException;
 import java.util.Scanner;

@@ -1,7 +1,7 @@
-package Kira;
+package kira;
 
-import Tasks.List;
-import Tasks.Task;
+import tasks.List;
+import tasks.Task;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

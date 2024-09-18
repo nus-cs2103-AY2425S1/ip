@@ -1,9 +1,9 @@
-package Kira;
+package kira;
 
-import Exceptions.EmptyException;
-import Exceptions.InvalidTaskException;
-import Exceptions.UnreadableException;
-import Tasks.*;
+import exceptions.EmptyException;
+import exceptions.InvalidTaskException;
+import exceptions.UnreadableException;
+import tasks.*;
 
 import java.util.Objects;
 

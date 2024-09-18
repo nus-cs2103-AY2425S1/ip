@@ -1,16 +1,16 @@
-package Tasks;
+package tasks;
 
 import java.util.Objects;
 
 public abstract class Task {
 
     private String taskName;
-    private boolean done;
+    private boolean isDone;
     String line = "____________________________________________________________\n";
 
     public Task(String taskName) {
         this.taskName = taskName;
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
@@ -29,7 +29,7 @@ public abstract class Task {
      * @return A string of display of a task
      */
     public String displayTask() {
-        if (done) {
+        if (isDone) {
             return "[X] " + this.taskName + "\n";
         } else {
             return "[ ] " + this.taskName + "\n";
@@ -41,14 +41,14 @@ public abstract class Task {
     }
 
     public boolean getDone() {
-        return this.done;
+        return this.isDone;
     }
 
     /**
      * Marks the task as done
      */
     public void markAsDone() {
-        this.done = true;
+        this.isDone = true;
     }
 
     /**
@@ -65,7 +65,7 @@ public abstract class Task {
      * Marks the task as undone
      */
     public void markAsUndone() {
-        this.done = false;
+        this.isDone = false;
         System.out.println(line + "OK, I've marked this task as not done yet:\n"
                 + this.displayTask() + line);
     }

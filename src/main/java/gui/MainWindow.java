@@ -1,4 +1,7 @@
-import Kira.Kira;
+package gui;
+
+import gui.DialogBox;
+import kira.Kira;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

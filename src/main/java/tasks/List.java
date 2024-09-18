@@ -1,7 +1,6 @@
-package Tasks;
+package tasks;
 
-import Exceptions.InvalidTaskException;
-import Tasks.Task;
+import exceptions.InvalidTaskException;
 
 import java.util.ArrayList;
 
