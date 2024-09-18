@@ -72,4 +72,8 @@ public class TaskList {
         return list.get(index);
     }
 
+    public static void clearTaskList() {
+        list.clear();
+    }
+
 }

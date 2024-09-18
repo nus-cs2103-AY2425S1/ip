@@ -41,6 +41,8 @@ public class Prince {
         event
     }
 
+    public static final String TASKS_FILE_PATH = "data/prince.Prince.txt";
+
     /**
      * Constructor of Prince
      *

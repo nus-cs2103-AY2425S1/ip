@@ -50,6 +50,11 @@ public class Parser {
             ListCommand c = new ListCommand(command);
             return c.commandAction();
 
+        } else if (command.equals("archivelist")) {
+
+            ArchiveListCommand c = new ArchiveListCommand();
+            return c.commandAction();
+
         } else if (command.trim().startsWith("find")) {
 
             FindCommand c = new FindCommand(command);
@@ -61,6 +66,12 @@ public class Parser {
             MarkUnmarkDeleteCommand c = new MarkUnmarkDeleteCommand(command);
             return c.commandAction();
 
+
+        } else if (command.equals("archive")) {
+
+            ArchiveCommand c = new ArchiveCommand();
+            c.commandAction();
+            return "List archived successfully.";
 
         } else if (checkCommandLength(command)) {
             if (command.equals("todo") || command.equals("deadline") || command.equals("event")) {
