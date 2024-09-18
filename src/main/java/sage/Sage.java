@@ -74,6 +74,8 @@ public class Sage {
                     return deadlineCommand(Parser.parseArgs(CommandType.DEADLINE, input));
                 case EVENT:
                     return eventCommand(Parser.parseArgs(CommandType.EVENT, input));
+                case HELP:
+                    return this.ui.showHelp();
                 default:
                     throw new SageException("Sorry, what do you mean? :p");
             }
