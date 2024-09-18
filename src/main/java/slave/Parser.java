@@ -19,6 +19,8 @@ import slave.task.Todo;
  * corresponding action
  */
 public class Parser {
+    public static String ERROR_MARKER = "ERROR";
+    public static String SUCCESS_MARKER = "OK";
     private List<Task> list;
 
     /**
@@ -54,9 +56,9 @@ public class Parser {
             case "list":
                 return listTasks();
             case "mark":
-                return new String[]{markAsDone(body)};
+                return markAsDone(body);
             case "unmark":
-                return new String[]{markAsIncomplete(body)};
+                return markAsIncomplete(body);
             case "todo":
                 return addToList(TaskType.TODO, body);
             case "deadline":
@@ -72,14 +74,14 @@ public class Parser {
             case "find":
                 return find(body);
             default:
-                return new String[]{Slave.UNKNOWN_USER_INPUT};
+                return new String[]{Slave.UNKNOWN_USER_INPUT, ERROR_MARKER};
             }
 
         } catch (NoSuchElementException e) {
             // handle empty inputs / only spaces (" ")
             // wait for next user input
             // no need to save as nothing has been done
-            return new String[]{"Why are you so quiet?"};
+            return new String[]{"Why are you so quiet?", SUCCESS_MARKER};
         }
 
     }
@@ -91,7 +93,9 @@ public class Parser {
      * @return a String representation of all the tasks in the list.
      */
     protected String[] listTasks() {
-        String[] result = new String[2];
+        String[] result = new String[3];
+        // listTasks() always runs successfully as there is no potential error from user input
+        result[2] = SUCCESS_MARKER;
         result[0] = ("Can you not even remember the things you need to do?"
                 + " That should be your job, not mine!\n");
         if (list.isEmpty()) {
@@ -124,18 +128,18 @@ public class Parser {
      * @param s is the index of the task as a String.
      * @return Slave's response to the user.
      */
-    protected String markAsDone(String s) {
+    protected String[] markAsDone(String s) {
         try {
             int i = Integer.parseInt(s);
 
             if (i < 1 || i > list.size()) {
-                return "You don't have a task number " + i;
+                return new String[]{"You don't have a task number " + i, ERROR_MARKER};
             }
             Task t = list.get(i - 1);
             t.setAsCompleted();
-            return "Finally doing something useful with your life eh...\n" + t;
+            return new String[]{"Finally doing something useful with your life eh...\n" + t, SUCCESS_MARKER};
         } catch (NumberFormatException nfe) {
-            return "That's not a task number";
+            return new String[]{"That's not a task number", ERROR_MARKER};
         }
     }
 
@@ -145,17 +149,17 @@ public class Parser {
      * @param s is the index of the task as a String.
      * @return Slave's response to the user.
      */
-    protected String markAsIncomplete(String s) {
+    protected String[] markAsIncomplete(String s) {
         try {
             int i = Integer.parseInt(s);
             if (i < 1 || i > list.size()) {
-                return "You don't have a task number " + i;
+                return new String[]{"You don't have a task number " + i, ERROR_MARKER};
             }
             Task t = list.get(i - 1);
             t.setAsIncomplete();
-            return "Slacking off now, are you?\n" + t;
+            return new String[]{"Slacking off now, are you?\n" + t, SUCCESS_MARKER};
         } catch (NumberFormatException nfe) {
-            return "That's not a task number";
+            return new String[]{"That's not a task number", ERROR_MARKER};
         }
     }
 
@@ -188,21 +192,23 @@ public class Parser {
                 addEventToList(description);
                 break;
             default:
-                return new String[]{"That's not a type of task... you're wasting my time!"};
+                return new String[]{"That's not a type of task... you're wasting my time!", ERROR_MARKER};
             }
 
-            String[] result = new String[2];
+            String[] result = new String[3];
             result[0] = "Hey maybe try using some of that memory of yours to remember these things...";
             result[1] = "added: " + list.get(list.size() - 1).toString();
+            result[2] = SUCCESS_MARKER;
             return result;
         } catch (InvalidTaskFormatException e) {
-            return new String[]{"Can you not even tell me all the details for your event? Do you even want my help?"};
+            return new String[]{"Can you not even tell me all the details for your event? Do you even want my help?",
+                    ERROR_MARKER};
         } catch (DateTimeParseException dtpe) {
-            return new String[]{"Give me the date in yyyy-mm-dd or I won't remember it for you"};
+            return new String[]{"Give me the date in yyyy-mm-dd or I won't remember it for you", ERROR_MARKER};
         } catch (InvalidChronologicalOrderException icoe) {
-            return new String[]{"How can your event end before it started?"};
+            return new String[]{"How can your event end before it started?", ERROR_MARKER};
         } catch (NonRecurringTaskException nrte) {
-            return new String[]{"Todos are not a type of recurring task!"};
+            return new String[]{"Todos are not a type of recurring task!", ERROR_MARKER};
         }
     }
 
@@ -328,15 +334,16 @@ public class Parser {
         try {
             int index = Integer.parseInt(s);
             if (index < 1 || index > list.size()) {
-                return new String[]{"You don't have a task number " + index};
+                return new String[]{"You don't have a task number " + index, ERROR_MARKER};
             }
-            String[] result = new String[2];
+            String[] result = new String[3];
             result[0] = "Good to know that I have less things to remember now...";
             result[1] = "I'll forget about " + list.get(index - 1);
             list.remove(index - 1);
+            result[2] = SUCCESS_MARKER;
             return result;
         } catch (NumberFormatException nfe) {
-            return new String[]{"That's not a task number"};
+            return new String[]{"That's not a task number", ERROR_MARKER};
         }
     }
 
@@ -353,9 +360,9 @@ public class Parser {
         // index of the task, provided by LIST, instead of that provided by FIND
 
         if (substring.isEmpty() | substring.trim().isEmpty()) {
-            return new String[]{"Quit wasting my time... Tell me what you want found"};
+            return new String[]{"Quit wasting my time... Tell me what you want found", ERROR_MARKER};
         }
-        String[] result = new String[4];
+        String[] result = new String[5];
         StringBuilder sb = new StringBuilder();
 
         result[0] = "What's the point of that brain of yours if you don't use it\n";
@@ -377,10 +384,12 @@ public class Parser {
         if (count == 1) {
             result[2] = "\nThere's nothing related to [" + substring + "]";
             result[3] = "Should have known better than to waste time trying to help you...";
+            result[4] = SUCCESS_MARKER;
         } else {
             result[2] = sb.toString();
             assert !result[2].isEmpty() : "task list should not be empty";
             result[3] = "That's all";
+            result[4] = SUCCESS_MARKER;
         }
         return result;
     }
@@ -393,9 +402,10 @@ public class Parser {
      */
     protected String[] clear() {
         list.clear();
-        String[] result = new String[2];
+        String[] result = new String[3];
         result[0] = "Starting off on a clean slate now are we?";
         result[1] = "Guess your previous tasks were too much for you to handle";
+        result[2] = SUCCESS_MARKER;
         return result;
     }
 
@@ -410,19 +420,20 @@ public class Parser {
             throw new NoSuchElementException();
         }
         LocalDate target = LocalDate.parse(date);
-        String[] result = new String[3];
+        String[] result = new String[4];
         result[0] = "Your tasks are :";
         try {
             String filteredTaskList = getActiveTasks(target);
             if (filteredTaskList.isEmpty()) {
-                return new String[]{"You have no Tasks on or ending after " + date};
+                return new String[]{"You have no Tasks on or ending after " + date, SUCCESS_MARKER};
             }
             result[1] = filteredTaskList;
             assert !result[1].isEmpty() : "the list of tasks on or ending after the date should not be empty";
             result[2] = "That's all your tasks for " + target.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
+            result[3] = SUCCESS_MARKER;
             return result;
         } catch (DateTimeParseException | NoSuchElementException e) {
-            return new String[]{"Give me the date in yyyy-mm-dd or I won't check your schedule"};
+            return new String[]{"Give me the date in yyyy-mm-dd or I won't check your schedule", ERROR_MARKER};
         }
     }
 

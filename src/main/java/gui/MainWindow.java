@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import slave.Parser;
 import slave.Slave;
 
 /**
@@ -70,12 +71,18 @@ public class MainWindow extends AnchorPane {
             return;
         }
         String[] response = slave.getResponse(input);
-        dialogContainer.getChildren().add(
-                DialogBox.getUserDialog(input, userImage)
-        );
-        for (String msg : response) {
+        if (response[response.length - 1].equals(Parser.ERROR_MARKER)) {
+            dialogContainer.getChildren().add(
+                    DialogBox.getUserDialogError(input, userImage)
+            );
+        } else {
+            dialogContainer.getChildren().add(
+                    DialogBox.getUserDialog(input, userImage)
+            );
+        }
+        for (int i = 0; i < response.length - 1; i++) {
             dialogContainer.getChildren().addAll(
-                    DialogBox.getSlaveDialog(msg, slaveImage)
+                    DialogBox.getSlaveDialog(response[i], slaveImage)
             );
         }
 
