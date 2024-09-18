@@ -31,3 +31,6 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
      \/__/                       \/__/     \/__/         \/__/
 
 ```
+
+## Use of AI Tools
+### ChatGPT was used to generate javadocs only for the test classes in the test folder for experimentation with AI tools.
