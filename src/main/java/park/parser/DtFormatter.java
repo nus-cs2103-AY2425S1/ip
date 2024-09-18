@@ -13,14 +13,21 @@ public class DtFormatter {
      * @return String representing inputDateTime in format "MMM dd yyyy, h:mma".
      */
     public static String format(String inputDateTime) {
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
         try {
-            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
-            LocalDateTime dateTime = LocalDateTime.parse(inputDateTime, inputFormatter);
-            return dateTime.format(outputFormatter);
-        } catch (DateTimeParseException e) {
-            throw new DateTimeParseException("please input DateTime in format yyyy-MM-dd HHmm",
-                    inputDateTime, e.getErrorIndex());
+            // Check whether inputDateTime is already in output format
+            // Skips formatting when reading and creating Task objects from storage file
+            LocalDateTime.parse(inputDateTime, outputFormatter);
+            return inputDateTime;
+        } catch (DateTimeParseException normalInputException) {
+            try {
+                LocalDateTime dateTime = LocalDateTime.parse(inputDateTime, inputFormatter);
+                return dateTime.format(outputFormatter);
+            } catch (DateTimeParseException formatException) {
+                throw new DateTimeParseException("please input DateTime in format yyyy-MM-dd HHmm",
+                        inputDateTime, formatException.getErrorIndex());
+            }
         }
     }
 }
