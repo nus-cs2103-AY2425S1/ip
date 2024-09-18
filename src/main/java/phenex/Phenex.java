@@ -17,12 +17,7 @@ import phenex.util.Parser;
  */
 public class Phenex {
 
-    public static final Path DEFAULT_FILEPATH = Paths.get(System.getProperty("user.home"),
-                                                   "Downloads",
-                                                          "CS2103T_AY2425",
-                                                          "iP",
-                                                          "data",
-                                                          "phenex.txt");
+    public static final Path DEFAULT_FILEPATH = Paths.get("data", "phenex.txt");
 
     /** Encapsulates the Ui of Phenex. */
     private Ui ui;
@@ -70,9 +65,7 @@ public class Phenex {
     }
 
     public static void main(String... args) {
-        String home = System.getProperty("user.home");
-        Path filePath = Paths.get(home, "Downloads", "CS2103T_AY2425", "iP", "data", "phenex.txt");
-        Phenex phenex = new Phenex(filePath);
+        Phenex phenex = new Phenex(DEFAULT_FILEPATH);
 
         phenex.ui.greet();
 
