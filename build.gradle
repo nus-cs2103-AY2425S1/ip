@@ -44,12 +44,13 @@ test {
 }
 
 application {
-    mainClass.set("Velma.Velma")
+    mainClass.set("velma.Velma")
 }
 
 shadowJar {
     archiveBaseName = "velma"
     archiveClassifier = null
+    archiveFileName = "velma.jar"
 }
 
 run{
