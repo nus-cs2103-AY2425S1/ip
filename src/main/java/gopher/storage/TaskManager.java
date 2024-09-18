@@ -7,7 +7,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import gopher.exception.FileCorruptedException;
-import gopher.exception.InvalidTokenException;
 import gopher.parser.Parser;
 import gopher.task.Task;
 
