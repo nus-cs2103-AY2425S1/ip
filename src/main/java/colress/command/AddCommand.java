@@ -26,7 +26,7 @@ public final class AddCommand extends Command {
      * no start time field to begin with by default
      */
     public AddCommand() {
-        super("Okay. I have added this task to your list:\n");
+        super("Splendid! I have added this task to your list:\n");
         hasStartTime = false;
     }
 

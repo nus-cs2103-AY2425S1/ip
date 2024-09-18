@@ -13,7 +13,7 @@ import javafx.application.Platform;
  */
 public final class ExitCommand extends Command {
     public ExitCommand() {
-        super("Well then, I'll see you soon.");
+        super("Well then, I hope to see you again sometime.");
     }
 
     @Override

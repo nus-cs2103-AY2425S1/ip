@@ -9,7 +9,8 @@ public class UnknownTaskTypeException extends Exception {
      */
     public UnknownTaskTypeException() {
         super("""
-                I do not recognise that task type.
+                What is this?!
+                I do not recognise that task type!
                 Here are the task types I recognise:
                 todo: add a new task item to your list.
                 deadline: add a new task item with a deadline to your list.

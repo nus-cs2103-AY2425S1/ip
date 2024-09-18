@@ -13,7 +13,7 @@ import colress.Ui;
 public final class CheckCommand extends Command {
     private int[] taskNumbers;
     public CheckCommand() {
-        super("Sure. I have marked this task on your list as done:");
+        super("Splendid! I have marked this task on your list as done:");
     }
 
     @Override

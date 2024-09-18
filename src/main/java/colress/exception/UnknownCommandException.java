@@ -9,7 +9,8 @@ public class UnknownCommandException extends Exception {
      */
     public UnknownCommandException() {
         super("""
-                I do not recognise that command.
+                What is this?!
+                I do not recognise that command!
                 Here are the commands I recognise:
                 add: add a new item to your list of tasks.
                 check: check off an item to your list of tasks.
