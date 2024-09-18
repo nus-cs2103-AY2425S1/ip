@@ -103,7 +103,7 @@ public class Main extends Application {
             ui.showLoadingError("Failed to load tasks from file: " + e.getMessage());
         }
 
-        // Display welcome message on startup
+        // Display welcome message
         String welcomeMessage = ui.showWelcome();
         dialogContainer.getChildren().add(
                 DialogBox.getDukeDialog(welcomeMessage, dukeImage)
