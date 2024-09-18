@@ -94,15 +94,12 @@ public class Storage {
         assert pathName != null && !pathName.isEmpty() : "Path name should not be null or empty";
         try {
             load(pathName);
-            //System.out.println("loaded file");
-            //System.out.println("full path: " + file.getAbsolutePath());
         } catch (FileNotFoundException e) {
             assert !Files.exists(saveFilePath) : "File should not exist before creation";
 
             Files.createDirectories(saveFilePath.getParent());
             Files.createFile(saveFilePath);
             this.file = new File(pathName);
-            //System.out.println("created file");
             assert this.file.exists() : "File should be created at the specified path";
         }
     }
@@ -120,7 +117,6 @@ public class Storage {
                 fw.write(task.convertToFileFormat() + "\n");
             }
             fw.close();
-            //System.out.println("saved tasks");
         } catch (IOException e) {
             assert false : "An error occurred while saving tasks.";        }
     }
