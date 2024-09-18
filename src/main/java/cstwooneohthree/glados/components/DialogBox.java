@@ -13,7 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-
+import javafx.scene.text.Font;
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
  * and a label containing text from the speaker.
@@ -23,6 +23,8 @@ public class DialogBox extends HBox {
     private Label dialog;
     @FXML
     private ImageView displayPicture;
+
+    private String styleSheet = this.getClass().getResource("/css/dialogbox.css").toExternalForm();
 
     private DialogBox(String text, Image img) {
         try {
@@ -35,6 +37,8 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
+        getStylesheets().add(styleSheet);
+        Font.loadFont(getClass().getResourceAsStream("/fonts/Orbitron-VariableFont_wght.ttf"), 16);
         displayPicture.setImage(img);
     }
 
