@@ -1,9 +1,14 @@
 package stobberi.command;
 
+import stobberi.components.TaskList;
+import stobberi.stobberiexception.InvalidInputStobberiException;
+import stobberi.stobberiexception.StobberiException;
+
 /**
- * Represents a command to display a Help message.
+ * Represents a command to display a help message.
  */
 public class HelpCommand extends Command {
+
     /**
      * Help message to be displayed.
      */
@@ -24,18 +29,31 @@ public class HelpCommand extends Command {
                    unmark {task number in the list} : Marks the task as not done
                    ? : Displays the possible commands
 
-            Remember all commands entered has to be in lowercase!""";
+            Remember all commands entered has to be in lowercase!""" ;
 
     /**
      * Constructs a new {@code HelpCommand}.
+     *
+     * @param taskList      The list of tasks (though not used in this command).
+     * @param restOfCommand The rest of the command given (though not used in this command).
      */
-    public HelpCommand() {}
+    public HelpCommand(TaskList taskList, String restOfCommand) {
+        super(taskList, restOfCommand);
+    }
 
     /**
-     * Executes the command by displaying a help message.
+     * Executes the command by returning the help message.
+     * If additional text is provided in the command, an {@link InvalidInputStobberiException} is thrown.
+     *
+     * @return The help message containing the list of available commands.
+     * @throws StobberiException If additional text is provided in the command.
      */
     @Override
-    public String execute() {
-        return HELP_MESSAGE;
+    public String execute() throws StobberiException {
+        if (getRestOfCommand().isEmpty()) {
+            return HELP_MESSAGE;
+        }
+        throw new InvalidInputStobberiException("Do you mean 'list'? " +
+                "Pwease don't add unnecessary stuff!");
     }
 }

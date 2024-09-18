@@ -10,41 +10,36 @@ import stobberi.task.Todo;
  * Represents a command to add a new to-do task to a {@link TaskList}.
  */
 public class TodoCommand extends Command {
-    /**
-     * The list of tasks to which the to-do task will be added.
-     */
-    private TaskList taskList;
-
-    /**
-     * The description of the to-do task.
-     */
-    private String descriptions;
 
     /**
      * Constructs a new {@code TodoCommand} with the specified {@link TaskList} and task description.
      *
-     * @param taskList    The list of tasks to which the new to-do task will be added.
-     * @param descriptions The description of the to-do task.
+     * @param taskList      The list of tasks to which the new to-do task will be added.
+     * @param restOfCommand The rest of the command given, which should include the task description.
      */
-    public TodoCommand(TaskList taskList, String descriptions) {
-        this.taskList = taskList;
-        this.descriptions = descriptions;
+    public TodoCommand(TaskList taskList, String restOfCommand) {
+        super(taskList, restOfCommand);
     }
 
     /**
      * Executes the command by adding a new to-do task to the {@link TaskList}.
-     * If the description is empty, an {@link EmptyStobberiException} is thrown.
+     * If the task description is empty, an {@link EmptyStobberiException} is thrown.
+     * If the task already exists in the list, a {@link SameTaskStobberiException} is thrown.
      *
-     * @throws StobberiException if the task description is empty.
+     * @return A string indicating that the to-do task has been added successfully.
+     * @throws StobberiException If the task description is empty or if the task already exists in the list.
      */
     @Override
     public String execute() throws StobberiException {
+        String descriptions = getRestOfCommand();
+
         if (descriptions.isEmpty()) {
             throw new EmptyStobberiException("Where is the task?");
         }
-        if (taskList.hasTask(descriptions)) {
-            throw new SameTaskStobberiException("I'm sorri! This task has already been added!");
+        if (getTaskList().hasTask(descriptions)) {
+            throw new SameTaskStobberiException("This task has already been added!\n" +
+                    "Pwease change your description!!");
         }
-        return taskList.addTask(new Todo(descriptions));
+        return getTaskList().addTask(new Todo(descriptions));
     }
 }

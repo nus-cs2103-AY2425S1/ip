@@ -17,6 +17,7 @@ public class TaskListTest {
         Task task1 = new Todo("sleep");
         Task task2 = new Deadline("homework", "27-08-2024 1900hrs");
         Task task3 = new Task("");
+
         try {
             task3 = new Event("meeting", "27-08-2024 1900hrs", "27-08-2024 2100hrs");
         } catch (StobberiException e) {
@@ -31,7 +32,7 @@ public class TaskListTest {
             System.out.println(e.getMessage());
         }
 
-        assertTrue(task2.getDone());
+        assertTrue(task2.isDone());
     }
 
 }
