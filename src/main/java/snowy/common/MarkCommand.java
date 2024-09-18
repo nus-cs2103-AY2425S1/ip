@@ -1,6 +1,5 @@
 package snowy.common;
 
-import snowy.Snowy;
 import snowy.data.SnowyException;
 
 public class MarkCommand extends Command {

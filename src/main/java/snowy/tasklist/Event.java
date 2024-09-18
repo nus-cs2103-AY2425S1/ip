@@ -37,6 +37,6 @@ public class Event extends Task {
     public String toString() {
         String formattedFrom = from.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a"));
         String formattedTo = to.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a"));
-        return "[E]" + super.toString() + " (from: " + formattedFrom + " to: " + formattedTo + ")";
+        return "[E]" + super.toString() + " (from: " + formattedFrom + " to: " + formattedTo + ")" + this.getTags();
     }
 }

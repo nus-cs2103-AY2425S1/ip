@@ -8,6 +8,7 @@ import snowy.common.FindCommand;
 import snowy.common.InvalidCommand;
 import snowy.common.ListCommand;
 import snowy.common.MarkCommand;
+import snowy.common.TagCommand;
 import snowy.common.TodoCommand;
 import snowy.common.UnmarkCommand;
 import snowy.common.Command;
@@ -25,6 +26,7 @@ public class Parser {
     public static final Pattern DEADLINE_ARGS_FORMAT = Pattern.compile("(?<description>.+) /by (?<date>.+)");
     public static final Pattern EVENT_ARGS_FORMAT = Pattern.compile("(?<description>.+) /from (?<from>.+) /to (?<to>.+)");
     public static final Pattern FIND_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)");
+    public static final Pattern TAG_ARGS_FORMAT = Pattern.compile("(?<taskNumber>\\d+)(?<tag>.+)");
 
 
     /**
@@ -63,6 +65,8 @@ public class Parser {
                 return new ExitCommand();
             case "find":
                 return parseFindCommand(arg);
+            case "tag":
+                return parseTagCommand(arg);
             default:
                 return new InvalidCommand("Sorry, I do not understand that command.");
             }
@@ -190,6 +194,19 @@ public class Parser {
 
         String keywords = matcher.group("keywords").trim();
         return new FindCommand(keywords);
+    }
+
+    private Command parseTagCommand(String arg) throws SnowyException {
+        final Matcher matcher = TAG_ARGS_FORMAT.matcher(arg.trim());
+
+        if (!matcher.matches()) {
+            throw new SnowyException("The tag command requires index and tag name.");
+        }
+
+        int index = Integer.parseInt(matcher.group("taskNumber"));
+        String tag = matcher.group("tag");
+
+        return new TagCommand(index, tag);
     }
 
 }

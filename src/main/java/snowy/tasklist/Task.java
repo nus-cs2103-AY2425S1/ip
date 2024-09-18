@@ -1,5 +1,10 @@
 package snowy.tasklist;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.print.DocFlavor;
+
 /**
  * Represents a task with a description and completion status.
  *
@@ -10,10 +15,12 @@ package snowy.tasklist;
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected Set<String> tagSet;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.tagSet = new HashSet<>();
     }
 
     public String getStatusIcon() {
@@ -22,6 +29,18 @@ public class Task {
 
     public String getDescription() {
         return this.description;
+    }
+
+    public String getTags() {
+        StringBuilder str = new StringBuilder();
+        for (String tag : this.tagSet) {
+            str.append(String.format("#%s ",tag));
+        }
+        return String.format("%s", str);
+    }
+
+    public void addTag(String tag) {
+        this.tagSet.add(tag);
     }
 
     /**

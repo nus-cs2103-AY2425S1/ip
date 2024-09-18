@@ -60,6 +60,22 @@ public class TaskList {
     }
 
     /**
+     * Tags task at the specified index.
+     *
+     * @param i the index of the task to toggle
+     * @throws SnowyException if the provided index is invalid
+     */
+    public String tagTask(int i, String tag) throws SnowyException {
+        if (i < 0 || i >= taskList.size()) {
+            throw new SnowyException("Invalid index.");
+        }
+        Task task = taskList.get(i);
+        task.addTag(tag);
+        return String.format("%d. %s", i + 1, task);
+
+    }
+
+    /**
      * Displays the list of tasks, each prefixed with its index in the list.
      *
      * @throws SnowyException if the task list is empty

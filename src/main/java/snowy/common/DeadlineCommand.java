@@ -11,7 +11,6 @@ import java.io.IOException;
  * The DeadlineCommand class allows the user to add a task with a specific deadline to the task list.
  * */
 public class DeadlineCommand extends Command {
-
     private final String description;
     private final String date;
 

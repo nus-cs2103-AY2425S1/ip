@@ -12,7 +12,6 @@ import snowy.tasklist.Event;
  * was added, or an error message if the event could not be created.
  */
 public class EventCommand extends Command {
-    public static final String EVENT = "event";
     private final String description;
     private final String from;
     private final String to;
