@@ -1,5 +1,7 @@
 package garfield.tasks;
 
+import garfield.exceptions.GarfieldException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -21,8 +23,14 @@ public class Event extends Task {
      * @param from The start time of the event, represented as a LocalDateTime object.
      * @param to The end time of the event, represented as a LocalDateTime object.
      */
-    public Event(String eventDescription, LocalDateTime from, LocalDateTime to) {
+    public Event(String eventDescription, LocalDateTime from, LocalDateTime to) throws GarfieldException {
         super(eventDescription);
+        // Check if from is before to
+
+        if (from.isAfter(to)) {
+            throw new GarfieldException("Your event /from time should be before the /to time!");
+        }
+
         this.from = from;
         this.to = to;
         this.saveFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm", Locale.US);
