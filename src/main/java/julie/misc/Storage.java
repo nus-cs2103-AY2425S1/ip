@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 import julie.task.Deadline;
@@ -51,6 +52,7 @@ public class Storage {
             Scanner sc = new Scanner(data);
             while (sc.hasNext()) {
                 String s = sc.nextLine();
+                assert !Objects.equals(s, "") : "The storage should not have empty lines";
                 String[] tokens = s.split(" \\| ");
                 String cmd = tokens[0];
                 Task t = switch (cmd) {

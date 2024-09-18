@@ -1,3 +1,6 @@
 T | help
 T | help2
-T | nothing | help
+T | nothing
+T | 1
+T | 2
+T | 1
