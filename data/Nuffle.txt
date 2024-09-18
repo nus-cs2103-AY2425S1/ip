@@ -1,4 +1,4 @@
-E | 0 | study | 2024-Sep-22 1400 | 2024-Sep-22 1700
+E | 1 | study | 2024-Sep-22 1400 | 2024-Sep-22 1700
 D | 0 | submit assignment | 2024-Sep-30 2359
 D | 0 | submit report | 2024-Sep-30 2359
 D | 0 | buy food | 2024-Sep-09 2359
@@ -7,5 +7,3 @@ L | 0 | a | c | 100.0 | 2024-Sep-30 2359
 T | 1 | read books
 E | 0 | meet friends | 2024-Sep-30 2300 | 2024-Sep-30 2359
 D | 0 | submit work | 2024-Mar-30 2359
-T | 0 | homework
-E | 1 | meet prof | 2024-Sep-29 1300 | 2024-Sep-29 1400

@@ -25,6 +25,66 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    public Task loadLoan(String desc, String[] components) {
+        LocalDateTime dueDate = LocalDateTime.parse(components[5].trim(), DateTimeFormatter.ofPattern("yyyy-MMM-dd HHmm"));
+        double amount = Double.parseDouble(components[4].trim());
+        Loan loan = new Loan(components[2], components[3], amount, dueDate);
+        if (components[1].trim().equals("1")) {
+            loan.markAsDone();
+        } else {
+            loan.markNotDone();
+        }
+        return loan;
+    }
+
+    public void checkFileExist(File taskFile) throws IOException {
+        // check if the file exists. If it does not, make the directory
+        if (!taskFile.exists()) {
+            if (taskFile.getParentFile().mkdir()) {
+                taskFile.createNewFile();
+            } else {
+                // throw an error if there is issue creating directory
+                throw new IOException("Problem creating the directory: " + taskFile.getParent());
+            }
+        }
+    }
+
+    public Task loadTask(String desc, String[] components) {
+        Todo task = new Todo(desc);
+        if (components[1].trim().equals("1")) {
+            task.markAsDone();
+        } else {
+            task.markNotDone();
+        }
+        return task;
+    }
+
+    public Task loadEvent(String desc, String[] components) {
+        LocalDateTime to = LocalDateTime.parse(components[3].trim(), DateTimeFormatter.ofPattern("yyyy-MMM-dd HHmm"));
+        LocalDateTime from = LocalDateTime.parse(components[4].trim(), DateTimeFormatter.ofPattern("yyyy-MMM-dd HHmm"));
+        System.out.println(to);
+        System.out.println(from);
+        Event event = new Event(desc, to, from);
+        if (components[1].trim().equals("1")) {
+            event.markAsDone();
+        } else {
+            event.markNotDone();
+        }
+        return event;
+
+    }
+
+    public Task loadDeadline(String desc, String[] components) {
+        LocalDateTime by = LocalDateTime.parse(components[3].trim(), DateTimeFormatter.ofPattern("yyyy-MMM-dd HHmm"));
+        Deadline deadline = new Deadline(desc, by);
+        if (components[1].trim().equals("1")) {
+            deadline.markAsDone();
+        } else {
+            deadline.markNotDone();
+        }
+        return deadline;
+    }
+
     /**
      * Loads tasks from the file specified by the file path.
      * The method reads the file line by line and creates appropriate Task objects based on the file's content.
@@ -61,53 +121,21 @@ public class Storage {
             String desc = components[2].trim();
             // note that D contains a fourth component and E contains a fourth and fifth component
             if (Objects.equals(category, "T")) {
-
-                Todo task = new Todo(desc);
-                if (components[1].trim().equals("1")) {
-                    task.markAsDone();
-                } else {
-                    task.markNotDone();
-                }
+                Task task = loadTask(desc, components);
                 tasks.add(task);
                 eachLine = buffer.readLine();
             } else if (Objects.equals(category, "D")) {
-                LocalDateTime by = LocalDateTime.parse(components[3].trim(), DateTimeFormatter.ofPattern("yyyy-MMM-dd HHmm"));
-                Deadline deadline = new Deadline(desc, by);
-                if (components[1].trim().equals("1")) {
-                    deadline.markAsDone();
-                } else {
-                    deadline.markNotDone();
-                }
-
+                Task deadline = loadDeadline(desc, components);
                 tasks.add(deadline);
                 eachLine = buffer.readLine();
             } else if (Objects.equals(category, "E")) {
-                LocalDateTime to = LocalDateTime.parse(components[3].trim(), DateTimeFormatter.ofPattern("yyyy-MMM-dd HHmm"));
-                LocalDateTime from = LocalDateTime.parse(components[4].trim(), DateTimeFormatter.ofPattern("yyyy-MMM-dd HHmm"));
-                Event event = new Event(desc, to, from);
-                if (components[1].trim().equals("1")) {
-                    event.markAsDone();
-                } else {
-                    event.markNotDone();
-                }
+                Task event = loadEvent(desc, components);
                 tasks.add(event);
                 eachLine = buffer.readLine();
             } else if (Objects.equals(category, "L")) {
-                System.out.println(components[5]);
-                LocalDateTime dueDate = LocalDateTime.parse(components[5].trim(), DateTimeFormatter.ofPattern("yyyy-MMM-dd HHmm"));
-                System.out.println("here2");
-                double amount = Double.parseDouble(components[4].trim());
-                System.out.println(amount);
-                Loan loan = new Loan(components[2], components[3], amount, dueDate);
-                if (components[1].trim().equals("1")) {
-                    loan.markAsDone();
-                } else {
-                    loan.markNotDone();
-                }
-
+                Task loan = loadLoan(desc, components);
                 tasks.add(loan);
                 eachLine = buffer.readLine();
-
 
             }
         }
@@ -138,3 +166,5 @@ public class Storage {
     }
 
 }
+
+
