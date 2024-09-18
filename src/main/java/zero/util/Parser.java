@@ -54,7 +54,7 @@ public class Parser {
             case "snooze":
                 return handleSnooze(tasks, fullCommand, ui);
             default:
-                throw new ZeroException("分かりません");
+                throw new ZeroException("Unknown command. Please enter a valid command.");
             }
         } catch (ZeroException e) {
             return ui.showError(e.getMessage());
@@ -203,7 +203,6 @@ public class Parser {
                 // only date provided, default time to 00:00
                 return LocalDateTime.parse(input + " 0000", dateTimeFormatter);
             } else {
-                // date and time provided
                 return LocalDateTime.parse(input, dateTimeFormatter);
             }
         } catch (DateTimeParseException e) {
@@ -222,10 +221,13 @@ public class Parser {
      */
     private static String handleFind(TaskList tasks, String input, Ui ui) throws ZeroException {
         try {
-            String keyword = input.substring(5);
+            String keyword = input.substring(5).trim();
+            if (keyword.isEmpty()) {
+                throw new ZeroException("Please provide a keyword for the search.");
+            }
             return ui.listMatchingTasks(tasks, keyword);
         } catch (Exception e) {
-            throw new ZeroException("Invalid find parameters");
+            throw new ZeroException("Invalid find parameters.");
         }
     }
 
@@ -249,7 +251,7 @@ public class Parser {
                 Deadline deadlineTask = (Deadline) selectedTask;
                 deadlineTask.snooze();
             } else {
-                throw new ZeroException("Selected task to snooze must be a Deadline");
+                throw new ZeroException("Selected task to snooze must be a Deadline.");
             }
             return ui.snoozeTask(tasks.getTask(choice));
         } catch (NumberFormatException e) {
