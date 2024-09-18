@@ -1,7 +1,10 @@
 package gui;
 
+import java.util.HashMap;
+
 import chatterbox.ChatterboxGui;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -9,6 +12,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+
 
 /**
  * Controller for the main GUI.
@@ -54,15 +59,21 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = chatter.processInput(input);
-        if (response == (null)) {
+        HashMap<String, String> response = chatter.processInput(input);
+        if (response.get("response") == (null)) {
             Stage stage = (Stage) dialogContainer.getScene().getWindow();
             stage.close();
         }
 
+        DialogBox chatterReply = DialogBox.getChatterboxDialog(response.get("response"), chatterImage);
+        if (response.get("type").equals("ERROR")) {
+            for (Node node : chatterReply.getChildren()) {
+                node.setStyle("-fx-background-color: #FF0000");
+            }
+        }
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getChatterboxDialog(response, chatterImage)
+                chatterReply
         );
         userInput.clear();
     }

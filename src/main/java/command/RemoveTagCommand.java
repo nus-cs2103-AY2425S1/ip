@@ -21,9 +21,9 @@ public class RemoveTagCommand extends Command {
                           TaskList taskList, Parser parser) throws ChatterboxExceptions.ChatterBoxNoInput,
             ChatterboxExceptions.ChatterBoxMissingParameter {
         // input will be in format "removeTag /i <index> /t <tag>"
-        int index = parser.parseRemoveTagIndex(input);
+        int index = parser.parseRemoveTagIndex(input) - 1;
         if (index < 0 || index >= taskList.size()) {
-            return guiResponses.invalidIndexMessage();
+            return guiResponses.getInvalidIndexMessage();
         }
         String tagName = parser.parseRemoveTagName(input).trim().toLowerCase();
         //remove tag from both taglist and task
@@ -37,5 +37,10 @@ public class RemoveTagCommand extends Command {
         }
         taggedTask.removeTag(tagList.getTag(tagName));
         return guiResponses.untagTagMsg(taggedTask, tagName);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof RemoveTagCommand;
     }
 }

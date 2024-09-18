@@ -29,8 +29,13 @@ public class MarkCommand extends Command {
             throws ChatterboxExceptions.ChatterBoxNoInput, ChatterboxExceptions.ChatterBoxMissingParameter {
         int index = parser.extractNum(input) - 1;
         if (index < 0 || index >= taskList.size()) {
-            return guiResponses.invalidIndexMessage();
+            return guiResponses.getInvalidIndexMessage();
         }
         return guiResponses.markMsg(taskList.markTask(index));
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof MarkCommand;
     }
 }

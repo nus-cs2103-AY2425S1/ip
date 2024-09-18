@@ -1,8 +1,8 @@
 package chatterbox;
 
 import java.io.FileNotFoundException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import chatterboxexceptions.ChatterboxExceptions;
 import command.Command;
@@ -25,7 +25,7 @@ public class ChatterboxGui {
     private final TagList userTags;
 
     /**
-     * initiates Chatterbox with a prior history filepath
+     * initiates ChatterboxGui with a prior history filepath
      * @param filepath contains the history of tasks
      */
     public ChatterboxGui(String filepath) {
@@ -87,29 +87,28 @@ public class ChatterboxGui {
     /**
      * Processes the user input to return the appropriate response
      */
-    public String processInput(String input) {
+    public HashMap<String, String> processInput(String input) {
         input = input.trim();
         Command currCommand = parser.parseCommandType(input);
-        String result = null;
+
+        HashMap<String, String> response = new HashMap<String, String>();
+        String result;
         try {
             result = currCommand.execute(input, guiResponses, userTags, tasks, parser);
+            response.put("type", "OK");
         } catch (ChatterboxExceptions.ChatterBoxError e) {
-            result = ("It seems an error has occurred " + e.getMessage())
-            + "Even in moments like these, there is something to be learned";
+
+            result = guiResponses.getErrorMessage(e.getMessage());
+            response.put("type", "ERROR");
         }
+        response.put("response", result);
         storage.saveHistory(tasks.getTasks());
-        return result;
 
+        return response;
     }
 
 
-    /**
-     * Dummy echo testing
-     * @return repeats the string with haha:
-     */
-    public String getResponse(String input) {
-        return "haha: " + input;
-    }
+
 
     /**
      * Gets the greeting string
@@ -118,12 +117,12 @@ public class ChatterboxGui {
     public String getGreeting() {
         return guiResponses.greeting();
     }
-    public static void main(String[] args) {
 
-        Chatterbox myChat = new Chatterbox(
-                Paths.get(System.getProperty("user.dir"), "data" , "command1.txt").toString());
-        myChat.run();
-
-
+    /**
+     * Gets the name of the chatbot
+     * @return name of the chatbot
+     */
+    public String getName() {
+        return "Chatterbox";
     }
 }

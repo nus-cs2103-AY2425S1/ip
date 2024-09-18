@@ -31,4 +31,9 @@ public class ListCommand extends Command {
             ChatterboxExceptions.ChatterBoxMissingParameter {
         return guiResponses.displayList(taskList);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof ListCommand;
+    }
 }

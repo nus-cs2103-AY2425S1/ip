@@ -30,13 +30,6 @@ import command.UnmarkCommand;
  * Parser class has various methods to parse user input
  */
 public class Parser {
-    /**
-     * Enum contains list of valid commands
-     */
-    public enum ValidCommand {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID, FIND, TAG, ALLTAGS;
-    }
-
 
     private static final DateTimeFormatter DASHFORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
     private static final DateTimeFormatter SLASHFORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
@@ -60,9 +53,6 @@ public class Parser {
 
     public LocalDateTime parseDateTime(String dateTimeString) {
 
-
-
-
         dateTimeString = dateTimeString.trim();
 
         for (DateTimeFormatter formatter : DATE_TIME_FORMATTERS) {
@@ -81,47 +71,11 @@ public class Parser {
                 //do nothing try next one
             }
         }
+        //if no matching format is found
         return null;
     }
 
-    /**
-     * Parses a string of text to check if text has a valid command listed in ValidCommandS
-     * by checking the first word
-     * @param text to be parsed,
-     * @return corresponding ValidCommand enum to the command in text
-     */
-    public ValidCommand parseCommand(String text) {
 
-
-
-        if (text.startsWith("bye")) {
-            return ValidCommand.BYE;
-        } else if (text.startsWith("list")) {
-            return ValidCommand.LIST;
-        } else if (text.startsWith("mark")) {
-            return ValidCommand.MARK;
-        } else if (text.startsWith("unmark")) {
-            return ValidCommand.UNMARK;
-        } else if (text.startsWith("todo")) {
-            return ValidCommand.TODO;
-        } else if (text.startsWith("deadline")) {
-            return ValidCommand.DEADLINE;
-        } else if (text.startsWith("event")) {
-            return ValidCommand.EVENT;
-        } else if (text.startsWith("delete")) {
-            return ValidCommand.DELETE;
-        } else if (text.startsWith("find")) {
-            return ValidCommand.FIND;
-        } else if (text.startsWith("tag")) {
-            return ValidCommand.TAG;
-        } else if (text.startsWith("alltags")) {
-            return ValidCommand.ALLTAGS;
-        } else {
-            return ValidCommand.INVALID;
-
-        }
-
-    }
 
     /**
      * Parses a string of text to check if text has a valid command listed in ValidCommandS
@@ -210,20 +164,20 @@ public class Parser {
         StringBuilder plainDesc = new StringBuilder();
         StringBuilder deadline = new StringBuilder();
         boolean commandEncountered = false;
-        for (int i = 9; i < desc.length(); i++) {
+        for (int i = 8; i < desc.length(); i++) {
 
             if (i < endDate) {
                 plainDesc.append(desc.charAt(i));
+                continue;
 
-            } else {
-                if (desc.charAt(i) == '/') {
-                    if (!commandEncountered) {
-                        i += 3;
-                        commandEncountered = true;
-                    }
-                }
-                deadline.append(desc.charAt(i));
             }
+            if (desc.charAt(i) == '/' && !commandEncountered) {
+                i += 2;
+                commandEncountered = true;
+                continue;
+            }
+            deadline.append(desc.charAt(i));
+
         }
         return new String[] {plainDesc.toString().trim(), deadline.toString().trim()};
     }
@@ -259,30 +213,27 @@ public class Parser {
         for (int i = 5; i < desc.length(); i++) {
             if (i < fromStart) {
                 plainDesc.append(desc.charAt(i));
-            } else if (i < toStart) {
-                if (desc.charAt(i) == '/') {
-                    if (!fromCommandFound) {
-                        i += 4;
-                        fromCommandFound = true;
-                        continue;
-                    }
-
+                continue;
+            }
+            if (i < toStart) {
+                if (desc.charAt(i) == '/' && !fromCommandFound) {
+                    i += 4;
+                    fromCommandFound = true;
+                    continue;
                 }
                 startDate.append(desc.charAt(i));
-
-            } else {
-                if (desc.charAt(i) == '/') {
-                    if (!toCommandFound) {
-                        i += 2;
-                        toCommandFound = true;
-                        continue;
-                    }
-
-
-                }
-                endDate.append(desc.charAt(i));
+                continue;
             }
+
+
+            if (desc.charAt(i) == '/' && !toCommandFound) {
+                i += 2;
+                toCommandFound = true;
+                continue;
+            }
+            endDate.append(desc.charAt(i));
         }
+
         return new String[] {plainDesc.toString().trim(), startDate.toString().trim(), endDate.toString().trim()};
     }
 
@@ -382,7 +333,7 @@ public class Parser {
     }
     /**
      * Returns a DateTimeFormatter used for printing LocalDateTime objects
-     * @return PRINTDATEFORMATTER, standard formatter for dates in Chatterbox
+     * @return PRINTDATEFORMATTER, standard formatter for dates
      */
     public static DateTimeFormatter getPrintDateFormatter() {
 

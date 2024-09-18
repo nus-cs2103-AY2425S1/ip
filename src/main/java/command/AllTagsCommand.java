@@ -32,4 +32,9 @@ public class AllTagsCommand extends Command {
             ChatterboxExceptions.ChatterBoxMissingParameter {
         return guiResponses.displayAllTags(tagList.getAllTags());
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof AllTagsCommand;
+    }
 }

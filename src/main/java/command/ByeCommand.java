@@ -34,4 +34,9 @@ public class ByeCommand extends Command {
             ChatterboxExceptions.ChatterBoxMissingParameter {
         return null;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof ByeCommand;
+    }
 }
