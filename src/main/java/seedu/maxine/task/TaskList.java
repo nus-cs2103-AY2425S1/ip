@@ -18,7 +18,7 @@ public class TaskList implements MaxineList {
      * Constructs new instance of TaskList class
      */
     public TaskList() {
-        this.storage = new Storage("./data/maxine.txt");
+        this.storage = new Storage("maxine.txt");
         this.list = storage.load();
     }
     public void addTask(Task task) {
