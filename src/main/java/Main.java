@@ -23,6 +23,7 @@ public class Main extends Application {
             stage.setMinWidth(417);
             fxmlLoader.<MainWindow>getController().setAlice(alice);
             fxmlLoader.<MainWindow>getController().getGreeting();
+            stage.setTitle("Alice");
             stage.show();
         } catch (IOException exception) {
             exception.printStackTrace();
