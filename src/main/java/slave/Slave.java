@@ -3,8 +3,6 @@ package slave;
 import java.time.LocalDate;
 import java.util.LinkedList;
 
-import slave.task.Deadline;
-import slave.task.Event;
 import slave.task.RecurringTypeTask;
 import slave.task.Task;
 
@@ -13,6 +11,7 @@ import slave.task.Task;
  */
 public class Slave {
     private final LinkedList<Task> list = new LinkedList<>();
+    public static final String UNKNOWN_USER_INPUT = "You're spouting gibberish...";
     LinkedList<Task> tasksPastEndDate = new LinkedList<>();
     private Storage storage;
     private Ui ui;
@@ -28,19 +27,28 @@ public class Slave {
         storage = new Storage(list, filePath);
         ui = new Ui();
         parser = new Parser(list);
+        getAndUpdateTasks();
+    }
+
+    public void getAndUpdateTasks() {
         load();
         LocalDate dateToday = LocalDate.now();
+        LinkedList<Task> newRecurringEvents = new LinkedList<>();
         list.forEach(task -> {
-            if (task instanceof RecurringTypeTask) {
-                if (((RecurringTypeTask) task).hasEnded(dateToday)) {
-                    if (((RecurringTypeTask) task).isRecurring()) {
-                        list.add(((RecurringTypeTask) task).createRecurringEvent());
-                    }
-                    tasksPastEndDate.add(task);
-                    list.remove(task);
-                }
+            if (!(task instanceof RecurringTypeTask)) {
+                return;
             }
+            if (!((RecurringTypeTask) task).hasEnded(dateToday)) {
+                return;
+            }
+            // here the task is recurring and has ended
+            if (((RecurringTypeTask) task).isRecurring()) {
+                newRecurringEvents.add(((RecurringTypeTask) task).createRecurringEvent());
+            }
+            tasksPastEndDate.add(task);
+            list.remove(task);
         });
+        list.addAll(newRecurringEvents);
         save();
     }
 

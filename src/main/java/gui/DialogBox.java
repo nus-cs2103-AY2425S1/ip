@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 
 /**
@@ -50,8 +51,20 @@ public class DialogBox extends HBox {
         dialog.getStyleClass().add("reply-label");
     }
 
+    private void setAsError() {
+        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
+        getChildren().setAll(tmp);
+        dialog.getStyleClass().add("user-input-error");
+    }
+
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
+    }
+
+    public static DialogBox getUserDialogError(String text, Image img) {
+        var dBox = new DialogBox(text, img);
+        dBox.setAsError();
+        return dBox;
     }
 
     public static DialogBox getSlaveDialog(String text, Image img) {

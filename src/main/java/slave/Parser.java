@@ -72,7 +72,7 @@ public class Parser {
             case "find":
                 return find(body);
             default:
-                return new String[]{"You're spouting gibberish..."};
+                return new String[]{Slave.UNKNOWN_USER_INPUT};
             }
 
         } catch (NoSuchElementException e) {

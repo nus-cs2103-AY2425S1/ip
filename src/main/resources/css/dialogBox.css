@@ -15,6 +15,10 @@
     -fx-background-color: linear-gradient(to bottom right, rgb(135, 113, 76), rgb(184, 154, 103));
 }
 
+.user-input-error {
+    -fx-background-color: rgb(252, 57, 3);
+}
+
 #displayPicture {
     /* Shadow effect on image. */
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
@@ -26,4 +30,3 @@
     /* Rotate image clockwise by degrees. */
     -fx-rotate: 0;
 }
-
