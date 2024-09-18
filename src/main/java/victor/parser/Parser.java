@@ -33,7 +33,7 @@ public class Parser {
         case "mark" -> new MarkCommand(inputWords);
         case "unmark" -> new UnmarkCommand(inputWords);
         case "list" -> new ListCommand(inputWords);
-        case "bye" -> new ExitCommand(inputWords);
+        case "bye", "exit" -> new ExitCommand(inputWords);
         case "find" -> new FindCommand(inputWords);
         default -> new Command(inputWords);
         };

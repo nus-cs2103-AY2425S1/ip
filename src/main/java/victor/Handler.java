@@ -36,11 +36,10 @@ public class Handler {
      * @param request A string containing the user's input to the task bot.
      * @return A string containing the program's response to the user input.
      */
-    public String handleRequest(String request) {
+    public Command handleRequest(String request) {
         Command command = parser.parseInput(request);
         command.setData(taskList);
-        ReturnMessage returnMessage = command.execute();
         command.write(DATA_PATH);
-        return returnMessage.getMessagesAsString();
+        return command;
     }
 }

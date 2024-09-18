@@ -7,6 +7,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import victor.Handler;
+import victor.commands.Command;
+import victor.messages.ReturnMessage;
 
 /**
  * Controller for the main GUI.
@@ -62,10 +64,12 @@ public class MainWindow {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        if (input.trim().equalsIgnoreCase("bye")) {
+        Command command = handler.handleRequest(input);
+        if (command.isExit()) {
             stage.close();
         }
-        String response = handler.handleRequest(input);
+        ReturnMessage returnMessage = command.execute();
+        String response = returnMessage.getMessagesAsString();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getVictorDialog(response, victorImage)
