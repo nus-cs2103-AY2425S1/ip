@@ -38,11 +38,8 @@ TheRatchetCat is here to organise tasks for you!
 **"bye"** For you to find out!
 > bye
 
-// Give examples of usage
 
 Example: `list`
-
-// A description of the expected outcome goes here
 
 ```
 RatchetCat says:
@@ -53,11 +50,15 @@ Here are the tasks in your list:
 4.[E][X] CS2102 (from: Jan 15 2025 to: Apr 29 2025)
 ```
 
-## Feature ABC
+## Task adding feature
 
-// Feature details
+Users can add new tasks into the their list of tasks
 
 
-## Feature XYZ
+## Finding task feature
 
-// Feature details
+Users can search for tasks with matching keywords
+
+## Task prioritisation
+
+Users can change the priority of different tasks
