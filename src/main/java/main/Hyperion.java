@@ -1,8 +1,6 @@
 package main;
 
 import exception.CommandFoundButInvalidException;
-import exception.CommandNotFoundException;
-import exception.EmptyStringException;
 import exception.HyperionException;
 
 /**

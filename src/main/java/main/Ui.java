@@ -19,8 +19,8 @@ public class Ui {
      * Displays a welcome message to the user.
      */
     public static String welcome() {
-        return "Welcome to Hyperion!\nI am the Attack Titan, type something or else I am gonna destroy them, " +
-                "Every last one of those animals that is on this Earth";
+        return "Welcome to Hyperion!\nI am the Attack Titan, type something or else I am gonna destroy them, "
+                + "Every last one of those animals that is on this Earth";
     }
 
     /**

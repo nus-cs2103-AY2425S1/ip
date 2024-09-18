@@ -193,6 +193,12 @@ public class TaskList {
         return result.toString();
     }
 
+    /**
+     * Sort the {@code Task} according to the order specified by TaskComparator
+     * @param input the input entered by user after the command sort
+     * @return a {@code List} of {@code Task} that is in sorted order
+     * @throws InvalidSyntaxException if the description keyed in by the user is invalid
+     */
     public List<Task> sort(String input) throws InvalidSyntaxException {
         if (!input.isEmpty()) {
             throw new InvalidSyntaxException("sort");

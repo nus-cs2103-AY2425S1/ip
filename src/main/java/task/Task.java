@@ -2,8 +2,6 @@ package task;
 
 import exception.CommandFoundButInvalidException;
 
-import java.time.LocalDateTime;
-
 /**
  * Represents a task with a description and a completion status.
  */

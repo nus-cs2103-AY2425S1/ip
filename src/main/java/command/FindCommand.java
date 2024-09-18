@@ -1,12 +1,12 @@
 package command;
 
+import java.util.stream.Stream;
+
 import exception.CommandFoundButInvalidException;
 import main.Storage;
 import main.TaskList;
 import main.Ui;
 import task.Task;
-
-import java.util.stream.Stream;
 
 /**
  * A Command to find tasks in the task list that contains the user's input
