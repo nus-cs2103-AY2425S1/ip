@@ -44,18 +44,18 @@ public class DateCommand extends Command {
         try {
             LocalDate date = LocalDate.parse(message.split("date ")[1]);
             StringBuilder tasksStringBuilder = new StringBuilder();
+            String dateString = "";
             for (int i = 1; i < Task.count; i++) {
                 Task task = taskList.getTask(i - 1);
-                if (task.getDesc().startsWith("[D]") || task.getDesc().startsWith("deadline ")) {
+                if (task instanceof Deadline) {
                     Deadline deadline = (Deadline) task;
-                    if (date.format(DateTimeFormatter.ofPattern("MMM d yyyy")).equals(deadline.getDate())) {
-                        tasksStringBuilder.append("\n    " + deadline.toString());
-                    }
-                } else if (task.getDesc().startsWith("[E]") || task.getDesc().startsWith("event ")) {
+                    dateString = deadline.getDate();
+                } else if (task instanceof Event) {
                     Event event = (Event) task;
-                    if (date.format(DateTimeFormatter.ofPattern("MMM d yyyy")).equals(event.getToDate())) {
-                        tasksStringBuilder.append("\n    " + event.toString());
-                    }
+                    dateString = event.getFromDate();
+                }
+                if (date.format(DateTimeFormatter.ofPattern("MMM d yyyy")).equals(dateString)) {
+                    tasksStringBuilder.append("\n    " + task.toString());
                 }
             }
             String tasks = tasksStringBuilder.toString();
