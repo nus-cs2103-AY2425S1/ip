@@ -37,12 +37,12 @@ public class Parser {
     public static String parseUserCommand(
             String command, TaskList taskList, Storage storage
     ) throws InvalidInputException, EmptyTaskException, TaskIndexOutOfBound {
-    assert command != null : "Command should not be empty";
-    assert taskList != null : "TaskList should not be empty";
-    assert storage != null : "Storage should not be empty";
+        assert command != null : "Command should not be empty";
+        assert taskList != null : "TaskList should not be empty";
+        assert storage != null : "Storage should not be empty";
 
-    String[] slicedStrings = command.split(" ");
-    String action = slicedStrings[0];
+        String[] slicedStrings = command.split(" ");
+        String action = slicedStrings[0];
 
         switch (action) {
         case "list":
@@ -261,7 +261,7 @@ public class Parser {
      */
     private static String handleUndoCommand(
             String[] slicedStrings, TaskList taskList, Storage storage
-    ) throws InvalidInputException{
+    ) throws InvalidInputException {
         if (slicedStrings.length > 2) {
             throw new InvalidInputException("The format for undo command is undo or undo [number]!");
         }
@@ -269,7 +269,7 @@ public class Parser {
         if (slicedStrings.length < 2) {
             // handles the default situation
             try {
-                Map<String, Task> lastCommand =  storage.lastCommand();
+                Map<String, Task> lastCommand = storage.lastCommand();
                 handleSingleUndoCommand(taskList, storage, lastCommand);
                 return "The previous command has been undone";
             } catch (NoLastCommandToUndo | TaskIndexOutOfBound e) {
@@ -279,16 +279,16 @@ public class Parser {
 
         int numberOfTimesToUndo = Integer.parseInt(slicedStrings[1]);
         if (numberOfTimesToUndo > storage.getCommandsSize()) {
-            throw new InvalidInputException("The number of times " +
-                    "you want to undo exceeds the total number of command entries!");
+            throw new InvalidInputException("The number of times "
+                    + "you want to undo exceeds the total number of command entries!");
         }
         if (numberOfTimesToUndo <= 0) {
-            throw new InvalidInputException("The number of times " +
-                    "you want to undo is invalid!");
+            throw new InvalidInputException("The number of times "
+                    + "you want to undo is invalid!");
         }
         for (int i = 1; i <= numberOfTimesToUndo; i++) {
             try {
-                Map<String, Task> lastCommand =  storage.lastCommand();
+                Map<String, Task> lastCommand = storage.lastCommand();
                 handleSingleUndoCommand(taskList, storage, lastCommand);
             } catch (NoLastCommandToUndo | TaskIndexOutOfBound e) {
                 return e.getMessage();

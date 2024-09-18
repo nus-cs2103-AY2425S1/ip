@@ -6,7 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import main.ChattyBuddy;
+import main.Duke;
 
 /**
  * Controller for the main GUI.
@@ -21,7 +21,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private TextField userInput;
 
-    private ChattyBuddy chattyBuddy;
+    private Duke chattyBuddy;
 
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private final Image botImage = new Image(this.getClass().getResourceAsStream("/images/chatbot.jpg"));
@@ -34,7 +34,7 @@ public class MainWindow extends AnchorPane {
     /**
      * Handles user input and bot response, updating the dialog container.
      */
-    public void setChattyBuddy(ChattyBuddy chattyBuddy) {
+    public void setChattyBuddy(Duke chattyBuddy) {
         this.chattyBuddy = chattyBuddy;
     }
 

@@ -14,7 +14,7 @@ import ui.MainWindow;
  */
 public class Main extends Application {
 
-    private ChattyBuddy chattyBuddy = new ChattyBuddy();
+    private Duke chattyBuddy = new Duke();
 
     @Override
     public void start(Stage stage) {

@@ -1,5 +1,9 @@
 package exceptions;
 
+/**
+ * The NoLastCommandToUndo class is a custom exception that is thrown when the user
+ * attempts to undo a command but there is none to undo
+ */
 public class NoLastCommandToUndo extends Exception {
 
     /**

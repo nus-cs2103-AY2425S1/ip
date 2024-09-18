@@ -9,14 +9,15 @@ import exceptions.InvalidInputException;
 import exceptions.TaskIndexOutOfBound;
 import parser.Parser;
 import storage.Storage;
-import task.TaskList;
 import task.Task;
+import task.TaskList;
+
 
 /**
  * This class is responsible for creating a ChattyBuddy instance which
  * handles user commands through the Parser, TaskList, and Storage components.
  */
-public class ChattyBuddy {
+public class Duke {
 
     private TaskList taskList;
     private Storage storage;
@@ -24,7 +25,7 @@ public class ChattyBuddy {
     /**
      * Initializes the ChattyBuddy application, loading tasks from storage.
      */
-    public ChattyBuddy() {
+    public Duke() {
         storage = new Storage("./data/chattybuddy.txt");
         try {
             taskList = new TaskList(storage.loadTasks());
@@ -43,8 +44,8 @@ public class ChattyBuddy {
             return null;
         }
         try {
-        String response = Parser.parseUserCommand(input, taskList, storage);
-        saveTasksToStorage(taskList.getTasks());
+            String response = Parser.parseUserCommand(input, taskList, storage);
+            saveTasksToStorage(taskList.getTasks());
             return response;
         } catch (InvalidInputException | EmptyTaskException | TaskIndexOutOfBound e) {
             return e.getMessage();
@@ -53,7 +54,7 @@ public class ChattyBuddy {
         }
     }
 
-    private void saveTasksToStorage(ArrayList<Task> tasks) throws IOException{
+    private void saveTasksToStorage(ArrayList<Task> tasks) throws IOException {
         try {
             storage.saveTasks(tasks);
         } catch (IOException e) {

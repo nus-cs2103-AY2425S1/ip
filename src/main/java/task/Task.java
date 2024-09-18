@@ -1,7 +1,5 @@
 package task;
 
-import java.util.Objects;
-
 /**
  * The Task class represents a task with a description, status, and type.
  * It provides methods to manage the task's status and format the task for saving.

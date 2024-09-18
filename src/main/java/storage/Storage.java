@@ -4,9 +4,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Scanner;
 
-import exceptions.InvalidInputException;
 import exceptions.NoLastCommandToUndo;
 import task.Task;
 
@@ -100,8 +103,7 @@ public class Storage {
 
     /**
      * Removes the last entry of the command arraylist
-     * @throws NoLastCommandToUndo if the user hasn't entered any command
-     * and he tries to undo
+     * @throws NoLastCommandToUndo if the user hasn't entered any command, and he tries to undo
      */
     public Map<String, Task> lastCommand() throws NoLastCommandToUndo {
         if (commands.isEmpty()) {
