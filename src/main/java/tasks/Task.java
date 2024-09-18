@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 public class Task {
     protected String action;
-    protected boolean complete;
+    protected boolean isComplete;
 
     /**
      * Constructs a Task with the specified action.
@@ -21,7 +21,7 @@ public class Task {
 
     public Task(String action) {
         this.action = action;
-        this.complete = false;
+        this.isComplete = false;
     }
 
     /**
@@ -33,7 +33,7 @@ public class Task {
 
     public Task(String action, boolean complete) {
         this.action = action;
-        this.complete = complete;
+        this.isComplete = complete;
     }
 
     /**
@@ -43,7 +43,7 @@ public class Task {
      */
 
     public boolean isCompleted() {
-        return complete;
+        return isComplete;
     }
 
     /**
@@ -51,7 +51,7 @@ public class Task {
      */
 
     public void mark() {
-        complete = true;
+        isComplete = true;
     }
 
     /**
@@ -59,7 +59,7 @@ public class Task {
      */
 
     public void unmark() {
-        complete = false;
+        isComplete = false;
     }
 
     /**
@@ -120,6 +120,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return (complete ? "X" : "O") + " | " + action;
+        return (isComplete ? "X" : "O") + " | " + action;
     }
 }
