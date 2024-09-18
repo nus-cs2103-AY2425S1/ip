@@ -67,7 +67,7 @@ public class Parser {
             return addEventTask(taskList, userCommand);
 
         } else if (checkUndoCommand(userCommand)) {
-            return undoLastCommand(taskList);
+            return undoLastCommand();
 
         } else {
             return REPLY_INVALID_COMMAND;
@@ -325,10 +325,9 @@ public class Parser {
     /**
      * Undoes the last command.
      *
-     * @param taskList Current task list.
      * @return String response to inform user of successful undoing of last command.
      * */
-    private static String undoLastCommand(TaskList taskList){
+    private static String undoLastCommand(){
         if (Undo.checkPreviousCommand()) {
             return REPLY_NO_PREVIOUS_COMMAND;
         }

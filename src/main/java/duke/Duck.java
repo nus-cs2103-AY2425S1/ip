@@ -1,18 +1,12 @@
 package duke;
 
-import java.util.Objects;
-
 /**
  * Represents a Duck chatbot object.
  */
 public class Duck {
     private TaskList tasklist;
-    //private static String previousCommand;
-    private static Undo undo;
     Duck() throws DuckException {
         tasklist = new TaskList(Storage.load(), Storage.loadNum());
-        undo = new Undo();
-        //previousCommand = "";
     }
 
     /**

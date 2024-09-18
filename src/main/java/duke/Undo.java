@@ -6,7 +6,7 @@ import java.util.Objects;
  */
 public class Undo {
     private static Task task;
-    private static String previousCommand; //command | index | from | to
+    private static String previousCommand;
 
     private static final int PARTS_COMMAND = 0;
     private static final int PARTS_INDEX = 1;
@@ -34,10 +34,6 @@ public class Undo {
         assert !previousCommand.isEmpty() : "No previous command to undo.";
         String[] parts = previousCommand.split(" \\| ");
         String command = parts[PARTS_COMMAND];
-
-        System.out.println(command);
-        System.out.println(Objects.equals(command, COMMAND_TODO));
-        System.out.println(parts);
 
         String reply = "";
 
@@ -69,7 +65,6 @@ public class Undo {
      * */
     public static void saveCommand(String command, int index) {
         previousCommand = command + " | " + index;
-        System.out.println(previousCommand);
     }
 
     /**
