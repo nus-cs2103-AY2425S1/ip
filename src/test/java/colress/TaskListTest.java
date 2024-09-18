@@ -26,7 +26,7 @@ public class TaskListTest {
     public void retrieveTask_itemsOnDate_success() {
         TaskList taskList = new TaskList();
         taskList.addTask(new Deadline("foo", LocalDate.parse("2024-08-08")));
-        assertEquals("Here is your list:\n1. [ ][D] foo (Aug 08 2024)",
+        assertEquals("Here! This is your list:\n1. [ ][D] foo (Aug 08 2024)",
                 taskList.retrieveTasks(LocalDate.parse("2024-08-08")));
     }
 }
