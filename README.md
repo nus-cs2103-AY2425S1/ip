@@ -1,4 +1,4 @@
-# GLaDOS ChatBot CLI
+# GLaDOS ChatBot
 
 This is a greenfield Java project named after the fictional character named after the video game series _Portal_. Given below are instructions on how to use it.
 
@@ -19,7 +19,7 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
 
    -----------------------------------------------------------------------------
 
-   Hello, welcome to the Aperture Science computer-aided enrichment center! My name is:
+   Hello, welcome to the Aperture Science computer-aided enrichment center. My name is:
 
    ░▒▓██████▓▒░░▒▓█▓▒░       ░▒▓██████▓▒░░▒▓███████▓▒░ ░▒▓██████▓▒░ ░▒▓███████▓▒░
    ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░      ░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░░▒▓█▓▒░▒▓█▓▒░
@@ -34,3 +34,5 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
    -----------------------------------------------------------------------------
 
    ```
+
+5. If you would like to run the GUI version, run `./gradlew run`
