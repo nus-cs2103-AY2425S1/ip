@@ -11,10 +11,17 @@ public class ExitCommand extends Command {
      * @param tasks   The TaskList containing all tasks.
      * @param ui      The UI object to handle user interactions.
      * @param storage The Storage object to handle saving tasks to a file.
+     * @return
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        return "Bye. Hope to see you again soon! Meow";
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            System.err.println("Sleep was interrupted");
+        }
+        System.exit(0);
+        return null;
     }
 
     /**
