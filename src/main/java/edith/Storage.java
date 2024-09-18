@@ -56,7 +56,7 @@ public class Storage {
      * @throws IOException If an I/O error occurs while reading from the file.
      * @throws EdithException If the file contains corrupted data or the data format is invalid.
      */
-    public ArrayList<Task> load() throws IOException, EdithException {
+    public ArrayList<Task> load() throws IOException {
         ArrayList<Task> listOfTasks = new ArrayList<>();
         File file = new File(this.filePath);
         File directory = new File(file.getParent());
@@ -79,26 +79,7 @@ public class Storage {
             String taskString = taskData[2].trim();
             Task task;
 
-            switch (typeOfTaskString) {
-            case "[T]":
-                task = new ToDo(taskString);
-                break;
-            case "[D]":
-                String[] deadlineParts = taskString.split(" /by ");
-                String deadlineTask = deadlineParts[0].trim();
-                String dueDate = deadlineParts[1].trim();
-                task = new Deadline(deadlineTask, dueDate);
-                break;
-            case "[E]":
-                String[] eventParts = taskString.split(" /from | /to ");
-                String eventTask = eventParts[0].trim();
-                String startTime = eventParts[1].trim();
-                String endTime = eventParts[2].trim();
-                task = new Event(eventTask, startTime, endTime);
-                break;
-            default:
-                throw new EdithException("An error occurred while parsing the Edith.task list. Data might be corrupted.", 1);
-            }
+            task = loadHelper(typeOfTaskString, taskString);
 
             if (statusString.equals("[X]")) {
                 task.markTaskDone();
@@ -107,5 +88,32 @@ public class Storage {
             listOfTasks.add(task);
         }
         return listOfTasks;
+    }
+
+    public Task loadHelper(String typeOfTaskString, String taskString) throws EdithException {
+        Task task;
+
+        switch (typeOfTaskString) {
+        case "[T]":
+            task = new ToDo(taskString);
+            break;
+        case "[D]":
+            String[] deadlineParts = taskString.split(" /by ");
+            String deadlineTask = deadlineParts[0].trim();
+            String dueDate = deadlineParts[1].trim();
+            task = new Deadline(deadlineTask, dueDate);
+            break;
+        case "[E]":
+            String[] eventParts = taskString.split(" /from | /to ");
+            String eventTask = eventParts[0].trim();
+            String startTime = eventParts[1].trim();
+            String endTime = eventParts[2].trim();
+            task = new Event(eventTask, startTime, endTime);
+            break;
+        default:
+            throw new EdithException("An error occurred while parsing the Edith.task list. Data might be corrupted.", 1);
+        }
+
+        return task;
     }
 }

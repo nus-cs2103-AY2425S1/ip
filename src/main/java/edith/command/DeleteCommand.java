@@ -44,7 +44,8 @@ public class DeleteCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws EdithException {
         if (index < 0 || index >= tasks.getNumOfTasks()) {
-            throw new EdithException("Task " + index + " does not exist. Please enter a valid task number.");
+            int num = index + 1;
+            throw new EdithException("Task " + num + " does not exist. Please enter a valid task number.");
         }
 
         Task taskToDelete = tasks.getTask(index);

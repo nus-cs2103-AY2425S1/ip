@@ -108,15 +108,23 @@ public class TaskList {
      * @param ui   The Ui object used to display the tasks.
      */
     public String listTasksOnDate(String date, Ui ui) {
-        int index = 1;
-        boolean isDue = false;
-        boolean isStartingOn = false;
-
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         LocalDate localDate = LocalDate.parse(date, formatter);
 
+        int index = 1;
         StringBuilder response = new StringBuilder();
+
         response.append("Here are your tasks due by ").append(date).append(":\n");
+        listDueTasks(index, response, localDate);
+
+        response.append("Here are your events starting on ").append(date).append(":\n");
+        listEventsOnDate(index, response, localDate);
+
+        return response.toString();
+    }
+
+    public void listDueTasks(int index, StringBuilder response, LocalDate localDate) {
+        boolean isDue = false;
 
         for (Task task : listOfTasks) {
             if (task instanceof Deadline) {
@@ -141,8 +149,11 @@ public class TaskList {
         } else {
             response.append("\n");
         }
+    }
 
-        response.append("Here are your events starting on ").append(date).append(":\n");
+    public void listEventsOnDate(int index, StringBuilder response, LocalDate localDate) {
+        boolean isStartingOn = false;
+
         for (Task task : listOfTasks) {
             if (task instanceof Event) {
                 Event event = (Event) task;
@@ -157,8 +168,6 @@ public class TaskList {
         if (!isStartingOn) {
             response.append("NOTHING");
         }
-
-        return response.toString();
     }
 
     /**

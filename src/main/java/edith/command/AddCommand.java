@@ -49,6 +49,27 @@ public class AddCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws EdithException {
         Task task = null;
+        task = addTaskHelper();
+
+        try {
+            tasks.addTask(task);
+            storage.save(tasks.getListOfTasks());
+
+            StringBuilder response = new StringBuilder();
+            response.append("Got it. I've added this task:\n")
+                    .append(task.toString()).append("\n")
+                    .append("There are now ").append(tasks.getNumOfTasks()).append(" tasks in your list.");
+
+            return response.toString();
+        } catch (DateTimeParseException e) {
+            throw new EdithException(ui.invalidDateTimeError(), 1);
+        } catch (IOException e) {
+            return "An error occurred while saving updated Edith.task list.";
+        }
+    }
+
+    public Task addTaskHelper() throws EdithException {
+        Task task;
 
         if (instruction.startsWith("todo ")) {
             String taskString = instruction.substring(5).trim();
@@ -77,20 +98,6 @@ public class AddCommand extends Command {
             throw new EdithException("Invalid command for adding tasks.");
         }
 
-        try {
-            tasks.addTask(task);
-            storage.save(tasks.getListOfTasks());
-
-            StringBuilder response = new StringBuilder();
-            response.append("Got it. I've added this task:\n")
-                    .append(task.toString()).append("\n")
-                    .append("There are now ").append(tasks.getNumOfTasks()).append(" tasks in your list.");
-
-            return response.toString();
-        } catch (DateTimeParseException e) {
-            throw new EdithException(ui.invalidDateTimeError(), 1);
-        } catch (IOException e) {
-            return "An error occurred while saving updated Edith.task list.";
-        }
+        return task;
     }
 }
