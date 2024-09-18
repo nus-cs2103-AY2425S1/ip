@@ -2,7 +2,6 @@ package botty.commands;
 
 import botty.exceptions.BottyException;
 import botty.tasks.Task;
-import botty.tasks.TaskData;
 import botty.tasks.TaskManager;
 
 /**
@@ -22,7 +21,7 @@ public class MarkCommand extends Command {
             String argument = parsedInput.getArgument("main");
 
             int taskIndex = Integer.parseInt(argument) - 1;
-            Task<? extends TaskData> task = taskManager.markTask(taskIndex);
+            Task task = taskManager.markTask(taskIndex);
 
             return "Congrats on completing that! Let me just mark that as done for you.\n" + task;
         } catch (NumberFormatException ex) {
