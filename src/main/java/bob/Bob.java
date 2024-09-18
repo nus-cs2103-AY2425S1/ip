@@ -22,6 +22,7 @@ public class Bob {
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("'{'dd-MMM-uuuu HHmm'}'");
     private static final Storage STORAGE = new Storage("data/Bob.txt");
     private static final Ui UI = new Ui();
+    private static final Parser PARSER = new Parser();
     private static TaskList tasks;
 
     public static LocalDateTime parseDateTime(String string) {
@@ -46,13 +47,11 @@ public class Bob {
 
     public static void main(String[] args) {
         UI.printGreeting();
-        bob.command.Command.loadCommands();
+        PARSER.loadCommands();
 
         try {
             tasks = STORAGE.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (BobException e) {
+        } catch (IOException | BobException e) {
             UI.printError(e.getMessage());
             tasks = new TaskList();
         }
@@ -62,14 +61,12 @@ public class Bob {
             String[] input = UI.readInput().split(" ", 2);
             String argument = input.length == 1 ? "" : input[1];
             try {
-                Command command = Command.of(input[0]);
+                Command command = PARSER.getCommand(input[0]);
                 command.execute(tasks, UI, STORAGE, argument);
                 isExit = command.isExit();
             } catch (BobException e) {
                 UI.printError(e.getMessage());
             }
         }
-
-        System.exit(0);
     }
 }

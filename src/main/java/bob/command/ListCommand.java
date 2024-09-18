@@ -6,7 +6,7 @@ import bob.Ui;
 
 public class ListCommand extends Command {
 
-    protected static final String COMMAND = "list";
+    public static final String COMMAND = "list";
 
     @Override
     public boolean isExit() {

@@ -7,7 +7,7 @@ import bob.exception.IncorrectArgumentException;
 import bob.exception.MissingArgumentException;
 
 public class MarkCommand extends Command {
-    protected static final String COMMAND = "mark";
+    public static final String COMMAND = "mark";
 
     @Override
     public boolean isExit() {
