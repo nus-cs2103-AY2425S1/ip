@@ -6,8 +6,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * Unit tests for the ToDo class, which represents a simple task without a specific deadline.
+ */
 public class ToDoTest {
 
+    /**
+     * Tests the constructor and getter methods of the ToDo class.
+     * It verifies the description and completion status of the task.
+     */
     @Test
     public void testConstructorAndGetters() {
         // Test when the task is not done
@@ -21,6 +28,10 @@ public class ToDoTest {
         assertTrue(todoDone.isDone);
     }
 
+    /**
+     * Tests the toString method of the ToDo class.
+     * It verifies the string representation of the task based on its completion status.
+     */
     @Test
     public void testToString() {
         // Test when the task is not done
@@ -32,6 +43,10 @@ public class ToDoTest {
         assertEquals("[T][X] Completed task", todoDone.toString());
     }
 
+    /**
+     * Tests the toFileFormat method of the ToDo class.
+     * It verifies the file-friendly string representation of the task based on its completion status.
+     */
     @Test
     public void testToFileFormat() {
         // Test when the task is not done
