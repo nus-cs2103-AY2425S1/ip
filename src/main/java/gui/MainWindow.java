@@ -50,8 +50,11 @@ public class MainWindow extends AnchorPane {
         chatter = c;
         if (c.hasTasks()) {
             dialogContainer.getChildren()
-                    .addAll(DialogBox.getChatterboxDialog("Hmm... Have we met before?", chatterImage),
-                            DialogBox.getChatterboxDialog(c.getGreeting(), chatterImage));
+                    .addAll(DialogBox.getChatterboxDialog(c.getGreeting(), chatterImage),
+                            DialogBox.getChatterboxDialog("Ah, it's you again. "
+                                    + "It appears our paths have crossed before. Let's continue where we left off.",
+                                    chatterImage)
+                            );
 
         } else {
             dialogContainer.getChildren()
