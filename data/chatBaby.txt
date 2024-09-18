@@ -2,3 +2,4 @@ E | 0 | event cs2101tut | Sep 11 2024, 12:00 PM | Sep 11 2024, 1:00 PM
 D | 0 | deadline dsa3101proj | Sep 11 2024, 11:59 PM
 D | 0 | deadline cs2103hw | Sep 12 2024, 2:00 PM
 T | 0 | todo run
+T | 1 | todo swim

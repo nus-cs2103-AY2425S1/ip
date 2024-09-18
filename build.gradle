@@ -9,7 +9,7 @@ repositories {
 }
 
 dependencies {
-    String javaFxVersion = '17.0.7'
+    String javaFxVersion = '22'
 
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
@@ -44,6 +44,7 @@ test {
 }
 
 application {
+    mainModule = 'chatbaby'
     mainClass.set("chatbaby.Launcher")
 }
 
@@ -65,4 +66,5 @@ shadowJar {
 
 run{
     standardInput = System.in
+    jvmArgs = ['--module-path', '/path/to/javafx-sdk/lib', '--add-modules', 'javafx.controls,javafx.fxml']
 }
