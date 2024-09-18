@@ -216,7 +216,7 @@ public class Ui {
         } else {
             StringBuilder output = new StringBuilder();
 
-            output.append("Here are the " + priority.toString() + " things you gotta do:\n");
+            output.append("Here are the " + priority.toString() + " priority things you gotta do:\n");
             for (int i = 0; i < tasks.length; i++) {
                 output.append(String.format("%d. %s\n", i + 1, tasks[i]));
             }
