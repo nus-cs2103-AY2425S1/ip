@@ -14,10 +14,10 @@ import xbot.ui.Ui;
 public class DeadlineCommand extends AddCommand {
     @Override
     public String execute(TaskList list, Ui ui, Storage storage, String rest) throws XBotException {
-        String output = addDeadline(list, rest);
-        if (rest.isEmpty()) {
+        if (rest.trim().isEmpty()) {
             throw new XBotException("The description of the deadline cannot be empty!");
         }
+        String output = addDeadline(list, rest);
         storage.saveTask(list);
         return output;
     }

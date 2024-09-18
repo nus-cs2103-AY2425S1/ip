@@ -13,10 +13,10 @@ import xbot.ui.Ui;
 public class TodoCommand extends AddCommand {
     @Override
     public String execute(TaskList list, Ui ui, Storage storage, String rest) throws XBotException {
-        String output = addTodo(list, rest);
-        if (rest.isEmpty()) {
+        if (rest.trim().isEmpty()) {
             throw new XBotException("The description of the todo cannot be empty!");
         }
+        String output = addTodo(list, rest);
         storage.saveTask(list);
         return output;
     }
