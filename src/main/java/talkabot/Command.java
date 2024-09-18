@@ -106,7 +106,10 @@ public class Command {
             throw new InvalidEditException("delete");
         }
         this.commandType = "DeleteCommand";
+        int origSize = taskList.size();
+        assert origSize > 0;
         Task task = taskList.delete(Integer.parseInt(input.substring(7)) - 1);
+        assert taskList.size() == origSize - 1;
         storage.save(taskList);
         return this.ui.delete(task, taskList.size());
     }

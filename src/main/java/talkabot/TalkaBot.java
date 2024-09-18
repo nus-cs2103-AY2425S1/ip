@@ -3,11 +3,9 @@ package talkabot;
 import java.io.IOException;
 import java.time.DateTimeException;
 
-import talkabot.exceptions.InvalidEditException;
 import talkabot.exceptions.NoInputException;
 import talkabot.exceptions.TalkaBotException;
 import talkabot.exceptions.UnknownInputException;
-import talkabot.task.Task;
 import talkabot.task.TaskList;
 
 /**
