@@ -8,12 +8,10 @@ It also comes in two forms - a GUI version, or a CLI version.
 ![Phenex](./Ui.png)
 ## Features
 
-### Notes about the Command Format:
+### Note about formatting:
 
-- Words in `{}` are parameters to be supplied by the user.  
-  e.g. in `todo {description}`, `description` is a parameter which can be used as `todo Buy groceries`.
-
-- Parameters must be provided in the order specified by the command.
+- Words between '()' are what is inputted by you, the user.
+- For example, (description) means that you have to input a description.
 
 
 ### Adding a New Todo task to the task list: `todo`
