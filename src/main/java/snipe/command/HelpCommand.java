@@ -29,8 +29,16 @@ public class HelpCommand extends Command{
     @Override
     public String getResponse(TaskList tasks, Ui ui, Storage storage) throws SnipeException, IOException {
         String filePath = "src/main/txt/helpinstructions.txt"; // Instructions manual
+
+        // Assert that the file exists
+        assert Files.exists(Paths.get(filePath)) : "Help instructions file does not exist";
+
         try {
             String content = new String(Files.readAllBytes(Paths.get(filePath)));
+
+            // Assert that the content read from the file is not null
+            assert content != null : "File content should not be null";
+
             return content;
         } catch (IOException e) {
             System.out.println("Error reading the file: " + e.getMessage());
