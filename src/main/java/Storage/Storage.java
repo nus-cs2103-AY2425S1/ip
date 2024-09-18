@@ -29,9 +29,9 @@ public class Storage {
      * @param s FilePath for memory file.
      */
     public Storage(String s) {
-        final String ARCHIVE_PATH = "memory/Archive.txt";
+        String archivePath = "memory/Archive.txt";
         memory = new File(s);
-        archive = new File(ARCHIVE_PATH);
+        archive = new File(archivePath);
         parent = memory.getParentFile();
         try {
             if (!parent.exists()) {
