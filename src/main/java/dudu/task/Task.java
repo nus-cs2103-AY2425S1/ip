@@ -85,9 +85,9 @@ public class Task {
         if (!(object instanceof Task)) {
             return false;
         }
-        Task castedObject = (Task) object;
-        boolean hasSameMarked = castedObject.isMarked == this.isMarked;
-        boolean hasSameDescription = this.description.equals(castedObject.description);
+        Task otherTask = (Task) object;
+        boolean hasSameMarked = otherTask.isMarked == this.isMarked;
+        boolean hasSameDescription = this.description.equals(otherTask.description);
         return hasSameMarked && hasSameDescription;
     }
 }

@@ -92,15 +92,6 @@ public class TaskList {
         }
     }
 
-    public Task deleteTask() {
-        if (this.tasks.isEmpty()) {
-            return null;
-        }
-        Task removedTask = tasks.get(tasks.size() - 1);
-        tasks.remove(tasks.size() - 1);
-        return removedTask;
-    }
-
     /**
      * Filters the list of tasks for tasks with description matching the query
      *

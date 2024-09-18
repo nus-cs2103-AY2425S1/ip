@@ -62,9 +62,9 @@ public class Deadline extends Task {
         if (!(object instanceof Deadline)) {
             return false;
         }
-        Deadline castedObject = (Deadline) object;
-        boolean hasSameByDate = this.byDate.equals(castedObject.byDate);
-        boolean hasSameTaskDetails = super.equals(castedObject);
+        Deadline otherDeadlineTask = (Deadline) object;
+        boolean hasSameByDate = this.byDate.equals(otherDeadlineTask.byDate);
+        boolean hasSameTaskDetails = super.equals(otherDeadlineTask);
         return hasSameByDate && hasSameTaskDetails;
     }
 }

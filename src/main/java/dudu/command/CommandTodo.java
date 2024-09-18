@@ -39,11 +39,11 @@ public class CommandTodo extends Command {
      */
     @Override
     public String execute(TaskList taskList, UI ui, Storage storage) throws IOException {
-        if (!isUndoCommand) {
-            Parser.pushToUndoStack(new CommandDelete(-1, true));
-        }
         int size = taskList.addTask(task);
         assert size > 0 : "Task not added to task list";
+        if (!isUndoCommand) {
+            Parser.pushToUndoStack(new CommandDelete(size - 1, true));
+        }
         storage.rewriteFile(taskList);
         return ui.addTask(task, size);
     }

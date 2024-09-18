@@ -30,16 +30,6 @@ public class CommandDelete extends Command {
         this.isUndoCommand = isUndoCommand;
     }
 
-    private Task deleteTask(TaskList taskList) {
-        if (isUndoCommand) {
-            assert index == -1 : "Undo delete command should have -1 index";
-            return taskList.deleteTask();
-        } else {
-            assert index >= 0 : "Non-undo command should have positive index";
-            return taskList.deleteTask(index);
-        }
-    }
-
     /**
      * Executes the command by deleting the task from the task list, updating
      * the user interface with the deleted task, and saving the updated task list to storage
@@ -52,7 +42,8 @@ public class CommandDelete extends Command {
      */
     @Override
     public String execute(TaskList taskList, UI ui, Storage storage) throws IOException {
-        Task deletedTask = deleteTask(taskList);
+        Task deletedTask = taskList.deleteTask(index);
+        assert deletedTask != null : "No task is deleted as index is out of range";
         if (!isUndoCommand) {
             if (deletedTask instanceof ToDo) {
                 Parser.pushToUndoStack(new CommandTodo(deletedTask, true));
@@ -62,7 +53,6 @@ public class CommandDelete extends Command {
                 Parser.pushToUndoStack(new CommandEvent(deletedTask, true));
             }
         }
-        assert deletedTask != null : "No task is deleted as index is out of range";
         storage.rewriteFile(taskList);
         return ui.deleteTask(deletedTask);
     }

@@ -38,24 +38,24 @@ public class CommandDeadline extends Command {
      */
     @Override
     public String execute(TaskList taskList, UI ui, Storage storage) throws IOException {
-        if (!isUndoCommand) {
-            Parser.pushToUndoStack(new CommandDelete(-1, true));
-        }
         int size = taskList.addTask(task);
         assert size > 0 : "Task not added to task list";
+        if (!isUndoCommand) {
+            Parser.pushToUndoStack(new CommandDelete(size - 1, true));
+        }
         storage.rewriteFile(taskList);
         return ui.addTask(task, size);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == this) {
+    public boolean equals(Object object) {
+        if (object == this) {
             return true;
         }
-        if (!(o instanceof CommandDeadline)) {
+        if (!(object instanceof CommandDeadline)) {
             return false;
         }
-        CommandDeadline otherTask = (CommandDeadline) o;
-        return this.task.equals(otherTask.task);
+        CommandDeadline otherDeadlineCommand = (CommandDeadline) object;
+        return this.task.equals(otherDeadlineCommand.task);
     }
 }

@@ -3,6 +3,9 @@ package dudu.command;
 import dudu.utils.Storage;
 import dudu.utils.TaskList;
 import dudu.utils.UI;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.util.Duration;
 
 /**
  * Represents a bye user command into the chatbot
@@ -18,6 +21,9 @@ public class CommandBye extends Command {
      */
     @Override
     public String execute(TaskList taskList, UI ui, Storage storage) {
+        PauseTransition pause = new PauseTransition(Duration.seconds(3));
+        pause.setOnFinished(event -> Platform.exit());
+        pause.play();
         return ui.getGoodbyeMessage();
     }
 }

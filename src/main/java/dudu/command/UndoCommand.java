@@ -42,9 +42,9 @@ public class UndoCommand extends Command {
         if (command == null) {
             return "There are no previous commands to undo";
         } else {
-            String undoCommandResposne = command.execute(taskList, ui, storage);
+            String undoCommandResponse = command.execute(taskList, ui, storage);
             return "You have successfully undone the previous command!\n"
-                    + undoCommandResposne;
+                    + undoCommandResponse;
         }
     }
 }
