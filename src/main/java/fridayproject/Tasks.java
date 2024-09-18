@@ -14,6 +14,8 @@ public abstract class Tasks {
      * @param description The description of the task.
      */
     public Tasks(String description) {
+        // Assertion to ensure that the description is not null
+        assert description != null : "Description should not be null";
         this.description = description;
         this.isDone = false;
     }
@@ -29,6 +31,8 @@ public abstract class Tasks {
      * Marks the task as done.
      */
     public void markAsDone() {
+        // Assertion to ensure that the task is not marked as done twice
+        assert !this.isDone : "Task should not be marked as done twice";
         this.isDone = true;
     }
 
@@ -36,6 +40,8 @@ public abstract class Tasks {
      * Marks the task as undone.
      */
     public void markAsUndone() {
+        // Assertion to ensure that the task is not marked as undone twice
+        assert this.isDone : "Task should not be marked as undone twice";
         this.isDone = false;
     }
 

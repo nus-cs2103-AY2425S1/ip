@@ -1,5 +1,7 @@
 package fridayproject;
 
+import java.lang.Object;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -18,8 +20,16 @@ public class Deadline extends Tasks {
      */
     public Deadline(String description, String date) {
         super(description);
+
+        // Assertions to ensure that the description and date are not null or empty
+        assert description != null && !description.trim().isEmpty() : "Description should not be null or empty.";
+        assert date != null && !date.trim().isEmpty() : "Date should not be null or empty.";
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         this.date = LocalDate.parse(date, formatter);
+
+        // Assertion to ensure that the date is parsed correctly
+        assert this.date != null : "Date should be parsed correctly";
     }
 
     /* 

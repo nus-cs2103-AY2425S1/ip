@@ -25,7 +25,15 @@ public class Friday {
             ui.displayLoadingError();
             tasks = new TaskList();
         }
+
+        // Assertions to ensure that the task list and storage are initialized properly
+        assert tasks != null : "Task list should be initialized";
+        assert storage != null : "Storage should be initialized";
+
         parser = new Parser(tasks, storage, ui);
+
+        // Assertion to ensure that the parser is initialized properly
+        assert parser != null : "Parser should be initialized";
     }
 
     /*
