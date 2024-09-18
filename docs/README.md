@@ -1,7 +1,7 @@
 # Repsmax User Guide
 
 
-![Repsmax UI](https://niclammmm.github.io/ip/Ui.png)
+![Repsmax UI](https://niclammm.github.io/ip/Ui.png)
 
 
 ## Description
