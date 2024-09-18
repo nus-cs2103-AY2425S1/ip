@@ -25,7 +25,7 @@ public class MainWindow extends AnchorPane {
     private ChoaticBot choaticBot;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image choaticBotImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image choaticBotImage = new Image(this.getClass().getResourceAsStream("/images/DaChoaticBot.png"));
 
     @FXML
     public void initialize() {
