@@ -68,6 +68,7 @@ public class TaskList {
                 .filter(task -> task.getDescription().contains(description))
                 .collect(Collectors.toList());
     }
+    
     /**
      * Returns the task at the specified index of the TaskList.
      *
