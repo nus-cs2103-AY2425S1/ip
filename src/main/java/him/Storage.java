@@ -57,10 +57,21 @@ public class Storage {
 
         while (sc.hasNextLine()) {
             String data = sc.nextLine();
+            if (data.equals("ARCHIVE")) {
+                break;
+            }
             if (data.trim().isEmpty()) {
                 break;
             }
             list.add(Task.of(data));
+        }
+
+        while (sc.hasNextLine()) {
+            String data = sc.nextLine();
+            if (data.trim().isEmpty()) {
+                break;
+            }
+            list.addToArchive(Task.of(data));
         }
         return list;
     }

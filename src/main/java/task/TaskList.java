@@ -13,12 +13,14 @@ import java.util.ArrayList;
 public class TaskList {
 
     private ArrayList<Task> tasks;
+    private ArrayList<Task> archivedTasks;
 
     /**
      * Constructor for <code>TaskList</code>.
      */
     public TaskList() {
         this.tasks = new ArrayList<>();
+        this.archivedTasks = new ArrayList<>();
     }
 
     /**
@@ -98,6 +100,10 @@ public class TaskList {
         for (Task task : tasks) {
             data.append(task.toData()).append("\n");
         }
+        data.append("ARCHIVE\n");
+        for (Task task : archivedTasks) {
+            data.append(task.toData()).append("\n");
+        }
         return data.toString();
     }
 
@@ -125,14 +131,36 @@ public class TaskList {
         return list.toString();
     }
 
-    @Override
-    public String toString() {
+    public void addToArchive(Task task) {
+        archivedTasks.add(task);
+    }
+
+    public Task archive(int index) throws TaskDoesNotExistException {
+        try {
+            Task task = tasks.remove(index);
+            archivedTasks.add(task);
+            return task;
+        } catch (IndexOutOfBoundsException e) {
+            throw new TaskDoesNotExistException(index);
+        }
+    }
+
+    public String showArchive() {
+        return listToString(archivedTasks);
+    }
+
+    private String listToString(ArrayList<Task> list) {
         StringBuilder output = new StringBuilder();
-        for (int i = 0; i < tasks.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
             output.append(
-                    String.format("%d.[%s][%s] %s\n", i + 1, tasks.get(i).getTypeIcon(), tasks.get(i).getStatusIcon(),
-                            tasks.get(i)));
+                    String.format("%d.[%s][%s] %s\n", i + 1, list.get(i).getTypeIcon(), list.get(i).getStatusIcon(),
+                            list.get(i)));
         }
         return output.toString();
+    }
+
+    @Override
+    public String toString() {
+        return listToString(tasks);
     }
 }

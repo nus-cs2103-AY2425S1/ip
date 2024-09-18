@@ -81,7 +81,7 @@ public class Deadline extends Task {
     }
 
     private static boolean hasTime(String dateString) {
-        String[] args = dateString.split("\\|");
+        String[] args = dateString.split("/at");
         return args.length > 1;
     }
 
