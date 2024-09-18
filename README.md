@@ -3,6 +3,20 @@
 Your personal assistant to navigating this troubled world
 ## Table of Contents
 - [Quick Start](#quick-start)
+- [Features](#features)
+  - [Adding Todo](#adding-todo)
+  - [Adding Deadline](#adding-deadline)
+  - [Adding Event](#adding-event) 
+  - [Listing Tasks](#listing-tasks)
+  - [Marking Task as Done](#marking-task-as-done)
+  - [Marking Task as Undone](#marking-task-as-undone)
+  - [Deleting Task](#deleting-task)
+  - [Finding Task](#finding-task)
+  - [Tagging Task](#tagging-task)
+  - [Untagging Task](#untagging-task)
+  - [Listing all tags](#listing-all-tags)
+  - [Searching for all tasks tagged with a tag](#searching-for-all-tasks-tagged-with-a-tag)
+  - [Exiting the program](#exiting-the-program)
 
 ### Quick Start
 1. Ensure you have Java 17 installed.
