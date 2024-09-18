@@ -3,7 +3,6 @@ package zero.util;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
 import zero.exception.ZeroException;
 import zero.task.Deadline;
 import zero.task.Event;
@@ -24,7 +23,8 @@ public class Parser {
      * @param fullCommand The complete command entered by the user.
      * @param tasks The task list to operate on.
      * @param ui The UI component used to display messages to the user.
-     * @throws ZeroException if the command is not recognised
+     * @return A string representing the result of the command execution.
+     * @throws ZeroException if the command is not recognized or fails to execute.
      */
     public static String parseCommand(String fullCommand, TaskList tasks, Ui ui) {
         assert fullCommand != null : "Command should not be null";
@@ -67,6 +67,7 @@ public class Parser {
      * @param tasks The task list to operate on.
      * @param input The full command entered by the user.
      * @param ui The UI component used to display messages to the user.
+     * @return A string representing the result of the deletion.
      * @throws ZeroException If the task number is invalid.
      */
     private static String handleDelete(TaskList tasks, String input, Ui ui) throws ZeroException {
@@ -86,6 +87,7 @@ public class Parser {
      * @param tasks The task list to operate on.
      * @param input The full command entered by the user.
      * @param ui The UI component used to display messages to the user.
+     * @return A string representing the result of marking the task as done.
      * @throws ZeroException If the task number is invalid.
      */
     private static String handleMark(TaskList tasks, String input, Ui ui) throws ZeroException {
@@ -105,6 +107,7 @@ public class Parser {
      * @param tasks The task list to operate on.
      * @param input The full command entered by the user.
      * @param ui The UI component used to display messages to the user.
+     * @return A string representing the result of unmarking the task.
      * @throws ZeroException If the task number is invalid.
      */
     private static String handleUnmark(TaskList tasks, String input, Ui ui) throws ZeroException {
@@ -124,6 +127,7 @@ public class Parser {
      * @param tasks The task list to operate on.
      * @param input The full command entered by the user.
      * @param ui The UI component used to display messages to the user.
+     * @return A string representing the result of adding the Todo task.
      * @throws ZeroException If the description of the todo is empty.
      */
     private static String handleTodo(TaskList tasks, String input, Ui ui) throws ZeroException {
@@ -142,6 +146,7 @@ public class Parser {
      * @param tasks The task list to operate on.
      * @param input The full command entered by the user.
      * @param ui The UI component used to display messages to the user.
+     * @return A string representing the result of adding the Deadline task.
      * @throws ZeroException If the description of the deadline or the date/time is empty or invalid.
      */
     private static String handleDeadline(TaskList tasks, String input, Ui ui) throws ZeroException {
@@ -163,6 +168,7 @@ public class Parser {
      * @param tasks The task list to operate on.
      * @param input The full command entered by the user.
      * @param ui The UI component used to display messages to the user.
+     * @return A string representing the result of adding the Event task.
      * @throws ZeroException If the description of the event or the date/time is empty or invalid.
      */
     private static String handleEvent(TaskList tasks, String input, Ui ui) throws ZeroException {
@@ -205,17 +211,34 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles searching for tasks containing a keyword in the description.
+     *
+     * @param tasks The task list to operate on.
+     * @param input The full command entered by the user.
+     * @param ui The UI component used to display messages to the user.
+     * @return A string representing the tasks that match the search criteria.
+     * @throws ZeroException If the search keyword is invalid.
+     */
     private static String handleFind(TaskList tasks, String input, Ui ui) throws ZeroException {
-
         try {
             String keyword = input.substring(5);
             return ui.listMatchingTasks(tasks, keyword);
         } catch (Exception e) {
             throw new ZeroException("Invalid find parameters");
         }
-
     }
 
+    /**
+     * Handles snoozing a Deadline task by extending its due date.
+     * The snooze command works only on tasks of type {@code Deadline}.
+     *
+     * @param tasks The task list to operate on.
+     * @param input The full command entered by the user.
+     * @param ui The UI component used to display messages to the user.
+     * @return A string representing the result of snoozing the task.
+     * @throws ZeroException If the task number is invalid or the selected task is not a {@code Deadline}.
+     */
     private static String handleSnooze(TaskList tasks, String input, Ui ui) throws ZeroException {
         try {
             String[] strArr = input.split(" ", 2);

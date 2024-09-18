@@ -24,7 +24,7 @@ public class TaskTest {
         Todo todo = new Todo("Study");
         assertEquals("[T][ ] Study", todo.toString());
         todo.markAsDone();
-        assertEquals("[T][X] Study", todo.toString());  
+        assertEquals("[T][X] Study", todo.toString());
     }
 
     @Test
