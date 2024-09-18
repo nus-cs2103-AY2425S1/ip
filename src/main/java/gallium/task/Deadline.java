@@ -38,26 +38,28 @@ public class Deadline extends Task {
                 SimpleDateFormat outputTime = new SimpleDateFormat("hh:mm a");
                 Date time24 = inputTime.parse(by.split(" ")[1]);
                 this.time = outputTime.format(time24);
-            } else if (description.startsWith("[D][ ] ")) {
-                String[] parts = description.split("\\[D\\]\\[ \\] ");
-                this.desc = parts[1].split(" \\(by:")[0];
-                String[] byParts = parts[1].split("\\(by: ");
-                this.by = byParts[1].split("\\)")[0];
-                this.isDone = false;
-                this.date = by.split(", ")[0];
-                this.time = by.split(", ")[1];
-            } else if (description.startsWith("[D][X] ")) {
-                String[] parts = description.split("\\[D\\]\\[X\\] ");
-                this.desc = parts[1].split(" \\(by:")[0];
-                String[] byParts = parts[1].split("\\(by: ");
-                this.by = byParts[1].split("\\)")[0];
-                this.isDone = true;
-                this.date = by.split(", ")[0];
-                this.time = by.split(", ")[1];
+            } else {
+                parse(description);
             }
         } catch (ParseException | DateTimeParseException | ArrayIndexOutOfBoundsException e) {
             throw e;
         }
+    }
+
+    private void parse(String description) {
+        String[] parts = {};
+        if (description.startsWith("[D][X] ")) {
+            parts = description.split("\\[D\\]\\[X\\] ");
+            this.isDone = true;
+        } else if (description.startsWith("[D][ ] ")) {
+            parts = description.split("\\[D\\]\\[ \\] ");
+            this.isDone = false;
+        }
+        this.desc = parts[1].split(" \\(by:")[0];
+        String[] byParts = parts[1].split("\\(by: ");
+        this.by = byParts[1].split("\\)")[0];
+        this.date = by.split(", ")[0];
+        this.time = by.split(", ")[1];
     }
 
     /**
