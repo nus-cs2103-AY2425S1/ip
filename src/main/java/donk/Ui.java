@@ -97,8 +97,9 @@ public class Ui {
      * @param tasks TaskList to display
      */
     public String listTasks(TaskList tasks) {
+        assert tasks != null;
         if (tasks.size() == 0) {
-            return "    You've got not tasks yet bro. Add todo, deadline, or event tasks.";
+            return "You've got not tasks yet bro. Add todo, deadline, or event tasks.";
         }
 
         String tasksString = "";
@@ -108,6 +109,18 @@ public class Ui {
         }
 
         return tasksString;
+    }
+
+    /**
+     * Returns message to notify user that task has been added
+     * @param t
+     * @param tasks
+     * @return message to show to user
+     */
+    public String notifyAddedTask(Task t, TaskList tasks) {
+        return "Got it. I've added this task:"
+                + "\n" + t.toString()
+                + "You now have " + tasks.size() + " tasks";
     }
 
 
