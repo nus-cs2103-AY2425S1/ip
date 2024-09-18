@@ -118,7 +118,7 @@ public class TaskList {
         if (isTaskListEmpty) {
             return "You do not have any tasks!";
         }
-        assert listSize > 0: "Number of tasks should be greater than 0";
+        assert this.count() > 0: "Number of tasks should be greater than 0";
 
         String listInString = "";
         for (int i = 0; i < this.count(); i += 1) {

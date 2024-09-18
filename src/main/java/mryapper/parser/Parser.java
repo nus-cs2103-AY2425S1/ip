@@ -1,7 +1,6 @@
 package mryapper.parser;
 
-import mryapper.command.Command;
-import mryapper.command.CommandList;
+import mryapper.command.*;
 import mryapper.exception.IllegalTaskException;
 import mryapper.exception.InvalidSyntaxException;
 
@@ -24,9 +23,9 @@ public class Parser {
 
         switch (command) {
         case "bye":
-            return CommandList.bye();
+            return new SayGoodbye();
         case "list":
-            return CommandList.listTasks();
+            return new ListTasks();
         case "delete":
             return parseDeleteCommand(processedInput);
         case "find":
@@ -54,7 +53,7 @@ public class Parser {
             }
 
             int taskNumber = Integer.parseInt(processedInput[1]);
-            return CommandList.deleteTask(taskNumber);
+            return new DeleteTask(taskNumber);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(
                     "You have to give me a valid task number!\n e.g. delete 2");
@@ -66,7 +65,7 @@ public class Parser {
             throw new InvalidSyntaxException("You need to enter a search input!\n"
                     + "e.g. find do project");
         }
-        return CommandList.findTask(processedInput[1]);
+        return new FindTask(processedInput[1]);
     }
 
     private static Command parseMarkCommand(String[] processedInput) throws InvalidSyntaxException {
@@ -77,7 +76,7 @@ public class Parser {
             }
 
             int taskNumber = Integer.parseInt(processedInput[1]);
-            return CommandList.markTask(taskNumber);
+            return new MarkTask(taskNumber);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(
                     "You have to give me a valid task number!\n e.g. mark 2");
@@ -92,7 +91,7 @@ public class Parser {
             }
 
             int taskNumber = Integer.parseInt(processedInput[1]);
-            return CommandList.unmarkTask(taskNumber);
+            return new UnmarkTask(taskNumber);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(
                     "You have to give me a valid task number!\n e.g. unmark 2");
@@ -104,7 +103,7 @@ public class Parser {
             throw new IllegalTaskException(processedInput[0], "You need to provide the task details!");
         }
 
-        return CommandList.addTodoTask(processedInput[1]);
+        return new AddTodoTask(processedInput[1]);
     }
 
     private static Command parseDeadlineTask(String[] processedInput) throws IllegalTaskException {
@@ -126,7 +125,7 @@ public class Parser {
             throw new IllegalTaskException("deadline", "Your deadline cannot be empty!");
         }
 
-        return CommandList.addDeadlineTask(deadlineDescription, deadlineTime);
+        return new AddDeadline(deadlineDescription, deadlineTime);
     }
 
     private static Command parseEventTask(String[] processedInput) throws IllegalTaskException {
@@ -159,6 +158,6 @@ public class Parser {
                     "Your end time cannot be empty!");
         }
 
-        return CommandList.addEventTask(eventDescription, eventStart, eventEnd);
+        return new AddEvent(eventDescription, eventStart, eventEnd);
     }
 }
