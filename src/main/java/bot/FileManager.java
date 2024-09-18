@@ -62,9 +62,75 @@ public class FileManager {
 
     }
 
+    /**
+     * Deletes a specific line from a text file based on the line number.
+     * The file is overwritten after the deletion.
+     *
+     * @param lineNumber The line number to delete (1-based index).
+     * @throws IOException if an I/O error occurs.
+     */
+    public void deleteLine(int lineNumber) throws IOException {
+        File inputFile = new File(filePath);
+        // Store the file content
+        StringBuilder content = new StringBuilder();
+        int currentLine = 1;
+
+        // Read the file content and skip the line to be deleted
+        try (Scanner scanner = new Scanner(inputFile)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                if (currentLine != lineNumber) {
+                    content.append(line).append("\n");
+                }
+                currentLine++;
+            }
+        }
+
+        // Overwrite the file with the new content
+        try (FileWriter writer = new FileWriter(inputFile)) {
+            writer.write(content.toString());
+        }
+    }
+
+    /**
+     * Marks the task at the given line number as done by adding '[X]' in place of '[ ]'.
+     *
+     * @param lineNumber The 1-based index of the line to mark as done.
+     */
+    public void markTaskAsDone(int lineNumber)  {
+        File inputFile = new File(filePath);
+        StringBuilder content = new StringBuilder();  // Store the file content
+        int currentLine = 1;
+
+        // Read the file content and modify the line at the given lineNumber
+        try (Scanner scanner = new Scanner(inputFile)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+
+                if (currentLine == lineNumber) {
+                    // Modify the line to mark the task as done
+                    line = line.replace("[ ]", "[X]");
+                }
+
+                // Append the (possibly modified) line back to the content
+                content.append(line).append("\n");
+                currentLine++;
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+        // Overwrite the file with the modified content
+        try (FileWriter writer = new FileWriter(inputFile)) {
+            writer.write(content.toString());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
         FileManager fileManager = new FileManager("src/main/java/data");
-            fileManager.readFile();
+        fileManager.readFile();
     }
 
 

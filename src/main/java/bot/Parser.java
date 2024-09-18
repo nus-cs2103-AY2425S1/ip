@@ -79,7 +79,10 @@ public class Parser {
         // parseTaskNumber returns "invalid..." if invalid command given
 
         boolean isMarking = action.equals("mark");
-        chickenManager.setDone(isMarking, taskNumber);
+        boolean success = chickenManager.setDone(isMarking, taskNumber);
+        if (!success) {
+            return "Marking was unsuccessful. Did you mark a correct index task";
+        }
         String statusMessage = isMarking ? "Nice! I've marked this task as done:\n" : "OK, I've marked this task as not done yet:\n";
         return (statusMessage + chickenManager.getItem(taskNumber));
     }
@@ -196,7 +199,11 @@ public class Parser {
         try {
             int indexNumber = Integer.parseInt(index);
             String tempTask = chickenManager.getItem(indexNumber);
-            chickenManager.delete(indexNumber);
+
+            boolean success = chickenManager.delete(indexNumber);
+            if (!success) {
+                return "Delete was unsuccessful. Did you delete a correct index task";
+            }
             return ("Task deleted: " + tempTask + ". You have " + chickenManager.getItemSize() + " items left.");
         } catch (NumberFormatException e) {
             return ("Invalid task number.");
@@ -211,7 +218,7 @@ public class Parser {
      */
     private String handleFind(String command) {
         String itemName = command.replace("find ", "");
-        return (chickenManager.listItems(itemName)) + "found";
+        return "Here's what i found! \n" + (chickenManager.listItems(itemName));
     }
 
 }

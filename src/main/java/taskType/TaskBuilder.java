@@ -46,6 +46,11 @@ public class TaskBuilder {
         return this;
     }
 
+    //Set by but without the need to check for format of date
+    public TaskBuilder specialBy(String by) {
+        this.by = by;
+        return this;
+    }
     /**
      * Sets the 'from' parameter for an EVENT task.
      *
@@ -64,6 +69,16 @@ public class TaskBuilder {
             return this;
         }
         this.from = DateConverter.convertDate(from);
+        return this;
+    }
+
+    public TaskBuilder specialFrom(String from) {
+        this.from = from;
+        return this;
+    }
+
+    public TaskBuilder specialTo(String to) {
+        this.to = to;
         return this;
     }
 

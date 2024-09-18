@@ -24,7 +24,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setTitle("Chicken the bot");
-            fxmlLoader.<MainWindow>getController().setChicken(chicken);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setChicken(chicken);  // inject the Chicken instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
