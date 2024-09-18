@@ -60,31 +60,42 @@ public class History {
         try {
             BufferedReader br = new BufferedReader(new FileReader(filePath));
             String line = br.readLine();
-            String complete = "X";
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-            Task task;
             while (line != null) {
-                if (line.startsWith("T")) {
-                    String[] instr = line.split(" \\| ");
-                    task = new Todos(instr[2], (complete.equals(instr[1]) ? true : false));
-                } else if (line.startsWith("D")) {
-                    String[] instr = line.split(" \\| ");
-                    LocalDateTime deadline = LocalDateTime.parse(instr[3], formatter);
-                    task = new Deadline(instr[2], (complete.equals(instr[1]) ? true : false), deadline);
-                } else {
-                    String[] instr = line.split(" \\| ");
-                    String[] when = instr[3].split(" - ");
-                    LocalDateTime start = LocalDateTime.parse(when[0], formatter);
-                    LocalDateTime end = LocalDateTime.parse(when[1], formatter);
-                    task = new Event(instr[2], (complete.equals(instr[1]) ? true : false), start, end);
-                }
-                taskList.add(task);
+                taskList.add(readLine(line));
                 line = br.readLine();
             }
         } catch (IOException ioe) {
             System.out.println("Error Loading Tasks to File: " + ioe.getMessage());
         }
         return taskList;
+    }
+
+    /**
+     * Reads a line from the file.
+     *
+     * @param line The String of the file's line which the data is stored.
+     * @return A task which the file line was coding for.
+     */
+
+    public static Task readLine(String line) {
+        String complete = "X";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        Task task;
+        if (line.startsWith("T")) {
+            String[] instr = line.split(" \\| ");
+            task = new Todos(instr[2], (complete.equals(instr[1]) ? true : false));
+        } else if (line.startsWith("D")) {
+            String[] instr = line.split(" \\| ");
+            LocalDateTime deadline = LocalDateTime.parse(instr[3], formatter);
+            task = new Deadline(instr[2], (complete.equals(instr[1]) ? true : false), deadline);
+        } else {
+            String[] instr = line.split(" \\| ");
+            String[] when = instr[3].split(" - ");
+            LocalDateTime start = LocalDateTime.parse(when[0], formatter);
+            LocalDateTime end = LocalDateTime.parse(when[1], formatter);
+            task = new Event(instr[2], (complete.equals(instr[1]) ? true : false), start, end);
+        }
+        return task;
     }
 
     /**
