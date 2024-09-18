@@ -21,8 +21,6 @@ public class UnmarkCommand extends Command {
      * @param index The index to mark as incomplete.
      */
     public UnmarkCommand(int index) {
-        assert index >= 0 : "index should be non negative";
-
         this.index = index;
     }
 

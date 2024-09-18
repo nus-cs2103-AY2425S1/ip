@@ -20,8 +20,6 @@ public class MarkCommand extends Command {
      * @param index The index to mark as complete.
      */
     public MarkCommand(int index) {
-        assert index >= 0 : "index should be non negative";
-
         this.index = index;
     }
 

@@ -60,6 +60,15 @@ public abstract class Task {
     private static final String PRINT_FORMAT_LOW_PRIORITY = "[%s] %s";
     private static final String PRINT_FORMAT_HIGH_PRIORITY = "[%s] %s *HIGH PRIORITY*";
     private static final String SAVE_FORMAT = "%d | %s | %s";
+    private static final String ATTEMPT_MARK_COMPLETED_MESSAGE = """
+            PSST! This task is already marked complete!
+            Next time please check before wasting my time!""";
+    private static final String ATTEMPT_UNMARK_INCOMPLETE_MESSAGE = """
+            Don't you feel embarrassed that you tried to un-mark an incomplete task!
+            Does un-marking completed tasks not feel embarrassing enough for you?""";
+    private static final String SET_SAME_PRIORITY_MESSAGE = """
+            PS: This task already had the priority of '%s', I don't think it needs changing.""";
+
 
     /** The description of the task */
     protected String description;
@@ -125,8 +134,8 @@ public abstract class Task {
 
         } catch (IndexOutOfBoundsException | EkudException e) {
             String message = String.format(
-                        "Warning: ekud.task.Task entry { %s } is missing required arguments or is"
-                                + "incorrectly formatted\nRemoving ekud.task entry...",
+                        "Warning: Task entry { %s } is missing required arguments or is"
+                                + "incorrectly formatted\nRemoving task entry...",
                         taskSaveString);
             ui.addToBuffer(message);
             return null;
@@ -201,10 +210,14 @@ public abstract class Task {
     /**
      * Sets {@link #priority} based on a given {@link Priority}.
      * @param priority the {@link Priority} to set.
+     * @throws EkudException If attempting to set the same priority.
      */
-    public void setPriority(Priority priority) {
+    public void setPriority(Priority priority) throws EkudException {
         assert priority != null : "priority should not be null";
-
+        if (priority.equals(this.priority)) {
+            String priorityName = priority.toString().toLowerCase(Locale.ENGLISH);
+            throw new EkudException(String.format(SET_SAME_PRIORITY_MESSAGE, priorityName));
+        }
         this.priority = priority;
     }
 
@@ -237,37 +250,28 @@ public abstract class Task {
     }
 
     /**
-     * Returns a label corresponding to the {@link #priority} of the task. If {@link Priority#LOW} return the
-     * empty String.
-     *
-     * @return a {@link String} label corresponding to the priority of the task.
-     */
-    private String getPriorityLabel() {
-        assert priority != null : "priority should not be null";
-
-        return switch (priority) {
-            // CHECKSTYLE.OFF: Indentation
-            case HIGH -> "(HIGH PRIORITY)";
-            case LOW -> "";
-            // CHECKSTYLE.ON: Indentation
-        };
-    }
-
-    /**
      * Sets the task as being completed.
      *
+     * @throws EkudException If attempting to mark an already complete task.
      * @see Task#markAsUndone()
      */
-    public void markAsDone() {
+    public void markAsDone() throws EkudException {
+        if (isDone) {
+            throw new EkudException(ATTEMPT_MARK_COMPLETED_MESSAGE);
+        }
         isDone = true;
     }
 
     /**
      * Sets the task as being incomplete.
      *
+     * @throws EkudException If attempting to un-mark an incomplete task.
      * @see Task#markAsDone()
      */
-    public void markAsUndone() {
+    public void markAsUndone() throws EkudException {
+        if (!isDone) {
+            throw new EkudException(ATTEMPT_UNMARK_INCOMPLETE_MESSAGE);
+        }
         isDone = false;
     }
 

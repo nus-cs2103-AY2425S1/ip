@@ -1,51 +1,65 @@
+bleh
 list
+todo
 todo read book
+deadline
+deadline return book /by not a date
+deadline return book /by 1/13/2024 0000
+deadline return book /by 32/12/2024 0000
+deadline return book /by 6/6/2024 2400
 deadline return book /by 6/6/2024 1200
+event
+event project meeting /from not a date
+event project meeting /from not a date /to 10/10/2024 1200
+event project meeting /from 8/8/2024 1200
+event project meeting /from 8/8/2024 1200 /to not a date
+event project meeting /from 8/8/2024 1200 /from 10/10/2024 1200
+event project meeting /to 10/10/2024 1200
 event project meeting /from 8/8/2024 1200 /to 10/10/2024 1200
+event project meeting /to 8/8/2024 1200 /from 10/10/2024 1200
 list
-find book
-sing
-mark bleh
+mark one
+mark -1
+mark 4
+mark 1
 mark 1
 list
-unmark 400
+unmark 2
 unmark 1
 list
+todo delete
+list
+delete four
+delete 5
+delete 0
+delete 4
+list
+find
+find re
+find bleh
 set
+set 1
+set 1 /priority low
+set 1 /priority high
 set 1 /priority high
 list
-set 1 /priority bye
-set 100 /priority low
-set 1 /priority low
-list
+mark 3
+sort
+sort /by funny
 sort /by description
-sort /by description /order descending
-mark 1
-mark 2
-set 3 /priority high
-sort /by completion
-sort /by completion /order descending
-sort /by priority
-sort /by priority /order descending
-sort /by deadline
-sort /by deadline /order descending
-todo
-deadline homework
-deadline homework /by 8 Aug
-event interview
-event interview /from 8/8/2024 1200
-event interview /to 10/10/2024 1200 /from 10/10/2024 1400
-mark 1
-delete 1
-delete 1
 list
-mark 2
-delete 1
-delete 1
-event test app /from 1/1/2024 0000 /to 12/12/2024 2359
-todo check save
-deadline things to do /by 1/1/2025 0000
-set 2 /priority high
-mark 1
-sort /by description /descending
+sort /by description /order descending
+list
+sort /by deadline
+list
+sort /by deadline /order descending
+list
+sort /by completion
+list
+sort /by completion /order descending
+list
+sort /by priority
+list
+sort /by priority /order descending
+list
 bye

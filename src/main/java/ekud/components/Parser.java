@@ -22,6 +22,10 @@ public class Parser {
     public static final String COMMAND_TOKEN = "command";
     public static final String ARGUMENT_TOKEN = "argument";
     private static final String TOKEN_PREFIX = "/";
+    private static final String DUPLICATE_TOKEN_MESSAGE = """
+            Argggh!! Why do you have to make my life difficult!
+            You put the parameter '%s' more than once!
+            How do you expect me to know what's your intent!!!""";
 
     /**
      * Parses an input {@link String} into an integer.
@@ -46,7 +50,7 @@ public class Parser {
      * @param command The input command by the user.
      * @return A {@link HashMap} representing the set of tokens.
      */
-    private static HashMap<String, String> tokenize(String command) {
+    private static HashMap<String, String> tokenize(String command) throws EkudException {
         // splits command into a list of words separated by space
         String[] words = command.split("\\s");
 
@@ -61,7 +65,10 @@ public class Parser {
             boolean isNotEmpty = !words[i].isEmpty();
             boolean hasTokenPrefix = words[i].startsWith(TOKEN_PREFIX);
             boolean isToken = isNotEmpty && hasTokenPrefix;
-            if (isToken) {
+            boolean isUsedToken = currToken.equals(words[i]) || tokenMap.containsKey(words[i]);
+            if (isUsedToken) {
+                throw new EkudException(String.format(DUPLICATE_TOKEN_MESSAGE, words[i]));
+            } else if (isToken) {
                 tokenMap.put(currToken, tokenBuilder.toString());
                 currToken = words[i];
                 tokenBuilder.setLength(0); // reset builder
