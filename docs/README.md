@@ -32,25 +32,24 @@ Example: `list`
 
 ### Add deadline task
 Add a type of deadline task (a task with 1 deadline) to the task list.
-  
 Format of input: `deadline [task description] /by [end time with format YYYY-MM-DD (HH:mm)]`  
-Example: `deadline meet with Gagarin /by 1970-01-01 12:00`  
+* the keyword `deadline` is case-sensitive
+* there is a space between `deadline` and task description
+* It must contain a date to following `/by`
+* The time is optional. The default time is `00:00`
 
-```
-expected output
-```
+Example: `deadline meet with Gagarin /by 1970-01-01 12:00`  
+    
 
 ### Add todo task
 Add a type of todo task (a task without any time) to the task list.   
 Format of input: `todo [task description]`  
 * the keyword `todo` is case-sensitive
-* there is a space between todo is task description
-* anything appears after todo will be used as task description  
+* there is a space between `todo` and task description
+* anything appears after `todo` will be used as task description  
 
 Example: `todo read aerodynamics documents`  
-```
-expected output
-```
+   
    
 ### Add event task
 Add a type of event task (a task with start and end time) to the task list.  
@@ -63,9 +62,7 @@ keyword
 * It is optional to key in the specific time, the default time will be `00:00`
 
 Example: `event launch Sputnik satellite /from 1960-01-01 /to 1961-02-03`  
-```
-expected output
-```
+  
 
 ### Mark a task as done
 Mark an incomplete task in the task list as done.
@@ -79,6 +76,10 @@ Example: `mark 4`
 ### Unmark a completed task
 Unmark a finished task as undone.  
 Format of input: `unmark [task ID]`  
+* `unmark` is case-sensitive
+* an out-of-bound error message will be prompted if the task ID is out of range
+* an error will be prompted from the chatbot if the task ID is not a number
+
 
 ### Add tag to a task 
 Add a tag to any task.   
@@ -93,7 +94,12 @@ Example:  `tag 2 important event`
 
 ### Untag a task
 Remove a tag from the task
-Format of input: `untag [task ID]`
+Format of input: `untag [task ID]`  
+* `untag` is case-sensitive
+* an out-of-bound error message will be prompted if the task ID is out of range
+* an error will be prompted from the chatbot if the task ID is not a number
+
+Example: `untag 2`   
 
 ### Find a list of tasks by name
 Search for a list of tasks which contains the keyword.  
