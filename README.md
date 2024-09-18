@@ -1,24 +1,97 @@
-# Duke project template
+# Alex User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Alex is a chatbot that allows you to store and manage your tasks all in one place!
+Tasks are separated into 3 categories: Todos, deadlines, and events.
 
-## Setting up in Intellij
+Features:
+- Viewing your list of tasks: `list`
+- Adding a task : `todo` / `deadline` / `event`
+- Marking a task: `mark`
+- Unmarking a task: `unmark`
+- Deleting a task: `delete`
+- Finding tasks by keyword: `find`
+- Viewing tasks that end on a certain date: `tasks on`
+- Tagging a task: `tag`
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+## Installation
+1. Ensure you have Java 17 or above installed in your computer.
+2. Download the latest .jar file from [here](https://github.com/leroychiu20/ip/releases/).
+3. Copy the file to the folder you want to use as the home folder for your AddressBook.
+4. Open a command terminal, cd into the folder you put the jar file in.
+5. Use this command to run the application. A GUI should appear in a few seconds.
+```
+java -jar alex.jar
+```
+Some example commands you can try:
+- `todo assignment` adds a todo task called assignment to the list
+- `list` shows all tasks in the list
+- `mark 1` marks the first task as done
+- `delete 1` deletes the first task in the list
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Features
+
+### Viewing your list of tasks: `list`
+
+Shows a list of all tasks saved in storage.
+Format: `list`
+
+### Adding a todo task : `todo` / `deadline` / `event`
+
+Adds a task to the list.
+
+Todo tasks only consist of the description of the task.
+
+Format: `todo DESCRIPTION`
+
+Examples:
+- `todo read a book`
+- `todo submit assignment`
+
+Deadline tasks consist of descriptin of task and the due date.
+
+Format: `deadline DESCRIPTION /by DUEDATE`
+
+Examples:
+- `todo read a book /by 2024-09-01`
+- `todo submit assignment /by 2024-09-09`
+
+### Marking a task: `mark` /  Unmarking a task: `unmark`
+Marks a task as completed / Unmarks a task as uncompleted based on its `INDEX` in the list.
+
+Format: `mark INDEX` / `unmark INDEX`
+
+Examples:
+- `mark 1` marks the first task in the list as completed.
+- `unmark 3` marks the third task in the list as uncompleted.
+
+### Deleting a task: `delete`
+Deletes a task from the list based on its `INDEX` in the list.
+
+Format: `delete INDEX`
+
+Examples:
+- `delete 1` deletes the first task in the list.
+
+### Finding tasks by keyword: `find`
+Goes through the list and finds tasks that match the specified `KEYWORD`.
+
+Format: `find KEYWORD`
+
+Examples:
+- `find submit` finds all tasks in the list that have the keyword 'submit'.
+- `find book` finds all tasks in the list that have the keyword 'book'.
+
+### Viewing tasks that end on a certain date: `tasks on`
+Goes through the list and finds tasks that end on the specified `DUEDATE`.
+
+Format: `tasks on DUEDATE` , where `DUEDATE` is in the form YYYY-MM-DD.
+
+Examples:
+- `tasks on 2024-09-09` returns all deadline or event tasks that end on the specified `DUEDATE`.
+
+### Tagging a task: `tag`
+Tags a certain task with the specified `LABEL` based on its `INDEX` in the list.
+
+Format: `tag INDEX LABEL`
+
+Examples: `tag 1 fun` tags the first task in the list with the label 'fun'.
