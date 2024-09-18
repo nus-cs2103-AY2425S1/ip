@@ -1,4 +1,6 @@
-//package evelyn.command.ui.textbased;
+// This UI is no longer used. Hence, it is commented out.
+//
+// package evelyn.command.ui.textbased;
 //
 //import java.time.DateTimeException;
 //import java.util.Objects;
