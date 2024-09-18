@@ -115,7 +115,7 @@ public class StoreList {
         assert num > 0 : "Task number does not exist";
 
         if (num > items.size()) {
-            throw new InvalidIndexException("Task number does not exist");
+            throw new InvalidIndexException("Task number does not exist leh");
         }
         items.get(num - 1).unMark();
         return "    " + "Aww:( I've marked this task as not done yet:\n" +
@@ -132,7 +132,7 @@ public class StoreList {
         assert num > 0 : "Task number does not exist";
 
         if (num > items.size()) {
-            throw new InvalidIndexException("Task number does not exist");
+            throw new InvalidIndexException("Task number does not exist leh");
         }
         Task temp = items.get(num - 1);
         items.remove(num - 1);
@@ -195,7 +195,7 @@ public class StoreList {
         tasksDueOnDate.append("    Here are the tasks due on ").append(date).append(":\n");
 
         if (tasksDue.isEmpty()) {
-            return "No tasks due on " + date;
+            return "Yay! No tasks due on " + date;
         } else {
             return "    Here are the tasks due on " + date + ":\n" + tasksDue;
         }
