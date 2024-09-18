@@ -43,11 +43,11 @@ test {
 }
 
 application {
-    mainClass.set("mediell.Mediell")
+    mainClass.set("mediell.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "Mediell.jar"
+    archiveBaseName = "Mediell"
     archiveClassifier = null
 }
 
