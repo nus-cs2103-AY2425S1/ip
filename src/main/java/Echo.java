@@ -84,8 +84,8 @@ public class Echo {
                     //break;
                 case "find":
                     String toFind = parts[1];
-                    tasks.find(toFind);
-                    break;
+                    return tasks.find(toFind);
+                    //break;
                 default:
                     return ui.showErrorMessage("I'm sorry, but I don't know what that means :-(");
                 }
@@ -95,7 +95,7 @@ public class Echo {
 
         //}
 
-        return command; //should not reach this
+        //return command; //should not reach this
     }
 
 

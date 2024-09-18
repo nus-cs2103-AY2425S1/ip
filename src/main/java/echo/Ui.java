@@ -17,11 +17,14 @@ public class Ui {
     }
 
 
-    public static void showClassFound(List<Task> tasks) {
+    public static String showClassFound(List<Task> tasks) {
+        StringBuilder ans = new StringBuilder();
         for(int i = 0; i < tasks.size(); i++) {
             int no = i + 1;
-            System.out.println(no + " . " + tasks.get(i).toString());
+            //System.out.println(no + " . " + tasks.get(i).toString());
+            ans.append(no).append(" . ").append(tasks.get(i).toString()).append("\n");
         }
+        return ans.toString();
     }
 
 
