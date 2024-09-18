@@ -163,7 +163,7 @@ Here are the tasks in your list:
 1.[E][]meeting (from: December 02 2019, 10:00PM to: December 2019, 11:00PM)
 ```
 ### Sort tasks
-sort task you have added by time. Todo task always appear last and event task are sorted by start time
+sort task you have added by time. Todo task always appear last by index order and event task are sorted by start time.
 **Format**
 ```
 sort

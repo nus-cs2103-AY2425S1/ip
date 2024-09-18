@@ -13,6 +13,8 @@ public class TaskList {
     private List<Task> array;
     private static final String keywordError = "Wrong keyword";
     private static final String wrongIndexError = "Please enter a valid index. Index cannot be longer than size of list or negative";
+    private static final String dateTimeError = "Please enter in format DD/MM/YYYY HHMM";
+    private static final String noTaskMatched = "No matching tasks found";
     public TaskList(List<Task> array) {
         this.array = array;
     }
@@ -40,23 +42,27 @@ public class TaskList {
      */
     public String handleTask(String input, Storage storage) throws WrongKeyword {
         assert array != null : "empty list";
-        if (input.startsWith("todo")) {
+        if (input.startsWith("todo ")) {
             try {
                 return handleTodoTask(input, storage,this.array);
             } catch(MissingArg e) {
                 return e.getMessage();
             }
-        } else if (input.startsWith("deadline")) {
+        } else if (input.startsWith("deadline ")) {
             try {
                 return handleDeadlineTask(input, storage, this.array);
-            } catch (MissingArg | DateTimeParseException e) {
+            } catch (MissingArg e) {
                 return e.getMessage();
+            } catch (DateTimeParseException e) {
+                return dateTimeError;
             }
-        } else if (input.startsWith("event")) {
+        } else if (input.startsWith("event ")) {
             try {
                 return handleEventTask(input, storage, this.array);
-            } catch (MissingArg | DateTimeParseException e) {
+            } catch (MissingArg e) {
                 return e.getMessage();
+            } catch (DateTimeParseException e) {
+                return dateTimeError;
             }
         } else {
             throw new WrongKeyword(keywordError);
@@ -181,7 +187,7 @@ public class TaskList {
      */
     public static int getIndex(String input, int arrayLength) throws WrongIndex {
         int index = input.charAt(input.length() - 1) - '0';
-        if (index <= 0 || index > arrayLength) {
+        if (index <= 0 || index > arrayLength || input.charAt(input.length() - 2) == '-') {
             throw new WrongIndex(wrongIndexError);
         }
         return index;
@@ -193,14 +199,21 @@ public class TaskList {
      * @return A formatted string listing all tasks that contain the matching word in their description.
      */
     public String search(String input) {
-        String matchingWord = Parse.parseFind(input);
-        List<Task> match = new ArrayList<>();
-        for (Task t : this.array) {
-            if (t.description.contains(matchingWord)) {
-                match.add(t);
+        try {
+            String matchingWord = Parse.parseFind(input);
+            List<Task> match = new ArrayList<>();
+            for (Task t : this.array) {
+                if (t.description.contains(matchingWord)) {
+                    match.add(t);
+                }
             }
+            if (match.isEmpty()) {
+                return noTaskMatched;
+            }
+            return Ui.uiList(match);
+        } catch (MissingArg e) {
+            return e.getMessage();
         }
-        return Ui.uiList(match);
     }
     /**
      * Sorts the tasks in the list based on their associated date and time.

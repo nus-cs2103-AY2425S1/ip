@@ -15,6 +15,7 @@ public class Parse {
     private static final String parseTodoErrorMessage = "Please enter a task for Todo";
     private static final String parseDeadlineErrorMessage = "Wrong number/format of arguments for deadline task!";
     private static final String parseEventErrorMessage = "Wrong number/format of arguments for event task!";
+    private static final String parseFindErrorMessage = "Please enter a valid input after the find keyword!";
     /**
      * Parses a Todo input string to get the task description.
      *
@@ -65,7 +66,10 @@ public class Parse {
      * @param input the input string containing the find command and search keyword.
      * @return the search keyword as a string.
      */
-    public static String parseFind(String input) {
+    public static String parseFind(String input) throws MissingArg {
+        if (input.replaceAll("\\s", "").length() <= 4) {
+            throw new MissingArg(parseFindErrorMessage);
+        }
         return input.substring(findParseSplitIndex);
     }
     /**
@@ -88,7 +92,7 @@ public class Parse {
             return tasks.markUnDone(input, storage);
         } else if (input.startsWith("delete")) {
             return tasks.delete(input, storage);
-        } else if (input.startsWith("find")) {
+        } else if (input.startsWith("find ")) {
             return tasks.search(input);
         } else if (input.equals("sort")) {
             return tasks.sort(storage);
