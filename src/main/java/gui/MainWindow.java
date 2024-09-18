@@ -10,6 +10,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import kira.Ui;
+
 /**
  * Controller for the main GUI.
  */
@@ -32,6 +34,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        Ui ui = new Ui();
+        dialogContainer.getChildren().add(DialogBox.getKiraDialog("Annyeong I'm kira~", kiraImage));
     }
 
     /** Injects the Duke instance */
