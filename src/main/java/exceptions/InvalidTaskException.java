@@ -1,4 +1,4 @@
-package Exceptions;
+package exceptions;
 
 public class InvalidTaskException extends Throwable {
     public InvalidTaskException(int index) {

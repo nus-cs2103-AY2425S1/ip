@@ -1,16 +1,16 @@
-package Tasks;
+package tasks;
 
 import java.util.Objects;
 
 public abstract class Task {
 
-    private String input;
-    private boolean done;
+    private String taskName;
+    private boolean isDone;
     String line = "____________________________________________________________\n";
 
-    public Task(String input) {
-        this.input = input;
-        this.done = false;
+    public Task(String taskName) {
+        this.taskName = taskName;
+        this.isDone = false;
     }
 
     /**
@@ -29,26 +29,26 @@ public abstract class Task {
      * @return A string of display of a task
      */
     public String displayTask() {
-        if (done) {
-            return "[X] " + this.input + "\n";
+        if (isDone) {
+            return "[X] " + this.taskName + "\n";
         } else {
-            return "[ ] " + this.input + "\n";
+            return "[ ] " + this.taskName + "\n";
         }
     }
 
     public String getInput() {
-        return this.input;
+        return this.taskName;
     }
 
     public boolean getDone() {
-        return this.done;
+        return this.isDone;
     }
 
     /**
      * Marks the task as done
      */
     public void markAsDone() {
-        this.done = true;
+        this.isDone = true;
     }
 
     /**
@@ -65,7 +65,7 @@ public abstract class Task {
      * Marks the task as undone
      */
     public void markAsUndone() {
-        this.done = false;
+        this.isDone = false;
         System.out.println("OK, I've marked this task as not done yet:\n"
                 + this.displayTask());
     }
@@ -137,6 +137,6 @@ public abstract class Task {
      * @return boolean of whether the task name contains the keyword or not
      */
     public boolean containsKeyword(String keyword) {
-        return this.input.contains(keyword);
+        return this.taskName.contains(keyword);
     }
 }

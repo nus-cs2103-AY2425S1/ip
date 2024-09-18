@@ -1,10 +1,10 @@
-package Kira;
+package kira;
 
-import Exceptions.EmptyException;
-import Exceptions.UnreadableException;
-import Exceptions.InvalidTaskException;
-import Tasks.List;
-import Tasks.Task;
+import exceptions.EmptyException;
+import exceptions.UnreadableException;
+import exceptions.InvalidTaskException;
+import tasks.List;
+import tasks.Task;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -20,10 +20,6 @@ public class Kira {
         this.ui = new Ui();
     }
 
-    public List getList() {
-        return this.list;
-    }
-
     public String getResponse(String input) {
 
         Parser parser = new Parser(this.list);
@@ -34,7 +30,6 @@ public class Kira {
             Task task = parser.execute(command, input);
             this.storage.save(this.list);
             return parser.getResponse(command, input, task);
-
         } catch (UnreadableException | EmptyException | InvalidTaskException e) {
             this.ui.showLoadingError();
             return e.getMessage();

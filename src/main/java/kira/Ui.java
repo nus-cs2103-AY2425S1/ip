@@ -1,4 +1,4 @@
-package Kira;
+package kira;
 
 public class Ui {
     private final String line = "____________________________________________________________\n";

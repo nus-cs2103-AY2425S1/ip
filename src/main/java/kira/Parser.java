@@ -1,9 +1,9 @@
-package Kira;
+package kira;
 
-import Exceptions.EmptyException;
-import Exceptions.InvalidTaskException;
-import Exceptions.UnreadableException;
-import Tasks.*;
+import exceptions.EmptyException;
+import exceptions.InvalidTaskException;
+import exceptions.UnreadableException;
+import tasks.*;
 
 import java.util.Objects;
 
@@ -183,22 +183,22 @@ public class Parser {
                 return task;
             }
             case TODO -> {
-                Task task = new ToDo(detail);
+                String name = ToDo.extractName(detail);
+                Task task = new ToDo(name);
                 list.addTaskToList(task);
                 return task;
             }
             case DEADLINE -> {
-                String deadline = detail.split(" /by ")[1];
-                String name = detail.split(" /by ")[0];
+                String name = Deadline.extractName(detail);
+                String deadline = Deadline.extractDate(detail);
                 Task task = new Deadline(name, deadline);
                 list.addTaskToList(task);
                 return task;
             }
             case EVENT -> {
-                String name = detail.split(" /from ")[0];
-                String period = detail.split(" /from ")[1];
-                String start = period.split(" /to ")[0];
-                String end = period.split(" /to ")[1];
+                String name = Event.extractName(detail);
+                String start = Event.extractDate(detail, true);
+                String end = Event.extractDate(detail, false);
                 Task task = new Event(name, start, end);
                 list.addTaskToList(task);
                 return task;
@@ -241,9 +241,9 @@ public class Parser {
                 String prefix = "Got it. I've added this task:\n";
                 String displayNumOfTasks;
                 if (list.numOfTasks() < 2) {
-                    displayNumOfTasks = "Now you have " + list.numOfTasks() + "task in the list.\n";
+                    displayNumOfTasks = "Now you have " + list.numOfTasks() + " task in the list.\n";
                 } else {
-                    displayNumOfTasks = "Now you have " + list.numOfTasks() + "tasks in the list.\n";
+                    displayNumOfTasks = "Now you have " + list.numOfTasks() + " tasks in the list.\n";
                 }
                 return prefix + task.displayTask() + displayNumOfTasks;
             }

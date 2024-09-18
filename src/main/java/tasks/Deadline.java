@@ -1,4 +1,4 @@
-package Tasks;
+package tasks;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -10,8 +10,8 @@ public class Deadline extends Task {
 
     private LocalDateTime localDateTime;
 
-    public Deadline(String input, String deadline) {
-        super(input);
+    public Deadline(String taskName, String deadline) {
+        super(taskName);
         this.localDateTime = convertStringToLdt(deadline);
     }
 
@@ -39,6 +39,18 @@ public class Deadline extends Task {
                 ldt.getYear());
         String time = ldt.toLocalTime().toString();
         return month + " " + dayOfMonth + " " + year + " " + time;
+    }
+
+    public static String extractName(String input) {
+        String[] strings = input.split("\\s+", 2);
+        String detail = strings[1];
+        return detail.split(" /by ")[0];
+    }
+
+    public static String extractDate(String input) {
+        String[] strings = input.split("\\s+", 2);
+        String detail = strings[1];
+        return detail.split(" /by ")[1];
     }
 
     @Override

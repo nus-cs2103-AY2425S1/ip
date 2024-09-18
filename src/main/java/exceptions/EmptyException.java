@@ -1,4 +1,4 @@
-package Exceptions;
+package exceptions;
 
 public class EmptyException extends Throwable {
     public EmptyException(String command) {
