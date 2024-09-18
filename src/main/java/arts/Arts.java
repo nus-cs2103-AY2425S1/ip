@@ -74,7 +74,7 @@ public class Arts {
         assert input != null : "Input cannot be null";
         try {
             CommandType command = parser.parseCommand(input);
-            commandType = command.name(); // Store the command type
+            commandType = command.name();
             String[] parts = parser.parseArguments(input);
 
             switch (command) {
