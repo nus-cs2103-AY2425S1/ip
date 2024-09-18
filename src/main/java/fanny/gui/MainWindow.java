@@ -28,7 +28,7 @@ public class MainWindow extends AnchorPane {
     private Fanny fanny;
 
     /** Avatar designed by Freepik */
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/profile-avatar.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Profile-Avatar.png"));
     /** Avatar designed by Freepik */
     private Image fannyImage = new Image(this.getClass().getResourceAsStream("/images/fanny-avatar.png"));
 

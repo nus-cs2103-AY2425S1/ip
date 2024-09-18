@@ -55,7 +55,7 @@ shadowJar {
     archiveBaseName = "fanny"
     archiveClassifier = null
     archiveFileName = 'fanny.jar'
-    archiveVersion = "2.0"
+    archiveVersion = "0.2"
 }
 
 run{

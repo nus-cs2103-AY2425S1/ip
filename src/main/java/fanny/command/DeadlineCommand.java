@@ -49,6 +49,8 @@ public class DeadlineCommand extends Command {
             message = ui.showMessage("Task description and deadline cannot be empty");
         } catch (DateTimeParseException e) {
             message = ui.showMessage("Please enter a valid date and time: YYYY-MM-DD HH:MM");
+        } catch (IllegalArgumentException e) {
+            message = ui.showMessage(e.getMessage());
         } finally {
             ui.showHorizontalLine();
         }
@@ -63,7 +65,10 @@ public class DeadlineCommand extends Command {
     public void generateDeadline() {
         String[] cmdDeadline = this.description.split("/by ", 2);
         LocalDateTime time = LocalDateTime.parse(cmdDeadline[1], super.getFormatter());
-        String description = cmdDeadline[0];
+        String info = cmdDeadline[0];
+        if (info.isBlank()) {
+            throw new IllegalArgumentException("Task description cannot be empty");
+        }
         this.deadline = new Deadline(description, time);
     }
 

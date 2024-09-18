@@ -56,7 +56,7 @@ public class ToDoCommand extends Command {
      * @throws IllegalArgumentException if description is empty.
      */
     public void generateToDo() throws IllegalArgumentException {
-        if (description.isEmpty()) {
+        if (description.isBlank()) {
             throw new IllegalArgumentException("Task description cannot be empty");
         }
         this.todo = new ToDo(this.description);

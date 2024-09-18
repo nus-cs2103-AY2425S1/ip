@@ -72,6 +72,8 @@ public class EventCommand extends Command {
         LocalDateTime endTime = LocalDateTime.parse(duration[1], super.getFormatter());
         if (startTime.isAfter(endTime)) {
             throw new IllegalArgumentException("Start time must be before end time.");
+        } else if (info.isBlank()) {
+            throw new IllegalArgumentException("Task description cannot be empty");
         }
         this.event = new Event(info, startTime, endTime);
     }
