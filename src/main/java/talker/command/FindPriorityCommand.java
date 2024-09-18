@@ -29,7 +29,6 @@ public class FindPriorityCommand extends Command {
         if (parsed.length != 2) {
             throw new TalkerException("FindPriority format wrong. Try again with: findPriority <h/m/l>");
         }
-        
         return list.findPriorityTask(parsed[1], ui);
     }
 }
