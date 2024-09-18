@@ -33,9 +33,9 @@ public class DeleteCommand extends Command {
         if (!ui.findTaskInList(this.index, tasks)) {
             return ui.showTaskNotFoundError();
         }
-        Task taskRemoved = tasks.removeTask(index);
         assert tasks != null : "Task list must not be null";
         assert index >= 0 && index < tasks.getLength() : "Index must not be out of bounds";
+        Task taskRemoved = tasks.removeTask(index);
         assert taskRemoved != null : "Task must not be null";
         storage.overwriteFile(tasks);
         int length = tasks.getLength();

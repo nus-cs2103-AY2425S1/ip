@@ -56,7 +56,7 @@ public class Parser {
         case DELETE:
             return new DeleteCommand(parseIndex(input));
         case FIND:
-            return new FindCommand(input);
+            return new FindCommand(input.split(" "));
         case SET:
             return new SetCommand(parsePriority(input), parseIndex(input));
         case BYE:
