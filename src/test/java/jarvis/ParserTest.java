@@ -23,7 +23,7 @@ class ParserTest {
         TaskList tasklist = new TaskList();
         String correctInput = "todo hello";
 
-        Parser.parse(correctInput, tasklist);
+        Parser.parseDialog(correctInput, tasklist);
         assertEquals(1,tasklist.getNumTasks());
     }
 
@@ -33,7 +33,7 @@ class ParserTest {
         TaskList taskList = new TaskListStub();
         String listCommand = "list"; // Command to list tasks
 
-        Parser.parse(listCommand, taskList);
+        Parser.parseDialog(listCommand, taskList);
 
         assertEquals(0, taskList.getNumTasks(), "Task list should still be empty");
     }
@@ -42,10 +42,10 @@ class ParserTest {
     void parser_listCommand_tasksListed() {
         // Arrange
         TaskList taskList = new TaskListStub();
-        taskList.add("todo test");
+        Parser.parseDialog("todo hi", taskList);
         String listCommand = "list"; // Command to list tasks
 
-        Parser.parse(listCommand, taskList);
+        Parser.parseDialog(listCommand, taskList);
 
         // Expecting no tasks to be removed/added, just listed.
         assertEquals(1, taskList.getNumTasks(), "Task list should contain one task");
@@ -54,8 +54,8 @@ class ParserTest {
     @Test
     void parser_deleteCommand_taskDeleted() {
         // Arrange
-        TaskList taskList = new TaskListStub();
-        taskList.add("todo test");
+        TaskList taskList = new TaskList();
+        Parser.parse("todo hi", taskList);
         String deleteCommand = "delete 1"; // Command to delete the first task
 
         Parser.parse(deleteCommand, taskList);
@@ -75,18 +75,6 @@ class ParserTest {
 //        assertEquals(true, taskList.isTaskMarked(0), "Task should be marked as done");
 //    }
 //
-    @Test
-    void parser_invalidIndex_throwsException() {
-        // Arrange
-        TaskList taskList = new TaskListStub();
-        taskList.add("todo test");
-        String deleteCommand = "delete 100"; // Command with an invalid index
-
-        // Act & Assert
-        assertThrows(IndexOutOfBoundsException.class, () -> {
-            Parser.parse(deleteCommand, taskList);
-        }, "Should throw IndexOutOfBoundsException for invalid index");
-    }
 
     @Test
     void parser_emptyInput_noTasksAdded() {

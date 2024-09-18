@@ -1,12 +1,14 @@
 package jarvis;
 
 import jarvis.logic.TaskList;
+import jarvis.logic.Todo;
 
 public class TaskListStub extends TaskList {
     public String list() {
         return "hello";
     }
     public String add(String input){
+        this.getList().add(new Todo("hi"));
         return "add";
     }
 

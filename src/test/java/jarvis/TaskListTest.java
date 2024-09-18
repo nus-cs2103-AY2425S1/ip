@@ -24,6 +24,5 @@ class TaskListTest {
         tasklist.handleDelete(1);
 
         assertEquals(tasklist.getNumTasks(), 0);
-
     }
 }
