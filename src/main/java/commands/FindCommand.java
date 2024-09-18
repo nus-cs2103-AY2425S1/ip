@@ -33,14 +33,14 @@ public class FindCommand extends Command {
         if (command.length == 2) {
             ui.print("Here are the matching tasks in your list:");
             String keyWord = command[1];
-            boolean taskNotFound = true;
+            boolean isTaskFound = true;
             for (Task task : reminder.getSchedule()) {
                 if (task.getAction().contains(keyWord)) {
                     ui.print(task.toString());
-                    taskNotFound = false;
+                    isTaskFound = false;
                 }
             }
-            if (taskNotFound) {
+            if (isTaskFound) {
                 ui.print("No words matches your query stoopid");
             }
         } else if (command.length < 2) {
