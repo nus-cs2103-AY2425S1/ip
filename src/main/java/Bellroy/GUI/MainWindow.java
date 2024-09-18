@@ -33,8 +33,8 @@ public class MainWindow extends AnchorPane {
     }
 
     /** Injects the Duke instance */
-    public void setBellroy(Bellroy b) {
-        bellroy = b;
+    public void setBellroy(Bellroy bellroy) {
+        this.bellroy = bellroy;
     }
 
     /**

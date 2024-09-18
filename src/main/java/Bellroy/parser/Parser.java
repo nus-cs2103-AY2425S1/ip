@@ -28,57 +28,57 @@ public class Parser {
             switch (type) {
                 case("bye"):
                     Platform.exit();
-                    return ui.byeMessage();
+                    return Ui.byeMessage();
                 case("list"):
-                    return ui.printTaskList(taskList);
+                    return Ui.printTaskList(taskList);
                 case("mark"):
                     int position = Integer.parseInt(userInput.split(" ")[1]);
                     taskList.get(position - 1).markDone();
                     storage.save(taskList);
-                    return ui.markedDone(taskList.get(position - 1));
+                    return Ui.markedDone(taskList.get(position - 1));
                 case("unmark"):
                     int pos = Integer.parseInt(userInput.split(" ")[1]);
                     taskList.get(pos - 1).undo();
                     storage.save(taskList);
-                    return ui.markedUndone(taskList.get(pos - 1));
+                    return Ui.markedUndone(taskList.get(pos - 1));
                 case("todo"):
                     Task todo = new Todo(description);
                     taskList.addTask(todo);
                     storage.save(taskList);
-                    return ui.taskAddedMessage(todo, taskList.size());
+                    return Ui.taskAddedMessage(todo, taskList.size());
                 case("deadline"):
                     String dueDate = input[1].split(" ", 2)[1].trim();
                     Task deadline = new Deadline(description, dueDate);
                     taskList.addTask(deadline);
                     storage.save(taskList);
-                    return ui.taskAddedMessage(deadline, taskList.size());
+                    return Ui.taskAddedMessage(deadline, taskList.size());
                 case("event"):
                     String startTime = input[1].split(" /", 2)[0].split(" ", 2)[1].trim();
                     String endTime = input[1].split(" /", 2)[1].split(" ", 2)[1].trim();
                     Task event = new Event(description, startTime, endTime);
                     taskList.addTask(event);
                     storage.save(taskList);
-                    return ui.taskAddedMessage(event,taskList.size());
+                    return Ui.taskAddedMessage(event,taskList.size());
                 case("delete"):
                     int target = Integer.parseInt(userInput.split(" ")[1]);
-                    Task temp = taskList.get(target - 1);
+                    Task taskToDelete = taskList.get(target - 1);
                     taskList.removeTask(target - 1);
                     storage.save(taskList);
-                    return ui.taskDeleted(temp, taskList.size());
+                    return Ui.taskDeleted(taskToDelete, taskList.size());
                 case("find"):
                     String keyword = input[1].trim();
                     TaskList output = taskList.findTask(keyword);
-                    return ui.findTask(output);
+                    return Ui.findTask(output);
                 case("tag"):
                     String[] tagInput = input[1].split(" ", 2);
                     int tagPos = Integer.parseInt(tagInput[0]);
                     String association = tagInput[1];
                     taskList.get(tagPos - 1).setAssociation(association);
-                    return ui.associationMessage(taskList.get(tagPos - 1), association);
+                    return Ui.associationMessage(taskList.get(tagPos - 1), association);
                 case("filter"):
-                    String assoc = input[1].trim();
-                    TaskList result = taskList.filterAssociation(assoc);
-                    return ui.filterTask(result);
+                    String taskAssociation = input[1].trim();
+                    TaskList result = taskList.filterAssociation(taskAssociation);
+                    return Ui.filterTask(result);
                 default:
                     return ("ERROR: Invalid Input!");
             }
