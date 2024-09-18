@@ -41,28 +41,22 @@ public class Deadline extends Task {
         return month + " " + dayOfMonth + " " + year + " " + time;
     }
 
-    public static String extractName(String input) {
-        String[] strings = input.split("\\s+", 2);
-        String detail = strings[1];
-        return detail.split(" /by ")[0];
+    public static String extractName(String detail) {
+        String[] strings = detail.split(" /by ", 2);
+        return strings[0];
     }
 
-    public static String extractDate(String input) {
-        String[] strings = input.split("\\s+", 2);
-        String detail = strings[1];
-        return detail.split(" /by ")[1];
+    public static String extractDate(String detail) {
+        String[] strings = detail.split(" /by ", 2);
+        return strings[1];
     }
 
     @Override
     public String displayTask() {
-        String cross;
-        if (super.getDone()) {
-            cross = "[X]";
-        } else {
-            cross = "[ ]";
-        }
+        String cross = this.displayDone();
+        String exclamationMark = this.displayPriority();
         String ldtString = convertLdtToString(this.localDateTime);
-        return "[D]" + cross + " " + super.getInput()
+        return exclamationMark + "[D]" + cross + " " + super.getInput()
                 + " (by: " + ldtString + ")\n";
     }
 }

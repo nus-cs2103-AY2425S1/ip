@@ -45,14 +45,11 @@ public class Event extends Task {
     }
 
     public static String extractName(String input) {
-        String[] strings = input.split("\\s+", 2);
-        String detail = strings[1];
-        return detail.split(" /from ")[0];
+        String[] strings = input.split(" /from ", 2);
+        return strings[0];
     }
 
-    public static String extractDate(String input, boolean isStart) {
-        String[] strings = input.split("\\s+", 2);
-        String detail = strings[1];
+    public static String extractDate(String detail, boolean isStart) {
         String period = detail.split(" /from ")[1];
         if (isStart) {
             return period.split(" /to ")[0];
@@ -65,16 +62,11 @@ public class Event extends Task {
 
     @Override
     public String displayTask() {
-        String cross ="";
-        if (super.getDone()) {
-            cross = "[X]";
-        } else {
-            cross = "[ ]";
-        }
-
+        String cross = displayDone();
+        String exclamationMark = displayPriority();
         String startLdtString = convertLdtToString(this.startLocalDateTime);
         String endLdtString = convertLdtToString(this.endLocalDateTime);
-        return "[E]" + cross + " " + super.getInput()
+        return exclamationMark + "[E]" + cross + " " + super.getInput()
                 + " (from: " + startLdtString + " to: " + endLdtString + ")\n";
     }
 }

@@ -6,11 +6,13 @@ public abstract class Task {
 
     private String taskName;
     private boolean isDone;
-    String line = "____________________________________________________________\n";
+    private boolean isPriority;
 
     public Task(String taskName) {
+        System.out.println("Task constructor called");
         this.taskName = taskName;
         this.isDone = false;
+        this.isPriority = false;
     }
 
     /**
@@ -28,13 +30,7 @@ public abstract class Task {
      *
      * @return A string of display of a task
      */
-    public String displayTask() {
-        if (isDone) {
-            return "[X] " + this.taskName + "\n";
-        } else {
-            return "[ ] " + this.taskName + "\n";
-        }
-    }
+    public abstract String displayTask();
 
     public String getInput() {
         return this.taskName;
@@ -130,6 +126,14 @@ public abstract class Task {
         }
     }
 
+    public void setPriority(boolean isPriority) {
+        if (isPriority) {
+            this.isPriority = true;
+        } else {
+            this.isPriority = false;
+        }
+    }
+
     /**
      * Returns true if this task name contains the keyword, false if otherwise
      *
@@ -138,5 +142,25 @@ public abstract class Task {
      */
     public boolean containsKeyword(String keyword) {
         return this.taskName.contains(keyword);
+    }
+
+    public String displayDone() {
+        String cross;
+        if (isDone) {
+            cross = "[X]";
+        } else {
+            cross = "[ ]";
+        }
+        return cross;
+    }
+
+    public String displayPriority() {
+        String exclamationMark;
+        if (isPriority) {
+            exclamationMark = "[!]";
+        } else {
+            exclamationMark = "[ ]";
+        }
+        return exclamationMark;
     }
 }

@@ -31,10 +31,14 @@ public class Storage {
             while (s.hasNext()) {
                 String line = s.nextLine();
                 String[] strings = line.split("\\[");
-                String type = strings[1].split("]")[0];
-                String description = strings[2].split("] ")[1];
-                String check = strings[2].split("] ")[0];
+                String priority = strings[1].split("]")[0];
+                String type = strings[2].split("]")[0];
+                String description = strings[3].split("] ")[1];
+                String check = strings[3].split("] ")[0];
                 Task task = Task.intepreteTask(description, type);
+                if (Objects.equals(priority, "!")) {
+                    task.setPriority(true);
+                }
                 if (Objects.equals(check, "X")) {
                     task.markAsDone();
                 }

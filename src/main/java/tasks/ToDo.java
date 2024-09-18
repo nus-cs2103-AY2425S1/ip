@@ -9,16 +9,17 @@ public class ToDo extends Task {
 
     public static String extractName(String input) {
         String[] strings = input.split("\\s+", 2);
+        //
+        for (int i = 0; i < strings.length; i++) {
+            System.out.println(strings[i]);
+        }
+        //
         return strings[1];
     }
     @Override
     public String displayTask() {
-        String cross ="";
-        if (super.getDone()) {
-            cross = "[X]";
-        } else {
-            cross = "[ ]";
-        }
-        return "[T]" + cross + " " + super.getInput() + "\n";
+        String cross = super.displayDone();
+        String exclamationMark = super.displayPriority();
+        return exclamationMark + "[T]" + cross + " " + super.getInput() + "\n";
     }
 }

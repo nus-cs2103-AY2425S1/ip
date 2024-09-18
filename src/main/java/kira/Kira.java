@@ -25,10 +25,14 @@ public class Kira {
         Parser parser = new Parser(this.list);
 
         try {
+            System.out.println("intepreting command..");
             Parser.CommandType command = parser.intepreteCommand(input);
+            System.out.println("command returned");
             assert command != null : "command returned cannot be null";
             Task task = parser.execute(command, input);
+            System.out.println("command executed");
             this.storage.save(this.list);
+            System.out.println("task saved, generating response...");
             return parser.getResponse(command, input, task);
         } catch (UnreadableException | EmptyException | InvalidTaskException e) {
             this.ui.showLoadingError();

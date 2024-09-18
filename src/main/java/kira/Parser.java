@@ -11,108 +11,12 @@ public class Parser {
     //private Kira kira;
     private List list;
     public enum CommandType {
-        LIST, FIND, MARK, UNMARK, DELETE, BYE, EVENT, DEADLINE, TODO;
+        LIST, FIND, MARK, UNMARK, DELETE, BYE, EVENT, DEADLINE, TODO, PRIORITISE, UNPRIORITISE;
         }
     public Parser(List list) {
         //this.kira = kira;
         this.list = list;
     }
-
-    /**
-     * Executes user's input commands and
-     * Prints out the respective response by Kira
-     *
-     * @param userInput User's input
-     * @throws EmptyException If user's input is empty
-     * @throws InvalidTaskException If index of task does not exist
-     * @throws UnreadableException If user's input does not correspond to any built-in commands
-     *//*
-    public void parse(String userInput) throws EmptyException, InvalidTaskException, UnreadableException {
-
-        List list = this.kira.getList();
-
-        if (userInput.equalsIgnoreCase("list")) {
-            System.out.println(list.displayList());
-            return;
-        }
-
-        String[] strings = userInput.split("\\s+", 2);
-        String firstWord = strings[0];
-
-
-        if (Objects.equals(firstWord, "mark")) {
-            if (strings.length < 2) {
-                throw new EmptyException("mark");
-            }
-            String restOfWords = strings[1];
-            int index = Integer.parseInt(restOfWords) - 1;
-            Task task = list.getTask(index);
-            task.markAsDone();
-            System.out.println(task.markedNotification());
-
-        } else if (Objects.equals(firstWord, "unmark")) {
-            if (strings.length < 2) {
-                throw new EmptyException("unmark");
-            }
-            String restOfWords = strings[1];
-            int index = Integer.parseInt(restOfWords) - 1;
-            Task task = list.getTask(index);
-            task.markAsUndone();
-
-        } else if (Objects.equals(firstWord, "todo")) {
-            if (strings.length < 2) {
-                throw new EmptyException("todo");
-            }
-            String restOfWords = strings[1];
-            Task task = new ToDo(restOfWords);
-            list.addTaskToList(task);
-            System.out.println(list.addedNotification(task));
-
-        } else if (Objects.equals(firstWord, "deadline")) {
-            if (strings.length < 2) {
-                throw new EmptyException("deadline");
-            }
-            String restOfWords = strings[1];
-            String deadline = restOfWords.split(" /by ")[1];
-            String input = restOfWords.split(" /by ")[0];
-            Task task = new Deadline(input, deadline);
-            list.addTaskToList(task);
-            System.out.println(list.addedNotification(task));
-
-        } else if (Objects.equals(firstWord, "event")) {
-            if (strings.length < 2) {
-                throw new EmptyException("event");
-            }
-            String restOfWords = strings[1];
-            String input = restOfWords.split(" /from ")[0];
-            String period = restOfWords.split(" /from ")[1];
-            String start = period.split(" /to ")[0];
-            String end = period.split(" /to ")[1];
-            Task task = new Event(input, start, end);
-            list.addTaskToList(task);
-            System.out.println(list.addedNotification(task));
-
-        } else if (Objects.equals(firstWord, "delete")) {
-            if (strings.length < 2) {
-                throw new EmptyException("delete");
-            }
-            String restOfWords = strings[1];
-            int index = Integer.parseInt(restOfWords) - 1;
-            list.deleteTask(index);
-
-        } else if (Objects.equals(firstWord, "find")) {
-            if (strings.length < 2) {
-                throw new EmptyException("find");
-            }
-            String keyWord = strings[1];
-            List filteredList = list.filterByKeyword(keyWord);
-            System.out.println(filteredList.displayList());
-
-        } else {
-            throw new UnreadableException();
-        }
-    }
-    */
 
     /**
      * Returns the command type
@@ -144,6 +48,10 @@ public class Parser {
             return CommandType.FIND;
         } else if (Objects.equals(firstWord, "bye")) {
             return CommandType.BYE;
+        } else if (Objects.equals(firstWord, "prioritise")) {
+            return CommandType.PRIORITISE;
+        } else if (Objects.equals(firstWord, "unprioritise")) {
+            return CommandType.UNPRIORITISE;
         } else {
             throw new UnreadableException();
         }
@@ -183,8 +91,7 @@ public class Parser {
                 return task;
             }
             case TODO -> {
-                String name = ToDo.extractName(detail);
-                Task task = new ToDo(name);
+                Task task = new ToDo(detail);
                 list.addTaskToList(task);
                 return task;
             }
@@ -209,6 +116,18 @@ public class Parser {
             }
             case FIND -> {
                 return null;
+            }
+            case PRIORITISE -> {
+                int index = Integer.parseInt(detail) - 1;
+                Task task = list.getTask(index);
+                task.setPriority(true);
+                return task;
+            }
+            case UNPRIORITISE -> {
+                int index = Integer.parseInt(detail) - 1;
+                Task task = list.getTask(index);
+                task.setPriority(false);
+                return task;
             }
             default -> {
                 throw new UnreadableException();
@@ -266,6 +185,14 @@ public class Parser {
             }
             case BYE -> {
                 return "Bye. Hope to see you again soon!\n";
+            }
+            case PRIORITISE -> {
+                String prefix = "Gotchu, this is now a priority:\n";
+                return prefix + task.displayTask();
+            }
+            case UNPRIORITISE -> {
+                String prefix = "OK, this is no longer a priority:\n";
+                return prefix + task.displayTask();
             }
         }
         return "";
