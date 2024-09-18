@@ -39,12 +39,19 @@ public class Fence {
     }
 
     /**
-     * Returns the default greeting.
-     * If data was not correctly loaded, a notification will be returned as well.
+     * Returns the default greeting and reminder for incomplete deadline tasks due the current day.
+     * If data was not correctly loaded, a notification will be returned instead.
      * @return Default message upon launch.
      */
     public String getGreeting() {
-        return ui.greet() + (hasData ? "" : "\n" + ui.printLoadingError());
+        String greetMessage = ui.greet();
+        if (!hasData) {
+            String loadingError = ui.printLoadingError();
+            return greetMessage + "\n" + loadingError;
+        }
+        TaskList dueTasks = tasks.findDue();
+        String reminderMessage = ui.remind(dueTasks);
+        return greetMessage + "\n" + reminderMessage;
     }
 
     /**

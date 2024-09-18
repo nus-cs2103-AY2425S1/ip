@@ -31,4 +31,9 @@ public class Todo extends Task {
     public String toTxt() {
         return "TODO " + super.toTxt();
     }
+
+    @Override
+    public boolean isDue() {
+        return false;
+    }
 }

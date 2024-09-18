@@ -30,11 +30,7 @@ public class Ui {
      * @return Message displaying the task list.
      */
     public String list(TaskList tasks) {
-        String list = "!plans:\n";
-        for (int i = 0; i < tasks.getSize(); i++) {
-            list += i + 1 + ". " + tasks.getTask(i) + "\n";
-        }
-        return list;
+        return "!plans:\n" + tasks;
     }
 
     /**
@@ -121,5 +117,14 @@ public class Ui {
      */
     public String delete(Task task) {
         return "removed: " + task + "\n" + "(we never make plans)";
+    }
+
+    /**
+     * Returns the default reminder for incomplete deadline tasks due on the current day.
+     * @param tasks List of incomplete deadline tasks due on the current day.
+     * @return Message displaying list of incomplete deadline tasks due on the current day.
+     */
+    public String remind(TaskList tasks) {
+        return (tasks.getSize() == 0 ? "Are you sure you didn't forget something?" : "Time to start: \n" + tasks);
     }
 }

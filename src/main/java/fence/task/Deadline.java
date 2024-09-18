@@ -39,4 +39,10 @@ public class Deadline extends Task {
     public String toTxt() {
         return "DEADLINE " + super.toTxt() + " /by " + this.by;
     }
+
+    @Override
+    public boolean isDue() {
+        LocalDate currentDate = LocalDate.now();
+        return currentDate.equals(this.by);
+    }
 }
