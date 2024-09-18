@@ -49,7 +49,7 @@ public class EventTest {
     public void createTask_missingDescription_exceptionThrown() {
         String command = "event ";
         OllieException exception = assertThrows(OllieException.class, () -> Event.createTask(command));
-        assertEquals("Please add a name for a event task!", exception.getMessage());
+        assertEquals("Please add a name for a event task! ☺", exception.getMessage());
     }
 
     @Test

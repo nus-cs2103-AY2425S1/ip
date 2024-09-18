@@ -16,7 +16,7 @@ public class Ui {
      * @return The greeting message.
      */
     public static String greet() {
-        return "Hello there! ☺ I'm OLLIE ☺\n" + "What can I do for you today? ☺";
+        return "Hello! ☺ I'm OLLIE ☺\n" + "What can I do for you today? ☺";
     }
 
     /**
@@ -34,7 +34,7 @@ public class Ui {
      * @return The goodbye message.
      */
     public static String exit() {
-        return "Bye. Have a great day. ☺\n" + "Hope to see you again soon! ☺";
+        return "Bye! Have a great day. ☺\n" + "Hope to see you again soon! ☺";
     }
 
     /**
@@ -102,7 +102,7 @@ public class Ui {
      * @param task The task to mark as not done.
      */
     public static String unmarkTaskAsDone(Task task) {
-        return "OK, I've marked this task as not done yet:\n" + task.toString();
+        return "Ok, I've marked this task as not done yet:\n" + task.toString();
     }
 
     /**
@@ -113,7 +113,7 @@ public class Ui {
     public static String showFindResults(ArrayList<Task> matchingTasks) {
         StringBuilder output = new StringBuilder();
         if (matchingTasks.isEmpty()) {
-            output.append("There are no matching tasks in your list.");
+            output.append("Hmmm, there are no matching tasks in your list.");
         } else {
             output.append("Here are the matching tasks in your list ☺ :\n");
             for (int i = 0; i < matchingTasks.size(); i++) {

@@ -39,7 +39,7 @@ public class TodoTest {
         String command = "todo ";
         EmptyDescriptionException exception = assertThrows(
                 EmptyDescriptionException.class, () -> Todo.createTask(command));
-        assertEquals("Please add a name for a todo task!", exception.getMessage());
+        assertEquals("Please add a name for a todo task! ☺", exception.getMessage());
     }
 
     /**
