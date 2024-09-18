@@ -23,9 +23,9 @@ Add a todo task!
 `event (description) /from YYYY-MM-DD /to YYYY-MM-DD`
 
 ## Mark and unmark tasks
-*Mark and unmark tasks as done!*
+*Mark and unmark tasks as done by its index!*
 
-`mark 2 / unmark 2`
+`mark <index> / unmark <index>`
 
 Result:
 ```
@@ -38,6 +38,9 @@ Note: -
 *You can add notes to the tasks, simply by adding /n at the back of the command*
 
 `todo nothing /n Sleep more`
+
+Result:
+
 ```
 New todo task! Grrr
 [T][ ] nothing
@@ -49,13 +52,13 @@ Now you have 4 tasks to PUNCH!
 ## Delete a task
 *You can delete a task by its index*
 
-`delete 4`
+`delete <index>`
 
 
 ## Find a task
 *You can find a task by its relevant part or detail*
 
-`find Sleep`
+`find (text)`
 
 ## List everything!
 *Get a list of all your tasks!*
