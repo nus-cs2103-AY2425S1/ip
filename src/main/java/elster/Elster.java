@@ -63,6 +63,7 @@ public class Elster {
                 int index = Integer.parseInt(input.substring(7).strip());
 
                 Task task = taskList.deleteTask(index);
+                assert task != null : "Bug when deleting task";
                 return ui.deleteTaskMessage(taskList, task);
 
 

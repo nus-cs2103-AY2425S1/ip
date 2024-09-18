@@ -101,8 +101,8 @@ public class Storage {
                 Files.createFile(filePath);
             }
 
-            assert Files.exists(dirPath);
-            assert Files.exists(filePath);
+            assert Files.exists(dirPath) : "Directory does not exist";
+            assert Files.exists(filePath) : "File does not exist";
 
             FileWriter fw = new FileWriter(filePath.toString());
             fw.write(taskList.fileString());

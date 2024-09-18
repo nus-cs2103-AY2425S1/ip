@@ -110,7 +110,7 @@ public class TaskList {
         } catch (IndexOutOfBoundsException e) {
             throw new Elseption("Ain't no such task in the middle of these woods");
         }
-
+        assert !list.contains(task) : "Bug when removing task";
         return task;
     }
 
@@ -129,6 +129,7 @@ public class TaskList {
             returnStr.append("    No tasks to do? that's pretty goooood.");
 
         } else {
+            assert !list.isEmpty() : "Bug when printing task list as string";
             returnStr.append("    So here's the tasks in your list, you should proooobably do them\n");
             for (int i = 0; i < list.size(); i++) {
                 returnStr.append("    ").append(i + 1).append(". ").append(list.get(i)).append("\n");
