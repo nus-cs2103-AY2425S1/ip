@@ -43,11 +43,16 @@ public class DeadlineCommand extends Command {
 
         assert message.contains("deadline");
 
-        String[] description = message.split("deadline | /by");
+        String[] description = message.split("deadline\\s+|/by\\s+", -1);
+
+        if (description[1].isBlank()) {
+            throw new WrongFormatException("deadline", "Deadline task's [task name] must not be empty!");
+        }
+
         try {
             deadline = new Deadline(description[1].trim(), DateTimeUtil.parseDateTime(description[2].trim()));
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
-            throw new WrongFormatException("deadline", "Deadline task should be in the format \"deadline [description] /by [" + DATE_TIME_PATTERN + "]\"");
+            throw new WrongFormatException("deadline", "Deadline task should be in the format \"deadline [task name] /by [" + DATE_TIME_PATTERN + "]\"");
 
         }
         return deadline;

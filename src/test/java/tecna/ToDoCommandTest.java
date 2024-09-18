@@ -19,4 +19,15 @@ public class ToDoCommandTest {
             assertEquals(e.getClass(), WrongFormatException.class);
         }
     }
+
+    @Test
+    public void parseToDoCommand_emptyTaskName_exceptionThrown() {
+        ToDoCommand toDoCommand = new ToDoCommand("todo     ");
+
+        try {
+            toDoCommand.parseToDoCommand();
+        } catch (Exception e) {
+            assertEquals(e.getClass(), WrongFormatException.class);
+        }
+    }
 }
