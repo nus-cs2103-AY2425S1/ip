@@ -71,22 +71,22 @@ public class AddCommand extends Command {
     public Task addTaskHelper() throws EdithException {
         Task task;
 
-        if (instruction.startsWith("todo ")) {
-            String taskString = instruction.substring(5).trim();
+        if (instruction.startsWith("todo ") || instruction.startsWith("t ")) {
+            String taskString = instruction.substring(instruction.indexOf(' ') + 1).trim();
             if (taskString.isEmpty()) {
                 throw new EdithException("Invalid task as no description for this todo was provided.");
             }
             task = new ToDo(taskString);
-        } else if (instruction.startsWith("deadline ")) {
-            String[] parts = instruction.substring(9).split(" /by ");
+        } else if (instruction.startsWith("deadline ") || instruction.startsWith("d ")) {
+            String[] parts = instruction.substring(instruction.indexOf(' ') + 1).split(" /by ");
             if (parts.length != 2) {
                 throw new EdithException("Deadlines must have both a description and a due date.");
             }
             String taskString = parts[0].trim();
             String dueDate = parts[1].trim();
             task = new Deadline(taskString, dueDate);
-        } else if (instruction.startsWith("event ")) {
-            String[] parts = instruction.substring(6).split(" /from | /to ");
+        } else if (instruction.startsWith("event ") || instruction.startsWith("e ")) {
+            String[] parts = instruction.substring(instruction.indexOf(' ') + 1).split(" /from | /to ");
             if (parts.length != 3) {
                 throw new EdithException("Event must have a description, start time, and end time.");
             }
