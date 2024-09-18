@@ -62,6 +62,8 @@ public class Storage {
      */
     public void save(TaskList tasks) throws KronaException {
         try {
+            File file = new File(filePath);
+            file.getParentFile().mkdirs(); // Create parent directories if they do not exist
             FileWriter writer = new FileWriter(filePath);
             for (Task task : tasks.getTasks()) {
                 writer.write(Parser.taskToString(task) + System.lineSeparator());
