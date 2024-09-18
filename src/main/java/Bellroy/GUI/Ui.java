@@ -23,7 +23,7 @@ public class Ui {
     /**
      * prints the initial message to the user.
      */
-    public String welcomeMessage() {
+    public static String welcomeMessage() {
         return ("Hello! I'm Bellroy\n" +
                 "What can I do for you?\n");
     }
