@@ -60,8 +60,8 @@ public class Parser {
                     return type;
                 }
             }
-            throw new PrimoException("Invalid command!\n(Expected Commands: todo, deadline, event, mark, unmark, "
-                    + "delete, list, find, bye) (NEW: Try adding /n <note> at the back of command!)\n");
+            throw new PrimoException("Invalid command!\n(Expected Commands: \ntodo, deadline, event, mark, unmark, "
+                    + "delete, list, find, bye) \n\n(TIP: Try adding /n <note> at the back of command!)\n");
         }
     }
 
@@ -103,8 +103,10 @@ public class Parser {
     }
 
     private static FindCommand processFindCommand(String[] wordsOfCommand) throws PrimoException {
+        if (wordsOfCommand.length == 1) {
+            throw new PrimoException("Invalid parameters! Expected find <string>");
+        }
         assert wordsOfCommand[0].equals("find");
-        assert wordsOfCommand.length > 1;
         if (wordsOfCommand.length <= 1) {
             throw new PrimoException("Poor formatting! Expecting find <string>");
         }
@@ -112,8 +114,10 @@ public class Parser {
     }
 
     private static DeleteCommand processDeleteCommand(String[] wordsOfCommand) throws PrimoException {
+        if (wordsOfCommand.length == 1) {
+            throw new PrimoException("Invalid parameters! Expected delete <integer>");
+        }
         assert wordsOfCommand[0].equals("delete");
-        assert wordsOfCommand.length > 1;
         try {
             Integer.valueOf(wordsOfCommand[1]);
         } catch (NumberFormatException e) {
@@ -278,6 +282,9 @@ public class Parser {
 
     private static TodoCommand todoCommandWithNote(String fullCommand) throws PrimoException {
         String[] wordsOfCommand = fullCommand.split(" ");
+        if (wordsOfCommand.length == 1) {
+            throw new PrimoException("Invalid parameters! Expected todo <string>");
+        }
         assert wordsOfCommand[0].equals("todo");
         assert wordsOfCommand.length >= 2;
         int todoNameIndex = fullCommand.indexOf("todo ") + 5;
@@ -295,6 +302,9 @@ public class Parser {
 
     private static TodoCommand todoCommandWithoutNote(String fullCommand) throws PrimoException {
         String[] wordsOfCommand = fullCommand.split(" ");
+        if (wordsOfCommand.length == 1) {
+            throw new PrimoException("Invalid parameters! Expected todo <string>");
+        }
         assert wordsOfCommand[0].equals("todo");
         assert wordsOfCommand.length >= 2;
         int todoNameIndex = fullCommand.indexOf("todo ") + 5;
@@ -308,8 +318,10 @@ public class Parser {
     }
 
     private static UnmarkCommand processUnmarkCommand(String[] wordsOfCommand) throws PrimoException {
+        if (wordsOfCommand.length == 1) {
+            throw new PrimoException("Invalid parameters! Expected unmark <integer>");
+        }
         assert wordsOfCommand[0].equals("unmark");
-        assert wordsOfCommand.length > 1;
         try {
             Integer.valueOf(wordsOfCommand[1]);
         } catch (NumberFormatException e) {
@@ -320,8 +332,10 @@ public class Parser {
     }
 
     private static MarkCommand processMarkCommand(String[] wordsOfCommand) throws PrimoException {
+        if (wordsOfCommand.length == 1) {
+            throw new PrimoException("Invalid parameters! Expected mark <integer>");
+        }
         assert wordsOfCommand[0].equals("mark");
-        assert wordsOfCommand.length > 1;
         try {
             Integer.valueOf(wordsOfCommand[1]);
         } catch (NumberFormatException e) {
