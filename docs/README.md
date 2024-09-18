@@ -1,8 +1,7 @@
 # Repsmax User Guide
 
 
-
-// Product screenshot goes here
+![Repsmax UI](https://niclammmm.github.io/ip/Ui.png)
 
 
 ## Description
