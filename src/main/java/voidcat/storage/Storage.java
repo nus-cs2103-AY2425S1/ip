@@ -2,7 +2,6 @@ package voidcat.storage;
 
 import voidcat.task.*;
 import voidcat.exception.VoidCatException;
-import voidcat.ui.Ui;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -103,15 +102,11 @@ public class Storage {
      */
     private Task parseTask(String line) {
         String[] parts = line.split(" \\| ");
-        switch (parts[0]) {
-        case "T":
-            return new ToDo(parts[2], Integer.parseInt(parts[1]));
-        case "D":
-            return new Deadline(parts[2], parts[3], Integer.parseInt(parts[1]));
-        case "E":
-            return new Event(parts[2], parts[3], parts[4], Integer.parseInt(parts[1]));
-        default:
-            return null;
-        }
+        return switch (parts[0]) {
+            case "T" -> new ToDo(parts[2], Integer.parseInt(parts[1]));
+            case "D" -> new Deadline(parts[2], parts[3], Integer.parseInt(parts[1]));
+            case "E" -> new Event(parts[2], parts[3], parts[4], Integer.parseInt(parts[1]));
+            default -> null;
+        };
     }
 }

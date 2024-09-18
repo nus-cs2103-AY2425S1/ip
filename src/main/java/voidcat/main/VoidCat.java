@@ -14,7 +14,6 @@ import java.lang.SecurityException;
  * including initializing components, interacting with the user, and handling tasks.
  */
 public class VoidCat {
-//    private static final String FILE_PATH = "./data/void.txt";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -73,13 +72,12 @@ public class VoidCat {
             assert tasks != null : "TaskList is not initialized!";
             return new Parser().parseAndExecute(input, tasks, ui, storage);
 
-        } catch (VoidCatException | IllegalArgumentException e) {
+        } catch (VoidCatException e) {
             return e.getMessage();
         } catch (IOException i) {
-            return "Error saving tasks to file.";
+            return "Error saving tasks to file: " + i.getMessage();
         } catch (SecurityException s) {
             return "Security error in creating file or directory: " + s.getMessage();
         }
     }
-
 }

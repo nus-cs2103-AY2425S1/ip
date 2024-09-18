@@ -53,7 +53,7 @@ public class Ui {
      * @param size The current size of the task list.
      * @return A formatted message indicating the task has been removed.
      */
-    public  String showDeleteTaskMessage(Task removedTask, int size) {
+    public String showDeleteTaskMessage(Task removedTask, int size) {
         return "Noted. I've removed this task:\n\t\t" + removedTask + "\nNow you have " + size + " tasks in the list";
     }
 
@@ -63,7 +63,7 @@ public class Ui {
      * @param markedTask The task that was marked.
      * @return A formatted message indicating the task has been marked.
      */
-    public  String showMarkTaskMessage(Task markedTask) {
+    public String showMarkTaskMessage(Task markedTask) {
         return "Good job! I've marked this task as done:\n\t\t" + markedTask;
     }
 
@@ -73,7 +73,7 @@ public class Ui {
      * @param unmarkedTask The task that was unmarked.
      * @return A formatted message indicating the task has been unmarked.
      */
-    public  String showUnmarkTaskMessage(Task unmarkedTask) {
+    public String showUnmarkTaskMessage(Task unmarkedTask) {
         return "OK, I've marked this task as not done yet:\n\t\t" + unmarkedTask;
     }
 
@@ -84,7 +84,7 @@ public class Ui {
      * @param size The current size of the task list.
      * @return A formatted message indicating the task has been added.
      */
-    public  String showAddTaskMessage(Task task, int size) {
+    public String showAddTaskMessage(Task task, int size) {
         return "Got it. I've added this task:\n\t\t" + task + "\nNow you have " + size + " tasks in the list";
     }
 
