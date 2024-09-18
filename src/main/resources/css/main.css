@@ -1,25 +1,27 @@
 .root {
-    main-color: rgb(237, 255, 242);       /* Create a looked-up color called "main-color" within root. */
+    main-color: rgb(10, 10, 30); /* Dark blue-black main color */
     -fx-background-color: main-color;
 }
 
 .text-field {
-    -fx-background-color: #d9ffe2;
+    -fx-background-color: #1a1a40; /* Darker blue for text field */
     -fx-font: 20px "Arial";
+    -fx-text-fill: #d9ffe2; /* Light color for text to contrast the dark background */
 }
 
 .button {
-    -fx-background-color: mediumspringgreen;
+    -fx-background-color: #283593; /* Dark blue for the button */
+    -fx-text-fill: white; /* White text for visibility */
     -fx-font: italic bold 16px "Arial";
 }
 
 .button:hover {
-    -fx-background-color:cyan;
+    -fx-background-color: #5c6bc0; /* Lighter shade of blue on hover */
     -fx-font-size: 18px;
 }
 
 .button:pressed {
-    -fx-background-color:orange;
+    -fx-background-color: #1a237e; /* Darker blue on press */
     -fx-font-size: 20px;
 }
 
@@ -29,19 +31,17 @@
 }
 
 .scroll-bar {
-    -fx-font-size: 10px;  /* Change width of scroll bar. */
-    -fx-background-color: main-color;
+    -fx-font-size: 10px;  /* Scroll bar width */
+    -fx-background-color: #1a1a40; /* Dark blue for the scroll bar */
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: #ff9cb4;
+    -fx-background-color: #9fa8da; /* Lighter blue for the thumb */
     -fx-background-radius: 1em;
 }
 
-/* Hides the increment and decrement buttons. */
 .scroll-bar .increment-button,
 .scroll-bar .decrement-button {
     -fx-pref-height: 0;
     -fx-opacity: 0;
 }
-

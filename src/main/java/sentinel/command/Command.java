@@ -1,6 +1,7 @@
 package sentinel.command;
 
 import sentinel.Sentinel;
+import sentinel.exception.ExecutionException;
 import sentinel.exception.InvalidCommandException;
 import sentinel.exception.SentinelException;
 import sentinel.ui.Ui;
@@ -52,7 +53,7 @@ public abstract class Command {
         case todo, deadline, event -> new CreateTaskCommand(ui, list, commandType);
         case help -> new HelpCommand(ui, list);
         case bye -> new ByeCommand(ui, list);
-        default -> throw new InvalidCommandException("Unable to create command");
+        default -> throw new ExecutionException();
         };
     }
 }
