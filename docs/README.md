@@ -14,7 +14,7 @@ Azir will be ***WAY FASTER*** than traditional task tracking apps!
 
 ## How to start
 1. Ensure you have Java 17 or above installed in your Computer. 
-2. Download the latest .jar file from here. 
+2. Download the latest .jar file from [here](https://github.com/jktang14/ip/releases/tag/v2.0). 
 3. Open a terminal and run `java -jar Azir.jar` 
 in the folder your jar file is in
 
