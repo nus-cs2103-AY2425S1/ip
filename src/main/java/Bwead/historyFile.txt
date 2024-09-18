@@ -1,4 +1,0 @@
-[E][ ] lend book (from: Oct 10 2020, 10.00 to: Mar 3 2021, 10.00)
-[T][X] go class
-[D][ ] return book (by: Oct 1 2020, 19.00)
-[E][ ] lend book (from: Oct 1 2020, 19.00 to: Oct 1 2021, 18.00)

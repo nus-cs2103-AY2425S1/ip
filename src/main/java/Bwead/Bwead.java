@@ -1,6 +1,7 @@
 package Bwead;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Represents a chatbot. the chatbot takes in commands by users
@@ -29,11 +30,21 @@ public class Bwead {
         } catch (Exception e) {
             ui.showLoadingError(e.getMessage());
         }
+        if (tasks == null) {
+            ArrayList<Task> arrayList = new ArrayList<Task>();
+            tasks = new TaskList(arrayList);
+        }
         ui.set(history, tasks);
-        assert history != null;
-        assert tasks != null;
+        //assert history != null;
+        //assert tasks != null;
     }
 
+    /**
+     * Gets the response according to the input given by user.
+     *
+     * @param input from user.
+     * @return String to reply user.
+     */
     public String getResponse(String input) {
         try {
             return ui.handleCommands(input);

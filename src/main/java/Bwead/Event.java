@@ -29,6 +29,7 @@ public class Event extends Task {
         this.endTime = endTime;
         this.isDone = false;
     }
+
     public void setDone(boolean isDone) {
         this.isDone = isDone;
     }

@@ -26,7 +26,6 @@ public class History {
      */
     public History(String filePath) {
         this.saved = new File(filePath);
-        historyList = new ArrayList<>();
     }
 
     /**
@@ -41,19 +40,30 @@ public class History {
     /**
      * Loads the saved tasks from the local file into a new ArrayList.
      *
-     * @throws IOException when a failure occurs while performing read operations from scanning.
-     * @throws BweadException when file is not found at the specified file path.
+     * @throws BweadException when file encounters problems.
      */
-    public ArrayList<Task> load() throws BweadException, IOException {
-        if (saved.canRead()) {
-            Scanner s = new Scanner(saved);
-            while (s.hasNext()) {
-                historyList.add(getTaskfromString(s.nextLine()));
+    public ArrayList<Task> load() throws BweadException {
+        historyList = new ArrayList<Task>();
+        try {
+            if (!saved.exists()) {
+                saved.getParentFile().mkdirs();
+                saved.createNewFile();
             }
-            return historyList;
-        } else {
-            throw new BweadException("no file found");
+            if (this.saved.canRead()) {
+                Scanner sc = new Scanner(saved);
+                while (sc.hasNextLine()) {
+                    String next = sc.nextLine();
+                    historyList.add(getTaskfromString(next));
+                }
+            } else {
+                throw new BweadException("Unable to read file");
+            }
+        } catch (IOException e) {
+            System.out.println("Unable to load history");
+        } catch (BweadException e) {
+            System.out.println(e.getMessage());
         }
+        return historyList;
     }
 
     /**
