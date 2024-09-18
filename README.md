@@ -1,24 +1,127 @@
-# Duke project template
+# SumoDE
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+This is a task management chatbot. Given below are instructions on how to use it.
 
-## Setting up in Intellij
+[Quick Start](https://github.com/FooChao/ip?tab=readme-ov-file#quick-start)
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+[Features](https://github.com/FooChao/ip?tab=readme-ov-file#features)
+- [Adding a todo task `todo`](https://github.com/FooChao/ip?tab=readme-ov-file#adding-a-todo-task-todo)
+- [Adding a deadline task `deadline`](https://github.com/FooChao/ip?tab=readme-ov-file#adding-a-deadline-task-deadline)
+- [Adding an event task `event`](https://github.com/FooChao/ip?tab=readme-ov-file#adding-an-event-task-event)
+- [Listing all stored tasks `list`](https://github.com/FooChao/ip?tab=readme-ov-file#listing-all-stored-tasks-list)
+- [Listing matching tasks `find`](https://github.com/FooChao/ip?tab=readme-ov-file#listing-matching-tasks-find)
+- [Mark a task as done `mark`](https://github.com/FooChao/ip?tab=readme-ov-file#mark-a-task-as-done-mark)
+- [Mark a task as not completed `unmark`](https://github.com/FooChao/ip?tab=readme-ov-file#mark-a-task-as-not-completed-unmark)
+- [Delete a task `delete`](https://github.com/FooChao/ip?tab=readme-ov-file#delete-a-task-delete)
+- [Close the app `bye`](https://github.com/FooChao/ip?tab=readme-ov-file#close-the-app-bye)
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+[Command Summary](https://github.com/FooChao/ip?tab=readme-ov-file#command-summary)
+
+
+![Screenshot of SumoDE's GUI](docs/Ui.png)
+
+
+
+## Quick Start
+
+1. Ensure you have Java 17 or above on your computer.
+2. Download the latest `.jar` file from [here](https://github.com/FooChao/ip/releases/tag/A-Release)
+3. Copy the file to the folder you want to use as the home folder for your chatbot.
+4. Double click the .jar file to run it.
+
+## Features
+
+### Adding a todo task `todo` 
+
+Format: todo TASKDESCRIPTION
+
+Example: todo study CS1231S
+
+Parameter: 
+- TASKDESCRIPTION is compulsory and must be an non-empty string.
+
+
+### Adding a deadline task `deadline`
+
+Format: deadline TASKDESCRIPTION /by DEADLINE
+
+Example: deadline Finish CS2103T ip /by 20 Sep 2024
+
+Parameter: 
+- TASKDESCRIPTION is compulsory and must be an non-empty string.
+-  DEADLINE can be in the form of string or date or time (where day come before month e.g 10/09/2024 for 10th Sep 2024 and NOT 9th Oct 2024).
+-  Almost all dates format (except those where month come before date) are allowed.
+
+
+### Adding an event task `event`
+
+Format: event TASKDESCRIPTION /from START /to END
+
+Example: event mug for exam /from 20 Sep 2024 /to 29 Sep 2024
+
+Parameter: 
+- TASKDESCRIPTION is compulsory and must be an non-empty string.
+-  START/END can be in the form of string or date or time (where day come before month e.g 10/09/2024 for 10th Sep 2024 and NOT 9th Oct 2024).
+-  Almost all dates format (except those where month come before date) are allowed.
+
+> [!NOTE]
+> To prevent errors, task with exact same name are not allowed. (even if they are different task types).
+
+### Listing all stored tasks `list`
+
+Format: list
+
+### Listing matching tasks `find`
+
+Format: find STRINGTOMATCH
+
+Example: find study
+
+Parameter: 
+- STRINGTOMATCH is compulsory and must be an non-empty string.
+
+### Mark a task as done `mark`
+
+Format: mark INDEX
+
+Example: mark 1
+
+Parameter:
+- INDEX: The index must be a  positive integer and less than or equal to the total number of tasks.
+
+### Mark a task as not completed `unmark`
+
+Format: unmark INDEX
+
+Example: unmark 1
+
+Parameter:
+- INDEX: The index must be a  positive integer and less than or equal to the total number of tasks.
+
+### Delete a task `delete`
+
+Format: delete INDEX
+
+Example: delete 1
+
+Parameter:
+- INDEX: The index must be a  positive integer and less than or equal to the total number of tasks.
+
+### Close the app `bye`
+
+Format: bye
+
+## Command Summary
+
+| Action | Description | Example |
+| --- | --- | --- |
+| `todo` | todo TASKDESCRIPTION | todo study CS1231S |
+| `deadline` | deadline TASKDESCRIPTION /by DEADLINE | deadline Finish CS2103T ip /by 20 Sep 2024 |
+| `event` | event TASKDESCRIPTION /from START /to END | event mug for exam /from 20 Sep 2024 /to 29 Sep 2024 |
+| `list` | list | list |
+| `find` | find STRINGTOMATCH | find study |
+| `mark` | mark INDEX | mark 1 |
+| `unmark` | unmark INDEX | unmark 1 |
+| `delete` | delete INDEX | delete 1 |
+| `bye` | bye | bye |
+

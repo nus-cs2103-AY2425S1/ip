@@ -1,0 +1,40 @@
+todo Read Book
+deadline finish CS2103T IP /by today
+event watch CS2103T lecture /from now /to tomorrow
+mark 1
+list
+mark 1
+list
+unmark 1
+list
+unmark 1
+list
+mark 2
+list
+mark 3
+list
+deadline finish making SUMO
+event watch c-drama /from tonight
+event watch k-drama /to tomorrow
+this is a non-existent command
+list
+find drama
+find tomorrow
+find null
+mark 4
+unmark 69
+list
+delete 4
+delete 3
+delete all my enemies
+mark attendance
+unmark attendance
+delete 1
+delete 1
+deadline watch him die /by 2024-08-24
+event kill people /from 2024-08-24 /to 2044-08-24
+mark 1
+list
+delete 1
+delete 1
+bye

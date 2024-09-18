@@ -14,4 +14,11 @@ src/main/resources/docs/
 bin/
 
 /text-ui-test/ACTUAL.TXT
+text-ui-test/ACTUAL2.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+/data/taskSaved.txt
+text-ui-test/data/taskSaved.txt
+
+
+/src/main/java/learnJavaFx
