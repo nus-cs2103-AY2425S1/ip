@@ -91,16 +91,16 @@ class Event extends Task {
      * */
     private static String[] splitInputs(String descriptions) throws MissingInformationException,
             InvalidNumberOfArgumentException {
-        String[] splitInput = splitInput(descriptions);
-        if (isMissingDescription(splitInput)) {
+        String[] splittedInput = splitInput(descriptions);
+        if (isMissingDescription(splittedInput)) {
             throw new MissingInformationException("description", "event");
         }
-        if (isMissingFromTime(splitInput)) {
+        if (isMissingFromTime(splittedInput)) {
             throw new MissingInformationException("from time", "event");
-        } else if (isMissingToTime(splitInput)) {
+        } else if (isMissingToTime(splittedInput)) {
             throw new MissingInformationException("to time", "event");
         }
-        return splitInput;
+        return splittedInput;
     }
     /**
      * Check is the input Missing description.

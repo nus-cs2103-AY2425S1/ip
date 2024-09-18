@@ -19,7 +19,7 @@
        1. [T][ ] wash clothes
        ```
    2. `Deadline`: 
-      - Format : deadline `description` /by `YYYY-MM-DD\`
+      - Format : deadline `description` /by `YYYY-MM-DD`
       - Example : deadline CS2103T ip /by 2024-09-26
       - Example output :
        ```
@@ -65,8 +65,8 @@
    Bye! Hope to see you again soon.
    ```
 ### 2. Advanced Features commands
-1. `Search` tasks related to a keyword: 
-   - Format : search `keyword`
+1. `Find` tasks related to a keyword: 
+   - Format : find `keyword`
    - Example : search CS2103T
    - Example output: 
    ```
@@ -74,8 +74,8 @@
    1. [D][ ] CS2103T weekly work  (by: 2020-10-11)
    2. [E][ ] project meeting for CS2103T (from: 2020-10-08 to: 2020-10-26)
    ```
-2. `Find` tasks that need to be done before a date:
-    - find `date`
+2. `Search` tasks that need to be done before a date:
+    - search `date`
     - Example find 2020-10-10
     - Example output :
     ```
