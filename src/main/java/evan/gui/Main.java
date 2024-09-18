@@ -23,10 +23,10 @@ public class Main extends Application {
             AnchorPane anchorPane = fxmlLoader.load();
             Scene scene = new Scene(anchorPane);
             stage.setScene(scene);
+            stage.setTitle("Evan");
             fxmlLoader.<MainWindow>getController().setEvan(evan); // Injects the Evan instance
             stage.show();
         } catch (IOException e) {
-            // e.printStackTrace(); TODO: Remove this comment
             System.out.println("An error occurred when loading the GUI.");
         }
     }
