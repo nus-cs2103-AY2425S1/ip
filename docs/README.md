@@ -9,6 +9,7 @@
 java -jar ollie.jar
 ```
 5. Referring to the key commands below, start playing around with Ollie the chatbot!
+
 **Note:** Data is saved with the `bye` command and stored in the directory `./data/ollie.txt`.
 
 ## Key Commands
@@ -35,7 +36,7 @@ todo Clean room
 deadline Submit project /by 2024-09-30
 ```
 
-### 4. Adding Event Task: `event <Your Task> /from [Date in YYYY-MM-DD] /to [Date in YYYY-MM-DD]`
+### 4. Adding Event Task: `event [Your Task] /from [Date in YYYY-MM-DD] /to [Date in YYYY-MM-DD]`
 **Example:**
 ```
 event Attend conference /from 2024-10-01 /to 2024-10-03
