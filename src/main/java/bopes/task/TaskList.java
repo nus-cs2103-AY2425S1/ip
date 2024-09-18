@@ -2,9 +2,10 @@ package bopes.task;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.Comparator;
+
 import bopes.exception.BopesException;
 
 /**
@@ -31,7 +32,7 @@ public class TaskList {
      */
     public void addTask(Task task) {
         tasks.add(task);
-        sortTasksChrnologically();
+        sortTasksChronologically();
     }
 
     /**
@@ -41,14 +42,10 @@ public class TaskList {
      * @throws BopesException if the index is out of range (index < 0 or index >= tasks.size())
      */
     public void deleteTask(int index) throws BopesException {
-        try {
-            if (index < 0 || index >= tasks.size()) {
-                throw new BopesException("Error: The task index is out of range.");
-            }
-            tasks.remove(index);
-        } catch (IndexOutOfBoundsException e) {
+        if (index < 0 || index >= tasks.size()) {
             throw new BopesException("Error: The task index is out of range.");
         }
+        tasks.remove(index);
     }
 
     /**
@@ -128,7 +125,7 @@ public class TaskList {
         return tasks;
     }
 
-/**
+    /**
      * Searches for tasks that contain the keyword in their description.
      *
      * @param keyword the keyword to search for
@@ -138,17 +135,20 @@ public class TaskList {
         List<Task> matchingTasks = tasks.stream()
             .filter(task -> task.description.contains(keyword))
             .collect(Collectors.toList());
-    
+
         if (matchingTasks.isEmpty()) {
             return "No such tasks found.";
         }
-    
+
         return matchingTasks.stream()
             .map(Task::toString)
             .collect(Collectors.joining("\n"));
     }
 
-    public void sortTasksChrnologically() {
+    /**
+     * Sorts the tasks chronologically based on their date and time.
+     */
+    public void sortTasksChronologically() {
         tasks.sort(Comparator.comparing(task -> {
             if (task instanceof Deadline) {
                 return ((Deadline) task).getDateTime();

@@ -17,12 +17,11 @@ public class Event extends Task {
 
     /**
      * Constructs a new Event task with the specified description, start time, end time, and completion status.
-     * 
+     *
      * @param description the description of the event
      * @param start       the start time of the event in the format "dd/MM/yyyy hh:mm a"
      * @param end         the end time of the event in the format "dd/MM/yyyy hh:mm a"
      * @param isDone      the completion status of the event
-     * 
      * @throws IllegalArgumentException if the end time is before the start time
      * @throws BopesException if the date-time format is invalid
      */

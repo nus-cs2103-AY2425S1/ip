@@ -21,7 +21,7 @@ public abstract class Task {
 
     /**
      * Returns the status icon representing the completion status of the task.
-     * 
+     *
      * @return "X" if the task is done, otherwise a space character
      */
     public String getStatusIcon() {
@@ -58,5 +58,5 @@ public abstract class Task {
      *
      * @return a string representation of the task in a file-friendly format
      */
-    abstract public String toFileFormat();
+    public abstract String toFileFormat();
 }
