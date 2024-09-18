@@ -75,6 +75,7 @@ public class AddCommand extends Command {
             return new Events(task, startDate, endDate);
 
         default:
+            assert false : "Wrong task type was passed";
             return null;
         }
     }

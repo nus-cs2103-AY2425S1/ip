@@ -98,6 +98,7 @@ public class Storage {
 
             return new Events(taskName, startDate, endDate, isCompleted);
         default:
+            assert false : "Data stored as wrong format";
             return null;
         }
     }
