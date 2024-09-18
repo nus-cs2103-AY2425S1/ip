@@ -7,8 +7,8 @@ This is a greenfield Java chatbot project that allows users to add three differe
 However, to display the chat history in a more user-friendly manner, the chatbot comes with a GUI solely for the purpose of displaying the user inputs as well as the chatbot's responses.
 
 # Commands
-> [!NOTE]
-> For all the commands, arguments for the command are specified between curly brackets `{}` and therefore, the curly brackets not meant to be typed in the command itself. See the example usage for clearer understanding. 
+> Note:
+> For all commands, arguments for the command are specified between curly brackets `{}` and therefore, the curly brackets not meant to be typed in the command itself. Refer to the command example for better clarity. 
 
 ## Adding Tasks
 
@@ -140,7 +140,7 @@ This is done to ensure that the tasks that are due soon have the most visibility
 
 ## Automatic exiting of chatbot
 
-After typing the `bye` command, the program will pause for 4 seconds to allow for users to read the exit message before automatically exiting the app. 
+After typing the `bye` command, the program will pause for 3.5 seconds to allow for users to read the exit message before automatically exiting the app. 
 
 This is a quality of life feature to ensure that users to not need to use additional inputs, such as a mouse click, to close the app and instead have it automatically done for the user. 
 
