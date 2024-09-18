@@ -40,5 +40,15 @@ public class ChatterboxExceptions {
         }
     }
 
+    /**
+     * Exception class for invalid input
+     *
+     */
+    public static class ChatterBoxInvalidInput extends ChatterBoxError {
+        public ChatterBoxInvalidInput(String message) {
+            super(message);
+        }
+    }
+
 
 }

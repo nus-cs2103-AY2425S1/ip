@@ -17,6 +17,8 @@ public class Tag {
 
 
     public Tag(String tagName) {
+        tagName = tagName.trim();
+
         this.tagName = tagName.toLowerCase();
     }
 

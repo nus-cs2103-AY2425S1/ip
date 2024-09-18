@@ -18,8 +18,7 @@ public class RemoveTagCommand extends Command {
     @Override
     public String execute(String input, GuiResponses guiResponses,
                           TagList tagList,
-                          TaskList taskList, Parser parser) throws ChatterboxExceptions.ChatterBoxNoInput,
-            ChatterboxExceptions.ChatterBoxMissingParameter {
+                          TaskList taskList, Parser parser) throws ChatterboxExceptions.ChatterBoxNoInput, ChatterboxExceptions.ChatterBoxMissingParameter, ChatterboxExceptions.ChatterBoxInvalidInput {
         // input will be in format "removeTag /i <index> /t <tag>"
         int index = parser.parseRemoveTagIndex(input) - 1;
         if (index < 0 || index >= taskList.size()) {

@@ -46,7 +46,7 @@ public class GuiResponses {
      * @param tasks TaskList object
      * @return String representation of tasks in list
      */
-    public String displayList(TaskList tasks) {
+    public String listTaskMsg(TaskList tasks) {
         ArrayList<Task> userList = tasks.getTasks();
         StringBuilder toReturn = new StringBuilder(
                 String.format("You have %d Tasks in List: \n", userList.size()));
@@ -108,9 +108,9 @@ public class GuiResponses {
      * @return standard template for displaying added task
      */
     public String addTaskMsg(String type, int size) {
-        return String.format("Added %s to Tasks", type) + "\n"
-                + String.format("Currently %d tasks in List. ", size)
-                + String.format("Sometimes, I wonder if you have too much time on your hands... ", size);
+        return String.format("Added task of type %s to your list", type) + "\n"
+                + String.format("There are now %d tasks in total. ", size)
+                + String.format("\nI cannot help but ponder whether this accumulation reflects an abundance of time...", size);
 
     }
 

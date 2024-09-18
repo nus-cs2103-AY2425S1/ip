@@ -28,11 +28,15 @@ public class TagCommand extends Command {
     @Override
     public String execute(String input, GuiResponses guiResponses,
                            TagList tagList,
-                           TaskList taskList, Parser parser) throws ChatterboxExceptions.ChatterBoxNoInput,
-            ChatterboxExceptions.ChatterBoxMissingParameter {
+                           TaskList taskList, Parser parser) throws ChatterboxExceptions.ChatterBoxNoInput, ChatterboxExceptions.ChatterBoxMissingParameter, ChatterboxExceptions.ChatterBoxInvalidInput {
         String result;
         String tagText = parser.tagCommandParseTagName(input);
-
+        if (tagText.isEmpty()) {
+            throw new ChatterboxExceptions.ChatterBoxMissingParameter("Tag missing");
+        }
+        if (tagText.contains(" ")) {
+            throw new ChatterboxExceptions.ChatterBoxInvalidInput("Tags cannot have whitespace");
+        }
         int tagIndex = parser.tagCommandParseTaskIndex(input);
         if (tagIndex < 1 || tagIndex > taskList.size()) {
             return guiResponses.getInvalidIndexMessage();

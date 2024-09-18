@@ -29,8 +29,7 @@ public class DeadlineCommand extends Command {
     @Override
     public String execute(String input, GuiResponses guiResponses,
                                    TagList tagList,
-                           TaskList taskList, Parser parser) throws ChatterboxExceptions.ChatterBoxNoInput,
-                            ChatterboxExceptions.ChatterBoxMissingParameter {
+                           TaskList taskList, Parser parser) throws ChatterboxExceptions.ChatterBoxNoInput, ChatterboxExceptions.ChatterBoxMissingParameter, ChatterboxExceptions.ChatterBoxInvalidInput {
         String[] parsed = parser.parseDeadline(input);
 
 

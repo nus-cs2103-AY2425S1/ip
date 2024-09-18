@@ -26,6 +26,5 @@ public abstract class Command {
      */
     public abstract String execute(String input, GuiResponses guiResponses,
                                    TagList tagList, TaskList taskList, Parser parser)
-            throws ChatterboxExceptions.ChatterBoxNoInput,
-            ChatterboxExceptions.ChatterBoxMissingParameter;
+            throws ChatterboxExceptions.ChatterBoxNoInput, ChatterboxExceptions.ChatterBoxMissingParameter, ChatterboxExceptions.ChatterBoxInvalidInput;
 }

@@ -17,10 +17,15 @@ public class FindTagCommand extends Command {
     @Override
     public String execute(String input, GuiResponses guiResponses,
                           TagList tagList,
-                          TaskList taskList, Parser parser) throws ChatterboxExceptions.ChatterBoxNoInput,
-            ChatterboxExceptions.ChatterBoxMissingParameter {
+                          TaskList taskList, Parser parser) throws ChatterboxExceptions.ChatterBoxNoInput, ChatterboxExceptions.ChatterBoxMissingParameter, ChatterboxExceptions.ChatterBoxInvalidInput {
         // input will be in format "findtag <tag>"
         String tagName = parser.findTagParseTagName(input).trim().toLowerCase();
+        if (tagName.isEmpty()) {
+            throw new ChatterboxExceptions.ChatterBoxMissingParameter("Tag name missing");
+        }
+        if (tagName.contains(" ")) {
+            throw new ChatterboxExceptions.ChatterBoxInvalidInput("Tags cannot have whitespace");
+        }
         if (!tagList.containsTag(tagName)) {
             return guiResponses.tagNotFoundMsg(tagName);
         }
