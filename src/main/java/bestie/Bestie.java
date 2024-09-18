@@ -9,8 +9,6 @@ import bestie.command.ExitCommand;
  * Creates an instance of the Bestie chatbot.
  */
 public class Bestie {
-    // load the bestie.txt file in the same directory
-    //private static final String FILE_PATH = "bestie.txt";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;

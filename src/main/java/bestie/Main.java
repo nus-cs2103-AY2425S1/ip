@@ -15,6 +15,12 @@ public class Main extends Application {
 
     private Bestie bestie = new Bestie("bestie.txt");
 
+    /**
+     * Initialised the main stage of the Bestie application, loads the FXML layout for the main window.
+     * Injects the Bestie instance into the controller to enable functionality.
+     *
+     * @param stage primary stage for this application, onto which the application scene can be set.
+     */
     @Override
     public void start(Stage stage) {
         try {

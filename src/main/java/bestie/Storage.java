@@ -72,7 +72,7 @@ public class Storage {
                 String[] parts = nextTask.split(" \\| ");
                 String taskType = parts[0]; // either T, D, or E, depending on task
                 
-              // Checks whether task had been completed
+                // Checks whether task had been completed
                 assert taskType.equals("T") || taskType.equals("D") || taskType.equals("E"):
                         "Invalid task type";
                 boolean isCompleted = parts[1].equals("1");
