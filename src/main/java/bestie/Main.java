@@ -26,6 +26,9 @@ public class Main extends Application {
 
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Bestie");
+            stage.setMinHeight(400);
+            stage.setMinWidth(450);
             // inject the Bestie instance
             fxmlLoader.<MainWindow>getController().setBestie(bestie);
             stage.show();

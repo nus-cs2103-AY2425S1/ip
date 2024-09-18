@@ -34,7 +34,7 @@ public class Ui {
      */
     public String greetUser() {
         // greet user at the start
-        return ("Hello! I'm bestie, your personal assistant chatbot.\n"
+        return ("Hello! I'm Bestie, your personal assistant chatbot.\n"
                 + "Let's get ready to have a productive day!\n"
                 + "What can I do for you today :)?");
     }
@@ -69,7 +69,7 @@ public class Ui {
      * @param size Number of tasks in the task list, after the new task has been added.
      */
     public String showTaskAdded(Task task, int size) {
-        return ("added: " + task.toString() + "\n"
+        return ("I've added the following task to your list: \n" + task.toString() + "\n"
                 + "Now you have " + size + " tasks in your list.");
     }
 
@@ -79,7 +79,7 @@ public class Ui {
      * @param task Task that user wants to mark as completed.
      */
     public String showTaskMarked(Task task) {
-        return ("Awesome work! I've marked this task as done.\n"
+        return ("Amazing! I've marked this task as done.\n"
                 + "  " + task.toString());
     }
 
@@ -89,8 +89,8 @@ public class Ui {
      * @param task  Task that user wants to mark as undone.
      */
     public String showTaskUnmarked(Task task) {
-        return ("Noted! I've marked this task as not done yet:\n"
-                + "  " + task.toString());
+        return ("Okay! I've marked this task as not done yet:\n"
+                + "  " + task.toString() + "Don't forget to come back to mark it once you're done :).");
     }
 
     /**
@@ -106,6 +106,7 @@ public class Ui {
         } else {
             output = output.concat("You now have " + size + " tasks in your list.\n");
         }
+        output = output.concat("Keep going!\n");
         return output;
     }
 
@@ -149,7 +150,7 @@ public class Ui {
 
     public String showTasksOfPriority(ArrayList<Task> tasks, Priority priority) {
         if (tasks.isEmpty()) {
-            return "There are no tasks in your list with priority " + priority.toString().toLowerCase() + ".";
+            return "There are no tasks in your list with priority " + priority.toString().toLowerCase() + ". :)";
         } else {
             String output = "Here are the tasks in your list with priority " + priority.toString().toLowerCase() + ": \n";
             for (int i = 0; i < tasks.size(); i++) {

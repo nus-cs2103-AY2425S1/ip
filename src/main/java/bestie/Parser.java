@@ -66,9 +66,10 @@ public class Parser {
 
                 return new AddCommand(new Todo(description, priority));
             } catch (StringIndexOutOfBoundsException e) {
-                return new ErrorCommand("The description of a todo cannot be empty. Please input your todo again!");
+                return new ErrorCommand("The description of a todo cannot be empty." +
+                        "Please input your todo again!");
             } catch (IllegalArgumentException e) {
-                return new ErrorCommand("Invalid priority. Please specify as 'HIGH', 'MEDIUM' or 'LOW'.");
+                return new ErrorCommand("Invalid priority :(. Please specify as 'high', 'medium' or 'low'.");
             }
 
         case("deadline"):
@@ -90,7 +91,7 @@ public class Parser {
                         "Please stick to the correct format: YYYY-MM-DD HHMM";
                 return new ErrorCommand(errorMessage);
             } catch (IllegalArgumentException e) {
-                return new ErrorCommand("Invalid priority. Please specify as 'HIGH', 'MEDIUM' or 'LOW'.");
+                return new ErrorCommand("Invalid priority :(. Please specify as 'high', 'medium' or 'low'.");
             }
 
         case("event"):
@@ -105,7 +106,7 @@ public class Parser {
             } catch (ArrayIndexOutOfBoundsException | StringIndexOutOfBoundsException e) {
                 String errorMessage = "You did not input the event in a valid format." +
                         "Please follow the format \"event (name of event) /from (start time) "
-                        + "/to (end time)\"";
+                        + "/to (end time)\" so that I can correctly add this event!";
                 return new ErrorCommand(errorMessage);
 
             } catch (DateTimeParseException e) {
@@ -113,7 +114,7 @@ public class Parser {
                        "Please stick to the correct format: YYYY-MM-DD HHMM";
                 return new ErrorCommand(errorMessage);
             } catch (IllegalArgumentException e) {
-                String errorMessage = "Invalid priority. Please specify as 'HIGH', 'MEDIUM' or 'LOW'.";
+                String errorMessage = "Invalid priority. Please specify as 'high', 'medium' or 'low'.";
                 return new ErrorCommand(errorMessage);
             }
 
