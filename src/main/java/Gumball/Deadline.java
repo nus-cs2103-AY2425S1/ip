@@ -30,7 +30,7 @@ public class Deadline extends Task {
         String[] section = desc.substring(9).split("/by ");
         deadlineTime = LocalDate.parse(section[1]);
         String output = section[0] + "(by: " +
-                deadlineTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+                deadlineTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
         return output;
     }
 }

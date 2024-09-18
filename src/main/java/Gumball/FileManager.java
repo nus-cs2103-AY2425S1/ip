@@ -70,6 +70,8 @@ public class FileManager {
             task = new Deadline(input);
         } else if (input.startsWith("event")) {
             task = new Event(input);
+        } else if (input.startsWith("fixed")) {
+            task = new FixedDurationTask(input);
         }
         return task;
     }
