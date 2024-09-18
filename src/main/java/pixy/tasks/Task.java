@@ -31,7 +31,7 @@ public abstract class Task {
     }
 
     /**
-     * Return the description of the task.
+     * Returns the description of the task.
      *
      * @return A string representation of the task's description.
      */
