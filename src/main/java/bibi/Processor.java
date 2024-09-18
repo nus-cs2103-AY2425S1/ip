@@ -201,8 +201,8 @@ public class Processor {
 
             return sb.toString();
         default:
-            assert false : "Should not reach Ui Default";
-            return "NO";
+            assert false : "Should not reach Processor class default";
+            return null;
         }
     }
 

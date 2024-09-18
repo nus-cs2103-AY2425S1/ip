@@ -1,20 +1,16 @@
 package bibi;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
+import bibi.task.TaskList;
 
 public class ParserTest {
-    // Inspired from https://stackoverflow.com/questions/1119385/junit-test-for-system-out-println
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final PrintStream originalOut = System.out;
+    @Test
+    public void parseUnknownCommand_getUnknownCommandText() {
+        String output = Parser.parseCommand("test").execute(new TaskList(), new Processor(), new Storage(null));
 
-    // Before tests, set output to an array rather than to console
-    private void setUpStreams() {
-        System.setOut(new PrintStream(outContent));
-    }
-
-    // After tests, set back to System.out
-    private void restoreStreams() {
-        System.setOut(originalOut);
+        assertEquals(String.format("test is an unknown command%n"), output);
     }
 }

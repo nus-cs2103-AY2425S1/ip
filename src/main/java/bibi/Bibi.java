@@ -29,6 +29,7 @@ public class Bibi {
         try {
             storage.restoreTasks(tasks);
         } catch (FileNotFoundException e) {
+            // Shouldn't reach this point, since a folder will be created automatically
             System.out.println(e.getMessage());
         }
     }
