@@ -1,6 +1,7 @@
 package command;
 
 import exceptions.DelphiException;
+import parser.Parser;
 import storage.Storage;
 import task.Todo;
 import tasklist.TaskList;
@@ -32,9 +33,9 @@ public class AddTodoCommand extends Command {
      * @throws DelphiException if there is an error processing the input or adding the task.
      */
     @Override
-    public String execute(TaskList t, Storage s, Ui ui) throws DelphiException {
-        // Create a new Todo task from the input string, starting from the 5th character
-        Todo newTodo = new Todo(getInput().trim().substring(4));
+    public String execute(TaskList t, Storage s, Ui ui, Parser p) throws DelphiException {
+        // Create a new Todo task from the input string, starting from the 6th character
+        Todo newTodo = new Todo(getInput().trim().substring(5));
 
         // Add the new Todo task to the task list
         t.addTask(newTodo); // Note: This will be removed once addTask is simplified to just add to the list

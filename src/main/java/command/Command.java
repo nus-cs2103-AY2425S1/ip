@@ -1,6 +1,7 @@
 package command;
 
 import exceptions.DelphiException;
+import parser.Parser;
 import storage.Storage;
 import tasklist.TaskList;
 import ui.Ui;
@@ -33,7 +34,7 @@ public abstract class Command {
      * @param ui The user interface to interact with the user.
      * @throws DelphiException If an error occurs during execution.
      */
-    public abstract String execute(TaskList t, Storage s, Ui ui) throws DelphiException;
+    public abstract String execute(TaskList t, Storage s, Ui ui, Parser p) throws DelphiException;
 
     public String getInput() {
         return this.input;

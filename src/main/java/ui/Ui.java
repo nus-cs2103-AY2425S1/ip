@@ -13,7 +13,7 @@ public class Ui {
      */
     public static String welcomeMessage() {
         String res = "";
-        res += "Hello! I'm ui.Delphi, the greatest oracle in all of the classical world.\n";
+        res += "Hello! I'm Delphi, the greatest oracle in all of the classical world.\n";
         res += "For now, I will be acting as a personal assistant for you to manage; your tasks:)";
         return res;
     }

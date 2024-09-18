@@ -35,7 +35,7 @@ public class UpdateTaskCommand extends Command {
      * @return A message indicating the success or failure of the operation.
      * @throws DelphiException If an invalid input is given or if no task is found to update.
      */
-    public String execute(TaskList t, Storage s, Ui ui) throws DelphiException {
+    public String execute(TaskList t, Storage s, Ui ui, Parser p) throws DelphiException {
         String str;
         if (getInput().contains("/by")) {
             str = getInput().substring(7, getInput().indexOf("/by"));
@@ -50,7 +50,7 @@ public class UpdateTaskCommand extends Command {
         } else if (searchResults.size() > 1) {
             return "please be more specific";
         } else {
-            searchResults.get(0).editTask(getInput().substring(7), new Parser());
+            searchResults.get(0).editTask(getInput().substring(7), p);
             s.writeToHardDisk(t.getTasks());
             return "task has been updated!";
         }

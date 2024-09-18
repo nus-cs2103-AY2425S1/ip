@@ -13,4 +13,12 @@ public class InvalidInputException extends DelphiException {
     public InvalidInputException() {
         super("the input you have provided me is not formatted correctly.");
     }
+
+    /**
+     * Constructs a new InvalidInputException with a custom error message.
+     * @param message
+     */
+    public InvalidInputException(String message) {
+        super("the input you have provided me is not formatted correctly." + message);
+    }
 }

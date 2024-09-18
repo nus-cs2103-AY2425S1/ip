@@ -2,6 +2,8 @@ package command;
 
 import java.util.List;
 
+import exceptions.TaskNotFoundException;
+import parser.Parser;
 import storage.Storage;
 import task.Task;
 import tasklist.TaskList;
@@ -28,9 +30,12 @@ public class FindCommand extends Command {
      * @param ui The user interface to interact with the user.
      * @return the string representation of the tasks
      */
-    public String execute(TaskList t, Storage s, Ui ui) {
+    public String execute(TaskList t, Storage s, Ui ui, Parser p) throws TaskNotFoundException {
         String res = "";
         List<Task> found = t.findTask(getInput().substring(5));
+        if (found.size() == 0) {
+            throw new TaskNotFoundException();
+        }
         res += ui.findingTask();
         for (Task tsk : found) {
             res += tsk.toString();

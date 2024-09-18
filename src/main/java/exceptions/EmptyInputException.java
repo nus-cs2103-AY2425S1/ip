@@ -12,7 +12,7 @@ public class EmptyInputException extends DelphiException {
      * The error message indicates that an actual task must be included.
      */
     public EmptyInputException() {
-        super("please include a task");
+        super("no input provided!");
     }
 }
 

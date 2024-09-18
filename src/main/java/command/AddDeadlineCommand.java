@@ -33,10 +33,7 @@ public class AddDeadlineCommand extends Command {
      * @throws DelphiException if there is an error processing the input or adding the task.
      */
     @Override
-    public String execute(TaskList t, Storage s, Ui ui) throws DelphiException {
-        // Create a new DateParser instance to parse the date
-        Parser p = new Parser();
-
+    public String execute(TaskList t, Storage s, Ui ui, Parser p) throws DelphiException {
         // Create a new Deadline task from the input string, starting from the 9th character
         Deadline newDeadline = new Deadline(getInput().trim().substring(9), p);
 

@@ -1,5 +1,8 @@
 package command;
 
+import exceptions.DelphiException;
+import exceptions.InvalidListItemException;
+import parser.Parser;
 import storage.Storage;
 import tasklist.TaskList;
 import ui.Ui;
@@ -31,9 +34,9 @@ public class UnmarkTaskCommand extends Command {
      * @param ui The user interface to reflect the task status change.
      */
     @Override
-    public String execute(TaskList t, Storage s, Ui ui) {
-        // Extract the task identifier from the input string (assuming the task ID starts at index 7)
-        int taskId = Integer.parseInt(String.valueOf(getInput().charAt(7)));
+    public String execute(TaskList t, Storage s, Ui ui, Parser p) throws DelphiException {
+        // get the task ID
+        int taskId = Integer.parseInt(getInput());
 
         // Unmark the task as undone
         t.markTaskAsUndone(taskId);

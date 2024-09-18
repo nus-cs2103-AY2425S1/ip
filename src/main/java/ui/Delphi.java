@@ -48,7 +48,7 @@ public class Delphi {
     public String getResponse(String input) {
         try {
             Command c = parser.parseInput(input);
-            return c.execute(taskList, storage, ui);
+            return c.execute(taskList, storage, ui, parser);
         } catch (DelphiException e) {
             return e.getMessage();
         }

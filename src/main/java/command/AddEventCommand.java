@@ -33,9 +33,9 @@ public class AddEventCommand extends Command {
      * @throws DelphiException if there is an error processing the input or adding the task.
      */
     @Override
-    public String execute(TaskList t, Storage s, Ui ui) throws DelphiException {
+    public String execute(TaskList t, Storage s, Ui ui, Parser p) throws DelphiException {
         // Create a new Event task from the input string, starting from the 9th character
-        Event newEvent = new Event(getInput().trim().substring(5), new Parser());
+        Event newEvent = new Event(getInput().trim().substring(5), p);
 
         // Add the new Event task to the task list
         t.addTask(newEvent);

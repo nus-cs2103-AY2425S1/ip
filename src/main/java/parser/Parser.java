@@ -1,5 +1,8 @@
 package parser;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import command.AddDeadlineCommand;
 import command.AddEventCommand;
 import command.AddTodoCommand;
@@ -12,7 +15,9 @@ import command.MarkTaskCommand;
 import command.UnmarkTaskCommand;
 import command.UpdateTaskCommand;
 import exceptions.DelphiException;
+import exceptions.EmptyInputException;
 import exceptions.InvalidInputException;
+import exceptions.InvalidListItemException;
 
 /**
  * Provides the parsing functionality that allows ui.Delphi to process different types of input.
@@ -36,12 +41,12 @@ public class Parser {
         if (input.equals("bye")) {
             return new BreakCommand();
         } else if (checkStringPrefix(input, 4, "mark")) {
-            return new MarkTaskCommand(input);
+            return new MarkTaskCommand(extractIntegerAsString(input));
         } else if (checkStringPrefix(input, 6, "unmark")) {
-            return new UnmarkTaskCommand(input);
+            return new UnmarkTaskCommand(extractIntegerAsString(input));
         } else if (checkStringPrefix(input, 6, "delete")) {
-            return new DeleteTaskCommand(input);
-        } else if (input.equals("list")) {
+            return new DeleteTaskCommand(extractIntegerAsString(input));
+        } else if (input.trim().equals("list")) {
             return new ListCommand(input);
         } else if (checkStringPrefix(input, 4, "todo")) {
             return new AddTodoCommand(input);
@@ -53,6 +58,8 @@ public class Parser {
             return new FindCommand(input);
         } else if (checkStringPrefix(input, 6, "update")) {
             return new UpdateTaskCommand(input);
+        } else if (input.trim().isEmpty()) {
+            throw new EmptyInputException();
         } else {
             throw new InvalidInputException();
         }
@@ -126,6 +133,9 @@ public class Parser {
 
         // Extract the substring after the slash and trim it
         String deadline = s.substring(slashIndex + 3).trim();
+        if (deadline.isEmpty()) {
+            throw new InvalidInputException("Please input a deadline.");
+        }
         String date = d.parseAndFormatDateTime(deadline);
         if (date != null) {
             deadline = "(by: " + date + ")";
@@ -168,6 +178,10 @@ public class Parser {
         String fromPart = s.substring(fromIndex + "/from".length(), toIndex).trim();
         String toPart = s.substring(toIndex + "/to".length()).trim();
 
+        if (fromPart.isEmpty() || toPart.isEmpty()) {
+            throw new InvalidInputException("Please input both start and end times.");
+        }
+
         // Reformat the output
         String formattedFromPart = d.parseAndFormatDateTime(fromPart);
         if (formattedFromPart != null) {
@@ -185,5 +199,17 @@ public class Parser {
         }
         res[2] = toPart;
         return res;
+    }
+
+    public String extractIntegerAsString(String input) {
+        Pattern pattern = Pattern.compile("\\d+");
+        Matcher matcher = pattern.matcher(input);
+
+        if (matcher.find()) {
+            return matcher.group();  // Return the string representation of the integer
+        } else {
+            return "-1";
+        }
+        //throw new NumberFormatException("No integer found in the input string.");
     }
 }

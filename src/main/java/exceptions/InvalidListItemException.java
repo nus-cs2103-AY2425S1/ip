@@ -1,7 +1,8 @@
 package exceptions;
 
 /**
- * Exception thrown when a requested list item does not exist in the task list.
+ * Exception thrown when a requested list index does not exist in the task list, ie
+ * the task list is too short
  * This is a custom exception that extends {@link DelphiException}.
  */
 public class InvalidListItemException extends DelphiException {

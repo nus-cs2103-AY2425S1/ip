@@ -1,5 +1,6 @@
 package command;
 
+import parser.Parser;
 import storage.Storage;
 import tasklist.TaskList;
 import ui.Ui;
@@ -28,7 +29,7 @@ public class ListCommand extends Command {
      * @param ui The user interface to display the list of tasks.
      */
     @Override
-    public String execute(TaskList t, Storage s, Ui ui) {
+    public String execute(TaskList t, Storage s, Ui ui, Parser p) {
         return t.printTasks();
     }
 }

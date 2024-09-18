@@ -1,6 +1,8 @@
 package command;
 
+import exceptions.DelphiException;
 import exceptions.InvalidListItemException;
+import parser.Parser;
 import storage.Storage;
 import task.Task;
 import tasklist.TaskList;
@@ -32,9 +34,9 @@ public class DeleteTaskCommand extends Command {
      * @throws InvalidListItemException if the task identifier is invalid or the task cannot be found.
      */
     @Override
-    public String execute(TaskList t, Storage s, Ui ui) throws InvalidListItemException {
+    public String execute(TaskList t, Storage s, Ui ui, Parser p) throws DelphiException {
         // Extract the task identifier from the input string (assuming the task ID starts at index 7)
-        int taskId = Integer.parseInt(String.valueOf(getInput().charAt(7)));
+        int taskId = Integer.parseInt(getInput());
 
         // Remove the task from the task list and get the removed task
         Task task = t.removeTask(taskId);

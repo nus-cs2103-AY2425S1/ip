@@ -5,6 +5,7 @@ import java.util.List;
 
 import exceptions.DelphiException;
 import exceptions.HardDriveNotFoundException;
+import exceptions.InvalidInputException;
 import exceptions.InvalidListItemException;
 import parser.Parser;
 import storage.Storage;
@@ -90,8 +91,10 @@ public class TaskList {
      * @param i The index of the task to be removed.
      * @return The removed task, or null if the index is invalid.
      */
-    public Task removeTask(int i) throws InvalidListItemException {
-        if (i <= tasks.size()) {
+    public Task removeTask(int i) throws DelphiException {
+        if (i < 0) {
+            throw new InvalidInputException(); // i == -1 indicates invalid input
+        } else if (i <= tasks.size()) {
             Task t = tasks.get(i - 1);
             tasks.remove(i - 1);
             return t;
@@ -114,9 +117,13 @@ public class TaskList {
      *
      * @param i The index of the task to be marked as done.
      */
-    public void markTaskAsDone(int i) {
-        if (i <= tasks.size()) {
+    public void markTaskAsDone(int i) throws DelphiException {
+        if (i < 0) {
+            throw new InvalidInputException(); // i == -1 indicates invalid input
+        } else if (i <= tasks.size()) {
             tasks.get(i - 1).complete();
+        } else {
+            throw new InvalidListItemException(i);
         }
     }
 
@@ -125,9 +132,13 @@ public class TaskList {
      *
      * @param i The index of the task to be marked as undone.
      */
-    public void markTaskAsUndone(int i) {
-        if (i <= tasks.size()) {
-            tasks.get(i - 1).uncomplete();
+    public void markTaskAsUndone(int i) throws DelphiException {
+        if (i < 0) {
+            throw new InvalidInputException(); // i == -1 indicates invalid input
+        } else if (i <= tasks.size()) {
+            tasks.get(i - 1).complete();
+        } else {
+            throw new InvalidListItemException(i);
         }
     }
 
