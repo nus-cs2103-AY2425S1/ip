@@ -44,47 +44,6 @@ public class Winde {
         commandType = "";
     }
 
-    /*
-    /**
-     * The main method that starts the WindeBot application.
-     *
-     * @param args Command-line arguments (not used).
-     */
-    /*
-    public static void main(String[] args) {
-        new Winde().run();
-    }
-    */
-
-    /*
-    /**
-     * Starts the main loop of the WindeBot application.
-     */
-    /*
-    private static void run() {
-        ui.greet();
-        Command currentCommand = new ListCommand();
-        boolean shouldContinue = true;
-        while (shouldContinue) {
-            try {
-                String input = ui.read();
-                ui.showLine();
-                currentCommand = Parser.parse(input);
-                shouldContinue = currentCommand.execute(input, reminder, ui);
-            } catch (UnsupportedCommandException e) {
-                throw new RuntimeException(e);
-            } catch (EmptyDescriptionException e) {
-                throw new RuntimeException(e);
-            } catch (TooManyParametersException e) {
-                throw new RuntimeException(e);
-            } finally {
-                ui.showLine();
-            }
-        }
-        currentCommand.exit(history, reminder, ui);
-    }
-    */
-
     /**
      * The main method that reponds to the user's queries
      *
@@ -106,25 +65,6 @@ public class Winde {
             throw new RuntimeException(e);
         }
     }
-    /*
-    public String getResponse(String... input) {
-        try {
-            for (String string : input) {
-                Command currentCommand = Parser.parse(string);
-                Ui ui = new Ui();
-                willContinue = currentCommand.execute(string, reminder, ui, history);
-                commandType = currentCommand.whatCommand();
-                return ui.getOutput();
-            }
-        } catch (UnsupportedCommandException e) {
-            throw new RuntimeException(e);
-        } catch (EmptyDescriptionException e) {
-            throw new RuntimeException(e);
-        } catch (TooManyParametersException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    */
 
     public String getCommandType() {
         return commandType;
