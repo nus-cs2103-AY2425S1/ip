@@ -26,7 +26,7 @@ public class ToDoCommand extends Command {
     public ReturnMessage execute() {
         String todoMessage = getToDoMessage();
         if (todoMessage.isBlank()) {
-            return new ReturnMessage("  ~  Please give a name for the To Do.",
+            return new ReturnMessage("  ~  Your To Do needs a name!",
                     "  ~  The format should be \"todo (description)\"");
         }
         this.toDo = new ToDo(todoMessage);

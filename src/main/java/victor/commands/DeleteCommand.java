@@ -44,7 +44,7 @@ public class DeleteCommand extends Command {
         try {
             return new ReturnMessage(super.taskList.deleteTask(Integer.parseInt(taskNumber)));
         } catch (NumberFormatException e) {
-            return new ReturnMessage("  ~  Sorry, I don't think you entered a number for which"
+            return new ReturnMessage("  ~  Oops, I don't think you entered a number for which"
                 + " task to delete!");
         }
     }

@@ -15,7 +15,7 @@ public class FindCommand extends Command {
     @Override
     public ReturnMessage execute() {
         if (taskList.getSize() == 0) {
-            return new ReturnMessage("  ~  No tasks in the list to find a match, add some To Dos, Events,"
+            return new ReturnMessage("  ~  There are no tasks in your list! Add some To Dos, Events,"
                     + " and Deadlines first :)");
         }
         if (additionalInput.length == 1) {
@@ -26,11 +26,11 @@ public class FindCommand extends Command {
         String[] matches = taskList.findMatches(toMatch);
         // Check if no matches
         if (matches.length == 0) {
-            return new ReturnMessage("  ~  Sorry, there were no tasks matching your phrase!");
+            return new ReturnMessage("  ~  Sorry, there were no tasks matching your phrase :(");
         }
         // Create array to populate with matching tasks
         String[] outputMessages = new String[matches.length + 1];
-        outputMessages[0] = "  ~  I found these matches for you!";
+        outputMessages[0] = "  ~  Wonderful, I found these matches for you!";
         for (int i = 1; i < outputMessages.length; i++) {
             outputMessages[i] = matches[i - 1];
         }

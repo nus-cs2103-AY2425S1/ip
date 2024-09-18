@@ -44,7 +44,7 @@ public class UnmarkCommand extends Command {
         try {
             return new ReturnMessage(super.taskList.unmarkDone(Integer.parseInt(taskNumber)));
         } catch (NumberFormatException e) {
-            return new ReturnMessage("  ~  I don't think there's a task with that number!");
+            return new ReturnMessage("  ~  Oh dear, I don't think there's a task with that number :(");
         }
     }
 

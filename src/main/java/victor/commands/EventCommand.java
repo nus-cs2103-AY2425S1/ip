@@ -32,17 +32,17 @@ public class EventCommand extends Command {
 
         try {
             if (taskNameString.isBlank()) {
-                return new ReturnMessage("  ~  Please give a name for the event.",
+                return new ReturnMessage("  ~  Your event needs a name!",
                         "  ~  The format should be \"event"
                         + " (description) /from (start, in format yyyy-mm-dd or dd-mm-yyyy) /to"
                         + " (end, in format yyyy-mm-dd or dd-mm-yyyy)\"");
             } else if (startString.isBlank()) {
-                return new ReturnMessage("  ~  Please give a start time for the event.",
+                return new ReturnMessage("  ~  Your event needs a start date!",
                         "  ~  The format should be \"event"
                         + " (description) /from (start, in format yyyy-mm-dd or dd-mm-yyyy) /to"
                         + " (end, in format yyyy-mm-dd or dd-mm-yyyy)\"");
             } else if (endString.isBlank()) {
-                return new ReturnMessage("  ~  Please give an end time for the event.",
+                return new ReturnMessage("  ~  Your event needs an end date!",
                         "  ~  The format should be \"event"
                         + " (description) /from (start, in format yyyy-mm-dd or dd-mm-yyyy) /to"
                         + " (end, in format yyyy-mm-dd or dd-mm-yyyy)\"");
@@ -54,7 +54,7 @@ public class EventCommand extends Command {
                 + " (description) /from (start, in format yyyy-mm-dd or dd-mm-yyyy) /to"
                 + " (end, in format yyyy-mm-dd or dd-mm-yyyy)\"");
         } catch (DateTimeException dateException) {
-            return new ReturnMessage("  ~  Please ensure end time is later than start time!",
+            return new ReturnMessage("  ~  Please check that your end time is later than your start time!",
                     "  ~  Format the event as \"event (description) /from"
                         + " (start, in format yyyy-mm-dd or dd-mm-yyyy) /to"
                         + " (end, in format yyyy-mm-dd or dd-mm-yyyy)\"");

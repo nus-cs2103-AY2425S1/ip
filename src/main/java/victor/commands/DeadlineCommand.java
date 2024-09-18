@@ -31,11 +31,11 @@ public class DeadlineCommand extends Command {
 
         try {
             if (taskNameString.isBlank()) {
-                return new ReturnMessage("  ~  Please give a name for the deadline.",
+                return new ReturnMessage("  ~  Your deadline needs a name!",
                         "  ~  The format should be \"deadline"
                             + " (description) /by (deadline, in format yyyy-mm-dd or dd-mm-yyyy)\"");
             } else if (deadlineString.isBlank()) {
-                return new ReturnMessage("  ~  Please give a deadline for the deadline.",
+                return new ReturnMessage("  ~  Your deadline needs a deadline date!",
                         "  ~  The format should be \"deadline"
                             + " (description) /by (deadline, in format yyyy-mm-dd or dd-mm-yyyy)\"");
             }

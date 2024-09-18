@@ -43,7 +43,7 @@ public class TaskList {
             }
         }
         this.tasks.add(task);
-        return new String[] {"  ~  Cool! I added this task:",
+        return new String[] {"  ~  So cute! I added this task:",
             "  ~  " + task,
             "  ~  You now have " + this.getSize() + ((this.getSize() == 1) ? " task" : " tasks") + " in your list."};
     }
@@ -62,13 +62,13 @@ public class TaskList {
             // if code gets here, length of tasks must now be 1 less
             assert(tasks.size() == listLength - 1);
 
-            return new String[] {"  ~  Deleting the task below now!",
+            return new String[] {"  ~  I see you're done with that task now!",
                 "  ~  " + removed, "  ~  You now have " + this.getSize() + ((this.getSize() == 1) ? " task" : " tasks")
                     + " in your list."};
         } catch (NumberFormatException e) {
-            return new String[] {"  ~  Sorry, I don't think you entered a number for which task to delete!"};
+            return new String[] {"  ~  Oopsie, I don't think you entered a number for which task to delete!"};
         } catch (IndexOutOfBoundsException e) {
-            return new String[] {"  ~  I don't think there's a task with that number!"};
+            return new String[] {"  ~  Oh dear, I don't think there's a task with that number :("};
         }
     }
 
@@ -83,10 +83,10 @@ public class TaskList {
         try {
             Task task = tasks.get(taskNumber - 1);
             task.markDone();
-            return new String[] {"  ~  You finished a task! Well done! I marked this task as done:",
+            return new String[] {"  ~  You finished a task! You're amazing! I marked this task as done:",
                 "  ~  " + task};
         } catch (IndexOutOfBoundsException e) {
-            return new String[] {"  ~  I don't think there's a task with that number!"};
+            return new String[] {"  ~  Oh dear, I don't think there's a task with that number :("};
         }
     }
 
@@ -104,7 +104,7 @@ public class TaskList {
             return new String[] {"  ~  Oops, I guess you didn't finish the task! I marked this task as undone:",
                 "  ~  " + task};
         } catch (IndexOutOfBoundsException e) {
-            return new String[] {"  ~  I don't think there's a task with that number!"};
+            return new String[] {"  ~  Oh dear, I don't think there's a task with that number :("};
         }
     }
 
@@ -140,7 +140,7 @@ public class TaskList {
      */
     public String[] enumerateTasks() {
         String[] outputList = new String[tasks.size() + 1];
-        outputList[0] = "  ~  Sure! Here are all of your tasks:";
+        outputList[0] = "  ~  Oh wow, lots to do! Here's everything on your plate:";
         for (int i = 0; i < tasks.size(); i++) {
             outputList[i + 1] = "     " + (i + 1) + ". " + tasks.get(i);
         }

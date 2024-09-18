@@ -54,7 +54,7 @@ public class MarkCommand extends Command {
         try {
             return new ReturnMessage(super.taskList.markDone(Integer.parseInt(taskNumber)));
         } catch (NumberFormatException e) {
-            return new ReturnMessage("  ~  I don't think there's a task with that number!");
+            return new ReturnMessage("  ~  Oh dear, I don't think there's a task with that number :(");
         }
     }
 
