@@ -61,7 +61,12 @@ public class GuiResponses {
         }
         if (userList.size() > 0 && userList.size() < 5) {
             toReturn.append("You have fewer than 5 tasks. It seems the load is manageable for now."
-                    + "\n Keep going!");
+                    + "\nKeep going!");
+        }
+        if (userList.size() >5 && userList.size() <= 10) {
+            toReturn.append("You have between 5 and 10 tasks. "
+                    + "Though the workload is noticeable, it remains within a manageable range. "
+                    + "The path ahead is clearer, but the journey still requires your attention.");
         }
         if (userList.size() > 10) {
             toReturn.append("The list has grown beyond 10 tasks... sometimes it feels like the journey is endless.");
