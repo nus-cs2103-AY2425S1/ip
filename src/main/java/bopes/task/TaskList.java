@@ -155,7 +155,7 @@ public class TaskList {
             } else if (task instanceof Event) {
                 return ((Event) task).getDateTime();
             }
-            return LocalDateTime.MAX;  // ToDo tasks (or other tasks without a date) are pushed to the end
+            return LocalDateTime.MAX; // ToDo tasks (or other tasks without a date) are pushed to the end
         }));
     }
 }

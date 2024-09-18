@@ -61,7 +61,7 @@ public class Event extends Task {
     }
 
     /**
-     * Returns a string representation of the Event task, including its type, description, 
+     * Returns a string representation of the Event task, including its type, description,
      * start time, and end time.
      *
      * @return a string representation of the Event task
@@ -69,7 +69,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a");
-        return "[E]" + super.toString() + " (from: " + this.start.format(outputFormat) + " to: " + this.end.format(outputFormat) + ")";
+        return "[E]" + super.toString()
+            + " (from: " + this.start.format(outputFormat) + " to: " + this.end.format(outputFormat) + ")";
     }
 
     /**
@@ -81,7 +82,8 @@ public class Event extends Task {
     @Override
     public String toFileFormat() {
         DateTimeFormatter fileFormat = DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a");
-        return "E | " + (isDone ? "1" : "0") + " | " + this.description + " | " + this.start.format(fileFormat) + " | " + this.end.format(fileFormat);
+        return "E | " + (isDone ? "1" : "0") + " | " + this.description
+            + " | " + this.start.format(fileFormat) + " | " + this.end.format(fileFormat);
     }
 
     /**

@@ -1,12 +1,13 @@
 package bopes;
 
 import java.util.Scanner;
+
 import bopes.task.Task;
 import bopes.task.TaskList;
 
 /**
- * The Ui class handles all interactions with the user. 
- * It provides methods to display messages, read user input, 
+ * The Ui class handles all interactions with the user.
+ * It provides methods to display messages, read user input,
  * and show the status of tasks in the task list.
  */
 public class Ui {

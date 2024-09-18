@@ -30,20 +30,20 @@ public class Parser {
             String commandType = commandWords[0];
 
             switch (commandType) {
-                case "bye":
-                    return new CommandResult(handleByeCommand(), false); // `false` means no error
-                case "list":
-                    return new CommandResult(handleListCommand(tasks), false);
-                case "find":
-                    return new CommandResult(handleFind(commandWords, tasks), false);
-                case "mark":
-                    return new CommandResult(handleMark(commandWords, tasks, storage), false);
-                case "unmark":
-                    return new CommandResult(handleUnmark(commandWords, tasks, storage), false);
-                case "delete":
-                    return new CommandResult(handleDelete(commandWords, tasks, storage), false);
-                default:
-                    return new CommandResult(handleAddTask(fullCommand, tasks, storage), false);
+            case "bye":
+                return new CommandResult(handleByeCommand(), false); // `false` means no error
+            case "list":
+                return new CommandResult(handleListCommand(tasks), false);
+            case "find":
+                return new CommandResult(handleFind(commandWords, tasks), false);
+            case "mark":
+                return new CommandResult(handleMark(commandWords, tasks, storage), false);
+            case "unmark":
+                return new CommandResult(handleUnmark(commandWords, tasks, storage), false);
+            case "delete":
+                return new CommandResult(handleDelete(commandWords, tasks, storage), false);
+            default:
+                return new CommandResult(handleAddTask(fullCommand, tasks, storage), false);
             }
         } catch (BopesException e) {
             return new CommandResult("Error: " + e.getMessage(), true);
@@ -204,24 +204,23 @@ public class Parser {
         String description = data[2].trim();
 
         switch (taskType) {
-            case "T":
-                return new ToDo(description, isDone);
-            case "D":
-                if (data.length < 4) {
-                    throw new BopesException("Corrupted data: Missing deadline information.");
-                }
-                String by = data[3].trim();
-                return new Deadline(description, by, isDone);
-            case "E":
-                if (data.length < 5) {
-                    throw new BopesException("Corrupted data: Missing event start/end information.");
-                }
-                String from = data[3].trim();
-                String to = data[4].trim();
-                return new Event(description, from, to, isDone);
-            default:
-                throw new BopesException("Error: Unknown task type in file.");
+        case "T":
+            return new ToDo(description, isDone);
+        case "D":
+            if (data.length < 4) {
+                throw new BopesException("Corrupted data: Missing deadline information.");
+            }
+            String by = data[3].trim();
+            return new Deadline(description, by, isDone);
+        case "E":
+            if (data.length < 5) {
+                throw new BopesException("Corrupted data: Missing event start/end information.");
+            }
+            String from = data[3].trim();
+            String to = data[4].trim();
+            return new Event(description, from, to, isDone);
+        default:
+            throw new BopesException("Error: Unknown task type in file.");
         }
     }
 }
-   

@@ -53,7 +53,8 @@ public class BopesException extends Exception {
      */
     public static BopesException invalidEventFormat() {
         return new BopesException(
-            "Error: Incorrect event format. Please use the format 'event <task> /from <dd/MM/yyyy hh:mm a> /to <dd/MM/yyyy hh:mm a>'.");
+            "Error: Incorrect event format. "
+            + "Please use the format 'event <task> /from <dd/MM/yyyy hh:mm a> /to <dd/MM/yyyy hh:mm a>'.");
     }
 
     /**
@@ -63,6 +64,7 @@ public class BopesException extends Exception {
      */
     public static BopesException unknownCommand() {
         return new BopesException(
-            "Error: Unknown command. Please use 'todo', 'deadline', or 'event' followed by the task details. Example: 'todo read book'. Use 'bye' to exit the program.");
+            "Error: Unknown command. Please use 'todo', 'deadline', or 'event' followed by the task details. "
+            + "Example: 'todo read book'. Use 'bye' to exit the program.");
     }
 }

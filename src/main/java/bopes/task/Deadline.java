@@ -26,8 +26,8 @@ public class Deadline extends Task {
         assert description != null && !description.isEmpty() : "Description cannot be null or empty.";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a");
         try {
-            if (by.trim().length() == 10) {  // Length of "dd/MM/yyyy" is 10
-                by = by + " 12:00 am";  // Default to midnight if time is not provided
+            if (by.trim().length() == 10) {
+                by = by + " 12:00 am";
             }
             this.by = LocalDateTime.parse(by.toLowerCase(), formatter);
             assert this.by != null : "Parsed Deadline date cannot be null.";
@@ -37,7 +37,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a string representation of the Deadline task, including its type, description, 
+     * Returns a string representation of the Deadline task, including its type, description,
      * and formatted deadline.
      *
      * @return a string representation of the Deadline task

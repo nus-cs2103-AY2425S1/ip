@@ -1,7 +1,7 @@
 package bopes;
 
-import java.util.ArrayList;
 import java.io.File;
+import java.util.ArrayList;
 
 import bopes.exception.BopesException;
 import bopes.task.TaskList;
