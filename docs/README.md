@@ -67,7 +67,7 @@
 ### 2. Advanced Features commands
 1. `Find` tasks related to a keyword: 
    - Format : find `keyword`
-   - Example : search CS2103T
+   - Example : find CS2103T
    - Example output: 
    ```
    These are(is) the task(s) that match the description
@@ -76,7 +76,7 @@
    ```
 2. `Search` tasks that need to be done before a date:
     - search `date`
-    - Example find 2020-10-10
+    - Example search 2020-10-10
     - Example output :
     ```
     These are the tasks related to this date 2020-10-10
