@@ -218,7 +218,7 @@ public class GuiResponses {
      * @return String representation of invalid command response
      */
     public String getInvalidCommandMessage() {
-        return "It seems I didn’t quite grasp that command. Sometimes, our communication can be elusive."
+        return "It seems I didn't quite grasp that command. Sometimes, our communication can be elusive."
                 + " Please try again.";
     }
 

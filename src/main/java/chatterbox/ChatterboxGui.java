@@ -50,7 +50,7 @@ public class ChatterboxGui {
     }
 
     /**
-     * Initiates Chatterbox with no prior history
+     * Initiates ChatterboxGui with no prior history
      */
     public ChatterboxGui() {
         this.guiResponses = new GuiResponses();
@@ -73,7 +73,7 @@ public class ChatterboxGui {
 
 
     /**
-     * checks if the Chatterbox instance has any tasks
+     * checks if the ChatterboxGui instance has any tasks
      * @return true if there are tasks else false
      */
     public boolean hasTasks() {

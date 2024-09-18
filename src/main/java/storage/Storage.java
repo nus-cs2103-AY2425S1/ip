@@ -142,10 +142,8 @@ public class Storage {
         if (tagStart != -1) {
             String tags = nextLine.substring(tagStart + 7);
             String[] tagList = tags.split(" ");
-            //            System.out.println("parsed tags");
-            //            System.out.println(tagList.length);
+
             for (String tag : tagList) {
-                //                System.out.println("Tag: " + tag);
 
                 Tag nextTag = loadedTags.addTagFromString(tag);
                 taskTagSet.add(nextTag);
@@ -154,85 +152,91 @@ public class Storage {
         }
         //rest includes text ( deadline/event )
         String rest = nextLine.substring(8); //moves to start of description
-
+        Task nextTask;
         if (type == 'T') {
-            if (tagStart != -1) { //if tags are present
-                int end = rest.indexOf("/tags");
-                rest = rest.substring(0, end);
-            }
-            Todo currTodo = new Todo(rest.trim());
-            if (status) {
-                currTodo.setStatus(true);
-            }
-            //add tags to todo
-            for (Tag tag : taskTagSet) {
-                currTodo.addTag(tag);
-            }
-            loadedTasks.add(currTodo);
+            nextTask = loadTask(tagStart, rest);
+
         } else if (type == 'D') {
-            int startBracket = rest.indexOf("( by");
-            int bracketEnd = rest.indexOf(") /tags");
-            String desc = rest.substring(0, startBracket).trim();
-            String deadline;
-            if (tagStart == -1) {
-                deadline = rest.substring(startBracket + 5, rest.length() - 2).trim();
+            nextTask = loadDeadline(parser, rest, tagStart);
 
-            } else {
-
-                deadline = rest.substring(startBracket + 5, bracketEnd).trim();
-
-            }
-            LocalDateTime deadlineObj = parser.parseDateTime(deadline);
-            Deadline newDead;
-
-            if (deadlineObj == null) {
-                newDead = new Deadline(desc, deadline);
-
-            } else {
-                newDead = new Deadline(desc, deadlineObj);
-            }
-            if (status) {
-                newDead.setStatus(true);
-            }
-            for (Tag tag : taskTagSet) {
-                newDead.addTag(tag);
-            }
-            loadedTasks.add(newDead);
 
         } else {
-            int startBracket = rest.indexOf("( from");
-            int toStart = rest.indexOf("to");
-            String desc = rest.substring(0, startBracket).trim();
-            String startDate = rest.substring(startBracket + 7, toStart).trim();
-            LocalDateTime startDateObj = parser.parseDateTime(startDate);
-            String endDate;
-            if (tagStart == -1) {
-                endDate = rest.substring(toStart + 3, rest.length() - 2).trim();
+            nextTask = loadEvent(parser, rest, tagStart);
 
-            } else {
-                int bracketEnd = rest.indexOf(") /tags");
-
-                endDate = rest.substring(toStart + 3, bracketEnd).trim();
-            }
-            LocalDateTime endDateObj = parser.parseDateTime(endDate);
-
-            Event nextEvent;
-            if (startDateObj != null && endDateObj != null) {
-                nextEvent = new Event(desc, startDateObj, endDateObj);
-            } else {
-                nextEvent = new Event(desc, startDate, endDate);
-            }
-
-            if (status) {
-                nextEvent.setStatus(true);
-            }
-
-            for (Tag tag : taskTagSet) {
-                nextEvent.addTag(tag);
-            }
-            loadedTasks.add(nextEvent);
 
         }
+        if (status) {
+            nextTask.setStatus(true);
+        }
+        for (Tag tag : taskTagSet) {
+            nextTask.addTag(tag);
+            tag.tagTask(nextTask);
+        }
+        loadedTasks.add(nextTask);
+
+    }
+
+    private static Event loadEvent(Parser parser, String rest, int tagStart) throws ChatterboxExceptions.ChatterBoxNoInput {
+        Event nextTask;
+        int startBracket = rest.indexOf("( from");
+        int toStart = rest.indexOf("to");
+        String desc = rest.substring(0, startBracket).trim();
+        String startDate = rest.substring(startBracket + 7, toStart).trim();
+        LocalDateTime startDateObj = parser.parseDateTime(startDate);
+        String endDate;
+        if (tagStart == -1) {
+            endDate = rest.substring(toStart + 3, rest.length() - 2).trim();
+
+        } else {
+            int bracketEnd = rest.indexOf(") /tags");
+
+            endDate = rest.substring(toStart + 3, bracketEnd).trim();
+        }
+        LocalDateTime endDateObj = parser.parseDateTime(endDate);
+
+
+        if (startDateObj != null && endDateObj != null) {
+            nextTask = new Event(desc, startDateObj, endDateObj);
+        } else {
+            nextTask = new Event(desc, startDate, endDate);
+        }
+        return nextTask;
+    }
+
+    private static Deadline loadDeadline(Parser parser, String rest, int tagStart) throws ChatterboxExceptions.ChatterBoxNoInput {
+        Deadline nextTask;
+        int startBracket = rest.indexOf("( by");
+        int bracketEnd = rest.indexOf(") /tags");
+        String desc = rest.substring(0, startBracket).trim();
+        String deadline;
+        if (tagStart == -1) {
+            deadline = rest.substring(startBracket + 5, rest.length() - 2).trim();
+
+        } else {
+
+            deadline = rest.substring(startBracket + 5, bracketEnd).trim();
+
+        }
+        LocalDateTime deadlineObj = parser.parseDateTime(deadline);
+
+
+        if (deadlineObj == null) {
+            nextTask = new Deadline(desc, deadline);
+
+        } else {
+            nextTask = new Deadline(desc, deadlineObj);
+        }
+        return nextTask;
+    }
+
+    private static Todo loadTask(int tagStart, String rest) throws ChatterboxExceptions.ChatterBoxNoInput {
+        Todo nextTask;
+        if (tagStart != -1) { //if tags are present
+            int end = rest.indexOf("/tags");
+            rest = rest.substring(0, end);
+        }
+        nextTask = new Todo(rest.trim());
+        return nextTask;
     }
 
 
