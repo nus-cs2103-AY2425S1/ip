@@ -1,7 +1,9 @@
 package phenex.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -13,27 +15,23 @@ import phenex.exception.PhenexException;
 public class TaskListTest {
 
     /**
-     * Tests that a phenex exception is thrown for inputting an invalid index when marking task.
+     * Tests that a PhenexException is thrown for inputting an invalid index when marking a task as completed.
      */
     @Test
-    public void invalid_index_phenexExceptionThrown() {
+    public void markTaskCompleted_invalidIndex_throwsPhenexException() {
         TaskList taskList = new TaskList();
         ToDo toDoTask = new ToDo("task Test");
         taskList.addTask(toDoTask);
 
-        try {
-            taskList.markTaskCompleted(-1);
-            fail();
-        } catch (PhenexException e) {
-            assertEquals("\t Invalid input, no such mission!", e.getMessage());
-        }
+        PhenexException exception = assertThrows(PhenexException.class, () -> taskList.markTaskCompleted(-1));
+        assertEquals("\t Invalid input, no such mission!", exception.getMessage());
     }
 
     /**
-     * Tests that adding a valid task works properly.
+     * Tests that adding a valid task to the TaskList works properly.
      */
     @Test
-    public void add_task_success() {
+    public void addTask_validTask_taskAddedSuccessfully() {
         TaskList taskList = new TaskList();
         ToDo toDo = new ToDo("test");
         taskList.addTask(toDo);
@@ -42,25 +40,52 @@ public class TaskListTest {
     }
 
     /**
-     * Tests that taskList correctly finds a contained task.
+     * Tests that taskList correctly finds a task that is contained.
      */
     @Test
-    public void find_task_success() {
+    public void containsTask_validTask_returnsTrue() {
         TaskList taskList = new TaskList();
         ToDo toDo = new ToDo("test");
         taskList.addTask(toDo);
-        assertEquals(true, taskList.containsTask(toDo));
+
+        assertTrue(taskList.containsTask(toDo));
     }
 
     /**
-     * Tests that taskList correctly detects a task is not contained.
+     * Tests that taskList correctly detects when a task is not contained.
      */
     @Test
-    public void find_task_failure() {
+    public void containsTask_nonExistingTask_returnsFalse() {
         TaskList taskList = new TaskList();
         ToDo toDo = new ToDo("test");
         taskList.addTask(toDo);
         ToDo task = new ToDo("Not found");
-        assertEquals(false, taskList.containsTask(task));
+
+        assertFalse(taskList.containsTask(task));
+    }
+
+    /**
+     * Tests that marking a task in an empty list throws a PhenexException.
+     */
+    @Test
+    public void markTaskCompleted_emptyList_throwsPhenexException() {
+        TaskList taskList = new TaskList();
+
+        PhenexException exception = assertThrows(PhenexException.class, () -> taskList.markTaskCompleted(0));
+        assertEquals("\t Invalid input, no such mission!", exception.getMessage());
+    }
+
+    /**
+     * Tests that marking a task with an out-of-bound index throws a PhenexException.
+     */
+    @Test
+    public void markTaskCompleted_outOfBoundsIndex_throwsPhenexException() {
+        TaskList taskList = new TaskList();
+        ToDo toDoTask = new ToDo("task Test");
+        taskList.addTask(toDoTask);
+
+        // Index is out of bounds because only 1 task is present
+        PhenexException exception = assertThrows(PhenexException.class, () -> taskList.markTaskCompleted(10));
+        assertEquals("\t Invalid input, no such mission!", exception.getMessage());
     }
 }
