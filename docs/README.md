@@ -15,10 +15,13 @@ There are three different types of tasks Dumpling supports.
 The syntax of adding the different tasks are as follows,
 where content is expected between the square brackets:
 ```
-todo [task description]
-deadline [task description] /by [yyyy-MM-dd]
-event [task description] /from [yyyy-MM-dd] /to [yyyy-MM-dd]
+todo DESCRIPTION
+deadline DESCRIPTION /by DATE
+event DESCRIPTION /from START_DATE /to END_DATE
 ```
+
+:exclamation: Fields `DATE`, `START_DATE` and `END_DATE` must be in
+the format `yyyy-MM-dd`.
 
 Examples of adding tasks:
 * `event project meeting /from 2024-09-18 /to 2024-09-18` adds an event task
@@ -27,13 +30,15 @@ Examples of adding tasks:
 ## Adding Notes: `note`
 
 You can add notes to tasks as well!
+Notes are especially useful for depicting times for events.
 
 The syntax of adding notes to a task is as follows:
 ```
-note [1-based index of target task] [task notes]
+note INDEX TASK_NOTES
 ```
 
 :exclamation: Adding notes to a task will overwrite the existing task notes, if any!
+:exclamation: `INDEX` must be 1-based.
 
 Examples:
 * Assuming there is a task at index 1 (1-based indexing), `note 1 previously postponed`
@@ -47,7 +52,7 @@ Have too many tasks but you only want tasks with a specific substring? Use the `
 command to quickly search for it!
 
 ```
-find [substring of target task description]
+find PARTIAL_DESCRIPTION
 ```
 
 :exclamation: The indices shown by the `find` keyword does not return the indices of the
@@ -57,7 +62,7 @@ For example, if the command `find project` displays the following output:
      Waaa! Here are the matching tasks in your list:
       1.[T][ ] prepare for project meeting (my part is part A)
       2.[D][ ] project submission (by: Oct 10 2024)
-      3.[E][ ] project meeting (from: today 9pm to: 10pm)
+      3.[E][ ] project meeting (from: Sep 18 2024 to: Sep 19 2024)
 ```
 It does not necessarily mean that the task `prepare for project meeting` is also at `index 1`
 in the full list of tasks! 
@@ -67,9 +72,11 @@ Use the `find` keyword to obtain the full list of tasks.
 
 Tasks can be marked as done or unmarked as undone, using the following syntax is as follows:
 ```
-mark [1-based index of target task]
-unmark [1-based index of target task]
+mark INDEX
+unmark INDEX
 ```
+
+:exclamation: `INDEX` must be 1-based.
 
 ## List Tasks: `list`
 
