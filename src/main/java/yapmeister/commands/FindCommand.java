@@ -12,9 +12,16 @@ import yapmeister.task.TaskList;
  */
 public class FindCommand implements Command {
     private String searchTerm;
+    private boolean isExactMatch;
+
     @Override
     public void execute(TaskList tasks, Storage storage, UI ui) throws Exception {
-        ArrayList<Task> tasks2 = tasks.getFilteredArrayList(t -> t.getTaskName().contains(searchTerm));
+        ArrayList<Task> tasks2 = null;
+        if (isExactMatch) {
+            tasks2 = tasks.getFilteredArrayList(t -> t.getTaskName().equals(searchTerm));
+        } else {
+            tasks2 = tasks.getFilteredArrayList(t -> t.getTaskName().contains(searchTerm));
+        }
         int i = 0;
         for (Task filteredTask : tasks2) {
             ui.displayString(String.format("%d. %s", i + 1, filteredTask.toString()));
@@ -34,7 +41,16 @@ public class FindCommand implements Command {
 
         assert inputs.length >= 2;
 
-        this.searchTerm = inputs[1];
+        if (!inputs[1].equals("-e")) {
+            this.searchTerm = inputs[1];
+            this.isExactMatch = false;
+            return this;
+        }
+        this.isExactMatch = true;
+        if (inputs.length < 3) {
+            throw new InvalidInputException("Insufficient arguments for exact Find");
+        }
+        this.searchTerm = inputs[2];
         return this;
     }
 }
