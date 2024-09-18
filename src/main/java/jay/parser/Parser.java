@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import jay.command.Command;
 import jay.task.DeadlineTask;
 import jay.task.EventTask;
+import jay.task.InvalidDescriptionException;
 import jay.task.InvalidTaskException;
 import jay.task.Task;
 import jay.task.ToDoTask;
@@ -70,6 +71,8 @@ public class Parser {
         } catch (InvalidTimeException e) {
             throw new InvalidTaskException("OOPS!!! Please enter a valid "
                     + "time in the format HHmm.");
+        } catch (InvalidDescriptionException e) {
+            throw new InvalidTaskException("OOPS!!! Please enter a valid task description.");
         }
     }
 

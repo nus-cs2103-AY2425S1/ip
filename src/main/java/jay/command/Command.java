@@ -1,5 +1,6 @@
 package jay.command;
 
+import jay.task.InvalidDescriptionException;
 import jay.task.Task;
 
 /**
@@ -87,9 +88,16 @@ public class Command {
      * Returns the description from the command.
      *
      * @return The description.
+     * @throws InvalidDescriptionException If the description is empty.
      */
-    public String getDescription() {
-        return this.command.split("/")[0].split(" ", 2)[1].trim();
+    public String getDescription() throws InvalidDescriptionException {
+        String description = this.command.split("/")[0].split(" ", 2)[1].trim();
+
+        if (description.isEmpty()) {
+            throw new InvalidDescriptionException("OOPS!!! The description of a todo cannot be empty.");
+        }
+
+        return description;
     }
 
     /**
