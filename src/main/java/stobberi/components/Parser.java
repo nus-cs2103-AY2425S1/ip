@@ -52,7 +52,7 @@ public class Parser {
         case "unmark":
             return new UnmarkCommand(taskList, restOfCommand);
         case "delete":
-                return new DeleteCommand(taskList, restOfCommand);
+            return new DeleteCommand(taskList, restOfCommand);
         case "date":
             return new DateCommand(taskList, restOfCommand);
         case "todo":
