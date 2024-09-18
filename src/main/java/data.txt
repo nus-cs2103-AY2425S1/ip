@@ -3,3 +3,5 @@
 3.[T][ ] name
 4.[E][ ] one /from 2020-01-01 0000 /to 2020-02-02 0000
 5.[T][ ] name
+6.[D][ ] Submit Assignment /by 2024-10-01 2359
+7.[E][ ] Rehearsal /from 2024-10-01 0000 /to 2024-10-10 2300

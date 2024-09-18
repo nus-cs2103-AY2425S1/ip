@@ -1,6 +1,7 @@
 package bro;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class TaskList {
     private static final ArrayList<Task> list = new ArrayList<>();
@@ -73,6 +74,9 @@ public class TaskList {
      *         recent task is found in `full`, or an empty string if no duplicate is detected.
      */
     public String findDuplicate(String full) {
+        if (Objects.equals(full, ui.printList(this))) {
+            return "";
+        }
         String curr = list.get(this.size() - 1).toString();
         if (full.contains(curr + "\n")) {
             return "   Task added seems to already exist. Do you want to continue? [yes/no]";

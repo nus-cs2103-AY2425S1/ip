@@ -21,7 +21,7 @@ public class Parser {
         try {
             return LocalDateTime.parse(s, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         } catch (DateTimeParseException dte) {
-            System.out.println("   Input date and time format at yyyy-mm-dd tttt");
+            System.out.println("   Input date and time format as yyyy-mm-dd tttt");
         }
         return null;
     }
@@ -46,7 +46,7 @@ public class Parser {
             tasks.add(curr);
             return ui.printStatus(curr, tasks.size());
         }
-        return "";
+        return "   Input date and time format as yyyy-mm-dd tttt";
     }
 
     /**
@@ -73,6 +73,6 @@ public class Parser {
                 return ui.printStatus(curr, tasks.size());
             }
         }
-        return "";
+        return "   Input date and time format as yyyy-mm-dd tttt";
     }
 }
