@@ -15,6 +15,8 @@ public abstract class Task {
      * @param taskName The name of the task
      */
     public Task(String taskName) {
+        assert taskName.charAt(0) != ' ';
+        assert taskName.charAt(taskName.length() - 1) != ' ';
         this.taskName = taskName;
         this.isCompleted = false;
     }

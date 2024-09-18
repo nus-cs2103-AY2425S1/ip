@@ -69,6 +69,7 @@ public class Storage {
      * @param filePath File path to the file to which the data is to be exported to
      */
     public static void writeData(TaskList taskList, String filePath) {
+        assert !filePath.isEmpty();
         try {
             PrintWriter writer = new PrintWriter(filePath, "UTF-8");
             writer.println(taskList.export());
@@ -76,6 +77,5 @@ public class Storage {
         } catch (FileNotFoundException | UnsupportedEncodingException e) {
             UI.printMessage("Failed to save data");
         }
-
     }
 }

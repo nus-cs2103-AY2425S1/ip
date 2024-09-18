@@ -22,6 +22,7 @@ public class DeleteCommand extends Command {
      */
     public DeleteCommand(int index) {
         super(true);
+        assert index >= 0;
         this.index = index;
     }
 
@@ -33,6 +34,7 @@ public class DeleteCommand extends Command {
      * @throws InvalidTaskNumberException Is thrown when user inputs an invalid Task Number
      */
     public void execute(TaskList taskList) throws InvalidTaskNumberException {
+        assert taskList != null;
         Task delTask = taskList.removeTaskAtIndex(this.index);
         UI.printDeleteTask(delTask);
         UI.printCurrentTaskListStatus(taskList);
