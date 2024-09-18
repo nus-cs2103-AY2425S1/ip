@@ -42,7 +42,7 @@ public class Processor {
         switch (c.getCmd()) {
         case "help":
             return "Welcome! Here are the commands you can use:\n"
-                    + "help: lists all commands"
+                    + "help: lists all commands\n"
                     + "list: lists all current tasks\n"
                     + "mark: marks task at index <int> as done\n"
                     + "unmark: marks task at index <int> as not done\n"
