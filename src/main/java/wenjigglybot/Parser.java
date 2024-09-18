@@ -98,7 +98,8 @@ public class Parser {
 
         String taskType = parts[1].substring(1, 2);
         boolean isDone = parts[1].length() >= 5 && parts[1].charAt(4) == 'X';
-        String description = parts[2];
+
+        String description = isDone ? parts[2] : parts[2].split(" ")[1];
 
         switch (taskType) {
         case "T":

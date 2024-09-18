@@ -1,30 +1,35 @@
 # WenJigglyBot User Guide
 
-// Update the title above to match the actual product name
+![WenJigglyBot Screenshot](./Ui.png)
 
-// Product screenshot goes here
+WenJigglyBot is a fun, easy-to-use task management app that helps you stay organized by storing to-dos, deadlines,
+and
+events. You can easily add tasks, set deadlines, and mark items as completed, all within an interactive chatbot
+interface.
 
-// Product intro goes here
+## Adding tasks
 
-## Adding deadlines
+You can add todos, deadlines and events simply!
 
-// Describe the action and its outcome.
+Examples:\
+`todo (description)`\
+`deadline (title) /by yyyy-mm-dd`\
+`event (title) /from (date) /to (date)`
 
-// Give examples of usage
+Add commands using these commands!
 
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
+Expected Output:
 
 ```
-expected output
+todo meow
+
+Adding meow
+Done! Added: hey
+You now have 2 tasks!
 ```
 
-## Feature ABC
-
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
+- **Task Management**: Add, view, and mark tasks as done using simple commands.
+- **Deadlines**: Set deadlines for tasks, and the bot will track them for you.
+- **Event Management**: Create and track events or special dates.
+- **Interactive Chatbot**: Engage with WenJigglyBot as it responds to your task management needs in a playful and
+  interactive manner.
