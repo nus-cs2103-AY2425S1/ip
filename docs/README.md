@@ -59,6 +59,12 @@ If there was any error when processing the task to be added, the bot will attemp
 Existing tasks can be marked as complete or incomplete using the `mark` and `unmark` commands respectively.
 
 Usage:
+```
+mark <task-number>
+unmark <task-number>
+```
+
+Examples:
 - `mark 1` will mark the first task in the list as complete
 - `unmark 2` will mark the second task in the list as incomplete.
 
@@ -70,6 +76,11 @@ Examples of invalid task numbers:
 ## Deleting Tasks
 Existing tasks can be deleted using the `delete` command with a specified task number.
 Usage:
+```
+delete <task-number>
+```
+
+Example:
 - `delete 1` will delete the first task in the list.
 
 If the specified task number does not exist, the bot will not proceed with the request.
@@ -92,7 +103,9 @@ Usage:
 ```
 find <keyword-in-task-description>
 ```
+
 The bot will consolidate and display the tasks that match the specified keywords.
+Example: `find organise` will return all tasks that have the keyword `organise` in their task description.
 
 If no matches are found, the bot will also notify you of the result.
 
