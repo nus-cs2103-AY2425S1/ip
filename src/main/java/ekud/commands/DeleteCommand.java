@@ -34,7 +34,7 @@ public class DeleteCommand extends Command {
         String responseDeleteIncomplete = "I'm going to assume that task wasn't meant to be there...";
         String responseMessageFormat = """
                 %s
-                Proceeding with ekud.task removal directive...
+                Proceeding with task removal directive...
                   deleted: %s
                 %s""";
 

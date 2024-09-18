@@ -125,8 +125,8 @@ public abstract class Task {
 
         } catch (IndexOutOfBoundsException | EkudException e) {
             String message = String.format(
-                        "Warning: ekud.task.Task entry { %s } is missing required arguments or is"
-                                + "incorrectly formatted\nRemoving ekud.task entry...",
+                        "Warning: Task entry { %s } is missing required arguments or is"
+                                + "incorrectly formatted\nRemoving task entry...",
                         taskSaveString);
             ui.addToBuffer(message);
             return null;
