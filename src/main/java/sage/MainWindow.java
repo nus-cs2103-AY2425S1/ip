@@ -34,7 +34,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().add(DialogBox.getSageWelcome(sageImage));
-        userInput.setPromptText("Message");
+        userInput.setPromptText("try 'help'");
         sendButton.setDisable(true);
         sendButton.getStyleClass().add("disabled");
         userInput.setFocusTraversable(false);
@@ -70,7 +70,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getSageDialog(response, sageImage)
         );
         userInput.clear();
-        userInput.setPromptText("Message");
+        userInput.setPromptText("try 'help'");
 
         if (commandType == CommandType.BYE) {
             sendButton.setDisable(true);

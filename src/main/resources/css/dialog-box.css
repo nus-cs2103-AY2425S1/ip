@@ -1,15 +1,18 @@
 .label {
-    -fx-background-color: linear-gradient(to bottom right, #bob8bo, #9f9f9f);
-    -fx-border-color: #6e6e6e #8a8a8a #7d7d7d #9b9b9b;
+    -fx-background-color: linear-gradient(to bottom right, #f8c4d9, #ffd6e0);
+    -fx-border-color: #e8b2be;
     -fx-border-width: 2px;
     -fx-background-radius: 1em 1em 0 1em;
     -fx-border-radius: 1em 1em 0 1em;
+    -fx-font: 13px "Comic Sans MS";
 }
 
 .reply-label {
     -fx-background-radius: 1em 1em 1em 0;
     -fx-border-radius: 1em 1em 1em 0;
     -fx-background-color: linear-gradient(to bottom right, #c4c4c4, #a0a0a0);
+    -fx-border-color: #a0a0a0;
+    -fx-font: 13px "Comic Sans MS"
 }
 
 #displayPicture {
@@ -22,9 +25,8 @@
 
     /* Rotate image clockwise by degrees. */
     -fx-rotate: 0;
-}
 
-.reply-label {
-    -fx-background-radius: 1em 1em 1em 0;
-    -fx-border-radius: 1em 1em 1em 0;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 2;
+    -fx-border-radius: 50%;
 }
