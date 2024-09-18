@@ -241,6 +241,10 @@ public class UI {
         return "You can't just type one word!";
     }
 
+    public String handleTodosFormat() {
+        return "You need to input something after todos!";
+    }
+
     public String handleGoodbye() {
         String exit = "|  _ \\ \\   / /  ____|"
                 + "\n| |_) \\ \\_/ /| |__"

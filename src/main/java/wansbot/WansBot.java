@@ -151,18 +151,24 @@ public class WansBot {
         }
     }
 
-    
+    public void checkTodosInput(String userInput) {
+        String[] split = userInput.split("todos");
+        if (split.length < 2 || split[1].equalsIgnoreCase(" ")) {
+            throw new InputEmptyException("todos");
+        }
+    }
 
     /**
      * Adds Todos to the userTaskList.
      */
     protected String addTodos(String userInput) {
         try {
+            checkTodosInput(userInput);
             Todos newTodo = new Todos(userInput.substring(6));
             userTaskList.add(newTodo);
             return ui.handleSuccessfulAdd(newTodo);
-        } catch (StringIndexOutOfBoundsException e) {
-            return ui.handleOneWord();
+        } catch (InputEmptyException e) {
+            return ui.handleTodosFormat();
         }
     }
 
