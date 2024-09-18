@@ -11,7 +11,10 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import friday.task.Deadline;
+import friday.task.Event;
 import friday.task.Task;
+import friday.task.Todo;
 
 /**
  * Tests the functionality of the Storage class.
@@ -54,5 +57,30 @@ public class StorageTest {
         assertTrue(tasks.get(1).isTaskDone());
         assertEquals("Task 3", tasks.get(2).getDescription());
         assertFalse(tasks.get(2).isTaskDone());
+    }
+
+    /**
+     * Tests the saving of tasks to the file.
+     * Verifies that the tasks are correctly saved and their properties match the expected values.
+     *
+     * @throws IOException If an error occurs while saving to the file.
+     */
+    @Test
+    public void save_success() throws IOException {
+        ArrayList<Task> tasks = new ArrayList<>();
+        tasks.add(new Todo("Task 1"));
+        tasks.add(new Deadline("Task 2", "2023-10-10 1800", true));
+        tasks.add(new Event("Task 3", "2023-10-10 1800", "2023-10-11 1900"));
+
+        storage.save(tasks);
+
+        ArrayList<Task> loadedTasks = storage.load();
+        assertEquals(3, loadedTasks.size());
+        assertEquals("Task 1", loadedTasks.get(0).getDescription());
+        assertFalse(loadedTasks.get(0).isTaskDone());
+        assertEquals("Task 2", loadedTasks.get(1).getDescription());
+        assertTrue(loadedTasks.get(1).isTaskDone());
+        assertEquals("Task 3", loadedTasks.get(2).getDescription());
+        assertFalse(loadedTasks.get(2).isTaskDone());
     }
 }
