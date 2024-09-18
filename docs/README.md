@@ -1,10 +1,12 @@
 # Sunny User Guide
+**Sunny is my dog. She is kinda smart so she can help you 
+keep track of your tasks, check out the instructions below
+to find out more!** 
 
+
+## Example of the user interface: 
 ![Image of the actual user interface](Ui.png)
 
-Sunny is my dog. She is kinda smart so she can help you 
-keep track of your tasks, check out the instructions below
-to find out more!
 
 ## Adding deadlines: `deadline`
 
