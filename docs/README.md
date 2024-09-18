@@ -190,11 +190,11 @@ Gets all the tags associated with the task.
 
 `<Task Index>` refers to the index of the
 task in the `TaskList` array.
-
+```
 >`list`
->1. [T][ ] sleep twice
->2. [D][ ] assignment 1 (by: 18 09 2024 23:59)
->
+>   1. [T][ ] sleep twice
+>   2. [D][ ] assignment 1 (by: 18 09 2024 23:59)
+```
 >`addtag 1 sleep 8 hours`
 >
 >     Tag: sleep 8 hours has been added to task:
@@ -209,7 +209,7 @@ task in the `TaskList` array.
 >
 >`gettag 1`
 >
->Below are the list of tags related to task:
+>       Below are the list of tags related to task:
 >
 >       [T][ ] sleep twice | [sleep 8 hours, sleep on comfortable bed]
 >       1. sleep 8 hours
