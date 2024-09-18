@@ -27,6 +27,7 @@ public class Parser {
         this.scanner = new Scanner(System.in);
     }
 
+    //Parses inputs to strings
     public String parse(String input, TaskList taskList) {
 
         // Ensure taskList is not null
