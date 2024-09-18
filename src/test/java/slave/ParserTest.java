@@ -32,16 +32,16 @@ public class ParserTest {
         String illegalArg = "That's not a task number";
 
         //methods should not accept negative numbers, numbers out of range, and non-numbers
-        Assertions.assertEquals(success + list.get(0).setAsCompleted(), parser.markAsDone("1"));
-        Assertions.assertEquals(outOfBounds + "-1", parser.markAsDone("-1"));
-        Assertions.assertEquals(outOfBounds + "4", parser.markAsDone("4"));
-        Assertions.assertEquals(illegalArg, parser.markAsDone("a"));
+        Assertions.assertEquals(success + list.get(0).setAsCompleted(), parser.markAsDone("1")[0]);
+        Assertions.assertEquals(outOfBounds + "-1", parser.markAsDone("-1")[0]);
+        Assertions.assertEquals(outOfBounds + "4", parser.markAsDone("4")[0]);
+        Assertions.assertEquals(illegalArg, parser.markAsDone("a")[0]);
 
         String incomplete = "Slacking off now, are you?\n";
-        Assertions.assertEquals(incomplete + list.get(0).setAsIncomplete(), parser.markAsIncomplete("1"));
-        Assertions.assertEquals(outOfBounds + "-1", parser.markAsIncomplete("-1"));
-        Assertions.assertEquals(outOfBounds + "4", parser.markAsIncomplete("4"));
-        Assertions.assertEquals(illegalArg, parser.markAsIncomplete("a"));
+        Assertions.assertEquals(incomplete + list.get(0).setAsIncomplete(), parser.markAsIncomplete("1")[0]);
+        Assertions.assertEquals(outOfBounds + "-1", parser.markAsIncomplete("-1")[0]);
+        Assertions.assertEquals(outOfBounds + "4", parser.markAsIncomplete("4")[0]);
+        Assertions.assertEquals(illegalArg, parser.markAsIncomplete("a")[0]);
 
         String[] deleted = {"Good to know that I have less things to remember now...", "I'll forget about "
                 + list.get(0)};
