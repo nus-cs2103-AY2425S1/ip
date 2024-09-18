@@ -94,7 +94,7 @@ public class Parser {
             Task currTask = taskList.markTask(index);
             return Ui.markUi(currTask);
         } catch (NumberFormatException e) {
-            return Ui.errorUi(e);
+            return "I'm sorry, your index in invalid";
         }
     }
 
@@ -116,7 +116,7 @@ public class Parser {
 
             return Ui.unmarkUi(currTask);
         } catch (NumberFormatException e) {
-            return Ui.errorUi(e);
+            return "I'm sorry, your index in invalid";
         }
     }
 
@@ -135,14 +135,14 @@ public class Parser {
     private static String handleDeadlineCommand(String[] inputs, TaskList taskList) throws IncorrectInputException {
         if (inputs.length != 2) {
             throw new IncorrectInputException("You should have a description after your request. "
-                    + "(e.g. \"deadline your_description /by your_deadline\")");
+                    + "(e.g. \"deadline your_description /by dd/MM/yyyy\")");
         }
 
         String[] parts = inputs[1].split(" /by ");
 
         if (parts.length != 2) {
-            throw new IncorrectInputException("You should have a timing after your request. "
-                    + "(e.g. \"todo your_description /event your_deadline\")");
+            throw new IncorrectInputException("You should have a date after your request. "
+                    + "(e.g. \"todo your_description /by dd/MM/yyyy\")");
         }
 
         try {
@@ -154,7 +154,7 @@ public class Parser {
 
             return Ui.addTaskUi(addedTask, sizeOfList);
         } catch (DateTimeParseException e) {
-            return Ui.errorUi(e);
+            return "I'm sorry, your date format is invalid. Try dd/MM/yyyy.";
         }
     }
 
@@ -168,7 +168,7 @@ public class Parser {
 
         if (parts.length != 3) {
             throw new IncorrectInputException("You should have 2 timings after your request. "
-                    + "(e.g. \"todo your_description /from your_start_time /to your_end_time\")");
+                    + "(e.g. \"todo your_description /from dd/MM/yyyy HHmm /to dd/MM/yyyy HHmm\")");
         }
 
         try {
@@ -182,7 +182,7 @@ public class Parser {
 
             return Ui.addTaskUi(addedTask, sizeOfList);
         } catch (DateTimeParseException e) {
-            return Ui.errorUi(e);
+            return "I'm sorry, your date & time format is invalid. Try dd/MM/yyyy HHmm.";
         }
     }
 
@@ -205,7 +205,7 @@ public class Parser {
 
             return Ui.deleteUi(deletedTask, size);
         } catch (NumberFormatException e) {
-            return Ui.errorUi(e);
+            return "I'm sorry, your index in invalid";
         }
     }
 
