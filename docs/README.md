@@ -12,8 +12,6 @@ She offers:
 - **Intuitive commands** that make it easy to add, manage, and view your tasks with simple input. 💻
 - **Fun gamification elements** that turn task management into a rewarding experience, making you feel more motivated and productive. 🎮
 
-Here's the revised setup guide:
-
 ## Setup Guide
 
 1. Download the `KukiShinobu.jar` file from [here](#).
