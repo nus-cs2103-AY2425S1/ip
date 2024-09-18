@@ -12,7 +12,7 @@ public class Ui {
     }
 
     public String getExitMessage() {
-        return "\tBye. Hope to see you again soon!\n";
+        return "Bye. Hope to see you again soon!\n";
     }
 
     public String getWelcomeMessage() {
