@@ -44,7 +44,7 @@ public class Parser {
         assert command != null : "Command is not a String";
         switch (command) {
         case "bye":
-            return new ExitCommand();
+            return new ExitCommand(restOfCommand);
         case "list":
             return new ListCommand(taskList);
         case "mark":
