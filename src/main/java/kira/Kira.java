@@ -26,20 +26,20 @@ public class Kira {
 
         try {
             Parser.CommandType command = parser.intepreteCommand(input);
+            assert command != null : "command returned cannot be null";
             Task task = parser.execute(command, input);
             this.storage.save(this.list);
             return parser.getResponse(command, input, task);
         } catch (UnreadableException | EmptyException | InvalidTaskException e) {
             this.ui.showLoadingError();
-            System.out.println(e.getMessage());
+            return e.getMessage();
         } catch (IOException e) {
             this.ui.showLoadingError();
-            System.out.println("File cannot be saved" + e.getMessage());
+            return "File cannot be saved" + e.getMessage();
         } catch (Exception e) {
             this.ui.showLoadingError();
-            System.out.println("something went wrong");
+            return "something went wrong";
         }
-        return "";
     }
 
 

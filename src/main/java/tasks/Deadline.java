@@ -12,7 +12,11 @@ public class Deadline extends Task {
 
     public Deadline(String taskName, String deadline) {
         super(taskName);
-        String[] strings = deadline.split("/");
+        this.localDateTime = convertStringToLdt(deadline);
+    }
+
+    public static LocalDateTime convertStringToLdt(String string) {
+        String[] strings = string.split("/");
         int dayOfMonth = Integer.parseInt(strings[0]);
         int month = Integer.parseInt(strings[1]);
         String[] yearTime = strings[2].split(" ");
@@ -24,9 +28,17 @@ public class Deadline extends Task {
                 year, month, dayOfMonth);
         LocalTime localTime = LocalTime.of(
                 Integer.parseInt(hour), Integer.parseInt(minute));
-        LocalDateTime localDateTime = LocalDateTime.of(
-                localDate, localTime);
-        this.localDateTime = localDateTime;
+        return LocalDateTime.of(localDate, localTime);
+    }
+    public static String convertLdtToString(LocalDateTime ldt) {
+        String month = ldt.getMonth().getDisplayName(
+                TextStyle.valueOf("SHORT"), new Locale("English"));
+        String dayOfMonth = String.valueOf(
+                ldt.getDayOfMonth());
+        String year = String.valueOf(
+                ldt.getYear());
+        String time = ldt.toLocalTime().toString();
+        return month + " " + dayOfMonth + " " + year + " " + time;
     }
 
     public static String extractName(String input) {
@@ -49,12 +61,8 @@ public class Deadline extends Task {
         } else {
             cross = "[ ]";
         }
-        String month = this.localDateTime.getMonth().getDisplayName(
-                TextStyle.valueOf("SHORT"), new Locale("English"));
-        String dayOfMonth = String.valueOf(this.localDateTime.getDayOfMonth());
-        String year = String.valueOf(this.localDateTime.getYear());
-        String time = this.localDateTime.toLocalTime().toString();
+        String ldtString = convertLdtToString(this.localDateTime);
         return "[D]" + cross + " " + super.getInput()
-                + " (by: " + month + " " + dayOfMonth + " " + year + " " + time + ")\n";
+                + " (by: " + ldtString + ")\n";
     }
 }

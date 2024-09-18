@@ -7,7 +7,6 @@ import java.util.ArrayList;
 public class List {
 
     private ArrayList<Task> tasks;
-    String line = "____________________________________________________________\n";
 
     public List(){
         this.tasks = new ArrayList<>(100);
@@ -43,7 +42,7 @@ public class List {
      * @return A string to be displayed
      */
     public String addedNotification(Task task) {
-        return line + task.addedString() + numOfTasks() + line;
+        return task.addedString() + numOfTasks();
     }
 
     /**
