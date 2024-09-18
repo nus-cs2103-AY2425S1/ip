@@ -111,6 +111,6 @@ public class Event extends Task {
         }
 
 
-        return "Event | " + isCompleted() + "  | " + this.getTitle() + " | " + startTxtString + " | " + endTxtString;
+        return "Event | " + isCompleted() + " | " + this.getTitle() + " | " + startTxtString + " | " + endTxtString;
     }
 }

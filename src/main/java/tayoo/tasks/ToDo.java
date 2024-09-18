@@ -1,5 +1,7 @@
 package tayoo.tasks;
 
+import tayoo.exception.TayooException;
+
 public class ToDo extends Task {
 
 
@@ -35,7 +37,7 @@ public class ToDo extends Task {
      *
      * @return string representation of Todo in command form
      */
-    public String toTxt() {
+    public String toTxt() throws TayooException{
         if (this.isCompleted()) {
             return "Todo | true | " + this.getTitle();
         } else {

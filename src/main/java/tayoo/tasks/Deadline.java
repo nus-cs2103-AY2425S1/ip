@@ -72,6 +72,6 @@ public class Deadline extends Task {
             throw new TayooException("No deadline string");
         }
 
-        return "Deadline | " + isCompleted() + "  | " + this.getTitle() + " | " + deadlineTxtStr;
+        return "Deadline | " + isCompleted() + " | " + this.getTitle() + " | " + deadlineTxtStr;
     }
 }
