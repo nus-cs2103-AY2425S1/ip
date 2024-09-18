@@ -21,7 +21,7 @@ public abstract class Command {
      */
     public enum CommandType {
         BYE, LIST, MARK, UNMARK, ADD, DELETE, FIND,
-        UNDO, UNKNOWN
+        UNDO, REDO, UNKNOWN
     }
 
     /**
@@ -64,6 +64,8 @@ public abstract class Command {
             return new FindCommand(arguments);
         case "undo":
             return new UndoCommand(arguments);
+        case "redo":
+            return new RedoCommand(arguments);
         default:
             throw new MummyException("I'm sorry, but I don't know what that means :-(");
         }
@@ -162,6 +164,34 @@ public abstract class Command {
         @Override
         public String undo(TaskList taskList, Storage storage) throws MummyException {
             throw new MummyException("Undo command cannot be undone.\n"
+                    + "Undo is an irreversible action."
+            );
+        }
+    }
+
+    private static final class RedoCommand extends Command {
+        public RedoCommand(HashMap<String, String> arguments) {
+            super(arguments);
+        }
+
+        @Override
+        public String execute(TaskList taskList, Storage storage) {
+            return "Command redone.";
+        }
+
+        @Override
+        public boolean isExit() {
+            return false;
+        }
+
+        @Override
+        public CommandType getCommandType() {
+            return CommandType.REDO;
+        }
+
+        @Override
+        public String undo(TaskList taskList, Storage storage) throws MummyException {
+            throw new MummyException("Redo command cannot be undone.\n"
                     + "Undo is an irreversible action."
             );
         }
