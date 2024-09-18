@@ -55,8 +55,4 @@ public class Parser {
         String end = temp[2];
         return new Event(description, start, end);
     }
-
-    public static Task parseTaskFromFile(String task) {
-        return new Task(task);
-    }
 }
