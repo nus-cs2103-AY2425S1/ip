@@ -1,4 +1,4 @@
-import Bot.Duke;
+import Bot.Chicken;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -19,10 +19,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private Chicken chicken;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/guy2.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/guy1.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/guy2.png"));
+    private final Image chickenImage = new Image(this.getClass().getResourceAsStream("/images/guy1.png"));
 
     @FXML
     public void initialize() {
@@ -30,8 +30,8 @@ public class MainWindow extends AnchorPane {
     }
 
     /** Injects the Duke instance */
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setDuke(Chicken chicken1) {
+        chicken = chicken1;
     }
 
     /**
@@ -41,10 +41,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = chicken.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(response, chickenImage)
         );
         userInput.clear();
     }

@@ -8,8 +8,8 @@ import TaskType.TaskBuilder;
  * and FileManager to handle file operations.
  */
 public class Parser {
-    private ListManager dukeManager;
-    private FileManager dukeFileManager;
+    private ListManager chickenManager;
+    private FileManager chickenFileManager;
 
     /**
      * Enumeration representing the types of tasks that can be handled by the Parser.
@@ -18,8 +18,8 @@ public class Parser {
         TODO,EVENT,DEADLINE
     }
     public Parser(ListManager dukeManager, FileManager dukeFileManager) {
-        this.dukeManager = dukeManager;
-        this.dukeFileManager = dukeFileManager;
+        this.chickenManager = dukeManager;
+        this.chickenFileManager = dukeFileManager;
     }
 
     /**
@@ -40,7 +40,7 @@ public class Parser {
             break;
 
             case "list":
-            System.out.println(dukeManager.listItems(""));
+            System.out.println(chickenManager.listItems(""));
             break;
 
             case "mark", "unmark":
@@ -87,9 +87,9 @@ public class Parser {
         if (taskNumber == -1) return;  // parseTaskNumber returns -1 if invalid command given
 
         boolean isMarking = action.equals("mark");
-        dukeManager.setDone(isMarking, taskNumber);
+        chickenManager.setDone(isMarking, taskNumber);
         String statusMessage = isMarking ? "Nice! I've marked this task as done:\n" : "OK, I've marked this task as not done yet:\n";
-        System.out.println(statusMessage + dukeManager.getItem(taskNumber));
+        System.out.println(statusMessage + chickenManager.getItem(taskNumber));
     }
 
     private int parseTaskNumber(String command) {
@@ -121,8 +121,8 @@ public class Parser {
         String by = part.length > 1 ? part[1].trim() : "";
 
         TaskBuilder taskBuilder = new TaskBuilder(description, TaskType.DEADLINE);
-        String task = dukeManager.createItem(taskBuilder.by(by)).toString();
-        dukeFileManager.writeFile(task);
+        String task = chickenManager.createItem(taskBuilder.by(by)).toString();
+        chickenFileManager.writeFile(task);
     }
 
     private void handleTodo(String command) {
@@ -131,8 +131,8 @@ public class Parser {
         String description = command.substring("todo".length()).trim();
         TaskBuilder taskBuilder = new TaskBuilder(description, TaskType.TODO);
 
-        String task = dukeManager.createItem(taskBuilder).toString();
-        dukeFileManager.writeFile(task);
+        String task = chickenManager.createItem(taskBuilder).toString();
+        chickenFileManager.writeFile(task);
     }
 
     private void handleEvent(String command) {
@@ -148,8 +148,8 @@ public class Parser {
         String to = dateParts.length > 1 ? dateParts[1].trim() : "";
 
         TaskBuilder taskBuilder = new TaskBuilder(description, TaskType.EVENT);
-        String task = dukeManager.createItem(taskBuilder.from(from).to(to)).toString();
-        dukeFileManager.writeFile(task);
+        String task = chickenManager.createItem(taskBuilder.from(from).to(to)).toString();
+        chickenFileManager.writeFile(task);
     }
 
     private void handleDelete(String command) {
@@ -158,9 +158,9 @@ public class Parser {
         String index = command.substring("delete".length()).trim();
         try {
             int indexNumber = Integer.parseInt(index);
-            String tempTask = dukeManager.getItem(indexNumber);
-            dukeManager.delete(indexNumber);
-            System.out.println("Task deleted: " + tempTask + ". You have " + dukeManager.getItemSize() + " items left.");
+            String tempTask = chickenManager.getItem(indexNumber);
+            chickenManager.delete(indexNumber);
+            System.out.println("Task deleted: " + tempTask + ". You have " + chickenManager.getItemSize() + " items left.");
         } catch (NumberFormatException e) {
             System.out.println("Invalid task number.");
         }
@@ -168,7 +168,7 @@ public class Parser {
 
     private void handleFind(String command) {
         String itemName = command.replace("find ", "");
-        System.out.println(dukeManager.listItems(itemName));
+        System.out.println(chickenManager.listItems(itemName));
     }
 
 }

@@ -8,11 +8,11 @@ import java.util.Scanner;
  * It handles user interaction, file management, and task management by using other classes.
  * The class initializes the necessary managers and the parser to process commands.
  */
-public class Duke {
-    private final String name = "Bot.Duke";
-    private final ListManager dukeManager = new ListManager();
-    private final FileManager dukeFileManager = new FileManager("src/main/java/data");
-    private final Parser parser = new Parser(dukeManager, dukeFileManager);
+public class Chicken {
+    private final String name = "Bot.Chicken";
+    private final ListManager chickenManager = new ListManager();
+    private final FileManager chickenFileManager = new FileManager("src/main/java/data");
+    private final Parser parser = new Parser(chickenManager, chickenFileManager);
 
 
     private void exit() {
@@ -25,12 +25,12 @@ public class Duke {
      * with the user until an exit command is issued.
      */
     private void greet() {
-        assert dukeFileManager != null : "FileManager is not initialized";
+        assert chickenFileManager != null : "FileManager is not initialized";
         assert parser != null : "Parser is not initialized";
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Hello! I'm " + name + ". How can I assist you today?");
-        dukeFileManager.readFile();
+        chickenFileManager.readFile();
         while (scanner.hasNextLine()) {
             String command = scanner.nextLine();
             parser.parseCommand(command);
@@ -41,11 +41,11 @@ public class Duke {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        return "Chicken heard: " + input;
     }
 
     public static void main(String[] args) {
-        Duke duke = new Duke();
+        Chicken duke = new Chicken();
         duke.greet();
     }
 }
