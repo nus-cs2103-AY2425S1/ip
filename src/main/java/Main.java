@@ -14,6 +14,7 @@ public class Main extends Application {
         mainWindow.load();
         Scene scene = new Scene(mainWindow);
         stage.setScene(scene);
+        stage.setTitle("Blitz");
         stage.show();
     }
 }

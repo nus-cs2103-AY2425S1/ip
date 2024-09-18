@@ -69,14 +69,20 @@ public class Task {
     }
 
     private static String[] extractTags(String description) {
-        int tagIndex = description.indexOf("-t");
-        if (tagIndex == -1) {
-            return new String[]{description, ""};
+        if (description.contains("-t")) {
+            int tagIndex = description.indexOf("-t");
+            String pureDescription = description.substring(0, tagIndex);
+            String tagString = description.substring(tagIndex + 2).trim();
+            return new String[]{pureDescription, tagString};
+        } else if (description.contains("tags:")) {
+            int tagIndex = description.indexOf("tags:");
+            String pureDescription = description.substring(0, tagIndex);
+            String tagString = description.substring(tagIndex + 5).trim();
+            return new String[]{pureDescription, tagString};
         }
 
-        String pureDescription = description.substring(0, tagIndex);
-        String tagString = description.substring(tagIndex + 2).trim();
-        return new String[]{pureDescription, tagString};
+
+        return new String[]{description, ""};
     }
 
     private static String[] tagStringToArr(String tagStr) {
@@ -162,7 +168,7 @@ public class Task {
 
     public String getTagsAsString() {
         if (tagsLst.isEmpty()) {
-            return "No tags";
+            return "no tags";
         }
 
         StringBuilder result = new StringBuilder();

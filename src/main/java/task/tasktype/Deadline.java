@@ -44,6 +44,6 @@ public class Deadline extends Task {
         String altFormat = deadlineDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         String timeStr = deadlineTime == null ? "" : deadlineTime.toString();
         String deadline = (altFormat + " " + timeStr).trim();
-        return "[D]" + super.toString() + " (by: " + deadline + ") " + "tags: " + this.getTagsAsString();
+        return "[D]" + super.toString() + " (by: " + deadline + ")" + " tags: " + this.getTagsAsString();
     }
 }

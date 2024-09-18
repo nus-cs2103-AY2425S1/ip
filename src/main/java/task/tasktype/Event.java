@@ -62,6 +62,6 @@ public class Event extends Task {
         String start = altFormatStart + " " + startString;
         String end = altFormatEnd + " " + endString;
         String dateStr = ("from: " + start + " to: " + end).trim();
-        return "[E]" + super.toString() + " (" + dateStr + ")" + "tags: " + this.getTagsAsString();
+        return "[E]" + super.toString() + " (" + dateStr + ") " + "tags: " + this.getTagsAsString();
     }
 }
