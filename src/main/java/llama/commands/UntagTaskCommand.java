@@ -17,7 +17,7 @@ public class UntagTaskCommand implements Command {
 
     /**
      * Creates a command to untag a task
-     * @param remaining
+     * @param remaining input that represents the task to untag
      */
     public UntagTaskCommand(String remaining) {
         this.remaining = remaining;
