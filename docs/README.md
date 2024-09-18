@@ -28,7 +28,8 @@ can display the statistics of current
 Display all tasks that has been added to the list.
    
 Format of input: `list`   
-Example: `list`
+Example: `list`  
+<img src='list.png'>
 
 ### Add deadline task
 Add a type of deadline task (a task with 1 deadline) to the task list.
@@ -39,7 +40,7 @@ Format of input: `deadline [task description] /by [end time with format YYYY-MM-
 * The time is optional. The default time is `00:00`
 
 Example: `deadline meet with Gagarin /by 1970-01-01 12:00`  
-    
+<img src='add_deadline.png'>
 
 ### Add todo task
 Add a type of todo task (a task without any time) to the task list.   
@@ -48,7 +49,8 @@ Format of input: `todo [task description]`
 * there is a space between `todo` and task description
 * anything appears after `todo` will be used as task description  
 
-Example: `todo read aerodynamics documents`  
+Example: `todo read aerodynamics documents`   
+<img src='add_todo.png'>
    
    
 ### Add event task
@@ -62,7 +64,8 @@ keyword
 * It is optional to key in the specific time, the default time will be `00:00`
 
 Example: `event launch Sputnik satellite /from 1960-01-01 /to 1961-02-03`  
-  
+<img src='add_event.png'>  
+
 
 ### Mark a task as done
 Mark an incomplete task in the task list as done.
@@ -71,7 +74,8 @@ Format of input: `mark [task ID]`
 * an out-of-bound error message will be prompted if the task ID is out of range
 * an error will be prompted from the chatbot if the task ID is not a number 
 
-Example: `mark 4`
+Example: `mark 1`
+<img src='mark.png'>
 
 ### Unmark a completed task
 Unmark a finished task as undone.  
@@ -80,6 +84,8 @@ Format of input: `unmark [task ID]`
 * an out-of-bound error message will be prompted if the task ID is out of range
 * an error will be prompted from the chatbot if the task ID is not a number
 
+Example: `unmark 1`
+<img src='unmark.png'>
 
 ### Add tag to a task 
 Add a tag to any task.   
@@ -91,6 +97,7 @@ Format of input: `tag [task ID] [task description]`
 * an empty task description will do noting to the task  
 
 Example:  `tag 2 important event`
+<img src='tag.png'>
 
 ### Untag a task
 Remove a tag from the task
@@ -100,6 +107,7 @@ Format of input: `untag [task ID]`
 * an error will be prompted from the chatbot if the task ID is not a number
 
 Example: `untag 2`   
+<img src='untag.png'>
 
 ### Find a list of tasks by name
 Search for a list of tasks which contains the keyword.  
@@ -108,7 +116,8 @@ Format of input: `find [keyword]`
 * the keyword is case-sensitive
 * it will find matching word in the task description
 
-Example: `find aerodynamics`
+Example: `find aerodynamics`   
+<img src='find.png'>
 
 ### Delete a task
 Delete a task from the list of tasks.  
@@ -117,14 +126,21 @@ Format of input: `delete [task ID]`
 * an out-of-bound error message will be prompted if the task ID is out of range
 * an error will be prompted from the chatbot if the task ID is not a number
 
-Example: `delete 3`
+Example: `delete 3`  
+<img src='delete.png'>
 
 ### Display statistics of the task list
 Display the number of complete and incomplete tasks.  
 Format of input: `stats`   
 * `stats` is case-sensitive
 
-Example: `stats`
+Example: `stats`  
+<img src='stats.png'>
+
+### Exit the program
+Key in bye to close the chatbot and save data to local disk
+Format of input `bye`
+* There should not be any space before and after `bye`
 
 ## Command summary
 
@@ -141,3 +157,4 @@ Example: `stats`
 | Unmark a completed task   | `unmark [task ID]`                                                                                                         | `unmark 4`                                                       |
 | Find a task               | `find [keyword]`                                                                                                           | `find aerodynamics`                                              |
 | Display statistics        | `stats`                                                                                                                    | `stats`                                                          |
+| Exit the program          | `exit`                                                                                                                     | `exit`                                                           |
