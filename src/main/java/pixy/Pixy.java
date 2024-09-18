@@ -80,7 +80,6 @@ public class Pixy {
      */
     public void run() {
         ui.showWelcomeMessage();
-
         while (true) {
             String command = inputTask();
             String response = parser.executeCommand(command, tasks, ui);
