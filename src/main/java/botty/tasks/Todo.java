@@ -39,7 +39,7 @@ public class Todo extends Task<TodoData> {
      * @throws BottyException if corrupted task string or invalid arguments
      */
     public static Todo getTodoFromDataString(String taskString) throws BottyException {
-        String standardDataStorageFormatRegex = "T \\| [10] \\| (.*?) \\| (.*?)";
+        String standardDataStorageFormatRegex = "T \\| [10] \\| (.*?)";
         if (!taskString.matches(standardDataStorageFormatRegex)) {
             throw new CorruptedTaskStringException();
         }
