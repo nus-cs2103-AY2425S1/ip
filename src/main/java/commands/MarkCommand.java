@@ -55,7 +55,7 @@ public class MarkCommand extends Command {
             throw new PrimoException("Please select within the indexes of the task list!");
         }
         list.get(index).markAsDone();
-        String output = "Nice! I've marked this task as done:\n" +
+        String output = "Task PUNCHED! For pain and for glory!\n" +
                 list.get(index);
         storage.updateStorage(tasks);
         return output;

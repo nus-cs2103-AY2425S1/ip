@@ -55,7 +55,7 @@ public class UnmarkCommand extends Command {
             throw new PrimoException("Please select within the indexes of the task list!");
         }
         list.get(index).markAsUndone();
-        String output = "OK, I've marked this task as not done yet:\n" +
+        String output = "Task UNPUNCHED! The show must go on.\n" +
                 list.get(index);
         storage.updateStorage(tasks);
         return output;
