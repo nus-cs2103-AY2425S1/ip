@@ -1,0 +1,35 @@
+todo 1
+todo 2
+todo 3
+delete 2
+delete 12
+delete -12390
+delete 9f3
+delete 1
+delete 1
+list
+todo borrow book
+list
+deadline return book /by Sunday
+mark 2
+event project meeting /from Mon 2pm /to 4pm
+mark 3
+unmark 2
+mark 1
+deadline add book /by never
+list
+mark 69
+mark -120090
+mark 21409ffosifje
+unmark 3250fj
+deadline return
+todo
+event
+event /from
+event /by
+event /from /by
+event /from f /by
+deadline /by ff
+yapyapyap
+
+bye
