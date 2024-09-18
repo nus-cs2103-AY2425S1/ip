@@ -1,18 +1,23 @@
 package mryapper.parser;
 
-import mryapper.command.Command;
+import mryapper.command.*;
 import mryapper.exception.InvalidSyntaxException;
 
+import mryapper.task.Deadline;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Include test cases for parsing bye, list, delete, mark, unmark commands.
+ * Also has test cases for making to do, deadline and event tasks.
+ */
 public class ParserTest {
     @Test
     public void testBye() {
         try {
             // successful parsing
-            assertInstanceOf(Command.class, Parser.parse("bye"));
+            assertInstanceOf(SayGoodbye.class, Parser.parseInput("bye"));
         } catch (Exception e) {
             fail("An exception is shown: " + e);
         }
@@ -22,62 +27,43 @@ public class ParserTest {
     public void testList() {
         try {
             // successful parsing
-            assertInstanceOf(Command.class, Parser.parse("list"));
+            assertInstanceOf(ListTasks.class, Parser.parseInput("list"));
         } catch (Exception e) {
             fail("An exception is shown: " + e);
         }
     }
 
     @Test
-    public void testDelete() {
+    public void testDelete_successfulParse() {
         // successful parsing
         try {
-            assertInstanceOf(Command.class, Parser.parse("delete 2"));
+            assertInstanceOf(DeleteTask.class, Parser.parseInput("delete 2"));
         } catch (Exception e) {
             fail("An exception has been thrown instead");
         }
+    }
 
+    @Test
+    public void testDelete_invalidSyntax() {
         // No argument provided
         try {
-            assertInstanceOf(Command.class, Parser.parse("delete"));
+            assertInstanceOf(DeleteTask.class, Parser.parseInput("delete"));
             fail();
         } catch (InvalidSyntaxException e) {
-            assertEquals(" Your syntax is incorrect!\n"
-                    + " You have to give me a valid task number!\n e.g. delete 2",
+            assertEquals("Your syntax is incorrect!\n"
+                    + "You have to give me a valid task number!\n" + DeleteTask.SYNTAX,
                     e.getMessage());
         } catch (Exception e) {
             fail("Wrong exception has been thrown: " + e);
         }
 
-        // Extra space but wrong syntax
+        // Extra space but no argument provided
         try {
-            assertInstanceOf(Command.class, Parser.parse("delete "));
+            assertInstanceOf(DeleteTask.class, Parser.parseInput("delete "));
             fail();
         } catch (InvalidSyntaxException e) {
-            assertEquals(" Your syntax is incorrect!\n"
-                    + " You have to give me a valid task number!\n e.g. delete 2",
-                    e.getMessage());
-        } catch (Exception e) {
-            fail("Wrong exception has been thrown: " + e);
-        }
-
-        // Argument provided has non-numerical characters
-        try {
-            assertInstanceOf(Command.class, Parser.parse("delete 1a"));
-            fail();
-        } catch (IllegalArgumentException e) {
-            assertEquals(" You have to give me a valid task number!\n e.g. delete 2",
-                    e.getMessage());
-        } catch (Exception e) {
-            fail("Wrong exception has been thrown: " + e);
-        }
-
-        // Argument provided is not an integer
-        try {
-            assertInstanceOf(Command.class, Parser.parse("delete 1.1"));
-            fail();
-        } catch (IllegalArgumentException e) {
-            assertEquals(" You have to give me a valid task number!\n e.g. delete 2",
+            assertEquals("Your syntax is incorrect!\n"
+                    + "You have to give me a valid task number!\n" + DeleteTask.SYNTAX,
                     e.getMessage());
         } catch (Exception e) {
             fail("Wrong exception has been thrown: " + e);
@@ -85,44 +71,101 @@ public class ParserTest {
     }
 
     @Test
-    public void testMark() {
+    public void testDelete_nonIntegerArgument() {
+        // Argument provided has non-numerical characters
+        try {
+            assertInstanceOf(DeleteTask.class, Parser.parseInput("delete 1a"));
+            fail();
+        } catch (InvalidSyntaxException e) {
+            assertEquals("Your syntax is incorrect!\n"
+                    + "You have to give me a valid task number!\n" + DeleteTask.SYNTAX,
+                    e.getMessage());
+        } catch (Exception e) {
+            fail("Wrong exception has been thrown: " + e);
+        }
+
+        // Argument provided is not an integer
+        try {
+            assertInstanceOf(DeleteTask.class, Parser.parseInput("delete 1.1"));
+            fail();
+        } catch (InvalidSyntaxException e) {
+            assertEquals("Your syntax is incorrect!\n"
+                    + "You have to give me a valid task number!\n" + DeleteTask.SYNTAX,
+                    e.getMessage());
+        } catch (Exception e) {
+            fail("Wrong exception has been thrown: " + e);
+        }
+    }
+
+    @Test
+    public void testDelete_integerArgumentNotPositive() {
+        try {
+            assertInstanceOf(DeleteTask.class, Parser.parseInput("delete 0"));
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals("Task number should be a positive integer",
+                    e.getMessage());
+        } catch (Exception e) {
+            fail("Wrong exception has been thrown: " + e);
+        }
+
+        try {
+            assertInstanceOf(DeleteTask.class, Parser.parseInput("delete -2"));
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals("Task number should be a positive integer",
+                    e.getMessage());
+        } catch (Exception e) {
+            fail("Wrong exception has been thrown: " + e);
+        }
+    }
+
+    @Test
+    public void testMark_successfulParse() {
         // successful parsing
         try {
-            assertInstanceOf(Command.class, Parser.parse("mark 2"));
+            assertInstanceOf(MarkTask.class, Parser.parseInput("mark 2"));
         } catch (Exception e) {
             fail("An exception has been thrown instead");
         }
+    }
 
+    @Test
+    public void testMark_invalidSyntax() {
         // No argument provided
         try {
-            assertInstanceOf(Command.class, Parser.parse("mark"));
+            assertInstanceOf(MarkTask.class, Parser.parseInput("mark"));
             fail();
         } catch (InvalidSyntaxException e) {
-            assertEquals(" Your syntax is incorrect!\n"
-                    + " You have to give me a valid task number!\n e.g. mark 2",
+            assertEquals("Your syntax is incorrect!\n"
+                    + "You have to give me a valid task number!\n" + MarkTask.SYNTAX,
                     e.getMessage());
         } catch (Exception e) {
             fail("Wrong exception has been thrown: " + e);
         }
 
-        // Extra space but wrong syntax
+        // Extra space but no argument provided
         try {
-            assertInstanceOf(Command.class, Parser.parse("mark "));
+            assertInstanceOf(MarkTask.class, Parser.parseInput("mark "));
             fail();
         } catch (InvalidSyntaxException e) {
-            assertEquals(" Your syntax is incorrect!\n"
-                    + " You have to give me a valid task number!\n e.g. mark 2",
+            assertEquals("Your syntax is incorrect!\n"
+                    + "You have to give me a valid task number!\n" + MarkTask.SYNTAX,
                     e.getMessage());
         } catch (Exception e) {
             fail("Wrong exception has been thrown: " + e);
         }
+    }
 
+    @Test
+    public void testMark_nonIntegerArgument() {
         // Argument provided has non-numerical characters
         try {
-            assertInstanceOf(Command.class, Parser.parse("mark 2x"));
+            assertInstanceOf(MarkTask.class, Parser.parseInput("mark 1a"));
             fail();
-        } catch (IllegalArgumentException e) {
-            assertEquals(" You have to give me a valid task number!\n e.g. mark 2",
+        } catch (InvalidSyntaxException e) {
+            assertEquals("Your syntax is incorrect!\n"
+                    + "You have to give me a valid task number!\n" + MarkTask.SYNTAX,
                     e.getMessage());
         } catch (Exception e) {
             fail("Wrong exception has been thrown: " + e);
@@ -130,10 +173,11 @@ public class ParserTest {
 
         // Argument provided is not an integer
         try {
-            assertInstanceOf(Command.class, Parser.parse("mark 1.1"));
+            assertInstanceOf(MarkTask.class, Parser.parseInput("mark 1.1"));
             fail();
-        } catch (IllegalArgumentException e) {
-            assertEquals(" You have to give me a valid task number!\n e.g. mark 2",
+        } catch (InvalidSyntaxException e) {
+            assertEquals("Your syntax is incorrect!\n"
+                    + "You have to give me a valid task number!\n" + MarkTask.SYNTAX,
                     e.getMessage());
         } catch (Exception e) {
             fail("Wrong exception has been thrown: " + e);
@@ -141,44 +185,74 @@ public class ParserTest {
     }
 
     @Test
-    public void testUnmark() {
+    public void testMark_integerArgumentNotPositive() {
+        try {
+            assertInstanceOf(MarkTask.class, Parser.parseInput("mark 0"));
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals("Task number should be a positive integer",
+                    e.getMessage());
+        } catch (Exception e) {
+            fail("Wrong exception has been thrown: " + e);
+        }
+
+        try {
+            assertInstanceOf(MarkTask.class, Parser.parseInput("mark -2"));
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals("Task number should be a positive integer",
+                    e.getMessage());
+        } catch (Exception e) {
+            fail("Wrong exception has been thrown: " + e);
+        }
+    }
+
+    @Test
+    public void testUnmark_successfulParse() {
         // successful parsing
         try {
-            assertInstanceOf(Command.class, Parser.parse("unmark 2"));
+            assertInstanceOf(UnmarkTask.class, Parser.parseInput("unmark 2"));
         } catch (Exception e) {
             fail("An exception has been thrown instead");
         }
+    }
 
-        // no number provided
+    @Test
+    public void testUnmark_invalidSyntax() {
+        // No argument provided
         try {
-            assertInstanceOf(Command.class, Parser.parse("unmark"));
+            assertInstanceOf(UnmarkTask.class, Parser.parseInput("unmark"));
             fail();
         } catch (InvalidSyntaxException e) {
-            assertEquals(" Your syntax is incorrect!\n"
-                    + " You have to give me a valid task number!\n e.g. unmark 2",
+            assertEquals("Your syntax is incorrect!\n"
+                            + "You have to give me a valid task number!\n" + UnmarkTask.SYNTAX,
                     e.getMessage());
         } catch (Exception e) {
             fail("Wrong exception has been thrown: " + e);
         }
 
-        // Extra space but wrong syntax
+        // Extra space but no argument provided
         try {
-            assertInstanceOf(Command.class, Parser.parse("unmark "));
+            assertInstanceOf(UnmarkTask.class, Parser.parseInput("unmark "));
             fail();
         } catch (InvalidSyntaxException e) {
-            assertEquals(" Your syntax is incorrect!\n"
-                    + " You have to give me a valid task number!\n e.g. unmark 2",
+            assertEquals("Your syntax is incorrect!\n"
+                            + "You have to give me a valid task number!\n" + UnmarkTask.SYNTAX,
                     e.getMessage());
         } catch (Exception e) {
             fail("Wrong exception has been thrown: " + e);
         }
+    }
 
+    @Test
+    public void testUnmark_nonIntegerArgument() {
         // Argument provided has non-numerical characters
         try {
-            assertInstanceOf(Command.class, Parser.parse("unmark 2x"));
+            assertInstanceOf(UnmarkTask.class, Parser.parseInput("unmark 1a"));
             fail();
-        } catch (IllegalArgumentException e) {
-            assertEquals(" You have to give me a valid task number!\n e.g. unmark 2",
+        } catch (InvalidSyntaxException e) {
+            assertEquals("Your syntax is incorrect!\n"
+                            + "You have to give me a valid task number!\n" + UnmarkTask.SYNTAX,
                     e.getMessage());
         } catch (Exception e) {
             fail("Wrong exception has been thrown: " + e);
@@ -186,95 +260,11 @@ public class ParserTest {
 
         // Argument provided is not an integer
         try {
-            assertInstanceOf(Command.class, Parser.parse("unmark 1.1"));
-            fail();
-        } catch (IllegalArgumentException e) {
-            assertEquals(" You have to give me a valid task number!\n e.g. unmark 2",
-                    e.getMessage());
-        } catch (Exception e) {
-            fail("Wrong exception has been thrown: " + e);
-        }
-    }
-
-    @Test
-    public void testTodo() {
-        // successful parsing
-        try {
-            assertInstanceOf(Command.class, Parser.parse("todo some todo task"));
-        } catch (Exception e) {
-            fail("An exception has been thrown instead");
-        }
-
-        // no description provided
-        try {
-            assertInstanceOf(Command.class, Parser.parse("todo "));
-            fail();
-        } catch (IllegalTaskException e) {
-            assertEquals(" You need to provide the task details!\n"
-                    + " To add a todo task, I need the task description\n"
-                    + " e.g. todo read CS2103T notes",
-                    e.getMessage());
-        } catch (Exception e) {
-            fail("Wrong exception has been thrown: " + e);
-        }
-    }
-
-    @Test
-    public void testDeadline() {
-        // successful parsing
-        try {
-            assertInstanceOf(Command.class, Parser.parse("deadline some task /by Sunday"));
-        } catch (Exception e) {
-            fail("An exception has been thrown instead");
-        }
-
-        // no details provided
-        try {
-            assertInstanceOf(Command.class, Parser.parse("deadline "));
+            assertInstanceOf(UnmarkTask.class, Parser.parseInput("unmark 1.1"));
             fail();
         } catch (InvalidSyntaxException e) {
-            assertEquals(" You need to provide the task details!\n"
-                    + " I need one description and deadline using \"/by\"\n"
-                    + " e.g. deadline CS2103T project /by Dec 31st",
-                    e.getMessage());
-        } catch (Exception e) {
-            fail("Wrong exception has been thrown: " + e);
-        }
-
-        // no parameters provided
-        try {
-            assertInstanceOf(Command.class, Parser.parse("deadline /by  "));
-            fail();
-        } catch (IllegalTaskException e) {
-            assertEquals(" I'll need you to format your details properly\n"
-                    + " I need one description and deadline using \"/by\"\n"
-                    + " e.g. deadline CS2103T project /by Dec 31st",
-                    e.getMessage());
-        } catch (Exception e) {
-            fail("Wrong exception has been thrown: " + e);
-        }
-
-        // no description provided
-        try {
-            assertInstanceOf(Command.class, Parser.parse("deadline /by june"));
-            fail();
-        } catch (IllegalTaskException e) {
-            assertEquals(" Your description cannot be empty!\n"
-                    + " I need one description and deadline using \"/by\"\n"
-                    + " e.g. deadline CS2103T project /by Dec 31st",
-                    e.getMessage());
-        } catch (Exception e) {
-            fail("Wrong exception has been thrown: " + e);
-        }
-
-        // no deadline provided
-        try {
-            assertInstanceOf(Command.class, Parser.parse("deadline some task /by "));
-            fail();
-        } catch (IllegalTaskException e) {
-            assertEquals(" I'll need you to format your details properly\n"
-                    + " I need one description and deadline using \"/by\"\n"
-                    + " e.g. deadline CS2103T project /by Dec 31st",
+            assertEquals("Your syntax is incorrect!\n"
+                            + "You have to give me a valid task number!\n" + UnmarkTask.SYNTAX,
                     e.getMessage());
         } catch (Exception e) {
             fail("Wrong exception has been thrown: " + e);
@@ -282,105 +272,232 @@ public class ParserTest {
     }
 
     @Test
-    public void testEvent() {
+    public void testUnmark_integerArgumentNotPositive() {
+        try {
+            assertInstanceOf(UnmarkTask.class, Parser.parseInput("unmark 0"));
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals("Task number should be a positive integer",
+                    e.getMessage());
+        } catch (Exception e) {
+            fail("Wrong exception has been thrown: " + e);
+        }
+
+        try {
+            assertInstanceOf(UnmarkTask.class, Parser.parseInput("unmark -2"));
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals("Task number should be a positive integer",
+                    e.getMessage());
+        } catch (Exception e) {
+            fail("Wrong exception has been thrown: " + e);
+        }
+    }
+
+    @Test
+    public void testTodo_successfulParse() {
         // successful parsing
         try {
-            assertInstanceOf(Command.class,
-                    Parser.parse("event something /from 1 pm /to 2 pm"));
+            assertInstanceOf(AddTodoTask.class, Parser.parseInput("todo some todo task"));
+        } catch (Exception e) {
+            fail("An exception has been thrown instead");
+        }
+    }
+
+    @Test
+    public void testTodo_noArgument() {
+        // no description provided
+        try {
+            assertInstanceOf(AddTodoTask.class, Parser.parseInput("todo "));
+            fail();
+        } catch (InvalidSyntaxException e) {
+            assertEquals("Your syntax is incorrect!\n"
+                    + "You need to provide the task details!\n" + AddTodoTask.SYNTAX,
+                    e.getMessage());
+        } catch (Exception e) {
+            fail("Wrong exception has been thrown: " + e);
+        }
+    }
+
+    @Test
+    public void testDeadline_successfulParse() {
+        // successful parsing
+        try {
+            assertInstanceOf(AddDeadline.class, Parser.parseInput("deadline some task /by Sunday"));
         } catch (Exception e) {
             fail("An exception has been thrown instead");
         }
 
+        try {
+            assertInstanceOf(AddDeadline.class, Parser.parseInput(
+                    "deadline  command with more whitespace    /by     1st Sep"));
+        } catch (Exception e) {
+            fail("An exception has been thrown instead");
+        }
+    }
+
+    @Test
+    public void testDeadline_noArguments() {
         // no details provided
         try {
-            assertInstanceOf(Command.class,
-                    Parser.parse("event "));
+            assertInstanceOf(AddDeadline.class, Parser.parseInput("deadline "));
             fail();
-        } catch (IllegalTaskException e) {
-            assertEquals(" You need to provide the task details!\n"
-                    + " I need one description, start and end time using \"/from\" and \"/to\"\n"
-                    + " e.g. event project meeting /from Mon 2pm /to 4pm",
+        } catch (InvalidSyntaxException e) {
+            assertEquals("Your syntax is incorrect!\n"
+                    + "You need to provide the task details!\n" + AddDeadline.SYNTAX,
+                    e.getMessage());
+        } catch (Exception e) {
+            fail("Wrong exception has been thrown: " + e);
+        }
+    }
+
+    @Test
+    public void testDeadline_missingParameters() {
+        // missing deadline
+        try {
+            assertInstanceOf(AddDeadline.class, Parser.parseInput("deadline aa"));
+            fail();
+        } catch (InvalidSyntaxException e) {
+            assertEquals("Your syntax is incorrect!\n"
+                            + "You need to provide a deadline!\n" + AddDeadline.SYNTAX,
+                    e.getMessage());
+        } catch (Exception e) {
+            fail("Wrong exception has been thrown: " + e);
+        }
+    }
+
+    @Test
+    public void testDeadline_emptyFields() {
+        // empty description
+        try {
+            assertInstanceOf(AddDeadline.class, Parser.parseInput("deadline /by aa"));
+            fail();
+        } catch (InvalidSyntaxException e) {
+            assertEquals("Your syntax is incorrect!\n"
+                    + "Your description cannot be empty!\n" + AddDeadline.SYNTAX,
                     e.getMessage());
         } catch (Exception e) {
             fail("Wrong exception has been thrown: " + e);
         }
 
-        // invalid syntax
+        // empty deadline
         try {
-            assertInstanceOf(Command.class,
-                    Parser.parse("event something /from 3 pm"));
+            assertInstanceOf(AddDeadline.class, Parser.parseInput("deadline aa /by  "));
             fail();
-        } catch (IllegalTaskException e) {
-            assertEquals(" I'll need you to format your details properly\n"
-                            + " I need one description, start and end time using \"/from\" and \"/to\"\n"
-                            + " e.g. event project meeting /from Mon 2pm /to 4pm",
+        } catch (InvalidSyntaxException e) {
+            assertEquals("Your syntax is incorrect!\n"
+                            + "You need to provide a deadline!\n" + AddDeadline.SYNTAX,
+                    e.getMessage());
+        } catch (Exception e) {
+            fail("Wrong exception has been thrown: " + e);
+        }
+    }
+
+    @Test
+    public void testEvent_successfulParse() {
+        // successful parsing
+        try {
+            assertInstanceOf(AddEvent.class,
+                    Parser.parseInput("event something /from 1 pm /to 2 pm"));
+        } catch (Exception e) {
+            fail("An exception has been thrown instead");
+        }
+
+        try {
+            assertInstanceOf(AddEvent.class,
+                    Parser.parseInput("event  more whitespace   /from   a   /to  b"));
+        } catch (Exception e) {
+            fail("An exception has been thrown instead");
+        }
+    }
+
+    @Test
+    public void testEvent_noArguments() {
+        // no arguments
+        try {
+            assertInstanceOf(AddEvent.class, Parser.parseInput("event  "));
+            fail();
+        } catch (InvalidSyntaxException e) {
+            assertEquals("Your syntax is incorrect!\n"
+                            + "You need to provide the task details!\n" + AddEvent.SYNTAX,
+                    e.getMessage());
+        } catch (Exception e) {
+            fail("Wrong exception has been thrown: " + e);
+        }
+    }
+
+    @Test
+    public void testEvent_missingParameters() {
+        // no /from or /to
+        try {
+            assertInstanceOf(AddEvent.class, Parser.parseInput("event some event "));
+            fail();
+        } catch (InvalidSyntaxException e) {
+            assertEquals("Your syntax is incorrect!\n"
+                            + "You need to provide a start time!\n" + AddEvent.SYNTAX,
                     e.getMessage());
         } catch (Exception e) {
             fail("Wrong exception has been thrown: " + e);
         }
 
-        // invalid syntax
+        // no /to
         try {
-            assertInstanceOf(Command.class,
-                    Parser.parse("event something /to 5 pm"));
+            assertInstanceOf(AddEvent.class, Parser.parseInput("event a /from b"));
             fail();
-        } catch (IllegalTaskException e) {
-            assertEquals(" I'll need you to format your details properly\n"
-                            + " I need one description, start and end time using \"/from\" and \"/to\"\n"
-                            + " e.g. event project meeting /from Mon 2pm /to 4pm",
+        } catch (InvalidSyntaxException e) {
+            assertEquals("Your syntax is incorrect!\n"
+                            + "You need to provide an end time!\n" + AddEvent.SYNTAX,
                     e.getMessage());
         } catch (Exception e) {
             fail("Wrong exception has been thrown: " + e);
         }
 
-        // invalid syntax
+        // no /from
         try {
-            assertInstanceOf(Command.class,
-                    Parser.parse("event something /to 5 pm /from 3 pm"));
+            assertInstanceOf(AddEvent.class, Parser.parseInput("event a /to b"));
             fail();
-        } catch (IllegalTaskException e) {
-            assertEquals(" I'll need you to format your details properly\n"
-                            + " I need one description, start and end time using \"/from\" and \"/to\"\n"
-                            + " e.g. event project meeting /from Mon 2pm /to 4pm",
+        } catch (InvalidSyntaxException e) {
+            assertEquals("Your syntax is incorrect!\n"
+                            + "You need to provide a start time!\n" + AddEvent.SYNTAX,
+                    e.getMessage());
+        } catch (Exception e) {
+            fail("Wrong exception has been thrown: " + e);
+        }
+    }
+
+    @Test
+    public void testEvent_emptyFields() {
+        // empty description
+        try {
+            assertInstanceOf(AddEvent.class, Parser.parseInput("event /from 1 pm /to 2 pm "));
+            fail();
+        } catch (InvalidSyntaxException e) {
+            assertEquals("Your syntax is incorrect!\n"
+                            + "Your description cannot be empty!\n" + AddEvent.SYNTAX,
                     e.getMessage());
         } catch (Exception e) {
             fail("Wrong exception has been thrown: " + e);
         }
 
-        // no description provided
+        // empty start time
         try {
-            assertInstanceOf(Command.class, Parser.parse("event /from 3 pm /to 5 pm"));
+            assertInstanceOf(AddEvent.class, Parser.parseInput("event event  /from  /to 2 pm "));
             fail();
-        } catch (IllegalTaskException e) {
-            assertEquals(" Your description cannot be empty!\n"
-                    + " I need one description, start and end time using \"/from\" and \"/to\"\n"
-                    + " e.g. event project meeting /from Mon 2pm /to 4pm",
+        } catch (InvalidSyntaxException e) {
+            assertEquals("Your syntax is incorrect!\n"
+                            + "Your start time cannot be empty!\n" + AddEvent.SYNTAX,
                     e.getMessage());
         } catch (Exception e) {
             fail("Wrong exception has been thrown: " + e);
         }
 
-        // no start time provided
+        // empty end time
         try {
-            assertInstanceOf(Command.class, Parser.parse("event something /from /to 5 pm"));
+            assertInstanceOf(AddEvent.class, Parser.parseInput("event event /from 1 pm /to  "));
             fail();
-        } catch (IllegalTaskException e) {
-            assertEquals(" Your start time cannot be empty!\n"
-                            + " I need one description, start and end time using \"/from\" and \"/to\"\n"
-                            + " e.g. event project meeting /from Mon 2pm /to 4pm",
-                    e.getMessage());
-        } catch (Exception e) {
-            fail("Wrong exception has been thrown: " + e);
-        }
-
-        // no start time provided
-        try {
-            assertInstanceOf(Command.class, Parser.parse("event something /from 3 pm /to  "));
-            fail();
-        } catch (IllegalTaskException e) {
-            assertEquals(" I'll need you to format your details properly\n"
-                            + " I need one description, start and end time using \"/from\" and \"/to\"\n"
-                            + " e.g. event project meeting /from Mon 2pm /to 4pm",
+        } catch (InvalidSyntaxException e) {
+            assertEquals("Your syntax is incorrect!\n"
+                            + "You need to provide an end time!\n" + AddEvent.SYNTAX,
                     e.getMessage());
         } catch (Exception e) {
             fail("Wrong exception has been thrown: " + e);
@@ -390,22 +507,24 @@ public class ParserTest {
     @Test
     public void testUnknownCommand() {
         try {
-            assertInstanceOf(Command.class, Parser.parse("something"));
+            assertInstanceOf(Command.class, Parser.parseInput("something"));
             fail();
         } catch (InvalidSyntaxException e) {
-            assertEquals(" Your syntax is incorrect!\n"
-                            + " Hmm... I'm not sure what you're trying to do :(",
+            assertEquals("Your syntax is incorrect!\n"
+                    + "Sorry, I'm not sure what you're trying to do :(\n"
+                    + "Try reading up the user guide",
                     e.getMessage());
         } catch (Exception e) {
             fail("Wrong exception has been thrown: " + e);
         }
 
         try {
-            assertInstanceOf(Command.class, Parser.parse("LIST"));
+            assertInstanceOf(Command.class, Parser.parseInput("LIST"));
             fail();
         } catch (InvalidSyntaxException e) {
-            assertEquals(" Your syntax is incorrect!\n"
-                            + " Hmm... I'm not sure what you're trying to do :(",
+            assertEquals("Your syntax is incorrect!\n"
+                            + "Sorry, I'm not sure what you're trying to do :(\n"
+                            + "Try reading up the user guide",
                     e.getMessage());
         } catch (Exception e) {
             fail("Wrong exception has been thrown: " + e);

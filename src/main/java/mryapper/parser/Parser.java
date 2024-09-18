@@ -119,7 +119,7 @@ public class Parser {
 
         String[] deadlineParams = processedInput[1].split("/by");
         if (deadlineParams.length != 2) {
-            throw new InvalidSyntaxException("I'll need you to format your details properly",
+            throw new InvalidSyntaxException("You need to provide a deadline!",
                     AddDeadline.SYNTAX);
         }
 
@@ -129,7 +129,7 @@ public class Parser {
             throw new InvalidSyntaxException("Your description cannot be empty!",
                     AddDeadline.SYNTAX);
         } else if (deadlineTime.isEmpty()) {
-            throw new InvalidSyntaxException("Your deadline cannot be empty!",
+            throw new InvalidSyntaxException("You need to provide a deadline!",
                     AddDeadline.SYNTAX);
         }
 
@@ -144,12 +144,12 @@ public class Parser {
 
         String[] eventParams = processedInput[1].split("/from");
         if (eventParams.length != 2) {
-            throw new InvalidSyntaxException("I'll need you to format your details properly",
+            throw new InvalidSyntaxException("You need to provide a start time!",
                     AddEvent.SYNTAX);
         }
         String[] eventTimings = eventParams[1].trim().split("/to");
         if (eventTimings.length != 2) {
-            throw new InvalidSyntaxException("I'll need you to format your details properly",
+            throw new InvalidSyntaxException("You need to provide an end time!",
                     AddEvent.SYNTAX);
         }
 

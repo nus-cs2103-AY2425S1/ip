@@ -13,7 +13,7 @@ public class InvalidSyntaxException extends Exception {
 
     public InvalidSyntaxException(String errorMessage) {
         super(errorMessage);
-        this.syntax = "";
+        this.syntax = "Try reading up the user guide";
     }
 
     @Override

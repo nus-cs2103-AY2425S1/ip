@@ -5,6 +5,12 @@ public class TaskStub extends Task {
     public TaskStub() {
         super("stub");
     }
+
+    @Override
+    public Task edit(TaskField field, String newString) {
+        return this;
+    }
+
     @Override
     public String getDataString() {
         return "";
