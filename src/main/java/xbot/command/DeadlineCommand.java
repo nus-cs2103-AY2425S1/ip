@@ -44,7 +44,7 @@ public class DeadlineCommand extends AddCommand {
                 output = output + ("Now you have " + list.size() + " tasks in the list.");
                 return output;
             } else {
-                throw new XBotException("Invalid date input format. Please use the format: D/M/YYYY");
+                throw new XBotException("Invalid date input format. Please use the format: D/M/YYYY or D/M/YYYY HHMM");
             }
         } else {
             throw new XBotException("Invalid input format. Please use the format: 'deadline <task> /by <date>'");

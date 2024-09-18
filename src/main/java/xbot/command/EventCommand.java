@@ -50,7 +50,7 @@ public class EventCommand extends AddCommand {
         String to = timeParts[1].trim();
 
         if (!Parser.isValidDateFormat(from) || !Parser.isValidDateFormat(to)) {
-            throw new XBotException("Invalid date input format. Please use the format: D/M/YYYY");
+            throw new XBotException("Invalid date input format. Please use the format: D/M/YYYY or D/M/YYYY HHMM");
         }
 
         Task newTask = new Event(taskDescription, from, to);
