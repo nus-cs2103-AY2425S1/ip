@@ -457,7 +457,7 @@ public class Parser {
                      | EmptyTaskDescriptionException
                      | MissingTokenException
                      | InvalidDurationException e) {
-                throw new FileCorruptedException("Task File is corrupted...");
+                throw new FileCorruptedException();
             }
         }
         return tasks;

@@ -33,7 +33,7 @@ public class TaskList {
      * Tasks are loaded directly from the Task Manager.
      */
     public TaskList() {
-        load();
+        this.tasks = new ArrayList<>();
     }
 
     /**

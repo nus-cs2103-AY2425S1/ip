@@ -5,6 +5,7 @@ import java.nio.file.Paths;
 import java.time.format.DateTimeParseException;
 
 import gopher.exception.EmptyTaskDescriptionException;
+import gopher.exception.FileCorruptedException;
 import gopher.exception.InvalidDurationException;
 import gopher.exception.InvalidTaskNumberException;
 import gopher.exception.InvalidTokenException;
@@ -38,6 +39,22 @@ public class Gopher {
                 : "Task save file should exist after successful initialization";
 
         taskList = new TaskList();
+    }
+
+    /**
+     * Executes load tasks action at the start of the program and
+     * determine the welcome message that user should see based on
+     * the load tasks result.
+     *
+     * @return Message that shows the result of loading tasks
+     */
+    public static Message executeLoadTasks() {
+        try {
+            taskList.load();
+            return UI.getGreetMessage();
+        } catch (FileCorruptedException e) {
+            return UI.getErrorMessage(e);
+        }
     }
 
     /**

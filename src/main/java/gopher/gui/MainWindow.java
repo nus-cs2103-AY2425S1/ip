@@ -44,9 +44,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        Message welcomeMessage = Gopher.executeLoadTasks();
         dialogContainer
                 .getChildren()
-                .add(DialogBox.getGopherDialog(UI.getGreetMessage(), gopherImage));
+                .add(DialogBox.getGopherDialog(
+                        welcomeMessage, gopherImage));
     }
 
     /** Injects the Gopher instance */

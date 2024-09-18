@@ -45,7 +45,7 @@ public class TaskManager {
                 Files.createFile(TASK_FILE);
             }
         } catch (IOException e) {
-            System.out.println("Error when creating task file...");
+            System.out.println("Task file cannot be initialized");
         }
     }
 
@@ -56,12 +56,15 @@ public class TaskManager {
      */
     public static void saveTasks(ArrayList<Task> tasks) {
         try {
-            assert Files.exists(Paths.get("./task/task.txt"))
+            if (!Files.exists(TASK_FILE)) {
+                Files.createFile(TASK_FILE);
+            }
+            assert Files.exists(TASK_FILE)
                     : "Task save file should exist when saving task";
             String taskString = convertToTaskString(tasks);
             Files.writeString(TASK_FILE, taskString);
         } catch (IOException e) {
-            System.out.println("Error when saving tasks...");
+            throw new FileCorruptedException();
         }
     }
 
@@ -72,15 +75,13 @@ public class TaskManager {
      */
     public static ArrayList<Task> loadTasks() {
         try {
-            assert Files.exists(Paths.get("./task/task.txt"))
+            assert Files.exists(TASK_FILE)
                     : "Task save file should exist when loading task";
             String taskString = Files.readString(TASK_FILE);
             return Parser.parseSavedTaskData(taskString);
-        } catch (IOException e) {
-            System.out.println("Error when loading tasks...");
-        } catch (FileCorruptedException | InvalidTokenException e) {
-            System.out.println("Load File Failed: Task file corrupted...");
+        } catch (IOException | InvalidTokenException
+                | ArrayIndexOutOfBoundsException e) {
+            throw new FileCorruptedException();
         }
-        return new ArrayList<>();
     }
 }
