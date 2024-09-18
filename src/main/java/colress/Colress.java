@@ -1,6 +1,7 @@
 package colress;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import colress.exception.FileCorruptedException;
 
@@ -11,6 +12,8 @@ public final class Colress {
     private final Ui ui;
     private final Storage storage;
     private final TaskList taskList;
+    private String commandType;
+    private boolean hasError;
 
     /**
      * Constructor for the Colress class.
@@ -22,7 +25,7 @@ public final class Colress {
      * @param filePath A string representing the relative filepath for the text file containing the tasks.
      */
     public Colress(String filePath) {
-        this.ui = new Ui();
+        this.ui = new Ui(this);
         this.storage = new Storage(filePath);
         this.taskList = new TaskList();
     }
@@ -53,8 +56,10 @@ public final class Colress {
             storage.loadTasks(taskList);
             return getTasks();
         } catch (FileCorruptedException e) {
+            hasError = true;
             return e.getMessage();
         } catch (IOException e) {
+            hasError = true;
             return "There is an error. Try again.";
         }
     }
@@ -72,11 +77,28 @@ public final class Colress {
             }
             return result;
         } catch (IOException e) {
+            hasError = true;
             return "There is an error. Try again.";
         }
     }
 
     public static void main(String[] args) {
         System.out.println("Running Colress...");
+    }
+
+    public String getCommandType() {
+        if (hasError) {
+            hasError = false;
+            return "error";
+        }
+        return commandType;
+    }
+
+    public void setCommandType(String commandType) {
+        if (Objects.equals(commandType, "error")) {
+            hasError = true;
+        } else {
+            this.commandType = commandType;
+        }
     }
 }

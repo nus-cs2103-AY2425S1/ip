@@ -39,6 +39,7 @@ public final class Ui {
     public static final String PROMPT_TASK_NUMBER = "Come! Enter the task number."
             + "You can enter multiple numbers with a space between them";
     public static final String PROMPT_TASK_TYPE = "Come! Enter the type of task you wish to add to your list.";
+    private final Colress colress;
     private final Parser parser;
     private Status status;
     private Command currCommand;
@@ -48,7 +49,8 @@ public final class Ui {
      * The Ui object has a Parser object which reads user input and throws exceptions if invalid inputs are detected.
      * The Ui object also has a boolean field that reflects whether the exit command has been called by the user.
      */
-    public Ui() {
+    public Ui(Colress colress) {
+        this.colress = colress;
         this.parser = new Parser();
         this.status = Status.COMMAND;
     }
@@ -91,6 +93,7 @@ public final class Ui {
         case KEYWORD:
             return processKeyword(input, taskList);
         default:
+            colress.setCommandType("error");
             return "There is an error. Try again.";
         }
     }
@@ -106,8 +109,10 @@ public final class Ui {
     public String processCommand(String input, TaskList taskList) {
         try {
             this.currCommand = parser.getCommand(input);
+            colress.setCommandType(input);
             return currCommand.start(this, taskList);
         } catch (UnknownCommandException e) {
+            colress.setCommandType("error");
             return e.getMessage();
         }
     }
@@ -137,6 +142,7 @@ public final class Ui {
             currCommand.initialise(input);
             return currCommand.execute(this, taskList);
         } catch (EmptyInputException e) {
+            colress.setCommandType("error");
             return e.getMessage();
         }
     }
@@ -162,6 +168,7 @@ public final class Ui {
             currCommand.initialise(result);
             return promptDescription(result);
         } catch (IllegalArgumentException e) {
+            colress.setCommandType("error");
             return new UnknownTaskTypeException().getMessage();
         }
     }
@@ -208,9 +215,11 @@ public final class Ui {
             case DEADLINE, EVENT:
                 return promptDate(currTaskType, taskList);
             default:
+                colress.setCommandType("error");
                 return "There is an error. Try again.";
             }
         } catch (EmptyInputException e) {
+            colress.setCommandType("error");
             return e.getMessage();
         }
     }
@@ -260,6 +269,7 @@ public final class Ui {
             }
             return currCommand.execute(this, taskList);
         } catch (DateTimeParseException e) {
+            colress.setCommandType("error");
             return MESSAGE_NOT_A_VALID_DATE_TIME_ERROR;
         }
     }
@@ -291,6 +301,7 @@ public final class Ui {
             currCommand.initialise(result);
             return promptTime("to");
         } catch (DateTimeParseException e) {
+            colress.setCommandType("error");
             return MESSAGE_NOT_A_VALID_DATE_TIME_ERROR;
         }
     }
@@ -312,8 +323,10 @@ public final class Ui {
             currCommand.initialise(result);
             return currCommand.execute(this, taskList);
         } catch (EndTimeException e) {
+            colress.setCommandType("error");
             return e.getMessage();
         } catch (DateTimeParseException e) {
+            colress.setCommandType("error");
             return MESSAGE_NOT_A_VALID_DATE_TIME_ERROR;
         }
     }
@@ -343,6 +356,7 @@ public final class Ui {
             int[] result = parser.getTaskNumber(input);
             for (int i: result) {
                 if (taskList.isOutOfBounds(i)) {
+                    colress.setCommandType("error");
                     return MESSAGE_NOT_A_VALID_NUMBER_ERROR;
                 }
             }
@@ -350,6 +364,7 @@ public final class Ui {
             currCommand.initialise(result);
             return currCommand.execute(this, taskList);
         } catch (NumberFormatException e) {
+            colress.setCommandType("error");
             return MESSAGE_NOT_A_VALID_NUMBER_ERROR;
         }
     }
