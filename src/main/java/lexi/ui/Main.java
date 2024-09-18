@@ -22,6 +22,7 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            stage.setTitle("Lexi Chatbot");
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setLexi(lexi); // inject the Lexi instance
             stage.show();
