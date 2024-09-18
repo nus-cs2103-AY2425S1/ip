@@ -94,7 +94,7 @@ public class TaskList {
         // Map the task numbers to their corresponding task in the task list
         Task[] tasksToBeDeleted = new Task[taskNumbers.length];
         for (int i = 0; i < taskNumbers.length; i++) {
-            tasksToBeDeleted[i] = this.tasks.get(i);
+            tasksToBeDeleted[i] = this.getTask(taskNumbers[i]);
         }
 
         // Delete tasks by reference
