@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+
+<VBox minHeight="600.0"
+      minWidth="600.0"
+      stylesheets="@../css/main.css"
+      xmlns="http://javafx.com/javafx/22"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="denim.ui.HelpWindow"
+      fx:id="helpWindow">
+    <children>
+    </children>
+</VBox>
