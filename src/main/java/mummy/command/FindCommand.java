@@ -38,4 +38,9 @@ public final class FindCommand extends Command {
     public CommandType getCommandType() {
         return CommandType.FIND;
     }
+
+    @Override
+    public String undo(TaskList taskList, Storage storage) throws MummyException {
+        throw new MummyException("`find` command cannot be undone");
+    }
 }

@@ -36,6 +36,6 @@ public class DeadlineTest {
     @Test
     public void toString_shouldReturnCorrectString() {
         Deadline deadline = new Deadline("Finish assignment", "2022-12-31");
-        assertEquals("[D][] Finish assignment (by: 2022-12-31)", deadline.toString());
+        assertEquals("[D][ ] Finish assignment (by: 2022-12-31)", deadline.toString());
     }
 }

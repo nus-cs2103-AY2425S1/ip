@@ -20,7 +20,8 @@ public abstract class Command {
      * Represents the types of commands that can be executed.
      */
     public enum CommandType {
-        BYE, LIST, MARK, UNMARK, ADD, DELETE, FIND, UNKNOWN
+        BYE, LIST, MARK, UNMARK, ADD, DELETE, FIND,
+        UNDO, REDO, UNKNOWN
     }
 
     /**
@@ -61,6 +62,10 @@ public abstract class Command {
             return new DeleteCommand(arguments);
         case "find":
             return new FindCommand(arguments);
+        case "undo":
+            return new UndoCommand(arguments);
+        case "redo":
+            return new RedoCommand(arguments);
         default:
             throw new MummyException("I'm sorry, but I don't know what that means :-(");
         }
@@ -90,12 +95,22 @@ public abstract class Command {
     public abstract CommandType getCommandType();
 
     /**
+     * Undoes this command and updates the given task list and storage if necessary.
+     *
+     * @param taskList The task list to undo the command on.
+     * @param storage The storage to undo the command on.
+     * @return A string message indicating the result of the undo operation.
+     * @throws MummyException If an error occurs during the undo operation.
+     */
+    public abstract String undo(TaskList taskList, Storage storage) throws MummyException;
+
+    /**
      * Retrieves the value associated with the specified key from the arguments map.
      *
      * @param key the key whose associated value is to be retrieved
      * @return the value associated with the specified key, or null if the key is not present in the map
      */
-    public String getArgument(String key) {
+    public final String getArgument(String key) {
         return this.arguments.get(key);
     }
 
@@ -106,7 +121,7 @@ public abstract class Command {
      * @param defaultArgument The default value to return if the key is not found.
      * @return The value associated with the key, or the default argument if the key is not found.
      */
-    public String getArgument(String key, String defaultArgument) {
+    public final String getArgument(String key, String defaultArgument) {
         return this.arguments.getOrDefault(key, defaultArgument);
     }
 
@@ -123,6 +138,62 @@ public abstract class Command {
         } catch (IOException exception) {
             throw new MummyException("Something went wrong when saving to file: "
                     + exception.getMessage());
+        }
+    }
+
+    private static final class UndoCommand extends Command {
+        public UndoCommand(HashMap<String, String> arguments) {
+            super(arguments);
+        }
+
+        @Override
+        public String execute(TaskList taskList, Storage storage) {
+            return "Command undone.";
+        }
+
+        @Override
+        public boolean isExit() {
+            return false;
+        }
+
+        @Override
+        public CommandType getCommandType() {
+            return CommandType.UNDO;
+        }
+
+        @Override
+        public String undo(TaskList taskList, Storage storage) throws MummyException {
+            throw new MummyException("Undo command cannot be undone.\n"
+                    + "Undo is an irreversible action."
+            );
+        }
+    }
+
+    private static final class RedoCommand extends Command {
+        public RedoCommand(HashMap<String, String> arguments) {
+            super(arguments);
+        }
+
+        @Override
+        public String execute(TaskList taskList, Storage storage) {
+            return "Command redone.";
+        }
+
+        @Override
+        public boolean isExit() {
+            return false;
+        }
+
+        @Override
+        public CommandType getCommandType() {
+            return CommandType.REDO;
+        }
+
+        @Override
+        public String undo(TaskList taskList, Storage storage) throws MummyException {
+            throw new MummyException("Redo command cannot be undone.\n"
+                    + "Undo is an irreversible action."
+            );
         }
     }
 }

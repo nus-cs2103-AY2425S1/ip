@@ -15,6 +15,8 @@ import mummy.utility.Storage;
  */
 public final class DeleteCommand extends Command {
 
+    private Task deletedTask;
+
     public DeleteCommand(HashMap<String, String> arguments) {
         super(arguments);
     }
@@ -32,11 +34,11 @@ public final class DeleteCommand extends Command {
                 -1);
 
         try {
-            Task task = taskList.remove(taskIndex);
+            deletedTask = taskList.remove(taskIndex);
             saveTaskListToStorage(taskList, storage);
             return String.format(
                     "Noted. I've removed this task:\n\t%s\nNow you have %d tasks in the list.\n",
-                    task, taskList.count()
+                    deletedTask, taskList.count()
             );
         } catch (TaskListException exception) {
             throw new MummyException("Something went wrong when deleting task: "
@@ -52,5 +54,24 @@ public final class DeleteCommand extends Command {
     @Override
     public CommandType getCommandType() {
         return CommandType.DELETE;
+    }
+
+    @Override
+    public String undo(TaskList taskList, Storage storage) throws MummyException {
+        if (deletedTask == null) {
+            throw new MummyException("Something went wrong when undoing command:\n"
+                    + "Deleted task cannot be found");
+        }
+
+        Task task = deletedTask;
+        deletedTask = null;
+
+        taskList.add(task);
+        saveTaskListToStorage(taskList, storage);
+
+        return String.format(
+                "Noted. I've recovered this task:\n\t%s\nNow you have %d tasks in the list.\n",
+                task, taskList.count()
+        );
     }
 }

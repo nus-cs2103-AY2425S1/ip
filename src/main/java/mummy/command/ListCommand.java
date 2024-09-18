@@ -3,6 +3,7 @@ package mummy.command;
 import java.util.HashMap;
 
 import mummy.task.TaskList;
+import mummy.ui.MummyException;
 import mummy.utility.Storage;
 
 
@@ -29,5 +30,10 @@ public final class ListCommand extends Command {
     @Override
     public CommandType getCommandType() {
         return CommandType.LIST;
+    }
+
+    @Override
+    public String undo(TaskList taskList, Storage storage) throws MummyException {
+        throw new MummyException("`list` command cannot be undone");
     }
 }

@@ -3,6 +3,7 @@ package mummy.command;
 import java.util.HashMap;
 
 import mummy.task.TaskList;
+import mummy.ui.MummyException;
 import mummy.utility.Storage;
 
 /**
@@ -29,5 +30,10 @@ public final class ByeCommand extends Command {
     @Override
     public CommandType getCommandType() {
         return CommandType.BYE;
+    }
+
+    @Override
+    public String undo(TaskList taskList, Storage storage) throws MummyException {
+        throw new MummyException("`bye` command cannot be undone");
     }
 }
