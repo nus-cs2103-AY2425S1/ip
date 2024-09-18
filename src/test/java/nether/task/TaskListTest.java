@@ -13,7 +13,7 @@ public class TaskListTest {
 
     @Test
     public void addTask_validTask_taskAddedSuccessfully() {
-        TodoTask task = new TodoTask("Read book");
+        TodoTask task = new TodoTask("Read book", "");
 
         taskList.addTask(task);
 
@@ -40,15 +40,15 @@ public class TaskListTest {
     @Test
     void getSize_withMultipleTasks_returnsCorrectSize() {
         TaskList taskListTest = new TaskList();
-        taskListTest.addTask(new TodoTask("Read a book"));
-        taskListTest.addTask(new DeadlineTask("Submit assignment", "2024-09-01 2359"));
+        taskListTest.addTask(new TodoTask("Read a book", ""));
+        taskListTest.addTask(new DeadlineTask("Submit assignment", "", "2024-09-01 2359"));
         assertEquals(2, taskListTest.getSize());
     }
 
     // Tests for getTask()
     @Test
     void getTask_withValidIndex_returnsCorrectTask() {
-        Task task = new TodoTask("Go jogging");
+        Task task = new TodoTask("Go jogging", "Exercise");
         TaskList taskListTest = new TaskList();
         taskListTest.addTask(task);
         assertEquals(task, taskListTest.getTask(0));
@@ -58,8 +58,8 @@ public class TaskListTest {
     @Test
     void getTasks_returnsListOfAllTasks() {
         List<Task> taskListTest = new ArrayList<>();
-        taskListTest.add(new TodoTask("Finish project"));
-        taskListTest.add(new EventTask("Team meeting", "2024-09-01 2100", "2024-09-02 2300"));
+        taskListTest.add(new TodoTask("Finish project", "Work"));
+        taskListTest.add(new EventTask("Team meeting", "Work", "2024-09-01 2100", "2024-09-02 2300"));
         TaskList taskList = new TaskList(taskListTest);
         assertEquals(taskListTest, taskList.getTasks());
     }

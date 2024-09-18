@@ -11,8 +11,8 @@ public class TodoTask extends Task {
      *
      * @param description The description of the task.
      */
-    public TodoTask(String description) {
-        super(description);
+    public TodoTask(String description, String tag) {
+        super(description, tag);
     }
 
     /**
@@ -23,7 +23,7 @@ public class TodoTask extends Task {
      */
     @Override
     public String toSaveFormat() {
-        return "T|" + this.getStatusIcon() + "|" + this.getDescription();
+        return "T|" + this.getStatusIcon() + "|" + this.getTag() + "|" + this.getDescription();
     }
 
     /**

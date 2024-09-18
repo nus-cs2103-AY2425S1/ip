@@ -40,6 +40,7 @@ public class Nether {
         storage = new Storage(filePath);
         parser = new Parser();
         tasks = new TaskList(storage.loadTasks());
+        // can add a welcome msg next time HERE
     }
 
     /**

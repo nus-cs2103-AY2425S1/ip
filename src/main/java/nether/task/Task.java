@@ -1,5 +1,9 @@
 package nether.task;
 
+import nether.NetherException;
+
+import java.util.Objects;
+
 /**
  * Represents a task object model with a description and status.
  * The {@code Task} class serves as an abstract base class for different types of tasks, providing methods to manage the
@@ -9,15 +13,20 @@ package nether.task;
 public abstract class Task {
     protected String description;
     protected boolean isDone;
+    protected String tag;
 
     /**
      * Constructs (by default) an incomplete {@code Task} object with the specified description.
      *
      * @param description The description of the task.
      */
-    public Task(String description) {
+    public Task(String description, String tag) {
         this.description = description;
+        this.tag = tag;
         this.isDone = false;
+        if (tag.contains(" ")) {
+            throw new NetherException("a tag should not have any space!");
+        }
     }
 
     /**
@@ -37,6 +46,15 @@ public abstract class Task {
      */
     public String getDescription() {
         return this.description;
+    }
+
+    /**
+     * Returns the tag of the task.
+     *
+     * @return A string representing the task's tag.
+     */
+    public String getTag() {
+        return this.tag;
     }
 
     /**
@@ -78,7 +96,9 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return String.format("[%s] %s", this.getStatusIcon(), this.getDescription());
+        return Objects.equals(this.getTag(), "")
+                ? String.format("[%s] %s", this.getStatusIcon(), this.getDescription())
+                : String.format("[%s] %s %s", this.getStatusIcon(), "<" + this.getTag() + ">", this.getDescription());
     }
 
 }

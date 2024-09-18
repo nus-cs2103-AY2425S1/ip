@@ -39,13 +39,13 @@ public class Parser {
             return new ListCommand();
         case "todo":
             processedInput = extractInputDetails(userInput, "todo");
-            return new AddCommand(new TodoTask(processedInput[0]));
+            return new AddCommand(new TodoTask(processedInput[0], processedInput[1]));
         case "deadline":
             processedInput = extractInputDetails(userInput, "deadline");
-            return new AddCommand(new DeadlineTask(processedInput[0], processedInput[1]));
+            return new AddCommand(new DeadlineTask(processedInput[0], processedInput[1], processedInput[2]));
         case "event":
             processedInput = extractInputDetails(userInput, "event");
-            return new AddCommand(new EventTask(processedInput[0], processedInput[1], processedInput[2]));
+            return new AddCommand(new EventTask(processedInput[0], processedInput[1], processedInput[2], processedInput[3]));
         case "mark":
             return new MarkDoneCommand(extractTaskNumber(userInput));
         case "unmark":
@@ -85,9 +85,6 @@ public class Parser {
      */
 
     public String[] extractInputDetails(String userInput, String taskType) throws NetherException {
-        String[] preprocessArray; // stores the full input without the command word
-        String[] resultArray; // stores the split input formatted accordingly to the task type
-
         switch (taskType) {
         case "todo":
             return handleTodoDetails(userInput);
@@ -114,7 +111,10 @@ public class Parser {
         if (todoDetails.length < 2 || todoDetails[1].trim().isEmpty()) {
             throw new NetherException("the description of a todo cannot be empty.");
         }
-        return new String[]{todoDetails[1]};
+        String[] splitByTag = todoDetails[1].split("#", 2);
+        String description = splitByTag[0].trim();
+        String tag = splitByTag.length > 1 ? splitByTag[1].trim() : "";
+        return new String[]{description, tag};
     }
 
     /**
@@ -129,11 +129,24 @@ public class Parser {
         if (deadlineDetails.length < 2 || deadlineDetails[1].trim().isEmpty()) {
             throw new NetherException("the description of a deadline cannot be empty.");
         }
-        String[] deadlineParts = deadlineDetails[1].split("/by ", 2);
-        if (deadlineParts.length < 2 || deadlineParts[0].trim().isEmpty() || deadlineParts[1].trim().isEmpty()) {
-            throw new NetherException("the description or date/time of a deadline cannot be empty.");
+        String[] splitByTag = deadlineDetails[1].split("#", 2);
+        String description = "";
+        String tag = "";
+        String time = "";
+        if (splitByTag.length > 1) {
+            String[] splitByTime = splitByTag[1].split("/by ", 2);
+            description = splitByTag[0].trim();
+            tag = splitByTime[0].trim();
+            time = splitByTime[1].trim();
+        } else { // goes into this branch if the command does not have a tag
+            String[] splitByTime = deadlineDetails[1].split("/by ", 2);
+            if (splitByTime.length < 2 || splitByTime[0].trim().isEmpty() || splitByTime[1].trim().isEmpty()) {
+                throw new NetherException("the description or date/time of a deadline cannot be empty.");
+            }
+            description = splitByTime[0].trim();
+            time = splitByTime[1].trim();
         }
-        return new String[] {deadlineParts[0], deadlineParts[1]};
+        return new String[]{description, tag, time};
     }
 
     /**
@@ -148,13 +161,29 @@ public class Parser {
         if (eventDetails.length < 2 || eventDetails[1].trim().isEmpty()) {
             throw new NetherException("the description of an event cannot be empty.");
         }
-        String[] eventParts = eventDetails[1].split("/from |/to ", 3);
-        if (eventParts.length < 3 || eventParts[0].trim().isEmpty() || eventParts[1].trim().isEmpty()
-                || eventParts[2].trim().isEmpty()) {
-            throw new NetherException(
-                    "the description, start time, or end time of an event cannot be empty.");
+        String description = "";
+        String tag = "";
+        String timeStart = "";
+        String timeEnd = "";
+        String[] splitByTag = eventDetails[1].split("#", 2);
+        if (splitByTag.length > 1) {
+            String[] splitByTime = splitByTag[1].split("/from |/to ", 3);
+            description = splitByTag[0].trim();
+            tag = splitByTime[0].trim();
+            timeStart = splitByTime[1].trim();
+            timeEnd = splitByTime[2].trim();
+        } else {
+            String[] splitByTime = eventDetails[1].split("/from |/to ", 3);
+            if (splitByTime.length < 3 || splitByTime[0].trim().isEmpty() || splitByTime[1].trim().isEmpty()
+                    || splitByTime[2].trim().isEmpty()) {
+                throw new NetherException(
+                        "the description, start time, or end time of an event cannot be empty.");
+            }
+            description = splitByTime[0].trim();
+            timeStart = splitByTime[1].trim();
+            timeEnd = splitByTime[2].trim();
         }
-        return new String[]{eventParts[0], eventParts[1], eventParts[2]};
+        return new String[]{description, tag, timeStart, timeEnd};
     }
 
     /**

@@ -93,13 +93,13 @@ public class Storage {
 
         switch (taskParts[0]) {
         case "T":
-            task = new TodoTask(taskParts[2]);
+            task = new TodoTask(taskParts[3], taskParts[2]);
             break;
         case "D":
-            task = new DeadlineTask(taskParts[2], taskParts[3]);
+            task = new DeadlineTask(taskParts[3], taskParts[2], taskParts[4]);
             break;
         case "E":
-            task = new EventTask(taskParts[2], taskParts[3], taskParts[4]);
+            task = new EventTask(taskParts[3], taskParts[2], taskParts[4], taskParts[5]);
             break;
         default:
             throw new NetherException("this should have never happened. What is going on..");

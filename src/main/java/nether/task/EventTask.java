@@ -24,8 +24,8 @@ public class EventTask extends Task {
      * @throws NetherException If the date/time format for the start or end timings is invalid.
      */
 
-    public EventTask(String description, String startTime, String endTime) {
-        super(description);
+    public EventTask(String description, String tag, String startTime, String endTime) {
+        super(description, tag);
         assert startTime.matches("\\d{4}-\\d{2}-\\d{2} \\d{4}") : "Date format must be YYYY-MM-DD HHmm";
         assert endTime.matches("\\d{4}-\\d{2}-\\d{2} \\d{4}") : "Date format must be YYYY-MM-DD HHmm";
         this.startTime = getDateTime(startTime);
@@ -59,7 +59,8 @@ public class EventTask extends Task {
     @Override
     public String toSaveFormat() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        return "E|" + this.getStatusIcon() + "|" + this.getDescription() + "|" + this.startTime.format(formatter)
+        return "E|" + this.getStatusIcon() + "|" + this.getTag() + "|" + this.getDescription() + "|"
+                + this.startTime.format(formatter)
                 + "|" + this.endTime.format(formatter);
     }
 
@@ -72,7 +73,7 @@ public class EventTask extends Task {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
-        return "[E]" + super.toString() + "(from: " + this.startTime.format(formatter)
+        return "[E]" + super.toString() + " (from: " + this.startTime.format(formatter)
                 + " to: " + this.endTime.format(formatter) + ")";
     }
 }

@@ -24,8 +24,8 @@ public class DeadlineTask extends Task {
      * @param by The deadline date and time in the format {@code yyyy-MM-dd HHmm}.
      * @throws NetherException If the date/time format is invalid.
      */
-    public DeadlineTask(String description, String by) {
-        super(description);
+    public DeadlineTask(String description, String tag, String by) {
+        super(description, tag);
         assert by.matches("\\d{4}-\\d{2}-\\d{2} \\d{4}") : "Date format must be YYYY-MM-DD HHmm";
         this.by = parseDateTime(by);
     }
@@ -55,7 +55,8 @@ public class DeadlineTask extends Task {
     @Override
     public String toSaveFormat() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
-        return "D|" + getStatusIcon() + "|" + this.getDescription() + "|" + this.by.format(formatter);
+        return "D|" + getStatusIcon() + "|" + this.getTag() + "|" + this.getDescription() + "|"
+                + this.by.format(formatter);
     }
 
     /**
@@ -68,6 +69,6 @@ public class DeadlineTask extends Task {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DISPLAY_DATE_FORMAT);
-        return "[D]" + super.toString() + "(by: " + this.by.format(formatter) + ")";
+        return "[D]" + super.toString() + " (by: " + this.by.format(formatter) + ")";
     }
 }
