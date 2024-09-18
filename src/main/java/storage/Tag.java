@@ -1,5 +1,7 @@
 package storage;
 
+import skibidi.SkibidiException;
+
 /**
  * Represents a tag for a task.
  */
@@ -11,7 +13,10 @@ public class Tag {
      *
      * @param name The name of the tag.
      */
-    public Tag(String name) {
+    public Tag(String name) throws SkibidiException {
+        if (name.trim() == "") {
+            throw new SkibidiException("Tag name cannot be empty.");
+        }
         this.name = name;
     }
 

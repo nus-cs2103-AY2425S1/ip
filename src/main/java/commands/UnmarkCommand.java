@@ -19,6 +19,10 @@ public class UnmarkCommand extends Command {
      * @param taskInput The input string containing the task number to unmark.
      */
     public UnmarkCommand(String taskInput) {
+        if (taskInput.length() < 7) {
+            this.taskInput = "";
+            return;
+        }
         this.taskInput = taskInput.substring(7).trim();
     }
 
