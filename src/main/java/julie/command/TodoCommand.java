@@ -2,6 +2,8 @@ package julie.command;
 
 import java.util.List;
 
+import julie.exception.InvalidInputException;
+import julie.exception.JulieException;
 import julie.misc.Storage;
 import julie.misc.UI;
 import julie.task.Task;
@@ -19,7 +21,10 @@ public class TodoCommand extends Command {
         super(commandString);
     }
     @Override
-    public String run(List<Task> taskList, Storage storage) {
+    public String run(List<Task> taskList, Storage storage) throws JulieException {
+        if (commandString.length() == 4) {
+            throw new InvalidInputException("Todo");
+        }
         Task t = new ToDo(commandString.substring(5));
         taskList.add(t);
         storage.save(t);

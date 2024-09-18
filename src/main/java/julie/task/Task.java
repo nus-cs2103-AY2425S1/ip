@@ -1,5 +1,7 @@
 package julie.task;
 
+import java.util.Objects;
+
 /**
  * An abstract class that encapsulates the Tasks stored by the Chat Bot.
  */
@@ -34,6 +36,7 @@ public abstract class Task {
     }
     @Override
     public String toString() {
+        assert !Objects.equals(taskString, "") : "Task String should not be empty.";
         String output = "";
         if (isCompleted) {
             output = "[x]";
