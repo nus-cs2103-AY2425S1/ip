@@ -29,6 +29,11 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
+    /**
+     * Returns the completion status of the task.
+     *
+     * @return A boolean representing the completion status of the task.
+     */
     public boolean isDone() {
         return this.isDone;
     }

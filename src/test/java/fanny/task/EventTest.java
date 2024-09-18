@@ -22,7 +22,7 @@ class EventTest {
 
     @Test
     public void testToString() {
-        String expected = "[E][ ] Dinner(from: Dec 12, 2024 12:00 to: Dec 12, 2024 13:00)";
+        String expected = "[E][ ] Dinner (from: Dec 12, 2024 12:00 to: Dec 12, 2024 13:00)";
         assertEquals(expected, event.toString());
     }
 

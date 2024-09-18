@@ -2,6 +2,7 @@ package fanny.gui;
 
 import fanny.Fanny;
 import fanny.ui.Ui;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -9,12 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.animation.PauseTransition;
 import javafx.util.Duration;
-
-
-import java.util.Objects;
-
 
 /**
  * Controller for the main GUI.
@@ -31,7 +27,9 @@ public class MainWindow extends AnchorPane {
 
     private Fanny fanny;
 
+    /** Avatar designed by Freepik */
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/profile-avatar.png"));
+    /** Avatar designed by Freepik */
     private Image fannyImage = new Image(this.getClass().getResourceAsStream("/images/fanny-avatar.png"));
 
     /**
@@ -43,14 +41,19 @@ public class MainWindow extends AnchorPane {
         showStartupMessage();
     }
 
-    /** Injects the Duke instance */
+    /**
+     * Injects the Fanny instance.
+     *
+     * @param f The instance of Fanny.
+     */
     public void setFanny(Fanny f) {
         fanny = f;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one echoing user input and the other containing
+     * Duke's reply and then appends them to the dialog container.
+     * Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
@@ -64,6 +67,11 @@ public class MainWindow extends AnchorPane {
         handleExit(input);
     }
 
+    /**
+     * Handles the exit of application if the input command is "bye"
+     *
+     * @param input The command to be executed.
+     */
     private void handleExit(String input) {
         if (input.trim().equals("bye")) {
             PauseTransition delay = new PauseTransition(Duration.seconds(1.5));

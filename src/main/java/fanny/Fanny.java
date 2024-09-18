@@ -24,9 +24,13 @@ public class Fanny {
     /** Handles the storing and loading of tasks */
     private Storage storage;
 
+    /**
+     * Constructs a new Fanny object.
+     */
     public Fanny() {
         this(FILEPATH);
     }
+
     /**
      * Constructs a new Fanny object with the specified file path for storage.
      *

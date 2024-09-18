@@ -140,7 +140,6 @@ public class Ui {
      * @return The message to be displayed after marking a task as not completed.
      */
     public String showUnmarkTaskMsg(int taskId, TaskList list) {
-
         message = "Sadly, I've marked this task as not done yet:\n"
                 + list.markAsNotDone(taskId);
 

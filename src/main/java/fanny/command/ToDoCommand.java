@@ -41,7 +41,7 @@ public class ToDoCommand extends Command {
             list.add(this.todo);
             message = ui.showAddTaskMsg(this.todo, list);
         } catch (IllegalArgumentException e) {
-            message = ui.showMessage("Task description cannot be empty");
+            message = ui.showMessage(e.getMessage());
         } finally {
             ui.showHorizontalLine();
         }

@@ -57,7 +57,7 @@ public class TaskList {
      */
     public String delete(int index) throws IllegalArgumentException {
         if (index < 1 || index > this.list.size()) {
-            throw new IllegalArgumentException("Index out of bounds: " + index);
+            throw new IllegalArgumentException("Invalid index: " + index);
         }
         String taskToBeRemoved = list.get(index - 1).toString();
         try {
@@ -80,6 +80,8 @@ public class TaskList {
 
     /**
      * Prints the list of tasks to the console.
+     *
+     * @return A string representation of the list of tasks.
      */
     public String printList() {
         String message = "Here are the tasks in your list:\n";
@@ -103,7 +105,7 @@ public class TaskList {
      */
     public String markAsDone(int index) throws IllegalArgumentException {
         if (index < 1 || index > this.list.size()) {
-            throw new IllegalArgumentException("Index out of bounds: " + index);
+            throw new IllegalArgumentException("Invalid index: " + index);
         }
         Task taskToMark = this.list.get(index - 1);
         try {
@@ -124,7 +126,7 @@ public class TaskList {
      */
     public String markAsNotDone(int index) throws IllegalArgumentException {
         if (index < 1 || index > this.list.size()) {
-            throw new IllegalArgumentException("Index out of bounds: " + index);
+            throw new IllegalArgumentException("Invalid index: " + index);
         }
         Task taskToUnMark = this.list.get(index - 1);
         try {

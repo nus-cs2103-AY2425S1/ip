@@ -158,3 +158,10 @@ Expected outcome:
 ```
 Bye. Hope to see you again soon!
 ```
+
+### Sources:
+```
+Credits to Freepik for the avatar design.
+Fanny: Avatar icon. Freepik. (n.d.-a). https://www.freepik.com/icon/avatar_168734
+User: Avatar icon. Freepik. (n.d.-a). https://www.freepik.com/icon/avatar_168720 
+``` 

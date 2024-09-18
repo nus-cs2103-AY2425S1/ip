@@ -31,6 +31,11 @@ public abstract class Command {
      */
     public abstract boolean shouldExit();
 
+    /**
+     * Returns the format of date and time for all commands.
+     *
+     * @return The date and time format to be used.
+     */
     public DateTimeFormatter getFormatter() {
         return formatter;
     }

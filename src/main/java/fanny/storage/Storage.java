@@ -70,7 +70,7 @@ public class Storage {
         writer.close();
 
         List<Task> loadedTasks = loadTask();
-        assert tasks.size() == loadedTasks.size() : "Number of tasks saved should match the number of tasks loaded";
+        assert tasks.size() == loadedTasks.size() : "Number of tasks saved and loaded should be equal";
     }
 
     /**

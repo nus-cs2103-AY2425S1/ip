@@ -49,10 +49,25 @@ public class DialogBox extends HBox {
         dialog.getStyleClass().add("reply-label");
     }
 
+    /**
+     * Creates a dialog box representing the user's input, along with the user's avatar image.
+     *
+     * @param text The message input by the user.
+     * @param img The image representing the user's avatar.
+     * @return A DialogBox displaying the user's message and avatar.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Creates a dialog box representing Fanny's response, along with Fanny's avatar image.
+     * The dialog box is flipped to differentiate Fanny's message from the user's message.
+     *
+     * @param text The response message from Fanny.
+     * @param img The image representing Fanny's avatar.
+     * @return A DialogBox displaying Fanny's response and avatar, with the dialog box flipped.
+     */
     public static DialogBox getFannyDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
