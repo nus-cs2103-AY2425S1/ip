@@ -9,6 +9,7 @@ public class YapMeister {
     private UI ui;
     private Storage storage;
     private TaskList tasks;
+    private final String name = "YapMeister";
 
     /**
      * Creates YapMeister program with specified save file at filepath
@@ -45,5 +46,9 @@ public class YapMeister {
 
     public String getWelcomeMessage() {
         return this.ui.getWelcomeMessage();
+    }
+
+    public String getName() {
+        return this.name;
     }
 }

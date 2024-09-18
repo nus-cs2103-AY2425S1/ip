@@ -22,6 +22,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle(yapMeister.getName());
             fxmlLoader.<MainWindow>getController().setYapMeister(yapMeister);  // inject the Yapmeister instance
             stage.show();
         } catch (IOException e) {
