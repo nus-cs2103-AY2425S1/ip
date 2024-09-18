@@ -31,10 +31,18 @@ public class MainWindow extends AnchorPane{
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     *Injects the VoidCat instance
+     * @param v VoidCat instance
+     */
     public void setVoidCat(VoidCat v) {
         voidCat = v;
     }
 
+    /**
+     * Creates a dialog box that echoes user input and another of VoidCat's response.
+     * Clears user input after process is done.
+     */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
