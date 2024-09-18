@@ -1,6 +1,9 @@
 package bob.gui;
 
+import static bob.Bob.Command.BYE;
+
 import bob.Bob;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,6 +11,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * Controller class for the main GUI of Bob.
@@ -24,6 +29,7 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Bob bob;
+    private Stage stage;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/userImage.png"));
     private Image bobImage = new Image(this.getClass().getResourceAsStream("/images/bobImage.png"));
@@ -53,6 +59,22 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
+     * Injects the stage into the controller.
+     *
+     * @param stage The primary stage of the application for window management.
+     */
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    /**
+     * Closes the GUI window.
+     */
+    public void closeWindow() {
+        stage.close();
+    }
+
+    /**
      * Handles user input from the text field when the send button is pressed or the user hits enter.
      * It creates two dialog boxes: one echoing the user's input and the other containing Bob's response.
      * After processing, the user input is cleared.
@@ -67,6 +89,13 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getBobDialog(response, bobImage, commandType)
         );
         userInput.clear();
+
+        // Close the window if the command is "bye"
+        if (commandType.equals(BYE)) {
+            PauseTransition delay = new PauseTransition(Duration.seconds(3)); // 3-second delay
+            delay.setOnFinished(event -> closeWindow()); // Close window after delay
+            delay.play(); // Start the delay
+        }
     }
 }
 
