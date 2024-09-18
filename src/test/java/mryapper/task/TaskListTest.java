@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+/**
+ * Test cases for adding task, removing task, counting number of tasks,
+ * marking and unmarking tasks as done in a task list.
+ */
 public class TaskListTest {
     @Test
     public void testString() {
@@ -20,7 +24,7 @@ public class TaskListTest {
         testList.add(new TaskStub());
         testList.add(markedStub);
         TaskList taskList = new TaskList(testList);
-        assertEquals(" 1.[ ] stub\n 2.[X] stub", taskList.toString());
+        assertEquals("1.[ ] stub\n2.[X] stub", taskList.toString());
     }
 
     @Test
@@ -29,7 +33,7 @@ public class TaskListTest {
 
         // test adding task to taskList
         taskList.add(new TaskStub());
-        assertEquals(" 1.[ ] stub", taskList.toString());
+        assertEquals("1.[ ] stub", taskList.toString());
     }
 
     @Test
@@ -89,15 +93,15 @@ public class TaskListTest {
 
         // Marking
         taskList.mark(1);
-        assertEquals(" 1.[X] stub", taskList.toString());
+        assertEquals("1.[X] stub", taskList.toString());
 
         // Unmarking
         taskList.unmark(1);
-        assertEquals(" 1.[ ] stub", taskList.toString());
+        assertEquals("1.[ ] stub", taskList.toString());
     }
 
     @Test
-    public void testMarkAndUnmark_exceptionThrown() {
+    public void testMark_exceptionThrown() {
         ArrayList<Task> testList = new ArrayList<>(100);
         testList.add(new TaskStub());
         TaskList taskList = new TaskList(testList);
@@ -117,6 +121,13 @@ public class TaskListTest {
         } catch (IndexOutOfBoundsException e) {
             assertEquals("Index 1 out of bounds for length 1", e.getMessage());
         }
+    }
+
+    @Test
+    public void testMarkAndUnmark_exceptionThrown() {
+        ArrayList<Task> testList = new ArrayList<>(100);
+        testList.add(new TaskStub());
+        TaskList taskList = new TaskList(testList);
 
         //  Unmarking task 0
         try {

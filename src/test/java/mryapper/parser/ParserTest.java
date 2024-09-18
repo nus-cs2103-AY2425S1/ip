@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Include test cases for parsing bye, list, delete, mark, unmark commands.
+ * Test cases for parsing bye, list, delete, mark, unmark commands.
  * Also has test cases for making to do, deadline and event tasks.
  */
 public class ParserTest {

@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Test cases for to do tasks excluding edit task details.
+ */
 public class TodoTest {
 
     @Test

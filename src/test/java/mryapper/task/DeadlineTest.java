@@ -3,6 +3,10 @@ package mryapper.task;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+/**
+ * Test cases for deadline tasks excluding edit task details.
+ */
 public class DeadlineTest {
     @Test
     public void testMarkAndUnmark() {

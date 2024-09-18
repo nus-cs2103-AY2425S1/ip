@@ -1,5 +1,8 @@
 package mryapper.task;
 
+/**
+ * A stub to replace the tasks component
+ */
 public class TaskStub extends Task {
 
     public TaskStub() {
