@@ -11,6 +11,13 @@ import java.time.format.DateTimeFormatter;
 
 public class Parser {
 
+    /**
+     * Parses the user input into a Command object.
+     *
+     * @param userInput the input command from the user
+     * @return the Command object corresponding to the user input
+     * @throws NaegaException if the command is unknown or improperly formatted
+     */
     public static Command parse(String userInput) throws NaegaException {
         String[] words = userInput.split(" ", 2);
         String[] splitCommand = userInput.split(" ", 2);
@@ -37,11 +44,23 @@ public class Parser {
                 }
                 int taskIndex = Integer.parseInt(splitCommand[1]);
                 return new DeleteCommand(taskIndex);
+            case "find":
+                if (splitCommand.length < 2) {
+                    throw new NaegaException("Please specify a keyword to search.");
+                }
+                return new FindCommand(splitCommand[1]);
             default:
                 throw new NaegaException("I don't understand the command.");
         }
     }
 
+    /**
+     * Parses the arguments for an event command and creates an AddCommand for it.
+     *
+     * @param args the arguments for the event command
+     * @return the AddCommand for the event
+     * @throws NaegaException if the arguments are improperly formatted
+     */
     private static Command parseEvent(String args) throws NaegaException {
         String[] parts = args.split("/from", 2);
         if (parts.length < 2) {
@@ -62,6 +81,13 @@ public class Parser {
         return new AddCommand(new Event(description, from, to));
     }
 
+    /**
+     * Parses the arguments for a deadline command and creates an AddCommand for it.
+     *
+     * @param args the arguments for the deadline command
+     * @return the AddCommand for the deadline
+     * @throws NaegaException if the arguments are improperly formatted
+     */
     private static Command parseDeadline(String args) throws NaegaException {
         String[] parts = args.split("/by", 2);
         if (parts.length < 2) {
