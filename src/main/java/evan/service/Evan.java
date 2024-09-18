@@ -1,6 +1,7 @@
 package evan.service;
 
 import evan.command.Command;
+import evan.command.HelpCommand;
 import evan.exception.FileCreationException;
 import evan.exception.InvalidUserInputException;
 import evan.exception.LoadingException;
@@ -20,7 +21,8 @@ public class Evan {
             - mark <task_number>
             - unmark <task_number>
             - delete <task_number>
-            - find <description>""";
+            - find <description>
+            - help""";
     private final UserInputParser userInputParser;
     private Storage storage;
     private TaskList taskList;
@@ -68,8 +70,12 @@ public class Evan {
 
         try {
             Command command = userInputParser.parse(input);
-            response = command.execute(taskList);
-            storage.save(taskList); // Save the task list after every update
+            if (command instanceof HelpCommand) {
+                response = COMMAND_LIST;
+            } else {
+                response = command.execute(taskList);
+                storage.save(taskList); // Save the task list after every update
+            }
         } catch (InvalidUserInputException e) {
             response = e.getMessage() + "\n" + COMMAND_LIST;
         } catch (NoSuchTaskException | SavingException e) {
