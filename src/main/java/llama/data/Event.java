@@ -12,7 +12,7 @@ public class Event extends Task {
     private LocalDateTime endTime;
 
     /**
-     * Creates Event object
+     * Creates an Event object
      *
      * @param desc description of event to attend
      * @param startTime start time of event

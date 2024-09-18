@@ -14,6 +14,10 @@ import llama.ui.Ui;
 public class UntagTaskCommand implements Command {
     private String remaining;
 
+    /**
+     * Creates a command to untag a task
+     * @param remaining
+     */
     public UntagTaskCommand(String remaining) {
         this.remaining = remaining;
     }

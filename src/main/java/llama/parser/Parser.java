@@ -16,7 +16,7 @@ import llama.exceptions.LlamaException;
  */
 public class Parser {
     /**
-     * Method to interpret user's input
+     * Inteprets the user's input and returns a command based on input
      *
      * @param input user input to be interpreted
      * @return Command that program can execute based on user input

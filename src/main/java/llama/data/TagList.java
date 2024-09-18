@@ -11,7 +11,7 @@ public class TagList {
     private ArrayList<Tag> tagList;
 
     /**
-     * Create a TagList object
+     * Creates a TagList object
      */
     public TagList() {
         this.tagList = new ArrayList<>();
@@ -61,7 +61,7 @@ public class TagList {
     }
 
     /**
-     * Get the size of tag list
+     * Gets the size of tag list
      *
      * @return size of tag list
      */
@@ -70,7 +70,7 @@ public class TagList {
     }
 
     /**
-     * Get the tag at index i
+     * Gets the tag at index i
      *
      * @param i index of tag to get
      * @return tag at index i
@@ -80,7 +80,7 @@ public class TagList {
     }
 
     /**
-     * Get the tag using tag title
+     * Gets the tag using tag title
      *
      * @param tagTitle title of tag to get
      * @return tag if found, else throw error

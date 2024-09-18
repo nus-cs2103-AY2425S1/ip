@@ -78,7 +78,7 @@ public abstract class Task {
     }
 
     /**
-     * Search task description to see if it contains given keyword
+     * Searches the task description to see if it contains given keyword
      * Ignores case of search string
      *
      * @param searchStr keyword to search task description with

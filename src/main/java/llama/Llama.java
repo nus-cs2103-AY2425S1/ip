@@ -24,7 +24,7 @@ public class Llama {
     private TagList tagList;
 
     /**
-     * Constructor for Llama
+     * Creates a Llama object
      */
     public Llama() {
         this.ui = new Ui();
@@ -41,6 +41,12 @@ public class Llama {
         return ui.displayWelcome();
     }
 
+    /**
+     * Gets the response from the user input
+     *
+     * @param input User input
+     * @return Response to the user input
+     */
     public String getResponse(String input) {
         try {
             Command command = Parser.parse(input);

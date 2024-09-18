@@ -15,6 +15,11 @@ public class Tag {
         this.tagTitle = tagTitle.toLowerCase();
     }
 
+    /**
+     * Returns the title of the tag
+     *
+     * @return Title of tag
+     */
     public String getTitle() {
         return this.tagTitle;
     }
@@ -24,6 +29,11 @@ public class Tag {
         return "[" + tagTitle + "]";
     }
 
+    /**
+     * Returns the tag in a format that can be saved to a file
+     *
+     * @return Tag in a format that can be saved to a file
+     */
     public String getSaveTagString() {
         return tagTitle;
     }

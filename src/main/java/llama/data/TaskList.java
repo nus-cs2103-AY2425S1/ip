@@ -42,7 +42,8 @@ public class TaskList {
     }
 
     /**
-     * Deletes a task from the list. Shows user success message upon completion
+     * Deletes a task from the list.
+     * Shows user success message upon completion
      *
      * @param taskIndex task number of task to be deleted from
      * @param ui user interface to give user information
@@ -64,7 +65,8 @@ public class TaskList {
     }
 
     /**
-     * Marks task as complete. Shows user success message upon completion.
+     * Marks task as complete.
+     * Shows user success message upon completion.
      *
      * @param taskIndex task number of the task to be marked
      * @param ui user interface to give user information
@@ -85,7 +87,8 @@ public class TaskList {
     }
 
     /**
-     * Marks task as not complete. Shows user success message upon completion.
+     * Marks task as not complete.
+     * Shows user success message upon completion.
      *
      * @param taskIndex task number of task to be unmarked
      * @param ui user interface to give user information
@@ -123,7 +126,7 @@ public class TaskList {
     }
 
     /**
-     * Method to search and display tasks based on keyword given
+     * Searches and displays tasks based on keyword given
      *
      * @param searchStr keyword to search tasks with
      * @param ui user interface to give user information
@@ -144,7 +147,7 @@ public class TaskList {
     }
 
     /**
-     * Method to get number of tasks
+     * Gets the number of tasks
      *
      * @return number of tasks in list
      */
@@ -153,7 +156,7 @@ public class TaskList {
     }
 
     /**
-     * Method to get a specific tasks
+     * Gets a specific tasks
      *
      * @param taskIndex task to get based on index
      * @return Task at given index
@@ -163,7 +166,7 @@ public class TaskList {
     }
 
     /**
-     * Method to tag a task with given index and tag
+     * Tags a task with given task index and tag
      * @param taskIndex index of task to be tagged
      * @param tag tag to set task tag
      */
