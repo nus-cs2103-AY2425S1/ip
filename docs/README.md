@@ -66,7 +66,7 @@ Now you have 2 tasks in the list.
 ### 3. Adding an event task: `event`
 Adds an event task to the task list.
 
-Format: `event [DESCRIPTION] /from [DATE] [TIME] /to [DATE] [TIME]`
+Format: `event [DESCRIPTION] /from [DATE] [TIME] /to [TIME]`
 
 Example:
 ```
@@ -149,7 +149,9 @@ Now you have 2 tasks in the list.
 
 ### 8. Finding tasks by keyword: `find`
 Finds tasks in the task list by keyword.
+
 Format: `find [KEYWORD]`
+
 Example:
 ```
 find book
@@ -188,21 +190,22 @@ Format: `bye`
 
 ## FAQ
 Q: How do I transfer my data to another Computer?
+
 A: You can just replace the data folder in the new computer with the data folder in the old computer.
 
 ## Command Summary
-| Command  | Format                                                      | Example                                                |
-|----------|-------------------------------------------------------------|--------------------------------------------------------|
-| todo     | `todo [DESCRIPTION]`                                        | `todo read book`                                       |
-| deadline | `deadline [DESCRIPTION] /by [DATE]`                         | `deadline return book /by 30-09-2024`                  |
-| event    | `event [DESCRIPTION] /from [DATE] [TIME] /to [DATE] [TIME]` | `event project meeting /from 30-09-2024 1400 /to 1600` |
-| list     | `list`                                                      | `list`                                                 |
-| mark     | `mark [TASK INDEX]`                                         | `mark 2`                                               |
-| unmark   | `unmark [TASK INDEX]`                                       | `unmark 2`                                             |
-| delete   | `delete [TASK INDEX]`                                       | `delete 2`                                             |
-| find     | `find [KEYWORD]`                                            | `find book`                                            |
-| set      | `set [TASK INDEX] [PRIORITY]`                               | `set 2 high`                                           |
-| help     | `help`                                                      | `help`                                                 |
-| bye      | `bye`                                                       | `bye`                                                  |
+| Command  | Format                                               | Example                                                |
+|----------|------------------------------------------------------|--------------------------------------------------------|
+| todo     | `todo [DESCRIPTION]`                                 | `todo read book`                                       |
+| deadline | `deadline [DESCRIPTION] /by [DATE]`                  | `deadline return book /by 30-09-2024`                  |
+| event    | `event [DESCRIPTION] /from [DATE] [TIME] /to [TIME]` | `event project meeting /from 30-09-2024 1400 /to 1600` |
+| list     | `list`                                               | `list`                                                 |
+| mark     | `mark [TASK INDEX]`                                  | `mark 2`                                               |
+| unmark   | `unmark [TASK INDEX]`                                | `unmark 2`                                             |
+| delete   | `delete [TASK INDEX]`                                | `delete 2`                                             |
+| find     | `find [KEYWORD]`                                     | `find book`                                            |
+| set      | `set [TASK INDEX] [PRIORITY]`                        | `set 2 high`                                           |
+| help     | `help`                                               | `help`                                                 |
+| bye      | `bye`                                                | `bye`                                                  |
 
 
