@@ -197,3 +197,6 @@ Usage
 Bye. Hope to see you again soon!
 > exits
 ```
+
+## Screenshots
+![Reminderbot in action](/Ui.png?raw=true "Title")
