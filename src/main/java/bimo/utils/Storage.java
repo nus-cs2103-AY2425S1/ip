@@ -36,7 +36,6 @@ public class Storage {
         if (task instanceof ToDo) {
             text = "T|" + description;
         } else if (task instanceof Deadline) {
-            //safe to cast since type checking is done
             text = "D|" + description + ((Deadline) task).getDateAsText();
         } else if (task instanceof Event) {
             text = "E|" + description + ((Event) task).getDatesAsText();

@@ -101,7 +101,8 @@ public class ParserTest {
             Parser.parsePriority(userInput);
             assertEquals(true, false);
         } catch (BimoException e) {
-            assertEquals(e.getMessage(), "Please choose either HIGH, MEDIUM or LOW priority only\n e.g set 2 high");
+            assertEquals(e.getMessage(), "Please choose either HIGH, MEDIUM or"
+                    + " LOW priority only\n e.g set 2 high");
         }
     }
 
