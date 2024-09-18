@@ -18,6 +18,7 @@ public class Task implements Serializable {
      * @param description
      */
     public Task(String description) {
+        assert description != null: "Description cannot be null.";
         this.description = description;
         this.isDone = false;
     }
@@ -75,6 +76,7 @@ public class Task implements Serializable {
      * @throws KieTwoForOneException
      */
     public boolean compareDate(String date) throws KieTwoForOneException {
+        assert date != null: "Date cannot be null.";
         return false;
     }
 
@@ -86,6 +88,7 @@ public class Task implements Serializable {
      * @return Boolean.
      */
     public boolean compareString(String keyword) {
+        assert keyword != null: "Keyword cannot be null.";
         return this.description.contains(keyword);
     }
 

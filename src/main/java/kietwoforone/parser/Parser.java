@@ -29,6 +29,7 @@ public class Parser {
      * @throws KieTwoForOneException
      */
     public static boolean isCompleteInput(String[] input) throws KieTwoForOneException {
+        assert input != null: "Input array cannot be null.";
         if (input.length < 2 && !input[0].equalsIgnoreCase("list") &&
                 !input[0].equalsIgnoreCase("bye")) {
             throw new KieTwoForOneException("Your instruction is incomplete!");
@@ -44,6 +45,7 @@ public class Parser {
      * @throws KieTwoForOneException
      */
     public static boolean isCompleteEventInput(String[] input) throws KieTwoForOneException {
+        assert input != null: "Input array cannot be null.";
         if (input.length != 3) {
             throw new KieTwoForOneException("Please input a start and end time!");
         }
@@ -58,6 +60,7 @@ public class Parser {
      * @throws KieTwoForOneException
      */
     public static boolean isCompleteDeadlineInput(String[] input) throws KieTwoForOneException {
+        assert input != null: "Input array cannot be null.";
         if (input.length != 2) {
             throw new KieTwoForOneException("Please input a deadline!");
         }
@@ -73,6 +76,7 @@ public class Parser {
      * @throws KieTwoForOneException
      */
     public static Command parse(String command) throws KieTwoForOneException {
+        assert command != null: "Command cannot be null";
         String[] instruction = command.split(" ", 2);
         String[] taskDetails = new String[0];
 

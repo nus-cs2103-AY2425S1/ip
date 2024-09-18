@@ -18,6 +18,7 @@ public class FindDateCommand extends Command {
      * @param date
      */
     public FindDateCommand(String date) {
+        assert date != null: "Date cannot be null.";
         this.date = date;
     }
 
@@ -32,6 +33,9 @@ public class FindDateCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) throws KieTwoForOneException {
+        assert tasks != null: "TaskList cannot be null.";
+        assert ui != null: "UI cannot be null.";
+        assert storage != null: "Storage cannot be null.";
         try {
             ui.showSameDate(tasks.getTaskList(), this.date);
         } catch (KieTwoForOneException e) {
