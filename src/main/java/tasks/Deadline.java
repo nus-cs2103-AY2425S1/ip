@@ -28,8 +28,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mma");
-        return "[D]" + super.toString() + " (by: " + by.format(formatter) + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(DISPLAY_FORMATTER) + ")";
     }
 
     /**
@@ -39,7 +38,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toSaveFormat() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-        return "D | " + super.toSaveFormat() + " | " + by.format(formatter);
+        return "D | " + super.toSaveFormat() + " | " + by.format(SAVE_FORMATTER);
     }
 }
