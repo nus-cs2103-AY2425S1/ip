@@ -54,8 +54,8 @@ public class Lawrence {
      * @param args optional startup arguments
      */
     public static void main(String[] args) {
-        Lawrence primeMinister = new Lawrence();
-        primeMinister.run();
+        Lawrence lawrence = new Lawrence();
+        lawrence.run();
     }
 
     /**
