@@ -44,8 +44,8 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = nether.getResponse(input);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, netherImage)
+            DialogBox.getUserDialog(input, userImage),
+            DialogBox.getDukeDialog(response, netherImage)
         );
         userInput.clear();
     }

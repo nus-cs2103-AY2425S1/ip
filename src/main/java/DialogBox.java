@@ -37,6 +37,23 @@ public class DialogBox extends HBox {
         dialog.setText(text);
         displayPicture.setClip(c);
         displayPicture.setImage(img);
+
+        // Determine if the message is an error message and apply the appropriate style
+        if (isErrorMessage(text)) {
+            dialog.getStyleClass().add("error-label");
+        } else {
+            dialog.getStyleClass().add("label");
+        }
+    }
+
+    /**
+     * Determines if the given message should be treated as an error message.
+     * @param message The message to check.
+     * @return true if it's an error message, false otherwise.
+     */
+    private boolean isErrorMessage(String message) {
+        // Define the logic to determine if a message is an error. This is just an example.
+        return message.toLowerCase().contains("sir,") || message.toLowerCase().contains("not in our database");
     }
 
     /**
