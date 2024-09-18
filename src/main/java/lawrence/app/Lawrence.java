@@ -98,4 +98,9 @@ public class Lawrence {
             return new Response(CommandType.INVALID, message, true);
         }
     }
+
+    public String getWelcomeMessage() {
+        return String.format("Hello! I'm %s and I'm here to establish another GST hike.%n"
+                + "What can I do for you?", NAME);
+    }
 }

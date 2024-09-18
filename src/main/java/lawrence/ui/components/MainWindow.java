@@ -10,6 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import lawrence.app.Lawrence;
 import lawrence.app.Response;
+import lawrence.command.CommandType;
 
 /**
  * Controller for the main GUI.
@@ -34,15 +35,7 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
-        // add a listener to detect scrolling on the dialogContainer
-        dialogContainer.setOnScroll(event -> {
-            // get change in scroll direction
-            double deltaY = event.getDeltaY();
-            double scrollAmount = scrollPane.getVvalue() - deltaY
-                    / scrollPane.getContent().getBoundsInLocal().getHeight();
-
-            scrollPane.setVvalue(scrollAmount);
-        });
+        setScrollListener();
     }
 
     /**
@@ -74,6 +67,31 @@ public class MainWindow extends AnchorPane {
 
         userInput.clear();
         scrollToBottom();
+    }
+
+    /**
+     * Displays a welcome message.
+     */
+    public void showWelcomeMessage() {
+        Response welcomeResponse = new Response(CommandType.INVALID,
+                lawrence.getWelcomeMessage(),
+                true);
+        dialogContainer.getChildren().add(
+                DialogBox.getBotDialog(welcomeResponse, botImage));
+    }
+
+    /**
+     * Initialises a listener to handle scroll events.
+     */
+    private void setScrollListener() {
+        dialogContainer.setOnScroll(event -> {
+            // get change in scroll direction
+            double deltaY = event.getDeltaY();
+            double scrollAmount = scrollPane.getVvalue() - deltaY
+                    / scrollPane.getContent().getBoundsInLocal().getHeight();
+
+            scrollPane.setVvalue(scrollAmount);
+        });
     }
 
     /**
