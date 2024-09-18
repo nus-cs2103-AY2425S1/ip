@@ -157,6 +157,12 @@ public class Alfred {
         int taskNumber = Parser.getTaskNumberFromInput(input);
         String tag = Parser.getTagFromInput(input);
         Task taggedTask = tasks.tagTask(taskNumber, tag);
+
+        String saveError = saveTasks();
+        if (!saveError.isEmpty()) {
+            return saveError;
+        }
+
         return AlfredResponse.showTaskTagged(taggedTask);
     }
 
@@ -171,6 +177,12 @@ public class Alfred {
         int taskNumber = Parser.getTaskNumberFromInput(input);
         String tag = Parser.getTagFromInput(input);
         Task taggedTask = tasks.untagTask(taskNumber, tag);
+
+        String saveError = saveTasks();
+        if (!saveError.isEmpty()) {
+            return saveError;
+        }
+
         return AlfredResponse.showTaskUntagged(taggedTask);
     }
 
@@ -200,6 +212,12 @@ public class Alfred {
         int taskNumber = Parser.getTaskNumberFromInput(input);
         assert taskNumber > 0 && taskNumber <= tasks.getTasksCount() : "Invalid task number: " + taskNumber;
         Task markedTask = tasks.markTask(taskNumber);
+
+        String saveError = saveTasks();
+        if (!saveError.isEmpty()) {
+            return saveError;
+        }
+
         return AlfredResponse.showTaskMarked(markedTask);
     }
 
@@ -229,6 +247,12 @@ public class Alfred {
         int taskNumber = Parser.getTaskNumberFromInput(input);
         assert taskNumber > 0 && taskNumber <= tasks.getTasksCount() : "Invalid task number: " + taskNumber;
         Task markedTask = tasks.unmarkTask(taskNumber);
+
+        String saveError = saveTasks();
+        if (!saveError.isEmpty()) {
+            return saveError;
+        }
+
         return AlfredResponse.showTaskUnmarked(markedTask);
     }
 
@@ -271,6 +295,12 @@ public class Alfred {
     private String performDeleteTask(String input) {
         int taskNumber = Parser.getTaskNumberFromInput(input);
         Task deletedTask = tasks.deleteTask(taskNumber);
+
+        String saveError = saveTasks();
+        if (!saveError.isEmpty()) {
+            return saveError;
+        }
+
         return AlfredResponse.showTaskDeleted(deletedTask, tasks.getTasksCount());
     }
 
@@ -314,6 +344,12 @@ public class Alfred {
         try {
             Task task = TaskFactory.initialise(input);
             tasks.addTask(task);
+
+            String saveError = saveTasks();
+            if (!saveError.isEmpty()) {
+                return saveError;
+            }
+
             return AlfredResponse.showAddedTaskMessage(task, tasks.getTasksCount());
         } catch (AlfredException e) {
             return AlfredResponse.showAlfredError(e);
@@ -323,15 +359,24 @@ public class Alfred {
     }
 
     /**
-     * Says farewell to the user and saves task to storage
-     * If saving tasks fails, an error message is returned
+     * Says farewell to the user
      *
-     * @return A farewell message if the tasks are successfully saved, or an error message if an IOException occurs.
+     * @return A farewell message
      */
     public String farewell() {
+        return AlfredResponse.farewell();
+    }
+
+    /**
+     * Saves task to storage.
+     * If saving tasks fails, an error message is returned
+     *
+     * @return An empty string if the tasks are successfully saved, or an error message if an IOException occurs.
+     */
+    public String saveTasks() {
         try {
             storage.saveTasks(tasks.getTasks());
-            return AlfredResponse.farewell();
+            return "";
         } catch (IOException e) {
             return AlfredResponse.showSavingError(e);
         }
