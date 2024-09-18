@@ -21,6 +21,8 @@ public class UnmarkCommand extends Command{
      * @param num The index of the task to be marked as completed (0-based index).
      */
     public UnmarkCommand(int num) {
+        // Assert that the index passed in is non-negative
+        assert num >= 0 : "Task index must be non-negative";
         this.num = num;
     }
 
@@ -43,6 +45,10 @@ public class UnmarkCommand extends Command{
                     + tasks.listLength());
         } else {
             Task task = tasks.getTask(this.num);
+
+            // Assert that the task exists and is not null (task retrieval is successful)
+            assert task != null : "Task should not be null";
+
             if (task.getStatus()) {
                 task.changeStatus();
                 String msg = "OK, I've marked this task as not done yet:\n" +

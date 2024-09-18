@@ -19,6 +19,8 @@ public class TaskList {
      * @param tasks The initial list of tasks.
      */
     public TaskList(ArrayList<Task> tasks) {
+        // Assert that the provided tasks list is not null
+        assert tasks != null : "Task list provided to TaskList constructor should not be null";
         this.tasks = tasks;
     }
 
@@ -35,6 +37,8 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void addTask(Task task) {
+        // Assert that the task being added is not null
+        assert task != null : "Task to be added should not be null";
         tasks.add(task);
     }
 
@@ -45,6 +49,9 @@ public class TaskList {
      * @throws SnipeException If the index is out of range (index &lt; 0 or index &ge; size of the list).
      */
     public void deleteTask(int index) throws SnipeException {
+        // Assert that the task list is not empty
+        assert tasks.size() > 0 : "Task list should not be empty when attempting to delete a task";
+
         if (index >= tasks.size() || index < 0) {
             throw new SnipeException("This list item does not exist!");
         }
@@ -59,6 +66,9 @@ public class TaskList {
      * @throws SnipeException If the index is out of range (index &lt; 0 or index &ge; size of the list).
      */
     public Task getTask(int index) throws SnipeException {
+        // Assert that the task list is not empty
+        assert tasks.size() > 0 : "Task list should not be empty when attempting to retrieve a task";
+
         if (index >= tasks.size() || index < 0) {
             throw new SnipeException("This list item does not exist!");
         }
@@ -92,6 +102,9 @@ public class TaskList {
     public ArrayList<Task> findTasks(String keyWord) {
         ArrayList<Task> filteredTasks = new ArrayList<Task>();
         for (Task task: this.tasks) {
+            // Assert that each task in the list is not null
+            assert task != null : "Task in task list should not be null";
+
             String text = task.getDescription();
             if (text.contains(keyWord)) {
                 filteredTasks.add(task);

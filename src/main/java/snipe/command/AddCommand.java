@@ -22,6 +22,8 @@ public class AddCommand extends Command{
      * @param task The task to be added to the task list.
      */
     public AddCommand(Task task) {
+        // Assert that the task is not null
+        assert task != null : "Task to be added should not be null";
         this.task = task;
     }
 
@@ -38,6 +40,11 @@ public class AddCommand extends Command{
      */
     @Override
     public String getResponse(TaskList tasks, Ui ui, Storage storage) throws SnipeException, IOException {
+        // Assert that the TaskList is not null
+        assert tasks != null : "TaskList should not be null";
+        // Assert that the Storage is not null
+        assert storage != null : "Storage should not be null";
+
         tasks.addTask(this.task);
         storage.saveTaskList(tasks);
         return "Got it. I've added this task:\n  " + this.task + tasks.listLength();

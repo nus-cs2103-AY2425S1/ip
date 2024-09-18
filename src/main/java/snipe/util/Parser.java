@@ -25,6 +25,9 @@ public class Parser {
         String[] split = userInput.split(" ", 2);
         String commandWord = split[0].toUpperCase();
 
+        // Assert to check that the split array has at least one element
+        assert split.length > 0 : "User input should not result in an empty command";
+
         switch (commandWord) {
         case "TODO":
         case "DEADLINE":

@@ -35,6 +35,11 @@ public class Snipe {
             this.ui.showLoadingError();
             this.tasks = new TaskList();
         }
+
+        // Assertions to check that essential objects are initialized properly
+        assert ui != null : "Ui should be initialized";
+        assert taskListStorage != null : "Storage should be initialized";
+        assert tasks != null : "TaskList should be initialized";
     }
 
     /**
@@ -51,6 +56,10 @@ public class Snipe {
             try {
                 String fullCommand = ui.readCommand();
                 Command c = Parser.parse(fullCommand);
+
+                // Assert that a valid command is always returned by the parser
+                assert c != null : "Parsed command should never be null";
+
                 String response = c.getResponse(tasks, ui, taskListStorage);
                 ui.printWithLines(response);
                 isExit = c.isExit();
@@ -67,6 +76,10 @@ public class Snipe {
     public String getResponse(String input) throws IOException, SnipeException {
         try {
             Command c = Parser.parse(input);
+
+            // Assert that the command is not null
+            assert c != null : "Parsed command should never be null";
+
             return c.getResponse(tasks, ui, taskListStorage);
         } catch (SnipeException e) {
             return e.getMessage();
