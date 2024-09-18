@@ -11,7 +11,7 @@ public class Launcher {
     /**
      * The main method to launch the application using JavaFX's Application class.
      *
-     * @param args Command line arguments (not used in this application).
+     * @param args Command line arguments.
      */
     public static void main(String[] args) {
         Application.launch(Main.class, args);
