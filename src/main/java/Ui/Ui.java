@@ -32,6 +32,9 @@ public class Ui {
      * @param taskList TaskList containing tasks to turn to string.
      */
     public String schedule(TaskList taskList) {
+        if (taskList.getSize() == 0) {
+            return "Currently, there is nothing in your schedule";
+        }
         return "Your schedule is as follows: \n" + taskList.toString();
     }
 
