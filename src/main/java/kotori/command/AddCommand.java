@@ -3,6 +3,7 @@ import static kotori.ui.Ui.printMessages;
 
 import java.time.format.DateTimeParseException;
 
+import kotori.parser.InvalidNumberOfArgumentException;
 import kotori.storage.Storage;
 import kotori.tasklist.InvalidInputException;
 import kotori.tasklist.MissingInformationException;
@@ -43,9 +44,7 @@ public class AddCommand extends Command {
             storage.updateFile(taskList);
             return printMessages(new String[]{"Got it. I've added this task:", task.toString(),
                     String.format("Now you have %s tasks in the list", taskList.size())});
-        } catch (MissingInformationException e) {
-            return printMessages(e.getMessage());
-        } catch (InvalidInputException e) {
+        } catch (InvalidInputException | InvalidNumberOfArgumentException | MissingInformationException e) {
             return printMessages(e.getMessage());
         } catch (DateTimeParseException e) {
             return printMessages("Sorry~ I can not recognize the time", "Please enter the time in the "

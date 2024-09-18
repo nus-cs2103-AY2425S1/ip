@@ -117,7 +117,6 @@ public class KotoriTest {
                 + "2. [E][ ] project meeting  (from: 2020-10-08 to: 2020-10-26)\n",
                 new SearchCommand(list, "2020-10-10").execute());
     }
-
     @Test
     public void findTest() {
         TaskList list = new TaskList();

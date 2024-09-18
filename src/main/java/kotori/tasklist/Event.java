@@ -1,6 +1,7 @@
 package kotori.tasklist;
-
 import java.time.LocalDate;
+
+import kotori.parser.InvalidNumberOfArgumentException;
 
 class Event extends Task {
     private static final int lengthOfEvent = 6;
@@ -11,6 +12,7 @@ class Event extends Task {
     private static final int lengthOfFrom = 5;
     private static final int toPos = 2;
     private static final int lengthOfTo = 3;
+    private static final int expectedArugment = 3;
     protected LocalDate from;
     protected LocalDate to;
     /**
@@ -73,7 +75,8 @@ class Event extends Task {
         }
     }
 
-    protected static Event constructEvent(String descriptions) throws MissingInformationException {
+    protected static Event constructEvent(String descriptions) throws MissingInformationException,
+            InvalidNumberOfArgumentException {
         String[] splittedString = splitInputs(descriptions);
         return new Event(false, splittedString[descriptionPos],
                 splittedString[fromPos].substring(lengthOfFrom),
@@ -86,26 +89,26 @@ class Event extends Task {
      * @return The splitted string.
      * @throws MissingInformationException if there is information missing.
      * */
-    private static String[] splitInputs(String descriptions) throws MissingInformationException {
-        if (isMissingDescription(descriptions)) {
+    private static String[] splitInputs(String descriptions) throws MissingInformationException,
+            InvalidNumberOfArgumentException {
+        String[] splitInput = splitInput(descriptions);
+        if (isMissingDescription(splitInput)) {
             throw new MissingInformationException("description", "event");
         }
-        String splitter = "/";
-        String[] splittedInput = descriptions.substring(lengthOfEvent).split(splitter);
-        if (isMissingFromTime(splittedInput)) {
+        if (isMissingFromTime(splitInput)) {
             throw new MissingInformationException("from time", "event");
-        } else if (isMissingToTime(splittedInput)) {
+        } else if (isMissingToTime(splitInput)) {
             throw new MissingInformationException("to time", "event");
         }
-        return splittedInput;
+        return splitInput;
     }
     /**
-     * Check is the input Missing description
+     * Check is the input Missing description.
      * @param descriptions the input.
      * @return is Missing description.
      * */
-    private static boolean isMissingDescription(String descriptions) {
-        return descriptions.length() <= lengthOfEvent || descriptions.charAt(lengthOfEvent) == ' ';
+    private static boolean isMissingDescription(String[] descriptions) {
+        return descriptions[0].trim().equals("");
     }
     /**
      * Check is the input Missing from time.
@@ -122,5 +125,20 @@ class Event extends Task {
      * */
     private static boolean isMissingToTime(String[] splittedInputs) {
         return splittedInputs.length < minimalLengthWithTo || !splittedInputs[toPos].startsWith("to ");
+    }
+    /**
+     * Splits the input into parameters
+     * @param descriptions the input.
+     * @return the parameters in an array.
+     * */
+    private static String[] splitInput(String descriptions) throws InvalidNumberOfArgumentException {
+        String splitter = "/";
+        String[] splittedInput = descriptions.substring(lengthOfEvent).split(splitter);
+        if ((splittedInput).length > expectedArugment) {
+            throw new InvalidNumberOfArgumentException("Sorry.... There is too many input "
+                    + "parameter for me to handle QAQ");
+        } else {
+            return splittedInput;
+        }
     }
 }

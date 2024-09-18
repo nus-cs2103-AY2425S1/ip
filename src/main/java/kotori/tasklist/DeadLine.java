@@ -1,5 +1,7 @@
 package kotori.tasklist;
 
+import kotori.parser.InvalidNumberOfArgumentException;
+
 import java.time.LocalDate;
 
 class DeadLine extends Task {
@@ -8,6 +10,7 @@ class DeadLine extends Task {
     private static final int byTimePos = 1;
     private static final int descriptionPos = 0;
     private static final int expectedParts = 2;
+    private static final int expectedArugment = 2;
     protected LocalDate deadLine;
 
     public DeadLine(boolean isDone, String description, String deadLine) {
@@ -74,7 +77,8 @@ class DeadLine extends Task {
      * @return The deadline object.
      * @throws MissingInformationException if there is information missing.
      * */
-    protected static DeadLine constructDeadLine(String descriptions) throws MissingInformationException {
+    protected static DeadLine constructDeadLine(String descriptions) throws MissingInformationException,
+            InvalidNumberOfArgumentException {
         String[] splittedInput = splitInputs(descriptions);
         return new DeadLine(false, splittedInput[descriptionPos],
                 splittedInput[byTimePos].substring(byKeyWordLength));
@@ -85,11 +89,13 @@ class DeadLine extends Task {
      * @return The splitted string.
      * @throws MissingInformationException if there is information missing.
      * */
-    private static String[] splitInputs(String descriptions) throws MissingInformationException {
-        if (isMissingDescription(descriptions)) {
+    private static String[] splitInputs(String descriptions) throws MissingInformationException,
+            InvalidNumberOfArgumentException {
+
+        String[] strings = splitInputHelper(descriptions);
+        if (isMissingDescription(strings)) {
             throw new MissingInformationException("description", "deadline");
         }
-        String[] strings = descriptions.substring(deadlineKeyWordLength).split("/");
         if (isMissingByTime(strings)) {
             throw new MissingInformationException("by time", "deadline");
         }
@@ -100,15 +106,31 @@ class DeadLine extends Task {
      * @param descriptions the input.
      * @return is Missing description.
      * */
-    private static boolean isMissingDescription(String descriptions) {
-        return descriptions.length() <= deadlineKeyWordLength || descriptions.charAt(deadlineKeyWordLength) == ' ';
+    private static boolean isMissingDescription(String[] descriptions) {
+        return descriptions[0].trim().equals("");
     }
     /**
      * Check is the input Missing by time.
-     * @param splittedInputs the input.
+     * @param splitInputs the input.
      * @return is Missing by time.
      * */
-    private static boolean isMissingByTime(String[] splittedInputs) {
-        return splittedInputs.length < expectedParts || !splittedInputs[byTimePos].startsWith("by ");
+    private static boolean isMissingByTime(String[] splitInputs) {
+        return splitInputs.length < expectedParts || !splitInputs[byTimePos].startsWith("by ");
+    }
+
+    /**
+     * Splits the input into parameters
+     * @param descriptions the input.
+     * @return the parameters in an array.
+     * */
+    private static String[] splitInputHelper(String descriptions) throws InvalidNumberOfArgumentException {
+        String splitter = "/";
+        String[] splitInput = descriptions.substring(deadlineKeyWordLength).split(splitter);
+        if ((splitInput).length > expectedArugment) {
+            throw new InvalidNumberOfArgumentException("Sorry.... There is too many input "
+                    + "parameter for me to handle QAQ");
+        } else {
+            return splitInput;
+        }
     }
 }

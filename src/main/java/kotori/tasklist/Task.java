@@ -2,6 +2,7 @@ package kotori.tasklist;
 
 import java.time.LocalDate;
 
+import kotori.parser.InvalidNumberOfArgumentException;
 import kotori.storage.CorruptedFileException;
 
 
@@ -27,7 +28,8 @@ public abstract class Task implements Comparable<Task> {
      * @throws MissingInformationException if some required information is missing.
      * @throws InvalidInputException if the input is invalid.
      * */
-    public static Task of(String descriptions) throws MissingInformationException, InvalidInputException {
+    public static Task of(String descriptions) throws MissingInformationException, InvalidInputException,
+            InvalidNumberOfArgumentException {
         if (descriptions.equals("todo") || descriptions.equals("deadline") || descriptions.equals("event")) {
             throw new MissingInformationException("description", descriptions);
         }
