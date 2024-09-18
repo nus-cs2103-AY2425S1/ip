@@ -16,7 +16,7 @@ Features:
 ## Installation
 1. Ensure you have Java 17 or above installed in your computer.
 2. Download the latest .jar file from [here](https://github.com/leroychiu20/ip/releases/).
-3. Copy the file to the folder you want to use as the home folder for your AddressBook.
+3. Copy the file to the folder you want to use as the home folder for your chatbot.
 4. Open a command terminal, cd into the folder you put the jar file in.
 5. Use this command to run the application. A GUI should appear in a few seconds.
 ```
@@ -47,7 +47,7 @@ Examples:
 - `todo read a book`
 - `todo submit assignment` 
 
-Deadline tasks consist of descriptin of task and the due date.
+Deadline tasks consist of description of task and the due date.
 
 Format: `deadline DESCRIPTION /by DUEDATE`
 
