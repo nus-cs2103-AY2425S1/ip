@@ -57,7 +57,7 @@ public class GreetBot {
      * @throws EmptyDescriptionException exception when nothing follows the command.
      */
     public String getResponse(String input) throws RandomInputException,
-            EmptyDescriptionException, NumberFormatException {
+            EmptyDescriptionException, NumberFormatException, ArrayIndexOutOfBoundsException {
         final int keywordPart = 0;
         final int markUnmarkDeletePosition = 1;
         final int argumentsPart = 1;
@@ -108,29 +108,41 @@ public class GreetBot {
     }
 
     /**
-     * A subprocess class which does marking and get the response of ui for marking a task.
+     * Return response of ui for marking a task.
      * @param position The position in task list which needs to be marked.
      * @return A response from ui.
      */
     private String markAsDone(int position) throws IndexOutOfBoundsException {
-        this.tasks.get(position).mark();
-        return ui.showMarked(tasks.get(position), tasks.getLength());
+        try {
+            this.tasks.get(position).mark();
+            return ui.showMarked(tasks.get(position), tasks.getLength());
+        } catch (IndexOutOfBoundsException e) {
+            return String.format("You are manipulating position out of bound!");
+        }
     }
 
     private String markAsNotDone(int position) throws IndexOutOfBoundsException {
-        this.tasks.get(position).unmark();
-        return ui.showUnmarked(tasks.get(position), tasks.getLength());
+        try {
+            this.tasks.get(position).unmark();
+            return ui.showUnmarked(tasks.get(position), tasks.getLength());
+        } catch (IndexOutOfBoundsException e) {
+            return String.format("You are manipulating position out of bound!");
+        }
     }
 
     /**
-     * A subprocess class which does deletion and get the response of ui for deleting a task.
+     * Return response of ui for deleting a task.
      * @param position The position in task list which needs to be deleted.
      * @return A response from ui.
      */
     private String deleteTask(int position) throws IndexOutOfBoundsException {
-        Task deletedTask = tasks.get(position - 1);
-        this.tasks.delete(position);
-        return ui.showDelete(deletedTask, tasks.getLength());
+        try {
+            Task deletedTask = tasks.get(position - 1);
+            this.tasks.delete(position);
+            return ui.showDelete(deletedTask, tasks.getLength());
+        } catch (IndexOutOfBoundsException e) {
+            return String.format("You are manipulating position out of bound!");
+        }
     }
 
     private String addTodo(String description) {
@@ -165,7 +177,7 @@ public class GreetBot {
      */
     public String getBotResponse(String input) {
         try {
-            return this.getResponse(input);
+            return this.getResponse(input.trim());
         } catch (RandomInputException e) {
             return (e.getMessage());
         } catch (EmptyDescriptionException e) {
@@ -173,8 +185,10 @@ public class GreetBot {
         } catch (NumberFormatException e) {
             return String.format("Oops! There is something wrong with your argument! "
                     + "Please make sure it is a number and the format is correct");
-        } catch (IndexOutOfBoundsException e) {
-            return String.format("You are manipulating position out of bound!");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return "The number of arguments for create a task is not enough!!!";
+        } catch (StringIndexOutOfBoundsException e) {
+            return "Please check if your /from or /to or /by argument head is written correctly!!!";
         }
     }
 
