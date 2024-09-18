@@ -78,13 +78,14 @@ public class Parser {
                 throw new IncompleteDescException("OH NO! Description of the task cannot be empty!\n " +
                         "Please retry with a command like this format <task type> <task>");
             } else {
-                throw new UnknownWordException("Sorry, I do not know what that means :(\n" +
-                        "Please try again with a proper command.");
+                throw new UnknownWordException("Unknown command detected: " + "'" + command + "'" + ".  Sorry, I do not know what that means :(\n" +
+                        "Please try again with a proper command.\n" +
+                        "Make sure you are not adding any unecessary spaces or characters.");
             }
         } else if (!checkUnknownCommand(command)) {
-            System.out.println("Unknown command detected: " + command);
-            throw new UnknownWordException("Sorry, I do not know what that means :(\n" +
-                    "Please try again with a proper command.");
+            throw new UnknownWordException("Unknown command detected: " + "'" + command + "'" + ".  Sorry, I do not know what that means :(\n" +
+                    "Please try again with a proper command.\n" +
+                    "Make sure you are not adding any unecessary spaces or characters.");
         } else {
 
             GeneralTaskCommand c = new GeneralTaskCommand(command);
