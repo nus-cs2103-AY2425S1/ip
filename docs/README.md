@@ -1,30 +1,30 @@
-# Duke User Guide
+**Skibidi: Task Manager Chatbot**
 
-// Update the title above to match the actual product name
+_"Yooo, Skibidi gonna keep you on point, no cap!" – Gen Alpha (probably)_
 
-// Product screenshot goes here
+Skibidi, the ultimate task manager chatbot, frees your mind from remembering the grind. Whether it's homework, projects, or just life stuff, Skibidi speaks your language—literally. It's:
 
-// Product intro goes here
+- 📝 **Text-based** – Just type, no need for fancy menus.
+- 🎓 **Easy to learn** – Skibidi speaks simple.
+- ⚡ **FAST SUPER FAST** – Don’t blink, Skibidi’s got it handled.
 
-## Adding deadlines
+**How to Get Skibidi:**
 
-// Describe the action and its outcome.
+1. Download Skibidi from [here](https://nus-cs2103-ay2425s1.github.io/website/schedule/week4/project.html).
+2. Double-click to open (easy peasy).
+3. Add your tasks (Skibidi gets it done).
+4. Let Skibidi manage your life, fam. 😉
 
-// Give examples of usage
+And did we mention? It's **FREE**.
 
-Example: `keyword (optional arguments)`
+---
 
-// A description of the expected outcome goes here
+## Features:
 
-```
-expected output
-```
+- ✅ Managing tasks
+- ⏳ Managing deadlines (coming soon)
+- ⏰ Reminders (coming soon)
 
-## Feature ABC
+---
 
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
+Give Skibidi a try and keep it sigma💯with your to-do list!

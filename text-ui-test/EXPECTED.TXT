@@ -1,7 +1,21 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Ohio skibidi on the wall, who's the skibidiest of 'em all?!!
+Hello! I'm skibidi the skibidiest of 'em all
+What can I do for you?
+Got it. I've added this task:
+ [T][ ] ReAd
+Now you have 1 tasks in the list.
+Got it. I've added this task:
+ [D][ ] ReTuRn bOoK (by: 2020-12-31)
+Now you have 2 tasks in the list.
+Got it. I've added this task:
+ [E][ ] PrOjEcT MeEtInG (from: 2020-12-31 to: 2020-12-31)
+Now you have 3 tasks in the list.
+Nice! I've marked this task as done:
+ [T][X] ReAd
+Nice! I've marked this task as done:
+ [D][X] ReTuRn bOoK (by: 2020-12-31)
+Ok, I've marked this task as not done yet:
+ [D][ ] ReTuRn bOoK (by: 2020-12-31)
+Nice! I've marked this task as done:
+ [D][X] ReTuRn bOoK (by: 2020-12-31)
+Bye! Hope to never see you again soon!
