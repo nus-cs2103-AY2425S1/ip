@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 import luke.env.Constants;
@@ -18,11 +19,11 @@ public class Storage {
      * Checks if save data is present. If present, the contents of the file will be returned as a string list.
      * @return a list of strings where each string is a line from the save file
      * @throws IOException if any I/O errors occur
-     * @throws NoSaveDataFoundException if no save data is present
      */
-    public static List<String> loadData() throws IOException, NoSaveDataFoundException {
+    public static List<String> loadData() throws IOException {
         if (Files.notExists(saveDataPath)) {
-            throw new NoSaveDataFoundException();
+            Files.createDirectories(saveDataPath.getParent());
+            createSaveFile();
         }
         return Files.readAllLines(saveDataPath);
     }
@@ -40,12 +41,12 @@ public class Storage {
      * Writes the task list data into the save file.
      * @param taskList  a list of Task objects
      */
-    public static void saveData(TaskList taskList) {
+    public static void saveData(ArrayList<Task> taskList) {
         try {
             // clear file
             FileWriter fw = new FileWriter(saveDataPath.toString(), false);
             // add all tasks in the current list into the file
-            for (Task task : taskList.getTaskList()) {
+            for (Task task : taskList) {
                 fw.write(task.taskInSaveData());
             }
             fw.close();

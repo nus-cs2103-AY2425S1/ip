@@ -47,8 +47,6 @@ public class LukeUiWindow extends AnchorPane {
                 Command command = Parser.parseSavedData(line);
                 Ui.handleCommand(command, true);
             }
-        } catch (NoSaveDataFoundException e) {
-            handleMissingFile();
         } catch (IOException e) {
             String warning = "hmmm... i ran into an issue while setting up. try launching me again.";
             dialogContainer.getChildren().add(DialogBox.getLukeDialog(warning, lukeImage));
@@ -83,49 +81,5 @@ public class LukeUiWindow extends AnchorPane {
             }
         }
         userInput.clear();
-    }
-
-    /**
-     * Provides the user with the choice to create a save file if a save file cannot be found.
-     * Exits if an IOException is thrown or if the user chooses not to make a save file.
-     */
-    public void handleMissingFile() {
-        String createSaveFileQuestion = "i couldn't find a saved task list. "
-                + "you will need to create one to continue using me.\n"
-                + "would you like to create one? (y/n)";
-        dialogContainer.getChildren().add(DialogBox.getLukeDialog(createSaveFileQuestion, lukeImage));
-        // callback??? the setOnAction code block runs once the input (y/n) is typed and the user presses enter.
-        userInput.setOnAction(event -> {
-            String input = userInput.getText().strip().toLowerCase();
-            String response;
-            switch (input) {
-            case "y", "yes" -> {
-                try {
-                    Storage.createSaveFile();
-                    response = "save file created! ok, i'm all ears now. tell me what you need.";
-                } catch (IOException e) {
-                    response = "oof, i couldn't create the file. i'll exit first - try restarting me!";
-                }
-            }
-            case "n", "no" -> {
-                response = "alright then. cya ;)";
-                try {
-                    Thread.sleep(Constants.PAUSE);
-                    Platform.exit();
-                } catch (InterruptedException e) {
-                    Platform.exit();
-                }
-            }
-            default -> {
-                response = "didn't quite understand what you said there. try again?";
-                handleMissingFile();
-            }
-            }
-            dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getLukeDialog(response, lukeImage)
-            );
-            userInput.clear();
-        });
     }
 }

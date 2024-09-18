@@ -63,7 +63,7 @@ public class Ui {
         try {
             Task task = taskList.getTask(taskToMark - 1);
             task.changeMark();
-            Storage.saveData(taskList);
+            Storage.saveData(taskList.getTaskList());
             return (command.getCommand().equals("mark")
                     ? "ok i've marked"
                     : "ok i've unmarked")
@@ -83,7 +83,7 @@ public class Ui {
         int taskToDelete = Integer.parseInt(command.getArgs());
         try {
             Task deletedTask = taskList.removeTask(taskToDelete - 1);
-            Storage.saveData(taskList);
+            Storage.saveData(taskList.getTaskList());
             return "alright i've purged this task for you:\n"
                     + Constants.INDENT + deletedTask.taskDescription() + "\n"
                     + taskList.listSizeUpdateMessage();
