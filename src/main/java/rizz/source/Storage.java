@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import rizz.task.*;
+import rizz.task.*; // Will change later
 
 /**
  * Handles saving and loading tasks from a file.
@@ -15,10 +15,10 @@ import rizz.task.*;
  * and converting between Task objects and their string representations.
  */
 public class Storage {
-    public Path dataFilePath;
-    private final ArrayList<Task> taskList;
     private static final DateTimeFormatter readDateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final DateTimeFormatter readTimeFormatter = DateTimeFormatter.ofPattern("HHmm");
+    private Path dataFilePath;
+    private final ArrayList<Task> taskList;
 
     /**
      * Constructs a new Storage object with the given file path.
@@ -93,20 +93,20 @@ public class Storage {
         String text = parts[2];
 
         switch (taskType) {
-            case "T":
-                return new ToDo(text, isDone);
-            case "D":
-                LocalDateTime time = LocalDateTime.parse(parts[3], readDateTimeFormatter);
-                return new Deadline(text, time, isDone);
-            case "E":
-                String[] timeParts = parts[3].split(" ");
-                LocalDateTime from = LocalDateTime.parse(timeParts[0] + " " + timeParts[1], readDateTimeFormatter);  // Combine the date and start time
-                LocalTime to = LocalTime.parse(timeParts[2], readTimeFormatter);
-                return new Event(text, from, to, isDone);
-            default:
-                System.out.println("Unknown task type: " + taskType);
-                return null;
+        case "T":
+            return new ToDo(text, isDone);
+        case "D":
+            LocalDateTime time = LocalDateTime.parse(parts[3], readDateTimeFormatter);
+            return new Deadline(text, time, isDone);
+        case "E":
+            String[] timeParts = parts[3].split(" ");
+            LocalDateTime from = LocalDateTime.parse(timeParts[0] + " "
+                    + timeParts[1], readDateTimeFormatter); // Combine the date and start time
+            LocalTime to = LocalTime.parse(timeParts[2], readTimeFormatter);
+            return new Event(text, from, to, isDone);
+        default:
+            System.out.println("Unknown task type: " + taskType);
+            return null;
         }
     }
-    
 }

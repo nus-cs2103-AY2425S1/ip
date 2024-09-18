@@ -8,8 +8,8 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
     private final LocalDateTime by;
-    DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-    DateTimeFormatter readFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+    private DateTimeFormatter readFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     /**
      * Constructs a new Deadline task.
@@ -19,7 +19,7 @@ public class Deadline extends Task {
      * @param isDone The completion status of the task. If true, the task is marked as done.
      */
     public Deadline(String text, LocalDateTime by, boolean isDone) {
-        super(text,isDone);
+        super(text, isDone);
         this.by = by;
     }
 
@@ -44,6 +44,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " +  by.toLocalDate().format(outputFormatter) + ")";
+        return "[D]" + super.toString() + " (by: " + by.toLocalDate().format(outputFormatter) + ")";
     }
 }
