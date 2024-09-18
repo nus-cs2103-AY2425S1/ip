@@ -3,10 +3,16 @@ package snowy.storage;
 import snowy.tasklist.Task;
 import snowy.data.SnowyException;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +54,8 @@ public class Storage {
     private void clearFile() throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(taskFilePath.toString(), false))) {
             writer.write("");
+        } catch (IOException e) {
+            throw new IOException("Failed to clear file: ", e);
         }
     }
 
@@ -56,12 +64,12 @@ public class Storage {
      *
      * @param task the task to be written to the file
      */
-    public void writeTaskToFile(Task task) {
+    public void writeTaskToFile(Task task) throws SnowyException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(taskFilePath.toString(), true))) {
             writer.write(task.toString());
             writer.newLine();
         } catch (IOException e) {
-            System.out.println("An error occurred while writing to the file: " + e.getMessage());
+            throw new SnowyException("Error while writing to file: " + e.getMessage());
         }
     }
 

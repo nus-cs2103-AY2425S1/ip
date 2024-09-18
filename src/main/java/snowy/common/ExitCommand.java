@@ -3,7 +3,7 @@ package snowy.common;
 import snowy.data.SnowyException;
 
 public class ExitCommand extends Command {
-    public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "See you next time. Goodbye!";
+    public static final String EXIT_MESSAGE = "See you next time. Goodbye!";
 
     public ExitCommand() {
         super();
@@ -11,7 +11,7 @@ public class ExitCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT);
+        return new CommandResult(EXIT_MESSAGE);
     }
 
     @Override
