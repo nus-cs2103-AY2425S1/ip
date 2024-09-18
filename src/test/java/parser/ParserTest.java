@@ -32,8 +32,7 @@ public class ParserTest {
             assertInstanceOf(DeadlineCommand.class, Parser.parse("deadline _____ /by invalid"));
             fail(); // the test should not reach this line
         } catch (Exception e) {
-            String expected = "deadline time empty or wrong formatting! Expected deadline <string> " +
-                    "/by YYYY-MM-DD";
+            String expected = "Deadline not in the form of YYYY-MM-DD or invalid DATE";
             assertEquals(expected, e.getMessage());
         }
     }

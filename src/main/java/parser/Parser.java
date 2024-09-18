@@ -102,6 +102,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Processes the find command and returns the corresponding {@link FindCommand} object.
+     *
+     * @param wordsOfCommand The split command string array.
+     * @return A FindCommand object containing the search string.
+     * @throws PrimoException If the parameters are invalid or missing.
+     */
     private static FindCommand processFindCommand(String[] wordsOfCommand) throws PrimoException {
         if (wordsOfCommand.length == 1) {
             throw new PrimoException("Invalid parameters! Expected find <string>");
@@ -113,6 +120,13 @@ public class Parser {
         return new FindCommand(wordsOfCommand[1]);
     }
 
+    /**
+     * Processes the delete command and returns the corresponding {@link DeleteCommand} object.
+     *
+     * @param wordsOfCommand The split command string array.
+     * @return A DeleteCommand object containing the index of the task to delete.
+     * @throws PrimoException If the parameters are invalid or not an integer.
+     */
     private static DeleteCommand processDeleteCommand(String[] wordsOfCommand) throws PrimoException {
         if (wordsOfCommand.length == 1) {
             throw new PrimoException("Invalid parameters! Expected delete <integer>");
@@ -127,6 +141,13 @@ public class Parser {
         return new DeleteCommand(deleteIndex);
     }
 
+    /**
+     * Processes the event command and returns the corresponding {@link EventCommand} object.
+     *
+     * @param fullCommand The full command string input by the user.
+     * @return An EventCommand object containing the event task.
+     * @throws PrimoException If the command format is invalid or parameters are missing/incorrect.
+     */
     private static EventCommand processEventCommand(String fullCommand) throws PrimoException {
         if (fullCommand.contains("/n")) {
             return eventCommandWithNote(fullCommand);
@@ -135,6 +156,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Processes the event command when a note is provided and returns the corresponding {@link EventCommand} object.
+     *
+     * @param fullCommand The full command string input by the user.
+     * @return An EventCommand object containing the event task with a note.
+     * @throws PrimoException If the command format is invalid or parameters are missing/incorrect.
+     */
     private static EventCommand eventCommandWithNote(String fullCommand) throws PrimoException {
         boolean containsFrom = fullCommand.contains("/from");
         boolean containsTo = fullCommand.contains("/to");
@@ -172,6 +200,13 @@ public class Parser {
         return new EventCommand(newEventTask);
     }
 
+    /**
+     * Processes the event command when no note is provided and returns the corresponding {@link EventCommand} object.
+     *
+     * @param fullCommand The full command string input by the user.
+     * @return An EventCommand object containing the event task.
+     * @throws PrimoException If the command format is invalid or parameters are missing/incorrect.
+     */
     private static EventCommand eventCommandWithoutNote(String fullCommand) throws PrimoException {
         boolean containsFrom = fullCommand.contains("/from");
         boolean containsTo = fullCommand.contains("/to");
@@ -207,6 +242,13 @@ public class Parser {
         return new EventCommand(newEventTask);
     }
 
+    /**
+     * Processes the deadline command and returns the corresponding {@link DeadlineCommand} object.
+     *
+     * @param fullCommand The full command string input by the user.
+     * @return A DeadlineCommand object containing the deadline task.
+     * @throws PrimoException If the command format is invalid or parameters are missing/incorrect.
+     */
     private static DeadlineCommand processDeadlineCommand(String fullCommand) throws PrimoException {
         if (fullCommand.contains("/n")) {
             return deadlineCommandWithNote(fullCommand);
@@ -215,6 +257,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Processes the deadline command when a note is provided and returns the corresponding {@link DeadlineCommand} object.
+     *
+     * @param fullCommand The full command string input by the user.
+     * @return A DeadlineCommand object containing the deadline task with a note.
+     * @throws PrimoException If the command format is invalid or parameters are missing/incorrect.
+     */
     private static DeadlineCommand deadlineCommandWithNote(String fullCommand) throws PrimoException {
         if (!fullCommand.contains("/by")) {     // guard against commands without /by
             throw new PrimoException("Invalid parameters! Expected: deadline <string> /by <string>");
@@ -245,6 +294,13 @@ public class Parser {
         return new DeadlineCommand(newDeadlineTask);
     }
 
+    /**
+     * Processes the deadline command when no note is provided and returns the corresponding {@link DeadlineCommand} object.
+     *
+     * @param fullCommand The full command string input by the user.
+     * @return A DeadlineCommand object containing the deadline task.
+     * @throws PrimoException If the command format is invalid or parameters are missing/incorrect.
+     */
     private static DeadlineCommand deadlineCommandWithoutNote(String fullCommand) throws PrimoException {
         if (!fullCommand.contains("/by")) {     // guard against commands without /by
             throw new PrimoException("Invalid parameters! Expected: deadline <string> /by <string>");
@@ -272,6 +328,13 @@ public class Parser {
         return new DeadlineCommand(newDeadlineTask);
     }
 
+    /**
+     * Processes the todo command and returns the corresponding {@link TodoCommand} object.
+     *
+     * @param fullCommand The full command string input by the user.
+     * @return A TodoCommand object containing the todo task.
+     * @throws PrimoException If the command format is invalid or parameters are missing/incorrect.
+     */
     private static TodoCommand processTodoCommand(String fullCommand) throws PrimoException {
         if (fullCommand.contains("/n")) {
             return todoCommandWithNote(fullCommand);
@@ -280,6 +343,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Processes the todo command when a note is provided and returns the corresponding {@link TodoCommand} object.
+     *
+     * @param fullCommand The full command string input by the user.
+     * @return A TodoCommand object containing the todo task with a note.
+     * @throws PrimoException If the command format is invalid or parameters are missing/incorrect.
+     */
     private static TodoCommand todoCommandWithNote(String fullCommand) throws PrimoException {
         String[] wordsOfCommand = fullCommand.split(" ");
         if (wordsOfCommand.length == 1) {
@@ -300,6 +370,13 @@ public class Parser {
         return new TodoCommand(newTodoTask);
     }
 
+    /**
+     * Processes the todo command when no note is provided and returns the corresponding {@link TodoCommand} object.
+     *
+     * @param fullCommand The full command string input by the user.
+     * @return A TodoCommand object containing the todo task.
+     * @throws PrimoException If the command format is invalid or parameters are missing/incorrect.
+     */
     private static TodoCommand todoCommandWithoutNote(String fullCommand) throws PrimoException {
         String[] wordsOfCommand = fullCommand.split(" ");
         if (wordsOfCommand.length == 1) {
@@ -317,6 +394,13 @@ public class Parser {
         return new TodoCommand(newTodoTask);
     }
 
+    /**
+     * Processes the unmark command and returns the corresponding {@link UnmarkCommand} object.
+     *
+     * @param wordsOfCommand The split command string array.
+     * @return An UnmarkCommand object containing the index of the task to unmark.
+     * @throws PrimoException If the parameters are invalid or not an integer.
+     */
     private static UnmarkCommand processUnmarkCommand(String[] wordsOfCommand) throws PrimoException {
         if (wordsOfCommand.length == 1) {
             throw new PrimoException("Invalid parameters! Expected unmark <integer>");
@@ -331,6 +415,13 @@ public class Parser {
         return new UnmarkCommand(unmarkIndex);
     }
 
+    /**
+     * Processes the mark command and returns the corresponding {@link MarkCommand} object.
+     *
+     * @param wordsOfCommand The split command string array.
+     * @return A MarkCommand object containing the index of the task to mark.
+     * @throws PrimoException If the parameters are invalid or not an integer.
+     */
     private static MarkCommand processMarkCommand(String[] wordsOfCommand) throws PrimoException {
         if (wordsOfCommand.length == 1) {
             throw new PrimoException("Invalid parameters! Expected mark <integer>");
