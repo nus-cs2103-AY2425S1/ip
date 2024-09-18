@@ -3,6 +3,11 @@ package cypherchatbot.util;
 import cypherchatbot.CypherException;
 import cypherchatbot.command.*;
 
+
+/**
+ * The commander reader parses all the commands given by the user and
+ * initializes a appropriate command based on user input
+ */
 public class CommandReader {
 
     private static enum Commands {
@@ -16,6 +21,8 @@ public class CommandReader {
      * @param input The string input given by the user
      * @return A Command Object depending on the input given by the user
      * @throws CypherException if an invalid input is given by the user
+     * @throws NumberFormatException if an invalid input is given by the user for the mark/unmark/delete commands
+     * @throws IllegalArgumentException if an unknown/invalid commands is given by the user
      */
     public static Command parse(String input) throws CypherException {
         String[] command = input.split(" ", 2);
@@ -52,12 +59,12 @@ public class CommandReader {
             }
         } catch (NumberFormatException exp) {
             throw new CypherException("That is not a valid command. You need to enter a valid integer. "
-                    + "Type help in order to see the list of valid commands "
-                        + "(This feature is still under construction)");
+                    + "Type help in order to see the list of valid commands ");
+
         } catch (IllegalArgumentException exp) {
             throw new CypherException("That is not a valid command. "
-                    + "Type help in order to see the list of valid commands "
-                        + "(This feature is still under construction)");
+                    + "Type help in order to see the list of valid commands ");
+
         }
     }
 }

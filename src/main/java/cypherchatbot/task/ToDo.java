@@ -2,11 +2,17 @@ package cypherchatbot.task;
 
 import java.util.Objects;
 
+/**
+ * Represents a task with no time aspect.
+ */
 public class ToDo extends Task {
-
-
+    /**
+     * Constructs a new Todo task with a given description.
+     *
+     * @param desc The description of the task.
+     */
     public ToDo(String desc) {
-        super(desc,1);
+        super(desc, 1);
     }
 
     @Override

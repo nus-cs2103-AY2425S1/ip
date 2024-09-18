@@ -22,9 +22,10 @@ public abstract class Task {
         this.isComplete = true;
     }
 
-    public void markAsIncomplete() throws CypherException{
+    public void markAsIncomplete() throws CypherException {
         if (!this.isComplete) {
-            throw new CypherException("The task you are trying to mark as uncompleted is already marked as uncompleted");
+            throw new CypherException("The task you are trying to mark as "
+                    + "uncompleted is already marked as uncompleted");
         }
         this.isComplete = false;
     }
@@ -34,6 +35,10 @@ public abstract class Task {
         String str = this.isComplete ? "[X] " : "[ ] ";
         str += this.description;
         return str;
+    }
+
+    public String getDescription() {
+        return this.description;
     }
 
     public abstract String toStringInFile();

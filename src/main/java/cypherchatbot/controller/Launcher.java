@@ -1,10 +1,11 @@
 package cypherchatbot.controller;
 
+import cypherchatbot.Main;
 import javafx.application.Application;
 
-import cypherchatbot.Main;
-
-// Used as an entry point into our application
+/**
+ * The Launcher class serves as the entry point for the Cypher Chatbot application.
+ */
 public class Launcher {
     public static void main(String[] args) {
         Application.launch(Main.class, args);

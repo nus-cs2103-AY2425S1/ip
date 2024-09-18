@@ -36,7 +36,7 @@ public class ToDoCommand extends Command {
      * @return
      */
 
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws CypherException{
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws CypherException {
         if (command.length != 2 || command[1].trim().isEmpty()) {
             throw new CypherException("No task is given. "
                     + "The format of the todo command is:\n todo <Description of task>");
@@ -47,12 +47,13 @@ public class ToDoCommand extends Command {
         tasks.addToList(todo);
         storage.addToStorage(todo.toStringInFile());
 
-        return  ui.showAddMessage(todo, tasks.size());
+        return ui.showAddMessage(todo, tasks.size());
     }
 
     /**
      * Returns false indicating that this command does not cause the application to exit.
      */
+    @Override
     public boolean showExitStatus() {
         return false;
     }

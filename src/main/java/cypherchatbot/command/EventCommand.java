@@ -41,9 +41,16 @@ public class EventCommand extends Command {
      * @param storage The Storage file where the task data will be saved.
      * @return String returns the dialog message to be displayed to the User
      */
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws CypherException{
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws CypherException {
         try {
+            if (!(command[1].contains("/from") && command[1].contains("/to") &&
+                    command[1].indexOf("/from") < command[1].indexOf("/to") &&
+                    command[1].split("/from", -1).length == 2 &&
+                    command[1].split("/to", -1).length == 2)) {
+                throw new CypherException("To/from is not given properly. The format of the deadline command is:"
+                        + "\n event <Description of task> /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm");
 
+            }
             String[] eventSplit = command[1].split("/from|/to ", 3);
 
             if (eventSplit[0].isEmpty()) {
@@ -54,16 +61,16 @@ public class EventCommand extends Command {
                         + "\n event <Description of task> /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm");
             }
             assert eventSplit.length == 3 : "Command error checking not done properly";
-            LocalDateTime from = LocalDateTime.parse(command[1].trim(),
+            LocalDateTime from = LocalDateTime.parse(eventSplit[1].trim(),
                     DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-            LocalDateTime to = LocalDateTime.parse(command[2].trim(),
+            LocalDateTime to = LocalDateTime.parse(eventSplit[2].trim(),
                     DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 
             Task event = new Event(command[0], from, to);
             tasks.addToList(event);
 
             storage.addToStorage(event.toStringInFile());
-            return ui.showAddMessage(event,tasks.size());
+            return ui.showAddMessage(event, tasks.size());
 
         } catch (DateTimeException e) {
             return ui.showError("Enter a valid date and time in the format of yyyy-MM-dd HH:mm");
@@ -73,6 +80,7 @@ public class EventCommand extends Command {
     /**
      * Returns false indicating that this command does not cause the application to exit.
      */
+    @Override
     public boolean showExitStatus() {
         return false;
     }

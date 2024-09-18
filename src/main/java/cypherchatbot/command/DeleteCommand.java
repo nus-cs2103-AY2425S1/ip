@@ -30,7 +30,7 @@ public class DeleteCommand extends Command {
      * @param tasks   The TaskList to which the new Event task should be added.
      * @param ui      The Ui interface used to interact with the user.
      * @param storage The Storage file where the task data will be saved.
-     * @return
+     * @return returns the dialog message to be displayed to the User
      * @throws CypherException Throws a custom exception if the index is out of bounds
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) throws CypherException {
@@ -48,6 +48,7 @@ public class DeleteCommand extends Command {
     /**
      * Returns false indicating that this command does not cause the application to exit.
      */
+    @Override
     public boolean showExitStatus() {
         return false;
     }

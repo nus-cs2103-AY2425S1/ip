@@ -3,13 +3,24 @@ package cypherchatbot.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-
+/**
+ * Represents a task that has a specific time frame.
+ */
 public class Event extends Task implements Comparable<Event> {
 
     private LocalDateTime from;
     private LocalDateTime to;
+
+
+    /**
+     * Constructs a new Event task with a given description and deadline.
+     *
+     * @param desc The description of the task.
+     * @param from The LocalDateTime for when the task start.
+     * @param to The LocalDateTime for when the task ends
+     */
     public Event(String desc, LocalDateTime from, LocalDateTime to) {
-        super(desc,3);
+        super(desc, 3);
         this.from = from;
         this.to = to;
     }
@@ -30,7 +41,6 @@ public class Event extends Task implements Comparable<Event> {
                 this.from.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),
                     this.to.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
     }
-
 
     @Override
     public int compareTo(Event compareEvent) {

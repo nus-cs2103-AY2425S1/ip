@@ -42,25 +42,42 @@ public class Ui {
      * @param e The String error message to be displayed.
      */
     public String showError(String e) {
-       return e;
+        return e;
     }
 
+    /**
+     * Displays a confirmation message to the user that a task has been added.
+     *
+     * @param addedTask the task that was added.
+     * @param totalTaskSize the number of total tasks in the tasklist
+     */
     public String showAddMessage(Task addedTask, int totalTaskSize) {
-        return String.format("Got it. I have added this task:\n  %s\nNow you have %d task in the list\n\n",
+        return String.format("Got it. I have added this task:\n  %s\nNow you have %d tasks in the list\n\n",
                 addedTask, totalTaskSize);
     }
 
+    /**
+     * Displays a confirmation message to the user that a task has been deleted.
+     *
+     * @param deletedTask the task that was deleted.
+     * @param totalTaskSize the number of total tasks in the tasklist
+     */
     public String showDeleteMessage(Task deletedTask, int totalTaskSize) {
         return "Noted! I have removed this task:\n " + deletedTask + "\n\n"
-                + String.format("Now you have %d task in the list%n", totalTaskSize);
+                + String.format("Now you have %d tasks in the list%n", totalTaskSize);
     }
 
+    /**
+     * Displays a filtered task list to the user
+     *
+     * @param filteredList the filtered tasklist that was deleted.
+     */
     public String showFilterMessage(ArrayList<Task> filteredList) {
         if (filteredList.isEmpty()) {
             return "You have no items in your list matching the given string";
         } else {
             StringBuilder str = new StringBuilder();
-            str.append("\nHere are the items in your list that match the search:\n");
+            str.append("Here are the items in your list that match the search:\n");
             for (int i = 0; i < filteredList.size(); i++) {
                 str.append((i + 1)).append(". ").append(filteredList.get(i)).append("\n");
             }
@@ -69,10 +86,14 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays a help message to the user that shows all avaiable commands,
+     * a brief summary and the correct format for the command.
+     */
     public String showHelpMessage() {
         StringBuilder str = new StringBuilder();
         String linebreak = "========================================================================="
-                                +"=====================================================================\n";
+                                + "=====================================================================\n";
         str.append("Here are the list of available commands with format and a short description:\n");
         str.append("\n");
         str.append("Use the todo command in order to add a todo task (no time)\n");
@@ -110,7 +131,12 @@ public class Ui {
         return str.toString();
     }
 
-    public String showList (ArrayList<Task> taskList) {
+    /**
+     * Displays the entire tasklist to the user
+     *
+     * @param taskList the entire tasklist to be displayed.
+     */
+    public String showList(ArrayList<Task> taskList) {
         if (taskList.isEmpty()) {
             return "You have no items in your list:";
         } else {
@@ -124,14 +150,29 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays a confirmation message to the user that a task has been marked as complete.
+     *
+     * @param markedTask the task that was marked as complete.
+     */
     public String showMarkedMessage(Task markedTask) {
         return "Nice! I have marked this task as completed:\n " + markedTask;
     }
 
+    /**
+     * Displays a confirmation message to the user that a task has been marked as uncompleted.
+     *
+     * @param unmarkedTask the task that was marked as not completed.
+     */
     public String showUnmarkedMessage(Task unmarkedTask) {
         return "Ok! I have marked this task as incomplete:\n " + unmarkedTask;
     }
 
+    /**
+     * Displays the entire tasklist to the user in ascending order based on time
+     *
+     * @param sortedList the tasklist to be displayed
+     */
     public String showAscendingMessage(ArrayList<Task> sortedList) {
         if (sortedList.isEmpty()) {
             return "You have no tasks to sort. Add some tasks";
@@ -146,6 +187,12 @@ public class Ui {
         }
     }
 
+
+    /**
+     * Displays the entire tasklist to the user in descending order based on time
+     *
+     * @param sortedList the tasklist to be displayed
+     */
     public String showDescendingMessage(ArrayList<Task> sortedList) {
         if (sortedList.isEmpty()) {
             return "You have no tasks to sort. Add some tasks";

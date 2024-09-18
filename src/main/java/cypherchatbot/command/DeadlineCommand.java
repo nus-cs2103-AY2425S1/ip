@@ -40,7 +40,7 @@ public class DeadlineCommand extends Command {
      * @param storage The Storage file where the task data will be saved.
      * @return
      */
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws CypherException{
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws CypherException {
         try {
 
             String[] deadlineSplit = command[1].split("/by", 2);
@@ -53,13 +53,14 @@ public class DeadlineCommand extends Command {
                         + "\n deadline <Description of task> /by yyyy-MM-dd HH:mm");
             }
             assert deadlineSplit.length == 2 : "Command error checking not done properly";
-            LocalDateTime by = LocalDateTime.parse(deadlineSplit[1].trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+            LocalDateTime by = LocalDateTime.parse(deadlineSplit[1].trim(),
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
             Task deadline = new Deadline(deadlineSplit[0], by);
 
             tasks.addToList(deadline);
             storage.addToStorage(deadline.toStringInFile());
 
-            return ui.showAddMessage(deadline,tasks.size());
+            return ui.showAddMessage(deadline, tasks.size());
 
         } catch (DateTimeException e) {
             return ui.showError("Enter a valid date and time in the format of yyyy-MM-dd HH:mm");
@@ -70,6 +71,7 @@ public class DeadlineCommand extends Command {
     /**
      * Returns false indicating that this command does not cause the application to exit.
      */
+    @Override
     public boolean showExitStatus() {
         return false;
     }

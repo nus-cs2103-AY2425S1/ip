@@ -1,12 +1,12 @@
 package cypherchatbot.command;
 
+
+import java.util.ArrayList;
+
 import cypherchatbot.task.Task;
 import cypherchatbot.util.Storage;
 import cypherchatbot.util.TaskList;
 import cypherchatbot.util.Ui;
-
-import java.util.ArrayList;
-
 
 public class FindCommand extends Command {
     private String substring;
@@ -20,6 +20,7 @@ public class FindCommand extends Command {
         return ui.showFilterMessage(filteredList);
     }
 
+    @Override
     public boolean showExitStatus() {
         return false;
     }

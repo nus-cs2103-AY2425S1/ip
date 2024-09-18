@@ -1,9 +1,11 @@
-
-T|1|newTask
-T|0|5tueiu5
-T|0|rt
-T|0|ff
-D|0|tmr|2036-09-05 14:00
-T|0|tmr
-D|0|early|2022-09-09 14:00
-T|0|this that tmr
+T|1|CS2100 Lecture
+T|0|CS1101S Mission
+T|0|Quiz 157
+D|0|Assignment1|2022-09-09 14:00
+T|0|Get gifts
+T|0|CS2103T IP submission
+T|0|example
+D|0|example|2024-10-10 14:00
+E|0|event|2024-09-20 14:00|2024-11-26 14:00
+E|0|event|2024-09-20 14:00|2024-11-26 14:00
+E|0|event|2024-09-20 14:00|2024-11-26 14:00

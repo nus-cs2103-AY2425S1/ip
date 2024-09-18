@@ -28,7 +28,7 @@ public class UnmarkCommand extends Command {
      * @param tasks   The TaskList containing the tasks.
      * @param ui      The Ui used to interact with the user and display messages.
      * @param storage The Storage used for saving task data.
-     * @return
+     * @return returns the dialog message to be displayed to the User
      * @throws CypherException If the provided index is invalid or out of bounds.
      */
 
@@ -46,6 +46,7 @@ public class UnmarkCommand extends Command {
     /**
      * Returns false indicating that this command does not cause the application to exit.
      */
+    @Override
     public boolean showExitStatus() {
         return false;
     }

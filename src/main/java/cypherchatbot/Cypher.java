@@ -1,8 +1,5 @@
 package cypherchatbot;
 
-import javafx.animation.PauseTransition;
-import javafx.application.Platform;
-import javafx.util.Duration;
 import java.io.FileNotFoundException;
 
 import cypherchatbot.command.Command;
@@ -11,6 +8,12 @@ import cypherchatbot.util.CommandReader;
 import cypherchatbot.util.Storage;
 import cypherchatbot.util.TaskList;
 import cypherchatbot.util.Ui;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.util.Duration;
+
+
+
 
 
 /**

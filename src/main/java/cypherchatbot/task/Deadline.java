@@ -4,12 +4,24 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-public class Deadline extends Task implements Comparable<Deadline>{
+/**
+ * Represents a task that has a specific deadline.
+ */
+public class Deadline extends Task implements Comparable<Deadline> {
     private LocalDateTime deadline;
+
+    /**
+     * Constructs a new Deadline task with a given description and deadline.
+     *
+     * @param desc The description of the task.
+     * @param deadline The LocalDateTime deadline for the task.
+     */
     public Deadline(String desc, LocalDateTime deadline) {
-        super(desc,2);
+        super(desc, 2);
         this.deadline = deadline;
     }
+
+
 
     @Override
     public String toString() {
@@ -26,6 +38,7 @@ public class Deadline extends Task implements Comparable<Deadline>{
                 this.deadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
     }
 
+    @Override
     public boolean equals(Object o) {
         if (o == null) {
             return false;

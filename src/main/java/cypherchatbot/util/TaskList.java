@@ -3,6 +3,7 @@ package cypherchatbot.util;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.stream.Collectors;
 
 import cypherchatbot.CypherException;
 import cypherchatbot.task.Task;
@@ -38,7 +39,6 @@ public class TaskList {
      * Add a new task to the list.
      *
      * @param task The new Task to be added to the list.
-     * @return A String message confirming the addition of the task and indicates total number of tasks in the list.
      */
     public void addToList(Task task) {
         this.taskList.add(task);
@@ -90,25 +90,27 @@ public class TaskList {
         return task;
     }
 
-
+    /**
+     * Filters the tasks in the task list based on the given
+     * string filter against the task's description
+     *
+     * @param filter the string to filter the tasks by
+     * @return ArrayList containing tasks that match the given filter
+     */
     public ArrayList<Task> filterTasks(String filter) {
-        return (ArrayList<Task>) this.taskList.stream()
-                                            .filter(x->x.toString().toLowerCase().contains(filter)).toList();
+        return this.taskList.stream().filter(x->x.getDescription().toLowerCase().contains(filter))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    /**
-     * Returns total number of tasks in the list.
-     *
-     * @return The total number of tasks in the list.
-     */
-    public ArrayList<Task> sortAscending () {
+
+    public ArrayList<Task> sortAscending() {
         Comparator<? super Task> comparator = new TaskComparator();
         ArrayList<Task> sortedList = new ArrayList<>(this.taskList);
         sortedList.sort(comparator);
         return sortedList;
     }
 
-    public ArrayList<Task> sortDescending () {
+    public ArrayList<Task> sortDescending() {
         Comparator<? super Task> comparator = new TaskComparator();
         ArrayList<Task> sortedList = new ArrayList<>(this.taskList);
         sortedList.sort(comparator);
@@ -116,9 +118,21 @@ public class TaskList {
 
         return sortedList;
     }
+
+    /**
+     * Returns total number of tasks in the list.
+     *
+     * @return The total number of tasks in the list.
+     */
     public int size() {
         return this.taskList.size();
     }
+
+    /**
+     * Returns the entire list of tasks.
+     *
+     * @return ArrayList containing all the tasks
+     */
     public ArrayList<Task> getList() {
         return this.taskList;
     }

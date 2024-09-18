@@ -14,7 +14,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private final static String FILEPATH = "./data/tasks.txt";
+    private static final String FILEPATH = "./data/tasks.txt";
     private Cypher cypher = new Cypher(FILEPATH);
 
     @Override
