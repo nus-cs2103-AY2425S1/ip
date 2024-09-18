@@ -8,7 +8,7 @@ package exceptions;
 public class StartAfterEndException extends HimException {
 
     /**
-     * Constructor for<code>StartAfterEndException</code>.
+     * Constructor for <code>StartAfterEndException</code>.
      */
     public StartAfterEndException() {
         super("Events need to end after they start!");

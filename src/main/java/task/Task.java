@@ -23,20 +23,33 @@ public abstract class Task {
     }
 
     /**
-     * Factory method which creates a<code>Task</code>from a String containing data of the task.
+     * Constructor for a <code>Task</code>.
      *
-     * @param data String containing task information.
-     * (See<code>ToDo.toData()</code>,<code>Deadline.toData()</code>,<code>Event.toData()</code>for format details).
+     * @param description Description of the task.
+     * @param isCompleted Completion status of the task.
+     */
+    public Task(String description, boolean isCompleted) {
+        this.description = description;
+        this.isCompleted = isCompleted;
+    }
+
+    /**
+     * Factory method which creates a <code>Task</code>from a String containing data of the task.
+     *
+     * @param data String containing task information. (See <code>ToDo.toData()</code>, <code>Deadline.toData()</code>,
+     * <code>Event.toData()</code> for format details).
      * @return <code>Task</code> from String.
      * @throws StartAfterEndException If invalid task if parsed.
      */
     public static Task of(String data) throws StartAfterEndException {
         String[] args = data.split("\\|", 2);
         //@formatter:off
-        return switch (args[0]) {
-        case "T" -> ToDo.of(args[1]);
-        case "D" -> Deadline.of(args[1]);
-        case "E" -> Event.of(args[1]);
+        String taskTypeIcon = args[0];
+        String taskData = args[1];
+        return switch (taskTypeIcon) {
+        case "T" -> ToDo.of(taskData);
+        case "D" -> Deadline.of(taskData);
+        case "E" -> Event.of(taskData);
         default -> null;
         };
         //@formatter:on
@@ -66,7 +79,7 @@ public abstract class Task {
     /**
      * Returns a string indicating subtype of task.
      *
-     * @return Type icon (T for<code>ToDo</code>, D for<code>Deadline</code>, E for<code>Event</code>).
+     * @return Type icon (T for <code>ToDo</code>, D for <code>Deadline</code>, E for <code>Event</code>).
      */
     public abstract String getTypeIcon();
 

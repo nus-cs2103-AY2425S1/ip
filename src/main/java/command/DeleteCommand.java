@@ -14,7 +14,7 @@ public class DeleteCommand extends Command {
     private int index;
 
     /**
-     * Constructor for<code>DeleteCommand</code>.
+     * Constructor for <code>DeleteCommand</code>.
      *
      * @param index Index of task to be deleted.
      */

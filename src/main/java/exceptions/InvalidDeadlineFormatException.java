@@ -8,7 +8,7 @@ package exceptions;
 public class InvalidDeadlineFormatException extends HimException {
 
     /**
-     * Constructor for<code>InvalidDeadlineFormatException</code>.
+     * Constructor for <code>InvalidDeadlineFormatException</code>.
      */
     public InvalidDeadlineFormatException() {
         super("Deadlines need a description and a due date!\n" +
