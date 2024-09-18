@@ -45,8 +45,8 @@ public class Parser {
      * @throws Exception
      */
     public static int parseIndex(String[] inputArray) throws Exception {
-        if (!inputArray[1].matches("\\d+")) {
-            throw new Exception("Invalid input");
+        if (inputArray.length < 2 || !inputArray[1].matches("\\d+")) {
+            throw new Exception("Invalid input, needs an index");
         }
         int index = Integer.parseInt(inputArray[1]) - 1;
         return index;
