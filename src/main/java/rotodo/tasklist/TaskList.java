@@ -141,7 +141,6 @@ public class TaskList {
         String unpaddedSearch = "";
         int count = 1;
         for (Task t : tasks) {
-            System.out.println(t.toString() + " " + keyword + " " + t.matchDescription(keyword, true) + " " + t.matchDescription(keyword, false));
             if (t.matchDescription(keyword, true)) {
                 paddedSearch += count + "." + t.toString() + "\n";
                 count++;

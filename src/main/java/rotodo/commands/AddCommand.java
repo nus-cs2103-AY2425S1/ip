@@ -51,13 +51,23 @@ public class AddCommand extends Command {
                 break;
 
             case DEADLINE:
-                assert values.length < 2 : "Insufficient arguments for Deadline";
+                if (values.length < 2) {
+                    throw new IncompleteInputException(
+                            "RoTodo can't read your mind, otherwise "
+                            + "RoTodo's creator would be rich!\n"
+                            + "  RoTodo needs a task description and deadline");
+                }
                 this.value = values[0];
                 this.byOrTo = LocalDateTime.parse(values[1], formatter);
                 break;
 
             case EVENT:
-                assert values.length < 3 : "Insufficient arguments for Event";
+                if (values.length < 3) {
+                    throw new IncompleteInputException(
+                            "RoTodo can't read your mind, otherwise "
+                            + "RoTodo's creator would be rich!\n"
+                            + "  RoTodo needs a task description, from and to date/time");
+                }
                 this.value = values[0];
                 LocalDateTime t1 = LocalDateTime.parse(values[1], formatter);
                 LocalDateTime t2 = LocalDateTime.parse(values[2], formatter);
