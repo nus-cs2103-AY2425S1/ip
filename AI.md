@@ -19,3 +19,7 @@ GitHub Copilot helped to autocomplete the code for updating storage and reading 
 
 ### Update(31/8/2024):
 GitHub Copilot helped to autocomplete almost all the JavaDocs.
+
+### Update(18/9/2024):
+Thank you so much GitHub Copilot for helping me with the project. It was a great experience using it to autocomplete code.
+Sometimes GitHub Copilot would suggest code that was not needed, but it was still helpful in saving time.
