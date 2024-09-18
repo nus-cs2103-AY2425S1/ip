@@ -43,8 +43,11 @@ public class TaskList {
         if (i <= 0 || i > this.list.size()) {
             throw new BigdogException("TaskList Error: That's out of your list!\n");
         }
+
+        // Conversion from a 1-based index to a 0 based index, hence i -1.
         Task temp = this.list.get(i - 1);
         this.list.remove(i - 1);
+
         return String.format("Noted. I've removed this task:\n%s\nNow you have %s tasks in the list.\n",
                 temp, this.list.size());
     }
@@ -69,7 +72,10 @@ public class TaskList {
         if (i <= 0 || i > this.list.size()) {
             throw new BigdogException("TaskList Error: That's out of your list!\n");
         }
+
+        // Conversion from a 1-based index to a 0 based index, hence i -1.
         this.list.get(i - 1).mark();
+
         return String.format("Nice! I've marked this task as done:\n%s\n", this.list.get(i - 1));
     }
 
@@ -84,7 +90,10 @@ public class TaskList {
         if (i <= 0 || i > this.list.size()) {
             throw new BigdogException("TaskList Error: That's out of your list!\n");
         }
+
+        // Conversion from a 1-based index to a 0 based index, hence i -1.
         this.list.get(i - 1).unmark();
+
         return String.format("OK, I've marked this task as not done yet:\n%s\n", this.list.get(i - 1));
     }
 
@@ -105,13 +114,6 @@ public class TaskList {
             return "There are no similar tasks in your list!\n";
         }
         return result.toString();
-    }
-
-    /**
-     * Displays the task list by printing it to the console.
-     */
-    public void show() {
-        System.out.println(this);
     }
 
     /**

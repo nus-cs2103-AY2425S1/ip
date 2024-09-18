@@ -9,11 +9,11 @@ import java.time.format.DateTimeParseException;
 public class Bigdog {
 
     /** Storage for tasks into external file */
-    private Storage storage;
+    private final Storage storage;
     /** TaskList to manage tasks */
-    private TaskList tasks;
+    private final TaskList tasks;
     /** Ui to handle interaction with users */
-    private Ui ui;
+    private final Ui ui;
 
     /**
      * Constructs a Bigdog object.
@@ -28,65 +28,6 @@ public class Bigdog {
     }
 
     /**
-     * Runs the main event loop of the Bigdog application.
-     * This method continuously reads user input, parses it, and executes the corresponding commands.
-     * It handles exceptions that may arise during the execution of commands and ensures that tasks
-     * are saved after each iteration of the loop.
-     */
-    public void run() {
-
-        ui.greet();
-        boolean toContinue = true;
-
-
-        while (toContinue) {
-            try {
-                String userInput = ui.readInput();
-                String[] commands = Parser.parse(userInput);
-                switch (commands[0]) {
-                case "bye":
-                    toContinue = false;
-                    ui.bye();
-                    break;
-                case "list":
-                    this.tasks.show();
-                    break;
-                case "mark":
-                    ui.print(this.tasks.mark(Integer.parseInt(commands[1])));
-                    break;
-                case "unmark":
-                    ui.print(this.tasks.unmark(Integer.parseInt(commands[1])));
-                    break;
-                case "delete":
-                    ui.print(this.tasks.delete(Integer.parseInt(commands[1])));
-                    break;
-                case "todo":
-                    ui.print(this.tasks.add(Todo.of(commands[1])));
-                    break;
-                case "deadline":
-                    ui.print(this.tasks.add(Deadline.of(commands[1])));
-                    break;
-                case "event":
-                    ui.print(this.tasks.add(Event.of(commands[1])));
-                    break;
-                case "find":
-                    ui.print(this.tasks.find(commands[1]));
-                    break;
-                default:
-                    ui.print("Unknown command. Please try again.");
-                }
-            } catch (BigdogException
-                     | DateTimeParseException
-                     | NumberFormatException
-                     | IndexOutOfBoundsException e) {
-                ui.print(e.getMessage());
-            } finally {
-                storage.save(this.tasks.get());
-            }
-        }
-    }
-
-    /**
      * Generates a response for the user's chat message.
      * This method reads user input, parses it, and executes the corresponding commands.
      * It handles exceptions that may arise during the execution of commands and ensures that tasks
@@ -95,21 +36,11 @@ public class Bigdog {
      * @param input User input in String format
      */
     public String getResponse(String input) {
-        String botReply = "I don't know";
+        String botReply;
         try {
             String[] commands = Parser.parse(input);
-            botReply = switch (commands[0]) {
-                case "bye" -> ui.bye();
-                case "list" -> this.tasks.toString();
-                case "mark" -> this.tasks.mark(Integer.parseInt(commands[1]));
-                case "unmark" -> this.tasks.unmark(Integer.parseInt(commands[1]));
-                case "delete" -> this.tasks.delete(Integer.parseInt(commands[1]));
-                case "todo" -> this.tasks.add(Todo.of(commands[1]));
-                case "deadline" -> this.tasks.add(Deadline.of(commands[1]));
-                case "event" -> this.tasks.add(Event.of(commands[1]));
-                case "find" -> this.tasks.find(commands[1]);
-                default -> "Unknown command. Please try again.";
-            };
+            assert commands.length == 2 : "Insufficient arguments for the command.";
+            botReply = processCommand(commands[0], commands[1]);
         } catch (BigdogException
                  | DateTimeParseException
                  | NumberFormatException
@@ -122,14 +53,54 @@ public class Bigdog {
     }
 
     /**
+     * Processes a command and returns the appropriate response based on the command and its description.
+     * This method takes a command and its associated description, executes the corresponding task,
+     * and returns a response string. It supports various commands like marking tasks, adding tasks,
+     * deleting tasks, etc.
+     * <p>
+     * The following commands are supported:
+     * <ul>
+     *     <li>"bye" - Ends the session with a farewell message.</li>
+     *     <li>"list" - Displays all tasks.</li>
+     *     <li>"mark" - Marks a task as completed.</li>
+     *     <li>"unmark" - Unmarks a completed task.</li>
+     *     <li>"delete" - Deletes a task from the list.</li>
+     *     <li>"todo" - Adds a new Todo task.</li>
+     *     <li>"deadline" - Adds a new Deadline task.</li>
+     *     <li>"event" - Adds a new Event task.</li>
+     *     <li>"find" - Finds tasks containing a specific keyword.</li>
+     * </ul>
+     *
+     * @param command The command to execute (e.g., "mark", "delete", "todo").
+     * @param description Additional details for the command (e.g., task index or task description).
+     * @return A string containing the response message after executing the command.
+     * @throws NumberFormatException if the description cannot be parsed as an integer (e.g., when marking a task).
+     * @throws IndexOutOfBoundsException if an invalid task index is provided.
+     * @throws BigdogException if an error specific to the Bigdog application occurs.
+     */
+    private String processCommand(String command, String description) throws RuntimeException {
+        String reply = "Invalid command";
+        reply = switch (command) {
+            case "bye" -> ui.bye();
+            case "list" -> this.tasks.toString();
+            case "mark" -> this.tasks.mark(Integer.parseInt(description));
+            case "unmark" -> this.tasks.unmark(Integer.parseInt(description));
+            case "delete" -> this.tasks.delete(Integer.parseInt(description));
+            case "todo" -> this.tasks.add(Todo.of(description));
+            case "deadline" -> this.tasks.add(Deadline.of(description));
+            case "event" -> this.tasks.add(Event.of(description));
+            case "find" -> this.tasks.find(description);
+            default -> "Unknown command. Please try again.";
+        };
+        return reply;
+    }
+
+    /**
      * The main method that serves as the entry point for the Bigdog application.
-     * It creates an instance of the Bigdog class and calls the run method.
      *
      * @param args command-line arguments (not used).
      */
     public static void main(String[] args) {
-
-        new Bigdog("./src/main/Bigdog.txt").run();
 
     }
 

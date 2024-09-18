@@ -8,7 +8,7 @@ package bigdog;
  */
 public class Parser {
 
-    // [command, description, start date, end date]
+    // List of valid commands recognized by the application
     private static final String[] VALID_COMMANDS = {"bye", "list", "mark", "unmark", "delete", "todo",
         "deadline", "event", "find"};
 
@@ -16,7 +16,7 @@ public class Parser {
      * Constructs a {@code Parser} object.
      */
     public Parser() {
-
+        // Constructor can be omitted if not used
     }
 
     /**
@@ -25,23 +25,20 @@ public class Parser {
      * If the command is valid, it is returned in lowercase form along with the contents of the task.
      * If the command is invalid, a {@code BigdogException} is thrown.
      *
-     * @param str the input string to be parsed.
+     * @param str the input string to be parsed; it contains a command and possibly other arguments.
      * @return an array of two strings: the command and the remaining arguments.
      * @throws BigdogException if the command is not recognized.
      */
     public static String[] parse(String str) throws BigdogException {
         String[] temp = str.split(" ", 2);
         String command = temp[0].toLowerCase();
-        for (int i = 0; i < 9; i++) {
-            if (command.equals(VALID_COMMANDS[i])) {
-                break;
-            }
-            if (i == 8) {
-                throw new BigdogException("Parse Error: Invalid Argument!");
+        for (String validCommand : VALID_COMMANDS) {
+            if (command.equals(validCommand)) {
+                temp[0] = command;
+                return temp;
             }
         }
-        temp[0] = command;
-        return temp;
+        throw new BigdogException("Parse Error: Invalid Argument!");
     }
 
 }

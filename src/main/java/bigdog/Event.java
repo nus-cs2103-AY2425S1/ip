@@ -19,6 +19,10 @@ public class Event extends Task {
     /** The end date and time of the event. */
     private LocalDateTime end;
 
+    private static final int MIN_LENGTH_FOR_EMPTY_CHECK = 6;
+    private static final int MIN_LENGTH_FOR_CORRUPTION_CHECK = 4;
+    private static final int MIN_DASH_COUNT = 3;
+
     /**
      * Private constructor for creating an Event instance.
      *
@@ -42,7 +46,7 @@ public class Event extends Task {
      * @throws BigdogException if the input string is empty or does not contain valid dates.
      */
     public static Event of(String s) throws BigdogException {
-        if (s.length() <= 6) {
+        if (MIN_LENGTH_FOR_EMPTY_CHECK <= 6) {
             throw new BigdogException("event can't be empty! If theres no event then go and sleep!");
         }
 
@@ -51,7 +55,7 @@ public class Event extends Task {
             if (s.charAt(j) == '/') {
                 dashCounter++;
             }
-            if (s.charAt(j) == '/' && dashCounter == 3) {
+            if (s.charAt(j) == '/' && dashCounter == MIN_DASH_COUNT) {
                 for (int i = 0; i < s.length(); i++) {
                     if (s.charAt(i) == '/') {
                         return new Event(s.substring(0, i - 1), stringToDate(s.substring(i + 6, j - 1)),
@@ -75,7 +79,7 @@ public class Event extends Task {
     public static Event of(String s, boolean marked) throws BigdogException {
 
 
-        if (s.length() <= 4) {
+        if (s.length() <= MIN_LENGTH_FOR_CORRUPTION_CHECK) {
             throw new BigdogException("data file corrupted! Cause: " + s);
         }
 
@@ -104,33 +108,23 @@ public class Event extends Task {
      * @throws BigdogException if the input string has an invalid format.
      */
     private static LocalDateTime stringToDate(String str) throws BigdogException {
-        long dashes = str.chars().filter(x -> x == '/').count();
-        if (dashes != 2) {
+        if (str.chars().filter(x -> x == '/').count() != 2) {
             throw new BigdogException("Invalid date format: " + str);
-        } else {
-            String[] getTime = str.split(" ");
-            String[] getDate = getTime[0].split("/");
-            String year = getDate[2];
-            String month = getDate[1];
-            String day = getDate[0];
+        }
 
-            try {
-                if (getTime.length == 2) {
-                    withTime = true;
-                    return LocalDateTime.parse(String.format("%s-%s-%sT%s", year, month, day, getTime[1]));
-                } else if (getTime.length == 1) {
-                    withTime = false;
-                    return LocalDateTime.parse(String.format("%s-%s-%sT%s", year, month, day, "23:59"));
-                } else {
-                    throw new BigdogException("Invalid date format: " + str
-                            + "\nExample correct format: event meeting with John "
-                            + "/from 02/07/2019 18:00 /to 02/07/2019 20:00");
-                }
-            } catch (DateTimeParseException e) {
-                throw new BigdogException("Invalid date format: " + str
-                        + "\nExample correct format: event meeting with John /from 02/07/2019 18:00 "
-                        + "/to 02/07/2019 20:00");
-            }
+        String[] parts = str.split(" ");
+        String[] dateParts = parts[0].split("/");
+        String year = dateParts[2];
+        String month = dateParts[1];
+        String day = dateParts[0];
+        String time = (parts.length == 2) ? parts[1] : "00:00";
+
+        try {
+            withTime = !time.equals("00:00");
+            return LocalDateTime.parse(String.format("%s-%s-%sT%s", year, month, day, time));
+        } catch (DateTimeParseException e) {
+            throw new BigdogException("Invalid date format: " + str +
+                    "\nExample correct format: event meeting with John /from 02/07/2019 18:00 /to 02/07/2019 20:00");
         }
     }
 
