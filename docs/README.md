@@ -1,7 +1,8 @@
 
-# Weeny
+# Weeny User Guide
 
 Weeny is a desktop application that allows users to manage their tasks efficiently. 
+[Product screenshot](/Ui.png)
 
 ## Key Features
 
