@@ -1,7 +1,7 @@
 # Repsmax User Guide
 
 
-<img src="https://niclammmm.github.io/ip/Ui.png" alt="Repsmax UI" width="300"/>
+<img src="https://niclammm.github.io/ip/Ui.png" alt="Repsmax UI" width="300"/>
 
 
 ## Description
