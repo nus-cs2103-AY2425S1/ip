@@ -1,6 +1,8 @@
 # Chatterbox 
 
+![Chatterbox](docs/Ui.png)
 Your personal assistant to navigating this troubled world
+
 ## Table of Contents
 - [Quick Start](#quick-start)
 - [Features](#features)
