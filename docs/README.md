@@ -151,4 +151,9 @@ Ok, I've deleted this task:
 [T][X] Read book
 ```
 
+## Acknowledgement
 
+The section that creates the GUI, such as `DialogBox.java`, `Launcher.java`, `Main.java`, `MainWindow.java`, 
+as well as the relevant css and fxml files are modified from:
+
+https://se-education.org/guides/tutorials/javaFx.html.
