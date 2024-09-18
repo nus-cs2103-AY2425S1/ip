@@ -96,12 +96,10 @@ public class LukeUiWindow extends AnchorPane {
                     response = "save file created! ok, i'm all ears now. tell me what you need.";
                 } catch (IOException e) {
                     response = "oof, i couldn't create the file. i'll exit first - try restarting me!";
-                    // System.exit(0);
                 }
             }
             case "n", "no" -> {
                 response = "alright then. cya ;)";
-                // System.exit(0);
             }
             default -> {
                 response = "didn't quite understand what you said there. try again?";

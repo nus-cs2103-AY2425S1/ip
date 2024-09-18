@@ -61,6 +61,7 @@ public class Ui {
      * @param command the mark/unmark command word and its associated tasks
      */
     public static String handleTaskMarking(Command command) {
+        assert command.getArgs() != null;
         int taskToMark = Integer.parseInt(command.getArgs());
         try {
             Task task = taskList.getTask(taskToMark - 1);
