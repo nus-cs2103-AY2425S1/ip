@@ -14,9 +14,8 @@ import julie.task.Task;
  */
 public class Julie {
     private static final String NAME = "Julie";
-    private static boolean isExit = false;
     private final List<Task> taskList = new ArrayList<>();
-    private Storage storage;
+    private final Storage storage;
 
     /**
      * The public constructor for a Julie Chat bot.
