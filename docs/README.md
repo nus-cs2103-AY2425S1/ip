@@ -1,6 +1,6 @@
 # Orion User Guide
 
-![Product Screenshot](path/to/screenshot.png)
+![Product Screenshot](https://github.com/pradyuprasad/ip/blob/master/docs/Ui.png)
 
 **Orion** is a task management application that helps you organize and track various tasks such as TODOs, deadlines, and events. With simple commands, you can add, modify, and view tasks, as well as interact with them using a graphical user interface (GUI).
 
