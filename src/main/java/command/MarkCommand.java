@@ -26,7 +26,7 @@ public class MarkCommand extends Command {
     @Override
     public void execute() {
         taskList.markTaskAsDone(index);
-        new Storage("data/duke.txt").save(taskList);
+        new Storage("data/d_plus_plus_e.txt").save(taskList);
         message = "Nice! I've marked this task as done:\n" + taskList.get(index);
     }
 

@@ -28,7 +28,7 @@ public class TaskCommand extends Command {
     @Override
     public void execute() {
         taskList.add(Task.of(dialog));
-        new Storage("./data/duke.txt").save(taskList);
+        new Storage("./data/d_plus_plus_e.txt").save(taskList);
         message = "Got it. I've added this task: \n" 
                 + taskList.get(taskList.size() - 1) + "\n"
                 + "Now you have " + taskList.size() + " tasks in the list.";
