@@ -44,17 +44,17 @@ test {
 }
 
 application {
-    mainClass.set("duke.Launcher")
+    mainClass.set("meow.Launcher")
 }
 
-mainClassName = 'duke.Launcher'
+mainClassName = 'meow.Launcher'
 
 java {
     modularity.inferModulePath = true
 }
 
 shadowJar {
-    archiveBaseName.set("duke")
+    archiveBaseName.set("meow")
     archiveClassifier.set("")
 }
 
