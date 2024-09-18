@@ -1,10 +1,10 @@
 package orion.commands;
 
-import orion.utils.Storage;
-import orion.utils.TaskList;
 import orion.exceptions.OrionException;
 import orion.exceptions.OrionInputException;
 import orion.tasks.Task;
+import orion.utils.Storage;
+import orion.utils.TaskList;
 
 /**
  * Represents a command to delete a task from the task list.
@@ -20,13 +20,10 @@ public class DeleteTaskCommand extends Command {
     /**
      * Creates a {@code DeleteTaskCommand} with the specified task number.
      *
-     * @param taskNo the number of the task to be deleted (1-based index)
+     * @param command the array containing the command and task number (expected format: delete &lt;task number&gt;)
+     * @throws OrionInputException if the input does not meet the expected format or if the task number
+     *                             is not a valid integer
      */
-    public DeleteTaskCommand(int taskNo) {
-        super(false);
-        this.taskNo = taskNo;
-    }
-
     public DeleteTaskCommand(String[] command) throws OrionInputException {
         super(false);
         if (command.length != 2) {

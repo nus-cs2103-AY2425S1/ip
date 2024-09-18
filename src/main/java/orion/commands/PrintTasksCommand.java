@@ -15,8 +15,7 @@ import orion.utils.TaskList;
 public class PrintTasksCommand extends Command {
 
     /**
-     * Constructs a {@code PrintTasksCommand}. This command does not signal
-     * an exit, so the {@code isExit} flag is set to {@code false}.
+     * Constructs a {@code PrintTasksCommand}.
      */
     public PrintTasksCommand() {
         super(false);

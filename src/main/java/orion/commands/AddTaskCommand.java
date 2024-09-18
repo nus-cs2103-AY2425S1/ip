@@ -1,8 +1,8 @@
 package orion.commands;
 
+import orion.tasks.Task;
 import orion.utils.Storage;
 import orion.utils.TaskList;
-import orion.tasks.Task;
 
 /**
  * Represents a command to add a task to the task list.

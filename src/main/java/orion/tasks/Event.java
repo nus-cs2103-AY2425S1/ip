@@ -92,7 +92,7 @@ public class Event extends Task {
 
     /**
      * Returns a string representation of the {@code Event} for saving to a file.
-     * The format is "event,[task],[isDone],[start date],[end date]".
+     * The format is "event,[isDone],[description],[start date],[end date]".
      *
      * @return the string representation of the {@code Event} for saving
      */

@@ -77,7 +77,7 @@ public class Deadline extends Task {
 
     /**
      * Returns a string representation of the {@code Deadline} for saving to a file.
-     * The format is "deadline,[task],[isDone],[deadline date]".
+     * The format is "deadline,[isDone],[task],[deadline date]".
      *
      * @return the string representation of the {@code Deadline} for saving
      */

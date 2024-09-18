@@ -1,10 +1,9 @@
 package orion.commands;
 
-import orion.exceptions.OrionException;
-import orion.utils.Storage;
-import orion.utils.TaskList;
 import orion.exceptions.OrionInputException;
 import orion.tasks.Task;
+import orion.utils.Storage;
+import orion.utils.TaskList;
 
 /**
  * Represents a command to mark a task as completed in the task list.
@@ -20,13 +19,10 @@ public class MarkTaskCommand extends Command {
     /**
      * Creates a {@code MarkTaskCommand} with the specified task number.
      *
-     * @param taskNo the number of the task to be marked as completed (1-based index)
+     * @param command the array containing the command and task number (expected format: mark &lt;task number&gt;)
+     * @throws OrionInputException if the input does not meet the expected format or if the task number
+     *                             is not a valid integer
      */
-    public MarkTaskCommand(int taskNo) {
-        super(false);
-        this.taskNo = taskNo;
-    }
-
     public MarkTaskCommand(String[] command) throws OrionInputException {
         super(false);
         if (command.length != 2) {
@@ -41,7 +37,7 @@ public class MarkTaskCommand extends Command {
     }
 
     /**
-     * Executes the command by marking the task as completed and updating
+     * Executes the mark command by marking the task as completed and updating
      * the user interface.
      * <p>
      * This method checks if the given task number is valid. It throws an
@@ -50,7 +46,7 @@ public class MarkTaskCommand extends Command {
      * </p>
      *
      * @param tasks  the {@link TaskList} containing the tasks
-     * @param storage the {@link Storage} for managing the task list
+     * @param storage the {@link Storage} for managing the task list (not used in this command)
      * @throws OrionInputException if the task number is invalid, or if the task is already marked
      */
     @Override

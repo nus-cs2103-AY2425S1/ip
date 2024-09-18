@@ -8,15 +8,10 @@ import orion.utils.TaskList;
 
 /**
  * The Orion class represents the main chatbot application.
- * It handles the initialization of the UI, storage, and task list,
+ * It handles the initialization of the storage and task list,
  * and contains the main logic for running the chatbot.
  */
 public class Orion {
-
-    /**
-     * Indicates whether the chatbot is online and should continue running.
-     */
-    private boolean isOnline;
 
     /**
      * The storage component responsible for loading and saving tasks.
@@ -30,7 +25,7 @@ public class Orion {
 
     /**
      * Constructs an Orion chatbot instance.
-     * Initializes the UI, storage, and task list.
+     * Initializes the storage, and task list.
      * Greets the user and loads tasks from storage.
      * If tasks cannot be loaded, initializes an empty task list.
      */
@@ -44,6 +39,15 @@ public class Orion {
         }
     }
 
+    /**
+     * Processes the user input, executes the corresponding command, and returns the response.
+     * This method parses the user input using the {@link Parser}, executes the
+     * appropriate {@link Command}, and returns the result of the execution. In case
+     * of any exceptions, it catches them and returns an appropriate error message.
+     *
+     * @param input The user input to be processed.
+     * @return The response message after executing the user's command.
+     */
     public String getResponse(String input) {
         try {
             Command command = Parser.parse(input);

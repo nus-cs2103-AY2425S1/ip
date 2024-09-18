@@ -40,8 +40,7 @@ public class Storage {
     public static final String DATA_FOLDER_PATHNAME = "./data";
 
     /**
-     * Constructor for Storage class.
-     * Protected to prevent direct instantiation.
+     * Constructs a new {@code Storage} object.
      */
     public Storage() {
 
@@ -113,6 +112,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses a {@link Todo} task from a string array.
+     *
+     * @param taskString The string array representing the task data.
+     * @return A {@link Todo} object created from the provided data.
+     * @throws OrionTaskDataException If the data format is invalid.
+     */
     private Todo parseTodo(String[] taskString) throws OrionTaskDataException {
         if (taskString.length != 3) {
             throw new OrionTaskDataException("Unrecognised todo task format");
@@ -122,6 +128,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses a {@link Deadline} task from a string array.
+     *
+     * @param taskString The string array representing the task data.
+     * @return A {@link Deadline} object created from the provided data.
+     * @throws OrionTaskDataException If the data format is invalid.
+     */
     private Deadline parseDeadline(String[] taskString) throws OrionTaskDataException {
         if (taskString.length != 4) {
             throw new OrionTaskDataException("Unrecognised deadline task format");
@@ -132,6 +145,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses an {@link Event} task from a string array.
+     *
+     * @param taskString The string array representing the task data.
+     * @return An {@link Event} object created from the provided data.
+     * @throws OrionTaskDataException If the data format is invalid.
+     */
     private Event parseEvent(String[] taskString) throws OrionTaskDataException {
         if (taskString.length != 5) {
             throw new OrionTaskDataException("Unrecognised event task format");
@@ -143,6 +163,18 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates a new task list file if the file is not found.
+     * <p>
+     * This method creates the necessary directories and the task list file if they do not already exist.
+     * If the file is successfully created, an exception is thrown to signal that the list was not found
+     * and a new one has been created.
+     * </p>
+     *
+     * @param path The path of the task list file.
+     * @throws OrionTaskDataException If the task list file was not found and a new list is created.
+     * @throws OrionPathNotFoundException If there is an issue creating the necessary directories or file.
+     */
     private void createTaskListIfNotFound(Path path)
             throws OrionTaskDataException, OrionPathNotFoundException {
         try {
@@ -164,6 +196,18 @@ public class Storage {
         }
     }
 
+    /**
+     * Recreates the task list file if the current file is corrupted.
+     * <p>
+     * This method deletes the corrupted file and creates a new empty task list file.
+     * If the file is successfully recreated, an exception is thrown to signal that the previous
+     * list was corrupted and a new one has been created.
+     * </p>
+     *
+     * @param path The path of the corrupted task list file.
+     * @throws OrionTaskDataException If the task list file was corrupted and a new list is created.
+     * @throws OrionPathNotFoundException If there is an issue deleting or recreating the file.
+     */
     private void createTaskListIfCorrupted(Path path)
             throws OrionTaskDataException, OrionPathNotFoundException {
         try {

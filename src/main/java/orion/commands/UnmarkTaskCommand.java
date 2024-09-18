@@ -1,9 +1,9 @@
 package orion.commands;
 
-import orion.utils.Storage;
-import orion.utils.TaskList;
 import orion.exceptions.OrionInputException;
 import orion.tasks.Task;
+import orion.utils.Storage;
+import orion.utils.TaskList;
 
 /**
  * Represents a command to mark a task as not completed in the task list.
@@ -17,15 +17,12 @@ public class UnmarkTaskCommand extends Command {
     private int taskNo;
 
     /**
-     * Creates an {@code UnmarkTaskCommand} with the specified task number.
+     * Creates a {@code UnmarkTaskCommand} with the specified task number.
      *
-     * @param taskNo the number of the task to be marked as uncompleted (1-based index)
+     * @param command the array containing the command and task number (expected format: unmark &lt;task number&gt;)
+     * @throws OrionInputException if the input does not meet the expected format or if the task number
+     *                             is not a valid integer
      */
-    public UnmarkTaskCommand(int taskNo) {
-        super(false);
-        this.taskNo = taskNo;
-    }
-
     public UnmarkTaskCommand(String[] command) throws OrionInputException {
         super(false);
         if (command.length != 2) {

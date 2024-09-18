@@ -8,7 +8,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
 import orion.chatbot.Orion;
 
 /**
@@ -29,6 +28,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/blank-user.png"));
     private Image orionImage = new Image(this.getClass().getResourceAsStream("/images/orion-62979_1280.jpg"));
 
+    /**
+     * Initialises the GUI component for the Orion application.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

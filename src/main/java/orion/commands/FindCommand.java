@@ -16,15 +16,12 @@ public class FindCommand extends Command {
     private String query;
 
     /**
-     * Constructs a {@code FindCommand} with the specified query.
+     * Creates a {@code FindCommand} with the specified query.
      *
-     * @param query the query string to search for in the task descriptions
+     * @param command the array containing the command and query (expected format: find &lt;search query&gt;)
+     * @throws OrionInputException if the input does not meet the expected format or if the task number
+     *                             is not a valid integer
      */
-    public FindCommand(String query) {
-        super(false);
-        this.query = query;
-    }
-
     public FindCommand(String[] command) throws OrionInputException {
         super(false);
         if (command.length < 2) {

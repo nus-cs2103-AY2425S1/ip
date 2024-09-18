@@ -28,7 +28,7 @@ public class Todo extends Task {
 
     /**
      * Returns a string representation of the {@code Todo}.
-     * The format is "[T][status] description", where [status] is "[X]" if the task is done, or "[ ]" if it is not done.
+     * The format is "[T][task]"
      *
      * @return the string representation of the {@code Todo}
      */
@@ -39,7 +39,7 @@ public class Todo extends Task {
 
     /**
      * Returns a string representation of the {@code Todo} for saving to a file.
-     * The format is "todo,[status],[description]", where [status] is "T" if the task is done, or "F" if it is not done.
+     * The format is "todo,[isDone],[description]"
      *
      * @return the string representation of the {@code Todo} for saving
      */

@@ -1,10 +1,7 @@
 package orion.utils;
 
-import java.util.Arrays;
-
 import orion.commands.AddDeadlineCommand;
 import orion.commands.AddEventCommand;
-import orion.commands.AddTaskCommand;
 import orion.commands.AddTodoCommand;
 import orion.commands.Command;
 import orion.commands.DeleteTaskCommand;
@@ -16,9 +13,6 @@ import orion.commands.PrintTasksCommand;
 import orion.commands.UnmarkTaskCommand;
 import orion.exceptions.OrionException;
 import orion.exceptions.OrionInputException;
-import orion.tasks.Deadline;
-import orion.tasks.Event;
-import orion.tasks.Todo;
 
 /**
  * The {@code Parser} class is responsible for parsing user input into executable commands.
