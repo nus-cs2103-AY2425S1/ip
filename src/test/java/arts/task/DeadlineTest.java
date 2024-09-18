@@ -9,7 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * The DeadlineTest class contains unit tests for the Deadline class.
+ * Represents the DeadlineTest class contains unit tests for the Deadline class.
  * It verifies the correct behavior of the Deadline class, including string representation,
  * file format conversion, and marking tasks as done.
  */

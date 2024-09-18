@@ -1,5 +1,9 @@
 package arts.command;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import arts.ArtsException;
 import arts.task.Deadline;
 import arts.task.Task;
@@ -7,9 +11,7 @@ import arts.task.TaskList;
 import arts.util.Storage;
 import arts.util.Ui;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+
 
 /**
  * Represents a command to sort deadline tasks chronologically.

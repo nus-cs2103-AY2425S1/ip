@@ -12,7 +12,7 @@ import arts.ArtsException;
 import arts.task.Task;
 
 /**
- * The Storage class handles the loading and saving of tasks to and from a file.
+ * Represents the Storage class the handles the loading and saving of tasks to and from a file.
  * It manages the persistence of task data, allowing tasks to be stored and retrieved.
  */
 public class Storage {

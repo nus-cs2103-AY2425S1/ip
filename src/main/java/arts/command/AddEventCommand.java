@@ -126,7 +126,7 @@ public class AddEventCommand implements Command {
     }
 
     /**
-     * Normalize spaces in a string by replacing multiple spaces with a single space.
+     * Normalizes spaces in a string by replacing multiple spaces with a single space.
      *
      * @param input The input string.
      * @return The normalized string.

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test class for the Todo class.
+ * Represents the test class for the Todo class.
  * This class contains unit tests for various methods in the Todo class.
  */
 public class TodoTest {

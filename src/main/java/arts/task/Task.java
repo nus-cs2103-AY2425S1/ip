@@ -68,7 +68,7 @@ public abstract class Task {
     }
 
     /**
-     * Abstract method to convert the task to a string format suitable for file storage.
+     * Converts the task to a string format suitable for file storage.
      *
      * @return A string representing the task in file format.
      */

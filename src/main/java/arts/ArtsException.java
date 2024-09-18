@@ -1,7 +1,7 @@
 package arts;
 
 /**
- * The ArtsException class represents custom exceptions specific to the Arts application.
+ * Represents custom exceptions specific to the Arts application.
  * It extends the standard Exception class to provide application-specific error handling.
  */
 public class ArtsException extends Exception {

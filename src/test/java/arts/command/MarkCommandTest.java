@@ -16,7 +16,7 @@ import arts.util.Storage;
 import arts.util.Ui;
 
 /**
- * The MarkCommandTest class contains unit tests for the MarkCommand class.
+ * Represents the MarkCommandTest class contains unit tests for the MarkCommand class.
  * It tests the functionality of marking tasks as done in a task list and ensures that exceptions
  * are correctly thrown for invalid inputs.
  */
@@ -85,7 +85,7 @@ public class MarkCommandTest {
     }
 
     /**
-     * A stub class for Storage used in testing.
+     * Represents a stub class for Storage used in testing.
      * Overrides the save method to do nothing, simulating a storage component without actual file operations.
      */
     private static class StubStorage extends Storage {
@@ -94,13 +94,13 @@ public class MarkCommandTest {
         }
 
         @Override
-        public void save(ArrayList<Task> tasks) throws ArtsException {
+        public void save(ArrayList<Task> tasks) {
             // Do nothing
         }
     }
 
     /**
-     * A stub class for Ui used in testing.
+     * Represents a stub class for Ui used in testing.
      * Captures the last message shown by the UI for verification in tests.
      */
     private static class StubUi extends Ui {

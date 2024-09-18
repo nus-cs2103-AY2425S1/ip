@@ -3,7 +3,7 @@ package arts.util;
 import java.util.Scanner;
 
 /**
- * The Ui class handles interactions with the user, including displaying messages,
+ * Represents the Ui class that handles interactions with the user, including displaying messages,
  * reading user input, and showing error messages. It provides a simple interface
  * for user communication.
  */

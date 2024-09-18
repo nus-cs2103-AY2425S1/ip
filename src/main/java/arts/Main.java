@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 
 /**
- * A GUI for Arts using FXML.
+ * Represents a GUI for Arts using FXML.
  */
 public class Main extends Application {
 

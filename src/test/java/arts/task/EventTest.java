@@ -9,7 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test class for the Event class.
+ * Represents the test class for the Event class.
  * This class contains unit tests for various methods in the Event class.
  */
 public class EventTest {

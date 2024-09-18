@@ -16,7 +16,7 @@ import arts.util.Storage;
 import arts.util.Ui;
 
 /**
- * The UnmarkCommandTest class contains unit tests for the UnmarkCommand class.
+ * Represents the UnmarkCommandTest class contains unit tests for the UnmarkCommand class.
  * It tests the functionality of unmarking tasks as not done in a task list and ensures that exceptions
  * are correctly thrown for invalid inputs.
  */
@@ -87,7 +87,7 @@ public class UnmarkCommandTest {
     }
 
     /**
-     * A stub class for Storage used in testing.
+     * Represents a stub class for Storage used in testing.
      * Overrides the save method to do nothing, simulating a storage component without actual file operations.
      */
     private static class StubStorage extends Storage {
@@ -96,7 +96,7 @@ public class UnmarkCommandTest {
         }
 
         @Override
-        public void save(ArrayList<Task> tasks) throws ArtsException {
+        public void save(ArrayList<Task> tasks) {
             // Do nothing
         }
     }

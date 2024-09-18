@@ -4,8 +4,7 @@ import arts.ArtsException;
 import arts.enums.CommandType;
 
 /**
- * The Parser class is responsible for interpreting user input and
- * converting it into executable commands and arguments.
+ * Represents the Parser class for interpreting user input and converting it into executable commands and arguments.
  */
 public class Parser {
 

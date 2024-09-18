@@ -18,7 +18,7 @@ import arts.util.Storage;
 import arts.util.Ui;
 
 /**
- * The Arts class is the main entry point for the Arts application.
+ * Represents the Arts class is the main entry point for the Arts application.
  * It manages the initialization and execution of the application, handling user commands
  * and coordinating between different components like storage, UI, and task management.
  */
