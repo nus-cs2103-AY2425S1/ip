@@ -3,6 +3,7 @@ package stobberi.components;
 import java.util.ArrayList;
 
 import stobberi.stobberiexception.InvalidNumberStobberiException;
+import stobberi.stobberiexception.NoSuchTaskStobberiException;
 import stobberi.stobberiexception.StobberiException;
 import stobberi.task.Deadline;
 import stobberi.task.Event;
@@ -62,11 +63,20 @@ public class TaskList {
     /**
      * Displays the list of all tasks.
      */
-    public String displayList() {
+    public String displayList() throws StobberiException{
         String list = "Here are the tasks in your list:";
-        for (int i = 1; i < listOfTasks.size() + 1; i++) {
+        int i;
+
+        for (i = 1; i < listOfTasks.size() + 1; i++) {
             list += "\n" + i + ". " + listOfTasks.get(i - 1);
         }
+
+        if (i == 1) {
+            throw new NoSuchTaskStobberiException("There is no task at all!\n" +
+                    "Come on, add a new task!!\n" +
+                    "I'm sure you have stuff to dooo riteee???");
+        }
+
         return list;
     }
 
@@ -105,9 +115,10 @@ public class TaskList {
      *
      * @param word the word to search for in the task descriptions
      */
-    public String filterListByWord(String word) {
+    public String filterListByWord(String word) throws StobberiException {
         String list = "Here ya go! The matching tasks in your list:";
         int n = 1;
+
         for (int i = 1; i < listOfTasks.size() + 1; i++) {
             Task task = listOfTasks.get(i - 1);
             if (task.hasWord(word)) {
@@ -115,6 +126,11 @@ public class TaskList {
                 n++;
             }
         }
+
+        if (n == 1) {
+            throw new NoSuchTaskStobberiException("I can't find any task which has: " + word);
+        }
+
         return list;
     }
     /**
@@ -122,9 +138,10 @@ public class TaskList {
      *
      * @param date The date to filter tasks by.
      */
-    public String filterListByDate(String date) {
+    public String filterListByDate(String date) throws StobberiException {
         String list = "Here ya go! The tasks in your list that you have to do on " + date + ":\n";
         int n = 1;
+
         for (int i = 1; i < listOfTasks.size() + 1; i++) {
             Task task = listOfTasks.get(i - 1);
             if (task instanceof Deadline deadline && deadline.isDuring(date)) {
@@ -135,6 +152,11 @@ public class TaskList {
                 n++;
             }
         }
+
+        if (n == 1) {
+            throw new NoSuchTaskStobberiException("There is no task I can find on " + date);
+        }
+
         return list;
     }
 
