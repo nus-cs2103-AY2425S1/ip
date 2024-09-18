@@ -34,6 +34,7 @@ application {
 shadowJar {
     archiveBaseName = "hien"
     archiveClassifier = null
+    archiveFileName = 'hien.jar'
 }
 
 run{

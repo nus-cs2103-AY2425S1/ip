@@ -8,6 +8,15 @@ import hien.ui.UI;
 class Parser {
     private UI ui;
 
+    /**
+     * Parses the user's input string and returns the corresponding command.
+     * The method processes various types of commands (e.g., list, mark, unmark, todo, deadline, event, delete, deleteall, bye)
+     * based on the first word of the input string. If the command type is invalid, an exception is thrown.
+     *
+     * @param input The input string provided by the user. It typically consists of a command followed by optional arguments.
+     * @return A {@code Command} object representing the action to be performed based on the user's input.
+     * @throws HienException If the command type is not recognized or invalid.
+     */
     public static Command parse(String input) throws HienException {
         String[] parts = input.split(" ", 2);
         String commandType = parts[0].toLowerCase();

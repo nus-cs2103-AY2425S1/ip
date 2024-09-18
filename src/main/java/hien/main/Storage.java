@@ -20,6 +20,22 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from a file and returns a {@code TaskList} object containing these tasks.
+     * If the file does not exist, a new file is created and an empty {@code TaskList} is returned.
+     * The tasks are expected to be stored in a specific format in the file, and each task is parsed and loaded into the list.
+     *
+     * The supported task types include:
+     * <ul>
+     *   <li>{@code T}: Todo tasks</li>
+     *   <li>{@code D}: Deadline tasks, with a date/time for the deadline</li>
+     *   <li>{@code E}: Event tasks, with a start and end date/time</li>
+     * </ul>
+     * Each task can also be marked as done or not done based on the second field in the file.
+     *
+     * @return A {@code TaskList} object containing the loaded tasks, or an empty {@code TaskList} if no tasks were loaded.
+     * @throws HienException If there is an error during task loading, such as a parsing issue or I/O error.
+     */
     public TaskList load() throws HienException {
         TaskList tasks = new TaskList();
         try {
@@ -65,6 +81,22 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the tasks from the provided {@code TaskList} to a file.
+     * Each task is written to the file in a specific format, depending on its type.
+     * The method handles the creation of the necessary directories and file if they do not already exist.
+     *
+     * The task types are saved in the following format:
+     * <ul>
+     *   <li>{@code T | 0/1 | description} for Todo tasks</li>
+     *   <li>{@code D | 0/1 | description | by-date-time} for Deadline tasks</li>
+     *   <li>{@code E | 0/1 | description | from-date-time | to-date-time} for Event tasks</li>
+     * </ul>
+     * The second field, 0 or 1, indicates whether the task is marked as done.
+     *
+     * @param tasks The {@code TaskList} containing the tasks to be saved.
+     * @throws HienException If an error occurs during the saving process, such as an I/O failure.
+     */
     public void save(TaskList tasks) throws HienException {
         try {
             Files.createDirectories(Paths.get("data"));
