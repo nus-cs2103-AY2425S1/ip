@@ -33,6 +33,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
     }
 
     /** Injects the MeowMeow instance */
@@ -42,7 +43,7 @@ public class MainWindow extends AnchorPane {
         meowmeow.run();
 
         dialogContainer.getChildren().addAll(
-        DialogBox.getMeowMeowDialog("Hello! I'm MeowMeow\n" + "What can I do for you?\n", meowMeowImage));
+        MeowMeowDialogBox.getDialog("Hello! I'm MeowMeow\n" + "What can I do for you?\n", meowMeowImage));
 
         this.parser = meowmeow.getParser();
         assert parser != null : "Parser should not be null";
@@ -59,8 +60,8 @@ public class MainWindow extends AnchorPane {
         String response = parser.parse(input);
         assert response != null : "Response from parser should not be null";
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getMeowMeowDialog(response, meowMeowImage)
+                UserDialogBox.getDialog(input, userImage),
+                MeowMeowDialogBox.getDialog(response, meowMeowImage)
         );
 
         if (input.equals("bye")) {
