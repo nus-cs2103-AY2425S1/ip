@@ -73,10 +73,10 @@ public class Boss {
             return responseText;
         } catch (IOException e) {
             System.out.println(e);
-            return "error";
+            return e.toString();
         } catch (BossException e) {
             System.out.println(e);
-            return "error";
+            return e.toString();
         }
     }
 
