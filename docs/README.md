@@ -1,7 +1,6 @@
 # Blitz User Guide
 
-
-![Ui screenshot](Ui.png | width=300)
+<img src="Ui.png" alt="UI Screenshot" width="300"/>
 
 Blitz is a interactive chatbot to help plan tasks. Save important deadlines, dates all using your keyboard!! 
 
