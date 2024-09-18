@@ -141,6 +141,7 @@ public class TaskList {
         String unpaddedSearch = "";
         int count = 1;
         for (Task t : tasks) {
+            System.out.println(t.toString() + " " + keyword + " " + t.matchDescription(keyword, true) + " " + t.matchDescription(keyword, false));
             if (t.matchDescription(keyword, true)) {
                 paddedSearch += count + "." + t.toString() + "\n";
                 count++;
@@ -148,7 +149,7 @@ public class TaskList {
                 unpaddedSearch += "%d." + t.toString() + "\n";
             }
         }
-        if (count == 1 && !unpaddedSearch.equals("")) {
+        if (count == 1 && unpaddedSearch.equals("")) {
             return "Rotodo worked hard, but unable to find matching tasks...";
         }
         unpaddedSearch = String.format(unpaddedSearch,

@@ -1,5 +1,7 @@
 package rotodo.commands;
 
+import java.io.IOException;
+
 import rotodo.exception.InvalidInputException;
 import rotodo.processes.Gui;
 import rotodo.processes.Storage;
@@ -40,6 +42,11 @@ public class MarkCommand extends Command {
             }
         } catch (InvalidInputException e) {
             gui.addMessage(e.toString());
+        }
+        try {
+            storage.saveList(tasks);
+        } catch (IOException e) {
+            gui.addMessage("\nUnable to save list :(\nRoTodo is sorry");
         }
     }
 }

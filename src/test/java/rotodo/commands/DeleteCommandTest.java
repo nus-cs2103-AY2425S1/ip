@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import rotodo.commands.AddCommand.TaskType;
+import rotodo.processes.Gui;
+import rotodo.processes.Storage;
 import rotodo.tasklist.TaskList;
 
 public class DeleteCommandTest {
@@ -12,6 +14,8 @@ public class DeleteCommandTest {
     public void delete_givenTaskIndex_deletesTaskFromList() {
         // Arrange
         TaskList tasklist = new TaskList();
+        Gui gui = new Gui();
+        Storage storage = new Storage("./.data/rotodo.txt");
         AddCommand addTodo;
         AddCommand addDeadline;
         AddCommand addEvent;
@@ -39,14 +43,13 @@ public class DeleteCommandTest {
                     + "(Ideal params were used)");
         }
         DeleteCommand deleteTask;
-        String expected = "1.[T][ ] Todo task\n"
-                + "2.[D][ ] Deadline task (by: 01/01/2001 0102)\n"
-                + "3.[E][ ] Event task (from: 01/01/2001 0102 to: 02/02/2003 0203)";
+        String expected = "1.[D][ ] Deadline task (by: 01/01/2001 0102)\n"
+                + "2.[E][ ] Event task (from: 01/01/2001 0102 to: 02/02/2003 0203)";
 
 
         // Act
         deleteTask = new DeleteCommand(0);
-        deleteTask.execute(tasklist, null, null);
+        deleteTask.execute(tasklist, gui, storage);
 
         // Assert
         String actual = tasklist.toString();
