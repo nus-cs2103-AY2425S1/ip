@@ -23,7 +23,7 @@ public class DeadlineCommand extends AddCommand {
     /**
      * Constructs a {@code DeadlineCommand} with the specified arguments.
      *
-     * @param args The string containing the task description and deadline.
+     * @param args The string containing the task description and due date.
      */
     public DeadlineCommand(String args) {
         super(args);

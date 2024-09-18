@@ -22,6 +22,9 @@ public class EventCommand extends AddCommand {
             Example: %1$s project meeting /from 2019-10-15 1400 /to 2019-10-15 1600
             """.formatted(COMMAND_WORD, COMPACT_PATTERN);
 
+    public static final String MESSAGE_INVALID_TIME_PERIOD = "Event start time must be before end time.";
+    public static final String MESSAGE_EVENT_CLASH = "Event clashes with another event:\n%s";
+
     /**
      * Constructs an {@code EventCommand} with the specified arguments.
      *
@@ -40,11 +43,13 @@ public class EventCommand extends AddCommand {
 
         LocalDateTime start = parseDateTime(fields[1]);
         LocalDateTime end = parseDateTime(fields[2]);
-        assert start.isBefore(end) : "Event start time must be before end time";
+        if (!start.isBefore(end)) {
+            throw new MorganaException(MESSAGE_INVALID_TIME_PERIOD);
+        }
 
         Event event = tasks.findClashingEvent(start, end);
         if (event != null) {
-            throw new MorganaException("Event clashes with another event:\n" + event);
+            throw new MorganaException(MESSAGE_EVENT_CLASH.formatted(event));
         }
         return new Event(fields[0], start, end);
     }

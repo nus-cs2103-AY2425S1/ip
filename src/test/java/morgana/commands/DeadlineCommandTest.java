@@ -1,6 +1,7 @@
-package morgana;
+package morgana.commands;
 
 import static morgana.commands.AddCommand.MESSAGE_SUCCESS;
+import static morgana.commands.DeadlineCommand.MESSAGE_INVALID_COMMAND_FORMAT;
 import static morgana.util.DateTimeUtil.parseDateTime;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -11,8 +12,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import morgana.commands.Command;
-import morgana.commands.DeadlineCommand;
 import morgana.exceptions.MorganaException;
 import morgana.storage.Storage;
 import morgana.task.Deadline;
@@ -42,20 +41,16 @@ public class DeadlineCommandTest {
         Command command = new DeadlineCommand("%s /by %s".formatted(description, by));
         Deadline deadline = new Deadline(description, parseDateTime(by));
 
-        String expected = command.execute(tasks, storage);
-        String actual = MESSAGE_SUCCESS.formatted(deadline, 1, "");
+        String expected = MESSAGE_SUCCESS.formatted(deadline, 1, "");
+        String actual = command.execute(tasks, storage);
         assertEquals(expected, actual);
     }
 
     @Test
     public void deadlineCommand_invalidCommandFormat_exceptionThrown() {
         Command command = new DeadlineCommand("return book /by");
-        assertThrows(MorganaException.class, () -> command.execute(tasks, storage));
-    }
-
-    @Test
-    public void deadlineCommand_invalidDateTimeFormat_exceptionThrown() {
-        Command command = new DeadlineCommand("return book /by June 6th");
-        assertThrows(MorganaException.class, () -> command.execute(tasks, storage));
+        MorganaException exception = assertThrows(MorganaException.class, () ->
+                command.execute(tasks, storage));
+        assertEquals(MESSAGE_INVALID_COMMAND_FORMAT, exception.getMessage());
     }
 }

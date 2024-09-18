@@ -1,7 +1,7 @@
 package morgana.parser;
 
-import static morgana.common.Messages.MESSAGE_EMPTY_TASK_NUMBER;
 import static morgana.common.Messages.MESSAGE_INVALID_TASK_NUMBER;
+import static morgana.common.Messages.MESSAGE_MISSING_TASK_NUMBER;
 import static morgana.util.DateTimeUtil.COMPACT_FORMATTER;
 
 import java.time.LocalDateTime;
@@ -63,7 +63,7 @@ public class Parser {
      */
     public static int parseTaskIndex(String args) throws MorganaException {
         if (args.isEmpty()) {
-            throw new MorganaException(MESSAGE_EMPTY_TASK_NUMBER);
+            throw new MorganaException(MESSAGE_MISSING_TASK_NUMBER);
         }
         try {
             return Integer.parseInt(args) - 1;
@@ -89,11 +89,11 @@ public class Parser {
         Task task = switch (type) {
             case "T" -> new Todo(description);
             case "D" -> {
-                assert fields.length == 4 : "Expected 4 fields for a Deadline task, got: " + fields.length;
+                assert fields.length == 4 : "Expected 4 fields for a deadline, got: " + fields.length;
                 yield new Deadline(description, LocalDateTime.parse(fields[3], COMPACT_FORMATTER));
             }
             case "E" -> {
-                assert fields.length == 5 : "Expected 5 fields for an Event task, got: " + fields.length;
+                assert fields.length == 5 : "Expected 5 fields for an event, got: " + fields.length;
                 LocalDateTime start = LocalDateTime.parse(fields[3], COMPACT_FORMATTER);
                 LocalDateTime end = LocalDateTime.parse(fields[4], COMPACT_FORMATTER);
                 yield new Event(description, start, end);

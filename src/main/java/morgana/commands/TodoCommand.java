@@ -11,7 +11,7 @@ import morgana.task.Todo;
 public class TodoCommand extends AddCommand {
     public static final String COMMAND_WORD = "todo";
 
-    public static final String MESSAGE_EMPTY_DESCRIPTION =
+    public static final String MESSAGE_MISSING_DESCRIPTION =
             "Please enter a description for your %s.".formatted(COMMAND_WORD);
 
     /**
@@ -26,7 +26,7 @@ public class TodoCommand extends AddCommand {
     @Override
     Task createTask(String description, TaskList tasks) throws MorganaException {
         if (description.isEmpty()) {
-            throw new MorganaException(MESSAGE_EMPTY_DESCRIPTION);
+            throw new MorganaException(MESSAGE_MISSING_DESCRIPTION);
         }
         return new Todo(description);
     }

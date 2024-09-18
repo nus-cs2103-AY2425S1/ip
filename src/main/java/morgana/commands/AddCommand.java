@@ -40,7 +40,7 @@ public abstract class AddCommand extends Command {
      * Creates a task based on the provided arguments.
      *
      * @param args The string containing the task details.
-     * @param tasks TODO
+     * @param tasks The {@code TaskList} containing the tasks.
      * @return The created {@code Task}.
      * @throws MorganaException If an error occurs while creating the task.
      */

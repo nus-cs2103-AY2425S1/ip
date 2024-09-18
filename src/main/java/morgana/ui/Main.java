@@ -15,17 +15,13 @@ public class Main extends Application {
     private final Morgana morgana = new Morgana();
 
     @Override
-    public void start(Stage stage) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
-            fxmlLoader.setControllerFactory(controller -> new MainWindow(morgana));
-            stage.setTitle("MorganaPro");
-            stage.setScene(new Scene(fxmlLoader.load()));
-            stage.show();
-            stage.setMinHeight(stage.getHeight());
-            stage.setMinWidth(stage.getWidth());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void start(Stage stage) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+        fxmlLoader.setControllerFactory(controller -> new MainWindow(morgana));
+        stage.setTitle("MorganaPro");
+        stage.setScene(new Scene(fxmlLoader.load()));
+        stage.show();
+        stage.setMinHeight(stage.getHeight());
+        stage.setMinWidth(stage.getWidth());
     }
 }
