@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * Represents the way Janet saves/read tasks into/from a text file.
  */
 public class Storage {
-    private final String filePath;  // "./janet.txt"
+    private final String filePath;  // "janet.txt"
 
     /**
      * @param filePath A file path thar represents the location of janet.txt
