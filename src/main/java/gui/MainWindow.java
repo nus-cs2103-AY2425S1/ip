@@ -15,7 +15,7 @@ import javafx.scene.layout.VBox;
  */
 public class MainWindow extends AnchorPane {
 
-    private Image userImage = null;
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image kiraImage = new Image(this.getClass().getResourceAsStream("/images/kira.png"));
     @FXML
     private ScrollPane scrollPane;
