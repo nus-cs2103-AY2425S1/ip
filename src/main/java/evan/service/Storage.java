@@ -3,6 +3,7 @@ package evan.service;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,9 +30,17 @@ public class Storage {
      * @throws FileCreationException If there is an error creating the .txt file.
      */
     public Storage(String filePath) throws FileCreationException {
-        this.filePath = Path.of(filePath);
+        // Get the current working directory
+        String workingDirectory = System.getProperty("user.dir");
+
+        // Construct the full filepath based on the current working directory
+        this.filePath = Paths.get(workingDirectory, filePath);
+        // this.filePath = Path.of(filePath);
 
         try {
+            // Create directories if they don't exist
+            Files.createDirectories(this.filePath.getParent());
+
             // Create the file if it doesn't exist
             if (!Files.exists(this.filePath)) {
                 Files.createFile(this.filePath);
