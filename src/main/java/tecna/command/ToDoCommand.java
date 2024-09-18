@@ -35,7 +35,7 @@ public class ToDoCommand extends Command {
 
     public ToDo parseToDoCommand() throws WrongFormatException {
         String[] description = message.split("todo");
-        if (description[1].isBlank()) {
+        if (description.length < 2 || description[1].isBlank()) {
             throw new WrongFormatException("todo", "ToDo task should be of type \"todo [description]\"");
         }
 
