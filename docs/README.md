@@ -4,7 +4,7 @@
 
 A friendly chatbot to help you keep track of your important tasks!
 
-Make use of inbuilt completion trackers and priority 
+Make use of inbuilt completion trackers and priority labelling to effectively manage your tasks!
 
 ## Command Summary
 
