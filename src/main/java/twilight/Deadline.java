@@ -1,5 +1,6 @@
 package twilight;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -15,9 +16,13 @@ public class Deadline extends Task {
      * @param description What the task is.
      * @param deadline When the task is due in the format YYYY-MM-DD.
      */
-    public Deadline(String description, String deadline) {
+    public Deadline(String description, String deadline) throws InvalidInputException {
         super(description);
-        this.deadline = LocalDate.parse(deadline);
+        try {
+            this.deadline = LocalDate.parse(deadline);
+        } catch (DateTimeException e) {
+            throw new InvalidInputException("Invalid date. Date must be in the format:\nYYYY-MM-DD");
+        }
     }
 
     /**

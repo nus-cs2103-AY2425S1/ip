@@ -1,6 +1,8 @@
 package twilight;
 
 import java.io.IOException;
+import java.lang.NumberFormatException;
+
 
 /**
  * Handles commands for making tasks as complete or incomplete.
@@ -15,9 +17,13 @@ public class MarkingCommand extends Command {
      * @param type The type of marking command (mark or unmark) indicated by 1 or 2 respectively.
      * @param details The number of the task to be affected.
      */
-    public MarkingCommand(int type, String details) {
+    public MarkingCommand(int type, String details) throws InvalidInputException {
         this.type = type;
-        this.taskNum = Integer.valueOf(details) - 1;
+        try {
+            this.taskNum = Integer.valueOf(details) - 1;
+        } catch (java.lang.NumberFormatException e) {
+            throw new InvalidInputException("Mark command must have a valid integer task number.");
+        }
     }
 
     @Override

@@ -13,8 +13,12 @@ public class DeleteCommand extends Command {
      *
      * @param details Number of task to be deleted.
      */
-    public DeleteCommand(String details) {
-        this.taskNum = Integer.valueOf(details) - 1;
+    public DeleteCommand(String details) throws InvalidInputException {
+        try {
+            this.taskNum = Integer.valueOf(details) - 1;
+        } catch (NumberFormatException e) {
+            throw new InvalidInputException("Delete command must be followed by a task number from the list.");
+        }
     }
 
     @Override

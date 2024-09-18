@@ -17,6 +17,6 @@ public class InvalidInputException extends Exception {
 
     @Override
     public String toString() {
-        return message;
+        return "Invalid Input:\n" + message;
     }
 }

@@ -27,10 +27,18 @@ public class AddTaskCommand extends Command {
             addition = tasks.add(new Todo(details));
         } else if (type == 4) {
             String[] split = details.split(" /from | /to ");
-            addition = tasks.add(new Event(split[0], split[1], split[2]));
+            try {
+                addition = tasks.add(new Event(split[0], split[1], split[2]));
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new InvalidInputException("Events must have the format:\nevent EventName /from startTime /to endTime");
+            }
         } else {
             String[] split = details.split(" /by ");
-            addition = tasks.add(new Deadline(split[0], split[1]));
+            try {
+                addition = tasks.add(new Deadline(split[0], split[1]));
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new InvalidInputException("Deadlines must have the format:\ndeadline deadlineName /by YYYY-MM-DD");
+            }
         }
         try {
             storage.saveData(tasks.getTasks());

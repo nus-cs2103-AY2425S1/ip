@@ -40,9 +40,13 @@ public class TaskList {
      * @param taskNum The number of the tasks to be modified.
      * @return A string to user to indicate the change.
      */
-    public String mark(int taskNum) {
-        tasks.get(taskNum).setDone();
-        return tasks.get(taskNum).toString();
+    public String mark(int taskNum) throws InvalidInputException {
+        try {
+            tasks.get(taskNum).setDone();
+            return tasks.get(taskNum).toString();
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidInputException("Task " + (taskNum + 1 ) + " does not exist.");
+        }
     }
 
     /**
@@ -51,9 +55,13 @@ public class TaskList {
      * @param taskNum The number of the task to be unmarked.
      * @return A string which shows the task has been marked incomplete.
      */
-    public String unmark(int taskNum) {
-        tasks.get(taskNum).setUndone();
-        return tasks.get(taskNum).toString();
+    public String unmark(int taskNum) throws InvalidInputException {
+        try {
+            tasks.get(taskNum).setUndone();
+            return tasks.get(taskNum).toString();
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidInputException("Task " + (taskNum + 1 ) + " does not exist.");
+        }
     }
 
     public ArrayList<Task> getTasks() {
