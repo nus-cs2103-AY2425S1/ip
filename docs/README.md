@@ -1,11 +1,11 @@
-# User Guide to Ollie :dog:
+# User Guide to Ollie
 
 ## Set Up
 1. Install [Java-17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html).
 2. Download the latest [ollie.jar](https://github.com/NgZiXin/ip/raw/master/Ollie.jar) file.
 3. Go to the folder where the .jar file is stored at.
 4. Run the application using the following command:
-```bash
+```
 java -jar ollie.jar
 ```
 5. Referring to the key commands below, start playing around with Ollie the chatbot!
@@ -78,4 +78,4 @@ find project
 bye
 ```
 
-Thank you! :grinning:
+Thank you!
