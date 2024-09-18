@@ -21,9 +21,17 @@ Example: `deadline IP Submission /by 2024-09-20 2359 /priority high`
 
 Outcome: Creates a task with a deadline and the specified priority. The task will be added to the list of tasks, and a confirmation message will be shown.
 
+On Mac
 ```
 Got it. I've added this task:
-🔴 📆 |  | IP Submission (by: Sep 20 2024, 11:59 PM)
+🔴 📆 | | IP Submission (by: Sep 20 2024, 11:59 PM)
+Now you have 1 tasks in the list.
+```
+
+On other OS
+```
+Got it. I've added this task:
+[HIGH] D | | IP Submission (by: Sep 20 2024, 11:59 PM)
 Now you have 1 tasks in the list.
 ```
 
@@ -37,9 +45,17 @@ Example: `todo sleep /priority medium`
 
 Outcome: Creates a general to-do task with the given description and priority.
 
+On Mac
 ```
 Got it. I've added this task:
 🟡 📋 |  | sleep
+Now you have 2 tasks in the list.
+```
+
+On other OS
+```
+Got it. I've added this task:
+[MED] T |  | sleep
 Now you have 2 tasks in the list.
 ```
 
@@ -53,9 +69,17 @@ Example: `event Meeting with TP group /from 2024-09-19 1500 /to 2024-09-19 1700 
 
 Outcome: Creates an event task with a start and end time, as well as the priority level.
 
+On Mac
 ```
 Got it. I've added this task:
 🔴 🎉 |  | Meeting with team (from: Sep 19 2024, 3:00 PM to: Sep 19 2024, 5:00 PM)
+Now you have 3 tasks in the list.
+```
+
+On other OS
+```
+Got it. I've added this task:
+[HIGH] E |  | Meeting with team (from: Sep 19 2024, 3:00 PM to: Sep 19 2024, 5:00 PM)
 Now you have 3 tasks in the list.
 ```
 
@@ -67,11 +91,21 @@ Example: `list`
 
 Outcome: Displays all the tasks currently in the task list.
 
+On Mac
 ```
 Here are the tasks in your list:
 1. 🔴 📆 |  | IP Submission (by: Sep 20 2024, 11:59 PM)
 2. 🟡 📋 |  | sleep
 3. 🔴 🎉 |  | Meeting with team (from: Sep 19 2024, 3:00 PM to: Sep 19 2024, 5:00 PM)
+Now you have 3 tasks in the list.
+```
+
+On other OS
+```
+Here are the tasks in your list:
+1. [HIGH] D |  | IP Submission (by: Sep 20 2024, 11:59 PM)
+2. [MED] T |  | sleep
+3. [HIGH] E |  | Meeting with team (from: Sep 19 2024, 3:00 PM to: Sep 19 2024, 5:00 PM)
 Now you have 3 tasks in the list.
 ```
 
@@ -85,10 +119,18 @@ Example: `priority high`
 
 Outcome: Lists all tasks with the specified priority.
 
+On Mac
 ```
 Here are the matching tasks in your list:
 1. 🔴 📆 |  | IP Submission (by: Sep 20 2024, 11:59 PM)
 2. 🔴 🎉 |  | Meeting with team (from: Sep 19 2024, 3:00 PM to: Sep 19 2024, 5:00 PM)
+```
+
+On other OS
+```
+Here are the matching tasks in your list:
+1. [HIGH] D |  | IP Submission (by: Sep 20 2024, 11:59 PM)
+2. [HIGH] E |  | Meeting with team (from: Sep 19 2024, 3:00 PM to: Sep 19 2024, 5:00 PM)
 ```
 
 ## Find certain tasks
@@ -101,9 +143,16 @@ Example: `find submission`
 
 Outcome: Lists all tasks that match the keyword.
 
+On Mac
 ```
 Here are the matching tasks in your list:
 1. 🔴 📆 |  | IP Submission (by: Sep 20 2024, 11:59 PM)
+```
+
+On other OS
+```
+Here are the matching tasks in your list:
+1. [HIGH] D |  | IP Submission (by: Sep 20 2024, 11:59 PM)
 ```
 
 ## Mark task as done
@@ -116,9 +165,16 @@ Example: `mark 2`
 
 Outcome: Marks the task as done and updates the task list.
 
+On Mac
 ```
 Nice! I've marked this task as done:
 🟡 📋 |✔| sleep
+```
+
+On other OS
+```
+Nice! I've marked this task as done:
+[MED] T |✔| sleep
 ```
 
 ## Mark task as not done
@@ -131,9 +187,16 @@ Example: `unmark 2`
 
 Outcome: Marks the task as not done and updates the task list.
 
+On Mac
 ```
 OK, I've marked this task as not done yet:
 🟡 📋 |  | sleep
+```
+
+On Other OS
+```
+OK, I've marked this task as not done yet:
+[MED] T |  | sleep
 ```
 
 ## Delete task
@@ -146,9 +209,18 @@ Example: `delete 2`
 
 Outcome: The specified task is removed from the task list, and a confirmation message is displayed.
 
+On Mac
 ```
 Noted. I've removed this task:
   🟡 📋 |  | sleep
+  
+Now you have 2 tasks in the list.
+```
+
+On Other OS
+```
+Noted. I've removed this task:
+  [MED] T |  | sleep
   
 Now you have 2 tasks in the list.
 ```
