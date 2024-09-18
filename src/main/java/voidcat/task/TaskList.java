@@ -68,7 +68,7 @@ public class TaskList {
      */
     public String listTasks() throws VoidCatException {
         if (this.tasks.isEmpty()) {
-            throw new VoidCatException("No saved tasks found yet! Task list is empty.\n\tStart adding tasks and track them!");
+            throw new VoidCatException("No saved tasks found yet! Task list is empty.\nStart adding tasks and track them!");
         }
         String responseList = "Here are the tasks from your list ^•ﻌ•^ฅ♡ :\n\n";
         for (int i = 0; i < this.tasks.size(); i++) {

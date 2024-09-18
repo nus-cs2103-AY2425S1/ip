@@ -148,7 +148,7 @@ public class Parser {
             tasks.addTask(newTask);
             return ui.showAddTaskMessage(newTask, tasks.size());
         } catch (DateTimeParseException d) {
-            throw new VoidCatException("Meow~ AH! Check if:\n\t1. Input time is valid\n\t2. Format of the 24h date time is in yyyy-mm-dd hhmm");
+            throw new VoidCatException("Meow~ AH!\nCheck if:\n1. Input time is valid\n2. Format of the 24h date time is in yyyy-mm-dd hhmm");
         }
     }
 
@@ -176,7 +176,7 @@ public class Parser {
             tasks.addTask(newTask);
             return ui.showAddTaskMessage(newTask, tasks.size());
         } catch (DateTimeParseException d) {
-            throw new VoidCatException("Meow~ AH! Check if:\n\t1. Input time is valid\n\t2. Format of the 24h date time is in yyyy-mm-dd hhmm");
+            throw new VoidCatException("Meow~ AH!\nCheck if:\n1. Input time is valid\n2. Format of the 24h date time is in yyyy-mm-dd hhmm");
         }
     }
 
