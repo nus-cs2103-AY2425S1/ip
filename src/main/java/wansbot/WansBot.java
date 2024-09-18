@@ -291,7 +291,7 @@ public class WansBot {
         } catch (DateTimeParseException e) {
             return ui.handleDateTimeException();
         } catch (ArrayIndexOutOfBoundsException e) {
-            return ui.handleOneWord();
+            return ui.handleWrongFindDate();
         }
     }
 
