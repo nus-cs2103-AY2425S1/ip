@@ -38,7 +38,7 @@ public class TaskListTest {
         TaskList.addToList(task1);
         TaskList.addToList(task2);
 
-        taskList.handleDelete("delete 1");
+        parser.handleDelete("delete 1");
         assertEquals(1, TaskList.getSize());
         assertEquals(task2, TaskList.get(0));
     }

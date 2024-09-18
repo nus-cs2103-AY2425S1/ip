@@ -26,7 +26,7 @@ public class DeadlineTest {
     public void testDeadline() {
         Deadline deadline = new Deadline("homework", true, "2024-08-30 14:30:00");
         String actual = deadline.toString();
-        String expected = "[D][X] homework";
+        String expected = "[D][X] homework (by: 2024-08-30 14:30:00)";
         assertEquals(expected, actual);
     }
 

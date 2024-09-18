@@ -5,8 +5,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.application.Platform;
 
+import javafx.stage.Stage;
+import sigma.Storage;
+import sigma.TaskList;
 import sigma.Ui;
+
+import java.util.Objects;
+
 /**
  * Controller for the main GUI.
  */
@@ -22,7 +29,8 @@ public class MainWindow extends AnchorPane {
 
     private Sigma sigma;
     private Ui ui;
-
+    private Storage storage;
+//    private TaskList taskList;
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
     private Image sigmaImage = new Image(this.getClass().getResourceAsStream("/images/sigma.jpg"));
 
@@ -35,6 +43,7 @@ public class MainWindow extends AnchorPane {
     public void setSigma(Sigma s) {
         sigma = s;
         displayWelcomeMessage();
+        displayTasksFromFile();
     }
 
     /** Displays the welcome message */
@@ -44,6 +53,17 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getSigmaDialog(ui.welcome(), sigmaImage)
         );
     }
+
+    private void displayTasksFromFile() {
+        storage = new Storage("data/sigma.txt");
+//        taskList = new TaskList();
+        storage.readTasksFromFile();
+        String list = TaskList.toPrettyList();
+        dialogContainer.getChildren().add(
+                DialogBox.getSigmaDialog(list, sigmaImage)
+        );
+    }
+
 
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
@@ -58,5 +78,10 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getSigmaDialog(response, sigmaImage)
         );
         userInput.clear();
+        if (response.equals("bye")) {
+            Stage stage = (Stage) sendButton.getScene().getWindow();
+            stage.close();
+            Platform.exit();
+        }
     }
 }
