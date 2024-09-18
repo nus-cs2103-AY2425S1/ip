@@ -41,6 +41,7 @@ public class DialogBox extends HBox {
         dialog.setText(text);
         dialog.setFont(Font.font("Times New Roman", 12));
         dialog.setFill(Color.BLUE);
+        dialog.setWrappingWidth(300);
         // try to set black border around dialog text
         displayPicture.setImage(img);
         displayPicture.setFitWidth(IMAGE_WIDTH);
