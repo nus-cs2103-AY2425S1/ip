@@ -3,7 +3,6 @@ package nether.parser;
 import java.util.Objects;
 
 import nether.NetherException;
-import nether.Ui;
 import nether.command.AddCommand;
 import nether.command.Command;
 import nether.command.DeleteCommand;
@@ -47,7 +46,8 @@ public class Parser {
             return new AddCommand(new DeadlineTask(processedInput[0], processedInput[1], processedInput[2]));
         case "event":
             processedInput = extractInputDetails(userInput, "event");
-            return new AddCommand(new EventTask(processedInput[0], processedInput[1], processedInput[2], processedInput[3]));
+            return new AddCommand(new EventTask(processedInput[0], processedInput[1], processedInput[2],
+                    processedInput[3]));
         case "mark":
             return new MarkDoneCommand(extractTaskNumber(userInput));
         case "unmark":
