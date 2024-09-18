@@ -150,6 +150,13 @@ public class SentinelString {
     }
 
     /**
+     * Returns an error message for unhandled execution errors.
+     */
+    public static String stringExecutionErrorMessage() {
+        return "Oh no, I was unable to execute my task. Please try again!";
+    }
+
+    /**
      * Returns the status and details of a task after it has been marked or unmarked.
      *
      * @param t The task that was marked or unmarked.
