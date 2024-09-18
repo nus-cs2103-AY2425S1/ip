@@ -25,7 +25,10 @@ public class TaskList {
         return String.format(" %s\nNow you have %d task(s) in your list\n", t, this.taskList.size());
     }
 
-    public boolean isTaskDone(int i) {
+    public boolean isTaskDone(int i) throws SnowyException {
+        if (i < 0 || i >= taskList.size()) {
+            throw new SnowyException("Invalid index.");
+        }
         Task task = taskList.get(i);
         return task.isDone;
     }
@@ -45,13 +48,14 @@ public class TaskList {
      * @throws SnowyException if the provided index is invalid
      */
     public String toggleTask(int i) throws SnowyException {
-        if (i >= 0 && i < taskList.size()) {
-            Task task = taskList.get(i);
-            task.toggleStatus();
-            return String.format("%d. %s", i + 1, task);
-        } else {
+        if (i < 0 || i >= taskList.size()) {
             throw new SnowyException("Invalid index.");
         }
+        assert i >= 0 || i < taskList.size();
+        Task task = taskList.get(i);
+        task.toggleStatus();
+        return String.format("%d. %s", i + 1, task);
+
     }
 
     /**
@@ -63,6 +67,7 @@ public class TaskList {
         if (taskList.isEmpty()) {
             throw new SnowyException("No tasks, make a list first.");
         }
+        assert taskList.size() > 0;
         String str = "Your list of tasks:\n";
         for (int i = 0; i < taskList.size(); i++) {
             str += String.format("%d. %s", i + 1, taskList.get(i));
@@ -87,6 +92,7 @@ public class TaskList {
             storage.deleteTaskFromFile(task);
             return str + String.format("\nNow you have %d task(s) in your list.\n", this.taskList.size());
         } else {
+            assert index < 1 || index > taskList.size();
             throw new SnowyException("Invalid index.");
         }
     }

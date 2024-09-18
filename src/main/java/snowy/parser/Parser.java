@@ -65,7 +65,6 @@ public class Parser {
                 return parseFindCommand(arg);
             default:
                 return new InvalidCommand("Sorry, I do not understand that command.");
-
             }
         } catch (SnowyException e) {
             return new InvalidCommand(e.getMessage());
