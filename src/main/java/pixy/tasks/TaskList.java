@@ -1,6 +1,8 @@
 package pixy.tasks;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -91,5 +93,43 @@ public class TaskList {
      */
     public boolean isEmpty() {
         return tasks.isEmpty();
+    }
+
+    /**
+     * Sorts the TaskList by deadlines for Deadline tasks and event duration.
+     */
+    public void sort() {
+        Comparator<Task> comparator = new Comparator<Task>() {
+            @Override
+            public int compare(Task t1, Task t2) {
+                // Determine order by task type
+                if (t1 instanceof Deadlines && t2 instanceof Deadlines) {
+                    // Both are deadlines, compare by due date and time
+                    return ((Deadlines) t1).getDueDateTime().compareTo(((Deadlines) t2).getDueDateTime());
+                } else if (t1 instanceof Event && t2 instanceof Event) {
+                    // Both are events, compare by start time
+                    return ((Event) t1).getFrom().compareTo(((Event) t2).getFrom());
+                } else if (t1 instanceof Deadlines) {
+                    // Deadlines come before other types
+                    return -1;
+                } else if (t2 instanceof Deadlines) {
+                    // Other types come after deadlines
+                    return 1;
+                } else if (t1 instanceof Event) {
+                    // Events come before todos
+                    return -1;
+                } else if (t2 instanceof Event) {
+                    // Todos come after events
+                    return 1;
+                } else {
+                    // Both are ToDos, no need to compare
+                    return 0;
+                }
+            }
+        };
+
+
+        // Sort the tasks using the comparator
+        Collections.sort(tasks, comparator);
     }
 }
