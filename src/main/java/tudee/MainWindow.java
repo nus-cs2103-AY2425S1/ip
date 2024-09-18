@@ -30,12 +30,21 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
+        showWelcome();
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
     /** Injects the Tudee instance */
     public void setTudee(Tudee t) {
         tudee = t;
+    }
+
+    /**
+     * Displays the welcome message.
+     */
+    private void showWelcome() {
+        String welcomeMessage = "Hello! I'm Tudee, your chatbot bestie! How can I help you today? :)";
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeMessage, tudeeImage));
     }
 
     /**

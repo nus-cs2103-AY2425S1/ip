@@ -50,20 +50,26 @@ public class DateCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) throws TudeeException {
 
         // Assert that tasks, ui and storage are not null.
-        assert tasks != null : "TaskList cannot be null";
-        assert ui != null : "Ui cannot be null";
-        assert storage != null : "Storage cannot be null";
+        validateInputs(tasks, ui, storage);
 
+        TaskList matchingTasks = findTasksMatchingDate(tasks);
+
+        if (matchingTasks.numOfTasks() == 0) {
+            throw new TudeeException("You have no tasks on this date, "
+                    + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ".");
+        }
+        return ui.showMatchingTasks(matchingTasks);
+    }
+
+    private TaskList findTasksMatchingDate(TaskList tasks) {
         TaskList matchingTasks = new TaskList();
 
         for (Task task : tasks.getTasks()) {
-            if (task instanceof Deadline) {
-                Deadline deadline = (Deadline) task;
+            if (task instanceof Deadline deadline) {
                 if (deadline.getDeadline().isEqual(date)) {
                     matchingTasks.addTask(deadline);
                 }
-            } else if (task instanceof Events) {
-                Events events = (Events) task;
+            } else if (task instanceof Events events) {
                 boolean isWithinPeriod = events.getStart().isBefore(date) && events.getEnd().isAfter(date);
                 boolean isStartOrEnd = events.getStart().isEqual(date) || events.getEnd().isEqual(date);
                 if (isWithinPeriod || isStartOrEnd) {
@@ -71,10 +77,6 @@ public class DateCommand extends Command {
                 }
             }
         }
-        if (matchingTasks.numOfTasks() == 0) {
-            throw new TudeeException("You have no tasks on this date, "
-                    + date.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ".");
-        }
-        return ui.showMatchingTasks(matchingTasks);
+        return matchingTasks;
     }
 }

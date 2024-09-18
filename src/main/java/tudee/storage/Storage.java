@@ -60,12 +60,7 @@ public class Storage {
 
         try (Scanner sc = new Scanner(currentFile)) {
             while (sc.hasNextLine()) {
-                String currentLine = sc.nextLine();
-                String[] data = currentLine.split(" \\| ");
-
-                // Assert that the data array has the expected length.
-                assert data.length >= MINIMUM : "Format is incorrect. You should have at least 3 segments.";
-
+                String[] data = parseLine(sc.nextLine());
                 Task currentTask = createTaskFromData(data);
                 checkMark(data, currentTask);
                 tasks.add(currentTask);
@@ -74,6 +69,21 @@ public class Storage {
             throw new TudeeException("Error in loading tasks: " + e.getMessage());
         }
         return tasks;
+    }
+
+    /**
+     * Parses a line of text from the task file into an array of strings.
+     * The line is expected to be split into segments based on the delimiter " | ".
+     *
+     *
+     * @param line The line of text to be parsed.
+     * @return A string array where each element corresponds to a segment of the line.
+     */
+    private String[] parseLine(String line) {
+        String[] data = line.split(" \\| ");
+        // Assert that the data array has the expected length.
+        assert data.length >= MINIMUM : "Format is incorrect. You should have at least 3 segments.";
+        return data;
     }
 
     /**

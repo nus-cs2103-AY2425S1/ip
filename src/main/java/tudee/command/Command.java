@@ -21,11 +21,15 @@ public abstract class Command {
     public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws TudeeException;
 
     /**
-     * Determines whether the command indicates the end of the application.
+     * This method checks that none of the provided parameters are null.
      *
-     * @return True if the command signals the end of the application, false otherwise.
+     * @param tasks The task list to be validated.
+     * @param ui The user interface to be validated.
+     * @param storage The storage object to be validated.
      */
-    public boolean isFinished() {
-        return false;
+    protected void validateInputs(TaskList tasks, Ui ui, Storage storage) {
+        assert tasks != null : "TaskList cannot be null";
+        assert ui != null : "Ui cannot be null";
+        assert storage != null : "Storage cannot be null";
     }
 }

@@ -14,7 +14,6 @@ import tudee.task.TaskList;
  * It manages input and output, displaying messages to the user,
  */
 public class Ui {
-    private static final String STRAIGHTLINE = "____________________________________________________________ \n";
     private static final int INDEX_OFFSET = 1;
     private final Scanner sc;
 
@@ -24,22 +23,6 @@ public class Ui {
      */
     public Ui() {
         sc = new Scanner(System.in);
-    }
-
-    /**
-     * Prints a straight line to the console to separate sections of output.
-     */
-    public void showLine() {
-        System.out.println(STRAIGHTLINE);
-    }
-
-    /**
-     * Displays a welcome message to the user.
-     */
-    public void showWelcome() {
-        showLine();
-        System.out.println("Hello! I'm Tudee, your chatbot bestie! \nHow can I help you today? :) \n");
-        showLine();
     }
 
     /**
@@ -107,15 +90,6 @@ public class Ui {
     }
 
     /**
-     * Reads a command from the user.
-     *
-     * @return The command entered by the user as a string.
-     */
-    public String readCommand() {
-        return sc.nextLine();
-    }
-
-    /**
      * Displays an error message to the user.
      *
      * @param message The error message to be displayed.
@@ -165,15 +139,5 @@ public class Ui {
             }
         }
         return hasReminders ? output : "";
-    }
-
-    /**
-     * Closes the Scanner resource used for reading user input.
-     * This should be called when the user terminates the chatbot.
-     */
-    public void close() {
-        if (sc != null) {
-            sc.close();
-        }
     }
 }

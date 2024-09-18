@@ -38,16 +38,26 @@ public class DeleteCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws TudeeException {
         // Assert that tasks, ui and storage are not null.
-        assert tasks != null : "TaskList cannot be null";
-        assert ui != null : "Ui cannot be null";
-        assert storage != null : "Storage cannot be null";
-
-        if (index > tasks.numOfTasks() || index < MINIMUM) {
-            throw new TudeeException("You do not have that many tasks!");
-        }
+        validateInputs(tasks, ui, storage);
+        validateIndex(index, tasks.numOfTasks());
 
         Task task = tasks.deleteTask(index - INDEX_OFFSET);
         storage.save(tasks.getTasks());
         return ui.showDelete(task, tasks.numOfTasks());
+    }
+
+    /**
+     * Validates that the provided index is within the valid range.
+     *
+     * @param index The index to be validated.
+     * @param numOfTasks The number of tasks in the task list.
+     * @throws TudeeException If the index is out of range.
+     */
+    private void validateIndex(int index, int numOfTasks) throws TudeeException {
+        if (index > numOfTasks) {
+            throw new TudeeException("You do not have that many tasks!");
+        } else if (index < MINIMUM) {
+            throw new TudeeException("You cannot have negative tasks!");
+        }
     }
 }

@@ -24,10 +24,13 @@ public class Tudee {
     public Tudee(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
+        loadTasks();
+    }
 
+    private void loadTasks() {
         try {
             taskList = new TaskList(storage.load());
-        } catch (tudee.TudeeException e) {
+        } catch (TudeeException e) {
             ui.showError(e.getMessage());
         }
     }

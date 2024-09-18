@@ -35,22 +35,32 @@ public class FindCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws TudeeException {
         // Assert that tasks, ui and storage are not null.
-        assert tasks != null : "TaskList cannot be null";
-        assert ui != null : "Ui cannot be null";
-        assert storage != null : "Storage cannot be null";
+        validateInputs(tasks, ui, storage);
 
-        TaskList matchingTasks = new TaskList();
-
-        for (Task task: tasks.getTasks()) {
-            if (task.getDescription().contains(keyword)) {
-                matchingTasks.addTask(task);
-            }
-        }
+        TaskList matchingTasks = findTasksMatchingWord(tasks);
 
         if (matchingTasks.numOfTasks() == 0) {
             throw new TudeeException("There is no such task with the keyword specified");
         }
 
         return ui.showMatchingTasks(matchingTasks);
+    }
+
+    /**
+     * Finds tasks in the provided task list that contain the specified keyword.
+     *
+     * @param tasks The `TaskList` containing tasks to be searched.
+     * @return A `TaskList` containing tasks whose descriptions match the keyword.
+     */
+    private TaskList findTasksMatchingWord(TaskList tasks) {
+        TaskList matchingTasks = new TaskList();
+
+        for (Task task : tasks.getTasks()) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.addTask(task);
+            }
+        }
+
+        return matchingTasks;
     }
 }
