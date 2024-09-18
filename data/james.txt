@@ -1,6 +1,4 @@
-T | 0 | buy groceries
+T | 1 | buy groceries
 D | 0 | complete assignment | 2024-12-12T18:00
 E | 0 | hall event | 2024-09-20T20:00 | 2024-09-20T22:00
-T | 0 | read book
-D | 0 | Submit assignment | 2024-09-20T10:00
-E | 0 | Attend conference | 2024-09-21T09:00 | 2024-09-21T17:00
+T | 0 | submit assignment
