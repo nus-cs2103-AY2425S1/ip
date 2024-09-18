@@ -14,7 +14,7 @@ public class DeleteCommand implements Command {
     public String execute(TaskList list, Ui ui, Storage storage, String rest) throws XBotException {
         int taskNumber = Integer.parseInt(rest.trim());
         String output = deleteTask(list, taskNumber);
-        if (rest.isEmpty()) {
+        if (rest.trim().isEmpty()) {
             throw new XBotException("The task number to be deleted cannot be empty!");
         }
         storage.saveTask(list);
@@ -31,7 +31,7 @@ public class DeleteCommand implements Command {
      */
     public String deleteTask(TaskList list, int taskNumber) throws XBotException {
         try {
-            if (taskNumber < 0 && taskNumber > list.size()) {
+            if (taskNumber < 0 || taskNumber > list.size()) {
                 throw new XBotException("This task number do not exist.");
             }
             Task deleteTask = list.get(taskNumber - 1);
