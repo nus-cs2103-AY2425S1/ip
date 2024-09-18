@@ -1,29 +1,117 @@
 # Bocchi User Guide
 
-// Update the title above to match the actual product name
+![Bocchi](Ui.png)
 
-// Product screenshot goes here
+## Introduction
+Bocchi is here to help you keep track of your tasks!  
+Simply type in your tasks and Bocchi will remember them for you.  
+Wechat-like GUI makes you feel like you are chatting with Bocchi! 
 
-// Product intro goes here
+### Features
+1. Add events, deadlines and todos
+2. Mark tasks as done/undone
+3. Delete tasks
+4. Find tasks by tags and/or type
+5. List all tasks, optionally filtered by tags and/or type
+6. Auto-save tasks to disk
+7. Load tasks from disk on startup
 
-## Adding deadlines
 
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
+## Commands
+### Exit the program
 ```
-expected output
+bye
+```
+Ends the conversation.
+
+### List all tasks
+```
+list [/type <type>+] [/tag <tag>+]
+```
+Lists all tasks, optionally filtered by type and/or tag.
+
+#### Example
+```
+list /type todo /tag exam CS2101
 ```
 
-## Feature ABC
+### Mark a task as done/undone
+```
+mark <index>
+```
+```
+unmark <index>
+```
 
-// Feature details
+### Create a todo
+```
+todo <description> [/tag <tag>+]
+```
+A todo is a task without a deadline.
+It can be assigned with multiple tags during creation, or using the tag command.
 
-## Feature XYZ
+### Create a deadline
+```
+deadline/ddl <description> /by <dueDateTime> [/tag <tag>+]
+```
+A deadline is a task with a due date.
+It can be assigned with multiple tags during creation, or using the tag command.
 
-// Feature details
+### Create an event
+```
+event <description> /from <fromDateTime> /to <toDateTime> [/tag <tag>+]
+```
+An event is a task with a start and end time.
+It can be assigned with multiple tags during creation, or using the tag command.
+
+#### Example
+```
+event CA1 meeting /from 9/18 12:00 /to 9/18 14:00 /tag CS2101
+```
+
+### Delete a task
+```
+delete/del <index>
+```
+
+### Add/delete tag(s) to a task
+```
+tag <index> /tag <tag>+
+```
+```
+ntag <index> /tag <tag>+
+```
+
+## Datetime formats supported
+
+| Date Format | Example       |
+|-------------|---------------|
+| yyyy-M-d    | 2024-9-18     |
+| yyyy-MM-dd  | 2024-09-18    |
+| yyyy-MMM-dd | 2024-Sep-18   |
+| yyyy-dd-MMM | 2024-18-Sep   |
+| M-d         | 9-18          |
+| MM-dd       | 09-18         |
+| yyyy/M/d    | 2024/9/18     |
+| yyyy/MM/dd  | 2024/09/18    |
+| yyyy/MMM/dd | 2024/Sep/18   |
+| yyyy/dd/MMM | 2024/18/Sep   |
+| M/d         | 9/18          |
+| MM/dd       | 09/18         |
+| MMM dd      | Sep 18        |
+| dd MMM      | 18 Sep        |
+
+| Time Format | Example       |
+|-------------|---------------|
+| HH:mm:ss    | 14:30:00      |
+| HH:mm       | 14:30         |
+| H:mm:ss     | 4:30:00       |
+| H:mm        | 4:30          |
+
+### Note on default values
+The datetime input can be date only, time only, or both.
+
+- If the year is not specified, the current year is assumed.
+- If the date is not specified at all, the current date is assumed.
+- If the second is not specified, 00 is assumed.
+- If the time is not specified at all, 00:00:00 is assumed.

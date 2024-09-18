@@ -52,11 +52,11 @@ public class Bocchi {
                 mark the task in the specified index as done;
             - unmark <index>
                 mark the task in the specified index as not done;
-            - todo <description>
+            - todo <description> [/tag <tag>+]
                 adds a new todo with the specified description;
-            - ddl/deadline <description> /by <dueDateTime>
+            - ddl/deadline <description> /by <dueDateTime> [/tag <tag>+]
                 adds a new deadline with the given description and due date/time;
-            - event <description> /from <fromDateTime> /to <toDateTime>
+            - event <description> /from <fromDateTime> /to <toDateTime> [/tag <tag>+]
                 adds a new event with the specified description, start date/time and end date/time;
             - del/delete <index>
                 delete the task in the specified index.
