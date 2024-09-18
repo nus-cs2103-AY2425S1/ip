@@ -4,7 +4,7 @@
 
 // Product screenshot goes here
 
-![screenshot](./docs/Ui.png)
+![screenshot](/ip/docs/Ui.png)
 
 
 
