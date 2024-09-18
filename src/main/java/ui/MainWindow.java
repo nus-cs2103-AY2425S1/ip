@@ -79,6 +79,10 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
 
+//        System.out.println("Input: " + input);
+//        System.out.println("Output: " + response);
+//        System.out.println();
+
         // Checks if KukiShinobu::isExit is true, then exit the program if so
         if (kukiShinobu.isExit()) {
             stage.close();

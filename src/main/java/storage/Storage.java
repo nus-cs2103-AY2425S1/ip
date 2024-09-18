@@ -100,6 +100,10 @@ public class Storage {
      */
     private ArrayList<Task> parseTasks(String fileContent) {
         ArrayList<Task> existingTasks = new ArrayList<>();
+        // If the file is empty, return immediately
+        if (fileContent.isEmpty()) {
+            return existingTasks;
+        }
         String[] lines = fileContent.split(System.lineSeparator());
         for (String line : lines) {
             Task task = parseTask(line);

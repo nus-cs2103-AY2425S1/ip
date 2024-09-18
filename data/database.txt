@@ -1,7 +1,2 @@
-E | 0 | Complete weekly commissions | 2024-10-01 | 2024-10-01 | commissions_weekly
-E | 0 | Participate in Spiral Abyss | 2024-09-30 | 2024-09-30 | abyss_event
-D | 1 | Collect Electroculus | 2024-10-10 | occulus
-D | 0 | Upgrade weapon for Fischl | 2024-10-02 | weapon_upgrade
-D | 1 | Gather materials for Zhongli's ascension | 2024-10-03 | character_ascension
-D | 0 | daily commissions | 2024-09-18 | 2024-09-18
-D | 0 | daily commissions | 2024-09-18 | 
+D | 0 | Complete Mondstadt exploration | 2024-10-01 | exploration Mondstadt
+E | 1 | Participate in Ludi Harpastum | 2024-10-10 | 2024-10-10 | festival Mondstadt
