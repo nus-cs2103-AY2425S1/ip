@@ -14,7 +14,6 @@ public class Winde {
 
     private static History history;
     private static Reminder reminder;
-    //private static Ui ui;
     private String commandType;
     private boolean willContinue;
 
