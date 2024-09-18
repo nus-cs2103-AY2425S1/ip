@@ -14,8 +14,9 @@ import java.util.regex.Pattern;
 
 public class Parser {
 
-    private static final String DATE_REGEX = "\\b\\d{4}-\\d{2}-\\d{2}\\b";
-    private static final String TIME_REGEX = "\\b([01]\\d|2[0-3]):[0-5]\\d\\b";
+    private static final String DATE_REGEX = "\"\\\\b(\\\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\\\d|3[01]))\\\\b";
+//            "\\b\\d{4}-\\d{2}-\\d{2}\\b";
+    private static final String TIME_REGEX = "\\b(?:[01]\\d|2[0-3]):[0-5]\\d\\b";
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
@@ -28,14 +29,11 @@ public class Parser {
      */
     private static String findDate(String s) {
         String date = null;
-
         Pattern pattern = Pattern.compile(DATE_REGEX);
         Matcher matcher = pattern.matcher(s);
-
         if (matcher.find()) {
-            date = matcher.group();
+            date = matcher.group(1); // Capture the full date match
         }
-
         return date;
     }
 
