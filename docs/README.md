@@ -1,5 +1,24 @@
 # Bocchi User Guide
 
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Features](#features)
+- [Commands](#commands)
+    - [Create a todo](#create-a-todo)
+    - [Create a deadline](#create-a-deadline)
+    - [Create an event](#create-an-event)
+    - [List all tasks](#list-all-tasks)
+    - [Mark a task as done/undone](#mark-a-task-as-doneundone)
+    - [Delete a task](#delete-a-task)
+    - [Add/delete tag(s) to a task](#adddelete-tags-to-a-task)
+    - [Exit the program](#exit-the-program)
+- [Datetime formats supported](#datetime-formats-supported)
+    - [Date Format](#date-format)
+    - [Time Format](#time-format)
+    - [Note on default values](#note-on-default-values)
+
+
 <img src="Ui.png" alt="Product Screenshot" width="500">
 
 ## Introduction
@@ -18,30 +37,6 @@ Wechat-like GUI makes you feel like you are chatting with Bocchi!
 
 
 ## Commands
-### Exit the program
-```
-bye
-```
-Ends the conversation.
-
-### List all tasks
-```
-list [/type <type>+] [/tag <tag>+]
-```
-Lists all tasks, optionally filtered by type and/or tag.
-
-#### Example
-```
-list /type todo /tag exam CS2101
-```
-
-### Mark a task as done/undone
-```
-mark <index>
-```
-```
-unmark <index>
-```
 
 ### Create a todo
 ```
@@ -69,6 +64,25 @@ It can be assigned with multiple tags during creation, or using the tag command.
 event CA1 meeting /from 9/18 12:00 /to 9/18 14:00 /tag CS2101
 ```
 
+### List all tasks
+```
+list [/type <type>+] [/tag <tag>+]
+```
+Lists all tasks, optionally filtered by type and/or tag.
+
+#### Example
+```
+list /type todo /tag exam CS2101
+```
+
+### Mark a task as done/undone
+```
+mark <index>
+```
+```
+unmark <index>
+```
+
 ### Delete a task
 ```
 delete/del <index>
@@ -81,6 +95,13 @@ tag <index> /tag <tag>+
 ```
 ntag <index> /tag <tag>+
 ```
+
+### Exit the program
+```
+bye
+```
+Ends the conversation.
+
 
 ## Datetime formats supported
 
