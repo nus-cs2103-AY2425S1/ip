@@ -5,6 +5,6 @@ package colress.exception;
  */
 public class FileCorruptedException extends Exception {
     public FileCorruptedException() {
-        super("The task file seems to be corrupted. Delete the file and try again.");
+        super("What is this?! The task file seems to be corrupted! Delete the file and try again.");
     }
 }

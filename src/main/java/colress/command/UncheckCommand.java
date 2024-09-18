@@ -13,7 +13,7 @@ import colress.Ui;
 public final class UncheckCommand extends Command {
     private int[] taskNumbers;
     public UncheckCommand() {
-        super("Right. I have marked this task on your list as not done:");
+        super("Splendid! I have marked this task on your list as not done:");
     }
 
     @Override

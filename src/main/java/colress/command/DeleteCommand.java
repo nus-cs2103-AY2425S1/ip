@@ -13,7 +13,7 @@ import colress.Ui;
 public final class DeleteCommand extends Command {
     private int[] taskNumbers;
     public DeleteCommand() {
-        super("Got it. I have removed the task from your list.");
+        super("Splendid! I have removed the task from your list.");
     }
 
     @Override

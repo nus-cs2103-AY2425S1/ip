@@ -36,8 +36,8 @@ public class MainWindow extends AnchorPane {
     public void setColress(Colress c) {
         colress = c;
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(colress.greetUser(), colressImage),
-                DialogBox.getDukeDialog(colress.loadTasks(), colressImage)
+                DialogBox.getColressDialog(colress.greetUser(), colressImage),
+                DialogBox.getColressDialog(colress.loadTasks(), colressImage)
         );
     }
 
@@ -51,7 +51,7 @@ public class MainWindow extends AnchorPane {
         String response = colress.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, colressImage)
+                DialogBox.getColressDialog(response, colressImage)
         );
         userInput.clear();
     }

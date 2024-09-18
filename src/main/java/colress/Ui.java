@@ -17,25 +17,27 @@ import colress.exception.UnknownTaskTypeException;
  * Represents the Ui of the Colress chatbot.
  */
 public final class Ui {
-    public static final String MESSAGE_GREETING = "Hello. My name is Colress.\n"
-            + "What brings you here?";
-    public static final String MESSAGE_LIST_EMPTY = "Your list is empty.";
+    public static final String MESSAGE_GREETING = "Oh, excuse me! My name is Colress.\n"
+            + "May I have a look at your tasks?";
+    public static final String MESSAGE_LIST_EMPTY = "It looks like your list is empty.";
     public static final String MESSAGE_NOT_A_VALID_DATE_TIME_ERROR =
-            "You did not seem to have entered a valid date/time. Try Again.";
+            "What is this?! You did not seem to have entered a valid date/time! Try Again.";
     public static final String MESSAGE_NOT_A_VALID_NUMBER_ERROR =
-            "You did not seem to have entered a valid number. Try Again.";
-    public static final String PROMPT_DATE = "Enter the date (in the form yyyy-mm-dd).";
-    public static final String PROMPT_DEADLINE = "Enter the deadline (in the form yyyy-mm-dd).";
-    public static final String PROMPT_DEADLINE_DESCRIPTION = "Enter the description of the deadline.";
-    public static final String PROMPT_EVENT_DATE = "Enter the date of the event (in the form yyyy-mm-dd).";
-    public static final String PROMPT_EVENT_DESCRIPTION = "Enter the description of the event.";
-    public static final String PROMPT_EVENT_END_TIME = "Enter the ending time of the event (in the form hh:mm).";
-    public static final String PROMPT_EVENT_START_TIME = "Enter the starting time of the event (in the form hh:mm).";
-    public static final String PROMPT_KEYWORD = "Enter the keyword to find in the list.";
-    public static final String PROMPT_TASK_DESCRIPTION = "Enter the description of the task.";
-    public static final String PROMPT_TASK_NUMBER = "Enter the task number."
-            + "You can enter multiple numbers with spaces between them";
-    public static final String PROMPT_TASK_TYPE = "Enter the type of task you wish to add to your list.";
+            "What is this?! You did not seem to have entered a valid number! Try Again.";
+    public static final String PROMPT_DATE = "Come! Enter the date (in the form yyyy-mm-dd).";
+    public static final String PROMPT_DEADLINE = "Come! Enter the deadline (in the form yyyy-mm-dd).";
+    public static final String PROMPT_DEADLINE_DESCRIPTION = "Come! Enter the description of the deadline.";
+    public static final String PROMPT_EVENT_DATE = "Come! Enter the date of the event (in the form yyyy-mm-dd).";
+    public static final String PROMPT_EVENT_DESCRIPTION = "Come! Enter the description of the event.";
+    public static final String PROMPT_EVENT_END_TIME =
+            "Come! Enter the ending time of the event (in the form hh:mm).";
+    public static final String PROMPT_EVENT_START_TIME =
+            "Come! Enter the starting time of the event (in the form hh:mm).";
+    public static final String PROMPT_KEYWORD = "Come! Enter the keyword to find in the list.";
+    public static final String PROMPT_TASK_DESCRIPTION = "Come! Enter the description of the task.";
+    public static final String PROMPT_TASK_NUMBER = "Come! Enter the task number."
+            + "You can enter multiple numbers with a space between them";
+    public static final String PROMPT_TASK_TYPE = "Come! Enter the type of task you wish to add to your list.";
     private final Parser parser;
     private Status status;
     private Command currCommand;
