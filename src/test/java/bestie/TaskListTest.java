@@ -2,6 +2,7 @@ package bestie;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import bestie.task.Priority;
 import org.junit.jupiter.api.Test;
 
 import bestie.task.Task;
@@ -10,7 +11,7 @@ import bestie.task.Todo;
 public class TaskListTest {
     @Test
     void addTask_normalInput_checkIfAddedCorrectly() {
-        Task task = new Todo("read book");
+        Task task = new Todo("read book", Priority.HIGH);
         TaskList tasks = new TaskList();
         tasks.addTask(task);
         assertEquals(1, tasks.size());
@@ -19,10 +20,12 @@ public class TaskListTest {
 
     @Test
     void deleteTask_normalInput_checkIfTaskDeleted() {
-        Task task = new Todo("read book");
+        Task task = new Todo("read book", Priority.MEDIUM);
         TaskList tasks = new TaskList();
         tasks.addTask(task);
         tasks.deleteTask(0);
         assertEquals(0, tasks.size());
     }
+
+
 }

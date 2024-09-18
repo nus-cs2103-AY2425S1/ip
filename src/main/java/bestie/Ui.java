@@ -148,6 +148,13 @@ public class Ui {
         return output;
     }
 
+    /**
+     * Prints list of task that has priority user has specified.
+     *
+     * @param tasks List of all of user's tasks.
+     * @param priority Priority of the tasks user wants to obtain a list of.
+     * @return String displayin
+     */
     public String showTasksOfPriority(ArrayList<Task> tasks, Priority priority) {
         if (tasks.isEmpty()) {
             return "There are no tasks in your list with priority " + priority.toString().toLowerCase() + ". :)";
@@ -162,6 +169,12 @@ public class Ui {
         }
     }
 
+    /**
+     * Returns string showing error message to be displayed by chatbot to user.
+     *
+     * @param errorMessage Error message that will be displayed to the user.
+     * @return String representing the error message.
+     */
     public String showErrorMessage(String errorMessage) {
         return errorMessage;
     }
