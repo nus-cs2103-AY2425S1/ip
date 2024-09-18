@@ -84,7 +84,7 @@ public class Parser {
         boolean isDone = taskString.charAt(8) == 'X'; // The status is represented by the second character
         String info = taskString; // The description starts after the brackets
 
-        int descStartIndex = info.indexOf("[ ]") + 4;
+        int descStartIndex = (info.contains("[ ]") ? info.indexOf("[ ]") : info.indexOf("[X]")) + 4;
 
         if (taskString.contains("[D]")) {
             String deadlineDesc = info.substring(descStartIndex, info.toLowerCase().indexOf(" (by:"));
