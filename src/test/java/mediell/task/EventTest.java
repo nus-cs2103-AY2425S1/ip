@@ -10,7 +10,7 @@ public class EventTest {
     @Test
     public void init_success(){
         Event event = new Event("task", LocalDate.parse("2023-01-01"), LocalDate.parse("2024-01-02"));
-        assertEquals("[E][ ] task(from: 2023-01-01 to: 2024-01-02)", event.toString());
+        assertEquals("[E][ ] task (from: 2023-01-01 to: 2024-01-02)", event.toString());
     }
 
     @Test

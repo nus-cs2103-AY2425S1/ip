@@ -10,7 +10,7 @@ public class ToDoTest {
     @Test
     public void init_success(){
         ToDo todo = new ToDo("task");
-        assertEquals("[T][ ] task", todo.toString());
+        assertEquals("[T][ ] task ", todo.toString());
     }
 
     @Test
