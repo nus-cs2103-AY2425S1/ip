@@ -1,7 +1,6 @@
 package dudu.command;
 
 import java.io.IOException;
-import java.util.Stack;
 
 import dudu.task.Deadline;
 import dudu.task.Event;
@@ -46,11 +45,11 @@ public class CommandDelete extends Command {
         assert deletedTask != null : "No task is deleted as index is out of range";
         if (!isUndoCommand) {
             if (deletedTask instanceof ToDo) {
-                Parser.pushToUndoStack(new CommandTodo(deletedTask, true));
+                Parser.pushToUndoStack(new AddCommand(deletedTask, true));
             } else if (deletedTask instanceof Deadline) {
-                Parser.pushToUndoStack(new CommandDeadline(deletedTask, true));
+                Parser.pushToUndoStack(new AddCommand(deletedTask, true));
             } else if (deletedTask instanceof Event) {
-                Parser.pushToUndoStack(new CommandEvent(deletedTask, true));
+                Parser.pushToUndoStack(new AddCommand(deletedTask, true));
             }
         }
         storage.rewriteFile(taskList);

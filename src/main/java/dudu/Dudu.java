@@ -18,7 +18,7 @@ import dudu.utils.UI;
  */
 public class Dudu {
     private TaskList tasks;
-    private UI ui;
+    private UI ui = new UI();
     private Storage storage;
 
     /**
@@ -27,7 +27,6 @@ public class Dudu {
      * @param filePath The file path of the file containing existing tasks
      */
     public Dudu(String filePath) {
-        ui = new UI();
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
