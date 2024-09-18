@@ -28,14 +28,21 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image levelHundredImage = new Image(this.getClass().getResourceAsStream("/images/DaLevelHundred.png"));
 
+    /**
+     * Initialises the Main Window of the GUI
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
     }
 
     /** Injects the LevelHundred instance */
     public void setLevelHundred(LevelHundred l) {
         this.levelHundred = l;
+        dialogContainer.getChildren().add(
+                DialogBox.getLevelHundredDialog(this.levelHundred.getGreeting(), levelHundredImage)
+        );
     }
 
     /**

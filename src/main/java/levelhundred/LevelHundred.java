@@ -65,6 +65,14 @@ public class LevelHundred {
     }
 
     /**
+     * Generates the greet message for the chatbot
+     * @return String representing the greeting message
+     */
+    public String getGreeting() {
+        return "Hello, I'm " + this.name + "\n" + "What can I do for you?";
+    }
+
+    /**
      * Generates a response for the user's chat message.
      */
     public String getResponse(String userInput) {
