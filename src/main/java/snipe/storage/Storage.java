@@ -28,6 +28,8 @@ public class Storage {
      * @param filePath The path to the file where the task list is stored.
      */
     public Storage(String filePath) {
+        // Assert that the provided file path is not null
+        assert filePath != null : "File path must not be null";
         this.filePath = Paths.get(filePath);
     }
 
@@ -54,15 +56,21 @@ public class Storage {
      * @throws IOException    If an input or output error occurs while reading the file.
      */
     public ArrayList<Task> readTaskList() throws SnipeException, IOException {
+        // Assert that the file path exists before reading the file
+        assert Files.exists(filePath) : "The file path should exist before reading tasks";
+
         if (Files.exists(filePath)) {
             ArrayList<Task> taskList = new ArrayList<Task>();
             try (BufferedReader reader = Files.newBufferedReader(filePath)) {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     Task task = parseTaskFromString(line);
-                    if (task != null) {
-                        taskList.add(task);
-                    }
+
+                    // Assert that the task read from the file is valid
+                    assert task != null : "Task read from file should not be null";
+
+
+                    taskList.add(task);
                 }
             }
             return taskList;
@@ -94,9 +102,10 @@ public class Storage {
                 task = new Event(taskDescription, split[3], split[4]);
                 break;
             }
-            if (task == null) {
-                throw new SnipeException("snipe.task.Task type must be T, D or E");
-            }
+
+            // Assert that the task is valid (not null)
+            assert task != null : "Parsed task must not be null";
+
             if (split[1].equals("1")) {
                 task.changeStatus();
             }
@@ -116,8 +125,15 @@ public class Storage {
     public void saveTaskList(TaskList tasks) throws IOException {
         initialise();
         ArrayList<Task> taskList = tasks.getTasks();
+
+        // Assert that the task list is not null
+        assert taskList != null : "Task list to be saved must not be null";
+
         try (BufferedWriter writer = Files.newBufferedWriter(filePath)){
             for (Task task : taskList) {
+                // Assert that each task in the task list is not null
+                assert task != null : "Task in task list must not be null";
+
                 String item = task.parseToFileFormat();
                 writer.write(item);
                 writer.newLine();
