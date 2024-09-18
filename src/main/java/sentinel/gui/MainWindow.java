@@ -1,5 +1,7 @@
 package sentinel.gui;
 
+import java.util.Objects;
+
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
@@ -26,8 +28,10 @@ public class MainWindow extends AnchorPane {
     private Sentinel sentinel;
     private Stage stage;
 
-    private final Image sentinelImage = new Image(this.getClass().getResourceAsStream("/images/Sentinel.jpeg"));
-    private final Image sadSentinelImage = new Image(this.getClass().getResourceAsStream("/images/SadSentinel.jpg"));
+    private final Image sentinelImage = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/images/Sentinel.jpeg")));
+    private final Image sadSentinelImage = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/images/sadSentinel.jpeg")));
 
     /**
      * Initializes the UI components and sets up the initial state of the application.
