@@ -193,6 +193,4 @@ public class Ui {
                 + sb + "\n"
                 + getHorizontalLine();
     }
-
-    // Removed the readCommand() method as input is now handled via the GUI.
 }
