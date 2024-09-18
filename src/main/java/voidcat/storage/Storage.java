@@ -2,7 +2,6 @@ package voidcat.storage;
 
 import voidcat.task.*;
 import voidcat.exception.VoidCatException;
-import voidcat.ui.Ui;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -41,21 +40,17 @@ public class Storage {
     public ArrayList<Task> load() throws IOException, VoidCatException, SecurityException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
-        if (file.exists()) {
-            try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-                String line;
-                while ((line = br.readLine()) != null) {
-                    Task task = parseTask(line);
-                    if (task != null) {
-                        tasks.add(task);
-                    }
-                }
-                if (tasks.isEmpty()) {
-                    throw new VoidCatException("No saved tasks found yet! voidcat.task.Task list is empty.\n\tStart adding tasks and track them!");
+        if (!file.exists()) {
+            ensureFileAndDirectoryExist(file);
+        }
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                Task task = parseTask(line);
+                if (task != null) {
+                    tasks.add(task);
                 }
             }
-        } else {
-            ensureFileAndDirectoryExist(file);
         }
         return tasks;
     }
@@ -84,12 +79,16 @@ public class Storage {
     private void ensureFileAndDirectoryExist(File file) throws VoidCatException, SecurityException, IOException {
         File directory = new File(file.getParent());
         if (!directory.exists()) {
-            if (!directory.mkdirs()) {
+            boolean isDirectoryMade = directory.mkdirs();
+            assert isDirectoryMade : "Error in creating directory!";
+            if (!isDirectoryMade) {
                 throw new VoidCatException("Error in creating directory!");
             }
         }
         if (!file.exists()) {
-            if (!file.createNewFile()) {
+            boolean isFileMade = file.createNewFile();
+            assert isFileMade : "Error in creating file!";
+            if (!isFileMade) {
                 throw new VoidCatException("Error in creating file!");
             }
         }
@@ -103,15 +102,11 @@ public class Storage {
      */
     private Task parseTask(String line) {
         String[] parts = line.split(" \\| ");
-        switch (parts[0]) {
-        case "T":
-            return new ToDo(parts[2], Integer.parseInt(parts[1]));
-        case "D":
-            return new Deadline(parts[2], parts[3], Integer.parseInt(parts[1]));
-        case "E":
-            return new Event(parts[2], parts[3], parts[4], Integer.parseInt(parts[1]));
-        default:
-            return null;
-        }
+        return switch (parts[0]) {
+            case "T" -> new ToDo(parts[2], Integer.parseInt(parts[1]));
+            case "D" -> new Deadline(parts[2], parts[3], Integer.parseInt(parts[1]));
+            case "E" -> new Event(parts[2], parts[3], parts[4], Integer.parseInt(parts[1]));
+            default -> null;
+        };
     }
 }

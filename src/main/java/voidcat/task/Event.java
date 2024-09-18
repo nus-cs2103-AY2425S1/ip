@@ -1,7 +1,5 @@
 package voidcat.task;
 
-import voidcat.task.Task;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -13,19 +11,6 @@ public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
     protected static final DateTimeFormatter FORMATTER_DATETIME = DateTimeFormatter.ofPattern("uuuu-MM-dd HHmm");
-
-    /**
-     * Constructs a new Event task with the specified description, start, and end time.
-     *
-     * @param description The description of the event.
-     * @param from The start date and time of the event in the format "uuuu-MM-dd HHmm".
-     * @param to The end date and time of the event in the format "uuuu-MM-dd HHmm".
-     */
-    public Event(String description, String from, String to) {
-        super(description);
-        this.from = LocalDateTime.parse(from, FORMATTER_DATETIME);
-        this.to = LocalDateTime.parse(to, FORMATTER_DATETIME);
-    }
 
     /**
      * Constructs a new Event task with the specified description, start and end time,

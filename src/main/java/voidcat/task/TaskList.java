@@ -23,10 +23,6 @@ public class TaskList {
         this.tasks = tasks;
     }
 
-    public TaskList() {
-        this.tasks = new ArrayList<>();
-    }
-
     /**
      * Adds a task to the task list.
      *
@@ -71,13 +67,12 @@ public class TaskList {
      * @throws VoidCatException If no tasks are found in task list.
      */
     public String listTasks() throws VoidCatException {
-        if (tasks.isEmpty()) {
-            throw new VoidCatException("No tasks found in list yet!");
+        if (this.tasks.isEmpty()) {
+            throw new VoidCatException("No saved tasks found yet! Task list is empty.\n\tStart adding tasks and track them!");
         }
-
-        String responseList = "Here are the tasks in your list:\n";
-        for (int i = 0; i < tasks.size(); i++) {
-            responseList += "\t" + (i + 1) + ". " + tasks.get(i) + "\n";
+        String responseList = "Here are the tasks from your list:\n";
+        for (int i = 0; i < this.tasks.size(); i++) {
+            responseList += "\t" + (i + 1) + ". " + this.tasks.get(i) + "\n";
         }
         return responseList;
     }
@@ -123,10 +118,7 @@ public class TaskList {
         if (matchingTasks.isEmpty()) {
             throw new VoidCatException("Aww..no matching tasks found for keyword: " + keyword);
         }
-        String responseList = "Here are the matching tasks in your list:\n";
-        for (int i = 0; i < matchingTasks.size(); i++) {
-            responseList += "\t" + (i + 1) + ". " + matchingTasks.get(i) + "\n";
-        }
-        return responseList;
+        TaskList matchTaskList = new TaskList(matchingTasks);
+        return matchTaskList.listTasks();
     }
 }

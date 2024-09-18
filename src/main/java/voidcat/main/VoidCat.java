@@ -19,21 +19,19 @@ public class VoidCat {
     private Ui ui;
 
     private String[] greetings = {
-//                "Hello! I'm your friendly void cat, \n",
-//                "Purr... Hello, wanderer. I am \n",
-//                "Mew! Welcome human! I'm \n",
-            "Greetings from the abyss, friend, for I am\n"
-//                ,
-//                "Meow! Happy to help, they call me \n"
+                "Hello! I'm your friendly void cat, \n",
+                "Purr... Hello, wanderer. I am \n",
+                "Mew! Welcome human! I'm \n",
+                "Greetings from the abyss, friend, for I am\n",
+                "Meow! Happy to help, they call me \n"
     };
 
     private String[] assistGreetings = {
-//                "How can this void assist you today?",
-            "At your service, human."
-//                ,
-//                "What help does human need today?",
-//                "Need any help?",
-//                "What can I do for you?"
+            "How can this void assist you today?",
+            "At your service, human.",
+            "What help does human need today?",
+            "Need any help?",
+            "What can I do for you?"
     };
 
     // Example of exits
@@ -56,23 +54,22 @@ public class VoidCat {
     public VoidCat(String filePath) {
         this.storage = new Storage(filePath);
         this.ui = new Ui();
-        try {
-            tasks = new TaskList(storage.load());
-        } catch (IOException | VoidCatException e) {
-            Ui.showMessage("Error loading tasks: " + e.getMessage());
-            tasks = new TaskList();
-        } catch (SecurityException s) {
-            Ui.showMessage("Security error in creating file or directory: " + s.getMessage());
-        }
     }
 
-
+    /**
+     * Handles user input and gets the response.
+     * Asserts tasks are initialized before processing.
+     *
+     * @param input The user's input command.
+     * @return Response to user input.
+     */
     public String getResponse(String input) {
-        // Process input through Parser and generate responses
         try {
+            this.tasks = new TaskList(storage.load());
             if (input.equalsIgnoreCase("bye")) {
                 return Ui.goodbye(exits);
             }
+            assert tasks != null : "TaskList is not initialized!";
             return new Parser().parseAndExecute(input, tasks, ui, storage);
 
         } catch (VoidCatException e) {
