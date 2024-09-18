@@ -37,7 +37,7 @@ public class Main extends Application {
         userInput = new TextField();
         sendButton = new Button("Send");
 
-        DialogBox dialogBox = new DialogBox("Hello!", userImage);
+        DialogBox dialogBox = DialogBox.getPhenexDialog("Welcome to Phenex!", phenexImage);
         dialogContainer.getChildren().addAll(dialogBox);
 
         //Scroll down to the end every time dialogContainer's height changes.
@@ -95,10 +95,10 @@ public class Main extends Application {
      */
     private void handleUserInput() {
         String userText = userInput.getText();
-        String dukeText = phenex.getResponse(userInput.getText());
+        String phenexText = phenex.getResponse(userInput.getText());
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, userImage),
-                DialogBox.getDukeDialog(dukeText, phenexImage)
+                DialogBox.getPhenexDialog(phenexText, phenexImage)
         );
         userInput.clear();
     }

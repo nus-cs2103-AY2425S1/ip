@@ -60,13 +60,16 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        DialogBox userDialog = new DialogBox(text, img);
+        userDialog.dialog.setStyle("-fx-font-size: 12px; -fx-text-fill: blue; -fx-font-family: 'Times New Roman';");
+        return userDialog;
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
-        db.flipImage();
-        db.flip();
-        return db;
+    public static DialogBox getPhenexDialog(String text, Image img) {
+        DialogBox phenexDialog = new DialogBox(text, img);
+        phenexDialog.flipImage();
+        phenexDialog.flip();
+        phenexDialog.dialog.setStyle("-fx-font-size: 12px; -fx-text-fill: gold; -fx-font-family: 'Times New Roman';");
+        return phenexDialog;
     }
 }
