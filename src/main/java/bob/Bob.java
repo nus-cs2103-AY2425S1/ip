@@ -298,7 +298,7 @@ public class Bob {
      */
     private static String commandSort(String sortOption) throws BobException {
         TaskList sortedTasks = getSortedTaskList(sortOption.toLowerCase());
-        return ui.showMessage("Here is your list of tasks sorted by ", sortOption, " :\n", sortedTasks.printTasks());
+        return ui.showMessage("Here is your list of tasks sorted by ", sortOption, ":\n", sortedTasks.printTasks());
     }
 
     /**
