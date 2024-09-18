@@ -71,7 +71,7 @@ public class Ui {
      * @param task The task that was added.
      * @param size The updated number of tasks.
      */
-    public String printTaskAddedMessage(Task task, int size) {
+    public String showTaskAddedMessage(Task task, int size) {
         assert task != null : "Task should not be null";
         return String.format("Gotcha, I have added:\n" + task.toString() +
                 "\n" +"You have a total of " + size + " tasks in the list.\n");

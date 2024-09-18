@@ -1,5 +1,6 @@
 package weeny.parser;
 
+import java.security.spec.ECField;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -72,7 +73,11 @@ public class Parser {
      */
     public String extractDeadlineTime(String sentence) {
         int index = sentence.indexOf("/by") + 4;
-        return sentence.substring(index).trim();
+        try {
+            return sentence.substring(index).trim();
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Missing date/time details, it should be dd/MM/yyyy HHmm");
+        }
     }
 
     /**
@@ -85,10 +90,14 @@ public class Parser {
         int fromIndex = sentence.indexOf("/from") + 6;
         int toIndex = sentence.indexOf("/to");
         int toIndexPlus4 = toIndex + 4;
-        return new String[]{
-                sentence.substring(fromIndex, toIndex - 1).trim(),
-                sentence.substring(toIndexPlus4).trim()
-        };
+        try {
+            return new String[]{
+                    sentence.substring(fromIndex, toIndex - 1).trim(),
+                    sentence.substring(toIndexPlus4).trim()
+            };
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Missing date/time details, it should be dd/MM/yyyy HHmm");
+        }
     }
 
     /**

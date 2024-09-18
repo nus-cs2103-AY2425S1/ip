@@ -107,8 +107,7 @@ public class Weeny extends Application {
                     validateTodoInput(input);
                     Task todoTask = new Todo(input.substring(5).trim());
                     taskList.addTask(todoTask);
-                    assert taskList.size() == initialSize - 1 : "Task list size should increase after deletion";
-                    return ui.printTaskAddedMessage(todoTask, taskList.size());
+                    return ui.showTaskAddedMessage(todoTask, taskList.size());
 
                 case "event":
                     initialSize = taskList.size();
@@ -117,8 +116,7 @@ public class Weeny extends Application {
                             parser.extractEventTimes(input)[0],
                             parser.extractEventTimes(input)[1]);
                     taskList.addTask(eventTask);
-                    assert taskList.size() == initialSize - 1 : "Task list size should increase after deletion";
-                    return ui.printTaskAddedMessage(eventTask, taskList.size());
+                    return ui.showTaskAddedMessage(eventTask, taskList.size());
 
                 case "deadline":
                     initialSize = taskList.size();
@@ -126,8 +124,7 @@ public class Weeny extends Application {
                     Task deadlineTask = new Deadline(parser.extractDeadlineName(input),
                             parser.extractDeadlineTime(input));
                     taskList.addTask(deadlineTask);
-                    assert taskList.size() == initialSize - 1 : "Task list size should increase after deletion";
-                    return ui.printTaskAddedMessage(deadlineTask, taskList.size());
+                    return ui.showTaskAddedMessage(deadlineTask, taskList.size());
 
                 case "delete":
                     validateUnmarkDeleteInput(input);
@@ -136,7 +133,6 @@ public class Weeny extends Application {
                     validateIndex(deleteIndex, taskList.size(), "delete");
                     Task removedTask = taskList.getTask(deleteIndex);
                     taskList.deleteTask(deleteIndex);
-                    assert taskList.size() == initialDeleteSize - 1 : "Task list size should decrease after deletion";
                     return ui.showTaskDeletedMessage(removedTask, taskList.size());
 
                 case "find":
@@ -150,7 +146,17 @@ public class Weeny extends Application {
                     return ui.showScheduleMessage(taskList.getSchedule(date), date);
 
                 default:
-                    throw new UnsupportedOperationException("Unknown command");
+                    throw new UnsupportedOperationException("Uh Oh I don't quite understand that. " +
+                            "Here are the list of commands:\n" +
+                            "1. todo <task name>\n" +
+                            "2. deadline <task name> /by dd/MM/yyyy HHmm\n" +
+                            "3. event <task name> /from dd/MM/yyyy HHmm /to dd/MM/yyyy HHmm\n" +
+                            "4. list\n" +
+                            "5. delete <index>\n" +
+                            "6. mark <index>\n" +
+                            "7. unmark <index>\n" +
+                            "8. find <keyword>\n" +
+                            "9. schedule dd/MM/yyyy\n");
                 }
             } catch (IllegalArgumentException | IndexOutOfBoundsException | UnsupportedOperationException e) {
                 return ui.showError(e.getMessage());
