@@ -104,6 +104,21 @@ Unmarked task: [T][ ] Buy groceries
 
 ---
 
+### 7. Delete a Task
+
+Delete a task
+
+**Usage**:  
+`unmark [task number]`
+
+**Example**:  
+`delete 1`
+
+**Expected Outcome**:
+Deleted task: [T][ ] Buy groceries
+
+---
+
 ### 8. Finding Tasks by Keyword
 
 Search for tasks that contain a specific keyword.
