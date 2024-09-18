@@ -8,12 +8,10 @@ import java.io.IOException;
 public class MeowMeow {
     private Storage saver;
     private TaskList tasks;
-    private Ui ui;
     private Parser parser;
 
     public MeowMeow(String filePath) {
         this.saver = new Storage(filePath);
-        this.ui = new Ui();
     }
 
     /**
@@ -25,22 +23,10 @@ public class MeowMeow {
     public void run() throws IOException {
         this.saver.getData();
         this.tasks = saver.getTaskList();
-        //Ui.start();
-        this.parser = new Parser(this.tasks, this.saver, this.ui);
-        //this.parser.parse();
+        this.parser = new Parser(this.tasks, this.saver);
     }
 
     public Parser getParser() {
         return this.parser;
     }
-
-    /**
-     * Creates a new instance of MeowMeow with the specified save file path.
-     * Runs the MeowMeow application.
-     *
-     * @throws IOException If an I/O error occurs when finding the save file.
-     */
-    //public static void main(String[] args) throws IOException {
-//        new MeowMeow("./data/meowmeow.txt").run();
-//    }
 }

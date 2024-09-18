@@ -1,2 +1,3 @@
-i used chatgpt a bit for guidance 
-in tasks 3,4,6
+i used chatgpt for some guidance
+and to speed up simple but tedious tasks
+but ensured to carefully review whatever it suggested

@@ -44,33 +44,44 @@ public class Storage {
             assert parts.length >= 3 : "Line should have at least 3 parts after splitting";
 
             switch (parts[0]) {
-                //Help I changed the setting to make the indents go away for case but it's not working.
-                case "T":
-                    ToDo todo = new ToDo(parts[2]);
-                    if (parts[1].equals("1")) {
-                        todo.markDone();
-                    }
-                    tasks.add(todo);
-                    break;
-                case "D":
-                    Deadline deadline = new Deadline(parts[2], parts[3]);
-                    if (parts[1].equals("1")) {
-                        deadline.markDone();
-                    }
-                    tasks.add(deadline);
-                    break;
-                case "E":
-                    Event event = new Event(parts[2], parts[3], parts[4]);
-                    if (parts[1].equals("1")) {
-                        event.markDone();
-                    }
-                    tasks.add(event);
-                    break;
-                default:
-                    assert false : "Unknown task type in save file: " + parts[0];
+            case "T":
+                this.loadTodo(parts[2], parts[1]);
+                break;
+            case "D":
+                this.loadDeadline(parts[2], parts[3], parts[1]);
+                break;
+            case "E":
+                this.loadEvent(parts[2], parts[3], parts[4], parts[1]);
+                break;
+            default:
+                assert false : "Unknown task type in save file: " + parts[0];
             }
         }
         scanner.close();
+    }
+
+    public void loadTodo(String description, String doneStatus) {
+        ToDo todo = new ToDo(description);
+        if (doneStatus.equals("1")) {
+            todo.markDone();
+        }
+        tasks.add(todo);
+    }
+
+    public void loadDeadline(String description, String by, String doneStatus) {
+        Deadline deadline = new Deadline(description, by);
+        if (doneStatus.equals("1")) {
+            deadline.markDone();
+        }
+        tasks.add(deadline);
+    }
+
+    public void loadEvent(String description, String from, String to, String doneStatus) {
+        Event event = new Event(description, from, to);
+        if (doneStatus.equals("1")) {
+            event.markDone();
+        }
+        tasks.add(event);
     }
 
     /**
