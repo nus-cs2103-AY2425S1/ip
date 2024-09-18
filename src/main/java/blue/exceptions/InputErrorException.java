@@ -12,6 +12,7 @@ public class InputErrorException extends Exception {
     public InputErrorException() {
         super("Erm...What the sigma are you on about?");
     }
+    // The above constructor is a default constructor that calls the other constructor with a default message.
 
     /**
      * Constructs an {@code InputErrorException} with the specified detail message.
