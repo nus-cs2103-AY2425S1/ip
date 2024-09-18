@@ -39,9 +39,10 @@ public class Command {
         return this.ui.displayList(taskList);
     }
 
-    private boolean isValidNumber(String str, int len, int size) {
+    private boolean checkIfValid(String str, int len, int size) {
         try {
             return str.length() > len
+                    && str.charAt(len - 1) == ' '
                     && Integer.parseInt(str.substring(len)) <= size
                     && Integer.parseInt(str.substring(len)) >= 1;
         } catch (NumberFormatException e) {
@@ -60,11 +61,17 @@ public class Command {
      */
     public String handleMark(String input, TaskList taskList)
             throws InvalidEditException, IOException {
-        if (!isValidNumber(input, 5, taskList.size())) {
+        int n;
+        if (input.startsWith("m ")) {
+            n = 2;
+        } else {
+            n = 5;
+        }
+        if (!checkIfValid(input, n, taskList.size())) {
             throw new InvalidEditException("mark");
         }
         this.commandType = "ChangeMarkCommand";
-        Task task = taskList.get(Integer.parseInt(input.substring(5)) - 1);
+        Task task = taskList.get(Integer.parseInt(input.substring(n)) - 1);
         task.markAsDone();
         storage.save(taskList);
         return this.ui.mark(task);
@@ -81,11 +88,17 @@ public class Command {
      */
     public String handleUnmark(String input, TaskList taskList)
             throws InvalidEditException, IOException {
-        if (!isValidNumber(input, 7, taskList.size())) {
+        int n;
+        if (input.startsWith("um ")) {
+            n = 3;
+        } else {
+            n = 7;
+        }
+        if (!checkIfValid(input, n, taskList.size())) {
             throw new InvalidEditException("unmark");
         }
         this.commandType = "ChangeMarkCommand";
-        Task task = taskList.get(Integer.parseInt(input.substring(7)) - 1);
+        Task task = taskList.get(Integer.parseInt(input.substring(n)) - 1);
         task.markAsUndone();
         storage.save(taskList);
         return this.ui.unmark(task);
@@ -102,13 +115,19 @@ public class Command {
      */
     public String handleDelete(String input, TaskList taskList)
             throws InvalidEditException, IOException {
-        if (!isValidNumber(input, 7, taskList.size())) {
+        int n;
+        if (input.startsWith("del ")) {
+            n = 4;
+        } else {
+            n = 7;
+        }
+        if (!checkIfValid(input, n, taskList.size())) {
             throw new InvalidEditException("delete");
         }
         this.commandType = "DeleteCommand";
         int origSize = taskList.size();
         assert origSize > 0;
-        Task task = taskList.delete(Integer.parseInt(input.substring(7)) - 1);
+        Task task = taskList.delete(Integer.parseInt(input.substring(n)) - 1);
         assert taskList.size() == origSize - 1;
         storage.save(taskList);
         return this.ui.delete(task, taskList.size());
@@ -123,11 +142,17 @@ public class Command {
      * @throws InvalidEditException if command does not indicate a valid task.
      */
     public String handleGetDay(String input, TaskList taskList) throws InvalidEditException {
-        if (!isValidNumber(input, 8, taskList.size())) {
+        int n;
+        if (input.startsWith("gd ")) {
+            n = 3;
+        } else {
+            n = 8;
+        }
+        if (!checkIfValid(input, n, taskList.size())) {
             throw new InvalidEditException("get the day of");
         }
         this.commandType = "RetrieveCommand";
-        Task task = taskList.get(Integer.parseInt(input.substring(8)) - 1);
+        Task task = taskList.get(Integer.parseInt(input.substring(n)) - 1);
         return this.ui.getDay(task);
     }
 
@@ -140,12 +165,18 @@ public class Command {
      * @throws InvalidEditException if command does not include any keywords.
      */
     public String handleFind(String input, TaskList taskList) throws InvalidEditException {
-        if (input.length() < 6) {
+        int n;
+        if (input.startsWith("f ")) {
+            n = 3;
+        } else {
+            n = 6;
+        }
+        if (input.length() < n) {
             throw new InvalidEditException("find");
         }
         this.commandType = "RetrieveCommand";
         return this.ui.returnMatches(taskList
-                .find(input.substring(5)));
+                .find(input.substring(n - 1)));
     }
 
     /**
@@ -159,11 +190,17 @@ public class Command {
      */
     public String handleToDo(String input, TaskList taskList)
             throws IOException, InvalidScheduleException {
-        if (input.length() < 6) {
+        int n;
+        if (input.startsWith("t ")) {
+            n = 3;
+        } else {
+            n = 6;
+        }
+        if (input.length() < n) {
             throw new InvalidScheduleException();
         }
         this.commandType = "AddCommand";
-        Task curr = new ToDo(input.substring(5));
+        Task curr = new ToDo(input.substring(n - 1));
         taskList.add(curr);
         storage.save(taskList);
         return this.ui.addTask(curr, taskList.size());
@@ -180,11 +217,17 @@ public class Command {
      */
     public String handleDeadline(String input, TaskList taskList)
             throws IOException, InvalidScheduleException {
-        if (input.length() < 10) {
+        int n;
+        if (input.startsWith("d ")) {
+            n = 3;
+        } else {
+            n = 10;
+        }
+        if (input.length() < n) {
             throw new InvalidScheduleException();
         }
         this.commandType = "AddCommand";
-        Task curr = new Deadline(Parser.getDeadline(input));
+        Task curr = new Deadline(Parser.getDeadline(input, n - 1));
         taskList.add(curr);
         storage.save(taskList);
         return this.ui.addTask(curr, taskList.size());
@@ -201,11 +244,17 @@ public class Command {
      */
     public String handleEvent(String input, TaskList taskList)
             throws IOException, InvalidScheduleException {
-        if (input.length() < 7) {
+        int n;
+        if (input.startsWith("e ")) {
+            n = 3;
+        } else {
+            n = 7;
+        }
+        if (input.length() < n) {
             throw new InvalidScheduleException();
         }
         this.commandType = "AddCommand";
-        Task curr = new Event(Parser.getEvent(input));
+        Task curr = new Event(Parser.getEvent(input, n - 1));
         taskList.add(curr);
         storage.save(taskList);
         return this.ui.addTask(curr, taskList.size());
