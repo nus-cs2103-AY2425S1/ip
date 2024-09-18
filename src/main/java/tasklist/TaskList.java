@@ -2,6 +2,8 @@ package tasklist;
 
 import java.util.ArrayList;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+import java.time.format.DateTimeFormatter;
 import task.*;
 import ui.Ui;
 
@@ -75,21 +77,40 @@ public class TaskList {
         ArrayList<Task> reminderTasks = new ArrayList<>();
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime threeDaysLater = now.plusDays(3);
+        DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy h:mma");
 
         for (Task task : botMemory) {
-            if (task instanceof Deadline) {
+            if (task instanceof Deadline && !task.taskIsDone) {
                 Deadline deadlineTask = (Deadline) task;
-                if (deadlineTask.deadlineDateTime != null && deadlineTask.deadlineDateTime.isBefore(threeDaysLater) && deadlineTask.deadlineDateTime.isAfter(now)) {
+                if (deadlineTask.deadlineDateTime == null) {
+                    try {
+                        LocalDateTime parsedDeadline = LocalDateTime.parse(deadlineTask.deadlineString, inputFormat);
+                        if (parsedDeadline.isBefore(threeDaysLater) && !parsedDeadline.isBefore(now)) {
+                            reminderTasks.add(deadlineTask);
+                        }
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Invalid deadline format for task: " + deadlineTask + " " + deadlineTask.deadlineString);
+                    }
+                } else if (deadlineTask.deadlineDateTime.isBefore(threeDaysLater) && !deadlineTask.deadlineDateTime.isBefore(now)) {
                     reminderTasks.add(deadlineTask);
                 }
-            } else if (task instanceof Event) {
+            } else if (task instanceof Event && !task.taskIsDone) {
                 Event eventTask = (Event) task;
-                if (eventTask.startDateTime != null && eventTask.startDateTime.isBefore(threeDaysLater) && eventTask.startDateTime.isAfter(now)) {
+                if (eventTask.startDateTime == null || eventTask.endDateTime == null) {
+                    try {
+                        LocalDateTime parsedStartTime = LocalDateTime.parse(eventTask.startTime, inputFormat);
+
+                        if (parsedStartTime.isBefore(threeDaysLater) && !parsedStartTime.isBefore(now)) {
+                            reminderTasks.add(eventTask);
+                        }
+                    } catch (DateTimeParseException e) {
+                        System.out.println("Invalid event format for task: " + eventTask + " " + eventTask.startTime);
+                    }
+                } else if (eventTask.startDateTime.isBefore(threeDaysLater) && !eventTask.startDateTime.isBefore(now)) {
                     reminderTasks.add(eventTask);
                 }
             }
         }
-
         if (reminderTasks.isEmpty()) {
             remindersResponse.append("You have no tasks with deadlines or events within the next 3 days.");
         } else {
@@ -107,10 +128,16 @@ public class TaskList {
      * @param taskNumber
      */
 
-    public String toggleTaskDone(int taskNumber) {
+    public String toggleTaskDone(String userInput, int taskNumber) {
         assert taskNumber >= 0 && taskNumber < botMemory.size() : "Invalid task number";
         StringBuilder response = new StringBuilder();
-        response.append(botMemory.get(taskNumber).toggleTaskDone()).append("\n");
+        if (userInput.equals("mark") && !botMemory.get(taskNumber).taskIsDone) {
+            response.append(botMemory.get(taskNumber).toggleTaskDone()).append("\n");
+        } else if (userInput.equals("unmark") && botMemory.get(taskNumber).taskIsDone) {
+            response.append(botMemory.get(taskNumber).toggleTaskDone()).append("\n");
+        } else {
+            response.append("Task has already been " + userInput + "ed.");
+        }
         return response.toString();
     }
 

@@ -51,7 +51,7 @@ public class Parser {
                 if (taskToMark > taskList.getBotMemory().size() - 1 || taskToMark < 0) {
                     throw new MollyException("Please select a valid task number.");
                 } else {
-                    mollyResponse.append(taskList.toggleTaskDone(taskToMark)).append("\n");
+                    mollyResponse.append(taskList.toggleTaskDone(markParts[0], taskToMark)).append("\n");
                     storage.saveTasks(taskList);
                 }
             } catch (NumberFormatException e) {
@@ -96,13 +96,13 @@ public class Parser {
      * */
     private String handleFind(String userInput) throws MollyException {
         StringBuilder mollyResponse = new StringBuilder();
-        String[] queryParts = userInput.split(" ");
-        if (queryParts.length == 2) {
-            String searchTerm = queryParts[1];
-            mollyResponse.append(taskList.findTerm(searchTerm)).append("\n");
+        if (!userInput.trim().equals("find")) {
+            String userQuery = userInput.substring(5);
+            mollyResponse.append(taskList.findTerm(userQuery)).append("\n");
         } else {
             throw new MollyException("Invalid find command. Please use 'find (search term)'.");
         }
+
         return mollyResponse.toString().trim();
     }
 

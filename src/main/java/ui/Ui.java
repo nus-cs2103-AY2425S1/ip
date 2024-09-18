@@ -7,7 +7,9 @@ public class Ui {
             "event (description) /from (start time or date) /to (end time or date) - creates an event",
             "list - shows you all your tasks",
             "mark (task number) / unmark (task number) - marks or unmarks your tasks as done",
-            "delete (task number) - removes a task"
+            "delete (task number) - removes a task",
+            "find (search query) - finds tasks with matching descriptions",
+            "reminders - shows you upcoming tasks in the next 3 days"
     };
 
 
