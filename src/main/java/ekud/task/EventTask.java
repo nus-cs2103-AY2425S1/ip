@@ -3,6 +3,7 @@ package ekud.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.Locale;
 
 import ekud.exceptions.EkudException;
@@ -18,11 +19,13 @@ public class EventTask extends Task implements IHasDeadline {
 
     /** The {@link LocalDateTime} format when parsing input date Strings */
     private static final DateTimeFormatter READ_DATE_FORMAT =
-            DateTimeFormatter.ofPattern("d/M/yyyy HHmm", Locale.ENGLISH);
+            DateTimeFormatter.ofPattern("d/M/uuuu HHmm", Locale.ENGLISH)
+                    .withResolverStyle(ResolverStyle.STRICT);
 
     /** The {@link LocalDateTime} format when outputting date Strings */
     private static final DateTimeFormatter PRINT_DATE_FORMAT =
-            DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm a", Locale.ENGLISH);
+            DateTimeFormatter.ofPattern("MMM dd uuuu, hh:mm a", Locale.ENGLISH)
+                    .withResolverStyle(ResolverStyle.STRICT);
 
     private static final String EMPTY_DESCRIPTION_MESSAGE =
         "Did you forget your EVENT?\nBecause you tried to make an event of nothing!";
