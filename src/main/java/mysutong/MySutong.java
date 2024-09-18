@@ -40,10 +40,11 @@ public class MySutong {
      */
     public void run() {
         ui.showWelcome();
+        Parser parser = new Parser();
         while (true) {
             try {
                 String fullCommand = ui.readCommand();
-                new Parser().executeCommand(fullCommand, tasks, ui, storage);
+                parser.executeCommand(fullCommand, tasks, ui, storage);
             } catch (Exception e) {
                 ui.showError("An unexpected error occurred during command execution: " + e.getMessage());
             }
