@@ -32,7 +32,12 @@ public class TagCommand extends Command {
             ChatterboxExceptions.ChatterBoxMissingParameter {
         String result;
         String tagText = parser.tagCommandParseTagName(input);
-        int tagIndex = parser.tagCommandParseTaskIndex(input) - 1;
+
+        int tagIndex = parser.tagCommandParseTaskIndex(input);
+        if (tagIndex < 1 || tagIndex > taskList.size()) {
+            return guiResponses.invalidIndexMessage();
+        }
+        tagIndex = tagIndex - 1;
         Tag tag;
         if (tagList.containsTag(tagText)) {
             tag = tagList.getTag(tagText);

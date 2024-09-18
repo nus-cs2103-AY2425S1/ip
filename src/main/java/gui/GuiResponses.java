@@ -218,8 +218,17 @@ public class GuiResponses {
      * @return String representation of invalid command response
      */
     public String getInvalidCommandMessage() {
-        return "It seems I didn’t quite grasp that command. Sometimes, our communication can be elusive."
-                + " Please try again.";
+        return "It seems I didn't quite grasp that command. Communication can be a delicate thing, can’t it?"
+                +" Perhaps, you could try again.";
+    }
+
+    /**
+     * Gets String representation of invalid index
+     * @return String representation of invalid index
+     */
+    public String invalidIndexMessage() {
+        return "It seems the index you have entered is invalid. "
+                + "Sometimes, the path to clarity is not as straightforward as we would like, don't you think?";
     }
 
 }

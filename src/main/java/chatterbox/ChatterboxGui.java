@@ -50,7 +50,7 @@ public class ChatterboxGui {
     }
 
     /**
-     * Initiates Chatterbox with no prior history
+     * Initiates ChatterboxGui with no prior history
      */
     public ChatterboxGui() {
         this.guiResponses = new GuiResponses();
@@ -73,7 +73,7 @@ public class ChatterboxGui {
 
 
     /**
-     * checks if the Chatterbox instance has any tasks
+     * checks if the ChatterboxGui instance has any tasks
      * @return true if there are tasks else false
      */
     public boolean hasTasks() {
@@ -94,7 +94,8 @@ public class ChatterboxGui {
         try {
             result = currCommand.execute(input, guiResponses, userTags, tasks, parser);
         } catch (ChatterboxExceptions.ChatterBoxError e) {
-            result = ("Sorry there was an error: " + e.getMessage());
+            result = ("It seems an error has occurred " + e.getMessage())
+            + "Even in moments like these, there is something to be learned";
         }
         storage.saveHistory(tasks.getTasks());
         return result;

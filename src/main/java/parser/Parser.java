@@ -247,6 +247,9 @@ public class Parser {
         if (toStart < 0) {
             throw new ChatterboxExceptions.ChatterBoxMissingParameter("Event End Date");
         }
+        if (toStart < fromStart) {
+            throw new ChatterboxExceptions.ChatterBoxMissingParameter("Wrong argument order");
+        }
         StringBuilder plainDesc = new StringBuilder();
         StringBuilder startDate = new StringBuilder();
         StringBuilder endDate = new StringBuilder();
@@ -349,13 +352,19 @@ public class Parser {
     public int parseRemoveTagIndex(String desc) throws ChatterboxExceptions.ChatterBoxMissingParameter {
         int start = desc.indexOf("/i");
         int end = desc.indexOf("/t");
+        if (start > end) {
+            throw new ChatterboxExceptions.ChatterBoxMissingParameter("Wrong argument order");
+        }
+
         if (start < 0 || end < 0) {
             throw new ChatterboxExceptions.ChatterBoxMissingParameter("Tag input missing");
         }
+
         String sub = desc.substring(start + 2, end).trim();
         if (sub.isEmpty() || !sub.matches("\\d+")) {
             throw new ChatterboxExceptions.ChatterBoxMissingParameter("missing tag index");
         }
+
         return Integer.parseInt(sub);
     }
 
