@@ -2,7 +2,7 @@
 
 ![img.png](img.png)
 
-Welcome to **Hyperion** your all-in-one solution for task management.\
+Welcome to **Hyperion** your all-in-one solution for task management.
 
 ## Feature List
 - Add ToDos
