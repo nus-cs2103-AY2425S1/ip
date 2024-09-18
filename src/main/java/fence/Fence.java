@@ -19,6 +19,7 @@ public class Fence {
     private TaskList tasks;
     private Ui ui;
     private Parser parser;
+    private boolean hasData;
 
     /**
      * Constructs an instance of Fence with the task list loaded in from the storage.
@@ -30,18 +31,85 @@ public class Fence {
         parser = new Parser();
         try {
             tasks = new TaskList(storage.read(parser));
+            hasData = true;
         } catch (NoSuchElementException e) {
-            ui.printLoadingError();
             tasks = new TaskList(new ArrayList<>());
+            hasData = false;
         }
     }
 
     /**
-     * Returns the default message upon launch.
-     * @return Default greeting.
+     * Returns the default greeting.
+     * If data was not correctly loaded, a notification will be returned as well.
+     * @return Default message upon launch.
      */
     public String getGreeting() {
-        return ui.greet();
+        return ui.greet() + (hasData ? "" : "\n" + ui.printLoadingError());
+    }
+
+    /**
+     * Returns the default response for adding a task. Handles the actual addition of the task in the tasklist and
+     * storage.
+     * @return Default response for adding a task.
+     */
+    public String getTaskResponse() {
+        Task task = parser.getTask();
+        tasks.add(task);
+        storage.saveAppend(task);
+        String addMessage = ui.add(task);
+        String countMessage = ui.count(tasks);
+        return addMessage + "\n" + countMessage;
+    }
+
+    /**
+     * Returns the default response for marking a task. Handles the actual marking of the task in the tasklist and
+     * storage.
+     * @return Default response for marking a task.
+     */
+    public String getMarkResponse() {
+        int index = parser.getIndex();
+        Task task = tasks.getTask(index - 1);
+        tasks.mark(index);
+        storage.saveRewrite(tasks);
+        return ui.mark(task);
+    }
+
+    /**
+     * Returns the default response for unmarking a task. Handles the actual unmarking of the task in the tasklist and
+     * storage.
+     * @return Default response for unmarking a task.
+     */
+    public String getUnmarkResponse() {
+        int index = parser.getIndex();
+        Task task = tasks.getTask(index - 1);
+        tasks.unmark(index);
+        storage.saveRewrite(tasks);
+        return ui.unmark(task);
+    }
+
+    /**
+     * Returns the default response for deleting a task. Handles the actual deletion of the task in the tasklist and
+     * storage.
+     * @return Default response for deleting a task.
+     */
+    public String getDeleteResponse() {
+        int index = parser.getIndex();
+        Task task = tasks.getTask(index - 1);
+        tasks.delete(index);
+        storage.saveRewrite(tasks);
+        String deleteMessage = ui.delete(task);
+        String countMessage = ui.count(tasks);
+        return deleteMessage + "\n" + countMessage;
+    }
+
+    /**
+     * Returns the default response for searching for tasks.
+     * @return Default response for searching for tasks.
+     */
+    public String getFindResponse() {
+        String keyword = parser.getString();
+        TaskList matchingTasks = tasks.find(keyword);
+        return ui.list(matchingTasks);
     }
 
     /**
@@ -57,29 +125,15 @@ public class Fence {
             } else if (commandType.equals("list")) {
                 return ui.list(tasks);
             } else if (commandType.equals("task")) {
-                Task task = parser.getTask();
-                tasks.add(task);
-                storage.saveAppend(task);
-                return ui.add(task) + "\n" + ui.count(tasks.getSize());
+                return getTaskResponse();
             } else if (commandType.equals("mark")) {
-                int index = parser.getIndex();
-                tasks.mark(index);
-                storage.saveRewrite(tasks);
-                return ui.mark(tasks.getTask(index - 1));
+                return getMarkResponse();
             } else if (commandType.equals("unmark")) {
-                int index = parser.getIndex();
-                tasks.unmark(index);
-                storage.saveRewrite(tasks);
-                return ui.unmark(tasks.getTask(index - 1));
+                return getUnmarkResponse();
             } else if (commandType.equals("delete")) {
-                int index = parser.getIndex();
-                Task task = tasks.getTask(index - 1);
-                tasks.delete(index);
-                storage.saveRewrite(tasks);
-                return ui.delete(task) + "\n" + ui.count(tasks.getSize());
+                return getDeleteResponse();
             } else if (commandType.equals("find")) {
-                String keyword = parser.getString();
-                return ui.list(tasks.find(keyword));
+                return getFindResponse();
             } else {
                 return ui.printUnknownCommand();
             }
