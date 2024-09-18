@@ -1,13 +1,17 @@
 package choaticbot.inputs;
 
-import choaticbot.exceptions.ChoaticBotException;
-import choaticbot.exceptions.NoInputException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import choaticbot.exceptions.ChoaticBotException;
+import choaticbot.exceptions.NoInputException;
+
 
 public class InputProcessorTest {
-    public InputProcessor testInputProcessor = new InputProcessor();
+    private InputProcessor testInputProcessor = new InputProcessor();
 
     @Test
     public void processInput_todoInput_correctInput() throws NoInputException {

@@ -1,12 +1,11 @@
 package choaticbot.tasks;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Test;
 public class ToDosTest {
 
-    ToDos testObject = new ToDos("todoTest1");
+    private ToDos testObject = new ToDos("todoTest1");
     @Test
     public void testGetType() {
         assertEquals("T", testObject.getType());

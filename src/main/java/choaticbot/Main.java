@@ -1,32 +1,43 @@
 package choaticbot;
 
+import java.io.IOException;
+
+import choaticbot.storage.Storage;
+import choaticbot.ui.MainWindow;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * The entry point for the ChoaticBot application using JavaFX.
- * This class extends the {@link Application} class and provides
- * the starting point for the JavaFX application.
+ * A GUI for ChoaticBot using FXML.
  */
 public class Main extends Application {
 
+    private ChoaticBot choaticBot = new ChoaticBot();
+
     /**
-     * The main entry point for JavaFX applications.
-     * This method is called when the application is launched.
-     * It sets up the primary stage with a simple "Hello World!" label.
+     * The main entry point for the JavaFX application. Initializes the GUI and sets up the primary stage.
+     * <p>
+     * This method loads the FXML layout for the main window, sets the scene, and injects the {@code ChoaticBot}
+     * instance into the controller. It also shows the main window.
      *
-     * @param stage The primary stage for this application, onto which
-     *              the application scene is set.
+     * @param stage The primary stage for this application, onto which the application scene will be set.
      */
     @Override
     public void start(Stage stage) {
-        Label helloWorld = new Label("Hello World!"); // Creating a new Label control
-        Scene scene = new Scene(helloWorld); // Setting the scene to be our Label
+        Storage.loadTasksFromFile(choaticBot.getTasklist());
 
-        stage.setScene(scene); // Setting the stage to show our scene
-        stage.show(); // Render the stage.
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            stage.setScene(scene);
+            fxmlLoader.<MainWindow>getController().setChoaticBot(choaticBot);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
-

@@ -1,10 +1,10 @@
 package choaticbot.tasks;
 
-import choaticbot.exceptions.WrongInputFormatException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import choaticbot.exceptions.WrongInputFormatException;
 
 /**
  * The {@code Deadlines} class represents a task with a specific deadline.
@@ -34,7 +34,7 @@ public class Deadlines extends Task {
      * @param name The name of the task.
      * @param deadlineString The deadline string in the format {@code yyyy-MM-dd HH:mm}.
      */
-    public Deadlines(String name, String deadlineString) throws WrongInputFormatException{
+    public Deadlines(String name, String deadlineString) throws WrongInputFormatException {
         super(name);
         try {
             this.deadline = LocalDateTime.parse(deadlineString, INPUT_FORMAT);

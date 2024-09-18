@@ -48,11 +48,13 @@ public class ProcessedInput {
     }
 
     /**
-     * A helper method used for testing purposes to compare two {@code ProcessedInput} objects.
-     * It checks whether both the action and details match.
+     * Compares this {@code ProcessedInput} object with another to determine if both the action
+     * and details are the same.
+     * <p>
+     * This helper method is primarily used for testing purposes.
      *
-     * @param t The {@code ProcessedInput} object to compare with.
-     * @return {@code true} if the action and details are the same; {@code false} otherwise.
+     * @param t The {@code ProcessedInput} object to compare against.
+     * @return {@code true} if both the action and details match; {@code false} otherwise.
      */
     public boolean isLike(ProcessedInput t) {
         return Objects.equals(this.action, t.getAction()) && Objects.equals(this.getDetails(), t.getDetails());

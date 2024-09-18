@@ -45,32 +45,38 @@ public class CreateTask extends Action {
      * - If the task is a "todo", it creates a {@link ToDos}.
      * - If the task is a "deadline", it creates a {@link Deadlines} with the deadline details.
      * - If the task is an "event", it creates an {@link Events} with the event's start and end times.
+     *
+     * @return an {@link ActionResult} containing the result of adding the task to the task list
+     * @throws ChoaticBotException if the task type is unknown or the input format is incorrect
      */
     @Override
-    public void execute() throws ChoaticBotException {
+    public ActionResult execute() throws ChoaticBotException {
         Task task = switch (this.taskType) {
-            case "todo" -> new ToDos(this.details);
-            case "deadline" -> {
-                //[0] = taskName, [1] = deadline
-                String[] deadlineDetails = this.details.split("/by ");
-                if (deadlineDetails.length != 2) {
-                    throw new WrongInputFormatException("Expected format example: Read a book /by 2024-01-31 18:00");
-                }
-                yield new Deadlines(deadlineDetails[0], deadlineDetails[1]);
+        case "todo" -> new ToDos(this.details);
+        case "deadline" -> {
+            //[0] = taskName, [1] = deadline
+            String[] deadlineDetails = this.details.split("/by ");
+            if (deadlineDetails.length != 2) {
+                throw new WrongInputFormatException("Expected format example: Read a book /by 2024-01-31 18:00");
             }
-            case "event" -> {
-                //[0] = taskName, [1] = from, [2] = to
-                String[] eventDetails = this.details.split("/");
-                if (eventDetails.length != 3) {
-                    throw new WrongInputFormatException("Expected format example: Buy a kite event /from Monday /to Saturday");
-                }
-                yield new Events(eventDetails[0], eventDetails[1], eventDetails[2]);
+            yield new Deadlines(deadlineDetails[0], deadlineDetails[1]);
+        }
+        case "event" -> {
+            //[0] = taskName, [1] = from, [2] = to
+            String[] eventDetails = this.details.split("/");
+            if (eventDetails.length != 3) {
+                throw new WrongInputFormatException("Expected format example: Buy a kite event "
+                        + "/from Monday /to Saturday");
             }
-            default -> null;
+            yield new Events(eventDetails[0], eventDetails[1], eventDetails[2]);
+        }
+        default -> null;
         };
 
         if (task != null) {
-            this.taskList.addTask(task);
+            return this.taskList.addTask(task);
+        } else {
+            throw new ChoaticBotException("Unknown Task");
         }
     }
 }

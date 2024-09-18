@@ -25,10 +25,14 @@ public abstract class Action {
     }
 
     /**
-     * Executes the specific action. Each subclass must provide an
-     * implementation of this method.
+     * Executes a specific action defined by the subclass. Each subclass must provide
+     * its own implementation of this method.
+     *
+     * @return the result of the action's execution, represented by an {@link ActionResult}.
+     *         The result may contain data or status information about the action.
+     * @throws ChoaticBotException if an error occurs during the execution of the action.
      */
-    public abstract void execute() throws ChoaticBotException;
+    public abstract ActionResult execute() throws ChoaticBotException;
 
     /**
      * Indicates whether this action signifies the end of the program. By

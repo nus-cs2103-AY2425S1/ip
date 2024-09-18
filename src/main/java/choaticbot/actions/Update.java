@@ -26,13 +26,15 @@ public class Update extends Action {
      * Executes the update action. Splits the details into the task index and the new task details,
      * and updates the corresponding task in the task list.
      *
-     * @throws ChoaticBotException If an error occurs while updating the task (e.g., invalid index or malformed input).
+     * @return an {@link ActionResult} containing the result of updating the task
+     * @throws ChoaticBotException if an error occurs while updating the task (e.g., invalid index or malformed input)
      */
     @Override
-    public void execute() throws ChoaticBotException {
+    public ActionResult execute() throws ChoaticBotException {
         String[] parts = this.details.split(" ", 2);
         int index = Integer.parseInt(parts[0]);
         String updateDetails = parts[1];
-        this.taskList.updateTask(index, updateDetails);
+        return this.taskList.updateTask(index, updateDetails);
     }
+
 }

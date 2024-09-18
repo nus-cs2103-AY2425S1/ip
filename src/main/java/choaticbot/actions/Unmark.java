@@ -29,10 +29,14 @@ public class Unmark extends Action {
     /**
      * Executes the unmark action. It parses the task index from the {@code details}
      * field and unmarks the task at that index as incomplete in the task list.
+     *
+     * @return an {@link ActionResult} containing the result of marking the task as uncompleted
+     * @throws ChoaticBotException if the task index is invalid or an error occurs during unmarking
      */
     @Override
-    public void execute() throws ChoaticBotException {
+    public ActionResult execute() throws ChoaticBotException {
         int index = Integer.parseInt(this.details);
-        this.taskList.unmarkTask(index);
+        return this.taskList.unmarkTask(index);
     }
+
 }
