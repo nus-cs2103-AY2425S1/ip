@@ -32,7 +32,7 @@
       - Example output :
        ```
        Now you have 1 tasks in list
-       1. [E][ ] CS2103T ip (from 2024-08-16 to: 2024-09-26)
+       1. [E][ ] CS2103T ip (from: 2024-08-16 to: 2024-09-26)
        ```
 2. `View` all tasks
    - Format : list
@@ -43,14 +43,17 @@
    ```
 3. `Mark/Unmark` a task: 
    - Format : mark/unmark `task index`
+   - Index should be positive and not exceed the list
+   - Mark/Unmark a marked/not marked task is not allowed
    - Example : mark 1
-   - Example output 
+   - Example output: 
    ```
    Nice Job, Job 1 has been marked as done!
    [T][X]  CS2103T weekly work
    ```
 4. `Delete` a task : 
    - Format : delete `task index`
+   - Index should be positive and not exceed the list
    - Example : delete 1
    - Example output:
    ``` 
@@ -59,8 +62,9 @@
    Now you have 0 tasks in the list
    ```
 5. `Exit` the bot:
+   - 
    - Format : bye
-   - Example 
+   - Example output:
    ``` 
    Bye! Hope to see you again soon.
    ```
@@ -84,6 +88,7 @@
     2. [E][ ] project meeting  (from: 2020-10-08 to: 2020-10-26)
    ```
 3. `Sort` all tasks based on due time, the most urgent task in front:
+   - Sort is done based on by time of Deadline and to time of Event
    - Format : sort
    - Example output :
    ```
