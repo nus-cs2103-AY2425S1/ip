@@ -91,7 +91,7 @@ public class Main extends Application {
         AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
-        // Initializing other components
+        // Initialize other components
         ui = new Ui(dialogContainer);
         storage = new Storage("data/tasks.txt");
         parser = new Parser();
