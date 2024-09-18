@@ -14,7 +14,7 @@ import jackbean.task.Todo;
  */
 public class Parser {
     // GitHub copilot helped mostly with the response to help message
-    private static final String helpMessage = "Yo homie! Here are the commands you can use:\n"
+    private static final String HELP_MESSAGE = "Yo homie! Here are the commands you can use:\n"
             + "1. list - to list all tasks\n"
             + "2. todo <description> - to add a todo task\n"
             + "3. deadline <description> /by <date> - to add a deadline task\n"
@@ -41,7 +41,7 @@ public class Parser {
     public static String parseUserInput(String input, TaskList taskList)
             throws NotEnoughArgumentsException, TooManyArgumentsException, InvalidTaskTypeException {
         if (input.equalsIgnoreCase("help")) {
-            return helpMessage;
+            return HELP_MESSAGE;
         } else if (input.equalsIgnoreCase("list")) {
             return handleListCommand(taskList);
         } else if (input.toLowerCase().startsWith("mark")) {
