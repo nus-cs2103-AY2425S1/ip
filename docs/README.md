@@ -10,6 +10,7 @@ Getting the inspiration from our talented fairy, **_Tecna_** chatbot promises to
 - There is already some tasks stored inside the application
 
 <h2 style="color: #9370db">Features</h2>
+> 
 > ### Things to note
 > 1. There are 3 types of task:
 > - **todo** Task: The task without any deadline.
