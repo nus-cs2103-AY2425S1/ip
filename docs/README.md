@@ -1,30 +1,75 @@
-# Duke User Guide
+# Blitz User Guide
 
-// Update the title above to match the actual product name
 
-// Product screenshot goes here
+![docs/Ui.png]
 
-// Product intro goes here
+Blitz is a interactive chatbot to help plan tasks. Save important deadlines, dates all using your keyboard!! 
+
+## General Instructions
+1. All tasks must have descriptions 
+2. All dates must follow a dd/MM/yyyy format 
+3. Add tags at the end, after date and time
+4. Commands such as `list` do not take parameters 
+
+## Adding todo
+Add a todo task using the command below
+```
+todo math homework
+```
 
 ## Adding deadlines
+Add a deadline task using the command below 
+```
+deadline assignment 1 submission /by 12/4/2024 0800
+```
+**Note:** Time is optional
 
-// Describe the action and its outcome.
+## Adding events 
+Add a event task using the command below
+```
+event wedding /from 10/10/2024 1700 /to 10/10/2024 1900
+```
+**Note:** Time is optional
 
-// Give examples of usage
+### TAGS!!
+Add tags to tasks to filter by tags
+```
+deadline assignment 1 submission /by 12/4/2024 0800 -t urgent difficult
+```
+Filter by tags using `find -t`
 
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
+### Filter tasks 
+Tasks can be filtered by:
+1. Description
+2. Tags
 
 ```
-expected output
+find -t urgent
+find assignment
 ```
+Without flag (e.g. `-t`) find defaults to filtering by description
 
-## Feature ABC
+### Mark Tasks as done / undone
+```dtd
+list
+mark 1
+unmark 3
+```
+`list` is usually called  beforehand so user can see the indexes of the tasks and mark/unmark the appropriate task 
 
-// Feature details
 
+Output **before** marking: `1. [T][ ] science hw tags: no tags`
 
-## Feature XYZ
+Output **after** marking: `1. [T][X] science hw tags: no tags`
 
-// Feature details
+### Delete tasks
+```dtd
+list
+delete 1
+```
+`list` is usually called  beforehand so user can see the indexes of the tasks and delete the appropriate task
+
+### Exit
+The `bye` command prints a farewell message but the program will still be running. Please exit, stop running the app to close it. 
+
+Don't worry about saving, it is done automatically for you!! :blush:
