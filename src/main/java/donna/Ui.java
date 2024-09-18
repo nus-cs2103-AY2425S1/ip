@@ -37,8 +37,9 @@ public class Ui {
     public String getGreeting() {
         StringBuilder greeting = new StringBuilder();
         if (wasDataLoaded) {
-            greeting.append("Hello! I'm Donna, I know everything :)\n");
-            greeting.append("We have had a chat before! Let's resume :)\n");
+            greeting.append("Well, look who's back!\n");
+            greeting.append("I'm Donna, and I know everything :)\n");
+            greeting.append("So let's get right back to it.\n");
         } else {
             greeting.append("Hello! I'm Donna\nWhat can I do for you?");
         }
@@ -51,7 +52,7 @@ public class Ui {
      * @return Exit message.
      */
     public String getGoodbyeMessage() {
-        return "Bye. Hope to see you again soon!\n";
+        return "Bye. Try not to miss me too much.\n";
     }
 
     /**
@@ -63,13 +64,15 @@ public class Ui {
      */
     public String getTaskAddedMessage(Task task, int taskCount) {
         StringBuilder message = new StringBuilder();
-        message.append("Got it. I've added this task: \n");
-        message.append("    ").append(task).append("\n");
+        message.append("Got it. Your task has been added. \n");
 
         if (taskCount == 1) {
+            message.append("You now have me keeping track of everything, so relax. \n");
+            message.append("    ").append(task).append("\n");
             message.append("This is the first task in the list. ");
         } else {
-            message.append("You now have ").append(taskCount).append(" tasks in the list. \n");
+            message.append("    ").append(task);
+            message.append("\nYou now have ").append(taskCount).append(" tasks in the list. \n");
         }
         return message.toString();
     }
@@ -86,12 +89,12 @@ public class Ui {
         assert taskCount >= 0 : "Task count can not be negative";
 
         StringBuilder message = new StringBuilder();
-        message.append("Alright. The following task has been deleted: \n");
+        message.append("Consider it done. Task deleted: \n");
         message.append("    ").append(task);
         if (taskCount != 1) {
-            message.append("You now have ").append(taskCount).append(" tasks in the list.\n");
+            message.append("\nYou've got ").append(taskCount).append(" tasks left on the list.\n");
         } else {
-            message.append("You now have 1 task left in the list.");
+            message.append("\nYou now have 1 task left in the list.");
         }
         return message.toString();
     }
@@ -107,9 +110,9 @@ public class Ui {
         assert task != null : "Task should not be null";
         StringBuilder message = new StringBuilder();
         if (isMarked) {
-            message.append("Nice! I've marked this task as done: \n");
+            message.append("Nice! I've marked this task as done. You're on fire. \n");
         } else {
-            message.append("OK, I have marked this task as not done yet: \n");
+            message.append("I've marked this task as not done yet. \nDon't worry, you've got this. \n");
         }
         message.append("    ").append(task).append("\n");
         return message.toString();
@@ -118,7 +121,8 @@ public class Ui {
     public String getTaskTaggedMessage(Task task, String tag) {
         assert task != null : "Task should not be null";
         StringBuilder message = new StringBuilder();
-        message.append("OK, I've tagged ").append(task);
+        message.append("All set. I've tagged ").append(task);
+        message.append("\nYou're staying organised. That's great! \n");
         return message.toString();
     }
 
@@ -132,8 +136,8 @@ public class Ui {
         assert tasks != null : "Task list should not be null";
         StringBuilder message = new StringBuilder();
         if (tasks.isEmpty()) {
-            message.append("No tasks added to the list yet.\n").append(
-                    "use todo / deadline / event to add tasks to the list!\n");
+            message.append("No tasks added yet!.\n").append(
+                    "add something with todo / deadline / event!\n");
         } else {
             message.append("There are ").append(tasks.size()).append(" task(s) in the list: \n");
             for (int i = 0; i < tasks.size(); i++) {
@@ -164,8 +168,10 @@ public class Ui {
         StringBuilder results = new StringBuilder();
         results.append(results);
         if (tasks.isEmpty()) {
-            results.append("No tasks found matching the search criteria :(\n");
+            results.append("No tasks found matching the search :(\n");
+            results.append("Maybe rephrase it? \n");
         } else {
+            results.append("You’re getting more efficient by the minute.\n");
             results.append("Here are the matching tasks in your list:\n");
             for (int i = 0; i < tasks.size(); i++) {
                 results.append((i + 1)).append(".").append(tasks.get(i)).append("\n");

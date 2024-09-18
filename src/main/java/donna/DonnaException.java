@@ -22,7 +22,8 @@ public class DonnaException extends Exception {
      * @return DonnaException with error message
      */
     public static DonnaException emptyDescription(String taskType) {
-        return new DonnaException("Please provide the description for a " + taskType + " task");
+        return new DonnaException("You forgot to give a description for this " + taskType + " task. \n"
+                + "Donna doesn't forget details.");
     }
 
     /**
@@ -31,8 +32,8 @@ public class DonnaException extends Exception {
      * @return DonnaException with error message
      */
     public static DonnaException emptyDeadline() {
-        return new DonnaException("Please provide a deadline for this task!" + "\n"
-                + "Use /by to provide a deadline.");
+        return new DonnaException("You need to provide a deadline.\n"
+                + "Let's do this right by using /by to provide a deadline.");
     }
 
     /**
@@ -41,8 +42,9 @@ public class DonnaException extends Exception {
      * @return DonnaException with error message
      */
     public static DonnaException emptyEventTime() {
-        return new DonnaException("Please provide the timings for this event!"
-                + "\n" + "Use /from and /to to provide timings.");
+        return new DonnaException("You're missing the timings for this event.\n"
+                + "I need all the details.\n"
+                + "Use /from and /to to provide timings.");
     }
 
     /**
@@ -52,11 +54,11 @@ public class DonnaException extends Exception {
      * @return DonnaException with error message
      */
     public static DonnaException invalidTaskType(String taskType) {
-        return new DonnaException("I'm sorry I don't understand that :(\n"
-                + "Please use a valid task type \n"
-                + "(todo / deadline / event)\n"
-                + "or you may type list , delete or mark / unmark\n"
-                + "to view, delete or mark tasks");
+        return new DonnaException("I don't know what you mean by that :(\n"
+                + "Let's stick to the words todo / deadline / event\n"
+                + "to add a task. Or you may type, list, tag, \n"
+                + "delete or mark / unmark followed by the task's\n"
+                + "task's number to view, tag, delete or mark tasks.");
     }
 
     /**
@@ -65,8 +67,7 @@ public class DonnaException extends Exception {
      * @return DonnaException with error message
      */
     public static DonnaException invalidTaskNumber() {
-        return new DonnaException("No task assigned to this number yet.\n"
-                + "Retry with a valid task number!");
+        return new DonnaException("There’s no task for that number. \nTry again, and I’ll fix it for you.");
     }
 
     /**
@@ -76,6 +77,6 @@ public class DonnaException extends Exception {
      */
     public static DonnaException invalidTag() {
         return new DonnaException("That's not how you tag a task!\n"
-                + "Retry and specify both, the task number and the tag using a hash symbol (#)");
+                + "Let's keep it easy- task number followed by a hash (#) please.");
     }
 }
