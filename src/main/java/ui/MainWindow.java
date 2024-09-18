@@ -72,7 +72,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = kukiShinobu.getResponse(input); //need a getExit also btw in case the person exits or something
+        String response = kukiShinobu.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getKukiShinobuDialog(response, kukiShinobuImage)

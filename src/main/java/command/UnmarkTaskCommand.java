@@ -1,5 +1,6 @@
 package command;
 
+import exception.KukiShinobuException;
 import storage.Storage;
 import task.TaskList;
 
@@ -16,9 +17,19 @@ public class UnmarkTaskCommand extends Command {
      *
      * @param arguments The index of the task to be marked as not done, passed as a string.
      *                  This string is parsed into an integer to identify the task.
+     * @throws KukiShinobuException if the arguments cannot be parsed into an integer.
      */
-    public UnmarkTaskCommand(String arguments) {
-        this.taskIndex = Integer.parseInt((arguments));
+    public UnmarkTaskCommand(String arguments) throws KukiShinobuException {
+        try {
+            this.taskIndex = Integer.parseInt(arguments.trim());
+        } catch (NumberFormatException e) {
+            throw new KukiShinobuException("The task index must be a number.");
+        }
+
+        // Optional: Validate that taskIndex is positive
+        if (this.taskIndex < 0) {
+            throw new KukiShinobuException("The task index cannot be negative.");
+        }
     }
 
     /**

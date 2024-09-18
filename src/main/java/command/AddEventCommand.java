@@ -9,8 +9,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
-
 
 /**
  * Represents a command to add an event task to the task list.
@@ -25,7 +23,8 @@ public class AddEventCommand extends Command {
      *
      * @param arguments The string containing the task description, start time, end time, and tags
      *                  (format: <name> /from YYYY-MM-DD /to YYYY-MM-DD #another_tag #other_tag).
-     * @throws KukiShinobuException if the arguments are missing the description, start time, end time, or tags.
+     * @throws KukiShinobuException if the arguments are missing the description, start time, end time, or tags,
+     *                               or if the date formats are incorrect.
      */
     public AddEventCommand(String arguments) throws KukiShinobuException {
         // Define regex pattern for task description, start and end times, and optional tags
@@ -35,13 +34,27 @@ public class AddEventCommand extends Command {
         Matcher matcher = pattern.matcher(arguments.trim());
 
         if (!matcher.matches()) {
-            throw new KukiShinobuException("Event is missing description, from, to, or tags.");
+            if (!arguments.contains("/from") || !arguments.contains("/to")) {
+                throw new KukiShinobuException("Event is missing description, from, or to.");
+            } else {
+                throw new KukiShinobuException("Event description or date format is incorrect.");
+            }
         }
 
         String taskDescription = matcher.group(1).trim();
         String start = matcher.group(2).trim();
         String end = matcher.group(3).trim();
         String tagsString = matcher.group(4);
+
+        // Check if task description is empty
+        if (taskDescription.isEmpty()) {
+            throw new KukiShinobuException("The description of the event cannot be empty!");
+        }
+
+        // Check if date formats are valid
+        if (!isValidDate(start) || !isValidDate(end)) {
+            throw new KukiShinobuException("The date format must be YYYY-MM-DD.");
+        }
 
         // Extract tags if present
         Set<String> tags = new HashSet<>();
@@ -58,6 +71,19 @@ public class AddEventCommand extends Command {
     }
 
     /**
+     * Checks if the given date string is in the valid YYYY-MM-DD format.
+     *
+     * @param date The date string to validate.
+     * @return True if the date string is in the valid format, otherwise false.
+     */
+    private boolean isValidDate(String date) {
+        // Regex for YYYY-MM-DD
+        Pattern datePattern = Pattern.compile("\\d{4}-\\d{2}-\\d{2}");
+        Matcher dateMatcher = datePattern.matcher(date);
+        return dateMatcher.matches();
+    }
+
+    /**
      * Executes the command by adding the event task to the task list.
      *
      * @param taskList The TaskList where the event task will be added.
@@ -67,5 +93,4 @@ public class AddEventCommand extends Command {
     public String execute(TaskList taskList, Storage storage) {
         return taskList.addTask(this.event);
     }
-
 }

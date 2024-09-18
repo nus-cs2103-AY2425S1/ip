@@ -8,19 +8,25 @@ import task.TaskList;
 import java.util.HashSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 /**
- * Represents a command to add a deadline task to the task list.
- * It parses the user input to extract the task description and due date.
+ * Represents a command to add a deadline task.
  */
 public class AddDeadlineCommand extends Command {
+
     private final Deadline deadline;
 
     /**
-     * Creates an AddDeadlineCommand with the specified arguments.
-     * Parses the arguments to extract the task description, due date, and tags.
+     * Constructs an {@code AddDeadlineCommand} with the specified arguments.
+     * <p>
+     * The arguments should include a description and a deadline in the format:
+     * "description /by yyyy-MM-dd". If the arguments are invalid, an exception is thrown.
+     * </p>
      *
-     * @param arguments The string containing the task description, due date (format: description /by dueDate), and optional tags (format: #tag).
-     * @throws KukiShinobuException if the arguments are missing the description or the /by flag and due date.
+     * @param arguments The arguments string containing the task description and deadline.
+     * @throws KukiShinobuException If the arguments are not correctly formatted.
      */
     public AddDeadlineCommand(String arguments) throws KukiShinobuException {
         // Regex pattern for tags
@@ -37,7 +43,7 @@ public class AddDeadlineCommand extends Command {
         String argumentsWithoutTags = tagPattern.matcher(arguments).replaceAll("");
 
         // Regex pattern for the /by argument
-        Pattern deadlinePattern = Pattern.compile("^(.*?)/by\\s+(\\d{4}-\\d{2}-\\d{2})$");
+        Pattern deadlinePattern = Pattern.compile("^(.*?)/by\\s+(.*)$");
         Matcher deadlineMatcher = deadlinePattern.matcher(argumentsWithoutTags.trim());
 
         // Check if the pattern matches
@@ -45,18 +51,30 @@ public class AddDeadlineCommand extends Command {
             if (!arguments.contains("/by")) {
                 throw new KukiShinobuException("You're missing the /by flag and argument!");
             } else {
-                throw new KukiShinobuException("Deadline is missing the description!");
+                throw new KukiShinobuException("Deadline is missing the description or is in an incorrect format!");
             }
         }
 
         // Extract task description and due date
         String taskDescription = deadlineMatcher.group(1).trim();
-        String dueDate = deadlineMatcher.group(2).trim();
+        String dueDateString = deadlineMatcher.group(2).trim();
+
+        // Check if the description is empty
+        if (taskDescription.isEmpty()) {
+            throw new KukiShinobuException("The description of the deadline cannot be empty!");
+        }
+
+        // Validate and parse the due date
+        LocalDate dueDate;
+        try {
+            dueDate = LocalDate.parse(dueDateString);
+        } catch (DateTimeParseException e) {
+            throw new KukiShinobuException("Deadline date is in an incorrect format! Please use yyyy-MM-dd.");
+        }
 
         // Create Deadline object with extracted tags
-        this.deadline = new Deadline(taskDescription, dueDate, tags);
+        this.deadline = new Deadline(taskDescription, dueDate.toString(), tags);
     }
-
 
     /**
      * Executes the command by adding the deadline task to the task list.
