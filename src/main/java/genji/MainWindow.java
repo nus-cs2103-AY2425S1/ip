@@ -1,5 +1,6 @@
 package genji;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,7 +8,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import genji.task.TaskList;
 
 /**
  * Controller for the main GUI.
@@ -61,5 +61,8 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getGenjiDialog(response, GenjiImage)
         );
         userInput.clear();
+        if (input.equals("bye")) {
+            Platform.exit();
+        }
     }
 }
