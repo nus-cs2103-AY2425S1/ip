@@ -26,6 +26,9 @@ public class MeowMeow {
         this.parser = new Parser(this.tasks, this.saver);
     }
 
+    /**
+     * Returns the parser of the current MeowMeow instance.
+     */
     public Parser getParser() {
         return this.parser;
     }

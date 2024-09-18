@@ -19,6 +19,12 @@ public class Storage {
 
     private TaskList tasks;
 
+
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param pathName The path where the tasks are saved and loaded from.
+     */
     public Storage(String pathName) {
         this.pathName = pathName;
         this.saveFilePath = Path.of(pathName);
@@ -62,6 +68,12 @@ public class Storage {
         scanner.close();
     }
 
+    /**
+     * Loads a To Do task from the save file.
+     *
+     * @param description The description of the task.
+     * @param doneStatus The status of whether the task is completed (1) or not (0).
+     */
     public void loadTodo(String description, String doneStatus) {
         ToDo todo = new ToDo(description);
         if (doneStatus.equals("1")) {
@@ -70,6 +82,13 @@ public class Storage {
         tasks.add(todo);
     }
 
+    /**
+     * Loads a Deadline task from the save file.
+     *
+     * @param description The description of the deadline.
+     * @param by The due date of the deadline.
+     * @param doneStatus The status of whether the task is completed (1) or not (0).
+     */
     public void loadDeadline(String description, String by, String doneStatus) {
         Deadline deadline = new Deadline(description, by);
         if (doneStatus.equals("1")) {
@@ -78,6 +97,14 @@ public class Storage {
         tasks.add(deadline);
     }
 
+    /**
+     * Loads an Event task from the save file.
+     *
+     * @param description The description of the event.
+     * @param from The start date of the event.
+     * @param to The end date of the event.
+     * @param doneStatus The status of whether the task is completed (1) or not (0).
+     */
     public void loadEvent(String description, String from, String to, String doneStatus) {
         Event event = new Event(description, from, to);
         if (doneStatus.equals("1")) {
@@ -86,6 +113,14 @@ public class Storage {
         tasks.add(event);
     }
 
+    /**
+     * Loads a DoWithin task from the save file.
+     *
+     * @param description The description of the task.
+     * @param periodStart The start date of the period within which the task must be done.
+     * @param periodEnd The end date of the period within which the task must be done.
+     * @param doneStatus The status of whether the task is completed (1) or not (0).
+     */
     public void loadDoWithin(String description, String periodStart, String periodEnd, String doneStatus) {
         DoWithin doWithin = new DoWithin(description, periodStart, periodEnd);
         if (doneStatus.equals("1")) {

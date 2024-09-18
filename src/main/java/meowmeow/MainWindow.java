@@ -30,6 +30,11 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/UserImage.png"));
     private Image meowMeowImage = new Image(this.getClass().getResourceAsStream("/images/MeowMeowImage.png"));
 
+    /**
+     * Initializes the controller. Binds the vertical scroll value of the scroll pane
+     * to the height property of the dialog container, ensuring that the scroll pane
+     * automatically scrolls to the bottom when new dialog elements are added.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

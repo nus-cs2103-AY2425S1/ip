@@ -24,7 +24,8 @@ public class Parser {
     }
 
     /**
-     * Processes the input command and performs the appropriate action.
+     * Processes the input command and performs the appropriate action by callind
+     * the appropriate method.
      *
      * @param initInput The user's input command.
      * @return The appropriate response based on the input.
@@ -67,10 +68,21 @@ public class Parser {
         return input.split(" ")[0];
     }
 
+    /**
+     * Handles the "list" command to display all tasks.
+     *
+     * @return A response containing the list of tasks.
+     */
     private String handleList() {
         return Ui.getTaskListMessage(tasks);
     }
 
+    /**
+     * Handles the "find" command to search for tasks containing a keyword.
+     *
+     * @param input The input containing the search keyword.
+     * @return A response with tasks that match the keyword.
+     */
     private String handleFind(String input) {
         String keyword = input.substring(5);
         TaskList matchingTasks = new TaskList();
@@ -82,6 +94,13 @@ public class Parser {
         return Ui.getFindTasksMessage(matchingTasks);
     }
 
+    /**
+     * Marks the specified task as done.
+     *
+     * @param input The user's input containing the task number to mark as done.
+     * @return A message confirming the task is marked as done.
+     * @throws IOException If an I/O error occurs during saving.
+     */
     private String handleMark(String input) throws IOException {
         int taskNumber = Integer.parseInt(input.substring(5)) - 1;
         if (taskNumber >= 0 && taskNumber < tasks.size()) {
@@ -93,6 +112,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Unmarks the specified task as not done.
+     *
+     * @param input The user's input containing the task number to unmark.
+     * @return A message confirming the task is unmarked.
+     * @throws IOException If an I/O error occurs during saving.
+     */
     private String handleUnmark(String input) throws IOException {
         int taskNumber = Integer.parseInt(input.substring(7)) - 1;
         if (taskNumber >= 0 && taskNumber < tasks.size()) {
@@ -104,6 +130,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Adds a new To Do task to the task list.
+     *
+     * @param input The user's input containing the description of the ToDo task.
+     * @return A message confirming the task is added.
+     * @throws IOException If an I/O error occurs during saving.
+     */
     private String handleTodo(String input) throws IOException {
         String description = input.substring(5);
         ToDo todo = new ToDo(description);
@@ -128,6 +161,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Adds a new Deadline task to the task list.
+     *
+     * @param input The user's input containing the description and due date of the deadline.
+     * @return A message confirming the task is added.
+     * @throws IOException If an I/O error occurs during saving.
+     */
     private String handleDeadline(String input) throws IOException {
         String[] parts = input.substring(9).split(" /by ");
         boolean isWrongPartLength = parts.length <= 1;
@@ -143,6 +183,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Adds a new Event task to the task list.
+     *
+     * @param input The user's input containing the description, start, and end dates of the event.
+     * @return A message confirming the task is added.
+     * @throws IOException If an I/O error occurs during saving.
+     */
     private String handleEvent(String input) throws IOException {
         String[] parts = input.substring(6).split(" /from | /to ");
         boolean isWrongPartsLength = parts.length <= 1;
@@ -159,6 +206,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Adds a new DoWithin task to the task list.
+     *
+     * @param input The user's input containing the description and time period of the task.
+     * @return A message confirming the task is added.
+     * @throws IOException If an I/O error occurs during saving.
+     */
     private String handleDoWithin(String input) throws IOException {
         String[] parts = input.substring(8).split(" /between | /and ");
         boolean isWrongPartsLength = parts.length <= 1;
@@ -175,6 +229,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Deletes a task from the task list.
+     *
+     * @param input The user's input containing the task number to delete.
+     * @return A message confirming the task is deleted.
+     * @throws IOException If an I/O error occurs during saving.
+     */
     private String handleDelete(String input) throws IOException {
         int taskNumber = Integer.parseInt(input.substring(7)) - 1;
         if (taskNumber >= 0 && taskNumber < tasks.size()) {

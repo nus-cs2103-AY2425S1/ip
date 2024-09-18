@@ -1,7 +1,7 @@
 package meowmeow;
 
 /**
- * Represents the UI that provides messages based on the application's state.
+ * Represents the UI that provides messages based on the user input.
  */
 public class Ui {
 

@@ -9,12 +9,17 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for MeowMeow using FXML.
  */
 public class Main extends Application {
 
     private MeowMeow meowmeow = new MeowMeow("./data/meowmeow.txt");
 
+    /**
+     * Starts the application by setting up the main window and scene.
+     *
+     * @param stage The primary stage for this application.
+     */
     @Override
     public void start(Stage stage) {
         try {
