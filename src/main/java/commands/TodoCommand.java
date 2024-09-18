@@ -52,9 +52,9 @@ public class TodoCommand extends Command {
         ArrayList<Task> list = tasks.getTasks();
         list.add(this.task);
         StringBuilder output = new StringBuilder();
-        output.append("Got it. I've added this task:\n");
+        output.append("New todo task! Grrr\n");
         output.append(this.task).append("\n");
-        output.append(String.format("Now you have %d tasks in the list.%n", list.size()));
+        output.append(String.format("Now you have %d tasks to PUNCH!%n", list.size()));
         storage.updateStorage(tasks);
         return output.toString();
     }

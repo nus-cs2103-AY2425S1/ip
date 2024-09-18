@@ -24,7 +24,7 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
 
-            stage.setTitle("El Primo Chatbot");
+            stage.setTitle("El Primo");
             stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/icon.png")));
 
             Scene scene = new Scene(ap);

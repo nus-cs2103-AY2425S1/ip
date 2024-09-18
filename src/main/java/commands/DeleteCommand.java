@@ -54,7 +54,7 @@ public class DeleteCommand extends Command {
         if (index >= list.size() || index < 0) {
             throw new PrimoException("Please select within the indexes of the task list!");
         }
-        String output = "Noted. I've removed this task:\n" + list.get(index);
+        String output = "Deleted this task! Grrr\n" + list.get(index);
         list.remove(index);
         storage.updateStorage(tasks);
         return output;

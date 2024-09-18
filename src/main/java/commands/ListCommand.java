@@ -35,7 +35,7 @@ public class ListCommand extends Command {
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         StringBuilder output = new StringBuilder();
-        output.append("Here are the tasks in your list:\n");
+        output.append("Fists of fury! Here's your list!\n");
         ArrayList<Task> list = tasks.getTasks();
         int len = list.size();
         for (int i = 0; i < len; i++) {

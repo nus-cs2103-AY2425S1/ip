@@ -52,6 +52,6 @@ public class DeadlineCommand extends Command {
         ArrayList<Task> list = tasks.getTasks();
         list.add(this.task);
         storage.updateStorage(tasks);
-        return "Got it. I've added this task:\n" + this.task + "\n" + String.format("Now you have %d tasks in the list.%n", list.size());
+        return "New deadline task! Grrr:\n" + this.task + "\n" + String.format("Now you have %d tasks to PUNCH!%n", list.size());
     }
 }

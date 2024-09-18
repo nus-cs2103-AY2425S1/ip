@@ -50,7 +50,7 @@ public class FindCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         StringBuilder output = new StringBuilder();
-        output.append("Here are the filtered tasks:\n");
+        output.append("¡Soy el mejor!\n");
         ArrayList<Task> list = tasks.getTasks();
         int len = list.size();
         for (int i = 0; i < len; i++) {
