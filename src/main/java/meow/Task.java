@@ -45,6 +45,9 @@ public abstract class Task implements Serializable {
         return description;
     }
 
+    /**
+     * @return The string version of the Task object
+     */
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
