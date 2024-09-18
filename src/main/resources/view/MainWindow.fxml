@@ -33,8 +33,7 @@
                     hvalue="1.0"
                     prefHeight="557.0"
                     prefWidth="400.0"
-                    vvalue="1.0"
-                    style="-fx-background-color: #87CEEB;">
+                    vvalue="1.0">
             <content>
                 <VBox fx:id="dialogContainer"
                       prefHeight="552.0"
