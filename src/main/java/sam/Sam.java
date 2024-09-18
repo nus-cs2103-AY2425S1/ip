@@ -23,7 +23,6 @@ public class Sam {
      * Constructs a new instance of the Sam class.
      */
     public Sam() {
-        
         ui = new Ui();
         storage = new Storage("data/Sam.txt");
 

@@ -9,8 +9,8 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Item {
 
-    private LocalDate by;
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private LocalDate by;
 
     /**
      * Constructs a Deadline object with the specified name and deadline.
