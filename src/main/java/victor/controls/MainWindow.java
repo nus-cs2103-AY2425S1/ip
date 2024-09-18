@@ -36,6 +36,7 @@ public class MainWindow {
      */
     public void setStage(Stage stage) {
         this.stage = stage;
+        stage.setTitle("Victor TaskBot");
     }
 
     /**
