@@ -21,23 +21,23 @@ public class RapGod {
 
     public static String getInitialMessage() {
         String initialise = """
-                Initialising List Bot...
-                Special commands:
-                
-                'LIST'                    Show full list
-                'FIND abc, def'           Filters tasks with abc or def
-                
-                'MARK n'                  Marks nth task as complete
-                'UNMARK n'                Marks nth task as incomplete
-                'DELETE n'                Deletes the nth task
-                
-                '/BY z'                   Used to specify a deadline z
-                '/FROM x /TO y'           Used to specify bounds of an event from x to y
-                'SNOOZE n /by x'          Changes deadline of Deadline Task
-                'SNOOZE n /from x /to y'  Changes deadline of Event Task
-                
-                Time format               dd/MM/yyyy OR dd/MM/yyyy HHHH
-                """;
+            Yo, List Bot’s kickin' off! Here’s the lowdown:
+        
+            'LIST'                    - Wanna see everything? This shows the full list.
+            'FIND abc, def'           - Searching for tasks with 'abc' or 'def'? This filters 'em out.
+            
+            'MARK n'                  - Mark the nth task as done. Easy peasy.
+            'UNMARK n'                - Oops, need to undo that? This marks the nth task as not done.
+            'DELETE n'                - Get rid of the nth task. Poof, it's gone.
+            
+            '/BY z'                   - Got a deadline? Specify it with '/BY z'.
+            '/FROM x /TO y'           - Set up an event from x to y with this.
+            'SNOOZE n /by x'          - Snooze that deadline on the nth task.
+            'SNOOZE n /from x /to y'  - Change the schedule on the nth event task.
+            
+            Time Format:              - Use dd/MM/yyyy or dd/MM/yyyy HH:mm to keep things in check.
+            """;
+
         return initialise;
     }
 
@@ -49,8 +49,8 @@ public class RapGod {
 
         try {
 
-            assert input != null : "Input should not be null";  // Input should not be null
-            assert !input.trim().isEmpty() : "Input should not be empty";
+            assert input != null : "Yo! Input should not be null";  // Input should not be null
+            assert !input.trim().isEmpty() : "Yo! Input should not be empty";
 
             if (input == null || input.trim().isEmpty()) {
                 throw new NoInputException();
@@ -60,7 +60,7 @@ public class RapGod {
 
             CommandType command = CommandType.getCommand(input);
 
-            assert command != null : "Command type should not be null";
+            assert command != null : "Yo! Command type should not be null";
 
             switch (command) {
                 case LIST:
@@ -74,27 +74,27 @@ public class RapGod {
 
                 case MARK:
                     int markIndex = CommandType.extractIndex(input, command);
-                    assert markIndex >= 0 : "Mark index should be non-negative";
+                    assert markIndex >= 0 : "Yo! Mark index should be non-negative";
                     response = dataManager.getTaskList().markTaskByIndex(markIndex);
                     break;
 
                 case UNMARK:
                     int unmarkIndex = CommandType.extractIndex(input, command);
-                    assert unmarkIndex >= 0 : "Unmark index should be non-negative";
+                    assert unmarkIndex >= 0 : "Yo! Unmark index should be non-negative";
                     response = dataManager.getTaskList().unmarkTaskByIndex(unmarkIndex);
                     break;
 
                 case DELETE:
                     int deleteIndex = CommandType.extractIndex(input, command);
-                    assert deleteIndex >= 0 : "Delete index should be non-negative";
+                    assert deleteIndex >= 0 : "Yo! Delete index should be non-negative";
                     response = dataManager.getTaskList().deleteTaskByIndex(deleteIndex);
                     break;
 
                 case DEADLINE:
                     String deadlineDesc = input.substring(0, input.toLowerCase().indexOf("/by"));
                     String due = input.substring(input.toLowerCase().indexOf("/by") + 4);
-                    assert !deadlineDesc.isEmpty() : "Deadline description should not be empty";
-                    assert !due.isEmpty() : "Due date should not be empty";
+                    assert !deadlineDesc.isEmpty() : "Yo! Deadline description should not be empty";
+                    assert !due.isEmpty() : "Yo! Due date should not be empty";
                     response = dataManager.getTaskList().addDeadlineTask(deadlineDesc, due);
                     break;
 
@@ -102,9 +102,9 @@ public class RapGod {
                     String eventDesc = input.substring(0, input.toLowerCase().indexOf("/from"));
                     String from = input.substring(input.toLowerCase().indexOf("/from") + 6, input.toLowerCase().indexOf("/to") - 1);
                     String to = input.substring(input.toLowerCase().indexOf("/to") + 4);
-                    assert !eventDesc.isEmpty() : "Event description should not be empty";
-                    assert !from.isEmpty() : "'From' date should not be empty";
-                    assert !to.isEmpty() : "'To' date should not be empty";
+                    assert !eventDesc.isEmpty() : "Yo! Event description should not be empty";
+                    assert !from.isEmpty() : "Yo! 'From' date should not be empty";
+                    assert !to.isEmpty() : "Yo! 'To' date should not be empty";
                     response = dataManager.getTaskList().addEventTask(eventDesc, from, to);
                     break;
 
@@ -126,11 +126,11 @@ public class RapGod {
                     break;
 
                 case BYE:
-                    response = "Bye! Hope to see you again soon!";
+                    response = "Peace out! Catch you on the flip side!";
                     break;
 
                 default:
-                    response = "Unknown command. Please try again.";
+                    response = "What’s this? I ain't never seen a command like that before, man!";
                     break;
             }
 
@@ -139,7 +139,7 @@ public class RapGod {
         } catch (NumberFormatException exc) {
             response = "Enter a valid number after 'Mark ', 'Unmark ', or 'Delete '. Eg. Mark 4";
         } catch (IndexOutOfBoundsException exc) {
-            response = "No such task exists.";
+            response = "No such task exists man!";
         } catch (NoInputException | RudeInputException exc) {
             response = "RapGod:\n" + exc.getMessage();
         } catch(IllegalArgumentException exc) {

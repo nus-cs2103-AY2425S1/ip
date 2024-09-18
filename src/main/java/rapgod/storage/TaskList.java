@@ -68,7 +68,7 @@ public class TaskList {
      *                 This parameter can be an empty array, in which case no tasks will be displayed.
      */
     public String filteredTask(String ... keywords) {
-        StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
+        StringBuilder sb = new StringBuilder("Alright, check it out—these tasks match what you're lookin' for:\n");
 
         String matchingTasks = IntStream.range(0, list.size())
                 .filter(i -> {
@@ -91,7 +91,7 @@ public class TaskList {
     public String markTaskByIndex(int index) {
         list.get(index - 1).setIsDone(true);
         StringBuilder sb = new StringBuilder();
-        sb.append("Nice! I've marked this task as done:\n");
+        sb.append("Yeah, I got it. This task’s marked as done—like a champ:\n");
         sb.append(list.get(index - 1));
         return sb.toString();
     }
@@ -104,7 +104,7 @@ public class TaskList {
     public String unmarkTaskByIndex(int index) {
         list.get(index - 1).setIsDone(false);
         StringBuilder sb = new StringBuilder();
-        sb.append("OK, I've marked this task as not done yet:\n");
+        sb.append("Alright, I've flipped it back to not done yet. Still in the game.\n");
         sb.append(list.get(index - 1));
         return sb.toString();
     }
@@ -116,10 +116,10 @@ public class TaskList {
      */
     public String deleteTaskByIndex(int index) {
         StringBuilder sb = new StringBuilder();
-        sb.append("Noted. I've removed this task:\n");
+        sb.append("Done deal. This task's outta here:\n");
         sb.append(list.get(index - 1));
         list.remove(index - 1);
-        sb.append(String.format("Now you have %d tasks in the list\n", list.size()));
+        sb.append(String.format("Now you’re rockin’ with %d tasks in the list. Keep it rollin’!\n", list.size()));
         return sb.toString();
     }
 
@@ -172,7 +172,7 @@ public class TaskList {
         list.add(new Deadline(deadlineDesc, due));
         StringBuilder sb = new StringBuilder();
         sb.append(String.format("Got it. I've added this task: \n%s\n", list.get(list.size() - 1)));
-        sb.append(String.format("Now you have %d tasks in the list\n", list.size()));
+        sb.append(String.format("Now you’re rockin’ with %d tasks in the list. Keep it rollin’!\n", list.size()));
         return sb.toString();
     }
 
@@ -187,7 +187,7 @@ public class TaskList {
         list.add(new Event(eventDesc, from, to));
         StringBuilder sb = new StringBuilder();
         sb.append(String.format("Got it. I've added this event: \n%s\n", list.get(list.size() - 1)));
-        sb.append(String.format("Now you have %d tasks in the list\n", list.size()));
+        sb.append(String.format("Now you’re rockin’ with %d tasks in the list. Keep it rollin’!\n", list.size()));
         return sb.toString();
     }
 
@@ -200,7 +200,7 @@ public class TaskList {
         list.add(new ToDo(todoDesc));
         StringBuilder sb = new StringBuilder();
         sb.append(String.format("Got it. I've added this task: \n%s\n", list.get(list.size() - 1)));
-        sb.append(String.format("Now you have %d tasks in the list\n", list.size()));
+        sb.append(String.format("Now you’re rockin’ with %d tasks in the list. Keep it rollin’!\n", list.size()));
         return sb.toString();
     }
 
