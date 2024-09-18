@@ -16,6 +16,7 @@ A simple Graphical User Interface (GUI) is implemented to enhance user experienc
 ## Features
 > [!TIP]
 > Type the command if you unsure of the correct syntax.  
+
 ### Get list of commands: `help`
 Shows a list of commands and their behaviours in the chat box.
 
