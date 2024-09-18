@@ -1,6 +1,6 @@
 # Bro Bot User Guide
 
-![Bro Bot UI](./UI.png)
+![Bro Bot UI](./Ui.png)
 
 Bro Bot is your personal task manager designed to help you organize and keep track of your tasks effortlessly. Whether you need to jot down simple todos, set deadlines, or plan events spanning multiple days, Bro Bot has you covered. With an intuitive command-line interface, managing your tasks has never been easier.
 
