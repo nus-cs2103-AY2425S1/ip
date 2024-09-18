@@ -76,7 +76,8 @@ public class Hamyo {
             storage.loadData(this.tasks);
             this.isActive = Parser.parse(this.tasks, input);
             storage.saveData(this.tasks);
-            return Ui.getResponse();
+            String guiResponse = String.join("\n", Ui.getResponse().split("\n" + Ui.LINE));
+            return guiResponse.substring(0, guiResponse.length() - 2);
         } catch (HamyoException e) {
             Ui.printException(e);
         }
