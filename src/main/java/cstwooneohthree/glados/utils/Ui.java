@@ -52,7 +52,7 @@ public class Ui {
             System.out.println(HORIZONTAL_LINE + message + HORIZONTAL_LINE);
             return null;
         } else {
-            return "Hello, welcome to the Aperture Science computer-aided enrichment center!"
+            return "Hello, welcome to the Aperture Science computer-aided enrichment center! "
                     + "My name is GLaDOS. What task would you like me to perform today?";
         }
     }
@@ -80,17 +80,15 @@ public class Ui {
      * @param index Number of tasks left.
      */
     public String add(String task, String index) {
-        String message = "\nGLaDOS: I have added the following task to the list...\n"
+        String message = "I have added the following task to the list...\n"
                         + task + "\n"
-                        + "Now you have " + index + (Integer.parseInt(index) == 1 ? " task." : " tasks.")
-                        + "\n";
+                        + "Now you have " + index + (Integer.parseInt(index) == 1 ? " task." : " tasks.");
 
         if (uiType == UiType.COMMAND_LINE_INTERFACE) {
-            System.out.println(HORIZONTAL_LINE + message + HORIZONTAL_LINE);
+            System.out.println(HORIZONTAL_LINE + "\nGLaDOS: " + message + "\n" + HORIZONTAL_LINE);
             return null;
         } else {
-            return "I have added the following task to the list: "
-                   + task + " Now you have " + index + (Integer.parseInt(index) == 1 ? " task." : " tasks.");
+            return message;
         }
     }
 
@@ -101,17 +99,15 @@ public class Ui {
      * @param index Number of tasks left.
      */
     public String delete(String task, String index) {
-        String message = "\nGLaDOS: I have removed the following task from the list...\n"
+        String message = "I have removed the following task from the list...\n"
                         + task + "\n"
-                        + "Now you have " + index + (Integer.parseInt(index) == 1 ? " task." : " tasks.")
-                        + "\n";
+                        + "Now you have " + index + (Integer.parseInt(index) == 1 ? " task." : " tasks.");
 
         if (uiType == UiType.COMMAND_LINE_INTERFACE) {
-            System.out.println(HORIZONTAL_LINE + message + HORIZONTAL_LINE);
+            System.out.println(HORIZONTAL_LINE + "\nGLaDOS: " + message + "\n" + HORIZONTAL_LINE);
             return null;
         } else {
-            return "I have removed the following task from the list: "
-                   + task + " Now you have " + index + (Integer.parseInt(index) == 1 ? " task." : " tasks.");
+            return message;
         }
     }
 
@@ -123,7 +119,7 @@ public class Ui {
      */
     public String list(ArrayList<Task> taskList, boolean isFilteredList) {
         String findMatchingString = isFilteredList ? " that matches input..." : "...";
-        StringBuilder message = new StringBuilder("\nGLaDOS: Here is the list" + findMatchingString + "\n");
+        StringBuilder message = new StringBuilder("Here is the list" + findMatchingString + "\n");
 
         message.append(
                 IntStream.range(0, taskList.size())
@@ -132,12 +128,10 @@ public class Ui {
         );
 
         if (uiType == UiType.COMMAND_LINE_INTERFACE) {
-            System.out.println(HORIZONTAL_LINE + message.toString() + HORIZONTAL_LINE);
+            System.out.println(HORIZONTAL_LINE + "\nGLaDOS: " + message.toString() + HORIZONTAL_LINE);
             return null;
         } else {
-            return message.toString()
-                    .replace("\n", " ")
-                    .replace("GLaDOS: ", "");
+            return message.toString();
         }
     }
 
@@ -147,13 +141,13 @@ public class Ui {
      * @param input Description of task.
      */
     public String mark(String input) {
-        String message = "\nGLaDOS: I've marked this task as done...\n" + input + "\n";
+        String message = "I've marked this task as done...\n" + input;
 
         if (uiType == UiType.COMMAND_LINE_INTERFACE) {
-            System.out.println(HORIZONTAL_LINE + message + HORIZONTAL_LINE);
+            System.out.println(HORIZONTAL_LINE + "\nGLaDOS: " + message + "\n" + HORIZONTAL_LINE);
             return null;
         } else {
-            return "I've marked this task as done: " + input;
+            return message;
         }
     }
 
@@ -163,13 +157,13 @@ public class Ui {
      * @param input Description of task.
      */
     public String unmark(String input) {
-        String message = "\nGLaDOS: Oops, looks like this task is no longer done...\n" + input + "\n";
+        String message = "Oops, looks like this task is no longer done...\n" + input;
 
         if (uiType == UiType.COMMAND_LINE_INTERFACE) {
-            System.out.println(HORIZONTAL_LINE + message + HORIZONTAL_LINE);
+            System.out.println(HORIZONTAL_LINE + "\nGLaDOS: " + message + "\n" + HORIZONTAL_LINE);
             return null;
         } else {
-            return "Oops, looks like this task is no longer done: " + input;
+            return message;
         }
     }
 
@@ -179,13 +173,13 @@ public class Ui {
      * @param input New description of task.
      */
     public String update(String input) {
-        String message = "\nGLaDOS: I have updated this task to:\n" + input + "\n";
+        String message = "I have updated this task to:\n" + input;
 
         if (uiType == UiType.COMMAND_LINE_INTERFACE) {
-            System.out.println(HORIZONTAL_LINE + message + HORIZONTAL_LINE);
+            System.out.println(HORIZONTAL_LINE + "\nGLaDOS: " + message + "\n" + HORIZONTAL_LINE);
             return null;
         } else {
-            return "I have updated this task to: " + input;
+            return message;
         }
     }
 
@@ -195,12 +189,12 @@ public class Ui {
      * @param e Exception to be printed.
      */
     public String printError(Exception e) {
-        String message = "\nGLaDOS: " + e.getMessage() + "\n";
+        String message = e.getMessage();
         if (uiType == UiType.COMMAND_LINE_INTERFACE) {
-            System.out.println(HORIZONTAL_LINE + message + HORIZONTAL_LINE);
+            System.out.println(HORIZONTAL_LINE + "\nGLaDOS: " + message + "\n" + HORIZONTAL_LINE);
             return null;
         } else {
-            return message.replace("\n", "").replace("GLaDOS: ", "");
+            return message;
         }
     }
 
@@ -217,13 +211,13 @@ public class Ui {
      * Prints or returns exit statement after bye command.
      */
     public String exit() {
-        String message = "\nGLaDOS: Goodbye, user.\n";
+        String message = "Goodbye, user.";
 
         if (uiType == UiType.COMMAND_LINE_INTERFACE) {
-            System.out.println(HORIZONTAL_LINE + message + HORIZONTAL_LINE);
+            System.out.println(HORIZONTAL_LINE + "\nGLaDOS: " + message + "\n" + HORIZONTAL_LINE);
             return null;
         } else {
-            return "Goodbye, user.";
+            return message;
         }
     }
 }

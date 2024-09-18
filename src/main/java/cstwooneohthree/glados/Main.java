@@ -2,6 +2,7 @@ package cstwooneohthree.glados;
 
 import java.io.IOException;
 
+import cstwooneohthree.glados.components.HistoryWindow;
 import cstwooneohthree.glados.components.MainWindow;
 import cstwooneohthree.glados.enums.UiType;
 import javafx.application.Application;
@@ -20,12 +21,22 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
-            AnchorPane ap = fxmlLoader.load();
-            Scene scene = new Scene(ap);
-            scene.getStylesheets().add(this.getClass().getResource("/css/main.css").toExternalForm());
-            stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setGlados(glados); // inject the Glados instance
+            FXMLLoader mainWindowLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            AnchorPane mainPane = mainWindowLoader.load();
+
+            FXMLLoader historyWindowLoader = new FXMLLoader(Main.class.getResource("/view/HistoryWindow.fxml"));
+            AnchorPane historyPane = historyWindowLoader.load();
+            HistoryWindow historyWindowController = historyWindowLoader.getController();
+
+            Scene mainScene = new Scene(mainPane);
+            Scene historyScene = new Scene(historyPane);
+
+            mainScene.getStylesheets().add(this.getClass().getResource("/css/main.css").toExternalForm());
+            stage.setScene(mainScene);
+
+            mainWindowLoader.<MainWindow>getController().setGlados(glados, historyWindowController, historyScene); // inject the Glados instance
+            historyWindowLoader.<HistoryWindow>getController().setMainScene(mainScene);
+
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
