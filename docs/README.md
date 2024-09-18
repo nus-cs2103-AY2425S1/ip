@@ -121,6 +121,7 @@ Format of input: `stats`
 Example: `stats`
 
 ## Command summary
+
 | Command                   | Format | Example |
 |---------------------------|--------|---------|
 | Display the list of tasks | list   | list    |
@@ -134,3 +135,4 @@ Example: `stats`
 | Unmark a completed task   |        |         |
 | Find a task               |        |         | 
 | Display statistics        |        |         |
+  
