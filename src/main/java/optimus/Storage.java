@@ -78,18 +78,14 @@ public class Storage {
         boolean isDone = parts[1].trim().equals("1");
 
         Task task;
-        switch (taskType) {
-            case "T":
-                task = new Todo(parts[2].trim());
-                break;
-            case "D":
-                task = new Deadline(parts[2].trim(), parts[3].trim());
-                break;
-            case "E":
-                task = new Event(parts[2].trim(), parts[3].trim(), parts[4].trim());
-                break;
-            default:
-                throw new OptimusException("Invalid task type: " + taskType);
+        if ("T".equals(taskType)) {
+            task = new Todo(parts[2].trim());
+        } else if ("D".equals(taskType)) {
+            task = new Deadline(parts[2].trim(), parts[3].trim());
+        } else if ("E".equals(taskType)) {
+            task = new Event(parts[2].trim(), parts[3].trim(), parts[4].trim());
+        } else {
+            throw new OptimusException("Invalid task type: " + taskType);
         }
         task.isDone = isDone;
         return task;

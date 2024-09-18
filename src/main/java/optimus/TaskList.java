@@ -88,7 +88,7 @@ public class TaskList {
         // Check and create task based on input type (todo, deadline, or event)
         // Used ChatGPT to find how to extract relevant words from user input
         if (userInput.startsWith("todo")) {
-        task = createTodoTask(userInput);
+            task = createTodoTask(userInput);
         } else if (userInput.startsWith("deadline")) {
             task = createDeadlineTask(userInput);
         } else if (userInput.startsWith("event")) {
