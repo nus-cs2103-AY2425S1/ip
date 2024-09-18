@@ -16,10 +16,22 @@ public class Storage {
 
     private final String filePath;
 
+    /**
+     * Creates a Storage instance with the specified file path.
+     *
+     * @param filePath the path to the file where tasks are stored
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the file specified by the file path.
+     * Parses each line of the file into a Task object.
+     *
+     * @return an ArrayList of tasks loaded from the file
+     * @throws NaegaException if there is an error reading from the file or if task details are invalid
+     */
     public ArrayList<Task> load() throws NaegaException {
         ArrayList<Task> tasks = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
@@ -37,6 +49,13 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Parses a task from an array of task details.
+     *
+     * @param taskDetails an array containing the details of the task
+     * @return the parsed Task object
+     * @throws NaegaException if the task type is invalid or if task details are insufficient
+     */
     private Task parseTask(String[] taskDetails) throws NaegaException {
         System.out.println("taskDetails length: " + taskDetails.length);
         System.out.println("taskDetails: " + Arrays.toString(taskDetails));
@@ -70,6 +89,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the list of tasks to the file specified by the file path.
+     *
+     * @param tasks the list of tasks to save
+     */
     public void save(ArrayList<Task> tasks) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
             for (Task task : tasks) {
