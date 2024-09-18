@@ -37,39 +37,57 @@ public abstract class Task {
         String identifier = splitUserInput[0];
 
         if (identifier.equals("todo")) {
-            if (splitUserInput.length < 2) {
-                throw new TaskDescriptionEmptyException("todo");
-            }
-            return new ToDo(splitUserInput[1]);
+            return createToDo(splitUserInput);
         } else if (identifier.equals("deadline")) {
-            if (splitUserInput.length < 2) {
-                throw new TaskDescriptionEmptyException("deadline");
-            }
-
-            String[] details = splitUserInput[1].split("/by ", 2);
-            if (details.length < 2) {
-                throw new DeadlineNoDateException();
-            }
-            return new Deadline(details[0], details[1]);
+            return createDeadline(splitUserInput);
         } else if (identifier.equals("event")) {
-            if (splitUserInput.length < 2) {
-                throw new TaskDescriptionEmptyException("event");
-            }
-
-            String[] details = splitUserInput[1].split("/from ", 2);
-            if (details.length < 2) {
-                throw new EventNoTimeException();
-            }
-            String info = details[0];
-            String[] dates = details[1].split(" /to ", 2);
-            if (dates.length < 2) {
-                throw new EventNoTimeException();
-            }
-            return new Events(info, dates[0], dates[1]);
+            return createEvent(splitUserInput);
         } else {
             //task not recognised
             throw new CommandNotRecognisedException();
         }
+    }
+
+    /**
+     * Handles creation of to do in factory method
+     *
+     * @param splitUserInput
+     * @return
+     */
+    private static Task createToDo(String[] splitUserInput) throws TestamentException {
+        if (splitUserInput.length < 2) {
+            throw new TaskDescriptionEmptyException("todo");
+        }
+        return new ToDo(splitUserInput[1]);
+    }
+
+    private static Task createDeadline(String[] splitUserInput) throws TestamentException {
+        if (splitUserInput.length < 2) {
+            throw new TaskDescriptionEmptyException("deadline");
+        }
+
+        String[] details = splitUserInput[1].split("/by ", 2);
+        if (details.length < 2) {
+            throw new DeadlineNoDateException();
+        }
+        return new Deadline(details[0], details[1]);
+    }
+
+    private static Task createEvent(String[] splitUserInput) throws TestamentException {
+        if (splitUserInput.length < 2) {
+            throw new TaskDescriptionEmptyException("event");
+        }
+
+        String[] details = splitUserInput[1].split("/from ", 2);
+        if (details.length < 2) {
+            throw new EventNoTimeException();
+        }
+        String info = details[0];
+        String[] dates = details[1].split(" /to ", 2);
+        if (dates.length < 2) {
+            throw new EventNoTimeException();
+        }
+        return new Events(info, dates[0], dates[1]);
     }
 
     /**
