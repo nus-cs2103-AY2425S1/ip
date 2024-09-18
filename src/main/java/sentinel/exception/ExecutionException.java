@@ -9,8 +9,6 @@ import sentinel.utils.SentinelString;
 public class ExecutionException extends SentinelException {
     /**
      * Constructs a new ExecutionException with the specified detail message.
-     *
-     * @param s The detail message, saved for later retrieval by the {@link Throwable#getMessage()} method.
      */
     public ExecutionException() {
         super(SentinelString.stringExecutionErrorMessage());

@@ -2,7 +2,6 @@ package sentinel.command;
 
 import sentinel.Sentinel;
 import sentinel.exception.ExecutionException;
-import sentinel.exception.InvalidCommandException;
 import sentinel.exception.SentinelException;
 import sentinel.ui.Ui;
 import sentinel.utils.SentinelList;
