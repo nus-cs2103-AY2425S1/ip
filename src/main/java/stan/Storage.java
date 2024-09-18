@@ -54,8 +54,18 @@ public class Storage {
 
         try (Scanner sc = new Scanner(file)) {
             while (sc.hasNextLine()) {
-                String task = sc.nextLine();
+                String task = sc.nextLine().trim(); // Trim any unnecessary whitespace
+                if (task.isEmpty()) {
+                    continue; // Skip empty lines
+                }
+
                 String[] taskDetails = task.split(" \\| ");
+                // Ensure that taskDetails have the correct length before parsing
+                if (taskDetails.length < 3) {
+                    System.out.println("Skipping malformed task line: " + task);
+                    continue;
+                }
+
                 try {
                     Task parsedTask = parseTask(taskDetails);
                     if (parsedTask != null) {

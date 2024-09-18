@@ -14,7 +14,7 @@ class EventTest {
     @Test
     void createValidEvent() throws StanInvalidDateTimeFormatException {
         Event event = new Event("Team meeting", "2023-08-30 1400", "2023-08-30 1600");
-        assertEquals("[E][ ] Team meeting (from: Aug 30 2023 2:00pm to: 4:00pm)", event.toString());
+        assertEquals("[E][ ] Team meeting (from: Aug 30 2023 2:00PM to: 4:00PM)", event.toString());
     }
 
     @Test
