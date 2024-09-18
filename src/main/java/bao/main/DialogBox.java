@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -36,7 +37,14 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         dialog.setWrapText(true);
-        displayPicture.setImage(img);
+        if (displayPicture != null) {
+            displayPicture.setImage(img);
+            displayPicture.setVisible(true);
+            displayPicture.setManaged(true);
+        } else {
+            displayPicture.setVisible(false);
+            displayPicture.setManaged(false);
+        }
     }
 
     /**
@@ -46,12 +54,16 @@ public class DialogBox extends HBox {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
-        setAlignment(Pos.TOP_LEFT);
+        setAlignment(Pos.CENTER_LEFT);
         dialog.getStyleClass().add("reply-label");
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var db = new DialogBox(text, img);
+        db.dialog.getStyleClass().add("user-message-label");
+        db.displayPicture.setFitHeight(0);
+        db.displayPicture.setFitWidth(0);
+        return db;
     }
 
     public static DialogBox getBaoDialog(String text, Image img) {
