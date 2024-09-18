@@ -108,9 +108,11 @@ Example:
 
 ### Listing Tasks
 
-To list all your tasks, simply use the following commands with no additional information:
+To list all your tasks, simply use the following command with no additional information:
 
-```list```
+```
+list
+```
 
 ### Sorting tasks
 
@@ -150,6 +152,7 @@ Once you are finished with the chatbot, simply type ```bye```. SirPotato will th
 ## FAQs
 
 **Q:** How do I transfer my data to another Computer?
+
 **A:** Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
 
 ## Command summary
