@@ -123,4 +123,4 @@ Sample outcome:
 ## How to use GreetBot on your local laptop
 - Download the `.jar` file under `Releases`,
 - Navigate to the directory in terminal,
-- run `java -jar duke.jar`
+- run `java -jar greetbot.jar`
