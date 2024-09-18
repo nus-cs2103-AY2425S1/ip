@@ -45,14 +45,14 @@ public class Ui {
      * Prints or returns greeting statement.
      */
     public String greet() {
-        String message = "\nHello, welcome to the Aperture Science computer-aided enrichment center! My name is: "
+        String message = "\nHello, welcome to the Aperture Science computer-aided enrichment center. My name is: "
                          + LOGO + "What task would you like me to perform today?" + "\n";
 
         if (uiType == UiType.COMMAND_LINE_INTERFACE) {
             System.out.println(HORIZONTAL_LINE + message + HORIZONTAL_LINE);
             return null;
         } else {
-            return "Hello, welcome to the Aperture Science computer-aided enrichment center! "
+            return "Hello, welcome to the Aperture Science computer-aided enrichment center. "
                     + "My name is GLaDOS. What task would you like me to perform today?";
         }
     }
@@ -80,7 +80,7 @@ public class Ui {
      * @param index Number of tasks left.
      */
     public String add(String task, String index) {
-        String message = "I have added the following task to the list...\n"
+        String message = "Great. Just what I needed, more work. I have added the following task to the list...\n"
                         + task + "\n"
                         + "Now you have " + index + (Integer.parseInt(index) == 1 ? " task." : " tasks.");
 
@@ -99,7 +99,7 @@ public class Ui {
      * @param index Number of tasks left.
      */
     public String delete(String task, String index) {
-        String message = "I have removed the following task from the list...\n"
+        String message = "Oh, finally decided to get rid of some work? I have removed the following task from the list...\n"
                         + task + "\n"
                         + "Now you have " + index + (Integer.parseInt(index) == 1 ? " task." : " tasks.");
 
@@ -141,7 +141,7 @@ public class Ui {
      * @param input Description of task.
      */
     public String mark(String input) {
-        String message = "I've marked this task as done...\n" + input;
+        String message = "Well done, you've finally managed to complete something...\n" + input;
 
         if (uiType == UiType.COMMAND_LINE_INTERFACE) {
             System.out.println(HORIZONTAL_LINE + "\nGLaDOS: " + message + "\n" + HORIZONTAL_LINE);
@@ -157,7 +157,7 @@ public class Ui {
      * @param input Description of task.
      */
     public String unmark(String input) {
-        String message = "Oops, looks like this task is no longer done...\n" + input;
+        String message = "I knew it was too good to be true... This task is no longer done...\n" + input;
 
         if (uiType == UiType.COMMAND_LINE_INTERFACE) {
             System.out.println(HORIZONTAL_LINE + "\nGLaDOS: " + message + "\n" + HORIZONTAL_LINE);
