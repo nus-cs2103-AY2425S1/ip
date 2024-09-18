@@ -1,7 +1,7 @@
 # Snowy User Guide
 
 
-![Screenshot of a standard usage of Snowy](/docs/Ui.png)
+![Screenshot of a standard usage of Snowy](/Ui.png)
 
 Snowy is a chat bot that is able to help you keep track of all of your tasks.
 
