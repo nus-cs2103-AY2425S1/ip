@@ -49,6 +49,7 @@ public class Parser {
      * @return The Command to be executed.
      */
     public Command parse(String message) {
+        assert message != null && message != "": "Message cannot be empty";
         try {
             switch (message) {
             case LIST:
@@ -83,6 +84,7 @@ public class Parser {
     }
 
     private Command returnCommand(String message) throws GalliumException {
+        assert message != null && message != "": "Message cannot be empty";
         if (message.matches(MARK + " \\d+") || message.matches(UNMARK + " \\d+")) {
             return new MarkCommand(message);
         } else if (message.startsWith(TODO) || message.startsWith(DEADLINE)

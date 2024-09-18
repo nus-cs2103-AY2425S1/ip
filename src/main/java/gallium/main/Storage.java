@@ -30,11 +30,13 @@ public class Storage {
      */
     public Storage(String filePathString) {
         try {
+            assert filePathString != null && !filePathString.isEmpty() : "File path cannot be null or empty";
             File dir = new File(filePathString.split("/gallium.txt")[0]);
             dir.mkdirs();
             File f = new File(dir, "gallium.txt");
             f.createNewFile();
             this.filePath = new File(filePathString);
+            assert this.filePath.exists() : "File should exist after being created";
             this.scanner = new Scanner(this.filePath);
         } catch (IOException e) {
             System.out.println("Error creating file:" + e.getMessage());
@@ -55,6 +57,7 @@ public class Storage {
         try {
             while (scanner.hasNextLine()) {
                 String taskDesc = scanner.nextLine();
+                assert taskDesc != null && !taskDesc.isEmpty() : "Task description cannot be null or empty";
                 if (taskDesc.startsWith("[T]")) {
                     Todo todo = new Todo(taskDesc);
                     taskArrayList.add(todo);
@@ -71,6 +74,7 @@ public class Storage {
         }
         Task.count = taskArrayList.size() + 1;
         scanner.close();
+        assert taskArrayList.size() >= 0 : "Task list size cannot be negative";
         return taskArrayList;
     }
 
@@ -84,6 +88,7 @@ public class Storage {
         StringBuilder listStringBuilder = new StringBuilder();
         for (int i = 1; i < Task.count; i++) {
             Task task = taskList.getTask(i - 1);
+            assert task != null : "Task cannot be null";
             listStringBuilder.append(task.toString()).append("\n");
         }
         String listString = listStringBuilder.toString();
