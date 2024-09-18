@@ -100,5 +100,6 @@ Finds all tasks that match the keywords or patterns.
 <img src="http://domokunx.github.io/ip/Find.png" alt="Image of find command" width="300">
 
 >[!TIP]
-> You can input incomplete keywords, or multiple keywords as well!
+> You can input incomplete keywords, or multiple keywords as well! 
+
 Syntax: `find <keywords>`. 
