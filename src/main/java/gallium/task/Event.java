@@ -45,30 +45,8 @@ public class Event extends Task {
                 this.toDate = LocalDate.parse(toDateString).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
                 time24 = inputTime.parse(to.split(" ")[1]);
                 this.toTime = outputTime.format(time24);
-            } else if (description.startsWith("[E][ ] ")) {
-                String[] parts = description.split("\\[E\\]\\[ \\] ");
-                this.desc = parts[1].split(" \\(from:")[0];
-                String[] fromParts = parts[1].split("\\(from: ");
-                this.from = fromParts[1].split(" to:")[0];
-                String[] toParts = fromParts[1].split(" to: ");
-                this.to = toParts[1].split("\\)")[0];
-                this.isDone = false;
-                this.fromDate = from.split(", ")[0];
-                this.fromTime = from.split(", ")[1];
-                this.toDate = to.split(", ")[0];
-                this.toTime = to.split(", ")[1];
-            } else if (description.startsWith("[E][X] ")) {
-                String[] parts = description.split("\\[E\\]\\[X\\] ");
-                this.desc = parts[1].split(" \\(from:")[0];
-                String[] fromParts = parts[1].split("\\(from: ");
-                this.from = fromParts[1].split(" to:")[0];
-                String[] toParts = fromParts[1].split(" to: ");
-                this.to = toParts[1].split("\\)")[0];
-                this.isDone = true;
-                this.fromDate = from.split(", ")[0];
-                this.fromTime = from.split(", ")[1];
-                this.toDate = to.split(", ")[0];
-                this.toTime = to.split(", ")[1];
+            } else {
+                parse(description);
             }
         } catch (ParseException | DateTimeParseException | ArrayIndexOutOfBoundsException e) {
             throw e;
@@ -106,4 +84,25 @@ public class Event extends Task {
     public String getToDate() {
         return this.toDate;
     }
+
+    private void parse(String description) {
+        String[] parts = {};
+        if (description.startsWith("[E][ ] ")) {
+            parts = description.split("\\[E\\]\\[ \\] ");
+            this.isDone = false;
+        } else if (description.startsWith("[E][X] ")) {
+            parts = description.split("\\[E\\]\\[X\\] ");
+            this.isDone = true;
+        }
+            this.desc = parts[1].split(" \\(from:")[0];
+            String[] fromParts = parts[1].split("\\(from: ");
+            this.from = fromParts[1].split(" to:")[0];
+            String[] toParts = fromParts[1].split(" to: ");
+            this.to = toParts[1].split("\\)")[0];
+            this.fromDate = from.split(", ")[0];
+            this.fromTime = from.split(", ")[1];
+            this.toDate = to.split(", ")[0];
+            this.toTime = to.split(", ")[1];
+    }
+    
 }
