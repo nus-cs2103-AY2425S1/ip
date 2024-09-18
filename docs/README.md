@@ -122,5 +122,5 @@ Exits the program
 
 # Credits
 
-- Tako picture from Pinterest - https://mx.pinterest.com/pin/377387643792836973/
-- User picture from Pinterest - https://mx.pinterest.com/pin/84724036731575360/
+- Tako picture from [Pinterest](https://mx.pinterest.com/pin/377387643792836973/)
+- User picture from [Pinterest](https://mx.pinterest.com/pin/84724036731575360/)

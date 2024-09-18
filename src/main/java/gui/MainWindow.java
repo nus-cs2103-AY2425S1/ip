@@ -1,5 +1,6 @@
 package gui;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -58,5 +59,8 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getTakoMessage(takoResponse, takoImage)
         );
         userInput.clear();
+        if (userText.equalsIgnoreCase("bye")) {
+            Platform.exit();
+        }
     }
 }
