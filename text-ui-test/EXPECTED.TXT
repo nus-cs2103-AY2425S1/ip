@@ -1,29 +1,81 @@
 ____________________________________________________________
- Hello! I'm zero.Zero
+ Hello! I'm Zero
  What can I do for you?
 ____________________________________________________________
-Got it. I've added this task:
-  [T][ ] borrow book
-Now you have 1 task in the list.
 ____________________________________________________________
-Got it. I've added this task:
-  [D][ ] return book (by: Sunday)
-Now you have 2 tasks in the list.
+ Got it. I've added this task:
+   [T][ ] borrow book
+ Now you have 1 tasks in the list.
 ____________________________________________________________
-Got it. I've added this task:
-  [E][ ] project meeting (from: Mon 2pm to: 4pm)
-Now you have 3 tasks in the list.
 ____________________________________________________________
-Here are the tasks in your list:
+ Got it. I've added this task:
+   [D][ ] return book  (by: Sunday)
+ Now you have 2 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+ Got it. I've added this task:
+   [E][ ] project meeting  (from: Mon 2pm to: 4pm)
+ Now you have 3 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+ Here are the tasks in your list:
 1. [T][ ] borrow book
-2. [D][ ] return book (by: Sunday)
-3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+2. [D][ ] return book  (by: Sunday)
+3. [E][ ] project meeting  (from: Mon 2pm to: 4pm)
 ____________________________________________________________
-Nice! I've marked this task as done:
-  [T][X] borrow book
 ____________________________________________________________
-OK, I've marked this task as not done yet:
-  [T][ ] borrow book
+ Nice! I've marked this task as done:
+   [T][X] borrow book
+____________________________________________________________
+____________________________________________________________
+ OK, I've marked this task as not done yet:
+   [T][ ] borrow book
+____________________________________________________________
+____________________________________________________________
+ Got it. I've added this task:
+   [T][ ] finish homework
+ Now you have 4 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+ Got it. I've added this task:
+   [D][ ] submit assignment  (by: 2024-10-01 2359)
+ Now you have 5 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+ Got it. I've added this task:
+   [E][ ] team lunch  (from: 2024-09-30 1200 to: 2024-09-30 1400)
+ Now you have 6 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+ Got it. I've added this task:
+   [T][ ] buy groceries
+ Now you have 7 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+ Got it. I've added this task:
+   [E][ ] client meeting  (from: 2024-10-02 0900 to: 2024-10-02 1030)
+ Now you have 8 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+ Got it. I've added this task:
+   [D][ ] pay bills  (by: 2024-09-25 1800)
+ Now you have 9 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+ Got it. I've added this task:
+   [T][ ] plan vacation
+ Now you have 10 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+ Nice! I've marked this task as done:
+   [D][X] return book  (by: Sunday)
+____________________________________________________________
+____________________________________________________________
+ 分かりません
+____________________________________________________________
+____________________________________________________________
+ 分かりません
+____________________________________________________________
 ____________________________________________________________
  Bye. Hope to see you again soon!
 ____________________________________________________________

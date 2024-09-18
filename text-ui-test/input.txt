@@ -4,4 +4,14 @@ event project meeting /from Mon 2pm /to 4pm
 list
 mark 1
 unmark 1
+todo finish homework
+deadline submit assignment /by 2024-10-01 2359
+event team lunch /from 2024-09-30 1200 /to 2024-09-30 1400
+todo buy groceries
+event client meeting /from 2024-10-02 0900 /to 2024-10-02 1030
+deadline pay bills /by 2024-09-25 1800
+todo plan vacation
+mark 2
+delete 3
+find meeting
 bye
