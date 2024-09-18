@@ -1,8 +1,9 @@
 package hien.main;
-import hien.exception.HienException;
-import hien.task.Task;
 
 import java.util.ArrayList;
+
+import hien.exception.HienException;
+import hien.task.Task;
 
 public class TaskList {
     private ArrayList<Task> tasks;

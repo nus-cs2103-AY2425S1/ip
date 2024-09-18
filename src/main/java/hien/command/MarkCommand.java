@@ -10,6 +10,12 @@ public class MarkCommand extends Command {
     private boolean isDone;
     private UI ui;
 
+    public MarkCommand(String input, boolean isDone, boolean isExit) {
+        super(isExit);
+        this.input = input;
+        this.isDone = isDone;
+    }
+
     private boolean isValidIndex(String index, TaskList tasks) throws HienException {
         if (index.isEmpty() || !index.matches("-?(0|[1-9]\\d*)")) {
             throw new HienException("☹ OOPS!!! The index of the task is either empty or not integer. Please try again!");
@@ -18,17 +24,12 @@ public class MarkCommand extends Command {
         if (i < 1) {
             throw new HienException("☹ OOPS!!! Task index cannot be less than 1");
         } else if (i > tasks.size()) {
-            throw new HienException("☹ OOPS!!! Task index cannot be greater than current number of tasks. You currently only have " + tasks.size() + " tasks.");
+            throw new HienException("☹ OOPS!!! Task index cannot be greater than current number of tasks. "
+                                    + "You currently only have " + tasks.size() + " tasks.");
         } else {
             return true;
         }
     }
-    public MarkCommand(String input, boolean isDone, boolean isExit) {
-        super(isExit);
-        this.input = input;
-        this.isDone = isDone;
-    }
-
 
     private void markTask(TaskList tasks, String input, boolean isDone, Storage storage, UI ui) throws HienException {
         String index = isDone ? input.substring(4).trim() : input.substring(6).trim();

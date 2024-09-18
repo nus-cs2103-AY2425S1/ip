@@ -1,18 +1,18 @@
 package hien.command;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import hien.exception.HienException;
 import hien.main.Storage;
 import hien.main.TaskList;
 import hien.task.Deadline;
 import hien.ui.UI;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
 public class DeadlineCommand extends Command {
-
-    private String input;
     private static final DateTimeFormatter INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private String input;
 
     public DeadlineCommand(String input, boolean isExit) {
         super(isExit);
@@ -34,7 +34,8 @@ public class DeadlineCommand extends Command {
                 throw new HienException("☹ OOPS!!! The date format is incorrect. Please use: yyyy-MM-dd HHmm");
             }
         } else {
-            throw new HienException(" ☹ OOPS!!! The deadline format is incorrect. Please use: deadline <description> /by <yyyy-MM-dd HHmm>");
+            throw new HienException(" ☹ OOPS!!! The deadline format is incorrect. "
+                                    + "Please use: deadline <description> /by <yyyy-MM-dd HHmm>");
         }
     }
 

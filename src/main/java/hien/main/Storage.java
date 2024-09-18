@@ -1,20 +1,28 @@
 package hien.main;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import hien.exception.HienException;
 import hien.task.Deadline;
 import hien.task.Event;
 import hien.task.Task;
 import hien.task.Todo;
 
-import java.io.*;
-import java.nio.file.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-
 public class Storage {
+    private static final DateTimeFormatter INPUT_DATE_FORMAT =
+                                            DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private static final DateTimeFormatter OUTPUT_DATE_FORMAT =
+                                            DateTimeFormatter.ofPattern("MMM d yyyy, hh:mm a");
     private String filePath;
-    private static final DateTimeFormatter INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-    private static final DateTimeFormatter OUTPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy, hh:mm a");
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -23,7 +31,8 @@ public class Storage {
     /**
      * Loads tasks from a file and returns a {@code TaskList} object containing these tasks.
      * If the file does not exist, a new file is created and an empty {@code TaskList} is returned.
-     * The tasks are expected to be stored in a specific format in the file, and each task is parsed and loaded into the list.
+     * The tasks are expected to be stored in a specific format in the file,
+     * and each task is parsed and loaded into the list.
      *
      * The supported task types include:
      * <ul>
@@ -107,10 +116,15 @@ public class Storage {
                     line = "T | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription();
                 } else if (task instanceof Deadline) {
                     Deadline deadline = (Deadline) task;
-                    line = "D | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription() + " | " + deadline.getBy().format(INPUT_DATE_FORMAT);
+                    line = "D | " + (task.isDone() ? "1" : "0") + " | "
+                                                                + task.getDescription() + " | "
+                                                                + deadline.getBy().format(INPUT_DATE_FORMAT);
                 } else if (task instanceof Event) {
                     Event event = (Event) task;
-                    line = "E | " + (task.isDone() ? "1" : "0") + " | " + task.getDescription() + " | " + event.getFrom().format(INPUT_DATE_FORMAT) + " | " + event.getTo().format(INPUT_DATE_FORMAT);
+                    line = "E | " + (task.isDone() ? "1" : "0") + " | "
+                                                                + task.getDescription() + " | "
+                                                                + event.getFrom().format(INPUT_DATE_FORMAT)
+                                                                + " | " + event.getTo().format(INPUT_DATE_FORMAT);
                 } else {
                     continue;
                 }

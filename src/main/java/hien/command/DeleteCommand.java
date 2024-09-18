@@ -6,8 +6,6 @@ import hien.main.TaskList;
 import hien.task.Task;
 import hien.ui.UI;
 
-import java.util.ArrayList;
-
 public class DeleteCommand extends Command {
     private String input;
     private boolean isDeleteAll = false;
@@ -24,7 +22,8 @@ public class DeleteCommand extends Command {
         if (i < 1) {
             throw new HienException("☹ OOPS!!! Task index cannot be less than 1");
         } else if (i > tasks.size()) {
-            throw new HienException("☹ OOPS!!! Task index cannot be greater than current number of tasks. You currently only have " + tasks.size() + " tasks.");
+            throw new HienException("☹ OOPS!!! Task index cannot be greater than current number of tasks. "
+                                    + "You currently only have " + tasks.size() + " tasks.");
         } else {
             return true;
         }

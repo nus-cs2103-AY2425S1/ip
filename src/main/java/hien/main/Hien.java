@@ -1,22 +1,16 @@
 package hien.main;
 
+import java.time.format.DateTimeFormatter;
+
 import hien.command.Command;
 import hien.exception.HienException;
 import hien.ui.UI;
 
-import java.io.*;
-import java.nio.file.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Scanner;
-
 public class Hien {
-    private TaskList tasks;
     private static final String DATA_FILE_PATH = "data/tasks.txt";
     private static final DateTimeFormatter INPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final DateTimeFormatter OUTPUT_DATE_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy, hh:mm a");
+    private TaskList tasks;
     private UI ui;
     private Storage storage;
 

@@ -1,6 +1,14 @@
 package hien.main;
 
-import hien.command.*;
+import hien.command.Command;
+import hien.command.DeadlineCommand;
+import hien.command.DeleteCommand;
+import hien.command.EventCommand;
+import hien.command.ExitCommand;
+import hien.command.FindCommand;
+import hien.command.ListCommand;
+import hien.command.MarkCommand;
+import hien.command.TodoCommand;
 import hien.exception.HienException;
 import hien.ui.UI;
 
@@ -10,10 +18,11 @@ class Parser {
 
     /**
      * Parses the user's input string and returns the corresponding command.
-     * The method processes various types of commands (e.g., list, mark, unmark, todo, deadline, event, delete, deleteall, find, bye)
+     * The method processes various types of commands
+     * (e.g., list, mark, unmark, todo, deadline, event, delete, deleteall, find, bye)
      * based on the first word of the input string. If the command type is invalid, an exception is thrown.
      *
-     * @param input The input string provided by the user. It typically consists of a command followed by optional arguments.
+     * @param input The input string provided by the user. It consists of a command followed by arguments.
      * @return A {@code Command} object representing the action to be performed based on the user's input.
      * @throws HienException If the command type is not recognized or invalid.
      */

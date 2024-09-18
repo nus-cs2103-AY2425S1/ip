@@ -1,4 +1,5 @@
 package hien.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -7,10 +8,10 @@ import java.time.format.DateTimeFormatter;
  * Inherits from the {@code Task} class and adds a start and end date/time to the task.
  */
 public class Event extends Task {
-    protected LocalDateTime from;
-    protected LocalDateTime to;
     private static final DateTimeFormatter OUTPUT_DATE_FORMAT =
             DateTimeFormatter.ofPattern("MMM d yyyy, hh:mm a");
+    protected LocalDateTime from;
+    protected LocalDateTime to;
 
     /**
      * Constructs a new {@code Event} task with the specified description, start date/time, and end date/time.
@@ -51,6 +52,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from.format(OUTPUT_DATE_FORMAT) + " to: " + to.format(OUTPUT_DATE_FORMAT) + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(OUTPUT_DATE_FORMAT)
+                                        + " to: " + to.format(OUTPUT_DATE_FORMAT) + ")";
     }
 }

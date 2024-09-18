@@ -1,4 +1,5 @@
 package hien.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -7,9 +8,9 @@ import java.time.format.DateTimeFormatter;
  * Inherits from the {@code Task} class and adds a deadline date/time to the task.
  */
 public class Deadline extends Task {
-    protected LocalDateTime by;
     private static final DateTimeFormatter OUTPUT_DATE_FORMAT =
             DateTimeFormatter.ofPattern("MMM d yyyy, hh:mm a");
+    protected LocalDateTime by;
 
     /**
      * Constructs a new {@code Deadline} task with the specified description and deadline date/time.
