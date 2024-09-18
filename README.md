@@ -24,9 +24,9 @@ And the best part? **It's completely FREE!**
 
 ## Features
 
-[x] Task management
-[ ] Deadline tracking
-[ ] Event scheduling
+- [x] Task management
+- [ ] Deadline tracking
+- [ ] Event scheduling
 
 If you're a Java enthusiast, feel free to dig into the code and make it even better! Here’s the `main` method:
 
