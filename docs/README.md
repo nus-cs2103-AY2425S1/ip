@@ -2,9 +2,9 @@
 
 ![Ui.png](Ui.png)
 
-**Bob** is a chatbot designed to help users **_stay organised_** 
+**Bob** is a chatbot designed to help users **_stay organised_**
 and **_manage their tasks efficiently_**.
- 
+
 Whether you need help managing deadlines, planning your day, or simply track minor tasks,
 Bob can make your life easier!
 
@@ -27,7 +27,7 @@ Bob can make your life easier!
 ## Quick Start
 + Have Java 17 installed on your computer / laptop
 + Download the latest `.jar` file.
-+ Open terminal and `cd` to the directory where the `.jar` file is located. 
++ Open terminal and `cd` to the directory where the `.jar` file is located.
 + Run the command `java -jar Bob.jar` to open Bob application.
 
 > [!IMPORTANT]
@@ -38,7 +38,7 @@ Bob can make your life easier!
 > Words in UPPER_CASE are the parameters to be specified by the user.
 
 ### Add ToDo task: `todo`
-Adds a ToDo task to the task list. 
+Adds a ToDo task to the task list.
 
 Format: `todo DESCRIPTION`
 
@@ -56,7 +56,7 @@ Total number of tasks in your list: 1
 Adds a Deadline task to the task list.
 
 Format: `deadline DESCRIPTION /by DUE_DATE`
-+ `DUE_DATE` has format *YYYY-MM-DD HHMM*
++ `DUE_DATE` has format *yyyy-MM-dd HHmm*
 
 **Example**
 + `deadline return book /by 2024-10-25 1800`
@@ -72,7 +72,7 @@ Total number of tasks in your list: 2
 Adds an Event task to the task list.
 
 Format: `event DESCRIPTION /from START_DATE /to END_DATE`
-+ `START_DATE` and `END_DATE` has format *YYYY-MM-DD HHMM*
++ `START_DATE` and `END_DATE` has format *yyyy-MM-dd HHmm*
 
 **Example**
 + `event christmas eve party /from 2024-12-24 1900 /to 2024-12-25 0100`
@@ -104,7 +104,7 @@ Total number of tasks in your list: 3
 Marks a task as done.
 
 Format: `mark TASK_NUMBER`
-+ The `TASK_NUMBER` refers to the task number shown in the displayed task list. 
++ The `TASK_NUMBER` refers to the task number shown in the displayed task list.
 + The task number must be a **positive integer** 1, 2, 3, ...
 
 **Example**
