@@ -23,6 +23,8 @@ public class FindCommand extends Command{
      * @param keyWord The keyword to search for in the tasks.
      */
     public FindCommand(String keyWord) {
+        // Assert that the keyword is not null and not empty
+        assert keyWord != null && !keyWord.trim().isEmpty() : "Keyword must not be null or empty";
         this.keyWord = keyWord;
     }
 
@@ -39,10 +41,16 @@ public class FindCommand extends Command{
      */
     @Override
     public String getResponse(TaskList tasks, Ui ui, Storage storage) throws SnipeException, IOException {
+        // Assert that the TaskList is not null
+        assert tasks != null : "TaskList should not be null";
+
         ArrayList<Task> filteredTasks = tasks.findTasks(this.keyWord);
         StringBuilder message = new StringBuilder();
         message.append("Here are the matching tasks in your list:\n");
         for (int i = 0; i < filteredTasks.size(); i++) {
+            // Assert that each task in filteredTasks is not null
+            assert filteredTasks.get(i) != null : "Task in filtered list should not be null";
+
             String item = String.format("%d. %s\n", i + 1, filteredTasks.get(i).toString());
             message.append(item);
         }

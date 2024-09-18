@@ -26,9 +26,16 @@ public class ListCommand extends Command {
      */
     @Override
     public String getResponse(TaskList tasks, Ui ui, Storage storage) throws SnipeException, IOException {
+        // Assert that the task list is not null
+        assert tasks != null : "TaskList should be initialized and not null";
+
         StringBuilder message = new StringBuilder();
         message.append("Here are the tasks in your list:\n");
+
         for (int i = 0; i < tasks.size(); i++) {
+            // Assert that the task retrieved from the list is not null
+            assert tasks.getTask(i) != null : "Task in TaskList should not be null";
+
             String item = String.format("%d. %s\n", i + 1, tasks.getTask(i).toString());
             message.append(item);
         }

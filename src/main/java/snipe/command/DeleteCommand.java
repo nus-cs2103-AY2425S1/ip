@@ -21,6 +21,8 @@ public class DeleteCommand extends Command{
      * @param num The index of the task to be deleted (0-based index).
      */
     public DeleteCommand(int num) {
+        // Assert that the index passed in is non-negative
+        assert num >= 0 : "Task index must be non-negative";
         this.num = num;
     }
 
@@ -42,6 +44,10 @@ public class DeleteCommand extends Command{
                     + tasks.listLength());
         } else {
             Task toRemove = tasks.getTask(this.num);
+
+            // Assert that the task exists and is not null (task retrieval is successful)
+            assert toRemove != null : "Task should not be null";
+
             tasks.deleteTask(this.num);
             storage.saveTaskList(tasks);
             String message = "Noted. I've removed this task:\n"
