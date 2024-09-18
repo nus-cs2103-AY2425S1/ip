@@ -5,7 +5,7 @@ package stobberi.task;
  * whether it is done or not. It provides methods to mark the task as done or not done,
  * retrieve the task's description, and get a string representation of the task.
  */
-public class Task {
+public abstract class Task {
     /**
      * The description of the task.
      */
