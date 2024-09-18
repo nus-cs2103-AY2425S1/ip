@@ -34,6 +34,10 @@ public class Main extends Application {
             mainScene.getStylesheets().add(this.getClass().getResource("/css/main.css").toExternalForm());
             stage.setScene(mainScene);
 
+            stage.setMinHeight(450);
+            stage.setMinWidth(800);
+            stage.setMaxWidth(800);
+
             mainWindowLoader.<MainWindow>getController().setGlados(glados, historyWindowController, historyScene); // inject the Glados instance
             historyWindowLoader.<HistoryWindow>getController().setMainScene(mainScene);
 
