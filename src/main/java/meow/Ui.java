@@ -11,7 +11,7 @@ public class Ui {
 
 
     /**
-     * Returns the welcome message when the application starts.
+     * @return The welcome message when the application starts.
      */
     public static String getWelcomeMessage() {
         return " Hello! I'm " + "Meow" + "\n" +
