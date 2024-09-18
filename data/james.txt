@@ -1,0 +1,4 @@
+T | 1 | buy groceries
+D | 0 | complete assignment | 2024-12-12T18:00
+E | 0 | hall event | 2024-09-20T20:00 | 2024-09-20T22:00
+T | 0 | submit assignment
