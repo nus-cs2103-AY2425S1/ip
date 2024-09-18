@@ -72,7 +72,7 @@ public class Sentinel {
      * Enumeration of possible command types that can be issued by the user.
      */
     public enum CommandType {
-        todo, deadline, event, list, find, mark, unmark, delete, help, bye
+        todo, deadline, event, list, find, mark, unmark, delete, reschedule, help, bye
     }
 
     /**
@@ -87,7 +87,7 @@ public class Sentinel {
             return command.execute(input);
         } catch (InvalidCommandException e) {
             return SentinelString.stringUnrecognisedCommand();
-        } catch (SentinelException e) {
+        } catch (SentinelException e) { //check here
             return e.getMessage();
         }
     }

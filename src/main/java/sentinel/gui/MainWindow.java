@@ -24,8 +24,8 @@ public class MainWindow extends AnchorPane {
     private Sentinel sentinel;
     private Stage stage;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private final Image sentinelImage = new Image(this.getClass().getResourceAsStream("/images/Sentinel.jpeg"));
 
     /**
      * Initializes the UI components and sets up the initial state of the application.
@@ -34,7 +34,7 @@ public class MainWindow extends AnchorPane {
      * is added to the dialog container.
      * <p>
      * Additionally, it adds a welcome message dialog box to the dialog container. The message
-     * is retrieved from the `SentinelString.stringWelcome()` method, and the Duke image is used for
+     * is retrieved from the `SentinelString.stringWelcome()` method, and the Sentinel image is used for
      * displaying the message.
      * </p>
      */
@@ -42,7 +42,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog("Hi, I'm Sentinel! How can I help you today?", dukeImage)
+                DialogBox.getSentinelDialog("Hi, I'm Sentinel! How can I help you today?", sentinelImage)
         );
     }
 
@@ -57,8 +57,8 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one echoing user input and the other containing Sentinel's
+     * reply and then appends them to the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
@@ -67,7 +67,7 @@ public class MainWindow extends AnchorPane {
             String response = this.sentinel.getResponse(input);
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getDukeDialog(response, dukeImage)
+                    DialogBox.getSentinelDialog(response, sentinelImage)
             );
         }
         if (input.equalsIgnoreCase("bye")) {
