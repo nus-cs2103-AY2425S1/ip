@@ -43,9 +43,9 @@ public class IpMan {
     }
 
     /**
-     * The main method to run the chatbot.
-     * If a test argument is provided, it runs without persistence.
-     * Otherwise, it runs with persistence using the specified file path.
+     * Handles the main method for the chatbot.
+     * The chatbot can be run in either GUI mode or text mode.
+     * GUI mode is the default mode, while text mode is used for testing.
      *
      * @param args Command line arguments.
      */
