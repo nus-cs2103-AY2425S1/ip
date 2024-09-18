@@ -183,4 +183,13 @@ Format: `bye`
 Sample output
 
 I'd say it's time for a tea break. Milk and sugar for you?
-```
+
+## Credits
+
+Picture of user taken from [Granblue Fantasy Wiki](https://gbf.wiki/Gran_%28Rising%29)
+
+Picture of Testament taken from 
+[Boltun's DeviantArt page](https://www.deviantart.com/boltun/art/chibi-testament-png-edit-984163728)
+
+Picture of background taken from 
+[Wallpaper Abyss](https://wall.alphacoders.com/big.php?i=877952#google_vignette)
