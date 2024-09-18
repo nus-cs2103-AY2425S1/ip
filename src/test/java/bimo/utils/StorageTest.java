@@ -1,4 +1,4 @@
-package bimo.utils.storage;
+package bimo.utils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -8,9 +8,6 @@ import org.junit.jupiter.api.Test;
 
 import bimo.tasks.Event;
 import bimo.tasks.Task;
-import bimo.utils.Storage;
-
-
 
 public class StorageTest {
     @Test
