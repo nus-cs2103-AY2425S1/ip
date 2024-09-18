@@ -67,9 +67,9 @@ public abstract class Task {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         if (isCompleted()) {
-            sb.append("[X]");
+            sb.append("[X] ");
         } else {
-            sb.append("[]");
+            sb.append("[] ");
         }
         sb.append(getTask());
         return sb.toString();
