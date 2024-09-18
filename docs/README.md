@@ -1,5 +1,5 @@
 # Tecna User Guide
-<img src="/src/main/resources/images/UGProductScreenshot.png" alt="find magic" width="300"/>
+<img src="UGProductScreenshot.png" alt="App screenshot" width="300"/>
 
 **_Tecna_** is one of the main characters in Winx Club, originating from the planet Zenith, a highly advanced world focused on technology and logic. As the Fairy of Technology, **_Tecna_** possesses unique abilities that allow her to control and manipulate digital systems, reflecting her sharp intellect and analytical mind.
 
@@ -46,7 +46,7 @@ Command format: `find [keyword]`
 
 Example: both `find magic` and `find magic training` return the same list
 
-<img src="/src/main/resources/images/UGFindMagic.png" alt="find magic" width="300"/>
+<img src="UGFindMagic.png" alt="find magic" width="300"/>
 
 ## Mark a task as Done
 Marks a task with the corresponding index number as done.
