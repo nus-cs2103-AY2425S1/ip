@@ -59,7 +59,8 @@ public class History {
         }
         try {
             BufferedReader br = new BufferedReader(new FileReader(filePath));
-            String line = br.readLine(), complete = "X";
+            String line = br.readLine();
+            String complete = "X";
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
             Task task;
             while (line != null) {
