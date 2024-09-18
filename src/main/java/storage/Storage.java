@@ -52,19 +52,16 @@ public class Storage {
             BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
             String line; // To hold each line read from the file
             while ((line = reader.readLine()) != null) {
-                // Gets a string array separate into different parts marked by '|'
-                // Note: parts can be of different length depending on the length of the input being read
                 String[] parts = line.split(" \\| ");
-                String taskType = parts[0]; // Either "T"/"D"/"E"
+                String taskType = parts[0];
                 boolean isDone = parts[1].equals("1");
                 String description = parts[2];
-                Task task = null;
+                Task task;
                 switch (taskType) {
                 case "T":
                     int priorityForToDo = Integer.valueOf(parts[3]);
                     task = new ToDo(description, priorityForToDo);
-                    //task = new ToDo(description);
-                    break; // Continues with reading the next task in the next line
+                    break;
                 case "D":
                     String by = parts[3];
                     int priorityForDeadline = Integer.valueOf(parts[4]);
@@ -78,7 +75,6 @@ public class Storage {
                     break;
                 default:
                     System.out.println("Unknown task type: " + taskType);
-                    // Handle the unexpected case, e.g., log an error or skip the line
                     continue; // Skips the current iteration if taskType is not recognized
                 }
                 if (task != null) {

@@ -20,10 +20,12 @@ public class ErrorMessages {
             + " priority is: cp <Task index> <Task priority level>";
     public static final String INCORRECT_FORMAT_FOR_DELETE_COMMAND = "The correct format for deleting task is: "
             + " delete <Task Index>";
+    public static final String INCORRECT_ASCII_VALUE_INPUT = "Should be entering a number, "
+            + "no other characters are allowed!";
     public static final String INVALID_COMMAND = "The command you just entered is invalid: Try these "
             + "various commands \n"
             + "list - To list all tasks\n"
-            + "cp - To change priority of specific tasks"
-            + "deadline - To add a new task with a deadline"
-            + "event - To add a new task with a starting time and ending time";
+            + "cp - To change priority of specific tasks\n"
+            + "deadline - To add a new task with a deadline\n"
+            + "event - To add a new task with a starting time and ending time\n";
 }

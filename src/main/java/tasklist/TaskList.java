@@ -5,6 +5,7 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 
+import exceptions.ErrorMessages;
 import exceptions.TheOrangeRatchetCatException;
 import parser.Parser;
 import tasks.Task;
@@ -23,7 +24,6 @@ public class TaskList {
     public static String checkList(List<Task> items, Scanner scanner) {
         System.out.println("Here are the tasks in your list:");
         String result = Parser.printAllTasks(items);
-        //return scanner.nextLine();
         return result;
     }
 
@@ -39,13 +39,11 @@ public class TaskList {
         try {
             return Parser.markTaskAsDone(items, Integer.parseInt(input) - 1);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Might want to reconsider your action. Please Try Again");
-            //return scanner.nextLine();
-            return "Might want to reconsider your action. Please Try Again";
+            System.out.println(ErrorMessages.ARRAY_OUT_OF_BOUNDS);
+            return ErrorMessages.ARRAY_OUT_OF_BOUNDS;
         } catch (NumberFormatException e) {
-            System.out.println("Might want to reconsider your action. Please Try Again");
-            //return scanner.nextLine();
-            return "Might want to reconsider your action. Please Try Again";
+            System.out.println(ErrorMessages.INCORRECT_ASCII_VALUE_INPUT);
+            return ErrorMessages.INCORRECT_ASCII_VALUE_INPUT;
         }
     }
 
@@ -61,19 +59,16 @@ public class TaskList {
         try {
             return Parser.unmarkTaskAsDone(items, Integer.parseInt(input) - 1);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Might want to reconsider your action. Please Try Again");
-            //return scanner.nextLine();
-            return "Might want to reconsider your action. Please Try Again";
+            System.out.println(ErrorMessages.ARRAY_OUT_OF_BOUNDS);
+            return ErrorMessages.ARRAY_OUT_OF_BOUNDS;
         } catch (NumberFormatException e) {
-            System.out.println("Might want to reconsider your action. Please Try Again");
-            //return scanner.nextLine();
-            return "Might want to reconsider your action. Please Try Again";
+            System.out.println(ErrorMessages.INCORRECT_ASCII_VALUE_INPUT);
+            return ErrorMessages.INCORRECT_ASCII_VALUE_INPUT;
         }
     }
 
     /**
      * Deletes a particular task with that specific index as done
-     *
      * @param index represents the index of the task to delete
      * @param items represents the list of task
      * @param scanner the scanner object to read next line of input
@@ -83,9 +78,8 @@ public class TaskList {
         try {
             return Parser.deleteTasks(items, index);
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Pick an appropriate number. Please Try Again");
-            //return scanner.nextLine();
-            return "Pick an appropriate number. Please Try Again";
+            System.out.println(ErrorMessages.ARRAY_OUT_OF_BOUNDS);
+            return ErrorMessages.ARRAY_OUT_OF_BOUNDS;
         }
     }
 
@@ -97,13 +91,10 @@ public class TaskList {
      * @param scanner the scanner object to read next line of input
      * @return returns the next input command by user
      */
-
-    // Deal with incorrect inputs todo <space> does not terminate
     public static String addingToDo(String input, List<Task> items,
                                     Scanner scanner) throws TheOrangeRatchetCatException {
         if (input.isEmpty()) {
-            //throw new TheOrangeRatchetCatException("You can't do Nothing!");
-            return "You can't Do Nothing";
+            return ErrorMessages.INCORRECT_FORMAT_FOR_ADDING_TODO_COMMAND;
         }
         return Parser.addingToDoTaskToList(input, items);
     }
@@ -123,24 +114,20 @@ public class TaskList {
         // The description is the first part after removing the word "deadline"
         String taskDescription = parts[0].replace("deadline", "").trim();
         if (taskDescription.isEmpty()) {
-            //throw new TheOrangeRatchetCatException("You can't do Nothing!");
-            return "Adding a deadline follows a specific format : deadline <taskDescription> /by<YYYY>-<MM>-<DD>";
+            return ErrorMessages.INCORRECT_FORMAT_FOR_ADDING_DEADLINE_COMMAND;
         }
         // The "by" part is the second part, if it exists
         String date = parts.length > 1 ? parts[1].trim() : "";
         LocalDate dateBy;
-
         try { // Utilises LocalDate static method to parse input
             dateBy = LocalDate.parse(date);
             assert dateBy != null : "Parsed date should not be null"; // Assert that the date is correctly parsed
         } catch (DateTimeParseException e) {
-            System.out.println("The deadline follows a specific format - <YYYY>-<MM>-<DD>. Please Try Again!");
-            //return scanner.nextLine();
-            return "The deadline follows a specific format - <YYYY>-<MM>-<DD>. Please Try Again!";
+            System.out.println(ErrorMessages.INCORRECT_FORMAT_FOR_ADDING_DEADLINE_COMMAND);
+            return ErrorMessages.INCORRECT_FORMAT_FOR_ADDING_DEADLINE_COMMAND;
         }
         if (date.isEmpty()) {
-            //throw new TheOrangeRatchetCatException("You need to provide a deadline!");
-            return "Adding a deadline follows a specific format : deadline <taskDescription> /by<YYYY>-<MM>-<DD>";
+            return ErrorMessages.INCORRECT_FORMAT_FOR_ADDING_DEADLINE_COMMAND;
         }
         assert !taskDescription.isEmpty() : "Task description should not be empty";
         return Parser.addingDeadlineTaskToList(taskDescription, dateBy, items);
@@ -167,17 +154,15 @@ public class TaskList {
         LocalDate toLocalDate;
         LocalDate fromLocalDate;
         try { // Utilises LocalDate static method to parse input
-            toLocalDate = LocalDate.parse(toDate); // Could throw a DateTimeParseException
+            toLocalDate = LocalDate.parse(toDate);
             fromLocalDate = LocalDate.parse(fromDate);
         } catch (DateTimeParseException e) {
-            System.out.println("The event follows a specific format - <YYYY>-<MM>-<DD>. Please Try Again!");
-            //return scanner.nextLine();
-            return "The event follows a specific format - <YYYY>-<MM>-<DD>. Please Try Again!";
+            System.out.println(ErrorMessages.INCORRECT_FORMAT_FOR_ADDING_EVENT_COMMAND);
+            return ErrorMessages.INCORRECT_FORMAT_FOR_ADDING_EVENT_COMMAND;
         }
         if (fromLocalDate.isAfter(toLocalDate)) {
             throw new TheOrangeRatchetCatException("Your start date cannot be later than your end date");
         }
-        // Assert that fromLocalDate is not after toLocalDate
         assert !fromLocalDate.isAfter(toLocalDate) : "Start date must be before or on the end date.";
         if (toDate.isEmpty()) {
             throw new TheOrangeRatchetCatException("You need to specify an end time!");
@@ -204,7 +189,6 @@ public class TaskList {
      * @param scanner the scanner object to read next line of input
      * @return returns the next input command by user
      */
-    // Make sure you deal with incorrect inputs, couldn't load => on 2024-08
     public static String activitiesOnThisDate(LocalDate date, List<Task> items, Scanner scanner) {
         System.out.println("____________________________________________________________");
         System.out.println("Here are the tasks that occur at this date: " + date.toString());
@@ -214,7 +198,6 @@ public class TaskList {
         StringBuilder sbr = new StringBuilder("Here are the tasks that occur at this date: " + date + "\n");
         Parser.printTasksIfDateCorresponds(items, date, sbr, 1);
         System.out.println("____________________________________________________________");
-        //return scanner.nextLine();
         return sbr.toString();
     }
 
@@ -242,7 +225,6 @@ public class TaskList {
             printsMessageWhenNoTasksFound(input);
         }
         System.out.println("____________________________________________________________");
-        //return scanner.nextLine();
         return sbr.toString();
     }
 
@@ -255,13 +237,6 @@ public class TaskList {
         System.out.println("Try Looking for something else!");
         return "Looks like there's no task with taskDescription that contains '" + input + "'\n"
                 + "Try looking for something else!";
-    }
-
-    // Input is a string of multiple tasks split by \n
-    // Create and process each task.
-    // And pass into addMany(Tasks ...) {}
-    public static String addMany(String input, List<Task> items, Scanner scanner) {
-        return "";
     }
 
     /**

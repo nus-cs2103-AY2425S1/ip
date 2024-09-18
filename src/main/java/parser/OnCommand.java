@@ -6,6 +6,7 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 
+import exceptions.ErrorMessages;
 import tasklist.TaskList;
 import tasks.Task;
 
@@ -19,9 +20,8 @@ public class OnCommand implements Command {
             LocalDate localDate = LocalDate.parse(input.substring(2).trim());
             return TaskList.activitiesOnThisDate(localDate, items, scanner);
         } catch (DateTimeParseException e) {
-            System.out.println("The date follows a specific format - <YYYY>-<MM>-<DD>. Please Try Again!");
-            //return scanner.nextLine();
-            return "The date follows a specific format - <YYYY>-<MM>-<DD>. Please Try Again!";
+            System.out.println(ErrorMessages.INCORRECT_FORMAT_FOR_ON_COMMAND);
+            return ErrorMessages.INCORRECT_FORMAT_FOR_ON_COMMAND;
         }
     }
 }

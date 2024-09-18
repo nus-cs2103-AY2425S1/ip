@@ -3,6 +3,7 @@ package parser;
 import java.util.List;
 import java.util.Scanner;
 
+import exceptions.ErrorMessages;
 import exceptions.TheOrangeRatchetCatException;
 import tasklist.TaskList;
 import tasks.Task;
@@ -16,12 +17,10 @@ public class EventCommand implements Command {
             return TaskList.addingEvent(input, items, scanner);
         } catch (TheOrangeRatchetCatException e) {
             System.out.println(e.getMessage());
-            //return scanner.nextLine();
             return e.getMessage();
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Correct input format for adding event: event <Task> /from <input> /to <input>");
-            //return scanner.nextLine();
-            return "Correct input format for adding event: event <Task> /from <input> /to <input>";
+            System.out.println(ErrorMessages.ARRAY_OUT_OF_BOUNDS);
+            return ErrorMessages.ARRAY_OUT_OF_BOUNDS;
         }
     }
 }

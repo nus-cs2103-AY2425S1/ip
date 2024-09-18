@@ -19,17 +19,7 @@ import ui.Ui;
 public class Parser {
 
     public static final Map<String, Command> commands = new HashMap<>();
-
-    // Implement a new command "many"
-    // input command looks something like =>
-    /*
-    many deadline <> /by <>
-
-     */
-    // Get an array of Tasks split by "\n" and then call a method named addMultipleTasks(Tasks... tasks)
-    // And then process accordingly
     static {
-        // Initialize command mappings
         commands.put("list", new ListCommand());
         commands.put("mark", new MarkCommand());
         commands.put("unmark", new UnmarkCommand());
@@ -40,10 +30,11 @@ public class Parser {
         commands.put("find", new FindCommand());
         commands.put("on", new OnCommand());
         commands.put("cp", new ChangePriorityCommand());
-        //commands.put("many", new AddManyCommand());
     }
 
-    // To initialise all the commands inside the map
+    /**
+     * Initialise all the commands inside the map
+     */
     public static void initialiseMap() {}
 
     /**
@@ -66,7 +57,7 @@ public class Parser {
                     System.out.print("Inappropriate Command. Try again with a valid command: ");
                     input = scanner.nextLine();
                 }
-            } catch (DateTimeParseException e) { //TheOrangeRatchetCatException |
+            } catch (DateTimeParseException e) {
                 System.out.println(e.getMessage());
                 input = scanner.nextLine();
             } catch (ArrayIndexOutOfBoundsException e) {
@@ -147,11 +138,9 @@ public class Parser {
      * @return
      */
     public static String addingToDoTaskToList(String taskDescription, List<Task> tasks) {
-        //Task nextTask = new ToDo(taskDescription);
         Task nextTask = new ToDo(taskDescription, 1);
         Ui.addingToDoPrint(nextTask);
         tasks.add(nextTask);
-        //return scanner.nextLine();
         return "Got it. I've added this task:\n"
                 + nextTask + "\n"
                 + "Now you have " + Task.getTaskCount() + " tasks in the list.\n";
@@ -165,12 +154,9 @@ public class Parser {
      * @return
      */
     public static String addingDeadlineTaskToList(String taskDescription, LocalDate byDate, List<Task> tasks) {
-        // If task added successfully, the program will reach here!
-        //Task nextTask = new Deadline(taskDescription, byDate);
         Task nextTask = new Deadline(taskDescription, byDate, 1);
         Ui.addingDeadlinePrint(nextTask);
         tasks.add(nextTask);
-        //return scanner.nextLine();
         return "Got it. I've added this task:\n"
                 + nextTask + "\n"
                 + "Now you have " + Task.getTaskCount() + " tasks in the list.\n";
@@ -189,7 +175,6 @@ public class Parser {
         Task nextTask = new Event(taskDescription, fromDate, toDate, 1);
         Ui.addingEventPrint(nextTask);
         tasks.add(nextTask);
-        //return scanner.nextLine();
         return "Got it. I've added this task:\n"
                 + nextTask + "\n"
                 + "Now you have " + Task.getTaskCount() + " tasks in the list.\n";
@@ -234,4 +219,3 @@ public class Parser {
         }
     }
 }
-

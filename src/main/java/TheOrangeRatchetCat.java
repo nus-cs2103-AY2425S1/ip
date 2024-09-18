@@ -32,11 +32,9 @@ public class TheOrangeRatchetCat {
         if (input.equals("bye")) {
             resultToShow = TheOrangeRatchetCat.ratchetCatUniqueDialogue();
         }
-
         while (!input.equals("bye")) {
             String commandKey = input.split(" ")[0].trim(); // Get the command keyword
             Command command = Parser.commands.get(commandKey);
-
             try {
                 if (command != null) {
                     resultToShow = command.execute(input, tasks, scanner);
@@ -46,7 +44,7 @@ public class TheOrangeRatchetCat {
                     input = "bye";
                     resultToShow = "Inappropriate Command. Try again with a valid command";
                 }
-            } catch (DateTimeParseException e) { //TheOrangeRatchetCatException |
+            } catch (DateTimeParseException e) {
                 System.out.println(e.getMessage());
                 input = "bye";
                 resultToShow = "Incorrect date format. Please do <YYYY>-<MM>-<DD>";
