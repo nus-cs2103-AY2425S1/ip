@@ -51,6 +51,8 @@ public class AddCommand extends Command {
             task = new Deadline(input);
         } else if (input.startsWith("event")) {
             task = new Event(input);
+        } else if (input.startsWith("fixed")) {
+            task = new FixedDurationTask(input);
         }
         return task;
     }

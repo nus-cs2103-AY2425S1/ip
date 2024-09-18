@@ -34,7 +34,8 @@ public class Parser {
     private static boolean isATask(String input) {
         return input.startsWith("todo")
                 || input.startsWith("deadline")
-                || input.startsWith("event");
+                || input.startsWith("event")
+                || input.startsWith("fixed");
     }
 
     private static int getNumFromString(String input) {
