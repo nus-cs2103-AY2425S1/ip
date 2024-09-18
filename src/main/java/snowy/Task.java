@@ -33,7 +33,7 @@ public abstract class Task {
     }
 
     /**
-     * Convert the task into a String that will be saved into a file.
+     * Converts the task into a String that will be saved into a file.
      * @return the String that represents the task when saved.
      */
     public String toFileStorage() {

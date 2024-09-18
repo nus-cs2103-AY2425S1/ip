@@ -211,7 +211,7 @@ public class TaskList {
 
 
     /**
-     * Find all task which description matches the specifed string before returning them in an arrayList.
+     * Finds all task which description matches the specifed string before returning them in an arrayList.
      * @param description The String to be matched.
      * @return An ArrayList of tasks which matches the string
      */

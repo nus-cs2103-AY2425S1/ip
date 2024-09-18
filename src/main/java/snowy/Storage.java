@@ -48,7 +48,7 @@ public class Storage {
 
 
     /**
-     * Write into the file with the specified String.
+     * Writes into the file with the specified String.
      * @param saveLines the lines to be saved into the file.
      * @throws SnowyException if the file is unable to be updated.
      */
