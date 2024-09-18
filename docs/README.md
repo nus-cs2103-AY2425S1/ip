@@ -2,9 +2,8 @@
 
 
 
-// Product screenshot goes here
 
-![screenshot](/ip/docs/Ui.png)
+![BuddyBot](/docs/Ui.png?raw=true "Title")
 
 
 
