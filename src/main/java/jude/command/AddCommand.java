@@ -29,6 +29,7 @@ public class AddCommand extends Command {
         list.addTask(task);
         setMessage("Task " + task + " has been added.");
         storage.save(list);
+        ui.showMessage(getMessage());
     }
 
     @Override

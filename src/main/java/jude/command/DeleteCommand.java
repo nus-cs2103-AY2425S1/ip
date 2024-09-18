@@ -28,6 +28,7 @@ public class DeleteCommand extends Command {
         list.deleteTask(index);
         setMessage("Task has been deleted.");
         storage.save(list);
+        ui.showMessage(getMessage());
     }
 
     @Override

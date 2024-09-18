@@ -26,6 +26,7 @@ public class UnmarkCommand extends Command {
     public void execute(TaskList list, Ui ui, Storage storage) throws JudeException {
         list.unmarkTask(index);
         setMessage("Task " + list.getTask(index) + " been unmarked.");
+        ui.showMessage(getMessage());
         storage.save(list);
     }
 

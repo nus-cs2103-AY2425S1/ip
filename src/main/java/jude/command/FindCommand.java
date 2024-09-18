@@ -18,5 +18,6 @@ public class FindCommand extends Command {
     @Override
     public void execute(TaskList tasklist, Ui ui, Storage storage) {
         setMessage("Here are the matching tasks in your list: \n" + tasklist.search(keyword));
+        ui.showMessage(getMessage());
     }
 }

@@ -20,6 +20,7 @@ public class ListCommand extends Command {
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) throws JudeException {
         setMessage(list.toUiFormat());
+        ui.showMessage(getMessage());
     }
 
     @Override
