@@ -14,7 +14,7 @@ public class Ui {
     public Ui() {
     }
 
-    public String printGreeting() {
+    public String getGreeting() {
         return "Hello! I'm Mediell!\nWhat can I do for you? :)";
     }
 

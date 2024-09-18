@@ -33,6 +33,13 @@ public class Mediell {
     }
 
     /**
+     * Generates a greeting for the user
+     */
+    public String getGreeting() {
+        return ui.getGreeting();
+    }
+
+    /**
      * Generates a image for the response to the user's chat message.
      */
     public PictureUi.PictureType getImage(String input) {

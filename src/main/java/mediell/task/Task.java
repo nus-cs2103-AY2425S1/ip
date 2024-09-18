@@ -38,7 +38,7 @@ public class Task {
         } else {
             status = "[ ] ";
         }
-        return status + taskName;
+        return status + taskName + " ";
     }
 
     /**
