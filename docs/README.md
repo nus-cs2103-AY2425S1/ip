@@ -3,6 +3,8 @@
 ![Image of GUI](https://github.com/OrangeCatLoves/ip/blob/master/docs/Ui.png?raw=true)
 
 TheRatchetCat is here to organise tasks for you! 
+> [!IMPORTANT]
+> Spacing should be observed between each command entity in a single command
 
 ## Commands
 **"list"** list command lists all the for you
