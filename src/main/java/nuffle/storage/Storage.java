@@ -53,14 +53,16 @@ public class Storage {
      * @throws IOException If the directory or file could not be created.
      */
     public void checkFileExist(File taskFile) throws IOException {
+        // check if the directory exist
+        File directory = new File("/data"); // Specify the directory path
+        if (!directory.exists()) {
+            directory.mkdir(); // Create directory if it doesn't exist
+        }
         // check if the file exists. If it does not, make the directory
         if (!taskFile.exists()) {
-            if (taskFile.getParentFile().mkdir()) {
-                taskFile.createNewFile();
-            } else {
-                // throw an error if there is issue creating directory
-                throw new IOException("Problem creating the directory: " + taskFile.getParent());
-            }
+            taskFile.createNewFile();
+        } else {
+        System.out.println("nuffle.txt already exists in /data");
         }
     }
 
