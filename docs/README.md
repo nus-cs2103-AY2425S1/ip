@@ -18,7 +18,7 @@ Expected output
 
 ## Adding to-dos
 
-sers can add tasks with to-do with format "todo TASK_DESCRIPTION".
+Users can add tasks with to-do with format "todo TASK_DESCRIPTION".
 
 For example
 - todo borrow book
@@ -28,7 +28,7 @@ Expected output
 
 ## Adding events
 
-sers can add tasks with to-do with format "event TASK_DESCRIPTION /from YYYY-MM-DD /to YYYY-MM-DD".
+Users can add tasks with to-do with format "event TASK_DESCRIPTION /from YYYY-MM-DD /to YYYY-MM-DD".
 
 For example
 - event project presentation /from 2024-10-10 /to 2024-10-11
