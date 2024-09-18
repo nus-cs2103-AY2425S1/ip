@@ -19,6 +19,8 @@ import javafx.scene.layout.HBox;
  * and a label containing text from the speaker.
  */
 public class DialogBox extends HBox {
+    private static final double IMAGE_WIDTH = 60.0;
+    private static final double IMAGE_HEIGHT = 60.0;
     @FXML
     private Label dialog;
     @FXML
@@ -36,6 +38,8 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+        displayPicture.setFitWidth(IMAGE_WIDTH);
+        displayPicture.setFitHeight(IMAGE_HEIGHT);
     }
 
     /**
@@ -48,12 +52,20 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Flips the image of the dialog box.
+     */
+    private void flipImage() {
+        this.displayPicture.setScaleX(-1);
+    }
+
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
+        db.flipImage();
         db.flip();
         return db;
     }
