@@ -15,10 +15,6 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
    In the same dialog, set the **Project language level** field to the `SDK default` option.
 4. After that, locate the `src/main/java/spiderman.Spiderman.java` file, right-click it, and choose `Run spiderman.Spiderman.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
    ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
+   Hello! This is your friendly neighbourhood Spiderman.
+   What can I do for you?
    ```
