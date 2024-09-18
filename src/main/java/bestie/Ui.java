@@ -176,9 +176,9 @@ public class Ui {
      */
     public String showTasksOfPriority(ArrayList<Task> tasks, Priority priority) {
         if (tasks.isEmpty()) {
-            return "There are no tasks in your list with priority " + priority.toString().toLowerCase() + ". :)";
+            return "There are no tasks in your list with " + priority.toString().toLowerCase() + " priority. :)";
         } else {
-            String output = "Here are the tasks in your list with priority " + priority.toString().toLowerCase() + ": \n";
+            String output = "Here are the tasks in your list with " + priority.toString().toLowerCase() + " priority: \n";
             for (int i = 0; i < tasks.size(); i++) {
                 if (tasks.get(i).getPriority().equals(priority)) {
                     output = output.concat((i + 1) + ". " + tasks.get(i).toString() + "\n");
