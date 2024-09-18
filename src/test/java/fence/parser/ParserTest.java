@@ -46,6 +46,7 @@ public class ParserTest {
             assertEquals("", new Parser().parseInput("mark one"));
             fail();
         } catch (NumberFormatException e) {
+            // Passes the test as this is the expected exception thrown
         } catch (Exception e) {
             fail();
         }
@@ -54,6 +55,7 @@ public class ParserTest {
             assertEquals("", new Parser().parseInput("unmark one"));
             fail();
         } catch (NumberFormatException e) {
+            // Passes the test as this is the expected exception thrown
         } catch (Exception e) {
             fail();
         }
@@ -62,6 +64,7 @@ public class ParserTest {
             assertEquals("", new Parser().parseInput("delete one"));
             fail();
         } catch (NumberFormatException e) {
+            // Passes the test as this is the expected exception thrown
         } catch (Exception e) {
             fail();
         }
@@ -73,6 +76,7 @@ public class ParserTest {
             assertEquals("", new Parser().parseInput("todo"));
             fail();
         } catch (NoSuchElementException e) {
+            // Passes the test as this is the expected exception thrown
         } catch (Exception e) {
             fail();
         }
@@ -84,6 +88,7 @@ public class ParserTest {
             assertEquals("", new Parser().parseInput("deadline"));
             fail();
         } catch (NoSuchElementException e) {
+            // Passes the test as this is the expected exception thrown
         } catch (Exception e) {
             fail();
         }
@@ -92,6 +97,7 @@ public class ParserTest {
             assertEquals("", new Parser().parseInput("deadline some task"));
             fail();
         } catch (NoSuchElementException e) {
+            // Passes the test as this is the expected exception thrown
         } catch (Exception e) {
             fail();
         }
@@ -100,6 +106,7 @@ public class ParserTest {
             assertEquals("", new Parser().parseInput("deadline some task /by"));
             fail();
         } catch (NoSuchElementException e) {
+            // Passes the test as this is the expected exception thrown
         } catch (Exception e) {
             fail();
         }
@@ -108,6 +115,7 @@ public class ParserTest {
             assertEquals("", new Parser().parseInput("deadline /by"));
             fail();
         } catch (NoSuchElementException e) {
+            // Passes the test as this is the expected exception thrown
         } catch (Exception e) {
             fail();
         }
@@ -119,6 +127,7 @@ public class ParserTest {
             assertEquals("", new Parser().parseInput("event"));
             fail();
         } catch (NoSuchElementException e) {
+            // Passes the test as this is the expected exception thrown
         } catch (Exception e) {
             fail();
         }
@@ -127,6 +136,7 @@ public class ParserTest {
             assertEquals("", new Parser().parseInput("event some task"));
             fail();
         } catch (NoSuchElementException e) {
+            // Passes the test as this is the expected exception thrown
         } catch (Exception e) {
             fail();
         }
@@ -135,6 +145,7 @@ public class ParserTest {
             assertEquals("", new Parser().parseInput("event some task /from"));
             fail();
         } catch (NoSuchElementException e) {
+            // Passes the test as this is the expected exception thrown
         } catch (Exception e) {
             fail();
         }
@@ -143,6 +154,7 @@ public class ParserTest {
             assertEquals("", new Parser().parseInput("event some task /from Mon 2pm"));
             fail();
         } catch (NoSuchElementException e) {
+            // Passes the test as this is the expected exception thrown
         } catch (Exception e) {
             fail();
         }
@@ -151,6 +163,7 @@ public class ParserTest {
             assertEquals("", new Parser().parseInput("event some task /from Mon 2pm /to"));
             fail();
         } catch (NoSuchElementException e) {
+            // Passes the test as this is the expected exception thrown
         } catch (Exception e) {
             fail();
         }
@@ -159,6 +172,7 @@ public class ParserTest {
             assertEquals("", new Parser().parseInput("event some task /to"));
             fail();
         } catch (NoSuchElementException e) {
+            // Passes the test as this is the expected exception thrown
         } catch (Exception e) {
             fail();
         }
@@ -167,6 +181,7 @@ public class ParserTest {
             assertEquals("", new Parser().parseInput("event some task /to 4pm"));
             fail();
         } catch (NoSuchElementException e) {
+            // Passes the test as this is the expected exception thrown
         } catch (Exception e) {
             fail();
         }
@@ -175,6 +190,7 @@ public class ParserTest {
             assertEquals("", new Parser().parseInput("event /from"));
             fail();
         } catch (NoSuchElementException e) {
+            // Passes the test as this is the expected exception thrown
         } catch (Exception e) {
             fail();
         }
@@ -183,6 +199,7 @@ public class ParserTest {
             assertEquals("", new Parser().parseInput("event /to"));
             fail();
         } catch (NoSuchElementException e) {
+            // Passes the test as this is the expected exception thrown
         } catch (Exception e) {
             fail();
         }
@@ -191,6 +208,7 @@ public class ParserTest {
             assertEquals("", new Parser().parseInput("event some task /to 4pm /from Mon 2pm"));
             fail();
         } catch (NoSuchElementException e) {
+            // Passes the test as this is the expected exception thrown
         } catch (Exception e) {
             fail();
         }
@@ -202,6 +220,7 @@ public class ParserTest {
             assertEquals("", new Parser().parseInput("mark"));
             fail();
         } catch (NoSuchElementException e) {
+            // Passes the test as this is the expected exception thrown
         } catch (Exception e) {
             fail();
         }
@@ -210,6 +229,7 @@ public class ParserTest {
             assertEquals("", new Parser().parseInput("unmark"));
             fail();
         } catch (NoSuchElementException e) {
+            // Passes the test as this is the expected exception thrown
         } catch (Exception e) {
             fail();
         }
@@ -218,6 +238,7 @@ public class ParserTest {
             assertEquals("", new Parser().parseInput("delete"));
             fail();
         } catch (NoSuchElementException e) {
+            // Passes the test as this is the expected exception thrown
         } catch (Exception e) {
             fail();
         }
@@ -229,6 +250,7 @@ public class ParserTest {
             assertEquals("", new Parser().parseInput("deadline some task /by Monday"));
             fail();
         } catch (DateTimeParseException e) {
+            // Passes the test as this is the expected exception thrown
         } catch (Exception e) {
             fail();
         }
@@ -240,6 +262,7 @@ public class ParserTest {
             assertEquals("", new Parser().parseInput(""));
             fail();
         } catch (NoSuchElementException e) {
+            // Passes the test as this is the expected exception thrown
         } catch (Exception e) {
             fail();
         }

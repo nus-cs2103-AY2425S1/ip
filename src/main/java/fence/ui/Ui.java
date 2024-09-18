@@ -39,10 +39,11 @@ public class Ui {
 
     /**
      * Returns message containing the size of the task list.
-     * @param size Size of the task list.
+     * @param tasks List of tasks currently.
      * @return Message displaying the size of the task list.
      */
-    public String count(int size) {
+    public String count(TaskList tasks) {
+        int size = tasks.getSize();
         return "Now you have " + size + ((size == 1) ? " item " : " items ") + "in the list.";
     }
 

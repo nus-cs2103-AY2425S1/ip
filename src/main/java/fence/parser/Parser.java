@@ -14,160 +14,239 @@ public class Parser {
     private Task taskResult;
     private int intResult;
     private String strResult;
+    private StringTokenizer st;
+
+    /**
+     * Parses the fields for the todo task and initialises it in taskResult.
+     */
+    public void initialiseTodo() {
+        String description = st.nextToken();
+        while (st.hasMoreTokens()) {
+            description = description + " " + st.nextToken();
+        }
+
+        taskResult = new Todo(description);
+    }
+
+    /**
+     * Parses the fields for the deadline task and initialises it in taskResult.
+     */
+    public void initialiseDeadline() {
+        String description = st.nextToken();
+        String by = "";
+        boolean hasCompleteDescription = false;
+
+        while (st.hasMoreTokens()) {
+            String nextWord = st.nextToken();
+            if (nextWord.equals("/by")) {
+                hasCompleteDescription = true;
+                by = st.nextToken();
+                continue;
+            }
+
+            if (hasCompleteDescription) {
+                by = by + " " + nextWord;
+            } else {
+                description = description + " " + nextWord;
+            }
+        }
+
+        taskResult = new Deadline(description, LocalDate.parse(by));
+    }
+
+    /**
+     * Parses the fields for the event task and initialises it in taskResult.
+     */
+    public void initialiseEvent() {
+        String description = st.nextToken();
+        String from = "";
+        String to = "";
+        boolean hasCompleteDescription = false;
+        boolean hasCompleteFrom = false;
+
+        while (st.hasMoreTokens()) {
+            String nextWord = st.nextToken();
+            if (nextWord.equals("/from")) {
+                hasCompleteDescription = true;
+                from = st.nextToken();
+                continue;
+            }
+            if (nextWord.equals("/to")) {
+                hasCompleteFrom = true;
+                to = st.nextToken();
+                continue;
+            }
+
+            if (hasCompleteFrom) {
+                to = to + " " + nextWord;
+            } else if (hasCompleteDescription) {
+                from = from + " " + nextWord;
+            } else {
+                description = description + " " + nextWord;
+            }
+        }
+        taskResult = new Event(description, from, to);
+    }
+
+    /**
+     * Sets the status of the current task being initialised.
+     * @param status Status of the current task.
+     */
+    public void initialiseStatus(String status) {
+        if (status.equals("(DONE)")) {
+            taskResult.complete();
+        } else if (status.equals("(UNDONE)")) {
+            assert !taskResult.getDone() : "taskResult should be undone by default";
+        } else {
+            assert false : "status should have been saved as either default statuses";
+        }
+    }
+
+    /**
+     * Parses the fields for the deadline task and initialises it in taskResult.
+     * @throws NoSuchElementException If any fields are missing.
+     */
+    public void initialiseDeadlineWithExceptions() {
+        String description = st.nextToken();
+        String by = "";
+        boolean hasCompleteDescription = false;
+
+        if (description.equals("/by")) {
+            throw new NoSuchElementException();
+        }
+
+        while (st.hasMoreTokens()) {
+            String nextWord = st.nextToken();
+            if (nextWord.equals("/by")) {
+                hasCompleteDescription = true;
+                by = st.nextToken();
+                continue;
+            }
+
+            if (hasCompleteDescription) {
+                by = by + " " + nextWord;
+            } else {
+                description = description + " " + nextWord;
+            }
+        }
+
+        if (!hasCompleteDescription) {
+            throw new NoSuchElementException();
+        }
+
+        taskResult = new Deadline(description, LocalDate.parse(by));
+    }
+
+    /**
+     * Parses the fields for the event task and initialises it in taskResult.
+     * @throws NoSuchElementException If any fields are missing.
+     */
+    public void initialiseEventWithException() {
+        String description = st.nextToken();
+        String from = "";
+        String to = "";
+        boolean hasCompleteDescription = false;
+        boolean hasCompleteFrom = false;
+
+        if (description.equals("/to") || description.equals("/from")) {
+            throw new NoSuchElementException();
+        }
+
+        while (st.hasMoreTokens()) {
+            String nextWord = st.nextToken();
+            if (nextWord.equals("/from")) {
+                hasCompleteDescription = true;
+                from = st.nextToken();
+                continue;
+            }
+            if (nextWord.equals("/to")) {
+                if (!hasCompleteDescription) {
+                    throw new NoSuchElementException();
+                }
+                hasCompleteFrom = true;
+                to = st.nextToken();
+                continue;
+            }
+
+            if (hasCompleteFrom) {
+                to = to + " " + nextWord;
+            } else if (hasCompleteDescription) {
+                from = from + " " + nextWord;
+            } else {
+                description = description + " " + nextWord;
+            }
+        }
+
+        if (!(hasCompleteDescription && hasCompleteFrom)) {
+            throw new NoSuchElementException();
+        }
+
+        taskResult = new Event(description, from, to);
+    }
+
+    /**
+     * Parses the index of the relevant task and initialises it in intResult.
+     */
+    public void readIndex() {
+        intResult = Integer.parseInt(st.nextToken());
+    }
+
+    /**
+     * Parses the relevant string to be found and initialises it in strResult.
+     */
+    public void readString() {
+        strResult = st.nextToken();
+        while (st.hasMoreTokens()) {
+            strResult = strResult + " " + st.nextToken();
+        }
+    }
 
     public Task parseTxt(String command) {
-        StringTokenizer st = new StringTokenizer(command);
+        st = new StringTokenizer(command);
         String firstWord = st.nextToken();
         String status = st.nextToken();
-        boolean isDone = status.equals("(DONE)");
+
         if (firstWord.equals("TODO")) {
-            String description = st.nextToken();
-            while (st.hasMoreTokens()) {
-                description = description + " " + st.nextToken();
-            }
-            taskResult = new Todo(description);
+            initialiseTodo();
         } else if (firstWord.equals("DEADLINE")) {
-            String description = st.nextToken();
-            String by = "";
-            boolean hasCompleteDescription = false;
-            while (st.hasMoreTokens()) {
-                String nextWord = st.nextToken();
-                if (nextWord.equals("/by")) {
-                    hasCompleteDescription = true;
-                    by = st.nextToken();
-                    continue;
-                }
-                if (hasCompleteDescription) {
-                    by = by + " " + nextWord;
-                } else {
-                    description = description + " " + nextWord;
-                }
-            }
-            taskResult = new Deadline(description, LocalDate.parse(by));
+            initialiseDeadline();
         } else if (firstWord.equals("EVENT")) {
-            String description = st.nextToken();
-            String from = "";
-            String to = "";
-            boolean hasCompleteDescription = false;
-            boolean hasCompleteFrom = false;
-            while (st.hasMoreTokens()) {
-                String nextWord = st.nextToken();
-                if (nextWord.equals("/from")) {
-                    hasCompleteDescription = true;
-                    from = st.nextToken();
-                    continue;
-                }
-                if (nextWord.equals("/to")) {
-                    hasCompleteFrom = true;
-                    to = st.nextToken();
-                    continue;
-                }
-                if (hasCompleteFrom) {
-                    to = to + " " + nextWord;
-                } else if (hasCompleteDescription) {
-                    from = from + " " + nextWord;
-                } else {
-                    description = description + " " + nextWord;
-                }
-            }
-            taskResult = new Event(description, from, to);
+            initialiseEvent();
+        } else {
+            assert false : "firstWord should have been saved as one of the default task types";
         }
-        if (isDone) {
-            taskResult.complete();
-        }
+        initialiseStatus(status);
         return taskResult;
     }
 
     public String parseInput(String command) {
-        StringTokenizer st = new StringTokenizer(command);
+        st = new StringTokenizer(command);
         String firstWord = st.nextToken();
+
         if (command.equals("bye")) {
             return "bye";
         } else if (command.equals("list")) {
             return "list";
         } else if (firstWord.equals("todo")) {
-            String description = st.nextToken();
-            while (st.hasMoreTokens()) {
-                description = description + " " + st.nextToken();
-            }
-            taskResult = new Todo(description);
+            initialiseTodo();
             return "task";
         } else if (firstWord.equals("deadline")) {
-            String description = st.nextToken();
-            if (description.equals("/by")) {
-                throw new NoSuchElementException();
-            }
-            String by = "";
-            boolean hasCompleteDescription = false;
-            while (st.hasMoreTokens()) {
-                String nextWord = st.nextToken();
-                if (nextWord.equals("/by")) {
-                    hasCompleteDescription = true;
-                    by = st.nextToken();
-                    continue;
-                }
-                if (hasCompleteDescription) {
-                    by = by + " " + nextWord;
-                } else {
-                    description = description + " " + nextWord;
-                }
-            }
-            if (!hasCompleteDescription) {
-                throw new NoSuchElementException();
-            }
-            taskResult = new Deadline(description, LocalDate.parse(by));
+            initialiseDeadlineWithExceptions();
             return "task";
         } else if (firstWord.equals("event")) {
-            String description = st.nextToken();
-            if (description.equals("/to") || description.equals("/from")) {
-                throw new NoSuchElementException();
-            }
-            String from = "";
-            String to = "";
-            boolean hasCompleteDescription = false;
-            boolean hasCompleteFrom = false;
-            while (st.hasMoreTokens()) {
-                String nextWord = st.nextToken();
-                if (nextWord.equals("/from")) {
-                    hasCompleteDescription = true;
-                    from = st.nextToken();
-                    continue;
-                }
-                if (nextWord.equals("/to")) {
-                    if (!hasCompleteDescription) {
-                        throw new NoSuchElementException();
-                    }
-                    hasCompleteFrom = true;
-                    to = st.nextToken();
-                    continue;
-                }
-                if (hasCompleteFrom) {
-                    to = to + " " + nextWord;
-                } else if (hasCompleteDescription) {
-                    from = from + " " + nextWord;
-                } else {
-                    description = description + " " + nextWord;
-                }
-            }
-            if (!(hasCompleteDescription && hasCompleteFrom)) {
-                throw new NoSuchElementException();
-            }
-            taskResult = new Event(description, from, to);
+            initialiseEventWithException();
             return "task";
         } else if (firstWord.equals("mark")) {
-            intResult = Integer.parseInt(st.nextToken());
+            readIndex();
             return "mark";
         } else if (firstWord.equals("unmark")) {
-            intResult = Integer.parseInt(st.nextToken());
+            readIndex();
             return "unmark";
         } else if (firstWord.equals("delete")) {
-            intResult = Integer.parseInt(st.nextToken());
+            readIndex();
             return "delete";
         } else if (firstWord.equals("find")) {
-            strResult = st.nextToken();
-            while (st.hasMoreTokens()) {
-                strResult = strResult + " " + st.nextToken();
-            }
+            readString();
             return "find";
         } else {
             return "unknown command";

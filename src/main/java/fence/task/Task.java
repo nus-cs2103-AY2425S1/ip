@@ -17,6 +17,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public boolean getDone() {
+        return this.isDone;
+    }
+
     /**
      * Sets the isDone field as true.
      */
