@@ -12,7 +12,7 @@ public class Ui {
      * @return The message with the list of tasks.
      */
     public static String getTaskListMessage(TaskList tasks) {
-        StringBuilder output = new StringBuilder("Here are the tasks in your list:\n");
+        StringBuilder output = new StringBuilder("here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             output.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
         }
@@ -27,10 +27,10 @@ public class Ui {
      */
     public static String getFindTasksMessage(TaskList matchingTasks) {
         if (matchingTasks.size() == 0) {
-            return "No matching tasks found.\n";
+            return "no matching tasks found. \n";
         }
 
-        StringBuilder output = new StringBuilder("Here are the matching tasks in your list:\n");
+        StringBuilder output = new StringBuilder("here are the matching tasks in your list:\n");
         for (int i = 0; i < matchingTasks.size(); i++) {
             output.append((i + 1)).append(". ").append(matchingTasks.get(i)).append("\n");
         }
@@ -44,7 +44,7 @@ public class Ui {
      * @return The message for marking the task.
      */
     public static String getMarkTaskDoneMessage(Task task) {
-        return "Nice! I've marked this task as done:\n  " + task + "\n";
+        return "nice!! :3 i've marked this task as done:\n  " + task + "\n";
     }
 
     /**
@@ -54,7 +54,7 @@ public class Ui {
      * @return The message for unmarking the task.
      */
     public static String getUnmarkTaskMessage(Task task) {
-        return "OK, I've marked this task as not done yet:\n  " + task + "\n";
+        return "meow!! i've marked this task as not done yet:\n  " + task + "\n";
     }
 
     /**
@@ -65,7 +65,7 @@ public class Ui {
      * @return The message for adding the task.
      */
     public static String getAddTodoMessage(ToDo todo, int size) {
-        return "Got it. I've added this task:\n  " + todo + "\nNow you have " + size + " tasks in the list.\n";
+        return "meow! :3 i've added this task:\n  " + todo + "\nnow you have " + size + " tasks in the list.\n";
     }
 
     /**
@@ -74,7 +74,7 @@ public class Ui {
      * @return The invalid deadline message.
      */
     public static String getInvalidDeadlineMessage() {
-        return "Invalid deadline.\n Please use this format: \n " +
+        return "invalid deadline.\n pwease use this format: \n " +
                 "deadline taskName /by yyyy-mm-dd \n";
     }
 
@@ -86,7 +86,7 @@ public class Ui {
      * @return The message for adding the task.
      */
     public static String getAddDeadlineMessage(Deadline deadline, int size) {
-        return "Got it. I've added this task:\n  " + deadline + "\nNow you have " + size + " tasks in the list.\n";
+        return "meow! :3 I've added this task:\n  " + deadline + "\nnow you have " + size + " tasks in the list.\n";
     }
 
     /**
@@ -95,7 +95,7 @@ public class Ui {
      * @return The invalid event message.
      */
     public static String getInvalidEventMessage() {
-        return "Invalid event.\n Please use this format: \n" +
+        return "invalid event.\n pwease use this format: \n" +
                 "event taskName /from yyyy-mm-dd /to yyyy-mm-dd \n";
     }
 
@@ -107,7 +107,7 @@ public class Ui {
      * @return The message for adding the task.
      */
     public static String getAddEventMessage(Event event, int size) {
-        return "Got it. I've added this task:\n  " + event + "\nNow you have " + size + " tasks in the list.\n";
+        return "meow! :3 i've added this task:\n  " + event + "\nnow you have " + size + " tasks in the list.\n";
     }
 
     /**
@@ -116,7 +116,7 @@ public class Ui {
      * @return The invalid Do Within message.
      */
     public static String getInvalidDoWithinMessage() {
-        return "Invalid doWithin.\n Please use this format: \n" +
+        return "invalid doWithin.\n pwease use this format: \n" +
                 "doWithin taskName /between yyyy-mm-dd /and yyyy-mm-dd \n";
     }
 
@@ -128,7 +128,7 @@ public class Ui {
      * @return The message for adding the task.
      */
     public static String getAddDoWithinMessage(DoWithin doWithin, int size) {
-        return "Got it. I've added this task:\n  " + doWithin + "\nNow you have " + size + " tasks in the list.\n";
+        return "meow! :3 I've added this task:\n  " + doWithin + "\nNow you have " + size + " tasks in the list.\n";
     }
 
     /**
@@ -139,7 +139,7 @@ public class Ui {
      * @return The message for deleting the task.
      */
     public static String getDeleteTaskMessage(Task task, int size) {
-        return "Noted. I've removed this task:\n  " + task + "\nNow you have " + size + " tasks in the list.\n";
+        return "Noted. >:( I've removed this task:\n  " + task + "\nNow you have " + size + " tasks in the list.\n";
     }
 
     /**
@@ -149,7 +149,7 @@ public class Ui {
      */
     public static String getInvalidTaskNumberMessage() {
 
-        return "Invalid task number.\n";
+        return "invalid task number.\n";
     }
 
     /**
@@ -159,7 +159,7 @@ public class Ui {
      */
     public static String getGoodbyeMessage() {
 
-        return "Bye. Hope to see you again soon!\n";
+        return "bye!! hope to see you again soon! :3 \n";
     }
 
     /**
@@ -169,6 +169,6 @@ public class Ui {
      */
     public static String getUnknownCommandMessage() {
 
-        return "Sorry, I don't know what that means.\n";
+        return "sorry, i don't know what that means...\n";
     }
 }

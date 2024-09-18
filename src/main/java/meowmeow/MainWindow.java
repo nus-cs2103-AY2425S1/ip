@@ -43,7 +43,7 @@ public class MainWindow extends AnchorPane {
         meowmeow.run();
 
         dialogContainer.getChildren().addAll(
-        MeowMeowDialogBox.getDialog("Hello! I'm MeowMeow\n" + "What can I do for you?\n", meowMeowImage));
+        MeowMeowDialogBox.getDialog("hewwo! i'm MeowMeow\n" + "what can i do for you? :3\n", meowMeowImage));
 
         this.parser = meowmeow.getParser();
         assert parser != null : "Parser should not be null";
