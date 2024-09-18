@@ -28,7 +28,6 @@ public class Ui {
      * @return The command input by the user, trimmed of leading and trailing whitespace.
      */
     public String readCommand() {
-        System.out.print("Enter your command: ");
         return scanner.nextLine().trim();
     }
 

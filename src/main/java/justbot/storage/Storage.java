@@ -40,7 +40,7 @@ public class Storage {
      * Creates the file and its parent directories if they do not exist.
      * If the file already exists, this method does nothing.
      */
-    public void createFileIfDoesNotExist() {
+    public void createFileIfDoesNotExist() throws JustbotException {
         try {
             File file = new File(filePath);
             File parentDir = file.getParentFile();
@@ -53,7 +53,7 @@ public class Storage {
                 file.createNewFile();
             }
         } catch (IOException e) {
-            System.out.println("Hey man, something went wrong when I tried creating the file or directory.");
+            throw new JustbotException("Hey man, something went wrong when I tried creating the file or directory.");
         }
     }
 
@@ -78,7 +78,7 @@ public class Storage {
      *
      * @param taskList The list of tasks to be saved.
      */
-    public void saveTasks(TaskList taskList) {
+    public void saveTasks(TaskList taskList) throws JustbotException {
         try {
             writeToFile(filePath, "", false);
             for (Task task : taskList) {
@@ -104,7 +104,7 @@ public class Storage {
                 writeToFile(filePath, taskString + "\n", true);
             }
         } catch (IOException e) {
-            System.out.println("Hey man an error occured while saving tasks!");
+            throw new JustbotException("Hey man an error occured while saving tasks!");
         }
     }
 
@@ -124,23 +124,22 @@ public class Storage {
                 try {
                     Task task = parseTask(line);
                     tasks.add(task);
-                } catch (Exception e) {
-                    System.out.println("Skipping malformed task due to error: " + e.getMessage());
+                } catch (JustbotException e) {
+                    // skip the malformed tasks
                 }
+
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File not found: " + e.getMessage());
-        } catch (Exception e) {
-            System.out.println("An unexpected error occurred while loading tasks: " + e.getMessage());
+            throw new JustbotException("File not found: " + e.getMessage());
         }
         return tasks;
     }
 
-    private Task parseTask(String line) throws Exception {
+    private Task parseTask(String line) throws JustbotException {
         String[] parts = line.split("\\|");
 
         if (parts.length < 4) {
-            throw new Exception("Malformed line: " + line);
+            throw new JustbotException("Malformed line: " + line);
         }
 
         CommandType type = CommandType.fromString(parts[0].trim());
@@ -160,7 +159,7 @@ public class Storage {
             task = parseEventTask(description, timeConstraint);
             break;
         default:
-            throw new Exception("Unknown task type: " + type);
+            throw new JustbotException("Unknown task type: " + type);
         }
 
         if (isDoneString.equals("x")) {
@@ -174,18 +173,26 @@ public class Storage {
         return new Todo(description);
     }
 
-    private Deadline parseDeadlineTask(String description, String timeConstraint) throws DateTimeParseException {
+    private Deadline parseDeadlineTask(String description, String timeConstraint) throws JustbotException {
         String deadlineDateTimeString = timeConstraint.replace("by:", "").trim();
-        LocalDateTime deadlineDateTime = LocalDateTime.parse(deadlineDateTimeString, formatter);
-        return new Deadline(description, deadlineDateTime);
+
+        try {
+            LocalDateTime deadlineDateTime = LocalDateTime.parse(deadlineDateTimeString, formatter);
+            return new Deadline(description, deadlineDateTime);
+        } catch (DateTimeParseException e) {
+            throw new JustbotException("Invalid date format or values. Please ensure the date is in the format "
+                    + "dd/MM/yyyy HHmm with valid values.");
+        }
     }
+
 
     private Event parseEventTask(String description, String timeConstraint) throws DateTimeParseException {
         String[] timeParts = timeConstraint.split(" to ");
         if (timeParts.length < 2) {
             throw new IllegalArgumentException("Event time constraint is malformed: " + timeConstraint);
         }
-        LocalDateTime start = LocalDateTime.parse(timeParts[0].replace("from ", "").trim(), formatter);
+        LocalDateTime start = LocalDateTime.parse(timeParts[0].replace("from ", "")
+                .trim(), formatter);
         LocalDateTime end = LocalDateTime.parse(timeParts[1].trim(), formatter);
         return new Event(description, start, end);
     }

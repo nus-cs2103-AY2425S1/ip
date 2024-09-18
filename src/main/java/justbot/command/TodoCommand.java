@@ -1,5 +1,6 @@
 package justbot.command;
 
+import justbot.exception.JustbotException;
 import justbot.storage.Storage;
 import justbot.task.Task;
 import justbot.task.TaskList;
@@ -31,7 +32,7 @@ public class TodoCommand extends Command {
      * @param storage The Storage instance used to save the updated task list.
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws JustbotException {
         taskList.add(this.todoTask);
         taskList.sortTasksChronologically();
         storage.saveTasks(taskList);

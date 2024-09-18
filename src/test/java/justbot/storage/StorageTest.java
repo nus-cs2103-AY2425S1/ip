@@ -1,5 +1,6 @@
 package justbot.storage;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -23,6 +24,11 @@ import justbot.task.Task;
 import justbot.task.TaskList;
 import justbot.task.Todo;
 
+
+
+
+
+
 public class StorageTest {
 
     @TempDir
@@ -39,12 +45,19 @@ public class StorageTest {
     @Test
     public void testCreateFileIfDoesNotExist() {
         File file = new File(filePath);
+
+        // Ensure the file does not exist before the test
         assertFalse(file.exists());
 
-        storage.createFileIfDoesNotExist();
+        // Call createFileIfDoesNotExist and handle JustBotException
+        assertDoesNotThrow(() -> {
+            storage.createFileIfDoesNotExist();
+        });
 
+        // Verify the file now exists
         assertTrue(file.exists());
     }
+
 
     @Test
     public void testSaveTasksAndLoadTasks() throws JustbotException, IOException {

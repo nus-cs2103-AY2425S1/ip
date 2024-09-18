@@ -76,7 +76,8 @@ public class Parser {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
             return LocalDateTime.parse(dateTimeStr.trim(), formatter);
         } catch (DateTimeParseException e) {
-            throw new JustbotException("Hey man you provided an invalid date and time format. Please use [dd/MM/yyyy HH:mm].");
+            throw new JustbotException("Hey man you provided an invalid date and time format."
+                    + " Please use [dd/MM/yyyy HH:mm].");
         }
     }
 
@@ -122,7 +123,7 @@ public class Parser {
      * This method validates the command format, extracts the description and deadline date,
      * and parses the deadline into a LocalDateTime object.
      *
-     * The command is expected to be in the format: "deadline <description> /by <date-time>".
+     * The command is expected to be in the format: "deadline [description] /by [date-time]".
      *
      * Throws an exception if the command format is incorrect or if the deadline date is invalid.
      *
@@ -153,7 +154,8 @@ public class Parser {
     private void validateDeadlineCommandFormat(String[] words) throws JustbotException {
         if (words.length != 2) {
             throw new JustbotException(
-                    "Hey man you provided an invalid deadline command format. Use: deadline [task description] /by [dd/MM/yyyy HH:mm]");
+                    "Hey man you provided an invalid deadline command format. "
+                            + "Use: deadline [task description] /by [dd/MM/yyyy HH:mm]");
         }
     }
 
@@ -199,7 +201,7 @@ public class Parser {
      * This method validates the command format, extracts the event description, start, and end times,
      * and parses the times into LocalDateTime objects.
      *
-     * The command is expected to be in the format: "event <description> /from <start-date-time> /to <end-date-time>".
+     * The command is expected to be in the format: "event [description] /from [start-date-time] /to [end-date-time]".
      *
      * Throws an exception if the command format is incorrect, if the event description is blank,
      * or if the event timing is invalid.
@@ -207,7 +209,8 @@ public class Parser {
      * @param words An array of strings where the first element is the command type
      *              and the second element contains the description and event time details.
      * @return A new EventCommand object containing the description, start date-time, and end date-time.
-     * @throws JustbotException If the command format is invalid, the description is blank, or the event timing is incorrect.
+     * @throws JustbotException If the command format is invalid, the description is blank,
+     *                          or the event timing is incorrect.
      */
     private EventCommand createEventCommand(String[] words) throws JustbotException {
         validateEventCommandFormat(words);

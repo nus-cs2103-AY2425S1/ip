@@ -2,6 +2,7 @@ package justbot.command;
 
 import java.time.LocalDateTime;
 
+import justbot.exception.JustbotException;
 import justbot.storage.Storage;
 import justbot.task.Event;
 import justbot.task.Task;
@@ -35,7 +36,7 @@ public class EventCommand extends Command {
      * @param storage The Storage instance used to save the updated task list.
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws JustbotException {
         taskList.add(this.eventTask);
         taskList.sortTasksChronologically();
         storage.saveTasks(taskList);

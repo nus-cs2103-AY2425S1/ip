@@ -82,7 +82,8 @@ public class ParserTest {
         JustbotException exception = assertThrows(JustbotException.class, () -> {
             parser.parseDateTime(dateTimeStr);
         });
-        assertEquals("Invalid date and time format. Please use [dd/MM/yyyy HH:mm].", exception.getMessage());
+        assertEquals("Hey man you provided an invalid date and time format. Please use [dd/MM/yyyy HH:mm].",
+                exception.getMessage());
     }
 
     @Test
@@ -91,7 +92,8 @@ public class ParserTest {
         JustbotException exception = assertThrows(JustbotException.class, () -> {
             parser.parseDateTime(dateTimeStr);
         });
-        assertEquals("Invalid date and time format. Please use [dd/MM/yyyy HH:mm].", exception.getMessage());
+        assertEquals("Hey man you provided an invalid date and time format. Please use [dd/MM/yyyy HH:mm].",
+                exception.getMessage());
     }
 
     @Test
@@ -100,6 +102,7 @@ public class ParserTest {
         JustbotException exception = assertThrows(JustbotException.class, () -> {
             parser.parseDateTime(dateTimeStr);
         });
-        assertEquals("Invalid date and time format. Please use [dd/MM/yyyy HH:mm].", exception.getMessage());
+        assertEquals("Hey man you provided an invalid date and time format. Please use [dd/MM/yyyy HH:mm].",
+                exception.getMessage());
     }
 }
