@@ -9,10 +9,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
@@ -22,7 +24,7 @@ public class DialogBox extends HBox {
     private static final double IMAGE_WIDTH = 60.0;
     private static final double IMAGE_HEIGHT = 60.0;
     @FXML
-    private Label dialog;
+    private Text dialog;
     @FXML
     private ImageView displayPicture;
 
@@ -37,6 +39,9 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
+        dialog.setFont(Font.font("Times New Roman", 12));
+        dialog.setFill(Color.BLUE);
+        // try to set black border around dialog text
         displayPicture.setImage(img);
         displayPicture.setFitWidth(IMAGE_WIDTH);
         displayPicture.setFitHeight(IMAGE_HEIGHT);
@@ -61,7 +66,6 @@ public class DialogBox extends HBox {
 
     public static DialogBox getUserDialog(String text, Image img) {
         DialogBox userDialog = new DialogBox(text, img);
-        userDialog.dialog.setStyle("-fx-font-size: 12px; -fx-text-fill: blue; -fx-font-family: 'Times New Roman';");
         return userDialog;
     }
 
@@ -69,7 +73,8 @@ public class DialogBox extends HBox {
         DialogBox phenexDialog = new DialogBox(text, img);
         phenexDialog.flipImage();
         phenexDialog.flip();
-        phenexDialog.dialog.setStyle("-fx-font-size: 12px; -fx-text-fill: gold; -fx-font-family: 'Times New Roman';");
+        phenexDialog.dialog.setFill(Color.BLUEVIOLET);
         return phenexDialog;
     }
+
 }

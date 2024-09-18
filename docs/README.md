@@ -1,30 +1,33 @@
-# Duke User Guide
+# Phenex project template
 
-// Update the title above to match the actual product name
+Phenex is a project template for a greenfield Java project. It's named after the gundam, Phenex.
+Given below are instructions on how to use it.
 
-// Product screenshot goes here
+## Setting up in Intellij
 
-// Product intro goes here
+Prerequisites: JDK 17, update Intellij to the most recent version.
 
-## Adding deadlines
+1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
+1. Open the project into Intellij as follows:
+    1. Click `Open`.
+    1. Select the project directory, and click `OK`.
+    1. If there are any further prompts, accept the defaults.
+1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
+   In the same dialog, set the **Project language level** field to the `SDK default` option.
+3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Phenex.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
+   ```
+   Hello! I'm
+    _____    _    _   ______   _   _   ______  __   __
+   |  __ \  | |  | | |  ____| | \ | | |  ____| \ \ / /
+   | |__) | | |__| | | |__    |  \| | | |__     \ V /
+   | |      | |  | | | |____  | |\  | | |____   / . \
+   |_|      |_|  |_| |______| |_| \_| |______| /_/ \_\
+   Your favourite solid gold mobile suit!
+   ____________________________________________________________
+   What can I do for you?
+   ____________________________________________________________
+   ```
 
-// Describe the action and its outcome.
+## Acknowledgements
 
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
-```
-expected output
-```
-
-## Feature ABC
-
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
+ASCII Art Generator for Logo: https://patorjk.com/software/taag/
