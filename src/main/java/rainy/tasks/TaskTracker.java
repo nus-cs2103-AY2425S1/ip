@@ -205,7 +205,7 @@ public class TaskTracker {
         if (this.counter == 0) {
             this.ui.noTasksBeforeDelete();
         } else if (i < 0 || i >= this.counter) {
-            System.out.println(this.ui.invalidTask() + '`');
+            System.out.println(this.ui.invalidTask() + ERROR_OUTPUT);
             throw new InvalidIndexException(this.ui.invalidTask());
         } else {
             this.ui.removedTask();

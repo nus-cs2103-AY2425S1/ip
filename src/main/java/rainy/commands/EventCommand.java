@@ -49,9 +49,11 @@ public class EventCommand extends Command {
 
     public TaskTracker getResponse() throws InvalidEventParametersException {
         if (userInput.length == NO_EVENT) {
-            this.ui.noEventDescription();
+            System.out.println(this.ui.noEventDescription() + ERROR_CHARACTER);
+            throw new InvalidEventParametersException(this.ui.noEventDescription());
         } else if (splitByTask.length < INVALID_EVENT) {
-            this.ui.invalidEventDate();
+            System.out.println(this.ui.invalidEventDate() + ERROR_CHARACTER);
+            throw new InvalidEventParametersException(this.ui.invalidEventDate());
         } else {
             this.taskTracker = this.processEventParameters();
         }

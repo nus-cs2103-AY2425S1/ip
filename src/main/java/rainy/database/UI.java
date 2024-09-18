@@ -63,8 +63,8 @@ public class UI {
     /**
      * Displays message if user only provides the event category and does not specify anything else.
      */
-    public void noEventDescription() {
-        System.out.println("You need to provide a description of your Event, please try again!");
+    public String noEventDescription() {
+        return "You need to provide a description of your Event, please try again!";
     }
 
     /**
