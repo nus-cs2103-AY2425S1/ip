@@ -80,6 +80,7 @@ public class NotgptJavaFX extends Application {
 
         scrollPane = new ScrollPane(chatBox);
         scrollPane.setFitToWidth(true);
+        scrollPane.setFitToHeight(true);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
         inputField = new TextField();

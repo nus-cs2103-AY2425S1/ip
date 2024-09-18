@@ -16,7 +16,7 @@ import duke.tasks.Todo;
 /**
  * This class is responsible for handling the reading and parsing of tasks from the data.txt file.
  */
-public class DataParser {
+public class FileDataParser {
     /**
      * Reads tasks from a specified file and returns them as an ArrayList.
      * <p>

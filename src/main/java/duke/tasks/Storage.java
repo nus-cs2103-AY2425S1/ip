@@ -8,7 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-import duke.parsers.DataParser;
+import duke.parsers.FileDataParser;
 import duke.ui.Notgpt;
 /**
  * The {@code Storage} class manages the storage, retrieval, and manipulation of tasks.
@@ -33,7 +33,7 @@ public class Storage {
         try {
             Files.createDirectories(filePath.getParent());
             if (Files.exists(filePath)) {
-                this.taskList = DataParser.readTasksFromFile(filePath);
+                this.taskList = FileDataParser.readTasksFromFile(filePath);
                 System.out.println("Data found and loaded from: " + filePath.toAbsolutePath());
                 System.out.println("*the first word will always be read as the command*");
                 Notgpt.lnDiv();
