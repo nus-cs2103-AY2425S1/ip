@@ -133,7 +133,7 @@ public class Storage {
 
         int tagStart = nextLine.indexOf("/tags");
 
-        // parse tags if available
+
         Set<Tag> taskTagSet = new HashSet<>(); //stores the current tags for this task
 
         extractTags(nextLine, loadedTags, tagStart, taskTagSet);
