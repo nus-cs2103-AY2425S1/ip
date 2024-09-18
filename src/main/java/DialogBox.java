@@ -12,7 +12,8 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 /**
  * A custom HBox component representing a dialog box used in the ChatterBox application.
  * This class provides a convenient way to display messages and images in a visually
@@ -23,6 +24,7 @@ public class DialogBox extends HBox {
     private Label text;
     private ImageView displayPicture;
 
+
     /**
      * Constructs a new DialogBox with specified text, image and background
      *
@@ -30,15 +32,17 @@ public class DialogBox extends HBox {
      * @param i The image to be displayed in the dialog box.
      * @param backgroundColor The background color of the dialog box.
      */
-    public DialogBox(String s, Image i, Color backgroundColor) {
-        text = new Label(s);
-        displayPicture = new ImageView(i);
+    public DialogBox(String s, Image i, Color backgroundColor, Font font) {
+        this.text = new Label(s);
+        this.displayPicture = new ImageView(i);
 
         text.setWrapText(true);
+        text.setFont(font);
         displayPicture.setFitWidth(100.0);
         displayPicture.setFitHeight(100.0);
 
         this.setSpacing(10);
+        this.setPadding(new Insets(10));
 
         Circle clip = new Circle(50, 50, 50);
         displayPicture.setClip(clip);
@@ -64,16 +68,26 @@ public class DialogBox extends HBox {
                 Color.OLIVE.getGreen(),
                 Color.OLIVE.getBlue(),
                 0.40);
-        return new DialogBox(s, i, translucentGreen);
+        Font userFont = new Font("Times New Roman", 14);
+        return new DialogBox(s, i, translucentGreen, userFont);
     }
 
     public static DialogBox getChatterBoxDialog(String s, Image i) {
-        Color translucentOrchid = Color.color(Color.ORCHID.getRed(),
-                Color.ORCHID.getGreen(),
-                Color.ORCHID.getBlue(),
-                0.5);
-        var db = new DialogBox(s, i, translucentOrchid);
-        db.flip();
-        return db;
+        if (!s.contains("OOPS!!!")) {
+            Color translucentOrchid = Color.color(Color.ORCHID.getRed(),
+                    Color.ORCHID.getGreen(),
+                    Color.ORCHID.getBlue(),
+                    0.40);
+            Font chatbotFont = new Font("Bodoni 72", 12);
+            var db = new DialogBox(s, i, translucentOrchid, chatbotFont);
+            db.flip();
+            return db;
+        } else {
+            Color translucentRed = Color.color(1.0, 0.0, 0.0, 0.4);
+            Font chatbotFont = new Font("Bodoni 72", 12);
+            var db = new DialogBox(s, i, translucentRed, chatbotFont);
+            db.flip();
+            return db;
+        }
     }
 }
