@@ -2,35 +2,39 @@
 .root {
   -fx-font-family: "Arial";
   -fx-font-size: 14px;
+  -fx-margin: 20px; /* Global padding for the root application */
 }
 
 /* Styling for the DialogBox */
 .dialog-box {
   -fx-background-color: #f0f0f0;
   -fx-background-radius: 10px;
-  -fx-padding: 10;
+  -fx-padding: 20px; /* Padding inside each dialog box */
   -fx-border-radius: 10px;
   -fx-border-color: lightgrey;
   -fx-border-width: 1px;
+  -fx-margin: 10px; /* Add spacing between dialog boxes */
 }
 
 /* Style for user dialog */
 .user-dialog {
   -fx-background-color: #d1e7dd; /* Light green for user messages */
   -fx-text-fill: black;
+  -fx-margin: 15px; /* Padding for the user message */
 }
 
 /* Style for Bopes dialog */
 .bopes-dialog {
   -fx-background-color: #f8d7da; /* Light red for Bopes messages */
   -fx-text-fill: black;
+  -fx-margin: 15px; /* Padding for Bopes message */
 }
 
 /* ImageView styling for rounded images */
 .dialog-box .image-view {
   -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 0, 0);
   -fx-clip: null;
-  -fx-padding: 5;
+  -fx-margin: 5;
 }
 
 .dialog-box .image-view img {
@@ -43,7 +47,7 @@
   -fx-background-color: #007bff;
   -fx-text-fill: white;
   -fx-font-size: 14px;
-  -fx-padding: 10 20;
+  -fx-margin: 10 20; /* Padding inside buttons */
   -fx-background-radius: 5px;
   -fx-border-radius: 5px;
   -fx-cursor: hand;
@@ -56,6 +60,7 @@
 /* ScrollPane styling */
 .scroll-pane {
   -fx-background-color: transparent;
+  -fx-margin: 10px; /* Padding inside the scrollpane */
 }
 
 /* Dialog style for valid commands (blue background) */
@@ -63,10 +68,11 @@
   -fx-background-color: #007bff; /* Blue color */
   -fx-text-fill: white;
   -fx-background-radius: 10px;
-  -fx-padding: 10;
+  -fx-margin: 15px; /* Padding inside the valid command dialog */
   -fx-border-radius: 10px;
   -fx-border-color: lightblue;
   -fx-border-width: 1px;
+  -fx-margin: 10px; /* Margin between valid command dialog */
 }
 
 /* Dialog style for errors (red background) */
@@ -74,8 +80,9 @@
   -fx-background-color: #dc3545; /* Red color */
   -fx-text-fill: white;
   -fx-background-radius: 10px;
-  -fx-padding: 10;
+  -fx-margin: 15px; /* Padding inside the error dialog */
   -fx-border-radius: 10px;
   -fx-border-color: lightcoral;
   -fx-border-width: 1px;
+  -fx-margin: 10px; /* Margin between error command dialog */
 }
