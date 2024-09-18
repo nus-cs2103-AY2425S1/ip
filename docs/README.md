@@ -114,5 +114,6 @@ Hoshi data is saved automatically after any command that changes the data. There
 
 1. ASCII Art - [Link](https://patorjk.com/software/taag/#p=testall&f=Star%20Wars&t=HOSHI)
 2. JavaFX initOwner Method - [Link](https://docs.oracle.com/javase/8/javafx/api/javafx/stage/Stage.html)
-3. JavaFX PauseTransition Method - [Link](https://stackoverflow.com/questions/30543619/how-to-use-pausetransition-method-in-javafx)
+3. JavaFX PauseTransition Method - [Link](https://stackoverflow.com/questions/30543619)
 4. Arrays copyOfRange Method - [Link](https://www.geeksforgeeks.org/java-util-arrays-copyofrange-java/)
+5. Integer Regular Expression - [Link](https://stackoverflow.com/questions/16331423/)

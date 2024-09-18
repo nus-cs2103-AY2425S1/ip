@@ -74,7 +74,7 @@ public class MainWindow extends AnchorPane {
         if (Objects.equals(response, "Bye, Hope to see you again soon! \n")) {
 
             //@@author jewelsea
-            //Reused from https://stackoverflow.com/questions/30543619/how-to-use-pausetransition-method-in-javafx
+            //Reused from https://stackoverflow.com/questions/30543619
             //with minor modifications
             PauseTransition delay = new PauseTransition(Duration.seconds(2));
             // instruct to exit the application after the delay

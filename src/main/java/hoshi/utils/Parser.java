@@ -36,7 +36,7 @@ public class Parser {
     public String parseCommand(String input, TaskList taskList, Ui ui) {
 
         // check if input is empty
-        if (input.isEmpty()) {
+        if (input.trim().isEmpty()) {
             return ui.displayError(INPUT_ERROR_MESSAGE);
         }
         // begin to parse input
@@ -61,6 +61,8 @@ public class Parser {
         case "mark":
             if (input.trim().length() < MIN_MARK_LENGTH) {
                 return ui.displayTaskToMark();
+            } else if (isNotInt(splitInput)) {
+                return ui.displayError(INPUT_ERROR_MESSAGE);
             }
             command = new MarkCommand(splitInput, true);
             break;
@@ -68,6 +70,8 @@ public class Parser {
         case "unmark":
             if (input.trim().length() < MIN_UNMARK_LENGTH) {
                 return ui.displayTaskToMark();
+            } else if (isNotInt(splitInput)) {
+                return ui.displayError(INPUT_ERROR_MESSAGE);
             }
             command = new MarkCommand(splitInput, false);
             break;
@@ -75,6 +79,8 @@ public class Parser {
         case "delete":
             if (input.trim().length() < MIN_DELETE_LENGTH) {
                 return ui.displayTaskToDelete();
+            } else if (isNotInt(splitInput)) {
+                return ui.displayError(INPUT_ERROR_MESSAGE);
             }
             int deleteIndex = Integer.parseInt(splitInput[1]) - 1;
             command = new DeleteCommand(deleteIndex);
@@ -96,5 +102,18 @@ public class Parser {
             return ui.displayError(INPUT_ERROR_MESSAGE);
         }
         return command.execute(taskList, ui, storage);
+    }
+
+    /**
+     * Checks if the index in the splitInput is an integer or not and returns the corresponding boolean
+     *
+     * @param splitInput the user input after being split by empty spaces
+     * @return boolean corresponding to whether the index is an integer or not
+     */
+    private boolean isNotInt(String[] splitInput) {
+        //@@author nhahtdh
+        //Reused from https://stackoverflow.com/questions/16331423/
+        //with significant modifications
+        return !splitInput[1].matches("\\d+");
     }
 }
