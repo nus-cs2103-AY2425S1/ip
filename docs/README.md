@@ -21,7 +21,7 @@ Example: `list`
 
 ### Mark
 
-mark <number>
+mark [number]
 
 marks a task as completed
 
@@ -34,7 +34,7 @@ Nice! I've marled this task as done:
 
 ### Unmark
 
-unmark <number>
+unmark [number]
 
 marks a task as uncompleted
 
@@ -47,7 +47,7 @@ Ok, I've marked this task as not done yet:
 
 ### Delete
 
-delete <number>
+delete [number]
 
 Deletes a task
 
@@ -60,7 +60,7 @@ Ok, I will remove this task:
 
 ### Todo
 
-todo <task name>
+todo [task name]
 
 Creates a todo task with the provided task name
 
@@ -73,7 +73,7 @@ Got it! I've added this task:
 
 ### Event
 
-event <task name> /from <date in YYYY-MM-DD> /to <date in YYYY-MM-DD>
+event [task name] /from [date in YYYY-MM-DD] /to [date in YYYY-MM-DD]
 
 Creates an event task with the provided task name from provided date to provided date
 
@@ -86,7 +86,7 @@ Got it! I've added this task:
 
 ### Deadline
 
-deadline <task name> /by <date in YYYY-MM-DD>
+deadline [task name] /by [date in YYYY-MM-DD]
 
 Creates a deadline task with the provided task name by the provided date
 
@@ -99,7 +99,7 @@ Got it! I've added this task:
 
 ### find
 
-find <task name>
+find [task name]
 
 Finds all matching task names
 
