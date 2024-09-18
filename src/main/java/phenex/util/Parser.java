@@ -184,14 +184,18 @@ public class Parser {
     }
 
     public int getIndexOfTask(String line, Command command) throws PhenexException {
-        if (command instanceof MarkCommand) {
-            int indexOfResult = 5;
-            return Integer.parseInt(line.substring(indexOfResult)) - 1;
-        } else if ((command instanceof UnmarkCommand) || (command instanceof DeleteCommand)) {
-            int indexOfResult = 7;
-            return Integer.parseInt(line.substring(indexOfResult)) - 1;
-        } else {
-            throw new PhenexException("Unknown command type! Aborting");
+        try {
+            if (command instanceof MarkCommand) {
+                int indexOfResult = 5;
+                return Integer.parseInt(line.substring(indexOfResult)) - 1;
+            } else if ((command instanceof UnmarkCommand) || (command instanceof DeleteCommand)) {
+                int indexOfResult = 7;
+                return Integer.parseInt(line.substring(indexOfResult)) - 1;
+            } else {
+                throw new PhenexException("Unknown command type! Aborting");
+            }
+        } catch (NumberFormatException e) {
+            throw new PhenexException("Invalid index!");
         }
     }
 
