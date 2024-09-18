@@ -1,5 +1,6 @@
 package meowmeow;
 
+//solution below adapted from https://se-education.org/guides/tutorials/javaFxPart4.html
 import java.io.IOException;
 
 import javafx.application.Application;

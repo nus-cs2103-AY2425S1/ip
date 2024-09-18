@@ -1,5 +1,6 @@
 package meowmeow;
 
+//solution below adapted from https://se-education.org/guides/tutorials/javaFxPart4.html
 import java.io.IOException;
 import javafx.animation.PauseTransition;
 import javafx.util.Duration;
@@ -59,7 +60,7 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() throws IOException, InterruptedException {
+    private void handleUserInput() throws IOException {
         assert userInput != null : "UserInput should not be null";
         String input = userInput.getText();
         String response = parser.parse(input);
@@ -69,6 +70,7 @@ public class MainWindow extends AnchorPane {
                 MeowMeowDialogBox.getDialog(response, meowMeowImage)
         );
 
+        //Solution below inspired by my tp teammate Sanchita
         if (input.equals("bye")) {
             PauseTransition delay = new PauseTransition(Duration.seconds(1));
             delay.setOnFinished(event -> Platform.exit());

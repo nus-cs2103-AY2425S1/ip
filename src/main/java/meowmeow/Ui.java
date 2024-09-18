@@ -1,5 +1,7 @@
 package meowmeow;
 
+//Solution below inspired by ChatGPT
+
 /**
  * Represents the UI that provides messages based on the user input.
  */
