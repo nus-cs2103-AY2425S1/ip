@@ -31,7 +31,7 @@ If you need help, type 'help' or '?' for a list of available commands.
 
 ### Add tasks
 
-There are 3 types of tasks can be added to the list:
+There are 3 types of tasks that can be added:
 
 **1. To-do's**
 
@@ -57,7 +57,7 @@ There are 3 types of tasks can be added to the list:
   - ```event Comicon /from This Monday /to This Wednesday```
   - ```event Meetup with friends /from 2 PM /to 6 PM```
 
-For deadlines and events, **Yapper** is able to read the input of dates and times and convert them accordingly.
+For deadlines and events, **Yapper** is able to read the input of **dates and times** and convert them accordingly.
 
 Examples:
 
@@ -106,7 +106,7 @@ description or dates given.
   - ```find Read```
   - ```find today```
 
-The keyword is also case-insensitive.
+The keyword is also **case-insensitive**.
 
 ### Delete tasks
 
@@ -122,7 +122,7 @@ Clear all the task list using the following command.
 
 ### Help menu
 
-A help menu is available in case you forget any commands. The correct format for each command is
+A help menu is available to view all existing commands. The correct format for each command is
 also provided.
 
 - **Format**: ```help```
@@ -180,22 +180,22 @@ d Submit assignment /by 20/9/2024 2359
 D Submit assignment /by 20/9/2024 2359
 ```
 All produce the same output of adding a deadline with a task description "Submit assignment"
-due 20 Sep 2024 11:59 pm.
+due SEPT 20 2024 11:59 PM.
 
 
-| Command  | Aliases   | Format                                                     |
-|----------|-----------|------------------------------------------------------------|
-| todo     | t, T      | ```todo TASK_DESCRIPTION```                                |
-| deadline | d, D      | ```deadline TASK_DESCRIPTION /by DEADLINE```               |
-| event    | e, E      | ```event TASK_DESCRIPTION /from START_DATE /to END_DATE``` |
-| list     | ls        | ```list```                                                 | 
-| mark     | m         | ```mark TASK_INDEX```                                      |
-| unmark   | um        | ```unmark TASK_INDEX```                                    |
-| find     |           | ```find KEYWORD```                                         |
-| delete   | del       | ```delete TASK_INDEX```                                    |
-| clear    |           | ```clear```                                                |
-| help     | ?         | ```help```                                                 |
-| bind     |           | ```bind ALIAS COMMAND_TO_ALIAS```                          |
-| unbind   |           | ```unbind ALIAS```                                         |
-| reset    |           | ```reset```                                                |
-| bye      | exit,quit | ```bye```                                                  |
+| Command  | Aliases    | Format                                                     |
+|----------|------------|------------------------------------------------------------|
+| todo     | t, T       | ```todo TASK_DESCRIPTION```                                |
+| deadline | d, D       | ```deadline TASK_DESCRIPTION /by DEADLINE```               |
+| event    | e, E       | ```event TASK_DESCRIPTION /from START_DATE /to END_DATE``` |
+| list     | ls         | ```list```                                                 | 
+| mark     | m          | ```mark TASK_INDEX```                                      |
+| unmark   | um         | ```unmark TASK_INDEX```                                    |
+| find     |            | ```find KEYWORD```                                         |
+| delete   | del        | ```delete TASK_INDEX```                                    |
+| clear    |            | ```clear```                                                |
+| help     | ?          | ```help```                                                 |
+| bind     |            | ```bind ALIAS COMMAND_TO_ALIAS```                          |
+| unbind   |            | ```unbind ALIAS```                                         |
+| reset    |            | ```reset```                                                |
+| bye      | exit, quit | ```bye```                                                  |
