@@ -1,0 +1,9 @@
+Todo | X | eat | No time constraint
+Todo | 0 | swim | No time constraint
+Todo | 0 | eat swim | No time constraint
+Todo | 0 | swim | No time constraint
+Todo | 0 | fly | No time constraint
+Todo | X | swim | No time constraint
+Todo | 0 | fly | No time constraint
+Todo | 0 | swim | No time constraint
+Deadline | 0 | fly | 12/07/2000 1200

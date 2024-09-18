@@ -1,0 +1,16 @@
+todo borrow book
+list
+deadline run /by 26/09/2024 18:00
+list
+mark 10
+mark 1
+list
+event meeting /from 26/09/2024 14:00 /to 26/09/2024 16:00
+list
+unmark 10
+unmark 1
+list
+delete 10
+delete 2
+list
+bye

@@ -1,7 +1,89 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+------------------------------------------
+Hello I'm Justbot!
+Here is a list of my commands:
+1. list
+2. mark [task number]
+3. unmark [task number]
+4. delete [task number]
+5. todo [task description]
+6. deadline [task description] /by [dd/MM/yyyy HH:mm]
+7. event [task description] /from [dd/MM/yyyy HH:mm] /to [dd/MM/yyyy HH:mm]
+What can I do for you?
+------------------------------------------
+Enter your command: ------------------------------------------
+Got it. I've added this task:
+[T][ ] borrow book
+Now you have 1 tasks in your list.
+------------------------------------------
+Enter your command: ------------------------------------------
+Here are the tasks in your list:
 
+1. [T][ ] borrow book
+------------------------------------------
+Enter your command: ------------------------------------------
+Got it. I've added this task:
+[D][ ] run (by: 26 September 2024, 0600pm)
+Now you have 2 tasks in your list.
+------------------------------------------
+Enter your command: ------------------------------------------
+Here are the tasks in your list:
+
+1. [T][ ] borrow book
+2. [D][ ] run (by: 26 September 2024, 0600pm)
+------------------------------------------
+Enter your command: ------------------------------------------
+Hey man there is no such task!
+------------------------------------------
+Enter your command: ------------------------------------------
+Nice! I have marked this task as done:
+[T][X] borrow book
+------------------------------------------
+Enter your command: ------------------------------------------
+Here are the tasks in your list:
+
+1. [T][X] borrow book
+2. [D][ ] run (by: 26 September 2024, 0600pm)
+------------------------------------------
+Enter your command: ------------------------------------------
+Got it. I've added this task:
+[E][ ] meeting (from: 26 September 2024, 0200pm to: 26 September 2024, 0400pm)
+Now you have 3 tasks in your list.
+------------------------------------------
+Enter your command: ------------------------------------------
+Here are the tasks in your list:
+
+1. [T][X] borrow book
+2. [D][ ] run (by: 26 September 2024, 0600pm)
+3. [E][ ] meeting (from: 26 September 2024, 0200pm to: 26 September 2024, 0400pm)
+------------------------------------------
+Enter your command: ------------------------------------------
+Hey man there is no such task!
+------------------------------------------
+Enter your command: ------------------------------------------
+OK, I've marked this task as not done yet:
+[T][ ] borrow book
+------------------------------------------
+Enter your command: ------------------------------------------
+Here are the tasks in your list:
+
+1. [T][ ] borrow book
+2. [D][ ] run (by: 26 September 2024, 0600pm)
+3. [E][ ] meeting (from: 26 September 2024, 0200pm to: 26 September 2024, 0400pm)
+------------------------------------------
+Enter your command: ------------------------------------------
+Hey man there is no such task!
+------------------------------------------
+Enter your command: ------------------------------------------
+Noted. I've removed this task:
+[D][ ] run (by: 26 September 2024, 0600pm)
+Now you have 2 tasks in your list.
+------------------------------------------
+Enter your command: ------------------------------------------
+Here are the tasks in your list:
+
+1. [T][ ] borrow book
+2. [E][ ] meeting (from: 26 September 2024, 0200pm to: 26 September 2024, 0400pm)
+------------------------------------------
+Enter your command: ------------------------------------------
+Hey man, I'll miss you. See you soon!
+------------------------------------------
