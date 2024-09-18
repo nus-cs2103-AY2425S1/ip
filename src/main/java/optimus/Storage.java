@@ -36,18 +36,13 @@ public class Storage {
      */
     public ArrayList<Task> loadTasks() throws IOException {
         ArrayList<Task> taskList = new ArrayList<>();
-        File directory = new File("data");
+
+        //@@author RezwanAhmed123-reused
         File file = new File(filePath);
+        file.getParentFile().mkdirs();
+        file.createNewFile();
+        file.exists();
 
-        if (!directory.exists()) {
-            directory.mkdir();
-        }
-
-        if (!file.exists()) {
-            file.createNewFile();
-            ui.showToUser("Created new data file optimus.txt");
-            return taskList;
-        }
         // Read tasks from the file
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
@@ -105,7 +100,7 @@ public class Storage {
 
             // Loop through taskList to add each task to file
             for (int i = 0; i < taskList.getTasks().size(); i++) {
-                myWriter.write(taskList.getTasks().get(i).toFileFormat());
+                myWriter.write(taskList.getTasks().get(i).toFileFormat() + "\n");
             }
             myWriter.close();
             ui.showToUser("Tasks saved successfully!");
