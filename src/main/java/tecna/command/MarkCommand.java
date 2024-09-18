@@ -14,7 +14,7 @@ public class MarkCommand extends Command {
     public String execute(TaskList taskList, Storage storage, Ui ui) {
         super.execute(taskList, storage, ui);
         try {
-            int index = parseMarkCommand(taskList);
+            int index = parseMarkCommand(taskList.getSize());
             taskList.mark(index);
             return ui.printMarkMsg(taskList.getTask(index));
         } catch (WrongFormatException e) {
@@ -22,16 +22,21 @@ public class MarkCommand extends Command {
         }
     }
 
-    public int parseMarkCommand(TaskList taskList) throws WrongFormatException {
+    public int parseMarkCommand(int taskListSize) throws WrongFormatException {
         String[] input_words = message.split("\\s+");
+
+        if (input_words.length != 2) {
+            throw new WrongFormatException("mark", "Mark command should be in the format of \"mark [index of the task from 1 to " + taskListSize +  "]\"");
+        }
+
         try {
             int index =  Integer.parseInt(input_words[1]) - 1;
-            if (index < 1 || index > taskList.getSize()) {
-                throw new WrongFormatException("mark", "Mark command should be in the format of \"mark [index of the task from 1 to " + taskList.getSize() +  "]\"");
+            if (index < 1 || index > taskListSize) {
+                throw new WrongFormatException("mark", "Mark command should be in the format of \"mark [index of the task from 1 to " + taskListSize +  "]\"");
             }
             return index;
         } catch (NumberFormatException e) {
-            throw new WrongFormatException("mark", "Mark command should be in the format of \"mark [index of the task from 1 to " + taskList.getSize() +  "]\"");
+            throw new WrongFormatException("mark", "Mark command should be in the format of \"mark [index of the task from 1 to " + taskListSize +  "]\"");
         }
     }
 
