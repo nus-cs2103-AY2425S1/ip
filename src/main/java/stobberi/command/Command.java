@@ -1,5 +1,6 @@
 package stobberi.command;
 
+import stobberi.components.TaskList;
 import stobberi.stobberiexception.StobberiException;
 
 /**
@@ -7,6 +8,16 @@ import stobberi.stobberiexception.StobberiException;
  * whether the command should terminate the application or not.
  */
 public abstract class Command {
+
+    /**
+     * The list of tasks to which the to-do task will be added.
+     */
+    private TaskList taskList;
+
+    /**
+     * The rest of the command given.
+     */
+    private String restOfCommand;
     /**
      * Indicates whether the command should exit the application.
      */
@@ -15,8 +26,10 @@ public abstract class Command {
     /**
      * Constructs a new Command object with the exit flag set to false.
      */
-    public Command() {
+    public Command(TaskList taskList, String restOfCommand) {
         this.isExit = false;
+        this.taskList = taskList;
+        this.restOfCommand = restOfCommand;
     }
 
     /**
@@ -27,13 +40,31 @@ public abstract class Command {
      */
     public String execute() throws StobberiException {
         return "";
-    };
+    }
 
     /**
      * Sets the exit flag to true, indicating that the command should terminate the application.
      */
     public void setExitTrue() {
         this.isExit = true;
+    }
+
+    /**
+     * Returns list of task.
+     *
+     * @return list of tasks
+     */
+    public TaskList getTaskList() {
+        return this.taskList;
+    }
+
+    /**
+     * Returns rest of the command.
+     *
+     * @return the rest of the commands
+     */
+    public String getRestOfCommand() {
+        return this.restOfCommand;
     }
 
     /**

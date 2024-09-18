@@ -55,9 +55,9 @@ public class Parser {
         assert command != null : "Command is not a String";
         switch (command) {
         case "bye":
-            return new ExitCommand(restOfCommand);
+            return new ExitCommand(taskList, restOfCommand);
         case "list":
-            return new ListCommand(taskList);
+            return new ListCommand(taskList, restOfCommand);
         case "mark":
             return new MarkCommand(taskList, restOfCommand);
         case "unmark":
@@ -75,7 +75,7 @@ public class Parser {
         case "find":
             return new FindCommand(taskList, restOfCommand);
         case "?":
-            return new HelpCommand();
+            return new HelpCommand(taskList, restOfCommand);
         default:
             throw new NoSuchTaskStobberiException("I just don't know how to do that yettt.");
         }

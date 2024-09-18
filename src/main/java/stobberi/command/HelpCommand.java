@@ -1,9 +1,12 @@
 package stobberi.command;
 
+import stobberi.components.TaskList;
+
 /**
- * Represents a command to display a Help message.
+ * Represents a command to display a help message.
  */
 public class HelpCommand extends Command {
+
     /**
      * Help message to be displayed.
      */
@@ -28,11 +31,18 @@ public class HelpCommand extends Command {
 
     /**
      * Constructs a new {@code HelpCommand}.
+     *
+     * @param taskList      The list of tasks (though not used in this command).
+     * @param restOfCommand The rest of the command given (though not used in this command).
      */
-    public HelpCommand() {}
+    public HelpCommand(TaskList taskList, String restOfCommand) {
+        super(taskList, restOfCommand);
+    }
 
     /**
-     * Executes the command by displaying a help message.
+     * Executes the command by returning the help message.
+     *
+     * @return The help message containing the list of available commands.
      */
     @Override
     public String execute() {
