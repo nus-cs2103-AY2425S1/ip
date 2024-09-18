@@ -1,6 +1,11 @@
 package Johnson.storage;
 
-import Johnson.task.*;
+import Johnson.task.Deadline;
+import Johnson.task.Event;
+import Johnson.task.Task;
+import Johnson.task.TaskList;
+import Johnson.task.ToDo;
+
 
 import java.io.*;
 
@@ -20,8 +25,14 @@ public class UserData {
      * @param directory the directory where tasks will be saved and loaded from.
      */
     public UserData(String directory) {
-        saveFileDirectory = directory;
-        this.tasks = loadTasks(directory);
+        File dir = new File(directory);
+        if (!dir.exists() || !dir.isDirectory()) {
+            saveFileDirectory = defaultFileDirectory;
+            System.out.println("Directory does not exist. Using default directory.");
+        } else {
+            saveFileDirectory = directory;
+        }
+        this.tasks = loadTasks(saveFileDirectory);
         assert tasks != null : "Tasks list should not be null";
     }
 
@@ -43,9 +54,18 @@ public class UserData {
     }
 
     /**
+     * Returns the directory where the tasks are saved.
+     *
+     * @return the directory where the tasks are saved.
+     */
+    public String getSaveFileDirectory() {
+        return saveFileDirectory;
+    }
+
+    /**
      * Saves the list of tasks to the instance's save file directory.
      */
-    public void saveTasks() {
+    public void saveTasks() throws FileNotFoundException{
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(saveFileDirectory))) {
             for (int i = 0; i < tasks.taskCount(); i++) {
                 Task task = tasks.getTask(i);
@@ -60,6 +80,8 @@ public class UserData {
                 }
                 writer.newLine();
             }
+        } catch (FileNotFoundException e) {
+            throw e;
         } catch (IOException e) {
             e.printStackTrace();
         }

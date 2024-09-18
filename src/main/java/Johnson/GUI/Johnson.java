@@ -12,6 +12,8 @@ import Johnson.storage.UserData;
 import Johnson.task.TaskList;
 import Johnson.utils.Utilities;
 
+import java.io.FileNotFoundException;
+
 /**
  * Represents the main class of the PHamBot application.
  */
@@ -62,6 +64,9 @@ public class Johnson {
             return MissingTaskException.MISSING_TASK_MESSAGE;
         } catch (UnknownCommandException e) {
             return UnknownCommandException.UNKNOWN_COMMAND_MESSAGE;
+        } catch (FileNotFoundException e) {
+            return "We're gonna need a clear LZ for this one, Chief. \n" +
+                    "Storage file not found.";
         }
     }
 }
