@@ -1,19 +1,17 @@
 package repsmax.exceptions;
 
 /**
- * Represents a custom exception for the Repsmax application.
- * This class extends the standard {@link Exception} class to provide
- * application-specific error handling.
+ * Represents a custom exception specific to the Repsmax application.
+ * Extends the standard {@link Exception} class to handle application-specific errors.
  */
 public class RepsmaxException extends Exception {
 
     /**
-     * Constructs a new repsmax.exceptions.RepsmaxException with the specified detail message.
-     * The detail message is a string that describes the error or exception
-     * that occurred.
+     * Constructs a new {@code RepsmaxException} with the specified detail message.
+     * The message describes the specific error or exception that occurred within the Repsmax application.
      *
-     * @param message the detail message, which is saved for later retrieval
-     *                by the {@link #getMessage()} method.
+     * @param message The detail message that provides more information about the exception.
+     *                This message is saved for later retrieval by the {@link #getMessage()} method.
      */
     public RepsmaxException(String message) {
         super(message);
