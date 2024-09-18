@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Justbot justbot = new Justbot("/Users/justinyeo/Desktop/CS2103T-ip/data/justbottask.txt");
+    private Justbot justbot = new Justbot("./data/justbottask.txt");
 
     @Override
     public void start(Stage stage) {

@@ -116,6 +116,7 @@ public class Storage {
      * @throws JustbotException If an error occurs while loading tasks.
      */
     public ArrayList<Task> loadTasks() throws JustbotException {
+        createFileIfDoesNotExist();
         ArrayList<Task> tasks = new ArrayList<>();
 
         try (Scanner scanner = new Scanner(new File(filePath))) {
