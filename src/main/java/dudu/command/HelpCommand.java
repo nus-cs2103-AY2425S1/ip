@@ -9,7 +9,7 @@ import dudu.utils.UI;
 /**
  * Represents a help user command into the chatbot
  */
-public class CommandHelp extends Command {
+public class HelpCommand extends Command {
     /**
      * Executes the exit command by displaying a goodbye message to the user
      *

@@ -41,9 +41,9 @@ public class Parser {
         case BYE:
             return new ByeCommand();
         case LIST:
-            return new CommandList();
+            return new ListCommand();
         case HELP:
-            return new CommandHelp();
+            return new HelpCommand();
         case TODO:
             return new AddCommand(createTodo(command), false);
         case DEADLINE:
@@ -51,9 +51,9 @@ public class Parser {
         case EVENT:
             return new AddCommand(createEvent(command), false);
         case MARK: {
-            return new CommandMark(parseIndex(command), false);
+            return new MarkCommand(parseIndex(command), false);
         } case UNMARK: {
-            return new CommandUnmark(parseIndex(command), false);
+            return new UnmarkCommand(parseIndex(command), false);
         } case DELETE: {
             return new DeleteCommand(parseIndex(command), false);
         } case FIND:

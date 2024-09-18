@@ -7,7 +7,7 @@ import dudu.utils.UI;
 /**
  * Represents a list tasks user command into the chatbot
  */
-public class CommandList extends Command {
+public class ListCommand extends Command {
     /**
      * Displays a list of tasks to the user
      *
@@ -33,9 +33,6 @@ public class CommandList extends Command {
         if (o == this) {
             return true;
         }
-        if (o == null || !(o instanceof CommandList)) {
-            return false;
-        }
-        return true;
+        return o instanceof ListCommand;
     }
 }
