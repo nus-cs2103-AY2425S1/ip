@@ -16,7 +16,7 @@ public class Parser {
      * @return The command to be executed based on the user input.
      * @throws InvalidSyntaxException If the input's syntax does not match any commands correctly.
      */
-    public static Command parse(String userInput) throws InvalidSyntaxException {
+    public static Command parseInput(String userInput) throws InvalidSyntaxException {
         String[] processedInput = userInput.trim().split("\\s+", 2);
         String command = processedInput[0];
 
@@ -54,6 +54,7 @@ public class Parser {
 
         try {
             int taskNumber = Integer.parseInt(processedInput[1]);
+            isTaskNumberPositive(taskNumber);
             return new DeleteTask(taskNumber);
         } catch (NumberFormatException e) {
             throw new InvalidSyntaxException("You have to give me a valid task number!",
@@ -77,6 +78,7 @@ public class Parser {
 
         try {
             int taskNumber = Integer.parseInt(processedInput[1]);
+            isTaskNumberPositive(taskNumber);
             return new MarkTask(taskNumber);
         } catch (NumberFormatException e) {
             throw new InvalidSyntaxException(
@@ -92,6 +94,7 @@ public class Parser {
 
         try {
             int taskNumber = Integer.parseInt(processedInput[1]);
+            isTaskNumberPositive(taskNumber);
             return new UnmarkTask(taskNumber);
         } catch (NumberFormatException e) {
             throw new InvalidSyntaxException(
@@ -191,9 +194,11 @@ public class Parser {
         return params;
     }
 
-    private static int parseEditCommandTaskNumber(String taskNumber) throws InvalidSyntaxException {
+    private static int parseEditCommandTaskNumber(String number) throws InvalidSyntaxException {
         try {
-            return Integer.parseInt(taskNumber);
+            int taskNumber = Integer.parseInt(number);
+            isTaskNumberPositive(taskNumber);
+            return taskNumber;
         } catch (NumberFormatException e) {
             throw new InvalidSyntaxException("You need to give me a valid task number" +
                     " followed by the edit parameters", EditTask.SYNTAX);
@@ -215,6 +220,12 @@ public class Parser {
         default:
             throw new InvalidSyntaxException("There is no such parameter to edit in any task",
                     possibleFields);
+        }
+    }
+
+    private static void isTaskNumberPositive(int taskNumber) {
+        if (taskNumber <= 0) {
+            throw new IllegalArgumentException("Task number should be a positive integer");
         }
     }
 }

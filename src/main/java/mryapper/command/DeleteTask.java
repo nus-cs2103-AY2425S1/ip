@@ -17,7 +17,7 @@ public class DeleteTask extends Command {
 
     @Override
     public String execute(TaskList tasks, Storage storage) {
-        assert taskNumber > 0: "taskNumber should be greater than 0";
+        assert taskNumber > 0: "taskNumber should be a positive integer";
 
         String response;
         try {

@@ -16,8 +16,7 @@ public class UnmarkTask extends Command {
 
     @Override
     public String execute(TaskList tasks, Storage storage) {
-        assert taskNumber > 0: "taskNumber should be greater than 0";
-        assert taskNumber <= tasks.count(): "taskNumber should be less than or equal to number of tasks";
+        assert taskNumber > 0: "taskNumber should be a positive integer";
 
         String response;
         try {

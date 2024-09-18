@@ -60,7 +60,7 @@ public class MrYapper {
         try {
             assert input != null: "User input should not be null";
 
-            Command c = Parser.parse(input);
+            Command c = Parser.parseInput(input);
             assert c != null: "Command should not be null";
             return c.execute(tasks, storage);
         } catch (InvalidSyntaxException | IllegalArgumentException e) {

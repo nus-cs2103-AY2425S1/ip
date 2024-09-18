@@ -23,6 +23,8 @@ public class EditTask extends Command {
 
     @Override
     public String execute(TaskList tasks, Storage storage) {
+        assert taskNumber > 0: "taskNumber should be a positive integer";
+
         String response;
         try {
             Task taskToEdit = tasks.get(taskNumber);
