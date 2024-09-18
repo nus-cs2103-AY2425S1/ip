@@ -1,6 +1,6 @@
 # Testament User Guide
 
-![Screenshot of the Testament chatbot in use](../images/Ui.png)
+![Screenshot of the Testament chatbot in use](Ui.png)
 
 Testament is a desktop app for tracking and managing your tasks via a 
 Command Line Interface (CLI), while retaining the benefits of a traditional 
