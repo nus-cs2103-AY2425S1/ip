@@ -1,3 +1,4 @@
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -54,5 +55,9 @@ public class MainWindow extends AnchorPane {
             DialogBox.getHamyoDialog(response, hamyoIcon)
         );
         userInput.clear();
+
+        if (!this.hamyo.getStatus()) {
+            Platform.exit();
+        }
     }
 }
