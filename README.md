@@ -23,8 +23,9 @@ Mortal Reminder is a funny little app used to manage your **todos, deadlines and
 ## Quick Start
 
 1. Ensure you have Java 17 or above installed in your Computer.
-2. Download the latest .jar file from [MortalReminder.jar](https://github.com/RezwanAhmed123/ip/releases/download/A-Release/MortalReminder.jar).
+2. Download the latest .jar file from [MortalReminder.jar](https://github.com/RezwanAhmed123/ip/releases/tag/A-Release).
 3. Double click to open the app, it should immediately open the app for you to use.
+4. If you are on a Mac, use terminal and navigate to the folder containing the app and use `java -jar MortalReminder.jar` to open the app.
 
 ## Features and their examples
 
