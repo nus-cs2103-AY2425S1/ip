@@ -14,7 +14,7 @@ For example
 - deadline submit assignment /by 2024-08-15
 
 Expected output
-![expected output](docs/deadline_expected_output.png)
+![expected output](deadline_expected_output.png)
 
 ## Adding to-dos
 
@@ -24,7 +24,7 @@ For example
 - todo borrow book
 
 Expected output
-![expected output](docs/todo_expected_output.png)
+![expected output](todo_expected_output.png)
 
 ## Adding events
 
@@ -34,7 +34,7 @@ For example
 - event project presentation /from 2024-10-10 /to 2024-10-11
 
 Expected output
-![expected output](docs/event_expected_output.png)
+![expected output](event_expected_output.png)
 
 ## Mark task as done
 
@@ -44,14 +44,14 @@ For example
 - mark 1
 
 Expected output
-![expected output](docs/mark_task_as_done_output.png)
+![expected output](mark_task_as_done_output.png)
 
 ## List all tasks
 
 Users can list all tasks with index with command "list".
 
 Expected output
-![expected output](docs/list_output.png)
+![expected output](list_output.png)
 
 ## Delete task
 
