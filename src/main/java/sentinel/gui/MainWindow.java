@@ -11,7 +11,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import sentinel.Sentinel;
-import sentinel.exception.InvalidCommandException;
 import sentinel.exception.SentinelException;
 
 /**
