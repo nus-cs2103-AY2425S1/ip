@@ -57,6 +57,7 @@ public class TaskList {
     public void addTaskToList(Task task) throws JanetException {
         for (Task t : listOfTasks) {
             if (t.getDescription().equals(task.getDescription())) {
+                // check for duplicate task descriptions.
                 throw new JanetException("WHOOPS! You already have another task of the same description!");
             }
         }
