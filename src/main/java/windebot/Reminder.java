@@ -57,18 +57,6 @@ public class Reminder {
             calendar.computeIfAbsent(task.getDate(), k -> new ArrayList<>()).add(task);
         });
         this.selected = 0;
-        /*
-        for (Task task : schedule) {
-            ArrayList<Task> taskList;
-            if (calendar.containsKey(task.getDate())) {
-                taskList = calendar.get(task.getDate());
-            } else {
-                taskList = new ArrayList<Task>();
-            }
-            taskList.add(task);
-            calendar.put(task.getDate(), taskList);
-        }
-         */
     }
 
     /**
@@ -80,17 +68,6 @@ public class Reminder {
     public static void addEvent(Event task) {
         schedule.add(task);
         calendar.computeIfAbsent(task.getDate(), key -> new ArrayList<>()).add(task);
-        /*
-        ArrayList<Task> taskList;
-        if (calendar.containsKey(task.getDate())) {
-            taskList = calendar.get(task.getDate());
-        } else {
-            taskList = new ArrayList<Task>();
-        }
-        taskList.add(task);
-        calendar.put(task.getDate(), taskList);
-
-         */
     }
 
     /**
@@ -102,16 +79,6 @@ public class Reminder {
     public static void addDeadline(Deadline task) {
         schedule.add(task);
         calendar.computeIfAbsent(task.getDate(), key -> new ArrayList<>()).add(task);
-        /*
-        ArrayList<Task> taskList;
-        if (calendar.containsKey(task.getDate())) {
-            taskList = calendar.get(task.getDate());
-        } else {
-            taskList = new ArrayList<Task>();
-        }
-        taskList.add(task);
-        calendar.put(task.getDate(), taskList);
-         */
     }
 
     /**
@@ -138,11 +105,6 @@ public class Reminder {
             value.remove(task);
             return value.isEmpty() ? null : value;
         });
-        /*
-        ArrayList<Task> taskList = calendar.get(date);
-        taskList.remove(task);
-        calendar.put(date, taskList);
-         */
         return task;
     }
 
@@ -162,11 +124,6 @@ public class Reminder {
             value.set(value.indexOf(task), newTask);
             return value.isEmpty() ? null : value;
         });
-        /*
-        ArrayList<Task> taskList = calendar.get(date);
-        taskList.remove(task);
-        calendar.put(date, taskList);
-         */
         return task;
     }
 
@@ -186,13 +143,6 @@ public class Reminder {
                 value.add(task);
                 return value;
             });
-            /*
-            ArrayList<Task> taskList = calendar.get(date);
-            taskList.remove(task);
-            task.mark();
-            taskList.add(task);
-            calendar.put(date, taskList);
-             */
         }
         task.mark();
         schedule.add(i, task);
@@ -214,13 +164,6 @@ public class Reminder {
                 v.add(task);
                 return v;
             });
-            /*
-            ArrayList<Task> taskList = calendar.get(date);
-            taskList.remove(task);
-            task.unmark();
-            taskList.add(task);
-            calendar.put(date, taskList);
-             */
         }
         task.unmark();
         schedule.add(i, task);
