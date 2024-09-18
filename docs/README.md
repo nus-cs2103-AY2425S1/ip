@@ -38,6 +38,15 @@ Wechat-like GUI makes you feel like you are chatting with Bocchi!
 
 ## Commands
 
+#### Note on command format:
+- `<>` denotes a required field.
+- `[]` denotes an optional field.
+- `+` denotes one or more of the preceding element.
+- all other text should be typed in verbatim.
+- parameter order is not important.
+- datetime format is specified in the [Datetime formats supported](#datetime-formats-supported) section.
+- index is the number of the task shown in the list command.
+
 ### Create a todo
 ```
 todo <description> [/tag <tag>+]
