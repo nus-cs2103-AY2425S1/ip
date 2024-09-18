@@ -19,8 +19,10 @@ public class Main extends Application {
     public void start(Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            assert fxmlLoader != null : "FXMLLoader cannot be created";
             stage.setTitle("Gallium");
             AnchorPane ap = fxmlLoader.load();
+            assert ap != null : "AnchorPane cannot be loaded";
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setGallium(gallium);  // inject the Gallium instance
