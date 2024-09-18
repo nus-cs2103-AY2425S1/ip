@@ -3,7 +3,12 @@ package commands;
 import task.Task;
 import task.TaskList;
 
-
+/**
+ * Represents a command to delete a task from the task list.
+ * This command removes a task at the specified index and updates the task list.
+ * If the index provided is invalid, an error message is displayed.
+ * After successful deletion, the task list is saved to storage.
+ */
 public class DeleteCommand extends Command {
     private int indexToDelete;
 

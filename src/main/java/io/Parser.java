@@ -58,7 +58,7 @@ public class Parser {
         }
     }
 
-    public static String convertDateFormat(String dateStr, String sourceFormat, String resultFormat)
+    private static String convertDateFormat(String dateStr, String sourceFormat, String resultFormat)
             throws InvalidDateException {
         try {
             SimpleDateFormat sourceDateFormat = new SimpleDateFormat(sourceFormat);

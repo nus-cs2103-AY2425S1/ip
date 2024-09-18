@@ -20,8 +20,8 @@ import storage.Storage;
  */
 public class TaskList {
 
-    protected ArrayList<Task> inputHistory;
-    protected Storage storage;
+    private ArrayList<Task> inputHistory;
+    private Storage storage;
 
     /**
      * Constructs a TaskList object with a given storage mechanism.
@@ -125,14 +125,25 @@ public class TaskList {
         return task.isDone;
     }
 
-
-
+    /**
+     * Filters tasks in the task list by their description.
+     *
+     * @param desc The description to filter tasks by.
+     * @return A list of tasks that contain the specified description.
+     */
     public ArrayList<Task> filterTaskByDescription(String desc) {
         return inputHistory.stream()
                 .filter(x -> x.description.contains(desc))
                 .collect(Collectors.toCollection(ArrayList :: new));
     }
 
+    /**
+     * Filters tasks in the task list by their tags.
+     *
+     * @param tags An array of tags to filter tasks by.
+     * @return A list of tasks that contain all the specified tags.
+     * @throws InvalidTagNameException If the specified tags are invalid.
+     */
     public ArrayList<Task> filterTaskByTags(String[] tags) throws InvalidTagNameException {
         ArrayList<Tag> tagLst = TagManager.stringArrToTags(tags);
         return inputHistory.stream()
@@ -148,10 +159,12 @@ public class TaskList {
         return inputHistory.size();
     }
 
-    public int indexOf(Task task) {
-        return inputHistory.indexOf(task);
-    }
-
+    /**
+     * Retrieves the task at the specified index in the task list.
+     *
+     * @param index The index of the task to retrieve.
+     * @return The task at the specified index.
+     */
     public Task get(int index) {
         return inputHistory.get(index);
     }
