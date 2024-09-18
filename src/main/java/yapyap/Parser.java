@@ -326,7 +326,7 @@ public class Parser {
      * @return A string containing help information.
      */
     private String showHelp() {
-        return "Available Commands:\n"
+        return "Available Commands:\n\n"
                 + "1. list - Display all tasks\n"
                 + "2. mark <task number> - Mark a task as done\n"
                 + "3. unmark <task number> - Mark a task as not done\n"
