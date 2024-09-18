@@ -49,9 +49,9 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "Launcher"
+    archiveBaseName = "KukiShinobu"
     archiveClassifier = null
-    archiveFileName = "Launcher.jar"
+    archiveFileName = "KukiShinobu.jar"
 }
 
 run {
