@@ -125,7 +125,7 @@ public class CommandParserTest {
             CommandParser.createCommand("blah blah blah");
             fail();
         } catch (IllegalArgumentException e) {
-            assertEquals("No command type found for: blah.", e.getMessage());
+            assertEquals("Unknown command: blah.", e.getMessage());
         }
     }
 
