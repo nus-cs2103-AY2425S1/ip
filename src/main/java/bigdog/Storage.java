@@ -18,6 +18,14 @@ public class Storage {
     /** The file path where the tasks are stored and loaded from. */
     private final String filePath;
 
+    /** Constants for task status and types */
+    private static final String MARKED_STATUS = "X";
+    private static final String UNMARKED_STATUS = "O";
+    private static final String TODO_TYPE = "T";
+    private static final String DEADLINE_TYPE = "D";
+    private static final String EVENT_TYPE = "E";
+    private static final String DELIMITER = " | ";
+
     /**
      * Constructs a Storage object.
      * Initializes the file path where the tasks will be stored.
@@ -60,11 +68,11 @@ public class Storage {
         line.append(task.isMarked() ? "X | " : "O | ");
 
         if (task instanceof Todo) {
-            line.append("T | ").append(task.getDescription());
+            line.append(TODO_TYPE).append(DELIMITER).append(task.getDescription());
         } else if (task instanceof Deadline) {
-            line.append("D | ").append(task.getDescription());
+            line.append(DEADLINE_TYPE).append(DELIMITER).append(task.getDescription());
         } else if (task instanceof Event) {
-            line.append("E | ").append(task.getDescription());
+            line.append(EVENT_TYPE).append(DELIMITER).append(task.getDescription());
         } else {
             throw new BigdogException("Storage Error: Unrecognized task type.");
         }
@@ -100,9 +108,9 @@ public class Storage {
      * @throws BigdogException if the line is corrupted or invalid
      */
     private static Task parseLine(String line) throws BigdogException {
-        if (line.charAt(0) == 'X') {
+        if (line.startsWith(MARKED_STATUS)) {
             return Task.of(line.substring(4), true);
-        } else if (line.charAt(0) == 'O') {
+        } else if (line.startsWith(UNMARKED_STATUS)) {
             return Task.of(line.substring(4), false);
         } else {
             throw new BigdogException("Storage Error: Corrupted data in file.");

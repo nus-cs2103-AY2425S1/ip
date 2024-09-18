@@ -2,7 +2,9 @@ package bigdog;
 
 /**
  * The {@code Task} class represents a generic task in the application.
- * It provides methods for managing the task's description and its completion status.
+ * It serves as a base class for more specific task types such as
+ * {@code Todo}, {@code Deadline}, and {@code Event}.
+ * The class provides methods to manage the task's description and completion status.
  */
 public abstract class Task {
 
@@ -22,7 +24,7 @@ public abstract class Task {
     private boolean marked;
 
     /** The string representation of the task. */
-    private String taskRep;
+    private final String taskRep;
 
     /**
      * Constructs a Task with the specified description and completion status.
@@ -37,11 +39,14 @@ public abstract class Task {
 
     /**
      * Factory method to create a Task object from a string representation.
-     * Determines the type of task (Todo, Deadline, or Event) based on the string.
+     * Determines the type of task based on the string prefix.
+     * - If the string starts with "T", it creates a {@code Todo}.
+     * - If the string starts with "D", it creates a {@code Deadline}.
+     * - If the string starts with "E", it creates an {@code Event}.
      *
      * @param task the string representation of the task.
      * @param marked the completion status of the task.
-     * @return a Task object corresponding to the string representation.
+     * @return a {@code Task} object corresponding to the string representation.
      * @throws BigdogException if the task type is unrecognized or if the task string is null or empty.
      */
     public static Task of(String task, boolean marked) throws BigdogException {

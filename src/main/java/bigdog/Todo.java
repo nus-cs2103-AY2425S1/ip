@@ -6,8 +6,10 @@ package bigdog;
  */
 public class Todo extends Task {
 
+    private static final int TODO_PREFIX_LENGTH = 4;
+
     /**
-     * Private constructor for creating an Todo instance.
+     * Private constructor for creating an {@code Todo} instance.
      * Contains specified description
      *
      * @param str    the description of the Todo.
@@ -33,15 +35,18 @@ public class Todo extends Task {
 
     /**
      * Factory method that creates a new Todo instance from the given string.
+     * Assumes that the first four characters represent a command, such as "todo ".
      *
-     * @param s      the string representing the Todo.
+     * @param s      the string representing the Todo, starting with a "todo " prefix.
      * @param marked the completion status of the Todo.
      * @return a new Todo object with the specified description.
-     * @throws BigdogException if the description is empty.
+     * @throws BigdogException if the description is empty or invalid.
      */
+
     public static Todo of(String s, boolean marked) {
 
-        assert s.length() > 4 : "todo can't be empty! How can you do nothing!";
+        assert s.length() > TODO_PREFIX_LENGTH : "todo can't be empty! How can you do nothing!";
+      
         return new Todo(s.substring(4), marked);
 
     }
