@@ -70,11 +70,44 @@ public class TaskList {
         items.remove(i - 1);
     }
 
+    /**
+     * Returns the subset of tasks whose description partially or fully matches the given keyword.
+     * @param keyword Keyword to be searched.
+     * @return Tasklist containing tasks whose description partially or fully matches the given keyword.
+     */
     public TaskList find(String keyword) {
         TaskList res = new TaskList(new ArrayList<Task>());
         for (int i = 0; i < items.size(); i++) {
             Task curr = items.get(i);
             if (curr.containsKeyword(keyword)) {
+                res.add(curr);
+            }
+        }
+        return res;
+    }
+
+    /**
+     * Returns the string representation of the tasklist. Each task is listed line by line, with index starting from 1.
+     * @return String representation of tasklist.
+     */
+    @Override
+    public String toString() {
+        String res = "";
+        for (int i = 0; i < items.size(); i++) {
+            res += i + 1 + ". " + items.get(i) + "\n";
+        }
+        return res;
+    }
+
+    /**
+     * Returns the subset of incomplete deadline tasks that are due on the current day.
+     * @return Tasklist containing incomplete deadline tasks that are due on the current day.
+     */
+    public TaskList findDue() {
+        TaskList res = new TaskList(new ArrayList<Task>());
+        for (int i = 0; i < items.size(); i++) {
+            Task curr = items.get(i);
+            if (curr.isDue() && !curr.isComplete()) {
                 res.add(curr);
             }
         }

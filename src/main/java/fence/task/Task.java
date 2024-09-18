@@ -3,7 +3,7 @@ package fence.task;
 /**
  * Represents a general task which contains a description.
  */
-public class Task {
+public abstract class Task {
 
     private String description;
     private boolean isDone;
@@ -17,7 +17,7 @@ public class Task {
         this.isDone = false;
     }
 
-    public boolean getDone() {
+    public boolean isComplete() {
         return this.isDone;
     }
 
@@ -56,4 +56,6 @@ public class Task {
     public boolean containsKeyword(String keyword) {
         return this.description.contains(keyword);
     }
+
+    public abstract boolean isDue();
 }

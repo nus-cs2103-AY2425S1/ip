@@ -29,66 +29,6 @@ public class Parser {
     }
 
     /**
-     * Parses the fields for the deadline task and initialises it in taskResult.
-     */
-    public void initialiseDeadline() {
-        String description = st.nextToken();
-        String by = "";
-        boolean hasCompleteDescription = false;
-
-        while (st.hasMoreTokens()) {
-            String nextWord = st.nextToken();
-            if (nextWord.equals("/by")) {
-                hasCompleteDescription = true;
-                by = st.nextToken();
-                continue;
-            }
-
-            if (hasCompleteDescription) {
-                by = by + " " + nextWord;
-            } else {
-                description = description + " " + nextWord;
-            }
-        }
-
-        taskResult = new Deadline(description, LocalDate.parse(by));
-    }
-
-    /**
-     * Parses the fields for the event task and initialises it in taskResult.
-     */
-    public void initialiseEvent() {
-        String description = st.nextToken();
-        String from = "";
-        String to = "";
-        boolean hasCompleteDescription = false;
-        boolean hasCompleteFrom = false;
-
-        while (st.hasMoreTokens()) {
-            String nextWord = st.nextToken();
-            if (nextWord.equals("/from")) {
-                hasCompleteDescription = true;
-                from = st.nextToken();
-                continue;
-            }
-            if (nextWord.equals("/to")) {
-                hasCompleteFrom = true;
-                to = st.nextToken();
-                continue;
-            }
-
-            if (hasCompleteFrom) {
-                to = to + " " + nextWord;
-            } else if (hasCompleteDescription) {
-                from = from + " " + nextWord;
-            } else {
-                description = description + " " + nextWord;
-            }
-        }
-        taskResult = new Event(description, from, to);
-    }
-
-    /**
      * Sets the status of the current task being initialised.
      * @param status Status of the current task.
      */
@@ -96,7 +36,7 @@ public class Parser {
         if (status.equals("(DONE)")) {
             taskResult.complete();
         } else if (status.equals("(UNDONE)")) {
-            assert !taskResult.getDone() : "taskResult should be undone by default";
+            assert !taskResult.isComplete() : "taskResult should be undone by default";
         } else {
             assert false : "status should have been saved as either default statuses";
         }
@@ -141,7 +81,7 @@ public class Parser {
      * Parses the fields for the event task and initialises it in taskResult.
      * @throws NoSuchElementException If any fields are missing.
      */
-    public void initialiseEventWithException() {
+    public void initialiseEventWithExceptions() {
         String description = st.nextToken();
         String from = "";
         String to = "";
@@ -209,9 +149,9 @@ public class Parser {
         if (firstWord.equals("TODO")) {
             initialiseTodo();
         } else if (firstWord.equals("DEADLINE")) {
-            initialiseDeadline();
+            initialiseDeadlineWithExceptions();
         } else if (firstWord.equals("EVENT")) {
-            initialiseEvent();
+            initialiseEventWithExceptions();
         } else {
             assert false : "firstWord should have been saved as one of the default task types";
         }
@@ -234,7 +174,7 @@ public class Parser {
             initialiseDeadlineWithExceptions();
             return "task";
         } else if (firstWord.equals("event")) {
-            initialiseEventWithException();
+            initialiseEventWithExceptions();
             return "task";
         } else if (firstWord.equals("mark")) {
             readIndex();

@@ -39,4 +39,9 @@ public class Event extends Task {
     public String toTxt() {
         return "EVENT " + super.toTxt() + " /from " + this.from + " /to " + this.to;
     }
+
+    @Override
+    public boolean isDue() {
+        return false;
+    }
 }
