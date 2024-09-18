@@ -30,7 +30,8 @@ java -classpath ../bin ekud.Ekud < input.txt > ACTUAL.TXT
 
 # convert to UNIX format
 cp EXPECTED.TXT EXPECTED-UNIX.TXT
-dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT
+cp TASKS-EXPECTED.TXT TASKS-EXPECTED-UNIX.TXT
+dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT TASKS-EXPECTED-UNIX.TXT data/tasks.txt
 
 # compare the output to the expected output
 echo "print test:"
@@ -44,7 +45,7 @@ else
 fi
 
 echo "save test:"
-diff ./data/tasks.txt TASKS-EXPECTED.TXT
+diff ./data/tasks.txt TASKS-EXPECTED-UNIX.TXT
 if [ $? -eq 0 ]
 then
     echo "Test result: PASSED"

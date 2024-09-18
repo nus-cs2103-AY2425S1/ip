@@ -8,7 +8,16 @@
 	_____________________________________________________________
 
 	_____________________________________________________________
+	 Quit yapping buddy, I have no clue what ya saying!
+	_____________________________________________________________
+
+	_____________________________________________________________
 	 Would Ya look at that: No tasks to be found. Shocking ain't it
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 I think you tried TODO nothing.
+	 I can only help to remind you of something todo.
 	_____________________________________________________________
 
 	_____________________________________________________________
@@ -17,13 +26,73 @@
 	_____________________________________________________________
 
 	_____________________________________________________________
+	 I'm sorry, but, nothing does not have a DEADLINE.
+	 Try giving me an actual task.
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Whoopsies!! It looks like you tried to pass a deadline that I cannot read!
+	 I'd recommend that you follow the 'd/M/yyyy HHmm' format. Or else...
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Whoopsies!! It looks like you tried to pass a deadline that I cannot read!
+	 I'd recommend that you follow the 'd/M/yyyy HHmm' format. Or else...
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Whoopsies!! It looks like you tried to pass a deadline that I cannot read!
+	 I'd recommend that you follow the 'd/M/yyyy HHmm' format. Or else...
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Whoopsies!! It looks like you tried to pass a deadline that I cannot read!
+	 I'd recommend that you follow the 'd/M/yyyy HHmm' format. Or else...
+	_____________________________________________________________
+
+	_____________________________________________________________
 	 added: [D][ ] return book (by: Jun 06 2024, 12:00 PM)
 	 And another one; 2 out of 2 tasks to complete...
 	_____________________________________________________________
 
 	_____________________________________________________________
+	 Did you forget your EVENT?
+	 Because you tried to make an event of nothing!
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Dude, stop being overzealous! Surely this event doesn't last forever?
+	 Think hard about it and you can tell me when it ends again with '/to'.
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Man... What's wrong with you!!
+	 Why can't you just follow the correct 'd/M/yyyy HHmm' date format!
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Dude, stop being overzealous! Surely this event doesn't last forever?
+	 Think hard about it and you can tell me when it ends again with '/to'.
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Man... What's wrong with you!!
+	 Why can't you just follow the correct 'd/M/yyyy HHmm' date format!
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Woah Woah! Calm down buddy!
+	 Could you first tell when this event starts using '/from'?
+	_____________________________________________________________
+
+	_____________________________________________________________
 	 added: [E][ ] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
 	 And another one; 3 out of 3 tasks to complete...
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 You might have missed it, but the start of the event must before the end!
+	   Oct 10 2024, 12:00 PM is NOT before Aug 08 2024, 12:00 PM!!
 	_____________________________________________________________
 
 	_____________________________________________________________
@@ -34,20 +103,22 @@
 	_____________________________________________________________
 
 	_____________________________________________________________
-	 Urrgh! Why do you bother me with this task!
-	 Fine, fine.... I will go look for them...
-	 Here are the results of my search:
-	 1. [T][ ] read book
-	 2. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
-	_____________________________________________________________
-
-	_____________________________________________________________
-	 Quit yapping buddy, I have no clue what ya saying!
-	_____________________________________________________________
-
-	_____________________________________________________________
 	 Now look what you've done!!
-	 I thought it was obvious... But 'bleh' is clearly not an Integer!
+	 I thought it was obvious... But 'one' is clearly not an Integer!
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Whats this? You tried an invalid list index!?
+	 Pfft... That's so hilarious!
+	 Lemme spell it out for ya.
+	 Your number must be between 1 and 3 and clearly -1 isn't
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Whats this? You tried an invalid list index!?
+	 Pfft... That's so hilarious!
+	 Lemme spell it out for ya.
+	 Your number must be between 1 and 3 and clearly 4 isn't
 	_____________________________________________________________
 
 	_____________________________________________________________
@@ -58,6 +129,11 @@
 	_____________________________________________________________
 
 	_____________________________________________________________
+	 PSST! This task is already marked complete!
+	 Next time please check before wasting my time!
+	_____________________________________________________________
+
+	_____________________________________________________________
 	 Look at all these tasks:
 	  1. [T][X] read book
 	  2. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
@@ -65,10 +141,8 @@
 	_____________________________________________________________
 
 	_____________________________________________________________
-	 Whats this? You tried an invalid list index!?
-	 Pfft... That's so hilarious!
-	 Lemme spell it out for ya.
-	 Your number must be between 1 and 3 and clearly 400 isn't
+	 Don't you feel embarrassed that you tried to un-mark an incomplete task!
+	 Does un-marking completed tasks not feel embarrassing enough for you?
 	_____________________________________________________________
 
 	_____________________________________________________________
@@ -86,38 +160,42 @@
 	_____________________________________________________________
 
 	_____________________________________________________________
-	 Now look what you've done!!
-	 I thought it was obvious... But '' is clearly not an Integer!
-	_____________________________________________________________
-
-	_____________________________________________________________
-	 Thank me later! I've changed the priority of your task:
-	   [T][ ] read book *HIGH PRIORITY*
+	 added: [T][ ] delete
+	 And another one; 4 out of 4 tasks to complete...
 	_____________________________________________________________
 
 	_____________________________________________________________
 	 Look at all these tasks:
-	  1. [T][ ] read book *HIGH PRIORITY*
+	  1. [T][ ] read book
 	  2. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
 	  3. [E][ ] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
+	  4. [T][ ] delete
 	_____________________________________________________________
 
 	_____________________________________________________________
-	 Look at mister smarty pants over here telling me "I want 'bye' priority".
-	 Do you realise how insane you sound? Just to let you know there is only
-	 'high' or 'low' priority.
+	 Now look what you've done!!
+	 I thought it was obvious... But 'four' is clearly not an Integer!
 	_____________________________________________________________
 
 	_____________________________________________________________
 	 Whats this? You tried an invalid list index!?
 	 Pfft... That's so hilarious!
 	 Lemme spell it out for ya.
-	 Your number must be between 1 and 3 and clearly 100 isn't
+	 Your number must be between 1 and 4 and clearly 5 isn't
 	_____________________________________________________________
 
 	_____________________________________________________________
-	 Thank me later! I've changed the priority of your task:
-	   [T][ ] read book
+	 Whats this? You tried an invalid list index!?
+	 Pfft... That's so hilarious!
+	 Lemme spell it out for ya.
+	 Your number must be between 1 and 4 and clearly 0 isn't
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 I'm going to assume that task wasn't meant to be there...
+	 Proceeding with task removal directive...
+	   deleted: [T][ ] delete
+	 Now get a move on, you have 3 out of 3 incomplete tasks remaining!
 	_____________________________________________________________
 
 	_____________________________________________________________
@@ -128,190 +206,182 @@
 	_____________________________________________________________
 
 	_____________________________________________________________
-	 Abracadabra! Your list is now sorted:
-	  1. [E][ ] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
-	  2. [T][ ] read book
-	  3. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
+	 If you are going to waste my time, could you at least not try to get me to search for nothing!!
 	_____________________________________________________________
 
 	_____________________________________________________________
-	 Abracadabra! Your list is now sorted:
-	  1. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
-	  2. [T][ ] read book
+	 Urrgh! Why do you bother me with this task!
+	 Fine, fine.... I will go look for them...
+	 Here are the results of my search:
+	 1. [T][ ] read book
+	 2. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Urrgh! Why do you bother me with this task!
+	 Fine, fine.... I will go look for them...
+	 Here are the results of my search:
+	 ...I've found nothing!!
+	 What a big waste of time! ALL THANKS TO YOU!!
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Now look what you've done!!
+	 I thought it was obvious... But '' is clearly not an Integer!
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 You've got to be kidding me! Seriously? You put nothing as the priority.
+	 You could have input 'low' or 'high' but choose to put nothing! wow.
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 PS: This task already had the priority of 'low', I don't think it needs changing.
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Thank me later! I've changed the priority of your task:
+	   [T][ ] read book *HIGH PRIORITY*
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 PS: This task already had the priority of 'high', I don't think it needs changing.
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Look at all these tasks:
+	  1. [T][ ] read book *HIGH PRIORITY*
+	  2. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
 	  3. [E][ ] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
 	_____________________________________________________________
 
 	_____________________________________________________________
 	 Wowie!! You've completed your task!
 	 I shall mark it as complete in celebration!
-	   [D][X] return book (by: Jun 06 2024, 12:00 PM)
+	   [E][X] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
 	 Woohoo!! Only 2 out of 3 tasks more to go!
 	_____________________________________________________________
 
 	_____________________________________________________________
-	 Wowie!! You've completed your task!
-	 I shall mark it as complete in celebration!
-	   [T][X] read book
-	 Woohoo!! Only 1 out of 3 tasks more to go!
+	 Mr forgetful has forgotten to include a field to sort the list by! OOPS!
 	_____________________________________________________________
 
 	_____________________________________________________________
-	 Thank me later! I've changed the priority of your task:
-	   [E][ ] project meeting *HIGH PRIORITY* (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
-	_____________________________________________________________
-
-	_____________________________________________________________
-	 Abracadabra! Your list is now sorted:
-	  1. [E][ ] project meeting *HIGH PRIORITY* (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
-	  2. [D][X] return book (by: Jun 06 2024, 12:00 PM)
-	  3. [T][X] read book
+	 Look buddy, I know you I can do it all, but I can't.
+	 Please instead try sorting by the available fields
+	   'completion', 'deadline', 'description', or 'priority'
 	_____________________________________________________________
 
 	_____________________________________________________________
 	 Abracadabra! Your list is now sorted:
-	  1. [D][X] return book (by: Jun 06 2024, 12:00 PM)
-	  2. [T][X] read book
-	  3. [E][ ] project meeting *HIGH PRIORITY* (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
-	_____________________________________________________________
-
-	_____________________________________________________________
-	 Abracadabra! Your list is now sorted:
-	  1. [E][ ] project meeting *HIGH PRIORITY* (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
-	  2. [D][X] return book (by: Jun 06 2024, 12:00 PM)
-	  3. [T][X] read book
-	_____________________________________________________________
-
-	_____________________________________________________________
-	 Abracadabra! Your list is now sorted:
-	  1. [D][X] return book (by: Jun 06 2024, 12:00 PM)
-	  2. [T][X] read book
-	  3. [E][ ] project meeting *HIGH PRIORITY* (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
-	_____________________________________________________________
-
-	_____________________________________________________________
-	 Abracadabra! Your list is now sorted:
-	  1. [D][X] return book (by: Jun 06 2024, 12:00 PM)
-	  2. [E][ ] project meeting *HIGH PRIORITY* (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
-	  3. [T][X] read book
-	_____________________________________________________________
-
-	_____________________________________________________________
-	 Abracadabra! Your list is now sorted:
-	  1. [T][X] read book
-	  2. [E][ ] project meeting *HIGH PRIORITY* (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
-	  3. [D][X] return book (by: Jun 06 2024, 12:00 PM)
-	_____________________________________________________________
-
-	_____________________________________________________________
-	 I think you tried TODO nothing.
-	 I can only help to remind you of something todo.
-	_____________________________________________________________
-
-	_____________________________________________________________
-	 Whoopsies!! Looks like you forgot your deadline!
-	 I'll say this once: next time mark your deadline with '/by'.
-	_____________________________________________________________
-
-	_____________________________________________________________
-	 Whoopsies!! It looks like you tried to pass a deadline that I cannot read!
-	 I'd recommend that you follow the 'd/M/yyyy HHmm' format. Or else...
-	_____________________________________________________________
-
-	_____________________________________________________________
-	 Woah Woah! Calm down buddy!
-	 Could you first tell when this event starts using '/from'?
-	_____________________________________________________________
-
-	_____________________________________________________________
-	 Dude, stop being overzealous! Surely this event doesn't last forever?
-	 Think hard about it and you can tell me when it ends again with '/to'.
-	_____________________________________________________________
-
-	_____________________________________________________________
-	 added: [E][ ] interview (from: Oct 10 2024, 02:00 PM to: Oct 10 2024, 12:00 PM)
-	 And another one; 2 out of 4 tasks to complete...
-	_____________________________________________________________
-
-	_____________________________________________________________
-	 Wowie!! You've completed your task!
-	 I shall mark it as complete in celebration!
-	   [T][X] read book
-	 Woohoo!! Only 2 out of 4 tasks more to go!
-	_____________________________________________________________
-
-	_____________________________________________________________
-	 Great work on completing your task!
-	 Proceeding with ekud.task removal directive...
-	   deleted: [T][X] read book
-	 Now get a move on, you have 2 out of 3 incomplete tasks remaining!
-	_____________________________________________________________
-
-	_____________________________________________________________
-	 I'm going to assume that task wasn't meant to be there...
-	 Proceeding with ekud.task removal directive...
-	   deleted: [E][ ] project meeting *HIGH PRIORITY* (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
-	 Now get a move on, you have 1 out of 2 incomplete tasks remaining!
+	  1. [E][X] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
+	  2. [T][ ] read book *HIGH PRIORITY*
+	  3. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
 	_____________________________________________________________
 
 	_____________________________________________________________
 	 Look at all these tasks:
-	  1. [D][X] return book (by: Jun 06 2024, 12:00 PM)
-	  2. [E][ ] interview (from: Oct 10 2024, 02:00 PM to: Oct 10 2024, 12:00 PM)
-	_____________________________________________________________
-
-	_____________________________________________________________
-	 Wowie!! You've completed your task!
-	 I shall mark it as complete in celebration!
-	   [E][X] interview (from: Oct 10 2024, 02:00 PM to: Oct 10 2024, 12:00 PM)
-	 WOOHOO!! YOU DID IT! Everything is complete!! All 2 of them!
-	_____________________________________________________________
-
-	_____________________________________________________________
-	 Great work on completing your task!
-	 Proceeding with ekud.task removal directive...
-	   deleted: [D][X] return book (by: Jun 06 2024, 12:00 PM)
-	 I've ran the numbers, and it says that all 1 tasks are complete!
-	_____________________________________________________________
-
-	_____________________________________________________________
-	 Great work on completing your task!
-	 Proceeding with ekud.task removal directive...
-	   deleted: [E][X] interview (from: Oct 10 2024, 02:00 PM to: Oct 10 2024, 12:00 PM)
-	 Well, looks like there is nothing left for you do!
-	_____________________________________________________________
-
-	_____________________________________________________________
-	 added: [E][ ] test app (from: Jan 01 2024, 12:00 AM to: Dec 12 2024, 11:59 PM)
-	 And another one; 1 out of 1 tasks to complete...
-	_____________________________________________________________
-
-	_____________________________________________________________
-	 added: [T][ ] check save
-	 And another one; 2 out of 2 tasks to complete...
-	_____________________________________________________________
-
-	_____________________________________________________________
-	 added: [D][ ] things to do (by: Jan 01 2025, 12:00 AM)
-	 And another one; 3 out of 3 tasks to complete...
-	_____________________________________________________________
-
-	_____________________________________________________________
-	 Thank me later! I've changed the priority of your task:
-	   [T][ ] check save *HIGH PRIORITY*
-	_____________________________________________________________
-
-	_____________________________________________________________
-	 Wowie!! You've completed your task!
-	 I shall mark it as complete in celebration!
-	   [E][X] test app (from: Jan 01 2024, 12:00 AM to: Dec 12 2024, 11:59 PM)
-	 Woohoo!! Only 2 out of 3 tasks more to go!
+	  1. [E][X] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
+	  2. [T][ ] read book *HIGH PRIORITY*
+	  3. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
 	_____________________________________________________________
 
 	_____________________________________________________________
 	 Abracadabra! Your list is now sorted:
-	  1. [T][ ] check save *HIGH PRIORITY*
-	  2. [E][X] test app (from: Jan 01 2024, 12:00 AM to: Dec 12 2024, 11:59 PM)
-	  3. [D][ ] things to do (by: Jan 01 2025, 12:00 AM)
+	  1. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
+	  2. [T][ ] read book *HIGH PRIORITY*
+	  3. [E][X] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Look at all these tasks:
+	  1. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
+	  2. [T][ ] read book *HIGH PRIORITY*
+	  3. [E][X] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Abracadabra! Your list is now sorted:
+	  1. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
+	  2. [E][X] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
+	  3. [T][ ] read book *HIGH PRIORITY*
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Look at all these tasks:
+	  1. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
+	  2. [E][X] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
+	  3. [T][ ] read book *HIGH PRIORITY*
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Abracadabra! Your list is now sorted:
+	  1. [T][ ] read book *HIGH PRIORITY*
+	  2. [E][X] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
+	  3. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Look at all these tasks:
+	  1. [T][ ] read book *HIGH PRIORITY*
+	  2. [E][X] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
+	  3. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Abracadabra! Your list is now sorted:
+	  1. [T][ ] read book *HIGH PRIORITY*
+	  2. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
+	  3. [E][X] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Look at all these tasks:
+	  1. [T][ ] read book *HIGH PRIORITY*
+	  2. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
+	  3. [E][X] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Abracadabra! Your list is now sorted:
+	  1. [E][X] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
+	  2. [T][ ] read book *HIGH PRIORITY*
+	  3. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Look at all these tasks:
+	  1. [E][X] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
+	  2. [T][ ] read book *HIGH PRIORITY*
+	  3. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Abracadabra! Your list is now sorted:
+	  1. [T][ ] read book *HIGH PRIORITY*
+	  2. [E][X] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
+	  3. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Look at all these tasks:
+	  1. [T][ ] read book *HIGH PRIORITY*
+	  2. [E][X] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
+	  3. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Abracadabra! Your list is now sorted:
+	  1. [E][X] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
+	  2. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
+	  3. [T][ ] read book *HIGH PRIORITY*
+	_____________________________________________________________
+
+	_____________________________________________________________
+	 Look at all these tasks:
+	  1. [E][X] project meeting (from: Aug 08 2024, 12:00 PM to: Oct 10 2024, 12:00 PM)
+	  2. [D][ ] return book (by: Jun 06 2024, 12:00 PM)
+	  3. [T][ ] read book *HIGH PRIORITY*
 	_____________________________________________________________
 
 	_____________________________________________________________
