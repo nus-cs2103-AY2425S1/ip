@@ -44,9 +44,9 @@ public class Parser {
         aliasMap.put("e", "event");
         aliasMap.put("x", "mark");
         aliasMap.put("u", "unmark");
-        aliasMap.put("l","list");
-        aliasMap.put("b","bye");
-        aliasMap.put("f","find");
+        aliasMap.put("l", "list");
+        aliasMap.put("b", "bye");
+        aliasMap.put("f", "find");
 
         // Use aliases if present
         commandWord = aliasMap.getOrDefault(commandWord, commandWord);
@@ -89,7 +89,7 @@ public class Parser {
      */
     private static Todo parseTodo(String arguments) throws SilverWolfException {
         if (arguments == null || arguments.trim().isEmpty()) {
-            throw new SilverWolfException("The description of a todo cannot be empty.");
+            throw new SilverWolfException("The description of a todo cannot be empty. Format: todo <description>");
         }
         String description = arguments.trim();
         assert !description.isEmpty() : "Todo description cannot be empty after trimming";
@@ -107,11 +107,11 @@ public class Parser {
             // Split the input into description and date/time components
             String[] parts = arguments.split(" /from ");
             if (parts.length < 2) {
-                throw new SilverWolfException("Please provide the event description and the /from time.");
+                throw new SilverWolfException("Format: event <description> /from dd/mm/yyyy hhmm /to dd/mm/yyyy hhmm");
             }
             String[] to = parts[1].split(" /to ");
             if (to.length < 2) {
-                throw new SilverWolfException("Please provide both /from and /to times for the event.");
+                throw new SilverWolfException("Format: event <description> /from dd/mm/yyyy hhmm /to dd/mm/yyyy hhmm");
             }
             DateTimeParser parser = new DateTimeParser();
             // Parse the string into a LocalDateTime object
@@ -128,7 +128,8 @@ public class Parser {
             throw new SilverWolfException("Hey! your event cannot be empty you know");
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new SilverWolfException("Wrong usage. Correct usage: event [task in String] "
-                   + "/from [date/time] /to [date/time] e.g event project meeting /from Mon 2pm /to 4pm ");
+                   + "/from [date/time] /to [date/time] e.g event project meeting /from 29/08/2024 1800 "
+                   + "/to 31/08/2024 1940 ");
         }
 
     }
@@ -144,9 +145,9 @@ public class Parser {
         String[] parts = arguments.split(" /by ");
         assert parts.length == 2 : "Deadline command must contain a description and a date/time";
         if (parts.length < 2) {
-            throw new SilverWolfException("Wrong usage. Correct usage: deadline [task in String] /by "
+            throw new SilverWolfException("Wrong usage. Correct usage: deadline <description> /by dd/mm/yyyy hhmm"
                     + "[date/time] \" +\n"
-                    + " \"e.g deadline submit report /by 11/10/2019 ");
+                    + " \"e.g deadline submit report /by 11/10/2019 1810");
         }
         try {
             String description = parts[0].trim();
