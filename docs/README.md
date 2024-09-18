@@ -1,5 +1,4 @@
 # Elliot User Guide
--- -
 ## Table of Content
 - [Introduction](#introduction)
 - [Quick Preview](#quick-preview)
@@ -15,6 +14,7 @@
     - [Find task](#find)
     - [Tag task](#tag)
         - [Find task via tags](#find-tag)
+- [How To Use](#how-to-use)
 - [Acknowledgements](#acknowledgements)
 -- -
 ## Introduction
@@ -125,6 +125,14 @@ findtag #hw
 ```
 Expected Result:
 ![findtag](./findtag.png)
+-- -
+## How to use 
+Make sure you have at least Version 17 of `java` first.
+- download the latest `elliot.jar` from [releases](https://github.com/LimKaiWei/ip/releases).
+- create a new folder and move jar file to empty folder.
+- open a terminal in that folder.
+- run the command `java -jar elliot.jar`.
+- enjoy.
 -- -
 ## Acknowledgements
 use of _ImList_ from CS2030
