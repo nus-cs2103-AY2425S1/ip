@@ -87,15 +87,15 @@ public class Ui {
      * @return outputToGui Outputs the message to the chat bot.
      */
     public String showMatchingTasks(List<Task> tasks) {
-        String outputToGui = "";
+        StringBuilder outputToGui;
         if (tasks.isEmpty()) {
-            outputToGui = "No tasks found with the given keyword.";
+            outputToGui = new StringBuilder("No tasks found with the given keyword.");
         } else {
-            outputToGui = "Here are the matching tasks in your list:\n";
+            outputToGui = new StringBuilder("Here are the matching tasks in your list:\n");
             for (int i = 0; i < tasks.size(); i++) {
-                outputToGui = (i + 1) + "." + tasks.get(i) + "\n";
+                outputToGui.append(i + 1).append(".").append(tasks.get(i)).append("\n");
             }
         }
-        return outputToGui;
+        return outputToGui.toString();
     }
 }

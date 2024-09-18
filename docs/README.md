@@ -30,22 +30,22 @@ You can add 3 types of tasks:
 To add a deadline in SilverWolf, use the following command:
 
 ### Command
-`deadline <description> /by <yyyy-mm-dd>`
+`deadline <description> /by dd/mm/yyyy hhmm`
 
 ### Example
 ```shell
-deadline Finish CS2103T assignment /by 2024-08-31
+deadline Finish CS2103T assignment /by 2/12/2024 1800
 ```
 ## Adding Event
 
 To add an event in SilverWolf, use the following command:
 
 ### Command
-`event <description> /from <yyyy-mm-dd> /to <yyyy-mm-dd>`
+`event <description> /from dd/mm/yyyy hhmm /to dd/mm/yyyy hhmm`
 
 ### Example
 ```shell
-event Project Meeting /from 2024-08-31 /to 2040-08-34
+event RC4 Directors meeting /from 29/12/2024 1800 /to 29/12/2024 1830
 ```
 
 ## Adding Todo
@@ -99,12 +99,14 @@ unmark 1
 To search for a task(s), use the following command:
 
 ### Command
-`search <description>`
+`find <description>`
 
 ### Example
 ```shell
-search books
+find books
 ```
+
+Finding without any input will list down all the tasks.
 
 ## Delete
 
@@ -127,8 +129,8 @@ To terminate the chatbot, use the following command:
 ### Command
 `bye`
 
-Doing so will save your list to a file. Note that the chatbot will load the save file if an of create 
-a new save file when the chat bot application is running.
+Doing so will save your list to a file. Note that the chatbot will load the save file if any. 
+Otherwise, it will create a new save file when the chat bot application is running.
 
 
 

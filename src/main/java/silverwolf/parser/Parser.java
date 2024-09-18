@@ -46,7 +46,8 @@ public class Parser {
         aliasMap.put("u", "unmark");
         aliasMap.put("l","list");
         aliasMap.put("b","bye");
-        
+        aliasMap.put("f","find");
+
         // Use aliases if present
         commandWord = aliasMap.getOrDefault(commandWord, commandWord);
 
