@@ -106,9 +106,7 @@ public class Event extends ScheduledTask {
         String endDateAndTimeString = eventDetails[2];
         LocalDateTime endDateAndTime = LocalDateTime.parse(endDateAndTimeString, stringToDateTime);
 
-        if (startDateAndTime.isBefore(LocalDateTime.now())) {
-            throw new JanetException("WHOOPS! Your event's start date cannot be earlier than today!");
-        } else if (startDateAndTime.isAfter(endDateAndTime) || startDateAndTime.isEqual(endDateAndTime)) {
+        if (startDateAndTime.isAfter(endDateAndTime) || startDateAndTime.isEqual(endDateAndTime)) {
             throw new JanetException("WHOOPS! Your event's start date cannot be later than/equal to the end date!");
         }
         return new Event(eventDetails[0], "E", startDateAndTime, endDateAndTime);

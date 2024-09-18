@@ -88,9 +88,6 @@ public class Deadline extends ScheduledTask {
         String dateAndTimeString = deadlineDetails[1];    // MMM dd yyyy hh:mm a
         DateTimeFormatter stringToDateTime = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm a");
         LocalDateTime dateAndTime = LocalDateTime.parse(dateAndTimeString, stringToDateTime);  // convert String to LocalDateTime
-        if (dateAndTime.isBefore(LocalDateTime.now())) {
-            throw new JanetException("WHOOPS! Your deadline's due date cannot be earlier than today!");
-        }
         return new Deadline(deadlineDetails[0], "D", dateAndTime);
     }
 
