@@ -68,13 +68,14 @@ public class Storage {
                             + " /to " + row[4].strip());
                 }
 
+                assert task != null : "Save file should only store task data";
+
                 if (task != null) {
                     taskList.addToList(task);
                     if (isDone) {
                         task.markAsDone();
                     }
                 }
-
             }
 
         } catch (IOException e) {
@@ -99,6 +100,9 @@ public class Storage {
             } else if (Files.notExists(filePath)) {
                 Files.createFile(filePath);
             }
+
+            assert Files.exists(dirPath);
+            assert Files.exists(filePath);
 
             FileWriter fw = new FileWriter(filePath.toString());
             fw.write(taskList.fileString());

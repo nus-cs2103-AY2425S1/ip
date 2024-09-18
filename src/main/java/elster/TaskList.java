@@ -11,10 +11,6 @@ import elster.tasks.Task;
 public class TaskList {
     private ArrayList<Task> list = new ArrayList<>();
 
-    protected static void printLine() {
-        System.out.println("    ____________________________________________________________________________");
-    }
-
     /**
      * Adds a task to the task list.
      *
