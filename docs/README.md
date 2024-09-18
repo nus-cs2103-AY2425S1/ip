@@ -1,30 +1,38 @@
-# Duke User Guide
+# Sigma User Guide
+>For Sigmas, by Sigmas.
 
-// Update the title above to match the actual product name
 
-// Product screenshot goes here
-
-// Product intro goes here
+Here's a snippet of what Sigma looks like:
+![Ui.png](Ui.png)
 
 ## Adding deadlines
 
-// Describe the action and its outcome.
+You can give Sigma a deadline to remember using the `/deadline` command.
 
-// Give examples of usage
 
-Example: `keyword (optional arguments)`
+Example: `/deadline do CS2103T quiz /by 2024-09-20 14:00:00`
 
-// A description of the expected outcome goes here
+Here's what the output would look like:
 
 ```
-expected output
+added deadline task:
+[D][ ] do CS2103T quiz (by: Sep 20 2024 14:00:00)
 ```
+Use `mark` followed by the task number to mark this task as completed. 
+Don't worry, Sigma will remember this task until you `delete` it off the list.
 
-## Feature ABC
+## Finding a task
 
-// Feature details
+Too many tasks in the list? Seamlessly find a specific task using `find` followed
+by the keyword(s) of your task description. Sigma will display all tasks that partially
+match the given keyword(s).
 
+## All your tasks at a glance
 
-## Feature XYZ
+Don't worry about forgetting what you have added to your list of tasks,
+simply enter `list` and Sigma will display a pretty list of all your current tasks.
 
-// Feature details
+## Erm, what the Sigma?
+
+Sigma says this when it receives a command it does not recognise. Fear not, just re-enter 
+the amended command and it will be as if nothing happened.
