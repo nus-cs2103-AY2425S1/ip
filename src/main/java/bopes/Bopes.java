@@ -31,6 +31,13 @@ public class Bopes {
         }
     }
 
+    public boolean isValidCommand(String input) {
+        if (input.equals("hello") || input.equals("bye")) {
+            return true;
+        }
+        return false; 
+    }
+
     /**
      * Handles user input and returns the response from Bopes.
      * 
@@ -38,7 +45,15 @@ public class Bopes {
      * @return The response from Bopes.
      */
     public String getResponse(String input) {
-        return Parser.parse(input, tasks, storage);
+        if (isValidCommand(input)) {
+            return "This is a valid command response!";
+        } else {
+            return "Error: Invalid command.";
+        }
+    }
+
+    public CommandResult parseInput(String input) {
+        return Parser.parse(input, tasks, storage);  // Use the tasks and storage already initialized
     }
 
     /**

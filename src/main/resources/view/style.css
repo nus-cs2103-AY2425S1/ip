@@ -57,3 +57,25 @@
 .scroll-pane {
   -fx-background-color: transparent;
 }
+
+/* Dialog style for valid commands (blue background) */
+.valid-command {
+  -fx-background-color: #007bff; /* Blue color */
+  -fx-text-fill: white;
+  -fx-background-radius: 10px;
+  -fx-padding: 10;
+  -fx-border-radius: 10px;
+  -fx-border-color: lightblue;
+  -fx-border-width: 1px;
+}
+
+/* Dialog style for errors (red background) */
+.error-command {
+  -fx-background-color: #dc3545; /* Red color */
+  -fx-text-fill: white;
+  -fx-background-radius: 10px;
+  -fx-padding: 10;
+  -fx-border-radius: 10px;
+  -fx-border-color: lightcoral;
+  -fx-border-width: 1px;
+}

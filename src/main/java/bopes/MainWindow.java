@@ -36,12 +36,17 @@ public class MainWindow {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = bopes.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getBopesDialog(response, bopesImage)
+
+        CommandResult result = bopes.parseInput(input);
+
+        dialogContainer.getChildren().add(
+            DialogBox.getUserDialog(input, userImage, false)
         );
-        VBox.setVgrow(dialogContainer, Priority.ALWAYS);
+    
+        dialogContainer.getChildren().add(
+            DialogBox.getBopesDialog(result.getFeedbackToUser(), bopesImage, result.isError())
+        );
+    
         userInput.clear();
     }
 }

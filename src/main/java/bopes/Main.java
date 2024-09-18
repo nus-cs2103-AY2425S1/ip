@@ -17,7 +17,6 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             
-            // Apply the stylesheet
             scene.getStylesheets().add(Main.class.getResource("/view/style.css").toExternalForm());
             
             stage.setScene(scene);
