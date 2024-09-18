@@ -80,7 +80,7 @@ Find a task with a keyword.
 
 `find p` return all my tasks containing `p`.
 
-<img src="../src/main/resources/images/find.png" alt="find example" height="300" width="400"/>
+<img src="./find.png" alt="find example" height="300" width="400"/>
 
 
 ## Delete a task: `delete`
