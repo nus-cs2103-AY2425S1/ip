@@ -79,8 +79,7 @@ public class TaskManager {
                     : "Task save file should exist when loading task";
             String taskString = Files.readString(TASK_FILE);
             return Parser.parseSavedTaskData(taskString);
-        } catch (IOException | InvalidTokenException
-                | ArrayIndexOutOfBoundsException e) {
+        } catch (IOException | ArrayIndexOutOfBoundsException e) {
             throw new FileCorruptedException();
         }
     }
