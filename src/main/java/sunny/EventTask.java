@@ -17,7 +17,7 @@ public class EventTask extends Task {
      * @param description description of the event
      * @param isDone if the event is done
      */
-    public EventTask(String description, boolean isDone) {
+    public EventTask(String description, boolean isDone) throws WrongMessageException {
         super(description, isDone);
         m1 = super.description.split("/from", 2)[0];
         timeline = super.description.split("/from", 2)[1];
@@ -25,6 +25,9 @@ public class EventTask extends Task {
         m3 = timeline.split("/to ", 2)[1];
         startTime = LocalDate.parse(m2.trim());
         endTime = LocalDate.parse(m3.trim());
+        if (startTime.isBefore((endTime))) {
+            throw new WrongMessageException();
+        }
     }
 
     /**
