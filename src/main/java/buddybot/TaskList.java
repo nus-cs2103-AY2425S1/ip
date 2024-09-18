@@ -56,7 +56,7 @@ public class TaskList {
      */
 
     public void delete(int i) {
-        myList.remove(i);
+        myList.remove(i - 1);
     }
 
     /**

@@ -60,7 +60,7 @@ public class Ui {
      * @param i
      */
     public String showDelete(Task task, int i) {
-        return "Got it. I've removed this task: \n" + task + "\n" + "Now you have " + i + "\" tasks in the list.\"";
+        return "Got it. I've removed this task: \n" + task + "\n" + "Now you have " + (i - 1) + " tasks in the list.";
     }
 
     /**
