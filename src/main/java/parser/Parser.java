@@ -5,7 +5,9 @@ package parser;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
 import chatterboxexceptions.ChatterboxExceptions;
 import command.AllTagsCommand;
@@ -33,14 +35,17 @@ public class Parser {
 
     private static final DateTimeFormatter DASHFORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
     private static final DateTimeFormatter SLASHFORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-
+    private static final DateTimeFormatter SINGLEDIGITDATE = new DateTimeFormatterBuilder()
+            .appendPattern("d/M/yyyy")  // Single or double-digit day and month
+            .toFormatter()
+            .withResolverStyle(ResolverStyle.SMART);
     private static final DateTimeFormatter DASHONLYDATE = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private static final DateTimeFormatter SLASHONLYDATE = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private static final DateTimeFormatter PRINTDATEFORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
     private static final DateTimeFormatter[] DATE_TIME_FORMATTERS =
             new DateTimeFormatter[] {DASHFORMATTER, SLASHFORMATTER, PRINTDATEFORMATTER};
     private static final DateTimeFormatter[] DATE_ONLY_FORMATTERS =
-            new DateTimeFormatter[] {DASHONLYDATE, SLASHONLYDATE};
+            new DateTimeFormatter[] {DASHONLYDATE, SLASHONLYDATE, SINGLEDIGITDATE};
 
 
     /**
@@ -58,7 +63,6 @@ public class Parser {
         for (DateTimeFormatter formatter : DATE_TIME_FORMATTERS) {
             try {
 
-
                 return LocalDateTime.parse(dateTimeString, formatter);
             } catch (DateTimeParseException e) {
                 //do nothing, try next one
@@ -72,6 +76,7 @@ public class Parser {
             }
         }
         //if no matching format is found
+
         return null;
     }
 
