@@ -2,7 +2,6 @@ package luke;
 
 import java.util.List;
 
-import javafx.application.Platform;
 import luke.command.Command;
 import luke.env.Constants;
 import luke.task.NoDescriptionException;
@@ -30,8 +29,7 @@ public class Ui {
     public static String handleCommand(Command command, boolean isLoadingFromDisk) {
         switch (command.getCommand()) {
         case "bye" -> {
-            // return "yeah bye bye to you too human being <3";
-            Platform.exit();
+            return Constants.BYE_MESSAGE;
         }
         case "list" -> {
             return showList();
@@ -49,7 +47,6 @@ public class Ui {
             return handleAddTask(command, isLoadingFromDisk);
         }
         }
-        return "";
     }
 
     public static String showList() {
@@ -61,7 +58,7 @@ public class Ui {
      * @param command the mark/unmark command word and its associated tasks
      */
     public static String handleTaskMarking(Command command) {
-        assert command.getArgs() != null;
+        // assert command.getArgs() != null;
         int taskToMark = Integer.parseInt(command.getArgs());
         try {
             Task task = taskList.getTask(taskToMark - 1);

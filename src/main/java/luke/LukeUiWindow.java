@@ -3,6 +3,7 @@ package luke;
 import java.io.IOException;
 import java.util.List;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -11,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import luke.command.Command;
+import luke.env.Constants;
 
 public class LukeUiWindow extends AnchorPane {
     @FXML
@@ -50,7 +52,6 @@ public class LukeUiWindow extends AnchorPane {
         } catch (IOException e) {
             String warning = "hmmm... i ran into an issue while setting up. try launching me again.";
             dialogContainer.getChildren().add(DialogBox.getLukeDialog(warning, lukeImage));
-            System.exit(0);
         }
     }
 
@@ -73,6 +74,14 @@ public class LukeUiWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getLukeDialog(response, lukeImage)
         );
+        if (response.equals(Constants.BYE_MESSAGE)) {
+            try {
+                Thread.sleep(Constants.PAUSE);
+                Platform.exit();
+            } catch (InterruptedException e) {
+                Platform.exit();
+            }
+        }
         userInput.clear();
     }
 
@@ -100,6 +109,12 @@ public class LukeUiWindow extends AnchorPane {
             }
             case "n", "no" -> {
                 response = "alright then. cya ;)";
+                try {
+                    Thread.sleep(Constants.PAUSE);
+                    Platform.exit();
+                } catch (InterruptedException e) {
+                    Platform.exit();
+                }
             }
             default -> {
                 response = "didn't quite understand what you said there. try again?";
