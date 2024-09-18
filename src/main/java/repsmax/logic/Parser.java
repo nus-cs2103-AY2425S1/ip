@@ -9,7 +9,6 @@ import repsmax.ui.Ui;
 
 
 import java.util.List;
-import java.util.Arrays;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -185,13 +184,18 @@ public class Parser {
     }
 
     /**
-     * Handles the "deadline" command, adding a new Deadline task.
+     * Handles the "deadline" command by adding a new {@code Deadline} task to the task list.
+     * <p>
+     * This method processes the user's input to create a new deadline task. It expects the input to include a description,
+     * a deadline date/time specified with '/by', and an optional priority level specified with '/priority'.
+     * The priority level defaults to 3 (low) if not provided.
+     * </p>
      *
-     * @param splitInput The user's input split into command and arguments.
-     * @param tasks      The list of tasks to be managed.
-     * @param ui         The user interface to interact with the user.
-     * @param storage    The storage handler for saving the updated tasks.
-     * @return A response message confirming the task is added.
+     * @param splitInput An array of strings where the first element is the command, and the second element contains the arguments.
+     * @param tasks      The {@code TaskList} that manages all tasks.
+     * @param ui         The {@code Ui} instance used to interact with the user (not used in this method, but included for consistency).
+     * @param storage    The {@code Storage} instance used to save the updated tasks.
+     * @return A string message confirming the addition of the task or an error message if the input is invalid.
      */
     private String handleDeadlineCommand(String[] splitInput, TaskList tasks, Ui ui, Storage storage) {
         try {
@@ -225,22 +229,8 @@ public class Parser {
                 }
             }
 
-            // Debugging output (optional)
-            System.out.println("Description: " + description);
-            System.out.println("By: " + byPart);
-            System.out.println("Priority: " + priority);
-
-            // Validate and parse the date and time
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-            LocalDateTime deadlineDateTime;
-            try {
-                deadlineDateTime = LocalDateTime.parse(byPart, formatter);
-            } catch (DateTimeParseException e) {
-                return "OOPS!!! The date/time format should be 'yyyy-MM-dd HHmm'.";
-            }
-
             // Add the new deadline task to the task list
-            Deadline newDeadline = new Deadline(description, deadlineDateTime, priority);
+            Deadline newDeadline = new Deadline(description, byPart, priority);
             tasks.add(newDeadline);
             storage.save(tasks);
 
@@ -252,10 +242,6 @@ public class Parser {
             return "Something went wrong while processing the command.";
         }
     }
-
-
-
-
 
     /**
      * Handles the "event" command, adding a new Event task.
@@ -281,8 +267,6 @@ public class Parser {
                 String[] fromToPriority = parts[1].split("/priority ", 2);
                 fromTo = fromToPriority[0].split("/to ", 2);
                 description = parts[0];
-                String from = fromTo[0].trim();
-                String to = fromTo[1].trim();
 
                 try {
                     priority = Integer.parseInt(fromToPriority[1].trim());
@@ -314,17 +298,19 @@ public class Parser {
         }
     }
 
-
-
-
     /**
-     * Handles the "delete" command, removing a task from the list.
+     * Handles the "event" command by adding a new {@code Event} task to the task list.
+     * <p>
+     * This method processes the user's input to create a new event task. It expects the input to include a description,
+     * a start date/time specified with '/from', an end date/time specified with '/to', and an optional priority level
+     * specified with '/priority'. The priority level defaults to 3 (low) if not provided.
+     * </p>
      *
-     * @param splitInput The user's input split into command and arguments.
-     * @param tasks      The list of tasks to be managed.
-     * @param ui         The user interface to interact with the user.
-     * @param storage    The storage handler for saving the updated tasks.
-     * @return A response message confirming the task is removed.
+     * @param splitInput An array of strings where the first element is the command, and the second element contains the arguments.
+     * @param tasks      The {@code TaskList} that manages all tasks.
+     * @param ui         The {@code Ui} instance used to interact with the user (not used in this method, but included for consistency).
+     * @param storage    The {@code Storage} instance used to save the updated tasks.
+     * @return A string message confirming the addition of the task or an error message if the input is invalid.
      */
     private String handleDeleteCommand(String[] splitInput, TaskList tasks, Ui ui, Storage storage) {
         try {
