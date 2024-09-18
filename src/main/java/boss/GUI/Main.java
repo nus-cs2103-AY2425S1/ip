@@ -10,7 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Boss using FXML.
  */
 public class Main extends Application {
     private Boss boss = new Boss("src/main/data/boss.txt");
@@ -22,6 +22,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Boss");
             fxmlLoader.<MainWindow>getController().setBoss(boss);  // inject the Duke instance
             stage.show();
         } catch (IOException e) {
