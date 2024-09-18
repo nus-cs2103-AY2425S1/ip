@@ -27,6 +27,23 @@ All you need to do is:
 
 # Features
 
+> ## Notes about command format:
+> 
+> - Words in `UPPERCASE` are pararmeters that are to be supplied by the user
+>  
+>  i.e. in `find PROMPT`, `PROMPT` is a parameter which can be used like `find tutorial`.
+> 
+> 
+> - Items in square brackets are optional 
+> 
+>  i.e. in `todo NAME [#TAG]...`, it can be used as `todo CS2103T tutorial` or `todo CS2103T tutorial #important`.
+> 
+> 
+> - Items with `...` can be used multiple times including zero
+> 
+>  i.e. `todo NAME [#TAG]...` can be used as `todo CS2103T tutorial` (zero times)
+> or `todo CS2103T tutorial #important #graded` (two times).
+
 ## 1. Adding tasks
 Prefix the command with the type of task you want to add. The types of tasks available are:
 
