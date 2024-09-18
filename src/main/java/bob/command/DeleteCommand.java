@@ -8,10 +8,7 @@ import bob.exception.MissingArgumentException;
 import bob.task.Task;
 
 public class DeleteCommand extends Command {
-    @Override
-    public String getCommand() {
-        return "delete";
-    }
+    protected static final String COMMAND = "delete";
 
     @Override
     public boolean isExit() {

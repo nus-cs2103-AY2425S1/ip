@@ -9,10 +9,7 @@ import bob.task.Event;
 import bob.task.Task;
 
 public class EventCommand extends Command {
-    @Override
-    public String getCommand() {
-        return "event";
-    }
+    protected static final String COMMAND = "event";
 
     @Override
     public boolean isExit() {

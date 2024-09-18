@@ -1,7 +1,7 @@
 package bob;
 
+import bob.command.Command;
 import bob.exception.*;
-import bob.task.*;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -22,7 +22,6 @@ public class Bob {
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("'{'dd-MMM-uuuu HHmm'}'");
     private static final Storage STORAGE = new Storage("data/Bob.txt");
     private static final Ui UI = new Ui();
-    private static String argument = "";
     private static TaskList tasks;
 
     public static LocalDateTime parseDateTime(String string) {
@@ -47,6 +46,7 @@ public class Bob {
 
     public static void main(String[] args) {
         UI.printGreeting();
+        bob.command.Command.loadCommands();
 
         try {
             tasks = STORAGE.load();
@@ -57,25 +57,19 @@ public class Bob {
             tasks = new TaskList();
         }
 
-        while (true) {
-            boolean executed = false;
+        boolean isExit = false;
+        while (!isExit) {
             String[] input = UI.readInput().split(" ", 2);
-            String command = input[0];
-            argument = input.length == 1 ? "" : input[1];
+            String argument = input.length == 1 ? "" : input[1];
             try {
-                for (Command c : Command.values()) {
-                    if (command.equals(c.CMD)) {
-                        c.run();
-                        executed = true;
-                        break;
-                    }
-                }
-                if (!executed) {
-                    Command.CATCH_ALL.run();
-                }
+                Command command = Command.of(input[0]);
+                command.execute(tasks, UI, STORAGE, argument);
+                isExit = command.isExit();
             } catch (BobException e) {
                 UI.printError(e.getMessage());
             }
         }
+
+        System.exit(0);
     }
 }

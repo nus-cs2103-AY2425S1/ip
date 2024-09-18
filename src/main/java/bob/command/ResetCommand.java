@@ -5,10 +5,7 @@ import bob.TaskList;
 import bob.Ui;
 
 public class ResetCommand extends Command {
-    @Override
-    public String getCommand() {
-        return "reset";
-    }
+    protected static final String COMMAND = "reset";
 
     @Override
     public boolean isExit() {

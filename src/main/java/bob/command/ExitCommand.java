@@ -7,10 +7,7 @@ import bob.Ui;
 import java.io.IOException;
 
 public class ExitCommand extends Command {
-    @Override
-    public String getCommand() {
-        return "bye";
-    }
+    protected static final String COMMAND = "bye";
 
     @Override
     public boolean isExit() {

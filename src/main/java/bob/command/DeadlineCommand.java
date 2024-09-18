@@ -10,10 +10,7 @@ import bob.task.Task;
 
 public class DeadlineCommand extends Command {
 
-    @Override
-    public String getCommand() {
-        return "deadline";
-    }
+    protected static final String COMMAND = "deadline";
 
     @Override
     public boolean isExit() {

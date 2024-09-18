@@ -8,10 +8,7 @@ import bob.task.Task;
 import bob.task.Todo;
 
 public class TodoCommand extends Command {
-    @Override
-    public String getCommand() {
-        return "todo";
-    }
+    protected static final String COMMAND = "todo";
 
     @Override
     public boolean isExit() {
