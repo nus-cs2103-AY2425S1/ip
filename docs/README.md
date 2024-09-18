@@ -1,7 +1,10 @@
 # Chatterbox 
 
 ![Chatterbox](Ui.png)
-Your personal assistant to navigating this troubled world
+
+Here’s a description for Chatterbox:
+
+Chatterbox is your personal assistant designed to help you organize tasks and manage your time in an intuitive and streamlined manner. Whether you're juggling deadlines, events, or simple to-do items, Chatterbox provides a simple command-based interface to keep your tasks in check. From adding tasks with specific deadlines to tagging them for easy categorization, Chatterbox helps reduce the clutter and stress of daily task management.
 
 ## Table of Contents
 - [Quick Start](#quick-start)
