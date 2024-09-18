@@ -19,10 +19,10 @@ public class EventTask extends Task {
     /**
      * Constructs an EventTask object.
      *
-     * @param description The description of the Jay.task.
-     * @param date        The date of the Jay.task.
-     * @param startTime   The start time of the Jay.task.
-     * @param endTime     The end time of the Jay.task.
+     * @param description The description of the task.
+     * @param date        The date of the task.
+     * @param startTime   The start time of the task.
+     * @param endTime     The end time of the task.
      * @throws InvalidDateException If the date is invalid.
      * @throws InvalidTimeException If the time is invalid.
      */

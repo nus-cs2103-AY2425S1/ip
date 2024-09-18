@@ -159,14 +159,10 @@ public class Jay {
      * @param task The task to be added.
      * @return The response to the user.
      */
-    private String addTask(Task task) {
-        try {
-            assert task != null : "Task should not be null";
-            this.tasks.addTask(task);
-            return "Got it. I've added this task:\n" + task + "\n" + this.tasks.getTaskCount();
-        } catch (DataIOException e) {
-            return e.getMessage();
-        }
+    private String addTask(Task task) throws DataIOException {
+        assert task != null : "Task should not be null";
+        this.tasks.addTask(task);
+        return "Got it. I've added this task:\n" + task + "\n" + this.tasks.getTaskCount();
     }
 
     /**
@@ -175,13 +171,9 @@ public class Jay {
      * @param taskNumber The number of the task to be deleted.
      * @return The response to the user.
      */
-    private String deleteTask(int taskNumber) {
-        try {
-            Task task = this.tasks.removeTask(taskNumber);
-            return "Noted. I've removed this task:\n" + task + "\n" + this.tasks.getTaskCount();
-        } catch (DataIOException | InvalidCommandException e) {
-            return e.getMessage();
-        }
+    private String deleteTask(int taskNumber) throws DataIOException, InvalidCommandException {
+        Task task = this.tasks.removeTask(taskNumber);
+        return "Noted. I've removed this task:\n" + task + "\n" + this.tasks.getTaskCount();
     }
 
     /**

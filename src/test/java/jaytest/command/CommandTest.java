@@ -1,12 +1,14 @@
-package JayTest.command;
-
-import jay.command.Command;
-import jay.command.InvalidCommandException;
-import org.junit.jupiter.api.Test;
-import jay.task.Task;
+package jaytest.command;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import jay.command.Command;
+import jay.command.InvalidCommandException;
+import jay.task.InvalidDescriptionException;
+import jay.task.Task;
 
 public class CommandTest {
     @Test
@@ -57,8 +59,12 @@ public class CommandTest {
 
     @Test
     public void testGetDescription() {
-        Command command = new Command("event project meeting /from 30-07-2024 1400 /to 1600\n");
-        assertEquals("project meeting", command.getDescription());
+        try {
+            Command command = new Command("event project meeting /from 30-07-2024 1400 /to 1600\n");
+            assertEquals("project meeting", command.getDescription());
+        } catch (InvalidDescriptionException e) {
+            fail();
+        }
     }
 
     @Test

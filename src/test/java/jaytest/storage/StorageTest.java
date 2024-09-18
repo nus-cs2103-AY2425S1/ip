@@ -1,4 +1,4 @@
-package JayTest.storage;
+package jaytest.storage;
 
 import jay.storage.DataIOException;
 import jay.storage.InvalidDataFormatException;

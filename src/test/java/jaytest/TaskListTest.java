@@ -1,4 +1,4 @@
-package JayTest;
+package jaytest;
 
 import jay.TaskList;
 import jay.command.InvalidCommandException;

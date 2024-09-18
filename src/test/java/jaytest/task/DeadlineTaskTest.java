@@ -1,4 +1,4 @@
-package JayTest.task;
+package jaytest.task;
 
 import jay.task.DeadlineTask;
 import jay.task.Task;

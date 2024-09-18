@@ -1,4 +1,4 @@
-package JayTest.task;
+package jaytest.task;
 
 import jay.task.Task;
 import jay.task.ToDoTask;
