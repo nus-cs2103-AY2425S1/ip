@@ -70,8 +70,8 @@ public class AddEventCommand extends Command {
             throw new TohruException("Missing argument: Please specify to datetime");
         }
 
-        LocalDateTime eventFromDate = LocalDateTime.parse(fromStr.trim(), Command.DATE_TIME_FORMATTER);
-        LocalDateTime eventToDate = LocalDateTime.parse(toStr.trim(), Command.DATE_TIME_FORMATTER);
+        LocalDateTime eventFromDate = Parser.parseDateTimeString(fromStr.trim(), Command.DATE_TIME_FORMATTER);
+        LocalDateTime eventToDate = Parser.parseDateTimeString(toStr.trim(), Command.DATE_TIME_FORMATTER);
         if (eventFromDate.isAfter(eventToDate)) {
             throw new TohruException("Invalid argument: To datetime cannot be earlier than From datetime");
         }
