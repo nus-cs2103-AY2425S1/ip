@@ -1,11 +1,8 @@
 package krona.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.time.format.DateTimeParseException;
-
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class DeadlineTest {
@@ -13,7 +10,7 @@ public class DeadlineTest {
     @Test
     public void testToString() {
         Deadline deadline = new Deadline("Submit assignment", "30/8/2024 2359");
-        String expectedOutput = "[D][ ] Submit assignment (by: Aug 30 2024, 11:59 PM)";
+        String expectedOutput = "[D][ ] Submit assignment (by: Aug 30 2024, 11:59 pm)";
         assertEquals(expectedOutput, deadline.toString());
     }
 
@@ -26,9 +23,8 @@ public class DeadlineTest {
 
     @Test
     public void testInvalidDateFormat() {
-        Exception exception = assertThrows(DateTimeParseException.class, () -> {
-            new Deadline("Submit assignment", "2024-08-30 2359"); // Incorrect format
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            new Deadline("read book", "2024-08-30 2359");
         });
-        assertNotNull(exception.getMessage());
     }
 }
