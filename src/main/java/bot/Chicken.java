@@ -1,6 +1,4 @@
-package Bot;
-
-import java.util.Scanner;
+package bot;
 
 
 /**

@@ -1,7 +1,7 @@
-package Bot;
+package bot;
 
-import TaskType.Task;
-import TaskType.TaskBuilder;
+import taskType.Task;
+import taskType.TaskBuilder;
 import java.util.ArrayList;
 
 /**
@@ -26,9 +26,13 @@ public class ListManager {
     }
 
     /**
-     * Method that takes in a string and returns all tasks that include that string.
-     * Can be used to list all items by just passing in a "" argument.
+     * Returns all tasks that include the specified string in their description.
+     * If an empty string ("") is passed, all tasks are returned.
+     *
+     * @param item The string to search for within task descriptions.
+     * @return A list of tasks that match the search criteria.
      */
+
     public String listItems(String item) {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < itemList.size(); i++) {

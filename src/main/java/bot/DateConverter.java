@@ -1,4 +1,4 @@
-package Bot;
+package bot;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

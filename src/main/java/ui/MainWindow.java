@@ -1,4 +1,6 @@
-import Bot.Chicken;
+package ui;
+
+import bot.Chicken;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;

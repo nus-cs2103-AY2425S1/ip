@@ -1,4 +1,4 @@
-package TaskType;
+package taskType;
 
 public class Deadline extends Task {
     protected String by;

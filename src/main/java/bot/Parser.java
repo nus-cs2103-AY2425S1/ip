@@ -1,5 +1,5 @@
-package Bot;
-import TaskType.TaskBuilder;
+package bot;
+import taskType.TaskBuilder;
 
 /**
  * The Parser class is responsible for interpreting user commands and invoking

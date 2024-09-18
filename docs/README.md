@@ -1,7 +1,7 @@
 # README
 # Chicken the Chatbot
 ## Preview of Chicken the chatbot
-![chicken preview](Ui.png)
+![bot preview](Ui.png)
 ## Features (Only some)
 
 ### 1. Adding Deadlines

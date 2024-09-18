@@ -1,7 +1,7 @@
-package TaskType;
+package taskType;
 
-import Bot.DateConverter;
-import Bot.Parser;
+import bot.DateConverter;
+import bot.Parser;
 
 import java.util.Objects;
 

@@ -1,5 +1,6 @@
-import Bot.Chicken;
-import Bot.Chicken;
+package ui;
+
+import bot.Chicken;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

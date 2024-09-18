@@ -1,4 +1,4 @@
-package TaskType;
+package taskType;
 
 import java.util.Objects;
 
