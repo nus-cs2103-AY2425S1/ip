@@ -34,6 +34,10 @@ public class Testament {
         return parser.parse(input);
     }
 
+    public String welcome() {
+        return ui.welcome();
+    }
+
     public static void main(String[] args) {
     }
 }

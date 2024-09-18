@@ -35,6 +35,10 @@ public class MainWindow extends AnchorPane {
     /** Injects the Testament instance */
     public void setTestament(Testament d) {
         testament = d;
+        String welcomeMessage = testament.welcome();
+        dialogContainer.getChildren().addAll(
+                DialogBox.getTestamentDialog(welcomeMessage, testamentImage)
+        );
     }
 
     /**
