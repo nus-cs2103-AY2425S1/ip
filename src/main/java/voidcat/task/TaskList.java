@@ -13,7 +13,6 @@ import java.util.ArrayList;
  */
 public class TaskList {
     private final ArrayList<Task> tasks;
-    private static final String FORMAT = "\t%s%n";
 
     /**
      * Constructs a TaskList initialized with a list of tasks.
@@ -72,17 +71,15 @@ public class TaskList {
      * @throws VoidCatException If no tasks are found in task list.
      */
     public String listTasks() throws VoidCatException {
-        String responseList = "";
-
         if (tasks.isEmpty()) {
             throw new VoidCatException("No tasks found in list yet!");
-        } else {
-            responseList = "Here are the tasks in your list:\n";
-            for (int i = 0; i < tasks.size(); i++) {
-                responseList += "\t" + (i + 1) + ". " + tasks.get(i) + "\n";
-            }
-            return responseList;
         }
+
+        String responseList = "Here are the tasks in your list:\n";
+        for (int i = 0; i < tasks.size(); i++) {
+            responseList += "\t" + (i + 1) + ". " + tasks.get(i) + "\n";
+        }
+        return responseList;
     }
 
     /**
@@ -115,22 +112,21 @@ public class TaskList {
      */
     public String findTasks(String keyword) throws VoidCatException {
         ArrayList<Task> matchingTasks = new ArrayList<>();
-        String responseList = "";
-
         for (Task task : tasks) {
-            if (task.description.contains(keyword)) {
-                matchingTasks.add(task);
+            boolean hasKeyword = task.description.contains(keyword);
+            if (!hasKeyword) {
+                continue;
             }
+            matchingTasks.add(task);
         }
 
         if (matchingTasks.isEmpty()) {
             throw new VoidCatException("Aww..no matching tasks found for keyword: " + keyword);
-        } else {
-            responseList = "Here are the matching tasks in your list:\n";
-            for (int i = 0; i < matchingTasks.size(); i++) {
-                responseList += "\t" + (i + 1) + ". " + matchingTasks.get(i) + "\n";
-            }
-            return responseList;
         }
+        String responseList = "Here are the matching tasks in your list:\n";
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            responseList += "\t" + (i + 1) + ". " + matchingTasks.get(i) + "\n";
+        }
+        return responseList;
     }
 }

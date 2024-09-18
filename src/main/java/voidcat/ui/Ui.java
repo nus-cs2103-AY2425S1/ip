@@ -17,14 +17,6 @@ public class Ui {
         "  ###    ##   ##     ##     ##  ##\n" +
         "   ##     ## ##     ####   ### ##\n";
 
-//    public Ui() {
-//        this.scanner = new Scanner(System.in);
-//    }
-
-//    public String readCommand() {
-//        return scanner.nextLine();
-//    }
-
     public static String welcome(String[] greetings, String[] assistGreetings) {
         // Display a random greeting
         return greetings[(int) (Math.random() * greetings.length)] + logo.indent(4) + assistGreetings[(int) (Math.random() * assistGreetings.length)];
@@ -44,12 +36,6 @@ public class Ui {
         return message;
     }
 
-//    public static void showMessageAndLines(String message ) {
-//        showLine();
-//        System.out.printf(FORMAT, message);
-//        showLine();
-//    }
-
     public static String showDeleteTaskMessage(Task removedTask, int size) {
         return "Noted. I've removed this task:\n\t\t" + removedTask + "\nNow you have " + size + " tasks in the list";
 
@@ -66,7 +52,4 @@ public class Ui {
     public static String showAddTaskMessage(Task task, int size) {
         return "Got it. I've added this task:\n\t\t" + task + "\nNow you have " + size + " tasks in the list";
     }
-//    public void close() {
-//        scanner.close();
-//    }
 }

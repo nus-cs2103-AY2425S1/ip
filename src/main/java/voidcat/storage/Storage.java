@@ -91,8 +91,6 @@ public class Storage {
         if (!file.exists()) {
             if (!file.createNewFile()) {
                 throw new VoidCatException("Error in creating file!");
-            } else {
-                throw new VoidCatException("No saved tasks found yet! Task list is empty.\n\tStart adding tasks and track them!");
             }
         }
     }

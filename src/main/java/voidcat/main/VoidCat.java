@@ -14,7 +14,6 @@ import java.lang.SecurityException;
  * including initializing components, interacting with the user, and handling tasks.
  */
 public class VoidCat {
-//    private static final String FILE_PATH = "./data/void.txt";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -67,31 +66,6 @@ public class VoidCat {
         }
     }
 
-    /**
-     * Starts the Void Cat program, handles user input,
-     * and processes commands until the user exits.
-     */
-//    public void run() {
-////        ui.welcome(greetings, assistGreetings);
-//        while (true) {
-//            try {
-////                String fullCommand = ui.readCommand();
-////                new Parser().parseAndExecute(fullCommand, tasks, ui, storage);
-////                if (fullCommand.equalsIgnoreCase("bye")) {
-//                    ui.goodbye(exits);
-//                    break;
-//                }
-//            } catch (VoidCatException | IllegalArgumentException e) {
-//                Ui.showMessageAndLines(e.getMessage());
-//            } catch (IOException i) {
-//                Ui.showMessageAndLines("Error saving tasks to file.");
-//            } catch (SecurityException s) {
-//                Ui.showMessageAndLines("Security error in creating file or directory: " + s.getMessage());
-//            }
-//        }
-//        Ui.showLine();
-//        ui.close();
-//    }
 
     public String getResponse(String input) {
         // Process input through Parser and generate responses
@@ -101,21 +75,12 @@ public class VoidCat {
             }
             return new Parser().parseAndExecute(input, tasks, ui, storage);
 
-        } catch (VoidCatException | IllegalArgumentException e) {
+        } catch (VoidCatException e) {
             return e.getMessage();
         } catch (IOException i) {
-            return "Error saving tasks to file.";
+            return "Error saving tasks to file: " + i.getMessage();
         } catch (SecurityException s) {
             return "Security error in creating file or directory: " + s.getMessage();
         }
     }
-
-//    /**
-//     * The entry point for the program. Creates an instance of Void and starts the program.
-//     *
-//     * @param args Command line arguments.
-//     */
-//    public static void main(String[] args) {
-//        new VoidCat(FILE_PATH).run();
-//    }
 }
