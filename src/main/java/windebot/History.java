@@ -20,7 +20,10 @@ import tasks.Todos;
  */
 
 public class History {
-    private static final String WINDE_FILE = "./src/main/java/WindeTasks.txt";
+    private static final String WINDE_FILE = "./src/main/java/windebot/WindeTasks.txt";
+    private static final String WINDE_ALTERNATE_FILE = "/Users/winston/Desktop/Code/CS2103/ip/src/main/java/windebot/Winde.java";
+    private static final String WINDE_ANOTHER_FILE = "../src/main/java/windebot/Winde.java";
+
     private static String filePath;
 
     /**
@@ -38,7 +41,7 @@ public class History {
      */
 
     History() {
-        this.filePath = WINDE_FILE;
+        this.filePath = WINDE_ANOTHER_FILE;
     }
 
     /**
@@ -53,6 +56,9 @@ public class History {
         try {
             if (!file.exists()) {
                 file.createNewFile();
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+                // file.exists();
             }
         } catch (IOException ioe) {
             System.out.println("Error in creating file" + ioe.getMessage());
@@ -77,7 +83,7 @@ public class History {
      * @return A task which the file line was coding for.
      */
 
-    public static Task readLine(String line) {
+    private static Task readLine(String line) {
         String complete = "X";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         Task task;
