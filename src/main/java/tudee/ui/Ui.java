@@ -71,7 +71,7 @@ public class Ui {
      */
     public String showAdd(Task task, int count) {
         String output = "";
-        output += "Got it. I've added this task: \n  " + task + "\n";
+        output += "Got it. I've added this task: \n " + task + "\n";
         output += "Now you have " + count + " tasks in the list. \n";
         return output;
     }
@@ -84,7 +84,7 @@ public class Ui {
      */
     public String showDelete(Task task, int count) {
         String output = "";
-        output += "Noted. I've removed this task: \n" + task + "\n";
+        output += "Noted. I've removed this task: \n " + task + "\n";
         output += "Now you have " + count + " tasks in the list. \n";
         return output;
     }

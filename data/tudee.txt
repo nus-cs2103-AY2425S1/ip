@@ -1,5 +1,4 @@
 D | 0 | return book | 2024-06-04
-T | 0 | join sports club
 D | 1 | return book | 2024-08-29
 T | 1 | play games
 D | 0 | apply job  | 2024-09-10

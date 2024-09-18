@@ -35,7 +35,7 @@ public abstract class Task {
      * @return "[X]" if the task is done, otherwise "[ ]".
      */
     public String getDone() {
-        return (this.isDone ? "[X]" : "[ ]");
+        return (this.isDone ? "[X]" : "[  ]");
     }
 
     /**
