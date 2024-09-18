@@ -66,6 +66,6 @@ public class Deadline extends Task {
         } else {
             temp = "0";
         }
-        return "D | " + temp + " | " + description + " | " + by.format(DateTimeFormatter.ofPattern("yyyy-MMM-dd HHmm"));
+        return "D | " + temp + " | " + super.getDesc() + " | " + by.format(DateTimeFormatter.ofPattern("yyyy-MMM-dd HHmm"));
     }
 }

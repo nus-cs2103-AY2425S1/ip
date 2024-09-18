@@ -44,8 +44,8 @@ public class Event extends Task {
         } else {
             temp = "0";
         }
-        return "E | " + temp + " | " + description + " | " + to.format(DateTimeFormatter.ofPattern("yyyy-MMM-dd HHmm"))
-                + " | " + from.format(DateTimeFormatter.ofPattern("yyyy-MMM-dd HHmm"));
+        return "E | " + temp + " | " + super.getDesc() + " | " + from.format(DateTimeFormatter.ofPattern("yyyy-MMM-dd HHmm"))
+                + " | " + to.format(DateTimeFormatter.ofPattern("yyyy-MMM-dd HHmm"));
     }
 
 }

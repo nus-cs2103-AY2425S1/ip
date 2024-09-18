@@ -58,7 +58,7 @@ public class Loan extends Task {
         } else {
             temp = "0";
         }
-        return "L | " + temp + " | " + getBorrower() + " | "  + getLender() + " | " + getAmount() + " | " + dueDate.format(DateTimeFormatter.ofPattern("yyyy-MMM-dd HHmm"));
+        return "L | " + temp + " | " + getBorrower().trim() + " | "  + getLender().trim() + " | " + getAmount() + " | " + dueDate.format(DateTimeFormatter.ofPattern("yyyy-MMM-dd HHmm"));
     }
 
     @Override

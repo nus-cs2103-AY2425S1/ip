@@ -41,6 +41,6 @@ public class Todo extends Task {
         } else {
             temp = "0";
         }
-        return "T | " + temp + " | " + description;
+        return "T | " + temp + " | " + super.getDesc();
     }
 }

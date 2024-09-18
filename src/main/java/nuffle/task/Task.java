@@ -59,6 +59,10 @@ public abstract class Task {
         return "[" + mark + "] " + description;
     }
 
+    public String getDesc() {
+        return description;
+    }
+
     /**
      * Converts the task to a specific string format for saving to a file.
      * The format will vary depending on the specific type of task.
