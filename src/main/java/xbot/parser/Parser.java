@@ -132,10 +132,10 @@ public class Parser {
             try {
                 if (format.contains("HHmm")) {
                     LocalDateTime dateTime = LocalDateTime.parse(by, formatter);
-                    return dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy, h:mma"));
+                    return dateTime.format(DateTimeFormatter.ofPattern("d MMM yyyy, h:mma"));
                 } else {
                     LocalDate date = LocalDate.parse(by, formatter);
-                    return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+                    return date.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
                 }
             } catch (DateTimeParseException e) {
                 continue;

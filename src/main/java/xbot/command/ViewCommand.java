@@ -30,7 +30,7 @@ public class ViewCommand implements Command {
             throw new XBotException("The date to view is in invalid format!");
         }
 
-        String output = "Here are the tasks for today!!\n\n";
+        String output = "Here are the tasks for " + Parser.changeDateFormat(rest) + " !!\n\n";
         boolean noTodo = listTodoForDate(rest) == ui.showNoTask();
         boolean noDeadline = listDeadlineForDate(rest) == ui.showNoTask();
         boolean noEvent = listEventForDate(rest) == ui.showNoTask();
