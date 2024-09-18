@@ -1,24 +1,17 @@
 # Tudee User Guide
 
-// Update the title above to match the actual product name
-
-// Product screenshot goes here
 ![Screenshot of a typical user conversation with Tudee](/docs/Ui.png)
 
-// Product intro goes here
 Ever wanted a personal assistant to help you **keep track of your daily tasks**? Fret not! Tudee chatbot is here!
 Follow this README document to know the basics of using Tudee.
 
 ## Adding deadline tasks
 
-// Describe the action and its outcome.
 To add a deadline task to the list of tasks, type: deadline (task description) /by (date in **YYYY-MM-DD**)
 
-// Give examples of usage
 
 Example: `deadline finish poster design /by 2024-09-20`
 
-// A description of the expected outcome goes here
 Tudee will reply you with this message:
 ```
 Got it. I've added this task:
