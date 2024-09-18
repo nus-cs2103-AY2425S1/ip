@@ -7,6 +7,7 @@ import julie.command.EventCommand;
 import julie.command.FindCommand;
 import julie.command.ListCommand;
 import julie.command.MarkCommand;
+import julie.command.TagCommand;
 import julie.command.TodoCommand;
 import julie.command.UnmarkCommand;
 import julie.exception.InvalidCommandException;
@@ -20,7 +21,7 @@ public class Parser {
     private enum CommandToken {
         MARK, UNMARK, LIST, DELETE,
         DEADLINE, TODO, EVENT,
-        FIND;
+        FIND, TAG;
 
         /**
          * Returns the corresponding enum when given a user input string.
@@ -56,6 +57,7 @@ public class Parser {
         case DEADLINE -> new DeadlineCommand(input);
         case EVENT -> new EventCommand(input);
         case FIND -> new FindCommand(input);
+        case TAG -> new TagCommand(input);
         };
     }
     /**
