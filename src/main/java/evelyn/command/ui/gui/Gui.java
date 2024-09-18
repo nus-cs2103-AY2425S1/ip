@@ -50,7 +50,7 @@ public class Gui extends Application {
                     + "todo [task description]\n"
                     + "deadline [task description] /by [date in YYYY-MM-DD] [Optional: time]\n"
                     + "event [task description] /from [start date in YYYY-MM-DD] [Optional: time]"
-                    + "/to [end date in YYYY-MM-DD] [Optional: time]\n"
+                    + " /to [end date in YYYY-MM-DD] [Optional: time]\n"
                     + "list (Lists out all the current tasks)\n"
                     + "mark [index] (Marks the tasks at the specified index)\n"
                     + "unmark [index] (Unmarks the tasks at the specified index)\n"
