@@ -19,11 +19,9 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            stage.setMinHeight(220);
+            stage.setMinWidth(417);
             stage.setScene(scene);
-            stage.setMinWidth(400);
-            stage.setMinHeight(600);
-            stage.setMaxHeight(600);
-            stage.setMaxWidth(400);
             fxmlLoader.<MainWindow>getController().setNether(nether); // inject the Nether instance
             stage.show();
         } catch (IOException e) {

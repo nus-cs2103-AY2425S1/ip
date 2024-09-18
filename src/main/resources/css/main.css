@@ -5,7 +5,8 @@
 
 .text-field {
     -fx-background-color: orange;
-    -fx-font: 20px "Arial";
+    -fx-font: 16px "Arial";
+    -fx-prompt-text-fill: #5c5c5c;
     -fx-background-radius: 0;
     -fx-border-radius: 0;
 }
@@ -18,13 +19,11 @@
 }
 
 .button:hover {
-    -fx-background-color: orange;
-    -fx-font-size: 18px;
+    -fx-background-color: #ffb258;
 }
 
 .button:pressed {
-    -fx-background-color:#fab156;
-    -fx-font-size: 20px;
+    -fx-background-color: #f8c48a;
 }
 
 .scroll-pane,
