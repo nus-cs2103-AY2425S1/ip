@@ -2,20 +2,20 @@
 
 This is a task management chatbot. Given below are instructions on how to use it.
 
-[Quick Start](https://foochao.github.io/ip/#quick-start)
+[Quick Start](https://github.com/FooChao/ip?tab=readme-ov-file#quick-start)
 
-[Features](https://foochao.github.io/ip/#features)
-- [Adding a todo task `todo`](https://foochao.github.io/ip/#adding-a-todo-task-todo)
-- [Adding a deadline task `deadline`](https://foochao.github.io/ip/#adding-a-deadline-task-deadline)
-- [Adding an event task `event`](https://foochao.github.io/ip/#adding-an-event-task-event)
-- [Listing all stored tasks `list`](https://foochao.github.io/ip/#listing-all-stored-tasks-list)
-- [Listing matching tasks `find`](https://foochao.github.io/ip/#listing-matching-tasks-find)
-- [Mark a task as done `mark`](https://foochao.github.io/ip/#mark-a-task-as-done-mark)
-- [Mark a task as not completed `unmark`](https://foochao.github.io/ip/#mark-a-task-as-not-completed-unmark)
-- [Delete a task `delete`](https://foochao.github.io/ip/#delete-a-task-delete)
-- [Close the app `bye`](https://foochao.github.io/ip/#close-the-app-bye)
+[Features](https://github.com/FooChao/ip?tab=readme-ov-file#features)
+- [Adding a todo task `todo`](https://github.com/FooChao/ip?tab=readme-ov-file#adding-a-todo-task-todo)
+- [Adding a deadline task `deadline`](https://github.com/FooChao/ip?tab=readme-ov-file#adding-a-deadline-task-deadline)
+- [Adding an event task `event`](https://github.com/FooChao/ip?tab=readme-ov-file#adding-an-event-task-event)
+- [Listing all stored tasks `list`](https://github.com/FooChao/ip?tab=readme-ov-file#listing-all-stored-tasks-list)
+- [Listing matching tasks `find`](https://github.com/FooChao/ip?tab=readme-ov-file#listing-matching-tasks-find)
+- [Mark a task as done `mark`](https://github.com/FooChao/ip?tab=readme-ov-file#mark-a-task-as-done-mark)
+- [Mark a task as not completed `unmark`](https://github.com/FooChao/ip?tab=readme-ov-file#mark-a-task-as-not-completed-unmark)
+- [Delete a task `delete`](https://github.com/FooChao/ip?tab=readme-ov-file#delete-a-task-delete)
+- [Close the app `bye`](https://github.com/FooChao/ip?tab=readme-ov-file#close-the-app-bye)
 
-[Command Summary](https://foochao.github.io/ip/#command-summary)
+[Command Summary](https://github.com/FooChao/ip?tab=readme-ov-file#command-summary)
 
 
 ![Screenshot of SumoDE's GUI](docs/Ui.png)
