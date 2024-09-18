@@ -11,15 +11,22 @@ import duke.exceptions.MissingTaskNameException;
 import duke.tasks.TaskListStub;
 import duke.ui.Ui;
 
+import java.io.IOException;
+
 public class ParserTest {
     private Parser parser;
     private TaskListStub taskList;
-    private Ui ui;
 
     @BeforeEach
     void setUp() {
-        taskList = new TaskListStub(ui);
-        parser = new Parser(taskList, ui);
+        try {
+            taskList = new TaskListStub();
+            parser = new Parser(taskList);
+        } catch (IOException e) {
+            System.out.println("Error encountered");
+        } catch (InvalidDateException e) {
+            System.out.println(e.toString());
+        }
     }
     @Test
     void testHandleAddEvent_Success() throws Exception {

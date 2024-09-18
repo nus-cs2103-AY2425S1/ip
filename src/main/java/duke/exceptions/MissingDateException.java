@@ -1,12 +1,8 @@
+package duke.exceptions;
+
 /**
  * This exception is thrown when a task is created without the necessary date or time information.
- * <p>
- * The {@code MissingDateException} is a custom exception that extends the {@code Exception} class.
- * It is used to indicate that a deadline or event task is missing required date or time details.
- * </p>
  */
-
-package duke.exceptions;
 public class MissingDateException extends Exception {
     private String taskType;
 

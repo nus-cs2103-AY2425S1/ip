@@ -1,26 +1,29 @@
 package duke.tasks;
-
-import duke.data.TaskDataBase;
-import duke.ui.Ui;
-
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import duke.exceptions.InvalidDateException;
+
+/**
+ * The `TaskListStub` class is a class created for isolated testing of the parser independent of tasklist.
+ */
 public class TaskListStub extends TaskList {
 
-    List<Task> listOfTasks;
-    public TaskListStub(Ui ui) {
-        super(ui);
+    private List<Task> listOfTasks;
+
+    /**
+     * Constructs a `TaskListStub` object with ui.
+     *
+     */
+    public TaskListStub() throws IOException, InvalidDateException {
         this.listOfTasks = new ArrayList<>();
     }
 
     @Override
-    public void addTask(Task task) {
+    public String addTask(Task task) {
         listOfTasks.add(task);
-    }
-
-    public int getSize() {
-        return listOfTasks.size();
+        return "task added";
     }
 
     public String getTask(int index) {
