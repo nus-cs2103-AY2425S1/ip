@@ -15,8 +15,10 @@ import talkabot.task.ToDo;
  * printing out responses based on what is done by Talk-a-Bot.
  */
 public class Ui {
-    private static final String HELLO = "Hello, I'm Talk-a-Bot!\nWhat can I do for you?";
-    private static final String GOODBYE = "Bye. Hope to see you again soon!";
+    private static final String HELLO = "Hiya, pal! I'm Talk-a-Bot, welcome to the Clubhouse!\n"
+            + "How can I help you on this fine day?";
+    private static final String GOODBYE = "Aw, shucks. Alright then...\n"
+            + "See ya real soon!";
     private Scanner sc;
 
     /**
@@ -27,10 +29,12 @@ public class Ui {
     }
 
     /**
-     * Prints out hello line.
+     * Returns Hello line.
+     *
+     * @return String representation of Hello line.
      */
-    public void printHello() {
-        System.out.println(HELLO);
+    public static String getHello() {
+        return HELLO;
     }
 
     /**
@@ -50,8 +54,9 @@ public class Ui {
      * @return String representation of response to adding task.
      */
     public String addTask(Task task, int total) {
-        return String.format("Got it. I've added this task:\n%s\nto your list!"
-                + "\nYou now have " + total + " tasks.", task);
+        return String.format("Gosh! Another task to complete?\nWe've got a hustler in the Clubhouse!\n"
+                + "Alright buddy, I've added this task:\n  %s\nto your list!"
+                + "\nYou now have " + total + " tasks in total!", task);
     }
 
     /**
@@ -70,10 +75,11 @@ public class Ui {
      * @return String representation of list of tasks.
      */
     public String displayList(TaskList taskList) {
-        String output = "Here's your to-do list:";
+        String output = "No problem at all, pal! Here's your to-do list:";
         for (int i = 0; i < taskList.size(); i++) {
-            output += String.format("\n%d. ", i + 1) + taskList.get(i);
+            output += String.format("\n  %d. ", i + 1) + taskList.get(i);
         }
+        output += "\nYou're such a go-getter!";
         return output;
     }
 
@@ -84,7 +90,8 @@ public class Ui {
      * @return String representation of response to task being marked.
      */
     public String mark(Task task) {
-        return "Nice! I've marked this task as done:\n" + task;
+        return "Hot dog! Gee, I really admire your determination!\n"
+                + "Another task down:\n  " + task;
     }
 
     /**
@@ -94,7 +101,8 @@ public class Ui {
      * @return String representation of response to task being unmarked.
      */
     public String unmark(Task task) {
-        return "No problem! I've marked this task as not done yet:\n" + task;
+        return "Aw, shucks. No worries, I've marked this task as not done yet:\n  " + task
+                + "\nIt's alright, buddy!\nWith your dedication, I'm sure it'll be done in no time!";
     }
 
     /**
@@ -105,8 +113,8 @@ public class Ui {
      * @return String representation of response to task being deleted.
      */
     public String delete(Task task, int total) {
-        return "Got it! I've removed this task:\n" + task
-                + "\nYou now have " + total + " tasks in total!";
+        return "Sure thing, no biggie! I've removed this task:\n  " + task
+                + "\nYour list looks much neater now, pal!\nYou now have " + total + " tasks in total.";
     }
 
     /**
@@ -116,7 +124,7 @@ public class Ui {
      * @return Error message to be output.
      */
     public String error(String message) {
-        return "Wait wait wait...hold on...\n" + message;
+        return "Hoo boy, I'm a bit lost!\n" + message;
     }
 
     /**
@@ -130,12 +138,12 @@ public class Ui {
             throw new WrongTaskTypeException("does not have a deadline!");
         } else if (task instanceof Deadline) {
             Deadline d = (Deadline) task;
-            return "This task is due on a " + d.getDay() + "!";
+            return "Gee whiz! Looks like this task is due on a " + d.getDay() + "!";
         } else if (task instanceof Event) {
             Event e = (Event) task;
-            return "This task occurs from " + e.getDay() + "!";
+            return "Wowee! Looks like this task occurs from " + e.getDay() + "!";
         }
-        throw new UnknownInputException("Huh");
+        throw new UnknownInputException();
     }
 
     /**
@@ -156,9 +164,10 @@ public class Ui {
      * @return String representation of all matching tasks.
      */
     public String returnMatches(TaskList taskList) {
-        String output = "Here are the matching tasks in your to-do list:";
+        String output = "Not a problem, Talk-a-Bot's here to help!\n"
+                + "Alright pal, here's what I found based on your search:";
         for (int i = 0; i < taskList.size(); i++) {
-            output += String.format("\n%d. ", i + 1) + taskList.get(i);
+            output += String.format("\n  %d. ", i + 1) + taskList.get(i);
         }
         return output;
     }

@@ -1,5 +1,9 @@
 package talkabot.gui;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import talkabot.TalkaBot;
+import talkabot.Ui;
 
 /**
  * Controller for the main GUI.
@@ -25,20 +30,23 @@ public class MainWindow extends AnchorPane {
     private TalkaBot talkabot;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image talkaBotImage = new Image(this.getClass().getResourceAsStream("/images/DaTalker.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
+    /** Injects the Talk-a-Bot instance */
     public void setDuke(TalkaBot t) {
         talkabot = t;
+        dialogContainer.getChildren().addAll(
+                DialogBox.greet(Ui.getHello(), talkaBotImage)
+        );
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Talk-a-Bot's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -48,9 +56,15 @@ public class MainWindow extends AnchorPane {
         String commandType = talkabot.getCommandType();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage, commandType)
+                DialogBox.getTalkaBotDialog(response, talkaBotImage, commandType)
         );
+        if (commandType == "ByeCommand") {
+            new Timer().schedule(new TimerTask() {
+                public void run () { System.exit(0); }
+            }, 3000);
+        }
         userInput.clear();
     }
+
 }
 

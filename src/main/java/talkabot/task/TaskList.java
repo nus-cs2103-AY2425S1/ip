@@ -2,8 +2,6 @@ package talkabot.task;
 
 import java.util.ArrayList;
 
-import talkabot.Ui;
-
 /**
  * TaskList class contains list of tasks.
  */
