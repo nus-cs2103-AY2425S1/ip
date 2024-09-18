@@ -1,0 +1,3 @@
+[D][ ] humor me (by: 2222-12-12 18:00)
+[E][ ] i'm feeling lucky (from: 2022-02-14 18:00 to: 2084-12-24 20:00)
+[E][ ] i'm feeling unlucky (from: 2100-02-14 18:00 to: 2084-12-24 20:00)
