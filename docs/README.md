@@ -62,6 +62,31 @@ New task count is also echoed for user convenience.
 
 Syntax: `todo <description>`
 
+### Adding a Deadline task: `deadline`
+A Deadline task is a task with description of a task, with the specified deadline.
+
+Command adds a Deadline task, denoted with a **[D]** to the bottom of the list.
+New task count is also echoed for user convenience.
+
+<img src="http://domokunx.github.io/ip/DeadlineBefore.png" alt="Image of initial task list" height="150">
+<img src="http://domokunx.github.io/ip/DeadlineAfter.png" alt="Image of task list with a new Deadline task" height="150">
+
+>[!TIPS]
+> Deadlines in the format yyyy-mm-dd are auto transcribed to DD-MONTH-YYYY.
+
+Syntax: `deadline <description> /by <deadline>`
+
+### Adding an Event task: `event`
+A event task is a task with description of a task, with a specified interval.
+
+Command adds an Event task, denoted with a **[E]** to the bottom of the list.
+New task count is also echoed for user convenience.
+
+<img src="http://domokunx.github.io/ip/EventBefore.png" alt="Image of initial task list" height="150">
+<img src="http://domokunx.github.io/ip/EventAfter.png" alt="Image of task list with a new ToDo task" height="150">
+
+Syntax: `event <description> /from <time> /to <time>`
+
 ### Remove a task: `remove`
 Removes a task with specified index from the task list. New task count is echoed for user convenience.
 
