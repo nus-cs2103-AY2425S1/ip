@@ -35,6 +35,15 @@ public class Hamyo {
     }
 
     /**
+     * Status of the hamyo chatbot - true if chatbot is running and waiting for input.
+     *
+     * @return true is hamyo isActive, false otherwise.
+     */
+    public boolean getStatus() {
+        return this.isActive;
+    }
+
+    /**
      * Continuously scans for user input and execute commands while it is
      * active, and terminates once this.active is set to false using the bye
      * command.
@@ -63,34 +72,16 @@ public class Hamyo {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        if (!this.isActive) {
-            return "Hamyo was terminated! Please relaunch.";
-        }
-
-        // Create a stream to hold the output.
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        PrintStream printStream = new PrintStream(outputStream);
-
-        PrintStream old = System.out;
-        System.setOut(printStream);
-
         try {
             storage.loadData(this.tasks);
             this.isActive = Parser.parse(this.tasks, input);
             storage.saveData(this.tasks);
-            if (!this.isActive) {
-                ui.terminate();
-            }
+            String guiResponse = String.join("\n", Ui.getResponse().split("\n" + Ui.LINE));
+            return guiResponse.substring(0, guiResponse.length() - 2);
         } catch (HamyoException e) {
             Ui.printException(e);
         }
-
-        System.out.flush();
-        System.setOut(old);
-
-        System.out.print(outputStream);
-        String response = String.join("\n", outputStream.toString().split("\n" + Ui.LINE));
-        return response.substring(0, response.length() - 2);
+        return null;
     }
 
     /**

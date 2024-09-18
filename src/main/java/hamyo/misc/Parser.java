@@ -24,6 +24,7 @@ public class Parser {
      *     otherwise. false: application terminates, true: application continues.
      */
     public static boolean parse(TaskList tasks, String fullCommand) {
+        Ui.resetResponse();
         String commandType = fullCommand.split(" ")[0];
         String commandFields = fullCommand.substring(commandType.length());
         try {
@@ -63,6 +64,7 @@ public class Parser {
         } catch (HamyoException e) {
             Ui.printException(e);
         }
+        System.out.printf(Ui.getResponse());
         return true;
     }
 
@@ -171,8 +173,7 @@ public class Parser {
         }
         ArrayList<Integer> indexes = commandFieldsToIntegerList(commandFields);
         if (indexes.size() > 1) {
-            System.out.printf("Aight Bet! I am marking %d tasks!\n", indexes.size());
-            Ui.printLine();
+            Ui.printMassOps("marking", indexes.size());
         }
         for (Integer i : indexes) {
             try {
@@ -200,8 +201,7 @@ public class Parser {
         }
         ArrayList<Integer> indexes = commandFieldsToIntegerList(commandFields);
         if (indexes.size() > 1) {
-            System.out.printf("Aight Bet! I am unmarking %d tasks!\n", indexes.size());
-            Ui.printLine();
+            Ui.printMassOps("unmarking", indexes.size());
         }
         for (Integer i : indexes) {
             try {
@@ -229,8 +229,7 @@ public class Parser {
         }
         ArrayList<Integer> indexes = commandFieldsToIntegerList(commandFields);
         if (indexes.size() > 1) {
-            System.out.printf("Aight Bet! I am deleting %d tasks!\n", indexes.size());
-            Ui.printLine();
+            Ui.printMassOps("deleting", indexes.size());
         }
         indexes.sort(Collections.reverseOrder());
         for (Integer i : indexes) {
