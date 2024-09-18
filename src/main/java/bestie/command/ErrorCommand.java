@@ -20,6 +20,10 @@ public class ErrorCommand extends Command{
         this.errorMessage = errorMessage;
     }
 
+    public String getErrorMessage() {
+        return this.errorMessage;
+    }
+
     /**
      * Executes the error command by printing the error message on the UI.
      *

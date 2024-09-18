@@ -21,7 +21,6 @@ public class TodoTest {
         Todo lowPriorityTodo = new Todo("Tutorial", Priority.LOW);
         assertEquals(lowPriorityTodo.priority, Priority.LOW);
     }
-
     @Test
     void toSaveFormat_normalInput_savedCorrectly() {
         Todo todo = new Todo("Submit quiz", Priority.HIGH);

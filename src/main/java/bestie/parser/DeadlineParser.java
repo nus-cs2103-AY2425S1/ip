@@ -1,4 +1,4 @@
-package bestie.Parser;
+package bestie.parser;
 
 import bestie.command.AddCommand;
 import bestie.command.Command;
@@ -20,13 +20,13 @@ public class DeadlineParser {
             return new AddCommand(new Deadline(description, deadline, priority));
         } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e) {
             String errorMessage = "You did not input the deadline in a valid format." +
-                    "Please follow the format \"deadline (name of task) /by (deadline) " +
+                    " Please follow the format \"deadline (name of task) /by (deadline) " +
                     "/priority (high/medium/low)\".\n Please stick to the correct format: YYYY-MM-DD HHMM " +
                     "for the deadline";
             return new ErrorCommand(errorMessage);
         } catch (DateTimeParseException e) {
-            String errorMessage = "You did not input the date and time in the correct format, or does not exist." +
-                    "Please stick to the correct format: YYYY-MM-DD HHMM";
+            String errorMessage = "You did not input the date and time in the correct format, or it does not exist." +
+                    " Please stick to the correct format: YYYY-MM-DD HHMM";
             return new ErrorCommand(errorMessage);
         } catch (IllegalArgumentException e) {
             return new ErrorCommand("Invalid priority :(. Please specify as 'high', 'medium' or 'low'.");

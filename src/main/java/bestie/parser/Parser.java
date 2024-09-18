@@ -1,11 +1,6 @@
-package bestie.Parser;
-
-import java.time.format.DateTimeParseException;
+package bestie.parser;
 
 import bestie.command.*;
-import bestie.task.Event;
-import bestie.task.Priority;
-
 
 /**
  * Creates an instance of the parser to understand user input and executes command.
@@ -29,28 +24,24 @@ public class Parser {
             return new ListCommand();
 
         case("mark"):
-            try {
-                return new MarkCommand(Integer.parseInt(parts[1]) - 1);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                return new ErrorCommand("Please indicate the index of the task you want to mark as complete");
-            }
+            MarkParser markParser = new MarkParser();
+            return markParser.executeMarkCommand(userInput);
 
         case("unmark"):
-            try {
-                return new UnmarkCommand(Integer.parseInt(parts[1]) - 1);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                return new ErrorCommand("Please indicate the index of the task you want to unmark.");
-            }
+            UnmarkParser unmarkParser = new UnmarkParser();
+            return unmarkParser.executeUnmarkCommand(userInput);
 
         case("find"):
-            return new FindCommand(parts[1]);
+            FindParser findParser = new FindParser();
+            return findParser.executeFindCommand(userInput);
 
         case("priority"):
             PriorityParser priorityParser = new PriorityParser();
             return priorityParser.executePriorityCommand(userInput);
 
         case("delete"):
-            return new DeleteCommand(Integer.parseInt(parts[1]) - 1);
+            DeleteParser deleteParser = new DeleteParser();
+            return deleteParser.executeDeleteCommand(userInput);
 
         case("todo"):
             TodoParser todoParser = new TodoParser();

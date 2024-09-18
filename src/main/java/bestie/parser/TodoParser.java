@@ -1,4 +1,4 @@
-package bestie.Parser;
+package bestie.parser;
 
 import bestie.command.AddCommand;
 import bestie.command.Command;
@@ -7,6 +7,7 @@ import bestie.task.Priority;
 import bestie.task.Todo;
 
 public class TodoParser {
+
 
     public Command executeCommand(String userInput) {
         try {
@@ -20,7 +21,7 @@ public class TodoParser {
             return new ErrorCommand("The description of a todo cannot be empty.\n" +
                     "Please input your todo again!");
         } catch (IllegalArgumentException e) {
-            return new ErrorCommand("Invalid priority :(. " +
+            return new ErrorCommand("Invalid priority :(." +
                     " Please specify as 'high', 'medium' or 'low'.");
         } catch (ArrayIndexOutOfBoundsException e) {
             return new ErrorCommand("You did not key in the priority of your task! " +

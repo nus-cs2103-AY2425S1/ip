@@ -1,7 +1,7 @@
 package bestie;
 
 
-import bestie.Parser.Parser;
+import bestie.parser.Parser;
 import bestie.command.Command;
 
 

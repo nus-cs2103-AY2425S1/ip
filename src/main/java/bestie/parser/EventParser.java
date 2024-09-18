@@ -1,4 +1,4 @@
-package bestie.Parser;
+package bestie.parser;
 
 import bestie.command.AddCommand;
 import bestie.command.Command;
