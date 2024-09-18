@@ -3,7 +3,7 @@
 
 JackBean is a task tracker that helps you keep track of *3 different types* of tasks:
 - Todos
-- Deadlines:
+- Deadlines
 - Events
 
 To run it, all you need to do are the following:
