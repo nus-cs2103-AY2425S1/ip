@@ -29,7 +29,7 @@ public class TheOrangeRatchetCat {
         Parser.initialiseMap(); // To add all the command key-value pairs in Parser
         Scanner scanner = new Scanner(System.in);
         String resultToShow = "";
-        if (input.equals("cat")) {
+        if (input.equals("bye")) {
             resultToShow = TheOrangeRatchetCat.ratchetCatUniqueDialogue();
         }
 
