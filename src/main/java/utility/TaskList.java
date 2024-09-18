@@ -104,7 +104,7 @@ public class TaskList implements Serializable {
     public String toString() {
         String outputString;
         if (imTaskList.size() == 0) {
-            outputString = "No tasks! What tasks would you like to add?\n";
+            return outputString = "No tasks! What tasks would you like to add?\n";
         }
         outputString = "Here are your tasks in your list:\n"
             + IntStream.rangeClosed(1, imTaskList.size())

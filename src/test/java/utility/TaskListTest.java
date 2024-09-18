@@ -14,6 +14,7 @@ public class TaskListTest {
     public void indexingTest() {
         TaskList taskList = new TaskList();
         assertEquals(0, taskList.size());
+        assertEquals("No tasks! What tasks would you like to add?\n", taskList.toString());
         assertFalse(taskList.isValidIndex(0));
         taskList = taskList.addTask(new Task("test", new Tag()));
         assertFalse(taskList.isValidIndex(1));
