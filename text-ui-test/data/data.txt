@@ -1,0 +1,8 @@
+1. [T][ ] testtask
+2. [T][ ] borrow
+3. [D][ ] return (by: 2 February 2022)
+4. [E][ ] ] meeting (from: mon 2pm to: tues 5pm)
+5. [T][ ] testtask
+6. [T][ ] borrow book
+7. [D][ ] return book (by: 2 February 2022)
+8. [E][ ] meeting (from: mon 2pm to: tues 5pm)

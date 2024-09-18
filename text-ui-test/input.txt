@@ -1,0 +1,30 @@
+todo testtask
+list
+mark 1
+list
+unmark 1
+list
+todo borrow book
+list
+mark 2
+list
+unmark 2
+list
+deadline return book /by 2022-02-02
+list
+mark 3
+list
+unmark 3
+list
+event meeting /from mon 2pm /to tues 5pm
+list
+mark 4
+list
+unmark 4
+list
+wrongcommand
+mark 6
+delete 2
+delete 3
+list
+bye
