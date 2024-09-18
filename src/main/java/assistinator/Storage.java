@@ -2,6 +2,7 @@ package assistinator;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -41,8 +42,29 @@ public class Storage {
      * @throws AssitinatorException If file not in provided file path.
      */
     public ArrayList<Task> loadTasks() throws AssitinatorException {
+        Path path = Paths.get(filePath);
+
+        // Check if the directory exists, if not, create it
+        Path parentDir = path.getParent();
+        if (Files.notExists(parentDir)) {
+            try {
+                Files.createDirectories(parentDir);
+            } catch (IOException e) {
+                throw new AssitinatorException("Unable to create directory: " + e.getMessage());
+            }
+        }
+
+        // Check if the file exists, if not, create an empty file
+        if (Files.notExists(path)) {
+            try {
+                Files.createFile(path);
+            } catch (IOException e) {
+                throw new AssitinatorException("Unable to create file: " + e.getMessage());
+            }
+        }
+
         try {
-            return Files.lines(Paths.get(filePath))
+            return Files.lines(path)
                     .map(line -> {
                         String[] parts = line.split("\\|");
                         String type = parts[0].trim();
@@ -50,7 +72,7 @@ public class Storage {
                     })
                     .collect(Collectors.toCollection(ArrayList::new));
         } catch (IOException e) {
-            throw new AssitinatorException("File not found");
+            throw new AssitinatorException("Error reading file: " + e.getMessage());
         }
     }
 

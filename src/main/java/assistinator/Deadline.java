@@ -31,6 +31,6 @@ public class Deadline extends Task {
      * {@inheritDoc}
      */
     public String toFileString() {
-        return String.format("D | %s | %s | %s", isDone ? TaskStatus.NOTDONE : TaskStatus.DONE, description, by);
+        return String.format("D | %s | %s | %s", isDone ? TaskStatus.DONE : TaskStatus.NOTDONE, description, by);
     }
 }
