@@ -22,3 +22,8 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
    | |_| | |_| |   <  __/
    |____/ \__,_|_|\_\___|
    ```
+
+## Disclaimer
+
+I wrote all Javadoc comments by myself, then pasted them into ChatGPT to enhance and ensure correctness.
+All other work here is my own.
