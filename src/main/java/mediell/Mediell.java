@@ -25,6 +25,7 @@ public class Mediell {
         try {
             Instruction instruction = parser.getInstruction(input);
             instruction = executor.executeInstruction(instruction, taskList);
+            storage.saveData(taskList);
             return ui.getMessage(instruction, taskList);
         } catch (Exception e) {
             return ui.handleError(e);
