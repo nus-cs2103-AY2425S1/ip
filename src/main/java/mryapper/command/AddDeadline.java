@@ -1,5 +1,6 @@
 package mryapper.command;
 
+import mryapper.exception.InvalidSyntaxException;
 import mryapper.parser.DateTimeParser;
 import mryapper.storage.Storage;
 import mryapper.task.Deadline;
@@ -20,7 +21,7 @@ public class AddDeadline extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Storage storage) {
+    public String execute(TaskList tasks, Storage storage) throws InvalidSyntaxException {
         assert !description.isEmpty(): "description should not be empty";
         assert !deadline.isEmpty(): "deadline should not be empty";
 

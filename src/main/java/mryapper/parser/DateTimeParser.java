@@ -1,5 +1,7 @@
 package mryapper.parser;
 
+import mryapper.exception.InvalidSyntaxException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -10,38 +12,26 @@ import java.time.format.DateTimeParseException;
 public class DateTimeParser {
 
     private static final DateTimeFormatter STANDARD_FORMAT =
-            DateTimeFormatter.ofPattern("HH:mm dd MMM yyyy");
-    private static final DateTimeFormatter[] DATE_FORMATTERS = new DateTimeFormatter[]{
-            DateTimeFormatter.ofPattern("[HH:mm ]yyyy-MM-dd"),
-            DateTimeFormatter.ofPattern("[HHmm ]yyyy-MM-d"),
-            DateTimeFormatter.ofPattern("[HH:mm ]yyyy/MM/dd"),
-            DateTimeFormatter.ofPattern("[HH:mm ]yyyy/MM/d"),
-            DateTimeFormatter.ofPattern("[HHmm ]yyyy/MM/dd"),
-            DateTimeFormatter.ofPattern("[HHmm ]yyyy/MM/d"),
-            DateTimeFormatter.ofPattern("[HH:mm ]yyyy.MM.dd"),
-            DateTimeFormatter.ofPattern("[HH:mm ]yyyy.MM.d"),
-            DateTimeFormatter.ofPattern("[HHmm ]yyyy.MM.dd"),
-            DateTimeFormatter.ofPattern("[HHmm ]yyyy.MM.d"),
-            DateTimeFormatter.ofPattern("[HH:mm ]yyyy MMM dd"),
-            DateTimeFormatter.ofPattern("[HH:mm ]yyyy MMM d"),
-            DateTimeFormatter.ofPattern("[HHmm ]yyyy MMM dd"),
-            DateTimeFormatter.ofPattern("[HHmm ]yyyy MMM d"),
-            DateTimeFormatter.ofPattern("[HH:mm ]dd.MM.yyyy"),
-            DateTimeFormatter.ofPattern("[HH:mm ]d.MM.yyyy"),
-            DateTimeFormatter.ofPattern("[HHmm ]dd.MM.yyyy"),
-            DateTimeFormatter.ofPattern("[HHmm ]d.MM.yyyy"),
-            DateTimeFormatter.ofPattern("[HH:mm ]dd-MM-yyyy"),
-            DateTimeFormatter.ofPattern("[HH:mm ]d-MM-yyyy"),
-            DateTimeFormatter.ofPattern("[HHmm ]dd-MM-yyyy"),
-            DateTimeFormatter.ofPattern("[HHmm ]d-MM-yyyy"),
-            DateTimeFormatter.ofPattern("[HH:mm ]dd/MM/yyyy"),
-            DateTimeFormatter.ofPattern("[HH:mm ]d/MM/yyyy"),
-            DateTimeFormatter.ofPattern("[HHmm ]dd/MM/yyyy"),
-            DateTimeFormatter.ofPattern("[HHmm ]d/MM/yyyy"),
-            DateTimeFormatter.ofPattern("[HH:mm ]dd MMM yyyy"),
-            DateTimeFormatter.ofPattern("[HH:mm ]d MMM yyyy"),
-            DateTimeFormatter.ofPattern("[HHmm ]dd MMM yyyy"),
-            DateTimeFormatter.ofPattern("[HHmm ]d MMM yyyy"),
+            DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy");
+    public static final String DATE_TIME_SYNTAX = "e.g. 11:24 8-12-2012, 1934 24/1/2000";
+
+    private static final DateTimeFormatter[] DATE_TIME_FORMATTERS = new DateTimeFormatter[]{
+            DateTimeFormatter.ofPattern("HH:mm dd-MM-yyyy"),
+            DateTimeFormatter.ofPattern("HHmm dd-MM-yyyy"),
+            DateTimeFormatter.ofPattern("HH:mm d-MM-yyyy"),
+            DateTimeFormatter.ofPattern("HHmm d-MM-yyyy"),
+            DateTimeFormatter.ofPattern("HH:mm d-M-yyyy"),
+            DateTimeFormatter.ofPattern("HHmm d-M-yyyy"),
+            DateTimeFormatter.ofPattern("HH:mm dd-M-yyyy"),
+            DateTimeFormatter.ofPattern("HHmm dd-M-yyyy"),
+            DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy"),
+            DateTimeFormatter.ofPattern("HHmm dd/MM/yyyy"),
+            DateTimeFormatter.ofPattern("HH:mm d/MM/yyyy"),
+            DateTimeFormatter.ofPattern("HHmm d/MM/yyyy"),
+            DateTimeFormatter.ofPattern("HH:mm d/M/yyyy"),
+            DateTimeFormatter.ofPattern("HHmm d/M/yyyy"),
+            DateTimeFormatter.ofPattern("HH:mm dd/M/yyyy"),
+            DateTimeFormatter.ofPattern("HHmm dd/M/yyyy")
     };
 
     /**
@@ -51,17 +41,16 @@ public class DateTimeParser {
      * @param dateTimeString The string to be parsed.
      * @return The date and time in "HHmm dd MMM yyyy" format or the input string if parsing fails.
      */
-    public static String parseDateTime(String dateTimeString) {
-        for (DateTimeFormatter formatter : DATE_FORMATTERS) {
+    public static String parseDateTime(String dateTimeString) throws InvalidSyntaxException {
+        for (DateTimeFormatter formatter : DATE_TIME_FORMATTERS) {
             try {
                 LocalDateTime dateTime = LocalDateTime.parse(dateTimeString, formatter);
-                String newString = dateTime.format(STANDARD_FORMAT);
-                System.out.println(newString);
-                return newString;
+                return dateTime.format(STANDARD_FORMAT);
             } catch (DateTimeParseException e) {
                 // Continue to the next formatter if parsing fails
             }
         }
-        return dateTimeString;
+        throw new InvalidSyntaxException("You need to give me the date/time in the proper format",
+                DATE_TIME_SYNTAX);
     }
 }

@@ -1,5 +1,6 @@
 package mryapper.command;
 
+import mryapper.exception.InvalidSyntaxException;
 import mryapper.storage.Storage;
 import mryapper.task.TaskList;
 
@@ -12,5 +13,5 @@ public abstract class Command {
      * @param storage The Storage to execute the command on.
      * @return The response from the ChatBot to the user.
      */
-    public abstract String execute(TaskList tasks, Storage storage);
+    public abstract String execute(TaskList tasks, Storage storage) throws InvalidSyntaxException;
 }
