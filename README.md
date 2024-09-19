@@ -9,6 +9,20 @@ Using Maxine, you can add different types of tasks (todo tasks, deadline tasks a
 You can also choose to mark (or unmark) your tasks to indicate your tasks completion status.
 Maxine remembers your tasks even from the previous session.
 
+## Downloading the JAR file
+
+To use Maxine:
+
+1. Download the JAR file
+2. In your terminal, navigate the the directory containing the JAR file
+3. type in the command "java -jar "maxine.jar""
+
+NOTE: When you first use Maxine, it is expected that the command line
+may print some error messages in the command line
+(ie. "Oh no! I can't seem to find the file :(" will print twice).
+However, this can be ignored as Maxine is just creating a maxine.txt file to
+store data.
+
 ## Adding Tasks with no deadlines
 
 To add a "Todo" task (ie. a task with no deadline), use the command:
