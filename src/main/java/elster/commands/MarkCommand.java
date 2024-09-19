@@ -5,6 +5,9 @@ import elster.Storage;
 import elster.TaskList;
 import elster.Ui;
 
+/**
+ * MarkCommand class to represent a command that is executed when the user marks a task as done.
+ */
 public class MarkCommand extends Command {
     private MarkCommand(Ui ui, TaskList tasklist, Storage storage, String input) {
         super(ui, tasklist, storage, input);

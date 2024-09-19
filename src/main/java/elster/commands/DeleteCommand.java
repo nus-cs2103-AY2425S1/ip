@@ -6,6 +6,9 @@ import elster.TaskList;
 import elster.Ui;
 import elster.tasks.Task;
 
+/**
+ * DeleteCommand class to represent a command that is executed when the user deletes a task.
+ */
 public class DeleteCommand extends Command {
     private DeleteCommand(Ui ui, TaskList tasklist, Storage storage, String input) {
         super(ui, tasklist, storage, input);

@@ -6,6 +6,9 @@ import elster.TaskList;
 import elster.Ui;
 import elster.tasks.EventTask;
 
+/**
+ * EventCommand class to represent a command that is executed when the user creates an event task.
+ */
 public class EventCommand extends Command {
     private EventCommand(Ui ui, TaskList tasklist, Storage storage, String input) {
         super(ui, tasklist, storage, input);

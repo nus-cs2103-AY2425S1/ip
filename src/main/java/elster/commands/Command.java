@@ -4,6 +4,11 @@ import elster.Storage;
 import elster.TaskList;
 import elster.Ui;
 
+/**
+ * Parent class that determines base behaviour of all commands, primarily that of having a constructor
+ * that takes in an ui, storage, input, task list as well as the method execute for when the command is executed.
+ * Note that the execute command returns a string.
+ */
 public abstract class Command {
     protected Ui ui;
     protected Storage storage;

@@ -4,9 +4,11 @@ import elster.Elseption;
 import elster.Storage;
 import elster.TaskList;
 import elster.Ui;
-import elster.tasks.EventTask;
 import elster.tasks.ToDoTask;
 
+/**
+ * EventCommand class to represent a command that is executed when the user creates an todo task.
+ */
 public class TodoCommand extends Command {
     private TodoCommand(Ui ui, TaskList tasklist, Storage storage, String input) {
         super(ui, tasklist, storage, input);

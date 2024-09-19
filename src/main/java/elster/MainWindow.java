@@ -61,7 +61,9 @@ public class MainWindow extends AnchorPane {
     }
 
     /** Injects the stage instance */
-    public void setStage(Stage s) { stage = s; }
+    public void setStage(Stage s) {
+        stage = s;
+    }
 
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to

@@ -5,8 +5,10 @@ import elster.Storage;
 import elster.TaskList;
 import elster.Ui;
 import elster.tasks.DeadlineTask;
-import elster.tasks.EventTask;
 
+/**
+ * DeadlineCommand class to represent a command that is executed when the user creates a deadline task.
+ */
 public class DeadlineCommand extends Command {
     private DeadlineCommand(Ui ui, TaskList tasklist, Storage storage, String input) {
         super(ui, tasklist, storage, input);

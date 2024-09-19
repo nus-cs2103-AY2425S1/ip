@@ -7,6 +7,9 @@ import elster.TaskList;
 import elster.Ui;
 import elster.tasks.Task;
 
+/**
+ * EventCommand class to represent a command that is executed when the user tries to find a task by description.
+ */
 public class FindCommand extends Command {
     private FindCommand(Ui ui, TaskList tasklist, Storage storage, String input) {
         super(ui, tasklist, storage, input);

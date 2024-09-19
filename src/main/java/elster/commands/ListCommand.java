@@ -4,6 +4,9 @@ import elster.Storage;
 import elster.TaskList;
 import elster.Ui;
 
+/**
+ * ListCommand class to represent a command that is executed when the user creates queries for their list of tasks.
+ */
 public class ListCommand extends Command {
     private TaskList tasklist;
     private ListCommand(Ui ui, TaskList tasklist, Storage storage, String input) {
