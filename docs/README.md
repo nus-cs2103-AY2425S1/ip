@@ -40,7 +40,7 @@ Format: `delete INDEX`
 adds a todo task to the task list. No date/time associated with this task type.
 
 
-![screenshot of todo task creation](../src/main/resources/images/todo.png)
+![screenshot of todo task creation](./todo.png)
 
 Format: `todo TASK_DESCRIPTION`
 
@@ -68,7 +68,7 @@ in other words there is a **from** date and **to** date. If a date and time of t
 correct format is provided, it will be parsed appropriately otherwise whatever string is provided will be used
 
 
-![screenshot of event creation](../src/main/resources/images/event.png)
+![screenshot of event creation](./event.png)
 
 
 Format: `event TASK_DESCRIPTION /from START_TIME /to END_TIME`
@@ -82,7 +82,7 @@ Examples:
 
 Search for tasks that contain a keyword and returns them as a list
 
-![screenshot of find command](../src/main/resources/images/find.png)
+![screenshot of find command](./find.png)
 
 
 Format: `find KEYWORD`
