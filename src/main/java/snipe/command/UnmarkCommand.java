@@ -31,15 +31,23 @@ public class UnmarkCommand extends Command{
      * saving the updated task list to storage, and returning a confirmation message to the user.
      * If the task is already unmarked, returns a message indicating that.
      *
-     * @param tasks   The {@link TaskList} containing the task to be unmarked.
-     * @param ui      The {@link Ui} instance used to display messages to the user.
-     * @param storage The {@link Storage} instance used to save the updated task list.
+     * @param tasks          The {@link TaskList} containing the task to be unmarked.
+     * @param ui             The {@link Ui} instance used to display messages to the user.
+     * @param storage        The {@link Storage} instance used to save the updated task list.
+     * @param archiveTasks   The {@link TaskList}, not used in this command.
+     * @param archiveStorage The {@link Storage} instance, not used in this command.
      * @return A message confirming the task has been marked as not done, or a message indicating the task was already unmarked.
      * @throws SnipeException If the specified task index is out of range or if an error occurs while saving the task list.
      * @throws IOException    If an I/O error occurs during the saving process.
      */
     @Override
-    public String getResponse(TaskList tasks, Ui ui, Storage storage) throws SnipeException, IOException {
+    public String getResponse(
+            TaskList tasks,
+            Ui ui,
+            Storage storage,
+            TaskList archiveTasks,
+            Storage archiveStorage
+    ) throws SnipeException, IOException {
         if (this.num > tasks.size() - 1) {
             throw new SnipeException("This list item does not exist!\n"
                     + tasks.listLength());
