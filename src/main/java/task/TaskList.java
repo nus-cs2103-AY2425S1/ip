@@ -75,9 +75,9 @@ public class TaskList {
      */
     public String find(String word) {
         List<Task> matchingTasks = this.taskList.stream()
-                .filter(task -> task.getName()
-                        .contains(word))
-                .collect(Collectors.toList());
+            .filter(task -> task.getName().toLowerCase()
+                .contains(word.toLowerCase()))
+            .collect(Collectors.toList());
 
         if (matchingTasks.isEmpty()) {
             return "No matching tasks found.";
