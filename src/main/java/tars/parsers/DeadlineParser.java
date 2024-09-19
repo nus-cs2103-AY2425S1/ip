@@ -41,9 +41,11 @@ public class DeadlineParser extends Parser {
             throw new TarsException("Try again. Next time tell me what your deadline is");
         }
 
-        LocalDate deadlineDate = validateCommand(date);
+        if (date == null) {
+            throw new TarsException("Add a /by command and a deadline date");
+        }
 
-        assert date != null;
+        LocalDate deadlineDate = validateCommand(date);
 
         return new Deadline(name, deadlineDate);
     }
@@ -57,37 +59,18 @@ public class DeadlineParser extends Parser {
      * @throws TarsException if the command is missing or the date is improperly formatted.
      */
     public LocalDate validateCommand(String[] deadlineCommand) {
-        if (deadlineCommand == null) {
-            throw new TarsException("Add a /by command and a deadline date");
-        }
 
-        switch(deadlineCommand.length) {
-            case 1 -> {
-                if (deadlineCommand[0].equals("by")) {
-                    throw new TarsException("Finish the command by adding a deadline date");
-                } else {
-                    throw new TarsException("Add the /by command");
-                }
-            }
+        CommandValidator.validate(deadlineCommand, CommandValidator.CommandType.BY);
 
-            case 2 -> {
-                if (deadlineCommand[0].equals("by")) {
-                    if (deadlineCommand[1].isEmpty()) {
-                        throw new TarsException("Finish the command by adding a deadline date");
-                    }
-                } else {
-                    throw new TarsException("Add the /by command");
-                }
-            }
-        }
-        LocalDate date;
+        LocalDate deadlineDate;
         try {
-            date = LocalDate.parse(deadlineCommand[1], FORMATTER);
+            deadlineDate = LocalDate.parse(deadlineCommand[1], FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new TarsException("Date in wrong format. It should be in dd-mm-yy format");
+            throw new TarsException("Date in wrong format. It should be in dd-MM-yy format");
         }
 
-        return date;
-
+        return deadlineDate;
     }
+
 }
+

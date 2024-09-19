@@ -28,7 +28,7 @@ public class ToDoParser extends Parser {
     public Task parse(String[] taskInfo) {
 
         if (taskInfo.length <= 1) {
-            throw new TarsException("Add a name to your tasks.ToDo task");
+            throw new TarsException("Add a name to your ToDo task");
         }
 
         String name = taskInfo[1].trim();

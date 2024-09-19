@@ -8,6 +8,7 @@ import tars.tasks.Event;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+
 /**
  * Parses input data to create an {@link Event} task.
  *
@@ -32,20 +33,28 @@ public class EventParser extends Parser {
             throw new TarsException("event? What is that even supposed to mean?\nAdd a name, start time and end time");
         }
 
-        String[] split = taskInfo[1].split("/", 3);
+        String[] taskDetails = taskInfo[1].split("/", 3);
 
-        String name = split[0].trim();
+        String name = taskDetails[0].trim();
 
-        String[] startCommand = split.length > 1
-                ? split[1].split(" ", 2)
+        String[] startCommand = taskDetails.length > 1
+                ? taskDetails[1].split(" ", 2)
                 : null;
 
-        String[] endCommand = split.length > 2
-                ? split[2].split(" ", 2)
+        String[] endCommand = taskDetails.length > 2
+                ? taskDetails[2].split(" ", 2)
                 : null;
 
         if (name.isEmpty()) {
             throw new TarsException("Try again. Next time tell me what your event is all about");
+        }
+
+        if (startCommand == null) {
+            throw new TarsException("Add a /from command and a start date");
+        }
+
+        if (endCommand == null) {
+            throw new TarsException("Add a /to command and a end date");
         }
 
         LocalDate[] dates = validateCommand(startCommand, endCommand);
@@ -66,72 +75,24 @@ public class EventParser extends Parser {
      * @throws TarsException if the commands are missing, improperly formatted, or the dates are in the wrong format.
      */
     public LocalDate[] validateCommand(String[] startCommand, String[] endCommand) {
-        if (startCommand == null) {
-            throw new TarsException("Add a /from command and a start date");
-        } else {
-            switch (startCommand.length) {
-                case 1 -> {
-                    if (startCommand[0].equals("from")) {
-                        throw new TarsException("Add a event start date");
-                    } else {
-                        throw new TarsException("Add the /from command");
-                    }
-                }
 
-                case 2 -> {
-                    if (startCommand[0].equals("from")) {
-                        if (startCommand[1].isEmpty()) {
-                            throw new TarsException("Add an event start date");
-                        }
-                    } else {
-                        throw new TarsException("Add the /from command");
-                    }
-                }
-            }
-        }
+        CommandValidator.validate(startCommand, CommandValidator.CommandType.FROM);
 
-        if (endCommand == null) {
-            throw new TarsException("Add a /to command and a end date");
-        } else {
-            switch (endCommand.length) {
-                case 1 -> {
-                    if (endCommand[0].equals("to")) {
-                        throw new TarsException("Add an event end date");
-                    } else {
-                        throw new TarsException("Add the /to command");
-                    }
-                }
+        CommandValidator.validate(endCommand, CommandValidator.CommandType.TO);
 
-                case 2 -> {
-                    if (endCommand[0].equals("to")) {
-                        if (endCommand[1].isEmpty()) {
-                            throw new TarsException("Add an event end date");
-                        }
-                    } else {
-                        throw new TarsException("Add the /to command");
-                    }
-                }
-            }
-        }
-
-        LocalDate startDate, endDate;
-
+        LocalDate startDate;
+        LocalDate endDate;
 
         try {
             startDate = LocalDate.parse(startCommand[1].trim(), FORMATTER);
-
         } catch (DateTimeParseException e) {
-
-            throw new TarsException("Start date in wrong format. It should be in dd-mm-yy format");
-
+            throw new TarsException("Start date in wrong format. It should be in dd-MM-yy format");
         }
 
         try {
             endDate = LocalDate.parse(endCommand[1].trim(), FORMATTER);
-
         } catch (DateTimeParseException e) {
-            throw new TarsException("End date in wrong format. It should be in dd-mm-yy format");
-
+            throw new TarsException("End date in wrong format. It should be in dd-MM-yy format");
         }
 
         if (startDate.isAfter(endDate)) {
