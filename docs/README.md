@@ -38,7 +38,7 @@ Got it. I've added this task:
 Now you have 1 tasks in the list.
 ```
 
-### 1.2 Adding a Deadline
+#### 1.2 Adding a Deadline
 
 To add a deadline task:
 
@@ -60,7 +60,7 @@ Got it. I've added this task:
 Now you have 2 tasks in the list.
 ```
 
-### 1.3 Adding an Event
+#### 1.3 Adding an Event
 
 To add an event task:
 
