@@ -1,10 +1,6 @@
 # Stan User Guide
 
-// Update the title above to match the actual product name
-
-// Product screenshot goes here
 ![Screenshot of Stan bot](Ui.png)
-// Product intro goes here
 
 “The best way to predict the future is to invent it.” – Alan Kay
 
