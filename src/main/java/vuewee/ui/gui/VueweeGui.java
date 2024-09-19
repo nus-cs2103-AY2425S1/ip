@@ -39,6 +39,7 @@ public class VueweeGui extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             scene.getStylesheets().add(getClass().getResource("/css/main.css").toExternalForm());
+            stage.setTitle("Vuewee");
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
