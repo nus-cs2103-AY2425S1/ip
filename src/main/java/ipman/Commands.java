@@ -101,4 +101,31 @@ public class Commands {
         textUi.addToBuffer("Now you have " + taskList.size() + " tasks in the list.");
     }
 
+    public void tag() throws CommandException {
+        if (line.split(" ").length < 3) {
+            throw new CommandException("The tag command must have a task number and a tag.");
+        }
+        int idx = Integer.parseInt(line.split(" ")[1]) - 1;
+        if (idx < 0 || idx >= taskList.size()) {
+            throw new CommandException("The item to tag does not exist.");
+        }
+        String tag = line.split(" ", 3)[2];
+        taskList.get(idx).addTag(tag);
+        textUi.addToBuffer("Got it. I've added the tag to this task:");
+        textUi.addToBuffer(String.valueOf(taskList.get(idx)));
+    }
+
+    public void untag() throws CommandException {
+        if (line.split(" ").length < 3) {
+            throw new CommandException("The untag command must have a task number and a tag.");
+        }
+        int idx = Integer.parseInt(line.split(" ")[1]) - 1;
+        if (idx < 0 || idx >= taskList.size()) {
+            throw new CommandException("The item to untag does not exist.");
+        }
+        String tag = line.split(" ", 3)[2];
+        taskList.get(idx).removeTag(tag);
+        textUi.addToBuffer("Got it. I've removed the tag from this task:");
+        textUi.addToBuffer(String.valueOf(taskList.get(idx)));
+    }
 }
