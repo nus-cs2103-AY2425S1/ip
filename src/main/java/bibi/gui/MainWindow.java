@@ -55,23 +55,24 @@ public class MainWindow extends AnchorPane {
         assert botImage != null : "Should not have empty bot picture";
 
         String input = userInput.getText();
-        String response = bibi.getResponse(input);
 
         // Error messages, don't display dialog box, display error instead
-        if (response.startsWith("ERROR")) {
-            showErrorMessage(response.substring(5));
-            return;
+        try {
+            String response = bibi.getResponse(input);
+
+            clearErrorMessage();
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialogBox(input, userImage),
+                    DialogBox.getBotDialogBox(response, botImage)
+            );
+        } catch (Exception e) {
+            showErrorMessage(e.getMessage());
+        } finally {
+            userInput.clear();
         }
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialogBox(input, userImage),
-                DialogBox.getBotDialogBox(response, botImage)
-        );
-        clearErrorMessage();
-        userInput.clear();
     }
 
     private void showErrorMessage(String msg) {
-        userInput.clear();
         errorLabel.setText(msg);
     }
 

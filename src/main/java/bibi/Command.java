@@ -2,6 +2,7 @@ package bibi;
 
 import java.io.IOException;
 
+import bibi.exception.BibiInvalidCommandException;
 import bibi.task.TaskList;
 
 /**
@@ -31,21 +32,6 @@ public class Command {
     public String getArgs() {
         return args;
     }
-    /**
-     * Returns a boolean value indicating whether the to exit the program or not.
-     *
-     * @return isExit
-     */
-    public boolean isError() {
-        return this.isError;
-    }
-
-    /**
-     * Sets a flag to indicate that an error has occurred, so that GUI displays a different message.
-     */
-    public void setErrorFlag() {
-        this.isError = true;
-    }
 
     /**
      * Executes the command based on the command type.
@@ -55,7 +41,6 @@ public class Command {
      * @param storage The Storage instance handling modification of the save file.
      */
     public String execute(TaskList tasks, Processor processor, Storage storage) {
-        this.isError = false;
         // Preconfigured commands
         switch (cmd) {
         case "bye":
@@ -63,15 +48,13 @@ public class Command {
             try {
                 storage.writeToFile(tasks);
             } catch (IOException e) {
-                setErrorFlag();
                 return e.getMessage();
             }
             return processor.getExitMessage();
         case "help", "list", "mark", "unmark", "todo", "deadline", "event", "remove", "find":
             return processor.processCommand(this, tasks, storage);
         default:
-            setErrorFlag();
-            return String.format("%s is an unknown command%n", cmd);
+            throw new BibiInvalidCommandException(String.format("%s is an unknown command%n", cmd));
         }
     }
 }
