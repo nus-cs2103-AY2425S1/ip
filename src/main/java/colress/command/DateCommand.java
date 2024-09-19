@@ -2,6 +2,7 @@ package colress.command;
 
 import java.time.LocalDate;
 
+import colress.Parser;
 import colress.TaskList;
 import colress.TaskType;
 import colress.Ui;
@@ -31,5 +32,10 @@ public final class DateCommand extends ListCommand {
     @Override
     public String execute(Ui ui, TaskList taskList) {
         return ui.printTasks(taskList, date);
+    }
+
+    @Override
+    public String toString() {
+        return Parser.COMMAND_DATE;
     }
 }

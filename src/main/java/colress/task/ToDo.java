@@ -3,12 +3,12 @@ package colress.task;
 import java.time.LocalDate;
 
 /**
- * Represents the ToDo task, which contains a String field representing the description
+ * Represents the To-Do task, which contains a String field representing the description
  * and a boolean field reflecting whether the task is marked as done or not.
  */
 public class ToDo extends Task {
     /**
-     * Constructor for the ToDo class, initialising the description field with the provided parameter.
+     * Constructs a To-Do, initialising the description field with the provided parameter.
      * When a new task is created using this constructor, the task is not done by default.
      */
     public ToDo(String description) {
@@ -16,7 +16,7 @@ public class ToDo extends Task {
     }
 
     /**
-     * Constructor for the ToDo class, initialising both description and isDone fields with the provided parameters.
+     * Constructs a To-Do, initialising both description and isDone fields with the provided parameters.
      */
     public ToDo(String description, boolean isDone) {
         super(description, isDone);

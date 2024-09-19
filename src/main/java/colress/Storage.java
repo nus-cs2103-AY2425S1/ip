@@ -24,7 +24,7 @@ public final class Storage {
     private FileWriter writer;
 
     /**
-     * Constructor for the Storage class.
+     * Constructs a Storage.
      *
      * @param filePath A string representing the relative filepath for the text file containing the tasks.
      */

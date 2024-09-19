@@ -8,7 +8,7 @@ import colress.TaskType;
 import colress.Ui;
 
 /**
- * An abstract class that encapsulates behaviour of a command.
+ * Encapsulates the behaviour of a command.
  */
 public abstract class Command {
     private final String successfulExecutionMessage;

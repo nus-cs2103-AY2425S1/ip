@@ -15,7 +15,7 @@ public class Event extends Task {
     private final LocalTime to;
 
     /**
-     * Constructor for the Event class, initialising the description, date, from and to fields with the
+     * Constructs an Event, initialising the description, date, from and to fields with the
      * provided parameters.
      * When a new task is created using this constructor, the task is not done by default.
      */
@@ -27,7 +27,7 @@ public class Event extends Task {
     }
 
     /**
-     * Constructor for the Event class, initialising all fields with the provided parameters.
+     * Constructs an Event, initialising all fields with the provided parameters.
      */
     public Event(String description, LocalDate date, LocalTime from, LocalTime to, boolean isDone) {
         super(description, isDone);

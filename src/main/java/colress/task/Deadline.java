@@ -11,7 +11,7 @@ public class Deadline extends Task {
     private final LocalDate deadline;
 
     /**
-     * Constructor for the Event class, initialising the description, date, from and to fields with the
+     * Constructs a Deadline, initialising the description, date, from and to fields with the
      * provided parameters.
      * When a new task is created using this constructor, the task is not done by default.
      */
@@ -21,7 +21,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Constructor for the Event class, initialising all fields with the provided parameters.
+     * Constructors a Deadline, initialising all fields with the provided parameters.
      */
     public Deadline(String description, LocalDate deadline, boolean isDone) {
         super(description, isDone);

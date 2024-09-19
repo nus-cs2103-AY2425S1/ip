@@ -16,7 +16,7 @@ public final class Colress {
     private boolean hasError;
 
     /**
-     * Constructor for the Colress class.
+     * Constructs Colress.
      * Colress has an Ui object which facilitates interactions with the user.
      * Colress has a Storage object which writes tasks to the text file and loads tasks from the text file
      * during start-up.
@@ -28,6 +28,8 @@ public final class Colress {
         this.ui = new Ui(this);
         this.storage = new Storage(filePath);
         this.taskList = new TaskList();
+        this.commandType = "greet";
+        this.hasError = false;
     }
 
     /**
@@ -48,7 +50,7 @@ public final class Colress {
     }
 
     /**
-     * Storage class loads task from task file to the given TaskList object and returns
+     * Loads task from task file to the given TaskList object and returns
      * the contents of the TaskList object.
      */
     public String loadTasks() {

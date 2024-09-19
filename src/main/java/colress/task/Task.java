@@ -3,7 +3,7 @@ package colress.task;
 import java.time.LocalDate;
 
 /**
- * An abstract class that encapsulates behaviour of a task. Every task minimally has a String field that represents
+ * Encapsulates behaviour of a task. Every task minimally has a String field that represents
  * its description, and a boolean field that reflects whether the task is marked as done or not.
  */
 public abstract class Task {
@@ -11,7 +11,7 @@ public abstract class Task {
     private boolean isDone;
 
     /**
-     * Constructor for the Task class, initialising the description field with the provided parameter.
+     * Constructs a Task, initialising the description field with the provided parameter.
      * When a new task is created using this constructor, the task is not done by default.
      */
     public Task(String description) {
@@ -20,7 +20,7 @@ public abstract class Task {
     }
 
     /**
-     * Constructor for the Task class, initialising both description and isDone fields with the provided parameters.
+     * Constructs a Task, initialising both description and isDone fields with the provided parameters.
      */
     public Task(String description, boolean isDone) {
         this.description = description;

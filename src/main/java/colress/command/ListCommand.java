@@ -3,6 +3,7 @@ package colress.command;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import colress.Parser;
 import colress.TaskList;
 import colress.TaskType;
 import colress.Ui;
@@ -38,5 +39,10 @@ public class ListCommand extends Command {
     @Override
     public String execute(Ui ui, TaskList taskList) {
         return ui.printTasks(taskList);
+    }
+
+    @Override
+    public String toString() {
+        return Parser.COMMAND_LIST;
     }
 }

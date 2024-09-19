@@ -3,6 +3,7 @@ package colress.command;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import colress.Parser;
 import colress.TaskList;
 import colress.TaskType;
 import colress.Ui;
@@ -46,7 +47,7 @@ public final class AddCommand extends Command {
     }
 
     /**
-     * If the command already has an initialised start time, initialise end time instead of the start time
+     * Initialises start time and end time of an event.
      */
     public void initialise(LocalTime input) {
         if (hasStartTime) {
@@ -88,5 +89,10 @@ public final class AddCommand extends Command {
 
         return ui.printConfirmationMessage(taskList,
                 getSuccessfulExecutionMessage() + taskList.addTask(task));
+    }
+
+    @Override
+    public String toString() {
+        return Parser.COMMAND_ADD;
     }
 }

@@ -36,8 +36,8 @@ public class MainWindow extends AnchorPane {
     public void setColress(Colress c) {
         colress = c;
         dialogContainer.getChildren().addAll(
-                DialogBox.getColressDialog(colress.greetUser(), colressImage, ""),
-                DialogBox.getColressDialog(colress.loadTasks(), colressImage, "")
+                DialogBox.getColressDialog(colress.greetUser(), colressImage, colress.getCommandType()),
+                DialogBox.getColressDialog(colress.loadTasks(), colressImage, colress.getCommandType())
         );
     }
 

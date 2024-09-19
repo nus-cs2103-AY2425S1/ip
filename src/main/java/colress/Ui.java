@@ -45,7 +45,7 @@ public final class Ui {
     private Command currCommand;
 
     /**
-     * Constructor for the Ui class.
+     * Constructs Ui.
      * The Ui object has a Parser object which reads user input and throws exceptions if invalid inputs are detected.
      * The Ui object also has a boolean field that reflects whether the exit command has been called by the user.
      */
@@ -109,7 +109,7 @@ public final class Ui {
     public String processCommand(String input, TaskList taskList) {
         try {
             this.currCommand = parser.getCommand(input);
-            colress.setCommandType(input);
+            colress.setCommandType(currCommand.toString());
             return currCommand.start(this, taskList);
         } catch (UnknownCommandException e) {
             colress.setCommandType("error");
@@ -118,9 +118,10 @@ public final class Ui {
     }
 
     /**
-     * If the given TaskList is empty, return an empty list message.
-     * Otherwise, set status of the UI to expect a keyword for the user's next input and returns a prompt to the user
+     * Sets status of the UI to expect a keyword for the user's next input and returns a prompt to the user
      * for a keyword to find in the list of tasks.
+     *
+     * If the given TaskList is empty, return an empty list message.
      */
     public String promptKeyword(TaskList taskList) {
         if (taskList.isEmpty()) {
@@ -148,7 +149,7 @@ public final class Ui {
     }
 
     /**
-     * Set status of the UI to expect a task type for the user's next input and returns a prompt to the user
+     * Sets status of the UI to expect a task type for the user's next input and returns a prompt to the user
      * for a task type to add to the list of tasks.
      */
     public String promptTaskType() {
@@ -174,7 +175,7 @@ public final class Ui {
     }
 
     /**
-     * Set status of the UI to expect a task description for the user's next input and returns a prompt to the user
+     * Sets status of the UI to expect a task description for the user's next input and returns a prompt to the user
      * for a description of the task to add to the list of tasks. The prompt returned depends on the type of task
      * to be added, indicated by the TaskType argument.
      */
@@ -225,10 +226,11 @@ public final class Ui {
     }
 
     /**
+     * Sets status of the UI to expect a date for the user's next input and returns a prompt to the user
+     * for a date. The prompt returned depends on the current command to be executed and the type of task to be added.
+     *
      * If the current command to be executed is the date command, check if the given TaskList is empty.
      * If so, return an empty list message.
-     * Otherwise, set status of the UI to expect a date for the user's next input and returns a prompt to the user
-     * for a date. The prompt returned depends on the current command to be executed and the type of task to be added.
      *
      * @param taskType The type of the task to be added.
      * @param taskList The TaskList to add the task to.
@@ -316,6 +318,9 @@ public final class Ui {
     public String processEndTime(String input, TaskList taskList) {
         try {
             LocalTime result = parser.readTime(input);
+            // A typecast is required here because not all command objects have the getTaskType method.
+            // The only command that will lead to this method being called is the AddCommand command.
+            // Therefore, this is a safe typecast.
             AddCommand c = (AddCommand) currCommand;
             if (!c.isValidEndTime(result)) {
                 throw new EndTimeException();

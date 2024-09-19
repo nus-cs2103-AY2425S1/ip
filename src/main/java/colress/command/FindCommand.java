@@ -1,5 +1,6 @@
 package colress.command;
 
+import colress.Parser;
 import colress.TaskList;
 import colress.Ui;
 
@@ -29,5 +30,10 @@ public final class FindCommand extends ListCommand {
     @Override
     public String execute(Ui ui, TaskList taskList) {
         return ui.printTasks(taskList, keyword);
+    }
+
+    @Override
+    public String toString() {
+        return Parser.COMMAND_FIND;
     }
 }

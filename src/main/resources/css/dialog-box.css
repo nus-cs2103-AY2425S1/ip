@@ -28,7 +28,7 @@
 }
 
 .error-label {
-    -fx-background-color: red;
+    -fx-background-color: #ff1a1a;
 }
 
 #displayPicture {

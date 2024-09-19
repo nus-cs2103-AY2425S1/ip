@@ -24,7 +24,7 @@ public final class Parser {
     public static final String COMMAND_CHECK = "check";
     public static final String COMMAND_DATE = "date";
     public static final String COMMAND_DELETE = "delete";
-    public static final String COMMAND_EXIT = "bye";
+    public static final String COMMAND_EXIT = "exit";
     public static final String COMMAND_FIND = "find";
     public static final String COMMAND_LIST = "list";
     public static final String COMMAND_UNCHECK = "uncheck";
