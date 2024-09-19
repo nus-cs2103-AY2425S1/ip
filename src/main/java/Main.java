@@ -9,13 +9,18 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * The main class of the application that extends JavaFX's Application class.
+ * This class is responsible for initializing the chatbot, loading/saving data,
+ * and setting up the JavaFX GUI.
+ */
 public class Main extends Application {
     private final Danny danny;
 
-
     /**
-     * Overview of the whole program.
-     * Initialises Danny and Storage loader.
+     * Constructor for the Main class.
+     * Initializes Danny (the chatbot) and attempts to load previous tasks from storage.
+     * If loading fails, it starts with a new list.
      */
     public Main() {
         danny = new Danny();
@@ -29,17 +34,15 @@ public class Main extends Application {
             System.out.println(e.getMessage());
             System.out.println("Save not found, starting off with new list.");
         }
-//        danny.run();
-//        try {
-//            assert loader != null;
-//            loader.saveTask();
-//            System.out.println("Saving successful");
-//        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-//            System.out.println("Saving unsuccessful :(");
-//        }
     }
 
+    /**
+     * The main entry point for all JavaFX applications.
+     * Sets up the primary stage and loads the FXML for the main window.
+     *
+     * @param stage the primary stage for this application, onto which
+     *              the application scene can be set.
+     */
     @Override
     public void start(Stage stage) {
         try {
@@ -54,6 +57,12 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * This method is called when the application should stop, and provides a
+     * place to prepare for application exit and destroy resources.
+     * <p>
+     * It attempts to save the current tasks to storage before the application closes.
+     */
     @Override
     public void stop() {
         try {
@@ -65,6 +74,4 @@ public class Main extends Application {
             System.out.println("Saving unsuccessful :(");
         }
     }
-
-
 }

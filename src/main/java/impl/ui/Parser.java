@@ -22,6 +22,14 @@ public class Parser {
         this.list = list;
     }
 
+    /**
+     * Checks if the Command is in an acceptable format
+     *
+     * @param in
+     * @param size
+     * @return
+     * @throws InvalidCommandException
+     */
     public static Command checkCommand(String in, int size) throws InvalidCommandException {
         String test = in.toLowerCase().split(" ")[0];
         switch (test) {
