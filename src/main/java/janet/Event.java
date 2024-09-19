@@ -61,10 +61,8 @@ public class Event extends ScheduledTask {
     public static String[] findEventDetails(String[] commandDetails) throws JanetException {
         int indexOfFrom = getIndexOfKeyword(commandDetails, "/from");
         int indexOfTo = getIndexOfKeyword(commandDetails, "/to");
+        invalidEventCommandChecker(commandDetails, indexOfFrom, indexOfTo);
 
-        if (indexOfFrom == 0 || indexOfTo == 0) {
-            throw new JanetException("WHOOPS! Missing/Wrong keywords for creating event...");
-        }
         // get the description
         String description = null;
         String startDateAndTime = null;
@@ -86,6 +84,54 @@ public class Event extends ScheduledTask {
             throw new JanetException("WHOOPS! Ensure that the start & end date are in the format: yyyy-MM-dd HH:mm (24hr)");
         }
         return new String[]{description, startDateAndTime, endDateAndTime};
+    }
+
+    /**
+     * @param commandDetails a String[], where each element corresponds to a word of the user input.
+     * @param indexOfFrom the index of '/from' keyword in the command.
+     * @param indexOfTo the index of '/to' keyword in the command.
+     * @throws JanetException if '/from' or '/to' keywords not found OR more than 1 start date and time/end date and time
+     * are specified.
+     */
+    private static void invalidEventCommandChecker(String[] commandDetails, int indexOfFrom, int indexOfTo) throws JanetException {
+        if (indexOfFrom == 0 || indexOfTo == 0) {
+            // '/from' or '/to' not found in the command
+            throw new JanetException("WHOOPS! Missing/Wrong keywords for creating event...");
+        }
+        if (indexOfFrom > indexOfTo) {
+            // '/from' comes after '/to' in the command
+            throw new JanetException("WHOOPS! Ensure event command is in correct order!");
+        }
+        if (indexOfTo > indexOfFrom
+                && (hasMoreThanOneEndDateAndTime(commandDetails, indexOfTo)
+                    || hasMoreThanOneStartDateAndTime(commandDetails, indexOfFrom))) {
+            // when there are additional texts beyond the due date and time specified (eg. ... /by 2024-01-01 18:00 blah blah)
+            throw new JanetException("WHOOPS! Ensure you only have a single start/end date and start/end time provided!");
+        }
+    }
+
+    /**
+     * Returns true if additional texts are specified between the (start date and time) and (end date and time),
+     * false otherwise.
+     *
+     * @param commandDetails a String[], where each element corresponds to a word of the user input.
+     * @param indexOfFrom the index of '/from' keyword in commandDetails.
+     * @return A boolean value.
+     */
+    private static boolean hasMoreThanOneStartDateAndTime(String[] commandDetails, int indexOfFrom) {
+        return commandDetails.length > (indexOfFrom + 5) + 1;
+    }
+
+    /**
+     * Returns true if additional texts are specified after the end date and time,
+     * false otherwise.
+     *
+     * @param commandDetails a String[], where each element corresponds to a word of the user input.
+     * @param indexOfTo the index of '/by' keyword in commandDetails.
+     * @return A boolean value.
+     */
+    private static boolean hasMoreThanOneEndDateAndTime(String[] commandDetails, int indexOfTo) {
+        return commandDetails.length > (indexOfTo + 2) + 1;
     }
 
 

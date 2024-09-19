@@ -54,7 +54,7 @@ public class ScheduledTask extends Task {
     }
 
     /**
-     * Finds and returns the index of the keyword inside the String array.
+     * Finds and returns the index of the first keyword instance inside the String array.
      *
      * @param commandDetails a String[], where each element corresponds to a word of the user input.
      * @param keyword a String keyword that specifies what to be searched for in commandDetails.
@@ -66,6 +66,7 @@ public class ScheduledTask extends Task {
         for (int i = 1; i < commandDetails.length; i++) {
             if (commandDetails[i].equals(keyword)) {
                 indexOfKeyword = i;
+                break;
             }
         }
         return indexOfKeyword;
