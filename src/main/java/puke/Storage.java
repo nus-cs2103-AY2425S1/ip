@@ -27,6 +27,8 @@ public class Storage {
     public static ArrayList<Task> loadTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
         Path path = Paths.get(FILE_PATH);
+        assert path != null : "File path should not be null";
+
         if (Files.exists(path)) {
             try (BufferedReader reader = Files.newBufferedReader(path)) {
                 String line;
@@ -51,6 +53,8 @@ public class Storage {
      * @param tasks the ArrayList of tasks to be saved
      */
     public static void saveTasks(ArrayList<Task> tasks) {
+        assert tasks != null : "Tasks list should not be null";
+
         Path path = Paths.get(FILE_PATH);
         try {
             Files.createDirectories(path.getParent());
@@ -73,6 +77,8 @@ public class Storage {
      * @throws IllegalArgumentException if the task type is unsupported or the format is invalid
      */
     private static Task parseTask(String line) throws IllegalArgumentException {
+        assert line != null && !line.isEmpty() : "Task line should not be null or empty";
+
         String[] parts = line.split(" \\| ");
         String type = parts[0];
         boolean isDone = parts[1].equals("1");
