@@ -27,7 +27,8 @@ Welcome to **HypeBot**, your *Java-powered*, super-excited chatbot assistant! Hy
 Here’s how you can start rocking your to-do list with HypeBot!
 
 1. **Install HypeBot**  
-   Download the executable JAR file from [here](https://github.com/youngseopark05/ip/releases/tag/A-Release) and run the command below in the folder you downloaded the JAR file to get HypeBot **_HOT AND RUNNING!_**
+   Download the executable JAR file from [here](https://github.com/youngseopark05/ip/releases/tag/A-Release) 
+   and run the command below in the folder you downloaded the JAR file to get HypeBot **_HOT AND RUNNING!_**
 
    ```terminal
    // Enter this on the terminal, you should be in the directory of where HypeBot was downloaded!
