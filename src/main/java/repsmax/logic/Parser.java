@@ -208,12 +208,13 @@ public class Parser {
     private String handleDeadlineCommand(String[] splitInput, TaskList tasks, Ui ui, Storage storage) {
         try {
             if (splitInput.length < 2) {
-                return "OOPS!!! The deadline command must include a description, '/by <date/time>' and optional '/priority <level>'";
+                return "OOPS!!! The deadline command must include a description, '/by YYYY-MM-DD HHMM' " +
+                        "and optional '/priority <level>'";
             }
 
             String[] parts = splitInput[1].split("/by ", 2);
             if (parts.length < 2) {
-                return "OOPS!!! The deadline command must include '/by <date/time>'";
+                return "OOPS!!! The deadline command must include '/by YYYY-MM-DD HHMM'";
             }
 
             String description = parts[0].trim();
@@ -302,7 +303,8 @@ public class Parser {
                     "\nNow you have " + tasks.size() + " tasks in the list.";
 
         } catch (ArrayIndexOutOfBoundsException e) {
-            return "OOPS!!! The event command must include '/from <start date/time>' and '/to <end date/time>' and optional '/priority <level>'";
+            return "OOPS!!! The event command must include '/from YYYY-MM-DD HHMM' and '/to YYYY-MM-DD HHMM' " +
+                    "and optional '/priority <level>'";
         }
     }
 
