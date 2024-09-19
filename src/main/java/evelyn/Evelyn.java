@@ -1,6 +1,7 @@
 package evelyn;
 
 import java.io.IOException;
+import java.time.DateTimeException;
 
 import evelyn.command.Parser;
 import evelyn.command.Storage;
@@ -15,7 +16,8 @@ import javafx.application.Application;
  */
 public class Evelyn {
     private static final String home = System.getProperty("user.home");
-    private static final java.nio.file.Path DEFAULT_FILE_PATH = java.nio.file.Paths.get(home, "Documents", "Evelyn.txt");
+    private static final java.nio.file.Path DEFAULT_FILE_PATH = java.nio.file.Paths.get(home,
+            "Documents", "Evelyn.txt");
     private TaskList taskList;
     private Parser parser;
 
@@ -30,6 +32,10 @@ public class Evelyn {
     public String getResponse(String input) {
         try {
             String response = parser.parse(input);
+            return response;
+        } catch (DateTimeException e) {
+            String response = "You seem to have input the date wrongly."
+                    + " Try again! The proper date format is YYYY-MM-DD";
             return response;
         } catch (InvalidInputException e) {
             String response = "You did not use the keywords properly!\n"
