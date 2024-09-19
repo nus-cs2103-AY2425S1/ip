@@ -7,6 +7,7 @@ import enums.StatusMessage;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -26,11 +27,13 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
+    @FXML
+    private Button sendButton;
 
     private BotManager botManager;
 
-    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
-    private final Image botManagerImage = new Image(this.getClass().getResourceAsStream("/images/BotManager.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.jpg"));
+    private final Image botManagerImage = new Image(this.getClass().getResourceAsStream("/images/BotManager.jpg"));
 
     @FXML
     public void initialize() {
@@ -87,12 +90,14 @@ public class MainWindow extends AnchorPane {
 
     private void addUserDialog(String message) {
         dialogContainer.getChildren().add(DialogBox.getUserDialog(message, userImage));
+        dialogContainer.layout();
     }
 
     private void addBotDialog(String... messages) {
         for (String message : messages) {
             dialogContainer.getChildren().add(DialogBox.getBotDialog(message, botManagerImage));
         }
+        dialogContainer.layout();
     }
 
     private void closeWindow() {

@@ -4,7 +4,7 @@ package enums;
  * Enums representing the different fixed status messages of BotManager.
  */
 public enum StatusMessage {
-    WELCOME("Hello, I'm BotManager, your friendly task assistant!\\n\"\n"
+    WELCOME("Hello, I'm BotManager, your friendly task assistant!\n"
             + "What can I do for you? (Type 'help' to view all available commands)"),
     GOODBYE("Goodbye! Hope to see you again soon!"),
     FILE_LOAD_SUCCESS("Data file successfully loaded!"),

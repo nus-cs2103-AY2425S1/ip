@@ -9,10 +9,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelReader;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
@@ -35,7 +42,25 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
-        displayPicture.setImage(img);
+        displayPicture.setImage(getRoundImage(img));
+    }
+
+    /**
+     * Converts a square image into a circular image.
+     * Credit to <a href="https://stackoverflow.com/questions/68631386/javafx-crop-image-as-a-circle">
+     *     StackOverflow solution</a>.
+     *
+     * @param image Image to convert.
+     * @return Circular image.
+     */
+    private Image getRoundImage(Image image) {
+        Circle clip = new Circle(image.getWidth() / 2, image.getHeight() / 2,
+                image.getWidth() / 2);
+        ImageView imageView = new ImageView(image);
+        imageView.setClip(clip);
+        SnapshotParameters parameters = new SnapshotParameters();
+        parameters.setFill(Color.TRANSPARENT);
+        return imageView.snapshot(parameters, null);
     }
 
     /**
@@ -46,6 +71,7 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+        dialog.getStyleClass().add("reply-label");
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
