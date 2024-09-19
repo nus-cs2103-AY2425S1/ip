@@ -1,9 +1,11 @@
-# _Ollie_ User Guide
+# _Ollie_ User Guide ☺️
 
-![](Ui.png)
+<img src="./Ui.png" width="500">
+
 > _Organize with ease, accomplish with **Ollie ☺** !_ ️
 
 # What is Ollie️ ☺️
+
 **Ollie ☺**️ is your task manager app! 
 - Manages your tasks for you
 - _User-friendly_ syntax using one-letter commands eg `-l` to list all tasks
