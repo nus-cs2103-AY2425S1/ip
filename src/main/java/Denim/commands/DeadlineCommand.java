@@ -25,13 +25,15 @@ public class DeadlineCommand extends Command {
         try {
             writeTaskFile.writeTaskData(deadlineTask);
         } catch (DenimException e) {
-            return new CommandResult("Command Failed. Error:\n" + e.getMessage(), CommandStatus.COMMAND_FAILURE);
+            return new CommandResult("Command Failed! T.T\n"
+                    + "Error:\n" + e.getMessage(), CommandStatus.COMMAND_FAILURE);
         }
 
         taskList.addTask(deadlineTask);
         int taskListSize = taskList.getTaskListSize();
 
-        String returnMessage = String.format("Got it. I've added this task:%n %s %nNow you have %d tasks in the list.",
+        String returnMessage = String.format("Yarr~. I've added this task:%n %s %nNow you have %d tasks in the "
+                        + "list UwU.",
                 deadlineTask, taskListSize);
         return new CommandResult(returnMessage, CommandStatus.COMMAND_SUCCESSFUL);
     }

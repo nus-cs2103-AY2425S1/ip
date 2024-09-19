@@ -4,11 +4,14 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root prefWidth="400.0" spacing="10" stylesheets="@../css/help-box.css" type="javafx.scene.layout.HBox" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root prefWidth="400.0" spacing="10" stylesheets="@../css/help-box.css" type="javafx.scene.layout.HBox"
+         HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <VBox fx:id="helpContainer" styleClass="helpContainer" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
-            <Label fx:id="usage" maxWidth="Infinity" minHeight="-Infinity" text="Label" wrapText="true" HBox.hgrow="ALWAYS" />
-            <Label fx:id="example" maxWidth="Infinity" minHeight="-Infinity" text="Label" wrapText="true" HBox.hgrow="ALWAYS" />
+            <Label fx:id="usage" maxWidth="Infinity" minHeight="-Infinity" text="Label" wrapText="true"
+                   HBox.hgrow="ALWAYS" />
+            <Label fx:id="example" maxWidth="Infinity" minHeight="-Infinity" text="Label" wrapText="true"
+                   HBox.hgrow="ALWAYS" />
         </VBox>
     </children>
 </fx:root>

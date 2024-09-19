@@ -25,12 +25,12 @@ public class MarkCommand extends Command {
         assert index >= 0 : "IndexOutOfBoundsAssertion";
 
         if (!taskList.isValidIndex(index)) {
-            return new CommandResult("The index chosen is invalid.", CommandStatus.COMMAND_PARTIAL_FAILURE);
+            return new CommandResult("The index chosen is invalid. >:c", CommandStatus.COMMAND_PARTIAL_FAILURE);
         }
 
         boolean alreadyMarked = taskList.getTask(index).getIsDone();
         if (alreadyMarked) {
-            return new CommandResult("The task is already marked.", CommandStatus.COMMAND_PARTIAL_FAILURE);
+            return new CommandResult("The task is already marked. ;D", CommandStatus.COMMAND_PARTIAL_FAILURE);
         }
 
         try {

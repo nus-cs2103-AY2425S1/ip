@@ -23,10 +23,11 @@ public class FindCommand extends Command {
         String returnMessage;
 
         if (resultList.isEmpty()) {
-            returnMessage = String.format("The search result for %s did not find any matching tasks.\n", getKeywords());
+            returnMessage = String.format("The swearch wesult for %s did not find any matching tasks UwU.\n",
+                    getKeywords());
             return new CommandResult(returnMessage, CommandStatus.COMMAND_PARTIAL_FAILURE);
         } else {
-            returnMessage = String.format("Sure. Here are the matching tasks in your list:\n%s",
+            returnMessage = String.format("Swure. Here are the matching tasks in your list:\n%s",
                     resultList.printList());
             return new CommandResult(returnMessage, CommandStatus.COMMAND_SUCCESSFUL);
         }

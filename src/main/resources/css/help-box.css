@@ -6,5 +6,6 @@
     -fx-background-color: #f9f9f9;
     -fx-spacing: 5px;
     -fx-margin: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 5, 0.3, 2, 2);
+    -fx-transition: all 0.3s ease-in-out;
 }
-
