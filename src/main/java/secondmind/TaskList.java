@@ -88,11 +88,7 @@ public class TaskList {
         if (instruction[0].equals("")) {
             throw new EmptyCommandException();
         } else if (taskType.equals("todo")) {
-            try {
-                return createToDo(taskInfo);
-            } catch (EmptyToDoException e) {
-                throw e;
-            }
+            return createToDo(taskInfo);
         } else if (taskType.equals("deadline")) {
             return createDeadline(taskInfo);
         } else if (taskType.equals("event")) {
