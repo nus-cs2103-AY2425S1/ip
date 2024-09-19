@@ -34,6 +34,9 @@ public class Storage {
      * Reads the save file and saves all tasks present in the save file to the task list.
      */
     public void loadSaveFile(TaskList loadTarget) {
+        assert loadTarget != null : "TaskList loadTarget is null";
+        assert saveFile.exists() : "Save file does not exist";
+
         try {
             Scanner saveReader = new Scanner(saveFile);
             while (saveReader.hasNextLine()) {
@@ -57,6 +60,9 @@ public class Storage {
      * @param source String to be written into the save file.
      */
     public void writeToSave(String source) {
+        assert source != null && !source.isEmpty() : "Source string is null or empty";
+        assert saveFile.exists() : "Save file does not exist";
+
         //Replaces old file with a new file with updated contents
         try {
             File tmp = File.createTempFile("tmp", "");

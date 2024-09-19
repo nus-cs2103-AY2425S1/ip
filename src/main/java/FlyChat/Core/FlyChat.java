@@ -12,6 +12,13 @@ public class FlyChat {
     private final TaskList taskList = new TaskList();
     private final Parser parser = new Parser();
 
+    public FlyChat() {
+        assert ui != null : "Ui object is not initialized";
+        assert storage != null : "Storage object is not initialized";
+        assert taskList != null : "TaskList object is not initialized";
+        assert parser != null : "Parser object is not initialized";
+    }
+
     public void startUp() {
         storage.findSaveFile("./data/save.txt");
         storage.loadSaveFile(taskList);
@@ -24,19 +31,20 @@ public class FlyChat {
     public String shutDown() {
         return ui.bye();
     }
-    
+
     public String getResponse(String inputString) {
+        assert inputString != null && !inputString.isEmpty() : "Input string is null or empty";
 
         try {
             return processCommands(inputString);
         } catch (InputMismatchException e) {
             return ui.announceString("I'm not sure what task you want me to do :((");
         }
-        
+
     }
 
     private String processCommands(String inputString) throws InputMismatchException {
-
+        assert inputString != null && !inputString.isEmpty() : "Input string is null or empty";
         String finalString;
 
         //when user types "list", list of tasks is returned

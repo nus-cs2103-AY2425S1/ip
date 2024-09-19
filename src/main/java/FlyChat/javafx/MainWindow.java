@@ -25,6 +25,13 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
+        assert scrollPane != null : "ScrollPane is not initialized";
+        assert dialogContainer != null : "DialogContainer is not initialized";
+        assert userInput != null : "UserInput is not initialized";
+        assert sendButton != null : "SendButton is not initialized";
+        assert userImage != null : "UserImage is not initialized";
+        assert flyChatImage != null : "FlyChatImage is not initialized";
+
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().add(DialogBox.getFlyChatDialog(FlyChat.greetUser(), flyChatImage));
     }
