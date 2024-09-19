@@ -1,17 +1,67 @@
 /* User dialog box - purple background and white text */
 .user-dialog {
-    -fx-background-color: #6A0DAD; /* Purple background */
+    -fx-background-color: linear-gradient(to right, #FDB927, #F5A623);
     -fx-text-fill: white; /* White text for user dialog */
     -fx-padding: 10;
     -fx-border-radius: 10;
     -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 2);
 }
 
 /* Kobe chatbot dialog box - gold background and black text */
 .kobe-dialog {
-    -fx-background-color: #FFD700; /* Gold background */
-    -fx-text-fill: black; /* Black text for chatbot dialog */
+    -fx-background-color: linear-gradient(to right, #552583, #6B1E91);
+    -fx-text-fill: white; /* Black text for chatbot dialog */
     -fx-padding: 10;
     -fx-border-radius: 10;
     -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 0, 2);
+}
+
+/* ScrollPane improvements */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 10px;
+}
+
+/* Scroll Bar Styling */
+.scroll-pane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-padding: 5px;
+}
+
+.scroll-pane .scroll-bar .thumb {
+    -fx-background-color: linear-gradient(to bottom, #6A0DAD, #8A2BE2); /* Purple gradient for the thumb */
+    -fx-background-radius: 10px; /* Rounded thumb */
+    -fx-padding: 5px;
+    -fx-opacity: 0.7; /* Slightly transparent */
+}
+
+.scroll-pane .scroll-bar .thumb:hover {
+    -fx-background-color: linear-gradient(to bottom, #8A2BE2, #9370DB); /* Brighter on hover */
+    -fx-opacity: 1; /* Fully opaque on hover */
+}
+
+.scroll-pane .track {
+    -fx-background-color: #E0E0E0; /* Light gray for the track */
+    -fx-background-radius: 10px;
+    -fx-opacity: 0.3;
+}
+
+/* Send Button Styling */
+#send-button {
+    -fx-background-color: linear-gradient(to right, #6A0DAD, #8A2BE2); /* Purple gradient */
+    -fx-text-fill: white; /* White text */
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-padding: 8px;
+    -fx-font-size: 14px;
+    -fx-font-family: 'Arial';
+    -fx-cursor: hand;
+    -fx-transition: background-color 0.5s ease, transform 0.3s ease;
+}
+
+#send-button:hover {
+    -fx-background-color: linear-gradient(to right, #8A2BE2, #9370DB); /* Brighter gradient on hover */
 }

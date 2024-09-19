@@ -47,8 +47,10 @@ public class Main extends Application {
     private void initializeUI(Stage stage) {
         dialogContainer = createDialogContainer();
         scrollPane = createScrollPane(dialogContainer);
+        scrollPane.setId("scroll-pane"); // Apply ID for CSS styling
         userInput = createTextField("Enter your message...");
         sendButton = new Button("Send");
+        sendButton.setId("send-button"); // Apply ID for CSS styling
 
         AnchorPane mainLayout = new AnchorPane(scrollPane, userInput, sendButton);
         configureLayout(mainLayout);
@@ -66,6 +68,7 @@ public class Main extends Application {
         VBox vbox = new VBox(10);
         vbox.setPadding(new Insets(10));
         vbox.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        vbox.getStyleClass().add("dialog-container");
         return vbox;
     }
 
@@ -78,6 +81,7 @@ public class Main extends Application {
         sp.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         sp.setPrefSize(SCROLLPANE_WIDTH, SCROLLPANE_HEIGHT);
         sp.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        sp.getStyleClass().add("scroll-pane");
         return sp;
     }
 
@@ -88,6 +92,7 @@ public class Main extends Application {
         TextField textField = new TextField();
         textField.setPromptText(prompt);
         textField.setPrefWidth(325.0);
+        textField.setId("user-input"); // Apply CSS ID
         return textField;
     }
 
@@ -96,6 +101,7 @@ public class Main extends Application {
      */
     private void configureLayout(AnchorPane layout) {
         sendButton.setPrefWidth(55.0);
+        sendButton.setId("send-button"); // Apply CSS ID
 
         AnchorPane.setTopAnchor(scrollPane, 1.0);
         AnchorPane.setBottomAnchor(scrollPane, 50.0);
@@ -149,11 +155,14 @@ public class Main extends Application {
         dialogContainer.getChildren().add(
                 DialogBox.getKobeDialog(kobeResponse, createImageView("/images/kobe.png"))
         );
-        scrollPane.setVvalue(1.0);
+        scrollPane.setVvalue(1.0); // Scroll to bottom
     }
 
     /**
      * Creates an ImageView from the resource path.
+     *
+     * @param path The path to the image resource.
+     * @return The ImageView containing the image.
      */
     private ImageView createImageView(String path) {
         return new ImageView(new Image(getClass().getResourceAsStream(path)));
