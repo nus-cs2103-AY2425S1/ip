@@ -69,13 +69,13 @@ public class Storage {
      * Stores new updates on the list of tasks to the data storage file
      * @param tasks updated list of tasks
      */
-    public void save(TaskList tasks) {
+    public void save(TaskList tasks) throws ReiException {
         String dataStorage = tasks.toStoringFormat();
 
         try {
             Files.writeString(filePath, dataStorage);
         } catch (IOException e) {
-            Ui.print("Error in saving tasks: " + e.getMessage());
+            throw new ReiException("Error in saving tasks: " + e.getMessage());
         }
 
     }

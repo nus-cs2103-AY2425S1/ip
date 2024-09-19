@@ -14,13 +14,6 @@ public class Ui {
     private static final String FOOTER = "-----------YOU------------";
 
     /**
-     * Outputs a welcome message
-     */
-    public static void printWelcomeMessage() {
-        System.out.println("Annyeong! I'm\n" + LOGO);
-    }
-
-    /**
      * Outputs a message with REI's format
      * @param message the message
      */

@@ -1,0 +1,23 @@
+Standardize error handling with ReiException and remove unused code
+
+The project still contains some non-GUI error handling which doesn't fit
+well with the current GUI-based structure. There are also several unused
+methods in TaskList and unused fields across the codebase. Additionally,
+the Ui.java class has become obsolete since the transition to a full GUI
+interface.
+
+Non-GUI error handling fragments the code and leads to inconsistent
+behavior in certain parts of the application. Unused code increases
+complexity and can cause confusion for developers.
+
+Let's replace all non-GUI error handling with ReiException to
+standardize how exceptions are handled. This will ensure consistent
+error reporting within the GUI.
+
+Let's also clean up the codebase by removing unused methods from
+TaskList and other unused fields. These removals will reduce technical
+debt and improve maintainability.
+
+Finally, we'll delete Ui.java as it is no longer required due to the
+complete shift to GUI-based user interaction. This cleans up the codebase
+further and reflects the current architecture of the project.

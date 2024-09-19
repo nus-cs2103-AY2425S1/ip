@@ -129,7 +129,6 @@ public abstract class Task {
         private LocalDateTime deadline;
         private DateTimeFormatter outputFormat
                 = DateTimeFormatter.ofPattern("E, MMM d yyyy HH:mm:ss");
-        private DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         private Deadline(String task, LocalDateTime deadline) {
             super(task);
             this.deadline = deadline;

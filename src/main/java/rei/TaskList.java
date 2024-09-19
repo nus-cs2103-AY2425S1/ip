@@ -10,26 +10,11 @@ public class TaskList {
     private List<Task> listOfTasks;
 
     /**
-     * Constructs a TaskList instance with an empty list of tasks
-     */
-    public TaskList() {
-        this.listOfTasks = new ArrayList<>();
-    }
-
-    /**
      * Constructs a TaskList instance with an existing list of tasks
      * @param listOfTasks the list of tasks
      */
     public TaskList(List<Task> listOfTasks) {
         this.listOfTasks = listOfTasks;
-    }
-
-    /**
-     * Returns the list of tasks
-     * @return the list of tasks
-     */
-    public List<Task> getListOfTasks() {
-        return listOfTasks;
     }
 
     /**
