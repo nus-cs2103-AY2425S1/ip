@@ -15,6 +15,14 @@ public class TaskList {
         taskList = new ArrayList<>();
     }
 
+    public void loadStorage() throws SnowyException {
+        try {
+            storage.loadTasksFromFile(taskList);
+        } catch (SnowyException e) {
+            throw new SnowyException("Error loading files: " + e.getMessage());
+        }
+    }
+
     /**
      * Adds a task to the task list and saves it to the file.
      *
@@ -70,7 +78,11 @@ public class TaskList {
             throw new SnowyException("Invalid index.");
         }
         Task task = taskList.get(i);
+        String before = task.toString();
         task.addTag(tag);
+        String after = task.toString();
+        storage.editTask(before, after);
+
         return String.format("%d. %s", i + 1, task);
 
     }
@@ -87,7 +99,7 @@ public class TaskList {
         assert taskList.size() > 0;
         StringBuilder str = new StringBuilder("Your list of tasks:\n");
         for (int i = 0; i < taskList.size(); i++) {
-            str.append(String.format("%d. %s", i + 1, taskList.get(i)));
+            str.append(String.format("%d. %s\n", i + 1, taskList.get(i)));
         }
         return str.toString();
     }

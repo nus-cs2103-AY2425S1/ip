@@ -11,18 +11,25 @@ public class Snowy {
     private static final String FILE_PATH = "../ip/src/main/data";
     private static final String FILENAME = "snowy.txt";
     private final Parser parser;
+    private final Storage storage;
     private final TaskList tasklist;
 
     public Snowy() {
         this.parser = new Parser();
-        Storage storage = new Storage(FILE_PATH, FILENAME);
+        this.storage = new Storage(FILE_PATH, FILENAME);
         this.tasklist = new TaskList(storage);
+        try {
+            this.tasklist.loadStorage();
+        } catch (SnowyException e) {
+            System.out.println("Error loading tasks: " + e.getMessage());
+        }
     }
+
 
     public String getResponse(String input) {
         try {
            Command command = parser.parseCommand(input);
-           command.setData(tasklist);
+           command.setData(this.tasklist);
            CommandResult result = command.execute();
            return result.getFeedback();
         } catch (SnowyException e) {

@@ -1,7 +1,9 @@
 package snowy.storage;
 
 import snowy.tasklist.Task;
+import snowy.storage.TaskDecoder;
 import snowy.data.SnowyException;
+import snowy.tasklist.TaskList;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -19,6 +21,7 @@ import java.util.List;
 public class Storage {
 
     private final Path taskFilePath;
+    private final TaskDecoder taskDecoder;
 
     /**
      * Constructs a Storage object and initializes the file and directory structure.
@@ -31,6 +34,7 @@ public class Storage {
     public Storage(String directoryPath, String fileName) {
         Path dataDirectoryPath = Paths.get(directoryPath);
         this.taskFilePath = dataDirectoryPath.resolve(fileName);
+        this.taskDecoder = new TaskDecoder();
 
         try {
             if (Files.notExists(dataDirectoryPath)) {
@@ -38,8 +42,6 @@ public class Storage {
             }
             if (Files.notExists(taskFilePath)) {
                 Files.createFile(taskFilePath);
-            } else {
-                clearFile();
             }
         } catch (IOException e) {
             System.out.println("An error occurred while setting up storage: " + e.getMessage());
@@ -106,22 +108,53 @@ public class Storage {
         }
     }
 
+    public void editTask(String before, String after) {
+        Path tempFilePath = taskFilePath.getParent().resolve("temp.txt");
+
+        try (BufferedReader br = new BufferedReader(new FileReader(taskFilePath.toString()));
+             BufferedWriter bw = new BufferedWriter(new FileWriter(tempFilePath.toString()))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+               if (line.equals(before)) {
+                    bw.write(after);
+                } else {
+                    bw.write(line);
+                }
+                bw.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while editing the task in the file: " + e.getMessage());
+            return;
+        }
+
+        try {
+            Files.delete(taskFilePath);  // Delete the original file
+            Files.move(tempFilePath, taskFilePath);  // Move the temp file to the original file location
+            System.out.println("Task edited successfully.");
+        } catch (IOException e) {
+            System.out.println("An error occurred while replacing the file: " + e.getMessage());
+        }
+    }
+
+
     /**
      * Loads tasks from the file into a list of strings.
      * Each line in the file corresponds to a task.
      *
-     * @return a list of tasks represented as strings
      */
-    public List<String> loadTasksFromFile() {
-        List<String> tasks = new ArrayList<>();
+    public void loadTasksFromFile(ArrayList<Task> taskList) throws SnowyException {
         try (BufferedReader reader = new BufferedReader(new FileReader(taskFilePath.toString()))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                tasks.add(line);
+                try {
+                    Task task = taskDecoder.decode(line);
+                    taskList.add(task);
+                } catch (SnowyException e) {
+                    System.out.println("Error decoding task: " + e.getMessage());
+                }
             }
         } catch (IOException e) {
             System.out.println("An error occurred while reading from the file: " + e.getMessage());
         }
-        return tasks;
     }
 }
