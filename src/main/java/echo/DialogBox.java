@@ -46,11 +46,24 @@ public class DialogBox extends HBox {
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
     }
-
+    /**
+     * Returns a user dialog box containing the specified text and image.
+     *
+     * @param text The text to be displayed in the dialog.
+     * @param img The image to be displayed in the dialog.
+     * @return A DialogBox representing the user's dialog.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
-
+    /**
+     * Returns an Echo dialog box containing the specified text and image,
+     * with the dialog box flipped.
+     *
+     * @param text The text to be displayed in the dialog.
+     * @param img The image to be displayed in the dialog.
+     * @return A DialogBox representing the Echo's dialog, flipped.
+     */
     public static DialogBox getEchoDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

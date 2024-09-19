@@ -46,6 +46,12 @@ public class Event extends Task {
     public String getData() {
         return super.getData() + " | " + this.start + "->" + this.end;
     }
+    /**
+     * Returns an array of temporary strings, with the start and end times
+     * assigned to index 1 and 2, respectively.
+     *
+     * @return An array of temporary strings with the start time at index 1 and end time at index 2.
+     */
     public String[] getTempStrings() {
         String[] tempStrings = super.getTempStrings();
         tempStrings[1] = this.start;

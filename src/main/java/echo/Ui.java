@@ -19,6 +19,7 @@ public class Ui {
     private TaskList taskList;
     private Echo echo;
     private int tempIndex = -1;
+
     /**
      * Constructs a Ui object with the specified TaskList.
      *
@@ -32,24 +33,28 @@ public class Ui {
         this.taskList = taskList;
         this.echo = echo;
     }
+
     /**
      * Starts accepting user input and processes commands until the user inputs 'Bye'.
      */
     public String handleInput(String input) {
         return parser.handleInput(input);
     }
+
     /**
      * Stops accepting user input.
      */
     public void stopAcceptingInput() {
         echo.stopRunning();
     }
+
     /**
      * Handles unknown commands by printing an error message.
      */
     public String handleUnknown() {
         return unknownMessage();
     }
+
     /**
      * Handles the "bye" command and stops accepting user input.
      */
@@ -57,12 +62,14 @@ public class Ui {
         stopAcceptingInput();
         return byeMessage();
     }
+
     /**
      * Handles the "list" command and prints all tasks in the TaskList.
      */
     public String handleList() {
         return listMessage(taskList.getTasksString());
     }
+
     /**
      * Handles the "find" command by searching for tasks that contain the specified
      * substring and printing the matching tasks in a formatted list.
@@ -73,6 +80,7 @@ public class Ui {
         String foundTasks = taskList.getFoundTasks(arg);
         return foundMessage(foundTasks);
     }
+
     /**
      * Handles the "mark" command to mark a task as done.
      *
@@ -96,9 +104,9 @@ public class Ui {
         }
 
         taskList.markTask(index);
-
         return markedTaskMessage(taskList.getTaskString(index));
     }
+
     /**
      * Handles the "unmark" command to unmark a task as not done.
      *
@@ -108,12 +116,14 @@ public class Ui {
         if (arg.length() != 1) { // Incorrect argument length
             return "Please input 'unmark [index]'";
         }
+
         int index;
         try {
             index = Integer.valueOf(arg);
         } catch (NumberFormatException e) { // Not a number input
             return "Please input 'unmark [index]'";
         }
+
         if (index > taskList.getNumTasks()) { // Index exceeds tasks length
             return "Invalid index.";
         }
@@ -124,6 +134,7 @@ public class Ui {
         // Print success msg
         return unmarkedTaskMessage(taskList.getTaskString(index));
     }
+
     /**
      * Handles the "todo" command to add a new todo task.
      *
@@ -145,7 +156,7 @@ public class Ui {
             taskList.addTask(task.trim(), TaskType.TODO, "");
             return handleAddedTask();
         }
-        return "";
+        return "Please input todo [description]";
     }
 
     /**
@@ -156,13 +167,13 @@ public class Ui {
      */
     public String handleEvent(String description, String startDate, TaskStatus status) {
         String endDate = "";
-        if (description.contains("/to")) { // No start date, end date provided (add bugs)
+        if (description.contains("/to")) { // No start date provided, end date provided
             String[] temp = parser.parseEventTo(description);
             description = temp[0].trim();
             endDate = temp[1];
         }
 
-        if (description.isEmpty()) { // No echo.task description, start date provided
+        if (description.isEmpty()) { // No task description provided
             if (!startDate.isEmpty()) {
                 parser.keepTempString(startDate, 1);
             }
@@ -173,7 +184,7 @@ public class Ui {
             return "Enter task description: ";
         }
 
-        if (startDate.isEmpty()) { // No start date provided (update bug)
+        if (startDate.isEmpty()) { // No start date provided
             parser.keepTempString(description, 0);
             if (!endDate.isEmpty()) {
                 parser.keepTempString(endDate, 2);
@@ -184,7 +195,7 @@ public class Ui {
 
         if (startDate.contains("/to")) {
             String[] temp = parser.parseEventTo(startDate);
-            if (temp[0].isEmpty()) { // No start date provided, only end date
+            if (temp[0].isEmpty()) { // No start date provided, end date provided
                 parser.keepTempString(description, 0);
                 parser.keepTempString(temp[1], 2);
                 parser.changeState(StateType.EVENT_START);
@@ -194,7 +205,7 @@ public class Ui {
             endDate = temp[1].trim();
         }
 
-        if (endDate.isEmpty()) {
+        if (endDate.isEmpty()) { // Description and start date provided, end date not provided
             parser.keepTempString(description, 0);
             parser.keepTempString(startDate, 1);
             parser.changeState(StateType.EVENT_END);
@@ -205,18 +216,19 @@ public class Ui {
         endDate = endDate.trim();
 
         switch(status) {
-            case UPDATE:
-                parser.changeStatus(TaskStatus.ADD);
-                parser.resetTempStrings();
-                taskList.updateTask(tempIndex, new Event(description, startDate, endDate));
-                return updateMessage(taskList.getTaskString(tempIndex));
-            case ADD:
-                taskList.addTask(description, TaskType.EVENT, startDate + "->" + endDate);
-                parser.resetTempStrings();
-                return handleAddedTask();
+        case UPDATE:
+            parser.changeStatus(TaskStatus.ADD);
+            parser.resetTempStrings();
+            taskList.updateTask(tempIndex, new Event(description, startDate, endDate));
+            return updateMessage(taskList.getTaskString(tempIndex));
+        case ADD:
+            taskList.addTask(description, TaskType.EVENT, startDate + "->" + endDate);
+            parser.resetTempStrings();
+            return handleAddedTask();
         }
-        return "";
+        return "Please input Event [description] /from [start] /to [end]";
     }
+
     /**
      * Handles the "deadline" command to add a new deadline task.
      *
@@ -243,7 +255,7 @@ public class Ui {
             deadline = parser.parseDate(deadlineToParse);
         } catch (DateTimeParseException e) {
             parser.changeState(StateType.DEADLINE_DEADLINE);
-            return "No matching date formats.\n Deadline:";
+            return "No matching date formats.\nDeadline:";
         }
 
         switch(status) {
@@ -257,8 +269,9 @@ public class Ui {
             parser.resetTempStrings();
             return handleAddedTask();
         }
-        return "";
+        return "Please input deadline [description] /by [date]";
     }
+
     /**
      * Prints a message indicating that a task was successfully added.
      */
@@ -266,6 +279,17 @@ public class Ui {
         assert taskList.getNumTasks() > 0: "Task list should have at least one task";
         return addedTaskMessage(taskList.getTaskString(taskList.getNumTasks()), taskList.getNumTasks());
     }
+
+    /**
+     * Handles the update of a task based on the provided index and information.
+     * Parses the index to determine the task to be updated, then updates the task
+     * according to its type (TODO, DEADLINE, EVENT) using the provided information.
+     *
+     * @param indexString The index of the task to be updated as a string.
+     * @param info The information to update the task with.
+     * @return A message indicating the result of the update operation, such as an error message
+     *         for invalid indices or a response based on the updated task type.
+     */
     public String handleUpdate(String indexString, String info) {
         int index;
         try {
@@ -293,9 +317,10 @@ public class Ui {
             parser.changeStatus(TaskStatus.UPDATE);
             return parser.handleInput("Event " + info);
         default:
-            return "";
+            return "Please input update [index]";
         }
     }
+
     /**
      * Handles the "delete" command to remove a task from the list.
      *

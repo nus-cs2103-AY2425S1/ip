@@ -30,7 +30,10 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
-
+    /**
+     * Adds a greeting dialog box to the dialog container,
+     * using the greeting message from the Echo instance and the provided image.
+     */
     public void greetUser() {
         dialogContainer.getChildren().addAll(
             DialogBox.getEchoDialog(echo.greetUser(), echoImage)

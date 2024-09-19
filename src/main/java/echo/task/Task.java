@@ -63,9 +63,20 @@ public class Task {
                 (isComplete ? 1 : 0) + " | " +
                 description;
     }
+    /**
+     * Returns an array of temporary strings, with the description assigned
+     * to the first element, and the rest left empty.
+     *
+     * @return An array of temporary strings with the description at index 0.
+     */
     public String[] getTempStrings() {
         return new String[] {this.description, "", "", ""};
     }
+    /**
+     * Returns the type of the task.
+     *
+     * @return The task type.
+     */
     public TaskType getTaskType() {
         return this.type;
     }

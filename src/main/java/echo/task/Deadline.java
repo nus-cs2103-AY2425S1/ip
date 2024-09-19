@@ -40,6 +40,12 @@ public class Deadline extends Task {
     public String getData() {
         return super.getData() + " | " + this.deadline;
     }
+    /**
+     * Overrides the parent class's getTempStrings method to retrieve the temporary strings,
+     * and formats the deadline date into a "dd-MM-YYYY" format before returning the array.
+     *
+     * @return An array of temporary strings with the formatted deadline string at index 3.
+     */
     @Override
     public String[] getTempStrings() {
         String[] tempStrings = super.getTempStrings();
