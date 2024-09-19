@@ -53,31 +53,27 @@ public class Carly {
         return response;
     }
 
+    /**
+     * Executes the given command based on the user's input and returns the corresponding response.
+     *
+     * @param command the command to be executed, as parsed from the user's input.
+     * @param taskDescription the description of the task associated with the command (if applicable).
+     * @return the response generated after executing the command.
+     * @throws CarlyException if there is an issue executing the command, such as an invalid task description or task not found.
+     */
     private String executeCommand(Command command, String taskDescription) throws CarlyException {
-            switch (command) {
-            case BYE:
-                return ui.byeMsg();
-            case LIST:
-                return taskPrinter.printAllTasks();
-            case MARK:
-                return markTask(taskDescription);
-            case UNMARK:
-                return unmarkTask(taskDescription);
-            case DELETE:
-                return deleteTask(taskDescription);
-            case FIND:
-                return findTask(taskDescription);
-            case TODO:
-                return addToDoTask(taskDescription);
-            case DEADLINE:
-                return addDeadlineTask(taskDescription);
-            case EVENT:
-                return addEventTask(taskDescription);
-            case SORT:
-                return this.taskList.sort();
-            default:
-                return "Oops, what are you trying to say again?";
-            }
+        return switch (command) {
+            case BYE -> ui.byeMsg();
+            case LIST -> taskPrinter.printAllTasks();
+            case MARK -> markTask(taskDescription);
+            case UNMARK -> unmarkTask(taskDescription);
+            case DELETE -> deleteTask(taskDescription);
+            case FIND -> findTask(taskDescription);
+            case TODO -> addToDoTask(taskDescription);
+            case DEADLINE -> addDeadlineTask(taskDescription);
+            case EVENT -> addEventTask(taskDescription);
+            case SORT -> this.taskList.sort();
+        };
     }
 
     /** Saves the current task list to a file. */
@@ -108,7 +104,7 @@ public class Carly {
     }
 
     private String addDeadlineTask(String taskDescription) throws CarlyException {
-        return this.taskList.addDeadLine(taskDescription);
+        return this.taskList.addDeadline(taskDescription);
     }
 
     private String addEventTask(String taskDescription) throws CarlyException {

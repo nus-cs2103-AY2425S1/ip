@@ -1,7 +1,5 @@
 package carly.exception;
 
-import carly.ui.Ui;
-
 /**
  * Represents a general exception for the Carly application.
  * This class is used as a base exception class for custom exceptions in the Carly application.

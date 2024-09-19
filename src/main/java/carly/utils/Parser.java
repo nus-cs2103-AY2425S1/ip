@@ -7,13 +7,12 @@ import carly.exception.CarlyUnknownInputException;
 
 
 /**
- * Responsible for parsing user input and extracting commands and task descriptions.
- * It supports various command types such as BYE, LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, and EVENT.
+ * Responsible for parsing user input and extracting commands and task description.
+ * It supports various command types listed in Command enum.
  */
 public class Parser {
     private final String input;
     private final Integer firstSpaceIndex;
-    private final String[] parts;
     private final String action;
 
     /**
@@ -25,8 +24,7 @@ public class Parser {
     public Parser(String input) {
         this.input = input;
         this.firstSpaceIndex = input.indexOf(" ");
-        this.parts = input.split(" ");
-        this.action = parts[0];
+        this.action = input.split(" ")[0];
     }
 
     /**
@@ -42,7 +40,6 @@ public class Parser {
         try {
             return Command.valueOf(this.action.toUpperCase());
         } catch (IllegalArgumentException e) {
-            // Try to find the closest match
             Command bestMatch = FuzzyMatch.getBestMatch(this.action);
 
             throw new CarlyUnknownInputException(this.action,
@@ -55,8 +52,7 @@ public class Parser {
      *
      * @throws CarlyNoTaskDescription if the command requires a task description but none is provided.
      */
-    public String getDetailsAfterCommand(Command command)
-            throws CarlyNoTaskDescription {
+    public String getDetailsAfterCommand(Command command) throws CarlyNoTaskDescription {
         Command[] noDescriptionCommands = {Command.BYE, Command.LIST, Command.SORT};
         boolean requiresDescription = !Arrays.asList(noDescriptionCommands).contains(command);
 
@@ -69,4 +65,6 @@ public class Parser {
         }
         return input.trim();
     }
+
+
 }

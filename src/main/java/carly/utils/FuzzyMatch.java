@@ -5,7 +5,7 @@ import org.apache.commons.text.similarity.LevenshteinDistance; //add gradle impl
 /** Utility class for finding the closest matching command using Levenshtein Distance. */
 public class FuzzyMatch {
 
-    // Array of valid commands for fuzzy matching
+    /** Array of valid commands that can be input by user. **/
     private static final Command[] VALID_COMMANDS = Command.values();
 
     /**
@@ -32,9 +32,6 @@ public class FuzzyMatch {
     }
 
     public static void main(String[] args) {
-        String userInput = "totot";
-        Command x = getBestMatch(userInput.toUpperCase());
-        System.out.println(x);
     }
 
 }

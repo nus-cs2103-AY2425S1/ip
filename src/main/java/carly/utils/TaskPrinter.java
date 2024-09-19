@@ -5,7 +5,7 @@ import java.util.stream.IntStream;
 /** Handles task printing with various formats and conditions. */
 public class TaskPrinter {
 
-    private TaskList taskList;
+    private final TaskList taskList;
 
     public TaskPrinter(TaskList taskList) {
         this.taskList = taskList;

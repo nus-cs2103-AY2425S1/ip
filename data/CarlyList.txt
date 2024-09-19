@@ -1,3 +1,2 @@
-T | 0 | read
-D | 0 | dbff | Sep 09 1990
-E | 1 | sdngasg | 8pm to 9pm
+T | 1 | read
+T | 0 | rean

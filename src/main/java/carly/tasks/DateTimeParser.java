@@ -6,7 +6,6 @@ import java.time.format.DateTimeFormatter;
 import carly.exception.CarlyException;
 
 
-
 /** A utility class for parsing and formatting dates. */
 public class DateTimeParser {
 
@@ -30,6 +29,7 @@ public class DateTimeParser {
         }
     }
 
+
     /** Parses the date string to a {@link LocalDate} object. */
     public LocalDate getLocalDate() throws CarlyException {
         try {
@@ -37,7 +37,7 @@ public class DateTimeParser {
             return LocalDate.parse(formattedDate, OUTPUT_FORMATTER);
         } catch (Exception e) {
             throw new CarlyException("Error parsing the formatted date. Please ensure input is in \"yyyy-MM-dd\" "
-                    + "format and represents a valid date");
+                    + "format and represents a valid date.");
         }
 
     }

@@ -29,12 +29,10 @@ public class TaskList {
         this.taskList = new ArrayList<>();
     }
 
-    /** Retrieves a task by index. */
     public Task get(Integer index) {
         return this.taskList.get(index);
     }
 
-    /** Gets the number of tasks in the list. */
     public Integer getSize() {
         return this.taskList.size();
     }
@@ -44,8 +42,23 @@ public class TaskList {
     }
 
     /** Gets the message fpr the current size of the task list. */
-    public String taskListSize() {
-        return ONE_INDENT + "Now you have " + this.getSize() + " tasks in the list.";
+    private String taskListSize() {
+        return String.format("%sNow you have %d tasks in the list.", ONE_INDENT, this.getSize());
+    }
+
+    /**
+     * Parses a task number string and converts it into an integer.
+     *
+     * @param taskNumString The task number string to parse.
+     * @return The parsed task number as an integer.
+     * @throws CarlyIncorrectIndexFormat If the task number format is invalid.
+     */
+    private int parseTaskNumber(String taskNumString) throws CarlyIncorrectIndexFormat {
+        try {
+            return Integer.parseInt(taskNumString);
+        } catch (NumberFormatException e) {
+            throw new CarlyIncorrectIndexFormat();
+        }
     }
 
     /**
@@ -91,21 +104,6 @@ public class TaskList {
     }
 
     /**
-     * Parses a task number string and converts it into an integer.
-     *
-     * @param taskNumString The task number string to parse.
-     * @return The parsed task number as an integer.
-     * @throws CarlyIncorrectIndexFormat If the task number format is invalid.
-     */
-    private int parseTaskNumber(String taskNumString) throws CarlyIncorrectIndexFormat {
-        try {
-            return Integer.parseInt(taskNumString);
-        } catch (NumberFormatException e) {
-            throw new CarlyIncorrectIndexFormat();
-        }
-    }
-
-    /**
      * Deletes the specified task from the list.
      *
      * @param taskNumString The task number to be deleted.
@@ -130,9 +128,8 @@ public class TaskList {
      * If matching tasks are found, they are added to a filtered task list and printed.
      *
      * @param word The word to search for in the task descriptions.
-     * @throws CarlyException If an error occurs while processing the task list or printing the results.
      */
-    public String find(String word) throws CarlyException {
+    public String find(String word) {
         TaskList filteredList = new TaskList();
         for (Task t : this.taskList) {
             if (t.getDescription().contains(word)) {
@@ -147,9 +144,8 @@ public class TaskList {
      * Adds a new ToDo task to the list.
      *
      * @param taskDescription The description of the task.
-     * @throws CarlyException If there are issues with the task description.
      */
-    public String addToDo(String taskDescription) throws CarlyException {
+    public String addToDo(String taskDescription) {
         Todo t = new Todo(taskDescription);
         return this.addTaskToList(t);
     }
@@ -160,7 +156,7 @@ public class TaskList {
      * @param taskDescription The description and due date of the task, formatted as "description /by dueDate".
      * @throws CarlyMissingDateTimeException If the task description or due date is missing.
      */
-    public String addDeadLine(String taskDescription) throws CarlyException {
+    public String addDeadline(String taskDescription) throws CarlyException {
         try {
             String[] taskDueDate = taskDescription.split(" /by ");
             String task = taskDueDate[0];
@@ -209,7 +205,7 @@ public class TaskList {
     }
 
     /** Generates a string representation of all tasks in the list to be saved in txt file. */
-    public String getFormattedTaskList() {
+    public String getFormattedTaskList() throws CarlyException {
         if (this.taskList.isEmpty()) {
             return "Nothing in your list";
         } else {
@@ -225,7 +221,7 @@ public class TaskList {
     }
 
     /** Formats a single task into the required string format. */
-    private String formatTask(Task task) {
+    private String formatTask(Task task) throws CarlyException{
         String taskType = getTaskType(task);
         String isDone = formatIsDone(task);
         String taskDescription = task.getDescription();
@@ -245,18 +241,19 @@ public class TaskList {
         }
     }
 
-    /** Formats whether the task is done (1 for done, 0 for not done). */
+    /** Formats whether the task is done for Storage of user commands in txt file (1 for done, 0 for not done). */
     private String formatIsDone(Task task) {
         return task.getIsDone() ? "1" : "0";
     }
 
     /** Retrieves the additional details for Deadline and Event tasks. */
-    private String getTaskDetails(Task task) {
+    private String getTaskDetails(Task task) throws CarlyException {
         if (task instanceof Deadline) {
-            return " | " + ((Deadline) task).getDueDateAsString();
+            Deadline deadline = (Deadline) task;
+            return String.format(" | %s", deadline.getDueDateAsString());
         } else if (task instanceof Event) {
             Event event = (Event) task;
-            return " | " + event.getStartTime() + " to " + event.getEndTime();
+            return String.format(" | %s to %s", event.getStartTime(), event.getEndTime());
         } else {
             return "";
         }
@@ -265,6 +262,7 @@ public class TaskList {
     public String sort() {
         List<Deadline> deadlines = new ArrayList<>();
         List<Task> remainingTasks = new ArrayList<>();
+
         for (Task t : this.taskList) {
             if (t instanceof Deadline) {
                 deadlines.add((Deadline) t);
