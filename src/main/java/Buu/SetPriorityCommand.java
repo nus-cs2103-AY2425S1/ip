@@ -56,19 +56,18 @@ public class SetPriorityCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
+        // Ensure the task index is within bounds before proceeding
+        if (index < 0 || index >= taskList.getTasks().size()) {
+            throw new IllegalArgumentException("Task index out of bounds. No task exists at the specified index.");
+        }
+
         try {
-            // Set the priority of the task at the specified index
             taskList.setTaskPriority(index, priority);
-            // Save the updated tasks to storage
             storage.saveTasks(taskList.getTasks());
-            // Display confirmation to the user with the updated task
             ui.showTaskPrioritySet(taskList.getTasks().get(index));
         } catch (TaskException e) {
-            // Catch and display any application-specific exceptions
-            ui.showError(e.getMessage());
-        } catch (IllegalArgumentException e) {
-            // Catch and display standard input-related exceptions
             ui.showError(e.getMessage());
         }
     }
+
 }
