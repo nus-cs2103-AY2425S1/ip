@@ -1,6 +1,5 @@
 package pixy;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 import pixy.parser.CommandType;
