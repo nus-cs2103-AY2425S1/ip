@@ -124,6 +124,9 @@ public class InputHandler {
      * @throws BuzzException if the index being asked to mark is out of range/ non existent
      */
     public String markHandle(String input) throws BuzzException {
+        if (input.length() <= 5) {
+            throw new BuzzException("What's the index? Specify which task you want to mark! *bzzt*");
+        }
         int index = Integer.parseInt(input.split(" ")[1]) - 1;
         if (index < 0 || index >= data.size()) {
             throw new BuzzException("OOPS!!! The task doesn't exist *BEEP*");
@@ -139,6 +142,9 @@ public class InputHandler {
      * @throws BuzzException if the index being asked to unmark is out of range/non-existent
      */
     public String unmarkHandle(String input) throws BuzzException {
+        if (input.length() <= 7) {
+            throw new BuzzException("What's the index? Specify which task you want to unmark! *bzzt*");
+        }
         int index = Integer.parseInt(input.split(" ")[1]) - 1;
         if (index < 0 || index >= data.size()) {
             throw new BuzzException("OOPS!!! The task doesn't exist *BEEP*");
@@ -154,6 +160,9 @@ public class InputHandler {
      * @throws BuzzException if the index being asked to delete is out of range or does not exist in the list
      */
     public String deleteHandle(String input) throws BuzzException {
+        if (input.length() <= 7) {
+            throw new BuzzException("What's the index? Specify which task you want to delete! *bzzt*");
+        }
         int index = Integer.parseInt(input.split(" ")[1]) - 1;
         if (index < 0 || index >= data.size()) {
             throw new BuzzException("OOPS!!! The task doesn't exist *BEEP*");
