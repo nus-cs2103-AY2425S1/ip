@@ -1,24 +1,49 @@
-# Duke project template
+# Slave Chatbot User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Slave is your very own chatbot to help you remember tasks that you have to do, albeit doing so very unwillingly.
 
-## Setting up in Intellij
+## Quick Start
+1. Ensure you have Java `17` or above installed in your computer.
+1. Download the `.jar` file from Release v0.2.
+1. Run the `.jar` file.
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+## Supported Tasks
+### Non-Recurring Tasks
+1. Todos
+### Recurring Tasks
+1. Deadlines (With an end date)
+1. Events (With a start and end date)
+### Recurring Frequencies 
+1. `NEVER`
+1. `DAILY`
+1. `WEEKLY`
+1. `BIMONTHLY`
+1. `MONTHLY`
+1. `QUARTERLY`
+1. `BIANNUALLY`
+1. `ANNUALLY`
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Supported Commands
+### Task Creation
+- `todo NAME` - Creates a Todo with a name `NAME`.
+- `deadline NAME /by DATE` - Creates a Deadline with a name `NAME` and a deadline `DATE`.
+- `event NAME /from DATE1 /to DATE2` - Creates an Event with a name `NAME` from `DATE1` to `DATE2`.
+
+The above commands sets the recurring frequency to `NEVER` by default.
+
+You can specify the recurring frequency of the task by adding the `/rec FREQ` after the commands above to create a task with a recuring frequency of `FREQ`. 
+
+### Searching For Tasks
+- `list` - Prints all tasks currently stored in the task list.
+- `schedule DATE` - Prints all recurring tasks that have not ended on the date `DATE`.
+- `find SUBSTRING` - Prints all tasks with names containing the word `SUBSTRING`.
+
+### Task Management
+- `mark INDEX` - Marks the task as complete.
+- `unmark INDEX` - Marks the task as incomplete.
+- `delete INDEX` - Deletes the `INDEX`th task on the list.
+- `clear` - Deletes all tasks in the list.
+
+### Termination
+- `bye` - Closes the application after 3s.
+
