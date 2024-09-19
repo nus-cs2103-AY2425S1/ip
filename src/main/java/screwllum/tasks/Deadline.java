@@ -4,6 +4,9 @@ import java.time.LocalDate;
 
 import screwllum.utils.Parser;
 
+/**
+ * Represents a task that has to be done before a certain date
+ */
 public class Deadline extends Task {
     private LocalDate by;
 

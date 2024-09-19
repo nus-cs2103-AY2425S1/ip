@@ -1,7 +1,7 @@
 package screwllum;
 
-import java.util.List;
 import java.io.IOException;
+import java.util.List;
 
 import screwllum.exception.ScrewllumException;
 import screwllum.tasks.TaskManager;
@@ -14,7 +14,6 @@ import screwllum.utils.Ui;
  * to drive the chatbot experience.
  */
 public class Screwllum {
-    
     private Storage storage;
     private TaskManager taskManager;
     private Ui ui;
@@ -28,6 +27,7 @@ public class Screwllum {
             ui.showError("File does not exist, creating new file");
             taskManager = new TaskManager();
         } catch (ScrewllumException e) {
+            // In the case that the file is corrupted, I force the application to stop
             ui.showError(e.getMessage());
             System.exit(1);
         }
@@ -40,7 +40,6 @@ public class Screwllum {
      */
     public void run() {
         ui.showWelcome();
-        
         while (true) {
             try {
                 String userInput = ui.getInput();

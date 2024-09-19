@@ -36,7 +36,7 @@ public class TaskManager {
             try {
                 taskList.get(Integer.parseInt(tokens.get(1)) - 1).toggleStatus();
             } catch (IndexOutOfBoundsException e) {
-                throw new InvalidIndexException(tokens.get(1)); 
+                throw new InvalidIndexException(tokens.get(1));
             }
             break;
         case "delete":

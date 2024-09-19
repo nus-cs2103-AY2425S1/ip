@@ -1,5 +1,8 @@
 package screwllum.tasks;
 
+/**
+ * Represents a basic task
+ */
 public class ToDo extends Task {
     public ToDo(String desc) {
         super(desc);
@@ -12,7 +15,6 @@ public class ToDo extends Task {
 
     /**
      * Convert the task to a format suitable for saving to a file.
-     * 
      * @return A String in the format T_status_desc.
      */
     public String toSaveFormat() {

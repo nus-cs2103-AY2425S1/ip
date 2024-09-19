@@ -4,6 +4,9 @@ import java.time.LocalDate;
 
 import screwllum.utils.Parser;
 
+/**
+ * Represents a task that occurs between two time periods
+ */
 public class Event extends Task {
     private LocalDate startDate;
     private LocalDate endDate;
@@ -19,7 +22,6 @@ public class Event extends Task {
         return String.format("[E]%s (from: %s to: %s)", super.toString(),
                 Parser.parseDateToString(startDate, "MMM dd yyyy"),
                 Parser.parseDateToString(endDate, "MMM dd yyyy"));
-                
     }
 
     /**

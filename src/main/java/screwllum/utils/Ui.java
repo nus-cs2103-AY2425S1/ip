@@ -22,7 +22,7 @@ public class Ui {
     }
 
     /**
-     * Displays an error message to the user, which is normally the description of a Screwllum Exception. 
+     * Displays an error message to the user, which is normally the description of a Screwllum Exception.
      *
      * @param message The error message to be shown.
      */
@@ -42,6 +42,7 @@ public class Ui {
         case "bye":
             print("It was my pleasure, good bye");
             System.exit(0);
+            break; // No requirement for a break, only to remove checkstyle warnings
         case "list":
             printTaskList(taskList);
             break;
@@ -60,7 +61,7 @@ public class Ui {
         case "event":
             print("I have added the following task:");
             print(taskList.get(taskList.size() - 1).toString());
-            print("Now you have " + taskList.size() + " tasks" );
+            print("Now you have " + taskList.size() + " tasks");
             break;
         case "find":
             List<Task> tempList = new ArrayList<>();
@@ -73,6 +74,9 @@ public class Ui {
                 }
             }
             printTaskList(tempList);
+            break;
+        default:
+            print("I don't know what to do with this task");
         }
     }
     
