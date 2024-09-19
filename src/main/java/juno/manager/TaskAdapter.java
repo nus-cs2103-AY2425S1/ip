@@ -20,6 +20,14 @@ import juno.task.Todo;
  */
 public class TaskAdapter extends TypeAdapter<Task> {
 
+    private static class TaskData {
+        private String taskType = "";
+        private String description = "";
+        private boolean isDone = false;
+        private String endTimeString = "";
+        private String startTimeString = "";
+    }
+
     /**
      * Deserialises JSON into a Task object.
      * Identifies the task type and creates the appropriate Task subclass using switch statement.
@@ -30,30 +38,35 @@ public class TaskAdapter extends TypeAdapter<Task> {
      */
     @Override
     public Task read(JsonReader reader) throws IOException {
+        TaskData taskData = parseTaskData(reader);
+        Task task = createTask(taskData);
+        if (task != null && taskData.isDone) {
+            task.markAsDone();
+        }
+        return task;
+    }
+
+    private TaskData parseTaskData(JsonReader reader) throws IOException {
         reader.beginObject();
-        String taskType = "";
-        String description = "";
-        boolean isDone = false;
-        String endTimeString = "";
-        String startTimeString = "";
+        TaskData taskData = new TaskData();
 
         while (reader.hasNext()) {
             String name = reader.nextName();
             switch (name) {
             case "taskType":
-                taskType = reader.nextString();
+                taskData.taskType = reader.nextString();
                 break;
             case "description":
-                description = reader.nextString();
+                taskData.description = reader.nextString();
                 break;
             case "isDone":
-                isDone = reader.nextBoolean();
+                taskData.isDone = reader.nextBoolean();
                 break;
             case "endTimeString":
-                endTimeString = reader.nextString();
+                taskData.endTimeString = reader.nextString();
                 break;
             case "startTimeString":
-                startTimeString = reader.nextString();
+                taskData.startTimeString = reader.nextString();
                 break;
             default:
                 reader.skipValue();
@@ -61,34 +74,28 @@ public class TaskAdapter extends TypeAdapter<Task> {
             }
         }
         reader.endObject();
+        return taskData;
+    }
 
-        Task task = null;
-        switch (taskType) {
-        case "deadline":
-            try {
-                task = new Deadline(description, endTimeString, taskType);
-            } catch (TaskManagerException e) {
-                throw new RuntimeException(e);
+    private Task createTask(TaskData taskData) {
+        try {
+            switch (taskData.taskType) {
+            case "deadline":
+                return new Deadline(taskData.description, taskData.endTimeString, taskData.taskType);
+            case "event":
+                return new Event(
+                        taskData.description,
+                        taskData.startTimeString,
+                        taskData.endTimeString,
+                        taskData.taskType);
+            case "todo":
+                return new Todo(taskData.description, taskData.taskType);
+            default:
+                throw new RuntimeException("Unknown task type");
             }
-            break;
-        case "event":
-            try {
-                task = new Event(description, startTimeString, endTimeString, taskType);
-            } catch (TaskManagerException e) {
-                throw new RuntimeException(e);
-            }
-            break;
-        case "todo":
-            task = new Todo(description, taskType);
-            break;
-        default:
-            throw new RuntimeException();
+        } catch (TaskManagerException e) {
+            throw new RuntimeException(e);
         }
-
-        if (task != null && isDone) {
-            task.markAsDone();
-        }
-        return task;
     }
 
     /**
@@ -118,3 +125,4 @@ public class TaskAdapter extends TypeAdapter<Task> {
         writer.endObject();
     }
 }
+

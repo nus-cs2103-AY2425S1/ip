@@ -56,15 +56,9 @@ public class AddTodoCommand extends AddCommand {
                     + "Maybe you can try renaming it and input again?",
                     TaskManagerException.ErrorType.DUPLICATE_TASK);
         }
-        Task t = new Todo(taskInfo, this.TASK_TYPE);
+        Task t = new Todo(taskInfo, AddTodoCommand.TASK_TYPE);
         this.tasks.add(t);
         this.fileManager.writeTasksToFile(this.tasks);
-        StringBuilder outString = new StringBuilder("\uD83C\uDF89 Got it! I've added: \""
-                + taskInfo
-                + "\" to your list!");
-        outString.append("\n").append("\uD83C\uDFAF You now have ")
-                 .append(this.tasks.size())
-                 .append(" tasks in the list. Keep going!");
-        return outString.toString();
+        return super.buildSuccessMessage(taskInfo);
     }
 }

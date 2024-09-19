@@ -34,4 +34,14 @@ public abstract class AddCommand extends Command {
         this.fileManager = fileManager;
         this.tasks = taskManager.getTasksArray();
     }
+
+    protected String buildSuccessMessage(String taskDescription) {
+        return new StringBuilder("\uD83C\uDF89 Got it! I've added: \"")
+                .append(taskDescription)
+                .append("\" to your list!")
+                .append("\n").append("\uD83C\uDFAF You now have ")
+                .append(this.tasks.size())
+                .append(" tasks in the list. Keep going!")
+                .toString();
+    }
 }

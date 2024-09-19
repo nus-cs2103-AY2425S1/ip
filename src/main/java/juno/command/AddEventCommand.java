@@ -40,20 +40,13 @@ public class AddEventCommand extends AddCommand {
     @Override
     public String runCommand() throws TaskManagerException {
         String taskInfo;
-        assert this.userInput != null : "User input in AddEventCommand() cannot be null!";
-        assert this.tasks != null : "Task array should not be null!";
-        try {
-            taskInfo = userInput.split("\\s+", 3)[2];
-        } catch (ArrayIndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
-            throw new TaskManagerException("\uD83D\uDE15 Hmm, something went wrong. Did you add task correctly? "
-                    + "(\uD83D\uDCA1 Tip: Use \"add {Specify Task Type e.g. todo, deadline, or event} "
-                    + "/ {Input task description here}\" to add a task)",
-                    TaskManagerException.ErrorType.INVALID_ADD_TASK_NUMBER);
-        }
-
         String taskDescription;
         Task t;
+        assert this.userInput != null : "User input in AddEventCommand() cannot be null!";
+        assert this.tasks != null : "Task array should not be null!";
+
         try {
+            taskInfo = userInput.split("\\s+", 3)[2];
             String[] taskInfoArray = taskInfo.split("/", 3);
             taskDescription = taskInfoArray[0];
             // Check if the task already exists
@@ -62,7 +55,7 @@ public class AddEventCommand extends AddCommand {
                         + "Maybe you can try renaming it and input again?",
                         TaskManagerException.ErrorType.DUPLICATE_TASK);
             }
-            t = new Event(taskDescription, taskInfoArray[1], taskInfoArray[2], this.TASK_TYPE);
+            t = new Event(taskDescription, taskInfoArray[1], taskInfoArray[2], AddEventCommand.TASK_TYPE);
 
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
             throw new TaskManagerException("\uD83D\uDE15 Hmm, something went wrong. Did you add task correctly? "
@@ -72,12 +65,6 @@ public class AddEventCommand extends AddCommand {
         }
         this.tasks.add(t);
         this.fileManager.writeTasksToFile(this.tasks);
-        StringBuilder outString = new StringBuilder("\uD83C\uDF89 Got it! I've added: \""
-                + taskDescription
-                + "\" to your list!");
-        outString.append("\n").append("\uD83C\uDFAF You now have ")
-                 .append(this.tasks.size())
-                 .append(" tasks in the list. Keep going!");
-        return outString.toString();
+        return super.buildSuccessMessage(taskDescription);
     }
 }
