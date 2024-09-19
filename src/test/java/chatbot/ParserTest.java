@@ -14,7 +14,7 @@ public class ParserTest {
         try {
             Parser.answer("random", taskList);
         } catch (Exception e) {
-            assertEquals("Let's go inputting valid commands only \nLet's go type /help for valid commands",
+            assertEquals("Let's go inputting valid commands only \nLet's go type 'help' for valid commands",
                     e.getMessage());
         }
     }

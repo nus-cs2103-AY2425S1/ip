@@ -9,6 +9,6 @@ public class InvalidCommandException extends Exception {
      * Represents a constructor for an InvalidCommandException.
      */
     public InvalidCommandException() {
-        super("Let's go inputting valid commands only \nLet's go type help for valid commands");
+        super("Let's go inputting valid commands only \nLet's go type 'help' for valid commands");
     }
 }

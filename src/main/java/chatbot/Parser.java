@@ -1,6 +1,7 @@
 package chatbot;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 import exceptions.InvalidCommandException;
 import exceptions.InvalidNumberException;
@@ -40,6 +41,9 @@ public class Parser {
         try {
             switch (command) {
             case "todo":
+                if (!response.contains(" ")) {
+                    throw new InvalidCommandException();
+                }
                 name = response.substring(response.indexOf(' ') + 1);
                 return taskList.addTask(new Todo(name), false);
             case "deadline":
@@ -78,6 +82,8 @@ public class Parser {
             throw new InvalidNumberException();
         } catch (IndexOutOfBoundsException e) {
             throw new NonExistentTaskException();
+        } catch (DateTimeParseException e) {
+            throw new InvalidCommandException();
         }
     }
 
@@ -88,8 +94,8 @@ public class Parser {
      */
     public static String showCommands() {
         return "todo {taskName}: add a new Todo\n"
-                + "deadline {taskName} /by {deadline}: add a new Deadline\n"
-                + "event {taskName} /from {startDate in YYYY-MM-DD} /to {endDate in YYYY-MM-DD}: add a new Event\n"
+                + "deadline {taskName} /by {YYYY-MM-DD}: add a new Deadline\n"
+                + "event {taskName} /from {YYYY-MM-DD} /to {YYYY-MM-DD}: add a new Event\n"
                 + "mark {taskIndex}: mark that task as Done\n"
                 + "unmark {taskIndex}: mark that task as not Done\n"
                 + "delete {taskIndex}: delete that task\n"
