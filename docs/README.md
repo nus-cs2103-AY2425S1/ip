@@ -6,9 +6,62 @@ This is a greenfield Java chatbot project that allows users to add three differe
 
 However, to display the chat history in a more user-friendly manner, the chatbot comes with a GUI solely for the purpose of displaying the user inputs as well as the chatbot's responses.
 
+# Contents
+
+- [Quick Start](#quick-start)
+- [Commands](#commands)
+  * [Summary](#summary)
+  * [Adding Tasks](#adding-tasks)
+      * [ToDo](#todo)
+      * [Deadline](#deadline)
+      * [Event](#event)
+    * [Listing Tasks](#listing-tasks)
+    * [Marking Tasks](#marking-tasks)
+    * [Deleting Tasks](#deleting-tasks)
+    * [Finding Tasks](#finding-tasks)
+    * [Exit](#exit)
+- [Features](#features)
+    * [Sorting of tasks](#sorting-of-tasks)
+    * [Automatic exiting of chatbot](#automatic-exiting-of-chatbot)
+
+# Quick Start
+1. **Download `tars.jar`**
+    - Go to the repository's [releases page](https://github.com/Siddardar/ip/releases/tag/A-Release) and download the `tars.jar` file from the release tagged with `A-Release`.
+
+2. **Save the File**
+    - Place the downloaded `tars.jar` file in a folder of your choice on your system.
+
+3. **Open Terminal/Command Prompt**
+    - Open a terminal (Linux/Mac) or command prompt (Windows).
+
+4. **Navigate to the Folder**
+    - Use the `cd` command to navigate to the folder where you saved the `tars.jar` file. For example:
+      ```bash
+      cd path/to/your/folder
+      ```
+
+5. **Run the Application**
+    - Execute the following command to run the `tars.jar` file:
+      ```bash
+      java -jar tars.jar
+      ```
 # Commands
 > Note:
-> For all commands, arguments for the command are specified between curly brackets `{}` and therefore, the curly brackets not meant to be typed in the command itself. Refer to the command example for better clarity. 
+> For all commands, arguments for the command are specified between curly brackets `{}` and are compulsory. The curly brackets not meant to be typed in the command itself. Refer to the command example for better clarity.
+
+## Summary
+| Index |       Command        |                         Format                         |                    Example                     |
+|:-----:|:--------------------:|:------------------------------------------------------:|:----------------------------------------------:|
+|   1   |   Add a ToDo task    |                  `/todo {task name}`                   |                `/todo homework`                |
+|   2   | Add an Deadline task |      `/deadline {task name} /by {deadline date}`       |       `/deadline submit ip /by 20-09-24`       |
+|   3   |   Add a Event task   | `/event {task name} /from {start date} /to {end date}` | `/event hackathon /from 23-09-24 /to 25-09-24` |
+|   4   |      List tasks      |                         `list`                         |                     `list`                     |
+|   5   |     Mark a task      |                  `mark {task number}`                  |                    `mark 1`                    |
+|   6   |    Unmark a task     |                 `unmark {task number}`                 |                   `unmark 1`                   |
+|   7   |    Delete a task     |                 `delete {task number}`                 |                   `delete 1`                   |
+|   8   |     Find task(s)     |                  `find {search word}`                  |                   `find ip`                    |
+|   9   |         Exit         |                         `bye`                          |                     `bye`                      |
+
 
 ## Adding Tasks
 
@@ -57,7 +110,7 @@ Added yet another task
     [E][] train for IPPT  (from: Sep 17 2024 to: Sep 21 2024)
 You now have 2 tasks. Are you gonna do any of them?
 ```
-## Showing tasks
+## Listing tasks
 To print all the tasks that have been created simply type the command `list`
 
 Command format: `list`
@@ -108,7 +161,7 @@ Wow you're freeing yourself up
 You now have 2 tasks left
 ```
 
-##  Find Tasks
+##  Finding Tasks
 Users can quickly find tasks by searching for a word/letter in the task name. All the tasks that contain the search word/letter will be shown in the order in which they appear in the list along with the respective task number.
 
 Command format: `find {search word}`
