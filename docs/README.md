@@ -127,7 +127,7 @@ Here are the sorted deadline tasks in your list:
 - Expected Outcome:\
 ```
 Bye! Hope to see you again soon!
-​<!-- A zero-width space here -->
+&nbsp;
 Shutting down in 5 seconds...
 ```
 
