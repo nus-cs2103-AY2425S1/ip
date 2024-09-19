@@ -1,18 +1,16 @@
 package jeriel.command;
-import jeriel.task.*;
-import jeriel.util.*; 
+
+import jeriel.util.TaskList;
+import jeriel.util.Storage;
+import jeriel.util.Ui;
 
 public class ExitCommand extends Command {
+
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showGoodbye();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return "Bye. Hope to see you again soon!";
     }
 
-    /**
-     * Returns true if this command is an exit command.
-     *
-     * @return true if this command is an exit command
-     */
     @Override
     public boolean isExit() {
         return true;

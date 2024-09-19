@@ -1,10 +1,9 @@
 package jeriel.task;
-import jeriel.command.*;
-import jeriel.util.*;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class Deadline extends Task{
+public class Deadline extends Task {
     
     protected LocalDate by;
 
@@ -22,7 +21,6 @@ public class Deadline extends Task{
     public String toSaveFormat() {
         return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + by;
     }
-
 
     /**
      * Returns a string representation of this deadline.

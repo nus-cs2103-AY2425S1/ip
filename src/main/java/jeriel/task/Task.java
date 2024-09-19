@@ -1,6 +1,5 @@
 package jeriel.task;
-import jeriel.command.*;
-import jeriel.util.*;
+
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -8,18 +7,15 @@ public abstract class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        
     }
 
     /**
      * Returns a string indicating the status of the task.
-     * 
-     * The string returned is "X" if the task is done, and " " if the task is not done.
-     * 
-     * @return a string indicating the status of the task
+     *
+     * @return "X" if the task is done, " " otherwise.
      */
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
     }
 
     /**
@@ -38,29 +34,33 @@ public abstract class Task {
 
     /**
      * Returns the description of the task.
-     * 
-     * @return the description of the task
+     *
+     * @return the task description
      */
     public String getDescription() {
         return description;
     }
 
     /**
-     * Returns true if the task is done, and false otherwise.
-     * 
-     * @return true if the task is done, and false otherwise
+     * Returns true if the task is done, false otherwise.
+     *
+     * @return boolean representing task completion status
      */
     public boolean isDone() {
-        return this.isDone;
+        return isDone;
     }
 
+    /**
+     * Abstract method to convert the task to save format.
+     *
+     * @return string in save format
+     */
     public abstract String toSaveFormat();
 
     /**
-     * Returns a string representation of this task, in the format "[X] DESCRIPTION"
-     * where X is "X" if the task is done, and " " otherwise.
-     * 
-     * @return a string representation of this task
+     * Returns a string representation of this task.
+     *
+     * @return a string in the format "[ ] description" or "[X] description"
      */
     @Override
     public String toString() {

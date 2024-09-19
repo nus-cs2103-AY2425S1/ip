@@ -1,6 +1,12 @@
 package jeriel.command;
-import jeriel.task.*;
-import jeriel.util.*;
+
+import jeriel.task.Task;
+import jeriel.util.TaskList;
+import jeriel.task.Todo;
+import jeriel.util.JerielException;
+import jeriel.util.Storage;
+import jeriel.util.Ui;
+
 import java.io.IOException;
 
 public class AddTodoCommand extends Command {
@@ -11,22 +17,22 @@ public class AddTodoCommand extends Command {
     }
 
     /**
-     * Adds a todo to the task list, and saves the task list to file.
-     *
+     * Adds a todo to the task list and saves the task list to file.
      * @param tasks the task list to add the todo to
-     * @param ui the ui to display the result
+     * @param ui the ui to display the result (not used in GUI mode)
      * @param storage the storage to save to
+     * @return String result for the GUI
      * @throws JerielException if the description is empty
-     * @throws IOException if there is an error saving the task list
+     * @throws IOException if an error occurs while saving
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws JerielException, IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws JerielException, IOException {
         if (description.isEmpty()) {
             throw new JerielException("The description of a todo cannot be empty.");
         }
         Task task = new Todo(description);
         tasks.addTask(task);
-        ui.showTaskAdded(task, tasks.size());
         storage.save(tasks.getTasks());
+        return String.format("Got it. I've added this task:\n%s\nNow you have %d tasks in the list.", task, tasks.size());
     }
 }

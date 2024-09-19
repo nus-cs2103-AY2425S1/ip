@@ -1,7 +1,10 @@
 package jeriel.command;
 
-import jeriel.util.*;
-import jeriel.task.*;
+import jeriel.task.Task;
+import jeriel.util.JerielException;
+import jeriel.util.Storage;
+import jeriel.util.TaskList;
+import jeriel.util.Ui;
 
 public class FindCommand extends Command {
 
@@ -11,18 +14,26 @@ public class FindCommand extends Command {
         this.keyword = keyword;
     }
 
+    /**
+     * Executes the find command, searching for tasks that match the keyword.
+     *
+     * @param tasks the task list to search from
+     * @param ui the UI for output (not used in GUI mode)
+     * @param storage the storage (not used in this command)
+     * @return the result to be displayed in the GUI
+     */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showLine();
-        System.out.println(" Here are the matching tasks in your list:");
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        StringBuilder result = new StringBuilder();
+        result.append("Here are the matching tasks in your list:\n");
         int count = 1;
         for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).getDescription().contains(keyword)) {
-                System.out.println(" " + count + "." + tasks.get(i));
-                count++;
+            Task task = tasks.get(i);
+            if (task.getDescription().contains(keyword)) {
+                result.append(String.format(" %d. %s\n", count++, task));
             }
         }
-        ui.showLine();
+        return result.toString();
     }
 
     @Override

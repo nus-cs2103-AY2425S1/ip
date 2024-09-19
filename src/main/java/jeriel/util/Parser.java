@@ -33,6 +33,8 @@ public class Parser {
                 return new DeleteCommand(arguments);
             case "bye":
                 return new ExitCommand();
+            case "help":
+                return new HelpCommand();
             default:
                 throw new JerielException("I'm sorry, but I don't know what that means :-(");
         }
