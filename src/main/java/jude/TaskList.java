@@ -2,7 +2,6 @@ package jude;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BinaryOperator;
 
 import jude.task.Task;
 
@@ -58,11 +57,7 @@ public class TaskList {
 
     /** Returns the String representation of the TaskList to be written in the save file. */
     public String toFileFormat() {
-        StringBuilder sb = new StringBuilder();
-        for (Task task : list) {
-            sb.append(task.toFileFormat()).append("\n");
-        }
-        return sb.toString();
+        return list.stream().map(x -> x.toFileFormat()).reduce("", (x, y) -> y + x + "\n");
     }
 
     /** Returns the String representation of the TaskList to be displayed on the Ui. */
