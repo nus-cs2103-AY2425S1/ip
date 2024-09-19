@@ -59,8 +59,8 @@ public class Storage {
                 String input = s.nextLine();
                 final String separator = " \\| ";
                 String[] elements = input.split(separator);
-                boolean invalidLength = elements.length < 1;
-                if (invalidLength) {
+                boolean isInvalidLength = elements.length < 1;
+                if (isInvalidLength) {
                     throw new CorruptedFileException();
                 } else {
                     result.add(Task.read(elements));

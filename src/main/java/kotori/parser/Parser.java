@@ -58,9 +58,7 @@ public class Parser {
             return new SearchCommand(list, input.substring(lengthOfSearch));
         } else if (input.startsWith("find ")) {
             return new FindCommand(list, input.substring(lengthOfFind));
-        } else if (input.startsWith("todo ")
-                || input.startsWith("deadline ")
-                || input.startsWith("event ")) {
+        } else if (isAdd(input)) {
             return new AddCommand(storage, list, input);
         } else {
             return new ErrorCommand("Sorry, I can not understand this command Q_Q\nPlease enter a valid command");
@@ -119,5 +117,16 @@ public class Parser {
         } catch (InvalidNumberOfArgumentException e) {
             return new ErrorCommand(e.getMessage());
         }
+    }
+    /**
+     * Check if the input start with add type keywords.
+     * */
+    private boolean isAdd(String input) {
+        return input.startsWith("todo ")
+                || input.startsWith("deadline ")
+                || input.startsWith("event ")
+                || input.equals("todo")
+                || input.equals("deadline")
+                || input.equals("event");
     }
 }
