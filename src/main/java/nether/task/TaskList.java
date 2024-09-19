@@ -105,4 +105,10 @@ public class TaskList {
         return new TaskList(matchingTasks);
     }
 
+    public TaskList searchTag(String searchString) {
+        List<Task> matchingTasks = tasks.stream()
+                .filter(task -> task.getTag().toLowerCase().contains(searchString))
+                .collect(Collectors.toList());
+        return new TaskList(matchingTasks);
+    }
 }

@@ -1,2 +1,4 @@
 T| |Chores|Buy groceries
 D|X|School|Submit CS2103T assignment|2024-09-19 2359
+E| |School|Festival|2024-09-01 0700|2024-09-30 2300
+T| ||Read Book

@@ -17,7 +17,13 @@ public class FindCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        TaskList searchResult = tasks.searchTask(searchString);
+        TaskList searchResult;
+        if (searchString.startsWith("#")) {
+            searchResult = tasks.searchTag(searchString.substring(1).toLowerCase().trim());
+            // search from 2nd character onwards
+        } else {
+            searchResult = tasks.searchTask(searchString);
+        }
         return ui.printMatchingTasks(searchResult);
     }
 
