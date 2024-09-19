@@ -36,7 +36,6 @@ public class ChatData {
             for (Task task : arrayListOfTasks) {
                 try {
                     fileWriter.write(task.toString() + "\n");
-                    System.out.println("saved");
                 } catch (IOException e) {
                     throw new ChatHistoryFileInvalidException();
                 }

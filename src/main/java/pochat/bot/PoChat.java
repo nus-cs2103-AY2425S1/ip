@@ -1,4 +1,7 @@
 package pochat.bot;
+import pochat.exceptions.DateTimeInvalidException;
+import pochat.exceptions.DeadlineFormatInvalidException;
+import pochat.exceptions.EventFormatInvalidException;
 import pochat.exceptions.TaskDescriptionEmptyException;
 
 /**
@@ -40,9 +43,9 @@ public class PoChat {
     public String getResponse(String textInput) {
         try {
             return Parser.of(this.taskList).parse(textInput);
-        } catch (TaskDescriptionEmptyException e) {
-            return "Task description cannot be empty!! Please try again";
+        } catch (DeadlineFormatInvalidException | DateTimeInvalidException
+                 | TaskDescriptionEmptyException | EventFormatInvalidException e) {
+            return e.getMessage();
         }
     }
-
 }

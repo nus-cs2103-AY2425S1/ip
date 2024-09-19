@@ -1,5 +1,12 @@
 package pochat.bot;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import pochat.exceptions.DateTimeInvalidException;
+import pochat.exceptions.DeadlineFormatInvalidException;
+import pochat.exceptions.EventFormatInvalidException;
 import pochat.exceptions.TaskDescriptionEmptyException;
 import pochat.exceptions.TaskIndexInvalidException;
 import pochat.tasks.Deadline;
@@ -29,7 +36,8 @@ class Parser {
      *     <code>false</code> which means the conversation continues
      */
 
-    public String parse(String textInput) throws TaskDescriptionEmptyException {
+    public String parse(String textInput) throws DeadlineFormatInvalidException,
+            DateTimeInvalidException, TaskDescriptionEmptyException, EventFormatInvalidException {
         if (textInput.equals("bye")) {
             return replyGoodbye();
         } else if (textInput.equals(("list"))) {
@@ -128,16 +136,14 @@ class Parser {
             int taskDescriptionStart = 5;
             String taskDescription = textInput.substring(taskDescriptionStart);
 
-            if (taskDescription.isEmpty()) {
-                throw new TaskDescriptionEmptyException();
-            }
             return replyAndAddTask(taskDescription);
         } catch (StringIndexOutOfBoundsException e) {
             throw new TaskDescriptionEmptyException();
         }
     }
 
-    private String replyAndAddDeadline(String textInput) throws TaskDescriptionEmptyException {
+    private String replyAndAddDeadline(String textInput) throws DeadlineFormatInvalidException,
+            DateTimeInvalidException {
         try {
             int byIndex = textInput.indexOf("/by");
 
@@ -148,17 +154,18 @@ class Parser {
             int deadlineStart = byIndex + 4;
             String deadline = textInput.substring(deadlineStart);
 
-            if (taskDescription.isEmpty()) {
-                throw new TaskDescriptionEmptyException();
+            if (!isValidDateTime((deadline))) {
+                throw new DateTimeInvalidException();
             }
 
             return replyAndAddTask(taskDescription, deadline);
         } catch (StringIndexOutOfBoundsException e) {
-            throw new TaskDescriptionEmptyException();
+            throw new DeadlineFormatInvalidException();
         }
     }
 
-    private String replyAndAddEvent(String textInput) throws TaskDescriptionEmptyException {
+    private String replyAndAddEvent(String textInput) throws DateTimeInvalidException,
+            EventFormatInvalidException {
         try {
             int fromIndex = textInput.indexOf("/from");
             int toIndex = textInput.indexOf("/to");
@@ -174,13 +181,13 @@ class Parser {
             int endDateStart = toIndex + 4;
             String endDate = textInput.substring(endDateStart);
 
-            if (taskDescription.isEmpty()) {
-                throw new TaskDescriptionEmptyException();
+            if (!isValidDateTime(startDate) || !isValidDateTime(endDate)) {
+                throw new DateTimeInvalidException();
             }
 
             return replyAndAddTask(taskDescription, startDate, endDate);
         } catch (StringIndexOutOfBoundsException e) {
-            throw new TaskDescriptionEmptyException();
+            throw new EventFormatInvalidException();
         }
     }
 
@@ -188,6 +195,15 @@ class Parser {
         int keywordStart = 5;
         String keyword = textInput.substring(keywordStart);
         return this.ui.findMatchingTasks(keyword, this.taskList);
+    }
+
+    private boolean isValidDateTime(String dateTime) {
+        try {
+            LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
     }
 
     int getNumTasks() {
