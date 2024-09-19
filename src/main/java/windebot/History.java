@@ -22,8 +22,8 @@ import tasks.Todos;
 public class History {
     private static final String WINDE_FILE = "./src/main/java/windebot/WindeTasks.txt";
     private static final String WINDE_ALTERNATE_FILE =
-            "/Users/winston/Desktop/Code/CS2103/ip/src/main/java/windebot/Winde.java";
-    private static final String WINDE_ANOTHER_FILE = "../src/main/java/windebot/Winde.java";
+            "/Users/winston/Desktop/Code/CS2103/ip/src/main/java/windebot/WindeTasks.txt";
+    private static final String WINDE_ANOTHER_FILE = "WindeTasks.txt";
 
     private static String filePath;
 
@@ -56,8 +56,6 @@ public class History {
         ArrayList<Task> taskList = new ArrayList<Task>();
         try {
             if (!file.exists()) {
-                file.createNewFile();
-                file.getParentFile().mkdirs();
                 file.createNewFile();
                 // file.exists();
             }
@@ -113,7 +111,7 @@ public class History {
 
     public static void save(ArrayList<Task> reminder) {
         try {
-            FileWriter fw = new FileWriter(WINDE_FILE);
+            FileWriter fw = new FileWriter(WINDE_ANOTHER_FILE);
             for (Task tasks : reminder) {
                 fw.write(tasks.toString() + "\n");
             }
