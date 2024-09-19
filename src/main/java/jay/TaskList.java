@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jay.command.InvalidCommandException;
-import jay.storage.DataIOException;
+import jay.storage.DataIoException;
 import jay.storage.InvalidDataFormatException;
 import jay.storage.Storage;
-import jay.task.InvalidTaskException;
 import jay.task.Task;
 
 /**
@@ -30,7 +29,7 @@ public class TaskList {
 
         try {
             this.loadTasks();
-        } catch (DataIOException | InvalidDataFormatException e) {
+        } catch (DataIoException | InvalidDataFormatException e) {
             this.tasks.clear();
             this.taskCount = 0;
         }
@@ -48,9 +47,9 @@ public class TaskList {
      * @param taskNumber The index of the task need to be marked.
      * @return The marked task.
      * @throws InvalidCommandException If the task number is invalid.
-     * @throws DataIOException If there is an error saving the tasks.
+     * @throws DataIoException If there is an error saving the tasks.
      */
-    public Task markAsDone(int taskNumber) throws DataIOException, InvalidCommandException {
+    public Task markAsDone(int taskNumber) throws DataIoException, InvalidCommandException {
         this.isValidTaskNumberCheck(taskNumber);
         this.tasks.get(taskNumber - 1).markAsDone();
         this.saveTasks();
@@ -63,9 +62,9 @@ public class TaskList {
      * @param taskNumber The index of the Jay.task.
      * @return The marked task.
      * @throws InvalidCommandException If the task number is invalid.
-     * @throws DataIOException If there is an error saving the tasks.
+     * @throws DataIoException If there is an error saving the tasks.
      */
-    public Task markAsNotDone(int taskNumber) throws DataIOException, InvalidCommandException {
+    public Task markAsNotDone(int taskNumber) throws DataIoException, InvalidCommandException {
         this.isValidTaskNumberCheck(taskNumber);
         this.tasks.get(taskNumber - 1).markAsNotDone();
         this.saveTasks();
@@ -101,9 +100,9 @@ public class TaskList {
      * Adds a task to the task list.
      *
      * @param task The task to be added.
-     * @throws DataIOException If there is an error saving the tasks.
+     * @throws DataIoException If there is an error saving the tasks.
      */
-    public void addTask(Task task) throws DataIOException {
+    public void addTask(Task task) throws DataIoException {
         this.tasks.add(task);
         this.taskCount++;
         this.saveTasks();
@@ -114,10 +113,10 @@ public class TaskList {
      *
      * @param taskNumber The index of the task need to be removed.
      * @return The removed task.
-     * @throws DataIOException If there is an error saving the tasks.
+     * @throws DataIoException If there is an error saving the tasks.
      * @throws InvalidCommandException If the task number is invalid.
      */
-    public Task removeTask(int taskNumber) throws DataIOException, InvalidCommandException {
+    public Task removeTask(int taskNumber) throws DataIoException, InvalidCommandException {
         this.isValidTaskNumberCheck(taskNumber);
 
         Task task = this.tasks.get(taskNumber - 1);
@@ -176,11 +175,11 @@ public class TaskList {
         return tasksStr.toString();
     }
 
-    private void saveTasks() throws DataIOException {
+    private void saveTasks() throws DataIoException {
         this.storage.saveTasks(this.getSimpleTaskList());
     }
 
-    private void loadTasks() throws DataIOException, InvalidDataFormatException {
+    private void loadTasks() throws DataIoException, InvalidDataFormatException {
         this.tasks = this.storage.loadTasks();
         this.taskCount = tasks.size();
     }
@@ -204,10 +203,10 @@ public class TaskList {
      *
      * @param taskNumber The index of the task.
      * @param priority The priority to be set.
-     * @throws DataIOException If there is an error saving the tasks.
+     * @throws DataIoException If there is an error saving the tasks.
      * @throws InvalidCommandException If the task number is invalid.
      */
-    public Task setPriority(int taskNumber, Task.Priority priority) throws DataIOException, InvalidCommandException {
+    public Task setPriority(int taskNumber, Task.Priority priority) throws DataIoException, InvalidCommandException {
         assert priority != null : "Priority should not be null";
 
         if (priority == Task.Priority.Unknown) {

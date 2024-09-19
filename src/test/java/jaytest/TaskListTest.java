@@ -1,18 +1,20 @@
 package jaytest;
 
-import jay.TaskList;
-import jay.command.InvalidCommandException;
-import org.junit.jupiter.api.Test;
-import jay.parser.InvalidDateException;
-import jay.parser.InvalidTimeException;
-import jay.storage.DataIOException;
-import jay.task.DeadlineTask;
-import jay.task.EventTask;
-import jay.task.Task;
-import jay.task.ToDoTask;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
+import jay.TaskList;
+import jay.command.InvalidCommandException;
+import jay.parser.InvalidDateException;
+import jay.parser.InvalidTimeException;
+import jay.storage.DataIoException;
+import jay.task.DeadlineTask;
+import jay.task.EventTask;
+import jay.task.InvalidTaskException;
+import jay.task.Task;
+import jay.task.ToDoTask;
 
 public class TaskListTest {
 
@@ -43,7 +45,7 @@ public class TaskListTest {
 
         try {
             taskList.addTask(new Task("test", false, Task.Priority.Low));
-        } catch (DataIOException e) {
+        } catch (DataIoException e) {
             e.printStackTrace();
         }
 
@@ -56,13 +58,13 @@ public class TaskListTest {
 
         try {
             taskList.addTask(new Task("test", false, Task.Priority.Low));
-        } catch (DataIOException e) {
+        } catch (DataIoException e) {
             e.printStackTrace();
         }
 
         try {
             taskList.removeTask(1);
-        } catch (DataIOException | InvalidCommandException e) {
+        } catch (DataIoException | InvalidCommandException e) {
             e.printStackTrace();
         }
 
@@ -75,14 +77,14 @@ public class TaskListTest {
 
         try {
             taskList.addTask(new ToDoTask("test", false, Task.Priority.Low));
-        } catch (DataIOException e) {
+        } catch (DataIoException e) {
             e.printStackTrace();
         }
 
         try {
             Task task = taskList.markAsDone(1);
             assertEquals("[T][X] test { Priority: Low }", task.toString());
-        } catch (DataIOException | InvalidCommandException e) {
+        } catch (DataIoException | InvalidCommandException e) {
             e.printStackTrace();
         }
 
@@ -95,14 +97,14 @@ public class TaskListTest {
 
         try {
             taskList.addTask(new Task("test", true, Task.Priority.Low));
-        } catch (DataIOException e) {
+        } catch (DataIoException e) {
             e.printStackTrace();
         }
 
         try {
             Task task = taskList.markAsNotDone(1);
             assertEquals("[ ] test { Priority: Low }", task.toString());
-        } catch (DataIOException | InvalidCommandException e) {
+        } catch (DataIoException | InvalidCommandException e) {
             e.printStackTrace();
         }
 
@@ -118,7 +120,7 @@ public class TaskListTest {
             taskList.addTask(new DeadlineTask("test", false, Task.Priority.Low, "28-07-2024"));
             taskList.addTask(new EventTask("test", false, Task.Priority.Low,
                     "28-07-2024", "1400", "1800"));
-        } catch (DataIOException | InvalidDateException | InvalidTimeException e) {
+        } catch (DataIoException | InvalidDateException | InvalidTimeException | InvalidTaskException e) {
             e.printStackTrace();
         }
 
@@ -138,7 +140,7 @@ public class TaskListTest {
             taskList.addTask(new EventTask("test", false, Task.Priority.Low,
                     "28-07-2024", "1400",
                     "1800"));
-        } catch (DataIOException | InvalidDateException | InvalidTimeException e) {
+        } catch (DataIoException | InvalidDateException | InvalidTimeException | InvalidTaskException e) {
             e.printStackTrace();
         }
 

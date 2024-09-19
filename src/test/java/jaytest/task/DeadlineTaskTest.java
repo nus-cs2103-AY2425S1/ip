@@ -1,12 +1,13 @@
 package jaytest.task;
 
-import jay.task.DeadlineTask;
-import jay.task.Task;
-import org.junit.jupiter.api.Test;
-import jay.parser.InvalidDateException;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import jay.parser.InvalidDateException;
+import jay.task.DeadlineTask;
+import jay.task.Task;
 
 public class DeadlineTaskTest {
     @Test

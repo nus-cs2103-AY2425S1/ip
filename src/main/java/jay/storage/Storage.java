@@ -9,7 +9,11 @@ import java.util.ArrayList;
 
 import jay.parser.InvalidDateException;
 import jay.parser.InvalidTimeException;
-import jay.task.*;
+import jay.task.DeadlineTask;
+import jay.task.EventTask;
+import jay.task.InvalidTaskException;
+import jay.task.Task;
+import jay.task.ToDoTask;
 
 /**
  * Represents the storage of tasks.
@@ -33,9 +37,9 @@ public class Storage {
      * Saves the tasks to the file.
      *
      * @param taskList The list of tasks to be saved.
-     * @throws DataIOException If there is an error saving the tasks.
+     * @throws DataIoException If there is an error saving the tasks.
      */
-    public void saveTasks(String taskList) throws DataIOException {
+    public void saveTasks(String taskList) throws DataIoException {
         try {
             // Create the folder if it does not exist
             if (Files.notExists(this.folderPath)) {
@@ -45,7 +49,7 @@ public class Storage {
             Files.write(filePath, taskList.getBytes(),
                     StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
         } catch (IOException e) {
-            throw new DataIOException("OOPS!!! There was an error saving the tasks to the file.");
+            throw new DataIoException("OOPS!!! There was an error saving the tasks to the file.");
         }
     }
 
@@ -54,15 +58,15 @@ public class Storage {
      * Loads the tasks from the file.
      *
      * @return The list of tasks loaded from the file.
-     * @throws DataIOException If there is an error loading the tasks.
+     * @throws DataIoException If there is an error loading the tasks.
      * @throws InvalidDataFormatException If the data format is invalid.
      */
-    public ArrayList<Task> loadTasks() throws DataIOException, InvalidDataFormatException {
+    public ArrayList<Task> loadTasks() throws DataIoException, InvalidDataFormatException {
         try {
             ArrayList<Task> tasks = new ArrayList<>();
 
             if (Files.notExists(this.filePath)) {
-                throw new DataIOException("OOPS!!! The file does not exist.");
+                throw new DataIoException("OOPS!!! The file does not exist.");
             }
 
             String fileContent = Files.readString(filePath);
@@ -125,13 +129,13 @@ public class Storage {
                     tasks.add(new EventTask(description, isDone, taskPriority, date, startTime, endTime));
                     break;
                 default:
-                    throw new DataIOException("OOPS!!! There was an error loading the tasks from the file.");
+                    throw new DataIoException("OOPS!!! There was an error loading the tasks from the file.");
                 }
             }
 
            return tasks;
         } catch (IOException e) {
-            throw new DataIOException("OOPS!!! There was an error loading the tasks from the file.");
+            throw new DataIoException("OOPS!!! There was an error loading the tasks from the file.");
         } catch (InvalidDateException | InvalidTimeException e) {
             throw new InvalidDataFormatException("OOPS!!! There was an error loading the tasks from the file."
                     + " Please check the date and time format.");

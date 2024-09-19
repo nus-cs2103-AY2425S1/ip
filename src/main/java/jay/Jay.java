@@ -6,7 +6,7 @@ import jay.command.Command;
 import jay.command.InvalidCommandException;
 import jay.gui.ResponseMessageException;
 import jay.parser.Parser;
-import jay.storage.DataIOException;
+import jay.storage.DataIoException;
 import jay.task.InvalidTaskException;
 import jay.task.Task;
 
@@ -134,7 +134,7 @@ public class Jay {
             default:
                 throw new InvalidCommandException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
-        } catch (InvalidCommandException | InvalidTaskException | DataIOException e) {
+        } catch (InvalidCommandException | InvalidTaskException | DataIoException e) {
             throw new ResponseMessageException(e.getMessage());
         }
     }
@@ -159,7 +159,7 @@ public class Jay {
      * @param task The task to be added.
      * @return The response to the user.
      */
-    private String addTask(Task task) throws DataIOException {
+    private String addTask(Task task) throws DataIoException {
         assert task != null : "Task should not be null";
         this.tasks.addTask(task);
         return "Got it. I've added this task:\n" + task + "\n" + this.tasks.getTaskCount();
@@ -171,7 +171,7 @@ public class Jay {
      * @param taskNumber The number of the task to be deleted.
      * @return The response to the user.
      */
-    private String deleteTask(int taskNumber) throws DataIOException, InvalidCommandException {
+    private String deleteTask(int taskNumber) throws DataIoException, InvalidCommandException {
         Task task = this.tasks.removeTask(taskNumber);
         return "Noted. I've removed this task:\n" + task + "\n" + this.tasks.getTaskCount();
     }

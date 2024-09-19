@@ -1,16 +1,17 @@
 package jaytest.storage;
 
-import jay.storage.DataIOException;
-import jay.storage.InvalidDataFormatException;
-import jay.storage.Storage;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Test;
-import jay.task.Task;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
+
+import jay.storage.DataIoException;
+import jay.storage.InvalidDataFormatException;
+import jay.storage.Storage;
+import jay.task.Task;
 
 public class StorageTest {
     @Test
@@ -21,7 +22,7 @@ public class StorageTest {
 
         try {
             storage.saveTasks(taskList);
-        } catch (DataIOException e) {
+        } catch (DataIoException e) {
             fail("DataIOException should not be thrown.");
         }
     }
@@ -34,7 +35,7 @@ public class StorageTest {
         try {
             ArrayList<Task> tasks = storage.loadTasks();
             assertEquals(1, tasks.size());
-        } catch (DataIOException e) {
+        } catch (DataIoException e) {
             fail("DataIOException should not be thrown.");
         } catch (InvalidDataFormatException e) {
             fail("InvalidDataFormatException should not be thrown.");
@@ -48,7 +49,7 @@ public class StorageTest {
         try {
             storage.loadTasks();
             fail("DataIOException should be thrown.");
-        } catch (DataIOException e) {
+        } catch (DataIoException e) {
             assertEquals("OOPS!!! The file does not exist.", e.getMessage());
         } catch (InvalidDataFormatException e) {
             fail("InvalidDataFormatException should not be thrown.");
