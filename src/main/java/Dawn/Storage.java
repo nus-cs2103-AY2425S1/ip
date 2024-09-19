@@ -46,6 +46,7 @@ public class Storage {
                 Scanner s = new Scanner(f);
                 while (s.hasNextLine()) {
                     String[] taskContent = s.nextLine().split(" \\| ");
+                    assert taskContent.length >= 1;
                     TaskType type = TaskType.valueOf(taskContent[0]);
                     Task task = generateSavedTask(taskContent, type);
                     savedTasks.add(task);
@@ -69,12 +70,15 @@ public class Storage {
         Task task;
         switch (type) {
             case T:
+                assert taskContent.length >= 3;
                 task = new ToDo(taskContent[2]);
                 break;
             case D:
+                assert taskContent.length >= 4;
                 task = new Deadline(taskContent[2], taskContent[3]);
                 break;
             case E:
+                assert taskContent.length >= 5;
                 task = new Event(taskContent[2], taskContent[3], taskContent[4]);
                 break;
             default:
