@@ -1,5 +1,7 @@
 package max.task;
 
+import max.exception.MaxException;
+
 import java.util.ArrayList;
 
 /**
@@ -107,8 +109,10 @@ public class Task {
      *
      * @param tag The tag to be removed from the task.
      */
-    public void removeTag(String tag) {
-        tags.remove(tag);
+    public void removeTag(String tag) throws MaxException {
+        if (!tags.remove(tag)) {
+            throw new MaxException("This tag does not exist!");
+        }
     }
 
     /**

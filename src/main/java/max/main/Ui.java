@@ -1,6 +1,5 @@
 package max.main;
 
-import max.exception.MaxException;
 import max.task.Task;
 
 import java.util.ArrayList;

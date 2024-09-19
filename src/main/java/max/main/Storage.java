@@ -97,7 +97,7 @@ public class Storage {
 
             break;
         case "E":
-            task = new Event(parts[2], parts[3].replace(" /from", ""));
+            task = new Event(parts[2], parts[3].replaceFirst("/from ", ""));
 
             isTagged = parts.length > 4;
 
