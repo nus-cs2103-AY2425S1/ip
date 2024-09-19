@@ -65,6 +65,17 @@ Got it. I've added this task:
     [P][] collect certificate (from: 2024-08-25 to: 2024-08-25)
 Now you have x tasks in the list
 ```
+
+## Finding task : `find`
+This command will find a task in your list
+
+Example: `find stuff`
+
+```
+Here are the matching tasks in your list
+1. [T][X] stuff
+```
+
 ## Deleting task : `delete` 
 Deletes a task from the todo list
 
