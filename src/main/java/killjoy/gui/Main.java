@@ -30,13 +30,22 @@ public class Main extends Application {
         try {
             assert stage != null : "Stage must not be null";
             assert kj != null : "KillJoy instance must not be null";
-            AnchorPane mainLayout = loadFxml();
+            FXMLLoader fxmlLoader = loadFxml();
+            AnchorPane mainLayout = fxmlLoader.load();
             initializeScene(stage, mainLayout);
-            configureController();
+            fxmlLoader.<MainWindow>getController().setKj(kj);
+            kj.loadTasks("KillJoy.txt");
             showStage(stage);
+            showWelcomeMessage(fxmlLoader);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static void showWelcomeMessage(FXMLLoader fxmlLoader) {
+        MainWindow mw = fxmlLoader.getController();
+        mw.logo();
+        mw.welcomeMessage();
     }
 
     /**
@@ -45,9 +54,9 @@ public class Main extends Application {
      * @return The AnchorPane layout from the FXML.
      * @throws IOException if FXML loading fails.
      */
-    private AnchorPane loadFxml() throws IOException {
+    private FXMLLoader loadFxml() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
-        return fxmlLoader.load();
+        return fxmlLoader;
     }
 
     /**
@@ -61,20 +70,6 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.setMinHeight(MIN_STAGE_HEIGHT);
         stage.setMinWidth(MIN_STAGE_WIDTH);
-    }
-
-    /**
-     * Configures the controller with the necessary KillJoy instance and other tasks.
-     *
-     * @throws IOException if controller loading fails.
-     */
-    private void configureController() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
-        MainWindow controller = fxmlLoader.getController();
-        controller.setKj(kj);
-        kj.loadTasks();
-        controller.logo();
-        controller.welcomeMessage();
     }
 
     /**
