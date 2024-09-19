@@ -54,7 +54,7 @@ public class Storage {
         try (FileWriter fw = new FileWriter(filePath, false)) {
             assert file.length() == 0 : "File is not empty after clearing it";
         } catch (Exception e) {
-            System.out.println("Your code is super buggy");
+            System.out.println("Cannot write to file!");
         }
         try {
             FileWriter fw = new FileWriter(filePath, true);
@@ -66,6 +66,7 @@ public class Storage {
             for (String s : listForDisk) {
                 fw.write(s + System.lineSeparator());
             }
+            listForDisk.clear();
             fw.close();
         } catch (Exception e) {
             System.out.println("Your code is super buggy");
@@ -92,6 +93,11 @@ public class Storage {
             }
         } catch (Exception e) {
             System.out.println("Your code is buggy");
+        }
+        try (FileWriter fw = new FileWriter(filePath, false)) {
+            assert file.length() == 0 : "File is not empty after clearing it";
+        } catch (Exception e) {
+            System.out.println("File not clear after loadfile");
         }
         return taskList;
     }
