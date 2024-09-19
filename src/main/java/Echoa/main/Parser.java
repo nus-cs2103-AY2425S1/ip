@@ -265,6 +265,7 @@ public class Parser {
      * @param indexString indexString contains a possible label
      * @return the index (0-indexed)
      */
+    // Solution below is inspired by AI: REGEX, Pattern and Matcher
     public int parseIndex(String indexString) throws InvalidIndexInputException {
         String[] lineArray = indexString.split("\\s+");
         int numOfWords = lineArray.length;
@@ -289,6 +290,7 @@ public class Parser {
      * @return index (label - 1)
      * @throws InvalidIndexInputException if the index is out of the list or no numerical value inputted.
      */
+    // Solution below is inspired by AI: REGEX, Pattern and Matcher
     public int parseUpdateIndex(String indexString) throws InvalidIndexInputException {
         String[] lineArray = indexString.split("\\s+", 2);
         trimSplitCommands(lineArray);

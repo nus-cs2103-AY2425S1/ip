@@ -29,6 +29,7 @@ public class Echoa {
      * @param input Input String.
      * @return String without the first word.
      */
+    // Solution below inspired by AI
     public static String removeFirstWord(String input) {
         if (input == null || input.trim().isEmpty()) {
             return input;
