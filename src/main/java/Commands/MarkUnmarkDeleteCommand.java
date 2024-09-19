@@ -44,11 +44,11 @@ public class MarkUnmarkDeleteCommand extends Command {
         assert taskNum > 0 && taskNum < TaskList.getList().size() : "Task number should be within the correct " +
                 "range.";
 
-        Task t = TaskList.getList().get(taskNum - 1);
-
         if (taskNum < 1 || taskNum > TaskList.getList().size()) {
             return "Task number is out of range. Please retry.";
         }
+
+        Task t = TaskList.getList().get(taskNum - 1);
 
         if (stringList[0].equals("mark")) {
             if(t.getProgress()) {

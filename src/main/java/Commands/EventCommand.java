@@ -1,5 +1,6 @@
 package Commands;
 
+import exception.InvalidDeadlineException;
 import task.EventTask;
 import task.TaskList;
 import ui.Ui;
@@ -15,20 +16,23 @@ public class EventCommand extends GeneralTaskCommand {
 
     @Override
     public String commandAction() {
-        // split again after from
-        // split again after to
-        String[] firstSplit = this.cmd.split(" /from ", 2);
-        String taskDes = firstSplit[0];
-        String second = firstSplit[1];
+        try {
+            // split again after from
+            // split again after to
+            String[] firstSplit = this.cmd.split(" /from ", 2);
+            String taskDes = firstSplit[0];
+            String second = firstSplit[1];
 
-        String[] secondSplit = second.split(" /to ", 2);
-        assert secondSplit.length == 2 : "Event task should be properly formatted with '/from' and '/to'";
-        String from = secondSplit[0];
-        String to = secondSplit[1];
+            String[] secondSplit = second.split(" /to ", 2);
+            assert secondSplit.length == 2 : "Event task should be properly formatted with '/from' and '/to'";
+            String from = secondSplit[0];
+            String to = secondSplit[1];
 
-        EventTask tsk = new EventTask(taskDes, from, to);
-        TaskList.addTask(tsk);
-        return Ui.taskAddDescription(tsk);
+            EventTask tsk = new EventTask(taskDes, from, to);
+            TaskList.addTask(tsk);
+            return Ui.taskAddDescription(tsk);
+        } catch (InvalidDeadlineException e) {
+            return e.getMessage();
+        }
     }
-
 }

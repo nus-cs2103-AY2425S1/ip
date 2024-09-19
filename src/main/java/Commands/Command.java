@@ -1,5 +1,7 @@
 package Commands;
 
+import exception.InvalidDeadlineException;
+
 public abstract class Command {
 
     public String cmd;

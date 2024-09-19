@@ -1,5 +1,6 @@
 package getTask;
 
+import exception.InvalidDeadlineException;
 import task.EventTask;
 import task.Task;
 import task.ToDoTask;
@@ -25,12 +26,17 @@ public class getEventTask extends getGeneralTask {
      */
     @Override
     public Task getHelperTaskFromFile() {
-        String from = this.fromTime;
-        String to = this.toTime;
-        EventTask task = new EventTask(this.des, from, to);
-        if (this.status) {
-            task.markDone();
+        try {
+            String from = this.fromTime;
+            String to = this.toTime;
+            EventTask task = new EventTask(this.des, from, to);
+            if (this.status) {
+                task.markDone();
+            }
+            return task;
+        } catch (InvalidDeadlineException e) {
+            System.out.println(e.getMessage());
+            return null;
         }
-        return task;
     }
 }
