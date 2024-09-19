@@ -21,8 +21,13 @@ public class Main extends Application {
         try {
             primaryStage = stage;
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+
+            stage.setMinHeight(220);
+            stage.setMinWidth(417);
+
             stage.setTitle("Rex");
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setRex(rex); // inject the Rex instance

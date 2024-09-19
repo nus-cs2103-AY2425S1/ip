@@ -50,7 +50,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = rex.getResponse(input);
+        String response = rex.getResponse(input)  + "\n";
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getRexDialog(response, rexImage)
@@ -58,6 +58,8 @@ public class MainWindow extends AnchorPane {
 
         // Exit application if bye command entered
         if (input.equalsIgnoreCase("bye")) {
+            userInput.setDisable(true);
+            sendButton.setDisable(true);
             PauseTransition delay = new PauseTransition(Duration.seconds(2));
             delay.setOnFinished(event -> Main.exit());
             delay.play();
