@@ -2,12 +2,8 @@ package vecrosen;
 
 import javafx.application.Application;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.NoSuchElementException;
-
 /**
- * The main application. Essentially a memo app.
+ * The entrance point of the application.
  */
 public class Vecrosen {
 

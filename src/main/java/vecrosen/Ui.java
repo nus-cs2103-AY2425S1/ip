@@ -5,8 +5,6 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import javafx.beans.Observable;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -18,7 +16,7 @@ import javafx.scene.layout.VBox;
 /**
  * Handles receiving input and displaying output to/from the user.
  */
-public class Ui extends AnchorPane{
+public class Ui extends AnchorPane {
     private Scanner input;
     private PrintStream output;
     @FXML

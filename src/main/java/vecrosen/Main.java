@@ -1,21 +1,23 @@
 package vecrosen;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+
+/**
+ * The main logic of the application. Essentially a memo app.
+ */
 public class Main extends Application {
     private static Ui ui;
-    public static TaskList taskList;
-    public static File data;
+    private static TaskList taskList;
+    private static File data;
 
     @Override
     public void start(Stage stage) {
@@ -44,6 +46,10 @@ public class Main extends Application {
         //ui.speak("What can I do for you?");
     }
 
+    /**
+     * Determines the response to the given user input.
+     * @param input Input provided by the user.
+     */
     public static void respond(String input) {
         int itemNo;
         String desc;
@@ -111,6 +117,5 @@ public class Main extends Application {
             System.err.println("Action type not recognized!");
         }
         taskList.save(data);
-
-    }
+    } // TODO shorten
 }
