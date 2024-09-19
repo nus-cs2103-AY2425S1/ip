@@ -14,6 +14,9 @@ import juno.task.Task;
  * by the TaskManager.
  */
 public class ListCommand extends Command {
+    private static final String EMPTY_TASK_LIST_STRING = "\uD83C\uDF31 No tasks added yet! "
+            + "Why not plant the first seed? \uD83C\uDF31";
+    private static final String RUNDOWN_TASK_STRING = "Here's a rundown of all your tasks! \uD83D\uDE0A";
     private ArrayList<Task> tasks;
 
     /**
@@ -38,10 +41,9 @@ public class ListCommand extends Command {
     @Override
     public String runCommand() throws TaskManagerException {
         if (this.tasks.isEmpty()) {
-            throw new TaskManagerException("\uD83C\uDF31 No tasks added yet! "
-                    + "Why not plant the first seed? \uD83C\uDF31", TaskManagerException.ErrorType.EMPTY_LIST);
+            throw new TaskManagerException(EMPTY_TASK_LIST_STRING, TaskManagerException.ErrorType.EMPTY_LIST);
         }
-        StringBuilder outString = new StringBuilder("Here's a rundown of all your tasks! \uD83D\uDE0A");
+        StringBuilder outString = new StringBuilder(RUNDOWN_TASK_STRING);
 
         String taskList = IntStream.range(0, this.tasks.size())
                 .mapToObj(i -> String.format("%d. %s", (i + 1), this.tasks.get(i).toString()))

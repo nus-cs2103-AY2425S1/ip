@@ -15,7 +15,12 @@ import juno.task.Task;
  */
 
 public class MarkCommand extends Command {
-    private TaskManager taskManager;
+    private static final String SPLIT_TASK_DELIMITER = "\\s+";
+    private static final String INVALID_MARK_TASK_NUMBER_STRING = "\uD83D\uDE15 Hmm, something went wrong. "
+            + "Please enter a task number after mark/unmark/delete command. "
+            + "(\uD83D\uDCA1 Tip: You can type \"list\" to see task numbers)";
+    private static final String TASK_OUT_OF_RANGE_ERROR = "\uD83D\uDEAB Oops! That task number is out of range. "
+            + "(\uD83D\uDCA1 Tip: You can type \"list\" to see task numbers)";
     private FileManager fileManager;
     private String userInput;
     private ArrayList<Task> tasks;
@@ -32,7 +37,6 @@ public class MarkCommand extends Command {
      */
     public MarkCommand(String userInput, TaskManager taskManager, FileManager fileManager, boolean isMarked) {
         this.userInput = userInput;
-        this.taskManager = taskManager;
         this.fileManager = fileManager;
         this.tasks = taskManager.getTasksArray();
         this.isMarked = isMarked;
@@ -52,7 +56,7 @@ public class MarkCommand extends Command {
     public String runCommand() throws TaskManagerException {
         try {
             assert this.userInput != null : "User input in MarkCommand() cannot be null!";
-            int taskNumber = Integer.parseInt(this.userInput.split("\\s+", 2)[1]) - 1;
+            int taskNumber = Integer.parseInt(this.userInput.split(SPLIT_TASK_DELIMITER, 2)[1]) - 1;
             if (taskNumber >= 0 && taskNumber < this.tasks.size()) {
                 Task taskToMark = this.tasks.get(taskNumber);
                 StringBuilder outString;
@@ -64,14 +68,11 @@ public class MarkCommand extends Command {
                 outString.append("\n").append("  ").append(this.tasks.get(taskNumber).toString());
                 return outString.toString();
             } else {
-                throw new TaskManagerException("\uD83D\uDEAB Oops! That task number is out of range. "
-                        + "(\uD83D\uDCA1 Tip: You can type \"list\" to see task numbers)",
+                throw new TaskManagerException(TASK_OUT_OF_RANGE_ERROR,
                         TaskManagerException.ErrorType.TASK_OUT_OF_RANGE);
             }
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
-            throw new TaskManagerException("\uD83D\uDE15 Hmm, something went wrong. "
-                    + "Please enter a task number after mark/unmark/delete command. "
-                    + "(\uD83D\uDCA1 Tip: You can type \"list\" to see task numbers)",
+            throw new TaskManagerException(INVALID_MARK_TASK_NUMBER_STRING,
                     TaskManagerException.ErrorType.INVALID_MARK_TASK_NUMBER);
         } finally {
             this.fileManager.writeTasksToFile(this.tasks);

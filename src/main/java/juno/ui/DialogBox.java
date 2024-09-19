@@ -19,6 +19,7 @@ import javafx.scene.layout.HBox;
  * and a label containing text from the speaker.
  */
 public class DialogBox extends HBox {
+    private static final String USER_DIALOG_CSS_CLASS_STRING = "user-dialog";
     @FXML
     private Label dialog;
     @FXML
@@ -51,7 +52,7 @@ public class DialogBox extends HBox {
 
     public static DialogBox getUserDialog(String text, Image img) {
         var db = new DialogBox(text, img);
-        db.getStyleClass().add("user-dialog");
+        db.getStyleClass().add(USER_DIALOG_CSS_CLASS_STRING);
         return db;
     }
 

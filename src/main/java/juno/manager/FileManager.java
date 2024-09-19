@@ -81,12 +81,13 @@ public class FileManager {
             Type taskListType = new TypeToken<ArrayList<Task>>() {}.getType();
             tasks = this.gsonInstance.fromJson(reader, taskListType);
         } catch (JsonSyntaxException e) {
-            dialogContainer.getChildren().addAll(DialogBox.getJunoDialog(INCORRECT_CONTENT_FORMAT, junoImage));
+            this.dialogContainer.getChildren().addAll(DialogBox.getJunoDialog(
+                    INCORRECT_CONTENT_FORMAT, this.junoImage));
             this.handleCorruptedFile();
         } catch (IOException e) {
-            dialogContainer.getChildren().addAll(DialogBox.getJunoDialog(
+            this.dialogContainer.getChildren().addAll(DialogBox.getJunoDialog(
                     ERROR_RETRIEVING_DATA_STRING + e.getMessage(),
-                    junoImage));
+                    this.junoImage));
         }
         return tasks;
     }
@@ -116,11 +117,12 @@ public class FileManager {
             try {
                 this.ensureFileExist();
             } catch (TaskManagerException e) {
-                dialogContainer.getChildren().addAll(DialogBox.getJunoDialog(e.getMessage(), junoImage));
+                this.dialogContainer.getChildren().addAll(DialogBox.getJunoDialog(e.getMessage(), this.junoImage));
             }
-            dialogContainer.getChildren().addAll(DialogBox.getJunoDialog(FILE_CREATED_STRING, junoImage));
+            this.dialogContainer.getChildren().addAll(DialogBox.getJunoDialog(FILE_CREATED_STRING, this.junoImage));
         } else {
-            dialogContainer.getChildren().addAll(DialogBox.getJunoDialog(CANNOT_DELETE_FILE_STRING, junoImage));
+            this.dialogContainer.getChildren().addAll(DialogBox.getJunoDialog(
+                    CANNOT_DELETE_FILE_STRING, this.junoImage));
         }
     }
 }

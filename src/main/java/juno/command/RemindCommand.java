@@ -13,11 +13,15 @@ import juno.task.Task;
  */
 public class RemindCommand extends Command {
 
+    private static final String JUNO_REMINDER_STRING = "\uD83C\uDF1F Juno's Reminder! \uD83C\uDF1F\n"
+            + "You’ve got some tasks on the horizon that need your magic touch! ✨"
+            + "Don't let these slip through the skies!\nHere's your task(s) due soon:";
+
     private static final long TIME_TO_SCHEDULE = 12;
     private static final String NO_TASK_STRING = "No upcoming tasks for schedule! "
             + "Try creating one with the add commands.";
-    private String eventString = "event";
-    private String deadlineString = "deadline";
+    private final String eventString = "event";
+    private final String deadlineString = "deadline";
     private ArrayList<Task> tasks;
 
 
@@ -52,9 +56,7 @@ public class RemindCommand extends Command {
         if (taskToRemind.isEmpty()) {
             return "";
         }
-        StringBuilder outString = new StringBuilder("\uD83C\uDF1F Juno's Reminder! \uD83C\uDF1F\n"
-                + "You’ve got some tasks on the horizon that need your magic touch! ✨"
-                + "Don't let these slip through the skies!\nHere's your task(s) due soon:");
+        StringBuilder outString = new StringBuilder(JUNO_REMINDER_STRING);
 
         String taskList = IntStream.range(0, taskToRemind.size())
                 .mapToObj(i -> String.format("%d. %s", (i + 1), taskToRemind.get(i).toString()))
@@ -69,6 +71,6 @@ public class RemindCommand extends Command {
         return outString.toString();
     }
     public String returningStringToUser() {
-        return RemindCommand.NO_TASK_STRING;
+        return NO_TASK_STRING;
     }
 }

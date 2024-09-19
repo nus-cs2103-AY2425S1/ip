@@ -13,6 +13,13 @@ import juno.task.Task;
 public class AddDeadlineCommand extends AddCommand {
 
     private static final String TASK_TYPE = "deadline";
+    private static final String SPLIT_TASK_DELIMITER = "\\s+";
+    private static final String SPLIT_TASK_INFO_DELIMITER = "/";
+    private static final String DUPLICATE_TASK_ERROR = "This task is already in your list! "
+            + "Maybe you can try renaming it and input again?";
+    private static final String INVALID_ADD_TASK_ERROR = "\uD83D\uDE15 Hmm, something went wrong. Did you add task "
+            + "correctly? (\uD83D\uDCA1 Tip: Use \"add {Specify Task Type e.g. todo, deadline, or event} "
+            + "/ {Input task description here}\" to add a task)";
 
     /**
      * Constructs an AddDeadlineCommand instance that takes in a specified user input, TaskManager instance,
@@ -45,21 +52,17 @@ public class AddDeadlineCommand extends AddCommand {
         assert this.userInput != null : "User input in AddDeadlineCommand() cannot be null!";
         assert this.tasks != null : "Task array should not be null!";
         try {
-            taskInfo = userInput.split("\\s+", 3)[2];
-            String[] taskInfoArray = taskInfo.split("/", 2);
+            taskInfo = this.userInput.split(SPLIT_TASK_DELIMITER, 3)[2];
+            String[] taskInfoArray = taskInfo.split(SPLIT_TASK_INFO_DELIMITER, 2);
             taskDescription = taskInfoArray[0];
             // Check if the task already exists
             if (super.taskManager.isDuplicateTask(taskDescription)) {
-                throw new TaskManagerException("This task is already in your list! "
-                        + "Maybe you can try renaming it and input again?",
-                        TaskManagerException.ErrorType.DUPLICATE_TASK);
+                throw new TaskManagerException(DUPLICATE_TASK_ERROR, TaskManagerException.ErrorType.DUPLICATE_TASK);
             }
             t = new Deadline(taskDescription, taskInfoArray[1], AddDeadlineCommand.TASK_TYPE);
 
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
-            throw new TaskManagerException("\uD83D\uDE15 Hmm, something went wrong. Did you add task correctly? "
-                    + "(\uD83D\uDCA1 Tip: Use \"add {Specify Task Type e.g. todo, deadline, or event} "
-                    + "/ {Input task description here}\" to add a task)",
+            throw new TaskManagerException(INVALID_ADD_TASK_ERROR,
                     TaskManagerException.ErrorType.INVALID_ADD_TASK_NUMBER);
         }
         this.tasks.add(t);

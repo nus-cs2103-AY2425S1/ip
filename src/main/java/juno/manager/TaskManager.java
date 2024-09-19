@@ -43,8 +43,7 @@ public class TaskManager {
      */
     public boolean isDuplicateTask(String taskDescription) {
         assert this.tasks != null : "Task list cannot be null!";
-        boolean isDuplicate = this.tasks.stream()
+        return this.tasks.stream()
                 .anyMatch(task -> task.getDescription().equalsIgnoreCase(taskDescription));
-        return isDuplicate;
     }
 }
