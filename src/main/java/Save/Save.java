@@ -1,13 +1,18 @@
 package Save;
-import java.io.*;
-import Task.Task;
+
+import java.io.File;
+import java.io.IOException;
 
 public class Save {
     private File saveFile;
-    private final String savePath = "/Users/qinkangchiang/Desktop/ip/saves/save.txt";
+    private String savePath = "/Users/qinkangchiang/Desktop/ip/saves/save.txt";
+
 
     public Save(){
-        this.saveFile = new File("/Users/qinkangchiang/Desktop/ip/saves/save.txt");
+        String currentDir = System.getProperty("user.dir");
+        this.savePath = currentDir + File.separator + "save" + File.separator + "save.txt";
+        this.saveFile = new File(savePath);
+        initSaveFile();
     }
 
     /**
@@ -17,5 +22,21 @@ public class Save {
      */
     public String getPath() {
         return this.savePath;
+    }
+    /**
+    Creates a save directory and file
+    */
+    private void initSaveFile() {
+        try {
+            if (!saveFile.exists()) {
+                File parentDir = saveFile.getParentFile();
+                if (!parentDir.exists()) {
+                    parentDir.mkdirs();
+                }
+                saveFile.createNewFile();
+            }
+        } catch (IOException e) {
+            System.out.println("Error creating save file");
+        }
     }
 }
