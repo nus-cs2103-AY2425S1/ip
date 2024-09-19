@@ -79,15 +79,8 @@ public class Storage {
      * @param entryParts and taskType.
      * @return String (task description)
      */
-    public static String getTaskDesc(String[] entryParts, String taskType) {
+    public static String getTaskDesc(String[] entryParts, int end) {
         StringBuilder strBuild = new StringBuilder();
-        int end = entryParts.length;
-
-        if (taskType.equals("D")) {
-            end = entryParts.length - 3;
-        } else if (taskType.equals("E")) {
-            end = entryParts.length - 5;
-        }
 
         for (int i = 2; i < end; i++) {
             strBuild.append(entryParts[i]).append(" ");
@@ -102,16 +95,10 @@ public class Storage {
      * @param entryParts and keyword
      * @return LocalDateTime object
      */
-    public static LocalDateTime getTaskDate(String[] entryParts, String keyword) {
-        StringBuilder dateStr = new StringBuilder();
-
-        for (int i = 2; i < entryParts.length; i++) {
-            if (entryParts[i].equals(keyword)) {
-                dateStr.append(entryParts[i + 1]);
-            }
-        }
-
-        return LocalDateTime.parse(dateStr.toString().trim());
+    public static LocalDateTime getTaskDate(String[] entryParts, int start) {
+        StringBuilder strBuild = new StringBuilder();
+        strBuild.append(entryParts[start]).append(" ");
+        return LocalDateTime.parse(strBuild.toString().trim());
     }
 
     /**
@@ -122,18 +109,37 @@ public class Storage {
      */
     public static Task writeTask(String[] entryParts) {
         String taskType = entryParts[0];
-        String taskDescript = getTaskDesc(entryParts, taskType);
+        String taskDescript = " ";
 
         switch (taskType) {
             case "T":
+                taskDescript = getTaskDesc(entryParts, entryParts.length);
                 return new ToDos(taskDescript.trim());
             case "D":
-                LocalDateTime deadlineDate = getTaskDate(entryParts, "by:");
+                int dateIndex = 0;
+                for (int i = 1; i < entryParts.length; i++) {
+                    if (entryParts[i].equals("by:")) {
+                        dateIndex = i + 1;
+                    }
+                }
+                taskDescript = getTaskDesc(entryParts, dateIndex - 1);
+                LocalDateTime deadlineDate = getTaskDate(entryParts, dateIndex);
                 return new Deadline(taskDescript.trim(), deadlineDate);
             case "E":
-                LocalDateTime fromDate = getTaskDate(entryParts, "from:");
-                LocalDateTime toDate = getTaskDate(entryParts, "to:");
-                return new Event(taskDescript, fromDate, toDate);
+                int fromIndex = 0;
+                int toIndex = 0;
+
+                for (int i = 1; i < entryParts.length; i++) {
+                    if (entryParts[i].equals("from:")) {
+                        fromIndex = i + 1;
+                    } else if (entryParts[i].equals("to:")) {
+                        toIndex = i + 1;
+                    }
+                }
+                taskDescript = getTaskDesc(entryParts, fromIndex - 1);
+                LocalDateTime fromDate = getTaskDate(entryParts, fromIndex);
+                LocalDateTime toDate = getTaskDate(entryParts, toIndex);
+                return new Event(taskDescript.trim(), fromDate, toDate);
             default:
                 throw new IllegalArgumentException("Unknown task type: " + taskType);
         }

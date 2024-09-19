@@ -36,4 +36,17 @@ public class TaskListTest {
         String expectedOutput = "[D] [ ] Submit assignment (by: Sep 01 2024 23:59)";
         assertEquals(expectedOutput, (taskList.getList().get(0)).toString());
     }
+
+    @Test
+    void testAddEvent() {
+        String[] task = {"deadline", "Submit", "assignment", "/by", "2024-09-01", "23:59"};
+        String entry = "deadline Submit assignment /by 2024-09-01 23:59";
+
+        taskList.addDeadline(task, entry);
+
+        assertEquals(1, taskList.getList().size());
+
+        String expectedOutput = "[D] [ ] Submit assignment (by: Sep 01 2024 23:59)";
+        assertEquals(expectedOutput, (taskList.getList().get(0)).toString());
+    }
 }

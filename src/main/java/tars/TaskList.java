@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @version 1
  */
 public class TaskList {
-    private static final String LINE = "    _____________________________________________";
+    private static final String LINE = " _____________________________________________";
     private ArrayList<Task> taskList;
 
     public TaskList(ArrayList<Task> taskList) {
@@ -57,8 +57,8 @@ public class TaskList {
         Task temp = taskList.get(index - 1);
         taskList.remove(temp);
 
-        String result = LINE + " Noted. I've removed this task:" + temp + "\n" + " Now you have "
-                + taskList.size() + " tasks in the list" + "\n" + LINE;
+        String result = LINE + "\n" + " Noted. I've removed this task:" + temp + "\n" + " Now you have "
+                + taskList.size() + " tasks in the list\n" + LINE;
 
         return result;
     }
@@ -71,21 +71,36 @@ public class TaskList {
      */
     public String addToDos(String[] task, String entry) {
         String result = "";
-        StringBuilder strBuild = new StringBuilder();
+        String description = this.getDescription(task, null);
 
-        for (int i = 1; i < task.length; i++) {
-            strBuild.append(task[i]).append(" ");
-        }
-
-        assert !strBuild.isEmpty() : "Description for ToDos cannot be empty";
-
-        ToDos todo = new ToDos(strBuild.toString().trim());
+        assert !description.isEmpty() : "Description for ToDos cannot be empty";
+        ToDos todo = new ToDos(description);
         taskList.add(todo);
 
         result = LINE + " Got it. I've added this task:" + todo + "\n" + " Now you have "
                             + taskList.size() + " tasks in the list" + LINE;
 
         return result;
+    }
+
+    public String getDescription(String[] task, String end) {
+        StringBuilder strBuild = new StringBuilder();
+        for (int i = 1; i < task.length; i++) {
+            if (!task[i].equals(end)) {
+                strBuild.append(task[i]).append(" ");
+            } else {
+                break;
+            }
+        }
+        return strBuild.toString().trim();
+    }
+
+    public String getDate(String[] task, int start, int end) {
+        StringBuilder strBuild = new StringBuilder();
+        for (int i = start; i < end; i++) {
+            strBuild.append(task[i]).append(" ");
+        }
+        return strBuild.toString().trim();
     }
 
     /**
@@ -97,42 +112,33 @@ public class TaskList {
      * @return string representation of task
      */
     public String addDeadline(String[] task, String entry) {
-        StringBuilder strBuild = new StringBuilder();
-        StringBuilder dateStr = new StringBuilder();
         String result = "";
-
-        int next = 2; //index to check for "/by" keyword
+        int dateIndex = 0;
         for (int i = 1; i < task.length; i++) {
             if (task[i].equals("/by")) {
-                next = i;
-            } else if (i < next) {
-                strBuild.append(task[i]).append(" ");
-                next++;
-            } else {
-                dateStr.append(task[i]).append(" ");
+                dateIndex = i + 1;
             }
         }
-
+        String description = getDescription(task, "/by");
+        String date = getDate(task, dateIndex, task.length);
         Deadline deadlineTask = null;
 
-        assert !strBuild.isEmpty() : "Description for Deadline cannot be empty";
-        assert dateStr.toString().length() != 17 : "Deadline date format is invalid";
+        assert !description.isEmpty() : "Description for Deadline cannot be empty";
+        assert date.length() != 17 : "Deadline date format is invalid";
 
-        if (dateStr.toString().length() == 17) {
+        if (date.length() == 16) {
             DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            LocalDateTime dateTime = LocalDateTime.parse(dateStr.toString().trim(), format);
-            deadlineTask = new Deadline(strBuild.toString().trim(), dateTime);
-
+            LocalDateTime dateTime = LocalDateTime.parse(date.trim(), format);
+            deadlineTask = new Deadline(description, dateTime);
             taskList.add(deadlineTask);
 
             result = LINE + "    Got it. I've added this task:" + deadlineTask + "    Now you have "
                     + taskList.size() + " tasks in the list" + "\n" + LINE;
 
         } else {
-            result = LINE + "\n" + "  Please state date and time of deadLINE"
+            result = LINE + "\n" + "  Please state date and time of deadline"
                     + "\n" + "in YYYY-dd-MM HH:mm format" + "\n" + LINE;
         }
-
         return result;
     }
 
@@ -144,48 +150,37 @@ public class TaskList {
      * @param entry
      */
     public String addEvent(String[] task, String entry) {
-        StringBuilder strBuild = new StringBuilder();
-        StringBuilder toStr = new StringBuilder();
-        StringBuilder fromStr = new StringBuilder();
         String result = " ";
+        String description = getDescription(task, "/from");
+        int fromIndex = 0;
+        int toIndex = 0;
 
-        int next = 2;
-        int toNext = 3;
         for (int i = 1; i < task.length; i++) {
             if (task[i].equals("/from")) {
-                next = i;
-                toNext++;
+                fromIndex = i + 1;
             } else if (task[i].equals("/to")) {
-                toNext = i;
-            } else if (i < next) {
-                strBuild.append(task[i]).append(" ");
-                next++;
-                toNext++;
-            } else if (i < toNext) {
-                fromStr.append(task[i]).append(" ");
-                toNext++;
-            } else {
-                toStr.append(task[i]).append(" ");
+                toIndex = i + 1;
             }
         }
+        String fromDate = getDate(task, fromIndex, toIndex - 1);
+        String toDate = getDate(task, toIndex, task.length);
 
-        assert !strBuild.isEmpty() : "Description for Event cannot be empty";
-        assert toStr.toString().length() != 17 : "Deadline date format is invalid";
-        assert fromStr.toString().length() != 17 : "Deadline date format is invalid";
+        assert !description.isEmpty() : "Description for Event cannot be empty";
+        assert fromDate.length() != 16 : "Event date format is invalid";
+        assert toDate.length() != 16 : "Event date format is invalid";
 
-        if (fromStr.toString().length() == 17 && toStr.toString().length() == 17) {
+        if (fromDate.length() == 16 && toDate.length() == 16) {
             DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            LocalDateTime dateTime = LocalDateTime.parse(fromStr.toString().trim(), format);
-            LocalDateTime toTime = LocalDateTime.parse(toStr.toString().trim(), format);
+            LocalDateTime fromTime = LocalDateTime.parse(fromDate.trim(), format);
+            LocalDateTime toTime = LocalDateTime.parse(toDate.trim(), format);
 
-            Event eventTask = new Event(strBuild.toString(), dateTime, toTime);
+            Event eventTask = new Event(description, fromTime, toTime);
             taskList.add(eventTask);
-
             result = LINE + "    Got it. I've added this task:" + eventTask
                     + "    Now you have " + taskList.size() + " tasks in the list" + "\n" + LINE;
         } else {
-            result = LINE + "\n" + "  Please state date and time of from and to of event"
-                    + "in YYYY-dd-MM HH:mm format" + "\n" + LINE;
+            result = LINE + "\n" + " Please state date and time of from and to of event"
+                    + "in YYYY-dd-MM HH:mm format\n" + LINE;
         }
 
         return result;

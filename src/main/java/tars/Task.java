@@ -180,16 +180,16 @@ class Event extends Task {
     @Override
     public String toString() {
         return "[E] " + super.toString()
-                + "(from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"))
+                + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"))
                 + " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
     }
 
     @Override
     public String toFileFormat() {
         if (isDone) {
-            return "E " + "1 " + description + "from:" + from + " to: " + to;
+            return "E " + "1 " + description + " from: " + from + " to: " + to;
         } else {
-            return "E " + "0 " + description + "from: " + from + " to: " + to;
+            return "E " + "0 " + description + " from: " + from + " to: " + to;
         }
     }
 }

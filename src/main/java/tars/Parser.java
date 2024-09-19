@@ -91,7 +91,7 @@ public class Parser {
         assert tasks != null : "Task list is empty!";
 
         if (tasks.getList().size() == 0) {
-            result = "No tasks added to list. Please add3 events/deadLINE/todos!";
+            result = "No tasks added to list. Please add events/deadline/todos!";
         } else {
             for (int i = 0; i < tasks.getList().size(); i++) {
                 strBuild.append("    " + (i + 1) + ". " + tasks.getList().get(i) + "\n");
