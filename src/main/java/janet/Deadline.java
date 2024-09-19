@@ -58,6 +58,10 @@ public class Deadline extends ScheduledTask {
             // when the keyword '/by' is not found in the command.
             throw new JanetException("WHOOPS! Missing/Wrong keywords for creating deadline...");
         }
+        if (commandDetails.length > (indexOfBy + 2) + 1) {
+            // when there are additional texts beyond the due date and time specified (eg. ... /by 2024-01-01 18:00 blah blah)
+            throw new JanetException("WHOOPS! Ensure you only have a single due date and time provided!");
+        }
         // get description of janet.Deadline
         String[] descriptionArray = Arrays.copyOfRange(commandDetails, 1, indexOfBy);
         String description = String.join(" ", descriptionArray);
