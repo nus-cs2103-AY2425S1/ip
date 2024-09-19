@@ -26,7 +26,7 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setWidth(WIDTH);
             stage.setHeight(HEIGHT);
-            fxmlLoader.<MainWindow>getController().setDuke(duke); // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setDuke(duke);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
