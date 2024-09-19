@@ -48,27 +48,25 @@ public class MarkCommandTest {
         verify(this.mockFileManager, times(1)).writeTasksToFile(mockTasks);
     }
 
-    // @Test
-    // public void runCommand_markTask_fail() throws TaskManagerException {
-    //        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
-    //        System.setOut(new PrintStream(outputStreamCaptor));
-    //        Task mockTask = Mockito.mock(Todo.class);
-    //        mockTask.markAsDone();
-    //        this.mockTasks.add(mockTask);
-    //        when(mockTask.getIsDone()).thenReturn(true);
-    //        when(mockTask.getDescription()).thenReturn("Mock Task");
-    //        when(mockTask.toString()).thenReturn("[todo] Mock Task");
-    //        String userInput = "mark 1";
-    //
-    //        MarkCommand markCommand = new MarkCommand(userInput, this.mockTaskManager, this.mockFileManager,
-    //                true);
-    //        markCommand.runCommand();
-    //
-    //        String expectedOutput = "You have completed the task \"Mock Task\" already!\n" + "[todo] Mock Task";
-    //        assertEquals(expectedOutput, outputStreamCaptor.toString());
-    //
-    //        verify(this.mockFileManager, times(1)).writeTasksToFile(mockTasks);
-    //    }
+    @Test
+    public void runCommand_markTask_fail() throws TaskManagerException {
+        Task mockTask = Mockito.mock(Todo.class);
+        mockTask.markAsDone();
+        this.mockTasks.add(mockTask);
+        when(mockTask.getIsDone()).thenReturn(true);
+        when(mockTask.getDescription()).thenReturn("Mock Task");
+        when(mockTask.toString()).thenReturn("[todo] Mock Task");
+        String userInput = "mark 1";
+
+        MarkCommand markCommand = new MarkCommand(userInput, this.mockTaskManager, this.mockFileManager,
+                true);
+        String outputString = markCommand.runCommand();
+
+        String expectedOutput = "You have completed the task \"Mock Task\" already!\n" + "  [todo] Mock Task";
+        assertEquals(expectedOutput, outputString);
+
+        verify(this.mockFileManager, times(1)).writeTasksToFile(mockTasks);
+    }
 
     @Test
     public void runCommand_unmarkTask_success() throws TaskManagerException {
@@ -84,22 +82,6 @@ public class MarkCommandTest {
         verify(mockTask).markAsNotDone();
         verify(mockFileManager, times(1)).writeTasksToFile(mockTasks);
     }
-
-    //    @Test
-    //    public void runCommand_unmarkTask_fail() throws TaskManagerException {
-    //        Task mockTask = Mockito.mock(Todo.class);
-    //        this.mockTasks.add(mockTask);
-    //        when(mockTask.getIsDone()).thenReturn(false);
-    //        when(mockTask.toString()).thenReturn("[todo] Mock Task");
-    //        String userInput = "unmark 1";
-    //
-    //        MarkCommand markCommand = new MarkCommand(userInput, this.mockTaskManager, this.mockFileManager,
-    //                true);
-    //        markCommand.runCommand();
-    //
-    //        verify(mockTask).markAsNotDone();
-    //        verify(this.mockFileManager, times(1)).writeTasksToFile(mockTasks);
-    //    }
 
     @Test
     public void runCommand_markTaskOutOfRange_exceptionThrown() {
