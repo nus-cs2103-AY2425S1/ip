@@ -57,6 +57,8 @@ public class Shrimp {
                 throw new ShrimpException.InvalidCommandException();
             }
 
+            userInput = userInput.trim();
+
             CommandType commandType = Parser.parseCommand(userInput);
             switch (commandType) {
             case BYE: //exits the program
@@ -108,7 +110,7 @@ public class Shrimp {
             throw new ShrimpException.MissingArgumentException(commandType);
         }
         String[] eventDetails = userInput.split("/from | /to ");
-        String eventDescription = eventDetails[0].substring(6); // Extracting the task description
+        String eventDescription = eventDetails[0].substring(6).trim(); // Extracting the task description
         LocalDateTime from = getDateTime(eventDetails[1].trim());
         LocalDateTime to = getDateTime(eventDetails[2].trim());
         Task newEvent = new Event(eventDescription, from, to, hasDone);
@@ -121,7 +123,7 @@ public class Shrimp {
             throw new ShrimpException.MissingArgumentException(commandType);
         }
         String[] deadlineDetails = userInput.split("/by ");
-        String deadlineDescription = deadlineDetails[0].substring(9); // Extracting the task description
+        String deadlineDescription = deadlineDetails[0].substring(9).trim(); // Extracting the task description
         LocalDateTime by = getDateTime(deadlineDetails[1].trim());
         Task newDeadline = new Deadline(deadlineDescription, by, hasDone);
         AddCommand addDeadline = new AddCommand(newDeadline);
@@ -132,7 +134,7 @@ public class Shrimp {
         if (userInput.length() <= 5) {
             throw new ShrimpException.MissingArgumentException(commandType);
         }
-        String input = userInput.substring(5);
+        String input = userInput.substring(5).trim();
         Todo newTodo = new Todo(input, hasDone); //creates a new Task.Task object
         AddCommand addTodo = new AddCommand(newTodo);
         return addTodo.run(taskList, ui);
