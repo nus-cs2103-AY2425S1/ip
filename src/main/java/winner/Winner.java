@@ -28,7 +28,8 @@ public class Winner {
         String reply = "";
 
         try {
-            reply = Parser.parseInput(input, taskList);
+            Command command = Parser.parseInput(input);
+            reply = command.execute(taskList);
         } catch (WinnerException e) {
             reply = e.getMessage();
         }
