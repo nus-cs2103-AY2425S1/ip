@@ -13,7 +13,6 @@ public class ByeCommand extends Command {
     @Override
     public String execute(TaskList taskList, Storage storage, Ui ui) {
         super.execute(taskList, storage, ui);
-        storage.setFilePath("data/tecna1.json");
         try {
             storage.save(taskList);
         } catch (java.io.IOException ioException) {

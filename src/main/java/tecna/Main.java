@@ -14,7 +14,7 @@ import tecna.controller.MainWindow;
  * A GUI for Tecna using FXML.
  */
 public class Main extends Application {
-    private Tecna tecna = new Tecna("data/tecna1.json");
+    private Tecna tecna = new Tecna("data/tecna.json");
 
     @Override
     public void start(Stage stage) {

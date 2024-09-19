@@ -126,6 +126,9 @@ public class TaskList {
      */
     @Override
     public String toString() {
+        if (this.size == 0) {
+            return "You don't have any tasks!";
+        }
         return tasks.stream()
                 .map(t -> (tasks.indexOf(t) + 1) + ". " + t.toString())
                 .collect(Collectors.joining("\n"));
