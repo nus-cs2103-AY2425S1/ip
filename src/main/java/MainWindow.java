@@ -8,6 +8,12 @@ import javafx.scene.layout.VBox;
 import prince.Prince;
 import ui.Ui;
 
+/**
+ * The MainWindow class represents the main window of the application and is responsible
+ * for managing user interface elements.
+ * It handles user input and displays both user messages and Prince's responses in the dialog container.
+ */
+
 public class MainWindow extends AnchorPane {
     @FXML
     private ScrollPane scrollPane;

@@ -4,6 +4,10 @@ import task.EventTask;
 import task.TaskList;
 import ui.Ui;
 
+/**
+ * EventCommand class extends GeneralTaskCommand to handle commands related to creating and adding Event tasks.
+ * It parses a command to extract task details and a duration, and adds task to the tasklist.
+ */
 public class EventCommand extends GeneralTaskCommand {
     public EventCommand(String c) {
         super(c);

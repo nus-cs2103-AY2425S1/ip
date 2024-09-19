@@ -4,6 +4,11 @@ import task.EventTask;
 import task.Task;
 import task.ToDoTask;
 
+/**
+ * The getEventTask class extends getGeneralTask to represent a specific type of task with a duration.
+ * It is used for creating EventTask objects by parsing tasks from the file.
+ */
+
 public class getEventTask extends getGeneralTask {
     String fromTime;
     String toTime;
@@ -13,6 +18,11 @@ public class getEventTask extends getGeneralTask {
         this.toTime = to;
     }
 
+    /**
+     * Creates a getEventTask object from task description, status and duration.
+     * It also includes the progress of the task by looking at the status icon.
+     * @return Task of Event task type
+     */
     @Override
     public Task getHelperTaskFromFile() {
         String from = this.fromTime;

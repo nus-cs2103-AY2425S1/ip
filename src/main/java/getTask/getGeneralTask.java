@@ -2,6 +2,10 @@ package getTask;
 
 import task.Task;
 
+/**
+ * The getGeneralTask class is an abstract class for defining general tasks
+ * and serves as the superclass for the tasks to be parsed from the file.
+ */
 public abstract class getGeneralTask {
 
     String des;
