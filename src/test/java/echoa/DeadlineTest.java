@@ -1,5 +1,6 @@
 package echoa;
 
+import echoa.task.Deadline;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

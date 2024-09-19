@@ -1,6 +1,6 @@
 # Echoa Task Assistant Chat Bot
 
-![img.png](img.png)
+![Ui.png](Ui.png)
 
 Introducing your new task assistant chatbot, Echoa,
 a cutting-edge application designed to simplify your life and boost your productivity.
