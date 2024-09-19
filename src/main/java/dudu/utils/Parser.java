@@ -75,7 +75,7 @@ public class Parser {
         case INVALID:
             return new InvalidCommand();
         default:
-            System.out.println("Something went wrong");
+            System.out.println("A command was supposed to be returned before this");
             return new InvalidCommand();
         }
     }
