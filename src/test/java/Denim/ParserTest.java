@@ -177,6 +177,13 @@ public class ParserTest {
         assertTrue(command instanceof FindCommand);
     }
 
+    /* used ChatGPT to generate additional tests after showing Parser and ParserTest,
+     * and prompted to follow the given method naming convention and focusing on the more obscure
+     * things that I might have missed out.
+     *
+     * How it helped: After trying some of the tests given it failed prepareHelp_incorrectUsage_returnsInvalidCommand().
+     * Fixed the issue afterwards.
+     */
     @Test
     public void prepareInvalidCommand_whitespaceOnly_returnsInvalidCommand() {
         String simulatedInput = "   ";
