@@ -80,6 +80,7 @@ Nice! I've marked this task as done: go class
 ## Snoozing
 
 reschedules the event dates and times 
+please include the task name and all final dates and times even if youre only changing one part (eg. only the time/ only for the from date)
 note: this is only available for deadlines and events!
 
 Example: `snooze event lend book from 2020-10-10 1000 to 2021-03-03 1000`
