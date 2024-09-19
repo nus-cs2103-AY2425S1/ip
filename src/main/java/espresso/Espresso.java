@@ -16,54 +16,45 @@ import java.text.ParseException;
  */
 public class Espresso {
 
+    private Ui ui;
+    private Storage storage;
+    private TaskList taskList;
+
     /**
-     * The main method for the Espresso application. It initializes necessary components,
-     * loads tasks from storage, processes user input, and saves tasks to storage before exiting.
+     * ,
+     * The main handler of the chatbot.
      *
-     * @param args Command-line arguments
-     * @throws InvalidCommandException If there is an invalid command during parsing.
-     * @throws ParseException If there is an error in parsing dates for tasks.
+     * @throws InvalidCommandException if an invalid command is entered
+     * @throws ParseException          if a task's date is in an invalid format
      */
-    public static void main(String[] args) throws InvalidCommandException, ParseException {
-        Ui ui = new Ui();
-        ui.printWelcome(); // Print a welcome greeting
-
-        // Initialize storage and task list
-        Storage storage = new Storage("./data/Espresso.txt");
-        TaskList taskList = new TaskList();
-
-        // Try to load tasks
+    public Espresso() throws InvalidCommandException, ParseException {
+        ui = new Ui();
+        storage = new Storage("./data/Espresso.txt");
+        taskList = new TaskList();
         try {
             taskList = new TaskList(storage.load());
         } catch (IOException e) {
-            ui.printError("Error loading tasks from file: " + e.getMessage());
+            ui.printError("An error occurred while reading data from file: " + e.getMessage());
         } catch (ParseException e) {
-            ui.printError("Error in parsing tasks: " + e.getMessage());
+            ui.printError("An error occurred while parsing the date file: " + e.getMessage());
         } catch (InvalidCommandException e) {
-            ui.printError("Erratic Command: " + e.getMessage());
+            ui.printError("Invalid command: " + e.getMessage());
         }
+    }
 
-        // Continuously read and process user input until 'bye' is entered
-        while (true) {
-            String input = ui.readCommand();
-            if (input.equals("bye")) {
-                break;
-            }
+    public String getResponse(String input) throws ParseException {
+        if (input.equals("bye")) {
             try {
-                Parser.parse(input, taskList, ui); // Parse the user's input
-            } catch (InvalidCommandException e) {
-                ui.printError(e.getMessage());
+                storage.save(taskList.getTasks());
+            } catch (IOException e) {
+                return ui.printError("An error occurred while saving the data file: " + e.getMessage());
             }
+            return "We shall meet again.";
         }
-
-        // Save tasks to storage before exiting
         try {
-            storage.save(taskList.getTasks());
-        } catch (IOException e) {
-            ui.printError("Cannot save file due to error: " + e.getMessage());
+            return Parser.parse(input, taskList, ui);
+        } catch (InvalidCommandException e) {
+            return ui.printError(e.getMessage());
         }
-
-        // Print a goodbye greeting
-        ui.printGoodbye();
     }
 }

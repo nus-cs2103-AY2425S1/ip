@@ -2,91 +2,82 @@ package espresso.ui;
 import espresso.task.TaskList;
 import espresso.task.Task;
 import espresso.command.InvalidCommandException;
-import java.util.Scanner;
 
 public class Ui {
-    private Scanner scanner;
 
-    public Ui() {
-        this.scanner = new Scanner(System.in);
+    public String printLine() {
+        return "________________________________________________\n";
     }
 
-    public void printLine() {
-        System.out.println("________________________________________________");
-    }
+    public String printWelcome() {
 
-    public void printWelcome() {
-        printLine();
-        System.out.println("   ____                            \n" +
+        String res = printLine() + "   ____                            \n" +
                 "  / __/__ ___  _______ ___ ___ ___ \n" +
                 " / _/(_-</ _ \\/ __/ -_|_-<(_-</ _ \\\n" +
                 "/___/___/ .__/_/  \\__/___/___/\\___/\n" +
-                "       /_/                         ");
-        System.out.println("Hello! I'm Espresso");
-        System.out.println("What can I do for you?");
-        printLine();
+                "       /_/                         "
+                + "\n" + "Hello! I'm Espresso" + "\n" + "What can I do for you?" + "\n" + printLine();
+        return res;
     }
 
-    public void printGoodbye() {
-        printLine();
-        System.out.println("It was nice talking to you!");
-        System.out.println("Until next time....");
-        printLine();
+    public String printGoodbye() {
+        String res = printLine() + "It was nice talking to you!" + "Until next time...." +
+                "\n" + printLine();
+        return res;
     }
 
-    public void printError(String message) {
-        printLine();
-        System.out.println("Error: " + message);
-        printLine();
+    public String printError(String message) {
+        return printLine() +
+                "Error: " + message + "\n" +
+                printLine();
     }
 
-    public String readCommand() {
-        return scanner.nextLine();
-    }
 
-    public void printTasks(TaskList taskList) throws InvalidCommandException {
-        printLine();
-        System.out.println("Here are the tasks in your list:");
+    public String printTasks(TaskList taskList) throws InvalidCommandException {
+        String res = "";
+        res = printLine() + "Here are the tasks in your list: \n";
         for (int i = 0; i < taskList.size(); ++i) {
-            System.out.println(i + 1 + "." + taskList.getTask(i));
+            res += i + 1 + "." + taskList.getTask(i) + "\n";
         }
-        printLine();
+        return res + "\n" + printLine();
     }
 
-    public void printTaskAdded(Task task, String type) {
-        printLine();
-        System.out.println("Added the following " + type + ":");
-        System.out.println(task);
-        printLine();
+    public String printTaskAdded(Task task, String type) {
+        String res = printLine() + "Added the following " + type + ":" + "\n"
+                + task + "\n" +
+                printLine();
+        return res;
     }
 
-    public void printTaskRemoved(Task task) {
-        printLine();
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task);
-        printLine();
+    public String printTaskRemoved(Task task) {
+        String res = printLine() +
+                "Noted. I've removed this task:" + "\n" +
+                task + "\n" + printLine();
+        return res;
     }
 
-    public void printTaskMarked(Task task) {
-        printLine();
-        System.out.println("Nice. The following task has been marked as done:");
-        System.out.println(task);
-        printLine();
+    public String printTaskMarked(Task task) {
+        String res = printLine() + "Nice. The following task has been marked as done:" + "\n" +
+                task + "\n" +
+                printLine();
+        return res;
     }
 
-    public void printTaskUnmarked(Task task) {
-        printLine();
-        System.out.println("Nice. The following task has been marked as undone:");
-        System.out.println(task);
-        printLine();
+    public String printTaskUnmarked(Task task) {
+        String res = printLine() +
+                "Nice. The following task has been marked as undone:" + "\n" +
+                task + "\n" +
+                printLine();
+        return res;
     }
 
-    public void printFoundTasks(TaskList tasks) {
+    public String printFoundTasks(TaskList tasks) {
         if (tasks.size() < 1) {
-            System.out.println("No tasks found.");
+            return "No tasks found.";
         } else {
-            System.out.println("Here are the matching tasks in your list:");
-            System.out.println(tasks);
+            String res = "Here are the matching tasks in your list:" + "\n" + tasks;
+            return res;
         }
     }
 }
+
