@@ -2,7 +2,6 @@ package bing.task;
 
 import bing.task.Task;
 import bing.task.TaskStatus;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -10,7 +9,6 @@ import java.time.format.DateTimeFormatter;
  * Represents a task with a deadline.
  */
 public class Deadline extends Task {
-
     private LocalDateTime deadline;
 
     /**
