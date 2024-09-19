@@ -176,4 +176,28 @@ public class ParserTest {
         Command command = parser.parseCommand(simulatedInput);
         assertTrue(command instanceof FindCommand);
     }
+
+    @Test
+    public void prepareInvalidCommand_whitespaceOnly_returnsInvalidCommand() {
+        String simulatedInput = "   ";
+
+        Command command = parser.parseCommand(simulatedInput);
+        assertTrue(command instanceof InvalidCommand);
+    }
+
+    @Test
+    public void prepareFind_specialCharacters_returnsFindCommand() {
+        String simulatedInput = "find project@2023";
+
+        Command command = parser.parseCommand(simulatedInput);
+        assertTrue(command instanceof FindCommand);
+    }
+
+    @Test
+    public void prepareHelp_incorrectUsage_returnsInvalidCommand() {
+        String simulatedInput = "help me please";
+
+        Command command = parser.parseCommand(simulatedInput);
+        assertTrue(command instanceof InvalidCommand);
+    }
 }
