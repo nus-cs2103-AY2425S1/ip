@@ -6,8 +6,9 @@ T | 0 | dfhfgddff
 E | 0 | event task | 2024-09-01 to 2024-09-02
 D | 1 | deadkline | 2024-09-06
 D | 1 | paing khant | 2024-09-19
-N | - | wee woo wee
-T | 0 | something new
+T | 1 | something new
 T | 0 | hery
 T | 1 | hey
-D | 0 | dsfsd | Oct 15 2019
+D | 1 | dsfsd | Oct 15 2019
+T | 0 | buy flower for waifu
+N | - | jkohgkjdfs

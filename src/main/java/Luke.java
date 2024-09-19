@@ -70,15 +70,6 @@ public class Luke {
             taskList.save(storage);
             return ui.addNoteDialog(n);
         }
-        case deleteNote -> {
-            Note n = (Note) taskList.deleteTask(parser.getIndex() - 1);
-            taskList.save(storage);
-            if (n != null) {
-                return ui.addNoteDialog(n);
-            } else {
-                return ui.indexOutOfRangeDialog(parser.getIndex());
-            }
-        }
         case mark -> {
             Task t = taskList.markTask(parser.getIndex() - 1);
             taskList.save(storage);

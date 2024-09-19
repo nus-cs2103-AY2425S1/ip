@@ -61,7 +61,7 @@ public class Parser {
         case list, bye -> { }
         case find -> this.description = tokens[1].trim();
         case note, todo -> description = line.substring(4).trim();
-        case deleteNote, mark, unmark, delete -> parseIndex(tokens);
+        case mark, unmark, delete -> parseIndex(tokens);
         case event -> parseEvent(line.substring(5));
         case deadline -> parseDeadLine(line.substring(8));
         default -> { }

@@ -11,7 +11,6 @@ public enum Command {
     event,
     deadline,
     note,
-    deleteNote,
     bye,
     parseError,
 }
