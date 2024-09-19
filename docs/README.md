@@ -20,9 +20,9 @@ You can *sort* all deadline tasks by nearest deadline.
 - Example: `todo read a book`
 - Expected Outcome: 
 ```
-Got it, I've added this task to your list!
-[T][ ] read a book
-Wah bro... 1 task already! 
+    Got it, I've added this task to your list!
+    [T][ ] read a book
+    Wah bro... 1 task already! 
 ```
 
 ### Adding a Deadline Task
@@ -32,9 +32,9 @@ Wah bro... 1 task already!
 - Example: `deadline math homework /by 20-10-2024 2359`
 - Expected Outcome:
 ```
-Got it, I've added this task to your list!
-[D][ ] math homework (by: 20 10 2024, 11:59 PM)
-Wah bro... 2 tasks already! 
+    Got it, I've added this task to your list!
+    [D][ ] math homework (by: 20 10 2024, 11:59 PM)
+    Wah bro... 2 tasks already! 
 ```
 
 ### Adding an Event Task
@@ -44,9 +44,9 @@ Wah bro... 2 tasks already!
 - Example: `event farewell party /from 20-10-2024 1500 /to 20-10-2024 1800`
 - Expected Outcome:
 ```
-Got it, I've added this task to your list!
-[E][ ] farewell party (from: 20 10 2024, 3:00 PM to: 20 10 2024, 6:00 PM)
-Wah bro... 3 tasks already! 
+    Got it, I've added this task to your list!
+    [E][ ] farewell party (from: 20 10 2024, 3:00 PM to: 20 10 2024, 6:00 PM)
+    Wah bro... 3 tasks already! 
 ```
 
 ### Marking a Task as Complete
@@ -56,8 +56,8 @@ Wah bro... 3 tasks already!
 - Example: `mark 1`
 - Expected Outcome:
 ```
-Nice, I've marked this task as complete.
-[T][X] read a book
+    Nice, I've marked this task as complete.
+    [T][X] read a book
 ```
 
 ### Unmarking a Task as Incomplete
@@ -67,8 +67,8 @@ Nice, I've marked this task as complete.
 - Example: `unmark 1`
 - Expected Outcome:
 ```
-Ok, I've marked this task as incomplete.
-[T][ ] read a book
+    Ok, I've marked this task as incomplete.
+    [T][ ] read a book
 ```
 
 ### Deleting a Task
@@ -78,9 +78,9 @@ Ok, I've marked this task as incomplete.
 - Example: `delete 1`
 - Expected Outcome:
 ```
-Awesome bro! One task gone :D
-[T][ ] read a book
-Wah bro... 2 tasks already! 
+    Awesome bro! One task gone :D
+    [T][ ] read a book
+    Wah bro... 2 tasks already! 
 ```
 
 ### Listing all Tasks
@@ -90,9 +90,9 @@ Wah bro... 2 tasks already!
 - Example: `list`
 - Expected Outcome:
 ```
-Here are the tasks in your list:
-1.[D][ ] math homework (by: 20 10 2024, 11:59 PM)
-2.[E][ ] farewell party (from: 20 10 2024, 3:00 PM to: 20 10 2024, 6:00 PM)
+    Here are the tasks in your list:
+    1.[D][ ] math homework (by: 20 10 2024, 11:59 PM)
+    2.[E][ ] farewell party (from: 20 10 2024, 3:00 PM to: 20 10 2024, 6:00 PM)
 ```
 
 ### Finding Tasks with a Keyword
@@ -102,8 +102,8 @@ Here are the tasks in your list:
 - Example: `find math`
 - Expected Outcome:
 ```
-Here are the matching tasks in your list:
-1.[D][ ] math homework (by: 20 10 2024, 11:59 PM)
+    Here are the matching tasks in your list:
+    1.[D][ ] math homework (by: 20 10 2024, 11:59 PM)
 ```
 
 ### Sorting Deadline Tasks
@@ -113,10 +113,10 @@ Here are the matching tasks in your list:
 - Example: `sort`
 - Expected Outcome:
 ```
-Here are the sorted deadline tasks in your list:
-1.[D][ ] math homework (by: 20 10 2024, 11:59 PM)
-2.[D][ ] science homework (by: 21 10 2024, 10:00 AM)
-3.[D][ ] english homework (by: 21 10 2024, 11:59 PM)
+    Here are the sorted deadline tasks in your list:
+    1.[D][ ] math homework (by: 20 10 2024, 11:59 PM)
+    2.[D][ ] science homework (by: 21 10 2024, 10:00 AM)
+    3.[D][ ] english homework (by: 21 10 2024, 11:59 PM)
 ```
 
 ### Exiting Taskalyn
@@ -126,9 +126,9 @@ Here are the sorted deadline tasks in your list:
 - Example: `bye`
 - Expected Outcome:\
 ```
-Bye! Hope to see you again soon!
-&nbsp;
-Shutting down in 5 seconds...
+    Bye! Hope to see you again soon!
+    
+    Shutting down in 5 seconds...
 ```
 
 ## Summary of Commands
