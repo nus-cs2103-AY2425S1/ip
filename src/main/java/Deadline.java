@@ -17,35 +17,19 @@ public class Deadline extends Task{
     }
 
     /**
-     * Factory method for instantiating a deadline
+     * Factory method for instantiating a deadline. This method should be used to create a new
+     * deadline, and is by default not done.
      * @param description A string description of the task
-     * @param status The status of the task(done or not done)
      * @param date A string representing the deadline in the format YYYY-MM-DD
      * @param time A string representing the time of the deadline in the format HH:MM
      * @return A deadline with those specifications
      */
-     static Deadline of(String description, Task.Status status, String date, String time) {
+     static Deadline of(String description, String date, String time) {
         LocalDate formattedDate = LocalDate.parse(date);
         LocalTime formattedTime = LocalTime.parse(time);
         LocalDateTime deadline = LocalDateTime.of(formattedDate,formattedTime);
-        return new Deadline(description, status, deadline);
+        return new Deadline(description, Status.NOT_DONE, deadline);
     }
-
-    /**
-     * Factory method for instantiating an event while parsing from a csv file
-     * This method should only be called when loading the event from Storage.
-     * @param description A string representation of this event
-     * @param status The event's completion status
-     * @param deadline the deadline
-     * @return a Deadline
-     */
-    protected static Deadline of(String description, String status, String deadline) {
-        Task.Status newStatus = Task.Status.valueOf(status);
-        LocalDateTime newDeadline = LocalDateTime.parse(deadline);
-        return new Deadline(description, newStatus, newDeadline);
-    }
-
-
     @Override
     public String toString() {
         String str = "[D]" +
