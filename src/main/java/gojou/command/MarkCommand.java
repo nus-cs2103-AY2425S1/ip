@@ -53,7 +53,22 @@ public class MarkCommand extends Command {
         return getTaskNumber(taskNumberStr);
     }
 
-    private String markTaskAndGetDisplayString(TaskList tasks, Ui ui, Storage storage, int taskNumber) throws IOException {
+    private int getTaskNumber(String taskNumberStr) throws GojouException {
+        int taskNumber;
+
+        // Handles case where user doesn't provide a number or provides an invalid integer
+        try {
+            taskNumber = Integer.valueOf(taskNumberStr);
+        } catch (NumberFormatException e) {
+            throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just part of "
+                    + "getting stronger. Let's try that again, shall we? Please only provide an integer number "
+                    + "after 'mark' or 'unmark' indicating the task number to mark or unmark!");
+        }
+        return taskNumber;
+    }
+
+    private String markTaskAndGetDisplayString(TaskList tasks, Ui ui, Storage storage, int taskNumber)
+            throws IOException {
         if (this.response.equals("mark")) {
             return tasks.mark(taskNumber, storage, ui);
         } else {
@@ -68,20 +83,6 @@ public class MarkCommand extends Command {
                     + "part of getting stronger. Let's try that again, shall we? Please provide a correct "
                     + "task number to mark or unmark!");
         }
-    }
-
-    private int getTaskNumber(String taskNumberStr) throws GojouException {
-        int taskNumber;
-
-        // Handles case where user doesn't provide a number or provides an invalid integer
-        try {
-            taskNumber = Integer.valueOf(taskNumberStr);
-        } catch (NumberFormatException e) {
-            throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just part of "
-                    + "getting stronger. Let's try that again, shall we? Please only provide an integer number "
-                    + "after 'mark' or 'unmark' indicating the task number to mark or unmark!");
-        }
-        return taskNumber;
     }
 
     private String getTaskNumberStr() throws GojouException {

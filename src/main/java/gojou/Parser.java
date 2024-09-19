@@ -119,7 +119,8 @@ public class Parser {
         return new Todo(String.join(" ", arrOfStr), isDone, priority);
     }
 
-    private static Priority getPriority(Scanner lineScanner, ArrayList<String> arrOfStr, Priority priority) throws GojouException {
+    private static Priority getPriority(Scanner lineScanner, ArrayList<String> arrOfStr, Priority priority)
+            throws GojouException {
         String word = lineScanner.next();
         if (word.startsWith("//")) {
             priority = readTaskPriority(word);
@@ -163,7 +164,8 @@ public class Parser {
         return new Deadline(description, isDone, priority, convertDateTime(deadline));
     }
 
-    private static void checkErroneousInput(boolean hasProvidedDeadline, String deadline, String description) throws GojouException {
+    private static void checkErroneousInput(boolean hasProvidedDeadline, String deadline, String description)
+            throws GojouException {
         boolean hasDescriptionButNoSlashBy = !hasProvidedDeadline
                 && !deadline.isEmpty() && description.isEmpty();
         boolean hasDescriptionAndSlashByButNoDeadline = hasProvidedDeadline
@@ -178,6 +180,24 @@ public class Parser {
         if (description.isEmpty()) {
             throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just part of "
                     + "getting stronger. Let's try that again, shall we? Please provide a deadline task");
+        }
+    }
+
+    private static void checkErroneousInput(boolean isStart, String start, boolean isEnd, String description)
+            throws GojouException {
+        if (!isStart || start.isEmpty()) {
+            throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just part of "
+                    + "getting stronger. Let's try that again, shall we? Please provide a start time with '/from' "
+                    + "followed by the time");
+        }
+        if (!isEnd) {
+            throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just part of "
+                    + "getting stronger. Let's try that again, shall we? Please provide an end time with '/to' "
+                    + "followed by the time!");
+        }
+        if (description.isEmpty()) {
+            throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just part of "
+                    + "getting stronger. Let's try that again, shall we? Please provide an event task!");
         }
     }
 
@@ -197,7 +217,8 @@ public class Parser {
         return getEvent(lineScanner, arrOfStr, isDone);
     }
 
-    private static Event getEvent(Scanner lineScanner, ArrayList<String> arrOfStr, boolean isDone) throws GojouException {
+    private static Event getEvent(Scanner lineScanner, ArrayList<String> arrOfStr, boolean isDone)
+            throws GojouException {
         String description = "";
         String start = "";
         boolean isStart = false;
@@ -254,23 +275,6 @@ public class Parser {
         if (!lineScanner.hasNext()) {
             throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just part of "
                     + "getting stronger. Let's try that again, shall we? Please provide an event task");
-        }
-    }
-
-    private static void checkErroneousInput(boolean isStart, String start, boolean isEnd, String description) throws GojouException {
-        if (!isStart || start.isEmpty()) {
-            throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just part of "
-                    + "getting stronger. Let's try that again, shall we? Please provide a start time with '/from' "
-                    + "followed by the time");
-        }
-        if (!isEnd) {
-            throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just part of "
-                    + "getting stronger. Let's try that again, shall we? Please provide an end time with '/to' "
-                    + "followed by the time!");
-        }
-        if (description.isEmpty()) {
-            throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just part of "
-                    + "getting stronger. Let's try that again, shall we? Please provide an event task!");
         }
     }
 }

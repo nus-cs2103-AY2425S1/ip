@@ -50,15 +50,6 @@ public class DeleteCommand extends Command {
         return getTaskNumber(taskNumberStr);
     }
 
-    private void checkIfUserEnteredCorrectIntegerInput(TaskList tasks, int taskNumber) throws GojouException {
-        // Handles the case where the user enters an invalid task number
-        if (taskNumber < 1 || taskNumber > tasks.getSize()) {
-            throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just part "
-                    + "of getting stronger. Let's try that again, shall we? Please provide a correct task "
-                    + "number to delete!");
-        }
-    }
-
     private int getTaskNumber(String taskNumberStr) throws GojouException {
         int taskNumber;
         // Handles case where user doesn't provide a number or provides a non-integer
@@ -70,6 +61,15 @@ public class DeleteCommand extends Command {
                     + "after 'delete' indicating the task number to delete!");
         }
         return taskNumber;
+    }
+
+    private void checkIfUserEnteredCorrectIntegerInput(TaskList tasks, int taskNumber) throws GojouException {
+        // Handles the case where the user enters an invalid task number
+        if (taskNumber < 1 || taskNumber > tasks.getSize()) {
+            throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just part "
+                    + "of getting stronger. Let's try that again, shall we? Please provide a correct task "
+                    + "number to delete!");
+        }
     }
 
     private String getTaskNumberString() throws GojouException {
