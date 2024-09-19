@@ -35,7 +35,6 @@ public class Katheryne {
 
     /**
      * Starts the interaction with user
-     * @param args
      */
     public static void main(String[] args) throws MissingInformationException {
         Katheryne k = new Katheryne("./data/Katheryne.txt");
@@ -43,7 +42,7 @@ public class Katheryne {
     }
 
     /**
-     * Handles user input and flow of input
+     * Handles user input and flow of output
      */
     public void run() {
         boolean isFinish = false;

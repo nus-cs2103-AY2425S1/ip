@@ -173,6 +173,12 @@ public class Command {
         }
     }
 
+    /**
+     * Finds tasks whose description contain given string
+     * @param string user input string to be searched for
+     * @return a string of all matching task
+     */
+
     public String executeFind(String string) throws MissingInformationException {
         String keyword = Parser.getFindKeyWord(string);
         if (keyword.isEmpty()) {
