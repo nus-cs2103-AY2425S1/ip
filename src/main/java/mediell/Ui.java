@@ -40,12 +40,12 @@ public class Ui {
             assert instruction.getTask() != null;
             return "Got it! I've added this task: \n" + instruction.getTask();
         case SEARCH:
-            return taskList.displayFoundList(instruction.getSearch());
+            return "Ok, here are all your tasks!\n" + taskList.displayFoundList(instruction.getSearch());
         case UNMARK:
             assert instruction.getIndex() != -1;
             return "Ok, I've marked this task as not done yet:\n" + taskList.getTask(instruction.getIndex());
         case SORT:
-            return taskList.displaySortedList();
+            return "Ok, here are all your tasks!\n" + taskList.displaySortedList();
         default:
             throw new IncorrectInstructionFormatException();
         }

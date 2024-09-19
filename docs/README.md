@@ -15,6 +15,7 @@ lists all tasks currently stored
 Example: `list`
 
 ```
+Ok, here are all your tasks!
 1. [T][X] Create a Repo
 2. [T][] Add teammates to the Repo
 ```
@@ -106,6 +107,7 @@ Finds all matching task names
 Example: `find homework`
 
 ```
+Ok, here are all your tasks!
 1. [D][ ] homework (by: 2024-09-29)
 ```
 
