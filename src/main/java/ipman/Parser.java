@@ -127,6 +127,14 @@ public class Parser {
             command.event();
             break;
         }
+        case "tag": {
+            command.tag();
+            break;
+        }
+        case "untag": {
+            command.untag();
+            break;
+        }
         case "":
             break;
         default: {
