@@ -14,7 +14,7 @@ public class Bye extends Command{
     @Override
     public void execute(Map<String, String> arguments) {
         String exitText = """
-Aww, bye to you as well :c""";
+                Aww, bye to you as well :c""";
         output.writeText(exitText);
     }
 }

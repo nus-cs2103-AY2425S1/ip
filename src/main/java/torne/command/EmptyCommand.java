@@ -9,6 +9,7 @@ public class EmptyCommand extends Command {
     protected EmptyCommand() {
         super("");
     }
+    
     @Override
     public void execute(Map<String, String> arguments) {
 

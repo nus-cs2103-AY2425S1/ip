@@ -101,7 +101,6 @@ public class Storage {
 
             fw.write(sb.toString());
             fw.close();
-
         } catch (IOException e) {
             OUTPUT.error("Could not write to task file: " + e.getMessage());
         }
