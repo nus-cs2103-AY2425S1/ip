@@ -5,11 +5,19 @@ It's named after my friends whom I like to call my bosses! I've included below i
 
 ## User Commands
 
-Use the boss to create tasks!
-1. todo {description} to create a Todo task.
-2. deadline {description} /by {date/string} to create a Deadline task.
-3. event {description} /from {date/string} /to {date/string} to create an Event task.
-4. {description} to create a simple task.
+Firstly, you can say "hello" to the Boss, which will generate the following response:
+
+````
+WHATS GOOD, MY HOMIE! I'm the boss!
+How can I help you?
+````
+
+You can use the boss to create tasks!
+1. {description} to create a simple task.
+2. todo {description} to create a Todo task.
+3. deadline {description} /by {date/string} to create a Deadline task.
+4. event {description} /from {date/string} /to {date/string} to create an Event task.
+
 
 You can mark/unmark/delete tasks using these commands:
 - mark {number}
@@ -21,8 +29,13 @@ There are also more advanced features:
 - remind -> reminds you of upcoming tasks that have a deadline in the next 7 days
 - list -> shows you all the tasks in the list
 
-If you're a boss, there might be some hidden secret responses hehe! Thank you!
+Lastly, you can say goodbye to the boss once you are done using it!
 
-   ```
-   Hello from THE BOSS!
-   ```
+````
+Bye! Have a wonderful day legend!
+````
+Note:
+If you enter an invalid command, the boss will make sure to let you know by printing out an error message!
+
+
+If you're a boss, there might be some hidden secret responses hehe! Thank you!
