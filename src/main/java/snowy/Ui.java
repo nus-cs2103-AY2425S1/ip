@@ -8,7 +8,11 @@ import java.util.ArrayList;
 public class Ui {
 
     private static final String GREETING = "Hello! My name is Snowy\n"
-            + "What can I do for you?\n";
+            + "What can I do for you?\n"
+            + "The commands that I know are:\nhello, bye,\n"
+            + "todo, deadline, event,\n"
+            + "list, find, delete,\n"
+            + "mark, unmark, snooze.";
 
     private static final String ENDING = "Bye! Hope to see you again soon!\n";
 
