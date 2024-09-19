@@ -120,7 +120,6 @@ public final class Ui {
     /**
      * Sets status of the UI to expect a keyword for the user's next input and returns a prompt to the user
      * for a keyword to find in the list of tasks.
-     *
      * If the given TaskList is empty, return an empty list message.
      */
     public String promptKeyword(TaskList taskList) {
@@ -228,7 +227,6 @@ public final class Ui {
     /**
      * Sets status of the UI to expect a date for the user's next input and returns a prompt to the user
      * for a date. The prompt returned depends on the current command to be executed and the type of task to be added.
-     *
      * If the current command to be executed is the date command, check if the given TaskList is empty.
      * If so, return an empty list message.
      *
