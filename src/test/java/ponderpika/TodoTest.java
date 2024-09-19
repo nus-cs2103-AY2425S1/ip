@@ -22,7 +22,7 @@ public class TodoTest {
         assertEquals("T | false | Finish homework | ()", todo.saveFullDetails());
 
         todo.markDone(); // Simulate marking the task as done
-        assertEquals("T | true | Finish homework |()", todo.saveFullDetails());
+        assertEquals("T | true | Finish homework | ()", todo.saveFullDetails());
     }
 
     @Test
