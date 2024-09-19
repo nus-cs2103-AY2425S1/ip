@@ -306,19 +306,19 @@ public class Parser {
      * @param command User input.
      * @return Index from command.
      * @throws MissingDescriptionException If no index is available.
-     * @throws IllegalArgumentException If index is not a number or number is zero or negative.
+     * @throws InvalidFormatException If index is not a number or number is zero or negative.
      */
-    private static int parseIndex(String command) throws MissingDescriptionException, IllegalArgumentException {
+    private static int parseIndex(String command) throws MissingDescriptionException, InvalidFormatException {
         String content = parseContent(command);
         int index;
         try {
             index = Integer.parseInt(content) - 1;
             if (index < 0) {
-                throw new IllegalArgumentException(invalidNumberMessage);
+                throw new InvalidFormatException(invalidNumberMessage);
             }
             return index;
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(invalidNumberMessage);
+            throw new InvalidFormatException(invalidNumberMessage);
         }
     }
 
