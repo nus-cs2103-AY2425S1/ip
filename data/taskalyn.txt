@@ -1,6 +1,2 @@
-T | 0 | go to schol
-D | 0 | hw | 11-09-2024 1500
-E | 0 | party | 11-09-2024 2000 | 11-09-2024 1800
-E | 0 | presentation | 16-09-2024 1500 | 16-09-2024 1800
-D | 0 | another hw | 11-09-2024 1600
-D | 1 | againagain | 11-09-2024 1200
+T | 0 | get package from locker
+D | 0 | finish cs2103t homework | 20-10-2024 1100
