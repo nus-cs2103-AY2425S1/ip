@@ -87,31 +87,31 @@ Format:  `event DESCRIPTION​ /from DATE /by DATE`
 
 ### Deleting a Task : `delete`
 
-Delete a task.
+Delete a task based on the index from `list` command.
 
 Format: `delete INDEX`
 
 ### Mark a Task : `mark`
 
-Mark a task as done.
+Mark a task as done based on the index from `list` command.
 
 Format: `mark INDEX`
 
 ### Unmark a Task : unmark
 
-Mark a task as not done.
+Mark a task as not done based on the index from `list` command.
 
 Format: `unmark INDEX`
 
 ### Set a Task's priority to high : `highPriority`
 
-Mark a task as high priority.
+Mark a task as high priority based on the index from `list` command.
 
 Format: `highPriority INDEX`
 
 ### Set a Task's priority to low : `lowPriority`
 
-Mark a task as low priority.
+Mark a task as low priority based on the index from `list` command.
 
 Format: `lowPriority INDEX`
 
