@@ -95,7 +95,7 @@ public class TaskList {
         } else {
             System.out.println("ITS DONE");
             tasks.get(number - 1).setDone(true);
-            String icon = "[" + tasks.get(number - 1).getCompetionChar() +"]";
+            String icon = "[" + tasks.get(number - 1).getCompletionChar() +"]";
             return "    Meow has marked this task as done:\n        " 
                     + icon +tasks.get(number - 1).getTaskName();
         }
