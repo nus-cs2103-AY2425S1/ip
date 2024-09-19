@@ -18,6 +18,7 @@ public class MarkCommand extends Command {
      * @param position
      */
     public MarkCommand(int position) {
+        assert position >= 0: "Invalid position inputted";
         this.position = position;
     }
 
@@ -33,6 +34,9 @@ public class MarkCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) throws KieTwoForOneException {
+        assert tasks != null: "TaskList cannot be null.";
+        assert ui != null: "UI cannot be null.";
+        assert storage != null: "Storage cannot be null.";
         String markedTask = tasks.markTask(position);
         ui.showMarkTask(markedTask);
         try {

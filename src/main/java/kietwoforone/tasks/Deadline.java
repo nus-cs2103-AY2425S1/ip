@@ -22,8 +22,9 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String deadline) {
         super(description);
+        assert description != null: "Description cannot be null";
+        assert deadline != null: "Deadline cannot be null";
         this.task = new Task(this.description);
-
         String[] time = deadline.replaceFirst("by ", "").split(" ", 2);
         this.deadlineDate = LocalDate.parse(time[0]);
         this.deadlineTime = time[1];
@@ -71,6 +72,7 @@ public class Deadline extends Task {
      */
     @Override
     public boolean compareDate(String date) throws KieTwoForOneException {
+        assert date != null: "Date cannot be null";
         try {
             return this.deadlineDate.equals(LocalDate.parse(date));
         } catch (DateTimeParseException e) {
@@ -87,6 +89,7 @@ public class Deadline extends Task {
      */
     @Override
     public boolean compareString(String keyword) {
+        assert keyword != null: "Keyword cannot be null.";
         return this.task.compareString(keyword);
     }
 

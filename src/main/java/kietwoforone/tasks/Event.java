@@ -25,6 +25,9 @@ public class Event extends Task{
      */
     public Event(String description, String start, String end) {
         super(description);
+        assert description != null: "Description cannot be null.";
+        assert start != null: "Start time cannot be null.";
+        assert end != null: "End time cannot be null.";
         this.task = new Task(this.description);
 
         String[] beginning = start.replaceFirst("from ", "").split(" ", 2);
@@ -87,6 +90,7 @@ public class Event extends Task{
      */
     @Override
     public boolean compareDate(String date) throws KieTwoForOneException {
+        assert date != null: "Date cannot be null.";
         LocalDate newDate;
         try {
             newDate = LocalDate.parse(date);
@@ -106,6 +110,7 @@ public class Event extends Task{
      */
     @Override
     public boolean compareString(String keyword) {
+        assert keyword != null: "Keyword cannot be null";
         return this.task.compareString(keyword);
     }
 

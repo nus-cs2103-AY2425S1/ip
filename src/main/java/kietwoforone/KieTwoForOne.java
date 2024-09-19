@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class KieTwoForOne {
 
-    private static TaskList tasks = new TaskList(new ArrayList<Task> (100));
+    private static TaskList tasks = new TaskList(new ArrayList<> (100));
     private static UI ui = new UI();
     private static Storage storage;
 
@@ -59,6 +59,7 @@ public class KieTwoForOne {
     }
 
     public String getResponse(String input) {
+        assert input != null: "Input cannot be null.";
         try {
             Command c = Parser.parse(input);
             c.execute(tasks, ui, storage);
