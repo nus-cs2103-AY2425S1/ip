@@ -73,7 +73,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
 
-        if (input == null || input.isEmpty()) {
+        if (input == null || input.isBlank()) {
             return;
         }
 
