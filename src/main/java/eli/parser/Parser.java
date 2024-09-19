@@ -53,22 +53,22 @@ public class Parser {
         throw new EliException("The deadline must be in the format 'description /by yyyy-MM-dd'.");
       }
       return new AddCommand(new Deadline(deadlineParts[0], deadlineParts[1]));
-      case "event":
-        String[] eventParts = description.split(" /from ");
-        if (eventParts.length < 2) {
-          throw new EliException("The event must be in the format 'description /from yyyy-MM-dd /to yyyy-MM-dd'.");
-        }
-        String[] times = eventParts[1].split(" /to ");
-        return new AddCommand(new Event(eventParts[0], times[0], times[1]));
-      case "find":
-        if (description.isEmpty()) {
-          throw new EliException("The keyword for finding tasks cannot be empty.");
-        }
-        return new FindCommand(description);
-      case "bye":
-        return new ExitCommand();
-      default:
-        throw new UnknownCommandException();
+    case "event":
+      String[] eventParts = description.split(" /from ");
+      if (eventParts.length < 2) {
+        throw new EliException("The event must be in the format 'description /from yyyy-MM-dd /to yyyy-MM-dd'.");
+      }
+      String[] times = eventParts[1].split(" /to ");
+      return new AddCommand(new Event(eventParts[0], times[0], times[1]));
+    case "find":
+      if (description.isEmpty()) {
+        throw new EliException("The keyword for finding tasks cannot be empty.");
+      }
+      return new FindCommand(description);
+    case "bye":
+      return new ExitCommand();
+    default:
+      throw new UnknownCommandException();
     }
   }
 
@@ -101,7 +101,6 @@ public class Parser {
     if (task != null && isDone) {
       task.changeDoneStatus(true);
     }
-
     return task;
   }
 }
