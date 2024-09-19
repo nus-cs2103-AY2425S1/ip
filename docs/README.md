@@ -146,4 +146,4 @@ Format: `bye`
 Llama chatbot will automatically save data on tasks and tags after any command that changes data. There is no need to save manually.
 
 ### Editing the data file
-Llama data files can be located in [JAR file location]/data/tagFile.txt and [JAR file location]/data/taskFile.txt. 
+Llama data files can be located in `[JAR file location]/data/tagFile.txt` and `[JAR file location]/data/taskFile.txt`. 
