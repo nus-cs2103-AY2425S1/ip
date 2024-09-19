@@ -1,5 +1,4 @@
-T | 0 | go to the gym | none
-T | 0 | go to the gym | none
-T | 0 | go to the gymmm | none
-T | 0 | High go to the gym | none
-T | 0 | go to the gym | high
+D | 1 | go to the gym | none | 2024-09-18 14:00
+E | 1 | go to the gym | none | 2024-09-18 12:00 | 2024-09-18 14:00
+E | 1 | go to the gym | none | 2024-09-12 12:00 | 2024-09-12 13:00
+D | 1 | go to the party | none | 2024-09-12 14:00

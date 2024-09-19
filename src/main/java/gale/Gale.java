@@ -1,6 +1,5 @@
 package gale;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import gale.exception.GaleException;
@@ -135,7 +134,10 @@ public class Gale {
      * @throws GaleException if the task number is invalid
      */
     public String deleteTask(String input) throws GaleException {
-        int index = Parser.parseIndex(input, "delete");
+        int index = Parser.parseIndexFromCommand(input, "delete");
+        if (index >= taskList.size()) {
+            throw new GaleException("Oops! That task number is lost in the wind. Try again?");
+        }
         Task task = taskList.deleteTask(index);
         return ui.showDeletedTask(task, taskList.size());
     }
@@ -149,7 +151,10 @@ public class Gale {
     public String handleTaskMarking(String input) throws GaleException {
         boolean isDone = input.startsWith("mark");
         String command = isDone ? "mark" : "unmark";
-        int index = Parser.parseIndex(input, command);
+        int index = Parser.parseIndexFromCommand(input, command);
+        if (index >= taskList.size()) {
+            throw new GaleException("Oops! That task number is lost in the wind. Try again?");
+        }
         Task task = taskList.markTask(index, isDone);
         return ui.showMarkedTask(task, isDone);
     }

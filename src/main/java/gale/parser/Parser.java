@@ -105,7 +105,7 @@ public class Parser {
      */
     public static Deadline parseDeadline(String input) throws GaleException {
         String[] parts = splitInput(input, "deadline", 9, "/by", 2,
-    "Your deadline is lost in the wind! "
+    "Oops! The wind blew away your deadline description. "
                 + "Please use 'deadline [priority] [description] /by [date and time]'.");
         String description = parts[0].trim();
         String by = parts[1].trim();
@@ -128,7 +128,7 @@ public class Parser {
      */
     public static Event parseEvent(String input) throws GaleException {
         String[] parts = splitInput(input, "event", 6, "/from|/to", 3,
-    "Your event is lost in the wind! "
+    "Oops! The wind blew away your event description. "
                 + "Please use 'event [priority] [description] /from [start date] /to [end date]'.");
         String description = parts[0].trim();
         String from = parts[1].trim();
@@ -143,12 +143,15 @@ public class Parser {
         }
     }
 
-    public static String[] splitInput(String input, String command, int prefixLen, String regex, int partsNum,
+    private static String[] splitInput(String input, String command, int prefixLen, String regex, int partsNum,
             String errorMsg) throws GaleException {
-        if (input.length() < prefixLen) {
+        if (input.length() <= prefixLen) {
             throw new GaleException(errorMsg);
         }
-        if (!input.contains("/from") && !input.contains("/to") && !input.contains("/by")) {
+        if (command.equals("deadline") && !input.contains("/by")) {
+            throw new GaleException(errorMsg);
+        }
+        if (command.equals("event") && (!input.contains("/from") || !input.contains("/to"))) {
             throw new GaleException(errorMsg);
         }
         String[] parts = input.substring(prefixLen).split(regex);
@@ -159,7 +162,7 @@ public class Parser {
         return parts;
     }
 
-    public static Priority extractPriority(String desc) {
+    private static Priority extractPriority(String desc) {
         if (desc.startsWith("high")) {
             return Priority.HIGH;
         } else if (desc.startsWith("medium")) {
@@ -171,7 +174,7 @@ public class Parser {
         }
     }
 
-    public static String removePriorityPrefix(String desc) {
+    private static String removePriorityPrefix(String desc) {
         if (desc.startsWith("high")) {
             return desc.substring(5).trim();
         } else if (desc.startsWith("medium")) {
@@ -183,7 +186,14 @@ public class Parser {
         }
     }
 
-    public static int parseIndex(String input, String command) throws GaleException {
+    /**
+     * Parses the input string containing an index number of a task into an integer.
+     * @param input the input string to be parsed
+     * @param command the type of command that the user is trying to execute, e.g. 'delete' or 'mark'
+     * @return the index number of the task
+     * @throws GaleException if the input string does not contain a valid index number
+     */
+    public static int parseIndexFromCommand(String input, String command) throws GaleException {
         String[] parts = input.split(" ");
         if (parts.length != 2) {
             throw new GaleException("Your task number got lost in the wind. "
@@ -200,12 +210,18 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the 'find' command containing a keyword into a keyword string.
+     * @param input the input string to be parsed which is a 'find' command
+     * @return the keyword
+     * @throws GaleException if the input string does not contain a keyword
+     */
     public static String parseKeyword(String input) throws GaleException {
         String[] parts = input.split(" ", 2);
-        String keyword = parts[1].trim();
-        if (parts.length < 2 || keyword.isEmpty()) {
+        if (parts.length < 2) {
             throw new GaleException("The wind blew away your keyword. Please use 'find [keyword]'.");
         }
+        String keyword = parts[1].trim();
         return keyword;
     }
 }

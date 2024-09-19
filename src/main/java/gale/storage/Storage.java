@@ -7,9 +7,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Function;
 
 import gale.task.Deadline;
 import gale.task.Event;
@@ -88,9 +85,18 @@ public class Storage {
         if (parts.length < 3) {
             return null;
         }
+        boolean isDone = parts[1].equals("1");
+        Task task = constructTaskFromString(parts);
+        if (isDone) {
+            assert task != null;
+            task.markAsDone();
+        }
+        return task;
+    }
+
+    private Task constructTaskFromString(String[] parts) {
         Task task;
         String type = parts[0];
-        boolean isDone = parts[1].equals("1");
         String desc = parts[2];
         Priority priority = Priority.valueOf(parts[3].toUpperCase());
         try {
@@ -99,15 +105,9 @@ public class Storage {
                 task = new ToDo(desc, priority);
                 break;
             case "D":
-                if (parts.length < 5) {
-                    return null;
-                }
                 task = new Deadline(desc, parts[4], priority);
                 break;
             case "E":
-                if (parts.length < 6) {
-                    return null;
-                }
                 task = new Event(desc, parts[4], parts[5], priority);
                 break;
             default:
@@ -115,9 +115,6 @@ public class Storage {
             }
         } catch (DateTimeParseException e) {
             return null;
-        }
-        if (isDone) {
-            task.markAsDone();
         }
         return task;
     }

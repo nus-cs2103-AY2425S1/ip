@@ -1,7 +1,5 @@
 package gale.ui;
 
-import java.util.ArrayList;
-
 import gale.task.Task;
 import gale.task.TaskList;
 
