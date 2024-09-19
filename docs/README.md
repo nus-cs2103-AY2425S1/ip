@@ -86,7 +86,7 @@ Now you have 3 tasks in the list.
 ```
 
 ## Marking task as done
-Now, if you type `list`, you should see see all the tasks you've added.
+Now, if you type `list`, you should see all the tasks you've added.
 If you want to mark a task as done, simply type `mark (index)`. 
 Example: `mark 2`
 You should see the [T][X] (name of task)
