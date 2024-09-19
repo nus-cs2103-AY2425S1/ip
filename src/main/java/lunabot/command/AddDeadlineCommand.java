@@ -26,7 +26,7 @@ public class AddDeadlineCommand extends Command {
      *                          or wrong date/time format.
      */
     public AddDeadlineCommand(String input) throws LunaBotException {
-        this.parts = input.substring(9).split(" /by ");
+        this.parts = input.substring(2).split(" /by ");
         if (parts.length < 2) {
             throw new LunaBotException("Invalid deadline format");
         }

@@ -33,19 +33,19 @@ public class Parser {
         switch (command) {
         case "bye":
             return new ExitCommand();
-        case "list":
+        case "ls":
             return new ListCommand();
         case "mark":
             return new MarkCommand(input);
         case "unmark":
             return new UnmarkCommand(input);
-        case "delete":
+        case "del":
             return new DeleteCommand(input);
-        case "todo":
+        case "t":
             return new AddToDoCommand(input);
-        case "deadline":
+        case "d":
             return new AddDeadlineCommand(input);
-        case "event":
+        case "e":
             return new AddEventCommand(input);
         case "find":
             return new FindCommand(input);
