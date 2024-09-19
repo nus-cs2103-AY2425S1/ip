@@ -41,9 +41,7 @@ public class Command {
 
     private boolean checkIfValid(String str, int len, int size) {
         try {
-            return str.length() > len
-                    && str.charAt(len - 1) == ' '
-                    && Integer.parseInt(str.substring(len)) <= size
+            return Integer.parseInt(str.substring(len)) <= size
                     && Integer.parseInt(str.substring(len)) >= 1;
         } catch (NumberFormatException e) {
             return false;
@@ -280,7 +278,7 @@ public class Command {
     public String handleDateTimeException(DateTimeException e) {
         this.commandType = "Error";
         return this.ui
-                .error("Sorry, I need a valid date format! For example: yyyy-mm-dd");
+                .error("Sorry pal, I need a valid date format! For example: yyyy-mm-dd");
     }
 
     /**
