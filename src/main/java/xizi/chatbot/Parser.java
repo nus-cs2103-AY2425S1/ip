@@ -15,7 +15,7 @@ import xizi.chatbot.command.EventCommand;
 import xizi.chatbot.command.FindCommand;
 import xizi.chatbot.command.HelpCommand;
 import xizi.chatbot.command.ListCommand;
-import xizi.chatbot.command.ListOnCommand;
+import xizi.chatbot.command.ListOnDateCommand;
 import xizi.chatbot.command.MarkCommand;
 import xizi.chatbot.command.RemoveTagCommand;
 import xizi.chatbot.command.SearchByTagCommand;
@@ -87,7 +87,7 @@ public class Parser {
         case BYE:
             return new ByeCommand();
         case LIST_ON:
-            return new ListOnCommand(userInput);
+            return new ListOnDateCommand(userInput);
         case HELP:
             return new HelpCommand();
         case FIND:
@@ -105,6 +105,4 @@ public class Parser {
                     + "Type help for all available commands and format.");
         }
     }
-
-
 }

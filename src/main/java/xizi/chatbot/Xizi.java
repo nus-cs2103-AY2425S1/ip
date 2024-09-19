@@ -35,7 +35,7 @@ public class Xizi {
         parser = new Parser();
 
         try {
-            List<Task> loadedTasks = storage.load();
+            List<Task> loadedTasks = storage.loadTasks();
             actions = new TaskList(loadedTasks);
         } catch (IOException | XiziException e) {
             ui.printErrorMessage(e.getMessage());

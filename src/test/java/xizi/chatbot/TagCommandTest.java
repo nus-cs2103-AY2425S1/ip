@@ -70,7 +70,7 @@ public class TagCommandTest {
         assertTrue(taggedTask.getTags().contains("urgent"));
 
         // Reload the tasks from storage and check if the tag persists
-        TaskList reloadedTasks = new TaskList(storage.load());
+        TaskList reloadedTasks = new TaskList(storage.loadTasks());
         Task reloadedTask = reloadedTasks.getItems().get(0);
         assertTrue(reloadedTask.getTags().contains("urgent"));
     }

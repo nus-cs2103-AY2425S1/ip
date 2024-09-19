@@ -42,7 +42,7 @@ public class Storage {
      * @throws IOException If an I/O error occurs.
      * @throws XiziException If the data in the file is corrupted or in an unexpected format.
      */
-    public List<Task> load() throws IOException, XiziException {
+    public List<Task> loadTasks() throws IOException, XiziException {
         List<Task> tasks = new ArrayList<>();
         try {
             if (!Files.exists(filePath)) {
