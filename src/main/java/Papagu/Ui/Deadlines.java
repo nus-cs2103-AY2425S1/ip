@@ -3,6 +3,7 @@ package Papagu.Ui;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalTime;
+import java.util.Locale;
 
 /**
  * The Deadlines class represents a task with a description and a deadline(Time and Date)
@@ -29,13 +30,14 @@ public class Deadlines extends Task {
      */
     @Override
     public String toFile() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-dd-yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-dd-yyyy", Locale.ENGLISH);
         String formattedDate = this.date.format(formatter);
 
         return "D | " + (super.isDone() ? "1" : "0") + " | " 
                 + super.getDescription() + " | "
                         + formattedDate + " " + this.time;
     }
+
 
     /**
      * Returns the string representation of the task for printing in Ui

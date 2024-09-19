@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.LocalTime;
+import java.util.Locale;
 
 /**
  * The Events class represents a task with a description, date, start time and end time
@@ -33,7 +34,7 @@ public class Events extends Task {
      */
     @Override
     public String toFile() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-dd-yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-dd-yyyy", Locale.ENGLISH);
         String formattedDate = this.date.format(formatter);
 
         return "E | " + (super.isDone() ? "1" : "0") + " | " 
