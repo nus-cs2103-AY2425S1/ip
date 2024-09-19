@@ -81,7 +81,7 @@ public class Todo extends Task {
     private static void handleError(String rawDescription) throws MendelException {
         String[] segments = rawDescription.split(" ");
         ConditionalExceptionHandler.of()
-                .conditionTriggerException(segments.length == 1 || !segments[0].equals("todo"),
+                .conditionTriggerException(segments.length == 1 || !segments[0].toLowerCase().equals("todo"),
                         "OOPS! todo description cannot be empty.\nAdd description.");
     }
 
