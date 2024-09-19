@@ -1,8 +1,8 @@
 package task;
 
-import ai.task.Deadline;
-
 import org.junit.jupiter.api.Test;
+
+import ai.task.Deadline;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
