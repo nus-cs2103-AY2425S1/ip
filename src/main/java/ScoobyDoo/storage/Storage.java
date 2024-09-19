@@ -144,19 +144,19 @@ public class Storage {
             if (str.startsWith("T")) {
                 String[] strings = str.split("[|]");
                 Task tmp = new Todo(strings[2].trim());
-                if (strings[1].equals("1")) tmp.markAsDone();
+                if (strings[1].trim().equals("1")) tmp.markAsDone();
                 return tmp;
             }
             if (str.startsWith("E")) {
                 String[] strings = str.split("[|]");
-                Task tmp = new Event(strings[2], LocalDateTime.parse(strings[3].trim(), formatter),LocalDateTime.parse(strings[4].trim(), formatter));
-                if (strings[1].equals("1")) tmp.markAsDone();
+                Task tmp = new Event(strings[2].trim(), LocalDateTime.parse(strings[3].trim(), formatter),LocalDateTime.parse(strings[4].trim(), formatter));
+                if (strings[1].trim().equals("1")) tmp.markAsDone();
                 return tmp;
             }
             if (str.startsWith("D")) {
                 String[] strings = str.split("[|]");
-                Task tmp = new Deadline(strings[2], LocalDateTime.parse(strings[3].trim(), formatter));
-                if (strings[1].equals("1")) tmp.markAsDone();
+                Task tmp = new Deadline(strings[2].trim(), LocalDateTime.parse(strings[3].trim(), formatter));
+                if (strings[1].trim().equals("1")) tmp.markAsDone();
                 return tmp;
             }
             else {
