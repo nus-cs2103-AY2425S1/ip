@@ -133,7 +133,7 @@ help: Shows program usage instructions.
 Example: help
 
 recurring: Creates recurring deadlines.
-Example: recurring return book /start 7/9/2019 1800 /freq day /times 5-Mooooo
+Example: recurring return book /start 7/9/2019 1800 /freq day /times 5
 
 find: Find tasks using keywords.
 Example: find keyword
