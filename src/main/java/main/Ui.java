@@ -21,7 +21,7 @@ public class Ui {
         assert task != null : "Task should not be null";
         assert size >= 0 : "Size of task list should not be negative";
         String output = "Got it. I've added this task:\n" + task.getString() + "\n"
-                + "Now you have " + size + " tasks in the list.";
+                + "There are now " + size + " tasks in the list.";
         System.out.println(output);
         System.out.println("________________________________");
         return output;
@@ -35,7 +35,7 @@ public class Ui {
     public String displayMarkedMessage(Task task) {
         assert task != null : "Task should not be null";
         System.out.println("________________________________");
-        String output = "Nice! I've marked this task as done:\n" + task.getString();
+        String output = "Good job in completing the following task:\n" + task.getString();
         System.out.println(output);
         System.out.println("________________________________");
         return output;
@@ -48,7 +48,7 @@ public class Ui {
     public String displayUnmarkedMessage(Task task) {
         assert task != null : "Task should not be null";
         System.out.println("________________________________");
-        String output = "OK, I've marked this task as not done yet:\n" + task.getString();
+        String output = "You scammed me :(:\n" + task.getString();
         System.out.println(output);
         System.out.println("________________________________");
         return output;
@@ -65,8 +65,8 @@ public class Ui {
         assert task != null : "Task should not be null";
         assert size >= 0 : "Size of task list should not be negative";
         System.out.println("________________________________");
-        String output = "Noted. I've removed this task:\n" + task.getString() + "\n";
-        output += "Now you have " + size
+        String output = "Bye byeeee:\n" + task.getString() + "\n";
+        output += "There are now " + size
                 + " tasks in the list.";
         System.out.println(output);
         System.out.println("________________________________");
