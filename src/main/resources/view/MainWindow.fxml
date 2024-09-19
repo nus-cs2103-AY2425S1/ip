@@ -2,10 +2,12 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bottle.MainWindow">
     <children>
@@ -16,19 +18,16 @@
                 <VBox fx:id="dialogContainer" prefHeight="552.0" prefWidth="388.0" />
             </content>
         </ScrollPane>
-      <TitledPane animated="false" prefHeight="9.0" prefWidth="400.0" text="Bottle" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <content>
-          <AnchorPane minHeight="50.0" minWidth="0.0" prefHeight="71.0" prefWidth="398.0">
-               <children>
-                  <ScrollPane prefHeight="200.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
-                    </content>
-                  </ScrollPane>
-                  <TextField layoutX="39.0" layoutY="-8.0" prefHeight="57.0" prefWidth="304.0" text="list" AnchorPane.bottomAnchor="-9.0" AnchorPane.leftAnchor="39.0" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="-8.0" />
-               </children>
-            </AnchorPane>
-        </content>
+      <ScrollPane prefHeight="114.0" prefWidth="400.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="115.0" prefWidth="394.0" />
+      <TitledPane expanded="false" text="Bottle">
+         <content>
+            <TextArea prefHeight="200.0" prefWidth="346.0" text="Commands: &#10;list, &#10;todo *, event * /from /to, deadline /by, &#10;find *, &#10;check clash, &#10;bye " wrapText="true">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </TextArea>
+         </content>
       </TitledPane>
     </children>
 </AnchorPane>

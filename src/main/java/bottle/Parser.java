@@ -29,7 +29,6 @@ public class Parser {
     private static final String TODO_TASK = "T ";
     private static final String DEADLINE_TASK = "D ";
     private static final String EVENT_TASK = "E ";
-
     /**
      * Parses a date-time string into a LocalDateTime object.
      *
@@ -39,17 +38,19 @@ public class Parser {
      */
     private static LocalDateTime parseDateTime(String dateTimeStr) {
         assert dateTimeStr != null : "dateTimeStr shouldn't be null";
+        dateTimeStr = dateTimeStr.trim();
         DateTimeFormatter[] formatters = new DateTimeFormatter[]{
                 DateTimeFormatter.ofPattern("d/M/yyyy HHmm"),
                 DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"),
                 DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"),
+                DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm a"),
                 DateTimeFormatter.ofPattern("d/M/yyyy"), // New format for date only
                 DateTimeFormatter.ofPattern("dd/MM/yyyy"), // New format for date only
         };
 
         // Check for just date, month, and year
         if (dateTimeStr.matches("\\d{1,2}/\\d{1,2}/\\d{4}")) {
-            dateTimeStr += " 00:00"; // Append time if only date is provided
+            dateTimeStr += " 2359"; // Append time if only date is provided
         }
 
         for (DateTimeFormatter formatter : formatters) {
@@ -156,7 +157,7 @@ public class Parser {
             throw new IllegalArgumentException("OOPS!!! The deadline format is incorrect. "
                     + "Use: deadline <description> /by <dd/MM/yyyy HHmm>");
         }
-        String description = parts[0];
+        String description = parts[0].substring(9);
         assert !description.isEmpty() : "description shouldn't be empty";
         LocalDateTime by = parseDateTime(parts[1]);
         return new AddDeadlineTask(description, by);
@@ -175,7 +176,7 @@ public class Parser {
             throw new IllegalArgumentException("OOPS!!! The event format is incorrect. "
                     + "Use: event <description> /from <dd/MM/yyyy HHmm> /to <dd/MM/yyyy HHmm>");
         }
-        String description = parts[0];
+        String description = parts[0].substring(6);
         assert !description.isEmpty() : "description shouldn't be empty";
         LocalDateTime from = parseDateTime(parts[1]);
         LocalDateTime to = parseDateTime(parts[2]);
