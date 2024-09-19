@@ -1,3 +1,5 @@
+package lewis;
+
 import java.util.Set;
 /**
  * Implements a parser that interprets the user input string for Lewis to execute.

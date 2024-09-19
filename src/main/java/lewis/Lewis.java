@@ -1,3 +1,5 @@
+package lewis;
+
 import java.util.ArrayList;
 public class Lewis {
     private static boolean isExit = false;

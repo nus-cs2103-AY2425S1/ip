@@ -1,3 +1,5 @@
+package lewis;
+
 public class DeleteCommand extends Command{
 
     /** The index of the (0-indexed) task to be deleted */

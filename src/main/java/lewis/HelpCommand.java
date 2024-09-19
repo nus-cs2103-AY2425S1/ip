@@ -1,3 +1,5 @@
+package lewis;
+
 public class HelpCommand extends Command {
 
     /** The default help that Lewis will give */

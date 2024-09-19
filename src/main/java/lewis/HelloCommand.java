@@ -1,3 +1,5 @@
+package lewis;
+
 public class HelloCommand extends Command{
     private HelloCommand() {
 

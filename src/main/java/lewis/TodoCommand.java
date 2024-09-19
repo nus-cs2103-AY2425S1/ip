@@ -1,3 +1,5 @@
+package lewis;
+
 public class TodoCommand extends Command {
 
     private final Todo newTodo;

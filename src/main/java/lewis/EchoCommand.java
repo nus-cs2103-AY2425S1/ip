@@ -1,3 +1,5 @@
+package lewis;
+
 public class EchoCommand extends Command{
 
     private final String echoString;
