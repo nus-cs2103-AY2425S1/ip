@@ -14,7 +14,7 @@ MorganaPro frees your mind of having to remember things you need to do. It's,
 > * Mandatory arguments are denoted by `<>`.
 > * All dates are in `yyyy-MM-dd HHmm` format.
 > * Extraneous arguments for commands that do not take in arguments (such as `list` and `bye`) will be ignored.<br>
-    >   E.g., `list 123` will be interpreted as `list`.
+    E.g., `list 123` will be interpreted as `list`.
 
 ### Adding a todo: `todo`
 
