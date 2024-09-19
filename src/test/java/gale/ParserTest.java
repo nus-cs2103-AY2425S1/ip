@@ -82,7 +82,7 @@ public class ParserTest {
 
     @Test
     public void parseDateTime_invalidDateFormat_exceptionThrown() {
-        String invalidDate = "2023-12/31";
+        String invalidDate = "2023-12/31 18:00";
         assertThrows(DateTimeParseException.class, () -> Parser.parseDateTime(invalidDate));
     }
 

@@ -1,4 +1,4 @@
-D | 1 | go to the gym | none | 2024-09-18 14:00
-E | 1 | go to the gym | none | 2024-09-18 12:00 | 2024-09-18 14:00
-E | 1 | go to the gym | none | 2024-09-12 12:00 | 2024-09-12 13:00
-D | 1 | go to the party | none | 2024-09-12 14:00
+D | 0 | submit my homework on canvas | high | 2024-09-20 23:59
+E | 1 | attend friend's birthday party | medium | 2024-09-23 18:00 | 2024-09-23 22:00
+T | 0 | go to the gym | none
+D | 0 | finish my homework | none | 2024-09-18 14:00
