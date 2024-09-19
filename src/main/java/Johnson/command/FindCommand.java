@@ -9,11 +9,19 @@ import java.util.ArrayList;
  * Represents a command to find tasks.
  */
 public class FindCommand extends Command {
-
+    /**
+     * The command word that identifies a FindCommand instance.
+     */
     public static final String COMMAND_WORD = "find";
 
+    /**
+     * The message that is displayed when a FindCommand instance is executed successfully.
+     */
     private static final String COMMAND_MSG = "Got a few tangos on the radar, Chief:\n";
 
+    /**
+     * The message that is displayed when no tasks are found.
+     */
     private static final String COMMAND_MSG_EMPTY = "Don't know anyone by that name, Chief.";
     private final String keyword;
 

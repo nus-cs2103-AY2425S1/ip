@@ -15,7 +15,7 @@ import Johnson.utils.Utilities;
 import java.io.FileNotFoundException;
 
 /**
- * Represents the main class of the PHamBot application.
+ * Represents the main class of the Johnson application.
  */
 public class Johnson {
     private static TaskList tasks;
@@ -23,11 +23,11 @@ public class Johnson {
     private Parser parser;
 
     private UserData data;
-    private static final String[] UserGreetings = {"Hello", "Hi", "What's up"};
 
+    /**
+     * The greeting message displayed when the application is started.
+     */
     private static final String GREETING = "Boots on the line, ready to assist!";
-
-    private static final String GOODBYE = "Signing off for now, Chief.\nRadio in when you need me.";
 
     public Johnson() {
         data = new UserData();
@@ -41,11 +41,12 @@ public class Johnson {
         return GREETING;
     }
 
-    public static String sayGoodbye() {
-        Utilities.OutlineMessage(GOODBYE);
-        return GOODBYE;
-    }
-
+    /**
+     * Gets the response from the application based on the user input.
+     *
+     * @param input the user input.
+     * @return the response from the application.
+     */
     public String getResponse(String input) {
         try {
             Command command = parser.parseCommand(input);

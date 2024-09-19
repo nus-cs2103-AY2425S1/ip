@@ -5,7 +5,8 @@ import Johnson.utils.Tag;
 import java.util.ArrayList;
 
 /**
- * Represents a task with a name and completion status.
+ * Represents an abstract task. A task has a name and a completion status, as well as optional tags.
+ * Subclasses of Task include Event, Deadline, and Todo.
  */
 public abstract class Task {
     private String taskName;

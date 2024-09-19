@@ -251,6 +251,12 @@ public class Parser {
         return new ToDoCommand(task, tags);
     }
 
+    /**
+     * Prepares tags from the given string.
+     *
+     * @param tags the string containing the tags.
+     * @return the array of tags as strings.
+     */
     private String[] prepTags(String tags) {
         if (tags == null) {
             return null;

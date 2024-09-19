@@ -12,11 +12,12 @@ public class DatedTask extends Task {
     private LocalTime time;
 
     /**
-     * Constructs a DatedTask with the specified task name, date, and time.
+     * Constructs a DatedTask with the specified task name, date, time and optional tags.
      *
      * @param task the name of the task.
      * @param date the date of the task.
      * @param time the time of the task.
+     * @param tags the tags of the task.
      */
     public DatedTask(String task, String date, String time, String... tags) {
         super(task, tags);
@@ -27,10 +28,11 @@ public class DatedTask extends Task {
     }
 
     /**
-     * Constructs a DatedTask with the specified task name and date.
+     * Constructs a DatedTask with the specified task name, date and optional tags.
      *
      * @param task the name of the task.
      * @param date the date of the task.
+     * @param tags the tags of the task.
      */
     public DatedTask(String task, String date, String... tags) {
         super(task, tags);
@@ -46,7 +48,6 @@ public class DatedTask extends Task {
         this.date = LocalDate.parse(date);
         this.time = LocalTime.parse(time);
     }
-
 
     public LocalDate getDate() {
         return this.date;
