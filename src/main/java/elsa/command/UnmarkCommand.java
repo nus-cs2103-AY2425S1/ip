@@ -28,9 +28,10 @@ public class UnmarkCommand extends Command {
      *
      * @param tasks The task list to update.
      * @param ui The elsa.ui.Ui instance, which is not used in this command.
+     * @return A response string representing the result of the command execution, which can be displayed to the user.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
-        tasks.unmarkTask(taskIndex);
+    public String execute(TaskList tasks, Ui ui) {
+        return tasks.unmarkTask(taskIndex);
     }
 }

@@ -1,24 +1,34 @@
-# Duke project template
+# Elsa Project
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+> "Let’s focus on getting things done, not holding them in our heads!" – Elsa ([source](https://i.pinimg.com/originals/77/f5/6b/77f56bc55cdbc39e9971b5bd64989f3d.jpg))
 
-## Setting up in Intellij
+Say hi to **Elsa**, your friendly and efficient task manager inspired by the beloved character from Disney's *Frozen*.
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+### Elsa is here to:
+- **Effortlessly manage your tasks**: Add, edit, and delete tasks with ease.
+- **Keep track of deadlines**: Never miss an important task.
+- **Send reminders** (coming soon): Elsa will give you that gentle nudge when needed.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+### Features
+- **Conversational and Friendly**: Interact with Elsa as if you’re chatting with a friend.
+- **Lightning-fast ⚡**: Get tasks done quickly.
+- **Simple to Use**: Get started in minutes.
+
+### Visuals
+
+Elsa and her friend Olaf from *Frozen* join us on this journey. Thanks to Disney for their wonderful creations!
+- **Elsa**: Wikia (2020). *Profile - Elsa*. Frozen Wiki. [Link to Image](https://static.wikia.nocookie.net/disney/images/9/95/Profile_-_Elsa.jpeg/revision/latest?cb=20200319054311)
+- **Olaf**: Wikipedia (2021). *Olaf from Disney's Frozen*. [Link to Image](https://upload.wikimedia.org/wikipedia/en/6/6d/Olaf_from_Disney%27s_Frozen.png)
+
+### A Special Thanks to Disney
+
+All characters, including Elsa and Olaf, belong to **Disney**, and we are grateful for their inspiration from the movie *Frozen*.
+
+### Presenting:
+
+```plaintext
+███████ ██      ███████  █████  
+██      ██      ██      ██   ██
+█████   ██      ███████ ███████
+██      ██           ██ ██   ██
+███████ ███████ ███████ ██   ██ 

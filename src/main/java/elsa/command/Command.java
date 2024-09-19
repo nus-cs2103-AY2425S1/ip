@@ -17,9 +17,10 @@ public abstract class Command {
      *
      * @param tasks The task list that the command will operate on.
      * @param ui The elsa.ui.Ui instance that handles interaction with the user.
+     * @return A response string representing the result of the command execution, which can be displayed to the user.
      * @throws ElsaException If an error occurs during the execution of the command
      */
-    public abstract void execute(TaskList tasks, Ui ui) throws ElsaException;
+    public abstract String execute(TaskList tasks, Ui ui) throws ElsaException;
 
     /**
      * Determines whether this command is a goodbye (exit) command.

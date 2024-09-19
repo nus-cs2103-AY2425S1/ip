@@ -25,9 +25,10 @@ public class FindCommand extends Command {
      *
      * @param tasks The task list, which remains unchanged by this command.
      * @param ui The elsa.ui.Ui instance that will display the tasks that match the userInput.
+     * @return A response string representing the result of the command execution, which can be displayed to the user.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
-        tasks.findTasks(taskToFind);
+    public String execute(TaskList tasks, Ui ui) {
+        return tasks.findTasks(taskToFind);
     }
 }

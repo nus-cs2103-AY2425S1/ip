@@ -22,29 +22,20 @@ public class Ui {
     }
 
     /**
-     * Adds a horizontal separator line consisting of underscores to the console output.
-     * This is used to visually separate different sections of the user interface.
-     */
-    public static void addLine() {
-        System.out.println("______________________________________");
-    }
-
-    /**
      * Greets the user and begins the conversation.
      */
     public void greetUser() {
         System.out.println("Hi! I'm Elsa");
         System.out.println("It's nice to meet you.\nHow can I help you?");
-        addLine();
     }
 
     /**
      * Ends the conversation and says bye to the user.
+     *
+     * @return A response string containing a goodbye message.
      */
-    public static void goodbye() {
-        addLine();
-        System.out.println("Bye! It was so nice chatting with you.\nSee you again soon!");
-        addLine();
+    public static String goodbye() {
+        return "Bye! It was so nice chatting with you. See you again soon!";
     }
 
     /**
