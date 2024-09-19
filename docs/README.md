@@ -87,6 +87,87 @@ adds an event task with the description "CS2103T Finals" starting from 1 Nov 202
 
 This command lists out all tasks that are currently saved in the task list.
 
+### Find for specific tasks
+
+
+```find TEXT```
+
+
+This command finds all the tasks that contain the specified `TEXT` in their description.
+
+
+**Example:**
+
+
+```
+find CS2103T
+```
+
+
+finds all the tasks containing "CS2103T" in its description.
+
+
+---
+
+
+## Updating Tasks
+
+
+### Mark tasks
+
+
+``mark NUMBER``
+
+
+where ``NUMBER`` is the index of the tasks as per ``list`` command.
+
+**Example:**
+
+```
+mark 1
+```
+
+marks the first task in the list as completed.
+
+
+### Unmark tasks
+
+
+``unmark NUMBER``
+
+
+where ``NUMBER`` is the index of the tasks as per ``list`` command.
+
+
+**Example:**
+
+
+```
+unmark 1
+```
+
+marks the first task in the list as incomplete.
+
+
+### Delete tasks
+
+
+``delete NUMBER``
+
+
+where ``NUMBER`` is the index of the tasks as per ``list`` command.
+
+
+
+**Example:**
+
+
+```
+delete 1
+```
+
+deletes the first task in the list.
+
 ---
 ## General operations
 
