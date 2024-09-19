@@ -3,7 +3,7 @@
 ![Gale GUI screenshot](Ui.png)
 
 ## Installation
-1. Download the jar from ![github releases](https://github.com/kaikquah/ip/releases)
+1. Download the latest jar release from [github releases](https://github.com/kaikquah/ip/releases)
 2. Download Java SDK Version 17
 3. Open up a command line interface and run the command 
 ```bash
