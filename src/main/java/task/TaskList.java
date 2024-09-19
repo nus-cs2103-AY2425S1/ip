@@ -26,6 +26,11 @@ public class TaskList {
         list = tasks;
     }
 
+    public static void setList(ArrayList<Task> newList) {
+        list = newList;
+    }
+
+
     /**
      * Getter method for list of tasks
      * @return tasks
