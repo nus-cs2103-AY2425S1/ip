@@ -19,6 +19,10 @@ public class MarkCommand extends Command {
      * @throws LunaBotException Handles wrong input format
      */
     public MarkCommand(String input) throws LunaBotException {
+        // Guard clause
+        if (input.length() < 6) {
+            throw new LunaBotException("Invalid command format. No task number provided.");
+        }
         try {
             // extracts index as a string and converts to an int
             this.index = Integer.parseInt(input.substring(5).trim()) - 1;

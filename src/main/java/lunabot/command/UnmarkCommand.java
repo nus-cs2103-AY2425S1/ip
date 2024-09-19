@@ -19,6 +19,10 @@ public class UnmarkCommand extends Command {
      * @throws LunaBotException Handles wrong input format
      */
     public UnmarkCommand(String input) throws LunaBotException {
+        // Guard clause
+        if (input.length() < 8) {
+            throw new LunaBotException("Invalid command format. No task number provided.");
+        }
         try {
             // extracts index as a string and converts to an int
             this.index = Integer.parseInt(input.substring(7).trim()) - 1;

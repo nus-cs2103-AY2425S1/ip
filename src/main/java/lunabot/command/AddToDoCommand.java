@@ -21,6 +21,7 @@ public class AddToDoCommand extends Command {
      */
     public AddToDoCommand(String input) throws LunaBotException {
         this.description = input.substring(5);
+
         if (description.isEmpty()) {
             throw new LunaBotException("Description of task cannot be empty. Please fill in the required fields.");
         }
