@@ -1,15 +1,15 @@
 package babblebot;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 import babblebot.exception.BabbleBotException;
 import babblebot.parser.Parser;
 import babblebot.storage.Storage;
-import babblebot.task.Deadline;
-import babblebot.task.Event;
-import babblebot.task.Task;
-import babblebot.task.TaskList;
-import babblebot.task.Todo;
+import babblebot.task.*;
 import babblebot.ui.Ui;
 
 
@@ -72,6 +72,9 @@ public class BabbleBot {
 
             case "event":
                 return handleEventCommand(input);
+
+            case "confirm":
+                return handleConfirmCommand(input);
 
             case "delete":
                 return handleDeleteCommand(input);
@@ -172,11 +175,15 @@ public class BabbleBot {
      */
     private String handleEventCommand(String input) {
         try {
-            String[] parsedEvent = parser.parseEventContent(input);
-            storedTasks.addTask(new Event(parsedEvent[0], parsedEvent[1], parsedEvent[2]));
-            assert storedTasks.size() == storedTasks.size() + 1 : "Task was not added correctly";
-            saveTasksToFile();
-            return ui.getTaskAddedString(storedTasks);
+            if (input.contains("/p")) {
+                return handleTentativeCommand(input);
+            } else {
+                String[] parsedEvent = parser.parseEventContent(input);
+                storedTasks.addTask(new Event(parsedEvent[0], parsedEvent[1], parsedEvent[2]));
+                assert storedTasks.size() == storedTasks.size() + 1 : "Task was not added correctly";
+                saveTasksToFile();
+                return ui.getTaskAddedString(storedTasks);
+            }
         } catch (IndexOutOfBoundsException e) {
             return ui.getIoErrorString() + "\nPlease provide a valid event.";
         }
@@ -215,6 +222,65 @@ public class BabbleBot {
             return ui.getTaskAddedString(storedTasks);
         } catch (IndexOutOfBoundsException e) {
             return ui.getTodoErrorString();
+        }
+    }
+
+    /**
+     * Handles the tasklist manipulation for confirming a pending task
+     *
+     * @param input The user's input string
+     * @return The message resulting from confirming a pending task
+     */
+    private String handleConfirmCommand(String input) {
+        try {
+            int taskIndex = parser.parseIndex(input);  // Example: "confirm 5 /slot 2"
+            int slotIndex = parser.parseSlotIndex(input);
+            Task task = storedTasks.get(taskIndex);
+
+            if (task instanceof TentativeEvent) {
+                TentativeEvent tentativeEvent = (TentativeEvent) task;
+                if (tentativeEvent.confirmSlotByIndex(slotIndex)) {
+                    Event confirmedEvent = tentativeEvent.toEvent();
+                    storedTasks.set(taskIndex, confirmedEvent);
+                    saveTasksToFile();
+                    return "Confirmed slot " + (slotIndex + 1) + " for event:\n    " + confirmedEvent;
+                } else {
+                    return "Invalid slot index. Please choose a valid slot number.";
+                }
+            } else {
+                return "Task is not a tentative event.";
+            }
+        } catch (IndexOutOfBoundsException e) {
+            return ui.getIoErrorString() + "\nPlease provide a valid task number and slot index.";
+        }
+    }
+
+
+    /**
+     * Handles the tasklist manipulation for adding a tentative event task
+     *
+     * @param input The user's input string
+     * @return The message resulting from adding the tentative event task
+     */
+    private String handleTentativeCommand(String input) {
+        try {
+            String[] parsedTentative = parser.parseTentativeEventContent(input);
+            ArrayList<LocalDate[]> timeSlots = new ArrayList<>();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            for (String slot : parsedTentative[1].split(",")) {
+                String[] dates = slot.split(" - ");
+                LocalDate startDate = LocalDate.parse(dates[0].trim(), formatter);
+                LocalDate endDate = LocalDate.parse(dates[1].trim(), formatter);
+                timeSlots.add(new LocalDate[]{startDate, endDate}); // Add parsed slot to timeSlots
+            }
+
+            // Add the new TentativeEvent to the task list
+            storedTasks.addTask(new TentativeEvent(parsedTentative[0], timeSlots));
+            saveTasksToFile();
+            return ui.getTaskAddedString(storedTasks);
+
+        } catch (IndexOutOfBoundsException | DateTimeParseException e) {
+            return ui.getIoErrorString() + "\nPlease provide a valid tentative event with multiple time slots.";
         }
     }
 
