@@ -37,12 +37,25 @@ public class UserInterface {
         return WELCOME_STRING;
     }
 
+    public static String displayTaskArchivedMessage() {
+        return "Task has been archived!";
+    }
 
+    public static String displayTaskLoadedMessage() {
+        return "Tasks have been loaded!";
+    }
+
+    public static String displayFileNotFoundMessage() {
+        return "File not found!!";
+    }
 
     /**
      * Prints the task list.
      */
     public String printTaskList() {
+        if (killJoy.getTaskCount() == 0) {
+            return "You have no tasks lah!!";
+        }
         String str = "Here are your tasks lah!! Don't die:\n";
         for (int i = 0; i < killJoy.getTaskCount(); i++) {
             str += (i + 1) + ". " + killJoy.getTask(i) + "\n";

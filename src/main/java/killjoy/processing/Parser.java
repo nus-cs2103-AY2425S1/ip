@@ -15,19 +15,9 @@ import killjoy.task.Task;
  * Contains methods to parse user input.
  */
 public class Parser {
-    private static UserInterface ui;
     private static final String BY_KEYWORD = "by ";
     private static final String FROM_KEYWORD = "from ";
     private static final String TO_KEYWORD = "to ";
-
-    /**
-     * Constructor for the Parser class.
-     *
-     * @param ui The UserInterface object.
-     */
-    public Parser(UserInterface ui) {
-        this.ui = ui;
-    }
 
     /**
      * Parses the user input to determine the type of task.
@@ -66,7 +56,7 @@ public class Parser {
      * @return The date and time of the task.
      */
     public static String getByTimeString(String input) {
-        return extractTimeString(input, 1, BY_KEYWORD);
+        return extractTimeString(input, 2, BY_KEYWORD);
     }
 
     /**
@@ -76,7 +66,7 @@ public class Parser {
      * @return The start time of the task.
      */
     public static String getFromTimeString(String input) {
-        return extractTimeString(input, 1, FROM_KEYWORD);
+        return extractTimeString(input, 2, FROM_KEYWORD);
     }
 
     /**
@@ -86,7 +76,7 @@ public class Parser {
      * @return The end time of the task.
      */
     public static String getToTimeString(String input) {
-        return extractTimeString(input, 2, TO_KEYWORD);
+        return extractTimeString(input, 3, TO_KEYWORD);
     }
 
     /**
@@ -99,10 +89,10 @@ public class Parser {
      */
     private static String extractTimeString(String input, int slashIndex, String keyword) {
         String[] inputSplitBySlash = input.split("/");
-        if (inputSplitBySlash.length <= slashIndex) {
+        if (inputSplitBySlash.length < slashIndex) {
             return null;
         }
-        return inputSplitBySlash[slashIndex].replaceFirst(keyword, "");
+        return inputSplitBySlash[slashIndex - 1].replaceFirst(keyword, "");
     }
 
     /**
