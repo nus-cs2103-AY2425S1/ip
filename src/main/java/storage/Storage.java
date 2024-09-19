@@ -1,11 +1,5 @@
 package storage;
 
-import tasks.DeadLine;
-import tasks.Event;
-import tasks.Task;
-import tasks.ToDo;
-import exceptions.JarException;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -16,16 +10,21 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import exceptions.JarException;
+import tasks.DeadLine;
+import tasks.Event;
+import tasks.Task;
+import tasks.ToDo;
+
 /**
  * The Storage class handles the reading and writing of tasks to a file.
  * It is responsible for loading tasks from a file into the application and
  * saving the current tasks back to the file.
  */
 public class Storage {
-    private String filePath;
     private static final DateTimeFormatter DATE_TIME_FORMATTER =
             DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-
+    private String filePath;
     /**
      * Constructs a Storage object with the specified file path.
      *

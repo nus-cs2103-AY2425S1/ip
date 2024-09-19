@@ -1,14 +1,19 @@
 package parser;
 
-import enums.CommandName;
-import exceptions.JarException;
-import tasks.*;
-import ui.Ui;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+
+import enums.CommandName;
+import exceptions.JarException;
+import tasks.DeadLine;
+import tasks.Event;
+import tasks.Task;
+import tasks.TaskList;
+import tasks.ToDo;
+import ui.Ui;
+
 
 /**
  * The Parser class is responsible for interpreting user commands and
@@ -275,12 +280,12 @@ public class Parser {
      * @return A string containing the list of matching tasks.
      */
     private String handleFindCommand(String command, TaskList taskList, Ui ui) {
-        String keyword = command.substring(4).trim();  // Extract keyword from command
+        String keyword = command.substring(4).trim();
         try {
-            ArrayList<Task> foundTasks = taskList.findTasks(keyword);  // Find tasks with the keyword
-            return ui.showTaskList(foundTasks);  // Display the list of found tasks
+            ArrayList<Task> foundTasks = taskList.findTasks(keyword);
+            return ui.showTaskList(foundTasks);
         } catch (JarException e) {
-            return "Error: " + e.getMessage();  // Handle case where keyword is invalid
+            return "Error: " + e.getMessage();
         }
     }
 

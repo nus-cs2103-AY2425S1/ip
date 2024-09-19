@@ -1,12 +1,13 @@
 package jar;
 
+import java.io.IOException;
+
 import exceptions.JarException;
 import parser.Parser;
 import storage.Storage;
 import tasks.TaskList;
 import ui.Ui;
 
-import java.io.IOException;
 
 /**
  * The main class that runs the jar.Jar bot application.
@@ -47,8 +48,8 @@ public class Jar {
      *
      * @param input The user's input command as a string.
      * @return The response from the Jar bot as a string. If the input command is "exit",
-     * the response will include the goodbye message after saving tasks.
-     * If an error occurs during processing, the response will contain an error message.
+     *         the response will include the goodbye message after saving tasks.
+     *         If an error occurs during processing, the response will contain an error message.
      */
     public String getResponse(String input) {
         // Assert that the input command is not null or empty

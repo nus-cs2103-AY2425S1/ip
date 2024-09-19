@@ -1,10 +1,11 @@
 package tasks;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import exceptions.JarException;
 import storage.Storage;
 
-import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Represents a list of tasks.
@@ -27,7 +28,7 @@ public class TaskList {
      * @throws JarException If the data in the storage is corrupted.
      */
     public TaskList(Storage storage) throws IOException, JarException {
-        this.tasks = new ArrayList<>(storage.load());  // Load tasks from the storage
+        this.tasks = new ArrayList<>(storage.load());
     }
 
     /**
