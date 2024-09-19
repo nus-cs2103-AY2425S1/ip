@@ -13,5 +13,6 @@
 }
 
 .message-box-label {
-    -fx-label-padding: 10px;
+    -fx-label-padding: 5px;
+    -fx-font-size: 15px;
 }

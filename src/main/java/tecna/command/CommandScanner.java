@@ -31,31 +31,9 @@ import tecna.task.ToDo;
 public class CommandScanner {
     private final Scanner SCANNER;
     private String input;
-    private int inputIndex;
-    private Task inputTask;
-    private String keyword;
 
     public CommandScanner() {
         this.SCANNER = new Scanner(System.in);
-    }
-
-    public int getInputIndex() {
-        return this.inputIndex;
-    }
-
-    public Task getInputTask() {
-        return this.inputTask;
-    }
-
-    public String getKeyword() {
-        return this.keyword;
-    }
-
-    /**
-     * Returns the latest input scanned by the scanner
-     */
-    public String getInput() {
-        return this.input;
     }
 
     public Command getCommand(String input) {
@@ -91,24 +69,6 @@ public class CommandScanner {
             case "event" -> CommandType.EVENT;
             default -> CommandType.INVALID;
         };
-    }
-
-    /**
-     * Generates the required index and stores in the <code>inputIndex</code> attribute.
-     * @return <code>true</code> if the parsing process is success and <code>false</code> otherwise.
-     */
-    public boolean generateIndex() {
-        String[] input_words = this.input.split(" ");
-        try {
-            this.inputIndex = Integer.parseInt(input_words[1]) - 1;
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-    public void close() {
-        this.SCANNER.close();
     }
 
 }
