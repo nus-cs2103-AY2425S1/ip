@@ -3,7 +3,6 @@ package samson;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import samson.task.Task;
 import samson.task.TaskList;
 import samson.task.ToDo;
@@ -36,20 +35,14 @@ public class UiTest {
 
     @Test
     public void testWelcomeMessage() {
-        ui.welcomeMessage();
-        String expectedOutput = "____________________________________________________________\n"
-                + " Hello! I'm Samson.Samson\n"
-                + " What can I do for you?\n"
-                + "____________________________________________________________\n";
-        assertEquals(expectedOutput, outContent.toString());
+        String expectedOutput = " Hello! I'm Samson\n" + " What can I do for you?\n";
+        assertEquals(expectedOutput, Ui.welcomeMessage());
     }
 
     @Test
     public void testGoodbyeMessage() {
-        ui.goodbyeMessage();
-        String expectedOutput = "____________________________________________________________\n"
-                + " Bye. Hope to see you again soon!\n";
-        assertEquals(expectedOutput, outContent.toString());
+        String expectedOutput = " Bye. Hope to see you again soon!\n";
+        assertEquals(expectedOutput, ui.goodbyeMessage());
     }
 
     @Test
@@ -58,14 +51,10 @@ public class UiTest {
         Task task = new ToDo("Write unit tests");
         taskList.addTask(task);
 
-        ui.showTaskAdded(task, taskList);
-
-        String expectedOutput = "____________________________________________________________\n"
-                + " Got it. I've added this task:\n"
+        String expectedOutput = " Got it. I've added this task:\n"
                 + "   [T][ ] Write unit tests\n"
-                + " Now you have 1 tasks in the list.\n"
-                + "____________________________________________________________\n";
-        assertEquals(expectedOutput, outContent.toString());
+                + " Now you have 1 tasks in the list.\n";
+        assertEquals(expectedOutput, ui.showTaskAdded(task, taskList));
     }
 
     @Test
@@ -74,27 +63,22 @@ public class UiTest {
         taskList.addTask(new ToDo("Task 1"));
         taskList.addTask(new ToDo("Task 2"));
 
-        ui.showTaskList(taskList);
-
         String expectedOutput = "____________________________________________________________\n"
-                + "Here are the tasks in your list: \n"
+                + "Here are the tasks in your list:\n"
                 + " 1. [T][ ] Task 1\n"
                 + " 2. [T][ ] Task 2\n"
                 + "____________________________________________________________\n";
-        assertEquals(expectedOutput, outContent.toString());
+        assertEquals(expectedOutput, ui.showTaskList(taskList));
     }
 
     @Test
     public void testShowTaskMarked() {
         Task task = new ToDo("Task to mark");
         task.complete();
-        ui.showTaskMarked(task);
 
-        String expectedOutput = "____________________________________________________________\n"
-                + " Nice! I've marked this task as done:\n"
-                + "   [T][X] Task to mark\n"
-                + "____________________________________________________________\n";
-        assertEquals(expectedOutput, outContent.toString());
+        String expectedOutput = " Nice! I've marked this task as done:\n"
+                + "   [T][X] Task to mark\n";
+        assertEquals(expectedOutput, ui.showTaskMarked(task));
     }
 
     @Test
@@ -102,43 +86,23 @@ public class UiTest {
         Task task = new ToDo("Task to unmark");
         task.complete();  // Initially marked as done
         task.notComplete();  // Now unmarked
-        ui.showTaskUnmarked(task);
 
-        String expectedOutput = "____________________________________________________________\n"
-                + " OK, I've marked this task as not done yet:\n"
-                + "   [T][ ] Task to unmark\n"
-                + "____________________________________________________________\n";
-        assertEquals(expectedOutput, outContent.toString());
+        String expectedOutput = " OK, I've marked this task as not done yet:\n"
+                + "   [T][ ] Task to unmark\n";
+        assertEquals(expectedOutput, ui.showTaskUnmarked(task));
     }
 
     @Test
     public void testShowTaskNumInvalid() {
-        ui.showTaskNumInvalid();
-
-        String expectedOutput = "____________________________________________________________\n"
-                + " Task number out of range.\n"
-                + "____________________________________________________________\n";
-        assertEquals(expectedOutput, outContent.toString());
+        String expectedOutput = " Task number out of range.\n";
+        assertEquals(expectedOutput, ui.showTaskNumInvalid());
     }
 
     @Test
     public void testShowError() {
         String errorMessage = "An error occurred!";
-        ui.showError(errorMessage);
-
-        String expectedOutput = "____________________________________________________________\n"
-                + " OOPS!!! An error occurred!\n";
-        assertEquals(expectedOutput, outContent.toString());
+        String expectedOutput = " OOPS!!! An error occurred!\n";
+        assertEquals(expectedOutput, ui.showError(errorMessage));
     }
 
-    @Test
-    public void testReadCommand() {
-        String input = "This is a command";
-        ByteArrayInputStream inContent = new ByteArrayInputStream(input.getBytes());
-        System.setIn(inContent);
-
-        String command = ui.readCommand();
-        assertEquals(input, command);
-    }
 }
-
