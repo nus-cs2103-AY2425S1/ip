@@ -19,8 +19,6 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
 
     private Pixy pixy;
 
@@ -58,7 +56,7 @@ public class MainWindow extends AnchorPane {
 
 
         if (input.isEmpty()) {
-            return; // Do nothing if input is empty
+            return;
         }
         String response = pixy.getResponse(input);
         String commandType = pixy.getCommandType();
