@@ -6,6 +6,7 @@ import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import garfield.commands.AddCommand;
 import garfield.commands.Command;
@@ -199,7 +200,11 @@ public class Parser {
         if (output.length != 2) {
             throw new GarfieldException("No integer after the command to select a garfield.task!");
         }
-        return Integer.parseInt(output[1]);
+        try {
+            return Integer.parseInt(output[1]);
+        } catch (NumberFormatException e) {
+            throw new GarfieldException(output[1] + " is not a number!");
+        }
     }
 
     /**
@@ -351,7 +356,7 @@ public class Parser {
      * @throws DateTimeParseException Error thrown if date time format is wrong in the input.
      */
     private static LocalDateTime parseDateTime(String dateInput) throws DateTimeParseException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm", Locale.US)
                 .withResolverStyle(ResolverStyle.STRICT);
         return LocalDateTime.parse(dateInput, formatter);
     }
