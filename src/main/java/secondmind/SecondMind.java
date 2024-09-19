@@ -13,9 +13,10 @@ public class SecondMind {
     private static final String logo = "SecondMind";
     private static final String DATA_FILE_PATH = "./SecondMind.txt";
     private static final String DATE_TIME_PARSE_EXCEPTION_MESSAGE =
-            "Warning! Invalid dateTime format detected!\n"
-            + "Please use the following representation for dateTime strings:\n"
-            + "\tyyyy-MM-ddTHH:mm:ss";
+                    "Warning! Invalid dateTime format detected!\n"
+                    + "Please use the following format for date time:\n"
+                    + "\tyyyy-MM-ddTHH:mm:ss\n\n"
+                    + "For example, 2024-09-18T12:34:56\n";
     private static final String EXIT_INSTRUCTION = "$$$EXIT_PROGRAM$$$";
 
     private Storage storage;
