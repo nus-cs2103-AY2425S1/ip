@@ -24,7 +24,7 @@ Bob can make your life easier!
 
 ## Quick Start
 + Have Java 17 installed on your computer / laptop. (Mac users will require the specific Azul JDK 17 distribution.)
-+ Download the latest `.jar` file.
++ Download the latest `.jar` file [here](https://github.com/zi-yii/ip/releases/tag/A-Release)
 + Open terminal and `cd` to the directory where the `.jar` file is located.
 + Run the command `java -jar bob.jar` to open Bob application.
 
@@ -221,3 +221,4 @@ Expected output:
 ```
 Bye! Hope to see you again :)
 ```
+
