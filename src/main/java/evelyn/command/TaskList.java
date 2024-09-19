@@ -164,7 +164,7 @@ public class TaskList {
             return str;
         } else {
             str = "It seems like there is no task that matches your specified keyword."
-                   + " Try checking your spelling";
+                   + " Try checking your spelling.";
             return str;
         }
     }
