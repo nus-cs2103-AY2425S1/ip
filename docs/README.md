@@ -180,3 +180,20 @@ Make sure the list is saved before you close the application
 
 Example: `bye`
 
+## Command Summary
+
+| Action        | Format                                                            | Examples                                                     |
+|---------------|:------------------------------------------------------------------|--------------------------------------------------------------|
+| Add Task      | `todo description`                                                | `todo CS2103T IP`                                            |
+| Deadline Task | `deadline DESCRIPTION /by [YYYY-MM-DD HHMM]`                      | `deadline CS2103T IP /by 2024-09-20 2359`                    |
+| Event Task    | `event DESCRIPTION /from [YYYY-MM-DD HHMM] /to [YYYY-MM-DD HHMM]` | `event CS2103T IP /from 2024-08-15 0000 /to 2024-09-20 2359` |
+| Delete Task   | `delete INDEX`                                                    | `delete 1`                                                   |
+| Find          | `find KEYWORD`                                                    | `find books`                                                 |
+| List          | `list`                                                            | `list`                                                       |
+| Mark          | `mark INDEX`                                                      | `mark 1`                                                     |
+| Unmark        | `unmark INDEX`                                                    | `unmark 2`                                                   |
+| Update        | `update INDEX FIELD NEWVALUE`                                     | `update 1 description go to church`                          |
+| Save          | `save`                                                            | `save`                                                       |
+| Exit          | `bye`                                                             | `bye`                                                        |
+    
+
