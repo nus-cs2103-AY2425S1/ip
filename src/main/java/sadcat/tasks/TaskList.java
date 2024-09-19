@@ -137,7 +137,6 @@ public class TaskList {
             if (input.isEmpty()) {
                 throw new SadCatException("Empty Task description provided.");
             }
-            System.out.println("Got it. I've added this task:");
             Task task;
             switch (type) {
             case "todo":
@@ -154,6 +153,7 @@ public class TaskList {
             }
             this.taskStore.add(task);
             Storage.saveData();
+            System.out.println("Got it. I've added this task:");
             System.out.println(task);
             System.out.printf(
                     "Now you have %d tasks in the list.\n",

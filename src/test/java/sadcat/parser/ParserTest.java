@@ -203,9 +203,9 @@ class ParserTest {
         String output = newOut.toString().trim();
         assertTrue(output.contains("Available commands:"));
         assertTrue(output.contains("1. todo <task description> - Create a todo task"));
-        assertTrue(output.contains("2. deadline <task description> /by <date time> - Create a deadline task"));
+        assertTrue(output.contains("2. deadline <task description> /by <yyyy-MM-dd HHmm> - Create a deadline task"));
         assertTrue(output.contains(
-                "3. event <task description> /from <start date time> /to <end date time> - Create an event task"));
+                "3. event <task description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm> - Create an event task"));
         assertTrue(output.contains("4. list - Display all tasks"));
         assertTrue(output.contains("5. mark <task number> - Mark a task as done"));
         assertTrue(output.contains("6. unmark <task number> - Mark a task as not done"));
