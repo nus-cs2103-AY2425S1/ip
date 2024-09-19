@@ -3,20 +3,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.meow.com.tasks.Task;
-import com.meow.com.tasks.Todo;
-import com.meow.com.tasks.Deadline;
 
+
+/**
+ * Acts as a abstract data structure for storing active / unactive tasks
+ */
 public class TaskList {
-    List<Task> tasks;
-    
-    // Public constructor for TaskList
+    private List<Task> tasks;
+
+    /**
+     * Public constructor for creating task list
+     */
     public TaskList() {
         tasks = new ArrayList<>();
     }
 
-    /*
+    /**
      * adds task to the tasklist
-     * @param Task task
+     * @param task
      * @return void
      */
     public String addTask(Task task) throws Meowception {
@@ -26,67 +30,11 @@ public class TaskList {
         } catch (Exception e) {
             throw new Meowception("");
         }
-    } 
-
-    /*
-     * adds todo task to the tasklist
-     * @param String taskName
-     * @return void
-     */
-    public String addTodoTask(String command) throws Meowception {
-        if (command.trim().isEmpty()) {
-            throw new Meowception("100");
-            //errorMsg("Your todo task can't be blank silly goose, write something NEOW MEOW");
-        }
-        else {
-            tasks.add(new Todo (command));
-            return addedNewTaskMessage(tasks.get(tasks.size() - 1));
-        }
     }
 
-    /*
-     * adds deadline task to the tasklist
-     * @param String taskName
-     * @param String deadline
-     * @return void
-     */
-    public String addDeadlineTask(String command) throws Meowception {
-        if (command.contains("/by ")) {
-            if (command.substring(command.indexOf("/by") + 3 ).trim().isEmpty()) {
-                throw new Meowception("200");
-                // errorMsg("Meow meow you need to enter a deadline for your task");
-                // return;
-            } else {
-                String taskName = command.substring(0, command.indexOf("/by ") - 1);
-                if (taskName.trim().isEmpty()) {
-                    throw new Meowception("100");
-                    // errorMsg("Meow meow you need to enter a task name for your deadline");
-                    // return;
-                }
-                String by = command.substring(command.indexOf("/by ") + 4);
-                
-                tasks.add(new Deadline(taskName, by));
-                return addedNewTaskMessage(tasks.get(tasks.size() - 1));
-            }
-            
-        } else {
-           throw new Meowception("200");
-        }
-    }
-
-    /*
-     * adds event task to the tasklist
-     * @param String taskName
-     * @param String timeframe
-     * @return String message to be shown to user
-     */
-    public String addEventTask(String command) throws Meowception {
-        return "";
-    }
-
-    /*
+    /**
      * marks task at specified index
-     * @param int number
+     * @param number
      * @return String message to be shown to user
      */
     public String markTask(int number) throws Meowception {
@@ -95,31 +43,29 @@ public class TaskList {
         } else {
             System.out.println("ITS DONE");
             tasks.get(number - 1).setDone(true);
-            String icon = "[" + tasks.get(number - 1).getCompletionChar() +"]";
+            String icon = "[" + tasks.get(number - 1).getCompletionChar() + "]";
             return "    Meow has marked this task as done:\n        " 
-                    + icon +tasks.get(number - 1).getTaskName();
+                    + icon + tasks.get(number - 1).getTaskName();
         }
     }
 
-    /*
-     * unmarks task at specified index
-     * @param int index
+    /**
+     * Unmarks task at specified index
+     * @param index
      * @return String message to be shown to user
      */
     public String unmarkTask(int index) throws Meowception {
-         // Check if the task is already unmarked and stuff...         
         if (!tasks.get(index - 1).isDone()) {
             return "    Meow THIS TASK IS ALREADY UNMARKED !!! ";
         } else {
             tasks.get(index - 1).setDone(false);
-            String icon = "[" + tasks.get(index - 1).getCompletionChar() +"]";
-            return "    Meow has unmarked this task as done:\n      " + icon +tasks.get(index - 1).getTaskName();
+            String icon = "[" + tasks.get(index - 1).getCompletionChar() + "]";
+            return "    Meow has unmarked this task as done:\n      " + icon + tasks.get(index - 1).getTaskName();
         }          
     }
 
-    /*
+    /**
      * displays the list of tasks
-     * @param None
      * @return String, List to be printed
      */
     public String displayList() {
@@ -133,9 +79,9 @@ public class TaskList {
         return outputList;
     }
 
-    /*
+    /**
      * removes tasks at specified index
-     * @param int index
+     * @param index
      * @return void
      */
     public String deleteTask(int index) throws Meowception {
@@ -147,10 +93,10 @@ public class TaskList {
         }
     }
 
-    /*
+    /**
      * Find tasks with the specified keyword
      * Searches all tasks and returns if contains it
-     * @param String keyword
+     * @param keyword
      * @return TaskList
      */
     public TaskList findTasks(String keyword) throws Meowception {
@@ -163,21 +109,30 @@ public class TaskList {
         return foundTasks;
     }
 
-    
+    /**
+     * Returns the message to be shown when a new task is added
+     * @Param task object
+     * @return String message to be shown
+     */
 
-    // Returns the message to be shown when a new task is added
     private String addedNewTaskMessage(Task task) {
-        return "    Meow has added this task hehe:\n            " 
-                + task.toString() + "\n            Neow you have " 
+        return "    Meow has added this task hehe:\n            "
+                + task.toString() + "\n            Neow you have "
                 + tasks.size() + " tasks in the list";
     }
 
-    // Returns the size of the task list
+    /**
+     * Returns the current size of the task list
+     */
     public int getSize() {
         return tasks.size();
     }
 
-    // Returns the task at the specified index
+    /**
+     * Grabs the task at the specified index
+     * @param index
+     * @return
+     */
     public Task get(int index) {
         return tasks.get(index);
     }

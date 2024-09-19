@@ -1,14 +1,21 @@
 package com.meow;
 import java.util.Scanner;
 
+import com.meow.com.tasks.Deadline;
+import com.meow.com.tasks.Event;
 import com.meow.com.tasks.Task;
 import com.meow.com.tasks.Todo;
-import com.meow.com.tasks.Event;
 
-import com.meow.com.tasks.Deadline;
+/**
+ * Class handles and parses all user inputs
+ */
 public class Parser {
     private Scanner scanner;
     private TaskList taskList;
+
+    /**
+     * Enumerations for valid commands
+     */
     public enum Commands {
         TODO, DEADLINE, EVENT, LIST, DELETE, MARK, UNMARK, BYE,
         FIND
@@ -22,11 +29,12 @@ public class Parser {
         this.taskList = taskList;
     }
 
-    /*
+    /**
      * Validates the command input
-     * @param String inputType
+     * @param inputType which is a string that takes in user input
      * @return String
      */
+
     public String validateCommand(String inputType) throws Meowception {
         try {         
             String[] parts = inputType.split(" ");
@@ -154,7 +162,7 @@ public class Parser {
         return inputType;
     }
             
-    /*
+    /**
      * Parses the input command and returns a task
      * @param String task input from the user
      * @return String which is the list
@@ -166,7 +174,7 @@ public class Parser {
     }
 
     
-    /*
+    /**
      * Parses the input command and returns a todo task
      * @param String command input from the user
      * @return Todo task
@@ -179,7 +187,7 @@ public class Parser {
         }
     }
 
-    /*
+    /**
      * Parses the input command and returns a deadline task
      * @param String command input from the user
      * @return Deadline task
@@ -200,7 +208,7 @@ public class Parser {
         throw new Meowception("200");
     }
     
-    /*
+    /**
      * Parses the input command and returns an event task
      * @param String command input from the user
      * @return Event task
@@ -225,9 +233,9 @@ public class Parser {
         }
     }
     
-    /*
+    /**
      * Parses the input command and returns the task to be unmarked
-     * @param String task
+     * @param task
      * @return String
      */
     private String parseUnmarkTask(String task) throws Meowception {
@@ -240,9 +248,9 @@ public class Parser {
         }
     }
 
-    /*
+    /**
      * Parses the input command and returns the task to be marked
-     * @param String task
+     * @param task
      * @return String
      */
     private String parseMarkTask(String task) throws Meowception {
@@ -254,9 +262,9 @@ public class Parser {
         }
     }
 
-    /*
+    /**
      * Parses the input command and returns the task to be deleted
-     * @param String task
+     * @param task
      * @return String
      */
     private String parseDeleteTask(String task) throws Meowception {
@@ -268,10 +276,8 @@ public class Parser {
         }
     }
 
-    /*
+    /**
      * Closes the scanner
-     * @param none
-     * @return void
      */
     public void closeScanner() {
         scanner.close();

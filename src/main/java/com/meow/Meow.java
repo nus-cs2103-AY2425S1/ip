@@ -2,7 +2,13 @@ package com.meow;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Class contains the Meow chatbot
+ */
 public class Meow {
+    /**
+     * enumerations for valid commands
+     */
     public enum Command {
         TODO, DEADLINE, EVENT, LIST, DELETE, MARK, UNMARK, BYE
     }
@@ -10,15 +16,17 @@ public class Meow {
     private Ui ui;
     private TaskList tasks;
     private Parser parser;
-    
-    // Public constructor for Meow
+
+    /**
+     * Public constructor for meow chatbot
+     * @throws IOException
+     * @throws Meowception
+     */
     public Meow() throws IOException, Meowception {
         tasks = new TaskList();
         ui = new Ui();
         try {
-            
             save = new Save(tasks);
-
         } catch (Meowception e) {
             ui.showMeowceptionError(e.toString());
         } catch (IOException e) {
@@ -27,9 +35,8 @@ public class Meow {
         parser = new Parser(tasks);
     }
 
-    /*
+    /**
      * Runs the Meow chatbot
-     * @return void
      * @throws Meowception
      */
     public void run() {
@@ -40,6 +47,7 @@ public class Meow {
         while (!input.equals("bye")) {
             try {
                 String msg = parser.validateCommand(input);
+                String msg = parser.validateCommand(input);
                 ui.showTaskOutcomeMessage(msg);
             } catch (Meowception e) {
                 ui.showMeowceptionError(e.toString());
@@ -49,7 +57,6 @@ public class Meow {
         save.saveTasks(tasks);
         ui.printExitMessage();
         sc.close();
-        
     }
 
     /*
@@ -61,9 +68,9 @@ public class Meow {
         new Meow().run();
     }
     
-    /*
+    /**
      * Returns the response from the chatbot to GUI
-     * @param String input of user
+     * @param input of user
      * @return String response from chatbot
      */
     public String getResponse(String input) {
@@ -75,7 +82,7 @@ public class Meow {
         }
     }
 
-    /*
+    /**
      * Returns the welcome message from the chatbot to GUI
      * @return String welcome message
      */

@@ -2,17 +2,21 @@ package com.meow;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import com.meow.com.tasks.Task;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
+/**
+ * Class handles saving files locally
+ */
 public class Save {
     // Reads a file and returns the contents as a List of tasks
-    File file;
-    TaskList taskList;
-    /*
+    private File file;
+    private TaskList taskList;
+
+    /**
      * Constructor for Save class
      * @Params TaskList tasks
      * @Return None
@@ -27,7 +31,7 @@ public class Save {
         }
     }
 
-    /*
+    /**
      * Saves a list of tasks to a file
      * @Params List<Task> tasks
      * @Return None
@@ -41,10 +45,6 @@ public class Save {
                 String completed = task.isDone() ? "1" : "0";
                 writer.write(completed + " " + task.getTaskName() + " " + task.getExtra() +"\n");
             }
-            // for (Task task : tasks) {
-            //     String completed = task.isDone() ? "1" : "0";
-            //     writer.write(completed + " " + task.getType() + " " + task.getTaskName() + " " + task.getExtra() +"\n");
-            // }
             writer.close();
         } catch (java.io.IOException e) {
             System.out.println("An error occurred.");
@@ -53,28 +53,22 @@ public class Save {
     }
     
 
-    /*
+    /**
      * Reads a file and returns the contents as a List of tasks
      * @Params None
      * @Return List<String>
      */
     public List<String> read() throws Meowception, IOException {
-        
         try {
             Path path = Paths.get("meow.txt");
             List<String> tasks_String = Files.readAllLines(path);
-            //java.util.Scanner reader = new java.util.Scanner(file);
-            //System.out.println(tasks_String);
-            
-            //reader.close();
             return tasks_String;
         } catch (java.io.FileNotFoundException e) {
             throw new Meowception("007");
-        } 
-        
+        }
     }
 
-    /*
+    /**
      * Loads the tasks from the file
      * @Params None
      * @Return void
@@ -95,7 +89,5 @@ public class Save {
                 //pass
             }
         }
-
     }
-    
 }
