@@ -76,7 +76,7 @@ public class Parser {
             return parseFind(commandArgs);
         case INVALID:
             throw new IllegalCommandException(commandWord);
-        default: 
+        default:
             // should never reach here
             assert(false);
             return new Nop(false);
@@ -112,7 +112,7 @@ public class Parser {
 
         String taskDescription = taskInfo[0];
         String deadlineStr = taskInfo[1];
-    
+
         try {
             LocalDateTime deadline = LocalDateTime.parse(deadlineStr, dateFormat);
             return new Create(taskDescription, deadline);
@@ -130,7 +130,7 @@ public class Parser {
         String taskDescription = taskInfo[0];
         String startDateStr = taskInfo[1].split(" /to ")[0];
         String endDateStr = taskInfo[1].split(" /to ")[1];
-        
+
         try {
             LocalDateTime startDate = LocalDateTime.parse(startDateStr, dateFormat);
             LocalDateTime endDate = LocalDateTime.parse(endDateStr, dateFormat);

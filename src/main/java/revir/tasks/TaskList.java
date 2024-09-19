@@ -21,7 +21,7 @@ public class TaskList {
      * @param storage the storage object used to load tasks from a file
      * @param ui      the user interface object used to display error messages
      */
-    public  TaskList(Storage storage) {
+    public TaskList(Storage storage) {
         this.tasks = new ArrayList<Task>();
         this.storage = storage;
         try {
