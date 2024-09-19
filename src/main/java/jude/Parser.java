@@ -10,6 +10,7 @@ import jude.command.MarkCommand;
 import jude.command.UnmarkCommand;
 import jude.task.Deadline;
 import jude.task.Event;
+import jude.task.Task;
 import jude.task.Todo;
 
 /**
@@ -29,61 +30,107 @@ public class Parser {
      * @throws JudeException if the command is not valid, containing the possible reason for invalidity.
      */
     public static Command parse(String input) throws JudeException {
-        int index;
 
-        String command;
-        String[] descriptions;
+        String header;
+        String description;
 
-        // Handle null input.
+        // Handle null input
         if (input == null) {
             throw new JudeException("Poyo, invalid input. Try again...");
         }
 
-        // Perform split of command, and a description, if present.
+        // Set header and description
         String[] split = input.split(" ", 2);
-        command = split[0];
+        header = split[0];
+        description = split.length == 1 ? "" : split[1];
 
         try {
-            switch (command) {
-            case "bye":
-                if (split.length != 1) {
-                    throw new JudeException("Poyo, the description of a " + command + " must be empty.");
-                }
-                return new ExitCommand();
-            case "list":
-                if (split.length != 1) {
-                    throw new JudeException("Poyo, the description of a " + command + " must be empty.");
-                }
-                return new ListCommand();
-            case "mark":
-                index = Integer.parseInt(split[1]);
-                return new MarkCommand(index - 1);
-            case "unmark":
-                index = Integer.parseInt(split[1]);
-                return new UnmarkCommand(index - 1);
-            case "delete":
-                index = Integer.parseInt(split[1]);
-                return new DeleteCommand(index - 1);
-            case "find":
-                return new FindCommand(split[1]);
-            case "to-do":
-                return new AddCommand(new Todo(split[1]));
-            case "deadline":
-                descriptions = split[1].split(" /by ", 2);
-                return new AddCommand(new Deadline(descriptions[0], descriptions[1]));
-            case "event":
-                descriptions = split[1].split(" /from | /to ", 3);
-                return new AddCommand(new Event(descriptions[0], descriptions[1], descriptions[2]));
-            default:
-                throw new JudeException("No valid command was provided.");
-            }
-
+            return switch (header) {
+            case "bye" -> getExitCommand(split, header);
+            case "list" -> getListCommand(split, header);
+            case "mark" -> getIndexCommand(header, description);
+            case "unmark" -> getIndexCommand(header, description);
+            case "delete" -> getIndexCommand(header, description);
+            case "find" -> new FindCommand(description);
+            case "to-do" -> getAddCommand(header, description);
+            case "deadline" -> getAddCommand(header, description);
+            case "event" -> getAddCommand(header, description);
+            default -> throw new JudeException("No valid command was provided.");
+            };
         } catch (NumberFormatException ne) {
-            throw new JudeException("Invalid number format: expected an integer.");
+            throw new JudeException("The command " + header + " has an invalid number format: expected an integer.");
         } catch (ArrayIndexOutOfBoundsException ae) {
             throw new JudeException("Poyo, the format of the command "
-                    + command + " was not valid. The correct format: " + command);
+                    + header + " was not valid. ");
         }
+    }
+
+    private static AddCommand getAddCommand(String header, String description) throws JudeException {
+        Task task;
+        switch (header) {
+        case "to-do":
+            task = new Todo(description);
+            break;
+        case "deadline":
+            task = parseDeadlineTask(description);
+            break;
+        case "event":
+            task = parseEventTask(description);
+            break;
+        default:
+            assert false : "Invalid header: " + header; // programmer error: invalid header
+            task = null; // initialize task to avoid compiler error
+        }
+        return new AddCommand(task);
+    }
+
+    private static Command getIndexCommand(String header, String description) throws JudeException {
+        int index;
+        Command command;
+        index = parseIndex(description);
+        switch (header) {
+        case "delete":
+            command = new DeleteCommand(index);
+            break;
+        case "mark":
+            command = new MarkCommand(index);
+            break;
+        case "unmark":
+            command = new UnmarkCommand(index);
+            break;
+        default:
+            throw new JudeException("Invalid header");
+        }
+        return command;
+    }
+
+    private static ListCommand getListCommand(String[] split, String header) throws JudeException {
+        checkOneWord(split, header);
+        return new ListCommand();
+    }
+
+    private static ExitCommand getExitCommand(String[] split, String header) throws JudeException {
+        checkOneWord(split, header);
+        return new ExitCommand();
+    }
+
+    private static Event parseEventTask(String description) throws JudeException {
+        String[] words = description.split(" /from | /to ", 3);
+        return new Event(words[0], words[1], words[2]);
+    }
+    private static Deadline parseDeadlineTask(String description) throws JudeException {
+        String[] words = description.split(" /by ", 2);
+        return new Deadline(words[0], words[1]);
+    }
+
+    private static void checkOneWord(String[] split, String header) throws JudeException {
+        if (split.length != 1) {
+            throw new JudeException("Poyo, the description of a " + header + " must be empty.");
+        }
+    }
+
+    private static int parseIndex(String description) throws JudeException {
+        return Integer.parseInt(description) - 1;
     }
 }
 

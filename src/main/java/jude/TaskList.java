@@ -57,20 +57,20 @@ public class TaskList {
 
     /** Returns the String representation of the TaskList to be written in the save file. */
     public String toFileFormat() {
-        String text = "";
+        StringBuilder sb = new StringBuilder();
         for (Task task : list) {
-            text += task.toFileFormat() + "\n";
+            sb.append(task.toFileFormat()).append("\n");
         }
-        return text;
+        return sb.toString();
     }
 
     /** Returns the String representation of the TaskList to be displayed on the Ui. */
     public String toUiFormat() {
-        String string = "";
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
-            string += String.format("%d. %s\n", (i + 1), list.get(i).toStringDetails());
+            sb.append(String.format("%d. %s\n", (i + 1), list.get(i).toStringDetails()));
         }
-        return string;
+        return sb.toString();
     }
 
     private void validateIndex(int index) throws JudeException {
@@ -83,14 +83,15 @@ public class TaskList {
 
     /** Searches a task with the given keyword from the tasklist. */
     public String search(String keyword) {
-        String matches = "";
+        StringBuilder matches = new StringBuilder();
 
-        for (int i = 0; i < size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
             Task task = list.get(i);
             if (task.toString().contains(keyword)) {
-                matches += String.format("%d. %s\n", (i + 1), task.toStringDetails());
+                matches.append(String.format("%d. %s\n", (i + 1), task.toStringDetails()));
             }
         }
-        return matches;
+
+        return matches.toString();
     }
 }

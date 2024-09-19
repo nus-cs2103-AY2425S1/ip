@@ -30,8 +30,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public String toString() {
+    public String getType() {
         return "AddCommand";
     }
-
 }

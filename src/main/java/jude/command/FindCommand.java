@@ -25,4 +25,9 @@ public class FindCommand extends Command {
     public void execute(TaskList list, Storage storage) {
         setMessage("Here are the matching tasks in your list: \n" + list.search(keyword));
     }
+
+    @Override
+    public String getType() {
+        return "FindCommand";
+    }
 }

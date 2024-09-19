@@ -28,7 +28,7 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public String toString() {
+    public String getType() {
         return "UnmarkCommand";
     }
 }
