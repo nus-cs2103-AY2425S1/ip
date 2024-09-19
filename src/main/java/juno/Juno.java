@@ -27,6 +27,7 @@ public class Juno extends Application {
         try {
             stage.setMinHeight(220);
             stage.setMinWidth(417);
+            stage.setTitle("Juno");
             FXMLLoader fxmlLoader = new FXMLLoader(Juno.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
