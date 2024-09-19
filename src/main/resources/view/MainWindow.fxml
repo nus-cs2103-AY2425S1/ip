@@ -26,13 +26,15 @@
                       VBox.vgrow="ALWAYS" />
             </content>
         </ScrollPane>
-        <HBox fx:id="interactive" alignment="CENTER" spacing="10">
+        <HBox fx:id="interactiveContainer" alignment="CENTER" spacing="10">
             <Button fx:id="helpButton" onAction="#openHelpWindow" text="Help" />
-            <TextField fx:id="userInput"
-                       prefHeight="100.0"
-                       prefWidth="400.0"
-                       onAction="#handleUserInput"
-                       promptText="Your wish is my command UwU" />
+            <HBox fx:id="interactive" HBox.hgrow="ALWAYS">
+                <TextField fx:id="userInput"
+                           prefHeight="100.0"
+                           prefWidth="${interactive.width}"
+                           onAction="#handleUserInput"
+                           promptText="Your wish is my command UwU" />
+            </HBox>
             <Button fx:id="sendButton" onAction="#handleUserInput" text="Send" />
         </HBox>
     </children>

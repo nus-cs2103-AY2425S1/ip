@@ -20,10 +20,10 @@ public class UnmarkCommand extends Command {
 
     @Override
     public CommandResult execute(TaskList taskList, WriteTaskFile writeTaskFile) {
-        assert index >= 0 : "IndexOutOfBoundsAssertion";
+        assert index >= 0 : "IndexOutOfBoundsAssertion uwU";
 
         if (!taskList.isValidIndex(index)) {
-            return new CommandResult("The index chosen is invalid.", CommandStatus.COMMAND_PARTIAL_FAILURE);
+            return new CommandResult("ze index chowen is invawid UwU.", CommandStatus.COMMAND_PARTIAL_FAILURE);
         }
 
         boolean alreadyMarked = taskList.getTask(index).getIsDone();

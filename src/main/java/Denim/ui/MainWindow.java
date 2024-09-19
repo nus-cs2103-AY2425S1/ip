@@ -115,8 +115,8 @@ public class MainWindow extends VBox {
      * Displays a simple greeting message.
      */
     public void displayGreetingMessage() {
-        DialogBox greetingMessage = DialogBox.getDenimDialog("Hello! I'm Denim! "
-                + "What can I do for you?", denimImage);
+        DialogBox greetingMessage = DialogBox.getDenimDialog("Okaerinasaimase, goshujinsama (ojousama)!",
+                denimImage);
         dialogContainer.getChildren().add(greetingMessage);
     }
 
