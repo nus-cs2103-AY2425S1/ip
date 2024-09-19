@@ -1,19 +1,17 @@
 package potong;
 
-import potong.exceptions.IllegalInputPotongException;
-
-import potong.task.Task;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import potong.exceptions.IllegalInputPotongException;
+import potong.task.Task;
 
 /**
  * Class to save and load data.
@@ -28,7 +26,7 @@ public class Storage {
     private TaskList tasklist;
 
     /**
-     * Initialise the class, create the file to save if not already present.
+     * Initialises the class, create the file to save if not already present.
      * @param tasklist List of tasks to load the saved tasks.
      */
     public Storage(TaskList tasklist) {
@@ -42,7 +40,7 @@ public class Storage {
     }
 
     /**
-     * Create the directory where the saved file is.
+     * Creates the directory where the saved file is.
      */
     public void createDirectory() {
         try {
@@ -53,7 +51,7 @@ public class Storage {
     }
 
     /**
-     * Create the file if not present.
+     * Creates the file if not present.
      */
     public void createFile() {
         this.createDirectory();

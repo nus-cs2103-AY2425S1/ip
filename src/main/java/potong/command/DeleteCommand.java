@@ -1,10 +1,9 @@
 package potong.command;
 
-import potong.exceptions.PotongException;
-
 import potong.Storage;
 import potong.TaskList;
 import potong.Ui;
+import potong.exceptions.PotongException;
 
 /**
  * Represent the command for deleting tasks.

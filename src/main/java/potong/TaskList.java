@@ -158,6 +158,9 @@ public class TaskList {
      */
     @Override
     public String toString() {
+        if (arr.isEmpty()) {
+            return "You have nothing in the list!";
+        }
         AtomicInteger i = new AtomicInteger();
         return this.arr.stream().map(task -> String.format("%d. %s\n", i.incrementAndGet(), task))
                 .reduce("Here are the tasks in your list:\n", (a, b) -> a + b);

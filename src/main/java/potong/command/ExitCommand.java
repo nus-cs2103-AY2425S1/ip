@@ -4,8 +4,6 @@ import potong.Storage;
 import potong.TaskList;
 import potong.Ui;
 
-import java.io.IOException;
-
 /**
  * Represent the command for exiting the program.
  */

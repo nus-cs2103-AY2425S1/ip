@@ -1,9 +1,9 @@
 package potong.task;
 
-import potong.exceptions.IllegalInputPotongException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import potong.exceptions.IllegalInputPotongException;
 
 /**
  * Represent the Deadline task with a deadline.

@@ -19,7 +19,7 @@ public class Potong {
     private String commandType;
 
     /**
-     * Initialise the chatbot.
+     * Initialises the chatbot.
      */
     public Potong() {
         ui = new Ui();
@@ -28,7 +28,7 @@ public class Potong {
     }
 
     /**
-     * Start up the chatbot for user.
+     * Starts up the chatbot for user.
      */
     public void run() {
         ui.showIntroduction();
@@ -48,6 +48,12 @@ public class Potong {
         }
     }
 
+    /**
+     * Gets the response from the chatbot after receiving the user's input. This response is to be shown in the GUI.
+     *
+     * @param userInput Input from the user.
+     * @return String response from the chatbot.
+     */
     public String getResponse(String userInput) {
         Command c = Parser.parse(userInput);
         assert c != null;

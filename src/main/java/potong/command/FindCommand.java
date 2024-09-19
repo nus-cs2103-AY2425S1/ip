@@ -4,10 +4,6 @@ import potong.Storage;
 import potong.TaskList;
 import potong.Ui;
 
-import potong.exceptions.PotongException;
-
-import java.io.IOException;
-
 /**
  * Represent the find command to find tasks with a keyword.
  */

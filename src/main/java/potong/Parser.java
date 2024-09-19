@@ -2,7 +2,16 @@ package potong;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import potong.command.*;
+import potong.command.AddCommand;
+import potong.command.Command;
+import potong.command.DeleteCommand;
+import potong.command.ExitCommand;
+import potong.command.FindCommand;
+import potong.command.ListCommand;
+import potong.command.MarkCommand;
+import potong.command.TagCommand;
+import potong.command.UntagCommand;
+import potong.command.WrongCommand;
 import potong.exceptions.IllegalInputPotongException;
 import potong.task.DeadlineTask;
 import potong.task.EventTask;
@@ -21,7 +30,7 @@ public class Parser {
     private static final Pattern DEADLINE_FORMAT = Pattern.compile(" (?<desc>.*)");
 
     /**
-     * Create task from the saved tasks.
+     * Creates task from the saved tasks.
      *
      * @param taskDescription Task Description.
      * @return Task.
@@ -73,9 +82,9 @@ public class Parser {
     }
 
     /**
-     * Parse the String input command of the user.
+     * Parses the String input command of the user.
      *
-     * @param input Input command.
+     * @param input Input command to be parsed into a Command.
      * @return Command object.
      */
     public static Command parse(String input) {
