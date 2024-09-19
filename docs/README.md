@@ -1,6 +1,6 @@
 # Atlas User Guide
 
-![Screenshot of the Atlas Chatbot.](../docs/Ui.png)
+![Screenshot of the Atlas Chatbot.](./Ui.png)
 
 Atlas is a state-of-the-art chatbot that has various functionalities that enable you to manage and keep track of your 
 todos, events and deadlines. Your lists of tasks will be saved when you exit the application, and it will be restored
@@ -11,9 +11,9 @@ whenever you come back. Try it now!
 The help command shows all the commands that are supported by Atlas. It also shows what parameters are expected for
 each command.
 
-Format: `help`
+Format: `help` or `h`
 
-Example: `help`
+Example: `help` or `h`
 
 The Atlas help page will be displayed.
 
@@ -45,9 +45,9 @@ event, e <name> /from <date (YYYY-MM-DD HHMM)> /to <date (YYYY-MM-DD HHMM)> - ad
 
 The bye command helps you to quit the application.
 
-Format: `bye`
+Format: `bye` or `b`
 
-Example: `bye`
+Example: `bye` or `b`
 
 The Atlas application will be closed.
 
@@ -55,9 +55,9 @@ The Atlas application will be closed.
 
 The list command helps you to list all the tasks in your current task list. It also shows the description of the tasks.
 
-Format: `list`
+Format: `list` or `l`
 
-Example: `list`
+Example: `list` or `l`
 
 All the tasks in the task list will be displayed.
 
@@ -75,11 +75,11 @@ All the tasks in the task list will be displayed.
 The mark command helps you to mark a task in your current task list as done. You have to pass in the task number as 
 an argument after the 'mark' command.
 
-Format: `mark INDEX`
+Format: `mark INDEX` or `m INDEX`
 
 - The index must be a positive integer 1, 2, 3, ... that is within the total number of tasks in the list.
 
-Example: `mark 6`
+Example: `mark 6` or `m 6`
 
 The sixth task will be marked as done.
 
@@ -93,11 +93,11 @@ Nice! I've marked this task as done:
 The unmark command helps you to unmark a task in your current task list as not done. You have to pass in the task 
 number as an argument after the 'unmark' command.
 
-Format: `unmark INDEX`
+Format: `unmark INDEX` or `u INDEX`
 
 - The index must be a positive integer 1, 2, 3, ... that is within the total number of tasks in the list.
 
-Example: `unmark 6`
+Example: `unmark 6` or `u 6`
 
 The sixth task will be unmarked as not done.
 
@@ -111,11 +111,11 @@ OK, I've marked this task as not done yet:
 The delete command helps you to delete a task from your current task list. You have to pass in the task number as an 
 argument after the 'delete' command.
 
-Format: `delete INDEX`
+Format: `delete INDEX` or `r INDEX`
 
 - The index must be a positive integer 1, 2, 3, ... that is within the total number of tasks in the list.
 
-Example: `delete 6`
+Example: `delete 6` or `r 6`
 
 The sixth task will be deleted from the current task list.
 
@@ -130,11 +130,11 @@ Now you have 5 tasks in the list
 The find command helps you find all the tasks from your current task list that match the search pattern you have 
 specified. You have to pass in the pattern as an argument after the 'find' command.
 
-Format: `find PATTERN`
+Format: `find PATTERN` or `f PATTERN`
 
 - The pattern must be a valid string. It is case-sensitive: 'B' and 'b' are not the same.
 
-Example: `find sub`
+Example: `find sub` or `f sub`
 
 All the tasks from the current task list that contain the pattern 'sub' in their name, will be displayed.
 
@@ -148,11 +148,11 @@ Here are the matching tasks in your list:
 The todo command helps you add a todo into the current task list. You have to pass in the todo name as an argument 
 after the 'todo' command.
 
-Format: `todo NAME`
+Format: `todo NAME` or `t NAME`
 
 - The name must be a valid string.
 
-Example: `todo exercise`
+Example: `todo exercise` or `t exercise`
 
 The todo you have added will be displayed. The total number of tasks in the current task list will also be displayed
 at the end.
@@ -168,11 +168,11 @@ Now you have 7 tasks in the list.
 The deadline command helps you add a deadline into the current task list. You have to pass in the deadline name as an 
 argument after the 'deadline' command, together with the deadline date.
 
-Format: `deadline NAME /by DEADLINE_DATETIME`
+Format: `deadline NAME /by DEADLINE_DATETIME` or `d NAME /by DEADLINE_DATETIME`
 
 - The name must be a valid string. The deadline datetime should be in the valid format: YYYY-MM-DD HHMM.
 
-Example: `deadline submit report /by 2024-06-12 1500`
+Example: `deadline submit report /by 2024-06-12 1500` or `d submit report /by 2024-06-12 1500`
 
 The deadline you have added will be displayed. The total number of tasks in the current task list will also be displayed
 at the end.
@@ -189,11 +189,12 @@ Now you have 8 tasks in the list.
 The event command helps you add a event into the current task list. You have to pass in the event name as an argument
 after the 'event' command, followed by the start and end times.
 
-Format: `event NAME /from START_TIME /to END_TIME`
+Format: `event NAME /from START_TIME /to END_TIME` or `e NAME /from START_TIME /to END_TIME`
 
 - The name must be a valid string. The start time and end time should be in the valid format: YYYY-MM-DD HHMM.
 
-Example: `event join workshop /from 2024-07-22 1600 /to 2024-07-22 1800`
+Example: `event join workshop /from 2024-07-22 1600 /to 2024-07-22 1800` or
+`e join workshop /from 2024-07-22 1600 /to 2024-07-22 1800`
 
 The event you have added will be displayed. The total number of tasks in the current task list will also be displayed 
 at the end.
