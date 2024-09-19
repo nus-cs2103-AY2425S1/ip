@@ -24,7 +24,8 @@ class DeadlineTest {
                         new Deadline("Return books", ""),
                 "Expected to throw DonnaException for empty deadline.");
 
-        assertEquals("Please provide a deadline for this task!" + "\n" + "Use /by to provide a deadline.",
+        assertEquals("You need to provide a deadline." + "\n" + "Let's do this right by using /by to provide "
+                        + "a deadline.",
                 exception.getMessage());
     }
 
@@ -48,10 +49,10 @@ class DeadlineTest {
     @Test
     void testToFileFormat() throws DonnaException {
         Deadline deadline = new Deadline("Return books", "30/08/2024 2359");
-        assertEquals("D | 0 | Return books | 30/08/2024 2359", deadline.toFileFormat());
+        assertEquals("D | 0 | Return books | 30/08/2024 2359 | ", deadline.toFileFormat());
 
         // Mark as done and check
         deadline.markDone();
-        assertEquals("D | 1 | Return books | 30/08/2024 2359", deadline.toFileFormat());
+        assertEquals("D | 1 | Return books | 30/08/2024 2359 | ", deadline.toFileFormat());
     }
 }

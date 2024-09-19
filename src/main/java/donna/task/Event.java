@@ -77,6 +77,6 @@ public class Event extends Task {
         String fromFormatted = fromTime.format(outputFormatter);
         String toFormatted = toTime.format(outputFormatter);
         return super.toString() //type, status & desc
-                + "(from: " + fromFormatted + " to: " + toFormatted + ")";
+                + " (from: " + fromFormatted + " to: " + toFormatted + ")";
     }
 }

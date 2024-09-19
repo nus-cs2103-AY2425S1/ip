@@ -66,6 +66,6 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return super.toString()
-                + "(by: " + this.byTime.format(outputFormatter) + ")";
+                + " (by: " + this.byTime.format(outputFormatter) + ")";
     }
 }

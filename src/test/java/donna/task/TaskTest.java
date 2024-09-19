@@ -14,7 +14,7 @@ public class TaskTest {
     @Test
     void testTaskInitialisationWithValidDescription() throws DonnaException {
         Task task = new ToDo("Valid Task");
-        assertEquals("[T][ ] Valid Task ", task.toString());
+        assertEquals("[T][ ] Valid Task", task.toString());
         assertFalse(task.isDone());
     }
 
@@ -29,7 +29,7 @@ public class TaskTest {
         Task task = new ToDo("Valid Task");
         task.markDone();
         assertTrue(task.isDone());
-        assertEquals("[T][X] Valid Task ", task.toString());
+        assertEquals("[T][X] Valid Task", task.toString());
     }
 
     @Test
@@ -38,6 +38,6 @@ public class TaskTest {
         task.markDone(); // Mark done first
         task.markNotDone(); // Then mark not done
         assertFalse(task.isDone());
-        assertEquals("[T][ ] Valid Task ", task.toString());
+        assertEquals("[T][ ] Valid Task", task.toString());
     }
 }
