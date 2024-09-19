@@ -1,0 +1,14 @@
+todo read book
+deadline return book /by Sunday
+event project meeting /from 29/08/2024 1800 /to 31/08/2024 1940
+list
+deadline do homework /by no idea :-p
+mark 1
+unmark 2
+list
+deadline do leetcode problem 2 sums /by 2/12/2024 1800
+event RC4 Directors meeting /from 29/12/2024 1800 /to 29/12/2024 1830
+list
+delete 3
+list
+bye

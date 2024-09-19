@@ -13,15 +13,19 @@ then
 fi
 
 # compile the code into the bin folder, terminates if error occurred
-if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/*.java
+if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/silverwolf/*.java
 then
     echo "********** BUILD FAILURE **********"
     exit 1
 fi
 
+rm -rf data
+rm silverWolf.txt
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ../bin Duke < input.txt > ACTUAL.TXT
+java -classpath ../bin/ SilverWolf < input.txt > ACTUAL.TXT
+rm silverWolf.txt
 
+rm -rf data
 # convert to UNIX format
 cp EXPECTED.TXT EXPECTED-UNIX.TXT
 dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT
@@ -36,3 +40,4 @@ else
     echo "Test result: FAILED"
     exit 1
 fi
+

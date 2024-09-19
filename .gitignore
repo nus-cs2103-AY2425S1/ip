@@ -15,3 +15,13 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Java files
+*.class
+
+# Ignore the data file
+data/silverwolf.txt
+silverwolf.txt
+
+# ignore jar files
+*.jar
