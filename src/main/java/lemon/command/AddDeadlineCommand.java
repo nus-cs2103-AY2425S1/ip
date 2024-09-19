@@ -9,8 +9,17 @@ import lemon.exception.InvalidFormatException;
 import lemon.task.Deadline;
 import lemon.task.Task;
 
+/**
+ * Represent the {@link CommandWithInput} for adding a deadline
+ * @author He Yiheng
+ */
 public class AddDeadlineCommand extends CommandWithInput {
 
+    /**
+     * Constructor for AddDeadlineCommand
+     * @param ct stores the enum {@link CommandType} for troubleshooting
+     * @param input input String that needs to be processed before further execution
+     */
     public AddDeadlineCommand(CommandType ct, String input) {
         super(ct, input);
     }

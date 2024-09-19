@@ -2,7 +2,15 @@ package lemon.command;
 
 import lemon.Lemon;
 
-public class ByeCommand extends Command{
+/**
+ * Represent the {@link Command} for exiting lemon
+ * @author He Yiheng
+ */
+public class ByeCommand extends Command {
+    /**
+     * Constructor for ByeCommand
+     * @param ct stores the enum {@link CommandType} for troubleshooting
+     */
     public ByeCommand(CommandType ct) {
         super(ct);
     }

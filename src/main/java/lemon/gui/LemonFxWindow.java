@@ -52,12 +52,19 @@ public class LemonFxWindow extends AnchorPane {
         lemon.respond(input);
     }
 
-    public void addResponse(String response) {
+    /**
+     * Add lemon {@link DialogBox} with the response from lemon
+     * @param response returned by lemon to be displayed
+     */
+    public void addLemonDialogBox(String response) {
         dialogContainer.getChildren().add(
                 DialogBox.getLemonDialog(response, lemonImage)
         );
     }
 
+    /**
+     * Disable the input field and button
+     */
     public void disable() {
         userInput.setEditable(false);
         userInput.setDisable(true);

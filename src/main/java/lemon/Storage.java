@@ -30,7 +30,7 @@ public class Storage {
     /**
      * Loads the tasks from a txt file into the TaskList that is passed into
      * Creates the directory and file if it does not exist
-     * @param tasks TaskList that will have the tasks loaded into from the file
+     * @param tasks {@link TaskList} that will have the tasks loaded into from the file
      * @return true if all tasks within the file is loaded successfully
      */
     public boolean loadTasks(TaskList tasks) {
@@ -72,7 +72,7 @@ public class Storage {
 
     /**
      * Saves all the tasks in the provided TaskList into the txt file
-     * @param tasks TaskList the files is being saved from
+     * @param tasks {@link TaskList} the files is being saved from
      * @return true if all tasks within the TaskList is saved successfully
      */
     public boolean saveTasks(TaskList tasks) {

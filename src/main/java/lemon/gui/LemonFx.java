@@ -14,7 +14,7 @@ import lemon.app.Launcher;
  * A GUI for Duke using FXML.
  */
 public class LemonFx extends Application {
-    private Lemon lemon = new Lemon();
+    private final Lemon lemon = new Lemon();
     @Override
     public void start(Stage stage) {
         try {
@@ -25,7 +25,7 @@ public class LemonFx extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setTitle("Lemon Chatbot");
-            fxmlLoader.<LemonFxWindow>getController().setLemon(lemon);  // inject the Lemon instance
+            fxmlLoader.<LemonFxWindow>getController().setLemon(lemon); // inject the Lemon instance
             stage.show();
 
             lemon.intro();

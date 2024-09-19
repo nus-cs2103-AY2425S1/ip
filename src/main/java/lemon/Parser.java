@@ -14,8 +14,15 @@ import lemon.command.UnmarkTaskCommand;
 
 /**
  * Parse user input into commands
+ * @author He Yiheng
  */
 public class Parser {
+    /**
+     * Parse the input string from the user into the correct command object
+     * @param input input command String
+     * @return {@link Command} object relevant to the correct input command
+     * @throws IllegalArgumentException exception for entering an invalid command
+     */
     public static Command parseInputIntoCommand(String input) throws IllegalArgumentException {
         Command command = null;
 

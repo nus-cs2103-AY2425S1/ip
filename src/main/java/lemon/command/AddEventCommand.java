@@ -9,7 +9,16 @@ import lemon.exception.InvalidFormatException;
 import lemon.task.Event;
 import lemon.task.Task;
 
+/**
+ * Represent the {@link CommandWithInput} for adding an event
+ * @author He Yiheng
+ */
 public class AddEventCommand extends CommandWithInput {
+    /**
+     * Constructor for AddEventCommand
+     * @param ct stores the enum {@link CommandType} for troubleshooting
+     * @param input input String that needs to be processed before further execution
+     */
     public AddEventCommand(CommandType ct, String input) {
         super(ct, input);
     }
