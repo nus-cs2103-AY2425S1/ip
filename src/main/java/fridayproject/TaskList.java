@@ -10,6 +10,9 @@ public class TaskList {
      * @param tasks
      */
     public TaskList(ArrayList<Tasks> tasks) {
+
+        // Assertion to ensure that the tasks are not null
+        assert tasks != null : "Tasks should not be null";
         this.tasks = tasks;
     }
     /*
@@ -24,6 +27,8 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void addTask(Tasks task) {
+        // Assertions to ensure that the task is not null
+        assert task != null : "Task should not be null";
         tasks.add(task);
     }   
 
@@ -33,6 +38,8 @@ public class TaskList {
      * @return The task that was deleted.
      */
     public Tasks deleteTask(int index) {
+        // Assertions to ensure that the index is valid
+        assert index >= 0 && index < tasks.size() : "Index should be within the range of the task list";
         return tasks.remove(index);
     }
 
@@ -41,6 +48,8 @@ public class TaskList {
      * @param index The index of the task to be marked as done.
      */
     public void markTaskAsDone(int index) {
+        // Assertions to ensure that the index is valid
+        assert index >= 0 && index < tasks.size() : "Index should be within the range of the task list";
         tasks.get(index).markAsDone();
     }
 
@@ -49,6 +58,8 @@ public class TaskList {
      * @param index The index of the task to be marked as undone.
      */
     public void markTaskAsUndone(int index) {
+        // Assertions to ensure that the index is valid
+        assert index >= 0 && index < tasks.size() : "Index should be within the range of the task list";
         tasks.get(index).markAsUndone();
     }
 
@@ -74,6 +85,8 @@ public class TaskList {
      *  @return The task at the specified index.
      */
     public Tasks getTask(int index) {
+        // Assertions to ensure that the index is valid
+        assert index >= 0 && index < tasks.size() : "Index should be within the range of the task list";
         return tasks.get(index);
     }
 
@@ -83,13 +96,16 @@ public class TaskList {
      * @return The list of tasks that contain the keyword.
      */
     public String findTasks(String keyword) {
+        // Assertions to ensure that the keyword is not null
+        assert keyword != null && !keyword.isEmpty() : "Keyword should not be null";
+
         ArrayList<Tasks> matchingTasks = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).description.contains(keyword)) {
                 matchingTasks.add(tasks.get(i));
             }
         }
-        Ui ui = new Ui();
+        
         if (matchingTasks.isEmpty()) {
             return "No matching tasks found.";
         } else {

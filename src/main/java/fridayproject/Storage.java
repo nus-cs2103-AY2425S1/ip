@@ -19,6 +19,8 @@ public class Storage {
      * @param filePath
      */
     public Storage(String filePath) {
+        // Assertions to ensure that the file path is not null
+        assert this.filePath != null : "File path should not be null";
         this.filePath = filePath;
     }
 
@@ -28,6 +30,10 @@ public class Storage {
      * @throws IOException
      */
     public void saveTasksToFile(ArrayList<Tasks> tasks) throws IOException {
+
+        // Assertions to ensure that the tasks are not null
+        assert tasks != null : "Tasks should not be null";
+
         FileWriter fileWriter = new FileWriter(filePath);
         for (Tasks task : tasks) {
             fileWriter.write(task.toFileString() + "\n");
@@ -62,6 +68,8 @@ public class Storage {
             try {
                 switch (parts[0]) {
                 case "T":
+                    assert parts.length == 3 : "Length should be 3";
+
                     if (parts.length == 3) {
                         Tasks todo = new Todo(parts[2]);
                         if(parts[1].equals("1")) {
@@ -71,6 +79,8 @@ public class Storage {
                     } 
                     break;
                 case "D":
+                    assert parts.length == 4 : "Length should be 4";
+
                     if (parts.length == 4) {
                         Tasks deadline = new Deadline(parts[2], parts[3]);
                         if (parts[1].equals("1")) {
@@ -80,6 +90,8 @@ public class Storage {
                     } 
                     break;
                 case "E":
+                    assert parts.length == 5 : "Length should be 5";
+                    
                     if (parts.length == 5) {
                         Tasks event = new Event(parts[2], parts[3], parts[4]);
                         if (parts[1].equals("1")) {
