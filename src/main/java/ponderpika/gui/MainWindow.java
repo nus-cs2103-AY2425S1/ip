@@ -1,6 +1,6 @@
 package ponderpika.gui;
 
-
+import java.util.Objects;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -14,7 +14,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import ponderpika.PonderPika;
-import java.util.Objects;
 
 /**
  * Controller for the main GUI.
@@ -44,7 +43,8 @@ public class MainWindow extends AnchorPane {
         String greeting = "HELLO, I'm Ponder Pika" + "\nIt is a great day to ponder! How may I help you?";
         dialogContainer.getChildren().add(DialogBox.getPikaDialog(greeting, botImage));
 
-        ImageView imageView = new ImageView(Objects.requireNonNull(getClass().getResource("/images/send.png")).toExternalForm());
+        ImageView imageView = new ImageView(Objects.requireNonNull(getClass().getResource("/images/send.png"))
+                .toExternalForm());
         sendButton.setGraphic(imageView);
         sendButton.setContentDisplay(ContentDisplay.RIGHT);
         imageView.fitWidthProperty().bind(sendButton.widthProperty().divide(6));
