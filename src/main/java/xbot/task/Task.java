@@ -62,7 +62,7 @@ public class Task {
      */
     public String markAsDone() {
         isDone = true;
-        return ("Nice! I've marked this task as done:\n"
+        return ("Yayy!! Good job :D I have marked this task as done:\n"
                 + toString());
     }
 
@@ -71,7 +71,7 @@ public class Task {
      */
     public String markAsUndone() {
         isDone = false;
-        return ("OK, I've marked this task as not done yet:\n"
+        return ("Aw man... jiayou!!, I have marked this task as not done yet :'0 :\n"
                 + toString());
     }
 
