@@ -12,7 +12,8 @@ public class HelpCommand extends Command {
 
     @Override
     public CommandResult execute(TaskList taskList, WriteTaskFile writeTaskFile) {
-        return new CommandResult(String.join("\n", CommandUsages.COMMAND_USAGES));
+        return new CommandResult(String.join("\n", CommandUsages.COMMAND_USAGES),
+                CommandStatus.COMMAND_SUCCESSFUL);
     }
 
     @Override

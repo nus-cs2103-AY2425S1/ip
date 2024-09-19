@@ -27,29 +27,28 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/MainWindow.fxml"));
+        FXMLLoader fxmlMainLoader = new FXMLLoader(getClass().getResource("/view/MainWindow.fxml"));
 
         try {
-            VBox mainWindow = fxmlLoader.load();
+            VBox mainWindow = fxmlMainLoader.load();
             Scene scene = new Scene(mainWindow);
             stage.setTitle("Denim");
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().injectDenim(denim);
+            fxmlMainLoader.<MainWindow>getController().injectDenim(denim);
             denim.start();
             stage.show();
-            fxmlLoader.<MainWindow>getController().displayGreetingMessage();
+            fxmlMainLoader.<MainWindow>getController().displayGreetingMessage();
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (DenimFileException e) {
-            fxmlLoader.<MainWindow>getController().handleFileNotFound();
+            fxmlMainLoader.<MainWindow>getController().handleFileNotFound();
             stage.show();
-            fxmlLoader.<MainWindow>getController().displayGreetingMessage();
+            fxmlMainLoader.<MainWindow>getController().displayGreetingMessage();
         } catch (DenimDirectoryException e) {
-            fxmlLoader.<MainWindow>getController().handleDirectoryNotFound();
+            fxmlMainLoader.<MainWindow>getController().handleDirectoryNotFound();
             stage.show();
-            fxmlLoader.<MainWindow>getController().displayGreetingMessage();
+            fxmlMainLoader.<MainWindow>getController().displayGreetingMessage();
         }
-
     }
 }
 

@@ -26,7 +26,7 @@ public class InvalidCommand extends Command {
     @Override
     public CommandResult execute(TaskList taskList, WriteTaskFile writeTaskFile) {
         String returnMessage = String.format("%s\n%s", error, feedback);
-        return new CommandResult(returnMessage);
+        return new CommandResult(returnMessage, CommandStatus.COMMAND_FAILURE);
     }
 
     @Override

@@ -20,15 +20,15 @@ public class UnmarkCommand extends Command {
 
     @Override
     public CommandResult execute(TaskList taskList, WriteTaskFile writeTaskFile) {
-        assert index > 0 : "IndexOutOfBoundsAssertion";
+        assert index >= 0 : "IndexOutOfBoundsAssertion";
 
         if (!taskList.isValidIndex(index)) {
-            return new CommandResult("The index chosen is invalid.");
+            return new CommandResult("The index chosen is invalid.", CommandStatus.COMMAND_PARTIAL_FAILURE);
         }
 
         boolean alreadyMarked = taskList.getTask(index).getIsDone();
         if (!alreadyMarked) {
-            return new CommandResult("The task is already unmarked.");
+            return new CommandResult("The task is already unmarked.", CommandStatus.COMMAND_PARTIAL_FAILURE);
         }
 
         try {
@@ -36,12 +36,12 @@ public class UnmarkCommand extends Command {
             writeTaskFile.unmarkTask(taskList);
         } catch (DenimException e) {
             taskList.markTask(index);
-            return new CommandResult(e.getMessage());
+            return new CommandResult(e.getMessage(), CommandStatus.COMMAND_FAILURE);
         }
 
         String returnMessage = String.format("Okay, I've marked this task as not done yet: "
                 + "\n %s\n", taskList.getTask(index));
-        return new CommandResult(returnMessage);
+        return new CommandResult(returnMessage, CommandStatus.COMMAND_SUCCESSFUL);
     }
 
     @Override
