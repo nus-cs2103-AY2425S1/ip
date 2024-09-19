@@ -61,6 +61,11 @@ public class Eli {
     eli.run();
   }
 
+  /**
+   * Get the response by its command.
+   *
+   * @param text Text from the response.
+   */
   public String getResponse(String text) throws EliException {
     Command command = Parser.parse(text);
     return command.execute(tasks, ui, storage);
