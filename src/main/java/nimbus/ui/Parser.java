@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import nimbus.command.AddCommand;
 import nimbus.command.CheckCommand;
+import nimbus.command.Command;
 import nimbus.command.DeleteCommand;
 import nimbus.command.FindCommand;
 import nimbus.command.MarkCommand;
@@ -41,17 +42,23 @@ public class Parser {
             } else if (userInput.equals("list")) {
                 return taskList.toString();
             } else if (userInput.startsWith("check ")) {
-                return new CheckCommand(userInput, taskList).execute();
+                Command checkCommand = new CheckCommand(userInput, taskList);
+                return checkCommand.execute();
             } else if (userInput.startsWith("mark ")) {
-                return new MarkCommand(userInput, taskList).execute();
+                Command markCommand = new MarkCommand(userInput, taskList);
+                return markCommand.execute();
             } else if (userInput.startsWith("unmark ")) {
-                return new UnmarkCommand(userInput, taskList).execute();
+                Command unmarkCommand = new UnmarkCommand(userInput, taskList);
+                return unmarkCommand.execute();
             } else if (userInput.startsWith("delete ")) {
-                return new DeleteCommand(userInput, taskList).execute();
+                Command deleteCommand = new DeleteCommand(userInput, taskList);
+                return deleteCommand.execute();
             } else if (userInput.startsWith("find ")) {
-                return new FindCommand(userInput, taskList).execute();
+                Command findCommand = new FindCommand(userInput, taskList);
+                return findCommand.execute();
             } else {
-                return new AddCommand(userInput, taskList).execute();
+                Command addCommand = new AddCommand(userInput, taskList);
+                return addCommand.execute();
             }
         } catch (NimbusException e) {
             return e.getMessage();

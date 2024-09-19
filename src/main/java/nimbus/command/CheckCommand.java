@@ -42,6 +42,8 @@ public class CheckCommand extends Command {
     @Override
     public String execute() throws WrongDateTimeFormatException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+        assert tasks != null : "Task list should not be null";
+        assert userInput.length() > 5 : "User input is too short to contain date";
         String date = userInput.substring(5).trim();
         try {
             LocalDate selectedDate = LocalDate.parse(date, formatter);
