@@ -67,10 +67,21 @@ class Ui {
         return reminderMessage.toString();
     }
 
+    /**
+     * Returns a goodbye message.
+     *
+     * @return The goodbye message to display when the user exits the program.
+     */
     public String getGoodbyeMessage() {
         return " Bye. Hope to see you again soon!";
     }
 
+    /**
+     * Returns a formatted string of all tasks in the provided list.
+     *
+     * @param tasks The list of tasks to display.
+     * @return A formatted string of all tasks, or a message if the list is empty.
+     */
     public String getTasks(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
             return " The list is empty.";
@@ -82,6 +93,13 @@ class Ui {
         return sb.toString();
     }
 
+    /**
+     * Returns a message indicating whether a task has been marked as done or not.
+     *
+     * @param task The task that was marked.
+     * @param markAsDone True if the task was marked as done, false if it was unmarked.
+     * @return A message indicating the task's new status.
+     */
     public String getMarkedTask(Task task, boolean markAsDone) {
         if (markAsDone) {
             return " Nice! I've marked this task as done:\n   " + task;
@@ -90,14 +108,34 @@ class Ui {
         }
     }
 
+    /**
+     * Returns a message indicating a task has been added to the list.
+     *
+     * @param task The task that was added.
+     * @param totalTasks The total number of tasks in the list after adding the task.
+     * @return A message confirming the task was added and showing the total number of tasks.
+     */
     public String getAddedTask(Task task, int totalTasks) {
         return " Got it. I've added this task:\n   " + task + "\n Now you have " + totalTasks + " tasks in the list.";
     }
 
+    /**
+     * Returns a message indicating a task has been deleted from the list.
+     *
+     * @param task The task that was deleted.
+     * @param totalTasks The total number of tasks in the list after deleting the task.
+     * @return A message confirming the task was removed and showing the total number of tasks.
+     */
     public String getDeletedTask(Task task, int totalTasks) {
         return " Noted. I've removed this task:\n   " + task + "\n Now you have " + totalTasks + " tasks in the list.";
     }
 
+    /**
+     * Returns a formatted string of all tasks that match the user's search.
+     *
+     * @param matchingTasks The list of tasks that match the search criteria.
+     * @return A formatted string of matching tasks, or a message if no tasks match.
+     */
     public String getMatchingTasks(ArrayList<Task> matchingTasks) {
         if (matchingTasks.isEmpty()) {
             return " No tasks match your search.";
