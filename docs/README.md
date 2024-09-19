@@ -126,7 +126,7 @@ __Example:__
 - `3`
 
 __Sample Output:__
----
+</br>
 
 ![delete](./expected-outputs/Delete-Task-Command.png)
 
