@@ -257,17 +257,17 @@ Duck will only load the lines of data that are in the correct format.
 ```
 ## Command Summary
 
-| Action  | Format, Example                                                                                                               |
-|---------|-------------------------------------------------------------------------------------------------------------------------------|
-| Help    | `help`                                                                                                                        |
-| List    | `list`                                                                                                                        |
-| Todo    | `todo DESCRIPTION` <br/>e.g., `todo read book`                                                                                |
-| Deadline| `deadline DESCRIPTION /by DATE` <br/>e.g., `deadline submit assignment /by 2024-09-30 2359`                                   |
-| Event   | `event DESCRIPTION /from START_DATE /to END_DATE` <br/>e.g., `event team meeting /from 2024-09-29 10:00 /to 2024-09-29 12:00` |
-| Mark    | `mark INDEX` <br/>e.g., `mark 2`                                                                                              |
-| Unmark  | `unmark INDEX` <br/>e.g., `unmark 1`                                                                                          |
-| Delete  | `delete INDEX` <br/>e.g., `delete 3`                                                                                          |
-| Find    | `find KEYWORD` <br/>e.g., `find assignment`                                                                                   |
-| Sort    | `sort /target TARGET /by CRITERION` <br/>e.g., `sort /target all /by type`                                                    |
-| Bye     | `bye`                                                                                                                         |
+| Action   | Format, Example                                                                                                               |
+|----------|-------------------------------------------------------------------------------------------------------------------------------|
+| Help     | `help`                                                                                                                        |
+| List     | `list`                                                                                                                        |
+| Todo     | `todo DESCRIPTION` <br/>e.g., `todo read book`                                                                                |
+| Deadline | `deadline DESCRIPTION /by DATE` <br/>e.g., `deadline submit assignment /by 2024-09-30 2359`                                   |
+| Event    | `event DESCRIPTION /from START_DATE /to END_DATE` <br/>e.g., `event team meeting /from 2024-09-29 10:00 /to 2024-09-29 12:00` |
+| Mark     | `mark INDEX` <br/>e.g., `mark 2`                                                                                              |
+| Unmark   | `unmark INDEX` <br/>e.g., `unmark 1`                                                                                          |
+| Delete   | `delete INDEX` <br/>e.g., `delete 3`                                                                                          |
+| Find     | `find KEYWORD` <br/>e.g., `find assignment`                                                                                   |
+| Sort     | `sort /target TARGET /by CRITERION` <br/>e.g., `sort /target all /by type`                                                    |
+| Bye      | `bye`                                                                                                                         |
 
