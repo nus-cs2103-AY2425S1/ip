@@ -24,6 +24,8 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
 
+            stage.setTitle("Snipe");
+
             stage.setMinHeight(220);
             stage.setMinWidth(417);
 
