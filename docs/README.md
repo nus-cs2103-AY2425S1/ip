@@ -1,5 +1,15 @@
 # R2D2 User Guide
 
+<p align="center">
+<img src="Ui.png" alt="App screenshot" width="300"/>
+</p>
+
+> I am Master Luke's favourite chatbot and assistant
+>
+> Trust in the force... *BZZT*
+>
+> May the force be with you!
+
 **R2D2** is your go-to chatbot to **keep track of all your tasks**, optimized for use via a **Command Line Interface** (CLI) while still having the benefits of a **Graphical User Interface** (GUI).
 
   * [Features](#features)
