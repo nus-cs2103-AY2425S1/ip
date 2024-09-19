@@ -48,13 +48,13 @@ public class Storage {
         try {
             //create a directory called data and if it doesnt exist then create it using the function .mkdir()
             File dir = new File(dirPath);
-            if(!dir.exists()) {
+            if (!dir.exists()) {
                 dir.mkdir();
             }
 
             //create the file and if the file doesnt exist then create using .createNewFile()
             File file = new File(filePath);
-            if(!file.exists()) {
+            if (!file.exists()) {
                 file.createNewFile();
             }
         } catch (IOException e) { //unchecked exception
@@ -75,7 +75,7 @@ public class Storage {
         //use inbuilt functions like FileWriter - that opens file at filepath, if doesnt exist, creates one
         //PrintWriter - wraps filewriter with printwriter so that can use inbuilt functions for formatting
 
-        try(PrintWriter printwriter = new PrintWriter(new FileWriter(filePath))) {
+        try (PrintWriter printwriter = new PrintWriter(new FileWriter(filePath))) {
             int length = list.size();
             for(int i = 0; i < length; i++) {
                 printwriter.println(list.get(i).printFileFormat());

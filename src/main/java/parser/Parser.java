@@ -74,18 +74,29 @@ public class Parser {
             return "List archived successfully.";
 
         } else if (checkCommandLength(command)) {
+
             if (command.equals("todo") || command.equals("deadline") || command.equals("event")) {
-                throw new IncompleteDescException("OH NO! Description of the task cannot be empty!\n " +
-                        "Please retry with a command like this format <task type> <task>");
+                String exp = "OH NO! Description of the task cannot be empty!\n " +
+                        "Please retry with a command like this format <task type> <task>";
+                throw new IncompleteDescException(exp);
+
             } else {
-                throw new UnknownWordException("Unknown command detected: " + "'" + command + "'" + ".  Sorry, I do not know what that means :(\n" +
+
+                String exc = "Unknown command detected: " + "'" + command + "'" + ".  Sorry, I do not know what that means :(\n" +
                         "Please try again with a proper command.\n" +
-                        "Make sure you are not adding any unecessary spaces or characters.");
+                        "Make sure you are not adding any unecessary spaces or characters.";
+                throw new UnknownWordException(exc);
+
             }
+
         } else if (!checkUnknownCommand(command)) {
-            throw new UnknownWordException("Unknown command detected: " + "'" + command + "'" + ".  Sorry, I do not know what that means :(\n" +
+
+            String exc = "Unknown command detected: " + "'" + command + "'" + ".  Sorry, I do not know what that means :(\n" +
                     "Please try again with a proper command.\n" +
-                    "Make sure you are not adding any unecessary spaces or characters.");
+                    "Make sure you are not adding any unecessary spaces or characters.";
+
+            throw new UnknownWordException(exc);
+
         } else {
 
             GeneralTaskCommand c = new GeneralTaskCommand(command);

@@ -44,7 +44,7 @@ public class FindCommand extends Command {
                 outputList.add(task);
             }
         }
-        if(outputList.isEmpty()) {
+        if (outputList.isEmpty()) {
             return "You have no current tasks containing " + "'" + wordToSearch + "'.\n" +
                     "Please try again with another word.";
         }

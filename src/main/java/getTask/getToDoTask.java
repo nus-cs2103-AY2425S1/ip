@@ -20,7 +20,7 @@ public class getToDoTask extends getGeneralTask {
     @Override
     public Task getHelperTaskFromFile() {
         ToDoTask task = new ToDoTask(this.des);
-        if(this.status) {
+        if (this.status) {
             task.markDone();
         }
         return task;

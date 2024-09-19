@@ -93,7 +93,7 @@ public class Prince {
      */
     public String getResponse(String input) {
         try {
-            if(input.equals("bye")) {
+            if (input.equals("bye")) {
                 return ui.terminationMessage();
             }
             String response = parser.parseConversation(input);

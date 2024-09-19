@@ -42,7 +42,7 @@ public class ArchiveCommand{
      */
 
     private void archiveTasks(ArrayList<Task> lst) {
-        try(PrintWriter printwriter = new PrintWriter(new FileWriter("archive.txt", true))) {
+        try (PrintWriter printwriter = new PrintWriter(new FileWriter("archive.txt", true))) {
             for (Task task : lst) {
                 printwriter.println(task.printFileFormat()); // Or task.toString(), depending on your need
             }
