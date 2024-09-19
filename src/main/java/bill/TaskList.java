@@ -92,7 +92,8 @@ public class TaskList {
                 .collect(Collectors.toList());
 
         if (matchingTasks.isEmpty()) {
-            sb.append("There are no matching tasks in your list currently matching the keyword ").append(keyWord);
+            sb.append("There are no matching tasks in your list currently "
+                        + "where the description field matches the keyword ").append(keyWord);
         } else {
             matchingTasks.forEach(sb::append);
         }

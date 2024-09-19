@@ -30,6 +30,13 @@ public class Parser {
             throw new BillException("Please provide a second argument when marking or unmarking a task");
         }
 
+        int taskNumber;
+        try {
+            taskNumber = Integer.parseInt(parsedInput[1]);
+        } catch (NumberFormatException e) {
+            throw new BillException("The task number to be marked or unmarked must be a valid integer");
+        }
+
         // ensures task number is within the range of the task list
         if (Integer.parseInt(parsedInput[1]) > userList.size() || Integer.parseInt(parsedInput[1]) < 1) {
             throw new BillException("There is no task of that number in the current list");
@@ -139,6 +146,14 @@ public class Parser {
             throw new BillException("Please provide only one additional argument after the delete word,"
                         + " ensure to follow the format: delete <number>, where <> is your input");
         }
+
+        int taskNumber;
+        try {
+            taskNumber = Integer.parseInt(parsedInput[1]);
+        } catch (NumberFormatException e) {
+            throw new BillException("The task number to be deleted must be a valid integer");
+        }
+
         // ensure task number is within the range of the task list
         if (Integer.parseInt(parsedInput[1]) > userList.size() || Integer.parseInt(parsedInput[1]) < 1) {
 
@@ -186,28 +201,12 @@ public class Parser {
      * @return insructions for help manual
      * @throws BillException If there is an error handling the parsing of the targeted task.
      */
-    public String handleHelpParser(String[] parsedInput) throws BillException {
+    public String handleHelpParser(String[] parsedInput, Guide guide) throws BillException {
         // data validation
         if (parsedInput.length != 1) {
             throw new BillException("Please ensure the help command has only one argument,"
                     + " it should follow the format: help, with no other arguments");
         }
-        return "Howdy you seem a little lost, these are the following commands you could use \n\n"
-                + "Below is a brief description of what each command can do to get the exact formatting"
-                + "simply type one of these commands and ill show you how to format that command :D \n\n"
-                + "-> todo this command allows you to add a task you intend to do to your very own list!\n\n"
-                + "-> deadline this command allows you to add a deadline task you intend to handle with a date"
-                + " to your very own list!\n\n"
-                + "-> event this command allows you to add a event task you intend to attend to your very own list!"
-                + "there is come flexibility with this command whereby from and to descriptions"
-                + " can be strings and not dates\n\n"
-                + "-> list this command allows you to view your very own list!\n\n"
-                + "-> find this command allows you to filter your list by descriptions"
-                + " to narrow down what your looking for! \n\n"
-                + "-> mark this command allows you to check of a task to mark it as complete! Congrats :D \n\n"
-                + "-> unmark this command allows you to unmark a task to indicate you still have not done it :/ \n\n"
-                + "-> delete this command allows you to remove a task from your list!\n\n"
-                + "-> help this command allows you to see an overview of all the commands you could possible use \n\n"
-                + "-> bye this command will stop the chatbot and ill say bye :( \n\n";
+        return guide.generateGuide();
     }
 }

@@ -24,6 +24,10 @@ public class Bill {
         return ui.handleUserCommandsGui(userCommand, storage, tasks);
     }
 
+    public boolean checkIfRunning() {
+        return ui.getIsRunning();
+    }
+
     /**
      * Loads bill txt saved list data into Bill chatbot, in the Gui.
      */

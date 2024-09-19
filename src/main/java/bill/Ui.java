@@ -13,6 +13,8 @@ import java.util.Scanner;
 public class Ui {
     private Scanner userScanner;
     private Parser parser;
+    private Guide guide;
+    private boolean isRunning;
 
     private enum Route {
         HELP, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, INVALID, FIND, BYE
@@ -24,6 +26,12 @@ public class Ui {
     public Ui() {
         userScanner = new Scanner(System.in);
         parser = new Parser();
+        isRunning = true;
+        guide = new Guide();
+    }
+
+    public boolean getIsRunning() {
+        return isRunning;
     }
 
     /**
@@ -185,14 +193,23 @@ public class Ui {
 
     private String handleBye(String[] parsedInput) throws BillException {
         if (parsedInput.length == 1) {
+            isRunning = false;
             return "Goodbye! Hope to see you again soon!";
         } else {
             throw new BillException("Not a recognised command, bye command should follow the format: bye");
         }
     }
 
-    public String handleHelp(String[] parsedInput) throws BillException {
-        return parser.handleHelpParser(parsedInput);
+    private String handleHelp(String[] parsedInput, Guide guide) throws BillException {
+        return parser.handleHelpParser(parsedInput, guide);
+    }
+
+    private String handleList(String[] parsedInput, TaskList tasks, ArrayList<Task> userList) throws BillException {
+        if (parsedInput.length == 1) {
+            return tasks.showList(userList);
+        } else {
+            throw new BillException("Not a recognised command, list command should follow the format: list");
+        }
     }
 
     /**
@@ -209,9 +226,10 @@ public class Ui {
         try {
             switch (route) {
             case HELP:
-                return handleHelp(parsedInput);
+                return handleHelp(parsedInput, guide);
             case LIST:
-                return tasks.showList(userList);
+                return handleList(parsedInput, tasks, userList);
+                //return tasks.showList(userList);
             case MARK:
                 // Fallthrough
             case UNMARK:
