@@ -54,13 +54,17 @@ public class TaskList {
      * @param index Index of the task
      */
     public String removeTask(int index) {
-        Task task = list.get(index);
-        list.remove(index);
-        String str = "Noted. I've removed this task: \n";
-        str = str + "   " + task.toString() + "\n";
-        str = str + ((this.listSize() > 1) ? "Now you have " + this.listSize() + " tasks in this list"
-                : "Now you have " + this.listSize() + " task in this list");
-        return str;
+        try {
+            Task task = list.get(index);
+            list.remove(index);
+            String str = "Noted. I've removed this task: \n";
+            str = str + "   " + task.toString() + "\n";
+            str = str + ((this.listSize() > 1) ? "Now you have " + this.listSize() + " tasks in this list"
+                    : "Now you have " + this.listSize() + " task in this list");
+            return str;
+        } catch (java.lang.IndexOutOfBoundsException e) {
+            return "You don't have a task at this index!";
+        }
     }
 
     /**

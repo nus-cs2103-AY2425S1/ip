@@ -25,7 +25,7 @@ public class Parser {
      * @throws NoInputException Thrown when no input has been detected after a keyword.
      * @throws DateTimeException Thrown when the wrong date format has been keyed in.
      */
-    public String parse(String text) throws NoInputException, InvalidInputException, DateTimeException {
+    public String parse(String text) throws NoInputException, IndexOutOfBoundsException, DateTimeException {
         assert text != null : "Input text must be a string";
         if ((Objects.equals(text, "bye")) || (Objects.equals(text, "BYE")) || (Objects.equals(text, "Bye"))) {
             this.list.saveTasks();

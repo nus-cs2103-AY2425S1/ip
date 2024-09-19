@@ -38,30 +38,26 @@ public class Evelyn {
                     + " Try again! The proper date format is YYYY-MM-DD";
             return response;
         } catch (InvalidInputException e) {
-            String response = "Make sure you use the keywords properly!\n"
-                    + "todo [task description]\n"
-                    + "deadline [task description] /by [date in YYYY-MM-DD] [Optional: time]\n"
-                    + "event [task description] /from [date in YYYY-MM-DD] [Optional: time] "
-                    + "/to [date in YYYY-MM-DD] [Optional: time]\n"
-                    + "list (Lists out all the current tasks)\n"
-                    + "mark [index] (Marks the tasks at the specified index)\n"
-                    + "unmark [index] (Unmarks the tasks at the specified index)\n"
-                    + "delete [index] (Deletes the tasks at the specified index)\n"
-                    + "find [keyword] (Find the tasks at the specified keyword)";
-            return response;
+            return errorMessage();
         } catch (NoInputException e) {
-            String response = "Make sure you use the keywords properly!\n"
-                    + "todo [task description]\n"
-                    + "deadline [task description] /by [date in YYYY-MM-DD] [Optional: time]\n"
-                    + "event [task description] /from [date in YYYY-MM-DD]"
-                    + " [Optional: time] /to [date in YYYY-MM-DD] [Optional: time]\n"
-                    + "list (Lists out all the current tasks)\n"
-                    + "mark [index] (Marks the tasks at the specified index)\n"
-                    + "unmark [index] (Unmarks the tasks at the specified index)\n"
-                    + "delete [index] (deletes the tasks at the specified index)\n"
-                    + "find [keyword] (Fnmarks the tasks at the specified keyword)";
-            return response;
+            return errorMessage();
+        } catch (IndexOutOfBoundsException e) {
+            return errorMessage();
         }
+    }
+
+    private String errorMessage() {
+        String response = "Make sure you use the keywords properly!\n"
+                + "todo [task description]\n"
+                + "deadline [task description] /by [date in YYYY-MM-DD] [Optional: time]\n"
+                + "event [task description] /from [date in YYYY-MM-DD] [Optional: time] "
+                + "/to [date in YYYY-MM-DD] [Optional: time]\n"
+                + "list (Lists out all the current tasks)\n"
+                + "mark [index] (Marks the tasks at the specified index)\n"
+                + "unmark [index] (Unmarks the tasks at the specified index)\n"
+                + "delete [index] (Deletes the tasks at the specified index)\n"
+                + "find [keyword] (Find the tasks at the specified keyword)";
+        return response;
     }
 
     public static void main(String[] args) throws IOException {
