@@ -1,6 +1,7 @@
 package ponderpika;
 
 import ponderpika.exception.PonderPikaException;
+import ponderpika.exception.SaveFileFormatException;
 import ponderpika.exception.UnknownCommandException;
 import ponderpika.parser.Parser;
 import ponderpika.storage.IoHandler;
@@ -28,7 +29,7 @@ public class PonderPika {
      * a new, empty TaskList is created and an error message is printed.
      * </p>
      */
-    public PonderPika() {
+    public PonderPika(String path) {
         ui.greet();
         TaskList taskList1;
         try {
@@ -47,6 +48,21 @@ public class PonderPika {
             return handleCommand(command);
         } catch (PonderPikaException e) {
             return e.toString();
+        }
+    }
+
+    /**
+     * Saves the current task list to a persistent storage.
+     * <p>
+     * This method attempts to save the task list using the specified I/O operations.
+     * If an error occurs during the save process, a SaveFileFormatException is caught
+     * </p>
+     */
+    public void saveFile() {
+        try {
+            this.io.saveData(this.taskList);
+        } catch (SaveFileFormatException e) {
+            System.out.println(e.toString());
         }
     }
 
@@ -106,14 +122,8 @@ public class PonderPika {
             return taskList.setPriorityLevel(i, taskToBePrioritized[0].trim());
 
         case BYE:
-            try {
-                io.saveData(taskList);
-                System.out.println("------------------------------------------------------------");
-                ui.bidBye();
-                System.out.println("\n----------------------------------------------------------");
-            } catch (PonderPikaException e) {
-                System.out.println(e.toString());
-            }
+            saveFile();
+            ui.bidBye();
             return "Exited!";
 
         default:

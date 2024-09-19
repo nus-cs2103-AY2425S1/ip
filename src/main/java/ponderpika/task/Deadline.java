@@ -36,7 +36,7 @@ public class Deadline extends Task {
     @Override
     public String saveFullDetails() {
         return String.format("D | %b | %s | %s | (%s)", isDone(), getDescription(),
-                this.deadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")), priorityStatus());
+                this.deadline.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")), this.priorityStatus());
     }
 
     /**

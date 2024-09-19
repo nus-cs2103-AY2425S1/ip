@@ -97,6 +97,6 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return String.format("[%s] %s", this.taskStatus(), this.description) + priorityStatus();
+        return String.format("[%s] %s", this.taskStatus(), this.description) + this.priorityStatus();
     }
 }

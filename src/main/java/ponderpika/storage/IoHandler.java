@@ -59,7 +59,7 @@ public class IoHandler {
      * @param tasks the list of tasks to be saved
      * @throws PonderPikaException if an I/O error occurs while writing to the file
      */
-    public void saveData(TaskList tasks) throws PonderPikaException {
+    public void saveData(TaskList tasks) throws SaveFileFormatException {
         assert tasks != null;
         try {
             if (!FILE.exists()) {
@@ -73,7 +73,7 @@ public class IoHandler {
                 fw.write("\n");
             }
             fw.close();
-        } catch (IOException e) {
+        } catch (IOException | PonderPikaException e) {
             throw new SaveFileFormatException();
         }
     }

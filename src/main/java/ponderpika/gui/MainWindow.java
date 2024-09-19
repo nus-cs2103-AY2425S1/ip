@@ -1,6 +1,7 @@
 package ponderpika.gui;
 
 
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -9,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import ponderpika.PonderPika;
 
 /**
@@ -40,7 +42,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /** Injects the PonderPika instance */
-    public void setDuke(PonderPika p) {
+    public void setPonderPika(PonderPika p) {
         ponderPika = p;
     }
 
@@ -57,8 +59,8 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getPikaDialog(pikaText, botImage)
         );
         userInput.clear();
-        if (userText.equals("bye")) {
-            Platform.exit();
-        }
+        PauseTransition delay = new PauseTransition(Duration.seconds(2));
+        delay.setOnFinished(event -> Platform.exit());
+        delay.play();
     }
 }
