@@ -1,5 +1,6 @@
 package luna.command;
 
+import luna.LunaException;
 import luna.Storage;
 import luna.TaskList;
 
@@ -13,10 +14,15 @@ public class FindCommand implements Command {
     /**
      * Creates command to search list of tasks.
      *
-     * @param query Description of task to search for.
+     * @param inputs Inputs from user to find matching tasks.
      */
-    public FindCommand(String query, Command previousCommand) {
-        this.query = query;
+    public FindCommand(String[] inputs, Command previousCommand) throws LunaException {
+        if (inputs.length == 1 || inputs[1].trim().isEmpty()) {
+            throw new LunaException("Enter task description to search\n"
+                    + "e.g. find book");
+        }
+
+        this.query = inputs[1].trim();
         this.previousCommand = previousCommand;
     }
 

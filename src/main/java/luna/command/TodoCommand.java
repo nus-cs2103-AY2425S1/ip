@@ -15,9 +15,16 @@ public class TodoCommand implements Command {
 
     /**
      * Creates a command to add a simple task with description.
+     *
+     *  @param inputs Inputs from user to create todo task.
      */
-    public TodoCommand(Todo todo, Command previousCommand) {
-        this.todo = todo;
+    public TodoCommand(String[] inputs, Command previousCommand) throws LunaException {
+        if (inputs.length == 1 || inputs[1].trim().isEmpty()) {
+            throw new LunaException("Enter description for todo\n"
+                    + "e.g. todo [description]");
+        }
+
+        this.todo = new Todo(inputs[1].trim());
         this.previousCommand = previousCommand;
     }
 

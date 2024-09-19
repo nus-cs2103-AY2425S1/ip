@@ -16,9 +16,21 @@ public class MarkCommand implements Command {
     /**
      * Creates a command to mark a task.
      *
-     * @param taskToMark Index of task to mark as completed.
+     * @param inputs Inputs from user to mark task.
      */
-    public MarkCommand(int taskToMark, Command previousCommand) {
+    public MarkCommand(String[] inputs, Command previousCommand) throws LunaException {
+        if (inputs.length == 1) {
+            throw new LunaException("Indicate the task number to mark as done\n"
+                    + "e.g. mark 2");
+        }
+
+        int taskToMark;
+        try {
+            taskToMark = Integer.parseInt(inputs[1].trim()) - 1;
+        } catch (NumberFormatException e) {
+            throw new LunaException("Invalid task reference. Use integers only.");
+        }
+
         this.taskToMark = taskToMark;
         this.previousCommand = previousCommand;
     }

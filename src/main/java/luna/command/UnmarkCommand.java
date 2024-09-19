@@ -16,9 +16,21 @@ public class UnmarkCommand implements Command {
     /**
      * Creates a command to unmark a task.
      *
-     * @param taskToUnmark Index of task to unmark as not completed
+     * @param inputs Inputs from user to unmark task.
      */
-    public UnmarkCommand(int taskToUnmark, Command previousCommand) {
+    public UnmarkCommand(String[] inputs, Command previousCommand) throws LunaException {
+        if (inputs.length == 1) {
+            throw new LunaException("Indicate the task number to unmark\n"
+                    + "e.g. unmark 2");
+        }
+
+        int taskToUnmark;
+        try {
+            taskToUnmark = Integer.parseInt(inputs[1].trim()) - 1;
+        } catch (NumberFormatException e) {
+            throw new LunaException("Invalid task reference. Use integers only.");
+        }
+
         this.taskToUnmark = taskToUnmark;
         this.previousCommand = previousCommand;
     }

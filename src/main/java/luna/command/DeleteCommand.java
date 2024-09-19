@@ -16,9 +16,21 @@ public class DeleteCommand implements Command {
     /**
      * Creates a command to delete task.
      *
-     * @param taskToDelete Index of task to delete.
+     * @param inputs Inputs from user for delete command.
      */
-    public DeleteCommand(int taskToDelete, Command previousCommand) {
+    public DeleteCommand(String[] inputs, Command previousCommand) throws LunaException {
+        if (inputs.length == 1) {
+            throw new LunaException("Indicate the task number to delete\n"
+                    + "e.g. delete 2");
+        }
+
+        int taskToDelete;
+        try {
+            taskToDelete = Integer.parseInt(inputs[1].trim()) - 1;
+        } catch (NumberFormatException e) {
+            throw new LunaException("Invalid task reference. Use integers only.");
+        }
+
         this.taskToDelete = taskToDelete;
         this.previousCommand = previousCommand;
     }
