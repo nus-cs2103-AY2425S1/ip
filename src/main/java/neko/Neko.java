@@ -158,17 +158,17 @@ public class Neko {
         Task task;
         try {
             String taskType = parsedInput[1].trim();
-            String taskName = parsedInput[2].trim();
+            String taskDetails = input.substring(input.indexOf(taskType) + taskType.length()).trim();
 
             switch (taskType) {
             case "todo":
-                task = createTodoTask(parsedInput, taskName);
+                task = createTodoTask(taskDetails);
                 break;
             case "deadline":
-                task = createDeadlineTask(parsedInput, taskName);
+                task = createDeadlineTask(taskDetails);
                 break;
             case "event":
-                task = createEventTask(parsedInput, taskName);
+                task = createEventTask(taskDetails);
                 break;
             default:
                 throw new NekoException("Invalid input meow");
@@ -180,27 +180,30 @@ public class Neko {
     }
 
     // Private methods to handle individual task types (Todo, Deadline, Event)
-    private Task createTodoTask(String[] parsedInput, String taskName) throws NekoException {
-        if (parsedInput.length != 3) {
+    private Task createTodoTask(String taskName) throws NekoException {
+        if (taskName.isEmpty()) {
             throw new NekoException("Wrong format meow!");
         }
         return new Todo(taskName);
     }
-
-    private Task createDeadlineTask(String[] parsedInput, String taskName) throws NekoException {
-        if (parsedInput.length != 4) {
+    private Task createDeadlineTask(String taskDetails) throws NekoException {
+        String[] details = taskDetails.split("/by");
+        if (details.length < 2) {
             throw new NekoException("Wrong format meow!");
         }
-        LocalDateTime by = Parser.parseTime(parsedInput[3].trim());
+        String taskName = details[0].trim();
+        LocalDateTime by = Parser.parseTime(details[1].trim());
         return new Deadline(taskName, by);
     }
 
-    private Task createEventTask(String[] parsedInput, String taskName) throws NekoException {
-        if (parsedInput.length != 5) {
+    private Task createEventTask(String taskDetails) throws NekoException {
+        String[] details = taskDetails.split("/from|/to");
+        if (details.length < 3) {
             throw new NekoException("Wrong format meow!");
         }
-        LocalDateTime start = Parser.parseTime(parsedInput[3].trim());
-        LocalDateTime end = Parser.parseTime(parsedInput[4].trim());
+        String taskName = details[0].trim();
+        LocalDateTime start = Parser.parseTime(details[1].trim());
+        LocalDateTime end = Parser.parseTime(details[2].trim());
         return new Event(taskName, start, end);
     }
 
