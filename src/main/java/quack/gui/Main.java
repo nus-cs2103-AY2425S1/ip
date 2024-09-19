@@ -25,7 +25,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setQuack();
-            stage.setTitle("Quack - Enslaved duck to do your bidding");
+            stage.setTitle("Quack - Personal duck assistant to do your bidding");
             stage.getIcons().add(quackImage);
             stage.show();
         } catch (IOException e) {
