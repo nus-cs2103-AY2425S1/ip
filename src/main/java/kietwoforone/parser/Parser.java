@@ -137,10 +137,8 @@ public class Parser {
         case FIND:
             return new FindWordCommand(instruction[1]);
         default:
-            break;
+            throw new KieTwoForOneException("Invalid input!");
         }
-        
-        return new ByeCommand();
     }
 
 }

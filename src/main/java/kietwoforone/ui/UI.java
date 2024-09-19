@@ -170,6 +170,11 @@ public class UI {
         System.out.println(response);
     }
 
+    /**
+     * Returns the chatbot response to the user's input.
+     *
+     * @return
+     */
     public String getResponse() {
         return response;
     }
