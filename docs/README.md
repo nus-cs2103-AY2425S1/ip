@@ -32,10 +32,9 @@ Him is a helpful chatbot that aims to help organise your day by keeping track of
 >- Words in `UPPER_CASE` are parameters supplied by the user.<br>(e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a
    parameter which can be used as `todo Read Book`)
 >- Items in square brackets are optional.<br>(e.g. `deadline DESCRIPTION /by DUE_DATE /at [DUE_TIME]` can be used as
-   `deadline Return Book /by 2024-11-12` or
-   `deadline Return Book /by 2024-11-12 /at 18:00`)
+   `deadline Return Book /by 2024-11-12` or `deadline Return Book /by 2024-11-12 /at 18:00`)
 >- `DATE` arguments are to be in the format `yyyy-MM-dd`<br>(e.g. 1st September 2024 would be formatted as `2024-09-01`)
->- `TIME` arguments are to be in the format `HH:mm`<br> (e.g. 12.05 am is to be formatted as `00:05`)
+>- `TIME` arguments are to be in the format `HH:mm`<br>(e.g. 12.05 am is to be formatted as `00:05`)
 
 ### Adding Todos: `todo`
 
@@ -58,7 +57,7 @@ Examples:
 
 - `deadline Return Book /by 2024-11-12` adds a deadline with a description of *Return Book* and a due date of
   *2024-11-12*
-- `deadline Coding Assignment /by 2024-09-09 /at 23:59`adds a deadline with a description of *Coding Assignment* and a
+- `deadline Coding Assignment /by 2024-09-09 /at 23:59` adds a deadline with a description of *Coding Assignment* and a
   due date of *2024-09-09 at 23:59*
 
 ### Adding Events: `event`
