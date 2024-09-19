@@ -37,7 +37,7 @@
     - `delete 1`  : Deletes the 1st task shown in the current list.
     - `bye`  : Exits the app.
 
-6. Refer to the  [Features]()  below for details of each command.
+6. Refer to the  [Features](#features)  below for details of each command.
 
 ## Features
 

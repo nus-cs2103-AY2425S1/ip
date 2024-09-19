@@ -1,5 +1,7 @@
 package struggling.gui;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import struggling.Struggling;
 
 /**
@@ -65,5 +68,11 @@ public class MainWindow extends AnchorPane {
                 .addAll(DialogBox.getUserDialog(input, userImage),
                         DialogBox.getBotDialog(response, dukeImage, commandType));
         userInput.clear();
+
+        if (bot.getIsExit()) {
+            PauseTransition delay = new PauseTransition(Duration.seconds(3));
+            delay.setOnFinished(event -> Platform.exit());
+            delay.play();
+        }
     }
 }

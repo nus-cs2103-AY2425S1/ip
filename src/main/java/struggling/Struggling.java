@@ -18,6 +18,7 @@ public class Struggling {
     private TaskList tasks;
     private Ui ui;
     private String commandType;
+    private boolean isExit;
 
     /**
      * Initializes Struggling object by initializing the
@@ -66,6 +67,7 @@ public class Struggling {
 
             Command c = Parser.parse(input);
             c.execute(tasks, ui, storage);
+            this.isExit = c.isExit();
             commandType = c
                     .getClass()
                     .getSimpleName();
@@ -84,8 +86,16 @@ public class Struggling {
         return ui.getMessage();
     }
 
+    /**
+     * Returns the type of command that was last
+     * executed.
+     */
     public String getCommandType() {
         return commandType != null ? commandType : "InvalidCommand";
+    }
+    
+    public boolean getIsExit() {
+        return this.isExit;
     }
 
     /**
