@@ -14,7 +14,7 @@
          <font>
             <Font name="Copperplate Gothic Light" size="21.0" />
          </font></Button>
-        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="557.0" prefWidth="400.0" vvalue="1.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="557.0" prefWidth="400.0" vvalue="1.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <content>
                 <VBox fx:id="dialogContainer" prefHeight="552.0" prefWidth="388.0" />
             </content>

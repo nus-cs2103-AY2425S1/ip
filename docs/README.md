@@ -182,6 +182,7 @@ Deletes the task of designated index.
 
   ![img_17.png](img_17.png)
 ---
+
 ## Viewing help: `help`
 Shows how to use the chatbot and different commands.
 
