@@ -41,7 +41,7 @@ public class Ui {
      * @param message The error message to be displayed.
      */
     public void showError(String message) {
-        outputBuffer.add("Goku, something went wrong! " + message + " Let's try that again!");
+        outputBuffer.add("Goku, something went wrong!\n " + message + " Let's try that again!");
     }
 
     /**
@@ -95,7 +95,8 @@ public class Ui {
         if (tasks.isEmpty()) {
             outputBuffer.add("Hooray! No tasks left, Goku! Buu is happy! Time for a break! \uD83D\uDE0A");
         } else {
-            StringBuilder taskListMessage = new StringBuilder("Here are your tasks, Goku! Let's take them down one by one:\n");
+            StringBuilder taskListMessage = new StringBuilder("Here are your tasks, Goku! "
+                    + "Let's take them down one by one:\n");
             for (int i = 0; i < tasks.size(); i++) {
                 taskListMessage.append((i + 1)).append(".").append(tasks.get(i)).append("\n");
             }
@@ -126,7 +127,8 @@ public class Ui {
         if (tasks.isEmpty()) {
             outputBuffer.add("Goku, Buu couldn't find anything matching that search. Try something else?");
         } else {
-            StringBuilder matchingTasksMessage = new StringBuilder("Here are the tasks that match what you're looking for:\n");
+            StringBuilder matchingTasksMessage = new StringBuilder("Here are the tasks that match "
+                    + "what you're looking for:\n");
             for (int i = 0; i < tasks.size(); i++) {
                 matchingTasksMessage.append((i + 1)).append(".").append(tasks.get(i)).append("\n");
             }

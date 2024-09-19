@@ -1,67 +1,56 @@
 package Buu;
+
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 /**
- * Represents a command to add a new deadline task in the GPT application.
- * This command parses the user input to extract the task description and deadline,
- * and adds the task to the task list if the input is valid.
+ * Represents a command to add a Deadline task in the GPT application.
+ * This command parses the description and due date string from the user input
+ * and converts the date string into a LocalDateTime object.
  */
 public class DeadlineCommand extends Command {
+
     private String description;
-    private String by;
+    private LocalDateTime by;
 
     /**
-     * Constructs a DeadlineCommand by parsing the user input to extract the task description
-     * and deadline. If the input format is invalid, the description and deadline will be set to null.
+     * Constructs a DeadlineCommand by parsing the user input to extract
+     * the task description and due date.
      *
-     * @param input The user input string containing the command to add a deadline task.
+     * @param input The user input string containing the deadline command.
+     * @throws IllegalArgumentException If the input format is invalid.
      */
-    public DeadlineCommand(String input) {
-        // Precondition: input must not be null
-        assert input != null : "Input should not be null";
+    public DeadlineCommand(String input) throws IllegalArgumentException {
+        // Parse the input
+        String[] parts = input.split(" /by ");
+        if (parts.length != 2) {
+            throw new IllegalArgumentException("Invalid deadline format\n."
+                    + "Use: deadline <description> /by <yyyy-MM-dd HH:mm>");
+        }
 
-        String[] parts = input.substring(8).trim().split("/by");
-        if (parts.length < 2 || parts[0].trim().isEmpty()) {
-            this.description = null;
-            this.by = null;
-        } else {
-            this.description = parts[0].trim();
-            this.by = parts[1].trim();
+        // Extract the description and due date
+        this.description = parts[0].substring("deadline ".length()).trim();
+
+        try {
+            // Use the parseDateTime method from the Parser class
+            this.by = Parser.parseDateTime(parts[1].trim());
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Invalid date format. Please use yyyy-MM-dd HH:mm.");
         }
     }
 
     /**
-     * Executes the command to add a new deadline task to the task list. If the command format
-     * is invalid, an error message is displayed. Otherwise, the task is added, saved, and a
-     * confirmation message is shown.
+     * Executes the command to add the Deadline task to the task list.
      *
-     * @param taskList The list of tasks to which the new task will be added.
-     * @param ui       The user interface that displays messages to the user.
-     * @param storage  The storage handler that manages task persistence.
+     * @param taskList The task list where the new task will be added.
+     * @param ui       The user interface to show the task addition.
+     * @param storage  The storage handler to save the task list.
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        // Precondition: taskList, ui, and storage should not be null
-        assert taskList != null : "TaskList should not be null";
-        assert ui != null : "UI should not be null";
-        assert storage != null : "Storage should not be null";
-
-        if (description == null || by == null) {
-            ui.showError(
-                    "Invalid command format for deadline.\nUsage: deadline [task description] /by [date/time]\n"
-                            + "Example: deadline return book /by 2/12/2019 1800"
-            );
-            return;
-        }
-
-        LocalDateTime byDateTime = Parser.parseDateTime(by);
-        if (byDateTime != null) {
-            Task newTask = new Deadline(description, byDateTime);
-            taskList.addTask(newTask);
-            storage.saveTasks(taskList.getTasks());
-            ui.showTaskAdded(newTask, taskList.getTasks().size());
-        } else {
-            ui.showError("The task was not added because of an invalid date.");
-        }
+        Task task = new Deadline(description, by); // Create Deadline task with LocalDateTime
+        taskList.addTask(task);
+        storage.saveTasks(taskList.getTasks());
+        ui.showTaskAdded(task, taskList.getTasks().size());
     }
 }

@@ -1,4 +1,5 @@
 package Buu;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -6,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -14,6 +16,7 @@ import java.util.ArrayList;
  * and ensures that tasks are correctly persisted.
  */
 public class Storage {
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private Path filePath;
 
     /**
@@ -41,19 +44,23 @@ public class Storage {
      */
     public ArrayList<Task> loadTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
-        if (Files.exists(filePath)) {
-            try (BufferedReader reader = Files.newBufferedReader(filePath)) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    Task task = parseTaskFromFile(line);
-                    if (task != null) {
-                        tasks.add(task);
-                    }
-                }
-            } catch (IOException e) {
-                System.out.println("An error occurred while loading tasks: " + e.getMessage());
-            }
+
+        if (!Files.exists(filePath)) {
+            return tasks; // Return empty list if file does not exist
         }
+
+        try (BufferedReader reader = Files.newBufferedReader(filePath)) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Task task = parseTaskFromFile(line);
+                if (task != null) {
+                    tasks.add(task);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while loading tasks: " + e.getMessage());
+        }
+
         return tasks;
     }
 
@@ -81,12 +88,12 @@ public class Storage {
             task = new ToDo(description);
             break;
         case "D":
-            LocalDateTime byDateTime = Parser.parseDateTime(parts[3].trim());
+            LocalDateTime byDateTime = LocalDateTime.parse(parts[3].trim(), DATE_TIME_FORMATTER);
             task = new Deadline(description, byDateTime);
             break;
         case "E":
-            LocalDateTime startDateTime = Parser.parseDateTime(parts[3].trim());
-            LocalDateTime endDateTime = Parser.parseDateTime(parts[4].trim());
+            LocalDateTime startDateTime = LocalDateTime.parse(parts[3].trim(), DATE_TIME_FORMATTER);
+            LocalDateTime endDateTime = LocalDateTime.parse(parts[4].trim(), DATE_TIME_FORMATTER);
             task = new Event(description, startDateTime, endDateTime);
             break;
         default:
@@ -94,13 +101,16 @@ public class Storage {
             return null;
         }
 
+        // Set the task properties based on parsed values
         if (task != null) {
-            task.setPriority(priority);
+            if (isDone) {
+                task.markAsDone(); // Mark as done only if the parsed value indicates so
+            }
+            task.setPriority(priority); // Set the priority
         }
 
         return task;
     }
-
 
     /**
      * Saves the given list of tasks to the specified file. Each task is written in
