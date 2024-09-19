@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -65,6 +68,10 @@ public class Storage {
      */
     public void save(TaskList taskList) {
         assert taskList != null : "TaskList cannot be null";
+        String folderPath = getFolderPath(this.saveFilePath);
+        if (folderPath != null) {
+            createFolder(folderPath);
+        }
         ArrayList<Task> internalTasks = taskList.getArrayList();
         try (FileWriter fw = new FileWriter(this.saveFilePath)) {
             fw.write(convertTasksToString(internalTasks));
@@ -172,5 +179,36 @@ public class Storage {
         assert !dateInput.isEmpty() : "Date input cannot be empty";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return LocalDateTime.parse(dateInput, formatter);
+    }
+
+    /**
+     * Creates a folder if it does not exist.
+     *
+     * @param folderPath Path to folder that you want to create.
+     */
+    public void createFolder(String folderPath) {
+        Path path = Paths.get(folderPath);
+
+        try {
+            // Create the folder (including parent directories if necessary)
+            if (!Files.exists(path)) {
+                Files.createDirectories(path);
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred while creating the folder: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Extracts the folder path from the file path.
+     *
+     * @param filePath Path of the file you want to extract the folder path from.
+     * @return String of the folder path.
+     */
+    public String getFolderPath(String filePath) {
+        File file = new File(filePath);
+
+        // Get the folder path (parent directory)
+        return file.getParent();
     }
 }
