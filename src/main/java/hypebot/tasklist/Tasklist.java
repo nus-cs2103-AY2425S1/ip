@@ -1,167 +1,154 @@
 package hypebot.tasklist;
 
+import static hypebot.common.Messages.ERROR_DELETE_TASK_INDEX_OUT_OF_BOUNDS;
+import static hypebot.common.Messages.ERROR_DUPLICATE_TASK;
+import static hypebot.common.Messages.ERROR_MARK_TASK_INDEX_OUT_OF_BOUNDS;
+import static hypebot.common.Messages.ERROR_NO_TASKS_HAPPENING;
+import static hypebot.common.Messages.ERROR_NO_TASKS_MATCH_SEARCH;
+import static hypebot.common.Messages.ERROR_UNMARK_TASK_INDEX_OUT_OF_BOUNDS;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.regex.Pattern;
 
 import com.sun.jdi.request.DuplicateRequestException;
 
+import hypebot.command.FindCommand;
+import hypebot.command.HappeningCommand;
+import hypebot.parser.command.FindQueryParser;
+import hypebot.parser.datetime.UiDateTimeParser;
 import hypebot.task.Task;
-
-import static hypebot.common.Messages.*;
+import hypebot.ui.gui.UiGuiMainWindow;
 
 /**
- * Represents the Tasklist containing all Task objects entered by user.
+ * Represents the {@code Tasklist} containing a group of {@link Task}s.
+ * <p>A child of {@link ArrayList}.</p>
  *
- * @author Youngseo Park (@youngseopark05)
+ * @author Youngseo Park (<a href="https://github.com/youngseopark05">@youngseopark05</a>)
+ * @see Task
  */
-public class Tasklist {
-    private final ArrayList<Task> tasks;
-
+public class Tasklist extends ArrayList<Task> {
     /**
-     * Creates a dummy empty Tasklist.
+     * Creates a new empty {@code Tasklist}.
      */
     public Tasklist() {
-        tasks = new ArrayList<>();
+        super();
     }
 
     /**
-     * Creates a Tasklist with the saved Tasks from tasks.txt.
+     * Takes in a {@link Task} and adds it to the {@code Tasklist} and returns
+     * whether the {@link Task} was added successfully.
      *
-     * @param tasks List containing Tasks processed from tasks.txt, encoded by TasklistEncoder.
+     * @param task {@link Task} to be added.
+     * @return Whether the {@link Task} was added successfully
+     * @throws DuplicateRequestException If the {@code Tasklist} already contains the {@link Task}
+     *                                   or a {@link Task} of the same semantics.
      */
-    public Tasklist(List<Task> tasks) {
-        this();
-        this.tasks.addAll(tasks);
-    }
-
-    /**
-     * Returns the number of Tasks in the Tasklist.
-     *
-     * @return Number of Tasks in Tasklist.
-     */
-    public int size() {
-        return tasks.size();
-    }
-
-    /**
-     * Takes in an index (0-indexed) and returns the Task at corresponding index in the Tasklist.
-     *
-     * @param index Index of Task to be returned.
-     * @return Task at corresponding index.
-     */
-    public Task getTaskByIndex(int index) {
-        return tasks.get(index);
-    }
-
-    /**
-     * Takes in a Task and adds it to the Tasklist.
-     *
-     * @param task Task to be added to TASKS.
-     */
-    public void add(Task task) throws DuplicateRequestException {
-        if (tasks.contains(task)) {
-            throw new DuplicateRequestException(ERROR_DUPLICATE_TASK + (tasks.indexOf(task) + 1) + ".\n");
+    @Override
+    public boolean add(Task task) throws DuplicateRequestException {
+        if (contains(task)) {
+            throw new DuplicateRequestException(ERROR_DUPLICATE_TASK + (indexOf(task) + 1) + ".\n");
         }
-        tasks.add(task);
+        super.add(task);
+        return true;
     }
 
     /**
-     * Takes in an index (0-indexed), removes it from the Tasklist and returns the Task
-     * at the previously specified index.
+     * Takes in an integer index (0-indexed), removes it from the {@code Tasklist}
+     * and returns the {@link Task} at the previously specified index.
      *
-     * @param index Index of Task to be deleted.
-     * @return Task removed from Tasklist, previously at given index.
-     * @throws IndexOutOfBoundsException If index provided is < 0 or > TASKS.size() - 1.
+     * @param index Index of {@link Task} to be deleted.
+     * @return {@link Task} removed from {@link Tasklist}, previously at given index.
+     * @throws IndexOutOfBoundsException If index provided is < 0 or > {@code size()} - 1.
      */
-    public Task delete(int index) throws IndexOutOfBoundsException {
+    @Override
+    public Task remove(int index) throws IndexOutOfBoundsException {
         try {
-            return tasks.remove(index);
+            return super.remove(index);
         } catch (IndexOutOfBoundsException e) {
             throw new IndexOutOfBoundsException(ERROR_DELETE_TASK_INDEX_OUT_OF_BOUNDS);
         }
     }
 
     /**
-     * Deletes all Tasks in tasklist.
-     */
-    public void deleteAll() {
-        tasks.clear();
-    }
-
-    /**
-     * Takes in an index (0-indexed), marks the corresponding Task as complete.
+     * Takes in an integer index (0-indexed), marks the corresponding {@link Task} as complete.
      *
-     * @param index Index of Task to be marked complete.
-     * @throws IndexOutOfBoundsException If index provided < 0 or > TASKS.size() - 1.
+     * @param index Index of {@link Task} to be marked complete.
+     * @throws IndexOutOfBoundsException If index provided < 0 or > {@code size()} - 1.
      */
     public void mark(int index) throws IndexOutOfBoundsException {
         try {
-            tasks.get(index).mark();
+            get(index).mark();
         } catch (IndexOutOfBoundsException e) {
             throw new IndexOutOfBoundsException(ERROR_MARK_TASK_INDEX_OUT_OF_BOUNDS);
         }
     }
 
     /**
-     * Takes in an index (0-indexed), marks the corresponding Task as incomplete.
+     * Takes in an integer index (0-indexed), marks the corresponding {@link Task} as incomplete.
      *
-     * @param index Index of Task to be marked incomplete.
-     * @throws IndexOutOfBoundsException If index provided < 0 or > TASKS.size() - 1.
+     * @param index Index of {@link Task} to be marked incomplete.
+     * @throws IndexOutOfBoundsException If index provided < 0 or > {@code size()} - 1.
      */
     public void unmark(int index) throws IndexOutOfBoundsException {
         try {
-            tasks.get(index).unmark();
+            get(index).unmark();
         } catch (IndexOutOfBoundsException e) {
             throw new IndexOutOfBoundsException(ERROR_UNMARK_TASK_INDEX_OUT_OF_BOUNDS);
         }
     }
 
     /**
-     * Takes in a {@code LocalDate}, returns all {@code Task}s
-     * in the {@code Tasklist} that occur on the given date.
-     * <p>Uses stream().filter().toList().</p>
+     * Takes in a {@link LocalDate}, returns all {@link Task}s that occur on given date.
+     * <p>Makes a {@code clone()} of this instance and uses {@code stream().filter().toList()}.</p>
      *
-     * @param date {@code LocalDate} object created by {@code CommandParser} from user input.
-     * @return {@code Tasklist} containing {@code Task}s occurring on given date.
-     * @throws NoSuchElementException If there are no {@code Task}s occurring on given date.
+     * @param date {@link LocalDate} created by {@link UiDateTimeParser} from input
+     *             at {@link UiGuiMainWindow} for a {@link HappeningCommand}.
+     * @return New {@code Tasklist} containing {@link Task}s occurring on given date.
+     * @throws NoSuchElementException If {@code Tasklist} is empty or there are no {@link Task}s that
+     *                                occurring on the given date.
      */
     public Tasklist getHappeningOn(LocalDate date) throws NoSuchElementException {
-        if (tasks.isEmpty() || tasks.stream().noneMatch(task -> task.isHappeningOn(date))) {
+        if (this.isEmpty() || this.stream().noneMatch(task -> task.isHappeningOn(date))) {
             throw new NoSuchElementException(ERROR_NO_TASKS_HAPPENING);
         }
-        List<Task> tasksOnDate = tasks.stream().filter(task -> task.isHappeningOn(date)).toList();
-        return new Tasklist(tasksOnDate);
+        Tasklist tempClone = (Tasklist) clone();
+        return (Tasklist) tempClone.stream().filter(task -> task.isHappeningOn(date)).toList();
     }
 
     /**
-     * Takes in a search query from user input parsed by CommandParser sent to a FindCommand,
-     * then returns a Tasklist of Tasks with the keyword in the Task name.
+     * Takes in a regex {@link Pattern}, created by {@link FindQueryParser} to send to a
+     * {@link FindCommand}, and a returns a new {@link Tasklist} of all {@link Task}s that
+     * match the regex condition.
+     * <p>Makes a {@code clone()} of this instance and uses {@code stream().filter().toList()}.</p>
      *
-     * @param searchQuery Search query from user to search Tasks with the search query in the name.
-     * @return Tasklist of Tasks containing search query in name.
+     * @param searchQuery {@link Pattern} search query created by {@link FindQueryParser}
+     *                    from input at {@link UiGuiMainWindow} for a {@link FindCommand}.
+     * @return New {@code Tasklist} containing {@link Task}s with names matching the search query.
+     * @throws NoSuchElementException If {@code Tasklist} is empty or there are no {@link Task}s that
+     *                                have a name with any of the keywords.
      */
     public Tasklist getNameContains(Pattern searchQuery) throws NoSuchElementException {
-        if (tasks.stream().noneMatch(task -> task.nameContains(searchQuery))) {
+        if (this.isEmpty() || this.stream().noneMatch(task -> task.nameContains(searchQuery))) {
             throw new NoSuchElementException(ERROR_NO_TASKS_MATCH_SEARCH);
         }
-        List<Task> tasksWithSearchQuery = tasks.stream().filter(task -> task.nameContains(searchQuery)).toList();
-        return new Tasklist(tasksWithSearchQuery);
+        Tasklist tempClone = (Tasklist) clone();
+        return (Tasklist) tempClone.stream().filter(task -> task.nameContains(searchQuery)).toList();
     }
 
     /**
-     * Creates a String object with all Tasks listed out numerically, in order of user insertion.
+     * Returns a {@link String} representing of the {@code Tasklist} listing out
+     * {@link Task}s in numerical insertion order.
      *
-     * @return String representation of Tasks in Tasklist in numerical insertion order.
+     * @return {@link String} representation of {@link Task}s in numerical insertion order.
      */
     @Override
     public String toString() {
         StringBuilder listMessage = new StringBuilder();
-        for (int i = 0; i < tasks.size(); i++) {
-            listMessage.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
+        for (Task task : this) {
+            listMessage.append(indexOf(task) + 1).append(". ").append(task).append("\n");
         }
-        return listMessage.toString();
+        return listMessage.toString().stripTrailing();
     }
 }

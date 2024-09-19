@@ -1,26 +1,39 @@
 package hypebot.task;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import hypebot.command.HappeningCommand;
+import hypebot.ui.gui.UiGuiMainWindow;
+
 /**
- * Represents an Event type Task with a LocalDateTime type start time and an end time.
+ * Represents an {@code Event} type {@link Task} with
+ * a {@link LocalDateTime} start time and an end time.
+ * <p>A child of {@link Task}.</p>
  *
- * @author Youngseo Park (@youngseopark05)
+ * @author Youngseo Park (<a href="https://github.com/youngseopark05">@youngseopark05</a>)
+ * @see LocalDateTime
+ * @see LocalDate
+ * @see DateTimeFormatter
  */
 public class Event extends Task {
-    private static final DateTimeFormatter FILE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-    private static final DateTimeFormatter UI_FORMATTER = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
+    /** {@link DateTimeFormatter} of how an event time is encoded to a {@link File}. */
+    private static final DateTimeFormatter EVENT_TIME_FORMATTER_FILE = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
+    /** {@link DateTimeFormatter} of how event time is encoded to a {@link UiGuiMainWindow}. */
+    private static final DateTimeFormatter EVENT_TIME_FORMATTER_UI = DateTimeFormatter.ofPattern("MMM d yyyy HH:mm");
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
     /**
-     * Creates an Event task with the specified name, start time, and end time.
+     * Takes in a {@link String} name, a {@link LocalDateTime} start time and end time
+     * and creates an {@code Event} with the specified name, start time, and end time.
      *
-     * @param name The name of the event.
-     * @param startTime The start time of the event.
-     * @param endTime The end time of the event.
+     * @param name    {@link String} name of the {@code Event}.
+     * @param startTime {@link LocalDateTime} start time of the {@code Event}.
+     * @param endTime   {@link LocalDateTime} end time of the {@code Event}.
      */
     public Event(String name, LocalDateTime startTime, LocalDateTime endTime) {
         super(name);
@@ -29,11 +42,11 @@ public class Event extends Task {
     }
 
     /**
-     * Takes in a LocalDate object representing a search date
-     * and returns whether the Event is happening on the given date.
+     * Takes in a {@link LocalDate} representing a search date from a {@link HappeningCommand}
+     * and returns whether the {@code Event} is happening on the given date.
      *
-     * @param date LocalDate object representing a date.
-     * @return Whether the Event is happening on the given date.
+     * @param date {@link LocalDate} representing a search date.
+     * @return Whether the {@code Event} is happening on the given date.
      */
     @Override
     public boolean isHappeningOn(LocalDate date) {
@@ -44,33 +57,51 @@ public class Event extends Task {
     }
 
     /**
-     * Returns the String description of the task to append to /data/tasklist.txt.
-     * Should be in this form: "E , {0 if not complete, 1 if complete} , {name} , {startTime} , {endTime}".
+     * Returns the {@link String} description of {@code Event} to append to a {@link File}.
+     * <p>Should be in this form: "E , {0 if not complete, 1 if complete} ,
+     * {{@code name}} , {{@code startTime}, {{@code endTime}} as specified by
+     * {@code EVENT_TIME_FORMATTER_FILE}}".</p>
      *
-     * @return String description of Event task to append to /data/tasklist.txt.
+     * @return {@link String} description of {@code Event} to append to the save {@link File}
+     *         on the user's local computer.
      */
     @Override
     public String toFileString() {
-        return "E , " + (isComplete() ? 1 : 0) + " , " + getName() + " , "
-                + startTime.format(FILE_FORMATTER) + " , " + endTime.format(FILE_FORMATTER) + "\n";
+        return "E , %s , %s , %s\n".formatted(
+                super.toFileString(),
+                startTime.format(EVENT_TIME_FORMATTER_FILE),
+                endTime.format(EVENT_TIME_FORMATTER_FILE));
     }
 
     /**
-     * Returns the String representation of the Deadline task as shown to the user on the HypeBot UI.
-     * Should be in this form: "[E][{X only if complete}] {name} (from: {startTime} to: {endTime})".
+     * Returns the {@link String} representation of the {@code Event} as shown
+     * to the user on the {@link UiGuiMainWindow}.
+     * <p>Is in this form: "[E][(X if complete)] {{@code name}} (from: {{@code startTime}
+     * to: {{@code endTime}})" as specified by {@code EVENT_TIME_FORMATTER_UI}}.</p>
      *
-     * @return String representation of Event task as shown on HypeBot UI.
+     * @return {@link String} representation of {@code Event} as shown on GUI.
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: "
-                + startTime.format(UI_FORMATTER) + " to: "
-                + endTime.format(UI_FORMATTER) + ")";
+        return "[E]%s (from: %s to: %s)".formatted(
+                super.toString(),
+                startTime.format(EVENT_TIME_FORMATTER_UI),
+                endTime.format(EVENT_TIME_FORMATTER_UI));
     }
 
+    /**
+     * Takes in an {@link Object} and returns if the {@link Object} being compared
+     * is a duplicate of this {@code Event}.
+     *
+     * @param obj {@link Object} to be compared.
+     * @return If this {@code Event} is a duplicate of the other.
+     */
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof Event event) {
+        if (this == obj) {
+            return true;
+        } else if (obj instanceof Event event) {
+            // Checks whether both share the same name, start time, end time.
             return super.equals(event) && this.startTime.equals(event.startTime) && this.endTime.equals(event.endTime);
         }
         return false;

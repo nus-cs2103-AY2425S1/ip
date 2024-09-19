@@ -5,18 +5,20 @@ import static hypebot.common.Messages.MESSAGE_DELETING_PAST_EVENT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import hypebot.parser.DateTimeParser;
-import hypebot.parser.EventDateTimeParseException;
+import hypebot.parser.datetime.FileDateTimeParser;
+import hypebot.exception.datetime.EventDateTimeParseException;
 import org.junit.jupiter.api.Test;
 
 public class EventTest {
+    FileDateTimeParser fileDateTimeParser = new FileDateTimeParser();
+
     @Test
     public void Event_invalidTimeFormats_exceptionThrown() {
         try {
             Event temp1 = new Event(
                     "temp1",
-                    DateTimeParser.parseEventTimesFile("2019", "2021")[0],
-                    DateTimeParser.parseEventTimesFile("2019", "2021")[1]);
+                    fileDateTimeParser.parseEventTimes("2019/2021")[0],
+                    fileDateTimeParser.parseEventTimes("2019/2021")[1]);
             fail(); // the test should not reach this line
         } catch (Exception e) {
             assertEquals(e.getClass(), EventDateTimeParseException.class);
@@ -28,8 +30,8 @@ public class EventTest {
         try {
             Event temp1 = new Event(
                     "temp1",
-                    DateTimeParser.parseEventTimesFile("2019-09-15 18:00", "2021-09-15 18:00")[0],
-                    DateTimeParser.parseEventTimesFile("2019-09-15 18:00", "2021-09-15 18:00")[1]);
+                    fileDateTimeParser.parseEventTimes("2019-09-15 1800/2021-09-15 1800")[0],
+                    fileDateTimeParser.parseEventTimes("2019-09-15 1800/2021-09-15 1800")[1]);
         } catch (Exception e) {
             assertEquals(MESSAGE_DELETING_PAST_EVENT, e.getMessage());
         }
@@ -40,8 +42,8 @@ public class EventTest {
         try {
             Event temp1 = new Event(
                     "temp1",
-                    DateTimeParser.parseEventTimesFile("2024-09-15 18:00", "2024-09-15 16:00")[0],
-                    DateTimeParser.parseEventTimesFile("2024-09-15 18:00", "2024-09-15 16:00")[1]);
+                    fileDateTimeParser.parseEventTimes("2024-11-22 1800/2024-11-15 1600")[0],
+                    fileDateTimeParser.parseEventTimes("2024-11-22 1800/2024-11-15 1600")[1]);
         } catch (Exception e) {
             assertEquals(ERROR_EVENT_TIMES_INORDERED, e.getMessage());
         }
