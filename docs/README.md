@@ -23,11 +23,21 @@ Action:
 Adding a deadline task. 
   
 Outcome:  
-Nuffle saves the task and schedules it by the specified date.  
+Nuffle saves the task and schedules it by the specified date. 
 
-Example: `deadline submit report /by 2024-09-30 2359`
-
+Usage:
+```
+deadline <description> /by <deadline datetime>
+```
 /by format: yyyy-MM-dd HHmm
+
+Example:   
+```
+deadline submit report /by 2024-09-30 2359
+```
+
+  
+Output:
 
 ```
 Got it. I've added this task:
@@ -46,7 +56,17 @@ Adding a todo task.
 Outcome:  
 Nuffle saves the task.
 
-Example: `todo meet friends`
+Usage:
+```
+todo <description>
+```
+
+Example:
+```
+todo meet friends
+```
+
+Output:
 
 ```
 Got it. I've added this task:
@@ -65,10 +85,19 @@ Adding an event task.
 Outcome:  
 Nuffle saves the task and schedules it by the specified date.
 
-Example: `event attend lecture /from 2024-09-30 1500 /to 2024-09-30 1600`
+Usage:
+```
+event <description> /from <from datetime> /to <to datetime>
+```
 
+Example: 
+```
+event attend lecture /from 2024-09-30 1500 /to 2024-09-30 1600
+```
 /to format: yyyy-MM-dd HHmm  
 /from format: yyyy-MM-dd HHmm
+
+Output:
 
 ```
 Got it. I've added this task:
@@ -87,10 +116,18 @@ Adding a loan task.
 Outcome:  
 Nuffle saves the task and generate the loan status and details.
 
-Example: `loan /B James /L Steven /amt 100 /due 2024-09-30 1600`
+Usage:
+```
+loan /B <borrower> /L <lender> /amt <amount loaned> /due <due datetime>
+```
 
+Example: 
+```
+loan /B James /L Steven /amt 100 /due 2024-09-30 1600
+```
 /due format: yyyy-MM-dd HHmm
 
+Output:
 ```
 Got it. I've added this task:
   [L] James owes Steven $100.0, due by Sep 30 2024, 4:00 pm (pending)
@@ -108,9 +145,12 @@ Listing all current tasks.
 Outcome:  
 Nuffle displays all saved tasks with details on completion status and deadlines.  
 
-Example: `list`
+Usage:
+```
+list
+```
 
-
+Output:
 ```
 Here are the tasks in your list:
   1. [D][ ] submit report (by: Sep 30 2024)
@@ -127,9 +167,18 @@ Mark a task as completed.
   
 Outcome:  
 Nuffle updates the status of the task.  
-  
-Example: `mark 1`
 
+Usage:
+```
+mark <index of the task>
+```
+  
+Example:
+```
+mark 1
+```
+
+Output:
 ```
 Nice! I've marked this task as done!
   [D][X] submit report (by: Sep 30 2024 2359)
@@ -145,8 +194,17 @@ Mark a task as completed.
 Outcome:  
 Nuffle updates the status of the task.
 
-Example: `unmark 1`
+Usage:
+```
+unmark <index of the task>
+```
 
+Example:
+```
+unmark 1
+```
+
+Output:
 ```
 Nice! I have marked this task as not done yet.
   [D][] submit report (by: Sep 30 2024 2359)
@@ -163,8 +221,17 @@ Deleting a task.
 Outcome:  
 Nuffle removes the task from the list.
 
-Example: `delete 1`
+Usage:
+```
+delete <index of the task>
+```
 
+Example:
+```
+delete 1
+```
+
+Output:
 ```
 Noted. I've removed this task:
   [D][X] submit report (by: Sep 30 2024 2359)
@@ -182,8 +249,16 @@ Search for tasks by keyword.
 Outcome:  
 Nuffle shows all tasks that contain the keyword.
 
-Example: `find report`
+Usage:
+```
+find <keyword>
+```
 
+Example:
+```
+find report
+```
+Output:
 ```
 Here are the matching tasks in your list:
 1. [D][] submit report (by: Sep 30 2024 2359)
@@ -201,8 +276,12 @@ The program saves your progress and exits.
 
 
 
-Example: `bye`
+Usage:
+```
+bye
+```
 
+Output:
 ```
 Bye. Hope to see you again soon!
 ```
