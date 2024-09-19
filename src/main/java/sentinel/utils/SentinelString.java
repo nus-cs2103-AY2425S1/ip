@@ -161,7 +161,8 @@ public class SentinelString {
      * Returns an error message for Gemini errors.
      */
     public static String stringGeminiErrorMessage() {
-        return "Oh no, I am unable to use any AI! Please try again using the specific format!";
+        return "Oh no, I am unable to use any AI at the moment! Please try again"
+                + "using the specific formats (eg: {YYYY}-{MM}-{DD}T{Hour}:{Minute} for dates)!";
     }
 
     /**
