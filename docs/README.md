@@ -2,6 +2,9 @@
 
 The Delphi Chat Bot is a desktop app for **creating and managing a list of tasks and appointments**, optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Delphi can manage your tasks faster than traditional GUI apps.
 Delphi can remember the tasks you've inputted from the last time you used the app.
+
+**chatGPT was used throughout development to assist with writing different functions**
+
 ## Quick start
 
 1. Ensure you have Java 17 installed.
@@ -94,6 +97,12 @@ Update the deadlines/ time frames of deadlines/events respectively.
 Format:
 * `update KEYWORD /by NEW_DEADLINE`
 *  `update KEYWORD /from NEW_START /to NEW_END`
+
+### Exit: `bye`
+
+Close the application after a one second delay.
+
+Format: `bye`
 
 ---
 
