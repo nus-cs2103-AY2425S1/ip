@@ -10,7 +10,6 @@ However, to display the chat history in a more user-friendly manner, the chatbot
 
 - [Quick Start](#quick-start)
 - [Commands](#commands)
-  * [Summary](#summary)
   * [Adding Tasks](#adding-tasks)
       * [ToDo](#todo)
       * [Deadline](#deadline)
@@ -49,7 +48,7 @@ However, to display the chat history in a more user-friendly manner, the chatbot
 > Note:
 > For all commands, arguments for the command are specified between curly brackets `{}` and are compulsory. The curly brackets not meant to be typed in the command itself. Refer to the command example for better clarity.
 
-## Summary
+--------------------------------------------------------------------------------------------------------------------------------------------
 
 | Index |       Command        |                         Format                         |                    Example                     |
 |:-----:|:--------------------:|:------------------------------------------------------:|:----------------------------------------------:|
@@ -63,7 +62,7 @@ However, to display the chat history in a more user-friendly manner, the chatbot
 |   8   |     Find task(s)     |                  `find {search word}`                  |                   `find ip`                    |
 |   9   |         Exit         |                         `bye`                          |                     `bye`                      |
 
-
+-------
 
 ## Adding Tasks
 
