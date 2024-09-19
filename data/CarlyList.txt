@@ -1,7 +1,4 @@
-T | 0 | read
-T | 0 | play
-T | 1 | lreasdfj
-T | 1 | read
-T | 0 | read
-T | 0 | read
-T | 1 | read
+T | 0 | cook pasta
+D | 0 | complete homework | Oct 15 2019
+T | 0 | create post
+D | 1 | reply email for homework | Jun 06 2025

@@ -19,9 +19,6 @@ public class TaskList {
     /** List of Task objects.*/
     private final ArrayList<Task> taskList;
 
-    /** ONE_INDENT used in displaying tasklist size. */
-    private final String ONE_INDENT = "    ";
-
     /** TWO_INDENT used in displaying output messages. */
     private final String TWO_INDENT = "        ";
 
@@ -43,7 +40,7 @@ public class TaskList {
 
     /** Gets the message fpr the current size of the task list. */
     private String taskListSize() {
-        return String.format("%sNow you have %d tasks in the list.", ONE_INDENT, this.getSize());
+        return String.format("You've got %d tasks on your plate!", this.getSize());
     }
 
     /**
@@ -115,7 +112,7 @@ public class TaskList {
             taskNum = Integer.parseInt(taskNumString);
             Task t = this.get(taskNum - 1);
             this.taskList.remove(taskNum - 1);
-            return "Okay, I've removed this task:\n" + TWO_INDENT + t;
+            return "All set! I've removed this task:\n" + TWO_INDENT + t;
         } catch (NumberFormatException e) {
             throw new CarlyIncorrectIndexFormat();
         } catch (IndexOutOfBoundsException e) {
@@ -200,12 +197,12 @@ public class TaskList {
     private String addTaskToList(Task task) {
         this.taskList.add(task);
         assert this.getSize() >= 1 : "Size of tasklist should be at least 1.";
-        String successMessage = "Got it. I've added this task:";
+        String successMessage = "Awesome! I've added this task:";
         return successMessage + "\n" + TWO_INDENT + task + "\n" + taskListSize();
     }
 
     /** Generates a string representation of all tasks in the list to be saved in txt file. */
-    public String getFormattedTaskList() throws CarlyException {
+    public String getFormattedTaskList() {
         if (this.taskList.isEmpty()) {
             return "Nothing in your list";
         } else {
@@ -221,7 +218,7 @@ public class TaskList {
     }
 
     /** Formats a single task into the required string format. */
-    private String formatTask(Task task) throws CarlyException{
+    private String formatTask(Task task) {
         String taskType = getTaskType(task);
         String isDone = formatIsDone(task);
         String taskDescription = task.getDescription();
@@ -247,7 +244,7 @@ public class TaskList {
     }
 
     /** Retrieves the additional details for Deadline and Event tasks. */
-    private String getTaskDetails(Task task) throws CarlyException {
+    private String getTaskDetails(Task task) {
         if (task instanceof Deadline) {
             Deadline deadline = (Deadline) task;
             return String.format(" | %s", deadline.getDueDateAsString());

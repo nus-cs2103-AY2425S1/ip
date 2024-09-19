@@ -8,12 +8,12 @@ public class Ui {
 
     /** Displays a welcome message to the user with the current username. */
     public String welcomeMsg() {
-        return("Hey there, I'm Carly.\n" + "What can I do for you?");
+        return "Hello there! 😊\nI'm Carly, your friendly chatbot.\nHow can I assist you today?";
     }
 
     /** Displays a farewell message to the user with the current username. */
     public String byeMsg() {
-        return("Bye. I'll see you next time!");
+        return("Goodbye for now! 🌟\nIt was great chatting with you. I'll be here whenever you need me. Have a fantastic day!");
     }
 
 }
