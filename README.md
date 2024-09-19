@@ -85,7 +85,7 @@ The following is a list of all of evelyn's commands:
 - `mark [index] (Marks the tasks at the specified index)`
 - `unmark [index] (Unmarks the tasks at the specified index)`
 - `delete [index] (Deletes the tasks at the specified index)`
-- `find [keyword] (Unmarks the tasks at the specified index)`
+- `find [keyword] (Finds the tasks at the specified keyword)`
 - `bye (Exits Evelyn)`
 
 ## Friendlier Syntax

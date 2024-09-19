@@ -38,7 +38,7 @@ public class Evelyn {
                     + " Try again! The proper date format is YYYY-MM-DD";
             return response;
         } catch (InvalidInputException e) {
-            String response = "You did not use the keywords properly!\n"
+            String response = "Make sure you use the keywords properly!\n"
                     + "todo [task description]\n"
                     + "deadline [task description] /by [date in YYYY-MM-DD] [Optional: time]\n"
                     + "event [task description] /from [date in YYYY-MM-DD] [Optional: time] "
@@ -46,11 +46,11 @@ public class Evelyn {
                     + "list (Lists out all the current tasks)\n"
                     + "mark [index] (Marks the tasks at the specified index)\n"
                     + "unmark [index] (Unmarks the tasks at the specified index)\n"
-                    + "delete [index] (deletes the tasks at the specified index)\n"
-                    + "find [keyword] (Unmarks the tasks at the specified index)";
+                    + "delete [index] (Deletes the tasks at the specified index)\n"
+                    + "find [keyword] (Find the tasks at the specified keyword)";
             return response;
         } catch (NoInputException e) {
-            String response = "You did not use the keywords properly!\n"
+            String response = "Make sure you use the keywords properly!\n"
                     + "todo [task description]\n"
                     + "deadline [task description] /by [date in YYYY-MM-DD] [Optional: time]\n"
                     + "event [task description] /from [date in YYYY-MM-DD]"
@@ -59,7 +59,7 @@ public class Evelyn {
                     + "mark [index] (Marks the tasks at the specified index)\n"
                     + "unmark [index] (Unmarks the tasks at the specified index)\n"
                     + "delete [index] (deletes the tasks at the specified index)\n"
-                    + "find [keyword] (Unmarks the tasks at the specified index)";
+                    + "find [keyword] (Fnmarks the tasks at the specified keyword)";
             return response;
         }
     }

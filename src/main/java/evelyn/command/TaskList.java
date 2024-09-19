@@ -152,7 +152,7 @@ public class TaskList {
             String taskString = list.get(i).toString();
             if (taskString.contains(keyword)) {
                 hasFoundSomething = true;
-                str = str + i + ". " + taskString + "\n";
+                str = str + (i + 1) + ". " + taskString + "\n";
             }
         }
 
