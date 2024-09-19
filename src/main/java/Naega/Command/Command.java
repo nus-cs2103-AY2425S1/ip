@@ -15,13 +15,14 @@ public abstract class Command {
     /**
      * Executes the command with the given task list, UI, and storage components.
      *
-     * @param tasks the task list to be manipulated by the command
-     * @param ui the UI component to display information to the user
+     * @param tasks   the task list to be manipulated by the command
+     * @param ui      the UI component to display information to the user
      * @param storage the storage component to save changes
+     * @return
      * @throws NaegaException if an error occurs during command execution
-     * @throws IOException if an I/O error occurs
+     * @throws IOException    if an I/O error occurs
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws NaegaException, IOException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws NaegaException, IOException;
 
     /**
      * Checks if the command signifies an exit action.

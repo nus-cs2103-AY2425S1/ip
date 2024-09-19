@@ -23,14 +23,15 @@ public class AddCommand extends Command {
     /**
      * Executes the command by adding the task to the task list, updating the UI, and saving the tasks to storage.
      *
-     * @param tasks the task list to which the task will be added
-     * @param ui the UI component to display information to the user
+     * @param tasks   the task list to which the task will be added
+     * @param ui      the UI component to display information to the user
      * @param storage the storage component to save the updated task list
+     * @return
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.addTask(task);
-        ui.printTaskAdded(task, tasks.size());
         storage.save(tasks.getTasks());
+        return ui.printTaskAdded(task, tasks.size());
     }
 }

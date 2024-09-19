@@ -1,52 +1,58 @@
 package Naega.Ui;
 
 import Naega.Task.Task;
-
 import java.util.List;
 import java.util.Scanner;
 
 public class Ui {
 
     /**
-     * Displays a welcome message to the user.
-     * This method prints a greeting and prompts the user for input.
+     * Returns a welcome message to the user.
+     * This method returns a greeting and prompts the user for input.
+     *
+     * @return the welcome message
      */
-    public void showWelcome() {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Hello! I'm Naega");
-        System.out.println(" What can I do for you?");
-        System.out.println("____________________________________________________________");
+    public String showWelcome() {
+        return "____________________________________________________________\n"
+                + " Hello! I'm Naega\n"
+                + " What can I do for you?\n"
+                + "____________________________________________________________";
     }
 
     /**
-     * Prints a separator line to the console.
-     * This method is used to improve the readability of console output.
+     * Returns a separator line.
+     * This method is used to improve the readability of output.
+     *
+     * @return the separator line
      */
-    public void showLine() {
-        System.out.println("____________________________________________________________");
+    public String showLine() {
+        return "____________________________________________________________";
     }
 
     /**
-     * Displays an error message when loading tasks fails.
+     * Returns an error message when loading tasks fails.
      * This method informs the user that there was an issue loading tasks from a file.
+     *
+     * @return the error message
      */
-    public void showLoadingError() {
-        System.out.println("Error loading tasks from file.");
+    public String showLoadingError() {
+        return "Error loading tasks from file.";
     }
 
     /**
-     * Displays an error message with a custom message.
-     * This method prints a message to the user indicating an error occurred.
+     * Returns an error message with a custom message.
+     * This method returns a message indicating an error occurred.
      *
      * @param message the error message to display
+     * @return the error message with details
      */
-    public void showError(String message) {
-        System.out.println(" Oops! " + message);
+    public String showError(String message) {
+        return "Oops! " + message;
     }
 
     /**
      * Reads a command from the user input.
-     * This method uses a `Scanner` to read a line of text entered by the user.
+     * (Note: Since this is reading input, it can stay as is, but not used for the GUI.)
      *
      * @return the line of text entered by the user
      */
@@ -56,47 +62,51 @@ public class Ui {
     }
 
     /**
-     * Prints a message indicating a task has been added.
-     * This method shows the added task and the updated number of tasks in the list.
+     * Returns a message indicating a task has been added.
+     * This method returns the added task and the updated number of tasks in the list.
      *
      * @param task the task that was added
      * @param size the updated number of tasks in the list
+     * @return the message for the task added
      */
-    public void printTaskAdded(Task task, int size) {
-        System.out.println(" Got it. I've added this task:");
-        System.out.println("   " + task);
-        System.out.println(" Now you have " + size + " tasks in the list.");
+    public String printTaskAdded(Task task, int size) {
+        return "Got it. I've added this task:\n"
+                + "   " + task + "\n"
+                + "Now you have " + size + " tasks in the list.";
     }
 
     /**
-     * Displays a message indicating a task has been deleted.
-     * This method shows the deleted task and the updated number of remaining tasks.
+     * Returns a message indicating a task has been deleted.
+     * This method returns the deleted task and the updated number of remaining tasks.
      *
      * @param task the task that was removed
      * @param remainingTasks the updated number of tasks remaining in the list
+     * @return the message for the task deleted
      */
-    public void showDeletedTask(Task task, int remainingTasks) {
-        System.out.println("____________________________________________________________");
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("   " + task);
-        System.out.println("Now you have " + remainingTasks + " tasks in the list.");
-        System.out.println("____________________________________________________________");
+    public String showDeletedTask(Task task, int remainingTasks) {
+        return "____________________________________________________________\n"
+                + "Noted. I've removed this task:\n"
+                + "   " + task + "\n"
+                + "Now you have " + remainingTasks + " tasks in the list.\n"
+                + "____________________________________________________________";
     }
 
     /**
-     * Displays the tasks that match a search query.
-     * This method prints the list of tasks that match the search criteria or a message indicating no tasks were found.
+     * Returns the tasks that match a search query.
+     * This method returns the list of tasks that match the search criteria or a message indicating no tasks were found.
      *
      * @param tasks the list of tasks that match the search criteria
+     * @return the message for the found tasks
      */
-    public void showFoundTasks(List<Task> tasks) {
+    public String showFoundTasks(List<Task> tasks) {
         if (tasks.isEmpty()) {
-            System.out.println("There are no matching tasks in your list.");
+            return "There are no matching tasks in your list.";
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println((i + 1) + ". " + tasks.get(i));
+                sb.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
             }
+            return sb.toString();
         }
     }
 }

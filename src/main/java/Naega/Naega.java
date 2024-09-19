@@ -62,6 +62,21 @@ public class Naega {
             }
         }
     }
+    /**
+     * Processes the input command and returns the appropriate response.
+     * This method is called in the GUI to handle user input.
+     *
+     * @param input the user's input command
+     * @return the response from Naega
+     */
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parse(input);
+            return command.execute(tasks, ui, storage);
+        } catch (NaegaException | IOException e) {
+            return "Error: " + e.getMessage();
+        }
+    };
 
     /**
      * The entry point of the application. Creates a new Naega instance with

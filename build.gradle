@@ -8,7 +8,18 @@ repositories {
     mavenCentral()
 }
 
+ext {
+    javaFxVersion = '17.0.7'
+}
+
 dependencies {
+    // JavaFX dependencies with platform-specific classifiers for Windows, macOS, and Linux
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: platformClassifier()
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: platformClassifier()
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: platformClassifier()
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: platformClassifier()
+
+    // JUnit dependencies for testing
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
 }
@@ -28,7 +39,8 @@ test {
 }
 
 application {
-    mainClass.set("Naega.Naega")
+    // Ensure this points to your main class
+    mainClass.set("Naega.GUI.Main")  // Adjust if you are using packages, e.g., "Naega.Main"
 }
 
 shadowJar {
@@ -36,6 +48,24 @@ shadowJar {
     archiveClassifier = null
 }
 
-run{
+run {
     standardInput = System.in
+    jvmArgs = [
+            '--module-path', "${System.getenv('PATH_TO_FX')}",
+            '--add-modules', 'javafx.controls,javafx.fxml'
+    ]
+}
+
+// Utility function to determine platform and choose the appropriate classifier
+def platformClassifier() {
+    def os = System.getProperty('os.name').toLowerCase()
+    if (os.contains('win')) {
+        return 'win'
+    } else if (os.contains('mac')) {
+        return 'mac'
+    } else if (os.contains('nux') || os.contains('linux')) {
+        return 'linux'
+    } else {
+        throw new GradleException("Unsupported operating system: " + os)
+    }
 }

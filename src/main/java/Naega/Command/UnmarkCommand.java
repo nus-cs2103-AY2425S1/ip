@@ -5,6 +5,8 @@ import Naega.Storage.Storage;
 import Naega.Task.TaskList;
 import Naega.Ui.Ui;
 
+import java.io.IOException;
+
 /**
  * Represents a command to mark a specific task as not done.
  */
@@ -25,18 +27,19 @@ public class UnmarkCommand extends Command {
      * Executes the command by marking the specified task as not done, displaying the updated task using the UI,
      * and saving the updated task list to storage.
      *
-     * @param tasks the task list to update
-     * @param ui the UI component to display the updated task
+     * @param tasks   the task list to update
+     * @param ui      the UI component to display the updated task
      * @param storage the storage component to save the updated task list
+     * @return
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         tasks.getTask(index).markAsNotDone();
-        ui.showLine();
-        System.out.println(" OK, I've marked this task as not done yet:");
-        System.out.println("   " + tasks.getTask(index));
-        ui.showLine();
         storage.save(tasks.getTasks());
+
+        return ui.showLine() + "\nOK, I've marked this task as not done yet:\n"
+                + "   " + tasks.getTask(index) + "\n"
+                + ui.showLine();
     }
 
     /**

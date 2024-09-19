@@ -24,18 +24,19 @@ public class DeleteCommand extends Command {
     /**
      * Executes the command by deleting the task at the specified index, updating the UI, and saving the tasks to storage.
      *
-     * @param tasks the task list from which the task will be deleted
-     * @param ui the UI component to display information to the user
+     * @param tasks   the task list from which the task will be deleted
+     * @param ui      the UI component to display information to the user
      * @param storage the storage component to save the updated task list
+     * @return
      * @throws NaegaException if the task index is invalid
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws NaegaException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws NaegaException {
         try {
             Task taskToDelete = tasks.getTask(taskIndex);
             tasks.deleteTask(taskIndex);
-            ui.showDeletedTask(taskToDelete, tasks.size());
             storage.save(tasks.getTasks());
+            return ui.showDeletedTask(taskToDelete, tasks.size());
         } catch (IndexOutOfBoundsException e) {
             throw new NaegaException("Invalid task number.");
         }
