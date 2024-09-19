@@ -1,24 +1,79 @@
-# Duke project template
+# DemureBot User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+![Ui.png](docs/Ui.png)
 
-## Setting up in Intellij
+DemureBot is a task management application designed to help you keep track of your to-dos, deadlines, and events with ease. With a simple and intuitive interface, DemureBot ensures that you stay organized and mindful of your tasks. Whether you're managing daily chores or planning significant events, DemureBot is your reliable assistant.
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+## Adding tasks
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+Add a todo to the task list.
+
+Example: `todo return book`
+
+```
+Of course, I've added this task:
+  [T][] return book
+Now you have x tasks in the list.
+```
+
+Add a deadline to the task list.
+
+Example: `deadline return book /by 2021-09-17 2359`
+
+```
+Of course, I've added this task:
+  [D][] return book (by: Sep 17 2021 23:59)
+Now you have x tasks in the list.
+```
+
+Add an event to the task list.
+
+Example: `event party /from 2021-09-17 1800 /to 2021-09-17 2359`
+
+```
+Of course, I've added this task:
+  [E][] party (from: Sep 17 2021 18:00 to: Sep 17 2021 23:59)
+Now you have x tasks in the list.
+```
+
+## Marking/Unmarking tasks
+
+Mark/Unmark task as done.
+
+Example: `mark 1`
+
+```
+Nice! You have completed  
+  task
+Very demure, very mindful!
+```
+
+Example: `unmark 1`
+
+```
+Oh no! You haven't completed  
+  task
+Not very demure, not very mindful!
+```
+
+## Deleting tasks
+
+Delete a task from the task list.
+
+Example: `delete 1`
+
+```
+Ok dear, I've removed this task:
+  task
+Now you have x tasks in the list.
+```
+
+## Listing tasks
+
+List all tasks in the task list.
+
+Example: `list`
+
+```
+There are no tasks:DDD
+```
