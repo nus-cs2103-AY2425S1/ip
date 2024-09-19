@@ -52,10 +52,10 @@ public class AddDeadlineCommand extends Command {
      * @throws LunaBotException If an error occurs while executing the command.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws LunaBotException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws LunaBotException {
         Deadline deadline = new Deadline(description, by);
         taskList.addTask(deadline);
         storage.save(taskList.getTasks());
-        ui.printTaskAdded(deadline, taskList.size());
+        return ui.printTaskAdded(deadline, taskList.size());
     }
 }

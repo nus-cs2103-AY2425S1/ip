@@ -17,6 +17,6 @@ public abstract class Command {
      * @param storage Storage system to save or load tasks to/from a file.
      * @throws LunaBotException If an error occurs while executing the command
      */
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws LunaBotException;
+    public abstract String execute(TaskList taskList, Ui ui, Storage storage) throws LunaBotException;
 
 }

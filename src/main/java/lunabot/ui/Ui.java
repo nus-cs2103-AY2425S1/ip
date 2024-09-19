@@ -3,7 +3,18 @@ package lunabot.ui;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import lunabot.command.AddDeadlineCommand;
+import lunabot.command.AddEventCommand;
+import lunabot.command.AddToDoCommand;
+import lunabot.command.Command;
+import lunabot.command.DeleteCommand;
+import lunabot.command.ExitCommand;
+import lunabot.command.FindCommand;
+import lunabot.command.ListCommand;
+import lunabot.command.MarkCommand;
+import lunabot.command.UnmarkCommand;
 import lunabot.task.Task;
+import lunabot.task.TaskList;
 
 /**
  * Handles user interface operations for LunaBot.
@@ -13,7 +24,6 @@ import lunabot.task.Task;
  * and updates on task status.
  */
 public class Ui {
-    private static final String LINE = "___________________________________________________________________";
     private Scanner scanner;
 
     /**
@@ -33,84 +43,77 @@ public class Ui {
     }
 
     /**
-     * Displays a welcome message to the user.
+     * Welcome message to user when starting the app.
+     * @return Welcome message.
      */
-    public void printWelcome() {
-        System.out.println(LINE);
-        System.out.println(" Hello! I'm LunaBot");
-        System.out.println(" What can I do for you?");
-        System.out.println(LINE);
+    public String printWelcome() {
+        return "Hello! I'm LunaBot. \n What can I do for you today?";
     }
 
     /**
-     * Displays a goodbye message to the user.
+     * Goodbye message to the user when closing the app.
+     * @return Goodbye message.
      */
-    public void printGoodbye() {
-        System.out.println(LINE);
-        System.out.println(" Bye. Hope to see you again soon!");
-        System.out.println(LINE);
+    public String printGoodbye() {
+        return "Bye! Hope to see you again soon....";
     }
 
     /**
-     * Displays an error message when tasks cannot be loaded from a file.
+     * A message for when an error occurs loading tasks from the source file.
+     * @return Error message.
      */
-    public void printLoadingError() {
-        System.out.println(LINE);
-        System.out.println(" Unable to load tasks from file.");
-        System.out.println(LINE);
+    public String printLoadingError() {
+        return "Unable to load tasks from file.";
     }
 
     /**
-     * Displays a generic error message with the provided message.
+     * A generic error message appended with the provided message.
      *
      * @param message The error message to display.
+     * @return Error message.
      */
-    public void printError(String message) {
-        System.out.println(LINE);
-        System.out.println(" Error: " + message);
-        System.out.println(LINE);
+    public String printError(String message) {
+        String error = "Error: ";
+        return error + message;
     }
 
     /**
      * Displays the current list of tasks, if the taskList is empty, the user is informed.
      *
      * @param taskList The list of tasks to display.
+     * @return List of tasks.
      */
-    public void printTaskList(ArrayList<Task> taskList) {
-        System.out.println(LINE);
+    public String printTaskList(ArrayList<Task> taskList) {
         if (taskList.isEmpty()) {
-            System.out.println(" You have no tasks in your task list.");
+            return "You have no tasks in your task list.";
         } else {
-            System.out.println(" Here are the tasks in your list:");
+            String header = "Here are the tasks in your list: \n";
+            StringBuilder list = new StringBuilder();
             for (int i = 0; i < taskList.size(); i++) {
-                System.out.println(" " + (i + 1) + "." + taskList.get(i));
+                list.append(i + 1).append(". ").append(taskList.get(i)).append("\n");
             }
+            return header + list;
         }
-        System.out.println(LINE);
     }
 
     /**
      * Informs the user that a task has been marked as done.
      *
      * @param task The task that has been marked as done.
+     * @return Message to show that the specified task is marked as done.
      */
-    public void printTaskMarked(Task task) {
-        System.out.println(LINE);
-        System.out.println(" Nice! I've marked this task as done:");
-        System.out.println("   " + task);
-        System.out.println(LINE);
+    public String printTaskMarked(Task task) {
+        return "Nice! I've marked this task as done: \n" + task;
     }
 
     /**
      * Informs the user that a task has been marked as not done yet.
      *
      * @param task The task that has been marked as not done.
+     * @return Message to show that the specified task has been marked as not done.
      */
-    public void printTaskUnmarked(Task task) {
-        System.out.println(LINE);
-        System.out.println(" OK, I've marked this task as not done yet:");
-        System.out.println("   " + task);
-        System.out.println(LINE);
+    public String printTaskUnmarked(Task task) {
+        return "OK, I've marked this task as not done yet: \n" + task;
     }
 
     /**
@@ -118,14 +121,12 @@ public class Ui {
      *
      * @param task The task that has been deleted.
      * @param size The updated number of tasks in the list.
+     * @return A message to show that the specified task has been deleted.
      */
-    public void printTaskDeleted(Task task, int size) {
-        System.out.println(LINE);
-        System.out.println(" Noted. I've removed this task:");
-        System.out.println("   " + task);
-        System.out.println(" Now you have " + size + " tasks in the list.");
-        System.out.println(LINE);
-
+    public String printTaskDeleted(Task task, int size) {
+        String header = "Noted. I've removed this task:";
+        String footer = "Now you have " + size + " tasks in the list.";
+        return header + "\n" + task + "\n" + footer;
     }
 
     /**
@@ -133,29 +134,30 @@ public class Ui {
      *
      * @param task The task that has been added.
      * @param size The updated number of tasks in the list.
+     * @return A message to show that the task has been added.
      */
-    public void printTaskAdded(Task task, int size) {
-        System.out.println(LINE);
-        System.out.println(" Got it! I've added this task:");
-        System.out.println("   " + task);
-        System.out.println(" Now you have " + size + " tasks in the list");
-        System.out.println(LINE);
+    public String printTaskAdded(Task task, int size) {
+        String header = "Got it! I've added this task:";
+        String footer = "Now you have " + size + " tasks in the list";
+        return header + "\n" + task + "\n" + footer;
     }
 
     /**
      * Prints the list of matching tasks from the taskList.
      * @param matchingTasks ArrayList of matching tasks.
+     * @return A list of matching tasks from the taskList.
      */
-    public void printMatchingTasks(ArrayList<Task> matchingTasks) {
-        System.out.println(LINE);
+    public String printMatchingTasks(ArrayList<Task> matchingTasks) {
         if (matchingTasks.isEmpty()) {
-            System.out.println(" No matching tasks found.");
+            return "No matching tasks found.";
         } else {
-            System.out.println(" Here are the matching tasks in your list:");
+            String header = " Here are the matching tasks in your list: \n";
+            StringBuilder list = new StringBuilder();
             for (int i = 0; i < matchingTasks.size(); i++) {
-                System.out.println(" " + (i + 1) + "." + matchingTasks.get(i));
+                list.append(i + 1).append(". ").append(matchingTasks.get(i)).append("\n");
             }
+            return header + list;
         }
-        System.out.println(LINE);
     }
+
 }

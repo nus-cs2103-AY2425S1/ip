@@ -67,6 +67,22 @@ public class LunaBot {
     }
 
     /**
+     * Generates a response to the user input on the GUI and executes commands accordingly.
+     * Checks for empty input.
+     *
+     * @param input Full user input to be processed by the bot.
+     * @return Response from the bot based on user input.
+     */
+    public String getResponse(String input) throws LunaBotException {
+        if (input.isEmpty()) {
+            throw new LunaBotException(" Invalid input. Input field cannot be empty.");
+        } else {
+            Command command = Parser.parse(input);
+            return command.execute(taskList, ui, storage);
+        }
+    }
+
+    /**
      * The entry point of the application.
      * Creates an instance of LunaBot with a predefined file path and starts it.
      *

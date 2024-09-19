@@ -17,7 +17,7 @@ public class ListCommand extends Command {
      * @throws LunaBotException If an error occurs while executing the command.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws LunaBotException {
-        ui.printTaskList(taskList.getTasks());
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws LunaBotException {
+        return ui.printTaskList(taskList.getTasks());
     }
 }

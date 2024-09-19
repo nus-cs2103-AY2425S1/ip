@@ -35,7 +35,7 @@ public class UnmarkCommand extends Command {
      * @throws LunaBotException If the task number provided is invalid (either out of range or not a number).
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws LunaBotException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws LunaBotException {
         // Checks if task number provided is valid and within range
         if (index < 0 || index >= taskList.size()) {
             throw new LunaBotException("Invalid task number provided");
@@ -43,6 +43,6 @@ public class UnmarkCommand extends Command {
         Task task = taskList.get(index);
         task.unmarkAsDone();
         storage.save(taskList.getTasks());
-        ui.printTaskUnmarked(task);
+        return ui.printTaskUnmarked(task);
     }
 }

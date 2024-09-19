@@ -35,13 +35,13 @@ public class DeleteCommand extends Command {
      * @throws LunaBotException If the task number provided is invalid (either out of range or not a number).
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws LunaBotException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws LunaBotException {
         // Checks if task number provided is valid and within range
         if (index < 0 || index >= taskList.size()) {
             throw new LunaBotException("Invalid task number provided");
         }
         Task deleted = taskList.deleteTask(index);
         storage.save(taskList.getTasks());
-        ui.printTaskDeleted(deleted, taskList.size());
+        return ui.printTaskDeleted(deleted, taskList.size());
     }
 }
