@@ -55,6 +55,30 @@ public class Orion {
         Application.launch(Main.class, args);
     }
 
+    public String getWelcomeMessage() {
+        return "Hello! Welcome to Orion Task Manager.\n" +
+                "Here are the available commands with examples:\n\n" +
+                "1. list - View all tasks\n" +
+                "   Example: list\n\n" +
+                "2. todo <description> - Add a todo task\n" +
+                "   Example: todo Buy groceries\n\n" +
+                "3. deadline <description> /by <date> - Add a deadline task\n" +
+                "   Example: deadline Submit report /by 2023-12-31 2359\n\n" +
+                "4. event <description> /from <start date> /to <end date> - Add an event\n" +
+                "   Example: event Team meeting /from 2023-11-15 1400 /to 2023-11-15 1530\n\n" +
+                "5. mark <task number> - Mark a task as done\n" +
+                "   Example: mark 1\n\n" +
+                "6. unmark <task number> - Unmark a completed task\n" +
+                "   Example: unmark 1\n\n" +
+                "7. delete <task number> - Delete a task\n" +
+                "   Example: delete 2\n\n" +
+                "8. find <keyword> - Find tasks containing a keyword\n" +
+                "   Example: find meeting\n\n" +
+                "9. bye - Exit the application\n" +
+                "   Example: bye\n\n" +
+                "What would you like to do?";
+    }
+
     /**
      * Handles user input and returns a response string.
      *
@@ -74,16 +98,16 @@ public class Orion {
 
             // prettier-ignore
             return switch (command) {
-            case LIST -> handleList(parts);
-            case MARK -> handleMark(parts);
-            case UNMARK -> handleUnmark(parts);
-            case TODO -> handleTodo(parts);
-            case EVENT -> handleEvent(parts);
-            case DEADLINE -> handleDeadline(parts);
-            case DELETE -> handleDelete(parts);
-            case FIND -> handleFind(parts);
-            case BYE -> "Goodbye!";
-            default -> "Unknown command: " + parts[0];
+                case LIST -> handleList(parts);
+                case MARK -> handleMark(parts);
+                case UNMARK -> handleUnmark(parts);
+                case TODO -> handleTodo(parts);
+                case EVENT -> handleEvent(parts);
+                case DEADLINE -> handleDeadline(parts);
+                case DELETE -> handleDelete(parts);
+                case FIND -> handleFind(parts);
+                case BYE -> "Goodbye!";
+                default -> "Unknown command: " + parts[0];
             };
         } catch (OrionException e) {
             return "Error: " + e.getMessage() + "\n";

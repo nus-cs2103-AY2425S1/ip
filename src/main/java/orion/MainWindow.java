@@ -34,6 +34,13 @@ public class MainWindow extends AnchorPane {
     /** Injects the Orion instance */
     public void setOrion(Orion d) {
         orion = d;
+        displayWelcomeMessage();
+    }
+
+    private void displayWelcomeMessage() {
+        String welcomeMessage = orion.getWelcomeMessage();
+        dialogContainer.getChildren().add(
+                DialogBox.getOrionDialog(welcomeMessage, orionImage));
     }
 
     /**
