@@ -27,6 +27,15 @@ public class Gojou {
         this.storage = new Storage(filePath);
     }
 
+    /**
+     * Loads tasks from the file specified in the Storage object.
+     * The method attempts to read the stored tasks and initialize the TaskList.
+     * If an error occurs during the loading process, such as an issue with file parsing or IO operations,
+     *     a {@link GojouException} is thrown to indicate the failure.
+     *
+     * @throws GojouException If there is an error loading tasks from the file, such as invalid data formatting
+     *     or I/O issues.
+     */
     public void loadTasksFromFile() throws GojouException {
         try {
             this.tasks = new TaskList(storage.load());

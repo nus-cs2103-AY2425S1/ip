@@ -1,6 +1,6 @@
 # Gojou User Guide
 
-![Screenshot of Gojou chatbot](../docs/Ui.png)
+![Screenshot of Gojou chatbot](./Ui.png)
 
 Gojou is the "strongest" chatbot that helps you manage your tasks efficiently. You can store to-do items, set deadlines, and keep track of events. Gojou also lets you query, list, and delete tasks with simple commands.
 

@@ -3,7 +3,7 @@ package gojou.task;
 /**
  * Represents a task with a description and a completion status.
  */
-public class Task implements Comparable<Task>{
+public class Task implements Comparable<Task> {
     private String taskName;
     private boolean isCompleted;
     private Priority priority;

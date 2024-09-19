@@ -54,6 +54,11 @@ public class MainWindow extends AnchorPane {
         );
     }
 
+    /**
+     * Displays an error message in the dialog container at the start if an exception occurs.
+     *
+     * @param e The exception that triggered the error message.
+     */
     public void showErrorMsgOnStart(Exception e) {
         dialogContainer.getChildren().addAll(
                 DialogBox.getGojouDialog(ui.showError(e), gojouImage, "Error")
@@ -83,6 +88,11 @@ public class MainWindow extends AnchorPane {
         }
     }
 
+    /**
+     * Exits the application after a specified delay.
+     *
+     * @param duration The delay in seconds before the application exits.
+     */
     public static void exitApplication(int duration) {
         PauseTransition delay = new PauseTransition(Duration.seconds(duration));
         delay.setOnFinished(event -> Platform.exit()); // Exit after the delay

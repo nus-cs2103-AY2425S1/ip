@@ -71,6 +71,14 @@ public class Parser {
         return LocalDateTime.parse(deadline, formatter);
     }
 
+    /**
+     * Reads the priority level from the user input and converts it into a Priority enum value.
+     * The input should be in the format "//priority", where "priority" can be "high", "medium", or "low".
+     *
+     * @param word The string representing the user input for task priority.
+     * @return A Priority enum value corresponding to the provided input ("high", "medium", "low").
+     * @throws GojouException If the input does not match a valid priority level.
+     */
     public static Priority readTaskPriority(String word) throws GojouException {
         String priorityInput = word.substring(2);
 

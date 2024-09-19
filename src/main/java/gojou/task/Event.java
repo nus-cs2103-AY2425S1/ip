@@ -18,7 +18,8 @@ public class Event extends Task {
      * @param startTime The start date and time of the event as a LocalDateTime object.
      * @param endTime The end date and time of the event as a LocalDateTime object.
      */
-    public Event(String taskName, boolean isCompleted, Priority priority, LocalDateTime startTime, LocalDateTime endTime) {
+    public Event(String taskName, boolean isCompleted, Priority priority, LocalDateTime startTime,
+                 LocalDateTime endTime) {
         super(taskName, isCompleted, priority);
         this.startTime = startTime;
         this.endTime = endTime;
