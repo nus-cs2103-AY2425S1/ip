@@ -9,9 +9,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
+
+import javax.swing.*;
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
@@ -21,7 +27,7 @@ public class DialogBox extends HBox {
     @FXML
     private Label dialog;
     @FXML
-    private ImageView displayPicture;
+    private Circle profilePic;
 
     private DialogBox(String text, Image img) {
         try {
@@ -33,8 +39,9 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
+        profilePic.setFill(new ImagePattern(img));
+        profilePic.setEffect(new DropShadow(+25d, 0d, +2d, Color.DARKSEAGREEN));
         this.dialog.setText(text);
-        this.displayPicture.setImage(img);
     }
 
     /**
