@@ -46,19 +46,53 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+        dialog.getStyleClass().add("reply-label");
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getPotongDialog(String text, Image img, String commandType) {
         var db = new DialogBox(text, img);
         db.flip();
+        db.changeDialogStyle(commandType);
         return db;
     }
 
     public static DialogBox getIntroDialog(String text, Image img) {
         return new DialogBox(text, img);
+    }
+
+    private void changeDialogStyle(String commandType) {
+        switch(commandType) {
+        case "AddCommand":
+            dialog.getStyleClass().add("add-label");
+            break;
+        case "MarkCommand":
+            dialog.getStyleClass().add("marked-label");
+            break;
+        case "DeleteCommand":
+            dialog.getStyleClass().add("delete-label");
+            break;
+        case "ExitCommand":
+            dialog.getStyleClass().add("exit-label");
+            break;
+        case "FindCommand":
+            dialog.getStyleClass().add("find-label");
+            break;
+        case "ListCommand":
+            dialog.getStyleClass().add("list-label");
+            break;
+        case "TagCommand":
+            dialog.getStyleClass().add("tag-label");
+            break;
+        case "UntagCommand":
+            dialog.getStyleClass().add("tag-label");
+            break;
+        default:
+            dialog.getStyleClass().add("nothing-label");
+            break;
+        }
     }
 }

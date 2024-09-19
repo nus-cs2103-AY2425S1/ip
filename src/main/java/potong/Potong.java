@@ -16,6 +16,7 @@ public class Potong {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private String commandType;
 
     /**
      * Initialise the chatbot.
@@ -53,10 +54,15 @@ public class Potong {
         String message;
         try {
             message = c.execute(tasks, storage, ui);
+            commandType = c.getClass().getSimpleName();
         } catch (PotongException | IOException e) {
             throw new RuntimeException(e);
         }
         return message;
+    }
+
+    public String getCommandType() {
+        return commandType;
     }
     public static void main(String[] args) {
         new Potong().run();

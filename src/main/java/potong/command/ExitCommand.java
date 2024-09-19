@@ -32,8 +32,7 @@ public class ExitCommand extends Command {
         // Store the current data in the task list.
         assert tasks != null;
         tasks.writeToStorage(storage);
-        ui.sayGoodbye();
-        return "";
+        return "Bye! See you again :)";
     }
 
 }
