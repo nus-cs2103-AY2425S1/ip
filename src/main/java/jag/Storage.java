@@ -1,9 +1,11 @@
 package jag;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -18,8 +20,14 @@ public class Storage {
     private String filePath;
     private ArrayList<Task> arrayListTasks = new ArrayList<>();
     private TaskList tasks;
-    public Storage(String filePath) {
+    File f;
+    public Storage(String filePath) throws FileNotFoundException {
         this.filePath = filePath;
+        this.f = new File(this.filePath);
+
+        if (!f.getParentFile().exists()) {
+            f.getParentFile().mkdir();
+        }
     }
 
     /**
