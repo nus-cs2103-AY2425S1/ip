@@ -4,7 +4,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task{
-    private LocalDateTime deadline;
+    private final LocalDateTime deadline;
     /**
      * Private constructor for a Task
      * @param description A string description of the task
@@ -24,7 +24,7 @@ public class Deadline extends Task{
      * @param time A string representing the time of the deadline in the format HH:MM
      * @return A deadline with those specifications
      */
-    public static Deadline of(String description, Task.Status status, String date, String time) {
+     static Deadline of(String description, Task.Status status, String date, String time) {
         LocalDate formattedDate = LocalDate.parse(date);
         LocalTime formattedTime = LocalTime.parse(time);
         LocalDateTime deadline = LocalDateTime.of(formattedDate,formattedTime);
@@ -48,13 +48,12 @@ public class Deadline extends Task{
 
     @Override
     public String toString() {
-        StringBuilder str = new StringBuilder();
-        str.append("[D]");
-        str.append(super.toString());
-        str.append("(Deadline: ");
-        str.append(deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")));
-        str.append(")");
-        return str.toString();
+        String str = "[D]" +
+                super.toString() +
+                "(Deadline: " +
+                deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) +
+                ")";
+        return str;
     }
 
     /**
@@ -63,11 +62,10 @@ public class Deadline extends Task{
      */
     @Override
     protected String toCsv() {
-        StringBuilder csv = new StringBuilder();
-        csv.append("Deadline,");
-        csv.append(super.toCsv());
-        csv.append(",");
-        csv.append(this.deadline);
-        return csv.toString();
+        String csv = "Deadline," +
+                super.toCsv() +
+                "," +
+                this.deadline;
+        return csv;
     }
 }

@@ -38,13 +38,12 @@ public class Event extends Task{
 
     @Override
     public String toString() {
-        StringBuilder str = new StringBuilder();
-        str.append("[E]");
-        str.append(super.toString());
-        str.append(String.format("(From: %s To: %s)",
-                from.format(DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm")),
-                to.format(DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm"))));
-        return str.toString();
+        String str = "[E]" +
+                super.toString() +
+                String.format("(From: %s To: %s)",
+                        from.format(DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm")),
+                        to.format(DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm")));
+        return str;
     }
 
     /**
@@ -53,13 +52,12 @@ public class Event extends Task{
      */
     @Override
     protected String toCsv() {
-        StringBuilder csv = new StringBuilder();
-        csv.append("Event,");
-        csv.append(super.toCsv());
-        csv.append(",");
-        csv.append(this.from);
-        csv.append(",");
-        csv.append(this.to);
-        return csv.toString();
+        String csv = "Event," +
+                super.toCsv() +
+                "," +
+                this.from +
+                "," +
+                this.to;
+        return csv;
     }
 }
