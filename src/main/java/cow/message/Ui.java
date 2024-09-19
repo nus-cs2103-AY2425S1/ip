@@ -17,7 +17,9 @@ import java.util.Scanner;
 import cow.tasks.Task;
 import cow.todolist.TodoList;
 
-/** Class to handle all printing methods. **/
+/**
+ * Represents the user interface of the program.
+ */
 public class Ui {
 
     private final Scanner scanner = new Scanner(System.in);
@@ -28,16 +30,18 @@ public class Ui {
     }
 
     /**
-     * Prints a string in the dialog box.
+     * Prints the text in a dialog box.
      *
-     * @param text The content of the dialog box.
+     * @param text The text to be printed.
      */
     public void print(String text) {
         printDialogBox(text);
     }
 
     /**
-     * Prints greeting message.
+     * Prints the greetings message.
+     *
+     * @return The greetings message.
      */
     public String printGreetings() {
         String content = GREETINGS_MESSAGE;
@@ -46,7 +50,7 @@ public class Ui {
     }
 
     /**
-     * Prints error loading file.
+     * Prints the error message when there is an issue loading the file.
      */
     public void printLoadingError() {
         printDialogBox(ERROR_LOADING_FILE_PROCEED_WITH_EMPTY_TASK_LIST);
@@ -67,9 +71,9 @@ public class Ui {
     }
 
     /**
-     * Prints the message after marking a task.
+     * Prints the message after marking a task as done.
      *
-     * @param task The task to be marked.
+     * @param task The task that was marked as done.
      */
     public void printMarked(Task task) {
         String content = MARKED_AS_DONE + task;
@@ -77,26 +81,26 @@ public class Ui {
     }
 
     /**
-     * Prints the message before exiting the program.
+     * Prints the goodbye message.
      */
     public void printGoodBye() {
         printDialogBox(GOODBYE_MESSAGE);
     }
 
     /**
-     * Prints the deadlines due at the date specified.
+     * Prints the tasks due on a specific date.
      *
-     * @param date The specific date to check.
-     * @param todoList The list of todos.
+     * @param date     The date to check for tasks due.
+     * @param todoList The todoList to check for tasks due.
      */
     public void printDue(LocalDate date, TodoList todoList) {
         printDialogBox(todoList.getDueAt(date).toString());
     }
 
     /**
-     * Prints the message after unmarking a task.
+     * Prints the message after unmarking a task as not done.
      *
-     * @param task The task to be unmarked.
+     * @param task The task that was unmarked.
      */
     public void printUnmarked(Task task) {
         String content = UNMARK_AS_DONE + task;
@@ -106,7 +110,7 @@ public class Ui {
     /**
      * Prints the message after deleting a task.
      *
-     * @param task The task that was deleted.
+     * @param task     The task that was deleted.
      * @param todoList The todoList the task was deleted from.
      */
     public void printDeletedTask(Task task, TodoList todoList) {
@@ -133,13 +137,17 @@ public class Ui {
         this.text = content + "\n-Mooooo";
     }
 
-    /** Returns the latest command output **/
+    /**
+     * Returns the current text in the dialog box.
+     *
+     * @return The current text in the dialog box.
+     */
     public String getCurrentText() {
         return this.text;
     }
 
     /**
-     * Prints todo list in a nice format.
+     * Prints the list of tasks in a nice format.
      *
      * @param list TodoList to print.
      */
@@ -150,7 +158,7 @@ public class Ui {
     }
 
     /**
-     * Prints matched todo list in a nice format.
+     * Prints the list of tasks that match the search query.
      *
      * @param list TodoList to print.
      */
@@ -162,8 +170,9 @@ public class Ui {
 
     /**
      * Prints the number of recurring tasks added.
-     * @param times number of items added.
-     * @param type either weekly or daily recurring tasks.
+     *
+     * @param times The number of recurring tasks added.
+     * @param type  The type of recurring task.
      */
     public void printRecurringTask(int times, String type) {
         String content = String.valueOf(times);

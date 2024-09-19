@@ -9,7 +9,10 @@ import cow.todolist.TodoList;
 
 
 // solution below inspired by https://github.com/se-edu/addressbook-level2/tree/master
-/** Creates a TodoCommand. **/
+
+/**
+ * Creates a TodoCommand.
+ **/
 public class TodoCommand extends Command {
     public static final String COMMAND_WORD = "todo";
     public static final String COMMAND_EXAMPLE = "todo buy groceries";
@@ -19,20 +22,31 @@ public class TodoCommand extends Command {
 
     private final String description;
 
+    /**
+     * Creates a TodoCommand instance.
+     *
+     * @param description the description of the todo task.
+     */
     public TodoCommand(String description) {
         this.description = description.trim();
     }
 
+    /**
+     * Returns the description of the todo task.
+     *
+     * @return the description of the todo task.
+     */
     public String getDescription() {
         return this.description;
     }
 
     /**
-     * Creates a todo task and adds to the todo list.
+     * Creates a todo task and adds it to the todo list.
      *
-     * @param todoList the list of the tasks.
-     * @param fileSaver filesaver object used to write data to txt.
-     * @throws CowExceptions any exceptions that might arise from the implementation.
+     * @param todoList  the list of tasks.
+     * @param ui        the user interface object used to interact with the user.
+     * @param fileSaver the FileSaver object used to write data to a file.
+     * @throws CowExceptions if any exceptions arise from the implementation.
      */
     @Override
     public void execute(TodoList todoList, Ui ui, FileSaver fileSaver) throws CowExceptions {
@@ -42,6 +56,12 @@ public class TodoCommand extends Command {
         fileSaver.saveData(todoList);
     }
 
+    /**
+     * Checks if this TodoCommand is equal to another object.
+     *
+     * @param obj the object to compare with.
+     * @return true if the given object is equal to this TodoCommand, false otherwise.
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

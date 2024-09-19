@@ -9,7 +9,9 @@ import cow.message.Ui;
 import cow.parser.Parser;
 import cow.todolist.TodoList;
 
-/** Creates a cow object to start the chatbot. **/
+/**
+ * Represents the Cow program.
+ */
 public class Cow {
     // solution below inspired by https://www.w3schools.com/java/java_user_input.asp
     private TodoList todoList;
@@ -18,9 +20,10 @@ public class Cow {
     private String commandType;
 
     /**
-     * Creates an instance of the Cow class.
+     * Creates a Cow object.
      *
-     * @param filePath of the save file.
+     * @param filePath The file path to load data from.
+     * @throws IllegalArgumentException if the file path is empty.
      */
     public Cow(String filePath) {
         assert !filePath.isEmpty() : "File path should not be empty";
@@ -33,15 +36,18 @@ public class Cow {
         }
     }
 
+    /**
+     * Handles exceptions that occur during the loading of data.
+     * Prints a loading error message and initializes an empty TodoList.
+     */
     private void handleCowException() {
         ui.printLoadingError();
         todoList = new TodoList();
     }
 
     /**
-     * Runs the Cow program by repeated asking for inputs until.
-     *
-     * users says bye.
+     * Runs the main loop of the Cow program.
+     * Continuously reads and executes commands until an exit command is issued.
      */
     public void run() {
         ui.printGreetings();
@@ -59,10 +65,10 @@ public class Cow {
     }
 
     /**
-     * Gets response from cow from an input.
+     * Processes the input command and returns the response.
      *
-     * @param input user input from GUI.
-     * @return the response from cow.
+     * @param input The input command as a string.
+     * @return The response from executing the command.
      */
     public String getResponse(String input) {
         try {
@@ -76,27 +82,27 @@ public class Cow {
     }
 
     /**
-     * Gets cow greeting message.
+     * Returns the greeting message.
      *
-     * @return a string.
+     * @return The greeting message as a string.
      */
     public String getGreetings() {
         return ui.printGreetings();
     }
 
     /**
-     * Runs cow.
+     * The main method to run the Cow program.
      *
-     * @param args are optional.
+     * @param args Command line arguments.
      */
     public static void main(String[] args) {
         new Cow("data/cow.txt").run();
     }
 
     /**
-     * Gets the command type.
+     * Returns the type of the last executed command.
      *
-     * @return a string.
+     * @return The type of the last executed command.
      */
     public String getCommandType() {
         return commandType;

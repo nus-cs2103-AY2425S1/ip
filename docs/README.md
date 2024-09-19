@@ -104,26 +104,39 @@ Example: `help`
 ```
 list: Lists all tasks in todo list.
 Example: list
+
 bye: Exits the program.
 Example: bye
+
 todo: Adds a Todo item to the list.
 Example: todo buy groceries
+
 deadline: Adds a Deadline item to the list.
 Example: deadline return book /by 2/12/2019 1800
+
 event: Adds an Event item to the list.
 Example: event project meeting /from Mon 2pm /to 4pm
+
 mark: Marks an item in the todo as done.
 Example: mark 1
+
 unmark: Unmarks an item in the todo as done.
 Example: unmark 1
+
 delete: Delete an item from the todo list.
 Example: delete 1
+
 due: Show all due items on specified date
 Example: due d/M/yyyy
+
 help: Shows program usage instructions.
 Example: help
+
 recurring: Creates recurring deadlines.
 Example: recurring return book /start 7/9/2019 1800 /freq day /times 5-Mooooo
+
+find: Find tasks using keywords.
+Example: find keyword
 ```
 
 ## Bye Command

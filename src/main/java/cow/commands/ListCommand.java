@@ -1,6 +1,5 @@
 package cow.commands;
 
-import cow.exceptions.CowExceptions;
 import cow.filesaver.FileSaver;
 import cow.message.Ui;
 import cow.todolist.TodoList;
@@ -20,7 +19,6 @@ public class ListCommand extends Command {
      *
      * @param todoList the list of the tasks.
      * @param fileSaver filesaver object used to write data to txt.
-     * @throws CowExceptions any exceptions that might arise from the implementation.
      */
     @Override
     public void execute(TodoList todoList, Ui ui, FileSaver fileSaver) {

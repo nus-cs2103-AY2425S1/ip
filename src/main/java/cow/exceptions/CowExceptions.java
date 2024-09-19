@@ -1,13 +1,13 @@
 package cow.exceptions;
 
 /**
- * Class to handle all exceptions from the chatbot.
+ * Represents exceptions specific to the Cow application.
  */
 public class CowExceptions extends Exception {
     /**
-     * Creates an exception with a message.
+     * Creates a CowExceptions instance.
      *
-     * @param exception the message to be displayed.
+     * @param exception the exception message.
      */
     public CowExceptions(String exception) {
         super(exception);
