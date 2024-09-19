@@ -23,7 +23,6 @@ public class Main extends Application {
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setBobby(bobby);
             stage.show();
-            //DialogBox.getDukeDialog(Bobby.greeting, MainWindow.getBobbyImage());
         } catch (IOException e) {
             e.printStackTrace();
         }
