@@ -11,7 +11,7 @@ public class EventsTest {
         try {
             assertEquals("[E][ ] read book (from: 4:00 pm to: 6:00 pm on: Apr 05 2020)", new Events("read book /from 16:00 /to 18:00 /on 2020-04-05").print());
         } catch (EmptyEventException | InvalidTimeException e) {
-            assertEquals("      OOPS!!! The description of a event cannot be empty leh.", e.getMessage());
+            assertEquals("OOPS!!! The description of a event cannot be empty leh.", e.getMessage());
         } catch (EmptyEventDateException e) {
             throw new RuntimeException(e);
         } catch (EmptyEventTimingException e) {

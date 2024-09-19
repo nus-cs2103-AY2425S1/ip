@@ -11,7 +11,7 @@ public class ToDosTest {
         try {
             assertEquals("[T][ ] read book", new ToDos("read book").print());
         } catch (EmptyDescException e) {
-            assertEquals("    OOPS!!! The description of a todo cannot be empty leh.", e.getMessage());
+            assertEquals("OOPS!!! The description of a todo cannot be empty leh.", e.getMessage());
         }
     }
 
@@ -20,7 +20,7 @@ public class ToDosTest {
         try {
             assertEquals("[T][ ] read book", new ToDos("").print());
         } catch (EmptyDescException e) {
-            assertEquals("     OOPS!!! The description of a todo cannot be empty leh. Pls provide in the following format: todo read book", e.getMessage());
+            assertEquals("OOPS!!! The description of a todo cannot be empty leh. Pls provide in the following format: todo read book", e.getMessage());
         }
     }
 }
