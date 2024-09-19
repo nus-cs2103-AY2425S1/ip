@@ -146,16 +146,16 @@ contains the data of your previous Struggling chatbot home folder.
 
 ## Command summary
 
-| Action        | Format                                  | Examples                                                  |
-|---------------|-----------------------------------------|-----------------------------------------------------------|
-| List          | `list`                                  |                                                           |
-| Find          | `find KEYWORD`                          | e.g., `find meeting`                                      |
-| ToDo          | `todo DESCRIPTION`                      | e.g., `todo First Task`                                   |
-| Deadline      | `deadline DESCRIPTION /by DATE`         | e.g., `deadline iP finalization /by 2024-09-22`           |
-| Event         | `event DESCRIPTION /from DATE /to DATE` | e.g., `event reading week /from 2024-09-21 to 2024-09-29` |
-| Delete        | `delete INDEX`                          | e.g., `delete 1`                                          |
-| Mark          | `mark INDEX`                            | e.g., `mark 2`                                            |
-| Unmark        | `unmark INDEX`                          | e.g., `unmark 3`                                          |
-| High Priority | `highPriority INDEX`                    | e.g., `highPriority 4`                                    |
-| Low Priority  | `lowPriority INDEX`                     | e.g., `lowPriority 5`                                     |
-| Exit          | `bye`                                   |                                                           |
+| Action        | Format                                  | Examples                                                   |
+|---------------|-----------------------------------------|------------------------------------------------------------|
+| List          | `list`                                  |                                                            |
+| Find          | `find KEYWORD`                          | e.g., `find meeting`                                       |
+| ToDo          | `todo DESCRIPTION`                      | e.g., `todo First Task`                                    |
+| Deadline      | `deadline DESCRIPTION /by DATE`         | e.g., `deadline iP finalization /by 2024-09-22`            |
+| Event         | `event DESCRIPTION /from DATE /to DATE` | e.g., `event reading week /from 2024-09-21 /to 2024-09-29` |
+| Delete        | `delete INDEX`                          | e.g., `delete 1`                                           |
+| Mark          | `mark INDEX`                            | e.g., `mark 2`                                             |
+| Unmark        | `unmark INDEX`                          | e.g., `unmark 3`                                           |
+| High Priority | `highPriority INDEX`                    | e.g., `highPriority 4`                                     |
+| Low Priority  | `lowPriority INDEX`                     | e.g., `lowPriority 5`                                      |
+| Exit          | `bye`                                   |                                                            |
