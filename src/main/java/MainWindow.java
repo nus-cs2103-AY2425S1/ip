@@ -1,3 +1,10 @@
+
+
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -33,9 +40,21 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        dialogContainer.getChildren().addAll(DialogBox.getHumanDialog(input, humanImage));
-        dialogContainer.getChildren().addAll(DialogBox.getBotDialog(snowy.getResponse(input), botImage));
+        String response = snowy.getResponse(input);
+
+        dialogContainer.getChildren().addAll(
+                DialogBox.getHumanDialog(input, humanImage),
+                DialogBox.getBotDialog(response, botImage));
+
         userInput.clear();
+
+        if (input.toLowerCase().trim().equals("bye")) {
+            Runnable closeTask = Platform::exit;
+
+            ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
+            executor.schedule(closeTask, 2, TimeUnit.SECONDS);
+            executor.shutdown();
+        }
     }
 
     public void setSnowy(Snowy snowy) {
