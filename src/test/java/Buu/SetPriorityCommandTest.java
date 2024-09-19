@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
-class SetPriorityCommandTest {
+public class SetPriorityCommandTest {
 
     private TaskList taskList;
     private Ui ui;
