@@ -54,6 +54,8 @@ public class MarkCommand extends Command {
 
         taskList.get(taskNo).setStatusIcon(true);
 
+        assert(taskList.get(taskNo).isDone() == true);
+
         ui.showLine();
         System.out.println("UWU! I've marked this task as done:\n" + taskList.get(taskNo));
         ui.showLine();

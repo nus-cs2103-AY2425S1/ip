@@ -37,14 +37,13 @@ public class WenJie {
     public void run() {
         ui.showWelcome();
         Scanner scanner = new Scanner(System.in);
-
         Supplier<String> commandSupplier = () -> ui.readCommand(scanner);
 
         Stream.generate(commandSupplier)
                 .map(this::processCommand)
                 .takeWhile(result -> !result)
                 .forEach(result -> {});
-
+      
         scanner.close();
     }
 

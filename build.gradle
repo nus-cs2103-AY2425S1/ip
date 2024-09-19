@@ -45,11 +45,13 @@ test {
 
 application {
     mainClass.set("wenjiebot.gui.Launcher")
+    mainClassName = 'wenjiebot.WenJie'
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "wenjie"
     archiveClassifier = null
+    archiveFileName = "wenjie.jar"
 }
 
 run{
