@@ -3,6 +3,7 @@ package bibi;
 import java.io.IOException;
 import java.util.Scanner;
 
+import bibi.exception.BibiInvalidSyntaxException;
 import bibi.task.Deadline;
 import bibi.task.Event;
 import bibi.task.Task;
@@ -64,11 +65,9 @@ public class Processor {
             return sb.toString();
         case "mark":
             if (!args.matches("\\d+")) {
-                c.setErrorFlag();
-                return "Please use \"mark <int>\"";
+                throw new BibiInvalidSyntaxException("Please use \"mark <int>\"");
             } else if ((index = Integer.parseInt(args)) - 1 >= tasks.getTaskCount() || index <= 0) {
-                c.setErrorFlag();
-                return "Invalid task index";
+                throw new BibiInvalidSyntaxException("Invalid task index");
             } else {
                 t = tasks.getTask(index - 1);
                 t.markAsDone();
@@ -78,17 +77,14 @@ public class Processor {
             try {
                 storage.writeToFile(tasks);
             } catch (IOException e) {
-                c.setErrorFlag();
                 return e.getMessage();
             }
             return sb.toString();
         case "unmark":
             if (!args.matches("\\d+")) {
-                c.setErrorFlag();
-                return "Please use \"unmark <int>\"";
+                throw new BibiInvalidSyntaxException("Please use \"unmark <int>\"");
             } else if ((index = Integer.parseInt(args)) - 1 >= tasks.getTaskCount() || index <= 0) {
-                c.setErrorFlag();
-                return "Invalid task index";
+                throw new BibiInvalidSyntaxException("Invalid task index");
             } else {
                 t = tasks.getTask(index - 1);
                 t.markAsNotDone();
@@ -97,7 +93,6 @@ public class Processor {
             try {
                 storage.writeToFile(tasks);
             } catch (IOException e) {
-                c.setErrorFlag();
                 return e.getMessage();
             }
             sb.append("Unmarked the following for you:\n")
@@ -105,8 +100,7 @@ public class Processor {
             return sb.toString();
         case "todo":
             if (!args.matches(".+")) {
-                c.setErrorFlag();
-                return "Please use \"todo <description>\"";
+                throw new BibiInvalidSyntaxException("Please use \"todo <description>\"");
             } else {
                 ToDo td = new ToDo(c.getArgs().stripIndent());
                 tasks.addToTaskList(td);
@@ -117,15 +111,13 @@ public class Processor {
             try {
                 storage.writeToFile(tasks);
             } catch (IOException e) {
-                c.setErrorFlag();
                 return e.getMessage();
             }
 
             return sb.toString();
         case "deadline":
             if (!args.matches(".+ /by .+")) {
-                c.setErrorFlag();
-                return "Please use \"deadline <description> /by <deadline>\"";
+                throw new BibiInvalidSyntaxException("Please use \"deadline <description> /by <deadline>\"");
             } else {
                 input = args.split(" /by ");
                 Deadline dl = new Deadline(input[0].stripIndent(), input[1]);
@@ -137,15 +129,13 @@ public class Processor {
             try {
                 storage.writeToFile(tasks);
             } catch (IOException e) {
-                c.setErrorFlag();
                 return e.getMessage();
             }
 
             return sb.toString();
         case "event":
             if (!args.matches(".+ /from .+ /to .+")) {
-                c.setErrorFlag();
-                return "Please use \"event <description> /from <time> /to <time>\"";
+                throw new BibiInvalidSyntaxException("Please use \"event <description> /from <time> /to <time>\"");
             } else {
                 input = args.split(" /from ");
                 String[] interval = input[1].split(" /to ");
@@ -158,20 +148,17 @@ public class Processor {
             try {
                 storage.writeToFile(tasks);
             } catch (IOException err) {
-                c.setErrorFlag();
                 return err.getMessage();
             }
 
             return sb.toString();
         case "remove":
             if (!args.matches("\\d+")) {
-                c.setErrorFlag();
-                return "Please use \"remove <index>\"";
+                throw new BibiInvalidSyntaxException("Please use \"remove <index>\"");
             } else {
                 t = tasks.removeFromTaskList(Integer.parseInt(args));
                 if (t == null) {
-                    c.setErrorFlag();
-                    return "Invalid task index";
+                    throw new BibiInvalidSyntaxException("Invalid task index");
                 } else {
                     sb.append(getTaskRemovedMessage(t, tasks.getTaskCount()));
                 }
@@ -180,7 +167,6 @@ public class Processor {
             try {
                 storage.writeToFile(tasks);
             } catch (IOException err) {
-                c.setErrorFlag();
                 return err.getMessage();
             }
 
@@ -188,8 +174,7 @@ public class Processor {
         case "find":
             // No pattern specified
             if (args.isEmpty()) {
-                c.setErrorFlag();
-                return "Please use \"find <pattern>\"";
+                throw new BibiInvalidSyntaxException("Please use \"find <pattern>\"");
             } else {
                 sb.append("Here's what we found: \n");
                 int count = tasks.findTaskByPattern(args, sb);

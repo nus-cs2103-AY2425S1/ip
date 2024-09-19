@@ -2,6 +2,7 @@ package bibi;
 
 import java.io.FileNotFoundException;
 
+import bibi.exception.BibiRuntimeException;
 import bibi.task.TaskList;
 /**
  * Represents the chat bot.
@@ -35,13 +36,11 @@ public class Bibi {
     }
 
     public String getResponse(String input) {
-        Command c = Parser.parseCommand(input.trim());
-        String response = c.execute(tasks, processor, storage);
-
-        if (c.isError()) {
-            return "ERROR" + response;
-        } else {
-            return response;
+        try {
+            Command c = Parser.parseCommand(input.trim());
+            return c.execute(tasks, processor, storage);
+        } catch (BibiRuntimeException e) {
+            throw e;
         }
     }
 }

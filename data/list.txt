@@ -1,4 +1,4 @@
-[T] [ ] read book
+[T] [X] read book
 [D] [ ] return book (by: Friday)
 [E] [X] CS2103T lecture (Friday 4pm - 6pm)
 [T] [ ] A-BetterGUI
