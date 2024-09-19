@@ -7,7 +7,11 @@ import org.junit.jupiter.api.Test;
 import denim.commands.Command;
 import denim.commands.DeadlineCommand;
 import denim.commands.EventCommand;
+import denim.commands.FindCommand;
 import denim.commands.InvalidCommand;
+import denim.commands.ListCommand;
+import denim.commands.TodoCommand;
+import denim.commands.UnmarkCommand;
 
 public class ParserTest {
 
@@ -90,5 +94,86 @@ public class ParserTest {
 
         Command command = parser.parseCommand(simulatedInput);
         assertTrue(command instanceof InvalidCommand);
+    }
+
+    @Test
+    public void prepareTodo_validInput_returnsTodoCommand() {
+        String simulatedInput = "todo Read a book";
+
+        Command command = parser.parseCommand(simulatedInput);
+        assertTrue(command instanceof TodoCommand);
+    }
+
+    @Test
+    public void prepareTodo_missingDescription_returnsInvalidCommand() {
+        String simulatedInput = "todo ";
+
+        Command command = parser.parseCommand(simulatedInput);
+        assertTrue(command instanceof InvalidCommand);
+    }
+
+    @Test
+    public void prepareTodo_emptyDescription_returnsInvalidCommand() {
+        String simulatedInput = "todo    ";
+
+        Command command = parser.parseCommand(simulatedInput);
+        assertTrue(command instanceof InvalidCommand);
+    }
+
+    @Test
+    public void prepareMark_nonNumericInput_returnsInvalidCommand() {
+        String simulatedInput = "mark two";
+
+        Command command = parser.parseCommand(simulatedInput);
+        assertTrue(command instanceof InvalidCommand);
+    }
+
+
+    @Test
+    public void prepareMark_negativeIndex_returnsInvalidCommand() {
+        String simulatedInput = "mark -1";
+
+        Command command = parser.parseCommand(simulatedInput);
+        assertTrue(command instanceof InvalidCommand);
+    }
+
+    @Test
+    public void prepareUnmark_validInput_returnsUnmarkCommand() {
+        String simulatedInput = "unmark 3";
+
+        Command command = parser.parseCommand(simulatedInput);
+        assertTrue(command instanceof UnmarkCommand);
+    }
+
+    @Test
+    public void prepareDelete_nonNumericInput_returnsInvalidCommand() {
+        String simulatedInput = "delete one";
+
+        Command command = parser.parseCommand(simulatedInput);
+        assertTrue(command instanceof InvalidCommand);
+    }
+
+    @Test
+    public void prepareList_validInput_returnsListCommand() {
+        String simulatedInput = "list";
+
+        Command command = parser.parseCommand(simulatedInput);
+        assertTrue(command instanceof ListCommand);
+    }
+
+    @Test
+    public void prepareDeadline_extraArguments_returnsInvalidCommand() {
+        String simulatedInput = "deadline MT2000 Assignment 0 /by 19/04/2002 1900 extra";
+
+        Command command = parser.parseCommand(simulatedInput);
+        assertTrue(command instanceof InvalidCommand);
+    }
+
+    @Test
+    public void prepareFind_keywordsWithSpecialCharacters_returnsFindCommand() {
+        String simulatedInput = "find project-deadline";
+
+        Command command = parser.parseCommand(simulatedInput);
+        assertTrue(command instanceof FindCommand);
     }
 }
