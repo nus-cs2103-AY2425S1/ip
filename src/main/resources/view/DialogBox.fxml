@@ -2,19 +2,37 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.effect.GaussianBlur?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 
 <fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" stylesheets="@../css/dialog-box.css" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label fx:id="dialog" minHeight="-Infinity" text="Label" textFill="WHITE" wrapText="true">
+        <Label fx:id="dialog" minHeight="-Infinity" text="Label" textFill="WHITE" wrapText="true" HBox.hgrow="ALWAYS">
          <HBox.margin>
-            <Insets left="7.0" right="7.0" />
+            <Insets left="8.0" right="8.0" />
          </HBox.margin>
          <padding>
-            <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
-         </padding></Label>
-        <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" />
+            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+         </padding>
+         <font>
+            <Font name="Consolas" size="14.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets></Label>
+      <StackPane prefHeight="100.0" prefWidth="100.0" HBox.hgrow="NEVER">
+         <children>
+            <Circle fx:id="glow" disable="true" fill="WHITE" radius="54.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+               <effect>
+                  <GaussianBlur radius="14.0" />
+               </effect>
+            </Circle>
+            <Circle fx:id="circle" fill="WHITE" radius="50.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" />
+         </children>
+      </StackPane>
     </children>
     <padding>
         <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
