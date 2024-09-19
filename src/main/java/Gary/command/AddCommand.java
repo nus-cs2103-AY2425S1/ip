@@ -39,6 +39,10 @@ public class AddCommand extends Command {
         assert ui != null : "Ui should not be null";
         assert storage != null : "Storage should not be null";
 
+        if (taskLists.hasDuplicate(task)) {
+            return ui.showError("This task is a duplicate and cannot be added.");
+        }
+
         try {
             int initialSize = taskLists.size();
             taskLists.addTask(task);

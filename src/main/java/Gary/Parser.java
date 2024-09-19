@@ -42,13 +42,10 @@ public class Parser {
         String[] split = fullCommand.trim().split(" ", 2);
         String taskType = split[0].toLowerCase();
 
-<<<<<<< HEAD
         switch (taskType) {
-
         case "todo":
             return parseToDoCommand(split);
         case "deadline":
-<<<<<<< HEAD
             return parseDeadlineCommand(split);
         case "event":
             return parseEventCommand(split);
