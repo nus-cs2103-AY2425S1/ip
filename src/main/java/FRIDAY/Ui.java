@@ -35,7 +35,7 @@ public class Ui {
     }
 
     public String printArchive() {
-        return "I've archived all your tasks. Please check the archives file to find them";
+        return "I've archived all your tasks. Please check the archives file to find them. This file can be found in the storage folder.";
     }
     public String emptyInput() {
         return "Please input a command\n";
@@ -48,7 +48,7 @@ public class Ui {
      * @param searchResults array list of tasks
      */
     public String displaySearchResults(ArrayList<Task> searchResults) {
-        StringBuilder output = new StringBuilder("Here are the matching tasks from your list\n:");
+        StringBuilder output = new StringBuilder("I've listed all the matching tasks in your list\n:");
         searchResults.forEach((task) -> {
             output.append(task + "\n");
         });
