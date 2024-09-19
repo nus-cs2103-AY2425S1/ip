@@ -5,15 +5,17 @@ import barcus.storage.Storage;
 import barcus.tasklist.TaskList;
 
 /**
- * Command to tag items at position pos
+ * Command to add a tag to a task at a specified position.
  */
 public class TagCommand extends Command {
     private int pos;
     private String tag;
 
     /**
-     * Constructor
-     * @param pos index of item to tag
+     * Constructs a TagCommand to tag a task at the specified position.
+     *
+     * @param pos the position of the task to tag, using 1-based indexing
+     * @param tag the tag to add to the task
      */
     public TagCommand(int pos, String tag) {
         this.pos = pos;
@@ -21,6 +23,13 @@ public class TagCommand extends Command {
         this.output = "";
     }
 
+    /**
+     * Executes the command by adding a tag to the task at the specified position in the task list.
+     *
+     * @param tasks the task list containing the task to be tagged
+     * @param storage the storage object (not used in this command)
+     * @throws BarcusException if the specified position is out of range
+     */
     @Override
     public void execute(TaskList tasks, Storage storage) throws BarcusException {
         if (!(pos > 0 && pos <= tasks.getLength())) {
@@ -33,6 +42,11 @@ public class TagCommand extends Command {
 
     }
 
+    /**
+     * Returns whether this command causes the application to exit.
+     *
+     * @return false, as tagging a task does not cause the application to exit
+     */
     @Override
     public boolean isExit() {
         return false;

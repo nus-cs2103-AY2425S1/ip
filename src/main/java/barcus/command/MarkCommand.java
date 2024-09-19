@@ -8,31 +8,35 @@ import barcus.storage.Storage;
 import barcus.tasklist.TaskList;
 
 /**
- * Command to mark item at pos
+ * Command to mark tasks at specified positions as completed.
  */
 public class MarkCommand extends Command {
     private int[] pos;
 
     /**
-     * Constructor
-     * @param pos index of item to mark
+     * Constructs a MarkCommand to mark tasks at the specified positions as done.
+     *
+     * @param pos an array of task positions to mark as completed, using 1-based indexing
      */
     public MarkCommand(int[] pos) {
         this.pos = pos;
         this.output = "";
     }
 
+    /**
+     * Executes the command by marking tasks at the specified positions in the task list as completed.
+     *
+     * @param tasks the task list containing the tasks to be marked as done
+     * @param storage the storage object (not used in this command)
+     * @throws BarcusException if a specified position is out of range
+     */
     @Override
     public void execute(TaskList tasks, Storage storage) throws BarcusException {
         List<Integer> queue = new ArrayList<>();
         for (int p: pos) {
             if (p > 0 && p <= tasks.getLength()) {
-                // tasks.get(pos - 1).markDone();
-                //tasks.markTask(p - 1);
                 queue.add(p - 1);
-
             } else {
-                //ui.showError("please choose a number between 1 and " + tasks.getLength());
                 throw new BarcusException("please choose a number between 1 and " + tasks.getLength());
             }
         }
@@ -46,6 +50,11 @@ public class MarkCommand extends Command {
 
     }
 
+    /**
+     * Returns whether this command causes the application to exit.
+     *
+     * @return false, as marking tasks does not cause the application to exit
+     */
     @Override
     public boolean isExit() {
         return false;

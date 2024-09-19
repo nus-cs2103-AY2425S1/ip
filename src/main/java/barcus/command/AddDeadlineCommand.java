@@ -9,20 +9,29 @@ import barcus.task.Task;
 import barcus.tasklist.TaskList;
 
 /**
- * Command to ass new deadline task
+ * Command to add new deadline task
  */
 public class AddDeadlineCommand extends AddCommand {
     protected String by;
 
     /**
-     * Constructor
-     * @param description String
-     * @param by Date
+     * Constructs an AddDeadlineCommand with the specified description and deadline date.
+     *
+     * @param description the description of the task
+     * @param by the deadline date in the format dd/MM/yyyy HH:mm
      */
     public AddDeadlineCommand(String description, String by) {
         super(description);
         this.by = by;
     }
+
+    /**
+     * Executes the command by adding a deadline task to the task list.
+     *
+     * @param tasks the task list to add the deadline task to
+     * @param storage the storage object to save the task
+     * @throws BarcusException if the deadline format is invalid
+     */
     @Override
     public void execute(TaskList tasks, Storage storage) throws BarcusException {
         try {
@@ -34,6 +43,11 @@ public class AddDeadlineCommand extends AddCommand {
         }
     }
 
+    /**
+     * Returns whether this command causes the application to exit.
+     *
+     * @return false, as adding a deadline does not cause the application to exit
+     */
     @Override
     public boolean isExit() {
         return false;

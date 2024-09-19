@@ -5,21 +5,31 @@ import barcus.storage.Storage;
 import barcus.tasklist.TaskList;
 
 /**
- * Command to untag task at position pos with a tag
+ * Command to remove a tag from a task at a specified position.
  */
 public class UntagCommand extends Command {
     private int pos;
     private String tag;
 
     /**
-     * Constructor
-     * @param pos index of item to untag
+     * Constructs an UntagCommand to remove a tag from a task at the specified position.
+     *
+     * @param pos the position of the task to untag, using 1-based indexing
+     * @param tag the tag to remove from the task
      */
     public UntagCommand(int pos, String tag) {
         this.pos = pos;
         this.tag = tag;
         this.output = "";
     }
+
+    /**
+     * Executes the command by removing the specified tag from the task at the given position in the task list.
+     *
+     * @param tasks the task list containing the task to be untagged
+     * @param storage the storage object (not used in this command)
+     * @throws BarcusException if the specified position is out of range
+     */
     @Override
     public void execute(TaskList tasks, Storage storage) throws BarcusException {
         if (!(pos > 0 && pos <= tasks.getLength())) {
@@ -32,6 +42,11 @@ public class UntagCommand extends Command {
 
     }
 
+    /**
+     * Returns whether this command causes the application to exit.
+     *
+     * @return false, as untagging a task does not cause the application to exit
+     */
     @Override
     public boolean isExit() {
         return false;
