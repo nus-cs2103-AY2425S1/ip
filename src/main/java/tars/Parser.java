@@ -46,6 +46,40 @@ public class Parser {
     }
 
     /**
+     * Adds task to list based on input given or marks/unmarks task based on action required
+     * Calls respective method to add Task based on type identified of task stated in input
+     *
+     * @param task
+     * @param entry
+     */
+    public String addTask(String[] task, String entry, TaskList taskList) {
+        String result = "";
+        if (task[0].equals("m") || task[0].equals("um") || task[0].equals("delete")) {
+            Integer index = Integer.parseInt(task[task.length - 1]);
+            assert index > 0 && index <= taskList.getList().size() : "Task index invalid";
+            if (task[0].equals("m")) {
+                result = taskList.markTask(index, 1);
+            } else if (task[0].equals("um")) {
+                result = taskList.markTask(index, 0);
+            } else if (task[0].equals("delete")) {
+                result = taskList.deleteTask(index);
+            } else {
+                result = "Please state task name followed by mark/unmark/delete command";
+            }
+        } else if (task[0].equals("t")) {
+            result = taskList.addToDos(task, entry);
+        } else if (task[0].equals("d")) {
+            result = taskList.addDeadline(task, entry);
+        } else if (task[0].equals("e")) {
+            result = taskList.addEvent(task, entry);
+        } else {
+            result = "OOPS! Unable to add task. Please type 'help'!";
+        }
+
+        return result;
+    }
+
+    /**
      * Prints all the Tasks in the list at the current state of storage
      *
      * @param tasks
@@ -62,7 +96,7 @@ public class Parser {
             for (int i = 0; i < tasks.getList().size(); i++) {
                 strBuild.append("    " + (i + 1) + ". " + tasks.getList().get(i) + "\n");
             }
-            result = LINE + "\n" + "    Here are the tasks in your list:\n" + strBuild.toString() + "\n" + LINE;
+            result = LINE + "\n" + "    Here are the tasks in your list:\n" + strBuild.toString() + LINE;
         }
         return result;
     }

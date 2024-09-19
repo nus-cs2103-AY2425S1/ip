@@ -18,7 +18,7 @@ public class TaskListTest {
         String[] task = {"todo", "Read", "book"};
         String entry = "todo Read book";
 
-        taskList.addTask(task, entry);
+        taskList.addToDos(task, entry);
 
         assertEquals(1, taskList.getList().size());
         assertEquals("[T] [ ] Read book", taskList.getList().get(0).toString());
@@ -29,7 +29,7 @@ public class TaskListTest {
         String[] task = {"deadline", "Submit", "assignment", "/by", "2024-09-01", "23:59"};
         String entry = "deadline Submit assignment /by 2024-09-01 23:59";
 
-        taskList.addTask(task, entry);
+        taskList.addDeadline(task, entry);
 
         assertEquals(1, taskList.getList().size());
 

@@ -27,47 +27,12 @@ public class TaskList {
     }
 
     /**
-     * Adds task to list based on input given or marks/unmarks task based on action required
-     * Calls respective method to add Task based on type identified of task stated in input
+     * Marks task done or unmarks task as not done based on user input
      *
-     * @param task
-     * @param entry
+     * @param index
+     * @param status
+     * @return String (message to convey action taken by application)
      */
-    public String addTask(String[] task, String entry) {
-        String result = "";
-        if (task[0].equals("m") || task[0].equals("um") || task[0].equals("delete")) {
-            Integer index = Integer.parseInt(task[task.length - 1]);
-            assert index > 0 && index <= taskList.size() : "Task index invalid";
-            if (task[0].equals("m")) {
-                result = this.markTask(index, 1);
-            } else if (task[0].equals("um")) {
-                result = this.markTask(index, 0);
-            } else if (task[0].equals("delete")) {
-                Task temp = taskList.get(index - 1);
-                taskList.remove(taskList.get(index - 1));
-
-                result = LINE + "    Noted. I've removed this task:" + temp + "    Now you have "
-                        + taskList.size() + " tasks in the list" + "\n" + LINE;
-
-            } else {
-                result = "Please state task name followed by mark/unmark/delete command";
-            }
-        } else if (task[0].equals("t")) {
-            result = this.addToDos(task, entry);
-        } else if (task[0].equals("d")) {
-            result = this.addDeadline(task, entry);
-        } else if (task[0].equals("e")) {
-            result = this.addEvent(task, entry);
-        } else {
-            Task t = new Task(entry);
-            taskList.add(t);
-
-            result = LINE + "\n" + "    added: " + entry + "\n" + LINE;
-        }
-
-        return result;
-    }
-
     public String markTask(int index, int status) {
         String result = "";
         if (status == 1) {
@@ -79,6 +44,22 @@ public class TaskList {
             result = LINE + "    OK, I've marked this task as not done yet:"
                     + taskList.get(index - 1) + "\n" + LINE;
         }
+        return result;
+    }
+
+    /**
+     * Deletes task from master list of tasks based on index of task given
+     *
+     * @param index
+     * @return
+     */
+    public String deleteTask(int index) {
+        Task temp = taskList.get(index - 1);
+        taskList.remove(temp);
+
+        String result = LINE + " Noted. I've removed this task:" + temp + "\n" + " Now you have "
+                + taskList.size() + " tasks in the list" + "\n" + LINE;
+
         return result;
     }
 

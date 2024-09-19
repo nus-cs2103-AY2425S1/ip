@@ -47,13 +47,15 @@ public class Tars {
         if (entryParts.length < 2) {
             if (entry.equals("bye")) {
                 result = ui.bye();
+            } else if (entry.equals("help")) {
+                result = ui.help();
             } else {
                 result = parser.checkEntry(entryParts, entry, taskList);
             }
         } else if (entryParts[0].equals("find")) {
             result = parser.findTask(entryParts, taskList);
         } else {
-            result = taskList.addTask(entryParts, entry);
+            result = parser.addTask(entryParts, entry, taskList);
         }
 
         Storage.writeFile("./data/Tars.txt", taskList.getList());
