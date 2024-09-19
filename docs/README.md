@@ -18,7 +18,7 @@ Here is a list of feaures that quack supports
 
 # Setting up Quack
 
-If you are using the `.jar` to run the program please skip to the quick start portion of the guide.
+If you are using the `.jar` to run the program please skip to the __quick start__ portion of the guide.
 
 ## InteliJ
    Prerequisites: JDK 17, update Intellij to the most recent version.
@@ -92,6 +92,7 @@ __Example__:
 > For deadline and event tasks, Quack will prompt you for some date input in ths following format: DD/MM/YYYY HH:MM:SS
 
 __Sample Output:__
+<br/>
 
 ![add](./expected-outputs/Add-Task-Command.png)
 
@@ -108,6 +109,7 @@ __Example:__
 - `Assignment`
 
 __Sample Output:__
+<br/>
 
 ![find](./expected-outputs/Find-Task-Command.png)
 
@@ -124,6 +126,7 @@ __Example:__
 - `3`
 
 __Sample Output:__
+<br/>
 
 ![delete](./expected-outputs/Delete-Task-Command.png)
 
@@ -140,6 +143,8 @@ __Example:__
 - `2`
 
 __Sample Output:__
+<br/>
+
 ![mark/unmark](./expected-outputs/Mark-Unmark-Task-Command.png)
 
 ## Tagging and Untagging Tasks - `tag` & `untag`
@@ -160,6 +165,7 @@ __Example:__
 > For untagging Quack will not prompt you for a tag label
 
 __Sample Output:__
+<br/>
 
 ![tag/untag](./expected-outputs/Tag-Untag-Task-Command.png)
 
@@ -174,6 +180,8 @@ __Example:__
 - < Quack will print all the supported commands >
 
 __Sample Output:__
+<br/>
+
 ![help](./expected-outputs/Help-Command.png)
 
 ## Exiting the program - `bye`
@@ -189,6 +197,7 @@ __Example:__
 > After awhile the window will be closed after the `bye` command is executed
 
 __Sample Output:__
+<br/>
 
 ![bye](./expected-outputs/Bye-Command.png)
 
@@ -198,7 +207,6 @@ Quack will save any data automatically once the `bye` command has been executed.
 Quack will also automatically load in the saved data when the program first runs.
 
 # References
-
 
 ## Website to generate the ASCII Logo
 The website to generate the ASCII Logo can be found [here]((https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjNkMjnx_6HAxVN6zgGHSk9NLYQFnoECBwQAQ&url=https%3A%2F%2Fpatorjk.com%2Fsoftware%2Ftaag%2F&usg=AOvVaw1rmNDfu2i-RQ4_TslxEwcR&opi=89978449)).
