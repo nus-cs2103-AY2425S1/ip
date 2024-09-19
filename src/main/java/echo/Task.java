@@ -83,4 +83,5 @@ public abstract class Task {
      */
     public abstract String getTypeLetter();
 
+    public abstract String editTask(String input);
 }

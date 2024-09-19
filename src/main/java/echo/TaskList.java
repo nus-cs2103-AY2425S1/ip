@@ -46,7 +46,7 @@ public class TaskList {
     }
 
 
-    public void find(String toFind) {
+    public String find(String toFind) {
         List<Task> taskList = new ArrayList<>();
         for (Task task : tasks) {
 
@@ -55,8 +55,9 @@ public class TaskList {
                 taskList.add(task);
             }
         }
-        Ui.showClassFound(taskList);
+        return Ui.showClassFound(taskList);
     }
+
 
 
 

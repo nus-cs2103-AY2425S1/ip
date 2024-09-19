@@ -72,4 +72,13 @@ public class Parser {
         }
         return false;
     }
+
+    public static String parseEditNo(String part){
+        return part.split(" ")[0];
+    }
+
+    public static String parseEditDes(String part){
+        return part.split(" ")[1];
+    }
+
 }

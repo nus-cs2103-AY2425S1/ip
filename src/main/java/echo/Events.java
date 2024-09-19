@@ -57,4 +57,25 @@ public class Events extends Task {
         return "E";
     }
 
+
+    @Override
+    public String editTask(String input) {
+        String[] str = input.split(" ", 2);
+        String command = str[0];
+
+
+        switch (command) {
+        case"name":
+            this.taskDes = str[1];
+            return this.toString();
+        case"start":
+            this.start = LocalDate.parse((str[1]));
+        case"end":
+            this.end = LocalDate.parse(str[1]);
+        default:
+            return "enter name (new name)\n or start (new date)\n or end (new date)";
+        }
+
+    }
+
 }
