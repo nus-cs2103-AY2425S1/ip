@@ -2,11 +2,17 @@
 /.idea/
 /out/
 /*.iml
+/choaticbot/
+/legal/
+/resources/
+/script-dir/
+
 
 # Gradle build files
 /.gradle/
 /build/
 src/main/resources/docs/
+
 
 # MacOS custom attributes files created by Finder
 .DS_Store
@@ -15,3 +21,5 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+text-ui-test/data
+/data
