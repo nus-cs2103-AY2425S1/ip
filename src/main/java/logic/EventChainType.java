@@ -54,7 +54,8 @@ public enum EventChainType {
 	EVENT_NAMED,
 	EVENT_DESCRIBED,
 	EVENT_START_SET,
-	EVENT_END_SET;
+	EVENT_END_SET,
+	JOKE;
 
 	// State management method for setting the current state.
 	public static void setState(ChatBotLogic bot, EventChainType newState) {

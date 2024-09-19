@@ -25,7 +25,7 @@ public class ChatBotApp extends Application {
 			VBox root = FXMLLoader.load(getClass().getResource("/ui/ChatBotLayout.fxml"));
 
 			// Create a new scene with the specified width and height
-			Scene scene = new Scene(root, 400, 500);
+			Scene scene = new Scene(root, 500, 800);
 
 			// Set the title of the application window
 			primaryStage.setTitle("Sigma Bot");

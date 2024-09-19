@@ -121,8 +121,10 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E] " + super.toString() +
-                "\n\tStart Time: " + startTime +
-                "\n\tEnd Time: " + endTime +
+                "\n\tStart Time: " + startTime.getDayOfMonth() + "/" +
+                startTime.getMonth().toString().substring(0, 3) + "/" + startTime.getYear() +
+                "\n\tEnd Time: " + endTime.getDayOfMonth() + "/" +
+                endTime.getMonth().toString().substring(0, 3) + "/" + endTime.getYear() +
                 "\n\tLocation: " + location;
     }
 }

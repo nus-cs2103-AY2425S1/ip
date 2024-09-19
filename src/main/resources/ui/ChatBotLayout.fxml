@@ -10,7 +10,7 @@
       fx:controller="ui.ChatBotController" style="-fx-background-color: #F7F7F7;">
 
     <!-- Chat area (ScrollPane with VBox for messages) -->
-    <ScrollPane fx:id="scrollPane" fitToWidth="true" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: transparent;">
+    <ScrollPane fx:id="scrollPane" fitToWidth="true" prefHeight="800.0" prefWidth="500.0" style="-fx-background-color: transparent;">
         <VBox fx:id="chatArea" spacing="10.0" style="-fx-padding: 10; -fx-background-color: #FFFFFF; -fx-border-color: #D3D3D3; -fx-border-radius: 10; -fx-background-radius: 10;">
             <padding>
                 <Insets top="10" right="10" bottom="10" left="10"/>

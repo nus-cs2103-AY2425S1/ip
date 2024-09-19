@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import task.Deadline;
@@ -83,6 +85,29 @@ public class ChatBotLogic {
 	 * Constructs a new {@code ChatBotLogic} instance, initializes the event chain type,
 	 * and loads the storage file containing tasks.
 	 */
+	private final List<String> jokeBank = List.of(
+//			"Why don't programmers like nature? It has too many bugs.",
+//			"Why do Java developers wear glasses? Because they don’t C#.",
+//			"How many programmers does it take to change a light bulb? None, that's a hardware problem.",
+//			"I would tell you a UDP joke, but you might not get it.",
+//			"There are 10 types of people in the world: those who understand binary, and those who don’t.",
+//			"Why do programmers prefer dark mode? Because the light attracts bugs.",
+//			"What’s a programmer’s favorite hangout place? Foo Bar.",
+//			"Why did the programmer quit his job? Because he didn’t get arrays.",
+//			"A SQL query walks into a bar, walks up to two tables and asks, 'Can I join you?'",
+//			"Why do programmers hate nature? It has too many trees (and trees have nodes).",
+//			"What is a computer’s favorite snack? Microchips.",
+//			"I tried to make a computer joke, but it wasn’t funny enough for the cache.",
+//			"Why did the computer show up at work late? It had a hard drive.",
+//			"In C, you really have to watch out for buffer overflows. In Java, you just get a stack trace.",
+//			"Why don’t skeletons use Git? They don’t have enough backbone for version control.",
+//			"How do you comfort a JavaScript bug? You console it.",
+//			"Why can't a computer play tennis? It doesn’t like its server.",
+//			"What's a computer’s least favorite type of music? The bluescreen.",
+//			"Why did the developer go broke? Because he used up all his cache."
+			"Why is Java like a smartphone? Once you start using it, you have no memory left.",
+			"What’s the object-oriented way to become wealthy? Inheritance."
+	);
 	public ChatBotLogic() {
 		eventChainType = EventChainType.DEFAULT;
 		loadStorageFile();
@@ -113,6 +138,17 @@ public class ChatBotLogic {
 	}
 
 	/**
+	 * Picks a random joke from the joke bank.
+	 *
+	 * @return A random joke as a string.
+	 */
+	private String getRandomJoke() {
+		Random random = new Random();
+		int index = random.nextInt(jokeBank.size());
+		return jokeBank.get(index);
+	}
+
+	/**
 	 * Processes the user's message and returns the bot's response. The response
 	 * depends on the current state of the chatbot, which is managed through an event chain.
 	 *
@@ -129,6 +165,9 @@ public class ChatBotLogic {
 		}
 		case LIST -> {
 			return processListState(userMessage);
+		}
+		case JOKE -> {
+			return processJokeState(userMessage);
 		}
 		case ADD -> {
 			return processAddState(userMessage);
@@ -209,6 +248,10 @@ public class ChatBotLogic {
 			EventChainType.setState(this, EventChainType.LIST);
 			return "Sure. What do you want to do with the list? (add, view, find, mark, unmark, sort, delete)";
 		}
+		case "joke" -> {
+			EventChainType.setState(this, EventChainType.JOKE);
+			return "You sure?";
+		}
 		default -> {
 			return "At your service my queen.";
 		}
@@ -250,7 +293,24 @@ public class ChatBotLogic {
 			return "return to main";
 		}
 		default -> {
-			return "unknown command";
+			return "unknown list command";
+		}
+		}
+	}
+
+	private String processJokeState(String userMessage) {
+		switch (userMessage) {
+		case "back" -> {
+			EventChainType.setState(this, EventChainType.DEFAULT);
+			return "return to main";
+		}
+		case "exit" -> {
+			EventChainType.setState(this, EventChainType.DEFAULT);
+			return "back to main";
+		}
+		default -> {
+			EventChainType.setState(this, EventChainType.DEFAULT);  // Reset state to default after the joke
+			return getRandomJoke();
 		}
 		}
 	}
