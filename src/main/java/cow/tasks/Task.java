@@ -2,17 +2,15 @@ package cow.tasks;
 
 import java.time.LocalDate;
 
-/**
- * Represents a Task object.
- */
+/** Task class to create a task. **/
 public class Task {
     protected String description;
     protected boolean isDone;
 
     /**
-     * Creates a Task object.
+     * Creates a new tasks object.
      *
-     * @param description The Description of the Tasks.Task
+     * @param description The description of the tasks Object.
      */
     public Task(String description) {
         this.description = description;
@@ -20,9 +18,9 @@ public class Task {
     }
 
     /**
-     * Creates a Task object.
+     * Alternate constructor for loading isDone directly
      *
-     * @param isDone      The status of the Tasks.Task
+     * @param isDone 1 or 0 indicating if task is done
      * @param description The Description of the Tasks.Task
      */
     public Task(String isDone, String description) {
@@ -30,63 +28,51 @@ public class Task {
         this.isDone = isDone.equals("1");
     }
 
-    /**
-     * Returns the status of the Task.
-     *
-     * @return The status of the Tasks.
-     */
     public String getStatusIcon() {
         return (this.isDone ? "X" : " "); // mark done task with X
     }
 
     /**
-     * Marks the todo object as completed
+     * Marks the todo object as completed.
      */
     public void markAsDone() {
         this.isDone = true;
     }
 
     /**
-     * Unmarks the todo object as completed
+     * Unmark the todo object as completed
      */
     public void unmarkAsDone() {
         this.isDone = false;
     }
 
-    /**
-     * Returns the string representation of the Task.
-     *
-     * @return The string representation of the Task.
-     */
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + this.description;
     }
 
     /**
-     * Returns the date of the Task.
-     * For generic tasks, this returns a default date.
+     * A default date used for filtering out Tasks with deadlines.
      *
-     * @return The date of the Task.
+     * @return a LocalDate.
      */
     public LocalDate getDate() {
         return LocalDate.of(0, 1, 1);
     }
 
     /**
-     * Checks if the task description contains the specified substring.
+     * Check if description contains substring.
      *
-     * @param subString The substring to check for.
-     * @return True if the description contains the substring, false otherwise.
+     * @return boolean.
      */
     public boolean getContainsSubString(String subString) {
         return this.description.contains(subString);
     }
 
     /**
-     * Returns the save data of the Task.
+     * Creates the string to save the data in a .txt file;
      *
-     * @return The save data of the Task.
+     * @return a string to be written to a file;
      */
     public String getSaveData() {
         String result = "";

@@ -15,10 +15,10 @@ public class MarkCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Marks an item in the todo as done.\n"
             + "Example: " + COMMAND_EXAMPLE;
 
-    private final int index;
+    private int index;
 
     /**
-     * Returns a mark command.
+     * Constructor to create a mark command.
      *
      * @param index of the todo list to mark.
      */

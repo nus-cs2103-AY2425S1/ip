@@ -16,9 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 
-/**
- * Represents the dialog box.
- */
+/** DialogBox class. **/
 public class DialogBox extends HBox {
 
     @FXML
@@ -39,6 +37,7 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
+        // displayPicture.setImage(img);
         displayCircle.setFill(new ImagePattern(img));
     }
 
@@ -54,23 +53,23 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Creates a dialog box for the user.
+     * Gets the dialog box for the user.
      *
      * @param text The text to be displayed.
-     * @param img  The image to be displayed.
-     * @return The dialog box for the user.
+     * @param img The image to be displayed.
+     * @return The dialog box.
      */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
     /**
-     * Creates a dialog box for the Cow.
+     * Gets the dialog box for the cow.
      *
-     * @param text        The text to be displayed.
-     * @param img         The image to be displayed.
+     * @param text The text to be displayed.
+     * @param img The image to be displayed.
      * @param commandType The type of command.
-     * @return The dialog box for the Cow.
+     * @return The dialog box.
      */
     public static DialogBox getCowDialog(String text, Image img, String commandType) {
         var db = new DialogBox(text, img);
@@ -82,9 +81,10 @@ public class DialogBox extends HBox {
     /**
      * Changes the dialog style based on the command type.
      *
-     * @param commandType The type of the command.
+     * @param commandType The type of command.
      */
     private void changeDialogStyle(String commandType) {
+        // Do nothing
         if (commandType.equals("IncorrectCommand")) {
             dialog.getStyleClass().add("error-label");
         }

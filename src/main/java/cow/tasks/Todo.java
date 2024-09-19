@@ -1,42 +1,30 @@
 package cow.tasks;
 
-/**
- * Represents a Todo object.
- */
+/** Creates a Todo Task. **/
 public class Todo extends Task {
-    /**
-     * Creates a Todo object.
-     *
-     * @param description The description of the Todo task.
-     */
     public Todo(String description) {
         super(description);
     }
 
     /**
-     * Creates a Todo object.
+     * Alternate constructor for loading isDone directly.
      *
-     * @param isDone      The status of the Todo task.
-     * @param description The description of the Todo task.
+     * @param isDone 1 or 0 indicating if task is done.
+     * @param description The Description of the tasks.
      */
     public Todo(String isDone, String description) {
         super(isDone, description);
     }
 
-    /**
-     * Returns the string representation of the Todo Task.
-     *
-     * @return The string representation of the Todo Task.
-     */
     @Override
     public String toString() {
         return "[T]" + super.toString();
     }
 
     /**
-     * Returns the save data of the Todo Task.
+     * A string that matches the format for writing it to file.
      *
-     * @return The save data of the Todo Task.
+     * @return A string to be written to a txt file.
      */
     @Override
     public String getSaveData() {

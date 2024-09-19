@@ -1,5 +1,4 @@
 package cow;
-
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -8,17 +7,13 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+
 /**
- * The Main class serves as the entry point for the JavaFX application.
+ * Main class.
  */
 public class Main extends Application {
     private Cow cow = new Cow("data/cow.txt");
 
-    /**
-     * Starts the JavaFX application.
-     *
-     * @param stage The primary stage for this application.
-     */
     @Override
     public void start(Stage stage) {
         try {

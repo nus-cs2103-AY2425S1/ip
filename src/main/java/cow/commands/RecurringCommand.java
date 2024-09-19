@@ -13,9 +13,7 @@ import cow.todolist.TodoList;
 
 // solution below inspired by https://github.com/se-edu/addressbook-level2/tree/master
 
-/**
- * Creates a recurring command object.
- **/
+/** Creates a recurring command object. **/
 public class RecurringCommand extends Command {
     public static final String COMMAND_WORD = "recurring";
     public static final String COMMAND_EXAMPLE = "recurring return book /start 7/9/2019 1800 /freq day /times 5";
@@ -31,10 +29,10 @@ public class RecurringCommand extends Command {
     /**
      * Creates a RecurringCommand instance.
      *
-     * @param description the description of the deadline task.
-     * @param start       the LocalDateTime of the deadline.
-     * @param freq        the frequency, either "day" or "week".
-     * @param times       the number of times to repeat.
+     * @param description of the deadline task.
+     * @param start LocalDateTime of the deadline.
+     * @param freq either day/week.
+     * @param times number of times to repeat.
      */
     public RecurringCommand(String description, LocalDateTime start, String freq, int times) {
         this.description = description;

@@ -9,10 +9,7 @@ import cow.todolist.TodoList;
 
 
 // solution below inspired by https://github.com/se-edu/addressbook-level2/tree/master
-
-/**
- * Creates an Event command object.
- **/
+/** Creates an Event command object. **/
 public class EventCommand extends Command {
     public static final String COMMAND_WORD = "event";
     public static final String COMMAND_EXAMPLE = "event project meeting /from Mon 2pm /to 4pm";
@@ -27,9 +24,9 @@ public class EventCommand extends Command {
     /**
      * Creates an EventCommand instance.
      *
-     * @param description Description of the event.
-     * @param from        Start time of the event.
-     * @param to          End time of the event.
+     * @param description of the event.
+     * @param from Start of Event.
+     * @param to End of event.
      */
     public EventCommand(String description, String from, String to) {
         this.description = description.trim();
@@ -40,10 +37,9 @@ public class EventCommand extends Command {
     /**
      * Creates an event task and adds to the todo list.
      *
-     * @param todoList  the list of tasks.
-     * @param ui        the UI object used to interact with the user.
-     * @param fileSaver the FileSaver object used to write data to a file.
-     * @throws CowExceptions if any exceptions arise from the implementation.
+     * @param todoList the list of the tasks.
+     * @param fileSaver filesaver object used to write data to txt.
+     * @throws CowExceptions any exceptions that might arise from the implementation.
      */
     @Override
     public void execute(TodoList todoList, Ui ui, FileSaver fileSaver) throws CowExceptions {

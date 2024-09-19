@@ -1,15 +1,13 @@
 package cow.commands;
 
+import cow.exceptions.CowExceptions;
 import cow.filesaver.FileSaver;
 import cow.message.Ui;
 import cow.todolist.TodoList;
 import javafx.application.Platform;
 
 // solution below inspired by https://github.com/se-edu/addressbook-level2/tree/master
-
-/**
- * Creates a bye command object.
- **/
+/** Creates a bye command object. **/
 public class ByeCommand extends Command {
     public static final String COMMAND_WORD = "bye";
 
@@ -19,9 +17,9 @@ public class ByeCommand extends Command {
     /**
      * Prints the message goodbye before termination.
      *
-     * @param todoList  the list of the tasks.
-     * @param ui        the UI object used to interact with the user.
+     * @param todoList the list of the tasks.
      * @param fileSaver filesaver object used to write data to txt.
+     * @throws CowExceptions any exceptions that might arise from the implementation.
      */
     @Override
     public void execute(TodoList todoList, Ui ui, FileSaver fileSaver) {

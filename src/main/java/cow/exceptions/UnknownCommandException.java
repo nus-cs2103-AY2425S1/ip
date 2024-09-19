@@ -1,12 +1,7 @@
 package cow.exceptions;
 
-/**
- * Represents an exception thrown when a command is not found.
- */
+/** A custom exception that is thrown when it is an unknown command. **/
 public class UnknownCommandException extends Exception {
-    /**
-     * Creates an UnknownCommandException instance.
-     */
     public UnknownCommandException() {
         super("Command not found!");
     }

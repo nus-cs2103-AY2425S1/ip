@@ -8,17 +8,14 @@ import java.time.format.DateTimeParseException;
 import cow.exceptions.MissingParametersException;
 
 /**
- * Represents a Deadline Task.
+ * Deadlines Task class.
  */
 public class Deadlines extends Task {
     public static final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
     private LocalDateTime by;
 
     /**
-     * Creates a Deadline Task.
-     *
-     * @param description The Description of the Deadline.
-     * @param by          by to state the dateline of the task.
+     * @param description The Description of the Deadline with /by to state the dateline.
      */
     public Deadlines(String description, LocalDateTime by) {
         super(description);
@@ -27,12 +24,11 @@ public class Deadlines extends Task {
     }
 
     /**
-     * Creates a Deadline Task.
+     * Alternate constructor for loading isDone directly.
      *
-     * @param isDone      The status of the Deadline.
+     * @param isDone 1 or 0 indicating if task is done.
      * @param description The Description of the Deadline.
-     * @param by          by to state the dateline of the task.
-     * @throws MissingParametersException if arguments are invalid.
+     * @param by by to state the dateline of the task.
      */
     public Deadlines(String isDone, String description, String by) throws MissingParametersException {
         super(isDone, description);
@@ -40,11 +36,11 @@ public class Deadlines extends Task {
     }
 
     /**
-     * Parses the date and time of the deadline.
+     * Parse the date time string from the .txt file.
      *
-     * @param by The date and time of the deadline.
-     * @return The date and time of the deadline.
-     * @throws MissingParametersException if the date and time is invalid.
+     * @param by a date time string.
+     * @return a LocalDateTime.
+     * @throws MissingParametersException if arguments are invalid.
      */
     private LocalDateTime parseDateTime(String by) throws MissingParametersException {
         try {
@@ -54,38 +50,27 @@ public class Deadlines extends Task {
         }
     }
 
-    /**
-     * Prints the date and time of the deadline.
-     *
-     * @return The date and time of the deadline.
-     */
     private String printDateTime() {
         return this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm"));
     }
-
-    /**
-     * Returns the string representation of the Deadline Task.
-     *
-     * @return The string representation of the Deadline Task.
-     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + printDateTime() + ")";
     }
 
     /**
-     * Returns the date of the deadline.
+     * Returns the deadlines date.
      *
-     * @return The date of the deadline.
+     * @return deadline's date.
      */
     public LocalDate getDate() {
         return this.by.toLocalDate();
     }
 
     /**
-     * Returns the save data of the Deadline Task.
+     * A string that matches the format for writing it to file.
      *
-     * @return The save data of the Deadline Task.
+     * @return A string to be written to a txt file.
      */
     @Override
     public String getSaveData() {
