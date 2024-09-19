@@ -16,6 +16,9 @@ import killjoy.task.Task;
  */
 public class Parser {
     private static UserInterface ui;
+    private static final String BY_KEYWORD = "by ";
+    private static final String FROM_KEYWORD = "from ";
+    private static final String TO_KEYWORD = "to ";
 
     /**
      * Constructor for the Parser class.
@@ -57,45 +60,49 @@ public class Parser {
     }
 
     /**
-     * Parses the user input to determine the by date of the task.
+     * Parses the user input to determine the date and time of the task.
      *
      * @param input The user input.
-     * @return The by date of the task.
+     * @return The date and time of the task.
      */
     public static String getByTimeString(String input) {
-        String[] inputSplitBySlash = input.split("/");
-        if (inputSplitBySlash.length < 2) {
-            return null;
-        }
-        return inputSplitBySlash[1].replaceFirst("by ", "");
+        return extractTimeString(input, 1, BY_KEYWORD);
     }
 
     /**
-     * Parses the user input to determine the from date of the task.
+     * Parses the user input to determine the start time of the task.
      *
      * @param input The user input.
-     * @return The from date of the task.
+     * @return The start time of the task.
      */
     public static String getFromTimeString(String input) {
-        String[] inputSplitBySlash = input.split("/");
-        if (inputSplitBySlash.length < 2) {
-            return null;
-        }
-        return inputSplitBySlash[1].replaceFirst("from ", "");
+        return extractTimeString(input, 1, FROM_KEYWORD);
     }
 
     /**
-     * Parses the user input to determine the to date of the task.
+     * Parses the user input to determine the end time of the task.
      *
      * @param input The user input.
-     * @return The to date of the task.
+     * @return The end time of the task.
      */
     public static String getToTimeString(String input) {
+        return extractTimeString(input, 2, TO_KEYWORD);
+    }
+
+    /**
+     * Extracts the time string from the input.
+     *
+     * @param input The user input.
+     * @param slashIndex The index of the slash.
+     * @param keyword The keyword to extract.
+     * @return The time string.
+     */
+    private static String extractTimeString(String input, int slashIndex, String keyword) {
         String[] inputSplitBySlash = input.split("/");
-        if (inputSplitBySlash.length < 3) {
+        if (inputSplitBySlash.length <= slashIndex) {
             return null;
         }
-        return inputSplitBySlash[2].replaceFirst("to ", "");
+        return inputSplitBySlash[slashIndex].replaceFirst(keyword, "");
     }
 
     /**
@@ -108,7 +115,7 @@ public class Parser {
         String[] inputAsList = input.split(" ");
 
         if (inputAsList.length == 1) {
-            ui.displayEnterNumberMessage();
+            UserInterface.displayEnterNumberMessage();
             return null;
         }
         //Regex section referenced from https://jenkov.com/tutorials/java-regex/index.html
@@ -117,7 +124,7 @@ public class Parser {
         Matcher matcher = pattern.matcher(input);
 
         if (!matcher.find()) {
-            ui.displayInvalidCommandFormatMessage();
+            UserInterface.displayInvalidCommandFormatMessage();
             return null;
         }
         return new String[]{matcher.group(1), matcher.group(3)};
