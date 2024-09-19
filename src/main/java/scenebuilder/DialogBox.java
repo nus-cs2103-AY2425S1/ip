@@ -47,10 +47,26 @@ public class DialogBox extends HBox {
     dialog.getStyleClass().add("reply-label");
   }
 
+  /**
+   * Creates a DialogBox for the user with the given text and image.
+   *
+   * @param s The text message to be displayed in the dialog box.
+   * @param i The image associated with the user in the dialog box.
+   * @return A DialogBox representing the user's dialog.
+   */
   public static DialogBox getUserDialog(String s, Image i) {
     return new DialogBox(s, i);
   }
 
+
+  /**
+   * Creates a DialogBox for Eli (the system) with the given text and image.
+   * The dialog box is flipped to differentiate it from the user's dialog.
+   *
+   * @param s The text message to be displayed in the dialog box.
+   * @param i The image associated with Eli (the system) in the dialog box.
+   * @return A flipped DialogBox representing Eli's dialog.
+   */
   public static DialogBox getEliDialog(String s, Image i) {
     var db = new DialogBox(s, i);
     db.flip();
