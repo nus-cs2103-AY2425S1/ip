@@ -6,24 +6,19 @@ import elon.task.TaskList;
 
 import java.io.IOException;
 
-public class UnmarkCommand extends Command{
+public class MarkTaskCommand extends Command {
     private int index;
 
-    public UnmarkCommand(int index) {
-        this.index = index - 1;
+    public MarkTaskCommand(int index) {
+        this.index = index;
     }
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) throws IOException {
         if (index < 0 || index >= list.listSize()) {
             return ui.showInvalidIndex();
         }
-        list.markNotDone(index);
+        list.markDone(index);
         storage.saveFile(list);
-        return ui.unmarkTask(list.getTask(index));
+        return ui.markTask(list.getTask(index));
     }
 }

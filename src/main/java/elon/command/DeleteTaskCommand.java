@@ -2,19 +2,16 @@ package elon.command;
 
 import elon.Storage;
 import elon.Ui;
+import elon.task.Task;
 import elon.task.TaskList;
 
 import java.io.IOException;
 
-public class MarkCommand extends Command {
+public class DeleteTaskCommand extends Command{
     private int index;
 
-    public MarkCommand(int index) {
-        this.index = index - 1;
-    }
-    @Override
-    public boolean isExit() {
-        return false;
+    public DeleteTaskCommand(int index) {
+        this.index = index;
     }
 
     @Override
@@ -22,8 +19,8 @@ public class MarkCommand extends Command {
         if (index < 0 || index >= list.listSize()) {
             return ui.showInvalidIndex();
         }
-        list.markDone(index);
+        Task removedTask = list.removeTask(index);
         storage.saveFile(list);
-        return ui.markTask(list.getTask(index));
+        return ui.deleteTask(removedTask, list);
     }
 }

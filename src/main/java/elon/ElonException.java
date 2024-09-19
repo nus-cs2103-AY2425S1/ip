@@ -9,7 +9,11 @@ public class ElonException extends Exception{
      *
      * @param message the error message
      */
-    ElonException(String message) {
+    public ElonException(String message) {
         super(message);
+    }
+
+    public String getMessage() {
+        return super.getMessage();
     }
 }

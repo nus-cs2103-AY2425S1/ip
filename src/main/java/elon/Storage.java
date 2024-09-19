@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -57,11 +57,11 @@ public class Storage {
             case "T":
                 return new ToDo(description, isDone);
             case "D":
-                LocalDate by = LocalDate.parse(elements[3]);
+                LocalDateTime by = LocalDateTime.parse(elements[3]);
                 return new Deadline(description, isDone, by);
             case "E":
-                LocalDate start = LocalDate.parse(elements[3]);
-                LocalDate end = LocalDate.parse(elements[4]);
+                LocalDateTime start = LocalDateTime.parse(elements[3]);
+                LocalDateTime end = LocalDateTime.parse(elements[4]);
                 return new Event(description, isDone, start, end);
             default:
                 throw new ElonException("Invalid task format.");
@@ -106,7 +106,7 @@ public class Storage {
         try(FileWriter fileWriter = new FileWriter(this.file)) {
             int i = 0;
             while (i < list.listSize()) {
-                Task task = list.getTask(0);
+                Task task = list.getTask(i);
                 fileWriter.write(task.toFileString() + "\n");
                 i++;
             }

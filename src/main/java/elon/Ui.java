@@ -115,7 +115,7 @@ public class Ui {
      * @throws ElonException if the description is not specified
      */
     public String addTask(Task task, TaskList list) {
-        return startAddTask() + task.toString() + "/n" + endAddTask(list.listSize());
+        return startAddTask() + task.toString() + "\n" + endAddTask(list.listSize());
     }
 
     /**
@@ -143,5 +143,9 @@ public class Ui {
             }
             return res;
         }
+    }
+
+    public String snoozeTask(Task task) {
+        return "Nice! I've snoozed this task:\n" + task.toString() + "\n";
     }
 }

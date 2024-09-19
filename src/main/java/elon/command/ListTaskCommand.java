@@ -6,12 +6,7 @@ import elon.task.TaskList;
 
 import java.io.IOException;
 
-public class ListCommand extends Command {
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
+public class ListTaskCommand extends Command {
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) throws IOException {
         return ui.listTasks(list);

@@ -1,18 +1,21 @@
-# elon User Guide
-
-// Update the title above to match the actual product name
+# Elon User Guide
 
 // Product screenshot goes here
 
-// Product intro goes here
+The Elon chatbot is a tool designed to help users manage tasks efficiently. 
+It allows users to create, track, and organize tasks in various categories: todos, deadlines, and events. 
+Key features include adding tasks, marking them as complete, finding tasks based on keywords, 
+and snoozing tasks for later.
 
-## Adding deadlines
+## Adding Tasks
+You can add three types of tasks:
 
-// Describe the action and its outcome.
+- Todo: A general task without a deadline.
+- Deadline: A task with a specific date by which it needs to be completed.
+- Event: A task that occurs within a specific time range.
 
-// Give examples of usage
+Example: `todo Buy groceries`
 
-Example: `keyword (optional arguments)`
 
 // A description of the expected outcome goes here
 

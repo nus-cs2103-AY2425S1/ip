@@ -1,6 +1,7 @@
 package elon;
 
 import elon.command.Command;
+import elon.command.ExitCommand;
 import elon.task.TaskList;
 
 import java.io.IOException;
@@ -23,10 +24,10 @@ public class Elon {
     public Elon(String storagePath) {
         try {
             this.storage = new Storage(storagePath);
-            TaskList list = new TaskList(storage.loadFile());
+            this.list = new TaskList(storage.loadFile());
         } catch (IOException e) {
             System.out.println(e);
-            list = new TaskList();
+            this.list = new TaskList();
         }
     }
 
@@ -44,11 +45,11 @@ public class Elon {
                 String[] inputArr = ui.getInputArr();
                 Command command = Parser.parse(inputArr);
                 command.execute(list, ui, storage);
-                isExit = command.isExit();
+                if (command instanceof ExitCommand) {
+                    isExit = true;
+                }
             } catch (Exception e) {
                 System.out.println(e);
-            } finally {
-                ui.drawLine();
             }
         }
     }
@@ -61,7 +62,7 @@ public class Elon {
             Command command = Parser.parse(inputArr);
             return command.execute(list, ui, storage);
         } catch (Exception e) {
-            return e.toString();
+            return e.getMessage();
         }
     }
 

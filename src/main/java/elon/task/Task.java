@@ -1,5 +1,7 @@
 package elon.task;
 
+import java.time.LocalDateTime;
+
 /**
  * Represents a task with a description and a status indicating whether it is done.
  */
@@ -67,5 +69,8 @@ public abstract class Task {
      */
     public String toFileString() {
         return this.description;
+    }
+
+    public void snooze(LocalDateTime newDate) {
     }
 }

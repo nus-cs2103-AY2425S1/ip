@@ -1,26 +1,17 @@
 package elon.command;
 
-import elon.Elon;
-import elon.ElonException;
 import elon.Storage;
 import elon.Ui;
-import elon.task.Deadline;
-import elon.task.Event;
 import elon.task.Task;
 import elon.task.TaskList;
-import elon.task.ToDo;
 
 import java.io.IOException;
 
-public class AddCommand extends Command {
+public class AddTaskCommand extends Command {
     private Task task;
 
-    public AddCommand(Task task) {
+    public AddTaskCommand(Task task) {
         this.task = task;
-    }
-    @Override
-    public boolean isExit() {
-        return false;
     }
 
     @Override

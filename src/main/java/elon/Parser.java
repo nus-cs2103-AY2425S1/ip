@@ -1,17 +1,20 @@
 package elon;
 
-import elon.command.AddCommand;
+import elon.command.AddTaskCommand;
 import elon.command.Command;
-import elon.command.DeleteCommand;
+import elon.command.DeleteTaskCommand;
 import elon.command.ExitCommand;
-import elon.command.FindCommand;
-import elon.command.ListCommand;
-import elon.command.MarkCommand;
-import elon.command.UnmarkCommand;
+import elon.command.FindTaskCommand;
+import elon.command.ListTaskCommand;
+import elon.command.MarkTaskCommand;
+import elon.command.UnmarkTaskCommand;
+import elon.command.SnoozeTaskCommand;
 import elon.task.Deadline;
 import elon.task.Event;
 import elon.task.ToDo;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
 
@@ -20,25 +23,26 @@ import java.util.Arrays;
  * Parses user input commands and interacts with the UI, TaskList, and Storage.
  */
 public class Parser {
+    public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     public static Command parse(String[] inputArr) throws ElonException{
         String commandPhrase = inputArr[0];
         switch (commandPhrase) {
             case "list":
-                return new ListCommand();
+                return new ListTaskCommand();
             case "mark":
                 int indexToMark = Integer.parseInt(inputArr[1]) - 1;
-                return new MarkCommand(indexToMark);
+                return new MarkTaskCommand(indexToMark);
             case "unmark":
                 int indexToUnmark = Integer.parseInt(inputArr[1]) - 1;
-                return new UnmarkCommand(indexToUnmark);
+                return new UnmarkTaskCommand(indexToUnmark);
             case "delete":
                 int indexToDelete = Integer.parseInt(inputArr[1]) - 1;
-                return new DeleteCommand(indexToDelete);
+                return new DeleteTaskCommand(indexToDelete);
             case "bye":
                 return new ExitCommand();
             case "find":
                 String searchWord = String.join(" ", Arrays.copyOfRange(inputArr, 1, inputArr.length));
-                return new FindCommand(searchWord);
+                return new FindTaskCommand(searchWord);
             case "todo":
                 if (inputArr.length <= 1) {
                     throw new ElonException("Error. Description for ToDo task not specified.");
@@ -49,7 +53,7 @@ public class Parser {
                 }
                 todoTask = todoTask.strip();
                 ToDo todo = new ToDo(todoTask, false);
-                return new AddCommand(todo);
+                return new AddTaskCommand(todo);
             case "deadline":
                 if (inputArr.length <= 1) {
                     throw new ElonException("Error. Description and By date for Deadline task not specified.");
@@ -69,10 +73,14 @@ public class Parser {
                     by += inputArr[k] + " ";
                 }
                 by = by.strip();
-                LocalDate byDate = LocalDate.parse(by);
-                Deadline deadline = new Deadline(deadlineTask, false, byDate);
-                return new AddCommand(deadline);
-            case "event: ":
+                try {
+                    LocalDateTime byDate = LocalDateTime.parse(by, Parser.formatter);
+                    Deadline deadline = new Deadline(deadlineTask, false, byDate);
+                    return new AddTaskCommand(deadline);
+                } catch (DateTimeParseException e) {
+                    throw new ElonException("Wrong date format. Follow yyyy-MM-dd HH:mm (year-month-day hours:minutes");
+                }
+            case "event":
                 if (inputArr.length <= 1) {
                     throw new ElonException("Error. Description, From and To date for Event task not specified.");
                 }
@@ -93,7 +101,6 @@ public class Parser {
                     x++;
                 }
                 from = from.strip();
-                LocalDate fromDate = LocalDate.parse(from);
                 x++;
                 if (inputArr.length <= x) {
                     throw new ElonException("Error. To date for Event task not specified.");
@@ -103,9 +110,33 @@ public class Parser {
                     to += inputArr[y] + " ";
                 }
                 to = to.strip();
-                LocalDate toDate = LocalDate.parse(to);
-                Event event = new Event(eventTask, false, fromDate, toDate);
-                return new AddCommand(event);
+                try {
+                    LocalDateTime fromDate = LocalDateTime.parse(from, Parser.formatter);
+                    LocalDateTime toDate = LocalDateTime.parse(to, Parser.formatter);
+                    Event event = new Event(eventTask, false, fromDate, toDate);
+                    return new AddTaskCommand(event);
+                } catch (DateTimeParseException e) {
+                    throw new ElonException("Wrong date format. Follow yyyy-MM-dd HH:mm (year-month-day hours:minutes");
+                }
+            case "snooze" :
+                if (inputArr.length <= 1) {
+                    throw new ElonException("Index of task to snooze not specified");
+                }
+                if (inputArr.length <= 2) {
+                    throw new ElonException("New date to postone task to not specified");
+                }
+                int taskIndex = Integer.parseInt(inputArr[1]) - 1;
+                String date = "";
+                for (int z = 2; z < inputArr.length; z++) {
+                    date += inputArr[z] + " ";
+                }
+                date = date.trim();
+                try {
+                    LocalDateTime newDate = LocalDateTime.parse(date, Parser.formatter);
+                    return new SnoozeTaskCommand(taskIndex, newDate);
+                } catch (DateTimeParseException e) {
+                    throw new ElonException("Wrong date format. Follow yyyy-MM-dd HH:mm (year-month-day hours:minutes.");
+                }
             default:
                 throw new ElonException("Invalid Command: " + commandPhrase);
         }
