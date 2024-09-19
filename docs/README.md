@@ -28,3 +28,13 @@ Features of this bot:
 - [ ] Make you happy
 - [ ] keep you company
 - [x] Teach you brainrot
+- Typing "todo" + "[ action ]" will log a todo task
+- Typing "deadline" + "[ action ]" + "/by" + "[any time]" will log a task with deadline
+- Typing "event" + "[ action ]" + "/from" + "[any time]" + "/to" + "[any time]"
+  will log an event with start and end timing
+- Type "list" to see all tasks
+- Type "delete" + "[ number in list ]" to delete that task
+- Type "mark" + "[ number in list ]" to mark that task
+- Type "unmark" + [ number in list ] to unmark that task
+- Type "bye" to exit program
+- Type "find" + "[ action ]" to find a task

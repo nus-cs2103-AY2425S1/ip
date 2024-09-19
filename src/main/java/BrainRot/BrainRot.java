@@ -137,8 +137,9 @@ public class BrainRot {
             String[] parts = details.split("/by");
             newTask = new Deadline(parts[0].substring(9).trim(), parts[1].trim());
         } else if (details.startsWith("event")) {
-            String[] parts = details.split("/to");
-            newTask = new Event(parts[0].substring(6).trim(), parts[1].trim(), parts[2].trim());
+            String[] parts = details.split("/from");
+            String[] timings = parts[1].split("/to");
+            newTask = new Event(parts[0].substring(6).trim(), timings[0].trim(), timings[1].trim());
         } else {
             throw new UnknownCommandException("Unknown command");
         }

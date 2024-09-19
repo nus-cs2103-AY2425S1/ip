@@ -3,3 +3,4 @@
 [T][ ]/sell books
 [T][ ]/create books
 [T][ ]/borrow books
+[E][0]/project meeting/Mon 2pm/4pm
