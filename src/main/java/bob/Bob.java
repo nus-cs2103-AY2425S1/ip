@@ -53,11 +53,21 @@ public class Bob {
                 return ui.replyGetList(tasklist);
 
             case "mark":
+                try {
+                    Integer.parseInt(strArr[1]);
+                } catch (NumberFormatException e) {
+                    return ("Invalid input. Please enter a number");
+                }
                 retStr = ui.replyMarkDone(Integer.parseInt(strArr[1]) - 1, tasklist);
                 storage.updateDataFile(tasklist.getList());
                 return retStr;
 
             case "unmark":
+                try {
+                    Integer.parseInt(strArr[1]);
+                } catch (NumberFormatException e) {
+                    return ("Invalid input. Please enter a number");
+                }
                 retStr = ui.replyMarkUndone(Integer.parseInt(strArr[1]) - 1, tasklist);
                 storage.updateDataFile(tasklist.getList());
                 return retStr;
@@ -78,6 +88,11 @@ public class Bob {
                 return retStr;
 
             case "delete":
+                try {
+                    Integer.parseInt(strArr[1]);
+                } catch (NumberFormatException e) {
+                    return ("Invalid input. Please enter a number");
+                }
                 retStr = ui.replyDelete(Integer.parseInt(strArr[1]) - 1, tasklist);
                 storage.updateDataFile(tasklist.getList());
                 return retStr;

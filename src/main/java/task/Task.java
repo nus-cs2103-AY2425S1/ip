@@ -29,7 +29,7 @@ public class Task {
      */
     public void setDone() {
         this.isDone = true;
-        assert(this.getDescription() == "[X] " + this.description);
+        assert(this.toString().equals("[X] " + this.description));
     }
 
     /**
@@ -37,7 +37,7 @@ public class Task {
      */
     public void setUndone() {
         this.isDone = false;
-        assert(this.getDescription() == "[ ] " + this.description);
+       assert(this.toString().equals("[ ] " + this.description));
     }
 
     /**

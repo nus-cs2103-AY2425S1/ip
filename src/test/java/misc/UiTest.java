@@ -2,32 +2,21 @@ package misc;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
 import org.junit.jupiter.api.Test;
 
+import exceptions.PositionException;
 import task.Task;
 import task.Tasklist;
 
 public class UiTest {
     @Test
     public void blankline_standard_printLine() {
-        String expectedOutput = ("____________________________________________________________ \s"
-            + "\n" + "Bye. Hope to see you again soon!");
+        String expectedOutput = ("Bye. Hope to see you again soon!");
 
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        PrintStream originalOut = System.out;
+        Ui ui = new Ui();
+        String actualOutput = ui.endGame();
 
-        try {
-            System.setOut(new PrintStream(outputStream));
-            new Ui().endGame();
-            String capturedOutput = outputStream.toString();
-
-            assertEquals(expectedOutput.trim(), capturedOutput.trim());
-        } finally {
-            System.setOut(originalOut);
-        }
+        assertEquals(expectedOutput.trim(), actualOutput);
     }
 
     @Test
@@ -35,20 +24,17 @@ public class UiTest {
         String dummyTask = "[X] Task";
         Tasklist dummyTl = new Tasklist();
         String expectedOutput = ("Nice! I've marked this task as done:" + "\n"
-                + dummyTask + "\n" + "____________________________________________________________ \s");
+                + dummyTask);
         dummyTl.add(new Task("Task"));
 
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        PrintStream originalOut = System.out;
-
+        Ui ui = new Ui();
+        String actualOutput = "";
         try {
-            System.setOut(new PrintStream(outputStream));
-            new Ui().replyMarkDone(0, dummyTl);
-            String capturedOutput = outputStream.toString();
-            assertEquals(expectedOutput.trim(), capturedOutput.trim());
-        } finally {
-            System.setOut(originalOut);
+            actualOutput = ui.replyMarkDone(0, dummyTl);
+        } catch (PositionException e) {
+            return;
         }
+        assertEquals(expectedOutput.trim(), actualOutput);
     }
 
     @Test

@@ -4,7 +4,7 @@ public class PositionException extends Exception {
     private int pos;
 
     public PositionException(int pos) {
-        this.pos = pos;
+        this.pos = pos + 1;
     }
 
     @Override

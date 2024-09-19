@@ -1,30 +1,51 @@
 # Bob User Guide
 
-// Update the title above to match the actual product name
+Bob is a chat bot for you to manage your tasks.
 
-// Product screenshot goes here
+1. Adding deadlines
+- Description: Adds a task with a deadline
+- Usage: ```deadline <descrption> /by <yyyy-mm-dd>```
+- Example: ```deadline read book /by 2022-12-12```
 
-// Product intro goes here
+2. Adding todos
+- Description: Adds a todo
+- Usage: ```todo <descrption>```
+- Example: ```todo read book```
 
-## Adding deadlines
+3. Adding events
+- Description: Adds an event with start and end dates
+- Usage: ```event <descrption> /from <yyyy-mm-dd> /to <yyyy-mm-dd>```
+- Example: ```event holiday /from 2022-12-12 /to 2022-12-12```
 
-// Describe the action and its outcome.
+4. Listing all tasks
+- Description: Lists all tasks
+- Usage: ```list```
 
-// Give examples of usage.
+5. Marking a task as done
+- Description: Marks a task as done
+- Usage: ```mark <task position number>```
+- Example: ```mark 2```
 
-Example: `keyword (optional arguments)`
+6. Marking a task as undone
+- Description: Marks a task as undone
+- Usage: ```unmark <task position number>```
+- Example: ```unmark 2```
 
-// A description of the expected outcome goes here
+7. Deleting a task
+- Description: Deletes a task
+- Usage: ```delete <task position number>```
+- Example: ```delete 2```
 
-```
-expected output
-```
+8. Find task by keyword
+- Description: Finds a task with a word containing the substring
+- Usage: ```find <substring>```
+- Example: ```find bob```
 
-## Feature ABC
+9. Find task by exact keyword
+- Description: Finds a task with a word matching the exact substring
+- Usage: ```findexact <substring>```
+- Example: ```findexact bob```
 
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
+10. Exit
+- Usage: ```bye```
+- Description: Exits the application

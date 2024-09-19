@@ -43,7 +43,10 @@ public class Ui {
      * Returns reply for mark done command.
      * @return String
      */
-    public String replyMarkDone(int pos, Tasklist tasklist) {
+    public String replyMarkDone(int pos, Tasklist tasklist) throws PositionException{
+        if (pos >= tasklist.getSize() || pos < 0) {
+            throw new PositionException(pos);
+        }
         tasklist.getStr(pos).setDone();
         return ("Nice! I've marked this task as done:" + "\n" + tasklist.getStr(pos));
     }
@@ -52,7 +55,10 @@ public class Ui {
      * Returns reply for mark undone command.
      * @return String
      */
-    public String replyMarkUndone(int pos, Tasklist tasklist) {
+    public String replyMarkUndone(int pos, Tasklist tasklist) throws PositionException {
+        if (pos >= tasklist.getSize() || pos < 0) {
+            throw new PositionException(pos);
+        }
         tasklist.getStr(pos).setUndone();
         return ("OK, I've marked this task as not done yet:" + "\n" + tasklist.getStr(pos));
     }

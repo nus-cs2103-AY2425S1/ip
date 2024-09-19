@@ -23,6 +23,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setBob(bob); // inject the Bob instance
+            stage.setTitle("Bob");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
