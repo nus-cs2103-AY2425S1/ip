@@ -47,25 +47,25 @@ public class TaskList {
                 3. Event - Has start and end date
                 """);
         switch (getInputFromUser(sc, "(1, 2 or 3) > ")) {
-            case "1":
-                this.tasks.add(new Todo(task));
-                System.out.println("Friday > Okay, I've added a todo: " + task);
-                break;
-            case "2":
-                System.out.println("What is the deadline? In dd mm yyyy");
-                this.tasks.add(new Deadline(task, getDate("d", sc)));
-                System.out.println("Friday > Okay, I've added a deadline: " + task);
-                break;
-            case "3":
-                System.out.println("What is the start date? In dd mm yyyy");
-                LocalDate start = getDate("es", sc);
-                System.out.println("What is the end date? In dd mm yyyy");
-                LocalDate end = getDate("ee", sc);
-                this.tasks.add(new Event(task, start, end));
-                System.out.println("Friday > Okay, I've added an event: " + task);
-                break;
-            default:
-                System.out.println("Invalid task type! Try adding again.");
+        case "1":
+            this.tasks.add(new Todo(task));
+            System.out.println("Friday > Okay, I've added a todo: " + task);
+            break;
+        case "2":
+            System.out.println("What is the deadline? In dd mm yyyy");
+            this.tasks.add(new Deadline(task, getDate("d", sc)));
+            System.out.println("Friday > Okay, I've added a deadline: " + task);
+            break;
+        case "3":
+            System.out.println("What is the start date? In dd mm yyyy");
+            LocalDate start = getDate("es", sc);
+            System.out.println("What is the end date? In dd mm yyyy");
+            LocalDate end = getDate("ee", sc);
+            this.tasks.add(new Event(task, start, end));
+            System.out.println("Friday > Okay, I've added an event: " + task);
+            break;
+        default:
+            System.out.println("Invalid task type! Try adding again.");
         }
     }
 
@@ -172,11 +172,11 @@ public class TaskList {
     public LocalDate getDate(String type, Scanner sc) {
         try {
             return switch (type) {
-                case "d" -> LocalDate.parse(getInputFromUser(sc, "Deadline (in dd mm yyyy) > "), this.inputFormatter);
-                case "es" ->
-                        LocalDate.parse(getInputFromUser(sc, "Start Date (in dd mm yyyy) > "), this.inputFormatter);
-                case "ee" -> LocalDate.parse(getInputFromUser(sc, "End Date (in dd mm yyyy) > "), this.inputFormatter);
-                default -> getDate(type, sc);
+            case "d" -> LocalDate.parse(getInputFromUser(sc, "Deadline (in dd mm yyyy) > "), this.inputFormatter);
+            case "es" ->
+                    LocalDate.parse(getInputFromUser(sc, "Start Date (in dd mm yyyy) > "), this.inputFormatter);
+            case "ee" -> LocalDate.parse(getInputFromUser(sc, "End Date (in dd mm yyyy) > "), this.inputFormatter);
+            default -> getDate(type, sc);
             };
         } catch (DateTimeParseException e) {
             System.out.println("Friday > Invalid date format! Please follow dd mm yyyy format! e.g 26 06 2002");
