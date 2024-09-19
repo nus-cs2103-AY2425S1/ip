@@ -12,46 +12,40 @@ import java.util.List;
  * Reads and writes to storage file
  */
 public class Storage {
-    private String filePath;
+    private Path filePath;
 
+    // Updated constructor to use a dynamic file path
     public Storage(String f) {
-        filePath = f;
+        // Use a dynamic file path based on the user's home directory
+        filePath = Paths.get(System.getProperty("user.home"), f);
     }
+
     /**
      * Concatenate status of task behind the task description
      * @param t The task that the status is being added to
      * @return the status of the task in String format
      */
     private String addStatus(Task t) {
-        if (t.isDone) {
-            return "|true" + "\n";
-        } else {
-            return "|false" + "\n";
-        }
+        return t.isDone ? "|true\n" : "|false\n";
     }
 
     /**
      * Writes to the storage file specified by filePath
      */
     public void write(List<Task> ls) {
-        String str = "";
-        for (Task t: ls) {
+        StringBuilder str = new StringBuilder();
+        for (Task t : ls) {
             if (t instanceof TodoTask) {
-                str += "todo " + t.getDescription();
-                str += addStatus(t);
+                str.append("todo ").append(t.getDescription());
             } else if (t instanceof DeadlineTask) {
-                str += "deadline " + t.getDescription();
-                str += addStatus(t);
+                str.append("deadline ").append(t.getDescription());
             } else {
-                str += "event " + t.getDescription();
-                str += addStatus(t);
+                str.append("event ").append(t.getDescription());
             }
+            str.append(addStatus(t));
         }
         try {
-            Files.write(Paths.get(filePath), str.getBytes());
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found, please create new file with file path: "
-                    + "/Users/jerryyou/ip/taskslist.txt");
+            Files.write(filePath, str.toString().getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -75,16 +69,20 @@ public class Storage {
     public List<Task> read() {
         List<Task> ls = new ArrayList<>();
         try {
-            Path path = Paths.get(filePath);
-            List<String> lines = Files.readAllLines(path);
+            if (!Files.exists(filePath)) {
+                // If file does not exist, create a new one
+                Files.createFile(filePath);
+                System.out.println("New file created at: " + filePath.toString());
+            }
+            List<String> lines = Files.readAllLines(filePath);
             massAdd(lines, ls);
         } catch (FileNotFoundException e) {
-            System.out.println("File not found, please create new file with file path: "
-                    + "/Users/jerryyou/ip/taskslist.txt");
+            System.out.println("File not found, creating a new file at: " + filePath.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return ls;
     }
-
 }

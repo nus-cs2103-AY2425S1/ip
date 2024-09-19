@@ -17,7 +17,7 @@ public class Ui {
     private List<Task> ls;
 
     // File path for external storage
-    private String filePath = "/Users/jerryyou/ip/taskslist.txt";
+    private String filePath = "/taskslist.txt";
     private Storage store = new Storage(filePath);
 
     /**
@@ -41,6 +41,7 @@ public class Ui {
 
         if (Objects.equals(command, "bye")) {
             store.write(ls);
+            System.exit(0);
             return LINE + "\n" + GOODBYE;
         } else if (Objects.equals(command, "list")) {
             Command c = new ListCommand();
