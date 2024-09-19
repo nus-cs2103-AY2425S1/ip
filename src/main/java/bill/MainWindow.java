@@ -55,6 +55,10 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getBillDialog(response, billImage)
         );
+        if (response.equals("Goodbye! Hope to see you again soon!")) {
+            userInput.setDisable(true);
+            sendButton.setDisable(true);
+        }
         userInput.clear();
     }
 }
