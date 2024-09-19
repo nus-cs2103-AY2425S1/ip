@@ -1,7 +1,7 @@
 package darkpool.parser;
 
-import darkpool.command.Command;
 import darkpool.DarkpoolException;
+import darkpool.command.Command;
 
 /**
  * Parser class is responsible for parsing user input and returning the appropriate Command object.
@@ -28,19 +28,39 @@ public class Parser {
      * @throws DarkpoolException If the user input is invalid.
      */
     private static Command parseCommand(String[] userInput) throws DarkpoolException {
-        return switch (userInput[0]) {
-            case "bye" -> ExitParser.parse();
-            case "list" -> ListParser.parse();
-            case "mark" -> MarkParser.parse(userInput);
-            case "unmark" -> UnmarkParser.parse(userInput);
-            case "delete" -> DeleteParser.parse(userInput);
-            case "find" -> FindParser.parse(userInput);
-            case "todo" -> TodoParser.parse(userInput);
-            case "deadline" -> DeadlineParser.parse(userInput);
-            case "after" -> AfterParser.parse(userInput);
-            case "event" -> EventParser.parse(userInput);
-            default -> throw new DarkpoolException("what???");
-        };
+        switch (userInput[0]) {
+        case "bye" -> {
+            return ExitParser.parse();
+        }
+        case "list" -> {
+            return ListParser.parse();
+        }
+        case "mark" -> {
+            return MarkParser.parse(userInput);
+        }
+        case "unmark" -> {
+            return UnmarkParser.parse(userInput);
+        }
+        case "delete" -> {
+            return DeleteParser.parse(userInput);
+        }
+        case "find" -> {
+            return FindParser.parse(userInput);
+        }
+        case "todo" -> {
+            return TodoParser.parse(userInput);
+        }
+        case "deadline" -> {
+            return DeadlineParser.parse(userInput);
+        }
+        case "after" -> {
+            return AfterParser.parse(userInput);
+        }
+        case "event" -> {
+            return EventParser.parse(userInput);
+        }
+        default -> throw new DarkpoolException("what???");
+        }
     }
 
     /**

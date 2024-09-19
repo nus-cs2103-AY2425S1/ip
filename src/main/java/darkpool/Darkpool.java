@@ -16,6 +16,9 @@ public class Darkpool {
     private TaskList taskList;
     private final Gui gui;
 
+    /**
+     * Constructor for Darkpool.
+     */
     public Darkpool() {
         gui = new Gui();
         String filePath = "data/tasks.txt";
@@ -48,7 +51,7 @@ public class Darkpool {
                 return gui.goodbye();
             }
             return response;
-        }  catch (DarkpoolException e) {
+        } catch (DarkpoolException e) {
             return e.getMessage();
         }
     }

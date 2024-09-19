@@ -1,8 +1,8 @@
 package darkpool.parser.validator;
 
-import darkpool.DarkpoolException;
-
 import java.util.Objects;
+
+import darkpool.DarkpoolException;
 
 /**
  * Validates the user input for the mark, unmark and delete commands.

@@ -1,19 +1,27 @@
 package darkpool.storage;
 
-import darkpool.task.Task;
-import darkpool.DarkpoolException;
+import static darkpool.storage.ValidateData.validateData;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static darkpool.storage.ValidateData.validateData;
+import darkpool.DarkpoolException;
+import darkpool.task.Task;
 
 /**
  * LoadData class is responsible for loading data from the file.
  */
 public class LoadData {
+
+    /**
+     * Loads data from the file.
+     *
+     * @param filePath Path of the file to load data from.
+     * @return ArrayList of tasks loaded from the file.
+     * @throws DarkpoolException If file is not found.
+     */
     public static ArrayList<Task> load(String filePath) throws DarkpoolException {
         ArrayList<Task> taskList = new ArrayList<>();
         String curTask;

@@ -1,10 +1,13 @@
 package darkpool.command;
 
 import darkpool.DarkpoolException;
+import darkpool.gui.Gui;
 import darkpool.storage.Storage;
 import darkpool.tasklist.TaskList;
-import darkpool.gui.Gui;
 
+/**
+ * Represents a command to mark a task as done.
+ */
 public class MarkCommand extends Command {
 
     private final int index;

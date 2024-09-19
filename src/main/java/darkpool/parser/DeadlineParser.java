@@ -1,16 +1,27 @@
 package darkpool.parser;
 
+import static darkpool.parser.validator.ValidateDeadline.validate;
+import static darkpool.parser.validator.ValidateDeadline.validateArrayLength;
+import static darkpool.parser.validator.ValidateDeadline.validateBy;
+import static darkpool.parser.validator.ValidateDeadline.validateEmptyDesc;
+
+import darkpool.DarkpoolException;
 import darkpool.command.AddCommand;
 import darkpool.command.Command;
 import darkpool.task.Deadline;
-import darkpool.DarkpoolException;
 
-import static darkpool.parser.validator.ValidateDeadline.validate;
-import static darkpool.parser.validator.ValidateDeadline.validateBy;
-import static darkpool.parser.validator.ValidateDeadline.validateEmptyDesc;
-import static darkpool.parser.validator.ValidateDeadline.validateArrayLength;
-
+/**
+ * DeadlineParser class is responsible for parsing user input for deadline tasks.
+ */
 public class DeadlineParser {
+
+    /**
+     * Parses user input for deadline tasks.
+     *
+     * @param userInput User input to be parsed.
+     * @return Command object representing the deadline task.
+     * @throws DarkpoolException If user input is invalid.
+     */
     public static Command parse(String[] userInput) throws DarkpoolException {
         Deadline deadline = deadlineParse(userInput);
         return new AddCommand(deadline);

@@ -1,16 +1,27 @@
 package darkpool.parser;
 
+import static darkpool.parser.validator.ValidateEvent.validate;
+import static darkpool.parser.validator.ValidateEvent.validateAndCreateEvent;
+import static darkpool.parser.validator.ValidateEvent.validateFrom;
+import static darkpool.parser.validator.ValidateEvent.validateTo;
+
+import darkpool.DarkpoolException;
 import darkpool.command.AddCommand;
 import darkpool.command.Command;
 import darkpool.task.Event;
-import darkpool.DarkpoolException;
 
-import static darkpool.parser.validator.ValidateEvent.validate;
-import static darkpool.parser.validator.ValidateEvent.validateFrom;
-import static darkpool.parser.validator.ValidateEvent.validateTo;
-import static darkpool.parser.validator.ValidateEvent.validateAndCreateEvent;
-
+/**
+ * Parses user input to create an Event object.
+ */
 public class EventParser {
+
+    /**
+     * Parses user input to create an Event object.
+     *
+     * @param userInput User input.
+     * @return Command object representing the user input.
+     * @throws DarkpoolException If the user input is invalid.
+     */
     public static Command parse(String[] userInput) throws DarkpoolException {
         Event event = parseEvent(userInput);
         return new AddCommand(event);

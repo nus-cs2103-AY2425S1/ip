@@ -1,8 +1,8 @@
 package darkpool.tasklist;
 
-import darkpool.task.Task;
-
 import java.util.ArrayList;
+
+import darkpool.task.Task;
 
 /**
  * This class is used to convert the task list into a string format.

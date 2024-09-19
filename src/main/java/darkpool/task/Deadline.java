@@ -12,6 +12,13 @@ public class Deadline extends Task {
 
     protected LocalDateTime byTime;
 
+    /**
+     * Constructor for Deadline.
+     *
+     * @param description Description of the deadline task.
+     * @param byTime Time by which the deadline task is due.
+     * @throws DarkpoolException If the date format is incorrect.
+     */
     public Deadline(String description, String byTime, boolean isDone) throws DarkpoolException {
         super(description, isDone);
 
@@ -31,7 +38,8 @@ public class Deadline extends Task {
 
     @Override
     public String toFileString() {
-        return ("D | " + (isDone ? "1" : "0") + " | " + this.description + " | " + this.byTime.format(FORMATTER) + "\n");
+        return ("D | " + (isDone ? "1" : "0") + " | "
+                + this.description + " | " + this.byTime.format(FORMATTER) + "\n");
     }
 
 }

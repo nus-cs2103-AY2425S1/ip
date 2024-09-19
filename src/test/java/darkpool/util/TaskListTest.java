@@ -4,15 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 
-import darkpool.DarkpoolException;
-import darkpool.tasklist.TaskList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import darkpool.DarkpoolException;
 import darkpool.task.Deadline;
 import darkpool.task.Event;
 import darkpool.task.Task;
 import darkpool.task.Todo;
+import darkpool.tasklist.TaskList;
 
 
 class TaskListTest {
@@ -29,7 +29,7 @@ class TaskListTest {
         Task todo = new Todo("read a book", false);
         taskList.addTask(todo);
         assertEquals(1, taskList.getSize());
-        assertEquals( "1. [T][ ] read a book\n", taskList.toString());
+        assertEquals("1. [T][ ] read a book\n", taskList.toString());
     }
 
     @Test

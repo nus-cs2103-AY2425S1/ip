@@ -37,7 +37,8 @@ public class Gui {
      * @return A message to indicate that a task has been added to the list.
      */
     public String add(String task, int size) {
-        return "i have dumped this nonsense on the list\n" + task + "\nnow you are stuck with " + size + " goddamn tasks";
+        return "i have dumped this nonsense on the list\n" + task
+                + "\nnow you are stuck with " + size + " goddamn tasks";
     }
 
 }

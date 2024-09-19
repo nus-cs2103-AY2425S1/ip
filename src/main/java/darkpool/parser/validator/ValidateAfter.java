@@ -1,8 +1,8 @@
 package darkpool.parser.validator;
 
-import darkpool.DarkpoolException;
-
 import java.util.Objects;
+
+import darkpool.DarkpoolException;
 
 /**
  * ValidateAfter class is used to validate the user input for the after command.
