@@ -1,5 +1,4 @@
-D| | meeting /by 2020-04-05
-E| | project /from 15:00 /to 16:00 /on 2020-06-07
-T| | read book
-D| | meetin /by 2020-04-05 16:00
-D| | meeting /by 2020-04-06 16:00
+D|X| math homework /by 2020-02-03 12:00
+E| | project meeting /from 12:00 /to 20:00 /on 2020-02-03
+D| | math homework /by 2020-03-02
+D| | /by 19:00

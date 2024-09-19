@@ -3,6 +3,7 @@ package Tasks;
 import Exceptions.EmptyDescException;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class ToDos extends Task {
@@ -38,6 +39,15 @@ public class ToDos extends Task {
     }
 
     /**
+     * @param updatedDateTime the new date and time to be assigned to the task.
+     */
+    @Override
+    public void setDateTime(LocalDateTime updatedDateTime) {
+        // do nothing
+
+    }
+
+    /**
      * @param updatedDeadlineTime
      */
     @Override
@@ -59,6 +69,13 @@ public class ToDos extends Task {
     @Override
     public void setEndTime(LocalTime updatedEventEndTime) {
         //do nothing tasks has no time attribute
+    }
+
+    /**
+     * @param newValue
+     */
+    @Override
+    public void setDesc(String newValue) {
     }
 
 }

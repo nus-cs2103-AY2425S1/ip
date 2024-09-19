@@ -11,6 +11,7 @@ import java.time.format.DateTimeParseException;
 
 // Deadline class
 public class Deadlines extends Task {
+    String taskDesc;
 
     private LocalDateTime localDateTime; // Stores full date and time
     private LocalDate localDate; // Stores date only
@@ -45,6 +46,8 @@ public class Deadlines extends Task {
                             "Pls provide in the following format: " +
                             "deadline read book /by yyyy-MM-dd or dd/MM/yyy 16:00");
         }
+
+        this.taskDesc = parts[0];
 
         parseDeadline(parts);
     }
@@ -129,6 +132,15 @@ public class Deadlines extends Task {
     }
 
     /**
+     * @param updatedDateTime the new date and time to be assigned to the task.
+     */
+    @Override
+    public void setDateTime(LocalDateTime updatedDateTime) {
+        this.localDateTime = updatedDateTime;
+
+    }
+
+    /**
      * @param updatedDeadlineTime
      */
     @Override
@@ -151,6 +163,19 @@ public class Deadlines extends Task {
     public void setEndTime(LocalTime updatedEventEndTime) {
         //do nothing for event tasks
     }
+
+    /**
+     * @param newValue
+     */
+
+    @Override
+    public void setDesc(String newValue) {
+        if (taskDesc != null) {
+            desc = taskDesc + " /by " + newValue;
+        }
+
+    }
+
 
     /**
      * Returns date of deadline task in LocalDate type

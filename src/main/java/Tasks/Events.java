@@ -3,11 +3,13 @@ package Tasks;
 import Exceptions.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Events extends Task {
+    String taskDesc;
 
     private LocalDate localDate; // Stores date only
     private LocalTime localStartTime; // Stores time only
@@ -32,6 +34,10 @@ public class Events extends Task {
         String[] parts3 = parts2[1].split(" /on ");
 
         parseEvent(parts2, parts3);
+
+
+        this.taskDesc = parts1[0];
+
         checkValidityOfTimeInput();
 
     }
@@ -194,6 +200,15 @@ public class Events extends Task {
     }
 
     /**
+     * @param updatedDateTime the new date and time to be assigned to the task.
+     */
+    @Override
+    public void setDateTime(LocalDateTime updatedDateTime) {
+        //do nothing
+
+    }
+
+    /**
      * @param updatedDeadlineTime
      */
     @Override
@@ -216,6 +231,17 @@ public class Events extends Task {
     public void setEndTime(LocalTime updatedEventEndTime) {
         this.localEndTime = updatedEventEndTime;
     }
+
+    /**
+     * @param newValue
+     */
+    @Override
+    public void setDesc(String newValue) {
+        if (taskDesc != null) {
+            desc = taskDesc + " /from " + localStartTime + " /to " + localEndTime + " /on " + localDate;
+        }
+    }
+
 
     /**
      * Returns date of event in LocalDate type

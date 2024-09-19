@@ -1,6 +1,7 @@
 package Tasks;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public abstract class Task {
@@ -80,6 +81,14 @@ public abstract class Task {
      */
     public abstract void setDate(LocalDate updatedDate);
 
+
+    /**
+     * Sets the date and time of the task.
+     *
+     * @param updatedDateTime the new date and time to be assigned to the task.
+     */
+    public abstract void setDateTime(LocalDateTime updatedDateTime);
+
     /**
      * Sets the time of the task
      *
@@ -100,4 +109,19 @@ public abstract class Task {
      * @param updatedEventEndTime the new end time to be assigned to the event.
      */
     public abstract void setEndTime(LocalTime updatedEventEndTime);
+
+
+    /**
+     * Sets the task description for a deadline/event.
+     *
+     * This method updates the task description with the provided new value,
+     * appending it to the existing description along with the deadline time.
+     * This ensures that the task description stored in the storage file
+     * reflects the most current date or time values.
+     *
+     * @param newValue the new date or time to be appended to the task description.
+     */
+
+    public abstract void setDesc(String newValue);
+
 }
