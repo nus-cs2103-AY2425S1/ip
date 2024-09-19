@@ -134,17 +134,21 @@ unmarks the 5th task in the list from done to not done (the 5th task in the list
 > 2. Please keep your INDEX within the list index range
 
 ### Locating a task by its description: `find`
-Finds a task whose description contains any of the given keyword.
+Finds a task which contain the given keyword
 
 Format: `find KEYWORD`
 
 - The search is case-insensitive. e.g APPLE will match apple
-- Only full words will be matched e.g. apple will not match apples
+- Only full words will be matched e.g. apples will not match apple
 
 Examples:
 '''
 find apple
 '''
+
+>[!TIP]
+>1. Find will match the keyword based on what is shown in the list
+>2. You can find task by Date or Time too
 
 ### Delete a task from the list: `delete`
 Deletes the specified task from the task list.
