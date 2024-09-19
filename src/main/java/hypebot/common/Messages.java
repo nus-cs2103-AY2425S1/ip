@@ -16,21 +16,21 @@ public class Messages {
     public static final String MESSAGE_HELP = """
             YOU CAN LEAN ON ME! Lemme show you around the ropes bro:
             \s
-            • Type '{todo} {Enter name here}' to add a TERRIFIC todo with no date or time associated with it!
-            • Type '{deadline} {Enter name here} /{Enter deadline in yyyy-MM-dd format here}' \
+            • Type '{td/todo} {Enter name here}' to add a TERRIFIC todo with no date or time associated with it!
+            • Type '{dl/deadline} {Enter name here} /{Enter deadline in yyyy-MM-dd format here}' \
             to add a DELIGHTFUL deadline task with a due date!
-            • Type 'event {Enter name here} /{Enter start time in yyyy-MM-dd HHmm format here} \
+            • Type 'ev/event {Enter name here} /{Enter start time in yyyy-MM-dd HHmm format here} \
             /{Enter end time in yyyy-MM-dd HHmm format here}'
               to add an EXCITING event with start and end times!
-            • Type 'list' to see ALL YOUR SWEET TASKS in ADDED ORDER (earliest to latest)!
-            • Type 'mark {Enter task number here}' to mark a task as CONQUERED!
-            • Type 'unmark {Enter task number here}' to unmark a task and TAKE IT ON AGAIN!
-            • Type 'delete {Enter task number here}' to ANNIHILATE a task from your list!
-            • Type 'deleteall' to ANNIHILATE ALL tasks from your list!
-            • Type 'happening /{Enter date in yyyy-MM-dd format here}' to search any deadlines or events \
+            • Type 'l/list' to see ALL YOUR SWEET TASKS in ADDED ORDER (earliest to latest)!
+            • Type 'm/mark {Enter task number here}' to mark a task as CONQUERED!
+            • Type 'u/unmark {Enter task number here}' to unmark a task and TAKE IT ON AGAIN!
+            • Type 'd/delete {Enter task number here}' to ANNIHILATE a task from your list!
+            • Type 'da/deleteall' to ANNIHILATE ALL tasks from your list!
+            • Type 'hp/happening /{Enter date in yyyy-MM-dd format here}' to search any deadlines or events \
             happening on that day!
-            • Type 'find {Enter keywords here}' to find any tasks with any of the keywords!
-            • Type 'bye' if you're all set!
+            • Type 'f/find {Enter keywords here}' to find any tasks with any of the keywords!
+            • Type 'b/bye' if you're all set!
             """;
     public static final String MESSAGE_GREET_INTRO = "AYO WHAT'S UP IT'S ME YOUR\n\n";
     public static final String MESSAGE_GREET_OUTRO = "\nWhat can I do for you, my wonderful homie?\n";
