@@ -1,5 +1,3 @@
-TODO | True | Task
-TODO | False | Task
-TODO | False | Task
-TODO | False | Run Debugger
+TODO | True | Run Debugger
 EVENT | False | Event | 13-08-2024 0800 | 15-08-2024 0800
+DEADLINE | False | Todo | 19-09-2024 1700

@@ -15,7 +15,7 @@ import mylo.ui.Tui;
  * @author cweijin
  */
 public class DeleteCommand extends Command {
-    private final int INDEX;
+    private final int index;
 
     /**
      * Constructs a {@code DeleteCommand} with the specified index.
@@ -26,7 +26,7 @@ public class DeleteCommand extends Command {
      * @param index The index of the task to be deleted.
      */
     public DeleteCommand(int index) {
-        this.INDEX = index;
+        this.index = index;
     }
 
     /**
@@ -41,6 +41,6 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList list, Tui tui) throws StorageOperationException, IndexOutOfBoundsException {
-        return list.deleteTask(INDEX);
+        return list.deleteTask(index);
     }
 }

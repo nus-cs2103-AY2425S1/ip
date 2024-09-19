@@ -18,7 +18,7 @@ import mylo.utils.helpers.HelperFunctions;
  * @author cweijin
  */
 public class Deadline extends Task {
-    private final LocalDateTime DEADLINE;
+    private final LocalDateTime deadline;
 
     /**
      * Constructs a {@code Deadline} task with the specified title and deadline.
@@ -46,7 +46,7 @@ public class Deadline extends Task {
      */
     public Deadline(String title, String deadline, boolean isDone) throws IllegalValueException {
         super(title, isDone);
-        this.DEADLINE = HelperFunctions.stringToDateTime(deadline);
+        this.deadline = HelperFunctions.stringToDateTime(deadline);
     }
 
     /**
@@ -59,7 +59,7 @@ public class Deadline extends Task {
      * @return {@code true} if the task is due on the specified date, {@code false} otherwise.
      */
     public boolean isDueOnDate(LocalDateTime dateTime) {
-        return DEADLINE.toLocalDate().equals(dateTime.toLocalDate());
+        return deadline.toLocalDate().equals(dateTime.toLocalDate());
     }
 
     /**
@@ -73,7 +73,7 @@ public class Deadline extends Task {
     @Override
     public String storageFormat() {
         return String.format("DEADLINE | %s | %s | %s", super.completionStatus(), super.getTitle(),
-                Formatter.dateTimeStorage(DEADLINE));
+                Formatter.dateTimeStorage(deadline));
     }
 
     /**
@@ -98,7 +98,7 @@ public class Deadline extends Task {
      * @return A string representing the formatted deadline.
      */
     private String getDeadlineString() {
-        return " (by: " + Formatter.dateTimeDisplay(DEADLINE) + ")";
+        return " (by: " + Formatter.dateTimeDisplay(deadline) + ")";
     }
 
 }

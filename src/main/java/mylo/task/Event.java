@@ -19,8 +19,8 @@ import mylo.utils.helpers.HelperFunctions;
  * @author cweijin
  */
 public class Event extends Task {
-    private final LocalDateTime START_DATETIME;
-    private final LocalDateTime END_DATETIME;
+    private final LocalDateTime startDateTime;
+    private final LocalDateTime endDateTime;
 
     /**
      * Constructs an {@code Event} task with the specified title, start date/time, and end date/time.
@@ -58,8 +58,8 @@ public class Event extends Task {
     public Event(String title, String startDateTime, String endDateTime, boolean isDone)
             throws IllegalValueException {
         super(title, isDone);
-        this.START_DATETIME = HelperFunctions.stringToDateTime(startDateTime);
-        this.END_DATETIME = HelperFunctions.stringToDateTime(endDateTime);
+        this.startDateTime = HelperFunctions.stringToDateTime(startDateTime);
+        this.endDateTime = HelperFunctions.stringToDateTime(endDateTime);
     }
 
     /**
@@ -72,8 +72,8 @@ public class Event extends Task {
      * @return {@code true} if the event is happening on the specified date, {@code false} otherwise.
      */
     public boolean isOngoing(LocalDateTime dateTime) {
-        LocalDate startDate = START_DATETIME.toLocalDate();
-        LocalDate endDate = END_DATETIME.toLocalDate();
+        LocalDate startDate = startDateTime.toLocalDate();
+        LocalDate endDate = endDateTime.toLocalDate();
         LocalDate date = dateTime.toLocalDate();
         return (startDate.isBefore(date) && endDate.isAfter(date)) || startDate.isEqual(date)
                 || endDate.isEqual(date);
@@ -90,7 +90,7 @@ public class Event extends Task {
     @Override
     public String storageFormat() {
         return String.format("EVENT | %s | %s | %s | %s", super.completionStatus(), super.getTitle(),
-                Formatter.dateTimeStorage(this.START_DATETIME), Formatter.dateTimeStorage(this.END_DATETIME));
+                Formatter.dateTimeStorage(this.startDateTime), Formatter.dateTimeStorage(this.endDateTime));
     }
 
     /**
@@ -114,8 +114,8 @@ public class Event extends Task {
      * @return A string representing the formatted start and end dates.
      */
     private String getStartDateString() {
-        return String.format(" (from: %s to: %s)", Formatter.dateTimeDisplay(START_DATETIME),
-                Formatter.dateTimeDisplay(END_DATETIME));
+        return String.format(" (from: %s to: %s)", Formatter.dateTimeDisplay(startDateTime),
+                Formatter.dateTimeDisplay(endDateTime));
     }
 
 }

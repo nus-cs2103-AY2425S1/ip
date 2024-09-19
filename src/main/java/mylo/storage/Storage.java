@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.util.List;
 
 import mylo.task.Task;
 import mylo.task.TaskList;
@@ -28,7 +28,7 @@ public class Storage {
     /**
      * Locate to the file that stores task list.
      */
-    private final Path PATH = Paths.get(STORAGE_FILEPATH);
+    private final Path path = Paths.get(STORAGE_FILEPATH);
 
     /**
      * Saves the specified {@code task} data to the storage file.
@@ -38,12 +38,12 @@ public class Storage {
      */
     public void save(Task task) throws StorageOperationException {
         try (FileWriter fileWriter = new FileWriter(STORAGE_FILEPATH, true)) {
-            if (!Files.exists(PATH)) {
-                Files.createFile(PATH);
+            if (!Files.exists(path)) {
+                Files.createFile(path);
             }
             fileWriter.write(task.storageFormat() + System.lineSeparator());
         } catch (IOException e) {
-            throw new StorageOperationException("Error writing to file: " + PATH);
+            throw new StorageOperationException("Error writing to file: " + path);
         }
     }
 
@@ -57,16 +57,16 @@ public class Storage {
      */
     public TaskList load() throws StorageOperationException, FileCorruptedException {
 
-        if (!Files.exists(PATH) || !Files.isRegularFile(PATH)) {
+        if (!Files.exists(path) || !Files.isRegularFile(path)) {
             return new TaskList();
         }
 
         try {
-            return TaskList.decodeTxt(Files.readAllLines(PATH));
+            return TaskList.decodeTxt(Files.readAllLines(path));
         } catch (IOException e) {
-            throw new StorageOperationException("Error writing to file: " + PATH);
+            throw new StorageOperationException("Error writing to file: " + path);
         } catch (IllegalValueException | ArrayIndexOutOfBoundsException e) {
-            throw new FileCorruptedException("File content not in the expected format: " + PATH);
+            throw new FileCorruptedException("File content not in the expected format: " + path);
         }
 
     }
@@ -77,11 +77,11 @@ public class Storage {
      * @param list The updated task list to be rewritten into the storage file.
      * @throws StorageOperationException if there are errors reading and/or converting data from the file.
      */
-    public void rewrite(ArrayList<Task> list) throws StorageOperationException {
+    public void rewrite(List<Task> list) throws StorageOperationException {
         try {
-            Files.delete(PATH);
+            Files.delete(path);
         } catch (IOException e) {
-            throw new StorageOperationException("Error rewriting file: " + PATH);
+            throw new StorageOperationException("Error rewriting file: " + path);
         }
 
         for (Task task : list) {

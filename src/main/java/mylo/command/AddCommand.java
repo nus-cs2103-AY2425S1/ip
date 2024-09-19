@@ -18,8 +18,8 @@ import mylo.utils.exceptions.IllegalValueException;
  * @author cweijin
  */
 public class AddCommand extends Command {
-    private final TaskType TYPE;
-    private final String DETAILS;
+    private final TaskType type;
+    private final String details;
 
     /**
      * Constructs an {@code AddCommand} object with the specified task type and details.
@@ -28,8 +28,8 @@ public class AddCommand extends Command {
      * @param details The details of the task to be added, such as description or due date.
      */
     public AddCommand(TaskType type, String details) {
-        this.TYPE = type;
-        this.DETAILS = details;
+        this.type = type;
+        this.details = details;
     }
 
     /**
@@ -44,6 +44,6 @@ public class AddCommand extends Command {
     @Override
     public String execute(TaskList list, Tui tui) throws StorageOperationException, InsufficientInfoException,
             IllegalValueException {
-        return list.addTask(DETAILS, TYPE);
+        return list.addTask(details, type);
     }
 }
