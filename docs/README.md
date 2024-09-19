@@ -11,9 +11,9 @@ Alpha Chatbot will provide timely reminders of your weekly tasks whenever you op
 
 ## How to get started? :bulb:
 
-- [ ] Copy the JAR file `Alpha.jar` into a directory.
-- [ ] `cd` to `your_directory_address`.
-- [ ] Run `java -jar "Alpha.jar"`.
+[ ] Copy the JAR file `Alpha.jar` into a directory.
+[ ] `cd` to `your_directory_address`.
+[ ] Run `java -jar "Alpha.jar"`.
 
 ## Listing all tasks :clipboard:
 
