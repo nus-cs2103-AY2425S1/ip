@@ -214,13 +214,11 @@ public class TaskList extends Command {
     @Override
     public String toString() {
         String finalMessage = "";
-        if (counter > 0) {
-            finalMessage = String.format("  1.%s", this.messages.get(0).toString());
-        }
-        for (int i = 1; i < counter; i++) {
-            int increment = i + 1;
+        int increment = 0;
+        for (int i = 0; i < counter; i++) {
+            increment++;
             finalMessage += String.format("\n  %d.%s", increment, this.messages.get(i).toString());
         }
-        return finalMessage;
+        return "  " + finalMessage.strip();
     }
 }

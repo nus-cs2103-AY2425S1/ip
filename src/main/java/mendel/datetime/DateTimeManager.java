@@ -136,6 +136,11 @@ public class DateTimeManager {
         return date.atStartOfDay(ZoneId.systemDefault()).toEpochSecond();
     }
 
+    /**
+     * Compares whether the object date is earlier
+     *
+     * @return true if date of this object is earlier, false otherwise
+     */
     public boolean isEarlierThan(DateTimeManager laterDate) {
         return this.toEpochTime() < laterDate.toEpochTime();
     }
