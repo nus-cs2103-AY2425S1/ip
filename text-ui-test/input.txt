@@ -1,0 +1,27 @@
+mark
+todo buy milk
+deadline submit quiz /by 2024-08-29 2200
+deadline return book /by Friday
+deadline return book /by 30/08/24
+deadline return book /by 2024-08-30
+event MC /from 2024-08-27 /to 2024-08-28
+event math lecture /from thurs 2pm /to 4pm
+event math lecture /from 2024-08-29 1400 /to 2024-08-29 1600
+list
+mark 1
+list
+unmark 1
+list
+deadline
+deadline submit essay
+event cs2103T briefing
+mark
+mark 6
+delete
+delete 6
+delete 2
+find
+find nomatches
+find book
+invalid command
+bye

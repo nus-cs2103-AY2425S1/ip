@@ -1,7 +1,138 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Task file not found, creating task file.
+Unable to create task file.
+Task file not found.
+____________________________________
+Hello, I'm Rasputin!
+What can I do for you?
+____________________________________
+
+____________________________________
+No tasks in list!
+____________________________________
+
+____________________________________
+Added Todo task:
+[T][ ] buy milk
+You currently have 1 task/s in your list.
+____________________________________
+
+____________________________________
+Added Deadline task:
+[D][ ] submit quiz (by: 29 Aug 2024 2200)
+You currently have 2 task/s in your list.
+____________________________________
+
+____________________________________
+ERROR! Invalid deadline format.
+____________________________________
+
+____________________________________
+ERROR! Invalid deadline format.
+____________________________________
+
+____________________________________
+Added Deadline task:
+[D][ ] return book (by: 30 Aug 2024)
+You currently have 3 task/s in your list.
+____________________________________
+
+____________________________________
+ERROR! Invalid event duration format.
+____________________________________
+
+____________________________________
+ERROR! Invalid event duration format.
+____________________________________
+
+____________________________________
+Added Event task:
+[E][ ] math lecture (from: 29 Aug 2024 1400 to: 29 Aug 2024 1600)
+You currently have 4 task/s in your list.
+____________________________________
+
+____________________________________
+1.[T][ ] buy milk
+2.[D][ ] submit quiz (by: 29 Aug 2024 2200)
+3.[D][ ] return book (by: 30 Aug 2024)
+4.[E][ ] math lecture (from: 29 Aug 2024 1400 to: 29 Aug 2024 1600)
+____________________________________
+
+____________________________________
+Marked that as done for you.
+[T][X] buy milk
+____________________________________
+
+____________________________________
+1.[T][X] buy milk
+2.[D][ ] submit quiz (by: 29 Aug 2024 2200)
+3.[D][ ] return book (by: 30 Aug 2024)
+4.[E][ ] math lecture (from: 29 Aug 2024 1400 to: 29 Aug 2024 1600)
+____________________________________
+
+____________________________________
+Task has been unmarked.
+[T][ ] buy milk
+____________________________________
+
+____________________________________
+1.[T][ ] buy milk
+2.[D][ ] submit quiz (by: 29 Aug 2024 2200)
+3.[D][ ] return book (by: 30 Aug 2024)
+4.[E][ ] math lecture (from: 29 Aug 2024 1400 to: 29 Aug 2024 1600)
+____________________________________
+
+____________________________________
+ERROR! The description of a task cannot be empty.
+____________________________________
+
+____________________________________
+ERROR! Deadline tasks require a deadline to be completed by.
+____________________________________
+
+____________________________________
+ERROR! Event tasks require a duration for the event.
+____________________________________
+
+____________________________________
+ERROR! Task to be marked not specified.
+____________________________________
+
+____________________________________
+ERROR! Task not found.
+____________________________________
+
+____________________________________
+ERROR! Task to be deleted not specified.
+____________________________________
+
+____________________________________
+ERROR! Task not found.
+____________________________________
+
+____________________________________
+Done, removed that task for you.
+[D][ ] submit quiz (by: 29 Aug 2024 2200)
+____________________________________
+
+____________________________________
+ERROR! Find command requires a keyword to search with.
+____________________________________
+
+____________________________________
+No matching tasks in list.
+____________________________________
+
+____________________________________
+Here are the matching tasks in your list.
+1.[D][ ] return book (by: 30 Aug 2024)
+____________________________________
+
+____________________________________
+ERROR! Unknown command.
+____________________________________
+
+ERROR! Could not write to file.
+____________________________________
+Bye. See you later!
+____________________________________
 
