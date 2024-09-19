@@ -382,11 +382,6 @@ public class Angel {
         return formattedTasks.toString().trim();
     }
 
-    /**
-     * Entry point of the Angel application.
-     *
-     * @param args Command-line arguments.
-     */
     public static void main(String[] args) {
         new Angel().run();
     }

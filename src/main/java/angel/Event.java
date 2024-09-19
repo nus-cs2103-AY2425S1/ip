@@ -7,9 +7,9 @@ import java.time.format.DateTimeFormatter;
  * Represents an event task that has a start and end date/time.
  */
 public class Event extends Task {
+    private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy, HHmm");
     protected LocalDateTime from;
     protected LocalDateTime to;
-    private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy, HHmm");
 
     /**
      * Constructs an Event instance with the given description, start, and end date/time.
@@ -42,9 +42,9 @@ public class Event extends Task {
         }
         if (obj instanceof Event) {
             Event other = (Event) obj;
-            return this.description.equals(other.description) &&
-                    this.from.equals(other.from) &&
-                    this.to.equals(other.to);
+            return this.description.equals(other.description)
+                    && this.from.equals(other.from)
+                    && this.to.equals(other.to);
         }
         return false;
     }
@@ -65,7 +65,7 @@ public class Event extends Task {
     /**
      * Returns a string representation of the Event in a format suitable for saving to a file.
      *
-     * @return A string representation of the Event in the save format, including its type, status, description, start, and end date/time.
+     * @return A string representation of the Event in the save format.
      */
     @Override
     public String toSaveFormat() {

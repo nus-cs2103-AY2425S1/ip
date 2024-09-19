@@ -40,7 +40,8 @@ public class Parser {
             return parseIndexCommand(parts, command);
         default:
             throw new InvalidCommandException("Unknown command: " + command
-                    + ". Please enter a valid command (e.g., list, todo, deadline, event, mark, unmark, delete, bye, find).");
+                    + ". Please enter a valid command "
+                    + "(e.g., list, todo, deadline, event, mark, unmark, delete, bye, find).");
         }
     }
 
@@ -68,7 +69,8 @@ public class Parser {
      */
     private static Command parseTodoCommand(String[] parts) throws InvalidCommandException {
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
-            throw new InvalidCommandException("The description of a todo cannot be empty. Please specify a task after 'todo'.");
+            throw new InvalidCommandException("The description of a todo cannot be empty. "
+                    + "Please specify a task after 'todo'.");
         }
         return new Command("todo", parts[1].trim());
     }

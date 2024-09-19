@@ -7,8 +7,8 @@ import java.time.format.DateTimeFormatter;
  * Represents a deadline task that has a due date/time.
  */
 public class Deadline extends Task {
-    protected LocalDateTime by;
     private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy, HHmm");
+    protected LocalDateTime by;
 
     /**
      * Constructs a Deadline instance with the given description and due date/time.
@@ -59,8 +59,7 @@ public class Deadline extends Task {
     /**
      * Returns a string representation of the Deadline in a format suitable for saving to a file.
      *
-     * @return A string representation of the Deadline in the save format,
-     * including its type, status, description, and due date/time.
+     * @return A string representation of the Deadline in the save format.
      */
     @Override
     public String toSaveFormat() {
