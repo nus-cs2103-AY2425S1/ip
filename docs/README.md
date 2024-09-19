@@ -1,6 +1,8 @@
 # Taskalyn User Guide
 
-![Product Screenshot](Ui.png)
+<div align="center">
+    <img src="Ui.png" alt="Taskalyn Screenshot" width="200">
+</div>
 
 ## Introduction
 
