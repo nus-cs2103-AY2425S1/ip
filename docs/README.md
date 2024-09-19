@@ -1,6 +1,7 @@
 # Echo User Guide
 
-![Screenshot of Echo GUI](Ui.png)
+<img src="Ui.png" width="300">
+
 Echo is a chat bot who will help you manage your tasks!
 
 ## Adding todos: `Todo`
