@@ -1,6 +1,6 @@
 # Kira User Guide
 
-![Screenshot 2024-09-19 at 1.05.10 PM.png](..%2F..%2F..%2FDesktop%2FScreenshot%202024-09-19%20at%201.05.10%E2%80%AFPM.png)
+![Ui.png](Ui.png)
 
 Kira is your personal secretary that is not just cute, but keeps track of all the overwhelming things you need to do!
 

@@ -9,7 +9,6 @@ public abstract class Task {
     private boolean isPriority;
 
     public Task(String taskName) {
-        System.out.println("Task constructor called");
         this.taskName = taskName;
         this.isDone = false;
         this.isPriority = false;
