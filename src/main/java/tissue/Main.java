@@ -1,6 +1,8 @@
 package tissue;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -13,12 +15,11 @@ import tissue.window.MainWindow;
  * Main application handler.
  */
 public class Main extends Application {
-
+    private static Logger logger = Logger.getLogger(Main.class.getName());
     private final Tissue tissue = new Tissue("./data/", "tissue.csv");
 
     @Override
-    public void start(Stage stage) throws Exception {
-
+    public void start(Stage stage) {
         try {
             FXMLLoader fxmlLoader =
                     new FXMLLoader(Main.class.getResource(("/view/MainWindow.fxml")));
@@ -29,7 +30,7 @@ public class Main extends Application {
             fxmlLoader.<MainWindow>getController().setTissue(tissue);
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Sorry application met an error.");
         }
     }
 }

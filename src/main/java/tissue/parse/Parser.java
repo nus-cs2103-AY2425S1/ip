@@ -1,5 +1,6 @@
 package tissue.parse;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
@@ -16,10 +17,26 @@ public class Parser {
      * Returns the string of the next input.
      *
      * @return Next input string.
+     * @throws NoSuchElementException If no more tokens are available.
      */
-    public String retrieveNextString() {
-        return scanner.next();
+    public String retrieveNextString() throws NoSuchElementException {
+        return scanner.next().strip();
     }
+
+    /**
+     * Returns the string until the next line.
+     *
+     * @return String until next line.
+     * @throws NoSuchElementException If no more tokens are available.
+     */
+    public String retrieveUntilNextLine() throws NoSuchElementException {
+        String str = scanner.nextLine().strip();
+        if (str.isEmpty()) {
+            throw new NoSuchElementException();
+        }
+        return str;
+    }
+
 
     /**
      * Returns the next input as integer.
@@ -41,12 +58,16 @@ public class Parser {
      * @param pattern Pattern to scan until.
      * @return Subsection of string.
      */
-    public String scanUntil(String pattern) {
+    public String scanUntil(String pattern) throws NoSuchElementException {
         String item = "";
         String temp = scanner.next();
         while (!temp.equals(pattern) && scanner.hasNext()) {
             item += temp + " ";
             temp = scanner.next();
+        }
+        item = item.strip();
+        if (item.isEmpty()) {
+            throw new NoSuchElementException();
         }
         return item;
     }

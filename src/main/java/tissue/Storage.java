@@ -9,6 +9,8 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import tissue.task.Deadline;
 import tissue.task.Event;
@@ -40,15 +42,11 @@ public class Storage {
      *
      * @param task The task to save to the file.
      */
-    public void save(Task task) {
+    public void save(Task task) throws IOException {
         String parsedTask = parseTask(task);
-        try {
-            Files.createDirectories(path);
-            Files.writeString(
-                    file, parsedTask, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
-        } catch (IOException e) {
-            System.out.println(e);
-        }
+        Files.createDirectories(path);
+        Files.writeString(
+                file, parsedTask, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
     }
 
     /**
@@ -56,30 +54,27 @@ public class Storage {
      *
      * @return The tasks stored in an array.
      */
-    public ArrayList<Task> load() {
-        try (BufferedReader br = new BufferedReader(new FileReader(file.toString()))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] values = line.split(",");
-                String taskType = values[0].strip();
-                switch (taskType) {
-                case "T":
-                    addToDo(values);
-                    break;
-                case "E":
-                    addEvent(values);
-                    break;
+    public ArrayList<Task> load() throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader(file.toString()));
+        String line;
+        while ((line = br.readLine()) != null) {
+            String[] values = line.split(",");
+            String taskType = values[0].strip();
+            switch (taskType) {
+            case "T":
+                addToDo(values);
+                break;
+            case "E":
+                addEvent(values);
+                break;
 
-                case "D":
-                    addDeadline(values);
-                    break;
+            case "D":
+                addDeadline(values);
+                break;
 
-                default:
-                    break;
-                }
+            default:
+                break;
             }
-        } catch (IOException e) {
-            System.out.println(e);
         }
         return taskList;
     }
@@ -129,19 +124,14 @@ public class Storage {
      *
      * @param line The index of the task.
      */
-    public void delete(int line) {
-        try {
-            List<String> lines = Files.readAllLines(file);
-            if (line <= lines.size()) {
-                lines.remove(line - 1);
-                Files.write(file, lines);
-                System.out.println("Line " + line + " deleted successfully.");
-            } else {
-                System.out.println("Line number out of range.");
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void delete(int line) throws IOException {
+        List<String> lines = Files.readAllLines(file);
+        if (line <= lines.size()) {
+            lines.remove(line - 1);
+            Files.write(file, lines);
+            System.out.println("Line " + line + " deleted successfully.");
+        } else {
+            System.out.println("Line number out of range.");
         }
     }
 }
