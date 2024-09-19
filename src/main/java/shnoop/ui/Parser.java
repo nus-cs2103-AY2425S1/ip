@@ -184,9 +184,13 @@ public class Parser {
      */
     public static Command parse(String input) throws ShnoopException {
         String improperInput =
-                "✿ Shnoop ✿: You could travel the world, but nothing comes close to choosing a task type.\n"
-                        + "✿ Shnoop ✿: Try typing 'todo', 'event' or 'deadline' "
-                        + "followed by stating the task description.";
+                "You could travel the world, but nothing comes close to choosing a task type.\n\n"
+                        + "I have a few California Gorls for you to try out. \n\n "
+                        + "Try typing 'todo', 'event' or 'deadline' followed by stating the task description. \n"
+                        + "Other commands you could try out too are list, mark, unmark, find, delete \n"
+                        + "And don't tell anyone else I told you this but you can also type 'list 1' to sort tasks!\n"
+                        + "But perhaps the most imporant of all, you MUST say 'bye' to me before leaving!"
+                        + " Or else Imma forget all about your sorry donkey!";
         String[] commandParts = input.split(" ");
         int length = input.length();
 
