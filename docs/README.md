@@ -28,7 +28,10 @@ To get started with Sunny, follow these steps:
 >   - wrong date format
 >   - invalid date
 > - If no command is entered, the system will prompt
-> you with 'Please specify a task'
+> you with `Please specify a task`
+
+
+
 
 ### 1. Adding deadlines: `deadline`
 
