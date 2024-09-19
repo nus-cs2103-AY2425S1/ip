@@ -14,7 +14,7 @@ import java.util.Scanner;
  * Handles saving tasks to file.
  */
 public class Storage {
-    final String FILE_PATH = "./src/data/SusanToDoList.txt";
+    final String FILE_PATH = "./data/SusanToDoList.txt";
 
     public Storage() {}
 
@@ -27,7 +27,7 @@ public class Storage {
      */
     public void load(TaskList tasks) throws SusanException {
         // Create data file
-        File dataPath = new File("./src/data");
+        File dataPath = new File("./data");
         if (!dataPath.exists()) {
             boolean x = dataPath.mkdir();
             assert x : "Failed to create data path";
