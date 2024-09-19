@@ -65,8 +65,7 @@ public class Pixel {
     }
 
     /**
-     * The entry point of the Pixel application. It creates a new instance of Pixel
-     * and runs the application.
+     * Creates a new instance of Pixel and runs the application.
      *
      * @param input The input command.
      * @return The response message from the Pixel application.

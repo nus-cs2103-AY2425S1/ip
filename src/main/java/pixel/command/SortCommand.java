@@ -35,10 +35,6 @@ public class SortCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws PixelException {
-        // taskList.addTask(this.task);
-        // ui.pixelSays("Got it. I've added this task:", " " + this.task, "Now you have
-        // " + taskList.size()
-        // + " tasks in the list.");
         switch (this.keyword) {
         case "name":
             taskList.sortByName();

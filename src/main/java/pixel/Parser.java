@@ -30,14 +30,14 @@ public class Parser {
         String cmdString = fullCommand.split(" ")[0].toUpperCase();
         PixelCommandEnum cmd;
 
-        boolean valid = false;
+        boolean isValid = false;
         for (PixelCommandEnum pixelCmd : PixelCommandEnum.values()) {
             if (cmdString.equals(pixelCmd.toString())) {
-                valid = true;
+                isValid = true;
                 break;
             }
         }
-        if (!valid) {
+        if (!isValid) {
             throw new PixelException(String.format("OH NO!!! I don't understand '%s'! Try Again!", cmdString));
         }
 
