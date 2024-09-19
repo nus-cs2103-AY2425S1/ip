@@ -16,7 +16,10 @@ import java.io.IOException;
  * The application reads from and writes to a task list file and provides a simple text-based interface to manage tasks.
  */
 public class Snipe {
+    private String taskListFilePath;
+    private String archiveListFilePath;
     private Storage taskListStorage;
+    private Storage archiveListStorage;
     private TaskList tasks;
     private Ui ui;
 
@@ -28,7 +31,10 @@ public class Snipe {
      */
     public Snipe(String filePath) {
         this.ui = new Ui();
-        this.taskListStorage = new Storage(filePath);
+        this.taskListFilePath = filePath + "/taskList.txt";
+        this.archiveListFilePath = filePath + "/archiveList.txt";
+        this.taskListStorage = new Storage(this.taskListFilePath);
+        this.archiveListStorage = new Storage(this.archiveListFilePath);
         try {
             this.tasks = new TaskList(taskListStorage.readTaskList());
         } catch (SnipeException | IOException e) {
@@ -100,7 +106,7 @@ public class Snipe {
      * @throws SnipeException If an application-specific error occurs during initialisation.
      */
     public static void main(String[] args) throws IOException, SnipeException {
-        Snipe snipe = new Snipe("src/main/txt/taskList.txt");
+        Snipe snipe = new Snipe("src/main/txt");
         snipe.initChat();
     }
 }
