@@ -57,11 +57,7 @@ public class TaskList {
 
     /** Returns the String representation of the TaskList to be written in the save file. */
     public String toFileFormat() {
-        String text = "";
-        for (Task task : list) {
-            text += task.toFileFormat() + "\n";
-        }
-        return text;
+        return list.stream().map(x -> x.toFileFormat()).reduce("", (x, y) -> y + x + "\n");
     }
 
     /** Returns the String representation of the TaskList to be displayed on the Ui. */
