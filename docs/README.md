@@ -1,6 +1,6 @@
 # Gopher User Guide
 
-<img src="Ui.png" alt="ScreenShot of Gopher's UI for showcase to the user" />
+<img src="Ui.png" alt="ScreenShot of Gopher's UI for showcase to the user" width="70%" />
 
 ## Menu
 - [Introduction](#introduction)
@@ -24,7 +24,7 @@
 ## Introduction
 Having issue managing and tracking your tasks? Gopher is here to help you!\
 Just tell Gopher what you want to track, and Gopher can remember everything for you!\
-Store, Manage and Query the tasks just like how you talk to a person in real life!\
+Store, Manage and Query the tasks just like how you talk to a person in real life!
 
 ## Feature List
 1. Add Task(which can be todo, deadline or event)
@@ -62,19 +62,19 @@ With a command:
 
 ### Add todo
 Todo is a type of task that only contains description/name of the task, it can be created using:\
-`todo [taskName]`\
+`todo [taskName]`
 
 Example: `todo Wash Clothes`
 
 ### Add deadline
 Deadline is a type of task that contains a due date, it can be created using:\
-`deadline [taskName] /by [due date time]`\
+`deadline [taskName] /by [due date time]`
 
 Example: `deadline iP Final Submission /by 2024-09-20 23:59`
 
 ### Add event
 Event is a type of task that contains a start and end date, it can created using:\
-`event [taskName] /from [start date time] /to [end date time]`\
+`event [taskName] /from [start date time] /to [end date time]`
 
 Example: `event Orbital Splashdown /from 2024-08-28 16:00 /to 2024-08-28 21:00`
 
@@ -84,31 +84,32 @@ You can list out all the tasks that are current tracked by Gopher using:\
 
 ### Mark tasks as done
 You can mark multiple tasks as done using:\
-`mark [task number]...`\
+`mark [task number]...`
 
 For example: `mark 1 2 3`
 
 ### Mark tasks as not done
 You can mark multiple tasks as not done using:\
-`unmark [task number]...`\
+`unmark [task number]...`
 
 For example: `unmark 1 2 3`
 
 ### Update todo
-You can update a todo task using:
-`update [task number] [new task name]`\
+You can update a todo task using:\
+`update [task number] [new task name]`
 
 For example:\
 If you want to update a todo task with task number 1 with new task name `Assignment 1`, input:\
 `update 1 Assignment 1` 
 
 ### Update deadline
-You can update a deadline task using:
+You can update a deadline task using:\
 `deadline [task number] {new task name} {/by new due date time}`\
 For example:\
-If you want to update a deadline task with task number 2 with the following information:\
+If you want to update a deadline task with task number 2 with the following information:
 - New task name: `CS2101 OP1 Synopsis`
 - New due date time: `2024-09-12`\
+
 You can input the update command like this:\
 `update 2 CS2101 OP1 Synopsis /by 2024-09-12`
 
@@ -121,6 +122,7 @@ If you want to update an event task with task number 3 with the following inform
 - New task name: `CS2100 Midterm Exam`
 - New start date time: `2024-10-10 10:00`
 - New end date time: `2024-10-10 12:00`\
+
 You can input the update command like this:\
 `update 3 CS2100 Midterm Exam /from 2024-10-10 10:00 /to 2024-10-10 12:00`
 
