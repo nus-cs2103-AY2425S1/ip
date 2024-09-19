@@ -1,0 +1,13 @@
+todo buy bread
+deadline finish quiz /by 2024-08-23
+event competition /from 2024-08-24 0800 /to 2024-08-24 1300
+list
+mark 1
+list
+unmark 1
+list
+bye
+
+
+
+
