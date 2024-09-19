@@ -3,18 +3,18 @@
 Bobby the chatbot is a **task management application where user can use it to keep track of tasks**. It is **optimized for use via a Command Line Interface (CLI)** while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Bobby the chatbot can help you get your tasks done faster than traditional GUI apps.
 
 - [Quick Start](#quick-start)
-- [Features](https://github.com/zhiyi12345/ip/edit/master/docs/README.md#features)
-  - [Adding To Do Tasks: `todo`](https://github.com/zhiyi12345/ip/edit/master/docs/README.md#adding-to-do-tasks-todo)
-  - [Adding Deadline Tasks: `deadline`](https://github.com/zhiyi12345/ip/edit/master/docs/README.md#adding-deadline-tasks-deadline)
-  - [Adding Event Tasks: `event`](https://github.com/zhiyi12345/ip/edit/master/docs/README.md#adding-event-tasks-event)
-  - [Finding the list of Tasks: `list`](https://github.com/zhiyi12345/ip/edit/master/docs/README.md#finding-the-list-of-tasks-list)
-  - [Mark task in list as done: `mark`](https://github.com/zhiyi12345/ip/edit/master/docs/README.md#mark-task-in-list-as-done-mark)
-  - [Unmark task in list as not done: `unmark`](https://github.com/zhiyi12345/ip/edit/master/docs/README.md#unmark-task-in-list-as-not-done-unmark)
-  - [Locating a task by its description: `find`](https://github.com/zhiyi12345/ip/edit/master/docs/README.md#locating-a-task-by-its-description-find)
-  - [Delete a task from the list: `delete`](https://github.com/zhiyi12345/ip/edit/master/docs/README.md#delete-a-task-from-the-list-delete)
-  - [Exiting the program: `bye`](https://github.com/zhiyi12345/ip/edit/master/docs/README.md#exiting-the-program-bye)
-  - [Saving the data](https://github.com/zhiyi12345/ip/edit/master/docs/README.md#saving-the-data)
-- [Known Issue](https://github.com/zhiyi12345/ip/edit/master/docs/README.md#known-issue)
+- [Features](#features)
+  - [Adding To Do Tasks: `todo`](#adding-to-do-tasks-todo)
+  - [Adding Deadline Tasks: `deadline`](#adding-deadline-tasks-deadline)
+  - [Adding Event Tasks: `event`](#adding-event-tasks-event)
+  - [Finding the list of Tasks: `list`](#finding-the-list-of-tasks-list)
+  - [Mark task in list as done: `mark`](#mark-task-in-list-as-done-mark)
+  - [Unmark task in list as not done: `unmark`](#unmark-task-in-list-as-not-done-unmark)
+  - [Locating a task by its description: `find`](#locating-a-task-by-its-description-find)
+  - [Delete a task from the list: `delete`](#delete-a-task-from-the-list-delete)
+  - [Exiting the program: `bye`](#exiting-the-program-bye)
+  - [Saving the data](#saving-the-data)
+- [Known Issue](#known-issue)
 
 
 ## Quick Start
@@ -27,7 +27,7 @@ Bobby the chatbot is a **task management application where user can use it to ke
 
 
 6. Type the command in the command box and press Enter to execute it.
-7. Refer to the Features below for details of each command.
+7. Refer to the [Features](#features) below for details of each command.
 
 ## Features
 >[!NOTE]
