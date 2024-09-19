@@ -8,10 +8,10 @@ our chatbot GUI!
 
 ## Initialise chat bot
 
-1. Download the jar file from github.
-2. Copy the file to a empty folder.
+1. Download the jar file from [Github](https://github.com/CJianzhi/ip).
+2. Copy the file to an empty folder.
 2. Using a command terminal, `cd` into the directory containing the file. 
-3. Run `java -jar bimo.jar`
+3. Run `java -jar bimo.jar`.
 
 ## Available commands
 - todo
@@ -38,7 +38,7 @@ Example usage:
 
 Expected output:
 ```
-Got it. I've added this task for you
+Roger that. I've added this task for you
   [T][] Buy bread
 Now you have 1 task in the list.
 ```
@@ -51,7 +51,7 @@ Format: `deadline DESCRIPTION /by yyyy-mm-dd`
 - Date specified must be in year-month-day order
 - Year must be specified using 4 numbers, e.g. 2023
 - Month must be specified using 2 numbers, e.g. 03
-- Day must be specified using 2 numebrs, e.g. 01
+- Day must be specified using 2 numbers, e.g. 01
 - `/by` indicates the due date
 
 Example usage:
@@ -60,11 +60,11 @@ Example usage:
 
 Expected output:
 ```
-Got it. I've added this task for you
+Roger that. I've added this task for you
   [D][] Complete tutorial (by: 22 Sept 2024)
 Now you have 1 task in the list.
 ```
-## Adding tasks with Start and end date
+## Adding tasks with start and end date
 
 Add a task that starts at a specific date and ends at a specific date.
 
@@ -72,7 +72,7 @@ Format: `event DESCRIPTION /from yyyy-mm-dd /to yyyy-mm-dd`
 - Date specified must be in year-month-day order
 - Year must be specified using 4 numbers, e.g. 2023
 - Month must be specified using 2 numbers, e.g. 03
-- Day must be specified using 2 numebrs, e.g. 01
+- Day must be specified using 2 numbers, e.g. 01
 - `/from` indicates the start date
 - `/to` indicates the end date
 
@@ -82,7 +82,7 @@ Example usage:
 
 Expected output:
 ```
-Got it. I've added this task for you
+Roger that. I've added this task for you
   [E][] Attend workshop (from: 22 Sept 2024 to: 23 Sept 2024)
 Now you have 1 task in the list.
 ```
@@ -100,7 +100,7 @@ Example usage:
 
 Expected output:
 ```
-Good job! I've crossed out this task for you!
+Wow! Good job! I've crossed out this task for you!
  [T][X] Buy bread
 ```
 
@@ -134,7 +134,7 @@ Example usage:
 
 Expected output:
 ```
-Noted. I've removed this task for you
+Roger that. I've removed this task for you
   [T][] Buy bread
 Now you have 0 tasks in the list.
 ```
@@ -161,17 +161,17 @@ Have a look at the list of tasks:
 
 Display list of tasks containing at least one of the words specified by users.
 
-Format: `Find WORD_1 WORD_2 WORD_3`
+Format: `find WORD_1 WORD_2 WORD_3`
 - Users can provide one or more words that are separated by a space
 - Only the description of each task is searched
 
 Example usage:
 
-`Find bread tutorial`
+`find bread tutorial`
 
 Expected output:
 ```
-Here are the matching tasks in your list:
+Here are the matching tasks you requested:
   1.[T][] Buy bread
   2.[D][] Complete tutorial (by: 22 Sept 2024)
 ```
@@ -182,7 +182,7 @@ Add priority levels `HIGH`, `MEDIUM` or `LOW` to the tasks to indicate
 the urgency for each task.
 
 Format: `set TASK_NUMBER PRIORITY_LEVEL`
-- `PRIORTY_LEVEL` must be either `HIGH`, `MEDIUM` or `LOW` 
+- `PRIORiTY_LEVEL` must be either `HIGH`, `MEDIUM` or `LOW` 
 - `TASK_NUMBER` is the position of the task in the list
 
 Example usage:
@@ -207,7 +207,8 @@ Example usage:
 
 Expected output:
 ```
-Take a look at this!
+Take a look at what I can do!
+
 Available commands:
 
 1. todo <task>
@@ -246,5 +247,5 @@ Example usage:
 
 Expected output:
 ```
-Bye!!! Thanks for chatting!
+Bye Bye!!! Have a good day!
 ```
