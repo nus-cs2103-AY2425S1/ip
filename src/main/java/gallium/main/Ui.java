@@ -72,9 +72,31 @@ public class Ui {
      * @param task   The Task that was marked or unmarked.
      */
     public void printMarkMessage(boolean isMark, Task task) {
-        append("    " + (isMark ? "Nice! I've marked this task as done: "
+        append((isMark ? "Nice! I've marked this task as done: "
                 : "OK, I've marked this task as not done yet: ") + "\n" + "    "
                 + task.toString());
+    }
+
+    public void printEditMessage(Task task) {
+        append("You have edited this task: " + task.toString());
+    }
+
+    public void printShowTask(Task task) {
+        append("This is your task: " + task.toString() + "\n");
+    }
+
+    public void printAskEditField(Task task) {
+        if (task instanceof Todo) {
+            append("Enter the new description of your todo: ");
+        } else if (task instanceof Deadline) {
+            append("Enter the number representing the fields + the description that you want to change to: \n");
+            append("1. description \n 2. date \n");
+            append("Eg: 1. cs2103t assignment");
+        } else if (task instanceof Event) {
+            append("Enter the number representing the fields + the description that you want to change to: \n");
+            append("1. description \n2. from date \n3. to date\n");
+            append("Eg: 1. cs2103t assignment");
+        }
     }
 
     /**
