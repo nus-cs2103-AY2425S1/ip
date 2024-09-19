@@ -26,6 +26,8 @@ public class Parser {
      * @throws LunaBotException If the input command is not recognized or formatted incorrectly.
      */
     public static Command parse(String input) throws LunaBotException {
+        assert input != null && !input.isEmpty()
+                : "Input cannot be null or empty";
         String[] fullCommand = input.split(" ");
         String command = fullCommand[0];
         switch (command) {
@@ -48,7 +50,7 @@ public class Parser {
         case "find":
             return new FindCommand(input);
         default:
-            throw new LunaBotException(" Invalid command");
+            throw new LunaBotException("Invalid command");
         }
     }
 }

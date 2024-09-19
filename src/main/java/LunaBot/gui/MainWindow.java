@@ -8,7 +8,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import lunabot.LunaBot;
-import lunabot.exception.LunaBotException;
 
 /**
  * Controller for the main GUI.
@@ -45,12 +44,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response;
-        try {
-            response = luna.getResponse(input);
-        } catch (LunaBotException e) {
-            response = e.getMessage();
-        }
+        String response = luna.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, botImage)
