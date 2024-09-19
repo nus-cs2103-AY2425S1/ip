@@ -1,6 +1,7 @@
 # Darwin
 
 This is a chatbot with an interface that allows users to keep track of tasks.
+![Ui](Ui.png)
 
 ## Quick Start
 
@@ -55,4 +56,4 @@ Example of usage:
 - `find book` finds all tasks with the keyword "book".
 
 ### Saving the data
-Darwin data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+Darwin data is saved in the file `tasks.txt` automatically after any command that changes the data. There is no need to save manually.
