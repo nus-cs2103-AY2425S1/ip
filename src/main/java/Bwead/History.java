@@ -85,7 +85,7 @@ public class History {
      * Converts a string from the local file into its equivalent task.
      *
      * @param string String from the local file.
-     * @return Task task that is represented by the string.
+     * @return Task that is represented by the string.
      */
     public static Task getTaskfromString(String string) {
         char type = string.charAt(1);

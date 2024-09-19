@@ -29,6 +29,9 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getBweadDialog("hello from Bwead!", bweadImage)
+        );
     }
 
     /** Injects the Bwead instance */
@@ -50,5 +53,7 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
     }
+
+
 }
 

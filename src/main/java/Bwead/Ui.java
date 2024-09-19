@@ -58,7 +58,7 @@ public class Ui {
                 }
             } else {
                 if (parser.isInvalidMultiWord()) {
-                    throw new BweadException("i don't know what that means");
+                    throw new BweadException("i don't know what that means :(");
                 }
             }
         } catch (BweadException e) {
@@ -87,11 +87,13 @@ public class Ui {
                 return handleDeadlineSnooze(parser);
             } else if (input.startsWith("snooze event")) {
                 return handleEventSnooze(parser);
+            } else if (input.startsWith("snooze todo")) {
+                return "todo events cannot be snoozed!";
             }
-        } catch (BweadException e) {
-            return (e.getMessage());
+        } catch (Exception e) {
+            return ("oops something went wrong. check the format of your commands!");
         }
-        return "";
+        return "i don't know what that means :(";
     }
 
     /**
@@ -103,6 +105,11 @@ public class Ui {
      */
     public String handleMark(Parser parser) throws IOException {
         int toadd = parser.getTaskToMark();
+        try {
+            taskList.getCurrentList().get(toadd - 1);
+        } catch (Exception e) {
+            return "task not found. marking failed";
+        }
         Task task = taskList.getCurrentList().get(toadd - 1);
         task.setDone(true);
         history.updateFile(taskList.getCurrentList());
@@ -118,6 +125,11 @@ public class Ui {
      */
     public String handleUnmark(Parser parser) throws IOException {
         int toadd = parser.getTaskToMark();
+        try {
+            taskList.getCurrentList().get(toadd - 1);
+        } catch (Exception e) {
+            return "task not found. unmarking failed";
+        }
         Task task = taskList.getCurrentList().get(toadd - 1);
         task.setDone(false);
         history.updateFile(taskList.getCurrentList());
@@ -198,8 +210,9 @@ public class Ui {
      *
      * @param parser
      * @return string to return to user.
+     * @throws BweadException
      */
-    public String handleFind(Parser parser) {
+    public String handleFind(Parser parser) throws BweadException {
         String keyword = parser.getKeyword();
         ArrayList<String> matches = new ArrayList<>();
         for (int i = 0; i < taskList.getCurrentList().size(); i++) {
@@ -208,7 +221,7 @@ public class Ui {
             }
         }
         if (matches.size() == 0) {
-            throw new BweadException("no matching tasks found");
+            throw new BweadException("no matching tasks found :(");
         }
         String matchingTasksString = "Here are the matching tasks in your list:" + "\n";
         for (int i = 0; i < matches.size(); i++) {
@@ -269,6 +282,11 @@ public class Ui {
         return "event task " + eventToEdit.getName() + "'s date and time is updated!";
     }
 
+    /**
+     * Handles a list command.
+     *
+     * @return string of list to return to user.
+     */
     public String handleList() {
         if (taskList.getCurrentList().size() == 0) {
             return "no tasks in list yet!";
