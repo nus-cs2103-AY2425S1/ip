@@ -1,6 +1,1 @@
 [T] [ ] asd
-[T] [ ] sad
-[T] [ ] asd
-[T] [ ] task
-[E] [ ] asd (from: asd to: asd)
-[T] [ ] sad
