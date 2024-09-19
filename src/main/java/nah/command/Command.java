@@ -299,12 +299,12 @@ public abstract class Command {
          * @param storage the Storage where data is stored
          */
 
-        private final String unkown_line = " Nahhhhh!!! Please type 'help' to get possible command type\n";
+        private final String unkownLine = " Nahhhhh!!! Please type 'help' to get possible command type\n";
         @Override
         public String execute(TaskList tasks, Storage storage) {
             assert storage != null : "Storage cannot be null";
             assert tasks != null : "Tasklist cannot be null";
-            return unkown_line;
+            return unkownLine;
         }
     }
 
@@ -382,9 +382,9 @@ public abstract class Command {
             assert storage != null : "Storage cannot be null";
             assert tasks != null : "Tasklist cannot be null";
             String ret = " ";
-            for (int i = 0; i < count; i ++) {
+            for (int i = 0; i < count; i++) {
                 ret += "Nah";
-                for (int j = 0; j < i; j ++) {
+                for (int j = 0; j < i; j++) {
                     ret += "h";
                 }
                 ret += "\n" + " ";

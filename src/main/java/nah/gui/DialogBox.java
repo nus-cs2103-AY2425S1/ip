@@ -1,4 +1,4 @@
-package nah.GUI;
+package nah.gui;
 
 import java.io.IOException;
 import java.util.Collections;

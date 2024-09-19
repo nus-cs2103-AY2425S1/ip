@@ -1,6 +1,7 @@
-package nah.GUI;
+package nah.gui;
 
 import java.io.IOException;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -10,10 +11,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
 import javafx.stage.Stage;
 import nah.Main;
 
+/**
+ * This class is to support a helping Window of the chatBot.
+ */
 public class HelpWindow extends AnchorPane {
 
     private final Image userImage =
@@ -35,8 +38,7 @@ public class HelpWindow extends AnchorPane {
                     + " 6.Todo : to add a todo task\n"
                     + " 7.Deadline : to add a deadline task\n"
                     + " 8.Event : to add an event task\n"
-                    + " Or type 'exit' to close Help Window ^:\n"
-            , helperImage);
+                    + " Or type 'exit' to close Help Window ^:\n", helperImage);
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -45,13 +47,11 @@ public class HelpWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-
     private Stage stage;
-    @FXML
-    public void initialize() {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-    }
 
+    /**
+     * Constructor
+     */
     public HelpWindow() {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/HelpWindow.fxml"));
@@ -70,6 +70,14 @@ public class HelpWindow extends AnchorPane {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * initializing method
+     */
+    @FXML
+    public void initialize() {
+        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
     public void show() {

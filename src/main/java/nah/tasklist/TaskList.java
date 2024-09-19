@@ -132,8 +132,8 @@ public class TaskList {
             return " There is no task in your list!\n";
         }
 
-        String ret = " Here are the tasks in your list:\n" +
-                        IntStream.range(0, taskCount)
+        String ret = " Here are the tasks in your list:\n"
+                + IntStream.range(0, taskCount)
                             .mapToObj(i -> (i + 1) + ". " + tasks.get(i).toString())
                             .collect(Collectors.joining("\n ", " ", "\n"));
         return ret;
@@ -147,8 +147,8 @@ public class TaskList {
      */
     public String dueOn(String time) {
         LocalDateTime due = LocalDateTime.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-        String ret = " Here are the tasks in your list that end before the due date:\n" +
-                    IntStream.range(0, taskCount)
+        String ret = " Here are the tasks in your list that end before the due date:\n"
+                + IntStream.range(0, taskCount)
                         .mapToObj(i -> Map.entry(i, tasks.get(i))) // Create pairs of (index, task)
                         .filter(entry -> entry.getValue()
                                 instanceof Task.Deadlines || entry.getValue()

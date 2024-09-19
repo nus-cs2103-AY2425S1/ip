@@ -14,7 +14,7 @@ public class DecoderTest {
     @Test
     public void decodingTest1() {
         try {
-            assertEquals("[T] [ ] sleep", Decoder.decode("T | 0 | sleep").toString());
+            assertEquals("[T] [  ] sleep", Decoder.decode("T | 0 | sleep").toString());
         } catch (NahException e) {
             fail("No NahException expected");
         }

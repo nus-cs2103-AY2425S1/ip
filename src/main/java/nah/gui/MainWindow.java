@@ -1,22 +1,19 @@
-package nah.GUI;
+package nah.gui;
 
 import java.io.IOException;
+
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import nah.GUI.DialogBox;
-import nah.GUI.HelpWindow;
 import nah.Main;
 import nah.Nah;
 
@@ -45,11 +42,6 @@ public class MainWindow extends AnchorPane {
     private Stage stage;
     private HelpWindow helpWindow = new HelpWindow();
 
-    @FXML
-    public void initialize() {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-    }
-
     public MainWindow(Nah nah) {
         this.nah = nah;
     }
@@ -73,6 +65,11 @@ public class MainWindow extends AnchorPane {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    public void initialize() {
+        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
     /**

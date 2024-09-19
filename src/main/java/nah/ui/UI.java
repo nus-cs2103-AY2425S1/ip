@@ -1,7 +1,6 @@
 package nah.ui;
 
 import java.util.Scanner;
-import nah.command.Command;
 
 /**
  * Handles the interaction with user by print out correct response.

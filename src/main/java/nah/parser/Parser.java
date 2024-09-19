@@ -7,7 +7,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import nah.command.Command;
-import nah.command.EnumCommand;
 import nah.data.Task;
 import nah.exceptions.NahException;
 /**
@@ -95,7 +94,7 @@ public class Parser {
             }
             return new Command.MarkCommand(i);
         }
-        case "help" : {
+        case "help": {
             return new Command.HelpCommand();
         }
         case "unmark": {

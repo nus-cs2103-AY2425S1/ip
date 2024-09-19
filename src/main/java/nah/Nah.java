@@ -19,6 +19,9 @@ public class Nah {
     private UI ui;
     private TaskList tasks;
 
+    /**
+     * Constructor for the chatBot
+     */
     public Nah() {
         ui = new UI();
         storage = new Storage(hardDisk);
@@ -51,6 +54,11 @@ public class Nah {
 
     }
 
+    /**
+     * creates response for the chatBot from the input
+     * @param input the input
+     * @return the response
+     */
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
@@ -60,30 +68,10 @@ public class Nah {
         }
     }
 
-
     /**
-     * Runs the program
+     * main method
+     * @param args
      */
-    /*
-    public void run() {
-        ui.greet();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine(); // show the divider line ("_______")
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, storage);
-                isExit = c.isExit();
-            } catch (NahException e) {
-                ui.show(e.getMessage());
-            } finally {
-                ui.showLine();
-            }
-        }
-    }
-    */
-
     public static void main(String[] args) {
 
         Nah nah = new Nah(hardDisk);
