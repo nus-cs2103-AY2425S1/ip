@@ -9,6 +9,9 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -16,8 +19,11 @@ import java.util.Scanner;
  * Class to save and load data.
  */
 public class Storage {
-    private final String DIR_PATH = "./src/main/data";
-    private final String FILE_PATH = DIR_PATH + "/potong.txt";
+    private final String DIRECTORY_NAME = "./data";
+    private final String FILE_NAME = "/potong.txt";
+
+    private final Path FILE_PATH = Paths.get(this.DIRECTORY_NAME, this.FILE_NAME);
+
 
     private TaskList tasklist;
 
@@ -27,20 +33,23 @@ public class Storage {
      */
     public Storage(TaskList tasklist) {
         this.tasklist = tasklist;
+        this.createFile();
         try {
             this.loadFile();
         } catch (IllegalInputPotongException e) {
             throw new RuntimeException(e);
         }
-        this.createFile();
     }
 
     /**
      * Create the directory where the saved file is.
      */
     public void createDirectory() {
-        File d = new File(this.DIR_PATH);
-        d.mkdirs();
+        try {
+            Files.createDirectory(Paths.get(this.DIRECTORY_NAME));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -48,7 +57,11 @@ public class Storage {
      */
     public void createFile() {
         this.createDirectory();
-        File f = new File(this.FILE_PATH);
+        try {
+            Files.createFile(this.FILE_PATH);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -58,7 +71,7 @@ public class Storage {
      */
     public void loadFile() throws IllegalInputPotongException {
         ArrayList<Task> result = new ArrayList<>(100);
-        File f = new File(this.FILE_PATH);
+        File f = this.FILE_PATH.toFile();
         Scanner s;
         try {
             s = new Scanner(f);
@@ -84,7 +97,7 @@ public class Storage {
     public void writeToFile(String textToAdd) {
         this.createFile();
         try {
-            FileWriter fw = new FileWriter(this.FILE_PATH);
+            FileWriter fw = new FileWriter(this.FILE_PATH.toFile());
             fw.write(textToAdd);
             fw.close();
         } catch (IOException e) {
