@@ -8,8 +8,8 @@ import java.util.Objects;
  * Represents a deadline task with a description, completion status, and a due date.
  */
 public class Deadline extends Task {
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
-    private static final DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
+    private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
     private LocalDateTime by;
 
     /**
@@ -21,7 +21,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, boolean isDone, String by) {
         super(description);
-        this.by = LocalDateTime.parse(by, inputFormatter);
+        this.by = LocalDateTime.parse(by, INPUT_FORMATTER);
         if (isDone) {
             markAsDone();
         }
@@ -55,7 +55,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.format(formatter) + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(TIME_FORMATTER) + ")";
     }
 
     /**
