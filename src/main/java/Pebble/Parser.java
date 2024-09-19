@@ -1,9 +1,7 @@
 package pebble;
 
 import java.time.DateTimeException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-//import java.time.format.DateTimeParseException;
+import java.util.Arrays;
 
 /**
  *  Parser class converts String inputs into usable commands and arguments
@@ -20,6 +18,9 @@ public class Parser {
         String[] words = input.split(" ", 2);
         String command = words[0];
         String arguments = words.length > 1 ? words[1] : "";
+
+        // Friendlier syntax support
+        command = convertToProperSyntax(command);
 
         switch (command) {
         case "bye":
@@ -44,6 +45,39 @@ public class Parser {
             return new Command(CommandType.UNKNOWN, arguments);
         }
     }
+
+    /**
+     * Converts string command to proper command syntax.
+     * Accommodates alternative command strings
+     * @param command Command inputted by user
+     * @return Command String accepted by program
+     */
+    private static String convertToProperSyntax(String command) {
+        command = command.toLowerCase();
+        if (Arrays.asList("goodbye", "bb", "sayonara").contains(command)) {
+            command = "bye";
+        } else if (Arrays.asList("ls", "tasks").contains(command)) {
+            command = "list";
+        } else if (Arrays.asList("m", "done").contains(command)) {
+            command = "mark";
+        } else if (Arrays.asList("um", "undo").contains(command)) {
+            command = "unmark";
+        } else if (Arrays.asList("t", "td").contains(command)) {
+            command = "todo";
+        } else if (Arrays.asList("d", "dl").contains(command)) {
+            command = "deadline";
+        } else if (Arrays.asList("e", "ev").contains(command)) {
+            command = "event";
+        } else if (Arrays.asList("dl", "rm", "remove").contains(command)) {
+            command = "delete";
+        } else if (Arrays.asList("search", "f").contains(command)) {
+            command = "find";
+        } else {
+            command = "unknown";
+        }
+        return command;
+    }
+
 
     /**
      * Parses saved tasks in pebble.txt and returns them as instances of Task object.
