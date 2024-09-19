@@ -88,9 +88,17 @@ public class Ui {
      * @param message The message indicating the status change.
      * @param index   The index of the task whose status was changed.
      */
-    public void showTaskStatusChange(String message, int index) {
-        appendMessage(message + " for task " + (index + 1));
+    /**
+     * Displays a message indicating a change in task status (e.g., marked as done or undone).
+     *
+     * @param message The message indicating the status change.
+     * @param task    The task whose status was changed.
+     */
+    public void showTaskStatusChange(String message, Task task) {
+        appendMessage(message);
+        appendMessage(task.toString());
     }
+
 
     /**
      * Appends a message to the output.
