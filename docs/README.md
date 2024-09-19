@@ -12,8 +12,6 @@ This command will list all the tasks added so far.
 
 Example: `list`
 
-// A description of the expected outcome goes here
-
 ```
 Here are the tasks in your list: 
 1. [T][] buy groceries
@@ -90,8 +88,6 @@ You know what? Forget about it. It's gone. Just like I forgot about Toby.
 Marks a task as done. 
 
 Example: `mark 1`
-
-// A description of the expected outcome goes here
 
 ```
 Nice! I've marked this task as done:
