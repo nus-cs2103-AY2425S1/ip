@@ -9,6 +9,6 @@ public class DudeTaskNotFoundException extends DudeException {
      * Constructs a DudeTaskNotFoundException with no detail message.
      */
     public DudeTaskNotFoundException() {
-        super("No matching task found in your task list.");
+        super("Am I tripping, or are you looking for something that doesn't exist?");
     }
 }

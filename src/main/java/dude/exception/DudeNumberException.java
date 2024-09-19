@@ -12,6 +12,7 @@ public class DudeNumberException extends DudeException {
      * @param input The input string that could not be parsed as a number.
      */
     public DudeNumberException(String input) {
-        super("\"" + input + "\" is not a valid number.");
+        super("This is very wrong. "
+                + "\"" + input + "\" is not a valid number.");
     }
 }

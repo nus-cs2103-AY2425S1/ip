@@ -9,6 +9,6 @@ public class DudeNullCommandException extends DudeException {
      * Constructs a DudeNullCommandException with no detail message.
      */
     public DudeNullCommandException() {
-        super("You did not enter anything.");
+        super("Are you typing in a new invisible font?");
     }
 }

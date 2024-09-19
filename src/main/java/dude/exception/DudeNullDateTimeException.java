@@ -12,6 +12,6 @@ public class DudeNullDateTimeException extends DudeException {
      * @param command The name of the command that requires a date and time.
      */
     public DudeNullDateTimeException(String command) {
-        super("You need to add date and time for \"" + command + "\".");
+        super("Can't you just tell me the date and time for \"" + command + "\"?");
     }
 }
