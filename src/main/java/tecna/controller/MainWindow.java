@@ -1,6 +1,8 @@
 package tecna.controller;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
+import javafx.util.Duration;
 
 import javafx.fxml.FXML;
 
@@ -89,8 +91,13 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
         VBox.setVgrow(userDialogBox, Priority.ALWAYS);
         VBox.setVgrow(tecnaDialogBox, Priority.ALWAYS);
+        /**
+         * @author https://stackoverflow.com/questions/30543619/how-to-use-pausetransition-method-in-javafx.
+         */
         if (response.equals("Pleased to help you! See you again ^_^")) {
-            Platform.exit();
+            PauseTransition pause = new PauseTransition(Duration.seconds(2));
+            pause.setOnFinished(e -> Platform.exit());
+            pause.play();
         }
     }
 

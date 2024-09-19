@@ -40,7 +40,10 @@ public class Ui {
     }
 
     public String printItems(TaskList tasks) {
-        return tasks.toString();
+        StringBuilder sb = new StringBuilder("Here are the tasks in your list: \n");
+        sb.append(tasks.toString());
+        sb.append("\n>> Now you have " + tasks.getSize() + (tasks.getSize() > 1 ? " tasks" : " task") + " in the list.");
+        return sb.toString();
     }
 
     public void printSectionLine() {
