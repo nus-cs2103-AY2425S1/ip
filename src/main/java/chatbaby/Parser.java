@@ -15,7 +15,7 @@ public class Parser {
      */
     public static Command parse(String curCommand) throws ChatBabyException {
         String[] parts = curCommand.split(" ", 2);
-        String commandWord = parts[0];
+        String commandWord = parts[0].trim();
 
         return switch (commandWord) {
         case "bye" -> new ExitCommand("bye");

@@ -58,7 +58,7 @@ public class ChatBaby {
         System.setOut(new PrintStream(outputStream));
 
         try {
-            Command c = Parser.parse(input);
+            Command c = Parser.parse(input.trim());
             c.execute(tasks, ui, storage);
             isExit = c.isExit();
         } catch (ChatBabyException e) {

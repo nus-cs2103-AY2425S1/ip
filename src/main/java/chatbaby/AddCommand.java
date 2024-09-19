@@ -66,7 +66,7 @@ public class AddCommand extends Command {
             throw new ChatBabyException("Oh no!!! The description of this "
                     + type.name().toLowerCase() + " cannot be empty.");
         }
-        return new ToDo(commandBody);
+        return new ToDo(commandBody.trim());
     }
 
     /**

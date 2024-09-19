@@ -5,6 +5,6 @@ module chatbaby {
     // Export the chatbaby package to allow access from JavaFX
     exports chatbaby to javafx.graphics;
 
-    // If you need to access classes with reflection in FXML, use this
+    // Open chatbaby to allow access from FXML
     opens chatbaby to javafx.fxml;
 }
