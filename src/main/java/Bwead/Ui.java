@@ -68,7 +68,7 @@ public class Ui {
             if (input.equals("bye")) {
                 return ("Bye. Hope to see you again soon!");
             } else if (input.equals("list")) {
-                return taskList.printlist();
+                return handleList();
             } else if (input.startsWith("mark")) {
                 return handleMark(parser);
             } else if (input.startsWith("unmark")) {
@@ -180,7 +180,13 @@ public class Ui {
      * @throws IOException
      */
     public String handleDelete(Parser parser) throws IOException {
-        Task toremove = taskList.getCurrentList().get(parser.getDeleteIndex() - 1);
+        int index = parser.getDeleteIndex() - 1;
+        try {
+            taskList.getCurrentList().get(index);
+        } catch (Exception e) {
+            return "task not found. delete failed";
+        }
+        Task toremove = taskList.getCurrentList().get(index);
         taskList.getCurrentList().remove(toremove);
         history.updateFile(taskList.getCurrentList());
         return ("Noted. I've removed this task: " + toremove.toString() + "\n" + "Now you have "
@@ -261,6 +267,13 @@ public class Ui {
         eventToEdit.setDatesTimes(newStartDate, newStartTime, newEndDate, newEndTime);
         history.updateFile(taskList.getCurrentList());
         return "event task " + eventToEdit.getName() + "'s date and time is updated!";
+    }
+
+    public String handleList() {
+        if (taskList.getCurrentList().size() == 0) {
+            return "no tasks in list yet!";
+        }
+        return taskList.printlist();
     }
 }
 

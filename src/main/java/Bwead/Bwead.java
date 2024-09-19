@@ -35,8 +35,8 @@ public class Bwead {
             tasks = new TaskList(arrayList);
         }
         ui.set(history, tasks);
-        //assert history != null;
-        //assert tasks != null;
+        assert history != null;
+        assert tasks != null;
     }
 
     /**
