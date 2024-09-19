@@ -11,23 +11,23 @@ import Alex.Ui.Ui;
  */
 public class MarkCommand extends CommandBase {
     private int index;
-    private boolean markAsDone;
+    private boolean isDone;
 
     /**
      * Constructs a MarkCommand with the specified task index and status.
      * @param index The index of the task to be marked.
-     * @param markAsDone True to mark the task as done, false to mark as not done.
+     * @param isDone True to mark the task as done, false to mark as not done.
      */
-    public MarkCommand(int index, boolean markAsDone) {
+    public MarkCommand(int index, boolean isDone) {
         this.index = index;
-        this.markAsDone = markAsDone;
+        this.isDone = isDone;
     }
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AlexException {
         try {
             Task task = tasks.getTask(index);
-            if (markAsDone) {
+            if (isDone) {
                 task.markAsDone();
                 ui.showTaskStatusChange("Nice! I've marked this task as done:", task);
             } else {
