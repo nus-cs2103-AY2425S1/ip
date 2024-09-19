@@ -27,8 +27,9 @@ public class Events extends Task {
      * @param endDate is the end date of the given event
      * @throws ChatBotException if start and end date is not given or given in the wrong format
      */
-    public Events(String task, String startDate, String endDate) throws ChatBotException {
-        super(task);
+    public Events(String task, String note, String startDate,
+                  String endDate) throws ChatBotException {
+        super(task, note);
         if (startDate.equals(" ") || endDate.equals(" ")) {
             throw new ChatBotException("\t Oh no!!(;-;) Event period cannot be empty"
                     + "\n\t Enter the event in the format: event <Task> "
@@ -67,9 +68,9 @@ public class Events extends Task {
      * @param endDate is the end date of the given event
      * @throws ChatBotException if start and end date is not given or given in the wrong format
      */
-    public Events(String task, String startDate, String endDate,
+    public Events(String task, String note, String startDate, String endDate,
             boolean isCompleted) throws ChatBotException {
-        super(task, isCompleted);
+        super(task, note, isCompleted);
         if (startDate.equals(" ") || endDate.equals(" ")) {
             throw new ChatBotException("\t Oh no!!(;-;) Event period cannot be empty"
                     + "\n\t Enter the event in the format: event <Task> "

@@ -130,6 +130,12 @@ public class Ui {
         return message;
     }
 
+    public String showTask(Task task) {
+        return "Here is the task you want to know more about ^-^"
+                + "\n  Task details : " + task.toString()
+                + "\n" + task.toShowNote();
+    }
+
     /**
      * Displays an error message when there is a problem loading data from the save file.
      */

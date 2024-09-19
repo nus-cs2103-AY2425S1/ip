@@ -24,8 +24,8 @@ public class Deadlines extends Task {
      * @param deadline is the deadline of the given task
      * @throws ChatBotException if deadline is not given or given in the wrong format
      */
-    public Deadlines(String task, String deadline) throws ChatBotException {
-        super(task);
+    public Deadlines(String task, String note, String deadline) throws ChatBotException {
+        super(task, note);
         if (deadline.equals(" ")) {
             throw new ChatBotException("\t Oh no!![@.@] Deadline cannot be empty"
                     + "\n\t Enter the deadline in the format: deadline <Task> /by <Deadline>");
@@ -54,9 +54,9 @@ public class Deadlines extends Task {
      * @param deadline is the deadline of hte given task
      * @throws ChatBotException if deadline is not given or given in the wrong format
      */
-    public Deadlines(String task, String deadline, boolean isCompleted)
-            throws ChatBotException {
-        super(task, isCompleted);
+    public Deadlines(String task, String note, String deadline,
+                     boolean isCompleted) throws ChatBotException {
+        super(task, note, isCompleted);
         if (deadline.equals(" ")) {
             throw new ChatBotException("\t Oh no!![@.@] Deadline cannot be empty"
                     + "\n\t Enter the deadline in the format: deadline <Task> /by <Deadline>");

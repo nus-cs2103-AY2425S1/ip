@@ -10,8 +10,8 @@ public class ToDos extends Task {
      *
      * @param task is the description/task name
      */
-    public ToDos(String task) {
-        super(task);
+    public ToDos(String task, String note) {
+        super(task, note);
     }
 
     /**
@@ -20,8 +20,8 @@ public class ToDos extends Task {
      * @param task is the description/task name
      * @param isCompleted is the completion status of the task
      */
-    public ToDos(String task, boolean isCompleted) {
-        super(task, isCompleted);
+    public ToDos(String task, String note, boolean isCompleted) {
+        super(task, note, isCompleted);
     }
 
     @Override
