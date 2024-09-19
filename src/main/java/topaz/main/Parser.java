@@ -38,11 +38,9 @@ public class Parser {
             return new FindCommand(prompt);
 
         } else if (prompt.startsWith("mark")) {
-            int index = Integer.parseInt(prompt.substring(5));
-            return new MarkCommand("mark", index);
+            return new MarkCommand("mark", prompt);
         } else if (prompt.startsWith("unmark")) {
-            int index = Integer.parseInt(prompt.substring(7));
-            return new MarkCommand("unmark", index);
+            return new MarkCommand("unmark", prompt);
 
         } else if (prompt.startsWith("todo")) {
             return new CreateCommand("todo", prompt);
@@ -52,8 +50,7 @@ public class Parser {
             return new CreateCommand("event", prompt);
 
         } else if (prompt.startsWith("delete")) {
-            int index = Integer.parseInt(prompt.substring(7));
-            return new DeleteCommand("delete", index);
+            return new DeleteCommand("delete", prompt);
         } else if (prompt.startsWith("statistic")) {
             return new StatisticsCommand();
 

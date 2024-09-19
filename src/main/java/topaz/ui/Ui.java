@@ -48,7 +48,13 @@ public class Ui {
     public String showException(Exception e) {
         return e + "\nTry again!";
     }
+    public String showIndexOutRangeException(int i, int size) {
+        return String.format("Task list has %d tasks, %d is out of its range.", size, i);
+    }
 
+    public String showIntegerParseException(Exception e, String name) {
+        return "Please input \"help\" and refer to the correct format of " + name + " command!";
+    }
     /**
      * Displays a goodbye message when the user exits the program.
      *
@@ -75,13 +81,13 @@ public class Ui {
                 Response: Confirms the addition and displays the task.
                                 
                 2) Deadlines: Tasks that must be completed by a specific date/time.         
-                Command: deadline <description> /by <date/time>
-                Example: deadline return book /by Sunday
+                Command: deadline <description> /by <date/time>, time should be in YYYY-MM-DD HH:mm format
+                Example: deadline return book /by 2024-01-01 12:00
                 Response: Confirms the addition and shows the deadline.
                                 
                 3) Events: Tasks that start and end at specific date/times.         
-                Command: event <description> /from <start date/time> /to <end date/time>
-                Example: event project meeting /from Mon 2pm /to 4pm
+                Command: event <description> /from <start date/time> /to <end date/time>, time should be in YYYY-MM-DD HH:mm format
+                Example: event project meeting /from 2024-11-11 11:00 /to 2024-11-11 11:11
                 Response: Confirms the addition and shows the event details.
                                 
                 2. Viewing All Tasks
@@ -94,7 +100,12 @@ public class Ui {
                 
                 4. Show weekly statistics
                 Command: statistic
-                Response: Show number of tasks finished this week.""";
+                Response: Show number of tasks finished this week.
+                
+                5. Delete tasks
+                Command: delete <index>
+                Response: delete the index-th task in the task list
+                """;
         return guide;
     }
 

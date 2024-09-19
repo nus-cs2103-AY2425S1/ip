@@ -12,7 +12,7 @@ import topaz.ui.Ui;
  * The task to be deleted is identified by its index in the TaskList.
  */
 public class DeleteCommand extends Command {
-    private final int index;
+    private final String prompt;
 
     /**
      * Constructs a DeleteCommand with the specified keyword and index.
@@ -20,9 +20,9 @@ public class DeleteCommand extends Command {
      * @param keyword The keyword specifying the type of command (e.g., "delete").
      * @param index   The index of the task to be deleted (1-based index).
      */
-    public DeleteCommand(String keyword, int index) {
+    public DeleteCommand(String keyword, String index) {
         super(keyword);
-        this.index = index;
+        this.prompt = index;
     }
 
     /**
@@ -36,14 +36,18 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        int index = -1;
         try {
+            index = Integer.parseInt(prompt.substring(7));
             Task task = tasks.removeTask(index - 1);
             storage.save(tasks);
             return ui.showDeleteTask(task, tasks.getSize());
+        } catch (NumberFormatException e) {
+            return ui.showIntegerParseException(e, "delete");
         } catch (IOException e) {
             return ui.showSaveIoeException(e);
         } catch (IndexOutOfBoundsException e) {
-            return ui.showException(e);
+            return ui.showIndexOutRangeException(index, tasks.getSize());
         }
     }
 }
