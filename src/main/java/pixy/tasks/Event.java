@@ -30,13 +30,19 @@ public class Event extends Task {
         try {
             this.from = LocalDateTime.parse(from.trim(), inputFormatter);
             this.to = LocalDateTime.parse(to.trim(), inputFormatter);
+            if (this.from.isAfter(this.to)) {
+                throw new IllegalArgumentException("Start time cannot be after end time.");
+            }
         } catch (DateTimeParseException e) {
             try {
                 this.from = LocalDateTime.parse(from.trim(), displayFormatter);
                 this.to = LocalDateTime.parse(to.trim(), displayFormatter);
+                if (this.from.isAfter(this.to)) {
+                    throw new IllegalArgumentException("Start time cannot be after end time.");
+                }
             } catch (DateTimeParseException ex) {
-                throw new IllegalArgumentException("Invalid date format: "
-                        + from + " or " + to);
+                throw new IllegalArgumentException("Invalid date format: " + from + " or " + to +
+                        ". Please use 'd/M/yyyy HHmm' or 'MMM d yyyy, h:mm a'.");
             }
         }
     }

@@ -48,7 +48,7 @@ public class DialogBox extends HBox {
         case "mark", "find":
             dialog.getStyleClass().add("green-dialog");
             break;
-        case "unmark", "delete":
+        case "unmark", "delete", "error":
             dialog.getStyleClass().add("red-dialog");
             break;
         case "user":

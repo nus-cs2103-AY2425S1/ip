@@ -9,11 +9,34 @@ import pixy.tasks.ToDos;
 import pixy.ui.Ui;
 
 import java.time.format.DateTimeParseException;
+import java.util.regex.Pattern;
 
 /**
  * Parses the user commands and returns the command type.
  */
 public class Parser {
+
+    /**
+     * Normalizes the command by trimming and removing excess spaces.
+     *
+     * @param command The raw user input.
+     * @return A normalized command with single spaces between words.
+     */
+    private String normalizeCommand(String command) {
+        return command.trim().replaceAll("\\s+", " ");
+    }
+
+    /**
+     * Checks for unexpected special characters in task descriptions.
+     *
+     * @param input The task description or command input.
+     * @throws PixyExceptions If the input contains invalid characters.
+     */
+    private void validateNoSpecialChars(String input) throws PixyExceptions {
+        if (!Pattern.matches("[\\w\\s/]+", input)) {
+            throw new PixyExceptions("OOPS!!! Special characters are not allowed in the description.");
+        }
+    }
 
     /**
      * Determines the command type from the user's input.
@@ -23,6 +46,8 @@ public class Parser {
      */
     public CommandType parseCommandType(String command) {
         assert command != null : "Command cannot be null";
+        command = normalizeCommand(command);
+
         if (command.equalsIgnoreCase("list")) {
             return CommandType.LIST;
         } else if (command.equalsIgnoreCase("bye")) {
@@ -59,11 +84,14 @@ public class Parser {
         assert tasks != null : "TaskList cannot be null";
         assert ui != null : "Ui cannot be null";
 
+        command = normalizeCommand(command);
+
         try {
             CommandType commandType = parseCommandType(command);
             int taskNumber;
             String description;
             String[] parts;
+
             switch (commandType) {
             case LIST:
                 if (tasks.isEmpty()) {
@@ -97,12 +125,14 @@ public class Parser {
                 return "Task deleted: " + task.getDescription() + ". You now have " + tasks.size() + " task(s).";
             case FIND:
                 description = command.substring(5).trim();
+                validateNoSpecialChars(description);
                 if (description.isEmpty()) {
                     throw new PixyExceptions("OOPS!!! The search description cannot be empty.");
                 }
                 return ui.showMatchedTasks(tasks.find(description));
             case TODO:
                 description = command.substring(5).trim();
+                validateNoSpecialChars(description);
                 if (description.isEmpty()) {
                     throw new PixyExceptions("OOPS!!! The description of a todo cannot be empty.");
                 }
@@ -111,7 +141,7 @@ public class Parser {
                 return "Added new todo: " + todo.getDescription() + ". You now have " + tasks.size() + " task(s).";
             case DEADLINE:
                 parts = command.substring(9).split(" /by");
-                if (parts.length != 2) {
+                if (parts.length != 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
                     throw new PixyExceptions("OOPS!!! The deadline description is not in the correct format.");
                 }
                 try {
@@ -124,7 +154,8 @@ public class Parser {
                 }
             case EVENT:
                 parts = command.substring(6).split(" /from | /to");
-                if (parts.length != 3) {
+                if (parts.length != 3 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty() ||
+                        parts[2].trim().isEmpty()) {
                     throw new PixyExceptions("OOPS!!! The event description is not in the correct format.");
                 }
                 Task event = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
@@ -137,7 +168,7 @@ public class Parser {
         } catch (NumberFormatException e) {
             return "OOPS!!! Please provide a valid number for the task.";
         } catch (PixyExceptions e) {
-            return "Error: " + e.getMessage();
+            return e.getMessage();
         }
     }
 }

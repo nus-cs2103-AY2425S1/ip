@@ -70,7 +70,7 @@ public class Pixy {
         try {
             tasks.sort();
             storage.save(tasks.getList());
-        } catch (IOException e) {
+        } catch (PixyExceptions e) {
             ui.showError("An error occurred while saving tasks.");
         }
     }
