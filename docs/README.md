@@ -1,7 +1,7 @@
 # Taskalyn User Guide
 
 <div align="center">
-    <img src="Ui.png" alt="Taskalyn Screenshot" width="200">
+    <img src="Ui.png" alt="Taskalyn Screenshot" width="350">
 </div>
 
 ## Introduction
@@ -123,7 +123,7 @@ You can *sort* all deadline tasks by nearest deadline.
 
 ### Exiting Taskalyn
 
-- Description: Exits the Taskalyn application
+- Description: Exits and closes the Taskalyn application after 5 seconds
 - Command: `bye`
 - Example: `bye`
 - Expected Outcome:\
