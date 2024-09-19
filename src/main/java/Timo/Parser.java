@@ -60,7 +60,7 @@ public class Parser {
                 return this.ui.printCommandError(new TimoException("Error! Usage todo: todo <task> (need argument)"));
             }
 
-            if (todoCommands[1].isEmpty()) {
+            if (todoCommands[1].trim().isEmpty()) {
                 return this.ui.printCommandError(new TimoException("Error! Need to include task for todo!"));
             }
 
@@ -75,6 +75,10 @@ public class Parser {
                 return this.ui.printCommandError(new TimoException("Error!"
                         + " Usage deadline: deadline <task> /by yyyy-MM-dd"
                         + " HHmm"));
+            }
+
+            if (deadlineCommands[1].trim().isEmpty()) {
+                return this.ui.printCommandError(new TimoException("Error! Need to include task for deadline!"));
             }
             String deadlineDescription = deadlineCommands[1];
             String deadlineDatetime = deadlineCommands[2].trim();
@@ -96,6 +100,10 @@ public class Parser {
                 return this.ui.printCommandError(new TimoException("Error! "
                         + "Usage event: event <task> /from yyyy-MM-dd HHmm /to "
                         + "yyyy-MM-dd HHmm"));
+            }
+
+            if (eventCommands[1].trim().isEmpty()) {
+                return this.ui.printCommandError(new TimoException("Error! Need to include task for event!"));
             }
             String eventDescription = eventCommands[1];
             String eventFromInDatetimeFormat = eventCommands[2].trim();
@@ -127,7 +135,7 @@ public class Parser {
                 return this.ui.printCommandError(new TimoException("Has to be a number!"));
             }
 
-            if (markTaskNumber < 0 || markTaskNumber > this.taskList.showList().size()) {
+            if (markTaskNumber <= 0 || markTaskNumber > this.taskList.showList().size()) {
                 return this.ui.printCommandError(new TimoException("Invalid number!"));
             }
 
@@ -147,7 +155,7 @@ public class Parser {
             //get the Task number to unmark
             int unmarkTarget = Integer.parseInt(taskNumberToUnmark);
 
-            if (unmarkTarget < 0 || unmarkTarget > this.taskList.showList().size()) {
+            if (unmarkTarget <= 0 || unmarkTarget > this.taskList.showList().size()) {
                 return this.ui.printCommandError(new TimoException("Invalid number"));
             }
             //find the task to unmark
@@ -172,7 +180,7 @@ public class Parser {
             //get the Task number to delete
             int deleteTarget = Integer.valueOf(deleteCommands[1]);
 
-            if (deleteTarget < 0 || deleteTarget > this.taskList.showList().size()) {
+            if (deleteTarget <= 0 || deleteTarget > this.taskList.showList().size()) {
                 return this.ui.printCommandError(new TimoException("Invalid number"));
             }
 
