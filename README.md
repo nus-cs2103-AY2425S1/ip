@@ -22,13 +22,16 @@ Here are the main commands you can use with Skywalker:
    **2. deadline [task] /by [date]**
    Adds a task with a deadline.
    **note: time format in YYYY-MM_DD
+   
    Example:
    deadline Submit assignment /by 2024-09-30
    
    **3. event [task] /from [start] /to [end]**
    Adds an event with a start and end date.
    **note: time format in YYYY-MM_DD'T'TIME
-   Example:event /from 2024-09-20T1530 /to 2024-09-20T1531
+   
+   Example:
+   event /from 2024-09-20T1530 /to 2024-09-20T1531
    
    **4. list**
    Displays all tasks in your task list.
