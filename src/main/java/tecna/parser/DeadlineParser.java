@@ -1,7 +1,6 @@
 package tecna.parser;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import org.json.simple.JSONObject;
 
@@ -9,6 +8,7 @@ import tecna.exception.JsonLoadingException;
 
 import tecna.task.Deadline;
 import tecna.exception.JsonLoadingExceptionType;
+import tecna.util.DateTimeUtil;
 
 /**
  * Parses the task of Deadline type from a JSONObject.
@@ -25,7 +25,6 @@ public class DeadlineParser {
      * @throws JsonLoadingException When there is error parsing some attributes of Deadline.
      */
     public Deadline parse(JSONObject jsonObject) throws JsonLoadingException {
-        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         String deadline = (String) jsonObject.get("by");
         String taskName = (String) jsonObject.get("taskName");
         Boolean isDone = (Boolean) jsonObject.get("isDone");
@@ -34,7 +33,8 @@ public class DeadlineParser {
             throw new JsonLoadingException(JsonLoadingExceptionType.DEADLINE_DATA_MISSING);
         }
 
-        LocalDateTime by = LocalDateTime.parse(deadline, pattern);
+        LocalDateTime by =
+        DateTimeUtil.parseDateTime(deadline);
         return new Deadline(taskName, isDone, by);
     }
 }
