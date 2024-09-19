@@ -2,6 +2,7 @@ package gallium.main;
 
 
 import gallium.command.Command;
+import gallium.command.EditCommand;
 
 /**
  * The main class for Gallium.
@@ -12,6 +13,7 @@ public class Gallium {
     private TaskList taskList;
     private Ui ui;
     private boolean isExit;
+    private EditCommand currentEditCommand = null;
 
     /**
      * Constructs a Gallium object with the specified file path for storage.
@@ -36,7 +38,6 @@ public class Gallium {
         while (!isExit) {
             String message = "";
             Parser parser = new Parser(ui);
-
             Command c = parser.parse(message);
             try {
                 c.execute(taskList, ui, storage);
@@ -60,10 +61,21 @@ public class Gallium {
         try {
             ui.resetOutput();
             Parser parser = new Parser(ui);
-            Command c = parser.parse(input);
+            Command c;
+            if (currentEditCommand != null && currentEditCommand.getIsFieldSelected()) {
+                currentEditCommand.setMessage(input); 
+                c = currentEditCommand;
+            } else {
+                c = parser.parse(input);
+            }
             c.execute(taskList, ui, storage);
             isExit = c.isExit();
             assert ui.getOutput() != null: "UI output should not be null";
+            if (c instanceof EditCommand && ((EditCommand) c).getIsFieldSelected()) {
+                currentEditCommand = (EditCommand) c;
+            } else {
+                currentEditCommand = null;
+            }
             return ui.getOutput();
         } catch (GalliumException e) {
             return e.getMessage();
