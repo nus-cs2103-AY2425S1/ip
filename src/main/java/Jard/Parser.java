@@ -44,7 +44,7 @@ public class Parser {
                 }
                 try {
                     LocalDateTime byDateTime = parseDateTime(details[1].trim());
-                    return new Deadline(details[0].trim(), byDateTime.toString());
+                    return new Deadline(details[0].trim(), byDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")));
                 } catch (Exception e) {
                     throw new JardException("Invalid date and time format for deadline! Use 'yyyy-MM-dd HHmm'.");
                 }
@@ -60,7 +60,11 @@ public class Parser {
                 try {
                     LocalDateTime fromDateTime = parseDateTime(details[1].trim());
                     LocalDateTime toDateTime = parseDateTime(details[2].trim());
-                    return new Event(details[0].trim(), fromDateTime.toString(), toDateTime.toString());
+                    return new Event(
+                            details[0].trim(),
+                            fromDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")),
+                            toDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"))
+                    );
                 } catch (Exception e) {
                     throw new JardException("Invalid date and time format for event! Use 'yyyy-MM-dd HHmm'.");
                 }
