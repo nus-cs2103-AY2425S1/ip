@@ -23,9 +23,9 @@ The application currently supports 3 types of tasks.
 
 ### Adding `todo`
 
-```todo DESCRIPTION```
+`todo DESCRIPTION`
 
-This command adds a ```todo``` task with the provided description.
+This command adds a `todo` task with the provided description.
 
 **Example:**
 
@@ -36,9 +36,9 @@ adds a task with the description "Read a book"
 
 ### Adding `deadline`
 
-```deadline DESCRIPTION /by YYYY-MM-DD HHMM```
+`deadline DESCRIPTION /by YYYY-MM-DD HHMM`
 
-This command adds a ```deadline``` task with the provided description and a deadline.
+This command adds a `deadline` task with the provided description and a deadline.
 
 >Dates must follow this format:
 >* YYYY: 4-digit year
@@ -57,9 +57,9 @@ adds a deadline task with the description "CS2103T iP" with the deadline by 19 S
 
 ### Adding `event`
 
-```event DESCRIPTION /from YYYY-MM-DD HHMM /to YYYY-MM-DD HHMM```
+`event DESCRIPTION /from YYYY-MM-DD HHMM /to YYYY-MM-DD HHMM`
 
-This command adds a ```event``` task with the provided description with the start and end dates as marked by 
+This command adds a `event` task with the provided description with the start and end dates as marked by 
 from and to.
 
 >Dates must follow this format:
@@ -83,7 +83,7 @@ adds an event task with the description "CS2103T Finals" starting from 1 Nov 202
 
 ### General listing
 
-```list```
+`list`
 
 This command lists out all tasks that are currently saved in the task list.
 
@@ -91,10 +91,10 @@ This command lists out all tasks that are currently saved in the task list.
 ### Find for specific tasks
 
 
-```find TEXT```
+`find TEXT`
 
 
-This command finds all the tasks that contain the specified ```TEXT``` in their description.
+This command finds all the tasks that contain the specified `TEXT` in their description.
 
 
 **Example:**
@@ -117,10 +117,10 @@ finds all the tasks containing "CS2103T" in its description.
 ### Mark tasks
 
 
-```mark NUMBER```
+`mark NUMBER`
 
 
-where ```NUMBER``` is the index of the tasks as per ```list``` command.
+where `NUMBER` is the index of the tasks as per `list` command.
 
 **Example:**
 
@@ -134,10 +134,10 @@ marks the first task in the list as completed.
 ### Unmark tasks
 
 
-``unmark NUMBER``
+`unmark NUMBER`
 
 
-where ```NUMBER``` is the index of the tasks as per ```list``` command.
+where `NUMBER` is the index of the tasks as per `list` command.
 
 
 **Example:**
@@ -153,10 +153,10 @@ marks the first task in the list as incomplete.
 ### Delete tasks
 
 
-```delete NUMBER```
+`delete NUMBER`
 
 
-where ```NUMBER``` is the index of the tasks as per ```list``` command.
+where `NUMBER` is the index of the tasks as per `list` command.
 
 
 
