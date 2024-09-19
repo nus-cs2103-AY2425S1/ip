@@ -11,7 +11,7 @@ import lemon.task.Task;
 public class DeleteTaskCommand extends CommandWithInput {
     /**
      * Constructor for DeleteTaskCommand
-     * @param ct stores the enum {@link CommandType} for troubleshooting
+     * @param ct stores the enum {@link CommandType}
      * @param input input String that needs to be processed before further execution
      */
     public DeleteTaskCommand(CommandType ct, String input) {

@@ -10,6 +10,7 @@ import lemon.command.DeleteTaskCommand;
 import lemon.command.FindTaskCommand;
 import lemon.command.ListTaskCommand;
 import lemon.command.MarkTaskCommand;
+import lemon.command.HelpCommand;
 import lemon.command.UnmarkTaskCommand;
 
 /**
@@ -56,6 +57,9 @@ public class Parser {
             break;
         case FIND:
             command = new FindTaskCommand(ct, input);
+            break;
+        case HELP:
+            command = new HelpCommand(ct);
             break;
         default:
             throw new IllegalArgumentException();

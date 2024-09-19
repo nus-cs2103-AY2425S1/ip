@@ -12,7 +12,7 @@ import lemon.task.Todo;
 public class AddTodoCommand extends CommandWithInput {
     /**
      * Constructor for AddTodoCommand
-     * @param ct stores the enum {@link CommandType} for troubleshooting
+     * @param ct stores the enum {@link CommandType}
      * @param input input String that needs to be processed before further execution
      */
     public AddTodoCommand(CommandType ct, String input) {

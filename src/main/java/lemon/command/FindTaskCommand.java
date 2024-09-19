@@ -11,7 +11,7 @@ import lemon.exception.InvalidFormatException;
 public class FindTaskCommand extends CommandWithInput {
     /**
      * Constructor for FindTaskCommand
-     * @param ct stores the enum {@link CommandType} for troubleshooting
+     * @param ct stores the enum {@link CommandType}
      * @param input input String that needs to be processed before further execution
      */
     public FindTaskCommand(CommandType ct, String input) {

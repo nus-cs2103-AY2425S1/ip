@@ -10,7 +10,8 @@ import lemon.app.Launcher;
  */
 public class Ui {
     private static final String INTRO_MSG = " Hello! I'm Lemon\n"
-            + " What can I do for you?";
+            + " What can I do for you?\n\n"
+            + " Do type \"help\" if you are unsure what to do ^-^";
     private static final String END_MSG = " Bye. Hope to see you again soon!\n";
     private static final String BAR = "____________________________________________________________";
     private static final String EMPTY_LIST_MSG = " Sowwy, theres currently no tasks in your list.\n"
@@ -247,6 +248,18 @@ public class Ui {
             Launcher.out.print();
         } else {
             System.out.println(unexpectedErrStr);
+        }
+    }
+
+    public void printHelpPage(String commandsMsg) {
+        String helpMsg = " No problem, here are the possible commands I can help you with :D\n";
+        if (Launcher.IS_GUI) {
+            Launcher.out.addOutputln(helpMsg);
+            Launcher.out.addOutput(commandsMsg);
+            Launcher.out.print();
+        } else {
+            System.out.println(helpMsg);
+           System.out.println(commandsMsg);
         }
     }
 }

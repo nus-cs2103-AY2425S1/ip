@@ -9,7 +9,7 @@ import lemon.Lemon;
 public class ByeCommand extends Command {
     /**
      * Constructor for ByeCommand
-     * @param ct stores the enum {@link CommandType} for troubleshooting
+     * @param ct stores the enum {@link CommandType}
      */
     public ByeCommand(CommandType ct) {
         super(ct);

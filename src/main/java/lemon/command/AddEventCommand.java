@@ -16,7 +16,7 @@ import lemon.task.Task;
 public class AddEventCommand extends CommandWithInput {
     /**
      * Constructor for AddEventCommand
-     * @param ct stores the enum {@link CommandType} for troubleshooting
+     * @param ct stores the enum {@link CommandType}
      * @param input input String that needs to be processed before further execution
      */
     public AddEventCommand(CommandType ct, String input) {

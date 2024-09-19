@@ -7,14 +7,18 @@ import lemon.Lemon;
  * @author He Yiheng
  */
 public abstract class Command {
-    protected CommandType ct;
+    private CommandType ct;
 
     /**
      * Constructor for Command
-     * @param ct stores the enum {@link CommandType} for troubleshooting
+     * @param ct stores the enum {@link CommandType}
      */
     public Command(CommandType ct) {
         this.ct = ct;
+    }
+
+    public CommandType getCommandType() {
+        return ct;
     }
 
     /**

@@ -11,7 +11,7 @@ public abstract class CommandWithInput extends Command {
 
     /**
      * Constructor for CommandWithInput
-     * @param ct stores the enum {@link CommandType} for troubleshooting
+     * @param ct stores the enum {@link CommandType}
      * @param input input String that needs to be processed before further execution
      */
     public CommandWithInput(CommandType ct, String input) {

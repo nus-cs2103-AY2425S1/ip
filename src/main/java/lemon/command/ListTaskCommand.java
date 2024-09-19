@@ -9,7 +9,7 @@ import lemon.Lemon;
 public class ListTaskCommand extends Command {
     /**
      * Constructor for ListTaskCommand
-     * @param ct stores the enum {@link CommandType} for troubleshooting
+     * @param ct stores the enum {@link CommandType}
      */
     public ListTaskCommand(CommandType ct) {
         super(ct);
