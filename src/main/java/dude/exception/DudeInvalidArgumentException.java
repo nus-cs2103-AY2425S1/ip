@@ -14,6 +14,6 @@ public class DudeInvalidArgumentException extends DudeException {
      * @param expected The expected format for the argument.
      */
     public DudeInvalidArgumentException(String command, String error, String expected) {
-        super("\"" + error + "\" is not a valid format for \"" + command + "\", please use \"" + expected + "\".");
+        super("\"" + error + "\" is not a valid format for \"" + command + "\". Use \"" + expected + "\"!");
     }
 }

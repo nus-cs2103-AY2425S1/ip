@@ -10,7 +10,7 @@ public class DudeInvalidDefineException extends DudeException {
      * that user attempts to define a pre-defined command as shortcut.
      */
     public DudeInvalidDefineException() {
-        super("You can't define a command as shortcut.");
+        super("You can't define a command as shortcut!");
     }
 
     /**

@@ -35,7 +35,7 @@ public class ParserTest {
             parser.getCommand("");
         });
 
-        assertEquals("Oops!! You did not enter anything.\n", exception.getMessage());
+        assertEquals("Oops!! You did not enter anything.", exception.getMessage());
     }
 
     @Test
@@ -44,7 +44,7 @@ public class ParserTest {
             parser.getCommand("hello");
         });
 
-        assertEquals("Oops!! I don't know what does that mean.\n", exception.getMessage());
+        assertEquals("Oops!! I don't know what does that mean.", exception.getMessage());
     }
 
     @Test
@@ -65,7 +65,7 @@ public class ParserTest {
             Parser.getDescription("");
         });
 
-        assertEquals("Oops!! You did not enter anything.\n", exception.getMessage());
+        assertEquals("Oops!! You did not enter anything.", exception.getMessage());
     }
 
     @Test
@@ -82,7 +82,7 @@ public class ParserTest {
         });
 
         assertEquals("Oops!! Please input the date and time with the following format: "
-                + "\"yyyy-MM-dd HH:mm\", and with valid value.\n", exception.getMessage());
+                + "\"yyyy-MM-dd HH:mm\", and with valid value.", exception.getMessage());
     }
 
     @Test
@@ -92,6 +92,6 @@ public class ParserTest {
         });
 
         assertEquals("Oops!! Please input the date and time with the following format: "
-                + "\"yyyy-MM-dd HH:mm\", and with valid value.\n", exception.getMessage());
+                + "\"yyyy-MM-dd HH:mm\", and with valid value.", exception.getMessage());
     }
 }
