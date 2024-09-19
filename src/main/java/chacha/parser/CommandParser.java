@@ -1,15 +1,26 @@
-package chacha.command;
+package chacha.parser;
 
 import chacha.ChaCha;
 import chacha.Storage;
 import chacha.Ui;
+import chacha.command.ByeCommand;
+import chacha.command.DeadlineCommand;
+import chacha.command.DeleteCommand;
+import chacha.command.ErrorCommand;
+import chacha.command.EventCommand;
+import chacha.command.FindCommand;
+import chacha.command.HelpCommand;
+import chacha.command.ListCommand;
+import chacha.command.MarkCommand;
+import chacha.command.ToDoCommand;
+import chacha.command.UnmarkCommand;
 import chacha.task.TaskList;
 
 /**
  * Parses user inputs and matches them to the respective action.
  *
  */
-public class Parser {
+public class CommandParser {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -23,7 +34,7 @@ public class Parser {
      * @param ui UI of ChaCha
      * @param tasks List of tasks
      */
-    public Parser(ChaCha chacha, Storage storage, TaskList tasks, Ui ui) {
+    public CommandParser(ChaCha chacha, Storage storage, TaskList tasks, Ui ui) {
         this.chacha = chacha;
         this.storage = storage;
         this.tasks = tasks;

@@ -5,9 +5,14 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import chacha.parser.DateParser;
+import chacha.parser.TimeParser;
 import chacha.task.DeadlineTask;
 import chacha.task.EventTask;
 import chacha.task.Task;
@@ -56,13 +61,13 @@ public class Storage {
                 listOfTasks.add(new ToDoTask(arr[2], isDone));
 
             } else if (arr[0].equals("D")) {
-                listOfTasks.add(new DeadlineTask(arr[2], isDone, LocalDate.parse(arr[3])));
+                listOfTasks.add(new DeadlineTask(arr[2], isDone, DateParser.parseDate(arr[3])));
 
             } else if (arr[0].equals("E")) {
                 String[] timings = arr[4].split("-");
-                String startTime = timings[0];
-                String endTime = timings[1];
-                listOfTasks.add(new EventTask(arr[2], isDone, LocalDate.parse(arr[3]), startTime, endTime));
+                LocalTime startTime = TimeParser.parseStringToTime(timings[0]);
+                LocalTime endTime = TimeParser.parseStringToTime(timings[1]);
+                listOfTasks.add(new EventTask(arr[2], isDone, DateParser.parseDate(arr[3]), startTime, endTime));
             }
         }
         this.readerFile.close();

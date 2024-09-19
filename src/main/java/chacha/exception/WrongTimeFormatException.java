@@ -1,31 +1,12 @@
 package chacha.exception;
 
-/**
- * Represents a custom exception in response to wrong time format.
- */
-public class WrongTimeFormatException extends Exception {
-    private static final String START_TIME_MSG = "Please type start time in the form of \'from ...\'.";
-    private static final String END_TIME_MSG = "Please type end time in the form of \'to ...\'.";
-    private static final String DEADLINE_MSG = "Please type deadline in the form of \'by ...\'.";
-    private String msg;
+import java.time.DateTimeException;
 
-    /**
-     * Constructs a new ChaChaException with a specified error message
-     */
-    public WrongTimeFormatException(String type) {
-        switch (type) {
-        case "start":
-            this.msg = START_TIME_MSG;
-            break;
-        case "end":
-            this.msg = END_TIME_MSG;
-            break;
-        case "deadline":
-            this.msg = DEADLINE_MSG;
-            break;
-        default:
-            this.msg = "";
-        }
+public class WrongTimeFormatException extends DateTimeException {
+    private String msg;
+    public WrongTimeFormatException() {
+        super("Please input a valid time in the format HH.MMam or HH.MMpm. ");
+        this.msg = "Please input a valid time in the format HH.MMam or HH.MMpm (e.g. 10.22am). ";
     }
 
     @Override

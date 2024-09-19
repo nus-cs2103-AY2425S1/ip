@@ -6,7 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import chacha.command.Parser;
+import chacha.parser.CommandParser;
 import chacha.task.TaskList;
 
 
@@ -52,8 +52,8 @@ public class ChaCha {
      * @return String representation of response.
      */
     public String getResponse(String userInput) {
-        Parser parser = new Parser(this, this.storage, this.tasks, this.ui);
-        return parser.parseCommand(userInput);
+        CommandParser commandParser = new CommandParser(this, this.storage, this.tasks, this.ui);
+        return commandParser.parseCommand(userInput);
     }
 
     public void updateIsEnd() {

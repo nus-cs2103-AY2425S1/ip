@@ -1,12 +1,17 @@
 package chacha.task;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 import chacha.Storage;
 import chacha.Ui;
 import chacha.exception.ChaChaException;
+import chacha.exception.EventTimeException;
+import chacha.exception.WrongDateFormatException;
 import chacha.exception.WrongTimeFormatException;
+import chacha.parser.DateParser;
+import chacha.parser.TimeParser;
 
 /**
  * Represents a list of tasks that the users wants to keep track of.
@@ -72,7 +77,8 @@ public class TaskList {
      * @return EventTask.
      * @throws ChaChaException if the command is not inputted correctly.
      */
-    public Task addEvent(String cmd, Ui ui, Storage storage) throws ChaChaException, WrongTimeFormatException {
+    public Task addEvent(String cmd, Ui ui, Storage storage) throws ChaChaException,
+            EventTimeException, WrongTimeFormatException, WrongDateFormatException {
         if (cmd.length() <= 6) {
             throw new ChaChaException();
         }
@@ -85,15 +91,23 @@ public class TaskList {
 
         String description = arr[0];
         if (!arr[2].startsWith("from")) {
-            throw new WrongTimeFormatException("start");
+            throw new EventTimeException("start");
         }
         if (!arr[3].startsWith("to")) {
-            throw new WrongTimeFormatException("end");
+            throw new EventTimeException("end");
         }
 
-        LocalDate date = LocalDate.parse(arr[1]);
-        String startTime = arr[2].substring(5);
-        String endTime = arr[3].substring(3);
+        LocalDate date = DateParser.parseDate(arr[1]);
+        if (date == null) {
+            throw new WrongDateFormatException();
+        }
+
+        LocalTime startTime = TimeParser.parseStringToTime(arr[2].substring(5));
+        LocalTime endTime = TimeParser.parseStringToTime(arr[3].substring(3));
+        if (startTime == null || endTime == null) {
+            throw new WrongTimeFormatException();
+        }
+
         Task task = new EventTask(description, false, date, startTime, endTime);
         this.tasks.add(task);
 
@@ -111,7 +125,7 @@ public class TaskList {
      * @return DeadlineTask.
      * @throws ChaChaException if the command is not inputted correctly.
      */
-    public Task addDeadline(String cmd, Ui ui, Storage storage) throws ChaChaException, WrongTimeFormatException {
+    public Task addDeadline(String cmd, Ui ui, Storage storage) throws ChaChaException, EventTimeException {
         if (cmd.length() <= 9) {
             throw new ChaChaException();
         }
@@ -124,10 +138,13 @@ public class TaskList {
 
         String description = arr[0];
         if (!arr[1].startsWith("by")) {
-            throw new WrongTimeFormatException("deadline");
+            throw new EventTimeException("deadline");
         }
 
-        LocalDate date = LocalDate.parse(arr[1].substring(3));
+        LocalDate date = DateParser.parseDate(arr[1].substring(3));
+        if (date == null) {
+            throw new WrongDateFormatException();
+        }
         Task task = new DeadlineTask(description, false, date);
         this.tasks.add(task);
         storage.writeFile(ui.printDeadline(description, date));

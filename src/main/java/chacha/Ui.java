@@ -1,8 +1,12 @@
 package chacha;
 
+import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import chacha.parser.TimeParser;
 import chacha.task.Task;
 import chacha.task.TaskList;
 
@@ -10,20 +14,9 @@ import chacha.task.TaskList;
  * Represents the object that handles all user interactions.
  */
 public class Ui {
-    private static final String GREETING = "Hello! I'm ChaCha the ChatBot. :) \n"
-            + "What can I do for you? \n";
     private static final String EXIT = "Bye! Hope to talk to you again soon! ";
 
     public Ui() {
-    }
-
-    /**
-     * Returns string representation of Greeting.
-     *
-     * @return Greeting string.
-     */
-    public String printGreeting() {
-        return GREETING;
     }
 
     /**
@@ -150,8 +143,10 @@ public class Ui {
      * @param endTime End time of Deadline Task.
      * @return String representation.
      */
-    public String printEvent(String description, LocalDate date, String startTime, String endTime) {
+    public String printEvent(String description, LocalDate date, LocalTime startTime, LocalTime endTime) {
         return "E | 0 | " + description
-                + " | " + date.toString() + " | " + startTime + "-" + endTime + "\n";
+                + " | " + date.toString()
+                + " | " + TimeParser.parseTimeToString(startTime)
+                + "-" + TimeParser.parseTimeToString(endTime) + "\n";
     }
 }

@@ -6,7 +6,7 @@ import chacha.ChaCha;
 import chacha.Storage;
 import chacha.Ui;
 import chacha.exception.ChaChaException;
-import chacha.exception.WrongTimeFormatException;
+import chacha.exception.EventTimeException;
 import chacha.task.Task;
 import chacha.task.TaskList;
 
@@ -39,7 +39,7 @@ public class DeadlineCommand extends Command {
 
         } catch (ChaChaException e) {
             return MISSING_DEADLINE_FIELD_MSG;
-        } catch (WrongTimeFormatException e) {
+        } catch (EventTimeException e) {
             return e.toString();
         } catch (DateTimeException e) {
             String[] arr = {"Please input the date in the format YYYY-MM-DD. "};

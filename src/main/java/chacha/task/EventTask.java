@@ -1,7 +1,11 @@
 package chacha.task;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+
+import chacha.parser.TimeParser;
+
 
 /**
  * Represents the Task that is an Event for the user.
@@ -9,8 +13,8 @@ import java.time.format.DateTimeFormatter;
  */
 public class EventTask extends Task {
     protected LocalDate date;
-    protected String startTime;
-    protected String endTime;
+    protected LocalTime startTime;
+    protected LocalTime endTime;
 
     /**
      * Creates a EventTask object, initialising description, isDone status, date, startTime and endTime.
@@ -21,7 +25,7 @@ public class EventTask extends Task {
      * @param startTime Start time of task
      * @param endTime End time of task
      */
-    public EventTask(String description, boolean isDone, LocalDate date, String startTime, String endTime) {
+    public EventTask(String description, boolean isDone, LocalDate date, LocalTime startTime, LocalTime endTime) {
         super(description, isDone);
         this.date = date;
         this.startTime = startTime;
@@ -39,7 +43,8 @@ public class EventTask extends Task {
         String status = (super.isDone ? "X" : " ");
         return output + "[" + status + "] " + super.description
                 + " (" + this.date.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
-                + " from: " + this.startTime + " to: " + this.endTime + ")";
+                + " from: " + TimeParser.parseTimeToString(this.startTime)
+                + " to: " + TimeParser.parseTimeToString(this.endTime) + ")";
     }
 
     /**
@@ -51,6 +56,7 @@ public class EventTask extends Task {
         String status = (super.isDone ? "1" : "0");
         output += status + " | ";
         return output + description + " | " + date.toString()
-                + " | " + startTime + "-" + endTime + "\n";
+                + " | " + TimeParser.parseTimeToString(startTime)
+                + "-" + TimeParser.parseTimeToString(endTime) + "\n";
     }
 }

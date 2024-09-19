@@ -6,6 +6,8 @@ import chacha.ChaCha;
 import chacha.Storage;
 import chacha.Ui;
 import chacha.exception.ChaChaException;
+import chacha.exception.EventTimeException;
+import chacha.exception.WrongDateFormatException;
 import chacha.exception.WrongTimeFormatException;
 import chacha.task.Task;
 import chacha.task.TaskList;
@@ -37,10 +39,12 @@ public class EventCommand extends Command {
             return ui.printAdd(taskAdded, tasks);
         } catch (ChaChaException e) {
             return MISSING_EVENT_FIELD_MSG;
+        } catch (EventTimeException e) {
+            return e.toString();
+        } catch (WrongDateFormatException e) {
+            return e.toString();
         } catch (WrongTimeFormatException e) {
             return e.toString();
-        } catch (DateTimeException e) {
-            return "Please input the date in the format YYYY-MM-DD. ";
         }
     }
 }
