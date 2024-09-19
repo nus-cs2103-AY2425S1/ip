@@ -10,7 +10,7 @@ import miku.utility.TaskList;
 public abstract class Command {
 
     /**
-     * A abstract method to override: Execute the command.
+     * Executes the command.
      *
      * @param taskList The task list that takes in the new task.
      * @param ui       The UI to perform printing.

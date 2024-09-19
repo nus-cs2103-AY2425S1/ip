@@ -10,7 +10,7 @@ import miku.utility.TaskList;
 public class ExitCommand extends Command {
 
     /**
-     * Initialise an exit command.
+     * Initialises an exit command.
      */
     public ExitCommand() {
     }

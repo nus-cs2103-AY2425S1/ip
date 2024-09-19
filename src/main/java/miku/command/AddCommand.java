@@ -13,7 +13,7 @@ public class AddCommand extends Command {
     private Task task;
 
     /**
-     * Initialise an add command.
+     * Initialises an add command.
      *
      * @param task the task to be added to the task list.
      */
@@ -22,7 +22,7 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Execute the command to add a task to a task list.
+     * Executes the command to add a task to a task list.
      *
      * @param taskList The task list that takes in the new task.
      * @param ui       The UI to perform printing.
