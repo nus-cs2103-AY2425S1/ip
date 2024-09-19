@@ -34,7 +34,7 @@ public class Task {
     }
 
     /**
-     * Get the icon representing the status of the task, 'X' means done, '_' means to be done.
+     * Gets the icon representing the status of the task, 'X' means done, '_' means to be done.
      *
      * @return The icon representing the status of the task.
      */

@@ -17,7 +17,7 @@ public class LuToDo {
 
 
     /**
-     * Construct the chat box class with file path of the task list.
+     * Constructs the chat box class with file path of the task list.
      * 
      * @param filePath The file path of the task list.
      */
