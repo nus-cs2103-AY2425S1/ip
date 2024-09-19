@@ -1,5 +1,11 @@
 package garfield.parser;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
 import garfield.commands.AddCommand;
 import garfield.commands.Command;
 import garfield.commands.DeleteCommand;
@@ -9,14 +15,6 @@ import garfield.commands.ListCommand;
 import garfield.commands.MarkCommand;
 import garfield.commands.UnmarkCommand;
 import garfield.exceptions.GarfieldException;
-import garfield.tasks.Deadline;
-import garfield.tasks.Event;
-import garfield.tasks.Todo;
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDateTime;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class ParserTest {
 
@@ -95,16 +93,16 @@ class ParserTest {
 
     @Test
     void testParse_invalidDeadlineFormat_throwsGarfieldException() {
-        Exception exception = assertThrows(GarfieldException.class,
-                () -> Parser.parse("deadline project /by 2024/12/01 12:00"));
+        Exception exception = assertThrows(GarfieldException.class, () -> Parser.parse(
+                "deadline project /by 2024/12/01 12:00"));
         assertEquals("Make sure your dates are valid and in the yyyy-MM-dd HH:mm (24h) format!\n\n"
                 + "Correct Usage: deadline <task description> /by yyyy-MM-dd HH:mm", exception.getMessage());
     }
 
     @Test
-    void testParse_eventCommand_missingToFlag_throwsGarfieldException() {
-        Exception exception = assertThrows(GarfieldException.class,
-                () -> Parser.parse("event project /from 2024-12-01 12:00"));
+    void testParse_eventMissingToFlag_throwsGarfieldException() {
+        Exception exception = assertThrows(GarfieldException.class, () -> Parser.parse(
+                "event project /from 2024-12-01 12:00"));
         assertEquals("You are missing a description or the '/from' and '/to' flags!\n\n"
                 + "Correct Usage: event <task description> /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm",
                 exception.getMessage());
