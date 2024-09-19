@@ -6,6 +6,7 @@ import quack.command.Command;
 import quack.command.DeleteTaskCommand;
 import quack.command.ExitCommand;
 import quack.command.FindTaskCommand;
+import quack.command.HelpCommand;
 import quack.command.ListCommand;
 import quack.command.RemoveTagCommand;
 import quack.command.UpdateTaskCommand;
@@ -41,10 +42,16 @@ public class Parser {
      * @throws InvalidCommandException Signals that the command given is invalid.
      */
     public Command processCommand(String userCommand) throws InvalidCommandException {
+
         Command command;
+
         switch (userCommand.toLowerCase()) {
         case "list":
             command = new ListCommand(taskList, ui);
+            return command;
+
+        case "help":
+            command = new HelpCommand(ui);
             return command;
 
         case "bye":

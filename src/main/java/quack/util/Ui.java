@@ -23,6 +23,18 @@ public class Ui {
     private VBox dialogContainer;
     /** Image of the Quack chatbot */
     private Image quackImage;
+    /** A list of all commands */
+    private enum CommandTypes {
+        ADD,
+        LIST,
+        FIND,
+        DELETE,
+        MARK,
+        UNMARK,
+        TAG,
+        UNTAG,
+        BYE
+    }
 
     /**
      * Creates a Ui object.
@@ -52,7 +64,7 @@ public class Ui {
     }
 
     /**
-     * Prints the spacer UI element.
+     * Prints exception message.
      * @param err The exception that was catched by Quack.
      */
     public void printExceptionMessage(Exception err) {
@@ -68,6 +80,32 @@ public class Ui {
     public String objectToString(Object obj) {
 
         return obj.toString();
+    }
+
+    /**
+     * Prints the list of commands the user can input.
+     */
+    public void printHelpMessage() {
+
+        String output = "Quack* I will help you out no worries! Here are some commands you can use\n";
+
+        output += this.getCommandTypes();
+
+        this.outputToScreen(output);
+    }
+
+    /**
+     * Gets the list of supported commands to display to the user.
+     * @return A string of all supported commands.
+     */
+    public String getCommandTypes() {
+
+        String output = "";
+        for (CommandTypes commandType : CommandTypes.values()) {
+            output = output + "- " + commandType.name().toLowerCase() + "\n";
+        }
+
+        return output;
     }
 
     /**
