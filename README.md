@@ -1,7 +1,7 @@
 # Maxine User Guide
 
 
-![A screenshot of MaxineBot]([Ui.png](https://github.com/gabriellegtw/ip/blob/master/docs/Ui.png))
+![A screenshot of MaxineBot]([Ui.png](https://github.com/gabriellegtw/ip/blob/master/docs/Ui.png?raw=true))
 
 
 This is Maxine, your personal chatbot assistant to help you keep track of your tasks!
