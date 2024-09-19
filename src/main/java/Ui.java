@@ -8,16 +8,6 @@ public class Ui {
     private Ui() {
     }
 
-    private static final Ui UI = new Ui();
-
-    /**
-     * Factory method for instantiating a Ui object.
-     * @return The singular instance of Ui.
-     */
-    public static Ui of() {
-        return UI;
-    }
-
     /** Scanner object for reading user input*/
     private static final Scanner SCANNER = new Scanner(System.in);
 

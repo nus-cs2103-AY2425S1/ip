@@ -4,7 +4,7 @@ import java.time.LocalTime;
 
 public class EventCommand extends Command {
 
-    private Event newEvent;
+    private final Event newEvent;
     private EventCommand(String input) {
         String eventInfo = input.split("event")[1];
 

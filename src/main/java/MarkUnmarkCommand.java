@@ -14,9 +14,11 @@ public class MarkUnmarkCommand extends Command {
     }
 
     public static String getHelpDescription() {
-        return "Marks a task as complete or incomplete.\nUsage: mark <index>\n" +
-                "Usage: unmark <index>\n " +
-                "The index of the task can be found by using the list command";
+        return """
+                Marks a task as complete or incomplete.
+                Usage: mark <index>
+                Usage: unmark <index>
+                 The index of the task can be found by using the list command""";
     }
 
 

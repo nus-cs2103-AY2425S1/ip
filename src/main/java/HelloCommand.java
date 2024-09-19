@@ -4,7 +4,7 @@ public class HelloCommand extends Command{
     }
     private static final HelloCommand HELLO_COMMAND = new HelloCommand();
 
-    private final String HELLO_MESSAGE = """
+    private static final String HELLO_MESSAGE = """
                 Hello there! I am Lewis, a simple chatbot and I'm here to help you.
                 In future versions, I'll be able to handle task scheduling and other services to make your life easier.
                 Isn't that swell?""";

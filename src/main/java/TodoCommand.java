@@ -8,8 +8,8 @@ public class TodoCommand extends Command {
     }
 
     /**
-     *
-     * @return
+     * Returns a description of how to use the todo command for the user.
+     * @return A string description
      */
     public static String getHelpDescription() {
         return "Creates a todo and enters it into the list.\nUsage: todo <description>";
