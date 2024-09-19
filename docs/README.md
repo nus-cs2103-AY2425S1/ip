@@ -1,6 +1,6 @@
 # Gopher User Guide
 
-<img src="Ui.png" alt="ScreenShot of Gopher's UI for showcase to the user" width="500" />
+<img src="Ui.png" alt="ScreenShot of Gopher's UI for showcase to the user" width="400" />
 
 ## Menu
 - [Introduction](#introduction)
@@ -39,11 +39,11 @@ Store, Manage and Query the tasks just like how you talk to a person in real lif
 
 ## Set Up
 Setting up Gopher is easier than you think! Just follow these simple steps and you are ready to go!
-1. Settle Dependencies: Ensure that Java 17 is installed on your machine
-2. Get the Jar File: Download jar file from the latest release and put in a folder
+1. Settle Dependencies: Ensure that `Java 17` is installed on your machine
+2. Get the Jar File: Download `Gopher.jar` file from the latest release and put in a folder
 3. Wake Gopher Up: Use command prompt to navigate to the folder that contains the jar file, and run
 `java -jar Gopher.jar`
-4. Start managing your task with Gopher!!!
+4. Start managing your tasks with Gopher!!!
 
 ## DateTime formats accepted by Gopher:
 
@@ -104,11 +104,12 @@ If you want to update a todo task with task number 1 with new task name `Assignm
 
 ### Update deadline
 You can update a deadline task using:\
-`deadline [task number] {new task name} {/by new due date time}`\
+`deadline [task number] {new task name} {/by new due date time}`
+
 **Example**:\
 If you want to update a deadline task with task number 2 with the following information:
 - New task name: `CS2101 OP1 Synopsis`
-- New due date time: `2024-09-12`\
+- New due date time: `2024-09-12`
 
 You can input the update command like this:\
 `update 2 CS2101 OP1 Synopsis /by 2024-09-12`
