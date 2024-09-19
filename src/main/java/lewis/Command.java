@@ -1,3 +1,5 @@
+package lewis;
+
 /**
  * This class implements a command that can be interpreted by Lewis to execute
  * This class supports the following methods:

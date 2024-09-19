@@ -1,3 +1,5 @@
+package lewis;
+
 public abstract class Task {
     private final String description;
     protected enum Status {

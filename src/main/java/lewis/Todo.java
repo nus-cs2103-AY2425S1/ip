@@ -1,3 +1,5 @@
+package lewis;
+
 public class Todo extends Task {
     protected Todo(String description) {
         super(description);

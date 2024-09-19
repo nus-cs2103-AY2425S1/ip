@@ -1,3 +1,5 @@
+package lewis;
+
 /**
  * This command signals for the program to exit.
  */
