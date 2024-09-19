@@ -2,7 +2,11 @@ import java.io.IOException;
 
 import exceptions.LukeException;
 import presentation.Ui;
-import tasks.*;
+import tasks.DeadLine;
+import tasks.Event;
+import tasks.Note;
+import tasks.Task;
+import tasks.Todo;
 import utility.Parser;
 import utility.Storage;
 import utility.TaskList;
@@ -30,10 +34,22 @@ public class Luke {
         this.ui = new Ui();
     }
 
+    /**
+     * A greeting text to user.
+     *
+     * @return Greeting text.
+     */
     public String greetUser() {
         return ui.greetDialog();
     }
 
+    /**
+     * Handle user input by parsing it into computable command.
+     *
+     * @param input From user.
+     * @return String of computed reply based on input.
+     * @throws IOException If saving fails.
+     */
     public String handleUserInput(String input) throws IOException {
         try {
             parser.parse(input);

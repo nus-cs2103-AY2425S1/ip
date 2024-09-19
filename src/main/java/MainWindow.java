@@ -29,6 +29,9 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Shows to user a message when first opening an app.
+     */
     public void initialMessage() {
         dialogContainer.getChildren().addAll(
                 DialogBox.getLukeDialog(luke.greetUser(), derpImage)

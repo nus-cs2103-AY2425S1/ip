@@ -10,11 +10,11 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import tasks.Event;
 import tasks.DeadLine;
+import tasks.Event;
 import tasks.Note;
-import tasks.Todo;
 import tasks.Task;
+import tasks.Todo;
 
 /** A class to store the Task data */
 public class Storage {

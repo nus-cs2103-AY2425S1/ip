@@ -16,8 +16,8 @@ public class Ui {
      * Shows greeting dialog when the application starts.
      */
     public String greetDialog() {
-        return "Yo! I'm Luke.\n" +
-        "How's it hanging?";
+        return "Yo! I'm Luke.\n"
+                + "How's it hanging?";
     }
 
     /**
@@ -37,9 +37,10 @@ public class Ui {
      * @param size Is the number of tasks after adding the new task.
      */
     public String addTaskDialog(Task t, int size) {
-        return String.format("Got it. I've added this task:\n" +
-                t + "\n" +
-                "Now you have %d tasks in the list.\n", size);
+        return String.format("Got it. I've added this task:\n"
+                + t
+                + "\n"
+                + "Now you have %d tasks in the list.\n", size);
     }
 
     /**
@@ -48,9 +49,9 @@ public class Ui {
      * @param size Is the number of tasks after deleting the task.
      */
     public String deleteTaskDialog(Task t, int size) {
-        return String.format("Noted. I've removed this task:\n" +
-                "%s\n" +
-                "Now you have %d tasks in the list.", t.toString(), size);
+        return String.format("Noted. I've removed this task:\n"
+                + "%s\n"
+                + "Now you have %d tasks in the list.", t.toString(), size);
     }
 
     public String indexOutOfRangeDialog(int index) {

@@ -1,5 +1,8 @@
 package tasks;
 
+/**
+ * A Note class for user to hold notes.
+ */
 public class Note extends Task {
     public Note(String description) {
         super(description);
@@ -13,6 +16,12 @@ public class Note extends Task {
         );
     }
 
+    /**
+     * Converts a String input to a Note instance object.
+     *
+     * @param input from saved text file.
+     * @return Note object.
+     */
     public static Task load(String input) {
         assert !input.isEmpty();
         String[] parameters = input.split("\\|");
