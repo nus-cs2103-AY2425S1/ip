@@ -44,6 +44,8 @@ Command Line Interface (CLI) while still maintaining an aesthetic Graphical User
 
 ## Usage 
 
+Do note that for all following commands, please do not put a space before the command i.e do `command` but do not do ` command` or `      command`, where command would be replaced with the actual command you wish to execute.
+
 ### Adding Tasks
 
 You may add three types of tasks, as mentioned in the features.
