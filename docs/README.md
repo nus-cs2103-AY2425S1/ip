@@ -85,6 +85,7 @@ Got it. I've added this task:
 Now you have 3 tasks in the list.
 ```
 
+
 ### 2. Listing All Tasks
 
 To display all tasks in your list:
