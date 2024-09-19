@@ -11,3 +11,6 @@
 [T][ ] things 
 [T][ ] afwio /bya f0 
 [T][ ] laundry 
+[E][ ] task  /from 2024-10-10 1900 /to 2024-09-10 1000
+[D][ ] f  /by 2024-10-09 1000
+[E][ ] how are you  /from 2029-10-10 1000 /to 2029-10-10 1000

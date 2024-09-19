@@ -78,7 +78,7 @@ public class AddCommand extends Command {
             task = Parser.makeDeadlineTask(lineScanner, arrOfStr, false);
         } catch (DateTimeParseException e) {
             throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just "
-                    + "part of getting stronger. Let’s try that again, shall we? Please provide the deadline "
+                    + "part of getting stronger. Let's try that again, shall we? Please provide the deadline "
                     + "in yyyy-mm-dd HHMM format e.g. 2024-05-19 1800");
         }
         return task;

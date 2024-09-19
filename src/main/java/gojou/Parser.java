@@ -183,24 +183,6 @@ public class Parser {
         }
     }
 
-    private static void checkErroneousInput(boolean isStart, String start, boolean isEnd, String description)
-            throws GojouException {
-        if (!isStart || start.isEmpty()) {
-            throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just part of "
-                    + "getting stronger. Let's try that again, shall we? Please provide a start time with '/from' "
-                    + "followed by the time");
-        }
-        if (!isEnd) {
-            throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just part of "
-                    + "getting stronger. Let's try that again, shall we? Please provide an end time with '/to' "
-                    + "followed by the time!");
-        }
-        if (description.isEmpty()) {
-            throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just part of "
-                    + "getting stronger. Let's try that again, shall we? Please provide an event task!");
-        }
-    }
-
     /**
      * Creates an Event task based on user description, start time, and end time.
      *
@@ -219,56 +201,57 @@ public class Parser {
 
     private static Event getEvent(Scanner lineScanner, ArrayList<String> arrOfStr, boolean isDone)
             throws GojouException {
-        String description = "";
-        String start = "";
-        boolean isStart = false;
-        boolean isEnd = false;
         Priority priority = Priority.NONE;
 
-        //creates description, start and end strings based on user input to create event task
         while (lineScanner.hasNext()) {
-            String word = lineScanner.next();
-            if (word.startsWith("//")) {
-                priority = readTaskPriority(word);
-            } else if (word.equals("/from")) {
-                description = String.join(" ", arrOfStr);
-                arrOfStr.clear();
-                isStart = checkIfStartDateIsProvided(lineScanner, isStart);
-                checkIfEndDateProvidedBeforeStartDate(isEnd);
-            } else if (word.equals("/to")) {
-                start = String.join(" ", arrOfStr);
-                arrOfStr.clear();
-                isEnd = checkIfEndDateIsProvided(lineScanner, isEnd);
-            } else {
-                arrOfStr.add(word);
-            }
+            priority = getPriority(lineScanner, arrOfStr, priority);
         }
-        checkErroneousInput(isStart, start, isEnd, description);
 
-        return new Event(description, isDone, priority, convertDateTime(start),
-                convertDateTime(String.join(" ", arrOfStr)));
+        int startIndex = arrOfStr.indexOf("/from");
+        int endIndex = arrOfStr.indexOf("/to");
+
+        checkIfKeywordsByAndToAreProvided(startIndex, endIndex);
+
+        String description = String.join(" ", arrOfStr.subList(0, startIndex));
+        String startDate = String.join(" ", arrOfStr.subList(startIndex + 1, endIndex));
+        String endDate = String.join(" ", arrOfStr.subList(endIndex + 1, arrOfStr.size()));
+
+        checkIfDescriptionStartAndEndDateProvided(description, startDate, endDate);
+
+        return new Event(description, isDone, priority, convertDateTime(startDate),
+                convertDateTime(endDate));
     }
 
-    private static boolean checkIfEndDateIsProvided(Scanner lineScanner, boolean isEnd) {
-        if (lineScanner.hasNext()) {
-            isEnd = true;
+    private static void checkIfDescriptionStartAndEndDateProvided(String description, String startDate, String endDate)
+            throws GojouException {
+        if (description.isEmpty()) {
+            throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just part of "
+                    + "getting stronger. Let's try that again, shall we? Please provide an event task");
+        } else if (startDate.isEmpty()) {
+            throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just part of "
+                    + "getting stronger. Let's try that again, shall we? Please provide a start time with '/from' "
+                    + "followed by the time");
+        } else if (endDate.isEmpty()) {
+            throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just part of "
+                    + "getting stronger. Let's try that again, shall we? Please provide an end time with '/to' "
+                    + "followed by the time!");
         }
-        return isEnd;
     }
 
-    private static void checkIfEndDateProvidedBeforeStartDate(boolean isEnd) throws GojouException {
-        if (isEnd) {
+    private static void checkIfKeywordsByAndToAreProvided(int startIndex, int endIndex) throws GojouException {
+        if (startIndex == -1) {
+            throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just part of "
+                    + "getting stronger. Let's try that again, shall we? Please provide a start time with '/from' "
+                    + "followed by the time");
+        } else if (endIndex == -1) {
+            throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just part of "
+                    + "getting stronger. Let's try that again, shall we? Please provide an end time with '/to' "
+                    + "followed by the time!");
+        } else if (startIndex > endIndex) {
             throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just"
                     + " part of getting stronger. Let's try that again, shall we? /to should not"
-                    + "come before /from. Write the start time first before the end time");
+                    + " come before /from. Write the start time first before the end time");
         }
-    }
-
-    private static boolean checkIfStartDateIsProvided(Scanner lineScanner, boolean isStart) {
-        if (lineScanner.hasNext()) {
-            isStart = true;
-        }
-        return isStart;
     }
 
     private static void checkIfTaskIsProvided(Scanner lineScanner) throws GojouException {
