@@ -1,48 +1,52 @@
 package elon;
 
-import java.time.LocalDate;
+import elon.task.Deadline;
+import elon.task.Event;
+import elon.task.Task;
+import elon.task.TaskList;
+import elon.task.ToDo;
+
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.util.Scanner;
 
 /**
  * Provides user interface functions for interacting with the task list and its tasks.
  */
 public class Ui {
+    private Scanner scanner;
+
+    public Ui () {
+        this.scanner = new Scanner(System.in);
+    }
+
     /**
      * Draws a horizontal line in the console for separation.
      */
-    public void drawLine() {
-        System.out.println("\t -------------------------------------------------------");
+    public String drawLine() {
+        return "-------------------------------------------------------\n";
     }
-
 
     /**
      * Prints a greeting message to the console.
      */
-    public void greet() {
-        drawLine();
-        System.out.println("\t Hello! I'm Elon");
-        System.out.println("\t What can I do for you?");
-        drawLine();
+    public static String greetMessage() {
+        return "Hello! I'm Elon\n" +  "What can I do for you?\n";
     }
 
     /**
      * Prints a goodbye message to the console.
      */
-    public void exit() {
-        drawLine();
-        System.out.println("\t Bye. Hope to see you again soon!");
-        drawLine();
+    public String exitMessage() {
+        return "Bye. Hope to see you again soon!";
     }
 
-    /**
-     * Prints the number of tasks currently in the task list.
-     *
-     * @param size the number of tasks in the list
-     */
-    public void numOfTasks(int size) {
-        drawLine();
-        System.out.println(String.format("\t Now you have %d tasks in the list.", size));
-        drawLine();
+    public String[] getInputArr() {
+        return scanner.nextLine().split(" ");
+    }
+
+    public String showInvalidIndex() {
+        return "Index out of range.\n";
     }
 
     /**
@@ -52,17 +56,16 @@ public class Ui {
      *
      * @param list the TaskList containing tasks to be displayed
      */
-    public void listTasks(TaskList list) {
-        drawLine();
+    public String listTasks(TaskList list) {
         if (list.isEmpty()) {
-            System.out.println("\t There are no tasks in your list.");
+            return "There are no tasks in your list.\n";
         } else {
-            System.out.println("\t Here are the tasks in your list:");
+            String res = "Here are the tasks in your list:\n";
             for (int i = 0; i < list.listSize(); i++) {
-                System.out.println(String.format("\t %d.", i + 1) + list.getTask(i).toString());
+                res += String.format("%d.", i + 1) + list.getTask(i).toString() + "\n";
             }
+            return res;
         }
-        drawLine();
     }
 
     /**
@@ -72,16 +75,8 @@ public class Ui {
      * @param index the index of the task to mark as done
      * @param list the TaskList containing the task
      */
-    public void markTask(int index, TaskList list) {
-        drawLine();
-        if (list.getIsDone(index)) {
-            System.out.println("\t Task is already marked as done:");
-        } else {
-            System.out.println("\t Nice! I've marked this task as done:");
-            list.markDone(index);
-        }
-        System.out.println("\t " + list.getTask(index).toString());
-        drawLine();
+    public String markTask(Task task) {
+        return "Nice! I've marked this task as done:\n" + task.toString() + "\n";
     }
 
     /**
@@ -91,35 +86,24 @@ public class Ui {
      * @param index the index of the task to mark as not done
      * @param list  the TaskList containing the task
      */
-    public void unmarkTask(int index, TaskList list) {
-        drawLine();
-        if (!list.getIsDone(index)) {
-            System.out.println("\t Task is already not marked as done:");
-        } else {
-            System.out.println("\t OK, I've marked this task as not done yet:");
-            list.markNotDone(index);
-        }
-        System.out.println("\t " + list.getTask(index).toString());
-        drawLine();
+    public String unmarkTask(Task task) {
+        return "OK, I've marked this task as not done yet:\n" + task.toString() + "\n";
     }
 
     /**
      * Prints a message indicating that a task has been added to the list.
      */
-    public void startAddTask() {
-        drawLine();
-        System.out.println("\t Got it. I've added this task:");
+    public String startAddTask() {
+        return "Got it. I've added this task:\n";
     }
-
 
     /**
      * Prints a message indicating the updated number of tasks in the list after adding a new task.
      *
      * @param size the updated number of tasks in the list
      */
-    public void endAddTask(int size) {
-        System.out.println(String.format("\t Now you have %d tasks in the list.", size));
-        drawLine();
+    public String endAddTask(int size) {
+        return String.format("Now you have %d tasks in the list.\n", size);
     }
 
     /**
@@ -130,99 +114,8 @@ public class Ui {
      * @param list the TaskList to add the ToDo task to
      * @throws ElonException if the description is not specified
      */
-    public void addToDo(String[] inputArr, TaskList list) throws ElonException {
-        if (inputArr.length <= 1) {
-            throw new ElonException("Error. Description for ToDo task not specified.");
-        }
-        String task = "";
-        for (int i = 1; i < inputArr.length; i++) {
-            task += inputArr[i] + " ";
-        }
-        task = task.strip();
-        ToDo todo = new ToDo(task, false);
-        list.addTask(todo);
-        startAddTask();
-        System.out.println("\t " + todo.toString());
-    }
-
-    /**
-     * Adds a Deadline task to the task list based on the provided input array.
-     * Throws an ElonException if the description or deadline date is missing.
-     *
-     * @param inputArr the input array containing the task description and deadline date
-     * @param list the TaskList to add the Deadline task to
-     * @throws ElonException if the description or deadline date is not specified
-     */
-    public void addDeadline(String[] inputArr, TaskList list) throws ElonException {
-        if (inputArr.length <= 1) {
-            throw new ElonException("Error. Description and By date for Deadline task not specified.");
-        }
-        int i = 1;
-        String task = "";
-        while (!inputArr[i].equals("/by")) {
-            task += inputArr[i] + " ";
-            i++;
-        }
-        task = task.strip();
-        String by = "";
-        if (inputArr.length <= i+1) {
-            throw new ElonException("Error. By date for Deadline task not specified.");
-        }
-        for (int j = i+1; j < inputArr.length; j++) {
-            by += inputArr[j] + " ";
-        }
-        by = by.strip();
-        LocalDate byDate = LocalDate.parse(by);
-        Deadline deadline = new Deadline(task, false, byDate);
-        list.addTask(deadline);
-        startAddTask();
-        System.out.println("\t " + deadline.toString());
-    }
-
-    /**
-     * Adds an Event task to the task list based on the provided input array.
-     * Throws an ElonException if the description, start date, or end date is missing.
-     *
-     * @param inputArr the input array containing the task description, start date, and end date
-     * @param list the TaskList to add the Event task to
-     * @throws ElonException if the description, start date, or end date is not specified
-     */
-    public void addEvent(String[] inputArr, TaskList list) throws ElonException {
-        if (inputArr.length <= 1) {
-            throw new ElonException("Error. Description, From and To date for Event task not specified.");
-        }
-        int i = 1;
-        String task = "";
-        while (!inputArr[i].equals("/from")) {
-            task += inputArr[i] + " ";
-            i++;
-        }
-        task = task.strip();
-        i++;
-        if (inputArr.length <= i) {
-            throw new ElonException("Error. From date for Event task not specified.");
-        }
-        String from = "";
-        while (!inputArr[i].equals("/to")) {
-            from += inputArr[i] + " ";
-            i++;
-        }
-        from = from.strip();
-        LocalDate fromDate = LocalDate.parse(from);
-        i++;
-        if (inputArr.length <= i) {
-            throw new ElonException("Error. To date for Event task not specified.");
-        }
-        String to = "";
-        for (int j = i; j < inputArr.length; j++) {
-            to += inputArr[j] + " ";
-        }
-        to = to.strip();
-        LocalDate toDate = LocalDate.parse(to);
-        Event event = new Event(task, false, fromDate, toDate);
-        list.addTask(event);
-        startAddTask();
-        System.out.println("\t " + event.toString());
+    public String addTask(Task task, TaskList list) {
+        return startAddTask() + task.toString() + "/n" + endAddTask(list.listSize());
     }
 
     /**
@@ -231,12 +124,8 @@ public class Ui {
      * @param index the index of the task to delete
      * @param list the TaskList containing the task
      */
-    public void deleteTask(int index, TaskList list) {
-        drawLine();
-        System.out.println("\t Noted. I've removed this task:");
-        System.out.println("\t " + list.getTask(index));
-        list.removeTask(index);
-        endAddTask(list.listSize());
+    public String deleteTask(Task task, TaskList list) {
+        return "Noted. I've removed this task:\n" + task.toString() + "\n" + endAddTask(list.listSize());
     }
 
     /**
@@ -244,16 +133,15 @@ public class Ui {
      *
      * @param matchingTasks the list of tasks that match the keyword
      */
-    public void showMatchingTasks(ArrayList<Task> matchingTasks) {
-        drawLine();
+    public String showMatchingTasks(ArrayList<Task> matchingTasks) {
         if (matchingTasks.isEmpty()) {
-            System.out.println("\t No matching tasks found.");
+            return "No matching tasks found.\n";
         } else {
-            System.out.println("\t Here are the matching tasks in your list: ");
+            String res = "Here are the matching tasks in your list:\n";
             for (int i = 0; i < matchingTasks.size(); i++) {
-                System.out.println(String.format("\t %d.%s", i + 1, matchingTasks.get(i).toString()));
+                res += String.format("%d.%s\n", i + 1, matchingTasks.get(i).toString());
             }
+            return res;
         }
-        drawLine();
     }
 }

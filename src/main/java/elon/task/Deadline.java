@@ -1,4 +1,6 @@
-package elon;
+package elon.task;
+
+import elon.task.Task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -19,7 +21,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, boolean isDone, LocalDate by) {
         super(description, isDone);
-        this.by =by;
+        this.by = by;
     }
 
     /**

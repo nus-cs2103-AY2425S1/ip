@@ -1,24 +1,33 @@
 package elon;
 
+import elon.command.Command;
+import elon.task.TaskList;
+
 import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * The main entry point for the Elon application.
  * Initializes and runs the application, handling user input and interactions.
  */
 public class Elon {
-    Ui ui = new Ui();
+    private Ui ui = new Ui();
+    private TaskList list;
 
     private Storage storage;
 
     /**
      * Constructs an Elon object with the specified Storage.
      *
-     * @param storage the Storage object used for loading and saving tasks
+     * @param storagePath the String path to create Storage object used for loading and saving tasks
      */
-    public Elon(Storage storage) {
-        this.storage = storage;
+    public Elon(String storagePath) {
+        try {
+            this.storage = new Storage(storagePath);
+            TaskList list = new TaskList(storage.loadFile());
+        } catch (IOException e) {
+            System.out.println(e);
+            list = new TaskList();
+        }
     }
 
 
@@ -28,13 +37,32 @@ public class Elon {
      *
      * @throws ElonException if an error occurs during command processing
      */
-    private void Run() throws ElonException {
-        ui.greet();
-        TaskList list = new TaskList(storage.loadFile());
-        Scanner scanner = new Scanner(System.in);
-        String[] inputArr = scanner.nextLine().split(" ");
-        Parser parser = new Parser(this.ui, list, scanner, inputArr, this.storage);
-        parser.Parse();
+    private void run() throws ElonException {
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String[] inputArr = ui.getInputArr();
+                Command command = Parser.parse(inputArr);
+                command.execute(list, ui, storage);
+                isExit = command.isExit();
+            } catch (Exception e) {
+                System.out.println(e);
+            } finally {
+                ui.drawLine();
+            }
+        }
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String[] inputArr) {
+        try {
+            Command command = Parser.parse(inputArr);
+            return command.execute(list, ui, storage);
+        } catch (Exception e) {
+            return e.toString();
+        }
     }
 
     /**
@@ -45,10 +73,9 @@ public class Elon {
      */
     public static void main(String[] args) {
         try {
-            Storage storage = new Storage("./Data.txt");
-            Elon elon = new Elon(storage);
-            elon.Run();
-        } catch (ElonException | IOException e) {
+            Elon elon = new Elon("./Data.txt");
+            elon.run();
+        } catch (ElonException e) {
             System.out.println(e);
         }
     }

@@ -1,120 +1,113 @@
 package elon;
 
-import java.io.IOException;
-import java.util.ArrayList;
+import elon.command.AddCommand;
+import elon.command.Command;
+import elon.command.DeleteCommand;
+import elon.command.ExitCommand;
+import elon.command.FindCommand;
+import elon.command.ListCommand;
+import elon.command.MarkCommand;
+import elon.command.UnmarkCommand;
+import elon.task.Deadline;
+import elon.task.Event;
+import elon.task.ToDo;
+import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Scanner;
+
 
 
 /**
  * Parses user input commands and interacts with the UI, TaskList, and Storage.
  */
 public class Parser {
-    private Ui ui;
-    private TaskList list;
-    private Scanner scanner;
-    private String[] inputArr;
-    private Storage storage;
-
-    /**
-     * Constructs a Parser object with the specified UI, TaskList, Scanner, input array, and Storage.
-     *
-     * @param ui         the UI object for interacting with the user
-     * @param list       the TaskList containing tasks
-     * @param scanner    the Scanner object for reading user input
-     * @param inputArr   the array of user input split into commands
-     * @param storage    the Storage object for saving and loading tasks
-     */
-    public Parser(Ui ui, TaskList list, Scanner scanner, String[] inputArr, Storage storage) {
-        this.ui = ui;
-        this.list = list;
-        this.scanner = scanner;
-        this.inputArr = inputArr;
-        this.storage = storage;
-    }
-
-    /**
-     * Reads the next line of user input and splits it into an array of strings.
-     *
-     * @param scanner the Scanner object used to read the input
-     * @return an array of strings representing the user input
-     */
-    public String[] nextInput(Scanner scanner) {
-        return scanner.nextLine().split(" ");
-    }
-    public void Parse() throws ElonException{
-        while (!inputArr[0].equals("bye")) {
-            if (inputArr[0].equals("list")) {
-                ui.listTasks(list);
-                inputArr = this.nextInput(scanner);
-                continue;
-            } else if (inputArr[0].equals("mark")) {
-                int index = Integer.parseInt(inputArr[1]) - 1;
-                ui.markTask(index, list);
-                try {
-                    storage.saveFile(list);
-                } catch (IOException e) {
-                    System.out.println(e);
+    public static Command parse(String[] inputArr) throws ElonException{
+        String commandPhrase = inputArr[0];
+        switch (commandPhrase) {
+            case "list":
+                return new ListCommand();
+            case "mark":
+                int indexToMark = Integer.parseInt(inputArr[1]) - 1;
+                return new MarkCommand(indexToMark);
+            case "unmark":
+                int indexToUnmark = Integer.parseInt(inputArr[1]) - 1;
+                return new UnmarkCommand(indexToUnmark);
+            case "delete":
+                int indexToDelete = Integer.parseInt(inputArr[1]) - 1;
+                return new DeleteCommand(indexToDelete);
+            case "bye":
+                return new ExitCommand();
+            case "find":
+                String searchWord = String.join(" ", Arrays.copyOfRange(inputArr, 1, inputArr.length));
+                return new FindCommand(searchWord);
+            case "todo":
+                if (inputArr.length <= 1) {
+                    throw new ElonException("Error. Description for ToDo task not specified.");
                 }
-                inputArr = this.nextInput(scanner);
-                continue;
-            } else if (inputArr[0].equals("unmark")) {
-                int index = Integer.parseInt(inputArr[1]) - 1;
-                ui.unmarkTask(index, list);
-                try {
-                    storage.saveFile(list);
-                } catch (IOException e) {
-                    System.out.println(e);
+                String todoTask = "";
+                for (int i = 1; i < inputArr.length; i++) {
+                    todoTask += inputArr[i] + " ";
                 }
-                inputArr = this.nextInput(scanner);
-                continue;
-            } else if (inputArr[0].equals("delete")) {
-                int index = Integer.parseInt(inputArr[1]) - 1;
-                ui.deleteTask(index, list);
-                try {
-                    storage.saveFile(list);
-                } catch (IOException e) {
-                    System.out.println(e);
+                todoTask = todoTask.strip();
+                ToDo todo = new ToDo(todoTask, false);
+                return new AddCommand(todo);
+            case "deadline":
+                if (inputArr.length <= 1) {
+                    throw new ElonException("Error. Description and By date for Deadline task not specified.");
                 }
-                inputArr = this.nextInput(scanner);
-                continue;
-            } else if (inputArr[0].equals("find")) {
-                String keyword = String.join(" ", Arrays.copyOfRange(inputArr, 1, inputArr.length));
-                ArrayList<Task> matchingTasks = list.findTasks(keyword);
-                ui.showMatchingTasks(matchingTasks);
-                inputArr = this.nextInput(scanner);
-                continue;
-            } else {
-                if (inputArr[0].equals("todo")) {
-                    try {
-                        ui.addToDo(inputArr, list);
-                        storage.saveFile(list);
-                    } catch (ElonException | IOException e) {
-                        System.out.println(e);
-                    }
-                } else if (inputArr[0].equals("deadline")) {
-                    try {
-                        ui.addDeadline(inputArr, list);
-                        storage.saveFile(list);
-                    } catch (ElonException | IOException e) {
-                        System.out.println(e);
-                    }
-                } else if (inputArr[0].equals("event")) {
-                    try {
-                        ui.addEvent(inputArr, list);
-                        storage.saveFile(list);
-                    } catch (ElonException | IOException e) {
-                        System.out.println(e);
-                    }
-                } else {
-                    throw new ElonException("Error. Invalid command.");
+                int j = 1;
+                String deadlineTask = "";
+                while (!inputArr[j].equals("/by")) {
+                    deadlineTask += inputArr[j] + " ";
+                    j++;
                 }
-                ui.endAddTask(list.listSize());
-                inputArr = this.nextInput(scanner);
-            }
+                deadlineTask = deadlineTask.strip();
+                String by = "";
+                if (inputArr.length <= j+1) {
+                    throw new ElonException("Error. By date for Deadline task not specified.");
+                }
+                for (int k = j+1; k < inputArr.length; k++) {
+                    by += inputArr[k] + " ";
+                }
+                by = by.strip();
+                LocalDate byDate = LocalDate.parse(by);
+                Deadline deadline = new Deadline(deadlineTask, false, byDate);
+                return new AddCommand(deadline);
+            case "event: ":
+                if (inputArr.length <= 1) {
+                    throw new ElonException("Error. Description, From and To date for Event task not specified.");
+                }
+                int x = 1;
+                String eventTask = "";
+                while (!inputArr[x].equals("/from")) {
+                    eventTask += inputArr[x] + " ";
+                    x++;
+                }
+                eventTask = eventTask.strip();
+                x++;
+                if (inputArr.length <= x) {
+                    throw new ElonException("Error. From date for Event task not specified.");
+                }
+                String from = "";
+                while (!inputArr[x].equals("/to")) {
+                    from += inputArr[x] + " ";
+                    x++;
+                }
+                from = from.strip();
+                LocalDate fromDate = LocalDate.parse(from);
+                x++;
+                if (inputArr.length <= x) {
+                    throw new ElonException("Error. To date for Event task not specified.");
+                }
+                String to = "";
+                for (int y = x; y < inputArr.length; y++) {
+                    to += inputArr[y] + " ";
+                }
+                to = to.strip();
+                LocalDate toDate = LocalDate.parse(to);
+                Event event = new Event(eventTask, false, fromDate, toDate);
+                return new AddCommand(event);
+            default:
+                throw new ElonException("Invalid Command: " + commandPhrase);
         }
-        scanner.close();
-        ui.exit();
     }
-
 }

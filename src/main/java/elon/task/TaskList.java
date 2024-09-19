@@ -1,4 +1,4 @@
-package elon;
+package elon.task;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -16,6 +16,10 @@ public class TaskList {
      */
     public TaskList(ArrayList<Task> list) {
         this.list = list;
+    }
+
+    public TaskList() {
+        this.list = new ArrayList<Task>();
     }
 
     /**
@@ -79,8 +83,10 @@ public class TaskList {
      *
      * @param index the index of the task to remove
      */
-    public void removeTask(int index) {
+    public Task removeTask(int index) {
+        Task removedTask = list.get(index);
         this.list.remove(index);
+        return removedTask;
     }
 
     /**
