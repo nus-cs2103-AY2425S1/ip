@@ -58,7 +58,7 @@ public abstract class Task {
      * Checks if task contains a specified keyword in its description and returns the result.
      */
     public boolean containsInDescription(String keyword) {
-        return this.description.contains(keyword);
+        return this.description.toLowerCase().contains(keyword);
     }
 
     /**

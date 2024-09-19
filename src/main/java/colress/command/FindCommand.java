@@ -20,7 +20,7 @@ public final class FindCommand extends ListCommand {
     }
 
     public void initialise(String input) {
-        this.keyword = input;
+        this.keyword = input.toLowerCase();
     }
 
     /**

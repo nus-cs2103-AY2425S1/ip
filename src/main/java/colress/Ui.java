@@ -133,6 +133,7 @@ public final class Ui {
     /**
      * Stores the keyword given by the user in the FindCommand Object and then executes the command.
      * The method catches an EmptyInputException if user input is empty, and returns an error message to the user.
+     *
      * @param input The user input.
      * @param taskList The TaskList to print the list of tasks from.
      */
