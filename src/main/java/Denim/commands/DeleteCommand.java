@@ -23,7 +23,7 @@ public class DeleteCommand extends Command {
         assert index > 0 : "IndexOutOfBoundsAssertion";
 
         if (!taskList.isValidIndex(index)) {
-            return new CommandResult("The index chosen is invalid.");
+            return new CommandResult("The index chosen is invalid.", CommandStatus.COMMAND_PARTIAL_FAILURE);
         }
 
         Task deletedTask = taskList.getTask(index);
@@ -33,14 +33,15 @@ public class DeleteCommand extends Command {
             writeTaskFile.deleteTask(taskList);
         } catch (DenimException e) {
             taskList.addTaskAtIndex(index, deletedTask);
-            return new CommandResult(e.getMessage() + "\n The task was not deleted.");
+            return new CommandResult(e.getMessage() + "\n The task was not deleted.",
+                    CommandStatus.COMMAND_FAILURE);
         }
 
         int taskListSize = taskList.getTaskListSize();
 
         String returnMessage = String.format("Got it. I've deleted this task:%n %s %n"
                 + "Now you have %d tasks in the list.", deletedTask, taskListSize);
-        return new CommandResult(returnMessage);
+        return new CommandResult(returnMessage, CommandStatus.COMMAND_SUCCESSFUL);
     }
 
     @Override

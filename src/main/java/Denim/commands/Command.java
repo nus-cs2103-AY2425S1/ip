@@ -10,6 +10,12 @@ import denim.storage.WriteTaskFile;
  */
 public abstract class Command {
 
+    public enum CommandStatus {
+        COMMAND_SUCCESSFUL,
+        COMMAND_PARTIAL_FAILURE,
+        COMMAND_FAILURE
+    }
+
     /**
      * Executes the command on the given task list and with the provided I/O operations.
      *

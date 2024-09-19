@@ -11,7 +11,7 @@ public class ExitCommand extends Command {
     public static final String COMMAND_WORD = "bye";
     @Override
     public CommandResult execute(TaskList taskList, WriteTaskFile writeTaskFile) {
-        return new CommandResult("Bye. Hope to see you again soon!");
+        return new CommandResult("Bye. Hope to see you again soon!", CommandStatus.COMMAND_SUCCESSFUL);
     }
 
     @Override

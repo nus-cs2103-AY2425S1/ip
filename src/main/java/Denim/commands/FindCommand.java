@@ -20,16 +20,21 @@ public class FindCommand extends Command {
     @Override
     public CommandResult execute(TaskList taskList, WriteTaskFile writeTaskFile) {
         TaskList resultList = taskList.findTasks(keywords);
-        String returnMessage = String.format("Sure. Here are the matching tasks in your list:\n%s",
-                resultList.printList());
-        return new CommandResult(returnMessage);
+        String returnMessage;
+
+        if (resultList.isEmpty()) {
+            returnMessage = String.format("The search result for %s did not find any matching tasks.\n", getKeywords());
+            return new CommandResult(returnMessage, CommandStatus.COMMAND_PARTIAL_FAILURE);
+        } else {
+            returnMessage = String.format("Sure. Here are the matching tasks in your list:\n%s",
+                    resultList.printList());
+            return new CommandResult(returnMessage, CommandStatus.COMMAND_SUCCESSFUL);
+        }
     }
 
-    public String[] getKeyword() {
-        return keywords;
+    public String getKeywords() {
+        return String.join(" ", keywords);
     }
-
-
 
     @Override
     public boolean isExit() {

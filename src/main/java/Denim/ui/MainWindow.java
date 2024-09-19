@@ -62,11 +62,12 @@ public class MainWindow extends VBox {
 
         CommandResult commandResult = denim.executeGuiCommand(command);
         String reply = commandResult.getReply();
+        Command.CommandStatus commandStatus = commandResult.getStatus();
 
         userInput.clear();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDenimDialog(reply, denimImage));
+                DialogBox.getDenimDialog(reply, denimImage, commandStatus));
     }
 
     @FXML

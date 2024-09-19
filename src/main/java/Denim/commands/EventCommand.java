@@ -26,7 +26,7 @@ public class EventCommand extends Command {
         try {
             writeTaskFile.writeTaskData(eventTask);
         } catch (DenimException e) {
-            return new CommandResult("Command Failed. Error:\n" + e.getMessage());
+            return new CommandResult("Command Failed. Error:\n" + e.getMessage(), CommandStatus.COMMAND_FAILURE);
         }
 
         taskList.addTask(eventTask);
@@ -34,7 +34,7 @@ public class EventCommand extends Command {
 
         String returnMessage = String.format("Got it. I've added this task:%n %s %n"
                 + "Now you have %d tasks in the list.", eventTask, taskListSize);
-        return new CommandResult(returnMessage);
+        return new CommandResult(returnMessage, CommandStatus.COMMAND_SUCCESSFUL);
     }
 
     @Override
