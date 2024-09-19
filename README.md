@@ -23,17 +23,13 @@ Bob can make your life easier!
   + [Exit the application](#exit-the-application-bye): `bye`
 
 ## Quick Start
-+ Have Java 17 installed on your computer / laptop
++ Have Java 17 installed on your computer / laptop. (Mac users will require the specific Azul JDK 17 distribution.)
 + Download the latest `.jar` file.
 + Open terminal and `cd` to the directory where the `.jar` file is located.
 + Run the command `java -jar bob.jar` to open Bob application.
 
-> **IMPORTANT**
-> Mac users will require the specific Azul JDK 17 distribution.
-
 ## Features
-> **NOTE**
-> Words in UPPER_CASE are the parameters to be specified by the user.
++ Words in UPPER_CASE are the parameters to be specified by the user.
 
 ### Add ToDo task: `todo`
 Adds a ToDo task to the task list.
