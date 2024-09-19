@@ -58,25 +58,48 @@ public class AddCommand extends Command {
 
     private Task processNewTask() throws ChatBotException {
         String task;
+        String note = "NA";
+        if (input.split("/note").length != 1) {
+            note = input.split("/note")[1];
+            input = input.split("/note")[0];
+        }
         switch (taskType) {
         case TODO:
-            return new ToDos(input);
+            return new ToDos(input, note);
 
         case DEADLINE:
+            checkValidDeadlineField();
             task = input.split("/by")[0];
             String deadline = input.split("/by")[1];
-            return new Deadlines(task, deadline);
+            return new Deadlines(task, note, deadline);
 
         case EVENT:
+            checkValidEventField();
             task = input.split("/from")[0];
             String date = input.split("/from")[1];
             String startDate = date.split("/to")[0];
             String endDate = date.split("/to")[1];
-            return new Events(task, startDate, endDate);
+            return new Events(task, note, startDate, endDate);
 
         default:
             assert false : "Wrong task type was passed";
             return null;
+        }
+    }
+
+    private void checkValidDeadlineField() throws ChatBotException {
+        if (input.split("/by").length == 1) {
+            throw new ChatBotException("\t Oh no!![@.@] Deadline cannot be empty"
+                + "\n\t Enter the deadline in the format: deadline <Task> /by <Deadline>");
+        }
+    }
+
+    private void checkValidEventField() throws ChatBotException {
+        if (input.split("/from").length == 1 ||
+            input.split("/to").length == 1) {
+            throw new ChatBotException("\t Oh no!!(;-;) Event period cannot be empty"
+                + "\n\t Enter the event in the format: event <Task> "
+                + "/from <Start Date/Time> /to <End Date/Time>");
         }
     }
 

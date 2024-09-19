@@ -16,7 +16,8 @@ public abstract class Parser {
         DEADLINE,
         EVENT,
         DELETE,
-        FIND;
+        FIND,
+        SHOW;
     }
 
     /**
@@ -40,6 +41,7 @@ public abstract class Parser {
             case UNMARK -> new CompleteCommand(Integer.parseInt(inputs[1]), false);
             case DELETE -> new DeleteCommand(Integer.parseInt(inputs[1]));
             case FIND -> new FindCommand(inputs[1]);
+            case SHOW -> new ShowCommand(Integer.parseInt(inputs[1]));
             };
         } catch (IllegalArgumentException e) {
             throw new ChatBotException("\t Oops!! I don't understand what that means :((");

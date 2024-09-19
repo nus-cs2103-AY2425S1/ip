@@ -11,6 +11,8 @@ public abstract class Task {
     /** Status on whether the task has been completed **/
     private boolean isCompleted;
 
+    private String note;
+
     /**
      * Constructor of new task given the description,
      * whereby default the task is not completed.
@@ -18,11 +20,12 @@ public abstract class Task {
      * @param task is the description/task name
      * @throws IllegalArgumentException if the description of the task is empty
      */
-    public Task(String task) throws IllegalArgumentException {
+    public Task(String task, String note) throws IllegalArgumentException {
         if (task.isEmpty() || task.equals(" ")) {
             throw new IllegalArgumentException("\tOh no!!(0o0) Description cannot be empty");
         }
         this.task = task;
+        this.note = note;
         this.isCompleted = false;
     }
 
@@ -32,11 +35,12 @@ public abstract class Task {
      * @param task is the description/task name
      * @throws IllegalArgumentException if the description of the task is empty
      */
-    public Task(String task, Boolean isCompleted) throws IllegalArgumentException {
+    public Task(String task, String note, Boolean isCompleted) throws IllegalArgumentException {
         if (task.isEmpty() || task.equals(" ")) {
             throw new IllegalArgumentException("\tOh no!!(0o0) Description cannot be empty");
         }
         this.task = task;
+        this.note = note;
         this.isCompleted = isCompleted;
     }
 
@@ -70,6 +74,15 @@ public abstract class Task {
      * @return task as a string in the appropriate format for saving
      */
     public String toPrint() {
-        return isCompleted ? "|1|" + task : "|0|" + task;
+        String s = task + "|" + note;
+        return isCompleted ? "|1|" + s : "|0|" + s;
+    }
+
+    public String toShowNote() {
+        if (note.equals("NA")) {
+            return "No note has been added to this task";
+        } else {
+            return "Short note of the task: " + note.trim();
+        }
     }
 }

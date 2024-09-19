@@ -18,7 +18,7 @@ public class StorageTest {
                 " [E][X] eventTest (from: 07 Sep 2024 20:00 to: 08 Sep 2024 02:00 )]";
         try {
             actual = storage.load();
-            assertEquals(actual.toString(), expected);
+            assertEquals(expected, actual.toString());
         } catch (ChatBotException e) {
             fail();
         }

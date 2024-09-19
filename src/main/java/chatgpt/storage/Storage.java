@@ -61,7 +61,6 @@ public class Storage {
                 String taskType = fileReader.next();
                 String[] inputs = fileReader.nextLine()
                         .split("\\|");
-
                 Task savedTask = parseSaveData(taskType, inputs);
                 data.add(savedTask);
             }
@@ -73,30 +72,24 @@ public class Storage {
 
     private Task parseSaveData(String taskType, String[] inputs)
             throws ChatBotException {
-        String taskName;
-        boolean isCompleted;
+        String taskName = inputs[2];
+        String taskNote = inputs[3];
+        boolean isCompleted = inputs[1].equals("1");
 
         switch(Tasks.valueOf(taskType)) {
         case T:
-            taskName = inputs[2];
-            isCompleted = inputs[1].equals("1");
-
-            return new ToDos(taskName, isCompleted);
+            return new ToDos(taskName, taskNote, isCompleted);
 
         case D:
-            taskName = inputs[2];
-            isCompleted = inputs[1].equals("1");
-            String deadline = inputs[3];
+            String deadline = inputs[4];
 
-            return new Deadlines(taskName, deadline, isCompleted);
+            return new Deadlines(taskName, taskNote, deadline, isCompleted);
 
         case E:
-            taskName = inputs[2];
-            isCompleted = inputs[1].equals("1");
-            String startDate = inputs[3];
-            String endDate = inputs[4];
+            String startDate = inputs[4];
+            String endDate = inputs[5];
 
-            return new Events(taskName, startDate, endDate, isCompleted);
+            return new Events(taskName, taskNote, startDate, endDate, isCompleted);
         default:
             assert false : "Data stored as wrong format";
             return null;
