@@ -36,6 +36,9 @@ public abstract class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
+    public boolean getProgress() {
+        return this.isDone;
+    }
     /**
      * Returns a string representation of the task in a human-readable format.
      *

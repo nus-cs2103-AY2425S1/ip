@@ -62,6 +62,7 @@ public class TaskList {
     public static void delTask(int num){
         // add task to the List
         // return a string
+
         if (num >= 0 && num < list.size()) {
             list.remove(num);
         }
@@ -80,5 +81,4 @@ public class TaskList {
     public static void clearTaskList() {
         list.clear();
     }
-
 }

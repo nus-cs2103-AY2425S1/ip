@@ -36,10 +36,11 @@ public class DeadlinesTask extends Task {
         DateTimeFormatter toLocalDateTimeF = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         try {
             this.deadline = LocalDateTime.parse(deadline, toLocalDateTimeF);
-            // if this doesnt work, prompt users to send the task correctly
+            // if this doesn't work, prompt users to send the task correctly
         } catch (DateTimeParseException e) {
-            throw new InvalidDeadlineException("Error saving task. You have given an invalid date-time format.\n" +
-                    "Please use this format, yyyy-MM-dd HHmm.\n" + "An example is 2024-10-15 1800");
+            String exp = "Error saving task. You have given an invalid date-time format.\n" +
+                    "Please use this format, yyyy-MM-dd HHmm.\n" + "An example is 2024-10-15 1800";
+            throw new InvalidDeadlineException(exp);
         }
     }
 
@@ -67,7 +68,6 @@ public class DeadlinesTask extends Task {
 
         LocalTime timeChecker = LocalDateTime.of(0, 1, 1, 0, 0).toLocalTime();
         if (time.toLocalTime() == timeChecker) {
-            // means dont have time specified
             return time.format(dateFormatter);
         } else {
             return time.format(dateTimeFormatter);
@@ -83,7 +83,7 @@ public class DeadlinesTask extends Task {
     @Override
     public String printTask() {
         return "[D]" + super.printTask() + " (by: " + getDeadlineToString(this.deadline) + ")";
-    } // this is for human readable string
+    }
 
     /**
      * Returns a string representation of the task in a file-storage format.

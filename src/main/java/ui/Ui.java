@@ -92,5 +92,4 @@ public class Ui {
     public static String getInitialGreeting() {
         return "Hello! I'm Prince! What would you like me to add to your TODO list today?";
     }
-
 }

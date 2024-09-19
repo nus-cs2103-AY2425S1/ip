@@ -6,9 +6,9 @@ import prince.Prince;
 import task.Task;
 
 /**
- * Represents a regular todo task .
+ * Represents a regular todotask .
  *
- * A todo task is a type of task that includes an action
+ * A todotask is a type of task that includes an action
  * The class provides multiple methods to retrieve and save that information.
  */
 

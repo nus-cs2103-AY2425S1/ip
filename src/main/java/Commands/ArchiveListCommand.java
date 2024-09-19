@@ -11,6 +11,10 @@ import java.util.Scanner;
 
 import static storage.Storage.getTaskFromFile;
 
+/**
+ * The ArchiveListCommand class is responsible for loading archived tasks from a file called
+ * "archive.txt" and displaying them in a human-readable format to the user.
+ */
 public class ArchiveListCommand {
     ArrayList<Task> archivedlst;
     public ArchiveListCommand() {
@@ -18,6 +22,11 @@ public class ArchiveListCommand {
         this.archivedlst = new ArrayList<>();
 
     }
+
+    /**
+     * Executes the command to retrieve and display archived tasks.
+     * @return string representing the archived list in a human-readable format
+     */
 
     public String commandAction() {
         getTasks();
@@ -33,6 +42,10 @@ public class ArchiveListCommand {
         }
     }
 
+    /**
+     * Loads archived tasks from the file "archive.txt" and converts each line of the file into a Task object.
+     * @return ArrayList of tasks loaded from archive file
+     */
     public static ArrayList<Task> loadArchivedTasksFromFile() {
         ArrayList<Task> tasks = new ArrayList<>();
         String archiveFilePath = "archive.txt";
