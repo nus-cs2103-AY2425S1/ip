@@ -7,10 +7,10 @@
 Introducing Neuro! A CLI chatbot that provides a multitude of tools to ease your mind! It's
 - text-based
 - easy to learn
-- ~~FAST~~ *SUPER* FAST to use :zap: :zap: :zap:
+- ~~FAST~~ *SUPER* FAST to use ⚡ ⚡ ⚡
 
 All you need to do is,
-1. download it from [here](https://github.com/AgentHagu/ip/releases/tag/A-Jar)
+1. download it from [here](https://github.com/AgentHagu/ip/releases/tag/A-Release)
 2. run `java -jar neuro.jar` (as of now, double clicking does not work 😢)
 3. add your tasks
 4. let it manage your tasks for you (auto-save feature 🤯)

@@ -18,7 +18,7 @@ public class NeuroTest {
     @Test
     public void getResponse_invalidCommand_errorMessageReturned() {
         String invalidInput = "This is an invalid input";
-        String expectedResult = "UH OH! I'm sorry but I don't recognise that command. Try the following:\n"
+        String expectedResult = "Oh no~! I'm sorry but I don't recognise that command. Try the following:\n"
                 + "'todo', 'deadline', 'event', 'list', 'find', 'tag', 'mark', 'unmark', 'delete', 'bye'.";
 
         assertEquals(expectedResult, neuro.getResponse(invalidInput));
