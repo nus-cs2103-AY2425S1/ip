@@ -5,8 +5,8 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-
 <AnchorPane
+        xmlns:fx="http://javafx.com/fxml/1"
         maxHeight="-Infinity"
         maxWidth="-Infinity"
         minHeight="-Infinity"
@@ -15,7 +15,6 @@
         prefWidth="400.0"
         stylesheets="@../css/main.css"
         xmlns="http://javafx.com/javafx/17.0.7"
-        xmlns:fx="http://javafx.com/fxml/1"
         fx:controller="ratchet.ui.MainWindow">
     <TextField
             fx:id="userInput"
@@ -26,7 +25,7 @@
             promptText="Type here..."
             AnchorPane.bottomAnchor="1.0"
             AnchorPane.leftAnchor="0.0"
-            AnchorPane.rightAnchor="76.0" />
+            AnchorPane.rightAnchor="76.0"/>
     <Button fx:id="sendButton"
             layoutX="324.0"
             layoutY="558.0"
@@ -36,7 +35,7 @@
             prefWidth="76.0"
             text="Send"
             AnchorPane.bottomAnchor="1.0"
-            AnchorPane.rightAnchor="0.0" />
+            AnchorPane.rightAnchor="0.0"/>
     <ScrollPane fx:id="scrollPane"
                 fitToWidth="true"
                 hbarPolicy="NEVER"
@@ -50,6 +49,6 @@
                 AnchorPane.topAnchor="0.0">
         <VBox fx:id="dialogContainer"
               prefHeight="552.0"
-              prefWidth="388.0" />
+              prefWidth="388.0"/>
     </ScrollPane>
 </AnchorPane>

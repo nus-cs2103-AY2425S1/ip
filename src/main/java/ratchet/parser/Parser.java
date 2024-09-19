@@ -154,6 +154,9 @@ public class Parser {
     private Integer[] parseIndex(String input) throws InvalidCommandArgumentException {
         try {
             String[] splitByArguments = input.split(" ");
+            if (splitByArguments.length < 2) {
+                throw new InvalidCommandArgumentException("There is no input given!");
+            }
             Integer[] num = new Integer[splitByArguments.length - 1];
             for (int i = SPLIT_SECOND; i < splitByArguments.length; i++) {
                 num[i - 1] = Integer.parseInt(splitByArguments[i]) - 1;
@@ -163,7 +166,7 @@ public class Parser {
         } catch (NumberFormatException e) {
             throw new InvalidCommandArgumentException("Task index must be a number!");
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new InvalidCommandArgumentException("An index must be given to this command!");
+            throw new InvalidCommandArgumentException("There is no task with that index!");
         }
     }
 }
