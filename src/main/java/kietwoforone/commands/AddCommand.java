@@ -19,6 +19,7 @@ public class AddCommand extends Command {
      * @param task
      */
     public AddCommand(Task task) {
+        assert task != null: "Task cannot be null.";
         this.task = task;
     }
 
@@ -33,6 +34,9 @@ public class AddCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) throws KieTwoForOneException {
+        assert tasks != null: "TaskList cannot be null.";
+        assert ui != null: "UI cannot be null.";
+        assert storage != null: "Storage cannot be null.";
         tasks.addTasks(this.task);
         ui.showAddTasks(tasks.getTaskList(), this.task);
         try {

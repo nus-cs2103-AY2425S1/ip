@@ -55,6 +55,8 @@ public class UI {
      * @param newTask
      */
     public void showAddTasks(ArrayList<Task> tasks, Task newTask) {
+        assert tasks != null: "Tasks cannot be null.";
+        assert newTask != null: "NewTask cannot be null.";
         response = "Got it. I've added this task:\n" + "    " + newTask.toString() + "\n" +
                     String.format("Now you have %d tasks in the list.", tasks.size());
         System.out.println(response);
@@ -67,6 +69,8 @@ public class UI {
      * @param removedTask
      */
     public void showDeleteTask(ArrayList<Task> tasks, Task removedTask) {
+        assert tasks != null: "Tasks cannot be null.";
+        assert removedTask != null: "RemovedTask cannot be null.";
         response = "Noted. I've removed the task:\n" + "    " + removedTask.toString() + "\n" +
                 String.format("Now you have %d tasks in the list.", tasks.size());
         System.out.println(response);
@@ -78,6 +82,7 @@ public class UI {
      * @param tasks
      */
     public void showTaskList(ArrayList<Task> tasks) {
+        assert tasks != null: "Tasks cannot be null.";
         String currString = "Here are the tasks in your list:\n";
         for (int i = 0; i < tasks.size(); i++) {
             currString = currString + String.format("%d. %s\n", i + 1, tasks.get(i).toString());
@@ -92,6 +97,7 @@ public class UI {
      * @param task
      */
     public void showMarkTask(String task) {
+        assert task != null: "Task cannot be null.";
         response = "Nice! I've marked this task as done:\n" + "    " + task;
         System.out.println(response);
     }
@@ -102,6 +108,7 @@ public class UI {
      * @param task
      */
     public void showUnmarkTask(String task) {
+        assert task != null: "Task cannot be null.";
         response = "OK. I've marked this task as incomplete:\n" + "    " + task;
         System.out.println(response);
     }
@@ -114,6 +121,8 @@ public class UI {
      * @throws KieTwoForOneException
      */
     public void showSameDate(ArrayList<Task> tasks, String date) throws KieTwoForOneException {
+        assert tasks != null: "Tasks cannot be null.";
+        assert date != null: "Date cannot be null.";
         ArrayList<Task> taskList = new ArrayList<>(100);
         for (int i = 0; i < tasks.size(); i++) {
             Task currTask = tasks.get(i);
@@ -137,6 +146,8 @@ public class UI {
      * @throws KieTwoForOneException
      */
     public void showMatchingTask(ArrayList<Task> tasks, String keyword) {
+        assert tasks != null: "Tasks cannot be null.";
+        assert keyword != null: "Keyword cannot be null.";
         ArrayList<Task> taskList= new ArrayList<>(100);
         for (int i = 0; i < tasks.size(); i++) {
             Task currTask = tasks.get(i);
@@ -158,6 +169,7 @@ public class UI {
      * @param e
      */
     public void showErrorMessage(KieTwoForOneException e) {
+        assert e != null: "e cannot be null.";
         response = e.getMessage();
         System.out.println(response);
     }

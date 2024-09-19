@@ -14,6 +14,7 @@ public class Todo extends Task {
      */
     public Todo(String description) {
         super(description);
+        assert description != null: "Description cannot be null.";
         this.task = new Task(this.description);
     }
 
@@ -45,6 +46,7 @@ public class Todo extends Task {
      */
     @Override
     public boolean compareDate(String date) {
+        assert date != null: "Date cannot be null.";
         return false;
     }
 
@@ -57,6 +59,7 @@ public class Todo extends Task {
      */
     @Override
     public boolean compareString(String keyword) {
+        assert keyword != null: "Keyword cannot be null";
         return this.task.compareString(keyword);
     }
 

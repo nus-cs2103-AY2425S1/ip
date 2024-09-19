@@ -16,6 +16,7 @@ public class TaskList {
      * @param tasks
      */
     public TaskList(ArrayList<Task> tasks) {
+        assert tasks != null: "Tasks cannot be null.";
         this.tasks = tasks;
     }
 
@@ -45,6 +46,7 @@ public class TaskList {
      * @throws KieTwoForOneException
      */
     public Task deleteTask(int position) throws KieTwoForOneException {
+        assert position >= 0: "Array position cannot be less than 0.";
         try {
             return this.tasks.remove(position - 1);
         } catch (IndexOutOfBoundsException e) {
@@ -60,6 +62,7 @@ public class TaskList {
      * @throws KieTwoForOneException
      */
     public String markTask(int position) throws KieTwoForOneException {
+        assert position >= 0: "Array position cannot be less than 0.";
         try {
             return this.tasks.get(position - 1).markTask();
         } catch (IndexOutOfBoundsException e) {
@@ -75,6 +78,7 @@ public class TaskList {
      * @throws KieTwoForOneException
      */
     public String unmarkTask(int position) throws KieTwoForOneException {
+        assert position >= 0: "Array position cannot be less than 0.";
         try {
             return this.tasks.get(position - 1).unmarkTask();
         } catch (IndexOutOfBoundsException e) {

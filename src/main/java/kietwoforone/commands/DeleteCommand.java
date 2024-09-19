@@ -19,6 +19,7 @@ public class DeleteCommand extends Command {
      * @param position
      */
     public DeleteCommand(int position) {
+        assert position >= 0: "Array position cannot be less than 0.";
         this.position = position;
     }
 
@@ -34,6 +35,9 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) throws KieTwoForOneException {
+        assert tasks != null: "TaskList cannot be null.";
+        assert ui != null: "UI cannot be null.";
+        assert storage != null: "Storage cannot be null.";
         Task deletedTask = tasks.deleteTask(this.position);
         ui.showDeleteTask(tasks.getTaskList(), deletedTask);
         try {

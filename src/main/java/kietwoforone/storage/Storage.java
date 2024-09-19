@@ -25,6 +25,7 @@ public class Storage {
      * @throws KieTwoForOneException
      */
     public static void saveFile(ArrayList<Task> tasks) throws KieTwoForOneException {
+        assert tasks != null: "TaskList cannot be null.";
         try {
             ObjectOutputStream fileSaver = new ObjectOutputStream(new FileOutputStream(filePath));
             for (int i = 0; i < tasks.size(); i++) {
@@ -45,6 +46,7 @@ public class Storage {
      * @throws KieTwoForOneException
      */
     public static void loadFile(ArrayList<Task> tasks) throws KieTwoForOneException {
+        assert tasks != null: "TaskList cannot be null.";
         try {
             ObjectInputStream fileLoader = new ObjectInputStream(new FileInputStream(filePath));
             while (true) {
