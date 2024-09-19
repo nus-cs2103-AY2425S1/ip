@@ -15,19 +15,19 @@ public class MarkCommand implements Command {
     /**
      * The boolean value to signify to mark or unmark the task.
      */
-    private final Boolean toMark;
+    private final Boolean hasMark;
 
     /**
      * Constructs a {@code MarkCommand} with the specified task index and mark status.
      *
      * @param index  The index of the task to be marked or unmarked.
-     * @param toMark {@code true} if the task is to be marked as done, {@code false} otherwise.
+     * @param hasMark {@code true} if the task is to be marked as done, {@code false} otherwise.
      */
-    public MarkCommand(int index, Boolean toMark) {
+    public MarkCommand(int index, Boolean hasMark) {
         assert index >= 0 : "index is less than 0";
-        assert toMark != null : "the program doesn't know to mark or unmark";
+        assert hasMark != null : "the program doesn't know to mark or unmark";
         this.index = index;
-        this.toMark = toMark;
+        this.hasMark = hasMark;
     }
 
     /**
@@ -41,7 +41,7 @@ public class MarkCommand implements Command {
     public String run(TaskList taskList, Ui ui) {
         String output;
         Task task;
-        if (toMark) {
+        if (hasMark) {
             task = taskList.getTask(index).markAsDone();
             output = ui.printMark(task);
         } else {
