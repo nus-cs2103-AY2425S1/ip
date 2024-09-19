@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * Controller for the main GUI.
@@ -26,8 +27,10 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
     private Duke duke;
 
-    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private final Image botImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private final Image userImage =
+            new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaUser.png")));
+    private final Image botImage =
+            new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaDuke.png")));
 
     public MainWindow(Duke duke) {
         try {
@@ -51,7 +54,7 @@ public class MainWindow extends AnchorPane {
         String user = userInput.getText();
         String response = duke.getResponse(user);
         dialogContainer.getChildren().addAll(
-                DialogBox.getDialog(user, userImage),
+                DialogBox.getUserDialog(user, userImage),
                 DialogBox.getDialog(response, botImage)
         );
         userInput.clear();
