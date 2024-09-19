@@ -1,7 +1,6 @@
 package fanny.storage;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -35,15 +34,13 @@ public class Storage {
      * Loads tasks from the file at the specified file path.
      *
      * @return A list of tasks loaded from the file.
-     * @throws FileNotFoundException If the file does not exist.
+     * @throws IOException If the file does not exist.
      */
-    public List<Task> loadTask() throws FileNotFoundException {
+    public List<Task> loadTask() throws IOException {
         List<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
 
-        if (!file.exists()) {
-            return tasks;
-        }
+        createNewFile(file);
 
         Scanner scanner = new Scanner(file);
         while (scanner.hasNextLine()) {
@@ -54,6 +51,25 @@ public class Storage {
         }
 
         return tasks;
+    }
+
+    /**
+     * Creates the file and its parent directories, if it does not exist.
+     * Handles any {@code IOException} that occurs during file creation.
+     *
+     * @param file The file to check and create if necessary.
+     * @throws IOException If an error occurs while creating the file or directories.
+     */
+    private void createNewFile(File file) throws IOException {
+        try {
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+                System.out.println("Created new file: " + file.getAbsolutePath());
+            }
+        } catch (IOException e) {
+            throw new IOException("Error creating file: " + file.getAbsolutePath(), e);
+        }
     }
 
     /**

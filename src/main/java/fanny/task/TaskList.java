@@ -1,6 +1,5 @@
 package fanny.task;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -29,7 +28,7 @@ public class TaskList {
         this.storage = storage;
         try {
             this.list = storage.loadTask();
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             System.out.println("File not found");
         }
     }
