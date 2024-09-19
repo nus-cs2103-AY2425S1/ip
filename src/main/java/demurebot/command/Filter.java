@@ -20,7 +20,7 @@ public class Filter extends Command {
     }
 
     /**
-     * Filter task list to only todos
+     * Filters task list to only todos
      *
      * @param tasks TaskList object that contains the list of tasks.
      * @param ui Ui object that handles the user interface.
