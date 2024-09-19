@@ -2,7 +2,7 @@
 
 Bobby the chatbot is a **task management application where user can use it to keep track of tasks**. It is **optimized for use via a Command Line Interface (CLI)** while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Bobby the chatbot can help you get your tasks done faster than traditional GUI apps.
 
-- [Quick Start](https://github.com/zhiyi12345/ip/edit/master/docs/README.md#quick-start)
+- [Quick Start](#quick-start)
 - [Features](https://github.com/zhiyi12345/ip/edit/master/docs/README.md#features)
   - [Adding To Do Tasks: `todo`](https://github.com/zhiyi12345/ip/edit/master/docs/README.md#adding-to-do-tasks-todo)
   - [Adding Deadline Tasks: `deadline`](https://github.com/zhiyi12345/ip/edit/master/docs/README.md#adding-deadline-tasks-deadline)
