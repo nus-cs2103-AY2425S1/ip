@@ -108,12 +108,7 @@ public class Parser {
             throws GojouException {
         Priority priority = Priority.NONE;
         while (lineScanner.hasNext()) {
-            String word = lineScanner.next();
-            if (word.startsWith("//")) {
-                priority = readTaskPriority(word);
-            } else {
-                arrOfStr.add(word);
-            }
+            priority = getPriority(lineScanner, arrOfStr, priority);
         }
 
         if (arrOfStr.isEmpty()) {
@@ -122,6 +117,16 @@ public class Parser {
         }
 
         return new Todo(String.join(" ", arrOfStr), isDone, priority);
+    }
+
+    private static Priority getPriority(Scanner lineScanner, ArrayList<String> arrOfStr, Priority priority) throws GojouException {
+        String word = lineScanner.next();
+        if (word.startsWith("//")) {
+            priority = readTaskPriority(word);
+        } else {
+            arrOfStr.add(word);
+        }
+        return priority;
     }
 
     /**
@@ -153,7 +158,12 @@ public class Parser {
         }
 
         String deadline = String.join(" ", arrOfStr);
+        checkErroneousInput(hasProvidedDeadline, deadline, description);
 
+        return new Deadline(description, isDone, priority, convertDateTime(deadline));
+    }
+
+    private static void checkErroneousInput(boolean hasProvidedDeadline, String deadline, String description) throws GojouException {
         boolean hasDescriptionButNoSlashBy = !hasProvidedDeadline
                 && !deadline.isEmpty() && description.isEmpty();
         boolean hasDescriptionAndSlashByButNoDeadline = hasProvidedDeadline
@@ -169,7 +179,6 @@ public class Parser {
             throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just part of "
                     + "getting stronger. Let's try that again, shall we? Please provide a deadline task");
         }
-        return new Deadline(description, isDone, priority, convertDateTime(deadline));
     }
 
     /**
@@ -183,11 +192,12 @@ public class Parser {
      */
     public static Task makeEventTask(Scanner lineScanner, ArrayList<String> arrOfStr, boolean isDone)
             throws GojouException {
-        if (!lineScanner.hasNext()) {
-            throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just part of "
-                    + "getting stronger. Let's try that again, shall we? Please provide an event task");
-        }
+        checkIfTaskIsProvided(lineScanner);
 
+        return getEvent(lineScanner, arrOfStr, isDone);
+    }
+
+    private static Event getEvent(Scanner lineScanner, ArrayList<String> arrOfStr, boolean isDone) throws GojouException {
         String description = "";
         String start = "";
         boolean isStart = false;
@@ -202,24 +212,52 @@ public class Parser {
             } else if (word.equals("/from")) {
                 description = String.join(" ", arrOfStr);
                 arrOfStr.clear();
-                if (lineScanner.hasNext()) {
-                    isStart = true;
-                }
-                if (isEnd) {
-                    throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just"
-                            + " part of getting stronger. Let's try that again, shall we? /to should not"
-                            + "come before /from. Write the start time first before the end time");
-                }
+                isStart = checkIfStartDateIsProvided(lineScanner, isStart);
+                checkIfEndDateProvidedBeforeStartDate(isEnd);
             } else if (word.equals("/to")) {
                 start = String.join(" ", arrOfStr);
                 arrOfStr.clear();
-                if (lineScanner.hasNext()) {
-                    isEnd = true;
-                }
+                isEnd = checkIfEndDateIsProvided(lineScanner, isEnd);
             } else {
                 arrOfStr.add(word);
             }
         }
+        checkErroneousInput(isStart, start, isEnd, description);
+
+        return new Event(description, isDone, priority, convertDateTime(start),
+                convertDateTime(String.join(" ", arrOfStr)));
+    }
+
+    private static boolean checkIfEndDateIsProvided(Scanner lineScanner, boolean isEnd) {
+        if (lineScanner.hasNext()) {
+            isEnd = true;
+        }
+        return isEnd;
+    }
+
+    private static void checkIfEndDateProvidedBeforeStartDate(boolean isEnd) throws GojouException {
+        if (isEnd) {
+            throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just"
+                    + " part of getting stronger. Let's try that again, shall we? /to should not"
+                    + "come before /from. Write the start time first before the end time");
+        }
+    }
+
+    private static boolean checkIfStartDateIsProvided(Scanner lineScanner, boolean isStart) {
+        if (lineScanner.hasNext()) {
+            isStart = true;
+        }
+        return isStart;
+    }
+
+    private static void checkIfTaskIsProvided(Scanner lineScanner) throws GojouException {
+        if (!lineScanner.hasNext()) {
+            throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just part of "
+                    + "getting stronger. Let's try that again, shall we? Please provide an event task");
+        }
+    }
+
+    private static void checkErroneousInput(boolean isStart, String start, boolean isEnd, String description) throws GojouException {
         if (!isStart || start.isEmpty()) {
             throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just part of "
                     + "getting stronger. Let's try that again, shall we? Please provide a start time with '/from' "
@@ -234,8 +272,6 @@ public class Parser {
             throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just part of "
                     + "getting stronger. Let's try that again, shall we? Please provide an event task!");
         }
-        return new Event(description, isDone, priority, convertDateTime(start),
-                convertDateTime(String.join(" ", arrOfStr)));
     }
 }
 

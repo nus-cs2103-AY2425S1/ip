@@ -52,25 +52,36 @@ public class AddCommand extends Command {
         if (this.response.equals("todo")) {
             task = Parser.makeTodoTask(lineScanner, arrOfStr, false);
         } else if (this.response.equals("deadline")) {
-            try {
-                task = Parser.makeDeadlineTask(lineScanner, arrOfStr, false);
-            } catch (DateTimeParseException e) {
-                throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just "
-                        + "part of getting stronger. Let’s try that again, shall we? Please provide the deadline "
-                        + "in yyyy-mm-dd HHMM format e.g. 2024-05-19 1800");
-            }
+            task = getDeadlineTask(arrOfStr);
         } else if (this.response.equals("event")) {
-            try {
-                task = Parser.makeEventTask(lineScanner, arrOfStr, false);
-            } catch (DateTimeParseException e) {
-                throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just "
-                        + "part of getting stronger. Let's try that again, shall we? Please provide the start and "
-                        + "end date and time in yyyy-mm-dd HHMM format e.g. 2024-05-19 1800");
-            }
-
+            task = getEventTask(arrOfStr);
         }
         tasks.add(task, storage);
         return ui.showMessage("Got it. I've added this task: ", task, tasks.getSize());
+    }
+
+    private Task getEventTask(ArrayList<String> arrOfStr) throws GojouException {
+        Task task;
+        try {
+            task = Parser.makeEventTask(lineScanner, arrOfStr, false);
+        } catch (DateTimeParseException e) {
+            throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just "
+                    + "part of getting stronger. Let's try that again, shall we? Please provide the start and "
+                    + "end date and time in yyyy-mm-dd HHMM format e.g. 2024-05-19 1800");
+        }
+        return task;
+    }
+
+    private Task getDeadlineTask(ArrayList<String> arrOfStr) throws GojouException {
+        Task task;
+        try {
+            task = Parser.makeDeadlineTask(lineScanner, arrOfStr, false);
+        } catch (DateTimeParseException e) {
+            throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just "
+                    + "part of getting stronger. Let’s try that again, shall we? Please provide the deadline "
+                    + "in yyyy-mm-dd HHMM format e.g. 2024-05-19 1800");
+        }
+        return task;
     }
 
     @Override

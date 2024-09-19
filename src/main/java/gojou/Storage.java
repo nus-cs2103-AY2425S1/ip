@@ -71,37 +71,34 @@ public class Storage {
 
     private Task createTask(String lineOfWords) throws GojouException {
         assert !lineOfWords.isEmpty() : "Empty line in Gojou.txt";
+
         Scanner lineScanner = new Scanner(lineOfWords);
         String category = lineScanner.next();
-        Task task = new Task("", false, Priority.NONE);
-
         ArrayList<String> arrOfStr = new ArrayList<>();
+
+        return getTask(category, lineScanner, arrOfStr);
+    }
+
+    private Task getTask(String category, Scanner lineScanner, ArrayList<String> arrOfStr) throws GojouException {
         switch (category) {
         case "[T][":
             lineScanner.next();
-            task = Parser.makeTodoTask(lineScanner, arrOfStr, false);
-            break;
+            return Parser.makeTodoTask(lineScanner, arrOfStr, false);
         case "[T][X]":
-            task = Parser.makeTodoTask(lineScanner, arrOfStr, true);
-            break;
+            return Parser.makeTodoTask(lineScanner, arrOfStr, true);
         case "[D][":
             lineScanner.next();
-            task = Parser.makeDeadlineTask(lineScanner, arrOfStr, false);
-            break;
+            return Parser.makeDeadlineTask(lineScanner, arrOfStr, false);
         case "[D][X]":
-            task = Parser.makeDeadlineTask(lineScanner, arrOfStr, true);
-            break;
+            return Parser.makeDeadlineTask(lineScanner, arrOfStr, true);
         case "[E][":
             lineScanner.next();
-            task = Parser.makeEventTask(lineScanner, arrOfStr, false);
-            break;
+            return Parser.makeEventTask(lineScanner, arrOfStr, false);
         case "[E][X]":
-            Parser.makeEventTask(lineScanner, arrOfStr, true);
-            break;
+            return Parser.makeEventTask(lineScanner, arrOfStr, true);
         default:
-            //do nothing
+            return new Task("", false, Priority.NONE);
         }
-        return task;
     }
 
     /**

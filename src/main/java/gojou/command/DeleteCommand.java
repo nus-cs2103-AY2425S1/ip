@@ -38,20 +38,29 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws GojouException, IOException {
-        if (!lineScanner.hasNext()) {
-            throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just "
-                    + "part of getting stronger. Let's try that again, shall we? Please provide an integer "
-                    + "number after 'delete' indicating the task number to delete!");
+        checkIfUserInputIntegerAfterDelete();
+        int taskNumber = getTaskNumber();
+        checkIfUserEnteredCorrectIntegerInput(tasks, taskNumber);
+
+        return tasks.delete(taskNumber, storage, ui);
+    }
+
+    private int getTaskNumber() throws GojouException {
+        String taskNumberStr = getTaskNumberString();
+        return getTaskNumber(taskNumberStr);
+    }
+
+    private void checkIfUserEnteredCorrectIntegerInput(TaskList tasks, int taskNumber) throws GojouException {
+        // Handles the case where the user enters an invalid task number
+        if (taskNumber < 1 || taskNumber > tasks.getSize()) {
+            throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just part "
+                    + "of getting stronger. Let's try that again, shall we? Please provide a correct task "
+                    + "number to delete!");
         }
-        String taskNumberStr = lineScanner.next();
+    }
+
+    private int getTaskNumber(String taskNumberStr) throws GojouException {
         int taskNumber;
-
-        // Handles case where user writes too much
-        if (lineScanner.hasNext()) {
-            throw new GojouException("Whoa, slow down there, chatterbox! You might be giving me a run for my "
-                    + "money. Let's take it one step at a time, okay? Please only provide a number after 'delete'!");
-        }
-
         // Handles case where user doesn't provide a number or provides a non-integer
         try {
             taskNumber = Integer.valueOf(taskNumberStr);
@@ -60,15 +69,27 @@ public class DeleteCommand extends Command {
                     + "of getting stronger. Let's try that again, shall we? Please only provide an integer number "
                     + "after 'delete' indicating the task number to delete!");
         }
+        return taskNumber;
+    }
 
-        // Handles the case where the user enters an invalid task number
-        if (taskNumber < 1 || taskNumber > tasks.getSize()) {
-            throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just part "
-                    + "of getting stronger. Let's try that again, shall we? Please provide a correct task "
-                    + "number to delete!");
+    private String getTaskNumberString() throws GojouException {
+        String taskNumberStr = lineScanner.next();
+        int taskNumber;
+
+        // Handles case where user writes too much
+        if (lineScanner.hasNext()) {
+            throw new GojouException("Whoa, slow down there, chatterbox! You might be giving me a run for my "
+                    + "money. Let's take it one step at a time, okay? Please only provide a number after 'delete'!");
         }
+        return taskNumberStr;
+    }
 
-        return tasks.delete(taskNumber, storage, ui);
+    private void checkIfUserInputIntegerAfterDelete() throws GojouException {
+        if (!lineScanner.hasNext()) {
+            throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just "
+                    + "part of getting stronger. Let's try that again, shall we? Please provide an integer "
+                    + "number after 'delete' indicating the task number to delete!");
+        }
     }
 
     @Override

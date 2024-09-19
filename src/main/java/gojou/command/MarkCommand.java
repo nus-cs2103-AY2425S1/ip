@@ -41,19 +41,37 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws GojouException, IOException {
-        if (!lineScanner.hasNext()) {
-            throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just part of "
-                    + "getting stronger. Let's try that again, shall we? Please provide an integer number after "
-                    + "'mark' or 'unmark' indicating the task number to mark or unmark!");
-        }
-        String taskNumberStr = lineScanner.next();
-        int taskNumber;
+        checkIfUserEnteredIntegerAfterMark();
+        int taskNumber = getTaskNumber();
+        checkInvalidTaskNumber(tasks, taskNumber);
 
-        // Handles case where user provides extra input
-        if (lineScanner.hasNext()) {
-            throw new GojouException("Whoa, slow down there, chatterbox! You might be giving me a run for my money. "
-                    + "Let's take it one step at a time, okay? Please only provide a number after 'mark' or 'unmark'!");
+        return markTaskAndGetDisplayString(tasks, ui, storage, taskNumber);
+    }
+
+    private int getTaskNumber() throws GojouException {
+        String taskNumberStr = getTaskNumberStr();
+        return getTaskNumber(taskNumberStr);
+    }
+
+    private String markTaskAndGetDisplayString(TaskList tasks, Ui ui, Storage storage, int taskNumber) throws IOException {
+        if (this.response.equals("mark")) {
+            return tasks.mark(taskNumber, storage, ui);
+        } else {
+            return tasks.unmark(taskNumber, storage, ui);
         }
+    }
+
+    private void checkInvalidTaskNumber(TaskList tasks, int taskNumber) throws GojouException {
+        // Handles the case where user provides an invalid task number
+        if (taskNumber < 1 || taskNumber > tasks.getSize()) {
+            throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just "
+                    + "part of getting stronger. Let's try that again, shall we? Please provide a correct "
+                    + "task number to mark or unmark!");
+        }
+    }
+
+    private int getTaskNumber(String taskNumberStr) throws GojouException {
+        int taskNumber;
 
         // Handles case where user doesn't provide a number or provides an invalid integer
         try {
@@ -63,18 +81,25 @@ public class MarkCommand extends Command {
                     + "getting stronger. Let's try that again, shall we? Please only provide an integer number "
                     + "after 'mark' or 'unmark' indicating the task number to mark or unmark!");
         }
+        return taskNumber;
+    }
 
-        // Handles the case where user provides an invalid task number
-        if (taskNumber < 1 || taskNumber > tasks.getSize()) {
-            throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just "
-                    + "part of getting stronger. Let's try that again, shall we? Please provide a correct "
-                    + "task number to mark or unmark!");
+    private String getTaskNumberStr() throws GojouException {
+        String taskNumberStr = lineScanner.next();
+
+        // Handles case where user provides extra input
+        if (lineScanner.hasNext()) {
+            throw new GojouException("Whoa, slow down there, chatterbox! You might be giving me a run for my money. "
+                    + "Let's take it one step at a time, okay? Please only provide a number after 'mark' or 'unmark'!");
         }
+        return taskNumberStr;
+    }
 
-        if (this.response.equals("mark")) {
-            return tasks.mark(taskNumber, storage, ui);
-        } else {
-            return tasks.unmark(taskNumber, storage, ui);
+    private void checkIfUserEnteredIntegerAfterMark() throws GojouException {
+        if (!lineScanner.hasNext()) {
+            throw new GojouException("Oops, looks like you tripped up! No worries though - mistakes are just part of "
+                    + "getting stronger. Let's try that again, shall we? Please provide an integer number after "
+                    + "'mark' or 'unmark' indicating the task number to mark or unmark!");
         }
     }
 
