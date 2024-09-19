@@ -49,7 +49,7 @@ public class MainWindow {
         String response = shrimp.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getShrimpDialog(response, shrimpImage)
+                response.contains("ERR") ? DialogBox.getErrorDialog(response, shrimpImage) : DialogBox.getShrimpDialog(response, shrimpImage)
         );
         userInput.clear();
     }

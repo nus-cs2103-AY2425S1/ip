@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 public class DialogBox extends HBox {
     @FXML
@@ -32,6 +33,9 @@ public class DialogBox extends HBox {
 
         dialog.setText(messageText);
         displayPicture.setImage(image);
+
+        Circle clip = new Circle(30, 30, 30);
+        displayPicture.setClip(clip);
     }
 
     /**
@@ -46,12 +50,22 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String messageText, Image userImage) {
-        return new DialogBox(messageText, userImage);
+        var db = new DialogBox(messageText, userImage);
+        db.dialog.getStyleClass().add("label");
+        return db;
     }
 
     public static DialogBox getShrimpDialog(String messageText, Image shrimpImage) {
         var db = new DialogBox(messageText, shrimpImage);
         db.flip();
+        db.dialog.getStyleClass().add("reply-label");
+        return db;
+    }
+
+    public static DialogBox getErrorDialog(String messageText, Image shrimpImage) {
+        var db = new DialogBox(messageText, shrimpImage);
+        db.flip();
+        db.dialog.getStyleClass().add("error-label");
         return db;
     }
 }
