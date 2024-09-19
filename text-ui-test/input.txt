@@ -1,0 +1,8 @@
+read book
+write book
+mark 1
+mark 2
+list
+unmark 1
+unmark 2
+bye
