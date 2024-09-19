@@ -20,36 +20,25 @@ public class Parser {
      */
     Action parseInput(String input) throws FredException {
         input = input.strip();
-        String[] inputParts = input.split(" ", 2);
+        if (input.isEmpty()) {
+            throw new EmptyInputException();
+        }
         Action action;
+        String[] inputParts = input.split(" ", 2);
         Command command = getCommand(inputParts[0]);
-        Command[] commandsWithTaskNumber = new Command[]{Command.MARK_TASK, Command.UNMARK_TASK, Command.DELETE_TASK};
         Command[] commandsWithTaskTypeAndDetails = new Command[]{Command.ADD_TODO_TASK, Command.ADD_DEADLINE_TASK, Command.ADD_EVENT_TASK};
-        Command[] commandsWithKeyword = new Command[]{Command.FIND_TASK};
-        Command[] commandsWithNumberAndTag = new Command[]{Command.TAG_TASK};
-        boolean actionNeedsTaskNumber = Arrays.asList(commandsWithTaskNumber).contains(command);
-        boolean actionNeedsTaskTypeAndDetails = Arrays.asList(commandsWithTaskTypeAndDetails).contains(command);
-        boolean actionNeedsKeyword = Arrays.asList(commandsWithKeyword).contains(command);
-        boolean actionNeedsNumberAndTag = Arrays.asList(commandsWithNumberAndTag).contains(command);
-        if (actionNeedsTaskNumber) {
-            int taskNumber = getTaskNumber(inputParts[1]);
-            action = new Action(command, taskNumber);
-        } else if (actionNeedsTaskTypeAndDetails) {
-            String taskDetails = getTaskDetails(inputParts[1]);
-            TaskType tasktype = getTaskType(command);
-            action = new Action(command, tasktype, taskDetails);
-        } else if (actionNeedsKeyword) {
-            String keyword = getKeyword(inputParts[1]);
-            action = new Action(command, keyword);
-        } else if (actionNeedsNumberAndTag) {
-            String[] dividedInputParts = inputParts[1].split(" ", 2);
-            int taskNumber = getTaskNumber(dividedInputParts[0]);
-            String tag = getTag(dividedInputParts[1]);
-            action = new Action(command, taskNumber, tag);
+        Command[] commandsWithTaskNumber = new Command[]{Command.MARK_TASK, Command.UNMARK_TASK, Command.DELETE_TASK};
+        if (Arrays.asList(commandsWithTaskTypeAndDetails).contains(command)) {
+            action = getAddAction(command, input);
+        } else if (Arrays.asList(commandsWithTaskNumber).contains(command)) {
+            action = getActionWithTaskNumber(command, input);
+        } else if (command == Command.FIND_TASK) {
+            action = getFindAction(command, input);
+        } else if (command == Command.TAG_TASK) {
+            action = getTagAction(command, input);
         } else {
             action = new Action(command);
         }
-        System.out.println(action.getCommand());
         return action;
     }
 
@@ -79,7 +68,10 @@ public class Parser {
         return inputPart;
     }
 
-    String getKeyword(String inputPart) {
+    String getKeyword(String inputPart) throws EmptyKeywordsException {
+        if (inputPart.isEmpty()) {
+            throw new EmptyKeywordsException();
+        }
         return inputPart;
     }
 
@@ -96,11 +88,50 @@ public class Parser {
         }
     }
 
-    String getTag(String inputPart) throws EmptyTagException {
+    String getTag(String inputPart) throws InvalidTagException {
         if (inputPart.isEmpty()) {
-            throw new EmptyTagException();
+            throw new InvalidTagException();
         }
         return inputPart;
+    }
+
+    Action getAddAction(Command command, String input) throws FredException {
+        String[] inputParts = input.split(" ", 2);
+        if (inputParts.length < 2) {
+            throw new EmptyTaskDescriptionException();
+        }
+        TaskType taskType = getTaskType(command);
+        String taskDetails = getTaskDetails(inputParts[1]);
+        return new Action(command, taskType, taskDetails);
+    }
+
+    Action getActionWithTaskNumber(Command command, String input) throws FredException {
+        String[] inputParts = input.split(" ", 2);
+        if (inputParts.length < 2) {
+            throw new InvalidTaskNumberException();
+        }
+        int taskNumber = getTaskNumber(inputParts[1]);
+        System.out.println(taskNumber);
+        return new Action(command, taskNumber);
+    }
+
+    Action getFindAction(Command command, String input) throws FredException {
+        String[] inputParts = input.split(" ", 2);
+        if (inputParts.length < 2) {
+            throw new EmptyKeywordsException();
+        }
+        String keyword = getKeyword(inputParts[1]);
+        return new Action(command, keyword);
+    }
+
+    Action getTagAction(Command command, String input) throws FredException {
+        String[] inputParts = input.split(" ", 3);
+        if (inputParts.length < 3) {
+            throw new InvalidTagException();
+        }
+        int taskNumber = getTaskNumber(inputParts[1]);
+        String tag = getTag(inputParts[2]);
+        return new Action(command, taskNumber, tag);
     }
 }
 
