@@ -14,6 +14,8 @@ public class Parser {
      * @throws MichaelException If an invalid command is entered or an existing command is used incorrectly.
      */
     public String parse(String input) throws MichaelException {
+        assert input != null : "Input cannot be null";
+
         if (input.length() >= 4 && input.substring(0, 4).equals("mark")) { // mark a task as done
             if (input.length() < 6) { // no number given to mark
                 throw new MichaelException("Enter integer position of task on list to mark. "
@@ -21,6 +23,9 @@ public class Parser {
             }
 
             int index = Integer.valueOf(input.substring(5));
+            assert index > 0 : "Position of task to mark should be positive";
+            assert index <= tasks.size() : "Position of task to mark cannot be out of bounds";
+
             Task target = tasks.get(index - 1);
             target.doTask();
             return "Nice! I've marked this task as done:\n" + "  " + target;
@@ -40,6 +45,9 @@ public class Parser {
             }
 
             int index = Integer.valueOf(input.substring(7));
+            assert index > 0 : "Position of task to unmark should be positive";
+            assert index <= tasks.size() : "Position of task to unmark cannot be out of bounds";
+
             Task target = tasks.get(index - 1);
             target.undoTask();
             return "OK, I've marked this task as not done yet:\n" + "  " + target;
@@ -60,6 +68,8 @@ public class Parser {
 
             String task = input.substring(9);
             String[] parts = task.split("/");
+            assert parts.length == 2 : "Format of deadline task is incorrect";
+
             for (int i = 0; i < parts.length - 1; i++) {
                 String curr = parts[i];
                 parts[i] = curr.substring(0, curr.length() - 1);
@@ -82,6 +92,8 @@ public class Parser {
 
             String task = input.substring(6);
             String[] parts = task.split("/");
+            assert parts.length == 3 : "Format of event task is incorrect";
+
             for (int i = 0; i < parts.length - 1; i++) {
                 String curr = parts[i];
                 parts[i] = curr.substring(0, curr.length() - 1);
@@ -99,6 +111,9 @@ public class Parser {
             }
 
             int index = Integer.valueOf(input.substring(7));
+            assert index > 0 : "Position of task to delete should be positive";
+            assert index <= tasks.size() : "Position of task to delete cannot be out of bounds";
+
             Task target = tasks.get(index - 1);
             tasks.delete(index - 1);
             return "Noted. I've removed this task:\n" + "  " + target + "\n"

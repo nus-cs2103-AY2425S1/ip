@@ -24,6 +24,8 @@ public class Storage {
      */
     public Task load(String line) {
         String[] parts = line.split("\\|");
+        assert parts.length > 2 : "There should be at least 3 parts";
+
         for (int i = 0; i < parts.length; i++) {
             String s = parts[i];
             parts[i] = s.strip();
