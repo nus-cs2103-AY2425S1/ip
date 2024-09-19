@@ -46,6 +46,7 @@ public class Ui {
      * @param message the error message to display
      */
     public String showError(String message) {
+        assert message != null : "Error message should not be null";
         System.out.println(message);
         return message;
     }
@@ -56,7 +57,10 @@ public class Ui {
      * @return the command entered by the user
      */
     public String readCommand() {
-        return scanner.nextLine();
+        String command = scanner.nextLine();
+        assert command != null : "Command input should not be null";
+        assert !command.trim().isEmpty() : "Command input should not be empty";
+        return command;
     }
 
     /**
@@ -74,6 +78,8 @@ public class Ui {
      * @param size the total number of tasks in the list after adding the new task
      */
     public String showTaskAdded(Task task, int size) {
+        assert task != null : "Added task should not be null";
+        assert size >= 0 : "Task list size should not be negative";
         System.out.println("Got it. I've added this task:");
         System.out.println("\t" + task);
         System.out.println("Now you have " + size + " tasks in the list.");
@@ -121,6 +127,8 @@ public class Ui {
      * @param tasks the TaskList containing all the tasks to be displayed
      */
     public String showTaskList(TaskList tasks) {
+        assert tasks != null : "Task list should not be null";
+        assert tasks.size() > 0 : "Task list should contain at least one task to display";
         System.out.println("Here are the tasks in your list:");
         StringBuilder ret = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {

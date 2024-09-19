@@ -21,6 +21,7 @@ public class DeleteCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, TaskManagerException {
+        assert index >= 0 && index < tasks.size() : "Task index out of bounds";
         if (index < 0 || index >= tasks.size()) {
             throw new TaskManagerException("Error: Invalid task number.");
         }

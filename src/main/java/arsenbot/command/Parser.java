@@ -18,6 +18,7 @@ public class Parser {
      * @throws TaskManagerException if the input does not match any recognized command
      */
     public static Command parse(String input) throws TaskManagerException {
+
         String[] parts = input.split(" ", 2); // Split input into command and arguments
 
         return switch (parts[0]) {
@@ -31,5 +32,6 @@ public class Parser {
             default ->
                     throw new TaskManagerException("Error: Unrecognized command. Please enter a valid task command.");
         };
+
     }
 }
