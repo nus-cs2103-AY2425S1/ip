@@ -13,6 +13,11 @@ public class ParserTest {
     }
 
     @Test
+    public void byeCommand() throws AzirException {
+        assertArrayEquals(new String[] {"bye"}, Parser.parse("bye", 3));
+    }
+
+    @Test
     public void markCommand_valid() throws AzirException {
         assertArrayEquals(new String[] {"mark", "2"}, Parser.parse("mark 2", 3));
     }
