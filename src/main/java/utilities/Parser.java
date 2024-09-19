@@ -90,10 +90,10 @@ public class Parser {
         } catch (BigmouthException e) {
             return new Command(e.getMessage());
         } catch (NumberFormatException e) {
-            return new Command("OOPS! Please enter a valid number.");
+            return new Command("Girl! Please enter a valid number...");
         }
 
-        return new Command("Idk what ur sayin leh :/");
+        return new Command("Idk what ur sayin girl :/");
     }
 
     /**

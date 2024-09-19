@@ -1,7 +1,6 @@
 package utilities;
 
 import tasks.Deadline;
-import tasks.DoAfter;
 import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
@@ -30,7 +29,7 @@ public class Storage {
      * @param filename The file path where tasks will be saved and loaded from.
      */
     public Storage(String filename) {
-        assert filename != null && !filename.isEmpty() : "Filename must not be null or empty";
+        assert filename != null && !filename.trim().isEmpty() : "Filename must not be null or empty";
         this.rootPath = filename;
     }
 
@@ -38,12 +37,11 @@ public class Storage {
      * Saves the current task list to the specified file.
      */
     protected void saveToFile() {
-        assert rootPath != null && !rootPath.isEmpty() : "rootPath must not be null or empty";
-        assert tasks != null : "Task list must not be null";
+        assert rootPath != null && !rootPath.trim().isEmpty() : "File path must be valid before saving";
+        assert tasks != null : "Task list must be initialized";
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(rootPath))) {
             writeTasksToFile(writer);
-
         } catch (IOException e) {
             System.out.println("Error saving tasks to file: " + e.getMessage());
         }
@@ -55,8 +53,9 @@ public class Storage {
      * @param writer The BufferedWriter to write the tasks to the file.
      */
     private void writeTasksToFile(BufferedWriter writer) throws IOException {
+        assert writer != null : "BufferedWriter must not be null";
         for (Task task : tasks) {
-            assert task != null : "Task must not be null";
+            assert task != null : "Task in the list must not be null";
             writer.write(task.toSaveFormat());
             writer.newLine();
         }
@@ -67,7 +66,7 @@ public class Storage {
      * If the file does not exist, no action is taken.
      */
     protected void loadFromFile() {
-        assert rootPath != null && !rootPath.isEmpty() : "rootPath must not be null or empty";
+        assert rootPath != null && !rootPath.trim().isEmpty() : "File path must be valid before loading";
 
         File file = new File(rootPath);
         if (!file.exists()) {
@@ -76,7 +75,6 @@ public class Storage {
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             readTasksFromFile(reader);
-
         } catch (IOException e) {
             System.out.println("Error loading tasks from file: " + e.getMessage());
         }
@@ -88,8 +86,10 @@ public class Storage {
      * @param reader The BufferedReader to read tasks from the file.
      */
     private void readTasksFromFile(BufferedReader reader) throws IOException {
+        assert reader != null : "BufferedReader must not be null";
         String line;
         while ((line = reader.readLine()) != null) {
+            assert !line.trim().isEmpty() : "Line in the file must not be empty";
             Task task = parseTask(line);
             if (task != null) {
                 tasks.add(task);
@@ -104,38 +104,33 @@ public class Storage {
      * @return The created Task object, or null if parsing fails.
      */
     private Task parseTask(String line) {
+        assert line != null && !line.trim().isEmpty() : "Task line must not be null or empty";
+
         String[] parts = line.split(" \\| ");
-        assert parts.length >= 3 : "Invalid task format";
+        assert parts.length >= 3 : "Task format should have at least 3 parts";
 
         String type = parts[0];
         boolean isDone = parts[1].equals("1");
         String description = parts[2];
-        assert description != null && !description.isEmpty() : "Task description must not be null or empty";
-      
+
         Task task = null;
-      
         switch (type) {
         case "T":
             task = new Todo(description);
             break;
         case "D":
-            assert parts.length == 4 : "Deadline format must contain 4 parts";
+            assert parts.length == 4 : "Deadline task should have 4 parts";
             LocalDateTime by = LocalDateTime.parse(parts[3], DATE_FORMATTER);
             task = new Deadline(description, by);
             break;
-        case "DA":
-            assert parts.length == 4 : "DoAfter format must contain 4 parts";
-            LocalDateTime after = LocalDateTime.parse(parts[3], DATE_FORMATTER);
-            task = new DoAfter(description, after);
-            break;
         case "E":
-            assert parts.length == 5 : "Event format must contain 5 parts";
+            assert parts.length == 5 : "Event task should have 5 parts";
             LocalDateTime from = LocalDateTime.parse(parts[3], DATE_FORMATTER);
             LocalDateTime to = LocalDateTime.parse(parts[4], DATE_FORMATTER);
             task = new Event(description, from, to);
             break;
         default:
-            assert false : "Unknown task type";
+            assert false : "Unknown task type encountered";
         }
 
         if (task != null && isDone) {
@@ -151,7 +146,7 @@ public class Storage {
      * @return The list of tasks currently loaded.
      */
     protected ArrayList<Task> getTasks() {
-        assert tasks != null : "Task list must not be null";
+        assert tasks != null : "Task list should not be null";
         return this.tasks;
     }
 }

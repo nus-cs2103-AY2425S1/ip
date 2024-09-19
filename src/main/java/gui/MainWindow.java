@@ -7,11 +7,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import utilities.Bigmouth;
+import utilities.TaskFairy;
 import javafx.application.Platform;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.util.Duration;
+import utilities.TaskFairy;
 
 /**
  * Controller for the main GUI.
@@ -26,10 +27,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Bigmouth bigmouth;
+    private TaskFairy taskFairy;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/gui/images/DaUser.png"));
-    private Image bigmouthImage = new Image(this.getClass().getResourceAsStream("/gui/images/DaDuke.png"));
+    private Image taskFairyImage = new Image(this.getClass().getResourceAsStream("/gui/images/DaDuke.png"));
 
     @FXML
     public void initialize() {
@@ -37,11 +38,11 @@ public class MainWindow extends AnchorPane {
     }
 
     /** Injects the Bigmouth instance */
-    public void setBigmouth(Bigmouth b) {
-        bigmouth = b;
-        String welcomeMessage = b.greetUser();
+    public void setTaskFairy(TaskFairy t) {
+        taskFairy = t;
+        String welcomeMessage = t.greetUser();
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(welcomeMessage, bigmouthImage)
+                DialogBox.getDukeDialog(welcomeMessage, taskFairyImage)
         );
 
     }
@@ -53,18 +54,17 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = bigmouth.getResponse(input);
+        String response = taskFairy.getResponse(input);
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, bigmouthImage)
+                DialogBox.getDukeDialog(response, taskFairyImage)
         );
 
-        if (response.equals("Goodbye")) {
-            // Create a delay before exiting
-            PauseTransition delay = new PauseTransition(Duration.seconds(2)); // 2-second delay
-            delay.setOnFinished(event -> Platform.exit()); // Close the application after the delay
-            delay.play(); // Start the delay
+        if (response.equals("Nice talk, girl. Now, get back to that hustle!")) {
+            PauseTransition delay = new PauseTransition(Duration.seconds(2));
+            delay.setOnFinished(event -> Platform.exit());
+            delay.play();
         }
         userInput.clear();
     }

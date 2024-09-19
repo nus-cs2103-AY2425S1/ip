@@ -1,0 +1,6 @@
+T | 0 | slay
+T | 0 | fewvi
+T | 0 | fevhwiutrhv
+T | 0 | help
+E | 0 | meeting | 2020-06-06T18:00 | 2020-06-07T18:00
+D | 0 | meeting | 2020-06-06T18:00

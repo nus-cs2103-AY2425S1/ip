@@ -57,12 +57,14 @@ public class Ui {
      * @return A string showing all lists in task
      */
     public String showTaskList(TaskList tasks) {
-        String response = "Here are the tasks in your list:\n";
+        StringBuilder response = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            response += " " + (i + 1) + "." + tasks.get(i) + "\n";
+            Task currentTask = tasks.get(i);
+            response.append(" ").append(i + 1).append(".").append(currentTask).append("\n");
         }
-        return response;
+        return response.toString();
     }
+
 
     /**
      * Returns a message indicating that a task has been marked as done.

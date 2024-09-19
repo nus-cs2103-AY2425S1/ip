@@ -1,21 +1,20 @@
 package utilities;
 
 import java.net.URL;
-import java.util.Scanner;
 
 import commands.Command;
 
 /**
- * The Bigmouth chatbot main class that initiates the program, loads tasks, and handles user input.
+ * The TaskFairy chatbot main class that initiates the program, loads tasks, and handles user input.
  */
-public class Bigmouth {
+public class TaskFairy {
 
     private Parser parser;
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
-    public Bigmouth() {
+    public TaskFairy() {
         this.storage = new Storage(getFileURL());
         storage.loadFromFile();
         this.tasks = (TaskList) storage.getTasks();
@@ -33,14 +32,14 @@ public class Bigmouth {
      * @return The path to the tasks file.
      */
     public static String getFileURL() {
-        final URL fileURL = Bigmouth.class.getProtectionDomain().getCodeSource().getLocation();
+        final URL fileURL = TaskFairy.class.getProtectionDomain().getCodeSource().getLocation();
         String path = fileURL.getPath();
-        String rootPath = path.substring(0, path.indexOf("ip") + 3) + "/data/utilities.Bigmouth.txt";
+        String rootPath = path.substring(0, path.indexOf("ip") + 3) + "/data/utilities.TaskFairy.txt";
         return rootPath;
     }
 
     public String greetUser() {
-        return "Hey! Use me to organise your tasks :D. Just tell" +
+        return "Hey girlie! Use me to organise your tasks :D. Just tell " +
                 "me what to do and I'll add it to your list!";
     }
 
@@ -50,7 +49,7 @@ public class Bigmouth {
     public String getResponse(String input) {
         Command command = parser.parseInput(input);
         if (command.isTypeGoodbye()) {
-            return "Goodbye";
+            return "Nice talk, girl. Now, get back to that hustle!";
         }
         return command.getResponse();
     }
