@@ -64,6 +64,7 @@ public class Cookie {
     /**
      * Processes user input and generates a response based on the parsed command and description.
      * Uses the parser to convert the input into a {@code Command} and then executes that command.
+     * Saves the task list into storage after every {@code Command} execution.
      *
      * @param input the user input string containing the command and optional description
      * @return a {@code String} response based on the parsed command and description,
@@ -73,9 +74,10 @@ public class Cookie {
         try {
             Command command = parser.parseInputToCommand(input);
             String response = command.executeCommand(this.taskList, this.ui, this.storage);
+            storage.saveFile(this.taskList.getTaskArrayList());
             return response;
 
-        } catch (CookieException e) {
+        } catch (CookieException | IOException e) {
             return e.getMessage();
         }
     }
