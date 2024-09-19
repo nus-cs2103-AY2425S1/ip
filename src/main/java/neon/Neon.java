@@ -44,7 +44,6 @@ public class Neon {
         }
     }
 
-    public
 
     public static void main(String[] args) throws IOException {
         new Neon(STORAGE_FILE_PATH).run();
