@@ -24,7 +24,7 @@ public class FindCommand extends Command {
         TaskList filtered = tasks.filter(keyword);
         StringBuilder s;
         if (filtered.isEmpty()) {
-            s = new StringBuilder(ui.printWithSeparator("There are no matching tasks in your list!"));
+            s = new StringBuilder("There are no matching tasks in your list!");
         } else {
             s = new StringBuilder(ui.printWithSeparator("Here are the matching tasks in your list:"));
             for (int i = 0; i < filtered.size(); i++) {

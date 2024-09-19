@@ -23,13 +23,13 @@ public class UnmarkCommand extends Command {
 
     @Override
     public String execute(Storage storage, TaskList tasks, Ui ui) throws InvalidCommandArgumentException {
-        StringBuilder res = new StringBuilder(ui.printWithSeparator("OK, I've marked these task as not done yet:"));
+        StringBuilder res = new StringBuilder("OK, I've marked these task as not done yet:");
         try {
             for (int index : indexes) {
                 Task task = tasks.unmarkTask(index);
                 res.append(ui.printWithSeparator(task.toString()));
             }
-            return res.toString() + ui.printWithSeparator(tasks.toString());
+            return res.toString() + tasks.toString();
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidCommandArgumentException("Please enter a valid task index!");
         }

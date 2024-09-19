@@ -23,13 +23,13 @@ public class DeleteCommand extends Command {
 
     @Override
     public String execute(Storage storage, TaskList tasks, Ui ui) throws InvalidCommandArgumentException {
-        StringBuilder res = new StringBuilder(ui.printWithSeparator("Noted. I've removed these task:"));
+        StringBuilder res = new StringBuilder("Noted. I've removed these task:");
         try {
             for (int index : indexes) {
                 Task task = tasks.deleteTask(index);
                 res.append(ui.printWithSeparator(task.toString()));
             }
-            return res.toString() + ui.printWithSeparator(tasks.toString());
+            return res + ui.printWithSeparator(tasks.toString());
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidCommandArgumentException("Please enter a valid task index!");
         }
