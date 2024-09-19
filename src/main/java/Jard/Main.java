@@ -27,6 +27,8 @@ public class Main extends Application {
             String welcomeMessage = jard.getWelcomeMessage();
             controller.setJard(jard, welcomeMessage);
 
+            stage.setTitle("Jard");
+
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.show();
