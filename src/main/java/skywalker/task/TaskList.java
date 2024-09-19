@@ -87,6 +87,11 @@ public class TaskList {
         return matchingTasks;
     }
 
+    /**
+     * Checks if the task has a duplicate in the tasklist,
+     * @param newTask
+     * @return true if have, false if dont have.
+     */
     public boolean isDuplicate(Task newTask) {
         return tasks.stream()
                 .anyMatch(task -> task.getDescription().equals(newTask.getDescription()));

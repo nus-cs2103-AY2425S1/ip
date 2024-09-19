@@ -69,8 +69,8 @@ public class Skywalker {
 
     public String getResponse(String input) {
         try {
-            Command command = Parser.parse(input);   // Get the command object from the parser
-            return command.execute(tasks, ui, storage);  // Execute the command and return the response
+            Command command = Parser.parse(input); // Get the command object from the parser
+            return command.execute(tasks, ui, storage); // Execute the command and return the response
         } catch (Exception e) {
             return "I'm sorry, I don't understand that command.";
         }
