@@ -1,30 +1,22 @@
-# Duke User Guide
+# Buu Task Manager
 
-// Update the title above to match the actual product name
+![Buu Task Manager Screenshot](Ui.png)
 
-// Product screenshot goes here
+## Introduction
 
-// Product intro goes here
+Buu Task Manager is a simple, fun, and efficient command-line application that helps you manage your tasks. Inspired by the Dragon Ball character Buu, this task manager offers playful interactions while helping you stay productive by managing your to-do lists, deadlines, events, and priorities.
 
-## Adding deadlines
+---
 
-// Describe the action and its outcome.
+## Features
 
-// Give examples of usage
+### 1. Add Deadlines
 
-Example: `keyword (optional arguments)`
+Add a deadline to your task list with a specific due date and time.
 
-// A description of the expected outcome goes here
+#### Usage:
+```bash
+deadline <task description> /by <date time>
 
-```
-expected output
-```
+##Example:
 
-## Feature ABC
-
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
