@@ -7,7 +7,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import neon.Neon;
 public class Main extends Application {
-    private final Neon neon = new Neon(".data/data.txt");
+    private final Neon neon = new Neon("./data/data.txt");
 
     public Main() throws IOException {
     }

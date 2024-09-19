@@ -13,14 +13,12 @@ public class Parser {
     }
 
     public Object[] processInput(String input) {
-        String response = "nothing here for now";
+        String response;
         String[] inputArray = input.split(" ", 2);
-
-        ui.printLine();
 
         switch (inputArray[0]) {
         case "bye":
-            return new Object[] {true, ui.printClosingLine()};
+            return parseBye();
 
         case "list":
             response = tasks.printList();
@@ -28,16 +26,28 @@ public class Parser {
 
         case "mark":
             assert  extractTaskIndex(input) <= tasks.getSize() : "input out of range";
+            if (extractTaskIndex(input) > tasks.getSize()) {
+                response = "input is out of range! do try again\n";
+                break;
+            }
             response = tasks.markItem(extractTaskIndex(input));
             break;
 
         case "unmark":
             assert  extractTaskIndex(input) <= tasks.getSize() : "input out of range";
+            if (extractTaskIndex(input) > tasks.getSize()) {
+                response = "input is out of range! do try again\n";
+                break;
+            }
             response = tasks.unmarkItem(extractTaskIndex(input));
             break;
 
         case "delete":
             assert  extractTaskIndex(input) <= tasks.getSize() : "input out of range";
+            if (extractTaskIndex(input) > tasks.getSize()) {
+                response = "input is out of range! do try again\n";
+                break;
+            }
             response = tasks.removeTask(extractTaskIndex(input));
             break;
 
@@ -118,11 +128,8 @@ public class Parser {
         return new Object[] {false, response};
     }
 
-    private static String removeSpace(String line) {
-        if (line.isEmpty()) {
-            return line;
-        }
-        return line.substring(0, line.length() - 1);
+    private Object[] parseBye() {
+        return new Object[] {true, ui.printClosingLine()};
     }
 
     private int extractTaskIndex(String userInput) {
