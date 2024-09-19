@@ -61,14 +61,14 @@ public class MainWindow extends AnchorPane {
 
     private Image getImage(String input) {
         switch (mediell.getImage(input)) {
-            case DAY:
-                return mediellNormal;
-            case NIGHT:
-                return mediellNight;
-            case HAPPY:
-                return mediellHappy;
-            default:
-                return mediellNormal;
+        case DAY:
+            return mediellNormal;
+        case NIGHT:
+            return mediellNight;
+        case HAPPY:
+            return mediellHappy;
+        default:
+            return mediellNormal;
         }
     }
 }
