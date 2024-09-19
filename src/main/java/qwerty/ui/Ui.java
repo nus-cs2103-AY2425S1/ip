@@ -2,11 +2,14 @@ package qwerty.ui;
 
 import java.io.IOException;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import qwerty.Qwerty;
 
 
@@ -30,10 +33,13 @@ public class Ui extends Application {
             fxmlLoader = new FXMLLoader(Ui.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+
+            // set stage parameters
             stage.setScene(scene);
             stage.setTitle(APP_NAME);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
+
             Qwerty qwerty = new Qwerty();
             fxmlLoader.<MainWindow>getController().setQwerty(qwerty); // inject the Qwerty instance
             qwerty.start();
@@ -88,4 +94,15 @@ public class Ui extends Application {
         showQwertyMessage("\nGoodbye, and I'll see you within 3 business days.");
     }
 
+    /**
+     * Exits the application and closes the GUI.
+     *
+     * @param delay Duration to wait before closing the GUI.
+     */
+    public void exit(double delay) {
+        // Solution below inspired by https://stackoverflow.com/questions/27334455
+        PauseTransition pause = new PauseTransition(Duration.seconds(delay));
+        pause.setOnFinished(e -> Platform.exit());
+        pause.play();
+    }
 }

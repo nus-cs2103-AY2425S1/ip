@@ -21,7 +21,7 @@ public class ByeCommand extends Command {
     }
 
     /**
-     * Tells the Ui component to print a goodbye message to the user.
+     * Tells the Ui component to print a goodbye message to the user, then exits the application after a delay.
      *
      * @param tasks The TaskList component handling storage of Task objects.
      * @param ui The Ui component handling user interaction.
@@ -30,6 +30,6 @@ public class ByeCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showGoodbye();
+        ui.exit(1);
     }
-
 }
