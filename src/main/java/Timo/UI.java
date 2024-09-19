@@ -70,7 +70,7 @@ public class UI {
         return "----------------------------\n"
                 + "Got it. I've added this task:\n"
                 + todo + "\n"
-                + "Now you have " + listSize(taskList) + " tasks in the list.\n"
+                + listSize(taskList) + "\n"
                 + "----------------------------";
     }
 
@@ -83,16 +83,16 @@ public class UI {
         return "----------------------------\n"
                 + "Got it. I've added this task:\n"
                 + deadline + "\n"
-                + "Now you have " + listSize(taskList) + " tasks in the list.\n"
+                + listSize(taskList) + "\n"
                 + "----------------------------";
     }
 
     /**
-     * prints our Deadline error
+     * @return Deadline error
      */
     public String printDeadlineError() {
         return "----------------------------\n"
-                + "deadline usage: deadline <task> /by yyyy-mm-dd <time/24hr format>\n"
+                + "deadline usage: deadline <task> /by <yyyy-mm-dd> <time/24hr format>\n"
                 + "----------------------------";
     }
 
@@ -102,10 +102,20 @@ public class UI {
      * @param taskList
      */
     public String printEvent(Event event, TaskList taskList) {
-        return "----------------------------"
+        return "----------------------------\n"
                 + "Got it. I've added this task:\n"
                 + event + "\n"
-                + "Now you have " + listSize(taskList) + " tasks in the list.\n"
+                + listSize(taskList) + "\n"
+                + "----------------------------";
+    }
+
+    /**
+     * @return Event error
+     */
+    public String printEventError() {
+        return "----------------------------\n"
+                + "event usage: event <task> /from <yyyy-mm-dd> <time in 24hr format> "
+                + "/to <yyyy-mm-dd> <time in 24hr format>\n"
                 + "----------------------------";
     }
 
@@ -118,7 +128,7 @@ public class UI {
         return "----------------------------\n"
                 + "Got it. I've removed this task:\n"
                 + task + "\n"
-                + "Now you have " + listSize(taskList) + " tasks in the list.\n"
+                + listSize(taskList) + "\n"
                 + "----------------------------";
     }
 
@@ -126,9 +136,9 @@ public class UI {
      * prints out the error
      * @param e the unknown command error
      */
-    public String printUnknownCommandError(TimoException e) {
+    public String printCommandError(TimoException e) {
         return "----------------------------\n"
-                + e + "\n"
+                + e.getMessage() + "\n"
                 + "----------------------------";
     }
 
@@ -141,5 +151,4 @@ public class UI {
                 + "Nothing to undo :)\n"
                 + "----------------------------\n";
     }
-
 }

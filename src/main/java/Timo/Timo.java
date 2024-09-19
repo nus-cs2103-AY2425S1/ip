@@ -72,11 +72,11 @@ class Deadline extends Task {
 }
 
 class Event extends Task {
-    private final String from;
-    private final String to;
+    private final LocalDateTime from;
+    private final LocalDateTime to;
     private final String tasktype = "E";
 
-    public Event(boolean mark, String val, String from, String to) {
+    public Event(boolean mark, String val, LocalDateTime from, LocalDateTime to) {
         super(mark, val);
         this.from = from;
         this.to = to;
@@ -84,7 +84,10 @@ class Event extends Task {
 
     @Override
     public String toString() {
-        return "[" + this.tasktype + "]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        return "[" + this.tasktype + "]" + super.toString()
+                + " (from: " + this.from.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"))
+                + " to: " + this.to.format(DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"))
+                + ")";
     }
 }
 

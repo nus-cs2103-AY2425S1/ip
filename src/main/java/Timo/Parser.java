@@ -57,7 +57,11 @@ public class Parser {
 
             //checks if todo command is correct
             if (todoCommands.length != 2) {
-                throw new TimoException("Usage todo: todo <task> (need argument)");
+                return this.ui.printCommandError(new TimoException("Error! Usage todo: todo <task> (need argument)"));
+            }
+
+            if (todoCommands[1].isEmpty()) {
+                return this.ui.printCommandError(new TimoException("Error! Need to include task for todo!"));
             }
 
             Todo todo = new Todo(false, todoCommands[1]);
@@ -67,13 +71,18 @@ public class Parser {
 
         case "deadline":
             String[] deadlineCommands = command.split("deadline |/by ");
-            String description = deadlineCommands[1];
-            String datetime = deadlineCommands[2].trim();
+            if (deadlineCommands.length != 3) {
+                return this.ui.printCommandError(new TimoException("Error!"
+                        + " Usage deadline: deadline <task> /by yyyy-MM-dd"
+                        + " HHmm"));
+            }
+            String deadlineDescription = deadlineCommands[1];
+            String deadlineDatetime = deadlineCommands[2].trim();
             DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
             try {
-                LocalDateTime date = LocalDateTime.parse(datetime, inputFormat);
-                Deadline deadline = new Deadline(false, description, date);
+                LocalDateTime date = LocalDateTime.parse(deadlineDatetime, inputFormat);
+                Deadline deadline = new Deadline(false, deadlineDescription, date);
                 this.taskList.add(deadline);
                 this.commandList.add(new Tuple<Task>(command, deadline));
                 return this.ui.printDeadline(deadline, this.taskList);
@@ -83,30 +92,65 @@ public class Parser {
 
         case "event":
             String[] eventCommands = command.split("event |/from |/to ");
-            Event event = new Event(false, eventCommands[1], eventCommands[2], eventCommands[3]);
-            this.taskList.add(event);
-            this.commandList.add(new Tuple<Task>(command, event));
-            return this.ui.printEvent(event, this.taskList);
+            if (eventCommands.length != 4) {
+                return this.ui.printCommandError(new TimoException("Error! "
+                        + "Usage event: event <task> /from yyyy-MM-dd HHmm /to "
+                        + "yyyy-MM-dd HHmm"));
+            }
+            String eventDescription = eventCommands[1];
+            String eventFromInDatetimeFormat = eventCommands[2].trim();
+            String eventToInDatetimeFormat = eventCommands[3].trim();
+            try {
+                LocalDateTime fromDate = LocalDateTime.parse(eventFromInDatetimeFormat,
+                                         DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                LocalDateTime toDate = LocalDateTime.parse(eventToInDatetimeFormat,
+                                       DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+                System.out.println("hi");
+                Event event = new Event(false, eventDescription, fromDate, toDate);
+                this.taskList.add(event);
+                this.commandList.add(new Tuple<Task>(command, event));
+                return this.ui.printEvent(event, this.taskList);
+            } catch (DateTimeException e) {
+                return this.ui.printEventError();
+            }
 
         case "mark":
-            String taskNumberToMark = String.valueOf(command.charAt(command.length() - 1));
+            String[] markCommands = command.split(" ");
+            if (markCommands.length != 2) {
+                return this.ui.printCommandError(new TimoException("mark usage: mark <number>"));
+            }
+            String taskNumberToMark = markCommands[1];
+            int markTaskNumber;
 
-            //get the Task number to mark
-            int markTarget = Integer.parseInt(taskNumberToMark);
+            try {
+                markTaskNumber = Integer.valueOf(taskNumberToMark);
+            } catch (NumberFormatException e) {
+                return this.ui.printCommandError(new TimoException("Has to be a number!"));
+            }
+
+            if (markTaskNumber < 0 || markTaskNumber > this.taskList.showList().size()) {
+                return this.ui.printCommandError(new TimoException("Invalid number!"));
+            }
 
             //find the task to mark
-            Task markedTask = this.taskList.mark(markTarget);
+            Task markedTask = this.taskList.mark(markTaskNumber);
 
             this.commandList.add(new Tuple<Task>(command, markedTask));
             return this.ui.printMark(markedTask);
 
         case "unmark":
-
-            String taskNumberToUnmark = String.valueOf(command.charAt(command.length() - 1));
+            String[] unmarkCommands = command.split(" ");
+            if (unmarkCommands.length != 2) {
+                return this.ui.printCommandError(new TimoException("unmark usage: unmark <number>"));
+            }
+            String taskNumberToUnmark = unmarkCommands[1];
 
             //get the Task number to unmark
             int unmarkTarget = Integer.parseInt(taskNumberToUnmark);
 
+            if (unmarkTarget < 0 || unmarkTarget > this.taskList.showList().size()) {
+                return this.ui.printCommandError(new TimoException("Invalid number"));
+            }
             //find the task to unmark
             Task unmarkedTask = this.taskList.unmark(unmarkTarget);
 
@@ -114,12 +158,24 @@ public class Parser {
             return this.ui.printUnmark(unmarkedTask);
 
         case "list":
+            String[] listCommands = command.split(" ");
+            if (listCommands.length != 1) {
+                return this.ui.printCommandError(new TimoException("list usage: list"));
+            }
             return this.ui.printList(this.taskList);
 
 
         case "delete":
+            String[] deleteCommands = command.split(" ");
+            if (deleteCommands.length != 2) {
+                return this.ui.printCommandError(new TimoException("delete usage: delete <number>"));
+            }
             //get the Task number to delete
-            int deleteTarget = Integer.parseInt(String.valueOf(command.charAt(command.length() - 1)));
+            int deleteTarget = Integer.valueOf(deleteCommands[1]);
+
+            if (deleteTarget < 0 || deleteTarget > this.taskList.showList().size()) {
+                return this.ui.printCommandError(new TimoException("Invalid number"));
+            }
 
             // Task that is deleted
             Task deleteTask = this.taskList.delete(deleteTarget - 1);
@@ -130,7 +186,11 @@ public class Parser {
             return this.ui.printDelete(deleteTask, this.taskList);
 
         case "find":
-            String phrase = command.split(" ", 2)[1];
+            String[] findCommands = command.split(" ");
+            if (findCommands.length != 2) {
+                return this.ui.printCommandError(new TimoException("find usage: find <phrase>"));
+            }
+            String phrase = findCommands[1];
 
             // TaskList to print out
             TaskList temporaryList = new TaskList();
@@ -143,10 +203,18 @@ public class Parser {
             return this.ui.printList(temporaryList);
 
         case "bye":
+            String[] byeCommands = command.split(" ");
+            if (byeCommands.length != 1) {
+                return this.ui.printCommandError(new TimoException("bye usage: bye"));
+            }
             this.storage.store(this.taskList.showList());
             return this.ui.bye();
 
         case "undo":
+            String[] undoCommands = command.split(" ");
+            if (undoCommands.length != 1) {
+                return this.ui.printCommandError(new TimoException("undo usage: undo"));
+            }
             try {
                 Tuple<Task> undo = this.commandList.pop();
                 String commandToUndo = undo.getFirst();
@@ -190,6 +258,7 @@ public class Parser {
                     String undoDeleteCommand = "----------------------------\n"
                             + "undo command: " + undo.getFirst() + "\n"
                             + "----------------------------\n"
+                            + "added " + undo.getSecond() + "\n"
                             + this.ui.listSize(this.taskList);
                     return undoDeleteCommand;
                 default:
@@ -199,7 +268,7 @@ public class Parser {
                 return this.ui.undoError();
             }
         default:
-            return this.ui.printUnknownCommandError(new TimoException("I'm sorry, I do not know what that means"));
+            return this.ui.printCommandError(new TimoException("I'm sorry, I do not know what that means"));
         }
     }
 }

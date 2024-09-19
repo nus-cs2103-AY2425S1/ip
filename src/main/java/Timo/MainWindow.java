@@ -1,5 +1,8 @@
 package Timo;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -23,11 +26,17 @@ public class MainWindow extends AnchorPane {
     private Timo timo;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image TimoImage = new Image(this.getClass().getResourceAsStream("/images/DaTimo.png"));
 
+    /**
+     * Initialize the program
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().add(
+                DialogBox.getTimoDialog("Hello! Welcome to Timo, your personal assistant. How can I help you today?",
+                TimoImage));
     }
 
     /** Injects the Timo instance */
@@ -46,11 +55,20 @@ public class MainWindow extends AnchorPane {
         //response to the input
         String response = timo.getParser().parse(input);
 
-
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getTimoDialog(response, TimoImage)
         );
         userInput.clear();
+
+        if (response.toLowerCase().contains("bye")) {
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    System.exit(0);
+                }
+            }, 500);
+        }
     }
 }

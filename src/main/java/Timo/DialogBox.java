@@ -51,7 +51,7 @@ public class DialogBox extends HBox {
         return new DialogBox(s, i);
     }
 
-    public static DialogBox getDukeDialog(String s, Image i) {
+    public static DialogBox getTimoDialog(String s, Image i) {
         DialogBox db = new DialogBox(s, i);
         db.flip();
         return db;

@@ -59,30 +59,35 @@ public class Storage {
                     String a = tmp.split("] ")[1];
 
                     //get the important values to create the Deadline
-                    String[] b = a.split(" \\(by: |\\)");
+                    String[] deadlineSplit = a.split(" \\(by: |\\)");
 
-                    LocalDateTime datetime = LocalDateTime.parse(b[1], DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
+                    LocalDateTime datetime = LocalDateTime.parse(deadlineSplit[1],
+                                             DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
 
 
                     //see if the task has been done or not
                     if (Character.compare(tmp.charAt(4), 'X') == 0) {
-                        arr.add(new Deadline(true, b[0], datetime));
+                        arr.add(new Deadline(true, deadlineSplit[0], datetime));
                     } else {
-                        arr.add(new Deadline(false, b[0], datetime));
+                        arr.add(new Deadline(false, deadlineSplit[0], datetime));
                     }
-                } else {
-                    assert tmp.startsWith("[E]") : "Error in program";
+                } else if (tmp.startsWith("[E]")) {
                     String details = tmp.split("] ", 2)[1];
                     //getting important values to create the Event
-                    String[] split_up = details.split(" \\(from: | to: |\\)");
+                    String[] eventSplit = details.split(" \\(from: | to: |\\)");
+
+                    LocalDateTime fromInDatetimeFormat = LocalDateTime.parse(eventSplit[1], DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
+                    LocalDateTime toInDatetimeFormat = LocalDateTime.parse(eventSplit[2], DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
 
                     //see if the task has been done or not
                     if (Character.compare(tmp.charAt(4), 'X') == 0) {
-                        arr.add(new Event(true, split_up[0], split_up[1], split_up[2]));
+                        arr.add(new Event(true, eventSplit[0], fromInDatetimeFormat, toInDatetimeFormat));
                     } else {
                         assert Character.compare(tmp.charAt(4), ' ') == 0 : "Error in file";
-                        arr.add(new Event(false, split_up[0], split_up[1], split_up[2]));
+                        arr.add(new Event(false, eventSplit[0], fromInDatetimeFormat, toInDatetimeFormat));
                     }
+                } else {
+                    continue;
                 }
             }
             return arr;
@@ -107,30 +112,35 @@ public class Storage {
             }
         } else if (tmp.startsWith("[D]")) {
             //remove the [D][?] from the line
-            String a = tmp.split("] ")[1];
+            String temporary = tmp.split("] ")[1];
 
             //get the important values to create the Deadline
-            String[] b = a.split(" \\(by: |\\)");
+            String[] deadlineDetails = temporary.split(" \\(by: |\\)");
 
-            LocalDateTime datetime = LocalDateTime.parse(b[1], DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
+            LocalDateTime datetime = LocalDateTime.parse(deadlineDetails[1],
+                                     DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
 
             //see if the task has been done or not
             if (Character.compare(tmp.charAt(4), 'X') == 0) {
-                arr.add(new Deadline(true, b[0], datetime));
+                arr.add(new Deadline(true, deadlineDetails[0], datetime));
             } else {
-                arr.add(new Deadline(false, b[0], datetime));
+                arr.add(new Deadline(false, deadlineDetails[0], datetime));
             }
         } else {
             //removing the [E][?] from the line
             String details = tmp.split("] ", 2)[1];
             //getting important values to create the Event
-            String[] split_up = details.split(" \\(from: | to: |\\)");
+            String[] eventDetails = details.split(" \\(from: | to: |\\)");
 
+            LocalDateTime fromDatetime = LocalDateTime.parse(eventDetails[1],
+                                         DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
+            LocalDateTime toDatetime = LocalDateTime.parse(eventDetails[1],
+                                       DateTimeFormatter.ofPattern("MMM dd yyyy HHmm"));
             //see if the task has been done or not
             if (Character.compare(tmp.charAt(4), 'X') == 0) {
-                arr.add(new Event(true, split_up[0], split_up[1], split_up[2]));
+                arr.add(new Event(true, eventDetails[0], fromDatetime, toDatetime));
             } else {
-                arr.add(new Event(false, split_up[0], split_up[1], split_up[2]));
+                arr.add(new Event(false, eventDetails[0], fromDatetime, toDatetime));
             }
         }
     }
