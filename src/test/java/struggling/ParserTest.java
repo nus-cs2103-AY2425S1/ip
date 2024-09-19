@@ -9,7 +9,9 @@ import struggling.command.AddCommand;
 import struggling.command.DeleteCommand;
 import struggling.command.ExitCommand;
 import struggling.command.FindCommand;
+import struggling.command.HighPriorityCommand;
 import struggling.command.ListCommand;
+import struggling.command.LowPriorityCommand;
 import struggling.command.MarkCommand;
 import struggling.command.UnmarkCommand;
 
@@ -17,30 +19,43 @@ import struggling.command.UnmarkCommand;
 public class ParserTest {
     @Test
     public void parse_exitInput_exitCommand() {
-        assertEquals(ExitCommand.class, Parser.parse("bye").getClass());
+        assertEquals(ExitCommand.class, Parser
+                .parse("bye")
+                .getClass());
     }
 
     @Test
     public void parse_listInput_listCommand() {
-        assertEquals(ListCommand.class, Parser.parse("list").getClass());
+        assertEquals(ListCommand.class, Parser
+                .parse("list")
+                .getClass());
     }
 
     @Test
     public void parse_markInput_markCommand() {
-        assertEquals(MarkCommand.class, Parser.parse("mark 1").getClass());
+        assertEquals(MarkCommand.class, Parser
+                .parse("mark 1")
+                .getClass());
     }
 
     @Test
     public void parse_unmarkInput_unmarkCommand() {
-        assertEquals(UnmarkCommand.class, Parser.parse("unmark 1").getClass());
+        assertEquals(UnmarkCommand.class, Parser
+                .parse("unmark 1")
+                .getClass());
     }
 
     @Test
     public void parse_addInput_addCommand() {
-        assertEquals(AddCommand.class, Parser.parse("todo borrow book").getClass());
-        assertEquals(AddCommand.class, Parser.parse("deadline return book /by 2024-08-27").getClass());
-        assertEquals(AddCommand.class,
-                Parser.parse("event project meeting /from Mon 2pm /to 4pm").getClass());
+        assertEquals(AddCommand.class, Parser
+                .parse("todo borrow book")
+                .getClass());
+        assertEquals(AddCommand.class, Parser
+                .parse("deadline return book /by 2024-08-27")
+                .getClass());
+        assertEquals(AddCommand.class, Parser
+                .parse("event project meeting /from Mon 2pm /to 4pm")
+                .getClass());
     }
 
     @Test
@@ -55,12 +70,30 @@ public class ParserTest {
 
     @Test
     public void parse_deleteInput_deleteCommand() {
-        assertEquals(DeleteCommand.class, Parser.parse("delete 1").getClass());
+        assertEquals(DeleteCommand.class, Parser
+                .parse("delete 1")
+                .getClass());
     }
 
     @Test
     public void parse_findInput_findCommand() {
-        assertEquals(FindCommand.class, Parser.parse("find book").getClass());
+        assertEquals(FindCommand.class, Parser
+                .parse("find book")
+                .getClass());
+    }
+
+    @Test
+    public void parse_highPriorityInput_highPriorityCommand() {
+        assertEquals(HighPriorityCommand.class, Parser
+                .parse("highPriority 1")
+                .getClass());
+    }
+
+    @Test
+    public void parse_lowPriorityInput_lowPriorityCommand() {
+        assertEquals(LowPriorityCommand.class, Parser
+                .parse("lowPriority 1")
+                .getClass());
     }
 
     @Test
