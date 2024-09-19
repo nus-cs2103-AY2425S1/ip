@@ -30,7 +30,7 @@ public class AddCommandTest {
         String expected = String.format("""
                 Added yet another task
                    %s
-                You now have %d tasks. Are you gonna do any of them?""",
+                You now have %d task. Are you gonna do any of them?""",
                 expectedTaskCreated, tasks.noOfTasks());
 
         assertEquals(expected, result);
@@ -54,7 +54,7 @@ public class AddCommandTest {
         String expected = String.format("""
                 Added yet another task
                    %s
-                You now have %d tasks. Are you gonna do any of them?""",
+                You now have %d task. Are you gonna do any of them?""",
                 expectedTaskCreated, tasks.noOfTasks());
 
         assertEquals(expected, result);
@@ -78,7 +78,7 @@ public class AddCommandTest {
         String expected = String.format("""
                 Added yet another task
                    %s
-                You now have %d tasks. Are you gonna do any of them?""",
+                You now have %d task. Are you gonna do any of them?""",
                 expectedTaskCreated, tasks.noOfTasks());
 
         assertEquals(expected, result);

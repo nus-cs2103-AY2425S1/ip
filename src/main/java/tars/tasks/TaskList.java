@@ -187,6 +187,10 @@ public class TaskList {
     @Override
     public String toString() {
 
+        if (taskList.isEmpty()) {
+            return "No tasks yet. Add some tasks to get started";
+        }
+
         StringBuilder str = new StringBuilder("Here are your tasks, champ. " +
                 "Let's see how many you can actually cross off.\n");
 

@@ -24,18 +24,6 @@ public class Response {
     AddCommand addCommand = new AddCommand();
     FindCommand findCommand = new FindCommand();
 
-    /*
-    * private final static String LOGO = """
-                ________________ __________  _________
-                \\__    ___/  _  \\\\______   \\/   _____/
-                  |    | /  /_\\  \\|       _/\\_____  \\
-                  |    |/    |    \\    |   \\/        \\
-                  |____|\\____|__  /____|_  /_______  /
-                                \\/       \\/        \\/\s
-                """.trim();
-    * */
-
-
     /**
      * Generates and displays a response based on the user's input and the current task list.
      *
