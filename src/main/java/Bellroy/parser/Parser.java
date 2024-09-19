@@ -9,11 +9,20 @@ import Bellroy.task.Todo;
 import Bellroy.task.Deadline;
 import javafx.application.Platform;
 
-import java.io.IOException;
-import java.util.List;
-
+/**
+ * The parser class encapsulates the logic of parsing user commands. Depending on the user input, the parser will
+ * perform the necessary logic.
+ */
 public class Parser {
 
+    /**
+     * main method containing the logic to parse user command
+     * @param userInput the input by the user
+     * @param taskList the tasklist to perform operations on
+     * @param ui the Ui to print the correct messages
+     * @param storage the storage which contains the tasklist's data
+     * @return the relevant Ui message
+     */
     public String parse(String userInput, TaskList taskList, Ui ui, Storage storage) {
         String[] input;
         if (userInput.startsWith("find ") || userInput.startsWith("tag ") || userInput.startsWith("filter ")) {

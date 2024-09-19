@@ -22,6 +22,7 @@ public class Ui {
 
     /**
      * prints the initial message to the user.
+     * @return the message to be printed
      */
     public static String welcomeMessage() {
         return ("Hoot Hoot! I'm Bellroy, your task manager!\n" +
@@ -30,6 +31,7 @@ public class Ui {
 
     /**
      * prints the farewell message when user closes the Chatbot
+     * @return the message to be printed
      */
     public static String byeMessage() {
         return ("Hootbye! Hoot to see you again soon!\n");
@@ -39,6 +41,7 @@ public class Ui {
      * prints a message to show that the task has been added
      * @param task to be added to the list
      * @param size number of tasks after adding this task
+     * @return the message to be printed
      */
     public static String taskAddedMessage(Task task, int size) {
         String s = String.format("Hoot Hoot! I've added this task:\n" +
@@ -50,6 +53,7 @@ public class Ui {
     /**
      * Displays all tasks to the user in the form of a list
      * @param taskList all tasks in List form
+     * @return the message to be printed
      */
     public static String printTaskList(TaskList taskList) {
         return taskList.toString();
@@ -58,6 +62,7 @@ public class Ui {
     /**
      * prints out message to show that the task is marked as done
      * @param task to mark as done
+     * @return the message to be printed
      */
     public static String markedDone(Task task) {
         return ("Nice! I've marked this task as done:\n" + task.toString() + "\n" + "Hoot Hoot!\n" );
@@ -66,6 +71,7 @@ public class Ui {
     /**
      *  prints out message to show that the task is marked as undone
      * @param task to mark as undone
+     * @return the message to be printed
      */
     public static String markedUndone(Task task) {
         return ("Hoot Hoot! I've marked this task as not done yet:\n" + task.toString() + "\n");
@@ -75,6 +81,7 @@ public class Ui {
      * prints out message to show that the task is deleted
      * @param task to be deleted
      * @param size number of tasks remaining after deletion
+     * @return the message to be printed
      */
     public static String taskDeleted(Task task, int size) {
         String s = String.format("Hoot Hoot! I've removed this task:\n" +
@@ -83,10 +90,21 @@ public class Ui {
         return s;
     }
 
+    /**
+     * prints out the message to show that the association is added to the task
+     * @param task the task to add the association
+     * @param association the association to be added
+     * @return the message to be printed
+     */
     public static String associationMessage(Task task, String association) {
         return ("Hoot Hoot! I've tagged this task:\n " + task + " \nwith association: " + association);
     }
 
+    /**
+     * prints out the tasks that have been found by the find method
+     * @param matchingTask the tasklist that contains the tasks that have been found
+     * @return the message to be printed
+     */
     public static String findTask(TaskList matchingTask) {
         if (matchingTask.isEmpty()) {
             return ("Hoot Hoot! There are no matching tasks");
@@ -96,6 +114,11 @@ public class Ui {
         }
     }
 
+    /**
+     * prints out the tasks with the given association
+     * @param filteredTask the list of tasks with the association
+     * @return the message to be printed
+     */
     public static String filterTask(TaskList filteredTask) {
         if (filteredTask.isEmpty()) {
             return ("Hoot Hoot! There are no matching tasks");

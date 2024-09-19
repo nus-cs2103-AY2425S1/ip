@@ -70,6 +70,11 @@ public class TaskList {
         return this.taskList;
     }
 
+    /**
+     * searches for tasks in the tasklist that contains the matching keyword
+     * @param keyword the keyword to search for in the tasks
+     * @return the list of tasks that contain the matching keyword
+     */
     public TaskList findTask(String keyword) {
         TaskList matchingTask = new TaskList();
         for (Task task: taskList) {
@@ -80,6 +85,11 @@ public class TaskList {
         return matchingTask;
     }
 
+    /**
+     * searches the tasks in the tasklist that matches the association
+     * @param keyword the association to be filtered by
+     * @return the tasks with the association
+     */
     public TaskList filterAssociation(String keyword) {
         TaskList filteredTask = new TaskList();
         for (Task task: taskList) {
@@ -90,6 +100,10 @@ public class TaskList {
         return filteredTask;
     }
 
+    /**
+     * checks if the tasklist is empty
+     * @return the boolean of whether the tasklist is empty
+     */
     public boolean isEmpty() {
         return taskList.isEmpty();
     }
