@@ -1,7 +1,6 @@
 # Cloudy User Guide
 
-![Screenshot of Cloudy bot]
-(/Ui.png)
+![Screenshot of Cloudy bot](Ui.png)
 
 Cloudy is a bot that helps you to keep track of your tasks! Whether they are tasks to do, tasks with a deadline, or an 
 event, let Cloudy take care of it for you.
