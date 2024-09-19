@@ -28,7 +28,7 @@ public class ParserStub {
                     LocalDate.parse("2025-08-19")});
         case EVENT:
             return new ParsedInfo("test event", new LocalDate[]{
-                    LocalDate.parse("2025-08-19"), 
+                    LocalDate.parse("2025-08-19"),
                     LocalDate.parse("2025-08-19")});
         default:
             throw new TaskNotFoundException();
