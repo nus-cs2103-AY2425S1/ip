@@ -60,11 +60,11 @@ public class Parser {
             return CommandType.DELETE;
         } else if (command.startsWith("find")) {
             return CommandType.FIND;
-        } else if (command.startsWith("todo ")) {
+        } else if (command.startsWith("todo")) {
             return CommandType.TODO;
-        } else if (command.startsWith("deadline ")) {
+        } else if (command.startsWith("deadline")) {
             return CommandType.DEADLINE;
-        } else if (command.startsWith("event ")) {
+        } else if (command.startsWith("event")) {
             return CommandType.EVENT;
         } else {
             return CommandType.UNKNOWN;
@@ -102,6 +102,9 @@ public class Parser {
             case BYE:
                 return "Bye. Hope to see you again!";
             case MARK:
+                if (command.length() <= 5) {
+                    throw new PixyExceptions("OOPS!!! The mark task number cannot be empty.");
+                }
                 taskNumber = Integer.parseInt(command.split(" ")[1]);
                 if (taskNumber <= 0 || taskNumber > tasks.size()) {
                     throw new PixyExceptions("OOPS!!! The task number is out of range.");
@@ -109,6 +112,9 @@ public class Parser {
                 tasks.get(taskNumber - 1).markAsDone(true);
                 return "Task marked as done: " + tasks.get(taskNumber - 1).getDescription();
             case UNMARK:
+                if (command.length() <= 7) {
+                    throw new PixyExceptions("OOPS!!! The unmark task number cannot be empty.");
+                }
                 taskNumber = Integer.parseInt(command.split(" ")[1]);
                 if (taskNumber <= 0 || taskNumber > tasks.size()) {
                     throw new PixyExceptions("OOPS!!! The task number is out of range.");
@@ -116,6 +122,9 @@ public class Parser {
                 tasks.get(taskNumber - 1).markAsDone(false);
                 return "Task unmarked: " + tasks.get(taskNumber - 1).getDescription();
             case DELETE:
+                if (command.length() <= 7) {
+                    throw new PixyExceptions("OOPS!!! The delete task number cannot be empty.");
+                }
                 taskNumber = Integer.parseInt(command.split(" ")[1]);
                 if (taskNumber <= 0 || taskNumber > tasks.size()) {
                     throw new PixyExceptions("OOPS!!! The task number is out of range.");
@@ -124,6 +133,9 @@ public class Parser {
                 tasks.remove(task);
                 return "Task deleted: " + task.getDescription() + ". You now have " + tasks.size() + " task(s).";
             case FIND:
+                if (command.length() <= 5) {
+                    throw new PixyExceptions("OOPS!!! The search description cannot be empty.");
+                }
                 description = command.substring(5).trim();
                 validateNoSpecialChars(description);
                 if (description.isEmpty()) {
@@ -131,11 +143,10 @@ public class Parser {
                 }
                 return ui.showMatchedTasks(tasks.find(description));
             case TODO:
-                description = command.substring(5).trim();
-                validateNoSpecialChars(description);
-                if (description.isEmpty()) {
+                if (command.length() <= 5) {
                     throw new PixyExceptions("OOPS!!! The description of a todo cannot be empty.");
                 }
+                description = command.substring(5).trim();
                 Task todo = new ToDos(description);
                 tasks.add(todo);
                 return "Added new todo: " + todo.getDescription() + ". You now have " + tasks.size() + " task(s).";
