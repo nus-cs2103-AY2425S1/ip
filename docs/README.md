@@ -51,7 +51,7 @@ Format: `mark INDEX`
 - The index must be a positive integer
 - The index cannot be greater than the number of tasks in the task list
 
-## Unmarks a task
+## Unmarking a task
 Unmarks the task at the given index as done.
 
 Format: `mark INDEX`
@@ -81,7 +81,7 @@ Format: `delete INDEX`
 
 Updates the task at the given index
 
-Format: `update INDEX /update TASKTYPE DESCRIPTION`
+Format: `update INDEX /update TASK_TYPE DESCRIPTION`
 
 - The task type is either `todo`, `deadline`, or `event`
 - The description required is dependent on the task type 
@@ -89,6 +89,9 @@ Format: `update INDEX /update TASKTYPE DESCRIPTION`
 Examples:
 - `update 2 /update deadline return book /by 22/09/2024`
 - `update 3 /update event project meeting /from Monday 3pm /to 5pm`
+
+
+
 
 
 
