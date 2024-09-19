@@ -3,6 +3,7 @@ package utilities;
 import commands.Command;
 import commands.GoodbyeCommand;
 import tasks.Deadline;
+import tasks.DoAfter;
 import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
@@ -77,6 +78,8 @@ public class Parser {
                 return this.sendTodoCommand(userInput);
             case "deadline":
                 return this.sendDeadlineCommand(userInput);
+            case "do":
+                return this.sendDoAfterCommand(userInput);
             case "event":
                 return this.sendEventCommand(userInput);
             case "delete":
@@ -195,6 +198,61 @@ public class Parser {
         storage.saveToFile();
         return new Command(ui.showTaskAdded(curr, tasks.size()));
     }
+
+    /**
+     * Processes the "do...after" command to add a new Deadline task.
+     *
+     * @param userInput The input string containing the description and deadline of the task.
+     * @return A Command object confirming the addition of the Deadline task.
+     * @throws BigmouthException If the description or deadline is missing or invalid.
+     */
+    private Command sendDoAfterCommand(String userInput) throws BigmouthException {
+        // Assert that the userInput contains the expected "/after" keyword
+        assert userInput.contains(" /after ") : "Do after command must have a description and after date/time";
+
+        // Split the userInput to extract the description and after date/time
+        String[] parts = userInput.split(" /after ");
+
+        // Check if the after date/time is missing or invalid
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new BigmouthException("OOPS! The 'do after' command is missing a date/time.");
+        }
+
+        // Extract and validate the task description
+        String description = parts[0].substring(3).trim();  // Start substring after 'do' (index 3)
+        LocalDateTime after = Parser.parseDateTime(parts[1].trim());
+
+        if (description.isEmpty()) {
+            throw new BigmouthException("OOPS! The description of a 'do after' task cannot be empty.");
+        }
+
+        // Create a new DoAfter task (similar to Deadline)
+        DoAfter curr = new DoAfter(description, after);  // You may want to rename this class to something more appropriate if it's not a deadline.
+        tasks.add(curr);
+        storage.saveToFile();
+
+        // Return the response showing the added task
+        return new Command(ui.showTaskAdded(curr, tasks.size()));
+    }
+
+//    private Command sendDoAfterCommand(String userInput) throws BigmouthException {
+//        assert userInput.contains(" /after ") : "Do after command must have a description and date to do after";
+//        String[] parts = userInput.split(" /after ");
+//        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+//            throw new BigmouthException("OOPS! The do after " +
+//                    "command is missing a date/time.");
+//        }
+//        String description = parts[0].substring(9).trim();
+//        LocalDateTime after = Parser.parseDateTime(parts[1].trim());
+//        if (description.isEmpty()) {
+//            throw new BigmouthException("OOPS! The description of " +
+//                    "a do after cannot be empty.");
+//        }
+//        DoAfter curr = new DoAfter(description, after);
+//        tasks.add(curr);
+//        storage.saveToFile();
+//        return new Command(ui.showTaskAdded(curr, tasks.size()));
+//    }
 
     /**
      * Processes the "event" command to add a new Event task.

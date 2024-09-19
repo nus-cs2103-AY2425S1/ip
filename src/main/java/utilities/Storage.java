@@ -1,6 +1,7 @@
 package utilities;
 
 import tasks.Deadline;
+import tasks.DoAfter;
 import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
@@ -42,11 +43,7 @@ public class Storage {
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(rootPath))) {
             writeTasksToFile(writer);
-            for (Task task : tasks) {
-                assert task != null : "Task must not be null";
-                writer.write(task.toSaveFormat());
-                writer.newLine();
-            }
+
         } catch (IOException e) {
             System.out.println("Error saving tasks to file: " + e.getMessage());
         }
@@ -59,6 +56,7 @@ public class Storage {
      */
     private void writeTasksToFile(BufferedWriter writer) throws IOException {
         for (Task task : tasks) {
+            assert task != null : "Task must not be null";
             writer.write(task.toSaveFormat());
             writer.newLine();
         }
@@ -124,6 +122,11 @@ public class Storage {
             assert parts.length == 4 : "Deadline format must contain 4 parts";
             LocalDateTime by = LocalDateTime.parse(parts[3], DATE_FORMATTER);
             task = new Deadline(description, by);
+            break;
+        case "DA":
+            assert parts.length == 4 : "DoAfter format must contain 4 parts";
+            LocalDateTime after = LocalDateTime.parse(parts[3], DATE_FORMATTER);
+            task = new DoAfter(description, after);
             break;
         case "E":
             assert parts.length == 5 : "Event format must contain 5 parts";
