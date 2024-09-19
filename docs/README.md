@@ -1,10 +1,6 @@
 # Pixel User Guide
 
-// Update the title above to match the actual product name
-
-// Product screenshot goes here
 ![Pixel Chatbot](https://github.com/AngPengXuan/ip/docs/Ui.png)
-// Product intro goes here
 
 ## Introduction
 
@@ -42,22 +38,195 @@ Got it. I've added this task:
 Now you have 1 tasks in the list.
 ```
 
-// Describe the action and its outcome.
+#### Adding a Deadline
 
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
+To add a deadline task:
 
 ```
-expected output
+deadline <task_description> /by <date>
 ```
 
-## Feature ABC
+#### Example:
 
-// Feature details
+```
+deadline submit homework /by 20-09-2024
+```
 
-## Feature XYZ
+#### Expected Outcome:
 
-// Feature details
+```
+Got it. I've added this task:
+  [D][ ] submit homework by: 20 Sep 2024
+Now you have 2 tasks in the list.
+```
+
+#### Adding an Event
+
+To add an event task:
+
+```
+event <task_description> /from <date> /to <date>
+```
+
+#### Example:
+
+```
+event overseas trip /from 21-09-2024 /to 28-09-2024
+```
+
+#### Expected Outcome:
+
+```
+Got it. I've added this task:
+  [E][ ] overseas trip (from: 21 Sep 2024 to: 28 Sep 2024)
+Now you have 3 tasks in the list.
+```
+
+### Listing Tasks
+
+To show all tasks in your list:
+
+```
+list
+```
+
+#### Expected Outcome:
+
+```
+    Here are the tasks in your list:
+    1. [T][ ] read book
+    2. [D][ ] submit homework by: 20 Sep 2024
+    3. [E][ ] overseas trip (from: 21 Sep 2024 to: 28 Sep 2024)
+```
+
+### Mark Tasks as Done
+
+To mark a task as done:
+
+```
+mark <task_number>
+```
+
+#### Example:
+
+```
+mark 1
+```
+
+#### Expected Outcome:
+
+```
+Nice! I've marked this task as done:
+ [T][X] read book
+```
+
+### Unmark Tasks as Not Done
+
+To unmark a task:
+
+```
+mark <task_number>
+```
+
+#### Example:
+
+```
+unmark 1
+```
+
+#### Expected Outcome:
+
+```
+OK, I've marked this task as not done yet:
+ [T][ ] read book
+```
+
+### Delete Task
+
+To delete a task:
+
+```
+delete <task_number>
+```
+
+#### Example:
+
+```
+delete 1
+```
+
+#### Expected Outcome:
+
+```
+Noted. I've removed this task:
+  [T][ ] read book
+Now you have 2 tasks in the list.
+```
+
+### Find Task using keyword
+
+To find tasks that contain a specific keyword:
+
+```
+find <keyword>
+```
+
+#### Example:
+
+```
+find homework
+```
+
+#### Expected Outcome:
+
+```
+Here are the matching tasks in your list:
+1. [D][ ] submit homework by: 20 Sep 2024
+```
+
+#### Expected Outcome:
+
+```
+Here are the matching tasks in your list:
+1. [D][ ] submit homework by: 20 Sep 2024
+```
+
+```
+deadline submit CS2101 homework /by 22-09-2024
+```
+
+### Sort Deadline by date from earliest to latest
+
+To sort deadline:
+
+```
+sort deadline
+```
+
+#### Example:
+
+Suppose there were no tasks. Add the following:
+
+```
+deadline submit CS2101 homework /by 22-09-2024
+deadline submit CS2102 homework /by 21-09-2024
+deadline submit CS2103T homework /by 23-09-2024
+```
+
+Listing out using `list` will give this order:
+
+```
+    Here are the tasks in your list:
+    1. [D][ ] submit CS2101 homework by: 22 Sep 2024
+    2. [D][ ] submit CS2102 homework by: 21 Sep 2024
+    3. [D][ ] submit CS2103T homework by: 23 Sep 2024
+```
+
+After sorting using `sort deadline`:
+
+```
+    Here are the tasks in your list:
+    1. [D][ ] submit CS2102 homework by: 21 Sep 2024
+    2. [D][ ] submit CS2101 homework by: 22 Sep 2024
+    3. [D][ ] submit CS2103T homework by: 23 Sep 2024
+```
