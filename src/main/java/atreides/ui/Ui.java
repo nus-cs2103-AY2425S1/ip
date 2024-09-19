@@ -41,6 +41,10 @@ public class Ui {
         showMessage(error);
     }
 
+    public String showStringLoadingError() {
+        return ERROR_STRING;
+    }
+
     public void showLoadingError() {
         showError(ERROR_STRING);
     }

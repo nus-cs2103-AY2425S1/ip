@@ -13,6 +13,7 @@ public class Atreides {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private boolean isFileFound;
 
 
     /**
@@ -25,13 +26,10 @@ public class Atreides {
         try {
             ArrayList<String[]> list = storage.load();
             tasks = new TaskList(list);
+            isFileFound = true;
         } catch (AtreidesException e) {
-            if (e.getMessage().contains("deadline")) {
-
-            } else {
-                ui.showLoadingError();
-                tasks = new TaskList();
-            }
+            isFileFound = false;
+            tasks = new TaskList();
         }
     }
 
@@ -40,6 +38,9 @@ public class Atreides {
      */
     public void run() {
         ui.showWelcome();
+        if (!isFileFound) {
+            ui.showLoadingError();
+        }
         boolean isExit = false;
         while (!isExit) {
             try {
@@ -72,6 +73,9 @@ public class Atreides {
     }
 
     public String showWelcome() {
+        if (!isFileFound) {
+            return ui.showStringWelcome() + '\n' + ui.showStringLoadingError();
+        }
         return ui.showStringWelcome();
     }
 

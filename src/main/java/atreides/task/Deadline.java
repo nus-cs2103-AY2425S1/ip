@@ -1,9 +1,9 @@
 package atreides.task;
 
-import atreides.ui.AtreidesException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import atreides.ui.AtreidesException;
 
 public class Deadline extends Task {
 
