@@ -10,7 +10,7 @@ Bottle is a task management application designed to help users create, manage, a
 1. **Getting Started**
     - Installation
     - Running the Application
-
+    - Sample Product Screenshot
 2. **Basic Commands**
     - Adding Tasks
         - ToDo
