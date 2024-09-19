@@ -15,6 +15,7 @@ public class ToDo extends Task {
 
     /**
      * Convert the task to a format suitable for saving to a file.
+     *
      * @return A String in the format T_status_desc.
      */
     public String toSaveFormat() {
