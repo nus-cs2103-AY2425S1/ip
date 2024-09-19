@@ -41,6 +41,7 @@ public class HelpCommand extends Command {
                 + "7. delete <index> - Deletes a task\n"
                 + "8. find <keyword> - Finds tasks containing the keyword\n"
                 + "9. addmultipletodos <task1>, <task2>, ... - Adds multiple Todo tasks\n"
-                + "10. help - Shows this help message\n";
+                + "10. help - Shows this help message\n"
+                + "11. bye - Exits the application";
     }
 }

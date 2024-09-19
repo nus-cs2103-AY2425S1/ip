@@ -211,6 +211,10 @@ You can then check using the `list` command.
 
 Use the `help` command to easily view all the commands available at your fingertips!
 
+### 8. Bye command
+
+Use the `bye` command to easily exit the application!
+
 ## Conclusion
 
 Schedulo is a straightforward yet effective tool to help you manage your tasks. With features like adding different
