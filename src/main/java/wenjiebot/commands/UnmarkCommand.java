@@ -52,6 +52,8 @@ public class UnmarkCommand extends Command {
 
         taskList.get(taskNo).setStatusIcon(false);
 
+        assert(taskList.get(taskNo).isDone() == false);
+
         ui.showLine();
         System.out.println("Yes master~~, I've marked this task as not done yet:\n" + taskList.get(taskNo));
         ui.showLine();
