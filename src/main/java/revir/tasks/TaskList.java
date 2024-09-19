@@ -131,7 +131,7 @@ public class TaskList {
 
         }
 
-        Task task = tasks.get(index);
+        Task task = tasks.get(index - 1);
         task.setCompleted(status);
         storage.saveToFile(this.tasks);
         return "Task marked as " + (status ? "completed" : "incomplete") + ": " + task.toString();

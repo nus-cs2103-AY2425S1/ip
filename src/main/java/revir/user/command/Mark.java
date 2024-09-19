@@ -20,6 +20,7 @@ public class Mark extends Command {
      */
     public Mark(int taskIndex, boolean state) {
         super(false);
+        this.taskIndex = taskIndex;
         this.state = state;
     }
 
