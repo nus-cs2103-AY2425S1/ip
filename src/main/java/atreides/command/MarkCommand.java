@@ -6,6 +6,10 @@ import atreides.ui.AtreidesException;
 import atreides.ui.Storage;
 import atreides.ui.Ui;
 
+
+/**
+ * This class represents a command that marks a task as completed in a task list.
+ */
 public class MarkCommand implements Command {
     private final int index;
 

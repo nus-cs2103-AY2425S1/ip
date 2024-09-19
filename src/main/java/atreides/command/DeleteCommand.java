@@ -6,6 +6,9 @@ import atreides.ui.AtreidesException;
 import atreides.ui.Storage;
 import atreides.ui.Ui;
 
+/**
+ * Represents a command to delete a task from the TaskList based on the specified index.
+ */
 public class DeleteCommand implements Command {
     private final int index;
 
@@ -13,6 +16,15 @@ public class DeleteCommand implements Command {
         this.index = index;
     }
 
+    /**
+     * Executes the delete task command based on a specific index and returns a string response about the task removal.
+     *
+     * @param tasks The TaskList object managing the list of tasks.
+     * @param ui The Ui object for user interaction.
+     * @param storage The Storage object to manage data storage.
+     * @return A response string that provides feedback about the deleted task and the current number of tasks.
+     * @throws AtreidesException If the task index is invalid or any error occurs during task deletion.
+     */
     @Override
     public String executeString(TaskList tasks, Ui ui, Storage storage) throws AtreidesException {
         Task task = tasks.delete(index);

@@ -1,7 +1,5 @@
 package atreides;
 
-import java.util.concurrent.TimeUnit;
-
 import atreides.ui.Atreides;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -57,6 +55,6 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
         if (input.equals("bye")) {
             javafx.application.Platform.exit();
-        };
+        }
     }
 }

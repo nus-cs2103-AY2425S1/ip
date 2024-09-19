@@ -4,6 +4,10 @@ import atreides.task.TaskList;
 import atreides.ui.Storage;
 import atreides.ui.Ui;
 
+
+/**
+ * A command that lists all tasks in the TaskList when executed.
+ */
 public class ListCommand implements Command {
 
     @Override

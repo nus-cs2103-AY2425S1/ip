@@ -15,24 +15,32 @@ public class Task {
         this(description, false);
     }
 
+    /**
+     * Construct a Task with the given description and completion status.
+     *
+     * @param description Description of the task.
+     * @param isDone Boolean value indicating if the task is completed.
+     */
     public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
     }
 
     /**
-     * represents whether the task has been completed or not
-     * @param trueString
-     * @param falseString
-     * @return trueString if completed else falseString
+     * Returns an icon string based on the completion status of the task.
+     *
+     * @param trueString The string to return if the task is marked as done.
+     * @param falseString The string to return if the task is not marked as done.
+     * @return trueString if the task is done, otherwise falseString.
      */
     public String getStatusIcon(String trueString, String falseString) {
         return (isDone ? trueString : falseString);
     }
 
     /**
-     * marks the task as completed or undone based on the boolean var
-     * @param var
+     * Marks the task as done or not done based on the provided Boolean value.
+     *
+     * @param var Boolean value indicating whether the task should be marked as done (true) or not done (false).
      */
     public void markDone(Boolean var) {
         this.isDone = var;
@@ -45,6 +53,12 @@ public class Task {
         return " | " + this.getStatusIcon("1", "0") + " | " + this.description;
     }
 
+    /**
+     * Checks if two Task objects are equal based on their description.
+     *
+     * @param obj The object to be compared with this Task.
+     * @return true if the object is the same as this Task or if it is a Task instance with the same description.
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {

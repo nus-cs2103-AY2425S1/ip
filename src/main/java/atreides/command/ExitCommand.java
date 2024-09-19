@@ -4,6 +4,10 @@ import atreides.task.TaskList;
 import atreides.ui.Storage;
 import atreides.ui.Ui;
 
+
+/**
+ * Represents a command to exit the program.
+ */
 public class ExitCommand implements Command {
 
     @Override

@@ -4,6 +4,9 @@ import atreides.task.TaskList;
 import atreides.ui.Storage;
 import atreides.ui.Ui;
 
+/**
+ * Represents an error command that can be used to encapsulate and display an error message.
+ */
 public class ErrorCommand implements Command {
     private final String error;
 
@@ -17,10 +20,11 @@ public class ErrorCommand implements Command {
     }
 
     /**
-     * Ui will show the error message
-     * @param tasks
-     * @param ui
-     * @param storage
+     * Executes the error command by displaying the error message.
+     *
+     * @param tasks The list of tasks.
+     * @param ui The user interface for displaying messages.
+     * @param storage The storage handler for saving and loading tasks.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {

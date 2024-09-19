@@ -6,6 +6,10 @@ import atreides.ui.AtreidesException;
 import atreides.ui.Storage;
 import atreides.ui.Ui;
 
+
+/**
+ * Represents a command to unmark a task as not done in the task list.
+ */
 public class UnMarkCommand implements Command {
     private final int index;
 

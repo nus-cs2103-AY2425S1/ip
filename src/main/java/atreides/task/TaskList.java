@@ -3,7 +3,6 @@ package atreides.task;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 import atreides.ui.AtreidesException;
 
@@ -17,6 +16,17 @@ public class TaskList {
         this.list = new ArrayList<>();
     }
 
+    /**
+     * Constructs a TaskList from a list of tasks represented as arrays of strings.
+     *
+     * @param tasks An ArrayList of String arrays where each array contains task details.
+     *              The format is expected to be {taskType, isDone, description, additionalInfo}.
+     *              taskType: "T" for ToDo, "D" for Deadline, "E" for Event.
+     *              isDone: "1" if the task is done, "0" otherwise.
+     *              description: The description of the task.
+     *              additionalInfo: For "D", this is the deadline; for "E", this is the start and end time.
+     * @throws AtreidesException If there is an error in processing a deadline task.
+     */
     public TaskList(ArrayList<String[]> tasks) throws AtreidesException {
         this.list = new ArrayList<>();
         for (String[] words : tasks) {
@@ -44,12 +54,14 @@ public class TaskList {
         }
     }
 
+
     /**
-     * parses the string msg and words and creates the relevant Task object
-     * @param msg
-     * @param words
-     * @return
-     * @throws AtreidesException if msg and words do not follow the standard commands
+     * Creates a new Task object based on the input message and command type.
+     *
+     * @param msg The complete input message containing the task description and any additional information.
+     * @param words An array of words  to identify the task type (e.g., "todo", "deadline", "event").
+     * @return The created Task object, which can be a ToDo, Deadline, or Event, based on the input message.
+     * @throws AtreidesException If the task type is unrecognized or if the message format is invalid.
      */
     public static Task getTask(String msg, String[] words) throws AtreidesException {
         Task newTask;
@@ -73,7 +85,7 @@ public class TaskList {
 
     /**
      * Creates string of list of tasks that the Ui will print out
-     * @return
+     * @return String representation of the list of tasks.
      */
     public String showList() {
         String tasks = IntStream.range(0, list.size())
@@ -84,7 +96,7 @@ public class TaskList {
 
     /**
      * creates a string of list of tasks that will be written into the file object
-     * @return
+     * @return String representation of the list of tasks that will be saved in the Storage text file.
      */
     public String writeList() {
         StringBuilder tasks = new StringBuilder();
@@ -116,6 +128,12 @@ public class TaskList {
         list.get(index).markDone(bool);
     }
 
+    /**
+     * Checks if the provided index is present in the list.
+     *
+     * @param index The index to be checked.
+     * @throws AtreidesException If the index is out of bounds.
+     */
     public void checkIndexPresent(int index) throws AtreidesException {
         assert index >= 0;
 
@@ -132,11 +150,24 @@ public class TaskList {
         return list.size();
     }
 
+    /**
+     * Deletes the task at the specified index from the task list.
+     *
+     * @param index The index of the task to be deleted.
+     * @return The task that was removed from the list.
+     * @throws AtreidesException If the index is out of bounds.
+     */
     public Task delete(int index) throws AtreidesException {
         checkIndexPresent(index);
         return list.remove(index);
     }
 
+    /**
+     * Adds a new task to the task list. Throws an exception if an identical task already exists.
+     *
+     * @param task The task to be added to the list.
+     * @throws AtreidesException If the task already exists in the list.
+     */
     public void addTask(Task task) throws AtreidesException {
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).equals(task)) {
@@ -147,6 +178,12 @@ public class TaskList {
         list.add(task);
     }
 
+    /**
+     * Finds and returns a list of tasks whose descriptions contain the given keyword.
+     *
+     * @param description The keyword to search for in the task descriptions.
+     * @return A formatted string listing all tasks that match the given keyword.
+     */
     public String find(String description) {
         StringBuilder tasks = new StringBuilder();
         tasks.append("Here are the matching tasks in your list: \n");

@@ -28,6 +28,11 @@ public class Ui {
         return INTRO;
     }
 
+    /**
+     * Reads a command entered by the user from the standard input.
+     *
+     * @return the command entered by the user as a String
+     */
     public String readCommand() {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
