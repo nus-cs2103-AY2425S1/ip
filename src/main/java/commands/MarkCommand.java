@@ -44,9 +44,7 @@ public class MarkCommand extends Command {
         for (int i : toBeUpdatedIndexes) {
             Task t = (this.command == CommandTypes.MARK) ? tl.markAsDone(i, storage)
                     : tl.markAsUndone(i, storage);
-            if (t != null) {
-                updatedTasks.append(INDENT + t.toString() + NEW_LINE);
-            }
+            updatedTasks.append(INDENT + t.toString() + NEW_LINE);
         }
 
         String msg = (this.command == CommandTypes.MARK) ? "Nice! I've marked this task as done:"

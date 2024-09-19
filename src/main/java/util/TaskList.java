@@ -68,8 +68,6 @@ public class TaskList {
         if (!entry.isDone()) {
             entry.markDone();
             storage.updateStorage(entry.toString(), idx);
-        } else {
-            return null;
         }
         return entry;
     }
@@ -87,8 +85,6 @@ public class TaskList {
         if (entry.isDone()) {
             entry.markUndone();
             storage.updateStorage(entry.toString(), idx);
-        } else {
-            return null;
         }
         return entry;
     }
