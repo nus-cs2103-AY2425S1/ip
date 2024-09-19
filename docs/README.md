@@ -124,10 +124,10 @@ Here are the sorted deadline tasks in your list:
 - Description: Exits the Taskalyn application
 - Command: `bye`
 - Example: `bye`
-- Expected Outcome:
+- Expected Outcome:\
 ```
 Bye! Hope to see you again soon!
-
+ 
 Shutting down in 5 seconds...
 ```
 
