@@ -205,7 +205,7 @@ sort deadline
 
 #### Example:
 
-Suppose there were no tasks. Add the following:
+Suppose there were no tasks. Add the following one at a time:
 
 ```
 deadline submit CS2101 homework /by 22-09-2024
@@ -229,4 +229,46 @@ After sorting using `sort deadline`:
     1. [D][ ] submit CS2102 homework by: 21 Sep 2024
     2. [D][ ] submit CS2101 homework by: 22 Sep 2024
     3. [D][ ] submit CS2103T homework by: 23 Sep 2024
+```
+
+### 8. Sort Event by start date from earliest to latest
+
+To sort deadline:
+
+```
+sort deadline
+```
+
+#### Example:
+
+Add the following one at a time:
+
+```
+event overseas trip /from 27-09-2024 /to 02-10-2024
+event overseas trip /from 22-09-2024 /to 25-09-2024
+event overseas trip /from 23-10-2024 /to 01-11-2024
+```
+
+Listing out using `list` will give this order:
+
+```
+Here are the tasks in your list:
+    1. [D][ ] submit CS2102 homework by: 21 Sep 2024
+    2. [D][ ] submit CS2101 homework by: 22 Sep 2024
+    3. [D][ ] submit CS2103T homework by: 23 Sep 2024
+    4. [E][ ] overseas trip (from: 27 Sep 2024 to: 02 Oct 2024)
+    5. [E][ ] overseas trip (from: 22 Sep 2024 to: 25 Sep 2024)
+    6. [E][ ] overseas trip (from: 23 Oct 2024 to: 01 Nov 2024)
+```
+
+After sorting using `sort event`:
+
+```
+    Here are the tasks in your list:
+    1. [E][ ] overseas trip (from: 22 Sep 2024 to: 25 Sep 2024)
+    2. [E][ ] overseas trip (from: 27 Sep 2024 to: 02 Oct 2024)
+    3. [E][ ] overseas trip (from: 23 Oct 2024 to: 01 Nov 2024)
+    4. [D][ ] submit CS2101 homework by: 22 Sep 2024
+    5. [D][ ] submit CS2102 homework by: 21 Sep 2024
+    6. [D][ ] submit CS2103T homework by: 23 Sep 2024
 ```
