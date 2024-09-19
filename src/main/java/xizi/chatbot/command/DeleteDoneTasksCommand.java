@@ -11,10 +11,18 @@ import xizi.chatbot.task.TaskList;
 
 
 /**
- * Command to delete all completed tasks from the task list.
+ * Represents a command to delete all completed tasks from the task list.
  */
 public class DeleteDoneTasksCommand implements Command {
 
+    /**
+     * Executes the command to remove completed tasks from the task list and save changes.
+     *
+     * @param actions the task list from which completed tasks are to be deleted
+     * @param storage the storage to save the updated task list
+     * @param ui the user interface for displaying messages
+     * @throws IOException if an I/O error occurs while saving tasks
+     */
     @Override
     public void execute(TaskList actions, Storage storage, Ui ui) throws IOException {
         List<Task> completedTasks = actions.getItems().stream()

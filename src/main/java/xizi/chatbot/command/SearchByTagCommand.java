@@ -33,11 +33,11 @@ public class SearchByTagCommand implements Command {
         List<Task> tasksWithTag = tasks.searchByTag(tag);
         if (tasksWithTag.isEmpty()) {
             ui.printMessage("No tasks found with tag: " + tag);
-        } else {
-            ui.printMessage("Tasks with tag '" + tag + "':");
-            for (int i = 0; i < tasksWithTag.size(); i++) {
-                ui.printMessage((i + 1) + ". " + tasksWithTag.get(i));
-            }
+            return;
+        }
+        ui.printMessage("Tasks with tag '" + tag + "':");
+        for (int i = 0; i < tasksWithTag.size(); i++) {
+            ui.printMessage((i + 1) + ". " + tasksWithTag.get(i));
         }
     }
 }

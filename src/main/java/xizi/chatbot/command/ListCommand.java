@@ -27,16 +27,16 @@ public class ListCommand implements Command {
         int listSize = actions.getSize();
         if (listSize == 0) {
             ui.printMessage("There are no tasks in the list now");
-        } else {
-            ui.printMessage("Here are the tasks in your list:");
-            List<Task> innerTasks = actions.getItems();
-            for (int i = 1; i <= listSize; i++) {
-                Task task = innerTasks.get(i - 1);
-                String taskString = String.format("%d. %s", i, task.toString());
-                ui.printMessage(taskString);
-            }
-            ui.showLine();
+            return;
         }
+        ui.printMessage("Here are the tasks in your list:");
+        List<Task> innerTasks = actions.getItems();
+        for (int i = 1; i <= listSize; i++) {
+            Task task = innerTasks.get(i - 1);
+            String taskString = String.format("%d. %s", i, task.toString());
+            ui.printMessage(taskString);
+        }
+        ui.showLine();
     }
 }
 
