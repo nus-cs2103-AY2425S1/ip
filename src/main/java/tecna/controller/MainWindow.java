@@ -101,6 +101,11 @@ public class MainWindow extends AnchorPane {
         }
     }
 
+    /**
+     * Sends the message from Tecna.
+     *
+     * @param message Content of the message.
+     */
     public void sendMessage(String message) {
         assert message != null : "Message is null.";
         DialogBox tecnaDialogBox = DialogBox.getTecnaDialog(message, tecnaImage);
