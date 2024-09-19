@@ -47,7 +47,6 @@ public class Meow {
         while (!input.equals("bye")) {
             try {
                 String msg = parser.validateCommand(input);
-                String msg = parser.validateCommand(input);
                 ui.showTaskOutcomeMessage(msg);
             } catch (Meowception e) {
                 ui.showMeowceptionError(e.toString());
