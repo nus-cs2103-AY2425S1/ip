@@ -14,6 +14,8 @@ import pixel.Pixel;
 public class Main extends Application {
 
     private Pixel duke = new Pixel("data.txt");
+    private final int WIDTH = 800;
+    private final int HEIGHT = 600;
 
     @Override
     public void start(Stage stage) {
@@ -22,6 +24,8 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setWidth(WIDTH);
+            stage.setHeight(HEIGHT);
             fxmlLoader.<MainWindow>getController().setDuke(duke); // inject the Duke instance
             stage.show();
         } catch (IOException e) {
