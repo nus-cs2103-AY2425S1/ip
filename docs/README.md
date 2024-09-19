@@ -1,7 +1,7 @@
 # Juno User Guide
 
 ## Product User Interface
-<p style="text-align:center;"><img src="Ui.png" alt="Juno" width="500"/></p>
+<p style="text-align:center;"><img src="Ui.png" alt="Juno" width="400"/></p>
 
 ## Product Introduction
 
