@@ -25,6 +25,9 @@ public class PictureUi {
         return getDefaultPicture();
     }
 
+    /**
+     * Gets the default picture to be shown if an error occurs
+     */
     public PictureType getDefaultPicture() {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime todayAt6 = LocalDate.now().atTime(17, 0);
