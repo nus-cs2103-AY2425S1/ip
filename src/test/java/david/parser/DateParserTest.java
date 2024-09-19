@@ -62,8 +62,8 @@ public class DateParserTest {
                 assertThrows(DavidInvalidTimeException.class, (
                 ) -> DateParser.validateDateTime(t2, t1));
         String expectedErrorMessage = "Please ensure that the time inputted is after the current time."
-                + " If you are trying to input an event task, make sure \"\\from\" field is a valid time "
-                + "before  \"\\to\" field";
+                + " If you are trying to input an event task, make sure \"/from\" field is a valid time "
+                + "before  \"/to\" field";
         assertEquals(expectedErrorMessage, exception.showErrorMessage(),
                 "Exception is thrown when t1 is before t2");
     }
@@ -79,8 +79,8 @@ public class DateParserTest {
                 assertThrows(DavidInvalidTimeException.class, (
                 ) -> DateParser.validateDateTime(t2, t1));
         String expectedErrorMessage = "Please ensure that the time inputted is after the current time."
-                + " If you are trying to input an event task, make sure \"\\from\" field is a valid time "
-                + "before  \"\\to\" field";
+                + " If you are trying to input an event task, make sure \"/from\" field is a valid time "
+                + "before  \"/to\" field";
         assertEquals(expectedErrorMessage, exception.showErrorMessage(),
                 "Exception is thrown when t1 is before t2");
     }

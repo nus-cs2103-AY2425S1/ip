@@ -9,7 +9,7 @@ public class DavidInvalidTimeException extends DavidException {
     @Override
     public String toString() {
         return "Please ensure that the time inputted is after the current time. If you are trying"
-                + " to input an event task, make sure \"\\from\" field is a valid time before  \"\\to\" field";
+                + " to input an event task, make sure \"/from\" field is a valid time before  \"/to\" field";
     }
 
 }
