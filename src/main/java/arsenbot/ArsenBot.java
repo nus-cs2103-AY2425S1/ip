@@ -84,9 +84,9 @@ public class ArsenBot {
             Command command = Parser.parse(input);
             return command.execute(tasks, ui, storage);
         } catch (TaskManagerException e) {
-            return "TaskManager error: " + e.getMessage();
+            return ui.showError("TaskManager error: " + e.getMessage());
         } catch (IOException e) {
-            return "I/O error: " + e.getMessage();
+            return ui.showError("I/O error: " + e.getMessage());
         }
     }
 

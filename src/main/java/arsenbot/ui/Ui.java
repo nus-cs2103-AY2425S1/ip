@@ -25,11 +25,11 @@ public class Ui {
      * Displays the welcome message when the application starts.
      */
     public String showWelcome() {
-        System.out.println("Hello! I'm ArsenBot");
-        System.out.println("What can I do for you?\n");
+        System.out.println("Hello! I am ArsenBot. It is my pleasure to assist you.");
+        System.out.println("How may I serve you today?\n");
         return """
-                Hello! I'm ArsenBot
-                What can I do for you?
+                Hello! I am ArsenBot. It is my pleasure to assist you.
+                How may I serve you today?
                 """;
     }
 
@@ -37,18 +37,18 @@ public class Ui {
      * Displays a separator line for better readability in the output.
      */
     public void showLine() {
-        System.out.println("____________________________");
+        System.out.println("_____________________________________________");
     }
 
     /**
-     * Displays an error message to the user.
+     * Displays an error message to the user in a polite and respectful manner.
      *
      * @param message the error message to display
      */
     public String showError(String message) {
         assert message != null : "Error message should not be null";
-        System.out.println(message);
-        return message;
+        System.out.println("I apologize. There seems to be an issue: " + message);
+        return "I apologize. There seems to be an issue: " + message;
     }
 
     /**
@@ -67,12 +67,12 @@ public class Ui {
      * Displays the exit message when the application is about to close.
      */
     public String showExit() {
-        System.out.println("Bye. Hope to see you again soon!\n");
-        return "Bye. Hope to see you again soon! (please quit the program manually!)";
+        System.out.println("Goodbye. I hope to be of service again soon!\n");
+        return "Goodbye. I hope to be of service again soon!";
     }
 
     /**
-     * Displays a message indicating that a task has been added.
+     * Displays a message indicating that a task has been added, using polite phrasing.
      *
      * @param task the task that was added
      * @param size the total number of tasks in the list after adding the new task
@@ -80,10 +80,10 @@ public class Ui {
     public String showTaskAdded(Task task, int size) {
         assert task != null : "Added task should not be null";
         assert size >= 0 : "Task list size should not be negative";
-        System.out.println("Got it. I've added this task:");
+        System.out.println("Understood. I have successfully added this task:");
         System.out.println("\t" + task);
-        System.out.println("Now you have " + size + " tasks in the list.");
-        return "Got it. I've added this task:\n" + "\t" + task + "\n" + "Now you have " + size + " tasks in the list.";
+        System.out.println("You now have " + size + " tasks in your list.");
+        return "Understood. I have successfully added this task:\n" + "\t" + task + "\n" + "You now have " + size + " tasks in your list.";
     }
 
     /**
@@ -93,10 +93,10 @@ public class Ui {
      * @param size the total number of tasks remaining in the list after deletion
      */
     public String showTaskDeleted(Task task, int size) {
-        System.out.println("Noted. I've removed this task:");
+        System.out.println("Noted. I have removed this task as requested:");
         System.out.println(task);
-        System.out.println("Now you have " + size + " tasks in the list.");
-        return "Noted. I've removed this task:\n" + task + "\n" + "Now you have " + size + " tasks in the list.";
+        System.out.println("You now have " + size + " tasks remaining.");
+        return "Noted. I have removed this task as requested:\n" + task + "\n" + "You now have " + size + " tasks remaining.";
     }
 
     /**
@@ -105,9 +105,9 @@ public class Ui {
      * @param task the task that was marked as done
      */
     public String showTaskMarked(Task task) {
-        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("Well done! I have marked this task as completed:");
         System.out.println(task);
-        return "Nice! I've marked this task as done:\n" + task;
+        return "Well done! I have marked this task as completed:\n" + task;
     }
 
     /**
@@ -116,9 +116,9 @@ public class Ui {
      * @param task the task that was marked as not done
      */
     public String showTaskUnmarked(Task task) {
-        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println("Understood. I have marked this task as not completed yet:");
         System.out.println(task);
-        return "OK, I've marked this task as not done yet:\n" + task;
+        return "Understood. I have marked this task as not completed yet:\n" + task;
     }
 
     /**
@@ -140,8 +140,8 @@ public class Ui {
 
     public String showFoundTasks(List<Task> foundTasks) {
         if (foundTasks.isEmpty()) {
-            System.out.println("No matching tasks found.");
-            return "No matching tasks found.\n";
+            System.out.println("I am sorry, no matching tasks were found.");
+            return "I am sorry, no matching tasks were found.\n";
         } else {
             System.out.println("Here are the matching tasks in your list:");
             StringBuilder ret = new StringBuilder("Here are the matching tasks in your list:\n");
