@@ -2,6 +2,12 @@
 
 _EchoBot helps you stay organized by managing your tasks effortlessly._
 
+<picture>
+    <img alt="Screenshot of GUI" src="Ui.png"
+        width="50%"
+    >
+</picture>
+
 **Features**
 1. Text-based commands for simplicity
 2. Easy to learn with minimal setup
