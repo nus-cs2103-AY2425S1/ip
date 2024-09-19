@@ -2,6 +2,8 @@ package gui;
 
 import bob.Bob;
 import bob.Ui;
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -9,6 +11,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -55,14 +59,17 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getBobDialog(response, dukeImage)
         );
         userInput.clear();
-        // Work in progress
-        /*if (this.bob.getGuiExitFlag()) {
-            try {
-                TimeUnit.SECONDS.sleep(3);
-            } catch (InterruptedException e) {
-                // Do nothing
-            }
-            Platform.exit();
-        }*/
+
+        if (this.bob.getGuiExitFlag()) {
+            Thread exitThread = new Thread(() -> {
+                try {
+                    TimeUnit.SECONDS.sleep(2);
+                } catch (InterruptedException e) {
+                    // Do nothing
+                }
+                Platform.exit();
+            });
+            exitThread.start();
+        }
     }
 }
