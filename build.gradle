@@ -46,11 +46,11 @@ test {
 }
 
 application {
-    mainClass.set("chatbot.Launcher")
+    mainClass.set("chatbot.gui.Launcher")
 }
 
 shadowJar {
-    mainClassName = "chatbot.Launcher"
+    mainClassName = "chatbot.gui.Launcher"
     archiveBaseName = "bee"
     archiveClassifier = null
     archiveFileName = 'bee.jar'
