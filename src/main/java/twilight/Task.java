@@ -54,11 +54,18 @@ public class Task {
         }
     }
 
-    public void setDone() {
-        this.isDone = true;
+    public void setDone() throws InvalidInputException {
+        if (!this.isDone) {
+            this.isDone = true;
+        } else {
+            throw new InvalidInputException("Task is already marked complete.");
+        }
     }
 
-    public void setUndone() {
+    public void setUndone() throws InvalidInputException{
+        if (!this.isDone) {
+            throw new InvalidInputException("Task is already marked incomplete.");
+        }
         this.isDone = false;
     }
 
