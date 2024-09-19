@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
  * Controller for the main GUI.
@@ -45,7 +46,7 @@ public class MainWindow extends AnchorPane {
     public void showWelcome() {
         String welcomeMessage = buddy.getWelcome();
         dialogContainer.getChildren().add(
-            DialogBox.getBuddyDialog(welcomeMessage, dukeImage)
+                DialogBox.getBuddyDialog(welcomeMessage, dukeImage)
         );
     }
 
@@ -58,9 +59,13 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = buddy.getResponse(input);
         dialogContainer.getChildren().addAll(
-            DialogBox.getUserDialog(input, userImage),
-            DialogBox.getBuddyDialog(response, dukeImage)
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getBuddyDialog(response, dukeImage)
         );
         userInput.clear();
+        if (response.equals(buddy.getGoodbye())) {
+            Stage stage = (Stage) dialogContainer.getScene().getWindow();
+            stage.close();
+        }
     }
 }

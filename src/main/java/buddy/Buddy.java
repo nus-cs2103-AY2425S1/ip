@@ -75,6 +75,11 @@ public class Buddy {
         assert input != null : "Input should not be null";
         assert !input.isBlank() : "Input should not be blank";
         Command command = Parser.parse(input);
+
+        if (command.isExit()) {
+            System.exit(0);
+        }
+
         return command.execute(tasks, ui, storage);
     }
 }
