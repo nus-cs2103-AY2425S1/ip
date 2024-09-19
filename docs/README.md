@@ -4,7 +4,7 @@
 
 [//]: # (// Product screenshot goes here)
 
-![product screenshot](Ui.png.png)
+![product screenshot](Ui.png)
 
 [//]: # (// Product intro goes here)
 
