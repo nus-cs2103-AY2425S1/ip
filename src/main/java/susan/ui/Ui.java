@@ -15,9 +15,9 @@ public class Ui {
      */
     public String showWelcome() {
         return """
-                Hi there, I'm Susan!
-                How may I help you be productive today?
-                """;
+               Hi there, I'm Susan!
+               How may I help you be productive today?
+               """;
     }
 
     /**
@@ -42,7 +42,7 @@ public class Ui {
     public String showTaskList(TaskList tasks) {
         if (tasks.size() > 0) {
             return " Here are the tasks in your list:\n"
-                    + tasks.printList();
+                + tasks.printList();
         }
         return "There are no tasks in your list...";
     }

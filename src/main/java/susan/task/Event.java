@@ -20,7 +20,7 @@ public class Event extends Task {
      * @param end The end time of the event in yyyy-MM-dd HHmm.
      */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
-        super(description);
+        super(description.trim());
         this.from = from;
         this.to = to;
     }

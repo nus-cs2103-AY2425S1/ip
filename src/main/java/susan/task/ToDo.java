@@ -12,7 +12,7 @@ public class ToDo extends Task {
      * @param description The description of the task.
      */
     public ToDo(String description) {
-        super(description);
+        super(description.trim());
     }
 
     @Override
