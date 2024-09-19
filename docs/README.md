@@ -1,6 +1,6 @@
 # Fret User Guide
 
-<img src=''>
+<img src='Ui.png'>
 
 Fret, named after the player support AI Fret from [Halo Infinite](https://www.halopedia.org/FRET), is a chatbot that will take note of your tasks and allow you to mark, delete, save tasks and also add other tasks as needed.
 
