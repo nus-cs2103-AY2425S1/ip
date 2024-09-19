@@ -4,10 +4,8 @@ import task.Task;
 import task.TaskList;
 import utility.Parser;
 import utility.Storage;
-import utility.Ui;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 
 public class Will {
@@ -37,32 +35,5 @@ public class Will {
      */
     public String getResponse(String input) {
         return this.parser.parseUICommand(tasks, input, taskList, parser, storage);
-    }
-
-
-    /**
-     * Task management chatbot.
-     */
-    public static void main(String[] args) {
-
-        ArrayList<Task> tasks = new ArrayList<>();
-        Storage storage = new Storage();
-        storage.load(tasks);
-
-        String logo = "WILL";
-        Ui ui = new Ui();
-        ui.printGreetings(logo);
-
-        Scanner scanner = new Scanner(System.in);
-
-        TaskList taskList = new TaskList();
-        Parser parser = new Parser();
-
-        while (true) {
-            String userInput = scanner.nextLine();
-            if (parser.parseCommand(tasks, userInput, taskList, ui, parser)){
-                break;
-            }
-        }
     }
 }

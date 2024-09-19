@@ -24,7 +24,7 @@ public class Storage {
      */
     public void load(ArrayList<Task> tasks) {
 
-        new FileChecker(FILEPATH);
+        new Validator().checkFileExists(FILEPATH);
 
         Parser dateTimeParser = new Parser();
 
