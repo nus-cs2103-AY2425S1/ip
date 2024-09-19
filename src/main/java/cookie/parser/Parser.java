@@ -67,8 +67,12 @@ public class Parser {
      * @param input the input string containing the integer
      * @return the integer value
      */
-    public int parseInteger(String input) {
-        return Integer.parseInt(input);
+    public int parseInteger(String input) throws CookieException {
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            throw new CookieException("Invalid input: " + input + " is not a valid integer.");
+        }
     }
 
     /**

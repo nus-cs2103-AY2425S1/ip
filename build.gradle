@@ -52,6 +52,7 @@ application {
 }
 
 shadowJar {
+    archiveFileName = "cookie.jar"
     archiveBaseName = "cookie"
     archiveClassifier = null
 }
