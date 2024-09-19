@@ -6,7 +6,7 @@ import morgana.task.Task;
 import morgana.task.TaskList;
 
 /**
- * Represents a command to delete a task from the task list.
+ * Represents a command to remove a task from the task list.
  */
 public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
