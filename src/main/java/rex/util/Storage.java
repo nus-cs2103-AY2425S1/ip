@@ -17,8 +17,13 @@ import rex.task.TaskList;
  * the file with the current state of the {@code TaskList}.
  */
 public class Storage {
-    private static final String FILE_PATH = "./data/rex.txt";
-    private static final String TEMP_PATH = "./data/tmp.txt";
+    private final String filePath;
+    private final String tempPath;
+
+    public Storage(String filePath, String tempPath) {
+        this.filePath = filePath;
+        this.tempPath = tempPath;
+    }
 
     /**
      * Loads tasks from the file specified by {@code filepath} into the provided {@code TaskList}.
@@ -28,7 +33,7 @@ public class Storage {
      * @throws IOException If an I/O error occurs while reading the file or creating directories/files.
      */
     public void loadFile(TaskList list) throws IOException {
-        File file = new File(FILE_PATH);
+        File file = new File(filePath);
         File dir = file.getParentFile();
 
         createDirectory(dir);
@@ -46,10 +51,10 @@ public class Storage {
      * @throws IOException If an I/O error occurs while writing to or copying files.
      */
     public void updateFile(TaskList list) throws IOException {
-        File temp = new File(TEMP_PATH);
+        File temp = new File(tempPath);
 
         // Creates temp file to copy taskList from
-        Path tempFilePath = Paths.get(TEMP_PATH);
+        Path tempFilePath = Paths.get(tempPath);
         Files.deleteIfExists(tempFilePath);
         createFile(temp);
 
@@ -61,7 +66,7 @@ public class Storage {
         }
 
         // Replace the main file with the updated temp file
-        Files.copy(tempFilePath, Paths.get(FILE_PATH), StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(tempFilePath, Paths.get(filePath), StandardCopyOption.REPLACE_EXISTING);
         Files.delete(tempFilePath);
     }
 

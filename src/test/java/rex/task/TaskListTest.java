@@ -14,11 +14,13 @@ import rex.exception.InvalidInputException;
 import rex.util.Storage;
 
 public class TaskListTest {
+    private static final String TESTFILE_PATH = "./data/test/rex.txt";
+    private static final String TESTTEMP_PATH = "./data/test/tmp.txt";
     private TaskList taskList;
 
     @BeforeEach
     public void setUp() throws IOException {
-        taskList = new TaskList(new Storage());
+        taskList = new TaskList(new Storage(TESTFILE_PATH, TESTTEMP_PATH));
     }
     @AfterEach
     public void deleteFile() throws IOException {
@@ -26,7 +28,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void testEmptyList() throws IOException {
+    public void testEmptyList() {
         assertEquals("The list is empty! rawr\n", taskList.getListDisplay());
     }
 
