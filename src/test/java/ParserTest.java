@@ -19,24 +19,4 @@ public class ParserTest {
         Parser parser = new Parser();
         assertNull(parser.parseDateTime("12/13/2000 1800"));
     }
-
-    @Test
-    public void testExit(){
-        Parser parser = new Parser();
-        ArrayList<Task> tasks = new ArrayList<>();
-//        TaskAction taskList = new TaskAction();
-        Parser dateTimeParser = new Parser();
-//        Ui ui = new Ui();
-//        assertEquals(true, parser.parseCommand(tasks, "bye", taskList, ui, dateTimeParser));
-    }
-
-    @Test
-    public void testDefaultCommand(){
-        Parser parser = new Parser();
-        ArrayList<Task> tasks = new ArrayList<>();
-//        TaskAction taskAction = new TaskAction();
-        Parser dateTimeParser = new Parser();
-//        Ui ui = new Ui();
-//        assertEquals(false, parser.parseCommand(tasks, "abc123", taskAction, ui, dateTimeParser));
-    }
 }

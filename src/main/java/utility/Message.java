@@ -96,7 +96,7 @@ public class Message {
      * @return A string message regarding invalid date format.
      */
     public String printInvalidDate() {
-        return "Invalid Datetime format.";
+        return "Invalid Datetime format.\nShould be in d/M/yyyy HHmm";
     }
 
     /**
