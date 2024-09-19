@@ -32,9 +32,9 @@ public class Struggling {
             storage = new Storage(filePath);
             tasks = new TaskList(storage.load());
         } catch (IOException e) {
-            ui.show("Failed to create saveFile, contact the developer!");
+            ui.showError("Failed to create saveFile, contact the developer!");
         } catch (StrugglingException e) {
-            ui.show(e.getMessage());
+            ui.showError(e.getMessage());
             tasks = new TaskList();
         }
     }
@@ -77,6 +77,8 @@ public class Struggling {
             ui.showError(e.getMessage());
         } catch (IOException e) {
             ui.showError("Fail to save task, please contact developer!");
+        } catch (Exception e) {
+            ui.showError("Unhandled exception, can't you even use the command correctly?");
         }
 
         if (commandType == null) {
@@ -93,7 +95,7 @@ public class Struggling {
     public String getCommandType() {
         return commandType != null ? commandType : "InvalidCommand";
     }
-    
+
     public boolean getIsExit() {
         return this.isExit;
     }

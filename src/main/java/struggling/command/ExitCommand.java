@@ -13,6 +13,7 @@ public class ExitCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         ui.showGoodBye();
+        storage.save(tasks.getTasksState());
     }
 
     @Override
