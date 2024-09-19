@@ -51,8 +51,6 @@ public class Parser {
         if (command.isBlank()) {
             throw new NayanaException("Tasks cannot be empty.");
         }
-        String[] commandParts;
-
         if (command.equals("bye")) {
             return new ExitCommand();
 

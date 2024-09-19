@@ -1,1 +1,2 @@
-1. T | 0 | nothing 
+1. T | 0 | Read research paper 
+2. E | 1 | Team meeting | Sept 25 2024 - Sept 25 2024
