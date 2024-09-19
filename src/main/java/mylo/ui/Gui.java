@@ -29,7 +29,6 @@ public class Gui extends Application implements Ui {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             Mylo.main();
-            //fxmlLoader.<MainWindow>getController().setMylo(mylo);  // inject the Duke instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

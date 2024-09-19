@@ -68,6 +68,7 @@ public class UiController {
      * @param isInput A boolean flag indicating whether the message is user input (true) or a system response (false).
      */
     public void notifyTui(String message, boolean isInput) {
+        assert !message.isBlank() : "Empty message encountered.";
         if (isInput) {
             tui.updateInput(message);
         } else {

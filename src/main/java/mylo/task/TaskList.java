@@ -102,8 +102,9 @@ public class TaskList {
      * @throws StorageOperationException If an error occurs while rewriting the storage.
      */
     public String markTaskAsDone(int index) throws StorageOperationException {
+        String message = LIST.get(index - 1).markAsDone();
         STORAGE.rewrite(this.LIST);
-        return LIST.get(index - 1).markAsDone();
+        return message;
     }
 
     /**
@@ -116,8 +117,9 @@ public class TaskList {
      * @throws StorageOperationException If an error occurs while rewriting the storage.
      */
     public String markTaskAsUndone(int index) throws StorageOperationException {
+        String message = LIST.get(index - 1).markAsUndone();
         STORAGE.rewrite(LIST);
-        return LIST.get(index - 1).markAsUndone();
+        return message;
     }
 
     /**

@@ -35,9 +35,8 @@ public class MainWindow extends AnchorPane {
 
     private UiController controller;
 
-
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.jpg"));
-    private Image myloImage = new Image(this.getClass().getResourceAsStream("/images/Mylo.jpg"));
+    private Image userImage;
+    private Image myloImage;
 
     /**
      * Initializes the MainWindow by setting up the scroll pane to auto-scroll as new dialog entries are added.
@@ -45,6 +44,10 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
+        userImage = new Image(getClass().getResourceAsStream("/images/User.jpg"));
+        myloImage = new Image(getClass().getResourceAsStream("/images/Mylo.jpg"));
+        assert userImage != null : "User Image not found.";
+        assert myloImage != null : "Mylo Image not found.";
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
@@ -79,6 +82,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String userCommand = userInput.getText();
+
+        if (userCommand.isBlank()) {
+            return;
+        }
 
         DialogBox inputBox = DialogBox.getUserDialog(userCommand, userImage);
         dialogContainer.getChildren().add(inputBox);
