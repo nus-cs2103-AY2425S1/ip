@@ -8,13 +8,13 @@ Quack is a user friendly assistant which helps you keep track of pesky tasks and
 
 ## Supported Features
 Here is a list of feaures that quack supports
-   1) List your tasks
-   2) Add a todo/deadline/event task
-   3) Find tasks inside yourlist
-   4) Delete tasks in your list
-   5) Mark or unmark tasks in your list
-   6) Tag or untag tasks inside your list for better organisation
-   7) A help feature to list all possible commands
+   1. List your tasks
+   2. Add a todo/deadline/event task
+   3. Find tasks inside yourlist
+   4. Delete tasks in your list
+   5. Mark or unmark tasks in your list
+   6. Tag or untag tasks inside your list for better organisation
+   7. A help feature to list all possible commands
 
 # Setting up Quack
 
