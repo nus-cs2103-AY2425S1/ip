@@ -68,7 +68,7 @@ public class Storage {
         }
 
         if (hasParentDirectory && !hasParentDirectoryFolder) {
-            parentDirectoryFolder.mkdir();
+            parentDirectoryFolder.mkdirs();
         }
 
         try {
