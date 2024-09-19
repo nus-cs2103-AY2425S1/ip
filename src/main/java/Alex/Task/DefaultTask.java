@@ -29,6 +29,6 @@ public class DefaultTask extends Task {
      */
     @Override
     public String toString() {
-        return super.getDescription();
+        return "added: " + super.getDescription();
     }
 }

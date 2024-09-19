@@ -34,6 +34,6 @@ public class FixedDurationTask extends Task {
 
     @Override
     public String toString() {
-        return "[F][ ] " + getDescription() + " (Duration: " + durationInMinutes + " mins)";
+        return "[F][ ] " + getDescription() + " (Duration: " + durationInMinutes + " minutes)";
     }
 }
