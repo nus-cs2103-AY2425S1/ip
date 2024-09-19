@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class DeleteCommandTest {
 
     @Test
-    public void deleteTasks() {
+    public void testDeleteTask() {
         List<Task> taskList = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class MarkCommandTest {
 
     @Test
-    public void markTasks() {
+    public void testMarkTask() {
         List<Task> taskList = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
@@ -35,7 +35,7 @@ public class MarkCommandTest {
     }
 
     @Test
-    public void unMarkTasks() {
+    public void testUnmarkTask() {
         List<Task> taskList = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {

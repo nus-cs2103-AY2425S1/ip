@@ -15,7 +15,7 @@ import java.time.LocalDate;
 public class AddCommandTest {
 
     @Test
-    public void addToDo() {
+    public void testAddTodo() {
 
         List<Task> taskList = new ArrayList<>();
 
@@ -38,7 +38,7 @@ public class AddCommandTest {
     }
 
     @Test
-    public void addDeadline() {
+    public void testAddDeadline() {
 
         List<Task> taskList = new ArrayList<>();
 
@@ -62,7 +62,7 @@ public class AddCommandTest {
     }
 
     @Test
-    public void addEvent() {
+    public void testAddEvent() {
 
         List<Task> taskList = new ArrayList<>();
 
