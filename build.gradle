@@ -43,7 +43,7 @@ test {
 }
 
 application {
-    mainClass.set("pixel.Pixel")
+    mainClass.set("Launcher")
 }
 
 shadowJar {
