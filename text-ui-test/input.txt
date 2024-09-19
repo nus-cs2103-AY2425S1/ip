@@ -1,0 +1,65 @@
+bleh
+list
+todo
+todo read book
+deadline
+deadline return book /by not a date
+deadline return book /by 1/13/2024 0000
+deadline return book /by 32/12/2024 0000
+deadline return book /by 6/6/2024 2400
+deadline return book /by 6/6/2024 1200
+event
+event project meeting /from not a date
+event project meeting /from not a date /to 10/10/2024 1200
+event project meeting /from 8/8/2024 1200
+event project meeting /from 8/8/2024 1200 /to not a date
+event project meeting /from 8/8/2024 1200 /from 10/10/2024 1200
+event project meeting /to 10/10/2024 1200
+event project meeting /from 8/8/2024 1200 /to 10/10/2024 1200
+event project meeting /to 8/8/2024 1200 /from 10/10/2024 1200
+list
+mark one
+mark -1
+mark 4
+mark 1
+mark 1
+list
+unmark 2
+unmark 1
+list
+todo delete
+list
+delete four
+delete 5
+delete 0
+delete 4
+list
+find
+find re
+find bleh
+set
+set 1
+set 1 /priority low
+set 1 /priority high
+set 1 /priority high
+list
+mark 3
+sort
+sort /by funny
+sort /by description
+list
+sort /by description /order descending
+list
+sort /by deadline
+list
+sort /by deadline /order descending
+list
+sort /by completion
+list
+sort /by completion /order descending
+list
+sort /by priority
+list
+sort /by priority /order descending
+list
+bye

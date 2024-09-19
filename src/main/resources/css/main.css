@@ -1,0 +1,75 @@
+.root {
+    main-color: rgb(237, 255, 242);       /* Create a looked-up color called "main-color" within root. */
+    -fx-background-color: main-color;
+    -fx-background-image: url('../images/spin-burger.gif');
+    -fx-background-repeat: repeat;
+}
+
+@font-face {
+    font-family: "Ubuntu Mono";
+    src: url('../fonts/UbuntuMono-Regular.ttf');
+}
+
+@font-face {
+    font-family: "Ubuntu Mono";
+    src: url('../fonts/UbuntuMono-Bold.ttf');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "Ubuntu Mono";
+    src: url('../fonts/UbuntuMono-Italic.ttf');
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Ubuntu Mono";
+    src: url('../fonts/UbuntuMono-BoldItalic.ttf');
+    font-style: italic;
+    font-weight: bold;
+}
+
+.text-field {
+    -fx-background-color: #d9ffe2;
+    -fx-font: 20px "Ubuntu Mono";
+}
+
+.button {
+    -fx-background-color: mediumspringgreen;
+    -fx-font: italic bold 18px "Ubuntu Mono";
+}
+
+.button:hover {
+    -fx-background-color:cyan;
+    -fx-font-size: 20px;
+}
+
+.button:pressed {
+    -fx-background-color:orange;
+    -fx-font-size: 22px;
+}
+
+.scroll-pane {
+    -fx-background-color: rgba(255, 255, 255, 0.5);
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;  /* Change width of scroll bar. */
+    -fx-background-color: main-color;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #ff9cb4;
+    -fx-background-radius: 1em;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
