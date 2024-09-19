@@ -68,6 +68,7 @@ public abstract class Task {
             if (fromTo.length < 2) {
                 throw new InsufficientInfoException(TaskType.EVENT);
             }
+
             yield new Event(split[0], fromTo[0], fromTo[1]);
         }
         case DEADLINE -> {
