@@ -33,4 +33,17 @@ public class InputProcessorTest {
             assertEquals("Please enter an input!!!", e.getMessage());
         }
     }
+
+    @Test
+    public void processInput_blankInput_noInputExceptionThrown() {
+        String testInput = " ";
+        try {
+            testInputProcessor.processInput(testInput);
+
+            //should not reach this line
+            fail();
+        } catch (ChoaticBotException e) {
+            assertEquals("Please enter an input!!!", e.getMessage());
+        }
+    }
 }
