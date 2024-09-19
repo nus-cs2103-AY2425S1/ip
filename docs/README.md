@@ -140,3 +140,11 @@ in the `list` command
 
 ```delete 1```
 would delete the first task in the list.
+
+# Closing application
+
+```angular2html
+bye
+```
+
+Exits the application after 1 second.
