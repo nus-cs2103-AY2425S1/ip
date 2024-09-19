@@ -14,9 +14,7 @@ and use the `java -jar qwerty.jar` command to run Qwerty.
 A GUI similar to the below should appear soon. The app should not
 contain any initial data.
 
-![Screenshot 2024-09-19 232313.png](..%2F..%2F..%2F..%2F..%2FPictures%2FScreenshots%2FScreenshot%202024-09-19%20232313.png)
-
-6. Refer to the Features below for details of each command.
+![Ui.png](Ui.png)
 
 ## Features
 
