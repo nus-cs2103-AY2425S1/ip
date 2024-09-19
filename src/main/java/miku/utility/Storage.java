@@ -18,6 +18,8 @@ import miku.task.Todo;
  * Stores the data into a txt file.
  */
 public class Storage {
+    public static final String DATA_CORRUPTION_MESSAGE = "The file is corrupted,"
+            + " the file would be deleted...\nA empty tasklist will be created.";
     /**
      * Default filePath where the information is stored
      */
@@ -39,7 +41,6 @@ public class Storage {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, false));
             for (Task item : itemList.getTasks()) {
-                //System.out.println(item.stringValue());
                 writer.write(item.storeValue());
             }
             writer.close();
@@ -47,11 +48,6 @@ public class Storage {
             System.out.println("File Access Error:" + e.getMessage());
         }
     }
-
-    public String getFilePath() {
-        return filePath;
-    }
-
     /**
      * Initialises a taskList using the stored information.
      *
@@ -62,43 +58,59 @@ public class Storage {
         File dir = new File("src/main/resources");
         checkDir(dir);
         if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                System.out.println("File cannot be created: " + e.getMessage());
-            }
+            createNewFile(file);
         } else {
-            try {
-                Scanner sc = new Scanner(file);
-                while (sc.hasNext()) {
-                    String[] dataLine = sc.nextLine().split(" \\| ");
-                    try {
-                        if (dataLine[0].equals("D")) {
-                            tasks.initAdd(new Deadline(dataLine[2],
-                                    dataLine[3],
-                                        Boolean.parseBoolean(dataLine[1]), Priority.parsePriority(dataLine[4])));
-                        } else if (dataLine[0].equals("T")) {
-                            tasks.initAdd(new Todo(dataLine[2],
-                                    Boolean.parseBoolean(dataLine[1]), Priority.parsePriority(dataLine[3])));
-                        } else if (dataLine[0].equals("E")) {
-                            tasks.initAdd(new Event(dataLine[2], dataLine[3],
-                                    dataLine[4],
-                                        Boolean.parseBoolean(dataLine[1]), Priority.parsePriority(dataLine[5])));
-                        } else {
-                            throw new DataCorruptionException("The file is corrupted,"
-                                    + " the file would be deleted...\nA empty tasklist will be created.");
-                        }
-                    } catch (DataCorruptionException e) {
-                        System.out.println(e.getMessage() + "DataCorruption!");
-                        file.delete();
-                        tasks.clear();
-                    }
-                }
-                System.out.println("Init Successful! no of elements: " + tasks.size());
-            } catch (FileNotFoundException e) {
-                System.out.println(e.getMessage() + " File not found!");
-            }
+            tryDataFileExtraction(tasks, file);
+        }
+    }
 
+    private static void tryDataFileExtraction(TaskList tasks, File file) {
+        try {
+            extractDataFromFile(tasks, file);
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void extractDataFromFile(TaskList tasks, File file) throws FileNotFoundException {
+        Scanner sc = new Scanner(file);
+        while (sc.hasNext()) {
+            String[] dataLine = sc.nextLine().split(" \\| ");
+            tryExtract(tasks, dataLine, file);
+        }
+    }
+
+    private static void tryExtract(TaskList tasks, String[] dataLine, File file) {
+        try {
+            extract(tasks, dataLine);
+        } catch (DataCorruptionException e) {
+            file.delete();
+            tasks.clear();
+        }
+    }
+
+    private static void createNewFile(File file) {
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            System.out.println("File cannot be created: " + e.getMessage());
+        }
+    }
+
+    private static void extract(TaskList tasks, String[] dataLine) throws DataCorruptionException {
+        if (dataLine[0].equals("D")) {
+            tasks.initAdd(new Deadline(dataLine[2],
+                    dataLine[3],
+                        Boolean.parseBoolean(dataLine[1]), Priority.parsePriority(dataLine[4])));
+        } else if (dataLine[0].equals("T")) {
+            tasks.initAdd(new Todo(dataLine[2],
+                    Boolean.parseBoolean(dataLine[1]), Priority.parsePriority(dataLine[3])));
+        } else if (dataLine[0].equals("E")) {
+            tasks.initAdd(new Event(dataLine[2], dataLine[3],
+                    dataLine[4],
+                        Boolean.parseBoolean(dataLine[1]), Priority.parsePriority(dataLine[5])));
+        } else {
+            throw new DataCorruptionException(DATA_CORRUPTION_MESSAGE);
         }
     }
 
