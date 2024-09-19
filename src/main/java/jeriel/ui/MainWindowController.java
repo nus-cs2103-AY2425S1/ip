@@ -3,26 +3,27 @@ package jeriel.ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import jeriel.Jeriel;
 
 public class MainWindowController {
 
     @FXML
     private TextArea displayArea;
-    
+
     @FXML
     private TextField inputField;
 
+    private Jeriel jeriel = new Jeriel("data/tasks.txt");
+
+    /**
+     * Handles the user input when the "Send" button is clicked.
+     */
     @FXML
-    public void handleUserInput() {
+    private void handleUserInput() {
         String input = inputField.getText();
-        String response = getResponse(input); // Call Duke's logic here
+        String response = jeriel.handleCommand(input); // Use handleCommand to process input
         displayArea.appendText("User: " + input + "\n");
         displayArea.appendText("Duke: " + response + "\n");
         inputField.clear();
-    }
-
-    private String getResponse(String input) {
-        // Implement Duke chatbot response logic here
-        return "This is Duke's response!";
     }
 }

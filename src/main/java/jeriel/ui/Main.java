@@ -7,11 +7,13 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
-        VBox root = fxmlLoader.load();  // Changed to VBox
+        VBox root = fxmlLoader.load();
         Scene scene = new Scene(root);
+        primaryStage.setTitle("Jeriel Chatbot");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

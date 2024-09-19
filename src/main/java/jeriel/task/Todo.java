@@ -1,9 +1,6 @@
-
 package jeriel.task;
-import jeriel.command.*;
-import jeriel.util.*;
 
-public class Todo extends Task{
+public class Todo extends Task {
 
     public Todo(String description) {
         super(description);
@@ -28,5 +25,4 @@ public class Todo extends Task{
     public String toString() {
         return "[T]" + super.toString();
     }
-    
 }
