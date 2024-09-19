@@ -36,7 +36,12 @@ public class Ui {
      * @return Welcome message.
      */
     public String printWelcome() {
-        return "Hello! I'm LunaBot. \n What can I do for you today?";
+        return """
+                Hello! I'm LunaBot.\s
+                \s
+                 I can manage your tasks for you!\s
+                 \s
+                Type '?' for a list of available commands hehehe...""";
     }
 
     /**
@@ -147,6 +152,32 @@ public class Ui {
             }
             return header + list;
         }
+    }
+
+    /**
+     * Prints a list of possible commands to the user.
+     * @return List of commands
+     */
+    public String printHelpMessage() {
+        String helpMessage = """
+                Here is a list of available commands: \s
+                \s
+                Commands to add task: \s
+                    t [description] : add a ToDo task with a description \s
+                    d [description] /by [yyyy-MM-dd HH:mm] : add a Deadline task with a due date \s
+                    e [description] /from [yyyy-MM-dd HH:mm] /to [yyyy-MM-dd HH:mm]
+                     : add an event task with start and end time \s
+                \s
+                Other commands: \s
+                    ls : list out all tasks in your list \s
+                    mark [number] : marks a task in your list as done \s
+                    unmark [number] : marks a task in your list as not done \s
+                    del [number] : delete a task from your list \s
+                    find [keyword] : find tasks in your list with the matching keyword \s
+                    ? : help command to list all possible commands \s
+                    bye : exit the programme \s
+                """;
+        return helpMessage;
     }
 
 }
