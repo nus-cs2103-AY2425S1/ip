@@ -2,7 +2,7 @@
 
 This is a project for a CS2103T Software engineering project.
 
-Full docs: https://therarefox.github.io/ip/#known-issues
+Full docs: https://therarefox.github.io/ip/
 
 Releases: https://github.com/TheRareFox/ip/releases
 
