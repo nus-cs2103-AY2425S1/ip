@@ -76,7 +76,7 @@ public class TaskList {
         TaskList matchingTasks = new TaskList();
         for (int i = 0; i < list.size(); i++) {
             Task task = list.get(i);
-            if (task.toString().contains(keyword)) {
+            if (task.toString().toLowerCase().contains(keyword.toLowerCase())) {
                 matchingTasks.addTask(task);
             }
         }
