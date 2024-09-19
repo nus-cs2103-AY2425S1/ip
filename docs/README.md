@@ -85,6 +85,7 @@ Mentos can mark tasks as completed by using the task index.
     ```
     unmark <index>
     ```
+
 ## Updating Task
 Mentos allows you to update any fields in a task by specifying the task index and the new values. The fields that can be updated vary depending on the type of task (Todo, Deadline, or Event).
 
