@@ -45,6 +45,27 @@ public class TaskList {
     }
 
     /**
+     * Checks if a non-negative index is within the size of the task list.
+     *
+     * @param index Index to be checked.
+     * @return True if index is within bounds else false.
+     */
+    public boolean checkIndexIsValid(int index) {
+        return index < this.tasks.size();
+    }
+
+    /**
+     * Returns an output message notifying user of invalid index.
+     */
+    public String getInvalidIndexMessage() {
+        if (tasks.isEmpty()) {
+            return "The task list is currently empty";
+        } else {
+            return "Please enter an index within the task range";
+        }
+    }
+
+    /**
      * Marks a task as completed.
      *
      * @param index Index of the task to be marked.
@@ -81,13 +102,9 @@ public class TaskList {
      * @return Deleted task.
      */
     public Task deleteTask(int index) {
-        try {
-            Task removedTask = tasks.get(index);
-            tasks.remove(index);
-            return removedTask;
-        } catch (IndexOutOfBoundsException e) {
-            return null;
-        }
+        Task removedTask = tasks.get(index);
+        tasks.remove(index);
+        return removedTask;
     }
 
     /**

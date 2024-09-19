@@ -40,6 +40,9 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, UI ui, Storage storage) throws IOException {
+        if (!taskList.checkIndexIsValid(index)) {
+            return taskList.getInvalidIndexMessage();
+        }
         if (!isUndoCommand) {
             Parser.pushToUndoStack(new MarkCommand(index, true));
         }

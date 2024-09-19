@@ -40,6 +40,9 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, UI ui, Storage storage) throws IOException {
+        if (!taskList.checkIndexIsValid(index)) {
+            return taskList.getInvalidIndexMessage();
+        }
         Task deletedTask = taskList.deleteTask(index);
         assert deletedTask != null : "No task is deleted as index is out of range";
         if (!isUndoCommand) {

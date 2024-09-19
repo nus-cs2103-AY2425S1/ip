@@ -40,11 +40,14 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, UI ui, Storage storage) throws IOException {
-        if (!isUndoCommand) {
-            Parser.pushToUndoStack(new UnmarkCommand(index, true));
+        if (!taskList.checkIndexIsValid(index)) {
+            return taskList.getInvalidIndexMessage();
         }
         Task markedTask = taskList.markTask(this.index);
         assert markedTask != null : "Task was not marked successfully";
+        if (!isUndoCommand) {
+            Parser.pushToUndoStack(new UnmarkCommand(index, true));
+        }
         storage.rewriteFile(taskList);
         return ui.getMarkTaskMessage(markedTask);
     }
