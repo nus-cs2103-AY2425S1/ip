@@ -21,6 +21,14 @@ public class WrongCommand extends Command {
         super(command);
     }
 
+    /**
+     * Returns the list of available commands for the user.
+     *
+     * @param tasks List of tasks at hand.
+     * @param storage Storage class for loading and saving.
+     * @param ui Ui class for printing output.
+     * @return String of list of available commands for the user.
+     */
     @Override
     public String execute(TaskList tasks, Storage storage, Ui ui) {
         return WrongCommand.OUTPUT_STRING;

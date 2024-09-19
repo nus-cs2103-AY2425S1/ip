@@ -7,7 +7,7 @@ public class PotongException extends Exception {
 
     /**
      * Initialise the exception.
-     * @param message
+     * @param message Message for the exception.
      */
     public PotongException(String message) {
         super(message);

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import potong.exceptions.IllegalInputPotongException;
-import potong.exceptions.PotongException;
 import potong.task.Task;
 
 /**
@@ -50,7 +49,7 @@ public class TaskList {
      * @throws IllegalInputPotongException If the index is out of bounds.
      */
     public String mark(int index) throws IllegalInputPotongException {
-        if (index - 1 >= this.arr.size()) {
+        if (index - 1 >= this.arr.size() || index - 1 < 0) {
             throw new IllegalInputPotongException(String.format("Your index %d is out of bounds!", index));
         }
         return this.arr.get(index - 1).mark();
@@ -64,7 +63,7 @@ public class TaskList {
      * @throws IllegalInputPotongException If the index is out of bounds.
      */
     public String unmark(int index) throws IllegalInputPotongException {
-        if (index - 1 >= this.arr.size()) {
+        if (index - 1 >= this.arr.size() || index - 1 < 0) {
             throw new IllegalInputPotongException(String.format("Your index %d is out of bounds!", index));
         }
         return this.arr.get(index - 1).unmark();
@@ -78,7 +77,7 @@ public class TaskList {
      * @throws IllegalInputPotongException If the index is out of bounds.
      */
     public String delete(int index) throws IllegalInputPotongException {
-        if (index - 1 >= this.arr.size()) {
+        if (index - 1 >= this.arr.size() || index - 1 < 0) {
             throw new IllegalInputPotongException(String.format("Your index %d is out of bounds!", index));
         }
         Task removed = this.arr.remove(index - 1);
@@ -95,8 +94,7 @@ public class TaskList {
      * @throws IllegalInputPotongException If the index is out of bounds.
      */
     public String tag(String tag, int index) throws IllegalInputPotongException {
-        assert index >= 0;
-        if (index - 1 >= this.arr.size()) {
+        if (index - 1 >= this.arr.size() || index - 1 < 0) {
             throw new IllegalInputPotongException(String.format("Your index %d is out of bounds!", index));
         }
         return this.arr.get(index - 1).tag(tag);
@@ -109,8 +107,7 @@ public class TaskList {
      * @throws IllegalInputPotongException If the index is out of bounds.
      */
     public String untag(int index) throws IllegalInputPotongException {
-        assert index >= 0;
-        if (index - 1 >= this.arr.size()) {
+        if (index - 1 >= this.arr.size() || index - 1 < 0) {
             throw new IllegalInputPotongException(String.format("Your index %d is out of bounds!", index));
         }
         return this.arr.get(index - 1).untag();
@@ -144,8 +141,12 @@ public class TaskList {
      *
      * @param keyword Keyword.
      * @return String representation of the list of tasks with the keyword.
+     * @throws IllegalInputPotongException If keyword is empty.
      */
-    public String find(String keyword) {
+    public String find(String keyword) throws IllegalInputPotongException {
+        if (keyword.isEmpty()) {
+            throw new IllegalInputPotongException("Keyword cannot be empty!");
+        }
         AtomicInteger i = new AtomicInteger();
         return this.arr.stream().filter(task -> task.findKeyword(keyword))
                 .map(task -> String.format("%d. %s\n", i.incrementAndGet(), task))

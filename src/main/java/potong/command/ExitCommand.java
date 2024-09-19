@@ -27,7 +27,6 @@ public class ExitCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage, Ui ui) {
-        // Store the current data in the task list.
         assert tasks != null;
         tasks.writeToStorage(storage);
         return "Bye! See you again :)";

@@ -3,6 +3,7 @@ package potong.command;
 import potong.Storage;
 import potong.TaskList;
 import potong.Ui;
+import potong.exceptions.IllegalInputPotongException;
 
 /**
  * Represent the find command to find tasks with a keyword.
@@ -30,7 +31,11 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage, Ui ui) {
-        assert tasks != null;
-        return tasks.find(this.keyword);
+        try {
+            assert tasks != null;
+            return tasks.find(this.keyword);
+        } catch (IllegalInputPotongException e) {
+            return e.getMessage();
+        }
     }
 }

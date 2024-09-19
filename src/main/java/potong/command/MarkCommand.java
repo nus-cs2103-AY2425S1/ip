@@ -3,7 +3,7 @@ package potong.command;
 import potong.Storage;
 import potong.TaskList;
 import potong.Ui;
-import potong.exceptions.PotongException;
+import potong.exceptions.IllegalInputPotongException;
 
 /**
  * Represents the command to mark or unmark a task.
@@ -36,18 +36,14 @@ public class MarkCommand extends Command {
     @Override
     public String execute(TaskList tasks, Storage storage, Ui ui) {
         assert tasks != null;
-        if (isMarked) {
-            try {
+        try {
+            if (isMarked) {
                 return tasks.mark(this.index);
-            } catch (PotongException e) {
-                throw new RuntimeException(e);
-            }
-        } else {
-            try {
+            } else {
                 return tasks.unmark(this.index);
-            } catch (PotongException e) {
-                throw new RuntimeException(e);
             }
+        } catch (IllegalInputPotongException e) {
+            return e.getMessage();
         }
     }
 }

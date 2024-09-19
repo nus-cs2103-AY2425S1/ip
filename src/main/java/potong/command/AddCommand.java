@@ -50,7 +50,9 @@ public class AddCommand extends Command {
             this.eventStart = arr[1].substring(5).strip();
             this.eventEnd = arr[2].substring(3).strip();
         }
-        default -> throw new IllegalStateException("Unexpected value: " + type);
+        default -> {
+            break;
+        }
         }
     }
 
@@ -81,41 +83,7 @@ public class AddCommand extends Command {
             }
             }
         } catch (IllegalInputPotongException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
-     * String representation of the task to be added.
-     * @return String.
-     */
-    @Override
-    public String toString() {
-        switch (this.type) {
-        case TODO -> {
-            try {
-                return new ToDoTask(this.task).toString();
-            } catch (IllegalInputPotongException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        case DEADLINE -> {
-            try {
-                return new DeadlineTask(this.task, this.deadline).toString();
-            } catch (IllegalInputPotongException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        case EVENT -> {
-            try {
-                return new EventTask(this.task, this.eventStart, this.eventEnd).toString();
-            } catch (IllegalInputPotongException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        default -> {
-            return "";
-        }
+            return e.getMessage();
         }
     }
 }

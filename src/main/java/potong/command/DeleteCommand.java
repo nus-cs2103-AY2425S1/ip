@@ -3,7 +3,7 @@ package potong.command;
 import potong.Storage;
 import potong.TaskList;
 import potong.Ui;
-import potong.exceptions.PotongException;
+import potong.exceptions.IllegalInputPotongException;
 
 /**
  * Represent the command for deleting tasks.
@@ -28,15 +28,14 @@ public class DeleteCommand extends Command {
      * @param storage Storage class for loading and saving.
      * @param ui Ui class for printing output.
      * @return String representation of the command.
-     * @throws PotongException If the index is out of bounds.
      */
     @Override
     public String execute(TaskList tasks, Storage storage, Ui ui) {
         assert tasks != null;
         try {
             return tasks.delete(this.index);
-        } catch (PotongException e) {
-            throw new RuntimeException(e);
+        } catch (IllegalInputPotongException e) {
+            return e.getMessage();
         }
     }
 }

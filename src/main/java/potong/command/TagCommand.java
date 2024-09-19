@@ -3,7 +3,7 @@ package potong.command;
 import potong.Storage;
 import potong.TaskList;
 import potong.Ui;
-import potong.exceptions.PotongException;
+import potong.exceptions.IllegalInputPotongException;
 
 /**
  * Represents the command to tag a task.
@@ -23,12 +23,20 @@ public class TagCommand extends Command {
         tag = args[1];
     }
 
+    /**
+     * Tags the task in the list of tasks based on the given tag.
+     *
+     * @param tasks List of tasks at hand.
+     * @param storage Storage class for loading and saving.
+     * @param ui Ui class for printing output.
+     * @return String representation of tag.
+     */
     @Override
     public String execute(TaskList tasks, Storage storage, Ui ui) {
         try {
             return tasks.tag(this.tag, this.index);
-        } catch (PotongException e) {
-            throw new RuntimeException(e);
+        } catch (IllegalInputPotongException e) {
+            return e.getMessage();
         }
     }
 }

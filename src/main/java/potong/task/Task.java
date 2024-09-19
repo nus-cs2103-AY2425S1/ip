@@ -144,12 +144,8 @@ public class Task {
      *
      * @param keyword Keyword.
      * @return True if the task contains the keyword, False if not.
-     * @throws IllegalInputPotongException If the keyword is empty.
      */
-    public boolean findKeyword(String keyword) throws IllegalInputPotongException {
-        if (keyword.isEmpty()) {
-            throw new IllegalInputPotongException("The keyword cannot be empty!");
-        }
+    public boolean findKeyword(String keyword) {
         return this.description.contains(keyword);
     }
 
