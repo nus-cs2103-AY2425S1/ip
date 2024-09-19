@@ -49,10 +49,6 @@ public class Storage {
         return filePath;
     }
 
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
-    }
-
     /**
      *
      * @return A file according to the filePath attribute
@@ -166,7 +162,7 @@ public class Storage {
         taskListObj.put("taskList", taskListArr);
 
 
-        FileWriter fileWriter = new FileWriter(this.filePath);
+        FileWriter fileWriter = new FileWriter(this.file);
         BufferedWriter writer = new BufferedWriter(fileWriter);
 
         writer.write(taskListObj.toJSONString());
