@@ -25,6 +25,16 @@ You can add 3 types of tasks:
  - find (f)
  - delete (r)
  - bye (b)
+
+## Running the application
+
+To run the application. ensure you have java 17 install on your computer.
+Open terminal on mac or windows and enter this command:
+
+```shell
+java -jar silverWolf.jar
+```
+
 ## Adding Deadlines
 
 To add a deadline in SilverWolf, use the following command:
