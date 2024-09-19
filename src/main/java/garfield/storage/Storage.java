@@ -17,14 +17,13 @@ import garfield.tasks.Task;
 import garfield.tasks.TaskList;
 import garfield.tasks.Todo;
 
-
 /**
  * The Storage class represents the local storage where tasks are being saved so
  * that they persist even after the chatbot is exited. It contains methods to
- * load and save tasks from and into a  .txt file for local storage.
+ * load and save tasks from and into a .txt file for local storage.
  */
 public class Storage {
-    private String saveFilePath;
+    private final String saveFilePath;
 
     /**
      * Constructs a new storage object with the specified save file path.
@@ -45,55 +44,18 @@ public class Storage {
     public ArrayList<Task> load() {
         ArrayList<Task> taskList = new ArrayList<>();
         File savedFile = new File(saveFilePath);
-        try {
-            Scanner fileScanner = new Scanner(savedFile);
-            String savedTask;
+        try (Scanner fileScanner = new Scanner(savedFile)) {
             while (fileScanner.hasNext()) {
-                savedTask = fileScanner.nextLine();
-                String[] taskDetails = savedTask.split(" \\| ");
-                assert taskDetails.length >= 3 : "Invalid task format in save file"; // Ensure task has at least 3 parts
-                String taskType = taskDetails[0];
-
-                switch (taskType) {
-                case "T":
-                    Todo newTodo = new Todo(taskDetails[2]);
-                    taskList.add(newTodo);
-                    if (taskDetails[1].equals("1")) {
-                        newTodo.markAsDone();
-                    } else {
-                        newTodo.markAsUndone();
-                    }
-                    break;
-                case "D":
-                    Deadline newDeadline = new Deadline(taskDetails[2], this.parseDateTime(taskDetails[3]));
-                    taskList.add(newDeadline);
-                    if (taskDetails[1].equals("1")) {
-                        newDeadline.markAsDone();
-                    } else {
-                        newDeadline.markAsUndone();
-                    }
-                    break;
-                case "E":
-                    Event newEvent = new Event(taskDetails[2], this.parseDateTime(taskDetails[3]),
-                            this.parseDateTime(taskDetails[4]));
-                    taskList.add(newEvent);
-                    if (taskDetails[1].equals("1")) {
-                        newEvent.markAsDone();
-                    } else {
-                        newEvent.markAsUndone();
-                    }
-                    break;
-                default:
-                    throw new IllegalStateException("Unexpected value: " + taskType);
-                }
+                String savedTask = fileScanner.nextLine();
+                Task task = createTaskFromDetails(savedTask);
+                taskList.add(task);
             }
-            return taskList;
         } catch (FileNotFoundException e) {
-            // You don't have a save file todo: add some error
-            return new ArrayList<>();
+            return new ArrayList<>(); // If no file is found, return an empty list.
         } catch (GarfieldException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e); // Convert checked exceptions to unchecked.
         }
+        return taskList;
     }
 
     /**
@@ -104,19 +66,98 @@ public class Storage {
     public void save(TaskList taskList) {
         assert taskList != null : "TaskList cannot be null";
         ArrayList<Task> internalTasks = taskList.getArrayList();
-        assert internalTasks != null : "Internal task list cannot be null";
         try (FileWriter fw = new FileWriter(this.saveFilePath)) {
-            String prefix = "";
-            StringBuilder textToWrite = new StringBuilder();
-            for (Task t : internalTasks) {
-                textToWrite.append(prefix);
-                prefix = System.lineSeparator();
-                textToWrite.append(t.toSaveRepresentation());
-            }
-            fw.write(textToWrite.toString());
+            fw.write(convertTasksToString(internalTasks));
         } catch (IOException e) {
-            // Throw some Garfield Exception
+            // You can throw a GarfieldException or handle this in a more specific way.
         }
+    }
+
+    /**
+     * Parses a line from the save file and creates the corresponding Task.
+     *
+     * @param savedTask The line from the save file.
+     * @return The corresponding Task object.
+     * @throws GarfieldException If there's an error during task creation.
+     */
+    private Task createTaskFromDetails(String savedTask) throws GarfieldException {
+        String[] taskDetails = savedTask.split(" \\| ");
+        assert taskDetails.length >= 3 : "Invalid task format in save file";
+        String taskType = taskDetails[0];
+        boolean isDone = taskDetails[1].equals("1");
+
+        Task task;
+        switch (taskType) {
+        case "T":
+            task = parseTodoTask(taskDetails);
+            break;
+        case "D":
+            task = parseDeadlineTask(taskDetails);
+            break;
+        case "E":
+            task = parseEventTask(taskDetails);
+            break;
+        default:
+            throw new IllegalStateException("Unexpected value: " + taskType);
+        }
+
+        if (isDone) {
+            task.markAsDone();
+        } else {
+            task.markAsUndone();
+        }
+
+        return task;
+    }
+
+    /**
+     * Converts the task list into a string suitable for saving to a file.
+     *
+     * @param tasks The list of tasks to convert.
+     * @return The string representation of all tasks.
+     */
+    private String convertTasksToString(ArrayList<Task> tasks) {
+        StringBuilder textToWrite = new StringBuilder();
+        String prefix = "";
+
+        for (Task t : tasks) {
+            textToWrite.append(prefix).append(t.toSaveRepresentation());
+            prefix = System.lineSeparator(); // Ensure new line after each task.
+        }
+
+        return textToWrite.toString();
+    }
+
+    /**
+     * Parses a todo task from the task details array.
+     *
+     * @param taskDetails The array containing task details.
+     * @return The Todo task.
+     */
+    private Todo parseTodoTask(String[] taskDetails) {
+        return new Todo(taskDetails[2]);
+    }
+
+    /**
+     * Parses a deadline task from the task details array.
+     *
+     * @param taskDetails The array containing task details.
+     * @return The Deadline task.
+     * @throws GarfieldException If there's an error during date parsing.
+     */
+    private Deadline parseDeadlineTask(String[] taskDetails) throws GarfieldException {
+        return new Deadline(taskDetails[2], this.parseDateTime(taskDetails[3]));
+    }
+
+    /**
+     * Parses an event task from the task details array.
+     *
+     * @param taskDetails The array containing task details.
+     * @return The Event task.
+     * @throws GarfieldException If there's an error during date parsing.
+     */
+    private Event parseEventTask(String[] taskDetails) throws GarfieldException {
+        return new Event(taskDetails[2], this.parseDateTime(taskDetails[3]), this.parseDateTime(taskDetails[4]));
     }
 
     /**
