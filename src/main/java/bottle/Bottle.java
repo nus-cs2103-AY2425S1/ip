@@ -26,6 +26,7 @@ public class Bottle {
      * The Ui.
      */
     private Ui ui;
+    private String commandType;
 
     /**
      * Instantiates a new Bottle.
@@ -59,8 +60,13 @@ public class Bottle {
     }
     private String processCommand(String input) throws BottleException {
         Command command = parser.parseCommand(input);
+        commandType = command.getClass().getSimpleName();
         assert command != null : "command cannot be null";
         return command.execute(taskList, ui, storage);
+    }
+
+    public String getCommandType() {
+        return commandType;
     }
 
     private void handleUserInput() {

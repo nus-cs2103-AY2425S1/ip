@@ -39,13 +39,15 @@ public class MainWindow extends AnchorPane {
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
+    @SuppressWarnings("checkstyle:SingleSpaceSeparator")
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
         String response = bottle.getResponse(input);
+        String commandType = bottle.getCommandType();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getBottleDialog(response, dukeImage)
+                DialogBox.getBottleDialog(response, dukeImage, commandType)
         );
         userInput.clear();
     }
