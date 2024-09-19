@@ -6,6 +6,7 @@ import zbot.task.Deadline;
 import zbot.task.Event;
 import zbot.task.Task;
 import zbot.task.ToDo;
+import zbot.ui.Ui;
 
 /**
  * Represents the main class of the ZBot application.

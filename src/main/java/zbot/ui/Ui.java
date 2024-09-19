@@ -1,4 +1,4 @@
-package zbot;
+package zbot.ui;
 
 import java.util.Scanner;
 
