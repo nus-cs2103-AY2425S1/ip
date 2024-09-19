@@ -43,6 +43,14 @@ public class Storage {
 
         if (!file.exists()) {
             System.out.println(NO_TASK_FILE_MESSAGE);
+            try {
+                // Create directories if they do not exist
+                file.getParentFile().mkdirs();
+                // Create the file
+                file.createNewFile();
+            } catch (IOException e) {
+                throw new ArtsException("Error creating task file: " + e.getMessage());
+            }
             return tasks;
         }
 
