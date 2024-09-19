@@ -8,9 +8,9 @@ public class Utilities {
 
     public static void printLine(int space) {
         StringBuilder str = new StringBuilder();
-        str.append("\n".repeat(Math.max(0, space)));
+        str.append("\n".repeat(space));
         str.append(line);
-        str.append("\n".repeat(Math.max(0, space)));
+        str.append("\n".repeat(space));
         System.out.println(str.toString());
     }
 

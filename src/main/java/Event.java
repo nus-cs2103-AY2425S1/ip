@@ -1,33 +1,40 @@
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task{
-    protected LocalDate from;
-    protected LocalDate to;
+    private LocalDateTime from;
+    private LocalDateTime to;
 
     /**
      * Private constructor for a Task
      *
      * @param description A string description of the event
      */
-    public Event(String description, String from, String to) {
-        super(description);
-        this.from = LocalDate.parse(from.trim());
-        this.to = LocalDate.parse(to.trim());
-    }
+   private Event(String description, Task.Status status, LocalDateTime from, LocalDateTime to) {
+       super(description, status);
+       this.from = from;
+       this.to = to;
+   }
 
-    /**
-     * Alternative constructor for an event, specifying the current status of the task.
-     * @param description A string description of the event
-     * @param status The current status of the event
-     * @param from The starting time of this event
-     * @param to The ending time of this event
-     */
-    protected Event(String description, String status, String from, String to) {
-        super(description, Status.valueOf(status));
-        this.from = LocalDate.parse(from.trim());
-        this.to = LocalDate.parse(to.trim());
+    public static Event of(String description, LocalDateTime from, LocalDateTime to) {
+        return new Event(description, Status.NOT_DONE, from, to);
     }
+    /**
+     * Factory method for instantiating an event while parsing from a csv file
+     * This method should only be called when loading the event from Storage.
+     * @param description A string representation of this event
+     * @param status The event's completion status
+     * @param from The starting date and time of this event
+     * @param to The ending date and time of this event
+     * @return an event
+     */
+   protected static Event of(String description, String status, String from, String to) {
+       Task.Status newStatus = Task.Status.valueOf(status);
+       LocalDateTime fromDateTime = LocalDateTime.parse(from);
+       LocalDateTime toDateTime = LocalDateTime.parse(to);
+       return new Event(description, newStatus, fromDateTime, toDateTime);
+   }
 
     @Override
     public String toString() {
@@ -35,8 +42,8 @@ public class Event extends Task{
         str.append("[E]");
         str.append(super.toString());
         str.append(String.format("(From: %s To: %s)",
-                from.format(DateTimeFormatter.ofPattern("MMM d yyyy")),
-                to.format(DateTimeFormatter.ofPattern("MMM d yyyy"))));
+                from.format(DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm")),
+                to.format(DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm"))));
         return str.toString();
     }
 

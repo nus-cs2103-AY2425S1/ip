@@ -37,10 +37,11 @@ public class DeleteCommand extends Command{
      * @return a string description
      */
     public static String getHelpDescription() {
-        return "Deletes a task from the tasklist given a specified index\n" +
-                "Usage: delete <index>\n" +
-                "To find the index of the task you want to delete, try\n" +
-                "\"list\"";
+        return """
+                Deletes a task from the tasklist given a specified index
+                Usage: delete <index>
+                To find the index of the task you want to delete, try
+                "list\"""";
     }
     /**
      * Deletes the indicated task from the task list, specified by its index.

@@ -1,4 +1,4 @@
-import java.time.LocalDateTime;
+
 import java.time.format.DateTimeParseException;
 
 public class DeadlineCommand extends Command{
@@ -6,7 +6,7 @@ public class DeadlineCommand extends Command{
     private DeadlineCommand(Deadline deadline) {
         this.deadline = deadline;
     }
-    private Deadline deadline;
+    private final Deadline deadline;
 
     public static DeadlineCommand of(String input) throws LewisException {
 
@@ -17,7 +17,7 @@ public class DeadlineCommand extends Command{
             //Separate the deadline info into description, date and time
             String[] deadlineInfo = tokens[1].split("/by");
             String deadlineDescription = deadlineInfo[0].trim();
-            String date = null;
+            String date;
             String time = "23:59"; //Default deadline time
             if (deadlineInfo[1].trim().length() > 10) { //Check if user only entered the date
                 String[] dateAndTime = deadlineInfo[1].split(" ");
@@ -39,10 +39,12 @@ public class DeadlineCommand extends Command{
     }
 
         public static String getHelpDescription() {
-        return "Enters a new deadline into the tasklist.\n Usage: deadline <description>" +
-                " /by <date> <time> where \n<date> is in format YYYY-MM-DD and \n" +
-                "<time> is in format HH:MM\n" +
-                "If time is not specified, the default value is 23:59";
+        return """
+                Enters a new deadline into the tasklist.
+                 Usage: deadline <description> /by <date> <time> where\s
+                <date> is in format YYYY-MM-DD and\s
+                <time> is in format HH:MM
+                If time is not specified, the default value is 23:59""";
     }
 
     /**
