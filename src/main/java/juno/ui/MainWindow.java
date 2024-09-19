@@ -65,6 +65,7 @@ public class MainWindow extends AnchorPane {
         }
     }
 
+    /** Displays the welcome message to users on the GUI */
     public void displayWelcomeMessage() {
         dialogContainer.getChildren().addAll(DialogBox.getJunoDialog(this.junoUi.displayWelcomeMessage(), junoImage));
     }
