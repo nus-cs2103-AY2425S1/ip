@@ -147,7 +147,7 @@ public class TaskList {
     }
 
     /**
-     * A utility method to convert a List of Task into a <code>TaskList</code>
+     * Converts a List of Task into a <code>TaskList</code>
      * @param listOfTask the <code>List</code> to convert
      */
     public static TaskList fromList(List<Task> listOfTask) {

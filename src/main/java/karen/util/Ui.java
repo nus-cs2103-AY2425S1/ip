@@ -314,4 +314,16 @@ public class Ui {
         System.out.print(output);
         return output;
     }
+
+    /**
+     * Prints a message when user enters an invalid index
+     */
+    public String showInvalidIndexError() {
+        String output = LINE
+                + "Sorry! The index you entered does not exist!\n"
+                + "Please enter a valid index\n"
+                + LINE;
+        System.out.print(output);
+        return output;
+    }
 }
