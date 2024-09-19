@@ -1,30 +1,49 @@
-# Duke User Guide
+# Echo User Guide
 
-// Update the title above to match the actual product name
+![Screenshot of Echo GUI](Ui.png)
+Echo is a chat bot who will help you manage your tasks!
 
-// Product screenshot goes here
+## Adding todos: `Todo`
 
-// Product intro goes here
+Adds a task with a description.
 
-## Adding deadlines
+Format: `Todo` `[Description]`
 
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
+Example: `Todo` `Go for a run`
 
 ```
-expected output
+Got it. I've added this task:
+[T] [] Go for a run
+Now you have 1 task in the list.
 ```
 
-## Feature ABC
+## Adding deadlines: `Deadline`
 
-// Feature details
+Adds a task with a deadline.
 
+Format: `Deadline` `[Description]` `/by [date]`
+- Date can be in any date format including date, month & year.
+e.g. 24-9-2024, 4 Jun 2024
 
-## Feature XYZ
+Example: `Deadline` `Assignment` `/by 24/9/2024`
 
-// Feature details
+```
+Got it. I've added this task:
+[D] [] Assignment (by: Sep 24 2024)
+Now you have 1 task in the list.
+```
+
+## Adding events: `Event`
+
+Adds a task with a start and end date/time.
+
+Format: `Event` `Description` `/from [start date/time]` `/to [start date/time]`
+- Start date/time can be anything.
+
+Example: `Event` `My birthday` `/from 2pm` `/to 3pm`
+
+```
+Got it. I've added this task:
+[E] [] My birthday (from: 2pm to: 3pm)
+Now you have 1 task in the list.
+```

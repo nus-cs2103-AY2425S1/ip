@@ -19,6 +19,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Echo");
             fxmlLoader.<MainWindow>getController().setEcho(echo);  // inject the Duke instance
             fxmlLoader.<MainWindow>getController().greetUser();
             stage.show();
