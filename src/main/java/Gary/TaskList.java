@@ -101,6 +101,25 @@ public class TaskList {
     }
 
     /**
+     * Checks if a duplicate of the {@code Task} already exists in the task list regardless of task type.
+     *
+     * @param newTask The {@code Task} object to check for duplicates.
+     * @return true if a duplicate exists, false otherwise.
+     */
+    public boolean hasDuplicate(Task newTask) {
+        // Assertion: Ensure the task is not null
+        assert newTask != null : "Task cannot be null";
+
+        for (Task task : tasks) {
+            // Comparing tasks based on their description
+            if (task.getDescription().equalsIgnoreCase(newTask.getDescription())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Adds a task to the {@code TaskList}.
      *
      * @param task The {@code Task} object to add.
