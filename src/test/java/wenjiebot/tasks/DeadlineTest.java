@@ -21,7 +21,7 @@ public class DeadlineTest {
     public void testToPrettierString() {
         // Format: "D[description][ ]/by: d/M/yyyy HHmm"
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        String expected = "D | 0 | Submit report/by: 31/12/2024 2359";
+        String expected = "D | 0 | Submit report/by 31/12/2024 2359";
         assertEquals(expected, deadline.toPrettierString());
     }
 

@@ -41,7 +41,7 @@ public class Event extends Task {
     @Override
     public String toPrettierString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        return "E" + super.toPrettierString() + "/from " + fromInDateTime.format(formatter)
+        return "E" + super.toPrettierString() + " /from " + fromInDateTime.format(formatter)
                 + " /to " + toInDateTime.format(formatter);
     }
 

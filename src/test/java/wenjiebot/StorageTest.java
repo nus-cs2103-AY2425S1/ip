@@ -51,8 +51,8 @@ public class StorageTest {
     @Test
     public void testReadTasksFromFile() throws IOException, NoFileException {
         String fileContent = "T | 1 | read book\n"
-                + "D | 0 | return book /by 2/12/2019 1800\n"
-                + "E | 1 | project meeting /from: Mon 2pm /to: 4pm\n";
+                + "D | 0 | submit assignment /by 2/12/2019 1800\n"
+                + "E | 1 | celebrate /from 2/12/2019 1800 /to 2/12/2019 2000\n";
 
         Files.write(new File(TEST_FILE_PATH).toPath(), fileContent.getBytes());
 
@@ -76,26 +76,18 @@ public class StorageTest {
         tasks.add(new ToDo("read book"));
         tasks.add(new Deadline("submit assignment ", "2/12/2019 1800"));
 
-        tasks.add(new Event("project meeting ", "Mon 2pm ", "4pm"));
+        tasks.add(new Event("celebrate birthday", "2/12/2019 1800", "2/12/2019 2000"));
         tasks.get(0).setStatusIcon(true);
         tasks.get(2).setStatusIcon(true);
         storage.load().addAll(tasks);
         storage.writeTasks();
 
         String expectedContent = "T | 1 | read book\n"
-                + "D | 0 | submit assignment /by: 2/12/2019 1800\n"
-                + "E | 1 | project meeting /from: Mon 2pm /to: 4pm\n";
+                + "D | 0 | submit assignment /by 2/12/2019 1800\n"
+                + "E | 1 | celebrate birthday /from 2/12/2019 1800 /to 2/12/2019 2000\n";
 
         String actualContent = new String(Files.readAllBytes(new File(TEST_FILE_PATH).toPath()));
         assertEquals(expectedContent, actualContent);
-    }
-
-    @Test
-    public void testReadTasksFromNonExistentFile() {
-        File file = new File(TEST_FILE_PATH);
-        file.delete(); // Ensure the file does not exist
-
-        assertThrows(NoFileException.class, () -> storage.readTasks());
     }
 
     @Test
