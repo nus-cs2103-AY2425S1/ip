@@ -1,6 +1,7 @@
 package bob.task;
 
 import bob.Bob;
+import bob.DateTime;
 
 import java.time.LocalDateTime;
 
@@ -18,7 +19,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        String formattedBy = Bob.formatDateTime(by);
+        String formattedBy = DateTime.format(by);
         return "[D]" + super.toString() + " (by: " + formattedBy + ")";
     }
 }

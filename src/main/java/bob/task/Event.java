@@ -1,6 +1,7 @@
 package bob.task;
 
 import bob.Bob;
+import bob.DateTime;
 
 import java.time.LocalDateTime;
 
@@ -24,8 +25,8 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        String formattedFrom = Bob.formatDateTime(from);
-        String formattedTo = Bob.formatDateTime(to);
+        String formattedFrom = DateTime.format(from);
+        String formattedTo = DateTime.format(to);
         return "[E]" + super.toString() + " (from: " + formattedFrom + " to: " + formattedTo + ")";
     }
 }

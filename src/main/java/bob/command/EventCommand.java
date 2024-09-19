@@ -1,9 +1,6 @@
 package bob.command;
 
-import bob.Bob;
-import bob.Storage;
-import bob.TaskList;
-import bob.Ui;
+import bob.*;
 import bob.exception.MissingArgumentException;
 import bob.task.Event;
 import bob.task.Task;
@@ -35,7 +32,7 @@ public class EventCommand extends Command {
             throw new MissingArgumentException("'from' and 'to' arguments to add an event");
         }
 
-        Task task = new Event(desc, Bob.parseDateTime(from), Bob.parseDateTime(to));
+        Task task = new Event(desc, DateTime.parse(from), DateTime.parse(to));
         tasks.add(task);
         ui.printWithFormat("added: " + task);
     }

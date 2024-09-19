@@ -1,9 +1,6 @@
 package bob.command;
 
-import bob.Bob;
-import bob.Storage;
-import bob.TaskList;
-import bob.Ui;
+import bob.*;
 import bob.exception.MissingArgumentException;
 import bob.task.Deadline;
 import bob.task.Task;
@@ -34,7 +31,7 @@ public class DeadlineCommand extends Command {
             throw new MissingArgumentException("description of the deadline");
         }
 
-        Task task = new Deadline(desc, Bob.parseDateTime(by));
+        Task task = new Deadline(desc, DateTime.parse(by));
         tasks.add(task);
         ui.printWithFormat("added: " + task);
     }
