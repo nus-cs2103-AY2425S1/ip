@@ -1,9 +1,9 @@
 package citadel.commands;
 
-import citadel.Task.Task;
-import citadel.Task.TaskList;
-import citadel.Task.ToDo;
 import citadel.exception.CitadelTaskNoInput;
+import citadel.task.Task;
+import citadel.task.TaskList;
+import citadel.task.ToDo;
 import citadel.ui.TextUI;
 
 /**
@@ -39,7 +39,7 @@ public class HandleTodo extends Command {
         if (todo.isEmpty()) {
             throw new CitadelTaskNoInput();
         }
-        //Create Task
+        //Create task
         Task t = new ToDo(todo);
         tasks.add(t);
         return TextUI.printTask(t, tasks);

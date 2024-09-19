@@ -2,8 +2,8 @@ package citadel.ui;
 
 import java.util.Scanner;
 
-import citadel.Task.Task;
-import citadel.Task.TaskList;
+import citadel.task.Task;
+import citadel.task.TaskList;
 import citadel.exception.CitadelException;
 
 /**
@@ -50,13 +50,13 @@ public class TextUI {
      * @return A string representation of tasks.
      */
     public String printTasks(TaskList items) {
-        assert items != null : "Task list cannot be null";
+        assert items != null : "task list cannot be null";
 
         StringBuilder tasksToString = new StringBuilder();
         // Generate and accumulate all of the task strings together into a string
         for (int i = 0; i < items.size(); i++) {
             String printString = String.format("%d. %s%n", i + 1, items.get(i).printTask());
-            assert printString != null : "Task string representation cannot be null";
+            assert printString != null : "task string representation cannot be null";
             tasksToString.append(printString);
         }
         return printMessage(tasksToString.toString());
@@ -103,8 +103,8 @@ public class TextUI {
      * @param items The {@link TaskList} containing the tasks.
      */
     public static String printTask(Task t, TaskList items) {
-        assert t != null : "Task to be printed cannot be null";
-        assert items != null : "Task list cannot be null";
+        assert t != null : "task to be printed cannot be null";
+        assert items != null : "task list cannot be null";
 
         String addedSuccess = "Got it! I have added: " + t;
         String printTaskCount = "Now you have " + items.size()

@@ -8,13 +8,13 @@ import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import citadel.Task.Deadline;
-import citadel.Task.Event;
-import citadel.Task.Task;
-import citadel.Task.TaskList;
-import citadel.Task.ToDo;
 import citadel.exception.CitadelException;
 import citadel.exception.CitadelTaskNoInput;
+import citadel.task.Deadline;
+import citadel.task.Event;
+import citadel.task.Task;
+import citadel.task.TaskList;
+import citadel.task.ToDo;
 
 /**
  * The {@code Storage} class is responsible for handling the reading and writing

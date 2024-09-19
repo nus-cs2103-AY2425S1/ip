@@ -1,7 +1,7 @@
 package citadel;
 
 import citadel.commands.HandleTodo;
-import citadel.Task.TaskList;
+import citadel.task.TaskList;
 import citadel.exception.CitadelException;
 
 import org.junit.jupiter.api.Test;

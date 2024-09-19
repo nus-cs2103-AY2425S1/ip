@@ -1,6 +1,6 @@
 package citadel;
 
-import citadel.Task.TaskList;
+import citadel.task.TaskList;
 import citadel.ui.TextUI;
 
 import javafx.application.Platform;

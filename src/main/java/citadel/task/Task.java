@@ -1,4 +1,4 @@
-package citadel.Task;
+package citadel.task;
 
 import java.util.ArrayList;
 
@@ -20,7 +20,7 @@ public abstract class Task {
     private ArrayList<String> tagList;
 
     /**
-     * Constructs a new Task with the specified description.
+     * Constructs a new task with the specified description.
      * The task is initially not done.
      *
      * @param description The description of the task.
@@ -56,7 +56,7 @@ public abstract class Task {
      * Marks the task as done.
      */
     public void markAsDone() {
-        assert !this.isDone : "Task is already marked as done";
+        assert !this.isDone : "task is already marked as done";
         this.isDone = true;
     }
 
@@ -64,7 +64,7 @@ public abstract class Task {
      * Marks the task as not done.
      */
     public void unMark() {
-        assert this.isDone : "Task is already marked as not done";
+        assert this.isDone : "task is already marked as not done";
         this.isDone = false;
     }
 

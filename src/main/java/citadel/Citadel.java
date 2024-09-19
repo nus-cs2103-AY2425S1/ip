@@ -3,7 +3,6 @@ package citadel;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
-import citadel.Task.TaskList;
 import citadel.commands.AddTag;
 import citadel.commands.Commands;
 import citadel.commands.DeleteTask;
@@ -17,6 +16,7 @@ import citadel.commands.RemoveTag;
 import citadel.commands.UnmarkTask;
 import citadel.exception.CitadelException;
 import citadel.exception.CitadelInvalidCommandException;
+import citadel.task.TaskList;
 import citadel.ui.TextUI;
 
 /**
@@ -39,7 +39,7 @@ public class Citadel {
      */
     public static TaskList loadDatabase() {
         items = db.getTasks();
-        assert items != null : "Task list from database cannot be null";
+        assert items != null : "task list from database cannot be null";
         return items;
     }
 
@@ -47,7 +47,7 @@ public class Citadel {
      * Saves tasks from the application into the database (storage).
      */
     public static void saveDatabase() {
-        assert items != null : "Task list cannot be null when saving to the database";
+        assert items != null : "task list cannot be null when saving to the database";
 
         try {
             db.saveData(items);

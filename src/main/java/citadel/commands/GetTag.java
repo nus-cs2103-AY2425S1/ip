@@ -1,13 +1,17 @@
 package citadel.commands;
 
-import citadel.Task.Task;
-import citadel.Task.TaskList;
 import citadel.exception.CitadelException;
 import citadel.exception.CitadelInvalidArgException;
 import citadel.exception.CitadelTaskNoInput;
+import citadel.task.Task;
+import citadel.task.TaskList;
 
 import java.util.ArrayList;
 
+/**
+ * Represents the command to get all tags from a task from the task list in the Citadel application.
+ * This class extends {@link Command} and provides the functionality to get all tags from a task based on user input.
+ */
 public class GetTag extends Command {
     /**
      * Constructs a new command with the specified input and task list.
@@ -36,7 +40,7 @@ public class GetTag extends Command {
                                 + "\n" + task + "\n";
             for (int i = 0; i < tagList.size(); i++) {
                 String printString = String.format("%d. %s%n", i + 1, tagList.get(i));
-                assert printString != null : "Task string representation cannot be null";
+                assert printString != null : "task string representation cannot be null";
                 listOfTags = listOfTags + printString;
             }
 

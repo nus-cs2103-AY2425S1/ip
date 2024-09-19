@@ -1,11 +1,15 @@
 package citadel.commands;
 
-import citadel.Task.Task;
-import citadel.Task.TaskList;
 import citadel.exception.CitadelException;
 import citadel.exception.CitadelInvalidArgException;
 import citadel.exception.CitadelTaskNoInput;
+import citadel.task.Task;
+import citadel.task.TaskList;
 
+/**
+ * Represents the command to remove a tag from a task from the task list in the Citadel application.
+ * This class extends {@link Command} and provides the functionality to remove a tag from a task based on user input.
+ */
 public class RemoveTag extends Command {
     /**
      * Constructs a new command with the specified input and task list.

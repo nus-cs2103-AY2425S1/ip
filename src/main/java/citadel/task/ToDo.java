@@ -1,4 +1,4 @@
-package citadel.Task;
+package citadel.task;
 
 /**
  * Represents a to-do task in the Citadel application.

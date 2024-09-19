@@ -1,6 +1,6 @@
 package citadel;
 
-import citadel.Task.TaskList;
+import citadel.task.TaskList;
 import citadel.commands.HandleDeadline;
 import citadel.exception.CitadelException;
 

@@ -1,10 +1,10 @@
 package citadel.commands;
 
-import citadel.Task.Event;
-import citadel.Task.Task;
-import citadel.Task.TaskList;
 import citadel.exception.CitadelException;
 import citadel.exception.CitadelTaskNoInput;
+import citadel.task.Event;
+import citadel.task.Task;
+import citadel.task.TaskList;
 import citadel.ui.TextUI;
 
 import java.time.LocalDateTime;

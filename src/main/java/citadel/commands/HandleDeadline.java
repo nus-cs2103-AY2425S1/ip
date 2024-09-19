@@ -1,10 +1,10 @@
 package citadel.commands;
 
-import citadel.Task.Deadline;
-import citadel.Task.Task;
-import citadel.Task.TaskList;
 import citadel.exception.CitadelException;
 import citadel.exception.CitadelTaskNoInput;
+import citadel.task.Deadline;
+import citadel.task.Task;
+import citadel.task.TaskList;
 import citadel.ui.TextUI;
 
 import java.time.LocalDateTime;
@@ -53,7 +53,7 @@ public class HandleDeadline extends Command {
             throw new CitadelTaskNoInput();
         }
 
-        //Create Task
+        //Create task
         LocalDateTime deadlineFormatted = LocalDateTime.parse(deadline,
                                                               DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
         Task t = new Deadline(task, deadlineFormatted);
