@@ -19,10 +19,10 @@ public class TodoTest {
     @Test
     public void testSaveFullDetails() {
         Todo todo = new Todo("Finish homework");
-        assertEquals("T | false | Finish homework", todo.saveFullDetails());
+        assertEquals("T | false | Finish homework | ()", todo.saveFullDetails());
 
         todo.markDone(); // Simulate marking the task as done
-        assertEquals("T | true | Finish homework", todo.saveFullDetails());
+        assertEquals("T | true | Finish homework | ()", todo.saveFullDetails());
     }
 
     @Test

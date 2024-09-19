@@ -45,7 +45,6 @@ public class TaskList {
      * @throws DuplicateTaskException if the task already exists in list
      */
     public void addTask(Task task) throws DuplicateTaskException {
-        System.out.println(checkDuplicateTask(task));
         if (checkDuplicateTask(task)) {
             throw new DuplicateTaskException();
         }
