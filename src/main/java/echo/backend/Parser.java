@@ -47,6 +47,8 @@ public class Parser {
      * @param userInput the input string provided by the user
      */
     public String handleInput(String userInput) {
+        // Very long method justified for handling pesky local variables
+
         // Parses user input
         String[] userInputs = userInput.split(" ", 2);
         Command command = Command.fromString(userInputs[0]);
@@ -113,6 +115,7 @@ public class Parser {
      * @return the result of the state handling
      */
     private String handleState(String userInput) {
+        // Very long method justified for handling pesky local variables
         String description, descriptionState, start, end, deadline;
         description = tempStrings[0];
         start = tempStrings[1];

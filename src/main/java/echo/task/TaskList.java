@@ -10,12 +10,14 @@ import java.util.List;
  */
 public class TaskList {
     private List<Task> tasks;
+
     /**
      * Constructs a TaskList with an empty List<Task>.
      */
     public TaskList() {
         tasks = new ArrayList<>();
     }
+
     /**
      * Adds a new task to tasks based on the provided description, TaskType, and additional information.
      *
@@ -37,6 +39,7 @@ public class TaskList {
             break;
         }
     }
+
     /**
      * Searches for tasks in the task list that contain the specified substring
      * and returns them as a formatted string for printing.
@@ -58,6 +61,7 @@ public class TaskList {
         }
         return foundTasks;
     }
+
     /**
      * Returns a formatted string representing the tasks in the list,
      * intended for saving to a file.
@@ -71,6 +75,7 @@ public class TaskList {
         }
         return s;
     }
+
     /**
      * Adds a Deadline task to tasks with the given description and deadline date.
      *
@@ -83,6 +88,7 @@ public class TaskList {
 
         tasks.add(new Deadline(description, deadline));
     }
+
     /**
      * Returns a formatted string representing all the tasks in the list.
      * Intended for printing by the Ui class.
@@ -99,6 +105,7 @@ public class TaskList {
         }
         return tasksString;
     }
+
     /**
      * Marks the task at the specified index of tasks as complete.
      *
@@ -108,6 +115,7 @@ public class TaskList {
         assert index >= 0: "Index should not be out of range";
         tasks.get(index - 1).completeTask();
     }
+
     /**
      * Returns a formatted string representing the task at the specified index.
      *
@@ -118,6 +126,7 @@ public class TaskList {
         assert index > 0: "Index should not be out of range";
         return tasks.get(index - 1).getTaskString() + "\n";
     }
+
     /**
      * Unmarks the task at the specified index of tasks, indicating it is not complete.
      *
@@ -127,6 +136,7 @@ public class TaskList {
         assert index > 0: "Index should not be out of range";
         tasks.get(index - 1).uncompleteTask();
     }
+
     /**
      * Returns the number of tasks currently in the list.
      *
@@ -136,6 +146,7 @@ public class TaskList {
         assert tasks != null: "Tasks should not be null";
         return tasks.size();
     }
+
     /**
      * Deletes the task at the specified index from tasks.
      *
@@ -145,9 +156,24 @@ public class TaskList {
         assert index > 0: "Index should not be out of range";
         tasks.remove(index - 1);
     }
+
+    /**
+     * Returns the type of the task at the specified index.
+     *
+     * @param index The index of the task, with 1-based indexing.
+     * @return The type of the task at the given index.
+     */
     public TaskType getTaskType(int index) {
         return tasks.get(index - 1).getTaskType();
     }
+
+    /**
+     * Updates the task at the specified index with the provided task.
+     * If the existing task is complete, the new task will also be marked as complete.
+     *
+     * @param index The index of the task to be updated, with 1-based indexing.
+     * @param task The new task to replace the existing task.
+     */
     public void updateTask(int index, Task task) {
         if (tasks.get(index - 1).getIsComplete()) {
             task.completeTask();
@@ -155,6 +181,12 @@ public class TaskList {
         tasks.set(index - 1, task);
     }
 
+    /**
+     * Returns an array of temporary strings from the task at the specified index.
+     *
+     * @param index The index of the task, with 1-based indexing.
+     * @return An array of temporary strings from the task at the given index.
+     */
     public String[] getTempTaskStrings(int index) {
         return tasks.get(index - 1).getTempStrings();
     }

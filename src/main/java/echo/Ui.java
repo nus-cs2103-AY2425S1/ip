@@ -77,7 +77,7 @@ public class Ui {
      * @param arg The substring to search for within the tasks.
      */
     public String handleFind(String arg) {
-        String foundTasks = taskList.getFoundTasks(arg);
+        String foundTasks = taskList.getFoundTasks(arg.toLowerCase());
         return foundMessage(foundTasks);
     }
 
@@ -159,6 +159,33 @@ public class Ui {
         return "Please input todo [description]";
     }
 
+    private String handleEmptyEventDescription(String startDate, String endDate) {
+        if (!startDate.isEmpty()) {
+            parser.keepTempString(startDate, 1);
+        }
+        if (!endDate.isEmpty()) {
+            parser.keepTempString(endDate, 2);
+        }
+        parser.changeState(StateType.EVENT_DESCRIPTION);
+        return "Enter task description: ";
+    }
+
+    private String handleEmptyEventStart(String description, String endDate) {
+        parser.keepTempString(description, 0);
+        if (!endDate.isEmpty()) {
+            parser.keepTempString(endDate, 2);
+        }
+        parser.changeState(StateType.EVENT_START);
+        return "Start: ";
+    }
+
+    private String handleEmptyEventEnd(String description, String startDate) {
+        parser.keepTempString(description, 0);
+        parser.keepTempString(startDate, 1);
+        parser.changeState(StateType.EVENT_END);
+        return "End: ";
+    }
+
     /**
      * Handles the "event" command to add a new event task.
      *
@@ -166,6 +193,7 @@ public class Ui {
      * @param startDate   the event start date
      */
     public String handleEvent(String description, String startDate, TaskStatus status) {
+        // Very long method justified due to pesky error handling for local variables
         String endDate = "";
         if (description.contains("/to")) { // No start date provided, end date provided
             String[] temp = parser.parseEventTo(description);
@@ -174,42 +202,24 @@ public class Ui {
         }
 
         if (description.isEmpty()) { // No task description provided
-            if (!startDate.isEmpty()) {
-                parser.keepTempString(startDate, 1);
-            }
-            if (!endDate.isEmpty()) {
-                parser.keepTempString(endDate, 2);
-            }
-            parser.changeState(StateType.EVENT_DESCRIPTION);
-            return "Enter task description: ";
+            return handleEmptyEventDescription(startDate, endDate);
         }
 
         if (startDate.isEmpty()) { // No start date provided
-            parser.keepTempString(description, 0);
-            if (!endDate.isEmpty()) {
-                parser.keepTempString(endDate, 2);
-            }
-            parser.changeState(StateType.EVENT_START);
-            return "Start: ";
+            return handleEmptyEventStart(description, endDate);
         }
 
         if (startDate.contains("/to")) {
             String[] temp = parser.parseEventTo(startDate);
             if (temp[0].isEmpty()) { // No start date provided, end date provided
-                parser.keepTempString(description, 0);
-                parser.keepTempString(temp[1], 2);
-                parser.changeState(StateType.EVENT_START);
-                return "Start: ";
+                return handleEmptyEventStart(description, temp[1]);
             }
-            startDate = temp[0];
+            startDate = temp[0].trim();
             endDate = temp[1].trim();
         }
 
         if (endDate.isEmpty()) { // Description and start date provided, end date not provided
-            parser.keepTempString(description, 0);
-            parser.keepTempString(startDate, 1);
-            parser.changeState(StateType.EVENT_END);
-            return "End: ";
+            return handleEmptyEventEnd(description, startDate);
         }
 
         startDate = startDate.trim();
