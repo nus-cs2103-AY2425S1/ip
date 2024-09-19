@@ -3,10 +3,4 @@ E |   | wit | Dec 2 2019, 6:00 pm | Dec 2 2019, 8:00 pm
 T |   | buy bread
 T |   | buy milk
 T |   | borrow book
-T |   | Read book
-T |   | Read book
-T |   | Read book
-T |   | Read book
-T |   | Read book
-T |   | Read book
-T |   | Read book
+T | X | Read book
