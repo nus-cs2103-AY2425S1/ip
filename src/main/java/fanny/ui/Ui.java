@@ -93,7 +93,7 @@ public class Ui {
      */
     public String showAddTaskMsg(Task task, TaskList list) {
         message = "Roger that. I've added this task:\n" + task.toString() + "\n"
-                + "Now you have " + list.getLength() + " tasks in the list.";
+                + "Now you have " + getTaskCountMessage(list) + " in the list.";
 
         return showMessage(message);
     }
@@ -107,9 +107,16 @@ public class Ui {
      */
     public String showDeleteTaskMsg(int taskId, TaskList list) {
         message = "Noted. I've removed this task:\n" + list.delete(taskId) + "\n"
-                + "Now you have " + list.getLength() + " tasks in the list.";
+                + "Now you have " + getTaskCountMessage(list) + " in the list.";
 
         return showMessage(message);
+    }
+
+    private String getTaskCountMessage(TaskList list) {
+        int taskCount = list.getLength();
+        String taskWord = taskCount <= 1 ? "task" : "tasks";
+
+        return taskCount + " " + taskWord;
     }
 
     /**
