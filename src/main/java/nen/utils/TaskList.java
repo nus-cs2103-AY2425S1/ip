@@ -84,7 +84,7 @@ public class TaskList {
     }
 
     /**
-     * Remove task of the given index
+     * Removes task of the given index
      * @param index of task
      */
     public void remove(int index) {

@@ -10,7 +10,7 @@ public class SortCommand extends Command {
     private String taskType;
     private String className;
     /**
-     * Instantiate SortCommand
+     * Instantiates SortCommand
      * @param name of the command
      * @param arg is string of the name of task to sort
      */
@@ -24,7 +24,7 @@ public class SortCommand extends Command {
     }
 
     /**
-     * Execute the command
+     * Executes the command
      * @param taskList to be manipulated
      */
     @Override

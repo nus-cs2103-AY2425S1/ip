@@ -14,7 +14,7 @@ import nen.utils.TaskList;
 public class AddTaskCommand extends Command {
 
     /**
-     * Instantiate AddTaskCommand
+     * Instantiates AddTaskCommand
      * @param name of the command
      */
     public AddTaskCommand(String name) {
@@ -22,7 +22,7 @@ public class AddTaskCommand extends Command {
     }
 
     /**
-     * Execute the command
+     * Executes the command
      * @param taskList to be manipulated
      */
     @Override

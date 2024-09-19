@@ -8,7 +8,7 @@ import nen.utils.TaskList;
  */
 public class DeleteCommand extends Command {
     /**
-     * Instantiate DeleteCommand
+     * Instantiates DeleteCommand
      * @param name of the command
      */
     public DeleteCommand(String name, String arg) {
@@ -17,7 +17,7 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Execute the command
+     * Executes the command
      * @param taskList to be manipulated
      */
     @Override

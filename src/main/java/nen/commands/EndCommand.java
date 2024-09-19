@@ -9,7 +9,7 @@ import nen.utils.TaskList;
 public class EndCommand extends Command {
 
     /**
-     * Instantiate EndCommand
+     * Instantiates EndCommand
      * @param name of the command
      */
     public EndCommand(String name) {
@@ -18,7 +18,7 @@ public class EndCommand extends Command {
     }
 
     /**
-     * Execute the command
+     * Executes the command
      * @param taskList to be manipulated
      */
     @Override

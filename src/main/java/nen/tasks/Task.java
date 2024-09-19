@@ -93,14 +93,14 @@ public abstract class Task implements Comparable<Task> {
     }
 
     /**
-     * mark the task as done
+     * Marks the task as done
      */
     public void markAsDone() {
         isDone = true;
     }
 
     /**
-     * mark the task as not done
+     * Marks the task as not done
      */
     public void markAsNotDone() {
         isDone = false;

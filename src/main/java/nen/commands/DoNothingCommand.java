@@ -9,7 +9,7 @@ import nen.utils.TaskList;
 public class DoNothingCommand extends Command {
 
     /**
-     * Instantiate DoNothingCommand
+     * Instantiates DoNothingCommand
      * @param description of the command
      */
     public DoNothingCommand(String description) {
@@ -18,7 +18,7 @@ public class DoNothingCommand extends Command {
     }
 
     /**
-     * Execute the command
+     * Executes the command
      * @param taskList to be manipulated
      */
     @Override

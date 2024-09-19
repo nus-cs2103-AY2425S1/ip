@@ -10,7 +10,7 @@ import nen.utils.TaskList;
 public class FindCommand extends Command {
     private String keyword;
     /**
-     * Instantiate FindCommand
+     * Instantiates FindCommand
      * @param name of the command
      */
     public FindCommand(String name, String arg) {
@@ -19,7 +19,7 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Execute the command
+     * Executes the command
      * @param taskList to be manipulated
      */
     @Override

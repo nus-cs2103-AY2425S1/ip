@@ -8,7 +8,7 @@ import nen.utils.TaskList;
  */
 public class MarkCommand extends Command {
     /**
-     * Instantiate MarkCommand
+     * Instantiates MarkCommand
      * @param name of the command
      */
     public MarkCommand(String name, String arg) {
@@ -17,7 +17,7 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * Execute the command
+     * Executes the command
      * @param taskList to be manipulated
      */
     @Override
