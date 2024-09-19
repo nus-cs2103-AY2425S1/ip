@@ -16,8 +16,12 @@ import java.io.IOException;
  * The application reads from and writes to a task list file and provides a simple text-based interface to manage tasks.
  */
 public class Snipe {
+    private String taskListFilePath;
+    private String archiveListFilePath;
     private Storage taskListStorage;
+    private Storage archiveListStorage;
     private TaskList tasks;
+    private TaskList archiveTasks;
     private Ui ui;
 
     /**
@@ -28,18 +32,24 @@ public class Snipe {
      */
     public Snipe(String filePath) {
         this.ui = new Ui();
-        this.taskListStorage = new Storage(filePath);
+        this.taskListFilePath = filePath + "/taskList.txt";
+        this.archiveListFilePath = filePath + "/archiveList.txt";
+        this.taskListStorage = new Storage(this.taskListFilePath);
+        this.archiveListStorage = new Storage(this.archiveListFilePath);
         try {
             this.tasks = new TaskList(taskListStorage.readTaskList());
+            this.archiveTasks = new TaskList(archiveListStorage.readTaskList());
         } catch (SnipeException | IOException e) {
             this.ui.showLoadingError();
             this.tasks = new TaskList();
+            this.archiveTasks = new TaskList();
         }
 
         // Assertions to check that essential objects are initialized properly
         assert ui != null : "Ui should be initialized";
         assert taskListStorage != null : "Storage should be initialized";
         assert tasks != null : "TaskList should be initialized";
+        assert archiveListStorage != null : "Storage should be initialized";
     }
 
     /**
@@ -50,6 +60,8 @@ public class Snipe {
      * @throws SnipeException If an application-specific error occurs during command processing.
      */
     public void initChat() throws IOException, SnipeException {
+        taskListStorage.initialise();
+        archiveListStorage.initialise();
         ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {
@@ -60,7 +72,7 @@ public class Snipe {
                 // Assert that a valid command is always returned by the parser
                 assert c != null : "Parsed command should never be null";
 
-                String response = c.getResponse(tasks, ui, taskListStorage);
+                String response = c.getResponse(tasks, ui, taskListStorage,archiveTasks, archiveListStorage);
                 ui.printWithLines(response);
                 isExit = c.isExit();
             } catch (SnipeException e) {
@@ -80,7 +92,7 @@ public class Snipe {
             // Assert that the command is not null
             assert c != null : "Parsed command should never be null";
 
-            return c.getResponse(tasks, ui, taskListStorage);
+            return c.getResponse(tasks, ui, taskListStorage, archiveTasks, archiveListStorage);
         } catch (SnipeException e) {
             return e.getMessage();
         }
@@ -100,7 +112,7 @@ public class Snipe {
      * @throws SnipeException If an application-specific error occurs during initialisation.
      */
     public static void main(String[] args) throws IOException, SnipeException {
-        Snipe snipe = new Snipe("src/main/txt/taskList.txt");
+        Snipe snipe = new Snipe("src/main/txt");
         snipe.initChat();
     }
 }

@@ -19,15 +19,23 @@ public class HelpCommand extends Command{
      * Executes the help command by reading the help instructions from a file
      * and returning them as a string to be displayed to the user.
      *
-     * @param tasks   The {@link TaskList}, not used in this command.
-     * @param ui      The {@link Ui} instance used to display the help instructions to the user.
-     * @param storage The {@link Storage} instance, not used in this command.
+     * @param tasks          The {@link TaskList}, not used in this command.
+     * @param ui             The {@link Ui} instance used to display the help instructions to the user.
+     * @param storage        The {@link Storage} instance, not used in this command.
+     * @param archiveTasks   The {@link TaskList}, not used in this command.
+     * @param archiveStorage The {@link Storage} instance, not used in this command.
      * @return The help instructions as a string, or an error message if the instructions are unavailable.
      * @throws SnipeException If an application-specific error occurs during execution.
      * @throws IOException    If an I/O error occurs while reading the help instructions file.
      */
     @Override
-    public String getResponse(TaskList tasks, Ui ui, Storage storage) throws SnipeException, IOException {
+    public String getResponse(
+            TaskList tasks,
+            Ui ui,
+            Storage storage,
+            TaskList archiveTasks,
+            Storage archiveStorage
+    ) throws SnipeException, IOException {
         String filePath = "src/main/txt/helpinstructions.txt"; // Instructions manual
 
         // Assert that the file exists

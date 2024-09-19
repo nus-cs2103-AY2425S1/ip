@@ -113,6 +113,18 @@ public class TaskList {
         return filteredTasks;
     }
 
+    public void archiveTask(int index, TaskList archiveList) throws SnipeException {
+        // Assert that the task list is not empty
+        assert tasks.size() > 0 : "Task list should not be empty when attempting to archive a task";
+
+        if (index >= tasks.size() || index < 0) {
+            throw new SnipeException("This list item does not exist!");
+        }
+        Task toArchive = tasks.get(index);
+        tasks.remove(index);
+        archiveList.addTask(toArchive);
+    }
+
     /**
      * Returns a string representation of the number of tasks in the task list.
      *

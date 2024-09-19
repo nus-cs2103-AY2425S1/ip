@@ -34,12 +34,20 @@ public class AddCommand extends Command{
      * @param tasks   The {@link TaskList} to which the new task will be added.
      * @param ui      The {@link Ui} instance used to display messages and interact with the user.
      * @param storage The {@link Storage} instance responsible for persisting the updated task list.
+     * @param archiveTasks   The {@link TaskList}, not used in this command.
+     * @param archiveStorage The {@link Storage} instance, not used in this command.
      * @return A confirmation message indicating that the task has been successfully added, along with the updated task count.
      * @throws SnipeException If an application-specific error occurs while saving the task list.
      * @throws IOException    If an I/O error occurs during the saving process.
      */
     @Override
-    public String getResponse(TaskList tasks, Ui ui, Storage storage) throws SnipeException, IOException {
+    public String getResponse(
+            TaskList tasks,
+            Ui ui,
+            Storage storage,
+            TaskList archiveTasks,
+            Storage archiveStorage
+    ) throws SnipeException, IOException {
         // Assert that the TaskList is not null
         assert tasks != null : "TaskList should not be null";
         // Assert that the Storage is not null
