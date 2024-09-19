@@ -27,7 +27,7 @@ public class Event extends Task {
     }
 
     /**
-     * @inheritDoc
+     * Returns string representation of the task.
      */
     @Override
     public void hasDate(Ui ui) throws BoomException {

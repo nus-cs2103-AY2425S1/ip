@@ -55,44 +55,11 @@ public class Storage {
 
             // Process the line for tasks
             if (line.startsWith("[T]")) {
-                String toDoTask = line.substring(10);
-                int priority = Integer.parseInt(String.valueOf(line.charAt(7)));
-                if (line.substring(3).startsWith("[X]")) {
-                    taskList.addTask(new ToDo(true, toDoTask, priority));
-                } else if (line.substring(3).startsWith("[ ]")) {
-                    taskList.addTask(new ToDo(false, toDoTask, priority));
-                }
+                loadToDo(taskList, line);
             } else if (line.startsWith("[D]")) {
-                String dlTask = line.substring(10).split(" \\(by: ")[0];
-                String time = line.substring(10).split(" \\(by: ")[1];
-                time = time.substring(0, time.length() - 1);
-                int priority = Integer.parseInt(String.valueOf(line.charAt(7)));
-
-                if (line.substring(3).startsWith("[X]")) {
-                    taskList.addTask(new Deadline(true, dlTask, time, priority));
-
-                } else if (line.substring(3).startsWith("[ ]")) {
-                    taskList.addTask(new Deadline(false, dlTask, time, priority));
-                }
+                loadDeadline(taskList, line);
             } else if (line.startsWith("[E]")) {
-                String eventTask = line.substring(10)
-                        .split(" \\(from: ")[0];
-                String timeStart = line.substring(10)
-                        .split(" \\(from: ")[1]
-                        .split(" to: ")[0];
-                String timeEnd = line.substring(10)
-                        .split(" \\(from: ")[1]
-                        .split(" to: ")[1];
-                timeEnd = timeEnd.substring(0, timeEnd.length() - 1);
-                int priority = Integer.parseInt(String.valueOf(line.charAt(7)));
-
-                if (line.substring(3).startsWith("[X]")) {
-                    taskList.addTask(new Event(true, eventTask, timeStart, timeEnd, priority));
-
-                } else if (line.substring(3).startsWith("[ ]")) {
-                    taskList.addTask(new Event(false, eventTask, timeStart, timeEnd, priority));
-
-                }
+                loadEvent(taskList, line);
             }
         }
         Collections.sort(taskList.getTaskList(), Comparator.comparingInt(Task::getPriority).reversed());
@@ -109,7 +76,67 @@ public class Storage {
         FileWriter fw = new FileWriter(filePath);
         fw.write(tasks);
         fw.close();
+    }
 
+    /**
+     * loads ToDo typed task into tasklist.
+     *
+     * @param taskList the tasklist where task is to be added into.
+     * @param line the text representation of the task read from the text file.
+     */
+    public void loadToDo(TaskList taskList, String line) {
+        String toDoTask = line.substring(10);
+        int priority = Integer.parseInt(String.valueOf(line.charAt(7)));
+        if (line.substring(3).startsWith("[X]")) {
+            taskList.addTask(new ToDo(true, toDoTask, priority));
+        } else if (line.substring(3).startsWith("[ ]")) {
+            taskList.addTask(new ToDo(false, toDoTask, priority));
+        }
+    }
+
+    /**
+     * loads Deadline typed task into tasklist.
+     *
+     * @param taskList the tasklist where task is to be added into.
+     * @param line the text representation of the task read from the text file.
+     */
+    public void loadDeadline(TaskList taskList, String line) {
+        String dlTask = line.substring(10).split(" \\(by: ")[0];
+        String time = line.substring(10).split(" \\(by: ")[1];
+        time = time.substring(0, time.length() - 1);
+        int priority = Integer.parseInt(String.valueOf(line.charAt(7)));
+
+        if (line.substring(3).startsWith("[X]")) {
+            taskList.addTask(new Deadline(true, dlTask, time, priority));
+
+        } else if (line.substring(3).startsWith("[ ]")) {
+            taskList.addTask(new Deadline(false, dlTask, time, priority));
+        }
+    }
+
+    /**
+     * loads Event typed task into tasklist.
+     *
+     * @param taskList the tasklist where task is to be added into.
+     * @param line the text representation of the task read from the text file.
+     */
+    public void loadEvent(TaskList taskList, String line) {
+        String eventTask = line.substring(10)
+                .split(" \\(from: ")[0];
+        String timeStart = line.substring(10)
+                .split(" \\(from: ")[1]
+                .split(" to: ")[0];
+        String timeEnd = line.substring(10)
+                .split(" \\(from: ")[1]
+                .split(" to: ")[1];
+        timeEnd = timeEnd.substring(0, timeEnd.length() - 1);
+        int priority = Integer.parseInt(String.valueOf(line.charAt(7)));
+
+        if (line.substring(3).startsWith("[X]")) {
+            taskList.addTask(new Event(true, eventTask, timeStart, timeEnd, priority));
+        } else if (line.substring(3).startsWith("[ ]")) {
+            taskList.addTask(new Event(false, eventTask, timeStart, timeEnd, priority));
+        }
     }
 
 }

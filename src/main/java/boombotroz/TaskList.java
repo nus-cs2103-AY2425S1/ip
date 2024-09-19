@@ -47,8 +47,7 @@ public class TaskList {
     }
 
     /**
-     * Deletes task from task list.
-     * Prints message about the task that was just deleted and number of tasks in list.
+     * Deletes task from task list and displays number of tasks remaining.
      *
      * @param input input given by user.
      * @param ui handles errors that may occur.
@@ -71,7 +70,6 @@ public class TaskList {
 
     /**
      * Marks task from task list.
-     * Prints message about the task that was just marked.
      *
      * @param input input given by user.
      * @param ui handles errors that may occur.
@@ -90,8 +88,7 @@ public class TaskList {
     }
 
     /**
-     * Unmark task from task list.
-     * Prints message about the task that was just unmarked.
+     * Unmarks task from task list.
      *
      * @param input input given by user.
      * @param ui handles errors that may occur.

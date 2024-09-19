@@ -4,18 +4,19 @@ package boombotroz;
  * Deals with creation of task.
  */
 public abstract class Task {
-    private boolean mark;
+    private boolean isMark;
     private String task;
     private int priority;
 
     /**
      * Creates Task object.
      *
-     * @param mark state of completion for task.
+     * @param isMark state of completion for task.
      * @param task task description.
+     * @param priority priority level of task.
      */
-    public Task(boolean mark, String task, int priority) {
-        this.mark = mark;
+    public Task(boolean isMark, String task, int priority) {
+        this.isMark = isMark;
         this.task = task;
         this.priority = priority;
     }
@@ -31,10 +32,10 @@ public abstract class Task {
     /**
      * Sets completion state of the task.
      *
-     * @param mark completion state of task.
+     * @param isMark completion state of task.
      */
-    public void setMark(boolean mark) {
-        this.mark = mark;
+    public void setMark(boolean isMark) {
+        this.isMark = isMark;
     }
 
     /**
@@ -54,7 +55,7 @@ public abstract class Task {
     @Override
     public String toString() {
         String s;
-        if (this.mark == true) {
+        if (this.isMark == true) {
             s = String.format("[X][%d] %s", this.priority, this.task);
         } else {
             s = String.format("[ ][%d] %s", this.priority, this.task);

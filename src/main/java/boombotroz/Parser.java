@@ -9,9 +9,11 @@ import java.util.Comparator;
 public class Parser {
 
     /**
-     * Prints out all the tasks in task_list
+     * Prints all the tasks in task list.
      *
+     * @param ui handles interactions with user.
      * @param taskList list of all the tasks.
+     * @return All the tasks in task list.
      */
     public String printList(Ui ui, TaskList taskList) {
         Collections.sort(taskList.getTaskList(), Comparator.comparingInt(Task::getPriority).reversed());
@@ -26,7 +28,7 @@ public class Parser {
      * @param taskList list of all the tasks.
      * @param input input given by user.
      * @param storage file that stores current state of task_list.
-     * @param ui handles errors that may occur.
+     * @param ui handles interactions with user.
      * @return Message after task is marked.
      * @throws BoomException If position not given OR position out of range.
      * @throws IOException If writing to file has issue.
@@ -40,7 +42,7 @@ public class Parser {
     }
 
     /**
-     * Unmarks the specified task with based on position given by input.
+     * Unmarks the specified task based on position given by input.
      * Stores the task into txt file.
      * If the position is invalid, will throw exception.
      *
@@ -90,7 +92,6 @@ public class Parser {
      * @param ui handles errors that may occur.
      * @return Message of task(s) matching word.
      * @throws BoomException If position not given OR position out of range.
-     *
      */
     public String findTask(TaskList taskList, String input, Ui ui) throws BoomException {
         ui.hasKeyWord(input);

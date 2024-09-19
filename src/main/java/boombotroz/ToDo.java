@@ -23,7 +23,7 @@ public class ToDo extends Task {
     public void hasDate(Ui ui) throws BoomException {}
 
     /**
-     * @inheritDoc
+     * Returns string representation of the task.
      */
     @Override
     public String toString() {

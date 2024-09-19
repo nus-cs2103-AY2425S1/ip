@@ -38,7 +38,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * @inheritDoc
+     * Returns string representation of the task.
      */
     @Override
     public String toString() {
