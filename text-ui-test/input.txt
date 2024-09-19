@@ -1,0 +1,10 @@
+todo sleep
+deadline cs2103 homework /by today 10pm
+event meeting /from sunday 1pm /to 3pm
+todo meow
+deadline dba assignment /by 5pm
+mark 2
+mark 3
+unmark 2
+list
+bye
