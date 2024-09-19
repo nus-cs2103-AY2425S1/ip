@@ -1,6 +1,5 @@
 package nayana;
 
-import java.io.File;
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -13,9 +12,8 @@ import javafx.stage.Stage;
  * A GUI for Duke using FXML.
  */
 public class Main extends Application {
-    // Creates an instance of Nayana with the specified file path.
+    // Creates an instance of Nayana
     private Nayana nayana = new Nayana();
-    //private Nayana nayana = new Nayana("data/nayana.txt");
     @Override
     public void start(Stage stage) {
         try {
@@ -24,7 +22,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             //Apply CSS stylesheet
-            stage.setScene(scene);// Creates a new Scene with the loaded layout.
+            stage.setScene(scene); // Creates a new Scene with the loaded layout.
             stage.setTitle("Resizable Window");
             stage.setMinWidth(400); // Optional: Set minimum width
             stage.setMinHeight(630); // Optional: Set minimum height

@@ -2,8 +2,6 @@ package nayana;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 import nayana.task.Deadline;
@@ -130,8 +128,8 @@ public class TaskList {
      */
     public ArrayList<Task> findTasks(String findValue) {
         return tasks.stream()
-              .filter(task -> task.getDescription().contains(findValue))  // Filter tasks by description
-              .collect(Collectors.toCollection(ArrayList::new));  // Collect into ArrayList
+              .filter(task -> task.getDescription().contains(findValue)) // Filter tasks by description
+              .collect(Collectors.toCollection(ArrayList::new)); // Collect into ArrayList
     }
 
     /**
@@ -177,7 +175,7 @@ public class TaskList {
      */
     private boolean isUpcomingDeadline(Deadline task) {
         LocalDate today = LocalDate.now();
-        return !task.getDate().isBefore(today) &&
-              !task.getDate().isAfter(today.plusDays(7));
+        return !task.getDate().isBefore(today)
+              && !task.getDate().isAfter(today.plusDays(7));
     }
 }

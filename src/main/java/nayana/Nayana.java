@@ -11,28 +11,20 @@ public class Nayana {
     private TaskList tasks;
     private Ui ui; // Handles user interface operations.
 
-    boolean isExit = false;
+    private boolean isExit = false;
 
+    /**
+     * Constructs a new Nayana instance and initializes the user interface.
+     */
     public Nayana() {
         this.ui = new Ui();
     }
 
     /**
-     * Constructs a Nayana instance with the specified file path for task storage.
+     * Sets the file path for the storage and initializes the task list by loading data from the specified file.
      *
-     * @param filePath The path to the file where tasks are stored.
+     * @param filepath The path of the file to load tasks from.
      */
-    public Nayana(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
-        try {
-            tasks = new TaskList(storage.load());
-        } catch (NayanaException e) {
-            System.out.println("no correct file");
-            tasks = new TaskList();
-        }
-    }
-
     public void setFilePath(String filepath) {
         storage = new Storage(filepath);
         try {
@@ -50,12 +42,22 @@ public class Nayana {
         return "Nayana heard: " + input;
     }
 
+    /**
+     * Returns the user interface instance associated with this class.
+     *
+     * @return The Ui instance.
+     */
     public Ui getUi() {
         return this.ui;
     }
 
-
-    public void parseCommand(String command){
+    /**
+     * Parses and executes the given command.
+     * If the command leads to an error, the appropriate error message is shown via the UI.
+     *
+     * @param command The input command to parse and execute.
+     */
+    public void parseCommand(String command) {
         try {
             Command c = Parser.parse(command);
             c.execute(tasks, ui, storage); // Executes the command, modifying tasks and UI as necessary.
@@ -64,5 +66,4 @@ public class Nayana {
             ui.showError(e.getMessage());
         }
     }
-
 }

@@ -1,17 +1,17 @@
 package nayana.command;
 
-import javafx.util.Pair;
-import nayana.NayanaException;
-import nayana.Storage;
-import nayana.task.Task;
-import nayana.TaskList;
-import nayana.Ui;
-
 import java.util.ArrayList;
 
+import nayana.NayanaException;
+import nayana.Storage;
+import nayana.TaskList;
+import nayana.Ui;
+import nayana.task.Task;
 
-
-public class RemindCommand extends Command{
+/**
+ * Represents a command to remind user of upcoming tasks.
+ */
+public class RemindCommand extends Command {
     /**
      * Executes the command with the given task list, user interface, and storage.
      *

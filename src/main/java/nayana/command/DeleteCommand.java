@@ -40,7 +40,6 @@ public class DeleteCommand extends Command {
         storage.writeToFile(tasks.getTasks()); // Updates storage with the new list of tasks.
         assert ui != null;
         ui.printDeleteTask(task, tasks.getSize()); // Displays a confirmation message with the current task list size.
-        
     }
 
     /**

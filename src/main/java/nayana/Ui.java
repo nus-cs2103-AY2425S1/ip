@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import nayana.task.Task;
 
@@ -25,7 +24,12 @@ public class Ui {
         this.scanner = new Scanner(System.in);
     }
 
-
+    /**
+     * Adds a dialog box with the given text and image to the dialog container.
+     *
+     * @param text The text to display in the dialog.
+     * @param image The image to display in the dialog.
+     */
     public void print(String text, Image image) {
         assert dialogContainer != null;
         dialogContainer.getChildren().addAll(
@@ -82,8 +86,8 @@ public class Ui {
      */
     public void printAddTask(Task task, int size) {
         String text = "Got it. I've added this task:\n"
-        + task
-        + "\nNow you have " + size +  " tasks left in the list.";
+            + task
+                + "\nNow you have " + size + " tasks left in the list.";
         print(text, this.nayanaImage);
     }
 
@@ -96,7 +100,7 @@ public class Ui {
     public void printDeleteTask(Task task, int size) {
         String text = "Noted. I've removed this task:\n"
               + task
-              + "\nNow you have " + size +  " tasks left in the list.";
+              + "\nNow you have " + size + " tasks left in the list.";
         print(text, this.nayanaImage);
     }
 
@@ -149,7 +153,7 @@ public class Ui {
         if (!foundTasks.isEmpty()) {
             text += "Here are the matching tasks in your list:\n";
             for (int i = 0; i < foundTasks.size(); i++) {
-               text +=  (i + 1) + "." + foundTasks.get(i) + "\n";
+                text += (i + 1) + "." + foundTasks.get(i) + "\n";
             }
         } else {
             text += "There are no matching tasks in your list.";
@@ -167,7 +171,7 @@ public class Ui {
         String text = "";
         if (!upcomingTasks.isEmpty()) {
             text += "Here are your upcoming tasks for the week\n";
-            for(int i = 0; i < upcomingTasks.size(); i++ ) {
+            for (int i = 0; i < upcomingTasks.size(); i++) {
                 text += (i + 1) + "." + upcomingTasks.get(i) + "\n";
             }
         } else {

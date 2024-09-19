@@ -12,7 +12,6 @@ import nayana.command.ListCommand;
 import nayana.command.MarkCommand;
 import nayana.command.RemindCommand;
 import nayana.command.UnmarkCommand;
-
 import nayana.task.Deadline;
 import nayana.task.Event;
 import nayana.task.Task;
@@ -42,13 +41,11 @@ import nayana.task.ToDos;
  */
 public class Parser {
     /**
-     * Parses the user input and returns the corresponding Command object.
+     * Parses the user's input command and returns the corresponding Command object.
      *
-     * @param command The user input command.
-     * @return The corresponding Command object.
-     * @throws NayanaException If the command format is invalid or if parsing fails.
-     * Code Readability: While code is longer than 30 LoC, it is not practical to shorten as the parse method only has
-     * one function
+     * @param command The input string provided by the user.
+     * @return The corresponding Command based on the user's input.
+     * @throws NayanaException If the command is invalid or cannot be parsed correctly.
      */
     public static Command parse(String command) throws NayanaException {
         if (command.isBlank()) {
