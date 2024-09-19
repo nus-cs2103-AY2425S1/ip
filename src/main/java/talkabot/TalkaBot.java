@@ -60,28 +60,28 @@ public class TalkaBot {
                 } else if (input.equalsIgnoreCase("list")
                     || input.equalsIgnoreCase("l")) {
                     System.out.println(this.command.handleList(this.taskList));
-                } else if (input.toLowerCase().startsWith("mark")
+                } else if (input.toLowerCase().startsWith("mark ")
                     || input.toLowerCase().startsWith("m ")) {
                     System.out.println(this.command.handleMark(input, this.taskList));
-                } else if (input.toLowerCase().startsWith("unmark")
+                } else if (input.toLowerCase().startsWith("unmark ")
                         || input.toLowerCase().startsWith("um ")) {
                     System.out.println(this.command.handleUnmark(input, this.taskList));
-                } else if (input.toLowerCase().startsWith("delete")
+                } else if (input.toLowerCase().startsWith("delete ")
                         || input.toLowerCase().startsWith("del ")) {
                     System.out.println(this.command.handleDelete(input, this.taskList));
-                } else if (input.toLowerCase().startsWith("get day")
+                } else if (input.toLowerCase().startsWith("get day ")
                         || input.toLowerCase().startsWith("gd ")) {
                     System.out.println(this.command.handleGetDay(input, this.taskList));
-                } else if (input.toLowerCase().startsWith("find")
+                } else if (input.toLowerCase().startsWith("find ")
                         || input.toLowerCase().startsWith("f ")) {
                     System.out.println(this.command.handleFind(input, this.taskList));
-                } else if (input.toLowerCase().startsWith("todo")
+                } else if (input.toLowerCase().startsWith("todo ")
                         || input.toLowerCase().startsWith("t ")) {
                     System.out.println(this.command.handleToDo(input, this.taskList));
-                } else if (input.toLowerCase().startsWith("deadline")
+                } else if (input.toLowerCase().startsWith("deadline ")
                         || input.toLowerCase().startsWith("d ")) {
                     System.out.println(this.command.handleDeadline(input, this.taskList));
-                } else if (input.toLowerCase().startsWith("event")
+                } else if (input.toLowerCase().startsWith("event ")
                         || input.toLowerCase().startsWith("e ")) {
                     System.out.println(this.command.handleEvent(input, this.taskList));
                 } else {
@@ -116,28 +116,28 @@ public class TalkaBot {
             } else if (input.equalsIgnoreCase("list")
                     || input.equalsIgnoreCase("l")) {
                 return this.command.handleList(this.taskList);
-            } else if (input.toLowerCase().startsWith("mark")
+            } else if (input.toLowerCase().startsWith("mark ")
                     || input.toLowerCase().startsWith("m ")) {
                 return this.command.handleMark(input, this.taskList);
-            } else if (input.toLowerCase().startsWith("unmark")
+            } else if (input.toLowerCase().startsWith("unmark ")
                     || input.toLowerCase().startsWith("um ")) {
                 return this.command.handleUnmark(input, this.taskList);
-            } else if (input.toLowerCase().startsWith("delete")
+            } else if (input.toLowerCase().startsWith("delete ")
                     || input.toLowerCase().startsWith("del ")) {
                 return this.command.handleDelete(input, this.taskList);
-            } else if (input.toLowerCase().startsWith("get day")
+            } else if (input.toLowerCase().startsWith("get day ")
                     || input.toLowerCase().startsWith("gd ")) {
                 return this.command.handleGetDay(input, this.taskList);
-            } else if (input.toLowerCase().startsWith("find")
+            } else if (input.toLowerCase().startsWith("find ")
                     || input.toLowerCase().startsWith("f ")) {
                 return this.command.handleFind(input, this.taskList);
-            } else if (input.toLowerCase().startsWith("todo")
+            } else if (input.toLowerCase().startsWith("todo ")
                     || input.toLowerCase().startsWith("t ")) {
                 return this.command.handleToDo(input, this.taskList);
-            } else if (input.toLowerCase().startsWith("deadline")
+            } else if (input.toLowerCase().startsWith("deadline ")
                     || input.toLowerCase().startsWith("d ")) {
                 return this.command.handleDeadline(input, this.taskList);
-            } else if (input.toLowerCase().startsWith("event")
+            } else if (input.toLowerCase().startsWith("event ")
                     || input.toLowerCase().startsWith("e ")) {
                 return this.command.handleEvent(input, this.taskList);
             } else {

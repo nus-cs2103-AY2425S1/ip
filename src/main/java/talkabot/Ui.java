@@ -17,7 +17,7 @@ import talkabot.task.ToDo;
 public class Ui {
     private static final String HELLO = "Hiya, pal! I'm Talk-a-Bot, welcome to the Clubhouse!\n"
             + "How can I help you on this fine day?";
-    private static final String GOODBYE = "Aw, shucks. Alright then...\n"
+    private static final String GOODBYE = "Aw, shucks, leaving already? Alright then...\n"
             + "See ya real soon!";
     private Scanner sc;
 
