@@ -79,6 +79,10 @@ public class TaskList {
         String description = argumentTokens[0];
         LocalDateTime from = Parser.parseDateTime(argumentTokens[1]);
         LocalDateTime to = Parser.parseDateTime(argumentTokens[2]);
+
+        if (from.isAfter(to)) {
+            throw new InvalidInputException("From <date and time> must be before To <date and time>!");
+        }
         assert from.isBefore(to) : "from datetime should be before to datetime";
 
         Event event = new Event(description, false, from, to);
