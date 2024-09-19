@@ -46,6 +46,7 @@ public class Storage {
                 Scanner s = new Scanner(f);
                 while (s.hasNextLine()) {
                     String[] taskContent = s.nextLine().split(" ");
+                    assert taskContent.length >= 1;
                     String detail = String.join(" ",
                             Arrays.copyOfRange(taskContent, 2, taskContent.length));
                     TaskList.addTask(taskContent[0], detail, taskContent[1]);
