@@ -63,9 +63,19 @@ public class Todo extends Task {
         return super.getDescription();
     }
 
+    /**
+     * Checks if the task is unmarked, indicating it is still pending.
+     * This method determines whether the task is unmarked (i.e., not yet completed).
+     * It returns true if the task is not marked as done, meaning it can be
+     * considered pending for the given date. If the task is marked, it returns false.
+     *
+     * @param date The LocalDateTime object representing the date to check.
+     *             (This parameter is not used in the current implementation.)
+     * @return true if the task is unmarked, false if the task is marked.
+     */
     @Override
     public boolean isOnDay(LocalDateTime date) {
-        return true;
+        return !this.isMarked();
     }
 
     /**

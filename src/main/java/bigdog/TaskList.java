@@ -115,6 +115,18 @@ public class TaskList {
         return result.toString();
     }
 
+    /**
+     * Returns the schedule of tasks for a specific date in the format "dd/MM/yyyy".
+     * The method parses the given date string, checks for tasks that are scheduled
+     * on that day, and constructs a formatted string listing those tasks. Each task
+     * is numbered and displayed on a new line. If no tasks are found for the given
+     * date, it returns a message indicating that no tasks are available or that
+     * the date format might be incorrect.
+     *
+     * @param str The date string in "dd/MM/yyyy" format to view the schedule for.
+     * @return A formatted string listing all tasks scheduled for the specified
+     *         date, or a message if no tasks are found or if the format is incorrect.
+     */
     public String viewSchedule(String str) {
         int counter = 1;
         StringBuilder schedule = new StringBuilder(String.format("Here is your schedule for %s\n", str));
@@ -131,7 +143,8 @@ public class TaskList {
 
         // Instead of assertion, handle the case where no tasks are found
         if (scheduleString.equals(String.format("Here is your schedule for %s\n", str))) {
-            return "You have no tasks on " + str + " or you need to check your format!";
+            return "You have no tasks on " + str + " or you need to check your format!"
+                    + " (e.g. view 12/03/2024)";
         }
         return scheduleString;
     }

@@ -31,6 +31,9 @@ public class Parser {
      */
     public static String[] parse(String str) throws BigdogException {
         String[] temp = str.split(" ", 2);
+        if (temp.length == 1) {
+            temp = new String[]{temp[0], "NA"};
+        }
         String command = temp[0].toLowerCase();
         for (String validCommand : VALID_COMMANDS) {
             if (command.equals(validCommand)) {
