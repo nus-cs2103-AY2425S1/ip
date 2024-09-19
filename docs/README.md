@@ -82,7 +82,7 @@ Nice! I've marked this task as done:
 (notice how the X is now marked on the task to indicate that it is done)
 
 Oops! Actually, you realised that there was some part that you left out and would want to get back to later. 
-No worries here, because you can do the following to unmark it as done
+No worries here, because you can do the following to unmark it as done:
 
 `unmark 3`
 
