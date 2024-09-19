@@ -1,12 +1,13 @@
 package crack;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 
 /**
  * The Crack class serves as the main entry point for the application.
  * It initializes the user interface (Ui), task storage (Storage),
- * and task management (TaskList). It also contains the main loop that
- * processes user commands.
+ * and task management (TaskList). It also contains the main logic that
+ * processes user commands and generates responses.
  */
 public class Crack {
 
@@ -34,280 +35,207 @@ public class Crack {
     }
 
     /**
-     * Generates a response for the user's chat message.
+     * Generates a response for the user's chat message by parsing the input
+     * and delegating the command handling to specific methods.
+     *
+     * @param input The user's input string.
+     * @return The response string to be displayed in the GUI.
      */
     public String getResponse(String input) {
         String command = Parser.parseCommand(input); // Get the command part of the input
 
         switch (command) {
         case "bye":
-            return ui.showGoodbye();
+            return handleByeCommandResponse();
         case "list":
-            if (tasks.isEmpty()) {
-                return "Your task list is empty.";
-            } else {
-                return "Here are the tasks in your list:\n" + tasks.listTasks();
-            }
+            return handleListCommandResponse();
         case "mark":
-            try {
-                int index = Parser.parseTaskNumber(input);
-                tasks.getTask(index).markAsDone();
-                storage.saveTasks(tasks.getTasks(), ui);
-                return "Nice! I've marked this task as done:\n   " + tasks.getTask(index);
-            } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
-                return e.getMessage();
-            }
+            return handleMarkCommandResponse(input);
         case "unmark":
-            try {
-                int index = Parser.parseTaskNumber(input);
-                tasks.getTask(index).unmark();
-                storage.saveTasks(tasks.getTasks(), ui);
-                return "OK, I've marked this task as not done yet:\n   " + tasks.getTask(index);
-            } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
-                return ui.showError(e.getMessage());
-            }
+            return handleUnmarkCommandResponse(input);
         case "todo":
-            try {
-                String description = Parser.parseTodoDescription(input);
-                Todo newTodo = new Todo(description);
-                tasks.addTask(newTodo);
-                storage.saveTasks(tasks.getTasks(), ui);
-                return ui.showTaskAdded(newTodo, tasks.getSize());
-            } catch (IllegalArgumentException e) {
-                return ui.showError(e.getMessage());
-            }
+            return handleTodoCommandResponse(input);
         case "deadline":
-            try {
-                String[] deadlineDetails = Parser.parseDeadline(input);
-                Deadline newDeadline = new Deadline(deadlineDetails[0], deadlineDetails[1]);
-                tasks.addTask(newDeadline);
-                storage.saveTasks(tasks.getTasks(), ui);
-                return ui.showTaskAdded(newDeadline, tasks.getSize());
-            } catch (IllegalArgumentException e) {
-                return ui.showError(e.getMessage());
-            }
+            return handleDeadlineCommandResponse(input);
         case "event":
-            try {
-                String[] eventDetails = Parser.parseEvent(input);
-                Event newEvent = new Event(eventDetails[0], eventDetails[1], eventDetails[2]);
-                tasks.addTask(newEvent);
-                storage.saveTasks(tasks.getTasks(), ui);
-                return ui.showTaskAdded(newEvent, tasks.getSize());
-            } catch (IllegalArgumentException e) {
-                return ui.showError(e.getMessage());
-            }
+            return handleEventCommandResponse(input);
         case "find":
-            try {
-                String keyword = input.substring(5).trim(); // Extract the keyword
-                if (keyword.isEmpty()) {
-                    throw new IllegalArgumentException("Keyword cannot be empty.");
-                }
-                return ui.showMatchingTasks(tasks.findTasks(keyword));
-            } catch (StringIndexOutOfBoundsException | IllegalArgumentException e) {
-                return ui.showError(e.getMessage());
-            }
+            return handleFindCommandResponse(input);
         case "delete":
-            try {
-                int index = Parser.parseTaskNumber(input);
-                Task removedTask = tasks.removeTask(index);
-                storage.saveTasks(tasks.getTasks(), ui);
-                return ("Noted. I've removed this task:\n   " + removedTask);
-            } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
-                return ui.showError(e.getMessage());
-            }
+            return handleDeleteCommandResponse(input);
+        case "snooze":
+            return handleSnoozeCommandResponse(input);
         default:
             return ui.showError("Invalid Command.");
         }
     }
 
-
     /**
-     * Starts the main loop of the application. It repeatedly reads user input,
-     * parses commands, and performs actions based on the input. The loop continues
-     * until the user enters the "bye" command, at which point the application
-     * exits.
+     * Handles the "bye" command and returns the goodbye message.
+     *
+     * @return The goodbye message.
      */
-    public void run() {
-        while (true) {
-            String input = ui.readCommand();
-            String command = Parser.parseCommand(input);  // Get the command part of the input
-
-            switch (command) {
-            case "bye":
-                handleByeCommand();
-                return;
-            case "list":
-                handleListCommand();
-                break;
-            case "mark":
-                handleMarkCommand(input);
-                break;
-            case "unmark":
-                handleUnmarkCommand(input);
-                break;
-            case "todo":
-                handleTodoCommand(input);
-                break;
-            case "deadline":
-                handleDeadlineCommand(input);
-                break;
-            case "event":
-                handleEventCommand(input);
-                break;
-            case "find":
-                handleFindCommand(input);
-                break;
-            case "delete":
-                handleDeleteCommand(input);
-                break;
-            default:
-                ui.showError("Invalid Command.");
-                break;
-            }
-        }
+    private String handleByeCommandResponse() {
+        return ui.showGoodbye();
     }
 
     /**
-     * Handles the "bye" command by displaying a goodbye message and closing the application.
+     * Handles the "list" command and returns the list of tasks.
+     *
+     * @return The list of tasks or a message indicating the list is empty.
      */
-    private void handleByeCommand() {
-        ui.showGoodbye();
-        ui.close();
-    }
-
-    /**
-     * Handles the "list" command by displaying all tasks in the task list.
-     */
-    private void handleListCommand() {
+    private String handleListCommandResponse() {
         if (tasks.isEmpty()) {
-            ui.showMessage("Your task list is empty.");
+            return "Your task list is empty.";
         } else {
-            ui.showMessage("Here are the tasks in your list:\n" + tasks.listTasks());
+            return "Here are the tasks in your list:\n" + tasks.listTasks();
         }
     }
 
     /**
-     * Handles the "mark" command by marking a specified task as done.
+     * Handles the "mark" command by marking a task as done and returns a response message.
      *
      * @param input The user input containing the task number to mark as done.
+     * @return A response message indicating the result.
      */
-    private void handleMarkCommand(String input) {
+    private String handleMarkCommandResponse(String input) {
         try {
             int index = Parser.parseTaskNumber(input);
             tasks.getTask(index).markAsDone();
-            ui.showMessage("Nice! I've marked this task as done:\n   " + tasks.getTask(index));
             storage.saveTasks(tasks.getTasks(), ui);
+            return "Nice! I've marked this task as done:\n   " + tasks.getTask(index);
         } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
-            ui.showError(e.getMessage());
+            return e.getMessage();
         }
     }
 
     /**
-     * Handles the "unmark" command by marking a specified task as not done.
+     * Handles the "unmark" command by marking a task as not done and returns a response message.
      *
      * @param input The user input containing the task number to unmark.
+     * @return A response message indicating the result.
      */
-    private void handleUnmarkCommand(String input) {
+    private String handleUnmarkCommandResponse(String input) {
         try {
             int index = Parser.parseTaskNumber(input);
             tasks.getTask(index).unmark();
-            ui.showMessage("OK, I've marked this task as not done yet:\n   " + tasks.getTask(index));
             storage.saveTasks(tasks.getTasks(), ui);
+            return "OK, I've marked this task as not done yet:\n   " + tasks.getTask(index);
         } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
-            ui.showError(e.getMessage());
+            return e.getMessage();
         }
     }
 
     /**
-     * Handles the "todo" command by adding a new Todo task to the task list.
+     * Handles the "todo" command by adding a new Todo task and returns a response message.
      *
      * @param input The user input containing the description of the Todo task.
+     * @return A response message indicating the result.
      */
-    private void handleTodoCommand(String input) {
+    private String handleTodoCommandResponse(String input) {
         try {
             String description = Parser.parseTodoDescription(input);
             Todo newTodo = new Todo(description);
             tasks.addTask(newTodo);
-            ui.showTaskAdded(newTodo, tasks.getSize());
             storage.saveTasks(tasks.getTasks(), ui);
+            return ui.showTaskAdded(newTodo, tasks.getSize());
         } catch (IllegalArgumentException e) {
-            ui.showError(e.getMessage());
+            return e.getMessage();
         }
     }
 
     /**
-     * Handles the "deadline" command by adding a new Deadline task to the task list.
+     * Handles the "deadline" command by adding a new Deadline task and returns a response message.
      *
      * @param input The user input containing the description and deadline date.
+     * @return A response message indicating the result.
      */
-    private void handleDeadlineCommand(String input) {
+    private String handleDeadlineCommandResponse(String input) {
         try {
             String[] deadlineDetails = Parser.parseDeadline(input);
             Deadline newDeadline = new Deadline(deadlineDetails[0], deadlineDetails[1]);
             tasks.addTask(newDeadline);
-            ui.showTaskAdded(newDeadline, tasks.getSize());
             storage.saveTasks(tasks.getTasks(), ui);
-        } catch (IllegalArgumentException e) {
-            ui.showError(e.getMessage());
+            return ui.showTaskAdded(newDeadline, tasks.getSize());
+        } catch (IllegalArgumentException | DateTimeParseException e) {
+            return e.getMessage();
         }
     }
 
     /**
-     * Handles the "event" command by adding a new Event task to the task list.
+     * Handles the "event" command by adding a new Event task and returns a response message.
      *
      * @param input The user input containing the description, start date, and end date.
+     * @return A response message indicating the result.
      */
-    private void handleEventCommand(String input) {
+    private String handleEventCommandResponse(String input) {
         try {
             String[] eventDetails = Parser.parseEvent(input);
             Event newEvent = new Event(eventDetails[0], eventDetails[1], eventDetails[2]);
             tasks.addTask(newEvent);
-            ui.showTaskAdded(newEvent, tasks.getSize());
             storage.saveTasks(tasks.getTasks(), ui);
-        } catch (IllegalArgumentException e) {
-            ui.showError(e.getMessage());
+            return ui.showTaskAdded(newEvent, tasks.getSize());
+        } catch (IllegalArgumentException | DateTimeParseException e) {
+            return e.getMessage();
         }
     }
 
     /**
-     * Handles the "find" command by searching for tasks that match a keyword.
+     * Handles the "find" command by searching for tasks that match a keyword and returns a response message.
      *
      * @param input The user input containing the keyword to search for.
+     * @return A response message with the matching tasks.
      */
-    private void handleFindCommand(String input) {
+    private String handleFindCommandResponse(String input) {
         try {
-            String keyword = input.substring(5).trim();  // Extract the keyword
+            String keyword = input.substring(5).trim(); // Extract the keyword
             if (keyword.isEmpty()) {
                 throw new IllegalArgumentException("Keyword cannot be empty.");
             }
-            ui.showMatchingTasks(tasks.findTasks(keyword));
+            return ui.showMatchingTasks(tasks.findTasks(keyword));
         } catch (StringIndexOutOfBoundsException | IllegalArgumentException e) {
-            ui.showError(e.getMessage());
+            return e.getMessage();
         }
     }
 
     /**
-     * Handles the "delete" command by removing a specified task from the task list.
+     * Handles the "delete" command by removing a specified task and returns a response message.
      *
      * @param input The user input containing the task number to delete.
+     * @return A response message indicating the result.
      */
-    private void handleDeleteCommand(String input) {
+    private String handleDeleteCommandResponse(String input) {
         try {
             int index = Parser.parseTaskNumber(input);
             Task removedTask = tasks.removeTask(index);
-            ui.showMessage("Noted. I've removed this task:\n   " + removedTask);
             storage.saveTasks(tasks.getTasks(), ui);
+            return "Noted. I've removed this task:\n   " + removedTask;
         } catch (IllegalArgumentException | IndexOutOfBoundsException e) {
-            ui.showError(e.getMessage());
+            return e.getMessage();
         }
     }
 
     /**
-     * The main method that initializes the Crack application and starts its execution.
+     * Handles the "snooze" command by updating the date of a specified task and returns a response message.
      *
-     * @param args Command-line arguments (not used in this application).
+     * @param input The user input containing the task number and new date.
+     * @return A response message indicating the result.
      */
-    public static void main(String[] args) {
-        new Crack("./data/crack.txt").run(); // Passes file path to the constructor
+    private String handleSnoozeCommandResponse(String input) {
+        try {
+            String[] snoozeDetails = Parser.parseSnoozeCommand(input);
+            int index = Integer.parseInt(snoozeDetails[0]);
+            String newDate = snoozeDetails[1];
+
+            Task task = tasks.getTask(index);
+            task.updateDate(newDate);
+
+            storage.saveTasks(tasks.getTasks(), ui);
+            return "Task has been postponed:\n   " + task;
+        } catch (IllegalArgumentException | IndexOutOfBoundsException | UnsupportedOperationException e) {
+            return e.getMessage();
+        } catch (DateTimeParseException e) {
+            return "Invalid date format. Please use yyyy-mm-dd.";
+        }
     }
 }
