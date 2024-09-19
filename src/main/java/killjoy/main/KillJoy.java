@@ -53,6 +53,7 @@ public class KillJoy {
      * @param description
      */
     public void addTask(String description) {
+        assert !description.equals("") : "Description cannot be empty";
         taskList.add(new Todo(description));
         this.increaseTaskCount();
     }
@@ -64,6 +65,8 @@ public class KillJoy {
      * @param by
      */
     public void addTask(String description, LocalDateTime by) {
+        assert !description.equals("") : "Description cannot be empty";
+        assert by != null : "By date cannot be null";
         taskList.add(new Deadline(description, by));
         this.increaseTaskCount();
     }
@@ -76,11 +79,15 @@ public class KillJoy {
      * @param to
      */
     public void addTask(String description, LocalDateTime from, LocalDateTime to) {
+        assert !description.equals("") : "Description cannot be empty";
+        assert from != null : "From date cannot be null";
+        assert to != null : "To date cannot be null";
         taskList.add(new Event(description, from, to));
         this.increaseTaskCount();
     }
 
     public Task getTask(int taskIndex) {
+        assert taskIndex >= 0 && taskIndex < this.taskList.size() : "Invalid task index";
         return this.taskList.get(taskIndex);
     }
 
@@ -90,6 +97,7 @@ public class KillJoy {
      * @param taskIndex
      */
     public void removeTask(int taskIndex) {
+        assert taskIndex >= 0 && taskIndex < this.taskList.size() : "Invalid task index";
         this.taskList.remove(taskIndex);
         this.decreaseTaskCount();
     }
