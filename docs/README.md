@@ -11,9 +11,9 @@ Some features of Evelyn include:
 Evelyn is a greenfield java project developed for the module CS2103T by the National University of Singapore.
 
 ## Configuring Evelyn
-Setting up in Intellij
 Prerequisites: JDK 17, update Intellij to the most recent version.
 
+### Running Evelyn Using IntelliJ
 1. Open Intellij (if you are not in the welcome screen, click File > Close Project to close the existing project first)
 2. Open the project into Intellij as follows:
    1. Click Open.
@@ -22,6 +22,10 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
 3. Configure the project to use JDK 17 (not other versions) as explained in here.
 4. In the same dialog, set the Project language level field to the SDK default option.
 5. After that, using gradle, input the command `.\gradlew run` (if the code editor is showing compile errors, try restarting the IDE).
+
+### Running Evelyn From The .jar File
+1. Using your Terminal, cd to the directory Evelyn is located in.
+2. Enter the command `java -jar "Evelyn.jar"` into your terminal.
 
 ## Adding Todos
 Todos help you keep track of your tasks which do not have an due date.
