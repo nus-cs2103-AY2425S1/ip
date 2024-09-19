@@ -22,7 +22,7 @@
     java -jar ollie.jar
     ```
 4. The Ollie ☺ application starts! 🎉
-<img src="../docs/images/Start.png" width="300">
+<img src="/docs/images/Start.png" width="300">
 
 # Features
 Function | Command | Format                                                    | Example
