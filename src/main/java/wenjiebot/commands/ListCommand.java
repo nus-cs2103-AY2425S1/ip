@@ -46,13 +46,13 @@ public class ListCommand extends Command {
      * @return a formatted string with each task in the list prefixed by its index.
      */
     public static String displayList(ArrayList<Task> list) {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         int i = 0;
         while (i < list.size()) {
             String newLine = (i + 1) + ". " + list.get(i) + "\n";
-            result += newLine;
+            result.append(newLine);
             i++;
         }
-        return result;
+        return result.toString();
     }
 }
