@@ -13,7 +13,10 @@ public class UndefinedTaskException extends Exception {
      * Default constructor method.
      */
     public UndefinedTaskException() {
-        super("✿ Shnoop ✿: You could travel the world, but nothing comes close to choosing a task type.\n"
-                + "✿ Shnoop ✿: Try typing 'todo', 'event' or 'deadline' followed by stating the task description.");
+        super("You could travel the world, but nothing comes close to choosing a task type.\n\n"
+                + "I have a few California Gorls for you to try out. \n "
+                + "Try typing 'todo', 'event' or 'deadline' followed by stating the task description. \n"
+                + "Other commands you could try out too are list, mark, unmark, find \n"
+                + "And don't tell anyone else I told you this but you can also type 'list 1' to sort tasks!");
     }
 }

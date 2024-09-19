@@ -96,7 +96,7 @@ public class Shnoop {
             commandType = c.getClass().getSimpleName();
             return output;
         } catch (ShnoopException | IOException | IncompleteEventOrDeadlineException e) {
-            return "Error: " + e.getMessage();
+            return e.getMessage();
         }
     }
 
