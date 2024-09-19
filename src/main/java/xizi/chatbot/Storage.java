@@ -78,46 +78,60 @@ public class Storage {
     private static Task getTask(String line) throws XiziException {
         String[] parts = line.split(" \\| ");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy, h:mma");
-        // same as output format in xizi class
-        Task task;
-        String taskType = parts[0];
-        String description = parts[2];
-        switch (taskType) {
-        case "T":
-            task = new Todo(description);
-            break;
-        case "D":
-            LocalDateTime ddl = LocalDateTime.parse(parts[3], formatter);
-            task = new Deadline(description, ddl);
-            break;
-        case "E":
-            LocalDateTime from = LocalDateTime.parse(parts[3], formatter);
-            LocalDateTime to = LocalDateTime.parse(parts[4], formatter);
-            task = new Event(description, from, to);
-            break;
-        default:
-            throw new XiziException("File data corrupted: Unknown task type.");
+
+        if (parts.length < 3) {
+            throw new XiziException("File data corrupted: Insufficient data.");
         }
+
+        Task task = createTask(parts, formatter);
         if (parts[1].equals("1")) {
             task.markDone();
         }
-        int tagsIndex = taskType.equals("T") ? 3 : (taskType.equals("D") ? 4 : 5);
-        if (parts.length > tagsIndex) {
+        addTags(task, parts, parts.length);
+
+        return task;
+    }
+
+    private static Task createTask(String[] parts, DateTimeFormatter formatter) throws XiziException {
+        String taskType = parts[0];
+        String description = parts[2];
+
+        switch (taskType) {
+        case "T":
+            return new Todo(description);
+        case "D":
+            LocalDateTime ddl = LocalDateTime.parse(parts[3], formatter);
+            return new Deadline(description, ddl);
+        case "E":
+            LocalDateTime from = LocalDateTime.parse(parts[3], formatter);
+            LocalDateTime to = LocalDateTime.parse(parts[4], formatter);
+            return new Event(description, from, to);
+        default:
+            throw new XiziException("File data corrupted: Unknown task type.");
+        }
+    }
+
+    private static void addTags(Task task, String[] parts, int length) {
+        int tagsIndex = getTagsIndex(parts[0]);
+        if (length > tagsIndex) {
             String tagsPart = parts[tagsIndex].trim();
-            if (tagsPart.isEmpty()) {
-                return task; //return directly without appending the tags
-            }
-            // Ensure that tags are correctly split without #
-            String[] tagsArray = tagsPart.split(", ");
-            for (String tag : tagsArray) {
-                if (!tag.isEmpty()) {
-                    // Add tag directly (without #)
-                    task.addTag(tag);
+            if (!tagsPart.isEmpty()) {
+                for (String tag : tagsPart.split(", ")) {
+                    if (!tag.isEmpty()) {
+                        task.addTag(tag);
+                    }
                 }
             }
         }
+    }
 
-        return task;
+    private static int getTagsIndex(String taskType) {
+        return switch (taskType) {
+        case "T" -> 3;
+        case "D" -> 4;
+        case "E" -> 5;
+        default -> throw new IllegalArgumentException("Unknown task type: " + taskType);
+        };
     }
 
     /**
