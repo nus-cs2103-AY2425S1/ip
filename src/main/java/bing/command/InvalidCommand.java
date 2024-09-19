@@ -4,6 +4,8 @@ import bing.storage.Storage;
 import bing.task.TaskList;
 import bing.ui.Ui;
 
+import java.io.IOException;
+
 /**
  * Represents a command that indicates an invalid command input.
  */
@@ -17,8 +19,8 @@ public class InvalidCommand implements Command {
      * @param storage The storage to save or load tasks.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showError("Invalid command!");
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+        return ui.showError("Invalid command!");
     }
 
     /**

@@ -4,6 +4,8 @@ import bing.storage.Storage;
 import bing.task.TaskList;
 import bing.ui.Ui;
 
+import java.io.IOException;
+
 /**
  * Represents command that can be executed in the task management system.
  */
@@ -16,7 +18,7 @@ public interface Command {
      * @param ui the user interface
      * @param storage the storage for tasks
      */
-    void execute(TaskList tasks, Ui ui, Storage storage);
+    String execute(TaskList tasks, Ui ui, Storage storage) throws IOException;
 
 
     /**

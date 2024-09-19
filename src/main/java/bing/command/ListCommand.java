@@ -4,6 +4,8 @@ import bing.storage.Storage;
 import bing.task.TaskList;
 import bing.ui.Ui;
 
+import java.io.IOException;
+
 /**
  * Represents a command to list all tasks.
  */
@@ -17,8 +19,8 @@ public class ListCommand implements Command {
      * @param storage The storage to save or load tasks.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showTasks(tasks);
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+        return ui.showTasks(tasks);
     }
 
     /**

@@ -4,6 +4,8 @@ import bing.storage.Storage;
 import bing.task.TaskList;
 import bing.ui.Ui;
 
+import java.io.IOException;
+
 /**
  * Represents a command to terminate the program.
  */
@@ -17,9 +19,9 @@ public class ByeCommand implements Command {
      * @param storage The storage to save or load tasks.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         // Print the exit message directly
-        ui.showByeMessage();
+        return ui.showByeMessage();
     }
 
     /**

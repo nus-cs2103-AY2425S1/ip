@@ -4,6 +4,8 @@ import bing.storage.Storage;
 import bing.task.TaskList;
 import bing.ui.Ui;
 
+import java.io.IOException;
+
 public class FindCommand implements Command {
 
     private String keyword;
@@ -13,9 +15,9 @@ public class FindCommand implements Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         TaskList matchingTasks = tasks.findTasksByKeyword(keyword);
-        ui.showTasks(matchingTasks);
+        return ui.showTasks(matchingTasks);
     }
 
     @Override
