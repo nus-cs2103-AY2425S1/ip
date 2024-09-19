@@ -38,15 +38,7 @@ public class Storage {
      */
     public void loadFromFile(TaskList taskList) throws Elseption {
         try {
-            if (Files.notExists(dirPath)) {
-                Files.createDirectory(dirPath);
-                Files.createFile(filePath);
-                return;
-
-            } else if (Files.notExists(filePath)) {
-                Files.createFile(filePath);
-                return;
-            }
+            ensureFileExists();
 
             File f = new File(filePath.toString());
             Scanner s = new Scanner(f);
@@ -57,24 +49,12 @@ public class Storage {
                 boolean isDone = !row[1].strip().equals("0");
                 String description = row[2].strip();
 
-                if (taskType.equals("T")) {
-                    task = ToDoTask.of("todo " + description);
-
-                } else if (taskType.equals("D")) {
-                    task = DeadlineTask.of("deadline " + description + " /by " + row[3].strip());
-
-                } else if (taskType.equals("E")) {
-                    task = EventTask.of("event " + description + " /from " + row[3].strip()
-                            + " /to " + row[4].strip());
-                }
+                task = getTask(taskType, description, row, isDone);
 
                 assert task != null : "Save file should only store task data";
 
                 if (task != null) {
                     taskList.addToList(task);
-                    if (isDone) {
-                        task.markAsDone();
-                    }
                 }
             }
 
@@ -93,13 +73,7 @@ public class Storage {
      */
     public void writeToFile(TaskList taskList) throws Elseption {
         try {
-            if (Files.notExists(dirPath)) {
-                Files.createDirectory(dirPath);
-                Files.createFile(filePath);
-
-            } else if (Files.notExists(filePath)) {
-                Files.createFile(filePath);
-            }
+            ensureFileExists();
 
             assert Files.exists(dirPath) : "Directory does not exist";
             assert Files.exists(filePath) : "File does not exist";
@@ -111,5 +85,39 @@ public class Storage {
         } catch (IOException e) {
             throw new Elseption("there hath been a failure in saving your work");
         }
+    }
+
+    private void ensureFileExists() throws IOException {
+        if (Files.notExists(dirPath)) {
+            Files.createDirectory(dirPath);
+            Files.createFile(filePath);
+
+        } else if (Files.notExists(filePath)) {
+            Files.createFile(filePath);
+        }
+    }
+
+    private Task getTask(String taskType, String description, String[] row, boolean isDone)
+            throws Elseption {
+        Task task = null;
+
+        switch (taskType) {
+        case "T":
+            task = ToDoTask.of("todo " + description);
+            break;
+        case "D":
+            task = DeadlineTask.of("deadline " + description + " /by " + row[3].strip());
+            break;
+        case "E":
+            task = EventTask.of("event " + description + " /from " + row[3].strip() + " /to " + row[4].strip());
+            break;
+        default:
+            assert false;
+            break;
+        }
+        if (isDone) {
+            task.markAsDone();
+        }
+        return task;
     }
 }

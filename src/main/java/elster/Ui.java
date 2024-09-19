@@ -44,13 +44,7 @@ public class Ui {
      * Prints a welcome message for users. Has a pretty ASCII logo.
      */
     public String welcomeMessage() {
-        String resultStr = "___________.__            __\n"
-                + "\\_   _____/|  |   _______/  |_  ___________\n"
-                + " |    __)_ |  |  /  ___/\\   __\\/ __ \\_  __ \\\n"
-                + " |        \\|  |__\\___ \\  |  | \\  ___/|  | \\/\n"
-                + "/_______  /|____/____  > |__|  \\___  >__|\n"
-                + "        \\/           \\/            \\/\n";
-        resultStr += "Hello, \"greetings\" from your friendly neighbourhood chatbot Elster..\n";
+        String resultStr = "Hello, \"greetings\" from your friendly neighbourhood chatbot Elster..\n";
         resultStr += "How can I help you today :|";
         return resultStr;
     }

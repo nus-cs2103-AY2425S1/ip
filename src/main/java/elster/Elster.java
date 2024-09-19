@@ -1,12 +1,17 @@
 package elster;
 
 import java.nio.file.Path;
-import java.util.List;
 
-import elster.tasks.DeadlineTask;
-import elster.tasks.EventTask;
-import elster.tasks.Task;
-import elster.tasks.ToDoTask;
+import elster.commands.ByeCommand;
+import elster.commands.Command;
+import elster.commands.DeadlineCommand;
+import elster.commands.DeleteCommand;
+import elster.commands.EventCommand;
+import elster.commands.FindCommand;
+import elster.commands.ListCommand;
+import elster.commands.MarkCommand;
+import elster.commands.TodoCommand;
+import elster.commands.UnmarkCommand;
 
 /**
  * Elster class that handles the logic for processing user inputs.
@@ -35,72 +40,51 @@ public class Elster {
     }
 
     /**
+     * Method called when the GUI is initialised.
+     * @return welcome message.
+     */
+    public String guiInitiliasation() {
+        return ui.welcomeMessage();
+    }
+
+    /**
      * Run function of the Elster instance, handles the loading of the save file from storage as
      * well as general logic of the chatbot.
      */
     public String parse(String input) {
-        try {
-            input = input.strip().toLowerCase();
-            if (input.equals("bye")) {
-                return ui.goodbyeMessage();
+        input = input.strip().toLowerCase();
+        Command command = null;
+        if (input.startsWith("bye")) {
+            command = ByeCommand.of(ui, taskList, storage, input);
 
-            } else if (input.equals("list")) {
-                return ui.printList(taskList);
+        } else if (input.startsWith("list")) {
+            command = ListCommand.of(ui, taskList, storage, input);
 
-            } else if (input.startsWith("deadline")) {
-                DeadlineTask task = DeadlineTask.of(input);
-                assert task != null : "Bug creating deadline task";
-                taskList.addToList(task);
-                storage.writeToFile(taskList);
-                return ui.addTaskMessage(taskList, task);
+        } else if (input.startsWith("deadline")) {
+            command = DeadlineCommand.of(ui, taskList, storage, input);
 
-            } else if (input.startsWith("event")) {
-                EventTask task = EventTask.of(input);
-                assert task != null : "Bug creating event task";
-                taskList.addToList(task);
-                storage.writeToFile(taskList);
-                return ui.addTaskMessage(taskList, task);
+        } else if (input.startsWith("event")) {
+            command = EventCommand.of(ui, taskList, storage, input);
 
-            } else if (input.startsWith("delete")) {
-                int index = Integer.parseInt(input.substring(7).strip());
+        } else if (input.startsWith("delete")) {
+            command = DeleteCommand.of(ui, taskList, storage, input);
 
-                Task task = taskList.deleteTask(index);
-                assert task != null : "Bug when deleting task";
-                return ui.deleteTaskMessage(taskList, task);
+        } else if (input.startsWith("todo")) {
+            command = TodoCommand.of(ui, taskList, storage, input);
 
+        } else if (input.startsWith("mark")) {
+            command = MarkCommand.of(ui, taskList, storage, input);
 
-            } else if (input.startsWith("todo")) {
-                ToDoTask task = ToDoTask.of(input);
-                assert task != null : "Bug creating todo task";
-                taskList.addToList(task);
-                storage.writeToFile(taskList);
-                return ui.addTaskMessage(taskList, task);
+        } else if (input.startsWith("unmark")) {
+            command = UnmarkCommand.of(ui, taskList, storage, input);
 
-            } else if (input.startsWith("mark")) {
-                int index = Integer.parseInt(input.substring(5).strip());
-
-                if (taskList.markTaskAsDone(index)) {
-                    storage.writeToFile(taskList);
-                    return ui.taskDoneMessage(taskList.getTask(index));
-                }
-
-            } else if (input.startsWith("unmark")) {
-                int index = Integer.parseInt(input.substring(7).strip());
-
-                if (taskList.unmarkTaskAsUndone(index)) {
-                    storage.writeToFile(taskList);
-                    return ui.taskUndoneMessage(taskList.getTask(index));
-                }
-
-            } else if (input.startsWith("find")) {
-                List<Task> foundTasks = taskList.findByDescription(input.substring(5).strip());
-                return ui.findByDescriptionMessage(foundTasks);
-
-            }
-
-        } catch (Elseption e) {
-            return ui.printErrorMessage(e.getMessage());
+        } else if (input.startsWith("find")) {
+            command = FindCommand.of(ui, taskList, storage, input);
         }
-        return ui.nonsenseErrorMessage();
+        if (command != null) {
+            return command.execute();
+        } else {
+            return ui.nonsenseErrorMessage();
+        }
     }
 }
