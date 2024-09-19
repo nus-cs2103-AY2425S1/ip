@@ -30,7 +30,7 @@ public class DeleteCommand extends Command {
     @Override
     public String execute(String userInput, Storage storage, Ui ui, TaskList tasks) {
         try {
-            Task taskDeleted = tasks.deleteTask(userInput, ui, storage);
+            Task taskDeleted = tasks.deleteTask(userInput, storage);
             return ui.printDelete(taskDeleted, tasks);
         } catch (ChaChaException e) {
             return MISSING_INDEX;

@@ -2,7 +2,6 @@ package chacha.task;
 
 /**
  * Represents the Task of users.
- *
  */
 public class Task {
     protected String description;
@@ -58,6 +57,12 @@ public class Task {
         return "|";
     }
 
+    /**
+     * Checks if the input string in contained in the description.
+     *
+     * @param input The input string to search for.
+     * @return True if the input string is found in description, false otherwise.
+     */
     public boolean compareText(String input) {
         return this.description.contains(input);
     }

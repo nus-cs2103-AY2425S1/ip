@@ -70,7 +70,11 @@ public class MainWindow extends AnchorPane {
         }
     }
 
+    /**
+     * Closes the application after receiving certain input.
+     */
     private void closeApplication() {
+        // Used AI to learn how to close the application with response to certain input.
         PauseTransition delay = new PauseTransition(Duration.seconds(1));
         delay.setOnFinished(action -> Platform.exit());
         delay.play();

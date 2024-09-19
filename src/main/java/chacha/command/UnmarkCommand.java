@@ -30,7 +30,7 @@ public class UnmarkCommand extends Command {
     @Override
     public String execute(String userInput, Storage storage, Ui ui, TaskList tasks) {
         try {
-            Task taskUnmarked = tasks.markUndone(userInput, ui, storage);
+            Task taskUnmarked = tasks.markUndone(userInput, storage);
             return ui.printUnmark(taskUnmarked);
         } catch (ChaChaException e) {
             return MISSING_FIELD;

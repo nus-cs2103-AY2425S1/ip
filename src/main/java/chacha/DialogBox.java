@@ -36,6 +36,8 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+
+        // Used AI for help with the creation of the circle outline around profile pictures.
         Circle circleOutline = new Circle(displayPicture.getFitWidth() / 2,
                 displayPicture.getFitHeight() / 2,
                 displayPicture.getFitWidth() / 2);
@@ -52,10 +54,24 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Creates a DialogBox for the user.
+     *
+     * @param text The text content for the dialog box.
+     * @param img The image of user's profile picture.
+     * @return A DialogBox object.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Creates a DialogBox for  ChaCha.
+     *
+     * @param text The text content for the dialog box.
+     * @param img The image of ChaCha's profile picture.
+     * @return A DialogBox object.
+     */
     public static DialogBox getChaChaDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

@@ -31,7 +31,7 @@ public class FindCommand extends Command {
     @Override
     public String execute(String userInput, Storage storage, Ui ui, TaskList tasks) {
         try {
-            ArrayList<Task> results = tasks.find(userInput, ui);
+            ArrayList<Task> results = tasks.find(userInput);
 
             if (results.isEmpty()) {
                 return "There are no matching tasks in your list.";

@@ -1,7 +1,7 @@
 package chacha.task;
 
 /**
- * Represents the Task that is a To Do for the user.
+ * Represents the Task that is a ToDo for the user.
  *
  */
 public class ToDoTask extends Task {

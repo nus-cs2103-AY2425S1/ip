@@ -17,8 +17,7 @@ import chacha.command.UnmarkCommand;
 import chacha.task.TaskList;
 
 /**
- * Parses user inputs and matches them to the respective action.
- *
+ * Provides methods to parse user inputs and matches them to the respective action.
  */
 public class CommandParser {
     private Storage storage;
@@ -27,7 +26,7 @@ public class CommandParser {
     private ChaCha chacha;
 
     /**
-     * Creates a Parser object with the specified components
+     * Constructs a Parser object with the specified components.
      *
      * @param chacha ChaCha object
      * @param storage Storage of ChaCha

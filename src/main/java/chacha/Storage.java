@@ -5,10 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.Time;
-import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import chacha.parser.DateParser;
@@ -21,7 +18,6 @@ import chacha.task.ToDoTask;
 
 /**
  * Handles the loading of and saving into chacha.txt.
- *
  */
 public class Storage {
     protected String filePath;
@@ -32,7 +28,7 @@ public class Storage {
      * Creates a Storage object with specified filePath.
      *
      * @param filePath Path of file that is to be accessed.
-     * @throws IOException
+     * @throws IOException if an I/O error occurs.
      */
     public Storage(String filePath) throws IOException {
         this.filePath = filePath;
@@ -44,10 +40,10 @@ public class Storage {
 
     /**
      * Loads the list of tasks saved in chacha.txt.
-     * Returns them as the list of <code>Task</code> as an <code>ArrayList</code>.
+     * Returns them as the list of Task as an ArrayList.
      *
      * @return ArrayList of Task.
-     * @throws IOException if an I/O exception occurs.
+     * @throws IOException if an I/O error occurs.
      */
     public ArrayList<Task> load() throws IOException {
         ArrayList<Task> listOfTasks = new ArrayList<>();

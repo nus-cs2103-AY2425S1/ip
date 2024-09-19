@@ -14,6 +14,5 @@ public abstract class Command {
     public Command(ChaCha chacha) {
         this.chacha = chacha;
     }
-
     public abstract String execute(String userInput, Storage storage, Ui ui, TaskList tasks);
 }

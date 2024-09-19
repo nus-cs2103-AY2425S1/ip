@@ -1,9 +1,9 @@
 package chacha.exception;
 
 /**
- * Represents a custom exception in response to wrong event command format.
+ * Represents a custom exception in response to wrong command format.
  */
-public class EventTimeException extends Exception {
+public class WrongCommandFormatException extends Exception {
     private static final String START_TIME_MSG = "Please type start time in the form of \'from ...\'.";
     private static final String END_TIME_MSG = "Please type end time in the form of \'to ...\'.";
     private static final String DEADLINE_MSG = "Please type deadline in the form of \'by ...\'.";
@@ -12,7 +12,7 @@ public class EventTimeException extends Exception {
     /**
      * Constructs a new EventTimeException with a specified error message
      */
-    public EventTimeException(String type) {
+    public WrongCommandFormatException(String type) {
         switch (type) {
         case "start":
             this.msg = START_TIME_MSG;
@@ -28,6 +28,11 @@ public class EventTimeException extends Exception {
         }
     }
 
+    /**
+     * Returns the error message.
+     *
+     * @return String representation of the message
+     */
     @Override
     public String toString() {
         return this.msg;

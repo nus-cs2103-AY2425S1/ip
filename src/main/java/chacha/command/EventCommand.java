@@ -1,12 +1,10 @@
 package chacha.command;
 
-import java.time.DateTimeException;
-
 import chacha.ChaCha;
 import chacha.Storage;
 import chacha.Ui;
 import chacha.exception.ChaChaException;
-import chacha.exception.EventTimeException;
+import chacha.exception.WrongCommandFormatException;
 import chacha.exception.WrongDateFormatException;
 import chacha.exception.WrongTimeFormatException;
 import chacha.task.Task;
@@ -39,7 +37,7 @@ public class EventCommand extends Command {
             return ui.printAdd(taskAdded, tasks);
         } catch (ChaChaException e) {
             return MISSING_EVENT_FIELD_MSG;
-        } catch (EventTimeException e) {
+        } catch (WrongCommandFormatException e) {
             return e.toString();
         } catch (WrongDateFormatException e) {
             return e.toString();

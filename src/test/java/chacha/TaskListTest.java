@@ -31,7 +31,7 @@ public class TaskListTest {
     @Test
     public void deleteTask_missingIndex_exceptionMessage() {
         try {
-            Task task = tasks.deleteTask("delete", ui, storage);
+            Task task = tasks.deleteTask("delete", storage);
         } catch (ChaChaException e) {
             String actual = e.getMessage().split("\n")[1].substring(5);
             assertEquals("You are missing the index of task you want to delete. ", actual);
@@ -41,7 +41,7 @@ public class TaskListTest {
     @Test
     public void markDone_missingIndex_exceptionMessage() {
         try {
-            Task task = tasks.markDone("mark", ui, storage);
+            Task task = tasks.markDone("mark", storage);
         } catch (ChaChaException e) {
             String actual = e.getMessage().split("\n")[1].substring(5);
             assertEquals("You are missing the index of task you want to mark. ", actual);
@@ -51,7 +51,7 @@ public class TaskListTest {
     @Test
     public void markUndone_missingIndex_exceptionMessage() {
         try {
-            Task task = tasks.markUndone("unmark", ui, storage);
+            Task task = tasks.markUndone("unmark", storage);
         } catch (ChaChaException e) {
             String actual = e.getMessage().split("\n")[1].substring(5);
             assertEquals("You are missing the index of task you want to unmark. ", actual);
@@ -61,7 +61,7 @@ public class TaskListTest {
     @Test
     public void find_missingText_exceptionMessage() {
         try {
-            ArrayList<Task> list = tasks.find("find", ui);
+            ArrayList<Task> list = tasks.find("find");
         } catch (ChaChaException e) {
             String actual = e.getMessage().split("\n")[1].substring(5);
             assertEquals("You are missing the text you want to find. ", actual);

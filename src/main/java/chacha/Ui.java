@@ -1,9 +1,7 @@
 package chacha;
 
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import chacha.parser.TimeParser;
@@ -77,7 +75,7 @@ public class Ui {
     }
 
     /**
-     * Returns string representation including LINE and tasks in the array.
+     * Returns string representation including tasks in the array.
      *
      * @param arrOfTasks Array of tasks to be added formatted with LINE.
      * @return String representation.

@@ -35,6 +35,5 @@ public class ToDoCommand extends Command {
         } catch (ChaChaException e) {
             return MISSING_FIELD;
         }
-
     }
 }

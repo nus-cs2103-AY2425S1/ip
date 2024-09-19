@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import chacha.Storage;
 import chacha.Ui;
 import chacha.exception.ChaChaException;
-import chacha.exception.EventTimeException;
+import chacha.exception.WrongCommandFormatException;
 import chacha.exception.WrongDateFormatException;
 import chacha.exception.WrongTimeFormatException;
 import chacha.parser.DateParser;
@@ -15,13 +15,12 @@ import chacha.parser.TimeParser;
 
 /**
  * Represents a list of tasks that the users wants to keep track of.
- *
  */
 public class TaskList {
     private ArrayList<Task> tasks;
 
     public TaskList() {
-        this.tasks = new ArrayList<Task>();
+        this.tasks = new ArrayList<>();
     }
 
     public TaskList(ArrayList<Task> tasks) {
@@ -78,7 +77,7 @@ public class TaskList {
      * @throws ChaChaException if the command is not inputted correctly.
      */
     public Task addEvent(String cmd, Ui ui, Storage storage) throws ChaChaException,
-            EventTimeException, WrongTimeFormatException, WrongDateFormatException {
+            WrongCommandFormatException, WrongTimeFormatException, WrongDateFormatException {
         if (cmd.length() <= 6) {
             throw new ChaChaException();
         }
@@ -88,20 +87,18 @@ public class TaskList {
         if (arr.length < 4) {
             throw new ChaChaException();
         }
-
         String description = arr[0];
         if (!arr[2].startsWith("from")) {
-            throw new EventTimeException("start");
+            throw new WrongCommandFormatException("start");
         }
         if (!arr[3].startsWith("to")) {
-            throw new EventTimeException("end");
+            throw new WrongCommandFormatException("end");
         }
 
         LocalDate date = DateParser.parseDate(arr[1]);
         if (date == null) {
             throw new WrongDateFormatException();
         }
-
         LocalTime startTime = TimeParser.parseStringToTime(arr[2].substring(5));
         LocalTime endTime = TimeParser.parseStringToTime(arr[3].substring(3));
         if (startTime == null || endTime == null) {
@@ -112,7 +109,6 @@ public class TaskList {
         this.tasks.add(task);
 
         storage.writeFile(ui.printEvent(description, date, startTime, endTime));
-
         return task;
     }
 
@@ -125,7 +121,7 @@ public class TaskList {
      * @return DeadlineTask.
      * @throws ChaChaException if the command is not inputted correctly.
      */
-    public Task addDeadline(String cmd, Ui ui, Storage storage) throws ChaChaException, EventTimeException {
+    public Task addDeadline(String cmd, Ui ui, Storage storage) throws ChaChaException, WrongCommandFormatException {
         if (cmd.length() <= 9) {
             throw new ChaChaException();
         }
@@ -138,7 +134,7 @@ public class TaskList {
 
         String description = arr[0];
         if (!arr[1].startsWith("by")) {
-            throw new EventTimeException("deadline");
+            throw new WrongCommandFormatException("deadline");
         }
 
         LocalDate date = DateParser.parseDate(arr[1].substring(3));
@@ -168,12 +164,11 @@ public class TaskList {
      * Returns Task that is deleted from the list.
      *
      * @param cmd Command.
-     * @param ui Ui.
      * @param storage Storage.
      * @return Task deleted.
      * @throws ChaChaException if the command is not inputted correctly.
      */
-    public Task deleteTask(String cmd, Ui ui, Storage storage) throws ChaChaException {
+    public Task deleteTask(String cmd, Storage storage) throws ChaChaException {
         if (cmd.length() <= 7) {
             throw new ChaChaException();
         }
@@ -188,12 +183,11 @@ public class TaskList {
      * Returns Task that is marked done in the list.
      *
      * @param cmd Command.
-     * @param ui Ui.
      * @param storage Storage.
      * @return Task marked done.
      * @throws ChaChaException if the command is not inputted correctly.
      */
-    public Task markDone(String cmd, Ui ui, Storage storage) throws ChaChaException {
+    public Task markDone(String cmd, Storage storage) throws ChaChaException {
         if (cmd.length() <= 5) {
             throw new ChaChaException();
         }
@@ -208,12 +202,11 @@ public class TaskList {
      * Returns Task that is marked undone in the list.
      *
      * @param cmd Command.
-     * @param ui Ui.
      * @param storage Storage.
      * @return Task marked undone.
      * @throws ChaChaException if the command is not inputted correctly.
      */
-    public Task markUndone(String cmd, Ui ui, Storage storage) throws ChaChaException {
+    public Task markUndone(String cmd, Storage storage) throws ChaChaException {
         if (cmd.length() <= 7) {
             throw new ChaChaException();
         }
@@ -229,11 +222,10 @@ public class TaskList {
      * Returns the Tasks in ArrayList.
      *
      * @param cmd Command
-     * @param ui UI
      * @return List of Task.
      * @throws ChaChaException if the command is not inputted correctly.
      */
-    public ArrayList<Task> find(String cmd, Ui ui) throws ChaChaException {
+    public ArrayList<Task> find(String cmd) throws ChaChaException {
         if (cmd.length() <= 5) {
             throw new ChaChaException();
         }

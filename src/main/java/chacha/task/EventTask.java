@@ -6,10 +6,8 @@ import java.time.format.DateTimeFormatter;
 
 import chacha.parser.TimeParser;
 
-
 /**
  * Represents the Task that is an Event for the user.
- *
  */
 public class EventTask extends Task {
     protected LocalDate date;
@@ -49,6 +47,8 @@ public class EventTask extends Task {
 
     /**
      * Returns a string representation to be written in chacha.txt.
+     *
+     * @return String representation.
      */
     @Override
     public String writeTask() {

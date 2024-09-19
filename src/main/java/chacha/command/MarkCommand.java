@@ -30,7 +30,7 @@ public class MarkCommand extends Command {
     @Override
     public String execute(String userInput, Storage storage, Ui ui, TaskList tasks) {
         try {
-            Task taskMarked = tasks.markDone(userInput, ui, storage);
+            Task taskMarked = tasks.markDone(userInput, storage);
 
             return ui.printMark(taskMarked);
         } catch (ChaChaException e) {
