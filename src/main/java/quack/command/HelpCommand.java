@@ -2,6 +2,9 @@ package quack.command;
 
 import quack.util.Ui;
 
+/**
+ * This class is responsible for handling the help command in Quack.
+ */
 public class HelpCommand extends Command {
 
     /** Ui to handle all user display interactions */
@@ -26,5 +29,4 @@ public class HelpCommand extends Command {
         ui.printHelpMessage();
         this.completeCommand();
     };
-    
 }
