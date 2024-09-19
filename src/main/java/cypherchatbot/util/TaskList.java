@@ -7,7 +7,8 @@ import java.util.stream.Collectors;
 
 import cypherchatbot.CypherException;
 import cypherchatbot.task.Task;
-import cypherchatbot.task.TaskComparator;
+import cypherchatbot.task.TaskAscendingComparator;
+import cypherchatbot.task.TaskDescendingComparator;
 
 
 /**
@@ -104,18 +105,17 @@ public class TaskList {
 
 
     public ArrayList<Task> sortAscending() {
-        Comparator<? super Task> comparator = new TaskComparator();
+        Comparator<? super Task> comparator = new TaskAscendingComparator();
         ArrayList<Task> sortedList = new ArrayList<>(this.taskList);
         sortedList.sort(comparator);
         return sortedList;
     }
 
     public ArrayList<Task> sortDescending() {
-        Comparator<? super Task> comparator = new TaskComparator();
+        Comparator<? super Task> comparator = new TaskDescendingComparator();
         ArrayList<Task> sortedList = new ArrayList<>(this.taskList);
         sortedList.sort(comparator);
         Collections.reverse(sortedList);
-
         return sortedList;
     }
 
