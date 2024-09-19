@@ -2,6 +2,7 @@ package Gary.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Represents a Deadline task, which has a description and a date by which the task is due.
@@ -9,16 +10,17 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
 
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy");
-
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    private LocalDate deadline; // The due date of the deadline task
+    // The due date of the deadline task
+    private final LocalDate deadline;
 
     /**
      * Constructs a {@code Deadline} object with the specified description and due date.
      *
      * @param description The description of the deadline task.
      * @param dueDate The due date of the task in "yyyy-MM-dd" format.
+     * @throws IllegalArgumentException if the due date is in an invalid format.
      */
     public Deadline(String description, String dueDate) {
         super(description);
@@ -28,14 +30,18 @@ public class Deadline extends Task {
     }
 
     /**
-     * Parses the given date string in the format "yyyy-MM-dd" and returns a LocalDate object.
+     * Parses the given date string in the format "yyyy-MM-dd" and returns a {@code LocalDate} object.
      *
      * @param dateTime The date string to be parsed.
-     * @return A LocalDate object representing the parsed date.
+     * @return A {@code LocalDate} object representing the parsed date.
+     * @throws IllegalArgumentException if the date string is in an invalid format.
      */
     private LocalDate parseDate(String dateTime) {
-        assert dateTime != null : "Date string should not be null";
-        return LocalDate.parse(dateTime, INPUT_FORMATTER);
+        try {
+            return LocalDate.parse(dateTime, INPUT_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Invalid date format. Expected format: yyyy-MM-dd.");
+        }
     }
 
     /**
@@ -47,24 +53,19 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        assert this.description != null : "Description should not be null";
-        assert this.deadline != null : "Deadline should not be null";
-        return "[D][" + (this.isDone ? "X" : " ") + "] " + this.description
-                + " (by: " + this.deadline.format(OUTPUT_FORMATTER) + ")";
+        return String.format("[D]%s (by: %s)", super.toString(), this.deadline.format(OUTPUT_FORMATTER));
     }
 
     /**
      * Converts the Deadline task into a string that can be written to a file.
      *
-     * @return A string in the format "D | {isDone} | {description} | {dueDate}", where{isDone} is "1"
+     * @return A string in the format "D | {isDone} | {description} | {dueDate}", where {isDone} is "1"
      *     if done and "0" if not.
      */
     @Override
     public String parseToFile() {
-        assert this.description != null : "Description should not be null";
-        assert this.deadline != null : "Deadline should not be null";
-        return "D | " + (this.isDone ? "1" : "0") + " | " + this.description + " | "
-                + this.deadline.format(INPUT_FORMATTER);
+        return String.format("D | %d | %s | %s", this.isDone ? 1 : 0, this.description,
+                this.deadline.format(INPUT_FORMATTER));
     }
 
     /**
@@ -79,7 +80,7 @@ public class Deadline extends Task {
         if (this == obj) {
             return true;
         }
-        if (obj == null || this.getClass() != obj.getClass()) {
+        if (!(obj instanceof Deadline)) {
             return false;
         }
         Deadline otherDeadline = (Deadline) obj;

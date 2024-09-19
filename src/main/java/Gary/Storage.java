@@ -13,7 +13,6 @@ import Gary.task.Task;
  * The {@code Storage} class handles loading and saving tasks to and from a file.
  */
 public class Storage {
-    // Path to the file where tasks are stored
     private final String filePath;
 
     /**
@@ -37,30 +36,42 @@ public class Storage {
      */
     public Scanner loadTaskList() throws FileNotFoundException {
         File file = new File(this.filePath);
-        File directory = new File("src/textFile");
-
-        if (!directory.exists()) {
-            // Assertion: Ensure that directory creation is successful
-            boolean dirCreated = directory.mkdir();
-            assert dirCreated : "Failed to create directory";
-        }
-
-        if (!file.exists()) {
-            try {
-                // Create the file if it does not exist
-                boolean fileCreated = file.createNewFile();
-                // Assertion: Ensure that the file creation is successful
-                assert fileCreated : "Failed to create file";
-            } catch (IOException e) {
-                // Assertion: Ensure that no IOException occurs during file creation
-                assert false : "IOException occurred while creating file: " + e.getMessage();
-            }
-        }
-
+        createDirectoryIfNotExists(file.getParentFile());
+        createFileIfNotExists(file);
         // Assertion: Ensure the file exists after attempting to create it
         assert file.exists() : "File should exist after creation attempt";
 
         return new Scanner(file);
+    }
+
+    /**
+     * Creates the directory if it does not exist.
+     *
+     * @param directory The directory to create.
+     */
+    private void createDirectoryIfNotExists(File directory) {
+        if (directory != null && !directory.exists()) {
+            if (!directory.mkdirs()) {
+                System.err.println("Failed to create directory: " + directory);
+            }
+        }
+    }
+
+    /**
+     * Creates the file if it does not exist.
+     *
+     * @param file The file to create.
+     */
+    private void createFileIfNotExists(File file) {
+        if (!file.exists()) {
+            try {
+                if (!file.createNewFile()) {
+                    System.err.println("Failed to create file: " + file);
+                }
+            } catch (IOException e) {
+                System.err.println("Error creating file: " + e.getMessage());
+            }
+        }
     }
 
     /**
@@ -75,20 +86,16 @@ public class Storage {
         assert taskList != null : "TaskList cannot be null";
 
         File file = new File(filePath);
-        FileWriter fileWriter = new FileWriter(file);
-        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-
-        for (int i = 0; i < taskList.size(); i++) {
-            Task task = taskList.getTask(i);
-
-            // Assertion: Ensure task is not null before writing
-            assert task != null : "Task cannot be null when saving to file";
-
-            bufferedWriter.write(task.parseToFile());
-            bufferedWriter.newLine();
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file))) {
+            for (int i = 0; i < taskList.size(); i++) {
+                Task task = taskList.getTask(i);
+                bufferedWriter.write(task.parseToFile());
+                bufferedWriter.newLine();
+            }
+        } catch (IOException e) {
+            System.err.println("Error saving tasks to file: " + e.getMessage());
+            throw e; // rethrow the exception to indicate failure
         }
-
-        bufferedWriter.close();
     }
 }
 

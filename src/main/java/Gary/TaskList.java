@@ -14,7 +14,6 @@ import Gary.task.ToDo;
  */
 public class TaskList {
 
-    // List to store tasks
     private ArrayList<Task> tasks;
 
     /**
@@ -35,49 +34,70 @@ public class TaskList {
         assert sc != null : "Scanner cannot be null";
 
         this.tasks = new ArrayList<>();
+        loadTasksFromScanner(sc);
+    }
+
+    /**
+     * Loads tasks from the given {@code Scanner} and adds them to the task list.
+     *
+     * @param sc The {@code Scanner} object containing task data.
+     */
+    private void loadTasksFromScanner(Scanner sc) {
         while (sc.hasNextLine()) {
             String nextLine = sc.nextLine();
-            String[] split = nextLine.split(" \\| ");
-
-            // Assertion: Ensure that the split line has the correct number of elements
-            assert split.length >= 3 : "Invalid task format";
-
-            String taskType = split[0].trim();
-            boolean isDone = split[1].equals("1");
-
-            switch (taskType) {
-            case "T":
-                Task todo = new ToDo(split[2].trim());
-                tasks.add(todo);
-                if (isDone) {
-                    todo.editStatus();
-                }
-                break;
-            case "D":
-                // Assertion: Ensure the deadline task format has the correct number of fields
-                assert split.length >= 4 : "Invalid deadline task format";
-                Task deadline = new Deadline(split[2].trim(), split[3].trim());
-                tasks.add(deadline);
-                if (isDone) {
-                    deadline.editStatus();
-                }
-                break;
-            case "E":
-                // Assertion: Ensure the event task format has the correct number of fields
-                assert split.length >= 5 : "Invalid event task format";
-                Task event = new Event(split[2].trim(), split[3].trim(), split[4].trim());
-                tasks.add(event);
-                if (isDone) {
-                    event.editStatus();
-                }
-                break;
-            default:
-                // Handle invalid task type if necessary
-                assert false : "Unknown task type: " + taskType;
-                break;
+            try {
+                Task task = parseTask(nextLine);
+                tasks.add(task);
+            } catch (IllegalArgumentException e) {
+                // Handle invalid task format or missing fields
+                System.err.println("Error parsing task: " + e.getMessage());
             }
         }
         sc.close();
+    }
+
+    /**
+     * Parses a task from a line of text.
+     *
+     * @param line The line of text to parse.
+     * @return The parsed {@code Task} object.
+     * @throws IllegalArgumentException if the task format is invalid.
+     */
+    private Task parseTask(String line) {
+        String[] split = line.split(" \\| ");
+        if (split.length < 3) {
+            throw new IllegalArgumentException("Invalid task format");
+        }
+
+        String taskType = split[0].trim();
+        boolean isDone = split[1].equals("1");
+        Task task;
+
+        switch (taskType) {
+        case "T":
+            task = new ToDo(split[2].trim());
+            break;
+        case "D":
+            if (split.length < 4) {
+                throw new IllegalArgumentException("Deadline task missing fields");
+            }
+            task = new Deadline(split[2].trim(), split[3].trim());
+            break;
+        case "E":
+            if (split.length < 5) {
+                throw new IllegalArgumentException("Event task missing fields");
+            }
+            task = new Event(split[2].trim(), split[3].trim(), split[4].trim());
+            break;
+        default:
+            throw new IllegalArgumentException("Unknown task type: " + taskType);
+        }
+
+        if (isDone) {
+            task.editStatus();
+        }
+
+        return task;
     }
 
     /**
