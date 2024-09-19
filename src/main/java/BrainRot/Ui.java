@@ -33,6 +33,9 @@ public class Ui {
     protected static final String LOADINGERROR =
             "OOPS!!! I'm sorry, your database is not loading properly :-(\n";
 
+    protected static final String EDITMSG =
+            "You have added a tag to this task: ";
+
     /** A platform-independent line separator. */
     private static final String LS = System.lineSeparator();
 
@@ -158,6 +161,14 @@ public class Ui {
             return showToUser(sb.toString());
         }
     }
+    /**
+     * Displays the tag added to the task.
+     *
+     * @param tag The tag being added to the task.
+     */
+    public String showTagTaskMsg(String tag) {
+        return showToUser(EDITMSG + tag);
+    }
 
     /**
      * Returns true if the user input line should be ignored.
@@ -198,4 +209,6 @@ public class Ui {
         sb.append(LINE);
         return showToUser(sb.toString());
     }
+
+
 }

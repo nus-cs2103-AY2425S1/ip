@@ -55,6 +55,7 @@ public class BrainRot {
                 case "unmark" -> unmarkTask(details);
                 case "delete" -> deleteTask(details);
                 case "add" -> addTask(details);
+                case "tag" -> tagTask(details);
                 default -> throw new UnknownCommandException("Unknown command");
             };
 
@@ -125,9 +126,9 @@ public class BrainRot {
      * Adds a new task to the task list based on the details provided.
      *
      * @param details The details of the task to be added.
-     * @throws UnknownCommandException If the command to add the task is unknown.
+     * @throws UnknownCommandException  If the command to add the task is unknown.
      * @throws UnknownActivityException If the task description is invalid.
-     * @throws IOException If an I/O error occurs during task saving.
+     * @throws IOException              If an I/O error occurs during task saving.
      */
     private String addTask(String details) throws UnknownCommandException, UnknownActivityException, IOException {
         Task newTask;
@@ -147,4 +148,12 @@ public class BrainRot {
         storage.save(tasks.getTasks());
         return ui.showAddTaskMsg(newTask.toString());
     }
+
+    private String tagTask(String tag) throws IOException {
+        int tagIndex = Integer.parseInt(tag) - 1;
+        tasks.editTask(tagIndex, tag);
+        storage.save(tasks.getTasks());
+        return ui.showTagTaskMsg(tag);
+    }
+
 }
