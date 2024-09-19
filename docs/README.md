@@ -14,7 +14,7 @@ She offers:
 
 ## Setup Guide
 
-1. Download the `KukiShinobu.jar` file from [here](https://github.com/apollo-tan/ip/releases/tag/v0.2).
+1. Download the `KukiShinobu.jar` file from [here](https://github.com/apollo-tan/ip/releases/tag/v0.3).
 2. Move the downloaded file to your preferred directory.
 3. Open your terminal in this directory.
 4. Execute the command:
@@ -49,7 +49,7 @@ She offers:
 - **Output**:
   ```
   Got it. I've added this task:
-  [T][ ] Meet Ningguang for business
+  [T][ ] Meet Ningguang for business [#Liyue #business]
   Now you have 1 task in the list.
   ```
 ---
