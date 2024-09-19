@@ -1,9 +1,10 @@
 package ai.command;
 
+import java.time.LocalDate;
+
 import ai.TaskList;
 import ai.Ui;
 
-import java.time.LocalDate;
 
 /**
  * Executes the command that prints out the tasks that are due on the user specified date.

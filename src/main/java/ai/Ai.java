@@ -1,10 +1,11 @@
 package ai;
 
+import java.io.IOException;
+import java.util.Scanner;
+
 import ai.command.Command;
 import ai.exception.AiException;
 
-import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * Entry point of the programme.

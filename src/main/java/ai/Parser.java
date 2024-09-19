@@ -28,7 +28,8 @@ public class Parser {
      * @param suggestion String of suggestion for correct input.
      * @throws EmptyArgumentAiException Throws exception if arguments is empty.
      */
-    private static void checkArgumentNotEmpty(String arguments, String command, String suggestion) throws EmptyArgumentAiException {
+    private static void checkArgumentNotEmpty(String arguments, String command,
+                                              String suggestion) throws EmptyArgumentAiException {
         if (arguments.length() <= 0) {
             throw new EmptyArgumentAiException(command, suggestion);
         }
