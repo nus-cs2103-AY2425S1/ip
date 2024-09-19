@@ -52,7 +52,7 @@ java -jar bottle.jar
 Make sure to replace `bottle.jar` with the actual name of your jar file.
 ### Sample Product screenshot
 
-![img.png](ui.png)
+![img.png](Ui.png)
 ---
 
 ## 2. Basic Commands
