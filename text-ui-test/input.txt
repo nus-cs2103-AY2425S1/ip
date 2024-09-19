@@ -1,0 +1,19 @@
+todo see book
+todo BORROW book
+deadline read book by Sunday
+DEadliNe retURN book by Monday
+list
+EvEnt meet loser from 6th aug 10pm to 11pm
+deadline PAy Library fine by TUEsday
+event competition from 10th AUg 8am to 19th Aug 10pM
+mark 1
+mark 2
+list
+unmark 2
+list
+mArk 3
+mark 6
+LiSt
+unmaRK 6
+list
+bYe
