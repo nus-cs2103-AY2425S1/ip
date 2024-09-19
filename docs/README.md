@@ -187,19 +187,17 @@ To list tasks on a specific date:
 - Listing tasks for May 12, 2024: `list 2024-05-12`
 
 #### Expected Outcome:
-**For `list` (no date)**:
-- Dipsy will list all the tasks in the current task list, along with their status (whether they are marked as done or not).
-  ```
-  Time to stretch those paws and tackle your tasks!
-  1. [D][ ] Submit report (by: May 12 2024)
-  2. [E][ ] Conference (from: Aug 12 2024 to Aug 14 2024)
-  ```
-**For `list <date>` (with a specific date)**:
-- Dipsy will list all tasks that match the specified date.
-  ```
-  Time to stretch those paws and tackle your tasks!
-  1. [D][ ] Submit report (by: May 12 2024)
-  ```
+For `list` (no date): Dipsy will list all the tasks in the current task list, along with their status (whether they are marked as done or not).
+```
+Time to stretch those paws and tackle your tasks!
+1. [D][ ] Submit report (by: May 12 2024)
+2. [E][ ] Conference (from: Aug 12 2024 to Aug 14 2024)
+```
+For `list <date>` (with a specific date): Dipsy will list all tasks that match the specified date.
+```
+Time to stretch those paws and tackle your tasks!
+1. [D][ ] Submit report (by: May 12 2024)
+```
 
 ### Exiting the Program
 
