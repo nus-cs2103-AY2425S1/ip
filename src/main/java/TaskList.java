@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 /**
  * This class implements a container for tasks, using Java ArrayList.
@@ -49,7 +50,7 @@ public class TaskList {
 
     /**
      * Gets the task at the specfied index of the tasklist
-     * @param index
+     * @param index the index of the task to retrive
      * @return a task
      */
     static Task getTask(int index) {
@@ -107,7 +108,7 @@ public class TaskList {
             //To handle the different types of tasks separately.
             switch (tokens[0]) {
                 case "Event" -> TaskList.add(Event.of(tokens[1],tokens[2],tokens[3],tokens[4]));
-                case "Deadline" -> TaskList.add(Deadline.of(tokens[1],tokens[2],tokens[3]));
+                case "Deadline" -> TaskList.add(Deadline.of(tokens[1],tokens[2], LocalDateTime.parse(tokens[3])));
                 case "Todo" -> TaskList.add(new Todo(tokens[1],tokens[2]));
             }
         }

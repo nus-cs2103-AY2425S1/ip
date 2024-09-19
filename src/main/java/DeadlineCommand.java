@@ -27,9 +27,7 @@ public class DeadlineCommand extends Command{
                 date = deadlineInfo[1].trim();
             }
 
-
-
-            Deadline newDeadline = Deadline.of(deadlineDescription, Task.Status.NOT_DONE, date, time);
+            Deadline newDeadline = Deadline.of(deadlineDescription, date, time);
             return new DeadlineCommand(newDeadline);
         } catch (IndexOutOfBoundsException | DateTimeParseException e) {
             throw new LewisException("Hey, I don't understand your command! Type your " +

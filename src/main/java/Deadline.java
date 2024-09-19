@@ -17,6 +17,19 @@ public class Deadline extends Task{
     }
 
     /**
+     * Factory method for instantiating a deadline. This method should be used when reading a
+     * deadline from file
+     * @param description A string description of the task
+     * @param status The status of the task
+     * @param deadline The deadline as a LocalDateTime object
+     * @return A deadline with those specifications
+     */
+     static Deadline of(String description,String status, LocalDateTime deadline) {
+        Task.Status formattedStatus = Task.Status.valueOf(status);
+        return new Deadline(description, formattedStatus, deadline);
+    }
+
+    /**
      * Factory method for instantiating a deadline. This method should be used to create a new
      * deadline, and is by default not done.
      * @param description A string description of the task
@@ -24,12 +37,14 @@ public class Deadline extends Task{
      * @param time A string representing the time of the deadline in the format HH:MM
      * @return A deadline with those specifications
      */
-     static Deadline of(String description, String date, String time) {
+    static Deadline of(String description, String date, String time) {
         LocalDate formattedDate = LocalDate.parse(date);
         LocalTime formattedTime = LocalTime.parse(time);
         LocalDateTime deadline = LocalDateTime.of(formattedDate,formattedTime);
         return new Deadline(description, Status.NOT_DONE, deadline);
     }
+
+
     @Override
     public String toString() {
         String str = "[D]" +
