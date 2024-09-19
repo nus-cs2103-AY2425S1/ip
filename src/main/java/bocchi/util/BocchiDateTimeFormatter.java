@@ -2,14 +2,21 @@ package bocchi.util;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 /**
  * A utility class to parse date/time strings.
+ * When year is not specified, the current year is used.
+ * When date is not specified at all, the current date is used.
+ * When second is not specified, 00 is used.
+ * When time is not specified at all, 00:00:00 is used.
  */
 public class BocchiDateTimeFormatter {
 
@@ -18,65 +25,115 @@ public class BocchiDateTimeFormatter {
             "yyyy-MM-dd",
             "yyyy-MMM-dd",
             "yyyy-dd-MMM",
-            "M-d",
-            "MM-dd",
 
             "yyyy/M/d",
             "yyyy/MM/dd",
             "yyyy/MMM/dd",
             "yyyy/dd/MMM",
-            "M/d",
-            "MM/dd",
+    };
 
+    private static final String[] DATE_FORMATS_NO_YEAR = {
+            "M-d",
+            "MM-dd",
             "MMM dd",
             "dd MMM",
     };
 
     private static final String[] TIME_FORMATS = {
             "HH:mm:ss",
-            "HH:mm",
             "H:mm:ss",
+    };
+
+    private static final String[] TIME_FORMATS_NO_SECOND = {
+            "HH:mm",
             "H:mm",
     };
 
-    private static final DateTimeFormatter[] DATE_TIME_FORMATTERS;
-    private static final DateTimeFormatter[] DATE_FORMATTERS;
-    private static final DateTimeFormatter[] TIME_FORMATTERS;
+    private static final List<DateTimeFormatter> DATE_TIME_FORMATTERS;
+    private static final List<DateTimeFormatter> DATE_FORMATTERS;
+    private static final List<DateTimeFormatter> TIME_FORMATTERS;
 
     static {
         // Initialize TIME_FORMATTERS
-        TIME_FORMATTERS = new DateTimeFormatter[TIME_FORMATS.length];
-        for (int i = 0; i < TIME_FORMATS.length; i++) {
-            TIME_FORMATTERS[i] = new DateTimeFormatterBuilder()
-                    .appendPattern(TIME_FORMATS[i])
+        TIME_FORMATTERS = new ArrayList<>();
+        for (String timeFormat : TIME_FORMATS) {
+            TIME_FORMATTERS.add(new DateTimeFormatterBuilder()
+                    .appendPattern(timeFormat)
                     .parseDefaulting(ChronoField.YEAR, LocalDate.now().getYear())
                     .parseDefaulting(ChronoField.MONTH_OF_YEAR, LocalDate.now().getMonthValue())
                     .parseDefaulting(ChronoField.DAY_OF_MONTH, LocalDate.now().getDayOfMonth())
                     .toFormatter()
-                    .withLocale(Locale.ENGLISH);
+                    .withLocale(Locale.ENGLISH));
+        }
+        for (String timeFormatNoSecond : TIME_FORMATS_NO_SECOND) {
+            TIME_FORMATTERS.add(new DateTimeFormatterBuilder()
+                    .appendPattern(timeFormatNoSecond)
+                    .parseDefaulting(ChronoField.YEAR, LocalDate.now().getYear())
+                    .parseDefaulting(ChronoField.MONTH_OF_YEAR, LocalDate.now().getMonthValue())
+                    .parseDefaulting(ChronoField.DAY_OF_MONTH, LocalDate.now().getDayOfMonth())
+                    .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
+                    .toFormatter()
+                    .withLocale(Locale.ENGLISH));
         }
 
         // Initialize DATE_FORMATTERS
-        DATE_FORMATTERS = new DateTimeFormatter[DATE_FORMATS.length];
-        for (int i = 0; i < DATE_FORMATS.length; i++) {
-            DATE_FORMATTERS[i] = DateTimeFormatter.ofPattern(DATE_FORMATS[i]);
-            DATE_FORMATTERS[i] = new DateTimeFormatterBuilder()
-                    .appendPattern(DATE_FORMATS[i])
+        DATE_FORMATTERS = new ArrayList<>();
+        for (String dateFormat : DATE_FORMATS) {
+            DATE_FORMATTERS.add(new DateTimeFormatterBuilder()
+                    .appendPattern(dateFormat)
+                    .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
+                    .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
+                    .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
+                    .toFormatter()
+                    .withLocale(Locale.ENGLISH));
+        }
+        for (String dateFormatNoYear : DATE_FORMATS_NO_YEAR) {
+            DATE_FORMATTERS.add(new DateTimeFormatterBuilder()
+                    .appendPattern(dateFormatNoYear)
+                    .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
+                    .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
+                    .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
                     .parseDefaulting(ChronoField.YEAR, LocalDate.now().getYear())
                     .toFormatter()
-                    .withLocale(Locale.ENGLISH);
+                    .withLocale(Locale.ENGLISH));
         }
 
         // Initialize DATE_TIME_FORMATTERS
-        DATE_TIME_FORMATTERS = new DateTimeFormatter[DATE_FORMATS.length * TIME_FORMATS.length];
-        for (int i = 0; i < DATE_FORMATS.length; i++) {
-            for (int j = 0; j < TIME_FORMATS.length; j++) {
-                // Default year to current year if not specified.
-                DATE_TIME_FORMATTERS[i * TIME_FORMATS.length + j] = new DateTimeFormatterBuilder()
-                        .appendPattern(DATE_FORMATS[i] + " " + TIME_FORMATS[j])
+        DATE_TIME_FORMATTERS = new ArrayList<>();
+        for (String dateFormat : DATE_FORMATS) {
+            for (String timeFormat : TIME_FORMATS) {
+                DATE_TIME_FORMATTERS.add(new DateTimeFormatterBuilder()
+                        .appendPattern(dateFormat + " " + timeFormat)
+                        .toFormatter()
+                        .withLocale(Locale.ENGLISH));
+            }
+        }
+        for (String dateFormat : DATE_FORMATS) {
+            for (String timeFormatNoSecond : TIME_FORMATS_NO_SECOND) {
+                DATE_TIME_FORMATTERS.add(new DateTimeFormatterBuilder()
+                        .appendPattern(dateFormat + " " + timeFormatNoSecond)
+                        .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
+                        .toFormatter()
+                        .withLocale(Locale.ENGLISH));
+            }
+        }
+        for (String dateFormatNoYear : DATE_FORMATS_NO_YEAR) {
+            for (String timeFormat : TIME_FORMATS) {
+                DATE_TIME_FORMATTERS.add(new DateTimeFormatterBuilder()
+                        .appendPattern(dateFormatNoYear + " " + timeFormat)
                         .parseDefaulting(ChronoField.YEAR, LocalDate.now().getYear())
                         .toFormatter()
-                        .withLocale(Locale.ENGLISH);
+                        .withLocale(Locale.ENGLISH));
+            }
+        }
+        for (String dateFormatNoYear : DATE_FORMATS_NO_YEAR) {
+            for (String timeFormatNoSecond : TIME_FORMATS_NO_SECOND) {
+                DATE_TIME_FORMATTERS.add(new DateTimeFormatterBuilder()
+                        .appendPattern(dateFormatNoYear + " " + timeFormatNoSecond)
+                        .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
+                        .parseDefaulting(ChronoField.YEAR, LocalDate.now().getYear())
+                        .toFormatter()
+                        .withLocale(Locale.ENGLISH));
             }
         }
     }
@@ -106,6 +163,7 @@ public class BocchiDateTimeFormatter {
                 return LocalDate.parse(dateTime, formatter).atStartOfDay();
             } catch (DateTimeParseException e) {
                 // Do nothing.
+                e.printStackTrace();
             }
         }
 
