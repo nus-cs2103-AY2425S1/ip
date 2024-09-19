@@ -24,7 +24,7 @@ Example: `deadline return book /by 2020-10-01 1900`
 
 expected output:
 ```
-Got it. I've added this task:[D][] return book (by: Oct 1 2020, 19:00)
+Got it. I've added this task:[D][] return book (by: Oct 1 2020, 19.00)
 Now you have 4 tasks in the list.
 ```
 ## Adding Events
