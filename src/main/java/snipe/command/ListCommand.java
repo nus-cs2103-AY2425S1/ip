@@ -12,6 +12,17 @@ import java.io.IOException;
  * It formats the list of tasks and displays them to the user through the user interface.
  */
 public class ListCommand extends Command {
+    private boolean isArchiveListCommand;
+
+    /**
+     * Constructs a {@code ListCommand} with specification on if the list command
+     * is to view archived list or the normal task list.
+     *
+     * @param boolean The index of the task to be archived (0-based index).
+     */
+    public ListCommand(boolean isArchiveListCommand) {
+        this.isArchiveListCommand = isArchiveListCommand;
+    }
 
     /**
      * Executes the list command by formatting all tasks in the task list into a numbered list format
@@ -20,7 +31,7 @@ public class ListCommand extends Command {
      * @param tasks          The {@link TaskList} containing all tasks to be displayed.
      * @param ui             The {@link Ui} instance used to display the task list to the user.
      * @param storage        The {@link Storage} instance, not used in this command.
-     * @param archiveTasks   The {@link TaskList}, not used in this command.
+     * @param archiveTasks   The {@link TaskList} containing archived task to be displayed.
      * @param archiveStorage The {@link Storage} instance, not used in this command.
      * @return A formatted string representing all tasks in the task list, in a numbered format.
      * @throws SnipeException If an application-specific error occurs during execution.
@@ -37,14 +48,16 @@ public class ListCommand extends Command {
         // Assert that the task list is not null
         assert tasks != null : "TaskList should be initialized and not null";
 
+        TaskList listToShow = isArchiveListCommand ? archiveTasks : tasks;
+
         StringBuilder message = new StringBuilder();
-        message.append("Here are the tasks in your list:\n");
+        message.append("Here are the tasks in your " + (isArchiveListCommand ? "archived " : "") + "list:\n");
 
-        for (int i = 0; i < tasks.size(); i++) {
+        for (int i = 0; i < listToShow.size(); i++) {
             // Assert that the task retrieved from the list is not null
-            assert tasks.getTask(i) != null : "Task in TaskList should not be null";
+            assert listToShow.getTask(i) != null : "Task in TaskList should not be null";
 
-            String item = String.format("%d. %s\n", i + 1, tasks.getTask(i).toString());
+            String item = String.format("%d. %s\n", i + 1, listToShow.getTask(i).toString());
             message.append(item);
         }
         String resultMessage = message.toString().stripTrailing();

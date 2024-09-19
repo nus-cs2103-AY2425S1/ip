@@ -139,7 +139,7 @@ public class Storage {
                 writer.newLine();
             }
         } catch (Exception e) {
-            System.out.println("snipe.task.Task is not a valid task");
+            System.out.println(e.getMessage());
         }
     }
 }

@@ -53,10 +53,17 @@ public class Parser {
                 throw new SnipeException("Please input keyword. Use 'help' for correct syntax");
             }
             return new FindCommand(split[1]);
+        case "ARCHIVE":
+            if (split.length < 2 || split[1].trim().isEmpty()) {
+                throw new SnipeException("Please input a number. Use 'help' for correct syntax");
+            }
+            return new ArchiveCommand(Integer.parseInt(split[1]) - 1);
         case "HELP":
             return new HelpCommand();
         case "LIST":
-            return new ListCommand();
+            return new ListCommand(false);
+        case "ARCHIVES":
+            return new ListCommand(true);
         case "BYE":
             return new ExitCommand();
         default:

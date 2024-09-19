@@ -8,5 +8,7 @@ Hello! Here are your list of helpful commands:
 'event task_name /from start_date /to end_date' - adds an event task with task_name with a start_date to end_date
 'delete n' - deletes the task at number n on your list
 'find _keyword_' - searches for all items in your list that has the _keyword_ inside
+'archive n' - archives the task at number n on your list
+'archives' = shows you your current archived list
 
 'help' - shows the list of useful commands
