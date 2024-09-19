@@ -18,7 +18,7 @@ import mylo.utils.exceptions.IllegalValueException;
  */
 public abstract class Task {
     private final String TITLE;
-    private boolean status;
+    private boolean isCompleted;
 
     /**
      * Constructs a {@code Task} with the specified title and sets the task as incomplete.
@@ -39,7 +39,7 @@ public abstract class Task {
      */
     public Task(String title, boolean isDone) {
         this.TITLE = title;
-        this.status = isDone;
+        this.isCompleted = isDone;
     }
 
     /**
@@ -106,7 +106,7 @@ public abstract class Task {
      * @param keyword The keyword to search for within the task title.
      * @return {@code true} if the task title contains the keyword, {@code false} otherwise.
      */
-    public boolean matchKeyword(String keyword) {
+    public boolean isMatch(String keyword) {
         return getTitle().toLowerCase().contains(keyword.toLowerCase());
     }
 
@@ -121,8 +121,8 @@ public abstract class Task {
         return this.TITLE;
     }
 
-    public String getStatus() {
-        return this.status ? "True" : "False";
+    public String completionStatus() {
+        return this.isCompleted ? "True" : "False";
     }
 
     /**
@@ -133,7 +133,7 @@ public abstract class Task {
      * @return A message confirming the task has been marked as done.
      */
     public String markAsDone() {
-        this.status = true;
+        this.isCompleted = true;
         return "Nice! I've marked this task as done: \n" + this;
     }
 
@@ -145,7 +145,7 @@ public abstract class Task {
      * @return A message confirming the task has been marked as not done.
      */
     public String markAsUndone() {
-        this.status = false;
+        this.isCompleted = false;
         return "OK, I've marked this task as not done yet: \n" + this;
     }
 
@@ -157,7 +157,7 @@ public abstract class Task {
      * @return A string indicating the task's status: "[X] " if done, "[ ] " if not done.
      */
     private String getStatusIndicator() {
-        return (status ? "[X] " : "[ ] "); // mark done task with X
+        return (isCompleted ? "[X] " : "[ ] "); // mark done task with X
     }
 
     /**

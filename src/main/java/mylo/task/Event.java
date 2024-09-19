@@ -89,7 +89,7 @@ public class Event extends Task {
      */
     @Override
     public String storageFormat() {
-        return String.format("EVENT | %s | %s | %s | %s", super.getStatus(), super.getTitle(),
+        return String.format("EVENT | %s | %s | %s | %s", super.completionStatus(), super.getTitle(),
                 Formatter.dateTimeStorage(this.START_DATETIME), Formatter.dateTimeStorage(this.END_DATETIME));
     }
 

@@ -29,12 +29,12 @@ public class HelperFunctions {
      * Converts a string representation of date into a {@code LocalDateTime} object.
      *
      * @param str The string representation of date and time in the format "dd-mm-yyyy hhmm".
-     * @param dateOnly A boolean indicating whether to ignore the time component.
+     * @param isDateOnly A boolean indicating whether to ignore the time component.
      * @return A {@code LocalDateTime} object representing the parsed date and time.
      *         If {@code dateOnly} is true, the time will be set to 00:00.
      * @throws IllegalValueException if the provided string is not in the correct format.
      */
-    public static LocalDateTime stringToDateTime(String str, boolean dateOnly) throws IllegalValueException {
+    public static LocalDateTime stringToDateTime(String str, boolean isDateOnly) throws IllegalValueException {
         try {
             String[] dateTime = str.split(" ");
 
@@ -43,7 +43,7 @@ public class HelperFunctions {
             int month = Integer.parseInt(date[1]);
             int day = Integer.parseInt(date[0]);
 
-            if (!dateOnly) {
+            if (!isDateOnly) {
                 String time = dateTime[1];
                 int hour = Integer.parseInt(time.substring(0, 2));
                 int minute = Integer.parseInt(time.substring(2, 4));
