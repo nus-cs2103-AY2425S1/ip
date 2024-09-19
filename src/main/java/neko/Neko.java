@@ -330,9 +330,10 @@ public class Neko {
     private String formatTaskArrayResponse(Task[] tasks, String action) {
         StringBuilder response = new StringBuilder("Nice meow! I've ");
         response.append(action).append(" the following tasks:\n");
+        int count = 1;
         for (Task task : tasks) {
             if (task != null) {
-                response.append(task).append("\n");
+                response.append(count++ + ". ").append(task).append("\n");
             }
         }
         return response.toString().trim();
