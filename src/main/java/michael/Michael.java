@@ -50,15 +50,14 @@ public class Michael extends Application {
 
         // Read user's input
         while (true) {
-            String input = user.nextLine().strip();
-
-            if (input.equals("bye")) { // special bye command to exit
-                break;
-            }
-
             try {
+                String input = user.nextLine().strip();
                 String feedback = parser.parse(input);
                 ui.giveFeedback(feedback);
+
+                if (input.equals("bye")) {
+                    break;
+                }
             } catch (MichaelException e) {
                 ui.showLoadingError(e.getMessage());
             }
@@ -68,9 +67,6 @@ public class Michael extends Application {
             storage.save();
         } catch (IOException e) {
             ui.giveFeedback("Couldn't save tasks!");
-        } finally {
-            // Exit
-            ui.giveFeedback("Bye. Hope to see you again soon!");
         }
     }
 
