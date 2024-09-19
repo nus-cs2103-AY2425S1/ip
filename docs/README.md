@@ -1,6 +1,6 @@
-# Ai User Guide
+<h1 style="color: #9370db">Ai User Guide</h1>
 
-![image](https://github.com/user-attachments/assets/f2eda107-3c6b-4edc-9b17-b504bb5a2b01)
+<img src="Ui.png" alt="App screenshot" width="300"/>
 
 
 > Hey Hey Hey! Did ya miss me? >.<  
