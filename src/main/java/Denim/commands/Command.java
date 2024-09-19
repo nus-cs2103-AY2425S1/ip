@@ -10,6 +10,9 @@ import denim.storage.WriteTaskFile;
  */
 public abstract class Command {
 
+    /**
+     * Represents the various outcome after executing a command.
+     */
     public enum CommandStatus {
         COMMAND_SUCCESSFUL,
         COMMAND_PARTIAL_FAILURE,
