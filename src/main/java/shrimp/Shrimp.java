@@ -33,6 +33,8 @@ public class Shrimp {
     private static final Ui ui = new Ui();
     private static TaskList taskList = new TaskList();
 
+    private static final String ALLOWED_CHARACTERS_REGEX = "^[\\w\\s]+$"; // Only allows alphanumeric and spaces
+
     /**
      * Runs the chatbot, handling user input and executing commands.
      * The loop continues until the user issues the "bye" command.
@@ -113,6 +115,9 @@ public class Shrimp {
         String eventDescription = eventDetails[0].substring(6).trim(); // Extracting the task description
         LocalDateTime from = getDateTime(eventDetails[1].trim());
         LocalDateTime to = getDateTime(eventDetails[2].trim());
+        if (to.isBefore(from)) {
+            throw new ShrimpException.InvalidCommandException();
+        }
         Task newEvent = new Event(eventDescription, from, to, hasDone);
         AddCommand addEvent = new AddCommand(newEvent);
         return addEvent.run(taskList, ui);
@@ -130,11 +135,12 @@ public class Shrimp {
         return addDeadline.run(taskList, ui);
     }
 
-    private static String fetchAdd(String userInput, CommandType commandType) throws ShrimpException.MissingArgumentException {
+    private static String fetchAdd(String userInput, CommandType commandType) throws ShrimpException {
         if (userInput.length() <= 5) {
             throw new ShrimpException.MissingArgumentException(commandType);
         }
         String input = userInput.substring(5).trim();
+        validateInput(input);
         Todo newTodo = new Todo(input, hasDone); //creates a new Task.Task object
         AddCommand addTodo = new AddCommand(newTodo);
         return addTodo.run(taskList, ui);
@@ -210,6 +216,12 @@ public class Shrimp {
             return LocalDateTime.parse(input, Parser.PATTERN);
         } catch (DateTimeParseException e) {
             throw new ShrimpException.InvalidDateTimeException();
+        }
+    }
+
+    private static void validateInput(String input) throws ShrimpException {
+        if (!input.matches(ALLOWED_CHARACTERS_REGEX)) {
+            throw new ShrimpException.InvalidCharacterException();
         }
     }
 }
