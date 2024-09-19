@@ -14,14 +14,14 @@ import david.exceptions.DavidInvalidTimeException;
 public class DateParserTest {
 
     @Test
-    public void properDateTimeFormat() throws DavidInvalidDateTimeException {
+    public void getDate_properDateTimeFormat_properDateFormat() throws DavidInvalidDateTimeException {
         LocalDateTime actual = DateParser.getDate(" 2024-12-12 1300");
         assertEquals(LocalDateTime.of(2024, 12, 12, 13, 0), actual,
                 "Proper date time format");
     }
 
     @Test
-    public void invalidMonthExceptionThrown() {
+    public void getDate_invalidMonth_exceptionThrown() {
         DavidInvalidDateTimeException exception =
                 assertThrows(DavidInvalidDateTimeException.class, (
                     ) -> DateParser.getDate(" 2024-14-12 1300"));
@@ -35,7 +35,7 @@ public class DateParserTest {
     }
 
     @Test
-    public void invalidTimeFormatExceptionThrown() {
+    public void getDate_invalidTimeFormat_exceptionThrown() {
         DavidInvalidDateTimeException exception =
                 assertThrows(DavidInvalidDateTimeException.class, (
                 ) -> DateParser.getDate(" 2024-11-12 2500"));
@@ -52,7 +52,7 @@ public class DateParserTest {
      * This method tests if the first time passed is before the second time passed
      */
     @Test
-    public void invalidTimeExceptionThrown() {
+    public void validateDateTime_invalidTime_exceptionThrown() {
         String formatInputPattern = "yyyy-MM-dd HHmm";
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern(formatInputPattern);
         LocalDateTime t1 = LocalDateTime.parse("2023-12-01 1200", inputFormatter);
@@ -72,7 +72,7 @@ public class DateParserTest {
      * This method tests if either time passed is before the current time
      */
     @Test
-    public void validTimeWhenInputBeforeCurrentTime() throws DavidInvalidTimeException {
+    public void validateDateTime_timeInputBeforeCurrentTime_success() throws DavidInvalidTimeException {
         String formatInputPattern = "yyyy-MM-dd HHmm";
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern(formatInputPattern);
         LocalDateTime time = LocalDateTime.parse("2022-12-01 1200", inputFormatter);
@@ -83,7 +83,7 @@ public class DateParserTest {
     }
 
     @Test
-    public void invalidTimeExceptionThrownWhenTimeSameAsInput() {
+    public void validateDateTime_currentTimeSameAsInput_exceptionThrown() {
         String formatInputPattern = "yyyy-MM-dd HHmm";
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern(formatInputPattern);
         LocalDateTime t1 = LocalDateTime.parse("2024-12-01 1200", inputFormatter);
@@ -100,7 +100,7 @@ public class DateParserTest {
     }
 
     @Test
-    public void validTimeOutput() throws DavidInvalidTimeException {
+    public void validateDateTime_validTime_success() throws DavidInvalidTimeException {
         String formatInputPattern = "yyyy-MM-dd HHmm";
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern(formatInputPattern);
         LocalDateTime t1 = LocalDateTime.parse("2023-12-01 1200", inputFormatter);
@@ -112,7 +112,7 @@ public class DateParserTest {
 
 
     @Test
-    public void properOutputDateTimeFormat() throws DavidInvalidDateTimeException {
+    public void formatOutputDate_properOutputDateTimeFormat_properDateFormat() throws DavidInvalidDateTimeException {
         LocalDateTime dateTime = DateParser.getDate(" 2024-12-12 1300");
         String actual = DateParser.formatOutputDate(dateTime);
         assertEquals("1300 12 Dec 2024", actual, "Proper date time format");
