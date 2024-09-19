@@ -38,6 +38,10 @@ public class Main extends Application {
 
             // Set Jude instance from the controller
             MainWindow controller = fxmlLoader.getController();
+
+            // Assert jude should not be null
+            assert jude != null : "jude should not be null";
+
             controller.setJude(jude);
 
             // Set stage from the controller
