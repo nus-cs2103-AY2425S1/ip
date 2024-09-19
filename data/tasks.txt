@@ -1,10 +1,1 @@
-TODO | 0 | cook dinner
-TODO | 0 | cook dinner
-TODO | 0 | cook dinner
-TODO | 0 | cook bfast
-TODO | 0 | cook breakfast
-TODO | 0 | eat
-TODO | 0 | cook bfast
-TODO | 0 | cook dinner
-DEFAULT | 0 | tofo
-TODO | 0 | cook brunch
+DEADLINE | 0 | return book | 2024-09-09 1555

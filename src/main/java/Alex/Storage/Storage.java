@@ -60,7 +60,7 @@ public class Storage {
      * @return An ArrayList of tasks loaded from the file.
      * @throws IOException If there is an error reading from the file.
      */
-    private ArrayList<Task> loadTasksFromFile(BufferedReader br) throws IOException {
+    private ArrayList<Task> loadTasksFromFile(BufferedReader br) throws IOException, AlexException {
         ArrayList<Task> tasks = new ArrayList<>();
         String line;
 
@@ -78,7 +78,7 @@ public class Storage {
      * @param line The line to parse.
      * @return The parsed Task object, or null if the line is invalid.
      */
-    private Task parseTaskFromLine(String line) {
+    private Task parseTaskFromLine(String line) throws AlexException{
         String[] parts = line.split(" \\| ");
         if (parts.length < 2) {
             return null; // Skip invalid lines
@@ -102,7 +102,7 @@ public class Storage {
      * @param parts Additional information for the task (such as deadlines or event times).
      * @return The created Task object, or null if invalid.
      */
-    private Task createTaskFromParts(TaskType type, String description, String[] parts) {
+    private Task createTaskFromParts(TaskType type, String description, String[] parts) throws AlexException {
         switch (type) {
         case TODO:
             return new Todo(description);

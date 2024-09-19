@@ -3,6 +3,8 @@ package Alex.Task;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import Alex.Exceptions.AlexException;
+
 public class TaskListTest {
 
     @Test
@@ -16,7 +18,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void addTask_validDeadlineTask_taskAddedSuccessfully() {
+    public void addTask_validDeadlineTask_taskAddedSuccessfully() throws AlexException {
         TaskList taskList = new TaskList();
         Deadline deadline = new Deadline("Submit report", "2024-09-05");
         taskList.addTask(deadline);

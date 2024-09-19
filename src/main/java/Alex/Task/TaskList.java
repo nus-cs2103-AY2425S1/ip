@@ -32,7 +32,7 @@ public class TaskList {
      * @return A message confirming the task has been added.
      */
     public String addTask(Task... tasks) {
-        StringBuilder response = new StringBuilder("Got it. I've added the following tasks:\n");
+        StringBuilder response = new StringBuilder("Got it. I've added the following task:\n");
 
         for (Task task : tasks) {
             this.tasks.add(task);
