@@ -150,6 +150,12 @@ public class TaskList {
      * @throws TarsException if the index is out of range or if the input format is invalid.
      */
     public Task deleteTask(String input) {
+
+        String[] inputSplit = input.split(" ");
+        if (inputSplit.length > 2) {
+            throw new TarsException("Too many arguments. You can only delete 1 task at a time");
+        }
+
         Pattern pattern = Pattern.compile("\\d+");
         Matcher matcher = pattern.matcher(input);
         Task t;

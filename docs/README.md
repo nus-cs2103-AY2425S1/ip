@@ -53,17 +53,17 @@ However, to display the chat history in a more user-friendly manner, the chatbot
 
 --------------------------------------------------------------------------------------------------------------------------------------------
 
-| Index |       Command        |                         Format                         |                    Example                     |
-|:-----:|:--------------------:|:------------------------------------------------------:|:----------------------------------------------:|
-|   1   |   Add a ToDo task    |                  `/todo {task name}`                   |                `/todo homework`                |
-|   2   | Add an Deadline task |      `/deadline {task name} /by {deadline date}`       |       `/deadline submit ip /by 20-09-24`       |
-|   3   |   Add a Event task   | `/event {task name} /from {start date} /to {end date}` | `/event hackathon /from 23-09-24 /to 25-09-24` |
-|   4   |      List tasks      |                         `list`                         |                     `list`                     |
-|   5   |     Mark a task      |                  `mark {task number}`                  |                    `mark 1`                    |
-|   6   |    Unmark a task     |                 `unmark {task number}`                 |                   `unmark 1`                   |
-|   7   |    Delete a task     |                 `delete {task number}`                 |                   `delete 1`                   |
-|   8   |     Find task(s)     |                  `find {search word}`                  |                   `find ip`                    |
-|   9   |         Exit         |                         `bye`                          |                     `bye`                      |
+| Index |       Command        |                        Format                         |                    Example                    |
+|:-----:|:--------------------:|:-----------------------------------------------------:|:---------------------------------------------:|
+|   1   |   Add a ToDo task    |                  `todo {task name}`                   |                `todo homework`                |
+|   2   | Add an Deadline task |      `deadline {task name} /by {deadline date}`       |       `deadline submit ip /by 20-09-24`       |
+|   3   |   Add a Event task   | `event {task name} /from {start date} /to {end date}` | `event hackathon /from 23-09-24 /to 25-09-24` |
+|   4   |      List tasks      |                        `list`                         |                    `list`                     |
+|   5   |     Mark a task      |                 `mark {task number}`                  |                   `mark 1`                    |
+|   6   |    Unmark a task     |                `unmark {task number}`                 |                  `unmark 1`                   |
+|   7   |    Delete a task     |                `delete {task number}`                 |                  `delete 1`                   |
+|   8   |     Find task(s)     |                 `find {search word}`                  |                   `find ip`                   |
+|   9   |         Exit         |                         `bye`                         |                     `bye`                     |
 
 -------
 
@@ -72,9 +72,9 @@ However, to display the chat history in a more user-friendly manner, the chatbot
 ### ToDo
 A ToDo is a simple task that has no start date and no deadline.
 
-Command format: `/todo {task name}`
+Command format: `todo {task name}`
 
-Command example: `/todo fetch laundry` will create a ToDo task to fetch laundry
+Command example: `todo fetch laundry` will create a ToDo task to fetch laundry
 
 Expected output:
 ```
@@ -89,9 +89,9 @@ A Deadline, as the name suggests, is a task with a fixed deadline.
 
 The date specified in the command needs to be in the `dd-MM-yy` format. For example 22nd of September 2024 will be represented as `22-09-24`
 
-Command format: `/deadline {task name} /by {deadline date}`
+Command format: `deadline {task name} /by {deadline date}`
 
-Command example: `/deadline submit CS2103T IP /by 22-09-24`
+Command example: `deadline submit CS2103T IP /by 22-09-24`
 
 Expected Output:
 ```
@@ -104,9 +104,9 @@ An event is a task with a start date and an end date.
 
 Similar to creating a Deadline task, the dates specified in the command needs to be in the `dd-MM-yy` format
 
-Command format: `/event {task name} /from {start date} /to {end date}`
+Command format: `event {task name} /from {start date} /to {end date}`
 
-Command example: `/event train for IPPT /from 17-09-24 /to 21-09-24`
+Command example: `event train for IPPT /from 17-09-24 /to 21-09-24`
 
 Expected Output:
 ```
