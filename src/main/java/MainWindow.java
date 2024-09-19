@@ -19,6 +19,8 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
+    @FXML
+    private AnchorPane rootPane;
 
     private Pixel pixel;
 
@@ -32,6 +34,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.prefHeightProperty().bind(rootPane.heightProperty());
     }
 
     /**
@@ -52,8 +55,8 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = pixel.getResponse(input);
-        dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userImage), DialogBox
-                .getDukeDialog(response, dukeImage));
+        dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userImage), DialogBox.getDukeDialog(
+                response, dukeImage));
         userInput.clear();
     }
 }
