@@ -2,21 +2,23 @@
 
 **R2D2** is your go-to chatbot to **keep track of all your tasks**, optimized for use via a **Command Line Interface** (CLI) while still having the benefits of a **Graphical User Interface** (GUI).
 
-- Features
-  - Viewing help: `help`
-  - Adding tasks to your list
-    - Todo task: `todo`
-    - Deadline task: `deadline`
-    - Event task: `event`
-  - Viewing your list: `list`
-  - Finding matching tasks: `find`
-  - Marking a task as done: `mark`
-  - Unmarking a task as incomplete: `unmark`
-  - Deleting a task: `delete`
+  * [Features](#features)
+    + [Viewing help: `help`](#viewing-help)
+    + [Adding Tasks to your list](#adding-tasks-to-your-list)
+    + [1. Todo tasks](#1-todo-tasks)
+    + [2. Deadline tasks](#2-deadline-tasks)
+    + [3. Event tasks](#3-event-tasks)
+    + [Viewing your list: `list`](#viewing-your-list)
+    + [Finding matching tasks: `find`](#finding-matching-tasks)
+    + [Marking a task as done: `mark`](#marking-a-task-as-done)
+    + [Unmarking a task as incomplete: `unmark`](#unmarking-a-task-as-incomplete)
+    + [Deleting a task: `delete`](#deleting-a-task)
+  * [Command Summary](#command-summary)
+
 
 ## Features
 
-### Viewing help: `help`
+### Viewing help
 
 Upon typing **help**, displays all the available commands in R2D2 the user can utilise to keep track of the to-do list.
 
@@ -54,7 +56,7 @@ Examples:
 - `event Supernova /from 11/09/2024 1300 /to 11/09/2024 2200`
 - `event Bruno Mars Concert /from 03/03/2024 1800 /to 03/03/2024 2200`
 
-### Viewing your list: `list`
+### Viewing your list
 
 Format: `list`
 
@@ -64,7 +66,7 @@ To view your list so far, use the command `list` to display the current list wit
 <img width="416" alt="Screenshot 2024-09-19 at 11 32 07" src="https://github.com/user-attachments/assets/e2501925-8a01-45a9-93cb-34737c3824f1">
 </p>
 
-### Finding matching tasks: `find`
+### Finding matching tasks
 
 Format: `find KEYWORD`
 
@@ -74,7 +76,7 @@ To find a task which contains the KEYWORD specified by the user, type in the com
 <img width="413" alt="Screenshot 2024-09-19 at 11 38 00" src="https://github.com/user-attachments/assets/d6ab9005-f4ed-41d9-a4a4-74ecb6f4e204">
 </p>
 
-### Marking a task as done: `mark`
+### Marking a task as done
 
 Format: `mark INDEX`
 
@@ -88,7 +90,7 @@ Examples:
 <img width="415" alt="Screenshot 2024-09-19 at 11 40 16" src="https://github.com/user-attachments/assets/d717fb4b-3cc2-44b8-bbde-5e3596aa35bc">
 </p>
 
-### Unmarking a task as incomplete: `unmark`
+### Unmarking a task as incomplete
 
 Format: `unmark INDEX`
 
@@ -102,7 +104,7 @@ Examples:
 <img width="416" alt="Screenshot 2024-09-19 at 11 41 49" src="https://github.com/user-attachments/assets/0211c3bd-8f00-4284-9a07-737001e863e5">
 </p>
 
-### Deleting a task: `delete`
+### Deleting a task
 
 Format: `delete INDEX`
 
