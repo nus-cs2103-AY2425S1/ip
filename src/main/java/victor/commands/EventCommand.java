@@ -6,6 +6,7 @@ import java.time.DateTimeException;
 import java.time.format.DateTimeParseException;
 
 import victor.messages.ReturnMessage;
+import victor.parser.Parser;
 import victor.tasks.Event;
 
 /**
@@ -13,6 +14,9 @@ import victor.tasks.Event;
  */
 public class EventCommand extends Command {
     private Event event;
+    private String taskNameString;
+    private String startString;
+    private String endString;
     public EventCommand(String[] additionalInput) {
         super(additionalInput);
     }
@@ -25,11 +29,7 @@ public class EventCommand extends Command {
      */
     @Override
     public ReturnMessage execute() {
-        String[] eventParts = getEventParts();
-        String taskNameString = eventParts[0];
-        String startString = eventParts[1];
-        String endString = eventParts[2];
-
+        getEventParts();
         try {
             if (taskNameString.isBlank()) {
                 return new ReturnMessage("  ~  Your event needs a name!",
@@ -62,39 +62,14 @@ public class EventCommand extends Command {
     }
 
     /**
-     * Extracts parts of additionalInput to get task name, start, and end.
-     * @return A string array containing task name, start, and end.
+     * Calls the Parser's parseEventParts method and sets the variables for task name, start, and end
      */
-    private String[] getEventParts() {
-        String taskNameString = "";
-        String startString = "";
-        String endString = "";
-
-        boolean isStart = false;
-        boolean isEnd = false;
-
-        for (int i = 1; i < additionalInput.length; i++) {
-            if (additionalInput[i].startsWith("/")) {
-                if (isStart) {
-                    isEnd = true;
-                } else {
-                    isStart = true;
-                }
-                continue;
-            }
-            if (!isStart) {
-                taskNameString += " " + additionalInput[i];
-            } else if (!isEnd) {
-                startString += " " + additionalInput[i];
-            } else {
-                endString += " " + additionalInput[i];
-            }
-        }
-        // Trim so that blank space cannot be counted as name for task, start or end
-        taskNameString = taskNameString.trim();
-        startString = startString.trim();
-        endString = endString.trim();
-        return new String[] {taskNameString, startString, endString};
+    private void getEventParts() {
+        Parser parser = new Parser();
+        String[] eventParts = parser.parseEventParts(additionalInput);
+        taskNameString = eventParts[0];
+        startString = eventParts[1];
+        endString = eventParts[2];
     }
 
     /**

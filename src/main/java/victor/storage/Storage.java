@@ -42,29 +42,39 @@ public class Storage {
                 this.taskList = readFileContents(filePath);
             } else {
                 try {
-                    // Create new empty task list
-                    this.taskList = new TaskList(filePath);
-                    // Create new file
-                    File data = new File(String.valueOf(filePath));
-                    data.createNewFile();
+                    createFileAndTaskList();
                 } catch (IOException makeFileException) {
-                    throw new RuntimeException(makeFileException);
+                    makeFileException.printStackTrace();
                 }
             }
         } else {
             try {
-                // Create new empty task list
-                this.taskList = new TaskList(filePath);
-                // Create data directory
-                Files.createDirectories(dataPath);
-                // Create new file
-                File data = new File(String.valueOf(filePath));
-                data.createNewFile();
+                createDirectoryAndTaskList(dataPath);
             } catch (IOException makeFileException) {
-                throw new RuntimeException(makeFileException);
+                makeFileException.printStackTrace();
             }
         }
         return taskList;
+    }
+
+    /**
+     * Creates a new file and a task list for keeping track of data, used if no file exists
+     * @throws IOException if problem creating the new file
+     */
+    private void createFileAndTaskList() throws IOException {
+        // Create new file
+        File data = new File(String.valueOf(filePath));
+        data.createNewFile();
+        this.taskList = new TaskList(filePath);
+    }
+
+    private void createDirectoryAndTaskList(Path dataPath) throws IOException {
+        // Create data directory
+        Files.createDirectories(dataPath);
+        // Create new file
+        File data = new File(String.valueOf(filePath));
+        data.createNewFile();
+        this.taskList = new TaskList(filePath);
     }
 
     /**
@@ -76,21 +86,26 @@ public class Storage {
     public Command decodeTaskFromFile(String[] taskLine) {
         String[] commandInput;
         try {
-            if (taskLine[0].equals("T")) {
+            switch (taskLine[0]) {
+            case "T" -> {
                 commandInput = new String[]{"todo", taskLine[2]};
                 return new ToDoCommand(commandInput);
-            } else if (taskLine[0].equals("D")) {
+            }
+            case "D" -> {
                 commandInput = new String[]{"deadline", taskLine[2], "/", taskLine[3]};
                 return new DeadlineCommand(commandInput);
-            } else if (taskLine[0].equals("E")) {
+            }
+            case "E" -> {
                 commandInput = new String[]{"event", taskLine[2], "/", taskLine[3], "/", taskLine[4]};
                 return new EventCommand(commandInput);
-            } else {
+            }
+            default -> {
                 // non-standard command type
-                return new Command(new String[] {});
+                return new Command(new String[]{});
+            }
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            // some error in input, likely less than 2 words in line
+            // some error in input
             return new Command(new String[] {});
         }
     }

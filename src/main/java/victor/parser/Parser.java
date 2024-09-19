@@ -41,4 +41,41 @@ public class Parser {
         assert(command != null);
         return command;
     }
+
+
+    /**
+     * Extracts parts of additionalInput to get task name, start, and end.
+     * @return A string array containing task name, start, and end.
+     */
+    public String[] parseEventParts(String[] additionalInput) {
+        String taskNameString = "";
+        String startString = "";
+        String endString = "";
+
+        boolean isStart = false;
+        boolean isEnd = false;
+
+        for (int i = 1; i < additionalInput.length; i++) {
+            if (additionalInput[i].startsWith("/")) {
+                if (isStart) {
+                    isEnd = true;
+                } else {
+                    isStart = true;
+                }
+                continue;
+            }
+            if (!isStart) {
+                taskNameString += " " + additionalInput[i];
+            } else if (!isEnd) {
+                startString += " " + additionalInput[i];
+            } else {
+                endString += " " + additionalInput[i];
+            }
+        }
+        // Trim so that blank space cannot be counted as name for task, start or end
+        taskNameString = taskNameString.trim();
+        startString = startString.trim();
+        endString = endString.trim();
+        return new String[] {taskNameString, startString, endString};
+    }
 }
