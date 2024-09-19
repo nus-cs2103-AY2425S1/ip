@@ -10,10 +10,11 @@ public class DoNothingCommand extends Command {
 
     /**
      * Instantiate DoNothingCommand
-     * @param name of the command
+     * @param description of the command
      */
-    public DoNothingCommand(String name) {
-        this.name = name;
+    public DoNothingCommand(String description) {
+        this.description = description;
+        this.name = "doNothing";
     }
 
     /**

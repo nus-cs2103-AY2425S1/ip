@@ -52,5 +52,9 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getNen2Dialog(response, nen2Image, commandType)
         );
         userInput.clear();
+        if (nen2.isEnd()) {
+            nen2.saveProgress();
+            System.exit(0);
+        }
     }
 }

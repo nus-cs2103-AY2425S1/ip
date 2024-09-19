@@ -63,6 +63,19 @@ public class Nen2 {
     }
 
     /**
+     * @return true if current command is end application command
+     */
+    public boolean isEnd() {
+        return commandType.equals("bye");
+    }
+
+    /**
+     * Save current progress
+     */
+    public void saveProgress() {
+        storage.save(tasks.toDataStringArr());
+    }
+    /**
      * @return command type of the latest command
      */
     public String getCommandType() {
