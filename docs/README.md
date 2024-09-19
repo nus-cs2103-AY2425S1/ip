@@ -1,6 +1,6 @@
 # Stobberi User Guide
 
-![Stobberi UI](UI.png)
+![Stobberi UI](https://github.com/ahmadsyuaib/ip/blob/master/docs/Ui.png?raw=true)
 
 Stobberi is a smart, command-driven task manager built for speed and simplicity. Optimized for the Command Line Interface (CLI) and paired with an intuitive GUI, it makes organizing, tracking, and completing tasks effortless. With just a few commands, you’ll stay on top of your tasks and boost your productivity like never before.
 
@@ -31,7 +31,7 @@ Stobberi is a smart, command-driven task manager built for speed and simplicity.
 
 1. Ensure you have Java 17 or above installed on your computer. [Download Java](https://www.oracle.com/java/technologies/javase-jdk17-downloads.html)
 
-2. Download the latest `.jar` file from [here](../build/libs/stobberi.jar).
+2. Download the latest `.jar` file from [here](https://github.com/ahmadsyuaib/ip/releases).
 
 3. Copy the file to the folder you want to use as the *home folder* for Stobberi.
 
