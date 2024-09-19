@@ -248,7 +248,7 @@ public class TaskList {
         Task task;
         try {
             task = tasks.stream()
-                    .skip(Integer.valueOf(result[1].trim()) - 1) //Skip to the task at the given index(1-based index)
+                    .skip(Integer.valueOf(result[1].trim()) - 1)
                     .findFirst() //Get the first task if present
                     .orElseThrow(() -> new IllegalArgumentException("Task index out of bounds."));
         } catch (IllegalArgumentException e) {
