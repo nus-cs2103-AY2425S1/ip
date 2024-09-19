@@ -43,13 +43,11 @@ class Parser {
         } else if (textInput.equals(("list"))) {
             return replyWithListOfTasks();
         } else if (textInput.startsWith("mark")) {
-            int descriptionStartIndex = 5;
-            int taskIndex = Integer.parseInt(textInput.substring(descriptionStartIndex)) - 1;
-            return replyAndMarkTaskDone(taskIndex);
+            return replyAndMarkTaskDone(textInput);
         } else if (textInput.startsWith("unmark")) {
             int descriptionStartIndex = 7;
             int taskIndex = Integer.parseInt(textInput.substring(descriptionStartIndex)) - 1;
-            return replyAndMarkTaskUndone(taskIndex);
+            return replyAndMarkTaskUndone(textInput);
         } else if (textInput.startsWith("delete")) {
             int descriptionStartIndex = 7;
             int taskIndex = Integer.parseInt(textInput.substring(descriptionStartIndex)) - 1;
@@ -100,20 +98,24 @@ class Parser {
         return this.ui.getListOfTasks(this.taskList);
     }
 
-    private String replyAndMarkTaskDone(int index) {
+    private String replyAndMarkTaskDone(String textInput) {
         try {
-            Task task = this.taskList.markTaskAsDone(index);
+            int descriptionStartIndex = 5;
+            int taskIndex = Integer.parseInt(textInput.substring(descriptionStartIndex)) - 1;
+            Task task = this.taskList.markTaskAsDone(taskIndex);
             return this.ui.getMarkTaskDoneMessage(task);
-        } catch (TaskIndexInvalidException e) {
+        } catch (TaskIndexInvalidException | NumberFormatException e) {
             return this.ui.getInvalidIndexMessage();
         }
     }
 
-    private String replyAndMarkTaskUndone(int index) {
+    private String replyAndMarkTaskUndone(String textInput) {
         try {
-            Task task = this.taskList.unmarkTaskAsDone(index);
+            int descriptionStartIndex = 5;
+            int taskIndex = Integer.parseInt(textInput.substring(descriptionStartIndex)) - 1;
+            Task task = this.taskList.markTaskAsDone(taskIndex);
             return this.ui.getMarkTaskUndoneMessage(task);
-        } catch (TaskIndexInvalidException e) {
+        } catch (TaskIndexInvalidException | NumberFormatException e) {
             return this.ui.getInvalidIndexMessage();
         }
     }
