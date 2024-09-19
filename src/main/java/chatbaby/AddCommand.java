@@ -66,7 +66,7 @@ public class AddCommand extends Command {
             throw new ChatBabyException("Oh no!!! The description of this "
                     + type.name().toLowerCase() + " cannot be empty.");
         }
-        return new ToDo(commandBody.trim());
+        return new ToDo(commandBody.substring(prefixLength).trim());
     }
 
     /**
@@ -80,7 +80,7 @@ public class AddCommand extends Command {
             throw new ChatBabyException("Oh no!!! The description of this "
                     + type.name().toLowerCase() + " cannot be empty.");
         }
-        String[] deadlineParts = commandBody.split("/by ");
+        String[] deadlineParts = commandBody.substring(prefixLength).split("/by ");
         if (deadlineParts.length != VALID_PARTS_NUM) {
             throw new ChatBabyException("Oh no!!! The description of this "
                     + type.name().toLowerCase() + " is invalid.");
@@ -105,7 +105,7 @@ public class AddCommand extends Command {
             throw new ChatBabyException("Oh no!!! The description of this "
                     + type.name().toLowerCase() + " cannot be empty.");
         }
-        String[] eventParts = commandBody.split("/from ");
+        String[] eventParts = commandBody.substring(prefixLength).split("/from ");
         if (eventParts.length != VALID_PARTS_NUM) {
             throw new ChatBabyException("Oh no!!! The description of this "
                     + type.name().toLowerCase() + " is invalid.");

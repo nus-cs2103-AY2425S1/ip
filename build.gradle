@@ -44,7 +44,6 @@ test {
 }
 
 application {
-    mainModule = 'chatbaby'
     mainClass.set("chatbaby.Launcher")
 }
 
@@ -66,5 +65,4 @@ shadowJar {
 
 run{
     standardInput = System.in
-    jvmArgs = ['--module-path', '/path/to/javafx-sdk/lib', '--add-modules', 'javafx.controls,javafx.fxml']
 }
