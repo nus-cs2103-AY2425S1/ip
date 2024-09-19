@@ -1,30 +1,48 @@
-# Duke User Guide
+# Talky User Guide
 
-// Update the title above to match the actual product name
-
-// Product screenshot goes here
-
+Talky Screenshot
+![Talky Screenshot](/Ui.png)
 // Product intro goes here
 
 ## Adding deadlines
+Add deadlines by 
 
-// Describe the action and its outcome.
+Example: `deadline A /by  19/09/2024 1700`
 
-// Give examples of usage
 
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
+It'll add the deadline to saved tasks.
 ```
 expected output
+Added A
+```
+```
+output with list
+Deadline: []A (by: 19-09-2024 17:00)
 ```
 
-## Feature ABC
+## Feature Help
+Shows available commands
 
-// Feature details
+Example: `help`
 
+It'll list all the commands with usage and format
+```
+expected output
+Here are the available commands
 
-## Feature XYZ
+To show all tasks: list
 
-// Feature details
+To add ToDo: todo [task name]
+
+To add Deadline: event [task name] /by [date] [time]
+
+To add Event: event [task name] /from [date] [time] /to [date] [time]
+
+To delete task: delete [task index]
+
+To find keyword in task: find [keyword]
+
+To mark task use: mark [task index]
+
+To unmark task use: mark [task index]
+```

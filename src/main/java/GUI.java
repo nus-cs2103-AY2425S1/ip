@@ -18,6 +18,7 @@ public class GUI extends Application{
             stage.setScene(scene);
             stage.setMinHeight(600);
             stage.setMinWidth(400);
+            stage.setTitle("Talky");
             fxmlLoader.<MainWindow>getController().setTalky(talkyBot);  // inject the Duke instance
             stage.show();
         } catch (IOException e) {

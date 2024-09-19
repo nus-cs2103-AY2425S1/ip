@@ -19,8 +19,8 @@ public class MainWindow extends AnchorPane {
 
     private Talky talky;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.jpg"));
-    private Image talkyImage = new Image(this.getClass().getResourceAsStream("/images/TalkyBot.jpg"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
+    private Image talkyImage = new Image(this.getClass().getResourceAsStream("/images/TalkyBot.png"));
 
     @FXML
     public void initialize() {
