@@ -31,7 +31,7 @@ public class Storage {
      * @throws IOException if an error occurs while reading the file
      */
     public ArrayList<Task> load() throws IOException {
-        ArrayList<Task> tasks = new ArrayList<Task>();
+        ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
         if (!file.exists()) {
             file.getParentFile().mkdirs();
@@ -44,6 +44,12 @@ public class Storage {
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             String[] parts = line.split(" \\| ");
+
+            // Check if the line has at least 3 parts
+            if (parts.length < 3) {
+                continue; // Skip lines that don't have enough parts
+            }
+
             String taskType = parts[0];
             String status = parts[1];
             String info = parts[2];
@@ -55,10 +61,16 @@ public class Storage {
                     task = new ToDo(info);
                     break;
                 case "D":
+                    if (parts.length < 4) {
+                        continue; // Skip lines that don't have enough parts for Deadline tasks
+                    }
                     LocalDateTime deadline = LocalDateTime.parse(parts[3], formatter);
                     task = new Deadline(info, deadline);
                     break;
                 case "E":
+                    if (parts.length < 5) {
+                        continue; // Skip lines that don't have enough parts for Event tasks
+                    }
                     LocalDateTime from = LocalDateTime.parse(parts[3], formatter);
                     LocalDateTime to = LocalDateTime.parse(parts[4], formatter);
                     task = new Event(info, from, to);

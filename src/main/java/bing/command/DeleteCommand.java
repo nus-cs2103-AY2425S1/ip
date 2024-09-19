@@ -31,15 +31,11 @@ public class DeleteCommand implements Command {
      * @param storage The storage to save or load tasks.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         Task task = tasks.get(index);
         tasks.deleteTask(index);
-        ui.showTasks(tasks);
-        try {
-            storage.save(tasks.getTasks());
-        } catch (IOException e) {
-            ui.showError("Unable to save task.");
-        }
+        storage.save(tasks.getTasks());
+        return ui.showTasks(tasks);
     }
 
     /**

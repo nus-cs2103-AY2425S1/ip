@@ -12,6 +12,7 @@ import java.io.IOException;
  * Represents a command that adds a task to the task list.
  */
 public abstract class AddCommand implements Command {
+
     protected final Task task;
 
 
@@ -32,15 +33,11 @@ public abstract class AddCommand implements Command {
      * @param storage the storage for tasks
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException{
         tasks.addTask(task);
-        ui.showTasks(tasks);
+        storage.save(tasks.getTasks());
+        return ui.showTasks(tasks);
 
-        try {
-            storage.save(tasks.getTasks());
-        } catch (IOException e) {
-            ui.showError("Unable to save task.");
-        }
     }
 
     /**

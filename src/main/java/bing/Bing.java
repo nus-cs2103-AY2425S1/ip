@@ -1,11 +1,14 @@
 package bing;
 
 import java.io.IOException;
+import java.text.ParseException;
+
 import bing.storage.Storage;
 import bing.command.*;
 import bing.task.TaskList;
 import bing.ui.Ui;
 import bing.parser.Parser;
+import bing.command.InvalidCommand;
 
 /**
  * Bing is the main class that initializes and runs the task management system.
@@ -39,7 +42,7 @@ public class Bing {
     /**
      * Starts the task management system and processes user commands
      */
-    public void run() {
+    public void run() throws IOException {
         ui.showWelcome();
         boolean isExit = false;
         while (!isExit) {
@@ -50,12 +53,30 @@ public class Bing {
         }
     }
 
+    public String byeResponse(String input) throws ParseException {
+        if (input.equals("bye")) {
+            try {
+                storage.save(tasks.getTasks());
+            } catch (IOException e) {
+                return ui.showError("An error occurred while saving the data file: " + e.getMessage());
+            }
+            return "Bye!" + "\n" + "Have a good day !";
+        }
+        try {
+            Command command = parser.parse(input);
+            return command.execute(tasks, ui, storage);
+        } catch (Exception e) {
+            return ui.showError(e.getMessage());
+        }
+    }
+
+
     /**
      * Main entry point for the application.
      *
      * @param args command-line arguments
      */
-    public static void main(String[] args) {
-        new Bing("data/tasks.txt").run();
+    public static void main(String[] args) throws IOException{
+        new Bing("./data/tasks.txt").run();
     }
 }

@@ -23,29 +23,29 @@ public class Ui {
     /**
      * Displays a welcome message to the user.
      */
-    public void showWelcome() {
-        System.out.println("______________________________");
-        System.out.println("Hi! My name is bing.Bing");
-        System.out.println("How can I help you?");
-        System.out.println("______________________________");
+    public String showWelcome() {
+        return "______________________________" + "\n" +
+                "Hi! My name is bing.Bing" + "\n" +
+                "How can I help you?" + "\n" +
+                "______________________________";
     }
 
     /**
      * Displays a goodbye message to the user.
      */
-    public void showBye() {
-        System.out.println("______________________________");
-        System.out.println("Bye. Have a good day.");
-        System.out.println("______________________________");
+    public String showBye() {
+        return "______________________________" + "\n" +
+                "Bye. Have a good day." + "\n" +
+                "______________________________";
     }
 
     /**
      * Displays a goodbye message to the user.
      */
-    public void showByeMessage() {
-        System.out.println("______________________________\n"
+    public String showByeMessage() {
+        return "______________________________\n"
                 + "Bye. Have a good day.\n"
-                + "______________________________\n");
+                + "______________________________\n";
     }
 
     /**
@@ -53,13 +53,15 @@ public class Ui {
      *
      * @param taskList the list of tasks to display
      */
-    public void showTasks(TaskList taskList) {
-        System.out.println("______________________________");
-        System.out.println("All tasks in your list:");
+    public String showTasks(TaskList taskList) {
+        String ans = "";
+        ans = ans + "______________________________\n";
+        ans = ans + "All tasks in your list:\n";
         for (int i = 0; i < taskList.size(); i++) {
-            System.out.println((i + 1) + ". " + taskList.get(i).toString());
+            ans = ans + (i + 1) + ". " + taskList.get(i).toString() + "\n";
         }
-        System.out.println("______________________________");
+        ans = ans + "______________________________";
+        return ans;
     }
 
     /**
@@ -67,8 +69,8 @@ public class Ui {
      *
      * @param message the error message to display
      */
-    public void showError(String message) {
-        System.out.println("Error: " + message);
+    public String showError(String message) {
+        return "Error: " + message;
     }
 
 }
