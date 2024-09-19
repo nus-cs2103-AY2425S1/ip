@@ -1,5 +1,8 @@
 package chatbot.gui;
 
+import java.io.IOException;
+import java.util.Collections;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,9 +14,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
-
-import java.io.IOException;
-import java.util.Collections;
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
@@ -38,9 +38,7 @@ public class DialogBox extends HBox {
         dialog.setText(text);
         displayPicture.setImage(img);
 
-        /**
-         * Makes profile picture circular.
-         */
+        // Makes profile picture circular
         double radius = displayPicture.getFitHeight() / 2;
         Circle cir = new Circle(radius, radius, radius);
         displayPicture.setClip(cir);

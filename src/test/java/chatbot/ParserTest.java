@@ -1,6 +1,6 @@
 package chatbot;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -15,7 +15,7 @@ import task.Event;
 import task.Task;
 import task.TaskList;
 import task.Todo;
-
+import task.exceptions.InvalidDurationException;
 
 /**
  * Tests Parser class.
@@ -93,9 +93,13 @@ public class ParserTest {
 
         Scanner sc3 = new Scanner("[E][ ] task 3 (from: 2024-06-22 1600 to: 2024-06-22 1800)");
         Parser.parseFromTxtTaskList(sc3, taskList);
-        assertEquals(
-                new Event("task 3", "2024-06-22 1600", "2024-06-22 1800"),
-                taskList.removeTask(1));
+        Event event;
+        try {
+            event = new Event("task 3", "2024-06-22 1600", "2024-06-22 1800");
+            assertEquals(event, taskList.removeTask(1));
+        } catch (InvalidDurationException e) {
+            fail();
+        }
         sc3.close();
     }
 
@@ -123,9 +127,14 @@ public class ParserTest {
 
         Scanner sc3 = new Scanner("[E][X] task 3 (from: 2024-06-22 1600 to: 2024-06-22 1800)");
         Parser.parseFromTxtTaskList(sc3, taskList);
-        Event event = new Event("task 3", "2024-06-22 1600", "2024-06-22 1800");
-        event.markAsDone();
-        assertEquals(event, taskList.removeTask(1));
+        Event event;
+        try {
+            event = new Event("task 3", "2024-06-22 1600", "2024-06-22 1800");
+            event.markAsDone();
+            assertEquals(event, taskList.removeTask(1));
+        } catch (InvalidDurationException e) {
+            fail();
+        }
         sc3.close();
     }
 
