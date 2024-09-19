@@ -38,9 +38,10 @@ public class Event extends Task {
      *
      * @return a string representation of the Event task in save format
      */
+
     @Override
     public String toSaveFormat() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy Hmm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from.format(formatter) + " | " + to.format(formatter);
     }
 }

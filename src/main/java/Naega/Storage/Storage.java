@@ -16,6 +16,8 @@ public class Storage {
 
     private final String filePath;
 
+    // Define the date-time formatter for consistent formatting and parsing
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     /**
      * Creates a Storage instance with the specified file path.
      *
@@ -63,26 +65,23 @@ public class Storage {
         String taskType = taskDetails[0];
         String description = taskDetails[2];
 
-        // Define the date-time format (e.g., "6/9/2023 1400")
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-
         switch (taskType) {
             case "T":
                 return new Todo(description);
             case "D":
                 if (taskDetails.length < 4) {
-                    throw new NaegaException("Insufficient details for Naega.Task.Deadline task.");
+                    throw new NaegaException("Insufficient details for Deadline task.");
                 }
-                // Parse deadline with custom formatter
-                LocalDateTime deadline = LocalDateTime.parse(taskDetails[3], formatter);
+                // Parse deadline with the defined formatter
+                LocalDateTime deadline = LocalDateTime.parse(taskDetails[3], FORMATTER);
                 return new Deadline(description, deadline);
             case "E":
                 if (taskDetails.length < 5) {
-                    throw new NaegaException("Insufficient details for Naega.Task.Event task.");
+                    throw new NaegaException("Insufficient details for Event task.");
                 }
-                // Parse event start and end times with custom formatter
-                LocalDateTime eventStart = LocalDateTime.parse(taskDetails[3], formatter);
-                LocalDateTime eventEnd = LocalDateTime.parse(taskDetails[4], formatter);
+                // Parse event start and end times with the defined formatter
+                LocalDateTime eventStart = LocalDateTime.parse(taskDetails[3], FORMATTER);
+                LocalDateTime eventEnd = LocalDateTime.parse(taskDetails[4], FORMATTER);
                 return new Event(description, eventStart, eventEnd);
             default:
                 throw new NaegaException("Invalid task type in file.");
