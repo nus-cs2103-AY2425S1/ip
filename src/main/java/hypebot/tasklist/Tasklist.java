@@ -9,6 +9,7 @@ import static hypebot.common.Messages.ERROR_UNMARK_TASK_INDEX_OUT_OF_BOUNDS;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.regex.Pattern;
 
@@ -109,12 +110,16 @@ public class Tasklist extends ArrayList<Task> {
      * @throws NoSuchElementException If {@code Tasklist} is empty or there are no {@link Task}s that
      *                                occurring on the given date.
      */
+    @SuppressWarnings("unchecked")
     public Tasklist getHappeningOn(LocalDate date) throws NoSuchElementException {
         if (this.isEmpty() || this.stream().noneMatch(task -> task.isHappeningOn(date))) {
             throw new NoSuchElementException(ERROR_NO_TASKS_HAPPENING);
         }
-        Tasklist tempClone = (Tasklist) clone();
-        return (Tasklist) tempClone.stream().filter(task -> task.isHappeningOn(date)).toList();
+        List<Task> tempClone = (List<Task>) clone();
+        List<Task> filteredTasks= tempClone.stream().filter(task -> task.isHappeningOn(date)).toList();
+        Tasklist newTasklist = new Tasklist();
+        newTasklist.addAll(filteredTasks);
+        return newTasklist;
     }
 
     /**
@@ -129,12 +134,16 @@ public class Tasklist extends ArrayList<Task> {
      * @throws NoSuchElementException If {@code Tasklist} is empty or there are no {@link Task}s that
      *                                have a name with any of the keywords.
      */
+    @SuppressWarnings("unchecked")
     public Tasklist getNameContains(Pattern searchQuery) throws NoSuchElementException {
         if (this.isEmpty() || this.stream().noneMatch(task -> task.nameContains(searchQuery))) {
             throw new NoSuchElementException(ERROR_NO_TASKS_MATCH_SEARCH);
         }
-        Tasklist tempClone = (Tasklist) clone();
-        return (Tasklist) tempClone.stream().filter(task -> task.nameContains(searchQuery)).toList();
+        List<Task> tempClone = (List<Task>) clone();
+        List<Task> filteredTasks= tempClone.stream().filter(task -> task.nameContains(searchQuery)).toList();
+        Tasklist newTasklist = new Tasklist();
+        newTasklist.addAll(filteredTasks);
+        return newTasklist;
     }
 
     /**
