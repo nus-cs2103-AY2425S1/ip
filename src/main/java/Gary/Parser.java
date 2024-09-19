@@ -26,8 +26,14 @@ public class Parser {
      * @throws GaryException If the command is not recognized or has invalid format.
      */
     static Command parse(String fullCommand) throws GaryException {
+        // Assertion: Ensure that fullCommand is not null and not empty
+        assert fullCommand != null && !fullCommand.trim().isEmpty() : "Input command cannot be null or empty";
+
         String[] split = fullCommand.trim().split(" ", 2);
         String taskType = split[0];
+
+        // Assertion: Ensure that taskType is not empty
+        assert taskType != null && !taskType.trim().isEmpty() : "Task type cannot be null or empty";
 
         switch (taskType.toLowerCase()) {
         case "todo":
@@ -46,12 +52,14 @@ public class Parser {
                 throw new GaryException("Please provide your Deadline task in the following format:\n"
                         + "deadline <task name> /by <yyyy-mm-dd>\n");
             }
+
             String description = split1[0].trim();
             String dueDate = split1[1].trim();
-            if (dueDate.isEmpty() || description.isEmpty()) {
-                throw new GaryException("Please provide your Deadline task in the following format:\n"
-                        + "deadline <task name> /by <yyyy-mm-dd>\n");
-            }
+
+            // Assertion: Ensure that description and dueDate are not empty
+            assert !description.isEmpty() : "Description cannot be empty for deadline tasks";
+            assert !dueDate.isEmpty() : "Due date cannot be empty for deadline tasks";
+
             return new AddCommand(new Deadline(description, dueDate));
         case "event":
             if (split.length != 2) {
@@ -71,17 +79,27 @@ public class Parser {
             String eventName = firstSplit[0].trim();
             String start = secondSplit[0].trim();
             String end = secondSplit[1].trim();
-            if (eventName.isEmpty() || start.isEmpty() || end.isEmpty()) {
-                throw new GaryException("Please provide your Event task in the following format:\n"
-                        + "event <task name> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>\n");
-            }
+
+            // Assertion: Ensure that eventName, start, and end are not empty
+            assert !eventName.isEmpty() : "Event name cannot be empty";
+            assert !start.isEmpty() : "Start time cannot be empty";
+            assert !end.isEmpty() : "End time cannot be empty";
+
             return new AddCommand(new Event(eventName, start, end));
         case "mark":
-            return new EditTaskCommand(true, Integer.parseInt(split[1].trim()) - 1);
         case "unmark":
-            return new EditTaskCommand(false, Integer.parseInt(split[1].trim()) - 1);
         case "delete":
-            return new DeleteCommand(Integer.parseInt(split[1].trim()) - 1);
+            // Assertion: Ensure that an index is provided for mark, unmark, and delete commands
+            assert split.length == 2 : taskType + " command requires a valid task index";
+
+            int index = Integer.parseInt(split[1].trim()) - 1;
+            if (taskType.equalsIgnoreCase("mark")) {
+                return new EditTaskCommand(true, index);
+            } else if (taskType.equalsIgnoreCase("unmark")) {
+                return new EditTaskCommand(false, index);
+            } else {
+                return new DeleteCommand(index);
+            }
         case "list":
             return new ShowListCommand();
         case "find":

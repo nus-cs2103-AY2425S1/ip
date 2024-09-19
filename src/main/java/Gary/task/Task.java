@@ -13,9 +13,13 @@ public abstract class Task {
     /**
      * Constructs a Task object with the given description.
      *
-     * @param description The description of the task.
+     * @param description The description of the task. Cannot be null or empty.
+     * @throws IllegalArgumentException if the description is null or empty.
      */
     public Task(String description) {
+        if (description == null || description.trim().isEmpty()) {
+            throw new IllegalArgumentException("Task description cannot be null or empty.");
+        }
         this.description = description;
     }
 
@@ -59,6 +63,9 @@ public abstract class Task {
      */
     @Override
     public boolean equals(Object obj) {
+        // Assertion to ensure the object being compared is not null
+        assert obj != null : "Cannot compare Task with null";
+
         if (this == obj) {
             return true;
         }
@@ -69,4 +76,3 @@ public abstract class Task {
         return false;
     }
 }
-

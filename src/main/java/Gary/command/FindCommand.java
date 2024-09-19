@@ -1,12 +1,9 @@
 package Gary.command;
 
-import java.util.ArrayList;
-
 import Gary.Storage;
 import Gary.TaskList;
 import Gary.Ui;
 import Gary.task.Task;
-
 
 /**
  * The {@code FindCommand} class represents a command to find tasks containing a specified keyword.
@@ -23,6 +20,7 @@ public class FindCommand extends Command {
      * @param keyword The keyword to search for in task descriptions.
      */
     public FindCommand(String keyword) {
+        assert keyword != null && !keyword.trim().isEmpty() : "Keyword should not be null or empty";
         this.keyword = keyword;
     }
 
@@ -33,13 +31,19 @@ public class FindCommand extends Command {
      * @param taskList The {@code TaskList} object containing tasks to be searched.
      * @param ui The {@code Ui} object for user interaction, used to display messages.
      * @param storage The {@code Storage} object for saving and loading tasks (not used in this command).
+     * @return A string message with the matching tasks or an error if no matches are found.
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
+        assert taskList != null : "TaskList should not be null";
+        assert ui != null : "Ui should not be null";
+
         TaskList matchingTasks = new TaskList();
 
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.getTask(i);
+            assert task != null : "Task should not be null";
+
             if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
                 matchingTasks.addTask(task);
             }

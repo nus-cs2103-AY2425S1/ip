@@ -13,6 +13,8 @@ public class GaryException extends Exception {
      */
     public GaryException(String message) {
         super(message);
+
+        // Assertion: Ensure that the message is not null or empty
+        assert message != null && !message.isEmpty() : "GaryException must have a non-null, non-empty message";
     }
 }
-

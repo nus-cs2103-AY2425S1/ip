@@ -8,7 +8,6 @@ import Gary.task.Event;
 import Gary.task.Task;
 import Gary.task.ToDo;
 
-
 /**
  * The {@code TaskList} class manages a list of tasks, providing functionalities
  * to add, remove, and retrieve tasks. It also supports initializing tasks from a file.
@@ -32,12 +31,20 @@ public class TaskList {
      * @param sc The {@code Scanner} object containing task data.
      */
     public TaskList(Scanner sc) {
+        // Assertion: Ensure that the Scanner object is not null
+        assert sc != null : "Scanner cannot be null";
+
         this.tasks = new ArrayList<>();
         while (sc.hasNextLine()) {
             String nextLine = sc.nextLine();
             String[] split = nextLine.split(" \\| ");
+
+            // Assertion: Ensure that the split line has the correct number of elements
+            assert split.length >= 3 : "Invalid task format";
+
             String taskType = split[0].trim();
             boolean isDone = split[1].equals("1");
+
             switch (taskType) {
             case "T":
                 Task todo = new ToDo(split[2].trim());
@@ -47,6 +54,8 @@ public class TaskList {
                 }
                 break;
             case "D":
+                // Assertion: Ensure the deadline task format has the correct number of fields
+                assert split.length >= 4 : "Invalid deadline task format";
                 Task deadline = new Deadline(split[2].trim(), split[3].trim());
                 tasks.add(deadline);
                 if (isDone) {
@@ -54,6 +63,8 @@ public class TaskList {
                 }
                 break;
             case "E":
+                // Assertion: Ensure the event task format has the correct number of fields
+                assert split.length >= 5 : "Invalid event task format";
                 Task event = new Event(split[2].trim(), split[3].trim(), split[4].trim());
                 tasks.add(event);
                 if (isDone) {
@@ -62,6 +73,7 @@ public class TaskList {
                 break;
             default:
                 // Handle invalid task type if necessary
+                assert false : "Unknown task type: " + taskType;
                 break;
             }
         }
@@ -74,6 +86,9 @@ public class TaskList {
      * @param task The {@code Task} object to add.
      */
     public void addTask(Task task) {
+        // Assertion: Ensure the task is not null
+        assert task != null : "Task cannot be null";
+
         this.tasks.add(task);
     }
 
@@ -85,6 +100,9 @@ public class TaskList {
      * @throws IndexOutOfBoundsException if the index is out of range.
      */
     public Task removeTask(int index) {
+        // Assertion: Ensure the index is within the valid range
+        assert index >= 0 && index < this.tasks.size() : "Invalid index for removing task";
+
         return this.tasks.remove(index);
     }
 
@@ -96,6 +114,9 @@ public class TaskList {
      * @throws IndexOutOfBoundsException if the index is out of range.
      */
     public Task getTask(int index) {
+        // Assertion: Ensure the index is within the valid range
+        assert index >= 0 && index < this.tasks.size() : "Invalid index for retrieving task";
+
         return this.tasks.get(index);
     }
 
@@ -118,5 +139,3 @@ public class TaskList {
         return this.tasks.toString();
     }
 }
-
-

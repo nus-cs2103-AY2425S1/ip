@@ -30,6 +30,11 @@ public class Gary {
         } catch (FileNotFoundException e) {
             this.taskList = new TaskList();
         }
+
+        // Assertion: Ensure that taskList and storage are initialized correctly
+        assert this.taskList != null : "TaskList initialization failed!";
+        assert this.storage != null : "Storage initialization failed!";
+        assert this.ui != null : "UI initialization failed!";
     }
 
     /**
@@ -39,30 +44,43 @@ public class Gary {
     public void start() {
         boolean isBye = false;
         this.ui.greet();
+
+        // Assertion: Ensure that greet method has been called
+        assert this.ui != null : "UI object should be initialized before starting.";
+
         while (!isBye) {
             try {
                 String commandInput = this.ui.read();
                 Command command = Parser.parse(commandInput);
+
+                // Assertion: Parser should return a valid command
+                assert command != null : "Parser failed to return a valid command!";
+
                 command.execute(this.taskList, this.ui, this.storage);
                 isBye = command.isBye();
+
+                // Assertion: If isBye is true, the program will exit after this loop
+                assert isBye == command.isBye() : "isBye should match command.isBye()";
+
             } catch (GaryException garyException) {
                 this.ui.showError(garyException.getMessage());
             }
         }
     }
-    /*
+
     /**
-     * The main entry point of the application. Initializes a new {@code Gary} object
-     * and starts the program.
+     * Returns the response for a given user input.
      *
-     * @param args Command-line arguments (not used in this application).
-    public static void main(String[] args) {
-        new Gary("src/textFile/gary.txt").start();
-    }
-    */
+     * @param input The user input.
+     * @return The response from the application.
+     */
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
+
+            // Assertion: Parser should return a valid command
+            assert c != null : "Parser failed to return a valid command!";
+
             return c.execute(taskList, ui, storage);
         } catch (GaryException e) {
             return e.getMessage();

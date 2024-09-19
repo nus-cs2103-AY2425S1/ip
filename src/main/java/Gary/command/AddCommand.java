@@ -20,6 +20,7 @@ public class AddCommand extends Command {
      * @param task The task to be added to the task list.
      */
     public AddCommand(Task task) {
+        assert task != null : "Task should not be null";
         this.task = task;
     }
 
@@ -30,11 +31,19 @@ public class AddCommand extends Command {
      * @param taskLists The task list where the task will be added.
      * @param ui The UI object to display the added task.
      * @param storage The storage object to save the updated task list.
+     * @throws GaryException If an error occurs during saving the task list to storage.
      */
     @Override
     public String execute(TaskList taskLists, Ui ui, Storage storage) throws GaryException {
+        assert taskLists != null : "TaskList should not be null";
+        assert ui != null : "Ui should not be null";
+        assert storage != null : "Storage should not be null";
+
         try {
+            int initialSize = taskLists.size();
             taskLists.addTask(task);
+            assert taskLists.size() == initialSize + 1 : "TaskList size should increase by 1 after adding a task";
+
             storage.saveTask(taskLists);
             return ui.addTask(task, taskLists.size());
         } catch (IOException e) {

@@ -4,7 +4,6 @@ import Gary.Storage;
 import Gary.TaskList;
 import Gary.Ui;
 
-
 /**
  * Represents a ByeCommand which terminates the application.
  */
@@ -19,6 +18,7 @@ public class ByeCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        assert ui != null : "Ui should not be null";
         return ui.goodbye();
     }
 
