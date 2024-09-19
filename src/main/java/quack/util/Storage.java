@@ -25,13 +25,13 @@ import quack.tasks.Task;
 public class Storage {
 
     /** Default file path for the save file */
-    private static String DEFAULT_PATH = "./data";
+    private static final String DEFAULT_PATH = "./data";
     /** Default save file name */
-    private static String DEFAULT_FILE_NAME = "./data/savedData.csv";
+    private static final String DEFAULT_FILE_NAME = "./data/savedData.csv";
     /** Index offset for task status */
-    private static int OFFSET_STATUS = 2;
+    private static final int OFFSET_STATUS = 2;
     /** Index offset for tag */
-    private static int OFFSET_TAG = 1;
+    private static final int OFFSET_TAG = 1;
     /** Ui object to handle UI interface tasks */
     private Ui ui;
 

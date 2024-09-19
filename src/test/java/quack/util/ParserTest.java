@@ -14,6 +14,7 @@ import quack.command.Command;
 import quack.command.DeleteTaskCommand;
 import quack.command.ExitCommand;
 import quack.command.FindTaskCommand;
+import quack.command.HelpCommand;
 import quack.command.ListCommand;
 import quack.command.RemoveTagCommand;
 import quack.command.UpdateTaskCommand;
@@ -171,6 +172,21 @@ public class ParserTest {
     }
 
     /**
+     * Tests if the parser can return the correct command.
+     * <p>
+     * Ensures that a help command is returned when given a input, help.
+     */
+    @Test
+    void testProcessHelpCommand() {
+
+        Command actualCommand = assertDoesNotThrow(() -> this.parser.processCommand("help"),
+            "Function is not throw supposed to throw an exception");
+
+        assertInstanceOf(HelpCommand.class, actualCommand,
+            "Parser is returning the wrong command");
+    }
+
+    /**
      * Tests if the parser can return the correct command with uppercases.
      * <p>
      * Ensures that the correct command is returned even if the input has some uppercases.
@@ -204,7 +220,7 @@ public class ParserTest {
                 this.parser.processCommand("Funnyyy"),
                 "Function did not throw an exception when it is supposed to");
 
-        String expectedMessage = "This command: Funnyyy, is unfortunatly not supported by Quack!";
+        String expectedMessage = "I have no idea what you mean by Funnyyy, please try another command";
 
         assertEquals(expectedMessage, exception.getMessage(),
                 "The exception message is incorrect");
