@@ -47,7 +47,6 @@ public class LunaBot {
      * Each command is parsed and executed, and any errors encountered are reported to the user.
      */
     public void run() {
-        ui.printWelcome();
         Scanner scanner = new Scanner(System.in);
 
         while (true) { // Infinite loop, break on "bye" command
@@ -82,6 +81,14 @@ public class LunaBot {
         } catch (LunaBotException e) {
             return e.getMessage();
         }
+    }
+
+    /**
+     * Method to return the welcome message when the bot is started.
+     * @return Welcome message to greet the user.
+     */
+    public String getWelcomeMessage() {
+        return ui.printWelcome();
     }
 
     /**

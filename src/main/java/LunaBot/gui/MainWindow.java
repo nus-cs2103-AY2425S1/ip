@@ -32,9 +32,16 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
+    /**
+     * Injects the Duke instance.
+     * Prints a welcome message for the user when the bot is started.
+     * */
     public void setLunaBot(LunaBot lb) {
         luna = lb;
+        String welcomeMessage = luna.getWelcomeMessage();
+        dialogContainer.getChildren().addAll(
+                DialogBox.getBotDialog(welcomeMessage, botImage)
+        );
     }
 
     /**
@@ -47,7 +54,7 @@ public class MainWindow extends AnchorPane {
         String response = luna.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, botImage)
+                DialogBox.getBotDialog(response, botImage)
         );
         userInput.clear();
     }
