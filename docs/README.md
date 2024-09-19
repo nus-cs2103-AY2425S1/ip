@@ -8,6 +8,7 @@
 and events. It offers an intuitive gui interface where you can manage your tasks efficiently. Schedulo allows you to
 add, delete, find, and list tasks, making it easier to stay organized and focused.
 
+
 ## Features
 
 ### 1. Adding Tasks
