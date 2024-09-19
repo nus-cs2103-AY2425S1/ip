@@ -29,7 +29,7 @@ public class Ui {
      * @return The String message for greeting.
      */
     public String showGreet() {
-        return "Hello! I'm " + BOT_NAME + "\nWhat can I do for you?\n";
+        return "Hello! I'm " + BOT_NAME + "\nWhat can I do for you?";
     }
 
     /**
@@ -49,11 +49,16 @@ public class Ui {
      */
     public String showList(TaskList taskList) {
         StringBuilder s = new StringBuilder();
+        int size = taskList.getLength();
         s.append("Here are the tasks in your list:\n");
 
         ArrayList<Task> tasks = taskList.getTasks();
-        for (int i = 1; i <= taskList.getLength(); i++) {
-            s.append(i + "." + tasks.get(i - 1) + '\n');
+        for (int i = 1; i <= size; i++) {
+            s.append(i + "." + tasks.get(i - 1));
+
+            if (i < size) {
+                s.append('\n');
+            }
         }
 
         return s.toString();
@@ -66,7 +71,7 @@ public class Ui {
      * @return A String message indicating that the task has been marked as done.
      */
     public String showMark(Task task) {
-        return "Nice! I've marked this task as done:\n" + task + '\n';
+        return "Nice! I've marked this task as done:\n" + task;
     }
 
     /**
@@ -76,7 +81,7 @@ public class Ui {
      * @return A String message indicating that the task has been marked as not done.
      */
     public String showUnmark(Task task) {
-        return "OK, I've marked this task as not done yet:\n" + task + '\n';
+        return "OK, I've marked this task as not done yet:\n" + task;
     }
 
     /**
@@ -88,7 +93,7 @@ public class Ui {
      */
     public String showAdd(Task task, TaskList taskList) {
         return "Got it. I've added this task:\n" + task
-                + "\nNow you have " + taskList.getLength() + " tasks in the list.\n";
+                + "\nNow you have " + taskList.getLength() + " tasks in the list.";
     }
 
     /**
@@ -100,7 +105,7 @@ public class Ui {
      */
     public String showDelete(Task task, TaskList taskList) {
         return "Noted. I've removed this task:\n" + task
-                + "\nNow you have " + taskList.getLength() + " tasks in the list.\n";
+                + "\nNow you have " + taskList.getLength() + " tasks in the list.";
     }
 
     /**
@@ -111,10 +116,15 @@ public class Ui {
      */
     public String showFind(ArrayList<Task> filteredList) {
         StringBuilder s = new StringBuilder();
+        int size = filteredList.size();
         s.append("Here are the matching tasks in your list:\n");
 
-        for (int i = 1; i <= filteredList.size(); i++) {
-            s.append(i + "." + filteredList.get(i - 1) + '\n');
+        for (int i = 1; i <= size; i++) {
+            s.append(i + "." + filteredList.get(i - 1));
+
+            if (i < size) {
+                s.append('\n');
+            }
         }
 
         return s.toString();
@@ -128,7 +138,7 @@ public class Ui {
      * @return A String message indicating that a new shortcut has been defined.
      */
     public String showDefine(String shortcut, CommandType command) {
-        return "Noted. Now I know that \"" + shortcut + "\" represents \"" + command.name() + "\".\n";
+        return "Noted. Now I know that \"" + shortcut + "\" represents \"" + command.name() + "\".";
     }
 
     /**
@@ -138,7 +148,7 @@ public class Ui {
      * @return A String message indicating that a shortcut has been deleted.
      */
     public String showUndefine(String shortcut) {
-        return "I got you. What does \"" + shortcut + "\" means?\n";
+        return "I got you. What does \"" + shortcut + "\" means?";
     }
 
     /**
@@ -157,7 +167,7 @@ public class Ui {
      * @return A String message for farewell.
      */
     public String showBye() {
-        return "Bye. Hope to see you again soon!\n";
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -167,7 +177,7 @@ public class Ui {
      */
     public void displayMessage(String message) {
         System.out.println(LINE);
-        System.out.print(message);
+        System.out.println(message);
         System.out.println(LINE);
     }
 

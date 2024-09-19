@@ -12,6 +12,6 @@ public abstract class DudeException extends Exception {
      * @param message The detail message explaining the reason for the exception.
      */
     public DudeException(String message) {
-        super("Oops!! " + message + '\n');
+        super("Oops!! " + message);
     }
 }
