@@ -1,5 +1,9 @@
 T | 0 | write essay
+<<<<<<< HEAD
 T | 0 | CA1
 T | 0 | read a book
 D | 0 | return book | 2/12/2019 1800
 T | 0 | read a book
+=======
+T | 0 | write resume
+>>>>>>> branch-A-Personality
