@@ -37,11 +37,11 @@ public class Ui {
      */
     public String printWelcome() {
         return """
-                Hello! I'm LunaBot.\s
-                \s
+                 helloooooo! I'm LunaBot.\s
+                 \s
                  I can manage your tasks for you!\s
                  \s
-                Type '?' for a list of available commands hehehe...""";
+                 Type '?' for a list of available commands hehehe...""";
     }
 
     /**
@@ -49,7 +49,10 @@ public class Ui {
      * @return Goodbye message.
      */
     public String printGoodbye() {
-        return "Bye! Hope to see you again soon....";
+        return """
+                bye :'( \s
+                hope to see you again soon... \s
+                """;
     }
 
     /**
@@ -57,7 +60,7 @@ public class Ui {
      * @return Error message.
      */
     public String printLoadingError() {
-        return "Unable to load tasks from file.";
+        return "Woops! I can't seem to find the tasks in your file...";
     }
 
     /**
@@ -79,7 +82,7 @@ public class Ui {
      */
     public String printTaskList(ArrayList<Task> taskList) {
         if (taskList.isEmpty()) {
-            return "You have no tasks in your task list.";
+            return "You have no tasks in your task list. Yippee!!";
         } else {
             String header = "Here are the tasks in your list: \n";
             StringBuilder list = new StringBuilder();
@@ -97,7 +100,7 @@ public class Ui {
      * @return Message to show that the specified task is marked as done.
      */
     public String printTaskMarked(Task task) {
-        return "Nice! I've marked this task as done: \n" + task;
+        return "YAY! I've marked this task as done! : \n" + task;
     }
 
     /**
@@ -118,7 +121,7 @@ public class Ui {
      * @return A message to show that the specified task has been deleted.
      */
     public String printTaskDeleted(Task task, int size) {
-        String header = "Noted. I've removed this task:";
+        String header = "Okayyy I've deleted this task:";
         String footer = "Now you have " + size + " tasks in the list.";
         return header + "\n" + task + "\n" + footer;
     }
@@ -143,7 +146,7 @@ public class Ui {
      */
     public String printMatchingTasks(ArrayList<Task> matchingTasks) {
         if (matchingTasks.isEmpty()) {
-            return "No matching tasks found.";
+            return "Hmmm I can't seem to find any tasks in the list that match  :(((";
         } else {
             String header = " Here are the matching tasks in your list: \n";
             StringBuilder list = new StringBuilder();
