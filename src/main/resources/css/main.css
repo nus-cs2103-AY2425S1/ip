@@ -1,15 +1,13 @@
 .root {
-    /* Pale pink background for the main interface */
     -fx-background-color: #f7d8dc;
 }
 
 .text-field {
-    /* Light blush pink background with clean, modern font */
     -fx-background-color: #fbeff2;
-    -fx-font: 18px "Poppins", sans-serif; /* Clean and modern font */
-    -fx-text-fill: #ff7096; /* Soft coral pink text */
-    -fx-border-color: #ffb7c5; /* Light blush border */
-    -fx-border-radius: 15px; /* Softer edges for text fields */
+    -fx-font: 18px "Poppins", sans-serif;
+    -fx-text-fill: #ff7096;
+    -fx-border-color: #ffb7c5;
+    -fx-border-radius: 15px;
     -fx-padding: 12px;
 }
 
@@ -43,19 +41,16 @@
 }
 
 .scroll-bar .thumb {
-    /* Pastel pink scroll thumb with rounded edges */
     -fx-background-color: #ff99cc;
     -fx-background-radius: 1em;
 }
 
-/* Hides the increment and decrement buttons for a cleaner look */
 .scroll-bar .increment-button,
 .scroll-bar .decrement-button {
     -fx-pref-height: 0;
     -fx-opacity: 0;
 }
 
-/* Labels and text within the application */
 .label {
     -fx-text-fill: #ff7096; /* Coral pink text color */
     -fx-font-family: 'Poppins', sans-serif;
