@@ -1,7 +1,5 @@
 package pebble;
 
-// Custom exception for unknown commands (unused)
-
 /**
  * Throws exception when task number given is invalid
  */

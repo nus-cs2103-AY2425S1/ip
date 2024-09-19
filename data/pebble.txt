@@ -1,3 +1,1 @@
-[T][X] homework
-[T][ ] homework 2
 [T][ ] hw

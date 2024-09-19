@@ -28,7 +28,7 @@ public class Ui {
         int tasksListSize = tasksList.size();
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Here are the tasks in your list:\n");
-        for (int i = tasksListSize - 1; i >= 0; i--) {
+        for (int i = 0; i < tasksListSize; i++) {
             stringBuilder.append(tasksList.get(i)).append("\n");
         }
         return showMessage(stringBuilder.toString());
