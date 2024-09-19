@@ -28,6 +28,7 @@ public class ExitCommand extends Command {
      * @param storage Storage object to save and load data from the save file.
      */
     public ExitCommand(TaskList taskList, Storage storage, Ui ui) {
+
         super();
         this.taskList = taskList;
         this.storage = storage;
@@ -61,6 +62,8 @@ public class ExitCommand extends Command {
         ui.printFarewell();
 
         // Set a delay to exit the program
+        // Solution below inspired by
+        // https://stackoverflow.com/questions/30543619/how-to-use-pausetransition-method-in-javafx
         PauseTransition exitDelay = new PauseTransition(Duration.seconds(3));
         exitDelay.setOnFinished(event -> Platform.exit());
 
