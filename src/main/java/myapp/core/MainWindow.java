@@ -1,5 +1,7 @@
 package myapp.core;
 
+import java.util.Objects;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -22,8 +24,8 @@ public class MainWindow extends AnchorPane {
 
     private Ruby ruby;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/profile.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/ruby.png"));
+    private final Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/profile.png")));
+    private final Image rubyImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/ruby.png")));
 
     @FXML
     public void initialize() {
@@ -45,7 +47,7 @@ public class MainWindow extends AnchorPane {
         String response = ruby.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getRubyDialog(response, dukeImage)
+                DialogBox.getRubyDialog(response, rubyImage)
         );
         userInput.clear();
     }

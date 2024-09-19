@@ -9,8 +9,8 @@ import java.time.format.DateTimeFormatter;
  * the start and end times of the event.
  */
 public class Event extends Task {
-    private LocalDateTime from;
-    private LocalDateTime to;
+    private final LocalDateTime from;
+    private final LocalDateTime to;
 
     /**
      * Constructs a new {@code Event} task with the specified description,

@@ -23,7 +23,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setTitle("Ruby");
-            fxmlLoader.<MainWindow>getController().setRuby(ruby);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setRuby(ruby);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

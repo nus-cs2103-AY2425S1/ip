@@ -16,7 +16,7 @@ import myapp.exception.RubyException;
 public class Parser {
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final String EMPTY_DESCRIPTION_ERROR = "OOPS!!! The description cannot be empty.";
-    private static final String INVALID_DATE_FORMAT_ERROR = "OOPS!!! The date/time format should be 'yyyy-MM-dd HH:mm'.";
+    private static final String INVALID_DATE_FORMAT_ERROR = "OOPS!!! The date/time format should be 'yyyy-MM-dd HHmm'.";
 
     /**
      * Parses the given command and executes the appropriate action.
