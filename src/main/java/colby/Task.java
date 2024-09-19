@@ -64,6 +64,15 @@ public class Task {
         return formattedDateTime;
     }
 
+    public String checkDuration(String input) {
+        String duration = "";
+        if (input.contains("/needs")) {
+            String[] split = input.split("/needs");
+            duration = split[0] + " (needs " + split[1] + ")";
+        }
+        return duration;
+    }
+
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
