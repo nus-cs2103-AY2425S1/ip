@@ -88,7 +88,8 @@ public class Ui {
      * @return Response to bye command.
      */
     public String sendExitMessage() {
-        return "Bye Bye!!! Have a good day!";
+        String exitMessage = "Bye Bye!!! Have a good day!";
+        return exitMessage;
     }
 
     /**
@@ -130,24 +131,6 @@ public class Ui {
                 + "    " + task.toString();
         return response;
     }
-
-
-    /**
-     *  Checks if task exists in the list.
-     *
-     * @param index Index of task to find.
-     * @param tasks List of tasks.
-     * @return True if task is inside list.
-     */
-    public boolean isTaskInList(int index, TaskList tasks) {
-        boolean isExceedSize = index >= tasks.getLength();
-        boolean isNegative = index < 0;
-        if (isExceedSize || isNegative) {
-            return false;
-        }
-        return true;
-    }
-
     /**
      * Formats word grammatically based on number of tasks in the list.
      *

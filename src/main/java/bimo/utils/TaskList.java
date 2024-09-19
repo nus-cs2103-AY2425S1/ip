@@ -63,4 +63,20 @@ public class TaskList {
     public Task getTask(int i) {
         return this.tasks.get(i);
     }
+
+    /**
+     *  Checks if task exists in the list.
+     *
+     * @param index Index of task to find.
+     * @param tasks List of tasks.
+     * @return True if task is inside list.
+     */
+    public boolean isTaskInList(int index, TaskList tasks) {
+        boolean isExceedSize = index >= tasks.getLength();
+        boolean isNegative = index < 0;
+        if (isExceedSize || isNegative) {
+            return false;
+        }
+        return true;
+    }
 }

@@ -52,13 +52,27 @@ public class Storage {
      * @return Task object.
      */
     public Task convertTextToTask(String text) {
-        String[] arrayByPriority = text.split("~");
-        boolean hasPriority = arrayByPriority.length > 1;
-        String[] details = hasPriority ? arrayByPriority[1].split("\\|") : text.split("\\|");
+        String[] details = getDetails(text);
         String type = details[0];
-        Task task = null;
 
         boolean isCompleted = details[1].equals("0") ? false : true;
+        Task task = this.createTask(type, details);
+        if (isCompleted) {
+            task.markCompleted();
+        }
+        this.setTaskPriority(task, text);
+        return task;
+    }
+
+    /**
+     * Creates tasks based on type and details stored in data file.
+     *
+     * @param type The type of task.
+     * @param details The task information.
+     * @return Task added by user previously.
+     */
+    public Task createTask(String type, String[] details) {
+        Task task = null;
         if (type.equals("T")) {
             task = new ToDo(details[2]);
         } else if (type.equals("D")) {
@@ -70,14 +84,36 @@ public class Storage {
             LocalDate endDateObject = LocalDate.parse(dates[1]);
             task = new Event(details[2], startDateObject, endDateObject);
         }
-        if (isCompleted) {
-            task.markCompleted();
-        }
+        assert task != null : "Task cannot be created";
+        return task;
+    }
+
+    /**
+     * Splits components in the text line into an array.
+     *
+     * @param text Textline saved in data file.
+     * @return An array containing details of task.
+     */
+    public String[] getDetails(String text) {
+        String[] arrayByPriority = text.split("~");
+        boolean hasPriority = arrayByPriority.length > 1;
+        String[] details = hasPriority ? arrayByPriority[1].split("\\|") : text.split("\\|");
+        return details;
+    }
+
+    /**
+     * Sets priority labal for tasks.
+     *
+     * @param task Task created from text line.
+     * @param text Text line stored in data file.
+     */
+    public void setTaskPriority(Task task, String text) {
+        String[] arrayByPriority = text.split("~");
+        boolean hasPriority = arrayByPriority.length > 1;
         if (hasPriority) {
             String priority = arrayByPriority[0];
             task.setPriority(priority);
         }
-        return task;
     }
 
     /**
@@ -115,6 +151,27 @@ public class Storage {
     }
 
     /**
+     * Creates a new folder with a data file if folder
+     * or data file does not exist yet.
+     *
+     * @throws BimoException If unable to create new file.
+     */
+    public void createFile() throws BimoException {
+        try {
+            File dataFolder = dataFile.getParentFile();
+            if (!dataFolder.exists()) {
+                dataFolder.mkdirs();
+            }
+            File file = this.dataFile;
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+        } catch (IOException e) {
+            throw new BimoException("Unable to create new file");
+        }
+    }
+
+    /**
      * Loads tasks stored inside data file into TaskList.
      *
      * @return List of tasks.
@@ -123,14 +180,7 @@ public class Storage {
     public ArrayList<Task> loadFile() throws BimoException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
-            File dataFolder = dataFile.getParentFile();
-            if (!dataFolder.exists()) {
-                dataFolder.mkdirs();
-            }
-            File file = this.dataFile;
-            if (!dataFile.exists()) {
-                file.createNewFile();
-            }
+            this.createFile();
             Scanner fileReader = new Scanner(this.dataFile);
             while (fileReader.hasNext()) {
                 String text = fileReader.nextLine();
@@ -139,8 +189,6 @@ public class Storage {
             }
         } catch (FileNotFoundException e) {
             throw new BimoException("File not found");
-        } catch (IOException e) {
-            throw new BimoException("Unable to create new file");
         }
         return tasks;
     }

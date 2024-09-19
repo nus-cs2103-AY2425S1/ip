@@ -33,7 +33,7 @@ public class SetCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        if (!ui.isTaskInList(this.index, tasks)) {
+        if (!tasks.isTaskInList(this.index, tasks)) {
             return ui.showTaskNotFoundError();
         }
         if (index < 0) {

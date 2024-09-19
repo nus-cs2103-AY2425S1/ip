@@ -31,7 +31,7 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        if (!ui.isTaskInList(this.indexToMark, tasks)) {
+        if (!tasks.isTaskInList(this.indexToMark, tasks)) {
             return ui.showTaskNotFoundError();
         }
         assert indexToMark >= 0 && indexToMark < tasks.getLength()

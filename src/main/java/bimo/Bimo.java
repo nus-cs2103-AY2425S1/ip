@@ -41,8 +41,12 @@ public class Bimo {
             tasks = new TaskList();
         }
     }
+
     /**
      * Returns a string object for the dialog box of chatbot.
+     *
+     * @param input User input.
+     * @return String response of chatbot.
      */
     public String getResponse(String input) {
         String response = "";
