@@ -23,7 +23,7 @@ ZBot is a task management application that helps you keep track of your tasks ef
 ## Quickstart
 1. Ensure you have Java `17` or above installed in your Computer.
 
-1. Download the latest `.jar` file from [here](https://github.com/liauzhanyi/ip).
+1. Download the latest `.jar` file from [here](https://github.com/liauzhanyi/ip/releases/tag/A-Release).
 
 1. Copy the file to the folder you want to use as the home folder for your tasks.
 
