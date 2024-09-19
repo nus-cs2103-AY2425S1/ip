@@ -1,3 +1,4 @@
 T | 0 | Meet Ningguang for business | [business,Liyue]
 T | 1 | daily commisions | []
 D | 0 | weekly bossess | 2024-09-21 | []
+T | 0 | farming | [primogems]
