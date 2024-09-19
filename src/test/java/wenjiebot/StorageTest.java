@@ -80,8 +80,6 @@ public class StorageTest {
         tasks.get(0).setStatusIcon(true);
         tasks.get(2).setStatusIcon(true);
         storage.load().addAll(tasks);
-        System.out.println(tasks.get(2));
-
         storage.writeTasks();
 
         String expectedContent = "T | 1 | read book\n"

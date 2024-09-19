@@ -54,6 +54,7 @@ public class DeleteCommand extends Command {
 
         Task taskToRemove = taskList.get(taskNo);
         taskList.remove(taskNo);
+        assert(!taskList.isEmpty());
 
         ui.showLine();
         System.out.println(

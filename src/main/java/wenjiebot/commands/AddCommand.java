@@ -29,7 +29,7 @@ public class AddCommand extends Command {
         DEADLINE
     }
 
-    private TypeOfEvent typeOfEvent;
+    private final TypeOfEvent typeOfEvent;
 
     /**
      * Constructs an AddCommand with the specified activity status, input, and type of event.
@@ -111,6 +111,7 @@ public class AddCommand extends Command {
         }
 
         String desc = input.substring(6, endIndex);
+        assert(!desc.isEmpty());
         return new Event(desc, from, to);
     }
 
@@ -132,6 +133,7 @@ public class AddCommand extends Command {
                 break;
             }
         }
+        assert(!from.isEmpty());
         return from.toString().trim();
     }
 
@@ -153,7 +155,7 @@ public class AddCommand extends Command {
                 to.append(parts[i]).append(" ");
             }
         }
-        System.out.println(to);
+        assert(!to.isEmpty());
         return to.toString().trim();
     }
 

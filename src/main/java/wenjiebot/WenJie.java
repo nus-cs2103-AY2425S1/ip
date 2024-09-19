@@ -43,7 +43,6 @@ public class WenJie {
                 .map(this::processCommand)
                 .takeWhile(result -> !result)
                 .forEach(result -> {});
-      
         scanner.close();
     }
 

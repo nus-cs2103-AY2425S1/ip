@@ -49,7 +49,6 @@ public class FindCommand extends Command {
                 result.add(task);
             }
         }
-
         ui.showLine();
         System.out.println(displayList(result));
         ui.showLine();
