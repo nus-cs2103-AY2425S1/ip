@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 
 public class Parser {
-    private static final String LINE = "    _____________________________________________";
+    private static final String LINE = "_____________________________________________";
 
     public Parser() {
     }
@@ -30,13 +30,13 @@ public class Parser {
         assert entryParts.length > 0 : "Invalid input of task!";
 
         try {
-            if (entry.equals("todo") || entry.equals("deadLINE") || entry.equals("event")) {
-                throw new TarsException(LINE + "\n" + "    OOPS! Describe the task/event/deadLINE/todo or list"
+            if (entry.equals("t") || entry.equals("d") || entry.equals("e")) {
+                throw new TarsException(LINE + "\n" + "    OOPS! Describe the t/e/d or list"
                         + "\n" + LINE);
             } else if (entryParts[0].equals("list")) {
                 result = this.listPrint(tasks);
             } else {
-                throw new TarsException(LINE + "\n" + "    OOPS! Only accept a task/event/deadLINE/todo as input"
+                throw new TarsException(LINE + "\n" + "    OOPS! Only accept a t/e/d as input"
                         + "\n" + LINE);
             }
         } catch (TarsException e) {
@@ -62,7 +62,7 @@ public class Parser {
             for (int i = 0; i < tasks.getList().size(); i++) {
                 strBuild.append("    " + (i + 1) + ". " + tasks.getList().get(i) + "\n");
             }
-            result = LINE + "\n" + "    Here are the tasks in your list:" + strBuild.toString() + "\n" + LINE;
+            result = LINE + "\n" + "    Here are the tasks in your list:\n" + strBuild.toString() + "\n" + LINE;
         }
         return result;
     }
@@ -97,7 +97,7 @@ public class Parser {
         for (int i = 0; i < resultList.size(); i++) {
             strBuild.append("    " + (i + 1) + ". " + resultList.get(i) + "\n");
         }
-        result = (LINE + "\n" + "    Here are the matching tasks in your list" + "\n" + strBuild.toString() + "\n"
+        result = (LINE + "\n" + " Here are the matching tasks in your list" + "\n" + strBuild.toString() + "\n"
                 + LINE);
 
         return result;
