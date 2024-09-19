@@ -409,7 +409,7 @@ public class Parser {
      * @return String response to inform user of successful undoing of last command.
      * */
     private static String undoLastCommand(){
-        if (Undo.checkPreviousCommand()) {
+        if (Undo.checkNoPreviousCommand()) {
             return REPLY_NO_PREVIOUS_COMMAND;
         }
         return Undo.undo();

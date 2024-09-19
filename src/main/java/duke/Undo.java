@@ -18,9 +18,11 @@ public class Undo {
     private static final String COMMAND_EVENT = "event";
     private static final String COMMAND_DELETE = "delete";
 
+    private static final String REPLY_NO_PREVIOUS_COMMAND = "There is no previous command to undo.";
+
     Undo() {
         task = null;
-        previousCommand = "";
+        previousCommand = null;
     }
 
     /**
@@ -29,7 +31,9 @@ public class Undo {
      * @return String reply to inform user of successful undoing of previous command.
      * */
     public static String undo() {
-        assert !previousCommand.isEmpty() : "No previous command to undo.";
+        if (checkNoPreviousCommand()) {
+            return REPLY_NO_PREVIOUS_COMMAND;
+        }
         String[] parts = previousCommand.split(" \\| ");
         String command = parts[PARTS_COMMAND];
 
@@ -41,7 +45,8 @@ public class Undo {
         } else if (Objects.equals(command, COMMAND_UNMARK)) {
             reply = TaskList.mark(Integer.parseInt(parts[PARTS_INDEX]));
 
-        } else if ((Objects.equals(command, COMMAND_TODO)) || (Objects.equals(command, COMMAND_DEADLINE)) || (Objects.equals(command, COMMAND_EVENT))) {
+        } else if ((Objects.equals(command, COMMAND_TODO)) || (Objects.equals(command, COMMAND_DEADLINE)) ||
+                (Objects.equals(command, COMMAND_EVENT))) {
             reply = TaskList.delete(Integer.parseInt(parts[PARTS_INDEX]));
 
         } else if (Objects.equals(command, COMMAND_DELETE)) {
@@ -49,7 +54,7 @@ public class Undo {
 
         }
 
-        previousCommand = "";
+        previousCommand = null;
         task = null;
 
         return reply;
@@ -79,7 +84,7 @@ public class Undo {
      *
      * @return Boolean verifying if there exists a previous command to be undone.
      * */
-    public static boolean checkPreviousCommand() {
-        return Objects.equals(previousCommand, "");
+    public static boolean checkNoPreviousCommand() {
+        return Objects.equals(previousCommand, null);
     }
 }
