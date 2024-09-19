@@ -2,6 +2,25 @@
 
 ![ScreenShot of Gopher's UI for showcase to the user]("/assets/images/Ui.png")
 
+## Menu
+- [Introduction](#introduction)
+- [Feature List](#feature-list)
+- [Set Up](#set-up)
+- [Date Time Format](#datetime-formats-accepted-by-gopher)
+- [Commands](#commands)
+    - [Add Todo](#add-todo)
+    - [Add Deadline](#add-deadline)
+    - [Add Event](#add-event)
+    - [List All Tasks](#list-all-tasks)
+    - [Mark Task as Done](#mark-tasks-as-done)
+    - [Mark Tasks as Not Done](#mark-tasks-as-not-done)
+    - [Update Todo](#update-todo)
+    - [Update Deadline](#update-deadline)
+    - [Update Event](#update-event)
+    - [Find Tasks](#find-tasks)
+    - [Delete Tasks](#delete-tasks)
+    - [Exit](#exit)
+
 ## Introduction
 Having issue managing and tracking your tasks? Gopher is here to help you!
 Just tell Gopher what you want to track, and Gopher can remember everything for you!
@@ -18,6 +37,20 @@ Store, Manage and Query the tasks just like how you talk to a person in real lif
 5. Find tasks based on keyword search
 6. Auto-save/load tasks(YES! Gopher can remember everything for you!!!)
 
+## Set Up
+Setting up Gopher is easier than you think! Just follow these simple steps and you are ready to go!
+1. Settle Dependencies: Ensure that Java 17 or above is installed on your machine
+2. Get the Jar File: Download jar file from the latest release and put in a folder
+3. Wake Gopher Up: Use command prompt to navigate to the folder that contains the jar file, and run
+`java -jar Gopher.jar`
+4. Start managing your task with Gopher!!!
+
+## DateTime formats accepted by Gopher:
+| Date Time Format  | Example            |
+|-------------------|--------------------|
+| YYYY-MM-DD        | 2024-09-11         |
+| YYYY-MM-DD HH:mm  | 2024-09-11 10:00   |
+
 ## Commands
 With a command:
 - `text` is the basic part of the command for it to be interpreted correctly by Gopher
@@ -25,10 +58,6 @@ With a command:
 - `[text]` are parameters that are compulsory for Gopher to interpret the command
 - `[text]...` are compulsory fields that accepts any number of parameters
 - `{text}` are optional part of the command
-
-DateTime formats accepted by Gopher:
-1. YYYY-MM-DD (For example: 2024-09-11)
-2. YYYY-MM-DD HH:mm (For example: 2024-09-11 10:00)
 
 ### Add todo
 Todo is a type of task that only contains description/name of the task, it can be created using:
@@ -58,7 +87,7 @@ You can mark multiple tasks as done using:
 
 For example: `mark 1 2 3`
 
-### Mark as not done
+### Mark tasks as not done
 You can mark multiple tasks as not done using:
 `unmark [task number]...`
 
@@ -102,7 +131,7 @@ For example:
 If you want to find all tasks tracked by Gopher that contains the keyword `Orbital`, input:
 `find Orbital`
 
-### Delete task
+### Delete tasks
 You can delete multiple tasks using:
 `delete [task number]...`
 
