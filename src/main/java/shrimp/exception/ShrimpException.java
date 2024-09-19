@@ -167,4 +167,16 @@ public class ShrimpException extends Exception {
             super(errorMessage, errorCode);
         }
     }
+
+    public static class InvalidCharacterException extends ShrimpException {
+        private static final String errorCode = "ERR008";
+        private static final String errorMessage = "The character you put in is invalid...";
+
+        /**
+         * Constructs an {@code InvalidCharacterException}.
+         */
+        public InvalidCharacterException() {
+            super(errorMessage, errorCode);
+        }
+    }
 }
