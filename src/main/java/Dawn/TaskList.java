@@ -67,7 +67,7 @@ public class TaskList {
             t.markAsDone();
         }
         return "Gotcha! I've added this task: \n" + tasks.size() + "." + t +
-                "\nNow you have " + tasks.size() + " task(details) in the list \n";
+                "\nNow you have " + tasks.size() + " task(s) in the list \n";
     }
 
     /**
@@ -173,5 +173,13 @@ public class TaskList {
             }
         }
         return String.valueOf(s);
+    }
+
+    /**
+     * Returns a reminder message containing the upcoming deadlines and events
+     */
+    public static String remind() {
+        Reminder r = new Reminder(tasks);
+        return r.showReminder();
     }
 }
