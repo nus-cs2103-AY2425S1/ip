@@ -6,7 +6,7 @@ public class ByeCommand extends Command {
     private ByeCommand() {
     }
 
-    private static ByeCommand BYE_COMMAND = new ByeCommand();
+    private static final ByeCommand BYE_COMMAND = new ByeCommand();
 
     public static ByeCommand of() {
         return BYE_COMMAND;
