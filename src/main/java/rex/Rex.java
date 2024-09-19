@@ -92,11 +92,11 @@ public class Rex {
             Event event = taskList.addEvent(argument[0]);
             return ui.addTask(event);
         case LIST:
-            String output = taskList.getListDisplay();
-            return ui.displayList(output);
+            return ui.displayList(taskList);
+        case SCHEDULE:
+            return ui.displaySchedule(taskList, argument[0]);
         case FIND:
-            output = taskList.findTasks(argument[0]);
-            return ui.findTask(output);
+            return ui.findTask(taskList, argument[0]);
         case MARK:
             Task marked = taskList.markTask(argument[0]);
             return ui.markTask(marked);

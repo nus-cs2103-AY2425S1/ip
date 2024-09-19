@@ -1,5 +1,6 @@
 package rex.task;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -51,5 +52,10 @@ public class Event extends Task {
         DateTimeFormatter fileFormat = DateTimeFormatter.ofPattern("dd-MM-yy HHmm");
         return "E | " + super.formatter() + " | " + from.format(fileFormat)
                 + " | " + to.format(fileFormat);
+    }
+
+    @Override
+    public boolean isScheduledOnDate(LocalDate date) {
+        return from.toLocalDate().equals(date);
     }
 }

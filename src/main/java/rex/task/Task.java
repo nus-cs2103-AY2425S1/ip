@@ -1,11 +1,13 @@
 package rex.task;
 
+import java.time.LocalDate;
+
 /**
  * The {@code Task} class represents a generic task in the Rex application.
  * It contains information about the task description, its completion status,
  * and manages the count of tasks created.
  */
-public class Task {
+public abstract class Task {
     private static int numberOfTasks = 0;
     private final String description;
     private boolean isDone;
@@ -85,4 +87,6 @@ public class Task {
     public String formatter() {
         return (isDone ? "1" : "0") + " | " + description;
     }
+
+    public abstract boolean isScheduledOnDate(LocalDate date);
 }

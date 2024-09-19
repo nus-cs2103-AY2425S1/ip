@@ -7,7 +7,7 @@ import rex.exception.InvalidCommandException;
  * Each command corresponds to a specific action that the application can perform.
  */
 public enum Command {
-    TODO, DEADLINE, EVENT, LIST, FIND, MARK, UNMARK, DELETE, RAWR, BYE, HELP;
+    TODO, DEADLINE, EVENT, LIST, SCHEDULE, FIND, MARK, UNMARK, DELETE, RAWR, BYE, HELP;
 
     /**
      * Converts a user input string into the corresponding {@code Command} enum.
@@ -28,6 +28,8 @@ public enum Command {
             return EVENT;
         case "list":
             return LIST;
+        case "schedule":
+            return SCHEDULE;
         case "find":
             return FIND;
         case "mark":
@@ -64,6 +66,8 @@ public enum Command {
             return "event <description> /from <date: DD-MM-YY> <time: HHMM> /to <date: DD-MM-YY> <time: HHMM>";
         case LIST:
             return "list";
+        case SCHEDULE:
+            return "schedule <date: DD-MM-YY>";
         case FIND:
             return "find <keyword>";
         case MARK:
@@ -98,8 +102,9 @@ public enum Command {
         output += spaces + "* " + usageMessage(EVENT) + "\n";
         output += "\n";
 
-        output += spaces + "List all tasks:\n";
+        output += spaces + "List tasks/schedule:\n";
         output += spaces + "* " + usageMessage(LIST) + "\n";
+        output += spaces + "* " + usageMessage(SCHEDULE) + "\n";
         output += "\n";
 
         output += spaces + "Find tasks with description that matches keyword:\n";

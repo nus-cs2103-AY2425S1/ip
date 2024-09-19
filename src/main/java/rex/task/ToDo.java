@@ -1,5 +1,7 @@
 package rex.task;
 
+import java.time.LocalDate;
+
 /**
  * The {@code ToDo} class represents a task that needs to be done without any specific deadline or time constraints.
  * It extends the {@code Task} class and adds a type identifier to distinguish it as a ToDo task.
@@ -36,5 +38,10 @@ public class ToDo extends Task {
     @Override
     public String formatter() {
         return "T | " + super.formatter();
+    }
+
+    @Override
+    public boolean isScheduledOnDate(LocalDate date) {
+        return false;
     }
 }

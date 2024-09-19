@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -18,6 +19,7 @@ import rex.task.TaskList;
  */
 public class Parser {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yy HHmm");
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yy");
 
 
     /**
@@ -129,6 +131,10 @@ public class Parser {
         return LocalDateTime.parse(dateTimeString, DATE_TIME_FORMATTER);
     }
 
+    public static LocalDate parseDate(String dateString) {
+        return LocalDate.parse(dateString, DATE_FORMATTER);
+    }
+
     /**
      * Validates the command input and its arguments, throwing an exception if invalid.
      *
@@ -161,6 +167,12 @@ public class Parser {
                 throw new InvalidInputException("Too MANY arguments!\nUsage: " + usageMessage);
             }
             break;
+        case SCHEDULE:
+            if (inputTokens.length == 1) {
+                String usageMessage = Command.usageMessage(command);
+                throw new InvalidInputException("No date entered!\nUsage: " + usageMessage);
+            }
+            break;
         case FIND:
             if (inputTokens.length == 1) {
                 String usageMessage = Command.usageMessage(command);
@@ -172,7 +184,7 @@ public class Parser {
         case DELETE:
             if (inputTokens.length == 1) {
                 String usageMessage = Command.usageMessage(command);
-                throw new InvalidInputException("Too FEW arguments!\nUsage: " + usageMessage);
+                throw new InvalidInputException("No task number entered!\nUsage: " + usageMessage);
             }
             break;
         case RAWR:

@@ -1,5 +1,6 @@
 package rex.task;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -44,5 +45,10 @@ public class Deadline extends Task {
     public String formatter() {
         DateTimeFormatter fileFormat = DateTimeFormatter.ofPattern("dd-MM-yy HHmm");
         return "D | " + super.formatter() + " | " + by.format(fileFormat);
+    }
+
+    @Override
+    public boolean isScheduledOnDate(LocalDate date) {
+        return by.toLocalDate().equals(date);
     }
 }

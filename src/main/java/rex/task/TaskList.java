@@ -1,7 +1,9 @@
 package rex.task;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import rex.exception.InvalidInputException;
@@ -155,6 +157,34 @@ public class TaskList {
         return tasks.stream()
                 .map(task -> (tasks.indexOf(task) + 1) + "." + task)
                 .reduce("", (output, taskDetails) -> output + taskDetails + "\n");
+    }
+
+    public String getSchedule(String date) {
+        LocalDate parsedDate = Parser.parseDate(date);
+        DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("dd MMM yyyy");
+
+        ArrayList<Task> filteredTasks = filterByDate(parsedDate);
+
+        if (filteredTasks.isEmpty()) {
+            return "You are free on " + parsedDate.format(outputFormat) + "! rawr\n";
+        }
+
+        return filteredTasks.stream()
+                .map(task -> (filteredTasks.indexOf(task) + 1) + "." + task)
+                .reduce("Here are the tasks you have on " + parsedDate.format(outputFormat) + ":\n", (
+                        output, taskDetails) -> output + taskDetails + "\n");
+    }
+
+    private ArrayList<Task> filterByDate(LocalDate date) {
+        ArrayList<Task> filteredTasks = new ArrayList<>();
+
+        for (Task currentTask : tasks) {
+            if (currentTask.isScheduledOnDate(date)) {
+                filteredTasks.add(currentTask);
+            }
+        }
+
+        return filteredTasks;
     }
 
     /**

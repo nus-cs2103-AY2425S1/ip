@@ -5,6 +5,7 @@ import java.util.Scanner;
 import rex.command.Command;
 import rex.exception.InvalidInputException;
 import rex.task.Task;
+import rex.task.TaskList;
 
 /**
  * The {@code Ui} class handles the user interface of the application.
@@ -47,20 +48,21 @@ public class Ui {
     /**
      * Displays the current list of tasks.
      *
-     * @param output The list string to be displayed.
      */
-    public String displayList(String output) {
-        return output;
+    public String displayList(TaskList taskList) {
+        return taskList.getListDisplay();
+    }
+
+    public String displaySchedule(TaskList taskList, String date) {
+        return taskList.getSchedule(date);
     }
 
     /**
      * Displays the output for the tasks that match the keyword searched.
      *
-     * @param output A formatted string containing the list of tasks that match the search criteria.
-     *               This string is printed as is to the console.
      */
-    public String findTask(String output) {
-        return output;
+    public String findTask(TaskList taskList, String keyword) {
+        return taskList.findTasks(keyword);
     }
 
     /**
