@@ -29,9 +29,9 @@ public class DeadlineCommand extends Command {
     /**
      * Executes the "deadline" command which adds a {@code Deadline} task to the task list.
      *
-     * @param tasks            The task list to use.
-     * @param storage          The storage object containing the filepath which the chatbot saves to and loads from.
-     * @param ui               The Ui object used to generate the string to print.
+     * @param tasks The task list to use.
+     * @param storage The storage object containing the filepath which the chatbot saves to and loads from.
+     * @param ui The Ui object used to generate the string to print.
      * @param duplicateHandler The duplicate handler to use if necessary.
      * @return The string to print.
      */
@@ -45,11 +45,11 @@ public class DeadlineCommand extends Command {
             return ui.getTaskAddedMessage(task, tasks.size());
         } catch (DateTimeException e) {
             return """
-                   OOPS!!! The description of deadline is wrong.
-                   Try 'deadline <description> /by <yyyy-mm-dd> <HHmm>'
-                         'deadline <description> /by <dd/MM/yyyy> <HHmm>'.
-                   It is not necessary to input the time!
-                   """;
+                    OOPS!!! The description of deadline is wrong.
+                    Try 'deadline <description> /by <yyyy-mm-dd> <HHmm>'
+                          'deadline <description> /by <dd/MM/yyyy> <HHmm>'.
+                    It is not necessary to input the time!
+                    """;
         }
     }
 

@@ -34,9 +34,9 @@ public class EventCommand extends Command {
     /**
      * Executes the "event" command which adds an {@code Event} task to the task list.
      *
-     * @param tasks            The task list to use.
-     * @param storage          The storage object containing the filepath which the chatbot saves to and loads from.
-     * @param ui               The Ui object used to generate the string to print.
+     * @param tasks The task list to use.
+     * @param storage The storage object containing the filepath which the chatbot saves to and loads from.
+     * @param ui The Ui object used to generate the string to print.
      * @param duplicateHandler The duplicate handler to use if necessary.
      * @return The string to print.
      */
@@ -50,11 +50,11 @@ public class EventCommand extends Command {
             return ui.getTaskAddedMessage(task, tasks.size());
         } catch (DateTimeException e) {
             return """
-                   OOPS!!! The description of event is wrong.
-                   Try 'event <description> /from <date1> /to <date2>'.
-                   <date> should be <yyyy-mm-dd> <HHmm> or <dd/MM/yyyy> <HHmm>.
-                   It is not necessary to input the time!
-                   """;
+                    OOPS!!! The description of event is wrong.
+                    Try 'event <description> /from <date1> /to <date2>'.
+                    <date> should be <yyyy-mm-dd> <HHmm> or <dd/MM/yyyy> <HHmm>.
+                    It is not necessary to input the time!
+                    """;
         }
     }
 

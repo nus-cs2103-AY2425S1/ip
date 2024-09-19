@@ -126,9 +126,9 @@ public class Parser {
             taskNumber = Integer.parseInt(sc.nextLine().trim()) - 1;
         } catch (Exception e) {
             String errorMessage = String.format("""
-                                                OOPS!!! You either have a non-integer input or no input at all.
-                                                Try '%s <task number>'.
-                                                """, command.toString().toLowerCase());
+                    OOPS!!! You either have a non-integer input or no input at all.
+                    Try '%s <task number>'.
+                    """, command.toString().toLowerCase());
             throw new Exception(errorMessage);
         }
         return taskNumber;
@@ -138,9 +138,9 @@ public class Parser {
         String desc = sc.nextLine().trim();
         if (desc.isEmpty()) {
             throw new Exception("""
-                                OOPS!!! The description of a todo cannot be empty.
-                                Try todo <description>.
-                                """);
+                    OOPS!!! The description of a todo cannot be empty.
+                    Try todo <description>.
+                    """);
         }
         return desc;
     }
@@ -154,11 +154,11 @@ public class Parser {
             }
         } catch (IndexOutOfBoundsException e) {
             String errorMessage = """
-                                  OOPS!!! The description of deadline is wrong.
-                                  Try 'deadline <description> /by <yyyy-mm-dd> <HHmm>'
-                                        'deadline <description> /by <dd/MM/yyyy> <HHmm>'.
-                                  It is not necessary to input the time!
-                                  """;
+                    OOPS!!! The description of deadline is wrong.
+                    Try 'deadline <description> /by <yyyy-mm-dd> <HHmm>'
+                          'deadline <description> /by <dd/MM/yyyy> <HHmm>'.
+                    It is not necessary to input the time!
+                    """;
             throw new IndexOutOfBoundsException(errorMessage);
         }
         return split;
@@ -177,11 +177,11 @@ public class Parser {
             split = new String[]{desc, from, to};
         } catch (IndexOutOfBoundsException e) {
             String errorMessage = """
-                                  OOPS!!! The description of event is wrong.
-                                  Try 'event <description> /from <date1> /to <date2>'.
-                                  <date> should be <yyyy-mm-dd> <HHmm> or <dd/MM/yyyy> <HHmm>.
-                                  It is not necessary to input the time!
-                                  """;
+                    OOPS!!! The description of event is wrong.
+                    Try 'event <description> /from <date1> /to <date2>'.
+                    <date> should be <yyyy-mm-dd> <HHmm> or <dd/MM/yyyy> <HHmm>.
+                    It is not necessary to input the time!
+                    """;
             throw new Exception(errorMessage);
         }
         return split;
@@ -191,9 +191,9 @@ public class Parser {
         String desc = sc.nextLine().trim();
         if (desc.isEmpty()) {
             throw new Exception("""
-                                OOPS!!! The description of find cannot be empty.
-                                Try find <description>.
-                                """);
+                    OOPS!!! The description of find cannot be empty.
+                    Try find <description>.
+                    """);
         }
         return desc;
     }

@@ -34,8 +34,7 @@ public class DuplicateHandler {
     /**
      * Checks if a {@code Todo} with the given description already exists.
      * @param key The description of the {@code Todo}.
-     * @return {@code true} if a {@code Todo} with the same description
-     *         already exists.
+     * @return {@code true} if a {@code Todo} with the same description already exists.
      */
     public boolean hasTodoDuplicate(String key) {
         return todoCount.get(key) != null;

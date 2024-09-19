@@ -32,9 +32,9 @@ public class IntegerCommand extends Command {
     /**
      * Executes the specified integer command.
      *
-     * @param tasks            The task list to use if necessary.
-     * @param storage          The storage object containing the filepath which the chatbot saves to and loads from.
-     * @param ui               The Ui object used to generate the string to print.
+     * @param tasks The task list to use if necessary.
+     * @param storage The storage object containing the filepath which the chatbot saves to and loads from.
+     * @param ui The Ui object used to generate the string to print.
      * @param duplicateHandler The duplicate handler to use if necessary.
      * @return The string to print.
      */
@@ -71,9 +71,9 @@ public class IntegerCommand extends Command {
             } else {
                 int size = tasks.size();
                 return String.format("""
-                                     You currently have %d tasks.
-                                     Please enter a number between 1 and %d.
-                                     """, size, size);
+                        You currently have %d tasks.
+                        Please enter a number between 1 and %d.
+                        """, size, size);
             }
         } catch (IllegalStateException e) {
             return e.getMessage();
