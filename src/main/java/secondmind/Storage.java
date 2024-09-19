@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Manages the storage of tasks in a data file.
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Storage {
     private final static String TODO_INDICATOR = "T";
     private final static String DEADLINE_INDICATOR = "D";
-    private final static String TEMPORARY_DATA_FILE_PATH = "../tempDataFile.txt";
+    private final static String TEMPORARY_DATA_FILE_PATH = "./tempDataFile.txt";
 
     private final String DATA_FILE_PATH;
 

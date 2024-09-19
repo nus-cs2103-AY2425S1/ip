@@ -1,7 +1,7 @@
 package secondmind;
 
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Handles user interaction, including input and output operations.
