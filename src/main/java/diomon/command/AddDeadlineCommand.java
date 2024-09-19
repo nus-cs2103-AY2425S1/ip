@@ -14,10 +14,8 @@ public class AddDeadlineCommand extends AddCommand{
     }
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        assert input != null;
         try {
-            if (input == null) {
-                throw new MissingInputException();
-            }
             Task newTask = Parser.parseDeadline(input);
             tasks.add(newTask);
             setResponse(String.format("Task: ( %s ) has been added.", newTask));

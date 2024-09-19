@@ -10,6 +10,7 @@ public class FindCommand extends Command{
     }
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        assert input != null;
         try {
             setResponse("Remember to keep ur search history clean!\n" + tasks.fuzzyFind(input));
         } catch (RuntimeException e) {
