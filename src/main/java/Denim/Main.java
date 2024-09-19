@@ -3,6 +3,7 @@ package denim;
 import java.io.IOException;
 
 import denim.exceptions.DenimDirectoryException;
+import denim.exceptions.DenimFileCorruptionException;
 import denim.exceptions.DenimFileException;
 import denim.ui.MainWindow;
 import javafx.application.Application;
@@ -40,14 +41,18 @@ public class Main extends Application {
             fxmlMainLoader.<MainWindow>getController().displayGreetingMessage();
         } catch (IOException e) {
             throw new RuntimeException(e);
-        } catch (DenimFileException e) {
-            fxmlMainLoader.<MainWindow>getController().handleFileNotFound();
-            stage.show();
-            fxmlMainLoader.<MainWindow>getController().displayGreetingMessage();
         } catch (DenimDirectoryException e) {
             fxmlMainLoader.<MainWindow>getController().handleDirectoryNotFound();
             stage.show();
-            fxmlMainLoader.<MainWindow>getController().displayGreetingMessage();
+            fxmlLoader.<MainWindow>getController().displayGreetingMessage();
+        } catch (DenimFileException e) {
+            fxmlLoader.<MainWindow>getController().handleFileNotFound();
+            stage.show();
+            fxmlLoader.<MainWindow>getController().displayGreetingMessage();
+        } catch (DenimFileCorruptionException e) {
+            fxmlLoader.<MainWindow>getController().handleFileCorruption();
+            stage.show();
+            fxmlLoader.<MainWindow>getController().displayGreetingMessage();
         }
     }
 }

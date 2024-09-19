@@ -145,5 +145,8 @@ public class TaskList {
 
     public boolean isEmpty() {
         return taskList.isEmpty();
+        
+    public void clearTaskList() {
+        taskList.clear();
     }
 }

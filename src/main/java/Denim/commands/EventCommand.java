@@ -13,7 +13,7 @@ import denim.tasks.Event;
  */
 public class EventCommand extends Command {
     public static final String COMMAND_WORD = "event";
-    public static final String COMMAND_USAGE = "event <eventDescription> /from <startDateTime /to <endDateTime>\n"
+    public static final String COMMAND_USAGE = "event <eventDescription> /from <startDateTime>   /to <endDateTime>\n"
             + "Where startDateTime and endDateTime is in dd/MM/yyyy HHmm";
     public static final String COMMAND_EXAMPLE = "event dinner /from 08/10/2004 1700 /to 08/10/2004 1900";
     private Event eventTask;

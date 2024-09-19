@@ -180,6 +180,34 @@ public class MainWindow extends VBox {
         }
     }
 
+    /**
+     * Alerts the user that the file containing the data for the application is corrupted,
+     * and suggests to create a new file to overwrite the data, while renaming the corrupted file
+     * for user to manually locate the errors.
+     */
+    public void handleFileCorruption() {
+        alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("File Corrupted");
+        alert.setHeaderText("File Corrupted");
+        alert.setContentText("File Corrupted. Create new denim.txt? The corrupted file will be renamed and "
+                + "placed in the same directory.");
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == ButtonType.CANCEL) {
+            denim.exit();
+        }
+
+        try {
+            denim.handleFileCorruption();
+        } catch (DenimFileException e) {
+            alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText("Error");
+            alert.setContentText(e.getMessage());
+            denim.exit();
+        }
+    }
+
 
     /**
      * Shows a stage with helping instructions.
