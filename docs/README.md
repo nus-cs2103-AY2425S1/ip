@@ -35,7 +35,7 @@ Function | Command | Format | Example
 ---|---|---|---
 [Add a Todo task](#add-a-todo-task) | `todo` | `todo <description>` | `todo read book`
 [Add a Deadline task](#add-a-deadline-task) | `deadline` | `deadline <description> /by: <YYYY-MM-DD HH:MM>` | `deadline return book /by: 2021-09-30 18:00`
-[Add an Event task](#add-a-deadline-task) | `event` | `event <description> /from: <YYYY-MM-DD HH:MM> /to: <YYYY-MM-DD HH:MM>` | `event meeting /from 2021-09-17 14:00 /to 2021-09-17 16:00`
+[Add an Event task](#add-a-deadline-task) | `event` | `event <description> /from: <YYYY-MM-DD HH:MM> /to: <YYYY-MM-DD HH:MM>` | `event meeting /from: 2021-09-17 14:00 /to: 2021-09-17 16:00`
 [List all tasks](#list-all-tasks) | `-l` | `-l` | `-l`
 [Mark a task as done](#mark-a-task-as-done) | `-m`| `-m <task number>` | `-m 1`
 [Mark a task as undone](#mark-a-task-as-undone) | `-u`| `-u <task number>` | `-u 1`
