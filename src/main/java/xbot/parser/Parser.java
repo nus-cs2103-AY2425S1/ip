@@ -73,7 +73,6 @@ public class Parser {
      */
     public static boolean isValidDateFormat(String date) {
         List<String> formats = new ArrayList<>();
-        formats.add("yyyy-MM-dd");
         formats.add("d/M/yyyy");
         formats.add("d/M/yyyy HHmm");
 
@@ -91,6 +90,23 @@ public class Parser {
             }
         }
         return false;
+    }
+
+    /**
+     * Checks if a given date string is just a date and of a valid format.
+     *
+     * @param date The date string to validate.
+     * @return True if the date string matches one of the supported formats, false otherwise.
+     */
+    public static boolean isValidDateFormatOnly(String date) {
+        String format = "d/M/yyyy";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+        try {
+            LocalDate.parse(date, formatter);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
     }
 
     /**

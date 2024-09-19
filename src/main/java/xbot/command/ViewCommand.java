@@ -21,15 +21,15 @@ public class ViewCommand implements Command {
         }
         this.totalList = list;
         this.ui = ui;
-        return listTaskForDate(rest);
+        return listTaskForDate(rest.trim());
     }
 
     public String listTaskForDate(String rest) throws XBotException {
         //Check if rest is a valid date
-        if (!Parser.isValidDateFormat(rest)) {
+        if (!Parser.isValidDateFormatOnly(rest)) {
             throw new XBotException("Sorry...I cannot read this date input >_< \n" +
                     "you might want to try these date format instead :0\n" +
-                    "D/M/YYYY (e.g. 9/4/2024) or D/M/YYYY HHMM (e.g. 9/4/2024 2359)");
+                    "D/M/YYYY (e.g. 9/4/2024)");
         }
 
         String output = "These are the tasks you have on " + Parser.changeDateFormat(rest) + " !! :)\n\n";
