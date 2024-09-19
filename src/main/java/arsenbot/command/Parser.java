@@ -15,6 +15,8 @@ public class Parser {
      * @throws TaskManagerException if the input does not match any recognized command
      */
     public static Command parse(String input) throws TaskManagerException {
+        assert input != null : "Input command should not be null";
+        assert !input.trim().isEmpty() : "Input command should not be empty";
         if (input.startsWith("todo")) {
             return new AddCommand(input);
         } else if (input.startsWith("deadline")) {

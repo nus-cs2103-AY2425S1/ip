@@ -27,6 +27,7 @@ public class Storage {
      * @param filePath the file path to load and save tasks from/to
      */
     public Storage(String filePath) {
+        assert filePath != null : "File path should not be null";
         this.filePath = filePath;
     }
 
@@ -48,12 +49,14 @@ public class Storage {
         String line;
         while ((line = reader.readLine()) != null) {
             String[] parts = line.split(" \\| ");
+            assert parts.length >= 3 : "Invalid task format in file";
             Task task = switch (parts[0]) {
                 case "T" -> new Todo(parts[2]);
                 case "D" -> new Deadline(parts[2], parts[3]);
                 case "E" -> new Event(parts[2], parts[3], parts[4]);
                 default -> null;
             };
+            assert task != null : "Task parsing should not result in null";
             if (task != null && parts[1].equals("1")) {
                 task.markAsDone();
             }
@@ -71,6 +74,7 @@ public class Storage {
      * @throws IOException if an I/O error occurs during file writing
      */
     public void save(List<Task> tasks) throws IOException {
+        assert tasks != null : "Task list should not be null";
         File directory = new File("./data");
         if (!directory.exists()) {
             directory.mkdir();
