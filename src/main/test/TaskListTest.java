@@ -1,5 +1,6 @@
 package espresso.task;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import espresso.command.InvalidCommandException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
