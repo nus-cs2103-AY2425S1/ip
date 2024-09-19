@@ -34,7 +34,7 @@ public class TagCommand extends Command {
     @Override
     public String execute(TaskList tasks, Storage storage, Ui ui) {
         try {
-            return tasks.tag(this.tag, this.index);
+            return tasks.tagTask(this.tag, this.index);
         } catch (IllegalInputPotongException e) {
             return e.getMessage();
         }

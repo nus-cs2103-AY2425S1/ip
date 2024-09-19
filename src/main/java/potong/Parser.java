@@ -1,4 +1,5 @@
 package potong;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,9 +18,6 @@ import potong.task.DeadlineTask;
 import potong.task.EventTask;
 import potong.task.Task;
 import potong.task.ToDoTask;
-
-
-
 
 /**
  * Class with static methods to parse the user inputs.

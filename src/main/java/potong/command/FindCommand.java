@@ -33,7 +33,7 @@ public class FindCommand extends Command {
     public String execute(TaskList tasks, Storage storage, Ui ui) {
         try {
             assert tasks != null;
-            return tasks.find(this.keyword);
+            return tasks.findTask(this.keyword);
         } catch (IllegalInputPotongException e) {
             return e.getMessage();
         }

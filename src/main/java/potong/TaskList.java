@@ -25,7 +25,7 @@ public class TaskList {
      *
      * @param arr ArrayList of saved tasks.
      */
-    public void initialise(ArrayList<Task> arr) {
+    public void initialiseTaskList(ArrayList<Task> arr) {
         this.arr = arr;
     }
 
@@ -35,7 +35,7 @@ public class TaskList {
      * @param input Task.
      * @return String representation of the action.
      */
-    public String add(Task input) {
+    public String addTask(Task input) {
         this.arr.add(input);
         return String.format("Got it. I've added this task:\n %s\nNow you have %d tasks in the list.",
                 input, this.arr.size());
@@ -48,7 +48,7 @@ public class TaskList {
      * @return String representation of the action.
      * @throws IllegalInputPotongException If the index is out of bounds.
      */
-    public String mark(int index) throws IllegalInputPotongException {
+    public String markTask(int index) throws IllegalInputPotongException {
         if (index - 1 >= this.arr.size() || index - 1 < 0) {
             throw new IllegalInputPotongException(String.format("Your index %d is out of bounds!", index));
         }
@@ -62,7 +62,7 @@ public class TaskList {
      * @return String representation of the action.
      * @throws IllegalInputPotongException If the index is out of bounds.
      */
-    public String unmark(int index) throws IllegalInputPotongException {
+    public String unmarkTask(int index) throws IllegalInputPotongException {
         if (index - 1 >= this.arr.size() || index - 1 < 0) {
             throw new IllegalInputPotongException(String.format("Your index %d is out of bounds!", index));
         }
@@ -76,7 +76,7 @@ public class TaskList {
      * @return String representation of the action.
      * @throws IllegalInputPotongException If the index is out of bounds.
      */
-    public String delete(int index) throws IllegalInputPotongException {
+    public String deleteTask(int index) throws IllegalInputPotongException {
         if (index - 1 >= this.arr.size() || index - 1 < 0) {
             throw new IllegalInputPotongException(String.format("Your index %d is out of bounds!", index));
         }
@@ -93,7 +93,7 @@ public class TaskList {
      * @return String representation of this action.
      * @throws IllegalInputPotongException If the index is out of bounds.
      */
-    public String tag(String tag, int index) throws IllegalInputPotongException {
+    public String tagTask(String tag, int index) throws IllegalInputPotongException {
         if (index - 1 >= this.arr.size() || index - 1 < 0) {
             throw new IllegalInputPotongException(String.format("Your index %d is out of bounds!", index));
         }
@@ -106,7 +106,7 @@ public class TaskList {
      * @return String representation of this action.
      * @throws IllegalInputPotongException If the index is out of bounds.
      */
-    public String untag(int index) throws IllegalInputPotongException {
+    public String untagTask(int index) throws IllegalInputPotongException {
         if (index - 1 >= this.arr.size() || index - 1 < 0) {
             throw new IllegalInputPotongException(String.format("Your index %d is out of bounds!", index));
         }
@@ -143,7 +143,7 @@ public class TaskList {
      * @return String representation of the list of tasks with the keyword.
      * @throws IllegalInputPotongException If keyword is empty.
      */
-    public String find(String keyword) throws IllegalInputPotongException {
+    public String findTask(String keyword) throws IllegalInputPotongException {
         if (keyword.isEmpty()) {
             throw new IllegalInputPotongException("Keyword cannot be empty!");
         }

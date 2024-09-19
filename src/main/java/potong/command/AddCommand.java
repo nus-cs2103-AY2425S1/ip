@@ -70,13 +70,13 @@ public class AddCommand extends Command {
             assert tasks != null;
             switch (this.type) {
             case TODO -> {
-                return tasks.add(new ToDoTask(this.task));
+                return tasks.addTask(new ToDoTask(this.task));
             }
             case DEADLINE -> {
-                return tasks.add(new DeadlineTask(this.task, this.deadline));
+                return tasks.addTask(new DeadlineTask(this.task, this.deadline));
             }
             case EVENT -> {
-                return tasks.add(new EventTask(this.task, this.eventStart, this.eventEnd));
+                return tasks.addTask(new EventTask(this.task, this.eventStart, this.eventEnd));
             }
             default -> {
                 return "";

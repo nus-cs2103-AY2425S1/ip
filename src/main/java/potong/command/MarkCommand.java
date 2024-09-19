@@ -38,9 +38,9 @@ public class MarkCommand extends Command {
         assert tasks != null;
         try {
             if (isMarked) {
-                return tasks.mark(this.index);
+                return tasks.markTask(this.index);
             } else {
-                return tasks.unmark(this.index);
+                return tasks.unmarkTask(this.index);
             }
         } catch (IllegalInputPotongException e) {
             return e.getMessage();

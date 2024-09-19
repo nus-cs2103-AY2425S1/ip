@@ -31,7 +31,7 @@ public class UntagCommand extends Command {
     @Override
     public String execute(TaskList tasks, Storage storage, Ui ui) {
         try {
-            return tasks.untag(this.index);
+            return tasks.untagTask(this.index);
         } catch (IllegalInputPotongException e) {
             return e.getMessage();
         }

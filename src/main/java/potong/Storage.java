@@ -83,7 +83,7 @@ public class Storage {
             Task nextTask = Parser.loadSavedTasks(curr);
             result.add(nextTask);
         }
-        this.tasklist.initialise(result);
+        this.tasklist.initialiseTaskList(result);
     }
 
     /**

@@ -33,7 +33,7 @@ public class DeleteCommand extends Command {
     public String execute(TaskList tasks, Storage storage, Ui ui) {
         assert tasks != null;
         try {
-            return tasks.delete(this.index);
+            return tasks.deleteTask(this.index);
         } catch (IllegalInputPotongException e) {
             return e.getMessage();
         }
