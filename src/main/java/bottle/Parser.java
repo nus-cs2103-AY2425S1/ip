@@ -95,8 +95,7 @@ public class Parser {
                 return parseFindCommand(input);
             } else if (input.startsWith("check clash")) {
                 return parseCheckClashCommand();
-            }
-            else {
+            } else {
                 throw new RuntimeException("OOPS!!! Something went wrong.");
             }
         } catch (RuntimeException e) {

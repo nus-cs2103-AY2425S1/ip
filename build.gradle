@@ -9,6 +9,10 @@ repositories {
     mavenCentral()
 }
 
+ext {
+    javaFxVersion = '17.0.7'
+}
+
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
@@ -48,7 +52,6 @@ application {
 
 shadowJar {
     archiveBaseName = "Bottle"
-    mainClassName = 'bottle.Bottle'
     archiveClassifier = null
 }
 

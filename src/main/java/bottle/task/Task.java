@@ -50,9 +50,10 @@ public abstract class Task {
     }
 
     /**
-     * Returns a string representation of the task, including its completion status.
+     * Returns a string representation of the task, including its completion status
+     * in the format "[X] description" if completed.Or "[ ] description" if not completed.
      *
-     * @return a string representation of the task in the format "[X] description" if completed, or "[ ] description" if not
+     * @return a string representation of the task
      */
     @Override
     public String toString() {
