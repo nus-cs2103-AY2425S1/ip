@@ -125,7 +125,12 @@ public class InputHandler {
         if (input.length() <= 5) {
             throw new BuzzException("What's the index? Specify which task you want to mark! *bzzt*");
         }
-        int index = Integer.parseInt(input.split(" ")[1]) - 1;
+        int index;
+        try {
+            index = Integer.parseInt(input.split(" ")[1]) - 1;
+        } catch (NumberFormatException e) {
+            throw new BuzzException("WRITE A NUMBER! *bzzt*");
+        }
         if (index < 0 || index >= data.size()) {
             throw new BuzzException("OOPS!!! The task doesn't exist *BEEP*");
         }
@@ -143,7 +148,12 @@ public class InputHandler {
         if (input.length() <= 7) {
             throw new BuzzException("What's the index? Specify which task you want to unmark! *bzzt*");
         }
-        int index = Integer.parseInt(input.split(" ")[1]) - 1;
+        int index;
+        try {
+            index = Integer.parseInt(input.split(" ")[1]) - 1;
+        } catch (NumberFormatException e) {
+            throw new BuzzException("WRITE A NUMBER! *bzzt*");
+        }
         if (index < 0 || index >= data.size()) {
             throw new BuzzException("OOPS!!! The task doesn't exist *BEEP*");
         }
@@ -161,7 +171,12 @@ public class InputHandler {
         if (input.length() <= 7) {
             throw new BuzzException("What's the index? Specify which task you want to delete! *bzzt*");
         }
-        int index = Integer.parseInt(input.split(" ")[1]) - 1;
+        int index;
+        try {
+            index = Integer.parseInt(input.split(" ")[1]) - 1;
+        } catch (NumberFormatException e) {
+            throw new BuzzException("WRITE A NUMBER! *bzzt*");
+        }
         if (index < 0 || index >= data.size()) {
             throw new BuzzException("OOPS!!! The task doesn't exist *BEEP*");
         }
@@ -181,6 +196,9 @@ public class InputHandler {
             throw new BuzzException("NOOO! Description is empty *crash*");
         }
         Task task = new Todo(input.substring(5));
+        if (task.getDescription().trim().isEmpty()) {
+            throw new BuzzException("An empty task?? I am not going to add it *boo*");
+        }
         data.add(task);
         return "Understood boss. Added!\n" + task.toString() + "\n"
                 + "You currently have " + data.size() + " missions available *reeeee*";
@@ -198,6 +216,9 @@ public class InputHandler {
             throw new BuzzException("NOOO! Description is empty *crash*");
         }
         Task task = new Deadline(parts[0].substring(9), parts[1].trim());
+        if (task.getDescription().trim().isEmpty()) {
+            throw new BuzzException("An empty task?? I am not going to add it *boo*");
+        }
         data.add(task);
         return "Understood boss. Added!\n" + task.toString() + "\n"
                 + "You currently have " + data.size() + " missions available *reeeee*";
@@ -222,6 +243,9 @@ public class InputHandler {
         validate(description, fromDateTime, toDateTime);
 
         Task task = new Event(description, fromDateTime, toDateTime);
+        if (task.getDescription().trim().isEmpty()) {
+            throw new BuzzException("An empty task?? I am not going to add it *boo*");
+        }
         data.add(task);
         return "Understood boss. Added!\n" + task.toString() + "\n"
                 + "You currently have " + data.size() + " missions available *reeeee*";

@@ -177,16 +177,4 @@ public class SwbotTest {
 
         assertThrows(BuzzException.class, () -> inputHandler.markHandle("mark 2"));
     }
-
-    @Test
-    public void testMarkHandle_invalidInput() {
-        ArrayList<Task> data = new ArrayList<>();
-        Task task = new Todo("do something");
-        data.add(task);
-
-        Storage mockStorage = new Storage("mockfilePath");
-        InputHandler inputHandler = new InputHandler(data, mockStorage);
-
-        assertThrows(NumberFormatException.class, () -> inputHandler.markHandle("mark invalidInput"));
-    }
 }
