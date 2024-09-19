@@ -4,7 +4,7 @@ import mgtow.task.Deadline;
 import mgtow.task.Event;
 import mgtow.task.Task;
 import mgtow.task.ToDo;
-import java.time.LocalDate;
+
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -136,13 +136,4 @@ public class Parser {
         return sb.toString();
     }
 
-    /**
-     * Parses a date string into a LocalDate object.
-     *
-     * @param dateStr The date string in the format "yyyy-MM-dd".
-     * @return A LocalDate object representing the parsed date.
-     */
-    public static LocalDate parseDate(String dateStr) {
-        return LocalDate.parse(dateStr, DATE_FORMAT);
-    }
 }
