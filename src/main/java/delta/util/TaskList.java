@@ -42,9 +42,7 @@ public class TaskList {
 
         // Index out of range of list
         if (index < 0 || index >= tasks.size()) {
-            throw new DeltaException("""
-                    OOPS!!! Task not found in list.
-                    \t Please provide a valid Task.""");
+            throw new DeltaException("OOPS!!! Task not found in list. Please provide a valid Task!");
         }
 
         return tasks.get(index);

@@ -96,18 +96,14 @@ public class TaskListTest {
             testList.markTask(0);
             fail();
         } catch (Exception e) {
-            assertEquals("""
-                    OOPS!!! Task not found in list.
-                    \t Please provide a valid Task.""", e.getMessage());
+            assertEquals("OOPS!!! Task not found in list. Please provide a valid Task!", e.getMessage());
         }
 
         try {
             testList.markTask(4);
             fail();
         } catch (Exception e) {
-            assertEquals("""
-                    OOPS!!! Task not found in list.
-                    \t Please provide a valid Task.""", e.getMessage());
+            assertEquals("OOPS!!! Task not found in list. Please provide a valid Task!", e.getMessage());
         }
     }
 
@@ -161,18 +157,14 @@ public class TaskListTest {
             testList.unmarkTask(0);
             fail();
         } catch (Exception e) {
-            assertEquals("""
-                    OOPS!!! Task not found in list.
-                    \t Please provide a valid Task.""", e.getMessage());
+            assertEquals("OOPS!!! Task not found in list. Please provide a valid Task!", e.getMessage());
         }
 
         try {
             testList.unmarkTask(4);
             fail();
         } catch (Exception e) {
-            assertEquals("""
-                    OOPS!!! Task not found in list.
-                    \t Please provide a valid Task.""", e.getMessage());
+            assertEquals("OOPS!!! Task not found in list. Please provide a valid Task!", e.getMessage());
         }
     }
 
@@ -220,18 +212,14 @@ public class TaskListTest {
             testList.deleteTask(0);
             fail();
         } catch (Exception e) {
-            assertEquals("""
-                    OOPS!!! Task not found in list.
-                    \t Please provide a valid Task.""", e.getMessage());
+            assertEquals("OOPS!!! Task not found in list. Please provide a valid Task!", e.getMessage());
         }
 
         try {
             testList.deleteTask(4);
             fail();
         } catch (Exception e) {
-            assertEquals("""
-                    OOPS!!! Task not found in list.
-                    \t Please provide a valid Task.""", e.getMessage());
+            assertEquals("OOPS!!! Task not found in list. Please provide a valid Task!", e.getMessage());
         }
     }
 }
