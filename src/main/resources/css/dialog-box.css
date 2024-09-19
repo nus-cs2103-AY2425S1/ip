@@ -1,11 +1,11 @@
 .label {
-    background:white;
+    background: #04071E;
     -fx-background-color: background;
-    -fx-border-color: #0072b2;
-    -fx-border-width: 2x;
+    -fx-border-color: #D4ADFC;
+    -fx-border-width: 3px;
     -fx-background-radius: 1em 1em 0 1em;
     -fx-border-radius: 1em 1em 0 1em;
-    -fx-text-fill: ladder(background, white 49%, black 50%);
+    -fx-text-fill: #D4ADFC;
 }
 
 
