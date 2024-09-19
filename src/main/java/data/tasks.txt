@@ -1,3 +1,0 @@
-deadline task1 /by tuesday | false | not important
-todo task2 | false | 
-event task3/from tuesday/to wednesday | false | 

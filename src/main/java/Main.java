@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -26,7 +27,7 @@ public class Main extends Application {
         danny = new Danny();
         Storage loader;
         try {
-            loader = new Storage("src/main/java/data/tasks.txt", danny);
+            loader = new Storage("tasks.txt", danny);
             System.out.println("Loading previous lists...");
             loader.loadTask();
             System.out.println("Load Completed. Welcome back :)");
@@ -66,11 +67,19 @@ public class Main extends Application {
     @Override
     public void stop() {
         try {
-            Storage loader = new Storage("src/main/java/data/tasks.txt", danny);
+            File myObj = new File("tasks.txt");
+            if (myObj.createNewFile()) {
+                System.out.println("File created: " + myObj.getName());
+            } else {
+                System.out.println("File already exists.");
+            }
+            Storage loader = new Storage("tasks.txt", danny);
             loader.saveTask();
             System.out.println("Saving successful");
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            e.printStackTrace();
             System.out.println("Saving unsuccessful :(");
         }
     }
