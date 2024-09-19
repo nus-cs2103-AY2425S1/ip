@@ -44,6 +44,9 @@ However, to display the chat history in a more user-friendly manner, the chatbot
       ```bash
       java -jar tars.jar
       ```
+
+
+
 # Commands
 > Note:
 > For all commands, arguments for the command are specified between curly brackets `{}` and are compulsory. The curly brackets not meant to be typed in the command itself. Refer to the command example for better clarity.
