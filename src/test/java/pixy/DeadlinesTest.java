@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 
 import pixy.tasks.Deadlines;
 
-
 class DeadlinesTest {
 
     @Test
@@ -22,7 +21,8 @@ class DeadlinesTest {
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             new Deadlines("Complete report", "31-08-2024 0900");
         });
-        assertTrue(exception.getMessage().contains("Invalid date format"));
+        assertTrue(exception.getMessage().contains("Invalid date format: 31-08-2024 0900" +
+                ". Please use 'd/M/yyyy HHmm' or 'MMM d yyyy, h:mm a'."));
     }
 
     @Test

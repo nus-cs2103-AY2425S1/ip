@@ -36,7 +36,7 @@ class StorageTest {
     }
 
     @Test
-    void testLoad() throws IOException {
+    void testLoad() throws PixyExceptions {
         // Act: Load tasks from the file
         List<Task> tasks = storage.load();
 
@@ -50,7 +50,7 @@ class StorageTest {
     }
 
     @Test
-    void testLoadFromEmptyFile() throws IOException {
+    void testLoadFromEmptyFile() throws PixyExceptions, IOException {
         // Clear the file to simulate an empty task file
         Files.write(tempFile.toPath(), List.of());
 

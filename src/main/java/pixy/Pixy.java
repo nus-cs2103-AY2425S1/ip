@@ -49,7 +49,7 @@ public class Pixy {
 
         try {
             tasks = new TaskList(storage.load());
-        } catch (IOException e) {
+        } catch (PixyExceptions e) {
             tasks = new TaskList();
         }
     }
@@ -73,6 +73,9 @@ public class Pixy {
         } catch (PixyExceptions e) {
             ui.showError("An error occurred while saving tasks.");
         }
+    }
+    public int getTaskCount() {
+        return tasks.size(); // Ensure `TaskList` class has a `size()` method
     }
 
     /**
