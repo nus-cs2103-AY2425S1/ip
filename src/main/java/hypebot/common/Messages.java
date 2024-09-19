@@ -107,6 +107,8 @@ public class Messages {
             but I couldn't catch the search date that you put.
             Try formatting your due date in this format: yyyy-MM-dd
             """;
+    public static final String ERROR_NO_TASKS_HAPPENING = "no tasks are happening on that day!\n";
+    public static final String ERROR_NO_TASKS_MATCH_SEARCH = "no tasks match that search!\n";
     public static final String ERROR_SEARCH_QUERY_EMPTY = "make sure to enter in some keywords in the name "
             + "of the tasks you're searching for!\n";
     public static final String ERROR_DUPLICATE_TASK = "but that task has already been hanging around with us! "

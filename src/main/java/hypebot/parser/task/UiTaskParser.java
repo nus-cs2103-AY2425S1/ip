@@ -54,7 +54,7 @@ public class UiTaskParser extends TaskParser {
      */
     @Override
     protected TaskType extractTaskType(String line) throws IllegalTaskTypeException {
-        String enteredTaskType = splitLine(line)[0].trim().toLowerCase();
+        String enteredTaskType = splitLine(line)[0].split(" ")[0].trim().toLowerCase();
         return switch(enteredTaskType) {
         case "td", "todo" -> TaskType.TODO;
         case "dl", "deadline" -> TaskType.DEADLINE;
@@ -69,8 +69,9 @@ public class UiTaskParser extends TaskParser {
      *
      * @param line Full {@link String} line entered by user.
      * @return {@link String} array containing the {@link Task}'s name separated by word.
+     * @throws MissingTaskNameException If no {@link Task} name is entered.
      */
-    private String[] separateTaskNameFromLine(String line) {
+    private String[] separateTaskNameFromLine(String line) throws MissingTaskNameException {
         String commandAndTaskNameString = splitLine(line)[0];
         String[] commandAndTaskName = commandAndTaskNameString.split(" ");
 
@@ -86,17 +87,21 @@ public class UiTaskParser extends TaskParser {
      *
      * @param line Full {@link String} line entered by user.
      * @return {@link String} name of the {@link Task} entered.
+     * @throws MissingTaskNameException If no {@link Task} name is entered.
      */
-    private String buildTaskName(String line) {
+    private String buildTaskName(String line) throws MissingTaskNameException {
         String[] taskNameWords = separateTaskNameFromLine(line);
 
-        StringBuilder taskNameBuilder = new StringBuilder();
-        for (int i = 0; i < taskNameWords.length - 1; i++) {
-            taskNameBuilder.append(taskNameWords[i]).append(" ");
+        try {
+            StringBuilder taskNameBuilder = new StringBuilder();
+            for (int i = 0; i < taskNameWords.length - 1; i++) {
+                taskNameBuilder.append(taskNameWords[i]).append(" ");
+            }
+            taskNameBuilder.append(taskNameWords[taskNameWords.length - 1]);
+            return taskNameBuilder.toString().trim();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new MissingTaskNameException();
         }
-        taskNameBuilder.append(taskNameWords[taskNameWords.length - 1]);
-
-        return taskNameBuilder.toString().trim();
     }
 
     /**

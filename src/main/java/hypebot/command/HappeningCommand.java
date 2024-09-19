@@ -2,6 +2,7 @@ package hypebot.command;
 
 import java.io.File;
 import java.time.LocalDate;
+import java.util.NoSuchElementException;
 
 import hypebot.main.HypeBot;
 import hypebot.parser.command.CommandParser;
@@ -50,9 +51,12 @@ public class HappeningCommand extends Command {
      *                       {@link Task}s are loaded / saved.
      * @return {@link UiResponse} showing the new {@link Tasklist} containing {@link Task}s
      *         that happen on this {@code FindCommand}'s {@code searchDate}.
+     * @throws NoSuchElementException If {@code Tasklist} is empty or there are no {@link Task}s that
+     *      *                         occurring on the given date.
      */
     @Override
-    public UiResponse execute(Tasklist tasks, UiCli uiCli, StorageManager storageManager) {
+    public UiResponse execute(Tasklist tasks, UiCli uiCli, StorageManager storageManager)
+            throws NoSuchElementException {
         Tasklist tasksHappening = tasks.getHappeningOn(searchDate);
         return uiCli.showTasksHappeningOnDate(searchDate, tasksHappening);
     }
