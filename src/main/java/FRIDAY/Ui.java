@@ -12,8 +12,8 @@ public class Ui {
      * @param numTasks  number of tasks in list
      */
     public String printAdd(Task task, int numTasks) {
-        return "Got it. I've added this taskL:\n"
-                + task.getTaskDescription() + "\nNow you have " + numTasks + " tasks in your list\n";
+        return "Alright! Your list has been updated :)\n"
+                + task.getTaskDescription() + "\nThere are now " + numTasks + " tasks in your list\n";
     }
 
     /**
@@ -22,8 +22,8 @@ public class Ui {
      * @param numTasks size of task list
      */
     public String printRemove(Task task, int numTasks) {
-        return "Noted. I've removed this taskL:\n"
-                + task.getTaskDescription() + "\nNow you have " + numTasks + " tasks in your list\n";
+        return "Gotchu. I've deleted the task like you asked:\n"
+                + task.getTaskDescription() + "\nThere are now " + numTasks + " tasks in your list\n";
     }
 
     public String printCheck() {
