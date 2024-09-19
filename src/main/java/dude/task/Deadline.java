@@ -49,7 +49,7 @@ public class Deadline extends Task {
             return false;
         }
 
-        Deadline e = (Deadline)obj;
+        Deadline e = (Deadline) obj;
         return this.by.equals(e.by);
     }
 }

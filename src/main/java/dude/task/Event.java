@@ -56,7 +56,7 @@ public class Event extends Task {
             return false;
         }
 
-        Event e = (Event)obj;
+        Event e = (Event) obj;
         boolean isSameFrom = this.from.equals(e.from);
         boolean isSameTo = this.to.equals(e.to);
         return isSameFrom && isSameTo;
