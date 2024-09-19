@@ -1,6 +1,7 @@
 # Itadel User Guide
 
-![Ui.png](Ui.png)
+![Ui](https://github.com/user-attachments/assets/5fa86958-7cdd-42b4-828b-3871a2f9857e)
+
 Welcome to Itadel! The number one task management chatbot
 to handle your daily tasks, deadlines and events!
 
