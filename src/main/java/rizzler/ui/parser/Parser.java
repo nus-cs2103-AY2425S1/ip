@@ -16,6 +16,7 @@ import rizzler.command.MarkCommand;
 import rizzler.command.NullCommand;
 import rizzler.command.TodoCommand;
 import rizzler.command.UnmarkCommand;
+import rizzler.ui.RizzlerException;
 
 /**
  * Parser to take in user input and process it into the appropriate command type.
@@ -41,12 +42,22 @@ public class Parser {
         pastInputs.add(userInput);
         String[] userInputArr = userInput.split(" ");
         Command outputCommand;
-        switch (userInputArr[0].trim().toLowerCase()) {
+        String userInputFirstWord = userInputArr[0].trim().toLowerCase();
+        switch (userInputFirstWord) {
         case "bye":
             outputCommand = new EndCommand();
             break;
         case "help":
-            outputCommand = new HelpCommand();
+            try {
+                String commandToHelpWith = userInputArr[1].trim().toLowerCase();
+                outputCommand = new HelpCommand(commandToHelpWith);
+            } catch (IndexOutOfBoundsException e) {
+                outputCommand = new HelpCommand();
+            } catch (RizzlerException e) {
+                // unrecognised command
+                // constructor cannot yet throw this exception, but will be enabled
+                outputCommand = new NullCommand("unrecognised command, apologies!");
+            }
             break;
         case "list":
             outputCommand = new ListCommand();
