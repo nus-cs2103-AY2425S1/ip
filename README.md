@@ -55,6 +55,7 @@ Adds a Deadline task to the task list.
 
 Format: `deadline DESCRIPTION /by DUE_DATE`
 + `DUE_DATE` has format *yyyy-MM-dd HHmm*
++ `DUE_DATE` must be a future date and time
 
 **Example**
 + `deadline return book /by 2024-10-25 1800`
@@ -71,6 +72,8 @@ Adds an Event task to the task list.
 
 Format: `event DESCRIPTION /from START_DATE /to END_DATE`
 + `START_DATE` and `END_DATE` has format *yyyy-MM-dd HHmm*
++ `START_DATE` and `END_DATE` must be a future date and time
++ `END_DATE` cannot be a date or time that happens before the `START_DATE`
 
 **Example**
 + `event christmas eve party /from 2024-12-24 1900 /to 2024-12-25 0100`
@@ -134,7 +137,7 @@ Good Job! Marking this task as done:
 Shows tasks occurring on a specific date.
 
 Format: `relevent SPECIFIC_DATE`
-+ `SPECIFIC_DATE` has format *YYYY-MM-DD HHMM*
++ `SPECIFIC_DATE` has format *yyyy-MM-dd HHmm*
 
 **Example**
 + `relevant 2024-12-24`
