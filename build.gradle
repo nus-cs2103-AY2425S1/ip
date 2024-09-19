@@ -9,6 +9,9 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.openjfx:javafx-controls:17.0.7'
+    implementation 'org.openjfx:javafx-fxml:17.0.7'
+
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
 }
@@ -28,7 +31,7 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("jeriel.ui.Main") // This should be your JavaFX main class
 }
 
 shadowJar {
@@ -39,7 +42,7 @@ shadowJar {
 jar {
     manifest {
         attributes(
-            'Main-Class': 'jeriel.Jeriel'
+            'Main-Class': 'jeriel.ui.Main'
         )
     }
     from {
@@ -47,7 +50,19 @@ jar {
     }
 }
 
-
-run{
+run {
+    jvmArgs += [
+        '--module-path', 'C:/Users/jerie/Downloads/openjfx-17.0.12_windows-x64_bin-sdk/javafx-sdk-17.0.12/lib',  // Update this path
+        '--add-modules', 'javafx.controls,javafx.fxml'
+    ]
     standardInput = System.in
+}
+
+// Include JavaFX for compilation
+tasks.withType(JavaCompile) {
+    options.compilerArgs += [
+        // '--module-path', '/Users/jerielchan/Downloads/javafx-sdk-17.0.12/lib',
+        '--module-path', 'C:/Users/jerie/Downloads/openjfx-17.0.12_windows-x64_bin-sdk/javafx-sdk-17.0.12/lib',
+        '--add-modules', 'javafx.controls,javafx.fxml'
+    ]
 }
