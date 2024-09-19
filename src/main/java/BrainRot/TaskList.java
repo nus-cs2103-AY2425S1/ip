@@ -75,4 +75,9 @@ public class TaskList {
     public ArrayList<Task> getTasks() {
         return tasks;
     }
+
+    public void editTask(int index, String tag) {
+        Task toTag = tasks.get(index);
+        toTag.description = toTag.description + tag;
+    }
 }
