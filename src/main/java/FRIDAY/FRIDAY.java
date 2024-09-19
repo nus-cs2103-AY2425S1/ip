@@ -72,7 +72,6 @@ public class FRIDAY {
             if (taskDetails.isEmpty()) {
                 throw new FRIDAYException("ERROR: Please note that the description of a task cannot be left empty");
             }
-            //create new to do task
             Task newToDo = new ToDo(taskDetails.strip(), 0);
             assert newToDo != null : "failed to create task";
             taskList.addTask(newToDo);
@@ -81,7 +80,6 @@ public class FRIDAY {
             if (taskDetails.isEmpty()) {
                 throw new FRIDAYException("ERROR: Please note that the description of a task cannot be left empty");
             }
-            //create new deadline task
             Task newDeadline = Parser.parseDeadline(taskDetails);
             assert newDeadline != null : "failed to create task";
             taskList.addTask(newDeadline);
@@ -113,8 +111,6 @@ public class FRIDAY {
             ArrayList<Task> searchResults = taskList.search(word);
             assert searchResults != null : "could not generate search results";
             return ui.displaySearchResults(searchResults);
-            //if there is no input then nothing added to list
-        //add a keyword for archive that archives all tasks and removes it from the storage and program list
         case("archive"):
             ArrayList<Task> archivedTasks = this.taskList.getList();
             assert archivedTasks != null : "list not found";
@@ -124,13 +120,8 @@ public class FRIDAY {
             return ui.printArchive();
         case (""):
             return ui.emptyInput();
-        //to handle all normal inputs less empty strings
         default:
             throw new FRIDAYException("It appears that you have attempted to log an unrecognized class type. Please try again");
         }
-    }
-
-    public static void main(String[] args) {
-        FRIDAY bot = new FRIDAY();
     }
 }
