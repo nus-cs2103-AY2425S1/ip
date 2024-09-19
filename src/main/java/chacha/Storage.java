@@ -61,8 +61,10 @@ public class Storage {
 
             } else if (arr[0].equals("E")) {
                 String[] timings = arr[4].split("-");
-                LocalTime startTime = TimeParser.parseStringToTime(timings[0]);
-                LocalTime endTime = TimeParser.parseStringToTime(timings[1]);
+                String start = timings[0].trim();
+                String end = timings[1].trim();
+                LocalTime startTime = TimeParser.parseStringToTime(start);
+                LocalTime endTime = TimeParser.parseStringToTime(end);
                 listOfTasks.add(new EventTask(arr[2], isDone, DateParser.parseDate(arr[3]), startTime, endTime));
             }
         }

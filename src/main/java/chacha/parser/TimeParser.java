@@ -31,6 +31,6 @@ public class TimeParser {
      */
     public static String parseTimeToString(LocalTime time) {
         DateTimeFormatter parser = DateTimeFormatter.ofPattern("h[.mm]a");
-        return time.format(parser).toUpperCase();
+        return time.format(parser);
     }
 }
