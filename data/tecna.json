@@ -1,0 +1,22 @@
+{
+  "taskList": [
+  {
+    "type": "todo",
+    "isDone": true,
+    "taskName": "borrow a book"
+  },
+  {
+    "type": "deadline",
+    "isDone": false,
+    "taskName": "return a book",
+    "by": "2023-12-01 1200"
+  },
+  {
+    "type": "event",
+    "isDone": false,
+    "taskName": "project meeting",
+    "from": "2021-11-12 1200",
+    "to": "2021-11-12 1300"
+  }
+]
+}
