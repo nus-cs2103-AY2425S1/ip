@@ -50,3 +50,5 @@ Here are the main commands you can use with Skywalker:
    **8. bye**
    Exits the application.
 
+
+make use of java -jar Duke.jar to run.
