@@ -1,6 +1,7 @@
 # Bobby User Guide
 
 Bobby the chatbot is a **task management application where user can use it to keep track of tasks**. It is **optimized for use via a Command Line Interface (CLI)** while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Bobby the chatbot can help you get your tasks done faster than traditional GUI apps.
+<img width="512" alt="Ui" src="https://github.com/user-attachments/assets/22588fde-cfab-46e9-99a4-c4711bd79f2c">
 
 - Quick Start
 - Features
