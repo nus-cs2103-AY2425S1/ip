@@ -55,7 +55,9 @@ public class Wolfie {
     }
 
     /**
-     * Generates a response for the user's chat message.
+     * Gets the response from Wolfie.
+     * @param input The user input.
+     * @return The response from Wolfie.
      */
     public String getResponse(String input) {
         assert input != null : "User input should not be null.";

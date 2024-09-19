@@ -15,6 +15,11 @@ public class Main extends Application {
 
     private final Wolfie wolfie = new Wolfie("data/tasks.txt");
 
+    /**
+     * Starts the application and sets the width and height of the window.
+     *
+     * @param stage The stage to start the application.
+     */
     @Override
     public void start(Stage stage) {
         try {

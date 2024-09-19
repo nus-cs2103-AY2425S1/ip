@@ -32,6 +32,12 @@ public class Event extends Task {
         this.to = to; // store the end time
     }
 
+    /**
+     * Checks if the date is valid.
+     *
+     * @param date Date to be checked.
+     * @return True if the date is valid, false otherwise.
+     */
     private boolean isValidDate(LocalDate date) {
         try {
             date.toString();

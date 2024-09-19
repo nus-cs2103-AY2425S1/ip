@@ -32,6 +32,12 @@ public class TaskList {
             return false;
         }
     }
+
+    /**
+     * Checks if the task already exists in the list.
+     * @param task The task to check
+     * @return True if the task already exists in the list, false otherwise
+     */
     public boolean contains(Task task) {
         return tasks.stream().anyMatch(t -> t.equals(task));
     }

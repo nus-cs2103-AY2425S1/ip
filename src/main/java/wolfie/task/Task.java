@@ -26,6 +26,11 @@ public abstract class Task {
         this.taskType = taskType;
     }
 
+    /**
+     * Returns the type of the task.
+     *
+     * @return a String representing the type of the task.
+     */
     public String getStatus() {
         return (isDone ? "X" : " "); // mark done task with X and undone task with space
     }
