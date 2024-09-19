@@ -105,7 +105,7 @@ public class FRIDAY {
             ArrayList<Task> list = this.taskList.getList();
             assert list != null : "list not found";
             storage.updateStorage(list);
-            return ui.printFarewell();
+            return "bye";
         case ("list"):
             return taskList.displayTasks();
         case("search"):

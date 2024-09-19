@@ -1,5 +1,6 @@
 package gui;
 import FRIDAY.FRIDAY;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +8,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
+import java.util.Objects;
+
 /**
  * Controller for the main GUI.
  */
@@ -65,7 +69,11 @@ public class MainWindow extends AnchorPane {
             return;
         }
 
+        //exit application if user inputs "bye"
         String response = FRIDAY.getResponse(input.trim());
+        if (Objects.equals(response, "bye")) {
+            Platform.exit();
+        }
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getFRIDAYDialog(response, FRIDAYImage)
