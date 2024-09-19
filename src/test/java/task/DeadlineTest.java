@@ -1,11 +1,11 @@
 package task;
 
-import org.junit.jupiter.api.Test;
-
-import ai.task.Deadline;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+import ai.task.Deadline;
+
 
 /**
  * Test the Deadline Class for its public methods with return values.

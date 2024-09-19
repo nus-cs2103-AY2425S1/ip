@@ -1,13 +1,12 @@
 package task;
 
-import ai.task.ToDo;
-
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import ai.task.ToDo;
+import org.junit.jupiter.api.Test;
+
 /**
- * Test ToDo Class for its public methodds with return values.
+ * Test ToDo Class for its public methods with return values.
  */
 public class ToDoTest {
     @Test
