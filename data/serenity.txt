@@ -3,3 +3,4 @@ T | 0 | read book
 E | 1 | attend meeting | Mon 2pm | 4pm
 T | 0 | write book in English
 T | 0 | watch movie at Bugis
+D | 0 | write essay | 21 Sep 2024

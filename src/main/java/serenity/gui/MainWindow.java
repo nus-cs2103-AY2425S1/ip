@@ -24,17 +24,25 @@ public class MainWindow extends AnchorPane {
 
     private Serenity serenity;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
+    private Image serenityImage = new Image(this.getClass().getResourceAsStream("/images/Serenity.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
+    /** Injects the Serenity instance */
     public void setSerenity(Serenity s) {
         serenity = s;
+    }
+
+    /**
+     * Starts chatbot with welcome message.
+     */
+
+    public void start() {
+        dialogContainer.getChildren().addAll(DialogBox.getSerenityDialog(serenity.welcome(), serenityImage));
     }
 
     /**
@@ -47,7 +55,7 @@ public class MainWindow extends AnchorPane {
         String response = serenity.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getSerenityDialog(response, serenityImage)
         );
         userInput.clear();
     }

@@ -24,8 +24,11 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Serenity");
             // inject the serenity instance
-            fxmlLoader.<MainWindow>getController().setSerenity(serenity);
+            MainWindow window = fxmlLoader.<MainWindow>getController();
+            window.setSerenity(serenity);
+            window.start();
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

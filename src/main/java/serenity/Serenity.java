@@ -62,6 +62,16 @@ public class Serenity {
         return Parser.parseToString(input, tasks, storage);
     }
 
+    /**
+     * Generates welcome message.
+     *
+     * @return Welcome message.
+     */
+
+    public String welcome() {
+        return "Hi, I'm Serenity!\n" + "What can I do for you?";
+    }
+
 
     /**
      * Runs the Serenity chatbot
