@@ -1,11 +1,9 @@
 # Duck User Guide
-
----
 ![Duck Screenshot](Ui.png)
 
 Duck is a personal assistant application for managing tasks. It allows you to keep track of to-do lists, deadlines, and events through simple text commands. Duck supports a range of commands to help you manage and sort your tasks effectively, and can also save and load your tasks from a file.
 
----
+
 ## Notes about command format:
 - Words in `UPPER_CASE` are the parameters to be supplied by the user. 
 <br>e.g., in `todo DESCRIPTION`, `DESCRIPTION` is a parameter that can be used as `todo read book`.
@@ -13,7 +11,6 @@ Duck is a personal assistant application for managing tasks. It allows you to ke
 
 - Extraneous parameters for commands that do not take in parameters (such as `list` and `bye`) will be ignored.
   <br>e.g., if the command specifies `list 123`, Duck will still execute the `list` command.
----
 
 ## Getting help with commands: `help`
 
@@ -38,7 +35,7 @@ Here are the commands you can use:
 11. bye - Exit the application
 12. help - Show this help message
 ```
----
+
 ## Listing all tasks: `list`
 
 The `list` command allows you to view all tasks currently stored in Duck's task list, including to-do items, deadlines, and events.
@@ -52,7 +49,7 @@ Quack, here are the tasks in your list:
 2. [D][ ] submit assignment (by: Sep 30 2024 23:59)
 3. [E][ ] team meeting (from: Sep 29 2024 10:00 to: Sep 29 2024 12:00)
 ```
----
+
 ## Adding to-do tasks: `todo`
 
 The `todo` command allows you to add basic to-do tasks to your list. These tasks do not have a deadline or time constraints but are tasks that need to be completed.
@@ -71,7 +68,7 @@ Got it. I've added this task:
 [T][ ] read book
 4 tasks in the list now.
 ```
----
+
 ## Adding deadlines: `deadline`
 
 The `deadline` command allows you to add tasks with a deadline to your task list. You can specify the task description, followed by the `/by` keyword and the deadline.
@@ -90,7 +87,7 @@ Got it. I've added this task:
 [D][ ] submit assignment (by: Sep 30 2024 23:59) 
 5 tasks in the list now.
 ```
----
+
 ## Adding events: `event`
 
 The `event` command allows you to add an event to your task list. You can specify a description, a start time (using the `/from` keyword), and an end time (using the `/to` keyword).
@@ -111,7 +108,7 @@ Got it. I've added this task:
 [E][ ] team meeting (from: Sep 29 2024 10:00 to: Sep 29 2024 12:00)
 6 tasks in the list now.
 ```
----
+
 ## Marking tasks as done: `mark`
 
 Duck allows you to mark tasks as completed using the `mark` command. This updates the status of a task in your list.
@@ -131,7 +128,7 @@ Note: The index starts from 1, not 0.
 Nice! I've marked this task as done:
 [D][X] CS2103T submission (by: Sep 30 2024 23:59)
 ```
----
+
 ## Marking tasks as not done: `unmark`
 
 The `unmark` command allows you to mark tasks as not done.
@@ -151,7 +148,7 @@ Note: The index starts from 1, not 0.
 OK, I've marked this task as not done yet:
 [T][ ] read book
 ```
----
+
 ## Deleting tasks: `delete`
 
 You can remove tasks from your list using the `delete` command.
@@ -172,7 +169,7 @@ Noted. I've removed this task:
 [T][X] water the plants
 4 tasks in the list now.
 ```
----
+
 ## Finding tasks by keyword: `find`
 
 The `find` command allows you to search for tasks containing a specific keyword.
@@ -190,7 +187,7 @@ The `find` command allows you to search for tasks containing a specific keyword.
 Quack, I found these related tasks for you!
 1. [D][ ] submit assignment (by: Sep 30 2024 23:59)
 ```
----
+
 ## Sorting tasks: `sort`
 
 Duck supports sorting your tasks with the `sort` command. You can specify different criteria for sorting.
@@ -227,7 +224,7 @@ Quack, here are the tasks in your list:
 4. [D][ ] submit assignment (by: Sep 30 2024 23:59)
 5. [E][ ] team meeting (from: Sep 29 2024 10:00 to: Sep 29 2024 12:00)
 ```
----
+
 ## Exiting the application: `bye`
 
 You can exit Duck by using the `bye` command.
@@ -255,23 +252,22 @@ For Linux: /home/<username>/data/duck.txt
 ```
 
 ```dtd
-    
 Caution: Editing the data file directly with invalid formats may cause Duck to behave unexpectedly.
 Duck will only load the lines of data that are in the correct format.
 ```
 ## Command Summary
 
-| Action  | Format, Example |
-|---------|-----------------|
-| Help    | `help` |
-| List    | `list` |
-| Todo    | `todo DESCRIPTION` <br/>e.g., `todo read book` |
-| Deadline| `deadline DESCRIPTION /by DATE` <br/>e.g., `deadline submit assignment /by 2024-09-30 2359` |
+| Action  | Format, Example                                                                                                               |
+|---------|-------------------------------------------------------------------------------------------------------------------------------|
+| Help    | `help`                                                                                                                        |
+| List    | `list`                                                                                                                        |
+| Todo    | `todo DESCRIPTION` <br/>e.g., `todo read book`                                                                                |
+| Deadline| `deadline DESCRIPTION /by DATE` <br/>e.g., `deadline submit assignment /by 2024-09-30 2359`                                   |
 | Event   | `event DESCRIPTION /from START_DATE /to END_DATE` <br/>e.g., `event team meeting /from 2024-09-29 10:00 /to 2024-09-29 12:00` |
-| Mark    | `mark INDEX` <br/>e.g., `mark 2` |
-| Unmark  | `unmark INDEX` <br/>e.g., `unmark 1` |
-| Delete  | `delete INDEX` <br/>e.g., `delete 3` |
-| Find    | `find KEYWORD` <br/>e.g., `find assignment` |
-| Sort    | `sort /target TARGET /by CRITERION` <br/>e.g., `sort /target all /by type` |
-| Bye     | `bye` |
+| Mark    | `mark INDEX` <br/>e.g., `mark 2`                                                                                              |
+| Unmark  | `unmark INDEX` <br/>e.g., `unmark 1`                                                                                          |
+| Delete  | `delete INDEX` <br/>e.g., `delete 3`                                                                                          |
+| Find    | `find KEYWORD` <br/>e.g., `find assignment`                                                                                   |
+| Sort    | `sort /target TARGET /by CRITERION` <br/>e.g., `sort /target all /by type`                                                    |
+| Bye     | `bye`                                                                                                                         |
 
