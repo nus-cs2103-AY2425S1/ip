@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -98,5 +99,18 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().addAll(dialogs);
 
         message.clear();
+        if (input.equals("bye")) {
+            closeApplication();
+        }
+    }
+
+    private void closeApplication() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            return;
+        }
+        Platform.exit();
     }
 }
