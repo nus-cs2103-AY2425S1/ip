@@ -12,23 +12,24 @@ import java.util.List;
 import bottle.task.Task;
 
 /**
- * The type Storage.
+ * The Storage class handles reading and writing tasks to and from a file.
+ * It ensures that the file exists and provides methods to load and save tasks.
  */
 public class Storage {
-    private static final String DELIMITER = "\\|";
+    private static final String DELIMITER = "\\|"; // Unused variable, consider removing if not needed
     /**
-     * The File path.
+     * The file path where tasks are stored.
      */
     private final String filePath;
     /**
-     * The Parser.
+     * The parser for parsing task data.
      */
     private final Parser parser;
 
     /**
      * Instantiates a new Storage.
      *
-     * @param filePath the file path
+     * @param filePath the file path for storing tasks
      */
     public Storage(String filePath) {
         assert !filePath.isEmpty() : "filePath cannot be empty";
@@ -37,7 +38,7 @@ public class Storage {
     }
 
     /**
-     * Ensure file exists.
+     * Ensures that the file exists, creating it if necessary.
      */
     private void ensureFileExists() {
         File file = new File(filePath);
@@ -47,7 +48,7 @@ public class Storage {
     }
 
     /**
-     * Handle missing file.
+     * Handles the scenario where the file is missing by creating necessary directories and the file.
      */
     private void handleMissingFile() {
         Path path = Paths.get(filePath);
@@ -55,14 +56,14 @@ public class Storage {
             Files.createDirectories(path.getParent());
             Files.createFile(path);
         } catch (IOException e) {
-            System.out.println("Error occurred creating file");
+            System.out.println("Error occurred creating file: " + e.getMessage());
         }
     }
 
     /**
-     * Load tasks array list.
+     * Loads tasks from the file and returns them as an ArrayList.
      *
-     * @return the array list
+     * @return the list of tasks loaded from the file
      */
     public ArrayList<Task> loadTasks() {
         ensureFileExists();
@@ -71,9 +72,9 @@ public class Storage {
     }
 
     /**
-     * Read file list.
+     * Reads all lines from the file.
      *
-     * @return the list
+     * @return a list of lines read from the file
      */
     private List<String> readFile() {
         try {
@@ -85,10 +86,10 @@ public class Storage {
     }
 
     /**
-     * Parse tasks array list.
+     * Parses the given lines into Task objects and returns them as an ArrayList.
      *
-     * @param lines the lines
-     * @return the array list
+     * @param lines the lines to parse
+     * @return the list of tasks parsed from the lines
      */
     private ArrayList<Task> parseTasks(List<String> lines) {
         ArrayList<Task> taskList = new ArrayList<>();
@@ -100,11 +101,10 @@ public class Storage {
         return taskList;
     }
 
-
     /**
-     * Save tasks.
+     * Saves the provided task list to the file.
      *
-     * @param taskList the task list
+     * @param taskList the list of tasks to save
      */
     public void saveTasks(ArrayList<Task> taskList) {
         ensureFileExists();
@@ -112,9 +112,9 @@ public class Storage {
     }
 
     /**
-     * Write tasks to file.
+     * Writes the tasks to the file, each task on a new line.
      *
-     * @param taskList the task list
+     * @param taskList the list of tasks to write
      */
     private void writeTasksToFile(ArrayList<Task> taskList) {
         try (FileWriter fileWriter = new FileWriter(filePath)) {
@@ -125,5 +125,4 @@ public class Storage {
             System.out.println("Error saving tasks: " + e.getMessage());
         }
     }
-
 }

@@ -2,68 +2,74 @@ package bottle.task;
 
 import java.util.ArrayList;
 
-
 /**
- * The type Task list.
+ * Represents a list of tasks, allowing operations to manage the collection of tasks.
  */
 public class TaskList {
     /**
-     * The Task list.
+     * The list of tasks.
      */
     protected ArrayList<Task> taskList;
 
-
     /**
-     * Instantiates a new Task list.
+     * Constructs a new TaskList with an empty list of tasks.
      */
     public TaskList() {
         this.taskList = new ArrayList<>();
     }
 
     /**
-     * Instantiates a new Task list.
+     * Constructs a new TaskList with the specified list of tasks.
      *
-     * @param taskList the task list
+     * @param taskList the initial list of tasks
+     * @throws IllegalArgumentException if taskList is null
      */
     public TaskList(ArrayList<Task> taskList) {
-        assert taskList != null : "taskList shouldn't be null!";
+        if (taskList == null) {
+            throw new IllegalArgumentException("taskList shouldn't be null!");
+        }
         this.taskList = taskList;
     }
 
     /**
-     * Gets task list.
+     * Retrieves the list of tasks.
      *
-     * @return the task list
+     * @return the list of tasks
      */
     public ArrayList<Task> getTaskList() {
         return taskList;
     }
 
     /**
-     * Gets task.
+     * Retrieves a task at the specified index.
      *
-     * @param index the index
-     * @return the task
+     * @param index the index of the task to retrieve
+     * @return the task at the specified index
+     * @throws IndexOutOfBoundsException if the index is out of range
      */
     public Task getTask(int index) {
         return taskList.get(index);
     }
 
     /**
-     * Add task.
+     * Adds a task to the list.
      *
-     * @param task the task
+     * @param task the task to be added
+     * @throws IllegalArgumentException if the task is null
      */
     public void addTask(Task task) {
-        assert task != null : "task cannot be null!";
+        if (task == null) {
+            throw new IllegalArgumentException("task cannot be null!");
+        }
         taskList.add(task);
     }
 
     /**
-     * Remove task task.
+     * Removes a task at the specified index.
      *
-     * @param index the index
-     * @return the task
+     * @param index the index of the task to be removed
+     * @return the removed task
+     * @throws IndexOutOfBoundsException if the index is out of range
      */
     public Task removeTask(int index) {
         if (index >= 0 && index < taskList.size()) {
@@ -73,9 +79,17 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns a string representation of all tasks in the list.
+     * Each task is prefixed with its index (1-based).
+     *
+     * @return a string representing the list of tasks
+     */
     @Override
     public String toString() {
-        assert taskList != null : "Task List shouldn't be null";
+        if (taskList == null) {
+            throw new IllegalStateException("Task List shouldn't be null");
+        }
         StringBuilder tasks = new StringBuilder();
         for (int i = 0; i < taskList.size(); i++) {
             int idx = i + 1;

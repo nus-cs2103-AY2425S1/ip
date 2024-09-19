@@ -21,7 +21,8 @@ import bottle.task.Task;
 import bottle.task.Todo;
 
 /**
- * The type Parser.
+ * The Parser class interprets user input commands and converts them into Command objects.
+ * It supports parsing for different task types such as ToDo, Deadline, and Event.
  */
 public class Parser {
     private static final String TODO_TASK = "T ";
@@ -29,29 +30,48 @@ public class Parser {
     private static final String EVENT_TASK = "E ";
 
     /**
-     * Parse date time local date time.
+     * Parses a date-time string into a LocalDateTime object.
      *
-     * @param dateTimeStr the date time str
-     * @return the local date time
+     * @param dateTimeStr the date-time string to parse
+     * @return the corresponding LocalDateTime object
+     * @throws IllegalArgumentException if the date-time format is incorrect
      */
     private static LocalDateTime parseDateTime(String dateTimeStr) {
         assert dateTimeStr != null : "dateTimeStr shouldn't be null";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        try {
-            return LocalDateTime.parse(dateTimeStr, formatter);
-        } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException("OOPS!!! The date format is incorrect. Please use: dd/MM/yyyy HHmm");
+        DateTimeFormatter[] formatters = new DateTimeFormatter[]{
+                DateTimeFormatter.ofPattern("d/M/yyyy HHmm"),
+                DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"),
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"),
+                DateTimeFormatter.ofPattern("d/M/yyyy"), // New format for date only
+                DateTimeFormatter.ofPattern("dd/MM/yyyy"), // New format for date only
+        };
+
+        // Check for just date, month, and year
+        if (dateTimeStr.matches("\\d{1,2}/\\d{1,2}/\\d{4}")) {
+            dateTimeStr += " 00:00"; // Append time if only date is provided
         }
+
+        for (DateTimeFormatter formatter : formatters) {
+            try {
+                return LocalDateTime.parse(dateTimeStr.trim(), formatter);
+            } catch (DateTimeParseException ignored) {
+                // Continue trying other formats
+            }
+        }
+
+        throw new IllegalArgumentException("OOPS!!! The date format is incorrect. "
+                + "Please use one of these formats: d/M/yyyy HHmm, dd/MM/yyyy HHmm, d/M/yyyy, dd/MM/yyyy, etc.");
     }
 
     /**
-     * Parse command.
+     * Parses the user input command and returns the corresponding Command object.
      *
-     * @param input the input
-     * @return the command
+     * @param input the user input command
+     * @return the Command object corresponding to the input
      */
     public Command parseCommand(String input) {
         assert input != null : "input shouldn't be null";
+        input = input.trim();
         try {
             if (input.equalsIgnoreCase("bye")) {
                 return new ExitCommand();
@@ -81,10 +101,10 @@ public class Parser {
     }
 
     /**
-     * Parse mark command command.
+     * Parses the mark command and returns the corresponding MarkCommand object.
      *
-     * @param input the input
-     * @return the command
+     * @param input the user input command
+     * @return the MarkCommand object
      */
     private Command parseMarkCommand(String input) {
         String taskIndexStr = input.substring(5);
@@ -94,10 +114,10 @@ public class Parser {
     }
 
     /**
-     * Parse unmark command command.
+     * Parses the unmark command and returns the corresponding UnMarkCommand object.
      *
-     * @param input the input
-     * @return the command
+     * @param input the user input command
+     * @return the UnMarkCommand object
      */
     private Command parseUnmarkCommand(String input) {
         String taskIndexStr = input.substring(7);
@@ -107,10 +127,10 @@ public class Parser {
     }
 
     /**
-     * Parse todo command command.
+     * Parses the todo command and returns the corresponding AddTodoTask object.
      *
-     * @param input the input
-     * @return the command
+     * @param input the user input command
+     * @return the AddTodoTask object
      */
     private Command parseTodoCommand(String input) {
         assert input.length() > 5 : "Todo task description shouldn't be empty";
@@ -118,10 +138,11 @@ public class Parser {
     }
 
     /**
-     * Parse deadline command command.
+     * Parses the deadline command and returns the corresponding AddDeadlineTask object.
      *
-     * @param input the input
-     * @return the command
+     * @param input the user input command
+     * @return the AddDeadlineTask object
+     * @throws IllegalArgumentException if the format is incorrect
      */
     private Command parseDeadlineCommand(String input) {
         String[] parts = input.split(" /by ");
@@ -136,10 +157,11 @@ public class Parser {
     }
 
     /**
-     * Parse event command command.
+     * Parses the event command and returns the corresponding AddEventTask object.
      *
-     * @param input the input
-     * @return the command
+     * @param input the user input command
+     * @return the AddEventTask object
+     * @throws IllegalArgumentException if the format is incorrect
      */
     private Command parseEventCommand(String input) {
         String[] parts = input.split(" /from | /to ");
@@ -155,10 +177,10 @@ public class Parser {
     }
 
     /**
-     * Parse delete command command.
+     * Parses the delete command and returns the corresponding DeleteCommand object.
      *
-     * @param input the input
-     * @return the command
+     * @param input the user input command
+     * @return the DeleteCommand object
      */
     private Command parseDeleteCommand(String input) {
         String indexStr = input.substring(7);
@@ -168,10 +190,10 @@ public class Parser {
     }
 
     /**
-     * Parse find command command.
+     * Parses the find command and returns the corresponding FindCommand object.
      *
-     * @param input the input
-     * @return the command
+     * @param input the user input command
+     * @return the FindCommand object
      */
     private Command parseFindCommand(String input) {
         String filterString = input.substring(5);
@@ -180,10 +202,10 @@ public class Parser {
     }
 
     /**
-     * Parse task task.
+     * Parses a task from the provided input string.
      *
-     * @param input the input
-     * @return the task
+     * @param input the input string containing task data
+     * @return the corresponding Task object
      */
     public Task parseTask(String input) {
         assert input != null : "input string shouldn't be null";
@@ -197,10 +219,10 @@ public class Parser {
     }
 
     /**
-     * Create task task.
+     * Creates a Task object based on the provided parts of the input string.
      *
-     * @param parts the parts
-     * @return the task
+     * @param parts the split input string parts
+     * @return the corresponding Task object
      */
     private Task createTask(String[] parts) {
         return switch (parts[0]) {
@@ -212,10 +234,10 @@ public class Parser {
     }
 
     /**
-     * Sets task mark status.
+     * Sets the mark status of a task based on the provided status string.
      *
-     * @param task   the task
-     * @param status the status
+     * @param task   the task to set the status for
+     * @param status the mark status string
      */
     private void setTaskMarkStatus(Task task, String status) {
         assert status.equals(" 0 ") || status.equals(" 1 ") : "Task mark status should be 0 or 1";
@@ -227,6 +249,4 @@ public class Parser {
             throw new IllegalArgumentException("Wrong isMarked input format");
         }
     }
-
 }
-
