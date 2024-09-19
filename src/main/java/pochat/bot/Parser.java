@@ -107,9 +107,9 @@ class Parser {
 
     private String replyAndMarkTaskUndone(String textInput) {
         try {
-            int descriptionStartIndex = 5;
+            int descriptionStartIndex = 7;
             int taskIndex = Integer.parseInt(textInput.substring(descriptionStartIndex)) - 1;
-            Task task = this.taskList.markTaskAsDone(taskIndex);
+            Task task = this.taskList.unmarkTaskAsDone(taskIndex);
             return this.ui.getMarkTaskUndoneMessage(task);
         } catch (TaskIndexInvalidException | NumberFormatException e) {
             return this.ui.getInvalidIndexMessage();
@@ -122,9 +122,10 @@ class Parser {
 
     private String replyAndDeleteTask(String textInput) {
         try {
-            int descriptionStartIndex = 5;
+            int descriptionStartIndex = 7;
             int taskIndex = Integer.parseInt(textInput.substring(descriptionStartIndex)) - 1;
             Task task = this.taskList.remove(taskIndex);
+
             return ui.getDeleteTaskMessage(task, this.getNumTasks());
         } catch (TaskIndexInvalidException | NumberFormatException e) {
             return this.ui.getInvalidIndexMessage();
@@ -134,7 +135,11 @@ class Parser {
     private String replyAndAddToDo(String textInput) throws TaskDescriptionEmptyException {
         try {
             int taskDescriptionStart = 5;
-            String taskDescription = textInput.substring(taskDescriptionStart);
+            String taskDescription = textInput.substring(taskDescriptionStart).trim();
+
+            if (taskDescription.isEmpty()) {
+                throw new TaskDescriptionEmptyException();
+            }
 
             return replyAndAddTask(taskDescription);
         } catch (StringIndexOutOfBoundsException e) {
@@ -149,12 +154,14 @@ class Parser {
 
             int taskDescriptionStart = 9;
             int taskDescriptionEnd = byIndex - 1;
-            String taskDescription = textInput.substring(taskDescriptionStart, taskDescriptionEnd);
+            String taskDescription = textInput.substring(taskDescriptionStart, taskDescriptionEnd).trim();
 
             int deadlineStart = byIndex + 4;
             String deadline = textInput.substring(deadlineStart);
 
-            if (!isValidDateTime((deadline))) {
+            if (taskDescription.isEmpty()) {
+                throw new DeadlineFormatInvalidException();
+            } else if (!isInvalidDateTime((deadline))) {
                 throw new DateTimeInvalidException();
             }
 
@@ -172,7 +179,7 @@ class Parser {
 
             int taskDescriptionStart = 6;
             int taskDescriptionEnd = fromIndex - 1;
-            String taskDescription = textInput.substring(taskDescriptionStart, taskDescriptionEnd);
+            String taskDescription = textInput.substring(taskDescriptionStart, taskDescriptionEnd).trim();
 
             int startDateStart = fromIndex + 6;
             int startDateEnd = toIndex - 1;
@@ -181,7 +188,9 @@ class Parser {
             int endDateStart = toIndex + 4;
             String endDate = textInput.substring(endDateStart);
 
-            if (!isValidDateTime(startDate) || !isValidDateTime(endDate)) {
+            if (taskDescription.isEmpty()) {
+                throw new EventFormatInvalidException();
+            } else if (isInvalidDateTime(startDate) || isInvalidDateTime(endDate)) {
                 throw new DateTimeInvalidException();
             }
 
@@ -197,7 +206,7 @@ class Parser {
         return this.ui.findMatchingTasks(keyword, this.taskList);
     }
 
-    private boolean isValidDateTime(String dateTime) {
+    private boolean isInvalidDateTime(String dateTime) {
         try {
             LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
             return true;
