@@ -4,6 +4,8 @@ import lemon.app.Launcher;
 
 /**
  * Represents the user interface class for displaying information
+ * Depending on whether the {@link Launcher}
+ * it will display messages in command line mode or JavaFx mode
  * @author He Yiheng
  */
 public class Ui {
@@ -70,7 +72,7 @@ public class Ui {
 
     /**
      * Prints the message for lists
-     * @param listStr string that contains all the tasks
+     * @param listStr String that contains all the tasks
      */
     public void printListMsg(String listStr) {
         if (Launcher.IS_GUI) {
@@ -113,7 +115,7 @@ public class Ui {
 
     /**
      * Prints the message after adding a task
-     * @param addedTask string of the task to be added
+     * @param addedTask String of the task to be added
      * @param numTasks total number of task after adding
      */
     public void printAddTaskMsg(String addedTask, int numTasks) {
@@ -174,6 +176,9 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints the message where an invalid command is entered by the user
+     */
     public void printInvalidCommand() {
         String invalidCommandStr = " OOPS!!! I'm sowwy, but I don't know what that means :-(\n\n"
                 + " I can help you add tasks with \"todo\", \"deadline\", \"event\"\n"
@@ -187,17 +192,24 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints the error message when the database is not loaded properly
+     */
     public void printNotInitialisedCorrectly() {
-        String NotInitialisedStr = " Ouhiiee, my head hurrrtt, i dont think im initialized properly ;-;\n"
+        String notInitialisedStr = " Ouhiiee, my head hurrrtt, i dont think im initialized properly ;-;\n"
                 + " Please check the database and try again...";
         if (Launcher.IS_GUI) {
-            Launcher.out.addOutput(NotInitialisedStr);
+            Launcher.out.addOutput(notInitialisedStr);
             Launcher.out.print();
         } else {
-            System.out.print(NotInitialisedStr);
+            System.out.print(notInitialisedStr);
         }
     }
 
+    /**
+     * Prints the message from an exception class
+     * @param e exception class that needs to be printed
+     */
     public void printException(Exception e) {
         if (Launcher.IS_GUI) {
             Launcher.out.addOutput(e.getMessage());
@@ -207,6 +219,10 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints the error message
+     * @param errorMsg string error message
+     */
     public void printException(String errorMsg) {
         if (Launcher.IS_GUI) {
             Launcher.out.addOutput(errorMsg);
@@ -215,16 +231,22 @@ public class Ui {
             System.out.println(errorMsg);
         }
     }
+
+    /**
+     * Prints the unexpected exception is not to prevent lemon from crashing
+     * @param e exception class that is not implemented or caught
+     * @param errorMsg additional error messages
+     */
     public void printUnexpectedException(Exception e, String errorMsg) {
-        String UnexpectedErrStr = " " + errorMsg
+        String unexpectedErrStr = " " + errorMsg
                 + "\n\n Unexpected error of type:\n"
                 + " " + e.getClass().getName()
                 + "\n o no, please contact a programmer to fix me!";
         if (Launcher.IS_GUI) {
-            Launcher.out.addOutput(UnexpectedErrStr);
+            Launcher.out.addOutput(unexpectedErrStr);
             Launcher.out.print();
         } else {
-            System.out.println(UnexpectedErrStr);
+            System.out.println(unexpectedErrStr);
         }
     }
 }

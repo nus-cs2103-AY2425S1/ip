@@ -4,7 +4,16 @@ import lemon.Lemon;
 import lemon.TaskList;
 import lemon.exception.InvalidFormatException;
 
+/**
+ * Represent the {@link CommandWithInput} to find a task
+ * @author He Yiheng
+ */
 public class FindTaskCommand extends CommandWithInput {
+    /**
+     * Constructor for FindTaskCommand
+     * @param ct stores the enum {@link CommandType} for troubleshooting
+     * @param input input String that needs to be processed before further execution
+     */
     public FindTaskCommand(CommandType ct, String input) {
         super(ct, input);
     }

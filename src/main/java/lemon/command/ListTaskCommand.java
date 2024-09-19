@@ -2,7 +2,15 @@ package lemon.command;
 
 import lemon.Lemon;
 
+/**
+ * Represent the {@link Command} for listing all tasks
+ * @author He Yiheng
+ */
 public class ListTaskCommand extends Command {
+    /**
+     * Constructor for ListTaskCommand
+     * @param ct stores the enum {@link CommandType} for troubleshooting
+     */
     public ListTaskCommand(CommandType ct) {
         super(ct);
     }

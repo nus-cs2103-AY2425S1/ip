@@ -15,8 +15,8 @@ public class TaskList {
      * Constructor for TaskList
      */
     public TaskList() {
-        ArrayList<Task> list = new ArrayList<>();
-        int numTasks = 0;
+        this.list = new ArrayList<>();
+        this.numTasks = 0;
     }
 
     /**
@@ -80,7 +80,7 @@ public class TaskList {
     public String toString() {
         StringBuilder taskStr = new StringBuilder();
         for (int i = 0; i < numTasks; i++) {
-            taskStr.append(" " + (i + 1) + "." + list.get(i).toString() + "\n");
+            taskStr.append(" ").append(i + 1).append(".").append(list.get(i).toString()).append("\n");
         }
         return taskStr.toString();
     }

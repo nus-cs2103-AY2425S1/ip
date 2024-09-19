@@ -9,12 +9,14 @@ import lemon.Response;
 import lemon.gui.LemonFx;
 
 /**
- * A launcher class to workaround classpath issues.
+ * Launcher class to workaround classpath issues.
+ * Handle the ability to launch Lemon with GUI or command line
+ * @author He Yiheng
  */
 public class Launcher {
-    // Set this to use Command line instead
-    public final static boolean IS_GUI = true;
-    public static Response out = new Response();
+    public static final boolean IS_GUI = true;
+    // Will be suppressing ConstantName to keep code similarity with System.out
+    public static final Response out = new Response();
     public static void main(String[] args) {
         if (IS_GUI) {
             Application.launch(LemonFx.class, args);
@@ -24,10 +26,13 @@ public class Launcher {
         }
     }
 
+    /**
+     * End launcher along with the JavaFx program with a 3-second delay
+     */
     public static void exit() {
         out.disableWindow();
         PauseTransition delay = new PauseTransition(Duration.seconds(3));
-        delay.setOnFinished( event -> Platform.exit() );
+        delay.setOnFinished(event -> Platform.exit());
         delay.play();
     }
 }

@@ -4,7 +4,16 @@ import lemon.Lemon;
 import lemon.exception.InvalidFormatException;
 import lemon.task.Task;
 
+/**
+ * Represent the {@link CommandWithInput} to delete a task
+ * @author He Yiheng
+ */
 public class DeleteTaskCommand extends CommandWithInput {
+    /**
+     * Constructor for DeleteTaskCommand
+     * @param ct stores the enum {@link CommandType} for troubleshooting
+     * @param input input String that needs to be processed before further execution
+     */
     public DeleteTaskCommand(CommandType ct, String input) {
         super(ct, input);
     }
@@ -20,7 +29,7 @@ public class DeleteTaskCommand extends CommandWithInput {
 
             Task task = lemonInstance.getTasks().deleteTask(taskIndex);
             lemonInstance.getUi().printDeleteTaskMsg(task.toString(), lemonInstance.getTasks().size());
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             lemonInstance.getUi().printException(" Please select the task using its index with no whitespace instead");
         } catch (InvalidFormatException e) {
             lemonInstance.getUi().printException(e);

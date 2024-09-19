@@ -51,10 +51,17 @@ public class Lemon {
             }
         }
     }
+
+    /**
+     * Call {@link Ui} to print out the intro message
+     */
     public void intro() {
         ui.printIntroMsg();
     }
 
+    /**
+     * Stop and exit lemon
+     */
     public void stop() {
         boolean isSaved = storage.saveTasks(tasks);
         if (Launcher.IS_GUI) {
@@ -65,17 +72,25 @@ public class Lemon {
         //TODO: Add Storage failed to save exceptions to remove boolean
     }
 
+    /**
+     * Return the {@link Ui} stored in lemon
+     * @return {@link Ui} reference
+     */
     public Ui getUi() {
         return ui;
     }
 
+    /**
+     * Return the {@link TaskList} stored in lemon
+     * @return {@link TaskList} reference
+     */
     public TaskList getTasks() {
         return tasks;
     }
 
-
     /**
-     * JavaFx Implementation
+     * JavaFx implementation of receiving a response from lemon
+     * @param input instruction provided by the user to be processed into a command
      */
     public void respond(String input) {
         try {

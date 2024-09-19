@@ -5,7 +5,16 @@ import lemon.exception.InvalidFormatException;
 import lemon.task.Task;
 import lemon.task.Todo;
 
+/**
+ * Represent the {@link CommandWithInput} for adding a to do task
+ * @author He Yiheng
+ */
 public class AddTodoCommand extends CommandWithInput {
+    /**
+     * Constructor for AddTodoCommand
+     * @param ct stores the enum {@link CommandType} for troubleshooting
+     * @param input input String that needs to be processed before further execution
+     */
     public AddTodoCommand(CommandType ct, String input) {
         super(ct, input);
     }
