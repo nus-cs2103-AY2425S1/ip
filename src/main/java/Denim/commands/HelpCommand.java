@@ -9,6 +9,7 @@ import denim.storage.WriteTaskFile;
 public class HelpCommand extends Command {
 
     public static final String COMMAND_WORD = "help";
+    public static final String COMMAND_USAGE = "help";
 
     @Override
     public CommandResult execute(TaskList taskList, WriteTaskFile writeTaskFile) {

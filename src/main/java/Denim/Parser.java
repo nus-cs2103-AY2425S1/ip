@@ -26,6 +26,11 @@ import denim.commands.UnmarkCommand;
  */
 public class Parser {
 
+    /**
+     * The following Pattern usage below was inspired by se-edu addressbook-level-2 from
+     * https://github.com/se-edu/addressbook-level2, and implemented on my own in other classes. For example,
+     * in ReadTaskFile.
+     */
     public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     public static final Pattern TODO_ARGUMENT_FORMAT = Pattern.compile("(?<taskDescription>.+)");
@@ -39,6 +44,7 @@ public class Parser {
     public static final Pattern MARK_UNMARK_DELETE_ARGUMENT_FORMAT = Pattern.compile("(?<taskNumber>\\d+)");
 
     public static final Pattern FIND_ARGUMENT_FORMAT = Pattern.compile("(?<taskDescription>.+)");
+    public static final Pattern HELP_ARGUMENT_FORMAT = Pattern.compile("help");
 
     /**
      * Parses the user input and returns the corresponding command.
@@ -82,7 +88,7 @@ public class Parser {
             return prepareBye();
 
         case HelpCommand.COMMAND_WORD:
-            return prepareHelp();
+            return prepareHelp(arguments);
 
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
@@ -251,7 +257,11 @@ public class Parser {
      *
      * @return The help command.
      */
-    private Command prepareHelp() {
+    private Command prepareHelp(String args) {
+        final Matcher matcher = HELP_ARGUMENT_FORMAT.matcher(args);
+        if (!matcher.matches()) {
+            return new InvalidCommand("Wrong format for help command OwO", HelpCommand.COMMAND_USAGE);
+        }
         return new HelpCommand();
     }
 
