@@ -172,7 +172,8 @@ public class Parser {
      * Checks if the given task date matches the desired date, regardless of the time component.
      *
      * This method attempts to parse the task date using multiple formats, including "d/M/yyyy" and "d/M/yyyy HHmm".
-     * If the task date can be parsed successfully using any of these formats, and the resulting date matches the desired date,
+     * If the task date can be parsed successfully using any of these formats,
+     * and the resulting date matches the desired date,
      * this method returns true. Otherwise, it returns false.
      *
      * @param desiredDate the desired date to compare with

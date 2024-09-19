@@ -74,8 +74,8 @@ public class EventCommand extends AddCommand {
      */
     public String showEventAdded(String newTaskString, int listSize) {
         String output;
-        output = ("Here comes another event! \n" +
-                "I've added this task:\n");
+        output = ("Here comes another event! \n"
+                + "I've added this task:\n");
         output = output + (newTaskString + "\n");
         output = output + ("And now you have " + listSize + " tasks in the list!! Jiayouu :D");
         return output;
