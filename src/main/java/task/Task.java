@@ -1,6 +1,7 @@
 package task;
 
 import exceptions.AlreadyCompletedException;
+import exceptions.InvalidDataFormatException;
 import exceptions.StartAfterEndException;
 
 /**
@@ -32,18 +33,22 @@ public abstract class Task {
      * @return <code>Task</code> from String.
      * @throws StartAfterEndException If invalid task if parsed.
      */
-    public static Task of(String data) throws StartAfterEndException {
-        String[] args = data.split("\\|", 2);
-        //@formatter:off
-        String taskTypeIcon = args[0];
-        String taskData = args[1];
-        return switch (taskTypeIcon) {
-        case "T" -> ToDo.of(taskData);
-        case "D" -> Deadline.of(taskData);
-        case "E" -> Event.of(taskData);
-        default -> null;
-        };
-        //@formatter:on
+    public static Task of(String data) throws StartAfterEndException, InvalidDataFormatException {
+        try {
+            String[] args = data.split("\\|", 2);
+            //@formatter:off
+            String taskTypeIcon = args[0];
+            String taskData = args[1];
+            return switch (taskTypeIcon) {
+            case "T" -> ToDo.of(taskData);
+            case "D" -> Deadline.of(taskData);
+            case "E" -> Event.of(taskData);
+            default -> throw new InvalidDataFormatException();
+            };
+            //@formatter:on
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new InvalidDataFormatException();
+        }
     }
 
     /**
