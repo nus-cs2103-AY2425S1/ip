@@ -180,7 +180,7 @@ Finds all tasks in the task list that matches the specified condition(s)
 
 Usage: `find KEYWORD`
 
-Example #1: `find event`
+Example 1: `find event`
 
 ```
 -------------
