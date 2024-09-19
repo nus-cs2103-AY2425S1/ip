@@ -23,7 +23,7 @@ public class ArchiveCommand extends Command{
     }
 
     /**
-     * Executes the delete command by removing the specified task from the task list, saving the updated list to storage,
+     * Executes the archive command by removing the specified task from the task list, saving the updated list to storage,
      * and returning a confirmation message to the user.
      *
      * @param tasks          The {@link TaskList} from which the task will be archived.

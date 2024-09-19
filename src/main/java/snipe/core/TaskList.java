@@ -113,6 +113,17 @@ public class TaskList {
         return filteredTasks;
     }
 
+    /**
+     * Archives a task from the current task list by removing it from the list and adding it to the specified archive list.
+     *
+     * This method validates the index to ensure it is within the bounds of the current task list. If the index is invalid,
+     * a {@link SnipeException} is thrown. The task at the specified index is then removed from the current task list and added
+     * to the given archive list.
+     *
+     * @param index       The index of the task in the current task list to be archived.
+     * @param archiveList The list where the task will be archived.
+     * @throws SnipeException If the index is out of bounds (negative or greater than the task list size).
+     */
     public void archiveTask(int index, TaskList archiveList) throws SnipeException {
         // Assert that the task list is not empty
         assert tasks.size() > 0 : "Task list should not be empty when attempting to archive a task";

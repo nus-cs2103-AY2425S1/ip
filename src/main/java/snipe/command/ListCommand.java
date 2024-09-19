@@ -18,7 +18,7 @@ public class ListCommand extends Command {
      * Constructs a {@code ListCommand} with specification on if the list command
      * is to view archived list or the normal task list.
      *
-     * @param boolean The index of the task to be archived (0-based index).
+     * @param isArchiveListCommand The index of the task to be archived (0-based index).
      */
     public ListCommand(boolean isArchiveListCommand) {
         this.isArchiveListCommand = isArchiveListCommand;
