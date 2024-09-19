@@ -48,7 +48,7 @@ test {
 }
 
 application {
-    mainClass.set("src/main/java/Assistinator/Launcher.java")
+    mainClass.set("assistinator.Launcher")
 }
 
 shadowJar {

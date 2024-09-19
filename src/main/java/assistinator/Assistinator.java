@@ -1,5 +1,8 @@
 package assistinator;
 
+import assistinator.commands.ByeCommand;
+import assistinator.commands.Command;
+
 /**
  * Main application.
  */
@@ -7,7 +10,7 @@ public class Assistinator {
     private final Storage storage;
     private final Ui ui;
     private TaskList tasks;
-    private final CommandExecutor commandExecutor;
+    private Parser parser;
     private boolean isError;
 
     /**
@@ -16,14 +19,14 @@ public class Assistinator {
      */
     public Assistinator(String filePath) {
         ui = new Ui();
+        parser = new Parser();
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.loadTasks());
-        } catch (AssitinatorException e) {
+        } catch (AssistinatorException e) {
             ui.showLoadingError();
             tasks = new TaskList();
         }
-        commandExecutor = new CommandExecutor(ui, tasks, storage);
         isError = false;
     }
 
@@ -35,15 +38,15 @@ public class Assistinator {
         boolean isRunning = true;
         while (isRunning) {
             try {
-                String fullCommand = ui.readCommand();
-                Command command = commandExecutor.parseCommand(fullCommand);
-                String response = commandExecutor.executeCommand(command, fullCommand);
+                String input = ui.readCommand();
+                Command command = parser.parseCommand(input);
+                String response = command.execute(tasks, storage);
                 assert response != null : "Response should not be null";
                 ui.showResponse(response);
-                if (command == Command.BYE) {
+                if (command instanceof ByeCommand) {
                     isRunning = false;
                 }
-            } catch (AssitinatorException e) {
+            } catch (AssistinatorException e) {
                 ui.showError(e.getMessage());
             }
         }
@@ -56,12 +59,12 @@ public class Assistinator {
      */
     public String getResponse(String input) {
         try {
-            Command command = commandExecutor.parseCommand(input);
-            String response = commandExecutor.executeCommand(command, input);
+            Command command = parser.parseCommand(input);
             isError = false;
+            String response = command.execute(tasks, storage);
             assert response != null : "Response should not be null";
             return response;
-        } catch (AssitinatorException e) {
+        } catch (AssistinatorException e) {
             isError = true;
             return e.getMessage();
         }

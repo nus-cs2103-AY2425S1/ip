@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import assistinator.tasks.DeadlineTask;
+import assistinator.tasks.EventTask;
+import assistinator.tasks.Task;
+import assistinator.tasks.TodoTask;
+
 /**
  * Represents list of task.
  */
@@ -29,11 +34,11 @@ public class TaskList {
     /**
      * Deletes specified task.
      * @param index Index of task.
-     * @throws AssitinatorException If index is invalid.
+     * @throws AssistinatorException If index is invalid.
      */
-    public void deleteTask(int index) throws AssitinatorException {
+    public void deleteTask(int index) throws AssistinatorException {
         if (index < 0 || index >= tasks.size()) {
-            throw new AssitinatorException("Invalid task index");
+            throw new AssistinatorException("Invalid task index");
         }
         tasks.remove(index);
     }
@@ -42,11 +47,11 @@ public class TaskList {
      * Marks specified task as done or undone.
      * @param index Task index.
      * @param isDone Whether task is done or not done.
-     * @throws AssitinatorException If task index is invalid.
+     * @throws AssistinatorException If task index is invalid.
      */
-    public void markTask(int index, boolean isDone) throws AssitinatorException {
+    public void markTask(int index, boolean isDone) throws AssistinatorException {
         if (index < 0 || index >= tasks.size()) {
-            throw new AssitinatorException("Invalid task index");
+            throw new AssistinatorException("Invalid task index");
         }
         if (isDone) {
             tasks.get(index).markAsDone();
@@ -60,6 +65,9 @@ public class TaskList {
      * @return Formatted string.
      */
     public String listTasks() {
+        if (tasks.isEmpty()) {
+            return "Task list is empty.";
+        }
         return IntStream.range(0, tasks.size())
                 .mapToObj(i -> (i + 1) + "." + tasks.get(i).toString())
                 .collect(Collectors.joining("\n"));
@@ -99,21 +107,21 @@ public class TaskList {
      * @param newTask The task to check for clashes.
      * @return True if there's a clash, false otherwise.
      */
-    public Event hasTimeClash(Task newTask) {
-        if (newTask instanceof Todo || newTask instanceof Deadline) {
+    public EventTask hasTimeClash(Task newTask) {
+        if (newTask instanceof TodoTask || newTask instanceof DeadlineTask) {
             return null; // TodoTasks have no time restrictions, so they can't clash
         }
 
         LocalDateTime newTaskStart = null;
         LocalDateTime newTaskEnd = null;
 
-        Event eventTask = (Event) newTask;
+        EventTask eventTask = (EventTask) newTask;
         newTaskStart = eventTask.getStartTime();
         newTaskEnd = eventTask.getEndTime();
 
         for (Task existingTask : tasks) {
-            if (existingTask instanceof Event) {
-                Event existingEvent = (Event) existingTask;
+            if (existingTask instanceof EventTask) {
+                EventTask existingEvent = (EventTask) existingTask;
                 if (tasksOverlap(newTaskStart, newTaskEnd, existingEvent.getStartTime(), existingEvent.getEndTime())) {
                     return existingEvent;
                 }

@@ -1,8 +1,5 @@
 package assistinator;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -63,17 +60,9 @@ public class MainWindow extends AnchorPane {
         boolean isError = assistinator.isError();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getAssistinatorDialog(response, assistinatorImage,isError)
+                DialogBox.getAssistinatorDialog(response, assistinatorImage, isError)
         );
         userInput.clear();
-        if (response.toLowerCase().contains("bye")) {
-            new Timer().schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    System.exit(0);
-                }
-            }, 400);
-        }
     }
 
 }

@@ -9,6 +9,12 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import assistinator.tasks.DeadlineTask;
+import assistinator.tasks.EventTask;
+import assistinator.tasks.Task;
+import assistinator.tasks.TodoTask;
+
+
 /**
  * API of the storage class.
  */
@@ -30,7 +36,7 @@ public class Storage {
     public void saveTasks(ArrayList<Task> tasks) {
         try {
             String content = tasks.stream()
-                    .map(Task::toFileString)
+                    .map(Task::toStorageString)
                     .collect(Collectors.joining(System.lineSeparator()));
             Files.writeString(Paths.get(filePath), content);
         } catch (IOException e) {
@@ -41,9 +47,9 @@ public class Storage {
     /**
      * Loads task list from file.
      * @return Task list.
-     * @throws AssitinatorException If file not in provided file path.
+     * @throws AssistinatorException If file not in provided file path.
      */
-    public ArrayList<Task> loadTasks() throws AssitinatorException {
+    public ArrayList<Task> loadTasks() throws AssistinatorException {
         Path path = Paths.get(filePath);
 
         // Check if the directory exists, if not, create it
@@ -52,7 +58,7 @@ public class Storage {
             try {
                 Files.createDirectories(parentDir);
             } catch (IOException e) {
-                throw new AssitinatorException("Unable to create directory: " + e.getMessage());
+                throw new AssistinatorException("Unable to create directory: " + e.getMessage());
             }
         }
 
@@ -61,7 +67,7 @@ public class Storage {
             try {
                 Files.createFile(path);
             } catch (IOException e) {
-                throw new AssitinatorException("Unable to create file: " + e.getMessage());
+                throw new AssistinatorException("Unable to create file: " + e.getMessage());
             }
         }
 
@@ -75,7 +81,7 @@ public class Storage {
                     .filter(Objects::nonNull)
                     .collect(Collectors.toCollection(ArrayList::new));
         } catch (IOException e) {
-            throw new AssitinatorException("Error reading file: " + e.getMessage());
+            throw new AssistinatorException("Error reading file: " + e.getMessage());
         }
     }
 
@@ -88,7 +94,7 @@ public class Storage {
     public Task getTask(String[] parts, String type) {
         try {
             if (parts.length < 3) {
-                return null; // Not enough parts for a valid task
+                return null;
             }
 
             boolean isDone = TaskStatus.isDone(parts[1].trim());
@@ -96,26 +102,26 @@ public class Storage {
 
             Task task;
             switch (type) {
-                case "T":
-                    task = new Todo(description);
-                    break;
-                case "D":
-                    if (parts.length < 4) {
-                        return null; // Not enough parts for a Deadline
-                    }
-                    String deadline = parts[3].trim();
-                    task = new Deadline(description, deadline);
-                    break;
-                case "E":
-                    if (parts.length < 5) {
-                        return null; // Not enough parts for an Event
-                    }
-                    String start = parts[3].trim();
-                    String end = parts[4].trim();
-                    task = new Event(description, start, end);
-                    break;
-                default:
-                    return null; // Unknown task type
+            case "T":
+                task = new TodoTask(description);
+                break;
+            case "D":
+                if (parts.length < 4) {
+                    return null;
+                }
+                String deadline = parts[3].trim();
+                task = new DeadlineTask(description, deadline);
+                break;
+            case "E":
+                if (parts.length < 5) {
+                    return null;
+                }
+                String start = parts[3].trim();
+                String end = parts[4].trim();
+                task = new EventTask(description, start, end);
+                break;
+            default:
+                return null;
             }
 
             if (isDone) {
@@ -123,9 +129,7 @@ public class Storage {
             }
             return task;
         } catch (DateTimeParseException | IndexOutOfBoundsException e) {
-            // Log the error if needed
-            // System.err.println("Error parsing task: " + String.join("|", parts));
-            return null; // Return null for any parsing errors
+            return null;
         }
     }
 }

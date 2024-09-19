@@ -3,7 +3,7 @@ Hello! I'm assistinator.assistinator
 What can I do for you?
 ______________________________________________
 ______________________________________________
-assistinator.assistinator.Task added successfully
+assistinator.assistinator.tasks.Task added successfully
 Number of Tasks: 1
 ______________________________________________
 ______________________________________________
