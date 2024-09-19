@@ -9,6 +9,13 @@ Meeks allows you to focus on the things that are in front of you. It's,
 - easy to pick up
 - extremely fast to use!
 
+### Quickstart
+1. Ensure that you have Java 17 installed on your local machine.
+2. Download the jar file from [here](../build/libs/meeks.jar)
+3. Double click to run it! It is as simple as 1, 2 3!
+
+Below are the commands Meeks understands! Refer to the summary table at the bottom!
+
 
 ## Adding tasks
 
