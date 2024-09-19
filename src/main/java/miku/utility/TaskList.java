@@ -37,11 +37,11 @@ public class TaskList extends ArrayList<Task> {
     }
 
     public void mark(int num) {
-        tasks.get(num - 1).markDone();
+        tasks.get(num).markDone();
     }
 
     public void unmark(int num) {
-        tasks.get(num - 1).markUndone();
+        tasks.get(num).markUndone();
     }
 
     public void initAdd(Task element) {

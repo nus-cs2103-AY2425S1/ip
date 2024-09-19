@@ -45,9 +45,9 @@ public class CommandMikuParser extends MikuParser {
         } else if (input.equals("list")) {
             return new ShowListCommand();
         } else if (input.matches(regexMark)) {
-            return new MarkCommand(Integer.parseInt(input.split(" ")[1]));
+            return new MarkCommand(Integer.parseInt(input.split(" ")[1]) - 1);
         } else if (input.matches(regexUnmark)) {
-            return new UnmarkCommand(Integer.parseInt(input.split(" ")[1]));
+            return new UnmarkCommand(Integer.parseInt(input.split(" ")[1]) - 1);
         } else if (input.matches(regexToDo)) {
             return new AddCommand(new Todo(input.substring(5)));
         } else if (input.matches(regexDeadline)) {

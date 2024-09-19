@@ -33,11 +33,10 @@ public abstract class Task {
      * @param isDone
      */
     public void isDoneInit(boolean isDone) {
+        this.isDone = isDone;
         if (isDone) {
-            isDone = isDone;
             done = "X";
         } else {
-            isDone = isDone;
             done = " ";
         }
     }
@@ -46,7 +45,7 @@ public abstract class Task {
      * Mark the task as done
      */
     public void markDone() {
-        isDone = true;
+        this.isDone = true;
         done = "X";
     }
 
