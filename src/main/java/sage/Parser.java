@@ -26,6 +26,7 @@ public class Parser {
         return switch (commandType) {
         case "list" -> new ListCommand();
         case "mark" -> new MarkCommand(fullCommand[1], true);
+        case "unmark" -> new MarkCommand(fullCommand[1], false);
         case "todo" -> new AddCommand("todo", fullCommand[1]);
         case "deadline" -> new AddCommand("deadline", fullCommand[1]);
         case "event" -> new AddCommand("event", fullCommand[1]);
