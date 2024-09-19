@@ -21,6 +21,8 @@ import rex.util.Ui;
  * It integrates storage, task management, and user interaction functionalities.
  */
 public class Rex {
+    private static final String FILE_PATH = "./data/rex.txt";
+    private static final String TEMP_PATH = "./data/tmp.txt";
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
@@ -32,7 +34,7 @@ public class Rex {
      */
     public Rex() {
         try {
-            this.storage = new Storage();
+            this.storage = new Storage(FILE_PATH, TEMP_PATH);
             this.taskList = new TaskList(storage);
             this.ui = new Ui();
         } catch (IOException e) {
