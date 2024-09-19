@@ -75,8 +75,8 @@ public class Ui {
         s += "Here are the matching tasks in your list:\n";
         for (int i = 0; i < taskList.getSize(); i++) {
             Task curr = taskList.getTask(i);
-            if (curr.getDescription().matches(word)) {
-                s += String.format("%d.%s\n", i, curr);
+            if (curr.getDescription().contains(word)) {
+                s += String.format("%d.%s\n", i+1, curr);
             }
         }
         return s;
