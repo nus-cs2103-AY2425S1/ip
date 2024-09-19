@@ -29,6 +29,7 @@ public class Main extends Application {
             stage.setMinWidth(417);
             fxmlLoader.<MainWindow>getController().setBuddy(buddy);// inject the Duke instance
             stage.show();
+            stage.setTitle("Buddy");
 
 
 
