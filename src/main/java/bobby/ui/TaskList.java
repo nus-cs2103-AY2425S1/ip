@@ -1,6 +1,8 @@
 package bobby.ui;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Manages a list of tasks, providing methods to add, delete, retrieve, and print tasks.
@@ -98,17 +100,22 @@ public class TaskList {
     }
 
     /**
-     * Searches for tasks containing the specified keyword in their description.
+     * Searches for tasks containing the specified keyword as a whole word in their description.
      *
-     * @param keyword The substring to search for in task descriptions.
-     * @return A string containing the tasks that match the search keyword,
+     * @param keyword The whole word to search for in task descriptions.
+     * @return A string containing the tasks that match the search keyword as a whole word,
      *      or a message if no matches are found.
      */
     public static String findTask(String keyword) {
         String response;
         ArrayList<Task> matchingTasks = new ArrayList<>();
+
+        String patternString = "\\b" + Pattern.quote(keyword) + "\\b";
+        Pattern pattern = Pattern.compile(patternString, Pattern.CASE_INSENSITIVE);
+
         for (Task task : taskList) {
-            if (task.toString().contains(keyword)) {
+            Matcher matcher = pattern.matcher(task.toString());
+            if (matcher.find()) {
                 matchingTasks.add(task);
             }
         }
@@ -123,5 +130,4 @@ public class TaskList {
         }
         return response;
     }
-
 }
