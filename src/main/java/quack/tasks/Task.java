@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import quack.exception.InvalidDateTimeException;
+import quack.exception.InvalidDescriptionException;
 import quack.exception.InvalidTaskTypeException;
 
 /**
@@ -39,14 +40,18 @@ public abstract class Task {
      * @return A task object of its specified task type.
      * @throws InvalidDateTimeException If the date time string is invalid.
      * @throws InvalidTaskTypeException If the task type keyed in by the user is invalid.
+     * @throws InvalidDescriptionException If the task description is blank or has only white space.
      */
-    public static Task createTask(String ... taskDetails) throws InvalidDateTimeException, InvalidTaskTypeException {
+    public static Task createTask(String ... taskDetails) throws InvalidDateTimeException, InvalidTaskTypeException,
+            InvalidDescriptionException {
 
         assert(taskDetails != null);
 
         Task task;
         LocalDateTime startDate;
         LocalDateTime endDate;
+
+        Task.checkValidTaskDescription(taskDetails[1]);
 
         switch (taskDetails[0]) {
         case "TODO":
@@ -81,6 +86,16 @@ public abstract class Task {
      */
     private static LocalDateTime convertStringToDateTime(String date) {
         return LocalDateTime.parse(date, Task.DATE_FORMAT);
+    }
+
+    /**
+     * Checks if the given task description is not blank.
+     * @param taskDescription The start date of the object.
+     * @return A boolean indicator if the task description is empty or not.
+     */
+    private static boolean checkValidTaskDescription(String taskDescription) {
+
+        return taskDescription.isBlank();
     }
 
     /**

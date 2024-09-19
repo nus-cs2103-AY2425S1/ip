@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import quack.exception.FailedFilePathCreationException;
 import quack.exception.FailedLoadSaveFileException;
 import quack.exception.InvalidDateTimeException;
+import quack.exception.InvalidDescriptionException;
 import quack.exception.InvalidTaskTypeException;
 import quack.tasks.Task;
 
@@ -138,6 +139,8 @@ public class Storage {
             ui.printExceptionMessage(dateTimeError);
         } catch (InvalidTaskTypeException taskTypeError) {
             ui.printExceptionMessage(taskTypeError);
+        } catch (InvalidDescriptionException taskDescError) {
+            ui.printExceptionMessage(taskDescError);
         }
 
         return task;
