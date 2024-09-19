@@ -132,7 +132,9 @@ public class Ui {
      */
     public String removeTask(Task task) {
         return "phew! that list was looooonngggg... i was getting tired of remembering it!"
-                + "\n" + task.toString();}
+                + task.toString();
+
+    }
 
     /**
      * Marks a task as completed and returns a celebration message.
