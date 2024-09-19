@@ -22,7 +22,7 @@ Example:`todo borrow book`
 ### <span style="color:#9457eb">Adding a deadline task</span>
 Have Elster add a deadline task to your list.
 
-Format:`deadline {description} /by {deadline time}` \
+Format:`deadline {description} /by {deadline time}`
 - Note that the deadline time has to be in yyyy-MM-dd or yyyy-MM-dd HH:mm
 
 Example:`deadline return book to library /by 2024-09-22`
