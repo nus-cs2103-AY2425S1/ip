@@ -8,7 +8,6 @@
 and events. It offers an intuitive gui interface where you can manage your tasks efficiently. Schedulo allows you to
 add, delete, find, and list tasks, making it easier to stay organized and focused.
 
-
 ## Features
 
 ### 1. Adding Tasks
@@ -85,7 +84,6 @@ Got it. I've added this task:
 Now you have 3 tasks in the list.
 ```
 
-
 ### 2. Listing All Tasks
 
 To display all tasks in your list:
@@ -102,7 +100,6 @@ Here are the tasks in your list:
 2. [D][ ] submit assignment (by: Sep 01 2024)
 3. [E][ ] project meeting (from: Sep 01 2024 to: Sep 02 2024)
 ```
-
 
 ### 3. Marking Tasks as Done
 
@@ -125,7 +122,6 @@ Nice! I've marked this task as done:
 [T][X] read book
 ```
 
-
 ### 4. Unmarking Tasks as Not Done
 
 To unmark a task:
@@ -146,7 +142,6 @@ unmark 1
 OK, I've marked this task as not done yet:
 [T][ ] read book
 ```
-
 
 ### 5. Deleting Tasks
 
@@ -170,7 +165,6 @@ Noted. I've removed this task:
 Now you have 2 tasks in the list.
 ```
 
-
 ### 6. Finding Tasks by Keyword
 
 To find tasks that contain a specific keyword:
@@ -191,7 +185,6 @@ find book
 Here are the matching tasks in your list:
 1. [T][ ] read book
 ```
-
 
 ### 7. Adding Multiple To-Dos
 
@@ -214,11 +207,9 @@ Got it. I've added the todos
 ```
 You can then check using the `list` command.
 
-
 ### 8. Help command
 
 Use the `help` command to easily view all the commands available at your fingertips!
-
 
 ## Conclusion
 
