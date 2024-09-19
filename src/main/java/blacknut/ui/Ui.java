@@ -2,7 +2,6 @@ package blacknut.ui;
 
 import java.util.ArrayList;
 import java.time.LocalDate;
-import java.util.Scanner;
 
 /**
  * The Ui class handles user interaction by displaying messages and reading input.
