@@ -142,4 +142,8 @@ public class TaskList {
         String returnListMessage = String.join("\n", stringList);
         return returnListMessage;
     }
+
+    public void clearTaskList() {
+        taskList.clear();
+    }
 }

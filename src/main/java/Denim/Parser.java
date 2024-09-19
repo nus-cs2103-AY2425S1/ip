@@ -278,7 +278,7 @@ public class Parser {
         }
 
         LocalDateTime eventFrom = LocalDateTime.parse(from, formatter);
-        LocalDateTime eventTo = LocalDateTime.parse(from, formatter);
+        LocalDateTime eventTo = LocalDateTime.parse(to, formatter);
 
         if (eventFrom.isAfter(eventTo) || eventFrom.isEqual(eventTo)) {
             return false;
