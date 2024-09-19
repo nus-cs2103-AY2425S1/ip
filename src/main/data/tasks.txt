@@ -1,6 +1,6 @@
 D |   | return book | Dec 2 2019, 6:00 pm
+D |   | return book | Dec 2 2019, 6:00 pm
+D |   | Submit assignment | Sep 20 2024, 11:59 pm
 E |   | wit | Dec 2 2019, 6:00 pm | Dec 2 2019, 8:00 pm
 T |   | buy bread
 T |   | buy milk
-T |   | borrow book
-T | X | Read book
