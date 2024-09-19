@@ -25,21 +25,44 @@ public class TodoTest {
         assertEquals("[T][X] Read a book", result);
     }
     @Test
-    void testToFileFormat() {
-        Todo todo = new Todo("Read a book");
+    public void testToFileFormat_NotDone_NoTags() {
+        Todo todo = new Todo("Test Todo");
 
         String result = todo.toFileFormat();
 
-        assertEquals("T | 0 | Read a book", result);
+        assertEquals("T | 0 | Test Todo", result);
     }
 
     @Test
-    void testToFileFormatWhenDone() {
-        Todo todo = new Todo("Read a book");
+    public void testToFileFormat_Done_NoTags() {
+        Todo todo = new Todo("Test Todo");
         todo.markDone();
 
         String result = todo.toFileFormat();
 
-        assertEquals("T | 1 | Read a book", result);
+        assertEquals("T | 1 | Test Todo", result);
+    }
+
+    @Test
+    public void testToFileFormat_NotDone_WithTags() {
+        Todo todo = new Todo("Test Todo");
+        todo.addTag("important");
+        todo.addTag("urgent");
+
+        String result = todo.toFileFormat();
+
+        assertEquals("T | 0 | Test Todo | important,urgent", result);
+    }
+
+    @Test
+    public void testToFileFormat_Done_WithTags() {
+        Todo todo = new Todo("Test Todo");
+        todo.markDone();
+        todo.addTag("important");
+        todo.addTag("urgent");
+
+        String result = todo.toFileFormat();
+
+        assertEquals("T | 1 | Test Todo | important,urgent", result);
     }
 }

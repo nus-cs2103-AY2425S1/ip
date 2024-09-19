@@ -72,7 +72,7 @@ public class Parser {
             } else if (isTagCommand(text)) {
                 handleTagCommand(text);
             } else {
-                throw new MaxException("What does that mean?:( Begin with todo, event, or deadline.");
+                throw new MaxException("What does that mean?:( Type 'help' to know what to type.");
             }
             this.storage.saveTasks(taskList.getTasks());
         } catch (MaxException e) {

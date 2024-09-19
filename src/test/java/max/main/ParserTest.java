@@ -1,8 +1,6 @@
 package max.main;
 
 import max.exception.MaxException;
-import max.task.TaskList;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -13,71 +11,84 @@ public class ParserTest {
 
     private Parser parser;
 
-    @BeforeEach
-    void setUp() {
-        parser = new Parser();
-    }
-    // Test valid date format
     @Test
     public void parseDate_validDate_success() throws MaxException {
-        String date = "2/12/2024 1800";
-        LocalDateTime expected = LocalDateTime.of(2024, 12, 2, 18, 0);
+        Parser parser = new Parser();
+        String validDate = "2/12/2024 1800";
+        LocalDateTime expectedDate = LocalDateTime.of(2024, 12, 2, 18, 0);
 
-        LocalDateTime actual = parser.parseDate(date);
+        LocalDateTime parsedDate = parser.parseDate(validDate);
 
-        assertEquals(expected, actual);
+        assertEquals(expectedDate, parsedDate);
     }
 
-    // Test another valid date format
     @Test
-    void testParseDateValidFormat() throws MaxException {
-        LocalDateTime dateTime = parser.parseDate("2/12/2024 1800");
+    public void parseDate_invalidFormat_throwsMaxException() {
+        Parser parser = new Parser();
+        String invalidDate = "2024-12-02 18:00";
 
-        assertEquals(LocalDateTime.of(2024, 12, 2, 18, 0), dateTime);
-    }
+        MaxException exception = assertThrows(MaxException.class, () -> parser.parseDate(invalidDate));
 
-    // Test invalid date format
-    @Test
-    void testParseDateInvalidFormat() {
-        MaxException exception = assertThrows(MaxException.class, () -> {
-            parser.parseDate("12-02-2024 1800");
-        });
         assertEquals("Invalid date format! Please use d/M/yyyy HHmm. For example, '2/12/2024 1800'",
                 exception.getMessage());
     }
 
-    // Test parsing with missing time
     @Test
-    void testParseDateMissingTime() {
-        MaxException exception = assertThrows(MaxException.class, () -> {
-            parser.parseDate("2/12/2024");
-        });
+    public void parseDate_missingTime_throwsMaxException() {
+        Parser parser = new Parser();
+        String invalidDate = "2/12/2024";
+
+        MaxException exception = assertThrows(MaxException.class, () -> parser.parseDate(invalidDate));
+
         assertEquals("Invalid date format! Please use d/M/yyyy HHmm. For example, '2/12/2024 1800'",
                 exception.getMessage());
     }
 
-    // Test parsing with empty string
     @Test
-    void testParseDateEmptyString() {
-        MaxException exception = assertThrows(MaxException.class, () -> {
-            parser.parseDate("");
-        });
+    public void parseDate_invalidDay_throwsMaxException() {
+        Parser parser = new Parser();
+        String invalidDate = "32/12/2024 1800"; // Invalid day
+
+        MaxException exception = assertThrows(MaxException.class, () -> parser.parseDate(invalidDate));
+
         assertEquals("Invalid date format! Please use d/M/yyyy HHmm. For example, '2/12/2024 1800'",
                 exception.getMessage());
     }
 
+    @Test
+    public void parseDate_invalidMonth_throwsMaxException() {
+        Parser parser = new Parser();
+        String invalidDate = "2/13/2024 1800"; // Invalid month
 
-    // Test checkTask with valid description
+        MaxException exception = assertThrows(MaxException.class, () -> parser.parseDate(invalidDate));
+
+        assertEquals("Invalid date format! Please use d/M/yyyy HHmm. For example, '2/12/2024 1800'",
+                exception.getMessage());
+    }
+
+    @Test
+    public void parseDate_leapYearDate_success() throws MaxException {
+        Parser parser = new Parser();
+        String leapYearDate = "29/2/2024 1800"; // Leap year date
+        LocalDateTime expectedDate = LocalDateTime.of(2024, 2, 29, 18, 0);
+
+        LocalDateTime parsedDate = parser.parseDate(leapYearDate);
+
+        assertEquals(expectedDate, parsedDate);
+    }
+
+
     @Test
     public void checkTask_validDescription_success() throws MaxException {
+        Parser parser = new Parser();
         String description = "Read book";
 
         assertDoesNotThrow(() -> parser.checkTask(description));
     }
 
-    // Test checkTask with empty description
     @Test
     public void checkTask_emptyDescription_throwsException() {
+        Parser parser = new Parser();
         String emptyDescription = "";
 
         MaxException exception = assertThrows(MaxException.class, () -> {
@@ -85,6 +96,13 @@ public class ParserTest {
         });
 
         assertEquals("Oh no!! The description of the task cannot be empty. :(", exception.getMessage());
+    }
+
+    @Test
+    public void checkTask_whitespaceDescription_success() {
+        Parser parser = new Parser();
+        String whitespaceDescription = "   ";
+        assertDoesNotThrow(() -> parser.checkTask(whitespaceDescription));
     }
 
 }
