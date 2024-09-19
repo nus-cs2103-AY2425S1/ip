@@ -11,7 +11,17 @@ import tecna.util.DateTimeUtil;
 
 import static tecna.util.DateTimeUtil.DATE_TIME_PATTERN;
 
+/**
+ * Represents the Command of type EventCommand (add an event task).
+ *
+ * @author Adapted from Feng1231.
+ */
 public class EventCommand extends Command {
+    /**
+     * Constructs a EventCommand instance.
+     *
+     * @param message The whole command input in String.
+     */
     public EventCommand(String message) {
         super(message);
     }
@@ -28,7 +38,6 @@ public class EventCommand extends Command {
         }
 
         assert event != null;
-        setIsSuccessful(true);
 
         try {
             taskList.addItem(event);
@@ -39,6 +48,12 @@ public class EventCommand extends Command {
         return ui.printAddItemMsg(taskList, event);
     }
 
+    /**
+     * Interprets the input.
+     *
+     * @return An Event object which needs to be added if the command is valid.
+     * @throws WrongFormatException If the Event command is in wrong format.
+     */
     public Event parseEventCommand() throws WrongFormatException {
         Event event;
 
@@ -74,11 +89,4 @@ public class EventCommand extends Command {
         return event;
     }
 
-    public static void main(String[] args) {
-        TaskList taskList = new TaskList();
-        Storage storage = new Storage("");
-        Ui ui = new Ui();
-        EventCommand command = new EventCommand("event go shopping /from 2024-12-11 1400 /to 2024-12-11 1500 ");
-        System.out.println(command.execute(taskList, storage, ui));
-    }
 }

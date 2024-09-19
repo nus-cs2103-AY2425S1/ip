@@ -29,13 +29,14 @@ import tecna.task.ToDo;
  * @author DennieDan.
  */
 public class CommandScanner {
-    private final Scanner SCANNER;
     private String input;
 
-    public CommandScanner() {
-        this.SCANNER = new Scanner(System.in);
-    }
-
+    /**
+     * Gets the correct instance of command.
+     *
+     * @param input The whole String input by the user.
+     * @return The command of which is an inheritance of <code>Command</code>.
+     */
     public Command getCommand(String input) {
         CommandType commandType = readRequest(input);
 
@@ -53,6 +54,12 @@ public class CommandScanner {
         };
     }
 
+    /**
+     * Returns the type of the command.
+     *
+     * @param input The whole string input by the user.
+     * @return The type of the command of <code>CommandType</code> enum.
+     */
     public CommandType readRequest(String input) {
         this.input = input;
         String[] input_words = this.input.split("\\s+");

@@ -1,13 +1,13 @@
 package tecna.parser;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import org.json.simple.JSONObject;
 
 import tecna.exception.JsonLoadingException;
 import tecna.exception.JsonLoadingExceptionType;
 import tecna.task.Event;
+import tecna.util.DateTimeUtil;
 
 /**
  * Parses the task of Event type from a JSONObject.
@@ -33,9 +33,8 @@ public class EventParser {
             throw new JsonLoadingException(JsonLoadingExceptionType.EVENT_DATA_MISSING);
         }
 
-        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        LocalDateTime from = LocalDateTime.parse(start, pattern);
-        LocalDateTime to = LocalDateTime.parse(end, pattern);
+        LocalDateTime from = DateTimeUtil.parseDateTime(start);
+        LocalDateTime to = DateTimeUtil.parseDateTime(end);
         return new Event(taskName,isDone, from, to);
     }
 }

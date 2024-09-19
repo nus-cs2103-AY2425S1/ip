@@ -12,12 +12,25 @@ import java.time.LocalDateTime;
 public class Deadline extends Task {
     protected LocalDateTime by;
 
-    public Deadline(String taskName,
-            LocalDateTime by) {
+    /**
+     * Constructs a Deadline task instance.
+     *
+     * @param taskName Name of the task.
+     * @param by Deadline of the task.
+     */
+    public Deadline(String taskName, LocalDateTime by) {
         super(taskName);
         this.by = by;
     }
 
+    /**
+     * Constructs a Deadline task with <code>isDone</code>,
+     * mostly when parsing tasks from the storage file.
+     *
+     * @param taskName Name of the task.
+     * @param isDone Done status of the task.
+     * @param by Deadline of the task.
+     */
     public Deadline(String taskName, boolean isDone, LocalDateTime by) {
         super(taskName);
         this.by = by;

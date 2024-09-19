@@ -5,7 +5,17 @@ import tecna.exception.WrongFormatException;
 import tecna.storage.Storage;
 import tecna.ui.Ui;
 
+/**
+ * Represents the Command of type DeleteCommand (delete a task).
+ *
+ * @author Adapted from Feng1231.
+ */
 public class DeleteCommand extends Command {
+    /**
+     * Constructs a DeleteCommand instance.
+     *
+     * @param message The whole command input in String.
+     */
     public DeleteCommand(String message) {
         super(message);
     }
@@ -21,6 +31,13 @@ public class DeleteCommand extends Command {
         }
     }
 
+    /**
+     * Interprets a command of type delete.
+     *
+     * @param taskListSize Size of the TaskList in use.
+     * @return The index of the item needs to be deleted if the command is valid.
+     * @throws WrongFormatException If the Delete command is in wrong format.
+     */
     public int parseDeleteCommand(int taskListSize) throws WrongFormatException {
         String[] input_words = message.split("\\s+");
 

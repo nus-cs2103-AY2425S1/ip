@@ -12,7 +12,17 @@ import tecna.util.DateTimeUtil;
 
 import static tecna.util.DateTimeUtil.DATE_TIME_PATTERN;
 
+/**
+ * Represents the Command of type DeadlineCommand (add a deadline task).
+ *
+ * @author Adapted from Feng1231.
+ */
 public class DeadlineCommand extends Command {
+    /**
+     * Constructs a DeadlineCommand instance.
+     *
+     * @param message The whole command input in String.
+     */
     public DeadlineCommand(String message) {
         super(message);
     }
@@ -29,7 +39,6 @@ public class DeadlineCommand extends Command {
         }
 
         assert deadline != null;
-        setIsSuccessful(true);
         try {
             taskList.addItem(deadline);
         } catch (TaskDuplicateException e) {
@@ -38,6 +47,12 @@ public class DeadlineCommand extends Command {
         return ui.printAddItemMsg(taskList, deadline);
     }
 
+    /**
+     * Interprets the input.
+     *
+     * @return A Deadline object if the input is valid.
+     * @throws WrongFormatException If the Deadline command is in wrong format.
+     */
     public Deadline parseDeadlineCommand() throws WrongFormatException {
         Deadline deadline = null;
 
@@ -56,13 +71,5 @@ public class DeadlineCommand extends Command {
 
         }
         return deadline;
-    }
-
-    public static void main(String[] args) {
-        TaskList taskList = new TaskList();
-        Storage storage = new Storage("");
-        Ui ui = new Ui();
-        DeadlineCommand command = new DeadlineCommand("deadline go shopping /by 2024-12-11 1400");
-        System.out.println(command.execute(taskList, storage, ui));
     }
 }

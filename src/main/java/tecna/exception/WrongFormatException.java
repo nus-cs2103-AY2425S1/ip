@@ -2,12 +2,23 @@ package tecna.exception;
 
 import java.util.Optional;
 
+/**
+ * Indicates errors while interpreting user's commands.
+ *
+ * @author DennieDan.
+ */
 public class WrongFormatException extends Exception {
     private String task;
     private String solution;
     private String message;
 
-    public WrongFormatException(String task, String solution) {
+    /**
+     * Constructs a WrongFormatException instance.
+     *
+     * @param type Type of command.
+     * @param solution How to fix the error.
+     */
+    public WrongFormatException(String type, String solution) {
         super("Wrong format of ");
         this.task = task;
         this.solution = solution;

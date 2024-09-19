@@ -4,10 +4,19 @@ import tecna.collection.TaskList;
 import tecna.storage.Storage;
 import tecna.ui.Ui;
 
+/**
+ * Represents the Command of type ByeCommand (exit the app).
+ *
+ * @author Adapted from Feng1231.
+ */
 public class ByeCommand extends Command {
+    /**
+     * Constructs a ByeCommand instance.
+     *
+     * @param message The whole command input in String.
+     */
     public ByeCommand(String message) {
         super(message);
-        setIsExitCommand();
     }
 
     @Override
