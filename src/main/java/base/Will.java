@@ -1,39 +1,41 @@
 package base;
 
-import task.Task;
 import task.TaskList;
 import utility.Parser;
 import utility.Storage;
 
-import java.util.ArrayList;
-
-
+/**
+ * The {@code Will} class represents the core chatbot logic for managing tasks.
+ * It initializes task-related functionalities and processes user input to generate responses.
+ */
 public class Will {
 
-    private final ArrayList<Task> tasks;
-    private final Storage storage;
-    private final TaskList taskList;
-    private final Parser parser;
+    private final TaskList TASKS;
+    private final Storage STORAGE;
+    private final Parser PARSER;
 
     /**
-     * Set up the task list, storage, and parser and loads any previously saved tasks from storage into the task list.
+     * Constructs a new {@code Will} instance, initializing the {@code TaskList},
+     * {@code Storage}, and {@code Parser} objects.
+     * Loads tasks from storage into the task list.
      */
     public Will(){
-        this.tasks = new ArrayList<>();
-        this.storage = new Storage();
-        this.taskList = new TaskList();
-        this.parser = new Parser();
+        this.TASKS = new TaskList();
+        this.STORAGE = new Storage();
+        this.PARSER = new Parser();
 
-        storage.load(tasks);
+        STORAGE.load(TASKS);
     }
 
     /**
-     * Processes the user's input command and returns the appropriate response.
+     * Processes user input and returns a response from the chatbot.
+     * The input is parsed and the appropriate actions are taken, such as adding,
+     * removing, or updating tasks.
      *
-     * @param input The command input by the user.
-     * @return A string representing the result of the command execution.
+     * @param input The user's input to be processed.
+     * @return The chatbot's response based on the input command.
      */
     public String getResponse(String input) {
-        return this.parser.parseUICommand(tasks, input, taskList, parser, storage);
+        return this.PARSER.parseCommand(TASKS, input, STORAGE);
     }
 }

@@ -1,201 +1,195 @@
 package utility;
 
 import task.Task;
-import task.TaskType;
 import task.TaskList;
+import task.TaskType;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Objects;
 
 
 /**
- * Parsing user commands and interacting with the task list.
+ * The Parser class is responsible for interpreting user commands,
+ * managing task creation, and parsing date and time inputs.
  */
 public class Parser {
 
-    private String trimCommand(String userInput, int size){
+    Message message = new Message();
+
+    /**
+     * Trims the user input command to extract the relevant part of the command.
+     *
+     * @param userInput The entire user input string.
+     * @param size      The number of characters to be removed from the beginning.
+     * @return The trimmed command.
+     */
+    private String trimCommand(String userInput, int size) {
         return userInput.substring(size).trim();
     }
 
     /**
-     * Parses the user input command and executes the appropriate action on the task list.
+     * Parses the user input command and executes the corresponding task action.
      *
-     * @param tasks          The list of tasks to operate on.
-     * @param userInput      The command input by the user.
-     * @param taskList       The TaskList object to manage tasks.
-     * @param dateTimeParser The Parser object used to parse date and time strings.
-     * @param storage        The Storage object used to save user tasks.
-     * @return A string representing the result of the executed command.
+     * @param tasks     The current list of tasks.
+     * @param userInput The command input by the user.
+     * @param storage   The storage object used to save tasks.
+     * @return A response message based on the command executed.
      */
-    public String parseUICommand(ArrayList<Task> tasks, String userInput, TaskList taskList, Parser dateTimeParser, Storage storage){
+    public String parseCommand(TaskList tasks, String userInput, Storage storage) {
+        userInput = userInput.trim();
 
-        String output;
-
-        if (Objects.equals(userInput, "bye")) {
+        if (userInput.equals("bye") || userInput.equals("exit")) {
             storage.save(tasks);
             System.exit(0);
             return null;
         }
 
-        if (Objects.equals(userInput, "list")) {
-            output = "Here are the tasks in your list:\n";
-            StringBuilder result = new StringBuilder();
-            if (tasks.isEmpty()){
-                return "No Task Found";
+        if (userInput.equals("list")) {
+            String result = tasks.listTask();
+            if (result == null) {
+                return message.printNoTask();
             }
-            for (int i = 0; i < tasks.size(); i++) {
-                result.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
-            }
-            return output + result;
+            return message.printHeader("list") + result;
         }
 
+        // Mark task as done
         if (userInput.startsWith("mark")) {
-            try{
-                int taskNumber = Integer.parseInt(userInput.substring(5).trim());
-                String result = taskList.markTask(tasks, taskNumber);
-                if (result.startsWith("No")) {
-                    assert result.equals("No Task Found") : "Wrong Output here";
-                    return result;
-                }else {
-                    output = "Nice! I've marked this task as done:\n";
+            try {
+                int taskNumber = Integer.parseInt(trimCommand(userInput, 5));
+                if (!tasks.markTask(taskNumber)) {
+                    return message.printNoTask();
+                } else {
                     storage.save(tasks);
-                    return output + result;
+                    return message.printHeader("mark") + tasks.getTaskByID(taskNumber);
                 }
-            }catch(StringIndexOutOfBoundsException | NumberFormatException e){
-                return "The task number cannot be empty.";
+            } catch (StringIndexOutOfBoundsException | NumberFormatException e) {
+                return message.printEmptyID();
             }
         }
 
+        // Unmark task as not done
         if (userInput.startsWith("unmark")) {
-            try{
+            try {
                 int taskNumber = Integer.parseInt(trimCommand(userInput, 7));
-                String result = taskList.unmarkTask(tasks, taskNumber);
-                if (result.startsWith("No")) {
-                    assert result.equals("No Task Found") : "Wrong Output here";
-                    return result;
-                }else{
-                    output = "OK, I've marked this task as not done yet:\n";
+                if (!tasks.unmarkTask(taskNumber)) {
+                    return message.printNoTask();
+                } else {
                     storage.save(tasks);
-                    return output + result;
+                    return message.printHeader("unmark") + tasks.getTaskByID(taskNumber);
                 }
-            }catch(StringIndexOutOfBoundsException | NumberFormatException e){
-                return "The task number cannot be empty.";
+            } catch (StringIndexOutOfBoundsException | NumberFormatException e) {
+                return message.printEmptyID();
             }
         }
 
+        // Delete a task
         if (userInput.startsWith("delete")) {
-            try{
+            try {
                 int taskNumber = Integer.parseInt(trimCommand(userInput, 7));
-                String result = taskList.deleteTask(tasks, taskNumber);
-                if (result.startsWith("No")) {
-                    assert result.equals("No Task Found") : "Wrong Output here";
-                    return result;
-                }else{
-                    output = "Noted. I've removed this task:\n";
+                Task toBeRemoved = tasks.getTaskByID(taskNumber);
+                if (!tasks.deleteTask(taskNumber) || toBeRemoved == null) {
+                    return message.printNoTask();
+                } else {
                     storage.save(tasks);
-                    return output + result;
+                    return message.printHeader("delete") + toBeRemoved + message.printTaskCount(tasks.getTaskCount());
                 }
-            }catch(StringIndexOutOfBoundsException | NumberFormatException e){
-                return "The task number cannot be empty.";
+            } catch (StringIndexOutOfBoundsException | NumberFormatException e) {
+                return message.printEmptyID();
             }
         }
 
+        // Add ToDo task
         if (userInput.startsWith("todo")) {
-            try{
+            try {
                 String desc = trimCommand(userInput, 5);
-                if(!desc.isEmpty()){
-                    String taskString = taskList.addTask(tasks, TaskType.TODO, desc);
-                    if (taskString.startsWith("This")) {
-                        return taskString;
-                    }
-                    storage.save(tasks);
-                    return "Got it. I've added this task:\n" + taskString;
-                }else{
-                    return "The description of a todo cannot be empty.";
+                if (desc.isEmpty()) {
+                    throw new IllegalArgumentException();
                 }
-            }catch(StringIndexOutOfBoundsException e){
-                return "The description of a todo cannot be empty.";
+                Task newTask = tasks.createTask(TaskType.TODO, desc);
+                if (!tasks.addTask(newTask)) {
+                    return message.printExists();
+                }
+                storage.save(tasks);
+                return message.printAddTask(newTask, tasks.getTaskCount());
+            } catch (StringIndexOutOfBoundsException | IllegalArgumentException e) {
+                return message.printEmptyError(TaskType.TODO);
             }
         }
 
+        // Add Deadline task
         if (userInput.startsWith("deadline")) {
             try {
                 String[] parts = userInput.substring(9).split(" /by ");
                 String desc = parts[0].trim();
-                if(!desc.isEmpty()){
-                    LocalDateTime by = dateTimeParser.parseDateTime(parts[1].trim());
-                    if (by == null){
-                        return "Invalid Datetime format";
-                    }
-                    String taskString = taskList.addTask(tasks, TaskType.DEADLINE, desc, by);
-                    if (taskString.startsWith("This")) {
-                        return taskString;
-                    }
-                    storage.save(tasks);
-                    return "Got it. I've added this task:\n" + taskString;
-                }else{
-                    return "The description and date of a deadline cannot be empty.";
+                if (desc.isEmpty()) {
+                    throw new IllegalArgumentException();
                 }
-            }catch(StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e){
-                return "The description and date of a deadline cannot be empty.";
+                LocalDateTime by = parseDateTime(parts[1].trim());
+                if (by == null) {
+                    return message.printInvalidDate();
+                }
+                Task newTask = tasks.createTask(TaskType.DEADLINE, desc, by);
+                if (!tasks.addTask(newTask)) {
+                    return message.printExists();
+                }
+                storage.save(tasks);
+                return message.printAddTask(newTask, tasks.getTaskCount());
+            } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException | IllegalArgumentException e) {
+                return message.printEmptyError(TaskType.DEADLINE);
             }
         }
 
+        // Add Event task
         if (userInput.startsWith("event")) {
-            try{
+            try {
                 String[] parts = userInput.substring(6).split(" /from | /to ");
                 String desc = parts[0].trim();
-                if(!desc.isEmpty()){
-                    LocalDateTime from = dateTimeParser.parseDateTime(parts[1].trim());
-                    LocalDateTime to = dateTimeParser.parseDateTime(parts[2].trim());
-                    if (from == null || to == null){
-                        return "Invalid Datetime format";
-                    }
-                    String taskString = taskList.addTask(tasks, TaskType.EVENT, desc, from, to);
-                    if (taskString.startsWith("This")) {
-                        return taskString;
-                    }
-                    storage.save(tasks);
-                    return "Got it. I've added this task:\n" + taskString;
-                }else{
-                    return "The description and date of a event cannot be empty.";
+                if (desc.isEmpty()) {
+                    throw new IllegalArgumentException();
                 }
-            }catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException e){
-                return "The description and date of a event cannot be empty.";
+                LocalDateTime from = parseDateTime(parts[1].trim());
+                LocalDateTime to = parseDateTime(parts[2].trim());
+                if (from == null || to == null) {
+                    return message.printInvalidDate();
+                }
+                Task newTask = tasks.createTask(TaskType.EVENT, desc, from, to);
+                if (!tasks.addTask(newTask)) {
+                    return message.printExists();
+                }
+                storage.save(tasks);
+                return message.printAddTask(newTask, tasks.getTaskCount());
+            } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException | IllegalArgumentException e) {
+                return message.printEmptyError(TaskType.EVENT);
             }
         }
 
-
+        // Find task by keyword
         if (userInput.startsWith("find")) {
-            try{
+            try {
                 String keyword = trimCommand(userInput, 5);
-                if (keyword.isEmpty()){
-                    return "The keyword to look for cannot be empty.";
+                if (keyword.isEmpty()) {
+                    return message.printEmptyKey();
                 }
-                String result = taskList.findTask(tasks, keyword);
-                if (result.startsWith("No")){
-                    return result;
-                }else{
-                    output = "Here are the matching tasks in your list:\n";
-                    return output + result;
+                String result = tasks.findTask(keyword);
+                if (result == null) {
+                    return message.printNoTask();
+                } else {
+                    return message.printHeader("find") + result;
                 }
-            }catch(StringIndexOutOfBoundsException e){
-                return "The keyword to look for cannot be empty.";
+            } catch (StringIndexOutOfBoundsException e) {
+                return message.printEmptyKey();
             }
         }
 
-        return "I'm sorry, but I don't know what that means";
+        return message.printDefault();
     }
-
 
     /**
      * Parses a date and time string into a LocalDateTime object.
      *
-     * @param dateTimeStr The date and time string in the format "d/M/yyyy HHmm".
-     * @return The parsed LocalDateTime object, or null if the format is invalid.
+     * @param dateTimeStr The date and time string to parse.
+     * @return The parsed LocalDateTime object, or {@code null} if parsing fails.
      */
     public LocalDateTime parseDateTime(String dateTimeStr) {
         try {

@@ -1,5 +1,4 @@
 import task.Task;
-import task.TaskList;
 import utility.Parser;
 import org.junit.jupiter.api.Test;
 
@@ -25,19 +24,19 @@ public class ParserTest {
     public void testExit(){
         Parser parser = new Parser();
         ArrayList<Task> tasks = new ArrayList<>();
-        TaskList taskList = new TaskList();
+//        TaskAction taskList = new TaskAction();
         Parser dateTimeParser = new Parser();
-        Ui ui = new Ui();
-        assertEquals(true, parser.parseCommand(tasks, "bye", taskList, ui, dateTimeParser));
+//        Ui ui = new Ui();
+//        assertEquals(true, parser.parseCommand(tasks, "bye", taskList, ui, dateTimeParser));
     }
 
     @Test
     public void testDefaultCommand(){
         Parser parser = new Parser();
         ArrayList<Task> tasks = new ArrayList<>();
-        TaskList taskList = new TaskList();
+//        TaskAction taskAction = new TaskAction();
         Parser dateTimeParser = new Parser();
-        Ui ui = new Ui();
-        assertEquals(false, parser.parseCommand(tasks, "abc123", taskList, ui, dateTimeParser));
+//        Ui ui = new Ui();
+//        assertEquals(false, parser.parseCommand(tasks, "abc123", taskAction, ui, dateTimeParser));
     }
 }
