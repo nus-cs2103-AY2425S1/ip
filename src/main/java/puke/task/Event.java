@@ -8,8 +8,8 @@ import java.util.Objects;
  * Represents an event with a description, completion status, and time range.
  */
 public class Event extends Task {
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
-    private static final DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
+    private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
     private LocalDateTime from;
     private LocalDateTime to;
 
@@ -23,8 +23,8 @@ public class Event extends Task {
      */
     public Event(String description, boolean isDone, String from, String to) {
         super(description);
-        this.from = LocalDateTime.parse(from, inputFormatter);
-        this.to = LocalDateTime.parse(to, inputFormatter);
+        this.from = LocalDateTime.parse(from, INPUT_FORMATTER);
+        this.to = LocalDateTime.parse(to, INPUT_FORMATTER);
         if (isDone) {
             markAsDone();
         }
@@ -58,7 +58,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from.format(formatter) + " to: " + to.format(formatter) + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(TIME_FORMATTER) + " to: " + to.format(TIME_FORMATTER) + ")";
     }
 
     /**
