@@ -114,22 +114,22 @@ Ends the conversation.
 
 ## Datetime formats supported
 
-| Date Format | Example       |
-|-------------|---------------|
-| yyyy-M-d    | 2024-9-18     |
-| yyyy-MM-dd  | 2024-09-18    |
-| yyyy-MMM-dd | 2024-Sep-18   |
-| yyyy-dd-MMM | 2024-18-Sep   |
-| M-d         | 9-18          |
-| MM-dd       | 09-18         |
-| yyyy/M/d    | 2024/9/18     |
-| yyyy/MM/dd  | 2024/09/18    |
-| yyyy/MMM/dd | 2024/Sep/18   |
-| yyyy/dd/MMM | 2024/18/Sep   |
-| M/d         | 9/18          |
-| MM/dd       | 09/18         |
-| MMM dd      | Sep 18        |
-| dd MMM      | 18 Sep        |
+| Date Format | Example     |
+|-------------|-------------|
+| yyyy-M-d    | 2024-9-1    |
+| yyyy-MM-dd  | 2024-09-18  |
+| yyyy-MMM-dd | 2024-Sep-18 |
+| yyyy-dd-MMM | 2024-18-Sep |
+| M-d         | 9-1         |
+| MM-dd       | 09-18       |
+| yyyy/M/d    | 2024/9/1    |
+| yyyy/MM/dd  | 2024/09/18  |
+| yyyy/MMM/dd | 2024/Sep/18 |
+| yyyy/dd/MMM | 2024/18/Sep |
+| M/d         | 9/1         |
+| MM/dd       | 09/18       |
+| MMM dd      | Sep 18      |
+| dd MMM      | 18 Sep      |
 
 | Time Format | Example       |
 |-------------|---------------|
@@ -144,4 +144,4 @@ The datetime input can be date only, time only, or both.
 - If the year is not specified, the current year is assumed.
 - If the date is not specified at all, the current date is assumed.
 - If the second is not specified, 00 is assumed.
-- If the time is not specified at all, 00:00:00 is assumed.
+- If the time is not specified at all, 23:59:59 is assumed.
