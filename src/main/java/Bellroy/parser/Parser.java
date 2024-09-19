@@ -9,6 +9,8 @@ import Bellroy.task.Todo;
 import Bellroy.task.Deadline;
 import javafx.application.Platform;
 
+import java.io.IOException;
+
 /**
  * The parser class encapsulates the logic of parsing user commands. Depending on the user input, the parser will
  * perform the necessary logic.
@@ -91,7 +93,7 @@ public class Parser {
                 default:
                     return ("ERROR: Invalid Input!");
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             return e.getMessage();
         }
     }
