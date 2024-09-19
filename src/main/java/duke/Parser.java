@@ -29,8 +29,9 @@ public class Parser {
     private static final String REPLY_INVALID_TASK_NUMBER = "Invalid task number given.";
     private static final String REPLY_MISSING_TASK_NUMBER = "This command requires a task number to execute.";
     private static final String REPLY_EMPTY_TASK_DESCRIPTION = "The description of a task cannot be empty.";
-    private static final String REPLY_MISSING_DEADLINE_DETAILS = "A deadline needs a description and an end date in YYYY-MM-DD format.";
+    private static final String REPLY_MISSING_DEADLINE_DETAILS = "A deadline needs a description and a date in YYYY-MM-DD format.";
     private static final String REPLY_MISSING_EVENT_DETAILS = "An event needs a description, and both a start and end date or time in YYYY-MM-DD format.";
+    private static final String REPLY_INVALID_EVENT_DATES = "The start date of an event must be earlier than it's end date.";
     private static final String REPLY_INVALID_FIND_KEYWORDS = "Cannot find an empty string.";
     private static final String REPLY_INVALID_COMMAND = "I don't recognise that command.";
     private static final String REPLY_NO_PREVIOUS_COMMAND = "There is no previous command to undo.";
@@ -316,7 +317,7 @@ public class Parser {
             return REPLY_EMPTY_TASK_DESCRIPTION;
         }
 
-        Undo.saveCommand(COMMAND_TODO, taskList.getCmdNum() + 1);
+        Undo.saveCommand(COMMAND_TODO, taskList.getNumberOfTasks() + 1);
         return taskList.add(new Todo(userCommand.substring(COMMAND_TODO.length() + 1)));
     }
 
@@ -331,8 +332,10 @@ public class Parser {
         if (userCommand.length() == COMMAND_DEADLINE.length()) {
             return REPLY_EMPTY_TASK_DESCRIPTION;
         }
+
         String taskDetails = userCommand.substring(COMMAND_DEADLINE.length() + 1);
         int dateIndex = taskDetails.indexOf(COMMAND_DATE_SEPARATOR);
+
         if ((dateIndex == 0) || (dateIndex == INDEX_INVALID) || (taskDetails.substring(dateIndex + INDEX_OFFSET_BY).isEmpty())) {
             return REPLY_MISSING_DEADLINE_DETAILS;
         }
@@ -345,7 +348,7 @@ public class Parser {
             return REPLY_MISSING_DEADLINE_DETAILS;
         }
 
-        Undo.saveCommand(COMMAND_DEADLINE, taskList.getCmdNum() + 1);
+        Undo.saveCommand(COMMAND_DEADLINE, taskList.getNumberOfTasks() + 1);
         return taskList.add(new Deadline(taskDetails.substring(0, dateIndex), date));
     }
 
@@ -360,6 +363,7 @@ public class Parser {
         if (userCommand.length() == COMMAND_EVENT.length()) {
             return REPLY_EMPTY_TASK_DESCRIPTION;
         }
+
         String taskDetails = userCommand.substring(COMMAND_EVENT.length() + 1);
         int start = taskDetails.indexOf(COMMAND_DATE_SEPARATOR);
         int end = taskDetails.substring(start + 1).indexOf(COMMAND_DATE_SEPARATOR);
@@ -367,17 +371,21 @@ public class Parser {
             return REPLY_MISSING_EVENT_DETAILS;
         }
 
-        String startDate = taskDetails.substring(start + INDEX_OFFSET_FROM, start + end);
-        String endDate = taskDetails.substring(start + 1 + end + INDEX_OFFSET_TO);
+        String startDate = taskDetails.substring(start + INDEX_OFFSET_FROM, start + end).trim();
+        String endDate = taskDetails.substring(start + 1 + end + INDEX_OFFSET_TO).trim();
 
         try {
             LocalDate.parse(startDate);
-            LocalDate.parse(startDate);
+            LocalDate.parse(endDate);
         } catch (DateTimeParseException e) {
             return REPLY_MISSING_EVENT_DETAILS;
         }
 
-        Undo.saveCommand(COMMAND_EVENT, taskList.getCmdNum() + 1);
+        if (startDate.compareTo(endDate) > 0) {
+            return REPLY_INVALID_EVENT_DATES;
+        }
+
+        Undo.saveCommand(COMMAND_EVENT, taskList.getNumberOfTasks() + 1);
         return taskList.add(new Event(taskDetails.substring(0, start), startDate, endDate));
     }
 

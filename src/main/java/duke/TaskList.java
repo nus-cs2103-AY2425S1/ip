@@ -45,7 +45,7 @@ public class TaskList {
      * @return Task item requested.
      * */
     public static Task get(int index) {
-        assert index > 0: "Invalid task number";
+        assert index >= 0: "Invalid task number";
         return tasks[index];
     }
 
@@ -62,9 +62,9 @@ public class TaskList {
             return REPLY_INVALID_TASK_NUMBER;
         }
         String reply = REPLY_DELETED + get(index - 1);
-        ArrayList<Task> newCmds = new ArrayList<Task>(Arrays.asList(tasks));
-        newCmds.remove(index - 1);
-        tasks = newCmds.toArray(new Task[TASK_LIST_SIZE]);
+        ArrayList<Task> newTasks = new ArrayList<Task>(Arrays.asList(tasks));
+        newTasks.remove(index - 1);
+        tasks = newTasks.toArray(new Task[TASK_LIST_SIZE]);
         numberOfTasks--;
         return reply + "\nNow you have " + numberOfTasks + " tasks in the list.";
 
@@ -160,7 +160,7 @@ public class TaskList {
         Storage.save(allTasks(), numberOfTasks);
     }
 
-    public int getCmdNum() {
+    public int getNumberOfTasks() {
         return numberOfTasks;
     }
 }

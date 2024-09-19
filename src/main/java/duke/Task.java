@@ -13,7 +13,7 @@ public class Task {
     private static final String STATUS_UNMARKED = "[ ] ";
 
     public Task(String description) {
-        this.description = description;
+        this.description = description.trim();
         this.isDone = false;
     }
     public String getDescription() { return description; }
@@ -67,7 +67,7 @@ public class Task {
      * @return String task description.
      * */
     public String toString() {
-        return getStatusIcon() + description;
+        return getStatusIcon() + description + " ";
     }
 
 }

@@ -18,8 +18,6 @@ public class Undo {
     private static final String COMMAND_EVENT = "event";
     private static final String COMMAND_DELETE = "delete";
 
-    private static final String REPLY_ERROR = "Cannot undo last command.";
-
     Undo() {
         task = null;
         previousCommand = "";
