@@ -24,7 +24,7 @@ public class MainWindow extends AnchorPane {
 
     private Screwllum screwllum;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/huehue.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/huehue.jpg"));
     private Image screwllumImage = new Image(this.getClass().getResourceAsStream("/images/screwllum.png"));
 
     @FXML
