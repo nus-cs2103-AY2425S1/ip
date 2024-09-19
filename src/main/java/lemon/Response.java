@@ -13,7 +13,7 @@ public class Response {
     }
 
     public void print() {
-        //assert window != null;
+        assert window != null;
         window.addResponse(output.toString());
         output = new StringBuilder();
     }
