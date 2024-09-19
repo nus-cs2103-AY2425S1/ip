@@ -46,6 +46,8 @@
 > - Words in  `UPPER_CASE`  are the parameters to be supplied by the user.  
     >     e.g. in  `todo DESCRIPTION`,  `DESCRIPTION`  is a parameter which can be used as  `todo First Task`.
 >
+> - `DATE` parameters mush follow the format of `YYYY-MM-DD`, e.g. `2024-09-29`
+>
 > - Parameters must be in order specified.  
     >     e.g. if the command specifies  `DESCRIPTION /from DATE`,  `/from DATE DESCRIPTION`  is **NOT**
     > acceptable.
@@ -115,7 +117,7 @@ Format: `lowPriority INDEX`
 
 ### Exiting the program : `bye`
 
-Exit the program.
+Exit the program after a few seconds delay.
 
 Format: `bye`
 
