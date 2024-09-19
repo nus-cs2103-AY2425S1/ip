@@ -1,0 +1,8 @@
+E | 0 | meet friends | 2024-Sep-30 2300 | 2024-Sep-30 2359
+L | 0 | ashok | denon | 100.0 | 2024-Oct-30 2300
+T | 0 | buy groceries
+D | 0 | submit report | 2024-Sep-30 2359
+T | 0 | meet friends
+D | 0 | submit report | 2024-Sep-30 2359
+E | 0 | attend lecture | 2024-Sep-30 1500 | 2024-Sep-30 1600
+L | 0 | james | steven | 100.0 | 2024-Sep-30 2359
