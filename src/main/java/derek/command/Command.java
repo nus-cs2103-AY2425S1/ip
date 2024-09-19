@@ -26,7 +26,6 @@ public abstract class Command {
         this.storage = storage;
         this.ui = ui;
     }
-
     /**
      * Returns the command string.
      *
