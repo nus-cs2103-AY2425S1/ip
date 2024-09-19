@@ -22,6 +22,7 @@ public abstract class Command {
      *
      * @param tasks The TaskList the method interacts with.
      * @param storage The Storage object used to save the new task list.
+     * @return The string that should be shown in the Ui.
      */
     public abstract String executeAndRespond(TaskList tasks, Storage storage);
 

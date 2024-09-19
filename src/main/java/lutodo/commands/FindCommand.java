@@ -91,6 +91,7 @@ public class FindCommand extends Command{
      *
      * @param tasks The TaskList to search in.
      * @param storage The Storage object.
+     * @return The string that should be shown in the Ui.
      */
     @Override
     public String executeAndRespond(TaskList tasks, Storage storage) {

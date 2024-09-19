@@ -80,6 +80,7 @@ public class DeleteCommand extends Command{
      *
      * @param tasks   The TaskList that has some task to be deleted.
      * @param storage The Storage object used to save the new task list.
+     * @return The string that should be shown in the Ui.
      */
     @Override
     public String executeAndRespond(TaskList tasks, Storage storage) {
