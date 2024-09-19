@@ -6,7 +6,7 @@
 # What is Ollie️ ☺️
 **Ollie ☺**️ is your task manager app! 
 - Manages your tasks for you
-- _User-friendly_ syntax using one-letter commands
+- _User-friendly_ syntax using one-letter commands eg `-l` to list all tasks
 - [Features](#features)
   - [Adding tasks](#add-a-task)
   - [Listing tasks](#list-all-tasks)
@@ -25,18 +25,23 @@
 <img src="./images/Start.png" width="300">
 
 # Features
-Function | Command | Format                                                    | Example
---- |---|-----------------------------------------------------------| ---
-[Add a Todo task](#add-a-todo-task) | `todo` | `todo <description>`                                      | `todo read book`
-[Add a Deadline task](#add-a-deadline-task) | `deadline` | `deadline <description> /by: <YYYY-MM-DD HH:MM>`                      | `deadline return book /by: 2021-09-30 18:00`
+Function | Command | Format | Example
+---|---|---|---
+[Add a Todo task](#add-a-todo-task) | `todo` | `todo <description>` | `todo read book`
+[Add a Deadline task](#add-a-deadline-task) | `deadline` | `deadline <description> /by: <YYYY-MM-DD HH:MM>` | `deadline return book /by: 2021-09-30 18:00`
 [Add an Event task](#add-a-deadline-task) | `event` | `event <description> /from: <YYYY-MM-DD HH:MM> /to: <YYYY-MM-DD HH:MM>` | `event meeting /from 2021-09-17 14:00 /to 2021-09-17 16:00`
-[List all tasks](#list-all-tasks) | `-l` | `-l`                                                      | `-l`
-[Mark a task as done](#mark-a-task-as-done) | `-m`| `-m <task number>`                                        | `-m 1`
-[Mark a task as undone](#mark-a-task-as-undone) | `-u`| `-u <task number>`                                        | `-u 1`
-[Delete a task](#delete-a-task) | `-d` | `-d <task number>`                                        | `-d 1`
-[Find a task with the keyword](#find-tasks) | `-f` | `-f <keyword to find>`                                    | `-f book`
+[List all tasks](#list-all-tasks) | `-l` | `-l` | `-l`
+[Mark a task as done](#mark-a-task-as-done) | `-m`| `-m <task number>` | `-m 1`
+[Mark a task as undone](#mark-a-task-as-undone) | `-u`| `-u <task number>` | `-u 1`
+[Delete a task](#delete-a-task) | `-d` | `-d <task number>` | `-d 1`
+[Find a task with the keyword](#find-tasks) | `-f` | `-f <keyword to find>`| `-f book`
 
-Other commands:
+> [!NOTE]
+> Replace the text in `<...>` with the corresponding parameters.
+> 
+> `task number` is the index of the task in the task list. 
+
+**Other commands:**
 - `-b`: Say bye to Ollie ☺
 
 ## Add a task
@@ -128,4 +133,4 @@ Example: `-d 3` deletes the third task in the list.
 
 Example: `-f book` finds tasks with the keyword `book` in the description.
 
-<img src="../docs/images/Find.png" width="300">
+<img src="./images/Find.png" width="300">
