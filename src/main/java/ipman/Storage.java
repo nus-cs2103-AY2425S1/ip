@@ -36,6 +36,7 @@ public class Storage {
      * @param filePath The path of the file to use for storage.
      */
     public Storage(String filePath) {
+        assert !filePath.isEmpty() : "File path cannot be empty";
         try {
             file = new File(filePath);
             if (!file.isFile()) {
@@ -54,6 +55,7 @@ public class Storage {
      * @param str The data to be added to the file.
      */
     public void addEntry(String str) {
+        assert !str.isEmpty() : "Entry cannot be empty";
         try {
             FileWriter fw = new FileWriter(file, true);
             fw.write(str);
