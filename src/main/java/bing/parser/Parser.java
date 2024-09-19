@@ -47,6 +47,8 @@ public class Parser {
                 return parseDeadline(details);
             case "event":
                 return parseEvent(details);
+            case "find":
+                return new FindCommand(details.trim());
             default:
                 return new InvalidCommand();
         }
