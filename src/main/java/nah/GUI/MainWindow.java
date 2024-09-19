@@ -1,6 +1,7 @@
 package nah.GUI;
 
 import java.io.IOException;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import nah.GUI.DialogBox;
 import nah.GUI.HelpWindow;
 import nah.Main;
@@ -85,9 +87,11 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getNahDialog(response, nahImage)
         );
-        // exit the program if the input is "bye"
+        // exit the program after 1 second if the input is "bye"
         if (input.trim().toLowerCase().equals("bye")) {
-            this.stage.close();
+            PauseTransition pause = new PauseTransition(Duration.seconds(1));
+            pause.setOnFinished(event -> this.stage.close());
+            pause.play();
         }
         // open a helpWindow if input is "help"
         if (input.trim().toLowerCase().equals("help")) {

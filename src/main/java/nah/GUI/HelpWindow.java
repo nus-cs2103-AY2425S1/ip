@@ -61,7 +61,7 @@ public class HelpWindow extends AnchorPane {
             this.stage = new Stage();
 
             // title bar set up
-            stage.setTitle("Nah");
+            stage.setTitle("Nah Helper");
             stage.getIcons().add(new Image("/images/helper.png"));
 
             Scene scene = new Scene(root);
