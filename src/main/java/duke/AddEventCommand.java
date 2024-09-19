@@ -37,8 +37,15 @@ public class AddEventCommand extends Command {
             throw new DukeException("to must be specified!");
         }
 
-        LocalDateTime from = Parser.parseDate(eventItems[2]);
-        LocalDateTime to = Parser.parseDate(eventItems[3]);
+        LocalDateTime from;
+        LocalDateTime to;
+
+        try {
+            from = Parser.parseDate(eventItems[2]);
+            to = Parser.parseDate(eventItems[3]);
+        }catch (ParseException e) {
+            throw new DukeException("time must be in [dd-MM-yyyy HHmm] format");
+        }
 
         if (to.isBefore(from)) {
             throw new DukeException("[to] date is before [from] date!");

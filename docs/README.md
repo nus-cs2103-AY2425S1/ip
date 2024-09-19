@@ -1,30 +1,83 @@
-# Duke User Guide
+# Bob User Guide
 
-// Update the title above to match the actual product name
 
-// Product screenshot goes here
+![alt text](Ui.png)
 
-// Product intro goes here
+### Brief description
+> The Bob Chatbot allows you to set tasks
+ 
+## Adding todos
+
+> Adds a task
+
+Example: `todo [description]`
+
+
+Expected output:
+```
+T [] example
+```
 
 ## Adding deadlines
 
-// Describe the action and its outcome.
+> Adds a task with a deadline
 
-// Give examples of usage
+Example: `deadline [description] /by [date]`
 
-Example: `keyword (optional arguments)`
 
-// A description of the expected outcome goes here
-
+Expected output:
 ```
-expected output
+D [] example (by: Month day year time)
 ```
 
-## Feature ABC
+## Adding events
 
-// Feature details
+> Adds a task with a start and end date
+
+Example: `deadline [description] /from [date] /to [date]`
 
 
-## Feature XYZ
+Expected output:
+```
+E [] example (from: Month day year time to: Month day year time)
+```
 
-// Feature details
+## Mark Task
+
+> Marks a task
+
+Example: `mark [index]`
+
+
+Expected output:
+```
+T [] example --> T [x] example
+```
+
+## UnMark Task
+
+> Unmarks a task
+
+Example: `unmark [index]`
+
+
+Expected output:
+```
+T [x] example --> T [] example
+```
+
+
+## List Task
+
+> Unmarks a task
+
+Example: `list`
+
+
+Expected output:
+```
+1. T [] example
+2. T [] example2
+3. T [] example3
+4. T [] example4
+```

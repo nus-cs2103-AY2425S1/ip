@@ -2,6 +2,7 @@ package duke;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
@@ -32,7 +33,15 @@ public class AddDeadLineCommand extends Command {
             throw new DukeException("DeadLine must be specified!");
         }
 
-        return new DeadLine(deadLineItems[1], Parser.parseDate(deadLineItems[2]));
+        LocalDateTime time;
+
+        try {
+            time = Parser.parseDate(deadLineItems[2]);
+        }catch (ParseException e) {
+            throw new DukeException("time must be in [dd-MM-yyyy HHmm] format");
+        }
+
+        return new DeadLine(deadLineItems[1], time);
     }
 
     /**
