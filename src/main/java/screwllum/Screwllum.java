@@ -42,21 +42,18 @@ public class Screwllum {
      * Using other classes, the loop parses user inputs, executes them, and updates the save file.
      * Exceptions caught results in the respective error message being displayed.
      */
-    public void run() {
-        ui.showWelcome();
-        while (true) {
-            try {
-                String userInput = ui.getInput();
-                List<String> tokens = Parser.parseUserInput(userInput);
-                taskManager.execute(tokens, ui);
-                storage.writeToFile(taskManager.getTaskList());
-            } catch (ScrewllumException e) {
-                ui.showError(e.getMessage());
-            }
+    public String getResponse(String userInput) {
+        try {
+            List<String> tokens = Parser.parseUserInput(userInput);
+            String result = taskManager.execute(tokens, ui);
+            storage.writeToFile(taskManager.getTaskList());
+            return result;
+        } catch (ScrewllumException e) {
+            return ui.showError(e.getMessage());
         }
     }
     
-    public static void main(String[] args) {
-        new Screwllum().run();
+    public String showWelcome() {
+        return ui.showWelcome();
     }
 }
