@@ -53,7 +53,7 @@ public class Mendel {
     }
 
     /**
-     * The main method and entry point for the Mendel application.
+     * The entry point for the Mendel application.
      */
     public static void main(String[] args) {
         new Mendel().run();
