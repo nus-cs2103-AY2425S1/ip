@@ -16,7 +16,7 @@ public class Jag {
      *
      * @param path Path of the file to read and write outputs
      */
-    public Jag(String path) {
+    public Jag(String path) throws FileNotFoundException {
         ui = new UiCLI();
         storage = new Storage(path);
         try {
@@ -27,7 +27,7 @@ public class Jag {
         }
     }
 
-    public Jag() {
+    public Jag() throws FileNotFoundException {
         ui = new UiGUI();
         storage = new Storage("./data/jag.txt");
         try {
@@ -76,7 +76,7 @@ public class Jag {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         new Jag("./data/jag.txt").run();
     }
 }
