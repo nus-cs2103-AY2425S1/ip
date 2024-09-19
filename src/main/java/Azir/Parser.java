@@ -114,6 +114,8 @@ public class Parser {
     public static String[] parse(String command, int size) throws AzirException {
         if (command.equals("list")) {
             return new String[] {"list"};
+        } else if (command.equals("bye")) {
+            return new String[]{"bye"};
         } else if (command.startsWith("mark")) {
             return handleMarkParse(command, size);
         } else if (command.startsWith("unmark")) {

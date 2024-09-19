@@ -143,6 +143,10 @@ public class Azir {
         return response;
     }
 
+    private String handleByeInput() {
+        return ui.showExit();
+    }
+
     private void handleWriteTask() throws IOException {
         ArrayList<String> lines = new ArrayList<>();
         // Write tasks to Azir.txt
@@ -185,6 +189,9 @@ public class Azir {
                 break;
             case "find":
                 response = handleFindInput(response, result[0], result[1]);
+                break;
+            case "bye":
+                response = handleByeInput();
                 break;
             default:
                 assert false: result[0];

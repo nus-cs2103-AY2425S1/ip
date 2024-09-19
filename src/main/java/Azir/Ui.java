@@ -21,6 +21,13 @@ public class Ui {
     }
 
     /**
+     * Returns the chatbot exit message
+     */
+    public String showExit() {
+        return "Goodbye fellow soldier!";
+    }
+
+    /**
      * Returns message for list and find command.
      *
      * @param command User input.
