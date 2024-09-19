@@ -29,6 +29,7 @@ public class Parser {
             case "unmark" -> new UnmarkCommand(input);
             case "bye" -> new ExitCommand();
             case "find" -> new FindCommand(input);
+            case "help" -> new HelpCommand();
             default ->
                     throw new TaskManagerException("Error: Unrecognized command. Please enter a valid task command.");
         };
