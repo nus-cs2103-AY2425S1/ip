@@ -27,21 +27,23 @@ public class Ui {
      * Prints out user guide.
      */
     public static final String HELP = """
-            There are three types of task, you can add them by typing:
-                todo <task name>
-                deadline <task name> /by <time>
-                event <task name> /from <time> /to <time>
-            You can view all your tasks and their respective indices by:
-                list
-            You edit your tasks by:
-                mark <task index>
-                unmark <task index>
-                delete <task index>
-            
-            Format your time in:
-                yyyy-MM-dd HHmm (24Hr)
-                    or yyyy-MM-dd hh:mm am (12Hr).
-                You can replace - with \\ as well;
+             There are three types of task, you can add them by typing:
+                 todo <task name>
+                 deadline <task name> /by <time>
+                 event <task name> /from <time> /to <time>
+             You can view all your tasks and their respective indices by:
+                 list
+             You edit your tasks by:
+                 mark <task index>
+                 unmark <task index>
+                 delete <task index>
+             You search your tasks by:
+                 find <partial name>
+            \s
+             Format your time in:
+                 yyyy-MM-dd HHmm (24Hr)
+                     or yyyy-MM-dd hh:mm am (12Hr).
+                 You can replace - with \\ as well;
             """;
 
     /**

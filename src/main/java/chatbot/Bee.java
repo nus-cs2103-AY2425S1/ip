@@ -6,13 +6,12 @@ import java.util.regex.Matcher;
 import chatbot.exceptions.BeeException;
 import task.Deadline;
 import task.Event;
-import task.exceptions.InvalidDurationException;
-import task.exceptions.InvalidInputException;
 import task.Task;
-import task.exceptions.TaskIndexException;
 import task.TaskList;
 import task.Todo;
-
+import task.exceptions.InvalidDurationException;
+import task.exceptions.InvalidInputException;
+import task.exceptions.TaskIndexException;
 
 /**
  * Starts the chatbot "Bee".
@@ -24,6 +23,9 @@ public class Bee {
     private Storage storage;
     private Boolean isFileOpen;
 
+    /**
+     * Creates Bee object for chatbot functionalities
+     */
     public Bee() {
         this.taskList = new TaskList();
         this.storage = new Storage();
@@ -32,6 +34,11 @@ public class Bee {
         this.isFileOpen = this.storage.readFromTaskListFile();
     }
 
+    /**
+     * Loads saved files and welcomes user.
+     *
+     * @return Welcome message for user
+     */
     public String welcomeMessage() {
         if (isFileOpen) {
             // Parses input from saved text file

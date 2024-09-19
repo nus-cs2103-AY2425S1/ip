@@ -109,7 +109,8 @@ public class Parser {
         taskList.addTask(deadline);
     }
 
-    private static void handleEvent(TaskList taskList, Matcher matcherE, boolean taskMarkedDone) throws InvalidDurationException {
+    private static void handleEvent(
+            TaskList taskList, Matcher matcherE, boolean taskMarkedDone) throws InvalidDurationException {
         Event event = new Event(matcherE.group(1), matcherE.group(2), matcherE.group(3));
         if (taskMarkedDone) {
             event.markAsDone();

@@ -1,4 +1,4 @@
-# Bee User Guide
+# Bee
 A chatbot that takes care of your todo list and task tracking!
 
 ## Adding todos
@@ -23,6 +23,8 @@ type `help` into the chatbot and you will receive the list of commands:
         mark <task index>
         unmark <task index>
         delete <task index>
+    You search your tasks by:
+        find <partial name>
     
     Format your time in:
         yyyy-MM-dd HHmm (24Hr)
