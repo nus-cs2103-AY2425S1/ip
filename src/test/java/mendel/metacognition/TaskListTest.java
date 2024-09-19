@@ -131,9 +131,9 @@ public class TaskListTest {
         TaskList taskList = new TaskList();
         taskList.add(Todo.of("todo test"));
         assertEquals("Here are the matching tasks in your list\n  1.[T][ ] test",
-                taskList.findDescription("tes"));
-        assertEquals("Here are the matching tasks in your list\n  1.[T][ ] test",
-                taskList.findDescription("apple"));
+                taskList.findDescription("find tes"));
+        assertEquals("Here are the matching tasks in your list",
+                taskList.findDescription("find apple"));
     }
 
     @Test
