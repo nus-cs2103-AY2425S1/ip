@@ -1,5 +1,7 @@
 package elster;
 
+import java.io.IOException;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -9,8 +11,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 /**
  * Controller for the main GUI.
@@ -54,6 +54,10 @@ public class MainWindow extends AnchorPane {
     /** Injects the Duke instance */
     public void setElster(Elster e) {
         elster = e;
+        String response = elster.guiInitiliasation();
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(response, dukeImage)
+        );
     }
 
     /** Injects the stage instance */
