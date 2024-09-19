@@ -102,12 +102,19 @@ public class TaskList {
      * Prints out the tasks in the TaskList of desired priority level.
      */
     public String listTasksByPriority(Task.Priority priority) {
+        if (tasks.stream()
+                .filter(task -> task.getPriority() == priority)
+                .findAny().isEmpty()) {
+            return "No tasks with priority level " + priority;
+        }
         StringBuilder sb = new StringBuilder("Here are your tasks of " + priority + " priority:\n");
+
         tasks.stream()
             .filter(task -> task.getPriority() == priority)
             .forEach((task) -> sb.append(tasks.indexOf(task) + 1)
             .append(". ").append(task)
             .append("\n"));
+
         return sb.toString();
     }
 }

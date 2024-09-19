@@ -1,3 +1,0 @@
-T|0|swim
-T|1|say bye
-D|0|try to read|Oct 9 2024
