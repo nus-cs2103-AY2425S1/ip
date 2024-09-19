@@ -7,7 +7,7 @@ An easy to use desktop app that allows you to **manage your tasks** through an
 intuitive chatbot Graphical User Interface (GUI). Unlike other chatbots, Garfield is unique because of it's
 personality, it embodies the classic Garfield attitude, giving you responses that are sarcastic and humourous!
 
-- [Quick start]()
+- [Quick start](#quick-start)
 - [Features](#features)
   - [Adding tasks](#adding-tasks)
     - [Adding simple todo tasks: `todo`](#adding-simple-todo-tasks-todo)

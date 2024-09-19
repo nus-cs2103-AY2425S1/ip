@@ -1,10 +1,11 @@
 package garfield.tasks;
 
-import garfield.exceptions.GarfieldException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+
+import garfield.exceptions.GarfieldException;
+
 
 /**
  * The Event class represents a task with a specific time period in the Garfield chatbot application.
