@@ -8,8 +8,14 @@ import bob.exception.MissingArgumentException;
 import bob.task.Event;
 import bob.task.Task;
 
+import java.util.Map;
+
 public class EventCommand extends Command {
     public static final String COMMAND = "event";
+
+    public EventCommand(Map<String, String> arguments) {
+        super(arguments);
+    }
 
     @Override
     public boolean isExit() {
@@ -17,37 +23,20 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage, String argument) {
-        int fromIndex = argument.lastIndexOf("/from ");
-        int toIndex = argument.lastIndexOf("/to ");
-        if (fromIndex == -1 || toIndex == -1) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
+        String from = arguments.get("from");
+        String to = arguments.get("to");
+        String desc = arguments.get("");
+
+        if (desc == null || desc.isBlank()) {
+            throw new MissingArgumentException("description of the event");
+        }
+        if (from == null || to == null) {
             throw new MissingArgumentException("'from' and 'to' arguments to add an event");
         }
 
-        Task task = getTask(argument, fromIndex, toIndex);
+        Task task = new Event(desc, Bob.parseDateTime(from), Bob.parseDateTime(to));
         tasks.add(task);
         ui.printWithFormat("added: " + task);
-    }
-
-    private static Task getTask(String argument, int fromIndex, int toIndex) {
-        String desc = fromIndex < toIndex
-                ? argument.substring(0, fromIndex)
-                : argument.substring(0, toIndex);
-        desc = desc.strip();
-        if (desc.isBlank()) {
-            throw new MissingArgumentException("description of the event");
-        }
-
-        String from = fromIndex < toIndex
-                ? argument.substring(fromIndex + 6, toIndex)
-                : argument.substring(fromIndex + 6);
-        from = from.strip();
-
-        String to = fromIndex < toIndex
-                ? argument.substring(toIndex + 4)
-                : argument.substring(toIndex + 4, fromIndex);
-        to = to.strip();
-
-        return new Event(desc, Bob.parseDateTime(from), Bob.parseDateTime(to));
     }
 }

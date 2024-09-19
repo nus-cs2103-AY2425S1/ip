@@ -7,8 +7,14 @@ import bob.exception.IncorrectArgumentException;
 import bob.exception.MissingArgumentException;
 import bob.task.Task;
 
+import java.util.Map;
+
 public class DeleteCommand extends Command {
     public static final String COMMAND = "delete";
+
+    public DeleteCommand(Map<String, String> arguments) {
+        super(arguments);
+    }
 
     @Override
     public boolean isExit() {
@@ -16,8 +22,9 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage, String argument) {
-        if (argument.isBlank()) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
+        String argument = this.arguments.get("");
+        if (argument == null || argument.isBlank()) {
             throw new MissingArgumentException("index of the task that you want to delete");
         }
 

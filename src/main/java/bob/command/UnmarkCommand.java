@@ -6,8 +6,14 @@ import bob.Ui;
 import bob.exception.IncorrectArgumentException;
 import bob.exception.MissingArgumentException;
 
+import java.util.Map;
+
 public class UnmarkCommand extends Command {
     public static final String COMMAND = "unmark";
+
+    public UnmarkCommand(Map<String, String> arguments) {
+        super(arguments);
+    }
 
     @Override
     public boolean isExit() {
@@ -15,8 +21,9 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage, String argument) {
-        if (argument.isBlank()) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
+        String argument = this.arguments.get("");
+        if (argument == null || argument.isBlank()) {
             throw new MissingArgumentException("index of the task that you want to unmark");
         }
 
@@ -30,8 +37,8 @@ public class UnmarkCommand extends Command {
             throw new IncorrectArgumentException("a valid index");
         }
 
-        tasks.get(i).unmark();
-        ui.printWithFormat("OK, I've marked this task as not done yet:\n" +
+        tasks.get(i).mark();
+        ui.printWithFormat("OK, I've marked this task as not done:\n" +
                 tasks.get(i));
     }
 }

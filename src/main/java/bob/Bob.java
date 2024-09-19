@@ -47,7 +47,6 @@ public class Bob {
 
     public static void main(String[] args) {
         UI.printGreeting();
-        PARSER.loadCommands();
 
         try {
             tasks = STORAGE.load();
@@ -58,11 +57,10 @@ public class Bob {
 
         boolean isExit = false;
         while (!isExit) {
-            String[] input = UI.readInput().split(" ", 2);
-            String argument = input.length == 1 ? "" : input[1];
+            String input = UI.readInput();
             try {
-                Command command = PARSER.getCommand(input[0]);
-                command.execute(tasks, UI, STORAGE, argument);
+                Command command = PARSER.parse(input);
+                command.execute(tasks, UI, STORAGE);
                 isExit = command.isExit();
             } catch (BobException e) {
                 UI.printError(e.getMessage());
