@@ -4,8 +4,7 @@
 
 **Dipsy** (named after my cat) is a task management chatbot that helps users manage tasks, deadlines, and events using a command-line interface. 
 
-The chatbot allows users to add, manage, and list tasks, as well as mark them as completed.   
-Users can view a command guide by clicking on the `?` button at the bottom right of the GUI.
+The chatbot allows users to add, manage, and list tasks, as well as mark them as completed. Users can view a command guide by clicking on the `?` button at the bottom right of the GUI.
 
 ## Quick Start
 1. Ensure you have Java 17 or above installed in your Computer.
@@ -172,35 +171,35 @@ The `list` command allows users to view tasks in two ways:
 
 #### Usage:
 
-- To list all tasks: 
-  ```
-  list
-  ```
+To list all tasks: 
+```
+list
+```
     
-- To list tasks on a specific date: 
+To list tasks on a specific date: 
   ```
   list <date>
   ```
-  - `<date>`: The date to filter tasks by, in `yyyy-MM-dd` format.
+- `<date>`: The date to filter tasks by, in `yyyy-MM-dd` format.
 
 #### Example:
 - Listing all tasks: `list`
 - Listing tasks for May 12, 2024: `list 2024-05-12`
 
 #### Expected Outcome:
-- **For `list` (no date)**:
-  - Dipsy will list all the tasks in the current task list, along with their status (whether they are marked as done or not).
-    ```
-    Time to stretch those paws and tackle your tasks!
-    1. [D][ ] Submit report (by: May 12 2024)
-    2. [E][ ] Conference (from: Aug 12 2024 to Aug 14 2024)
-    ```
-- **For `list <date>` (with a specific date)**:
-  - Dipsy will list all tasks that match the specified date.
-    ```
-    Time to stretch those paws and tackle your tasks!
-    1. [D][ ] Submit report (by: May 12 2024)
-    ```
+**For `list` (no date)**:
+- Dipsy will list all the tasks in the current task list, along with their status (whether they are marked as done or not).
+  ```
+  Time to stretch those paws and tackle your tasks!
+  1. [D][ ] Submit report (by: May 12 2024)
+  2. [E][ ] Conference (from: Aug 12 2024 to Aug 14 2024)
+  ```
+**For `list <date>` (with a specific date)**:
+- Dipsy will list all tasks that match the specified date.
+  ```
+  Time to stretch those paws and tackle your tasks!
+  1. [D][ ] Submit report (by: May 12 2024)
+  ```
 
 ### Exiting the Program
 
