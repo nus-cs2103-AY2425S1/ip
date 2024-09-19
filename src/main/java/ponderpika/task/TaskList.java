@@ -8,7 +8,6 @@ import ponderpika.exception.DuplicateTaskException;
 import ponderpika.exception.InvalidPriorityException;
 import ponderpika.exception.InvalidTaskIndexException;
 import ponderpika.exception.NoMatchingTasksFoundException;
-import ponderpika.exception.PonderPikaException;
 import ponderpika.exception.TaskAlreadyMarkedException;
 import ponderpika.exception.TaskAlreadyUnmarkedException;
 
@@ -31,8 +30,8 @@ public class TaskList {
     }
 
     private boolean checkDuplicateTask(Task t) {
-        for (int i = 0; i < this.tasks.size(); i++) {
-            if (this.tasks.get(i).equals(t)) {
+        for (Task task : this.tasks) {
+            if (task.getDescription().trim().equals(t.getDescription().trim())) {
                 return true;
             }
         }
@@ -46,6 +45,7 @@ public class TaskList {
      * @throws DuplicateTaskException if the task already exists in list
      */
     public void addTask(Task task) throws DuplicateTaskException {
+        System.out.println(checkDuplicateTask(task));
         if (checkDuplicateTask(task)) {
             throw new DuplicateTaskException();
         }
@@ -73,13 +73,14 @@ public class TaskList {
      *
      * @param index The 1-based index of the task to be marked as done.
      *
-     * @throws PonderPikaException If the index is invalid (i.e. out of bounds).
+     * @throws InvalidTaskIndexException If the index is invalid (i.e. out of bounds)
+     * @throws TaskAlreadyMarkedException If the task is already done (already marked)
      */
-    public String markTask(int index) throws PonderPikaException {
-        boolean alreadyMarked = tasks.get(index - 1).isDone();
+    public String markTask(int index) throws InvalidTaskIndexException, TaskAlreadyMarkedException {
         if (index < 1 || index > tasks.size()) {
             throw new InvalidTaskIndexException();
         }
+        boolean alreadyMarked = tasks.get(index - 1).isDone();
         if (alreadyMarked) {
             throw new TaskAlreadyMarkedException();
         }
@@ -95,14 +96,14 @@ public class TaskList {
      *
      * @param index The 1-based index of the task to be unmarked.
      *
-     * @throws PonderPikaException If the index is invalid (i.e. out of bounds).
+     * @throws InvalidTaskIndexException If the index is invalid (i.e. out of bounds)
+     * @throws TaskAlreadyUnmarkedException if task is not done yet (still unmarked)
      */
-    public String unmarkTask(int index) throws PonderPikaException {
-        boolean isIndexMoreThanLimit = (index > tasks.size());
-        boolean alreadyUnmarked = tasks.get(index - 1).isDone();
-        if (index < 1 || isIndexMoreThanLimit) {
+    public String unmarkTask(int index) throws InvalidTaskIndexException, TaskAlreadyUnmarkedException {
+        if (index < 1 || index > tasks.size()) {
             throw new InvalidTaskIndexException();
         }
+        boolean alreadyUnmarked = tasks.get(index - 1).isDone();
         if (!alreadyUnmarked) {
             throw new TaskAlreadyUnmarkedException();
         }
@@ -111,17 +112,32 @@ public class TaskList {
         return "Task " + index + " has been unmarked!";
     }
 
-    public String setPriorityLevel(int index, String priority) throws PonderPikaException {
+    /**
+     * Sets the priority level of a specified task in the task list.
+     * <p>
+     * This method updates the priority of the task at the given index to the specified priority level.
+     * Valid priority levels are "H" for high, "M" for medium, "L" for low, and "N" for none
+     * </p>
+     *
+     * @param index the index of the task to update in the task list
+     * @param priority the new priority level to set for the task
+     * @return a confirmation message indicating the new priority level and the task description
+     * @throws InvalidTaskIndexException if the provided index is out of bounds
+     * @throws InvalidPriorityException if the provided priority level is not valid
+     */
+    public String setPriorityLevel(int index, String priority) throws InvalidTaskIndexException,
+            InvalidPriorityException {
         if (index < 0 || index > tasks.size()) {
             throw new InvalidTaskIndexException();
         }
-        boolean possiblePriority = (priority.equals("H") || priority.equals("M")
-                || priority.equals("L") || priority.equals("N"));
-        if (possiblePriority) {
+        boolean possiblePriority = (priority.equalsIgnoreCase("H")
+                || priority.equalsIgnoreCase("M") || priority.equalsIgnoreCase("L")
+                || priority.equalsIgnoreCase("N"));
+        if (!possiblePriority) {
             throw new InvalidPriorityException();
         }
         tasks.get(index).setPriority(priority);
-        return String.format("Priority set to %s for %s", priority, tasks.get(index).getDescription());
+        return String.format("Priority set to %s for %s", priority.toUpperCase(), tasks.get(index).getDescription());
     }
 
     /**
@@ -144,9 +160,9 @@ public class TaskList {
      *
      * @param keyword keyword to be searched in the descriptions of tasks
      * @return tasks with keyword in it
-     * @throws PonderPikaException for tasks not found
+     * @throws NoMatchingTasksFoundException for tasks not found in the list using keyword
      */
-    public String findTasks(String keyword) throws PonderPikaException {
+    public String findTasks(String keyword) throws NoMatchingTasksFoundException {
         List<Task> matchedTasks = tasks.stream()
                 .filter(t -> t.getDescription().toLowerCase().contains(keyword.toLowerCase()))
                 .toList();

@@ -59,10 +59,10 @@ public abstract class Task {
      * @param newPriority the new priority level to be assigned to this task
      */
     public void setPriority(String newPriority) {
-        switch (newPriority) {
-        case "H" -> this.taskPriority = PriorityLevel.HIGH;
-        case "M" -> this.taskPriority = PriorityLevel.MEDIUM;
-        case "L" -> this.taskPriority = PriorityLevel.LOW;
+        switch (newPriority.toLowerCase()) {
+        case "h" -> this.taskPriority = PriorityLevel.HIGH;
+        case "m" -> this.taskPriority = PriorityLevel.MEDIUM;
+        case "l" -> this.taskPriority = PriorityLevel.LOW;
         default -> this.taskPriority = PriorityLevel.NONE;
         }
     }

@@ -16,8 +16,8 @@ import ponderpika.ui.Ui;
  */
 public class PonderPika {
 
-    private final IoHandler io = new IoHandler();
-    private final TaskList taskList;
+    private final IoHandler io;
+    private TaskList taskList = new TaskList();
     private final Ui ui = new Ui();
     private final Parser parser = new Parser();
 
@@ -31,14 +31,12 @@ public class PonderPika {
      */
     public PonderPika(String path) {
         ui.greet();
-        TaskList taskList1;
+        this.io = new IoHandler(path);
         try {
-            taskList1 = io.loadData();
+            this.taskList = io.loadData();
         } catch (PonderPikaException e) {
-            taskList1 = new TaskList();
             System.out.println(e.toString());
         }
-        this.taskList = taskList1;
     }
 
     public String getResponse(String userInput) {

@@ -59,8 +59,12 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getPikaDialog(pikaText, botImage)
         );
         userInput.clear();
-        PauseTransition delay = new PauseTransition(Duration.seconds(2));
-        delay.setOnFinished(event -> Platform.exit());
-        delay.play();
+        if (userText.equals("bye")) {
+            PauseTransition delay = new PauseTransition(Duration.seconds(1));
+            delay.setOnFinished(event -> {
+                Platform.exit();
+            });
+            delay.play();
+        }
     }
 }
