@@ -13,7 +13,6 @@ import Gary.task.Task;
  * The {@code Storage} class handles loading and saving tasks to and from a file.
  */
 public class Storage {
-    // Path to the file where tasks are stored
     private final String filePath;
 
     /**
@@ -34,23 +33,40 @@ public class Storage {
      */
     public Scanner loadTaskList() throws FileNotFoundException {
         File file = new File(this.filePath);
-        File directory = new File("src/textFile");
-
-        if (!directory.exists()) {
-            // Create the directory if it does not exist
-            directory.mkdir();
-        }
-
-        if (!file.exists()) {
-            try {
-                // Create the file if it does not exist
-                file.createNewFile();
-            } catch (IOException e) {
-                // Exception is ignored since we're only checking for file creation
-            }
-        }
+        createDirectoryIfNotExists(file.getParentFile());
+        createFileIfNotExists(file);
 
         return new Scanner(file);
+    }
+
+    /**
+     * Creates the directory if it does not exist.
+     *
+     * @param directory The directory to create.
+     */
+    private void createDirectoryIfNotExists(File directory) {
+        if (directory != null && !directory.exists()) {
+            if (!directory.mkdirs()) {
+                System.err.println("Failed to create directory: " + directory);
+            }
+        }
+    }
+
+    /**
+     * Creates the file if it does not exist.
+     *
+     * @param file The file to create.
+     */
+    private void createFileIfNotExists(File file) {
+        if (!file.exists()) {
+            try {
+                if (!file.createNewFile()) {
+                    System.err.println("Failed to create file: " + file);
+                }
+            } catch (IOException e) {
+                System.err.println("Error creating file: " + e.getMessage());
+            }
+        }
     }
 
     /**
@@ -62,14 +78,16 @@ public class Storage {
      */
     public void saveTask(TaskList taskList) throws IOException {
         File file = new File(filePath);
-        FileWriter fileWriter = new FileWriter(file);
-        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-        for (int i = 0; i < taskList.size(); i++) {
-            Task task = taskList.getTask(i);
-            bufferedWriter.write(task.parseToFile());
-            bufferedWriter.newLine();
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file))) {
+            for (int i = 0; i < taskList.size(); i++) {
+                Task task = taskList.getTask(i);
+                bufferedWriter.write(task.parseToFile());
+                bufferedWriter.newLine();
+            }
+        } catch (IOException e) {
+            System.err.println("Error saving tasks to file: " + e.getMessage());
+            throw e; // rethrow the exception to indicate failure
         }
-        bufferedWriter.close();
     }
 }
 

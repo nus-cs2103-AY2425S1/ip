@@ -1,7 +1,5 @@
 package Gary.command;
 
-import java.util.ArrayList;
-
 import Gary.Storage;
 import Gary.TaskList;
 import Gary.Ui;

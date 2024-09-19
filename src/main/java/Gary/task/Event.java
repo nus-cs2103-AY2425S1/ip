@@ -2,6 +2,7 @@ package Gary.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Represents an Event task that includes a description, start time, and end time.
@@ -13,9 +14,9 @@ public class Event extends Task {
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     // Start date and time of the event
-    private LocalDateTime start;
+    private final LocalDateTime start;
     // End date and time of the event
-    private LocalDateTime end;
+    private final LocalDateTime end;
 
     /**
      * Constructs an {@code Event} object with the specified description, start time, and end time.
@@ -23,6 +24,7 @@ public class Event extends Task {
      * @param description The description of the event.
      * @param start The start time of the event in "yyyy-MM-dd HHmm" format.
      * @param end The end time of the event in "yyyy-MM-dd HHmm" format.
+     * @throws IllegalArgumentException if the start or end time is in an invalid format.
      */
     public Event(String description, String start, String end) {
         super(description);
@@ -31,36 +33,46 @@ public class Event extends Task {
     }
 
     /**
-     * Parses a date-time string into a LocalDateTime object using the inputFormatter.
+     * Parses a date-time string into a {@code LocalDateTime} object using the input formatter.
      *
      * @param dateTime The date-time string to be parsed.
-     * @return The parsed LocalDateTime object.
+     * @return The parsed {@code LocalDateTime} object.
+     * @throws IllegalArgumentException if the date-time string is in an invalid format.
      */
     private LocalDateTime parseDateTime(String dateTime) {
-        return LocalDateTime.parse(dateTime, INPUT_FORMATTER);
+        try {
+            return LocalDateTime.parse(dateTime, INPUT_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Invalid date-time format. Expected format: yyyy-MM-dd HHmm.");
+        }
     }
 
     /**
-     * Returns a string representation of the Event, including its status, description,
+     * Returns a string representation of the {@code Event}, including its status, description,
      * start time, and end time.
      *
-     * @return A string representation of the Event.
+     * @return A string representation of the {@code Event}.
      */
     @Override
     public String toString() {
-        return "[E][" + (this.isDone ? "X" : " ") + "] " + this.description
-                + " (from: " + this.start.format(OUTPUT_FORMATTER) + " to: " + this.end.format(OUTPUT_FORMATTER) + ")";
+        return String.format("[E]%s (from: %s to: %s)",
+                super.toString(),
+                this.start.format(OUTPUT_FORMATTER),
+                this.end.format(OUTPUT_FORMATTER));
     }
 
     /**
-     * Converts the Event into a format suitable for saving to a file.
+     * Converts the {@code Event} into a format suitable for saving to a file.
      *
-     * @return A string representation of the Event for file storage.
+     * @return A string representation of the {@code Event} for file storage.
      */
     @Override
     public String parseToFile() {
-        return "E | " + (this.isDone ? "1" : "0") + " | " + this.description + " | "
-                + this.start.format(INPUT_FORMATTER) + " | " + this.end.format(INPUT_FORMATTER);
+        return String.format("E | %d | %s | %s | %s",
+                this.isDone ? 1 : 0,
+                this.description,
+                this.start.format(INPUT_FORMATTER),
+                this.end.format(INPUT_FORMATTER));
     }
 
     /**
@@ -75,12 +87,12 @@ public class Event extends Task {
         if (this == obj) {
             return true;
         }
-        if (obj == null || this.getClass() != obj.getClass()) {
+        if (!(obj instanceof Event)) {
             return false;
         }
         Event otherEvent = (Event) obj;
         return super.equals(otherEvent)
-                && (this.start == null ? otherEvent.start == null : this.start.equals(otherEvent.start))
-                && (this.end == null ? otherEvent.end == null : this.end.equals(otherEvent.end));
+                && this.start.equals(otherEvent.start)
+                && this.end.equals(otherEvent.end);
     }
 }
