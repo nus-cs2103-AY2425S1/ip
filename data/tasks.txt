@@ -1,3 +1,1 @@
-T | 1 | finish ip
-D | 0 | ip submission | 2024-09-20
-E | 0 | ip | 2024-08-19 | 2024-08-20
+T | 0 | eat ice cream

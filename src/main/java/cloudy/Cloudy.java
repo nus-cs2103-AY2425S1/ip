@@ -202,10 +202,11 @@ public class Cloudy {
         if (taskNumber <= 0 || taskNumber > tasks.size()) {
             return "Please enter a valid task number.";
         }
-      
+
+        Task taskToRemove = tasks.getTask(taskNumber -1);
         tasks.removeTask(taskNumber - 1);
         storage.saveTasksToFile(tasks.getAllTasks());
-        return "Noted. I've removed this task:\n"
+        return "Noted. I've removed this task:\n" + taskToRemove.printTaskOnList() + "\n"
                 + "Now you have " + tasks.size() + " tasks in the list.";
     }
 
