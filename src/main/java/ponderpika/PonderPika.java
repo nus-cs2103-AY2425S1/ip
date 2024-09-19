@@ -1,6 +1,7 @@
 package ponderpika;
 
 import ponderpika.exception.PonderPikaException;
+import ponderpika.exception.UnknownCommandException;
 import ponderpika.parser.Parser;
 import ponderpika.storage.IoHandler;
 import ponderpika.task.Task;
@@ -116,7 +117,7 @@ public class PonderPika {
             return "Exited!";
 
         default:
-            throw new PonderPikaException("Unknown command: " + command.getAction());
+            throw new UnknownCommandException();
         }
     }
 }

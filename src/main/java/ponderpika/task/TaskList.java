@@ -4,7 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import ponderpika.exception.DuplicateTaskException;
+import ponderpika.exception.InvalidPriorityException;
+import ponderpika.exception.InvalidTaskIndexException;
+import ponderpika.exception.NoMatchingTasksFoundException;
 import ponderpika.exception.PonderPikaException;
+import ponderpika.exception.TaskAlreadyMarkedException;
+import ponderpika.exception.TaskAlreadyUnmarkedException;
 
 /**
  * Represents a list of Task objects and provides methods to manage them.
@@ -20,12 +26,29 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    private boolean checkDuplicateTask(Task t) {
+        for (int i = 0; i < this.tasks.size(); i++) {
+            if (this.tasks.get(i).equals(t)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Adds a {@link Task} to the list.
      *
-     * @param task The {@link Task} to be added to the list.
+     * @param task The {@link Task} to be added to the list
+     * @throws DuplicateTaskException if the task already exists in list
      */
-    public void addTask(Task task) {
+    public void addTask(Task task) throws DuplicateTaskException {
+        if (checkDuplicateTask(task)) {
+            throw new DuplicateTaskException();
+        }
         tasks.add(task);
     }
 
@@ -35,11 +58,11 @@ public class TaskList {
      *
      * @param index The 1-based index of the task to be deleted.
      *
-     * @throws PonderPikaException If the index is invalid (i.e. out of bounds).
+     * @throws InvalidTaskIndexException If the index is invalid (i.e. out of bounds).
      */
-    public void deleteTask(int index) throws PonderPikaException {
+    public void deleteTask(int index) throws InvalidTaskIndexException {
         if (index < 1 || index > tasks.size()) {
-            throw new PonderPikaException("No task available at given index to be deleted!");
+            throw new InvalidTaskIndexException();
         }
         tasks.remove(index - 1);
     }
@@ -55,10 +78,10 @@ public class TaskList {
     public String markTask(int index) throws PonderPikaException {
         boolean alreadyMarked = tasks.get(index - 1).isDone();
         if (index < 1 || index > tasks.size()) {
-            throw new PonderPikaException("No task available at given index!");
+            throw new InvalidTaskIndexException();
         }
         if (alreadyMarked) {
-            throw new PonderPikaException("Task has already been done!");
+            throw new TaskAlreadyMarkedException();
         }
 
         assert index > 0;
@@ -78,10 +101,10 @@ public class TaskList {
         boolean isIndexMoreThanLimit = (index > tasks.size());
         boolean alreadyUnmarked = tasks.get(index - 1).isDone();
         if (index < 1 || isIndexMoreThanLimit) {
-            throw new PonderPikaException("No task available at given index!");
+            throw new InvalidTaskIndexException();
         }
         if (!alreadyUnmarked) {
-            throw new PonderPikaException("Task has not been done yet!");
+            throw new TaskAlreadyUnmarkedException();
         }
 
         tasks.get(index - 1).markUndone();
@@ -90,19 +113,15 @@ public class TaskList {
 
     public String setPriorityLevel(int index, String priority) throws PonderPikaException {
         if (index < 0 || index > tasks.size()) {
-            throw new PonderPikaException("No task available at given index!");
+            throw new InvalidTaskIndexException();
         }
         boolean possiblePriority = (priority.equals("H") || priority.equals("M")
                 || priority.equals("L") || priority.equals("N"));
         if (possiblePriority) {
-            throw new PonderPikaException("No such priority level available!");
+            throw new InvalidPriorityException();
         }
         tasks.get(index).setPriority(priority);
         return String.format("Priority set to %s for %s", priority, tasks.get(index).getDescription());
-    }
-
-    public List<Task> getTasks() {
-        return tasks;
     }
 
     /**
@@ -133,7 +152,7 @@ public class TaskList {
                 .toList();
 
         if (matchedTasks.isEmpty()) {
-            throw new PonderPikaException("No Matching tasks found in the list!");
+            throw new NoMatchingTasksFoundException();
         }
         return matchedTasks.stream().map(Task::toString).collect(Collectors.joining("\n"));
     }

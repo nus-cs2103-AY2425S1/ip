@@ -11,7 +11,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+import ponderpika.exception.CreateFileFormatException;
+import ponderpika.exception.LoadFileFormatException;
 import ponderpika.exception.PonderPikaException;
+import ponderpika.exception.ProcessFileFormatException;
+import ponderpika.exception.SaveFileFormatException;
 import ponderpika.task.Deadline;
 import ponderpika.task.Event;
 import ponderpika.task.Task;
@@ -43,7 +47,7 @@ public class IoHandler {
                 Files.createFile(path);
             }
         } catch (IOException e) {
-            throw new PonderPikaException(e.getMessage());
+            throw new CreateFileFormatException();
         }
     }
 
@@ -70,7 +74,7 @@ public class IoHandler {
             }
             fw.close();
         } catch (IOException e) {
-            throw new PonderPikaException("Could not write into file, Encountered formatting issues!");
+            throw new SaveFileFormatException();
         }
     }
 
@@ -92,7 +96,7 @@ public class IoHandler {
                 processFileFormat(line, list);
             }
         } catch (IOException e) {
-            throw new PonderPikaException("Error Loading Data! , Starting with an Empty TaskList!");
+            throw new LoadFileFormatException();
         }
 
         return list;
@@ -101,7 +105,7 @@ public class IoHandler {
     private void processFileFormat(String line, TaskList list) throws PonderPikaException {
         String[] splitlines = line.split("\\|");
         if (splitlines.length < 3) {
-            throw new PonderPikaException("Error Loading Data! , Starting with an Empty TaskList!");
+            throw new LoadFileFormatException();
         }
 
         String taskType = splitlines[0].trim();
@@ -129,7 +133,7 @@ public class IoHandler {
             list.addTask(t);
             break;
         default:
-            throw new PonderPikaException("Error Loading Data! , Starting with an Empty TaskList!");
+            throw new ProcessFileFormatException();
         }
     }
 
