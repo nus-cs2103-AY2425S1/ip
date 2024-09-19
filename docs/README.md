@@ -7,23 +7,34 @@
  Your go to app for keeping track of all your tasks, deadlines and events admist your hectic schedule! :)
  Have a look at all our features before trying out EmoteX!***
 
-# Features
+# ***Features***
 
-Dates can be sepcified in 2 formats 
+Dates:
+- can be sepcified in 2 formats 
 e.g. yyyy-MM-dd or dd/MM/yyyy
 
-Time can be sepcified in only 1 format
+Time:
+- can be sepcified in only 1 format
 e.g. 16:00
+
+Event:
+- all fields (start Time, end Time & date must be specified)
+
+Deadline:
+- can be stored in 3 formats
+- only date
+- only time
+- date and time
 
 Unrecognised parameters will result in a help guide being shown
 
  ## Guide : hi
- Shows an intro message followed by a guide on how to use the features
+*Shows an intro message followed by a guide on how to use the features*
  ![image](https://github.com/user-attachments/assets/bfdccc12-ac80-48b0-b4e8-d3e6420bc878)
 
 ## Adding deadlines : deadline 
 
-Adds a deadline task to the list of tasks and shows successfully added messsage
+*Adds a deadline task to the list of tasks and shows successfully added messsage*
 
 ![image](https://github.com/user-attachments/assets/94a44d7e-3e2d-4dc1-9067-84e95d07336e)
 
@@ -32,7 +43,7 @@ Format: deadline TASK /by DATE TIME(optional)
 
 ## Adding todos : todo 
 
-Adds a todo task to the list of tasks and shows successfully added messsage
+*Adds a todo task to the list of tasks and shows successfully added messsage*
 
 ![image](https://github.com/user-attachments/assets/9063b806-5934-4f34-a775-209d3b623fed)
 
@@ -40,7 +51,7 @@ Format: todo TASK
 
 ## Adding events : event 
 
-Adds a event to the list of tasks and shows successfully added messsage
+*Adds a event to the list of tasks and shows successfully added messsage*
 
 ![image](https://github.com/user-attachments/assets/718ef384-40f8-49d8-9308-4894c84339cb)
 
@@ -48,7 +59,7 @@ Format: event TASK /from STARTTIME /to ENDTIME /on DATE
 
 ## Deleting task : delete 
 
-deletes task at sepcifed index
+*Deletes task at sepcifed index*
 
 ![image](https://github.com/user-attachments/assets/4aed6628-6fc1-4297-9d0b-2ac4a5028093)
 
@@ -56,9 +67,7 @@ Format: delete INDEX
 
 ## Updating task : update 
 
-updates task at sepcifed index with the given new value
-
-![image](https://github.com/user-attachments/assets/4aed6628-6fc1-4297-9d0b-2ac4a5028093)
+*Updates task at sepcifed index with the given new value*
 
 ### deadline
 Format_1 (deadline): update INDEX datetime /to NEWDATETIME
@@ -82,15 +91,15 @@ Format_3 (event): update INDEX endTime /to NEWTIME
 
 ## Marking task : mark 
 
-marks task at sepcifed index as completed
+*Marks task at sepcifed index as completed*
 
 ![image](https://github.com/user-attachments/assets/18974595-20f6-4a98-9651-4c19bb63095f)
 
 Format: mark INDEX
 
-## Unamrking task : unmark 
+## Unmarking task : unmark 
 
-marks task at sepcifed index as completed
+*Marks task at sepcifed index as incomplete*
 
 ![image](https://github.com/user-attachments/assets/44545c6a-02cb-4825-8aaf-98d2ee3301a8)
 
@@ -98,7 +107,7 @@ Format: unmark INDEX
 
 ## Finding task : find 
 
-shows tasks that contains keywords
+*Shows tasks that contains keywords*
 
 ![image](https://github.com/user-attachments/assets/5ee87ae7-8b82-48eb-80ba-05e369becd9a)
 
@@ -106,7 +115,7 @@ Format: find KEYWORDS
 
 ## Due task : due 
 
-shows tasks that are due on given date
+*Shows tasks that are due on given date*
 
 ![image](https://github.com/user-attachments/assets/02b078db-9ca8-4ce5-ac23-0ea3fe40fa5c)
 
@@ -114,11 +123,19 @@ Format: due DATE
 
 ## View task : list 
 
-shows tasks in task list
+*Shows tasks in task list*
 
 ![image](https://github.com/user-attachments/assets/eccde4d2-287b-4240-9ddc-35f78eab12d2)
 
 Format: list 
+
+## Finish task : bye 
+
+*Shows exit message*
+
+![image](https://github.com/user-attachments/assets/382b1f07-3f07-48f9-9da9-ab8797408e9d)
+
+Format: bye 
 
 ## Saving the data
 EmoteX task data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
