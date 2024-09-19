@@ -16,9 +16,75 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
 3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
    ```
    Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
+        _  ____  ___   _  ____  _      
+       | || ___|| _ \ | || ___|| |     
+       | |||___ ||_> || |||___ | |     
+    _  | || ___||  _/ | || ___|| |     
+   | |_| |||___ ||\\  | |||___ | |____ 
+    \___/ |____||| \\ |_||____||______|
+   
+   ____________________________________________________________
+    Hello! I'm Jeriel
+    What can I do for you?
+   ____________________________________________________________
    ```
+
+
+## Project Directory Structure
+
+```plaintext
+├── .gradle
+├── app
+├── build
+│   ├── classes
+│   ├── generated
+│   ├── libs
+│   ├── tmp
+├── data
+├── docs
+│   └── README.md
+├── gradle
+│   └── wrapper
+├── src
+│   └── main
+│       └── java
+│           ├── data
+│           └── jeriel
+│               ├── command
+│               │   ├── AddDeadlineCommand.java
+│               │   ├── AddEventCommand.java
+│               │   ├── AddTodoCommand.java
+│               │   ├── Command.java
+│               │   ├── DeleteCommand.java
+│               │   ├── ExitCommand.java
+│               │   ├── FindCommand.java
+│               │   ├── ListCommand.java
+│               │   ├── MarkCommand.java
+│               │   └── UnmarkCommand.java
+│               ├── task
+│               │   ├── Deadline.java
+│               │   ├── Event.java
+│               │   ├── Task.java
+│               │   └── Todo.java
+│               ├── ui
+│               │   ├── Main.java
+│               │   ├── MainWindowController.java
+│               └── util
+│                   └── Jeriel.java
+│   └── resources
+│       └── view
+│           └── MainWindow.fxml
+├── test
+│   └── java
+│       └── jeriel
+│           └── task
+│               ├── EventTest.java
+│               └── TodoTest.java
+├── .gitignore
+├── build.gradle
+├── checkstyle.xml
+├── CONTRIBUTORS.md
+├── gradlew
+├── gradlew.bat
+├── README.md
+├── settings.gradle
