@@ -2,8 +2,6 @@ package blacknut.ui;
 
 import java.io.*;
 import java.util.ArrayList;
-import blacknut.ui.BlacknutExceptions.IncorrectFormatException;
-
 
 /**
  * The Storage class handles the loading and saving of tasks to and from a file.
