@@ -33,8 +33,8 @@ public class TaskManager {
     }
 
     /**
-     * Initialize the Task Manager to set up the required paths and files.
-     * Check if the relative path already exists in the user's system.
+     * Initializes the Task Manager to set up the required paths and files.
+     * Checks if the relative path already exists in the user's system.
      * If not, create them.
      */
     public static void initialize() {
@@ -49,7 +49,7 @@ public class TaskManager {
     }
 
     /**
-     * Save the tasks into the local task data file.
+     * Saves the tasks into the local task data file.
      *
      * @param tasks ArrayList of Task tracked by the TaskManager
      */
@@ -68,7 +68,7 @@ public class TaskManager {
     }
 
     /**
-     * Load the tasks from the local task data file.
+     * Loads the tasks from the local task data file.
      *
      * @return ArrayList of Task stored in the file
      */

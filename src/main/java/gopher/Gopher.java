@@ -182,7 +182,9 @@ public class Gopher {
     }
 
     /**
-     * Start the main event loop.
+     * Gets the response from Gopher
+     *
+     * @return Message object that contains Gopher's response
      */
     public static Message getResponse(String userInput)
             throws UnknownCommandException {

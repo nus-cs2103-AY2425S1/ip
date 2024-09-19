@@ -39,7 +39,7 @@ public class MainWindow extends AnchorPane {
             );
 
     /**
-     * Initialized the GUI when user enters
+     * Initializes the GUI when user enters
      */
     @FXML
     public void initialize() {

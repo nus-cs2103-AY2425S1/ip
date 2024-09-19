@@ -85,7 +85,7 @@ public class Parser {
     }
 
     /**
-     * Check for whether at least one task number is supplied in the given command.
+     * Checks for whether at least one task number is supplied in the given command.
      */
     public static void hasTaskNumber(int[] taskNumbers)
             throws MissingTaskNumberException {

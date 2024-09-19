@@ -14,7 +14,7 @@ import gopher.task.TaskList;
  */
 public class UI {
     /**
-     * Convert a String text to a Message that can be returned by Gopher.
+     * Converts a String text to a Message that can be returned by Gopher.
      *
      * @param text text to be contained in a message
      * @return Message object with the given text as its content
@@ -24,7 +24,7 @@ public class UI {
     }
 
     /**
-     * Convert a String text that represents an error message to a Message object
+     * Converts a String text that represents an error message to a Message object
      * whose type is MessageType.ERROR.
      *
      * @param e exception caught by Gopher
@@ -35,7 +35,7 @@ public class UI {
     }
 
     /**
-     * Overloading method for getErrorMessage, which takes in a String text
+     * Alternative implementation of getErrorMessage, which takes in a String text
      * and convert it to a Message of type MessageType.ERROR.
      *
      * @param text error message to be shown to the user
@@ -46,7 +46,7 @@ public class UI {
     }
 
     /**
-     * Get the greeting message to show to the user
+     * Gets the greeting message to show to the user
      *
      * @return Message object with greeting message to the user
      */
@@ -69,7 +69,7 @@ public class UI {
     }
 
     /**
-     * Get task visualization for the given TaskList.
+     * Gets task visualization for the given TaskList.
      *
      * @param tasks TaskList object to be printed
      * @return Message object containing task list details
@@ -84,7 +84,7 @@ public class UI {
     }
 
     /**
-     * Get the matched tasks message based on the given matched TaskList.
+     * Gets the matched tasks message based on the given matched TaskList.
      *
      * @param tasks TaskList object containing all the matched tasks
      * @return Message object with the matched task list as content
@@ -100,7 +100,7 @@ public class UI {
     }
 
     /**
-     * Get the message when TaskList successfully add in a new task.
+     * Gets the message when TaskList successfully add in a new task.
      *
      * @param task task to be added
      * @return Message object that shows a task is successfully added
@@ -110,7 +110,7 @@ public class UI {
     }
 
     /**
-     * Get the message when a given task is successfully mark as done.
+     * Gets the message when a given task is successfully mark as done.
      *
      * @param taskList taskList involved in the operation
      * @param taskNumbers numbers of the tasks being marked as done
@@ -132,7 +132,7 @@ public class UI {
     }
 
     /**
-     * Get the message when a given task is successfully mark as not done.
+     * Gets the message when a given task is successfully mark as not done.
      *
      * @param taskList taskList involved in the operation
      * @param taskNumbers numbers of the tasks being marked as not done
@@ -153,7 +153,7 @@ public class UI {
     }
 
     /**
-     * Get the message when TaskList successfully delete a task.
+     * Gets the message when TaskList successfully delete a task.
      *
      * @param taskList taskList involved in the operation
      * @param taskNumbers numbers of the tasks being deleted
@@ -174,7 +174,7 @@ public class UI {
     }
 
     /**
-     * Get the exit message.
+     * Gets the exit message.
      *
      * @return Message object that shows a goodbye message
      */
@@ -183,7 +183,7 @@ public class UI {
     }
 
     /**
-     * Get the helping message when user encounters an UnknownCommandException.
+     * Gets the helping message when user encounters an UnknownCommandException.
      *
      * @param e UnknownCommandException thrown by the system
      * @return Message object of type MessageType.Error with given exception's error message
@@ -193,7 +193,7 @@ public class UI {
     }
 
     /**
-     * Get the helping message when user inputs invalid date.
+     * Gets the helping message when user inputs invalid date.
      *
      * @return Message object of type MessageType.Error warning user about invalid date or format
      */
@@ -207,7 +207,7 @@ public class UI {
     }
 
     /**
-     * Get the message when a given task is successfully updated with the given information.
+     * Gets the message when a given task is successfully updated with the given information.
      *
      * @return Message object that shows a task is successfully updated
      */
@@ -218,7 +218,7 @@ public class UI {
     }
 
     /**
-     * Get the warning message when user inputs an update command without any information.
+     * Gets the warning message when user inputs an update command without any information.
      *
      * @return Message object with type MessageType.Error that warns user when input task description is empty
      */

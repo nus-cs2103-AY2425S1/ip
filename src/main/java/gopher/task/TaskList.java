@@ -173,14 +173,14 @@ public class TaskList {
     }
 
     /**
-     * Save current tasks into the Task Manager.
+     * Saves current tasks into the Task Manager.
      */
     public void save() {
         TaskManager.saveTasks(tasks);
     }
 
     /**
-     * Load current tasks from the Task Manager.
+     * Loads current tasks from the Task Manager.
      */
     public void load() {
         this.tasks = TaskManager.loadTasks();
