@@ -10,7 +10,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import potong.exceptions.IllegalInputPotongException;
 import potong.task.Task;
 
 /**
@@ -32,11 +31,7 @@ public class Storage {
     public Storage(TaskList tasklist) {
         this.tasklist = tasklist;
         this.createFile();
-        try {
-            this.loadFile();
-        } catch (IllegalInputPotongException e) {
-            throw new RuntimeException(e);
-        }
+        this.loadFile();
     }
 
     /**
@@ -46,7 +41,7 @@ public class Storage {
         try {
             Files.createDirectories(Paths.get(this.DIRECTORY_NAME));
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
     }
 
@@ -60,30 +55,32 @@ public class Storage {
                 Files.createFile(this.FILE_PATH);
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
     }
 
     /**
      * Load the saved data from the saved file.
-     *
-     * @throws IllegalInputPotongException If the task input is wrong.
      */
-    public void loadFile() throws IllegalInputPotongException {
+    public void loadFile() {
         ArrayList<Task> result = new ArrayList<>(100);
         File f = this.FILE_PATH.toFile();
-        Scanner s;
+        Scanner s = null;
         try {
             s = new Scanner(f);
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
-        while (s.hasNext()) {
+        while (true) {
+            assert s != null;
+            if (!s.hasNext()) {
+                break;
+            }
             String curr = s.nextLine();
             if (curr.isEmpty()) {
                 break;
             }
-            Task nextTask = Parser.createTask(curr);
+            Task nextTask = Parser.loadSavedTasks(curr);
             result.add(nextTask);
         }
         this.tasklist.initialise(result);
@@ -101,7 +98,7 @@ public class Storage {
             fw.write(textToAdd);
             fw.close();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
     }
 }

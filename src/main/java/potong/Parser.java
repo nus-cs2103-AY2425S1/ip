@@ -33,7 +33,7 @@ public class Parser {
      * @param taskDescription Task Description.
      * @return Task.
      */
-    public static Task createTask(String taskDescription) {
+    public static Task loadSavedTasks(String taskDescription) {
         String[] arr = taskDescription.split("\\|");
         for (int i = 0; i < arr.length; i++) {
             String curr = arr[i];
@@ -44,37 +44,25 @@ public class Parser {
         String tag = arr[2];
         String description = arr[3];
         String time = "";
-        switch (arr[0]) {
-        case "T":
-            try {
+        try {
+            switch (arr[0]) {
+            case "T":
                 result = new ToDoTask(description, isDone, tag);
-            } catch (IllegalInputPotongException e) {
-                throw new RuntimeException(e);
-            }
-            break;
-        case "D":
-            time = arr[4];
-            try {
+                break;
+            case "D":
+                time = arr[4];
                 result = new DeadlineTask(description, time, isDone, tag);
-            } catch (IllegalInputPotongException e) {
-                throw new RuntimeException(e);
-            }
-            break;
-        case "E":
-            time = arr[4];
-            String[] startAndEnd = time.split("-");
-            try {
+                break;
+            case "E":
+                time = arr[4];
+                String[] startAndEnd = time.split("-");
                 result = new EventTask(description, startAndEnd[0], startAndEnd[1], isDone, tag);
-            } catch (IllegalInputPotongException e) {
-                throw new RuntimeException(e);
-            }
-            break;
-        default:
-            try {
+                break;
+            default:
                 result = new Task(description, isDone, tag);
-            } catch (IllegalInputPotongException e) {
-                throw new RuntimeException(e);
             }
+        } catch (IllegalInputPotongException e) {
+            System.out.println("Error loading the file\n" + e.getMessage());
         }
         return result;
     }
@@ -88,9 +76,8 @@ public class Parser {
     public static Command parse(String input) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(input.trim());
         if (!matcher.matches()) {
-
+            return new WrongCommand("");
         }
-
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments").strip();
 

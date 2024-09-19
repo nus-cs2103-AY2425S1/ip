@@ -7,8 +7,6 @@ import potong.command.ExitCommand;
  * Class to encapsulate a chatbot to store tasks.
  */
 public class Potong {
-
-    private static final String LINE = "_________________________";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;

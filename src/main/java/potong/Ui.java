@@ -64,5 +64,4 @@ public class Ui {
         assert !message.isEmpty();
         System.out.println(message);
     }
-
 }
