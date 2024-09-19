@@ -96,7 +96,7 @@ public class Ui {
    * @return A string displaying a confirmation message for the deleted task.
    */
   public static String displayAfterDeleteTask(Task task) {
-    return "Alright, now '" + task + "' is gone! ✨ You're doing amazing, keep it up! \uD83C\uDF08";
+    return "Alright, now '" + task + "' is gone! ✨ You're doing amazing, keep it up!! \uD83C\uDF08";
   }
 
   /**
@@ -108,7 +108,7 @@ public class Ui {
    */
   public static String displayAfterMarkTask(TaskList tasklist, int taskIdx) {
     StringBuilder result = new StringBuilder();
-    result.append("Woohoo! \uD83C\uDF1F You did it! So proud of you! \uD83C\uDF89 Keep going! \uD83D\uDCAA\n");
+    result.append("Yay! \uD83C\uDF1F You did it! So proud of you! \uD83C\uDF89 Keep going! \uD83D\uDCAA\n");
     ArrayList tasks = tasklist.getArrayList();
     result.append("   ").append(tasks.get(taskIdx - 1).toString()).append("\n");
     return result.toString();
@@ -123,7 +123,7 @@ public class Ui {
    */
   public static String displayAfterUnmarkTask(TaskList tasklist, int taskIdx) {
     StringBuilder result = new StringBuilder();
-    result.append("I've marked this task as not done yet. Come back soon! \uD83C\uDF38 \n");
+    result.append("Ok. I've marked this task as not done yet. Come back soon! \uD83C\uDF38 \n");
     ArrayList tasks = tasklist.getArrayList();
     result.append("   ").append(tasks.get(taskIdx - 1).toString()).append("\n");
     return result.toString();
@@ -135,7 +135,6 @@ public class Ui {
    * @param tasklist The list of tasks to display.
    * @return A string displaying all tasks in the list.
    */
-
   public static String displayAfterListTask(TaskList tasklist) {
     StringBuilder result = new StringBuilder("\"Here are the tasks in your list ✨:\n");
     ArrayList tasks = tasklist.getArrayList();
