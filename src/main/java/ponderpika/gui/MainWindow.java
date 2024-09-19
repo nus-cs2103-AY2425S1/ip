@@ -5,13 +5,16 @@ import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import ponderpika.PonderPika;
+import java.util.Objects;
 
 /**
  * Controller for the main GUI.
@@ -36,9 +39,17 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
+        userInput.requestFocus();
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        String greeting = "HELLO I'm Ponder Pika" + "\nIt is a great day to ponder! How may I help you?";
+        String greeting = "HELLO, I'm Ponder Pika" + "\nIt is a great day to ponder! How may I help you?";
         dialogContainer.getChildren().add(DialogBox.getPikaDialog(greeting, botImage));
+
+        ImageView imageView = new ImageView(Objects.requireNonNull(getClass().getResource("/images/send.png")).toExternalForm());
+        sendButton.setGraphic(imageView);
+        sendButton.setContentDisplay(ContentDisplay.RIGHT);
+        imageView.fitWidthProperty().bind(sendButton.widthProperty().divide(6));
+        imageView.setPreserveRatio(true);
+        sendButton.setMaxWidth(Double.MAX_VALUE);
     }
 
     /** Injects the PonderPika instance */
