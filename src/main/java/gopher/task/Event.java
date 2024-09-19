@@ -40,18 +40,15 @@ public class Event extends Task {
             this.name = taskName;
         }
 
-        if (!startDateString.isEmpty()) {
-            LocalDateTime newStartDate = Parser.parseDateString(startDateString);
-            if (newStartDate.isBefore(this.endDate)) {
+        if (!startDateString.isEmpty() || !endDateString.isEmpty()) {
+            LocalDateTime newStartDate = startDateString.isEmpty()
+                    ? this.startDate
+                    : Parser.parseDateString(startDateString);
+            LocalDateTime newEndDate = endDateString.isEmpty()
+                    ? this.endDate
+                    : Parser.parseDateString(endDateString);
+            if (newStartDate.isBefore(newEndDate)) {
                 this.startDate = newStartDate;
-            } else {
-                throw new InvalidDurationException();
-            }
-        }
-
-        if (!endDateString.isEmpty()) {
-            LocalDateTime newEndDate = Parser.parseDateString(endDateString);
-            if (newEndDate.isAfter(this.startDate)) {
                 this.endDate = newEndDate;
             } else {
                 throw new InvalidDurationException();
