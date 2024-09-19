@@ -1,24 +1,126 @@
-# Duke project template
+# Crack Chatbot
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Crack is an interactive task management chatbot that allows users to manage their to-do lists, deadlines, and events easily. It supports various task types and commands, making it an efficient personal assistant for managing your tasks.
 
-## Setting up in Intellij
+## To run:
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+```bash
+code ./gradlew clean build
+code ./gradlew run
+```
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Features
+
+### 1. Task Management
+- Add `Todo`, `Deadline`, and `Event` tasks.
+- List all tasks in your task list.
+- Mark or unmark tasks as done.
+
+### 2. Date Support
+- Add deadlines and events with specific dates.
+- The chatbot understands dates in `yyyy-mm-dd` format and displays them in `MMM dd yyyy` format.
+
+### 3. Task Postponement (Snooze)
+- Snooze deadlines and events by updating their dates.
+- Use the `snooze` command to postpone a task to a new date.
+
+### 4. Task Search
+- Find tasks containing a specific keyword with the `find` command.
+
+## Usage
+
+### 1. Adding Tasks
+
+- **Todo:** Adds a to-do task with a description.
+    ```
+    todo <description>
+    ```
+    Example: `todo Read book`
+
+- **Deadline:** Adds a task with a deadline.
+    ```
+    deadline <description> /by <yyyy-mm-dd>
+    ```
+    Example: `deadline Submit report /by 2024-09-30`
+
+- **Event:** Adds an event with start and end dates.
+    ```
+    event <description> /from <yyyy-mm-dd> /to <yyyy-mm-dd>
+    ```
+    Example: `event Conference /from 2024-10-10 /to 2024-10-12`
+
+### 2. Managing Tasks
+
+- **List Tasks:** Lists all tasks.
+    ```
+    list
+    ```
+
+- **Mark Task:** Marks a task as done.
+    ```
+    mark <task_number>
+    ```
+
+- **Unmark Task:** Unmarks a task (mark as not done).
+    ```
+    unmark <task_number>
+    ```
+
+- **Delete Task:** Deletes a task from the list.
+    ```
+    delete <task_number>
+    ```
+
+### 3. Snoozing Tasks
+
+- **Snooze:** Postpone a deadline or event by providing a new date.
+    ```
+    snooze <task_number> /to <new_date>
+    ```
+    Example: `snooze 2 /to 2024-10-05`
+
+### 4. Finding Tasks
+
+- **Find Tasks:** Search for tasks that contain a specific keyword.
+    ```
+    find <keyword>
+    ```
+    Example: `find book`
+
+### 5. Exit the Program
+
+- **Bye:** Exits the chatbot.
+    ```
+    bye
+    ```
+
+## Error Handling
+
+Crack handles errors and invalid inputs gracefully. If an invalid command or incorrect format is provided, Crack will show a helpful error message through the GUI.
+
+## Running the Project
+
+1. **Build the Project**:
+   - Use Gradle to build the project by running `gradle build` in the project directory.
+
+2. **Run the Chatbot**:
+   - After building, run the chatbot using the command:
+     ```
+     java -jar build/libs/Crack.jar
+     ```
+
+## Future Enhancements
+
+- Support for recurring tasks.
+- Enhanced reminders for upcoming deadlines.
+- Integration with calendar applications.
+
+---
+
+Thank you for using Crack Chatbot! 🎉
+
+
+
+
+# Credits
+- [ChatGPT] used in this project to increase productivity and code quality.
