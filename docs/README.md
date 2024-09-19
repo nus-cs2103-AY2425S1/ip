@@ -1,8 +1,6 @@
-# Duke User Guide
+# Alex User Guide
 
-// Update the title above to match the actual product name
-
-// Product screenshot goes here
+![Uploading Ui.png…]()
 
 // Product intro goes here
 Alex is a smart, friendly, and intuitive task management chatbot. It helps you   keep track of tasks, deadlines, and events effortlessly through a user-friendly interface. With Alex, you can manage your to-dos, schedule important events, and set deadlines. Whether you're looking to organize your day or track long-term projects, Alex has got you covered.
