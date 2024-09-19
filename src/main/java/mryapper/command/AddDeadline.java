@@ -30,6 +30,7 @@ public class AddDeadline extends Command {
         String response = String.format("Task added successfully!\n  %s\n"
                 + "Now you have %d tasks in the list",
                 newTask, tasks.count());
+
         return response;
     }
 }

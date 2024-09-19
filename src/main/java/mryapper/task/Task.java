@@ -86,17 +86,6 @@ public abstract class Task {
         return true;
     }
 
-    private boolean checkArrayForKeyword(String keyword, String[] arr) {
-        boolean hasKeyword = false;
-        for (String word : arr) {
-            if (keyword.equalsIgnoreCase(word)) {
-                hasKeyword = true;
-                break;
-            }
-        }
-        return hasKeyword;
-    }
-
     /**
      * Returns the string following the format of how the task is stored in the data file.
      *
@@ -107,5 +96,16 @@ public abstract class Task {
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
+    }
+
+    private boolean checkArrayForKeyword(String keyword, String[] arr) {
+        boolean hasKeyword = false;
+        for (String word : arr) {
+            if (keyword.equalsIgnoreCase(word)) {
+                hasKeyword = true;
+                break;
+            }
+        }
+        return hasKeyword;
     }
 }

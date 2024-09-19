@@ -10,14 +10,13 @@ import mryapper.task.TaskList;
 import java.io.IOException;
 
 /**
- * Contains the main program of the ChatBot. Running the main program initializes
- * the ChatBot and runs the ChatBot.
+ * Contains the main program of the ChatBot where user inputs are sent and
+ * responses are received.
  */
 public class MrYapper {
 
     private static final String GREETING_MESSAGE = " Hello! I'm MrYapper\n"
             + " What can I do for you?";
-    private static final String TASK_DATA_PATH = "src/data/tasks.txt";
     private final Storage storage;
     private TaskList tasks;
 
@@ -33,7 +32,7 @@ public class MrYapper {
     }
 
     /**
-     * Loads the data from the storage manager into the task list.
+     * Loads the data from the storage into the task list.
      *
      * @throws IOException Thrown if an error occurred while creating a new data file.
      * @throws InvalidFileDataException Thrown if the data file has an invalid format or is corrupted.
@@ -43,7 +42,7 @@ public class MrYapper {
     }
 
     /**
-     * Returns the greeating message.
+     * Returns the greeting message.
      *
      * @return The greeting message.
      */
@@ -54,7 +53,7 @@ public class MrYapper {
     /**
      * Generates a response for the user's chat message.
      *
-     * @return The response from the chatbot.
+     * @return The response from the ChatBot.
      */
     public String getResponse(String input) {
         try {

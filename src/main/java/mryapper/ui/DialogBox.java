@@ -1,13 +1,17 @@
 package mryapper.ui;
 
 import java.io.IOException;
+
 import java.util.Collections;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+
 import javafx.geometry.Pos;
+
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -49,10 +53,24 @@ public class DialogBox extends HBox {
         dialog.getStyleClass().add("reply-label");
     }
 
+    /**
+     * Generates a dialog box from the user.
+     *
+     * @param text The user input.
+     * @param img The image representing the user.
+     * @return The dialog box object.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Generates a dialog box from the ChatBot.
+     *
+     * @param text The response from the ChatBot.
+     * @param img The image representing the ChatBot.
+     * @return The dialog box object.
+     */
     public static DialogBox getYapperDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

@@ -1,20 +1,23 @@
 package mryapper.ui;
 
-import java.io.IOException;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
+import java.io.IOException;
+
 import mryapper.MrYapper;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for MrYapper using FXML.
  */
 public class Main extends Application {
 
     private MrYapper mrYapper = new MrYapper("src/data/tasks.txt");
+    private final int MIN_WINDOW_HEIGHT = 500;
+    private final int MIN_WINDOW_WIDTH = 400;
 
     @Override
     public void start(Stage stage) {
@@ -23,14 +26,18 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
 
-            stage.setMinHeight(500);
-            stage.setMinWidth(400);
+            setMinResolution(stage);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setYapper(mrYapper);  // inject the MrYapper instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void setMinResolution(Stage stage) {
+        stage.setMinHeight(MIN_WINDOW_HEIGHT);
+        stage.setMinWidth(MIN_WINDOW_WIDTH);
     }
 }
 

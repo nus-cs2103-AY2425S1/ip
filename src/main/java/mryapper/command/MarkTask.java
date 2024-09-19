@@ -26,6 +26,7 @@ public class MarkTask extends Command {
             response = String.format("There is no such task!\n"
                     + "You currently have %d tasks in your list", tasks.count());
         }
+
         return response;
     }
 }

@@ -3,6 +3,7 @@ package mryapper.task;
 import mryapper.storage.Storage;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 
 /**
@@ -48,7 +49,7 @@ public class TaskList {
     }
 
     /**
-     * Remove the task from the list with the given index.
+     * Removes the task from the list with the given index.
      *
      * @param taskNumber The index of the task to remove starting from 1.
      * @return The task that has been removed.
@@ -128,7 +129,6 @@ public class TaskList {
         if (isTaskListEmpty) {
             return "You do not have any tasks!";
         }
-        assert this.count() > 0: "Number of tasks should be greater than 0";
 
         String listInString = "";
         for (int i = 0; i < this.count(); i += 1) {

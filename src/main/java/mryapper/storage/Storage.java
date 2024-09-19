@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Manages saving and loading data between the Chatbot and data file.
+ * Manages saving and loading data between the ChatBot and data file.
  */
 public class Storage {
     private final String filePath;
@@ -27,8 +27,8 @@ public class Storage {
      * @param filePath The relative file path of the data txt file.
      */
     public Storage(String filePath) {
+        assert filePath != null: "filePath of data file should not be null";
         this.filePath = filePath;
-        assert this.filePath != null: "filePath of data file should not be null";
     }
 
     /**
@@ -48,14 +48,6 @@ public class Storage {
         }
     }
 
-    private TaskList createNewDataFile(File file) throws IOException {
-        boolean isFileCreationSuccessful = file.createNewFile();
-        if (!isFileCreationSuccessful) {
-            throw new IOException();
-        }
-        return new TaskList();
-    }
-
     /**
      * Saves the ArrayList of tasks into the data file in the file path.
      *
@@ -72,6 +64,15 @@ public class Storage {
         fw.close();
     }
 
+    private TaskList createNewDataFile(File file) throws IOException {
+        boolean isFileCreationSuccessful = file.createNewFile();
+        if (!isFileCreationSuccessful) {
+            throw new IOException();
+        }
+
+        return new TaskList();
+    }
+
     private TaskList readFileData(File file) throws InvalidFileDataException, FileNotFoundException {
         ArrayList<Task> taskList = new ArrayList<>(100);
         Scanner dataFileReader = new Scanner(file);
@@ -83,7 +84,9 @@ public class Storage {
         return new TaskList(taskList);
     }
 
-    // reads the task data from the data file and adds task into the task ArrayList
+    /**
+     * Reads the task data from the data file and adds task into the task ArrayList
+     */
     private Task readTaskData(String taskData) throws InvalidFileDataException {
         try {
             String[] processedData = taskData.split(" \\|\\|\\| ");

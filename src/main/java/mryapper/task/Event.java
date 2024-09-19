@@ -1,7 +1,7 @@
 package mryapper.task;
 
 /**
- * An event task that occurs within the specified time.
+ * An event task that with a starting and ending time.
  */
 public class Event extends Task {
     private String eventStart;

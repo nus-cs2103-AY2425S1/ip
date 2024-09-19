@@ -23,13 +23,12 @@ public class FindTask extends Command {
             return "None of the tasks match your search results!";
         }
 
-        assert searchResult.size() > 0: "There should be at least one task in search results";
-
         String response = "Here are the matching tasks in your list:\n";
         for (int i = 0; i < searchResult.size(); i++ ) {
             int taskNumber = i + 1;
             response += taskNumber + "." + searchResult.get(i).toString() + "\n";
         }
+
         return response;
     }
 }
