@@ -19,79 +19,65 @@ public class Rei {
     public Rei(String filePath) {
         this.storage = new Storage(filePath);
         this.tasks = new TaskList(storage.load());
-
     }
 
     /**
-     * Runs the bot
+     * Gets REI's response for a prompt
+     * @param prompt
+     * @return the desired output or response
      */
-    public void run() {
-        Ui.printWelcomeMessage();
-        tasks.printTasks();
-
-        Scanner scanner = new Scanner(System.in);
-        boolean isExit = false;
-        int taskIndex;
-        while (!isExit) {
-            String prompt = scanner.nextLine();
-            Parser.Prompt promptType = Parser.parse(tasks, prompt);
+    public String getResponse(String prompt) {
+        try {
+            Parser.Prompt promptType = Parser.parse(prompt);
+            String output;
+            int taskIndex;
             switch (promptType) {
                 case LIST:
-                    tasks.printTasks();
+                    output = tasks.printTasks();
                     break;
                 case MARK:
                     taskIndex = Integer.parseInt(prompt.substring(4).trim());
-                    tasks.markTask(taskIndex);
+                    output = tasks.markTask(taskIndex);
                     break;
                 case UNMARK:
                     taskIndex = Integer.parseInt(prompt.substring(6).trim());
-                    tasks.unmarkTask(taskIndex);
+                    output = tasks.unmarkTask(taskIndex);
                     break;
                 case TODO:
-                    tasks.addTask(Task.createToDo(prompt.substring(5)));
+                    output = tasks.addTask(Task.createToDo(prompt.substring(5)));
                     break;
                 case DEADLINE:
-                    tasks.addTask(Task.createDeadline(prompt.substring(9, prompt.indexOf("/by")),
+                    output = tasks.addTask(Task.createDeadline(prompt.substring(9, prompt.indexOf("/by")),
                             LocalDateTime.parse(prompt.substring(prompt.indexOf("/by") + 4))));
                     break;
                 case EVENT:
-                    tasks.addTask(Task.createEvent(prompt.substring(6, prompt.indexOf("/from")),
+                    output = tasks.addTask(Task.createEvent(prompt.substring(6, prompt.indexOf("/from")),
                             LocalDateTime.parse(prompt.substring(prompt.indexOf("/from") + 6, prompt.indexOf("/to") - 1)),
                             LocalDateTime.parse(prompt.substring(prompt.indexOf("/to") + 4))));
                     break;
                 case DELETE:
                     taskIndex = Integer.parseInt(prompt);
-                    tasks.deleteTask(taskIndex);
+                    output = tasks.deleteTask(taskIndex);
                     break;
                 case FIND:
                     String keyword = prompt.substring(5).trim();
-                    tasks.findTasks(keyword);
+                    output = tasks.findTasks(keyword);
                     break;
                 case ANNYEONG:
-                    isExit = true;
-                    break;
-                case UNKNOWN:
-                    // do nothing
+                    output = "annyeong";
                     break;
                 default:
+                    output = "no";
                     //do nothing
                     break;
             }
             storage.save(tasks);
+            return output;
+        } catch (ReiException e) {
+            return e.getMessage();
         }
 
-        scanner.close();
-
     }
 
-    /**
-     * Runs the bot.
-     * Loads database if exist.
-     * @param args
-     * @throws Exception
-     */
-    public static void main(String[] args) {
-        new Rei("/Users/macbookpro/Documents/CS2103T/rei/rei.txt").run();
-    }
 
 }

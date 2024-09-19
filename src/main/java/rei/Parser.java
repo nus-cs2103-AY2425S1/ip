@@ -20,7 +20,7 @@ public class Parser {
     /**
      * Different prompt types REI understands
      */
-    public enum Prompt {LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, ANNYEONG, UNKNOWN};
+    public enum Prompt {LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, ANNYEONG};
 
     /**
      * Checks if a string only contains whitespace
@@ -33,11 +33,10 @@ public class Parser {
 
     /**
      * Parses a given user input
-     * @param tasks current list of tasks
      * @param prompt the user input
      * @return a Prompt type
      */
-    public static Prompt parse(TaskList tasks, String prompt) {
+    public static Prompt parse(String prompt) throws ReiException {
 
         List<String> prompts = Arrays.asList(prompt.split(" "));
         String taskDetails;
@@ -50,8 +49,7 @@ public class Parser {
 
                 // Check if the rest of the line is an integer
                 if (taskDetails.isEmpty() || !taskDetails.matches("\\d+")) {
-                    Ui.print("State the task number.");
-                    return Prompt.UNKNOWN;
+                    throw new ReiException("State the task number.");
                 }
 
                 return Prompt.MARK;
@@ -61,55 +59,45 @@ public class Parser {
 
                 // Check if the rest of the line is an integer
                 if (taskDetails.isEmpty() || !taskDetails.matches("\\d+")) {
-                    Ui.print("State the task number.");
-                    return Prompt.UNKNOWN;
+                    throw new ReiException("State the task number.");
                 }
 
                 return Prompt.UNMARK;
             case "todo":
                 if (isAllWhitespace(prompt.substring(TODO_COMMAND_LENGTH))) {
-                    Ui.print("Task is empty. Please state the task name.");
-                    return Prompt.UNKNOWN;
+                    throw new ReiException("Task is empty. Please state the task name.");
                 }
 
                 return Prompt.TODO;
             case "deadline":
                 if (isAllWhitespace(prompt.substring(DEADLINE_COMMAND_LENGTH))) {
-                    Ui.print("Task is empty. Please state the task and deadline.");
-                    return Prompt.UNKNOWN;
+                    throw new ReiException("Task is empty. Please state the task and deadline.");
                 } else if (prompt.indexOf("/by") == -1) {
-                    Ui.print("When is the deadline? Please state the task with the deadline.");
-                    return Prompt.UNKNOWN;
+                    throw new ReiException("When is the deadline? Please state the task with the deadline.");
                 } else if (isAllWhitespace(prompt.substring(8, prompt.indexOf("/by")))) {
-                    Ui.print("Task name is empty. Please state the task and deadline.");
-                    return Prompt.UNKNOWN;
+                    throw new ReiException("Task name is empty. Please state the task and deadline.");
                 }
 
                 try {
                     LocalDateTime.parse(prompt.substring(prompt.indexOf("/by") + 4));
                 } catch (DateTimeParseException e) {
-                    Ui.print("Wrong date format : YYYY-MM-DDTHH:MM \n For example, 2024-09-12T18:00");
-                    return Prompt.UNKNOWN;
+                    throw new ReiException("Wrong date format : YYYY-MM-DDTHH:MM \n For example, 2024-09-12T18:00");
                 }
                 return Prompt.DEADLINE;
             case "event":
                 if (isAllWhitespace(prompt.substring(EVENT_COMMAND_LENGTH))) {
-                    Ui.print("Event is empty. Please state the event and time range.");
-                    return Prompt.UNKNOWN;
+                    throw new ReiException("Event is empty. Please state the event and time range.");
                 } else if (prompt.indexOf("/from") == -1 || prompt.indexOf("/to") == -1) {
-                    Ui.print("State the START and FINISH time of the event");
-                    return Prompt.UNKNOWN;
+                    throw new ReiException("State the START and FINISH time of the event");
                 } else if (isAllWhitespace(prompt.substring(5, prompt.indexOf("/from")))) {
-                    Ui.print("Task name is empty. Please state the task and event time.");
-                    return Prompt.UNKNOWN;
+                    throw new ReiException("Task name is empty. Please state the task and event time.");
                 }
 
                 try {
                     LocalDateTime.parse(prompt.substring(prompt.indexOf("/from") + 6, prompt.indexOf("/to") - 1));
                     LocalDateTime.parse(prompt.substring(prompt.indexOf("/to") + 4));
                 } catch (DateTimeParseException e) {
-                    Ui.print("Wrong date format : YYYY-MM-DDTHH:MM \n For example, 2024-09-12T18:00");
-                    return Prompt.UNKNOWN;
+                    throw new ReiException("Wrong date format : YYYY-MM-DDTHH:MM \n For example, 2024-09-12T18:00");
                 }
                 return Prompt.EVENT;
             case "delete":
@@ -118,8 +106,7 @@ public class Parser {
 
                 // Check if the rest of the line is an integer
                 if (taskDetails.isEmpty() || !taskDetails.matches("\\d+")) {
-                    Ui.print("State the task number.");
-                    return Prompt.UNKNOWN;
+                    throw new ReiException("State the task number.");
                 }
 
                 return Prompt.DELETE;
@@ -128,18 +115,15 @@ public class Parser {
                 prompt = prompt.substring(FIND_COMMAND_LENGTH).trim();
 
                 if (prompt.isEmpty()) {
-                    Ui.print("Please state the keyword!");
-                    return Prompt.UNKNOWN;
+                    throw new ReiException("Please state the keyword!");
                 }
-
 
                 return Prompt.FIND;
             case "annyeong":
-                Ui.print("Annyeong. Hope to see you soon.");
                 return Prompt.ANNYEONG;
             default:
-                Ui.print("I don't understand what you want me to do.");
-                return Prompt.UNKNOWN;
+                throw new ReiException("I don't understand what you want me to do. \n" +
+                        "Available commands : todo deadline event list delete mark unmark find annyeong");
         }
     }
 

@@ -35,12 +35,12 @@ public class TaskList {
     /**
      * Prints all the tasks in the list
      */
-    public void printTasks() {
+    public String printTasks() {
         String taskList = "";
         for (int i = 0; i < listOfTasks.size(); i++) {
             taskList += String.format("%d. %s\n", i + 1, listOfTasks.get(i).toString());
         }
-        Ui.print("Here are the tasks in your list: \n" + taskList);
+        return "Here are the tasks in your list: \n" + taskList;
     }
 
     /**
@@ -64,23 +64,23 @@ public class TaskList {
      * Adds a new Task instance to the list
      * @param newTask the new task
      */
-    public void addTask(Task newTask) {
+    public String addTask(Task newTask) {
         listOfTasks.add(newTask);
-        Ui.print("Got it. I've added this task:\n" +
-                "    " + getTask(getNumOfTasks() - 1) + "\n" +
-                String.format("Now you have %d tasks in the list.", getNumOfTasks()));
+        return "Got it. I've added this task:\n" +
+                "    " + this.getTask(this.getNumOfTasks() - 1) + "\n" +
+                String.format("Now you have %d tasks in the list.", this.getNumOfTasks());
     }
 
     /**
      * Marks a Task as completed
      * @param index the Task index
      */
-    public void markTask(int index) {
+    public String markTask(int index) {
         if (index <= getNumOfTasks() && index > 0) {
             listOfTasks.get(index - 1).markAsDone();
-            Ui.print("Okay! I've marked this task as done:\n" + "    " + getTask(index - 1));
+            return "Okay! I've marked this task as done:\n" + "    " + getTask(index - 1);
         } else {
-            Ui.print("No task found. Please retry!");
+            return "No task found. Please retry!";
         }
     }
 
@@ -88,12 +88,12 @@ public class TaskList {
      * Unmarks a Task from being completed
      * @param index the Task index
      */
-    public void unmarkTask(int index) {
+    public String unmarkTask(int index) {
         if (index <= getNumOfTasks() && index > 0) {
             listOfTasks.get(index - 1).markAsNotDone();
-            Ui.print("Okay! I've marked this task as not done yet:\n" + getTask(index - 1));
+            return "Okay! I've marked this task as not done yet:\n" + getTask(index - 1);
         } else {
-            Ui.print("No task found. Please retry!");
+            return "No task found. Please retry!";
         }
     }
 
@@ -101,14 +101,14 @@ public class TaskList {
      * Deletes a Task from the list
      * @param index the Task index
      */
-    public void deleteTask(int index) {
+    public String deleteTask(int index) {
         if (index <= getNumOfTasks() && index > 0) {
             Task removed = listOfTasks.remove(index - 1);
-            Ui.print("Okay! I've deleted this task :\n" +
+            return "Okay! I've deleted this task :\n" +
                     removed + "\n" +
-                    String.format("Now you have %d tasks in the list.", getNumOfTasks()));
+                    String.format("Now you have %d tasks in the list.", getNumOfTasks());
         } else {
-            Ui.print("No task found. Please retry!");
+            return "No task found. Please retry!";
         }
     }
 
@@ -116,7 +116,7 @@ public class TaskList {
      * Prints all tasks that match a given keyword
      * @param keyword the keyword
      */
-    public void findTasks(String keyword) {
+    public String findTasks(String keyword) {
         List<Task> filteredList = this.listOfTasks.stream().filter(task -> task.getTaskName().contains(keyword)).toList();
         String taskList = "";
 
@@ -124,7 +124,11 @@ public class TaskList {
             taskList += String.format("%d. %s\n", i + 1, filteredList.get(i).toString());
         }
 
-        Ui.print("Here are the matching tasks in your list: \n" + taskList);
+        if (taskList.equals("")) {
+            return "No matching tasks found on your list";
+        } else {
+            return "Here are the matching tasks in your list: \n" + taskList;
+        }
     }
 
     /**
