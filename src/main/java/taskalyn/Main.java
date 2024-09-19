@@ -31,6 +31,7 @@ public class Main extends Application {
                     .add(Objects.requireNonNull(getClass().getResource("/css/application.css"))
                     .toExternalForm());
             stage.setScene(scene);
+            stage.setTitle("Taskalyn");
             fxmlLoader.<MainWindow>getController().setTaskalyn(taskalyn);
             stage.show();
         } catch (IOException e) {
