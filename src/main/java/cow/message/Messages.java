@@ -1,6 +1,8 @@
 package cow.message;
 
-/** Default message strings. **/
+/**
+ * Represents the messages that are displayed to the user.
+ */
 public class Messages {
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%s";
     public static final String INDEX_INVALID = "Invalid index format!";

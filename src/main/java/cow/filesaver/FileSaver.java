@@ -23,12 +23,11 @@ import cow.todolist.TodoList;
  **/
 public class FileSaver {
     private String filePath;
-    private FileWriter fw;
 
     /**
-     * Constructor to create a file saver.
+     * Creates a FileSaver instance.
      *
-     * @param filePath of the data file.
+     * @param filePath the path of the file to save the data.
      */
     public FileSaver(String filePath) {
         assert !filePath.isEmpty() : "File path should not be empty";
@@ -36,9 +35,10 @@ public class FileSaver {
     }
 
     /**
-     * Writes the items in the TodoList into the file.
+     * Saves the data from the TodoList to the file.
      *
-     * @throws CowExceptions if the file or path has an issue.
+     * @param todoList the list of tasks to save.
+     * @throws CowExceptions if the file path is invalid.
      */
     public void saveData(TodoList todoList) throws CowExceptions {
         try {
@@ -53,10 +53,11 @@ public class FileSaver {
     }
 
     /**
-     * Loads the data from the file into the TodoList.
+     * Loads the data from the file to the TodoList.
      *
-     * @return The loaded todolist.
-     * @throws IOException if the file does not exist.
+     * @return the TodoList with the data loaded.
+     * @throws IOException   if the file path is invalid.
+     * @throws CowExceptions if the data is malformed.
      */
     public TodoList loadData() throws IOException, CowExceptions {
         checkFilePath();
@@ -70,10 +71,10 @@ public class FileSaver {
     }
 
     /**
-     * Loads the data from each line of the data file to the todo list.
+     * Loads the data from the file to the TodoList.
      *
-     * @param nextLine is the next line of data to input.
-     * @param td is the todo list to add the data to.
+     * @param nextLine the line to load.
+     * @param td       the TodoList to add the task to.
      * @throws CowExceptions if the data is malformed.
      */
     private static void loadData(String nextLine, TodoList td) throws CowExceptions {
@@ -100,9 +101,9 @@ public class FileSaver {
     }
 
     /**
-     * Checks if the file path exist, if not it will be created.
+     * Checks if the file path is valid, if not creates the file.
      *
-     * @throws IOException if the file path is invalid.
+     * @throws CowExceptions if the file path is invalid.
      */
     private void checkFilePath() throws CowExceptions {
         Path path = Paths.get(filePath);

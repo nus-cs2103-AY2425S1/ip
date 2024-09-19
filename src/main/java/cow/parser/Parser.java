@@ -35,12 +35,11 @@ public class Parser {
     public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**
-     * Parses the string input and returns a command that can be executed
-     * to carry out its task.
+     * Parses the user input and returns the corresponding command.
      *
-     * @param userInput full user input from the user.
-     * @return command to be carried out.
-     * @throws CowExceptions used to print any exception that might happen.
+     * @param userInput The input provided by the user.
+     * @return The command corresponding to the user input.
+     * @throws CowExceptions If there is an error in parsing the command.
      */
     public static Command parse(String userInput) throws CowExceptions {
         Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
@@ -81,10 +80,10 @@ public class Parser {
     }
 
     /**
-     * Prepares the recurring command.
+     * Prepares a recurring command with the provided arguments.
      *
-     * @param args the expected command arguments.
-     * @return a recurring command or invalid command if unsuccessful.
+     * @param args The arguments for the recurring command.
+     * @return The corresponding recurring command or an incorrect command if the arguments are invalid.
      */
     private static Command prepRecurringCommand(String args) {
         Matcher matcher = getRecurringMatcher(args);
@@ -102,11 +101,11 @@ public class Parser {
     }
 
     /**
-     * Creates recurring command from the arguments.
+     * Creates a RecurringCommand with the provided matcher and times.
      *
-     * @param matcher matcher used for getting the arguments.
-     * @param times to recur.
-     * @return Reoccurring command or invalid command.
+     * @param matcher The matcher containing the command arguments.
+     * @param times   The number of times the task recurs.
+     * @return The corresponding RecurringCommand or an IncorrectCommand if the arguments are invalid.
      */
     private static Command getRecurringCommand(Matcher matcher, int times) {
         try {
@@ -118,11 +117,12 @@ public class Parser {
             return getIncorrectCommand(RecurringCommand.MESSAGE_USAGE);
         }
     }
+
     /**
-     * Gets the matcher for the recurring command.
+     * Returns a Matcher for the recurring command arguments.
      *
-     * @param args from the command
-     * @return the matcher used to extract arguments.
+     * @param args The arguments for the recurring command.
+     * @return A Matcher for the recurring command arguments.
      */
     private static Matcher getRecurringMatcher(String args) {
         String regex = "^(?<desc>.+?)\\s"
@@ -134,10 +134,10 @@ public class Parser {
     }
 
     /**
-     * Prepares find command with arguments.
+     * Prepares a find command with the provided arguments.
      *
-     * @param arguments of task to find.
-     * @return the corresponding command.
+     * @param arguments The arguments for the find command.
+     * @return The corresponding find command or an incorrect command if the arguments are invalid.
      */
     private static Command prepFindCommand(String arguments) {
         IncorrectCommand command = checkEmptyCommand(arguments, FindCommand.MESSAGE_USAGE);
@@ -148,11 +148,11 @@ public class Parser {
     }
 
     /**
-     * Checks if the command arguments is empty.
+     * Checks if the provided arguments are empty and returns an IncorrectCommand if they are.
      *
-     * @param arguments from the regex.
-     * @param usage the example usage of the command it is checking.
-     * @return an IncorrectCommand with the example usage.
+     * @param arguments The arguments to check.
+     * @param usage     The correct usage message to include in the IncorrectCommand.
+     * @return An IncorrectCommand if the arguments are empty, otherwise null.
      */
     private static IncorrectCommand checkEmptyCommand(String arguments, String usage) {
         if (arguments == null || arguments.isEmpty()) {
@@ -162,10 +162,10 @@ public class Parser {
     }
 
     /**
-     * Creates the IncorrectCommand.
+     * Returns an IncorrectCommand with the provided usage message.
      *
-     * @param usage the correct example usage.
-     * @return the IncorrectCommand object.
+     * @param usage The correct usage message to include in the IncorrectCommand.
+     * @return An IncorrectCommand with the provided usage message.
      */
     private static IncorrectCommand getIncorrectCommand(String usage) {
         return new IncorrectCommand(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
@@ -173,11 +173,11 @@ public class Parser {
     }
 
     /**
-     * Parses the index used for marking, unmarking and delete commands.
+     * Parses the argument to get the index for mark/unmark commands.
      *
-     * @param args provided by command.
-     * @return the parse int.
-     * @throws CowExceptions exceptions due to invalid index.
+     * @param args The argument containing the index.
+     * @return The parsed index.
+     * @throws CowExceptions If the argument is not a valid integer.
      */
     private static int getMarkUnmarkInt(String args) throws CowExceptions {
         try {
@@ -188,10 +188,10 @@ public class Parser {
     }
 
     /**
-     * Preps the argument to create the due command.
+     * Prepares a due command with the provided arguments.
      *
-     * @param args provided beside command.
-     * @return a due command.
+     * @param args The arguments for the due command.
+     * @return The corresponding due command or an incorrect command if the arguments are invalid.
      */
     private static Command prepDue(String args) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
@@ -204,10 +204,10 @@ public class Parser {
     }
 
     /**
-     * Preps the argument to create the deadline command.
+     * Prepares a deadline command with the provided arguments.
      *
-     * @param args provided beside command.
-     * @return a deadline command.
+     * @param args The arguments for the deadline command.
+     * @return The corresponding deadline command or an incorrect command if the arguments are invalid.
      */
     private static Command prepareDeadline(String args) {
         Pattern pattern = Pattern.compile("^(?<desc>.+?)\\s*/by\\s*(?<by>.*)$");
@@ -225,10 +225,10 @@ public class Parser {
     }
 
     /**
-     * Preps the argument to create the event command.
+     * Prepares an event command with the provided arguments.
      *
-     * @param args provided beside command.
-     * @return an event command.
+     * @param args The arguments for the event command.
+     * @return The corresponding event command or an incorrect command if the arguments are invalid.
      */
     private static Command prepareEvent(String args) {
         Pattern pattern = Pattern.compile("^(?<desc>.+?)\\s*/from\\s*(?<from>.+?)\\s*/to\\s*(?<to>.+)$");
@@ -242,11 +242,11 @@ public class Parser {
     }
 
     /**
-     * Checks if matcher matches.
+     * Checks if the matcher matches the pattern and returns an IncorrectCommand if it does not.
      *
-     * @param matcher the matcher to check.
-     * @param usage the correct command usage example.
-     * @return IncorrectCommand object.
+     * @param matcher The matcher to check.
+     * @param usage   The correct usage message to include in the IncorrectCommand.
+     * @return An IncorrectCommand if the matcher does not match, otherwise null.
      */
     private static IncorrectCommand checkMatcher(Matcher matcher, String usage) {
         if (!matcher.matches()) {
@@ -256,10 +256,10 @@ public class Parser {
     }
 
     /**
-     * Preps the argument to create the todo command.
+     * Prepares a todo command with the provided arguments.
      *
-     * @param args provided beside command.
-     * @return a todo command.
+     * @param args The arguments for the todo command.
+     * @return The corresponding todo command or an incorrect command if the arguments are invalid.
      */
     private static Command prepareTodo(String args) {
         if (args == null || args.isEmpty()) {

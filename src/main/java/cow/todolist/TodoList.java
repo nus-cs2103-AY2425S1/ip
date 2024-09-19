@@ -87,6 +87,11 @@ public class TodoList {
         }
     }
 
+    /**
+     * Returns the save data of the todo list as a string.
+     *
+     * @return A string representing the save data of the todo list.
+     */
     public String getSaveData() {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < todoList.size(); i++) {
@@ -127,6 +132,11 @@ public class TodoList {
         return filteredTodo;
     }
 
+    /**
+     * Returns a string representation of the todo list.
+     *
+     * @return A string that represents the todo list.
+     */
     @Override
     public String toString() {
         String string = "";
