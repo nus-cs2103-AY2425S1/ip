@@ -13,7 +13,10 @@
          xmlns="http://javafx.com/javafx/17"
          xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label fx:id="dialog" text="Label" wrapText="true" minHeight="-Infinity"/>
+        <Label fx:id="dialog" text="Label" wrapText="true" minHeight="-Infinity"
+               style="-fx-background-color: #ffffff; -fx-font-family: 'Comic Sans MS'; -fx-font-size: 12px;
+                     -fx-padding: 10; -fx-background-radius: 15; -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 0);"
+        />
         <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" />
     </children>
     <padding>
