@@ -13,6 +13,10 @@ public class TaskList implements Iterable<Task> {
         this.TASKS = new ArrayList<>();
     }
 
+    public TaskList(List<Task> tasks) {
+        this.TASKS = tasks;
+    }
+
     public boolean isEmpty() {
         return TASKS.isEmpty();
     }

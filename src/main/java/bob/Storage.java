@@ -9,6 +9,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Storage {
@@ -105,12 +107,12 @@ public class Storage {
         return str.toString();
     }
 
-    public TaskList load() throws IOException {
+    public List<Task> load() throws IOException {
         if (!file.exists()) {
             createFile();
         }
 
-        TaskList list = new TaskList();
+        List<Task> list = new ArrayList<>();
         Scanner scanner;
         try {
             scanner = new Scanner(file);
