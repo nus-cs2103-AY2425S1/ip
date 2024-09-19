@@ -35,27 +35,42 @@ public class Parser {
         String description;
         switch (taskType) {
         case 'T':
-            return "todo " + data.substring(descriptionStartIndex);
+            return todoInputToUserInput(data, descriptionStartIndex);
         case 'E':
-            int endIndex = data.indexOf("(");
-            description = data.substring(descriptionStartIndex, endIndex).trim();
-
-            int fromIndex = data.indexOf("(from");
-            int toIndex = data.indexOf("to:");
-            int lastIndex = data.indexOf(")");
-            String fromDate = data.substring(fromIndex + 6, toIndex - 1);
-            fromDate = Parser.convertDateFormat(fromDate, "MMM dd yyyy", "dd/MM/yyyy");
-            String toDate = data.substring(toIndex + 4, lastIndex);
-            toDate = Parser.convertDateFormat(toDate, "MMM dd yyyy", "dd/MM/yyyy");
-            return "event " + description + " /from " + fromDate + " /to " + toDate;
+            return eventInputToUserInput(data, descriptionStartIndex);
+        case 'D':
+            return deadlineInputToUserInput(data, descriptionStartIndex);
         default:
-            int descriptionEndIndex = data.indexOf("(");
-            description = data.substring(descriptionStartIndex, descriptionEndIndex).trim();
-            int deadlineIndex = data.indexOf("(by");
-            String date = data.substring(deadlineIndex + 4, data.indexOf(")"));
-            String inputDateFormat = Parser.convertDateFormat(date.trim(), "MMM dd yyyy", "dd/MM/yyyy");
-            return "deadline " + description + " /by " + inputDateFormat;
+            return "";  // This line should never be reached, data coming from persistent input always has correct format
         }
+    }
+
+    private static String todoInputToUserInput(String data, int descriptionStartIndex) {
+        return "todo " + data.substring(descriptionStartIndex);
+    }
+
+
+    private static String eventInputToUserInput(String data, int descriptionStartIndex) throws InvalidDateException {
+        int endIndex = data.indexOf("(");
+        String description = data.substring(descriptionStartIndex, endIndex).trim();
+
+        int fromIndex = data.indexOf("(from");
+        int toIndex = data.indexOf("to:");
+        int lastIndex = data.indexOf(")");
+        String fromDate = data.substring(fromIndex + 6, toIndex - 1);
+        fromDate = Parser.convertDateFormat(fromDate, "MMM dd yyyy", "dd/MM/yyyy");
+        String toDate = data.substring(toIndex + 4, lastIndex);
+        toDate = Parser.convertDateFormat(toDate, "MMM dd yyyy", "dd/MM/yyyy");
+        return "event " + description + " /from " + fromDate + " /to " + toDate;
+    }
+
+    private static String deadlineInputToUserInput(String data, int descriptionStartIndex) throws InvalidDateException {
+        int descriptionEndIndex = data.indexOf("(");
+        String description = data.substring(descriptionStartIndex, descriptionEndIndex).trim();
+        int deadlineIndex = data.indexOf("(by");
+        String date = data.substring(deadlineIndex + 4, data.indexOf(")"));
+        String inputDateFormat = Parser.convertDateFormat(date.trim(), "MMM dd yyyy", "dd/MM/yyyy");
+        return "deadline " + description + " /by " + inputDateFormat;
     }
 
     private static String convertDateFormat(String dateStr, String sourceFormat, String resultFormat)
