@@ -29,8 +29,8 @@ public class Michael extends Application {
         storage = new Storage(PATH);
 
         try {
-            tasks = new TaskList(storage.load());
-            parser = new Parser(tasks);
+            tasks = storage.load();
+            parser = new Parser(tasks, storage);
         } catch (IOException e) {
             ui.showLoadingError("Can't load tasks!");
             tasks = new TaskList();
@@ -61,12 +61,6 @@ public class Michael extends Application {
             } catch (MichaelException e) {
                 ui.showLoadingError(e.getMessage());
             }
-        }
-
-        try {
-            storage.save();
-        } catch (IOException e) {
-            ui.giveFeedback("Couldn't save tasks!");
         }
     }
 

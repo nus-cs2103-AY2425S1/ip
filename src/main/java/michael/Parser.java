@@ -1,10 +1,15 @@
 package michael;
+
+import java.io.IOException;
+
 public class Parser {
     private TaskList tasks;
+    private Storage storage;
     private String invalidCommand = "Invalid command entered. Please enter one of the following valid commands: "
             + "todo, deadline, event, mark, unmark, list, delete, bye, find";
-    public Parser(TaskList tasks) {
+    public Parser(TaskList tasks, Storage storage) {
         this.tasks = tasks;
+        this.storage = storage;
     }
 
     /**
@@ -23,6 +28,7 @@ public class Parser {
         if (input.startsWith("mark")) { // mark a task as done
             MarkCommand mc = new MarkCommand(tasks);
             mc.check(input);
+            saveToFile();
             return mc.feedback();
         } else if (input.equals("list")) { // list user inputs thus far
             ListCommand lc = new ListCommand(tasks);
@@ -30,22 +36,27 @@ public class Parser {
         } else if (input.startsWith("unmark")) { // unmark a task
             UnmarkCommand uc = new UnmarkCommand(tasks);
             uc.check(input);
+            saveToFile();
             return uc.feedback();
         } else if (input.startsWith("todo")) { // task of type todo to be added
             ToDoCommand tc = new ToDoCommand(tasks);
             tc.check(input);
+            saveToFile();
             return tc.feedback();
         } else if (input.startsWith("deadline")) { // task of type deadline
             DeadlineCommand dc = new DeadlineCommand(tasks);
             dc.check(input);
+            saveToFile();
             return dc.feedback();
         } else if (input.startsWith("event")) {
             EventCommand ec = new EventCommand(tasks);
             ec.check(input);
+            saveToFile();
             return ec.feedback();
         } else if (input.startsWith("delete")) {
             DeleteCommand dc = new DeleteCommand(tasks);
             dc.check(input);
+            saveToFile();
             return dc.feedback();
         } else if (input.startsWith("find")) {
             FindCommand fc = new FindCommand(tasks);
@@ -53,6 +64,14 @@ public class Parser {
             return fc.feedback();
         } else { // invalid command
             throw new MichaelException(invalidCommand);
+        }
+    }
+
+    private void saveToFile() throws MichaelException {
+        try {
+            this.storage.save(tasks);
+        } catch (IOException e) {
+            throw new MichaelException("Can't save tasks!");
         }
     }
 }
