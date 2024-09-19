@@ -27,6 +27,7 @@ experience that feels natural and straightforward.
   - [Miscellaneous Commands: `nether`, `bye`](#miscellaneous-commands-nether-bye)
 - [Known Issues](#known-issues)
 - [Command Summary](#command-summary)
+- [Acknowledgements](#acknowledgements)
 
 <h1 style="color: #db9570" id="features">Features</h1>
 
@@ -123,7 +124,7 @@ Here are the tasks in your list:
 ```
 
 ## Find a Task: `find`
-Find all tasks that contain the input search keyword (not case sensitive).
+Find all tasks that contain the input search keyword (not case-sensitive).
 
 Format: `find (keyword)`
 
@@ -206,3 +207,9 @@ ___
 - Delete: `delete 3`
 - Tagging: `todo Read Book #for-fun`
 - Misc: `nether`, `bye`
+
+<h1 style="color: #db9570" id="acknowledgements">Acknowledgements</h1>
+
+1. Used ChatGPT to help generate roughly half of the JavaDoc comments.
+2. Used ChatGPT to give recommendations on how to refactor the code to be more OOP, using the existing code as a base.
+3. Followed majority of the code for GUI implementation from the JavaFX guide provided.
