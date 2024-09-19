@@ -22,7 +22,7 @@
     java -jar ollie.jar
     ```
 4. The Ollie ☺ application starts! 🎉
-<img src="/docs/images/Start.png" width="300">
+<img src="./images/Start.png" width="300">
 
 # Features
 Function | Command | Format                                                    | Example
@@ -53,7 +53,7 @@ There are 3 types of tasks that can be added to the task list:
 
 Example: `todo read book` adds a Todo task to the task list.
 
-<img src="../docs/images/Todo.png" width="300">
+<img src="./images/Todo.png" width="300">
 
 ### Add a Deadline task
 > ```
@@ -65,7 +65,7 @@ Example: `todo read book` adds a Todo task to the task list.
 
 Example: `deadline return book /by: 2021-09-17 23:59` adds a Deadline task to the task list.
 
-<img src="../docs/images/Deadline.png" width="300">
+<img src="./images/Deadline.png" width="300">
 
 ### Add an Event task
 > ```
@@ -77,7 +77,7 @@ Example: `deadline return book /by: 2021-09-17 23:59` adds a Deadline task to th
 
 Example: `event meeting /from: 2021-09-17 14:00 /to: 2021-09-17 16:00` adds an Event task to the task list.
 
-<img src="../docs/images/Event.png" width="300">
+<img src="./images/Event.png" width="300">
 
 ## List all tasks
 > ```
@@ -87,7 +87,7 @@ Example: `event meeting /from: 2021-09-17 14:00 /to: 2021-09-17 16:00` adds an E
 
 Example: `-l` lists all tasks in the task list.
 
-<img src="../docs/images/List.png" width="300">
+<img src="./images/List.png" width="300">
 
 ## Update a task
 ### Mark a task as done
@@ -98,7 +98,7 @@ Example: `-l` lists all tasks in the task list.
 
 Example: `-m 1` marks the first task in the list as done.
 
-<img src="../docs/images/Mark.png" width="300">
+<img src="./images/Mark.png" width="300">
 
 ### Mark a task as undone
 > ```
@@ -108,7 +108,7 @@ Example: `-m 1` marks the first task in the list as done.
 
 Example: `-u 1` marks the first task in the list as undone.
 
-<img src="../docs/images/Unmark.png" width="300">
+<img src="./images/Unmark.png" width="300">
 
 ### Delete a task
 > ```
@@ -118,7 +118,7 @@ Example: `-u 1` marks the first task in the list as undone.
 
 Example: `-d 3` deletes the third task in the list.
 
-<img src="../docs/images/Delete.png" width="300">
+<img src="./images/Delete.png" width="300">
 
 ## Find tasks
 > ```
