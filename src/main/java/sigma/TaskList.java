@@ -50,15 +50,13 @@ public class TaskList {
             return "No tasks saved, add one now";
         }
         int i = 1;
-        StringBuilder result = new StringBuilder(); // this is a terrible time complexity
+        StringBuilder result = new StringBuilder();
         for (Task item : items) {
             result.append("\n").append(i).append(". ").append(item);
             i++;
         }
         return result.toString();
     }
-
-
 
     /**
      * Adds the given task to the TaskList

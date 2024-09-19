@@ -5,8 +5,8 @@ import java.io.IOException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
 import java.time.format.DateTimeParseException;
+
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -69,12 +69,6 @@ public class Parser {
         }
         Task task = new ToDo(description, false);
         TaskList.addToList(task);
-//        try {
-//            writer.write(task + "\n");
-//        } catch (IOException exception) {
-//            System.err.println("an error occurred writing to file: " + exception.getMessage());
-//        }
-
         return "added todo task:\n [T][ ] " + description;
     }
 
@@ -92,11 +86,6 @@ public class Parser {
             String dateBy = convertStringToDate(by);
             Task task = new Deadline(description, false, dateBy);
             TaskList.addToList(task);
-//            try {
-//                writer.write(task + "\n");
-//            } catch (IOException exception) {
-//                System.err.println("an error occurred writing to file");
-//            }
             return "added deadline task:\n" + task;
         } else {
             return "is the deadline in the room with us? let's try again";
@@ -119,11 +108,6 @@ public class Parser {
             String toDate = convertStringToDate(to);
             Task task = new Event(description, false, fromDate, toDate);
             TaskList.addToList(task);
-//            try {
-//                writer.write(task + "\n");
-//            } catch (IOException e) {
-//                System.err.println("an error occurred writing to file: " + e.getMessage());
-//            }
             return "added event task:\n" + task;
         } else {
            return "bro really thinks bro can make an empty event and get away with it, lets try again";
@@ -211,8 +195,6 @@ public class Parser {
         if (matcher.find()) {
             String keyword = matcher.group(2).toLowerCase();
             ArrayList<Task> matchingTasks = new ArrayList<>();
-            // could possibly create a list in TaskList for this
-
             for (Task task : TaskList.getItems()) {
                 if (task.getName().toLowerCase().contains(keyword)) {
                     matchingTasks.add(task);

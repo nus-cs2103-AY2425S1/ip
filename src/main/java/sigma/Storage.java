@@ -19,72 +19,27 @@ import sigma.task.ToDo;
  */
 public class Storage {
     private static Path filePath = Path.of("C:\\Users\\limqi\\OneDrive\\Desktop\\uni\\CS2103T\\ip\\data\\sigma.txt");
+
     /**
      * Constructor for a Storage object
-     * Credit: Code adapted from @seandias on GitHub
+     * Code adapted from @seandias on GitHub from src/main/java/skd/storage/ToStore.java
+     *
      * @param filePath The path to the file that the data is stored in
      */
     public Storage(String filePath) {
-//        try {
-//            File file = new File(filePath);
-//            if (file.createNewFile()) {
-//                System.out.println("New file created: " + file.getName());
-//            }
-//        } catch (IOException e) {
-//            System.err.println("error occurred creating file or reading from file: " + e.getMessage());
-//        }
         assert filePath != null && !filePath.isEmpty() : "File path should not be null or empty";
         Storage.filePath = Paths.get(filePath);
     }
 
-//    /**
-//     * Reads the file and lists out their items
-//     *
-//     * @param path to the file to be read
-//     * @return a String representation of the item
-//     * @throws IOException if there is an error reading the file
-//     */
-//    public static String getItemsFromFile(String path) throws IOException {
-//        StringBuilder itemsFromFile = new StringBuilder();
-//        int i = 1;
-//        for (String line : Files.readAllLines(Paths.get(path))) {
-//            itemsFromFile.append(i).append(". ").append(line).append("\n");
-//            i++;
-//        }
-//        return itemsFromFile.toString();
-//    }
-
     /**
      * Reads the tasks contained in the file and adds it to the TaskList
-     *
      * Code adapted from @seandias on GitHub from src/main/java/skd/storage/ToStore.java
      */
     public void readTasksFromFile() {
-//        try {
-//            List<String> lines = Files.readAllLines(Paths.get("data/sigma.txt"));
-//            // handle empty file case
-//            if (lines.isEmpty()) {
-//                return;
-//            }
-//            for (String line : lines) {
-//                // parse each line
-//                String[] parts = line.split(" ", 2); // Split at the first space
-//                String status = parts[0];
-//                String taskName = parts[1];
-//                boolean isDone = status.equals("[X]");
-//                Task task = new Task(taskName, isDone);
-//                TaskList.addToList(task);
-//
-//            }
-//        } catch (IOException e) {
-//            System.err.println("error reading lines from file: " + e.getMessage());
-//        }
-        List<Task> tasks = new ArrayList<>();
         try {
             if (Files.notExists(filePath)) {
                 Files.createDirectories(filePath.getParent());
                 Files.createFile(filePath);
-//                return tasks;
             }
 
             List<String> lines = Files.readAllLines(filePath);
@@ -97,13 +52,12 @@ public class Storage {
         } catch (IOException e) {
             System.out.println(e.getMessage() + "Unable to load tasks from the file. Starting with an empty list.");
         }
-
-//        return tasks;
     }
 
     /**
      * Parses the task read from the file and adds it to the TaskList
      * Code adapted from @seandias on GitHub from src/main/java/skd/storage/ToStore.java
+     *
      * @param line The line read from the file
      * @return A task object created from reading the file
      */

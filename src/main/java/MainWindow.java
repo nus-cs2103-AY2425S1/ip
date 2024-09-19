@@ -30,7 +30,6 @@ public class MainWindow extends AnchorPane {
     private Sigma sigma;
     private Ui ui;
     private Storage storage;
-//    private TaskList taskList;
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
     private Image sigmaImage = new Image(this.getClass().getResourceAsStream("/images/sigma.jpg"));
 
@@ -56,14 +55,12 @@ public class MainWindow extends AnchorPane {
 
     private void displayTasksFromFile() {
         storage = new Storage("data/sigma.txt");
-//        taskList = new TaskList();
         storage.readTasksFromFile();
         String list = TaskList.toPrettyList();
         dialogContainer.getChildren().add(
                 DialogBox.getSigmaDialog(list, sigmaImage)
         );
     }
-
 
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
