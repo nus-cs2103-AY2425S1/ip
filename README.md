@@ -15,4 +15,4 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
    In the same dialog, set the **Project language level** field to the `SDK default` option.
 1. After that, locate the `src/main/java/Launcher.java` file, right-click it, and choose `Run Launcher.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see a GUI like the below:
 
-![Pixel Chatbot](https://https://github.com/AngPengXuan/ip/docs/Ui.png)
+![Pixel Chatbot](https://github.com/AngPengXuan/ip/docs/Ui.png)
