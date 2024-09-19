@@ -29,7 +29,7 @@ public class MarkCommand extends Command {
                 Task task = tasks.markTask(index);
                 res.append(ui.printWithSeparator(task.toString()));
             }
-            return res.toString() + tasks.toString();
+            return res + ui.printWithSeparator(tasks.toString());
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidCommandArgumentException("Please enter a valid task index!");
         }

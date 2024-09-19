@@ -16,6 +16,8 @@ import ratchet.Ratchet;
  * Main window of GUI for ratchet
  */
 public class MainWindow extends AnchorPane {
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
+    private final Image ratchetImage = new Image(this.getClass().getResourceAsStream("/images/Ratchet.png"));
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -24,11 +26,7 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-
     private Ratchet ratchet;
-
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
-    private Image ratchetImage = new Image(this.getClass().getResourceAsStream("/images/Ratchet.png"));
 
     @FXML
     public void initialize() {
@@ -37,8 +35,8 @@ public class MainWindow extends AnchorPane {
 
     public void setRatchet(Ratchet ratchet) {
         this.ratchet = ratchet;
-        dialogContainer.getChildren()
-                .add(DialogBox.getRatchetDialog(ratchet.getUi().greet(), ratchetImage, false));
+        dialogContainer.getChildren().add(DialogBox.getRatchetDialog(ratchet.getUi().greet(), ratchetImage,
+                false));
     }
 
     @FXML
