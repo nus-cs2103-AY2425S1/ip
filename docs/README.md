@@ -156,4 +156,15 @@ Ok, I've deleted this task:
 The section that creates the GUI, such as `DialogBox.java`, `Launcher.java`, `Main.java`, `MainWindow.java`, 
 as well as the relevant css and fxml files are modified from:
 
-https://se-education.org/guides/tutorials/javaFx.html.
+<a href="https://se-education.org/guides/tutorials/javaFx.html"> SE education </a>
+
+
+Image of Bot taken here:
+
+<a href="https://www.freepik.com/free-vector/human-nervous-system_4239573.htm#query=ai%20brain&position=10&from_view=keyword&track=ais_hybrid&uuid=aef596a8-070f-4957-b345-c6dbe7477e65">
+Image by rawpixel.com</a> on Freepik
+
+Image of user taken here:
+
+Image by <a href="https://www.freepik.com/free-psd/3d-illustration-person-with-sunglasses_27470334.htm#query=avatar&position=0&from_view=keyword&track=ais_hybrid&uuid=6403da64-cf6a-4b9a-ac90-de5901d2d9e8">
+Freepik</a>
