@@ -371,12 +371,16 @@ public class Storage {
      * @param taskList The TaskList instance containing the updated list of tasks.
      * @throws IOException If there is an error during rewriting the file.
      */
-    public void rewriteFile(TaskList taskList) throws IOException {
+    public void rewriteFile(TaskList taskList) throws DuduException {
         ArrayList<Task> tasks = taskList.getTasks();
-        FileWriter fw = new FileWriter(this.filePath);
-        for (Task task : tasks) {
-            fw.write(String.format("%s\n", task.toStorageString()));
+        try {
+            FileWriter fw = new FileWriter(this.filePath);
+            for (Task task : tasks) {
+                fw.write(String.format("%s\n", task.toStorageString()));
+            }
+            fw.close();
+        } catch (IOException exception) {
+            throw new DuduException("Error writing into file");
         }
-        fw.close();
     }
 }

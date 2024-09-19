@@ -1,7 +1,6 @@
 package dudu.command;
 
-import java.io.IOException;
-
+import dudu.exception.DuduException;
 import dudu.utils.Storage;
 import dudu.utils.TaskList;
 import dudu.utils.UI;
@@ -35,10 +34,10 @@ public class UndoCommand extends Command {
      * @param ui User interface to interact with the user.
      * @param storage Storage to save tasks.
      * @return Message notifying user of stored command execution.
-     * @throws IOException If there is an error during rewriting the local file in storage.
+     * @throws DuduException If there is an error during rewriting the local file in storage.
      */
     @Override
-    public String execute(TaskList taskList, UI ui, Storage storage) throws IOException {
+    public String execute(TaskList taskList, UI ui, Storage storage) throws DuduException {
         if (command == null) {
             return "There are no previous commands to undo";
         } else {

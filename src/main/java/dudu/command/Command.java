@@ -1,7 +1,6 @@
 package dudu.command;
 
-import java.io.IOException;
-
+import dudu.exception.DuduException;
 import dudu.utils.Storage;
 import dudu.utils.TaskList;
 import dudu.utils.UI;
@@ -16,7 +15,7 @@ public abstract class Command {
      * @param taskList Task list containing the tasks.
      * @param ui User interface to interact with the user.
      * @param storage Storage to save tasks.
-     * @throws IOException If there is an error during rewriting the local file in storage.
+     * @throws DuduException If there is an error during rewriting the local file in storage.
      */
-    public abstract String execute(TaskList taskList, UI ui, Storage storage) throws IOException;
+    public abstract String execute(TaskList taskList, UI ui, Storage storage) throws DuduException;
 }

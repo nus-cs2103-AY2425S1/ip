@@ -60,8 +60,6 @@ public class Dudu {
         try {
             Command c = Parser.parse(input);
             return c.execute(tasks, ui, storage);
-        } catch (IOException e) {
-            return ui.getErrorMessage(e);
         } catch (MissingDescriptionException e) {
             return ui.getErrorMessage(e);
         } catch (InvalidFormatException e) {

@@ -1,7 +1,6 @@
 package dudu.command;
 
-import java.io.IOException;
-
+import dudu.exception.DuduException;
 import dudu.task.Task;
 import dudu.utils.Parser;
 import dudu.utils.Storage;
@@ -36,10 +35,10 @@ public class MarkCommand extends Command {
      * @param ui User interface to interact with the user.
      * @param storage Storage to save tasks.
      * @return Message notifying user of marking the task.
-     * @throws IOException If there is an error during rewriting the local file in storage.
+     * @throws DuduException If there is an error during rewriting the local file in storage.
      */
     @Override
-    public String execute(TaskList taskList, UI ui, Storage storage) throws IOException {
+    public String execute(TaskList taskList, UI ui, Storage storage) throws DuduException {
         if (!taskList.checkIndexIsValid(index)) {
             return taskList.getInvalidIndexMessage();
         }
