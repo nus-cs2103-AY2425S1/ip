@@ -2,7 +2,7 @@ package elon.task;
 
 import elon.task.Task;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
     protected boolean isDone;
-    protected LocalDate by;
+    protected LocalDateTime by;
 
     /**
      * Constructs a Deadline task with the given description, status, and deadline date.
@@ -19,7 +19,7 @@ public class Deadline extends Task {
      * @param isDone whether the task is completed or not
      * @param by the deadline date of the task
      */
-    public Deadline(String description, boolean isDone, LocalDate by) {
+    public Deadline(String description, boolean isDone, LocalDateTime by) {
         super(description, isDone);
         this.by = by;
     }
@@ -35,7 +35,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: "
-                + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+                + by.format(DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm")) + ")";
     }
 
     /**
@@ -51,5 +51,9 @@ public class Deadline extends Task {
         return "D | " + (this.getIsDone()? "1" : "0")
                 + " | " + super.toFileString() + " | "
                 + this.by;
+    }
+
+    public void snooze(LocalDateTime newDate) {
+        this.by = newDate;
     }
 }

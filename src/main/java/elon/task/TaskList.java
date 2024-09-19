@@ -1,5 +1,8 @@
 package elon.task;
 
+import elon.ElonException;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -108,5 +111,14 @@ public class TaskList {
         return this.list.stream()
                 .filter(task -> task.description.toLowerCase().contains(keyword.toLowerCase()))
                 .collect(Collectors.toCollection(ArrayList<Task>::new));
+    }
+
+    public void snooze(int index, LocalDateTime newDate) throws ElonException{
+        Task taskToSnooze = this.list.get(index);
+        if (taskToSnooze instanceof Deadline || taskToSnooze instanceof Event) {
+            taskToSnooze.snooze(newDate);
+        } else {
+            throw new ElonException("A ToDo task cannot be postponed.");
+        }
     }
 }
