@@ -16,8 +16,8 @@ public class ViewCommand implements Command {
 
     @Override
     public String execute(TaskList list, Ui ui, Storage storage, String rest) throws XBotException {
-        if (rest.isEmpty()) {
-            throw new XBotException("There is no date to view!");
+        if (rest.trim().isEmpty()) {
+            throw new XBotException("Mmm... please enter a date you want to view! >.<");
         }
         this.totalList = list;
         this.ui = ui;
@@ -27,10 +27,12 @@ public class ViewCommand implements Command {
     public String listTaskForDate(String rest) throws XBotException {
         //Check if rest is a valid date
         if (!Parser.isValidDateFormat(rest)) {
-            throw new XBotException("The date to view is in invalid format!");
+            throw new XBotException("Sorry...I cannot read this date input >_< \n" +
+                    "you might want to try these date format instead :0\n" +
+                    "D/M/YYYY (e.g. 9/4/2024) or D/M/YYYY HHMM (e.g. 9/4/2024 2359)");
         }
 
-        String output = "Here are the tasks for " + Parser.changeDateFormat(rest) + " !!\n\n";
+        String output = "These are the tasks you have on " + Parser.changeDateFormat(rest) + " !! :)\n\n";
         boolean noTodo = listTodoForDate(rest) == ui.showNoTask();
         boolean noDeadline = listDeadlineForDate(rest) == ui.showNoTask();
         boolean noEvent = listEventForDate(rest) == ui.showNoTask();

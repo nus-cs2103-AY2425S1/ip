@@ -13,7 +13,7 @@ public class FindCommand implements Command {
     @Override
     public String execute(TaskList list, Ui ui, Storage storage, String rest) throws XBotException {
         if (rest.isEmpty()) {
-            throw new XBotException("There is nothing to find!");
+            throw new XBotException("Mmmm...please enter something for me to find! >.<");
         }
         return list.findTask(rest);
     }

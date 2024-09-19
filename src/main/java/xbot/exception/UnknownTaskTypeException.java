@@ -22,21 +22,12 @@ package xbot.exception;
     }
 
     /**
-     * Returns the task type that caused the exception.
-     *
-     * @return The task type.
-     */
-    public String getTaskType() {
-        return taskType;
-    }
-
-    /**
      * Returns a detailed message about the exception.
      *
      * @return A detailed message about the exception.
      */
     @Override
     public String getMessage() {
-        return "Unknown task type: " + taskType;
+        return "I do not know this taskType...: " + taskType;
     }
 }

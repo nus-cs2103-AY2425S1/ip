@@ -10,7 +10,7 @@ import xbot.ui.Ui;
 public class ListCommand implements Command {
     @Override
     public String execute(TaskList list, Ui ui, Storage storage, String rest) {
-        String output = ("Here are the tasks in your list:\n");
+        String output = ("These are the tasks you have! :) :\n");
         output = output + ui.showTaskList(list);
         return output;
     }

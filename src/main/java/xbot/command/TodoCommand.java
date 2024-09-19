@@ -14,7 +14,7 @@ public class TodoCommand extends AddCommand {
     @Override
     public String execute(TaskList list, Ui ui, Storage storage, String rest) throws XBotException {
         if (rest.trim().isEmpty()) {
-            throw new XBotException("The description of the todo cannot be empty!");
+            throw new XBotException("I cannot add a todo with empty description >.<");
         }
         String output = addTodo(list, rest);
         storage.saveTask(list);
@@ -27,12 +27,12 @@ public class TodoCommand extends AddCommand {
      * @param rest The description of the ToDo task.
      */
     public String addTodo(TaskList list, String rest) {
-        System.out.println("Got it. I've added this task:");
         Task newTask = new ToDo(rest);
-        String output;
         list.add(newTask);
-        output = (newTask.toString() + "\n");
-        output = output + ("Now you have " + list.size() + " tasks in the list.");
+        String output = "Here comes another todo! \n" +
+                "I've added this task:\n";
+        output = output + (newTask.toString() + "\n");
+        output = output + ("And now you have " + list.size() + " tasks in the list!! Jiayouu :D");
         return output;
     }
 }

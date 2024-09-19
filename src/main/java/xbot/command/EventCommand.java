@@ -15,7 +15,7 @@ public class EventCommand extends AddCommand {
     @Override
     public String execute(TaskList list, Ui ui, Storage storage, String rest) throws XBotException {
         if (rest.trim().isEmpty()) {
-            throw new XBotException("The description of the event cannot be empty!");
+            throw new XBotException("I cannot add an event with empty description >.<");
         }
         String output = addEvent(list, rest);
         storage.saveTask(list);
@@ -34,7 +34,9 @@ public class EventCommand extends AddCommand {
 
         if (parts.length != 2) {
             throw new XBotException(
-                    "Invalid input format. Please use the format: 'event <task> /from <start time> /to <end time>'");
+                    "Sorry... I do not understand your input... >_< \n" +
+                            "could you use this format instead? \n" +
+                            "event <task> /from <start time> /to <end time> (e.g. deadline Assignment 1 /by 9/4/2024 2359)");
         }
 
         String taskDescription = parts[0].trim();
@@ -43,14 +45,18 @@ public class EventCommand extends AddCommand {
 
         if (timeParts.length != 2) {
             throw new XBotException(
-                    "Invalid input format. Please use the format: 'event <task> /from <start time> /to <end time>'");
+                    "Sorry... I do not understand your input... >_< \n" +
+                            "could you use this format instead? \n" +
+                            "event <task> /from <start time> /to <end time> (e.g. deadline Assignment 1 /by 9/4/2024 2359)");
         }
 
         String from = timeParts[0].trim();
         String to = timeParts[1].trim();
 
         if (!Parser.isValidDateFormat(from) || !Parser.isValidDateFormat(to)) {
-            throw new XBotException("Invalid date input format. Please use the format: D/M/YYYY or D/M/YYYY HHMM");
+            throw new XBotException("Sorry...I cannot read this date input >_< \n" +
+                    "you might want to try these date format instead :0\n" +
+                    "D/M/YYYY (e.g. 9/4/2024) or D/M/YYYY HHMM (e.g. 9/4/2024 2359)");
         }
 
         Task newTask = new Event(taskDescription, from, to);
@@ -58,21 +64,12 @@ public class EventCommand extends AddCommand {
         return showEventAdded(newTask.toString(), list.size());
     }
 
-    public String getTaskDescription(String rest) throws XBotException {
-        String[] parts = rest.split("/from", 2);
-
-        if (parts.length != 2) {
-            throw new XBotException(
-                    "Invalid input format. Please use the format: 'event <task> /from <start time> /to <end time>'");
-        }
-        return parts[0].trim();
-    }
-
     public String showEventAdded(String newTaskString, int listSize) {
         String output;
-        output = ("Got it. I've added this task:\n");
+        output = ("Here comes another event! \n" +
+                "I've added this task:\n");
         output = output + (newTaskString + "\n");
-        output = output + ("Now you have " + listSize + " tasks in the list.");
+        output = output + ("And now you have " + listSize + " tasks in the list!! Jiayouu :D");
         return output;
     }
 }

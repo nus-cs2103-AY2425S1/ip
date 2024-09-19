@@ -27,11 +27,13 @@ public class UnmarkCommand implements Command {
         try {
             int taskNumber = Integer.parseInt(rest.trim());
             if (taskNumber <= 0 || taskNumber > list.size()) {
-                throw new XBotException("This task number do not exist.");
+                throw new XBotException("Ah mm... Im sorry but I dont think this task number exist :0");
             }
             return list.get(taskNumber - 1).markAsUndone();
         } catch (NumberFormatException e) {
-            throw new XBotException("Invalid task number!");
+            throw new XBotException("Mmm... I only understand numbers... >_< \n" +
+                    "please check the task number you inputted is a number! " +
+                    "(e.g. unmark 1)");
         }
     }
 }
