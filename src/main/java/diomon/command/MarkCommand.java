@@ -10,6 +10,7 @@ public class MarkCommand extends Command{
     }
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        assert input != null;
         try {
             int i = Integer.parseInt(input);
             tasks.mark( i- 1);
