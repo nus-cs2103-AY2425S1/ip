@@ -29,7 +29,7 @@ public class ToDoTask extends Task {
     @Override
     public String toString() {
         StringBuilder resultStr = new StringBuilder();
-        if (this.status) {
+        if (this.isDone) {
             resultStr.append("[T][X] ").append(this.description);
         } else {
             resultStr.append("[T][ ] ").append(this.description);
@@ -47,7 +47,7 @@ public class ToDoTask extends Task {
      */
     @Override
     public String toFileString() {
-        if (this.status) {
+        if (this.isDone) {
             return "T | 1 | " + this.description + " | " + this.tags;
         } else {
             return "T | 0 | " + this.description + " | " + this.tags;

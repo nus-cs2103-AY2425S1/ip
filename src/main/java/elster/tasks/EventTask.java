@@ -75,7 +75,7 @@ public class EventTask extends Task {
     @Override
     public String toString() {
         StringBuilder resultStr = new StringBuilder();
-        if (this.status) {
+        if (this.isDone) {
             resultStr
                     .append("[E][X] ")
                     .append(this.description)
@@ -108,7 +108,7 @@ public class EventTask extends Task {
     @Override
     public String toFileString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        if (this.status) {
+        if (this.isDone) {
             return "E | 1 | " + this.description + " | " + this.start.format(formatter)
                     + " | " + this.end.format(formatter) + " | " + this.tags;
         } else {

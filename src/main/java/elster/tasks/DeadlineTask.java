@@ -60,7 +60,7 @@ public class DeadlineTask extends Task {
     @Override
     public String toString() {
         StringBuilder resultStr = new StringBuilder();
-        if (this.status) {
+        if (this.isDone) {
             resultStr
                     .append("[D][X] ")
                     .append(this.description)
@@ -89,7 +89,7 @@ public class DeadlineTask extends Task {
     @Override
     public String toFileString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        if (this.status) {
+        if (this.isDone) {
             return "D | 1 | " + this.description + " | " + this.deadline.format(formatter)
                     + " | " + this.tags;
         } else {

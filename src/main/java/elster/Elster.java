@@ -2,7 +2,18 @@ package elster;
 
 import java.nio.file.Path;
 
-import elster.commands.*;
+import elster.commands.ByeCommand;
+import elster.commands.Command;
+import elster.commands.DeadlineCommand;
+import elster.commands.DeleteCommand;
+import elster.commands.EventCommand;
+import elster.commands.FindCommand;
+import elster.commands.ListCommand;
+import elster.commands.MarkCommand;
+import elster.commands.TagCommand;
+import elster.commands.TodoCommand;
+import elster.commands.UnmarkCommand;
+import elster.commands.UntagCommand;
 
 /**
  * Elster class that handles the logic for processing user inputs.
