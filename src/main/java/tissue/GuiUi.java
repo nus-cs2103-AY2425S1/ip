@@ -38,7 +38,7 @@ public class GuiUi {
     }
 
     private String listResponse() {
-        return INDENT + "Here are the tasks in your list:\n" + taskList.toString();
+        return INDENT + "Here are the tasks in your list:\n" + taskList;
     }
 
     private String markResponse() {
@@ -99,6 +99,9 @@ public class GuiUi {
         case "find" -> {
             return findResponse();
         }
+        case "help" -> {
+            return help();
+        }
         default -> {
             return storeTask(input);
         }
@@ -127,9 +130,6 @@ public class GuiUi {
         }
         case "event" -> {
             return storeEvent(messageTemplate);
-        }
-        case "help" -> {
-            return help();
         }
         default -> {
             return "Invalid input. Type 'help' to show the list of commands.";

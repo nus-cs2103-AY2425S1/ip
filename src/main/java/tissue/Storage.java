@@ -25,6 +25,8 @@ public class Storage {
 
     /**
      * Constructor to determine the name and file path to store and read from.
+     * @param path The path to store the file.
+     * @param fileName THe name to save the file as.
      */
     public Storage(String path, String fileName) {
         assert path != null : "Path cannot be null";
