@@ -187,3 +187,15 @@ Fishman automatically saves your tasks, so there is no need to worry about losin
 The next time you launch the application, all previously added tasks will be restored and ready for use!
 
 ---
+
+## Credit
+
+Images used in this application can be found here:
+
+Fishman image: https://www.ars.usda.gov/oc/images/photos/jun04/k11252-1/
+<br>
+User image: https://www.oldbookart.com/?type_0=gallery&album_gallery_id_0=1
+
+
+
+---
