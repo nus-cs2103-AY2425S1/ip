@@ -52,7 +52,6 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "luke"
     archiveVersion = "v0.2"
     archiveClassifier = null
 }
