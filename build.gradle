@@ -43,11 +43,11 @@ test {
 }
 
 application {
-    mainClass.set("Launcher")
+    mainClass.set("base.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "Will"
     archiveClassifier = null
 }
 

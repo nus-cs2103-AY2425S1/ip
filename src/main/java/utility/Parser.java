@@ -59,7 +59,7 @@ public class Parser {
             try {
                 int taskNumber = Integer.parseInt(trimCommand(userInput, 5));
                 if (!tasks.markTask(taskNumber)) {
-                    return message.printNoTask();
+                    return message.printTaskNotExists();
                 } else {
                     storage.save(tasks);
                     return message.printHeader("mark") + tasks.getTaskByID(taskNumber);
@@ -74,7 +74,7 @@ public class Parser {
             try {
                 int taskNumber = Integer.parseInt(trimCommand(userInput, 7));
                 if (!tasks.unmarkTask(taskNumber)) {
-                    return message.printNoTask();
+                    return message.printTaskNotExists();
                 } else {
                     storage.save(tasks);
                     return message.printHeader("unmark") + tasks.getTaskByID(taskNumber);
@@ -90,7 +90,7 @@ public class Parser {
                 int taskNumber = Integer.parseInt(trimCommand(userInput, 7));
                 Task toBeRemoved = tasks.getTaskByID(taskNumber);
                 if (!tasks.deleteTask(taskNumber) || toBeRemoved == null) {
-                    return message.printNoTask();
+                    return message.printTaskNotExists();
                 } else {
                     storage.save(tasks);
                     return message.printHeader("delete") + toBeRemoved + message.printTaskCount(tasks.getTaskCount());

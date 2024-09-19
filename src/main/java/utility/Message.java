@@ -15,7 +15,16 @@ public class Message {
      * @return A string message stating that no task was found.
      */
     public String printNoTask() {
-        return "No Task Found.";
+        return "No Tasks Found.";
+    }
+
+    /**
+     * Returns a message indicating that no task was not found.
+     *
+     * @return A string message stating that task was not found.
+     */
+    public String printTaskNotExists() {
+        return "TaskID does not Exists.";
     }
 
     /**
