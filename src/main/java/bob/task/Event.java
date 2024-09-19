@@ -35,6 +35,18 @@ public class Event extends Task {
         this.endTime = endTime;
     }
 
+    /**
+     * Constructor to initialise a task previously recorded.
+     *
+     * @param description Input based on user.
+     */
+    public Event(String description, String startDay, String startTime, String endTime, boolean isDone, String tag) {
+        super(description, isDone, tag);
+        this.startDay = startDay;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
     // Returns the letter representing event.
     @Override
     public String getTaskLetter() {
@@ -46,8 +58,12 @@ public class Event extends Task {
      */
     @Override
     public String getFileFormat() {
-        String part1 = super.getFileFormat();
-        return part1 + " | " + startDay + " | " + startTime + " | " + endTime;
+        String eventFileFormat = super.getFileFormat();
+        eventFileFormat += " | " + startDay + " | " + startTime + " | " + endTime;
+        if (!getTag().equals("")) {
+            eventFileFormat += " | " + getTag();
+        }
+        return eventFileFormat;
     }
 
     /**
@@ -56,5 +72,15 @@ public class Event extends Task {
     @Override
     public String getTaskListItem() {
         return super.getTaskListItem() + " (from: " + startDay + " " + startTime + " to: " + endTime + ")";
+    }
+
+    /**
+     * Tags the task.
+     *
+     * @param tag Tag.
+     */
+    @Override
+    public void tagTask(String tag) {
+        this.setTag(tag);
     }
 }

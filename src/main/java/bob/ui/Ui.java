@@ -95,6 +95,13 @@ public class Ui {
     }
 
     /**
+     * Prints the Task with updated Tag String.
+     */
+    public static void showTaggedTask(String taggedTaskString) {
+        Ui.printLines(taggedTaskString);
+    }
+
+    /**
      * Prints confirmation after user adds a task.
      *
      * @param taskList

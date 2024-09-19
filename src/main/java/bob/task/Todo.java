@@ -23,6 +23,15 @@ public class Todo extends Task {
         super(description, isDone);
     }
 
+    /**
+     * Constructor to initialise a task that has been recorded before.
+     *
+     * @param description Input based on user.
+     */
+    public Todo(String description, boolean isDone, String tag) {
+        super(description, isDone, tag);
+    }
+
 
     // Returns the letter representing todo.
     @Override
@@ -35,7 +44,11 @@ public class Todo extends Task {
      */
     @Override
     public String getFileFormat() {
-        return super.getFileFormat();
+        String todoFileFormat = super.getFileFormat();
+        if (!getTag().equals("")) {
+            todoFileFormat += " | " + getTag();
+        }
+        return todoFileFormat;
     }
 
     /**
@@ -44,5 +57,15 @@ public class Todo extends Task {
     @Override
     public String getTaskListItem() {
         return super.getTaskListItem();
+    }
+
+    /**
+     * Tags the task.
+     *
+     * @param tag Tag.
+     */
+    @Override
+    public void tagTask(String tag) {
+        this.setTag(tag);
     }
 }

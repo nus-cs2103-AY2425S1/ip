@@ -1,6 +1,7 @@
-T | 0 | help session
-T | 1 | jump
-E | 0 | bake cheese cake | Mon | 2pm | 5pm
+T | 0 | help session | 1
+T | 1 | jump | 2
 T | 0 | jumping jacks
 D | 0 | test5 | 20 Sep 2024
 D | 0 | test6 | 12 Dec 2024
+E | 0 | birthday celebration | Mon | 7pm | 10pm
+E | 0 | run around | Tue | 6pm | 7pm | impt

@@ -6,30 +6,29 @@ import bob.task.TaskList;
 import bob.ui.Ui;
 
 /**
- * ListCommand class executes list command.
+ * Tags a task.
  */
-public class MarkCommand extends Command {
-    private boolean isCompleted;
+public class TagCommand extends Command {
 
     /**
-     * Constructor to initialise MarkCommand
+     * Constructor to initialise TagCommand
      *
      * @param input
      */
-    public MarkCommand(String input, boolean isCompleted) {
+    public TagCommand(String input) {
         super(input);
-        this.isCompleted = isCompleted;
     }
+
 
     @Override
     public String execute(TaskList taskList, Storage storage, Ui ui) {
         String input = getInput();
         try {
-            taskList.markTaskInTaskList(input, isCompleted);
+            taskList.tagTaskInTaskList(input);
             storage.saveTaskListToStorage(taskList);
-            String markTaskConfirmationMessage = taskList.getMarkedTaskStringFromTaskList(input, isCompleted);
-            Ui.showMarkedTask(markTaskConfirmationMessage);
-            return markTaskConfirmationMessage;
+            String tagTaskConfirmationMessage = taskList.getTaggedTaskString(input);
+            Ui.showTaggedTask(tagTaskConfirmationMessage);
+            return tagTaskConfirmationMessage;
         } catch (InvalidTaskException e) {
             System.err.println((e.getMessage()));
             return e.getMessage();
