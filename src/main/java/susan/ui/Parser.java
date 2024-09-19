@@ -4,6 +4,9 @@ import susan.command.*;
 
 /**
  * Parses user input into commands.
+ *
+ * @param userInput full input command from user.
+ * @throws SusanException if command is invalid.
  */
 public class Parser {
 

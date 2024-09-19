@@ -18,6 +18,8 @@ public class Susan {
 
     /**
      * Generates a response for the user's chat message.
+     *
+     * @param userInput input message from user.
      */
     public String getResponse(String input) {
         try {

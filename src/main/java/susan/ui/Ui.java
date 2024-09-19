@@ -36,6 +36,7 @@ public class Ui {
 
     /**
      * Displays the current task list to the user.
+     *
      * @param tasks updated TaskList.
      */
     public String showTaskList(TaskList tasks) {
@@ -46,6 +47,12 @@ public class Ui {
         return "There are no tasks in your list...";
     }
 
+    /**
+     * Informs the user that the task has been added.
+     *
+     * @param task Task that user wants to add.
+     * @param size size of current TaskList.
+     */
     public String showAddTask(Task task, int size) {
         return " Got it. I've added this task:\n"
             + "   " + task + "\n"
@@ -54,6 +61,7 @@ public class Ui {
 
     /**
      * Informs the user that the task has been deleted.
+     *
      * @param task Task that user wants to delete.
      * @param size size of current TaskList.
      */
@@ -65,6 +73,7 @@ public class Ui {
 
     /**
      * Informs the user that the task has been marked as done or undone.
+     *
      * @param task Task that user wants to mark/unmark.
      * @param size size of current TaskList.
      */
@@ -74,6 +83,11 @@ public class Ui {
             + " You have " + size + " task(s) in the list.";
     }
 
+    /**
+     * Displays the list containing tasks matching given keyword to the user.
+     *
+     * @param tasks TaskList containing matching tasks.
+     */
     public String showMatchingTasks(TaskList tasks) {
         if (tasks.size() == 0) {
             return "Sorry! No tasks found matching your keyword.";
@@ -83,6 +97,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays tasks due within 3 days to the user.
+     *
+     * @param tasks TaskList containing urgent tasks.
+     */
     public String showReminders(TaskList tasks) {
         if (tasks.size() == 0) {
             return "Woohoo! No work for the next 3 days!";

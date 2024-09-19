@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.FileWriter;
 
 /**
- * Handles saving tasks to file
+ * Handles saving tasks to file.
  */
 public class Storage {
     final String FILE_PATH = "./src/data/SusanToDoList.txt";
@@ -14,8 +14,11 @@ public class Storage {
     public Storage() {}
 
     /**
-     * Creates data directory if it does not exist
-     * Writes updated TaskList into file
+     * Creates data directory if it does not exist.
+     * Writes updated TaskList into file.
+     *
+     * @param tasks updated TaskList.
+     * @throws SusanException if saving to file fails.
      */
     public void load(TaskList tasks) throws SusanException {
         // Create data file

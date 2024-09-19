@@ -16,8 +16,8 @@ public class Event extends Task {
      * Constructs an Event object with the specified description, start time, and end time.
      *
      * @param description The description of the event.
-     * @param start The start time of the event.
-     * @param end The end time of the event.
+     * @param start The start time of the event in yyyy-MM-dd HHmm.
+     * @param end The end time of the event in yyyy-MM-dd HHmm.
      */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
@@ -27,9 +27,9 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: "
+        return "[E]" + super.toString() + " (from "
             + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mm a"))
-            + " to: "
+            + " to "
             + to.format(DateTimeFormatter.ofPattern("h:mm a"))
             + ")";
     }
