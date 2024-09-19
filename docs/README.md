@@ -6,7 +6,7 @@ Dudu is a cat-themed Command Line Interface (CLI) task manager that also support
 
 ## Adding tasks `todo` `deadline` `event`
 
-### Todo task
+### Todo task `todo`
 Task without a deadline.
 
 Format: `todo [description]`
@@ -20,7 +20,7 @@ Got it. I've added this task:
 Now you have 1 tasks in the list.
 ```
 
-### Deadline task
+### Deadline task `deadline`
 Task with an end date.
 
 Format: `deadline [description] /by [YYYY-MM-DD]`
@@ -34,7 +34,7 @@ Got it. I've added this task:
 Now you have 2 tasks in the list.
 ```
 
-### Event task
+### Event task `event`
 Task with start and end dates.
 
 Format: `event [description] /from [YYYY-MM-DD] /to [YYYY-MM-DD]`
@@ -48,7 +48,7 @@ Got it. I've added this task:
 Now you have 3 tasks in the list.
 ```
 
-## Listing tasks
+## Listing tasks `list`
 View current tasks.
 
 Format: `list`
@@ -61,7 +61,7 @@ Here are the tasks in your list:
 3. [E] [ ] Wash dishes (from: Sept 19 2024 to: Sept 19 2024)
 ```
 
-## Marking task
+## Marking task `mark`
 Marks a task as completed.
 
 Format: `mark [index]`
@@ -74,7 +74,7 @@ Nice! I've marked this task as done:
     [D] [X] Eat dinner (by: Sept 19 2024)
 ```
 
-## Unmarking task
+## Unmarking task `unmark`
 Marks a task as uncompleted.
 
 Format: `unmark [index]`
@@ -87,7 +87,7 @@ Ok, I've marked this task as not done yet:
     [D] [ ] Eat dinner (by: Sept 19 2024)
 ```
 
-## Deleting task
+## Deleting task `delete`
 Deletes a task.
 
 Format: `delete [index]`
@@ -100,7 +100,7 @@ Noted. I've removed this task:
     [D] [ ] Eat dinner (by: Sept 19 2024)
 ```
 
-## Finding tasks
+## Finding tasks `find`
 Finds tasks with descriptions matching the query.
 
 Format: `find [query1] [query2] ...`
@@ -113,7 +113,7 @@ Here are the matching tasks in your list:
 1. [T] [ ] Prepare dinner
 ```
 
-## Undo
+## Undo `undo`
 Undoes the previous command.
 
 Format: `undo`
@@ -126,7 +126,7 @@ Got it. I've added this task:
 Now you have 3 tasks in your list.
 ```
 
-## Quitting
+## Quitting `bye`
 Exits the application.
 
 Format: `bye`
