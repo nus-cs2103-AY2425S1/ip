@@ -1,7 +1,6 @@
 package command;
 
 import exceptions.DelphiException;
-import exceptions.InvalidListItemException;
 import parser.Parser;
 import storage.Storage;
 import tasklist.TaskList;

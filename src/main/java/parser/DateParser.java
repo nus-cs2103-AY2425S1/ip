@@ -28,7 +28,8 @@ public class DateParser {
     };
 
     /**
-     * Parses a date and time string or a date-only string and converts it to a formatted string using default output format.
+     * Parses a date and time string or a date-only string and converts it to
+     *     a formatted string using default output format.
      *
      * @param dateTimeString The date and time or date-only string to parse.
      * @return A formatted date and time string, or null if parsing fails.
@@ -38,7 +39,8 @@ public class DateParser {
     }
 
     /**
-     * Parses a date and time string or a date-only string and converts it to a formatted string using the specified output format.
+     * Parses a date and time string or a date-only string and converts it to a
+     *     formatted string using the specified output format.
      *
      * @param dateTimeString The date and time or date-only string to parse.
      * @param outputPattern  The output format pattern.
@@ -55,11 +57,13 @@ public class DateParser {
         }
 
         try {
-            LocalDate dateOnly = LocalDate.parse(dateTimeString, DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH));
+            LocalDate dateOnly = LocalDate.parse(dateTimeString,
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH));
             return formatDateOnly(dateOnly, outputPattern);
         } catch (DateTimeParseException e) {
             try {
-                LocalDate dateOnly = LocalDate.parse(dateTimeString, DateTimeFormatter.ofPattern("d/M/yyyy", Locale.ENGLISH));
+                LocalDate dateOnly = LocalDate.parse(dateTimeString,
+                        DateTimeFormatter.ofPattern("d/M/yyyy", Locale.ENGLISH));
                 return formatDateOnly(dateOnly, outputPattern);
             } catch (DateTimeParseException ex) {
                 // Return original string if parsing fails

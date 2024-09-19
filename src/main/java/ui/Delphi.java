@@ -30,10 +30,10 @@ public class Delphi {
     }
 
     /**
-     *returns the Delphi bot welcome message upon startup
+     * returns the Delphi bot welcome message upon startup
      */
     public String welcomeMessage() {
-        return  ui.welcomeMessage();
+        return ui.welcomeMessage();
     }
 
     /**

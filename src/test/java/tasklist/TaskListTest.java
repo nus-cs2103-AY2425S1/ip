@@ -21,16 +21,18 @@ public class TaskListTest {
         public StorageStub() {
             super("blank");
         }
+
         @Override
-         public List<String> readFromHardDisk() throws HardDriveNotFoundException {
-             List<String> res = new ArrayList<>();
-             res.add("[D][ ] do hw (by: 30th august 2024, 4:00pm)");
-             res.add("[T][ ] get food");
-             res.add("[T][X] go for run");
-             return res;
+        public List<String> readFromHardDisk() {
+            List<String> res = new ArrayList<>();
+            res.add("[D][ ] do hw (by: 30th august 2024, 4:00pm)");
+            res.add("[T][ ] get food");
+            res.add("[T][X] go for run");
+            return res;
         }
     }
-     private final TaskList testTaskList = new TaskList();
+
+    private final TaskList testTaskList = new TaskList();
     @Test
     public void loadStorageToTasks_exceptionThrown() {
         try {

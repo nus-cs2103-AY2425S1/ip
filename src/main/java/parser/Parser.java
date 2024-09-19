@@ -210,7 +210,7 @@ public class Parser {
         Matcher matcher = pattern.matcher(input);
 
         if (matcher.find()) {
-            return matcher.group();  // Return the string representation of the integer
+            return matcher.group(); // Return the string representation of the integer
         } else {
             return "-1"; // Return -1 if no integer found
         }
