@@ -207,7 +207,7 @@ public class Parser {
      * @param sbr the string builder to append the string
      * @param index the index of the task
      */
-    public static void printTasksIfDateCorresponds(List<Task> tasks, LocalDate date, StringBuilder sbr, int index) {
+    public static int printTasksIfDateCorresponds(List<Task> tasks, LocalDate date, StringBuilder sbr, int index) {
         for (Task task : tasks) {
             if (task instanceof Deadline) {
                 Parser.printDeadlineIfDateCorresponds(task, date, sbr, index);
@@ -222,5 +222,6 @@ public class Parser {
                 }
             }
         }
+        return index;
     }
 }

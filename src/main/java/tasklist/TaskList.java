@@ -177,10 +177,15 @@ public class TaskList {
         System.out.println("____________________________________________________________");
         System.out.println("Here are the tasks that occur at this date: " + date.toString());
         if (date.toString().isEmpty()) {
-            return "You need to specify a date!";
+            return ErrorMessages.INCORRECT_FORMAT_FOR_ON_COMMAND;
         }
         StringBuilder sbr = new StringBuilder("Here are the tasks that occur at this date: " + date + "\n");
-        Parser.printTasksIfDateCorresponds(tasks, date, sbr, 1);
+        int startingTaskIndex = 1;
+        int totalNumberOfTasksRelatedToDate = Parser.printTasksIfDateCorresponds(tasks, date, sbr, startingTaskIndex);
+        if (totalNumberOfTasksRelatedToDate == startingTaskIndex) {
+            System.out.println(ErrorMessages.NO_TASKS_ARE_RELEVANT_TO_INPUT_DATE);
+            return ErrorMessages.NO_TASKS_ARE_RELEVANT_TO_INPUT_DATE;
+        }
         System.out.println("____________________________________________________________");
         return sbr.toString();
     }
@@ -205,7 +210,7 @@ public class TaskList {
             }
         }
         if (index == 1) {
-            printsMessageWhenNoTasksFound(input);
+            return printsMessageWhenNoTasksFound(input);
         }
         System.out.println("____________________________________________________________");
         return sbr.toString();
