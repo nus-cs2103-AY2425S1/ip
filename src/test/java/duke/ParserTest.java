@@ -39,7 +39,7 @@ public class ParserTest {
         assertEquals(REPLY_INVALID_TASK_NUMBER, Parser.parseCommand(taskList, "mark 0"));
         assertEquals(REPLY_INVALID_TASK_NUMBER, Parser.parseCommand(taskList, "mark     0"));
         assertEquals(REPLY_INVALID_TASK_NUMBER, Parser.parseCommand(taskList, "mark -1"));
-        assertEquals(REPLY_NO_TASK_WITH_NUMBER, Parser.parseCommand(taskList, "mark 2"));
+        assertEquals(REPLY_INVALID_TASK_NUMBER, Parser.parseCommand(taskList, "mark 2"));
     }
 
     @Test
@@ -51,7 +51,7 @@ public class ParserTest {
         assertEquals(REPLY_MISSING_TASK_NUMBER, Parser.parseCommand(taskList, "unmark"));
         assertEquals(REPLY_INVALID_TASK_NUMBER, Parser.parseCommand(taskList, "unmark 0"));
         assertEquals(REPLY_INVALID_TASK_NUMBER, Parser.parseCommand(taskList, "unmark -1"));
-        assertEquals(REPLY_NO_TASK_WITH_NUMBER, Parser.parseCommand(taskList, "unmark 2"));
+        assertEquals(REPLY_INVALID_TASK_NUMBER, Parser.parseCommand(taskList, "unmark 2"));
     }
 
     @Test
@@ -63,7 +63,7 @@ public class ParserTest {
         assertEquals(REPLY_MISSING_TASK_NUMBER, Parser.parseCommand(taskList, "delete"));
         assertEquals(REPLY_INVALID_TASK_NUMBER, Parser.parseCommand(taskList, "delete 0"));
         assertEquals(REPLY_INVALID_TASK_NUMBER, Parser.parseCommand(taskList, "delete -1"));
-        assertEquals(REPLY_NO_TASK_WITH_NUMBER, Parser.parseCommand(taskList, "delete 2"));
+        assertEquals(REPLY_INVALID_TASK_NUMBER, Parser.parseCommand(taskList, "delete 2"));
     }
 
     @Test

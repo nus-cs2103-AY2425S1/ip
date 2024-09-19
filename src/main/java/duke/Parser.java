@@ -241,7 +241,7 @@ public class Parser {
             return REPLY_INVALID_TASK_NUMBER;
         }
 
-        if ((taskIndex == INDEX_INVALID) || (taskIndex > taskList.getNumberOfTasks())) {
+        if ((taskIndex <= 0) || (taskIndex > taskList.getNumberOfTasks())) {
             return REPLY_INVALID_TASK_NUMBER;
         }
 
@@ -270,7 +270,7 @@ public class Parser {
             return REPLY_INVALID_TASK_NUMBER;
         }
 
-        if ((taskIndex == INDEX_INVALID) || (taskIndex > taskList.getNumberOfTasks())) {
+        if ((taskIndex <= 0) || (taskIndex > taskList.getNumberOfTasks())) {
             return REPLY_INVALID_TASK_NUMBER;
         }
 
@@ -299,7 +299,7 @@ public class Parser {
             return REPLY_INVALID_TASK_NUMBER;
         }
 
-        if ((taskIndex == INDEX_INVALID) || (taskIndex > taskList.getNumberOfTasks())) {
+        if ((taskIndex <= 0) || (taskIndex > taskList.getNumberOfTasks())) {
             return REPLY_INVALID_TASK_NUMBER;
         }
 
