@@ -25,8 +25,8 @@ import mylo.utils.exceptions.IllegalValueException;
  */
 
 public class TaskList {
-    private final ArrayList<Task> LIST;
-    private final Storage STORAGE = new Storage();
+    private final List<Task> list;
+    private final Storage storage = new Storage();
 
     /**
      * Constructs an empty {@code TaskList}.
@@ -34,7 +34,7 @@ public class TaskList {
      * <p>This constructor initializes a new task list with no tasks.</p>
      */
     public TaskList() {
-        this.LIST = new ArrayList<>();
+        this.list = new ArrayList<>();
     }
 
     /**
@@ -42,8 +42,8 @@ public class TaskList {
      *
      * @param taskList An {@code ArrayList} of {@code Task} objects to initialize the task list.
      */
-    public TaskList(ArrayList<Task> taskList) {
-        this.LIST = taskList;
+    public TaskList(List<Task> taskList) {
+        this.list = taskList;
     }
 
     /**
@@ -65,10 +65,10 @@ public class TaskList {
             throw new InsufficientInfoException(type);
         } else {
             Task task = Task.of(info.substring(1), type);
-            LIST.add(task);
-            STORAGE.save(task);
+            list.add(task);
+            storage.save(task);
             return String.format("Got it. I've added this task:\n %s\nNow you have %s tasks in the list.",
-                    task, LIST.size());
+                    task, list.size());
         }
     }
 
@@ -82,14 +82,14 @@ public class TaskList {
      * @throws IndexOutOfBoundsException If the provided index is out of range.
      */
     public String deleteTask(int index) throws StorageOperationException, IndexOutOfBoundsException {
-        if (index > LIST.size()) {
+        if (index > list.size()) {
             throw new IndexOutOfBoundsException(String.format(
-                    "There is only %s tasks in the list.", LIST.size()));
+                    "There is only %s tasks in the list.", list.size()));
         }
-        Task removed = LIST.remove(index - 1);
-        STORAGE.rewrite(LIST);
+        Task removed = list.remove(index - 1);
+        storage.rewrite(list);
         return String.format("Noted. I've removed this task:\n %s\nNow you have %s tasks in the list.",
-                removed, LIST.size());
+                removed, list.size());
     }
 
     /**
@@ -102,8 +102,8 @@ public class TaskList {
      * @throws StorageOperationException If an error occurs while rewriting the storage.
      */
     public String markTaskAsDone(int index) throws StorageOperationException {
-        String message = LIST.get(index - 1).markAsDone();
-        STORAGE.rewrite(this.LIST);
+        String message = list.get(index - 1).markAsDone();
+        storage.rewrite(this.list);
         return message;
     }
 
@@ -117,8 +117,8 @@ public class TaskList {
      * @throws StorageOperationException If an error occurs while rewriting the storage.
      */
     public String markTaskAsUndone(int index) throws StorageOperationException {
-        String message = LIST.get(index - 1).markAsUndone();
-        STORAGE.rewrite(LIST);
+        String message = list.get(index - 1).markAsUndone();
+        storage.rewrite(list);
         return message;
     }
 
@@ -154,14 +154,9 @@ public class TaskList {
      * @return A {@code TaskList} containing tasks that are ongoing or due on the specified date.
      */
     public TaskList tasksOnDate(LocalDateTime date) {
-        ArrayList<Task> result = new ArrayList<>();
-
-        for (Task task: LIST) {
-            if ((task instanceof Deadline && ((Deadline) task).isDueOnDate(date))
-                    || (task instanceof Event && ((Event) task).isOngoing(date))) {
-                result.add(task);
-            }
-        }
+        List<Task> result = list.stream().filter((Task task)
+                -> (task instanceof Deadline && ((Deadline) task).isDueOnDate(date))
+                || (task instanceof Event && ((Event) task).isOngoing(date))).toList();
 
         return new TaskList(result);
     }
@@ -176,13 +171,7 @@ public class TaskList {
      * @return A {@code TaskList} containing tasks with description matching the keyword.
      */
     public TaskList tasksWithKeyword(String keyword) {
-        ArrayList<Task> result = new ArrayList<>();
-
-        for (Task task: LIST) {
-            if (task.isMatch(keyword)) {
-                result.add(task);
-            }
-        }
+        List<Task> result = list.stream().filter((Task task) -> task.isMatch(keyword)).toList();
 
         return new TaskList(result);
     }
@@ -200,16 +189,16 @@ public class TaskList {
     public String toString() {
         StringBuilder string = new StringBuilder();
 
-        if (LIST.isEmpty()) {
+        if (list.isEmpty()) {
             string.append("Your task list is empty. Try adding tasks: \n1. todo <Task Title> "
                     + "\n2. event <Task Title> /from <Start Date> /to <End Date>"
                     + " \n3. deadline <Task Title> /by <Due Date>");
         }
-        for (int i = 0; i < LIST.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
             if (i > 0) {
                 string.append("\n");
             }
-            string.append(Integer.toString(i + 1)).append(". ").append(LIST.get(i).toString());
+            string.append(Integer.toString(i + 1)).append(". ").append(list.get(i).toString());
         }
 
         return string.toString();

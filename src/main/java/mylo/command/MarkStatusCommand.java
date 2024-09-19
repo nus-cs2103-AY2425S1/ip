@@ -15,8 +15,8 @@ import mylo.ui.Tui;
  * @author cweijin
  */
 public class MarkStatusCommand extends Command {
-    private final boolean IS_MARK_COMMAND;
-    private final int INDEX;
+    private final boolean isMarkCommand;
+    private final int index;
 
     /**
      * Constructs a {@code MarkStatusCommand} to mark or unmark a task's completion status.
@@ -28,8 +28,8 @@ public class MarkStatusCommand extends Command {
      * @param index         The index of the task to be marked or unmarked.
      */
     public MarkStatusCommand(boolean isMarkCommand, int index) {
-        this.IS_MARK_COMMAND = isMarkCommand;
-        this.INDEX = index;
+        this.isMarkCommand = isMarkCommand;
+        this.index = index;
     }
 
     /**
@@ -44,6 +44,6 @@ public class MarkStatusCommand extends Command {
      */
     @Override
     public String execute(TaskList list, Tui tui) throws StorageOperationException {
-        return IS_MARK_COMMAND ? list.markTaskAsDone(INDEX) : list.markTaskAsUndone(INDEX);
+        return isMarkCommand ? list.markTaskAsDone(index) : list.markTaskAsUndone(index);
     }
 }

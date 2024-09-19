@@ -12,7 +12,7 @@ import mylo.ui.Tui;
  * @author cweijin
  */
 public class FindCommand extends Command {
-    private final String KEYWORD;
+    private final String keyword;
 
     /**
      * Creates a FindCommand with the specified keyword.
@@ -20,7 +20,7 @@ public class FindCommand extends Command {
      * @param keyword The keyword to search for in the task titles.
      */
     public FindCommand(String keyword) {
-        KEYWORD = keyword;
+        this.keyword = keyword;
     }
 
     /**
@@ -31,6 +31,6 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList list, Tui tui) {
-        return list.tasksWithKeyword(KEYWORD).toString();
+        return list.tasksWithKeyword(keyword).toString();
     }
 }
