@@ -29,6 +29,7 @@ public class UiGuiMain extends Application {
             stage.setMinWidth(417);
             stage.setMaxWidth(417);
             fxmlLoader.<UiGuiMainWindow>getController().setHypeBot(hypeBot);
+            stage.setTitle("HypeBot");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
