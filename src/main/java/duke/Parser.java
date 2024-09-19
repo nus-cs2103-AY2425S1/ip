@@ -1,4 +1,8 @@
 package duke;
+
+import java.time.format.DateTimeParseException;
+import java.time.LocalDate;
+
 /**
  * Helper to parse through a given command.
  */
@@ -22,9 +26,11 @@ public class Parser {
     private static final String COMMAND_DATE_SEPARATOR = "/";
 
     private static final String REPLY_BYE = "Bye. Hope to see you again soon!";
+    private static final String REPLY_INVALID_TASK_NUMBER = "Invalid task number given.";
+    private static final String REPLY_MISSING_TASK_NUMBER = "This command requires a task number to execute.";
     private static final String REPLY_EMPTY_TASK_DESCRIPTION = "The description of a task cannot be empty.";
-    private static final String REPLY_MISSING_DEADLINE = "A deadline needs an end date.";
-    private static final String REPLY_MISSING_EVENT_DATE = "An event needs both a start and end date or time.";
+    private static final String REPLY_MISSING_DEADLINE_DETAILS = "A deadline needs a description and an end date in YYYY-MM-DD format.";
+    private static final String REPLY_MISSING_EVENT_DETAILS = "An event needs a description, and both a start and end date or time in YYYY-MM-DD format.";
     private static final String REPLY_INVALID_FIND_KEYWORDS = "Cannot find an empty string.";
     private static final String REPLY_INVALID_COMMAND = "I don't recognise that command.";
     private static final String REPLY_NO_PREVIOUS_COMMAND = "There is no previous command to undo.";
@@ -39,6 +45,7 @@ public class Parser {
      * */
     public static String parseCommand(TaskList taskList, String userCommand) throws DuckException {
         assert !userCommand.isEmpty() : "Command cannot be empty";
+
         if (checkByeCommand(userCommand)) {
             return executeByeCommand(taskList);
 
@@ -81,7 +88,7 @@ public class Parser {
      * @return boolean representing if command is a 'bye' command.
      * */
     private static boolean checkByeCommand(String userCommand) {
-        return userCommand.trim().equalsIgnoreCase(COMMAND_BYE);
+        return userCommand.equalsIgnoreCase(COMMAND_BYE);
     }
 
     /**
@@ -91,7 +98,7 @@ public class Parser {
      * @return boolean representing if command is a 'list' command.
      * */
     private static boolean checkListCommand(String userCommand) {
-        return userCommand.trim().equalsIgnoreCase(COMMAND_LIST);
+        return userCommand.equalsIgnoreCase(COMMAND_LIST);
     }
 
     /**
@@ -217,7 +224,23 @@ public class Parser {
      * @return String response to inform user of successful 'mark' command executed.
      * */
     private static String markTask(TaskList taskList, String userCommand) {
-        int taskIndex = Integer.parseInt(userCommand.substring(COMMAND_MARK.length() + 1));
+        if (userCommand.length() == COMMAND_MARK.length()) {
+            return REPLY_MISSING_TASK_NUMBER;
+        }
+
+        int taskIndex = -1;
+
+        try {
+            String taskIndexInStringFormat = userCommand.substring(COMMAND_MARK.length() + 1).trim();
+            taskIndex = Integer.parseInt(taskIndexInStringFormat);
+        } catch (NumberFormatException e) {
+            return REPLY_INVALID_TASK_NUMBER;
+        }
+
+        if (taskIndex <= 0) {
+            return REPLY_INVALID_TASK_NUMBER;
+        }
+
         Undo.saveCommand(COMMAND_MARK, taskIndex);
         return taskList.mark(taskIndex);
     }
@@ -230,7 +253,23 @@ public class Parser {
      * @return String response to inform user of successful 'unmark' command executed.
      * */
     private static String unmarkTask(TaskList taskList, String userCommand) {
-        int taskIndex = Integer.parseInt(userCommand.substring(COMMAND_UNMARK.length() + 1));
+        if (userCommand.length() == COMMAND_UNMARK.length()) {
+            return REPLY_MISSING_TASK_NUMBER;
+        }
+
+        int taskIndex = -1;
+
+        try {
+            String taskIndexInStringFormat = userCommand.substring(COMMAND_UNMARK.length() + 1).trim();
+            taskIndex = Integer.parseInt(taskIndexInStringFormat);
+        } catch (NumberFormatException e) {
+            return REPLY_INVALID_TASK_NUMBER;
+        }
+
+        if (taskIndex <= 0) {
+            return REPLY_INVALID_TASK_NUMBER;
+        }
+
         Undo.saveCommand(COMMAND_UNMARK, taskIndex);
         return taskList.unmark(taskIndex);
     }
@@ -243,7 +282,23 @@ public class Parser {
      * @return String response to inform user of successful 'delete' command executed.
      * */
     private static String deleteTask(TaskList taskList, String userCommand) {
-        int taskIndex = Integer.valueOf(userCommand.substring(COMMAND_DELETE.length() + 1));
+        if (userCommand.length() == COMMAND_DELETE.length()) {
+            return REPLY_MISSING_TASK_NUMBER;
+        }
+
+        int taskIndex = -1;
+
+        try {
+            String taskIndexInStringFormat = userCommand.substring(COMMAND_DELETE.length() + 1).trim();
+            taskIndex = Integer.parseInt(taskIndexInStringFormat);
+        } catch (NumberFormatException e) {
+            return REPLY_INVALID_TASK_NUMBER;
+        }
+
+        if (taskIndex <= 0) {
+            return REPLY_INVALID_TASK_NUMBER;
+        }
+
         Undo.saveCommand(COMMAND_DELETE, taskIndex);
         Undo.saveTask(taskList.get(taskIndex - 1));
         return taskList.delete(taskIndex);
@@ -260,6 +315,7 @@ public class Parser {
         if (userCommand.length() == COMMAND_TODO.length()) {
             return REPLY_EMPTY_TASK_DESCRIPTION;
         }
+
         Undo.saveCommand(COMMAND_TODO, taskList.getCmdNum() + 1);
         return taskList.add(new Todo(userCommand.substring(COMMAND_TODO.length() + 1)));
     }
@@ -275,14 +331,22 @@ public class Parser {
         if (userCommand.length() == COMMAND_DEADLINE.length()) {
             return REPLY_EMPTY_TASK_DESCRIPTION;
         }
-        String taskDetails = userCommand.substring(COMMAND_TODO.length() + 1);
+        String taskDetails = userCommand.substring(COMMAND_DEADLINE.length() + 1);
         int dateIndex = taskDetails.indexOf(COMMAND_DATE_SEPARATOR);
-        if ((dateIndex == INDEX_INVALID) || (taskDetails.substring(dateIndex + INDEX_OFFSET_BY).isEmpty())) {
-            return REPLY_MISSING_DEADLINE;
+        if ((dateIndex == 0) || (dateIndex == INDEX_INVALID) || (taskDetails.substring(dateIndex + INDEX_OFFSET_BY).isEmpty())) {
+            return REPLY_MISSING_DEADLINE_DETAILS;
         }
+
+        String date = taskDetails.substring(dateIndex + INDEX_OFFSET_BY);
+
+        try {
+            LocalDate.parse(date);
+        } catch (DateTimeParseException e) {
+            return REPLY_MISSING_DEADLINE_DETAILS;
+        }
+
         Undo.saveCommand(COMMAND_DEADLINE, taskList.getCmdNum() + 1);
-        return taskList.add(new Deadline(taskDetails.substring(0, dateIndex),
-                taskDetails.substring(dateIndex + INDEX_OFFSET_BY)));
+        return taskList.add(new Deadline(taskDetails.substring(0, dateIndex), date));
     }
 
     /**
@@ -299,13 +363,22 @@ public class Parser {
         String taskDetails = userCommand.substring(COMMAND_EVENT.length() + 1);
         int start = taskDetails.indexOf(COMMAND_DATE_SEPARATOR);
         int end = taskDetails.substring(start + 1).indexOf(COMMAND_DATE_SEPARATOR);
-        if ((start == INDEX_INVALID) || (end == INDEX_INVALID)) {
-            return REPLY_MISSING_EVENT_DATE;
+        if ((start == 0) || (start == INDEX_INVALID) || (end == INDEX_INVALID)) {
+            return REPLY_MISSING_EVENT_DETAILS;
         }
+
+        String startDate = taskDetails.substring(start + INDEX_OFFSET_FROM, start + end);
+        String endDate = taskDetails.substring(start + 1 + end + INDEX_OFFSET_TO);
+
+        try {
+            LocalDate.parse(startDate);
+            LocalDate.parse(startDate);
+        } catch (DateTimeParseException e) {
+            return REPLY_MISSING_EVENT_DETAILS;
+        }
+
         Undo.saveCommand(COMMAND_EVENT, taskList.getCmdNum() + 1);
-        return taskList.add(new Event(taskDetails.substring(0, start),
-                taskDetails.substring(start + INDEX_OFFSET_FROM, start + end),
-                taskDetails.substring(start + 1 + end + INDEX_OFFSET_TO)));
+        return taskList.add(new Event(taskDetails.substring(0, start), startDate, endDate));
     }
 
     /**
@@ -319,7 +392,7 @@ public class Parser {
         if (userCommand.length() == COMMAND_FIND.length()) {
             return REPLY_INVALID_FIND_KEYWORDS;
         }
-        return taskList.find(userCommand.substring(COMMAND_FIND.length() + 1));
+        return taskList.find(userCommand.substring(COMMAND_FIND.length() + 1).trim());
     }
 
     /**

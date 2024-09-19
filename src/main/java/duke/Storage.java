@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 /**
@@ -27,9 +26,6 @@ public class Storage {
     private static final String TASK_TYPE_TODO = "T";
     private static final String TASK_TYPE_DEADLINE = "D";
     private static final String TASK_TYPE_EVENT = "E";
-
-    public Storage() {
-    }
 
     /**
      * Loads all previous tasks that user has input before.

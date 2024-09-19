@@ -18,7 +18,7 @@ public class Duck {
      */
     public String getResponse(String input) throws DuckException {
         assert !input.isEmpty(): "User input cannot be empty";
-        return Parser.parseCommand(tasklist, input);
+        return Parser.parseCommand(tasklist, input.trim());
     }
 
 }
