@@ -36,6 +36,15 @@ public class Elsa {
     }
 
     /**
+     * Getter to pass the taskList to Gui so that it can save all tasks to the data file when the GUI window is closed.
+     *
+     * @return The list of tasks.
+     */
+    public TaskList getTasks() {
+        return this.tasks;
+    }
+
+    /**
      * Starts and runs the Elsa chatbot.
      * Greets the user, reads and processes user commands in a loop until the user says goodbye.
      * Handles any errors that occur during command execution.
@@ -71,5 +80,19 @@ public class Elsa {
      */
     public static void main(String[] args) {
         new Elsa().run();
+    }
+
+    /**
+     * Processes the user input and executes the corresponding command.
+     *
+     * @param input The user's input as a string that represents the command to be executed.
+     */
+    public String getResponse(String input) {
+        try {
+            Command command = Parser.parse(input);
+            return command.execute(tasks, ui);
+        } catch (ElsaException e) {
+            return e.getMessage();
+        }
     }
 }

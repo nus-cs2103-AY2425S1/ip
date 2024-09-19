@@ -37,9 +37,8 @@ public class Parser {
             // Ensure that the user input is long enough to contain a description
             String description = userInput.length() > 5 ? userInput.substring(5).trim() : "";
             if (description.isEmpty()) {
-                String message = ElsaException.addSeparatorLines("Oh, it appears that the description of your "
+                throw new ElsaException("Oh, it appears that the description of your "
                         + "ToDo item is empty...");
-                throw new ElsaException(message);
             }
             return new TodoCommand(description);
         } else if (userInput.startsWith("deadline")) {
@@ -47,17 +46,15 @@ public class Parser {
             // Check if there are two parts and if 'by' is in the correct format
             if (parts.length < 2 || parts[1].trim().length() != 16
                     || !parts[1].trim().matches("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}")) {
-                String message = ElsaException.addSeparatorLines("Oops, the format for the elsa.task.Deadline task is "
+                throw new ElsaException("Oops, the format for the elsa.task.Deadline task is "
                         + "a bit off.\nPlease follow this format: deadline [activity] /by yyyy-mm-dd hh:mm");
-                throw new ElsaException(message);
             }
             String description = parts[0].substring(9).trim();
             String dueBy = parts[1].trim();
             // Check if the description is empty
             if (description.isEmpty()) {
-                String message = ElsaException.addSeparatorLines("Oh, it appears that the description of your "
+                throw new ElsaException("Oh, it appears that the description of your "
                         + "elsa.task.Deadline task is empty...");
-                throw new ElsaException(message);
             }
             return new DeadlineCommand(description, dueBy);
         } else if (userInput.startsWith("event")) {
@@ -75,8 +72,7 @@ public class Parser {
             return new FindCommand(taskToFind);
         } else {
             // elsa.ui.Elsa will ask for clarification upon encountering any unrecognised input
-            String message = ElsaException.addSeparatorLines("Sorry, I'm unable to perform this action: " + userInput);
-            throw new ElsaException(message);
+            throw new ElsaException("Sorry, I'm unable to perform this action: " + userInput);
         }
     }
 }

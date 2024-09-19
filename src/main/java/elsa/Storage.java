@@ -52,9 +52,8 @@ public class Storage {
                 Files.createFile(DATA_FILE);
             }
         } catch (IOException e) {
-            String message = ElsaException.addSeparatorLines("Oops, it seems like an error has occurred while "
+            throw new ElsaException("Oops, it seems like an error has occurred while "
                     + "creating directories or files:\n" + e.getMessage());
-            throw new ElsaException(message);
         }
     }
 
@@ -72,9 +71,8 @@ public class Storage {
                 tasks.add(convertStringToTask(line));
             }
         } catch (IOException e) {
-            String message = ElsaException.addSeparatorLines("Oops, it appears that an error has occurred "
+            throw new ElsaException("Oops, it appears that an error has occurred "
                     + "while reading the data file:\n" + e.getMessage());
-            throw new ElsaException(message);
         }
         return tasks;
     }
@@ -111,9 +109,8 @@ public class Storage {
             return new Event(description, isDone, start, end);
 
         default:
-            String message = ElsaException.addSeparatorLines("Oops, it appears that the tasks saved "
+            throw new ElsaException("Oops, it appears that the tasks saved "
                     + "in our data file are of an invalid task type:\n" + taskType);
-            throw new ElsaException(message);
         }
     }
 
@@ -130,9 +127,8 @@ public class Storage {
                 writer.newLine();
             }
         } catch (IOException e) {
-            String message = ElsaException.addSeparatorLines("Oops, it appears that an error has occurred while "
+            throw new ElsaException("Oops, it appears that an error has occurred while "
                     + "writing to the data file:\n" + e.getMessage());
-            throw new ElsaException(message);
         }
     }
 
@@ -153,9 +149,8 @@ public class Storage {
             return "E | " + (task.getIsDone() ? "1" : "0") + " | " + task.getDescription() + " | "
                     + event.getStart() + " - " + event.getEnd();
         } else {
-            String message = ElsaException.addSeparatorLines("Oops, it appears that this task saved in our list "
+            throw new ElsaException("Oops, it appears that this task saved in our list "
                     + "is of an unknown type:\n" + task.getClass().getSimpleName());
-            throw new ElsaException(message);
         }
     }
 }

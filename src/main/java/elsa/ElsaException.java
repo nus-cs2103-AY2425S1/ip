@@ -15,15 +15,4 @@ public class ElsaException extends Exception {
     public ElsaException(String message) {
         super(message);
     }
-
-    /**
-     * Adds a line above and below error messages for aesthetic purposes.
-     *
-     * @param message The error message.
-     * @return A string with the separator lines added above and below the error message.
-     */
-    public static String addSeparatorLines(String message) {
-        String separator = "______________________________________";
-        return separator + "\n" + message + "\n" + separator;
-    }
 }

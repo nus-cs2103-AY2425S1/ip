@@ -2,8 +2,6 @@ package elsa.task;
 
 import java.util.List;
 
-import elsa.ui.Ui;
-
 /**
  * Manages the list of tasks in the application.
  * @author Aaron
@@ -33,29 +31,27 @@ public class TaskList {
      * Adds a elsa.task.Todo task to the list.
      *
      * @param description the description of the elsa.task.Todo task
+     * @return A response string that confirms the successful addition of a todo task.
      */
-    public void addTodo(String description) {
+    public String addTodo(String description) {
         Todo newTodo = new Todo(description, false);
         tasks.add(newTodo);
-        Ui.addLine();
-        System.out.println("Alright, I've added this task:\n  " + tasks.get(tasks.size() - 1) + "\nWe have "
-                + tasks.size() + " tasks in our list now.");
-        Ui.addLine();
+        return "Alright, I've added this task:\n  " + tasks.get(tasks.size() - 1) + "\nWe have "
+                + tasks.size() + " tasks in our list now.";
     }
 
     /**
-     * Adds a elsa.task.Deadline task to the list.
+     * Adds an elsa.task.Deadline task to the list.
      *
      * @param description the description of the elsa.task.Deadline task
      * @param dueBy the due date and time of the elsa.task.Deadline task
+     * @return A response string that confirms the successful addition of a deadline task.
      */
-    public void addDeadline(String description, String dueBy) {
+    public String addDeadline(String description, String dueBy) {
         Deadline newDeadline = new Deadline(description, false, dueBy);
         tasks.add(newDeadline);
-        Ui.addLine();
-        System.out.println("Alright, I've added this task:\n  " + tasks.get(tasks.size() - 1) + "\nWe have "
-                + tasks.size() + " tasks in our list now.");
-        Ui.addLine();
+        return "Alright, I've added this task:\n  " + tasks.get(tasks.size() - 1) + "\nWe have "
+                + tasks.size() + " tasks in our list now.";
     }
 
     /**
@@ -64,85 +60,90 @@ public class TaskList {
      * @param description the description of the elsa.task.Event task
      * @param start the start date and time of the elsa.task.Event task
      * @param end the end date and time of the elsa.task.Event task
+     * @return A response string that confirms the successful addition of an event task.
      */
-    public void addEvent(String description, String start, String end) {
+    public String addEvent(String description, String start, String end) {
         Event newEvent = new Event(description, false, start, end);
         tasks.add(newEvent);
-        Ui.addLine();
-        System.out.println("Alright, I've added this task:\n  " + tasks.get(tasks.size() - 1) + "\nWe have "
-                + tasks.size() + " tasks in our list now.");
-        Ui.addLine();
+        return "Alright, I've added this task:\n  " + tasks.get(tasks.size() - 1) + "\nWe have "
+                + tasks.size() + " tasks in our list now.";
     }
 
     /**
      * Deletes a task from the list.
      *
      * @param index the index of the task that is to be deleted from the task list
+     * @return A response string that confirms the successful deletion of a task.
      */
-    public void deleteTask(int index) {
-        // Informs the user that the task has been deleted
-        Ui.addLine();
-        System.out.println("Okay, I've removed this task:\n  " + tasks.get(index).toString() + "\nWe have "
-                + (tasks.size() - 1) + " tasks in our list now.");
-        Ui.addLine();
+    public String deleteTask(int index) {
+        String message = "Okay, I've removed this task:\n  " + tasks.get(index).toString() + "\nWe have "
+                + (tasks.size() - 1) + " tasks in our list now.";
+
         // Deletes the task from the list
         tasks.remove(index);
+
+        // Informs the user that the task has been deleted
+        return message;
     }
 
     /**
      * Lists all the tasks in the task list.
+     *
+     * @return A response string that contains the list of tasks.
      */
-    public void listTasks() {
-        Ui.addLine();
-        System.out.println("Here are the tasks in your list:");
+    public String listTasks() {
+        StringBuilder message = new StringBuilder("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + "." + tasks.get(i));
+            message.append("\n").append((i + 1)).append(".").append(tasks.get(i));
         }
-        Ui.addLine();
+        return message.toString();
     }
 
     /**
      * Finds tasks in the taskList according to the userInput.
      *
      * @param taskToFind The edited userInput that indicates which task(s) to search for in the taskList.
+     * @return A response string that shows any matching tasks.
      */
-    public void findTasks(String taskToFind) {
+    public String findTasks(String taskToFind) {
+        StringBuilder message = new StringBuilder("Here are the matching tasks in your list:");
         int taskNum = 1;
+        String lowerCaseTaskToFind = taskToFind.toLowerCase();
 
-        Ui.addLine();
-        System.out.println("Here are the matching tasks in your list:");
         for (Task task : tasks) {
-            if (task.getDescription().contains(taskToFind)) {
-                System.out.println(taskNum + "." + task);
+            if (task.getDescription().toLowerCase().contains(lowerCaseTaskToFind)) {
+                message.append("\n").append(taskNum).append(".").append(task);
                 taskNum++;
             }
         }
-        Ui.addLine();
+
+        if (taskNum == 1) {
+            return "Sorry, I couldn't find any matching tasks.";
+        }
+        return message.toString();
     }
 
     /**
      * Marks a task as done with an 'X'.
      *
      * @param index the index of the task to be marked as done
+     * @return A response string that confirms the marking of a task.
      */
-    public void markTask(int index) {
+    public String markTask(int index) {
         tasks.get(index).done();
         // Informs the user that the task has been marked as done
-        Ui.addLine();
-        System.out.println("Great! I've marked it as done:\n  " + tasks.get(index).toString());
-        Ui.addLine();
+        return "Great! I've marked it as done:\n  " + tasks.get(index).toString();
     }
 
     /**
      * Unmarks a task by removing any 'X'.
      *
      * @param index the index of the task to be unmarked
+     * @return A response string that confirms that the task has been unmarked.
      */
-    public void unmarkTask(int index) {
+    public String unmarkTask(int index) {
         tasks.get(index).notDone();
         // Informs the user that the task has been marked as not done
-        Ui.addLine();
-        System.out.println("Alright, I've unchecked this task:\n  " + tasks.get(index).toString());
-        Ui.addLine();
+        return "Alright, I've unchecked this task:\n  " + tasks.get(index).toString();
     }
 }

@@ -35,9 +35,10 @@ public class DeadlineCommand extends Command {
      *
      * @param tasks The task list where the new deadlineTask will be added.
      * @param ui The Ui instance, which is not used in this command but is included for method signature consistency.
+     * @return A response string representing the result of the command execution, which can be displayed to the user.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui) {
-        tasks.addDeadline(description, dueBy);
+    public String execute(TaskList tasks, Ui ui) {
+        return tasks.addDeadline(description, dueBy);
     }
 }
