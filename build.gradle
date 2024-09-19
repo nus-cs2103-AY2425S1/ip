@@ -48,7 +48,7 @@ test {
 }
 
 application {
-    mainClass.set("sora.GUI.Launcher")
+    mainClass.set("sora.gui.Launcher")
 }
 
 shadowJar {
