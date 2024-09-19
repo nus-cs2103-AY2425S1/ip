@@ -4,6 +4,7 @@ package denim;
 import denim.commands.Command;
 import denim.commands.CommandResult;
 import denim.exceptions.DenimDirectoryException;
+import denim.exceptions.DenimFileCorruptionException;
 import denim.exceptions.DenimFileException;
 import denim.storage.ReadTaskFile;
 import denim.storage.WriteTaskFile;
@@ -31,7 +32,7 @@ public class Denim {
     /**
      * Starts the Denim Application first by reading the file with tasks stored in it.
      */
-    public void start() throws DenimFileException, DenimDirectoryException {
+    public void start() throws DenimFileException, DenimDirectoryException, DenimFileCorruptionException {
         initialize();
         readFile();
     }
@@ -52,7 +53,7 @@ public class Denim {
      * @throws DenimFileException if File is not found.
      * @throws DenimDirectoryException if Directory is not found.
      */
-    public void readFile() throws DenimFileException, DenimDirectoryException {
+    public void readFile() throws DenimFileException, DenimDirectoryException, DenimFileCorruptionException {
         readTaskFile.readTaskData(taskList);
     }
 
@@ -85,6 +86,10 @@ public class Denim {
 
     public void handleFileNotFound() throws DenimFileException {
         readTaskFile.handleFileNotFound();
+    }
+
+    public void handleFileCorruption() throws DenimFileException {
+        readTaskFile.handleFileCorruption();
     }
 }
 
