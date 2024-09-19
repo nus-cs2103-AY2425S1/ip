@@ -55,7 +55,7 @@ public class Ui {
      * </p>
      */
     public String showGoodbye() {
-        String goodbye = "Bye traveller. Hope to see you soon.";
+        String goodbye = "Bye traveller. Hope to see you again soon.";
         return goodbye;
     }
 

@@ -45,8 +45,8 @@ public final class DeleteCommand extends Command {
         } else {
             int taskNumber = Integer.parseInt(userInput.substring(6).trim());
             int totalNumberOfTasks = tasks.getSize();
-            String taskNumberMessage = "taskNumber: " + taskNumber;
-            String totalNumberOfTaskMessage = "total number of tasks: " + tasks.getSize();
+            String taskNumberMessage = "Task Number: " + taskNumber;
+            String totalNumberOfTaskMessage = "Total number of tasks: " + totalNumberOfTasks;
             if (taskNumber >= 1 && taskNumber <= tasks.getSize()) {
                 String deleteMessage = ui.showDeleteMessage();
                 String taskMessage = tasks.getTask(taskNumber - 1).toString();

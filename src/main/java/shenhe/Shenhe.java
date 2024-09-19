@@ -53,7 +53,7 @@ public class Shenhe {
             Command c = Parser.parse(input);
             return c.execute(tasks, ui, storage);
         } catch (Exception e) {
-            return "Error: " + e.getMessage();
+            return e.getMessage();
         }
     }
 

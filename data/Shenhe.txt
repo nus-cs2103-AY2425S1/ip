@@ -1,4 +1,3 @@
-T | 0 | read book
 E | 0 | prepare for debate | 2pm | 4pm
 T | 0 | read more books
 T | 0 | fight the BlackMyth Wukong Tiger Boss 
