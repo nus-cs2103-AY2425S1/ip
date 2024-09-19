@@ -3,7 +3,21 @@ package bob.parser;
 import bob.command.*;
 import bob.exception.BobException;
 
+/**
+ * Parses user input and convert it into commands that are executable.
+ * Parser class interprets user input, and assigns to to its corresponding
+ * command object.
+ */
 public class Parser {
+
+    /**
+     * Parses the input string, returns the corresponding command object.
+     * This method checks the input, splits into separate parts, identifies command type and constructs
+     * the corresponding command object.
+     * @param input the raw input string from user
+     * @return the Command object that corresponds to user's input.
+     * @throws BobException when the command is of the wrong format or when the command is unrecognized.
+     */
     public Command parse(String input) throws BobException {
         assert input != null : "Input should not be null";
 
@@ -40,6 +54,15 @@ public class Parser {
             throw new BobException("Bob does not understand that Command, sorry :(");
         }
     }
+
+    /**
+     * Parses the task index from the given task description string.
+     * This method extracts the task index from the input.
+     *
+     * @param taskDescription the task description string containing task index.
+     * @return the task index as an integer.
+     * @throws BobException when the task index is not valid.
+     */
     private int parseTaskIndex(String taskDescription) throws BobException {
         assert taskDescription != null : "Task description should not be null";
         try {

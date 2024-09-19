@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import bob.tasks.Task;
 
 /**
- * The Ui class of Bob chatbot is responsible for handling all user interactions.
+ * The ui class of Bob chatbot is responsible for handling all user interactions.
  * This class provides methods to display messages, list of Tasks, and handling of user
  * input and output.
  */
@@ -73,6 +73,11 @@ public class Ui {
         return response.toString();
     }
 
+    /**
+     * Displays the message signaling user that a task in the task list has been successfully marked as done.
+     * @param task The Task object that was marked as done.
+     * @return String response from chatbot.
+     */
     public String showTaskMarked(Task task) {
         StringBuilder response = new StringBuilder();
         response.append("Yay! I've marked this task as done:\n");
@@ -80,6 +85,11 @@ public class Ui {
         return response.toString();
     }
 
+    /**
+     * Displays the message signaling user that a task in the task list has been successfully marked as not done.
+      * @param task The Task object that was marked as not done.
+     * @return String response from chatbot.
+     */
     public String showTaskUnmarked(Task task) {
         StringBuilder response = new StringBuilder();
         response.append("Alright, I've marked this task as not done yet:\n");
@@ -87,6 +97,11 @@ public class Ui {
         return response.toString();
     }
 
+    /**
+     * Displays the message showing user the tasks with keywords that matches what they want to find.
+     * @param tasks The Task object that matches the keyword or part of the keyword.
+     * @return String response from chatbot.
+     */
     public String showMatchingTasks(ArrayList<Task> tasks) {
         StringBuilder response = new StringBuilder();
         response.append("Here are the matching Tasks in your list:");
@@ -96,6 +111,11 @@ public class Ui {
         return response.toString();
     }
 
+    /**
+     * Displays the message showing user the task with updated details.
+     * @param task The Task object with updated details.
+     * @return String response from chatbot.
+     */
     public String showUpdatedTask(Task task) {
         StringBuilder response = new StringBuilder();
         response.append("Got it. I've updated this task:\n");
