@@ -18,7 +18,7 @@ Here is a list of feaures that quack supports
 
 # Setting up Quack
 
-If you are using the `.jar` to run the program please skip to the [[#Quick Start by Running the JAR file|quick start]] portion of the guide.
+If you are using the `.jar` to run the program please skip to the quick start portion of the guide.
 
 ## InteliJ
    Prerequisites: JDK 17, update Intellij to the most recent version.
@@ -68,6 +68,8 @@ Displays a list of all tasks that is being kept track of by Quack.
 Format: `list`
 
 __Sample Output:__
+<br/>
+
 ![list](./expected-outputs/List-Command.png)
 
 ## Listing Tasks - `add`
