@@ -60,6 +60,13 @@ public class DialogBox extends HBox {
         return db;
     }
 
+    /**
+     * Greets the user when the application starts running.
+     *
+     * @param text Welcome message
+     * @param img Talk-a-Bot icon
+     * @return DialogBox containing welcome message
+     */
     public static DialogBox greet(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

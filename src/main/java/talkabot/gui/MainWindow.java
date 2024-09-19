@@ -3,7 +3,6 @@ package talkabot.gui;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -46,8 +45,8 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Talk-a-Bot's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one echoing user input and the other containing Talk-a-Bot's reply
+     * and then appends them to the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
@@ -60,7 +59,9 @@ public class MainWindow extends AnchorPane {
         );
         if (commandType == "ByeCommand") {
             new Timer().schedule(new TimerTask() {
-                public void run () { System.exit(0); }
+                public void run() {
+                    System.exit(0);
+                }
             }, 3000);
         }
         userInput.clear();

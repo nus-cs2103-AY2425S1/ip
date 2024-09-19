@@ -5,7 +5,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import talkabot.exceptions.IncorrectFormatException;
-import talkabot.exceptions.MissingDetailException;
+import talkabot.exceptions.InvalidScheduleException;
+import talkabot.exceptions.MissingDateException;
 import talkabot.exceptions.UnknownTimeException;
 
 /**
@@ -44,10 +45,10 @@ public class Parser {
             throw new UnknownTimeException("should be done by");
         }
         if (input.indexOf("/by ") <= detailLength) {
-            throw new MissingDetailException("description");
+            throw new InvalidScheduleException();
         }
         if (input.length() <= input.indexOf("/by ") + 4) {
-            throw new MissingDetailException("due date");
+            throw new MissingDateException("due date");
         }
         if (input.charAt(input.indexOf("/by ") - 1) != ' ') {
             throw new IncorrectFormatException();
@@ -72,13 +73,13 @@ public class Parser {
             throw new UnknownTimeException("ends");
         }
         if (input.indexOf("/from ") <= detailLength) {
-            throw new MissingDetailException("description");
+            throw new InvalidScheduleException();
         }
         if (input.indexOf("/to ") <= input.indexOf("/from ") + 6) {
-            throw new MissingDetailException("start date");
+            throw new MissingDateException("start date");
         }
         if (input.length() <= input.indexOf("/to ") + 4) {
-            throw new MissingDetailException("end date");
+            throw new MissingDateException("end date");
         }
         if (input.charAt(input.indexOf("/from ") - 1) != ' '
             || input.charAt(input.indexOf("/to ") - 1) != ' ') {
