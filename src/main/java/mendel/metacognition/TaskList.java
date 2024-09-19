@@ -139,7 +139,7 @@ public class TaskList extends Command {
      * @return A message listing all tasks with deadlines on the specified date.
      */
     public String find(String inputInformation) {
-        String rawDate = inputInformation.split("remind ")[1];
+        String rawDate = inputInformation.substring(7);
         String formattedDate = new DateTimeManager(rawDate).toString();
         return String.format("Here are the tasks with deadlines by %s.", formattedDate)
                 + draftItemList(formattedDate);
@@ -168,9 +168,7 @@ public class TaskList extends Command {
      * @return A message listing all tasks that match the description.
      */
     public String findDescription(String fullCommand) {
-        String[] segments = fullCommand.split("find ");
-        String matchString = stringMatcher(segments);
-        return "Here are the matching tasks in your list" + draftDescriptionList(matchString);
+        return "Here are the matching tasks in your list" + draftDescriptionList(fullCommand.substring(5));
     }
 
     private String draftDescriptionList(String matchString) {
@@ -183,18 +181,6 @@ public class TaskList extends Command {
             }
         }
         return finalMessage;
-    }
-
-    private String stringMatcher(String[] segments) {
-        String matchString = "";
-        for (int i = 1; i < segments.length; i++) {
-            if (i == 1) {
-                matchString += segments[i];
-            } else {
-                matchString += "find " + segments[i];
-            }
-        }
-        return matchString;
     }
 
     /**
