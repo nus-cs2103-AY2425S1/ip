@@ -41,7 +41,7 @@ public class Parser {
         case 'D':
             return deadlineInputToUserInput(data, descriptionStartIndex);
         default:
-            return "";  // This line should never be reached, data coming from persistent input always has correct format
+            return "";  // line should never be reached, data coming from persistent input always has correct format
         }
     }
 

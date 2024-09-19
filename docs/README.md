@@ -1,7 +1,7 @@
 # Blitz User Guide
 
 
-![docs/Ui.png]
+!(Ui screenshot)[Ui.png]
 
 Blitz is a interactive chatbot to help plan tasks. Save important deadlines, dates all using your keyboard!! 
 

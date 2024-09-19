@@ -1,9 +1,9 @@
 package task;
 
-import exceptions.InvalidTagNameException;
-
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import exceptions.InvalidTagNameException;
 
 /**
  * Manages tags for tasks, ensuring that each tag has only one instance in memory.
@@ -44,7 +44,7 @@ public class TagManager {
         ArrayList<Tag> resultArr = new ArrayList<>();
         for (String tag: arr) {
             if (TAG_HASH_MAP.containsKey(tag.toLowerCase().trim())) {
-               resultArr.add(TAG_HASH_MAP.get(tag));
+                resultArr.add(TAG_HASH_MAP.get(tag));
             } else {
                 throw new InvalidTagNameException();
             }

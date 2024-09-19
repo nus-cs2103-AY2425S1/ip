@@ -1,9 +1,9 @@
 package commands;
 
+import java.util.ArrayList;
+
 import task.Task;
 import task.TaskList;
-
-import java.util.ArrayList;
 
 /**
  * Represents a command to filter tasks by their description.

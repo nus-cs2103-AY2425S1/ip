@@ -1,5 +1,9 @@
 package task;
 
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import exceptions.InvalidDateException;
 import exceptions.InvalidTaskException;
 import exceptions.NoTaskDescriptionException;
@@ -7,10 +11,6 @@ import task.tasktype.Deadline;
 import task.tasktype.Event;
 import task.tasktype.TaskType;
 import task.tasktype.Todo;
-
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Represents a general task. This class is a base class for specific task types such as
@@ -133,7 +133,7 @@ public class Task {
      * @param description The task description.
      * @return The TaskType (TODO, DEADLINE, or EVENT) based on the description.
      */
-    public static TaskType determineTaskType(String description) throws InvalidTaskException{
+    public static TaskType determineTaskType(String description) throws InvalidTaskException {
         if (description.startsWith("todo")) {
             return TaskType.TODO;
         } else if (description.startsWith("deadline")) {

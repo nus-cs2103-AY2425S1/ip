@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     /** The Blitz chatbot instance initialized with a data file. */
-    Blitz blitz = new Blitz("src/main/data/blitz.txt");
+    private final Blitz blitz = new Blitz("src/main/data/blitz.txt");
 
     /**
      * The start method is the main entry point for JavaFX applications.

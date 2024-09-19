@@ -1,5 +1,7 @@
 package components;
 
+import java.io.IOException;
+
 import blitz.Blitz;
 import io.Ui;
 import javafx.fxml.FXML;
@@ -10,8 +12,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
-import java.io.IOException;
 
 /**
  * The MainWindow class serves as the main controller for the JavaFX application.

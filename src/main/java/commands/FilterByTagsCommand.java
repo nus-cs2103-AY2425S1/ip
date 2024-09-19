@@ -1,12 +1,11 @@
 package commands;
 
+import java.util.ArrayList;
+
 import exceptions.ErrorMessageHandler;
 import exceptions.InvalidTagNameException;
-import exceptions.NoTaskDescriptionException;
 import task.Task;
 import task.TaskList;
-
-import java.util.ArrayList;
 
 /**
  * Represents a command to filter tasks by their associated tags.
@@ -30,7 +29,8 @@ public class FilterByTagsCommand extends FindCommand {
      * Returns a string representation of the matched tasks.
      *
      * @param taskList The task list to search through for matching tasks.
-     * @return A string representation of all tasks that match the specified tags, or an error message if no valid tags are found.
+     * @return A string representation of all tasks that match the specified tags, or an error message if
+     *              no valid tags are found.
      */
     @Override
     public String execute(TaskList taskList) {

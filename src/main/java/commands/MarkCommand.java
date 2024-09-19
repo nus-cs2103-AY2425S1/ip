@@ -7,7 +7,7 @@ import task.TaskList;
  * This class extends the {@link Command} class and handles the operation of marking a task as done.
  */
 public class MarkCommand extends Command {
-    private int indexToMark;
+    private final int indexToMark;
 
     /**
      * Constructs a {@code MarkCommand} with the specified index of the task to mark as completed.

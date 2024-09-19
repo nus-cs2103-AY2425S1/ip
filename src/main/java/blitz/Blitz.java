@@ -2,15 +2,12 @@ package blitz;
 import commands.Command;
 import commands.ExitCommand;
 import exceptions.ErrorMessageHandler;
+import exceptions.InvalidDateException;
 import exceptions.InvalidTaskException;
 import io.Parser;
 import io.Ui;
-import exceptions.InvalidDateException;
 import storage.Storage;
 import task.TaskList;
-
-import java.util.Objects;
-
 
 public class Blitz {
 
