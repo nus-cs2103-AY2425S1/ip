@@ -6,6 +6,12 @@ package winner;
  */
 public class Parser {
 
+    /**
+     * Parses user input and returns a Command object based on the identified keyword.
+     *
+     * @param input String representing user's input.
+     * @return Command object with the corresponding CommandType.
+     */
     public static Command parseInput(String input) {
         if (input.matches("(?i)hi|hello")) {
             return new Command(CommandType.HI_AGAIN, input);
