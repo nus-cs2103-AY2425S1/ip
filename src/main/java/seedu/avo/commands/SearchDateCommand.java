@@ -22,6 +22,6 @@ public class SearchDateCommand extends Command {
         }
         LocalDate searchDate = DateTime.parseWithoutTime(inputs[1]);
         String message = manager.getTasksByDate(searchDate);
-        return new CommandResult(message);
+        return new CommandResult(message, false);
     }
 }

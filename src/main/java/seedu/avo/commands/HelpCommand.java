@@ -24,6 +24,6 @@ public class HelpCommand extends Command {
                 + "todo <name> - add a new todo type task\n\n"
                 + "deadline <name> /by<date> - add a new deadline type task\n\n"
                 + "event <name> /from<date> /to<date> - add a new event type task\n\n";
-        return new CommandResult(helpMessage);
+        return new CommandResult(helpMessage, false);
     }
 }

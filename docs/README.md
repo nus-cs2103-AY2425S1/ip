@@ -9,7 +9,6 @@ Avo is a chatbot for managing tasks, optimized for use via a Command Line Interf
 3. Copy the file to the folder you want to use as the home folder for Avo.
 4. Open a command terminal, cd into the folder you put the jar file in, and use the `java -jar avo.jar` command to run the application.
 5. Type the command in the command box and press Enter to execute it. e.g. typing `help` and pressing Enter will open the help window.
-6. Refer to the [Features](#Features) below for details of each command.
 
 ## Features
 ### Adding tasks

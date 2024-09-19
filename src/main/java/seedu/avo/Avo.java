@@ -18,9 +18,9 @@ public class Avo {
         try {
             Command command = parser.parse(input);
             CommandResult result = command.execute(input);
-            return new Response(result.getMessage());
+            return new Response(result.getMessage(), result.getExitStatus());
         } catch (AvoException e) {
-            return new Response(e.getMessage());
+            return new Response(e.getMessage(), false);
         }
     }
 }

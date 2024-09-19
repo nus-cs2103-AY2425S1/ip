@@ -19,6 +19,6 @@ public class SearchNameCommand extends Command {
             throw new AvoException("OOPS!!! The date cannot be empty.");
         }
         String message = manager.getTasksByName(inputs[1]);
-        return new CommandResult(message);
+        return new CommandResult(message, false);
     }
 }

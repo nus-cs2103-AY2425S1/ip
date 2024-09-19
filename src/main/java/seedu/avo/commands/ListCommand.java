@@ -12,6 +12,6 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute(String userInput) {
         String message = manager.listTasks();
-        return new CommandResult(message);
+        return new CommandResult(message, false);
     }
 }

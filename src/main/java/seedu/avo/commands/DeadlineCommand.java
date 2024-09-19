@@ -23,6 +23,6 @@ public class DeadlineCommand extends Command {
         }
         LocalDateTime dueDate = DateTime.parseWithTime(inputs[2]);
         String message = manager.addTask(new Deadline(inputs[1].trim(), dueDate));
-        return new CommandResult(message);
+        return new CommandResult(message, false);
     }
 }

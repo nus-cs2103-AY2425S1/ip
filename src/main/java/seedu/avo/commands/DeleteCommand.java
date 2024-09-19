@@ -18,6 +18,6 @@ public class DeleteCommand extends Command {
             throw new AvoException("OOPS!!! The task number cannot be empty.");
         }
         String message = manager.deleteTask(Integer.parseInt(inputs[1]) - 1);
-        return new CommandResult(message);
+        return new CommandResult(message, false);
     }
 }

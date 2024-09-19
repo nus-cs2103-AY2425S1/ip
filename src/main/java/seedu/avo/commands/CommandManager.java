@@ -26,6 +26,7 @@ public class CommandManager {
         commandMap.put(CommandName.SEARCH_DATE.getName(), new SearchDateCommand(taskManager));
         commandMap.put(CommandName.SEARCH_NAME.getName(), new SearchNameCommand(taskManager));
         commandMap.put(CommandName.HELP.getName(), HelpCommand.of());
+        commandMap.put(CommandName.EXIT.getName(), new ExitCommand());
         unknownCommand = UnknownCommand.of();
     }
 

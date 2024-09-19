@@ -1,5 +1,6 @@
 package seedu.avo.ui;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -50,5 +51,8 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getAvoDialog(response.getMessage(), avoImage)
         );
         userInput.clear();
+        if (response.getExitStatus()) {
+            Platform.exit();
+        }
     }
 }
