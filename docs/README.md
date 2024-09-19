@@ -20,7 +20,7 @@ personality, it embodies the classic Garfield attitude, giving you responses tha
     - [Mark a task as complete: `mark`](#mark-a-task-as-complete-mark)
     - [Unmark a completed task to make it incomplete: `unmark`](#unmark-a-completed-task-to-make-it-incomplete-unmark)
   - [End the conversation: `bye`](#end-the-conversation-bye)
-___
+
 
 ## Quick start
 
@@ -33,7 +33,6 @@ ___
 4. Open a command terminal, cd into the folder you put the jar file in, and use the 
 `java -jar garfield.jar` command to run the application.
 
-___
 
 ## Features
 
