@@ -1,0 +1,35 @@
+.label {
+    -fx-background-color: linear-gradient(to bottom right, #0bb8e3, #0b60e3);
+    -fx-text-fill: #ffffff;
+    -fx-font: 12px "Comic Sans MS";
+    -fx-border-color: #0e0c50;
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 1em 1em;
+    -fx-border-radius: 1em 1em 1em 1em;
+}
+
+.user-dialog .label {
+    -fx-background-color: linear-gradient(to bottom right, #d4f20e, #a7bf0d);
+    -fx-text-fill: #1e2206;
+    -fx-border-color: #7c8737;
+}
+
+.reply-label {
+    -fx-background-radius: 1em 1em 1em 1em;
+    -fx-border-radius: 1em 1em 1em 1em;
+}
+
+#displayPicture {
+
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+
+}
+
