@@ -168,4 +168,15 @@ public class TaskList {
         }
         return foundTasks;
     }
+
+    /**
+     * Tags a task in the task list.
+     *
+     * @param index Index of task to be tagged.
+     * @throws Elseption If Task::tag throws an Elseption.
+     */
+    public void tagTask(int index, String tag) throws Elseption {
+        Task task = getTask(index);
+        task.tag(tag);
+    }
 }

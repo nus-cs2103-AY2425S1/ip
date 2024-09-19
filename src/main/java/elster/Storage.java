@@ -97,19 +97,24 @@ public class Storage {
         }
     }
 
-    private Task getTask(String taskType, String description, String[] row, boolean isDone)
+    private Task getTask(String taskType, String description, String[] extraInfo, boolean isDone)
             throws Elseption {
         Task task = null;
+        String[] tagList = null;
 
         switch (taskType) {
         case "T":
             task = ToDoTask.of("todo " + description);
+            extracted(extraInfo, 3, task);
             break;
         case "D":
-            task = DeadlineTask.of("deadline " + description + " /by " + row[3].strip());
+            task = DeadlineTask.of("deadline " + description + " /by " + extraInfo[3].strip());
+            extracted(extraInfo, 4, task);
             break;
         case "E":
-            task = EventTask.of("event " + description + " /from " + row[3].strip() + " /to " + row[4].strip());
+            task = EventTask.of("event " + description + " /from "
+                    + extraInfo[3].strip() + " /to " + extraInfo[4].strip());
+            extracted(extraInfo, 5, task);
             break;
         default:
             assert false;
@@ -119,5 +124,17 @@ public class Storage {
             task.markAsDone();
         }
         return task;
+    }
+
+    private void extracted(String[] extraInfo, int tagCol, Task task) throws Elseption {
+        String tagStr = extraInfo[tagCol].strip();
+        if (!tagStr.equals("[]")) {
+            String[] tagList = tagStr
+                    .substring(1, tagStr.length() - 1)
+                    .split(",");
+            for (String i : tagList) {
+                task.tag(i);
+            }
+        }
     }
 }

@@ -2,16 +2,7 @@ package elster;
 
 import java.nio.file.Path;
 
-import elster.commands.ByeCommand;
-import elster.commands.Command;
-import elster.commands.DeadlineCommand;
-import elster.commands.DeleteCommand;
-import elster.commands.EventCommand;
-import elster.commands.FindCommand;
-import elster.commands.ListCommand;
-import elster.commands.MarkCommand;
-import elster.commands.TodoCommand;
-import elster.commands.UnmarkCommand;
+import elster.commands.*;
 
 /**
  * Elster class that handles the logic for processing user inputs.
@@ -80,6 +71,9 @@ public class Elster {
 
         } else if (input.startsWith("find")) {
             command = FindCommand.of(ui, taskList, storage, input);
+
+        } else if (input.startsWith("tag")) {
+            command = TagCommand.of(ui, taskList, storage, input);
         }
         if (command != null) {
             return command.execute();

@@ -28,11 +28,16 @@ public class ToDoTask extends Task {
 
     @Override
     public String toString() {
+        StringBuilder resultStr = new StringBuilder();
         if (this.status) {
-            return "[T][X] " + this.description;
+            resultStr.append("[T][X] ").append(this.description);
         } else {
-            return "[T][ ] " + this.description;
+            resultStr.append("[T][ ] ").append(this.description);
         }
+        for (String tag : tags) {
+            resultStr.append(" #").append(tag);
+        }
+        return resultStr.toString();
     }
 
     /**

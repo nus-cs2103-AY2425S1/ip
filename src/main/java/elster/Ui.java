@@ -128,6 +128,16 @@ public class Ui {
     }
 
     /**
+     * Prints a message when the user successfully adds a task.
+     */
+    public String tagTaskMessage(Task task) {
+        String resultStr = "";
+        resultStr += "Noted, task has been tagged.\n";
+        resultStr += "  " + task.toString();
+        return resultStr;
+    }
+
+    /**
      * Prints the error message of the Elseption
      * Method inspired by @prave1n and how his iP handled errors
      *

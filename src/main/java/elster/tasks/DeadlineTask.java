@@ -25,7 +25,6 @@ public class DeadlineTask extends Task {
      * @return Created deadline task.
      */
     public static DeadlineTask of(String input) throws Elseption {
-        String[] splitInput = input.split("\\s+");
         LocalDateTime deadline;
 
         if (input.strip().equals("deadline")) {
@@ -60,11 +59,26 @@ public class DeadlineTask extends Task {
 
     @Override
     public String toString() {
+        StringBuilder resultStr = new StringBuilder();
         if (this.status) {
-            return "[D][X] " + this.description + " (by: " + deadline + ")";
+            resultStr
+                    .append("[D][X] ")
+                    .append(this.description)
+                    .append(" (by: ")
+                    .append(deadline)
+                    .append(")");
         } else {
-            return "[D][ ] " + this.description + " (by: " + deadline + ")";
+            resultStr
+                    .append("[D][ ] ")
+                    .append(this.description)
+                    .append(" (by: ")
+                    .append(deadline)
+                    .append(")");
         }
+        for (String tag : tags) {
+            resultStr.append(" #").append(tag);
+        }
+        return resultStr.toString();
     }
 
     /**

@@ -34,7 +34,6 @@ public class EventTask extends Task {
      * @return Created event task.
      */
     public static EventTask of(String input) throws Elseption {
-        String[] splitInput = input.split("\\s+");
         LocalDateTime start;
         LocalDateTime end;
 
@@ -75,11 +74,30 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
+        StringBuilder resultStr = new StringBuilder();
         if (this.status) {
-            return "[E][X] " + this.description + " (from: " + start + " to: " + end + ")";
+            resultStr
+                    .append("[E][X] ")
+                    .append(this.description)
+                    .append(" (from: ")
+                    .append(start)
+                    .append(" to: ")
+                    .append(end)
+                    .append(")");
         } else {
-            return "[E][ ] " + this.description + " (from: " + start + " to: " + end + ")";
+            resultStr
+                    .append("[E][ ] ")
+                    .append(this.description)
+                    .append(" (from: ")
+                    .append(start)
+                    .append(" to: ")
+                    .append(end)
+                    .append(")");
         }
+        for (String tag : tags) {
+            resultStr.append(" #").append(tag);
+        }
+        return resultStr.toString();
     }
 
     /**
@@ -92,10 +110,10 @@ public class EventTask extends Task {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         if (this.status) {
             return "E | 1 | " + this.description + " | " + this.start.format(formatter)
-                    + " | " + this.end.format(formatter);
+                    + " | " + this.end.format(formatter) + " | " + this.tags;
         } else {
             return "E | 0 | " + this.description + " | " + this.start.format(formatter)
-                    + " | " + this.end.format(formatter);
+                    + " | " + this.end.format(formatter) + " | " + this.tags;
         }
     }
 }
