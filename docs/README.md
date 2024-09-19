@@ -1,7 +1,7 @@
 # BitBot User Guide
 
 ## Product Overview
-![](/docs/Ui.png)
+![](Ui.png)
 BitBot is a task management application designed to help the users to 
 organise the tasks and keep track of the remaining tasks that needs to be done.
 There are three main tasks that can be added. 

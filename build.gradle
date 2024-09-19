@@ -50,7 +50,6 @@ shadowJar {
     archiveBaseName = "bitbot"
     archiveFileName = "bitbot.jar"
     archiveClassifier = null
-    mainClassName = 'bitbot.BitBot'
 }
 checkstyle {
     toolVersion = '10.2'
