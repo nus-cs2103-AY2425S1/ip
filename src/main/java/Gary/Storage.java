@@ -22,6 +22,9 @@ public class Storage {
      * @param filePath The path of the file to store tasks.
      */
     public Storage(String filePath) {
+        // Assertion: Ensure that the file path is not null
+        assert filePath != null : "File path cannot be null";
+
         this.filePath = filePath;
     }
 
@@ -37,18 +40,25 @@ public class Storage {
         File directory = new File("src/textFile");
 
         if (!directory.exists()) {
-            // Create the directory if it does not exist
-            directory.mkdir();
+            // Assertion: Ensure that directory creation is successful
+            boolean dirCreated = directory.mkdir();
+            assert dirCreated : "Failed to create directory";
         }
 
         if (!file.exists()) {
             try {
                 // Create the file if it does not exist
-                file.createNewFile();
+                boolean fileCreated = file.createNewFile();
+                // Assertion: Ensure that the file creation is successful
+                assert fileCreated : "Failed to create file";
             } catch (IOException e) {
-                // Exception is ignored since we're only checking for file creation
+                // Assertion: Ensure that no IOException occurs during file creation
+                assert false : "IOException occurred while creating file: " + e.getMessage();
             }
         }
+
+        // Assertion: Ensure the file exists after attempting to create it
+        assert file.exists() : "File should exist after creation attempt";
 
         return new Scanner(file);
     }
@@ -61,14 +71,23 @@ public class Storage {
      * @throws IOException If an I/O error occurs during writing.
      */
     public void saveTask(TaskList taskList) throws IOException {
+        // Assertion: Ensure the taskList is not null
+        assert taskList != null : "TaskList cannot be null";
+
         File file = new File(filePath);
         FileWriter fileWriter = new FileWriter(file);
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
         for (int i = 0; i < taskList.size(); i++) {
             Task task = taskList.getTask(i);
+
+            // Assertion: Ensure task is not null before writing
+            assert task != null : "Task cannot be null when saving to file";
+
             bufferedWriter.write(task.parseToFile());
             bufferedWriter.newLine();
         }
+
         bufferedWriter.close();
     }
 }

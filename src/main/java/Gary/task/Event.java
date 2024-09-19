@@ -2,6 +2,7 @@ package Gary.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Represents an Event task that includes a description, start time, and end time.
@@ -23,11 +24,22 @@ public class Event extends Task {
      * @param description The description of the event.
      * @param start The start time of the event in "yyyy-MM-dd HHmm" format.
      * @param end The end time of the event in "yyyy-MM-dd HHmm" format.
+     * @throws IllegalArgumentException if the date-time format is invalid.
      */
     public Event(String description, String start, String end) {
         super(description);
+
+        // Assertions to ensure valid inputs
+        assert description != null && !description.trim().isEmpty() : "Description cannot be null or empty";
+        assert start != null && !start.trim().isEmpty() : "Start time cannot be null or empty";
+        assert end != null && !end.trim().isEmpty() : "End time cannot be null or empty";
+
         this.start = parseDateTime(start);
         this.end = parseDateTime(end);
+
+        // Assert that start and end times were successfully parsed
+        assert this.start != null : "Start time should not be null";
+        assert this.end != null : "End time should not be null";
     }
 
     /**
@@ -35,9 +47,14 @@ public class Event extends Task {
      *
      * @param dateTime The date-time string to be parsed.
      * @return The parsed LocalDateTime object.
+     * @throws IllegalArgumentException if the date-time string is invalid.
      */
     private LocalDateTime parseDateTime(String dateTime) {
-        return LocalDateTime.parse(dateTime, INPUT_FORMATTER);
+        try {
+            return LocalDateTime.parse(dateTime, INPUT_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Invalid date-time format: " + dateTime);
+        }
     }
 
     /**
@@ -79,6 +96,10 @@ public class Event extends Task {
             return false;
         }
         Event otherEvent = (Event) obj;
+
+        // Assert that the object being compared is an Event object
+        assert otherEvent != null : "The object being compared should not be null";
+
         return super.equals(otherEvent)
                 && (this.start == null ? otherEvent.start == null : this.start.equals(otherEvent.start))
                 && (this.end == null ? otherEvent.end == null : this.end.equals(otherEvent.end));

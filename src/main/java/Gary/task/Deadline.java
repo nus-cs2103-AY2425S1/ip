@@ -22,6 +22,8 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String dueDate) {
         super(description);
+        assert description != null && !description.isEmpty() : "Description should not be null or empty";
+        assert dueDate != null && !dueDate.isEmpty() : "Due date should not be null or empty";
         this.deadline = parseDate(dueDate);
     }
 
@@ -32,6 +34,7 @@ public class Deadline extends Task {
      * @return A LocalDate object representing the parsed date.
      */
     private LocalDate parseDate(String dateTime) {
+        assert dateTime != null : "Date string should not be null";
         return LocalDate.parse(dateTime, INPUT_FORMATTER);
     }
 
@@ -44,6 +47,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
+        assert this.description != null : "Description should not be null";
+        assert this.deadline != null : "Deadline should not be null";
         return "[D][" + (this.isDone ? "X" : " ") + "] " + this.description
                 + " (by: " + this.deadline.format(OUTPUT_FORMATTER) + ")";
     }
@@ -56,6 +61,8 @@ public class Deadline extends Task {
      */
     @Override
     public String parseToFile() {
+        assert this.description != null : "Description should not be null";
+        assert this.deadline != null : "Deadline should not be null";
         return "D | " + (this.isDone ? "1" : "0") + " | " + this.description + " | "
                 + this.deadline.format(INPUT_FORMATTER);
     }
@@ -76,7 +83,8 @@ public class Deadline extends Task {
             return false;
         }
         Deadline otherDeadline = (Deadline) obj;
+        assert otherDeadline.description != null : "Other deadline's description should not be null";
+        assert otherDeadline.deadline != null : "Other deadline's date should not be null";
         return super.equals(otherDeadline) && this.deadline.equals(otherDeadline.deadline);
     }
 }
-
