@@ -1,5 +1,5 @@
 package espresso.gui;
-
+//took some help from @RitulKumarSingh
 import espresso.command.InvalidCommandException;
 import espresso.Espresso;
 import javafx.animation.PauseTransition;
@@ -41,7 +41,7 @@ public class MainWindow {
 
         dialogBoxContainer.setPrefWidth(scrollPane.getWidth());
 
-        scrollPane.widthProperty().addListener((obs, oldVal, newVal) -> {
+        scrollPane.widthProperty().addListener((observable, oldVal, newVal) -> {
             dialogBoxContainer.setPrefWidth(newVal.doubleValue());
         });
     }
