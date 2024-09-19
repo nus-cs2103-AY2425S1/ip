@@ -6,6 +6,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 /**
  * Controller for the main GUI.
@@ -28,11 +29,15 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        // Set styles programmatically
+        userInput.setStyle("-fx-font-family: 'Arial'; -fx-font-size: 14; -fx-text-fill: #333333; -fx-background-color: #f0f0f0;");
+        sendButton.setStyle("-fx-font-family: 'Arial'; -fx-font-size: 14; -fx-background-color: #4CAF50; -fx-text-fill: white;");
+        dialogContainer.setStyle("-fx-background-color: #ffffff;");
     }
 
-    /** Injects the Duke instance */
-    public void setBot(ArsenBot d) {
-        arsenBot = d;
+    /** Injects the Bot instance */
+    public void setBot(ArsenBot bot) {
+        arsenBot = bot;
     }
 
     /**
