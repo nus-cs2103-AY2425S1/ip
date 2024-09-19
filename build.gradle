@@ -43,16 +43,13 @@ test {
     }
 }
 
-//application {
-//    mainClass.set("bob.Bob")
-//}
-
 application {
     mainClass.set("bob.gui.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "bob" //duke
+    archiveFileName = 'bob.jar'
+    archiveBaseName = "bob"
     archiveClassifier = null
 }
 

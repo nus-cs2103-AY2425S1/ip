@@ -35,7 +35,6 @@ public class Main extends Application {
             MainWindow controller = fxmlLoader.getController();
             controller.setBob(bob);
             controller.setStage(stage);
-            // fxmlLoader.<MainWindow>getController().setBob(bob); // inject the Bob instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

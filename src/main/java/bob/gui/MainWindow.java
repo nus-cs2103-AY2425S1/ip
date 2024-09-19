@@ -78,6 +78,7 @@ public class MainWindow extends AnchorPane {
      * Handles user input from the text field when the send button is pressed or the user hits enter.
      * It creates two dialog boxes: one echoing the user's input and the other containing Bob's response.
      * After processing, the user input is cleared.
+     * If the user inputs "bye", the application will close automatically in 1 second.
      */
     @FXML
     private void handleUserInput() {
@@ -90,11 +91,11 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
 
-        // Close the window if the command is "bye"
+        // Close the window in 1 second if the user inputs "bye"
         if (commandType.equals(BYE)) {
-            PauseTransition delay = new PauseTransition(Duration.seconds(3)); // 3-second delay
-            delay.setOnFinished(event -> closeWindow()); // Close window after delay
-            delay.play(); // Start the delay
+            PauseTransition delay = new PauseTransition(Duration.seconds(1));
+            delay.setOnFinished(event -> closeWindow());
+            delay.play();
         }
     }
 }
