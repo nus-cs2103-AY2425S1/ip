@@ -22,6 +22,7 @@ public class Main extends Application {
         Scene scene = new Scene(ap);
         stage.setScene(scene);
         ap.setStage(stage);
+        stage.setTitle("Elster");
         ap.setElster(elster); // inject the Elster instance
         stage.show();
     }
