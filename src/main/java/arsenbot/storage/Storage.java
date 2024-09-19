@@ -13,6 +13,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * The Storage class handles loading and saving tasks from/to a file.
@@ -38,30 +40,31 @@ public class Storage {
      * @throws IOException if an I/O error occurs during file reading
      */
     public List<Task> load() throws IOException {
-        List<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
         if (!file.exists()) {
-            return tasks; // No tasks to load
+            return new ArrayList<>(); // No tasks to load
         }
 
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-        String line;
-        while ((line = reader.readLine()) != null) {
-            String[] parts = line.split(" \\| ");
-            Task task = switch (parts[0]) {
-                case "T" -> new Todo(parts[2]);
-                case "D" -> new Deadline(parts[2], parts[3]);
-                case "E" -> new Event(parts[2], parts[3], parts[4]);
-                default -> null;
-            };
-            if (task != null && parts[1].equals("1")) {
-                task.markAsDone();
-            }
-            tasks.add(task);
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            return reader.lines()
+                    .map(line -> {
+                        String[] parts = line.split(" \\| ");
+                        Task task = switch (parts[0]) {
+                            case "T" -> new Todo(parts[2]);
+                            case "D" -> new Deadline(parts[2], parts[3]);
+                            case "E" -> new Event(parts[2], parts[3], parts[4]);
+                            default -> null;
+                        };
+                        if (task != null && parts[1].equals("1")) {
+                            task.markAsDone();
+                        }
+                        return task;
+                    })
+                    .filter(Objects::nonNull) // Filter out null tasks
+                    .collect(Collectors.toList());
         }
-        reader.close();
-        return tasks;
     }
+
 
     /**
      * Saves the given list of tasks to the file at the specified file path.
