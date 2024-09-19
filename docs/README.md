@@ -1,5 +1,4 @@
 # Quack - Your Personal Duck Assistant 
----
 
 ![Greeting](Greeting.png)
 
@@ -18,7 +17,6 @@ Here is a list of feaures that quack supports
    7) A help feature to list all possible commands
 
 # Setting up Quack
----
 
 If you are using the `.jar` to run the program please skip to the [[#Quick Start by Running the JAR file|quick start]] portion of the guide.
 
@@ -48,23 +46,21 @@ If you are using the `.jar` to run the program please skip to the [[#Quick Start
 
 ## Quick Start by Running the JAR file
 
-   1) Ensure you have JDK-17.0.12 or equivalent is installed locally in your Computer
-   2) Download the latest `.jar` file from here
-   3) Copy the file to the folder you want to use as the home folder for Quack.
-   4) Open a command terminal, `cd` into the folder you put the `.jar` file in, and use the following command`java -jar quack.jar` to run the application.
+   1. Ensure you have JDK-17.0.12 or equivalent is installed locally in your Computer
+   2. Download the latest `.jar` file from here
+   3. Copy the file to the folder you want to use as the home folder for Quack.
+   4. Open a command terminal, `cd` into the folder you put the `.jar` file in, and use the following command`java -jar quack.jar` to run the application.
 
 > Please note that A GUI similar to the below should appear in a few seconds. Note that the image shows some sample data and some uage examples.
 
 ![Ui](Ui.png)
 
-   4) Type a command in the text input at the bottom and press Send to execute it
-   5) For what commands to type, just key in `help` into the text input
+   4. Type a command in the text input at the bottom and press Send to execute it
+   5. For what commands to type, just key in `help` into the text input
 
 # Features
----
 
-> [!NOTE]
-> Do note that the images to display expected outcomes uses sample data
+>Do note that the images to display expected outcomes uses sample data
 
 ## Listing Tasks - `list`
 Displays a list of all tasks that is being kept track of by Quack.
@@ -91,10 +87,10 @@ __Example__:
 - < Quack will prompt you the task description >
 - `Complete assignment`
 
-> [!IMPORTANT]
 > For deadline and event tasks, Quack will prompt you for some date input in ths following format: DD/MM/YYYY HH:MM:SS
 
 __Sample Output:__
+
 ![add](./expected-outputs/Add-Task-Command.png)
 
 ## Finding Tasks - `find`
@@ -104,12 +100,13 @@ Format
 - `find`
 - `<Task description>`
 
-__Example__:
+__Example:__
 - `find`
 - < Quack will prompt you what task you will like to find >
 - `Assignment`
 
 __Sample Output:__
+
 ![find](./expected-outputs/Find-Task-Command.png)
 
 ## Deleting Tasks - `delete`
@@ -119,12 +116,13 @@ Format
 - `delete`
 - `<Task index as shown in the list>`
 
-__Example__:
+__Example:__
 - `delete`
 - < Quack will prompt you what task you will like to delete >
 - `3`
 
 __Sample Output:__
+
 ![delete](./expected-outputs/Delete-Task-Command.png)
 
 ## Marking and Unmarking Tasks - `mark` & `unmark`
@@ -134,7 +132,7 @@ Format
 - `mark` or `unmark`
 - `<Task index as shown in the list>`
 
-__Example__:
+__Example:__
 - `mark`
 - < Quack will prompt you what task you will like to mark >
 - `2`
@@ -150,17 +148,17 @@ Format
 - `<Task index as shown in the list>`
 - `<Tag label>`
 
-__Example__:
+__Example:__
 - `tag`
 - < Quack will prompt you what task you will like to tag >
 - `2`
 - < Quack will prompt you for the tag lable>
 - `CS2103`
 
-> [!NOTE]
 > For untagging Quack will not prompt you for a tag label
 
 __Sample Output:__
+
 ![tag/untag](./expected-outputs/Tag-Untag-Task-Command.png)
 
 ## Help function - `help`
@@ -169,7 +167,7 @@ In the event the user forgets the commands to type, they can ask quack to list i
 Format
 - `help`
 
-__Example__:
+__Example:__
 - `tag`
 - < Quack will print all the supported commands >
 
@@ -182,14 +180,14 @@ This is to close the program properly
 Format
 - bye`
 
-__Example__:
+__Example:__
 - `bye`
 - < Quack will stop running >
 
-[!NOTE]
 > After awhile the window will be closed after the `bye` command is executed
 
 __Sample Output:__
+
 ![bye](./expected-outputs/Bye-Command.png)
 
 ## Saving & loading of tasks
@@ -198,7 +196,7 @@ Quack will save any data automatically once the `bye` command has been executed.
 Quack will also automatically load in the saved data when the program first runs.
 
 # References
----
+
 
 ## Website to generate the ASCII Logo
 The website to generate the ASCII Logo can be found [here]((https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjNkMjnx_6HAxVN6zgGHSk9NLYQFnoECBwQAQ&url=https%3A%2F%2Fpatorjk.com%2Fsoftware%2Ftaag%2F&usg=AOvVaw1rmNDfu2i-RQ4_TslxEwcR&opi=89978449)).

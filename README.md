@@ -1,5 +1,5 @@
 # Quack Setup Guide
----
+
 ![Greeting](/docs/Greeting.png)
 
 ## What is Quack?
@@ -7,9 +7,9 @@
    Quack is a user friendly assistant which helps you keep track of pesky tasks and ensures you don't miss out on anything important!
 
 # Setting up Quack
----
 
-If you are using the `.jar` to run the program please skip to the [[#Quick Start by Running the JAR file|quick start]] portion of the guide.
+
+If you are using the `.jar` to run the program please skip to the quick start portion of the guide.
 
 ## InteliJ
    Prerequisites: JDK 17, update Intellij to the most recent version.
@@ -43,7 +43,7 @@ If you are using the `.jar` to run the program please skip to the [[#Quick Start
    4) Open a command terminal, `cd` into the folder you put the `.jar` file in, and use the following command`java -jar quack.jar` to run the application.
 
 # Features
----
+
 Here is a list of features:
 
 * Adding a task
@@ -58,7 +58,7 @@ Here is a list of features:
 * Finding Tasks
 
 # References
----
+
 
 ## Website to generate the ASCII Logo
 The website to generate the ASCII Logo can be found [here]((https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjNkMjnx_6HAxVN6zgGHSk9NLYQFnoECBwQAQ&url=https%3A%2F%2Fpatorjk.com%2Fsoftware%2Ftaag%2F&usg=AOvVaw1rmNDfu2i-RQ4_TslxEwcR&opi=89978449)).
