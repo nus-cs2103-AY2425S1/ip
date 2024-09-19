@@ -1,7 +1,9 @@
 package Buu;
+
 /**
- * Represents a command that provides help information to the user in the GPT application.
- * This command displays a list of available commands and their usage when executed.
+ * Represents a command that provides help information to the user in the Buu Task Manager application.
+ * This command displays a list of available commands and their usage when executed, all in the cheerful
+ * and playful persona of Buu from Dragon Ball.
  */
 public class HelpCommand extends Command {
     /**
@@ -13,18 +15,21 @@ public class HelpCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.addToOutputBuffer("You can try these commands:");
-        ui.addToOutputBuffer("todo [task description] - To add a ToDo task");
-        ui.addToOutputBuffer("deadline [task description] /by [date/time] - To add a Deadline task");
-        ui.addToOutputBuffer("event [task description] /from [start date/time]"
-                + " /to [end date/time] - To add an Event task");
-        ui.addToOutputBuffer("list - To display all tasks");
-        ui.addToOutputBuffer("mark [task number] - To mark a task as done");
-        ui.addToOutputBuffer("unmark [task number] - To unmark a task");
-        ui.addToOutputBuffer("delete [task number] - To delete a task");
-        ui.addToOutputBuffer("find [keyword] - To find tasks by keyword");
-        ui.addToOutputBuffer("priority [task number] [priority level] - To set the priority of a task "
+        ui.addToOutputBuffer("That doesn't look right!\n"
+                + "Here are some things you can do\n");
+        ui.addToOutputBuffer("todo [task description] - Add a new task for Buu to remember!");
+        ui.addToOutputBuffer("deadline [deadline description] /by [date/time] - Set a deadline!"
+                + " Don't keep Buu waiting too long!");
+        ui.addToOutputBuffer("event [event description] /from [start date/time] /to [end date/time] - "
+                + "Create a fun event! Buu loves fun!");
+        ui.addToOutputBuffer("list - Show all tasks. Buu loves to see progress!");
+        ui.addToOutputBuffer("mark [task number] - Mark a task as done! Yay! Buu is happy!");
+        ui.addToOutputBuffer("unmark [task number] - Unmark a task. Hmm, did Goku forget?");
+        ui.addToOutputBuffer("delete [task number] - Remove a task! Buu will miss it, but okay!");
+        ui.addToOutputBuffer("find [keyword] - Find a task! Buu will sniff it out for you!");
+        ui.addToOutputBuffer("priority [task number] [priority level] - Set task priority! "
+                + "Buu likes important tasks first! "
                 + "(1: Low, 2: Medium, 3: High)");
-        ui.addToOutputBuffer("bye - To exit the chatbot");
+        ui.addToOutputBuffer("bye - Exit the program! Bye-bye, Goku! Buu will be waiting for you to come back! ");
     }
 }

@@ -36,7 +36,7 @@ public class MainWindow extends AnchorPane {
         // Get the welcome message and display it in the dialog container
         String welcomeMessage = buu.getResponse(""); // Fetch the welcome message from GPT
         dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog(welcomeMessage, dukeImage) // Display GPT's welcome message
+                DialogBox.getBuuDialog(welcomeMessage, dukeImage) // Display GPT's welcome message
         );
     }
 
@@ -50,7 +50,7 @@ public class MainWindow extends AnchorPane {
         String response = buu.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getBuuDialog(response, dukeImage)
         );
         userInput.clear();
     }

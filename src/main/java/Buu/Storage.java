@@ -74,9 +74,6 @@ public class Storage {
         boolean isDone = parts[1].trim().equals("1");
         String description = parts[2].trim();
         int priority = Integer.parseInt(parts[parts.length - 1].trim());
-
-        System.out.println("Parsed priority: " + priority); // Debug statement
-
         Task task = null;
 
         switch (taskType) {

@@ -22,7 +22,9 @@ public class Main extends Application {
             stage.setTitle("Buu"); // You can change this to any name you like
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setGPT(buu); // inject the GPT instance
+            fxmlLoader.<MainWindow>getController().setGPT(buu); // inject the buu instance
+            // Disable resizing
+            stage.setResizable(false);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

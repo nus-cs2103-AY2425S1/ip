@@ -26,13 +26,14 @@ public class Ui {
      * @param chatbotName The name of the chatbot to be displayed in the welcome message.
      */
     public void showWelcomeMessage(String chatbotName) {
-        outputBuffer.add("Hello! I'm " + chatbotName + "\nWhat can I do for you?");
+        outputBuffer.add("Goku? Is that really you? It's been so long!\n"
+                + " Let’s take care of those tasks ");
     }
     /**
      * Displays a goodbye message to the user when the application exits.
      */
     public void showGoodbyeMessage() {
-        outputBuffer.add("Bye. Hope to see you again soon!");
+        outputBuffer.add("Bye bye, Goku! Hope to munch on more tasks with you soon! Buu will be waiting!");
     }
     /**
      * Displays an error message to the user.
@@ -40,7 +41,7 @@ public class Ui {
      * @param message The error message to be displayed.
      */
     public void showError(String message) {
-        outputBuffer.add(message);
+        outputBuffer.add("Goku, something went wrong! " + message + " Let's try that again!");
     }
 
     /**
@@ -50,8 +51,9 @@ public class Ui {
      * @param taskCount The total number of tasks in the list after adding the new task.
      */
     public void showTaskAdded(Task task, int taskCount) {
-        outputBuffer.add("Got it. I've added this task:\n  "
-                + task + "\nNow you have " + taskCount + " tasks in the list.");
+        outputBuffer.add("I've added this task:\n "
+                + task
+                + "\nNow you've got " + taskCount + " tasks to take care of, Goku!");
     }
     /**
      * Displays a confirmation message indicating that the task has been marked as done.
@@ -59,8 +61,8 @@ public class Ui {
      * @param task The task that has been marked as completed.
      */
     public void showTaskMarkedDone(Task task) {
-        outputBuffer.add("Nice! I've marked this task as done:");
-        outputBuffer.add("  " + task);
+        outputBuffer.add("You've completed this task:\n  " + task);
+        outputBuffer.add("Good job, Goku! Buu is impressed! Keep it going! \uD83D\uDE0B");
     }
     /**
      * Displays a message when a task is unmarked as not done.
@@ -68,8 +70,8 @@ public class Ui {
      * @param task The task that was unmarked.
      */
     public void showTaskUnmarked(Task task) {
-        outputBuffer.add("OK, I've marked this task as not done yet:");
-        outputBuffer.add("  " + task);
+        outputBuffer.add("Goku, looks like this task isn't done yet:\n  " + task);
+        outputBuffer.add("Let's tackle it together soon! Buu's ready when you are! \uD83D\uDC4D");
     }
 
     /**
@@ -79,8 +81,9 @@ public class Ui {
      * @param taskCount The total number of tasks remaining in the list after removing the task.
      */
     public void showTaskRemoved(Task task, int taskCount) {
-        outputBuffer.add("Noted. I've removed this task:\n  " + task);
-        outputBuffer.add("Now you have " + taskCount + " tasks left in the list.");
+        outputBuffer.add("Poof! This task is gone, Goku! \uD83D\uDCA8");
+        outputBuffer.add("  " + task);
+        outputBuffer.add("Now there are " + taskCount + " tasks left. Let's keep going!");
     }
 
     /**
@@ -90,12 +93,13 @@ public class Ui {
      */
     public void showTaskList(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
-            outputBuffer.add("No tasks to show.");
+            outputBuffer.add("Hooray! No tasks left, Goku! Buu is happy! Time for a break! \uD83D\uDE0A");
         } else {
-            StringBuilder taskListMessage = new StringBuilder("Here are the tasks in your list:\n");
+            StringBuilder taskListMessage = new StringBuilder("Here are your tasks, Goku! Let's take them down one by one:\n");
             for (int i = 0; i < tasks.size(); i++) {
                 taskListMessage.append((i + 1)).append(".").append(tasks.get(i)).append("\n");
             }
+            taskListMessage.append("Buu knows you can do this! Keep it up!");
             outputBuffer.add(taskListMessage.toString());
         }
     }
@@ -109,8 +113,8 @@ public class Ui {
      *             along with the newly set priority.
      */
     public void showTaskPrioritySet(Task task) {
-        outputBuffer.add("OK, I've set the priority for this task:");
-        outputBuffer.add("  " + task); // Calls the task's toString() method
+        outputBuffer.add("Alright, Goku! I've set the priority for this task:\n  " + task);
+        outputBuffer.add("Now let's get it done before Buu gets bored! \uD83D\uDE0A");
     }
 
     /**
@@ -120,12 +124,13 @@ public class Ui {
      */
     public void showMatchingTasks(List<Task> tasks) {
         if (tasks.isEmpty()) {
-            outputBuffer.add("No matching tasks found.");
+            outputBuffer.add("Goku, Buu couldn't find anything matching that search. Try something else?");
         } else {
-            StringBuilder matchingTasksMessage = new StringBuilder("Here are the matching tasks in your list:\n");
+            StringBuilder matchingTasksMessage = new StringBuilder("Here are the tasks that match what you're looking for:\n");
             for (int i = 0; i < tasks.size(); i++) {
                 matchingTasksMessage.append((i + 1)).append(".").append(tasks.get(i)).append("\n");
             }
+            matchingTasksMessage.append("Nice work, Goku! Keep it up, Buu's watching! \uD83D\uDE0A");
             outputBuffer.add(matchingTasksMessage.toString());
         }
     }

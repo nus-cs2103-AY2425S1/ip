@@ -24,7 +24,7 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
-    private DialogBox(String text, Image img) {
+    private DialogBox(String text, Image img, String bgColor) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -36,6 +36,11 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+
+        // Set background color and padding for the dialog
+        this.setStyle("-fx-background-color: " + bgColor + "; -fx-background-radius: 10; -fx-padding: 10;");
+        // Align the text to the center vertically
+        dialog.setAlignment(Pos.CENTER);
     }
 
     /**
@@ -49,12 +54,15 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var db = new DialogBox(text, img, "#f6e0b5"); // Light pastel orange for Goku
+        db.setAlignment(Pos.CENTER_RIGHT); // Align text to the right for user
+        return db;
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+    public static DialogBox getBuuDialog(String text, Image img) {
+        var db = new DialogBox(text, img, "#eea990"); // Light lavender for Buu
         db.flip();
+        db.setAlignment(Pos.CENTER_LEFT); // Align text to the left for Buu
         return db;
     }
 }
