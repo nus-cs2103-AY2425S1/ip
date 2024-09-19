@@ -24,7 +24,8 @@ public class UpdateTaskCommand extends Command {
      * @param firstDate - new date (either /by for deadline or /from for events), "" if no change is made
      * @param secondDate - new date (end date for events), "" if no change is made
      */
-    public UpdateTaskCommand(int taskNum, String desc, String firstDate, String secondDate) throws InvalidCommandException {
+    public UpdateTaskCommand(int taskNum, String desc, String firstDate, String secondDate)
+            throws InvalidCommandException {
         this.taskNum = taskNum;
         if (Objects.equals(desc, "") && Objects.equals(firstDate, "") && Objects.equals(secondDate, "")) {
             throw new InvalidCommandException("Nothing has been changed");
@@ -34,6 +35,13 @@ public class UpdateTaskCommand extends Command {
         this.secondDate = secondDate;
     }
 
+    /**
+     * Updates a task's information
+     * @param storage permanent storage
+     * @param tasks session storage
+     * @return acknowledgement message to the user
+     * @throws OptimusExceptions when an attempt is made to update an invalid field or with the wrong format
+     */
     @Override
     public String execute(Storage storage, TaskList tasks) throws OptimusExceptions {
         Task task = tasks.getTask(taskNum);

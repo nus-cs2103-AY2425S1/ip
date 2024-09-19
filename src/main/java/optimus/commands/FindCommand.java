@@ -19,8 +19,8 @@ public class FindCommand extends Command {
     }
 
     /**
-     * @param storage
-     * @param tasks
+     * @param storage permanent storage
+     * @param tasks session storage
      * @throws OptimusExceptions
      */
 

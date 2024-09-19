@@ -13,7 +13,7 @@ public class Task {
     /**
      * Constructor assigns task as incomplete
      *
-     * @param desc
+     * @param desc task description
      */
     public Task(String desc) {
         this.isDone = false;

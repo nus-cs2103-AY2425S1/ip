@@ -14,8 +14,8 @@ public class ToDoTask extends Task {
     /**
      * Constructor for when ToDoTask in found in storage
      *
-     * @param desc
-     * @param status
+     * @param desc task description
+     * @param status task completeness status
      */
     public ToDoTask(String desc, String status) {
         this(desc);
@@ -32,7 +32,7 @@ public class ToDoTask extends Task {
     /**
      * Returns string representation of the task for UI purposes
      *
-     * @return
+     * @return string representation the task
      */
     @Override
     public String toString() {
@@ -45,7 +45,7 @@ public class ToDoTask extends Task {
     /**
      * Returns string representation of the task for storage purposes
      *
-     * @return
+     * @return string representation of the task
      */
 
     @Override

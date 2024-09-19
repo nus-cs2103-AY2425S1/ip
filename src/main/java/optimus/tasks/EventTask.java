@@ -40,11 +40,20 @@ public class EventTask extends Task {
         }
     }
 
+    /**
+     * Changes the start date
+     * @param firstDate - new start date
+     * @throws OptimusExceptions - should not be thrown for this implementation
+     */
     @Override
     public void updateFirstDate(String firstDate) throws OptimusExceptions {
         this.start = firstDate;
     }
 
+    /**
+     * Changes the end date
+     * @param secondDate - new end date
+     */
     @Override
     public void updateSecondDate(String secondDate) {
         this.end = secondDate;

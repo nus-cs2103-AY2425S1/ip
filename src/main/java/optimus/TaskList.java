@@ -58,8 +58,8 @@ public class TaskList {
     /**
      * Returns a stream of Tasks whose descriptions contain the keyword
      *
-     * @param keyword
-     * @return
+     * @param keyword search input
+     * @return stream of tasks matching the search input
      */
     public Stream<Task> filterByKeyword(String keyword) {
         return list.stream()
@@ -82,7 +82,7 @@ public class TaskList {
     /**
      * Returns the list of tasks. Unsafe operation, use sparingly
      *
-     * @return
+     * @return list of tasks
      */
     public ArrayList<Task> getList() {
         return list;

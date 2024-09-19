@@ -45,6 +45,11 @@ public class DeadlineTask extends Task {
         }
     }
 
+    /**
+     * Changes the deadline of the task
+     * @param deadline - New deadline
+     * @throws InvalidDateFormatException - if the deadline is not in YYYY-MM-DD format
+     */
     @Override
     public void updateFirstDate(String deadline) throws InvalidDateFormatException {
         try {
@@ -62,7 +67,7 @@ public class DeadlineTask extends Task {
     /**
      * Returns string representation of the task for UI purposes
      *
-     * @return
+     * @return - string representation of the task
      */
     @Override
     public String toString() {
@@ -76,7 +81,7 @@ public class DeadlineTask extends Task {
     /**
      * Returns string representation of the task for storage purposes
      *
-     * @return
+     * @return - string representation of the task
      */
     @Override
     public String getStorageString() {
