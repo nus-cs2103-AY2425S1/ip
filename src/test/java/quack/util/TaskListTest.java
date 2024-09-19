@@ -1,7 +1,9 @@
 package quack.util;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -11,7 +13,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import quack.exception.FailedUpdateException;
-import quack.exception.InvalidCommandException;
 import quack.tasks.DeadlineTask;
 import quack.tasks.Task;
 import quack.tasks.ToDoTask;
@@ -116,6 +117,7 @@ public class TaskListTest {
      */
     @Test
     void testToString() {
+
         LocalDateTime dummyDate = LocalDateTime.parse("10/08/2024 10:00:00", this.dateFormat);
         DeadlineTask dummyTask = new DeadlineTask("Dummy Dummy", dummyDate);
         String expectedOutput = "1) [T][ ] ToDo Dummy\n"
@@ -140,22 +142,15 @@ public class TaskListTest {
 
         ToDoTask dummyTask = new ToDoTask("Dummy");
         ToDoTask expectedTask = new ToDoTask("Dummy");
-        Exception exception = null;
         expectedTask.tag("Test");
         ArrayList<Task> list = this.taskList.getToDoList();
         list.add(dummyTask);
 
-        try {
-            Task result = this.taskList.updateTag(2, "addtag", "Test");
-            assertEquals(expectedTask, result,
-                "updateTag function did not update the correct task with the correct tag");
-        } catch (InvalidCommandException commandError) {
-            exception = commandError;
-        }
+        Task actualResult = assertDoesNotThrow(() -> this.taskList.updateTag(2, "addtag", "Test"),
+                "Function should not be throwing an exception");
 
-        // The test case should not cause an error to be thrown
-        assertEquals(null, exception,
-            "updateTag function threw an exception when it is not supposed to");
+        assertEquals(expectedTask, actualResult,
+                "updateTag function did not update the correct task with the correct tag");
     }
 
     /**
@@ -167,20 +162,15 @@ public class TaskListTest {
     void testRemoveTag() {
 
         ToDoTask expectedTask = new ToDoTask("ToDo Dummy");
-        Exception exception = null;
 
-        try {
-            this.taskList.updateTag(1, "removetag", "Test");
-            Task result = this.taskList.updateTag(1, "removetag");
-            assertEquals(expectedTask, result,
-                "updateTag function did not remove the tag from the corrosponding task");
-        } catch (InvalidCommandException commandError) {
-            exception = commandError;
-        }
+        assertDoesNotThrow(() -> this.taskList.updateTag(1, "addtag", "Test"),
+            "Function should not be throwing an exception");
 
-        // The test case should not cause an error to be thrown
-        assertEquals(null, exception,
-            "updateTag function threw an exception when it is not supposed to");
+        Task actualResult = assertDoesNotThrow(() -> this.taskList.updateTag(1, "removetag", "Test"),
+            "Function should not be throwing an exception");
+
+        assertEquals(expectedTask, actualResult,
+            "updateTag function did not remove the tag from the corrosponding task");
     }
 
     /**
@@ -197,19 +187,41 @@ public class TaskListTest {
         ArrayList<Task> list = this.taskList.getToDoList();
         list.add(dummyTask);
 
-        try {
-            Task result = this.taskList.updateTask(2, "mark");
-            assertEquals(expectedTask, result,
-                "updateTask function did not mark the correct task");
-        } catch (FailedUpdateException updateError) {
-            // The test case should not cause an error to be thrown
-            assertEquals(true, false,
-                "updateTask function threw an exception when it is not supposed to");
-        } catch (InvalidCommandException updateError) {
-            // The test case should not cause an error to be thrown
-            assertEquals(true, false,
-                "updateTask function threw an exception when it is not supposed to");
-        }
+        Task actualResult = assertDoesNotThrow(() -> this.taskList.updateTask(2, "mark"),
+            "Function should not be throwing an exception");
+
+        assertEquals(expectedTask, actualResult,
+            "updateTask function did not mark the correct task");
+    }
+
+    /**
+     * Tests the mark task functionality can handle user exceptions.
+     * <p>
+     * Ensures that an exception will be thrown if the task is already marked
+     * and is getting marked again.
+     */
+    @Test
+    void testUpdateTaskMarkError() {
+
+        ToDoTask dummyTask = new ToDoTask("Dummy");
+        ToDoTask expectedTask = new ToDoTask("Dummy");
+        expectedTask.mark();
+        ArrayList<Task> list = this.taskList.getToDoList();
+        list.add(dummyTask);
+
+        String expectedMessage = "I'm sorry but this task " + expectedTask.toString() + " has already been marked!";
+
+        Task actualOutput = assertDoesNotThrow(() -> this.taskList.updateTask(2, "mark"),
+            "Function should not be throwing an exception");
+
+        assertEquals(expectedTask, actualOutput,
+            "updateTask function did not mark the correct task");
+
+        Exception exception = assertThrows(FailedUpdateException.class, () ->
+            this.taskList.updateTask(2, "mark"));
+
+        assertEquals(expectedMessage, exception.getMessage(),
+            "The exception message is incorrect");
     }
 
     /**
@@ -222,20 +234,34 @@ public class TaskListTest {
 
         ToDoTask expectedTask = new ToDoTask("ToDo Dummy");
 
-        try {
-            this.taskList.updateTask(1, "mark");
-            Task result = this.taskList.updateTask(1, "unmark");
-            assertEquals(expectedTask, result,
-                "updateTask function did not mark the correct task");
-        } catch (FailedUpdateException updateError) {
-            // The test case should not cause an error to be thrown
-            assertEquals(true, false,
-                "updateTask function threw an exception when it is not supposed to");
-        } catch (InvalidCommandException updateError) {
-            // The test case should not cause an error to be thrown
-            assertEquals(true, false,
-                "updateTask function threw an exception when it is not supposed to");
-        }
+        assertDoesNotThrow(() -> this.taskList.updateTask(1, "mark"),
+            "Function should not be throwing an exception");
+
+        Task actualOutput = assertDoesNotThrow(() -> this.taskList.updateTask(1, "unmark"),
+            "Function should not be throwing an exception");
+
+        assertEquals(expectedTask, actualOutput,
+            "updateTask function did not mark the correct task");
+    }
+
+    /**
+     * Tests the unmark task functionality can handle user exceptions.
+     * <p>
+     * Ensures that an exception will be thrown if the task is already unmarked
+     * and is getting unmarked again.
+     */
+    @Test
+    void testUpdateTaskUnmarkError() {
+
+        ToDoTask expectedTask = new ToDoTask("ToDo Dummy");
+
+        String expectedMessage = "I'm sorry but this task " + expectedTask.toString() + " has already been unmarked!";
+
+        Exception exception = assertThrows(FailedUpdateException.class, () ->
+            this.taskList.updateTask(1, "unmark"));
+
+        assertEquals(expectedMessage, exception.getMessage(),
+            "The exception message is incorrect");
     }
 
     /**
