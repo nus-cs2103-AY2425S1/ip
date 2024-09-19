@@ -73,7 +73,7 @@ public class Parser {
             }
         }
         Ui.goodByeCat();
-        scanner.close();
+        scanner.close(); // Close the scanner to avoid resource leaks
     }
 
     /**
