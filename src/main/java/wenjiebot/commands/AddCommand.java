@@ -1,7 +1,7 @@
 package wenjiebot.commands;
 
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import wenjiebot.Storage;
 import wenjiebot.TaskList;
@@ -50,7 +50,7 @@ public class AddCommand extends Command {
      * @param tasks the TaskList that contains all the tasks.
      * @param ui the Ui used for interaction with the user.
      * @param storage the Storage used to store and retrieve tasks.
-     * @throws WenJieException if there is an error during execution, such as invalid input or missing follow-up details.
+     * @throws WenJieException if there is an error during execution, such as invalid input or missing followup details.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws WenJieException {
@@ -64,21 +64,21 @@ public class AddCommand extends Command {
             ToDo todo = new ToDo(getInput().substring(5));
             taskList.add(todo);
             printAcknowledgeMessage(taskList.size(), ui, todo);
-            ui.setOutput(getAcknoledgeMessage(taskList.size(), ui, todo));
+            ui.setOutput(getAcknowledgeMessage(taskList.size(), ui, todo));
             break;
 
         case DEADLINE:
             Deadline deadline = getDeadline();
             taskList.add(deadline);
             printAcknowledgeMessage(taskList.size(), ui, deadline);
-            ui.setOutput(getAcknoledgeMessage(taskList.size(), ui, deadline));
+            ui.setOutput(getAcknowledgeMessage(taskList.size(), ui, deadline));
             break;
 
         case EVENT:
             Event event = getEvent();
             taskList.add(event);
             printAcknowledgeMessage(taskList.size(), ui, event);
-            ui.setOutput(getAcknoledgeMessage(taskList.size(), ui, event));
+            ui.setOutput(getAcknowledgeMessage(taskList.size(), ui, event));
             break;
 
         default:
@@ -95,46 +95,81 @@ public class AddCommand extends Command {
      * @throws InvalidDateInputException if the input format is invalid.
      */
     private Event getEvent() throws NoFollowUpException, InvalidDateInputException {
-        String[] parts = getInput().split(" ");
+        String input = getInput();
+        String[] parts = input.split(" ");
 
-        if (getInput().length() <= 5) {
+        if (input.length() <= 5) {
             throw new NoFollowUpException();
         }
 
-        String from = "";
-        String to = "";
+        String from = parseFromDate(parts);
+        String to = parseToDate(parts);
 
-        for (int i = 0; i < parts.length; i++) {
-            if (parts[i].charAt(0) == '/') {
-                int j = i + 1;
-                while (parts[j].charAt(0) != '/') {
-                    from += parts[j] + " ";
-                    j++;
-                }
-                j++;
-                while (j < parts.length) {
-                    to += parts[j] + " ";
-                    j++;
-                }
-                break;
-            }
-        }
-
-
-        int endIndex = 0;
-        for (int i = 0; i < getInput().length(); i++) {
-            if (getInput().charAt(i) == '/') {
-                endIndex = i;
-                break;
-            }
-        }
-
+        int endIndex = findEndIndex(input);
         if (endIndex == 0) {
             throw new InvalidDateInputException();
         }
 
-        String desc = getInput().substring(6, endIndex);
+        String desc = input.substring(6, endIndex);
         return new Event(desc, from, to);
+    }
+
+    /**
+     * Parses the 'from' date from the input parts.
+     *
+     * @param parts the parts of the input string.
+     * @return the 'from' date as a string.
+     */
+    private String parseFromDate(String[] parts) {
+        StringBuilder from = new StringBuilder();
+        for (int i = 0; i < parts.length; i++) {
+            if (parts[i].charAt(0) == '/') {
+                int j = i + 1;
+                while (j < parts.length && parts[j].charAt(0) != '/') {
+                    from.append(parts[j]).append(" ");
+                    j++;
+                }
+                break;
+            }
+        }
+        return from.toString().trim();
+    }
+
+    /**
+     * Parses the 'to' date from the input parts.
+     *
+     * @param parts the parts of the input string.
+     * @return the 'to' date as a string.
+     */
+    private String parseToDate(String[] parts) {
+        StringBuilder to = new StringBuilder();
+        boolean foundFrom = false;
+        for (int i = 0; i < parts.length; i++) {
+            if (Objects.equals(parts[i], "/to")) {
+                foundFrom = true;
+                continue;
+            }
+            if (foundFrom) {
+                to.append(parts[i]).append(" ");
+            }
+        }
+        System.out.println(to);
+        return to.toString().trim();
+    }
+
+    /**
+     * Finds the end index of the description in the input string.
+     *
+     * @param input the input string.
+     * @return the end index of the description.
+     */
+    private int findEndIndex(String input) {
+        for (int i = 0; i < input.length(); i++) {
+            if (input.charAt(i) == '/') {
+                return i;
+            }
+        }
+        return 0;
     }
 
     /**
@@ -145,32 +180,39 @@ public class AddCommand extends Command {
      * @throws InvalidDateInputException if the input format is invalid.
      */
     private Deadline getDeadline() throws NoFollowUpException, InvalidDateInputException {
-        String[] parts = getInput().split(" ");
+        String input = getInput();
+        String[] parts = input.split(" ");
 
-        if (getInput().length() <= 9) {
+        if (input.length() <= 9) {
             throw new NoFollowUpException();
         }
-
-        String by = "";
-        for (int i = 0; i < parts.length; i++) {
-            if (parts[i].charAt(0) == '/') {
-                for (int j = i + 1; j < parts.length; j++) {
-                    by += parts[j] + " ";
-                }
-                break;
-            }
+        String by = parseByDate(parts);
+        int endIndex = findEndIndex(input);
+        if (endIndex == 0) {
+            throw new InvalidDateInputException();
         }
 
-        int endIndex = 0;
-        for (int i = 0; i < getInput().length(); i++) {
-            if (getInput().charAt(i) == '/') {
-                endIndex = i;
-                break;
-            }
-        }
-
-        String desc = getInput().substring(9, endIndex);
+        String desc = input.substring(9, endIndex);
         return new Deadline(desc, by);
+    }
+
+    /**
+     * Parses the 'by' date from the input parts.
+     *
+     * @param parts the parts of the input string.
+     * @return the 'by' date as a string.
+     */
+    private String parseByDate(String[] parts) {
+        StringBuilder by = new StringBuilder();
+        boolean foundBy = false;
+        for (String part : parts) {
+            if (part.charAt(0) == '/') {
+                foundBy = true;
+            } else if (foundBy) {
+                by.append(part).append(" ");
+            }
+        }
+        return by.toString().trim();
     }
 
     /**
@@ -196,7 +238,7 @@ public class AddCommand extends Command {
      * @param task the Task that was added to the list.
      * @return the acknowledgment message.
      */
-    public String getAcknoledgeMessage(int taskListSize, Ui ui, Task task) {
+    public String getAcknowledgeMessage(int taskListSize, Ui ui, Task task) {
         return "Nya~~ I've added this task:\n"
                 + task + "\n"
                 + "Now you have " + taskListSize + " tasks in the list babe.";
