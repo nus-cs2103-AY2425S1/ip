@@ -135,15 +135,17 @@ You can *sort* all deadline tasks by nearest deadline.
 
 ## Summary of Commands
 
-| Command  | Command Format                                             | Example                                                        |  
-|----------|------------------------------------------------------------|----------------------------------------------------------------| 
-| todo     | todo {task}                                                | todo read a book                                               |
-| deadline | deadline {task} /by {dd-mm-yyyy hhmm}                      | deadline math homework /by 20-10-2024 2359                     | 
-| event    | event {task} /from {dd-mm-yyyy hhmm} /to {dd-mm-yyyy hhmm} | event farewell party /from 20-10-2024 1500 /to 20-10-2024 1800 | 
-| mark     | mark {task number}                                         | mark 1                                                         | 
-| unmark   | unmark {task number}                                       | unmark 1                                                       | 
-| delete   | delete {task number}                                       | delete 1                                                       | 
-| list     | list                                                       | list                                                           | 
-| find     | find {keyword(s)}                                          | find math                                                      |
-| sort     | sort                                                       | sort                                                           | 
-| bye      | bye                                                        | bye                                                            |
+| Command  | Command Format                         | Example                                                        |  
+|----------|----------------------------------------|----------------------------------------------------------------| 
+| todo     | todo {task}                            | todo read a book                                               |
+| deadline | deadline {task} /by {date*}            | deadline math homework /by 20-10-2024 2359                     | 
+| event    | event {task} /from {date*} /to {date*} | event farewell party /from 20-10-2024 1500 /to 20-10-2024 1800 | 
+| mark     | mark {task number}                     | mark 1                                                         | 
+| unmark   | unmark {task number}                   | unmark 1                                                       | 
+| delete   | delete {task number}                   | delete 1                                                       | 
+| list     | list                                   | list                                                           | 
+| find     | find {keyword(s)}                      | find math                                                      |
+| sort     | sort                                   | sort                                                           | 
+| bye      | bye                                    | bye                                                            |
+
+\* Date format must be in `dd-mm-yyyy hhmm` 
