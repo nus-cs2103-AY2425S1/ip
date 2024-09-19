@@ -1,0 +1,7 @@
+T | 0 | call mom
+T | 1 | stuff
+D | 0 | Submit project report | 2024-09-30 1800
+D | 0 | Submit project report | 2024-10-30 1800
+T | 0 | Buy apples
+D | 0 | Make apple pie | 2024-09-16 1800
+E | 0 | Apple Festival | 2024-09-20 1000 | 2024-09-20 1800

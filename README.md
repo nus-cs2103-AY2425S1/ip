@@ -1,24 +1,72 @@
-# Duke project template
+# Appleaster
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Appleaster is a quirky, apple-themed task manager chatbot. It's here to make your day-to-day task management as sweet as apple pie!
 
-## Setting up in Intellij
+## Setup and Running the Project
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+Prerequisites: JDK 17
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
+1. Clone the repository:
    ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
+   git clone https://github.com/LOLIPOP-INTELLIGENCE/ip.git
+   cd ip
    ```
+
+2. Run the project:
+   ```
+   ./gradlew run
+   ```
+
+   On Windows, use:
+   ```
+   gradlew.bat run
+   ```
+
+3. If the setup is correct, a window will launch displaying the Appleaster interface. You can now start interacting with Appleaster!
+
+## Features 
+
+* Add todos, deadlines, and events
+* List all tasks
+* Mark tasks as done
+* Delete tasks
+* Find tasks by keyword
+* View schedule for a specific date
+
+## Usage
+
+Here are some example commands you can type into the Appleaster interface:
+
+```
+todo Buy apples
+deadline Make apple pie /by 2024-09-16 1800
+event Apple Festival /from 2024-09-20 1000 /to 2024-09-20 1800
+list
+mark 1
+delete 2
+find apple
+view 2024-09-16
+bye
+```
+
+## Running Tests
+
+To run the tests, use the following command:
+
+```
+./gradlew test
+```
+
+On Windows, use:
+
+```
+gradlew.bat test
+```
+
+## Contributing
+
+We welcome contributions!
+
+## Contact
+
+If you have any questions, feel free to contact me at `manaslegodesigns@gmail.com`
