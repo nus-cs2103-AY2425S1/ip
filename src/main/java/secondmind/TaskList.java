@@ -29,8 +29,12 @@ public class TaskList {
         return taskList.size();
     }
 
-    private String formatDateTime(String dateTime) throws DateTimeParseException {
+    private String formatDateTime(String dateTime)
+            throws DateTimeParseException, PassedDateTimeException {
         LocalDateTime ldt = LocalDateTime.parse(dateTime);
+        if (ldt.isBefore(LocalDateTime.now())) {
+            throw new PassedDateTimeException();
+        }
         DateTimeFormatter formatter 
             = DateTimeFormatter.ofPattern(
                     "d MMM yyyy HH:mm:ss a");
@@ -47,7 +51,7 @@ public class TaskList {
         return new ToDoTask(taskDescription);
     }
 
-    private Task createDeadline(String[] taskInfo) {
+    private Task createDeadline(String[] taskInfo) throws PassedDateTimeException {
         //Format of taskInfo:
         //["deadline", description, /by, {deadline}]
         taskInfo[0] = "";
@@ -57,7 +61,7 @@ public class TaskList {
         return new DeadlineTask(taskDescription, taskDeadline);
     }
 
-    private Task createEvent(String[] taskInfo) {
+    private Task createEvent(String[] taskInfo) throws PassedDateTimeException {
         //Format of taskInfo:
         //["event", {description}, /from, {taskStart}, /to, {eventEnd}]
         String[] newTaskInfo = String.join(" ", taskInfo).split(" /");
@@ -82,7 +86,8 @@ public class TaskList {
      * @throws DateTimeParseException If the date-time format is invalid.
      */
     public Task createTask(String[] instruction)
-            throws EmptyCommandException, EmptyToDoException, UnknownCommandException, DateTimeParseException {
+            throws EmptyCommandException, EmptyToDoException, UnknownCommandException,
+                    DateTimeParseException, PassedDateTimeException {
         String[] taskInfo = instruction[1].split(" ");
         String taskType = taskInfo[0];
         if (instruction[0].equals("")) {
