@@ -147,10 +147,21 @@ class Ui {
         return sb.toString();
     }
 
+    /**
+     * Returns an error message.
+     *
+     * @param message The specific error message to display.
+     * @return A formatted error message.
+     */
     public String getError(String message) {
         return " ☹ OOPS!!! " + message;
     }
 
+    /**
+     * Returns a horizontal line used for formatting output.
+     *
+     * @return A horizontal line string.
+     */
     public String getLine() {
         return "____________________________________________________________";
     }
