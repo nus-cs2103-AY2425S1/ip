@@ -1,5 +1,6 @@
 # Ruby User Guide
 
+[Product Image](/Ui.png.jpg)
 
 Welcome to Ruby, your personal task management chatbot. Below is a guide on how to use Ruby’s available commands!
 
