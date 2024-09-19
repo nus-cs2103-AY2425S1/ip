@@ -84,13 +84,9 @@ public class Event extends Task {
     private static String parseArrayToFullString(String[] mainMessage) {
         String reformattedMsg = "";
         for (int i = 1; i < mainMessage.length; i++) {
-            if (i == mainMessage.length - 1) {
-                reformattedMsg += mainMessage[i];
-            } else {
-                reformattedMsg += mainMessage[i] + " ";
-            }
+            reformattedMsg += mainMessage[i];
         }
-        return reformattedMsg;
+        return reformattedMsg.strip();
     }
 
     /**
