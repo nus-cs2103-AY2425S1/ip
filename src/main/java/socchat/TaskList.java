@@ -38,8 +38,8 @@ public class TaskList {
      */
     public String delete(String indexString) throws SocchatException {
         int taskIndex = parseTaskIndex(indexString);
-        Task task = tasks.get(taskIndex - 1);
-        tasks.remove(taskIndex - 1);
+        Task task = tasks.get(taskIndex);
+        tasks.remove(taskIndex);
 
         String respond = "";
         respond += ("Deleted " + "\"" + task.toString() + "\"" + "\n");
@@ -87,9 +87,9 @@ public class TaskList {
         int taskIndex = parseTaskIndex(indexString);
 
         if (mark) {
-            respond =  tasks.get(taskIndex - 1).mark();
+            respond =  tasks.get(taskIndex).mark();
         } else {
-            respond =  tasks.get(taskIndex - 1).unmark();
+            respond =  tasks.get(taskIndex).unmark();
         }
 
         Storage.update(tasks, false);

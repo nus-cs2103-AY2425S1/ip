@@ -1,4 +1,1 @@
-T | Not done | hiking |  |  | sport
 D | Not done | ip | 2024-09-20 |  | CS2103T
-
-
