@@ -29,6 +29,7 @@ public class Event extends Task {
         this.endTime = endTime;
         this.isDone = false;
     }
+
     public void setDone(boolean isDone) {
         this.isDone = isDone;
     }
@@ -36,6 +37,13 @@ public class Event extends Task {
     public String getName() {
         assert this.text != null;
         return this.text;
+    }
+
+    public void setDatesTimes(LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime) {
+        this.start = startDate;
+        this.end = endDate;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     /**

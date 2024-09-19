@@ -1,107 +1,32 @@
 package Bwead;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
-
 
 public class BweadTest {
 
     @Test
-    public void byeInputRunTest() throws IOException {
-        String userInput = String.format("todo return book%sbye",
-                System.lineSeparator());
-        ByteArrayInputStream bais = new ByteArrayInputStream(userInput.getBytes());
-        System.setIn(bais);
-
-        String expected = "Bye. Hope to see you again soon!";
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        PrintStream printStream = new PrintStream(baos);
-        System.setOut(printStream);
-
-        Bwead.main(null);
-
-        String[] lines = baos.toString().split(System.lineSeparator());
-        String actual = lines[lines.length - 1];
-
-        assertEquals(expected, actual);
+    public void testGetResponseValid() {
+        Bwead bweadTotest = new Bwead("./src/main/java/Bwead/testFile");
+        assertEquals(bweadTotest.getResponse("todo return book"),
+                "Got it. I've added this task: [T][ ] return book\n" + "Now you have 1 tasks in the list.");
+        assertEquals(bweadTotest.getResponse("deadline return book /by 2020-10-01 1900"),
+                "Got it. I've added this task: [D][ ] return book (by: Oct 1 2020, 19.00)\n"
+                        + "Now you have 2 tasks in the list.");
+        assertEquals(bweadTotest.getResponse("delete 1"),
+                "Noted. I've removed this task: [T][ ] return book\n" + "Now you have 1 tasks in the list.");
+        assertEquals(bweadTotest.getResponse("delete 1"),
+                "Noted. I've removed this task: [D][ ] return book (by: Oct 1 2020, 19.00)\n"
+                        + "Now you have 0 tasks in the list.");
     }
 
     @Test
-    public void eventInputRunTest() throws IOException {
-        String userInput = String.format("event project meeting /from 2019-10-15 1800 /to 2019-10-16 1900%sbye",
-                System.lineSeparator());
-        ByteArrayInputStream bais = new ByteArrayInputStream(userInput.getBytes());
-        System.setIn(bais);
-
-        String expected = "Got it. I've added this task: [E][ ] project meeting (from: Oct 15 2019, 18.00 to:"
-                + " Oct 16 2019, 19.00)";
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        PrintStream printStream = new PrintStream(baos);
-        System.setOut(printStream);
-
-        Bwead.main(null);
-
-        String[] lines = baos.toString().split(System.lineSeparator());
-        String actual = lines[lines.length - 3];
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void incompleteInputRunTest() throws IOException {
-        String userInput = String.format("todo%sbye",
-                System.lineSeparator());
-        ByteArrayInputStream bais = new ByteArrayInputStream(userInput.getBytes());
-        System.setIn(bais);
-
-        String expected = "OOPS!!! The description of a todo cannot be empty.";
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        PrintStream printStream = new PrintStream(baos);
-        System.setOut(printStream);
-
-        Bwead.main(null);
-
-        String[] lines = baos.toString().split(System.lineSeparator());
-        String actual = lines[lines.length - 2];
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void invalidInputRunTest() throws IOException {
-        String userInput = String.format("yello%sbye",
-                System.lineSeparator());
-        ByteArrayInputStream bais = new ByteArrayInputStream(userInput.getBytes());
-        System.setIn(bais);
-
-        String expected = "i don't know what that means :(";
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        PrintStream printStream = new PrintStream(baos);
-        System.setOut(printStream);
-
-        Bwead.main(null);
-
-        String[] lines = baos.toString().split(System.lineSeparator());
-        String actual = lines[lines.length - 2];
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void historyTest() throws IOException {
-        assertThrows(BweadException.class, new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                new History("./src/main/java/Bwead/histryFile.txt").load();
-            }
-        });
+    public void testGetResponseInvalidInput() {
+        Bwead bweadTotest = new Bwead("./src/main/java/Bwead/testFile");
+        assertEquals(bweadTotest.getResponse("deadline return book /by 2020-25-01 1900"),
+                "invalid date");
+        assertEquals(bweadTotest.getResponse("list"),
+                "no tasks in list yet!");
     }
 }
