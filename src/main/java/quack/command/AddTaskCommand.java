@@ -3,6 +3,7 @@ package quack.command;
 import java.time.format.DateTimeParseException;
 
 import quack.exception.InvalidDateTimeException;
+import quack.exception.InvalidDescriptionException;
 import quack.exception.InvalidTaskTypeException;
 import quack.tasks.Task;
 import quack.util.TaskList;
@@ -247,6 +248,8 @@ public class AddTaskCommand extends Command {
             ui.printExceptionMessage(dateTimeError);
         } catch (InvalidTaskTypeException taskTypeError) {
             ui.printExceptionMessage(taskTypeError);
+        } catch (InvalidDescriptionException taskDescError) {
+            ui.printExceptionMessage(taskDescError);
         } finally {
             this.completeCommand();
         }
