@@ -45,13 +45,9 @@ class Parser {
         } else if (textInput.startsWith("mark")) {
             return replyAndMarkTaskDone(textInput);
         } else if (textInput.startsWith("unmark")) {
-            int descriptionStartIndex = 7;
-            int taskIndex = Integer.parseInt(textInput.substring(descriptionStartIndex)) - 1;
             return replyAndMarkTaskUndone(textInput);
         } else if (textInput.startsWith("delete")) {
-            int descriptionStartIndex = 7;
-            int taskIndex = Integer.parseInt(textInput.substring(descriptionStartIndex)) - 1;
-            return replyAndDeleteTask(taskIndex);
+            return replyAndDeleteTask(textInput);
         } else if (textInput.startsWith("todo")) {
             return replyAndAddToDo(textInput);
         } else if (textInput.startsWith("deadline")) {
@@ -124,11 +120,13 @@ class Parser {
         return this.ui.getInvalidInputMessage();
     }
 
-    private String replyAndDeleteTask(int index) {
+    private String replyAndDeleteTask(String textInput) {
         try {
-            Task task = this.taskList.remove(index);
+            int descriptionStartIndex = 5;
+            int taskIndex = Integer.parseInt(textInput.substring(descriptionStartIndex)) - 1;
+            Task task = this.taskList.remove(taskIndex);
             return ui.getDeleteTaskMessage(task, this.getNumTasks());
-        } catch (TaskIndexInvalidException e) {
+        } catch (TaskIndexInvalidException | NumberFormatException e) {
             return this.ui.getInvalidIndexMessage();
         }
     }
