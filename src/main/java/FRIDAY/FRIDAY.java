@@ -63,42 +63,30 @@ public class FRIDAY {
         switch (keyword) {
         //keywords
         case ("mark"):
-            taskList.markTask(Integer.parseInt(taskDetails.substring(0, 1)) - 1);
+            taskList.markTask(Integer.parseInt(taskDetails) - 1);
             return ui.printCheck();
         case ("unmark"):
-            taskList.unMarkTask(Integer.parseInt(taskDetails.substring(0, 1)) - 1);
+            taskList.unMarkTask(Integer.parseInt(taskDetails) - 1);
             return ui.printUncheck();
         case ("todo"):
-            if (taskDetails.isEmpty()) {
-                throw new FRIDAYException("ERROR: Please note that the description of a task cannot be left empty");
-            }
             Task newToDo = new ToDo(taskDetails.strip(), 0);
             assert newToDo != null : "failed to create task";
             taskList.addTask(newToDo);
             return ui.printAdd(newToDo, taskList.numTasks());
         case ("deadline"):
-            if (taskDetails.isEmpty()) {
-                throw new FRIDAYException("ERROR: Please note that the description of a task cannot be left empty");
-            }
             Task newDeadline = Parser.parseDeadline(taskDetails);
             assert newDeadline != null : "failed to create task";
             taskList.addTask(newDeadline);
             return ui.printAdd(newDeadline, taskList.numTasks());
         case ("event"):
-            if (taskDetails.isEmpty()) {
-                throw new FRIDAYException("ERROR: Please note that the description of a task cannot be left empty");
-            }
             Task newEvent = Parser.parseEvent(taskDetails);
             assert newEvent != null : "failed to create task";
             taskList.addTask(newEvent);
             return ui.printAdd(newEvent, taskList.numTasks());
         case ("delete"):
-            if (taskDetails.isEmpty()) {
-                throw new FRIDAYException("ERROR: Please note that the description of a task cannot be left empty");
-            }
+            Task deletedTask = taskList.getTaskAt(Integer.parseInt(taskDetails.substring(0, 1)) - 1);
             taskList.removeTask(Integer.parseInt(taskDetails.substring(0, 1)) - 1);
-            return ui.printRemove(taskList.getTaskAt(Integer.parseInt(taskDetails.substring(0, 1)) - 1),
-                    taskList.numTasks());
+            return ui.printRemove(deletedTask, taskList.numTasks());
         case ("bye"):
             ArrayList<Task> list = this.taskList.getList();
             assert list != null : "list not found";

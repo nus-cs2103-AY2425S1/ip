@@ -1,6 +1,8 @@
 package FRIDAY;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Represents a parser class that is responsible for making sense of user input
@@ -11,6 +13,7 @@ import java.util.Arrays;
  * </p>
  */
 public class Parser {
+    private static final Set<String> commandsWithoutDescription = new HashSet<>(Arrays.asList("list", "archive", "bye"));
     /**
      * This method takes in a string and returns the type of action that the program needs to execute
      * @param input a String representing user input
@@ -27,9 +30,23 @@ public class Parser {
      * @param input String representing user input
      * @return a String consisting of all relevant task details
      */
-    public static String parseTaskDetails(String input) {
-        String[] parts = input.split(" ");
-        return String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
+    public static String parseTaskDetails(String input) throws FRIDAYException {
+        String keyword = parseCmd(input);
+        if (commandsWithoutDescription.contains(keyword)) {
+            return "";
+        }
+        int firstSpaceIndex = input.indexOf(" ");
+        if (firstSpaceIndex != -1) {
+            String result = input.substring(firstSpaceIndex + 1);
+            if (result.trim().isEmpty()) {
+                throw new FRIDAYException("Oops! It appears that you have left the task description empty");
+            }
+            String[] parts = result.split(" ");
+            String out = String.join(" ", parts);
+            return out;
+        } else {
+            throw new FRIDAYException("Oops! It appears that you have left the task description empty");
+        }
     }
 
     /**

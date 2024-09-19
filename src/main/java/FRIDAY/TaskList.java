@@ -31,7 +31,18 @@ public class TaskList {
         taskList.add(newTask);
     }
 
-    public void removeTask(int index) {
+    /**
+     * removes the task from the task list
+     * @param index
+     * @throws FRIDAYException
+     */
+    public void removeTask(int index) throws FRIDAYException {
+        if (taskList.isEmpty()) {
+            throw new FRIDAYException("Hey your task list is currently empty!");
+        }
+        if (index >= taskList.size() || index <= 0) {
+            throw new FRIDAYException("Hey it appears that the task number you entered does not exist");
+        }
         taskList.remove(index);
     }
 
@@ -55,7 +66,13 @@ public class TaskList {
      * Marks the task at the given index as complete
      * @param index index of the task that is to be marked as complete
      */
-    public void markTask(int index) {
+    public void markTask(int index) throws FRIDAYException {
+        if (index >= taskList.size() || index < 0) {
+            throw new FRIDAYException("Hey it appears that the task number you entered does not exist");
+        }
+        if (taskList.isEmpty()) {
+            throw new FRIDAYException("Add some tasks to mark!");
+        }
         taskList.get(index).check();
     }
 
@@ -63,7 +80,13 @@ public class TaskList {
      * Marks the task at the given index as incomplete
      * @param index index of the task that is to be marked as incomplete
      */
-    public void unMarkTask(int index) {
+    public void unMarkTask(int index) throws FRIDAYException {
+        if (index >= taskList.size() || index < 0) {
+            throw new FRIDAYException("Hey it appears that the task number you entered does not exist");
+        }
+        if (taskList.isEmpty()) {
+            throw new FRIDAYException("Add some tasks to unmark!");
+        }
         taskList.get(index).uncheck();
     }
 
@@ -85,7 +108,10 @@ public class TaskList {
      * @param keyword the keyword that the user tries to search for
      * @return ArrayList of tasks that have descriptions containing the keyword
      */
-    public ArrayList<Task> search(String keyword) {
+    public ArrayList<Task> search(String keyword) throws FRIDAYException {
+        if (taskList.isEmpty()) {
+            throw new FRIDAYException("You currently have no tasks in your list!");
+        }
         ArrayList<Task> list = new ArrayList<>();
         taskList.forEach((task) -> {
             if (task.containsKeyword(keyword)) {
