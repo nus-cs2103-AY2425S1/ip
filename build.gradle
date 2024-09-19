@@ -48,11 +48,13 @@ test {
 }
 
 application {
-    mainClass.set("soju.Main")
+    mainClass.set("soju.Launcher")
 }
 
 shadowJar {
     archiveFileName = 'soju.jar'
+    archiveBaseName = 'soju'
+    archiveClassifier = null
 }
 
 run{
