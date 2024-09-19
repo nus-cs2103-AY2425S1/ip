@@ -113,6 +113,9 @@ public class Shrimp {
         String eventDescription = eventDetails[0].substring(6).trim(); // Extracting the task description
         LocalDateTime from = getDateTime(eventDetails[1].trim());
         LocalDateTime to = getDateTime(eventDetails[2].trim());
+        if (to.isBefore(from)) {
+            throw new ShrimpException.InvalidCommandException();
+        }
         Task newEvent = new Event(eventDescription, from, to, hasDone);
         AddCommand addEvent = new AddCommand(newEvent);
         return addEvent.run(taskList, ui);

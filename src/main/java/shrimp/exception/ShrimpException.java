@@ -155,4 +155,16 @@ public class ShrimpException extends Exception {
         }
 
     }
+
+    public static class InvalidEventException extends ShrimpException {
+        private static final String errorCode = "ERR007";
+        private static final String errorMessage = "The end time is earlier than the start time...";
+
+        /**
+         * Constructs an {@code InvalidEventException}.
+         */
+        public InvalidEventException() {
+            super(errorMessage, errorCode);
+        }
+    }
 }
