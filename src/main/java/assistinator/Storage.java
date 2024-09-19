@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -70,6 +72,7 @@ public class Storage {
                         String type = parts[0].trim();
                         return getTask(parts, type);
                     })
+                    .filter(Objects::nonNull)
                     .collect(Collectors.toCollection(ArrayList::new));
         } catch (IOException e) {
             throw new AssitinatorException("Error reading file: " + e.getMessage());
@@ -83,33 +86,46 @@ public class Storage {
      * @return Task.
      */
     public Task getTask(String[] parts, String type) {
-        boolean isDone = TaskStatus.isDone(parts[1].trim());
-        String description = parts[2].trim();
+        try {
+            if (parts.length < 3) {
+                return null; // Not enough parts for a valid task
+            }
 
-        Task task;
-        switch (type) {
-        case "T":
-            task = new Todo(description);
-            break;
-        case "D":
-            String deadline = parts[3].trim();
-            task = new Deadline(description, deadline);
-            break;
-        case "E":
-            String start = parts[3].trim();
-            String end = parts[4].substring(parts[4].indexOf(' ') + 1);
-            task = new Event(
-                    description,
-                    start,
-                    end
-            );
-            break;
-        default:
-            throw new IllegalArgumentException("Unknown task type: " + type);
+            boolean isDone = TaskStatus.isDone(parts[1].trim());
+            String description = parts[2].trim();
+
+            Task task;
+            switch (type) {
+                case "T":
+                    task = new Todo(description);
+                    break;
+                case "D":
+                    if (parts.length < 4) {
+                        return null; // Not enough parts for a Deadline
+                    }
+                    String deadline = parts[3].trim();
+                    task = new Deadline(description, deadline);
+                    break;
+                case "E":
+                    if (parts.length < 5) {
+                        return null; // Not enough parts for an Event
+                    }
+                    String start = parts[3].trim();
+                    String end = parts[4].trim();
+                    task = new Event(description, start, end);
+                    break;
+                default:
+                    return null; // Unknown task type
+            }
+
+            if (isDone) {
+                task.markAsDone();
+            }
+            return task;
+        } catch (DateTimeParseException | IndexOutOfBoundsException e) {
+            // Log the error if needed
+            // System.err.println("Error parsing task: " + String.join("|", parts));
+            return null; // Return null for any parsing errors
         }
-        if (isDone) {
-            task.markAsDone();
-        }
-        return task;
     }
 }

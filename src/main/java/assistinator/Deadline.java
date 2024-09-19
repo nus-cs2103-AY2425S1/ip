@@ -1,13 +1,14 @@
 package assistinator;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
  * Represents deadline task.
  */
 public class Deadline extends Task {
-    protected LocalDate by;
+    protected LocalDateTime by;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /**
      * Initialises a deadline task
@@ -16,7 +17,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) {
         super(description);
-        this.by = LocalDate.parse(by);
+        this.by = LocalDateTime.parse(by, formatter);
     }
 
     /**
@@ -24,13 +25,13 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[D]" + super.toString() + " (by: " + by.format(formatter) + ")";
     }
 
     /**
      * {@inheritDoc}
      */
     public String toFileString() {
-        return String.format("D | %s | %s | %s", isDone ? TaskStatus.DONE : TaskStatus.NOTDONE, description, by);
+        return String.format("D | %s | %s | %s", isDone ? TaskStatus.DONE : TaskStatus.NOTDONE, description, by.format(formatter));
     }
 }

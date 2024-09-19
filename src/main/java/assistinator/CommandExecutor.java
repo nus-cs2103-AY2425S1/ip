@@ -46,15 +46,19 @@ public class CommandExecutor {
         switch (command) {
         case BYE:
             storage.saveTasks(tasks.getTasks());
-            return "Bye. Hope to see you again soon!";
+            return "Goodbye. I hope to compute your evil schemes again soon.";
         case LIST:
             return tasks.listTasks();
         case MARK:
         case UNMARK:
             int index = parser.parseIndex(fullCommand);
             tasks.markTask(index, command == Command.MARK);
-            return tasks.listTasks();
-        case TODO:
+            if (command == Command.MARK) {
+                return "I have marked task " + (index + 1) + " as done:\n" + tasks.listTasks();
+            } else {
+                return "I have marked task " + (index + 1) + " as undone:\n" + tasks.listTasks();
+            }
+            case TODO:
         case DEADLINE:
         case EVENT:
             Task newTask = parser.parseTask(command, fullCommand);
@@ -63,14 +67,14 @@ public class CommandExecutor {
                 return String.format("Warning: This event clashes with %s.", clashingTask.getDescription());
             }
             tasks.addTask(newTask);
-            return "Task added successfully\nYour evil agenda contains " + tasks.size() + " tasks";
+            return "I have added this task:\n" + newTask + "\nYour evil agenda contains " + tasks.size() + " tasks";
         case DELETE:
             int deleteIndex = parser.parseIndex(fullCommand);
             tasks.deleteTask(deleteIndex);
             return "Task " + (deleteIndex + 1) + " deleted successfully\n" +
                     "Your evil agenda contains " + tasks.size() + " tasks";
         case FIND:
-            return tasks.filterTasks(fullCommand.substring(fullCommand.indexOf(' ') + 1));
+            return "I found these related tasks:\n" + tasks.filterTasks(fullCommand.substring(fullCommand.indexOf(' ') + 1));
         default:
             throw new AssitinatorException("This command does not exist doctor");
         }

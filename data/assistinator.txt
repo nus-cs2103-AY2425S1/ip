@@ -1,4 +1,4 @@
-E | NOTDONE | team meeting | 2024-09-18 20:00 | 2024-09-18 22:00
-T | DONE | homework
-D | NOTDONE | CS2103T ip | 2024-09-20
-T | NOTDONE | read chapter 5
+T | NOTDONE | read book
+D | NOTDONE | submit proposal | 2024-08-17 12:00
+E | NOTDONE | birthday party | 2024-09-09 17:00 | 2024-09-09 22:00
+T | NOTDONE | homework
