@@ -7,6 +7,16 @@
 The chatbot allows users to add, manage, and list tasks, as well as mark them as completed.   
 Users can view a command guide by clicking on the `?` button at the bottom right of the GUI.
 
+## Quick Start
+1. Ensure you have Java 17 or above installed in your Computer.
+
+2. Download the latest .jar file from [here](https://github.com/itsme-zeix/ip/releases).
+
+3. Copy the file to the folder you want to use as the home folder for your AddressBook.
+
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar dipsy.jar` command to run the application. A GUI should appear in a few seconds.
+5. Refer to Features or Command Summary below for details of each command.
+
 ## Features
 
 ### Adding a To-do Task

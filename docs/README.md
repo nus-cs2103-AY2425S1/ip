@@ -2,10 +2,20 @@
 
 ![Dipsy Product Screenshot](Ui.png)
 
-**Dipsy** (named after my cat) is a task management chatbot that helps users manage tasks, deadlines, and events using a command-line interface.
+**Dipsy** (named after my cat) is a task management chatbot that helps users manage tasks, deadlines, and events using a command-line interface. 
 
 The chatbot allows users to add, manage, and list tasks, as well as mark them as completed.   
 Users can view a command guide by clicking on the `?` button at the bottom right of the GUI.
+
+## Quick Start
+1. Ensure you have Java 17 or above installed in your Computer.
+
+2. Download the latest .jar file from [here](https://github.com/itsme-zeix/ip/releases).
+
+3. Copy the file to the folder you want to use as the home folder for your AddressBook.
+
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar dipsy.jar` command to run the application. A GUI should appear in a few seconds.
+5. Refer to Features or Command Summary below for details of each command.
 
 ## Features
 
@@ -84,7 +94,7 @@ You now have 3 tasks in your list.
 
 ### Deleting a Task
 
-The `delete` command allows users to delete a specified task.
+The `delete` command allows users to delete a specified task. 
 
 #### Usage:
 ```
@@ -100,7 +110,7 @@ delete 1
 ```
 
 #### Expected Outcome:
-The task at index 1 will be deleted, and Dipsy will display a confirmation message along with the updated task count.
+The task at index 1 will be deleted, and Dipsy will display a confirmation message along with the updated task count. 
 ```
 Purrr, I've swatted this task away:
 [T][] Buy treats for Dipsy
@@ -162,12 +172,12 @@ The `list` command allows users to view tasks in two ways:
 
 #### Usage:
 
-- To list all tasks:
+- To list all tasks: 
   ```
   list
   ```
-
-- To list tasks on a specific date:
+    
+- To list tasks on a specific date: 
   ```
   list <date>
   ```
@@ -208,7 +218,7 @@ Dipsy will display a farewell message and close the application.
 Fur-well friend, stay paw-sitive!
 ```
 
-### Command Guide
+### Command Guide 
 The command guide can be viewed  by clicking on the `?` button at the bottom right of the GUI.
 
 ### Saving the data
@@ -224,7 +234,7 @@ Task list data are saved automatically as a CSV file `[JAR file location]/data/t
 
 ## FAQ
 **Q**: How do I transfer my data to another Computer?  
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous `Dipsy` folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous `Dipsy` folder. 
 The data file can be found at `[JAR file location]/data/taskTable.csv`.
 
 ## Command Summary
