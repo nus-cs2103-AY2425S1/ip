@@ -44,7 +44,9 @@ public class Ui {
      * @throws IOException when a failure occurs while performing scanning or write operations.
      */
     public String handleCommands(String input) throws IOException {
+
         Parser parser = new Parser(input);
+
         try {
             if (parser.isOneWord()) {
                 if (input.equals("todo")) {
@@ -64,6 +66,7 @@ public class Ui {
         } catch (BweadException e) {
             return e.getMessage();
         }
+
         try {
             if (input.equals("bye")) {
                 return ("Bye. Hope to see you again soon!");
