@@ -1,6 +1,7 @@
 package bob.command;
 
 import bob.exception.InvalidTaskException;
+import bob.parser.Parser;
 import bob.storage.Storage;
 import bob.task.Task;
 import bob.task.TaskList;
@@ -23,27 +24,23 @@ public class TodoCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Storage storage, Ui ui) {
-        String input = this.getInput();
-        String[] inputArray = input.split("\s+");
+        String input = getInput();
         try {
-            String taskDescription = taskList.getDescriptionOnly(input);
-            if (taskDescription.equals("")) {
-                throw new InvalidTaskException("OOPS!!! The description of a todo task cannot be empty.");
-            }
-            Task newTask = new Todo(taskDescription);
-            //Update taskList instance by adding the new task.
-            taskList.getAllRecords().add(taskList.getRecordSize(), newTask);
-            taskList.incrementLatestRecordedIndex();
-            //save task
-            storage.saveRecordsToStorage(taskList.getAllRecords());
-            //print confirmation
-            String todoCommandString = taskList.getAddedTaskString();
-            //return string representation of successful adding / unsuccessful adding.
-            Ui.printLines(todoCommandString);
-            return todoCommandString;
+            Task newTodoTask = getTodoTask(input);
+            taskList.updateWithNewTask(newTodoTask);
+            storage.saveTaskListToStorage(taskList);
+            Ui.showAddedTaskConfirmation(taskList);
+            String TodoTaskAddedConfirmationMessage = taskList.getAddedTaskString();
+            return TodoTaskAddedConfirmationMessage;
         } catch (InvalidTaskException e) {
             System.err.println(e.getMessage());
             return e.getMessage();
         }
+    }
+
+    private static Task getTodoTask(String input) throws InvalidTaskException {
+        String todoDescription = Parser.parseDescriptionFromInput(input);
+        Task newTodoTask = new Todo(todoDescription);
+        return newTodoTask;
     }
 }

@@ -1,10 +1,9 @@
 package bob.ui;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import bob.parser.Parser;
-import bob.task.Task;
+import bob.task.TaskList;
 
 /**
  * Class that handles interactions with the user.
@@ -44,14 +43,6 @@ public class Ui {
     }
 
     /**
-     * Prints error if Bob is unable to load file.
-     */
-    public void showLoadingError() {
-        String loadingError = "Sorry! I'm unable to load the file\n";
-        Ui.printLines(loadingError);
-    }
-
-    /**
      * Prints a request for the user to key in a valid command.
      */
     public static void requestValidCommand() {
@@ -61,32 +52,11 @@ public class Ui {
     }
 
     /**
-     * Prints the matching output of tasks that matches the user's keywords
-     * @param matchingRecords Arraylist of all tasks with description that includes keyword.
-     */
-    public static void showSearchResults(ArrayList<Task> matchingRecords) {
-        String toPrint = "Here are the matching tasks in your list:\n";
-        int counter = 1;
-        for (Task task: matchingRecords) {
-            toPrint += "\t" + counter + "." + task.getTaskListItem() + "\n";
-        }
-        printLines(toPrint);
-    }
-
-    /**
      * Prints the results found that match with the find function.
      * @param resultsFound
      */
-    public void showFindResults(String resultsFound) {
+    public static void showFindResults(String resultsFound) {
         Ui.printLines(resultsFound);
-    }
-
-    /**
-     * Prints Error message when there is no successful records matching keyword.
-     */
-    public static void showEmptySearchResults() {
-        System.out.println("No matching results are found:(\n"
-                + "Please search for exact keyword");
     }
 
     /**
@@ -111,25 +81,36 @@ public class Ui {
     /**
      * Prints whether a task is marked or not.
      *
-     * @param currTask task that has been marked or unmarked.
-     * @param isCompleted whether task has been completed.
+     * @param markedTaskString String representation of confirmation message when task is marked.
      */
-    public void showMarkedTask(Task currTask, boolean isCompleted) {
-        if (isCompleted) {
-            String finishedMarking = "OK, I've marked this task as done:\n\t"
-                    + currTask.getTaskListItem();
-            Ui.printLines(finishedMarking);
-        } else {
-            String finishedUnmarking = "OK, I've marked this task as not done yet:\n\t"
-                    + currTask.getTaskListItem();
-            Ui.printLines(finishedUnmarking);
-        }
+    public static void showMarkedTask(String markedTaskString) {
+        Ui.printLines(markedTaskString);
     }
 
     /**
      * Prints the deleted Task String.
      */
-    public void showDeletedTask(String deletedTaskString) {
+    public static void showDeletedTask(String deletedTaskString) {
         Ui.printLines(deletedTaskString);
     }
+
+    /**
+     * Prints confirmation after user adds a task.
+     *
+     * @param taskList
+     */
+    public static void showAddedTaskConfirmation(TaskList taskList) {
+        String addedTaskConfirmationString = taskList.getAddedTaskString();
+        Ui.printLines(addedTaskConfirmationString);
+    }
+
+    /**
+     * Prints all records for user.
+     *
+     * @param allrecords
+     */
+    public static void showAllRecordsString(String allrecords) {
+        Ui.printLines(allrecords);
+    }
+
 }

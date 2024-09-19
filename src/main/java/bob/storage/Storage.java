@@ -36,45 +36,64 @@ public class Storage {
      */
     public ArrayList<Task> loadTaskList() {
         try {
-            File file = new File(filePath);
-            System.out.println("File location: " + file.getAbsolutePath());
-            if (!file.exists()) {
-
-                boolean isFileCreated = file.createNewFile();
-
-                if (!isFileCreated) {
-                    System.out.println("Failed to create file when loading task.");
-                }
-            }
-            FileReader fileReader = new FileReader(file);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String line = bufferedReader.readLine();
-
-            ArrayList<Task> tempRecords = new ArrayList<>();
-
-            System.out.println("\t====== Current Records =====\n");
-            System.out.println("Current file path = " + this.filePath);
-            for (Task task: tempRecords) {
-                System.out.println("Task in tempRecords: ");
-                System.out.println(task.getTaskListItem());
-            }
-            System.out.println("Hello");
-            System.out.println("Line input = " + line);
-
-            while (line != null && !line.equals("")) {
-                Task task = this.loadTask(line);
-                System.out.println(task.getTaskListItem());
-                tempRecords.add(task);
-                System.out.println("\t" + line);
-                line = bufferedReader.readLine();
-            }
-            bufferedReader.close();
+            File file = getFileFromFilePath();
+            ArrayList<Task> tempRecords = uploadTasksFromFileToRecords(file);
+            displayCurrentRecords(tempRecords);
             return tempRecords;
         } catch (IOException e) {
             super.toString();
         }
         return null;
-    };
+    }
+
+    /**
+     * Ensures that a file is present to save the records into upon command.
+     *
+     * @return File specified by the file path.
+     * @throws IOException
+     */
+    private File getFileFromFilePath() throws IOException {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            boolean isFileCreated = file.createNewFile();
+            assert isFileCreated : "File should be created if no file was found.";
+        }
+        return file;
+    }
+
+    /**
+     * Returns an arraylist containing tasks read from a file.
+     *
+     * @param file
+     * @return
+     * @throws IOException
+     */
+    private ArrayList<Task> uploadTasksFromFileToRecords(File file) throws IOException {
+        FileReader fileReader = new FileReader(file);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        String line = bufferedReader.readLine();
+
+        ArrayList<Task> tempRecords = new ArrayList<>();
+        while (line != null && !line.equals("")) {
+            Task task = this.loadTask(line);
+            tempRecords.add(task);
+            line = bufferedReader.readLine();
+        }
+        bufferedReader.close();
+        return tempRecords;
+    }
+
+    /**
+     * Prints the display of the current records passed into the function.
+     *
+     * @param currentRecords Arraylist of current records.
+     */
+    private void displayCurrentRecords(ArrayList<Task> currentRecords) {
+        System.out.println("\t====== Current Records =====\n");
+        for (Task x: currentRecords) {
+            System.out.println(x.getFileFormat());
+        }
+    }
 
     /**
      * Reads file and updates taskList for the next instruction given by user.
@@ -83,19 +102,8 @@ public class Storage {
      */
     public TaskList loadUpdatedTaskList() {
         try {
-            File file = new File(filePath);
-            FileReader fileReader = new FileReader(file);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String line = bufferedReader.readLine();
-
-            ArrayList<Task> tempRecords = new ArrayList<>();
-
-            while (line != null && !line.equals("")) {
-                Task task = this.loadTask(line);
-                tempRecords.add(task);
-                line = bufferedReader.readLine();
-            }
-            bufferedReader.close();
+            File file = getFileFromFilePath();
+            ArrayList<Task> tempRecords = uploadTasksFromFileToRecords(file);
             return new TaskList(tempRecords);
         } catch (IOException e) {
             super.toString();
@@ -105,62 +113,78 @@ public class Storage {
 
     /**
      * Parses the content from a line in the saved file to return the corresponding Task object.
+     *
      * @param lineInput A single line in the saved file.
      * @return Task based on the data specified in the lineInput.
      * @throws IOException
      */
     public Task loadTask(String lineInput) throws IOException {
         String[] parts = lineInput.split(" \\| ");
+        String taskLetter = parts[0];
         boolean isDone = (parts[1].equals("1")) ? true : false;
+        String taskDescription = parts[2];
 
-        switch (parts[0]) {
+        switch (taskLetter) {
         case "T":
-            return new Todo(parts[2], isDone);
+            return new Todo(taskDescription, isDone);
         case "D":
-            return new Deadline(parts[2], parts[3], isDone);
+            String endDate = parts[3];
+            return new Deadline(taskDescription, endDate, isDone);
         case "E":
-            System.out.println("parts length = " + parts.length);
-            System.out.println("part[0] = " + parts[0]);
-            System.out.println("part[1] = " + parts[1]);
-            System.out.println("part[2] = " + parts[2]);
-            System.out.println("part[3] = " + parts[3]);
-            return new Event(parts[2], parts[3], parts[4], parts[5], isDone);
+            String startDay = parts[3];
+            String startTime = parts[4];
+            String endTime = parts[5];
+            return new Event(taskDescription, startDay, startTime, endTime, isDone);
         default:
             throw new IOException("unable to parse Data for loading.");
         }
     }
 
     /**
-     * Saves tasks updates by user to storage
-     * @param records records of the tasks currently tracked by the chatBot.
+     * Saves task list to storage
+     *
+     * @param taskList
      */
-    public void saveRecordsToStorage(ArrayList<Task> records) {
-
+    public void saveTaskListToStorage(TaskList taskList) {
+        ArrayList<Task> records = taskList.getAllRecords();
         File file = new File(filePath);
         try {
-            File dataDir = file.getParentFile();
-            if (dataDir != null && !dataDir.exists()) {
-                boolean isDirCreated = dataDir.mkdir();
-                if (!isDirCreated) {
-                    System.out.println("Failed to create directory for saving records.");
-                }
-            }
-            if (!file.exists()) {
-                boolean isFileCreated = file.createNewFile();
-                if (!isFileCreated) {
-                    System.out.println("Failed to create new file when saving records.");
-                }
-            }
-            FileWriter fileWriter = new FileWriter(file);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            for (Task x: records) {
-                String fileFormatLine = x.getFileFormat();
-                bufferedWriter.write(fileFormatLine);
-                bufferedWriter.newLine();
-            }
-            bufferedWriter.close();
+            getParentFile(file);
+            getFileFromFilePath();
+            saveRecordsToFile(records, file);
         } catch (IOException e) {
             System.err.println("Unable to save records to storage.");
+        }
+    }
+
+    /**
+     * Saves each task in records into the specified file.
+     *
+     * @param records Current records
+     * @param file File that stores information about the records.
+     * @throws IOException
+     */
+    private static void saveRecordsToFile(ArrayList<Task> records, File file) throws IOException {
+        FileWriter fileWriter = new FileWriter(file);
+        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+        for (Task x: records) {
+            String fileFormatLine = x.getFileFormat();
+            bufferedWriter.write(fileFormatLine);
+            bufferedWriter.newLine();
+        }
+        bufferedWriter.close();
+    }
+
+    /**
+     * Get the parent directory of the specified file.
+     *
+     * @param file
+     */
+    private static void getParentFile(File file) {
+        File dataDir = file.getParentFile();
+        if (dataDir != null && !dataDir.exists()) {
+            boolean isDirCreated = dataDir.mkdir();
+            assert isDirCreated : "Directory should be created.";
         }
     }
 }

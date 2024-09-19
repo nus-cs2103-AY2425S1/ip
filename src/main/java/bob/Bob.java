@@ -1,7 +1,6 @@
 package bob;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import bob.command.Command;
 import bob.parser.Parser;
@@ -14,8 +13,8 @@ import bob.ui.Ui;
  * This is a chatBot class named Bob.
  */
 public class Bob {
-    private ArrayList<Task> records;
-    private Storage storage;
+    private static String FILE_PATH = "src/main/java/bob/data/tasks.txt";
+    private final Storage storage;
     private TaskList taskList;
     private Ui ui;
     private String commandType;
@@ -40,58 +39,8 @@ public class Bob {
      * Runs the main method of the program.
      */
     public static void main(String[] args) {
-        Bob bob = new Bob("src/main/java/bob/data/tasks.txt");
+        Bob bob = new Bob(FILE_PATH);
         bob.run1();
-    }
-
-    /**
-     * Starts the main program for the chatBot.
-     */
-    public void run() {
-        ui.showWelcome();
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine().trim(); //input with NO whitespace in front/back
-        while (!input.equals("bye")) {
-            String[] inputWords = input.split("\s+");
-            String keyword = inputWords[0];
-
-            // update taskList, storage reads from file
-            // Command command = Parser.parseCommand(input); //get the specific command type
-            // String output = command.execute(taskList, storage) //executes. storage will save to file
-
-            switch (keyword) {
-            case "list":
-                taskList.listRecords();
-                break;
-            case "mark":
-                taskList.updateMark(input, inputWords, true);
-                break;
-            case "unmark":
-                taskList.updateMark(input, inputWords, false);
-                break;
-            case "delete":
-                taskList.delete(input);
-                break;
-            case "event":
-                taskList.addTask(input, inputWords);
-                break;
-            case "deadline":
-                taskList.addTask(input, inputWords);
-                break;
-            case "todo":
-                taskList.addTask(input, inputWords);
-                break;
-            case "find":
-                taskList.find(input);
-                break;
-            default:
-                Ui.requestValidCommand();
-            }
-            taskList.saveRecords(storage);
-            input = scanner.nextLine().trim();
-        }
-        Ui.showGoodBye();
-
     }
 
     /**

@@ -1,7 +1,5 @@
 package bob.task;
 
-import bob.ui.Ui;
-
 /**
  * Task that user is keeping track of.
  */
@@ -28,7 +26,7 @@ public class Task {
     }
 
     /**
-     * Returns whether or not a task is completed.
+     * Returns whether a task is completed.
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
@@ -39,32 +37,6 @@ public class Task {
      */
     public String getTaskListItem() {
         return ("[" + getTaskLetter() + "][" + this.getStatusIcon() + "] " + this.description);
-    }
-
-    /**
-     * Marks the task as completed or not completed.
-     * @param value Whether the task is completed.
-     */
-    public void markTask(boolean value) {
-        if (value) {
-            this.isDone = true;
-            String finishedMarking = "OK, I've marked this task as done:\n\t"
-                    + "["
-                    + getTaskLetter()
-                    + "]"
-                    + "[X] "
-                    + this.description;
-            Ui.printLines(finishedMarking);
-        } else {
-            this.isDone = false;
-            String finishedUnmarking = "OK, I've marked this task as not done yet:\n\t"
-                    + "["
-                    + getTaskLetter()
-                    + "]"
-                    + "[ ] "
-                    + this.description;
-            Ui.printLines(finishedUnmarking);
-        }
     }
 
     /**
@@ -83,7 +55,7 @@ public class Task {
      *
      * @param isCompleted whether the task is completed.
      */
-    public String getMarkedTask(boolean isCompleted) {
+    public String getMarkedTaskStringFromTask(boolean isCompleted) {
         if (isCompleted) {
             String finishedMarking = "OK, I've marked this task as done:\n\t"
                     + "["
