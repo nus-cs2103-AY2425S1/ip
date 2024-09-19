@@ -1,7 +1,5 @@
 package sentinel.command;
 
-import java.io.IOException;
-
 import sentinel.Sentinel;
 import sentinel.exception.ExecutionException;
 import sentinel.exception.SentinelException;
@@ -34,7 +32,7 @@ public abstract class Command {
      * @return String to be displayed on GUI depending on Command.
      * @throws SentinelException If an error occurs during command execution.
      */
-    public abstract String execute(String input) throws SentinelException, IOException;
+    public abstract String execute(String input) throws SentinelException;
 
     /**
      * Factory method for creating specific Command instances based on the command type.

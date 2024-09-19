@@ -1,7 +1,5 @@
 package sentinel.command;
 
-import java.io.IOException;
-
 import sentinel.Sentinel;
 import sentinel.exception.ExecutionException;
 import sentinel.exception.SentinelException;
@@ -40,7 +38,7 @@ public class CreateTaskCommand extends Command {
      * @throws SentinelException If an error occurs during task parsing.
      */
     @Override
-    public String execute(String input) throws SentinelException, IOException {
+    public String execute(String input) throws SentinelException {
         Task newTask = Parser.parseTask(commandType, input, ui);
         if (newTask == null) {
             throw new ExecutionException();

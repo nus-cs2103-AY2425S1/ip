@@ -71,5 +71,8 @@ Expected Output:
 Got it. I've added this event: [E][ ] Birthday party (from: 2024-09-15T18:00 to: 2024-09-15T21:00)
 ```
 
+## Product Screenshot
+![Product_Screenshot](Ui.png)
+
 ## Credits
 Sentinel is based on the Duke project template. Special thanks to the original creators and the Java community for their contributions.

@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+import sentinel.exception.GeminiException;
+
 /**
  * The GeminiApi handles all AI related requests.
  */
@@ -22,7 +24,7 @@ public class GeminiApi {
      * @return The text result from Gemini.
      */
 
-    public static String query(String input) throws IOException {
+    public static String query(String input) throws GeminiException {
         if (input.isBlank()) {
             return null;
         }
@@ -49,7 +51,6 @@ public class GeminiApi {
                 assert(responseCode == 200);
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    System.out.println(line);
                     if (!line.contains("text")) {
                         continue;
                     }
@@ -68,13 +69,12 @@ public class GeminiApi {
      * @return The LocalDateTime object after being formatted by Gemini and parsed.
      */
 
-    public static LocalDateTime formatDateTime(String dateInput) throws IOException {
+    public static LocalDateTime formatDateTime(String dateInput) throws GeminiException {
         String res = query("""
 Format this date into {YYYY}-{MM}-{DD}T{Hour}:{Minute}:{Second}.
 If there is a missing time, put T00:00:00. Else if there is a missing field or no such date, just return 'null'.
 Don't give any explanation or any other answer other than 'null' or '{YYYY}-{MM}-{DD}T{Hour}:{Minute}:{Second}'. \n
             """ + dateInput);
-        System.out.println("Gem output = " + res);
         if (res == null || res.contains("null")) {
             return null;
         }
@@ -85,7 +85,7 @@ Don't give any explanation or any other answer other than 'null' or '{YYYY}-{MM}
     }
 
     // Method to load environment variables from .env file
-    private static Map<String, String> loadEnvVars() throws IOException {
+    private static Map<String, String> loadEnvVars() throws GeminiException {
         Map<String, String> envVars = new HashMap<>();
         try (BufferedReader br = new BufferedReader(new FileReader(".env"))) {
             String line;
@@ -99,7 +99,7 @@ Don't give any explanation or any other answer other than 'null' or '{YYYY}-{MM}
                 envVars.put(key, value);
             }
         } catch (IOException e) {
-            throw e;
+            throw new GeminiException();
         }
         return envVars;
     }

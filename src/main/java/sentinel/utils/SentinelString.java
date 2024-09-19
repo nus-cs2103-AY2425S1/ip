@@ -158,6 +158,13 @@ public class SentinelString {
     }
 
     /**
+     * Returns an error message for Gemini errors.
+     */
+    public static String stringGeminiErrorMessage() {
+        return "Oh no, I am unable to use any AI! Please try again using the specific format!";
+    }
+
+    /**
      * Returns the status and details of a task after it has been marked or unmarked.
      *
      * @param t The task that was marked or unmarked.
