@@ -1,9 +1,6 @@
 # Quack Setup Guide
 ---
-<div style="display: flex; align-items: flex-start;">
-  <image src="src\main\resources\images\duck.png" width="450" height="400">
-  <p style="margin-left: 10px; padding-top: 100px;">Hello nice to meet you I am your personal assistant</p>
-</div>
+![Greeting](/docs/Greeting.png)
 
 ## What is Quack?
 

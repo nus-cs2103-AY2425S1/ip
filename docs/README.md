@@ -1,18 +1,13 @@
 # Quack - Your Personal Duck Assistant 
 ---
 
-<div> 
-  <div style="display: flex; align-items: flex-start;">
-    <image src="..\src\main\resources\images\duck.png" width="450" height="400">
-    <p style="margin-left: 10px; padding-top: 100px;">Hello nice to meet you I am your personal assistant</p>
-  </div>
-</div>
+![Greeting](Greeting.png)
 
 ## What is Quack
 Quack is a user friendly assistant which helps you keep track of pesky tasks and ensures you don't miss out on anything important!
 
 
-<!-- ## Supported Features
+## Supported Features
 Here is a list of feaures that quack supports
    1) List your tasks
    2) Add a todo/deadline/event task
@@ -60,10 +55,7 @@ If you are using the `.jar` to run the program please skip to the [[#Quick Start
 
 > Please note that A GUI similar to the below should appear in a few seconds. Note that the image shows some sample data and some uage examples.
 
-<div style="display: flex; align-items: center; justify-content: center;">
-  <image src="Ui.png">
-</div>
-<br></br>
+![Ui](Ui.png)
 
    4) Type a command in the text input at the bottom and press Send to execute it
    5) For what commands to type, just key in `help` into the text input
@@ -80,9 +72,7 @@ Displays a list of all tasks that is being kept track of by Quack.
 Format: `list`
 
 __Sample Output:__
-<div style="display: flex; align-items: center; justify-content: center;">
-  <image src="expected-outputs\List-Command.png">
-</div>
+![list](./expected-outputs/List-Command.png)
 
 ## Listing Tasks - `add`
 Adds a todo, deadline or event task into Quack's task list.
@@ -105,9 +95,7 @@ __Example__:
 > For deadline and event tasks, Quack will prompt you for some date input in ths following format: DD/MM/YYYY HH:MM:SS
 
 __Sample Output:__
-<div style="display: flex; align-items: center; justify-content: center;">
-  <image src="expected-outputs\Add-Task-Command.png">
-</div>
+![add](./expected-outputs/Add-Task-Command.png)
 
 ## Finding Tasks - `find`
 Ask Quack to find all tasks that matches the description or contains a substring of the description.
@@ -122,9 +110,7 @@ __Example__:
 - `Assignment`
 
 __Sample Output:__
-<div style="display: flex; align-items: center; justify-content: center;">
-  <image src="expected-outputs\Find-Task-Command.png">
-</div>
+![find](./expected-outputs/Find-Task-Command.png)
 
 ## Deleting Tasks - `delete`
 Ask Quack to delete a task from the list based on the tasks index.
@@ -139,9 +125,7 @@ __Example__:
 - `3`
 
 __Sample Output:__
-<div style="display: flex; align-items: center; justify-content: center;">
-  <image src="expected-outputs\Delete-Task-Command.png">
-</div>
+![delete](./expected-outputs/Delete-Task-Command.png)
 
 ## Marking and Unmarking Tasks - `mark` & `unmark`
 You can ask Quack to mark and unmark tasks based on the tasks index.
@@ -156,9 +140,7 @@ __Example__:
 - `2`
 
 __Sample Output:__
-<div style="display: flex; align-items: center; justify-content: center;">
-  <image src="expected-outputs\Mark-Unmark-Task-Command.png">
-</div>
+![mark/unmark](./expected-outputs/Mark-Unmark-Task-Command.png)
 
 ## Tagging and Untagging Tasks - `tag` & `untag`
 You can ask Quack to tag or untag tasks to organise your tasks.
@@ -179,9 +161,7 @@ __Example__:
 > For untagging Quack will not prompt you for a tag label
 
 __Sample Output:__
-<div style="display: flex; align-items: center; justify-content: center;">
-  <image src="expected-outputs\Tag-Untag-Task-Command.png">
-</div>
+![tag/untag](./expected-outputs/Tag-Untag-Task-Command.png)
 
 ## Help function - `help`
 In the event the user forgets the commands to type, they can ask quack to list it out.
@@ -194,9 +174,7 @@ __Example__:
 - < Quack will print all the supported commands >
 
 __Sample Output:__
-<div style="display: flex; align-items: center; justify-content: center;">
-  <image src="expected-outputs\Help-Command.png">
-</div>
+![help](./expected-outputs/Help-Command.png)
 
 ## Exiting the program - `bye`
 This is to close the program properly
@@ -212,9 +190,7 @@ __Example__:
 > After awhile the window will be closed after the `bye` command is executed
 
 __Sample Output:__
-<div style="display: flex; align-items: center; justify-content: center;">
-  <image src="expected-outputs\Bye-Command.png">
-</div>
+![bye](./expected-outputs/Bye-Command.png)
 
 ## Saving & loading of tasks
 Quack will save any data automatically once the `bye` command has been executed. There is no need to manually save.
@@ -235,4 +211,4 @@ For the duck icon it was retrieved [here](https://www.vecteezy.com/vector-art/25
 
 ### Person Icon
 
-For the person icon it was retrieved [here](https://www.flaticon.com/free-icon/man_4140061). -->
+For the person icon it was retrieved [here](https://www.flaticon.com/free-icon/man_4140061).
