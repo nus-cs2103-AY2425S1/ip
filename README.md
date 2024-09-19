@@ -70,7 +70,12 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
 │               │   ├── Main.java
 │               │   ├── MainWindowController.java
 │               └── util
-│                   └── Jeriel.java
+│               │   ├── JerielException.java
+│               │   ├── Parser.java
+│               │   ├── Storage.java
+│               │   ├── TaskList.java 
+│               │   ├── Ui.java 
+│               └── Jeriel.java
 │   └── resources
 │       └── view
 │           └── MainWindow.fxml
