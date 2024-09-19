@@ -1,55 +1,97 @@
 package hypebot.storage;
 
-import static hypebot.common.Messages.ERROR_LOAD_TASKLIST;
+import static hypebot.common.Messages.ERROR_LOCATING_TASKLIST;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
-import hypebot.parser.TaskParser;
+import hypebot.exception.datetime.HypeBotDateTimeParseException;
+import hypebot.exception.illegal.DatePassedException;
+import hypebot.exception.illegal.IllegalTaskStatusException;
+import hypebot.exception.illegal.IllegalTaskTypeException;
+import hypebot.parser.task.FileTaskParser;
+import hypebot.task.Deadline;
+import hypebot.task.Event;
 import hypebot.task.Task;
 import hypebot.tasklist.Tasklist;
 
 /**
- * Represents a TasklistDecoder that takes in a File to load Tasks from
- * and adds Tasks to an ArrayList sent to create Tasklist objects.
+ * Represents a {@code TasklistDecoder} that decodes {@link Task}s in a {@link File}
+ * using a {@link FileTaskParser}, and adds parsed {@link Task}s to a {@link Tasklist}.
  *
- * @author Youngseo Park (@youngseopark05)
+ * @author Youngseo Park (<a href="https://github.com/youngseopark05">@youngseopark05</a>)
+ * @see FileTaskParser
+ * @see TasklistEncoder
  */
 public class TasklistDecoder {
-    private File tasklistFile;
+    /** {@link File} containing data that decodes to a {@link Task}. */
+    private final File tasklistFile;
+
+    /** {@link FileTaskParser} that parses data in {@code tasklistFile} into {@link Task}s. */
+    private final FileTaskParser fileTaskParser;
 
     /**
-     * Takes in a File containing lines of text that decode to Task objects
-     * and creates a new TasklistDecoder.
+     * Takes in a {@link File} containing lines of text that decode to
+     * {@link Task} objects and creates a new {@code TasklistDecoder}.
      *
-     * @param tasklistFile File object containing file path to .txt file with task data.
+     * @param tasklistFile {@link File} containing saved {@link Task} data.
      */
     public TasklistDecoder(File tasklistFile) {
         this.tasklistFile = tasklistFile;
+        this.fileTaskParser = new FileTaskParser();
     }
 
     /**
-     * Decodes lines from .txt file into Tasks, adds them to a Tasklist,
-     * then returns the Tasklist.
+     * Takes in a {@link String} line from the {@link File} {@code tasklistFile},
+     * has {@link FileTaskParser} {@code fileTaskParser} parse the line into a new
+     * {@link Task}, and adds it to the {@link Tasklist} taken in.
      *
-     * @return Tasklist containing Tasks decoded from .txt file.
-     * @throws FileNotFoundException If file to decode and load Tasks from not found.
+     * @param taskTextLine {@link String} line from the {@link File} {@code tasklistFile}.
+     * @param tasks        {@link Tasklist} where {@link Task}s are being loaded into.
+     * @throws DatePassedException           If a {@link Deadline}'s due date has passed current
+     *                                       date, or an {@link Event} has already concluded.
+     * @throws HypeBotDateTimeParseException If {@link Deadline}'s due date or {@link Event} times
+     *                                       encoded in an incorrect format.
+     * @throws IllegalTaskStatusException    If a {@link Task}'s completion status is not an
+     *                                       accepted value.
+     * @throws IllegalTaskTypeException      If no accepted task type is detected.
      */
-    public Tasklist decode() throws FileNotFoundException {
-        Scanner scanner = new Scanner(tasklistFile);
-        ArrayList<Task> tasks = new ArrayList<>();
-        while (scanner.hasNextLine()) {
-            String taskTextLine = scanner.nextLine();
-            try {
-                Task newTask = TaskParser.parseTaskFromFile(taskTextLine);
-                tasks.add(newTask);
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            }
+    private void addTaskFromText(String taskTextLine, Tasklist tasks) throws DatePassedException,
+            HypeBotDateTimeParseException, IllegalTaskStatusException, IllegalTaskTypeException {
+        Task newTask = fileTaskParser.parse(taskTextLine);
+        tasks.add(newTask);
+    }
+
+    /**
+     * Scans each line from {@link File} {@code tasklistFile} using a {@link Scanner}
+     * for {@link FileTaskParser} {@code fileTaskParser} to parse into {@link Task}s,
+     * adds them to a new {@link Tasklist}, then returns the new {@link Tasklist}.
+     *
+     * @return {@link Tasklist} with {@link Task}s decoded from {@link File} {@code tasklistFile}.
+     * @throws FileNotFoundException         If {@link File} {@code tasklistFile} does not exist.
+     * @throws HypeBotDateTimeParseException If {@link Deadline}'s due date or {@link Event} times
+     *                                       encoded in an incorrect format.
+     * @throws IllegalArgumentException      If either a {@link Deadline}'s due date has passed,
+     *                                       or an {@link Event} has already concluded; if a
+     *                                       {@link Task}'s completion status is not accepted;
+     *                                       or if an unaccepted task type is found.
+     */
+    public Tasklist decode() throws FileNotFoundException, HypeBotDateTimeParseException, IllegalArgumentException {
+        if (!tasklistFile.exists()) {
+            throw new FileNotFoundException(ERROR_LOCATING_TASKLIST + tasklistFile.getAbsolutePath());
         }
+
+        Scanner scanner = new Scanner(tasklistFile);
+        Tasklist tasks = new Tasklist();
+
+        while (scanner.hasNextLine()) {
+            String taskText = scanner.nextLine();
+            addTaskFromText(taskText, tasks);
+        }
+
         scanner.close();
-        return new Tasklist(tasks);
+
+        return tasks;
     }
 }
