@@ -14,16 +14,7 @@ import javafx.stage.Stage;
  * It extends {@code Application} to launch the JavaFX graphical user interface (GUI) and coordinate with Chatsy.
  */
 public class Main extends Application {
-
-    /** Instance of Chatsy that handles the application's business logic. */
     private Chatsy chatsy = new Chatsy();
-
-    /**
-     * Starts the JavaFX application by setting up the main stage, loading the GUI from FXML,
-     * and linking it with the {@code Chatsy} logic.
-     *
-     * @param stage The primary stage for this application.
-     */
     @Override
     public void start(Stage stage) {
         try {
@@ -43,12 +34,6 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
-
-    /**
-     * The main method serves as the entry point for the program and launches the JavaFX application.
-     *
-     * @param args The command-line arguments (if any).
-     */
     public static void main(String[] args) {
         launch(args);
     }

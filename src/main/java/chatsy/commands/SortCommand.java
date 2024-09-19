@@ -1,4 +1,4 @@
-package chatsy.command;
+package chatsy.commands;
 
 import chatsy.TaskManager;
 
@@ -7,7 +7,7 @@ import chatsy.TaskManager;
  */
 public class SortCommand extends Command {
 
-    private final boolean reverse;
+    private final boolean isReverse;
 
     /**
      * Constructs a {@code SortCommand} with a flag for reverse sorting.
@@ -15,12 +15,12 @@ public class SortCommand extends Command {
      * @param arguments The sorting order arguments, such as "reverse".
      */
     public SortCommand(String arguments) {
-        this.reverse = arguments.equalsIgnoreCase("reverse");
+        this.isReverse = arguments.equalsIgnoreCase("reverse");
     }
 
     @Override
     public String execute(TaskManager taskManager) {
-        if (reverse) {
+        if (isReverse) {
             taskManager.sortDeadlinesReverseChronologically();
             return "Tasks sorted in reverse chronological order.";
         } else {

@@ -95,7 +95,7 @@ public class DialogBox extends HBox {
      *                       If true, the background color is set to red; otherwise, it's orange.
      */
     private void setBackgroundColor(boolean isErrorMessage) {
-        box.setFill(Paint.valueOf(isErrorMessage ? "#e06969" : "#fa890f"));
+        box.setFill(Paint.valueOf(isErrorMessage ? "#d55e00" : "#00ffbf"));
     }
 
     /**

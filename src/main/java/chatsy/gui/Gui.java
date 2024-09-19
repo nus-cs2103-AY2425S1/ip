@@ -2,12 +2,15 @@ package chatsy.gui;
 
 import chatsy.Chatsy;
 import chatsy.exceptions.ChatsyException;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * Represents the graphical user interface (GUI) controller for Chatsy.
@@ -16,10 +19,10 @@ import javafx.scene.layout.VBox;
 public class Gui {
 
     /** The image representing the user in the chat dialog. */
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.jpg"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.jpg"));
 
     /** The image representing Chatsy in the chat dialog. */
-    private Image chatsyImage = new Image(this.getClass().getResourceAsStream("/images/Chatsy.jpg"));
+    private final Image chatsyImage = new Image(this.getClass().getResourceAsStream("/images/Chatsy.jpg"));
 
     @FXML
     private ScrollPane chatHistoryScrollPane;
@@ -90,21 +93,32 @@ public class Gui {
             return;
         }
         addUserDialog(input);
-        getResponse(input);
-        userInput.clear();
-    }
 
-    /**
-     * Sends the user's input to Chatsy for processing and adds Chatsy's response to the chat container.
-     * Handles any exceptions thrown by Chatsy and displays error messages if needed.
-     *
-     * @param input The user's command to be processed by Chatsy.
-     */
-    private void getResponse(String input) {
         try {
-            addChatsyDialog(chatsy.handleCommand(input), false);
+            String response = chatsy.handleCommand(input);
+            addChatsyDialog(response, false);
+
+            userInput.clear();
+
+            if (chatsy.getParser().parse(input).shouldExit()) {
+                handleExit();
+            }
         } catch (ChatsyException e) {
             addChatsyDialog(e.getMessage(), true);
         }
+    }
+
+    /**
+     * Handles the exit process by saving tasks and closing the window after a brief pause.
+     */
+    private void handleExit() {
+        chatsy.exit();
+
+        PauseTransition pause = new PauseTransition(Duration.seconds(1));
+        pause.setOnFinished(event -> {
+            Stage stage = (Stage) chatContainer.getScene().getWindow();
+            stage.close();
+        });
+        pause.play();
     }
 }

@@ -1,4 +1,4 @@
-package chatsy.command;
+package chatsy.commands;
 
 import chatsy.TaskManager;
 
@@ -9,12 +9,12 @@ public class ByeCommand extends Command {
 
     @Override
     public String execute(TaskManager taskManager) {
-        return "Goodbye!";
+        return "Bye. Hope to see you again soon!";
     }
 
     @Override
     public boolean shouldExit() {
-        return true; // Signals the application to exit
+        return true;
     }
 }
 

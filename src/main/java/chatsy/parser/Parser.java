@@ -1,6 +1,6 @@
 package chatsy.parser;
 
-import chatsy.command.*;
+import chatsy.commands.*;
 import chatsy.exceptions.ChatsyException;
 import chatsy.exceptions.InvalidCommandException;
 import chatsy.TaskManager;
@@ -50,8 +50,8 @@ public class Parser {
             return new FindCommand(arguments);
         case "sort":
             return new SortCommand(arguments);
-            default:
-            throw new InvalidCommandException();
+        default:
+            return new UnknownCommand(action, arguments);
         }
     }
 }

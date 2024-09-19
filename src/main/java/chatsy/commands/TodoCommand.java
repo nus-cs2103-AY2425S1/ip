@@ -1,4 +1,4 @@
-package chatsy.command;
+package chatsy.commands;
 
 import chatsy.TaskManager;
 import chatsy.exceptions.EmptyDescriptionException;
