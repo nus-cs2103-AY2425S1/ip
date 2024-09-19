@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import ponderpika.exception.DuplicateTaskException;
 import ponderpika.exception.InvalidPriorityException;
 import ponderpika.exception.InvalidTaskIndexException;
 import ponderpika.exception.NoMatchingTasksFoundException;
@@ -25,12 +26,29 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    private boolean checkDuplicateTask(Task t) {
+        for (int i = 0; i < this.tasks.size(); i++) {
+            if (this.tasks.get(i).equals(t)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Adds a {@link Task} to the list.
      *
-     * @param task The {@link Task} to be added to the list.
+     * @param task The {@link Task} to be added to the list
+     * @throws DuplicateTaskException if the task already exists in list
      */
-    public void addTask(Task task) {
+    public void addTask(Task task) throws DuplicateTaskException {
+        if (checkDuplicateTask(task)) {
+            throw new DuplicateTaskException();
+        }
         tasks.add(task);
     }
 
@@ -40,9 +58,9 @@ public class TaskList {
      *
      * @param index The 1-based index of the task to be deleted.
      *
-     * @throws PonderPikaException If the index is invalid (i.e. out of bounds).
+     * @throws InvalidTaskIndexException If the index is invalid (i.e. out of bounds).
      */
-    public void deleteTask(int index) throws PonderPikaException {
+    public void deleteTask(int index) throws InvalidTaskIndexException {
         if (index < 1 || index > tasks.size()) {
             throw new InvalidTaskIndexException();
         }
@@ -104,10 +122,6 @@ public class TaskList {
         }
         tasks.get(index).setPriority(priority);
         return String.format("Priority set to %s for %s", priority, tasks.get(index).getDescription());
-    }
-
-    public List<Task> getTasks() {
-        return tasks;
     }
 
     /**

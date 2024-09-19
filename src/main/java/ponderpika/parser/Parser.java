@@ -2,9 +2,13 @@ package ponderpika.parser;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
 import ponderpika.Command;
+import ponderpika.exception.InvalidDateRangeException;
+import ponderpika.exception.InvalidDateTimeException;
+import ponderpika.exception.InvalidDescriptionException;
 import ponderpika.exception.MissingDeadlineTimeException;
 import ponderpika.exception.MissingDescriptionException;
 import ponderpika.exception.MissingEventFromTimeException;
@@ -90,6 +94,26 @@ public class Parser {
     }
 
     /**
+     * Parses a string input into a LocalDateTime object.
+     * <p>
+     * This method attempts to convert the provided string into a LocalDateTime using
+     * the specified formatter. If the input string is not in a valid format, an
+     * InvalidDateTimeException is thrown
+     * </p>
+     *
+     * @param input the string representation of the date and time to be parsed
+     * @return a LocalDateTime object representing the parsed date and time
+     * @throws InvalidDateTimeException if the input string cannot be parsed into a valid date and time
+     */
+    public LocalDateTime parseDateTime(String input) throws InvalidDateTimeException {
+        try {
+            return LocalDateTime.parse(input, FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeException();
+        }
+    }
+
+    /**
      * Parses a deadline command string and returns a Command object for a deadline task.
      * <p>
      * The method splits the details string into description and deadline time. It then constructs a
@@ -102,7 +126,8 @@ public class Parser {
      *
      * @throws PonderPikaException If the details are incomplete or incorrectly formatted.
      */
-    private Command parseDeadlineCommand(String details) throws PonderPikaException {
+    private Command parseDeadlineCommand(String details) throws MissingDeadlineTimeException,
+            MissingDescriptionException, InvalidDateTimeException, InvalidDescriptionException {
         String[] args = details.split("/by ");
         if (args.length < 2) {
             throw new MissingDeadlineTimeException();
@@ -110,8 +135,11 @@ public class Parser {
         if (args[0].trim().isEmpty()) {
             throw new MissingDescriptionException();
         }
-        return new Command(Command.Action.DEADLINE, new Deadline(args[0].trim(),
-                LocalDateTime.parse(args[1].trim(), FORMATTER)));
+        if (!args[0].matches("[a-zA-Z ]+")) {
+            throw new InvalidDescriptionException();
+        }
+        LocalDateTime byTime = parseDateTime(args[1].trim());
+        return new Command(Command.Action.DEADLINE, new Deadline(args[0].trim(), byTime));
     }
 
     /**
@@ -127,10 +155,15 @@ public class Parser {
      *
      * @throws PonderPikaException If the details are incomplete or incorrectly formatted.
      */
-    private Command parseEventCommand(String details) throws PonderPikaException {
+    private Command parseEventCommand(String details) throws MissingDescriptionException,
+            MissingEventTimingException, MissingEventFromTimeException, MissingEventToTimeException,
+            InvalidDateTimeException, InvalidDateRangeException, InvalidDescriptionException {
         String[] desc = details.split("/from");
         if (desc[0].trim().isEmpty()) {
             throw new MissingDescriptionException();
+        }
+        if (!desc[0].matches("[a-zA-Z ]+")) {
+            throw new InvalidDescriptionException();
         }
         if (desc.length < 2) {
             throw new MissingEventTimingException();
@@ -145,8 +178,14 @@ public class Parser {
             throw new MissingEventFromTimeException();
         }
 
-        return new Command(Command.Action.EVENT, new Event(desc[0].trim(),
-                LocalDateTime.parse(time[0].trim(), FORMATTER), LocalDateTime.parse(time[1].trim(), FORMATTER)));
+        LocalDateTime fromTime = parseDateTime(time[0].trim());
+        LocalDateTime toTime = parseDateTime(time[1].trim());
+
+        if (toTime.isBefore(fromTime) || toTime.isEqual(fromTime)) {
+            throw new InvalidDateRangeException();
+        }
+
+        return new Command(Command.Action.EVENT, new Event(desc[0].trim(), fromTime, toTime));
     }
 
     /**
@@ -156,7 +195,8 @@ public class Parser {
      * @return Command instance with action as Priority and data as detail
      * @throws PonderPikaException for missing priority and missing index
      */
-    public Command parsePriorityCommand(String details) throws PonderPikaException {
+    public Command parsePriorityCommand(String details) throws MissingPriorityLevelException,
+            MissingTaskIndexException {
         String[] taskDetail = details.split(" ");
         if (taskDetail[0].trim().isEmpty()) {
             throw new MissingPriorityLevelException();
