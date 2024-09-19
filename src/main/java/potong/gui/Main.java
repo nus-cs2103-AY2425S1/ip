@@ -16,7 +16,7 @@ import potong.Potong;
 public class Main extends Application {
 
     private Potong potong = new Potong();
-    private Image icon = new Image(this.getClass().getResourceAsStream("/images/icon.png"));
+    private Image icon = new Image(this.getClass().getResourceAsStream("/images/Icon.png"));
 
     @Override
     public void start(Stage stage) {

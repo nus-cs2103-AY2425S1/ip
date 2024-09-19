@@ -9,7 +9,7 @@ Potong is a Personal Assistant Chatbot that helps you keep track of your tasks.
 1. Ensure that you have java `17` or above installed on your Computer.
 2. Download the latest `.jar` file from [here](https://github.com/BunnyHoppp/ip/releases).
 3. Copy the file to a folder you want to store Potong.
-4. Open a command terminal, `cd` into the folder with your .jar file, and use `java -jar Potong.jar` command to run it.
+4. Open a command terminal, `cd` into the folder with your .jar file, and use `java -jar potong.jar` command to run it.
 
 ## Features
 

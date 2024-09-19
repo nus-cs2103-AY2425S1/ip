@@ -25,13 +25,11 @@ public class Potong {
      * Starts up the chatbot for user.
      */
     public void run() {
-        ui.showIntroduction();
         while (true) {
             String userInput = ui.getUserCommand();
             Command c = Parser.parse(userInput);
             assert c != null;
             String message = c.execute(tasks, storage, ui);
-            ui.print(message);
             if (c instanceof ExitCommand) {
                 break;
             }
