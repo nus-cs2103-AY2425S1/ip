@@ -3,7 +3,7 @@ package bob.task;
 import java.util.ArrayList;
 
 import bob.exception.InvalidTaskException;
-import bob.storage.Storage;
+import bob.parser.Parser;
 import bob.ui.Ui;
 
 /**
@@ -13,6 +13,7 @@ public class TaskList {
 
     private ArrayList<Task> records;
     private int latestRecordedIndex;
+    private Task latestDeletedRecord;
 
     /**
      * Initialises TaskList with an existing record.
@@ -35,7 +36,7 @@ public class TaskList {
     /**
      * Prints a list of all recorded user inputs.
      */
-    public void listRecords() {
+    public String getListRecordsString() {
         String allRecords = "Here are the tasks in your list:\n\t";
         for (int i = 0; i < records.size(); i++) {
             int num = i + 1;
@@ -46,7 +47,8 @@ public class TaskList {
                 allRecords += num + "." + currTask.getTaskListItem() + "\n\t";
             }
         }
-        Ui.printLines(allRecords);
+        Ui.showAllRecordsString(allRecords);
+        return allRecords;
     }
 
     /**
@@ -58,95 +60,6 @@ public class TaskList {
      */
     public boolean isValidRecord(int itemIndex) {
         return (itemIndex > 0 && itemIndex <= records.size());
-    }
-
-    /**
-     * Returns the String representation of the task description only.
-     * @param input input by the user.
-     * @return String representation of task description.
-     * @throws InvalidTaskException
-     */
-    public String getDescriptionOnly(String input) throws InvalidTaskException {
-        String[] separateKeyword = input.split(" ", 2); //separate the keyword from the rest of string
-        switch (separateKeyword[0]) {
-        case "todo":
-            if (separateKeyword.length == 1) {
-                throw new InvalidTaskException("OOPS!!! The description of todo cannot be empty.");
-            }
-            return separateKeyword[1];
-        case "deadline":
-            if (separateKeyword.length == 1) {
-                throw new InvalidTaskException("OOPS!!! The description of deadline cannot be empty.");
-            }
-            String[] subString1 = separateKeyword[1].split("/by");
-            if (subString1.length <= 1) {
-                throw new InvalidTaskException("Invalid use of deadline. Should be '<event> /by <date>'.");
-            }
-            return subString1[0].trim();
-        case "event":
-            if (separateKeyword.length == 1) {
-                throw new InvalidTaskException("OOPS!!! The description of event cannot be empty.");
-            }
-            String[] subString2 = separateKeyword[1].split("/from");
-            if (subString2.length <= 1) {
-                if (subString2.length == 0) {
-                    throw new InvalidTaskException("OOPS!!! The event description cannot be empty.");
-                }
-                throw new InvalidTaskException("Invalid use of event format."
-                        + "Should be '<description> /from <day> <start_time> /to <end_time>'");
-            }
-            return subString2[0].trim();
-
-        default:
-            return input;
-        }
-    }
-
-    /**
-     * Saves tasks updates by user to records.
-     */
-    public void saveRecords(Storage storage) {
-        assert storage != null : "Need storage in order to save records.";
-        storage.saveRecordsToStorage(records);
-    }
-
-    /**
-     * Finds the tasks that has a description matching keyword entered by user.
-     * @param input String representation of the command given by user.
-     */
-    public void find(String input) {
-        String[] inputArray = input.split("\s+");
-        if (inputArray.length > 2) {
-            System.out.println("find command can only be used to find 1 keyword.");
-        } else if (inputArray.length <= 1) {
-            System.out.println("Please enter the exact keyword you want to find.");
-        } else {
-            boolean isTargetPresent = false;
-            String target = inputArray[1];
-            ArrayList<Task> matchingRecords = new ArrayList<>();
-            for (Task x : records) {
-                if (x.isTargetInDescription(target) == true) {
-                    matchingRecords.add(x);
-                    isTargetPresent = true;
-                }
-            }
-            if (isTargetPresent == true) {
-                assert matchingRecords != null : "If flagged as present, target must be in matching records";
-                Ui.showSearchResults(matchingRecords);
-            } else {
-                Ui.showEmptySearchResults();
-            }
-        }
-    }
-
-    /**
-     * Returns the size of records.
-     *
-     * @return
-     */
-    public int getRecordSize() {
-        assert this.records != null : "Records must be present to get record size.";
-        return this.records.size();
     }
 
     /**
@@ -169,29 +82,57 @@ public class TaskList {
     }
 
     /**
+     * Updates the Task List when a new task is added.
+     *
+     * @param newTask
+     */
+    public void updateWithNewTask(Task newTask) {
+        ArrayList<Task> allRecords = this.getAllRecords();
+        allRecords.add(newTask);
+        this.incrementLatestRecordedIndex();
+    }
+
+    /**
      * Removes the task at the index specified by the user.
      *
      * @param index Index that corresponds to the task visible to the user.
      */
-    public void removeRecord(int index) {
+    private void removeRecord(int index) {
         assert this.records != null : "Records must be present to remove a single record.";
+        this.latestDeletedRecord = this.records.get(index - 1);
         this.records.remove(index - 1);
         this.latestRecordedIndex -= 1;
     }
 
     /**
+     * Deletes task from task list and updates the task List
+     *
+     * @param input
+     * @throws InvalidTaskException
+     */
+    public void deleteTaskFromTaskList(String input) throws InvalidTaskException {
+        int taskNumber = Parser.parseTaskNumberFromInput(input);
+        String[] inputArray = Parser.parseInputIntoStringArray(input);
+        if (inputArray.length != 2) {
+            throw new InvalidTaskException("Invalid format. Should be 'delete <integer>'.");
+        }
+        if (!isValidRecord(taskNumber)) {
+            throw new InvalidTaskException("Task number provided is out of range.");
+        }
+        this.removeRecord(taskNumber);
+    }
+
+    /**
      * Returns the String representation of the task at specified index when task is deleted.
      *
-     * @param index Index of the task as viewed displayed using the list command.
      * @return
      */
-    public String getDeletedTaskString(int index) {
-        assert index > 0 : "Index of deleted task should be greater than zero to get deleted task string.";
+    public String getDeletedTaskString() {
         String deletedTaskString = "Noted. I've removed this task:\n\t"
-                + records.get(index - 1).getTaskListItem()
+                + latestDeletedRecord.getTaskListItem()
                 + "\n\t"
                 + "Now you have "
-                + (String.valueOf(latestRecordedIndex - 1))
+                + (String.valueOf(latestRecordedIndex))
                 + " tasks in the list.";
         return deletedTaskString;
     }
@@ -213,6 +154,22 @@ public class TaskList {
     }
 
     /**
+     * Returns a String representation of the records that match with the search keyword.
+     * @param matchingRecords
+     * @return
+     */
+    public String getMatchingRecordsString(ArrayList<Task> matchingRecords) {
+        String matchingRecordsString = "";
+        int counter = 1;
+        for (Task task: matchingRecords) {
+            matchingRecordsString += "\t" + counter + "." + task.getTaskListItem() + "\n";
+        }
+        if (matchingRecordsString == "") {
+            matchingRecordsString = "No matching results found.";
+        }
+        return matchingRecordsString;
+    }
+    /**
      * Increments the latest recorded index by 1.
      */
     public void incrementLatestRecordedIndex() {
@@ -224,5 +181,48 @@ public class TaskList {
      */
     public int getLatestRecordedIndex() {
         return this.latestRecordedIndex;
+    }
+
+    /**
+     * Returns an Arraylist with all tasks that contain the keyword as part of its description.
+     *
+     * @param keyword
+     * @return
+     */
+    public ArrayList<Task> searchKeywordInRecords(String keyword) {
+        ArrayList<Task> matchingRecords = new ArrayList<>();
+        for (Task x : getAllRecords()) {
+            if (x.isTargetInDescription(keyword)) {
+                matchingRecords.add(x);
+            }
+        }
+        return matchingRecords;
+    }
+
+    /**
+     * Marks a task as completed or uncompleted.
+     *
+     * @param input
+     * @param isCompleted
+     */
+    public void markTaskInTaskList(String input, boolean isCompleted) throws InvalidTaskException {
+        int taskNumber = Parser.parseTaskNumberFromInput(input);
+        String[] inputArray = Parser.parseInputIntoStringArray(input);
+        if (inputArray.length != 2) {
+            throw new InvalidTaskException("Invalid format. Should be 'mark <integer>'.");
+        }
+        if (!isValidRecord(taskNumber)) {
+            throw new InvalidTaskException("Task number provided is out of range.");
+        }
+
+        int taskIndex = Parser.parseTaskNumberFromInput(input);
+        Task currTask = getIndexedTask(taskIndex);
+        currTask.mark1Task(isCompleted);
+    }
+
+    public String getMarkedTaskStringFromTaskList(String input, boolean isCompleted) throws InvalidTaskException {
+        int taskIndex = Parser.parseTaskNumberFromInput(input);
+        Task currTask = getIndexedTask(taskIndex);
+        return currTask.getMarkedTaskStringFromTask(isCompleted);
     }
 }

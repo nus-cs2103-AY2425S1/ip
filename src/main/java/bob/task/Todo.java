@@ -35,8 +35,7 @@ public class Todo extends Task {
      */
     @Override
     public String getFileFormat() {
-        String part1 = super.getFileFormat();
-        return part1;
+        return super.getFileFormat();
     }
 
     /**

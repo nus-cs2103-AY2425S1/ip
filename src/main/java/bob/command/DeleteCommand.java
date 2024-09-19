@@ -21,25 +21,16 @@ public class DeleteCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Storage storage, Ui ui) {
-        String input = this.getInput();
-        String toPrint = "";
+        String input = getInput();
         try {
-            String[] separateKeyword = input.split(" ", 2); //separate the keyword from the rest of string
-            if (separateKeyword.length == 1) {
-                throw new InvalidTaskException("OOPS!!! The description of delete cannot be empty.");
-            }
-            int taskIndex = Integer.parseInt(separateKeyword[1]);
-            if (!taskList.isValidRecord(taskIndex)) {
-                throw new InvalidTaskException("Invalid input. Integer required between range of record items.");
-            }
-            toPrint = taskList.getDeletedTaskString(taskIndex);
-            taskList.removeRecord(taskIndex);
-            storage.saveRecordsToStorage(taskList.getAllRecords());
-            ui.showDeletedTask(toPrint);
+            taskList.deleteTaskFromTaskList(input);
+            storage.saveTaskListToStorage(taskList);
+            String deletedTaskConfirmationMessage = taskList.getDeletedTaskString();
+            Ui.showDeletedTask(deletedTaskConfirmationMessage);
+            return deletedTaskConfirmationMessage;
         } catch (InvalidTaskException e) {
             System.err.println((e.getMessage()));
             return e.getMessage();
         }
-        return toPrint;
     }
 }

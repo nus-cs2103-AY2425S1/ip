@@ -36,7 +36,7 @@ public class TaskListTest {
                 + "2.[D][ ] Submit quiz (by: 10 Sep 2024)\n\t"
                 + "3.[E][ ] Birthday (from: Monday 5pm to: 9pm)\n\t"
                 + "____________________________________________________________";
-        taskList.listRecords();
+        String listRecordString = taskList.getListRecordsString();
         String actual = outputStreamCaptor.toString().replaceAll("\\s+$", "");
         assertEquals(expected, actual);
     }
