@@ -76,6 +76,7 @@ public class Storage {
      */
     public ArrayList<Task> loadFile() {
         ArrayList<Task> taskList = new ArrayList<>();
+        assert this.file.exists() : "File needs to exist before loading tasks";
         if (this.file.exists()) {
             try {
                 Scanner scanner = new Scanner(file);

@@ -25,6 +25,7 @@ import java.util.Arrays;
 public class Parser {
     public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     public static Command parse(String[] inputArr) throws ElonException{
+        assert inputArr.length > 0 : "Input command array is empty";
         String commandPhrase = inputArr[0];
         switch (commandPhrase) {
             case "list":
