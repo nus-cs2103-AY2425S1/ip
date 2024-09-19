@@ -1,30 +1,59 @@
-# Duke User Guide
+# Nimbus User Guide
 
-// Update the title above to match the actual product name
+![img](https://rimgik.github.io/ip/Ui.png)
 
-// Product screenshot goes here
+Nimbus is a helpful chatbot that helps you keep track of all your tasks
 
-// Product intro goes here
+## Adding todo
+To add a new `todo` task, use the following command:
+```
+todo your_task_description
+```
 
 ## Adding deadlines
 
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
+To add a new `deadline` task, use the following command:
 ```
-expected output
+deadline your_task_description /by deadline
 ```
 
-## Feature ABC
+## Adding event
 
-// Feature details
+To add a new `event` task, use the following command:
+```
+event your_task_description /from from_date /to to_date
+```
 
+## List all task
 
-## Feature XYZ
+To show all task tracked by the chatbot, use the command `list`:
+```
+list
+```
+You should see a list of all tracked task.
 
-// Feature details
+## Removing a task
+To remove a task, you can use the `remove` command:
+```
+remove [Index of the task to be removed]
+```
+
+## Marking a task as done
+To `mark` or `unmark` a task as done, you can use `mark` or `unmark` commands:
+
+To mark `task` number 2 as done:
+```
+mark 2
+```
+
+## Find task by keyword
+To search for a task by a keyword, you can use `find` command:
+```
+find [keyword]
+```
+
+## Exiting the chatbot
+Use command `bye` to exit the chatbot:
+```
+bye
+```
