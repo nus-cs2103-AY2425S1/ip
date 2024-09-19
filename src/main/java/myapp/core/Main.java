@@ -23,7 +23,9 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setTitle("Ruby");
-            fxmlLoader.<MainWindow>getController().setRuby(ruby);
+            MainWindow controller = fxmlLoader.getController();
+            controller.setRuby(ruby);
+            controller.setStage(stage);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

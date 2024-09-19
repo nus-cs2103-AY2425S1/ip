@@ -3,12 +3,12 @@ package myapp.core;
 import java.util.Objects;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 /**
  * Controller for the main GUI.
  */
@@ -19,10 +19,10 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
 
     private Ruby ruby;
+
+    private Stage stage;
 
     private final Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/profile.png")));
     private final Image rubyImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/ruby.png")));
@@ -37,6 +37,11 @@ public class MainWindow extends AnchorPane {
          ruby = r;
     }
 
+    /** Injects the Stage instance */
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
@@ -45,11 +50,15 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = ruby.getResponse(input);
+        boolean shouldClose = response.equals("bye");
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getRubyDialog(response, rubyImage)
         );
         userInput.clear();
+        if (shouldClose && stage != null) {
+            stage.close();
+        }
     }
 }
 

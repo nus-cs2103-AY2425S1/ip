@@ -34,7 +34,14 @@ public class Parser {
         String keyword = words[0];
 
         return switch (keyword) {
-            case "bye" -> "Bye. Hope to see you again soon!";
+            case "bye" -> {
+                try {
+                    storage.save(taskList.getTasks());
+                } catch (IOException e) {
+                    yield "Error saving tasks before exit: " + e.getMessage();
+                }
+                yield "bye";
+            }
             case "list" -> taskList.listTasks();
             case "mark" -> handleMark(taskList, storage, words);
             case "unmark" -> handleUnmark(taskList, storage, words);
