@@ -1,7 +1,5 @@
 # Bob User Guide
 
-![Ui.png](docs/Ui.png)
-
 **Bob** is a chatbot designed to help users **_stay organised_**
 and **_manage their tasks efficiently_**.
 
@@ -12,29 +10,29 @@ Bob can make your life easier!
 
 + [Quick Start](#quick-start)
 + [Features](#features)
-   + [Add ToDo task](#add-todo-task-todo): `todo`
-   + [Add Deadline task](#add-deadline-task-deadline): `deadline`
-   + [Add Event task](#add-event-task-event): `event`
-   + [Display all tasks](#display-all-tasks-list): `list`
-   + [Mark a task](#mark-a-task-mark): `mark`
-   + [Unmark a task](#unmark-a-task-unmark): `unmark`
-   + [Get relevant tasks by date](#get-relevant-tasks-by-date-relevant): `relevant`
-   + [Find relevant tasks by keyword](#find-relevant-tasks-by-keyword-find): `find`
-   + [Sort tasks](#sort-tasks-sort): `sort`
-   + [Delete a task](#delete-a-task-delete): `delete`
-   + [Exit the application](#exit-the-application-bye): `bye`
+  + [Add ToDo task](#add-todo-task-todo): `todo`
+  + [Add Deadline task](#add-deadline-task-deadline): `deadline`
+  + [Add Event task](#add-event-task-event): `event`
+  + [Display all tasks](#display-all-tasks-list): `list`
+  + [Mark a task](#mark-a-task-mark): `mark`
+  + [Unmark a task](#unmark-a-task-unmark): `unmark`
+  + [Get relevant tasks by date](#get-relevant-tasks-by-date-relevant): `relevant`
+  + [Find relevant tasks by keyword](#find-relevant-tasks-by-keyword-find): `find`
+  + [Sort tasks](#sort-tasks-sort): `sort`
+  + [Delete a task](#delete-a-task-delete): `delete`
+  + [Exit the application](#exit-the-application-bye): `bye`
 
 ## Quick Start
 + Have Java 17 installed on your computer / laptop
 + Download the latest `.jar` file.
 + Open terminal and `cd` to the directory where the `.jar` file is located.
-+ Run the command `java -jar Bob.jar` to open Bob application.
++ Run the command `java -jar bob.jar` to open Bob application.
 
-> [!IMPORTANT]
+> **IMPORTANT**
 > Mac users will require the specific Azul JDK 17 distribution.
 
 ## Features
-> [!NOTE]
+> **NOTE**
 > Words in UPPER_CASE are the parameters to be specified by the user.
 
 ### Add ToDo task: `todo`
@@ -214,7 +212,7 @@ Total number of tasks in your list: 2
 ```
 
 ### Exit the application: `bye`
-Closes Bob application in 3 seconds.
+Closes Bob application in 1 second.
 
 Format: `bye`
 
