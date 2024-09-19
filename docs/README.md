@@ -3,6 +3,7 @@
 1. [Introduction](#introduction)
 2. [Quick Start](#quick-start)
 1. [Features](#features)
+    - [View the task list: `list`](#view-the-task-list-list)
     - [Adding todos: `todo`](#adding-todos-todo)
     - [Adding events: `event`](#adding-events-event)
     - [Adding deadlines: `deadline`](#adding-deadlines-deadline)
@@ -40,106 +41,143 @@ E.g. The command sections are highlighted:
 Miku's responses will be wrapped in a dialog box. E.g. Miku's response to `list` command is shown below.
 <img width="390" alt="image" src="https://github.com/user-attachments/assets/ae055792-fc46-43b6-825a-ad5a839c4bfb">
 
+### View the task list: `list`
+Ask Miku to show the items in the task list. 
+
+Format: `list`
+
+Example:
+`list`
+
+Expected outcome of the example:
+
+<img width="378" alt="image" src="https://github.com/user-attachments/assets/a333600c-5bc0-4e55-b73e-991e1ef71e38">
+
+
 
 ### Adding todos: `todo`
-// Describe the action and its outcome.
+Ask Miku to add a todo task to the task list. 
 
-// Give examples of usage
+Format: `todo DESCRIPTION`
 
-Example: `keyword (optional arguments)`
+Example:
+`todo I want to read a book`
 
-// A description of the expected outcome goes here
+Expected outcome of the example:
 
-```
-expected output
-```
+<img width="359" alt="image" src="https://github.com/user-attachments/assets/553f208d-c1fc-429e-88b3-012130550620">
+
 ### Adding events: `event`
-// Describe the action and its outcome.
+Ask Miku to add a event task to the task list. 
 
-// Give examples of usage
+Format: `event DESCRIPTION /from FROMDATETIME /to TODATETIME`
+FROMDATETIME and TODATETIME has to be in format YYYY-MM-DDTHH:MM:SS (ISO 8601 standard)
 
-Example: `keyword (optional arguments)`
+Example: `event test4 /from 2024-08-29T14:30:00 /to 2024-08-29T14:30:11`
 
-// A description of the expected outcome goes here
+Expected outcome of the example:
 
-```
-expected output
-```
+<img width="367" alt="image" src="https://github.com/user-attachments/assets/c9ec86da-855d-402d-b3b0-42185c970f1d">
+
+
 ### Adding deadlines: `deadline`
-// Describe the action and its outcome.
+Ask Miku to add a deadline task to the task list. 
 
-// Give examples of usage
+Format: `deadline DESCRIPTION /by DEADLINE`
+DEADLINE has to be in format YYYY-MM-DD
 
-Example: `keyword (optional arguments)`
+Example: `deadline test2 /by 1972-05-24`
 
-// A description of the expected outcome goes here
+Expected outcome of the example:
 
-```
-expected output
-```
+<img width="348" alt="image" src="https://github.com/user-attachments/assets/d7edefdb-2523-496d-acc7-37e2762a6f76">
+
+
 ### Mark a task as complete: `mark`
-// Describe the action and its outcome.
+Mark a task as complete
 
-// Give examples of usage
+Format: mark INDEX
+INDEX: the index of the task as shown when running `list`
 
-Example: `keyword (optional arguments)`
+Example: `mark 2`
 
-// A description of the expected outcome goes here
+Expected outcome of the example:
 
-```
-expected output
-```
+<img width="358" alt="image" src="https://github.com/user-attachments/assets/b07a845e-c71b-4123-a0e5-8545015415af">
+
+where test2 task has a index value of 2:
+
 ### Mark a task as incomplete: `unmark`
-// Describe the action and its outcome.
+Mark a task as incomplete
 
-// Give examples of usage
+Format: unmark INDEX
+INDEX: the index of the task as shown when running `list`
 
-Example: `keyword (optional arguments)`
+Example: `unmark 2`
 
-// A description of the expected outcome goes here
+Expected outcome of the example:
 
-```
-expected output
-```
+<img width="377" alt="image" src="https://github.com/user-attachments/assets/1a971686-2c00-46c4-9261-6aa4264c1518">
+
+where test2 task has a index value of 2:
+
 ### Delete a task: `delete`
-// Describe the action and its outcome.
+Delete a task from the task list
 
-// Give examples of usage
+Format: delete INDEX
+INDEX: the index of the task as shown when running `list`
 
-Example: `keyword (optional arguments)`
+Example: `delete 2`
 
-// A description of the expected outcome goes here
-```
-expected output
-```
+Expected outcome of the example:
+
+<img width="380" alt="image" src="https://github.com/user-attachments/assets/f2d72a66-9790-421e-b93f-24ca51689c8d">
+
+where test2 task has a index value of 2:
+
 ### Find a task by a input string: `find`
-// Describe the action and its outcome.
+Find a task with a given string from the task list
 
-// Give examples of usage
+Format: find STRING
+STRING: the string value that the description of the task contains
 
-Example: `keyword (optional arguments)`
+Example: `find Read a book`
 
-// A description of the expected outcome goes here
+Expected outcome of the example:
+<img width="374" alt="image" src="https://github.com/user-attachments/assets/cf63059a-c98c-496a-a21a-d4f42bde915c">
 
-```
-expected output
-```
+
+
 ### Set the priority of a task: `set priority`
-// Describe the action and its outcome.
+Set the priority of a task
 
-// Give examples of usage
 
-Example: `keyword (optional arguments)`
+Format: set priority INDEX PRIORITY
+PRIORITY: enum, The new priority of the task, valid values: LOW, MEDIUM, HIGH
+INDEX: the index of the task as shown when running `list`
 
-// A description of the expected outcome goes here
+Example: `find Read a book`
 
-```
-expected output
-```
+Expected outcome of the example:
+
+<img width="373" alt="image" src="https://github.com/user-attachments/assets/14cbd763-8676-4b68-9e71-df5fc05cdb79">
+
 
 ## FAQ
-**Q:** How do I exit the program?
-**A:** Simply click the exit button at the top right corner of the chat window. 
+**Q:** How do I exit the program on MacOS?
+
+**A:** Simply click the exit button at the top left corner of the chat window. 
 
 ## Command Summary
-// Feature details
+| Command | Format |
+| ------- | ------ |
+| `list`| `list` |
+| `todo`| `todo DESCRIPTION` |
+| `event`| `event DESCRIPTION /from FROMDATETIME /to TODATETIME` |
+| `deadline`| `deadline DESCRIPTION /by DEADLINE` |
+| `mark`| `mark INDEX` |
+| `unmark`| `unmark INDEX` |
+| `delete`| `delete INDEX` |
+| `find`| `find STRING` |
+| `set priority`| `set priority INDEX PRIORITY` |
+
