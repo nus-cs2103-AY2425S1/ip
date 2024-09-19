@@ -42,7 +42,7 @@ public class Task {
         str += deli + " " + name;
 
         if (!tag.isEmpty()) {
-            str += " #" + tag;
+            str += " #" + tag + "#";
         }
 
         return str;

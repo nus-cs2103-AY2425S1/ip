@@ -47,7 +47,7 @@ public class Storage {
 
         Pattern recordPattern =
                 Pattern.compile("^([TDE])\\s*~!!\\s*(\\d+)\\s*~!!\\s(.+?)\\s*"
-                        + "(?:#\\s*(.+))?\\s*"
+                        + "(?:#\\s*(.+)#)?\\s*"
                         + "(?:~!!\\s*(\\d{4}/\\d{2}/\\d{2}\\s+\\d{2}:\\d{2}))?\\s*"
                         + "(?:~!!\\s*(\\d{4}/\\d{2}/\\d{2}\\s+\\d{2}:\\d{2}))?\\s*$");
         Matcher matcher = recordPattern.matcher(str);
