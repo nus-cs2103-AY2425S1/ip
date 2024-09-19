@@ -8,6 +8,12 @@
     -fx-border-radius: 1em 1em 1em 1em;
 }
 
+.user-dialog .label {
+    -fx-background-color: linear-gradient(to bottom right, #d4f20e, #a7bf0d);
+    -fx-text-fill: #1e2206;
+    -fx-border-color: #7c8737;
+}
+
 .reply-label {
     -fx-background-radius: 1em 1em 1em 1em;
     -fx-border-radius: 1em 1em 1em 1em;
