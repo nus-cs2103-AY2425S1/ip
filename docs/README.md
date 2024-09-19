@@ -1,6 +1,6 @@
 # Stobberi User Guide
 
-![Stobberi UI](https://github.com/ahmadsyuaib/ip/blob/master/docs/Ui.png?raw=true)
+![Stobberi UI](https://github.com/ahmadsyuaib/ip/raw/master/docs/Ui.png?raw=true)
 
 Stobberi is a smart, command-driven task manager built for speed and simplicity. Optimized for the Command Line Interface (CLI) and paired with an intuitive GUI, it makes organizing, tracking, and completing tasks effortless. With just a few commands, you’ll stay on top of your tasks and boost your productivity like never before.
 
