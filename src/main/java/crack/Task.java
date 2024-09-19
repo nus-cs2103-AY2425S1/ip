@@ -7,8 +7,7 @@ import java.time.format.DateTimeParseException;
 /**
  * The Task class represents a generic task in the application.
  * It stores basic information about the task, such as its description, status
- * (done or not),
- * and type (Todo, Deadline, or Event).
+ * (done or not), and type (Todo, Deadline, or Event).
  */
 public class Task {
 
@@ -40,6 +39,7 @@ public class Task {
 
     /**
      * Returns the status icon of the task.
+     *
      * @return "X" if the task is done, otherwise a blank space.
      */
     public String getStatusIcon() {
@@ -106,6 +106,17 @@ public class Task {
             return " ";
         }
     }
+
+    /**
+     * Updates the date associated with the task.
+     * This method should be overridden by subclasses that support dates.
+     *
+     * @param newDate the new date as a String.
+     * @throws UnsupportedOperationException if the task type does not support updating the date.
+     */
+    public void updateDate(String newDate) throws UnsupportedOperationException {
+        throw new UnsupportedOperationException("This task type cannot be snoozed.");
+    }
 }
 
 /**
@@ -147,14 +158,11 @@ class Deadline extends Task {
      *
      * @param description the description of the deadline task.
      * @param by          the due date of the deadline task (in yyyy-mm-dd format).
+     * @throws DateTimeParseException if the date format is invalid.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws DateTimeParseException {
         super(description, TaskType.DEADLINE);
-        try {
-            this.by = LocalDate.parse(by); // Parse date in yyyy-mm-dd format
-        } catch (DateTimeParseException e) {
-            System.out.println("Error: Invalid date format. Please use yyyy-mm-dd.");
-        }
+        this.by = LocalDate.parse(by); // Parse date in yyyy-mm-dd format
     }
 
     /**
@@ -179,6 +187,17 @@ class Deadline extends Task {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
         return super.toString() + " (by: " + by.format(formatter) + ")";
     }
+
+    /**
+     * Updates the deadline date of the task.
+     *
+     * @param newDate the new deadline date as a String in yyyy-mm-dd format.
+     * @throws DateTimeParseException if the date format is invalid.
+     */
+    @Override
+    public void updateDate(String newDate) throws DateTimeParseException {
+        this.by = LocalDate.parse(newDate); // Parse new date
+    }
 }
 
 /**
@@ -197,14 +216,15 @@ class Event extends Task {
      * @param description the description of the event task.
      * @param from        the start date of the event (in yyyy-mm-dd format).
      * @param to          the end date of the event (in yyyy-mm-dd format).
+     * @throws DateTimeParseException if the date format is invalid.
+     * @throws IllegalArgumentException if the end date is before the start date.
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, String from, String to) throws DateTimeParseException, IllegalArgumentException {
         super(description, TaskType.EVENT);
-        try {
-            this.from = LocalDate.parse(from); // Parse start date in yyyy-mm-dd format
-            this.to = LocalDate.parse(to); // Parse end date in yyyy-mm-dd format
-        } catch (DateTimeParseException e) {
-            System.out.println("Error: Invalid date format. Please use yyyy-mm-dd.");
+        this.from = LocalDate.parse(from); // Parse start date in yyyy-mm-dd format
+        this.to = LocalDate.parse(to); // Parse end date in yyyy-mm-dd format
+        if (this.to.isBefore(this.from)) {
+            throw new IllegalArgumentException("End date cannot be before start date.");
         }
     }
 
@@ -229,5 +249,22 @@ class Event extends Task {
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
         return super.toString() + " (from: " + from.format(formatter) + " to: " + to.format(formatter) + ")";
+    }
+
+    /**
+     * Updates the start date of the event.
+     *
+     * @param newDate the new start date as a String in yyyy-mm-dd format.
+     * @throws DateTimeParseException if the date format is invalid.
+     * @throws IllegalArgumentException if the new start date is after the end date.
+     */
+    @Override
+    public void updateDate(String newDate) throws DateTimeParseException, IllegalArgumentException {
+        LocalDate newFromDate = LocalDate.parse(newDate); // Parse new start date
+        if (newFromDate.isAfter(this.to)) {
+            throw new IllegalArgumentException("Start date cannot be after end date.");
+        } else {
+            this.from = newFromDate;
+        }
     }
 }

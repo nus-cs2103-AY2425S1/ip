@@ -112,4 +112,25 @@ public class Parser {
                 "Invalid format for event. Use: event <description> /from <yyyy-mm-dd> /to <yyyy-mm-dd>.");
         }
     }
+
+    /**
+     * Parses a "snooze" command to extract the task index and new date.
+     *
+     * @param input the input string containing the "snooze" command.
+     * @return an array containing the task index and new date.
+     * @throws IllegalArgumentException if the input format is invalid.
+     */
+    public static String[] parseSnoozeCommand(String input) throws IllegalArgumentException {
+        try {
+            String[] parts = input.split(" ", 3);
+            if (parts.length < 3) {
+                throw new IllegalArgumentException("Usage: snooze <task number> <new date in yyyy-mm-dd format>");
+            }
+            int taskIndex = Integer.parseInt(parts[1]) - 1; // Convert to 0-based index
+            String newDateStr = parts[2].trim();
+            return new String[]{String.valueOf(taskIndex), newDateStr};
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Task number must be an integer.");
+        }
+    }
 }
