@@ -4,36 +4,31 @@
 
 MeowMeow is:
 
-- text-based 🖥️
+- text-based
 - user-friendly
-- **fast** and **efficient** 🏎️
+- ~~FAST~~ *SUPER* FAST to use!
 
-All you need to do is:
+All you need to do is,
 
-1. Download the latest version [here](https://github.com/PrishaVP/ip).
-2. Run it in your terminal.
-3. Start adding tasks!
+1. download it from [here](https://github.com/PrishaVP/ip).
+2. double-click it.
+3. add your tasks.
+4. let it manage your tasks for you 😉
 
-MeowMeow is perfect for those who:
+And it is **FREE!**
 
-- 🐾 want to keep track of tasks
-- 🐾 need to set deadlines
-- 🐾 enjoy managing their time effectively
-
-And the best part? **It's completely FREE!**
-
-## Features
+Features:
 
 - [x] Task management
 - [ ] Deadline tracking
 - [ ] Event scheduling
 
-If you're a Java enthusiast, feel free to dig into the code and make it even better! Here’s the `main` method:
+If you are a Java programmer, you can use it to practice Java too. Here’s the `main` method:
 
 ```java
-public class Main {
+public class Launcher {
     public static void main(String[] args) {
-        Application.launch(MainApp.class, args);
+        Application.launch(Main.class, args);
     }
 }
 ```
