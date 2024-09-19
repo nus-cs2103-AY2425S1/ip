@@ -30,8 +30,6 @@ public class Neon {
             isExited = (boolean)processedInput[0];
         }
 
-        //System.out.println(ui.printClosingLine());
-
         storage.save(tasks.getTasks());
     }
 
@@ -45,6 +43,8 @@ public class Neon {
             return ("error: " + e);
         }
     }
+
+    public
 
     public static void main(String[] args) throws IOException {
         new Neon(STORAGE_FILE_PATH).run();

@@ -33,7 +33,7 @@ public class MainWindow extends AnchorPane {
     public void startNeon(Neon neon) {
         this.neon = neon;
     }
-    
+
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
