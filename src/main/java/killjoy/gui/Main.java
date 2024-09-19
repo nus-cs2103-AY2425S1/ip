@@ -18,7 +18,6 @@ public class Main extends Application {
     private final KillJoy kj = new KillJoy();
     @Override
     public void start(Stage stage) {
-<<<<<<< HEAD
         setupStage(stage);
     }
 
@@ -28,11 +27,9 @@ public class Main extends Application {
      * @param stage The primary stage.
      */
     private void setupStage(Stage stage) {
-=======
-        assert stage != null : "Stage must not be null";
-        assert kj != null : "KillJoy instance must not be null";
->>>>>>> master
         try {
+            assert stage != null : "Stage must not be null";
+            assert kj != null : "KillJoy instance must not be null";
             AnchorPane mainLayout = loadFxml();
             initializeScene(stage, mainLayout);
             configureController();
