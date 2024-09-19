@@ -93,7 +93,13 @@ Format: `on {DATE}`
 
 Examples:
 - `on 2024-12-05`
+- 
 #### Viewing help
 Shows a message explaining how to access the help page.  
 
 Format: `help`
+
+#### Closing the application
+Closes the GUI
+
+Format: `exit`

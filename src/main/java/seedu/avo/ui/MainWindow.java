@@ -22,24 +22,29 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-
     private Avo avo;
-
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private final Image avoImage = new Image(this.getClass().getResourceAsStream("/images/DaAvo.png"));
 
+    /**
+     * Initialises the UI with a welcome message
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        String welcomeMessage = "Hi there, I am Avo.";
+        dialogContainer.getChildren().addAll(
+                DialogBox.getAvoDialog(welcomeMessage, avoImage)
+        );
     }
 
-    /** Injects the Duke instance */
-    public void setDuke(Avo a) {
+    /** Injects the Avo instance */
+    public void setAvo(Avo a) {
         avo = a;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Avo's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
