@@ -40,13 +40,24 @@ public class ChatOutput {
         writeText(exitText);
     }
 
+    /**
+     * Takes in a text string, and outputs it to the console
+     *
+     * @param text text string to be output.
+     */
+    public void writeText(String text) {
+        String output = BORDER_LINE + "\n" + text + "\n" + BORDER_LINE;
+        currentOut = output;
+
+        System.out.println(output);
+    }
 
     /**
      * Takes in a text string, wraps it inside a pair of borderlines, and outputs it to the console
      *
      * @param text text string to be output.
      */
-    public void writeText(String text) {
+    public void writeTextBordered(String text) {
         String output = BORDER_LINE + "\n" + text + "\n" + BORDER_LINE;
         currentOut = output;
 
