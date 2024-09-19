@@ -8,7 +8,16 @@ public class EventCommand {
         this.tasks = tasks;
     }
 
-    public void add(String task) throws MichaelException {
+    public void check(String input) throws MichaelException {
+        if (input.length() < 7) { // no event given
+            throw new MichaelException("Enter a valid event.");
+        }
+
+        String task = input.substring(6);
+        this.add(task);
+    }
+
+    private void add(String task) throws MichaelException {
         String[] parts = task.split("/");
         for (int i = 0; i < parts.length - 1; i++) {
             String curr = parts[i];

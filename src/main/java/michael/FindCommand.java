@@ -2,11 +2,18 @@ package michael;
 
 public class FindCommand {
     private TaskList tasks;
-    String keyword;
+    private String keyword;
 
-    public FindCommand(TaskList tasks, String keyword) {
+    public FindCommand(TaskList tasks) {
         this.tasks = tasks;
-        this.keyword = keyword;
+    }
+
+    public void check(String input) throws MichaelException {
+        if (input.length() < 6) { // no string given to find
+            throw new MichaelException("Enter valid string to find matching tasks.");
+        }
+
+        this.keyword = input.substring(5);
     }
 
     public String feedback() {

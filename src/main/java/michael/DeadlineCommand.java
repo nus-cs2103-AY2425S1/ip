@@ -8,7 +8,16 @@ public class DeadlineCommand {
         this.tasks = tasks;
     }
 
-    public void add(String task) throws MichaelException {
+    public void check(String input) throws MichaelException {
+        if (input.length() < 10) { // no deadline task given
+            throw new MichaelException("Enter a valid task with a deadline.");
+        }
+
+        String task = input.substring(9);
+        this.add(task);
+    }
+
+    private void add(String task) throws MichaelException {
         String[] parts = task.split("/");
         for (int i = 0; i < parts.length - 1; i++) {
             String curr = parts[i];

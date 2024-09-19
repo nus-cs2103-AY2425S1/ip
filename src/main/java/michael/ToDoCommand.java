@@ -8,7 +8,14 @@ public class ToDoCommand {
         this.tasks = tasks;
     }
 
-    public void add(String task) {
+    public void check(String input) throws MichaelException {
+        if (input.length() < 6) { // no task given
+            throw new MichaelException("Enter a task to be done.");
+        }
+        this.add(input.substring(5));
+    }
+
+    private void add(String task) {
         this.newTask = new ToDo(task);
         tasks.add(this.newTask);
     }
