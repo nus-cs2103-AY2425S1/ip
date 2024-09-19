@@ -6,7 +6,6 @@ package tars;
  * @version 1
  */
 public class Ui {
-    private static final String LINE = "    _____________________________________________________";
 
     public Ui() {
     }
@@ -14,9 +13,20 @@ public class Ui {
     /**
      * Prints message to be displayed to user when first starting Tars chatbot or re-starting the Tars chatbot
      */
-    public void welcome() {
-        System.out.println(LINE + "\n" + "    Hello! I'm Tars\n" + "    What can I do for you"
-                + "\n" + "    You can add Tasks and I will help manage them for you!" + "\n" + LINE);
+    public String welcome() {
+        return "Hello! I'm Tars! Your one-stop Task Manager.\n" + "\n"
+                + "Simply use t(for ToDos), d(for Deadline) and e(for event)" + "\n"
+                + "eg: t read book --> todo read book\n" + "\n"
+                + "You can mark, unmark or delete tasks too, by using m/um/delete as command\n" + "\n"
+                + "State list to see your list of tasks";
+    }
+
+    public String help() {
+        return "This is the list of commands that you can do while using Tars!\n"
+                + "Simply use t(for ToDos), d(for Deadline) and e(for event)" + "\n"
+                + "eg: t read book --> todo read book\n" + "\n"
+                + "You can mark, unmark or delete tasks too, by using m/um/delete as command\n" + "\n"
+                + "State list to see your list of tasks";
     }
 
     /**
@@ -24,6 +34,6 @@ public class Ui {
      * This command is executed after the "bye" input, which is handled in Tars application
      */
     public String bye() {
-        return LINE + "\n" + "    Bye. Hope to see you again soon!" + "\n" + LINE;
+        return "Bye. Hope to see you again soon!";
     }
 }

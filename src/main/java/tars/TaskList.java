@@ -35,17 +35,13 @@ public class TaskList {
      */
     public String addTask(String[] task, String entry) {
         String result = "";
-        if (task[0].equals("mark") || task[0].equals("unmark") || task[0].equals("delete")) {
+        if (task[0].equals("m") || task[0].equals("um") || task[0].equals("delete")) {
             Integer index = Integer.parseInt(task[task.length - 1]);
             assert index > 0 && index <= taskList.size() : "Task index invalid";
-            if (task[0].equals("mark")) {
-                taskList.get(index - 1).mark();
-                result = LINE + "\n" + "    Nice! I've marked this task as done:"
-                        + taskList.get(index - 1) + "\n" + LINE;
-            } else if (task[0].equals("unmark")) {
-                taskList.get(index - 1).unmark();
-                result = LINE + "    OK, I've marked this task as not done yet:"
-                        + taskList.get(index - 1) + "\n" + LINE;
+            if (task[0].equals("m")) {
+                result = this.markTask(index, 1);
+            } else if (task[0].equals("um")) {
+                result = this.markTask(index, 0);
             } else if (task[0].equals("delete")) {
                 Task temp = taskList.get(index - 1);
                 taskList.remove(taskList.get(index - 1));
@@ -53,12 +49,14 @@ public class TaskList {
                 result = LINE + "    Noted. I've removed this task:" + temp + "    Now you have "
                         + taskList.size() + " tasks in the list" + "\n" + LINE;
 
+            } else {
+                result = "Please state task name followed by mark/unmark/delete command";
             }
-        } else if (task[0].equals("todo")) {
+        } else if (task[0].equals("t")) {
             result = this.addToDos(task, entry);
-        } else if (task[0].equals("deadline")) {
+        } else if (task[0].equals("d")) {
             result = this.addDeadline(task, entry);
-        } else if (task[0].equals("event")) {
+        } else if (task[0].equals("e")) {
             result = this.addEvent(task, entry);
         } else {
             Task t = new Task(entry);
@@ -67,6 +65,20 @@ public class TaskList {
             result = LINE + "\n" + "    added: " + entry + "\n" + LINE;
         }
 
+        return result;
+    }
+
+    public String markTask(int index, int status) {
+        String result = "";
+        if (status == 1) {
+            taskList.get(index - 1).mark();
+            result = LINE + "\n" + "    Nice! I've marked this task as done:"
+                    + taskList.get(index - 1) + "\n" + LINE;
+        } else if (status == 0) {
+            taskList.get(index - 1).unmark();
+            result = LINE + "    OK, I've marked this task as not done yet:"
+                    + taskList.get(index - 1) + "\n" + LINE;
+        }
         return result;
     }
 
@@ -89,7 +101,7 @@ public class TaskList {
         ToDos todo = new ToDos(strBuild.toString().trim());
         taskList.add(todo);
 
-        result = LINE + "    Got it. I've added this task:" + todo + "    Now you have "
+        result = LINE + " Got it. I've added this task:" + todo + "\n" + " Now you have "
                             + taskList.size() + " tasks in the list" + LINE;
 
         return result;
