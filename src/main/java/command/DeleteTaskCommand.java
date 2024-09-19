@@ -38,7 +38,7 @@ public class DeleteTaskCommand extends Command {
      * @param storage  The storage to save changes made to the task list.
      */
     @Override
-    public String execute(TaskList taskList, Storage storage) {
+    public String execute(TaskList taskList, Storage storage) throws KukiShinobuException {
         return taskList.deleteTask(taskIndex);
     }
 }
