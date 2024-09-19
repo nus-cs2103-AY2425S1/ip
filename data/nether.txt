@@ -1,1 +1,2 @@
 T| |Chores|Buy groceries
+D|X|School|Submit CS2103T assignment|2024-09-19 2359
