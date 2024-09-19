@@ -1,9 +1,11 @@
 package friday.task;
 
+import friday.util.FridayException;
+
 /**
  * Represents a task with a description and a status indicating whether it is completed or not.
  */
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -48,6 +50,8 @@ public class Task {
     public String toFileFormat() {
         return "| " + (isDone ? "1" : "0") + " | " + description;
     }
+
+    public abstract void update(String updateDetails) throws FridayException;
 
     /**
      * Returns a string representing the task in a human-readable format.

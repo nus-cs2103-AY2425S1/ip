@@ -13,6 +13,7 @@ public enum CommandType {
     EVENT,
     DELETE,
     FIND,
+    UPDATE,
     BYE,
     INVALID
 }

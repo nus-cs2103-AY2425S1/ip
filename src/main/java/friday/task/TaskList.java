@@ -122,6 +122,13 @@ public class TaskList {
         return tasks;
     }
 
+    public Task getTask(int index) throws FridayException {
+        if (index < 0 || index >= this.getSize()) {
+            throw new FridayException("The task number provided is invalid.");
+        }
+        return tasks.get(index);
+    }
+
     /**
      * Returns the number of tasks in the TaskList.
      *

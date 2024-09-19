@@ -136,6 +136,10 @@ public class Ui {
         return response;
     }
 
+    public String showUpdateSuccess(Task task) {
+        return "Successfully updated the task:\n\t" + task;
+    }
+
     /**
      * Reads a command from the user input.
      *
