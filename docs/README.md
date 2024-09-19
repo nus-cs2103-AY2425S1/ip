@@ -8,8 +8,33 @@ HanaBot is a chatbot that helps you organize your tasks efficiently. It's:
 - Lightweight and fast SUPER FAST
 - Command-line based for simplicity
 
+## Print all commands
+The `help` command prints all available commands.
+
+### Usage:
+```
+//Format
+help
+```
+
+### Expected Output:
+```
+Here are some examples of what you can do:
+1. List all tasks: list
+2. Mark a task as done: mark [task number]
+3. Unmark a task: unmark [task number]
+4. Add a todo: todo [description]
+5. Add a deadline: deadline [description] /by [d/M/yyyy HHmm]
+6. Add an event: event [description] /from [d/M/yyyy HHmm] /to [d/M/yyyy HHmm]
+7. Delete a task: delete [task number]
+8. Find By Date: findByDate [d/M/yyyy]
+9. Find By Keyword: findByKey [keyword]
+10. Set Priority: priority [task number] [priority level]
+11. List by Priority: listPriority
+```
+
 ## Adding Tasks
-The todo command allows you to add a basic task to your list. This feature is ideal for simple tasks without a 
+The `todo` command allows you to add a basic task to your list. This feature is ideal for simple tasks without a 
 specific deadline.
 
 ### Usage:
@@ -92,9 +117,9 @@ list
 3. [E][3][ ] project meeting (from: Dec 02 2019, 2:00 pm to: Dec 02 2019, 2:00 pm)
 ```
 
-## Marking and Unmarking a Task as Done
+## Marking a Task as Done
 
-To mark or unmark a task as completed, use the `mark` command followed by the task number.
+To mark a task as completed, use the `mark` command followed by the task number.
 This will update the task to reflect its completion.
 
 ### Usage:
@@ -111,6 +136,27 @@ mark 2
 ```
 Nice! I've marked this task as done:
   [D][3][X] Buy groceries
+```
+
+## Unmarking a Task as Done
+
+To unmark a task as completed, use the `mark` command followed by the task number.
+This will update the task to reflect its completion.
+
+### Usage:
+
+```
+// Format
+Unmark <task number>
+
+// Example
+mark 2
+```
+
+### Expected Output:
+```
+OK, I've marked this task as not done yet:
+  [D][3][ ] Buy groceries
 ```
 
 ## Deleting a Task
@@ -148,6 +194,27 @@ findByKey <keyword>
 
 // Example
 findByKey assignment
+```
+
+### Expected Output:
+```
+Here are the matching tasks in your list:
+[D][3][ ] Submit assignment (by: Sep 30, 2024)
+```
+
+## Finding Tasks by Date
+
+The `findByDate` command allows you to search for tasks that is on a certain date.
+This feature helps you quickly locate tasks when your list grows long.
+
+### Usage:
+
+```
+// Format
+Find By Date: findByDate [d/M/yyyy]
+
+// Example
+findByDate 30/9/2024
 ```
 
 ### Expected Output:
@@ -200,6 +267,7 @@ listPriority
 - `event <event description> /from <start date> /to <end date>` – Add an event with start and end times.
 - `list` – View all tasks.
 - `mark <task number>` – Mark a task as done.
+- `unmark <task number>` - Unmark a task as done.
 - `delete <task number> `– Delete a task.
 - `findByKey <keyword>` – Find tasks containing a specific keyword.
 - `priority <task description>` – Add a high-priority task.
