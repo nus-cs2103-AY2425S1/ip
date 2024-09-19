@@ -93,7 +93,7 @@ Example: `snooze deadline return book to 2020-10-10 1000`
 
 expected output: 
 ```
-event task return book 's date and time is updated!
+deadline task return bla's date and time is updated!
 ```
 
 ## Exiting
