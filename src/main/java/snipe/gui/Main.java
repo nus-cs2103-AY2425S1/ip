@@ -14,7 +14,7 @@ import snipe.core.Snipe;
  */
 public class Main extends Application {
 
-    private Snipe snipe = new Snipe("src/main/txt");
+    private Snipe snipe = new Snipe("../data");
 
     @Override
     public void start(Stage stage) {

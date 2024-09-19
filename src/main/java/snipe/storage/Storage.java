@@ -59,6 +59,7 @@ public class Storage {
         // Assert that the file path exists before reading the file
         assert Files.exists(filePath) : "The file path should exist before reading tasks";
 
+        initialise();
         if (Files.exists(filePath)) {
             ArrayList<Task> taskList = new ArrayList<Task>();
             try (BufferedReader reader = Files.newBufferedReader(filePath)) {
@@ -75,7 +76,7 @@ public class Storage {
             }
             return taskList;
         } else {
-            throw new SnipeException("snipe.storage.Storage not initialised");
+            throw new SnipeException("Storage not initialised");
         }
     }
 

@@ -40,6 +40,7 @@ public class Snipe {
             this.tasks = new TaskList(taskListStorage.readTaskList());
             this.archiveTasks = new TaskList(archiveListStorage.readTaskList());
         } catch (SnipeException | IOException e) {
+            System.out.print(e.getMessage());
             this.ui.showLoadingError();
             this.tasks = new TaskList();
             this.archiveTasks = new TaskList();
@@ -112,7 +113,7 @@ public class Snipe {
      * @throws SnipeException If an application-specific error occurs during initialisation.
      */
     public static void main(String[] args) throws IOException, SnipeException {
-        Snipe snipe = new Snipe("src/main/txt");
+        Snipe snipe = new Snipe("../data");
         snipe.initChat();
     }
 }

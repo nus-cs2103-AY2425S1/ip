@@ -36,7 +36,7 @@ public class HelpCommand extends Command{
             TaskList archiveTasks,
             Storage archiveStorage
     ) throws SnipeException, IOException {
-        String filePath = "src/main/txt/helpinstructions.txt"; // Instructions manual
+        String filePath = "data/helpinstructions.txt"; // Instructions manual
 
         // Assert that the file exists
         assert Files.exists(Paths.get(filePath)) : "Help instructions file does not exist";
