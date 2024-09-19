@@ -36,7 +36,7 @@ public class Todo extends Task {
      */
     @Override
     public String storageFormat() {
-        return String.format("TODO | %s | %s", super.getStatus(), super.getTitle());
+        return String.format("TODO | %s | %s", super.completionStatus(), super.getTitle());
     }
 
     /**

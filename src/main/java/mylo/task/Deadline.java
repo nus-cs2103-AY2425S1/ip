@@ -58,7 +58,7 @@ public class Deadline extends Task {
      * @param dateTime The date to check if the task is due on.
      * @return {@code true} if the task is due on the specified date, {@code false} otherwise.
      */
-    public boolean dueOnDate(LocalDateTime dateTime) {
+    public boolean isDueOnDate(LocalDateTime dateTime) {
         return DEADLINE.toLocalDate().equals(dateTime.toLocalDate());
     }
 
@@ -72,7 +72,7 @@ public class Deadline extends Task {
      */
     @Override
     public String storageFormat() {
-        return String.format("DEADLINE | %s | %s | %s", super.getStatus(), super.getTitle(),
+        return String.format("DEADLINE | %s | %s | %s", super.completionStatus(), super.getTitle(),
                 Formatter.dateTimeStorage(DEADLINE));
     }
 

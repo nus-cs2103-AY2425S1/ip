@@ -157,7 +157,7 @@ public class TaskList {
         ArrayList<Task> result = new ArrayList<>();
 
         for (Task task: LIST) {
-            if ((task instanceof Deadline && ((Deadline) task).dueOnDate(date))
+            if ((task instanceof Deadline && ((Deadline) task).isDueOnDate(date))
                     || (task instanceof Event && ((Event) task).isOngoing(date))) {
                 result.add(task);
             }
@@ -179,7 +179,7 @@ public class TaskList {
         ArrayList<Task> result = new ArrayList<>();
 
         for (Task task: LIST) {
-            if (task.matchKeyword(keyword)) {
+            if (task.isMatch(keyword)) {
                 result.add(task);
             }
         }
