@@ -112,17 +112,17 @@ public class KillJoy {
             return ui.displayNoStringMessage();
         }
         String[] inputAsList = input.split(" ");
-        if (inputAsList[0].equals("bye")) {
+        switch (inputAsList[0]) {
+        case "bye":
             saveAndLoad.saveTasks(this.taskList);
-            return ui.getExitString();
-        } else if (inputAsList[0].equals("list")) {
+            return UserInterface.getExitString();
+        case "list":
             return ui.printTaskList();
-        } else if (inputAsList[0].equals("mark") || inputAsList[0].equals("unmark")
-                || inputAsList[0].equals("delete")) {
+        case "mark": case "unmark": case "delete":
             return processTasks.markOrDelete(input);
-        } else if (inputAsList[0].equals("find")) {
+        case "find":
             return processTasks.findTask(input, this.taskList);
-        } else {
+        default:
             return processTasks.processUserInput(input);
         }
     }
