@@ -44,15 +44,15 @@ public class Main extends Application {
         } catch (DenimDirectoryException e) {
             fxmlMainLoader.<MainWindow>getController().handleDirectoryNotFound();
             stage.show();
-            fxmlLoader.<MainWindow>getController().displayGreetingMessage();
+            fxmlMainLoader.<MainWindow>getController().displayGreetingMessage();
         } catch (DenimFileException e) {
-            fxmlLoader.<MainWindow>getController().handleFileNotFound();
+            fxmlMainLoader.<MainWindow>getController().handleFileNotFound();
             stage.show();
-            fxmlLoader.<MainWindow>getController().displayGreetingMessage();
+            fxmlMainLoader.<MainWindow>getController().displayGreetingMessage();
         } catch (DenimFileCorruptionException e) {
-            fxmlLoader.<MainWindow>getController().handleFileCorruption();
+            fxmlMainLoader.<MainWindow>getController().handleFileCorruption();
             stage.show();
-            fxmlLoader.<MainWindow>getController().displayGreetingMessage();
+            fxmlMainLoader.<MainWindow>getController().displayGreetingMessage();
         }
     }
 }

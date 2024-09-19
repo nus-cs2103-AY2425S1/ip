@@ -229,8 +229,8 @@ public class ReadTaskFile {
             taskList.addTask(produceDeadlineTask(taskDescription, taskStatus, deadline));
             break;
         case EVENT:
-            String eventFrom = taskComponents[4].trim();
-            String eventTo = taskComponents[5].trim();
+            String eventFrom = taskComponents[3].trim();
+            String eventTo = taskComponents[4].trim();
             taskList.addTask(produceEventTask(taskDescription, taskStatus, eventFrom, eventTo));
             break;
         default:
