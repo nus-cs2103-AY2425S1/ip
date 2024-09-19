@@ -152,6 +152,9 @@ Now you have 2 tasks in the list.
 ## Tagging: `#`
 Tag or find your tasks using `#`. 
 
+> [!IMPORTANT]
+> Tags may not contain any whitespace.
+
 ### Add tasks with a tag
 
 Format: `(type) (description) [#tag] [time for deadline or event task]`
@@ -180,16 +183,26 @@ Here are the tasks that match your search in your list:
 
 ## Miscellaneous Commands: `nether`, `bye`
 
-// Details of this feature
+`nether` prompts nether to respond to you in a not so interesting way.
+
+`bye` stops nether from running and closes the application after a short delay.
 
 ___
-# Known Issues
+<h1 style="color: #db9570" id="known-issues">Known Issues</h1>
 ___
 
-// Known issues for Nether
+NONE (as of now)
 
 
-# Command Summary
+<h1 style="color: #db9570" id="command-summary">Command Summary</h1>
 ___
 
-// Feature details
+- ToDo: `todo Read book`
+- Deadline: `deadline Return book /by 2024-09-20 2359`
+- Event: `event Book Festival /from 2024-09-01 0700 /to 2024-09-03 1200`
+- Mark: `mark 1`, `unmark 2` 
+- List: `list`
+- Find: `find book`
+- Delete: `delete 3`
+- Tagging: `todo Read Book #for-fun`
+- Misc: `nether`, `bye`

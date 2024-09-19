@@ -23,11 +23,11 @@ import nether.task.TaskList;
 public class Nether {
     // the file path where task data is stored
     private static final String STORAGE_FILE_PATH = "./data/nether.txt";
+    public static boolean isExit = false;
     private final Storage storage;
     private final TaskList tasks;
     private final Ui ui;
     private final Parser parser;
-    private boolean isExit = false;
 
     /**
      * Constructs a new Nether instance.

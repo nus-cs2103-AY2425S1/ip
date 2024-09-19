@@ -1,3 +1,6 @@
+import static nether.Nether.isExit;
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -6,6 +9,9 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import nether.Nether;
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
+
 
 /**
  * Controller for the main GUI.
@@ -48,5 +54,11 @@ public class MainWindow extends AnchorPane {
             DialogBox.getDukeDialog(response, netherImage)
         );
         userInput.clear();
+        if (isExit) {
+            // Create a pause transition of 2.5 seconds
+            PauseTransition delay = new PauseTransition(Duration.seconds(2.5));
+            delay.setOnFinished(event -> Platform.exit()); // Set action after delay
+            delay.play(); // Start the delay
+        }
     }
 }
