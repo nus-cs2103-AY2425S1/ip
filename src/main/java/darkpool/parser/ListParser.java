@@ -2,11 +2,13 @@ package darkpool.parser;
 
 import darkpool.command.Command;
 import darkpool.command.ListCommand;
-import darkpool.DarkpoolException;
 
+/**
+ * ListParser class is responsible for parsing the list command.
+ */
 public class ListParser {
 
-    public static Command parse() throws DarkpoolException {
+    public static Command parse() {
         return new ListCommand();
     }
 

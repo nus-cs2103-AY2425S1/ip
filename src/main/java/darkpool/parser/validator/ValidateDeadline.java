@@ -1,8 +1,8 @@
 package darkpool.parser.validator;
 
-import darkpool.DarkpoolException;
-
 import java.util.Objects;
+
+import darkpool.DarkpoolException;
 
 /**
  * ValidateDeadline class is used to validate the deadline command.

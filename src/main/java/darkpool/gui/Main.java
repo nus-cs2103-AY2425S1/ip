@@ -1,13 +1,13 @@
 package darkpool.gui;
 
+import java.io.IOException;
+
 import darkpool.Darkpool;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 /**
  * The Main class is the entry point of the application.

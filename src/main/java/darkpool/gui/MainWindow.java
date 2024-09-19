@@ -37,18 +37,20 @@ public class MainWindow extends AnchorPane {
      */
     public void setDarkpool(Darkpool d) {
         darkpool = d;
-        dialogContainer.getChildren().addAll(DialogBox.getDarkpoolDialog("it’s darkpool. what twisted reason dragged me into your misery?", darkpoolImage));
+        dialogContainer.getChildren().addAll(DialogBox.getDarkpoolDialog(
+                "it’s darkpool. what twisted reason dragged me into your misery?", darkpoolImage));
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Darkpool's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one echoing user input and the other containing Darkpool's reply and then appends them
+     * to the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
         String response = darkpool.getResponse(input);
-        dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userImage), DialogBox.getDarkpoolDialog(response, darkpoolImage));
+        dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userImage),
+                DialogBox.getDarkpoolDialog(response, darkpoolImage));
         userInput.clear();
 
     }

@@ -12,6 +12,13 @@ public class After extends Task {
 
     protected LocalDateTime fromTime;
 
+    /**
+     * Constructor for After.
+     *
+     * @param description Description of the task.
+     * @param fromTime    Time the task starts.
+     * @throws DarkpoolException If the date is not in the correct format.
+     */
     public After(String description, String fromTime, boolean isDone) throws DarkpoolException {
         super(description, isDone);
 
@@ -25,13 +32,15 @@ public class After extends Task {
 
     @Override
     public String toString() {
-        return "[A]" + (isDone ? "[X] " : "[ ] ") + this.description + " (from:" + this.fromTime.format(FORMATTER) + ")";
+        return "[A]" + (isDone ? "[X] " : "[ ] ") + this.description
+                + " (from:" + this.fromTime.format(FORMATTER) + ")";
     }
 
 
     @Override
     public String toFileString() {
-        return ("A | " + (isDone ? "1" : "0") + " | " + this.description + " | " + this.fromTime.format(FORMATTER) + "\n");
+        return ("A | " + (isDone ? "1" : "0") + " | " + this.description + " | "
+                + this.fromTime.format(FORMATTER) + "\n");
     }
 
 }

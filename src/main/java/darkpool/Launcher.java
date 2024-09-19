@@ -1,7 +1,7 @@
 package darkpool;
 
-import javafx.application.Application;
 import darkpool.gui.Main;
+import javafx.application.Application;
 
 /**
  * Launcher class to start the JavaFX application.

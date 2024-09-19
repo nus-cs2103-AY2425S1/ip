@@ -1,14 +1,14 @@
 package darkpool.parser.validator;
 
-import darkpool.DarkpoolException;
-import darkpool.task.Event;
-
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
+import darkpool.DarkpoolException;
+import darkpool.task.Event;
+
 /**
  * ValidateEvent class is a class that contains methods to validate the user input for event tasks.
- * It contains methods to validate the user input, the 'from' and 'to' parts of the user input, and to create an event task.
+ * It contains methods to validate the user input, and to create an event task.
  */
 public class ValidateEvent {
 

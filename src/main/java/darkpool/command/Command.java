@@ -1,9 +1,9 @@
 package darkpool.command;
 
 import darkpool.DarkpoolException;
+import darkpool.gui.Gui;
 import darkpool.storage.Storage;
 import darkpool.tasklist.TaskList;
-import darkpool.gui.Gui;
 
 /**
  * Represents a command that can be executed by the user.

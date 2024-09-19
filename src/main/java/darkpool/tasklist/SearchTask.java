@@ -1,9 +1,9 @@
 package darkpool.tasklist;
 
-import darkpool.task.Task;
-import darkpool.DarkpoolException;
-
 import java.util.ArrayList;
+
+import darkpool.DarkpoolException;
+import darkpool.task.Task;
 
 /**
  * SearchTask class is used to search for tasks in the task list that contains the search query.

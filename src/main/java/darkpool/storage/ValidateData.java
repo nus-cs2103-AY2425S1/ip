@@ -1,9 +1,9 @@
 package darkpool.storage;
 
-import darkpool.DarkpoolException;
-
 import java.io.File;
 import java.io.IOException;
+
+import darkpool.DarkpoolException;
 
 /**
  * ValidateData class is used to validate the data file.

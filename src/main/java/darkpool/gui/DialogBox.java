@@ -1,5 +1,8 @@
 package darkpool.gui;
 
+import java.io.IOException;
+import java.util.Collections;
+
 import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,9 +15,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.util.Duration;
-
-import java.io.IOException;
-import java.util.Collections;
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
@@ -61,7 +61,7 @@ public class DialogBox extends HBox {
         if (text.equals("contact me again and you'll regret it.")) {
             // Pause for 1 second, then exit the program
             PauseTransition delay = new PauseTransition(Duration.seconds(1));
-            delay.setOnFinished(event -> System.exit(0));  // Exit the program
+            delay.setOnFinished(event -> System.exit(0));
             delay.play();
         }
         return db;

@@ -1,10 +1,13 @@
 package darkpool.command;
 
 import darkpool.gui.Gui;
-import darkpool.task.Task;
 import darkpool.storage.Storage;
+import darkpool.task.Task;
 import darkpool.tasklist.TaskList;
 
+/**
+ * Represents a command to add a task to the task list.
+ */
 public class AddCommand extends Command {
 
     private final Task task;

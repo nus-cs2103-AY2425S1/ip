@@ -1,14 +1,17 @@
 package darkpool.parser;
 
+import static darkpool.parser.validator.ValidateAfter.validate;
+import static darkpool.parser.validator.ValidateAfter.validateArrayLength;
+import static darkpool.parser.validator.ValidateAfter.validateEmptyDesc;
+import static darkpool.parser.validator.ValidateAfter.validateFrom;
+
+import darkpool.DarkpoolException;
 import darkpool.command.AddCommand;
 import darkpool.command.Command;
 import darkpool.task.After;
-import darkpool.DarkpoolException;
 
-import static darkpool.parser.validator.ValidateAfter.validate;
-import static darkpool.parser.validator.ValidateAfter.validateFrom;
-import static darkpool.parser.validator.ValidateAfter.validateEmptyDesc;
-import static darkpool.parser.validator.ValidateAfter.validateArrayLength;
+
+
 
 /**
  * Parses the user input for the 'after' command.

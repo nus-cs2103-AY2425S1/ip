@@ -2,11 +2,13 @@ package darkpool.parser;
 
 import darkpool.command.Command;
 import darkpool.command.ExitCommand;
-import darkpool.DarkpoolException;
 
+/**
+ * ExitParser class is responsible for parsing the exit command.
+ */
 public class ExitParser {
 
-    public static Command parse() throws DarkpoolException {
+    public static Command parse() {
         return new ExitCommand();
     }
 

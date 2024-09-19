@@ -1,10 +1,13 @@
 package darkpool.command;
 
 import darkpool.DarkpoolException;
+import darkpool.gui.Gui;
 import darkpool.storage.Storage;
 import darkpool.tasklist.TaskList;
-import darkpool.gui.Gui;
 
+/**
+ * Represents a command to find tasks that contain a search query.
+ */
 public class FindCommand extends Command {
     private final String searchQuery;
 
