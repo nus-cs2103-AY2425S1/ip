@@ -30,7 +30,7 @@ public class Ui {
             There are three types of task, you can add them by typing:
                 todo <task name>
                 deadline <task name> /by <time>
-                event <task name> /from <time> /by <time>
+                event <task name> /from <time> /to <time>
             You can view all your tasks and their respective indices by:
                 list
             You edit your tasks by:
