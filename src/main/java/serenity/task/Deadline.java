@@ -18,7 +18,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) {
         super(description);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("[dd/MM/yyyy]" + "[dd MMM yyyy]");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("[dd/MM/yyyy]");
         this.date = LocalDate.parse(by, formatter);
     }
 
