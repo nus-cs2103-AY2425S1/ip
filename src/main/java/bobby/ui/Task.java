@@ -81,7 +81,7 @@ public abstract class Task {
             response = "OK, I've marked this task as not done yet:\n"
                     + "[" + this.getStatusIcon() + "] " + this.description + "\n";
         } else {
-            response = "This tasked has not been marked yet!!\n";
+            response = "This tasked has not been marked as done yet!!\n";
         }
         return response;
     }

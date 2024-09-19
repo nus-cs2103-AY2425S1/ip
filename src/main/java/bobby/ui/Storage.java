@@ -69,7 +69,7 @@ public class Storage {
             listForDisk.clear();
             fw.close();
         } catch (Exception e) {
-            System.out.println("Your code is super buggy");
+            System.out.println("Cannot write to file!");
         }
     }
 
@@ -92,7 +92,7 @@ public class Storage {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Your code is buggy");
+            System.out.println("Could not load file");
         }
         try (FileWriter fw = new FileWriter(filePath, false)) {
             assert file.length() == 0 : "File is not empty after clearing it";

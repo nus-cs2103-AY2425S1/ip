@@ -93,7 +93,7 @@ public class Bobby {
             task.isDone = details[1].equals("1");
             return task;
         default:
-            System.out.println("GG!! your code is buggy");
+            System.out.println("Tasks not stored correctly");
             return null;
         }
     }
