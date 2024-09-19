@@ -59,6 +59,9 @@ public class Applemazer {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
+        if (input.isEmpty()) {
+            return "Please enter a command!";
+        }
         Scanner sc = new Scanner(input + " ");
         Parser parser = new Parser(sc, duplicateHandler);
         String command = sc.next();
