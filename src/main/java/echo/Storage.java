@@ -25,18 +25,6 @@ public class Storage {
     }
 
 
-    /**
-     * Loads the content of the file specified by the file path and prints each line.
-     *
-     * @throws FileNotFoundException If the file does not exist.
-     */
-    public void loadTest() throws FileNotFoundException {
-        File file = new File(filePath);
-        Scanner saveScanner = new Scanner(file);
-        while (saveScanner.hasNextLine()){
-            System.out.println(saveScanner.nextLine());
-        }
-    }
 
 
     /**
