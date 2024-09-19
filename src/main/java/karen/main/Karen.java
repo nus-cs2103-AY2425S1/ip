@@ -59,7 +59,12 @@ public class Karen {
         if (c.isExit()) {
             Platform.exit();
         }
-        return c.execute(taskList, ui);
+        try {
+            return c.execute(taskList, ui);
+        } catch (IndexOutOfBoundsException e) {
+            //can only catch index errors upon execute
+            return ui.showInvalidIndexError();
+        }
     }
 
     public static void main(String[] args) {
