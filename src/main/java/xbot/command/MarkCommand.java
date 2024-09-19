@@ -31,9 +31,9 @@ public class MarkCommand implements Command {
             }
             return list.get(taskNumber - 1).markAsDone();
         } catch (NumberFormatException e) {
-            throw new XBotException("Mmm... I only understand numbers... >_< \n" +
-                    "please check the task number you inputted is a number! " +
-                    "(e.g. mark 1)");
+            throw new XBotException("Mmm... I only understand numbers... >_< \n"
+                    + "please check the task number you inputted is a number! "
+                    + "(e.g. mark 1)");
         }
     }
 }

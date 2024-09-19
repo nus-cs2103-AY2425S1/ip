@@ -8,9 +8,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xbot.TaskList;
-import xbot.command.*;
-import xbot.exception.XBotException;
+import xbot.command.DeadlineCommand;
+import xbot.command.DeleteCommand;
+import xbot.command.EventCommand;
+import xbot.command.FindCommand;
+import xbot.command.ListCommand;
+import xbot.command.MarkCommand;
+import xbot.command.TodoCommand;
+import xbot.command.UnmarkCommand;
+import xbot.command.ViewCommand;
 import xbot.exception.UnknownTaskTypeException;
+import xbot.exception.XBotException;
 import xbot.storage.Storage;
 import xbot.task.Deadline;
 import xbot.task.Event;
@@ -160,6 +168,17 @@ public class Parser {
         return "TimeDate cannot be converted to another format :'0";
     }
 
+    /**
+     * Checks if the given task date matches the desired date, regardless of the time component.
+     *
+     * This method attempts to parse the task date using multiple formats, including "d/M/yyyy" and "d/M/yyyy HHmm".
+     * If the task date can be parsed successfully using any of these formats, and the resulting date matches the desired date,
+     * this method returns true. Otherwise, it returns false.
+     *
+     * @param desiredDate the desired date to compare with
+     * @param taskDate the task date to check
+     * @return true if the task date matches the desired date, false otherwise
+     */
     public static boolean isSameDate(String desiredDate, String taskDate) {
         DateTimeFormatter desiredFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         LocalDate desiredLocalDate = LocalDate.parse(desiredDate, desiredFormatter);
@@ -237,8 +256,8 @@ public class Parser {
         }
 
         if (taskFromLocalDate != null && taskToLocalDate != null) {
-            return (desiredLocalDate.isEqual(taskFromLocalDate) || desiredLocalDate.isEqual(taskToLocalDate) ||
-                    (desiredLocalDate.isAfter(taskFromLocalDate) && desiredLocalDate.isBefore(taskToLocalDate)));
+            return (desiredLocalDate.isEqual(taskFromLocalDate) || desiredLocalDate.isEqual(taskToLocalDate)
+                    || (desiredLocalDate.isAfter(taskFromLocalDate) && desiredLocalDate.isBefore(taskToLocalDate)));
         }
 
         return false;
@@ -291,8 +310,8 @@ public class Parser {
             output = ui.showBye();
             break;
         default:
-            throw new XBotException("Ah...sorry I don't know what that means >_<\n" +
-                    "you might want to refer to the user guide for the list of commands I know :) ");
+            throw new XBotException("Ah...sorry I don't know what that means >_<\n"
+                    + "you might want to refer to the user guide for the list of commands I know :) ");
         }
         return output;
     }

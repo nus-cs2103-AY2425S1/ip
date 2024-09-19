@@ -20,6 +20,20 @@ public class XBot {
     private static Parser parser = new Parser();
 
     /**
+     * Initializes a new instance of the XBot class.
+     *
+     * This constructor attempts to load the task list from storage. If an IOException occurs during loading,
+     * the storage data is cleaned to prevent corrupted data.
+     */
+    public XBot() {
+        try {
+            this.list = storage.loadTask();
+        } catch (IOException e) {
+            storage.cleanData();
+        }
+    }
+
+    /**
      * The main method that runs the XBot application.
      * It loads tasks from the storage, shows the welcome message,
      * and processes user commands in a loop until the user exits the program.
@@ -27,14 +41,6 @@ public class XBot {
      * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
-    }
-
-    public XBot() {
-        try {
-            this.list = storage.loadTask();
-        } catch (IOException e) {
-            storage.cleanData();
-        }
     }
 
     public String getResponse(String input) {

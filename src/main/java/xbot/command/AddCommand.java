@@ -1,14 +1,8 @@
 package xbot.command;
 
 import xbot.TaskList;
-import xbot.exception.UnknownTaskTypeException;
 import xbot.exception.XBotException;
-import xbot.parser.Parser;
 import xbot.storage.Storage;
-import xbot.task.Deadline;
-import xbot.task.Event;
-import xbot.task.Task;
-import xbot.task.ToDo;
 import xbot.ui.Ui;
 
 /**

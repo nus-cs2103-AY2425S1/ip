@@ -29,8 +29,8 @@ public class TodoCommand extends AddCommand {
     public String addTodo(TaskList list, String rest) {
         Task newTask = new ToDo(rest);
         list.add(newTask);
-        String output = "Here comes another todo! \n" +
-                "I've added this task:\n";
+        String output = "Here comes another todo! \n"
+                + "I've added this task:\n";
         output = output + (newTask.toString() + "\n");
         output = output + ("And now you have " + list.size() + " tasks in the list!! Jiayouu :D");
         return output;

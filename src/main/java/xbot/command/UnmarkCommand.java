@@ -31,9 +31,9 @@ public class UnmarkCommand implements Command {
             }
             return list.get(taskNumber - 1).markAsUndone();
         } catch (NumberFormatException e) {
-            throw new XBotException("Mmm... I only understand numbers... >_< \n" +
-                    "please check the task number you inputted is a number! " +
-                    "(e.g. unmark 1)");
+            throw new XBotException("Mmm... I only understand numbers... >_< \n"
+                    + "please check the task number you inputted is a number! "
+                    + "(e.g. unmark 1)");
         }
     }
 }

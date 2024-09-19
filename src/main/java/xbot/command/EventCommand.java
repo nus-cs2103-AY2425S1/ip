@@ -34,9 +34,10 @@ public class EventCommand extends AddCommand {
 
         if (parts.length != 2) {
             throw new XBotException(
-                    "Sorry... I do not understand your input... >_< \n" +
-                            "could you use this format instead? \n" +
-                            "event <task> /from <start time> /to <end time> (e.g. deadline Assignment 1 /by 9/4/2024 2359)");
+                    "Sorry... I do not understand your input... >_< \n"
+                            + "could you use this format instead? \n"
+                            + "event <task> /from <start time> /to <end time> "
+                            + "(e.g. deadline Assignment 1 /by 9/4/2024 2359)");
         }
 
         String taskDescription = parts[0].trim();
@@ -45,18 +46,19 @@ public class EventCommand extends AddCommand {
 
         if (timeParts.length != 2) {
             throw new XBotException(
-                    "Sorry... I do not understand your input... >_< \n" +
-                            "could you use this format instead? \n" +
-                            "event <task> /from <start time> /to <end time> (e.g. deadline Assignment 1 /by 9/4/2024 2359)");
+                    "Sorry... I do not understand your input... >_< \n"
+                            + "could you use this format instead? \n"
+                            + "event <task> /from <start time> /to <end time> "
+                            + "(e.g. deadline Assignment 1 /by 9/4/2024 2359)");
         }
 
         String from = timeParts[0].trim();
         String to = timeParts[1].trim();
 
         if (!Parser.isValidDateFormat(from) || !Parser.isValidDateFormat(to)) {
-            throw new XBotException("Sorry...I cannot read this date input >_< \n" +
-                    "you might want to try these date format instead :0\n" +
-                    "D/M/YYYY (e.g. 9/4/2024) or D/M/YYYY HHMM (e.g. 9/4/2024 2359)");
+            throw new XBotException("Sorry...I cannot read this date input >_< \n"
+                    + "you might want to try these date format instead :0\n"
+                    + "D/M/YYYY (e.g. 9/4/2024) or D/M/YYYY HHMM (e.g. 9/4/2024 2359)");
         }
 
         Task newTask = new Event(taskDescription, from, to);
@@ -64,6 +66,12 @@ public class EventCommand extends AddCommand {
         return showEventAdded(newTask.toString(), list.size());
     }
 
+    /**
+     * Generates a success message indicating that a new event has been added to the task list.
+     * @param newTaskString the string representation of the newly added task
+     * @param listSize the new size of the task list after addition
+     * @return a string message indicating the addition of the task and the updated list size
+     */
     public String showEventAdded(String newTaskString, int listSize) {
         String output;
         output = ("Here comes another event! \n" +

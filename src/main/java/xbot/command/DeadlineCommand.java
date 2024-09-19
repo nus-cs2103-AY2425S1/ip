@@ -39,20 +39,20 @@ public class DeadlineCommand extends AddCommand {
                 list.add(newTask);
 
                 String output;
-                output = ("Here comes another pending deadline! \n" +
-                        "I've added this task:\n");
+                output = ("Here comes another pending deadline! \n"
+                        + "I've added this task:\n");
                 output = output + (newTask.toString() + "\n");
                 output = output + ("And now you have " + list.size() + " tasks in the list!! Jiayouu :D");
                 return output;
             } else {
-                throw new XBotException("Sorry...I cannot read this date input >_< \n" +
-                        "you might want to try these date format instead :0\n" +
-                        "D/M/YYYY (e.g. 9/4/2024) or D/M/YYYY HHMM (e.g. 9/4/2024 2359)");
+                throw new XBotException("Sorry...I cannot read this date input >_< \n"
+                        + "you might want to try these date format instead :0\n"
+                        + "D/M/YYYY (e.g. 9/4/2024) or D/M/YYYY HHMM (e.g. 9/4/2024 2359)");
             }
         } else {
-            throw new XBotException("Sorry... I do not understand your input... >_< \n" +
-                    "could you use this format instead? \n" +
-                    "deadline <task> /by <date> (e.g. deadline Assignment 1 /by 9/4/2024 2359)");
+            throw new XBotException("Sorry... I do not understand your input... >_< \n"
+                    + "could you use this format instead? \n"
+                    + "deadline <task> /by <date> (e.g. deadline Assignment 1 /by 9/4/2024 2359)");
         }
     }
 }

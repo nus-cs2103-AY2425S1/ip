@@ -3,7 +3,7 @@ package xbot.exception;
 /**
  * Exception thrown when an unknown task type is encountered.
  */
- public class UnknownTaskTypeException extends Exception {
+public class UnknownTaskTypeException extends Exception {
 
     /**
      * The task type that caused the exception.

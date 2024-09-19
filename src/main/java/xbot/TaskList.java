@@ -89,6 +89,13 @@ public class TaskList {
         return Ui.showMatchingTaskList(specificTasks);
     }
 
+    /**
+     * Returns a list of todo tasks from the main task list.
+     *
+     * This method filters the main task list to include only tasks of type T and returns them in a new TaskList.
+     *
+     * @return a TaskList containing only todo tasks
+     */
     public TaskList viewTodoTask() {
         TaskList specificTasks = new TaskList();
         list.stream()
@@ -97,6 +104,13 @@ public class TaskList {
         return specificTasks;
     }
 
+    /**
+     * Returns a list of deadline tasks from the main task list.
+     *
+     * This method filters the main task list to include only tasks of type D and returns them in a new TaskList.
+     *
+     * @return a TaskList containing only deadline tasks
+     */
     public TaskList viewDeadlineTask(String date) {
         TaskList specificTasks = new TaskList();
         list.stream()
@@ -107,6 +121,13 @@ public class TaskList {
         return specificTasks;
     }
 
+    /**
+     * Returns a list of event tasks from the main task list.
+     *
+     * This method filters the main task list to include only tasks of type E and returns them in a new TaskList.
+     *
+     * @return a TaskList containing only event tasks
+     */
     public TaskList viewEventTask(String date) {
         TaskList specificTasks = new TaskList();
         list.stream()

@@ -3,7 +3,6 @@ package xbot.command;
 import xbot.TaskList;
 import xbot.exception.XBotException;
 import xbot.storage.Storage;
-import xbot.task.Task;
 import xbot.ui.Ui;
 
 /**
