@@ -27,21 +27,29 @@ public class Storage {
     public void loadTasks() {
         File file = new File("KillJoy.txt");
         try {
-            Scanner scan = new Scanner(file);
-            while (scan.hasNext()) {
-                String data = scan.nextLine();
-                processTasks.createTasks(data);
-            }
-            scan.close();
+            readTasksFromFile(file);
         } catch (FileNotFoundException e) {
             try {
-                FileWriter fw = new FileWriter("KillJoy.txt");
-                fw.write("");
-                fw.close();
+                createNewFile();
             } catch (IOException i) {
                 i.printStackTrace();
             }
         }
+    }
+
+    private static void createNewFile() throws IOException {
+        FileWriter fw = new FileWriter("KillJoy.txt");
+        fw.write("");
+        fw.close();
+    }
+
+    private void readTasksFromFile(File file) throws FileNotFoundException {
+        Scanner scan = new Scanner(file);
+        while (scan.hasNext()) {
+            String data = scan.nextLine();
+            processTasks.createTasks(data);
+        }
+        scan.close();
     }
 
     /**
@@ -51,16 +59,20 @@ public class Storage {
      */
     public void saveTasks(ArrayList<Task> tasks) {
         try {
-            FileWriter fw = new FileWriter("KillJoy.txt");
-            String currentTasks = "";
-            for (Task task : tasks) {
-                currentTasks += task.getTaskInfo();
-            }
-            fw.write(currentTasks);
-            fw.close();
+            writeTasksOnFile(tasks);
         } catch (IOException i) {
             i.printStackTrace();
         }
+    }
+
+    private static void writeTasksOnFile(ArrayList<Task> tasks) throws IOException {
+        FileWriter fw = new FileWriter("KillJoy.txt");
+        String currentTasks = "";
+        for (Task task : tasks) {
+            currentTasks += task.getTaskInfo();
+        }
+        fw.write(currentTasks);
+        fw.close();
     }
 
 }
