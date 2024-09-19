@@ -1,2 +1,1 @@
-[T][ ] run
-[T][ ] fire
+[T][X] run
