@@ -17,7 +17,6 @@ public class ProcessTasks {
     private KillJoy kj;
     private UserInterface ui;
 
-
     /**
      * Constructor for the ProcessTasks class.
      *
@@ -117,7 +116,7 @@ public class ProcessTasks {
      * @return error message
      */
     private String checkDateTimeIsNullError(String input) {
-        String date1 = Parser.getByTimeString(input);
+        String date1 = Parser.getFromTimeString(input);
         LocalDateTime dateTime = Parser.parseStringToLocalDateTime(date1);
         if (dateTime == null) {
             return UserInterface.displayInvalidCommandFormatMessage();
@@ -246,4 +245,5 @@ public class ProcessTasks {
             task.changeStatus();
         }
     }
+
 }

@@ -21,7 +21,6 @@ public class ParserTest {
     @BeforeEach
     public void setUp() {
         UserInterface ui = new UserInterface(new KillJoy());
-        parser = new Parser(ui);
     }
 
     @Test
