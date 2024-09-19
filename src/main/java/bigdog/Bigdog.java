@@ -69,6 +69,7 @@ public class Bigdog {
      *     <li>"deadline" - Adds a new Deadline task.</li>
      *     <li>"event" - Adds a new Event task.</li>
      *     <li>"find" - Finds tasks containing a specific keyword.</li>
+     *     <li>"view" - View the schedule for a day (i.e. what tasks are due/on that day)</li>
      * </ul>
      *
      * @param command The command to execute (e.g., "mark", "delete", "todo").
@@ -90,6 +91,7 @@ public class Bigdog {
             case "deadline" -> this.tasks.add(Deadline.of(description));
             case "event" -> this.tasks.add(Event.of(description));
             case "find" -> this.tasks.find(description);
+            case "view" -> this.tasks.viewSchedule(description);
             default -> "Unknown command. Please try again.";
         };
         return reply;

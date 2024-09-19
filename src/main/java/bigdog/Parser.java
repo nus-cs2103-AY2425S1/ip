@@ -10,7 +10,7 @@ public class Parser {
 
     // List of valid commands recognized by the application
     private static final String[] VALID_COMMANDS = {"bye", "list", "mark", "unmark", "delete", "todo",
-        "deadline", "event", "find"};
+        "deadline", "event", "find", "view"};
 
     /**
      * Constructs a {@code Parser} object.
@@ -31,6 +31,9 @@ public class Parser {
      */
     public static String[] parse(String str) throws BigdogException {
         String[] temp = str.split(" ", 2);
+        if (temp.length == 1) {
+            temp = new String[]{temp[0], "NA"};
+        }
         String command = temp[0].toLowerCase();
         for (String validCommand : VALID_COMMANDS) {
             if (command.equals(validCommand)) {

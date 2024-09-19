@@ -1,5 +1,6 @@
 package bigdog;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -112,6 +113,40 @@ public class TaskList {
                 : "There are no similar tasks in your list!\n";
 
         return result.toString();
+    }
+
+    /**
+     * Returns the schedule of tasks for a specific date in the format "dd/MM/yyyy".
+     * The method parses the given date string, checks for tasks that are scheduled
+     * on that day, and constructs a formatted string listing those tasks. Each task
+     * is numbered and displayed on a new line. If no tasks are found for the given
+     * date, it returns a message indicating that no tasks are available or that
+     * the date format might be incorrect.
+     *
+     * @param str The date string in "dd/MM/yyyy" format to view the schedule for.
+     * @return A formatted string listing all tasks scheduled for the specified
+     *         date, or a message if no tasks are found or if the format is incorrect.
+     */
+    public String viewSchedule(String str) {
+        int counter = 1;
+        StringBuilder schedule = new StringBuilder(String.format("Here is your schedule for %s\n", str));
+        String[] dateParts = str.split("/");
+        LocalDateTime date = LocalDateTime.parse(String.format("%s-%s-%sT00:00", dateParts[2], dateParts[1], dateParts[0]));
+        for (Task task : this.list) {
+            if (task.isOnDay(date)) {
+                schedule.append(counter).append(". ").append(task).append("\n");
+            }
+        }
+
+        // String representation of scheduled tasks
+        String scheduleString = schedule.toString();
+
+        // Instead of assertion, handle the case where no tasks are found
+        if (scheduleString.equals(String.format("Here is your schedule for %s\n", str))) {
+            return "You have no tasks on " + str + " or you need to check your format!"
+                    + " (e.g. view 12/03/2024)";
+        }
+        return scheduleString;
     }
 
     /**

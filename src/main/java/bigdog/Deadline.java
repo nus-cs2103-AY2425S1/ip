@@ -115,6 +115,22 @@ public class Deadline extends Task {
     }
 
     /**
+     * Checks if the task is unmarked and occurs on or before the specified date.
+     * This method determines whether the task is unmarked (i.e., not completed)
+     * and if the given date is on or before the task's end date. It returns true
+     * if the task is unmarked and the date is either equal to or earlier than the
+     * end date.
+     *
+     * @param date The LocalDateTime object representing the date to check.
+     * @return true if the task is unmarked and the date is on or before the end
+     *         date, false otherwise.
+     */
+    @Override
+    public boolean isOnDay(LocalDateTime date) {
+        return !this.isMarked() && (date.isEqual(end) || date.isBefore(end));
+    }
+
+    /**
      * Returns a string representation of the Deadline task.
      * The format includes the task type, status, description, and deadline.
      *

@@ -1,5 +1,6 @@
 package bigdog;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -134,6 +135,23 @@ public class Event extends Task {
         return super.getDescription() + " | " + this.start + " | " + this.end;
     }
 
+    /**
+     * Checks if the task occurs within a specified date range and is unmarked.
+     * This method determines whether the task is unmarked and the given date falls
+     * within the task's start and end dates, inclusive. It returns true if the task
+     * is not marked as done, the date is on or after the start date, and the date
+     * is on or before the end date.
+     *
+     * @param date The LocalDateTime object representing the date to check.
+     * @return true if the task is unmarked and the date is within the start and
+     *         end date range, inclusive. Returns false otherwise.
+     */
+    @Override
+    public boolean isOnDay(LocalDateTime date) {
+        boolean isAfterStart = date.isEqual(start) || date.isAfter(start);
+        boolean isBeforeEnd = date.isEqual(end) || date.isBefore(end);
+        return !this.isMarked() && isAfterStart && isBeforeEnd;
+    }
 
     /**
      * Returns a string representation of the Event task.
