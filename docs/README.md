@@ -2,7 +2,6 @@
 
 ![Ui.png](Ui.png)
 
-
 **TrackBot is a desktop application for managing your everyday tasks.**
 
 By combining Command Line Interface (CLI) and Graphical User Interface (GUI),
@@ -22,7 +21,8 @@ Format: ```todo <task description>```
 Example: ```todo read book```
 
 Expected output:
-![img.png](img.png)
+<br>
+![img.png](todo_output.png)
 
 #### 2. Adding a task with deadline : ```deadline```
 
@@ -41,11 +41,10 @@ Examples:
 - ```deadline quiz /by tonight```
 
 Expected output:
-
-![img_1.png](img_1.png)
 <br>
-
-![img_2.png](img_2.png)
+![deadline_output.png](deadline_output.png)
+<br>
+![deadline_output_nodate.png](deadline_output_nodate.png)
 
 #### 3. Adding an event with starting date/time and ending date/time : ```event```
 
@@ -62,7 +61,9 @@ Examples:
 - ```event project zoom /from 2024-12-02 12:12 /to 2024-12-03 13:30```
 
 Expected output:
-
+<br>
+![event_output_date.png](event_output_date.png)
+<br>
 
 ### Listing all tasks : ```list```
 
@@ -72,7 +73,8 @@ Format: ```list```
 - Do not type anything before or after the ```list``` command as TrackBot will not understand that command.
 
 Expected output:
-
+<br>
+![list_output.png](list_output.png)
 
 ### Deleting a task : ```delete```
 
@@ -84,28 +86,77 @@ Format: ```delete <task number>```
 - Examples of invalid task numbers are negative integers and ```delete 100```
 when there is only 3 tasks in the task list.
 
-Expected output: 
+Examples:
+- ```delete 1```
+- ```delete 3```
+
+Expected output:
+<br>
 
 ### Marking a task : ```mark```
 
 Marks a task with a specified task number in the task list.
 
+Format: ```mark <task number>```
+- Entering an invalid task number will produce the following output
+  ```Please enter a valid task number.```
+- Examples of invalid task numbers are negative integers and ```mark 100```
+  when there is only 3 tasks in the task list.
+
+Examples:
+- ```mark 1```
+- ```mark 2```
+
+
+Expected output:
+<br>
+![mark_output.png](mark_output.png)
+
+
 ### Unmarking a task : ```unmark```
 
 Unmarks a task with a specified task number in the task list.
 
+Format: ```unmark <task number>```
+- Entering an invalid task number will produce the following output
+  ```Please enter a valid task number.```
+- Examples of invalid task numbers are negative integers and ```unmark 100```
+  when there is only 3 tasks in the task list.
+
+Examples:
+- ```unmark 1```
+- ```unmark 2```
+
+Expected output:
+<br>
+![unmark_output.png](unmark_output.png)
 
 ### Finding a task : ```find```
 
 Find a task with a specified description in the task list.
 
+Format: ```find <task keyword>```
+- The search is case-insensitive. e.g Quiz will match quiz
+  The order of the keywords does not matter. e.g. Hans Bo will match Bo Hans
+  Only the name is searched.
+  Only full words will be matched e.g. Han will not match Hans
+  Persons matching at least one keyword will be returned (i.e. OR search). e.g. Hans Bo will return Hans Gruber, Bo Yang
+
+Examples:
+- ```find read book```
+- ```find zoom```
+
+Expected output:
+<br>
+![find_half_output.png](find_half_output.png)
 
 ### Exit Command : ```bye```
 
+TrackBot will reply ```"Bye. Hope to see you again soon!"```.
 
-
-
-
+<br>
+<br>
+<br>
 
 
 

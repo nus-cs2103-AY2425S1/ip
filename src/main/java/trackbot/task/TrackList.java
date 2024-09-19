@@ -180,7 +180,7 @@ public class TrackList {
         PrintWriter writer = new PrintWriter(stringWriter, true);
         if (matchingTasks.isEmpty()) {
             writer.println("No matching tasks found.");
-            return writer.toString();
+            return stringWriter.toString();
         } else {
             writeMatchingTasks(matchingTasks, writer);
             return stringWriter.toString();
