@@ -37,14 +37,15 @@ public class Parser {
     public String manage(String currAction) throws MendelException {
         currAction = currAction.strip().replaceAll(" +", " ");
         String[] segments = currAction.split(" ");
-        if (isMonolithicCommand(segments[0])) {
-            return executeMonolithicCommand(segments[0], currAction);
-        } else if (isBinaryIndexCommand(segments[0])) {
-            return executeBinaryIndexCommand(segments[0], currAction);
-        } else if (isTaskCommand(segments[0])) {
-            return executeTaskCommand(segments[0], currAction);
-        } else if (isListUtilityCommand(segments[0])) {
-            return executeListUtilityCommand(segments[0], currAction);
+        String commandWord = segments[0].toLowerCase();
+        if (isMonolithicCommand(commandWord)) {
+            return executeMonolithicCommand(commandWord, currAction);
+        } else if (isBinaryIndexCommand(commandWord)) {
+            return executeBinaryIndexCommand(commandWord, currAction);
+        } else if (isTaskCommand(commandWord)) {
+            return executeTaskCommand(commandWord, currAction);
+        } else if (isListUtilityCommand(commandWord)) {
+            return executeListUtilityCommand(commandWord, currAction);
         } else {
             throw new MendelException("OOPS! I cannot understand command\nCheck the first word.");
         }
