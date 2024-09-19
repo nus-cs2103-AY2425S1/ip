@@ -39,10 +39,10 @@ Command format: `list`
 ## Searching
 Searches any tasks that contain the specified keyword in the task name.
 Command format: `find [keyword]`
-> **_NOTE: _**
+> **NOTE:** 
 > A valid keyword contains only **1 word**.
 
-Example: both `find magic` and `find magic training` return the same list
+Example: both `find magic`
 
 <img src="UGFindMagic.png" alt="find magic" width="300"/>
 
@@ -61,7 +61,7 @@ Deletes a task by the index number in the application task list.
 Command format: `delete [index number]`
 
 Example: `delete 1` will delete the first task in the list and shift the subsequent tasks up.
-> **_TIP: _**
+> **TIP:**
 > You should use the `list` command to see the index of the task you want to delete.
 
 ## Exit Tecna
