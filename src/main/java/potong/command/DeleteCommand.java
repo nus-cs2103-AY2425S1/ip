@@ -31,8 +31,12 @@ public class DeleteCommand extends Command {
      * @throws PotongException If the index is out of bounds.
      */
     @Override
-    public String execute(TaskList tasks, Storage storage, Ui ui) throws PotongException {
+    public String execute(TaskList tasks, Storage storage, Ui ui) {
         assert tasks != null;
-        return tasks.delete(this.index);
+        try {
+            return tasks.delete(this.index);
+        } catch (PotongException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -8,17 +8,7 @@ public class IllegalInputPotongException extends PotongException {
     /**
      * Initialise the exception.
      */
-    public IllegalInputPotongException() {
-        super("OOPS!! Your input is wrong :-(");
-    }
-
-    /**
-     * String representation of the exception.
-     *
-     * @return String representation of the exception.
-     */
-    @Override
-    public String toString() {
-        return "OOPS!! Your input is wrong :-(";
+    public IllegalInputPotongException(String message) {
+        super(String.format("OOPS!! meow have a wrong input! \n%s", message));
     }
 }

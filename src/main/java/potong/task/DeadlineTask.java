@@ -23,7 +23,7 @@ public class DeadlineTask extends Task {
     public DeadlineTask(String description, String deadline) throws IllegalInputPotongException {
         super(description);
         if (deadline.isEmpty()) {
-            throw new IllegalInputPotongException();
+            throw new IllegalInputPotongException("Your deadline cannot be empty!");
         }
         this.deadline = deadline;
         this.date = LocalDate.parse(deadline);
@@ -41,7 +41,7 @@ public class DeadlineTask extends Task {
                         boolean isDone, String tag) throws IllegalInputPotongException {
         super(description, isDone, tag);
         if (deadline.isEmpty()) {
-            throw new IllegalInputPotongException();
+            throw new IllegalInputPotongException("Your deadline cannot be empty!");
         }
         this.deadline = deadline;
         this.date = LocalDate.parse(deadline);

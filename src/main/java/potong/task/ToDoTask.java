@@ -11,7 +11,7 @@ public class ToDoTask extends Task {
      * Initialise the to do task.
      *
      * @param description Task description.
-     * @throws IllegalInputPotongException If the task input is wrong.
+     * @throws IllegalInputPotongException If the task input is empty.
      */
     public ToDoTask(String description) throws IllegalInputPotongException {
         super(description);

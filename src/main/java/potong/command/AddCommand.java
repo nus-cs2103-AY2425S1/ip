@@ -61,24 +61,27 @@ public class AddCommand extends Command {
      * @param storage Storage class for loading and saving data.
      * @param ui Ui class for printing outputs.
      * @return String output.
-     * @throws IllegalInputPotongException If the input for the task is wrong.
      */
     @Override
-    public String execute(TaskList tasks, Storage storage, Ui ui) throws IllegalInputPotongException {
-        assert tasks != null;
-        switch (this.type) {
-        case TODO -> {
-            return tasks.add(new ToDoTask(this.task));
-        }
-        case DEADLINE -> {
-            return tasks.add(new DeadlineTask(this.task, this.deadline));
-        }
-        case EVENT -> {
-            return tasks.add(new EventTask(this.task, this.eventStart, this.eventEnd));
-        }
-        default -> {
-            return "";
-        }
+    public String execute(TaskList tasks, Storage storage, Ui ui) {
+        try {
+            assert tasks != null;
+            switch (this.type) {
+            case TODO -> {
+                return tasks.add(new ToDoTask(this.task));
+            }
+            case DEADLINE -> {
+                return tasks.add(new DeadlineTask(this.task, this.deadline));
+            }
+            case EVENT -> {
+                return tasks.add(new EventTask(this.task, this.eventStart, this.eventEnd));
+            }
+            default -> {
+                return "";
+            }
+            }
+        } catch (IllegalInputPotongException e) {
+            throw new RuntimeException(e);
         }
     }
 

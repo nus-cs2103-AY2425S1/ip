@@ -21,7 +21,7 @@ public class EventTask extends Task {
     public EventTask(String description, String start, String end) throws IllegalInputPotongException {
         super(description);
         if (start.isEmpty() || end.isEmpty()) {
-            throw new IllegalInputPotongException();
+            throw new IllegalInputPotongException("Your start or end cannot be empty!");
         }
         this.start = start;
         this.end = end;
@@ -40,7 +40,7 @@ public class EventTask extends Task {
                      String end, boolean isDone, String tag) throws IllegalInputPotongException {
         super(description, isDone, tag);
         if (start.isEmpty() || end.isEmpty()) {
-            throw new IllegalInputPotongException();
+            throw new IllegalInputPotongException("Your start or end cannot be empty!");
         }
         this.start = start;
         this.end = end;

@@ -27,8 +27,6 @@ import potong.task.ToDoTask;
 public class Parser {
     public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private static final Pattern DEADLINE_FORMAT = Pattern.compile(" (?<desc>.*)");
-
     /**
      * Creates task from the saved tasks.
      *

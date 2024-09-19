@@ -3,6 +3,7 @@ package potong;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import potong.exceptions.IllegalInputPotongException;
 import potong.exceptions.PotongException;
 import potong.task.Task;
 
@@ -46,11 +47,11 @@ public class TaskList {
      *
      * @param index Index of the task.
      * @return String representation of the action.
-     * @throws PotongException If the index is out of bounds.
+     * @throws IllegalInputPotongException If the index is out of bounds.
      */
-    public String mark(int index) throws PotongException {
+    public String mark(int index) throws IllegalInputPotongException {
         if (index - 1 >= this.arr.size()) {
-            throw new PotongException("We cannot mark a task thats not there!");
+            throw new IllegalInputPotongException(String.format("Your index %d is out of bounds!", index));
         }
         return this.arr.get(index - 1).mark();
     }
@@ -60,11 +61,11 @@ public class TaskList {
      *
      * @param index Index of the task.
      * @return String representation of the action.
-     * @throws PotongException If the index is out of bounds.
+     * @throws IllegalInputPotongException If the index is out of bounds.
      */
-    public String unmark(int index) throws PotongException {
+    public String unmark(int index) throws IllegalInputPotongException {
         if (index - 1 >= this.arr.size()) {
-            throw new PotongException("We cannot unmark a task thats not there!");
+            throw new IllegalInputPotongException(String.format("Your index %d is out of bounds!", index));
         }
         return this.arr.get(index - 1).unmark();
     }
@@ -74,11 +75,11 @@ public class TaskList {
      *
      * @param index Index of the task.
      * @return String representation of the action.
-     * @throws PotongException If the index is out of bounds.
+     * @throws IllegalInputPotongException If the index is out of bounds.
      */
-    public String delete(int index) throws PotongException {
+    public String delete(int index) throws IllegalInputPotongException {
         if (index - 1 >= this.arr.size()) {
-            throw new PotongException("We cannot delete a task thats not there!");
+            throw new IllegalInputPotongException(String.format("Your index %d is out of bounds!", index));
         }
         Task removed = this.arr.remove(index - 1);
         return String.format("Noted. I've removed this task:\n %s\nNow you have %d tasks in the list.",
@@ -91,12 +92,12 @@ public class TaskList {
      * @param tag String representation of the tag.
      * @param index Index of task to be tagged.
      * @return String representation of this action.
-     * @throws PotongException If the index is out of bounds.
+     * @throws IllegalInputPotongException If the index is out of bounds.
      */
-    public String tag(String tag, int index) throws PotongException {
+    public String tag(String tag, int index) throws IllegalInputPotongException {
         assert index >= 0;
         if (index - 1 >= this.arr.size()) {
-            throw new PotongException("We cannot tag a task thats not there!");
+            throw new IllegalInputPotongException(String.format("Your index %d is out of bounds!", index));
         }
         return this.arr.get(index - 1).tag(tag);
     }
@@ -105,12 +106,12 @@ public class TaskList {
      * Untag the task in the list.
      * @param index Index of task to untag.
      * @return String representation of this action.
-     * @throws PotongException If the index is out of bounds.
+     * @throws IllegalInputPotongException If the index is out of bounds.
      */
-    public String untag(int index) throws PotongException {
+    public String untag(int index) throws IllegalInputPotongException {
         assert index >= 0;
         if (index - 1 >= this.arr.size()) {
-            throw new PotongException("We cannot tag a task thats not there!");
+            throw new IllegalInputPotongException(String.format("Your index %d is out of bounds!", index));
         }
         return this.arr.get(index - 1).untag();
     }

@@ -55,15 +55,6 @@ public class Ui {
     public void showLine() {
         System.out.println(LINE);
     }
-
-    /**
-     * Print the goodbye when the user terminates the program.
-     */
-    public void sayGoodbye() {
-        System.out.println("Bye. Hope to see you again soon!\n");
-        this.showLine();
-    }
-
     /**
      * Print any message.
      *

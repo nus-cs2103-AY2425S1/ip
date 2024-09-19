@@ -18,7 +18,7 @@ public class Task {
      */
     public Task(String description) throws IllegalInputPotongException {
         if (description.isEmpty()) {
-            throw new IllegalInputPotongException();
+            throw new IllegalInputPotongException("We cannot have an empty task!");
         }
         this.description = description;
         this.isDone = false;
@@ -33,7 +33,7 @@ public class Task {
      */
     public Task(String description, boolean isDone, String tag) throws IllegalInputPotongException {
         if (description.isEmpty()) {
-            throw new IllegalInputPotongException();
+            throw new IllegalInputPotongException("We cannot have an empty task!");
         }
         this.description = description;
         this.isDone = isDone;
@@ -68,8 +68,12 @@ public class Task {
      * Tag the task.
      * @param tag String representation of the tag.
      * @return String representation of this action.
+     * @throws IllegalInputPotongException When the tag is empty.
      */
-    public String tag(String tag) {
+    public String tag(String tag) throws IllegalInputPotongException {
+        if (tag.isEmpty()) {
+            throw new IllegalInputPotongException("We cannot have an empty tag!");
+        }
         this.tag = "#" + tag;
         return String.format("OK, I've tagged this task as %s\n %s", tag, this);
     }
@@ -140,8 +144,12 @@ public class Task {
      *
      * @param keyword Keyword.
      * @return True if the task contains the keyword, False if not.
+     * @throws IllegalInputPotongException If the keyword is empty.
      */
-    public boolean findKeyword(String keyword) {
+    public boolean findKeyword(String keyword) throws IllegalInputPotongException {
+        if (keyword.isEmpty()) {
+            throw new IllegalInputPotongException("The keyword cannot be empty!");
+        }
         return this.description.contains(keyword);
     }
 
