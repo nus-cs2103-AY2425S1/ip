@@ -28,81 +28,135 @@ public class Parser {
         String[] words = command.split(" ");
         String firstWord = words[0];
 
+        if (matchStrings(firstWord, "bye", "list", "undo")) {
+            return parseZeroArgCommand(words, command);
+        }
+
+        if (matchStrings(firstWord, "mark", "unmark", "delete")) {
+            return parseIndexCommand(words, command);
+        }
+
+        if (matchStrings(firstWord, "find", "findDate", "todo")) {
+            return parseOneArgCommand(words, command);
+        }
+
+        if (matchStrings(firstWord, "deadline")) {
+            return parseTwoArgCommand(words, command);
+        }
+
+        if (matchStrings(firstWord, "event")) {
+            return parseThreeArgCommand(words, command);
+        }
+
+        throw new UnknownCommandException(firstWord);
+    }
+
+    private static boolean matchStrings(String target, String... words) {
+        for (String word: words) {
+            if (target.equals(word)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static Command parseZeroArgCommand(String[] words, String command) {
+        String firstWord = words[0];
+        if (words.length > 1) {
+            throw new ExtraParamException(command.substring(firstWord.length() + 1));
+        }
+
         switch (firstWord) {
         case ("bye"):
-            if (words.length > 1) {
-                throw new ExtraParamException(command.substring(4));
-            }
             return new ExitCommand();
+
         case ("list"):
-            if (words.length > 1) {
-                throw new ExtraParamException(command.substring(5));
-            }
             return new ListCommand();
+
         case ("undo"):
-            if (words.length > 1) {
-                throw new ExtraParamException(command.substring(5));
-            }
             return new UndoCommand();
-        case ("mark"): {
-            String[] arguments = Parser.splitInput(words, MarkCommand.params, MarkCommand.paramCount);
-            assert arguments.length == MarkCommand.paramCount: "arguments should have correct number of elements";
-            int idx;
-            try {
-                idx = Integer.parseInt(arguments[0]);
-            } catch (NumberFormatException e) {
-                throw new TaskIndexException(arguments[0]);
-            }
+
+        default:
+            throw new UnknownCommandException(firstWord);
+        }
+    }
+
+    private static Command parseIndexCommand(String[] words, String command) {
+        String firstWord = words[0];
+
+        String[] arguments = Parser.splitInput(words, new String[] { firstWord }, MarkCommand.paramCount);
+        assert arguments.length == MarkCommand.paramCount: "arguments should have correct number of elements";
+        int idx;
+        try {
+            idx = Integer.parseInt(arguments[0]);
+        } catch (NumberFormatException e) {
+            throw new TaskIndexException(arguments[0]);
+        }
+
+        switch (firstWord) {
+        case ("mark"):
             return new MarkCommand(idx);
-        }
-        case ("unmark"): {
-            String[] arguments = Parser.splitInput(words, UnmarkCommand.params, UnmarkCommand.paramCount);
-            assert arguments.length == UnmarkCommand.paramCount: "arguments should have correct number of elements";
-            int idx;
-            try {
-                idx = Integer.parseInt(arguments[0]);
-            } catch (NumberFormatException e) {
-                throw new TaskIndexException(arguments[0]);
-            }
+
+        case ("unmark"):
             return new UnmarkCommand(idx);
+
+        case ("delete"):
+            return new DeleteCommand(idx);
+
+        default:
+            throw new UnknownCommandException(firstWord);
         }
+    }
+
+    private static Command parseOneArgCommand(String[] words, String command) {
+        String firstWord = words[0];
+
+        switch (firstWord) {
         case ("find"): {
             String[] arguments = Parser.splitInput(words, FindCommand.params, FindCommand.paramCount);
-            assert arguments.length == FindCommand.paramCount: "arguments should have correct number of elements";
+            assert arguments.length == FindCommand.paramCount : "arguments should have correct number of elements";
             return new FindCommand(arguments[0]);
         }
         case ("findDate"): {
             String[] arguments = Parser.splitInput(words, FindDateCommand.params, FindDateCommand.paramCount);
-            assert arguments.length == FindDateCommand.paramCount: "arguments should have correct number of elements";
+            assert arguments.length == FindDateCommand.paramCount : "arguments should have correct number of elements";
             return new FindDateCommand(arguments[0]);
         }
         case ("todo"): {
             String[] arguments = Parser.splitInput(words, TodoCommand.params, TodoCommand.paramCount);
-            assert arguments.length == TodoCommand.paramCount: "arguments should have correct number of elements";
+            assert arguments.length == TodoCommand.paramCount : "arguments should have correct number of elements";
             return new TodoCommand(arguments[0]);
         }
+        default:
+            throw new UnknownCommandException(command);
+        }
+    }
+
+    private static Command parseTwoArgCommand(String[] words, String command) {
+        String firstWord = words[0];
+
+        switch (firstWord) {
         case ("deadline"): {
             String[] arguments = Parser.splitInput(words, DeadlineCommand.params, DeadlineCommand.paramCount);
             assert arguments.length == DeadlineCommand.paramCount: "arguments should have correct number of elements";
             return new DeadlineCommand(arguments[0], arguments[1]);
         }
+        default:
+            throw new UnknownCommandException(command);
+        }
+    }
+
+    private static Command parseThreeArgCommand(String[] words, String command) {
+        String firstWord = words[0];
+
+        switch (firstWord) {
         case ("event"): {
             String[] arguments = Parser.splitInput(words, EventCommand.params, EventCommand.paramCount);
             assert arguments.length == EventCommand.paramCount: "arguments should have correct number of elements";
             return new EventCommand(arguments[0], arguments[1], arguments[2]);
         }
-        case ("delete"):
-            String[] arguments = Parser.splitInput(words, DeleteCommand.params, DeleteCommand.paramCount);
-            assert arguments.length == DeleteCommand.paramCount: "arguments should have correct number of elements";
-            int idx;
-            try {
-                idx = Integer.parseInt(arguments[0]);
-            } catch (NumberFormatException e) {
-                throw new TaskIndexException(arguments[0]);
-            }
-            return new DeleteCommand(idx);
         default:
-            throw new UnknownCommandException(words[0]);
+            throw new UnknownCommandException(command);
         }
     }
 
