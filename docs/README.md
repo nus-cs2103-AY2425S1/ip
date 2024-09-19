@@ -1,13 +1,16 @@
 # Quack - Your Personal Duck Assistant 
 ---
 
-<div style="display: flex; align-items: flex-start;">
-  <image src="..\src\main\resources\images\duck.png" width="450" height="400">
-  <p style="margin-left: 10px; padding-top: 100px;">Hello nice to meet you I am your personal assistant</p>
+<div> 
+  <div style="display: flex; align-items: flex-start;">
+    <image src="..\src\main\resources\images\duck.png" width="450" height="400">
+    <p style="margin-left: 10px; padding-top: 100px;">Hello nice to meet you I am your personal assistant</p>
+  </div>
 </div>
 
 ## What is Quack
 Quack is a user friendly assistant which helps you keep track of pesky tasks and ensures you don't miss out on anything important!
+
 
 <!-- ## Supported Features
 Here is a list of feaures that quack supports
@@ -68,6 +71,7 @@ If you are using the `.jar` to run the program please skip to the [[#Quick Start
 # Features
 ---
 
+> [!NOTE]
 > Do note that the images to display expected outcomes uses sample data
 
 ## Listing Tasks - `list`
@@ -97,6 +101,7 @@ __Example__:
 - < Quack will prompt you the task description >
 - `Complete assignment`
 
+> [!IMPORTANT]
 > For deadline and event tasks, Quack will prompt you for some date input in ths following format: DD/MM/YYYY HH:MM:SS
 
 __Sample Output:__
@@ -170,6 +175,7 @@ __Example__:
 - < Quack will prompt you for the tag lable>
 - `CS2103`
 
+> [!NOTE]
 > For untagging Quack will not prompt you for a tag label
 
 __Sample Output:__
@@ -202,6 +208,7 @@ __Example__:
 - `bye`
 - < Quack will stop running >
 
+[!NOTE]
 > After awhile the window will be closed after the `bye` command is executed
 
 __Sample Output:__
