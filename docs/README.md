@@ -147,6 +147,7 @@ OK, I've marked this task as not done yet:
 [T][ ] read book
 ```
 
+
 ### 5. Deleting Tasks
 
 To delete a task:
@@ -169,6 +170,7 @@ Noted. I've removed this task:
 Now you have 2 tasks in the list.
 ```
 
+
 ### 6. Finding Tasks by Keyword
 
 To find tasks that contain a specific keyword:
@@ -190,6 +192,7 @@ Here are the matching tasks in your list:
 1. [T][ ] read book
 ```
 
+
 ### 7. Adding Multiple To-Dos
 
 To add multiple to-dos at once:
@@ -210,6 +213,7 @@ addmultipletodos buy groceries, make presentation
 Got it. I've added the todos
 ```
 You can then check using the `list` command.
+
 
 ### 8. Help command
 
