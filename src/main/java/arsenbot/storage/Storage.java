@@ -29,6 +29,7 @@ public class Storage {
      * @param filePath the file path to load and save tasks from/to
      */
     public Storage(String filePath) {
+        assert filePath != null : "File path should not be null";
         this.filePath = filePath;
     }
 
@@ -74,6 +75,7 @@ public class Storage {
      * @throws IOException if an I/O error occurs during file writing
      */
     public void save(List<Task> tasks) throws IOException {
+        assert tasks != null : "Task list should not be null";
         File directory = new File("./data");
         if (!directory.exists()) {
             directory.mkdir();
