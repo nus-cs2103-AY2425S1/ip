@@ -21,7 +21,7 @@ public class RemindCommand extends Command {
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
 
-            if (DAYS.between(today, task.getDate()) < 3) {
+            if (0 <= DAYS.between(today, task.getDate()) & DAYS.between(today, task.getDate()) < 3) {
                 remindTasks.add(task);
             }
         }
