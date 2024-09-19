@@ -49,7 +49,7 @@ public class TaskList {
 
     /**
      * Gets the task at the specfied index of the tasklist
-     * @param index index of task to retrieve
+     * @param index
      * @return a task
      */
     static Task getTask(int index) {
@@ -100,8 +100,7 @@ public class TaskList {
      * tasklist
      * @param tasksToRead an array of strings representing tasks in csv format.
      */
-    static void load(ArrayList<String> tasksToRead) {
-        TASKS.clear();
+    private static void load(ArrayList<String> tasksToRead) {
         final String DELIMITER = ",";
         for (String taskToParse : tasksToRead) {
             String[] tokens = taskToParse.split(DELIMITER);

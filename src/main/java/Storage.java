@@ -16,10 +16,21 @@ public class Storage {
     private Storage() {
     }
 
+    /** The singular instance of storage.*/
+    private final static Storage STORAGE = new Storage();
     /** The default file path for storing and writing data */
     private static final Path FILE_PATH = Path.of("./data/tasks.csv");
     /** The default directory path for storing and writing data */
     private static final Path DIRECTORY_PATH = Path.of("./data/");
+
+    /**
+     * Default factory method of Storage. Returns the singular instance
+     * STORAGE, with the default file and directory paths
+     * @return The singular instance of storage
+     */
+    public static Storage of() {
+        return STORAGE;
+    }
 
     /**
      * Saves the current TaskList to file. The tasks are converted into csv
@@ -32,10 +43,8 @@ public class Storage {
             try {
                 Files.createDirectories(DIRECTORY_PATH);
             } catch (IOException e) {
-                System.out.println("""
-                        Oh no! I can't create the file directory.
-                        Check out the error message to see what went wrong
-                        """);
+                System.out.println("Oh no! I can't create the file directory.\n" +
+                        "Check out the error message to see what went wrong\n");
                 e.printStackTrace();
             }
         }
@@ -44,10 +53,8 @@ public class Storage {
             try {
                 Files.createFile(FILE_PATH);
             } catch (IOException e) {
-                System.out.println("""
-                        Oh no! I can't create your save file.
-                        Check out the error message to see what went wrong
-                        """);
+                System.out.println("Oh no! I can't create your save file.\n" +
+                        "Check out the error message to see what went wrong\n");
                 e.printStackTrace();
             }
         }
@@ -86,10 +93,8 @@ public class Storage {
                 try {
                     Files.createDirectories(DIRECTORY_PATH);
                 } catch (IOException e2) {
-                    System.out.println("""
-                            Oh no! I can't save your file.
-                            Check out the error message to see what went wrong
-                            """);
+                    System.out.println("Oh no! I can't save your file.\n" +
+                            "Check out the error message to see what went wrong\n");
                     e2.printStackTrace();
                 }
             }
@@ -99,10 +104,8 @@ public class Storage {
                 try {
                     Files.createFile(FILE_PATH);
                 } catch (IOException e2) {
-                    System.out.println("""
-                            Oh no! I can't save your file.
-                            Check out the error message to see what went wrong
-                            """);
+                    System.out.println("Oh no! I can't save your file.\n" +
+                            "Check out the error message to see what went wrong\n");
                     e2.printStackTrace();
                 }
             }

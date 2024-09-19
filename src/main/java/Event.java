@@ -1,9 +1,10 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task{
-    private final LocalDateTime from;
-    private final LocalDateTime to;
+    private LocalDateTime from;
+    private LocalDateTime to;
 
     /**
      * Private constructor for a Task
@@ -37,12 +38,13 @@ public class Event extends Task{
 
     @Override
     public String toString() {
-        String str = "[E]" +
-                super.toString() +
-                String.format("(From: %s To: %s)",
-                        from.format(DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm")),
-                        to.format(DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm")));
-        return str;
+        StringBuilder str = new StringBuilder();
+        str.append("[E]");
+        str.append(super.toString());
+        str.append(String.format("(From: %s To: %s)",
+                from.format(DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm")),
+                to.format(DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm"))));
+        return str.toString();
     }
 
     /**
@@ -51,7 +53,13 @@ public class Event extends Task{
      */
     @Override
     protected String toCsv() {
-        String csv = "Event,%s,%s,%s".formatted(super.toCsv(), this.from, this.to);
-        return csv;
+        StringBuilder csv = new StringBuilder();
+        csv.append("Event,");
+        csv.append(super.toCsv());
+        csv.append(",");
+        csv.append(this.from);
+        csv.append(",");
+        csv.append(this.to);
+        return csv.toString();
     }
 }

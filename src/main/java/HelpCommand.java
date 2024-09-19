@@ -57,10 +57,12 @@ public class HelpCommand extends Command {
                     return new HelpCommand(helpDescription);
                 }
                 default -> {
-                    return new HelpCommand();
+                    String helpDescription = "I'm sorry, I can't help you with that. Did you type the " +
+                            "command correctly? \nUsage: help <command>";
                 }
             }
         }
+
         return new HelpCommand();
     }
     /**

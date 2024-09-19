@@ -11,21 +11,23 @@ public class Lewis {
     }
 
     public void run() {
+        Ui ui = Ui.of();
+        Storage storage = Storage.of();
         Parser parser = Parser.of();
         init();
-        Ui.printLine();
+        ui.printLine();
         System.out.println("Hello! My name is Lewis, a chatbot.\nHow can I help you?");
 
         while (!isExit) {
-            String userInput = Ui.readLine();
+            String userInput = ui.readLine();
             try {
                 Command command = parser.parseCommand(userInput);
                 Lewis.isExit = command.isExit();
                 command.execute();
             } catch (LewisException e) {
-                Ui.printString(e.getMessage());
+                ui.printString(e.getMessage());
             } finally {
-                Ui.printLine();
+                ui.printLine();
             }
         }
     }
