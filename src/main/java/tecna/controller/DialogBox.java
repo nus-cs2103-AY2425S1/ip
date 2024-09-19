@@ -40,7 +40,7 @@ public class DialogBox extends HBox {
         displayPicture.setFill(new ImagePattern(img));
         dialog.setText(text);
         this.getStylesheets().add(getClass().getResource("/style/DialogBox.css").toExternalForm());
-        dialog.setMaxWidth(200);
+//        dialog.setMaxWidth(200);
         dialog.setWrapText(true);
     }
 
