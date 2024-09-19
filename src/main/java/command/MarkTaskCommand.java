@@ -40,7 +40,7 @@ public class MarkTaskCommand extends Command {
      * @param storage  The storage object, which is not used in this command.
      */
     @Override
-    public String execute(TaskList taskList, Storage storage) {
+    public String execute(TaskList taskList, Storage storage) throws KukiShinobuException {
         return taskList.markAsDone(taskIndex);
     }
 }

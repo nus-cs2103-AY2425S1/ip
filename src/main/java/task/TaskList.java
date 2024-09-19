@@ -1,5 +1,8 @@
 package task;
 
+import exception.IndexOutOfBoundsKukiShinobuException;
+import exception.KukiShinobuException;
+
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -86,6 +89,10 @@ public class TaskList {
                 String.format("Now you have %s tasks in the list.", this.tasks.size());
     }
 
+    private boolean indexInRange(int i) {
+        return i >= 0 && i < this.tasks.size();
+    }
+
 
     /**
      * Marks a task as done based on its index in the list.
@@ -95,7 +102,10 @@ public class TaskList {
      *
      * @param taskIndex The index of the task to be marked as done (1-based index).
      */
-    public String markAsDone(int taskIndex) {
+    public String markAsDone(int taskIndex) throws KukiShinobuException {
+        if (!indexInRange(taskIndex - 1)) {
+            throw new IndexOutOfBoundsKukiShinobuException(taskIndex, this.tasks.size());
+        }
         return this.tasks.get(taskIndex - 1).markAsDone();
     }
 
@@ -107,7 +117,10 @@ public class TaskList {
      *
      * @param taskIndex The index of the task to be unmarked as done (1-based index).
      */
-    public String unmarkAsDone(int taskIndex) {
+    public String unmarkAsDone(int taskIndex) throws KukiShinobuException {
+        if (!indexInRange(taskIndex - 1)) {
+            throw new IndexOutOfBoundsKukiShinobuException(taskIndex, this.tasks.size());
+        }
         return this.tasks.get(taskIndex - 1).unmarkAsDone();
     }
 
@@ -132,7 +145,10 @@ public class TaskList {
      *
      * @param taskIndex The index of the task to be deleted (1-based index).
      */
-    public String deleteTask(int taskIndex) {
+    public String deleteTask(int taskIndex) throws IndexOutOfBoundsKukiShinobuException {
+        if (!indexInRange(taskIndex - 1)) {
+            throw new IndexOutOfBoundsKukiShinobuException(taskIndex, this.tasks.size());
+        }
         Task deletedTask = this.tasks.remove(taskIndex - 1);
         return this.generateDeletedTaskSummaryMessage(deletedTask);
     }

@@ -59,30 +59,35 @@ public class Tags {
     /**
      * Returns a string representation of the tags suitable for database storage.
      * <p>
-     * This method joins all tags in the {@code Tags} object into a single string,
-     * with each tag separated by a space. Tags are stored without any prefixes
-     * or special characters.
+     * The tags are encapsulated within square brackets, and each tag is separated by a comma.
+     * If there are no tags, the method returns empty square brackets.
      * </p>
      *
-     * @return A string representation of the tags, with each tag separated by a space.
+     * @return A string representation of the tags, encapsulated within square brackets and separated by commas.
      */
     public String getDatabaseString() {
-        return String.join(" ", this.tags);
+        return "[" + String.join(",", this.tags) + "]";
     }
 
     /**
      * Parses a string representation of tags from the database into a {@code HashSet<String>} object.
      * <p>
-     * The input string is expected to be a space-separated list of tags without any prefix
-     * or special characters. Each tag is extracted from the string and added to a new {@code HashSet<String>}
-     * object.
+     * The input string is expected to be encapsulated in square brackets with tags separated by commas.
+     * The method removes the square brackets, splits the tags by commas, and returns them in a {@code HashSet<String>}.
+     * If no tags are present, an empty {@code HashSet<String>} is returned.
      * </p>
      *
-     * @param databaseString The string containing tags separated by spaces, with no prefix.
-     * @return A {@code HashSet<String>} containing the parsed tags.
+     * @param databaseString The string containing tags separated by commas, encapsulated in square brackets.
+     * @return A {@code HashSet<String>} containing the parsed tags, or an empty set if no tags are present.
      */
     public static HashSet<String> parseDatabaseString(String databaseString) {
-        // Split the string by spaces and create a HashSet from the resulting array
-        return new HashSet<>(Arrays.asList(databaseString.split(" ")));
+        // Remove the square brackets and split by commas
+        String cleanedString = databaseString.substring(1, databaseString.length() - 1);
+        // If the string is empty, return an empty HashSet
+        if (cleanedString.isEmpty()) {
+            return new HashSet<>();
+        }
+        return new HashSet<>(Arrays.asList(cleanedString.split(",")));
     }
+
 }

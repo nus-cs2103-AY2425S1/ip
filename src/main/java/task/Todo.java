@@ -40,17 +40,19 @@ public class Todo extends Task {
 
 
     /**
-     * Returns a string representation of the {@code Todo} for display purposes.
+     * Returns a string representation of the {@code Todo} task for display purposes.
      * <p>
-     * The string format is "[T][task details]". The task details include the status icon and description.
+     * The string format is "[T][task details] [tags]". The task details include the status icon and description.
+     * A space is added between the task description and the tags.
      * </p>
      *
-     * @return A string representation of the {@code Todo} for display.
+     * @return A string representation of the {@code Todo} task for display.
      */
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return "[T]" + super.toString() + " " + this.tags.toString();
     }
+
 
     /**
      * Returns a string representation of the {@code Todo} suitable for database storage.
