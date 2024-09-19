@@ -1,14 +1,36 @@
 # Sunny User Guide
-**Sunny is my dog. She is kinda smart so she can help you 
+## Product Introduction
+Sunny is my dog. She is kinda smart so she can help you 
 keep track of your tasks, check out the instructions below
-to find out more!** 
+to find out more!
 
 
-## Example of the user interface: 
+## Product User Interface 
 ![Image of the actual user interface](Ui.png)
 
+## Getting Started
+To get started with Sunny, follow these steps:
 
-## Adding deadlines: `deadline`
+1. Ensure you have Java 17 or above installed in your Computer.
+2. Under GitHub Releases, download the latest version of the jar file of the sunny chatbot (named sunny.jar).
+3. From your home directory, navigate to the Downloads folder using the cd command in the terminal (e.g. cd Downloads).
+4. Run the command java -jar sunny.jar. A GUI similar to the one provided above under Product User Interface should 
+   appear.
+5. You can now interact with Sunny! Full list of features of sunny are included below.
+## Features
+
+>Notes about command format
+> 
+> - Words in UPPERCASE are parameters to be supplied by the user
+> - If command is entered incorrectly, 
+> you will recieve a `invalid command:((`. It could be due to
+>   - wrong command format
+>   - wrong date format
+>   - invalid date
+> - If no command is entered, the system will prompt
+> you with 'Please specify a task'
+
+### 1. Adding deadlines: `deadline`
 
 Add a task with deadline.
 
@@ -25,7 +47,7 @@ Got it! added the task:
 Now you have 2 tasks in the list
 ```
 
-## Adding to do tasks: `todo`
+### 2. Adding to do tasks: `todo`
 
 Add a task.
 
@@ -41,7 +63,7 @@ Got it! added the task:
 Now you have 2 tasks in the list
 ```
 
-## Adding events: `event`
+### 3. Adding events: `event`
 
 Add a event with start and end date specified. 
 Event is considered a subset of task.
@@ -60,7 +82,7 @@ Got it! added the task:
 Now you have 2 tasks in the list
 ```
 
-## Listing tasks: `list`
+### 4. Listing tasks: `list`
 
 List all tasks, both marked and unmarked
 
@@ -73,7 +95,7 @@ Example output:
 3. ...
 ```
 
-## Finding tasks: `find`
+### 5. Finding tasks: `find`
 
 Finding a specific task through the task description
 
@@ -89,7 +111,7 @@ Example output:
 ```
 
 
-## Completing a task: `mark`
+### 6. Completing a task: `mark`
 
 Marking a task as complete in the list.
 
@@ -111,7 +133,7 @@ Marked the task as done
 [T][x] eat lunch with friend
 ```
 
-## Undoing a task: `unmark`
+### 7. Undoing a task: `unmark`
 
 undoing a marked task in the list.
 
@@ -133,7 +155,7 @@ Task undone
 [T][] eat lunch with friend
 ```
 
-## Deleting tasks: `delete`
+### 8. Deleting tasks: `delete`
 
 Deleting a task from the list.
 
@@ -156,7 +178,7 @@ Got it! Removed the task:
 Now you have 2 tasks in the list
 ```
 
-## Snoozing tasks: `snooze`
+### 9. Snoozing tasks: `snooze`
 
 Snooze the deadline for tasks. 
 Only applicable to tasks with deadlines.
