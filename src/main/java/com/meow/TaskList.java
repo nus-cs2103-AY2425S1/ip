@@ -112,7 +112,7 @@ public class TaskList {
             return "    Meow THIS TASK IS ALREADY UNMARKED !!! ";
         } else {
             tasks.get(index - 1).setDone(false);
-            String icon = "[" + tasks.get(index - 1).getCompetionChar() +"]";
+            String icon = "[" + tasks.get(index - 1).getCompletionChar() +"]";
             return "    Meow has unmarked this task as done:\n      " + icon +tasks.get(index - 1).getTaskName();
         }          
     }

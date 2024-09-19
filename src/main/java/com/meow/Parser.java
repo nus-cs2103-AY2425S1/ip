@@ -17,7 +17,6 @@ public class Parser {
     /**
      * Constructor for Parser class
      * @param TaskList
-     * @return void
      */
     public Parser(TaskList taskList) {
         this.taskList = taskList;
@@ -28,7 +27,7 @@ public class Parser {
      * @param String inputType
      * @return String
      */
-    public String commandValidation(String inputType) throws Meowception {
+    public String validateCommand(String inputType) throws Meowception {
         try {         
             String[] parts = inputType.split(" ");
             Commands userCommand = Commands.valueOf(parts[0].toUpperCase());
@@ -42,12 +41,11 @@ public class Parser {
 
     /*
      * Outputs the task based on the command
-     * @param Commands cmd
-     * @param String inputType
-     * @return String
+     * @param Commands cmd representing the enum
+     * @param String inputType representing the input written by the user
+     * @return String msg representing the message to be displayed
      */
-    private String outputTask(Commands cmd,String inputType) throws Meowception {
-        //System.out.println(inputType.substring(5).trim());
+    private String outputTask(Commands cmd, String inputType) throws Meowception {
         switch (cmd) {
             case MARK:
                 try {
@@ -63,7 +61,6 @@ public class Parser {
                     Meowception err = new Meowception("100");
                     throw err;
                 }
-                // errorMsg("Meow meow you need to enter a task number to mark !!!");
                 
             case UNMARK:
                 try {
@@ -81,13 +78,11 @@ public class Parser {
                 } 
             case LIST:
                 return taskList.displayList();
-                // displayList();
     
             case TODO:
                 try {
                     Task todoTask = parseTodoTask(inputType.substring(5));
                     return taskList.addTask(todoTask);
-                    //return taskList.addTodoTask(inputType.substring(5));
                 } catch (Meowception e) {
                     throw e;
                 } catch (StringIndexOutOfBoundsException e) {
@@ -98,9 +93,9 @@ public class Parser {
             case DEADLINE:
                 // Cleaning data so that it identifies deadline correctly and the task.
                 try {
+
                     Task deadlineTask = parseDeadlineTask(inputType.substring(9));
                     return taskList.addTask(deadlineTask);
-                    //return taskList.addDeadlineTask(inputType.substring(9));
                 } catch (Meowception err) {
                     throw err;
                 } catch (StringIndexOutOfBoundsException e) {
@@ -109,18 +104,13 @@ public class Parser {
                 } 
                 
             case EVENT:
-                // Lazy clean so nice for event. no way we introduce a new command called eventsmth...
                 try {
                     Task eventTask = parseEventTask(inputType.substring(6));
                     return taskList.addTask(eventTask);
-                    //return taskList.addTask(inputType.substring(6));
-                    //TaskList.addEventTask(inputType.substring(6));
                 } catch (Meowception err) {
-                    //errorMsg(err.toString());
                     throw err;
                 } catch (StringIndexOutOfBoundsException e) {
                     Meowception err = new Meowception("100");
-                    //errorMsg(err.toString());
                     throw err;
                 }
             
@@ -156,13 +146,14 @@ public class Parser {
                 break;
             } 
 
+        
             throw new Meowception("001");
         }
             
     /*
      * Parses the input command and returns a task
-     * @param String task
-     * @return String
+     * @param String task input from the user
+     * @return String which is the list
      */
     private String parseFindTask(String task) throws Meowception {
         String keyword = task.substring(5).trim();
@@ -173,7 +164,7 @@ public class Parser {
     
     /*
      * Parses the input command and returns a todo task
-     * @param String command
+     * @param String command input from the user
      * @return Todo task
      */
     private Task parseTodoTask(String command) throws Meowception {
@@ -186,7 +177,7 @@ public class Parser {
 
     /*
      * Parses the input command and returns a deadline task
-     * @param String command
+     * @param String command input from the user
      * @return Deadline task
      */
     private Task parseDeadlineTask(String command) throws Meowception {
@@ -207,7 +198,7 @@ public class Parser {
     
     /*
      * Parses the input command and returns an event task
-     * @param String command
+     * @param String command input from the user
      * @return Event task
      */
     private Task parseEventTask(String command) throws Meowception {
@@ -229,12 +220,7 @@ public class Parser {
 
         }
     }
-
-    /*
-     * Parses the input command and returns a task
-     * @param String task
-     * @return String
-     */
+    
     /*
      * Parses the input command and returns the task to be unmarked
      * @param String task
@@ -279,13 +265,6 @@ public class Parser {
             return taskList.deleteTask(number);
         }
     }
-
-
-
-
-
-
-
 
     /*
      * Closes the scanner

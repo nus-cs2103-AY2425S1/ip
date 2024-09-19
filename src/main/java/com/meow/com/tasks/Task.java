@@ -16,12 +16,12 @@ public class Task {
     public boolean isDone() {
         return this.isDone;
     }
-    public String getCompetionChar() {
+    public String getCompletionChar() {
         return isDone ? "X" : " ";
     }
 
     public String toString() {
-        return "[" + getCompetionChar() + "] " + taskName;
+        return "[" + getCompletionChar() + "] " + taskName;
     }
 
     public String getExtra() {
