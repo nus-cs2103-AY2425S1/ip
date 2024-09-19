@@ -23,7 +23,7 @@ public class AddCommand extends Command {
     @Override
     public String execute(Storage storage, TaskList tasks, Ui ui) {
         tasks.addTask(task);
-        return ui.printWithSeparator("Got it. I've added this task:") + ui.printWithSeparator(task.toString())
+        return "Got it. I've added this task:" + ui.printWithSeparator(task.toString())
                 + ui.printWithSeparator(tasks.toString());
     }
 }

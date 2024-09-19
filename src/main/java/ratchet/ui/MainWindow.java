@@ -37,15 +37,17 @@ public class MainWindow extends AnchorPane {
 
     public void setRatchet(Ratchet ratchet) {
         this.ratchet = ratchet;
-        dialogContainer.getChildren().add(DialogBox.getRatchetDialog(ratchet.getUi().greet(), ratchetImage));
+        dialogContainer.getChildren()
+                .add(DialogBox.getRatchetDialog(ratchet.getUi().greet(), ratchetImage, false));
     }
 
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
         String response = ratchet.getResponse(input);
+        boolean isError = response.startsWith("Invalid");
         dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userImage),
-                DialogBox.getRatchetDialog(response, ratchetImage));
+                DialogBox.getRatchetDialog(response, ratchetImage, isError));
         userInput.clear();
         if (input.equals("bye")) {
             userInput.setVisible(false);

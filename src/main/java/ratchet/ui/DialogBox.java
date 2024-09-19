@@ -1,8 +1,5 @@
 package ratchet.ui;
 
-import java.io.IOException;
-import java.util.Collections;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,6 +10,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+
+import java.io.IOException;
+import java.util.Collections;
 
 /**
  * Dialog box for GUI
@@ -55,10 +55,17 @@ public class DialogBox extends HBox {
      * @param img  Image to be displayed.
      * @return A ratchet dialog box.
      */
-    public static DialogBox getRatchetDialog(String text, Image img) {
+    public static DialogBox getRatchetDialog(String text, Image img, boolean isError) {
         var db = new DialogBox(text, img);
         db.flip();
+        db.changeDialogStyle(isError);
         return db;
+    }
+
+    private void changeDialogStyle(boolean isError) {
+        if (isError) {
+            dialog.getStyleClass().add("error-label");
+        }
     }
 
     private void flip() {
@@ -66,5 +73,6 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+        dialog.getStyleClass().add("reply-label");
     }
 }

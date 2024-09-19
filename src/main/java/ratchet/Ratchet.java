@@ -36,7 +36,7 @@ public class Ratchet {
             Command command = parser.parse(input);
             return command.execute(storage, tasks, ui);
         } catch (RatchetException e) {
-            return ui.printWithSeparator(e.getMessage());
+            return e.getMessage();
         }
     }
 }

@@ -1,0 +1,33 @@
+.label {
+    -fx-background-color: #41ab00;
+    -fx-border-color: #41ab00;
+    -fx-border-width: 1px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-padding: 6px;
+    -fx-border-insets: 0px 7px 0px 7px;
+    -fx-background-insets: 0px 7px 0px 7px;
+    -fx-font: 16px "Arial";
+}
+
+.reply-label {
+    -fx-background-color: #008edb;
+    -fx-border-color: #008edb;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+}
+
+.error-label {
+    -fx-background-color: #d05c43;
+    -fx-border-color: #d05c43;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.1, 3, 3);
+
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    -fx-rotate: 0;
+}
+
