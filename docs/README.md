@@ -1,6 +1,6 @@
 # Gopher User Guide
 
-![ScreenShot of Gopher's UI for showcase to the user]("/assets/images/Ui.png")
+<img src="Ui.png" alt="ScreenShot of Gopher's UI for showcase to the user" />
 
 ## Menu
 - [Introduction](#introduction)
@@ -22,9 +22,9 @@
     - [Exit](#exit)
 
 ## Introduction
-Having issue managing and tracking your tasks? Gopher is here to help you!
-Just tell Gopher what you want to track, and Gopher can remember everything for you!
-Store, Manage and Query the tasks just like how you talk to a person in real life!
+Having issue managing and tracking your tasks? Gopher is here to help you!\
+Just tell Gopher what you want to track, and Gopher can remember everything for you!\
+Store, Manage and Query the tasks just like how you talk to a person in real life!\
 
 ## Feature List
 1. Add Task(which can be todo, deadline or event)
@@ -46,8 +46,9 @@ Setting up Gopher is easier than you think! Just follow these simple steps and y
 4. Start managing your task with Gopher!!!
 
 ## DateTime formats accepted by Gopher:
+
 | Date Time Format  | Example            |
-|-------------------|--------------------|
+| ----------------- | ------------------ |
 | YYYY-MM-DD        | 2024-09-11         |
 | YYYY-MM-DD HH:mm  | 2024-09-11 10:00   |
 
@@ -60,83 +61,84 @@ With a command:
 - `{text}` are optional part of the command
 
 ### Add todo
-Todo is a type of task that only contains description/name of the task, it can be created using:
-`todo [taskName]`
+Todo is a type of task that only contains description/name of the task, it can be created using:\
+`todo [taskName]`\
 
 Example: `todo Wash Clothes`
 
 ### Add deadline
-Deadline is a type of task that contains a due date, it can be created using:
-`deadline [taskName] /by [due date time]`
+Deadline is a type of task that contains a due date, it can be created using:\
+`deadline [taskName] /by [due date time]`\
 
 Example: `deadline iP Final Submission /by 2024-09-20 23:59`
 
 ### Add event
-Event is a type of task that contains a start and end date, it can created using:
-`event [taskName] /from [start date time] /to [end date time]`
+Event is a type of task that contains a start and end date, it can created using:\
+`event [taskName] /from [start date time] /to [end date time]`\
 
 Example: `event Orbital Splashdown /from 2024-08-28 16:00 /to 2024-08-28 21:00`
 
 ### List all tasks
-You can list out all the tasks that are current tracked by Gopher using:
+You can list out all the tasks that are current tracked by Gopher using:\
 `list`
 
 ### Mark tasks as done
-You can mark multiple tasks as done using:
-`mark [task number]...`
+You can mark multiple tasks as done using:\
+`mark [task number]...`\
 
 For example: `mark 1 2 3`
 
 ### Mark tasks as not done
-You can mark multiple tasks as not done using:
-`unmark [task number]...`
+You can mark multiple tasks as not done using:\
+`unmark [task number]...`\
 
 For example: `unmark 1 2 3`
 
 ### Update todo
 You can update a todo task using:
-`update [task number] [new task name]`
+`update [task number] [new task name]`\
 
-For example:
-If you want to update a todo task with task number 1 with new task name `Assignment 1`, input:
+For example:\
+If you want to update a todo task with task number 1 with new task name `Assignment 1`, input:\
 `update 1 Assignment 1` 
 
 ### Update deadline
 You can update a deadline task using:
-`deadline [task number] {new task name} {/by new due date time}`
-For example:
-If you want to update a deadline task with task number 2 with the following information:
+`deadline [task number] {new task name} {/by new due date time}`\
+For example:\
+If you want to update a deadline task with task number 2 with the following information:\
 - New task name: `CS2101 OP1 Synopsis`
-- New due date time: `2024-09-12`
-You can input the update command like this:
+- New due date time: `2024-09-12`\
+You can input the update command like this:\
 `update 2 CS2101 OP1 Synopsis /by 2024-09-12`
 
 ### Update event
-You can update an event task using:
+You can update an event task using:\
 `event [task number] {new task name} {/from new start date time} {/to new end date time}`
 
 For example: 
 If you want to update an event task with task number 3 with the following information:
 - New task name: `CS2100 Midterm Exam`
 - New start date time: `2024-10-10 10:00`
-- New end date time: `2024-10-10 12:00`
-You can input the update command like this:
+- New end date time: `2024-10-10 12:00`\
+You can input the update command like this:\
 `update 3 CS2100 Midterm Exam /from 2024-10-10 10:00 /to 2024-10-10 12:00`
 
 ### Find tasks
-You can find tasks that match a certain keyword using:
+You can find tasks that match a certain keyword using:\
 `find [keyword]`
 
-For example:
-If you want to find all tasks tracked by Gopher that contains the keyword `Orbital`, input:
+For example:\
+If you want to find all tasks tracked by Gopher that contains the keyword `Orbital`, input:\
 `find Orbital`
 
 ### Delete tasks
-You can delete multiple tasks using:
+You can delete multiple tasks using:\
 `delete [task number]...`
 
 For example: `delete 1 2 3`
 
 ### Exit
-You can say goodbye to Gopher using:
-`bye` OR simply close the application window
+You can say goodbye to Gopher using:\
+`bye`\
+OR simply close the application window
