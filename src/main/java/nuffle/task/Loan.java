@@ -63,6 +63,6 @@ public class Loan extends Task {
 
     @Override
     public String toString() {
-        return "[L] " + getBorrower() + " owes " + getLender() + " $" + getAmount() + ", due by " + getDueDate() + (isPaid ? " (repaid)" : " (pending)");
+        return "[L] " + getBorrower() + " owes " + getLender() + " $" + getAmount() + ", due by " + getDueDate().format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a")) + (isPaid ? " (repaid)" : " (pending)");
     }
 }

@@ -99,7 +99,6 @@ public class LoanCommand extends Command {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         LocalDateTime from = LocalDateTime.parse(dueDateTime, formatter);
         Task loanTask = new Loan(desc.get(0).trim(), desc.get(1).trim(), amount, from);
-        System.out.println(loanTask.getDescription());
 
         loans.addTask(loanTask);
         return ui.addTaskMessage(loanTask, loans.getSize());
