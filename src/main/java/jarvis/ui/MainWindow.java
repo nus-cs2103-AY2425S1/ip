@@ -55,18 +55,6 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().add(
                 DialogBox.getJarvisDialog("here are your previous tasks:", jarvisImage)
         );
-        dialogContainer.getChildren().add(
-                DialogBox.getJarvisDialog("here are some simple commands!\n"
-                       +  "Todo\n"
-                       +  "Event\n"
-                       +  "Deadline\n"
-                       +  "Find\n"
-                       +  "List\n"
-                       +  "Delete\n"
-                       +  "Mark/Unmark\n"
-                        , jarvisImage)
-        );
-
 
 
         Storage storage = Storage.getInstance(); // Get the singleton instance of Storage
@@ -75,17 +63,33 @@ public class MainWindow extends AnchorPane {
         try {
             List<String> savedTasks = Files.readAllLines(Paths
                     .get(Storage.LOAD_SAVE));
-
+            String tasks = "";
             // Add each saved task to the dialog container
             for (String task : savedTasks) {
                 if(!task.equals("")) {
-                    dialogContainer.getChildren().add(
-                            DialogBox.getJarvisDialog(task,
-                                    userImage)
-                    );
+                    tasks += task + "\n";
+
                 }
             }
+            dialogContainer.getChildren().add(
+                    DialogBox.getJarvisDialog(tasks,
+                            userImage)
+            );
+
             storage.clearFile();
+
+            dialogContainer.getChildren().add(
+                    DialogBox.getJarvisDialog("here are some simple commands!\n"
+                                    +  "Todo\n"
+                                    +  "Event\n"
+                                    +  "Deadline\n"
+                                    +  "Find\n"
+                                    +  "List\n"
+                                    +  "Delete\n"
+                                    +  "Mark/Unmark\n"
+                            , jarvisImage)
+            );
+
         } catch (IOException e) {
             dialogContainer.getChildren().add(
                     DialogBox.getJarvisDialog("An error occurred while loading saved tasks.",

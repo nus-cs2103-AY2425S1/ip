@@ -1,5 +1,7 @@
 package jarvis.logic;
 
+import java.lang.reflect.InvocationTargetException;
+
 /**
  * The {@code Parser} class is responsible for parsing user input and executing
  * the corresponding commands on the {@link TaskList}.
@@ -37,6 +39,8 @@ public class Parser {
                 }
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("index error!");
+            } catch(NumberFormatException e) {
+                System.out.println("wrong input format!\n");
             }
 
             return;  // Early exit after handling mark, unmark, or delete
@@ -87,13 +91,16 @@ public class Parser {
                 }
             } catch (IndexOutOfBoundsException e) {
                 result.append("index error!\n");
+            } catch(NumberFormatException e) {
+                result.append("wrong input format!\n");
             }
 
             return result.toString();  // Return after processing mark, unmark, or delete
         }
 
         if (input.startsWith("find")) {
-            String toFind = input.substring(5).trim();  // Extract the search query after "find"
+            String toFind = input.substring(4).trim();
+            toFind = toFind.trim();// Extract the search query after "find"
             result.append(tasklist.find(toFind));
             return result.toString();
         }

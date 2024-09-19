@@ -157,6 +157,9 @@ public class TaskList {
      * @param toFind the search string.
      */
     public String find(String toFind) {
+        if(toFind.equals("")){
+            return "Please enter a task to find";
+        }
         int counter = 0;
         StringBuilder result = new StringBuilder("");
         result.append("Here are the tasks matching \"").append(toFind).append("\":\n");
