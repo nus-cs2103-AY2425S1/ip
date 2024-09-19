@@ -105,6 +105,13 @@ public class Parser {
         return msg;
     }
 
+    /**
+     * Returns the task number by extracting from String representing user input.
+     *
+     * @param input User input from Scanner as String.
+     * @return An integer representing the task number.
+     * @throws WinnerException If input does not match a task number or if there are issues with the input format.
+     */
     public static int getTaskNumber(String input) throws WinnerException {
         String numberString = input.replaceAll("[^0-9]", "");
         if (numberString.isEmpty()) {

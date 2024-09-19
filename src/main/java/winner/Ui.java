@@ -68,7 +68,7 @@ public class Ui {
     /**
      * Displays a farewell message when the user exits the application.
      *
-     * @return String containing faraewell message.
+     * @return String containing farewell message.
      */
     public static String winnerSaysBye() {
         return """

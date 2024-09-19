@@ -20,7 +20,7 @@ public class TaskList {
     }
 
     /**
-     * Return the ArrayList list of tasks.
+     * Returns the ArrayList list of tasks.
      *
      * @return ArrayList list of tasks.
      */

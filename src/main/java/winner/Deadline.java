@@ -6,7 +6,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents a Deadline task which includes a deadline which can be represented with a date or both a date and time
+ * Represents a Deadline task which includes a deadline which can be represented with a date or both a date and time.
  */
 public class Deadline extends Task {
     protected LocalDateTime byDateTime;

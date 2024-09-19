@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class WinnerTaskBotCli {
 
     /**
-     * Main loop of the Winner task tracking bot.
+     * Represents the main loop of the Winner task tracking bot.
      * Uses a Scanner to continuously listen for user inputs, processes commands by parsing them
      * and interacts with the user.
      * Exits when the user inputs a command containing "bye".
