@@ -11,6 +11,11 @@ public abstract class Task {
     protected String taskName;
     protected boolean isDone;
 
+    /**
+     * Constructs Task instance.
+     *
+     * @param taskName Name of the task.
+     */
     public Task(String taskName) {
         this.taskName = taskName;
         this.isDone = false;

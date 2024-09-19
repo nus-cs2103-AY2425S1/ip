@@ -6,11 +6,22 @@ package tecna.task;
  * @author DennieDan.
  */
 public class ToDo extends Task {
-
+    /**
+     * Constructs a ToDo task instance.
+     *
+     * @param taskName
+     */
     public ToDo(String taskName) {
         super(taskName);
     }
 
+    /**
+     * Constructs a ToDo task with <code>isDone</code>
+     * mostly when parsing tasks from the storage file.
+     *
+     * @param taskName Name of the task.
+     * @param isDone Done status of the task.
+     */
     public ToDo(String taskName, boolean isDone) {
         super(taskName);
         if (isDone) {

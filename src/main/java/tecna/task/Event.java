@@ -13,12 +13,28 @@ public class Event extends Task {
     protected LocalDateTime from;
     protected LocalDateTime to;
 
+    /**
+     * Constructs an Event task instance.
+     *
+     * @param taskName Name of the task.
+     * @param from Start time of the task.
+     * @param to End time of the task.
+     */
     public Event(String taskName, LocalDateTime from, LocalDateTime to) {
         super(taskName);
         this.from = from;
         this.to = to;
     }
 
+    /**
+     * Constructs an Event task with <code>isDone</code>
+     * mostly when parsing tasks from the storage file.
+     *
+     * @param taskName Name of the task.
+     * @param isDone Done status of the task.
+     * @param from Start time of the task.
+     * @param to End time of the task.
+     */
     public Event(String taskName, boolean isDone, LocalDateTime from, LocalDateTime to) {
         super(taskName);
         assert from.isBefore(to); // This has been checked by CommandScanner.
