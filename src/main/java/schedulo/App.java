@@ -14,7 +14,7 @@ import javafx.stage.Stage;
  */
 public class App extends Application {
 
-    private Schedulo schedulo = new Schedulo("data/data.txt");
+    private Schedulo schedulo = new Schedulo("./data/data.txt");
 
     @Override
     public void start(Stage stage) {

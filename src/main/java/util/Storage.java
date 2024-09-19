@@ -36,10 +36,17 @@ public class Storage {
     public ArrayList<Task> load() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
+        File parentDir = file.getParentFile();
+        
+        if (parentDir != null && !parentDir.exists()) {
+            parentDir.mkdirs();
+        }
+        
         if (!file.exists()) {
             file.createNewFile();
             return tasks;
         }
+        
         try (Scanner fileReader = new Scanner(file)) {
             while (fileReader.hasNext()) {
                 String taskLine = fileReader.nextLine();
