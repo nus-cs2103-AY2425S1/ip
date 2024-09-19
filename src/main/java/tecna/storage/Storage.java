@@ -50,6 +50,7 @@ public class Storage {
     }
 
     /**
+     * Sets the <code>file</code> attribute according to the <code>filePath</code>.
      *
      * @return A file according to the filePath attribute
      *
@@ -60,6 +61,13 @@ public class Storage {
         this.file = createFileIfDoesNotExist(this.filePath);
     }
 
+    /**
+     * Finds the indicated file or creates the file if it does not exist.
+     *
+     * @param filePath Path of the file.
+     * @return A file storing the app data.
+     * @throws TecnaStorageException If there are errors when working with files.
+     */
     private File createFileIfDoesNotExist(String filePath) throws TecnaStorageException {
         try {
             File file = new File(filePath);
@@ -80,6 +88,7 @@ public class Storage {
 
     /**
      * Parses the tasks data in the tecna.json file into an ArrayList of Task(s).
+     *
      * @return an ArrayList of Tasks.
      * @throws IOException when there are problems accessing the data file.
      * @throws JsonLoadingException when there are missing attributes required to fully parse the data.
