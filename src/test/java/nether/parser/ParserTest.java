@@ -77,7 +77,7 @@ public class ParserTest {
     @Test
     void extractInputDetails_validEventInput_returnsCorrectDetails() throws NetherException {
         String[] result = parser.extractInputDetails("event Project meeting /from 2024-09-01 /to 2024-09-02", "event");
-        assertArrayEquals(new String[]{"Project meeting", "", "2024-09-01 ", "2024-09-02"}, result);
+        assertArrayEquals(new String[]{"Project meeting", "", "2024-09-01", "2024-09-02"}, result);
     }
 
     @Test
