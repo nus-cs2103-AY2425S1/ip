@@ -1,7 +1,5 @@
 package fret;
 
-import javafx.util.Pair;
-
 import ps.Parser;
 import ps.Storage;
 
@@ -38,7 +36,7 @@ public class Fret {
      * @param input input from the user.
      * @return Fret's reply to the user.
      */
-    public Pair<String, Boolean> getResponse(String input) {
+    public String getResponse(String input) {
         Command userCommand = Parser.parse(input);
         boolean isExit = userCommand.isExitCommand();
 
@@ -46,7 +44,6 @@ public class Fret {
             storage.writeTasksToMemory(userTasks.taskListToFile());
         }
         
-        String result = userCommand.execute(userTasks);
-        return new Pair<String, Boolean>(result, isExit);
+        return userCommand.execute(userTasks);
     }
 }

@@ -8,8 +8,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-import javafx.util.Pair;
-
 import fret.Fret;
 
 /**
@@ -36,7 +34,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        Image image = new Image("/images/person.png");
+        Image image = new Image("/images/SideImg.png");
         imageView.setImage(image);
     }
 
@@ -60,15 +58,12 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         if (!input.isBlank()) {
-            Pair<String, Boolean> response = fret.getResponse(input);
+            String response = fret.getResponse(input);
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getBotDialog(response.getKey(), dukeImage)
+                    DialogBox.getBotDialog(response, dukeImage)
             );
             userInput.clear();
-            if (response.getValue()) {
-                // stage.close();
-            }
         }
     }
 }

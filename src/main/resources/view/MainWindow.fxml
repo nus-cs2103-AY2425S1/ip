@@ -9,24 +9,28 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainWindow">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="785.0" prefWidth="1234.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainWindow">
     <children>
-    <!-- Used ChatGPT here to help construct the layout of the banner image and the chat window next to it -->
-        <HBox layoutX="10.0" layoutY="10.0" prefHeight="650.0" prefWidth="600.0" spacing="20.0">
-            <ImageView fx:id="imageView" fitHeight="650.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true" />
+        <!-- HBox to arrange the ImageView and the chat window side by side, with reduced spacing -->
+        <HBox layoutX="0.0" layoutY="0.0" prefHeight="785.0" prefWidth="1300.0" spacing="10.0"> <!-- Reduced spacing -->
+            <!-- ImageView set to 785 pixels tall and 650 pixels wide, aligned to the left and top edges -->
+            <ImageView fx:id="imageView" fitHeight="785.0" fitWidth="650.0" pickOnBounds="true" preserveRatio="true" />
             
-            <VBox prefWidth="420.0" prefHeight="590.0">
-                <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="547.0" prefWidth="420.0" vvalue="1.0">
+            <!-- VBox for the chat window -->
+            <VBox prefWidth="620.0" prefHeight="785.0">
+                <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="727.0" prefWidth="620.0" vvalue="1.0">
                     <content>
-                        <VBox fx:id="dialogContainer" prefHeight="542.0" prefWidth="388.0" />
+                        <VBox fx:id="dialogContainer" prefHeight="722.0" prefWidth="600.0" />
                     </content>
                 </ScrollPane>
                 <HBox>
-                    <TextField fx:id="userInput" prefHeight="41.0" prefWidth="324.0" promptText="Enter something" onAction="#handleUserInput">
+                    <!-- Adjusted TextField width to fill the available space -->
+                    <TextField fx:id="userInput" prefHeight="41.0" prefWidth="534.0" promptText="Enter something" onAction="#handleUserInput">
                         <font>
                             <Font size="10.0" />
                         </font>
                     </TextField>
+                    <!-- Button width remains the same, ensuring "Send" text is not truncated -->
                     <Button fx:id="sendButton" mnemonicParsing="false" prefHeight="41.0" prefWidth="76.0" text="Send" onAction="#handleUserInput" />
                 </HBox>
             </VBox>
