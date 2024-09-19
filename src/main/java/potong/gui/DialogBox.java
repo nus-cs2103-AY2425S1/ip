@@ -61,7 +61,9 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getIntroDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var db = new DialogBox(text, img);
+        db.flip();
+        return db;
     }
 
     private void changeDialogStyle(String commandType) {
