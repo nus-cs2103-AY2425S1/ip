@@ -11,7 +11,7 @@ import swbot.tasks.Task;
  * It utilizes the Storage class for loading and saving tasks and the InputHandler class for processing commands.
  */
 public class R2D2 {
-    private static final String FILE_PATH = "./data/R2D2.txt";
+    private static final String FILE_PATH = "R2D2.txt";
     private Storage storage;
     private InputHandler c3po;
 
@@ -23,6 +23,7 @@ public class R2D2 {
      */
     public R2D2() {
         this.storage = new Storage(FILE_PATH);
+        storage.checkAndCreateFile();
         ArrayList<Task> database = storage.loadTasks();
         this.c3po = new InputHandler(database, storage);
     }

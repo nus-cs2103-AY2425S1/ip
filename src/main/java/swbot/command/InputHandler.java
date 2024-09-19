@@ -73,9 +73,7 @@ public class InputHandler {
             saveTasks();
             return this.deadlineHandle(input);
         case COMMAND_EVENT:
-            System.out.println("I AM HERE!");
             saveTasks();
-            System.out.println("ALSO HERE?");
             return this.eventHandle(input);
         case COMMAND_FIND:
             saveTasks();

@@ -20,7 +20,7 @@ import swbot.tasks.Todo;
  * output file.
  */
 public class Storage {
-    private String file;
+    private String filePath;
 
     /**
      * Creates a storage object that stores the file to be written and read upon by the chatbot
@@ -28,7 +28,48 @@ public class Storage {
      * @param file file path that tells the program where to store the output task list
      */
     public Storage(String file) {
-        this.file = file;
+        this.filePath = generateFilePath(file);
+    }
+
+    /**
+     * Generates a file path by appending the given file name to a predefined 'data' directory within the user's
+     * current working directory.
+     *
+     * @param fileName the name of the file for which the path is to be generated
+     * @return the full path to the file within the 'data' directory
+     */
+    private String generateFilePath(String fileName) {
+        String userDir = System.getProperty("user.dir");
+        String dataDirectory = userDir + File.separator + "data";
+        return dataDirectory + File.separator + fileName;
+    }
+
+    /**
+     * Checks if the file and its directory specified by the `filePath` exists. If the directory does not exist,
+     * it creates the necessary directories. If the file itself does not exist, it creates the file. Additionally,
+     * it writes a default content to the newly created file.
+     */
+    public void checkAndCreateFile() {
+        File file = new File(filePath);
+        File directory = file.getParentFile();
+
+        // Create directory if it doesn't exist
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        // Create file if it doesn't exist
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+                // Optionally write default content to the file
+                try (PrintWriter writer = new PrintWriter(file)) {
+                    writer.println("Default content if needed");
+                }
+            } catch (IOException e) {
+                System.out.println("ERROR: Unable to create file: " + e.getMessage());
+            }
+        }
     }
 
     /**
@@ -37,7 +78,7 @@ public class Storage {
      * @param database current list of tasks stored
      */
     public void saveTasks(ArrayList<Task> database) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(this.file))) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(this.filePath))) {
             for (Task task : database) {
                 writer.println(task.toFileFormat());
             }
@@ -53,11 +94,11 @@ public class Storage {
      */
     public ArrayList<Task> loadTasks() {
         ArrayList<Task> database = new ArrayList<>();
-        File file = new File(this.file);
+        File file = new File(this.filePath);
         if (!file.exists() || file.length() == 0) {
             return database;
         }
-        File directory = new File(file.getParent());
+        File directory = file.getParentFile();
         checkFile(file);
         checkDirectory(directory);
         loader(file, database);
@@ -69,7 +110,7 @@ public class Storage {
      *
      * @param f File to load the tasks into
      */
-    private void checkFile(File f) {
+    public void checkFile(File f) {
         if (!f.exists()) {
             try {
                 f.createNewFile();
@@ -85,7 +126,7 @@ public class Storage {
      *
      * @param d File path provided for the directory
      */
-    private void checkDirectory(File d) {
+    public void checkDirectory(File d) {
         if (!d.exists()) {
             d.mkdirs();
         }
@@ -98,7 +139,7 @@ public class Storage {
      * @param database to keep track of the tasks provided by the user
      */
     private void loader(File f, ArrayList<Task> database) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(this.file))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(this.filePath))) {
             String line = "";
             fileParser(f, line, reader, database);
 
