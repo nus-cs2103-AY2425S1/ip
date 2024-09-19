@@ -31,18 +31,24 @@ class Parser {
      */
     public static void checkForErrors(String userInput) throws DukeException {
         if (userInput.startsWith("todo")) {
-            if (userInput.length() <= 5 || userInput.substring(5).isEmpty()) {
+            if (userInput.trim().length() <= 5 || userInput.substring(5).isEmpty()) {
                 throw new DukeException("Mate, you have got to give us a description of the task");
             }
         } else if (userInput.startsWith("deadline")) {
+            if (userInput.trim().length() <= 9) {
+                throw new DukeException("Mate, you need to give me a task description and deadline date");
+            }
             String[] sectionedString = userInput.split("/by ");
             if (sectionedString.length < 2 || 
                 sectionedString[0].substring(9).isEmpty() || 
                 sectionedString[1].isEmpty()) {
-                throw new DukeException("Mate, a deadline must include a task, and the deadline");
+                throw new DukeException("Mate, you need to give me a task description and deadline date");
             }
             validateDateFormat(sectionedString[1].trim());
         } else if (userInput.startsWith("event")) {
+            if (userInput.trim().length() <= 6) {
+                throw new DukeException("Mate, an event should have the description, the start, and the end.");
+            }
             String[] sectionedString = userInput.split(" /from | /to ");
             if (sectionedString.length < 3 || sectionedString[0].substring(6).isEmpty() ||
                 sectionedString[1].isEmpty() || sectionedString[2].isEmpty()) {
@@ -51,11 +57,11 @@ class Parser {
             validateDateFormat(sectionedString[1].trim());
             validateDateFormat(sectionedString[2].trim());
         } else if (userInput.startsWith("delete")) {
-            if (userInput.length() <= 7) {
+            if (userInput.trim().length() <= 7) {
                 throw new DukeException("You need to say which item to delete");
             } 
         } else if (userInput.startsWith("sort")) {
-            if (userInput.length() <= 5) {
+            if (userInput.trim().length() <= 5) {
                 throw new DukeException("Mate, please specify your category: either description or deadline");
             }
             String[] sectionedString = userInput.split(" ");
@@ -63,9 +69,19 @@ class Parser {
             if (!(categoryToSortBy.equals("description") || categoryToSortBy.equals("deadline"))) {
                 throw new DukeException("You have to sort by description or deadline");
             }
-        }else if (!userInput.equals("bye") && !userInput.equals("list") && 
-                   !userInput.startsWith("mark") && !userInput.startsWith("unmark")
-                   && !userInput.startsWith("find")) {
+        } else if (userInput.trim().startsWith("mark")) {
+            if (userInput.trim().length() <= 5) {
+                throw new DukeException("Mate, please specify your task to mark");
+            }
+        } else if (userInput.trim().startsWith("unmark")) {
+            if (userInput.trim().length() <= 7) {
+                throw new DukeException("Mate, please specify your task to mark");
+            }
+        } else if (userInput.trim().startsWith("find")) {
+            if (userInput.trim().length() <= 5) {
+                throw new DukeException("Mate, please specify a keyword/string to search for");
+            }
+        }else if (!userInput.trim().equals("bye") && !userInput.trim().equals("list")) {
             throw new DukeException("I'm sorry, that is not a valid input");
         }
     }
