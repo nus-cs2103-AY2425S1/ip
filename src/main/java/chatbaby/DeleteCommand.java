@@ -32,7 +32,7 @@ public class DeleteCommand extends Command {
         assert tasks.size() > 0 : "Task list should have at least one task before removing";
         try {
             int index = Integer.parseInt(commandBody.substring(BEGIN_INDEX).trim()) - 1;
-            if (index < 0 || index > tasks.size()) {
+            if (index < 0 || index >= tasks.size()) {
                 throw new ChatBabyException("Oh no!!! The task index is invalid.");
             }
             Task removedTask = tasks.deleteTask(index);

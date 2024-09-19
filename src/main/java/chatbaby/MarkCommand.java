@@ -31,7 +31,7 @@ public class MarkCommand extends Command {
         }
         try {
             int index = Integer.parseInt(commandBody.substring(BEGIN_INDEX).trim()) - 1;
-            if (index < 0 && index > tasks.size()) {
+            if (index < 0 || index >= tasks.size()) {
                 throw new ChatBabyException("Oh no!!! The task index is invalid.");
             }
             tasks.getTaskAt(index).markAsDone();
