@@ -28,7 +28,7 @@ Sigma is a command-line task management application designed to help you organiz
 
 ## Quick Start
 1. Ensure you have Java 17 or above installed in your Computer.
-2. Download the latest duke.jar from [the application's release page](https://github.com/EthanLoww/ip/releases/).
+2. Download the latest sigma.jar from [the application's release page](https://github.com/EthanLoww/ip/releases/).
 3. Copy the file to the folder you want to use as the home folder for Sigma.
 4. Double-click the file to start the app.
 
