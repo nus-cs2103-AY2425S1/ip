@@ -4,25 +4,11 @@
 
 Him is a helpful chatbot that aims to help organise your day by keeping track of your tasks.
 
-## Adding deadlines
-
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
-```
-expected output
-```
-
 > [!NOTE]
->- Words in `UPPER_CASE` are parameters supplied by the user.<br>(e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a
+>- Words in `UPPER_CASE` are parameters supplied by the user.(e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a
    parameter
    which can be used as `todo Read Book`)
->- Items in square brackets are optional.<br>(e.g. `deadline DESCRIPTION /by DUE_DATE /at [DUE_TIME]` can be used as
+>- Items in square brackets are optional.(e.g. `deadline DESCRIPTION /by DUE_DATE /at [DUE_TIME]` can be used as
    `deadline Return Book /by 2024-11-12` or `deadline Return Book /by 2024-11-12 /at 18:00`)
 
 ## Adding Todos: `todo`
