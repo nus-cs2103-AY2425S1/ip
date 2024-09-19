@@ -104,7 +104,6 @@ public class FindCommand extends Command{
 
     }
 
-
     /**
      * Returns false since this command is not exit command.
      *

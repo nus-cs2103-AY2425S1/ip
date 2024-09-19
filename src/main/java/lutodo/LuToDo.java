@@ -61,6 +61,9 @@ public class LuToDo {
         }
     }
 
+    /**
+     * Runs the chat box with text UI.
+     */
     public static void main(String[] args) {
         new LuToDo("taskListFile.txt").run();
     }
