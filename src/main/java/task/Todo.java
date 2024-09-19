@@ -5,7 +5,8 @@ import java.util.Scanner;
 /**
  * The {@code Todo} class represents a simple task with a name and description.
  * It can be marked as done or not done. This class extends the {@link Task} class.
- * The {@code Todo} class provides constructors to create a new task and a static method to create a task through user input.
+ * The {@code Todo} class provides constructors to create a new task and
+ * a static method to create a task through user input.
  */
 public class Todo extends Task {
 
@@ -13,7 +14,7 @@ public class Todo extends Task {
      * Constructs a new {@code Todo} object with the specified name and description.
      * By default, the task is not marked as done.
      *
-     * @param name The name of the task.
+     * @param name        The name of the task.
      * @param description The description of the task.
      */
     public Todo(String name, String description) {
@@ -23,9 +24,10 @@ public class Todo extends Task {
     /**
      * Constructs a new {@code Todo} object with the specified name, description, and completion status.
      *
-     * @param name The name of the task.
+     * @param name        The name of the task.
      * @param description The description of the task.
-     * @param isDone The completion status of the task. If {@code true}, the task is marked as done; otherwise, it is not done.
+     * @param isDone      The completion status of the task. If {@code true},
+     *                    the task is marked as done; otherwise, it is not done.
      */
     public Todo(String name, String description, boolean isDone) {
         super(name, description);
@@ -47,10 +49,14 @@ public class Todo extends Task {
     }
 
     /**
-     * Prompts the user to enter the details for a new {@code Todo} task and creates a new {@code Todo} object.
+     * Creates a new {@code Todo} task with the specified name and description.
+     * <p>
+     * This method acts as a factory method for creating instances of the {@link Todo} class.
+     * It initializes a new {@code Todo} object using the provided name and description.
      *
-     * @param sc The {@link Scanner} object used to read user input.
-     * @return A new {@code Todo} object created based on user input.
+     * @param name        the name of the todo task
+     * @param description a brief description of the todo task
+     * @return a new {@code Todo} object with the given name and description
      */
     public static Todo createTodo(String name, String description) {
         return new Todo(name, description);
@@ -58,7 +64,8 @@ public class Todo extends Task {
 
     /**
      * Returns a string representation of the {@code Todo} task.
-     * The format includes the type of task (Todo) and the information about its completion status, name, and description.
+     * The format includes the type of task (Todo) and the information
+     * about its completion status, name, and description.
      *
      * @return A string representation of the {@code Todo} task.
      */

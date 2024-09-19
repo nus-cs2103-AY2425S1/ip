@@ -1,10 +1,5 @@
 package util;
 
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.Todo;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -12,6 +7,39 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.Todo;
+
+/**
+ * The {@code ListReader} class is responsible for reading and parsing tasks from a file.
+ * <p>
+ * It processes different task types such as {@link Todo}, {@link Deadline}, and {@link Event}
+ * from a given file and stores them in a {@code Map<String, Task>} for easy access.
+ * The file is expected to have a specific format that distinguishes between the different
+ * task types and provides the necessary details for each task.
+ * <p>
+ * The class handles parsing of task-specific attributes such as:
+ * <ul>
+ *   <li>Name</li>
+ *   <li>Description</li>
+ *   <li>Status (whether the task is marked as done)</li>
+ *   <li>For {@link Deadline}: due date</li>
+ *   <li>For {@link Event}: start time, end time, and location</li>
+ * </ul>
+ * <p>
+ * Tasks are stored in a map where the task name is the key, and the corresponding {@link Task}
+ * object is the value.
+ * <p>
+ * The {@code ListReader} also provides methods to clean and validate the task information
+ * during the parsing process, ensuring that the format is correct before creating task objects.
+ *
+ * @see Task
+ * @see Todo
+ * @see Deadline
+ * @see Event
+ */
 public class ListReader {
     /**
      * Reads tasks from a file and parses them into a Map.
@@ -25,9 +53,9 @@ public class ListReader {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = br.readLine()) != null) {
-                line = line.trim();  // Remove leading and trailing whitespace
+                line = line.trim(); // Remove leading and trailing whitespace
                 if (line.isEmpty()) {
-                    continue;  // Skip empty lines
+                    continue; // Skip empty lines
                 }
                 if (line.startsWith("[T]")) {
                     Task task = parseTodoTask(line, br);

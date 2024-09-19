@@ -7,7 +7,8 @@ import java.util.Scanner;
 /**
  * The {@code Deadline} class represents a task that needs to be completed by a specific date.
  * It extends the {@link Task} class by adding a deadline date to the task.
- * This class provides constructors for creating deadlines and methods for user input creation and string representation.
+ * This class provides constructors for creating deadlines and methods
+ * for user input creation and string representation.
  */
 public class Deadline extends Task {
     private LocalDate byTime;
@@ -15,9 +16,9 @@ public class Deadline extends Task {
     /**
      * Constructs a new {@code Deadline} object with the specified name, description, and deadline date.
      *
-     * @param name The name of the deadline task.
+     * @param name        The name of the deadline task.
      * @param description The description of the deadline task.
-     * @param byTime The date by which the task needs to be completed.
+     * @param byTime      The date by which the task needs to be completed.
      */
     public Deadline(String name, String description, LocalDate byTime) {
         super(name, description);
@@ -25,12 +26,14 @@ public class Deadline extends Task {
     }
 
     /**
-     * Constructs a new {@code Deadline} object with the specified name, description, deadline date, and completion status.
+     * Constructs a new {@code Deadline} object with the specified name, description,
+     * deadline date, and completion status.
      *
-     * @param name The name of the deadline task.
+     * @param name        The name of the deadline task.
      * @param description The description of the deadline task.
-     * @param byTime The date by which the task needs to be completed.
-     * @param isDone The completion status of the task. If {@code true}, the task is marked as done; otherwise, it is not done.
+     * @param byTime      The date by which the task needs to be completed.
+     * @param isDone      The completion status of the task. If {@code true},
+     *                    the task is marked as done; otherwise, it is not done.
      */
     public Deadline(String name, String description, LocalDate byTime, boolean isDone) {
         super(name, description);
@@ -74,13 +77,14 @@ public class Deadline extends Task {
 
     /**
      * Returns a string representation of the {@code Deadline} task.
-     * The format includes the type of task (Deadline) and the information about its completion status, name, description, and deadline date.
+     * The format includes the type of task (Deadline) and the information
+     * about its completion status, name, description, and deadline date.
      *
      * @return A string representation of the {@code Deadline} task.
      */
     @Override
     public String toString() {
-        return "[D] " + super.toString() + "\n\tBy: " + byTime.getDayOfMonth() + "/" +
-                byTime.getMonth().toString().substring(0, 3) + "/" + byTime.getYear();
+        return "[D] " + super.toString() + "\n\tBy: " + byTime.getDayOfMonth() + "/"
+                + byTime.getMonth().toString().substring(0, 3) + "/" + byTime.getYear();
     }
 }

@@ -17,11 +17,11 @@ public class Event extends Task {
     /**
      * Constructs a new {@code Event} object with the specified name, description, start time, end time, and location.
      *
-     * @param name The name of the event.
+     * @param name        The name of the event.
      * @param description The description of the event.
-     * @param startTime The start time of the event.
-     * @param endTime The end time of the event.
-     * @param location The location of the event.
+     * @param startTime   The start time of the event.
+     * @param endTime     The end time of the event.
+     * @param location    The location of the event.
      */
     public Event(String name, String description, LocalDate startTime, LocalDate endTime, String location) {
         super(name, description);
@@ -31,22 +31,26 @@ public class Event extends Task {
     }
 
     /**
-     * Constructs a new {@code Event} object with the specified name, description, start time, end time, location, and completion status.
+     * Constructs a new {@code Event} object with the specified name, description,
+     * start time, end time, location, and completion status.
      *
-     * @param name The name of the event.
+     * @param name        The name of the event.
      * @param description The description of the event.
-     * @param startTime The start time of the event.
-     * @param endTime The end time of the event.
-     * @param location The location of the event.
-     * @param isDone The completion status of the event. If {@code true}, the event is marked as done; otherwise, it is not done.
+     * @param startTime   The start time of the event.
+     * @param endTime     The end time of the event.
+     * @param location    The location of the event.
+     * @param isDone      The completion status of the event. If {@code true},
+     *                    the event is marked as done; otherwise, it is not done.
      */
-    public Event(String name, String description, LocalDate startTime, LocalDate endTime, String location, boolean isDone) {
+    public Event(String name, String description, LocalDate startTime,
+                 LocalDate endTime, String location, boolean isDone) {
         super(name, description);
         this.startTime = startTime;
         this.endTime = endTime;
         this.location = location;
         this.isDone = isDone;
     }
+
     /**
      * Prompts the user to enter the details for a new {@code Event} and creates a new {@code Event} object.
      *
@@ -91,7 +95,8 @@ public class Event extends Task {
         return new Event(name, description, startTime, endTime, location);
     }
 
-    public static Event createEvent(String name, String description, LocalDate startTime, LocalDate endTime, String location) {
+    public static Event createEvent(String name, String description, LocalDate startTime,
+                                    LocalDate endTime, String location) {
         return new Event(name, description, startTime, endTime, location);
     }
 
@@ -114,17 +119,18 @@ public class Event extends Task {
 
     /**
      * Returns a string representation of the {@code Event} task.
-     * The format includes the type of task (Event) and the information about its completion status, name, description, start time, end time, and location.
+     * The format includes the type of task (Event) and the information about its completion status,
+     * name, description, start time, end time, and location.
      *
      * @return A string representation of the {@code Event} task.
      */
     @Override
     public String toString() {
-        return "[E] " + super.toString() +
-                "\n\tStart Time: " + startTime.getDayOfMonth() + "/" +
-                startTime.getMonth().toString().substring(0, 3) + "/" + startTime.getYear() +
-                "\n\tEnd Time: " + endTime.getDayOfMonth() + "/" +
-                endTime.getMonth().toString().substring(0, 3) + "/" + endTime.getYear() +
-                "\n\tLocation: " + location;
+        return "[E] " + super.toString()
+                + "\n\tStart Time: " + startTime.getDayOfMonth() + "/"
+                + startTime.getMonth().toString().substring(0, 3) + "/" + startTime.getYear()
+                + "\n\tEnd Time: " + endTime.getDayOfMonth() + "/"
+                + endTime.getMonth().toString().substring(0, 3) + "/" + endTime.getYear()
+                + "\n\tLocation: " + location;
     }
 }
