@@ -15,6 +15,16 @@ public class Main extends Application {
 
     private Orion orion = new Orion();
 
+    /**
+     * Starts the Orion application.
+     *
+     * <p>
+     * This is the entry point for the application. It loads the main window
+     * FXML, sets the scene and title, and shows the stage.
+     * </p>
+     *
+     * @param stage the stage to show the application in.
+     */
     @Override
     public void start(Stage stage) {
         try {

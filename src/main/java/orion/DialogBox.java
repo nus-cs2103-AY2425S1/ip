@@ -19,6 +19,25 @@ import javafx.scene.layout.HBox;
  * face
  * and a label containing text from the speaker.
  */
+/**
+ * A {@code DialogBox} is a {@code HBox} that contains a label and an image
+ * view.
+ * The label displays the text spoken by the speaker, and the image view
+ * displays
+ * an image of the speaker.
+ *
+ * <p>
+ * The image view is on the left side of the box, and the label is on the right
+ * side. The image view is set to maintain its aspect ratio, and the box is set
+ * to
+ * resize to fit the contents of the image view.
+ * </p>
+ *
+ * <p>
+ * This class is used by the {@link MainWindow} to display the text spoken by
+ * the user, as well as the text spoken by Orion.
+ * </p>
+ */
 public class DialogBox extends HBox {
     @FXML
     private Label dialog;
