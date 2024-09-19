@@ -1,5 +1,7 @@
 package babblebot.parser;
 
+import java.util.ArrayList;
+
 /**
  * The Parser class interprets user input commands.
  * It extracts the information from the user's input
@@ -78,4 +80,51 @@ public class Parser {
     public static int parseIndex(String userInput) {
         return Integer.parseInt(userInput.split(" ")[1]) - 1;
     }
+
+    /**
+     * Parses the user input to extract the index of the slot to be selected.
+     *
+     * @param userInput The full string of user input.
+     * @return The index of the slot (0-based index).
+     */
+    public int parseSlotIndex(String userInput) throws IndexOutOfBoundsException {
+        String[] splitInput = userInput.split("/slot");
+        if (splitInput.length < 2) throw new IndexOutOfBoundsException();
+        return Integer.parseInt(splitInput[1].trim()) - 1;
+    }
+
+
+
+    /**
+     * Parses the user input to extract the content and pending time slots of the tentative event.
+     *
+     * @param userInput The full string of user input.
+     * @return A String array where the first element is the event content,
+     *         the second element is the formatted time slots.
+     */
+    public static String[] parseTentativeEventContent(String userInput) {
+        String eventName = userInput.split("/p ")[1].split(" /from")[0].trim();
+        String[] timeSlotSections = userInput.split("/from ");
+        ArrayList<String[]> timeSlots = new ArrayList<>();
+
+        for (int i = 1; i < timeSlotSections.length; i++) {
+            String[] slotTimes = timeSlotSections[i].split(" /to ");
+            String startTime = slotTimes[0].trim();
+            String endTime = slotTimes[1].split(",")[0].trim();  // Handle the case with multiple slots
+
+            timeSlots.add(new String[]{startTime, endTime});
+        }
+
+        StringBuilder slotsString = new StringBuilder();
+        for (int i = 0; i < timeSlots.size(); i++) {
+            String[] slot = timeSlots.get(i);
+            slotsString.append(slot[0]).append(" - ").append(slot[1]);
+            if (i < timeSlots.size() - 1) {
+                slotsString.append(", ");
+            }
+        }
+
+        return new String[]{eventName, slotsString.toString()};
+    }
+
 }

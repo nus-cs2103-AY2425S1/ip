@@ -4,6 +4,9 @@ package babblebot.storage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 // Project-specific packages
@@ -11,6 +14,7 @@ import babblebot.task.Deadline;
 import babblebot.task.Event;
 import babblebot.task.Task;
 import babblebot.task.TaskList;
+import babblebot.task.TentativeEvent;
 import babblebot.task.Todo;
 
 /**
@@ -43,6 +47,7 @@ public class Storage {
         if (!file.exists()) {
             return storedTasks; // No file exists, start with an empty task list
         }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         Scanner scanner = new Scanner(file);
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
@@ -61,6 +66,23 @@ public class Storage {
                 String from = fromTo[0];
                 String to = fromTo[1];
                 task = new Event(description, from, to);
+                break;
+            case "P": // TentativeEvent (P for Pending)
+                String tentativeDescription = taskData[2];
+                ArrayList<LocalDate[]> timeSlots = new ArrayList<>();
+                String[] slots = taskData[3].split(", ");
+                for (String slot : slots) {
+                    String[] dates = slot.split(" to ");
+                    LocalDate startDate = LocalDate.parse(dates[0], formatter);
+                    LocalDate endDate = LocalDate.parse(dates[1], formatter);
+                    timeSlots.add(new LocalDate[]{startDate, endDate});
+                }
+                TentativeEvent tentativeEvent = new TentativeEvent(tentativeDescription, timeSlots);
+                if (taskData.length == 5 && taskData[4].startsWith("Confirmed: ")) {
+                    // Confirm the event if it was previously confirmed
+                    tentativeEvent.confirmSlotByIndex(Integer.parseInt(taskData[4].split(": ")[1]) - 1);
+                }
+                task = tentativeEvent;
                 break;
             default:
                 continue; // Skip unknown task types
