@@ -1,30 +1,65 @@
-# Duke User Guide
+# Angel Chatbot Project 🚀
 
-// Update the title above to match the actual product name
+Welcome to the **Angel Chatbot** project! This chatbot is designed to help you manage your tasks with ease. It supports various commands to find, add, mark, and delete tasks, making your life more organized.
 
-// Product screenshot goes here
+## Features
 
-// Product intro goes here
+- Supports various task types: `todo`, `deadline`, `event`, and `find`.
+- Easily mark tasks as done or undone.
+- Search for tasks using keywords.
+- Saves tasks automatically to a file for persistence.
+- User-friendly command parsing with detailed feedback.
 
-## Adding deadlines
+## How to Use
 
-// Describe the action and its outcome.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/username/angel-chatbot.git
 
-// Give examples of usage
+2. Navitgate to the project directory:
+   ```bash
+   cd angel-chatbot
 
-Example: `keyword (optional arguments)`
+3. Compile the program:
+   ```bash
+   javac -d bin src/main/java/angel/*.java
 
-// A description of the expected outcome goes here
+4. Run the application:
+   ```bash
+   java -cp bin main.java.angel.Angel
 
+## Task List
+
+- [x] Managing Tasks
+- [x] Managing Deadlines
+- [x] Managing Events
+
+## Additional Resources
+For more information, checkout the [Github Documentation](https://docs.github.com/en).
+> "Great things are not done by impulse, but by a series of small things brought together." — Vincent Van Gogh
+
+## 
+If you are a Java Programmer you can use it to practice code too. Heres the 'main' method:
+```bash
+public class Main {
+    public static void main(String[] args) {
+        Application.launch(MainApp.class, args);
+    }
+}
 ```
-expected output
-```
+## Command Summary
+`mark`: mark TASK_NUMBER
 
-## Feature ABC
+`unmark`: unmark TASK_NUMBER
 
-// Feature details
+`list`: list
 
+`find`: find TASK
 
-## Feature XYZ
+`todo`: todo TASK
 
-// Feature details
+`deadline`: deadline TASK /by Y-MM-DD TIME
+
+`event`: event TASK /from Y-MM-DD TIME /to Y-MM-DD TIME
+
+`bye`: bye

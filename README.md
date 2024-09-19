@@ -4,7 +4,7 @@ Welcome to the **Angel Chatbot** project! This chatbot is designed to help you m
 
 ## Features
 
-- Supports various task types: `todo`, `deadline`, `event`, and 'find'.
+- Supports various task types: `todo`, `deadline`, `event`, and `find`.
 - Easily mark tasks as done or undone.
 - Search for tasks using keywords.
 - Saves tasks automatically to a file for persistence.
@@ -45,8 +45,4 @@ public class Main {
     public static void main(String[] args) {
         Application.launch(MainApp.class, args);
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> e8bd08fa24caa1d490d7d8325903a3d0e27243c7
