@@ -42,4 +42,16 @@ public class Deadline extends Task {
     public LocalDate getDeadline() {
         return deadline;
     }
+
+    /**
+     * Converts the deadline task into a string format suitable for saving to a file or database.
+     * The format is "d,taskName,completionStatus,deadlineDate", where completionStatus is "y" if the task is done,
+     * and "n" if it is not done.
+     *
+     * @return a string representation of the deadline task in the format "d,taskName,completionStatus,deadlineDate"
+     */
+    @Override
+    public String toSaveFormat() {
+        return String.format("d,%s,%s", super.toSaveFormat(), this.deadline);
+    }
 }

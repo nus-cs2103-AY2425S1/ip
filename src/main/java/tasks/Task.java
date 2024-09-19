@@ -67,12 +67,11 @@ public abstract class Task {
     }
 
     /**
-     * Checks if the task's name contains the specified word (case-insensitive).
-     * The search is performed in a case-insensitive manner, converting both the
-     * task's name and the input word to lowercase before checking.
+     * Checks if the task name contains the specified word.
+     * This method performs a case-insensitive check to see if the task's name contains the given word.
      *
-     * @param word the word to search for within the task's name
-     * @return true if the task's name contains the specified word, false otherwise
+     * @param word the word to search for within the task name
+     * @return true if the task name contains the specified word (case-insensitive), false otherwise
      */
     public boolean containWord(String word) {
         return this.name.contains(word.toLowerCase());
@@ -92,5 +91,20 @@ public abstract class Task {
             return this.name.equals(str.toLowerCase());
         }
         return false;
+    }
+
+    /**
+     * Converts the task to a string format suitable for saving to a file or database.
+     * The format is: "taskName,completionStatus", where completionStatus is "y" if the task is done,
+     * and "n" if the task is not done.
+     *
+     * @return a string representation of the task in the format "taskName,completionStatus"
+     */
+    public String toSaveFormat() {
+        String done = "n";
+        if (this.isDone()) {
+            done = "y";
+        }
+        return String.format("%s,%s", this.name, done);
     }
 }

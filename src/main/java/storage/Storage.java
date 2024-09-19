@@ -125,32 +125,7 @@ public class Storage {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(this.path))) {
             for (Task task : list) {
                 String str = "";
-                if (task instanceof Todo) {
-                    str = "td," + task.getName();
-                    if (task.isDone()) {
-                        str += ",y";
-                    } else {
-                        str += ",n";
-                    }
-                }
-                if (task instanceof Deadline d) {
-                    str += "d," + d.getName();
-                    if (task.isDone()) {
-                        str += ",y,";
-                    } else {
-                        str += ",n,";
-                    }
-                    str += d.getDeadline();
-                }
-                if (task instanceof Event e) {
-                    str += "e," + e.getName();
-                    if (task.isDone()) {
-                        str += ",y,";
-                    } else {
-                        str += ",n,";
-                    }
-                    str += e.getStartDate() + "," + e.getEndDate();
-                }
+                str += task.toSaveFormat();
                 bw.write(str);
                 bw.newLine();
             }

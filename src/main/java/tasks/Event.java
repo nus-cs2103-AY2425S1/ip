@@ -55,4 +55,16 @@ public class Event extends Task {
     public LocalDate getEndDate() {
         return endDate;
     }
+
+    /**
+     * Converts the event task into a string format suitable for saving to a file or database.
+     * The format is "e,taskName,completionStatus,startDate,endDate", where completionStatus is "y" if the task is done,
+     * and "n" if it is not done.
+     *
+     * @return a string representation of the event task in the format "e,taskName,completionStatus,startDate,endDate"
+     */
+    @Override
+    public String toSaveFormat() {
+        return String.format("e,%s,%s,%s", super.toSaveFormat(), this.startDate, this.endDate);
+    }
 }
