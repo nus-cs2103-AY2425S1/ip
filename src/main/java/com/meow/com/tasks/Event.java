@@ -13,8 +13,6 @@ public class Event extends Task {
 
     public Event(String taskName, String from, String to) throws Meowception {
         super(taskName);
-        //this.start= timeframe.substring(timeframe.indexOf("/from") + 6, timeframe.indexOf("/to"));
-        //this.end = timeframe.substring(timeframe.indexOf("/to") + 4);
         this.start = from;
         this.end = to;
         try {

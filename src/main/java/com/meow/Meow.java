@@ -39,7 +39,7 @@ public class Meow {
         String input = sc.nextLine();
         while (!input.equals("bye")) {
             try {
-                String msg = parser.commandValidation(input);
+                String msg = parser.validateCommand(input);
                 ui.showTaskOutcomeMessage(msg);
             } catch (Meowception e) {
                 ui.showMeowceptionError(e.toString());
@@ -69,7 +69,7 @@ public class Meow {
     public String getResponse(String input) {
         try {
             
-            return parser.commandValidation(input);
+            return parser.validateCommand(input);
         } catch (Meowception e) {
             return e.toString();
         }

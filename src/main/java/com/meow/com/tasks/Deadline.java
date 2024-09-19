@@ -5,12 +5,10 @@ import java.time.format.DateTimeFormatter;
 import com.meow.Meowception;
 
 public class Deadline extends Task {
-    //private String by;
     private LocalDateTime byDateTime; 
     
     public Deadline(String taskName, String by) throws Meowception {
         super(taskName);
-        //this.by = by;
         try {
             byDateTime = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         } catch (java.time.format.DateTimeParseException e) {

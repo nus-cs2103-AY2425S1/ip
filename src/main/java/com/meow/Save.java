@@ -85,7 +85,7 @@ public class Save {
         for (String task : tasks) {
             try {
                 String type = task.substring(0, 1);
-                parser.commandValidation(task.substring(2));
+                parser.validateCommand(task.substring(2));
                 if (type.equals("1")) {
                     taskList.get(taskList.getSize() - 1).setDone(true);
                 } 

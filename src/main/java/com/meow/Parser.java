@@ -45,110 +45,114 @@ public class Parser {
      * @param String inputType representing the input written by the user
      * @return String msg representing the message to be displayed
      */
+
     private String outputTask(Commands cmd, String inputType) throws Meowception {
         switch (cmd) {
-            case MARK:
-                try {
-                    if (!inputType.substring(5).trim().isEmpty()) {
-                        return parseMarkTask(inputType);
-                        
-                    } else {
-                        throw new Meowception("100");
-                    }
-                } catch (Meowception err) {
-                    throw err;
-                } catch (StringIndexOutOfBoundsException e) {
-                    Meowception err = new Meowception("100");
-                    throw err;
-                }
-                
-            case UNMARK:
-                try {
-                    if (!inputType.substring(7).trim().isEmpty()) {
-                        return parseUnmarkTask(inputType);
-                        
-                    } else {
-                        throw new Meowception("100");
-                    }
-                } catch (Meowception err) {
-                    throw err;     
-                } catch (StringIndexOutOfBoundsException e) {
-                    Meowception err = new Meowception("100");
-                    throw err;
-                } 
-            case LIST:
-                return taskList.displayList();
-    
-            case TODO:
-                try {
-                    Task todoTask = parseTodoTask(inputType.substring(5));
-                    return taskList.addTask(todoTask);
-                } catch (Meowception e) {
-                    throw e;
-                } catch (StringIndexOutOfBoundsException e) {
-                    Meowception err = new Meowception("100");
-                    throw err;
-                } 
-                
-            case DEADLINE:
-                // Cleaning data so that it identifies deadline correctly and the task.
-                try {
+        case MARK:
+            try {
+                assert inputType.substring(5).trim().isEmpty() : "Should be a task number here";
+                if (!inputType.substring(5).trim().isEmpty()) {
+                    return parseMarkTask(inputType.substring(5));
 
-                    Task deadlineTask = parseDeadlineTask(inputType.substring(9));
-                    return taskList.addTask(deadlineTask);
-                } catch (Meowception err) {
-                    throw err;
-                } catch (StringIndexOutOfBoundsException e) {
-                    Meowception err = new Meowception("100");
-                    throw err;
-                } 
-                
-            case EVENT:
-                try {
-                    Task eventTask = parseEventTask(inputType.substring(6));
-                    return taskList.addTask(eventTask);
-                } catch (Meowception err) {
-                    throw err;
-                } catch (StringIndexOutOfBoundsException e) {
-                    Meowception err = new Meowception("100");
-                    throw err;
+                } else {
+                    throw new Meowception("100");
                 }
-            
-            case DELETE:
-                try {
-                    if (!inputType.substring(6).trim().isEmpty()) {
-                        return parseDeleteTask(inputType);
-                    } else {
-                        throw new Meowception("100");
-                    }
-                } catch (Meowception err) {
-                    throw err;
-                } catch (StringIndexOutOfBoundsException e) {
-                    Meowception err = new Meowception("100");
-                    throw err;
-    
-                }
-            case FIND:
-                try {
-                    if (!inputType.substring(5).trim().isEmpty()) {
-                        return parseFindTask(inputType);
-                    } else {
-                        throw new Meowception("100");
-                    }
-                } catch (Meowception err) {
-                    throw err;
-                } catch (StringIndexOutOfBoundsException e) {
-                    Meowception err = new Meowception("100");
-                    throw err;
-                }
+            } catch (Meowception err) {
+                throw err;
+            } catch (StringIndexOutOfBoundsException e) {
+                Meowception err = new Meowception("100");
+                throw err;
+            }
 
-            case BYE:
-                break;
-            } 
+        case UNMARK:
+            try {
+                assert inputType.substring(7).trim().isEmpty() : "Should be a task number here";
+                if (!inputType.substring(7).trim().isEmpty()) {
+                    return parseUnmarkTask(inputType.substring(7));
+                } else {
+                    throw new Meowception("100");
+                }
+            } catch (Meowception err) {
+                throw err;
+            } catch (StringIndexOutOfBoundsException e) {
+                Meowception err = new Meowception("100");
+                throw err;
+            }
+        case LIST:
+            return taskList.displayList();
 
-        
+        case TODO:
+            try {
+                Task todoTask = parseTodoTask(inputType.substring(5));
+                return taskList.addTask(todoTask);
+            } catch (Meowception e) {
+                throw e;
+            } catch (StringIndexOutOfBoundsException e) {
+                Meowception err = new Meowception("100");
+                throw err;
+            }
+
+        case DEADLINE:
+            // Cleaning data so that it identifies deadline correctly and the task.
+            try {
+                Task deadlineTask = parseDeadlineTask(inputType.substring(9));
+                return taskList.addTask(deadlineTask);
+            } catch (Meowception err) {
+                throw err;
+            } catch (StringIndexOutOfBoundsException e) {
+                Meowception err = new Meowception("100");
+                throw err;
+            }
+
+        case EVENT:
+            try {
+                Task eventTask = parseEventTask(inputType.substring(6));
+                return taskList.addTask(eventTask);
+            } catch (Meowception err) {
+                throw err;
+            } catch (StringIndexOutOfBoundsException e) {
+                Meowception err = new Meowception("100");
+                throw err;
+            }
+
+        case DELETE:
+            try {
+                assert inputType.substring(6).trim().isEmpty() : "Should be a task number here";
+                if (!inputType.substring(6).trim().isEmpty()) {
+                    return parseDeleteTask(inputType.substring(6));
+                } else {
+                    throw new Meowception("100");
+                }
+            } catch (Meowception err) {
+                throw err;
+            } catch (StringIndexOutOfBoundsException e) {
+                Meowception err = new Meowception("100");
+                throw err;
+
+            }
+        case FIND:
+            try {
+                assert inputType.substring(5).trim().isEmpty() : "Should be a task number here";
+                if (!inputType.substring(5).trim().isEmpty()) {
+                    return parseFindTask(inputType);
+                } else {
+                    throw new Meowception("100");
+                }
+            } catch (Meowception err) {
+                throw err;
+            } catch (StringIndexOutOfBoundsException e) {
+                Meowception err = new Meowception("100");
+                throw err;
+            }
+
+        case BYE:
+            break;
+        default:
             throw new Meowception("001");
         }
+
+        return inputType;
+    }
             
     /*
      * Parses the input command and returns a task
@@ -227,8 +231,8 @@ public class Parser {
      * @return String
      */
     private String parseUnmarkTask(String task) throws Meowception {
-        String numberString = task.substring(task.indexOf(" " + 1));
-        int number = Integer.parseInt(numberString);
+        int number = Integer.parseInt(task);
+        assert number >= 1 : "number must be equal or greater to 1";
         if (number > taskList.getSize() || number < 1) {
             throw new Meowception("404");
         } else {
@@ -242,8 +246,7 @@ public class Parser {
      * @return String
      */
     private String parseMarkTask(String task) throws Meowception {
-        String numberString = task.substring(task.indexOf(" " + 1)).trim();
-        int number = Integer.parseInt(numberString);
+        int number = Integer.parseInt(task);
         if (number > taskList.getSize() || number < 1) {
             throw new Meowception("404");
         } else {
@@ -257,8 +260,7 @@ public class Parser {
      * @return String
      */
     private String parseDeleteTask(String task) throws Meowception {
-        String numberString = task.substring(task.indexOf(" " + 1)).trim();
-        int number = Integer.parseInt(numberString);
+        int number = Integer.parseInt(task);
         if (number > taskList.getSize() || number < 1) {
             throw new Meowception("404");
         } else {
