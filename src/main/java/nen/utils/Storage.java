@@ -26,15 +26,22 @@ public class Storage {
         File f;
         try {
             f = new File(dataAddr);
-            Scanner s = new Scanner(f);
-            if (f.createNewFile()) {
-                System.out.println("File created");
+            if (f.exists()) {
+                Scanner s = new Scanner(f);
+                while (s.hasNext()) {
+                    out.add(s.nextLine());
+                }
+                return out.toArray(new String[0]);
+            } else {
+                File parentDir = f.getParentFile();
+                if (parentDir != null && !parentDir.exists()) {
+                    parentDir.mkdirs();
+                }
+                if (f.createNewFile()) {
+                    System.out.println("File created");
+                }
                 return new String[0];
             }
-            while (s.hasNext()) {
-                out.add(s.nextLine());
-            }
-            return out.toArray(new String[0]);
         } catch (IOException e) {
             System.out.println("Failed to create File");
             return new String[0];
