@@ -1,13 +1,18 @@
-package bob;
+package commands;
+
+import bob.*;
+import tasks.Task;
+import tasks.ToDo;
+import utilities.Printer;
 
 /**
  * This command creates a ToDo task with the specified name and adds it to the task list when run.
  */
 public class TodoCommand extends Command {
-    protected static String[] params = new String[] {
+    public static String[] params = new String[] {
         "todo"
     };
-    protected static int paramCount = 1;
+    public static int paramCount = 1;
     private String name;
 
     public TodoCommand(String name) {

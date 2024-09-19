@@ -1,4 +1,4 @@
-package bob;
+package exceptions;
 
 public class MissingParamException extends IllegalInputException {
     public MissingParamException(String offender) {

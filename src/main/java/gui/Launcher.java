@@ -1,4 +1,4 @@
-package bob;
+package gui;
 
 import javafx.application.Application;
 

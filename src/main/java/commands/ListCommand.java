@@ -1,14 +1,17 @@
-package bob;
+package commands;
+
+import bob.*;
+import utilities.Printer;
 
 /**
  * Represents a command to list all tasks in the task list.
  * This command retrieves all tasks and prints them to the user when run.
  */
 public class ListCommand extends Command {
-    protected static String[] params = new String[] {
+    public static String[] params = new String[] {
         "list"
     };
-    protected static int paramCount = 0;
+    public static int paramCount = 0;
 
     /**
      * Executes the list command by retrieving and printing all tasks in the {@code TaskList}.

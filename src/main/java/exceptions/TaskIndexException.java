@@ -1,4 +1,4 @@
-package bob;
+package exceptions;
 
 public class TaskIndexException extends IllegalInputException {
     public TaskIndexException(String offender) {

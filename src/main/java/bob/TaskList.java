@@ -1,5 +1,11 @@
 package bob;
 
+import exceptions.TaskIndexException;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import tasks.ToDo;
+
 import java.util.ArrayList;
 
 public class TaskList {

@@ -1,4 +1,10 @@
-package bob;
+package utilities;
+
+import commands.*;
+import exceptions.ExtraParamException;
+import exceptions.MissingParamException;
+import exceptions.TaskIndexException;
+import exceptions.UnknownCommandException;
 
 /**
  * The {@code Parser} class is responsible for converting user input into specific commands that the Bob application

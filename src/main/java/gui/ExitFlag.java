@@ -1,4 +1,4 @@
-package bob;
+package gui;
 
 public class ExitFlag {
     private boolean flag;

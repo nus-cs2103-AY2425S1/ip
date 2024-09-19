@@ -1,14 +1,19 @@
-package bob;
+package commands;
+
+import bob.ExecutionStack;
+import bob.Storage;
+import bob.TaskList;
+import bob.Ui;
 
 /**
  * Represents a command to exit the application.
  * This command saves the current state of tasks and indicates that the application should terminate.
  */
-class ExitCommand extends Command {
-    protected static String[] params = new String[] {
+public class ExitCommand extends Command {
+    public static String[] params = new String[] {
         "bye"
     };
-    protected static int paramCount = 0;
+    public static int paramCount = 0;
 
     /**
      * Indicates that this command is an exit command.

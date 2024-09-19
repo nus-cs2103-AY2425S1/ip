@@ -1,14 +1,19 @@
-package bob;
+package commands;
+
+import bob.*;
+import tasks.Deadline;
+import tasks.Task;
+import utilities.Printer;
 
 /**
  * Represents a command to add a deadline task to the task list.
  * This command specifies a task with a name and a deadline date.
  */
 public class DeadlineCommand extends Command {
-    protected static String[] params = new String[] {
+    public static String[] params = new String[] {
         "deadline", "/by"
     };
-    protected static int paramCount = 2;
+    public static int paramCount = 2;
     private String name;
     private String by;
 

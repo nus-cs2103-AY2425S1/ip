@@ -1,5 +1,7 @@
 package bob;
 
+import commands.Command;
+
 import java.util.Stack;
 
 public class ExecutionStack {

@@ -1,16 +1,21 @@
-package bob;
+package commands;
+
+import bob.*;
+import tasks.Event;
+import tasks.Task;
+import utilities.Printer;
 
 /**
  * Represents a command to create an event task with a specified name, start date, and end date.
  * This command adds a new event task to the task list when run.
  */
 public class EventCommand extends Command {
-    protected static String[] params = new String[] {
+    public static String[] params = new String[] {
         "event",
         "/from",
         "/to"
     };
-    protected static int paramCount = 3;
+    public static int paramCount = 3;
     private String name;
     private String from;
     private String to;

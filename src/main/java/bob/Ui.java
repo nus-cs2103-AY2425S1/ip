@@ -1,5 +1,7 @@
 package bob;
 
+import utilities.Printer;
+
 import java.util.Scanner;
 
 /**

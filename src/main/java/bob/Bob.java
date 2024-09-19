@@ -1,5 +1,10 @@
 package bob;
 
+import commands.Command;
+import exceptions.IllegalInputException;
+import gui.ExitFlag;
+import utilities.Parser;
+
 /**
  * The {@code Bob} class serves as the main entry point for the Bob chat application.
  * It handles the initialization of the application's components and the main program loop where it continuously reads

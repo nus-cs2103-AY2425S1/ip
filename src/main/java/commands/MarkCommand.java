@@ -1,14 +1,18 @@
-package bob;
+package commands;
+
+import bob.*;
+import exceptions.TaskIndexException;
+import utilities.Printer;
 
 /**
  * Represents a command to mark a specific task as done.
  * This command updates the status of the task in the task list to completed when run.
  */
 public class MarkCommand extends Command {
-    protected static String[] params = new String[] {
+    public static String[] params = new String[] {
         "mark"
     };
-    protected static int paramCount = 1;
+    public static int paramCount = 1;
     private final int idx;
 
     /**

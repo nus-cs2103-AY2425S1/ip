@@ -1,14 +1,19 @@
-package bob;
+package commands;
+
+import bob.*;
+import exceptions.TaskIndexException;
+import tasks.Task;
+import utilities.Printer;
 
 /**
  * Represents a command to delete a task from the task list by its index.
  * This command removes a specified task from the list.
  */
 public class DeleteCommand extends Command {
-    protected static String[] params = new String[] {
+    public static String[] params = new String[] {
         "delete"
     };
-    protected static int paramCount = 1;
+    public static int paramCount = 1;
     private final int idx;
     private Task deletedTask;
     private boolean hasExecuted = false;

@@ -1,4 +1,4 @@
-package bob;
+package tasks;
 
 public abstract class Task {
     private String name;

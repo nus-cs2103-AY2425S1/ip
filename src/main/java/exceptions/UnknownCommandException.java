@@ -1,4 +1,4 @@
-package bob;
+package exceptions;
 
 public class UnknownCommandException extends IllegalInputException {
     public UnknownCommandException(String offender) {

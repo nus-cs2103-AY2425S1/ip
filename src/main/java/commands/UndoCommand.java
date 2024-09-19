@@ -1,10 +1,15 @@
-package bob;
+package commands;
+
+import bob.ExecutionStack;
+import bob.Storage;
+import bob.TaskList;
+import bob.Ui;
 
 public class UndoCommand extends Command {
-    protected static String[] params = new String[] {
+    public static String[] params = new String[] {
             "undo"
     };
-    protected static int paramCount = 0;
+    public static int paramCount = 0;
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage, ExecutionStack execStack) {

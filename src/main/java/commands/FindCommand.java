@@ -1,14 +1,17 @@
-package bob;
+package commands;
+
+import bob.*;
+import utilities.Printer;
 
 /**
  * Represents a command to find tasks with specific text in its name.
  * This command searches for tasks with a specific text and prints the results when run.
  */
 public class FindCommand extends Command {
-    protected static String[] params = new String[] {
+    public static String[] params = new String[] {
         "find"
     };
-    protected static int paramCount = 1;
+    public static int paramCount = 1;
     private final String text;
 
     /**

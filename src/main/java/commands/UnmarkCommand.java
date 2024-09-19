@@ -1,14 +1,18 @@
-package bob;
+package commands;
+
+import bob.*;
+import exceptions.TaskIndexException;
+import utilities.Printer;
 
 /**
  * Represents a command to unmark a specific task as not done.
  * This command updates the status of the task in the task list to incomplete when run.
  */
 public class UnmarkCommand extends Command {
-    protected static String[] params = new String[] {
+    public static String[] params = new String[] {
         "unmark"
     };
-    protected static int paramCount = 1;
+    public static int paramCount = 1;
     private final int idx;
 
     /**

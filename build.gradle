@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("bob.Launcher")
+    mainClass.set("gui.Launcher")
 }
 
 shadowJar {
@@ -62,4 +62,4 @@ run{
     enableAssertions = true
 }
 
-mainClassName = 'bob.Launcher'
+mainClassName = 'gui.Launcher'

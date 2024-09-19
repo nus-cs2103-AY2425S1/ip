@@ -1,4 +1,4 @@
-package bob;
+package exceptions;
 
 public class ExtraParamException extends IllegalInputException {
     public ExtraParamException(String offender) {

@@ -1,6 +1,12 @@
 package bob;
 
+import commands.*;
+import exceptions.ExtraParamException;
+import exceptions.MissingParamException;
+import exceptions.TaskIndexException;
+import exceptions.UnknownCommandException;
 import org.junit.jupiter.api.Test;
+import utilities.Parser;
 
 import static org.junit.jupiter.api.Assertions.*;
 

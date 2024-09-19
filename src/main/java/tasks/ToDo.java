@@ -1,4 +1,4 @@
-package bob;
+package tasks;
 
 public class ToDo extends Task {
     public ToDo(String name) {
