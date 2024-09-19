@@ -1,0 +1,5 @@
+[D][ ] submit CS2100 assignment 1 //high /by 2024-09-19 2359
+[E][ ] JB trip with friends //medium /from 2024-09-15 0900 /to 2024-09-16 2100
+[T][ ] task 
+[D][ ] submit assignment  /by 2024-09-19 1800
+[E][ ] go JB  /from 2024-09-19 0900 /to 2024-09-20 2100

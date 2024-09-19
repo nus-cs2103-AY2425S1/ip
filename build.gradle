@@ -48,11 +48,11 @@ test {
 }
 
 application {
-    mainClass.set("alex.javafx.Launcher")
+    mainClass.set("gojou.javafx.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "alex"
+    archiveBaseName = "gojou"
     archiveClassifier = null
 }
 
