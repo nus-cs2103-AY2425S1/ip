@@ -4,6 +4,7 @@ GLaDOS is a versatile chatbot for managing tasks, based off of the video game ch
 
 - [Quick Start](#quick-start)
 - [Features](#features)
+  - [Echoing a string: `echo`](#echoing-a-string-echo)
   - [Listing all tasks: `list`](#listing-all-tasks-list)
   - [Adding a ToDo: `todo`](#adding-a-todo-todo)
   - [Adding a Deadline: `deadline`](#adding-a-deadline-deadline)
@@ -42,6 +43,12 @@ Items in square brackets are optional.
 Items with …​ after them can be used multiple times.
 Parameters can be in any order.
 Extraneous parameters for commands that do not take in parameters will be ignored.
+
+### Echoing a string: `echo`
+
+Echoes input received by GLaDOS
+
+Format: `echo INPUT_STRING`
 
 ### Listing all tasks: `list`
 
@@ -149,6 +156,7 @@ Besides talking to GLaDOS, you can also view past chat history by clicking on th
 | Action       | Format, Examples                                             |
 | ------------ | ------------------------------------------------------------ |
 | **List**     | `list`                                                       |
+| **Echo**     | `echo INPUT_STRING`                                          |
 | **Todo**     | `todo TASK_DESCRIPTION`                                      |
 |              | e.g., `todo eat some cake`                                   |
 | **Deadline** | `deadline TASK_DESCRIPTION /by DEADLINE_DATE`                |

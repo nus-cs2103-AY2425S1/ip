@@ -18,9 +18,9 @@ import cstwooneohthree.glados.utils.Storage;
 public class TaskList {
 
     /* ArrayList to keep track of all tasks */
-    private ArrayList<Task> tasks;
+    protected ArrayList<Task> tasks;
     /* Integer to keep track of tasks length */
-    private int listIndex;
+    protected int listIndex;
 
     /**
      * Constructs a new TaskList object.
