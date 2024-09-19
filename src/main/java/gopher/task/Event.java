@@ -30,16 +30,20 @@ public class Event extends Task {
     @Override
     public void update(String[] tokens) throws InvalidTokenException,
             InvalidDurationException {
+        // Parse tokens into individual task fields
         String[] parsedResult = Parser.parseUpdateEventTaskCommand(tokens);
 
+        // Unpack parsed results
         String taskName = parsedResult[0];
         String startDateString = parsedResult[1];
         String endDateString = parsedResult[2];
 
+        // Set new task name
         if (!taskName.isEmpty()) {
             this.name = taskName;
         }
 
+        // Set new task start date and end date
         if (!startDateString.isEmpty() || !endDateString.isEmpty()) {
             LocalDateTime newStartDate = startDateString.isEmpty()
                     ? this.startDate

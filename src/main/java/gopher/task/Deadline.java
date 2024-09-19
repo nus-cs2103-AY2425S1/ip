@@ -25,15 +25,19 @@ public class Deadline extends Task {
 
     @Override
     public void update(String[] tokens) throws InvalidTokenException {
+        // Parse tokens into individual task fields
         String[] parsedResult = Parser.parseUpdateDeadlineTaskCommand(tokens);
 
+        // Unpack parsed results
         String taskName = parsedResult[0];
         String dueDateString = parsedResult[1];
 
+        // Set new task name
         if (!taskName.isEmpty()) {
             this.name = taskName;
         }
 
+        // Set new task due date
         if (!dueDateString.isEmpty()) {
             this.dueDate = Parser.parseDateString(dueDateString);
         }
