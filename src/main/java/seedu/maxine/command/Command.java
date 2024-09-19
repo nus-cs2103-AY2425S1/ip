@@ -80,6 +80,9 @@ public class Command {
                 throw new MaxineException("follow this format: mark [task no.]");
             }
             String answer = inputWords[1];
+            if (Integer.parseInt(answer) <= 0 || Integer.parseInt(answer) > tasks.size()) {
+                return "Oops, is this the correct item you're marking?";
+            }
             int mark = Integer.parseInt(answer) - 1;
             Task task = tasks.getTask(mark);
             task.markDone();
@@ -103,6 +106,9 @@ public class Command {
                 throw new MaxineException("follow this format: unmark [task no.]");
             }
             String answer = inputWords[1];
+            if (Integer.parseInt(answer) <= 0 || Integer.parseInt(answer) > tasks.size()) {
+                return "Oops, is this the correct item you're unmarking?";
+            }
             int mark = Integer.parseInt(answer) - 1;
             Task task = tasks.getTask(mark);
             task.markUndone();
@@ -214,6 +220,9 @@ public class Command {
             String answer = inputWords[1];
             if (answer.equals("all")) {
                 return handleDeleteAll();
+            }
+            if (Integer.parseInt(answer) <= 0 || Integer.parseInt(answer) > tasks.size()) {
+                return "Oops, did you type the number wrongly?";
             }
             int key = Integer.parseInt(answer) - 1;
             Task task = tasks.getTask(key);

@@ -49,6 +49,11 @@ class CommandTest {
                         + "[T][X] test command class",
                 command.handleMark("mark 1"));
     }
+    @Test
+    void testInvalidMark() {
+        assertEquals("Oops, is this the correct item you're marking?",
+                command.handleMark("mark 4"));
+    }
 
     @Test
     void testUnmark() {
@@ -57,7 +62,11 @@ class CommandTest {
         assertEquals("Undoing... this task? :'( :[T][ ] test command class",
                 command.handleUnmark("unmark 1"));
     }
-
+    @Test
+    void testInvalidUnmark() {
+        assertEquals("Oops, is this the correct item you're unmarking?",
+                command.handleUnmark("unmark 4"));
+    }
     @Test
     void testTodo() {
         assertEquals("[T][ ] test command class - todo task added!",
@@ -106,6 +115,11 @@ class CommandTest {
     void testInvalidDelete() {
         assertEquals("follow this format: delete [task no.] or delete all",
                 command.handleDelete("delete"));
+    }
+    @Test
+    void testInvalidDeleteNumber() {
+        assertEquals("Oops, did you type the number wrongly?",
+                command.handleDelete("delete 4"));
     }
     @Test
     void testFindValid() {

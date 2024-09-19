@@ -30,7 +30,7 @@ public class TaskListStub implements MaxineList {
     }
     @Override
     public int size() {
-        return 0;
+        return 1;
     }
     @Override
     public Task getTask(int num) {
