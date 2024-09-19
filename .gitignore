@@ -76,3 +76,8 @@ build/test-results/test/binary/results.bin
 build/tmp/compileTestJava/previous-compilation-data.bin
 META-INF/MANIFEST.MF
 out/artifacts/CS2103_IP_main_jar/CS2103_IP.main.jar
+build/classes/java/main/susan/command/FindCommand.class
+build/classes/java/main/susan/command/HelloCommand.class
+build/classes/java/main/susan/command/RemindCommand.class
+build/classes/java/test/susan/command/AddCommandTest.class
+build/classes/java/test/susan/ui/StorageTest.class

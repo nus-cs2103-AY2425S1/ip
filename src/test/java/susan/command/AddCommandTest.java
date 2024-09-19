@@ -83,12 +83,12 @@ public class AddCommandTest {
         String expectedList = "\n" + " 1.[T][ ] read book";
         assertEquals(taskList.printList(), expectedList);
         // Deadline
-        String[] deadlineCommandParts = {"deadline", "return book /by 2024-09-03"};
+        String[] deadlineCommandParts = {"deadline", "return book /by 2024-09-03 "};
         new AddCommand(deadlineCommandParts).execute(taskList, ui, storage);
         expectedList += "\n" + " 2.[D][ ] return book (by Sept 03 2024)";
         assertEquals(taskList.printList(), expectedList);
         // Event
-        String[] eventCommandParts = {"event", "book club  /from 2024-09-01 1400 /to 2024-09-01 1600"};
+        String[] eventCommandParts = {"event", "  book club  /from 2024-09-01 1400  /to  2024-09-01 1600  "};
         new AddCommand(eventCommandParts).execute(taskList, ui, storage);
         expectedList += "\n" + " 3.[E][ ] book club (from Sept 01 2024 2:00 pm to 4:00 pm)";
         assertEquals(taskList.printList(), expectedList);

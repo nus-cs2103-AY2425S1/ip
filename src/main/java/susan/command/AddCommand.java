@@ -22,7 +22,7 @@ public class AddCommand extends Command {
     }
 
     public Task toDoTask() {
-        return new ToDo(commandParts[1]);
+        return new ToDo(commandParts[1].trim());
     }
 
     public Task deadlineTask() throws SusanException {
@@ -35,8 +35,8 @@ public class AddCommand extends Command {
         // Incorrect date format
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            LocalDate by = LocalDate.parse(deadlineParts[1], formatter);
-            task = new Deadline(deadlineParts[0], by);
+            LocalDate by = LocalDate.parse(deadlineParts[1].trim(), formatter);
+            task = new Deadline(deadlineParts[0].trim(), by);
         } catch (Exception e) {
             throw new SusanException("Please key date in the format: yyyy-MM-dd");
         }
@@ -53,9 +53,9 @@ public class AddCommand extends Command {
         // Incorrect date/time format
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-            LocalDateTime from = LocalDateTime.parse(eventParts[1], formatter);
-            LocalDateTime to = LocalDateTime.parse(eventParts[2], formatter);
-            task = new Event(eventParts[0], from, to);
+            LocalDateTime from = LocalDateTime.parse(eventParts[1].trim(), formatter);
+            LocalDateTime to = LocalDateTime.parse(eventParts[2].trim(), formatter);
+            task = new Event(eventParts[0].trim(), from, to);
         } catch (Exception e) {
             throw new SusanException("Please key date/time in the format: yyyy-MM-dd HHmm");
         }
