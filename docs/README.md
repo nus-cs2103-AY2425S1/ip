@@ -14,8 +14,6 @@ track your tasks.
 + Save and Load Tasks: Automatically save your tasks to a file and load them when you restart Sage.
 + Exit: Save changes and exit the application.
 
-## Adding tasks
-
 ### Adding todos
 
 Command: `todo <task>`
