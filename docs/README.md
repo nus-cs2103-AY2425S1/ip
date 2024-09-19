@@ -1,22 +1,22 @@
 # Susan User Guide
 
-// Product screenshot goes here
+> SusanLite is a desktop app for managing tasks, optimised for use via a Command Line Interface (CLI) while still having benefits of a Graphical User Interface (GUI).
 
-SusanLite is a desktop app for managing tasks, optimised for use via a Command Line Interface (CLI) while still having benefits of a Graphical User Interface (GUI).
 
 
 ## Adding to-dos
 
-Adds a non-urgent task to the task list. 
+> Adds a non-urgent task to the task list. 
 
 Format: `todo TASK`
 
 Example: `todo read book` adds the task `read book` to the task list.
 
 
+
 ## Adding deadlines
 
-Adds a task with a deadline to the task list.
+> Adds a task with a deadline to the task list.
 
 Format: `deadline TASK /by DATE`
 
@@ -33,9 +33,10 @@ You have 2 task(s) in the list.
 ```
 
 
+
 ## Adding events
 
-Adds an event to the task list. 
+> Adds an event to the task list. 
 
 Format: `todo EVENT /from START_DATETIME /to END_DATETIME`
 
@@ -51,25 +52,29 @@ Got it. I've added this task:
 You have 3 task(s) in the list.
 ```
 
+
+
 ## Listing all tasks: `list`
 
-Shows a list of all tasks in the task list.
+> Shows a list of all tasks in the task list.
 
 Format: `list`
 
 
+
 ## Reminders: `remindme`
 
-Shows a list of all tasks within the next 3 days.
+> Shows a list of all tasks within the next 3 days.
 
 * to-dos will not be shown.
 
 Format: `remindme`
 
 
+
 ## Locating tasks by keyword: `find`
 
-Find tasks which contains a given keyword.
+> Find tasks which contains a given keyword.
 
 Format: `find KEYWORD`
 
@@ -77,9 +82,10 @@ Format: `find KEYWORD`
 * Only full words will be matched exactly e.g. `return book` will not match `return books`
 
 
+
 ## Marking a task: `mark` / `unmark`
 
-Marks / unmarks the specified task from the task list as done / undone.
+> Marks / unmarks the specified task from the task list as done / undone.
 
 Format: `mark INDEX` / `unmark INDEX`
 
@@ -93,9 +99,10 @@ Example:
 * `unmark 2` unmarks the 2nd task in the task list as undone.
 
 
+
 ## Deleting a task: `delete`
 
-Deletes the specified task from the task list.
+> Deletes the specified task from the task list.
 
 Format: `delete INDEX`
 
@@ -104,6 +111,7 @@ Format: `delete INDEX`
 * The index must be a positive integer 1, 2, 3, ...
 
 Example: `list` followed by `delete 2` deletes the 2nd task in the task list.
+
 
 
 ## Saving the data
