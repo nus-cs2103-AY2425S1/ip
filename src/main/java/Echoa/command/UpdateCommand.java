@@ -1,9 +1,6 @@
 package echoa.command;
 
-import echoa.exception.DateFormatException;
-import echoa.exception.InvalidIndexInputException;
-import echoa.exception.TimeFormatException;
-import echoa.exception.UpdateFormatException;
+import echoa.exception.*;
 import echoa.main.Parser;
 import echoa.main.Storage;
 import echoa.main.TaskList;
@@ -34,7 +31,7 @@ public class UpdateCommand extends Command {
      * @param line input line given by user.
      */
     @Override
-    public void execute(String line) throws InvalidIndexInputException, UpdateFormatException, IOException, DateFormatException, TimeFormatException {
+    public void execute(String line) throws InvalidIndexInputException, UpdateFormatException, IOException, DateFormatException, TimeFormatException, NoUpdateException {
         index = parser.parseUpdateIndex(line);
         task = taskList.getSpecificTask(index);
         String updateDetails = Parser.removeFirstOccurrence(line, String.valueOf (index + 1));
@@ -51,6 +48,24 @@ public class UpdateCommand extends Command {
         } else if (task instanceof Event) {
             details = parser.parseEventUpdate(updateDetails);
         }
+
+        boolean isAllNull = true;
+        for (Object o : details) {
+            // To check if description is empty
+            String newDesc = (String) details[0];
+            if (newDesc != null && newDesc.trim().isEmpty()) {
+                throw new NoUpdateException();
+            }
+
+            if (o != null) {
+                isAllNull = false;
+                break;
+            }
+        }
+        if (isAllNull) {
+            throw new NoUpdateException();
+        }
+
         task.update(details);
         storage.handleChange(taskList);
     }

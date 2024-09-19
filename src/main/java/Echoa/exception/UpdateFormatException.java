@@ -6,7 +6,7 @@ package echoa.exception;
  * It has subclasses:
  * ToDoUpdateFormatException, DeadlineUpdateFormatException, EventUpdateFormatException.
  */
-public abstract class UpdateFormatException extends EchoaException {
+public abstract class UpdateFormatException extends UpdateException {
     public UpdateFormatException() {
         super();
     }

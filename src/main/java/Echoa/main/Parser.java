@@ -110,7 +110,7 @@ public class Parser {
      * @return true if taskLine contains Date, and false otherwise.
      */
     private static boolean hasDate(String taskLine) {
-        return findTime(taskLine) != null;
+        return findDate(taskLine) != null;
     }
 
     /**
@@ -292,7 +292,7 @@ public class Parser {
      */
     // Solution below is inspired by AI: REGEX, Pattern and Matcher
     public int parseUpdateIndex(String indexString) throws InvalidIndexInputException {
-        String[] lineArray = indexString.split("\\s+", 2);
+        String[] lineArray = indexString.split("/", 2);
         trimSplitCommands(lineArray);
 
         Pattern pattern = Pattern.compile("^\\d+$");
@@ -462,6 +462,9 @@ public class Parser {
                 throw new DeadlineUpdateFormatException();
             }
         }
+
+
+
         return new Object[] {description, endDate, endTime};
     }
 

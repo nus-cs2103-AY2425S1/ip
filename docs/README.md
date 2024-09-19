@@ -88,7 +88,6 @@ The format for adding a todo task is as follows:
 ```dtd
 todo [TASK DESCRIPTION]
 ```
-_Refer to Default Date and Time Inputs for the input format for date and time._
 The below inputs are accepted:
 - `todo homework`
 
