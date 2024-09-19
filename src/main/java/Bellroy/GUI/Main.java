@@ -10,7 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Bellroy using FXML.
  */
 public class Main extends Application {
 
@@ -24,7 +24,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setTitle("Bellroy");
-            fxmlLoader.<MainWindow>getController().setBellroy(bellroy);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setBellroy(bellroy);  // inject the Bellroy instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

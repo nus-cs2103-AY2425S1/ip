@@ -1,1 +1,4 @@
 [T][X] run
+[T][ ]  swim
+[T][ ]  run errands
+[T][ ]  shower
