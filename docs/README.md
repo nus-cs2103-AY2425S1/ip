@@ -22,14 +22,14 @@ A GUI similar to the below should appear in a few seconds.
 
 ### Access Help Page
 
-Displays all Features, including Format
+Displays all Features, including Format.
 
 Format: `help`
 
 
 ### List Tasks
 
-Displays a List of all current Tasks
+Displays a List of all current Tasks.
 
 Format: `list`
 
@@ -73,6 +73,8 @@ Nice! Sora has marked this task as not done:
 
 ### Adding TODO Tasks
 
+Adds a Task as a TODO.
+
 Format: `todo <Task>`
 
 Example: `todo Task`
@@ -86,6 +88,8 @@ Now, you have 1 tasks in your list.
 
 
 ### Adding DEADLINE Tasks
+
+Adds a Task as a DEADLINE.
 
 Format: `deadline <Task> /by <Time>`
 
@@ -101,6 +105,8 @@ Now you have 2 tasks in your list
 
 ### Adding EVENT Tasks
 
+Adds a Task as a EVENT.
+
 Format: `event <Task> /from <Time> /to <Time>`
 
 Example: `event Task /from 3/3/2003 0333 /to 31/3/3033 1333 `
@@ -115,6 +121,8 @@ Now you have 3 tasks in your list
 
 ### Deleting Tasks
 
+Deletes a Task from current Tasks.
+
 Format: `delete <Task Number>`
 
 Example: `delete 1`
@@ -127,6 +135,8 @@ Noted. Sora has removed this task:
 
 
 ### Finding Tasks
+
+Finds all Tasks matching the Searched String. 
 
 Format: `find <String>`
 
