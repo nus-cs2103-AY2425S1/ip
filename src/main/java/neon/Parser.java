@@ -114,7 +114,7 @@ public class Parser {
             TaskList foundTask = tasks.findTask(taskToFind);
 
             for (int i = 0; i < foundTask.getSize(); i++) {
-                message.append(foundTask.getTask(i));
+                message.append(foundTask.getTask(i) + "\n");
             }
 
             response = message.toString();
