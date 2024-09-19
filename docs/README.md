@@ -1,14 +1,32 @@
 # Bee
 A chatbot that takes care of your todo list and task tracking!
 
-## Adding todos
-Type into chatbot: `todo <task name>`
+### Adding todos
+`todo <task name>`
 
-## Adding deadlines
-Type into chatbot: `deadline <task name> /by <time>`
+### Adding deadlines
+`deadline <task name> /by <time>`
 
-## Adding events
-Type into chatbot: `event <task name> /from <time> /to <time>`
+### Adding events
+`event <task name> /from <time> /to <time>`
+
+### Listing all tasks wiht their indices
+`list`
+
+### Check and Uncheck tasks
+`mark <task index>`
+
+to uncheck: `unmark <task index>`
+
+### Deleting tasks
+`delete <task index>`
+
+### Searching for tasks
+`find <partial name>`
+
+#### Format of date and time
+`yyyy-MM-dd HHmm (24Hr)`
+`yyyy-MM-dd hh:mm am (12Hr)`
 
 ## Getting help in the app
 type `help` into the chatbot and you will receive the list of commands:

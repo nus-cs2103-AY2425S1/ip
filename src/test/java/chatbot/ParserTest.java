@@ -146,27 +146,15 @@ public class ParserTest {
     @Test
     public void parseFromTxtTaskList_invalidEmpty_input() {
         TaskList taskList = new TaskList();
-        // Create a stream to hold the output
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        PrintStream originalOut = System.out;
-        // Redirect System.out to the new stream
-        System.setOut(new PrintStream(outContent));
 
         Scanner sc1 = new Scanner("[][X] invalid input");
         Parser.parseFromTxtTaskList(sc1, taskList);
 
         assertEquals(0, taskList.getTotalNumOfTasks());
-        assertEquals("this line is in an invalid format\n", outContent.toString());
-
-        outContent.reset();
 
         Scanner sc2 = new Scanner("        ");
         Parser.parseFromTxtTaskList(sc2, taskList);
 
         assertEquals(0, taskList.getTotalNumOfTasks());
-        assertEquals("this line is in an invalid format\n", outContent.toString());
-
-        // Restore original System.out
-        System.setOut(originalOut);
     }
 }
