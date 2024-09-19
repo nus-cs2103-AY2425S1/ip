@@ -6,6 +6,7 @@ import shenhe.Storage;
 import shenhe.TaskList;
 import shenhe.Ui;
 import shenhe.exception.EmptyTaskDescriptionException;
+import shenhe.exception.InvalidDeadlineDescription;
 import shenhe.parser.DateParser;
 import shenhe.task.Deadline;
 
@@ -44,13 +45,16 @@ public final class DeadlineCommand extends Command {
      * @throws EmptyTaskDescriptionException If the user input does not contain a valid task description.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws EmptyTaskDescriptionException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
         if (userInput.trim().length() == 8) {
             throw new EmptyTaskDescriptionException();
         }
 
         // Split the input string into two parts using the first "/" character
         String[] parts = userInput.split("/", 2);
+        if (parts.length != 2) {
+            throw new InvalidDeadlineDescription();
+        }
 
         // Extract the task description part (before the first "/")
         String task = parts[0].substring(8).trim();

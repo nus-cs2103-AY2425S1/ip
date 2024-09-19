@@ -1,5 +1,4 @@
 T | 0 | read book
 E | 0 | prepare for debate | 2pm | 4pm
-D | 0 | sdfasdf | 09-30-2025 16:45
-T | 0 | do the ip project 
 T | 0 | read more books
+T | 0 | fight the BlackMyth Wukong Tiger Boss 

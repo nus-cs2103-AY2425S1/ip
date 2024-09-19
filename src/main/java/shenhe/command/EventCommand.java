@@ -4,6 +4,7 @@ import shenhe.Storage;
 import shenhe.TaskList;
 import shenhe.Ui;
 import shenhe.exception.EmptyTaskDescriptionException;
+import shenhe.exception.InvalidEventDescription;
 import shenhe.task.Event;
 
 /**
@@ -39,13 +40,16 @@ public final class EventCommand extends Command {
      * @throws EmptyTaskDescriptionException If the user input does not contain a valid event description.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws EmptyTaskDescriptionException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
         if (userInput.trim().length() == 5) {
             throw new EmptyTaskDescriptionException();
         }
 
         // Split the input string into three parts using "/" character
         String[] parts = userInput.split("/", 3);
+        if (parts.length != 3) {
+            throw new InvalidEventDescription();
+        }
 
         // Extract the event description part (before the first "/")
         String task = parts[0].substring(5).trim();
