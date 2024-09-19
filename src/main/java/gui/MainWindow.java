@@ -20,6 +20,20 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
+    private String GREETING_MESSAGE = """
+                                        Hey there! I'm FRIDAY, your personal digital assistant!
+                                        + "Please enter commands in the following format so that I can begin to help you get organized!
+                                        + "To add tasks:
+                                        + "I. todo <task description>
+                                        + "II. event <task description>/from <start time> to <end time>
+                                        + "III. deadline <task description>/<due date in YYYY-MM-DD format>
+                                        + "Other commands:
+                                        + "I. list - displays list of tasks"
+                                        + "II. mark/unmark <task number> - marks task as done/undone
+                                        + "III. archive - removes all tasks but saves them in an archived file
+                                        + "IV. delete <task number> - permanently deletes task
+                                        + "V. search <description> - displays list of tasks with matching descriptions
+                                        + "VI. bye - exits application and saves task list locally""";
     private FRIDAY FRIDAY;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
@@ -27,6 +41,9 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getFRIDAYDialog(GREETING_MESSAGE, FRIDAYImage)
+        );
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
