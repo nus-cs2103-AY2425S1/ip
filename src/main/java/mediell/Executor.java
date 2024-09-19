@@ -33,6 +33,8 @@ public class Executor {
             assert instruction.getTask() != null;
             taskList.addTask(instruction.getTask());
             return instruction;
+        case BYE:
+            // Fallthrough
         case SEARCH:
             // Fallthrough
         case SORT:

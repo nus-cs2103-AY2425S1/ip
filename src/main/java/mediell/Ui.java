@@ -46,6 +46,8 @@ public class Ui {
             return "Ok, I've marked this task as not done yet:\n" + taskList.getTask(instruction.getIndex());
         case SORT:
             return "Ok, here are all your tasks!\n" + taskList.displaySortedList();
+        case BYE:
+            return printFarewell();
         default:
             throw new IncorrectInstructionFormatException();
         }

@@ -44,6 +44,8 @@ public class Parser {
             return createFindInstruction(message);
         } else if (message.startsWith("sort")) {
             return new Instruction(Instruction.Type.SORT);
+        } else if (message.startsWith("bye")) {
+            return new Instruction(Instruction.Type.BYE);
         } else {
             throw new IncorrectInstructionFormatException();
         }

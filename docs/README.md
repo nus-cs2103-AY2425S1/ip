@@ -6,6 +6,8 @@ Mediell is a helpful tool to help manage your many tasks!
 
 ## Featues
 
+All commands must be in lowercase
+
 ### List
 
 list
