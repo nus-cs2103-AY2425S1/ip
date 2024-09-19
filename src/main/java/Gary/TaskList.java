@@ -30,6 +30,9 @@ public class TaskList {
      * @param sc The {@code Scanner} object containing task data.
      */
     public TaskList(Scanner sc) {
+        // Assertion: Ensure that the Scanner object is not null
+        assert sc != null : "Scanner cannot be null";
+
         this.tasks = new ArrayList<>();
         loadTasksFromScanner(sc);
     }
@@ -103,6 +106,9 @@ public class TaskList {
      * @param task The {@code Task} object to add.
      */
     public void addTask(Task task) {
+        // Assertion: Ensure the task is not null
+        assert task != null : "Task cannot be null";
+
         this.tasks.add(task);
     }
 
@@ -114,6 +120,9 @@ public class TaskList {
      * @throws IndexOutOfBoundsException if the index is out of range.
      */
     public Task removeTask(int index) {
+        // Assertion: Ensure the index is within the valid range
+        assert index >= 0 && index < this.tasks.size() : "Invalid index for removing task";
+
         return this.tasks.remove(index);
     }
 
@@ -125,6 +134,9 @@ public class TaskList {
      * @throws IndexOutOfBoundsException if the index is out of range.
      */
     public Task getTask(int index) {
+        // Assertion: Ensure the index is within the valid range
+        assert index >= 0 && index < this.tasks.size() : "Invalid index for retrieving task";
+
         return this.tasks.get(index);
     }
 

@@ -47,6 +47,9 @@ public class Ui {
      * @param task The {@code Task} object that has been marked as done.
      */
     public String markTask(Task task) {
+        // Assertion: Ensure that the task is not null
+        assert task != null : "Task cannot be null when marking it as done";
+
         return "Nice! I've marked this task as done:\n" + task.toString() + "\n";
     }
 
@@ -56,6 +59,9 @@ public class Ui {
      * @param task The {@code Task} object that has been marked as not done.
      */
     public String unmarkTask(Task task) {
+        // Assertion: Ensure that the task is not null
+        assert task != null : "Task cannot be null when unmarking it";
+
         return "OK, I've marked this task as not done yet:\n" + task.toString() + "\n";
     }
 
@@ -66,6 +72,10 @@ public class Ui {
      * @param size The new size of the task list after the task has been removed.
      */
     public String deleteTask(Task task, int size) {
+        // Assertion: Ensure that the task is not null and size is non-negative
+        assert task != null : "Task cannot be null when deleting it";
+        assert size >= 0 : "Task list size cannot be negative";
+
         return "Noted. I've removed this task from the list:\n"
                 + task.toString() + "\nNow you have " + size
                 + " tasks in the list.\n";
@@ -78,6 +88,10 @@ public class Ui {
      * @param size The new size of the task list after the task has been added.
      */
     public String addTask(Task task, int size) {
+        // Assertion: Ensure that the task is not null and size is positive
+        assert task != null : "Task cannot be null when adding it";
+        assert size > 0 : "Task list size must be positive after adding a task";
+
         return "Got it. I've added this task:\n" + task.toString()
                 + "\nNow you have " + size + " tasks in the list.\n";
     }
@@ -110,7 +124,9 @@ public class Ui {
      * @param message The error message to display.
      */
     public String showError(String message) {
+        // Assertion: Ensure that the error message is not null
+        assert message != null : "Error message cannot be null";
+
         return message;
     }
 }
-

@@ -21,6 +21,9 @@ public class Storage {
      * @param filePath The path of the file to store tasks.
      */
     public Storage(String filePath) {
+        // Assertion: Ensure that the file path is not null
+        assert filePath != null : "File path cannot be null";
+
         this.filePath = filePath;
     }
 
@@ -35,6 +38,8 @@ public class Storage {
         File file = new File(this.filePath);
         createDirectoryIfNotExists(file.getParentFile());
         createFileIfNotExists(file);
+        // Assertion: Ensure the file exists after attempting to create it
+        assert file.exists() : "File should exist after creation attempt";
 
         return new Scanner(file);
     }
@@ -77,6 +82,9 @@ public class Storage {
      * @throws IOException If an I/O error occurs during writing.
      */
     public void saveTask(TaskList taskList) throws IOException {
+        // Assertion: Ensure the taskList is not null
+        assert taskList != null : "TaskList cannot be null";
+
         File file = new File(filePath);
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file))) {
             for (int i = 0; i < taskList.size(); i++) {

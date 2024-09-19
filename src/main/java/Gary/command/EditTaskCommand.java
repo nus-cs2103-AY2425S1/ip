@@ -27,6 +27,7 @@ public class EditTaskCommand extends Command {
      * @param index The index of the task to edit.
      */
     public EditTaskCommand(boolean isDone, int index) {
+        assert index >= 0 : "Index should not be negative";
         this.isDone = isDone;
         this.index = index;
     }
@@ -38,16 +39,26 @@ public class EditTaskCommand extends Command {
      * @param taskList The {@code TaskList} object containing tasks to be manipulated.
      * @param ui The {@code Ui} object for user interaction, used to display messages.
      * @param storage The {@code Storage} object for saving and loading tasks.
+     * @return A message indicating the task has been marked or unmarked.
+     * @throws GaryException If an error occurs while saving the task list or if the index is out of bounds.
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws GaryException {
+        assert taskList != null : "TaskList should not be null";
+        assert ui != null : "Ui should not be null";
+        assert storage != null : "Storage should not be null";
+        assert index >= 0 && index < taskList.size() : "Index is out of bounds";
+
         try {
             Task task = taskList.getTask(index);
+            assert task != null : "Task should not be null";
+
             if (isDone) {
                 task.editStatus();
                 storage.saveTask(taskList);
                 return ui.markTask(task);
             } else {
+                task.editStatus();
                 storage.saveTask(taskList);
                 return ui.unmarkTask(task);
             }

@@ -15,9 +15,13 @@ public class ShowListCommand extends Command {
      * @param taskList The {@code TaskList} object containing tasks to be displayed.
      * @param ui The {@code Ui} object for user interaction, used to display the tasks.
      * @param storage The {@code Storage} object for saving and loading tasks (not used in this command).
+     * @return A string representing the list of tasks.
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
+        assert taskList != null : "TaskList should not be null";
+        assert ui != null : "Ui should not be null";
+
         return ui.showTaskLists(taskList);
     }
 

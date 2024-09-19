@@ -20,6 +20,7 @@ public class DeleteCommand extends Command {
      * @param deletedIndex The index of the task to be deleted in the task list.
      */
     public DeleteCommand(int deletedIndex) {
+        assert deletedIndex >= 0 : "Deleted index should not be negative";
         this.deletedIndex = deletedIndex;
     }
 
@@ -30,9 +31,16 @@ public class DeleteCommand extends Command {
      * @param taskList The {@code TaskList} object containing tasks to be manipulated.
      * @param ui The {@code Ui} object for user interaction, used to display messages.
      * @param storage The {@code Storage} object for saving and loading tasks.
+     * @return A message indicating the task has been deleted.
+     * @throws GaryException If an error occurs while saving the task list or if the index is out of bounds.
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws GaryException {
+        assert taskList != null : "TaskList should not be null";
+        assert ui != null : "Ui should not be null";
+        assert storage != null : "Storage should not be null";
+        assert deletedIndex >= 0 && deletedIndex < taskList.size() : "Deleted index is out of bounds";
+
         try {
             Task deletedTask = taskList.removeTask(deletedIndex);
             storage.saveTask(taskList);

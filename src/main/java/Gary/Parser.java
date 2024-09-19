@@ -36,13 +36,19 @@ public class Parser {
      * @throws GaryException If the command is not recognized or has an invalid format.
      */
     static Command parse(String fullCommand) throws GaryException {
+        // Assertion: Ensure that fullCommand is not null and not empty
+        assert fullCommand != null && !fullCommand.trim().isEmpty() : "Input command cannot be null or empty";
+
         String[] split = fullCommand.trim().split(" ", 2);
         String taskType = split[0].toLowerCase();
 
+<<<<<<< HEAD
         switch (taskType) {
+
         case "todo":
             return parseToDoCommand(split);
         case "deadline":
+<<<<<<< HEAD
             return parseDeadlineCommand(split);
         case "event":
             return parseEventCommand(split);

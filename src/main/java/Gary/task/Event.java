@@ -28,8 +28,18 @@ public class Event extends Task {
      */
     public Event(String description, String start, String end) {
         super(description);
+
+        // Assertions to ensure valid inputs
+        assert description != null && !description.trim().isEmpty() : "Description cannot be null or empty";
+        assert start != null && !start.trim().isEmpty() : "Start time cannot be null or empty";
+        assert end != null && !end.trim().isEmpty() : "End time cannot be null or empty";
+
         this.start = parseDateTime(start);
         this.end = parseDateTime(end);
+
+        // Assert that start and end times were successfully parsed
+        assert this.start != null : "Start time should not be null";
+        assert this.end != null : "End time should not be null";
     }
 
     /**
@@ -91,6 +101,10 @@ public class Event extends Task {
             return false;
         }
         Event otherEvent = (Event) obj;
+
+        // Assert that the object being compared is an Event object
+        assert otherEvent != null : "The object being compared should not be null";
+
         return super.equals(otherEvent)
                 && this.start.equals(otherEvent.start)
                 && this.end.equals(otherEvent.end);
