@@ -86,4 +86,14 @@ public class TaskList {
         }
     }
 
+    public String addTag(int position, String tag) throws KieTwoForOneException {
+        assert position >= 0: "Array position cannot be less than 0.";
+        assert tag != null: "Tag cannot be null";
+        try {
+            return tasks.get(position - 1).addTag(tag);
+        } catch (IndexOutOfBoundsException e) {
+            throw new KieTwoForOneException("Task does not exist!");
+        }
+    }
+
 }

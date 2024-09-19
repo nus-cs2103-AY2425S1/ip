@@ -16,7 +16,7 @@ public class KieTwoForOne {
 
     private static TaskList tasks = new TaskList(new ArrayList<> (100));
     private static UI ui = new UI();
-    private static Storage storage;
+    private static Storage storage = new Storage();
 
     /**
      * Runs the chatbot by initially displaying the welcome message and setting isExit as false.

@@ -17,7 +17,7 @@ public class Parser {
      * Represents the valid commands that can be inputed by the user.
      */
     public enum Instructions {
-        LIST, MARK, UNMARK, BYE, TODO, EVENT, DEADLINE, DELETE, DATE, FIND
+        LIST, MARK, UNMARK, BYE, TODO, EVENT, DEADLINE, DELETE, DATE, FIND, TAG
     }
 
     /**
@@ -102,6 +102,12 @@ public class Parser {
             return new MarkCommand(Integer.valueOf(instruction[1]));
         case UNMARK:
             return new UnmarkCommand(Integer.valueOf(instruction[1]));
+        case TAG:
+            try {
+                return new TagCommand(Integer.valueOf(taskDetails[0]), taskDetails[1]);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new KieTwoForOneException("Please input a valid index and tag!");
+            }
         case TODO:
             return new AddCommand(new Todo(instruction[1]));
         case EVENT:
