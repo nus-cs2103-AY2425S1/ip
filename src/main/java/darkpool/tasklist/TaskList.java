@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import darkpool.task.Task;
 import darkpool.DarkpoolException;
 
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList {
 
     private final ArrayList<Task> taskList;

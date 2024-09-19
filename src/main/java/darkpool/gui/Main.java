@@ -10,7 +10,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * A GUI for Darkpool using FXML.
+ * The Main class is the entry point of the application.
+ * It loads the MainWindow.fxml file and sets the Darkpool object to the controller.
  */
 public class Main extends Application {
 

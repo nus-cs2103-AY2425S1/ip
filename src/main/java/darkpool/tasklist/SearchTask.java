@@ -5,6 +5,9 @@ import darkpool.DarkpoolException;
 
 import java.util.ArrayList;
 
+/**
+ * SearchTask class is used to search for tasks in the task list that contains the search query.
+ */
 class SearchTask {
     static String searchTask(ArrayList<Task> taskList, String searchQuery) throws DarkpoolException {
         if (taskList.isEmpty()) {

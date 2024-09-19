@@ -5,6 +5,9 @@ import java.time.format.DateTimeParseException;
 
 import darkpool.DarkpoolException;
 
+/**
+ * Represents an event task.
+ */
 public class Event extends Task {
 
     protected LocalDateTime fromTime;

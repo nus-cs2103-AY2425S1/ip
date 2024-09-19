@@ -2,6 +2,9 @@ package darkpool.task;
 
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task that can be done.
+ */
 public abstract class Task {
     static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
     protected final String description;
