@@ -1,3 +1,5 @@
+package pixy;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -23,15 +25,18 @@ public class EventTest {
 
     @Test
     public void testInvalidDateFormat() {
+        // used ChatGPT to add more test to help validate the dates
         try {
             new Event("Invalid Event", "invalid date", "invalid date");
         } catch (IllegalArgumentException e) {
-            assertTrue(e.getMessage().contains("Invalid date format: invalid date or invalid date. Please use 'd/M/yyyy HHmm' or 'MMM d yyyy, h:mm a'."));
+            assertTrue(e.getMessage().contains("Invalid date format: invalid date or invalid date. Please use " +
+                    "'d/M/yyyy HHmm' or 'MMM d yyyy, h:mm a'."));
         }
     }
 
     @Test
     public void testEdgeCaseDate() {
+        // used ChatGPT to add more test to help validate the dates
         Event event = new Event("Midnight Event", "31/12/2024 2359", "01/01/2025 0001");
         assertEquals("Dec 31 2024, 11:59 pm", event.getFrom());
         assertEquals("Jan 1 2025, 12:01 am", event.getTo());

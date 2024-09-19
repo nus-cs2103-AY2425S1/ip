@@ -12,12 +12,14 @@ class DeadlinesTest {
 
     @Test
     void testValidDateFormat() {
+        // used ChatGPT to add more test to help validate the date formats
         Deadlines deadline = new Deadlines("Complete report", "31/8/2024 0900");
         assertEquals("Aug 31 2024, 9:00 am", deadline.getDueDateTime());
     }
 
     @Test
     void testInvalidDateFormat() {
+        // used ChatGPT to add more test to help validate the dates
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             new Deadlines("Complete report", "31-08-2024 0900");
         });

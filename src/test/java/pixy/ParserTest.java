@@ -65,16 +65,16 @@ public class ParserTest {
         Task todo = new ToDos("Test todo");
         tasks.add(todo);
         String response = parser.executeCommand("delete 1", tasks, ui);
-        assertEquals(0, tasks.size()); // Check if the task list size is 0 after deletion
-        assertEquals("Task deleted: Test todo. You now have 0 task(s).", response); // Check the response message
+        assertEquals(0, tasks.size());
+        assertEquals("Task deleted: Test todo. You now have 0 task(s).", response);
     }
 
     @Test
     public void testAddTodoCommand() {
         String response = parser.executeCommand("todo Test todo", tasks, ui);
-        assertEquals(1, tasks.size()); // Check if task list size is 1
-        assertTrue(tasks.get(0) instanceof ToDos); // Check if the added task is a ToDos
-        assertEquals("Added new todo: Test todo. You now have 1 task(s).", response); // Check the response message
+        assertEquals(1, tasks.size());
+        assertTrue(tasks.get(0) instanceof ToDos);
+        assertEquals("Added new todo: Test todo. You now have 1 task(s).", response);
     }
 
     @Test
