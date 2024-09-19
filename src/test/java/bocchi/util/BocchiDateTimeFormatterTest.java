@@ -15,78 +15,78 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 public class BocchiDateTimeFormatterTest {
 
-    private static final List<Map<String, LocalDateTime>> DATE_FORMATS = List.of(
-            Map.ofEntries(
-                    Map.entry(
-                            "2020-1-1",
-                            LocalDateTime.of(2020, 1, 1, 0, 0, 0)
-                    ),
-                    Map.entry(
-                            "2020/1/1",
-                            LocalDateTime.of(2020, 1, 1, 0, 0, 0)
-                    )
-            ),
-            Map.ofEntries(
-                    Map.entry(
-                            "2028-11-10",
-                            LocalDateTime.of(2028, 11, 10, 0, 0, 0)
-                    ),
-                    Map.entry(
-                            "2028/11/10",
-                            LocalDateTime.of(2028, 11, 10, 0, 0, 0)
-                    )
-            ),
-            Map.ofEntries(
-                    Map.entry(
-                            "1969-Sep-10",
-                            LocalDateTime.of(1969, 9, 10, 0, 0, 0)
-                    ),
-                    Map.entry(
-                            "1969/Sep/10",
-                            LocalDateTime.of(1969, 9, 10, 0, 0, 0)
-                    )
-            ),
-            Map.ofEntries(
-                    Map.entry(
-                            "2019-20-Mar",
-                            LocalDateTime.of(2019, 3, 20, 0, 0, 0)
-                    ),
-                    Map.entry(
-                            "2019/20/Mar",
-                            LocalDateTime.of(2019, 3, 20, 0, 0, 0)
-                    )
-            ),
-            Map.ofEntries(
-                    Map.entry(
-                            "1-1",
-                            LocalDateTime.of(LocalDateTime.now().getYear(), 1, 1, 0, 0, 0)
-                    ),
-                    Map.entry(
-                            "1/1",
-                            LocalDateTime.of(LocalDateTime.now().getYear(), 1, 1, 0, 0, 0)
-                    )
-            ),
-            Map.ofEntries(
-                    Map.entry(
-                            "11-10",
-                            LocalDateTime.of(LocalDateTime.now().getYear(), 11, 10, 0, 0, 0)
-                    ),
-                    Map.entry(
-                            "11/10",
-                            LocalDateTime.of(LocalDateTime.now().getYear(), 11, 10, 0, 0, 0)
-                    )
-            ),
-            Map.ofEntries(
-                    Map.entry(
-                            "Sep 10",
-                            LocalDateTime.of(LocalDateTime.now().getYear(), 9, 10, 0, 0, 0)
-                    ),
-                    Map.entry(
-                            "10 Sep",
-                            LocalDateTime.of(LocalDateTime.now().getYear(), 9, 10, 0, 0, 0)
-                    )
-            )
-    );
+   private static final List<Map<String, LocalDateTime>> DATE_FORMATS = List.of(
+        Map.ofEntries(
+                Map.entry(
+                        "2020-1-1",
+                        LocalDateTime.of(2020, 1, 1, 23, 59, 59)
+                ),
+                Map.entry(
+                        "2020/1/9",
+                        LocalDateTime.of(2020, 1, 9, 23, 59, 59)
+                )
+        ),
+        Map.ofEntries(
+                Map.entry(
+                        "2028-11-10",
+                        LocalDateTime.of(2028, 11, 10, 23, 59, 59)
+                ),
+                Map.entry(
+                        "2028/11/10",
+                        LocalDateTime.of(2028, 11, 10, 23, 59, 59)
+                )
+        ),
+        Map.ofEntries(
+                Map.entry(
+                        "1969-Sep-10",
+                        LocalDateTime.of(1969, 9, 10, 23, 59, 59)
+                ),
+                Map.entry(
+                        "1969/Sep/10",
+                        LocalDateTime.of(1969, 9, 10, 23, 59, 59)
+                )
+        ),
+        Map.ofEntries(
+                Map.entry(
+                        "2019-20-Mar",
+                        LocalDateTime.of(2019, 3, 20, 23, 59, 59)
+                ),
+                Map.entry(
+                        "2019/20/Mar",
+                        LocalDateTime.of(2019, 3, 20, 23, 59, 59)
+                )
+        ),
+        Map.ofEntries(
+                Map.entry(
+                        "1-1",
+                        LocalDateTime.of(LocalDateTime.now().getYear(), 1, 1, 23, 59, 59)
+                ),
+                Map.entry(
+                        "1/1",
+                        LocalDateTime.of(LocalDateTime.now().getYear(), 1, 1, 23, 59, 59)
+                )
+        ),
+        Map.ofEntries(
+                Map.entry(
+                        "11-10",
+                        LocalDateTime.of(LocalDateTime.now().getYear(), 11, 10, 23, 59, 59)
+                ),
+                Map.entry(
+                        "11/10",
+                        LocalDateTime.of(LocalDateTime.now().getYear(), 11, 10, 23, 59, 59)
+                )
+        ),
+        Map.ofEntries(
+                Map.entry(
+                        "Sep 10",
+                        LocalDateTime.of(LocalDateTime.now().getYear(), 9, 10, 23, 59, 59)
+                ),
+                Map.entry(
+                        "10 Sep",
+                        LocalDateTime.of(LocalDateTime.now().getYear(), 9, 10, 23, 59, 59)
+                )
+        )
+);
     private static final List<Map<String, LocalDateTime>> TIME_FORMATS = List.of(
             Map.ofEntries(
                     Map.entry(

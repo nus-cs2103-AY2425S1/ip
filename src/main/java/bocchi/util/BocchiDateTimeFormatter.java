@@ -16,7 +16,7 @@ import java.util.Locale;
  * When year is not specified, the current year is used.
  * When date is not specified at all, the current date is used.
  * When second is not specified, 00 is used.
- * When time is not specified at all, 00:00:00 is used.
+ * When time is not specified at all, 23:59:59 is used.
  */
 public class BocchiDateTimeFormatter {
 
@@ -35,6 +35,10 @@ public class BocchiDateTimeFormatter {
     private static final String[] DATE_FORMATS_NO_YEAR = {
             "M-d",
             "MM-dd",
+
+            "M/d",
+            "MM/dd",
+
             "MMM dd",
             "dd MMM",
     };
@@ -81,18 +85,18 @@ public class BocchiDateTimeFormatter {
         for (String dateFormat : DATE_FORMATS) {
             DATE_FORMATTERS.add(new DateTimeFormatterBuilder()
                     .appendPattern(dateFormat)
-                    .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
-                    .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
-                    .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
+                    .parseDefaulting(ChronoField.HOUR_OF_DAY, 23)
+                    .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 59)
+                    .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 59)
                     .toFormatter()
                     .withLocale(Locale.ENGLISH));
         }
         for (String dateFormatNoYear : DATE_FORMATS_NO_YEAR) {
             DATE_FORMATTERS.add(new DateTimeFormatterBuilder()
                     .appendPattern(dateFormatNoYear)
-                    .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
-                    .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
-                    .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
+                    .parseDefaulting(ChronoField.HOUR_OF_DAY, 23)
+                    .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 59)
+                    .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 59)
                     .parseDefaulting(ChronoField.YEAR, LocalDate.now().getYear())
                     .toFormatter()
                     .withLocale(Locale.ENGLISH));
@@ -160,10 +164,9 @@ public class BocchiDateTimeFormatter {
         for (DateTimeFormatter formatter : DATE_FORMATTERS) {
             try {
                 // Default time to 00:00:00 if not specified.
-                return LocalDate.parse(dateTime, formatter).atStartOfDay();
+                return LocalDateTime.parse(dateTime, formatter);
             } catch (DateTimeParseException e) {
                 // Do nothing.
-                e.printStackTrace();
             }
         }
 
@@ -176,7 +179,7 @@ public class BocchiDateTimeFormatter {
             }
         }
 
-        throw new DateTimeParseException("Invalid date/time format.", dateTime, 0);
+        throw new DateTimeParseException("Invalid date/time format: " + dateTime, dateTime, 0);
     }
 
     /**
@@ -187,5 +190,9 @@ public class BocchiDateTimeFormatter {
      */
     public static String toString(LocalDateTime dateTime) {
         return dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    }
+
+    public static void main(String[] args) {
+        System.out.println(parse("1/1 11:12:19"));
     }
 }
