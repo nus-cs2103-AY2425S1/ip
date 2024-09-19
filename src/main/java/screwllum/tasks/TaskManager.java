@@ -68,7 +68,6 @@ public class TaskManager {
         } else {
             result = ui.showMessage(tokens, list);
         }
-        
         return result;
     }
     

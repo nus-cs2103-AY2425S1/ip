@@ -27,13 +27,8 @@ public class Screwllum {
         storage = new Storage(filePath);
         try {
             taskManager = new TaskManager(storage.load());
-        } catch (IOException e) {
-            ui.showError("File does not exist, creating new file");
+        } catch (Exception e) {
             taskManager = new TaskManager();
-        } catch (ScrewllumException e) {
-            // In the case that the file is corrupted, I force the application to stop
-            ui.showError(e.getMessage());
-            System.exit(1);
         }
     }
 
