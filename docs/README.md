@@ -50,6 +50,7 @@ However, to display the chat history in a more user-friendly manner, the chatbot
 > For all commands, arguments for the command are specified between curly brackets `{}` and are compulsory. The curly brackets not meant to be typed in the command itself. Refer to the command example for better clarity.
 
 ## Summary
+
 | Index |       Command        |                         Format                         |                    Example                     |
 |:-----:|:--------------------:|:------------------------------------------------------:|:----------------------------------------------:|
 |   1   |   Add a ToDo task    |                  `/todo {task name}`                   |                `/todo homework`                |
