@@ -3,6 +3,7 @@ package ai.command;
 import ai.TaskList;
 import ai.Ui;
 import ai.exception.AiException;
+import ai.exception.IndexOutOfBoundsAiException;
 import ai.exception.WrongFormatAiException;
 import ai.task.Task;
 
@@ -30,8 +31,7 @@ public class DeleteCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui) throws AiException {
         if (i < 0 || i >= tasks.size()) {
-            throw new AiException("Hey hey!! The task doesn't exist... can't be removed >....<\n"
-                    + "You might wanna try a valid positive integer till " + tasks.size() + "\n");
+            throw new IndexOutOfBoundsAiException(tasks.size());
         }
 
         Task temp = tasks.get(i);
