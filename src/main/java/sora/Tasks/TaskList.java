@@ -189,6 +189,8 @@ public class TaskList {
         StringBuilder sb = new StringBuilder();
         if (taskListFound.isEmpty()) {
             sb.append("Sora is unable to find any Tasks!\n");
+        } else {
+            sb.append("Sora has found the following Tasks:\n");
         }
         taskListFound.forEach((i, t) -> sb.append(i++ + ". " + t.toString() + "\n"));
         return sb;
