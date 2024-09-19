@@ -1,6 +1,6 @@
 # Pixel User Guide
 
-![Pixel Chatbot](https://github.com/AngPengXuan/ip/docs/Ui.png)
+![Pixel Chatbot](https://github.com/AngPengXuan/ip/blob/master/docs/Ui.png)
 
 ## Introduction
 
