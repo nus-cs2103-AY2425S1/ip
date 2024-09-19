@@ -7,7 +7,8 @@ import screwllum.exception.InvalidIndexException;
 import screwllum.utils.Ui;
 
 /**
- * Represents a manager of a list of tasks, providing functionality to modify and access the task list.
+ * Represents a manager of a list of tasks, providing functionality to execute commands, and
+ * modify and access the task list.
  */
 public class TaskManager {
     private List<Task> taskList;
@@ -27,10 +28,13 @@ public class TaskManager {
      *
      * @param tokens The parsed command tokens that determine the action to be executed.
      * @param ui The UI object responsible for displaying messages.
+     * @return A string representing the results of the action that was executed
      * @throws InvalidIndexException If the index provided in the command (e.g., for toggle or delete) is out of bounds.
      */
-    public void execute(List<String> tokens, Ui ui) throws InvalidIndexException {
+    public String execute(List<String> tokens, Ui ui) throws InvalidIndexException {
         List<Task> list = null;
+        String result = "";
+        
         switch (tokens.get(0)) {
         case "toggle":
             try {
@@ -60,10 +64,11 @@ public class TaskManager {
             // Do nothing
         }
         if (list == null) {
-            ui.showMessage(tokens, taskList);
+            result = ui.showMessage(tokens, taskList);
         } else {
-            ui.showMessage(tokens, list);
+            result = ui.showMessage(tokens, list);
         }
+        return result;
     }
     
     public List<Task> getTaskList() {

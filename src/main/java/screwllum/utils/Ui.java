@@ -17,80 +17,79 @@ public class Ui {
         return sc.nextLine();
     }
     
-    public void showWelcome() {
-        print("Pleased to meet you");
+    public String showWelcome(String message) {
+        return message;
     }
 
     /**
      * Displays an error message to the user, which is normally the description of a Screwllum Exception.
      *
      * @param message The error message to be shown.
+     * @return The error message
      */
-    public void showError(String message) {
-        print(message);
+    public String showError(String message) {
+        return message;
     }
 
     /**
-     * Displays a message to the user based on the command tokens and the current list of tasks.
+     * Returns a string based on the command tokens and the current list of tasks.
      * Handles commands such as "bye", "list", "toggle", "delete", "todo", "deadline", and "event".
      *
      * @param tokens The parsed command tokens.
      * @param taskList The current list of tasks.
+     * @return The response related to the requested command token
      */
-    public void showMessage(List<String> tokens, List<Task> taskList) {
+    public String showMessage(List<String> tokens, List<Task> taskList) {
+        String response = "";
         switch (tokens.get(0)) {
         case "bye":
-            print("It was my pleasure, good bye");
-            System.exit(0);
-            break; // No requirement for a break, only to remove checkstyle warnings
+            response = "It was my pleasure, good bye. Close the application window thanks!";
+            break;
         case "list":
-            printTaskList(taskList);
+            response = printTaskList(taskList);
             break;
         case "toggle":
-            print("I have toggled the status of this task:");
-            print(taskList.get(Integer.parseInt(tokens.get(1)) - 1).toString());
+            response = "I have toggled the status of this task:\n"
+                    + taskList.get(Integer.parseInt(tokens.get(1)) - 1).toString();
             break;
         case "delete":
-            print("I have deleted this task: ");
-            print(taskList.get(Integer.parseInt(tokens.get(1)) - 1).toString());
+            response = "I have deleted this task:\n" + taskList.get(Integer.parseInt(tokens.get(1)) - 1).toString();
             break;
         case "todo":
             // Fallthrough
         case "deadline":
             // Fallthrough
         case "event":
-            print("I have added the following task:");
-            print(taskList.get(taskList.size() - 1).toString());
-            print("Now you have " + taskList.size() + " tasks");
+            response = "I have added the following task:\n"
+                    + taskList.get(taskList.size() - 1).toString()
+                    + "\nNow you have " + taskList.size() + " tasks";
             break;
         case "find":
             List<Task> tempList = new ArrayList<>();
             String keywords = tokens.get(1);
-            print("find " + keywords);
             for (int i = 0; i < taskList.size(); i++) {
                 Task currentTask = taskList.get(i);
                 if (currentTask.getDesc().contains(keywords)) {
                     tempList.add(currentTask);
                 }
             }
-            printTaskList(tempList);
+            response = "find " + keywords + "\n" + printTaskList(tempList);
             break;
         default:
-            print("I don't know what to do with this task");
+            response = "I don't know what to do with this task";
         }
+        return response;
     }
     
-    private void print(String message) {
-        System.out.println(message);
-    }
-    
-    private void printTaskList(List<Task> taskList) {
+    private String printTaskList(List<Task> taskList) {
+        String response = "";
         if (taskList.isEmpty()) {
-            print("There are no tasks for you!");
+            response = "There are no tasks for you!";
         } else {
             for (int i = 0; i < taskList.size(); i++) {
-                print(String.format("%s. %s", i + 1, taskList.get(i).toString()));
+                response += (String.format("%s. %s\n", i + 1, taskList.get(i).toString()));
             }
         }
+        return response;
     }
 }
