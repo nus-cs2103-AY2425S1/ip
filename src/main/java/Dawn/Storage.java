@@ -11,7 +11,6 @@ import static Dawn.TaskList.getTask;
 import static Dawn.TaskList.numOfTasks;
 
 public class Storage {
-    private ArrayList<Task> savedTasks;
     private String filePath;
 
     /**
@@ -51,7 +50,6 @@ public class Storage {
                             Arrays.copyOfRange(taskContent, 2, taskContent.length));
                     TaskList.addTask(taskContent[0], detail, taskContent[1]);
                 }
-                clearSavedTask(this.filePath);
             }
             return taskList;
         } catch (IOException e) {
@@ -59,7 +57,7 @@ public class Storage {
         }
     }
 
-    protected void clearSavedTask(String filePath) throws IOException {
+    protected static void clearSavedTask(String filePath) throws IOException {
         FileWriter writer = new FileWriter(filePath, false);
         writer.write(""); // to clear the content of the files
         writer.close();
@@ -73,6 +71,7 @@ public class Storage {
      */
     public static void saveTasks(String filePath) throws DawnException {
         try {
+            clearSavedTask(filePath);
             for (int i = 0; i < numOfTasks(); i++) {
                 writeToFile(filePath, getTask(i));
             }

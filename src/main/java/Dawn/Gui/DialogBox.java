@@ -74,7 +74,7 @@ public class DialogBox extends HBox {
      */
     public static DialogBox greet(Image i) {
         String logo = "૮꒰ ˶• ༝ •˶꒱ა ♡";
-        String s = "Bunny🐰 speaking, what can I do for you? \n" + logo;
+        String s = "Dawn speaking, what can I do for you? \n" + logo;
         var db =  new DialogBox(s, i);
         db.flip();
         return db;

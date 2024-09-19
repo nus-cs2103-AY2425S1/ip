@@ -1,6 +1,7 @@
 package Dawn.Gui;
 
 import Dawn.DawnException;
+import Dawn.TaskList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;

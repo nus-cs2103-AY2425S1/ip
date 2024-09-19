@@ -16,7 +16,8 @@ public class Parser {
         BYE,
         LIST,
         TODAY,
-        FIND
+        FIND,
+        REMIND
     }
     private Parser() {
     }
@@ -48,6 +49,8 @@ public class Parser {
                 return doByToday();
             case FIND:
                 return findTask(detailedInstruction);
+            case REMIND:
+                return TaskList.remind();
             }
         } catch (IllegalArgumentException e) {
             throw new DawnException("I do not undestand what you mean.. please try something else!\n");
