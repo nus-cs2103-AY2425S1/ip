@@ -6,6 +6,7 @@ package bob;
  * and executes user commands.
  */
 public class Bob {
+    public static String filePath = "data/savedTasks.txt";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -83,6 +84,6 @@ public class Bob {
      *
      */
     public static void main(String[] args) {
-        new Bob("data/savedTasks.txt").run();
+        new Bob(Bob.filePath).run();
     }
 }

@@ -13,7 +13,7 @@ import java.io.IOException;
  */
 public class Main extends Application {
 
-    private Bob bob = new Bob("data/savedTasks.txt");
+    private Bob bob = new Bob(Bob.filePath);
 
     @Override
     public void start(Stage stage) {

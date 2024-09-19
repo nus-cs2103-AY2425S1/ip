@@ -1,9 +1,13 @@
 package bob;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+
 import java.util.Scanner;
 
 /**
@@ -11,7 +15,7 @@ import java.util.Scanner;
  * It manages file creation, reading, and writing, ensuring that tasks are persisted between sessions.
  */
 public class Storage {
-    private File file;
+    private Path filePath;
 
     /**
      * Constructs a {@code Storage} object with the specified file path.
@@ -20,11 +24,15 @@ public class Storage {
      * @param filePath the file path where the tasks will be stored.
      */
     public Storage(String filePath) {
-        this.file = new File(filePath);
+        this.filePath = Path.of(filePath);
         try {
-            if (this.file.createNewFile()) {
-                Printer.prettyPrint(new String[] { "A new save file has been created."});
+            if (Files.notExists(this.filePath.getParent())) {
+                Files.createDirectory(this.filePath.getParent());
             }
+            if (Files.notExists(this.filePath)) {
+                Files.createFile(this.filePath);
+            }
+            Printer.prettyPrint(new String[] { "A new save file has been created."});
         } catch (IOException e) {
             Printer.prettyPrint(new String[] {"OOPS! The save file could not be found or created."});
         }
@@ -40,12 +48,14 @@ public class Storage {
         TaskList taskList = new TaskList();
         int i = 1;
         Scanner scanner;
+
         try {
-            scanner = new Scanner(this.file);
+            scanner = new Scanner(this.filePath.toFile());
         } catch (FileNotFoundException e) {
             Printer.prettyPrint(new String[] {"OOPS! The save file could not be found."});
             return taskList;
         }
+
         while (scanner.hasNextLine()) {
             String text = scanner.nextLine();
             String[] input = text.split(" \\| ");
@@ -77,8 +87,9 @@ public class Storage {
      */
     public String saveFile(TaskList taskList) {
         FileWriter writer;
+
         try {
-            writer = new FileWriter(this.file);
+            writer = new FileWriter(this.filePath.toFile());
             String tasksFormattedForSave = taskList.getSaveFormat();
             writer.write(tasksFormattedForSave);
             writer.close();
