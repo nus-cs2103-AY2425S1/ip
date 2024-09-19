@@ -200,7 +200,11 @@ public class Parser {
         if (output.length != 2) {
             throw new GarfieldException("No integer after the command to select a garfield.task!");
         }
-        return Integer.parseInt(output[1]);
+        try {
+            return Integer.parseInt(output[1]);
+        } catch (NumberFormatException e) {
+            throw new GarfieldException(output[1] + " is not a number!");
+        }
     }
 
     /**
@@ -300,7 +304,7 @@ public class Parser {
             LocalDateTime deadlineBy = parseDateTime(deadlineArgs[1].strip());
             return new Deadline(deadlineDescription, deadlineBy);
         } catch (DateTimeParseException e) {
-            throw new GarfieldException("Make sure your dates are valid and in the yyyy-MM-dd HH:mm (24h) format!"  + e.getMessage());
+            throw new GarfieldException("Make sure your dates are valid and in the yyyy-MM-dd HH:mm (24h) format!");
         }
     }
 
@@ -352,7 +356,6 @@ public class Parser {
      * @throws DateTimeParseException Error thrown if date time format is wrong in the input.
      */
     private static LocalDateTime parseDateTime(String dateInput) throws DateTimeParseException {
-        System.out.println(dateInput);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm", Locale.US)
                 .withResolverStyle(ResolverStyle.STRICT);
         return LocalDateTime.parse(dateInput, formatter);
