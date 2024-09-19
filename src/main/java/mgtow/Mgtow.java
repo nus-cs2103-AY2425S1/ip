@@ -86,6 +86,10 @@ public class Mgtow {
         }
     }
 
+    public boolean shouldExit(String command) {
+        return command.equals("bye");
+    }
+
     /**
      * Runs the Mgtow application in command-line mode.
      * This method handles the main interaction loop with the user.
@@ -99,9 +103,7 @@ public class Mgtow {
                 ui.showLine();
                 String response = processCommand(fullCommand);
                 ui.showMessage(response);
-                if (fullCommand.equals("bye")) {
-                    isFinished = true;
-                }
+                isFinished = shouldExit(fullCommand);
             } finally {
                 ui.showLine();
             }
