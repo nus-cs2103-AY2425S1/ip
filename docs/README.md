@@ -215,14 +215,15 @@ adjacent tasks should be first based on the category).
 <h4 id="save-format"></h4>
 ### Saving
 **Q**: What is the format for task in the save file?  
-**A**: The format is given by `{task-code} | {completion} | {priority} | {description}` `+` `{other-args}`
+**A**: The format is given by `{task-code} | {completion} | {priority} | {description}[ | {other-args}...]`
 * `{task-code}` is one character code given to each type of task, it is the same one as shown when `list` is called.
 * `{complete}` is either `1` or `0` where `1` means completed (and `0` is incomplete).
 * `{priority}` is the priority of the task, either `LOW` or `HIGH`.
 * `{description}` is the description of the task.
 * `{other-args...}` refers to the other parameters for the various types of tasks.
-e.g. `event` would have ` | {start-date} | {end-date}` in-place of `{other-args...}` (**note the delimiter**).
-And since `todo` has no other parameters, `{other-args...}` will be the empty string (**note the lack of delimiter**).
+e.g. `event` would have `{start-date} | {end-date}` in-place of `{other-args}...` (**note the delimiter**).
+And since `todo` has no other parameters, `{other-args}` will be the empty string (**note the lack of delimiter**)
+and thus the optional part `[ | {other-args}...]` is omitted.
 
 <hr>
 
