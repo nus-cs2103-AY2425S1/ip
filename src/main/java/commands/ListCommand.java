@@ -1,6 +1,9 @@
 package commands;
 
-import bob.*;
+import bob.ExecutionStack;
+import bob.Storage;
+import bob.TaskList;
+import bob.Ui;
 import utilities.Printer;
 
 /**
@@ -27,7 +30,7 @@ public class ListCommand extends Command {
 
         toPrint[0] = "Here are the tasks in your list:";
         System.arraycopy(tasks.describeTasks(), 0, toPrint, 1, tasks.getSize());
-        
+
         return Printer.format(toPrint);
     }
 

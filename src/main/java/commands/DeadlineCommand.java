@@ -1,6 +1,9 @@
 package commands;
 
-import bob.*;
+import bob.ExecutionStack;
+import bob.Storage;
+import bob.TaskList;
+import bob.Ui;
 import tasks.Deadline;
 import tasks.Task;
 import utilities.Printer;
@@ -43,7 +46,7 @@ public class DeadlineCommand extends Command {
         execStack.push(this);
         return Printer.format(new String[] { "Got it. I've added this task:",
             " " + deadline.toString(),
-             tasksRemaining });
+            tasksRemaining });
     }
 
     @Override
@@ -54,13 +57,13 @@ public class DeadlineCommand extends Command {
     }
 
 
-        /**
-         * Compares this {@code DeadlineCommand} with another object for equality.
-         * Two {@code DeadlineCommand} objects are considered equal if they have the same task name and deadline date.
-         *
-         * @param obj the object to be compared with this {@code DeadlineCommand}.
-         * @return {@code true} if the specified object is equal to this {@code DeadlineCommand}; {@code false} otherwise.
-         */
+    /**
+     * Compares this {@code DeadlineCommand} with another object for equality.
+     * Two {@code DeadlineCommand} objects are considered equal if they have the same task name and deadline date.
+     *
+     * @param obj the object to be compared with this {@code DeadlineCommand}.
+     * @return {@code true} if the specified object is equal to this {@code DeadlineCommand}; {@code false} otherwise.
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof DeadlineCommand temp) {

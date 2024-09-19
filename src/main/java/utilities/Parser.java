@@ -24,7 +24,7 @@ public class Parser {
      * @throws UnknownCommandException if the input command is not recognized.
      */
     public static Command parse(String command) {
-        assert command != null: "parse command should not be null";
+        assert command != null : "parse command should not be null";
         String[] words = command.split(" ");
         String firstWord = words[0];
 
@@ -85,7 +85,7 @@ public class Parser {
         String firstWord = words[0];
 
         String[] arguments = Parser.splitInput(words, new String[] { firstWord }, MarkCommand.paramCount);
-        assert arguments.length == MarkCommand.paramCount: "arguments should have correct number of elements";
+        assert arguments.length == MarkCommand.paramCount : "arguments should have correct number of elements";
         int idx;
         try {
             idx = Integer.parseInt(arguments[0]);
@@ -138,7 +138,7 @@ public class Parser {
         switch (firstWord) {
         case ("deadline"): {
             String[] arguments = Parser.splitInput(words, DeadlineCommand.params, DeadlineCommand.paramCount);
-            assert arguments.length == DeadlineCommand.paramCount: "arguments should have correct number of elements";
+            assert arguments.length == DeadlineCommand.paramCount : "arguments should have correct number of elements";
             return new DeadlineCommand(arguments[0], arguments[1]);
         }
         default:
@@ -152,7 +152,7 @@ public class Parser {
         switch (firstWord) {
         case ("event"): {
             String[] arguments = Parser.splitInput(words, EventCommand.params, EventCommand.paramCount);
-            assert arguments.length == EventCommand.paramCount: "arguments should have correct number of elements";
+            assert arguments.length == EventCommand.paramCount : "arguments should have correct number of elements";
             return new EventCommand(arguments[0], arguments[1], arguments[2]);
         }
         default:
@@ -172,8 +172,8 @@ public class Parser {
      * @throws ExtraParamException if extra parameters for the command are provided.
      */
     public static String[] splitInput(String[] input, String[] splits, int splitCount) {
-        assert (input != null) && (splits != null): "String inputs should not be null";
-        assert splitCount <= splits.length: "splitCount should not be more than splits.length";
+        assert (input != null) && (splits != null) : "String inputs should not be null";
+        assert splitCount <= splits.length : "splitCount should not be more than splits.length";
         String[] result = new String[splits.length];
         int[] indexes = new int[splits.length + 1];
         indexes[splits.length] = input.length;
@@ -181,7 +181,7 @@ public class Parser {
         // find index of each split/parameter in the input array
         for (int i = 0; i < splits.length; i++) {
             int index = Parser.findIndex(input, splits[i], 0);
-            assert index < input.length: "argument index should be < input.length";
+            assert index < input.length : "argument index should be < input.length";
             indexes[i] = index;
             result[i] = "";
         }
@@ -212,8 +212,8 @@ public class Parser {
     }
 
     private static int findIndex(String[] input, String target, int startIndex) {
-        assert startIndex >= 0: "startIndex should be non-negative";
-        assert input.length > startIndex: "startIndex should be a valid index within input";
+        assert startIndex >= 0 : "startIndex should be non-negative";
+        assert input.length > startIndex : "startIndex should be a valid index within input";
         for (int i = startIndex; i < input.length; i++) {
             if (input[i].equals(target)) {
                 return i;

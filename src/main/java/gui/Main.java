@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 public class Main extends Application {
 
-    private Bob bob = new Bob(Bob.filePath);
+    private Bob bob = new Bob(Bob.getFilePath());
 
     @Override
     public void start(Stage stage) {

@@ -1,16 +1,13 @@
 package bob;
 
-import utilities.Printer;
-
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.nio.file.Files;
 import java.nio.file.Path;
-
-
 import java.util.Scanner;
+
+import utilities.Printer;
 
 /**
  * The {@code Storage} class serves as the storage location for loading and saving of tasks to and from a file.

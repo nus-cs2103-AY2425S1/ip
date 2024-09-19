@@ -1,6 +1,9 @@
 package commands;
 
-import bob.*;
+import bob.ExecutionStack;
+import bob.Storage;
+import bob.TaskList;
+import bob.Ui;
 import exceptions.TaskIndexException;
 import utilities.Printer;
 
@@ -37,7 +40,7 @@ public class UnmarkCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage, ExecutionStack execStack) {
         tasks.unmark(idx);
         execStack.push(this);
-        String taskDescription =tasks.describeTask(idx);
+        String taskDescription = tasks.describeTask(idx);
         return Printer.format(new String[] {
             "OK, I've marked this task as not done yet:",
             taskDescription });

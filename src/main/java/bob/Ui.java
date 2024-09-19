@@ -1,8 +1,8 @@
 package bob;
 
-import utilities.Printer;
-
 import java.util.Scanner;
+
+import utilities.Printer;
 
 /**
  * The {@code Ui} serves as the user interface for the Bob application.

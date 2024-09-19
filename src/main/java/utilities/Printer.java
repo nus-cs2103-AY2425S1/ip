@@ -1,7 +1,5 @@
 package utilities;
 
-import java.lang.StringBuilder;
-
 /**
  * The {@code Printer} class provides printing methods for printing formatted text to the console.
  */

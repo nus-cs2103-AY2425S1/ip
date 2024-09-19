@@ -11,7 +11,7 @@ import utilities.Parser;
  * and executes user commands.
  */
 public class Bob {
-    public static String filePath = "data/savedTasks.txt";
+    private static String filePath = "data/savedTasks.txt";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -61,6 +61,10 @@ public class Bob {
         return this.guiExitFlag.getFlag();
     }
 
+    public static String getFilePath() {
+        return filePath;
+    }
+
     private void setGuiExitFlag(boolean isExit) {
         if (isExit) {
             this.guiExitFlag.raise();
@@ -71,7 +75,7 @@ public class Bob {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        boolean isExit = false;
+        boolean isExit;
         try {
             Command c = Parser.parse(input);
             String response = c.execute(tasks, ui, storage, executionStack);

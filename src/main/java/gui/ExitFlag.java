@@ -1,17 +1,17 @@
 package gui;
 
 public class ExitFlag {
-    private boolean flag;
+    private boolean isExit;
 
     public ExitFlag() {
-        this.flag = false;
+        this.isExit = false;
     }
 
     public void raise() {
-        this.flag = true;
+        this.isExit = true;
     }
 
     public boolean getFlag() {
-        return this.flag;
+        return this.isExit;
     }
 }
