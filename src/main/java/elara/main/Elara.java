@@ -89,6 +89,16 @@ public class Elara {
     }
 
     /**
+     * Gets welcome message from Elara chatbot
+     *
+     * @return welcome message string.
+     */
+    public String welcomeUser() {
+        ui.showWelcomeMessage();
+        return ui.getLastResponse();
+    }
+
+    /**
      * The main method that starts the Elara chatbot program.
      * Initializes the chatbot with the given file path to store tasks.
      *

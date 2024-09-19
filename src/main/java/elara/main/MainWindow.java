@@ -33,6 +33,8 @@ public class MainWindow extends AnchorPane {
     /** Injects the Duke instance */
     public void setElara(Elara e) {
         elara = e;
+
+        dialogContainer.getChildren().add(DialogBox.getResponseDialog(elara.welcomeUser(), responseImage));
     }
 
     /**
