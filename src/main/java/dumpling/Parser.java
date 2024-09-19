@@ -90,7 +90,7 @@ public class Parser {
                         stringCommand.split(stringCommand.split(" ")[1] + " ")[1]);
             } catch (NumberFormatException e) {
                 throw new DumplingException(
-                        "    Uh-oh... There was an issue when marking / unmarking a task! "
+                        "    Uh-oh... There was an issue when adding notes to a task! "
                                 + "The argument provided was not a number.");
             } catch (IndexOutOfBoundsException e) {
                 throw new DumplingException(

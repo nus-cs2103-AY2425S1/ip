@@ -38,6 +38,7 @@ note INDEX TASK_NOTES
 ```
 
 :exclamation: Adding notes to a task will overwrite the existing task notes, if any!
+
 :exclamation: `INDEX` must be 1-based.
 
 Examples:
@@ -66,7 +67,7 @@ For example, if the command `find project` displays the following output:
 ```
 It does not necessarily mean that the task `prepare for project meeting` is also at `index 1`
 in the full list of tasks! 
-Use the `find` keyword to obtain the full list of tasks.
+Use the `list` keyword to obtain the full list of tasks.
 
 ## Mark and Unmark Tasks: `mark`, `unmark`
 
@@ -84,3 +85,18 @@ All existing tasks can be listed, with the following syntax:
 ```
 list
 ```
+
+## Full List of Commands
+
+* `todo DESCRIPTION`
+* `deadline DESCRIPTION /by DEADLINE_DATE`
+* `event DESCRIPTION /from START_DATE /to END_DATE`
+* `note INDEX TASK_NOTES`
+* `find PARTIAL_DESCRIPTION`
+* `mark INDEX`
+* `unmark INDEX`
+* `list`
+
+## Acknowledgements
+
+The GUI was made by adapting the code provided in the JavaFX tutorial.
