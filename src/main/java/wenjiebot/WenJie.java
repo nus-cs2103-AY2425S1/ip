@@ -1,6 +1,8 @@
 package wenjiebot;
 
 import java.util.Scanner;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 import wenjiebot.commands.Command;
 import wenjiebot.exceptions.WenJieException;
@@ -31,23 +33,38 @@ public class WenJie {
     /**
      * Starts the WenJie application, displaying a welcome message and
      * continuously processing user commands until the exit condition is met.
-     * Handles any WenJieException that occurs during command execution.
      */
     public void run() {
         ui.showWelcome();
-        boolean isExit = false;
         Scanner scanner = new Scanner(System.in);
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand(scanner);
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (WenJieException e) {
-                ui.showError(e.getMessage());
-            }
-        }
+
+        Supplier<String> commandSupplier = () -> ui.readCommand(scanner);
+
+        Stream.generate(commandSupplier)
+                .map(this::processCommand)
+                .takeWhile(result -> !result)
+                .forEach(result -> {});
+
         scanner.close();
+    }
+
+    /**
+     * Processes a single user command.
+     * Reads the command, parses it, executes it.
+     * Handles any WenJieException that occurs during command execution.
+     *
+     * @param fullCommand the full command string entered by the user.
+     * @return true if the command is an exit command, false otherwise.
+     */
+    private boolean processCommand(String fullCommand) {
+        try {
+            Command c = Parser.parse(fullCommand);
+            c.execute(tasks, ui, storage);
+            return c.isExit();
+        } catch (WenJieException e) {
+            ui.showError(e.getMessage());
+            return false;
+        }
     }
 
     /**
