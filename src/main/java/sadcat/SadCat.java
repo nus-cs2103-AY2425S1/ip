@@ -31,10 +31,9 @@ public class SadCat {
     }
 
     /**
-     * The main method that starts the SadCat application.
-     * Now accepts varargs for potential future extensibility.
+     * Starts the SadCat application.
      *
-     * @param args Command line arguments (currently not used, but could be in the future)
+     * @param args Command line arguments
      */
     public static void main(String... args) {
         if (args.length > 0 && args[0].equals("--cli")) {
@@ -60,6 +59,11 @@ public class SadCat {
         }
     }
 
+    /**
+     * Parses a string of GUI input and returns the response.
+     * @param input String retrieved from user input into GUI.
+     * @return String representing an appropriate response.
+     */
     public String getResponse(String input) {
         try {
             String response = parser.handleGuiInput(input);
