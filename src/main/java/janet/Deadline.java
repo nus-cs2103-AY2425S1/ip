@@ -58,7 +58,7 @@ public class Deadline extends ScheduledTask {
             // when the keyword '/by' is not found in the command.
             throw new JanetException("WHOOPS! Missing/Wrong keywords for creating deadline...");
         }
-        if (commandDetails.length > (indexOfBy + 2) + 1) {
+        if (hasMoreThanOneDueDateAndTime(commandDetails, indexOfBy)) {
             // when there are additional texts beyond the due date and time specified (eg. ... /by 2024-01-01 18:00 blah blah)
             throw new JanetException("WHOOPS! Ensure you only have a single due date and time provided!");
         }
@@ -76,6 +76,18 @@ public class Deadline extends ScheduledTask {
             throw new JanetException("WHOOPS! Ensure that the due date is in the format: yyyy-MM-dd HH:mm (24hr)");
         }
         return new String[]{description, dueDate};
+    }
+
+    /**
+     * Returns true if additional texts are specified after the due date and time,
+     * false otherwise.
+     *
+     * @param commandDetails a String[], where each element corresponds to a word of the user input.
+     * @param indexOfBy the index of '/by' keyword in commandDetails.
+     * @return A boolean value.
+     */
+    private static boolean hasMoreThanOneDueDateAndTime(String[] commandDetails, int indexOfBy) {
+        return commandDetails.length > (indexOfBy + 2) + 1;
     }
 
 
