@@ -2,15 +2,7 @@ package potong;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import potong.command.AddCommand;
-import potong.command.Command;
-import potong.command.DeleteCommand;
-import potong.command.ExitCommand;
-import potong.command.FindCommand;
-import potong.command.ListCommand;
-import potong.command.MarkCommand;
-import potong.command.TagCommand;
-import potong.command.UntagCommand;
+import potong.command.*;
 import potong.exceptions.IllegalInputPotongException;
 import potong.task.DeadlineTask;
 import potong.task.EventTask;
@@ -107,7 +99,7 @@ public class Parser {
         case "find" -> new FindCommand(arguments);
         case "tag" -> new TagCommand(arguments);
         case "untag" -> new UntagCommand(arguments);
-        default -> null;
+        default -> new WrongCommand("");
         };
     }
 

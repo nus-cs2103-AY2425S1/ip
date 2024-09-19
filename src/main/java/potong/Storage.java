@@ -46,7 +46,7 @@ public class Storage {
      */
     public void createDirectory() {
         try {
-            Files.createDirectory(Paths.get(this.DIRECTORY_NAME));
+            Files.createDirectories(Paths.get(this.DIRECTORY_NAME));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -58,7 +58,9 @@ public class Storage {
     public void createFile() {
         this.createDirectory();
         try {
-            Files.createFile(this.FILE_PATH);
+            if (Files.notExists(this.FILE_PATH)) {
+                Files.createFile(this.FILE_PATH);
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
