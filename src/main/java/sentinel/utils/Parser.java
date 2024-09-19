@@ -1,5 +1,6 @@
 package sentinel.utils;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
@@ -45,7 +46,8 @@ public class Parser {
      * @return A Task object if the input is valid; null otherwise.
      * @throws SentinelException If the input is invalid or the task cannot be created.
      */
-    public static Task parseTask(Sentinel.CommandType commandType, String input, Ui ui) throws SentinelException {
+    public static Task parseTask(Sentinel.CommandType commandType, String input, Ui ui)
+            throws SentinelException, IOException {
         String taskName = parseTaskName(commandType, input, ui);
         if (taskName.isEmpty()) {
             ui.showEmptyTaskNameError(commandType);

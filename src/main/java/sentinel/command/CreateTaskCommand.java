@@ -1,5 +1,7 @@
 package sentinel.command;
 
+import java.io.IOException;
+
 import sentinel.Sentinel;
 import sentinel.exception.ExecutionException;
 import sentinel.exception.SentinelException;
@@ -8,6 +10,7 @@ import sentinel.ui.Ui;
 import sentinel.utils.Parser;
 import sentinel.utils.SentinelList;
 import sentinel.utils.SentinelString;
+
 
 /**
  * The CreateTaskCommand class is responsible for creating a new task based on the user's input.
@@ -37,7 +40,7 @@ public class CreateTaskCommand extends Command {
      * @throws SentinelException If an error occurs during task parsing.
      */
     @Override
-    public String execute(String input) throws SentinelException {
+    public String execute(String input) throws SentinelException, IOException {
         Task newTask = Parser.parseTask(commandType, input, ui);
         if (newTask == null) {
             throw new ExecutionException();

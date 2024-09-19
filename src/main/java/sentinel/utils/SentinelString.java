@@ -98,8 +98,9 @@ public class SentinelString {
      * Returns guidelines for using the 'event' command.
      */
     public static String stringEventCommandGuidelines() {
-        return "Please state the start and end date using /from <date> and /to <date> respectively "
-                + "(e.g., event project meeting /from 30 Aug 2024 2pm /to 30 Aug 2024 4pm)";
+        return "Please state the start and end date using /from {YYYY}-{MM}-{DD}T{Hour}:{Minute} and"
+                + "/to {YYYY}-{MM}-{DD}T{Hour}:{Minute} respectively (e.g., event project meeting "
+                + "/from 30 Aug 2024 2pm /to 30 Aug 2024 4pm)";
     }
 
     /**
@@ -113,8 +114,8 @@ public class SentinelString {
      * Returns guidelines for using the 'deadline' command.
      */
     public static String stringDeadlineCommandGuidelines() {
-        return "Please state the deadline using /by <date> "
-                + "(e.g., deadline return book /by 30 Aug 2024 5pm)";
+        return "Please state the deadline using /by {YYYY}-{MM}-{DD}T{Hour}:{Minute} "
+                + "(e.g., deadline return book /by 2024-09-19T13:00)";
     }
 
     /**

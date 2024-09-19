@@ -22,7 +22,7 @@ public class GeminiApi {
      * @return The text result from Gemini.
      */
 
-    public static String query(String input) {
+    public static String query(String input) throws IOException {
         if (input.isBlank()) {
             return null;
         }
@@ -68,7 +68,7 @@ public class GeminiApi {
      * @return The LocalDateTime object after being formatted by Gemini and parsed.
      */
 
-    public static LocalDateTime formatDateTime(String dateInput) {
+    public static LocalDateTime formatDateTime(String dateInput) throws IOException {
         String res = query("""
 Format this date into {YYYY}-{MM}-{DD}T{Hour}:{Minute}:{Second}.
 If there is a missing time, put T00:00:00. Else if there is a missing field or no such date, just return 'null'.
@@ -85,7 +85,7 @@ Don't give any explanation or any other answer other than 'null' or '{YYYY}-{MM}
     }
 
     // Method to load environment variables from .env file
-    private static Map<String, String> loadEnvVars() {
+    private static Map<String, String> loadEnvVars() throws IOException {
         Map<String, String> envVars = new HashMap<>();
         try (BufferedReader br = new BufferedReader(new FileReader(".env"))) {
             String line;
@@ -99,7 +99,7 @@ Don't give any explanation or any other answer other than 'null' or '{YYYY}-{MM}
                 envVars.put(key, value);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw e;
         }
         return envVars;
     }

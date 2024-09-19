@@ -1,8 +1,11 @@
 package sentinel.utils;
 
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
+
+import java.io.IOException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,6 +17,7 @@ import sentinel.exception.SentinelException;
 import sentinel.task.Task;
 import sentinel.task.ToDo;
 import sentinel.ui.Ui;
+
 
 
 public class ParserTest {
@@ -31,7 +35,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testParseTaskValidToDo() throws SentinelException {
+    public void testParseTaskValidToDo() throws SentinelException, IOException {
         String input = "todo Test ToDo";
         Task expectedTask = new ToDo("Test ToDo");
         Task task = Parser.parseTask(Sentinel.CommandType.todo, input, uiMock);
@@ -51,8 +55,8 @@ public class ParserTest {
         Sentinel.CommandType commandType = Sentinel.CommandType.deadline;
         Exception exception = assertThrows(DeadlineException.class, ()
                 -> Parser.parseTaskName(commandType, input, uiMock));
-        assertEquals("Please state the deadline using /by <date> "
-                + "(e.g., deadline return book /by 30 Aug 2024 5pm)", exception.getMessage());
+        assertEquals("Please state the deadline using /by {YYYY}-{MM}-{DD}T{Hour}:{Minute} "
+                + "(e.g., deadline return book /by 2024-09-19T13:00)", exception.getMessage());
     }
 
     @Test
@@ -61,8 +65,9 @@ public class ParserTest {
         Sentinel.CommandType commandType = Sentinel.CommandType.event;
         Exception exception = assertThrows(EventException.class, ()
                 -> Parser.parseTaskName(commandType, input, uiMock));
-        assertEquals("Please state the start and end date using /from <date> and /to <date> respectively "
-                + "(e.g., event project meeting /from 30 Aug 2024 2pm /to 30 Aug 2024 4pm)", exception.getMessage());
+        assertEquals("Please state the start and end date using /from {YYYY}-{MM}-{DD}T{Hour}:{Minute} and"
+                + "/to {YYYY}-{MM}-{DD}T{Hour}:{Minute} respectively (e.g., event project meeting "
+                + "/from 30 Aug 2024 2pm /to 30 Aug 2024 4pm)", exception.getMessage());
     }
 
     @Test

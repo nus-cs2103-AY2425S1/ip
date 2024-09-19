@@ -1,5 +1,7 @@
 package sentinel;
 
+import java.io.IOException;
+
 import sentinel.command.ByeCommand;
 import sentinel.command.Command;
 import sentinel.exception.SentinelException;
@@ -51,6 +53,8 @@ public class Sentinel {
                 ui.showUnrecognisedCommand();
             } catch (SentinelException e) {
                 ui.showError(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
             ui.showLine();
             new FileWriter(list).saveTasks();
@@ -76,7 +80,7 @@ public class Sentinel {
     /**
      * Generates a response for the user's chat message.
      */
-    public String getResponse(String input) throws SentinelException {
+    public String getResponse(String input) throws SentinelException, IOException {
         Command command;
         new FileWriter(list).saveTasks();
         CommandType commandType = Parser.parseForCommand(input);
