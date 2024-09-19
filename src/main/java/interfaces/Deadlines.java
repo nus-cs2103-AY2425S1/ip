@@ -8,7 +8,7 @@ public class Deadlines extends Task {
      * @inheritDoc Stores due-date of deadline.
      */
     public Deadlines(String description, String by) {
-        super(description.replace("deadline", ""));
+        super(description.replace("deadline ", ""));
         this.by = by;
     }
 

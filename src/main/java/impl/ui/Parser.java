@@ -227,7 +227,7 @@ public class Parser {
     private String handleTag(String in) {
         try {
             String[] tags = in.split(" ", 3);
-            int i = Integer.parseInt(tags[1]) + 1;
+            int i = Integer.parseInt(tags[1]) - 1;
             list.setTag(i, tags[2]);
             return "Added tag " + tags[2] + " to " + list.get(i).toString();
         } catch (Exception e) {

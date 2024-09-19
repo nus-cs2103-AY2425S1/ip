@@ -5,11 +5,14 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -35,15 +38,49 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
+        int radius = 60;
+        // Create a circular clip for the image
+        Circle clip = new Circle(radius);
+
+        // Set the image to displayPicture
         displayPicture.setImage(img);
+        displayPicture.setFitWidth(radius * 2);
+        displayPicture.setFitHeight(radius * 2);
+
+        // Center the clip on the image
+        clip.setCenterX(radius);
+        clip.setCenterY(radius);
+
+        // Set the ImageView as the graphic for displayPicture
+        displayPicture.setClip(clip);
+
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var db = new DialogBox(text, img);
+        db.dialog.setStyle(
+                "-fx-text-fill: #0000FF;" + // Text color blue
+                        "-fx-background-color: #3ebcef; " + // Green background
+                        "-fx-background-radius: 10px; " +   // Rounded corners
+                        "-fx-border-radius: 10px; " +       // Rounded border
+                        "-fx-border-color: #4557a0; " +     // Darker green border
+                        "-fx-border-width: 2px; " +         // Border width
+                        "-fx-padding: 10px;"                // Padding inside the bubble
+        );
+        return db;
     }
 
     public static DialogBox getDannyDialog(String text, Image img) {
         var db = new DialogBox(text, img);
+        db.dialog.setStyle(
+                "-fx-text-fill: #724168;" +
+                        "-fx-background-color: #e0abd7; " + // Light gray background
+                        "-fx-background-radius: 10px; " +   // Rounded corners
+                        "-fx-border-radius: 10px; " +       // Rounded border
+                        "-fx-border-color: #724168; " +     // Darker gray border
+                        "-fx-border-width: 2px; " +         // Border width
+                        "-fx-padding: 10px;"                // Padding inside the bubble
+        );
         db.flip();
         return db;
     }

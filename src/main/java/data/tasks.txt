@@ -1,2 +1,3 @@
-deadline    task1 /by tues | true | never doing this too
-deadline  task1 /by tuesday | false | "never doing this"
+deadline task1 /by tues | false | 
+deadline task1 /by tuesday | false | 
+todo task2 | false | 

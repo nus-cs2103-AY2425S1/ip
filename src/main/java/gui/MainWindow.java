@@ -9,6 +9,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 
 /**
  * Controller for the main GUI.
@@ -26,11 +28,13 @@ public class MainWindow extends AnchorPane {
 
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/imgs/Anime.jpg"));
-    private Image DannyImage = new Image(this.getClass().getResourceAsStream("/imgs/Cat.jpg"));
+    private Image dannyImage = new Image(this.getClass().getResourceAsStream("/imgs/Cat.jpg"));
+
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.setStyle("-fx-background-color: linear-gradient(to bottom, #f8d8fc, #d0ccff);");
     }
 
     /**
@@ -54,7 +58,7 @@ public class MainWindow extends AnchorPane {
         String response = danny.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDannyDialog(response, DannyImage)
+                DialogBox.getDannyDialog(response, dannyImage)
         );
         userInput.clear();
     }
