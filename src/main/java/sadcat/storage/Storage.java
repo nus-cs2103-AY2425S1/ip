@@ -79,7 +79,7 @@ public class Storage {
     }
 
     /**
-     * Static method to save data to the file system using the singleton instance.
+     * Save data to the file system using the singleton instance.
      */
     public static void saveData() {
         Storage file = Storage.getInstance();
@@ -136,7 +136,7 @@ public class Storage {
     }
 
     /**
-     * Function to delete data file generated during tests.
+     * Delete data file generated during tests.
      */
     private static void deleteTestFile() {
         File testFile = new File(DATA_DIR + getFullFileName());

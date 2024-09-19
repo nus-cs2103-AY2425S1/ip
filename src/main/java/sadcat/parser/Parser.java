@@ -41,51 +41,17 @@ public class Parser {
             String cmd = input[0];
             String args = input[1];
             try {
-                switch (cmd) {
-                case "bye":
+                if (cmd.equals("bye")) {
                     scan.close();
                     return false;
-                case "help":
-                    printHelpMessage();
-                    break;
-                case "list":
-                    taskList.printTaskList();
-                    break;
-                case "mark":
-                    taskList.mark(args);
-                    break;
-                case "unmark":
-                    taskList.unmark(args);
-                    break;
-                case "update":
-                    taskList.updateTask(args);
-                    break;
-                case "savefile":
-                    taskList.saveFile(args);
-                    break;
-                case "archive":
-                    String archiveFile = storage.archiveTasks();
-                    System.out.println("Tasks archived to: " + archiveFile);
-                    System.out.println("Current task list has been cleared.");
-                    break;
-                case "find":
-                    taskList.filter(args);
-                    break;
-                case "delete":
-                    taskList.deleteTask(args);
-                    break;
-                case "todo":
-                case "deadline":
-                case "event":
-                    taskList.createTask(cmd, args);
-                    break;
-                default:
-                    throw new SadCatException("Invalid command provided.");
                 }
+                handleInput(cmd, args, taskList, storage);
             } catch (SadCatException e) {
                 System.out.println(e.getMessage());
             } catch (IOException e) {
                 System.out.println("Error archiving tasks: " + e.getMessage());
+            } catch (Exception e) {
+                System.out.println("Unknown error occurred: " + e.getMessage());
             }
         }
         return true;
@@ -113,47 +79,11 @@ public class Parser {
         String cmd = temp[0];
         String args = temp[1];
         try {
-            switch (cmd) {
-            case "bye":
+            if (cmd.equals("bye")) {
                 System.setOut(sysstream);
                 return "Bye. Hope to see you again soon!";
-            case "help":
-                printHelpMessage();
-                break;
-            case "list":
-                taskList.printTaskList();
-                break;
-            case "update":
-                taskList.updateTask(args);
-                break;
-            case "savefile":
-                taskList.saveFile(args);
-                break;
-            case "archive":
-                String archiveFile = storage.archiveTasks();
-                System.out.println("Tasks archived to: " + archiveFile);
-                System.out.println("Current task list has been cleared.");
-                break;
-            case "mark":
-                taskList.mark(args);
-                break;
-            case "unmark":
-                taskList.unmark(args);
-                break;
-            case "find":
-                taskList.filter(args);
-                break;
-            case "delete":
-                taskList.deleteTask(args);
-                break;
-            case "todo":
-            case "deadline":
-            case "event":
-                taskList.createTask(cmd, args);
-                break;
-            default:
-                throw new SadCatException("Invalid command provided.");
             }
+            handleInput(cmd, args, taskList, storage);
             System.out.flush();
             System.setOut(sysstream);
             return bstream.toString();
@@ -161,6 +91,56 @@ public class Parser {
             return e.getMessage();
         } catch (IOException e) {
             return "Error archiving tasks: " + e.getMessage();
+        } catch (Exception e) {
+            return "Unknown error occurred: " + e.getMessage();
+        }
+    }
+
+    /**
+     * Reads the input and performs the relevant function.
+     * @param cmd User command
+     * @param args String of arguments relevant to the command
+     * @param taskList TaskList instance
+     * @param storage Storage instance
+     */
+    private void handleInput(String cmd, String args, TaskList taskList, Storage storage) throws Exception {
+        switch (cmd) {
+        case "help":
+            printHelpMessage();
+            break;
+        case "list":
+            taskList.printTaskList();
+            break;
+        case "update":
+            taskList.updateTask(args);
+            break;
+        case "savefile":
+            taskList.saveFile(args);
+            break;
+        case "archive":
+            String archiveFile = storage.archiveTasks();
+            System.out.println("Tasks archived to: " + archiveFile);
+            System.out.println("Current task list has been cleared.");
+            break;
+        case "mark":
+            taskList.mark(args);
+            break;
+        case "unmark":
+            taskList.unmark(args);
+            break;
+        case "find":
+            taskList.filter(args);
+            break;
+        case "delete":
+            taskList.deleteTask(args);
+            break;
+        case "todo":
+        case "deadline":
+        case "event":
+            taskList.createTask(cmd, args);
+            break;
+        default:
+            throw new SadCatException("Invalid command provided.");
         }
     }
 
@@ -189,9 +169,9 @@ public class Parser {
     private void printHelpMessage() {
         System.out.println("Available commands:");
         System.out.println("1. todo <task description> - Create a todo task");
-        System.out.println("2. deadline <task description> /by <date time> - Create a deadline task");
+        System.out.println("2. deadline <task description> /by <yyyy-MM-dd HHmm> - Create a deadline task");
         System.out.println(
-                "3. event <task description> /from <start date time> /to <end date time> - Create an event task");
+                "3. event <task description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm> - Create an event task");
         System.out.println("4. list - Display all tasks");
         System.out.println("5. mark <task number> - Mark a task as done");
         System.out.println("6. unmark <task number> - Mark a task as not done");

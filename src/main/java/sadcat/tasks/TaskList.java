@@ -137,41 +137,23 @@ public class TaskList {
             if (input.isEmpty()) {
                 throw new SadCatException("Empty Task description provided.");
             }
-            System.out.println("Got it. I've added this task:");
             Task task;
             switch (type) {
             case "todo":
-                task = new Todo(input);
+                task = Task.createTodo(input);
                 break;
             case "deadline":
-                if (!input.contains("/by") || input.indexOf("/by") == input.length() - 3) {
-                    throw new SadCatException("Invalid deadline description provided.");
-                }
-                String[] deadlineInput = input.split("/by", 2);
-                task = new Deadline(deadlineInput[0].trim(),
-                        LocalDateTime.parse(deadlineInput[1].trim(), formatter));
+                task = Task.createDeadline(input);
                 break;
             case "event":
-                if (
-                        !input.contains("/from")
-                                || !input.contains("/to")
-                                || input.indexOf("/from") == input.length() - 5
-                                || input.indexOf("/to") == input.length() - 2
-                ) {
-                    throw new SadCatException("Invalid event description provided.");
-                }
-                String[] eventInput = input.split("/from", 2);
-                String[] eventTimeInput = eventInput[1].trim().split("/to", 2);
-                task = new Event(eventInput[0].trim(),
-                        LocalDateTime.parse(eventTimeInput[0].trim(), formatter),
-                        LocalDateTime.parse(eventTimeInput[1].trim(), formatter)
-                );
+                task = Task.createEvent(input);
                 break;
             default:
                 throw new SadCatException("Invalid Task type.");
             }
             this.taskStore.add(task);
             Storage.saveData();
+            System.out.println("Got it. I've added this task:");
             System.out.println(task);
             System.out.printf(
                     "Now you have %d tasks in the list.\n",
