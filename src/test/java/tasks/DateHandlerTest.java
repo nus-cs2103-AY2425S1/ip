@@ -28,7 +28,8 @@ public class DateHandlerTest {
                                                         DateHandler.parseLocalDateTime("2000-15-10 1800"),
                                                         DateHandler.parseLocalDateTime("2000-10-10 -1000"),
                                                         DateHandler.parseLocalDateTime("2000-15-10"),
-                                                        DateHandler.parseLocalDateTime("2000 15 10 1800")};
+                                                        DateHandler.parseLocalDateTime("2000 15 10 1800"),
+                                                        DateHandler.parseLocalDateTime("")};
 
         for (LocalDateTime testCase : testCases) {
             assertNull(testCase);
@@ -52,7 +53,8 @@ public class DateHandlerTest {
                                                 DateHandler.parseLocalDate("2000-15-10"),
                                                 DateHandler.parseLocalDate("2000-02-33"),
                                                 DateHandler.parseLocalDate("2000-1000-10"),
-                                                DateHandler.parseLocalDate("2000 15 10 1800")};
+                                                DateHandler.parseLocalDate("2000 15 10 1800"),
+                                                DateHandler.parseLocalDate("")};
 
         for (LocalDate testCase : testCases) {
             assertNull(testCase);
