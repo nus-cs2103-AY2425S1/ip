@@ -1,9 +1,9 @@
-# Barcus User Guide :cat:
+# Barcus User Guide 🐱
 
 Feeling overwhelmed with tasks? Fear not, Barcus is here.
 Barcus is a cute task management c(h)atbot meant to keep track of
 your tasks, deadlines and events. Simply type in all your tasks, and let
-Barcus take care of you. :cat:
+Barcus take care of you. 🐈
 
 ![Barcus Product Screenshot](Ui.png)
 
@@ -17,8 +17,7 @@ the command `java -jar barcus.jar` to run the application.
 
 ****
 ## Features
-> [!NOTE]
-> Variables wrapped in `<>` are parameters supplied by the user. 
+> Note: Variables wrapped in `<>` are parameters supplied by the user. 
 > 
 > `<date>` has to be in the format dd/MM/yyyy HH:mm
 > 
