@@ -9,7 +9,7 @@ public class Dawn {
     public Dawn() {
         this.storage = new Storage("data/Dawn.txt");
         try {
-            this.taskList = new TaskList(storage.load());
+            this.taskList = storage.load(new TaskList());
         } catch (DawnException ex) {
             this.taskList = new TaskList();
         }

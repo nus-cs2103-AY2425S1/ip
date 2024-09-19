@@ -13,15 +13,6 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
-    /**
-     * Creates a new instance of a TaskList which contains the previously saved tasks
-     *
-     * @param savedTasks Previously saved tasks
-     */
-    public TaskList(ArrayList<Task> savedTasks) {
-        this.tasks = savedTasks;
-    }
-
     private enum Command {
         TODO,
         DEADLINE,
@@ -35,43 +26,48 @@ public class TaskList {
      * @param input Details of the tasks e.g. description, date, time etc
      * @throws DawnException
      */
-    public static String addTask(String command, String input) throws DawnException {
+    public static String addTask(String command, String input, String... optionalIsDoneStatus) throws DawnException {
         Command cmd = Command.valueOf(command);
         if (input.isBlank()) {
             throw new DawnException("You might be missing the task description, please check again\n");
         }
 
-        Task t = null;
-        String[] s = input.split("/");
+        Task t;
+        String[] details = input.split("/");
 
-        if (s[0].isBlank()) {
+        if (details[0].isBlank()) {
             throw new DawnException("You might be missing the task description, please check again\n");
         }
 
         switch (cmd) {
-            case TODO:
-                t = new ToDo(s[0]);
-                break;
-            case DEADLINE:
-                if (s.length < 2) {
-                    throw new DawnException("Make sure you include both the task description and the deadline in this" +
-                            " format:\n deadline [task name] /by [date yyyy-mm-dd] [time]\n" +
-                            "For example: deadline submit assignment1 /by 2024-09-16 2pm");
-                }
-                t = new Deadline(s[0], s[1]);
-                break;
-            case EVENT:
-                if (s.length < 3) {
-                    throw new DawnException("Make sure you include the task description, start, and end times for " +
-                            "your event in this format:\nevent [task name] /from [date yyyy-mm-dd] [time] / " +
-                            "to [time]\nFor example: event party /from 2024-09-01 5pm /to 9pm");
-                }
-                t = new Event(s[0], s[1], s[2]);
-                break;
+        case TODO:
+            t = new ToDo(details[0]);
+            break;
+        case DEADLINE:
+            if (details.length < 2) {
+                throw new DawnException("Make sure you include both the task description and the deadline in this" +
+                        " format:\n deadline [task name] /by [date yyyy-mm-dd] [time]\n" +
+                        "For example: deadline submit assignment1 /by 2024-09-16 2pm");
+            }
+            t = new Deadline(details[0], details[1]);
+            break;
+        case EVENT:
+            if (details.length < 3) {
+                throw new DawnException("Make sure you include the task description, start, and end times for " +
+                        "your event in this format:\nevent [task name] /from [date yyyy-mm-dd] [time] / " +
+                        "to [time]\nFor example: event party /from 2024-09-01 5pm /to 9pm");
+            }
+            t = new Event(details[0], details[1], details[2]);
+            break;
+        default:
+            return "I can't recognise the task, please only create tasks of type TODO, DEADLINE, or EVENT";
         }
         tasks.add(t);
+        if (optionalIsDoneStatus.length > 0 && optionalIsDoneStatus[0].equals("1")) {
+            t.markAsDone();
+        }
         return "Gotcha! I've added this task: \n" + tasks.size() + "." + t +
-                "\nNow you have " + tasks.size() + " task(s) in the list \n";
+                "\nNow you have " + tasks.size() + " task(details) in the list \n";
     }
 
     /**
