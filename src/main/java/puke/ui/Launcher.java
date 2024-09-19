@@ -8,7 +8,7 @@ import javafx.application.Application;
  */
 public class Launcher {
     /**
-     * The main entry point for the JavaFX application.
+     * Launches the JavaFX GUI application using the provided command line arguments.
      *
      * @param args command line arguments passed to the application.
      */

@@ -28,8 +28,8 @@ public class Puke {
     }
 
     /**
-     * The main entry point for the application.
-     * Creates a Puke instance and starts the user interface.
+     * Starts the user interface for the Puke application.
+     * Creates an instance of the Puke class and initializes the user interface.
      *
      * @param args command-line arguments
      * @throws PukeException if an error occurs during the execution of the user interface
