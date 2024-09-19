@@ -29,7 +29,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toFileString() {
-        return "T , %s\n".formatted(super.toString());
+        return "T , %s\n".formatted(super.toFileString());
     }
 
     /**
