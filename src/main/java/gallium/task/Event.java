@@ -106,16 +106,41 @@ public class Event extends Task {
     }
 
     private void parseDateTime() throws ParseException {
+        parseFrom(from);
+        parseTo(to);
+    }
+
+    private void parseFrom(String from) throws ParseException {
         String fromDateString = from.split(" ")[0];
         this.fromDate = LocalDate.parse(fromDateString).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         SimpleDateFormat inputTime = new SimpleDateFormat("HHmm");
         SimpleDateFormat outputTime = new SimpleDateFormat("hh:mm a");
         Date time24 = inputTime.parse(from.split(" ")[1]);
         this.fromTime = outputTime.format(time24);
+    }
+
+    private void parseTo(String to) throws ParseException {
         String toDateString = to.split(" ")[0];
         this.toDate = LocalDate.parse(toDateString).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        time24 = inputTime.parse(to.split(" ")[1]);
+        SimpleDateFormat inputTime = new SimpleDateFormat("HHmm");
+        SimpleDateFormat outputTime = new SimpleDateFormat("hh:mm a");
+        Date time24 = inputTime.parse(to.split(" ")[1]);
         this.toTime = outputTime.format(time24);
+    }
+
+    @Override
+    public void setDesc(String message) {
+        this.desc = message;
+    }
+
+    public void setFrom(String message) throws ParseException {
+        this.from = message;
+        parseFrom(message);
+    }
+
+    public void setTo(String message) throws ParseException {
+        this.to = message;
+        parseTo(message);
     }
     
 }

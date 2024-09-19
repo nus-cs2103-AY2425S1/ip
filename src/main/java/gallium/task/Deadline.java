@@ -97,4 +97,15 @@ public class Deadline extends Task {
         Date time24 = inputTime.parse(by.split(" ")[1]);
         this.time = outputTime.format(time24);
     }
+
+    @Override
+    public void setDesc(String message) {
+        this.desc = message;
+    }
+
+    public void setBy(String message) throws ParseException {
+        this.by = message;
+        this.parseDateTime();
+    }
+
 }

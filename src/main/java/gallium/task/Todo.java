@@ -35,4 +35,9 @@ public class Todo extends Task {
     public String toString() {
         return "[T]" + this.getStatusIcon() + this.desc;
     }
+
+    @Override
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
 }
