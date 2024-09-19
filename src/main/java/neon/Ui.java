@@ -9,14 +9,14 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Ui {
-    private static final String NAME = "neon.Neon";
+    private static final String NAME = "neon";
     private static final String DASH_BREAK = "-----------------------------------\n";
 
     public String printGreetingLine() {
         StringBuilder response = new StringBuilder();
         response.append(DASH_BREAK);
         response.append("hello i'm " + NAME + "!\n"
-                + "what can i help you with?");
+                + "what can i help you with?\n");
         response.append(DASH_BREAK);
         return response.toString();
     }
@@ -24,11 +24,10 @@ public class Ui {
     public String printClosingLine() {
         StringBuilder response = new StringBuilder();
         response.append("byeee! nice to meet you :)\n");
-        response.append(DASH_BREAK);
         return response.toString();
     }
 
-    public void printLine() {
-        System.out.println(DASH_BREAK);
+    public String printLine() {
+        return DASH_BREAK;
     }
 }

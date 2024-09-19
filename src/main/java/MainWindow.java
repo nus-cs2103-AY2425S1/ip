@@ -32,6 +32,9 @@ public class MainWindow extends AnchorPane {
 
     public void startNeon(Neon neon) {
         this.neon = neon;
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(neon.getGreetingLine(), botImage)
+        );
     }
 
     @FXML

@@ -64,7 +64,7 @@ public class TaskList {
         Task currTask = this.getTask(taskNumber - 1);
         currTask.check();
 
-        message.append("checking task number : " + taskNumber);
+        message.append("checking task number : " + taskNumber + "\n");
         return message.toString();
     }
 
@@ -74,7 +74,7 @@ public class TaskList {
         Task currTask = this.getTask(taskNumber - 1);
         currTask.uncheck();
 
-        message.append("unchecking task number : " + taskNumber);
+        message.append("unchecking task number : " + taskNumber + "\n");
         return message.toString();
     }
 
