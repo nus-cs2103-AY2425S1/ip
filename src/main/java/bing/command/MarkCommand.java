@@ -5,8 +5,8 @@ import bing.task.Task;
 import bing.task.TaskList;
 import bing.task.TaskStatus;
 import bing.ui.Ui;
-
 import java.io.IOException;
+
 public class MarkCommand implements Command {
     private int index;
 

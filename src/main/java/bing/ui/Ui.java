@@ -2,6 +2,7 @@ package bing.ui;
 
 import java.util.Scanner;
 import bing.task.TaskList;
+
 public class Ui {
 
     private Scanner scanner = new Scanner(System.in);

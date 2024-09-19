@@ -4,8 +4,8 @@ import bing.storage.Storage;
 import bing.task.Task;
 import bing.task.TaskList;
 import bing.ui.Ui;
-
 import java.io.IOException;
+
 public class DeleteCommand implements Command {
     private int index;
 
