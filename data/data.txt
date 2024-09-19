@@ -1,5 +1,5 @@
 D/0/dance/Mar 17 2024
 D/0/sleep/tonight
-E/0/yeet/Jul 07 2024/Jul 08 2024
 E/1/skip school/5th/7th
-T/0/eat
+T/0/sleep
+T/0/eat cereal

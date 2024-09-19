@@ -23,7 +23,7 @@ public class TaskList {
     public String removeTask(int index) {
         StringBuilder message = new StringBuilder();
 
-        message.append("deleting task number : " + index);
+        message.append("deleting task number : " + index + "\n");
         tasks.remove(index - 1);
 
         return message.toString();

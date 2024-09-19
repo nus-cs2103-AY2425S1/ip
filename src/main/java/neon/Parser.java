@@ -3,9 +3,15 @@ package neon;
 import neon.Deadline;
 import neon.Event;
 
+import java.util.Objects;
+
 public class Parser {
     private TaskList tasks;
     private Ui ui;
+
+    private String lastInput;
+
+    private Task deleteCache;
 
     public Parser(TaskList tasks, Ui ui) {
         this.tasks = tasks;
@@ -48,7 +54,51 @@ public class Parser {
                 response = "input is out of range! do try again\n";
                 break;
             }
+            deleteCache = tasks.getTask(extractTaskIndex(input) - 1);
             response = tasks.removeTask(extractTaskIndex(input));
+            break;
+
+        case "undo":
+            String[] undoInputArray = lastInput.split(" ", 2);
+            String newInput;
+
+            switch (undoInputArray[0]) {
+            case "undo":
+                response = "last input was an undo! unable to undo an undo\n";
+                break;
+
+            case "mark":
+                newInput = lastInput.replace("mark", "unmark");
+                return processInput(newInput);
+
+            case "unmark":
+                newInput = lastInput.replace("unmark", "mark");
+                return processInput(newInput);
+
+            case "delete":
+                tasks.addTask(deleteCache);
+                response = "task restored!\n";
+                break;
+
+            case "todo":
+                tasks.removeTask(tasks.getSize());
+                response = "todo removed!\n";
+                break;
+
+            case "deadline":
+                tasks.removeTask(tasks.getSize());
+                response = "deadline removed!\n";
+                break;
+
+            case "event":
+                tasks.removeTask(tasks.getSize());
+                response = "event removed!\n";
+                break;
+
+            default:
+                response = "last input cannot be undone!\n";
+                break;
+            }
             break;
 
         case "find":
@@ -125,6 +175,7 @@ public class Parser {
             break;
         }
 
+        lastInput = input;
         return new Object[] {false, response};
     }
 
