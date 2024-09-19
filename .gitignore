@@ -8,8 +8,8 @@
 /build/
 src/main/resources/docs/
 
-##.txt input and output files
-#*.txt
+#.txt input and output files
+*.txt
 
 # MacOS custom attributes files created by Finder
 .DS_Store
