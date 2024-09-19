@@ -24,7 +24,7 @@ public class Susan {
     /**
      * Generates a response for the user's chat message.
      *
-     * @param userInput input message from user.
+     * @param input user input message.
      */
     public String getResponse(String input) {
         try {

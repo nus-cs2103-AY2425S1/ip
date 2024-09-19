@@ -28,7 +28,7 @@ Expected output:
 
 ```
 Got it. I've added this task:
-    [D][] return book (by Sep 30 2024)
+   [D][] return book (by Sep 30 2024)
 You have 2 task(s) in the list.
 ```
 
@@ -48,7 +48,7 @@ Expected output:
 
 ```
 Got it. I've added this task:
-    [E][] project meeting (from Sep 30 2024 6:00pm to 8:00pm)
+   [E][] project meeting (from Sep 30 2024 6:00pm to 8:00pm)
 You have 3 task(s) in the list.
 ```
 
@@ -116,4 +116,12 @@ Example: `list` followed by `delete 2` deletes the 2nd task in the task list.
 
 ## Saving the data
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+Tasks data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+
+
+
+## Editing the data file
+
+Tasks data are saved automatically as a txt file [JAR file location]/data/SusanToDoList.txt. Advanced users are welcome to update data directly by editing that data file.'
+
+Caution: If your changes to the data file makes its format invalid, SusanLite will discard corrupted tasks but preserve remaining valid tasks. Therefore, edit the data file only if you are confident that you can update it correctly.

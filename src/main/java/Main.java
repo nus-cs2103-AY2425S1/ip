@@ -19,9 +19,10 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
-            stage.setTitle("SusanLite");
             stage.setScene(scene);
+            stage.setTitle("SusanLite");
             fxmlLoader.<MainWindow>getController().setSusan(susan);  // inject the Susan instance
+            fxmlLoader.<MainWindow>getController().greetUser();  // show welcome message
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

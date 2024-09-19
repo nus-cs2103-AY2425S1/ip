@@ -41,6 +41,9 @@ public class Task {
         return "[" + getStatusIcon() + "] " + description;
     }
 
+    /**
+     * Return String format to be saved to data file.
+     */
     public String fileFormat() {
         return " : " + getStatusIcon() + " : " + description;
     }

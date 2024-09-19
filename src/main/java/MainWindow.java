@@ -1,3 +1,4 @@
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -5,6 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 /**
  * Controller for the main GUI.
  */
@@ -20,17 +22,26 @@ public class MainWindow extends AnchorPane {
 
     private Susan susan;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/userpenguin.jpg"));
-    private Image susanImage = new Image(this.getClass().getResourceAsStream("/images/susanpenguin.jpg"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/userpenguin.jpg"));
+    private final Image susanImage = new Image(this.getClass().getResourceAsStream("/images/susanpenguin.jpg"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Susan instance */
+    /**
+     * Injects the Susan instance
+     */
     public void setSusan(Susan s) {
         susan = s;
+    }
+
+    public void greetUser() {
+        String response = susan.getResponse("hello");
+        dialogContainer.getChildren().addAll(
+                DialogBox.getSusanDialog(response, susanImage)
+        );
     }
 
     /**
@@ -45,6 +56,11 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getSusanDialog(response, susanImage)
         );
+
+        // Exit command
+        if (response.contains("bye")) {
+            Platform.exit();
+        }
         userInput.clear();
     }
 }

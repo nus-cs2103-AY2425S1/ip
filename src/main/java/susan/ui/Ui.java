@@ -29,6 +29,8 @@ public class Ui {
 
     /**
      * Prints information about the error encountered by the user.
+     *
+     * @param message error message.
      */
     public String showError(String message) {
         return "NOT OK. " + message;

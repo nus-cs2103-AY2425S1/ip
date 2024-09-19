@@ -16,8 +16,8 @@ public class Event extends Task {
      * Constructs an Event object with the specified description, start time, and end time.
      *
      * @param description The description of the event.
-     * @param start The start time of the event in yyyy-MM-dd HHmm.
-     * @param end The end time of the event in yyyy-MM-dd HHmm.
+     * @param from The start time of the event in yyyy-MM-dd HHmm.
+     * @param to The end time of the event in yyyy-MM-dd HHmm.
      */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);

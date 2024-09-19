@@ -41,6 +41,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Returns TaskList from data file if it exists.
+     *
+     * @throws SusanException if file does not exist.
+     */
     public TaskList readTasksFromFile() throws SusanException {
         try {
             File file = new File(FILE_PATH);
@@ -56,7 +61,11 @@ public class Storage {
         }
     }
 
-    private TaskList processTask(TaskList tasks, String line) throws SusanException {
+    /**
+     * Parses lines from data file into task.
+     * Returns original TaskList if line format is invalid.
+     */
+    private TaskList processTask(TaskList tasks, String line) {
         String[] commandParts = line.split(" : | ~ ");
         String commandWord = commandParts[0];
 

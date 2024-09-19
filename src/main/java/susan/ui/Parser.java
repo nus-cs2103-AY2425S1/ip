@@ -2,14 +2,13 @@ package susan.ui;
 
 import susan.command.*;
 
-/**
- * Parses user input into commands.
- *
- * @param userInput full input command from user.
- * @throws SusanException if command is invalid.
- */
 public class Parser {
-
+    /**
+     * Parses user input into commands.
+     *
+     * @param fullCommand full input command from user.
+     * @throws SusanException if command is invalid.
+     */
     public static Command parse(String fullCommand) throws SusanException {
         String[] commandParts = fullCommand.split(" ", 2);
         String commandWord = commandParts[0];
