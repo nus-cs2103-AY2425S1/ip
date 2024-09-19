@@ -28,7 +28,7 @@ public class Parser {
         List<String> tokens = new ArrayList<>();
         String[] segments = input.split("/");
         tokens.add(segments[0].split(" ", 2)[0].toLowerCase());
-        
+
         switch (tokens.get(0)) {
         case "bye":
             // Fallthrough
@@ -98,7 +98,7 @@ public class Parser {
     public static String parseDateToString(LocalDate localDate, String pattern) {
         return localDate.format(DateTimeFormatter.ofPattern(pattern));
     }
-    
+
     private static void handleDeleteOrToggle(List<String> tokens, String[] segments) throws InvalidCommandException {
         try {
             String[] firstSegment = segments[0].split(" ", 2);
@@ -109,7 +109,7 @@ public class Parser {
                     + "ensure that you inputted a number");
         }
     }
-    
+
     private static void handleToDoOrFind(List<String> tokens, String[] segments) throws InvalidCommandException {
         try {
             String[] firstSegment = segments[0].split(" ", 2);

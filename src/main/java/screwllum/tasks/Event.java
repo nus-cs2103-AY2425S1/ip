@@ -11,6 +11,13 @@ public class Event extends Task {
     private LocalDate startDate;
     private LocalDate endDate;
 
+    /**
+     * Constructs an object representing a task occurring between two time periods.
+     *
+     * @param desc  The description (name) of the task.
+     * @param startDate The starting date of the task, which is required to be in a certain format.
+     * @param endDate The ending date of the task, which is required to be in a certain format.
+     */
     public Event(String desc, String startDate, String endDate) {
         super(desc);
         this.startDate = Parser.parseStringToDate(startDate);
@@ -25,7 +32,7 @@ public class Event extends Task {
     }
 
     /**
-     * Convert the task to a format suitable for saving to a file.
+     * Converts the task to a format suitable for saving to a file.
      *
      * @return A String in the format E_status_desc_startDate_endDate.
      */

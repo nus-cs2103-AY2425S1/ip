@@ -10,6 +10,12 @@ import screwllum.utils.Parser;
 public class Deadline extends Task {
     private LocalDate by;
 
+    /**
+     * Constructs an object representing a task with a deadline.
+     *
+     * @param desc  The description (name) of the task.
+     * @param by The deadline of the task, which is required to be in a certain format.
+     */
     public Deadline(String desc, String by) {
         super(desc);
         this.by = Parser.parseStringToDate(by);
@@ -21,7 +27,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Convert the task to a format suitable for saving to a file.
+     * Converts the task to a format suitable for saving to a file.
      *
      * @return A String in the format D_status_desc_by.
      */

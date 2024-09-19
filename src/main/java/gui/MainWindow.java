@@ -37,6 +37,9 @@ public class MainWindow extends AnchorPane {
         screwllum = s;
     }
 
+    /**
+     * Displays a welcome message which changes depending on exceptions encountered during initialisation.
+     */
     public void showWelcome() {
         dialogContainer.getChildren().addAll(
                 DialogBox.getScrewllumDialog(screwllum.showWelcome(), screwllumImage)

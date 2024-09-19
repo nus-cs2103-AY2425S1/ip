@@ -19,11 +19,16 @@ public class Screwllum {
     private TaskManager taskManager;
     private Ui ui;
     private String welcomeMessage;
-    
     public Screwllum() {
         this("Save.txt");
     }
 
+    /**
+     * Constructor for the class, which initialises other classes as well as the welcome message depending on
+     * the presence or absence of exceptions.
+     *
+     * @param filePath
+     */
     public Screwllum(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -55,7 +60,12 @@ public class Screwllum {
             return ui.showError(e.getMessage());
         }
     }
-    
+
+    /**
+     * Provides various welcome messages depending on the file initialisation phase.
+     *
+     * @return A string representing the welcome message.
+     */
     public String showWelcome() {
         return ui.showWelcome(welcomeMessage);
     }

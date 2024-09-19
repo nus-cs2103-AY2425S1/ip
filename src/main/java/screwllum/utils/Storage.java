@@ -40,7 +40,7 @@ public class Storage {
             System.out.println("Error writing to file");
         }
     }
-    
+
     /**
      * Loads the tasks from the file into a list. If the file does not exist, it creates a new one.
      * Each line in the file is parsed into a Task object via a call to a helper method parseTask.
@@ -70,7 +70,7 @@ public class Storage {
 
     /**
      * Parses a line from the file and converts it into a Task object.
-     * The line is expected to be in a specific format, which is specified within the implementations of the various 
+     * The line is expected to be in a specific format, which is specified within the implementations of the various
      * tasks. The format utilizes "_" as the delimiter between fields.
      *
      * @param nextLine The line from the file to be parsed.

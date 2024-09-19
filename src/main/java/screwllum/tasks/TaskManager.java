@@ -12,11 +12,11 @@ import screwllum.utils.Ui;
  */
 public class TaskManager {
     private List<Task> taskList;
-    
+
     public TaskManager(List<Task> taskList) {
         this.taskList = taskList;
     }
-    
+
     public TaskManager() {
         this.taskList = new ArrayList<Task>();
     }
@@ -34,7 +34,7 @@ public class TaskManager {
     public String execute(List<String> tokens, Ui ui) throws InvalidIndexException {
         List<Task> list = null;
         String result = "";
-        
+
         switch (tokens.get(0)) {
         case "toggle":
             try {
@@ -70,7 +70,7 @@ public class TaskManager {
         }
         return result;
     }
-    
+
     public List<Task> getTaskList() {
         return taskList;
     }

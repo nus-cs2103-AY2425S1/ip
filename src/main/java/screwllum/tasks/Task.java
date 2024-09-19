@@ -7,7 +7,12 @@ package screwllum.tasks;
 public abstract class Task {
     protected String desc;
     protected boolean isDone;
-    
+
+    /**
+     * Constructs an object representing a task.
+     *
+     * @param desc The description (name) of the task.
+     */
     public Task(String desc) {
         this.desc = desc;
         this.isDone = false;

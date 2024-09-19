@@ -2,7 +2,6 @@ package screwllum.utils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import screwllum.tasks.Task;
 
@@ -11,12 +10,6 @@ import screwllum.tasks.Task;
  * utilise multiple System.out.println calls.
  */
 public class Ui {
-    private Scanner sc = new Scanner(System.in);
-    
-    public String getInput() {
-        return sc.nextLine();
-    }
-    
     public String showWelcome(String message) {
         return message;
     }
@@ -80,7 +73,7 @@ public class Ui {
         }
         return response;
     }
-    
+
     private String printTaskList(List<Task> taskList) {
         String response = "";
         if (taskList.isEmpty()) {
