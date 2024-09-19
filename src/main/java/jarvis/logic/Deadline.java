@@ -7,8 +7,11 @@ public class Deadline extends Task {
 
     LocalDate dateDeadline;
     String deadline;
-    public Deadline(String name, String deadline){
+    public Deadline(String name, String deadline) throws NullPointerException{
         super(name);
+        if(deadline.equals("")){
+            throw new NullPointerException();
+        }
         try {
             this.dateDeadline = LocalDate.parse(deadline);
         } catch(DateTimeParseException e){
@@ -18,7 +21,7 @@ public class Deadline extends Task {
 
     public String getDeadline() {
         return deadline == null
-                ? dateDeadline.toString()
+                ? "by: " + dateDeadline.toString()
                 : deadline;
     }
     @Override

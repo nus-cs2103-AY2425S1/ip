@@ -101,12 +101,14 @@ public class Parser {
         // Process add operation
         try {
             result.append(tasklist.add(input)).append("\n");
+        } catch(NullPointerException e){
+            result.append("You are missing one or more fields!");
         } catch (ArrayIndexOutOfBoundsException e) {
-            result.append("bad input: invalid format ").append(input).append("\n");
+            result.append("Im sorry, I don't understand this!\n ").append(input).append("\n");
         } catch (IndexOutOfBoundsException e) {
-            result.append("bad input: invalid format ").append(input).append("\n");
+            result.append("Im sorry, I don't understand this!\n ").append(input).append("\n");
         } catch (IllegalArgumentException e) {
-            result.append("Invalid input.\n");
+            result.append("This input is not quite right!.\n");
         } catch (Exception e) {
             result.append("error\n");
         }

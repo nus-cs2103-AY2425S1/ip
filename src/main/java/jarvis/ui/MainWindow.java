@@ -44,7 +44,7 @@ public class MainWindow extends AnchorPane {
                         "      (_)___ _______   __(_)____\n" +
                         "     / / __ `/ ___/ | / / / ___/\n" +
                         "    / / /_/ / /   | |/ / (__  )\n" +
-                        " __/ /\\__,_/_/    |___/_/____/\n" +
+                        " __/ /\\__,_/_/   |___/_/____/\n" +
                         "/___/\n";
 
 
@@ -55,6 +55,18 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().add(
                 DialogBox.getJarvisDialog("here are your previous tasks:", jarvisImage)
         );
+        dialogContainer.getChildren().add(
+                DialogBox.getJarvisDialog("here are some simple commands!\n"
+                       +  "Todo\n"
+                       +  "Event\n"
+                       +  "Deadline\n"
+                       +  "Find\n"
+                       +  "List\n"
+                       +  "Delete\n"
+                       +  "Mark/Unmark\n"
+                        , jarvisImage)
+        );
+
 
 
         Storage storage = Storage.getInstance(); // Get the singleton instance of Storage

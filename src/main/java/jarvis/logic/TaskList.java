@@ -60,8 +60,8 @@ public class TaskList {
             }
             case "event" -> {
                 String nameAndType = parts[0].substring(6);
-                String from = parts[1].replace("from ", "");
-                String to = parts[2].replace("to ", "");
+                String from = parts[1].replace("from", "");
+                String to = parts[2].replace("to", "");
                 Task event = new Event(nameAndType, from, to);
                 list.add(event);
                 storage.add(event.toString());
@@ -69,7 +69,7 @@ public class TaskList {
             }
             case "deadline" -> {
                 String nameAndType = parts[0].substring(9);
-                String end = parts[1].replace("by ", "by: ");
+                String end = parts[1].replace("by", "");
                 Task deadline = new Deadline(nameAndType, end);
                 list.add(deadline);
                 storage.add(deadline.toString());

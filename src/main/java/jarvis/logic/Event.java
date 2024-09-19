@@ -9,8 +9,11 @@ public class Event extends Task {
     String end;
     LocalDate dateStart;
     LocalDate dateEnd;
-    public Event(String name, String start, String end){
+    public Event(String name, String start, String end) throws NullPointerException{
         super(name);
+        if(start.equals("") || end.equals("")) {
+            throw new NullPointerException();
+        }
         try {
             this.dateStart = LocalDate.parse(start);
         } catch(DateTimeParseException e) {
@@ -25,13 +28,13 @@ public class Event extends Task {
 
     public String getStart() {
         return start == null
-                ? dateStart.toString()
-                : start;
+                ? "from: " + dateStart.toString()
+                : "from: " + start;
     }
     public String getEnd() {
         return end == null
-                ? dateEnd.toString()
-                : end;
+                ? "end: " + dateEnd.toString()
+                : "end: " + end;
     }
     public String toString(){
         String checkbox = this.isDone() ? "[X]" : "[ ]";
