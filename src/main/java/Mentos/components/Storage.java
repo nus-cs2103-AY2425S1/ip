@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import java.io.File;
+
+
 public class Storage {
     protected final String FILE_PATH;
 
@@ -28,15 +31,39 @@ public class Storage {
      *
      * @throws IOException if an I/O error occurs while writing to the file.
      */
+//    public void saveTasksToFile(TaskList tasks) {
+//        try {
+//            FileWriter file = new FileWriter(FILE_PATH, false);
+//            for (Task task : tasks.getTasks()) {
+//                file.write(task.toString() + "\n");
+//            }
+//            file.close();
+//        } catch (IOException exception) {
+//            System.out.println("Please create a /data/Mentos.txt file in " + System.getProperty("user.dir"));
+//        }
+//    }
     public void saveTasksToFile(TaskList tasks) {
+        File file = new File(FILE_PATH);
         try {
-            FileWriter file = new FileWriter(FILE_PATH, false);
-            for (Task task : tasks.getTasks()) {
-                file.write(task.toString() + "\n");
+            // Ensure parent directories exist
+            File parentDir = file.getParentFile();
+            if (parentDir != null && !parentDir.exists()) {
+                parentDir.mkdirs();
             }
-            file.close();
+
+            // Create file if it does not exist
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            // Write tasks to file
+            try (FileWriter fileWriter = new FileWriter(file, false)) {
+                for (Task task : tasks.getTasks()) {
+                    fileWriter.write(task.toString() + "\n");
+                }
+            }
         } catch (IOException exception) {
-            System.out.println("Please create a /data/Mentos.txt file in " + System.getProperty("user.dir"));
+            System.out.println("An error occurred while saving tasks: " + exception.getMessage());
         }
     }
 

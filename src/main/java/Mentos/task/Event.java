@@ -11,23 +11,27 @@ public class Event extends Task {
 
     public Event(String description, String from, String to) throws MentosException {
         super(description);
-        this.from = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-        this.to = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-        validateDates();
+        LocalDateTime testFrom = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        LocalDateTime testTo = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        validateDates(testFrom, testTo);
+        this.from = testFrom;
+        this.to = testTo;
     }
 
     public void updateFrom(String from) throws MentosException {
-        this.from = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-        validateDates();
+        LocalDateTime testFrom = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        validateDates(testFrom,this.to);
+        this.from = testFrom;
     }
 
     public void updateTo(String to) throws MentosException {
-        this.to = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-        validateDates();
+        LocalDateTime testTo = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        validateDates(this.from, testTo);
+        this.to = testTo;
     }
 
-    private void validateDates() throws MentosException {
-        if (this.to.isBefore(this.from)) {
+    private void validateDates(LocalDateTime from, LocalDateTime to) throws MentosException {
+        if (to.isBefore(from)) {
             throw new MentosException("End date must be after start date!");
         }
     }
