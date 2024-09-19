@@ -53,7 +53,7 @@ public class DialogBox extends HBox {
      * This is used to change the alignment of the dialog box for different speakers.
      */
     private void flip() {
-        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
+        ObservableList<Node> tmp = FXCollections.observableArrayList(getChildren());
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);

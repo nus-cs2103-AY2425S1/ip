@@ -62,7 +62,7 @@ public class TaskList {
                         if (parts[1].equals("1")) {
                             task.markAsDoneNonVerbose();
                         }
-                        this.taskStore.add(task);
+                        taskStore.add(task);
                     } catch (SadCatException e) {
                         System.out.println(e.getMessage());
                     }
@@ -87,7 +87,7 @@ public class TaskList {
      */
     public void filter(String input) {
         String lowercaseInput = input.toLowerCase();
-        List<Task> filtered = this.taskStore.stream()
+        List<Task> filtered = taskStore.stream()
                 .filter(task -> {
                     String lowercaseDescription = task.description.toLowerCase();
                     if (lowercaseDescription.contains(lowercaseInput)) {
@@ -151,13 +151,13 @@ public class TaskList {
             default:
                 throw new SadCatException("Invalid Task type.");
             }
-            this.taskStore.add(task);
+            taskStore.add(task);
             Storage.saveData();
             System.out.println("Got it. I've added this task:");
             System.out.println(task);
             System.out.printf(
                     "Now you have %d tasks in the list.\n",
-                    this.taskStore.size()
+                    taskStore.size()
             );
         } catch (DateTimeParseException | SadCatException e) {
             System.out.println(e.getMessage());
@@ -171,7 +171,7 @@ public class TaskList {
      * @throws SadCatException If the index is invalid or the list is empty
      */
     public void deleteTask(String input) throws SadCatException {
-        if (this.taskStore.isEmpty()) {
+        if (taskStore.isEmpty()) {
             throw new SadCatException("Task list is already empty.");
         }
         if (input.isEmpty()) {
@@ -182,17 +182,17 @@ public class TaskList {
             throw new SadCatException("No index provided.");
         }
         int id = Integer.parseInt(reg);
-        if (id > this.taskStore.size() || id < 1) {
+        if (id > taskStore.size() || id < 1) {
             throw new SadCatException("Invalid index provided.");
         }
-        Task task = this.taskStore.get(id - 1);
-        this.taskStore.remove(id - 1);
+        Task task = taskStore.get(id - 1);
+        taskStore.remove(id - 1);
         Storage.saveData();
         System.out.println("Noted. I've removed this task:");
         System.out.println(task);
         System.out.printf(
                 "Now you have %d tasks in the list.\n",
-                this.taskStore.size()
+                taskStore.size()
         );
     }
 
@@ -203,7 +203,7 @@ public class TaskList {
      * @throws SadCatException If the input is invalid or the index is out of range
      */
     public void updateTask(String input) throws SadCatException {
-        if (this.taskStore.isEmpty()) {
+        if (taskStore.isEmpty()) {
             throw new SadCatException("Task list is empty. Nothing to update.");
         }
         String[] parts = input.trim().split("\\s+", 3);
@@ -219,7 +219,7 @@ public class TaskList {
             throw new SadCatException("Invalid index provided.");
         }
 
-        if (index < 0 || index >= this.taskStore.size()) {
+        if (index < 0 || index >= taskStore.size()) {
             throw new SadCatException("Task index out of range.");
         }
 
@@ -257,11 +257,11 @@ public class TaskList {
             throw new SadCatException("Invalid date format.");
         }
 
-        if (this.taskStore.get(index).isDone) {
+        if (taskStore.get(index).isDone) {
             newTask.markAsDoneNonVerbose();
         }
 
-        this.taskStore.set(index, newTask);
+        taskStore.set(index, newTask);
         Storage.saveData();
         System.out.println("Got it. I've updated the task:");
         System.out.println(newTask);
@@ -274,7 +274,7 @@ public class TaskList {
      * @throws SadCatException If the index is invalid or the list is empty
      */
     public void mark(String input) throws SadCatException {
-        if (this.taskStore.isEmpty()) {
+        if (taskStore.isEmpty()) {
             throw new SadCatException("List is empty, no tasks to mark.");
         }
         if (input == null) {
@@ -285,10 +285,10 @@ public class TaskList {
             throw new SadCatException("No index provided.");
         }
         int id = Integer.parseInt(reg);
-        if (id > this.taskStore.size() || id < 1) {
+        if (id > taskStore.size() || id < 1) {
             throw new SadCatException("Invalid index provided.");
         }
-        this.taskStore.get(id - 1).markAsDone();
+        taskStore.get(id - 1).markAsDone();
         Storage.saveData();
     }
 
@@ -299,7 +299,7 @@ public class TaskList {
      * @throws SadCatException If the index is invalid or the list is empty
      */
     public void unmark(String input) throws SadCatException {
-        if (this.taskStore.isEmpty()) {
+        if (taskStore.isEmpty()) {
             throw new SadCatException("List is empty, no tasks to unmark.");
         }
         if (input == null) {
@@ -310,10 +310,10 @@ public class TaskList {
             throw new SadCatException("No index provided.");
         }
         int id = Integer.parseInt(reg);
-        if (id > this.taskStore.size() || id < 1) {
+        if (id > taskStore.size() || id < 1) {
             throw new SadCatException("Invalid index provided.");
         }
-        this.taskStore.get(id - 1).markAsNotDone();
+        taskStore.get(id - 1).markAsNotDone();
         Storage.saveData();
     }
 
@@ -335,6 +335,6 @@ public class TaskList {
      * Clears all tasks from the list.
      */
     public void clearTasks() {
-        this.taskStore.clear();
+        taskStore.clear();
     }
 }

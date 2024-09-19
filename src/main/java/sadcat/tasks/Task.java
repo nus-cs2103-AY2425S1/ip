@@ -10,7 +10,7 @@ import sadcat.exceptions.SadCatException;
  * Represents a generic task.
  */
 public class Task {
-    protected static final DateTimeFormatter inputFormatter = DateTimeFormatter
+    protected static final DateTimeFormatter INPUTFORMATTER = DateTimeFormatter
             .ofPattern("yyyy-MM-dd HHmm");
     protected String description;
     protected boolean isDone;
@@ -38,22 +38,22 @@ public class Task {
      * @return "X" if the task is done, " " otherwise
      */
     public String getStatusIcon() {
-        return (this.isDone ? "X" : " ");
+        return (isDone ? "X" : " ");
     }
 
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description;
+        return "[" + getStatusIcon() + "] " + description;
     }
 
     /**
      * Marks the task as done and prints a message.
      */
     public void markAsDone() {
-        if (this.isDone) {
+        if (isDone) {
             System.out.println("Task already marked as done:\n" + this);
         } else {
-            this.isDone = true;
+            isDone = true;
             System.out.println("Nice! I've marked this task as done:\n" + this);
         }
     }
@@ -62,8 +62,8 @@ public class Task {
      * Marks the task as done without printing a message.
      */
     public void markAsDoneNonVerbose() {
-        if (!this.isDone) {
-            this.isDone = true;
+        if (!isDone) {
+            isDone = true;
         }
     }
 
@@ -71,10 +71,10 @@ public class Task {
      * Marks the task as not done and prints a message.
      */
     public void markAsNotDone() {
-        if (!this.isDone) {
+        if (!isDone) {
             System.out.println("Task already marked as not done:\n" + this);
         } else {
-            this.isDone = false;
+            isDone = false;
             System.out.println("Ok, I've marked this task as not done yet:\n" + this);
         }
     }
@@ -85,7 +85,7 @@ public class Task {
      * @return A string representation of the task
      */
     public String saveFormat() {
-        return (this.isDone ? 1 : 0) + " | " + this.description;
+        return (isDone ? 1 : 0) + " | " + description;
     }
 
     /**
@@ -116,7 +116,7 @@ public class Task {
         }
         String[] deadlineInput = input.split("/by", 2);
         return new Deadline(deadlineInput[0].trim(),
-                LocalDateTime.parse(deadlineInput[1].trim(), inputFormatter));
+                LocalDateTime.parse(deadlineInput[1].trim(), INPUTFORMATTER));
     }
 
     /**
@@ -136,7 +136,7 @@ public class Task {
         String[] eventInput = input.split("/from", 2);
         String[] eventTimeInput = eventInput[1].trim().split("/to", 2);
         return new Event(eventInput[0].trim(),
-                LocalDateTime.parse(eventTimeInput[0].trim(), inputFormatter),
-                LocalDateTime.parse(eventTimeInput[1].trim(), inputFormatter));
+                LocalDateTime.parse(eventTimeInput[0].trim(), INPUTFORMATTER),
+                LocalDateTime.parse(eventTimeInput[1].trim(), INPUTFORMATTER));
     }
 }
