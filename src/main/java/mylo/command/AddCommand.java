@@ -1,5 +1,6 @@
 package mylo.command;
 
+import mylo.data.DuplicatedTaskException;
 import mylo.data.InsufficientInfoException;
 import mylo.storage.StorageOperationException;
 import mylo.task.TaskList;
@@ -43,7 +44,7 @@ public class AddCommand extends Command {
      */
     @Override
     public String execute(TaskList list, Tui tui) throws StorageOperationException, InsufficientInfoException,
-            IllegalValueException {
+            IllegalValueException, DuplicatedTaskException {
         return list.addTask(details, type);
     }
 }

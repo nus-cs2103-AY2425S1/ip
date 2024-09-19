@@ -118,4 +118,23 @@ public class Event extends Task {
                 Formatter.dateTimeDisplay(endDateTime));
     }
 
+    /**
+     * Compares this {@code Event} task to the specified object for equality.
+     * <p>This method checks if the given object is an {@code Event} and compares the start time,
+     * end time, and title to determine equality. Two {@code Event} tasks are considered equal
+     * if they have the same start time, end time, and title.</p>
+     *
+     * @param o The object to be compared for equality with this {@code Event}.
+     * @return {@code true} if the specified object is an {@code Event} with the same start time,
+     *         end time, and title, {@code false} otherwise.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Event other) {
+            return this.startDateTime.equals(other.startDateTime) && this.endDateTime.equals(other.endDateTime)
+                    && this.getTitle().equals(other.getTitle());
+        }
+        return false;
+    }
+
 }

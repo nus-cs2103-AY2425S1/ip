@@ -171,4 +171,7 @@ public abstract class Task {
     public String toString() {
         return this.getStatusIndicator() + this.getTitle();
     }
+
+    @Override
+    public abstract boolean equals(Object o);
 }

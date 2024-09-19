@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import mylo.command.Command;
+import mylo.data.DuplicatedTaskException;
 import mylo.data.InsufficientInfoException;
 import mylo.data.NoSuchCommandException;
 import mylo.parser.Parser;
@@ -104,7 +105,7 @@ public class MainWindow extends AnchorPane {
                 Platform.exit();
             }
         } catch (NoSuchCommandException | StorageOperationException | InsufficientInfoException
-                 | IllegalValueException | IndexOutOfBoundsException e) {
+                 | IllegalValueException | IndexOutOfBoundsException | DuplicatedTaskException e) {
             String errorMessage = e.getMessage();
             DialogBox errorBox = DialogBox.getMyloDialog(errorMessage, myloImage);
             dialogContainer.getChildren().add(errorBox);
