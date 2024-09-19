@@ -73,12 +73,14 @@ public class LunaBot {
      * @param input Full user input to be processed by the bot.
      * @return Response from the bot based on user input.
      */
-    public String getResponse(String input) throws LunaBotException {
-        if (input.isEmpty()) {
-            throw new LunaBotException(" Invalid input. Input field cannot be empty.");
-        } else {
+    public String getResponse(String input) {
+        assert input != null && !input.isEmpty()
+                : "No command or input found.";
+        try {
             Command command = Parser.parse(input);
             return command.execute(taskList, ui, storage);
+        } catch (LunaBotException e) {
+            return e.getMessage();
         }
     }
 

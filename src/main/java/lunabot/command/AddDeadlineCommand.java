@@ -53,6 +53,10 @@ public class AddDeadlineCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws LunaBotException {
+        assert taskList != null : "Task list cannot be null";
+        assert ui != null : "UI cannot be null";
+        assert storage != null : "Storage cannot be null";
+
         Deadline deadline = new Deadline(description, by);
         taskList.addTask(deadline);
         storage.save(taskList.getTasks());

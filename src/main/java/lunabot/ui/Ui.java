@@ -3,18 +3,7 @@ package lunabot.ui;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import lunabot.command.AddDeadlineCommand;
-import lunabot.command.AddEventCommand;
-import lunabot.command.AddToDoCommand;
-import lunabot.command.Command;
-import lunabot.command.DeleteCommand;
-import lunabot.command.ExitCommand;
-import lunabot.command.FindCommand;
-import lunabot.command.ListCommand;
-import lunabot.command.MarkCommand;
-import lunabot.command.UnmarkCommand;
 import lunabot.task.Task;
-import lunabot.task.TaskList;
 
 /**
  * Handles user interface operations for LunaBot.
