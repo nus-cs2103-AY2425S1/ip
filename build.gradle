@@ -51,7 +51,7 @@ application {
 }
 
 shadowJar {
-    mainClassName = 'elster.Elster'
+    mainClassName = 'elster.Launcher'
     archiveBaseName = "elster"
     archiveFileName = 'elster.jar'
 }

@@ -1,9 +1,9 @@
 # Elster User Guide
 > "Plan for what it is difficult while it is easy, do what is great while it is small.” - Sun Tzu [(source)](https://www.goodreads.com/quotes/964849-plan-for-what-it-is-difficult-while-it-is-easy)
 
-https://SeanFoongjt.github.io/ip/Ui.png
+![Product screenshot.](https://SeanFoongjt.github.io/ip/Ui.png)
 
-Elster is a chatbot that does it's best to help you out. It's
+Elster is a chatbot that does its best to help you out. It's
 - **Speedy**
 - **Intuitive**
 - **And ~~maybe~~ just a bit sarcastic**
@@ -37,12 +37,12 @@ Format:`event {description} /from {start time} /to {end time}`
 Example:`event Party at Elm /from 2024-09-24 12:00 /to 2024-09-24 14:00`
 
 ### <span style="color:#9457eb">Looking at your task list</span>
-Take a look at the task list Elster maintains so you know what you need to do.
+Take a look at the task list Elster maintains, so you know what you need to do.
 
 Format:`list` \
 Example:`list`
 
-https://SeanFoongjt.github.io/ip/List.png
+![Product screenshot.](https://SeanFoongjt.github.io/ip/List.png)
 
 ### <span style="color:#9457eb">Mark a task if done</span>
 Have Elster mark a task if done. (Good job!)
