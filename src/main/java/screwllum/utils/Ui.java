@@ -17,8 +17,8 @@ public class Ui {
         return sc.nextLine();
     }
     
-    public String showWelcome() {
-        return "Pleased to meet you";
+    public String showWelcome(String message) {
+        return message;
     }
 
     /**
@@ -43,9 +43,8 @@ public class Ui {
         String response = "";
         switch (tokens.get(0)) {
         case "bye":
-            response = "It was my pleasure, good bye";
-            System.exit(0);
-            break; // No requirement for a break, only to remove checkstyle warnings
+            response = "It was my pleasure, good bye. Close the application window thanks!";
+            break;
         case "list":
             response = printTaskList(taskList);
             break;
@@ -63,7 +62,7 @@ public class Ui {
         case "event":
             response = "I have added the following task:\n"
                     + taskList.get(taskList.size() - 1).toString()
-                    + "Now you have " + taskList.size() + " tasks";
+                    + "\nNow you have " + taskList.size() + " tasks";
             break;
         case "find":
             List<Task> tempList = new ArrayList<>();

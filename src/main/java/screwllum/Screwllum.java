@@ -3,6 +3,7 @@ package screwllum;
 import java.io.IOException;
 import java.util.List;
 
+import screwllum.exception.IllegalFileFormatException;
 import screwllum.exception.ScrewllumException;
 import screwllum.tasks.TaskManager;
 import screwllum.utils.Parser;
@@ -17,6 +18,7 @@ public class Screwllum {
     private Storage storage;
     private TaskManager taskManager;
     private Ui ui;
+    private String welcomeMessage;
     
     public Screwllum() {
         this("Save.txt");
@@ -27,13 +29,19 @@ public class Screwllum {
         storage = new Storage(filePath);
         try {
             taskManager = new TaskManager(storage.load());
-        } catch (Exception e) {
+            welcomeMessage = "Pleased to meet you!";
+        } catch (IOException e) {
+            welcomeMessage = "Nice to meet you! I have created a save file for your task list!";
+        } catch (IllegalFileFormatException e) {
+            welcomeMessage = "How peculiar, your save file is corrupted. I will create a new one for you!";
+        }
+        if (taskManager == null) {
             taskManager = new TaskManager();
         }
     }
 
     /**
-     * Starts the application by displaying a welcome message and entering the main loop.
+     * Starts the application by displaying a showWelcome message and entering the main loop.
      * Using other classes, the loop parses user inputs, executes them, and updates the save file.
      * Exceptions caught results in the respective error message being displayed.
      */
@@ -49,6 +57,6 @@ public class Screwllum {
     }
     
     public String showWelcome() {
-        return ui.showWelcome();
+        return ui.showWelcome(welcomeMessage);
     }
 }

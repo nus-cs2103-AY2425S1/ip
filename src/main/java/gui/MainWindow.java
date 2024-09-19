@@ -37,6 +37,12 @@ public class MainWindow extends AnchorPane {
         screwllum = s;
     }
 
+    public void showWelcome() {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getScrewllumDialog(screwllum.showWelcome(), screwllumImage)
+        );
+    }
+
     /**
      * Creates two dialog boxes, one echoing user input and the other containing the reply and then appends them
      * to the dialog container. Clears the user input after processing.
@@ -47,7 +53,7 @@ public class MainWindow extends AnchorPane {
         String response = screwllum.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, screwllumImage)
+                DialogBox.getScrewllumDialog(response, screwllumImage)
         );
         userInput.clear();
     }

@@ -24,9 +24,15 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setScrewllum(screwllum); // Inject the Screwllum instance
+            fxmlLoader.<MainWindow>getController().showWelcome();
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+    
+//    @Override
+//    public void stop() {
+//        
+//    }
 }
