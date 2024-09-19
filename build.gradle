@@ -48,12 +48,13 @@ test {
 }
 
 application {
-    mainClass.set("stobberi.Stobberi")
+    mainClass.set("stobberi.Launcher")
 }
 
 shadowJar {
     archiveBaseName = "stobberi"
     archiveClassifier = null
+    archiveFileName = "stobberi.jar"
 }
 
 run{
