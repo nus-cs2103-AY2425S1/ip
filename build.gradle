@@ -5,7 +5,7 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
-mainClassName = 'hypebot.ui.UiGuiLauncher'
+mainClassName = 'hypebot.ui.gui.UiGuiLauncher'
 
 shadowJar {
     archiveFileName = 'hypebot.jar'
@@ -54,7 +54,7 @@ test {
 }
 
 application {
-    mainClass.set("hypebot.ui.UiGuiLauncher")
+    mainClass.set("hypebot.ui.gui.UiGuiLauncher")
 }
 
 run {

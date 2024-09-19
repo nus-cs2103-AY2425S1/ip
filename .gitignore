@@ -12,7 +12,3 @@ src/main/resources/docs/
 .DS_Store
 *.iml
 bin/
-
-/text-uiCli-test/ACTUAL.TXT
-text-uiCli-test/EXPECTED-UNIX.TXT
-/src/main/data/tasks.txt
