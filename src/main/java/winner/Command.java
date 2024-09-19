@@ -27,18 +27,18 @@ public class Command {
      */
     public String execute(TaskList taskList) throws WinnerException {
         return switch (this.commandType) {
-            case HI_AGAIN -> executeHiAgain();
-            case HELP -> executeHelp();
-            case TODO -> executeAddToDo(taskList);
-            case DEADLINE -> executeAddDeadline(taskList);
-            case EVENT -> executeAddEvent(taskList);
-            case LIST -> executeList(taskList);
-            case MARK -> executeMark(taskList);
-            case UNMARK -> executeUnmark(taskList);
-            case DELETE -> executeDelete(taskList);
-            case FIND -> executeFind(taskList);
-            case BYE -> executeBye();
-            default -> executeUnknown();
+        case HI_AGAIN -> executeHiAgain();
+        case HELP -> executeHelp();
+        case TODO -> executeAddToDo(taskList);
+        case DEADLINE -> executeAddDeadline(taskList);
+        case EVENT -> executeAddEvent(taskList);
+        case LIST -> executeList(taskList);
+        case MARK -> executeMark(taskList);
+        case UNMARK -> executeUnmark(taskList);
+        case DELETE -> executeDelete(taskList);
+        case FIND -> executeFind(taskList);
+        case BYE -> executeBye();
+        default -> executeUnknown();
         };
     }
 
@@ -168,7 +168,7 @@ public class Command {
      * @return String indicating that the task has been deleted successfully.
      * @throws WinnerException If task number is invalid.
      */
-    public String executeDelete(TaskList taskList) throws WinnerException{
+    public String executeDelete(TaskList taskList) throws WinnerException {
         int taskNumber = getTaskNumber(input);
         if (taskNumber < 1 || taskNumber > taskList.getNoOfTasks()) {
             throw new WinnerException("""
@@ -186,7 +186,7 @@ public class Command {
      * @return String list of tasks that contain the specified keyword.
      * @throws WinnerException If keyword is missing from input.
      */
-    public String executeFind(TaskList taskList) throws WinnerException{
+    public String executeFind(TaskList taskList) throws WinnerException {
         String keyword = input.split("(?i)\\bfind\\b")[1].trim().toLowerCase();
         if (keyword.isEmpty()) {
             throw new WinnerException("""
@@ -211,7 +211,7 @@ public class Command {
      * @return WinnerException indicating that the command is unknown.
      * @throws WinnerException If command is not recognised.
      */
-    public String executeUnknown() throws WinnerException{
+    public String executeUnknown() throws WinnerException {
         throw new WinnerException("Oops sorry! I do not know what that means :(");
     }
 
