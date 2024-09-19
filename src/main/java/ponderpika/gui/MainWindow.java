@@ -44,6 +44,9 @@ public class MainWindow extends AnchorPane {
         String greeting = "HELLO, I'm Ponder Pika" + "\nIt is a great day to ponder! How may I help you?";
         dialogContainer.getChildren().add(DialogBox.getPikaDialog(greeting, botImage));
 
+        // @@author Ed Eden-Rump
+        //Reused from https://edencoding.com/how-to-add-an-image-to-a-button/
+        // with minor modifications
         ImageView imageView = new ImageView(Objects.requireNonNull(getClass().getResource("/images/send.png"))
                 .toExternalForm());
         sendButton.setGraphic(imageView);
@@ -51,6 +54,7 @@ public class MainWindow extends AnchorPane {
         imageView.fitWidthProperty().bind(sendButton.widthProperty().divide(6));
         imageView.setPreserveRatio(true);
         sendButton.setMaxWidth(Double.MAX_VALUE);
+        // @@author
     }
 
     /** Injects the PonderPika instance */
@@ -71,7 +75,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getPikaDialog(pikaText, botImage)
         );
         userInput.clear();
-        if (userText.equals("bye")) {
+        if (userText.equalsIgnoreCase("bye")) {
             PauseTransition delay = new PauseTransition(Duration.seconds(1));
             delay.setOnFinished(event -> {
                 Platform.exit();
