@@ -142,3 +142,10 @@ Expected output:
 ### Exit
 
 To exit the application, simply enter `bye` and Rasputin will exit, saving all changes to your list of tasks.
+
+
+### Credits
+
+[Rasputin Logo](https://www.svgrepo.com/svg/358993/warmind)
+
+[User Logo](https://www.stickpng.com/img/icons-logos-emojis/users/simple-user-icon)
