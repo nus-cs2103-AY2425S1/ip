@@ -23,6 +23,7 @@ public class Main extends Application {
             assert fxmlLoader != null : "fxmlLoader wasn't loaded properly in Main.java";
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            stage.setTitle("Michael Scott");
             stage.setScene(scene);
             stage.setMinHeight(616);
             stage.setMinWidth(417);
