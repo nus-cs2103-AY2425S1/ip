@@ -143,17 +143,19 @@ public class TaskList {
 
         for (int i = 0; i < numberOfTasks; i++) {
             Task t = tasks[i];
+
             if (t.getDescription().contains(keyword)) {
                 foundTasks[numberOfFoundTasks] = t;
-                foundTasks[numberOfFoundTasks] = t;
+                System.out.println(foundTasks[numberOfFoundTasks]);
                 numberOfFoundTasks++;
             }
+            System.out.println(t);
         }
         if (numberOfFoundTasks == 0) {
             return REPLY_UNSUCCESSFUL_FIND;
         }
         StringBuilder reply = new StringBuilder(REPLY_SUCCESSFUL_FIND);
-        for (int n = 1; n < numberOfFoundTasks; n++) {
+        for (int n = 1; n < numberOfFoundTasks + 1; n++) {
             reply.append("\n").append(n).append(". ").append(foundTasks[n - 1]);
         }
         return reply.toString();
