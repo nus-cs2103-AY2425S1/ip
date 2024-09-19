@@ -10,7 +10,7 @@ public class Meow {
      * enumerations for valid commands
      */
     public enum Command {
-        TODO, DEADLINE, EVENT, LIST, DELETE, MARK, UNMARK, BYE
+        TODO, DEADLINE, EVENT, LIST, DELETE, MARK, UNMARK, BYE, UPDATE
     }
     private Save save;
     private Ui ui;

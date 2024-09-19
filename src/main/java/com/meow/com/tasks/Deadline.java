@@ -32,4 +32,12 @@ public class Deadline extends Task {
     public String getType() {
         return "deadline";
     }
+
+    public void setNewTime(String newTime) throws Meowception {
+        try {
+            byDateTime = LocalDateTime.parse(newTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        } catch (java.time.format.DateTimeParseException e) {
+            throw new Meowception("300");
+        }
+    }
 }

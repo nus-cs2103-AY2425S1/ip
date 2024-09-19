@@ -31,6 +31,10 @@ public class Task {
     public String getType() {
         return "";
     }
+
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
+    }
     
 
 }

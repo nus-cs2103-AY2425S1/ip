@@ -9,7 +9,7 @@ public class Event extends Task {
 
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
-    DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("HHmm MMM dd yyyy");
+    DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("HH:mm MMM dd yyyy");
 
     public Event(String taskName, String from, String to) throws Meowception {
         super(taskName);
@@ -41,6 +41,22 @@ public class Event extends Task {
     @Override
     public String getType() {
         return "event";
+    }
+
+    public void setNewFromTime(String newFrom) throws Meowception {
+        try {
+            startDateTime = LocalDateTime.parse(newFrom, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        } catch (java.time.format.DateTimeParseException e) {
+            throw new Meowception("300");
+        }
+    }
+
+    public void setNewToTime(String newTo) throws Meowception {
+        try {
+            endDateTime = LocalDateTime.parse(newTo, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        } catch (java.time.format.DateTimeParseException e) {
+            throw new Meowception("300");
+        }
     }
 
 }

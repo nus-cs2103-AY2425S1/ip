@@ -1,4 +1,5 @@
 package com.meow;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import com.meow.com.tasks.Deadline;
@@ -18,7 +19,7 @@ public class Parser {
      */
     public enum Commands {
         TODO, DEADLINE, EVENT, LIST, DELETE, MARK, UNMARK, BYE,
-        FIND
+        FIND, UPDATE
     }
 
     /**
@@ -144,6 +145,21 @@ public class Parser {
                 if (!inputType.substring(5).trim().isEmpty()) {
                     return parseFindTask(inputType);
                 } else {
+                    // purpose here is to throw error if its a blank string
+                    throw new Meowception("100");
+                }
+            } catch (Meowception err) {
+                throw err;
+            } catch (StringIndexOutOfBoundsException e) {
+                Meowception err = new Meowception("100");
+                throw err;
+            }
+        case UPDATE:
+            try {
+                if (!inputType.substring(7).trim().isEmpty()) {
+                    System.out.println("Input is, " + inputType.substring((7)));
+                    return parseUpdateTask(inputType.substring(7));
+                } else {
                     throw new Meowception("100");
                 }
             } catch (Meowception err) {
@@ -173,7 +189,6 @@ public class Parser {
         return local.displayList();
     }
 
-    
     /**
      * Parses the input command and returns a todo task
      * @param String command input from the user
@@ -275,6 +290,85 @@ public class Parser {
             return taskList.deleteTask(number);
         }
     }
+
+    /**
+     * Parses the input to determine which and what to update
+     * @param userInput
+     * @return String
+     */
+    private String parseUpdateTask(String userInput) throws Meowception {
+        // CASES here are to determine what kind of task to update
+        String[] parts = userInput.split(" ");
+        Commands task = Commands.valueOf(parts[0].toUpperCase());
+        switch (task) {
+        case TODO:
+            return updateTodoTask(userInput.substring(5));
+        case DEADLINE:
+            return updateDeadlineTask(userInput.substring(9));
+        case EVENT:
+            return updateEventTask(userInput.substring(6));
+        }
+        throw new Meowception("001");
+    }
+    
+    /**
+     * Updates the todo task
+     * @param userInput
+     * @return String
+     */
+    private String updateTodoTask(String userInput) throws Meowception {
+        try {
+            String oldTaskname = userInput.substring(0, userInput.indexOf("/new "));
+            String newTaskname = userInput.substring(userInput.indexOf("/new ") + 5);
+            return taskList.updateTodoTask(oldTaskname, newTaskname);
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new Meowception("100");
+        }
+    }
+
+    /**
+     * Updates the deadline task
+     * @param userInput
+     * @return String
+     */
+    private String updateDeadlineTask(String userInput) throws Meowception {
+        try {
+            String taskName = userInput.substring(0, userInput.indexOf(" /"));
+            String newTaskData = userInput.substring(userInput.indexOf("/new ") + 5);
+            if (userInput.contains("/by ")) {
+                return taskList.updateDeadlineTask("time", taskName, newTaskData);
+            } else if (userInput.contains("/name ")) {
+                return taskList.updateDeadlineTask("name", taskName, newTaskData); 
+            }
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new Meowception("100");
+        }
+        return "Oopsies I can't update this task for some reason";
+    }
+
+    /**
+     * Updates the event task
+     * @param userInput
+     * @return String
+     */
+    private String updateEventTask(String userInput) throws Meowception {
+        try {
+            String taskName = userInput.substring(0, userInput.indexOf(" /"));
+            String newTaskData = userInput.substring(userInput.indexOf("/new ") + 5);
+            if (userInput.contains("/to ")) {
+                return taskList.updateEventTask("to", taskName, newTaskData);
+            } else if (userInput.contains("/name ")) {
+                return taskList.updateEventTask("name", taskName, newTaskData); 
+            } else if (userInput.contains("/from ")) {
+                return taskList.updateEventTask("from", taskName, newTaskData); 
+            }
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new Meowception("100");
+        }
+        return "Oopsies I can't update this task for some reason";
+    }
+
+    
 
     /**
      * Closes the scanner

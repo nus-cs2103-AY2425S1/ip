@@ -2,6 +2,8 @@ package com.meow;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.meow.com.tasks.Deadline;
+import com.meow.com.tasks.Event;
 import com.meow.com.tasks.Task;
 
 
@@ -110,6 +112,74 @@ public class TaskList {
     }
 
     /**
+     * Updates the todo task and replaces it with new name
+     * @param oldName
+     * @param newName
+     * @return msg
+     */
+    public String updateTodoTask(String oldName, String newName) throws Meowception {
+        for (Task task : tasks) {
+            if (task.getTaskName().equals(oldName) && task.getType().equals("Todo")) {
+                task.setTaskName(newName);
+                return "    Meow has updated this task hehe";
+            }
+        }
+        throw new Meowception("404");
+    }
+
+    /**
+     * Updates the deadline task and replaces it with the new data
+     * @param changeType, which indicates what to change
+     * @param name, the name of the task
+     * @param newData, the new data to replace with
+     * @throws Meowception
+     * @return msg
+     */
+    public String updateDeadlineTask(String changeType, String name, String newData) throws Meowception {
+        Task taskToUpdate = findSpecificTask(name, "deadline");
+        if (taskToUpdate == null) {
+            return "    Meow can't find this task uwu";
+        }
+        // able to type cast here because the type is already checked
+        Deadline deadlineTask = (Deadline) taskToUpdate;
+        if (changeType.equals("name")) {
+            deadlineTask.setTaskName(newData);
+            return "    Meow has updated this task hehe";
+        } else if (changeType.equals("time")) {
+            deadlineTask.setNewTime(newData);
+            return "    Meow has updated this task hehe";
+        }
+        throw new Meowception("404");
+    }
+
+    /**
+     * Updates the event task and repalces it with the new data
+     * @param changeType, which indicates what to change
+     * @param name, the name of the task
+     * @param newData, the new data to replace with
+     * @throws Meowception
+     */
+    public String updateEventTask(String changeType, String name, String newData) throws Meowception {
+        Task taskToUpdate = findSpecificTask(name, "event");
+        if (taskToUpdate == null) {
+            return "    Meow can't find this task uwu";
+        }
+        // able to type cast here because the type is already checked
+        Event eventTask = (Event) taskToUpdate;
+        if (changeType.equals("name")) {
+            eventTask.setTaskName(newData);
+            return "    Meow has updated this task hehe";
+        } else if (changeType.equals("from")) {
+            eventTask.setNewFromTime(newData);
+            return "    Meow has updated this task hehe";
+        } else if (changeType.equals("to")) {
+            eventTask.setNewToTime(newData);
+            return "    Meow has updated this task hehe";
+        }
+        throw new Meowception("404");
+    }
+
+    /**
      * Returns the message to be shown when a new task is added
      * @Param task object
      * @return String message to be shown
@@ -119,6 +189,15 @@ public class TaskList {
         return "    Meow has added this task hehe:\n            "
                 + task.toString() + "\n            Neow you have "
                 + tasks.size() + " tasks in the list";
+    }
+
+    public Task findSpecificTask(String name, String type) {
+        for (Task task : tasks) {
+            if (task.getTaskName().equals(name) && task.getType().equals(type)) {
+                return task;
+            } 
+        }
+        return null;
     }
 
     /**
