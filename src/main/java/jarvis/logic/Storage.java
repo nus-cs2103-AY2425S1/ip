@@ -15,7 +15,7 @@ public class Storage {
 
     private File storage;
     private static Storage instance;
-    public static final String LOAD_SAVE = "src/Data/SavedData.txt";
+    public static final String LOAD_SAVE = System.getProperty("user.home") + "/SavedData.txt";
 
     /**
      * Private constructor for the {@code Storage} class.
