@@ -1,9 +1,9 @@
-package nah;
+package nah.GUI;
 
 public class HelpWindowResponse {
     private final static String byeResponse = " That command is for exiting the chatBot Nah";
     private final static String cleanResponse = " That command is for cleaning the storage of Nah";
-    private final static String listResponse = " That command is for list all the tasks in Nah's storage";
+    private final static String listResponse = " That command is for listing all the tasks in Nah's storage";
     private final static String unknownResponse =
             " Nah do not recognise that. Please type 'help' for more instructions";
     private final static String formatOpening = " The format for this command is:\n";

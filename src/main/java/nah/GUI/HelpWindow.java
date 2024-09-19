@@ -1,4 +1,4 @@
-package nah;
+package nah.GUI;
 
 import java.io.IOException;
 import javafx.fxml.FXML;
@@ -12,15 +12,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import javafx.stage.Stage;
-import nah.DialogBox;
-import nah.Nah;
+import nah.Main;
+
 public class HelpWindow extends AnchorPane {
 
     private final Image userImage =
 
             new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private final Image nahImage =
-            new Image(this.getClass().getResourceAsStream("/images/nah.png"));
+    private final Image helperImage =
+            new Image(this.getClass().getResourceAsStream("/images/helper.png"));
     private final DialogBox greeting = DialogBox.getNahDialog(
             " This is Nah HelpBox. These are Nah's single word command"
                     + " 1.Bye : to exit the program\n"
@@ -36,7 +36,7 @@ public class HelpWindow extends AnchorPane {
                     + " 7.Deadline : to add a deadline task\n"
                     + " 8.Event : to add an event task\n"
                     + " Or type 'exit' to close Help Window ^:\n"
-            , nahImage);
+            , helperImage);
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -59,6 +59,11 @@ public class HelpWindow extends AnchorPane {
             fxmlLoader.setController(this);
             AnchorPane root = fxmlLoader.load();
             this.stage = new Stage();
+
+            // title bar set up
+            stage.setTitle("Nah");
+            stage.getIcons().add(new Image("/images/helper.png"));
+
             Scene scene = new Scene(root);
             stage.setScene(scene);
             dialogContainer.getChildren().addAll(this.greeting);
@@ -80,7 +85,7 @@ public class HelpWindow extends AnchorPane {
         }
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getNahDialog(response, nahImage)
+                DialogBox.getNahDialog(response, helperImage)
         );
         userInput.clear();
     }

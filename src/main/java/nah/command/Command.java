@@ -298,11 +298,13 @@ public abstract class Command {
          * @param tasks the TaskList containing the tasks
          * @param storage the Storage where data is stored
          */
+
+        private final String unkown_line = " Nahhhhh!!! Please type 'help' to get possible command type\n";
         @Override
         public String execute(TaskList tasks, Storage storage) {
             assert storage != null : "Storage cannot be null";
             assert tasks != null : "Tasklist cannot be null";
-            return " Nahhhhh!!! Please type help to get possible command type\n";
+            return unkown_line;
         }
     }
 
@@ -330,6 +332,64 @@ public abstract class Command {
             String response = tasks.unMark(this.idx);
             storage.rewrite(tasks.brief());
             return response;
+        }
+    }
+
+    /**
+     * The ReactCommand class is for showing special reaction.
+     */
+    public static class ReactCommand extends Command {
+
+        private String react;
+
+        public ReactCommand(String react) {
+            this.react = react;
+        }
+        /**
+         * Special react
+         *
+         * @param tasks   the TaskList containing the tasks
+         * @param storage the Storage where data is stored
+         * @throws NahException if an error occurs during the task update or storage rewrite
+         */
+        @Override
+        public String execute(TaskList tasks, Storage storage) throws NahException {
+            assert storage != null : "Storage cannot be null";
+            assert tasks != null : "Tasklist cannot be null";
+            return " " + react + " " + "what?\n" + " If you need help, type 'help'.";
+        }
+    }
+
+    /**
+     * The NahCommand class is for showing special reaction.
+     */
+    public static class NahCommand extends Command {
+
+        private int count;
+
+        public NahCommand(int count) {
+            this.count = count;
+        }
+        /**
+         * Special react
+         *
+         * @param tasks   the TaskList containing the tasks
+         * @param storage the Storage where data is stored
+         * @throws NahException if an error occurs during the task update or storage rewrite
+         */
+        @Override
+        public String execute(TaskList tasks, Storage storage) throws NahException {
+            assert storage != null : "Storage cannot be null";
+            assert tasks != null : "Tasklist cannot be null";
+            String ret = " ";
+            for (int i = 0; i < count; i ++) {
+                ret += "Nah";
+                for (int j = 0; j < i; j ++) {
+                    ret += "h";
+                }
+                ret += "\n" + " ";
+            }
+            return ret;
         }
     }
 }

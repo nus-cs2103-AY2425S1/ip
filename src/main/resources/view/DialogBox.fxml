@@ -16,7 +16,12 @@
     <children>
         <HBox fx:id="freeSpace" minHeight="-Infinity" minWidth="20" style="-fx-background-color: lightblue;"/>
         <Label fx:id="dialog" text="Label" wrapText="true" minHeight="-Infinity"
-            style = "-fx-background-color: lightGreen; -fx-background-radius: 15; -fx-padding: 10;"/>
+            style = "-fx-background-color: lightGreen;
+                    -fx-background-radius: 15;
+                    -fx-padding: 10;
+                    -fx-font-family: 'Roboto';
+                   -fx-font-size: 12px;
+                   -fx-font-weight: bold;"/>
         <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" />
 
     </children>

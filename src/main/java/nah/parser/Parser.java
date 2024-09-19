@@ -48,6 +48,21 @@ public class Parser {
         case "bye": {
             return new Command.ExitCommand();
         }
+        case "nah": {
+            if (cmd.length < 2) {
+                return new Command.ReactCommand("nah");
+            }
+            int i;
+            try {
+                i = parseInt(cmd[1]);
+            } catch (NumberFormatException e) {
+                return new Command.UnknownCommand();
+            }
+            return new Command.NahCommand(i);
+        }
+        case "hi": case "hello": case "oke": case "yo": {
+            return new Command.ReactCommand(cmd[0].toLowerCase());
+        }
         case "clean": {
             if (cmd.length >= 2 && !cmd[1].trim().isEmpty()) {
                 throw new NahException(" Nahh!!! Do not type nonsense after 'clean' command\n");
