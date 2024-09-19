@@ -79,7 +79,7 @@ Examples:
 
 Displays the task list.
 
-Format `list`
+Format: `list`
 
 ## Find a Task: `find`
 
