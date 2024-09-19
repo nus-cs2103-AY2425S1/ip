@@ -7,7 +7,7 @@
 
 # Introduction
 
-Welcome to Blue Chatbot - your personal assistant for managing tasks efficiently. 
+Welcome to Blue Chatbot! - your personal assistant for managing tasks efficiently. 
 Blue helps you keep track of your to-do items, deadlines, and events with 
 ease. You can add tasks, set deadlines, schedule events, mark tasks as done or undone, 
 delete tasks, and avoid duplicates—all through simple text commands.
