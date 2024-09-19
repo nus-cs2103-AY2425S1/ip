@@ -3,6 +3,7 @@ package ai.command;
 import ai.TaskList;
 import ai.Ui;
 import ai.exception.AiException;
+import ai.exception.WrongFormatAiException;
 import ai.task.Task;
 
 /**
@@ -11,8 +12,17 @@ import ai.task.Task;
 public class UnmarkCommand extends Command {
     private int i;
 
-    public UnmarkCommand(String index) {
-        i = Integer.parseInt(index) - 1;
+    /**
+     * Stores the index of the task to be unmarked.
+     * @param index Integer number of the task to be unmarked.
+     * @throws WrongFormatAiException if a non-integer is inputted.
+     */
+    public UnmarkCommand(String index) throws WrongFormatAiException {
+        try {
+            i = Integer.parseInt(index) - 1;
+        } catch (NumberFormatException e) {
+            throw new WrongFormatAiException("You tried to type a non-number...", "delete 5");
+        }
     }
 
     @Override

@@ -3,7 +3,9 @@ package ai.command;
 import ai.TaskList;
 import ai.Ui;
 import ai.exception.AiException;
+import ai.exception.WrongFormatAiException;
 import ai.task.Task;
+
 
 /**
  * Executes the command that deletes a task from the TaskList.
@@ -11,8 +13,18 @@ import ai.task.Task;
 public class DeleteCommand extends Command {
     private int i;
 
-    public DeleteCommand(String index) {
-        i = Integer.parseInt(index) - 1;
+    /**
+     * Stores the index of the task to be deleted.
+     * @param index Integer number of the task to be deleted.
+     * @throws WrongFormatAiException if a non-integer is inputted.
+     */
+    public DeleteCommand(String index) throws WrongFormatAiException {
+        try {
+            i = Integer.parseInt(index) - 1;
+        } catch (NumberFormatException e) {
+            throw new WrongFormatAiException("You tried to type a non-number...", "delete 5");
+        }
+
     }
 
     @Override
