@@ -7,6 +7,7 @@ import dude.exception.DudeDateTimeFormatException;
 import dude.exception.DudeException;
 import dude.exception.DudeInvalidArgumentException;
 import dude.exception.DudeInvalidCommandException;
+import dude.exception.DudeInvalidNameException;
 import dude.exception.DudeNullDateTimeException;
 import dude.exception.DudeNullDescriptionException;
 import dude.exception.DudeNumberException;
@@ -120,7 +121,12 @@ public class Dude {
             throw new DudeNullDescriptionException("todo");
         }
 
-        Task newTask = new ToDo(taskDes);
+        String taskName = taskDes.strip();
+        if (!isLegalName(taskName)) {
+            throw  new DudeInvalidNameException();
+        }
+
+        Task newTask = new ToDo(taskName);
         taskList.addTask(newTask);
 
         assert isRunning;
@@ -152,7 +158,12 @@ public class Dude {
         }
 
         LocalDateTime by = Parser.stringToDateTime(splitBy[1].strip());
-        Task newTask = new Deadline(splitDes[0].strip(), by);
+        String taskName = splitDes[0].strip();
+        if (!isLegalName(taskName)) {
+            throw  new DudeInvalidNameException();
+        }
+
+        Task newTask = new Deadline(taskName, by);
         taskList.addTask(newTask);
 
         assert isRunning;
@@ -196,11 +207,28 @@ public class Dude {
             throw new DudeDateTimeFormatException();
         }
 
-        Task newTask = new Event(splitDes[0].strip(), from, to);
+        String taskName = splitDes[0].strip();
+        if (!isLegalName(taskName)) {
+            throw  new DudeInvalidNameException();
+        }
+
+        Task newTask = new Event(taskName, from, to);
         taskList.addTask(newTask);
 
         assert isRunning;
         return ui.showAdd(newTask, taskList);
+    }
+
+    public boolean isLegalName(String taskName) {
+        String[] illegalStrings = {"|", "/"};
+
+        for (String s : illegalStrings) {
+            if (taskName.contains(s)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
