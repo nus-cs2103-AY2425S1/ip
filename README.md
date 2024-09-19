@@ -1,24 +1,27 @@
-# Duke project template
+# Nyabot project
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Nyabot is a chatbot for the individual project component of CS2103T, by Rachel Yeo Hui Min.
 
-## Setting up in Intellij
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+Functions include add, delete and list tasks, marking tasks as done or undone, and loading and saving chatbot data.
+Users can also use find to search for tasks with a query.
+Users can also find out their schedule for a particular day.
+There are three types of tasks, todo, deadline and event. Todo has a task name, deadline has a task name and end time,
+event has a task name, start time and end time.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+For deadlines and events, dates should be written in yyyy-MM-dd HH:mm.
+For example, you can write 2019-12-27 18:00.
+For schedules, dates should be written in yyyy-MM-dd (without the time).
+If you wish to know the schedule for the current day, you can simply type "schedule today".
+
+Here is the complete list of commands:
+todo <todo name>
+deadline <deadline name> /by <deadline>
+event <event name> /from <start time> /to <end time>
+delete <task index>
+exit 
+find <search query>
+list
+mark <task index>
+unmark <task index>
+schedule <date / "today">
