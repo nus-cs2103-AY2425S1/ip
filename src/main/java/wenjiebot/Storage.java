@@ -2,7 +2,6 @@ package wenjiebot;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -32,12 +31,7 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.filePath = filePath;
-        try {
-            readTasks();
-        } catch (NoFileException e) {
-            System.out.println("Bro I can't find a file to retrieve the data, \n"
-                    + " can help lobang me and create a file pls");
-        }
+        readTasks();
     }
 
     /**
@@ -55,29 +49,67 @@ public class Storage {
      *
      * @throws NoFileException if the file does not exist.
      */
-    public void readTasks() throws NoFileException {
+    public void readTasks() {
         File file = new File(filePath);
 
+        // Check if file exists, if not create a new file
+        if (doesFileExist(file)) {
+            return; // Exit as there is nothing to read yet
+        }
+
+        // Guard clause for handling IO exception
+        try {
+            String content = new String(Files.readAllBytes(Paths.get(filePath)));
+            // Guard clause for empty content
+            if (content.isBlank()) {
+                return; // No tasks to process, so return early
+            }
+            extractContentIntoTasks(content);
+
+        } catch (IOException e) {
+            System.out.println("An error occurred while reading the file.");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Extracts tasks from the given content and adds them to the task list.
+     * Each task is represented as a string in the provided content, and
+     * the method converts these stringified tasks into Task objects.
+     *
+     * @param content The string content containing tasks separated by newlines.
+     */
+    private void extractContentIntoTasks(String content) {
+        String[] parts = content.split("\n");
+
+        for (String stringifiedTask : parts) {
+            boolean isDone = stringifiedTask.charAt(4) == '1';
+            Task taskToAdd = convertStringToTask(stringifiedTask, isDone);
+            tasks.add(taskToAdd);
+        }
+    }
+
+    /**
+     * Checks if the given file exists. If the file does not exist,
+     * it creates a new file at the specified file path.
+     *
+     * @param file The file to check for existence.
+     * @return {@code true} if the file exists or has been successfully created,
+     *         {@code false} if an error occurs during file creation.
+     */
+    private boolean doesFileExist(File file) {
         if (!file.exists()) {
-            throw new NoFileException();
-        } else {
             try {
-                String content = new String(Files.readAllBytes(Paths.get(filePath)));
-                String[] parts = content.split("\n");
-
-                if (!content.isBlank()) {
-                    for (String stringifiedTask : parts) {
-                        boolean isDone = stringifiedTask.charAt(4) == '1';
-                        Task taskToAdd = convertStringToTask(stringifiedTask, isDone);
-                        tasks.add(taskToAdd);
-                    }
-                }
-
+                Files.createFile(Paths.get(filePath)); // Create the file if it doesn't exist
+                System.out.println("File not found. A new file has been created: " + filePath);
+                return true;
             } catch (IOException e) {
-                System.out.println("An error occurred while reading the file.");
+                System.out.println("An error occurred while creating the file.");
                 e.printStackTrace();
+                return true;
             }
         }
+        return false;
     }
 
     /**
@@ -129,33 +161,30 @@ public class Storage {
      * If the file does not exist, a FileNotFoundException is thrown.
      */
     public void writeTasks() {
-        try {
-            File file = new File(filePath);
+        File file = new File(filePath);
 
-            if (!file.exists()) {
-                throw new FileNotFoundException();
-            } else {
-                try {
-                    BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
-
-                    StringBuilder formattedString = new StringBuilder();
-
-                    for (Task task : tasks) {
-                        formattedString.append(task.toPrettierString());
-                        formattedString.append("\n");
-                    }
-
-                    writer.write(formattedString.toString());
-                    writer.flush();
-
-                } catch (IOException e) {
-                    System.out.println("An error occurred while saving the file.");
-                    e.printStackTrace();
-                }
-            }
-        } catch (FileNotFoundException e) {
+        // Guard clause for missing file
+        if (!file.exists()) {
             System.out.println("Bro I can't find a file to store the data, \n"
                     + " can help lobang me and create a file pls");
+            return;
+        }
+
+        // Guard clause for handling IO exception
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            StringBuilder formattedString = new StringBuilder();
+
+            for (Task task : tasks) {
+                formattedString.append(task.toPrettierString());
+                formattedString.append("\n");
+            }
+
+            writer.write(formattedString.toString());
+            writer.flush();
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving the file.");
+            e.printStackTrace();
         }
     }
+
 }
