@@ -80,12 +80,19 @@ Nice! I've marked this task as done: go class
 ## Snoozing
 
 reschedules the event dates and times 
+note: this is only available for deadlines and events!
 
 Example: `snooze event lend book from 2020-10-10 1000 to 2021-03-03 1000`
 
 expected output: 
 ```
 event task lend book 's date and time is updated!
+```
+Example: `snooze deadline return book by 2020-10-10 1000`
+
+expected output: 
+```
+event task return book 's date and time is updated!
 ```
 
 ## Exiting
