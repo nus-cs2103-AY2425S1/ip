@@ -7,7 +7,7 @@ import java.io.Serializable;
  * This class provides methods to set the completion status of the task and retrieve its description.
  */
 public class Task implements Serializable {
-    private boolean completed = false;
+    private boolean isCompleted = false;
     private String description;
 
     /**
@@ -25,7 +25,7 @@ public class Task implements Serializable {
      * @param status the completion status to be set
      */
     public void setCompleted(boolean status) {
-        this.completed = status;
+        this.isCompleted = status;
     }
 
     /**
@@ -35,7 +35,7 @@ public class Task implements Serializable {
      */
     @Override
     public String toString() {
-        return (completed ? "[X] " : "[ ] ") + description;
+        return (isCompleted ? "[X] " : "[ ] ") + description;
     }
 
     @Override

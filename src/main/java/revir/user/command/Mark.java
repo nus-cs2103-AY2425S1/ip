@@ -10,7 +10,7 @@ import revir.user.ui.Ui;
  */
 public class Mark extends Command {
     private int taskIndex;
-    private boolean state;
+    private boolean isCompleted;
 
     /**
      * Creates a new Mark object with the specified task index and state.
@@ -21,7 +21,7 @@ public class Mark extends Command {
     public Mark(int taskIndex, boolean state) {
         super(false);
         this.taskIndex = taskIndex;
-        this.state = state;
+        this.isCompleted = state;
     }
 
     /**
@@ -33,7 +33,7 @@ public class Mark extends Command {
      */
     @Override
     public void execute(Ui ui, TaskList taskList) throws IOException {
-        ui.showResult(taskList.setCompleted(taskIndex, state));
+        ui.showResult(taskList.setCompleted(taskIndex, isCompleted));
     }
 
 }

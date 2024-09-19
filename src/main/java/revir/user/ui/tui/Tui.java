@@ -34,13 +34,13 @@ public class Tui implements Ui {
 
         System.out.println("Hello! I'm Revir\nWhat can I do for you?");
         this.showLine();
-        boolean exit = false;
-        while (!exit) {
+        boolean isExit = false;
+        while (!isExit) {
             String input = this.readInput();
             try {
                 Command c = parser.parse(input);
                 c.execute(this, taskList);
-                exit = c.isExit();
+                isExit = c.isExit();
             } catch (NumberFormatException e) {
                 this.showError("Invalid task index. Expected a number.");
             } catch (IOException e) {
