@@ -44,7 +44,7 @@ java -jar EKuD.jar --text
 
 <h2 id="features">Features</h2>
 
-> [!NOTE]
+> ### ℹ️ Note: Parameters 
 > * Words in `{lower-case}` are the parameters supplied by the user.  
 > e.g. in `todo {description}`, `{descsription}` is a parameter and can be used as `todo task name`
 > * Items in square brackets are optional.  
@@ -178,7 +178,8 @@ Task data is automatically saved to the user's local storage after any command t
 i.e. `todo`, `deadline`, `event`, `delete`, `mark`, `unmark`, `set`, and `sort`.
 Tasks are read from and written to `[JAR file location]/data/tasks.txt`.
 * EKuD automatically detects if the file exists, and creates if it does not.
-> ![CAUTION]
+
+> ### ⚠️ Caution: Editing
 > * Advanced users may directly access the contents of `[JAR file location]/data/tasks.txt` to edit/backup them.
 > * If a task is edited to an [invalid format](#save-format), that task will be deleted from the save file upon
 > opening the app. Therefore, users are advised to back up their tasks before editing them.
