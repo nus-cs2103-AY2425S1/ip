@@ -92,6 +92,10 @@ public class Task implements Serializable {
         return this.description.contains(keyword);
     }
 
+    public String addTag(String tag) {
+        return this.toString() + " " + "#" + tag;
+    }
+
     /**
      * Returns the string representation of the task, including its status and the description of the task.
      *

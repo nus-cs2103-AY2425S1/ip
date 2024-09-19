@@ -113,6 +113,12 @@ public class UI {
         System.out.println(response);
     }
 
+    public void showTaggedTask(String task) {
+        assert task != null: "Task cannot be null.";
+        response = "OK. I've tagged the following task:\n" + "    " + task;
+        System.out.println(response);
+    }
+
     /**
      * Prints all the tasks where the inputted date lies within.
      *

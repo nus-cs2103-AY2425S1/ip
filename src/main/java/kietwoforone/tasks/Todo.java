@@ -63,6 +63,11 @@ public class Todo extends Task {
         return this.task.compareString(keyword);
     }
 
+    @Override
+    public String addTag(String tag) {
+        return this.toString() + " " + "#" + tag;
+    }
+
     /**
      * Returns the string representation of Todo object.
      *
