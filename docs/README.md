@@ -1,14 +1,9 @@
 # Gale User Guide
 
-// Update the title above to match the actual product name
-
-// Product screenshot goes here
 ![Gale GUI screenshot](Ui.png)
 
-// Product intro goes here
-
 ## Installation
-1. Download the jar from 
+1. Download the jar from ![github releases](https://github.com/kaikquah/ip/releases)
 2. Download Java SDK Version 17
 3. Open up a command line interface and run the command 
 ```bash
