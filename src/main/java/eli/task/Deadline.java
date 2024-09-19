@@ -50,6 +50,7 @@ public class Deadline extends Task {
     String formattedDeadline = deadline.format(formatter);
     return "[D] " + super.toString() + " (by: " + formattedDeadline + ")";
   }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
