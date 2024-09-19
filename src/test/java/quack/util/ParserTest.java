@@ -1,6 +1,9 @@
 package quack.util;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,6 +17,7 @@ import quack.command.FindTaskCommand;
 import quack.command.ListCommand;
 import quack.command.RemoveTagCommand;
 import quack.command.UpdateTaskCommand;
+import quack.exception.InvalidCommandException;
 
 /**
  * This class is to test the functionality of the Parser class.
@@ -39,9 +43,10 @@ public class ParserTest {
     @Test
     void testProcessListCommand() {
 
-        Command output = this.parser.processCommand("list");
+        Command actualCommand = assertDoesNotThrow(() -> this.parser.processCommand("list"),
+                "Function is not throw supposed to throw an exception");
 
-        assertInstanceOf(ListCommand.class, output,
+        assertInstanceOf(ListCommand.class, actualCommand,
             "Parser is returning the wrong command");
     }
 
@@ -53,9 +58,10 @@ public class ParserTest {
     @Test
     void testProcessByeCommand() {
 
-        Command output = this.parser.processCommand("bye");
+        Command actualCommand = assertDoesNotThrow(() -> this.parser.processCommand("bye"),
+            "Function is not throw supposed to throw an exception");
 
-        assertInstanceOf(ExitCommand.class, output,
+        assertInstanceOf(ExitCommand.class, actualCommand,
             "Parser is returning the wrong command");
     }
 
@@ -67,28 +73,40 @@ public class ParserTest {
     @Test
     void testProcessAddCommand() {
 
-        Command output = this.parser.processCommand("add");
+        Command actualCommand = assertDoesNotThrow(() -> this.parser.processCommand("add"),
+            "Function is not throw supposed to throw an exception");
 
-        assertInstanceOf(AddTaskCommand.class, output,
+        assertInstanceOf(AddTaskCommand.class, actualCommand,
             "Parser is returning the wrong command");
     }
 
     /**
      * Tests if the parser can return the correct command.
      * <p>
-     * Ensures that a update task command is returned when given a input, mark or unmark.
+     * Ensures that a update task command is returned when given a input, mark.
      */
     @Test
-    void testProcessUpdateTaskCommand() {
+    void testProcessMarkTaskCommand() {
 
-        Command output = this.parser.processCommand("mark");
+        Command actualCommand = assertDoesNotThrow(() -> this.parser.processCommand("mark"),
+            "Function is not throw supposed to throw an exception");
 
-        assertInstanceOf(UpdateTaskCommand.class, output,
+        assertInstanceOf(UpdateTaskCommand.class, actualCommand,
             "Parser is returning the wrong command");
+    }
 
-        output = this.parser.processCommand("unmark");
+    /**
+     * Tests if the parser can return the correct command.
+     * <p>
+     * Ensures that a update task command is returned when given a input, unmark.
+     */
+    @Test
+    void testProcessUnmarkTaskCommand() {
 
-        assertInstanceOf(UpdateTaskCommand.class, output,
+        Command actualCommand = assertDoesNotThrow(() -> this.parser.processCommand("unmark"),
+            "Function is not throw supposed to throw an exception");
+
+        assertInstanceOf(UpdateTaskCommand.class, actualCommand,
             "Parser is returning the wrong command");
     }
 
@@ -100,9 +118,10 @@ public class ParserTest {
     @Test
     void testProcessDeleteCommand() {
 
-        Command output = this.parser.processCommand("delete");
+        Command actualCommand = assertDoesNotThrow(() -> this.parser.processCommand("delete"),
+            "Function is not throw supposed to throw an exception");
 
-        assertInstanceOf(DeleteTaskCommand.class, output,
+        assertInstanceOf(DeleteTaskCommand.class, actualCommand,
             "Parser is returning the wrong command");
     }
 
@@ -114,9 +133,10 @@ public class ParserTest {
     @Test
     void testProcessFindCommand() {
 
-        Command output = this.parser.processCommand("find");
+        Command actualCommand = assertDoesNotThrow(() -> this.parser.processCommand("find"),
+            "Function is not throw supposed to throw an exception");
 
-        assertInstanceOf(FindTaskCommand.class, output,
+        assertInstanceOf(FindTaskCommand.class, actualCommand,
             "Parser is returning the wrong command");
     }
 
@@ -128,9 +148,10 @@ public class ParserTest {
     @Test
     void testProcessTagCommand() {
 
-        Command output = this.parser.processCommand("tag");
+        Command actualCommand = assertDoesNotThrow(() -> this.parser.processCommand("tag"),
+            "Function is not throw supposed to throw an exception");
 
-        assertInstanceOf(AddTagCommand.class, output,
+        assertInstanceOf(AddTagCommand.class, actualCommand,
             "Parser is returning the wrong command");
     }
 
@@ -142,9 +163,10 @@ public class ParserTest {
     @Test
     void testProcessUntagCommand() {
 
-        Command output = this.parser.processCommand("untag");
+        Command actualCommand = assertDoesNotThrow(() -> this.parser.processCommand("untag"),
+            "Function is not throw supposed to throw an exception");
 
-        assertInstanceOf(RemoveTagCommand.class, output,
+        assertInstanceOf(RemoveTagCommand.class, actualCommand,
             "Parser is returning the wrong command");
     }
 
@@ -156,14 +178,35 @@ public class ParserTest {
     @Test
     void testProcessCapsInput() {
 
-        Command output = this.parser.processCommand("LiSt");
+        Command actualCommand = assertDoesNotThrow(() -> this.parser.processCommand("LiSt"),
+                "Function is not throw supposed to throw an exception");
 
-        assertInstanceOf(ListCommand.class, output,
-            "Parser is returning the wrong command");
-
-        output = this.parser.processCommand("deLeTE");
-
-        assertInstanceOf(DeleteTaskCommand.class, output,
+        assertInstanceOf(ListCommand.class, actualCommand,
                 "Parser is returning the wrong command");
+
+        actualCommand = assertDoesNotThrow(() -> this.parser.processCommand("DeLeTE"),
+                "Function is not throw supposed to throw an exception");
+
+        assertInstanceOf(DeleteTaskCommand.class, actualCommand,
+                "Parser is returning the wrong command");
+    }
+
+    /**
+     * Tests if the parser can handle invalid inputs.
+     * <p>
+     * Ensures that the function can throws an exception when the user inputs
+     * an invalid command.
+     */
+    @Test
+    void testProcessInvalidInput() {
+
+        InvalidCommandException exception = assertThrows(InvalidCommandException.class, () ->
+                this.parser.processCommand("Funnyyy"),
+                "Function did not throw an exception when it is supposed to");
+
+        String expectedMessage = "This command: Funnyyy, is unfortunatly not supported by Quack!";
+
+        assertEquals(expectedMessage, exception.getMessage(),
+                "The exception message is incorrect");
     }
 }

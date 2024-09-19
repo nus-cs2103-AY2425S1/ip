@@ -3,6 +3,7 @@ package quack;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import quack.command.Command;
+import quack.exception.InvalidCommandException;
 import quack.util.Parser;
 import quack.util.Storage;
 import quack.util.TaskList;
@@ -64,8 +65,13 @@ public class Quack {
      */
     public Command processResponse(String userInput) {
 
-        Command command = this.parser.processCommand(userInput);
-        return command;
+        try {
+            Command command = this.parser.processCommand(userInput);
+            return command;
+        } catch (InvalidCommandException commandError) {
+            ui.printExceptionMessage(commandError);
+            return null;
+        }
     }
 }
 

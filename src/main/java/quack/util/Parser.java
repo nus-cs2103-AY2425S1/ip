@@ -40,7 +40,7 @@ public class Parser {
      * @param userCommand The command in string form which the user inputed.
      * @throws InvalidCommandException Signals that the command given is invalid.
      */
-    public Command processCommand(String userCommand) {
+    public Command processCommand(String userCommand) throws InvalidCommandException {
         Command command;
         switch (userCommand.toLowerCase()) {
         case "list":
@@ -78,8 +78,7 @@ public class Parser {
             return command;
 
         default:
-            ui.printExceptionMessage(new InvalidCommandException(userCommand));
-            return null;
+            throw new InvalidCommandException(userCommand);
         }
     }
 }
