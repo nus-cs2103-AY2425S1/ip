@@ -116,7 +116,7 @@ public class Tasklist extends ArrayList<Task> {
             throw new NoSuchElementException(ERROR_NO_TASKS_HAPPENING);
         }
         List<Task> tempClone = (List<Task>) clone();
-        List<Task> filteredTasks= tempClone.stream().filter(task -> task.isHappeningOn(date)).toList();
+        List<Task> filteredTasks = tempClone.stream().filter(task -> task.isHappeningOn(date)).toList();
         Tasklist newTasklist = new Tasklist();
         newTasklist.addAll(filteredTasks);
         return newTasklist;
@@ -140,7 +140,7 @@ public class Tasklist extends ArrayList<Task> {
             throw new NoSuchElementException(ERROR_NO_TASKS_MATCH_SEARCH);
         }
         List<Task> tempClone = (List<Task>) clone();
-        List<Task> filteredTasks= tempClone.stream().filter(task -> task.nameContains(searchQuery)).toList();
+        List<Task> filteredTasks = tempClone.stream().filter(task -> task.nameContains(searchQuery)).toList();
         Tasklist newTasklist = new Tasklist();
         newTasklist.addAll(filteredTasks);
         return newTasklist;

@@ -5,15 +5,22 @@ import static hypebot.common.Messages.MESSAGE_DELETING_PAST_EVENT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import hypebot.parser.datetime.FileDateTimeParser;
-import hypebot.exception.datetime.EventDateTimeParseException;
 import org.junit.jupiter.api.Test;
 
+import hypebot.exception.datetime.EventDateTimeParseException;
+import hypebot.parser.datetime.FileDateTimeParser;
+
+/**
+ * Represents tests for {@link Event}.
+ *
+ * @author Youngseo Park (<a href="https://github.com/youngseopark05">@youngseopark05</a>)
+ * @see FileDateTimeParser
+ */
 public class EventTest {
-    FileDateTimeParser fileDateTimeParser = new FileDateTimeParser();
+    private final FileDateTimeParser fileDateTimeParser = new FileDateTimeParser();
 
     @Test
-    public void Event_invalidTimeFormats_exceptionThrown() {
+    public void eventInvalidTimeFormatsEventDateTimeParseExceptionThrown() {
         try {
             Event temp1 = new Event(
                     "temp1",
@@ -26,7 +33,7 @@ public class EventTest {
     }
 
     @Test
-    public void Event_fromFileTimesPassedBy_exceptionThrown() {
+    public void eventFromFileTimesPassedByDatePassedExceptionThrownWithDeletingMessage() {
         try {
             Event temp1 = new Event(
                     "temp1",
@@ -38,7 +45,7 @@ public class EventTest {
     }
 
     @Test
-    public void Event_timesNotInOrder_exceptionThrown() {
+    public void eventTimesNotInOrderIllegalEventTimesExceptionThrown() {
         try {
             Event temp1 = new Event(
                     "temp1",

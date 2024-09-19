@@ -4,15 +4,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * Represents tests for {@link Event}.
+ *
+ * @author Youngseo Park (<a href="https://github.com/youngseopark05">@youngseopark05</a>)
+ */
 public class ToDoTest {
     @Test
-    public void toFileString_incompleteToDo_success() throws Exception {
+    public void toFileStringIncompleteToDoSuccess() throws Exception {
         // normal incomplete ToDo exported to save in text file
         assertEquals("T , 0 , borrow book\n", new ToDo("borrow book").toFileString());
     }
 
     @Test
-    public void toFileString_completeToDo_success() throws Exception {
+    public void toFileStringCompleteToDoSuccess() throws Exception {
         // normal complete ToDo exported to save in text file
         ToDo temp = new ToDo("touch grass");
         temp.mark();
@@ -20,13 +25,13 @@ public class ToDoTest {
     }
 
     @Test
-    public void toString_incompleteToDo_success() throws Exception {
+    public void toStringIncompleteToDoSuccess() throws Exception {
         // normal incomplete ToDo shown to user
         assertEquals("[T][ ] go to sleep", new ToDo("go to sleep").toString());
     }
 
     @Test
-    public void toString_completeToDo_success() throws Exception {
+    public void toStringCompleteToDoSuccess() throws Exception {
         // normal complete ToDo shown to user
         ToDo temp = new ToDo("finish iP");
         temp.mark();
