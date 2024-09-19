@@ -136,13 +136,14 @@ public class Ui {
         }
 
         switch(status) {
-            case UPDATE:
-                parser.changeStatus(TaskStatus.ADD);
-                taskList.updateTask(tempIndex, new Todo(task));
-                return updateMessage(taskList.getTaskString(tempIndex));
-            case ADD:
-                taskList.addTask(task.trim(), TaskType.TODO, "");
-                return handleAddedTask();
+        case UPDATE:
+            parser.changeStatus(TaskStatus.ADD);
+            parser.resetTempStrings();
+            taskList.updateTask(tempIndex, new Todo(task.trim()));
+            return updateMessage(taskList.getTaskString(tempIndex));
+        case ADD:
+            taskList.addTask(task.trim(), TaskType.TODO, "");
+            return handleAddedTask();
         }
         return "";
     }
@@ -155,22 +156,25 @@ public class Ui {
      */
     public String handleEvent(String description, String startDate, TaskStatus status) {
         String endDate = "";
-        if (description.contains("/to")) { // No start date, end date provided
+        if (description.contains("/to")) { // No start date, end date provided (add bugs)
             String[] temp = parser.parseEventTo(description);
-            description = temp[0];
+            description = temp[0].trim();
             endDate = temp[1];
         }
 
         if (description.isEmpty()) { // No echo.task description, start date provided
-            parser.keepTemp(startDate, 1);
+            if (!startDate.isEmpty()) {
+                parser.keepTemp(startDate, 1);
+            }
+            if (!endDate.isEmpty()) {
+                parser.keepTemp(endDate, 2);
+            }
             parser.changeState(StateType.EVENT_DESCRIPTION);
             return "Enter task description: ";
         }
 
-        if (startDate.isEmpty()) { // No start date provided
-            if (!description.isEmpty()) {
-                parser.keepTemp(description, 0);
-            }
+        if (startDate.isEmpty()) { // No start date provided (update bug)
+            parser.keepTemp(description, 0);
             if (!endDate.isEmpty()) {
                 parser.keepTemp(endDate, 2);
             }
@@ -180,8 +184,14 @@ public class Ui {
 
         if (startDate.contains("/to")) {
             String[] temp = parser.parseEventTo(startDate);
+            if (temp[0].isEmpty()) { // No start date provided, only end date
+                parser.keepTemp(description, 0);
+                parser.keepTemp(temp[1], 2);
+                parser.changeState(StateType.EVENT_START);
+                return "Start: ";
+            }
             startDate = temp[0];
-            endDate = temp[1];
+            endDate = temp[1].trim();
         }
 
         if (endDate.isEmpty()) {
@@ -197,6 +207,7 @@ public class Ui {
         switch(status) {
             case UPDATE:
                 parser.changeStatus(TaskStatus.ADD);
+                parser.resetTempStrings();
                 taskList.updateTask(tempIndex, new Event(description, startDate, endDate));
                 return updateMessage(taskList.getTaskString(tempIndex));
             case ADD:
@@ -232,12 +243,13 @@ public class Ui {
             deadline = parser.parseDate(deadlineToParse);
         } catch (DateTimeParseException e) {
             parser.changeState(StateType.DEADLINE_DEADLINE);
-            return "No matching date formats";
+            return "No matching date formats.\n Deadline:";
         }
 
         switch(status) {
         case UPDATE:
             parser.changeStatus(TaskStatus.ADD);
+            parser.resetTempStrings();
             taskList.updateTask(tempIndex, new Deadline(description, deadline));
             return updateMessage(taskList.getTaskString(tempIndex));
         case ADD:
@@ -311,6 +323,10 @@ public class Ui {
         return deleteMsg;
     }
 
+    public String handleEmpty() {
+        return emptyMessage();
+    }
+
     private String updateMessage(String task) {
         return "Nice! I've edited this task:\n" +
                 task;
@@ -343,6 +359,9 @@ public class Ui {
                     " in the list.\n",
                     numTasks
                 );
+    }
+    private String emptyMessage() {
+        return "OOPS!!! I'm sorry, but your input cannot be empty :(";
     }
     private String unknownMessage() {
         return "OOPS!!! I'm sorry, but I don't know what that means :-(";

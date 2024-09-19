@@ -49,6 +49,9 @@ public class Task {
     protected void uncompleteTask() {
         this.isComplete = false;
     }
+    protected Boolean getIsComplete() {
+        return this.isComplete;
+    }
     /**
      * Returns a string representing the task's data,
      * suitable for saving to a file.

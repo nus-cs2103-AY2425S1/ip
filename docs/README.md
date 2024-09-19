@@ -121,6 +121,16 @@ Here are the tasks in your list:
 Update added tasks.
 
 Format: `Update` `[List index]` `[Updated parameter]`
+- Chatbot will automatically query user on certain null inputs. 
+  User should hit `Enter` key to keep the parameter the same.
+- Example:
+```
+Update 1 /from 2pm
+
+Enter task description:
+
+[user hits enter key]
+```
 
 Example: `Update` `1` `/by 30/9/2024`
 

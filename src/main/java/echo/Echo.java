@@ -2,6 +2,8 @@ package echo;
 
 import echo.backend.Storage;
 import echo.task.TaskList;
+import javafx.application.Platform;
+
 /**
  * The Echo class serves as the main entry point for the Echo application.
  * It initializes the necessary components such as the TaskList, Ui, and Storage,
@@ -37,6 +39,7 @@ public class Echo {
     public void stopRunning() {
         assert storage != null: "Storage should not be null";
         storage.saveToFile();
+        Platform.exit();
     }
 
     public String greetUser() {

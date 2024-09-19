@@ -24,11 +24,12 @@ public class Parser {
                             "yyyy/M/d",
                             "d-M-yyyy",
                             "d MMM yyyy",
-                            "MMM d yyyy"));
+                            "MMM d yyyy",
+                            "d MMMM yyyy",
+                            "MMMM d yyyy"));
     private Ui ui;
     private StateType statetype = StateType.NO_STATE;
     private String[] tempStrings; // Description, start, end, deadline, index
-    private int tempIndex;
     private TaskStatus status = TaskStatus.ADD;
     /**
      * Constructs a Parser object with the specified Ui.
@@ -39,7 +40,6 @@ public class Parser {
         this.ui = ui;
         assert this.ui != null: "ui should not be null";
         this.tempStrings = new String[] {"", "", "", "", ""};
-        this.tempIndex = -1;
     }
     /**
      * Parses the user input and delegates the command to the Ui for execution.
@@ -82,14 +82,15 @@ public class Parser {
             return ui.handleFind(arg);
         case UPDATE:
             String[] parsedUpdate = parsedUpdate(arg);
-            return ui.handleUpdate(parsedUpdate[0],
+            return ui.handleUpdate(
+                    parsedUpdate[0],
                     parsedUpdate.length > 1 ? parsedUpdate[1] : "");
         case DELETE:
             return ui.handleDelete(arg);
         case BYE:
             return ui.handleBye();
         default:
-            return "";
+            return ui.handleEmpty();
         }
     }
 
@@ -106,7 +107,7 @@ public class Parser {
         case TODO_DESCRIPTION:
             changeState(StateType.NO_STATE);
             return ui.handleTodo(
-                    tempStrings[0].isEmpty() ? userInput.trim() : tempStrings[0],
+                    userInput.isEmpty() ? tempStrings[0] : userInput.trim(),
                     status);
         case DEADLINE_DESCRIPTION:
             changeState(StateType.NO_STATE);
@@ -123,22 +124,25 @@ public class Parser {
         case EVENT_DESCRIPTION:
             changeState(StateType.NO_STATE);
             return ui.handleEvent(
-                    tempStrings[0].isEmpty() ? userInput.trim() : tempStrings[0],
+                    (userInput.isEmpty() ? tempStrings[0] : userInput.trim()) +
+                    (tempStrings[2].isEmpty() ? "" : " /to " + tempStrings[2]),
                     tempStrings[1],
                     status);
         case EVENT_START:
             changeState(StateType.NO_STATE);
             return ui.handleEvent(
-                    tempStrings[0],
-                    tempStrings[1].isEmpty() ? userInput.trim() : tempStrings[1],
+                    tempStrings[0] + (tempStrings[2].isEmpty() ? "" : " /to " + tempStrings[2]),
+                    (userInput.isEmpty() ? tempStrings[1] : userInput.trim()),
                     status);
         case EVENT_END:
             changeState(StateType.NO_STATE);
             System.out.println(tempStrings[2]);
             return ui.handleEvent(
                     tempStrings[0],
-            tempStrings[1] + " /to " +
-                    (tempStrings[2].isEmpty() ? userInput.trim() : tempStrings[2]),
+            tempStrings[1] +
+                    (userInput.isEmpty()
+                            ? (tempStrings[2].isEmpty() ? "" : " /to " + tempStrings[2] )
+                            : " /to " + userInput.trim()),
                     status);
         default:
             return ui.handleUnknown();

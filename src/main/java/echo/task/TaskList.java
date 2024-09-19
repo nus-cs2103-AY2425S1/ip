@@ -72,15 +72,6 @@ public class TaskList {
         return s;
     }
     /**
-     * Adds a task object directly to the list.
-     *
-     * @param t the task to be added
-     */
-    private void addTask(Task t) {
-        assert t != null: "Task should not be null";
-        tasks.add(t);
-    }
-    /**
      * Adds a Deadline task to tasks with the given description and deadline date.
      *
      * @param description the description of the deadline task
@@ -158,6 +149,9 @@ public class TaskList {
         return tasks.get(index - 1).getTaskType();
     }
     public void updateTask(int index, Task task) {
+        if (tasks.get(index - 1).getIsComplete()) {
+            task.completeTask();
+        }
         tasks.set(index - 1, task);
     }
 
