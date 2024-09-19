@@ -27,11 +27,11 @@ public class Ui {
     }
 
     public String printCheck() {
-        return "Noted. I've marked this task as complete\n";
+        return "Nice! That task has now been marked as complete\n";
     }
 
     public String printUncheck() {
-        return "Noted. I've marked this task as incomplete\n";
+        return "Okay, that task has been marked as incomplete\n";
     }
 
     public String printArchive() {
