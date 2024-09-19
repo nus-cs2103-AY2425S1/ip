@@ -1,6 +1,5 @@
 # Donna User Guide
 
----
 
 ![screenshot](Ui.png)
 
@@ -8,8 +7,6 @@ Donna is a chatbot that will help you manage your tasks with ease. If you're loo
 manage your to-dos, deadlines, and events, Donna has you covered.
 
 ## Contents
-
----
 
 * [Quick Start](#quick-start)
 * [Adding Tasks](#adding-tasks)
@@ -25,7 +22,6 @@ manage your to-dos, deadlines, and events, Donna has you covered.
 
 ## Quick Start
 
----
 
 1. Ensure that you have Java 17 installed.
 2. Download the latest jar file from [here](https://github.com/tanwartushar/ip/releases).
@@ -35,8 +31,6 @@ the application.
 
 
 # Features
-
----
 
 ## Adding Tasks
 
@@ -92,7 +86,6 @@ You now have 3 tasks in the list.
 
 ## Removing Tasks `delete`
 
----
 
 Removes a task (with the specified task number) from the list of tasks.
 
@@ -100,9 +93,8 @@ Command Format: `delete <taskNumber>`
 
 Example: `delete 1`
 
-## Marking Tasks `mark` / `unmark`
 
----
+## Marking Tasks `mark` / `unmark`
 
 ### Marking Tasks as done `mark`
 Marks a task as done (with the specified task number).
@@ -120,7 +112,6 @@ Example: `unmark 2`
 
 ## Tagging Tasks `tag`
 
----
 
 Organises tasks by adding tags.
 
@@ -128,9 +119,8 @@ Command format: `tag <taskNumber> #<tagName>`
 
 Example: `tag 1 #work`
 
-## Searching for Tasks `find`
 
----
+## Searching for Tasks `find`
 
 Lists out all the tasks that match a specified search query.
 
@@ -140,17 +130,15 @@ Command Format: `find <searchQuery>` or `find #<tagName>`
 
 Example: `find books` or `find #work`
 
-## Listing Tasks `list`
 
----
+## Listing Tasks `list`
 
 Lists out all the tasks in the list.
 
 Command Format: `list`
 
-## Frequently Asked Questions
 
----
+## Frequently Asked Questions
 
 **Q: How can I save my tasks?**
 
