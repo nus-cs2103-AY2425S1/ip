@@ -26,8 +26,8 @@ public class MainWindow extends AnchorPane {
 
     private Torne torne;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private final Image torneImage = new Image(this.getClass().getResourceAsStream("/images/torne_transparent_400.png"));
 
     @FXML
     public void initialize() {
@@ -35,10 +35,15 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Injects the Duke instance
+     * Injects the Torne instance then shows the start message for the injected Torne instance.
      */
-    public void setDuke(Torne d) {
+    public void setTorne(Torne d) {
         torne = d;
+
+        // create greeting dialog
+        dialogContainer.getChildren().addAll(
+                DialogBox.getTorneDialog(torne.getStartMessage(), torneImage)
+        );
     }
 
     /**
@@ -51,7 +56,7 @@ public class MainWindow extends AnchorPane {
         String response = torne.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getTorneDialog(response, torneImage)
         );
         userInput.clear();
     }
