@@ -58,7 +58,8 @@ public class DialogBox extends HBox {
      * @return A DialogBox object.
      */
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        DialogBox userDb = new DialogBox(text, img);
+        return userDb;
     }
 
     /**

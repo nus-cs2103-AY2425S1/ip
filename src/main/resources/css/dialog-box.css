@@ -1,7 +1,9 @@
 @font-face {
+  font-family: 'Fira Sans';
   src: url('../fonts/FiraSans-Regular.ttf');
 }
 @font-face {
+  font-family: 'Roboto Condensed';
   src: url('../fonts/RobotoCondensed-VariableFont_wght.ttf');
 }
 
@@ -28,6 +30,8 @@
   /* Shadow effect on image. */
   -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
 
+  -fx-border-color: black;
+  -fx-border-width: 3px;
   /* Change size of image. */
   -fx-scale-x: 1;
   -fx-scale-y: 1;

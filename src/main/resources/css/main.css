@@ -1,6 +1,7 @@
 .root {
   main-color: rgb(229, 210, 252); /* Create a looked-up color called "main-color" within root. */
-  -fx-background-color: main-color;
+  secondary-color: rgb(201, 255, 184);
+  -fx-background-color: linear-gradient(to bottom right, main-color, secondary-color);
 }
 
 .text-field {

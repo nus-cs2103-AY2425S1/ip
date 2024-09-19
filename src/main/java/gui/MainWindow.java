@@ -25,8 +25,10 @@ public class MainWindow extends AnchorPane {
 
     private Mizz mizz;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image mizzImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage =
+            new Image(this.getClass().getResourceAsStream("/images/RohitSharmaUser.png"));
+    private Image mizzImage =
+            new Image(this.getClass().getResourceAsStream("/images/RohitSharma.png"));
 
     /**
      * Method to initialize the controller.
