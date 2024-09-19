@@ -9,17 +9,17 @@
 }
 
 .button {
-    -fx-background-color: mediumspringgreen;
+    -fx-background-color: rgb(45, 185, 75);
     -fx-font: italic bold 16px "Arial";
 }
 
 .button:hover {
-    -fx-background-color:cyan;
+    -fx-background-color:rgb(20, 220, 60);
     -fx-font-size: 18px;
 }
 
 .button:pressed {
-    -fx-background-color:orange;
+    -fx-background-color:green;
     -fx-font-size: 20px;
 }
 
