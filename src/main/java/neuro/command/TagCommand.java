@@ -36,7 +36,7 @@ public class TagCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (this.index < 0 || this.index > tasks.getSize()) {
-            return "Missing or invalid index for 'tag' command! Add a valid "
+            return "Oh no~! Missing or invalid index for 'tag' command! Add a valid "
                     + "index for a task to tag, like 'tag 2 fun'.";
         }
 
@@ -49,7 +49,7 @@ public class TagCommand extends Command {
         }
         storage.updateTaskFile(tasks);
 
-        return "Ok! I've added the tags to this task:\n"
+        return "Ok~! I've added the tags to this task:\n"
                 + "     " + task;
     }
 }

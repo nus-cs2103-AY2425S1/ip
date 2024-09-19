@@ -44,7 +44,7 @@ public class AddCommand extends Command {
         case DEADLINE -> getDeadlineTask();
         case EVENT -> getEventTask();
         default ->
-                throw new IllegalArgumentException("UH OH! I'm sorry but I don't recognise that command."
+                throw new IllegalArgumentException("Oh no~! I'm sorry but I don't recognise that command."
                         + " Try the following:\n'todo', 'deadline', 'event', 'list', 'find', 'tag', 'mark', "
                         + "'unmark', 'delete', 'bye'.");
         };
@@ -70,13 +70,13 @@ public class AddCommand extends Command {
                 Arrays.copyOfRange(commandComponents, toIndex + 1, commandComponents.length));
 
         if (eventDescription.isEmpty()) {
-            throw new IllegalArgumentException("UH OH! The description of an 'event' cannot be empty! Try adding"
+            throw new IllegalArgumentException("Oh no~! The description of an 'event' cannot be empty! Try adding"
                     + " a description like 'event project meeting /from Mon 2pm /to 5pm'.");
         } else if (from.isEmpty()) {
-            throw new IllegalArgumentException("UH OH! The from time/date of an 'event' cannot be empty! Try adding"
+            throw new IllegalArgumentException("Oh no~! The from time/date of an 'event' cannot be empty! Try adding"
                     + " a valid from time/date like 'event project meeting /from Mon 2pm /to 5pm'.");
         } else if (to.isEmpty()) {
-            throw new IllegalArgumentException("UH OH! The to time/date of an 'event' cannot be empty! Try adding"
+            throw new IllegalArgumentException("Oh no~! The to time/date of an 'event' cannot be empty! Try adding"
                     + " a valid to time/date like 'event project meeting /from Mon 2pm /to 5pm'.");
         }
 
@@ -94,10 +94,10 @@ public class AddCommand extends Command {
                 Arrays.copyOfRange(commandComponents, byIndex + 1, commandComponents.length));
 
         if (deadlineDescription.isEmpty()) {
-            throw new IllegalArgumentException("UH OH! The description of a 'deadline' cannot be empty! Try adding"
+            throw new IllegalArgumentException("Oh no~! The description of a 'deadline' cannot be empty! Try adding"
                     + " a description like 'deadline finish homework /by 30/07/2024 1500'.");
         } else if (deadline.isEmpty()) {
-            throw new IllegalArgumentException("UH OH! The deadline time/date of a 'deadline' cannot be empty! "
+            throw new IllegalArgumentException("Oh no~! The deadline time/date of a 'deadline' cannot be empty! "
                     + "Try adding a valid deadline like 'deadline finish homework /by 30/07/2024 1500'.");
         }
 
@@ -111,7 +111,7 @@ public class AddCommand extends Command {
                 Arrays.copyOfRange(commandComponents, 1, commandComponents.length));
 
         if (todoDescription.isEmpty()) {
-            throw new IllegalArgumentException("The description of a 'todo' cannot be empty! Try adding"
+            throw new IllegalArgumentException("Oh no~! The description of a 'todo' cannot be empty! Try adding"
                     + " a description like 'todo read book'.");
         }
 

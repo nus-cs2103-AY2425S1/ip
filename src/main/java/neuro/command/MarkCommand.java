@@ -30,7 +30,7 @@ public class MarkCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (this.index < 0 || this.index > tasks.getSize()) {
-            return "Missing or invalid index for 'mark' command! Add a valid "
+            return "Oh no~! Missing or invalid index for 'mark' command! Add a valid "
                    + "index for a task to mark, like 'mark 2'.";
         }
 
@@ -41,10 +41,10 @@ public class MarkCommand extends Command {
             task.markDone();
             storage.updateTaskFile(tasks);
 
-            return "Nice! I've marked this task as done:\n"
+            return "Nice~! I've marked this task as done:\n"
                    + "     " + task;
         } catch (IndexOutOfBoundsException e) {
-            return "Index out of bounds! Try calling the command 'list' to "
+            return "Oh no~! Index out of bounds! Try calling the command 'list' to "
                    + "verify the index of the desired task.";
         }
     }

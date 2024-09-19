@@ -22,11 +22,11 @@ public class FindCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (tasks.isEmpty()) {
-            return ui.showMessage("You currently have no tasks.");
+            return ui.showMessage("You currently have no tasks. Try adding one~!");
         }
 
         if (searchQuery.isEmpty()) {
-            return "Missing/blank search query for 'find' command! Include a valid search"
+            return "Oh no~! Missing/blank search query for 'find' command! Include a valid search"
                     + " query to find, like `find homework`";
         }
 

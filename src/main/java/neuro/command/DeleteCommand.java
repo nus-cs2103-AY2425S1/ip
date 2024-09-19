@@ -30,7 +30,7 @@ public class DeleteCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (this.index < 0 || this.index > tasks.getSize()) {
-            return "Missing or invalid index for 'delete' command! Add a valid "
+            return "Oh no~! Missing or invalid index for 'delete' command! Add a valid "
                    + "index for a task to delete, like 'delete 2'.";
         }
 
@@ -44,7 +44,7 @@ public class DeleteCommand extends Command {
                     + "     " + task.toString() + "\n"
                     + "Now you have " + tasks.getSize() + " tasks in the list.";
         } catch (IndexOutOfBoundsException e) {
-            return "Index out of bounds! Try calling the command 'list' to "
+            return "Oh no~! Index out of bounds! Try calling the command 'list' to "
                    + "verify the index of the desired task.";
         }
     }

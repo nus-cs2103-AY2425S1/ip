@@ -18,7 +18,7 @@ public class ListCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (tasks.isEmpty()) {
-            return "You currently have no tasks.";
+            return "You currently have no tasks. Try adding one~!";
         }
 
         StringBuilder message = new StringBuilder("Here is a list of all your tasks:\n");
