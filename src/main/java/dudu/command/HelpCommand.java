@@ -1,7 +1,5 @@
 package dudu.command;
 
-import java.io.IOException;
-
 import dudu.utils.Storage;
 import dudu.utils.TaskList;
 import dudu.utils.UI;

@@ -4,9 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 
-import dudu.command.AddCommand;
 import org.junit.jupiter.api.Test;
 
+import dudu.command.AddCommand;
 import dudu.command.Command;
 import dudu.command.InvalidCommand;
 import dudu.exception.DuduException;

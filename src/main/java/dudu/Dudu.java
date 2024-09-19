@@ -1,7 +1,5 @@
 package dudu;
 
-import java.io.IOException;
-
 import dudu.command.Command;
 import dudu.exception.DuduException;
 import dudu.exception.InvalidFormatException;
