@@ -4,39 +4,34 @@ import arsenbot.task.TaskManagerException;
 
 /**
  * The Parser class is responsible for interpreting user input and returning the corresponding command.
- * It determines which command the user wants to execute based on the input string.
+ * It maps user input to specific Command objects based on the input string.
  */
 public class Parser {
+
     /**
      * Parses the user input and returns the corresponding Command object.
+     * Recognizes commands for tasks (ToDo, Deadline, Event), listing tasks, deleting tasks,
+     * marking tasks, unmarking tasks, exiting the application, and finding tasks by keyword.
      *
      * @param input the user input string
      * @return the corresponding Command object based on the user input
      * @throws TaskManagerException if the input does not match any recognized command
      */
     public static Command parse(String input) throws TaskManagerException {
-        assert input != null : "Input command should not be null";
-        assert !input.trim().isEmpty() : "Input command should not be empty";
-        if (input.startsWith("todo")) {
-            return new AddCommand(input);
-        } else if (input.startsWith("deadline")) {
-            return new AddCommand(input);
-        } else if (input.startsWith("event")) {
-            return new AddCommand(input);
-        } else if (input.startsWith("list")) {
-            return new ListCommand();
-        } else if (input.startsWith("delete")) {
-            return new DeleteCommand(input);
-        } else if (input.startsWith("mark")) {
-            return new MarkCommand(input);
-        } else if (input.startsWith("unmark")) {
-            return new UnmarkCommand(input);
-        } else if (input.equals("bye")) {
-            return new ExitCommand();
-        } else if (input.startsWith("find")) {
-            return new FindCommand(input);
-        } else {
-            throw new TaskManagerException("Error: Unrecognized command. Please enter a valid task command.");
-        }
+
+        String[] parts = input.split(" ", 2); // Split input into command and arguments
+
+        return switch (parts[0]) {
+            case "todo", "deadline", "event" -> new AddCommand(input);
+            case "list" -> new ListCommand();
+            case "delete" -> new DeleteCommand(input);
+            case "mark" -> new MarkCommand(input);
+            case "unmark" -> new UnmarkCommand(input);
+            case "bye" -> new ExitCommand();
+            case "find" -> new FindCommand(input);
+            default ->
+                    throw new TaskManagerException("Error: Unrecognized command. Please enter a valid task command.");
+        };
+
     }
 }
