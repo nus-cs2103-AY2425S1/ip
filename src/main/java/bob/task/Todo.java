@@ -68,4 +68,12 @@ public class Todo extends Task {
     public void tagTask(String tag) {
         this.setTag(tag);
     }
+
+    /**
+     * Tags the task.
+     */
+    @Override
+    public void untagTask() {
+        this.setTag("");
+    }
 }

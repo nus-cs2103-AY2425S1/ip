@@ -255,6 +255,12 @@ public class TaskList {
         currTask.tagTask(tag);
     }
 
+    /**
+     * Returns a String representation of a tagged task String.
+     *
+     * @param input User input.
+     * @return
+     */
     public String getTaggedTaskString(String input) {
         String[] inputArray = Parser.parseInputIntoStringArray(input);
         int taskNumber = Integer.parseInt(inputArray[1]);
@@ -278,5 +284,41 @@ public class TaskList {
             System.err.println("String not convertible to number.");
             return -1;
         }
+    }
+
+    /**
+     * Tags the task specified by user.
+     *
+     * @param input Input command from user.
+     * @throws InvalidTaskException
+     */
+    public void untagTaskInTaskList(String input) throws InvalidTaskException {
+        String[] inputArray = Parser.parseInputIntoStringArray(input);
+        if (inputArray.length != 2) {
+            throw new InvalidTaskException("Invalid format. Should be 'tag <integer>'.");
+        }
+        int taskNumber = convertStringToNumber(inputArray[1]);
+        if (!isValidRecord(taskNumber)) {
+            throw new InvalidTaskException("Task number provided is out of range.");
+        }
+
+        Task currTask = getIndexedTask(taskNumber);
+        currTask.untagTask();
+    }
+
+    /**
+     * Returns a String representation of a tagged task String.
+     *
+     * @param input User input.
+     * @return
+     */
+    public String getUntaggedTaskString(String input) {
+        String[] inputArray = Parser.parseInputIntoStringArray(input);
+        int taskNumber = Integer.parseInt(inputArray[1]);
+        Task currTask = getIndexedTask(taskNumber);
+        String taggedTaskString = "Got it. I've untagged this task:\n\t"
+                + currTask.getTaskListItem()
+                + "\n\t";
+        return taggedTaskString;
     }
 }

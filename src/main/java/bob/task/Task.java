@@ -134,6 +134,13 @@ public class Task {
     }
 
     /**
+     * Untags the task.
+     */
+    public void untagTask() {
+        this.tag = "";
+    }
+
+    /**
      * Returns task tag.
      */
     public String getTag() {
