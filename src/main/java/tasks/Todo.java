@@ -26,4 +26,16 @@ public class Todo extends Task {
     public String toString() {
         return String.format("%s ", super.toString());
     }
+
+    /**
+     * Converts the to-do task into a string format suitable for saving to a file or database.
+     * The format is "td,taskName,completionStatus", where completionStatus is "y" if the task is done,
+     * and "n" if it is not done.
+     *
+     * @return a string representation of the to-do task in the format "td,taskName,completionStatus"
+     */
+    @Override
+    public String toSaveFormat() {
+        return String.format("td,%s ", super.toSaveFormat());
+    }
 }
