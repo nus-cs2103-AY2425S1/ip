@@ -20,7 +20,7 @@ public class FindCommand extends Command {
         for (int i = 0; i < tasks.size(); i++) {
             Task temp = tasks.get(i);
             if (temp.contains(argument)) {
-                list += temp;
+                list += temp + "\n";
             }
         }
 

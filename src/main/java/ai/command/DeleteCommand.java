@@ -31,7 +31,7 @@ public class DeleteCommand extends Command {
     public String execute(TaskList tasks, Ui ui) throws AiException {
         if (i < 0 || i >= tasks.size()) {
             throw new AiException("Hey hey!! The task doesn't exist... can't be removed >....<\n"
-                    + "You might wanna try a valid number between 0 to " + tasks.size() + "\n");
+                    + "You might wanna try a valid positive integer till " + tasks.size() + "\n");
         }
 
         Task temp = tasks.get(i);

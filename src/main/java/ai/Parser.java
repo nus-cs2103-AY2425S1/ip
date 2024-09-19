@@ -31,7 +31,7 @@ public class Parser {
      */
     private static void checkArgumentNotEmpty(String arguments, String command,
                                               String suggestion) throws EmptyArgumentAiException {
-        if (arguments.length() <= 0) {
+        if (arguments.length() <= 0 || arguments.trim().isEmpty()) {
             throw new EmptyArgumentAiException(command, suggestion);
         }
     }

@@ -2,8 +2,9 @@ package task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import ai.task.ToDo;
 import org.junit.jupiter.api.Test;
+
+import ai.task.ToDo;
 
 /**
  * Test ToDo Class for its public methods with return values.
