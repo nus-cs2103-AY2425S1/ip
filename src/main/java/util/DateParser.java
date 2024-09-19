@@ -69,7 +69,7 @@ public class DateParser {
 
 		// Throw an exception if the month abbreviation is not recognized
 		if (month == null) {
-			throw new IllegalArgumentException("Invalid month abbreviation: " + monthAbbreviation);
+			throw new IllegalArgumentException("Invalid date format: " + monthAbbreviation);
 		}
 
 		// Construct the date in "yyyy-MM-dd" format

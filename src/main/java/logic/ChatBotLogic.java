@@ -4,19 +4,20 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 import task.Deadline;
+import task.Event;
 import task.Task;
 import task.Todo;
 import util.ListMapWriter;
 import util.ListReader;
-
 /**
  * The {@code ChatBotLogic} class is responsible for processing user input,
  * managing the state of the chatbot, and handling task-related operations such as
- * adding, viewing, marking, unmarking, deleting, and finding tasks.
+ * adding, viewing, marking, unmarking, deleting, sorting, and finding tasks.
  * <p>
  * It uses an event chain model where the chatbot transitions through different states
  * based on user commands and input.
@@ -54,6 +55,21 @@ public class ChatBotLogic {
 	private String tempDescription;
 
 	/**
+	 * Temporary storage for event start time during event creation.
+	 */
+	private LocalDate tempStartTime;
+
+	/**
+	 * Temporary storage for event end time during event creation.
+	 */
+	private LocalDate tempEndTime;
+
+	/**
+	 * Temporary storage for event location during event creation.
+	 */
+	private String tempLocation;
+
+	/**
 	 * A reference to a task for operations like marking, unmarking, or deleting.
 	 */
 	private Task flaggedTask = null;
@@ -61,7 +77,7 @@ public class ChatBotLogic {
 	/**
 	 * The file path where tasks are stored.
 	 */
-	private String filePath = System.getProperty("user.home") + "/tasks.txt";
+	private String filePath = System.getProperty("user.home") + "/sigmaBotTasks.txt";
 
 	/**
 	 * Constructs a new {@code ChatBotLogic} instance, initializes the event chain type,
@@ -73,10 +89,12 @@ public class ChatBotLogic {
 	}
 
 	private String loadStorageFile() {
+		System.out.println("loading from storage...");
 		File taskFile = new File(filePath);
 		if (!taskFile.exists()) {
 			try {
 				if (taskFile.createNewFile()) {
+					taskList = new HashMap<String, Task>();
 					return ("No tasks file found. Created a new file: " + filePath);
 				} else {
 					return ("Failed to create a new tasks file.");
@@ -121,6 +139,9 @@ public class ChatBotLogic {
 		case DEADLINE -> {
 			return processDeadlineState(userMessage);
 		}
+		case EVENT -> {
+			return processEventState(userMessage);
+		}
 		case TODO_NAMED -> {
 			return processTodoNamedState(userMessage);
 		}
@@ -129,6 +150,18 @@ public class ChatBotLogic {
 		}
 		case DEADLINE_DESCRIBED -> {
 			return processDeadlineDescribedState(userMessage);
+		}
+		case EVENT_NAMED -> {
+			return processEventNamedState(userMessage);
+		}
+		case EVENT_DESCRIBED -> {
+			return processEventDescribedState(userMessage);
+		}
+		case EVENT_START_SET -> {
+			return processEventStartSetState(userMessage);
+		}
+		case EVENT_END_SET -> {
+			return processEventEndSetState(userMessage);
 		}
 		case VIEW -> {
 			return processViewState(userMessage);
@@ -149,11 +182,9 @@ public class ChatBotLogic {
 			return processDeleteState(userMessage);
 		}
 		}
-		writer.writeMapToFile(taskList, filePath);
 		return "debugging";
 	}
 
-	// State processing methods
 	private String processTerminateState(String userMessage) {
 		switch (userMessage) {
 		case "yes" -> {
@@ -176,7 +207,7 @@ public class ChatBotLogic {
 		}
 		case "list" -> {
 			EventChainType.setState(this, EventChainType.LIST);
-			return "Sure. What do you want to do with the list? (add, view, find, mark, unmark, delete)";
+			return "Sure. What do you want to do with the list? (add, view, find, mark, unmark, sort, delete)";
 		}
 		default -> {
 			return "At your service my queen.";
@@ -193,7 +224,7 @@ public class ChatBotLogic {
 		}
 		case "add" -> {
 			EventChainType.setState(this, EventChainType.ADD);
-			return "Enter the type of task to add: (todo, deadline)";
+			return "Enter the type of task to add: (todo, deadline, event)";
 		}
 		case "mark" -> {
 			EventChainType.setState(this, EventChainType.MARK);
@@ -233,6 +264,10 @@ public class ChatBotLogic {
 		case "deadline" -> {
 			EventChainType.setState(this, EventChainType.DEADLINE);
 			return "enter the name of deadline task: ";
+		}
+		case "event" -> {
+			EventChainType.setState(this, EventChainType.EVENT);
+			return "Enter the name of the event task:";
 		}
 		case "exit" -> {
 			EventChainType.setState(this, EventChainType.DEFAULT);
@@ -295,7 +330,8 @@ public class ChatBotLogic {
 			return "back to main";
 		}
 		default -> {
-			taskList.put(tempName, Todo.createTodo(tempName, userMessage));
+			taskList.put(tempName, Todo.createTodo(tempName, userMessage));     // push newly created task in map
+			writer.writeMapToFile(taskList, filePath);                          // immediate rewrite storage upon update
 			EventChainType.setState(this, EventChainType.ADD);
 			return "todo added. enter type for the next task to be added: ";
 		}
@@ -334,11 +370,123 @@ public class ChatBotLogic {
 			try {
 				LocalDate byDate = LocalDate.parse(userMessage);
 				taskList.put(tempName, Deadline.createDeadline(tempName, tempDescription, byDate));
+				writer.writeMapToFile(taskList, filePath);    // immediate rewrite storage upon update
 				EventChainType.setState(this, EventChainType.ADD);
 				return "deadline added. enter type for the next task to be added: ";
 			} catch (DateTimeParseException e) {
 				return "invalid format. please retry";
 			}
+		}
+		}
+	}
+
+	private String processEventState(String userMessage) {
+		switch (userMessage) {
+		case "back" -> {
+			EventChainType.setState(this, EventChainType.ADD);
+			return "Returning to add menu.";
+		}
+		case "exit" -> {
+			EventChainType.setState(this, EventChainType.DEFAULT);
+			return "Returning to main menu.";
+		}
+		default -> {
+			tempName = userMessage;
+			EventChainType.setState(this, EventChainType.EVENT_NAMED);
+			return "Enter description for the event:";
+		}
+		}
+	}
+
+	private String processEventNamedState(String userMessage) {
+		switch (userMessage) {
+		case "back" -> {
+			EventChainType.setState(this, EventChainType.EVENT);
+			return "Returning to event name entry.";
+		}
+		case "exit" -> {
+			EventChainType.setState(this, EventChainType.DEFAULT);
+			return "Returning to main menu.";
+		}
+		default -> {
+			tempDescription = userMessage;
+			EventChainType.setState(this, EventChainType.EVENT_DESCRIBED);
+			return "Enter the start date of the event (yyyy-MM-dd):";
+		}
+		}
+	}
+
+	private String processEventDescribedState(String userMessage) {
+		switch (userMessage) {
+		case "back" -> {
+			EventChainType.setState(this, EventChainType.EVENT_NAMED);
+			return "Returning to event description entry.";
+		}
+		case "exit" -> {
+			EventChainType.setState(this, EventChainType.DEFAULT);
+			return "Returning to main menu.";
+		}
+		default -> {
+			try {
+				tempStartTime = LocalDate.parse(userMessage);
+				EventChainType.setState(this, EventChainType.EVENT_START_SET);
+				return "Enter the end date of the event (yyyy-MM-dd):";
+			} catch (DateTimeParseException e) {
+				return "Invalid date format. Please enter in yyyy-MM-dd format.";
+			}
+		}
+		}
+	}
+
+	private String processEventStartSetState(String userMessage) {
+		switch (userMessage) {
+		case "back" -> {
+			EventChainType.setState(this, EventChainType.EVENT_DESCRIBED);
+			return "Returning to start date entry.";
+		}
+		case "exit" -> {
+			EventChainType.setState(this, EventChainType.DEFAULT);
+			return "Returning to main menu.";
+		}
+		default -> {
+			try {
+				tempEndTime = LocalDate.parse(userMessage);
+				if (tempEndTime.isBefore(tempStartTime)) {
+					return "End date cannot be before start date. Please enter a valid end date.";
+				}
+				EventChainType.setState(this, EventChainType.EVENT_END_SET);
+				return "Enter the location of the event:";
+			} catch (DateTimeParseException e) {
+				return "Invalid date format. Please enter in yyyy-MM-dd format.";
+			}
+		}
+		}
+	}
+
+	private String processEventEndSetState(String userMessage) {
+		switch (userMessage) {
+		case "back" -> {
+			EventChainType.setState(this, EventChainType.EVENT_START_SET);
+			return "Returning to end date entry.";
+		}
+		case "exit" -> {
+			EventChainType.setState(this, EventChainType.DEFAULT);
+			return "Returning to main menu.";
+		}
+		default -> {
+			tempLocation = userMessage;
+			// Create and add the Event task
+			Event event = Event.createEvent(tempName, tempDescription, tempStartTime, tempEndTime, tempLocation);
+			taskList.put(tempName, event);
+			writer.writeMapToFile(taskList, filePath);    // immediate rewrite storage upon update
+			// Reset temporary variables
+			tempName = null;
+			tempDescription = null;
+			tempStartTime = null;
+			tempEndTime = null;
+			tempLocation = null;
+			EventChainType.setState(this, EventChainType.ADD);
+			return "Event added successfully. Enter the type of the next task to add (todo, deadline, event):";
 		}
 		}
 	}

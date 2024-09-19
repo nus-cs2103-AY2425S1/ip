@@ -91,6 +91,10 @@ public class Event extends Task {
         return new Event(name, description, startTime, endTime, location);
     }
 
+    public static Event createEvent(String name, String description, LocalDate startTime, LocalDate endTime, String location) {
+        return new Event(name, description, startTime, endTime, location);
+    }
+
     public String getLocation() {
         return location;
     }

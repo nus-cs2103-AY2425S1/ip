@@ -49,7 +49,12 @@ public enum EventChainType {
 	/** The state for deleting a task. */
 	DELETE,
 	/** The state before terminating the program*/
-	TERMINATE;
+	TERMINATE,
+	EVENT,
+	EVENT_NAMED,
+	EVENT_DESCRIBED,
+	EVENT_START_SET,
+	EVENT_END_SET;
 
 	// State management method for setting the current state.
 	public static void setState(ChatBotLogic bot, EventChainType newState) {
