@@ -60,6 +60,11 @@ class Parser {
             if (userInput.trim().length() <= 7) {
                 throw new DukeException("You need to say which item to delete");
             } 
+            String[] sectionedString = userInput.trim().split("\\s+");
+            String taskToDeleteString = sectionedString[1].trim();
+            if (!taskToDeleteString.matches("\\d+")) {
+                throw new DukeException("Mate, please give a task number(not text) to delete");
+            }
         } else if (userInput.startsWith("sort")) {
             if (userInput.trim().length() <= 5) {
                 throw new DukeException("Mate, please specify your category: either description or deadline");
@@ -73,9 +78,19 @@ class Parser {
             if (userInput.trim().length() <= 5) {
                 throw new DukeException("Mate, please specify your task to mark");
             }
+            String[] sectionedString = userInput.trim().split("\\s+");
+            String taskToMarkString = sectionedString[1].trim();
+            if (!taskToMarkString.matches("\\d+")) {
+                throw new DukeException("Mate, please give a task number(not text) to mark");
+            }
         } else if (userInput.trim().startsWith("unmark")) {
             if (userInput.trim().length() <= 7) {
                 throw new DukeException("Mate, please specify your task to mark");
+            }
+            String[] sectionedString = userInput.trim().split("\\s+");
+            String taskToUnmarkString = sectionedString[1].trim();
+            if (!taskToUnmarkString.matches("\\d+")) {
+                throw new DukeException("Mate, please give a task number(not text) to unmark");
             }
         } else if (userInput.trim().startsWith("find")) {
             if (userInput.trim().length() <= 5) {
