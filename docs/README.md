@@ -2,7 +2,7 @@
 
 Elara is a smart task manager designed to help you keep track of your to-dos, deadlines, and events effectively. This guide provides an overview of how to use Elara to organize and manage your tasks efficiently.
 
-![Elara Screenshot](./product screenshot.png) 
+![Elara Screenshot](./Ui.png) 
 *Screenshot of Elara interface here.*
 
 ## Table of Contents
