@@ -122,7 +122,7 @@ public class David {
             tasks.sortDescending();
             break;
         default:
-            System.out.println("printing");
+            throw new DavidInvalidArgumentsException();
         }
 
         return ui.displaySuccessfulSortMessage(tasks);
@@ -184,8 +184,7 @@ public class David {
 
         LocalDateTime fromDate = DateParser.getDate(eventDetails[0]);
         LocalDateTime toDate = DateParser.getDate(eventDetails[1]);
-        DateParser.validateDateTime(LocalDateTime.now(), fromDate);
-        DateParser.validateDateTime(LocalDateTime.now(), toDate);
+        DateParser.validateDateTime(fromDate, toDate);
 
         Task t = new EventTask(eventName, fromDate, toDate, false);
         this.tasks.addTask(t);
@@ -212,7 +211,6 @@ public class David {
         }
 
         LocalDateTime byDate = DateParser.getDate(eventSplit[1]);
-        DateParser.validateDateTime(LocalDateTime.now(), byDate);
 
         Task t = new DeadlineTask(eventSplit[0], byDate, false);
         this.tasks.addTask(t);
@@ -244,7 +242,6 @@ public class David {
         } catch (NumberFormatException e) {
             return ui.displayErrorMessage("The number you entered is not a valid number. Please enter a valid number");
         }
-
     }
 
     /**

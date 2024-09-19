@@ -68,8 +68,22 @@ public class DateParserTest {
                 "Exception is thrown when t1 is before t2");
     }
 
+    /**
+     * This method tests if either time passed is before the current time
+     */
     @Test
-    public void invalidTimeExceptionThrownWhenSame() {
+    public void validTimeWhenInputBeforeCurrentTime() throws DavidInvalidTimeException {
+        String formatInputPattern = "yyyy-MM-dd HHmm";
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern(formatInputPattern);
+        LocalDateTime time = LocalDateTime.parse("2022-12-01 1200", inputFormatter);
+
+        Boolean validTime = DateParser.validateDateTime(time, LocalDateTime.now());
+
+        assertEquals(validTime, true);
+    }
+
+    @Test
+    public void invalidTimeExceptionThrownWhenTimeSameAsInput() {
         String formatInputPattern = "yyyy-MM-dd HHmm";
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern(formatInputPattern);
         LocalDateTime t1 = LocalDateTime.parse("2024-12-01 1200", inputFormatter);
