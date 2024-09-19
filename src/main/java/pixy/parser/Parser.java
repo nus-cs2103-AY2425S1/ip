@@ -82,7 +82,6 @@ public class Parser {
         assert command != null : "Command cannot be null";
         assert tasks != null : "TaskList cannot be null";
         assert ui != null : "Ui cannot be null";
-
         command = normalizeCommand(command);
 
         try {
