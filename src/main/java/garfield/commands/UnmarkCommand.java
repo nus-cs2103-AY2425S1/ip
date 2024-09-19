@@ -33,7 +33,7 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws GarfieldException {
-        ui.showMessage("Oh, having second thoughts? OK, I've marked that garfield.task as not done yet:\n\n\t"
+        ui.showMessage("Oh, having second thoughts? OK, I've marked that task as not done yet:\n\n\t"
                 + tasks.unmark(taskId) + "\n\nClearly, you're still undecided.");
         storage.save(tasks);
     }
@@ -51,7 +51,7 @@ public class UnmarkCommand extends Command {
     public String execute(TaskList tasks, Storage storage) throws GarfieldException {
         String result = tasks.unmark(taskId);
         storage.save(tasks);
-        return "Oh, having second thoughts? OK, I've marked that garfield.task as not done yet:\n\n\t"
+        return "Oh, having second thoughts? OK, I've marked that task as not done yet:\n\n\t"
                 + result + "\n\nClearly, you're still undecided.";
     }
 }

@@ -198,7 +198,7 @@ public class Parser {
     private static int getIntegerArg(String fullInput) throws GarfieldException {
         String[] output = fullInput.trim().split("\\s+");
         if (output.length != 2) {
-            throw new GarfieldException("No integer after the command to select a garfield.task!");
+            throw new GarfieldException("No integer after the command to select a task!");
         }
         try {
             return Integer.parseInt(output[1]);
@@ -221,7 +221,7 @@ public class Parser {
 
         // Check if there is at least one integer after the command
         if (output.length < 2) {
-            throw new GarfieldException("No integers after the command to select garfield.task(s)!");
+            throw new GarfieldException("No integers after the command to select task(s)!");
         }
 
         List<Integer> integers = new ArrayList<>();

@@ -148,7 +148,7 @@ public class TaskList {
      * @throws GarfieldException If the task at the specified index does not exist.
      */
     private Task get(int taskId) throws GarfieldException {
-        if (taskId > tasks.size()) {
+        if (taskId > tasks.size() || taskId <= 0) {
             throw new GarfieldException("The task doesn't exist!");
         }
 

@@ -76,7 +76,7 @@ public class DeleteCommand extends Command {
             deletedTaskStrings.append("\t").append(tasks.delete(taskId)).append("\n");
         }
         storage.save(tasks);
-        return "Alright you've got " + this.taskIds.size() + " less task.\n\n"
-                + deletedTaskStrings + "\n\nEnjoy the extra 'fun' --or whatever you call it.";
+        return "Alright you've got " + this.taskIds.size() + " less task" + (this.taskIds.size() > 1 ? "s" : "")
+                + ".\n\n" + deletedTaskStrings + "\n\nEnjoy the extra 'fun' --or whatever you call it.";
     }
 }

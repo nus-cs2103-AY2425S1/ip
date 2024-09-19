@@ -33,7 +33,7 @@ public class MarkCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws GarfieldException {
-        ui.showMessage("Nice. You actually did something. I've marked that garfield.task as done:\n\n\t"
+        ui.showMessage("Nice. You actually did something. I've marked that task as done:\n\n\t"
                 + tasks.mark(taskId));
         storage.save(tasks);
 
@@ -52,7 +52,7 @@ public class MarkCommand extends Command {
     public String execute(TaskList tasks, Storage storage) throws GarfieldException {
         String result = tasks.mark(taskId);
         storage.save(tasks);
-        return "Nice. You actually did something. I've marked that garfield.task as done:\n\n\t"
+        return "Nice. You actually did something. I've marked that task as done:\n\n\t"
                 + result;
     }
 }

@@ -87,7 +87,7 @@ class ParserTest {
     @Test
     void testParse_invalidDeleteCommand_throwsGarfieldException() {
         Exception exception = assertThrows(GarfieldException.class, () -> Parser.parse("delete"));
-        assertEquals("No integers after the command to select garfield.task(s)!"
+        assertEquals("No integers after the command to select task(s)!"
                 + "\n\nCorrect Usage: delete <task id>", exception.getMessage());
     }
 
