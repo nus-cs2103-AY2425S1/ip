@@ -22,7 +22,7 @@ To get started with Juno, follow these steps:
 3. Open a terminal.
 4. From your home directory, navigate to the `Downloads` folder using the `cd` command in the terminal (e.g. `cd Downloads`).
 5. Run the command `java -jar juno.jar`. A GUI similar to the one provided above under **Product User Interface** should appear.
-6. You can now use Juno! Full list of features os Juno are included below.
+6. You can now use Juno! Full list of features of Juno are included below.
 
 
 ## Features
@@ -31,7 +31,7 @@ To get started with Juno, follow these steps:
 > 
 >   e.g. In `add todo {TASK_DESCRIPTION}`, `{TASK_DESCRIPTION}` refers to a parameter.
 > 
-> - For commands which takes in multiple parameters, e.g.`add deadline`, separate the parameters with a `/` when typing it in the Juno chatbot user interface.
+> - For commands which take in multiple parameters, e.g.`add deadline`, separate the parameters with a `/` when typing it in the Juno chatbot user interface.
 > 
 > - For commands that do not take in any parameters, e.g. `list`, please ensure that the command is used exactly as shown in the feature list.
 
@@ -180,7 +180,7 @@ Format: `remind`
 - Reminds the user of task that is going to be due in 12 hours and **NOT** yet being marked.
 - Also reminds the user of overdue tasks that are not yet being marked.
 - Only work on task types with a `{END_TIME}`, i.e. only for `event` and `deadline` tasks.
-- E.g. `add deadline Wash shoes/2024 09 20 03.44PM` followed by`remind` will only send a reminder to users on the GUI if the current time is after `2024 09 20 03.44AM` **AND** if the task is not being marked.
+- E.g. `add deadline Wash shoes/2024 09 20 03.44PM` followed by `remind` will only send a reminder to users on the GUI if the current time is after `2024 09 20 03.44AM` **AND** if the task is not being marked.
 
 Example: `remind`
 
