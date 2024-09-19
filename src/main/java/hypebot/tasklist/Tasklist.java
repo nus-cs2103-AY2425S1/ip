@@ -3,10 +3,14 @@ package hypebot.tasklist;
 import static hypebot.common.Messages.ERROR_DELETE_TASK_INDEX_OUT_OF_BOUNDS;
 import static hypebot.common.Messages.ERROR_DUPLICATE_TASK;
 import static hypebot.common.Messages.ERROR_MARK_TASK_INDEX_OUT_OF_BOUNDS;
+import static hypebot.common.Messages.ERROR_NO_TASKS_HAPPENING;
+import static hypebot.common.Messages.ERROR_NO_TASKS_MATCH_SEARCH;
 import static hypebot.common.Messages.ERROR_UNMARK_TASK_INDEX_OUT_OF_BOUNDS;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.regex.Pattern;
 
 import com.sun.jdi.request.DuplicateRequestException;
@@ -103,25 +107,43 @@ public class Tasklist extends ArrayList<Task> {
      * @param date {@link LocalDate} created by {@link UiDateTimeParser} from input
      *             at {@link UiGuiMainWindow} for a {@link HappeningCommand}.
      * @return New {@code Tasklist} containing {@link Task}s occurring on given date.
+     * @throws NoSuchElementException If {@code Tasklist} is empty or there are no {@link Task}s that
+     *                                occurring on the given date.
      */
-    public Tasklist getHappeningOn(LocalDate date) {
-        Tasklist tempClone = (Tasklist) clone();
-        return (Tasklist) tempClone.stream().filter(task -> task.isHappeningOn(date)).toList();
+    @SuppressWarnings("unchecked")
+    public Tasklist getHappeningOn(LocalDate date) throws NoSuchElementException {
+        if (this.isEmpty() || this.stream().noneMatch(task -> task.isHappeningOn(date))) {
+            throw new NoSuchElementException(ERROR_NO_TASKS_HAPPENING);
+        }
+        List<Task> tempClone = (List<Task>) clone();
+        List<Task> filteredTasks= tempClone.stream().filter(task -> task.isHappeningOn(date)).toList();
+        Tasklist newTasklist = new Tasklist();
+        newTasklist.addAll(filteredTasks);
+        return newTasklist;
     }
 
     /**
-     * Takes in a regex {@link Pattern}, returns all {@link Task}s that match the regex condition.
+     * Takes in a regex {@link Pattern}, created by {@link FindQueryParser} to send to a
+     * {@link FindCommand}, and a returns a new {@link Tasklist} of all {@link Task}s that
+     * match the regex condition.
      * <p>Makes a {@code clone()} of this instance and uses {@code stream().filter().toList()}.</p>
-     * created by {@link FindQueryParser}
-     * sent to a {@link FindCommand}, then returns a {@link Tasklist} of Tasks with the keyword in the Task name.
      *
      * @param searchQuery {@link Pattern} search query created by {@link FindQueryParser}
      *                    from input at {@link UiGuiMainWindow} for a {@link FindCommand}.
      * @return New {@code Tasklist} containing {@link Task}s with names matching the search query.
+     * @throws NoSuchElementException If {@code Tasklist} is empty or there are no {@link Task}s that
+     *                                have a name with any of the keywords.
      */
-    public Tasklist getNameContains(Pattern searchQuery) {
-        Tasklist tempClone = (Tasklist) clone();
-        return (Tasklist) tempClone.stream().filter(task -> task.nameContains(searchQuery)).toList();
+    @SuppressWarnings("unchecked")
+    public Tasklist getNameContains(Pattern searchQuery) throws NoSuchElementException {
+        if (this.isEmpty() || this.stream().noneMatch(task -> task.nameContains(searchQuery))) {
+            throw new NoSuchElementException(ERROR_NO_TASKS_MATCH_SEARCH);
+        }
+        List<Task> tempClone = (List<Task>) clone();
+        List<Task> filteredTasks= tempClone.stream().filter(task -> task.nameContains(searchQuery)).toList();
+        Tasklist newTasklist = new Tasklist();
+        newTasklist.addAll(filteredTasks);
+        return newTasklist;
     }
 
     /**

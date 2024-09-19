@@ -1,6 +1,7 @@
 package hypebot.command;
 
 import java.io.File;
+import java.util.NoSuchElementException;
 import java.util.regex.Pattern;
 
 import hypebot.main.HypeBot;
@@ -51,9 +52,12 @@ public class FindCommand extends Command {
      *                       {@link Task}s are loaded / saved.
      * @return {@link UiResponse} showing the new {@link Tasklist} containing {@link Task}s
      *         that match this {@code FindCommand}'s {@code searchQuery}.
+     * @throws NoSuchElementException If {@code Tasklist} is empty or there are no {@link Task}s that
+     *      *                         have a name with any of the keywords.
      */
     @Override
-    public UiResponse execute(Tasklist tasks, UiCli uiCli, StorageManager storageManager) {
+    public UiResponse execute(Tasklist tasks, UiCli uiCli, StorageManager storageManager)
+            throws NoSuchElementException {
         Tasklist tasksWithSearchQuery = tasks.getNameContains(searchQuery);
         return uiCli.showTasksWithSearchQuery(String.valueOf(searchQuery), tasksWithSearchQuery);
     }
