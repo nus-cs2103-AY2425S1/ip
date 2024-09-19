@@ -89,7 +89,7 @@ expected output:
 ```
 event task lend book 's date and time is updated!
 ```
-Example: `snooze deadline return book by 2020-10-10 1000`
+Example: `snooze deadline return book to 2020-10-10 1000`
 
 expected output: 
 ```
