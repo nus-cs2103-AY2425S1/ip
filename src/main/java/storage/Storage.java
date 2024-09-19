@@ -228,6 +228,7 @@ public class Storage {
     private String convertTasksToString(ArrayList<Task> tasks) {
         StringBuilder stringBuilder = new StringBuilder();
         for (Task task : tasks) {
+            String theString = task.getDatabaseString();
             stringBuilder.append(task.getDatabaseString()).append(System.lineSeparator());
         }
         return stringBuilder.toString();

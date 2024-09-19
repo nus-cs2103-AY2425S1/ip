@@ -1,2 +1,3 @@
-D | 0 | Complete Mondstadt exploration | 2024-10-01 | exploration Mondstadt
-E | 1 | Participate in Ludi Harpastum | 2024-10-10 | 2024-10-10 | festival Mondstadt
+T | 0 | Meet Ningguang for business | [business,Liyue]
+T | 0 | daily commisions | []
+D | 0 | weekly bossess | 2024-09-21 | []

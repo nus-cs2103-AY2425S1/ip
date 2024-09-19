@@ -55,16 +55,18 @@ public class Deadline extends Task {
     /**
      * Returns a string representation of the {@code Deadline} task.
      * <p>
-     * The string format is "[D][task details] (by: [deadline date])". The deadline date
-     * is formatted for display purposes.
+     * The string format is "[D][task details] (by: [deadline date]) [#tags]". The deadline date
+     * is formatted for display purposes. Tags are appended at the end of the string,
+     * with each tag prefixed by a '#'.
      * </p>
      *
-     * @return A string representation of the {@code Deadline} task.
+     * @return A string representation of the {@code Deadline} task, including its tags.
      */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + getDateStringPrintFormat(this.by) + ") " + this.tags.toString();
     }
+
 
     /**
      * Returns a string representation of the {@code Deadline} task suitable for database storage.
