@@ -37,6 +37,12 @@ public class Mgtow {
         }
     }
 
+    /**
+     * Processes a user command and returns the appropriate response.
+     *
+     * @param fullCommand The full command string entered by the user.
+     * @return A string response to be displayed to the user.
+     */
     public String processCommand(String fullCommand) {
         try {
             String[] commandParts = Parser.parseCommand(fullCommand);
@@ -80,6 +86,10 @@ public class Mgtow {
         }
     }
 
+    /**
+     * Runs the Mgtow application in command-line mode.
+     * This method handles the main interaction loop with the user.
+     */
     public void run() {
         ui.showWelcome();
         boolean isFinished = false;
@@ -98,11 +108,20 @@ public class Mgtow {
         }
     }
 
+    /**
+     * Gets the UI instance used by this Mgtow application.
+     *
+     * @return The Ui instance.
+     */
     public Ui getUi() {
         return ui;
     }
 
-
+    /**
+     * The main entry point for the Mgtow application when run in command-line mode.
+     *
+     * @param args Command line arguments (not used).
+     */
     public static void main(String[] args) {
         new Mgtow("./data/MGTOW.txt").run();
     }

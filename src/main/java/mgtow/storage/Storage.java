@@ -12,14 +12,27 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Manages the storage operations for the MGTOW application.
+ * This class handles saving and loading tasks to/from a file.
+ */
 public class Storage {
     private String filePath;
 
+    /**
+     * Constructs a new Storage object with the specified file path.
+     *
+     * @param filePath The path to the file where tasks will be stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         createDirectoryIfNotExists();
     }
 
+    /**
+     * Creates the directory for the storage file if it doesn't exist.
+     * This method is called during the initialization of the Storage object.
+     */
     private void createDirectoryIfNotExists() {
         File directory = new File(filePath).getParentFile();
         if (!directory.exists()) {
@@ -32,6 +45,13 @@ public class Storage {
         }
     }
 
+
+    /**
+     * Loads tasks from the storage file.
+     *
+     * @return An ArrayList of Task objects loaded from the file.
+     * @throws InvalidTaskException If there's an error parsing the tasks from the file.
+     */
     public ArrayList<Task> loadTasks() throws InvalidTaskException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -50,6 +70,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the given list of tasks to the storage file.
+     *
+     * @param tasks The ArrayList of Task objects to be saved.
+     */
     public void saveTasks(ArrayList<Task> tasks) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
             for (Task task : tasks) {

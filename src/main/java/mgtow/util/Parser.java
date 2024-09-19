@@ -9,11 +9,18 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Utility class for parsing user input and creating task objects.
+ * This class provides methods for interpreting user commands and constructing appropriate Task objects.
  */
 public class Parser {
     private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+    /**
+     * Parses a full command string into command parts.
+     *
+     * @param fullCommand The full command string entered by the user.
+     * @return An array of strings where the first element is the command type and the second (if present) is the rest of the command.
+     */
     public static String[] parseCommand(String fullCommand) {
         return fullCommand.split(" ", 2);
     }
@@ -70,6 +77,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a task from its storage string representation.
+     *
+     * @param line The string representation of a task as stored in the file.
+     * @return A Task object created from the storage string.
+     * @throws InvalidTaskException If the storage string format is invalid.
+     */
     public static Task parseTaskFromStorage(String line) throws InvalidTaskException {
         String[] parts = line.split("\\|");
         if (parts.length < 3) {
@@ -101,6 +115,13 @@ public class Parser {
         return task;
     }
 
+
+    /**
+     * Converts a Task object to its storage string representation.
+     *
+     * @param task The Task object to be converted.
+     * @return A string representation of the task for storage.
+     */
     public static String taskToStorageString(Task task) {
         StringBuilder sb = new StringBuilder();
         sb.append(task.getType()).append("|");
@@ -115,6 +136,12 @@ public class Parser {
         return sb.toString();
     }
 
+    /**
+     * Parses a date string into a LocalDate object.
+     *
+     * @param dateStr The date string in the format "yyyy-MM-dd".
+     * @return A LocalDate object representing the parsed date.
+     */
     public static LocalDate parseDate(String dateStr) {
         return LocalDate.parse(dateStr, DATE_FORMAT);
     }
