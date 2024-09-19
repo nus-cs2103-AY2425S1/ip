@@ -14,6 +14,7 @@ import task.Todo;
 public class Ui {
     /**
      * Prints a farewell message to the user.
+     * @return String
      */
     public String endGame() {
         return ("Bye. Hope to see you again soon!");
@@ -31,6 +32,7 @@ public class Ui {
 
     /**
      * Return tasks.
+     * @return String
      */
     public String replyGetList(Tasklist tasklist) {
         return ("Here are the tasks in your list:" + "\n"
@@ -39,6 +41,7 @@ public class Ui {
 
     /**
      * Returns reply for mark done command.
+     * @return String
      */
     public String replyMarkDone(int pos, Tasklist tasklist) {
         tasklist.getStr(pos).setDone();
@@ -47,6 +50,7 @@ public class Ui {
 
     /**
      * Returns reply for mark undone command.
+     * @return String
      */
     public String replyMarkUndone(int pos, Tasklist tasklist) {
         tasklist.getStr(pos).setUndone();
@@ -55,6 +59,7 @@ public class Ui {
 
     /**
      * Returns reply for todo command.
+     * @return String
      */
     public String replyTodo(String s, Tasklist tasklist) throws MissingParamsException {
         if (Objects.equals(s, "")) {
@@ -68,6 +73,7 @@ public class Ui {
 
     /**
      * Returns reply for event command.
+     * @return String
      */
     public String replyEvent(String s, Tasklist tasklist) throws MissingParamsException {
         String[] splitString = s.split("/from|/to", 3);
@@ -92,6 +98,7 @@ public class Ui {
 
     /**
      * Returns reply for deadline command.
+     * @return String
      */
     public String replyDeadline(String s, Tasklist tasklist) throws MissingParamsException {
         String[] splitString = s.split("/by");
@@ -114,6 +121,7 @@ public class Ui {
 
     /**
      * Returns reply for delete command.
+     * @return String
      */
     public String replyDelete(int pos, Tasklist tasklist) throws PositionException {
         if (pos >= tasklist.getSize() || pos < 0) {
@@ -128,6 +136,7 @@ public class Ui {
 
     /**
      * Return tasks matching regex.
+     * @return String
      */
     public String replyFind(String s, Tasklist tasklist) {
         return (String.format("Here are the matching tasks in your list:" + "\n"
@@ -136,6 +145,7 @@ public class Ui {
 
     /**
      * Return tasks matching exact string.
+     * @return String
      */
     public String replyFindExact(String s, Tasklist tasklist) {
         return (String.format("Here are the matching tasks in your list:" + "\n"

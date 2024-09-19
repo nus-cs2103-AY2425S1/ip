@@ -26,6 +26,10 @@ public class Bob {
         System.out.println("Hello!");
     }
 
+    /**
+     * Creates a greeting
+     * @return the greeting
+     */
     public String greeting() {
         return ("Hello! Me bob");
     }
