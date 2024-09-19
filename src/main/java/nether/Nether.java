@@ -22,8 +22,8 @@ import nether.task.TaskList;
 
 public class Nether {
     // the file path where task data is stored
+    private static boolean isExit = false;
     private static final String STORAGE_FILE_PATH = "./data/nether.txt";
-    public static boolean isExit = false;
     private final Storage storage;
     private final TaskList tasks;
     private final Ui ui;
@@ -91,13 +91,16 @@ public class Nether {
     }
 
     /**
-     * The main method where the program starts.
      * Initializes the application with the specified storage file path and starts it.
      *
      * @param args command-line arguments (not used)
      */
     public static void main(String[] args) {
         new Nether(STORAGE_FILE_PATH).run();
+    }
+
+    public boolean isExit() {
+        return isExit;
     }
 
 }

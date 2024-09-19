@@ -94,7 +94,7 @@ public class TaskList {
     }
 
     /**
-     * Finds the tasks whose description matchers the input string.
+     * Finds the tasks whose description matches the input string.
      * @param searchString The input string given by user.
      * @return A list of tasks whose descriptions match the input string.
      */
@@ -105,6 +105,11 @@ public class TaskList {
         return new TaskList(matchingTasks);
     }
 
+    /**
+     * Finds the tasks whose tag matches the input string.
+     * @param searchString The input string given by user.
+     * @return A list of tasks whose tag match the input string.
+     */
     public TaskList searchTag(String searchString) {
         List<Task> matchingTasks = tasks.stream()
                 .filter(task -> task.getTag().toLowerCase().contains(searchString))
