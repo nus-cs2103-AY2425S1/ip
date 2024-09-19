@@ -1,46 +1,37 @@
 .label {
-    /* Gradient background with soft pastel colors */
     -fx-background-color: linear-gradient(to bottom right, #ffe6f2, #ffccde);
 
-    /* Border color changed to a lighter tone for a cleaner look */
-    -fx-border-color: #ff99b6; /* Lighter pink border */
-    -fx-border-width: 1px; /* Reduced border thickness */
-
-    /* Rounded edges with softer curve */
-    -fx-background-radius: 15px 15px 0 15px;
-    -fx-border-radius: 15px 15px 0 15px;
-
-    /* Reduced text size for a more subtle appearance */
-    -fx-text-fill: #ff5f86;
-    -fx-font-family: 'Poppins', sans-serif;
-    -fx-padding: 10px;
-    -fx-font-size: 14px; /* Reduced font size */
-}
-
-.reply-label {
-    /* Flipped rounded corners for Eli's replies */
-    -fx-background-radius: 15px 15px 15px 0;
-    -fx-border-radius: 15px 15px 15px 0;
-
-    /* Lighter pink gradient for Eli's messages */
-    -fx-background-color: linear-gradient(to bottom right, #ffd6e7, #ffb3d1);
-
-    /* Subtle border to match */
     -fx-border-color: #ff99b6;
     -fx-border-width: 1px;
 
-    /* Adjusted text size and padding for Eli's replies */
+    -fx-background-radius: 15px 15px 0 15px;
+    -fx-border-radius: 15px 15px 0 15px;
+
+    -fx-text-fill: #ff5f86;
+    -fx-font-family: 'Poppins', sans-serif;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+}
+
+.reply-label {
+    -fx-background-radius: 15px 15px 15px 0;
+    -fx-border-radius: 15px 15px 15px 0;
+
+    -fx-background-color: linear-gradient(to bottom right, #ffd6e7, #ffb3d1);
+
+    -fx-border-color: #ff99b6;
+    -fx-border-width: 1px;
+
     -fx-text-fill: #ff6699;
     -fx-font-family: 'Poppins', sans-serif;
     -fx-padding: 10px;
-    -fx-font-size: 14px; /* Reduced font size */
+    -fx-font-size: 14px;
 }
 
 #displayPicture {
-    /* Keep the soft shadow and scale */
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
     -fx-scale-x: 1;
     -fx-scale-y: 1;
     -fx-rotate: 0;
-    -fx-background-radius: 50%; /* Rounded avatar images */
+    -fx-background-radius: 50%;
 }
