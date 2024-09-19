@@ -10,24 +10,31 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.TemporalAdjusters;
 
+import hypebot.command.HappeningCommand;
 import hypebot.exception.datetime.DueDateParseException;
+import hypebot.exception.datetime.EventDateTimeParseException;
 import hypebot.exception.datetime.HappeningSearchDateParseException;
+import hypebot.exception.illegal.DatePassedException;
 import hypebot.exception.illegal.IllegalEventTimesException;
+import hypebot.exception.illegal.NoMatchingShortcutException;
+import hypebot.exception.missing.MissingDueDateException;
 import hypebot.exception.missing.MissingEventTimeException;
 import hypebot.exception.missing.MissingSearchDateException;
-import hypebot.exception.illegal.NoMatchingShortcutException;
-import hypebot.exception.illegal.DatePassedException;
-import hypebot.exception.datetime.EventDateTimeParseException;
-import hypebot.exception.missing.MissingDueDateException;
+import hypebot.task.Deadline;
+import hypebot.task.Event;
+import hypebot.task.Task;
+import hypebot.ui.gui.UiGuiMainWindow;
 
 /**
- * Represents the UiDateTimeParser that parses all dates and times
- * from user input or saved task files.
+ * Represents the {@code UiDateTimeParser} that parses all {@link LocalDate}
+ * or {@link LocalDateTime} from user input taken in by {@link UiGuiMainWindow}.
+ * <p>A child of {@link DateTimeParser}</p>
  *
- * @author Youngseo Park (@youngseopark05)
+ * @author Youngseo Park (<a href="https://github.com/youngseopark05">@youngseopark05</a>)
  */
 public class UiDateTimeParser extends DateTimeParser {
-    private enum DAY_SHORTCUT {
+    /** Types of shortcuts that may be used by user. */
+    private enum DayShortcut {
         TODAY,
         TOMORROW,
         MONDAY,
@@ -39,22 +46,33 @@ public class UiDateTimeParser extends DateTimeParser {
         SUNDAY
     }
 
+    /**
+     * Creates a new {@code UiDateTimeParser}.
+     */
     public UiDateTimeParser() {
         super();
     }
 
-    private DAY_SHORTCUT extractDayShortcut(String word) throws NoMatchingShortcutException {
-        return switch (word) {
-            case "tdy", "today" -> DAY_SHORTCUT.TODAY;
-            case "tmw", "tmrw", "tomorrow" -> DAY_SHORTCUT.TOMORROW;
-            case "mon", "monday" -> DAY_SHORTCUT.MONDAY;
-            case "tue", "tues", "tuesday" -> DAY_SHORTCUT.TUESDAY;
-            case "wed", "wednesday" -> DAY_SHORTCUT.WEDNESDAY;
-            case "thu", "thur", "thurs", "thursday" -> DAY_SHORTCUT.THURSDAY;
-            case "fri", "friday" -> DAY_SHORTCUT.FRIDAY;
-            case "sat", "saturday" -> DAY_SHORTCUT.SATURDAY;
-            case "sun", "sunday" -> DAY_SHORTCUT.SUNDAY;
-            default -> throw new NoMatchingShortcutException();
+    /**
+     * Takes in possible date shortcut used by user when entering a date or time,
+     * and extracts the corresponding {@code DayShortcut}.
+     *
+     * @param alias Word entered by user representing a date shortcut.
+     * @return The corresponding {@code DayShortcut}.
+     * @throws NoMatchingShortcutException If alias for date does not match any {@code DayShortcut}.
+     */
+    private DayShortcut extractDayShortcut(String alias) throws NoMatchingShortcutException {
+        return switch (alias.toLowerCase()) {
+        case "tdy", "today" -> DayShortcut.TODAY;
+        case "tmw", "tmrw", "tomorrow" -> DayShortcut.TOMORROW;
+        case "mon", "monday" -> DayShortcut.MONDAY;
+        case "tue", "tues", "tuesday" -> DayShortcut.TUESDAY;
+        case "wed", "wednesday" -> DayShortcut.WEDNESDAY;
+        case "thu", "thur", "thurs", "thursday" -> DayShortcut.THURSDAY;
+        case "fri", "friday" -> DayShortcut.FRIDAY;
+        case "sat", "saturday" -> DayShortcut.SATURDAY;
+        case "sun", "sunday" -> DayShortcut.SUNDAY;
+        default -> throw new NoMatchingShortcutException();
         };
     }
 
@@ -62,25 +80,33 @@ public class UiDateTimeParser extends DateTimeParser {
         return currentDate.with(TemporalAdjusters.next(dayOfWeek));
     }
 
-    private LocalDate convertDayShortcutToLocalDate(DAY_SHORTCUT dayShortcut) {
+    /**
+     * Takes in a {@code DayShortcut} extracted from date entry fields and
+     * returns the corresponding {@link LocalDate}.
+     *
+     * @param dayShortcut {@code DayShortcut} extracted from date entry fields.
+     * @return Actual {@link LocalDate} prescribed by the {@code DayShortcut}.
+     */
+    private LocalDate convertDayShortcutToLocalDate(DayShortcut dayShortcut) {
         return switch (dayShortcut) {
-            case TODAY -> currentDate;
-            case TOMORROW -> currentDate.plusDays(1);
-            case MONDAY -> getNextOccurrence(DayOfWeek.MONDAY);
-            case TUESDAY -> getNextOccurrence(DayOfWeek.TUESDAY);
-            case WEDNESDAY -> getNextOccurrence(DayOfWeek.WEDNESDAY);
-            case THURSDAY -> getNextOccurrence(DayOfWeek.THURSDAY);
-            case FRIDAY -> getNextOccurrence(DayOfWeek.FRIDAY);
-            case SATURDAY -> getNextOccurrence(DayOfWeek.SATURDAY);
-            case SUNDAY -> getNextOccurrence(DayOfWeek.SUNDAY);
+        case TODAY -> currentDate;
+        case TOMORROW -> currentDate.plusDays(1);
+        case MONDAY -> getNextOccurrence(DayOfWeek.MONDAY);
+        case TUESDAY -> getNextOccurrence(DayOfWeek.TUESDAY);
+        case WEDNESDAY -> getNextOccurrence(DayOfWeek.WEDNESDAY);
+        case THURSDAY -> getNextOccurrence(DayOfWeek.THURSDAY);
+        case FRIDAY -> getNextOccurrence(DayOfWeek.FRIDAY);
+        case SATURDAY -> getNextOccurrence(DayOfWeek.SATURDAY);
+        case SUNDAY -> getNextOccurrence(DayOfWeek.SUNDAY);
         };
     }
 
     /**
-     * Takes in the full line user enters and returns the String form of the dates entered.
+     * Takes in the full line user enters and returns the {@link String} array of the
+     * dates (or times) entered.
      *
-     * @param line Full String command entered by user.
-     * @return String array containing dates entered by user.
+     * @param line Full {@link String} line entered by user.
+     * @return {@link String} array containing dates or times entered by user.
      */
     private String[] extractDates(String line) {
         String[] splitBySlash = line.split(" /");
@@ -92,8 +118,8 @@ public class UiDateTimeParser extends DateTimeParser {
     /**
      * Takes in the full line user enters and checks whether the due date has been entered.
      *
-     * @param line Full String command entered by user.
-     * @throws MissingDueDateException If due date is missing in deadline entry.
+     * @param line Full {@link String} line entered by user.
+     * @throws MissingDueDateException If due date is missing in {@link Deadline} entry.
      */
     private void checkDueDateExists(String line) throws MissingDueDateException {
         String[] dates = extractDates(line);
@@ -102,19 +128,29 @@ public class UiDateTimeParser extends DateTimeParser {
         }
     }
 
+    /**
+     * Takes in the {@link String} form of a due date associated with a {@link Deadline}
+     * and tries to extract and parse a {@link LocalDate} using {@code DayShortcuts},
+     * then tries to format according to {@code FORMATTER_DUE_DATE} in {@link DateTimeParser}.
+     *
+     * @param date {@link String} form of due date.
+     * @return {@link LocalDate} form of due date.
+     * @throws DateTimeParseException If due date entered is not in any expected format.
+     */
     private LocalDate convertStringToDueDate(String date) throws DateTimeParseException {
         try {
-            return convertDayShortcutToLocalDate(extractDayShortcut(date.toLowerCase()));
+            return convertDayShortcutToLocalDate(extractDayShortcut(date));
         } catch (NoMatchingShortcutException e) {
-            return LocalDate.parse(date, FORMATTER_DUE_DATE);
+            return LocalDate.parse(date, formatterDueDate);
         }
     }
 
     /**
-     * Takes in a fully parsed due date entered by user and checks if due date has passed.
+     * Takes in a {@link LocalDate} representing a due date of a {@link Deadline} object
+     * and checks that {@link LocalDate} has not passed the {@code currentDate}.
      *
-     * @param dueDate Proposed due date entered by user.
-     * @throws IllegalArgumentException If due date has passed current date.
+     * @param dueDate {@link LocalDate} form of due date.
+     * @throws DatePassedException If due date has passed current date.
      */
     @Override
     protected void checkDueDatePassedBy(LocalDate dueDate) throws DatePassedException {
@@ -125,14 +161,13 @@ public class UiDateTimeParser extends DateTimeParser {
 
     /**
      * Takes in the full line user enters and returns the due date specified by the user in
-     * LocalDate form.
+     * {@link LocalDate} form.
      *
-     * @param fullCommand Full String command entered by user.
-     * @return Due date specified by user in LocalDate form.
+     * @param fullCommand Full {@link String} line entered by user.
+     * @return {@link LocalDate} form of due date specified by user.
      * @throws MissingDueDateException If due date is missing in deadline entry.
-     * @throws DueDateParseException If due date is not entered in yyyy-mm-dd format
-     *                               or aligned with alias for a date.
-     * @throws IllegalArgumentException If due date has passed current date.
+     * @throws DueDateParseException   If due date is not entered in an expected format.
+     * @throws DatePassedException     If due date has passed current date.
      */
     @Override
     public LocalDate parseDueDate(String fullCommand)
@@ -171,11 +206,13 @@ public class UiDateTimeParser extends DateTimeParser {
     }
 
     /**
-     * Checks whether entered startTime is before entered endTime.
+     * Takes in two {@link LocalDateTime} objects representing a start time and end time
+     * of an {@link Event} object and checks that the {@link LocalDateTime}s are in
+     * chronological order.
      *
-     * @param startTime LocalDateTime object representing the start of an event.
-     * @param endTime LocalDateTime object representing the end of an event.
-     * @throws IllegalArgumentException If end time comes before start time.
+     * @param startTime {@link LocalDateTime} representing the start time of a {@link Event}.
+     * @param endTime   {@link LocalDateTime} representing the end time of a {@link Event}.
+     * @throws IllegalEventTimesException If event times are inordered.
      */
     @Override
     protected void checkEventTimesChronological(LocalDateTime startTime, LocalDateTime endTime)
@@ -186,12 +223,13 @@ public class UiDateTimeParser extends DateTimeParser {
     }
 
     /**
-     * Verifies whether an event has passed based on startTime and endTime.
+     * Verifies whether an {@link Event}.
      *
-     * @param startTime LocalDateTime object representing the start of an event.
-     * @param endTime LocalDateTime object representing the end of an event.
-     * @throws DatePassedException If the event has already concluded.
+     * @param startTime {@link LocalDateTime} object representing the start of an {@link Event}.
+     * @param endTime {@link LocalDateTime} object representing the end of an {@link Event}.
+     * @throws DatePassedException If the {@link Event} has already concluded.
      */
+    @Override
     protected void checkEventPassedBy(LocalDateTime startTime, LocalDateTime endTime)
             throws DatePassedException {
         if (startTime.isBefore(currentTime) && endTime.isBefore(currentTime)) {
@@ -199,6 +237,14 @@ public class UiDateTimeParser extends DateTimeParser {
         }
     }
 
+    /**
+     * Takes in an event time in {@link String} form and returns the {@link LocalDateTime}
+     * form of the event time.
+     *
+     * @param dateTime An event time in {@link String} form.
+     * @return {@link LocalDateTime} form of event time.
+     * @throws DateTimeParseException If event time is not in an expected format.
+     */
     private LocalDateTime convertStringToEventTime(String dateTime) throws DateTimeParseException {
         String date = extractDateFromDateTime(dateTime);
         String time = extractTimeFromDateTime(dateTime);
@@ -206,19 +252,21 @@ public class UiDateTimeParser extends DateTimeParser {
             return LocalDateTime.of(convertDayShortcutToLocalDate(extractDayShortcut(date)),
                     LocalTime.parse(time, DateTimeFormatter.ofPattern("HHmm")));
         } catch (NoMatchingShortcutException e) {
-            return LocalDateTime.parse(dateTime, FORMATTER_EVENT_TIME);
+            return LocalDateTime.parse(dateTime, formatterEventTime);
         }
     }
 
     /**
-     * Takes in the full line user enters and returns an event's start time and end time
-     * specified by the user in an LocalDateTime array {startTime, endTime}.
+     * Takes in the full line user enters and returns an {@link Event}'s start time and end time
+     * specified by the user in an {@link LocalDateTime} array {startTime, endTime}.
      *
-     * @param fullCommand Full String command entered by user.
-     * @return Event start time and end time specified by user in a LocalDateTime array.
-     * @throws MissingEventTimeException If event start time or end time is missing in deadline entry.
+     * @param fullCommand Full {@link String} line entered by user.
+     * @return {@link LocalDateTime} array of an {@link Event}'s start time and end time
+     *         specified by user.
+     * @throws MissingEventTimeException   If missing either start time or end time in
+     *                                     {@link Event} entry.
      * @throws EventDateTimeParseException If event time is not entered in accepted formats.
-     * @throws DatePassedException If event has concluded by the current date.
+     * @throws DatePassedException         If event has concluded by the current date.
      */
     @Override
     public LocalDateTime[] parseEventTimes(String fullCommand)
@@ -245,7 +293,7 @@ public class UiDateTimeParser extends DateTimeParser {
     /**
      * Takes in the full line user enters and checks whether the search date has been entered.
      *
-     * @param line Full String command entered by user.
+     * @param line Full {@link String} line entered by user.
      * @throws MissingSearchDateException If search date is missing in happening search.
      */
     private void checkHappeningDateExists(String line) throws MissingSearchDateException {
@@ -255,22 +303,31 @@ public class UiDateTimeParser extends DateTimeParser {
         }
     }
 
-    private LocalDate parseHappeningDateWithAlias(String[] dates) throws DateTimeParseException {
+    /**
+     * Takes in a String array of dates given by user, and attempts to parse a
+     * {@link LocalDate} search date with DayShortcuts, and then tries to parse
+     * the entry without.
+     *
+     * @param dates {@link String} array of dates given by user.
+     * @return {@link LocalDate} representation of user-entered search date.
+     * @throws DateTimeParseException If search date not in an expected format.
+     */
+    private LocalDate parseHappeningDateWithShortcut(String[] dates) throws DateTimeParseException {
         try {
-            return convertDayShortcutToLocalDate(extractDayShortcut(dates[0].toLowerCase()));
+            return convertDayShortcutToLocalDate(extractDayShortcut(dates[0]));
         } catch (NoMatchingShortcutException e) {
-            return LocalDate.parse(dates[0], FORMATTER_DUE_DATE);
+            return LocalDate.parse(dates[0], formatterDueDate);
         }
     }
 
     /**
-     * Takes in the full line user enters and returns the search date user is looking up tasks for
-     * in LocalDate form.
+     * Takes in the full line user enters and returns the {@link LocalDate} search date
+     * a {@link HappeningCommand} uses to look up {@link Task}s occurring on this search date.
      *
-     * @param fullCommand Full String command entered by user.
-     * @return LocalDate representation of user-entered search date for tasks.
+     * @param fullCommand Full {@link String} command entered by user.
+     * @return {@link LocalDate} representation of user-entered search date for tasks.
      * @throws MissingSearchDateException If search date not entered by user.
-     * @throws DateTimeParseException If search date not in 'yyyy-mm-dd' format.
+     * @throws DateTimeParseException     If search date not in an expected format.
      */
     public LocalDate parseHappeningDate(String fullCommand)
             throws MissingSearchDateException, HappeningSearchDateParseException {
@@ -279,7 +336,7 @@ public class UiDateTimeParser extends DateTimeParser {
 
             String[] dates = extractDates(fullCommand);
 
-            return parseHappeningDateWithAlias(dates);
+            return parseHappeningDateWithShortcut(dates);
         } catch (DateTimeParseException e) {
             throw new HappeningSearchDateParseException(e.getParsedString(), e.getErrorIndex());
         }

@@ -58,7 +58,7 @@ public class Messages {
     public static final String ERROR_LOCATING_TASKLIST = "but I couldn't find the file with your saved tasks: \n";
     public static final String ERROR_LOAD_TASK = "but I couldn't decode a task from your file!\n\n";
     public static final String ERROR_FIX_CORRUPTED_TASK = """
-            
+            \n
             You can try closing this application first, locating your save file for your tasks \
             and fixing the format accordingly.
             """;

@@ -1,7 +1,12 @@
-package hypebot.ui;
+package hypebot.ui.gui;
 
+import java.util.Objects;
+
+import hypebot.command.ByeCommand;
 import hypebot.main.HypeBot;
+import hypebot.ui.cli.UiCli;
 import javafx.animation.PauseTransition;
+import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -12,11 +17,18 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
-import java.util.Objects;
-
+/**
+ * Represents the main window in the JavaFX {@link Application} for HypeBot which
+ * serves as the GUI for the application.
+ *
+ * @author Youngseo Park (<a href="https://github.com/youngseopark05">@youngseopark05</a>)
+ */
 public class UiGuiMainWindow extends AnchorPane {
+    /** User profile pic. */
     private final Image userImage = new Image(Objects.requireNonNull(
             this.getClass().getResourceAsStream("/images/user.png")));
+
+    /** HypeBot profile pic. */
     private final Image hypeBotImage = new Image(Objects.requireNonNull(
             this.getClass().getResourceAsStream("/images/hypebot.png")));
     @FXML
@@ -52,19 +64,25 @@ public class UiGuiMainWindow extends AnchorPane {
         }
     }
 
+    /**
+     * Shows the exit message from the {@link HypeBot}'s {@link UiCli}, disables user input,
+     * then quits the application after 3 seconds.
+     */
     private void exit() {
         dialogContainer.getChildren().addAll(
-                UiGuiDialogBox.getHypeBotDialog(hypeBot.getUiCli().showSavingTasks().show(), hypeBotImage)
+                UiGuiDialogBox.getHypeBotDialog(hypeBot.getUiCli().showExit().show(), hypeBotImage)
         );
         userInput.setDisable(true);
-        PauseTransition delay = new PauseTransition(Duration.seconds(2));
+        PauseTransition delay = new PauseTransition(Duration.seconds(3));
         delay.setOnFinished(event -> Platform.exit());
         delay.play();
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing HypeBot's reply and then appends them to
+     * Creates two {@link UiGuiDialogBox}es, one echoing user input and the other
+     * containing HypeBot's reply and then appends them to
      * the dialog container. Clears the user input after processing.
+     * <p>When the {@link ByeCommand} is parsed and executed, triggers {@code exit()}.</p>
      */
     @FXML
     private void handleUserInput() {
@@ -74,7 +92,7 @@ public class UiGuiMainWindow extends AnchorPane {
             return;
         }
         String commandType = hypeBot.getCommandType();
-                dialogContainer.getChildren().addAll(
+        dialogContainer.getChildren().addAll(
                 UiGuiDialogBox.getUserDialog(input, userImage),
                 UiGuiDialogBox.getHypeBotDialog(response, hypeBotImage, commandType)
         );

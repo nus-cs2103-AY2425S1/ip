@@ -2,10 +2,23 @@ package hypebot.exception.datetime;
 
 import static hypebot.common.Messages.ERROR_EVENT_TIME_WRONG_FORMAT;
 
+import java.time.LocalDateTime;
+
+import hypebot.parser.datetime.DateTimeParser;
+import hypebot.parser.datetime.FileDateTimeParser;
+import hypebot.parser.datetime.UiDateTimeParser;
+import hypebot.task.Event;
+
 /**
- * Represents a DateTimeParseException associated with the initialisation of Event objects.
+ * Represents a {@code EventDateTimeParseException} associated with
+ * the parsing of {@link LocalDateTime} event times of {@link Event}
+ * objects by {@link DateTimeParser}s.
+ * <p>A child of {@link HypeBotDateTimeParseException}.</p>
  *
- * @author Youngseo Park (@youngseopark05)
+ * @author Youngseo Park (<a href="https://github.com/youngseopark05">@youngseopark05</a>)
+ * @see DateTimeParser
+ * @see FileDateTimeParser
+ * @see UiDateTimeParser
  */
 public class EventDateTimeParseException extends HypeBotDateTimeParseException {
     /**

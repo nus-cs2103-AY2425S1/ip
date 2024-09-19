@@ -6,31 +6,52 @@ import java.time.LocalDateTime;
 import hypebot.exception.datetime.DueDateParseException;
 import hypebot.exception.datetime.EventDateTimeParseException;
 import hypebot.exception.datetime.HypeBotDateTimeParseException;
+import hypebot.exception.illegal.DatePassedException;
 import hypebot.exception.illegal.IllegalTaskTypeException;
 import hypebot.exception.missing.MissingArgumentException;
 import hypebot.exception.missing.MissingTaskNameException;
-import hypebot.exception.illegal.DatePassedException;
 import hypebot.parser.datetime.UiDateTimeParser;
 import hypebot.task.Deadline;
 import hypebot.task.Event;
 import hypebot.task.Task;
 import hypebot.task.ToDo;
+import hypebot.ui.gui.UiGuiMainWindow;
 
 /**
- * Represents the UiTaskParser that parses all tasks from user input.
+ * Represents the {@code UiTaskParser} that parses all {@link Task}s
+ * from user input taken in by {@link UiGuiMainWindow}.
  *
- * @author Youngseo Park (@youngseopark05)
+ * @author Youngseo Park (<a href="https://github.com/youngseopark05">@youngseopark05</a>)
  */
 public class UiTaskParser extends TaskParser {
+    /**
+     * Creates a new {@code UiTaskParser} containing a {@link UiDateTimeParser}.
+     */
     public UiTaskParser() {
         super(new UiDateTimeParser());
     }
 
+    /**
+     * Takes in the full line entered by user and splits it into a {@link String} array containing
+     * {@link Task} type & name, and optionally a due date or start time, end time.
+     *
+     * @param line Full {@link String} line entered by user.
+     * @return {@link String} array containing {@link Task} type & name, and optionally a due date
+     *         or start time, end time.
+     */
     @Override
     protected String[] splitLine(String line) {
         return line.split(" /");
     }
 
+    /**
+     * Takes in the full line entered by user and returns the corresponding {@code TaskType}
+     * specified by the user.
+     *
+     * @param line Full {@link String} line entered by user.
+     * @return {@code TaskType} specified by the user.
+     * @throws IllegalTaskTypeException If no accepted {@code TaskType} is parsed.
+     */
     @Override
     protected TaskType extractTaskType(String line) throws IllegalTaskTypeException {
         String enteredTaskType = splitLine(line)[0].trim().toLowerCase();
@@ -42,6 +63,13 @@ public class UiTaskParser extends TaskParser {
         };
     }
 
+    /**
+     * Takes in the full line entered by user and returns the {@link String}
+     * array containing the entered {@link Task}'s name separated by word.
+     *
+     * @param line Full {@link String} line entered by user.
+     * @return {@link String} array containing the {@link Task}'s name separated by word.
+     */
     private String[] separateTaskNameFromLine(String line) {
         String commandAndTaskNameString = splitLine(line)[0];
         String[] commandAndTaskName = commandAndTaskNameString.split(" ");
@@ -52,6 +80,13 @@ public class UiTaskParser extends TaskParser {
         return taskName;
     }
 
+    /**
+     * Takes in the full line entered by user and returns the entered
+     * {@link Task}'s name in {@link String} form using a {@link StringBuilder}.
+     *
+     * @param line Full {@link String} line entered by user.
+     * @return {@link String} name of the {@link Task} entered.
+     */
     private String buildTaskName(String line) {
         String[] taskNameWords = separateTaskNameFromLine(line);
 
@@ -65,12 +100,12 @@ public class UiTaskParser extends TaskParser {
     }
 
     /**
-     * Takes in the full line user enters and returns the {@code String} form
-     * of the {@code Task} name entered.
+     * Takes in the full line user enters and returns the {@link String} form
+     * of the {@link Task} name entered.
      *
-     * @param line Full {@code String} command entered by user.
-     * @return {@code String} form of the {@code Task} name entered.
-     * @throws MissingTaskNameException If no {@code Task} name is entered.
+     * @param line Full {@link String} line entered by user.
+     * @return {@link String} form of the {@link Task} name entered.
+     * @throws MissingTaskNameException If no {@link Task} name is entered.
      */
     @Override
     protected String parseTaskName(String line) throws MissingTaskNameException {
@@ -82,29 +117,29 @@ public class UiTaskParser extends TaskParser {
     }
 
     /**
-     * Takes in the full line user enters and returns the {@code ToDo} entered.
+     * Takes in the full line user enters and returns the {@link ToDo} entered.
      *
-     * @param fullCommand Full {@code String} command entered by user.
-     * @return {@code ToDo} instance with name specified by user.
+     * @param fullCommand Full {@link String} line entered by user.
+     * @return {@link ToDo} instance with name specified by user.
      * @throws MissingTaskNameException If no name specified.
      */
     @Override
-    protected ToDo parseToDo(String fullCommand) throws MissingTaskNameException {
+    public ToDo parseToDo(String fullCommand) throws MissingTaskNameException {
         String taskName = parseTaskName(fullCommand);
         return new ToDo(taskName);
     }
 
     /**
-     * Takes in the full line user enters and returns the {@code Deadline} entered.
+     * Takes in the full line user enters and returns the {@link Deadline} entered.
      *
-     * @param fullCommand Full {@code String} command entered by user.
-     * @return {@code Deadline} instance with name, due date specified by user.
+     * @param fullCommand Full {@link String} line entered by user.
+     * @return {@link Deadline} instance with name, due date specified by user.
      * @throws MissingArgumentException If any of name or due date not entered.
-     * @throws DueDateParseException If due date is not entered in yyyy-MM-dd format.
-     * @throws DatePassedException If due date has passed current date.
+     * @throws DueDateParseException    If due date is not entered in an accepted format.
+     * @throws DatePassedException      If due date has passed current date.
      */
     @Override
-    protected Deadline parseDeadline(String fullCommand)
+    public Deadline parseDeadline(String fullCommand)
             throws MissingArgumentException, DueDateParseException, DatePassedException {
         String taskName = parseTaskName(fullCommand);
 
@@ -114,16 +149,16 @@ public class UiTaskParser extends TaskParser {
     }
 
     /**
-     * Takes in the full line user enters and returns the {@code Event} entered.
+     * Takes in the full line user enters and returns the {@link Event} entered.
      *
-     * @param fullCommand Full String command entered by user.
-     * @return Event task entered by user.
-     * @throws MissingArgumentException If any of task name, start time, or end time not entered.
-     * @throws EventDateTimeParseException If event times not entered in yyyy-MM-dd HHmm format.
-     * @throws DatePassedException If event has already concluded.
+     * @param fullCommand Full {@link String} line entered by user.
+     * @return {@link Event} task entered by user.
+     * @throws MissingArgumentException    If any of task name, start time, or end time not entered.
+     * @throws EventDateTimeParseException If event times not in an accepted format.
+     * @throws DatePassedException         If {@link Event} has already concluded.
      */
     @Override
-    protected Event parseEvent(String fullCommand)
+    public Event parseEvent(String fullCommand)
             throws MissingArgumentException, EventDateTimeParseException, DatePassedException {
         String taskName = parseTaskName(fullCommand);
 
@@ -136,13 +171,13 @@ public class UiTaskParser extends TaskParser {
     }
 
     /**
-     * Takes in the full line user enters and returns the Task entered.
+     * Takes in the full line user enters and returns the {@link Task} entered.
      *
-     * @param fullCommand Full String command entered by user.
-     * @return Task entered by user.
-     * @throws MissingArgumentException If any necessary Task fields not entered.
-     * @throws HypeBotDateTimeParseException If any dates entered in not in the specified format.
-     * @throws DatePassedException If Task date has already passed.
+     * @param fullCommand Full {@link String} line entered by user.
+     * @return {@link Task} entered by user.
+     * @throws MissingArgumentException      If any necessary {@link Task} fields not entered.
+     * @throws HypeBotDateTimeParseException If any dates entered in not in an accepted format.
+     * @throws DatePassedException           If {@link Task} date has already passed.
      */
     @Override
     public Task parse(String fullCommand)

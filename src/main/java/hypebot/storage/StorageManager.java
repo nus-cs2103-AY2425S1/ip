@@ -4,24 +4,31 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import hypebot.exception.datetime.HypeBotDateTimeParseException;
+import hypebot.command.Command;
+import hypebot.main.HypeBot;
+import hypebot.task.Task;
 import hypebot.tasklist.Tasklist;
 
 /**
- * Represents a StorageManager which HypeBot and Command objects have access to.
- * <p>Triggers loading and saving of Tasks into/from the HypeBot's tasks by allocating
- * these tasks to the TaskListDecoder and TasklistEncoder respectively.</p>
+ * Represents a {@code StorageManager} which {@link HypeBot} and {@link Command} objects
+ * have access to.
+ * <p>Triggers loading and saving of {@link Task}s in the {@link HypeBot}'s {@link Tasklist}
+ * into/from a {@link File} located through a given {@link String} {@code filePath}.</p>
  *
- * @author Youngseo park (@youngseopark05)
+ * @author Youngseo Park (<a href="https://github.com/youngseopark05">@youngseopark05</a>)
+ * @see TasklistDecoder
+ * @see TasklistEncoder
  */
 public class StorageManager {
+    /** {@link File} object {@link Task}s are read / written to. */
     private final File tasklistFile;
 
     /**
-     * Takes in a String filepath to locate the file with task data, and creates
-     * a new StorageManager object with the specified File.
+     * Takes in a {@link String} filepath to locate the {@link File} with
+     * {@link Task} data, and creates a new {@code StorageManager} object
+     * with the specified {@link File}.
      *
-     * @param filePath String filepath where the task data in .txt form is located.
+     * @param filePath {@link String} filepath with saved {@link Task} data.
      */
     public StorageManager(String filePath) {
         tasklistFile = new File(filePath);
@@ -36,11 +43,11 @@ public class StorageManager {
     }
 
     /**
-     * Creates a new TasklistDecoder with the File specified to contain task data,
-     * and returns the ArrayList of Tasks created by TasklistDecoder.decode() process.
+     * Creates a new {@link TasklistDecoder} with the {@link File} {@code tasklistFile},
+     * and returns the {@link Tasklist} created by {@code TasklistDecoder.decode()}.
      *
-     * @return Tasklist of Tasks saved in specified file.
-     * @throws FileNotFoundException If specified file not found.
+     * @return {@link Tasklist} of {@link Task}s saved in {@link File} {@code tasklistFile}.
+     * @throws FileNotFoundException If specified {@link File} not found.
      * @throws RuntimeException If any saved data is not in expected format.
      */
     public Tasklist load() throws FileNotFoundException, RuntimeException {
@@ -49,12 +56,12 @@ public class StorageManager {
     }
 
     /**
-     * Takes in a Tasklist with Tasks to encode and save to the File specified.
-     * Creates a new TasklistEncoder and calls TasklistEncoder.encode()
-     * to save Tasks from Tasklist.
+     * Takes in a {@link Tasklist} to encode and save to the {@link File} specified.
+     * Creates a new {@link TasklistEncoder} and calls {@code TasklistEncoder.encode()}
+     * to save {@link Task}s in {@link Tasklist}.
      *
-     * @param tasks Tasklist containing Tasks to save.
-     * @throws IOException If specified file not found.
+     * @param tasks {@link Tasklist} of {@link Task}s to save.
+     * @throws IOException If specified {@link File} not found.
      */
     public void save(Tasklist tasks) throws IOException {
         TasklistEncoder encoder = new TasklistEncoder(tasklistFile, tasks);

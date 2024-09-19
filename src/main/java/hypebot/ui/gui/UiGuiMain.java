@@ -1,4 +1,6 @@
-package hypebot.ui;
+package hypebot.ui.gui;
+
+import java.io.IOException;
 
 import hypebot.main.HypeBot;
 import javafx.application.Application;
@@ -7,9 +9,13 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
+/**
+ * Represents a JavaFX {@link Application} for HypeBot to start.
+ *
+ * @author Youngseo Park (<a href="https://github.com/youngseopark05">@youngseopark05</a>)
+ */
 public class UiGuiMain extends Application {
+    /** The {@link HypeBot} instance being run by the app. */
     private HypeBot hypeBot = new HypeBot("./src/main/data/tasks.txt");
 
     @Override

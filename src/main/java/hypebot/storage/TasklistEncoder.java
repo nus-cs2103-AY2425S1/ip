@@ -7,25 +7,30 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import hypebot.main.HypeBot;
+import hypebot.task.Task;
 import hypebot.tasklist.Tasklist;
 
 /**
- * Represents a TasklistEncoder that takes in a file to save Tasks in
- * a Tasklist to, then encodes them in the specified format for saving Tasks
- * in a text file.
+ * Represents a {@code TasklistEncoder} that encodes {@link Task}s in a {@link HypeBot}-
+ * contained {@link Tasklist} to a given {@link File}.
  *
- * @author Youngseo Park (@youngseopark05)
+ * @author Youngseo Park (<a href="https://github.com/youngseopark05">@youngseopark05</a>)
+ * @see TasklistDecoder
  */
 public class TasklistEncoder {
-    private File tasklistFile;
-    private Tasklist tasks;
+    /** {@link File} to save all {@link Task}s in a {@link Tasklist}. */
+    private final File tasklistFile;
+
+    /** {@link Tasklist} to save to given {@link File} {@code tasklistFile}. */
+    private final Tasklist tasks;
 
     /**
-     * Takes in a Tasklist object to save Tasks from and a File to encode Tasks to
-     * and creates a new TasklistEncoder.
+     * Takes in a {@link Tasklist} to save {@link Task}s from and a {@link File} to
+     * {@code encode()} {@link Task}s to and creates a new {@code TasklistEncoder}.
      *
-     * @param tasklistFile File object containing file path to .txt file to save Task data to.
-     * @param tasks Tasklist containing Tasks to be saved.
+     * @param tasklistFile {@link File} to save {@link Tasklist} data to.
+     * @param tasks        {@link Tasklist} containing {@link Task}s to be saved.
      */
     public TasklistEncoder(File tasklistFile, Tasklist tasks) {
         this.tasklistFile = tasklistFile;
@@ -34,9 +39,11 @@ public class TasklistEncoder {
 
 
     /**
-     * Encodes Tasks in the TasklistEncoder's tasks field in the format to save to tasks.txt.
+     * Encodes {@link Task}s in the {@code TasklistEncoder}'s {@code tasks} in a
+     * {@link TasklistDecoder}-decodeable format using a {@link FileWriter}.
      *
-     * @throws IOException If file to save to does not exist.
+     * @throws IOException If {@link File} to save to does not exist or an unexpected
+     *                     error occurs when encoding with the {@link FileWriter}.
      */
     public void encode() throws IOException {
         if (!tasklistFile.exists()) {
@@ -44,8 +51,8 @@ public class TasklistEncoder {
         }
         FileWriter tasklistWriter = new FileWriter(tasklistFile);
         tasklistWriter.write("");
-        for (int i = 0; i < tasks.size(); i++) {
-            tasklistWriter.append(tasks.getTaskByIndex(i).toFileString());
+        for (Task task : tasks) {
+            tasklistWriter.append(task.toFileString());
         }
         tasklistWriter.close();
     }
