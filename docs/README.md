@@ -124,6 +124,7 @@ Format: `Update` `[List index]` `[Updated parameter]`
 - Chatbot will automatically query user on certain null inputs. 
   User should hit `Enter` key to keep the parameter the same.
 - Example:
+
 ```
 Update 1 /from 2pm
 

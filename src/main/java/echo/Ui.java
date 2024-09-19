@@ -164,19 +164,19 @@ public class Ui {
 
         if (description.isEmpty()) { // No echo.task description, start date provided
             if (!startDate.isEmpty()) {
-                parser.keepTemp(startDate, 1);
+                parser.keepTempString(startDate, 1);
             }
             if (!endDate.isEmpty()) {
-                parser.keepTemp(endDate, 2);
+                parser.keepTempString(endDate, 2);
             }
             parser.changeState(StateType.EVENT_DESCRIPTION);
             return "Enter task description: ";
         }
 
         if (startDate.isEmpty()) { // No start date provided (update bug)
-            parser.keepTemp(description, 0);
+            parser.keepTempString(description, 0);
             if (!endDate.isEmpty()) {
-                parser.keepTemp(endDate, 2);
+                parser.keepTempString(endDate, 2);
             }
             parser.changeState(StateType.EVENT_START);
             return "Start: ";
@@ -185,8 +185,8 @@ public class Ui {
         if (startDate.contains("/to")) {
             String[] temp = parser.parseEventTo(startDate);
             if (temp[0].isEmpty()) { // No start date provided, only end date
-                parser.keepTemp(description, 0);
-                parser.keepTemp(temp[1], 2);
+                parser.keepTempString(description, 0);
+                parser.keepTempString(temp[1], 2);
                 parser.changeState(StateType.EVENT_START);
                 return "Start: ";
             }
@@ -195,8 +195,8 @@ public class Ui {
         }
 
         if (endDate.isEmpty()) {
-            parser.keepTemp(description, 0);
-            parser.keepTemp(startDate, 1);
+            parser.keepTempString(description, 0);
+            parser.keepTempString(startDate, 1);
             parser.changeState(StateType.EVENT_END);
             return "End: ";
         }
@@ -226,14 +226,14 @@ public class Ui {
     public String handleDeadline(String description, String deadlineToParse, TaskStatus status) {
         if (description.isEmpty()) {
             if (!deadlineToParse.isEmpty()) {
-                parser.keepTemp(deadlineToParse, 3);
+                parser.keepTempString(deadlineToParse, 3);
             }
             parser.changeState(StateType.DEADLINE_DESCRIPTION);
             return "Enter task description: ";
         }
 
         if (deadlineToParse.isEmpty()) {
-            parser.keepTemp(description, 0);
+            parser.keepTempString(description, 0);
             parser.changeState(StateType.DEADLINE_DEADLINE);
             return "Deadline:";
         }

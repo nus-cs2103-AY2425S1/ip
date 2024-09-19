@@ -97,66 +97,100 @@ public class Parser {
     private String[] parsedUpdate(String arg) {
         return arg.split(" ", 2);
     }
-
+    /**
+     * Changes the current status of the task.
+     *
+     * @param status the new TaskStatus to be set
+     */
     public void changeStatus(TaskStatus status) {
         this.status = status;
     }
 
+    /**
+     * Handles the current state and processes the user input accordingly.
+     *
+     * @param userInput the input string provided by the user
+     * @return the result of the state handling
+     */
     private String handleState(String userInput) {
+        String description, descriptionState, start, end, deadline;
+        description = tempStrings[0];
+        start = tempStrings[1];
+        end = tempStrings[2];
+        deadline = tempStrings[3];
+
+        end = end.isEmpty() ? "" : " /to " + end;
+        descriptionState = userInput.isEmpty() ? description : userInput.trim();
+
         switch (statetype) {
         case TODO_DESCRIPTION:
             changeState(StateType.NO_STATE);
             return ui.handleTodo(
-                    userInput.isEmpty() ? tempStrings[0] : userInput.trim(),
+                    descriptionState,
                     status);
         case DEADLINE_DESCRIPTION:
             changeState(StateType.NO_STATE);
             return ui.handleDeadline(
-                    tempStrings[0].isEmpty() ? userInput.trim() : tempStrings[0],
-                    tempStrings[3],
+                    description.isEmpty() ? userInput.trim() : description,
+                    deadline,
                     status);
         case DEADLINE_DEADLINE:
             changeState(StateType.NO_STATE);
             return ui.handleDeadline(
-                    tempStrings[0],
-                    tempStrings[3].isEmpty() ? userInput.trim() : tempStrings[3],
+                    description,
+                    deadline.isEmpty() ? userInput.trim() : deadline,
                     status);
         case EVENT_DESCRIPTION:
             changeState(StateType.NO_STATE);
             return ui.handleEvent(
-                    (userInput.isEmpty() ? tempStrings[0] : userInput.trim()) +
-                    (tempStrings[2].isEmpty() ? "" : " /to " + tempStrings[2]),
-                    tempStrings[1],
+                    descriptionState + end,
+                    start,
                     status);
         case EVENT_START:
             changeState(StateType.NO_STATE);
             return ui.handleEvent(
-                    tempStrings[0] + (tempStrings[2].isEmpty() ? "" : " /to " + tempStrings[2]),
-                    (userInput.isEmpty() ? tempStrings[1] : userInput.trim()),
+                    description + end,
+                    (userInput.isEmpty() ? start : userInput.trim()),
                     status);
         case EVENT_END:
             changeState(StateType.NO_STATE);
-            System.out.println(tempStrings[2]);
             return ui.handleEvent(
-                    tempStrings[0],
-            tempStrings[1] +
-                    (userInput.isEmpty()
-                            ? (tempStrings[2].isEmpty() ? "" : " /to " + tempStrings[2] )
-                            : " /to " + userInput.trim()),
+                    description,
+            start +
+                    (userInput.isEmpty() ? end : " /to " + userInput.trim()),
                     status);
         default:
             return ui.handleUnknown();
         }
     }
+    /**
+     * Changes the current state of the parser.
+     *
+     * @param s the new StateType to be set
+     */
     public void changeState(StateType s) {
         this.statetype = s;
     }
-    public void keepTemp(String s, int index) {
+    /**
+     * Stores a temporary string in the specified index.
+     *
+     * @param s the string to be stored
+     * @param index the index at which the string is stored
+     */
+    public void keepTempString(String s, int index) {
         tempStrings[index] = s;
     }
+    /**
+     * Stores an array of temporary strings.
+     *
+     * @param tempStrings the array of strings to be stored
+     */
     public void keepTempStrings(String[] tempStrings) {
         this.tempStrings = tempStrings;
     }
+    /**
+     * Resets the temporary strings to their default values.
+     */
     public void resetTempStrings() {
         this.tempStrings = new String[]{"", "", "", ""};
     }

@@ -36,12 +36,21 @@ public class Echo {
         return ui.handleInput(input);
     }
 
+    /**
+     * Stops the application by saving the current task list to the storage file
+     * and exiting the platform.
+     */
     public void stopRunning() {
         assert storage != null: "Storage should not be null";
         storage.saveToFile();
         Platform.exit();
     }
 
+    /**
+     * Greets the user with a welcome message when the application starts.
+     *
+     * @return The welcome message as a String.
+     */
     public String greetUser() {
         return ui.welcomeMessage();
     }

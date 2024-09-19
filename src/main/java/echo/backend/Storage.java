@@ -17,6 +17,7 @@ import java.util.Scanner;
 public class Storage {
     private String filePath;
     private TaskList taskList;
+
     /**
      * Constructs a Storage object with the specified file path.
      *
@@ -27,6 +28,7 @@ public class Storage {
         this.filePath = filePath;
         this.taskList = new TaskList();
     }
+
     /**
      * Loads the tasks from the file specified by filePath.
      * If the file does not exist, it attempts to create a new file.
@@ -39,27 +41,7 @@ public class Storage {
         Boolean hasSavedTasksFile = savedTasks.exists();
 
         if (!hasSavedTasksFile) {
-            String parentDirectoryString = savedTasks.getParent();
-            Boolean hasParentDirectory = parentDirectoryString != null;
-            Boolean hasParentDirectoryFolder = false;
-            File parentDirectoryFolder = null;
-
-            if (hasParentDirectory) {
-                parentDirectoryFolder = new File(parentDirectoryString);
-                hasParentDirectoryFolder = parentDirectoryFolder.exists();
-            }
-
-            if (hasParentDirectory && !hasParentDirectoryFolder) {
-                parentDirectoryFolder.mkdir();
-            }
-
-            try {
-                savedTasks.createNewFile();
-            } catch (IOException ex) {
-                System.out.println("Cannot create new 'savedTasks.txt' file.");
-                ex.printStackTrace();
-                throw new EchoException();
-            }
+            handleNoSavedTasksFile(savedTasks);
         }
 
         Scanner fileScanner;
@@ -70,6 +52,35 @@ public class Storage {
             throw new EchoException();
         }
 
+        readSavedTasks(fileScanner);
+        return this.taskList;
+    }
+
+    private void handleNoSavedTasksFile(File savedTasks) throws EchoException {
+        String parentDirectoryString = savedTasks.getParent();
+        Boolean hasParentDirectory = parentDirectoryString != null;
+        Boolean hasParentDirectoryFolder = false;
+        File parentDirectoryFolder = null;
+
+        if (hasParentDirectory) {
+            parentDirectoryFolder = new File(parentDirectoryString);
+            hasParentDirectoryFolder = parentDirectoryFolder.exists();
+        }
+
+        if (hasParentDirectory && !hasParentDirectoryFolder) {
+            parentDirectoryFolder.mkdir();
+        }
+
+        try {
+            savedTasks.createNewFile();
+        } catch (IOException ex) {
+            System.out.println("Cannot create new 'savedTasks.txt' file.");
+            ex.printStackTrace();
+            throw new EchoException();
+        }
+    }
+
+    private void readSavedTasks(Scanner fileScanner) {
         String nextLine;
         String[] splitLines;
 
@@ -119,7 +130,6 @@ public class Storage {
                 taskList.markTask(taskListIndexToMark);
             }
         }
-        return this.taskList;
     }
 
     /**
