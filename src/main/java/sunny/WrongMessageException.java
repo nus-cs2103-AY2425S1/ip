@@ -10,6 +10,6 @@ public class WrongMessageException extends Exception {
 
     @Override
     public String toString() {
-        return "invalid command:(( \n";
+        return "invalid command:(( \n     Try again:)";
     }
 }
