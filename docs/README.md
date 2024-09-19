@@ -1,9 +1,9 @@
-# Bellroy User Guide
+# bellroy User Guide
 
-![Example of Bellroy in use](/Users/shermanchew/ip/docs/Ui.png)
+![Example of bellroy in use](/Users/shermanchew/ip/docs/Ui.png)
 
-Having trouble managing your deadlines? Fret not, as Bellroy is your new companion.
-Bellroy will be your new to-do list, helping you keep track of deadlines!
+Having trouble managing your deadlines? Fret not, as bellroy is your new companion.
+bellroy will be your new to-do list, helping you keep track of deadlines!
 It's Clean, Simple, and ~~Lightweight~~ Featherweight :D
 
 ## Features
@@ -174,6 +174,6 @@ Hoot Hoot! Here are the filtered tasks in your list:
 Users can close and exit the program by using the `bye` command.
 
 ## Acknowledgements
-Bellroy image: Duolingo
+bellroy image: Duolingo
 
 User image: Cryptozombies

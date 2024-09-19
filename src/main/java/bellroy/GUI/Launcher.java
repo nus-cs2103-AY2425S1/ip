@@ -1,4 +1,4 @@
-package Bellroy.GUI;
+package bellroy.GUI;
 
 import javafx.application.Application;
 

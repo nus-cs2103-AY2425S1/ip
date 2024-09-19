@@ -1,9 +1,9 @@
-package Bellroy;
+package bellroy;
 
-import Bellroy.GUI.Ui;
-import Bellroy.parser.Parser;
-import Bellroy.storage.Storage;
-import Bellroy.task.TaskList;
+import bellroy.GUI.Ui;
+import bellroy.parser.Parser;
+import bellroy.storage.Storage;
+import bellroy.task.TaskList;
 
 import java.io.IOException;
 

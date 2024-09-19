@@ -1,4 +1,3 @@
-[T][X] run
-[T][ ]  swim
-[T][ ]  run errands
-[T][ ]  shower
+[T][ ] run errands
+[T][ ] shower
+[D][ ] homework (by: Sep 27 2024, 6:00 pm)

@@ -1,9 +1,8 @@
-package Bellroy.GUI;
+package bellroy.GUI;
 
-import Bellroy.task.Task;
-import Bellroy.task.TaskList;
+import bellroy.task.Task;
+import bellroy.task.TaskList;
 
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -126,6 +125,10 @@ public class Ui {
             String s = ("Hoot Hoot! Here are the filtered tasks in your list:\n" + filteredTask + "\n");
             return s;
         }
+    }
+
+    public static String deadlineError() {
+        return "Please input a valid date-time format";
     }
 
 }

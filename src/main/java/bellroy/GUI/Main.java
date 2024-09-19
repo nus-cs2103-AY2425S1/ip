@@ -1,8 +1,8 @@
-package Bellroy.GUI;
+package bellroy.GUI;
 
 import java.io.IOException;
 
-import Bellroy.Bellroy;
+import bellroy.Bellroy;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -23,7 +23,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            stage.setTitle("Bellroy");
+            stage.setTitle("bellroy");
             fxmlLoader.<MainWindow>getController().setBellroy(bellroy);  // inject the Bellroy instance
             stage.show();
         } catch (IOException e) {

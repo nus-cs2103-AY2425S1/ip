@@ -43,7 +43,7 @@ test {
 }
 
 application {
-    mainClass.set("Bellroy.GUI.Launcher")
+    mainClass.set("bellroy.GUI.Launcher")
 }
 
 shadowJar {

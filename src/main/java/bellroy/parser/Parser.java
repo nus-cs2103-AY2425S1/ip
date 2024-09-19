@@ -1,15 +1,16 @@
-package Bellroy.parser;
+package bellroy.parser;
 
-import Bellroy.storage.Storage;
-import Bellroy.task.TaskList;
-import Bellroy.GUI.Ui;
-import Bellroy.task.Event;
-import Bellroy.task.Task;
-import Bellroy.task.Todo;
-import Bellroy.task.Deadline;
+import bellroy.storage.Storage;
+import bellroy.task.TaskList;
+import bellroy.GUI.Ui;
+import bellroy.task.Event;
+import bellroy.task.Task;
+import bellroy.task.Todo;
+import bellroy.task.Deadline;
 import javafx.application.Platform;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 
 /**
  * The parser class encapsulates the logic of parsing user commands. Depending on the user input, the parser will
@@ -59,10 +60,14 @@ public class Parser {
                     return Ui.taskAddedMessage(todo, taskList.size());
                 case("deadline"):
                     String dueDate = input[1].split(" ", 2)[1].trim();
-                    Task deadline = new Deadline(description, dueDate);
-                    taskList.addTask(deadline);
-                    storage.save(taskList);
-                    return Ui.taskAddedMessage(deadline, taskList.size());
+                    try {
+                        Task deadline = new Deadline(description, dueDate);
+                        taskList.addTask(deadline);
+                        storage.save(taskList);
+                        return Ui.taskAddedMessage(deadline, taskList.size());
+                    } catch (DateTimeParseException e) {
+                        return Ui.deadlineError();
+                    }
                 case("event"):
                     String startTime = input[1].split(" /", 2)[0].split(" ", 2)[1].trim();
                     String endTime = input[1].split(" /", 2)[1].split(" ", 2)[1].trim();

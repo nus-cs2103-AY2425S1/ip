@@ -1,4 +1,4 @@
-package Bellroy.task;
+package bellroy.task;
 
 /**
  * Abstract Task Class

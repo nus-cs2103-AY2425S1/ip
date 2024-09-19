@@ -1,6 +1,6 @@
-package Bellroy;
+package bellroy;
 
-import Bellroy.task.Todo;
+import bellroy.task.Todo;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 

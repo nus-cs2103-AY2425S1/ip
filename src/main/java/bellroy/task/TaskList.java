@@ -1,6 +1,4 @@
-package Bellroy.task;
-
-import Bellroy.task.Task;
+package bellroy.task;
 
 import java.util.ArrayList;
 import java.util.List;
