@@ -4,9 +4,9 @@ package duke;
  * Represents a Duck chatbot object.
  */
 public class Duck {
-    private TaskList tasklist;
+    private TaskList taskList;
     Duck() throws DuckException {
-        tasklist = new TaskList(Storage.load(), Storage.loadNum());
+        taskList = new TaskList(Storage.load(), Storage.loadNumberOfTasks());
     }
 
     /**
@@ -18,7 +18,7 @@ public class Duck {
      */
     public String getResponse(String input) throws DuckException {
         assert !input.isEmpty(): "User input cannot be empty";
-        return Parser.parseCommand(tasklist, input.trim());
+        return Parser.parseCommand(taskList, input.trim());
     }
 
 }

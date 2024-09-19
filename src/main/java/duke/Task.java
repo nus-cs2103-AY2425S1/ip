@@ -2,7 +2,9 @@ package duke;
 
 import java.time.LocalDate;
 import java.time.format.TextStyle;
+
 import java.util.Locale;
+
 /**
  * Represents a Task item with a description.
  */
@@ -43,7 +45,7 @@ public class Task {
     }
 
     /**
-     * Returns date of task, if any.
+     * Returns date of this task, if any.
      *
      * @returns String representation of the date of the task.
      * */
@@ -54,11 +56,12 @@ public class Task {
     /**
      * Converts the input date from type LocalDate to type String.
      *
-     * @param d Date to be converted, of LocalDate type.
+     * @param date Date to be converted, of LocalDate type.
      * @return String representation of d.
      * */
-    protected String dateConverter(LocalDate d) {
-        return d.getMonth().getDisplayName(TextStyle.SHORT, Locale.ENGLISH) + " " + d.getDayOfMonth() + " " + d.getYear();
+    protected String convertDates(LocalDate date) {
+        String month = date.getMonth().getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
+        return  month + " " + date.getDayOfMonth() + " " + date.getYear();
     }
 
     /**

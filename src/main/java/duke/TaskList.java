@@ -2,6 +2,7 @@ package duke;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
 /**
  * Represents a list of Task items.
  */
@@ -33,13 +34,15 @@ public class TaskList {
     public static String add(Task task) {
         tasks[numberOfTasks] = task;
         String reply = REPLY_ADDED + get(numberOfTasks);
+
         numberOfTasks++;
+
         reply += "\nNow you have " + numberOfTasks + " tasks in the list.";
         return reply;
     }
 
     /**
-     * Returns task at the specified position in the list.
+     * Returns task at the specified index in the list.
      *
      * @param index Index of the task to be returned.
      * @return Task item requested.
@@ -53,19 +56,23 @@ public class TaskList {
      * Deletes task at that index in the list.
      *
      * @param index Index of the task to be deleted.
-     * @throws DuckException if there is no task at the given index in the list.
      * @return String reply confirming item has been deleted.
+     * @throws DuckException if there is no task at the given index in the list.
      * */
     public static String delete(int index) {
         assert index > 0: "Invalid task number";
+
         if (index >= numberOfTasks + 1) {
             return REPLY_INVALID_TASK_NUMBER;
         }
+
         String reply = REPLY_DELETED + get(index - 1);
+
         ArrayList<Task> newTasks = new ArrayList<Task>(Arrays.asList(tasks));
         newTasks.remove(index - 1);
         tasks = newTasks.toArray(new Task[TASK_LIST_SIZE]);
         numberOfTasks--;
+
         return reply + "\nNow you have " + numberOfTasks + " tasks in the list.";
 
     }
@@ -75,7 +82,7 @@ public class TaskList {
      *
      * @return Array of all tasks in the list.
      * */
-    public Task[] allTasks(){
+    public Task[] getAllTasks(){
         return tasks;
     }
 
@@ -84,7 +91,7 @@ public class TaskList {
      *
      * @return String of all tasks in the list.
      * */
-    public String getAllTasks() {
+    public String listAllTasks() {
         StringBuilder reply = new StringBuilder(REPLY_LIST);
         for (int n = 1; n <= numberOfTasks; n++) {
             reply.append("\n").append(n).append(". ").append(get(n - 1));
@@ -95,33 +102,33 @@ public class TaskList {
     /**
      * Marks task at that index in the list as done.
      *
-     * @param num Index of the task to be marked as done.
+     * @param index Index of the task to be marked as done.
      * @throws DuckException if there is no task at the given index in the list.
      * @return String confirming task has been marked.
      * */
-    public static String mark(int num) {
-        assert num > 0: "Invalid task number";
-        if (num > numberOfTasks) {
+    public static String mark(int index) {
+        assert index > 0: "Invalid task number";
+        if (index > numberOfTasks) {
             return REPLY_INVALID_TASK_NUMBER;
         }
-        get(num - 1).mark();
-        return REPLY_MARKED + get(num - 1);
+        get(index - 1).mark();
+        return REPLY_MARKED + get(index - 1);
     }
 
     /**
      * Marks task at that index in the list as not done.
      *
-     * @param num Index of the task to be marked as not done.
-     * @throws DuckException if there is no task at the given index in the list.
+     * @param index Index of the task to be marked as not done.
      * @return String confirming task has been unmarked.
+     * @throws DuckException if there is no task at the given index in the list.
      * */
-    public static String unmark(int num) {
-        assert num > 0: "Invalid task number";
-        if (num > numberOfTasks) {
+    public static String unmark(int index) {
+        assert index > 0: "Invalid task number";
+        if (index > numberOfTasks) {
             return REPLY_INVALID_TASK_NUMBER;
         }
-        get(num - 1).unmark();
-        return REPLY_UNMARKED + get(num - 1);
+        get(index - 1).unmark();
+        return REPLY_UNMARKED + get(index - 1);
     }
 
     /**
@@ -132,20 +139,21 @@ public class TaskList {
      * */
     public String find(String keyword) {
         Task[] foundTasks = new Task[100];
-        int numOfFoundTasks = 0;
+        int numberOfFoundTasks = 0;
 
         for (int i = 0; i < numberOfTasks; i++) {
             Task t = tasks[i];
             if (t.getDescription().contains(keyword)) {
-                foundTasks[numOfFoundTasks] = t;
-                numOfFoundTasks++;
+                foundTasks[numberOfFoundTasks] = t;
+                foundTasks[numberOfFoundTasks] = t;
+                numberOfFoundTasks++;
             }
         }
-        if (numOfFoundTasks == 0) {
+        if (numberOfFoundTasks == 0) {
             return REPLY_UNSUCCESSFUL_FIND;
         }
         StringBuilder reply = new StringBuilder(REPLY_SUCCESSFUL_FIND);
-        for (int n = 1; n < numOfFoundTasks; n++) {
+        for (int n = 1; n < numberOfFoundTasks; n++) {
             reply.append("\n").append(n).append(". ").append(foundTasks[n - 1]);
         }
         return reply.toString();
@@ -157,7 +165,7 @@ public class TaskList {
      * @throws DuckException if current list is corrupted.
      * */
     public void save() throws DuckException {
-        Storage.save(allTasks(), numberOfTasks);
+        Storage.save(getAllTasks(), numberOfTasks);
     }
 
     public int getNumberOfTasks() {

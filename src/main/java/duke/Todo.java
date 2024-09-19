@@ -1,11 +1,12 @@
 package duke;
+
 /**
  * Represents a Task with no date attribute.
  */
 public class Todo extends Task{
     private static final String type = "[T]";
-    public Todo(String descr) {
-        super(descr);
+    public Todo(String description) {
+        super(description);
     }
 
     /**

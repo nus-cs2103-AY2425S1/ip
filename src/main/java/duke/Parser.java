@@ -4,7 +4,7 @@ import java.time.format.DateTimeParseException;
 import java.time.LocalDate;
 
 /**
- * Helper to parse through a given command.
+ * Helps parse through a given command.
  */
 public class Parser {
 
@@ -29,9 +29,12 @@ public class Parser {
     private static final String REPLY_INVALID_TASK_NUMBER = "Invalid task number given.";
     private static final String REPLY_MISSING_TASK_NUMBER = "This command requires a task number to execute.";
     private static final String REPLY_EMPTY_TASK_DESCRIPTION = "The description of a task cannot be empty.";
-    private static final String REPLY_MISSING_DEADLINE_DETAILS = "A deadline needs a description and a date in YYYY-MM-DD format.";
-    private static final String REPLY_MISSING_EVENT_DETAILS = "An event needs a description, and both a start and end date or time in YYYY-MM-DD format.";
-    private static final String REPLY_INVALID_EVENT_DATES = "The start date of an event must be earlier than it's end date.";
+    private static final String REPLY_MISSING_DEADLINE_DETAILS = "A deadline needs a description and "
+            + "a date in YYYY-MM-DD format.";
+    private static final String REPLY_MISSING_EVENT_DETAILS = "An event needs a description, and "
+            + "both a start and end date or time in YYYY-MM-DD format.";
+    private static final String REPLY_INVALID_EVENT_DATES = "The start date of an event must be "
+            + "earlier than it's end date.";
     private static final String REPLY_INVALID_FIND_KEYWORDS = "Cannot find an empty string.";
     private static final String REPLY_INVALID_COMMAND = "I don't recognise that command.";
     private static final String REPLY_NO_PREVIOUS_COMMAND = "There is no previous command to undo.";
@@ -47,34 +50,34 @@ public class Parser {
     public static String parseCommand(TaskList taskList, String userCommand) throws DuckException {
         assert !userCommand.isEmpty() : "Command cannot be empty";
 
-        if (checkByeCommand(userCommand)) {
+        if (isByeCommand(userCommand)) {
             return executeByeCommand(taskList);
 
-        } else if (checkListCommand(userCommand)) {
-            return taskList.getAllTasks();
+        } else if (isListCommand(userCommand)) {
+            return taskList.listAllTasks();
 
-        } else if (checkMarkCommand(userCommand)) {
+        } else if (isMarkCommand(userCommand)) {
             return markTask(taskList, userCommand);
 
-        } else if (checkUnmarkCommand(userCommand)) {
+        } else if (isUnmarkCommand(userCommand)) {
             return unmarkTask(taskList, userCommand);
 
-        } else if (checkDeleteCommand(userCommand)) {
+        } else if (isDeleteCommand(userCommand)) {
             return deleteTask(taskList, userCommand);
 
-        } else if (checkFindCommand(userCommand)) {
+        } else if (isFindCommand(userCommand)) {
             return findMatchingTasks(taskList, userCommand);
 
-        } else if (checkTodoCommand(userCommand)) {
+        } else if (isTodoCommand(userCommand)) {
             return addTodoTask(taskList, userCommand);
 
-        } else if (checkDeadlineCommand(userCommand)) {
+        } else if (isDeadlineCommand(userCommand)) {
             return addDeadlineTask(taskList, userCommand);
 
-        } else if (checkEventCommand(userCommand)) {
+        } else if (isEventCommand(userCommand)) {
             return addEventTask(taskList, userCommand);
 
-        } else if (checkUndoCommand(userCommand)) {
+        } else if (isUndoCommand(userCommand)) {
             return undoLastCommand();
 
         } else {
@@ -83,32 +86,32 @@ public class Parser {
     }
 
     /**
-     * Check if the user command is a 'bye' command.
+     * Checks if the user command is a 'bye' command.
      *
      * @param userCommand String command to be interpreted.
      * @return boolean representing if command is a 'bye' command.
      * */
-    private static boolean checkByeCommand(String userCommand) {
+    private static boolean isByeCommand(String userCommand) {
         return userCommand.equalsIgnoreCase(COMMAND_BYE);
     }
 
     /**
-     * Check if the user command is a 'list' command.
+     * Checks if the user command is a 'list' command.
      *
      * @param userCommand String command to be interpreted.
      * @return boolean representing if command is a 'list' command.
      * */
-    private static boolean checkListCommand(String userCommand) {
+    private static boolean isListCommand(String userCommand) {
         return userCommand.equalsIgnoreCase(COMMAND_LIST);
     }
 
     /**
-     * Check if the user command is a 'mark' command.
+     * Checks if the user command is a 'mark' command.
      *
      * @param userCommand String command to be interpreted.
      * @return boolean representing if command is a 'mark' command.
      * */
-    private static boolean checkMarkCommand(String userCommand) {
+    private static boolean isMarkCommand(String userCommand) {
         if (userCommand.length() < COMMAND_MARK.length()) {
             return false;
         }
@@ -116,12 +119,12 @@ public class Parser {
     }
 
     /**
-     * Check if the user command is a 'unmark' command.
+     * Checks if the user command is a 'unmark' command.
      *
      * @param userCommand String command to be interpreted.
      * @return boolean representing if command is a 'unmark' command.
      * */
-    private static boolean checkUnmarkCommand(String userCommand) {
+    private static boolean isUnmarkCommand(String userCommand) {
         if (userCommand.length() < COMMAND_UNMARK.length()) {
             return false;
         }
@@ -129,12 +132,12 @@ public class Parser {
     }
 
     /**
-     * Check if the user command is a 'delete' command.
+     * Checks if the user command is a 'delete' command.
      *
      * @param userCommand String command to be interpreted.
      * @return boolean representing if command is a 'delete' command.
      * */
-    private static boolean checkDeleteCommand(String userCommand) {
+    private static boolean isDeleteCommand(String userCommand) {
         if (userCommand.length() < COMMAND_DELETE.length()) {
             return false;
         }
@@ -142,12 +145,12 @@ public class Parser {
     }
 
     /**
-     * Check if the user command is a 'find' command.
+     * Checks if the user command is a 'find' command.
      *
      * @param userCommand String command to be interpreted.
      * @return boolean representing if command is a 'find' command.
      * */
-    private static boolean checkFindCommand(String userCommand) {
+    private static boolean isFindCommand(String userCommand) {
         if (userCommand.length() < COMMAND_FIND.length()) {
             return false;
         }
@@ -155,12 +158,12 @@ public class Parser {
     }
 
     /**
-     * Check if the user command is a 'todo' command.
+     * Checks if the user command is a 'todo' command.
      *
      * @param userCommand String command to be interpreted.
      * @return boolean representing if command is a 'todo' command.
      * */
-    private static boolean checkTodoCommand(String userCommand) {
+    private static boolean isTodoCommand(String userCommand) {
         if (userCommand.length() < COMMAND_TODO.length()) {
             return false;
         }
@@ -168,12 +171,12 @@ public class Parser {
     }
 
     /**
-     * Check if the user command is a 'deadline' command.
+     * Checks if the user command is a 'deadline' command.
      *
      * @param userCommand String command to be interpreted.
      * @return boolean representing if command is a 'deadline' command.
      * */
-    private static boolean checkDeadlineCommand(String userCommand) {
+    private static boolean isDeadlineCommand(String userCommand) {
         if (userCommand.length() < COMMAND_DEADLINE.length()) {
             return false;
         }
@@ -181,12 +184,12 @@ public class Parser {
     }
 
     /**
-     * Check if the user command is an 'event' command.
+     * Checks if the user command is an 'event' command.
      *
      * @param userCommand String command to be interpreted.
      * @return boolean representing if command is a 'event' command.
      * */
-    private static boolean checkEventCommand(String userCommand) {
+    private static boolean isEventCommand(String userCommand) {
         if (userCommand.length() < COMMAND_EVENT.length()) {
             return false;
         }
@@ -194,12 +197,12 @@ public class Parser {
     }
 
     /**
-     * Check if the user command is an 'undo' command.
+     * Checks if the user command is an 'undo' command.
      *
      * @param userCommand String command to be interpreted.
      * @return boolean representing if command is an 'undo' command.
      * */
-    private static boolean checkUndoCommand(String userCommand) {
+    private static boolean isUndoCommand(String userCommand) {
         if (userCommand.length() < COMMAND_UNDO.length()) {
             return false;
         }
@@ -229,16 +232,16 @@ public class Parser {
             return REPLY_MISSING_TASK_NUMBER;
         }
 
-        int taskIndex = -1;
+        int taskIndex = INDEX_INVALID;
 
         try {
             String taskIndexInStringFormat = userCommand.substring(COMMAND_MARK.length() + 1).trim();
             taskIndex = Integer.parseInt(taskIndexInStringFormat);
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException exception) {
             return REPLY_INVALID_TASK_NUMBER;
         }
 
-        if (taskIndex <= 0) {
+        if ((taskIndex == INDEX_INVALID) || (taskIndex > taskList.getNumberOfTasks())) {
             return REPLY_INVALID_TASK_NUMBER;
         }
 
@@ -258,16 +261,16 @@ public class Parser {
             return REPLY_MISSING_TASK_NUMBER;
         }
 
-        int taskIndex = -1;
+        int taskIndex = INDEX_INVALID;
 
         try {
             String taskIndexInStringFormat = userCommand.substring(COMMAND_UNMARK.length() + 1).trim();
             taskIndex = Integer.parseInt(taskIndexInStringFormat);
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException exception) {
             return REPLY_INVALID_TASK_NUMBER;
         }
 
-        if (taskIndex <= 0) {
+        if ((taskIndex == INDEX_INVALID) || (taskIndex > taskList.getNumberOfTasks())) {
             return REPLY_INVALID_TASK_NUMBER;
         }
 
@@ -287,16 +290,16 @@ public class Parser {
             return REPLY_MISSING_TASK_NUMBER;
         }
 
-        int taskIndex = -1;
+        int taskIndex = INDEX_INVALID;
 
         try {
             String taskIndexInStringFormat = userCommand.substring(COMMAND_DELETE.length() + 1).trim();
             taskIndex = Integer.parseInt(taskIndexInStringFormat);
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException exception) {
             return REPLY_INVALID_TASK_NUMBER;
         }
 
-        if (taskIndex <= 0) {
+        if ((taskIndex == INDEX_INVALID) || (taskIndex > taskList.getNumberOfTasks())) {
             return REPLY_INVALID_TASK_NUMBER;
         }
 
@@ -336,7 +339,8 @@ public class Parser {
         String taskDetails = userCommand.substring(COMMAND_DEADLINE.length() + 1);
         int dateIndex = taskDetails.indexOf(COMMAND_DATE_SEPARATOR);
 
-        if ((dateIndex == 0) || (dateIndex == INDEX_INVALID) || (taskDetails.substring(dateIndex + INDEX_OFFSET_BY).isEmpty())) {
+        if ((dateIndex == 0) || (dateIndex == INDEX_INVALID)
+                || (taskDetails.substring(dateIndex + INDEX_OFFSET_BY).isEmpty())) {
             return REPLY_MISSING_DEADLINE_DETAILS;
         }
 
@@ -344,7 +348,7 @@ public class Parser {
 
         try {
             LocalDate.parse(date);
-        } catch (DateTimeParseException e) {
+        } catch (DateTimeParseException exception) {
             return REPLY_MISSING_DEADLINE_DETAILS;
         }
 
@@ -377,7 +381,7 @@ public class Parser {
         try {
             LocalDate.parse(startDate);
             LocalDate.parse(endDate);
-        } catch (DateTimeParseException e) {
+        } catch (DateTimeParseException exception) {
             return REPLY_MISSING_EVENT_DETAILS;
         }
 
@@ -409,7 +413,7 @@ public class Parser {
      * @return String response to inform user of successful undoing of last command.
      * */
     private static String undoLastCommand(){
-        if (Undo.checkNoPreviousCommand()) {
+        if (Undo.hasNoPreviousCommand()) {
             return REPLY_NO_PREVIOUS_COMMAND;
         }
         return Undo.undo();

@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Contains methods to test the TaskList Class.
+ */
 public class TaskListTest {
 
     private static final String REPLY_INVALID_TASK_NUMBER = "There is no task with the given task number.";

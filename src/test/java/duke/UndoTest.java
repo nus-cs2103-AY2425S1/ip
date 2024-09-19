@@ -6,12 +6,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Contains methods to test the Undo Class.
+ */
 public class UndoTest {
 
     private static final String REPLY_NO_PREVIOUS_COMMAND = "There is no previous command to undo.";
 
     @Test
-    public void undo_previousCommandExists_successful() throws DuckException {
+    public void undo_previousCommandExists_undoesCorrectCommand() throws DuckException {
         TaskList taskList = new TaskList(new Task[100], 0);
 
         Parser.parseCommand(taskList, "todo quiz");

@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 
 import java.util.List;
 import java.util.Objects;
+
 /**
  * Handles the storage functions of the Duck chatbot.
  */
@@ -30,7 +31,7 @@ public class Storage {
     /**
      * Loads all previous tasks that user has input before.
      *
-     * @return Array of all previous tasks.
+     * @return Array of all saved tasks.
      * @throws DuckException if file is corrupted.
      * */
     public static Task[] load() throws DuckException {
@@ -43,18 +44,18 @@ public class Storage {
                 return new Task[TASK_LIST_SIZE];
             } else {
                 List<String> taskList = Files.readAllLines(Paths.get(PATH));
-                int numTasks = 0;
+                int numberOfTasks = 0;
                 if (!taskList.isEmpty()) {
-                    numTasks = Integer.parseInt(String.valueOf(taskList.get(0)));
+                    numberOfTasks = Integer.parseInt(String.valueOf(taskList.get(0)));
                 }
-                assert taskList.size() == numTasks: "Size of saved task list does not match the number of saved tasks";
+                assert taskList.size() == numberOfTasks: "Invalid number of saved tasks";
                 tasks = new Task[TASK_LIST_SIZE];
-                for (int i = 1; i<numTasks + 1; i++) {
+                for (int i = 1; i<numberOfTasks + 1; i++) {
                     tasks[i - 1] = parser(taskList.get(i));
                 }
                 return tasks;
             }
-        } catch (IOException e) {
+        } catch (IOException exception) {
             throw new DuckException("Cannot load tasks.");
         }
     }
@@ -65,20 +66,19 @@ public class Storage {
      * @return Integer total of number of previous tasks.
      * @throws DuckException if file is corrupted.
      * */
-    public static int loadNum() throws DuckException {
+    public static int loadNumberOfTasks() throws DuckException {
         File file = new File(PATH);
+        if (!file.exists()) {
+            return 0;
+        }
         try {
-            if (!file.exists()) {
-                return 0;
-            } else {
-                List<String> taskList = Files.readAllLines(Paths.get(PATH));
-                int numTasks = 0;
-                if (!taskList.isEmpty()) {
-                    numTasks = Integer.parseInt(String.valueOf(taskList.get(0)));
-                }
-                return numTasks;
+            List<String> taskList = Files.readAllLines(Paths.get(PATH));
+            int numTasks = 0;
+            if (!taskList.isEmpty()) {
+                numTasks = Integer.parseInt(String.valueOf(taskList.get(0)));
             }
-        } catch (IOException e) {
+            return numTasks;
+        } catch (IOException exception) {
             throw new DuckException("Cannot load number of tasks.");
         }
     }
@@ -87,24 +87,25 @@ public class Storage {
      * Saves current list of tasks after user has made his or her changes.
      *
      * @param tasks Current list of all tasks to be saved.
-     * @param n Number of tasks in the list to be saved.
+     * @param numberOfTasks Number of tasks in the list to be saved.
      * @throws DuckException if the list is not formatted correctly.
      * */
-    public static void save(Task[] tasks, int n) throws DuckException {
+    public static void save(Task[] tasks, int numberOfTasks) throws DuckException {
         try {
             FileWriter writer = new FileWriter(PATH);
-            writer.write(n + "\n");
-            for (int i = 0; i < n; i++) {
+            writer.write(numberOfTasks + "\n");
+            for (int i = 0; i < numberOfTasks; i++) {
                 writer.write(saveTask(tasks[i]) + "\n");
             }
             writer.close();
-        } catch (IOException e) {
+        } catch (IOException exception) {
             throw new DuckException("Cannot save tasks.");
         }
     }
 
     /**
-     * Parses through a line from the Storage file to convert it from String to its corresponding Task.
+     * Parses through a line from the Storage file to convert
+     * it from String to its corresponding Task.
      *
      * @param line Line to be parsed through.
      * @return Task that the input line corresponds to.
@@ -134,6 +135,7 @@ public class Storage {
             throw new DuckException("Unrecognised file type.");
         }
     }
+
     /**
      * Saves a given task in specified format.
      *
@@ -141,18 +143,18 @@ public class Storage {
      * @return String representation of task to be saved.
      * */
     private static String saveTask(Task task) {
-        String done = TASK_STATUS_UNMARKED;
+        String status = TASK_STATUS_UNMARKED;
         if (task.isDone) {
-            done = TASK_STATUS_MARKED;
+            status = TASK_STATUS_MARKED;
         }
-        String type = "";
+        String taskType = "";
         if (task instanceof Todo) {
-            type = TASK_TYPE_TODO;
+            taskType = TASK_TYPE_TODO;
         } else if (task instanceof Deadline) {
-            type = TASK_TYPE_DEADLINE;
+            taskType = TASK_TYPE_DEADLINE;
         } else if (task instanceof Event) {
-            type = TASK_TYPE_EVENT;
+            taskType = TASK_TYPE_EVENT;
         }
-        return type + " | " + done + " | " + task.description + task.getDates();
+        return taskType + " | " + status + " | " + task.description + task.getDates();
     }
 }

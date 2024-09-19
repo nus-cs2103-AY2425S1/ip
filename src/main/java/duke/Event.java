@@ -1,33 +1,37 @@
 package duke;
 
 import java.time.LocalDate;
+
 /**
  * Represents a Task with a specified start and end time.
  */
 public class Event extends Task{
-    LocalDate fromDate;
-    LocalDate toDate;
+    private LocalDate fromDate;
+    private LocalDate toDate;
     private static final String type = "[E]";
-    public Event(String descr, String start, String end) {
-        super(descr);
-        fromDate = LocalDate.parse(start);
-        toDate = LocalDate.parse(end);
+
+    public Event(String description, String startDate, String endDate) {
+        super(description);
+        fromDate = LocalDate.parse(startDate);
+        toDate = LocalDate.parse(endDate);
     }
+
     /**
      * Returns date of event task, when Storage.save() is called.
      *
-     * @return String date.
+     * @return String format of dates.
      * */
     public String getDates() {
-        return " | " + fromDate + " | "+toDate;
+        return " | " + fromDate + " | " + toDate;
     }
 
     /**
      * Returns description and date of event task, when TaskList.printTasks() is called.
      *
-     * @return String task description and date.
+     * @return String format of task description and date.
      * */
     public String toString() {
-        return type + super.toString() + "(from: " + super.dateConverter(fromDate) + " to: " + super.dateConverter(toDate) + ")";
+        String period = "(from: " + convertDates(fromDate) + " to: " + convertDates(toDate) + ")";
+        return type + super.toString() + period;
     }
 }
