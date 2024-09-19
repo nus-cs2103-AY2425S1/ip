@@ -198,6 +198,9 @@ public class TaskList {
      * @return returns the string that shows all tasks which input is contained in the taskDescription
      */
     public static String printTasksContainingKeyword(String input, List<Task> tasks) {
+        if (input.isEmpty()) {
+            return ErrorMessages.INCORRECT_FORMAT_FOR_FIND_COMMAND;
+        }
         System.out.println("____________________________________________________________");
         System.out.println("Here are the matching tasks in your list:");
         StringBuilder sbr = new StringBuilder("Here are the matching tasks in your list:\n");
@@ -236,11 +239,11 @@ public class TaskList {
     public static String changePriorityForSpecificTask(String input, List<Task> tasks) {
         String[] result = input.trim().split("\\s+");
         if (result.length != 3) {
-            return "Correct command format is...";
+            return ErrorMessages.INCORRECT_FORMAT_FOR_CHANGEPRIORITY_COMMAND;
         }
         int severity = Integer.valueOf(result[2].trim());
         if (severity > 4 || severity < 1) {
-            return "Choose only 1 to 4";
+            return ErrorMessages.INCORRECT_INPUT_FOR_PRIORITY_LEVEL;
         }
         Task task;
         try {

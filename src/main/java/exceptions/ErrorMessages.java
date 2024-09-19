@@ -15,11 +15,13 @@ public class ErrorMessages {
     public static final String INCORRECT_FORMAT_FOR_FIND_COMMAND = "The correct format for finding tasks with"
             + " associated characters is: find <keyword>. Note that it is case-sensitive!";
     public static final String INCORRECT_FORMAT_FOR_ON_COMMAND = "The correct format for finding tasks relevant to "
-            + "a specific date is: on <date>";
+            + "a specific date is: on <YYYY>-<MM>-<DD>\n"
+            + "Note: on command will display only deadline tasks where the input date falls before the deadline\n"
+            + "and event tasks where the input date falls between the starting and ending date!";
     public static final String INCORRECT_FORMAT_FOR_CHANGEPRIORITY_COMMAND = "The correct format for changing task"
             + " priority is: cp <Task index> <Task priority level>";
-    public static final String INCORRECT_FORMAT_FOR_DELETE_COMMAND = "The correct format for deleting task is: "
-            + " delete <Task Index>";
+    public static final String INCORRECT_INPUT_FOR_PRIORITY_LEVEL = "There are only 4 kinds of priority levels: "
+            + "1, 2, 3, 4 - 1 being the lowest and 4 being the highest";
     public static final String INCORRECT_ASCII_VALUE_INPUT = "Should be entering a number, "
             + "no other characters are allowed!";
     public static final String NO_TASKS_ARE_RELEVANT_TO_INPUT_DATE = "Looks like there are no tasks on this date!";
