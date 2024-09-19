@@ -54,7 +54,7 @@ public class Gui extends Application {
                     + "mark [index] (Marks the tasks at the specified index)\n"
                     + "unmark [index] (Unmarks the tasks at the specified index)\n"
                     + "delete [index] (Deletes the tasks at the specified index)\n"
-                    + "find [keyword] (Unmarks the tasks at the specified index)\n"
+                    + "find [keyword] (Finds the tasks at the specified keyword)\n"
                     + "bye (Exits Evelyn)\n\n"
 
                     + "For more advanced users, you can use the following shortcuts:\n"
