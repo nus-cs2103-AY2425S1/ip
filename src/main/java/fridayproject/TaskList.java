@@ -96,7 +96,7 @@ public class TaskList {
             StringBuilder message = new StringBuilder("Here are the matching tasks in your list:\n");
             for (int i = 0; i < matchingTasks.size(); i++) {
                 message.append((i + 1)).append(". ").append(matchingTasks.get(i)
-                .getTypeIcon()).append(matchingTasks.get(i).toString()).append("\n");
+                    .getTypeIcon()).append(matchingTasks.get(i).toString()).append("\n");
             }
             return message.toString().trim();
         }
