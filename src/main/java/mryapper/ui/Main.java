@@ -27,6 +27,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
 
             setMinResolution(stage);
+            stage.setTitle("MrYapper");
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setYapper(mrYapper);  // inject the MrYapper instance
             stage.show();
