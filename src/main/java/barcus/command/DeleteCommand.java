@@ -7,7 +7,6 @@ import barcus.exception.BarcusException;
 import barcus.storage.Storage;
 import barcus.task.Task;
 import barcus.tasklist.TaskList;
-import barcus.ui.Ui;
 
 /**
  * Command to delete item at pos
@@ -25,7 +24,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws BarcusException {
+    public void execute(TaskList tasks, Storage storage) throws BarcusException {
         List<Integer> queue = new ArrayList<>();
         for (int p: pos) {
             if (p > 0 && p <= tasks.getLength()) {
@@ -45,14 +44,11 @@ public class DeleteCommand extends Command {
 
         assert !queue.isEmpty();
 
-        ui.talk("Removed task:\n");
         output += "Removed task:\n";
         for (int i: queue) {
             Task temp = tasks.deleteTask(i);
-            ui.talk(temp.toString());
             output += temp + "\n";
         }
-        ui.talk("There are " + tasks.getLength() + " task(s) in the list.");
         output += "There are " + tasks.getLength() + " task(s) in the list.";
     }
 

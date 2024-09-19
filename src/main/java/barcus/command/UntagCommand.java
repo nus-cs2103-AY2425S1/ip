@@ -3,7 +3,6 @@ package barcus.command;
 import barcus.exception.BarcusException;
 import barcus.storage.Storage;
 import barcus.tasklist.TaskList;
-import barcus.ui.Ui;
 
 /**
  * Command to untag task at position pos with a tag
@@ -22,7 +21,7 @@ public class UntagCommand extends Command {
         this.output = "";
     }
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws BarcusException {
+    public void execute(TaskList tasks, Storage storage) throws BarcusException {
         if (!(pos > 0 && pos <= tasks.getLength())) {
             throw new BarcusException("please choose a number between 1 and " + tasks.getLength());
         }

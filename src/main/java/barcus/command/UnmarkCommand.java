@@ -6,7 +6,6 @@ import java.util.List;
 import barcus.exception.BarcusException;
 import barcus.storage.Storage;
 import barcus.tasklist.TaskList;
-import barcus.ui.Ui;
 
 /**
  * Command to unmark item at the position
@@ -24,7 +23,7 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws BarcusException {
+    public void execute(TaskList tasks, Storage storage) throws BarcusException {
         List<Integer> queue = new ArrayList<>();
         for (int p: pos) {
             if (p > 0 && p <= tasks.getLength()) {
@@ -40,11 +39,9 @@ public class UnmarkCommand extends Command {
 
         assert !queue.isEmpty();
 
-        ui.talk("No prob, have marked as undone:\n");
         output += "No prob, have marked as undone:\n";
         for (int i: queue) {
             tasks.unmarkTask(i);
-            ui.talk(tasks.getTaskString(i));
             output += tasks.getTaskString(i) + "\n";
         }
     }

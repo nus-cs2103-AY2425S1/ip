@@ -6,7 +6,6 @@ import java.util.List;
 import barcus.exception.BarcusException;
 import barcus.storage.Storage;
 import barcus.tasklist.TaskList;
-import barcus.ui.Ui;
 
 /**
  * Command to mark item at pos
@@ -24,7 +23,7 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws BarcusException {
+    public void execute(TaskList tasks, Storage storage) throws BarcusException {
         List<Integer> queue = new ArrayList<>();
         for (int p: pos) {
             if (p > 0 && p <= tasks.getLength()) {
@@ -39,11 +38,9 @@ public class MarkCommand extends Command {
         }
         assert !queue.isEmpty();
 
-        ui.talk("Good job! Have marked as done:\n");
         output += "Good job! Have marked as done:\n";
         for (int i: queue) {
             tasks.markTask(i);
-            ui.talk(tasks.getTaskString(i));
             output += tasks.getTaskString(i) + "\n";
         }
 
