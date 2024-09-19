@@ -24,15 +24,15 @@ public class Ui {
      * prints the initial message to the user.
      */
     public static String welcomeMessage() {
-        return ("Hello! I'm Bellroy\n" +
-                "What can I do for you?\n");
+        return ("Hoot Hoot! I'm Bellroy, your task manager!\n" +
+                "What can I do for you? Hoot Hoot!\n");
     }
 
     /**
      * prints the farewell message when user closes the Chatbot
      */
     public static String byeMessage() {
-        return ("Bye. Hope to see you again soon!\n");
+        return ("Hootbye! Hoot to see you again soon!\n");
     }
 
     /**
@@ -41,7 +41,7 @@ public class Ui {
      * @param size number of tasks after adding this task
      */
     public static String taskAddedMessage(Task task, int size) {
-        String s = String.format("Got it. I've added this task:\n" +
+        String s = String.format("Hoot Hoot! I've added this task:\n" +
                 "%s\n" +
                 "Now you have %d tasks in the list.\n",task, size);
         return s;
@@ -60,7 +60,7 @@ public class Ui {
      * @param task to mark as done
      */
     public static String markedDone(Task task) {
-        return ("Nice! I've marked this task as done:\n" + task.toString() + "\n");
+        return ("Nice! I've marked this task as done:\n" + task.toString() + "\n" + "Hoot Hoot!\n" );
     }
 
     /**
@@ -68,7 +68,7 @@ public class Ui {
      * @param task to mark as undone
      */
     public static String markedUndone(Task task) {
-        return ("OK, I've marked this task as not done yet:\n" + task.toString() + "\n");
+        return ("Hoot Hoot! I've marked this task as not done yet:\n" + task.toString() + "\n");
     }
 
     /**
@@ -77,30 +77,30 @@ public class Ui {
      * @param size number of tasks remaining after deletion
      */
     public static String taskDeleted(Task task, int size) {
-        String s = String.format("Got it. I've removed this task:\n" +
+        String s = String.format("Hoot Hoot! I've removed this task:\n" +
                 "%s\n" +
                 "Now you have %d tasks in the list.\n",task, size);
         return s;
     }
 
     public static String associationMessage(Task task, String association) {
-        return ("Got it. I've tagged this task:\n " + task + " \nwith association: " + association);
+        return ("Hoot Hoot! I've tagged this task:\n " + task + " \nwith association: " + association);
     }
 
     public static String findTask(TaskList matchingTask) {
         if (matchingTask.isEmpty()) {
-            return ("There are no matching tasks");
+            return ("Hoot Hoot! There are no matching tasks");
         } else {
-            String s = ("Here are the matching tasks in your list:\n" + matchingTask + "\n");
+            String s = ("Hoot Hoot! Here are the matching tasks in your list:\n" + matchingTask + "\n");
             return s;
         }
     }
 
     public static String filterTask(TaskList filteredTask) {
         if (filteredTask.isEmpty()) {
-            return ("There are no matching tasks");
+            return ("Hoot Hoot! There are no matching tasks");
         } else {
-            String s = ("Here are the filtered tasks in your list:\n" + filteredTask + "\n");
+            String s = ("Hoot Hoot! Here are the filtered tasks in your list:\n" + filteredTask + "\n");
             return s;
         }
     }
