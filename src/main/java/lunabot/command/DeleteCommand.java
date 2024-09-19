@@ -20,12 +20,12 @@ public class DeleteCommand extends Command {
      */
     public DeleteCommand(String input) throws LunaBotException {
         // Guard clause
-        if (input.length() < 8) {
+        if (input.length() < 5) {
             throw new LunaBotException("Invalid command format. No task number provided.");
         }
         try {
             // extracts index as a string and converts to an int
-            this.index = Integer.parseInt(input.substring(7).trim()) - 1;
+            this.index = Integer.parseInt(input.substring(4).trim()) - 1;
         } catch (NumberFormatException e) {
             // checks if user inout an int
             throw new LunaBotException(" Invalid task number format");
