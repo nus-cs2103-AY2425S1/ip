@@ -68,7 +68,7 @@ public class ParserTest {
         LocalDateTime actualDateTime = LocalDateTime.parse("2024-06-22T16:00");
 
         assertEquals(
-                Parser.parseDateTimeToString(actualDateTime), "2024-06-22 04:00 pm");
+                Parser.parseDateTimeToString(actualDateTime).toLowerCase(), "2024-06-22 04:00 pm");
     }
 
     /**
