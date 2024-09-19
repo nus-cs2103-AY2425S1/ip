@@ -27,12 +27,13 @@ public class Parser {
      *                        error in parsing the command.
      */
     public static Command parser(String fullCommand) throws PixelException {
-        String cmdString = fullCommand.split(" ")[0].toUpperCase();
+        String cmdString = fullCommand.split(" ")[0];
+        String cmdStringUpperCase = cmdString.toUpperCase();
         PixelCommandEnum cmd;
 
         boolean isValid = false;
         for (PixelCommandEnum pixelCmd : PixelCommandEnum.values()) {
-            if (cmdString.equals(pixelCmd.toString())) {
+            if (cmdStringUpperCase.equals(pixelCmd.toString())) {
                 isValid = true;
                 break;
             }
@@ -41,7 +42,7 @@ public class Parser {
             throw new PixelException(String.format("OH NO!!! I don't understand '%s'! Try Again!", cmdString));
         }
 
-        cmd = PixelCommandEnum.valueOf(cmdString.toUpperCase());
+        cmd = PixelCommandEnum.valueOf(cmdStringUpperCase);
 
         String input = fullCommand.substring(cmdString.length()).strip();
 
