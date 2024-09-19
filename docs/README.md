@@ -6,6 +6,8 @@ Whether you need to manage your daily to-do list, set important deadlines, or or
 and end times, Meow provides a seamless experience for handling your task management needs. With support 
 for natural language commands and a clean, minimalistic UI, the app makes task tracking straightforward 
 and enjoyable.
+
+Download the latest version [HERE](https://github.com/Al-ez/ip/releases)
 ## Adding deadlines
 
 To add a task with a specific deadline, you can use the deadline command.
