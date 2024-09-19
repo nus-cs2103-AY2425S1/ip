@@ -1,5 +1,7 @@
 package bob.tasks;
 
+import java.util.Arrays;
+
 /**
  * Task is an abstract class
  * It stores the task name and the status of the task
@@ -46,6 +48,65 @@ public abstract class Task {
         return this.taskName.toUpperCase().contains(searchString.toUpperCase());
     }
 
+    /**
+     * Checks if the given string has a fuzzy match in the Task Name with a 60% similarity
+     * Returns true if there is a fuzzy match and false if there isn't
+     *
+     * @param searchString String to search for in the task name
+     * @return If the string is in the task name
+     */
+    public boolean fuzzyContains(String searchString) {
+        if (searchString.length() > this.taskName.length()) {
+            return LevenshteinDistanceForSubstrings(searchString.toLowerCase(), this.taskName.toLowerCase()) < searchString.length() * 0.4;
+        }
+        return LevenshteinDistanceForSubstrings(this.taskName.toLowerCase(), searchString.toLowerCase()) < searchString.length() * 0.4;
+    }
+
+    /**
+     * Returns the smallest number of changes to be made between sub-strings of the original and the matchStr
+     * using Levenshtein Distance Algorithm. Uses sub-strings to match so that insertions and deletions are not
+     * counted as dissimilar.
+     *
+     * @param original Main string to be sub-stringed to check for fuzzy matches
+     * @param matchStr String to be fuzzy matched for in the original
+     * @return smallest number of changes to be made between sub-strings of the original and the matchStr
+     */
+    private int LevenshteinDistanceForSubstrings(String original, String matchStr) {
+        int min = Integer.MAX_VALUE;
+        for (int i = 0; i < original.length() - matchStr.length(); i++) {
+            int curr = LevenshteinDistance(original.substring(i, i + matchStr.length()), matchStr);
+            if (curr < min) {
+                min = curr;
+            }
+        }
+        return min;
+    }
+
+    /**
+     * Calculates the dissimilarity between two strings using Levenshtein Distance Algorithm
+     *
+     * @param x String to compare
+     * @param y String to compare
+     * @return number of changes to be made to transform x into y
+     */
+    private int LevenshteinDistance(String x, String y) {
+        int[][] dp = new int[x.length() + 1][y.length() + 1];
+
+        for (int i = 0; i <= x.length(); i++) {
+            for (int j = 0; j <= y.length(); j++) {
+                if (i == 0) {
+                    dp[i][j] = j;
+                } else if (j == 0) {
+                    dp[i][j] = i;
+                } else {
+                    int curr = dp[i - 1][j - 1] + (x.charAt(i - 1) == y.charAt(j - 1) ? 0 : 1);
+                    dp[i][j] = Math.min(curr, Math.min(dp[i - 1][j] + 1, dp[i][j - 1] + 1));
+                }
+            }
+        }
+
+        return dp[x.length()][y.length()];
+    }
 
     /**
      * Exports the Task object to string to be saved in a text file

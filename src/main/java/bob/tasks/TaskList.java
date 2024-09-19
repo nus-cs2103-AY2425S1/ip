@@ -87,10 +87,10 @@ public class TaskList {
      * @return String format of all the match cases in the task list for printing
      */
     public String filter(String searchString) {
-        String taskString = " Here are the matching tasks in your list:";
+        String taskString = " Here are the matching/similar tasks in your list:";
         int counter = 1;
         for (int i = 1; i < this.taskList.size() + 1; i++) {
-            if (this.taskList.get(i - 1).contains(searchString)) {
+            if (this.taskList.get(i - 1).fuzzyContains(searchString)) {
                 taskString = taskString + "\n " + counter + ". " + this.taskList.get(i - 1);
                 counter++;
             }
