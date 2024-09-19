@@ -10,27 +10,24 @@ public class MarkCommand extends Command {
      * Constructs a MarkCommand by parsing the user input to determine the index of the task to be marked.
      *
      * @param input The user input string containing the command to mark a task.
-     * @throws TaskException if the input format is invalid.
      */
-    public MarkCommand(String input) throws TaskException {
-        // Precondition: Ensure the input is not null
-        assert input != null : "Input should not be null";
+    public MarkCommand(String input) {
         String[] parts = input.trim().split(" ");
 
+        // Default to an invalid index
+        this.index = -1;
+
         if (parts.length != 2) {
-            throw new TaskException("Invalid format for 'mark' command.\n"
-                    + "Correct format: mark <task number>\nExample: mark 1");
+            // Error will be handled in the execute method
+            return;
         }
 
         try {
-            this.index = Integer.parseInt(parts[1]) - 1;
+            this.index = Integer.parseInt(parts[1]) - 1; // Adjust to zero-based index
         } catch (NumberFormatException e) {
-            throw new TaskException("Task number must be a valid integer.\n"
-                    + "Correct format: mark <task number>\nExample: mark 1");
+            // Invalid number will be handled in the execute method
+            this.index = -1; // Set to invalid index
         }
-
-        // Postcondition: Ensure that the index is valid
-        assert index >= 0 : "Task index should be non-negative";
     }
 
     /**
@@ -42,12 +39,20 @@ public class MarkCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
+        // Validate the index
+        if (index < 0 || index >= taskList.getTasks().size()) {
+            ui.showError("Invalid task index. Please enter a valid index.\n"
+                    + "Usage: mark <task index>\n"
+                    + "Example: mark 1\n");
+            return;
+        }
+
         try {
-            taskList.markTask(index); // Mark the task as done without affecting the priority
-            storage.saveTasks(taskList.getTasks());
-            ui.showTaskMarkedDone(taskList.getTasks().get(index));
+            taskList.markTask(index); // Mark the task as done
+            storage.saveTasks(taskList.getTasks()); // Save updated task list
+            ui.showTaskMarkedDone(taskList.getTasks().get(index)); // Display the marked task
         } catch (TaskException e) {
-            ui.showError(e.getMessage());
+            ui.showError(e.getMessage()); // Display error message if marking fails
         }
     }
 }

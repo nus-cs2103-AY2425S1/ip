@@ -1,4 +1,5 @@
 package Buu;
+
 /**
  * Represents a command to delete a task from the task list in the GPT application.
  * This command parses the user input to determine which task to delete by its index.
@@ -13,13 +14,24 @@ public class DeleteCommand extends Command {
      * @param input The user input string containing the command to delete a task.
      */
     public DeleteCommand(String input) {
-        // Preconditions: Ensure input is valid and index can be parsed
-        assert input != null : "Input cannot be null";
-        assert input.split(" ").length > 1 : "Input should contain a task index";
+        // Split the input for parsing
+        String[] parts = input.trim().split(" ");
 
-        this.index = Integer.parseInt(input.split(" ")[1]) - 1;
-        // Postcondition: Ensure index is not negative
-        assert this.index >= 0 : "Index should not be negative";
+        // Default to an invalid index
+        this.index = -1;
+
+        // Validate input format: Must have exactly 2 parts
+        if (parts.length != 2) {
+            this.index = -1; // Invalid index
+            return; // Invalid format; do not parse further
+        }
+
+        try {
+            // Parse the task index
+            this.index = Integer.parseInt(parts[1]) - 1; // Adjust to zero-based index
+        } catch (NumberFormatException e) {
+            this.index = -1; // Invalid index
+        }
     }
 
     /**
@@ -33,19 +45,21 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        // Preconditions: Ensure taskList, ui, and storage are not null
-        assert taskList != null : "TaskList should not be null";
-        assert ui != null : "UI should not be null";
-        assert storage != null : "Storage should not be null";
+        // Check if the index is valid
+        if (index < 0 || index >= taskList.getTasks().size()) {
+            ui.showError("Invalid task index. Please enter a valid index.\n"
+                    + "Usage: delete <task index>\n"
+                    + "Example: delete 2\n");
+            return;
+        }
 
         try {
-            assert index < taskList.getTasks().size() : "Index out of bounds";
             Task removedTask = taskList.getTasks().get(index);
             taskList.deleteTask(index);
             storage.saveTasks(taskList.getTasks());
             ui.showTaskRemoved(removedTask, taskList.getTasks().size());
-        } catch (TaskException Exception) {
-            ui.showError(Exception.getMessage());
+        } catch (TaskException e) {
+            ui.showError(e.getMessage());
         }
     }
 }

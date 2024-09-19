@@ -20,10 +20,17 @@ import javafx.scene.layout.HBox;
  */
 public class DialogBox extends HBox {
     @FXML
-    private Label dialog;
+    private Label dialog; // The label containing the dialog text
     @FXML
-    private ImageView displayPicture;
+    private ImageView displayPicture; // The image view displaying the speaker's picture
 
+    /**
+     * Constructs a DialogBox with the specified text and image.
+     *
+     * @param text the text to display in the dialog box
+     * @param img the image to display as the speaker's picture
+     * @param bgColor the background color of the dialog box in CSS format
+     */
     private DialogBox(String text, Image img, String bgColor) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -53,12 +60,26 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Creates a dialog box for the user with the specified text and image.
+     *
+     * @param text the text to display in the user dialog
+     * @param img the image to display as the user's picture
+     * @return a new DialogBox instance representing the user's dialog
+     */
     public static DialogBox getUserDialog(String text, Image img) {
-        var db = new DialogBox(text, img, "#f6e0b5"); // Light pastel orange for Goku
+        var db = new DialogBox(text, img, "#f6e0b5"); // Light pastel orange for user
         db.setAlignment(Pos.CENTER_RIGHT); // Align text to the right for user
         return db;
     }
 
+    /**
+     * Creates a dialog box for Buu with the specified text and image.
+     *
+     * @param text the text to display in Buu's dialog
+     * @param img the image to display as Buu's picture
+     * @return a new DialogBox instance representing Buu's dialog
+     */
     public static DialogBox getBuuDialog(String text, Image img) {
         var db = new DialogBox(text, img, "#eea990"); // Light lavender for Buu
         db.flip();

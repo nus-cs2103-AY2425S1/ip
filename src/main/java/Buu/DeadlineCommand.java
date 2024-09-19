@@ -18,14 +18,15 @@ public class DeadlineCommand extends Command {
      * the task description and due date.
      *
      * @param input The user input string containing the deadline command.
-     * @throws IllegalArgumentException If the input format is invalid.
      */
-    public DeadlineCommand(String input) throws IllegalArgumentException {
+    public DeadlineCommand(String input) {
         // Parse the input
         String[] parts = input.split(" /by ");
+
+        // Ensure the correct number of parts
         if (parts.length != 2) {
-            throw new IllegalArgumentException("Invalid deadline format\n."
-                    + "Use: deadline <description> /by <yyyy-MM-dd HH:mm>");
+            this.description = ""; // Set to empty to handle later
+            return; // No further processing if the format is invalid
         }
 
         // Extract the description and due date
@@ -35,7 +36,7 @@ public class DeadlineCommand extends Command {
             // Use the parseDateTime method from the Parser class
             this.by = Parser.parseDateTime(parts[1].trim());
         } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException("Invalid date format. Please use yyyy-MM-dd HH:mm.");
+            this.by = null; // Set to null to handle later
         }
     }
 
@@ -48,7 +49,22 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        Task task = new Deadline(description, by); // Create Deadline task with LocalDateTime
+        // Check for empty description
+        if (description.isEmpty()) {
+            ui.showError("The description of a deadline cannot be empty.\n"
+                    + "Usage: deadline DESCRIPTION /by <yyyy-MM-dd HH:mm>\n"
+                    + "Example: deadline Homework /by 2024-09-18 23:59\n");
+            return;
+        }
+
+        // Check for parsing errors
+        if (by == null) {
+            ui.showError("Invalid date format. Please use yyyy-MM-dd HH:mm.");
+            return;
+        }
+
+        // Create Deadline task with LocalDateTime
+        Task task = new Deadline(description, by);
         taskList.addTask(task);
         storage.saveTasks(taskList.getTasks());
         ui.showTaskAdded(task, taskList.getTasks().size());

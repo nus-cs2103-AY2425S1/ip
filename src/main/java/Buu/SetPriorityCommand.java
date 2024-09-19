@@ -13,37 +13,34 @@ public class SetPriorityCommand extends Command {
      * Constructs a SetPriorityCommand by parsing the user input to determine the task index and priority.
      *
      * @param input The user input string containing the command to set priority for a task.
-     * @throws IllegalArgumentException If the command format is
-     *     invalid or if the index or priority is not within the valid range
      */
     public SetPriorityCommand(String input) {
-        // Precondition: Ensure the input is not null
-        assert input != null : "Input should not be null";
+        // Split the input for parsing
         String[] parts = input.split(" ");
 
-        // Validate the input format and provide meaningful feedback to the user if it's incorrect
+        // Default to invalid values
+        this.index = -1;
+        this.priority = -1;
+
+        // Validate the input format
         if (parts.length != 3) {
-            throw new IllegalArgumentException("Invalid command format for setting priority.\n"
-                    + "Usage: priority <task number> <priority>\n"
-                    + "Example: priority 1 2 (for Medium Priority)");
+            // Error message will be handled in the execute method
+            return;
         }
 
         try {
-            // Parse the task index and priority, which must both be integers
-            this.index = Integer.parseInt(parts[1]) - 1;
+            // Parse the task index and priority
+            this.index = Integer.parseInt(parts[1]) - 1; // Adjust to zero-based index
             this.priority = Integer.parseInt(parts[2]);
         } catch (NumberFormatException e) {
-            // Handle invalid number inputs and provide usage feedback
-            throw new IllegalArgumentException("Invalid task number or priority. Both must be integers.\n"
-                    + "Usage: priority <task number> <priority>\n"
-                    + "Example: priority 1 2 (for Medium Priority)");
+            // Error message will be handled in the execute method
+            return;
         }
 
-        // Postcondition: Ensure that the index and priority are within valid ranges
+        // Ensure that the index and priority are within valid ranges
         if (index < 0 || priority < 1 || priority > 3) {
-            throw new IllegalArgumentException("Priority should be between 1 (Low) and 3 (High).\n"
-                    + "Usage: priority <task number> <priority>\n"
-                    + "Example: priority 1 2 (for Medium Priority)");
+            // Error message will be handled in the execute method
+            return;
         }
     }
 
@@ -58,9 +55,21 @@ public class SetPriorityCommand extends Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         // Ensure the task index is within bounds before proceeding
         if (index < 0 || index >= taskList.getTasks().size()) {
-            throw new IllegalArgumentException("Task index out of bounds. No task exists at the specified index.");
+            ui.showError("Task index out of bounds. No task exists at the specified index.\n"
+                    + "Usage: priority <task number> <priority>\n"
+                    + "Example: priority 1 2 (for Medium Priority)");
+            return;
         }
 
+        // Ensure that the priority is within valid ranges
+        if (priority < 1 || priority > 3) {
+            ui.showError("Priority should be between 1 (Low) and 3 (High).\n"
+                    + "Usage: priority <task number> <priority>\n"
+                    + "Example: priority 1 2 (for Medium Priority)");
+            return;
+        }
+
+        // Set the task priority
         try {
             taskList.setTaskPriority(index, priority);
             storage.saveTasks(taskList.getTasks());
@@ -69,5 +78,4 @@ public class SetPriorityCommand extends Command {
             ui.showError(e.getMessage());
         }
     }
-
 }

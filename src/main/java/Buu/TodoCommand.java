@@ -29,7 +29,7 @@ public class TodoCommand extends Command {
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         if (description.isEmpty()) {
             ui.showError("The description of a todo cannot be empty. "
-                    + "\nUsage: todo [task description]\nExample: todo read a book");
+                    + "\nUsage: todo DESCRIPTION\nExample: todo read a book");
             return;
         }
         Task newTask = new ToDo(description);

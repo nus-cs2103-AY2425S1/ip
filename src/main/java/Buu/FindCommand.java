@@ -47,7 +47,7 @@ public class FindCommand extends Command {
         if (keyword.isEmpty()) {
             ui.showError(
                     "Invalid command format for find.\nUsage: find [keyword]\n"
-                            + "Example: find project"
+                            + "Example: find project\n"
             );
             return;
         }

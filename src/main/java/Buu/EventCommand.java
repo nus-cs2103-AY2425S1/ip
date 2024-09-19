@@ -19,14 +19,15 @@ public class EventCommand extends Command {
      * the task description, start date, and end date.
      *
      * @param input The user input string containing the event command.
-     * @throws IllegalArgumentException If the input format is invalid.
      */
-    public EventCommand(String input) throws IllegalArgumentException {
+    public EventCommand(String input) {
         // Parse the input
         String[] parts = input.split(" /from | /to ");
+
+        // Ensure the correct number of parts
         if (parts.length != 3) {
-            throw new IllegalArgumentException("Invalid event format\n. "
-                    + "Use: event <description> /from <yyyy-MM-dd HH:mm> /to <yyyy-MM-dd HH:mm>");
+            this.description = ""; // Set to empty to handle later
+            return; // No further processing if the format is invalid
         }
 
         // Extract the description, start date, and end date
@@ -37,7 +38,8 @@ public class EventCommand extends Command {
             this.from = Parser.parseDateTime(parts[1].trim());
             this.to = Parser.parseDateTime(parts[2].trim());
         } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException("Invalid date format. Please use yyyy-MM-dd HH:mm.");
+            this.from = null; // Set to null to handle later
+            this.to = null;
         }
     }
 
@@ -50,7 +52,22 @@ public class EventCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        Task task = new Event(description, from, to); // Create Event task with LocalDateTime
+        // Check for empty description
+        if (description.isEmpty()) {
+            ui.showError("The description of an event cannot be empty.\n"
+                    + "Usage: event DESCRIPTION /from <yyyy-MM-dd HH:mm> /to <yyyy-MM-dd HH:mm>\n"
+                    + "Example: event Celebration /from 2024-09-20 20:00 /to 2024-09-20 23:00\n");
+            return;
+        }
+
+        // Check for parsing errors
+        if (from == null || to == null) {
+            ui.showError("Invalid date format. Please use yyyy-MM-dd HH:mm.");
+            return;
+        }
+
+        // Create Event task with LocalDateTime
+        Task task = new Event(description, from, to);
         taskList.addTask(task);
         storage.saveTasks(taskList.getTasks());
         ui.showTaskAdded(task, taskList.getTasks().size());
