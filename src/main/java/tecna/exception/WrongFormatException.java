@@ -21,7 +21,7 @@ public class WrongFormatException extends Exception {
     public String getMessage() {
         Optional.ofNullable(message)
                 .ifPresentOrElse(x -> {},
-                        () -> setMessage((new StringBuilder(super.getMessage())).append(task).append(". ").append(solution).toString()));
+                        () -> setMessage((new StringBuilder(super.getMessage())).append(task).append(". \n").append(solution).toString()));
         return message;
     }
 }

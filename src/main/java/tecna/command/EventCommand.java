@@ -44,6 +44,13 @@ public class EventCommand extends Command {
 
         assert message.contains("event");
 
+        int fromIndex = message.indexOf("/from");
+        int toIndex = message.indexOf("/to");
+
+        if (fromIndex == -1 || toIndex == -1 || fromIndex > toIndex) {
+            throw new WrongFormatException("event", "Event task should in the format of \"event [task name] /from [" + DATE_TIME_PATTERN + "] /to [" + DATE_TIME_PATTERN + "]\"");
+        }
+
         String[] description = message.split("event | /from | /to ");
 
         for (String s : description) {
@@ -51,7 +58,7 @@ public class EventCommand extends Command {
         }
 
         if (description.length < 2) {
-            throw new WrongFormatException("event", "Event task should in the format of \"event [task name] /from [" + DATE_TIME_PATTERN + "] /to [" + DATE_TIME_PATTERN + "]");
+            throw new WrongFormatException("event", "Event task should in the format of \"event [task name] /from [" + DATE_TIME_PATTERN + "] /to [" + DATE_TIME_PATTERN + "]\"");
         }
 
 
@@ -61,7 +68,7 @@ public class EventCommand extends Command {
                 throw new WrongFormatException("event", "Event task's [task name] must not be empty");
             }
         } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
-            throw new WrongFormatException("event", "Event task should in the format of \"event [task name] /from [" + DATE_TIME_PATTERN + "] /to [" + DATE_TIME_PATTERN + "]");
+            throw new WrongFormatException("event", "Event task should in the format of \"event [task name] /from [" + DATE_TIME_PATTERN + "] /to [" + DATE_TIME_PATTERN + "]\"");
         }
 
         return event;
