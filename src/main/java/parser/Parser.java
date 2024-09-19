@@ -43,9 +43,9 @@ public class Parser {
         /*if(command.equals("bye")) { //string cannot do ==
             return "Bye! Hope to see you again soon!";*/
 
-        assert command != null : "Command should not be null";
-
-        if (command.equals("list")) {
+        if (command == null || command.trim().isEmpty()) {
+            throw new IncompleteDescException("Task description cannot be empty. Please provide a valid description.");
+        } else if (command.equals("list")) {
 
             ListCommand c = new ListCommand(command);
             return c.commandAction();
