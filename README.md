@@ -16,9 +16,11 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
 3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
    ```
    Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+        ________    __    ________  ______
+       / ____/ /   / /   /  _/ __ \/_  __/
+      / __/ / /   / /    / // / / / / /
+     / /___/ /___/ /____/ // /_/ / / /
+    /_____/_____/_____/___/\____/ /_/
+
+## Acknowledgements
+use of _ImList_ from [CS2030](https://github.com/nus-cs2030/)
