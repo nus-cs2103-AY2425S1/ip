@@ -1,13 +1,10 @@
 package carly.ui;
 
-/**
- * Deals with interactions with the user.
- */
+/** Deals with interactions with the user.*/
 public class Ui {
     public static final String INDENTATION = "    ";
-    public Ui() {
 
-    }
+    public Ui() {}
 
     /** Displays a welcome message to the user with the current username. */
     public String welcomeMsg() {

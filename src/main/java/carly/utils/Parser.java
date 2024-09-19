@@ -45,7 +45,7 @@ public class Parser {
             // Try to find the closest match
             Command bestMatch = FuzzyMatch.getBestMatch(this.action);
 
-            throw new CarlyUnknownInputException(
+            throw new CarlyUnknownInputException(this.action,
                     String.format("Did you mean '%s'?", bestMatch));
         }
     }

@@ -18,97 +18,101 @@ public class Carly {
 
     /** Manages the list of tasks for the chatbot. */
     private final TaskList taskList;
+    private final Ui ui;
+    private final TaskPrinter taskPrinter;
+    private final Storage listStorage;
 
     public Carly() {
         this.taskList = new TaskList();
+        this.ui = new Ui();
+        this.taskPrinter = new TaskPrinter(this.taskList);
+        this.listStorage = new Storage("./data/CarlyList.txt");
+
+        ui.welcomeMsg();
     }
 
+    /**
+     * Handles the user input and returns the response from the chatbot.
+     *
+     * @param input the user input.
+     * @return the chatbot's response.
+     */
     public String getResponse(String input) {
         String response;
         try {
-            Ui ui = new Ui();
-            ui.welcomeMsg();
-            String taskDescription;
-            Command command;
-            TaskPrinter taskPrinter = new TaskPrinter(this.taskList);
-            Storage listStorage = new Storage("./data/CarlyList.txt");
-
             Parser parser = new Parser(input);
-            command = parser.getCommand();
-            taskDescription = parser.getDetailsAfterCommand(command);
+            Command command = parser.getCommand();
+            String taskDescription = parser.getDetailsAfterCommand(command);
 
-            switch (command) {
-            case BYE:
-                response = ui.byeMsg();
-                break;
-            case LIST:
-                response = taskPrinter.printAllTasks();
-                break;
-            case MARK:
-                try {
-                    response = this.taskList.mark(taskDescription);
-                } catch (CarlyException e) {
-                    response = e.getMessage();
-                }
-                break;
-            case UNMARK:
-                try {
-                    response = this.taskList.unmark(taskDescription);
-                } catch (CarlyException e) {
-                    response = e.getMessage();
-                }
-                break;
-            case DELETE:
-                try {
-                    response = this.taskList.delete(taskDescription);
-                    break;
-                } catch (CarlyException e) {
-                    response = e.getMessage();
-                }
-                break;
-            case FIND:
-                try {
-                    response = this.taskList.find(taskDescription);
-                    break;
-                } catch (CarlyException e) {
-                    response = e.getMessage();
-                }
-                break;
-            case TODO:
-                try {
-                    response = this.taskList.addToDo(taskDescription);
-                } catch (CarlyException e) {
-                    response = e.getMessage();
-                }
-                break;
-            case DEADLINE:
-                try {
-                    response = this.taskList.addDeadLine(taskDescription);
-                } catch (CarlyException e) {
-                    response = e.getMessage();
-                }
-                break;
-            case EVENT:
-                try {
-                    response = this.taskList.addEvent(taskDescription);
-                } catch (CarlyException e) {
-                    response = e.getMessage();
-                }
-                break;
-            case SORT:
-                response = this.taskList.sort();
-                break;
-            default:
-                response = "Oops, what are you trying to say again?";
-            }
-
-            listStorage.savesFile(this.taskList);
-
+            response = executeCommand(command, taskDescription);
+            saveTasks();
         } catch (IOException | CarlyException e) {
             response = e.getMessage();
         }
         assert !response.isEmpty(): "Response should not be empty.";
         return response;
+    }
+
+    private String executeCommand(Command command, String taskDescription) throws CarlyException {
+            switch (command) {
+            case BYE:
+                return ui.byeMsg();
+            case LIST:
+                return taskPrinter.printAllTasks();
+            case MARK:
+                return markTask(taskDescription);
+            case UNMARK:
+                return unmarkTask(taskDescription);
+            case DELETE:
+                return deleteTask(taskDescription);
+            case FIND:
+                return findTask(taskDescription);
+            case TODO:
+                return addToDoTask(taskDescription);
+            case DEADLINE:
+                return addDeadlineTask(taskDescription);
+            case EVENT:
+                return addEventTask(taskDescription);
+            case SORT:
+                return this.taskList.sort();
+            default:
+                return "Oops, what are you trying to say again?";
+            }
+    }
+
+    /** Saves the current task list to a file. */
+    private void saveTasks() throws IOException, CarlyException {
+        listStorage.savesFile(this.taskList);
+    }
+
+    /** Task-related helper methods **/
+
+    private String markTask(String taskDescription) throws CarlyException {
+        return this.taskList.mark(taskDescription);
+    }
+
+    private String unmarkTask(String taskDescription) throws CarlyException {
+        return this.taskList.unmark(taskDescription);
+    }
+
+    private String deleteTask(String taskDescription) throws CarlyException {
+        return this.taskList.delete(taskDescription);
+    }
+
+    private String findTask(String taskDescription) throws CarlyException {
+        return this.taskList.find(taskDescription);
+    }
+
+    private String addToDoTask(String taskDescription) throws CarlyException {
+        return this.taskList.addToDo(taskDescription);
+    }
+
+    private String addDeadlineTask(String taskDescription) throws CarlyException {
+        return this.taskList.addDeadLine(taskDescription);
+    }
+
+    private String addEventTask(String taskDescription) throws CarlyException {
+        return this.taskList.addEvent(taskDescription);
     }
 
     public static void main(String[] args) {
