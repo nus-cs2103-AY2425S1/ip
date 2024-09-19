@@ -8,7 +8,12 @@ public class Event extends Task {
     private String to;
 
     /**
-     * Constructor for accepting boolean isDone value.
+     * Constructor for accepting isDone of type boolean.
+     *
+     * @param isDone Boolean to store if a task is done.
+     * @param task Name of the task.
+     * @param from The start time of the task.
+     * @param to The end time of the task.
      */
     public Event(boolean isDone, String task, String from, String to) {
         super(isDone, task);
@@ -17,7 +22,12 @@ public class Event extends Task {
     }
 
     /**
-     * Constructor for accepting int isDone value.
+     * Constructor for accepting isDone of type int.
+     *
+     * @param isDone Int to store if a task is done.
+     * @param task Name of the task.
+     * @param from The start time of the task.
+     * @param to The end time of the task.
      */
     public Event(int isDone, String task, String from, String to) {
         super(isDone == 1, task);

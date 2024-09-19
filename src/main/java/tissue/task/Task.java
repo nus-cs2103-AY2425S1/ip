@@ -8,7 +8,10 @@ public class Task {
     private boolean isDone;
 
     /**
-     * Necessary variables for a task variable.
+     * Constructor for task object.
+     *
+     * @param isDone boolean condition to see if task isDone.
+     * @param task The name of the task to be stored.
      */
     public Task(boolean isDone, String task) {
         this.isDone = isDone;

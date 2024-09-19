@@ -12,7 +12,12 @@ public class Deadline extends Task {
     private LocalDate by;
 
     /**
-     * Constructor for accepting boolean isDone value.
+     * Constructor for creating deadline with boolean value
+     *
+     * @param isDone  True if task is done. False otherwise.
+     * @param task The task to be stored.
+     * @param by The deadline of the task.
+     * @throws DateTimeParseException If format of date is wrong.
      */
     public Deadline(boolean isDone, String task, String by) throws DateTimeParseException {
         super(isDone, task);
@@ -20,7 +25,12 @@ public class Deadline extends Task {
     }
 
     /**
-     * Constructor for accepting int isDone value.
+     * Constructor for creating deadline with int value
+     *
+     * @param isDone  isDone = 1 if a task is done. 0 otherwise.
+     * @param task The task to be stored.
+     * @param by The deadline of the task.
+     * @throws DateTimeParseException If format of date is wrong.
      */
     public Deadline(int isDone, String task, String by) throws DateTimeParseException {
         super(isDone == 1, task);
