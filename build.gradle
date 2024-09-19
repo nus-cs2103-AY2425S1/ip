@@ -48,7 +48,7 @@ checkstyle {
 }
 
 application {
-    mainClass.set("donna.Main")
+    mainClass.set("donna.Launcher")
 }
 
 shadowJar {
