@@ -38,7 +38,6 @@ public class Parser {
      * @throws EchoException If the input string does not contain valid start and end times.
      */
     public static String[] parseEventTime(String part) throws EchoException {
-        //return part.split(" /from ")[1].split(" /to ");
         String[] details = part.split(" /from ", 2);
         if (details.length == 2) {
             String[] times = details[1].split(" /to ", 2);

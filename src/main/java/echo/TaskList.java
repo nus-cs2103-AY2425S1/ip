@@ -37,7 +37,7 @@ public class TaskList {
      */
     public static String listToString(List<Task> tasks) {
         StringBuilder listString = new StringBuilder();
-        int count = 1;
+
         for (Task task : tasks) {
             listString.append(task.getTypeLetter()).append("|").append(task.getIsDone()).append("|").append(task.getTaskDes()).append("|").append(task.getAdd()).append("\n");
 
@@ -68,7 +68,6 @@ public class TaskList {
 
     public  String listToString() {
         StringBuilder listString = new StringBuilder();
-        int count = 1;
         for (Task task : tasks) {
             listString.append(task.getTypeLetter()).append("|").append(task.getIsDone()).append("|").append(task.getTaskDes()).append("|").append(task.getAdd()).append("\n");
 
@@ -88,9 +87,7 @@ public class TaskList {
         try {
 
             if (num > 0 && num <= this.tasks.size()) {
-                Task removedTask = this.tasks.remove(num - 1);
-
-                return removedTask;
+                return this.tasks.remove(num - 1);
             } else {
                 throw new EchoException("Invalid task number.");
             }
