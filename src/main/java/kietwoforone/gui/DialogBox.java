@@ -50,12 +50,26 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Returns a DialogBox instance when for the user's inputs.
+     *
+     * @param text
+     * @param img
+     * @return
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         assert text != null: "Text cannot be null.";
         assert img != null: "Image cannot be null.";
         return new DialogBox(text, img);
     }
 
+    /**
+     * Returns a DialogBox instance when the chatbot responds to the user's input.
+     *
+     * @param text
+     * @param img
+     * @return
+     */
     public static DialogBox getKieDialog(String text, Image img) {
         assert text != null: "Text cannot be null.";
         assert img != null: "Image cannot be null.";

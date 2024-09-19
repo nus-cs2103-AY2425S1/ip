@@ -16,6 +16,14 @@ public class Main extends Application {
 
     private KieTwoForOne kie = new KieTwoForOne();
 
+    /**
+     * Sets up the primary stage and initializes the user interface when the application is launched.
+     *
+     * @param stage the primary stage for this application, onto which
+     * the application scene can be set.
+     * Applications may create other stages, if needed, but they will not be
+     * primary stages.
+     */
     @Override
     public void start(Stage stage) {
         assert stage != null: "Stage cannot be null";
