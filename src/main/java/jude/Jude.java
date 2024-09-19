@@ -54,14 +54,22 @@ public class Jude {
      */
     public String getResponse(String input) {
         try {
-            Command command = Parser.parse(input);
-            command.execute(tasks, storage);
-            this.isExit = command.isExit();
-            commandType = command.getClass().getSimpleName();
-            return command.getMessage();
+            return handleCommand(input);
         } catch (JudeException e) {
-            return "Error: " + e.getMessage();
+            return formatErrorMessage(e);
         }
+    }
+
+    private String handleCommand(String input) throws JudeException {
+        Command command = Parser.parse(input);
+        command.execute(tasks, storage);
+        this.isExit = command.isExit();
+        commandType = command.getType();
+        return command.getMessage();
+    }
+
+    private String formatErrorMessage(JudeException e) {
+        return "Error: " + e.getMessage();
     }
 
     public String getCommandType() {

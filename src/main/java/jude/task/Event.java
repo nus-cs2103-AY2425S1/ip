@@ -24,7 +24,8 @@ public class Event extends Task {
      */
     public Event(String description, String from, String to) throws JudeException {
         super(description);
-        setDatesAndTimes(from, to);
+        this.fromDateTime = parseDateTime(from);
+        this.toDateTime = parseDateTime(to);
     }
 
     /**
@@ -41,18 +42,15 @@ public class Event extends Task {
         this.toDateTime = LocalDateTime.parse(toDateTime);
     }
 
-    public void setDatesAndTimes(String from, String to) throws JudeException {
+    private LocalDateTime parseDateTime(String dateTimeStr) throws JudeException {
         try {
             DateTimeFormatter format = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-            this.fromDateTime = LocalDateTime.parse(from, format);
-            DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-            this.toDateTime = LocalDateTime.parse(to, dateFormat);
+            return LocalDateTime.parse(dateTimeStr, format);
         } catch (DateTimeParseException de) {
-            throw new JudeException("wrong date or time format was provided."
-                    + " Provide: day/month/year time (e.g. 1/1/2000 1800).");
+            throw new JudeException("Wrong date or time format provided. "
+                    + "Provide: day/month/year time (e.g. 1/1/2000 1800).");
         }
     }
-
     @Override
     public String toStringDetails() {
         return String.format("[E]%s (from: %s to: %s)",

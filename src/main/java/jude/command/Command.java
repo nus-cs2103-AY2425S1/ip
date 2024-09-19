@@ -36,4 +36,6 @@ public abstract class Command {
     public String getMessage() {
         return this.message;
     }
+
+    public abstract String getType();
 }
