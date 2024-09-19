@@ -1,4 +1,4 @@
-package sora.GUI;
+package sora.gui;
 
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;

@@ -1,4 +1,4 @@
-package sora.GUI;
+package sora.gui;
 
 import javafx.application.Application;
 
