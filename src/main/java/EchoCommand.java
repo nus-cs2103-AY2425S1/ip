@@ -1,6 +1,6 @@
 public class EchoCommand extends Command{
 
-    private String echoString = "";
+    private final String echoString;
 
     public EchoCommand(String input) throws LewisException {
         String[] tokens = input.split("echo", 2);
