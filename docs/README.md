@@ -6,7 +6,7 @@ Him is a helpful chatbot that aims to help organise your day by keeping track of
 
 # Feature List
 
-> [!NOTE]
+> ### Note
 >- Words in `UPPER_CASE` are parameters supplied by the user.(e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a
    parameter
    which can be used as `todo Read Book`)
