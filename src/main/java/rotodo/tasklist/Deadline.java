@@ -15,7 +15,7 @@ public class Deadline extends Task {
     private LocalDateTime by;
 
     /**
-     * Initialise the Deadline task.
+     * Initialises the Deadline task.
      *
      * @param description of task
      * @param by datetime

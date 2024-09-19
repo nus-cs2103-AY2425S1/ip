@@ -20,7 +20,7 @@ public class InvalidInputException extends Exception {
                 + "00100110111101110010"};
 
     /**
-     * Initialise the InvalidInputException.
+     * Initialises the InvalidInputException.
      *
      * @param message the detail message.
      */

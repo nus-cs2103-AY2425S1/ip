@@ -28,7 +28,7 @@ public class RoTodo {
     private boolean hasExited = false;
 
     /**
-     * Initialise Storage, TaskList and Ui. Saved data
+     * Initialises Storage, TaskList and Ui. Saved data
      * is loaded through Storage.
      */
     public RoTodo() {
@@ -63,7 +63,7 @@ public class RoTodo {
     }
 
     /**
-     * Retrieve output text for GUI based on input.
+     * Retrieves output text for GUI based on input.
      *
      * @param input to parse and execute
      * @return output text to be displayed

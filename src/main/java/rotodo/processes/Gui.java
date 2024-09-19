@@ -13,7 +13,7 @@ public class Gui {
     private Scanner sc;
 
     /**
-     * Initialise Ui object
+     * Initialises the Ui object
      */
     public Gui() {
         text = "";
@@ -89,7 +89,7 @@ public class Gui {
     }
 
     /**
-     * Prepare goodbye text for printing.
+     * Prepares goodbye text for printing.
      */
     public void exit() {
         sc.close();

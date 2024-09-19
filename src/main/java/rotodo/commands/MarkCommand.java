@@ -19,7 +19,7 @@ public class MarkCommand extends Command {
     private boolean asDone;
 
     /**
-     * Initialise MarkCommand to be executed. Accepts
+     * Initialises MarkCommand to be executed. Accepts
      * a task index and a status to mark as.
      *
      * @param index of task to mark

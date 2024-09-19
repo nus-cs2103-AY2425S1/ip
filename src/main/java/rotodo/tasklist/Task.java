@@ -12,7 +12,7 @@ public abstract class Task {
     private boolean isDone = false;
 
     /**
-     * Initialse Task description and status.
+     * Initialses Task description and status.
      *
      * @param description of task
      * @param isDone status (for loading data only)

@@ -17,7 +17,7 @@ public class Event extends Task {
     private LocalDateTime to;
 
     /**
-     * Initialise the Event task.
+     * Initialises the Event task.
      *
      * @param description of task
      * @param from datetime

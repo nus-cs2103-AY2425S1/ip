@@ -16,7 +16,7 @@ import rotodo.exception.InvalidInputException;
  * @version CS2103T AY24/25 Semester 1
  */
 public class TaskList {
-    private boolean nextIsDoneStatus;
+    private boolean isNextDone;
 
     /**
      * List of tasks.
@@ -24,11 +24,11 @@ public class TaskList {
     private List<Task> tasks;
 
     /**
-     * Initialise tasklist
+     * Initialises the tasklist
      */
     public TaskList() {
         tasks = new ArrayList<>();
-        nextIsDoneStatus = false;
+        isNextDone = false;
     }
 
     /**
@@ -64,7 +64,7 @@ public class TaskList {
     }
 
     public void setNextStatus(boolean status) {
-        nextIsDoneStatus = status;
+        isNextDone = status;
     }
 
     /**
@@ -74,8 +74,8 @@ public class TaskList {
      * @return status to be printed by Ui
      */
     public String addTask(String description) {
-        Task toAdd = new Todo(description, nextIsDoneStatus);
-        nextIsDoneStatus = false;
+        Task toAdd = new Todo(description, isNextDone);
+        isNextDone = false;
         tasks.add(toAdd);
         return "Good good! RoTodo is happy to add:\n  " + toAdd
                 + "\nNow you have " + tasks.size() + " tasks in the list.";
@@ -89,8 +89,8 @@ public class TaskList {
      * @return status to be printed by Ui
      */
     public String addTask(String description, LocalDateTime by) {
-        Task toAdd = new Deadline(description, by, nextIsDoneStatus);
-        nextIsDoneStatus = false;
+        Task toAdd = new Deadline(description, by, isNextDone);
+        isNextDone = false;
         tasks.add(toAdd);
         return "Good good! RoTodo is happy to add:\n  " + toAdd
                 + "\nNow you have " + tasks.size() + " tasks in the list.";
@@ -105,8 +105,8 @@ public class TaskList {
      * @return status to be printed by Ui
      */
     public String addTask(String description, LocalDateTime from, LocalDateTime to) {
-        Task toAdd = new Event(description, from, to, nextIsDoneStatus);
-        nextIsDoneStatus = false;
+        Task toAdd = new Event(description, from, to, isNextDone);
+        isNextDone = false;
         tasks.add(toAdd);
         return " Good good! RoTodo is happy to add:\n  " + toAdd
                 + "\n Now you have " + tasks.size() + " tasks in the list.";
@@ -172,7 +172,7 @@ public class TaskList {
     }
 
     /**
-     * String representation of TaskList.
+     * Returns a string representation of TaskList.
      *
      * @return The list of tasks
      */

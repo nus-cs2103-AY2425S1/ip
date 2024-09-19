@@ -33,7 +33,7 @@ public class AddCommand extends Command {
     private boolean isDone;
 
     /**
-     * Initialise AddCommand to be executed. Accepts
+     * Initialises AddCommand to be executed. Accepts
      * a TaskType and performs rudimentary checks on
      * validity of values provided.
      *
@@ -69,15 +69,8 @@ public class AddCommand extends Command {
                             + "  RoTodo needs a task description, from and to date/time");
                 }
                 this.value = values[0];
-                LocalDateTime t1 = LocalDateTime.parse(values[1], formatter);
-                LocalDateTime t2 = LocalDateTime.parse(values[2], formatter);
-                if (t1.isBefore(t2)) {
-                    this.from = t1;
-                    this.byOrTo = t2;
-                } else {
-                    this.from = t2;
-                    this.byOrTo = t1;
-                }
+                from = LocalDateTime.parse(values[1], formatter);
+                byOrTo = LocalDateTime.parse(values[2], formatter);
                 break;
 
             default:
@@ -91,7 +84,7 @@ public class AddCommand extends Command {
         }
     }
 
-    /** Set Status of Task to be added */
+    /** Sets Status of Task to be added */
     public void setStatus(boolean status) {
         this.isDone = status;
     }

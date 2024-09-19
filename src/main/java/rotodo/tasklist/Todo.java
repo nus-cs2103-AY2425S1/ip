@@ -10,7 +10,7 @@ package rotodo.tasklist;
  */
 public class Todo extends Task {
     /**
-     * Initialise the Todo task.
+     * Initialises the Todo task.
      *
      * @param description of task
      * @param isDone status (can be true for loading data only)
