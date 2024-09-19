@@ -4,6 +4,9 @@ import darkpool.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * ToFileString class is used to convert the task list to a string that can be written to a file.
+ */
 class ToFileString {
     static String toFileString(ArrayList<Task> taskList) {
         StringBuilder fileString = new StringBuilder();

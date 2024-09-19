@@ -4,6 +4,10 @@ import darkpool.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * This class is used to convert the task list into a string format.
+ * It is used to display the task list in a readable format.
+ */
 class ToString {
     static String toString(ArrayList<Task> taskList) {
         if (taskList.isEmpty()) {

@@ -5,6 +5,9 @@ import java.time.format.DateTimeParseException;
 
 import darkpool.DarkpoolException;
 
+/**
+ * Represents a deadline task.
+ */
 public class Deadline extends Task {
 
     protected LocalDateTime byTime;

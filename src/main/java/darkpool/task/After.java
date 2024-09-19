@@ -5,6 +5,9 @@ import java.time.format.DateTimeParseException;
 
 import darkpool.DarkpoolException;
 
+/**
+ * Represents a task that starts after a certain time.
+ */
 public class After extends Task {
 
     protected LocalDateTime fromTime;

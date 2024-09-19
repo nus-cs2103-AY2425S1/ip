@@ -10,6 +10,9 @@ import java.util.Scanner;
 
 import static darkpool.storage.ValidateData.validateData;
 
+/**
+ * LoadData class is responsible for loading data from the file.
+ */
 public class LoadData {
     public static ArrayList<Task> load(String filePath) throws DarkpoolException {
         ArrayList<Task> taskList = new ArrayList<>();
