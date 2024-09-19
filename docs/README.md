@@ -4,16 +4,16 @@ Bobby the chatbot is a **task management application where user can use it to ke
 
 - [Quick Start](#quick-start)
 - [Features](#features)
-  - [Adding To Do Tasks: `todo`](#adding-to-do-tasks-todo)
-  - [Adding Deadline Tasks: `deadline`](#adding-deadline-tasks-deadline)
-  - [Adding Event Tasks: `event`](#adding-event-tasks-event)
-  - [Finding the list of Tasks: `list`](#finding-the-list-of-tasks-list)
-  - [Mark task in list as done: `mark`](#mark-task-in-list-as-done-mark)
-  - [Unmark task in list as not done: `unmark`](#unmark-task-in-list-as-not-done-unmark)
-  - [Locating a task by its description: `find`](#locating-a-task-by-its-description-find)
-  - [Delete a task from the list: `delete`](#delete-a-task-from-the-list-delete)
-  - [Exiting the program: `bye`](#exiting-the-program-bye)
-  - [Saving the data](#saving-the-data)
+  - [Adding To Do Tasks: `todo`]
+  - [Adding Deadline Tasks: `deadline`]
+  - [Adding Event Tasks: `event`]
+  - [Finding the list of Tasks: `list`]
+  - [Mark task in list as done: `mark`]
+  - [Unmark task in list as not done: `unmark`]
+  - [Locating a task by its description: `find`]
+  - [Delete a task from the list: `delete`]
+  - [Exiting the program: `bye`]
+  - [Saving the data]
 - [Known Issue](#known-issue)
 
 
