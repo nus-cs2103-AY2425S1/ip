@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for FRIDAY using FXML.
  */
 public class Main extends Application {
 
@@ -27,7 +27,7 @@ public class Main extends Application {
             fxmlLoader.<MainWindow>getController().setFRIDAY(FRIDAY);
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Input error");
         }
     }
 }

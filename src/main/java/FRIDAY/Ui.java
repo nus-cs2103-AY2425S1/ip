@@ -1,7 +1,6 @@
 package FRIDAY;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * User interface of the app
@@ -45,6 +44,9 @@ public class Ui {
     }
     public String emptyInput() {
         return DIVIDER + "Please input a command\n" + DIVIDER;
+    }
+    public String printText(String input) {
+        return DIVIDER + input + "\n" + DIVIDER;
     }
     /**
      * method displays the list of tasks in a specific format

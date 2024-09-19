@@ -45,7 +45,7 @@ public class FRIDAY {
             response = this.performAction(keyword, taskDetails);
             assert !Objects.equals(response, "") : "Response is null";
         } catch (FRIDAYException e) {
-            System.out.println(e.getMessage());
+            return ui.printText(e.getMessage());
         }
         return response;
     }
