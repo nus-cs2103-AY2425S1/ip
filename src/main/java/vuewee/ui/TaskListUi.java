@@ -44,7 +44,7 @@ public abstract class TaskListUi {
     public abstract void close();
 
     /**
-     * Simple helper method to determine if the task count is 1 or more
+     * Simple helper method to determine if the task count is 1 or more.
      */
     protected String taskWord() {
         return this.taskList.size() == 1 ? "task" : "tasks";
@@ -78,7 +78,7 @@ public abstract class TaskListUi {
     }
 
     /**
-     * Display all tasks in the list
+     * Display all tasks in the list.
      *
      * @throws IllegalCommandException
      */
@@ -87,8 +87,7 @@ public abstract class TaskListUi {
     }
 
     /**
-     * Display all tasks in the list that match the keyword. Search is done by
-     * another method that returns a new TaskList with matching tasks.
+     * Display all tasks in the list that match the keyword.
      *
      * @param tasks TaskList to search for matching tasks
      * @throws IllegalCommandException
