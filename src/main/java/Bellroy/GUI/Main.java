@@ -23,6 +23,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Bellroy");
             fxmlLoader.<MainWindow>getController().setBellroy(bellroy);  // inject the Duke instance
             stage.show();
         } catch (IOException e) {
