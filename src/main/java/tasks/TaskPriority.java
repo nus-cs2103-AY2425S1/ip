@@ -1,11 +1,11 @@
 package tasks;
 
 /**
- * Signifies the different levels of priority for different Tasks
+ * TaskPriority represents the priority of a task
  */
 public enum TaskPriority {
-    LOW,
-    MEDIUM,
-    HIGH,
-    CRITICAL
+    LOW, // Represents the lowest priority level
+    MEDIUM, // Represents the medium priority level
+    HIGH, // Represents the high priority level
+    CRITICAL // Represents the highest priority level
 }

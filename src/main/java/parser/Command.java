@@ -1,7 +1,6 @@
 package parser;
 
 import java.util.List;
-import java.util.Scanner;
 
 import tasks.Task;
 
@@ -9,5 +8,11 @@ import tasks.Task;
  * Command interface where each command needs to have an execute method
  */
 public interface Command {
-    String execute(String input, List<Task> items, Scanner scanner);
+    /**
+     * Executes the command
+     * @param input the input string
+     * @param tasks the list of tasks
+     * @return the output string
+     */
+    String execute(String input, List<Task> tasks);
 }

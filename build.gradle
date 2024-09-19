@@ -7,8 +7,6 @@ plugins {
 
 checkstyle {
     toolVersion = '10.2'
-    //config = file('config/checkstyle/checkstyle.xml') // Path to checkstyle.xml
-    //configProperties.suppressionsLocation = file('config/checkstyle/suppressions.xml').absolutePath
 }
 
 repositories {
@@ -60,4 +58,5 @@ shadowJar {
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }

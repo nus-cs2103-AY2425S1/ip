@@ -1,5 +1,6 @@
-// Parser.java
+
 package parser;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.HashMap;
@@ -7,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import exceptions.ErrorMessages;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -14,10 +16,13 @@ import tasks.ToDo;
 import ui.Ui;
 
 /**
- * Parser class that encapsulates all the commands
+ * Parser class is a class that parses the input and executes the relevant command
  */
 public class Parser {
 
+    /**
+     * Map that stores all the commands
+     */
     public static final Map<String, Command> commands = new HashMap<>();
     static {
         commands.put("list", new ListCommand());
@@ -33,49 +38,48 @@ public class Parser {
     }
 
     /**
-     * Initialise all the commands inside the map
+     * Static method that initialises the map
      */
     public static void initialiseMap() {}
 
     /**
-     * Static method that tries to run the program overall
-     * @param items
+     * Main method that runs the program
+     * @param items the list of tasks
      */
     public static void ratchetCatBot(List<Task> items) {
         Ui.sayWelcome();
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine(); // Reads a line of text
-
         while (!input.equals("bye")) {
             String commandKey = input.split(" ")[0].trim(); // Get the command keyword
             Command command = commands.get(commandKey);
 
             try {
                 if (command != null) {
-                    input = command.execute(input, items, scanner);
+                    input = command.execute(input, items);
                 } else {
-                    System.out.print("Inappropriate Command. Try again with a valid command: ");
+                    System.out.print(ErrorMessages.INVALID_COMMAND);
                     input = scanner.nextLine();
                 }
             } catch (DateTimeParseException e) {
                 System.out.println(e.getMessage());
                 input = scanner.nextLine();
             } catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Correct input format for adding event: event <Task> /from <input> /to <input>");
+                System.out.println(ErrorMessages.ARRAY_OUT_OF_BOUNDS);
                 input = scanner.nextLine();
             } catch (NumberFormatException e) {
-                System.out.println("Please provide a valid number for the command.");
+                System.out.println(ErrorMessages.INCORRECT_ASCII_VALUE_INPUT);
                 input = scanner.nextLine();
             }
         }
-
         Ui.goodByeCat();
         scanner.close(); // Close the scanner to avoid resource leaks
     }
 
     /**
-     * Returns the string that consists of all task description and date information
-     * @param tasks
+     * Returns the string that shows all the tasks in the list
+     * @param tasks the list of tasks
+     * @return the string that shows all the tasks in the list
      */
     public static String printAllTasks(List<Task> tasks) {
         int index = 1;
@@ -89,9 +93,10 @@ public class Parser {
     }
 
     /**
-     * Returns the string that shows that the task has been marked done
-     * @param index
-     * @return
+     * Returns the string that shows that the task has been marked as done
+     * @param tasks the list of tasks
+     * @param index the index of the task to be marked as done
+     * @return the string that shows that the task has been marked as done
      */
     public static String markTaskAsDone(List<Task> tasks, int index) {
         Task markingTask = tasks.get(index);
@@ -103,9 +108,9 @@ public class Parser {
 
     /**
      * Returns the string that shows that the task has been marked not done
-     * @param tasks
-     * @param index
-     * @return
+     * @param tasks the list of tasks
+     * @param index the index of the task to be marked as not done
+     * @return the string that shows that the task has been marked as not done
      */
     public static String unmarkTaskAsDone(List<Task> tasks, int index) {
         Task markingTask = tasks.get(index);
@@ -117,9 +122,9 @@ public class Parser {
 
     /**
      * Returns the string that shows that the task at specific index has been deleted
-     * @param tasks
-     * @param index
-     * @return
+     * @param tasks the list of tasks
+     * @param index the index of the task to be deleted
+     * @return the string that shows that the task has been deleted
      */
     public static String deleteTasks(List<Task> tasks, int index) {
         Task taskToDelete = tasks.get(index - 1);
@@ -133,9 +138,9 @@ public class Parser {
 
     /**
      * Returns the string that shows that new ToDo has been added to list of tasks
-     * @param taskDescription
-     * @param tasks
-     * @return
+     * @param taskDescription the description of the task
+     * @param tasks the list of tasks
+     * @return the string that shows that new ToDo has been added to list of tasks
      */
     public static String addingToDoTaskToList(String taskDescription, List<Task> tasks) {
         Task nextTask = new ToDo(taskDescription, 1);
@@ -148,10 +153,10 @@ public class Parser {
 
     /**
      * Returns the string that shows that new Deadline has been added to list of tasks
-     * @param taskDescription
-     * @param byDate
-     * @param tasks
-     * @return
+     * @param taskDescription the description of the task
+     * @param byDate the deadline of the task
+     * @param tasks the list of tasks
+     * @return the string that shows that new Deadline has been added to list of tasks
      */
     public static String addingDeadlineTaskToList(String taskDescription, LocalDate byDate, List<Task> tasks) {
         Task nextTask = new Deadline(taskDescription, byDate, 1);
@@ -164,11 +169,11 @@ public class Parser {
 
     /**
      * Returns the string that shows that new Event has been added to list of tasks
-     * @param taskDescription
-     * @param fromDate
-     * @param toDate
-     * @param tasks
-     * @return
+     * @param taskDescription the description of the task
+     * @param fromDate the starting date of the event
+     * @param toDate the ending date of the event
+     * @param tasks the list of tasks
+     * @return the string that shows that new Event has been added to list of tasks
      */
     public static String addingEventToTaskList(String taskDescription, LocalDate fromDate, LocalDate toDate,
                                                List<Task> tasks) {
@@ -182,10 +187,10 @@ public class Parser {
 
     /**
      * Prints Deadline tasks if the task coincides with the relevant dates
-     * @param task
-     * @param date
-     * @param sbr
-     * @param index
+     * @param task the task to be printed
+     * @param date the date to be compared with
+     * @param sbr the string builder to append the string
+     * @param index the index of the task
      */
     public static void printDeadlineIfDateCorresponds(Task task, LocalDate date, StringBuilder sbr, int index) {
         LocalDate byDate = ((Deadline) task).getDeadlineDate();
@@ -197,10 +202,10 @@ public class Parser {
 
     /**
      * Prints task if task coincides with the relevant dates
-     * @param tasks
-     * @param date
-     * @param sbr
-     * @param index
+     * @param tasks the list of tasks
+     * @param date the date to be compared with
+     * @param sbr the string builder to append the string
+     * @param index the index of the task
      */
     public static void printTasksIfDateCorresponds(List<Task> tasks, LocalDate date, StringBuilder sbr, int index) {
         for (Task task : tasks) {

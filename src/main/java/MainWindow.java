@@ -30,7 +30,10 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
+    /**
+     * Sets the Duke object for the GUI.
+     * @param cat the Duke object to be set
+     */
     public void setDuke(TheOrangeRatchetCat cat) {
         theCat = cat;
     }

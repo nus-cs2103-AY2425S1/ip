@@ -1,7 +1,7 @@
 package exceptions;
 
 /**
- * The ErrorMessage encapsulates all the error messages throughout the whole program
+ * ErrorMessages class contains all the error messages that are displayed to the user when an error occurs.
  */
 public class ErrorMessages {
     public static final String ARRAY_OUT_OF_BOUNDS = "The number selected is out of range given the number of tasks!"
@@ -13,9 +13,9 @@ public class ErrorMessages {
     public static final String INCORRECT_FORMAT_FOR_ADDING_EVENT_COMMAND = "The correct format for adding a new Event"
             + " Task is: event <TaskDescription> /from <YYYY-MM-DD> /to <YYYY-MM-DD>";
     public static final String INCORRECT_FORMAT_FOR_FIND_COMMAND = "The correct format for finding tasks with"
-            + " associated characters is: find <keyword>. Note that it is case-sensitive!";
+            + " associated characters is: printTasksContainingKeyword <keyword>. Note that it is case-sensitive!";
     public static final String INCORRECT_FORMAT_FOR_ON_COMMAND = "The correct format for finding tasks relevant to "
-            + "a specific date is: find <date>";
+            + "a specific date is: printTasksContainingKeyword <date>";
     public static final String INCORRECT_FORMAT_FOR_CHANGEPRIORITY_COMMAND = "The correct format for changing task"
             + " priority is: cp <Task index> <Task priority level>";
     public static final String INCORRECT_FORMAT_FOR_DELETE_COMMAND = "The correct format for deleting task is: "

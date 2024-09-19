@@ -47,10 +47,22 @@ public class DialogBox extends HBox {
         dialog.getStyleClass().add("reply-label");
     }
 
+    /**
+     * Returns a dialog box with the text and image of the user
+     * @param text the text to be displayed
+     * @param img the image to be displayed
+     * @return the dialog box with the text and image of the user
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Returns a dialog box with the text and image of Duke
+     * @param text the text to be displayed
+     * @param img the image to be displayed
+     * @return the dialog box with the text and image of Duke
+     */
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

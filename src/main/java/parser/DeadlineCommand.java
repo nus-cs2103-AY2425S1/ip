@@ -1,23 +1,22 @@
 package parser;
 
 import java.util.List;
-import java.util.Scanner;
 
 import exceptions.TheOrangeRatchetCatException;
 import tasklist.TaskList;
 import tasks.Task;
 
 /**
- * A Deadline class created for adding Deadline tasks
+ * DeadlineCommand class is a command class that adds a deadline task to the list of tasks.
  */
 public class DeadlineCommand implements Command {
     @Override
-    public String execute(String input, List<Task> items, Scanner scanner) {
+    public String execute(String input, List<Task> items) {
         try {
-            return TaskList.addingDeadline(input, items, scanner);
+            return TaskList.addNewDeadlineTask(input, items);
         } catch (TheOrangeRatchetCatException e) {
             System.out.println(e.getMessage());
-            return scanner.nextLine();
+            return e.getMessage();
         }
     }
 }

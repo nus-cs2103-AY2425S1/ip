@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Deadline class represents a subtype of Task that comes with an additional deadline
+ * Deadline represents a specific subset of Task that comes with an additional deadline
  */
 public class Deadline extends Task {
 
@@ -14,8 +14,9 @@ public class Deadline extends Task {
 
     /**
      * Deadline represents a specific subset of Task that comes with an additional deadline
-     * @param description
-     * @param by
+     * @param description the description of the task
+     * @param by the deadline of the task
+     * @param priority the priority of the task
      */
     public Deadline(String description, LocalDate by, int priority) {
         super(description, priority);
@@ -31,6 +32,10 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: " + this.by.format(outputFormatter) + ")";
     }
 
+    /**
+     * Returns the deadline date of the task
+     * @return the deadline date of the task
+     */
     public LocalDate getDeadlineDate() {
         return this.by;
     }

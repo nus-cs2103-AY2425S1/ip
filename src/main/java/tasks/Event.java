@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Event class that extends Task class with a range date specifier from and to
+ * Event represents a specific subset of Task that comes with an additional duration
  */
 public class Event extends Task {
 
@@ -14,9 +14,10 @@ public class Event extends Task {
 
     /**
      * The Event class constructor that takes in taskDescription, fromDuration and toDuration
-     * @param description
-     * @param fromDuration
-     * @param toDuration
+     * @param description the description of the task
+     * @param fromDuration the starting date of the event
+     * @param toDuration the ending date of the event
+     * @param priority the priority of the task
      */
     public Event(String description, LocalDate fromDuration, LocalDate toDuration, int priority) {
         super(description, priority);
@@ -36,10 +37,18 @@ public class Event extends Task {
                 + " to: " + this.toDuration.format(outputFormatter) + ")";
     }
 
+    /**
+     * Returns the starting date of the event
+     * @return the starting date of the event
+     */
     public LocalDate getFromDur() {
         return this.fromDuration;
     }
 
+    /**
+     * Returns the ending date of the event
+     * @return the ending date of the event
+     */
     public LocalDate getToDur() {
         return this.toDuration;
     }

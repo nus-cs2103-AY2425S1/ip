@@ -3,7 +3,7 @@ package tasks;
 import java.util.Objects;
 
 /**
- * The umbrella term for all Tasks
+ * Task represents a task that can be added to the list of tasks
  */
 public abstract class Task {
 
@@ -14,7 +14,8 @@ public abstract class Task {
 
     /**
      * Task constructor
-     * @param description
+     * @param description the description of the task
+     * @param priority the priority of the task
      */
     public Task(String description, int priority) {
         this.description = description;
@@ -38,14 +39,23 @@ public abstract class Task {
     public int hashCode() {
         return Objects.hash(this.description);
     }
+    /**
+     * Returns the done status icon of the task
+     * @return the done status icon of the task
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
 
+    /**
+     * Returns the string representation of the task to be written to OrangeCat.txt
+     * @return the string representation of the task
+     */
     public String toDataString() {
         return (isDone ? "1" : "0") + " | " + description;
     }
 
+    @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
@@ -54,19 +64,26 @@ public abstract class Task {
         this.isDone = done;
     }
 
-    public boolean getDoneStatus() {
-        return this.isDone;
-    }
-
+    /**
+     * Returns the description of the task
+     * @return the description of the task
+     */
     public String getDes() {
         return this.description;
     }
+    /**
+     * Returns the number of tasks in the list
+     * @return the number of tasks in the list
+     */
     public static int assignTaskCountZero(int count) {
         return Task.taskCount = count;
     }
     public static int getTaskCount() {
         return Task.taskCount;
     }
+    /**
+     * Increments the number of tasks in the list
+     */
     public static void incrementTaskCount() {
         Task.taskCount++;
     }
@@ -76,6 +93,10 @@ public abstract class Task {
     public static TaskPriority getPriority(Task task) {
         return task.priority;
     }
+    /**
+     * Assigns the priority level of a task
+     * @param priorityAssigned the priority level assigned to the task
+     */
     private void priorityAssignment(int priorityAssigned) {
         if (priorityAssigned == 1) {
             this.priority = TaskPriority.LOW;
@@ -101,8 +122,8 @@ public abstract class Task {
     }
     /**
      * Modifies the level of priority of a specific task instance
-     * @param task
-     * @param taskPriority
+     * @param task the task to be modified
+     * @param taskPriority the new priority level
      */
     public static void changePriority(Task task, int taskPriority) {
         if (taskPriority == 1) {

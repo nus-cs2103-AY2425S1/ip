@@ -8,12 +8,13 @@ import storage.Storage;
 import tasks.Task;
 
 /**
- * To run the overarching program
+ * TheOrangeCat is the main class for the Orange Cat chatbot.
+ * It is the entry point for the JavaFX application.
  */
 public class TheOrangeCat {
 
     /**
-     * Run method that triggers the entire program
+     * Runs the Orange Cat chatbot.
      */
     public static void run() {
         List<Task> items = new ArrayList<>();
