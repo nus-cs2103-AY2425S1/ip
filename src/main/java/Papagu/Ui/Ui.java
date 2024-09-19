@@ -122,4 +122,14 @@ public class Ui {
         System.out.println("9. bye - Exits the program");
         printLine();
     }
+
+    /**
+     * Prints out the unknown command message
+     */
+    public static void printUnkownCommand() {
+        printLine();
+        System.out.println("I'm sorry, but I don't know what that means :-(");
+        System.out.println("Type 'help' to see the list of commands");
+        printLine();
+    }
 }

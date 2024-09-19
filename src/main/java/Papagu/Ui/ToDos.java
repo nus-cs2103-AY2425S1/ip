@@ -9,13 +9,13 @@ public class ToDos extends Task {
      * Constuctor for a new todo object
      * @param description
      */
-    public ToDos(String description) {
+    public ToDos(String description) throws IllegalTodoException{
         super(description);
     }
 
     /**
      * Returns the string representation of task for saving to tasks.txt
-     * @return
+     * @return string representation of task for saving to tasks.txt
      */
     @Override
     public String toFile() {
@@ -25,7 +25,7 @@ public class ToDos extends Task {
 
     /**
      * Returns the string representation of the task for printing in Ui
-     * @return
+     * @return string representation of task for printing in Ui
      */
     @Override
     public String toString() {

@@ -10,8 +10,6 @@ import java.util.Scanner;
 /**
  * Deals with making sense of user command
  */
-
-@SuppressWarnings("CheckStyle")
 public class Parser {
     /**
      * Function to help convert month to int format
@@ -61,14 +59,11 @@ public class Parser {
             Scanner fileScanner = new Scanner(file);
             while (fileScanner.hasNext()) {
                 String line = fileScanner.nextLine();
-                
-                //Take out first letter
+
                 String[] parts = line.split(" \\| ");
                 String taskType = parts[0];
                 String isDone = parts[1];
 
-                
-                //Todo task
                 if (taskType.equals("T")) {
                     assert parts.length == 3 : "Todo task has wrong input format";
                     parseFileTodo(parts, isDone.equals("1"), taskList);
@@ -150,14 +145,14 @@ public class Parser {
     public static void parseFileEvent(String[] input, boolean isDone, TaskList taskList) {
         String description = input[2];
 
-                    String[] dateTime = input[3].split(" ");
+        String[] dateTime = input[3].split(" ");
                    
-                    String[] dates = dateTime[0].split("-");
-                    String month = String.format("%02d", monthConverter(dates[0]));
-                    String day = String.format("%02d", Integer.parseInt(dates[1]));
-                    String year = dates[2];
+        String[] dates = dateTime[0].split("-");
+        String month = String.format("%02d", monthConverter(dates[0]));
+        String day = String.format("%02d", Integer.parseInt(dates[1]));
+        String year = dates[2];
                     
-                    LocalDate date = LocalDate.parse(year + "-" + month + "-" + day);
+        LocalDate date = LocalDate.parse(year + "-" + month + "-" + day);
 
         String[] times = dateTime[1].split("-");
 
@@ -182,44 +177,34 @@ public class Parser {
      * @param storage
      */
     public static void parseInput(TaskList taskList, String userInput, Storage storage) {
-        
-        String[] typeDetails = userInput.split(" ", 2);
-        String taskType = typeDetails[0];
-        if (taskType.equals("bye")) {
-            Ui.printBye();
-        } else if(taskType.equals("help")) {
-            Ui.printHelp();
-        } else if (taskType.equals("list")) {
-            Ui.printList(taskList);
-        } else if (taskType.equals("mark")) {
-            String taskNumber = typeDetails[1];
-            int num = Integer.parseInt(taskNumber) - 1;
-            taskList.markTaskAsDone(num);
-            storage.save();
-            Ui.printMarkAsDone(taskList, num);
-        } else if (taskType.equals("unmark")) {
-            String taskNumber = typeDetails[1];
-            int num = Integer.parseInt(taskNumber) - 1;
-            taskList.markTaskAsNotDone(num);
-            storage.save();
-            Ui.printMarkAsDone(taskList, num);
-        } else if (taskType.equals("find")) {
-            String keyword = typeDetails[1];
-            TaskList found = taskList.findTasks(keyword);
-            Ui.printFound(found);
-        } else if(taskType.equals("delete")) {
-            String taskNumber = typeDetails[1];
-            int num = Integer.parseInt(taskNumber) - 1;
-            Task temp = taskList.getTask(num);
-            taskList.deleteTask(num);
-            storage.save();
-            Ui.printDelete(temp);
-        } else if (taskType.equals("todo")) {
-            parseInputTodo(typeDetails, taskList, storage);
-        } else if (taskType.equals("deadline")) {
-            parseInputDeadline(typeDetails, taskList, storage);
-        } else if (taskType.equals("event")) {
-            parseInputEvent(typeDetails, taskList, storage);
+        try {
+            String[] typeDetails = userInput.split(" ", 2);
+            String taskType = typeDetails[0];
+            if (taskType.equals("bye")) {
+                Ui.printBye();
+            } else if(taskType.equals("help")) {
+                Ui.printHelp();
+            } else if (taskType.equals("list")) {
+                Ui.printList(taskList);
+            } else if (taskType.equals("mark")) {
+                parseMark(typeDetails, taskList, storage);
+            } else if (taskType.equals("unmark")) {
+                parseUnmark(typeDetails, taskList, storage);
+            } else if (taskType.equals("find")) {
+                parseFind(typeDetails, taskList);
+            } else if(taskType.equals("delete")) {
+                parseDelete(typeDetails, taskList, storage);
+            } else if (taskType.equals("todo")) {
+                parseInputTodo(typeDetails, taskList, storage);
+            } else if (taskType.equals("deadline")) {
+                parseInputDeadline(typeDetails, taskList, storage);
+            } else if (taskType.equals("event")) {
+                parseInputEvent(typeDetails, taskList, storage);
+            } else {
+                Ui.printUnkownCommand();
+            }
+        } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
         }
     }
 
@@ -229,7 +214,10 @@ public class Parser {
      * @param taskList
      * @param storage
      */
-    public static void parseInputTodo(String[] input, TaskList taskList, Storage storage) {
+    public static void parseInputTodo(String[] input, TaskList taskList, Storage storage) throws IllegalTodoException{
+        if (input.length != 2) {
+            throw new IllegalTodoException("Wrong input format for todo");
+        }
         ToDos newToDo = new ToDos(input[1]);
         taskList.addTask(newToDo);
         storage.save();
@@ -242,8 +230,13 @@ public class Parser {
      * @param tasklist
      * @param storage
      */
-    public static void parseInputDeadline(String[] input, TaskList tasklist, Storage storage) {
+    public static void parseInputDeadline(String[] input, TaskList tasklist, Storage storage) throws IllegalDeadlineException{
         String[] parts = input[1].split(" /by ");
+
+        if (parts.length != 2) {
+            throw new IllegalDeadlineException("Wrong input format for deadline");
+        }
+
         String description = parts[0];
         String[] dateTime = parts[1].split(" ");
 
@@ -269,8 +262,12 @@ public class Parser {
      * @param tasklist
      * @param storage
      */
-    public static void parseInputEvent(String[] input, TaskList tasklist, Storage storage) {
+    public static void parseInputEvent(String[] input, TaskList tasklist, Storage storage) throws IllegalEventException{
         String[] parts = input[1].split(" /from ");
+
+        if (parts.length != 2) {
+            throw new IllegalEventException("Wrong input format for event");
+        }
 
         String description = parts[0];
         String times = parts[1];
@@ -294,5 +291,59 @@ public class Parser {
         tasklist.addTask(newEvent);
         storage.save();
         Ui.printAdded(newEvent);
+    }
+
+    /**
+     * Parses the input for marking tasks as done
+     * @param input
+     * @param taskList
+     * @param storage
+     */
+    public static void parseMark(String[] input, TaskList taskList, Storage storage) {
+        String taskNumber = input[1];
+        int num = Integer.parseInt(taskNumber) - 1;
+        taskList.markTaskAsDone(num);
+        storage.save();
+        Ui.printMarkAsDone(taskList, num);
+    }
+
+    /**
+     * Parses the input for marking tasks as not done
+     * @param input
+     * @param taskList
+     * @param storage
+     */
+    public static void parseUnmark(String[] input, TaskList taskList, Storage storage) {
+        String taskNumber = input[1];
+        int num = Integer.parseInt(taskNumber) - 1;
+        taskList.markTaskAsNotDone(num);
+        storage.save();
+        Ui.printMarkAsDone(taskList, num);
+    }
+
+    /**
+     * Parses the input for finding tasks
+     * @param input
+     * @param taskList
+     */
+    public static void parseFind(String[] input, TaskList taskList) {
+        String keyword = input[1];
+        TaskList found = taskList.findTasks(keyword);
+        Ui.printFound(found);
+    }
+
+    /**
+     * Parses the input for deleting tasks
+     * @param input
+     * @param taskList
+     * @param storage
+     */
+    public static void parseDelete(String[] input, TaskList taskList, Storage storage) {
+        String taskNumber = input[1];
+        int num = Integer.parseInt(taskNumber) - 1;
+        Task temp = taskList.getTask(num);
+        taskList.deleteTask(num);
+        storage.save();
+        Ui.printDelete(temp);
     }
 }

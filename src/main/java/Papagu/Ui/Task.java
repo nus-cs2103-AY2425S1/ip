@@ -50,7 +50,7 @@ public class Task {
 
     /**
      * Returns the string representation of the task for saving to tasks.txt
-     * @return
+     * @return string representation of task for saving to tasks.txt
      */
     public String toFile() {
         return " | " + (this.isDone ? "1" : "0")
@@ -72,7 +72,7 @@ public class Task {
     /**
      * Returns if the task matches the keyword.
      * @param keyword
-     * @return
+     * @return true if the task matches the keyword, false otherwise
      */
     public boolean isMatching(String keyword) {
         if (this.description.contains(keyword)) {

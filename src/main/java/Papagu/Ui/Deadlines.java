@@ -2,7 +2,6 @@ package Papagu.Ui;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.time.LocalTime;
 
 /**
@@ -26,7 +25,7 @@ public class Deadlines extends Task {
 
     /**
      * Returns the string representation of task for saving to tasks.txt
-     * @return
+     * @return string representation of task for saving to tasks.txt
      */
     @Override
     public String toFile() {
@@ -40,7 +39,7 @@ public class Deadlines extends Task {
 
     /**
      * Returns the string representation of the task for printing in Ui
-     * @return
+     * @return string representation of task for printing in Ui
      */
     @Override
     public String toString() {

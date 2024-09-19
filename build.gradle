@@ -31,7 +31,6 @@ dependencies {
 
 test {
     useJUnitPlatform()
-
     testLogging {
         events "passed", "skipped", "failed"
 
@@ -44,7 +43,7 @@ test {
 }
 
 application {
-    mainClass.set("Launcher.Main")
+    mainClass.set("GUI.Launcher")
 }
 
 checkstyle {
@@ -54,6 +53,7 @@ checkstyle {
 shadowJar {
     archiveBaseName = "Papagu"
     archiveClassifier = null
+    archiveFileName = 'Papagu.jar'
 }
 
 run{

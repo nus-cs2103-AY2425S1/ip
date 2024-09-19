@@ -61,12 +61,18 @@ public class TaskList {
         this.tasks[this.taskCount] = null;
     }
 
+    /**
+     * Returns the task at the specified index.
+     * @param taskNumber
+     * @return The task at the specified index.
+     */
     public Task getTask(int taskNumber) {
         return this.tasks[taskNumber];
     }
 
     /**
      * Returns a string representation of the task list.
+     * @return A string representation of the task list.
      */
     @Override
     public String toString() {
