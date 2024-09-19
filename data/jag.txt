@@ -3,3 +3,5 @@
 [T][ ] read magazine1234
 [D][ ] read (by: Oct 10 2020, 07 00 00)
 [E][ ] read a book (from: Oct 10 2020, 06 00 00, to: Oct 10 2020, 07 00 00)
+[D][ ] read book (by: Oct 10 2021, 06 00 00)
+[D][ ] read book (by: Dec 12 2020, 06 00 00)
