@@ -25,7 +25,7 @@
         <ScrollPane fx:id="scrollPane"
                     hbarPolicy="NEVER" hvalue="1.0"
                     prefHeight="557.0" prefWidth="454.0"
-                    vvalue="1.0">
+                    vvalue="1.0" fitToWidth="true">
             <content>
                 <VBox fx:id="dialogContainer" prefHeight="552.0" prefWidth="454.0" />
             </content>
