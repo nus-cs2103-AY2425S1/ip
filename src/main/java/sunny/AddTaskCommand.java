@@ -10,7 +10,7 @@ public class AddTaskCommand extends Command {
     @Override
     public String runCommand(List<Task> ls, String m) {
         try {
-            Task t = TaskCreator.create(m + "|false");
+            Task t = TaskCreator.create(m);
             assert t != null : "Task creation failed, task should not be null";
             ls.add(t);
             return line + "\n     "

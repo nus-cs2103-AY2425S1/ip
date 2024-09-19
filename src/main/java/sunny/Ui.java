@@ -49,8 +49,6 @@ public class Ui {
             Command c = new FindCommand();
             String s = c.runCommand(ls, p.getSecondHalf());
             return s;
-        } else if (Objects.equals(command, "")) {
-            return LINE;
         } else if (Objects.equals(command, "mark")) {
             Command c = new MarkCommand();
             String s = c.runCommand(ls, p.getSecondHalf());
