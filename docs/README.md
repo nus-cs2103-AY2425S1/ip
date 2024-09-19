@@ -68,7 +68,7 @@ Expected output:
 
 ```
 Got it. I've added this task:
-  [D][ ] submit assignment (by: Sept 20 2024)
+  [D][ ] submit assignment (by: Sep 20 2024)
 Now you have 2 tasks in the list.
 ```
 
@@ -89,7 +89,7 @@ Expected output:
 
 ```
 Got it. I've added this task:
-  [E][ ] staycation (from: Sept 20 2024 2:00pm to: Sept 22 2024 12:00pm)
+  [E][ ] staycation (from: Sep 20 2024 2:00pm to: Sep 22 2024 12:00pm)
 Now you have 3 tasks in the list.
 ```
 ## 2. Task Commands
@@ -242,7 +242,7 @@ Expected output:
 ```
 Here are the tasks in your list:
     1. [T][ ] read book
-    2. [E][ ] staycation (from: Sept 20 2024 2:00pm to: Sept 22 2024 12:00pm)
+    2. [E][ ] staycation (from: Sep 20 2024 2:00pm to: Sep 22 2024 12:00pm)
 ```
 
 #### 3.4. Bye
