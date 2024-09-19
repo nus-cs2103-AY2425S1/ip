@@ -61,49 +61,49 @@ On the Cypher application, 3 different types of tasks can be created based on yo
           Now you have 4 tasks on your list
          ```
 ### 3. event task
-* format: `event <Description of task> /from <time> /to <time>`
-* The `event` command allows you to add a event task that has a certain time frame for the task
-* After giving the task description, use the` /from` keyword and then give your preferred start time in the format of `yyyy-MM-dd HH:mm`. Then use the `/by` keyword to give your preferred end time.
-* Ensure that `/from` is followed by `/to` if not the command will not be accepted
-* Example: `event tp /from 2024-09-20 14:00 /to 2024-11-26 14:00`
-    * Expected output:
-        ```
-         Got it. I have added this task:
-             [E][ ] tp (from: 20 Sep 2024 14:00 || to: 26 Nov 2024 14:00)
-         Now you have 5 tasks on your list
-        ```
+   * format: `event <Description of task> /from <time> /to <time>`
+   * The `event` command allows you to add a event task that has a certain time frame for the task
+   * After giving the task description, use the` /from` keyword and then give your preferred start time in the format of `yyyy-MM-dd HH:mm`. Then use the `/by` keyword to give your preferred end time.
+   * Ensure that `/from` is followed by `/to` if not the command will not be accepted
+   * Example: `event tp /from 2024-09-20 14:00 /to 2024-11-26 14:00`
+       * Expected output:
+           ```
+            Got it. I have added this task:
+                [E][ ] tp (from: 20 Sep 2024 14:00 || to: 26 Nov 2024 14:00)
+            Now you have 5 tasks on your list
+           ```
 ---
 ## _Completing your tasks_: `mark | unmark`
 ### 1. mark task
-* format: `mark <Task Number>`
-* The `mark` command allows you to mark a task as complete. The `Task Number` can be obtained by using the `list` command
-* Example: `mark 3`
-    * Expected output:
+   * format: `mark <Task Number>`
+   * The `mark` command allows you to mark a task as complete. The `Task Number` can be obtained by using the `list` command
+   * Example: `mark 3`
+       * Expected output:
+            ```
+          Nice! I have marked this task as completed:
+              [T][X] example
          ```
-       Nice! I have marked this task as completed:
-           [T][X] example
-      ```
 ### 2. unmark task
-* format: `unmark <Task Number>`
-* The `mark` command allows you to mark a task as not complete. The `Task Number` can be obtained by using the `list` command.
-* All newly added tasks have an uncompleted status by default
-* Example: `unmark 3`
-    * Expected output:
-         ```
-         Ok! I have marked this task as incomplete:
-             [T][ ] example
-         ```
+   * format: `unmark <Task Number>`
+   * The `mark` command allows you to mark a task as not complete. The `Task Number` can be obtained by using the `list` command.
+   * All newly added tasks have an uncompleted status by default
+   * Example: `unmark 3`
+       * Expected output:
+            ```
+            Ok! I have marked this task as incomplete:
+                [T][ ] example
+            ```
 
 ---
 ## Deleting your tasks: `delete`
-* format: `delete <Task Number>`
-* The `delete` command allows you to delete a task. The `Task Number` can be obtained by using the `list` command.
-* Example: `delete 3`
-    * Expected output:
-         ```
-         Noted! I have removed this task:
-             [T][ ] Go running
-         ```
+   * format: `delete <Task Number>`
+   * The `delete` command allows you to delete a task. The `Task Number` can be obtained by using the `list` command.
+   * Example: `delete 3`
+       * Expected output:
+            ```
+            Noted! I have removed this task:
+                [T][ ] Go running
+            ```
 
 ---
 ## Searching for tasks: `find`
@@ -118,10 +118,11 @@ On the Cypher application, 3 different types of tasks can be created based on yo
              2. [D][ ] example (by: 10 Oct 2024 14:00)
          ```
 ---
+
 ## Sorting your tasks: `sort`
-* format1: `sort ascending`
-* format2: `sort descending`
-* The `sort` command allows you to sort your tasks by time. All tasks of a certain type will be grouped togther and the order by time either asecnding or descending
+  * format1: `sort ascending`
+  * format2: `sort descending`
+  * The `sort` command allows you to sort your tasks by time. All tasks of a certain type will be grouped togther and the order by time either asecnding or descending
   * Example: `sort ascending`
       * Expected output:
            ```
@@ -133,6 +134,7 @@ On the Cypher application, 3 different types of tasks can be created based on yo
                5. [E][ ] dance practice (from: 18 Sep 2024 1500 || to: 19 Nov 2024)
            ```
 ---
+
 ## Closing the ChatBot: `bye`
-* format: `bye`
-* You can close the chatbot using the `bye` command. The application will close 3 seconds after the commands is given
+  * format: `bye`
+  * You can close the chatbot using the `bye` command. The application will close 3 seconds after the commands is given
