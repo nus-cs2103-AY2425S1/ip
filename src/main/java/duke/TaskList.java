@@ -146,10 +146,8 @@ public class TaskList {
 
             if (t.getDescription().contains(keyword)) {
                 foundTasks[numberOfFoundTasks] = t;
-                System.out.println(foundTasks[numberOfFoundTasks]);
                 numberOfFoundTasks++;
             }
-            System.out.println(t);
         }
         if (numberOfFoundTasks == 0) {
             return REPLY_UNSUCCESSFUL_FIND;
