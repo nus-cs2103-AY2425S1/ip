@@ -49,12 +49,14 @@ public class Elster {
 
             } else if (input.startsWith("deadline")) {
                 DeadlineTask task = DeadlineTask.of(input);
+                assert task != null : "Bug creating deadline task";
                 taskList.addToList(task);
                 storage.writeToFile(taskList);
                 return ui.addTaskMessage(taskList, task);
 
             } else if (input.startsWith("event")) {
                 EventTask task = EventTask.of(input);
+                assert task != null : "Bug creating event task";
                 taskList.addToList(task);
                 storage.writeToFile(taskList);
                 return ui.addTaskMessage(taskList, task);
@@ -63,11 +65,13 @@ public class Elster {
                 int index = Integer.parseInt(input.substring(7).strip());
 
                 Task task = taskList.deleteTask(index);
+                assert task != null : "Bug when deleting task";
                 return ui.deleteTaskMessage(taskList, task);
 
 
             } else if (input.startsWith("todo")) {
                 ToDoTask task = ToDoTask.of(input);
+                assert task != null : "Bug creating todo task";
                 taskList.addToList(task);
                 storage.writeToFile(taskList);
                 return ui.addTaskMessage(taskList, task);
