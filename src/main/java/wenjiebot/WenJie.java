@@ -37,6 +37,7 @@ public class WenJie {
         ui.showWelcome();
         boolean isExit = false;
         Scanner scanner = new Scanner(System.in);
+        assert(isExit == false);
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand(scanner);
