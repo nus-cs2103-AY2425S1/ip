@@ -1,0 +1,6 @@
+T | 1 | mark papers
+T | 1 | book papers
+T | 0 | books return 
+T | 0 | paint book
+T | 1 | print task
+T | 0 | play darts
