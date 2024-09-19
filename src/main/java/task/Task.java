@@ -1,7 +1,6 @@
 package task;
 
 import exceptions.DelphiException;
-import exceptions.EmptyInputException;
 import parser.Parser;
 
 /**
@@ -16,23 +15,18 @@ public abstract class Task {
      * Constructs a task.Task with a given description.
      *
      * @param description The description of the task.
-     * @throws EmptyInputException if the description is empty.
      */
-    public Task(String description) throws DelphiException {
-        if (!description.isEmpty() && description.charAt(0) != '/') {
-            this.name = description;
-            this.isDone = false;
-        } else {
-            throw new EmptyInputException();
-        }
+    public Task(String description) {
+        this.name = description;
+        this.isDone = false;
     }
 
     /**
      * this function is used to update tasks in the tasklist with a different deadline or time frame
      *
      * @param newInfo the new time frame to update tasks with
-     * @param p parser object to help parse the new info
-     * @throws DelphiException
+     * @param p       parser object to help parse the new info
+     * @throws DelphiException if the input is incorrect
      */
     public abstract void editTask(String newInfo, Parser p) throws DelphiException;
 

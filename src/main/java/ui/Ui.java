@@ -11,7 +11,7 @@ public class Ui {
      * Prints a welcome message to the user.
      * This message introduces the application and gives a friendly greeting.
      */
-    public static String welcomeMessage() {
+    public String welcomeMessage() {
         String res = "";
         res += "Hello! I'm Delphi, the greatest oracle in all of the classical world.\n";
         res += "For now, I will be acting as a personal assistant for you to manage; your tasks:)";
@@ -47,15 +47,14 @@ public class Ui {
      * @param completed True if the task is completed; false otherwise.
      * @param tsk The task that was marked.
      */
-    public static String markingTask(boolean completed, Task tsk) {
+    public String markingTask(boolean completed, Task tsk) {
         String res = "";
         if (completed) {
             res += "    Nice! I've marked this task as done:\n";
-            res += "      " + tsk;
         } else {
             res += "    OK, I've marked this task as not done yet:\n";
-            res += "      " + tsk;
         }
+        res += "      " + tsk;
         return res;
     }
 

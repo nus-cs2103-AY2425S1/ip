@@ -17,7 +17,7 @@ import task.Task;
  * @author jordanchan
  */
 public class Storage {
-    private File file;
+    private final File file;
 
     /**
      * Constructs a storage object that manages a file specified by the given file path.
@@ -59,7 +59,7 @@ public class Storage {
      * Reads all lines from the file on the hard disk and returns them as a list of strings.
      *
      * @return A list of strings, where each string represents a line from the file.
-     * @throws IOException If an I/O error occurs reading from the file.
+     * @throws HardDriveNotFoundException If an I/O error occurs reading from the file.
      */
     public List<String> readFromHardDisk() throws HardDriveNotFoundException {
         try {
@@ -74,7 +74,7 @@ public class Storage {
      *
      * @param file the hard drive
      * @return number of lines(or tasks) in the hard drive
-     * @throws IOException
+     * @throws IOException should never be thrown as there should always be a hard disk
      */
     public static int countLines(File file) throws IOException {
         int lineCount = 0;

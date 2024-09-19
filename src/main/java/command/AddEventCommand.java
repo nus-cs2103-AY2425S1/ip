@@ -34,8 +34,11 @@ public class AddEventCommand extends Command {
      */
     @Override
     public String execute(TaskList t, Storage s, Ui ui, Parser p) throws DelphiException {
+        // Create an array with the description, start and end times
+        String[] arr = p.parseEvent(getInput().trim().substring(5));
+
         // Create a new Event task from the input string, starting from the 9th character
-        Event newEvent = new Event(getInput().trim().substring(5), p);
+        Event newEvent = new Event(arr);
 
         // Add the new Event task to the task list
         t.addTask(newEvent);

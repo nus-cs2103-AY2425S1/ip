@@ -12,15 +12,11 @@ public class Deadline extends Task {
     /**
      * constructor for a new deadline object
      *
-     * @param description the task description
-     * @param p a parser object to help reformat the deadline
-     * @throws DelphiException if input is not correctly formatted
+     * @param info an array with the task description and deadline
      */
-    public Deadline(String description, Parser p) throws DelphiException {
-        super(description);
-        String[] formattedDeadline = p.parseDeadline(description);
-        this.name = formattedDeadline[0];
-        this.deadline = formattedDeadline[1];
+    public Deadline(String[] info) {
+        super(info[0]);
+        this.deadline = info[1];
     }
 
     /**

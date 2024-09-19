@@ -17,7 +17,6 @@ import command.UpdateTaskCommand;
 import exceptions.DelphiException;
 import exceptions.EmptyInputException;
 import exceptions.InvalidInputException;
-import exceptions.InvalidListItemException;
 
 /**
  * Provides the parsing functionality that allows ui.Delphi to process different types of input.
@@ -92,7 +91,7 @@ public class Parser {
      * @param input The input string containing the deadline information.
      * @return The formatted string where the deadline information is represented as "/by date".
      */
-    public static String formatStringDeadline(String input) {
+    public String formatStringDeadline(String input) {
         // Extract the parts using regex
         String regex = "(.*) \\(by: (.*)\\)";
         return input.replaceAll(regex, "$1 /by $2");
@@ -104,8 +103,8 @@ public class Parser {
      * @param input The input string containing the event information.
      * @return The formatted string where the event information is represented as "/from  start /to end".
      */
-    public static String formatStringEvent(String input) {
-        //chatgpt was used to help write this
+    public String formatStringEvent(String input) {
+        //chatGPT was used to help write this
         // Extract the parts using regex
         String regex = "(.*) \\(from: (.*) to: (.*)\\)";
         return input.replaceAll(regex, "$1 /from $2 /to $3");
@@ -160,7 +159,7 @@ public class Parser {
      *     valid "/from" and "/to" parts or if "to" comes before "from".
      */
     public String[] parseEvent(String s) throws InvalidInputException {
-        //chatgpt was used to help write this
+        //chatGPT was used to help write this
         String[] res = new String[3];
 
         int fromIndex = s.indexOf("/from");
@@ -201,6 +200,11 @@ public class Parser {
         return res;
     }
 
+    /**
+     * parse an integer from a string
+     * @param input a string
+     * @return an integer
+     */
     public String extractIntegerAsString(String input) {
         Pattern pattern = Pattern.compile("\\d+");
         Matcher matcher = pattern.matcher(input);
@@ -208,8 +212,7 @@ public class Parser {
         if (matcher.find()) {
             return matcher.group();  // Return the string representation of the integer
         } else {
-            return "-1";
+            return "-1"; // Return -1 if no integer found
         }
-        //throw new NumberFormatException("No integer found in the input string.");
     }
 }

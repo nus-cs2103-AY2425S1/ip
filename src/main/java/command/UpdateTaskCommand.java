@@ -45,7 +45,7 @@ public class UpdateTaskCommand extends Command {
             throw new InvalidInputException();
         }
         List<Task> searchResults = t.findTask(str);
-        if (searchResults.size() == 0) {
+        if (searchResults.isEmpty()) {
             throw new TaskNotFoundException();
         } else if (searchResults.size() > 1) {
             return "please be more specific";

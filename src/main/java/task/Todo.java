@@ -1,7 +1,5 @@
 package task;
 
-import exceptions.DelphiException;
-import exceptions.EmptyInputException;
 import parser.Parser;
 
 /**
@@ -14,14 +12,13 @@ public class Todo extends Task {
      * Constructs a task.Todo task with a given description.
      *
      * @param description The description of the task.Todo task.
-     * @throws EmptyInputException if the description is empty.
      */
-    public Todo(String description) throws DelphiException {
+    public Todo(String description) {
         super(description);
     }
 
     public void editTask(String newInfo, Parser p) {
-        //do nothing becauase todo tasks have no time frame associated with them
+        //do nothing because todo tasks have no time frame associated with them
     }
 
     /**

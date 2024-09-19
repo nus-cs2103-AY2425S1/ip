@@ -13,14 +13,12 @@ public class Event extends Task {
     /**
      * Constructs a task.Event task with a given description.
      *
-     * @param description The description of the task.Event task.
+     * @param info an array containing the task description, start time and end time
      * @throws EmptyInputException if the description is empty.
      */
-    public Event(String description, Parser p) throws DelphiException {
-        super(description);
-        String[] formattedDeadline = p.parseEvent(description);
-        this.name = formattedDeadline[0];
-        window = "(" + formattedDeadline[1] + " " + formattedDeadline[2] + ")";
+    public Event(String[] info) throws DelphiException {
+        super(info[0]);
+        window = "(" + info[1] + " " + info[2] + ")";
     }
 
     /**

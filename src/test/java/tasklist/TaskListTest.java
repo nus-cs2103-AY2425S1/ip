@@ -13,6 +13,9 @@ import exceptions.HardDriveNotFoundException;
 import storage.Storage;
 
 public class TaskListTest {
+    /**
+     * stub for storage class to enable unit testing
+     */
     class StorageStub extends Storage {
 
         public StorageStub() {

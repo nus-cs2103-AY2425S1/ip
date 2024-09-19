@@ -45,7 +45,7 @@ public class TaskList {
      */
     public void loadStorageToTasks(Storage s) throws HardDriveNotFoundException {
         Parser helperParser = new Parser();
-        List<String> readTasks = new ArrayList<>();
+        List<String> readTasks;
         readTasks = s.readFromHardDisk();
         int counter = 0;
         while (counter < readTasks.size()) {
@@ -68,14 +68,18 @@ public class TaskList {
                     tasks.add(new Todo(line.substring(7)));
                     markTaskAsDone(tasks.size()); //mark the newly loaded task as done
                 } else if (helperParser.checkStringPrefix(line, 6, "[D][ ]")) {
-                    tasks.add(new Deadline(Parser.formatStringDeadline(line.substring(7)), helperParser));
+                    String[] arr = helperParser.parseDeadline(helperParser.formatStringDeadline(line.substring(7)));
+                    tasks.add(new Deadline(arr));
                 } else if (helperParser.checkStringPrefix(line, 6, "[D][X]")) {
-                    tasks.add(new Deadline(Parser.formatStringDeadline(line.substring(7)), helperParser));
+                    String[] arr = helperParser.parseDeadline(helperParser.formatStringDeadline(line.substring(7)));
+                    tasks.add(new Deadline(arr));
                     markTaskAsDone(tasks.size()); //mark the newly loaded task as done
                 } else if (helperParser.checkStringPrefix(line, 6, "[E][ ]")) {
-                    tasks.add(new Event(Parser.formatStringEvent(line.substring(7)), helperParser));
+                    String[] arr = helperParser.parseEvent(helperParser.formatStringEvent(line.substring(7)));
+                    tasks.add(new Event(arr));
                 } else if (helperParser.checkStringPrefix(line, 6, "[E][X]")) {
-                    tasks.add(new Event(Parser.formatStringEvent(line.substring(7)), helperParser));
+                    String[] arr = helperParser.parseEvent(helperParser.formatStringEvent(line.substring(7)));
+                    tasks.add(new Event(arr));
                     markTaskAsDone(tasks.size()); //mark the newly loaded task as done
                 }
             } catch (DelphiException e) {
@@ -136,7 +140,7 @@ public class TaskList {
         if (i < 0) {
             throw new InvalidInputException(); // i == -1 indicates invalid input
         } else if (i <= tasks.size()) {
-            tasks.get(i - 1).complete();
+            tasks.get(i - 1).uncomplete();
         } else {
             throw new InvalidListItemException(i);
         }
@@ -174,9 +178,8 @@ public class TaskList {
     public List<Task> findTask(String keyword) {
         List<Task> resTaskList = this.getTasks();
         TaskList res = new TaskList();
-        String taskToFind = keyword;
         for (int i = 0; i < resTaskList.size(); i++) {
-            if (resTaskList.get(i).toString().contains(taskToFind)) {
+            if (resTaskList.get(i).toString().contains(keyword)) {
                 res.addTask(resTaskList.get(i));
             }
         }

@@ -33,7 +33,7 @@ public class FindCommand extends Command {
     public String execute(TaskList t, Storage s, Ui ui, Parser p) throws TaskNotFoundException {
         String res = "";
         List<Task> found = t.findTask(getInput().substring(5));
-        if (found.size() == 0) {
+        if (found.isEmpty()) {
             throw new TaskNotFoundException();
         }
         res += ui.findingTask();

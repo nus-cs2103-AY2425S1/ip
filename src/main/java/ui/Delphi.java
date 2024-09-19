@@ -18,7 +18,7 @@ public class Delphi {
     private final Ui ui;
 
     /**
-     * Constructs a ui.Delphi instance with the specified file path for storage.
+     * Constructs a Delphi instance with the specified file path for storage.
      *
      * @param filePath The path to the file where task data is stored.
      */
@@ -27,6 +27,13 @@ public class Delphi {
         taskList = new TaskList();
         parser = new Parser();
         ui = new Ui();
+    }
+
+    /**
+     *returns the Delphi bot welcome message upon startup
+     */
+    public String welcomeMessage() {
+        return  ui.welcomeMessage();
     }
 
     /**

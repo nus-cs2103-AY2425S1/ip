@@ -8,7 +8,7 @@ import java.util.Locale;
 
 /**
  * Provides the Date Parsing functionality that allows ui.Delphi to process dates and times in different formats.
- * Written with the help of chatgpt
+ * Written with the help of chatGPT
  * @author Jordan Chan
  */
 public class DateParser {
@@ -45,15 +45,12 @@ public class DateParser {
      * @return A formatted date and time string, or null if parsing fails.
      */
     public String parseAndFormatDateTime(String dateTimeString, String outputPattern) {
-        DateTimeFormatter defaultDateTimeFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy, h:mma", Locale.ENGLISH);
-        DateTimeFormatter defaultDateFormatter = DateTimeFormatter.ofPattern("d MMMM yyyy", Locale.ENGLISH);
-
         for (DateTimeFormatter formatter : INPUT_FORMATTERS) {
             try {
                 LocalDateTime dateTime = LocalDateTime.parse(dateTimeString, formatter);
                 return formatDateTime(dateTime, outputPattern);
             } catch (DateTimeParseException e) {
-                // Continue to date-only parsing
+                // Continue to date-only parsing, nothing to be done
             }
         }
 
@@ -68,10 +65,17 @@ public class DateParser {
                 // Return original string if parsing fails
             }
         }
-
         return dateTimeString;
     }
 
+    /**
+     * Formats a given LocalDateTime into a string with an ordinal suffix for the day,
+     * based on the specified output pattern.
+     *
+     * @param dateTime The LocalDateTime object to format.
+     * @param outputPattern The pattern used to format the output.
+     * @return A formatted date-time string with an ordinal suffix for the day, in lowercase.
+     */
     private String formatDateTime(LocalDateTime dateTime, String outputPattern) {
         DateTimeFormatter outputFormatter = getOutputFormatter(outputPattern, true);
         String formattedDateTime = dateTime.format(outputFormatter);
@@ -80,6 +84,14 @@ public class DateParser {
         return formattedDateTime.replaceFirst("\\d+", ordinalDay).toLowerCase();
     }
 
+    /**
+     * Formats a given LocalDate into a string with an ordinal suffix for the day,
+     * based on the specified output pattern.
+     *
+     * @param date The LocalDate object to format.
+     * @param outputPattern The pattern used to format the output.
+     * @return A formatted date string with an ordinal suffix for the day, in lowercase.
+     */
     private String formatDateOnly(LocalDate date, String outputPattern) {
         DateTimeFormatter outputFormatter = getOutputFormatter(outputPattern, false);
         String formattedDateOnly = date.format(outputFormatter);
@@ -88,6 +100,14 @@ public class DateParser {
         return formattedDateOnly.replaceFirst("\\d+", ordinalDay).toLowerCase();
     }
 
+    /**
+     * Retrieves the DateTimeFormatter based on the specified output pattern and
+     * whether the formatter should include time.
+     *
+     * @param outputPattern The pattern used to format the output.
+     * @param hasTime Boolean flag indicating whether to include time in the formatting.
+     * @return A DateTimeFormatter object using the specified pattern or a default format.
+     */
     private DateTimeFormatter getOutputFormatter(String outputPattern, boolean hasTime) {
         if (outputPattern == null || outputPattern.isEmpty()) {
             return hasTime

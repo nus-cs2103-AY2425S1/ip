@@ -14,8 +14,7 @@ import ui.Ui;
  */
 public abstract class Command {
 
-    private String input;
-    private boolean isExit;
+    private final String input;
 
     /**
      * Constructs a Command with the given input.

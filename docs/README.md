@@ -52,7 +52,7 @@ adds a deadline task to the task list. Task has a single deadline associated wit
 If a date and time of the correct format is provided, it will be parsed appropriately
 otherwise whatever string is provided will be used.
 
-![screenshot of deadline creation](../src/main/resources/images/deadline.png)
+![screenshot of deadline creation](./deadline.png)
 
 Format: `deadline TASK_DESCRIPTION /by DEADLINE`
 

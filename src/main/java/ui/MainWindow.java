@@ -45,13 +45,13 @@ public class MainWindow extends AnchorPane {
      */
     public void welcomeAndCurrentTasks() {
         dialogContainer.getChildren().addAll(
-                DialogBox.getDelphiDialog(Ui.welcomeMessage(), delphiImage),
+                DialogBox.getDelphiDialog(delphi.welcomeMessage(), delphiImage),
                 DialogBox.getDelphiDialog(delphi.currentTasks(), delphiImage)
         );
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Delphi's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
