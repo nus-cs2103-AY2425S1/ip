@@ -31,7 +31,7 @@ public class Parser {
     public static int parseTaskNumber(String input) throws IllegalArgumentException {
         assert input != null && !input.trim().isEmpty() : "Input cannot be null or empty";
         try {
-            int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1;  // Task numbers are 1-based, convert to 0-based index
+            int taskNumber = Integer.parseInt(input.split(" ")[1]) - 1; // Convert to 0-based index
             assert taskNumber >= 0 : "Task number should be non-negative after conversion";
             return taskNumber;
         } catch (Exception e) {
