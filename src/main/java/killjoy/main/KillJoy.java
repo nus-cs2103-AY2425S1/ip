@@ -105,8 +105,8 @@ public class KillJoy {
     /**
      * Loads tasks from the save file.
      */
-    public void loadTasks() {
-        saveAndLoad.loadTasks();
+    public void loadTasks(String fileName) {
+        saveAndLoad.loadTasks(fileName);
     }
 
     /**
@@ -117,7 +117,7 @@ public class KillJoy {
      */
     public String getResponse(String input) {
         if (input.equals("")) {
-            return ui.displayNoStringMessage();
+            return UserInterface.displayNoStringMessage();
         }
         String[] inputAsList = input.split(" ");
         switch (inputAsList[0]) {
@@ -130,6 +130,15 @@ public class KillJoy {
             return processTasks.markOrDelete(input);
         case "find":
             return processTasks.findTask(input, this.taskList);
+        case "load":
+            String str = saveAndLoad.loadTasksFromArchiveFile(input);
+            this.taskCount = this.taskList.size();
+            return str;
+        case "archive":
+            this.taskList = saveAndLoad.archiveTasks(this.taskList);
+            this.taskCount = 0;
+            return UserInterface.displayTaskArchivedMessage();
+
         default:
             return processTasks.processUserInput(input);
         }
