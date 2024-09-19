@@ -42,8 +42,8 @@ Shrimp is a fast and lightweight task manager designed to keep you organized wit
 | **Mark task as done**   | `mark`      | `mark <task_number>`                                              | `mark 1`                                                         |
 | **Unmark task as done** | `unmark`    | `unmark <task_number>`                                            | `unmark 2`                                                       |
 | **Add a Todo**          | `todo`      | `todo <description>`                                              | `todo Buy groceries`                                             |
-| **Add a Deadline**      | `deadline`  | `deadline <description> /by <date_time>`                          | `deadline Finish homework /by 2024-09-20T15:00`                  |
-| **Add an Event**        | `event`     | `event <description> /from <start_date_time> /to <end_date_time>` | `event Team meeting /from 2024-09-21T09:00 /to 2024-09-21T11:00` |
+| **Add a Deadline**      | `deadline`  | `deadline <description> /by <date_time>`                          | `deadline Finish homework /by 2024-09-20 15:00`                  |
+| **Add an Event**        | `event`     | `event <description> /from <start_date_time> /to <end_date_time>` | `event Team meeting /from 2024-09-21 09:00 /to 2024-09-21 11:00` |
 | **Delete a task**       | `delete`    | `delete <task_number>`                                            | `delete 3`                                                       |
 | **Clear all tasks**     | `clear`     | `clear`                                                           | `clear`                                                          |
 | **Find tasks**          | `find`      | `find <keyword>`                                                  | `find project`                                                   |
