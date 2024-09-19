@@ -1,24 +1,240 @@
-# Duke project template
+# Itadel User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+![Ui.png](Ui.png)
+Welcome to Itadel! The number one task management chatbot
+to handle your daily tasks, deadlines and events!
 
-## Setting up in Intellij
+## Features
+The features of Itadel includes:
+1. list
+2. add todo
+3. add deadline
+4. add event
+5. mark/unmark as complete
+6. search with keywords
+7. manage tags in tasks
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+## List
+The feature allows you to see existing tasks (Todo, Deadline, Event) in your
+list.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+### Command format
+
+`list`
+
+> `list`
+> 
+>       1. [T][ ] sleep
+>       2. [T][ ] Work on CS2103T ip
+
+## Adding Todo
+
+The feature allows you to add Todo tasks for you
+to handle normal tasks.
+
+### Command format
+
+`todo <task name>`
+
+> `todo Work on CS2103T ip`
+> 
+>       Got it! I have added: [T][ ] Work on CS2103T ip | []
+>
+>       Now you have 2 tasks in the list
+
+## Adding Deadlines
+
+The feature allows you to add deadlines for you 
+to handle tasks that are time sensitive. 
+
+### Command format
+
+`deadline <task name> /by <time>`
+
+`<time>` should be of format `dd/MM/yyyy` `HH:mm`
+where `dd` = date, `MM` = month, `yyyy` = year,
+`HH` = hour, `mm` = minute 
+
+> `deadline assignment 1 /by 18/09/2024 23:59`
+> 
+>       Got it! I have added: [D][ ] assignment 1 (by: 18/09/2024 23:59) | []
+>
+>       Now you have 3 tasks in the list
+
+## Adding Events
+
+The feature allows you to add events for you
+to handle upcoming events.
+
+### Command format
+
+`event <task name> /from <start time> /to <end time>`
+
+`<start time>` and `<end time>` should be of format `dd/MM/yyyy` `HH:mm`
+where `dd` = date, `MM` = month, `yyyy` = year,
+`HH` = hour, `mm` = minute
+
+## Deleting tasks
+
+The feature allows you to delete tasks (Deadline, Event, Todo)
+from the existing list.
+
+### Command format
+
+`delete <Task Index>`
+
+`<Task Index>` refers to the index of the 
+task in the `TaskList` array.
+
+>`list`
+>       1. [T][ ] sleep
+>       2. [T][ ] sleep twice
+>       3. [D][ ] assignment 1 (by: 18 09 2024 23:59)
+>
+>`delete 1`
+>
+>       Noted. I've removed this task: [T][ ] sleep | []
+>
+>       Now you have 2 tasks in the list
+## Mark/Unmark tasks
+
+The feature allows you to mark a task (Deadline, Event, Todo)
+as complete/ unmark a task.
+
+### Command format
+
+`mark <Task Index>`
+
+Marks the task as completed.
+
+`<Task Index>` refers to the index of the
+task in the `TaskList` array.
+____
+`unmark <Task Index>`
+
+Unmarks the task from being completed.
+
+`<Task Index>` refers to the index of the
+task in the `TaskList` array.
+
+>`list`
+>       1. [T][ ] sleep twice
+>       2. [D][ ] assignment 1 (by: 18 09 2024 23:59)
+>
+>`mark 1`
+>
+>       Nice! I've marked this task as done:
+>
+>       [T][X] sleep twice | []
+> 
+> `list`
+>       1. [T][X] sleep twice
+>       2. [D][ ] assignment 1 (by: 18 09 2024 23:59)
+>
+>`unmark 1`
+> 
+>       Nice! I've marked this task as not done:
+> 
+>       [T][ ] sleep twice | []
+
+
+## Search with keywords
+
+The feature allows you to search tasks (Deadline, Event, Todo) that contain
+the keywords.
+
+### Command format
+
+`find <keyword>`
+
+>`find sleep`
+> 
+>       1. [T][ ] sleep twice
+>       
+>       Here are the matching tasks in your list:1. [T][ ] sleep twice
+
+## Managing Tags
+The feature allows you to manage tags in your tasks (Deadline,
+Event, Todo), including adding, removing and getting all
+tags.
+
+### Command Format
+
+`addtag <Task Index> <Tag Name>`
+
+Adds the tag to the task.
+
+`<Task Index>` refers to the index of the
+task in the `TaskList` array.
+
+`<Tag Name>` refers to the name of the tag
+added.
+____
+
+
+`removetag <Task Index> <Tag Index>`
+
+Removes the tag in the tag index from the task.
+
+`<Task Index>` refers to the index of the
+task in the `TaskList` array.
+
+`<Tag Index>` refers to the index of the
+tag in the tag list associated with the task.
+____
+
+
+`gettag <Task Index>`
+
+Gets all the tags associated with the task.
+
+`<Task Index>` refers to the index of the
+task in the `TaskList` array.
+```
+>`list`
+>   1. [T][ ] sleep twice
+>   2. [D][ ] assignment 1 (by: 18 09 2024 23:59)
+```
+>`addtag 1 sleep 8 hours`
+>
+>     Tag: sleep 8 hours has been added to task:
+>
+>     [T][ ] sleep twice | [sleep 8 hours]
+>
+>`addtag 1 sleep on comfortable bed`
+>
+>     Tag: sleep on comfortable bed has been added to task:
+>
+>     [T][ ] sleep twice | [sleep 8 hours, sleep on comfortable bed]
+>
+>`gettag 1`
+>
+>       Below are the list of tags related to task:
+>
+>       [T][ ] sleep twice | [sleep 8 hours, sleep on comfortable bed]
+>       1. sleep 8 hours
+>       2. sleep on comfortable bed
+>
+>`removetag 1 2`
+>
+>       Tag: sleep on comfortable bed has been removed from the task:
+>
+>       [T][ ] sleep twice | [sleep 8 hours]
+>
+>`gettag 1`
+>
+>       Below are the list of tags related to task:
+>
+>       [T][ ] sleep twice | [sleep 8 hours]
+>       1. sleep 8 hours
+
+## Bye
+The feature allows you to exit the program.
+
+### Command Format
+
+`bye`
+
+>`bye`
+> 
+>       Bye. Hope to see you again soon!
