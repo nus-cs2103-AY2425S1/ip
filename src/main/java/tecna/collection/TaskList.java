@@ -65,9 +65,9 @@ public class TaskList {
         String item = this.tasks.get(index).toString();
         this.tasks.remove(index);
         --this.size;
-        StringBuilder sb= new StringBuilder("Sure! I've deleted this task:");
+        StringBuilder sb= new StringBuilder("Sure! I've deleted this task:\n");
         sb.append(item);
-        sb.append(">> Now you have " + this.size + (size > 1 ? " tasks" : " task") + " in the list.");
+        sb.append("\n>> Now you have " + this.size + (size > 1 ? " tasks" : " task") + " in the list.");
         String response = sb.toString();
         System.out.println(response);
         return response;

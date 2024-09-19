@@ -4,6 +4,7 @@ import tecna.collection.TaskList;
 import tecna.storage.Storage;
 import tecna.task.ToDo;
 import tecna.exception.WrongFormatException;
+import tecna.exception.TaskDuplicateException;
 import tecna.ui.Ui;
 
 public class ToDoCommand extends Command {
@@ -26,8 +27,8 @@ public class ToDoCommand extends Command {
 
         try {
             taskList.addItem(toDo);
-        } catch (tecna.exception.TaskDuplicateException e) {
-            return ui.printError(e.getMessage());
+        } catch (TaskDuplicateException e) {
+            return ui.printTaskDuplicateError(toDo);
         }
 
         return ui.printAddItemMsg(taskList, toDo);

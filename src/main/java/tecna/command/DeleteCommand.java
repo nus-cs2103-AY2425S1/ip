@@ -15,7 +15,6 @@ public class DeleteCommand extends Command {
         super.execute(taskList, storage, ui);
         try {
             int index = parseDeleteCommand(taskList.getSize());
-            taskList.deleteItem(index);
             return ui.printDeleteItemMsg(taskList, index);
         } catch (WrongFormatException e) {
             return ui.printError(e.getMessage());
@@ -31,7 +30,7 @@ public class DeleteCommand extends Command {
 
         try {
             int index =  Integer.parseInt(input_words[1]) - 1;
-            if (index < 1 || index > taskListSize) {
+            if (index < 0 || index > taskListSize - 1) {
                 throw new WrongFormatException("delete", "Delete command should be in the format of \"delete [index of the task from 1 to " + taskListSize +  "]\"");
             }
             return index;
