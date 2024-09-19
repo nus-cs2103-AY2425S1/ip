@@ -1,9 +1,9 @@
 package secondmind;
 
-import java.util.ArrayList;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 /**
  * Main class for the SecondMind application that manages tasks.
