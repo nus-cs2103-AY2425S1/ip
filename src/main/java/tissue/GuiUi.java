@@ -45,7 +45,7 @@ public class GuiUi {
 
     private String markResponse() {
         try {
-                Task task = taskList.retrieveTask(parser.retrieveNextInt() - 1).markTask();
+            Task task = taskList.retrieveTask(parser.retrieveNextInt() - 1).markTask();
             return INDENT + "Nice! I've marked this task as done:\n" + INDENT + " " + task;
         } catch (NoSuchElementException | IndexOutOfBoundsException e) {
             return "Please enter a valid number.";

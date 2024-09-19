@@ -1,10 +1,8 @@
-# Duke User Guide
+# Tissue User Guide
 
-// Update the title above to match the actual product name
+![alt](./Ui.png)
 
-// Product screenshot goes here
-
-// Product intro goes here
+Tissue is a bot that helps you to store tasks for your viewing pleasure.
 
 ## Adding deadlines
 
@@ -14,7 +12,7 @@
 
 Example: `keyword (optional arguments)`
 
-// A description of the expected outcome goes here
+// A description of the expected outcome here
 
 ```
 expected output
@@ -23,7 +21,6 @@ expected output
 ## Feature ABC
 
 // Feature details
-
 
 ## Feature XYZ
 

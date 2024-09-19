@@ -1,7 +1,6 @@
 package tissue;
 
 import java.io.IOException;
-import java.sql.Array;
 import java.util.ArrayList;
 
 import tissue.parse.Parser;
