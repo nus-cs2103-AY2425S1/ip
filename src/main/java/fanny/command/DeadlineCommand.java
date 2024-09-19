@@ -65,11 +65,11 @@ public class DeadlineCommand extends Command {
     public void generateDeadline() {
         String[] cmdDeadline = this.description.split("/by ", 2);
         LocalDateTime time = LocalDateTime.parse(cmdDeadline[1], super.getFormatter());
-        String info = cmdDeadline[0];
+        String info = cmdDeadline[0].trim();
         if (info.isBlank()) {
             throw new IllegalArgumentException("Task description cannot be empty");
         }
-        this.deadline = new Deadline(description, time);
+        this.deadline = new Deadline(info, time);
     }
 
     /**

@@ -66,7 +66,7 @@ public class EventCommand extends Command {
      */
     public void generateEvent() throws IllegalArgumentException {
         String[] cmdEvent = this.description.split("/from ", 2);
-        String info = cmdEvent[0];
+        String info = cmdEvent[0].trim();
         String[] duration = cmdEvent[1].split(" /to ", 2);
         LocalDateTime startTime = LocalDateTime.parse(duration[0], super.getFormatter());
         LocalDateTime endTime = LocalDateTime.parse(duration[1], super.getFormatter());
