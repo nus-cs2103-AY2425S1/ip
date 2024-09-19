@@ -3,8 +3,10 @@ package choaticbot.tasks;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-import choaticbot.exceptions.WrongInputFormatException;
 import org.junit.jupiter.api.Test;
+
+import choaticbot.exceptions.WrongInputFormatException;
+
 public class ToDosTest {
 
     private ToDos testObject = new ToDos("todoTest1");
