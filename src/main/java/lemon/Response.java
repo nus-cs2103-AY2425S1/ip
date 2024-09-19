@@ -30,7 +30,7 @@ public class Response {
      * Clears the output String afterward
      */
     public void print() {
-        //assert window != null;
+        assert window != null;
         window.addLemonDialogBox(output.toString());
         output = new StringBuilder();
     }
