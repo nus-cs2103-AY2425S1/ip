@@ -21,6 +21,7 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.filePath = filePath;
+        assert this.filePath != null : "File path cannot be null";
     }
 
 
@@ -47,6 +48,8 @@ public class Storage {
     public List<Task> load() throws IOException {
         List<Task> tasks = new ArrayList<>();
         File file = new File(filePath); //always using same file
+        assert filePath != null && !filePath.isEmpty() : "File path should be valid.";
+
 
         if (file.exists()) {
             Scanner saveScanner = new Scanner(file);
@@ -110,5 +113,7 @@ public class Storage {
         FileWriter fw = new FileWriter(filePath);
         fw.write(TaskList.listToString(tasks));
         fw.close();
+
+        assert fw != null : "FileWriter should not be null.";
     }
 }
