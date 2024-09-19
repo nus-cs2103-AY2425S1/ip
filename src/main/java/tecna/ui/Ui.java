@@ -91,7 +91,7 @@ public class Ui {
     }
 
     public String printError(String error) {
-        StringBuilder sb = new StringBuilder("Oops! " + error);
+        StringBuilder sb = new StringBuilder("Oops! \n" + error);
         String msg = sb.toString();
         System.out.println(msg);
         return msg;

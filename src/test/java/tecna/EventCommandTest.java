@@ -19,7 +19,7 @@ public class EventCommandTest {
         try {
             nothingBehind.parseEventCommand();
         } catch (WrongFormatException e) {
-            assertEquals(new WrongFormatException("event",  "Event task should in the format of \"event [task name] /from [" + DATE_TIME_PATTERN + "] /to [" + DATE_TIME_PATTERN + "]").getMessage(), e.getMessage());
+            assertEquals(new WrongFormatException("event",  "Event task should in the format of \"event [task name] /from [" + DATE_TIME_PATTERN + "] /to [" + DATE_TIME_PATTERN + "]\"").getMessage(), e.getMessage());
         }
 
         EventCommand blankBehind = new EventCommand("event      ");
@@ -27,7 +27,7 @@ public class EventCommandTest {
         try {
             blankBehind.parseEventCommand();
         } catch (WrongFormatException e) {
-            assertEquals(new WrongFormatException("event",  "Event task should in the format of \"event [task name] /from [" + DATE_TIME_PATTERN + "] /to [" + DATE_TIME_PATTERN + "]").getMessage(), e.getMessage());
+            assertEquals(new WrongFormatException("event",  "Event task should in the format of \"event [task name] /from [" + DATE_TIME_PATTERN + "] /to [" + DATE_TIME_PATTERN + "]\"").getMessage(), e.getMessage());
         }
     }
 
@@ -38,7 +38,7 @@ public class EventCommandTest {
         try {
             emptyTaskName.parseEventCommand();
         } catch (WrongFormatException e) {
-            assertEquals(new WrongFormatException("event", "Event task should in the format of \"event [task name] /from [" + DATE_TIME_PATTERN + "] /to [" + DATE_TIME_PATTERN + "]").getMessage(), e.getMessage());
+            assertEquals(new WrongFormatException("event", "Event task should in the format of \"event [task name] /from [" + DATE_TIME_PATTERN + "] /to [" + DATE_TIME_PATTERN + "]\"").getMessage(), e.getMessage());
         }
     }
 
@@ -60,7 +60,7 @@ public class EventCommandTest {
         try {
             wrongDateFormat.parseEventCommand();
         } catch (WrongFormatException e) {
-            assertEquals(new WrongFormatException("event",  "Event task should in the format of \"event [task name] /from [" + DATE_TIME_PATTERN + "] /to [" + DATE_TIME_PATTERN + "]").getMessage(), e.getMessage());
+            assertEquals(new WrongFormatException("event",  "Event task should in the format of \"event [task name] /from [" + DATE_TIME_PATTERN + "] /to [" + DATE_TIME_PATTERN + "]\"").getMessage(), e.getMessage());
         }
     }
 
