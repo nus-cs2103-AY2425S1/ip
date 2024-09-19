@@ -21,7 +21,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String deadline) throws JudeException {
         super(description);
-        setDateAndTime(deadline);
+        dateTime = parseDateAndTime(deadline);
     }
 
     /**
@@ -42,13 +42,12 @@ public class Deadline extends Task {
      * @param deadline the String which parsed from the user input, containing information about the deadline.
      * @throws JudeException if the format of the input is not valid.
      */
-    public void setDateAndTime(String deadline) throws JudeException {
+    public LocalDateTime parseDateAndTime(String deadline) throws JudeException {
         try {
             DateTimeFormatter format = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-            this.dateTime = LocalDateTime.parse(deadline, format);
-
+            return LocalDateTime.parse(deadline, format);
         } catch (DateTimeParseException de) {
-            throw new JudeException("wrong date or time format was provided."
+            throw new JudeException("Wrong date or time format was provided."
                     + " Provide: day/month/year time (e.g. 1/1/2000 1800).");
         }
     }

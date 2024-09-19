@@ -21,7 +21,8 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public String toString() {
-        return "ListCommend";
+    public String getType() {
+        return "ListCommand";
     }
+
 }
