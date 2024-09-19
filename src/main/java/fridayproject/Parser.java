@@ -87,7 +87,7 @@ public class Parser {
 
         if (input.length() < 6) {
             throw new FridayException("I'm sorry, but I don't know what that means :(((\n" 
-            + "Please enter a valid task number.");
+                + "Please enter a valid task number.");
         }
         int taskNumber = Integer.parseInt(input.substring(5)) - 1;
         assert taskNumber >= 0 && taskNumber < taskList.size() : "Task number should not be out of range";
@@ -95,7 +95,7 @@ public class Parser {
         taskList.markTaskAsDone(taskNumber);
         storage.saveTasksToFile(taskList.getTasks());
         return "Nice! I've marked this task as done:\n  " + taskList.getTask(taskNumber).getTypeIcon() 
-        + taskList.getTask(taskNumber).toString();
+            + taskList.getTask(taskNumber).toString();
     }
 
     private String unmarkTask(String input) throws FridayException, IOException {
@@ -103,7 +103,7 @@ public class Parser {
         
         if (input.length() < 8) {
             throw new FridayException("I'm sorry, but I don't know what that means :(((\n" 
-            + "Please enter a valid task number.");
+                + "Please enter a valid task number.");
         }
         int taskNumber = Integer.parseInt(input.substring(7)) - 1;
         assert taskNumber >= 0 && taskNumber < taskList.size() : "Task number should not be out of range";
@@ -111,8 +111,8 @@ public class Parser {
         taskList.markTaskAsUndone(taskNumber);
         storage.saveTasksToFile(taskList.getTasks());
         return "OK, I've marked this task as not done yet:\n  " 
-        + taskList.getTask(taskNumber).getTypeIcon() 
-        + taskList.getTask(taskNumber).toString();
+            + taskList.getTask(taskNumber).getTypeIcon() 
+            + taskList.getTask(taskNumber).toString();
     }
 
     private String deleteTask(String input) throws FridayException, IOException {
@@ -120,7 +120,7 @@ public class Parser {
 
         if (input.length() < 8) {
             throw new FridayException("I'm sorry, but I don't know what that means :(((\n" 
-            + "Please enter a valid task number.");
+                + "Please enter a valid task number.");
         }
         int taskNumber = Integer.parseInt(input.substring(7)) - 1;
         assert taskNumber >= 0 && taskNumber < taskList.size() : "Task number should not be out of range";
@@ -129,7 +129,7 @@ public class Parser {
             Tasks deletedTask = taskList.deleteTask(taskNumber);
             storage.saveTasksToFile(taskList.getTasks());
             return "Noted. I've removed this task:\n  " + deletedTask.getTypeIcon() + deletedTask.toString() 
-            + "\nNow you have " + taskList.size() + " tasks in the list.";
+                + "\nNow you have " + taskList.size() + " tasks in the list.";
         }
         return "false";
     }
@@ -139,13 +139,13 @@ public class Parser {
 
         if (input.length() < 6) {
             throw new FridayException("I'm sorry, but I don't know what that means :(((\n" 
-            + "Please enter a valid task description.");
+                + "Please enter a valid task description.");
         }
         Tasks todo = new Todo(input.substring(5).trim());
         taskList.addTask(todo);
         storage.saveTasksToFile(taskList.getTasks());
         return "Got it. I've added this task:\n  " + todo.getTypeIcon() 
-        + todo.toString() + "\nNow you have " + taskList.size() + " tasks in the list.";
+            + todo.toString() + "\nNow you have " + taskList.size() + " tasks in the list.";
     }
 
     private String addDeadline(String input) throws FridayException, IOException {
@@ -153,7 +153,7 @@ public class Parser {
 
         if (input.length() < 10) {
             throw new FridayException("I'm sorry, but I don't know what that means :(((\n" 
-            + "Please enter a valid task description.");
+                + "Please enter a valid task description.");
         }
         String remainingInput = input.substring(input.indexOf(" ") + 1);
         String[] deadlineParts = remainingInput.split(" /by ");
@@ -165,7 +165,7 @@ public class Parser {
             taskList.addTask(deadline);
             storage.saveTasksToFile(taskList.getTasks());
             return "Got it. I've added this task:\n  " + deadline.getTypeIcon() 
-            + deadline.toString() + "\nNow you have " + taskList.size() + " tasks in the list.";
+                + deadline.toString() + "\nNow you have " + taskList.size() + " tasks in the list.";
         } catch (Exception e) {
             throw new FridayException("Invalid date format! Please enter in yyyy-MM-dd.");
         }
@@ -176,7 +176,7 @@ public class Parser {
 
         if (input.length() < 7) {
             throw new FridayException("I'm sorry, but I don't know what that means :(((\n" 
-            + "Please enter a valid task description.");
+                + "Please enter a valid task description.");
         }
         String remainingInput = input.substring(input.indexOf(" ") + 1);
         String[] eventParts = remainingInput.split(" /at ");
@@ -185,7 +185,7 @@ public class Parser {
         taskList.addTask(event);
         storage.saveTasksToFile(taskList.getTasks());
         return "Got it. I've added this task:\n  " + event.getTypeIcon() 
-        + event.toString() + "\nNow you have " + taskList.size() + " tasks in the list.";
+            + event.toString() + "\nNow you have " + taskList.size() + " tasks in the list.";
     }
 
     private String findWord(String input) throws FridayException, IOException {
@@ -194,7 +194,7 @@ public class Parser {
         String keyword = input.substring(5).trim();
         if (keyword.isEmpty()) {
             throw new FridayException("The keyword for the find command cannot be empty.\n" 
-            + "Please enter a valid keyword.");
+                + "Please enter a valid keyword.");
         }
         return taskList.findTasks(keyword);
     }
