@@ -48,6 +48,10 @@ public class Danny {
         list.setLastDone();
     }
 
+    public void setLastTag(String tag) {
+        list.setTag(tag);
+    }
+
     public String saveTasks() {
         return list.saveTasks();
     }

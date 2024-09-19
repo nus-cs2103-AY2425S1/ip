@@ -1,3 +1,3 @@
-deadline task1 /by tues | false | 
+deadline task1 /by tues | false | not soon
 deadline task1 /by tuesday | false | 
 todo task2 | false | 

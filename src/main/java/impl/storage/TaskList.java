@@ -40,6 +40,11 @@ public class TaskList {
         list.get(i).setTag(tag);
     }
 
+    public void setTag(String tag) {
+        list.get(list.size() - 1).setTag(tag);
+    }
+
+
     public String saveTasks() {
         StringBuilder lines = new StringBuilder();
         for (Task task : list) {

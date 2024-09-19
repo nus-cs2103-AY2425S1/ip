@@ -34,9 +34,13 @@ public class Storage {
             line = s.nextLine();
             if (!line.isEmpty()) {
                 assert line.contains(" \\| ");
-                danny.parseString(line.split(" \\| ")[0]);
-                if (Objects.equals(line.split(" \\| ")[1], "true")) {
+                String[] split = line.split(" \\| ");
+                danny.parseString(split[0]);
+                if (Objects.equals(split[1], "true")) {
                     danny.setLastDone();
+                }
+                if (split.length == 3) {
+                    danny.setLastTag(split[2]);
                 }
             }
         }
