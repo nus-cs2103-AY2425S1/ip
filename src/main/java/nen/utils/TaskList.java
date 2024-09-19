@@ -26,7 +26,7 @@ public class TaskList {
     public TaskList(String[] arr) {
         try {
             for (String data : arr) {
-                listOfTasks.add(Todo.parseData(data));
+                listOfTasks.add(Task.parseData(data));
             }
         } catch (FailToParseDataException e) {
             System.out.println(e.getMessage());

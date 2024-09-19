@@ -137,7 +137,7 @@ public abstract class Task implements Comparable<Task> {
             t = new Deadline(arr[2], arr[3]);
             break;
         case "E":
-            t = new Event(arr[3], arr[4], arr[5]);
+            t = new Event(arr[2], arr[3], arr[4]);
             break;
         default:
             throw new FailToParseDataException("Fail to parse data");
