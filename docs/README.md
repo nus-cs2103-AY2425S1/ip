@@ -15,14 +15,18 @@
   - [Finding tasks](#find-tasks)
 
 # How to use Ollie️ ☺️
-1. Download the latest release [here](https://github.com/rxchell/ip/releases) 👈🏼
-2. Go to the folder with `ollie.jar`
-3. Run this command in the folder to open the application.
+1. Make sure Java 17 or above is installed.
+2. Download the latest release of `.jar` file [here](https://github.com/rxchell/ip/releases) 👈🏼
+3. Open your command terminal. 
+4. Navigate to the folder with `ollie.jar`.
+5. Run this command in the folder to open the application.
     ```bash
     java -jar ollie.jar
     ```
-4. The Ollie ☺ application starts! 🎉
+6. The Ollie ☺ application starts! 🎉 
 <img src="./images/Start.png" width="300">
+
+7. Please refer to [features](#features) for the commands that can be typed.
 
 # Features
 Function | Command | Format | Example
