@@ -12,6 +12,7 @@ import ai.command.MarkCommand;
 import ai.command.UnmarkCommand;
 import ai.exception.AiException;
 import ai.exception.EmptyArgumentAiException;
+import ai.exception.WrongFormatAiException;
 import ai.task.Deadline;
 import ai.task.Event;
 import ai.task.ToDo;
@@ -41,20 +42,55 @@ public class Parser {
     }
 
     private static Command parseDeadlineCommand(String arguments) throws AiException {
-        checkArgumentNotEmpty(arguments, "deadline",
-                "deadline date w Ai <3 /by 30/08/2001 2359");
-        String[] parsedInput = arguments.split(" /by ", 2);
-        return new AddCommand(new Deadline(parsedInput[0], parsedInput[1]));
+        try {
+            checkArgumentNotEmpty(arguments, "deadline",
+                    "deadline date w Ai <3 /by 30/08/2001 2359");
+            String[] parsedInput = arguments.split(" /by ", 2);
+            return new AddCommand(new Deadline(parsedInput[0], parsedInput[1]));
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new WrongFormatAiException("Ohnoess, you might have forgotten /by field :(((",
+                    "deadline date w Ai <3 /by 30/08/2001 2359");
+        }
     }
 
-    private static Command parseEventCommand(String arguments) throws EmptyArgumentAiException {
-        checkArgumentNotEmpty(arguments, "event", "event birthday w Ai <3333 /from 5am /to 6pm");
-        return new AddCommand(new Event(arguments));
+    private static Command parseEventCommand(String arguments) throws AiException {
+        try {
+            String[] parsedCommand = arguments.split("/from|/to");
+            String description = (parsedCommand[0].trim());
+            String from = parsedCommand[1].trim();
+            String to = parsedCommand[2].trim();
+
+            checkArgumentNotEmpty(description, "event", "event birthday w Ai <3333 /from 5am /to 6pm");
+            return new AddCommand(new Event(description, from, to, false));
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new WrongFormatAiException("Ohnoess, you might have forgotten /from and /to fields :(((",
+                    "event birthday w Ai <3333 /from 5am /to 6pm");
+        }
     }
 
-    private static Command parseDueCommand(String arguments) throws EmptyArgumentAiException {
+    private static Command parseDueCommand(String arguments) throws AiException {
         checkArgumentNotEmpty(arguments, "due", "due 2019-12-02");
         return new DueCommand(arguments);
+    }
+
+    private static Command parseMarkCommand(String arguments) throws AiException {
+        checkArgumentNotEmpty(arguments, "mark", "mark 1");
+        return new MarkCommand(arguments);
+    }
+
+    private static Command parseUnmarkCommand(String arguments) throws AiException {
+        checkArgumentNotEmpty(arguments, "unmark", "unmark 1");
+        return new UnmarkCommand(arguments);
+    }
+
+    private static Command parseFindCommand(String arguments) throws EmptyArgumentAiException {
+        checkArgumentNotEmpty(arguments, "find", "find my heart <333");
+        return new FindCommand(arguments);
+    }
+
+    private static Command parseDeleteCommand(String arguments) throws AiException {
+        checkArgumentNotEmpty(arguments, "delete", "delete 3");
+        return new DeleteCommand(arguments);
     }
 
     /**
@@ -73,9 +109,9 @@ public class Parser {
         case "list":
             return new ListCommand();
         case "unmark":
-            return new UnmarkCommand(arguments);
+            return parseUnmarkCommand(arguments);
         case "mark":
-            return new MarkCommand(arguments);
+            return parseMarkCommand(arguments);
         case "todo":
             return parseTodoCommand(arguments);
         case "deadline":
@@ -85,9 +121,9 @@ public class Parser {
         case "due":
             return parseDueCommand(arguments);
         case "find":
-            return new FindCommand(arguments);
+            return parseFindCommand(arguments);
         case "delete":
-            return new DeleteCommand(arguments);
+            return parseDeleteCommand(arguments);
         case "bye":
             return new ByeCommand();
         default:
