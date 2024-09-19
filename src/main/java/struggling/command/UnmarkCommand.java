@@ -1,5 +1,7 @@
 package struggling.command;
 
+import java.io.IOException;
+
 import struggling.Storage;
 import struggling.TaskList;
 import struggling.Ui;
@@ -21,7 +23,8 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         ui.showUnmarkTask(tasks.unmarkTask(this.index));
+        storage.save(tasks.getTasksState());
     }
 }

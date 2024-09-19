@@ -1,5 +1,7 @@
 package struggling.command;
 
+import java.io.IOException;
+
 import struggling.Storage;
 import struggling.TaskList;
 import struggling.Ui;
@@ -21,7 +23,8 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         ui.showDeleteTask(tasks.deleteTask(this.index), tasks.getSize());
+        storage.save(tasks.getTasksState());
     }
 }

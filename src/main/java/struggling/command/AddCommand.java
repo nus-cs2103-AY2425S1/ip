@@ -1,5 +1,7 @@
 package struggling.command;
 
+import java.io.IOException;
+
 import struggling.Storage;
 import struggling.TaskList;
 import struggling.Ui;
@@ -22,7 +24,8 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         ui.showAddTask(tasks.addTask(this.task), tasks.getSize());
+        storage.save(tasks.getTasksState());
     }
 }
