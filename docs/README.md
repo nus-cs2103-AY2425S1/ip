@@ -1,5 +1,6 @@
 # Quack - Your Personal Duck Assistant 
 ---
+
 <div style="display: flex; align-items: flex-start;">
   <image src="..\src\main\resources\images\duck.png" width="450" height="400">
   <p style="margin-left: 10px; padding-top: 100px;">Hello nice to meet you I am your personal assistant</p>
@@ -8,7 +9,7 @@
 ## What is Quack
 Quack is a user friendly assistant which helps you keep track of pesky tasks and ensures you don't miss out on anything important!
 
-## Supported Features
+<!-- ## Supported Features
 Here is a list of feaures that quack supports
    1) List your tasks
    2) Add a todo/deadline/event task
@@ -227,4 +228,4 @@ For the duck icon it was retrieved [here](https://www.vecteezy.com/vector-art/25
 
 ### Person Icon
 
-For the person icon it was retrieved [here](https://www.flaticon.com/free-icon/man_4140061).
+For the person icon it was retrieved [here](https://www.flaticon.com/free-icon/man_4140061). -->
