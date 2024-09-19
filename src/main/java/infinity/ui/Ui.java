@@ -25,27 +25,27 @@ public class Ui {
     /** String output for help command. */
     private static final String COMMAND_STRING = """
             fields in <> are to be populated as appropriate
-            •• Multi operations supported, use && to separate
+            >> Multi operations supported, use && to separate
 
-            • bye
+            > bye
                 -> Shutdown the bot
-            •• deadline <task> /by <date in "DD/MM/YYYY HHMM">
+            >> deadline <task> /by <date in "DD/MM/YYYY HHMM">
                 -> Add a Deadline task
-            •• delete <index of task>
+            >> delete <index of task>
                 -> Delete a task
-            •• event <task> /from <period> /to <period>
+            >> event <task> /from <period> /to <period>
                 -> Add an Event task
-            •• find <keyword>
+            >> find <keyword>
                 -> Finds all tasks and shows them with the keyword given
-            • help
+            > help
                 -> Show all available commands
-            • list
+            > list
                 ->  all tasks
-            •• mark <index of task>
+            >> mark <index of task>
                 -> Marks a task as done
-            • save
+            > save
                 -> Saves tasklist manually
-            •• todo <task>
+            >> todo <task>
                 -> Add a Todo task\n""";
 
     /**

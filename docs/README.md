@@ -12,9 +12,9 @@ feature of mass operations! How cool.
 # Section 1: Definitions
 ```<>``` is used to denote blanks to be filled by the user's content. Follow the instructions inside as needed.
 
-```•``` Supported command
+```>``` Supported command
 
-```••``` Supported command with Mass Operations
+```>>``` Supported command with Mass Operations
 
 ```Mass Operations``` Users can run multiple operations of the same command with the delimiter ```&&```
 
@@ -23,25 +23,25 @@ feature of mass operations! How cool.
 # Section 2: Commands
 ## Commands Available (/help)
 
-        • bye
+        > bye
             -> Shutdown the bot
-        •• deadline <task> /by <date in "DD/MM/YYYY HHMM">
+        >> deadline <task> /by <date in "DD/MM/YYYY HHMM">
             -> Add a Deadline task
-        •• delete <index of task>
+        >> delete <index of task>
             -> Delete a task
-        •• event <task> /from <period> /to <period>
+        >> event <task> /from <period> /to <period>
             -> Add an Event task
-        •• find <keyword>
+        >> find <keyword>
             -> Finds all tasks and shows them with the keyword given
-        • help
+        > help
             -> Show all available commands
-        • list
+        > list
             ->  all tasks
-        •• mark <index of task>
+        >> mark <index of task>
             -> Marks a task as done
-        • save
+        > save
             -> Saves tasklist manually
-        •• todo <task>
+        >> todo <task>
             -> Add a Todo task
 
 
