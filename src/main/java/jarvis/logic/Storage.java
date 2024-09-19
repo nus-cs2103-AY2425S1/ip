@@ -7,7 +7,8 @@ import java.util.List;
 
 /**
 *Provides an abstraction of the Storage of previously saved user data,
-*from the users' previous useage of Jarvis
+*from the users' previous usage of Jarvis
+ * It is stored in the default filepath specified.
  It handles tasks such as adding, deleting, marking, unmarking, listing, and clearing tasks stored in the file.
  This class implements the Singleton pattern to ensure that only one instance of {@code Storage} is created.
  */
