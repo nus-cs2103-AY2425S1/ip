@@ -43,7 +43,7 @@ Format: `list`
 Example: `list`
 
 Expected output:
-<p style="text-align:center;"><img src="ListDemo.png" alt="ListDemo" width="300"/></p>
+<p style="text-align:center;"><img src="https://github.com/user-attachments/assets/494790b4-dfe5-4071-bd64-8705944cd886" alt="ListDemo" width="300"/></p>
 
 The above shows the expected output of `list` if the task list currently has a `deadline` task and an `event` task.
 
@@ -59,7 +59,7 @@ Format: `add todo {TASK_DESCRIPTION}`
 Example: `add todo Buy dinner`, `add todo Do homework`.
 
 Expected output:
-<p style="text-align:center;"><img src="TodoDemo.png" alt="TodoDemo" width="300"/></p>
+<p style="text-align:center;"><img src="https://github.com/user-attachments/assets/4fb32eb9-0530-4384-9460-0d057c88cd32" alt="TodoDemo" width="300"/></p>
 
 The above shows the expected output of `add todo Buy dinner` if the task list currently has 2 other tasks.
 
@@ -76,7 +76,7 @@ Format: `add deadline {TASK_DESCRIPTION}/{END_TIME}`
 Example: `add deadline Wash shoes/2024 09 20 03.44PM`, `add deadline Submit Assignment/2024 09 20 09.00AM`.
 
 Expected output:
-<p style="text-align:center;"><img src="DeadlineDemo.png" alt="DeadlineDemo" width="300"/></p>
+<p style="text-align:center;"><img src="https://github.com/user-attachments/assets/b4468168-2ab7-4da4-b604-12e08faaf848" alt="DeadlineDemo" width="300"/></p>
 
 The above shows the expected output of `add deadline Wash shoes/2024 09 20 03.44PM` if the task list currently has 3 other tasks.
 
@@ -93,7 +93,7 @@ Format: `add event {TASK_DESCRIPTION}/{START_TIME}/{END_TIME}`
 Example: `add event Networking/2024 09 20 03.00PM/2024 09 20 06.00PM`, `add event Do Assignment/2024 09 10 07.00PM/2024 09 10 10.00PM`.
 
 Expected output:
-<p style="text-align:center;"><img src="EventDemo.png" alt="EventDemo" width="300"/></p>
+<p style="text-align:center;"><img src="https://github.com/user-attachments/assets/e3984f35-6a74-413c-8ede-6e7aa07056d1" alt="EventDemo" width="300"/></p>
 
 The above shows the expected output of `add event Networking/2024 09 20 03.00PM/2024 09 20 06.00PM` if the task list currently has 3 other tasks.
 
@@ -111,7 +111,7 @@ Format: `mark {INDEX}`
 Example: `mark 1`, `mark 3`.
 
 Expected output:
-<p style="text-align:center;"><img src="MarkDemo.png" alt="MarkDemo" width="300"/></p>
+<p style="text-align:center;"><img src="https://github.com/user-attachments/assets/94150c2d-ff50-4eb4-88b3-855484ce1907" alt="MarkDemo" width="300"/></p>
 
 The above shows the expected output of `mark 1`, given the first task in the list is a `Deadline` task with a `{TASK_DESCRIPTION}` of "CS2103T Project".
 
@@ -129,7 +129,7 @@ Format: `delete {INDEX}`
 Example: `delete 1`, `delete 3`.
 
 Expected output:
-<p style="text-align:center;"><img src="DeleteDemo.png" alt="DeleteDemo" width="300"/></p>
+<p style="text-align:center;"><img src="https://github.com/user-attachments/assets/5d5c6b65-ac2c-4a92-9da1-22b0f33ed35b" alt="DeleteDemo" width="300"/></p>
 
 The above shows the expected output of `delete 2`, where the second task in the list is a `Todo` task.
 
@@ -146,7 +146,7 @@ Format: `find {KEYWORD}`
 Example: `find homework`, `find deadline`.
 
 Expected output:
-<p style="text-align:center;"><img src="FindDemo.png" alt="FindDemo" width="300"/></p>
+<p style="text-align:center;"><img src="https://github.com/user-attachments/assets/62fe2f07-53ec-4efd-9ab6-2ab6d4084e82" alt="FindDemo" width="300"/></p>
 
 The above shows the expected output of `find deadline`, and 2 deadline tasks that is in the task list is being returned.
 
@@ -163,7 +163,7 @@ Format: `remind`
 Example: `remind`
 
 Expected output:
-<p style="text-align:center;"><img src="RemindDemo.png" alt="RemindDemo" width="300"/></p>
+<p style="text-align:center;"><img src="https://github.com/user-attachments/assets/6f17e0de-724f-4664-8fc7-0ec233d44797" alt="RemindDemo" width="300"/></p>
 
 The above shows the expected output of `remind`, given the task list currently has a `deadline` task that is not yet marked and due within 12 hours.
 
@@ -177,7 +177,7 @@ Format: `bye`
 Example: `bye`
 
 Expected output:
-<p style="text-align:center;"><img src="ExitDemo.png" alt="ListDemo" width="300"/></p>
+<p style="text-align:center;"><img src="https://github.com/user-attachments/assets/15f5dfff-6572-40fe-8625-4f259b8e7a92" alt="ListDemo" width="300"/></p>
 
 
 The above shows the expected output of `bye`.
