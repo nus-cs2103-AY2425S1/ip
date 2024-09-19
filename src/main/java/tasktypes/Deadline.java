@@ -23,11 +23,7 @@ public class Deadline extends Task {
     public String toString() {
         return "[D]" + super.toString() + " (by: " + dateFormatPrintVersion(by) + ")" + "\n";
     }
-    
-    public String getClassName() {
-        return TaskName.DEADLINE.getName();
-    }
-    
+
     public LocalDate getStartDate() {
         return this.by;
     }

@@ -98,10 +98,6 @@ public class Task {
         return this.getStatusIcon() + " " + this.getDescription();
     }
     
-    public String getClassName() {
-        return "";
-    }
-    
     public LocalDate getStartDate() {
         return LocalDate.MAX;
     }

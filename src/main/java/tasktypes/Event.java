@@ -28,10 +28,6 @@ public class Event extends Task{
         return "[E]" + super.toString() + " (from: " + dateFormatPrintVersion(start)  + " to: " + dateFormatPrintVersion(end) + ")" + "\n";
     }
     
-    public String getClassName() {
-        return TaskName.EVENT.getName();
-    }
-    
     public LocalDate getStartDate() {
         return this.start;
     }

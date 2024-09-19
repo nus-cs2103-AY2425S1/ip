@@ -86,6 +86,9 @@ public class TaskList {
     public String modifyOperation(int index, boolean markStatus) {
         int normalizedIndex = index - 1;
         StringBuilder result = new StringBuilder();
+        if (this.tasks.size() < normalizedIndex) {
+            return result.toString();
+        }
         if (markStatus) {
             this.tasks.get(normalizedIndex).markAsDone();
         } else {
@@ -125,7 +128,7 @@ public class TaskList {
      */
     public ArrayList<Task> getTaskLists() {
         return this.tasks;
-    };
+    }
     
     /**
      * Finds and returns a list of tasks that match the specified search parameter.
@@ -173,4 +176,24 @@ public class TaskList {
         
         return new TaskList(new ArrayList<>(reminderTasks));
     }
+    
+    /**
+     * Checks whether the given index is valid for the current task list.
+     *
+     * @param index the index to be checked (1-based index)
+     * @return {@code true} if the index is valid, {@code false} otherwise
+     */
+    public boolean isValidIndex(int index) {
+        return this.tasks.size() >= index || !this.tasks.isEmpty();
+    }
+    
+    /**
+     * Returns the number of tasks in the list.
+     *
+     * @return the number of tasks
+     */
+    public int size() {
+        return this.tasks.size();
+    }
+    
 }

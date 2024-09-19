@@ -5,16 +5,26 @@ import exception.AlphaException;
 import utility.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.Arrays;
 import java.util.ArrayList;
-import java.util.stream.Stream;
 
+import static utility.Parser.excludeDescriptionFromTodo;
+
+/**
+ * The {@code Alpha} class serves as the main logic controller of the application,
+ * handling user inputs, processing tasks, and managing the task list.
+ */
 public class Alpha {
     
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
     
+    /**
+     * Constructs an {@code Alpha} object with the specified file path for storage.
+     * Initializes the user interface, loads the stored tasks, and handles any errors.
+     *
+     * @param filePath the file path for storing task data
+     */
     public Alpha(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -26,6 +36,13 @@ public class Alpha {
         }
     }
     
+    /**
+     * Processes the user input and performs the corresponding operations, such as
+     * adding tasks, marking tasks as done, deleting tasks, or handling other commands.
+     *
+     * @param input the user's input string
+     * @return a response string based on the processed input
+     */
     public String processInput(String input) {
         StringBuilder response = new StringBuilder();
         String inputCommand = Parser.extractCommand(input);
@@ -46,29 +63,41 @@ public class Alpha {
         } else if (inputCommand.equalsIgnoreCase(Commands.MARK.getCommand())) {
             try {
                 Integer indexInvolved = Parser.extractIntegerInvolved(input);
-                response.append(ui.doneMessage(tasks.modifyOperation(indexInvolved, true)));
+                if (!tasks.isValidIndex(indexInvolved)) {
+                    response.append(ui.indexExceedMessage(tasks.size()));
+                } else {
+                    response.append(ui.doneMessage(tasks.modifyOperation(indexInvolved, true)));
+                }
             } catch (ArrayIndexOutOfBoundsException e) {
                 response.append("OOPS!!! Must specify which task to mark\n");
             }
         } else if (inputCommand.equalsIgnoreCase(Commands.UNMARK.getCommand())) {
             try {
                 Integer indexInvolved = Parser.extractIntegerInvolved(input);
-                response.append(ui.undoneMessage(tasks.modifyOperation(indexInvolved, false)));
+                if (!tasks.isValidIndex(indexInvolved)) {
+                    response.append(ui.indexExceedMessage(tasks.size()));
+                } else {
+                    response.append(ui.undoneMessage(tasks.modifyOperation(indexInvolved, false)));
+                }
             } catch (ArrayIndexOutOfBoundsException e) {
                 response.append("OOPS!!! Must specify which task to unmark\n");
             }
         } else if (inputCommand.equalsIgnoreCase(Commands.DELETE.getCommand())) {
             try {
                 Integer indexInvolved = Parser.extractIntegerInvolved(input);
-                String deletedTaskNotice = tasks.deleteOperation(indexInvolved);
-                String numberOfTasks = tasks.getLength();
-                response.append(ui.deleteTaskMessage(deletedTaskNotice, numberOfTasks));
+                if (!tasks.isValidIndex(indexInvolved)) {
+                    response.append(ui.indexExceedMessage(tasks.size()));
+                } else {
+                    String deletedTaskNotice = tasks.deleteOperation(indexInvolved);
+                    String numberOfTasks = tasks.getLength();
+                    response.append(ui.deleteTaskMessage(deletedTaskNotice, numberOfTasks));
+                }
             } catch (ArrayIndexOutOfBoundsException e) {
                 response.append("OOPS!!! Must specify which task to delete\n");
             }
         } else if (inputCommand.equalsIgnoreCase(Commands.TODO.getCommand())) {
             try {
-                ToDo newToDo = new ToDo(String.join(" ", Arrays.copyOfRange(input.split(" "), 1, input.split(" ").length)));
+                ToDo newToDo = new ToDo(excludeDescriptionFromTodo(input));
                 tasks.storeTask(newToDo);
                 response.append(ui.addTaskMessage(tasks));
             } catch (ArrayIndexOutOfBoundsException e) {
@@ -105,10 +134,21 @@ public class Alpha {
         return response.toString();
     }
     
+    /**
+     * Returns a response generated from processing the user's input.
+     *
+     * @param input the user's input string
+     * @return the processed response string
+     */
     public String getResponse(String input) {
         return processInput(input);
     }
     
+    /**
+     * Provides a reminder message for tasks that are due within the current week.
+     *
+     * @return a string containing the tasks due this week, or an error message if no tasks are due
+     */
     public String taskReminder() {
         StringBuilder response = new StringBuilder();
         try {

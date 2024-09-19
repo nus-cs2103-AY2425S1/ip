@@ -18,8 +18,4 @@ public class ToDo extends Task{
     public String toString() {
         return "[T]" + super.toString() + "\n";
     }
-    
-    public String getClassName() {
-        return TaskName.TODO.getName();
-    }
 }

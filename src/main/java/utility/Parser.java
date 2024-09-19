@@ -52,8 +52,7 @@ public class Parser {
      */
     public static String extractFirstDate(String input) {
         // Split the input by '/', limit to 2 parts to avoid splitting dates that contain '/'
-        String[] parts = input.split("/", 2);
-        assert parts.length >= 2 : "Input does not contain '/' for date extraction.";
+        String[] parts = input.split("/");
         
         String processing = parts[1];
         // Remove 'by' or 'from' prefixes (case-insensitive)
@@ -61,7 +60,6 @@ public class Parser {
         
         // Assert that the date is in yyyy-mm-dd format
         assert isValidDateFormat(processing) : "Date format should be yyyy-mm-dd.";
-        
         return processing;
     }
     
@@ -138,5 +136,9 @@ public class Parser {
         String[] splitArray = input.split(" ");
         assert splitArray.length >= 2 : "Missing Arguments in Input";
         return String.join(" ", Arrays.copyOfRange(splitArray, 1, splitArray.length));
+    }
+    
+    public static String excludeDescriptionFromTodo(String input) {
+        return String.join(" ", Arrays.copyOfRange(input.split(" "), 1, input.split(" ").length));
     }
 }

@@ -15,7 +15,7 @@ public class Ui {
      */
     public String welcomeMessage() {
         String initialResponse = "Hello! I'm Alpha\n"
-            + "What can I do for you?\n";
+                + "What can I do for you?\n";
         return initialResponse;
     }
     
@@ -26,7 +26,7 @@ public class Ui {
      */
     public String listTask(TaskList taskList) {
         String echoResponse = "Here are the tasks in your list:\n"
-            + taskList.listWord() + "\n";
+                + taskList.listWord() + "\n";
         return echoResponse;
     }
     
@@ -53,8 +53,8 @@ public class Ui {
     public String addTaskMessage(TaskList taskList) {
         System.out.println(taskList.getTaskLists());
         String echoResponse = "Got it. I've added this task: \n"
-            + taskList.lastTask().toString()
-            + taskList.getLength() + "\n";
+                + taskList.lastTask().toString()
+                + taskList.getLength() + "\n";
         return echoResponse;
     }
     
@@ -65,7 +65,7 @@ public class Ui {
      */
     public String undoneMessage(String modifiedRecord) {
         String echoResponse = "OK, I've marked this task as not done yet:\n "
-            + modifiedRecord + "\n";
+                + modifiedRecord + "\n";
         return echoResponse;
     }
     
@@ -76,7 +76,7 @@ public class Ui {
      */
     public String doneMessage(String modifiedRecord) {
         String echoResponse = "Nice! I've marked this task as done:\n"
-            + modifiedRecord + "\n";
+                + modifiedRecord + "\n";
         return echoResponse;
     }
     
@@ -91,7 +91,7 @@ public class Ui {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < taskList.size(); i++) {
             result.append(i + 1).append(". ")
-                .append(taskList.get(i).toString()).append("\n");
+                    .append(taskList.get(i).toString()).append("\n");
         }
         return result.toString();
     }
@@ -104,24 +104,58 @@ public class Ui {
      */
     public String searchTask(ArrayList<Task> taskList) {
         String echoResponse = "Here are the matching tasks in your list:\n"
-            + listSearchResult(taskList) + "\n";
+                + listSearchResult(taskList) + "\n";
         return echoResponse;
     }
     
+    /**
+     * Displays a message confirming that a task has been deleted from the {@code TaskList}.
+     *
+     * @param deleteTaskNotice a string representing the task that was deleted
+     * @param numberOfTasks a string indicating the number of tasks remaining
+     * @return a confirmation message with the deleted task and the remaining number of tasks
+     */
     public String deleteTaskMessage(String deleteTaskNotice, String numberOfTasks) {
-        String echoResponse =  "Noted. I've removed this task:\n "
-            + deleteTaskNotice + "\n" + numberOfTasks;
+        String echoResponse = "";
+        if (deleteTaskNotice.contains("Current Task List Length")) {
+            echoResponse = deleteTaskNotice;
+        } else {
+            echoResponse = "Noted. I've removed this task:\n "
+                    + deleteTaskNotice + "\n" + numberOfTasks;
+        }
         return echoResponse;
     }
     
+    /**
+     * Displays a message confirming that the tasks have been sorted based on urgency.
+     *
+     * @return a message indicating successful sorting of tasks
+     */
     public String sortTaskMessage() {
         String echoResponse = "Tasks sorted based on decreasing urgency!";
         return echoResponse;
     }
     
+    /**
+     * Displays a reminder message listing the tasks due this week.
+     *
+     * @param listTasks a string representing the tasks due this week
+     * @return a message with the list of tasks due and a motivational note
+     */
     public String reminderMessage(String listTasks) {
         String echoResponse = "These are the Tasks that are due this week: \n" +
-            listTasks + "\n" + "Try your best! :)";
+                listTasks + "\n" + "Try your best! :)";
         return echoResponse;
+    }
+    
+    /**
+     * Displays a warning message showing the number of tasks.
+     *
+     * @param taskNumber is an int representing the number of tasks
+     * @return a message with a warning and the total number of tasks
+     */
+    
+    public String indexExceedMessage(int taskNumber) {
+        return "Index specified exceeds number of tasks: " + String.valueOf(taskNumber);
     }
 }

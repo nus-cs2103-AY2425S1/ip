@@ -20,6 +20,7 @@ public class ParserTest {
     @Test
     public void extractFirstDateTest() {
         String testCommand = "event project meeting /from 2023-09-08 /to 4pm";
+        System.out.println(Parser.extractFirstDate(testCommand));
         assertEquals("2023-09-08", Parser.extractFirstDate(testCommand));
     }
     
