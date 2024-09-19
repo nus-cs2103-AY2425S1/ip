@@ -37,11 +37,11 @@ public class TaskList {
         String result = "";
         if (status == 1) {
             taskList.get(index - 1).mark();
-            result = LINE + "\n" + "    Nice! I've marked this task as done:"
+            result = LINE + "\n" + " Nice! I've marked this task as done:"
                     + taskList.get(index - 1) + "\n" + LINE;
         } else if (status == 0) {
             taskList.get(index - 1).unmark();
-            result = LINE + "    OK, I've marked this task as not done yet:"
+            result = LINE + " OK, I've marked this task as not done yet:"
                     + taskList.get(index - 1) + "\n" + LINE;
         }
         return result;
@@ -54,6 +54,9 @@ public class TaskList {
      * @return
      */
     public String deleteTask(int index) {
+        if (index < 0 || index > taskList.size()) {
+            return "Please state index of task within the list of Tasks";
+        }
         Task temp = taskList.get(index - 1);
         taskList.remove(temp);
 
@@ -136,8 +139,7 @@ public class TaskList {
                     + taskList.size() + " tasks in the list" + "\n" + LINE;
 
         } else {
-            result = LINE + "\n" + "  Please state date and time of deadline"
-                    + "\n" + "in YYYY-dd-MM HH:mm format" + "\n" + LINE;
+            result = " Please state date and time of deadline\n" + "in YYYY-MM-dd HH:mm format";
         }
         return result;
     }
@@ -180,7 +182,7 @@ public class TaskList {
                     + "    Now you have " + taskList.size() + " tasks in the list" + "\n" + LINE;
         } else {
             result = LINE + "\n" + " Please state date and time of from and to of event"
-                    + "in YYYY-dd-MM HH:mm format\n" + LINE;
+                    + "in YYYY-MM-dd HH:mm format\n" + LINE;
         }
 
         return result;

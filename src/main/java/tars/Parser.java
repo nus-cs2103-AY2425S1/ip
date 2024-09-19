@@ -1,6 +1,8 @@
 package tars;
 
 import java.util.ArrayList;
+import java.util.function.IntUnaryOperator;
+
 /**
  * Processes User inputs and executes commands based on inputs
  * Has method to also list all Tasks added by User
@@ -10,7 +12,7 @@ import java.util.ArrayList;
  */
 
 public class Parser {
-    private static final String LINE = "_____________________________________________";
+    private static final String LINE = " _____________________________________________";
 
     public Parser() {
     }
@@ -55,16 +57,21 @@ public class Parser {
     public String addTask(String[] task, String entry, TaskList taskList) {
         String result = "";
         if (task[0].equals("m") || task[0].equals("um") || task[0].equals("delete")) {
-            Integer index = Integer.parseInt(task[task.length - 1]);
-            assert index > 0 && index <= taskList.getList().size() : "Task index invalid";
-            if (task[0].equals("m")) {
-                result = taskList.markTask(index, 1);
-            } else if (task[0].equals("um")) {
-                result = taskList.markTask(index, 0);
-            } else if (task[0].equals("delete")) {
-                result = taskList.deleteTask(index);
-            } else {
-                result = "Please state task name followed by mark/unmark/delete command";
+            //used ChatGPT to check what exception class to use for invalid input for index parsing
+            try {
+                Integer index = Integer.parseInt(task[task.length - 1]);
+                assert index > 0 && index <= taskList.getList().size() : "Task index invalid";
+                if (task[0].equals("m")) {
+                    result = taskList.markTask(index, 1);
+                } else if (task[0].equals("um")) {
+                    result = taskList.markTask(index, 0);
+                } else if (task[0].equals("delete")) {
+                    result = taskList.deleteTask(index);
+                } else {
+                    result = "Please state task index followed by m/um/delete command";
+                }
+            } catch (NumberFormatException e) {
+                result = e.getMessage() + ".Please state task index followed by m/um/delete command";
             }
         } else if (task[0].equals("t")) {
             result = taskList.addToDos(task, entry);

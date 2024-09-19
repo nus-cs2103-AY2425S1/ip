@@ -23,7 +23,7 @@ public class ParserTest {
     private TaskList taskList = new TaskList(new ArrayList<>());
     private final PrintStream originalOut = System.out;
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    static String line = "    _____________________________________________";
+    static String line = " _____________________________________________";
     @BeforeEach
     void initialise(){
         parser = new Parser();
@@ -35,22 +35,43 @@ public class ParserTest {
      */
     @Test
     public void taskList_EmptyList() {
-        parser.listPrint(taskList);
-        String expectedMessage = "No tasks added to list. Please add events/deadline/todos!\n";
+        String result = parser.listPrint(taskList);
+        String expectedMessage = "No tasks added to list. Please add events/deadline/todos!";
 
-        assertEquals(expectedMessage, outContent.toString());
+        assertEquals(expectedMessage, result);
     }
 
     @Test
     public void checkEntry_testPartialTask() {
-        String[] entryParts = {"todo"};
-        String entry = "todo";
+        String[] entryParts = {"t"};
+        String entry = "t";
 
-        String expectedMessage = line + "\n" + "    OOPS! Describe the task/event/deadline/todo or list"
-                                + "\n" + line+ "\n";
-        parser.checkEntry(entryParts, entry, taskList);
+        String expectedMessage = line + "\n" + "    OOPS! Describe the t/e/d or list" + "\n" + line;
+        String result = parser.checkEntry(entryParts, entry, taskList);
 
-        assertEquals(expectedMessage, outContent.toString());
+        assertEquals(expectedMessage, result);
+    }
+
+    @Test
+    public void checkEntry_testInvalidInput() {
+        String[] entryParts = {"finishing", "homework", "later"};
+        String entry = "finishing homework later";
+
+        String expectedMessage = "OOPS! Unable to add task. Please type 'help'!";
+        String result = parser.addTask(entryParts, entry, taskList);
+
+        assertEquals(expectedMessage, result);
+    }
+
+    @Test
+    public void checkEntry_testInvalidFeatureInput() {
+        String[] entryParts = {"delete", "read", "book"};
+        String entry = "delete read book";
+
+        String expectedMessage = "For input string: \"book\".Please state task index followed by m/um/delete command";
+        String result = parser.addTask(entryParts, entry, taskList);
+
+        assertEquals(expectedMessage, result);
     }
 
     @AfterEach
