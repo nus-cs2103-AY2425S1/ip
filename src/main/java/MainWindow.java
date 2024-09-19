@@ -48,7 +48,7 @@ public class MainWindow extends AnchorPane {
         ui = new Ui();
         parser = new Parser(ui);
         tasks = new TaskList(ui, parser);
-        storage = new Storage("./src/main/java/data.txt", tasks);
+        storage = new Storage(tasks);
         try {
             storage.loadIn();
         } catch (FileNotFoundException fnfe) {

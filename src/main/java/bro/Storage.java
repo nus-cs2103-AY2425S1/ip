@@ -4,14 +4,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Storage {
-    private final String PATH;
+    private Path PATH = Paths.get("data.txt");
     private final TaskList tasks;
 
-    public Storage(String path, TaskList tasks) {
-        this.PATH = path;
+    public Storage(TaskList tasks) {
         this.tasks = tasks;
     }
 
@@ -21,10 +22,13 @@ public class Storage {
      */
     public void saveToFile() {
         try {
-            FileWriter f = new FileWriter(PATH);
+            FileWriter f = new FileWriter(String.valueOf(PATH));
             f.write(this.toString());
             f.close();
         } catch (IOException e) {
+            File tmp = new File(String.valueOf(PATH));
+            this.PATH = Path.of(tmp.getPath());
+            this.saveToFile();
             System.out.println("Something went wrong: " + e.getMessage());
         }
     }
@@ -38,7 +42,7 @@ public class Storage {
      * @throws BroException          If there is an error in parsing the task details.
      */
     public void loadIn() throws FileNotFoundException, BroException {
-        File f = new File(PATH);
+        File f = new File(String.valueOf(PATH));
         Scanner s = new Scanner(f);
         while (s.hasNext()) {
             String curr = s.nextLine();
