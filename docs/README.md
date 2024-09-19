@@ -33,7 +33,7 @@ Please use the below hyperlinks for quick access:
     <tr>
       <td>deadline</td>
       <td>deadline [description] /by [yyyy-mm-dd hhmm]</td>
-      <td>deadline this is my first deadline task! /to 2024-07-19 1200</td>
+      <td>deadline this is my first deadline task! /by 2024-07-19 1200</td>
     </tr>
     <tr>
       <td>event</td>
