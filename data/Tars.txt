@@ -1,0 +1,10 @@
+T 0 return book
+E 0 from: 2019-10-15T14:30 to: 2019-10-16T15:30
+D 0  by: 2019-10-19T18:30
+D 0  by: 2019-10-15T18:30
+T 1 read manual
+T 0 finish tars application
+T 0 finish project
+T 0 read book
+T 0 finish assignment
+T 0 read book
