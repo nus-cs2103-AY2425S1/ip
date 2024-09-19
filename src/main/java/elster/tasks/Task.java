@@ -80,6 +80,19 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Removes a tag from the task.
+     * @param tag tag to tag the task with.
+     * @throws Elseption if the tag already exists.
+     */
+    public void untag(String tag) throws Elseption {
+        if (tags.contains(tag)) {
+            tags.remove(tag);
+        } else {
+            throw new Elseption("Ain't no such tag in these woods.");
+        }
+    }
+
 
     @Override
     public String toString() {

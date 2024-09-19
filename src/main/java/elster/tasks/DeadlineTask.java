@@ -90,9 +90,11 @@ public class DeadlineTask extends Task {
     public String toFileString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         if (this.status) {
-            return "D | 1 | " + this.description + " | " + this.deadline.format(formatter);
+            return "D | 1 | " + this.description + " | " + this.deadline.format(formatter)
+                    + " | " + this.tags;
         } else {
-            return "D | 0 | " + this.description + " | " + this.deadline.format(formatter);
+            return "D | 0 | " + this.description + " | " + this.deadline.format(formatter)
+                    + " | " + this.tags;
         }
     }
 }

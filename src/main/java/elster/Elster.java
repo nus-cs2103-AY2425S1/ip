@@ -74,6 +74,9 @@ public class Elster {
 
         } else if (input.startsWith("tag")) {
             command = TagCommand.of(ui, taskList, storage, input);
+
+        } else if (input.startsWith("untag")) {
+            command = UntagCommand.of(ui, taskList, storage, input);
         }
         if (command != null) {
             return command.execute();

@@ -48,9 +48,9 @@ public class ToDoTask extends Task {
     @Override
     public String toFileString() {
         if (this.status) {
-            return "T | 1 | " + this.description;
+            return "T | 1 | " + this.description + " | " + this.tags;
         } else {
-            return "T | 0 | " + this.description;
+            return "T | 0 | " + this.description + " | " + this.tags;
         }
     }
 }

@@ -173,10 +173,23 @@ public class TaskList {
      * Tags a task in the task list.
      *
      * @param index Index of task to be tagged.
+     * @param tag Tag to be added.
      * @throws Elseption If Task::tag throws an Elseption.
      */
     public void tagTask(int index, String tag) throws Elseption {
         Task task = getTask(index);
         task.tag(tag);
+    }
+
+    /**
+     * Untags a task in the task list.
+     *
+     * @param index Index of task to be untagged.
+     * @param tag Tag to be removed.
+     * @throws Elseption If Task::untag throws an Elseption.
+     */
+    public void untagTask(int index, String tag) throws Elseption {
+        Task task = getTask(index);
+        task.untag(tag);
     }
 }
