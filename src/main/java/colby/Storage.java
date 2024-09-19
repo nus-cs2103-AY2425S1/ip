@@ -48,14 +48,44 @@ public class Storage {
     public String returnFileContents() throws FileNotFoundException {
         File file = new File(filePath);
         String results  = "";
+        int n = 1;
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNext()) {
-                results = results + scanner.nextLine() + "\n";
+                results = results + n + ". " + scanner.nextLine() + "\n";
+                n++;
             }
         }
         return results;
     }
 
+    public TaskList buildList() throws FileNotFoundException {
+        File file = new File(filePath);
+        TaskList list = new TaskList();
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNext()) {
+                String nextLine = scanner.nextLine();;
+                if (nextLine.contains("[X]")) {
+                    if (nextLine.contains("[T]")) {
+                        String fullDescription = nextLine.split(" ")[1];
+                        if (fullDescription.split("").length > 1) {
+                            list.addTask(new ToDo(fullDescription.split("\\(needs\\) ")[0] +
+                                    "/needs" + fullDescription.split("\\(needs\\)")[1]));
+                        } else {
+                            list.addTask(new ToDo(fullDescription));
+                        }
+                    } else if (nextLine.contains("[D]")) {
+                        
+                    }
+                }
+
+
+
+                Task task = Parser.parseToDoTask(scanner.nextLine());
+                list.addTask(task);
+            }
+        }
+        return list;
+    }
     public void checkFile() {
         try {
             File myObj = new File(filePath);

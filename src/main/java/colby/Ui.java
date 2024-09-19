@@ -12,13 +12,7 @@ public class Ui {
      * for you
      */
     public String showWelcomeMessage() {
-        String logo = "  ____      _ _\n"
-                + " / ___|___ | | |__  _   _\n"
-                + "| |   / _ \\| | '_ \\| | | |\n"
-                + "| |__| (_) | | |_) | |_| |\n"
-                + "\\____\\___/|_|_.__/ \\__, /\n"
-                + "                   |___/\n";
-        return "Hello! I'm\n" + logo + "\n" + "What can I do for you?\n";
+        return "Hello! I'm Colby :)" + "\n" + "What can I do for you?\n";
     }
 
     /**

@@ -1,5 +1,6 @@
 package colby;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -9,10 +10,10 @@ public class Colby {
     private Ui ui;
     private Storage storage;
 
-    public Colby(String file) {
+    public Colby(String file) throws FileNotFoundException {
         ui = new Ui();
         storage = new Storage(file);
-        taskList = new TaskList();
+        taskList = storage.buildList();
     }
 
         public String getResponse(String input) throws IOException {
