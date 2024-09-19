@@ -17,6 +17,10 @@ public class Screwllum {
     private Storage storage;
     private TaskManager taskManager;
     private Ui ui;
+    
+    public Screwllum() {
+        this("Save.txt");
+    }
 
     public Screwllum(String filePath) {
         ui = new Ui();
@@ -53,6 +57,6 @@ public class Screwllum {
     }
     
     public static void main(String[] args) {
-        new Screwllum("Save.txt").run();
+        new Screwllum().run();
     }
 }
