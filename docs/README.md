@@ -31,24 +31,6 @@ Buu Task Manager is a **command-line application for managing tasks**, inspired 
 
 ## Features
 
-<div markdown="block" class="alert alert-info">
-
-**:information_source: Notes about the command format:**<br>
-
-* Words in `UPPER_CASE` are parameters to be supplied by the user.<br>
-  e.g., in `todo TASK`, `TASK` is a parameter that can be used as `todo read book`.
-
-* Items in square brackets are optional.<br>
-  e.g., `[PRIORITY]` can be used with or without, like `priority 1 3`.
-
-* Parameters can be in any order.<br>
-  e.g., `deadline TASK /by DATE` can also be written as `/by DATE TASK`.
-
-* Extraneous parameters for commands that do not take parameters (such as `help`, `list`, `bye`) will be ignored.<br>
-  e.g., if the command specifies `help 123`, it will be interpreted as `help`.
-
-</div>
-
 ### Viewing help: `help`
 
 Shows a list of all commands and their descriptions.
@@ -73,7 +55,7 @@ Examples:
 
 Adds a task with a specific deadline.
 
-Format: `deadline TASK /by DATE_TIME`
+Format: `deadline TASK /by YYYY-MM-DD HH:MM`
 
 Examples:
 * `deadline submit assignment /by 2024-09-30 23:59`
@@ -85,7 +67,7 @@ Examples:
 
 Adds an event task with a start and end time.
 
-Format: `event TASK /from START_TIME /to END_TIME`
+Format: `event TASK /from YYYY-MM-DD HH:MM /to YYYY-MM-DD HH:MM`
 
 Examples:
 * `event project meeting /from 2024-09-25 10:00 /to 2024-09-25 12:00`
@@ -141,12 +123,10 @@ Examples:
 
 Finds tasks that contain the given keyword.
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find KEYWORD`
 
 Examples:
 * `find book` returns tasks with `book` in their descriptions.
-* `find meeting project` returns tasks with `meeting` or `project`.
-
 --------------------------------------------------------------------------------------------------------------------
 
 ### Setting task priority: `priority`
@@ -162,14 +142,6 @@ Format: `priority INDEX PRIORITY_LEVEL`
 Examples:
 * `priority 1 3` sets the first task to High priority.
 * `priority 2 1` sets the second task to Low priority.
-
---------------------------------------------------------------------------------------------------------------------
-
-### Clearing all tasks: `clear`
-
-Deletes all tasks from the list.
-
-Format: `clear`
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -189,7 +161,7 @@ Task data is saved automatically after every command that modifies the data. The
 
 Task data is saved as a text file `[JAR file location]/data/tasks.txt`. You can edit it manually if you're an advanced user, but make sure to follow the correct format.
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
+<div markdown="span" class="alert alert-warning">**Caution:**
 Editing the data file incorrectly may cause the app to malfunction. Make sure to back up your file before editing.
 </div>
 
@@ -213,12 +185,9 @@ Editing the data file incorrectly may cause the app to malfunction. Make sure to
 | **Mark Task as Done**    | `mark INDEX` <br> e.g., `mark 1`                              |
 | **Unmark Task**          | `unmark INDEX` <br> e.g., `unmark 2`                          |
 | **Delete Task**          | `delete INDEX` <br> e.g., `delete 3`                          |
-| **Find Tasks**           | `find KEYWORD [MORE_KEYWORDS]` <br> e.g., `find book`         |
+| **Find Tasks**           | `find KEYWORD` <br> e.g., `find book`         |
 | **Set Task Priority**    | `priority INDEX PRIORITY_LEVEL` <br> e.g., `priority 1 3`     |
-| **Clear All Tasks**      | `clear`                                                       |
 | **Exit**                 | `bye`                                                         |
 | **Help**                 | `help`                                                        |
 
 ---
-
-This user guide follows the format and structure of the AddressBook Level 3 example, adapted for your Buu Task Manager.
