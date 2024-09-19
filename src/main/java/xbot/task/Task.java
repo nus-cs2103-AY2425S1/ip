@@ -62,7 +62,7 @@ public class Task {
      */
     public String markAsDone() {
         isDone = true;
-        return ("Yayy!! Good job :D I have marked this task as done:\n"
+        return ("Yayyyy!! Good job XD \nI have marked this task as done :) :\n"
                 + toString());
     }
 

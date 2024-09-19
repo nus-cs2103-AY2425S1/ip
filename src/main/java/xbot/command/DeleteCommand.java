@@ -12,11 +12,12 @@ import xbot.ui.Ui;
 public class DeleteCommand implements Command {
     @Override
     public String execute(TaskList list, Ui ui, Storage storage, String rest) throws XBotException {
+        if (rest.isEmpty() || rest.trim().isEmpty()) {
+            throw new XBotException("Mmm...can you select a task number for me to delete? >_< \n" +
+                    "(e.g. delete 1)");
+        }
         int taskNumber = Integer.parseInt(rest.trim());
         String output = deleteTask(list, taskNumber);
-        if (rest.trim().isEmpty()) {
-            throw new XBotException("The task number to be deleted cannot be empty!");
-        }
         storage.saveTask(list);
         return output;
     }
@@ -32,22 +33,25 @@ public class DeleteCommand implements Command {
     public String deleteTask(TaskList list, int taskNumber) throws XBotException {
         try {
             if (taskNumber < 0 || taskNumber > list.size()) {
-                throw new XBotException("This task number do not exist.");
+                throw new XBotException("Ah mm... Im sorry but I dont think this task number exist :0");
             }
             Task deleteTask = list.get(taskNumber - 1);
             String output = showDeletedTask(deleteTask, list.size() - 1);
             list.remove(taskNumber - 1);
             return output;
         } catch (NumberFormatException e) {
-            throw new XBotException("Invalid task number!");
+            throw new XBotException("Mmm... I only understand numbers... >_< \n" +
+                    "please check the task number you inputted is a number! " +
+                    "(e.g. delete 1)");
         }
     }
 
     public String showDeletedTask(Task task, int endSize) {
         String output;
-        output = ("Noted. I've removed this task:\n");
+        output = ("Phew sounds like one less things to do!! \n" +
+                "I have helped you remove this task: \n");
         output = output + (task.toString() + "\n");
-        output = output + ("Now you have " + endSize + " tasks in the list.");
+        output = output + ("And now you have " + endSize + " tasks in the list!! Jiayouu :D");
         return output;
     }
 }

@@ -41,9 +41,9 @@ public class Ui {
      */
     public static String showMatchingTaskList(TaskList list) {
         if (list.size() == 0) {
-            return ("There is no task description containing this keyword :(");
+            return ("Mmm...there is no task description containing this keyword :'0");
         } else {
-            String output = ("Here are the matching tasks in your list:\n");
+            String output = ("I found them!! XD\n Here are the matching tasks in your list:\n");
             for (int i = 0; i < list.size(); i++) {
                 int index = i + 1;
                 output = output + (index + ". " + list.get(i).toString() + "\n");
@@ -57,14 +57,14 @@ public class Ui {
      * Displays a welcome message to the user when the application starts.
      */
     public String showWelcome() {
-        return ("Hello! I'm XBot\n" + "What can I do for you?");
+        return ("Hiii! I'm XBot\n" + "What can I do for you today? :)");
     }
 
     /**
      * Displays a goodbye message to the user when the application terminates.
      */
     public String showBye() {
-        return ("Bye. Hope to see you again soon!");
+        return ("Byebyeee... hope to see you again soon! >.<");
     }
 
     /**
@@ -83,11 +83,11 @@ public class Ui {
      * @param e The XBotException containing the error message to be displayed.
      */
     public String mainErrorMessage(XBotException e) {
-        return ("Oh No!! " + e.getMessage());
+        return (e.getMessage());
     }
 
     public String showNoTask() {
-        return "Yayy!! You have no task in your list";
+        return "Omgggg... yayyy!!!! \nYou are free from tasks XD";
     }
 
     /**

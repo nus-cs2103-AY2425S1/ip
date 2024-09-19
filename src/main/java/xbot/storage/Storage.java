@@ -45,7 +45,7 @@ public class Storage {
             }
             return list;
         } catch (UnknownTaskTypeException e) {
-            throw new IOException("Invalid data in file!");
+            throw new IOException("Umm... the data stored is not valid :0");
         }
     }
 

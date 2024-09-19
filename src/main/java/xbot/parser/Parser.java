@@ -272,10 +272,11 @@ public class Parser {
             output = new ViewCommand().execute(list, ui, storage, rest);
             break;
         case "bye":
-            output = "Hope to see you again!";
+            output = ui.showBye();
             break;
         default:
-            throw new XBotException("I'm sorry, but I don't know what that means :-(");
+            throw new XBotException("Ah...sorry I don't know what that means >_<\n" +
+                    "you might want to refer to the user guide for the list of commands I know :) ");
         }
         return output;
     }
