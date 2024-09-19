@@ -1,13 +1,20 @@
 package tasks;
 
+import exceptions.InvalidDateException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
     private LocalDate byDate;
     public Deadline(String name, String byDate) {
         super(name);
-        this.byDate = LocalDate.parse(byDate);
+        try {
+            this.byDate = LocalDate.parse(byDate);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateException(byDate);
+        }
     }
 
     @Override

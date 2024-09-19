@@ -1,7 +1,10 @@
 package tasks;
 
+import exceptions.InvalidDateException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
     private LocalDate fromDate;
@@ -10,8 +13,17 @@ public class Event extends Task {
     public Event(String name, String fromDate, String toDate) {
         super(name);
 
-        this.fromDate = LocalDate.parse(fromDate);
-        this.toDate = LocalDate.parse(toDate);
+        try {
+            this.fromDate = LocalDate.parse(fromDate);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateException(fromDate);
+        }
+
+        try {
+            this.toDate = LocalDate.parse(toDate);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateException(toDate);
+        }
     }
 
     @Override
