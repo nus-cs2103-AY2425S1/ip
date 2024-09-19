@@ -22,7 +22,7 @@ public class MainWindow extends AnchorPane {
 
     private Cloudy cloudy;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/cat.jpg"));
     private Image cloudyImage = new Image(this.getClass().getResourceAsStream("/images/cloudy.png"));
 
     {
