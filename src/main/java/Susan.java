@@ -13,7 +13,12 @@ public class Susan {
     public Susan() {
         ui = new Ui();
         storage = new Storage();
-        taskList = new TaskList();
+        try {
+            taskList = storage.readTasksFromFile();
+        } catch (SusanException e) {
+            taskList = new TaskList();
+
+        }
     }
 
     /**

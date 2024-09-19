@@ -47,6 +47,15 @@ public class TaskList {
         return list.toString();
     }
 
+    public String saveList() {
+        StringBuilder list = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            list.append(tasks.get(i).fileFormat());
+            list.append("\n");
+        }
+        return list.toString();
+    }
+
     /**
      * Finds tasks in the list that contain the given keyword in their description.
      *

@@ -35,6 +35,13 @@ public class Event extends Task {
     }
 
     @Override
+    public String fileFormat() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        return "E" + super.fileFormat() + " : "
+                + from.format(formatter) + " ~ " + to.format(formatter);
+    }
+
+    @Override
     public LocalDate getDate() {
         return from.toLocalDate();
     }
