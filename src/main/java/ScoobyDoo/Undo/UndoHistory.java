@@ -7,6 +7,7 @@ import ScoobyDoo.UI.UI;
 import ScoobyDoo.storage.Storage;
 import ScoobyDoo.task.TaskList;
 
+//Solution below adapted by https://stackoverflow.com/questions/3541383/undo-redo-implementation
 public class UndoHistory {
     private final Stack<Undoable> undos;
     private final Stack<Undoable> redos;

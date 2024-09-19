@@ -1,24 +1,63 @@
-# Duke project template
+# User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+ScoobyDoo is a chatbot app for managing tasks, optimized for use via a Command Line Interface (CLI) while also providing a Graphical User Interface (GUI). ScoobyDoo has a unique personality, giving users a pleasant experience while managing their tasks.
 
-## Setting up in Intellij
+---
+## Features
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+> [!NOTE]  
+> Words in UPPER_CASE are the parameters to be supplied by the user.  
+> e.g., in `todo DESCRIPTION`, `DESCRIPTION` is a parameter.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+### Add Todo Task
+Add a simple task without a date restriction to the chatbot.  
+**Format:** `todo DESCRIPTION`
+
+### Add Deadline Task
+Add a task with a deadline to the chatbot.  
+**Format:** `deadline DESCRIPTION /by DATE_TIME`
+- `DESCRIPTION`: The task description.
+- `DATE_TIME`: The deadline in the format `yyyy-MM-dd HH:mm`.
+
+### Add Event Task
+Add a task that has a start and end time to the chatbot.  
+**Format:** `event DESCRIPTION /from START_DATE_TIME /to END_DATE_TIME`
+- `DESCRIPTION`: The event description.
+- `START_DATE_TIME`: The start time of the event in the format `yyyy-MM-dd HH:mm`.
+- `END_DATE_TIME`: The end time of the event in the format `yyyy-MM-dd HH:mm`.
+
+### Mark Task as Done
+Mark a task as completed.  
+**Format:** `mark TASK_NUMBER`
+- `TASK_NUMBER`: The number of the task in the list.
+
+### Unmark Task
+Unmark a completed task to mark it as not done.  
+**Format:** `unmark TASK_NUMBER`
+- `TASK_NUMBER`: The number of the task in the list.
+
+### Delete Task
+Delete a task from the list.  
+**Format:** `delete TASK_NUMBER`
+- `TASK_NUMBER`: The number of the task to be deleted.
+
+### Undo Last Action
+Undo the most recent task-related action (e.g., add, delete, mark, unmark).  
+**Format:** `undo`
+
+### Redo Last Undone Action
+Redo the most recently undone action.  
+**Format:** `redo`
+
+### List Tasks
+View all tasks currently in the list, showing their status and descriptions.  
+**Format:** `list`
+
+### Find Task
+Search for tasks that contain a specific word in their description.  
+**Format:** `find KEYWORD`
+- `KEYWORD`: The word to search for in the task descriptions.
+
+### Exit the App
+Exit the chatbot and close the application.  
+**Format:** `bye`

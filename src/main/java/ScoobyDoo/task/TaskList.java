@@ -45,7 +45,7 @@ public class TaskList {
                     "Got it. I've added this task:\n   %s\nNow you have %d %s in the list.",
                     task.toString(),
                     list.size(),
-                    list.size() == 1? "ScoobyDoo/task" : "tasks");
+                    list.size() == 1? "task" : "tasks");
         } else return "Too many tasks !!!";
     }
 
