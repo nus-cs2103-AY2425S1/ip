@@ -23,6 +23,9 @@ public class DeadlineTest {
 
         assertEquals("[D][ ] read (by: Dec 21 1212, 00:00)",
                 new Deadline("read", "21/12/1212").toString());
+
+        newTask.markPriority(Task.PriorityEnum.HIGH);
+        assertEquals("[D][ ] return book #PRIORITY:HIGH (by: Dec 02 2019, 18:00)", newTask.toString());
     }
 
     @Test
