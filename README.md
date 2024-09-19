@@ -14,7 +14,7 @@ Maxine remembers your tasks even from the previous session.
 To use Maxine:
 
 1. Download the JAR file
-2. In your terminal, navigate the the directory containing the JAR file
+2. In your terminal, navigate to the directory containing the JAR file
 3. type in the command "java -jar "maxine.jar""
 
 NOTE: When you first use Maxine, it is expected that the command line
