@@ -23,14 +23,13 @@ public class TagCommand extends Command {
                 throw new Elseption("Please give the tag a tag name with /tag.");
             }
 
-            int tagIndex = input.indexOf("/tag");
-            int index = Integer.parseInt(input.substring(4, tagIndex).strip());
+            int indexOfTag = input.indexOf("/tag");
+            int listIndex = Integer.parseInt(input.substring(4, indexOfTag).strip());
+            String tagStr = input.substring(indexOfTag + 5).strip();
 
-            String tagStr = input.substring(tagIndex + 5).strip();
-
-            tasklist.tagTask(index, tagStr);
+            tasklist.tagTask(listIndex, tagStr);
             storage.writeToFile(tasklist);
-            return ui.tagTaskMessage(tasklist.getTask(index));
+            return ui.tagTaskMessage(tasklist.getTask(listIndex));
 
         } catch (Elseption e) {
             return ui.printErrorMessage(e.getMessage());

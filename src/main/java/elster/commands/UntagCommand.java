@@ -20,17 +20,16 @@ public class UntagCommand extends Command {
     public String execute() {
         try {
             if (!input.contains("/tag")) {
-                throw new Elseption("Please give the tag a tag name with /tag.");
+                throw new Elseption("Please specify the tag name with /tag.");
             }
 
-            int tagIndex = input.indexOf("/tag");
-            int index = Integer.parseInt(input.substring(4, tagIndex).strip());
+            int indexOfTag = input.indexOf("/tag");
+            int listIndex = Integer.parseInt(input.substring(6, indexOfTag).strip());
+            String tagStr = input.substring(indexOfTag + 5).strip();
 
-            String tagStr = input.substring(tagIndex + 5).strip();
-
-            tasklist.tagTask(index, tagStr);
+            tasklist.untagTask(listIndex, tagStr);
             storage.writeToFile(tasklist);
-            return ui.tagTaskMessage(tasklist.getTask(index));
+            return ui.untagTaskMessage(tasklist.getTask(listIndex));
 
         } catch (Elseption e) {
             return ui.printErrorMessage(e.getMessage());

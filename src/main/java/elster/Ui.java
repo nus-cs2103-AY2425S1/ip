@@ -128,7 +128,7 @@ public class Ui {
     }
 
     /**
-     * Prints a message when the user successfully adds a task.
+     * Prints a message when the user successfully adds a tag.
      */
     public String tagTaskMessage(Task task) {
         String resultStr = "";
@@ -145,5 +145,15 @@ public class Ui {
      */
     public String printErrorMessage(String message) {
         return message;
+    }
+
+    /**
+     * Prints a message when the user successfully removes a tag.
+     */
+    public String untagTaskMessage(Task task) {
+        String resultStr = "";
+        resultStr += "Noted, task has been untagged.\n";
+        resultStr += "  " + task.toString();
+        return resultStr;
     }
 }
