@@ -26,7 +26,7 @@ To get started with Juno, follow these steps:
 
 
 ## Features
-> [!Notes about command format]
+> [Notes about command format]
 > - Words in `UPPER_CASE` and `CURLY BRACKETS` are the parameters to be supplied by the user.
 > 
 >   e.g. In `add todo {TASK_DESCRIPTION}`, `{TASK_DESCRIPTION}` refers to a parameter.
