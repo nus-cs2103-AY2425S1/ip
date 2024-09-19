@@ -1,8 +1,6 @@
 package elster.tasks;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 import elster.Elseption;
 
@@ -12,7 +10,7 @@ import elster.Elseption;
  */
 public abstract class Task {
     protected String description;
-    protected boolean status;
+    protected boolean isDone;
     protected ArrayList<String> tags;
 
     /**
@@ -22,7 +20,7 @@ public abstract class Task {
      */
     public Task(String description) {
         this.description = description;
-        this.status = false;
+        this.isDone = false;
         this.tags = new ArrayList<>();
     }
 
@@ -37,11 +35,11 @@ public abstract class Task {
      * @return Boolean that represents whether the task was already done or not.
      */
     public boolean markAsDone() {
-        if (this.status) {
+        if (this.isDone) {
             return false;
 
         } else {
-            this.status = true;
+            this.isDone = true;
             return true;
         }
     }
@@ -58,11 +56,11 @@ public abstract class Task {
      * @return Boolean that represents whether the task was already undone or not.
      */
     public boolean unmarkAsUndone() {
-        if (!this.status) {
+        if (!this.isDone) {
             return false;
 
         } else {
-            this.status = false;
+            this.isDone = false;
             return true;
         }
     }
@@ -97,7 +95,7 @@ public abstract class Task {
     @Override
     public String toString() {
         String resultStr = "";
-        if (this.status) {
+        if (this.isDone) {
             resultStr += "[X] " + this.description;
         } else {
             resultStr += "[ ] " + this.description;

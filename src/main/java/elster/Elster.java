@@ -39,7 +39,7 @@ public class Elster {
     }
 
     /**
-     * Run function of the Elster instance, handles the loading of the save file from storage as
+     * Function called when the Elster instance is run, handles the loading of the save file from storage as
      * well as general logic of the chatbot.
      */
     public String parse(String input) {
