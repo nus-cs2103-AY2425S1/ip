@@ -22,6 +22,7 @@ public class Crack {
      * @param filePath the path to the file where tasks are stored.
      */
     public Crack(String filePath) {
+        assert filePath != null && !filePath.trim().isEmpty() : "File path cannot be null or empty";
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -127,8 +128,6 @@ public class Crack {
      * exits.
      */
     public void run() {
-        ui.showWelcome();
-
         while (true) {
             String input = ui.readCommand();
             String command = Parser.parseCommand(input); // Get the command part of the input
