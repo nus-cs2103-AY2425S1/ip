@@ -1,5 +1,6 @@
 package utility;
 
+import exception.DescriptionNotFoundException;
 import task.Task;
 import task.TaskList;
 import task.TaskType;
@@ -104,7 +105,7 @@ public class Parser {
             try {
                 String desc = trimCommand(userInput, 5);
                 if (desc.isEmpty()) {
-                    throw new IllegalArgumentException();
+                    throw new DescriptionNotFoundException();
                 }
                 Task newTask = tasks.createTask(TaskType.TODO, desc);
                 if (!tasks.addTask(newTask)) {
@@ -112,7 +113,7 @@ public class Parser {
                 }
                 storage.save(tasks);
                 return message.printAddTask(newTask, tasks.getTaskCount());
-            } catch (StringIndexOutOfBoundsException | IllegalArgumentException e) {
+            } catch (StringIndexOutOfBoundsException | DescriptionNotFoundException e) {
                 return message.printEmptyError(TaskType.TODO);
             }
         }
@@ -123,7 +124,7 @@ public class Parser {
                 String[] parts = userInput.substring(9).split(" /by ");
                 String desc = parts[0].trim();
                 if (desc.isEmpty()) {
-                    throw new IllegalArgumentException();
+                    throw new DescriptionNotFoundException();
                 }
                 LocalDateTime by = parseDateTime(parts[1].trim());
                 if (by == null) {
@@ -135,7 +136,7 @@ public class Parser {
                 }
                 storage.save(tasks);
                 return message.printAddTask(newTask, tasks.getTaskCount());
-            } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException | IllegalArgumentException e) {
+            } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException | DescriptionNotFoundException e) {
                 return message.printEmptyError(TaskType.DEADLINE);
             }
         }
@@ -146,7 +147,7 @@ public class Parser {
                 String[] parts = userInput.substring(6).split(" /from | /to ");
                 String desc = parts[0].trim();
                 if (desc.isEmpty()) {
-                    throw new IllegalArgumentException();
+                    throw new DescriptionNotFoundException();
                 }
                 LocalDateTime from = parseDateTime(parts[1].trim());
                 LocalDateTime to = parseDateTime(parts[2].trim());
@@ -159,7 +160,7 @@ public class Parser {
                 }
                 storage.save(tasks);
                 return message.printAddTask(newTask, tasks.getTaskCount());
-            } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException | IllegalArgumentException e) {
+            } catch (StringIndexOutOfBoundsException | ArrayIndexOutOfBoundsException | DescriptionNotFoundException e) {
                 return message.printEmptyError(TaskType.EVENT);
             }
         }
