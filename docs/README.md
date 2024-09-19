@@ -7,7 +7,7 @@ but it is in contention for the world's cutest chatbot.
 
 - [Quick Start
   ](#quick-start)
-- [Features](#features-)
+- [Features](#features)
     - [Listing tasks: `list`](#list)
     - [Adding a ToDo: `todo` ](#todo)
     - [Adding a Deadline: `deadline`](#deadline)
@@ -26,7 +26,7 @@ but it is in contention for the world's cutest chatbot.
 
 1. Ensure you have Java `17` or above installed in your Computer.
 
-2. Download the latest `.jar` file from [here]().
+2. Download the latest `.jar` file from [here](https://github.com/TheRareFox/ip/releases).
 
 3. Copy the file to the folder you want to use as the _home folder_ for your chatbot.
 
