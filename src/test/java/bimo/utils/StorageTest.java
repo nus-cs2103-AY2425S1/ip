@@ -17,13 +17,11 @@ public class StorageTest {
                 LocalDate.parse("2024-08-31"));
         assertEquals("E|0|Buy books|2024-08-30/2024-08-31", storage.convertTaskToText(task));
     }
-
     @Test
     public void convertTextToTask_eventInput_success() {
         Storage storage = new Storage("data/Bimo.txt");
         String textLine = "E|0|go school|2024-09-03/2024-09-03";
         Task task = storage.convertTextToTask(textLine);
-        assertEquals(task instanceof Event, true);
+        assertEquals(true, task instanceof Event);
     }
-
 }

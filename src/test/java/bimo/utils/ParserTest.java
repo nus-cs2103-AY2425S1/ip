@@ -23,7 +23,7 @@ public class ParserTest {
         String userInput = "abcdeg 123";
         CommandType commandType = Parser.getCommandType(userInput);
         boolean isUnknown = commandType == CommandType.UNKNOWN;
-        assertEquals(isUnknown, true);
+        assertEquals(true, isUnknown);
     }
     @Test
     public void parse_findCommand_success() {
@@ -32,9 +32,9 @@ public class ParserTest {
         try {
             Command command = parser.parse(userInput);
             boolean isFind = command instanceof FindCommand;
-            assertEquals(isFind, true);
+            assertEquals(true, isFind);
         } catch (BimoException e) {
-            assertEquals(true, false);
+            assertEquals(false, true);
         }
     }
     @Test
@@ -44,9 +44,9 @@ public class ParserTest {
         try {
             Command command = parser.parse(userInput);
             boolean isFind = command instanceof MarkCommand;
-            assertEquals(isFind, true);
+            assertEquals(true, isFind);
         } catch (BimoException e) {
-            assertEquals(true, false);
+            assertEquals(false, true);
         }
     }
     @Test
@@ -54,9 +54,10 @@ public class ParserTest {
         String date = "22222";
         try {
             Parser.convertDateToLocalDate(date);
-            assertEquals(true, false);
+            assertEquals(false, true);
         } catch (InvalidDateFormatException e) {
-            assertEquals(e.getMessage(), "Unable to get date, please use yyyy-mm-dd as date format ");
+            assertEquals("Unable to get date, please use yyyy-mm-dd as date format ",
+                    e.getMessage());
         }
     }
 
@@ -66,9 +67,9 @@ public class ParserTest {
         String[] array = userInput.split("/by");
         try {
             Parser.parseDate(true, false, array);
-            assertEquals(true, false);
+            assertEquals(false, true);
         } catch (MissingDateException e) {
-            assertEquals(e.getMessage(), "Please provide a date using /by yyyy-mm-dd");
+            assertEquals("Please provide a date using /by yyyy-mm-dd", e.getMessage());
         }
     }
 
@@ -77,9 +78,10 @@ public class ParserTest {
         String userInput = "event";
         try {
             Parser.parseDescription(userInput);
-            assertEquals(true, false);
+            assertEquals(false, true);
         } catch (MissingDescriptionException e) {
-            assertEquals(e.getMessage(), "Please provide a description for you task.");
+            assertEquals("Please provide a description for you task.",
+                    e.getMessage());
         }
     }
 
@@ -88,9 +90,10 @@ public class ParserTest {
         String userInput = "mark";
         try {
             Parser.parseIndex(userInput);
-            assertEquals(true, false);
+            assertEquals(false, true);
         } catch (InvalidTaskNumberException e) {
-            assertEquals(e.getMessage(), "Input must include an integer that represents task number.");
+            assertEquals("Input must include an integer that represents task number.",
+                    e.getMessage());
         }
     }
 
@@ -99,10 +102,10 @@ public class ParserTest {
         String userInput = "set 2 random";
         try {
             Parser.parsePriority(userInput);
-            assertEquals(true, false);
+            assertEquals(false, true);
         } catch (BimoException e) {
-            assertEquals(e.getMessage(), "Please choose either HIGH, MEDIUM or"
-                    + " LOW priority only\n e.g set 2 high");
+            assertEquals("Please choose either HIGH, MEDIUM or"
+                    + " LOW priority only\n e.g set 2 high", e.getMessage());
         }
     }
 
@@ -118,13 +121,24 @@ public class ParserTest {
     }
 
     @Test
+    public void parsePriority_emptyNumberInput_throwsBimoException() {
+        String userInput = "set High";
+        try {
+            Parser.parsePriority(userInput);
+            assertEquals(false, true);
+        } catch (BimoException e) {
+            assertEquals("Missing task number", e.getMessage());
+        }
+    }
+
+    @Test
     public void testCreateEventTask() {
         String userInput = "event Go to work /from 2022-12-19 /to 2024-06-18";
         try {
             Task task = Parser.createEventTask(userInput);
             assertEquals(true, task instanceof Event);
         } catch (BimoException e) {
-            assertEquals(true, false);
+            assertEquals(false, true);
         }
     }
     @Test
@@ -134,7 +148,7 @@ public class ParserTest {
             Task task = Parser.createDeadlineTask(userInput);
             assertEquals(true, task instanceof Deadline);
         } catch (BimoException e) {
-            assertEquals(true, false);
+            assertEquals(false, true);
         }
     }
 }

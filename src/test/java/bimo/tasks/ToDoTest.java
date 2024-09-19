@@ -10,5 +10,4 @@ public class ToDoTest {
         Task todo = new ToDo("Attend lesson");
         assertEquals("[T][ ] Attend lesson", todo.toString());
     }
-
 }
