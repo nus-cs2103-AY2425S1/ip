@@ -31,17 +31,7 @@ public class Storage {
      *
      * @throws IOException if an I/O error occurs while writing to the file.
      */
-//    public void saveTasksToFile(TaskList tasks) {
-//        try {
-//            FileWriter file = new FileWriter(FILE_PATH, false);
-//            for (Task task : tasks.getTasks()) {
-//                file.write(task.toString() + "\n");
-//            }
-//            file.close();
-//        } catch (IOException exception) {
-//            System.out.println("Please create a /data/Mentos.txt file in " + System.getProperty("user.dir"));
-//        }
-//    }
+
     public void saveTasksToFile(TaskList tasks) {
         File file = new File(FILE_PATH);
         try {
