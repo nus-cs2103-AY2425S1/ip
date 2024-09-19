@@ -94,11 +94,6 @@ public class Storage {
         } catch (Exception e) {
             System.out.println("Could not load file");
         }
-        try (FileWriter fw = new FileWriter(filePath, false)) {
-            assert file.length() == 0 : "File is not empty after clearing it";
-        } catch (Exception e) {
-            System.out.println("File not clear after loadfile");
-        }
         return taskList;
     }
 }
