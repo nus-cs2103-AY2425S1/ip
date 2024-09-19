@@ -20,15 +20,7 @@ public class Ui {
         this.scanner = new Scanner(System.in);
     }
 
-    /**
-     * Displays the welcome message when the application starts.
-     */
-    public void showWelcome() {
-        System.out.println(
-                " Hello! I'm Crack\n"
-                + " What can I do for you?\n"
-        );
-    }
+
 
 
 
@@ -64,6 +56,7 @@ public class Ui {
      * @param message the message to display.
      */
     public void showMessage(String message) {
+        assert message != null : "Message to display cannot be null";
         System.out.println(message + "\n");
     }
 

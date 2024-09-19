@@ -33,7 +33,9 @@ public class TaskList {
      * @param task the task to be added.
      */
     public void addTask(Task task) {
+        assert task != null : "Task to add cannot be null";
         tasks.add(task);
+        assert tasks.contains(task) : "TaskList should contain the newly added task";
     }
 
     /**
@@ -45,7 +47,9 @@ public class TaskList {
      */
     public Task removeTask(int index) throws IndexOutOfBoundsException {
         if (index >= 0 && index < tasks.size()) {
-            return tasks.remove(index);
+            Task removedTask = tasks.remove(index);
+            assert !tasks.contains(removedTask) : "TaskList should not contain the removed task";
+            return removedTask;
         } else {
             throw new IndexOutOfBoundsException("Task number out of range.");
         }
