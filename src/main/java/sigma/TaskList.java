@@ -46,34 +46,16 @@ public class TaskList {
      * @return String representation of the tasks
      */
     public static String toPrettyList() {
-        // can i use streams for this?? im too lazy
+        if (items.isEmpty()) {
+            return "No tasks saved, add one now";
+        }
         int i = 1;
-        StringBuilder result = new StringBuilder(); // this is a terrible time complexity
+        StringBuilder result = new StringBuilder();
         for (Task item : items) {
             result.append("\n").append(i).append(". ").append(item);
             i++;
         }
         return result.toString();
-    }
-
-    /**
-     * Deletes the task that the user specifies
-     *
-     * @param userInput The task that the user wants to delete
-     */
-    public String handleDelete(String userInput) {
-        Pattern pattern = Pattern.compile("(delete) (\\d+)");
-        Matcher matcher = pattern.matcher(userInput);
-
-        if (matcher.find()) {
-            int taskNumber = Integer.parseInt(matcher.group(2)) - 1;
-            if (taskNumber >= 0 && taskNumber < items.size()) {
-                Task task = items.get(taskNumber);
-                items.remove(task);
-                return "task removed:\n" + task.toString() + "\nNow you have " + items.size() + " tasks in the list";
-            }
-        }
-        return "No sussy tasks found!";
     }
 
     /**
@@ -92,5 +74,14 @@ public class TaskList {
      */
     public static int getSize() {
         return items.size();
+    }
+
+    /**
+     * Removes the specified task from the list
+     *
+     * @param task The task to be removed
+     */
+    public static void remove(Task task) {
+        items.remove(task);
     }
 }

@@ -7,24 +7,24 @@ package sigma.task;
  */
 public class Task {
     private String name;
-    private boolean status;
+    private boolean isDone;
 
     /**
      * Constructor for a Task
      * @param name The name of the task
-     * @param status The status of the task i.e. completed or not
+     * @param isDone The status of the task i.e. completed or not
      */
-    public Task(String name, boolean status) {
+    public Task(String name, boolean isDone) {
         this.name = name;
-        this.status = status;
+        this.isDone = isDone;
     }
 
     /**
      * Sets the status of the task to the given boolean
-     * @param status The status of the task to be set
+     * @param done The status of the task to be set
      */
-    public void setStatus(boolean status) { // setter
-        this.status = status;
+    public void setDone(boolean done) { // setter
+        this.isDone = done;
     }
 
     /**
@@ -41,6 +41,6 @@ public class Task {
      */
     @Override
     public String toString() {
-        return "[" + (this.status ? "X" : " ") + "] " + this.name;
+        return "[" + (this.isDone ? "X" : " ") + "] " + this.name;
     }
 }

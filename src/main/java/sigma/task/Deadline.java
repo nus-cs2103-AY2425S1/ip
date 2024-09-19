@@ -10,6 +10,7 @@ public class Deadline extends Task {
 
     /**
      * Constructor for a Deadline Task
+     *
      * @param name The name of the Deadline
      * @param status Completion status of the Deadline
      * @param deadline The deadline
@@ -21,6 +22,7 @@ public class Deadline extends Task {
 
     /**
      * Returns the deadline of the Deadline task
+     *
      * @return The deadline of the Deadline task
      */
     public String getDeadline() {
@@ -29,6 +31,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString();
+        return "[D]" + super.toString() + " (by: " + deadline + ")";
     }
 }

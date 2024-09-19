@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -47,6 +48,7 @@ public class Parser {
      */
     public String goodbye() {
         try {
+            Storage.saveToFile();
             writer.flush();
             writer.close();
         } catch (IOException e) {
@@ -62,16 +64,11 @@ public class Parser {
      */
     public String handleTodo(String userInput) {
         String description = userInput.substring(4).trim(); // trims the input away
-        if (description.isEmpty()) { // handle empty input
+        if (description.isEmpty()) {
             return "todo...todo what? let's try this again";
         }
         Task task = new ToDo(description, false);
         TaskList.addToList(task);
-        try {
-            writer.write(task + "\n");
-        } catch (IOException exception) {
-            System.err.println("an error occurred writing to file: " + exception.getMessage());
-        }
         return "added todo task:\n [T][ ] " + description;
     }
 
@@ -89,12 +86,7 @@ public class Parser {
             String dateBy = convertStringToDate(by);
             Task task = new Deadline(description, false, dateBy);
             TaskList.addToList(task);
-            try {
-                writer.write(task + "\n");
-            } catch (IOException exception) {
-                System.err.println("an error occurred writing to file");
-            }
-            return "added deadline task:\n  [D][ ] " + description + " (by: " + dateBy + ")";
+            return "added deadline task:\n" + task;
         } else {
             return "is the deadline in the room with us? let's try again";
         }
@@ -116,13 +108,7 @@ public class Parser {
             String toDate = convertStringToDate(to);
             Task task = new Event(description, false, fromDate, toDate);
             TaskList.addToList(task);
-            try {
-                writer.write(task + "\n");
-            } catch (IOException e) {
-                System.err.println("an error occurred writing to file: " + e.getMessage());
-            }
-            return "added event task:\n  [E][ ] " + description
-                    + " (from: " + fromDate + " to: " + toDate + ")";
+            return "added event task:\n" + task;
         } else {
            return "bro really thinks bro can make an empty event and get away with it, lets try again";
         }
@@ -140,19 +126,43 @@ public class Parser {
         if (matcher.find()) {
             String action = matcher.group(1);
             int taskNumber = Integer.parseInt(matcher.group(2)) - 1;
-
             if (taskNumber >= 0 && taskNumber < TaskList.getSize()) {
                 Task task = TaskList.getItems().get(taskNumber);
                 if (action.equals("mark")) {
-                    task.setStatus(true);
+                    task.setDone(true);
                     return "task marked as done:\n" + task;
                 } else if (action.equals("unmark")) {
-                    task.setStatus(false);
+                    task.setDone(false);
                     return "task unmarked:\n" + task;
                 }
+            } else {
+                return "Invalid task number entered, try again!";
             }
         }
-        return "No such task found!";
+        return "No such task found, try again!";
+    }
+
+    /**
+     * Deletes the task that the user specifies
+     *
+     * @param userInput The task that the user wants to delete
+     */
+    public String handleDelete(String userInput) {
+        Pattern pattern = Pattern.compile("(delete) (\\d+)");
+        Matcher matcher = pattern.matcher(userInput);
+
+        if (matcher.find()) {
+            int taskNumber = Integer.parseInt(matcher.group(2)) - 1;
+            if (taskNumber >= 0 && taskNumber < TaskList.getSize()) {
+                Task task = TaskList.get(taskNumber);
+                TaskList.remove(task);
+                // write to file also
+                return "task removed:\n" + task.toString() + "\nNow you have " + TaskList.getSize() + " tasks in the list";
+            } else {
+                return "Invalid task number, try again!";
+            }
+        }
+        return "No sussy tasks found!";
     }
 
     /**
@@ -163,10 +173,14 @@ public class Parser {
      */
     public static String convertStringToDate(String date) {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        LocalDateTime parsedDateTime = LocalDateTime.parse(date, inputFormatter);
-        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm:ss");
+        try {
+            LocalDateTime parsedDateTime = LocalDateTime.parse(date, inputFormatter);
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm:ss");
+            return parsedDateTime.format(outputFormatter);
+        } catch (DateTimeParseException e) {
+            return "Invalid date format, please use the format yyyy-MM-dd HH:mm:ss";
+        }
 
-        return parsedDateTime.format(outputFormatter);
     }
 
     /**
@@ -181,21 +195,12 @@ public class Parser {
         if (matcher.find()) {
             String keyword = matcher.group(2).toLowerCase();
             ArrayList<Task> matchingTasks = new ArrayList<>();
-            // could possibly create a list in TaskList for this
-
             for (Task task : TaskList.getItems()) {
                 if (task.getName().toLowerCase().contains(keyword)) {
                     matchingTasks.add(task);
                 }
             }
             if (!matchingTasks.isEmpty()) {
-//                String begin = "Here are the matching tasks in your list:\n";
-//                String matching = "";
-//                String end = "\n No remaining matching tasks found.";
-//                for (int i = 0; i < matchingTasks.size(); i++) {
-//                    matching = (i + 1) + ". " + matchingTasks.get(i).toString();
-//                }
-//                return begin + matching + end;
                 StringBuilder result = new StringBuilder("Here are the matching tasks in your list:\n");
                 for (int i = 0; i < matchingTasks.size(); i++) {
                     result.append((i + 1)).append(". ").append(matchingTasks.get(i).toString()).append("\n");

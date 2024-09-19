@@ -60,7 +60,7 @@ public class Sigma {
                 continue;
             }
             if (userInput.startsWith("delete")) {
-                taskList.handleDelete(userInput);
+                parser.handleDelete(userInput);
                 continue;
             }
             if (userInput.startsWith("todo")) {
@@ -86,7 +86,7 @@ public class Sigma {
     }
 
     public static void main(String[] args) {
-        Sigma sigma = new Sigma("data/sigma.txt");
+        Sigma sigma = new Sigma("C:\\Users\\limqi\\OneDrive\\Desktop\\uni\\CS2103T\\ip\\data\\sigma.txt");
         sigma.run();
     }
 
@@ -104,7 +104,7 @@ public class Sigma {
         } else if (input.startsWith("mark") || input.startsWith("unmark")) {
             response.append(parser.handleMarkUnmark(input));
         } else if (input.startsWith("delete")) {
-            response.append(taskList.handleDelete(input));
+            response.append(parser.handleDelete(input));
         } else if (input.startsWith("todo")) {
             response.append(parser.handleTodo(input));
         } else if (input.startsWith("deadline")) {
