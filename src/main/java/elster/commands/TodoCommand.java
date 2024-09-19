@@ -20,6 +20,7 @@ public class TodoCommand extends Command {
     public String execute() {
         try {
             ToDoTask task = ToDoTask.of(input);
+            assert task != null : "Bug creating todo task";
             tasklist.addToList(task);
             storage.writeToFile(tasklist);
             return ui.addTaskMessage(tasklist, task);

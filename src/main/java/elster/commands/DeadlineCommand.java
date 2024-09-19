@@ -20,6 +20,7 @@ public class DeadlineCommand extends Command {
     public String execute() {
         try {
             DeadlineTask task = DeadlineTask.of(input);
+            assert task != null : "Bug creating deadline task";
             tasklist.addToList(task);
             storage.writeToFile(tasklist);
             return ui.addTaskMessage(tasklist, task);

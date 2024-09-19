@@ -20,6 +20,7 @@ public class EventCommand extends Command {
     public String execute() {
         try {
             EventTask task = EventTask.of(input);
+            assert task != null : "Bug when creating event task";
             tasklist.addToList(task);
             storage.writeToFile(tasklist);
             return ui.addTaskMessage(tasklist, task);

@@ -23,6 +23,7 @@ public class DeleteCommand extends Command {
             int index = Integer.parseInt(input.substring(7).strip());
 
             Task task = tasklist.deleteTask(index);
+            assert task != null : "Bug when deleting task";
             return ui.deleteTaskMessage(tasklist, task);
         } catch (Elseption e) {
             return ui.printErrorMessage(e.getMessage());

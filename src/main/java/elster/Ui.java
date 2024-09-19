@@ -103,6 +103,7 @@ public class Ui {
         } else if (taskList.isEmpty()) {
             resultStr += "thou hath no tasks to be completed\n";
         } else {
+            assert taskList.getSize() > 1 : "Bug when deleting tasks";
             resultStr += "thou now hath " + taskList.getSize() + " tasks to complete\n";
         }
         return resultStr;
@@ -119,6 +120,7 @@ public class Ui {
         if (taskList.getSize() == 1) {
             resultStr += "thou now hath " + taskList.getSize() + " task to complete\n";
         } else {
+            assert taskList.getSize() > 1 : "Bug when adding tasks";
             resultStr += "thou now hath " + taskList.getSize() + " tasks to complete\n";
         }
 

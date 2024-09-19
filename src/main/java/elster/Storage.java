@@ -51,10 +51,11 @@ public class Storage {
 
                 task = getTask(taskType, description, row, isDone);
 
+                assert task != null : "Save file should only store task data";
+
                 if (task != null) {
                     taskList.addToList(task);
                 }
-
             }
 
         } catch (IOException e) {
@@ -73,6 +74,9 @@ public class Storage {
     public void writeToFile(TaskList taskList) throws Elseption {
         try {
             ensureFileExists();
+
+            assert Files.exists(dirPath) : "Directory does not exist";
+            assert Files.exists(filePath) : "File does not exist";
 
             FileWriter fw = new FileWriter(filePath.toString());
             fw.write(taskList.fileString());
