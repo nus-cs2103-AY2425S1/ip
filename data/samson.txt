@@ -5,3 +5,4 @@ T | 1 | write_task
 T | 0 | drink 1
 T | 0 | buy lunch
 T | 0 | drink
+T | 0 | assignment1
