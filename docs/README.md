@@ -8,7 +8,7 @@ Pixel is a simple text-based task management application that assists you in tra
 
 ## Features
 
-### Adding Tasks
+### 1. Adding Tasks
 
 Pixel allows you to add 3 different types of tasks:
 
@@ -16,7 +16,7 @@ Pixel allows you to add 3 different types of tasks:
 - Deadline: A task with a specific deadline
 - Event: A task that has a start date and end date
 
-#### Adding a Todo
+#### 1.1 Adding a Todo
 
 To add a todo task:
 
@@ -38,7 +38,7 @@ Got it. I've added this task:
 Now you have 1 tasks in the list.
 ```
 
-#### Adding a Deadline
+### 1.2 Adding a Deadline
 
 To add a deadline task:
 
@@ -60,7 +60,7 @@ Got it. I've added this task:
 Now you have 2 tasks in the list.
 ```
 
-#### Adding an Event
+### 1.3 Adding an Event
 
 To add an event task:
 
@@ -82,7 +82,7 @@ Got it. I've added this task:
 Now you have 3 tasks in the list.
 ```
 
-### Listing Tasks
+### 2. Listing Tasks
 
 To show all tasks in your list:
 
@@ -99,7 +99,7 @@ list
     3. [E][ ] overseas trip (from: 21 Sep 2024 to: 28 Sep 2024)
 ```
 
-### Mark Tasks as Done
+### 3. Mark Tasks as Done
 
 To mark a task as done:
 
@@ -120,7 +120,7 @@ Nice! I've marked this task as done:
  [T][X] read book
 ```
 
-### Unmark Tasks as Not Done
+### 4. Unmark Tasks as Not Done
 
 To unmark a task:
 
@@ -141,7 +141,7 @@ OK, I've marked this task as not done yet:
  [T][ ] read book
 ```
 
-### Delete Task
+### 5. Delete Task
 
 To delete a task:
 
@@ -163,7 +163,7 @@ Noted. I've removed this task:
 Now you have 2 tasks in the list.
 ```
 
-### Find Task using keyword
+### 6. Find Task using keyword
 
 To find tasks that contain a specific keyword:
 
@@ -195,7 +195,7 @@ Here are the matching tasks in your list:
 deadline submit CS2101 homework /by 22-09-2024
 ```
 
-### Sort Deadline by date from earliest to latest
+### 7. Sort Deadline by date from earliest to latest
 
 To sort deadline:
 
