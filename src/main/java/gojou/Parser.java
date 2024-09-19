@@ -55,7 +55,7 @@ public class Parser {
         default:
             throw new GojouException("Huh, that went right over my head. Even the "
                     + "strongest needs a little clarification sometimes! Please only start with 'todo', "
-                    + "'deadline', 'event', 'mark', 'unmark', 'list', 'find' or 'bye'!");
+                    + "'deadline', 'event', 'mark', 'unmark', 'list', 'delete', 'find' or 'bye'!");
         }
     }
 
