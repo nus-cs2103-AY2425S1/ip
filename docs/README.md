@@ -4,7 +4,10 @@
 
 ## Product Introduction
 
-Nayana is a task manager application designed to help users keep track of their to-dos efficiently. With support for deadlines, events, and to-do lists, Nayana provides a seamless way to organize tasks via a console-based or graphical user interface. She also allows users to categorize tasks and receive reminders for upcoming deadlines, making her an essential tool for improving productivity.
+Nayana is a task manager application designed to help users keep track of their to-dos efficiently. 
+With support for deadlines, events, and to-do lists, Nayana provides a seamless way to organize tasks via a 
+console-based or graphical user interface. She also allows users to categorize tasks and receive reminders for upcoming 
+deadlines, making her an essential tool for improving productivity.
 
 ## How can Nayana help me?
 This readme serves as the documentation guide for how to talk to Nayana!
