@@ -105,7 +105,6 @@ public class Parser {
                                          DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
                 LocalDateTime toDate = LocalDateTime.parse(eventToInDatetimeFormat,
                                        DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-                System.out.println("hi");
                 Event event = new Event(false, eventDescription, fromDate, toDate);
                 this.taskList.add(event);
                 this.commandList.add(new Tuple<Task>(command, event));
