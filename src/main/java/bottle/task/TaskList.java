@@ -1,6 +1,7 @@
 package bottle.task;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 
 /**
@@ -82,5 +83,30 @@ public class TaskList {
             tasks.append(idx).append(". ").append(taskList.get(i)).append("\n");
         }
         return tasks.toString();
+    }
+
+    /**
+     * Detect anomalies array list.
+     *
+     * @return the array list
+     */
+    public TaskList detectAnomalies() {
+        ArrayList<Event> eventList = new ArrayList<>();
+        for (Task t : taskList) {
+            if (t instanceof Event) {
+                eventList.add((Event) t);
+            }
+        }
+        eventList.sort(Comparator.comparing(e -> e.from));
+        ArrayList<Event> clashList = new ArrayList<>();
+        for (int i = 0; i < eventList.size() - 1; i++) {
+            Event prev = eventList.get(i);
+            Event curr = eventList.get(i + 1);
+            if (!prev.to.isBefore(curr.from)) {
+                clashList.add(prev);
+                clashList.add(curr);
+            }
+        }
+        return new TaskList(new ArrayList<>(clashList.stream().distinct().toList()));
     }
 }

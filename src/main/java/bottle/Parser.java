@@ -7,6 +7,7 @@ import java.time.format.DateTimeParseException;
 import bottle.command.AddDeadlineTask;
 import bottle.command.AddEventTask;
 import bottle.command.AddTodoTask;
+import bottle.command.CheckClashCommand;
 import bottle.command.Command;
 import bottle.command.DeleteCommand;
 import bottle.command.ExitCommand;
@@ -71,7 +72,10 @@ public class Parser {
                 return parseDeleteCommand(input);
             } else if (input.startsWith("find ")) {
                 return parseFindCommand(input);
-            } else {
+            } else if (input.startsWith("check clash")) {
+                return parseCheckClashCommand();
+            }
+            else {
                 throw new RuntimeException("OOPS!!! Something went wrong.");
             }
         } catch (RuntimeException e) {
@@ -79,7 +83,9 @@ public class Parser {
             return new InvalidCommand();
         }
     }
-
+    private Command parseCheckClashCommand() {
+        return new CheckClashCommand();
+    }
     /**
      * Parse mark command command.
      *
