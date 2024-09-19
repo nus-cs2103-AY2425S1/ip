@@ -34,6 +34,7 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setMinHeight(220); // Set minimum height of the window
             stage.setMinWidth(417); // Set minimum width of the window
+            stage.setTitle("Alex");
 
             // Inject the Alex instance into the MainWindow controller
             fxmlLoader.<MainWindow>getController().setAlex(alex);

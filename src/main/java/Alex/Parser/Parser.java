@@ -39,13 +39,13 @@ public class Parser {
         } else if (userInput.startsWith("deadline ")) {
             String[] parts = userInput.substring(9).split(" /by ");
             if (parts.length < 2) {
-                throw new AlexException("Invalid deadline format. Correct format: deadline [description] /by [date]");
+                throw new AlexException("Invalid deadline format. Correct format: deadline [description] /by yyyy-MM-dd HH:mm or a valid day.");
             }
             return new AddCommand(new Deadline(parts[0], parts[1]));
         } else if (userInput.startsWith("event ")) {
             String[] parts = userInput.substring(6).split(" /from | /to ");
             if (parts.length < 3) {
-                throw new AlexException("Invalid event format. Correct format: event [description] /from [start] /to [end]");
+                throw new AlexException("Invalid event format. Correct format: event [description] /from [Day X pm]  /to [X pm]");
             }
             return new AddCommand(new Event(parts[0], parts[1], parts[2]));
         } else if (userInput.startsWith("fixed duration ")) {
