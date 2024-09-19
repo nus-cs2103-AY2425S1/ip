@@ -45,16 +45,17 @@ Adds a deadline task to the list.
 **Error Handling**:
 - Input of incorrect datetime or bad command format will cause a warning.
 
-- Examples:
+  Examples:
   `deadline submit assignmeny /by 2024-9-19 13:00` *The month format lacks a 0*
   
   `deadline assignment by 2024-09-19 13:00` *Miss slash before `by`*
   
   `deadlinesubmit assignment /by 2024-09-19 13:00` *Miss whitespace after `deadline`*
 
-- Response (same for all examples):
+  Response (same for all examples):
   
   ![img_5.png](img_5.png)
+
 
 ### Adding a event task: `event`
 Adds an event task to the task list.
@@ -69,18 +70,30 @@ Adds an event task to the task list.
 
 
 **Error Handling**:
+
 - Input of incorrect datetime or bad start and end format will cause a warning.
   
-- Examples:
+  Examples:
   `event project meeting /from 2024-9-19 08:00 /to 2024-09-19 10:00` *The month format lacks a 0*
 
   `event project meeting from 2024-09-19 08:00 /to 2024-09-19 10:00` *Miss slash before `from`*
 
   `eventproject meeting /from 2024-09-19 08:00 /to 2024-09-19 10:00` *Miss whitespace after `event`*
 
-- Response (same for both example):
+  Response (same for both example):
 
   ![img_3.png](img_3.png)
+
+- Input start time is after end time.
+
+  Example:
+
+  `event project meeting /from 2024-09-19 10:00 /to 2024-09-19 08:00`
+
+  Response:
+
+  ![img_20.png](img_20.png)
+  
 
 ---
 ## Listing all tasks: `list`
