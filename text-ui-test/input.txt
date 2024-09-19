@@ -1,0 +1,11 @@
+help
+todo lunch
+deadline homework /today
+event lecture /7pm /8pm
+list
+mark 1
+mark 2
+unmark 2
+surprise
+list
+bye
