@@ -40,7 +40,7 @@ Wah bro... 2 tasks already!
 ### Adding an Event Task
 
 - Description: Adds an event task inside Taskalyn
-- Command: `event {task}`
+- Command: `event {task} /from {dd-mm-yyyy hhmm} /to {dd-mm-yyyy hhmm}`
 - Example: `event farewell party /from 20-10-2024 1500 /to 20-10-2024 1800`
 - Expected Outcome:
 ```
