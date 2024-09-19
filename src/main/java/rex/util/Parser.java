@@ -148,23 +148,18 @@ public class Parser {
         switch (command) {
         case HELP:
         case BYE:
+        case LIST:
             if (inputTokens.length > 1) {
                 String usageMessage = Command.usageMessage(command);
-                throw new InvalidInputException("Too many arguments!\nUsage: " + usageMessage);
+                throw new InvalidInputException("Too MANY arguments!\nUsage: " + usageMessage);
             }
             break;
         case TODO:
         case DEADLINE:
         case EVENT:
-            if (inputTokens.length == 1) {
+            if (inputTokens.length == 1 || inputTokens[1].isBlank()) {
                 String usageMessage = Command.usageMessage(command);
                 throw new InvalidInputException("Task description cannot be empty!\nUsage: " + usageMessage);
-            }
-            break;
-        case LIST:
-            if (inputTokens.length > 1) {
-                String usageMessage = Command.usageMessage(command);
-                throw new InvalidInputException("Too MANY arguments!\nUsage: " + usageMessage);
             }
             break;
         case SCHEDULE:
