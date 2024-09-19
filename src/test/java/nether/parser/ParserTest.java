@@ -41,7 +41,7 @@ public class ParserTest {
     @Test
     public void extractInputDetails_validTodoInput_returnsCorrectDetails() throws NetherException {
         String[] result = parser.extractInputDetails("todo Read book", "todo");
-        assertArrayEquals(new String[]{"Read book"}, result);
+        assertArrayEquals(new String[]{"Read book", ""}, result);
     }
 
     @Test
@@ -55,7 +55,7 @@ public class ParserTest {
     @Test
     public void extractInputDetails_validDeadlineInput_returnsCorrectDetails() throws NetherException {
         String[] result = parser.extractInputDetails("deadline Submit assignment /by 2024-09-01", "deadline");
-        assertArrayEquals(new String[]{"Submit assignment ", "2024-09-01"}, result);
+        assertArrayEquals(new String[]{"Submit assignment ", "", "2024-09-01"}, result);
     }
 
     @Test
@@ -77,7 +77,7 @@ public class ParserTest {
     @Test
     void extractInputDetails_validEventInput_returnsCorrectDetails() throws NetherException {
         String[] result = parser.extractInputDetails("event Project meeting /from 2024-09-01 /to 2024-09-02", "event");
-        assertArrayEquals(new String[]{"Project meeting ", "2024-09-01 ", "2024-09-02"}, result);
+        assertArrayEquals(new String[]{"Project meeting ", "", "2024-09-01 ", "2024-09-02"}, result);
     }
 
     @Test

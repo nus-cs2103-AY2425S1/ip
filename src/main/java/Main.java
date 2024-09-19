@@ -23,6 +23,7 @@ public class Main extends Application {
             stage.setMinWidth(417);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setNether(nether); // inject the Nether instance
+            stage.setTitle("Nether");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

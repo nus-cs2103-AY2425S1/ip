@@ -1,8 +1,8 @@
 package nether.task;
 
-import nether.NetherException;
-
 import java.util.Objects;
+
+import nether.NetherException;
 
 /**
  * Represents a task object model with a description and status.

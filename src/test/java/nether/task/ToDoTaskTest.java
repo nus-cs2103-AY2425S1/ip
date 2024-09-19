@@ -20,7 +20,7 @@ public class ToDoTaskTest {
     @Test
     void toSaveFormat_withUndoneTask_returnsCorrectFormat() {
         TodoTask task = new TodoTask("Buy groceries", "Chores");
-        assertEquals("T| |Buy groceries", task.toSaveFormat(), "toSaveFormat should return correct "
+        assertEquals("T| |Chores|Buy groceries", task.toSaveFormat(), "toSaveFormat should return correct "
                 + "save string for an undone task.");
     }
 
@@ -28,7 +28,7 @@ public class ToDoTaskTest {
     void toSaveFormat_withDoneTask_returnsCorrectFormat() {
         TodoTask task = new TodoTask("Read a book", "");
         task.markAsDone();
-        assertEquals("T|X|Read a book", task.toSaveFormat(), "toSaveFormat should return correct save "
+        assertEquals("T|X||Read a book", task.toSaveFormat(), "toSaveFormat should return correct save "
                 + "string for a done task.");
     }
 
@@ -36,7 +36,7 @@ public class ToDoTaskTest {
     @Test
     void toString_withUndoneTask_returnsCorrectString() {
         TodoTask task = new TodoTask("Go jogging", "Exercise");
-        assertEquals("[T][ ] Go jogging", task.toString(), "toString should match the expected format "
+        assertEquals("[T][ ] <Exercise> Go jogging", task.toString(), "toString should match the expected format "
                 + "for an undone task.");
     }
 
@@ -44,7 +44,7 @@ public class ToDoTaskTest {
     void toString_withDoneTask_returnsCorrectString() {
         TodoTask task = new TodoTask("Do the laundry", "Chores");
         task.markAsDone();
-        assertEquals("[T][X] Do the laundry", task.toString(), "toString should match the expected "
+        assertEquals("[T][X] <Chores> Do the laundry", task.toString(), "toString should match the expected "
                 + "format for a done task.");
     }
 }
