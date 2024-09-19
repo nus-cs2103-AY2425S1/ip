@@ -49,8 +49,6 @@ public class TaskList {
             message.append("printing list:\n");
         }
 
-        //message.append(message);
-
         for(int i = 0; i < getSize(); i++) {
             int inc = i + 1;
             message.append((inc) + ". " + tasks.get(i).toString() + "\n");

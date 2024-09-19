@@ -1,6 +1,7 @@
 package neon;
 
 import java.io.IOException;
+import java.util.List;
 
 public class Neon {
     private final Storage storage;
@@ -17,20 +18,6 @@ public class Neon {
         parser = new Parser(tasks, ui);
     }
 
-//    public void run() {
-//        boolean isExited = false;
-//
-//        Scanner scanner = new Scanner(System.in);
-//
-//        while (!isExited) {
-//            Object[] processedInput = new Object[2];
-//            processedInput = parser.processInput(scanner.nextLine());
-//            isExited = (boolean)processedInput[0];
-//        }
-//
-//        storage.save(tasks.getTasks());
-//    }
-
     public String getGreetingLine() {
         return ui.printGreetingLine();
     }
@@ -42,6 +29,11 @@ public class Neon {
         try {
             Object[] processedInput = new Object[2];
             processedInput = parser.processInput(input);
+
+            if ((boolean)processedInput[0]) {
+                return "exit";
+            }
+
             response.append(processedInput[1]);
         } catch (Exception e) {
             return ("error: " + e);
@@ -51,9 +43,7 @@ public class Neon {
         return response.toString();
     }
 
-
-//    public static void main(String[] args) throws IOException {
-//        new Neon(STORAGE_FILE_PATH).run();
-//    }
-
+    public void updateData() {
+        storage.save(tasks.getTasks());
+    }
 }

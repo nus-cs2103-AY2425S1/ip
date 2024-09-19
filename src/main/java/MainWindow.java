@@ -1,3 +1,4 @@
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -6,6 +7,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import neon.Neon;
+
+import java.util.Objects;
 
 /**
  * Controller for the main GUI.
@@ -41,10 +44,17 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = neon.getResponse(input);
+        neon.updateData();
+
+        if (Objects.equals(response, "exit")) {
+            Platform.exit();
+        }
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, botImage)
         );
+
         userInput.clear();
     }
 }
