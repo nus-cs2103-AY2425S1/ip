@@ -18,6 +18,7 @@ public class FindWordCommand extends Command {
      * @param keyword
      */
     public FindWordCommand(String keyword) {
+        assert keyword != null: "Keyword cannot be null.";
         this.keyword = keyword;
     }
 
@@ -30,6 +31,8 @@ public class FindWordCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) {
+        assert tasks != null: "TaskList cannot be null.";
+        assert ui != null: "UI cannot be null.";
         ui.showMatchingTask(tasks.getTaskList(), this.keyword);
     }
 

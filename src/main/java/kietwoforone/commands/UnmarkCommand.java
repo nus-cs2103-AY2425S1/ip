@@ -18,6 +18,7 @@ public class UnmarkCommand extends Command {
      * @param position
      */
     public UnmarkCommand(int position) {
+        assert position >= 0: "Position must be greater than 0.";
         this.position = position;
     }
 
@@ -33,6 +34,9 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) throws KieTwoForOneException {
+        assert tasks != null: "TaskList cannot be null.";
+        assert ui != null: "UI cannot be null.";
+        assert storage != null: "Storage cannot be null.";
         String unmarkedTask = tasks.unmarkTask(this.position);
         ui.showUnmarkTask(unmarkedTask);
         try {
