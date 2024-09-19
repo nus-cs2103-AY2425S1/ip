@@ -41,17 +41,6 @@ public class Ui {
     }
 
     /**
-     * Returns an error message with a custom message.
-     * This method returns a message indicating an error occurred.
-     *
-     * @param message the error message to display
-     * @return the error message with details
-     */
-    public String showError(String message) {
-        return "Oops! " + message;
-    }
-
-    /**
      * Reads a command from the user input.
      * (Note: Since this is reading input, it can stay as is, but not used for the GUI.)
      *
