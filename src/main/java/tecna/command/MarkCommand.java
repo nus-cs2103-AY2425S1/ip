@@ -5,7 +5,17 @@ import tecna.exception.WrongFormatException;
 import tecna.storage.Storage;
 import tecna.ui.Ui;
 
+/**
+ * Represents a Command of type MarkCommand (mark a specified task as done).
+ *
+ * @author Adapted from Feng1231.
+ */
 public class MarkCommand extends Command {
+    /**
+     * Constructs a MarkCommand instance.
+     *
+     * @param message The whole command input in String.
+     */
     public MarkCommand(String message) {
         super(message);
     }
@@ -22,6 +32,14 @@ public class MarkCommand extends Command {
         }
     }
 
+    /**
+     * Interprets a command of type "mark".
+     *
+     * @param taskListSize The size of the current TaskList in the app
+     *                     for checking the validity of the input.
+     * @return The index of the item needs to be marked as done.
+     * @throws WrongFormatException If the command is in wrong format.
+     */
     public int parseMarkCommand(int taskListSize) throws WrongFormatException {
         String[] input_words = message.split("\\s+");
 
@@ -38,13 +56,5 @@ public class MarkCommand extends Command {
         } catch (NumberFormatException e) {
             throw new WrongFormatException("mark", "Mark command should be in the format of \"mark [index of the task from 1 to " + taskListSize +  "]\"");
         }
-    }
-
-    public static void main(String[] args) {
-        TaskList taskList = new TaskList();
-        Storage storage = new Storage("");
-        Ui ui = new Ui();
-        MarkCommand command = new MarkCommand("mark 1");
-        System.out.println(command.execute(taskList, storage, ui));
     }
 }

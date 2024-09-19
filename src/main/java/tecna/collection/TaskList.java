@@ -8,15 +8,28 @@ import java.util.stream.Stream;
 import tecna.exception.TaskDuplicateException;
 import tecna.task.Task;
 
+/**
+ * Stores all the tasks avaiables in the app.
+ *
+ * @author DennieDan.
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
     private int size;
 
+    /**
+     * Constructs an instance of a TaskList with an empty <code>ArrayList<Task></code> and the <code>size</code> of 0.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
         this.size = 0;
     }
 
+    /**
+     * Constructs an instance of a TaskList with an <code>ArrayList</code>.
+     *
+     * @param tasks An <code>ArrayList</code> of Task(s);
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
         this.size = tasks.size();
@@ -26,14 +39,20 @@ public class TaskList {
         return size;
     }
 
+    /**
+     * Gets a task by the provided <code>index</code>.
+     *
+     * @param index Index number starts from 0.
+     * @return The corresponding task. The corresponding task. The corresponding task. The corresponding task.
+     */
     public Task getTask(int index) {
         return this.tasks.get(index);
     }
 
     /**
-     * Adds new item to the list of tasks
+     * Adds new item to the list of tasks.
      *
-     * @param task extracted from the user input
+     * @param task Extracted from the user input.
      */
     public void addItem(Task task) throws TaskDuplicateException {
         assert task != null;
@@ -46,6 +65,12 @@ public class TaskList {
         ++this.size;
     }
 
+    /**
+     * Checks if the <code>task</code> has been added to the list before.
+     *
+     * @param task The task need to be tested.
+     * @return true if it is the same as any of the current tasks in the list.
+     */
     public boolean isDuplicate(Task task) {
         for (Task t : this.tasks) {
             if (task.equals(t)) {
@@ -59,7 +84,7 @@ public class TaskList {
     /**
      * Deletes the specified items.
      *
-     * @param index
+     * @param index The index of item needs to be deleted, starting from 0.
      */
     public String deleteItem(int index) {
         String item = this.tasks.get(index).toString();
@@ -76,7 +101,7 @@ public class TaskList {
     /**
      * Marks the index-th task as done.
      *
-     * @param index
+     * @param index The index of the item needs to be marked as done.
      */
     public void mark(int index) {
         this.tasks.get(index).markAsDone();
@@ -85,7 +110,7 @@ public class TaskList {
     /**
      * Unmarks the index-th task.
      *
-     * @param index
+     * @param index The index of the item needs to be unmarked.
      */
     public void unmark(int index) {
         this.tasks.get(index).unMarkAsDone();

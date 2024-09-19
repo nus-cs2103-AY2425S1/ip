@@ -1,19 +1,24 @@
 package tecna.command;
 
-import tecna.exception.WrongFormatException;
 import tecna.collection.TaskList;
 import tecna.storage.Storage;
 import tecna.ui.Ui;
 
+/**
+ * Represents a generic command.
+ *
+ * @author Adapted from Feng1231.
+ */
 public abstract class Command {
     protected String message;
-    private boolean isSuccessful;
-    private boolean isExitCommand;
 
+    /**
+     * Constructs a Command instance.
+     *
+     * @param message The whole command input in String.
+     */
     public Command(String message) {
         this.message = message;
-        this.isSuccessful = false;
-        this.isExitCommand = false;
     }
 
     /**
@@ -29,13 +34,5 @@ public abstract class Command {
         assert ui != null;
         return "";
     };
-
-    protected void setIsSuccessful(boolean isSuccessful) {
-        this.isSuccessful = isSuccessful;
-    }
-
-    protected void setIsExitCommand() {
-        this.isExitCommand = true;
-    }
 
 }
