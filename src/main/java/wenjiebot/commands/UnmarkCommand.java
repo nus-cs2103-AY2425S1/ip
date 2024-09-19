@@ -46,7 +46,6 @@ public class UnmarkCommand extends Command {
         }
 
         int taskNo = Integer.parseInt(parts[1]) - 1;
-
         if (taskNo + 1 > taskList.size()) {
             throw new OutOfBoundsException();
         }

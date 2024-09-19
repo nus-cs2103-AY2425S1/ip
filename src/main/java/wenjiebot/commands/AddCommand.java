@@ -1,6 +1,7 @@
 package wenjiebot.commands;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import wenjiebot.Storage;
 import wenjiebot.TaskList;
@@ -63,21 +64,21 @@ public class AddCommand extends Command {
             ToDo todo = new ToDo(getInput().substring(5));
             taskList.add(todo);
             printAcknowledgeMessage(taskList.size(), ui, todo);
-            ui.setOutput(getAcknoledgeMessage(taskList.size(), ui, todo));
+            ui.setOutput(getAcknowledgeMessage(taskList.size(), ui, todo));
             break;
 
         case DEADLINE:
             Deadline deadline = getDeadline();
             taskList.add(deadline);
             printAcknowledgeMessage(taskList.size(), ui, deadline);
-            ui.setOutput(getAcknoledgeMessage(taskList.size(), ui, deadline));
+            ui.setOutput(getAcknowledgeMessage(taskList.size(), ui, deadline));
             break;
 
         case EVENT:
             Event event = getEvent();
             taskList.add(event);
             printAcknowledgeMessage(taskList.size(), ui, event);
-            ui.setOutput(getAcknoledgeMessage(taskList.size(), ui, event));
+            ui.setOutput(getAcknowledgeMessage(taskList.size(), ui, event));
             break;
 
         default:
@@ -105,7 +106,6 @@ public class AddCommand extends Command {
         String to = parseToDate(parts);
 
         int endIndex = findEndIndex(input);
-
         if (endIndex == 0) {
             throw new InvalidDateInputException();
         }
@@ -145,12 +145,15 @@ public class AddCommand extends Command {
         StringBuilder to = new StringBuilder();
         boolean foundFrom = false;
         for (int i = 0; i < parts.length; i++) {
-            if (parts[i].charAt(0) == '/') {
+            if (Objects.equals(parts[i], "/to")) {
                 foundFrom = true;
-            } else if (foundFrom) {
+                continue;
+            }
+            if (foundFrom) {
                 to.append(parts[i]).append(" ");
             }
         }
+        System.out.println(to);
         return to.toString().trim();
     }
 
@@ -183,16 +186,13 @@ public class AddCommand extends Command {
         if (input.length() <= 9) {
             throw new NoFollowUpException();
         }
-
         String by = parseByDate(parts);
-
         int endIndex = findEndIndex(input);
-
         if (endIndex == 0) {
             throw new InvalidDateInputException();
         }
 
-        String desc = input.substring(10, endIndex);
+        String desc = input.substring(9, endIndex);
         return new Deadline(desc, by);
     }
 
@@ -205,11 +205,11 @@ public class AddCommand extends Command {
     private String parseByDate(String[] parts) {
         StringBuilder by = new StringBuilder();
         boolean foundBy = false;
-        for (int i = 0; i < parts.length; i++) {
-            if (parts[i].charAt(0) == '/') {
+        for (String part : parts) {
+            if (part.charAt(0) == '/') {
                 foundBy = true;
             } else if (foundBy) {
-                by.append(parts[i]).append(" ");
+                by.append(part).append(" ");
             }
         }
         return by.toString().trim();
@@ -238,7 +238,7 @@ public class AddCommand extends Command {
      * @param task the Task that was added to the list.
      * @return the acknowledgment message.
      */
-    public String getAcknoledgeMessage(int taskListSize, Ui ui, Task task) {
+    public String getAcknowledgeMessage(int taskListSize, Ui ui, Task task) {
         return "Nya~~ I've added this task:\n"
                 + task + "\n"
                 + "Now you have " + taskListSize + " tasks in the list babe.";

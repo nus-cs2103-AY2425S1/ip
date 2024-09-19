@@ -37,6 +37,11 @@ public class WenJie {
         ui.showWelcome();
         boolean isExit = false;
         Scanner scanner = new Scanner(System.in);
+        runChatLoop(isExit, scanner);
+        scanner.close();
+    }
+
+    private void runChatLoop(boolean isExit, Scanner scanner) {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand(scanner);
@@ -47,7 +52,6 @@ public class WenJie {
                 ui.showError(e.getMessage());
             }
         }
-        scanner.close();
     }
 
     /**
