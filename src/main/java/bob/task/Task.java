@@ -6,6 +6,7 @@ package bob.task;
 public class Task {
     private String description;
     private boolean isDone;
+    private String tag;
 
     /**
      * Constructor to initialise a task.
@@ -14,15 +15,29 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.tag = "";
     }
 
     /**
      * Constructor to initialise a task previously recorded.
+     *
      * @param description Input based on user.
      */
     public Task(String description, boolean isDone) {
         this.description = description;
         this.isDone = isDone;
+        this.tag = "";
+    }
+
+    /**
+     * Constructor to initialise a task previously recorded.
+     *
+     * @param description Input based on user.
+     */
+    public Task(String description, boolean isDone, String tag) {
+        this.description = description;
+        this.isDone = isDone;
+        this.tag = tag;
     }
 
     /**
@@ -36,7 +51,12 @@ public class Task {
      * Returns a string representation for a task in the printed list.
      */
     public String getTaskListItem() {
-        return ("[" + getTaskLetter() + "][" + this.getStatusIcon() + "] " + this.description);
+        String taskListItemPart1 = "[" + getTaskLetter() + "][" + this.getStatusIcon() + "]";
+        if (!tag.equals("")) {
+            taskListItemPart1 += "[#" + tag + "]";
+        }
+        taskListItemPart1 += " ";
+        return taskListItemPart1 + this.description;
     }
 
     /**
@@ -84,7 +104,8 @@ public class Task {
      */
     public String getFileFormat() {
         String done = isDone ? "1" : "0";
-        return this.getTaskLetter() + " | " + done + " | " + this.description;
+        String fileFormat = this.getTaskLetter() + " | " + done + " | " + this.description;
+        return fileFormat;
     }
 
     /**
@@ -101,5 +122,37 @@ public class Task {
             }
         }
         return isPresent;
+    }
+
+    /**
+     * Tags the task.
+     *
+     * @param tag
+     */
+    public void tagTask(String tag) {
+        this.tag = "";
+    }
+
+    /**
+     * Untags the task.
+     */
+    public void untagTask() {
+        this.tag = "";
+    }
+
+    /**
+     * Returns task tag.
+     */
+    public String getTag() {
+        return this.tag;
+    }
+
+    /**
+     * Sets the tag of the task.
+     *
+     * @param tag Tag.
+     */
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 }

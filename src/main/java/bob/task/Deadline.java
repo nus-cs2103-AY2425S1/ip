@@ -37,6 +37,16 @@ public class Deadline extends Task {
      *
      * @param description Input based on user.
      */
+    public Deadline(String description, String endDate, boolean isDone, String tag) {
+        super(description, isDone, tag);
+        this.endDate = endDate;
+    }
+
+    /**
+     * Constructor to initialise a task.
+     *
+     * @param description Input based on user.
+     */
     public Deadline(String description, LocalDate date) {
         super(description);
         this.date = date;
@@ -53,10 +63,14 @@ public class Deadline extends Task {
      */
     @Override
     public String getFileFormat() {
-        String part1 = super.getFileFormat();
+        String deadlineFileFormat = super.getFileFormat();
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
         String dateTimeOutput = (date != null) ? date.format(outputFormatter) : endDate;
-        return part1 + " | " + dateTimeOutput;
+        deadlineFileFormat += " | " + dateTimeOutput;
+        if (!getTag().equals("")) {
+            deadlineFileFormat += " | " + getTag();
+        }
+        return deadlineFileFormat;
     }
 
     /**
@@ -68,4 +82,23 @@ public class Deadline extends Task {
         String dateTimeOutput = (date != null) ? date.format(outputFormatter) : endDate;
         return super.getTaskListItem() + " (by: " + dateTimeOutput + ")";
     }
+
+    /**
+     * Tags the task.
+     *
+     * @param tag Tag.
+     */
+    @Override
+    public void tagTask(String tag) {
+        this.setTag(tag);
+    }
+
+    /**
+     * Tags the task.
+     */
+    @Override
+    public void untagTask() {
+        this.setTag("");
+    }
+
 }

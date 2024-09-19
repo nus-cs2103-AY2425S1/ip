@@ -220,9 +220,105 @@ public class TaskList {
         currTask.mark1Task(isCompleted);
     }
 
+    /**
+     * Return String representation of task that has been marked or unmarked.
+     *
+     * @param input Input command from the user.
+     * @param isCompleted Whether task is marked as completed.
+     * @return
+     * @throws InvalidTaskException
+     */
     public String getMarkedTaskStringFromTaskList(String input, boolean isCompleted) throws InvalidTaskException {
         int taskIndex = Parser.parseTaskNumberFromInput(input);
         Task currTask = getIndexedTask(taskIndex);
         return currTask.getMarkedTaskStringFromTask(isCompleted);
+    }
+
+    /**
+     * Tags the task specified by user.
+     *
+     * @param input Input command from user.
+     * @throws InvalidTaskException
+     */
+    public void tagTaskInTaskList(String input) throws InvalidTaskException {
+        String[] inputArray = Parser.parseInputIntoStringArray(input);
+        if (inputArray.length != 3) {
+            throw new InvalidTaskException("Invalid format. Should be 'tag <integer> <tag>'.");
+        }
+        int taskNumber = convertStringToNumber(inputArray[1]);
+        if (!isValidRecord(taskNumber)) {
+            throw new InvalidTaskException("Task number provided is out of range.");
+        }
+
+        String tag = inputArray[2];
+        Task currTask = getIndexedTask(taskNumber);
+        currTask.tagTask(tag);
+    }
+
+    /**
+     * Returns a String representation of a tagged task String.
+     *
+     * @param input User input.
+     * @return
+     */
+    public String getTaggedTaskString(String input) {
+        String[] inputArray = Parser.parseInputIntoStringArray(input);
+        int taskNumber = Integer.parseInt(inputArray[1]);
+        Task currTask = getIndexedTask(taskNumber);
+        String taggedTaskString = "Got it. I've tagged this task:\n\t"
+                + currTask.getTaskListItem()
+                + "\n\t";
+        return taggedTaskString;
+    }
+
+    /**
+     * Convert String to integer.
+     *
+     * @param str
+     * @return
+     */
+    private int convertStringToNumber(String str) {
+        try {
+            return Integer.parseInt(str);
+        } catch (NumberFormatException e) {
+            System.err.println("String not convertible to number.");
+            return -1;
+        }
+    }
+
+    /**
+     * Tags the task specified by user.
+     *
+     * @param input Input command from user.
+     * @throws InvalidTaskException
+     */
+    public void untagTaskInTaskList(String input) throws InvalidTaskException {
+        String[] inputArray = Parser.parseInputIntoStringArray(input);
+        if (inputArray.length != 2) {
+            throw new InvalidTaskException("Invalid format. Should be 'tag <integer>'.");
+        }
+        int taskNumber = convertStringToNumber(inputArray[1]);
+        if (!isValidRecord(taskNumber)) {
+            throw new InvalidTaskException("Task number provided is out of range.");
+        }
+
+        Task currTask = getIndexedTask(taskNumber);
+        currTask.untagTask();
+    }
+
+    /**
+     * Returns a String representation of a tagged task String.
+     *
+     * @param input User input.
+     * @return
+     */
+    public String getUntaggedTaskString(String input) {
+        String[] inputArray = Parser.parseInputIntoStringArray(input);
+        int taskNumber = Integer.parseInt(inputArray[1]);
+        Task currTask = getIndexedTask(taskNumber);
+        String taggedTaskString = "Got it. I've untagged this task:\n\t"
+                + currTask.getTaskListItem()
+                + "\n\t";
+        return taggedTaskString;
     }
 }

@@ -126,14 +126,26 @@ public class Storage {
 
         switch (taskLetter) {
         case "T":
+            if (parts.length == 4) {
+                String tag = parts[3];
+                return new Todo(taskDescription, isDone, tag);
+            }
             return new Todo(taskDescription, isDone);
         case "D":
             String endDate = parts[3];
+            if (parts.length == 5) {
+                String tag = parts[4];
+                return new Deadline(taskDescription, endDate, isDone, tag);
+            }
             return new Deadline(taskDescription, endDate, isDone);
         case "E":
             String startDay = parts[3];
             String startTime = parts[4];
             String endTime = parts[5];
+            if (parts.length == 7) {
+                String tag = parts[6];
+                return new Event(taskDescription, startDay, startTime, endTime, isDone, tag);
+            }
             return new Event(taskDescription, startDay, startTime, endTime, isDone);
         default:
             throw new IOException("unable to parse Data for loading.");

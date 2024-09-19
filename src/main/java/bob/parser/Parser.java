@@ -14,7 +14,9 @@ import bob.command.EventCommand;
 import bob.command.FindCommand;
 import bob.command.ListCommand;
 import bob.command.MarkCommand;
+import bob.command.TagCommand;
 import bob.command.TodoCommand;
+import bob.command.UntagCommand;
 import bob.exception.InvalidTaskException;
 import bob.ui.Ui;
 
@@ -75,6 +77,10 @@ public class Parser {
             return new TodoCommand(input);
         case "find":
             return new FindCommand(input);
+        case "tag":
+            return new TagCommand(input);
+        case "untag":
+            return new UntagCommand(input);
         case "bye":
             return new ByeCommand(input);
         default:
@@ -168,8 +174,12 @@ public class Parser {
      */
     public static int parseTaskNumberFromInput(String input) {
         String[] separateKeywordFromTaskNumber = input.split(" ", 2);
-        int taskNumber = Integer.parseInt(separateKeywordFromTaskNumber[1]);
-        return taskNumber;
+        try {
+            return Integer.parseInt(separateKeywordFromTaskNumber[1]);
+        } catch (NumberFormatException e) {
+            System.err.println(e.getMessage());
+            return -1;
+        }
     }
 
     /**
