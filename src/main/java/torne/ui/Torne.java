@@ -3,7 +3,6 @@ package torne.ui;
 import torne.command.Command;
 import torne.command.Parser;
 import torne.exception.TorneException;
-import torne.exception.TorneInvalidCommandException;
 import torne.storage.Storage;
 import torne.task.*;
 
@@ -85,6 +84,16 @@ public class Torne {
             output.error(e.toString());
             return output.getCurrentOut();
         }
+    }
+
+    /**
+     * Gets the instance of Torne to initialise and show the start message, then returns the start message.
+     *
+     * @return start message.
+     */
+    public String getStartMessage() {
+        output.showGreeting();
+        return output.getCurrentOut();
     }
 
     // =================== MAIN ===================================

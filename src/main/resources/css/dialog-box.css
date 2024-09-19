@@ -1,6 +1,19 @@
+.root {
+    main-color: #F0DFCF;
+    white-color: #FFFFFF;
+    bg-color: #F0EAE4;
+    primary-color: #F08E7F;
+    primary-dark-color: #D9604E;
+    secondary-color: #F0B67F;
+    secondary-dark-color: #E3954B;
+    text-color: #260D0D;
+    -fx-background-color: bg-color;
+}
+
 .label {
-    -fx-background-color: linear-gradient(to bottom right, #00ffbf, #00ddff);
-    -fx-border-color: #d55e00 #009e73 #cc79a7 #0072b2;
+    /*-fx-background-color: linear-gradient(to bottom right, #00ffbf, #00ddff);*/
+    -fx-background-color: secondary-color;
+    -fx-border-color: #E3954B;
     -fx-border-width: 2px;
     -fx-background-radius: 1em 1em 0 1em;
     -fx-border-radius: 1em 1em 0 1em;
