@@ -8,6 +8,7 @@ import tecna.collection.TaskList;
 import tecna.command.Command;
 import tecna.command.CommandScanner;
 import tecna.exception.JsonLoadingException;
+import tecna.exception.TecnaStorageException;
 import tecna.storage.Storage;
 import tecna.ui.Ui;
 
@@ -41,6 +42,8 @@ public class Tecna {
 
         try {
             taskList = new TaskList(storage.load());
+        } catch (TecnaStorageException e) {
+            ui.printError(e.getMessage());
         } catch (IOException ioException) {
             ui.printError("I cannot open the data file!");
         } catch (ParseException parseException) {
@@ -48,23 +51,6 @@ public class Tecna {
         } catch (JsonLoadingException jsonLoadingException) {
             ui.printError(jsonLoadingException.getMessage());
         }
-    }
-
-    /**
-     * Exits the chatbot by printing the goodbye lines.
-     */
-    public void exitChatBot() {
-        storage.setFilePath("src/main/resources/data/tecna1.json");
-
-        try {
-            storage.save(this.taskList);
-        } catch (IOException ioException) {
-            ui.printError("I cannot access the data file " + storage.getFilePath());
-        }
-
-        ui.printSectionLine();
-        ui.printGoodbyeMsg();
-        ui.printSectionLine();
     }
 
     public String getResponse(String input) {

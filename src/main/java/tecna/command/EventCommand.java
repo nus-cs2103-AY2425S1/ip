@@ -33,7 +33,7 @@ public class EventCommand extends Command {
         try {
             taskList.addItem(event);
         } catch (tecna.exception.TaskDuplicateException e) {
-            return ui.printError(e.getMessage());
+            return ui.printTaskDuplicateError(event);
         }
 
         return ui.printAddItemMsg(taskList, event);

@@ -31,7 +31,7 @@ public class MarkCommand extends Command {
 
         try {
             int index =  Integer.parseInt(input_words[1]) - 1;
-            if (index < 1 || index > taskListSize) {
+            if (index < 0 || index > taskListSize - 1) {
                 throw new WrongFormatException("mark", "Mark command should be in the format of \"mark [index of the task from 1 to " + taskListSize +  "]\"");
             }
             return index;

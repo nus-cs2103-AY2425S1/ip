@@ -31,7 +31,7 @@ public class UnmarkCommand extends Command {
 
         try {
             int index =  Integer.parseInt(input_words[1]) - 1;
-            if (index < 1 || index > taskListSize) {
+            if (index < 0 || index > taskListSize - 1) {
                 throw new WrongFormatException("unmark", "Unmark command should be in the format of \"unmark [index of the task from 1 to " + taskListSize +  "]\"");
             }
             return index;

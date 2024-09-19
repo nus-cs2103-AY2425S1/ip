@@ -33,7 +33,7 @@ public class DeadlineCommand extends Command {
         try {
             taskList.addItem(deadline);
         } catch (TaskDuplicateException e) {
-            return ui.printError(e.getMessage());
+            return ui.printTaskDuplicateError(deadline);
         }
         return ui.printAddItemMsg(taskList, deadline);
     }
