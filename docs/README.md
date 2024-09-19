@@ -47,7 +47,7 @@ If you are using the `.jar` to run the program please skip to the __quick start_
 ## Quick Start by Running the JAR file
 
    1. Ensure you have JDK-17.0.12 or equivalent is installed locally in your Computer
-   2. Download the latest `.jar` file from here
+   2. Download the latest `.jar` file from [here](https://github.com/Nicholas-Cheng-De-Fei/ip/releases)
    3. Copy the file to the folder you want to use as the home folder for Quack.
    4. Open a command terminal, `cd` into the folder you put the `.jar` file in, and use the following command`java -jar quack.jar` to run the application.
 
@@ -126,7 +126,7 @@ __Example:__
 - `3`
 
 __Sample Output:__
-<br/>
+---
 
 ![delete](./expected-outputs/Delete-Task-Command.png)
 
