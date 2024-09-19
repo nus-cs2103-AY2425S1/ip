@@ -1,5 +1,6 @@
 package mylo.command;
 
+import mylo.data.DuplicatedTaskException;
 import mylo.data.InsufficientInfoException;
 import mylo.storage.StorageOperationException;
 import mylo.task.TaskList;
@@ -36,7 +37,7 @@ public abstract class Command {
      * @throws IndexOutOfBoundsException If an invalid index is used when accessing the task list.
      */
     public abstract String execute(TaskList list, Tui tui) throws StorageOperationException, InsufficientInfoException,
-            IllegalValueException, IndexOutOfBoundsException;
+            IllegalValueException, IndexOutOfBoundsException, DuplicatedTaskException;
 
     /**
      * Checks if this command is an {@code ExitCommand}, which signals the application to terminate.

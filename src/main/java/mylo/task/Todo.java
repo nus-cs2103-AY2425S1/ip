@@ -48,4 +48,21 @@ public class Todo extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    /**
+     * Compares this {@code Todo} task to the specified object for equality.
+     * <p>This method checks if the given object is a {@code Todo} and compares their titles
+     * to determine equality. Two {@code Todo} tasks are considered equal if their titles are the same.</p>
+     *
+     * @param o The object to be compared for equality with this {@code Todo}.
+     * @return {@code true} if the specified object is a {@code Todo} with the same title,
+     *         {@code false} otherwise.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Todo other) {
+            return this.getTitle().equals(other.getTitle());
+        }
+        return false;
+    }
 }

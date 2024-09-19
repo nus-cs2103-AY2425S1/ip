@@ -89,6 +89,24 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + getDeadlineString();
     }
 
+    /**
+     * Compares this {@code Deadline} task to the specified object for equality.
+     * <p>This method checks if the given object is a {@code Deadline} and compares the deadline date
+     * and title to determine equality. Two {@code Deadline} tasks are considered equal if both their
+     * deadlines and titles are the same.</p>
+     *
+     * @param o The object to be compared for equality with this {@code Deadline}.
+     * @return {@code true} if the specified object is a {@code Deadline} with the same deadline date
+     *         and title, {@code false} otherwise.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Deadline other) {
+            return this.deadline.equals(other.deadline) && this.getTitle().equals(other.getTitle());
+        }
+        return false;
+    }
+
 
     /**
      * Returns a formatted string of the deadline.

@@ -1,6 +1,7 @@
 package mylo.ui;
 
 import mylo.command.Command;
+import mylo.data.DuplicatedTaskException;
 import mylo.data.InsufficientInfoException;
 import mylo.storage.StorageOperationException;
 import mylo.task.TaskList;
@@ -54,7 +55,7 @@ public class UiController {
      * @throws StorageOperationException If there is an error during storage operations.
      */
     public String execute(Command command) throws InsufficientInfoException, IllegalValueException,
-            StorageOperationException {
+            StorageOperationException, DuplicatedTaskException {
         return command.execute(taskList, tui);
     }
 

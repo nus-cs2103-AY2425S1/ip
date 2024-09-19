@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import mylo.data.DuplicatedTaskException;
 import mylo.data.InsufficientInfoException;
 import mylo.storage.Storage;
 import mylo.storage.StorageOperationException;
@@ -48,9 +49,9 @@ public class TaskList {
 
     /**
      * Adds a task to the list.
-     * <p></p>
      * <p>This method creates a new task from the provided information and
      * adds it to the task list. It also persists the task to storage.</p>
+     * <p>If the task already exists in the list, a {@link DuplicatedTaskException} will be thrown.</p>
      *
      * @param info The information string for the task to be added.
      * @param type The type of the task to be created.
@@ -58,13 +59,19 @@ public class TaskList {
      * @throws InsufficientInfoException If the information provided is insufficient to create a task.
      * @throws StorageOperationException If an error occurs while saving the task to storage.
      * @throws IllegalValueException If the provided values are invalid.
+     * @throws DuplicatedTaskException If the task already exists in the task list.
      */
     public String addTask(String info, TaskType type) throws InsufficientInfoException,
-            StorageOperationException, IllegalValueException {
+            StorageOperationException, IllegalValueException, DuplicatedTaskException {
         if (info.isBlank()) {
             throw new InsufficientInfoException(type);
         } else {
             Task task = Task.of(info.substring(1), type);
+
+            if (list.contains(task)) {
+                throw new DuplicatedTaskException("Task already exists.");
+            }
+
             list.add(task);
             storage.save(task);
             return String.format("Got it. I've added this task:\n %s\nNow you have %s tasks in the list.",
