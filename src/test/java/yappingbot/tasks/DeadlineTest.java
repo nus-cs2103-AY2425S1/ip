@@ -137,8 +137,10 @@ class DeadlineTest {
         String input6 = "DEADLINE:f:true:INVALID-date";
         YappingBotException e3 = assertThrowsExactly(YappingBotInvalidSaveFileException.class,
                                                      () -> t.deserialize(input6.split(":")));
-        String expectedErrorMessage3 = "I'm sorry, I do not understand what 'INVALID-date' is!\n"
-                                       + "Time value must be given in any valid date-time format!";
+        String expectedErrorMessage3 = "Error Reading save file! The following error was "
+                                       + "encountered: I'm sorry, I do not understand what "
+                                       + "'INVALID-date' is!\nTime value must be given in any "
+                                       + "valid date-time format!";
         assertEquals(expectedErrorMessage3, e3.getErrorMessage());
     }
 
