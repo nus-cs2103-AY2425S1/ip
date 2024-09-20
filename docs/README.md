@@ -1,8 +1,3 @@
----
-layout: page
-title: TrackBot User Guide
----
-
 # TrackBot User Guide
 
 ![Ui.png](Ui.png)
