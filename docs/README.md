@@ -40,8 +40,14 @@ list
 - Mark tasks as complete or incomplete by index.
 - Reflected by 'X' in '[ ]'.
 - All three types of tasks: todo, deadline, event can be marked and unmarked.
+
+To mark as done:
 ```
 mark <task index>
+```
+
+To unmark (mark as incomplete):
+```
 unmark <task index>
 ```
 - not marked as done: `[E][ ] task3 (from: 2024-06-22 04:00 pm to: 2024-06-22 06:00 pm)`
