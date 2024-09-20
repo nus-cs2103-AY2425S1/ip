@@ -33,6 +33,8 @@ public class Ui {
             "'event task_name /from start_date /to end_date' - adds an event task with task_name with a start_date to end_date\n" +
             "'delete n' - deletes the task at number n on your list\n" +
             "'find _keyword_' - searches for all items in your list that has the _keyword_ inside\n" +
+            "'archive n' - archives the task at number n on your list\n" +
+            "'archives' - shows you your current archived list\n"+
             "\n" +
             "'help' - shows the list of useful commands";
     public static final String WELCOME_MESSAGE = "Hello! I'm\n" + NAME + "\nWhat can I do for you?";
