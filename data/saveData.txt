@@ -1,0 +1,4 @@
+D |1|Submit iP |NA| 2024-09-20 2359
+E |0|John's Birthday Party |NA| 2024-09-25 1900 | 2024-09-25 2200 
+T |1|Read Game of Throne book |NA
+T |1|Learn a Magic Trick |Learn to do a doublelift
