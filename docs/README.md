@@ -10,7 +10,7 @@ will be provided in this guide.
 ### Getting started
 ___
 - Ensure that you have Java 17 and above installed in your device.
-- Download the chatbot here.
+- Download the chatbot [here](https://github.com/yuanchengg/ip/releases/tag/v0.2).
 - Run the chatbot.
 
 #### Running the Chatbot
