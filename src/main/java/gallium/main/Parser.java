@@ -29,6 +29,8 @@ public class Parser {
     private static final String DATE = "date";
     private static final String FIND = "find";
     private static final String EDIT = "edit";
+    private static final String HI = "hi";
+    private static final String HELLO = "hello";
 
     private Ui ui;
 
@@ -60,7 +62,7 @@ public class Parser {
             case TODO:
             case DEADLINE:
             case EVENT:
-                throw new GalliumException("＼(｀0´)／ The description of a " + message + " cannot be empty.");
+                throw new GalliumException("Oh nooo! The description of a " + message + " cannot be empty.");
             default:
             return returnCommand(message);
             }
@@ -92,8 +94,10 @@ public class Parser {
             return new ByeCommand();
         } else if (message.startsWith(EDIT)) {
             return new EditCommand(message);
+        } else if (message.startsWith(HI) || message.startsWith(HELLO)) {
+            throw new GalliumException("Hii!! :>");
         } else {
-            throw new GalliumException("(✖﹏✖) I'm sorry, but I don't know what that means :(");
+            throw new GalliumException("Ohh noooo! I'm sorry, but I don't know what that means :(");
         }
     }
 

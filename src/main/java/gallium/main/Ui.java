@@ -39,7 +39,7 @@ public class Ui {
     }
 
     public static String printHelloMessage() {
-        return "Hello! I am Gallium ⸜(｡˃ ᵕ ˂ )⸝♡. \nWhat can I help you?";
+        return "Hello! I am Gallium!! :> \nWhat can I help you?";
     }
 
     public String printInputAgainMessage() {
@@ -105,7 +105,7 @@ public class Ui {
      * @param todo The Todo task that was added.
      */
     public void printAddTodo(Todo todo) {
-        append("⸜(｡˃ ᵕ ˂ )⸝♡ I've added this todo: \n"
+        append(":> I've added this todo: \n"
                 + todo.toString()
                 + "\nNow you have " + Task.count + " " + Task.taskCount() + " in the list."
                 + "\n");
@@ -117,7 +117,7 @@ public class Ui {
      * @param deadline The Deadline task that was added.
      */
     public void printAddDeadline(Deadline deadline) {
-        append("⸜(｡˃ ᵕ ˂ )⸝♡ I've added this deadline: \n"
+        append(":> I've added this deadline: \n"
                         + deadline.toString()
                         + "\nNow you have " + Task.count + " " + Task.taskCount() + " in the list."
                         + "\n");
@@ -129,7 +129,7 @@ public class Ui {
      * @param event The Event task that was added.
      */
     public void printAddEvent(Event event) {
-        append("⸜(｡˃ ᵕ ˂ )⸝♡ I've added this event: \n"
+        append(":> I've added this event: \n"
                 + event.toString()
                 + "\nNow you have " + Task.count + " " + Task.taskCount() + " in the list.\n");
     }
@@ -194,14 +194,14 @@ public class Ui {
      * Prints a message to show that the deadline date is missing.
      */
     public void showIncompleteDeadline() {
-        append("＼(｀0´)／ Please put the date of the deadline!!");
+        append("3:( Please put the date of the deadline!!");
     }
 
     /**
      * Prints a message to show that the event details are incomplete.
      */
     public void showIncompleteEvent() {
-        append("＼(｀0´)／ Please put the from and to of the event!!");
+        append("3:( Please put the from and to of the event!!");
     }
 
     /**
@@ -210,7 +210,7 @@ public class Ui {
      * @param index The index that was out of range.
      */
     public void showWrongIndex() {
-        append("＼(｀0´)／ Please put a number between 1 and " + (Task.count - 1)
+        append("3:( Please put a number between 1 and " + (Task.count - 1)
                 + "!" + "\nNow you have " + (Task.count - 1) + " " + Task.taskCountDelete()
                 + " in the list.");
     }
@@ -228,13 +228,13 @@ public class Ui {
      * Prints a message to show invalid date/time format.
      */
     public void showWrongDateTimeFormat() {
-        append("＼(｀0´)／ Invalid date/time format! Please put in YYYY-MM-DD and 24 hours (HHMM) format!");
+        append("3:( Invalid date/time format! Please put in YYYY-MM-DD and 24 hours (HHMM) format!");
     }
 
     /**
      * Prints a bye message when the program exits.
      */
     public void printByeMessage() {
-        append("Thanks!!♪(･ω･)ﾉ Bye, hope to see you again soon!");
+        append("Thanks!! :> Bye, hope to see you again soon!");
     }
 }
