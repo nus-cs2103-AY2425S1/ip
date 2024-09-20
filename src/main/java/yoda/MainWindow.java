@@ -34,14 +34,14 @@ public class MainWindow extends AnchorPane {
 
     }
 
-    /** Injects the Duke instance */
+    /** Injects the Yoda instance */
     public void setYoda(Yoda y) {
         yoda = y;
     }
 
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Yoda's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML

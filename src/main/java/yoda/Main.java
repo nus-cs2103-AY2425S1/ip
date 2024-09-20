@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Yoda using FXML.
  */
 public class Main extends Application {
 
@@ -26,7 +26,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setYoda(yoda); // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setYoda(yoda); // inject the Yoda instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
