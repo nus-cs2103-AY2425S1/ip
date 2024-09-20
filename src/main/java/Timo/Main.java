@@ -14,7 +14,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Timo timo = new Timo("list.txt");
+    private Timo timo = new Timo("./data/list.txt");
 
     @Override
     public void start(Stage stage) {

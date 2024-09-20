@@ -8,20 +8,20 @@ import java.util.Stack;
 
 class Task {
     private String tasktype = "T";
-    private boolean mark;
+    private boolean isMark;
     private final String description;
     public Task(boolean mark, String description) {
-        this.mark = mark;
+        this.isMark = mark;
         this.description = description;
     }
 
     public void markDone() {
-        this.mark = true;
+        this.isMark = true;
         return;
     }
 
     public void markUndone() {
-        this.mark = false;
+        this.isMark = false;
         return;
     }
 
@@ -30,7 +30,7 @@ class Task {
     }
 
     public String getStatusIcon() {
-        return (this.mark ? "X" : " ");
+        return (this.isMark ? "X" : " ");
     }
 
     @Override
