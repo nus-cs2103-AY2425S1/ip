@@ -70,6 +70,9 @@ public class Parser {
                     throw ParkException.invalidInputException();
                 }
                 String desc = userInput.substring(5);
+                if (desc.contains("/")) {
+                    throw ParkException.invalidDescException();
+                }
                 if (desc.isEmpty()) {
                     throw ParkException.missingDescException();
                 }
@@ -87,6 +90,9 @@ public class Parser {
                 String[] str = userInput.split(" /by ");
                 String desc = str[0].substring(9);
                 String by = str[1];
+                if (desc.contains("/")) {
+                    throw ParkException.invalidDescException();
+                }
                 if (desc.isEmpty() || by.isEmpty()) {
                     throw ParkException.deadlineFormatException();
                 }
@@ -107,6 +113,9 @@ public class Parser {
                 String desc = str[0].substring(6);
                 String start = str[1].substring(5);
                 String end = str[2].substring(3);
+                if (desc.contains("/")) {
+                    throw ParkException.invalidDescException();
+                }
                 if (desc.isEmpty() || start.isEmpty() || end.isEmpty()) {
                     throw ParkException.eventFormatException();
                 }

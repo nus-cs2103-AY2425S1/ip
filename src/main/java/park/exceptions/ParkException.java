@@ -21,6 +21,10 @@ public class ParkException extends Exception {
         return new ParkException("invalid input");
     }
 
+    public static ParkException invalidDescException() {
+        return new ParkException("/ is not an allowed character");
+    }
+
     public static ParkException missingDescException() {
         return new ParkException("please provide a description");
     }
