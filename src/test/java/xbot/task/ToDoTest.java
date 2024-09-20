@@ -8,7 +8,7 @@ public class ToDoTest {
     private ToDo task1 = new ToDo("test case 1");
 
     @Test
-    public void test1() {
+    public void testTodoOutput() {
         assertEquals("[T][ ] test case 1", task1.toString());
     }
 }

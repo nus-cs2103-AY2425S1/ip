@@ -1,10 +1,12 @@
 package xbot.task;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.Locale;
 import java.util.TimeZone;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import static org.junit .jupiter.api.Assertions.assertEquals;
 
 public class DeadlineTest {
     private Deadline deadline1 = new Deadline("test case 1", "24/4/2025");
