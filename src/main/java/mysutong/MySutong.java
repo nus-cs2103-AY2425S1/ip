@@ -51,6 +51,18 @@ public class MySutong {
         }
     }
 
+    public String getResponse(String input) {
+        Parser parser = new Parser();
+        try {
+            // Create a custom Ui to capture the output as a string
+            Ui responseUi = new Ui();
+            parser.executeCommand(input, tasks, responseUi, storage);
+            return responseUi.getResponse();  // Get the captured output from Ui
+        } catch (Exception e) {
+            return "An error occurred: " + e.getMessage();
+        }
+    }
+
     /**
      * The entry point of the MySutong application.
      * Initializes and runs the application with a predefined path for task storage.
