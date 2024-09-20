@@ -6,7 +6,7 @@ import kobe.util.Ui;
 
 /**
  * Represents a command to find tasks based on a keyword or tag.
- * The command can search tasks based on their description or tags.
+ * The command can search tasks based on their descriptions or tags.
  */
 public class FindCommand extends Command {
     private final String keyword;
