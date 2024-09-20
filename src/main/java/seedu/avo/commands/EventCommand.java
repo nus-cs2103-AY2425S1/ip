@@ -36,6 +36,9 @@ public class EventCommand extends Command {
         }
         LocalDateTime startTime = DateTime.parseWithTime(inputs[2]);
         LocalDateTime endTime = DateTime.parseWithTime(inputs[3]);
+        if (!startTime.isBefore(endTime)) {
+            throw new AvoException("The start time has to be before the end time.");
+        }
         String message = manager.addTask(new Event(inputs[1].trim(), startTime, endTime));
         return new CommandResult(message, false);
     }
