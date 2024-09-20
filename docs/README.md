@@ -2,13 +2,26 @@
 A chatbot that takes care of your todo list and task tracking!
 
 ### Adding todos
-`todo <task name>`
+```
+todo <task name>
+```
+you get: [T][ ] task1
+
+#### *Format of date and time:*
+`yyyy-MM-dd HHmm (24Hr)` or
+`yyyy-MM-dd hh:mm am (12Hr)`
 
 ### Adding deadlines
-`deadline <task name> /by <time>`
+```
+deadline <task name> /by <time>
+```
+you get: [D][ ] task2 (by: 2024-06-22 04:00 pm)
 
 ### Adding events
-`event <task name> /from <time> /to <time>`
+```
+event <task name> /from <time> /to <time>
+```
+you get: [E][ ] task3 (from: 2024-06-22 04:00 pm to: 2024-06-22 06:00 pm)
 
 ### Listing all tasks with their indices
 `list`
@@ -17,16 +30,22 @@ A chatbot that takes care of your todo list and task tracking!
 `mark <task index>`
 
 to uncheck: `unmark <task index>`
+```
+// not marked as done
+[E][ ] task3 (from: 2024-06-22 04:00 pm to: 2024-06-22 06:00 pm)
+
+// checked as done
+[E][X] task3 (from: 2024-06-22 04:00 pm to: 2024-06-22 06:00 pm)
+```
 
 ### Deleting tasks
 `delete <task index>`
 
 ### Searching for tasks
-`find <partial name>`
-
-#### Format of date and time
-`yyyy-MM-dd HHmm (24Hr)`
-`yyyy-MM-dd hh:mm am (12Hr)`
+```
+find <partial name>
+```
+for example, `find sk1` will find task named ta**sk1**23
 
 ## Getting help in the app
 type `help` into the chatbot and you will receive the list of commands:
