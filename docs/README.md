@@ -1,4 +1,6 @@
-# ArsenBot
+# ArsenBot User Guide
+
+![UI sample image](Ui.png)
 
 ArsenBot is an interactive chatbot designed to assist users with task management and provide a friendly conversational experience.
 
