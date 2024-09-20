@@ -34,6 +34,7 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
+        scrollPane.setVvalue(0); // Scrolls to the top
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
         String greeting = "Greetings mortal... I am Ṁ̴̙O̵̖̓M̷͇̈O̸̠͋.\nWhat will you do for me?";
