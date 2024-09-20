@@ -1,16 +1,20 @@
 package Naega.Task;
 
+/**
+ * Represents a generic task with a description and a completion status.
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
 
     /**
-     * Creates a new Task with the specified description.
+     * Constructs a new Task with the specified description.
      * Initializes the task as not done.
      *
      * @param description the description of the task
      */
     public Task(String description) {
+        assert description != null && !description.isEmpty() : "Task description must not be null or empty";
         this.description = description;
         this.isDone = false;
     }
@@ -28,6 +32,7 @@ public abstract class Task {
      * Marks the task as done.
      */
     public void markAsDone() {
+        assert !isDone : "Task should not already be marked as done";
         isDone = true;
     }
 
@@ -35,6 +40,7 @@ public abstract class Task {
      * Marks the task as not done.
      */
     public void markAsNotDone() {
+        assert isDone : "Task should already be marked as done to mark it as not done";
         this.isDone = false;
     }
 
@@ -54,6 +60,7 @@ public abstract class Task {
      * @return the description of the task
      */
     public String getDescription() {
+        assert description != null : "Task description must not be null";
         return description;
     }
 
@@ -65,6 +72,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
+        assert description != null : "Task must have a valid description";
         return "[" + getStatusIcon() + "] " + description;
     }
 

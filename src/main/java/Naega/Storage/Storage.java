@@ -12,27 +12,29 @@ import java.util.ArrayList;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
+/**
+ * Handles loading and saving tasks to and from a file.
+ */
 public class Storage {
 
     private final String filePath;
-
-    // Define the date-time formatter for consistent formatting and parsing
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
     /**
-     * Creates a Storage instance with the specified file path.
+     * Constructs a Storage object with the specified file path.
      *
      * @param filePath the path to the file where tasks are stored
      */
     public Storage(String filePath) {
+        assert filePath != null && !filePath.isEmpty() : "File path must not be null or empty";
         this.filePath = filePath;
     }
 
     /**
      * Loads tasks from the file specified by the file path.
-     * Parses each line of the file into a Task object.
      *
      * @return an ArrayList of tasks loaded from the file
-     * @throws NaegaException if there is an error reading from the file or if task details are invalid
+     * @throws NaegaException if an error occurs while loading tasks
      */
     public ArrayList<Task> load() throws NaegaException {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -40,6 +42,7 @@ public class Storage {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] taskDetails = line.split(" \\| ");
+                assert taskDetails.length >= 3 : "Invalid task format in file";
                 Task task = parseTask(taskDetails);
                 tasks.add(task);
             }
@@ -56,9 +59,10 @@ public class Storage {
      *
      * @param taskDetails an array containing the details of the task
      * @return the parsed Task object
-     * @throws NaegaException if the task type is invalid or if task details are insufficient
+     * @throws NaegaException if the task details are invalid
      */
     private Task parseTask(String[] taskDetails) throws NaegaException {
+        assert taskDetails.length >= 3 : "Insufficient task details for parsing";
         System.out.println("taskDetails length: " + taskDetails.length);
         System.out.println("taskDetails: " + Arrays.toString(taskDetails));
 
@@ -69,19 +73,14 @@ public class Storage {
             case "T":
                 return new Todo(description);
             case "D":
-                if (taskDetails.length < 4) {
-                    throw new NaegaException("Insufficient details for Deadline task.");
-                }
-                // Parse deadline with the defined formatter
+                assert taskDetails.length >= 4 : "Insufficient details for Deadline task";
                 LocalDateTime deadline = LocalDateTime.parse(taskDetails[3], FORMATTER);
                 return new Deadline(description, deadline);
             case "E":
-                if (taskDetails.length < 5) {
-                    throw new NaegaException("Insufficient details for Event task.");
-                }
-                // Parse event start and end times with the defined formatter
+                assert taskDetails.length >= 5 : "Insufficient details for Event task";
                 LocalDateTime eventStart = LocalDateTime.parse(taskDetails[3], FORMATTER);
                 LocalDateTime eventEnd = LocalDateTime.parse(taskDetails[4], FORMATTER);
+                assert eventStart.isBefore(eventEnd) : "'from' date must be before 'to' date for Event";
                 return new Event(description, eventStart, eventEnd);
             default:
                 throw new NaegaException("Invalid task type in file.");
@@ -95,7 +94,9 @@ public class Storage {
      */
     public void save(ArrayList<Task> tasks) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
+            assert tasks != null : "Task list must not be null when saving";
             for (Task task : tasks) {
+                assert task != null : "Task must not be null when saving";
                 writer.println(task.toSaveFormat());
             }
         } catch (IOException e) {

@@ -1,14 +1,18 @@
 package Naega.Task;
 
+/**
+ * Represents a Todo task, which is a task with only a description.
+ */
 public class Todo extends Task {
 
     /**
-     * Creates a new Todo task with the specified description.
+     * Constructs a new Todo task with the specified description.
      *
      * @param description the description of the task
      */
     public Todo(String description) {
         super(description);
+        assert description != null && !description.isEmpty() : "Todo description must not be null or empty";
     }
 
     /**
@@ -30,6 +34,7 @@ public class Todo extends Task {
      */
     @Override
     public String toSaveFormat() {
+        assert description != null && !description.isEmpty() : "Description must be valid when saving a task";
         return "T | " + (isDone ? 1 : 0) + " | " + description;
     }
 }
