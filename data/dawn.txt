@@ -1,8 +1,7 @@
-DEADLINE 0 todo/by 2024-09-26 2pm
 EVENT 0 party/from 2024-09-24 5pm/to 9pm
 DEADLINE 0 todo/by 2024-09-20 2pm
 DEADLINE 0 tmr/by 2024-09-20 4pm
 DEADLINE 0 dayafter/by 2024-09-21 6pm
 DEADLINE 0 a/by 2024-09-25 6pm
 EVENT 0 o/from 2024-09-19 11pm/to 12am
-EVENT 0 p/from 2024-09-19 2pm/to 3pm
+EVENT 1 p/from 2024-09-19 2pm/to 3pm

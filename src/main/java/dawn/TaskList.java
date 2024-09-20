@@ -80,7 +80,7 @@ public class TaskList {
         int ind;
         try {
             ind = Integer.parseInt(index);
-            if (ind < 0 || ind >= numOfTasks()) {
+            if (ind <= 0 || ind > numOfTasks()) {
                 throw new DawnException("Task specified does not exist!\n");
             }
         } catch (NumberFormatException e){
