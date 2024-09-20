@@ -142,14 +142,14 @@ view 20240930
 Meow! Here is your schedule on Mon, 30 Sep 2024:
 [D][ ] Submit report (by: Mon, 30 Sep 2024 6:00pm)
 ```
-### 9. Help Command
+### 10. Help Command
    If you're ever lost and need to know what commands Neko can handle, just type help.
 
 - Command:
 ```
 help
 ```
-Expected output:
+- Expected output:
 ```
 Here are the available commands meow!
 
