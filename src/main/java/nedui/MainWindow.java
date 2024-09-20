@@ -57,13 +57,12 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = ned.getResponse(input);
         boolean isErrorMessage = ned.getMessageErrorStatus();
-        if (response.equals("EXIT MESSAGE")) {
+        if (response.equals(Ned.getExitMessage())) {
             dialogContainer.getChildren().addAll(
                     encloseUserInput(input),
                     encloseNedInput(ned.getByeMessage(), false));
             exitApplicationWithDelay(2);
             return;
-
         }
         dialogContainer.getChildren().addAll(
                 encloseUserInput(input),

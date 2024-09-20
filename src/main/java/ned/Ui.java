@@ -103,7 +103,6 @@ public class Ui {
      * @return Ned's message to the user, in response to the input
      */
     public String getAllBuiltUpDialogue() {
-        int builtUpNedDialogueSize = builtUpNedDialogue.size();
         StringBuilder nedDialogue = new StringBuilder();
         for (String s : builtUpNedDialogue) {
             nedDialogue.append(s);

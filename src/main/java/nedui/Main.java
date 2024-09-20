@@ -27,7 +27,7 @@ public class Main extends Application {
             stage.setTitle("Ned the Assistant");
             Image crownLogo = new Image(getClass().getResourceAsStream("/images/crown_logo.png"));
             stage.getIcons().add(crownLogo);
-            fxmlLoader.<MainWindow>getController().setNed(nedInstance); // inject the Ned instance
+            fxmlLoader.<MainWindow>getController().setNed(nedInstance);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

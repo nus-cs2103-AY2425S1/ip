@@ -104,9 +104,14 @@ public class TaskList {
      */
     public void listTasks(Ui uiInstance) {
         assert this.listOfTasks != null : "List of tasks cannot be null!";
-        for (int i = 0; i < listOfTasks.size(); i++) {
-            String task = Ui.INDENTATIONS + String.format("%d.%s \n", i + 1, listOfTasks.get(i));
-            uiInstance.addToNedDialogue(task);
+        int sizeOfListOfTasks = listOfTasks.size();
+        if (sizeOfListOfTasks == 0) {
+            uiInstance.addToNedDialogue("M'lord, there are currently no tasks in your list.");
+        } else {
+            for (int i = 0; i < listOfTasks.size(); i++) {
+                String task = Ui.INDENTATIONS + String.format("%d.%s \n", i + 1, listOfTasks.get(i));
+                uiInstance.addToNedDialogue(task);
+            }
         }
     }
 

@@ -34,11 +34,12 @@ public class Storage {
         this.cacheFile = f;
     }
 
+    /**
+     * Creates the data subdirectory that contains the cache file, if it does not exist.
+     *
+     */
     private void createDirectoriesIfNotExist() throws NedException {
-        // Get the parent directory of the file
         File parentDir = cacheFile.getParentFile();
-        System.out.println("Current working directory: " + System.getProperty("user.dir"));
-        // Check if the parent directory exists, if not, create it
         if (parentDir != null && !parentDir.exists()) {
             boolean dirsCreated = parentDir.mkdirs();
             if (!dirsCreated) {
@@ -55,7 +56,6 @@ public class Storage {
      * @throws NedException If the cached file does not exist
      */
     public ArrayList<Task> load() throws NedException {
-        //returns the arraylist which TaskList will save
         ArrayList<Task> newListOfTasks = new ArrayList<>();
         try {
             Scanner s = new Scanner(this.cacheFile);

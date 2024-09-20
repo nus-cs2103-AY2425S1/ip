@@ -50,7 +50,6 @@ public class Parser {
      *                      a 0 or 1
      */
     public static Task parseSavedTask(String savedLine) throws NedException {
-        // uses CSV
         String[] splitLine = savedLine.split("\\|");
         assert splitLine.length >= 1 : "Task command should have matched at least 1 word!";
         String taskType = splitLine[0];

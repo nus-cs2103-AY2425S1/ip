@@ -35,7 +35,8 @@ Examples of correct usage:
 - `deadline <task description> /by <ISO 8601 timing>`
 - `deadline do assignment 1 /by 2024-09-18`
 - `deadline submit homework /by 2030-02-20`
-[Storage.java](..%2Fsrc%2Fmain%2Fjava%2Fned%2FStorage.java)
+
+
 A successful execution of `deadline` will create a new deadline task, which is added to the list of tasks.
 ```
 Aye, I've added this task m'lord:
@@ -80,7 +81,7 @@ T[x] read
 Unmark is used to change the status of a task to 'uncompleted'.
 
 To unmark events, you need to specify:
-- The index of the task you want to unmark, which can be obtained by the [list](#listing-tasks) 
+- The index of the task you want to unmark, which can be obtained by the `list` 
 command
 
 Examples of correct usage:

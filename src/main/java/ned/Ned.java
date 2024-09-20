@@ -16,9 +16,7 @@ public class Ned {
     private Storage storage;
     private Ui ui;
     private TaskList tasks;
-
     private boolean isMessageError = false;
-
 
     /**
      * Creates an instance of the Ned chatbot.
@@ -32,11 +30,14 @@ public class Ned {
             ArrayList<Task> loadedTaskList = this.storage.load();
             this.tasks = new TaskList(loadedTaskList);
         } catch (NedException e) {
-            ui.showLoadingError();
+            ui.showLoadingError(); // This is a minor error, and shouldn't be displayed in red
             this.tasks = new TaskList(new ArrayList<>());
         }
     }
 
+    public static String getExitMessage() {
+        return EXIT_MESSAGE;
+    }
     public static void main(String[] args) {
         new Ned(Ned.CACHED_TASKS_PATH).run();
     }
@@ -59,6 +60,7 @@ public class Ned {
     public boolean getMessageErrorStatus() {
         return this.isMessageError;
     }
+
     public String getWelcomeMessage() {
         return ui.getWelcomeMessage();
     }
