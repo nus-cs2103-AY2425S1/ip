@@ -68,11 +68,17 @@ public class TaskList {
         if (words[0].equals("todo")) {
             newTask = new ToDo(msg.substring(5));
         } else if (words[0].equals("deadline")) {
+            if (!msg.contains(" /by ")) {
+                throw new AtreidesException("deadline must have /by <datetime> specified");
+            }
             String[] parts = msg.split(" /by ");
             String by = parts[parts.length - 1];
             String description = parts[0].split("deadline ")[1];
             newTask = new Deadline(description, by);
         } else if (words[0].equals("event")) {
+            if (!msg.contains(" /from ") || !msg.contains(" /to ")) {
+                throw new AtreidesException("event must be /from <datetime> /to <datetime> specified.");
+            }
             String[] parts = msg.split(" /from ");
             String[] startEnd = parts[parts.length - 1].split(" /to ");
             String description = parts[0].split("event ")[1];
@@ -135,11 +141,11 @@ public class TaskList {
      * @throws AtreidesException If the index is out of bounds.
      */
     public void checkIndexPresent(int index) throws AtreidesException {
-        assert index >= 0;
-
-        if (index >= list.size()) {
+        if (index >= list.size() || index < 0) {
             throw new AtreidesException("list does not have the index present");
         }
+
+        assert index >= 0;
     }
 
     public Task getTaskAtIndex(int index) {

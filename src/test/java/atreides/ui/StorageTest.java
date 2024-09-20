@@ -9,7 +9,7 @@ public class StorageTest {
 
     @Test
     public void loadSuccess() throws AtreidesException {
-        Storage storage = new Storage("C:\\Users\\patyu\\Desktop\\2103\\ip\\src\\main\\atreides.ui.Atreides.txt");
+        Storage storage = new Storage("C:\\Users\\patyu\\Desktop\\2103\\ip\\src\\main\\Atreides.txt");
         storage.load();
     }
 

@@ -14,7 +14,7 @@ public class Ui {
                              + "/_/     \\_\\__|_|  \\___|_|\\__,_|\\___||___/\n";
     private static final String INTRO = "Glory to house\n" + LOGO;
     private static final String OUTRO = "Praise be Muad Dib\n" + "GoodBye\n";
-    private static final String ERROR_STRING = "File cannot be found\n";
+    private static final String ERROR_STRING = "File cannot be found\n" + "File is generated\n";
 
     /**
      * Ui will print out message to the user with the correct indentation and headers

@@ -91,6 +91,6 @@ public class Atreides {
     }
 
     public static void main(String[] args) {
-        new Atreides("src/main/atreides.ui.Atreides.txt").run();
+        new Atreides("Atreides.txt").run();
     }
 }

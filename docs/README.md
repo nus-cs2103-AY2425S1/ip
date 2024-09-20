@@ -1,6 +1,6 @@
 # Atreides User Guide
 
-![Screenshot of Atreides Chatbot](/docs/Ui.png)
+![Screenshot of Atreides Chatbot](Ui.png)
 
 
 Atreides Chatbot is quality service that will keep track of your events, deadlines and todo tasks. 

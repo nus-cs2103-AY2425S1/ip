@@ -2,6 +2,7 @@ package atreides.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 
 import atreides.ui.AtreidesException;
 
@@ -29,6 +30,7 @@ public class Deadline extends Task {
         assert !by.isEmpty();
         if (by.contains("-")) {
             String[] parseDT = by.split("-");
+            System.out.println(Arrays.toString(parseDT));
             this.deadline = LocalDateTime.of(Integer.parseInt(parseDT[0]),
                     Integer.parseInt(parseDT[1]), Integer.parseInt(parseDT[2]), 23, 59);
         } else if (validateDate(by)) {

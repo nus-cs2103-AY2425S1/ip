@@ -2,6 +2,7 @@ package atreides.ui;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -33,7 +34,17 @@ public class Storage {
                 list.add(words);
             }
             return list;
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
+            this.createFile();
+            throw new AtreidesException(e.getMessage());
+        }
+    }
+
+    void createFile() throws AtreidesException {
+        File file = new File(fileName);
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
             throw new AtreidesException(e.getMessage());
         }
     }

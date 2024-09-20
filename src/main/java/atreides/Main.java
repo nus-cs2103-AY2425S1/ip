@@ -14,7 +14,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private final Atreides atreides = new Atreides("src/main/atreides.ui.Atreides.txt");
+    private final Atreides atreides = new Atreides("Atreides.txt");
 
     @Override
     public void start(Stage stage) {
