@@ -1,0 +1,7 @@
+TODO | 0 | cook dinner
+TODO | 0 | cook dinner
+DEADLINE | 0 | deadline return book | 2024-09-09 1555
+EVENT | 0 | project meeting | mon 2pm | 4pm
+FIXED_DURATION | 0 | buy food | 5
+EVENT | 0 | project meeting | 2pm | 4pm
+EVENT | 0 | project meeting | 2pm | 4pm

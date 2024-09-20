@@ -20,7 +20,7 @@ public class TaskListTest {
     @Test
     public void addTask_validDeadlineTask_taskAddedSuccessfully() throws AlexException {
         TaskList taskList = new TaskList();
-        Deadline deadline = new Deadline("Submit report", "2024-09-05");
+        Deadline deadline = new Deadline("Submit report", "2024-09-05 15:55");
         taskList.addTask(deadline);
 
         assertEquals(1, taskList.size());

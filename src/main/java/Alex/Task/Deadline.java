@@ -92,7 +92,7 @@ public class Deadline extends Task {
             return getNextDayOfWeek(DayOfWeek.MONDAY);
         // ... handle other days of the week similarly ...
         default:
-            throw new AlexException("Invalid date input. Please provide a valid date (e.g., yyyy-MM-dd HH:mm) or a valid day (e.g., Sunday).");
+            throw new AlexException("Invalid date input. Please provide a valid date AND time (e.g., yyyy-MM-dd HH:mm), or a valid day (e.g., Sunday).");
         }
     }
 

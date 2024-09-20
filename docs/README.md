@@ -16,7 +16,7 @@ DATE: Enter the deadline using the format yyyy-MM-dd HH:mm (e.g., 2024-09-19 15:
 **Example Command:**
 
 ```
-deadline deadline return book /by 2024-09-09 15:55  
+deadline return book /by 2024-09-09 15:55  
 ```
 
 **Expected Output:**
@@ -56,9 +56,9 @@ Usage: event DESCRIPTION /from START /to END
 
 DESCRIPTION: The event name (e.g., "Team meeting").
 
-START: Start time/date for the event using the format [Day X pm]
+START: Start day and/or time of the event
 
-END: End date for the event using the format [X pm]
+END: End day and/or time the event
 
 **Example Command:**
 ```
@@ -94,7 +94,7 @@ Now you have X tasks in the list.
 ```
 
 ## Adding Default Tasks
-Action: Adds a basic task without any additional properties like deadlines or events.
+Action: Adds a basic task without any additional properties like deadlines or events. Repeats what the user keys in. 
 
 Usage: DESCRIPTION
 
@@ -152,6 +152,8 @@ Action: Deletes a task from the list.
 
 Usage: delete TASK_NUMBER
 
+TASK_NUMBER: The number of the task in the list.
+
 **Example Command:**
 ```
 delete 2
@@ -164,7 +166,7 @@ Now you have X tasks in the list.
 ```
 
 ## Viewing Tasks
-Action: Lists all tasks in your task list.
+Action: Displays all tasks in a numbered list.
 
 Usage: list
 
@@ -210,6 +212,17 @@ tell me a joke
 ```
 Why do programmers prefer dark mode? Because the light attracts bugs!
 ```
+## Exiting the chatbot
+Action: Cease the program
 
+Usage: bye
 
-
+**Example Command:**
+```
+bye
+```
+**Expected Output:**
+```
+Bye. Hope to see you again soon!
+```
+The chatbot window should close 1 second later.
