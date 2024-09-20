@@ -35,7 +35,6 @@ public class FindTaskCommand extends Command {
             output.append(String.format("\t%d: %s\n", i, tasks.get(i).toString()));
         }
 
-        Prompter prompter = Alexer.getInstance().getPrompter();
-        return prompter.buildFilteredTaskList(output.toString());
+        return Prompter.buildFilteredTaskList(output.toString());
     }
 }

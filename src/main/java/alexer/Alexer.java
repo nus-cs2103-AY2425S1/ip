@@ -30,7 +30,6 @@ public class Alexer {
 
     private final Scanner scanner;
     private final TaskManager tasks;
-    private final Prompter prompter;
     private final CommandHandler commandHandler;
 
     /**
@@ -50,17 +49,7 @@ public class Alexer {
         alexer = this;
         scanner = new Scanner(System.in);
         tasks = new TaskManager();
-        prompter = new Prompter();
         commandHandler = new CommandHandler();
-    }
-
-    /**
-     * Returns the prompter instance that handles all bot responses
-     *
-     * @return An instance of the prompter
-     */
-    public Prompter getPrompter() {
-        return prompter;
     }
 
     /**
@@ -88,7 +77,7 @@ public class Alexer {
         }
 
         if (command.equals("bye")) {
-            prompter.buildGoodbye().printToConsole();
+            Prompter.buildGoodbye().printToConsole();
             System.exit(0);
             return null;
         } else {
@@ -121,8 +110,8 @@ public class Alexer {
      * Starts the console chatbot routine for text-based usage
      */
     public void promptConsole() {
-        prompter.buildLogo().printToConsole();
-        prompter.buildGreeting().printToConsole();
+        Prompter.buildLogo().printToConsole();
+        Prompter.buildGreeting().printToConsole();
         promptLoop();
     }
 

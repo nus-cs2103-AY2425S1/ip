@@ -25,7 +25,6 @@ public class ListTaskCommand extends Command {
     @Override
     public Response run(String... arguments) {
         Alexer alexer = Alexer.getInstance();
-        Prompter prompter = alexer.getPrompter();
 
         int taskCount = alexer.getTaskManager().getTaskCount();
         StringBuilder response = new StringBuilder();
@@ -34,6 +33,6 @@ public class ListTaskCommand extends Command {
             response.append(String.format("\t%d: %s\n", i + 1, task));
         }
 
-        return prompter.buildTaskList(response.toString());
+        return Prompter.buildTaskList(response.toString());
     }
 }
