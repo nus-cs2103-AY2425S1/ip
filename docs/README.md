@@ -50,6 +50,8 @@ However, to display the chat history in a more user-friendly manner, the chatbot
 # Commands
 > Note:
 > For all commands, arguments for the command are specified between curly brackets `{}` and are compulsory. The curly brackets not meant to be typed in the command itself. Refer to the command example for better clarity.
+> 
+> Additionally, avoid using the `/` character in the task name as it is reserved for specifying date commands.
 
 --------------------------------------------------------------------------------------------------------------------------------------------
 

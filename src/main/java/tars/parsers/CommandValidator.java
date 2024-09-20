@@ -17,7 +17,7 @@ public class CommandValidator {
                 "Finish the command by adding a deadline date",
                 command -> (command.length == 1 || command.length == 2) && !command[0].equals("by"),
                 "Add the /by command",
-                command -> command.length == 2 && command[1].isEmpty(),
+                command -> command.length == 2 && command[1].trim().isEmpty(),
                 "Finish the command by adding a deadline date"
         ));
         VALIDATION_RULES.put(CommandType.FROM, Map.of(
@@ -26,9 +26,9 @@ public class CommandValidator {
                 command -> command.length == 1 && !command[0].equals("from"),
                 "Add the /from command",
                 command -> command.length == 2 && !command[0].equals("from"),
-                "Add the /from command",
-                command -> command.length == 2 && command[1].isEmpty(),
-                "Add an event start date"
+                "Wrong command being used. Use the /from command instead",
+                command -> command.length == 2 && command[1].trim().isEmpty(),
+                "Finish the command by adding an event start date"
         ));
         VALIDATION_RULES.put(CommandType.TO, Map.of(
                 command -> command.length == 1 && command[0].equals("to"),
@@ -36,9 +36,9 @@ public class CommandValidator {
                 command -> command.length == 1 && !command[0].equals("to"),
                 "Add the /to command",
                 command -> command.length == 2 && !command[0].equals("to"),
-                "Add the /to command",
-                command -> command.length == 2 && command[1].isEmpty(),
-                "Add an event end date"
+                "Wrong command being used. Use the /to command instead",
+                command -> command.length == 2 && command[1].trim().isEmpty(),
+                "Finish the command by adding an event end date"
         ));
     }
 
