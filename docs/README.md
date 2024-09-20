@@ -5,6 +5,13 @@
 ## Introduction
 VoidCat is a chat bot designed to help you manage tasks efficiently. With VoidCat, you can add, delete, mark tasks, and more. This guide will walk you through using VoidCat's key features.
 
+## Quick start
+1. Ensure Java `17` is installed on your machine.
+2. Download the latest version of `VoidCat.jar` from [here](https://github.com/charlenetcy/ip/releases/download/A-Release/void.jar).
+3. Open a terminal in the folder containing `VoidCat.jar`.
+4. Run the command `java -jar VoidCat.jar`.
+5. The VoidCat window should appear, and you're ready to begin managing your tasks!
+
 ## Features
 
 ## 1. Add a Task
