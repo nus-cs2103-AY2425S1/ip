@@ -92,7 +92,7 @@ public class Storage {
         } else if (task instanceof Deadline) {
             // We can safely typecast here since we already checked that task is an instance of Deadline
             Deadline t = (Deadline) task;
-            String deadline = "by " + t.getDate() + " " + (t).getDeadline();
+            String deadline = "by " + t.getDate() + " " + (t).getDeadlineTime();
             textToAdd = "DEADLINE" + isDone + desc + separator + deadline;
         } else { // task instanceof Event
             Event t = (Event) task;

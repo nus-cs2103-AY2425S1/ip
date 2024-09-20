@@ -16,6 +16,7 @@ public class UserInterface extends Application {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(UserInterface.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
+            stage.setTitle("Dawn");
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setMinHeight(650);

@@ -45,9 +45,9 @@ public class TaskList {
             break;
         case DEADLINE:
             if (details.length < 2) {
-                throw new DawnException("Make sure you include both the task description and the deadline in this" +
-                        " format:\n deadline [task name] /by [date yyyy-mm-dd] [time]\n" +
-                        "For example: deadline submit assignment1 /by 2024-09-16 2pm");
+                throw new DawnException("Make sure you include both the task description and the time in this" +
+                        " format:\n time [task name] /by [date yyyy-mm-dd] [time]\n" +
+                        "For example: time submit assignment1 /by 2024-09-16 2pm");
             }
             t = new Deadline(details[0], details[1]);
             break;
