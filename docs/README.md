@@ -10,19 +10,19 @@ notGPT is a **desktop app for task management**.
 Whether it is a simple TODO, a DEADLINE or an EVENT, 
 notGPT is here to ensure that you don't lose sight of what is important.
 
-- [Quick Start](#quick-start)
-- [Features](#features)
-  - [Adding tasks to the list](#adding-tasks-to-the-list)
-    - [Adding TODOs: `todo`](#adding-todos-todo)
-    - [Adding DEADLINEs: `deadline`](#adding-deadlines-deadline)
-    - [Adding EVENTs: `event`](#adding-events-event)
-  - [Listing all tasks: `list`](#listing-all-tasks)
-  - [Marking a task: `mark`](#marking-a-task)
-  - [Unmarking a task: `unmark`](#unmarking-a-task)
-  - [Deleting a task: `delete`](#deleting-a-task)
-  - [Finding a task using keyword: `find`](#finding-a-task-using-keyword)
-  - [Clearing the list: ``](#Clearing-the-list)
-  - [Saying goodbye: `bye`](#saying-goodbye)
+
+ - [Features]
+  - [Adding tasks]
+    - [Adding a TODO ](#adding-todos-todo)`todo`
+    - [Adding a DEADLINE ](#adding-deadlines-deadline)`deadline`
+    - [Adding an EVENT](#adding-events-event) `event`
+  - [Listing all tasks](#listing-all-tasks)`list`
+  - [Marking a task](#marking-a-task)`mark`
+  - [Unmarking a task ](#unmarking-a-task)`unmark`
+  - [Deleting a task](#deleting-a-task)`delete`
+  - [Finding a task using keyword](#finding-a-task-using-keyword)`find`
+  - [Clearing the list](#clearing-the-list)`clear`
+  - [Exiting the program](#exiting-the-program)`bye`
 
 
 ## Quick Start
@@ -36,10 +36,9 @@ and use the `java -jar notGPT.jar` command to run the application.
 
 
 ## Features
+Commmands are not case sensitive
 
-Content wrapped in `[]` in commands is optional.
-
-### Adding tasks to the list
+### Adding tasks
 #### Adding TODOs: `todo`
 
 Use this command to help you add a TODO item to the task list.
@@ -185,7 +184,7 @@ I have tagged this task:)
 ```
 
 
-### Saying goodbye
+### Exiting the program
 
 Say goodbye to the chatbot if you like before you close it.
 
