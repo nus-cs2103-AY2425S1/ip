@@ -1,5 +1,1 @@
-T | 0 | park
-T | 1 | read book
-T | 1 | paint book
-T | 0 | scream
-T | 0 | work out
+

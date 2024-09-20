@@ -41,6 +41,7 @@ public class Storage {
     public Storage(String dirPath, String filePath) {
         this.dirPath = dirPath;
         this.filePath = filePath;
+        createListFile();
     }
 
     /**

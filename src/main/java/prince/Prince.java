@@ -99,6 +99,7 @@ public class Prince {
     public String getResponse(String input) {
         try {
             if (input.equals("bye")) {
+                Storage.pushTasksToFile(TaskList.getList());
                 return ui.terminationMessage();
             }
             String response = parser.parseConversation(input);
@@ -117,7 +118,6 @@ public class Prince {
 
     public static void main(String[] args) {
         new Prince("./data","data/prince.Prince.txt").run();
-
     }
 }
 
