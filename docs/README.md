@@ -26,7 +26,7 @@ Chatterbox provides a simple command-based interface to keep your tasks in check
 
 ### Quick Start
 1. Ensure you have Java 17 installed.
-2. Download the latest Chatterbox.jar from the releases page ![here](https://github.com/jan-kai1/ip/releases/)
+2. Download the latest Chatterbox.jar from the releases page [here](https://github.com/jan-kai1/ip/releases/)
 3. Double-click the downloaded jar file to launch, if that doesn't work, open a terminal and run `java -jar Chatterbox.jar`
 
 ### Features
