@@ -15,6 +15,9 @@ public class DialogBox extends HBox{
     private ImageView displayPicture;
 
     public DialogBox(String l, Image iv) {
+        assert l != null : "Label text can not be null.";
+        assert iv != null : "Image can not be null.";
+
         text = new Label(l);
         displayPicture = new ImageView(iv);
         text.setWrapText(true);

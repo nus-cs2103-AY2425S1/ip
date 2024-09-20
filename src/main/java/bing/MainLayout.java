@@ -31,6 +31,7 @@ public class MainLayout {
     @FXML
     private void handleUserInput() throws Exception {
         String input = userInput.getText();
+        assert input != null && !input.trim().isEmpty() : "User input can not be empty.";
         String response = bing.byeResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input),
