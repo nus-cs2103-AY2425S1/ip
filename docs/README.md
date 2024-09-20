@@ -56,7 +56,7 @@ Format: `mark INDEX`
 
 Unmarks the task at the given index as done.
 
-Format: `mark INDEX`
+Format: `unmark INDEX`
 
 - The index refers to the index number shown in the task list
 - The index must be a positive integer
