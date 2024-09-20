@@ -61,26 +61,6 @@ public class TaskList {
                 "Now you have " + this.tasks.size() + " tasks in the list.";
     }
 
-    private void printAddedTaskSummary(Task task) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + this.tasks.size() + " tasks in the list.");
-    }
-
-    /**
-     * Prints a summary message when a task is deleted from the list.
-     * <p>
-     * Displays a message confirming the removal of the task and the current number of tasks in the list.
-     * </p>
-     *
-     * @param task The {@link Task} that has been removed.
-     */
-    private void printDeletedTaskSummary(Task task) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task);
-        System.out.println("Now you have " + this.tasks.size() + " tasks in the list.");
-    }
-
     private String generateDeletedTaskSummaryMessage(Task task) {
         return "Noted. I've removed this task:" +
                 System.lineSeparator() +
