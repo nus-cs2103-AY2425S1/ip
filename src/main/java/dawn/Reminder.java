@@ -25,7 +25,7 @@ public class Reminder {
         for (int i = 0; i < this.tasks.size(); i++) {
             if (this.tasks.get(i) instanceof Deadline) {
                 Deadline d = (Deadline) this.tasks.get(i);
-                if (d.getDate().isBefore(LocalDate.now().plusDays(7))) {
+                if (d.getDate().isBefore(LocalDate.now().plusDays(7)) && !d.isDone()) {
                     deadlines.append(counter + ": " + d + "\n");
                     haveTasks = true;
                     counter++;
