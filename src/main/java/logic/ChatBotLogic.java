@@ -111,7 +111,6 @@ public class ChatBotLogic {
     }
 
     private String loadStorageFile() {
-        System.out.println("loading from storage...");
         File taskFile = new File(filePath);
         if (!taskFile.exists()) {
             try {
