@@ -70,9 +70,9 @@ Wiggly is a task management application that helps you keep track of your tasks,
 - **Output**:
   ```
   Here are the tasks in your list:
-    1. [T][ ] Read a book
+  1. [T][ ] Read a book
     2. [D][ ] Submit assignment (by: 10 Oct 2023)
-    3. [E][ ] Team meeting (at: 10 Oct 2023 to 10 Oct 2023)
+      3. [E][ ] Team meeting (at: 10 Oct 2023 to 10 Oct 2023)
   ```
   
 ### Marking Tasks as Done
@@ -106,7 +106,7 @@ Wiggly is a task management application that helps you keep track of your tasks,
 - **Output**:
   ```
   Here are the matching tasks in your list:
-    1. [T][X] Read a book
+      1. [T][X] Read a book
   ```
   
 ### Archiving Tasks
