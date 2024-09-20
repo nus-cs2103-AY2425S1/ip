@@ -65,14 +65,26 @@ public class Storage {
     }
 
     private TaskList createNewDataFile(File file) throws IOException {
-        boolean isParentDirectoryCreated = file.getParentFile().mkdir();
-        if (!isParentDirectoryCreated) {
-            throw new IOException();
-        }
+        try {
+            boolean isFileCreationSuccessful = file.createNewFile();
+            if (!isFileCreationSuccessful) {
+                throw new IOException();
+            }
 
+            return new TaskList();
+        } catch (IOException e) {
+            // Attempt to create the parent directory before the data file
+            return createParentDirectoryWithFile(file);
+        }
+    }
+
+    private TaskList createParentDirectoryWithFile(File file) throws IOException {
+        boolean isParentDirectoryCreated = file.getParentFile().mkdir();
         boolean isFileCreationSuccessful = file.createNewFile();
-        if (!isFileCreationSuccessful) {
-            throw new IOException();
+        if (!isParentDirectoryCreated) {
+            throw new IOException("Unable to create parent directory");
+        } else if (!isFileCreationSuccessful) {
+            throw new IOException("Unable to create data file");
         }
 
         return new TaskList();

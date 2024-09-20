@@ -22,6 +22,7 @@ public class MarkTask extends Command {
         try {
             response = "Nice! I have marked this task as done:\n  "
                     + tasks.mark(taskNumber);
+            tasks.saveToStorage(storage);
         } catch (IndexOutOfBoundsException e) {
             response = String.format("There is no such task!\n"
                     + "You currently have %d tasks in your list", tasks.count());

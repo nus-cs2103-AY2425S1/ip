@@ -22,6 +22,7 @@ public class UnmarkTask extends Command {
         try {
             response = "OK, I've marked this task as not done yet:\n  "
                     + tasks.unmark(taskNumber);
+            tasks.saveToStorage(storage);
         } catch (IndexOutOfBoundsException e) {
             response = String.format("There is no such task!\n"
                     + "You currently have %d tasks in your list", tasks.count());
