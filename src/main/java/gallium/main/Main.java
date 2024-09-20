@@ -24,7 +24,7 @@ public class Main extends Application {
             stage.setTitle("Gallium");
             AnchorPane ap = fxmlLoader.load();
             assert ap != null : "AnchorPane cannot be loaded";
-            Image icon = new Image(getClass().getResourceAsStream("/images/DaGallium.jpeg"));
+            Image icon = new Image(getClass().getResourceAsStream("/images/DaGallium.png"));
             stage.getIcons().add(icon);
             Scene scene = new Scene(ap);
             stage.setScene(scene);

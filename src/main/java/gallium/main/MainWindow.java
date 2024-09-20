@@ -23,7 +23,7 @@ public class MainWindow extends AnchorPane {
     private Gallium gallium;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image galliumImage = new Image(this.getClass().getResourceAsStream("/images/DaGallium.jpeg"));
+    private Image galliumImage = new Image(this.getClass().getResourceAsStream("/images/DaGallium.png"));
 
     @FXML
     public void initialize() {

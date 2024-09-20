@@ -2,3 +2,4 @@
 [D][ ] test (by: Sep 20 2024, 06:58 PM)
 [E][ ] test (from: Sep 20 2024, 06:58 PM to: Sep 20 2024, 06:59 PM)
 [D][ ] CS2103T quiz (by: Sep 20 2024, 04:00 PM)
+[T][ ] test
