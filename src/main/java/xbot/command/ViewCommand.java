@@ -38,13 +38,16 @@ public class ViewCommand implements Command {
                     + "D/M/YYYY (e.g. 9/4/2024)");
         }
 
-        String output = "These are the tasks you have on " + Parser.changeDateFormat(rest) + " !! :)\n\n";
-        boolean noTodo = listTodoForDate(rest) == ui.showNoTask();
-        boolean noDeadline = listDeadlineForDate(rest) == ui.showNoTask();
-        boolean noEvent = listEventForDate(rest) == ui.showNoTask();
+        boolean noTodo = listTodoForDate(rest).equalsIgnoreCase("");
+        boolean noDeadline = listDeadlineForDate(rest).equalsIgnoreCase("");
+        boolean noEvent = listEventForDate(rest).equalsIgnoreCase("");
 
+
+        String output = "";
         if (noTodo && noDeadline && noEvent) {
             output = ui.showNoTask();
+        } else {
+            output = "These are the tasks you have on " + Parser.changeDateFormat(rest) + " !! :)\n\n";
         }
 
         output = output + listTodoForDate(rest);
