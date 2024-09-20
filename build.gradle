@@ -2,10 +2,15 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'checkstyle'
 }
 
 repositories {
     mavenCentral()
+}
+
+checkstyle {
+    toolVersion = '10.12.3'
 }
 
 dependencies {
@@ -26,6 +31,7 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
+
 }
 
 test {
@@ -48,10 +54,15 @@ application {
 
 shadowJar {
     archiveBaseName = "LuffyBot"
-    archiveVersion = "v0.2"
+    archiveVersion = "ABC"
     archiveClassifier = null
+}
+
+tasks.named('jar').configure {
+    enabled = false
 }
 
 run{
     standardInput = System.in
 }
+

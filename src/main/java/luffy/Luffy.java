@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 import luffy.command.Command;
 import luffy.command.ExitCommand;
-import luffy.gui.LuffyLauncher;
 import luffy.parser.LuffyParser;
 import luffy.storage.Storage;
 import luffy.task.TaskList;
@@ -28,26 +27,23 @@ public class Luffy {
      * Constructs a Luffy Bot object
      */
     public Luffy() {
-        this.isRunning = true;
+        this.isRunning = false;
         this.luffyBot = new LuffyUI();
         this.taskCache = new Storage();
         this.luffyParser = new LuffyParser(new Scanner(System.in));
         this.taskList = null;
     }
 
-
     public static void main(String[] args) {
-        if (args.length > 0 && args[0].equals("--cli")) {
-            Luffy luffy = new Luffy();
-            luffy.startLuffy();
-        } else {
-            LuffyLauncher.main(args);
-        }
+        Luffy luffy = new Luffy();
+        luffy.startLuffy();
     }
     /**
      * Command to start Luffy bot
      */
     private void startLuffy() {
+        isRunning = true;
+        luffyBot.showWelcomeMessage();
         try {
             taskList = taskCache.loadFromFile();
         } catch (FileNotFoundException e) {
@@ -59,6 +55,7 @@ public class Luffy {
             userCommand.executeCmd(luffyBot, taskCache, taskList);
             if (userCommand instanceof ExitCommand) {
                 isRunning = false;
+                break;
             }
         }
     }
