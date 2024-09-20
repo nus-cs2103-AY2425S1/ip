@@ -4,8 +4,6 @@ import Naega.Storage.Storage;
 import Naega.Task.TaskList;
 import Naega.Ui.Ui;
 
-import java.io.IOException;
-
 /**
  * Represents a command to exit the application.
  */
