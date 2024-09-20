@@ -184,7 +184,7 @@ Updates an existing Deadline task in your task list. Fields in [] are optional b
 **Format:** `update <task_number> [<description>] [/by DD/MM/YY HH:MM]`
 
 **Example:**
-* update 2 Rizz someone /by 14/9/24 23:59
+* update 2 Rizz someone /by 14/09/24 23:59
 
 **Expected Output:**
 ```
@@ -198,7 +198,7 @@ Updates an existing Event task in your task list. Fields in [] are optional but 
 **Format:** `update <task_number> [<description>] [/from DD/MM/YY HH:MM /to DD/MM/YY HH:MM]`
 
 **Example:**
-* update 3 Rizz someone /from 13/9/24 00:00 /to 14/9/24 23:59 
+* update 3 Rizz someone /from 13/09/24 00:00 /to 14/09/24 23:59 
 
 **Expected Output:**
 ```
