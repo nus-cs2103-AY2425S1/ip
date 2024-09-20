@@ -35,6 +35,9 @@ public class EventCommand extends Command {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
             LocalDateTime localFromDate = LocalDateTime.parse(from, formatter);
             LocalDateTime localToDate = LocalDateTime.parse(to, formatter);
+            if (localToDate.isBefore(localFromDate)) {
+                throw new SojuException("The end time cannot be before the start time.");
+            }
             // Create a new Tasks.Event task
             eventTask = new Event(description, localFromDate, localToDate);
         } catch (Exception e) {
