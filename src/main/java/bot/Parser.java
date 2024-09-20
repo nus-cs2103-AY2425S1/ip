@@ -51,7 +51,7 @@ public class Parser {
             // CHECKSTYLE.OFF: Indentation
             return switch (cmd) {
                 case LIST -> new ListTaskAction();
-                case TODO -> new AddTaskAction(new Todo(args));
+                case TODO -> new AddTaskAction(parseTodoTask(args));
                 case DEADLINE -> new AddTaskAction(parseDeadlineTask(args));
                 case EVENT -> new AddTaskAction(parseEventTask(args));
                 case DELETE -> new DeleteTaskAction(parseTaskId(args));
@@ -65,6 +65,21 @@ public class Parser {
             // CHECKSTYLE.ON: Indentation
         } else {
             throw new InvalidCommandException(input);
+        }
+    }
+
+    /**
+     * Parses the given string input from user for creating a new deadline task.
+     *
+     * @param args String input from user
+     * @return <code>Deadline</code> task
+     * @throws InvalidTaskDescriptionException Invalid task description cannot be parsed
+     */
+    public Todo parseTodoTask(String args) throws InvalidTaskDescriptionException {
+        if (args.isBlank()) {
+            throw new InvalidTaskDescriptionException(args);
+        } else {
+            return new Todo(args);
         }
     }
 
