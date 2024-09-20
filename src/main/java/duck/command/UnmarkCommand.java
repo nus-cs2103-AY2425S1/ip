@@ -29,9 +29,13 @@ public class UnmarkCommand implements Command {
      */
     @Override
     public void executeCommand(TaskList list, Ui ui, Storage storage) {
-        int taskIndex = Integer.parseInt(fullCommand.split(" ")[1]) - 1;
+        int taskIndex = parseTaskIndex(this.fullCommand);
         list.unmarkTask(taskIndex);
         ui.showUnmarkedTaskMessage(list.getTask(taskIndex));
         storage.saveTasks(list);
+    }
+
+    private int parseTaskIndex(String command) {
+        return Integer.parseInt(command.split(" ")[1]) - 1;
     }
 }

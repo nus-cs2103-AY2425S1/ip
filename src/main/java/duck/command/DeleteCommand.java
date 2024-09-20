@@ -31,7 +31,7 @@ public class DeleteCommand implements Command {
     @Override
     public void executeCommand(TaskList list, Ui ui, Storage storage) {
         assert this.fullCommand != null;
-        int taskIndex = Integer.parseInt(fullCommand.split(" ")[1]) - 1;
+        int taskIndex = parseTaskIndex(this.fullCommand);
 
         int initialSize = list.getSize();
         list.delete(taskIndex);
@@ -40,5 +40,9 @@ public class DeleteCommand implements Command {
 
         ui.showNumOfTasksMessage(list);
         storage.saveTasks(list);
+    }
+
+    private int parseTaskIndex(String command) {
+        return Integer.parseInt(command.split(" ")[1]) - 1;
     }
 }

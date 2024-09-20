@@ -118,6 +118,13 @@ public class Ui {
     }
 
     /**
+     * Shows an invalid date format message to the user.
+     */
+    public void showInvalidDateFormat() {
+        System.out.println("Invalid date format. Please try again.");
+    }
+
+    /**
      * Shows an error message when loading tasks fails.
      */
     public void showLoadingError() {

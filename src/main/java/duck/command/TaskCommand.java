@@ -38,19 +38,27 @@ public class TaskCommand implements Command {
      * @param storage the storage to save the updated task list.
      */
     @Override
-    public void executeCommand(TaskList list, Ui ui, Storage storage) throws InvalidDateFormatException {
+    public void executeCommand(TaskList list, Ui ui, Storage storage) {
         assert this.fullCommand != null;
         assert this.commandType != null;
 
-        Task task = switch (commandType) {
+        try {
+            Task task = createTask();
+            list.add(task);
+            ui.showAddTaskMessage(task, list);
+            storage.saveTasks(list);
+        } catch (InvalidDateFormatException e) {
+            ui.showInvalidDateFormat();
+        }
+    }
+
+    private Task createTask() throws InvalidDateFormatException {
+        return switch (this.commandType) {
         case "todo" -> parseToDo(this.fullCommand);
         case "deadline" -> parseDeadline(this.fullCommand);
         case "event" -> parseEvent(this.fullCommand);
         default -> throw new IllegalArgumentException("Invalid command type for tasks: " + commandType);
         };
-        list.add(task);
-        ui.showAddTaskMessage(task, list);
-        storage.saveTasks(list);
     }
 
     /**

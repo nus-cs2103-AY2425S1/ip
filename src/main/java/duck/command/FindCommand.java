@@ -30,8 +30,16 @@ public class FindCommand implements Command {
     @Override
     public void executeCommand(TaskList list, Ui ui, Storage storage) {
         assert this.fullCommand != null;
-        String keyword = fullCommand.split(" ")[1];
+        String keyword = parseKeyword(fullCommand);
         TaskList tasksWithKeyword = list.findTasks(keyword);
         ui.showTasks(tasksWithKeyword);
+    }
+
+    private String parseKeyword(String command) {
+        String[] parts = command.split(" ");
+        if (parts.length < 2) {
+            throw new ArrayIndexOutOfBoundsException("Keyword not found.");
+        }
+        return parts[1];
     }
 }
