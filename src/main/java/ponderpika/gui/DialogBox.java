@@ -71,7 +71,9 @@ public class DialogBox extends HBox {
     public static DialogBox getPikaDialog(String text, Image img, String commandType) {
         var db = new DialogBox(text, img);
         db.flip();
-        db.changeDialogStyle(commandType);
+        if (commandType != null) {
+            db.changeDialogStyle(commandType);
+        }
         return db;
     }
 }

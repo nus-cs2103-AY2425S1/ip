@@ -45,7 +45,6 @@ public class PonderPika {
         try {
             command = parser.parseCommand(userInput);
             commandType = command.getAction().toString();
-            System.out.println(commandType);
             return handleCommand(command);
         } catch (PonderPikaException e) {
             return e.toString();

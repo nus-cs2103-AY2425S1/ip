@@ -87,7 +87,6 @@ public class Parser {
 
         case "bye":
             return new Command(Command.Action.BYE, null);
-
         default:
             throw new UnknownCommandException();
         }
