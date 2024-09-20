@@ -21,7 +21,7 @@ Want a simple bloatware free task manager? Diomon is a lightweight command-line 
 ****
 ## Setup Guide
 1. Ensure that you have Java `17` or above installed in your computer
-2. Download the latest `.jar` file. 
+2. Download the latest `.jar` [file](https://github.com/EyuGongYi/ip/releases/tag/A-Release). 
 3. Open up your terminal, `cd` into the folder and run `java -jar diomon.jar` to run the application
  - `cd path/to/the/folder/that/contain/the/file`
  - `java -jar diomon.jar`
