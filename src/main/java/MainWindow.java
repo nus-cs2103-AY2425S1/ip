@@ -44,7 +44,7 @@ public class MainWindow extends AnchorPane {
         String helloMessage = "Why you sneak, I'm Sinatra, whats your fancy?";
         dialogContainer.getChildren().add(
                 DialogBox.getDukeDialog(helloMessage,
-                        new Image(this.getClass().getResourceAsStream("/images/sinatra.png")))
+                        new Image(this.getClass().getResourceAsStream("/images/Sinatra.png")))
         );
     }
 
