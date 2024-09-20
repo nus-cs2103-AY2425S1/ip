@@ -36,4 +36,16 @@ public class ParserTest {
         Command command = new Parser().parse("todo test");
         assertEquals(command.getClass(), AddCommand.class);
     }
+
+    @Test
+    public void parse_validDeadlineArguments_success() throws RatchetException {
+        Command command = new Parser().parse("deadline test /by 2000-01-01");
+        assertEquals(command.getClass(), AddCommand.class);
+    }
+
+    @Test
+    public void parse_validEventArguments_success() throws RatchetException {
+        Command command = new Parser().parse("event test /from 2000-01-01 /to 2000-12-12");
+        assertEquals(command.getClass(), AddCommand.class);
+    }
 }

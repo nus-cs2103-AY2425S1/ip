@@ -29,6 +29,16 @@ public class DeleteCommandTest {
         tasks.addTask(new TodoTask("test"));
         new DeleteCommand(new Integer[]{0}).execute(new Storage(), tasks, new Ui());
         assertEquals(0, tasks.size());
-        assertEquals(tasks.toString(), "You have no tasks currently");
+        assertEquals("You have no tasks currently", tasks.toString());
+    }
+
+    @Test
+    public void execute_validTaskIndexes_success() throws InvalidCommandArgumentException {
+        TaskList tasks = new TaskList();
+        tasks.addTask(new TodoTask("first test"));
+        tasks.addTask(new TodoTask("second test"));
+        new DeleteCommand(new Integer[]{1, 0}).execute(new Storage(), tasks, new Ui());
+        assertEquals(0, tasks.size());
+        assertEquals("You have no tasks currently", tasks.toString());
     }
 }

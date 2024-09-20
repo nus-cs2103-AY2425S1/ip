@@ -165,8 +165,6 @@ public class Parser {
             return num;
         } catch (NumberFormatException e) {
             throw new InvalidCommandArgumentException("Task index must be a number!");
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new InvalidCommandArgumentException("There is no task with that index!");
         }
     }
 }
