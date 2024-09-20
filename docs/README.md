@@ -132,4 +132,4 @@ Tasks data are saved in the hard disk automatically after any command that chang
 
 Tasks data are saved automatically as a txt file [JAR file location]/data/SusanToDoList.txt. Advanced users are welcome to update data directly by editing that data file.'
 
-Caution: If your changes to the data file makes its format invalid, SusanLite will discard corrupted tasks but preserve remaining valid tasks. Therefore, edit the data file only if you are confident that you can update it correctly.
+Caution: If your changes to the data file makes its format invalid, SusanLite may discard all data and start with an empty data file at the next run. Therefore, edit the data file only if you are confident that you can update it correctly.

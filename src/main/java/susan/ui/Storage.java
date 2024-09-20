@@ -57,7 +57,7 @@ public class Storage {
             }
             return tasks;
         } catch (Exception e) {
-            throw new SusanException("Tasklist has not been created yet.");
+            throw new SusanException("Tasklist has not been created yet or data file has been corrupted.");
         }
     }
 
