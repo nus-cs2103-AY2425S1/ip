@@ -103,6 +103,16 @@ Format: `event <task description> \from <string> \to <string>` or `e <task descr
 
 `<string>` is to describe from and to information
 
+Sample commands:
+
+```
+event CS2100 Midterm /from Week 8 Tuesday some time /to the same day
+```
+
+```
+e CS2103 iP /from Week 1 /to end of Week 6
+```
+
 Sample outcome:
 
 ![event_pic](images/Event.png)
