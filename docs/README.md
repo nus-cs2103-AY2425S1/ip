@@ -69,9 +69,9 @@ Wiggly is a task management application that helps you keep track of your tasks,
 - **Output**:
   ```
   Here are the tasks in your list:
-      1. [T][ ] Read a book
-      2. [D][ ] Submit assignment (by: 10 Oct 2023)
-      3. [E][ ] Team meeting (at: 10 Oct 2023 to 10 Oct 2023)
+  1. [T][ ] Read a book
+  2. [D][ ] Submit assignment (by: 10 Oct 2023)
+  3. [E][ ] Team meeting (at: 10 Oct 2023 to 10 Oct 2023)
   ```
   
 ### Marking Tasks as Done
@@ -80,48 +80,48 @@ Wiggly is a task management application that helps you keep track of your tasks,
 - **Usage**: `done <task number>`
 - **Example**: `done 1`
 - **Output**:
-    ```
-    Nice! I've marked this task as done:
-        [T][X] Read a book
-    ```
+  ```
+  Nice! I've marked this task as done:
+      [T][X] Read a book
+  ```
 ### Deleting Tasks
 
 - **Description**: Deletes a task from your task list.
 - **Usage**: `delete <task number>`
 - **Example**: `delete 2`
 - **Output**:
-    ```
-    Noted. I've removed this task:
-        [D][ ] Submit assignment (by: 10 Oct 2023)
-    Now you have 2 tasks in the list.
-    ```
+  ```
+  Noted. I've removed this task:
+      [D][ ] Submit assignment (by: 10 Oct 2023)
+  Now you have 2 tasks in the list.
+  ```
 ### Finding Tasks
 
 - **Description**: Finds tasks that contain a specific keyword.
 - **Usage**: `find <keyword>`
 - **Example**: `find book`
 - **Output**:
-    ```
-    Here are the matching tasks in your list:
-    1. [T][X] Read a book
-    ```
+  ```
+  Here are the matching tasks in your list:
+  1. [T][X] Read a book
+  ```
   
 ### Archiving Tasks
 - **Description**: Archives all the tasks in your task list in a file named `archive.txt` in `./data` directory.
 - **Usage**: `archive`
 - **Output**:
-    ```
-    All tasks have been archived.
-    ```
+  ```
+  All tasks have been archived.
+  ```
   
 ### Exiting Wiggly
 
 - **Description**: Exits the application.
 - **Usage**: `bye`
 - **Output**:
-    ```
-    Bye. Hope to see you again soon!
-    ```
+  ```
+  Bye. Hope to see you again soon!
+  ```
 
 ## FAQ
 
