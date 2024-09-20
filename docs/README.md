@@ -62,6 +62,7 @@ Adds an event task to the task list.
 - `DESCRIPTION` is the description of the task.
 - `START` is the start time of the event task.
 - `END` is the end time of the event task.
+
 >**NOTE**
 > 
 > Entering new events with clashing time periods with existing events will produce a warning and new event will
