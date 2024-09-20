@@ -15,7 +15,7 @@ public abstract class Command {
      * @param storage Storage that saves data into a file.
      * @throws AlisaException If the operation fails.
      */
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws AlisaException;
+    public abstract String execute(TaskList taskList, Ui ui, Storage storage) throws AlisaException;
 
     /**
      * Indicates whether to exit the program or not.

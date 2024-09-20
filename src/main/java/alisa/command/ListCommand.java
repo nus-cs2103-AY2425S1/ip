@@ -16,9 +16,8 @@ public class ListCommand extends Command {
      * @param storage Storage that saves data into a file.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        String message = taskList.getList();
-        ui.showMessage(message);
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return taskList.getList();
     }
 
     /**

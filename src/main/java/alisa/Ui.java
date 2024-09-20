@@ -49,9 +49,11 @@ public class Ui {
 
     /**
      * Prints a goodbye message.
+     *
+     * @return
      */
-    public void showByeMessage() {
-        System.out.println("Since you technically said bye, see ya next time!");
+    public String showByeMessage() {
+        return "Since you technically said bye, see ya next time!";
     }
 
     /**

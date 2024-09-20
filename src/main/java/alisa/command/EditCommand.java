@@ -17,9 +17,8 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws AlisaException {
-        String message = taskList.editTask(index, featureToEdit, editedContent);
-        ui.showMessage(message);
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws AlisaException {
+        return taskList.editTask(index, featureToEdit, editedContent);
     }
 
     @Override

@@ -28,10 +28,10 @@ public class DeleteCommand extends Command {
      * @throws AlisaException If the index is out of bounds in taskList or the storage file can't be updated.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws AlisaException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws AlisaException {
         String message = taskList.deleteTask(index);
-        ui.showMessage(message);
         storage.syncFile(taskList);
+        return message;
     }
 
     /**
