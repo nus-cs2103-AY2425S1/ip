@@ -1,17 +1,17 @@
 package pacman;
 
 public class Pacman {
-    private static final Storage storage = new Storage("data/PacMan.txt");
-    private static final TaskList list = new TaskList(storage.load());
-    private static final Ui ui = new Ui();
+    private final Storage storage = new Storage("data/PacMan.txt");
+    private final TaskList list = new TaskList(storage.load());
+    private final Ui ui = new Ui();
 
-    public static void main(String[] args) {
-        ui.showGreet();
-        boolean isExit = false;
-        while (!isExit) {
-            isExit = Parser.execute(ui.readCommand(), list, ui);
+    public String getResponse(String userInput) {
+
+        boolean isExit = Parser.execute(userInput, list, ui);
+        if (isExit) {
+            ui.showBye();
+            storage.write(list.toFile());
         }
-        ui.showBye();
-        storage.write(list.toFile());
+        return ui.flushOutput();
     }
 }
