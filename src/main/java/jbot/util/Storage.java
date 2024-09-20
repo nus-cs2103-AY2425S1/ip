@@ -25,11 +25,10 @@ import jbot.task.ToDoTask;
  */
 
 public class Storage {
+    private static File storageFile;
     private Storage() {
         throw new UnsupportedOperationException("Utility class cannot be instantiated");
     }
-
-    private static File storageFile;
 
     /**
      * Initializes the storage by setting up the storage file.
@@ -178,7 +177,9 @@ public class Storage {
                 }
 
                 assert task != null : "Parsed task should not be null";
-                if (done) task.markAsDone();
+                if (done) {
+                    task.markAsDone();
+                }
                 tasks.add(task);
             }
         } catch (IOException e) {

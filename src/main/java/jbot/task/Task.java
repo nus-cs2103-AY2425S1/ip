@@ -6,11 +6,9 @@ package jbot.task;
  */
 public abstract class Task {
 
-    @SuppressWarnings("InstanceVariableMayNotBeInitialized")
-    String name;
+    private String name;
     private boolean done = false;
-    @SuppressWarnings("InstanceVariableMayNotBeInitialized")
-    String taskTypeSymbol;
+    private String taskTypeSymbol;
 
     /**
      * Returns whether the task is marked as done.
@@ -63,5 +61,13 @@ public abstract class Task {
      */
     public String getName() {
         return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setTaskTypeSymbol(String taskTypeSymbol) {
+        this.taskTypeSymbol = taskTypeSymbol;
     }
 }

@@ -20,8 +20,8 @@ public class ToDoTask extends Task {
             throw new EmptyToDoDescriptionException("The description of a todo task cannot be empty.");
         }
 
-        this.name = name;
-        this.taskTypeSymbol = "T";
+        this.setName(name);
+        this.setTaskTypeSymbol("T");
     }
 
 }

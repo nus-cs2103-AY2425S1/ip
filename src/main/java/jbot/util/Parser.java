@@ -20,11 +20,10 @@ import jbot.command.UnmarkCommand;
  * A utility class for parsing user input into commands. This class cannot be instantiated.
  */
 public class Parser {
+    private static Map<String, JBotCommand> commandMap;
     private Parser() {
         throw new UnsupportedOperationException("Utility class cannot be instantiated");
     }
-
-    private static Map<String, JBotCommand> commandMap;
 
     /**
      * Initializes the command map with the available commands.

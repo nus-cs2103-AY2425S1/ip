@@ -29,9 +29,9 @@ public class DeadlineTaskTest {
     @Test
     public void constructor_validInput_correctDeadlineParsed() {
         assertNotNull(validTask);
-        assertEquals(VALID_NAME, validTask.name);
-        assertNotNull(validTask.deadline);
-        assertEquals(LocalDateTime.of(2020, 12, 2, 19, 0), validTask.deadline);
+        assertEquals(VALID_NAME, validTask.getName());
+        assertNotNull(validTask.getDeadline());
+        assertEquals(LocalDateTime.of(2020, 12, 2, 19, 0), validTask.getDeadline());
     }
 
     @Test
@@ -44,8 +44,8 @@ public class DeadlineTaskTest {
     @Test
     public void constructor_forDeserialization_correctDeadlineParsed() {
         assertNotNull(validTaskForDeserialization);
-        assertEquals(VALID_NAME, validTaskForDeserialization.name);
-        assertEquals(LocalDateTime.parse(VALID_DEADLINE_STRING), validTaskForDeserialization.deadline);
+        assertEquals(VALID_NAME, validTaskForDeserialization.getName());
+        assertEquals(LocalDateTime.parse(VALID_DEADLINE_STRING), validTaskForDeserialization.getDeadline());
     }
 
     @Test

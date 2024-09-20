@@ -1,7 +1,6 @@
 package jbot.command;
 
 import javafx.application.Platform;
-import jbot.JBot;
 
 /**
  * Represents a command that terminates the application.

@@ -11,11 +11,10 @@ import jbot.task.Task;
 @SuppressWarnings({"StaticVariableMayNotBeInitialized", "StaticVariableUsedBeforeInitialization"})
 
 public class TaskList {
+    private static ArrayList<Task> list;
     private TaskList() {
         throw new UnsupportedOperationException("Utility class cannot be instantiated");
     }
-    private static ArrayList<Task> list;
-
     /**
      * Sets the list of tasks.
      *

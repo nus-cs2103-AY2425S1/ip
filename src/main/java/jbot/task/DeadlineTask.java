@@ -10,8 +10,7 @@ import java.time.format.DateTimeParseException;
  */
 public class DeadlineTask extends Task {
 
-    @SuppressWarnings("InstanceVariableMayNotBeInitialized")
-    LocalDateTime deadline;
+    private LocalDateTime deadline;
 
     /**
      * Constructs a <code>DeadlineTask</code> with the specified input string.
@@ -21,7 +20,7 @@ public class DeadlineTask extends Task {
      */
     public DeadlineTask(String input) {
         int byIndex = input.indexOf("/by");
-        this.name = input.substring(9, byIndex).trim();
+        this.setName(input.substring(9, byIndex).trim());
         String deadlineString = input.substring(byIndex + 4).trim();
 
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
@@ -32,7 +31,7 @@ public class DeadlineTask extends Task {
             e.printStackTrace();
         }
 
-        this.taskTypeSymbol = "D";
+        this.setTaskTypeSymbol("D");
     }
 
     /**
@@ -43,8 +42,8 @@ public class DeadlineTask extends Task {
      * @param deadlineString The deadline in ISO-8601 format.
      */
     public DeadlineTask(String name, String deadlineString) {
-        this.name = name;
-        this.taskTypeSymbol = "D";
+        this.setName(name);
+        this.setTaskTypeSymbol("D");
         this.deadline = LocalDateTime.parse(deadlineString); // Assuming the deadlineString is in ISO format
     }
 
@@ -57,7 +56,7 @@ public class DeadlineTask extends Task {
     @Override
     public String toString() {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a");
-        String formattedDeadline = this.deadline.format(outputFormatter);
+        String formattedDeadline = this.getDeadline().format(outputFormatter);
         return String.format("%1$s (by: %2$s)", super.toString(), formattedDeadline);
     }
 
@@ -67,6 +66,10 @@ public class DeadlineTask extends Task {
      * @return The deadline in ISO-8601 format.
      */
     public String getDeadlineAsString() {
-        return this.deadline.toString(); // This returns the ISO-8601 format by default
+        return this.getDeadline().toString(); // This returns the ISO-8601 format by default
+    }
+
+    public LocalDateTime getDeadline() {
+        return deadline;
     }
 }

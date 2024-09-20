@@ -11,17 +11,18 @@ public class EventTask extends Task {
 
     /**
      * Constructs an <code>EventTask</code> with the specified input string.
-     * The input string must include the task name, start time, and end time in the format 'event /from [start] /to [end]'.
+     * The input string must include the task name, start time, and end time in the format
+     * 'event /from [start] /to [end]'.
      *
      * @param input The input string containing the task details, start time, and end time.
      */
     public EventTask(String input) {
-        this.taskTypeSymbol = "E";
+        this.setTaskTypeSymbol("E");
 
         int fromIndex = input.indexOf("/from");
         int toIndex = input.indexOf("/to");
 
-        this.name = input.substring(6, fromIndex).trim();
+        this.setName(input.substring(6, fromIndex).trim());
         this.from = input.substring(fromIndex + 6, toIndex).trim();
         this.to = input.substring(toIndex + 4).trim();
     }

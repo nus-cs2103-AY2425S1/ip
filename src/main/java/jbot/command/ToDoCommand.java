@@ -34,8 +34,8 @@ public class ToDoCommand extends AddCommand {
      * returns an error message instead.
      *
      * @param input The user input string containing the command and its arguments.
-     * @return A string containing the confirmation message and the added task,
-     * or an error message if the task description is empty.
+     * @return A string containing the confirmation message and the added task
+     *     or an error message if the task description is empty.
      */
     @Override
     public String run(String input) {
