@@ -12,21 +12,25 @@ There are three main tasks that can be added.
    - Add a task with a description with a deadline by.
 3. Event
    - Add a task with a description with a starting time and an ending time.
-
-_Good news!!! The deadlines can be written in three formats as well which boosts usability._
+> [TIP]
+>_Good news!!! The deadlines can be written in four formats as well which boosts usability._
 - Date and time format (e.g. 21-09-2024 18:00)
 - Date format (e.g. 21-09-2024)
 - Time format (e.g. 18:00)
+- Or even a string! (e.g. tomorrow, today)
 
 Once these tasks have been created, the user can use one of the following to interact with the application bot.
-- mark
-- unmark
-- delete
-- find
-- tag
-- untag
-- list
-- bye
+
+| Commands | Description                    |
+|----------|--------------------------------|
+| mark     | Marks the file as done         |
+| unmark   | Marks the file as not done     |
+| delete   | Deletes the task from the list |
+| find | Finds any task that is similar to the input of the user|
+| tag | Tags a task with the user's input |
+| untag | Untags a task | 
+| list | Lists all the tasks that are present|
+| bye | Exits the application |
 
 Enjoy using the application bot and hope BitBot makes your ever-increasing workload
 and to-do lists easier to manage and control so that you can take a step back
@@ -74,7 +78,7 @@ Now you have 3 tasks in the list.
 ________________________________
 ```
 
-## Tagging feature
+## Tag & Untag command
 
 BitBot allows the users to tag & untag their tasks respectively. Albeit filtering and other commands are not implemented yet,
 tagging allows the users to identify the tasks they would like to tag.
@@ -102,7 +106,7 @@ ________________________________
 ```
 
 
-## Mark feature
+## Mark command
 
 BitBot allows the users to mark their tasks as done.
 
@@ -115,7 +119,7 @@ Yay nice! I've marked this task as done:
    [T][X] return book
 ________________________________
 ```
-## Unmark feature
+## Unmark command
 
 BitBot allows the users to mark their tasks as done.
 
@@ -128,7 +132,7 @@ Okay, I've marked this task as not done:
    [T][] return book
 ________________________________
 ```
-## Delete feature
+## Delete command
 
 BitBot allows the users to delete their tasks.
 
@@ -143,11 +147,12 @@ Now you have 2 tasks in the list.
 ________________________________
 ```
 
-## Find feature
+## Find command
 
-BitBot allows the users to find anything that is similar to the input.
+BitBot allows the users to find anything that is similar to the input. It can also find relevant 
+tasks when the user does not key in the full word. 
 
-Example: `find book`
+Example: `find boo`
 
 The command will find all the tasks that has a similar string or substring.
 ```
@@ -157,7 +162,7 @@ Here are the matching tasks in your list:
 ________________________________
 ```
 
-## List feature
+## List command
 
 BitBot allows the users to list all the tasks that are stored in the list.
 
@@ -165,9 +170,8 @@ Example: `list`
 
 The command will list all the tasks. 
 
-## Bye feature
+## Bye command
 
 This exits the program.
 
 Example: `bye`
-

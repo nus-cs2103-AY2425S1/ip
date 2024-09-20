@@ -177,7 +177,8 @@ public class TaskHandler {
         if (arrayList.isEmpty()) {
             result.append("          You have an empty list. Add something to the list first :)");
         } else {
-            result.append("          ____________________________________\n          Here are the tasks in your list:\n");
+            result.append("          ____________________________________\n          "
+                    + "Here are the tasks in your list:\n");
             for (int i = 1; i < arrayList.size() + 1; i++) {
                 result.append("          " + i + ". " + arrayList.get(i - 1).finalString() + "\n");
             }
