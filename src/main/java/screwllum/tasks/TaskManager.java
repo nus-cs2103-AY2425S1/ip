@@ -33,24 +33,16 @@ public class TaskManager {
      */
     public String execute(List<String> tokens, Ui ui) throws InvalidIndexException {
         assert tokens != null : "If parser works properly, there should always be a List of tokens";
-        List<Task> list = null;
+        List<Task> list = null; // This is for handling delete
         String result = "";
 
         switch (tokens.get(0)) {
         case "toggle":
-            try {
-                taskList.get(Integer.parseInt(tokens.get(1)) - 1).toggleStatus();
-            } catch (IndexOutOfBoundsException e) {
-                throw new InvalidIndexException(tokens.get(1));
-            }
+            executeToggle(tokens);
             break;
         case "delete":
-            try {
-                list = new ArrayList<>(taskList);
-                taskList.remove(Integer.parseInt(tokens.get(1)) - 1);
-            } catch (IndexOutOfBoundsException e) {
-                throw new InvalidIndexException(tokens.get(1));
-            }
+            list = new ArrayList<>(taskList);
+            executeDelete(tokens);
             break;
         case "todo":
             taskList.add(new ToDo(tokens.get(1)));
@@ -64,15 +56,27 @@ public class TaskManager {
         default:
             // Do nothing
         }
-        if (list == null) {
-            result = ui.showMessage(tokens, taskList);
-        } else {
-            result = ui.showMessage(tokens, list);
-        }
-        return result;
+
+        return list == null ? ui.showMessage(tokens, taskList) : ui.showMessage(tokens, list);
     }
 
     public List<Task> getTaskList() {
         return taskList;
+    }
+
+    private void executeToggle(List<String> tokens) throws InvalidIndexException {
+        try {
+            taskList.get(Integer.parseInt(tokens.get(1)) - 1).toggleStatus();
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidIndexException(tokens.get(1));
+        }
+    }
+
+    private void executeDelete(List<String> tokens) throws InvalidIndexException {
+        try {
+            taskList.remove(Integer.parseInt(tokens.get(1)) - 1);
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidIndexException(tokens.get(1));
+        }
     }
 }

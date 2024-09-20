@@ -39,18 +39,18 @@ public class Parser {
         case "delete":
             // Fallthrough
         case "toggle":
-            handleDeleteOrToggle(tokens, segments);
+            parseDeleteOrToggle(tokens, segments);
             break;
         case "find":
             // Fallthrough
         case "todo":
-            handleToDoOrFind(tokens, segments);
+            parseToDoOrFind(tokens, segments);
             break;
         case "deadline":
-            handleDeadline(tokens, segments);
+            parseDeadline(tokens, segments);
             break;
         case "event":
-            handleEvent(tokens, segments);
+            parseEvent(tokens, segments);
             break;
         default:
             throw new InvalidCommandException("Pardon me, I did not get what you mean");
@@ -100,7 +100,7 @@ public class Parser {
         return localDate.format(DateTimeFormatter.ofPattern(pattern));
     }
 
-    private static void handleDeleteOrToggle(List<String> tokens, String[] segments) throws InvalidCommandException {
+    private static void parseDeleteOrToggle(List<String> tokens, String[] segments) throws InvalidCommandException {
         try {
             String[] firstSegment = segments[0].split(" ", 2);
             int index = Integer.parseInt(firstSegment[1].trim());
@@ -111,7 +111,7 @@ public class Parser {
         }
     }
 
-    private static void handleToDoOrFind(List<String> tokens, String[] segments) throws InvalidCommandException {
+    private static void parseToDoOrFind(List<String> tokens, String[] segments) throws InvalidCommandException {
         try {
             String[] firstSegment = segments[0].split(" ", 2);
             tokens.add(firstSegment[1].trim());
@@ -121,7 +121,7 @@ public class Parser {
         }
     }
 
-    private static void handleDeadline(List<String> tokens, String[] segments)
+    private static void parseDeadline(List<String> tokens, String[] segments)
             throws InvalidCommandException, InvalidDateFormatException {
         try {
             String[] firstSegment = segments[0].split(" ", 2);
@@ -140,7 +140,7 @@ public class Parser {
         }
     }
 
-    private static void handleEvent(List<String> tokens, String[] segments)
+    private static void parseEvent(List<String> tokens, String[] segments)
             throws InvalidCommandException, InvalidDateFormatException {
         try {
             String[] firstSegment = segments[0].split(" ", 2);
