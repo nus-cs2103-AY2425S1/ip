@@ -1,24 +1,41 @@
-# yoda.Yoda project template
+# Yoda User Guide
+**A Star Wars themed chat-bot for you to manage your tasks today!**
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+## Installing Yoda
+1. Ensure that your computer runs Java 17.
+2. Download the latest `yoda.jar` file.
+3. Open a terminal window at the folder containing `yoda.jar`.
+4. Run the command `java -jar yoda.jar`
 
-## Setting up in Intellij
+## Features
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+### 1. Adding tasks
+There are three types of tasks you can manage using Yoda - todos, deadlines, and events
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/yoda.Yoda.java` file, right-click it, and choose `Run yoda.Yoda.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+#### a. Todos
+To add a todo, type `todo {description}` or `t {description}`. A todo task will be added to your list.
+
+#### b. Deadlines
+To add a deadline, type `deadline {description} /by {date}` or `dl {description} /by {date}`. A deadline task will be added to your list.
+- The format of the date should be `yyyy-mm-dd`
+
+#### c. Events
+To add an event, type `event {description} /from {datetime} /to {datetime}` or `e {description} /from {datetime} /to {datetime}`. An event task will be added to your list.
+- The format of the datetime should be `yyyy-mm-dd HHmm`.
+
+### 2. Deleting tasks
+To delete a task, type `delete {index}` or `d {index}`. For example `delete 1` deletes the first task.
+
+### 3. Listing tasks
+To list all tasks, type `list` or `l`. A list of all tasks will be shown
+
+### 4. Marking and Unmarking tasks
+To mark a task as complete, type `mark {index}` or `m {index}`. For example `mark 1` marks the first task as done.
+
+Likewise, to mark a task as incomplete type `unmark {index}` or `um {index}`.
+
+### 5. Finding tasks
+To find any tasks containing specific words, type `find {search}`. A list of matching tasks will be shown.
+
+### 6. Saying goodbye
+To end the chat, type `bye`. Yoda will say goodbye to you.
