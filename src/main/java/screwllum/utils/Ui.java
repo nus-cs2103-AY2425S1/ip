@@ -36,53 +36,77 @@ public class Ui {
         String response = "";
         switch (tokens.get(0)) {
         case "bye":
-            response = "It was my pleasure, good bye. Close the application window thanks!";
+            response = getByeResponse();
             break;
         case "list":
-            response = printTaskList(taskList);
+            response = getListResponse(taskList);
             break;
         case "toggle":
-            response = "I have toggled the status of this task:\n"
-                    + taskList.get(Integer.parseInt(tokens.get(1)) - 1).toString();
+            response = getToggleResponse(taskList, tokens);
             break;
         case "delete":
-            response = "I have deleted this task:\n" + taskList.get(Integer.parseInt(tokens.get(1)) - 1).toString();
+            response = getDeleteResponse(taskList, tokens);
             break;
         case "todo":
             // Fallthrough
         case "deadline":
             // Fallthrough
         case "event":
-            response = "I have added the following task:\n"
-                    + taskList.get(taskList.size() - 1).toString()
-                    + "\nNow you have " + taskList.size() + " tasks";
+            response = getNewTaskResponse(taskList);
             break;
         case "find":
-            List<Task> tempList = new ArrayList<>();
-            String keywords = tokens.get(1);
-            for (int i = 0; i < taskList.size(); i++) {
-                Task currentTask = taskList.get(i);
-                if (currentTask.getDesc().contains(keywords)) {
-                    tempList.add(currentTask);
-                }
-            }
-            response = "find " + keywords + "\n" + printTaskList(tempList);
+            response = getFindResponse(taskList, tokens);
             break;
         default:
-            response = "I don't know what to do with this task";
+            // No response
         }
         return response;
     }
 
-    private String printTaskList(List<Task> taskList) {
+    private List<Task> filter(String keywords, List<Task> taskList) {
+        List<Task> filteredList = new ArrayList<>();
+        for (int i = 0; i < taskList.size(); i++) {
+            Task currentTask = taskList.get(i);
+            if (currentTask.getDesc().contains(keywords)) {
+                filteredList.add(currentTask);
+            }
+        }
+        return filteredList;
+    }
+
+    private String getListResponse(List<Task> taskList) {
         String response = "";
         if (taskList.isEmpty()) {
-            response = "There are no tasks for you!";
+            response = "There are no tasks!";
         } else {
             for (int i = 0; i < taskList.size(); i++) {
                 response += (String.format("%s. %s\n", i + 1, taskList.get(i).toString()));
             }
         }
         return response;
+    }
+
+    private String getByeResponse() {
+        return "It was my pleasure, good bye. Close the application window thanks!";
+    }
+
+    private String getToggleResponse(List<Task> taskList, List<String> tokens) {
+        return "I have toggled the status of this task:\n"
+                + taskList.get(Integer.parseInt(tokens.get(1)) - 1).toString();
+    }
+
+    private String getDeleteResponse(List<Task> taskList, List<String> tokens) {
+        return "I have deleted this task:\n" + taskList.get(Integer.parseInt(tokens.get(1)) - 1).toString();
+    }
+
+    private String getNewTaskResponse(List<Task> taskList) {
+        return "I have added the following task:\n"
+                + taskList.get(taskList.size() - 1).toString()
+                + "\nNow you have " + taskList.size() + " tasks";
+    }
+
+    private String getFindResponse(List<Task> taskList, List<String> tokens) {
+        List<Task> filteredList = filter(tokens.get(1), taskList);
+        return "find " + tokens.get(1) + "\n" + getListResponse(filteredList);
     }
 }
