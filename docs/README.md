@@ -41,10 +41,7 @@ list
 - Reflected by 'X' in '[ ]'.
 - All three types of tasks: todo, deadline, event can be marked and unmarked.
 ```
-// mark as completed
 mark <task index>
-
-// mark as incompleted
 unmark <task index>
 ```
 - not marked as done: `[E][ ] task3 (from: 2024-06-22 04:00 pm to: 2024-06-22 06:00 pm)`
