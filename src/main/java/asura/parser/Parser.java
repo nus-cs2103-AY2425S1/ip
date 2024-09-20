@@ -27,7 +27,7 @@ public class Parser {
         assert !splitCommand.isEmpty() : "splitCommand should not be empty";
         String prefix = splitCommand.get(0);
         if (splitCommand.size() == 1 && !singletonCommands.contains(prefix)) {
-            throw new AsuraException("Invalid command format");
+            throw new AsuraException("Invalid command format. Please type 'help' to view the correct command formats.");
         }
         int selection;
         String taskString = String.join(" ", splitCommand.subList(1, splitCommand.size()));
