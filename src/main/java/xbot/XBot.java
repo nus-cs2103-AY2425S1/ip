@@ -70,8 +70,8 @@ public class XBot {
      * Prints a goodbye message to the user.
      */
     public static String exit() {
-        // Close javafx application after 1.5 seconds
-        PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
+        // Close javafx application after 2 seconds
+        PauseTransition delay = new PauseTransition(Duration.seconds(2));
         delay.setOnFinished(event -> Platform.exit());
         delay.play();
         return Ui.showBye();
