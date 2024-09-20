@@ -4,9 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-/**
- * Wrapper for a deadline task.
- */
+/** Wrapper for a deadline task. */
 public class Deadline extends Task {
 
     private LocalDate by;
@@ -14,7 +12,7 @@ public class Deadline extends Task {
     /**
      * Constructor for creating deadline with boolean value
      *
-     * @param isDone  True if task is done. False otherwise.
+     * @param isDone True if task is done. False otherwise.
      * @param task The task to be stored.
      * @param by The deadline of the task.
      * @throws DateTimeParseException If format of date is wrong.
@@ -27,7 +25,7 @@ public class Deadline extends Task {
     /**
      * Constructor for creating deadline with int value
      *
-     * @param isDone  isDone = 1 if a task is done. 0 otherwise.
+     * @param isDone isDone = 1 if a task is done. 0 otherwise.
      * @param task The task to be stored.
      * @param by The deadline of the task.
      * @throws DateTimeParseException If format of date is wrong.

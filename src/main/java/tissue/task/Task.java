@@ -1,8 +1,6 @@
 package tissue.task;
 
-/**
- * Defines the structure of every task event.
- */
+/** Defines the structure of every task event. */
 public class Task {
     private final String task;
     private boolean isDone;

@@ -1,8 +1,6 @@
 package tissue.task;
 
-/**
- * Wrapper for an event task.
- */
+/** Wrapper for an event task. */
 public class Event extends Task {
     private String from;
     private String to;

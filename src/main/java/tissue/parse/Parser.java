@@ -3,9 +3,7 @@ package tissue.parse;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-/**
- * Parser class to help scan through the text input.
- */
+/** Parser class to help scan through the text input. */
 public class Parser {
     private Scanner scanner;
 
@@ -36,7 +34,6 @@ public class Parser {
         }
         return str;
     }
-
 
     /**
      * Returns the next input as integer.

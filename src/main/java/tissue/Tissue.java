@@ -5,14 +5,13 @@ import java.util.ArrayList;
 
 import tissue.parse.Parser;
 
-/**
- * The class for the Tissue bot which sets up the required variables.
- */
+/** The class for the Tissue bot which sets up the required variables. */
 public class Tissue {
     private GuiUi guiUi;
 
     /**
      * Initialise required variables.
+     *
      * @param filePath Path to store file.
      * @param fileName Name to store file as.
      */
@@ -25,7 +24,6 @@ public class Tissue {
         } catch (IOException e) {
             this.guiUi = new GuiUi(new Parser(), new TaskList(new ArrayList<>()), storage);
         }
-
     }
 
     public String getResponse(String input) {

@@ -15,9 +15,7 @@ import tissue.task.Event;
 import tissue.task.Task;
 import tissue.task.ToDo;
 
-/**
- * Storage class to handle all reading and writing of tasks to local disk.
- */
+/** Storage class to handle all reading and writing of tasks to local disk. */
 public class Storage {
     private final Path path;
     private final Path file;
@@ -25,6 +23,7 @@ public class Storage {
 
     /**
      * Constructor to determine the name and file path to store and read from.
+     *
      * @param path The path to store the file.
      * @param fileName THe name to save the file as.
      */
@@ -43,8 +42,7 @@ public class Storage {
     public void save(Task task) throws IOException {
         String parsedTask = parseTask(task);
         Files.createDirectories(path);
-        Files.writeString(
-                file, parsedTask, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+        Files.writeString(file, parsedTask, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
     }
 
     /**
@@ -92,10 +90,7 @@ public class Storage {
 
     private void addDeadline(String[] values) {
         taskList.add(
-                new Deadline(
-                        Integer.parseInt(values[1]),
-                        values[2].strip(),
-                        values[3].strip()));
+                new Deadline(Integer.parseInt(values[1]), values[2].strip(), values[3].strip()));
     }
 
     private String parseTask(Task task) {

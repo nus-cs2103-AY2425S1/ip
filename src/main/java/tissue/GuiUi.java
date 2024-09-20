@@ -12,9 +12,7 @@ import tissue.task.Event;
 import tissue.task.Task;
 import tissue.task.ToDo;
 
-/**
- * The main class to display all messages on the GUI.
- */
+/** The main class to display all messages on the GUI. */
 public class GuiUi {
     private static final String LINE =
             "--------------------------------------------------------------";
@@ -23,9 +21,7 @@ public class GuiUi {
     private final TaskList taskList;
     private final Storage storage;
 
-    /**
-     * Constructor to initialize the required members.
-     */
+    /** Constructor to initialize the required members. */
     public GuiUi(Parser parser, TaskList taskList, Storage storage) {
         assert parser != null : "Parser cannot be null";
         assert taskList != null : "TaskList cannot be null";
@@ -50,17 +46,12 @@ public class GuiUi {
         } catch (NoSuchElementException | IndexOutOfBoundsException e) {
             return "Please enter a valid number.";
         }
-
     }
 
     private String unmarkResponse() {
         try {
             Task task = taskList.retrieveTask(parser.retrieveNextInt() - 1).unmarkTask();
-            return INDENT
-                    + "OK, I've marked this task as not done yet:\n"
-                    + INDENT
-                    + "  "
-                    + task;
+            return INDENT + "OK, I've marked this task as not done yet:\n" + INDENT + "  " + task;
         } catch (NoSuchElementException | IndexOutOfBoundsException e) {
             return "Please enter a valid number.";
         }
@@ -86,7 +77,6 @@ public class GuiUi {
         } catch (IOException e) {
             return "My apologies there was an error deleting your task.";
         }
-
     }
 
     private String findResponse() {
@@ -124,12 +114,18 @@ public class GuiUi {
         case "help" -> {
             return help();
         }
+        case "bye" -> {
+            return byeResponse();
+        }
         default -> {
             return storeTask(input);
         }
         }
     }
 
+    private String byeResponse() {
+        return "Bye hope to see you again!";
+    }
 
     private String storeTask(String input) {
         String messageTemplate =

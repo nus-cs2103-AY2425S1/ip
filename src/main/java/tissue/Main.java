@@ -11,12 +11,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import tissue.window.MainWindow;
 
-/**
- * Main application handler.
- */
+
+
+/** Main application handler. */
 public class Main extends Application {
     private static Logger logger = Logger.getLogger(Main.class.getName());
-    private final Tissue tissue = new Tissue("./data/", "tissue.csv");
 
     @Override
     public void start(Stage stage) {
@@ -27,7 +26,9 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setTitle("Tissue bot");
-            fxmlLoader.<MainWindow>getController().setTissue(tissue);
+            fxmlLoader
+                    .<MainWindow>getController()
+                    .setTissue(new Tissue("./data/", "tissue.csv"), stage);
             stage.show();
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Sorry application met an error.");

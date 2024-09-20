@@ -1,8 +1,6 @@
 package tissue.task;
 
-/**
- * Wrapper class for a ToDo event.
- */
+/** Wrapper class for a ToDo event. */
 public class ToDo extends Task {
 
     /**

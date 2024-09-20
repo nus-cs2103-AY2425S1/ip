@@ -4,9 +4,7 @@ import java.util.ArrayList;
 
 import tissue.task.Task;
 
-/**
- * Wrapper class to store all the tasks added and related functions.
- */
+/** Wrapper class to store all the tasks added and related functions. */
 public class TaskList {
     private final String INDENT = "       ";
     private ArrayList<Task> tasks = new ArrayList<>();
