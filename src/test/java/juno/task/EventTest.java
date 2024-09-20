@@ -38,8 +38,8 @@ public class EventTest {
         });
 
         assertEquals(TaskManagerException.ErrorType.INVALID_DATETIME_ARGUMENT, e.getErrorType());
-        assertEquals("Your format for date is wrong! Please use this format: add event {description} "
-                + "/yyyy MM dd hh.mma /yyyy MM dd hh.mma .", e.getMessage());
+        assertEquals("Your format for date is wrong! Please use this format: add event {TASK_DESCRIPTION}"
+                + "/yyyy MM dd hh.mma/yyyy MM dd hh.mma.", e.getMessage());
     }
 
 }

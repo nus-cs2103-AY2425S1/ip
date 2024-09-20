@@ -34,7 +34,7 @@ public class DeadlineTest {
         });
 
         assertEquals(TaskManagerException.ErrorType.INVALID_DATETIME_ARGUMENT, e.getErrorType());
-        assertEquals("Your format for date is wrong! Please use this format: add deadline {description}"
+        assertEquals("Your format for date is wrong! Please use this format: add deadline {TASK_DESCRIPTION}"
                 + "/yyyy MM dd hh.mma (e.g. add deadline homework /2024 11 17 10.00AM)", e.getMessage());
     }
 }
