@@ -40,7 +40,7 @@ public class Parser {
         int taskID;
         // Adapted from ChatGPT
         // regex edited and tested on regex101.com
-        String regex = "^(todo|td) (.+ )|^(deadline|d) (.+?) /by: (.+)|^(event|e) (.+?) "
+        String regex = "^(todo|td) (.+)|^(deadline|d) (.+?) /by: (.+)|^(event|e) (.+?) "
                 + "/from: (.+?) /to: (.+)|^(list|l)$|^(mark|m) (\\d+)|^(delete|del) (\\d+)|^(bye|bb)|^(find|f) (.+)";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(input);
