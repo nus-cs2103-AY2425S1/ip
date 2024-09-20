@@ -1,8 +1,11 @@
 package johncena.tasks;
 
+import johncena.exceptions.CenaInvalidEventException;
+
 import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Represents an event task.
@@ -19,13 +22,19 @@ public class Event extends Task {
      * @param from The start time of the event.
      * @param to The end time of the event.
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, String from, String to) throws CenaInvalidEventException {
         super(description);
         assert description != null : "Description should not be null";
         assert from != null : "Event start date should not be null";
         assert to != null : "Event end date should not be null";
-        this.from = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-        this.to = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+//        this.from = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+//        this.to = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        try {
+            this.from = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            this.to = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        } catch (DateTimeParseException e) {
+            throw new CenaInvalidEventException("Incorrect format for event dates. Please use yyyy-MM-dd HHmm.");
+        }
     }
 
     /**
