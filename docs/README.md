@@ -3,6 +3,7 @@ Neko User Guide
 ### Neko - Your Friendly Task Management Cat Chatbot
 Neko is a cute, friendly task management chatbot designed to help you manage your daily tasks efficiently. Neko can add, delete, mark tasks as done, and even list all tasks in your schedule. Whether you're organizing deadlines, events, or simple to-do lists, Neko is here to help you keep everything on track with ease.
 
+![Ui.png](./Ui.png)
 ## Features
 ### 1. Adding To-do Tasks
 You can add simple to-do tasks to your task list using the `add todo` command. This is perfect for quick tasks that don't have specific deadlines.
@@ -163,6 +164,7 @@ Here are the available commands meow!
 9. view [date] - Views the tasks scheduled on the given date
 10. help - Shows this list of commands
 ```
+
 ## Summary
 | Command                          | Description                                                         |
 |-----------------------------------|---------------------------------------------------------------------|
