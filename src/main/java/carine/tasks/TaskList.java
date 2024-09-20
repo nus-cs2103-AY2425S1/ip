@@ -34,7 +34,8 @@ public class TaskList {
         if (tasks == null) {
             try {
                 tasks = new TaskList();
-            } catch (IOException | InvalidDateException | IllegalStateException | ArrayIndexOutOfBoundsException | NullPointerException e) {
+            } catch (IOException | InvalidDateException | IllegalStateException | ArrayIndexOutOfBoundsException
+                     | NullPointerException e) {
                 throw new InvalidTaskInDatabaseException();
             }
         }
