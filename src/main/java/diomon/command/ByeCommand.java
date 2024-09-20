@@ -6,9 +6,8 @@ import diomon.task.TaskList;
 public class ByeCommand extends Command{
     @Override
     public void execute(TaskList tasks, Storage storage) {
-        setResponse("Zzzzz...");
+        setResponse("Eeeepppyyy......\nZzzzz...");
         storage.save(tasks.toStorageString());
         canExit = true;
-        System.exit(0);
     }
 }
