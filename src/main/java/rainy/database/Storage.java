@@ -30,6 +30,16 @@ public class Storage {
     }
 
     /**
+     * Checks if the particular directory housing saved data exists, and if not, creates it.
+     * @param directory  File representing the directory.
+     */
+    public void checkIfDirectoryExists(File directory) {
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+    }
+
+    /**
      * Takes in a <code>File</code> object and reads the data.
      * @param newFile                        Represents the file object to be read.
      * @return                               This method copies the previously established tasks to a newly
