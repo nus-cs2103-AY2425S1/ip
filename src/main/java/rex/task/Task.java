@@ -3,7 +3,7 @@ package rex.task;
 import java.time.LocalDate;
 
 /**
- * The {@code Task} class represents a generic task in the Rex application.
+ * Represents a generic task in the Rex application.
  * It contains information about the task description, its completion status,
  * and manages the count of tasks created.
  */
@@ -37,6 +37,11 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns the description of the task.
+     *
+     * @return The description of the task.
+     */
     public String getDescription() {
         return description;
     }
@@ -88,5 +93,11 @@ public abstract class Task {
         return (isDone ? "1" : "0") + " | " + description;
     }
 
+    /**
+     * Determines whether the task is scheduled on a specific date.
+     *
+     * @param date The date to check.
+     * @return {@code true} if the task is scheduled on the specified date, {@code false} otherwise.
+     */
     public abstract boolean isScheduledOnDate(LocalDate date);
 }

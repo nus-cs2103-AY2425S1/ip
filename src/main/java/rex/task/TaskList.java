@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import rex.exception.InvalidInputException;
 import rex.util.Parser;
 import rex.util.Storage;
+
 /**
- * The {@code TaskList} class manages a list of tasks, including adding, retrieving, updating,
- * and deleting tasks. It also handles the loading and saving of tasks to persistent storage.
+ * Represents a list of tasks of types {@code ToDo}, {@code Deadline} and {@code Event}
  */
 public class TaskList {
     private Storage storage;
@@ -163,6 +163,13 @@ public class TaskList {
                 .reduce("", (output, taskDetails) -> output + taskDetails + "\n");
     }
 
+    /**
+     * Returns a string representation of the tasks scheduled on a specific date.
+     * If no tasks are scheduled on that date, a message indicating availability is returned.
+     *
+     * @param date The date to retrieve the schedule for.
+     * @return A string representing the tasks scheduled on the given date.
+     */
     public String getSchedule(String date) {
         LocalDate parsedDate = Parser.parseDate(date);
         DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("dd MMM yyyy");
@@ -179,6 +186,12 @@ public class TaskList {
                         output, taskDetails) -> output + taskDetails + "\n");
     }
 
+    /**
+     * Filters tasks by a specific date, returning only those scheduled on that date.
+     *
+     * @param date The date to filter tasks by.
+     * @return A list of tasks scheduled on the specified date.
+     */
     private ArrayList<Task> filterByDate(LocalDate date) {
         ArrayList<Task> filteredTasks = new ArrayList<>();
 
@@ -200,6 +213,11 @@ public class TaskList {
         return tasks.size();
     }
 
+    /**
+     * Checks whether the task list is empty.
+     *
+     * @return {@code true} if the task list is empty, {@code false} otherwise.
+     */
     private boolean isEmpty() {
         return size() == 0;
     }

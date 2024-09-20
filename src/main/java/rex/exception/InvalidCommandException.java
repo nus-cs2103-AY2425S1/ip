@@ -1,7 +1,7 @@
 package rex.exception;
 
 /**
- * The {@code InvalidCommandException} class is a specific type of {@code InvalidInputException}
+ * Represents a type of {@code InvalidInputException}
  * that is thrown when a user inputs an unrecognized command in the Rex application.
  */
 public class InvalidCommandException extends InvalidInputException {

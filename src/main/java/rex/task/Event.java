@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * The {@code Event} class represents a task that occurs over a specific time period.
+ * Represents a task that occurs over a specific time period.
  * It extends the {@code Task} class by adding start and end times for the event.
  */
 public class Event extends Task {

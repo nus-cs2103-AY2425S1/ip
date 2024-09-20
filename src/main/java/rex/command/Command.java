@@ -3,7 +3,7 @@ package rex.command;
 import rex.exception.InvalidCommandException;
 
 /**
- * The {@code Command} enum represents the various commands that can be issued in the Rex application.
+ * Represents the various commands that can be issued in the Rex application.
  * Each command corresponds to a specific action that the application can perform.
  */
 public enum Command {

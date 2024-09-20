@@ -14,7 +14,7 @@ import rex.exception.InvalidInputException;
 import rex.task.TaskList;
 
 /**
- * The {@code Parser} class provides utility methods to parse user input and save file content.
+ * Provides utility methods to parse user input and save file content.
  * It includes methods to parse commands, tasks, and dates, as well as handle input validation.
  */
 public class Parser {
@@ -131,6 +131,12 @@ public class Parser {
         return LocalDateTime.parse(dateTimeString, DATE_TIME_FORMATTER);
     }
 
+    /**
+     * Parses a date string into a {@code LocalDate} object.
+     *
+     * @param dateString The string containing the date.
+     * @return A {@code LocalDate} object representing the parsed date.
+     */
     public static LocalDate parseDate(String dateString) {
         return LocalDate.parse(dateString, DATE_FORMATTER);
     }
@@ -141,7 +147,6 @@ public class Parser {
      * @param inputTokens The array of command and argument tokens.
      * @throws InvalidInputException If the input is invalid for the given command.
      */
-
     private static void validateInput(String[] inputTokens) throws InvalidInputException {
         Command command = Command.inputToCommand(inputTokens[0]);
 

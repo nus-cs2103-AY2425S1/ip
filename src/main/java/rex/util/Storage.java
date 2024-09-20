@@ -12,7 +12,7 @@ import rex.task.Task;
 import rex.task.TaskList;
 
 /**
- * The {@code Storage} class handles the management of persistent storage for tasks.
+ * Handles the management of persistent storage for tasks.
  * It is responsible for loading tasks from a file into a {@code TaskList} and updating
  * the file with the current state of the {@code TaskList}.
  */

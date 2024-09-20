@@ -1,7 +1,7 @@
 package rex.exception;
 
 /**
- * The {@code InvalidInputException} class represents an exception that is thrown
+ * Represents an exception that is thrown
  * when the user provides an invalid input in the Rex application.
  * This class serves as the base class for more specific input-related exceptions.
  */

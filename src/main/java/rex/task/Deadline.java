@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * The {@code Deadline} class represents a task that has a specific deadline.
+ * Represents a task that has a specific deadline.
  * It extends the {@code Task} class by adding a deadline date and time.
  */
 public class Deadline extends Task {
