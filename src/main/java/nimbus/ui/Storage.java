@@ -32,6 +32,7 @@ public class Storage {
      * @param filepath where the file should be stored
      */
     public Storage(String filepath) {
+        assert filepath != null;
         this.filepath = filepath;
     }
 

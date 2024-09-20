@@ -32,8 +32,11 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public String execute() {
+        assert tasks != null : "Task list should not be null";
         int x = Integer.parseInt(userInput.substring(7).trim());
         int index = x - 1;
+
+        assert index >= 0 : "Index should not be negative";
 
         if (index >= tasks.size()) {
             return "There is no task " + (index + 1);

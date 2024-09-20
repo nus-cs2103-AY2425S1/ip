@@ -35,6 +35,7 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute() {
+        assert tasks != null : "Task list should not be null";
         if (userInput.length() <= 7) {
             return "Please enter the task number!!";
         }
@@ -42,11 +43,16 @@ public class DeleteCommand extends Command {
         int x = Integer.parseInt(userInput.substring(7).trim());
         int index = x - 1;
 
+        assert index >= 0 : "Task index should not be negative";
+
         if (index >= tasks.size()) {
             return "There is no task " + (index + 1);
         } else {
             String temp = tasks.get(index).toString();
             Task task = tasks.get(index);
+
+            assert task != null : "Task should not be null";
+
             taskList.delete(task);
             String output = "Nimbus.Nimbus has removed the task! \n"
                     + "    " + temp + "\n" + "You have " + tasks.size()
