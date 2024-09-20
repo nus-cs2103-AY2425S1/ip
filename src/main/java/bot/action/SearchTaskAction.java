@@ -3,7 +3,7 @@ package bot.action;
 import bot.tasks.TaskList;
 
 /**
- * Action that searchs for a <code>Task</code> in the <code>TaskList</code>.
+ * Action that searches for a <code>Task</code> in the <code>TaskList</code>.
  *
  * @author mongj
  */
