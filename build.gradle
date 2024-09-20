@@ -47,7 +47,7 @@ test {
 }
 
 application {
-    mainClass.set("sunny.Main")
+    mainClass.set("sunny.Launcher")
 }
 
 shadowJar {

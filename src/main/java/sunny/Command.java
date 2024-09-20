@@ -6,7 +6,7 @@ import java.util.List;
  * Represents all command classes
  */
 public abstract class Command {
-    public static final String line = "     ────────────────────";
+    public static final String line = "     \n---------------------------";
 
     /**
      * Builds string, read and write to hard drive, depends on the subclass

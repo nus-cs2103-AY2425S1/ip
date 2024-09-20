@@ -9,7 +9,6 @@ import java.util.Objects;
 public class Ui {
 
     // Stock messages
-    public static final String LINE = "     ────────────────────";
     public static final String WELCOME = "     HELLO! I am Sunny:)\n     How can I help you?";
     public static final String GOODBYE = "     You are leaving? Ok bye:( come back soon";
 
@@ -26,7 +25,7 @@ public class Ui {
      */
     public String welcome() {
         ls = store.read();
-        return WELCOME + "\n" + LINE + "\n";
+        return WELCOME + "\n";
     }
 
     /**
@@ -42,7 +41,7 @@ public class Ui {
         if (Objects.equals(command, "bye")) {
             store.write(ls);
             System.exit(0);
-            return LINE + "\n" + GOODBYE;
+            return "\n" + GOODBYE;
         } else if (Objects.equals(command, "list")) {
             Command c = new ListCommand();
             return c.runCommand(ls, "");
@@ -77,7 +76,7 @@ public class Ui {
                 store.write(ls);
                 return s;
             } catch (Exception e) {
-                return LINE + "\n      " + e + LINE;
+                return "\n      " + e;
             }
 
         }
