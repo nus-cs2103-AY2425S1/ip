@@ -2,7 +2,7 @@
     -fx-background-color: #FBA73F;
     -fx-border-color: #d55e00 #009e73 #cc79a7 #0072b2;
     -fx-border-width: 2px;
-    -fx-font: bold 15px "Arial";
+    -fx-font: bold 15px "Helvetica";
     -fx-background-radius: 1em 1em 0 1em;
     -fx-border-radius: 1em 1em 0 1em;
 }
@@ -11,7 +11,7 @@
     -fx-background-color: #fff9c4;
     -fx-background-radius: 1em 1em 1em 0;
     -fx-border-radius: 1em 1em 1em 0;
-    -fx-font: bold 15px "Roboto";
+    -fx-font: bold 15px "Helvetica";
 }
 
 #displayPicture {

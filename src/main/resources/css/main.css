@@ -6,12 +6,12 @@
 
 .text-field {
     -fx-background-color: #d9ffe2;
-    -fx-font: bold 15px "Montserrat";
+    -fx-font: bold 15px "Helvetica";
 }
 
 .button {
     -fx-background-color: mediumspringgreen;
-    -fx-font: extra bold 16px "Montserrat";
+    -fx-font: extra bold 16px "Helvetica";
 }
 
 .button:hover {
