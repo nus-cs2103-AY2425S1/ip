@@ -49,11 +49,11 @@ public class MainWindow extends AnchorPane {
             String response = michael.getParser().parse(input);
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getDukeDialog(response, michaelImage)
+                    DialogBox.getMichaelDialog(response, michaelImage)
             );
             userInput.clear();
         } catch (MichaelException e) {
-            michael.getUi().showLoadingError(e.getMessage());
+            dialogContainer.getChildren().add(DialogBox.getMichaelDialog(e.getMessage(), michaelImage));
         }
     }
 }
