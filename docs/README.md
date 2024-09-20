@@ -61,6 +61,16 @@ Format: `unmark <task number>` or `um <task number>`
 
 Constrain: `<task number>` should be a positive number which is less than the current length of the tasklist.
 
+Sample commands:
+
+```
+unmark 1
+```
+
+```
+um 1
+```
+
 Sample outcome:
 
 ![unmark_pic](images/Unmark.png)
