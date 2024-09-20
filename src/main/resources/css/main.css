@@ -1,0 +1,65 @@
+.root {
+    main-color: rgb(92, 92, 92);       /* Create a looked-up color called "main-color" within root. */
+    -fx-background-color: main-color;
+}
+
+.text-field {
+    -fx-background-color: white;
+    -fx-background-radius: 0.8em;
+    -fx-font: 20px "Arial";
+    -fx-border-color: #212121;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 0.8em 0.8em 0.8em 0.8em;
+}
+
+.button {
+    -fx-background-color: #ababab;
+    -fx-background-radius: 0.8em;
+    -fx-font: italic bold 15px "Arial";
+    -fx-border-color: #212121;
+    -fx-border-radius: 0.8em 0.8em 0.8em 0.8em;
+}
+
+.button:hover {
+    -fx-background-color: #d4d4d4;
+    -fx-font-size: 17px;
+}
+
+.button:pressed {
+    -fx-background-color: #ffffff;
+    -fx-font-size: 19px;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;  /* Change width of scroll bar. */
+    -fx-background-color: main-color;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #b3b3b3;
+    -fx-background-radius: 1em;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}
