@@ -194,4 +194,14 @@ Expected output if no task found:
 ```plaintext
 No tasks found.
 ```
+## Bye
+Users can exit the application using the `bye` command. Upon issuing this command, Bobby will display a farewell message before closing the application.
+
+Format:
+- `bye`
+
+Expected output:
+```plaintext
+Bye. Hope to see you again soon!
+```
 

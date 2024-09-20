@@ -3,12 +3,15 @@ package bobby;
 
 import bobby.javafx.DialogBox;
 import bobby.ui.Ui;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 /**
  * Controller for the main GUI.
@@ -53,5 +56,11 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getBobbyDialog(response, bobbyImage)
         );
         userInput.clear();
+        if (response.equals(ui.getExitMessage())) {
+            // Delay the exit to allow the "bye" message to be displayed
+            PauseTransition delay = new PauseTransition(Duration.seconds(2));
+            delay.setOnFinished(event -> Platform.exit());
+            delay.play();
+        }
     }
 }
