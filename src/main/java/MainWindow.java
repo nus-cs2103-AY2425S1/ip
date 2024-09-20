@@ -1,3 +1,4 @@
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -53,6 +54,9 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getMullerDialog(response, mullerImage)
         );
         userInput.clear();
+        if (response.trim().equalsIgnoreCase("Bye. Hope to see you again soon!")) {
+            Platform.exit();  // This will close the JavaFX application
+        }
     }
 }
 
