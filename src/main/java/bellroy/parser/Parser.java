@@ -56,25 +56,13 @@ public class Parser {
                 case("event"):
                     return createEvent(taskList, storage, input, description);
                 case("delete"):
-                    int target = Integer.parseInt(userInput.split(" ")[1]);
-                    Task taskToDelete = taskList.get(target - 1);
-                    taskList.removeTask(target - 1);
-                    storage.save(taskList);
-                    return Ui.taskDeleted(taskToDelete, taskList.size());
+                    return deleteTask(userInput, taskList, storage);
                 case("find"):
-                    String keyword = input[1].trim();
-                    TaskList output = taskList.findTask(keyword);
-                    return Ui.findTask(output);
+                    return findTask(taskList, input);
                 case("tag"):
-                    String[] tagInput = input[1].split(" ", 2);
-                    int tagPos = Integer.parseInt(tagInput[0]);
-                    String association = tagInput[1];
-                    taskList.get(tagPos - 1).setAssociation(association);
-                    return Ui.associationMessage(taskList.get(tagPos - 1), association);
+                    return tagTask(taskList, input);
                 case("filter"):
-                    String taskAssociation = input[1].trim();
-                    TaskList result = taskList.filterAssociation(taskAssociation);
-                    return Ui.filterTask(result);
+                    return filterTask(taskList, input);
                 default:
                     return ("ERROR: Invalid Input!");
             }
@@ -84,8 +72,62 @@ public class Parser {
     }
 
     /**
+     * filters the tasklist for tasks with a given association
+     * @param taskList thew tasklist to be filtered
+     * @param input the user input message specifying what to filter by
+     * @return the list of filtered tasks
+     */
+    private static String filterTask(TaskList taskList, String[] input) {
+        String taskAssociation = input[1].trim();
+        TaskList result = taskList.filterAssociation(taskAssociation);
+        return Ui.filterTask(result);
+    }
+
+    /**
+     * tags a task with an association
+     * @param taskList the tasklist containing the target task
+     * @param input the user input command
+     * @return the task association message
+     */
+    private static String tagTask(TaskList taskList, String[] input) {
+        String[] tagInput = input[1].split(" ", 2);
+        int tagPos = Integer.parseInt(tagInput[0]);
+        String association = tagInput[1];
+        taskList.get(tagPos - 1).setAssociation(association);
+        return Ui.associationMessage(taskList.get(tagPos - 1), association);
+    }
+
+    /**
+     * finds the tasks with the matching keyword
+     * @param taskList the tasklist to find the tasks in
+     * @param input the user input to find the task
+     * @return the list of tasks that match the user input
+     */
+    private static String findTask(TaskList taskList, String[] input) {
+        String keyword = input[1].trim();
+        TaskList output = taskList.findTask(keyword);
+        return Ui.findTask(output);
+    }
+
+    /**
+     * deletes a task from the tasklist
+     * @param userInput input from the user
+     * @param taskList the tasklist to be updated
+     * @param storage the storage to be written to
+     * @return the task deleted message to be printed
+     * @throws IOException
+     */
+    private static String deleteTask(String userInput, TaskList taskList, Storage storage) throws IOException {
+        int target = Integer.parseInt(userInput.split(" ")[1]);
+        Task taskToDelete = taskList.get(target - 1);
+        taskList.removeTask(target - 1);
+        storage.save(taskList);
+        return Ui.taskDeleted(taskToDelete, taskList.size());
+    }
+
+    /**
      * creates an event task to add to the tasklist
-     * @param taskList tasklist to find the task
+     * @param taskList the tasklist to be updated
      * @param storage storage to save the change
      * @param description name of the task
      * @param input user input to get the start and end
@@ -107,7 +149,7 @@ public class Parser {
 
     /**
      * creates a deadline task to add to the tasklist
-     * @param taskList tasklist to find the task
+     * @param taskList the tasklist to be updated
      * @param storage storage to save the change
      * @param description name of the task
      * @param input user input to get dueDate
@@ -130,7 +172,7 @@ public class Parser {
 
     /**
      * creates a todo task to add to the tasklist
-     * @param taskList tasklist to find the task
+     * @param taskList the tasklist to be updated
      * @param storage storage to save the change
      * @param description name of the task
      * @return task created string
