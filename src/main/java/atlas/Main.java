@@ -22,11 +22,6 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            // Set default locale to Singapore
-            Locale.setDefault(new Locale("en", "SG"));
-            // Set default time zone to Singapore
-            TimeZone.setDefault(TimeZone.getTimeZone("Asia/Singapore"));
-
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
