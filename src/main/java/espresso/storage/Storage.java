@@ -40,6 +40,7 @@ public class Storage {
      * @throws ParseException           If the file content is in an invalid format.
      * @throws InvalidCommandException  If an invalid task type is encountered in the file.
      */
+    //Solution below inspired by https://github.com/nus-cs2103-AY2425S1/ip/pull/557 with permission
     public ArrayList<Task> load() throws IOException, ParseException, InvalidCommandException {
         ArrayList<Task> tasks = new ArrayList<>();
 

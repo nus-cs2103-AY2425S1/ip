@@ -1,5 +1,5 @@
 package espresso.gui;
-//Reference from @RitulKumarSingh for MainWindow.fxml
+
 import espresso.command.InvalidCommandException;
 import espresso.Espresso;
 import javafx.animation.PauseTransition;
@@ -46,6 +46,7 @@ public class MainWindow {
             dialogBoxContainer.setPrefWidth(newVal.doubleValue());
         });
     }
+    //Solution below inspired by https://github.com/nus-cs2103-AY2425S1/ip/pull/557 with permission
 
     @FXML
     private void handleUserInput() throws ParseException {

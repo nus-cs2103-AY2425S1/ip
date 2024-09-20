@@ -24,6 +24,7 @@ public class Parser {
      * @throws InvalidCommandException If the command format is invalid.
      * @throws ParseException          If there is an error in parsing task data.
      */
+    //Solution below inspired by https://github.com/nus-cs2103-AY2425S1/ip/pull/557 with permission
     public static String parse(String input, TaskList taskList, Ui ui) throws InvalidCommandException, ParseException {
         if (input.equals("list")) {
             return ui.printTasks(taskList);

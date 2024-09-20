@@ -1,4 +1,3 @@
-// USED AI generate some code and also referenced @rituliP for some code
 package espresso.gui;
 
 import javafx.application.Application;
