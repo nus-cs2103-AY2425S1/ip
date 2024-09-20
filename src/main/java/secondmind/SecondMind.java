@@ -178,8 +178,9 @@ public class SecondMind {
     private String getMatchingTasks(String match) {
         ArrayList<Task> filteredTaskList = this.taskList.getMatchingTasks(match);
         StringBuilder sb = new StringBuilder();
-        for (Task task : filteredTaskList) {
-            sb.append(task.toString());
+        for (int i = 1; i <= filteredTaskList.size(); i++) {
+            sb.append(i).append(". ");
+            sb.append(filteredTaskList.get(i-1).toString());
             sb.append("\n");
         }
         return sb.toString();
