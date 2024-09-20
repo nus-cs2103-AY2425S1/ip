@@ -1,7 +1,6 @@
 # Hoshi - Your Task Assistant
 
-Hoshi is a user-friendly assistant that aids you in keeping track of your tasks so you will be on top of things!
-
+Hoshi is a user-friendly assistant that aids you in keeping track of your tasks so you will remain on top of things!
 
 ## Features
 
@@ -9,8 +8,9 @@ Hoshi is a user-friendly assistant that aids you in keeping track of your tasks 
 2. Mark/Unmark Tasks as Complete/Incomplete
 3. Delete Tasks
 4. Find Tasks
-5. Graphical User Interface
-
+5. List Tasks
+6. Help Window
+7. Graphical User Interface
 
 ## Setting up in Intellij
 
@@ -26,13 +26,15 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
 4. Ensure Gradle is installed
 5. After that, run gradle either by CLI `gradle run` or inbuilt Gradle GUI in IntelliJ. Running `gradle build` is optional but recommended
 
-## Running JAR File
+## Running JAR File (Quick Start)
 
 1. Ensure JDK-17.0.12 or equivalent is installed locally
-2. Download and run the latest JAR file in releases (note that current v0.1 is outdated and will be updated once features are complete)
-3. JAR file should be compatible across various Operating Systems (Windows, Mac etc.)
+2. Download the latest JAR file [here](https://github.com/ITLimJiaWei/ip/releases)
+3. Open a command terminal `cd` into folder the jar file was placed in and use `java -jar hoshi.jar` command to run the application
 
 ## Acknowledgements
 
-1. ASCII Art - https://patorjk.com/software/taag/#p=testall&f=Star%20Wars&t=HOSHI
-2. JavaFX initOwner Method - https://docs.oracle.com/javase/8/javafx/api/javafx/stage/Stage.html
+1. ASCII Art - [Link](https://patorjk.com/software/taag/#p=testall&f=Star%20Wars&t=HOSHI)
+2. JavaFX initOwner Method - [Link](https://docs.oracle.com/javase/8/javafx/api/javafx/stage/Stage.html)
+3. JavaFX PauseTransition Method - [Link](https://stackoverflow.com/questions/30543619/how-to-use-pausetransition-method-in-javafx)
+4. Arrays copyOfRange Method - [Link](https://www.geeksforgeeks.org/java-util-arrays-copyofrange-java/)
