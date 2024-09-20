@@ -132,5 +132,4 @@ delete 7
 
 
 <text style="color: #9370db">Selling you the best lie 💖</text>
-
-_Signing out now... 愛してる~_ ✨
+<text style="color: #9370db">_Signing out now... 愛してる~_ ✨</text>
