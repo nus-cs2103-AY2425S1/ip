@@ -29,7 +29,6 @@ public class Alisa {
 
     /**
      * Runs the main program.
-     *
      */
     public String run(String input) {
         String output;
@@ -48,6 +47,14 @@ public class Alisa {
     }
 
 
+    /**
+     * Welcomes user to the program.
+     *
+     * @return Welcome message to user.
+     */
+    public String welcome() {
+        return ui.showWelcomeMessage();
+    }
 }
 
 

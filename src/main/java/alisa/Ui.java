@@ -31,4 +31,12 @@ public class Ui {
         return "Since you technically said bye, see ya next time!";
     }
 
+    /**
+     * Returns a welcome message.
+     *
+     * @return A welcome message.
+     */
+    public String showWelcomeMessage() {
+        return "Hey, Alisa here! What do you need help with?\n" + "Just say the word \"bye\" to get out of this conversation";
+    }
 }

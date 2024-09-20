@@ -30,6 +30,9 @@ public class MainWindow extends AnchorPane {
     /** Injects the Alisa instance */
     public void setDuke(Alisa a) {
         alisa = a;
+        String welcomeMessage = alisa.welcome();
+        dialogContainer.getChildren().addAll(
+                DialogBox.getAlisaDialog(welcomeMessage, alisaImage));
     }
 
     /**
@@ -42,7 +45,7 @@ public class MainWindow extends AnchorPane {
         String response = alisa.run(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, alisaImage)
+                DialogBox.getAlisaDialog(response, alisaImage)
         );
         userInput.clear();
     }

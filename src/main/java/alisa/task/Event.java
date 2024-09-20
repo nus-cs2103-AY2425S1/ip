@@ -39,7 +39,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         String task = super.toString();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM dd yyyy HH:mm");
         return "[E] " + task + " (from: " + startTime.format(formatter)
                 + " to: " + endTime.format(formatter) + ")";
     }
@@ -57,7 +57,7 @@ public class Event extends Task {
 
     public void changeStartTime(String time) throws AlisaException {
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd hh:mm");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             startTime = LocalDateTime.parse(time, formatter);
         } catch (DateTimeParseException e) {
             throw new AlisaException("Please write the deadline in the following format: yyyy-mm-dd hh:mm");
@@ -66,7 +66,7 @@ public class Event extends Task {
 
     public void changeEndTime(String time) throws AlisaException {
         try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd hh:mm");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             endTime = LocalDateTime.parse(time, formatter);
         } catch (DateTimeParseException e) {
             throw new AlisaException("Please write the deadline in the following format: yyyy-mm-dd hh:mm");
