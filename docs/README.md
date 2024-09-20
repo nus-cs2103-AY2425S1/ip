@@ -3,7 +3,7 @@
 think of me as Deadpool but without the katanas—here to help you slice through your tasks like a pro, with a lot of sarcasm and a touch of chaos. Whether it's a todo, deadline, event, or even something for the far-off future, I’ve got you covered (and entertained). Oh, and don't worry—I'll save your task list. You're welcome.
 
 ## Product
-<img src="https://github.com/Arnaxx54/ip/blob/master/docs/Ui.png" alt="Alt text" width="500" height="300">
+<img src="https://raw.githubusercontent.com/arnav-goel10/ip/refs/heads/master/docs/Ui.png" alt="Chatbot image" height="300">
 
 ## Features List
 
