@@ -21,7 +21,9 @@ import johncena.storage.Storage;
 
 import java.io.IOException;
 
-
+/**
+ * This class tests the InputHandler class.
+ */
 public class InputHandlerTest {
 
     private InputHandler inputHandler;

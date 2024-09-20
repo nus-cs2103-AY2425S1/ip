@@ -1,8 +1,17 @@
 
 package johncena.art;
 
+
+/**
+ * The {@code Logo} class provides a static method to retrieve the ASCII art logo
+ * for the John Cena Task Manager application.
+ */
 public class Logo {
 
+
+    /**
+     * The ASCII art logo for the John Cena Task Manager application.
+     */
     private static final String logo =
             "          JJJJJJJJJJJ              hhhhhhh                                           CCCCCCCCCCCCC                                                        \n"
                     + "          J:::::::::J              h:::::h                                        CCC::::::::::::C                                                        \n"
@@ -21,6 +30,12 @@ public class Logo {
                     + "   JJ:::::::::JJ    oo:::::::::::oo h:::::h     h:::::h n::::n    n::::n          CCC::::::::::::C  ee:::::::::::::e    n::::n    n::::n a::::::::::aa:::a\n"
                     + "     JJJJJJJJJ        ooooooooooo   hhhhhhh     hhhhhhh nnnnnn    nnnnnn             CCCCCCCCCCCCC    eeeeeeeeeeeeee    nnnnnn    nnnnnn  aaaaaaaaaa  aaaa\n";
 
+
+    /**
+     * Returns the ASCII art logo for the John Cena Task Manager application.
+     *
+     * @return the ASCII art logo
+     */
     public static String getLogo() {
         return logo;
     }

@@ -6,6 +6,11 @@ import johncena.tasks.Task;
 
 import java.util.ArrayList;
 
+
+/**
+ * The {@code DeleteCommand} class implements the {@code Command} interface and provides
+ * the functionality to execute the "delete" command, which removes a task from the task list.
+ */
 public class DeleteCommand implements Command {
     private ArrayList<Task> tasks;
     private int taskIndex;
@@ -15,6 +20,12 @@ public class DeleteCommand implements Command {
         this.taskIndex = taskIndex;
     }
 
+
+    /**
+     * Executes the "delete" command. Removes a task from the task list.
+     *
+     * @throws CenaInvalidTaskIndexException if the task index is invalid
+     */
     @Override
     public void execute() throws CenaInvalidTaskIndexException {
         if (taskIndex < 0 || taskIndex >= tasks.size()) {
