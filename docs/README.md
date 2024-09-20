@@ -29,8 +29,8 @@ EchoBot is your ultimate task manager, designed to free up your mental space so 
 - [`delete`](#delete): Delete a task from the task list
 
 ### Get Help
-- Get general help information 
-- Get help information about a specific command
+- [`help`](#help): Get general help information 
+- [`help [command]`](#help): Get help information about a specific command
 
 ## Usage
 
@@ -45,7 +45,7 @@ Create quick TODOs to help keep your tasks on track.
 ```
 Got it. I've added this task:
     [T][ ] read the research paper
-Now you have 5 tasks in the list.
+Now you have 1 tasks in the list.
 ```
 
 ### `deadline`
@@ -59,7 +59,7 @@ Create tasks that need to be done before a specific date/time.
 ```
 Got it. I've added this task:
     [D][ ] CS2100 A1 (by: 10 Sep 2024 23:59)
-Now you have 6 tasks in the list.
+Now you have 2 tasks in the list.
 ```
 
 ### `event`
@@ -73,7 +73,7 @@ Create tasks that start at a specific date/time and ends at a specific date/time
 ```
 Got it. I've added this task:
     [E][ ] read book (from 14 Sep 2024 19:00 to 14 Sep 2024 22:00)
-Now you have 7 tasks in the list.
+Now you have 3 tasks in the list.
 ```
 
 ### `list`
@@ -129,7 +129,7 @@ Unmark a task in the task list as incomplete.
 
 **Example**:
 ```
-mark 2 // mark the second task in the list as completed
+mark 2 // mark the second task in the list as uncompleted
 list
 ```
 **Expect Output**:
