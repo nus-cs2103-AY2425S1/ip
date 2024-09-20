@@ -1,6 +1,8 @@
 package fred;
 
 import fred.Exceptions.FredException;
+import fred.Exceptions.InvalidDeadlineException;
+import fred.Exceptions.InvalidEventException;
 import fred.Exceptions.InvalidTaskNumberException;
 import fred.Tasks.Deadline;
 import fred.Tasks.Event;
@@ -9,6 +11,7 @@ import fred.Tasks.Todo;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 /**
@@ -26,7 +29,7 @@ public class TaskList {
      * @param taskDetails The details of the task, including description and any time-related information.
      * @return The created Task object.
      */
-    Task createTask(TaskType taskType, String taskDetails) {
+    Task createTask(TaskType taskType, String taskDetails) throws FredException {
         Task task = null;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         String[] taskDetailsArr = taskDetails.split(" /", 3);
@@ -35,14 +38,37 @@ public class TaskList {
         if (taskType == TaskType.TODO) {
             task = new Todo(description);
         } else if (taskType == TaskType.DEADLINE) {
-            String byStr = taskDetailsArr[1].substring(3);
-            LocalDateTime by = LocalDateTime.parse(byStr, formatter);
+            String byStr = taskDetailsArr[1];
+            if (!byStr.startsWith("by ")) {
+                throw new InvalidDeadlineException();
+            }
+            byStr = byStr.substring(3);
+            LocalDateTime by;
+            try {
+                by = LocalDateTime.parse(byStr, formatter);
+            } catch (DateTimeParseException e) {
+                throw new InvalidDeadlineException();
+            }
             task = new Deadline(description, by);
-        } else if (taskType == TaskType.EVENT) { // Assuming "event"
-            String fromStr = taskDetailsArr[1].substring(5);
-            String toStr = taskDetailsArr[2].substring(3);
-            LocalDateTime from = LocalDateTime.parse(fromStr, formatter);
-            LocalDateTime to = LocalDateTime.parse(toStr, formatter);
+        } else if (taskType == TaskType.EVENT) {
+            String fromStr = taskDetailsArr[1];
+            String toStr = taskDetailsArr[2];
+            if (!fromStr.startsWith("from ")) {
+                throw new InvalidEventException();
+            }
+            if (!toStr.startsWith("to ")) {
+                throw new InvalidEventException();
+            }
+            fromStr = fromStr.substring(5);
+            toStr = toStr.substring(3);
+            LocalDateTime from;
+            LocalDateTime to;
+            try {
+                from = LocalDateTime.parse(fromStr, formatter);
+                to = LocalDateTime.parse(toStr, formatter);
+            } catch (DateTimeParseException e) {
+                throw new InvalidEventException();
+            }
             task = new Event(description, from, to);
         }
         return task;
