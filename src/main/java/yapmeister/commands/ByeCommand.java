@@ -21,6 +21,7 @@ public class ByeCommand implements Command {
     @Override
     public void execute(TaskList tasks, Storage storage, UI ui) throws IOException {
         ui.exit();
+        System.exit(0);
     }
 
     @Override
