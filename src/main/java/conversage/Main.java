@@ -3,6 +3,7 @@ package conversage;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -23,6 +24,14 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setConversage(conversage);  // inject the Conversage instance
+
+            // Set the application title
+            stage.setTitle("ConverSage");
+
+            // Set the application icon
+            stage.getIcons().add(new Image(Main.class.getResourceAsStream("/images/DaDuke.png")));
+
+
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
