@@ -29,6 +29,27 @@ Here’s a summary of what ChatBuddy can do:
 - Square brackets `[ ]` indicate optional inputs.
 - The order of parameters can vary unless specified otherwise.
 
+## **Command Summary**
+
+| **Command**                  | **Format**                                             | **Example**                                          | **Description**                                    |
+|------------------------------|--------------------------------------------------------|------------------------------------------------------|----------------------------------------------------|
+| **Add To-Do Task**            | `todo NAME`                                            | `todo Read a book`                                   | Adds a to-do task.                                 |
+| **Add Deadline Task**         | `deadline NAME /by DATE`                               | `deadline Submit assignment /by 2024-09-30`          | Adds a task with a deadline.                       |
+| **Add Event Task**            | `event NAME /from DATE /to DATE`                       | `event Attend seminar /from 2024-09-18 /to 2024-09-19`| Adds an event with start and end dates.            |
+| **List All Tasks**            | `list`                                                 | `list`                                               | Lists all tasks with their statuses and dates.     |
+| **Mark Task as Done**         | `mark INDEX`                                           | `mark 2`                                             | Marks a task as done.                              |
+| **Mark Multiple Tasks**       | `mark INDEX1 INDEX2 INDEX3...`                         | `mark 1 3 5`                                         | Marks multiple tasks as done.                      |
+| **Unmark Task**               | `unmark INDEX`                                         | `unmark 2`                                           | Marks a task as not done.                          |
+| **Unmark Multiple Tasks**     | `unmark INDEX1 INDEX2 INDEX3...`                       | `unmark 2 4 6`                                       | Marks multiple tasks as not done.                  |
+| **Delete Task**               | `delete INDEX`                                         | `delete 3`                                           | Deletes a task from the list.                      |
+| **Delete Multiple Tasks**     | `delete INDEX1 INDEX2 INDEX3...`                       | `delete 1 3 4`                                       | Deletes multiple tasks from the list.              |
+| **Update Task Description**   | `update INDEX description NEW_DESCRIPTION`             | `update 5 description Finish presentation`           | Updates the description of a task.                 |
+| **Update Deadline Date**      | `update INDEX date NEW_DATE`                           | `update 5 date 2024-09-30`                           | Updates the due date of a deadline task.           |
+| **Update Event Dates**        | `update INDEX from NEW_START_DATE /to NEW_END_DATE`    | `update 4 from 2024-09-18 /to 2024-09-19`            | Updates the start and end date of an event task.   |
+| **Exit the Application**      | `bye`                                                  | `bye`                                                | Exits the ChatBuddy application.                   |
+
+---
+
 ### **Command List**
 
 1. **Add To-Do Task**:
