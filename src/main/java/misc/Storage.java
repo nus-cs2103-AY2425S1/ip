@@ -24,7 +24,7 @@ public class Storage {
 
     /**
      * Updates the data file whenever tasklist is updated.
-     * 
+     *
      * @param s The filepath.
      */
     public void updateDataFile(String s) {
@@ -54,7 +54,7 @@ public class Storage {
 
     /**
      * Retrieves the data file
-     * 
+     *
      * @param s The filepath.
      */
     public Tasklist retrieveDataFile(String s) {

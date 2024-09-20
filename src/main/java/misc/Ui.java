@@ -35,7 +35,7 @@ public class Ui {
 
     /**
      * Returns tasks.
-     * 
+     *
      * @return String
      */
     public String replyGetList(Tasklist tasklist) {
@@ -57,7 +57,7 @@ public class Ui {
 
     /**
      * Returns reply for mark undone command.
-     * 
+     *
      * @return String
      */
     public String replyMarkUndone(int pos, Tasklist tasklist) throws PositionException {
@@ -70,7 +70,7 @@ public class Ui {
 
     /**
      * Returns reply for todo command.
-     * 
+     *
      * @return String
      */
     public String replyTodo(String s, Tasklist tasklist) throws MissingParamsException {
@@ -85,7 +85,7 @@ public class Ui {
 
     /**
      * Returns reply for event command.
-     * 
+     *
      * @return String
      */
     public String replyEvent(String s, Tasklist tasklist) throws MissingParamsException {
@@ -111,7 +111,7 @@ public class Ui {
 
     /**
      * Returns reply for deadline command.
-     * 
+     *
      * @return String
      */
     public String replyDeadline(String s, Tasklist tasklist) throws MissingParamsException {
@@ -135,7 +135,7 @@ public class Ui {
 
     /**
      * Returns reply for delete command.
-     * 
+     *
      * @return String
      */
     public String replyDelete(int pos, Tasklist tasklist) throws PositionException {
@@ -151,7 +151,7 @@ public class Ui {
 
     /**
      * Returns tasks matching regex.
-     * 
+     *
      * @return String
      */
     public String replyFind(String s, Tasklist tasklist) {
@@ -161,7 +161,7 @@ public class Ui {
 
     /**
      * Returns tasks matching exact string.
-     * 
+     *
      * @return String
      */
     public String replyFindExact(String s, Tasklist tasklist) {

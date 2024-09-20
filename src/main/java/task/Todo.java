@@ -10,7 +10,7 @@ public class Todo extends Task {
 
     /**
      * Returns string format of todo.
-     * 
+     *
      * @return String
      */
     @Override

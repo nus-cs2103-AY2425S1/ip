@@ -18,7 +18,7 @@ public class Task {
 
     /**
      * Returns "X" if the task is done, otherwise it returns a space.
-     * 
+     *
      * @return Returns "X" if the task is done, otherwise it returns a space.
      */
     public String getStatusIcon() {
@@ -51,7 +51,7 @@ public class Task {
 
     /**
      * Returns string format of task.
-     * 
+     *
      * @return String
      */
     public String toString() {

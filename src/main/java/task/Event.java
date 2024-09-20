@@ -20,7 +20,7 @@ public class Event extends Task {
 
     /**
      * Returns string format of event.
-     * 
+     *
      * @return String
      */
     @Override
