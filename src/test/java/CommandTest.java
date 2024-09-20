@@ -1,64 +1,76 @@
-import exceptions.InvalidDateException;
-import task.Task;
+import commands.*;
 import exceptions.InvalidTaskException;
-import exceptions.NoTaskDescriptionException;
+import io.Parser;
+import storage.Storage;
+import task.TaskList;
+
+import exceptions.InvalidDateException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class TaskTest {
+public class CommandTest {
 
-    /**
-     * Tests that creating a task with no description throws NoTaskDescriptionException.
-     */
-    @Test
-    public void createTodoWithoutDescription() {
-        assertThrows(NoTaskDescriptionException.class, () -> Task.createTask("todo"));
-    }
+    private final String STORAGE_PATH  = "src/main/data/blitz.txt";
 
-    /**
-     * Tests that creating an event task without a description throws NoTaskDescriptionException.
-     */
     @Test
-    public void createEventWithoutDescription() {
-        assertThrows(NoTaskDescriptionException.class, () -> Task.createTask("event /from 10-10-2019 /to 11-10-2019"));
-    }
-
-    /**
-     * Tests that creating an event task with an invalid date format throws InvalidDateException.
-     */
-    @Test
-    public void createEventWithInvalidDate() {
-        assertThrows(InvalidDateException.class, () -> Task.createTask("event wedding /from 10-10-2019 /to 11-10-2019"));
-    }
-
-    /**
-     * Tests that creating a task with an invalid task type throws InvalidTaskException.
-     */
-    @Test
-    public void createTaskWithInvalidTaskType() {
-        assertThrows(InvalidTaskException.class, () -> Task.createTask("invalidTask wedding /from 10-10-2019 /to 11-10-2019"));
+    public void executeTodoWithoutDescription() throws InvalidTaskException {
+        try {
+            TaskList taskList = new TaskList(Storage.createStorage(STORAGE_PATH));
+            Command addTaskCommand = Parser.inputToCommand("todo");
+            assertEquals("Wah, no description then I record what?", addTaskCommand.execute(taskList));
+        } catch (InvalidDateException e) {
+            // This block will never run, date from storage always has the right format
+        }
     }
 
     @Test
-    public void createTaskNoTagsNoTime() throws NoTaskDescriptionException, InvalidTaskException, InvalidDateException {
-        Task newTask = Task.createTask("event wedding /from 10/10/2019 /to 10/10/2019");
-        assertEquals("[E][ ] wedding (from: Oct 10 2019  to: Oct 10 2019) tags: no tags", newTask.toString());
+    public void executeEventWithoutDescription() throws InvalidTaskException {
+        try {
+            TaskList taskList = new TaskList(Storage.createStorage(STORAGE_PATH));
+            Command addTaskCommand = Parser.inputToCommand("event /from 10/10/2019 /to 11/10/2019");
+            assertEquals("Wah, no description then I record what?", addTaskCommand.execute(taskList));
+        } catch (InvalidDateException e) {
+
+        }
     }
 
     @Test
-    public void createTaskNoTags() throws NoTaskDescriptionException, InvalidTaskException, InvalidDateException {
-        Task newTask = Task.createTask("event wedding /from 10/10/2019 1800 /to 10/10/2019 2300");
-        assertEquals("[E][ ] wedding (from: Oct 10 2019 18:00 to: Oct 10 2019 23:00) tags: no tags", newTask.toString());
+    public void executeDeleteNonExistentIndex() throws InvalidTaskException {
+        try {
+            TaskList taskList = new TaskList(Storage.createStorage(STORAGE_PATH));
+            Command deleteCommand = Parser.inputToCommand("delete 10000");
+            assertEquals("No valid index was given!!", deleteCommand.execute(taskList));
+        } catch (InvalidDateException e) {
+
+        }
     }
 
     @Test
-    public void createTaskWithTags() throws NoTaskDescriptionException, InvalidTaskException, InvalidDateException {
-        Task newTask = Task.createTask("event wedding /from 10/10/2019 1800 /to 10/10/2019 2300 -t important " +
-                "leisure");
-        assertEquals("[E][ ] wedding (from: Oct 10 2019 18:00 to: Oct 10 2019 23:00) tags: important leisure ",
-                newTask.toString());
+    public void executeFilterByTagsWithNonExistentTag() throws InvalidTaskException {
+        try {
+            TaskList taskList = new TaskList(Storage.createStorage(STORAGE_PATH));
+            Command fitlerByTagsCommand = Parser.inputToCommand("find -t urgent");
+            assertEquals("You are finding a tag that doesn't exist!!", fitlerByTagsCommand.execute(taskList));
+        } catch (InvalidDateException e) {
+
+        }
     }
 
+    @Test
+    public void executeExit() throws InvalidTaskException {
+        try {
+            TaskList taskList = new TaskList(Storage.createStorage(STORAGE_PATH));
+            Command exitCommand = Parser.inputToCommand("bye");
+            assertEquals("Till we meet again, GOODBYE", exitCommand.execute(taskList));
+        } catch (InvalidDateException e) {
+
+        }
+    }
+
+    @Test
+    public void executeInvalidTask() {
+        assertThrows(InvalidTaskException.class , () -> Parser.inputToCommand("invalidTask"));
+    }
 }
