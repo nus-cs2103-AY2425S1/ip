@@ -1,4 +1,4 @@
-package eevee;
+package eevee.task;
 
 import eevee.task.Task;
 import org.junit.jupiter.api.BeforeEach;

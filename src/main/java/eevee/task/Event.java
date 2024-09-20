@@ -36,7 +36,7 @@ public class Event extends Task {
      * @param date The String input for the date.
      * @return The correctly formatted date.
      */
-    private String formatDate(String date) {
+    String formatDate(String date) {
         try {
             LocalDate parsedDate = LocalDate.parse(date);
             return parsedDate.format(DateTimeFormatter.ofPattern(DATE_FORMAT));
@@ -48,7 +48,7 @@ public class Event extends Task {
     /**
      * Checks that the start date does not come after the end date.
      */
-    private void validateDates() {
+    void validateDates() {
         try {
             LocalDate date = LocalDate.parse(this.from, DateTimeFormatter.ofPattern(DATE_FORMAT));
             LocalDate date2 = LocalDate.parse(this.to, DateTimeFormatter.ofPattern(DATE_FORMAT));
