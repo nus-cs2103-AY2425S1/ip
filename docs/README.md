@@ -57,11 +57,18 @@ Utility classes provide supporting functionality:
 
 ## Usage Instructions
 
-### Adding Tasks
+### Adding Todo
 
-- **Todo**: `todo {description} /priority {priority}`
-- **Deadline**: `deadline {description} /by {date} /priority {priority}`
-- **Event**: `event {description} /from {start date} /to {end date} /priority {priority}`
+- **Todo**: `todo {description} /priority {LOW|MEDIUM|HIGH}`
+- **Example**: `todo Complete assignment /priority HIGH`
+
+### Adding Deadline
+- **Deadline**: `deadline {description} /by {date: MMM dd yyyy HH:mm} /priority {LOW|MEDIUM|HIGH}`
+- **Example**: `deadline Submit report /by Oct 22 2005 /priority MEDIUM`
+
+### Adding Event
+- **Event**: `event {description} /from {start date: MMM dd yyyy HH:mm} /to {end date: MMM dd yyyy HH:mm} /priority {LOW|MEDIUM|HIGH}`
+- **Example** - `event Team meeting /from Oct 22 2005 09:00 /to Oct 23 2005 11:00 /priority LOW`
 
 ### Deleting Tasks
 

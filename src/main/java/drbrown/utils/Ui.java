@@ -187,7 +187,7 @@ public class Ui {
     public static String getDeadlineExceptionNoDescription() {
         return "Great Scott! You can't add a deadline without a "
                 + "description and date!\nUse the format: deadline {description} /by "
-                + "{date} /priority {priority}";
+                + "{MMM dd yyyy HH:mm} /priority {priority}";
     }
 
     /**
@@ -197,7 +197,7 @@ public class Ui {
      */
     public static String getDeadlineExceptionNoDate() {
         return "Hello? Hello? Anybody home? Looks like something's missing "
-                + "here!\nUse the format: deadline {description} /by {date} /priority {priority}";
+                + "here!\nUse the format: deadline {description} /by {MMM dd yyyy HH:mm} /priority {priority}";
     }
 
     /**
@@ -239,7 +239,7 @@ public class Ui {
     public static String getEventExceptionNoDescription() {
         return "Great Scott! You can't add an event without a description "
                 + "and from and to date!\nUse the format: "
-                + "event {description} /from {date} /to {date} /priority {priority}";
+                + "event {description} /from {MMM dd yyyy HH:mm} /to {MMM dd yyyy HH:mm} /priority {priority}";
     }
 
     /**
@@ -250,7 +250,7 @@ public class Ui {
     public static String getEventExceptionNoDate() {
         return "Looks like your Uncle Joey didn't make parole again... "
                 + "and you missed the date! Let's fix that event!\nUse the format: "
-                + "event {description} /from {date} /to {date} /priority {priority}";
+                + "event {description} /from {MMM dd yyyy HH:mm} /to {MMM dd yyyy HH:mm} /priority {priority}";
     }
 
     /**
