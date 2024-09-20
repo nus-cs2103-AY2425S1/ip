@@ -14,17 +14,17 @@ import hoshi.ui.Ui;
 import hoshi.utils.Storage;
 
 /**
- * AddCommand where the logic for adding a task is handled
+ * AddCommand where the logic for adding a task is handled.
  */
 public class AddCommand implements Command {
 
     /**
-     * stores the constant value 2 for description index
+     * stores the constant value 2 for description index.
      */
     private static final int DESCRIPTION_INDEX = 2;
 
     /**
-     * Stores the user input after splitting by empty space
+     * Stores the user input after splitting by empty space.
      */
     private final String[] splitInput;
 
@@ -66,9 +66,9 @@ public class AddCommand implements Command {
      *
      * @param task     String that represents general user input before add task details are required.
      * @param tasks    TaskList of 3 types of tasks that will be added to in this method.
-     * @param storage  Storage that handles all input output of Hoshi
-     * @param ui       Ui responsible for displaying text to the user
-     * @param desc     Description of the task to be added
+     * @param storage  Storage that handles all input output of Hoshi.
+     * @param ui       Ui responsible for displaying text to the user.
+     * @param desc     Description of the task to be added.
      */
     private String handleAddTask(Task task, TaskList tasks, Ui ui, Storage storage, String desc) {
         tasks.add(task);
@@ -80,9 +80,9 @@ public class AddCommand implements Command {
      * Adds a deadline to the taskList
      *
      * @param taskList   TaskList of 3 types of tasks that will be added to in this method.
-     * @param ui         Ui responsible for displaying text to the user
+     * @param ui         Ui responsible for displaying text to the user.
      * @param splitInput String that represents general user input before add task details are required.
-     * @param desc       Description of the task to be added
+     * @param desc       Description of the task to be added.
      */
     private String handleAddDeadline(TaskList taskList, Ui ui, Storage storage, String[] splitInput, String desc) {
         try {
@@ -102,9 +102,9 @@ public class AddCommand implements Command {
      * Adds an event to the taskList
      *
      * @param taskList   TaskList of 3 types of tasks that will be added to in this method.
-     * @param ui         Ui responsible for displaying text to the user
+     * @param ui         Ui responsible for displaying text to the user.
      * @param splitInput String that represents general user input before add task details are required.
-     * @param desc       Description of the task to be added
+     * @param desc       Description of the task to be added.
      */
     private String handleAddEvent(TaskList taskList, Ui ui, Storage storage, String[] splitInput, String desc) {
         try {
@@ -121,10 +121,10 @@ public class AddCommand implements Command {
     }
 
     /**
-     * Gets the description from the splitInput for use in handleAdd
+     * Gets the description from the splitInput for use in handleAdd.
      *
-     * @param splitInput list where each element represents a word in the split input
-     * @param taskType the string indicating what task to get the description for
+     * @param splitInput list where each element represents a word in the split input.
+     * @param taskType the string indicating what task to get the description for.
      */
     private String getDescription(String[] splitInput, String taskType) throws HoshiException {
         try {
@@ -133,28 +133,22 @@ public class AddCommand implements Command {
 
             switch (taskType) {
             case "todo":
-                //Solution below adapted from https://www.geeksforgeeks.org/java-util-arrays-copyofrange-java/
-                // Concatenate elements from index 2 onwards
-                desc = String.join(" ", Arrays.copyOfRange(splitInput,
-                        DESCRIPTION_INDEX, splitInputLength));
+
+                desc = processDescription(splitInput, DESCRIPTION_INDEX, splitInputLength);
                 break;
             case "deadline":
                 if (splitInputLength - 1 == DESCRIPTION_INDEX) {
                     throw new HoshiException("Hoshi doesn't understand! Try YYYY-MM-DD format for the deadline.");
                 }
-                //Solution below adapted from https://www.geeksforgeeks.org/java-util-arrays-copyofrange-java/
-                // Concatenate elements from index 2 to the 2nd last element hence - 1
-                desc = String.join(" ", Arrays.copyOfRange(splitInput,
-                        DESCRIPTION_INDEX, splitInputLength - 1));
+
+                desc = processDescription(splitInput, DESCRIPTION_INDEX, splitInputLength - 1);
                 break;
             case "event":
                 if (splitInputLength - 1 == DESCRIPTION_INDEX) {
                     throw new HoshiException("Hoshi doesn't understand! Try YYYY-MM-DD format for the event.");
                 }
-                //Solution below adapted from https://www.geeksforgeeks.org/java-util-arrays-copyofrange-java/
-                // Concatenate elements from index 2 to the 3rd element hence -2
-                desc = String.join(" ", Arrays.copyOfRange(splitInput,
-                        DESCRIPTION_INDEX, splitInputLength - 2));
+
+                desc = processDescription(splitInput, DESCRIPTION_INDEX, splitInputLength - 2);
                 break;
             default:
                 throw new HoshiException("Hoshi doesn't understand! Unknown task type.");
@@ -166,6 +160,19 @@ public class AddCommand implements Command {
         } catch (IllegalArgumentException e) {
             throw new HoshiException("Hoshi doesn't understand! The task description is empty.");
         }
+    }
+
+    /**
+     * Gets the description from the splitInput for use in handleAdd.
+     *
+     * @param splitInput list where each element represents a word in the split input.
+     * @param startIndex the index indicating where to start the description from.
+     * @param endIndex the index indicating where to end the description.
+     */
+    private String processDescription(String[] splitInput, int startIndex, int endIndex) {
+        //Solution below adapted from https://www.geeksforgeeks.org/java-util-arrays-copyofrange-java/
+        // Concatenate elements from index 2 to the 3rd element hence -2
+        return String.join(" ", Arrays.copyOfRange(splitInput, startIndex, endIndex));
     }
 
 }
