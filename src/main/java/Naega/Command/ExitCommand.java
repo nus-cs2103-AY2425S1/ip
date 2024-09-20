@@ -20,7 +20,7 @@ public class ExitCommand extends Command {
      * @return a string message showing a farewell message and separator lines
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage)  {
         storage.save(tasks.getTasks());  // Save tasks to storage
 
         return ui.showLine() + "\nBye. Hope to see you again soon!\n" + ui.showLine();  // Return the message with lines
