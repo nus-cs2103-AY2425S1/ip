@@ -184,7 +184,8 @@ public class Ui {
         String invalidCommandStr = " OOPS!!! I'm sowwy, but I don't know what that means :-(\n\n"
                 + " I can help you add tasks with \"todo\", \"deadline\", \"event\"\n"
                 + " I can also keep track of all your tasks with \"list\"\n"
-                + " If you wanna update certain tasks, use \"mark\" or \"unmark\" and then its number";
+                + " If you wanna update certain tasks, use \"mark\" or \"unmark\" and then its number\n\n"
+                + " Do type \"help\" for more details on the whole list of commands ^^;";
         if (Launcher.IS_GUI) {
             Launcher.out.addOutput(invalidCommandStr);
             Launcher.out.print();

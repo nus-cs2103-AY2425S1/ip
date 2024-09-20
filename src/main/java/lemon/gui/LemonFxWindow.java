@@ -24,8 +24,8 @@ public class LemonFxWindow extends AnchorPane {
 
     private Lemon lemon;
 
-    private Image lemonImage = new Image(this.getClass().getResourceAsStream("/images/Lemon.jpg"));
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User1.png"));
+    private Image lemonImage = new Image(this.getClass().getResourceAsStream("/images/Lemonww.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User1.jpg"));
 
     @FXML
     public void initialize() {
@@ -45,7 +45,7 @@ public class LemonFxWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         dialogContainer.getChildren().add(
-                DialogBox.getUserDialog(input, userImage)
+                DialogBox.getUserDialog(input + " ", userImage)
         );
         userInput.clear();
 

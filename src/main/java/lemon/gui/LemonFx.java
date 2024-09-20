@@ -24,7 +24,7 @@ public class LemonFx extends Application {
 
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            stage.setTitle("Lemon Chatbot");
+            stage.setTitle("Lemon Chatbot ");
             fxmlLoader.<LemonFxWindow>getController().setLemon(lemon); // inject the Lemon instance
             stage.show();
 
