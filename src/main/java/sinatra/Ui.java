@@ -178,6 +178,15 @@ public class Ui {
         output.add(UNEXPECTED_ERROR_MESSAGE + e.getMessage());
     }
 
+    public void cacheTaskNotFoundExceptionMessage() {
+        output.add("Task not found.");
+    }
+
+    public void cacheInvalidTaskNumberExceptionMessage() {
+        output.add("Invalid task number.");
+    }
+
+
     /**
      * Returns the output list.
      *

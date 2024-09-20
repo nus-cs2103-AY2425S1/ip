@@ -2,6 +2,7 @@ package sinatra;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Represents a Deadline task which extends the Task class.
@@ -22,7 +23,11 @@ public class Deadline extends Task {
         super(content, status);
         this.dateTimeString = dateTimeString;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        this.dateTime = LocalDateTime.parse(dateTimeString, formatter);
+        try {
+            this.dateTime = LocalDateTime.parse(dateTimeString, formatter);
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Invalid date-time format. Please use d/M/yyyy HHmm.");
+        }
     }
 
     /**

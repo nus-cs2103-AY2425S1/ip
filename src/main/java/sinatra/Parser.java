@@ -213,10 +213,17 @@ public class Parser {
     }
 
     private void handleDelete(String commandContents) {
-        Task deleteTask = tasks.get(Integer.parseInt(commandContents) - 1);
-        deleteTask.deleteFromStorage(FILE_PATH, Integer.parseInt(commandContents) - 1);
-        tasks.remove(deleteTask);
-        ui.cacheDeleteMessage(deleteTask, tasks.size());
+        try {
+            int taskIndex = Integer.parseInt(commandContents) - 1;
+            Task deleteTask = tasks.get(taskIndex);
+            deleteTask.deleteFromStorage(FILE_PATH, taskIndex);
+            tasks.remove(deleteTask);
+            ui.cacheDeleteMessage(deleteTask, tasks.size());
+        } catch (IndexOutOfBoundsException e) {
+            ui.cacheTaskNotFoundExceptionMessage();
+        } catch (NumberFormatException e) {
+            ui.cacheInvalidTaskNumberExceptionMessage();
+        }
     }
 
     private void handleFind(String commandContents) {
