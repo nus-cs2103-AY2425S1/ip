@@ -63,6 +63,9 @@ Adds an event task to the task list.
 - `START` is the start time of the event task.
 - `END` is the end time of the event task.
 
+>[!NOTE] Entering new events with clashing time periods with existing events will produce a warning and new event will
+> not be added.
+
 **Example:** `event birthday party /from 2024-09-09 17:00 /to 2024-09-09 22:00`
 
 - Adds an event task with description 'birthday party' from 9 September 2024 5:00 PM to 9 September 2024 10:00 PM
@@ -179,12 +182,12 @@ application.
 Assistinator data is automatically saved as a txt file `[JAR file location]/data/assistinator.txt`.
 Advanced users are welcome to update data directly by editing that data file.
 
-> **CAUTION**
+> [!CAUTION]
 > Editing the data file directly with invalid formats may cause Assistinator to behave unexpectedly.
 >Assistinator will only load the lines of data that are in the correct format. Data with incorrect format will be
-discarded when you exit the app.
+>discarded when you exit the app.
 
-### Command summary
+### Command Summary
 
 | Action   | Format, Examples                                                                                                  |
 |----------|-------------------------------------------------------------------------------------------------------------------|
