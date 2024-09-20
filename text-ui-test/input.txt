@@ -1,0 +1,14 @@
+add todo
+Feed Parrot
+list
+mark 1
+mark 2
+list
+unmark 1
+delete 1
+add deadline
+ASG1
+22nd August
+list
+invalid inputttt
+bye
