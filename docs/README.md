@@ -201,4 +201,4 @@ ZBot data are saved in the hard disk automatically after any command that change
 
 ## Known issues
 
-1. using comma `,` in task description and note. As the tasks data are stored with `,` delimiter, using `,` in task description or note will cause subsequent text to be lost or parsed as a note upon relaunching of app. As solving the problem requires the non-trivial task of reformating existing storage data, users are advised againsts using `,` in task description of notes. Instead, keep task description short and include further information by utilising the `note` feature.
+1. Using comma `,` in task description and note. As the tasks data are stored with `,` delimiter, using `,` in task description or note will cause subsequent text to be lost or parsed as a note upon relaunching of app. As solving the problem requires the non-trivial task of reformating existing storage data, users are advised againsts using `,` in task description of notes until future releases. Instead, keep task description short and include further information by utilising the `note` feature.
