@@ -29,8 +29,8 @@ public class Michael extends Application {
         storage = new Storage(PATH);
 
         try {
-            tasks = new TaskList(storage.load());
-            parser = new Parser(tasks);
+            tasks = storage.load();
+            parser = new Parser(tasks, storage);
         } catch (IOException e) {
             ui.showLoadingError("Can't load tasks!");
             tasks = new TaskList();
@@ -50,27 +50,13 @@ public class Michael extends Application {
 
         // Read user's input
         while (true) {
-            String input = user.nextLine().strip();
-
-            if (input.equals("bye")) { // special bye command to exit
-                break;
-            }
-
             try {
+                String input = user.nextLine().strip();
                 String feedback = parser.parse(input);
                 ui.giveFeedback(feedback);
             } catch (MichaelException e) {
                 ui.showLoadingError(e.getMessage());
             }
-        }
-
-        try {
-            storage.save();
-        } catch (IOException e) {
-            ui.giveFeedback("Couldn't save tasks!");
-        } finally {
-            // Exit
-            ui.giveFeedback("Bye. Hope to see you again soon!");
         }
     }
 
@@ -90,9 +76,5 @@ public class Michael extends Application {
 
     public Parser getParser() {
         return this.parser;
-    }
-
-    public Ui getUi() {
-        return this.ui;
     }
 }
