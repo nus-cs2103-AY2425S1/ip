@@ -1,8 +1,5 @@
 package fred;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-
 /**
  * The Ui class handles all user interactions, including printing messages
  * to the console and receiving user input. It is responsible for greeting the user,

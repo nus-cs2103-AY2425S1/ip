@@ -111,7 +111,6 @@ public class Parser {
             throw new InvalidTaskNumberException();
         }
         int taskNumber = getTaskNumber(inputParts[1]);
-        System.out.println(taskNumber);
         return new Action(command, taskNumber);
     }
 

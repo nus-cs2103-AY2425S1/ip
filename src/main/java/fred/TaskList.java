@@ -66,7 +66,6 @@ public class TaskList {
      */
     Task markTaskAsDone(int taskNumber) throws FredException {
         try {
-            System.out.println(taskNumber);
             Task task = tasks.get(taskNumber);
             task.markAsDone();
             return task;
