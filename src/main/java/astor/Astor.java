@@ -1,6 +1,8 @@
 package astor;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
+import java.util.zip.DataFormatException;
 
 import astor.command.Command;
 import astor.exception.AstorException;
@@ -68,10 +70,10 @@ public class Astor {
         try {
             Command c = Parser.process(input);
             output = c.execute(taskList, ui, storage);
-        } catch (AstorException e) {
+        } catch (AstorException | DateTimeParseException e) {
             output = e.getMessage();
         } catch (IOException e) {
-            output = "An error occurred while writing to the file.";
+            output = "An error occurred while writing to the file555.";
         }
         return output;
     }

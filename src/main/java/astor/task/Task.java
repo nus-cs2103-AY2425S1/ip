@@ -1,5 +1,10 @@
 package astor.task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
+import astor.exception.TimeFormatException;
+
 /**
  * Represents a generic task with a description and status.
  *
@@ -65,8 +70,11 @@ public class Task {
      * @param deadline a string representing the deadline in "dd/MM/yyyy HHmm" format
      * @return the deadline in ISO-8601 format (yyyy-MM-ddTHH:mm:ss)
      */
-    public static String generateParse(String deadline) {
-        String[] dateAndTime = deadline.trim().split("\\s+|/");
+    public static String generateParse(String deadline) throws TimeFormatException {
+        String[] dateAndTime = deadline.trim().split("\\s+|/|-");
+        if (dateAndTime.length < 3) {
+            throw new TimeFormatException();
+        }
         String parsedDate = dateAndTime[2] + "-" + dateAndTime[1] + "-" + dateAndTime[0];
 
         if (dateAndTime.length > 3) {
@@ -78,6 +86,19 @@ public class Task {
         }
         return parsedDate;
     }
+
+    /*
+    public static LocalDateTime generateLocalDateTime(String deadline) {
+        String parse = Task.generateParse(deadline);
+        try {
+            return LocalDateTime.parse(parse);
+        } catch (DateTimeParseException e) {
+
+        }
+
+    }
+
+     */
 
     /**
      * Returns a string description of the task data for saving or processing.
