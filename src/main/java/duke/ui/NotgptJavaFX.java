@@ -69,6 +69,8 @@ public class NotgptJavaFX extends Application {
      */
     @Override
     public void start(Stage primaryStage) {
+
+
         // Set Application icon
         primaryStage.setTitle("Notgpt");
         Image icon = new Image(getClass().getResourceAsStream("/icon.png"));
@@ -76,7 +78,7 @@ public class NotgptJavaFX extends Application {
 
         // Load avatar images
         userAvatar = new Image(getClass().getResourceAsStream("/user_avatar.png"));
-        botAvatar = new Image(getClass().getResourceAsStream("/bot_avatar2.jpg"));
+        botAvatar = new Image(getClass().getResourceAsStream("/bot_avatar.jpg"));
         assert userAvatar != null : "there is no user image";
         assert botAvatar != null : "there is no bot image";
 
@@ -116,6 +118,7 @@ public class NotgptJavaFX extends Application {
         // Set up the scene
         Scene scene = new Scene(vBoxRoot, 500, 800);
         primaryStage.setScene(scene);
+        scene.getStylesheets().add("css/ScrollbarStyle.css");
 
         // Event handling
         sendButton.setOnAction(e -> sendMessage());
