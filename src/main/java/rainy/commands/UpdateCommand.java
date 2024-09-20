@@ -2,6 +2,7 @@ package rainy.commands;
 
 import rainy.rainyexceptions.InvalidDeadlineParametersException;
 import rainy.rainyexceptions.InvalidEventParametersException;
+import rainy.rainyexceptions.InvalidIndexException;
 import rainy.tasks.Deadline;
 import rainy.tasks.Event;
 import rainy.tasks.TaskTracker;
@@ -13,6 +14,8 @@ public class UpdateCommand extends Command {
     protected int validResponse;
     protected TaskTracker taskTracker;
     protected String[] updateParameters;
+    private static final int INVALID_RESPONSE = -1;
+    private static final char ERROR_OUTPUT = '`';
 
     /**
      * Constructs a new <code>UpdateCommand</code>
@@ -27,7 +30,12 @@ public class UpdateCommand extends Command {
         this.updateParameters = updateParameters;
     }
 
-    public TaskTracker getResponse() throws InvalidDeadlineParametersException, InvalidEventParametersException {
+    public TaskTracker getResponse() throws InvalidDeadlineParametersException, InvalidEventParametersException,
+            InvalidIndexException {
+        if (validResponse == INVALID_RESPONSE || validResponse > taskTracker.getList().size()) {
+            System.out.println(ui.invalidTask() + ERROR_OUTPUT);
+            throw new InvalidIndexException(ui.invalidTask());
+        }
         if (taskTracker.getList().get(validResponse - 1) instanceof Deadline) {
             UpdateDeadline updateDeadline = new UpdateDeadline(validResponse, this.taskTracker, updateParameters);
             this.taskTracker = updateDeadline.getResponse();

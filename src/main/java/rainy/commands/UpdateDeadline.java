@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.stream.Stream;
 
 import rainy.rainyexceptions.InvalidDeadlineParametersException;
+import rainy.rainyexceptions.InvalidIndexException;
 import rainy.tasks.TaskTracker;
 
 /**
@@ -30,7 +31,7 @@ public class UpdateDeadline extends UpdateCommand {
         super(validResponse, taskTracker, updateParameters);
     }
 
-    public TaskTracker getResponse() throws InvalidDeadlineParametersException {
+    public TaskTracker getResponse() throws InvalidDeadlineParametersException, InvalidIndexException {
         Stream<String> updateParametersStream = Arrays.stream(updateParameters);
         try {
             this.taskTracker = this.processDeadlineParameters(updateParametersStream);
@@ -62,7 +63,7 @@ public class UpdateDeadline extends UpdateCommand {
                 LocalDate.parse(endDate.substring(START_INDEX, END_DATE_INDEX));
                 taskHolder[START_INDEX].updateDeadlineDate(validResponse - 1, endDate);
             } else {
-                this.ui.invalidDeadlineParameter();
+                LocalDate.parse(x);
             }
         });
         return taskHolder[START_INDEX];

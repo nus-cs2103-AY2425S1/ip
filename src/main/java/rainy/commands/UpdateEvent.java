@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.stream.Stream;
 
 import rainy.rainyexceptions.InvalidEventParametersException;
+import rainy.rainyexceptions.InvalidIndexException;
 import rainy.tasks.TaskTracker;
 
 /**
@@ -25,18 +26,18 @@ public class UpdateEvent extends UpdateCommand {
     private static final int DAY_END = 7;
     private static final int TIMEFRAME_START = 5;
     private static final int TIMEFRAME_END = 17;
-
+    private static final char ERROR_OUTPUT = '`';
 
     public UpdateEvent(int validResponse, TaskTracker taskTracker, String[] updateParameters) {
         super(validResponse, taskTracker, updateParameters);
     }
 
-    public TaskTracker getResponse() throws InvalidEventParametersException {
+    public TaskTracker getResponse() throws InvalidEventParametersException, InvalidIndexException {
         Stream<String> updateParametersStream = Arrays.stream(updateParameters);
         try {
             this.taskTracker = this.processEventParameters(updateParametersStream);
         } catch (Exception e) {
-            System.out.println(ui.invalidEventDate() + END_OF_OUTPUT);
+            System.out.println(ui.invalidEventDate() + ERROR_OUTPUT);
             throw new InvalidEventParametersException(ui.invalidEventDate());
         }
         this.ui.taskHasBeenUpdated();
@@ -65,7 +66,7 @@ public class UpdateEvent extends UpdateCommand {
                 String timeframe = x.substring(TIMEFRAME_START, TIMEFRAME_END);
                 taskHolder[START_INDEX].updateEventTime(validResponse - 1, timeframe);
             } else {
-                this.ui.invalidEventParameter();
+                LocalDate.parse(x);
             }
         });
         return taskHolder[START_INDEX];
