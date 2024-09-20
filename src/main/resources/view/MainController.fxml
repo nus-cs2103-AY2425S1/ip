@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="960.0" styleClass="root" stylesheets="@../styles/mainController.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="terminator.controller.MainController">
+   <children>
+      <TextField fx:id="userInput" layoutX="200.0" layoutY="374.0" onAction="#handleUserInput" promptText="Type here..." styleClass="userInput" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <AnchorPane fx:id="titleBar" layoutX="38.0" maxHeight="100.0" minHeight="100.0" minWidth="200.0" prefHeight="100.0" prefWidth="509.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label fx:id="appTitle" alignment="CENTER" text="Terminator V1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <graphic>
+                  <ImageView fx:id="titleImage" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/terminator.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Label>
+            <MenuButton fx:id="optionsButton" layoutX="391.0" layoutY="7.0" mnemonicParsing="false" text="..." AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="16.0">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#showHelpMessage" text="Help" />
+              </items>
+            </MenuButton>
+         </children>
+      </AnchorPane>
+      <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" layoutY="76.0" prefHeight="200.0" prefWidth="600.0" styleClass="scrollPane" vvalue="1.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+         <content>
+            <VBox fx:id="dialogContainer" fillWidth="false" prefHeight="200.0" prefWidth="100.0" styleClass="dialogContainer" />
+         </content>
+      </ScrollPane>
+   </children>
+   <padding>
+      <Insets bottom="16.0" left="16.0" right="16.0" top="8.0" />
+   </padding>
+</AnchorPane>
