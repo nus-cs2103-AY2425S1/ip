@@ -42,8 +42,6 @@ public class Parser {
         return to;
     }
 
-
-
     public int getIndex() {
         return index;
     }
@@ -51,14 +49,13 @@ public class Parser {
     /**
      * Parses the command given and updates the class variable.
      *
-     * @param line Is the command.
+     * @param line Command from user.
      * @throws LukeException When parsing an invalid command.
      */
     public void parse(String line) throws LukeException {
         String[] tokens = line.split(" ");
         parseCommand(tokens);
         switch (command) {
-        case list, bye -> { }
         case find -> this.description = tokens[1].trim();
         case note, todo -> description = line.substring(4).trim();
         case mark, unmark, delete -> parseIndex(tokens);
@@ -69,7 +66,7 @@ public class Parser {
     }
 
     /**
-     * Parse DeadLine task to retrieve description and by date.
+     * Parses DeadLine task to retrieve description and by date.
      *
      * @param input Is the instruction without the command keyword.
      * @throws LukeException When instruction format is invalid.
@@ -81,7 +78,7 @@ public class Parser {
     }
 
     /**
-     * Parse Event task to retrieve description, from and to dates.
+     * Parses Event task to retrieve description, from and to dates.
      *
      * @param input Is the instruction without the command keyword.
      * @throws LukeException When instruction format is invalid.
@@ -94,7 +91,12 @@ public class Parser {
         to = parseDate(input, toIndex + 4);
     }
 
-    private void parseCommand(String[] tokens) throws LukeException {
+    /**
+     * Parses the command keyword from user command.
+     *
+     * @param tokens User command split by space.
+     */
+    private void parseCommand(String[] tokens) {
         try {
             this.command = Command.valueOf(tokens[0].trim());
         } catch (IllegalArgumentException e) {
@@ -102,10 +104,23 @@ public class Parser {
         }
     }
 
-    private String parseDescription(String input, int beginIndex) {
-        return input.substring(0, beginIndex).trim();
+    /**
+     * Returns the description from user command.
+     *
+     * @param input The user command.
+     * @param endIndex The end index of the description.
+     * @return The description from user command.
+     */
+    private String parseDescription(String input, int endIndex) {
+        return input.substring(0, endIndex).trim();
     }
 
+    /**
+     * Parses the user input index.
+     *
+     * @param tokens User command split by space.
+     * @throws LukeException When parsing the index fails.
+     */
     private void parseIndex(String[] tokens) throws LukeException {
         try {
             this.index = Integer.parseInt(tokens[1].trim());
@@ -114,6 +129,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns a String representation of user input date in MMM dd yyyy format.
+     *
+     * @param input User command.
+     * @param beginIndex Beginning index of date.
+     * @return LocalDate in MMM dd yyyy date format in String.
+     * @throws LukeException When parsing date fails.
+     */
     private String parseDate(String input, int beginIndex) throws LukeException {
         try {
             return DateTime
@@ -124,6 +147,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns a String representation of user input date in MMM dd yyyy format.
+     *
+     * @param input User command.
+     * @param beginIndex Beginning index of date.
+     * @param endIndex End index of date.
+     * @return LocalDate in MMM dd yyyy date format in String.
+     * @throws LukeException When parsing date fails.
+     */
     private String parseDate(String input, int beginIndex, int endIndex) throws LukeException {
         try {
             return DateTime
@@ -134,6 +166,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns an index of the start of token.
+     *
+     * @param input User command.
+     * @param token Token to find in user command.
+     * @return An index of the start of token.
+     * @throws LukeException When token is missing or malformed.
+     */
     private int getIndexOfToken(String input, String token) throws LukeException {
         int index = input.indexOf(token);
         if (index == -1) {

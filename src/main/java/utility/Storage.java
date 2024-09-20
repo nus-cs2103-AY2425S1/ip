@@ -22,6 +22,7 @@ public class Storage {
 
     /**
      * Creates an instance of a Storage object.
+     *
      * @param storagePath Where data is stored.
      */
     public Storage(String storagePath) {
@@ -31,6 +32,7 @@ public class Storage {
 
     /**
      * Saves a list of tasks to local hard disk.
+     *
      * @param tasks Is tasks to be saved.
      * @throws IOException When save fails.
      */
@@ -60,7 +62,8 @@ public class Storage {
     }
 
     /**
-     * Loads saved tasks from local hard disk.
+     * Returns a list of saved tasks from local hard disk.
+     *
      * @return A list of tasks.
      * @throws IOException When load fails.
      */

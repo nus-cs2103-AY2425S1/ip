@@ -57,7 +57,7 @@ public class TaskList {
     /**
      * Marks a Task as complete.
      *
-     * @param index Is the index of the task.
+     * @param index Index of the task.
      * @return The instance of the task that is marked.
      */
     public Task markTask(int index) {
@@ -71,7 +71,8 @@ public class TaskList {
 
     /**
      * Unmarks a Task as incomplete.
-     * @param index Is the index of the task.
+     *
+     * @param index Index of the task.
      * @return The instance of the task that is unmarked.
      */
     public Task unMarkTask(int index) {
@@ -85,8 +86,9 @@ public class TaskList {
 
     /**
      * Removes a Task from the list of existing tasks.
-     * @param index Is the index of the Task.
-     * @return A Task of corresponding index.
+     *
+     * @param index Index of the Task.
+     * @return An instance of the task that is deleted.
      */
     public Task deleteTask(int index) {
         if (index >= tasks.size() || index < 0) {
@@ -99,6 +101,7 @@ public class TaskList {
 
     /**
      * Saves the tasks to local hard disk.
+     *
      * @param storage Where tasks are stored.
      * @throws IOException When storage fails.
      */

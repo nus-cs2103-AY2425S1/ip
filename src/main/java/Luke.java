@@ -24,7 +24,7 @@ public class Luke {
     /**
      * Returns an instance of Luke object.
      *
-     * @param filePath Where data is stored.
+     * @param filePath Data stored path.
      * @throws IOException If filePath direct to a non *.txt file.
      */
     public Luke(String filePath) throws IOException {
@@ -35,7 +35,7 @@ public class Luke {
     }
 
     /**
-     * A greeting text to user.
+     * Returns greeting text.
      *
      * @return Greeting text.
      */
@@ -44,7 +44,7 @@ public class Luke {
     }
 
     /**
-     * Handle user input by parsing it into computable command.
+     * Handles user input by parsing it into computable command and compute them accordingly.
      *
      * @param input From user.
      * @return String of computed reply based on input.
@@ -130,6 +130,12 @@ public class Luke {
         }
     }
 
+    /**
+     * Returns Luke reply corresponding to user input.
+     *
+     * @param input User input.
+     * @return Luke reply message.
+     */
     public String getResponse(String input) {
         try {
             return handleUserInput(input);

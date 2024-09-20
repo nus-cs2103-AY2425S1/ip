@@ -9,10 +9,10 @@ public class DeadLine extends Task {
     private final String byDate;
 
     /**
-     * Creates a DeadLine object instance.
+     * Returns a DeadLine object.
      *
-     * @param description Is the description of the task.
-     * @param byDate Is the deadline date.
+     * @param description Description of the task.
+     * @param byDate Deadline date.
      */
     public DeadLine(String description, String byDate) {
         super(description);
@@ -20,11 +20,11 @@ public class DeadLine extends Task {
     }
 
     /**
-     * Creates a DeadLine object instance
+     * Returns a DeadLine object.
      *
-     * @param description Is the description of the task.
-     * @param byDate Is the deadline date.
-     * @param completed Is a flag to indicate if the task is completed.
+     * @param description Description of the task.
+     * @param byDate Deadline date.
+     * @param completed Completion state of Deadline object.
      */
     public DeadLine(String description, String byDate, boolean completed) {
         super(description, completed);
@@ -35,6 +35,9 @@ public class DeadLine extends Task {
         return byDate;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getSaveFormat() {
         return String.format(
@@ -45,6 +48,9 @@ public class DeadLine extends Task {
         );
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return String.format(
@@ -56,9 +62,9 @@ public class DeadLine extends Task {
     }
 
     /**
-     * Loads deadline from a persistent storage.
+     * Returns deadline object from a persistent storage.
      *
-     * @param input Is the way deadline object is stored as string in storage.
+     * @param input String representation of DeadLine object from save file.
      * @return An instance of DeadLine class.
      */
     public static DeadLine load(String input) {
@@ -73,6 +79,9 @@ public class DeadLine extends Task {
         );
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -88,6 +97,9 @@ public class DeadLine extends Task {
         return Objects.equals(byDate, deadLine.byDate);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), byDate);

@@ -10,10 +10,11 @@ public class DateTime {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     /**
-     * Parses a date string to LocalDate instance.
-     * @param dateString Is a String representation of a date.
-     * @return LocalDate instance of date string.
-     * @throws DateTimeParseException When date string format is invalid.
+     * Returns a LocalDate instance from dateString.
+     *
+     * @param dateString String representation of a date.
+     * @return LocalDate instance of dateString.
+     * @throws DateTimeParseException Invalid date format.
      */
     public static LocalDate parseDate(String dateString) throws DateTimeParseException {
         return LocalDate.parse(dateString, formatter);

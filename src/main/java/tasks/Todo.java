@@ -23,6 +23,9 @@ public class Todo extends Task {
         super(line, completed);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getSaveFormat() {
         return String.format(
@@ -32,6 +35,9 @@ public class Todo extends Task {
         );
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return String.format(

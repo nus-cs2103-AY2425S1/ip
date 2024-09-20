@@ -12,10 +12,18 @@ import javafx.stage.Stage;
 public class Main extends Application {
     private Luke luke = new Luke("./data/Luke.txt");
 
+    /**
+     * Returns an instance of Mainl
+     *
+     * @throws IOException When file path cannot be used.
+     */
     public Main() throws IOException {
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void start(Stage stage) {
         try {

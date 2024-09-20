@@ -10,11 +10,11 @@ public class Event extends Task {
     private final String to;
 
     /**
-     * Creates an event object.
+     * Returns an event object.
      *
-     * @param description Is the description of the event.
-     * @param from Is the start date.
-     * @param to Is the final date.
+     * @param description Description of the event.
+     * @param from Start date.
+     * @param to End date.
      */
     public Event(String description, String from, String to) {
         super(description);
@@ -23,12 +23,12 @@ public class Event extends Task {
     }
 
     /**
-     * Creates an event object.
+     * Returns an event object.
      *
-     * @param description Is the description of the event.
-     * @param from Is the start date.
-     * @param to Is the final date.
-     * @param completed Is a flag to indicate if completed.
+     * @param description Description of the event.
+     * @param from Start date.
+     * @param to End date.
+     * @param completed Completion state of Event object.
      */
     public Event(String description, String from, String to, boolean completed) {
         super(description, completed);
@@ -36,6 +36,9 @@ public class Event extends Task {
         this.to = to;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getSaveFormat() {
         return String.format(
@@ -47,6 +50,9 @@ public class Event extends Task {
         );
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return String.format(
@@ -59,9 +65,9 @@ public class Event extends Task {
     }
 
     /**
-     * Loads an event object from storage.
+     * Returns an event object from storage.
      *
-     * @param input Is the event object as string in storage.
+     * @param input String representation of Event object from save file.
      * @return An event object.
      */
     public static Event load(String input) {
@@ -78,6 +84,9 @@ public class Event extends Task {
         );
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -93,6 +102,9 @@ public class Event extends Task {
         return Objects.equals(from, event.from) && Objects.equals(to, event.to);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), from, to);

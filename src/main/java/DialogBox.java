@@ -23,10 +23,10 @@ public class DialogBox extends HBox {
     private ImageView displayPicture;
 
     /**
-     * Constructor for DialogBox class.
+     * Creates an instance of DialogBox.
      *
-     * @param s Is the text user sent.
-     * @param i Is the user's photo.
+     * @param s String input.
+     * @param i Image.
      */
     public DialogBox(String s, Image i) {
         try {
@@ -51,10 +51,24 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Returns a user dialog.
+     *
+     * @param s User input.
+     * @param i User image.
+     * @return DialogBox object representing user dialog.
+     */
     public static DialogBox getUserDialog(String s, Image i) {
         return new DialogBox(s, i);
     }
 
+    /**
+     * Returns Luke dialog.
+     *
+     * @param s Luke output.
+     * @param i Luke image.
+     * @return DialogBox object representing Luke dialog.
+     */
     public static DialogBox getLukeDialog(String s, Image i) {
         var db = new DialogBox(s, i);
         db.flip();

@@ -8,12 +8,12 @@ import tasks.Task;
 /** A class that display to the user */
 public class Ui {
 
-    /** Creates an instance of Ui object. */
+    /** Returns a Ui object. */
     public Ui() {
     }
 
     /**
-     * Shows greeting dialog when the application starts.
+     * Returns greeting dialog.
      */
     public String greetDialog() {
         return "Yo! I'm Luke.\n"
@@ -21,20 +21,27 @@ public class Ui {
     }
 
     /**
-     * Shows closing dialog when the application ends.
+     * Returns closing dialog.
      */
     public String closeDialog() {
         return "Aight, Cya later.";
     }
 
+    /**
+     * Returns note added dialog.
+     *
+     * @param t Note that is to be added.
+     * @return Note added dialog.
+     */
     public String addNoteDialog(Note t) {
         return String.format("Aight, I've added the note:\n" + t);
     }
 
     /**
-     * Shows a dialog when a task is added.
-     * @param t Is the task that is added.
-     * @param size Is the number of tasks after adding the new task.
+     * Returns task added dialog.
+     *
+     * @param t Task that is added.
+     * @param size The number of tasks left after adding the new task.
      */
     public String addTaskDialog(Task t, int size) {
         return String.format("Got it. I've added this task:\n"
@@ -44,9 +51,10 @@ public class Ui {
     }
 
     /**
-     * Shows a dialog when a task is deleted.
-     * @param t Is the task to be deleted.
-     * @param size Is the number of tasks after deleting the task.
+     * Returns a task deleted dialog.
+     *
+     * @param t Task to be deleted.
+     * @param size The number of tasks left after deleting the task.
      */
     public String deleteTaskDialog(Task t, int size) {
         return String.format("Noted. I've removed this task:\n"
@@ -54,12 +62,18 @@ public class Ui {
                 + "Now you have %d tasks in the list.", t.toString(), size);
     }
 
+    /**
+     * Returns index out of bound error message.
+     *
+     * @param index Index that is out of bound.
+     * @return Index out of bound String error message.
+     */
     public String indexOutOfRangeDialog(int index) {
         return String.format("Dude, %d is out of range yo.", index);
     }
 
     /**
-     * Shows a dialog when listing all the tasks.
+     * Returns a dialog of list of tasks.
      */
     public String listTaskDialog(ArrayList<Task> tasks) {
         String tasksList = "";
@@ -70,25 +84,27 @@ public class Ui {
     }
 
     /**
-     * Shows a dialog after marking a task.
-     * @param t Is the task being marked.
+     * Returns mark task dialog
+     *
+     * @param t Task being marked.
      */
     public String markDialog(Task t) {
         return String.format("Nice! I've marked this task as done:\n" + t);
     }
 
     /**
-     * Shows a dialog after unmarking a task.
-     * @param t Is the task being unmarked.
+     * Returns unmark task dialog.
+     *
+     * @param t Task being unmarked.
      */
     public String unMarkDialog(Task t) {
         return String.format("OK, I've marked this task as not done yet:\n" + t);
     }
 
     /**
-     * Prints the found task.
+     * Returns found task dialog.
      *
-     * @param foundTasks Is the task found.
+     * @param foundTasks Is the list of tasks found.
      */
     public String findDialog(ArrayList<Task> foundTasks) {
         String s = "";
