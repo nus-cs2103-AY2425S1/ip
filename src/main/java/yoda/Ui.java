@@ -35,8 +35,8 @@ public class Ui {
     /**
      * Displays an error message indicating a problem with loading the UI.
      */
-    public void showLoadingError() {
-        String message = "Error loading UI";
-        System.out.println("Error loading UI");
+    public void showLoadingError(Exception e) {
+        String message = "Error loading UI" + e.getMessage();
+        System.out.println(message);
     }
 }

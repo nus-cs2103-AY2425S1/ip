@@ -52,7 +52,7 @@ public class EventCommand extends Command {
             message = "Added task:\n" + newTask + "\n"
                     + String.format("Now you have %d tasks in the list", taskList.getLength());
         } catch (DateTimeParseException e) {
-            System.out.println("Dates and times must be in format: yyyy-mm-dd HHmm");
+            return "Dates and times must be in format: yyyy-mm-dd HHmm";
         }
         return message;
     }

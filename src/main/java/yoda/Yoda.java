@@ -27,7 +27,7 @@ public class Yoda {
         try {
             tasks = new TaskList(storage.loadTasks());
         } catch (YodaException e) {
-            ui.showLoadingError();
+            ui.showLoadingError(e);
             tasks = new TaskList();
         }
     }
@@ -41,7 +41,9 @@ public class Yoda {
     public String getResponse(String input) {
         try {
             Command command = parser.handle(input, tasks);
-            return command.run();
+            String response = command.run();
+            storage.saveTasks(tasks.getTasks());
+            return response;
         } catch (YodaException e) {
             return e.getMessage();
         }

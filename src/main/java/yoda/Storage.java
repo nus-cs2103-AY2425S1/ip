@@ -70,6 +70,12 @@ public class Storage {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
             File file = new File(filePath);
+            if (file.getParentFile() != null && !file.getParentFile().exists()) {
+                file.getParentFile().mkdirs();
+            }
+            if (!file.exists()) {
+                file.createNewFile();
+            }
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String input = scanner.nextLine();
@@ -81,7 +87,7 @@ public class Storage {
 
             }
         } catch (Exception e) {
-            throw new YodaException("Encountered error: " + e.getMessage());
+            throw new YodaException(e.getMessage());
         }
         return tasks;
     }
