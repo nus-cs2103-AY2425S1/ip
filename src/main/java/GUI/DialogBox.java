@@ -9,6 +9,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+/**
+ * Represents the dialog box in the GUI.
+ */
 public class DialogBox extends HBox {
 
     private Label text;

@@ -1,6 +1,7 @@
 package Papagu.Ui;
 
 /**
+ * Handles UI interactions with the user.
  * The Ui class contains methods to print messages to the user.
  */
 public class Ui {

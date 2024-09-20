@@ -12,6 +12,7 @@ import java.util.Scanner;
  */
 public class Parser {
     /**
+     * Returns int representation of month
      * Function to help convert month to int format
      * Returns 0 if month is not found
      * @param month

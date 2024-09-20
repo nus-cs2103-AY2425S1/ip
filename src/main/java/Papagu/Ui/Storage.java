@@ -29,7 +29,7 @@ public class Storage {
     }
 
     /**
-     * For remaking the file object each time a new task is created
+     * Remakes the file object each time a new task is created
      */
     public void save() {
         try {
