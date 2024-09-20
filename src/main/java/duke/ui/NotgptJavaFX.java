@@ -163,12 +163,12 @@ public class NotgptJavaFX extends Application {
         avatarView.setFitHeight(90);
         avatarView.setFitWidth(90);
 
-        Circle borderCircle = new Circle (45,45,45);
+        Circle borderCircle = new Circle(45, 45, 45);
         borderCircle.setStroke(Color.WHITE);
         borderCircle.setStrokeWidth(8);
         borderCircle.setFill(Color.TRANSPARENT);
 
-        Circle clip = new Circle(45,45,45);
+        Circle clip = new Circle(45, 45, 45);
         avatarView.setClip(clip);
 
         StackPane stackPane = new StackPane();
