@@ -24,15 +24,29 @@ Carly is an intuitive chatbot designed to help you manage your tasks effortlessl
 
 ---
 ## Features
-| **Feature**          | **Description**                                                                          |
-|----------------------|------------------------------------------------------------------------------------------|
-| **Adding Tasks**     | `todo TASK_DESCRIPTION` for simple tasks.  `deadline TASK_DESCRIPTION /by DATE` for deadlines.  `event TASK_DESCRIPTION /from START_TIME /to END_TIME` for events. |
-| **Finding Tasks**    | `find KEYWORD` to search for specific tasks.                                            |
-| **Marking Tasks**    | `mark INDEX` to mark a task as done.                                                    |
-| **Unmarking Tasks**  | `unmark INDEX` to revert a task to not done.                                           |
-| **Sorting Tasks**    | `sort` to organize tasks by their deadlines.                                            |
-| **Listing Tasks**    | `list` to view all current tasks.                                                       |
-| **Exiting Carly**    | `bye` to end your session.                                                               |
+- **Adding Tasks**
+    - Use `todo TASK_DESCRIPTION` for simple tasks.
+    - Use `deadline TASK_DESCRIPTION /by YYYY-MM-DD` for tasks with deadlines.
+    - Use `event TASK_DESCRIPTION /from START_TIME /to END_TIME` for events.
+
+- **Finding Tasks**
+    - Use `find KEYWORD` to search for specific tasks.
+
+- **Marking Tasks**
+    - Use `mark INDEX` to mark a task as done.
+
+- **Unmarking Tasks**
+    - Use `unmark INDEX` to revert a task to not done.
+
+- **Sorting Tasks**
+    - Use `sort` to organize tasks by their deadlines.
+
+- **Listing Tasks**
+    - Use `list` to view all current tasks.
+
+- **Exiting**
+    - Use `bye` to end your session.
+
 
 
 ---
@@ -56,6 +70,7 @@ You've got 1 task on your plate!
 <br><br>
 ### Adding deadlines
 Set deadlines for your tasks to ensure you stay on track.
+Ensure that the date is in **YYYY-MM-DD** format.
 
 #### Usage
 To add a deadline, use the following command:  
