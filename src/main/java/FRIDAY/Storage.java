@@ -9,7 +9,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * represents the database stored on the computer's hard drive
+ * This class represents the database stored on the computer's hard drive.
+ *
+ * <p>
+ *     This class is responsible for reading and writing from a local database that stores the user's information.
+ * </p>
  */
 public class Storage {
     private String filePath;
@@ -19,10 +23,12 @@ public class Storage {
     }
 
     /**
-     * This method reads the storage file then loads the contents into an ArrayList of tasks, and finally returns the ArrayList
-     * @return ArrayList of Tasks
-     * @throws FRIDAYException exception is thrown when the file type in the storage file is not recognized
-     * @throws FileNotFoundException exception thrown when the storage file is unable to be found
+     * This method reads the storage file then loads the contents into an ArrayList of tasks,
+     * and finally returns the ArrayList.
+     *
+     * @return ArrayList of Tasks.
+     * @throws FRIDAYException If the file type in the storage file is not recognized.
+     * @throws FileNotFoundException If the storage file is unable to be found.
      */
     public ArrayList<Task> load() throws FRIDAYException {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -40,6 +46,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * This method attempts to create a text file to store the task list locally.
+     *
+     * @throws FRIDAYException If the text file or its parent directories are unable to be created.
+     */
     private void createDatabase() throws FRIDAYException {
         File db = new File(this.filePath);
         File dir = new File(db.getParent());
@@ -62,9 +73,12 @@ public class Storage {
     }
 
     /**
-     * method to populate the program storage with data read from the hard drive
+     * method to populate the program storage with data read from the hard drive.
      *
-     * @param data string to represent all the details of the task, including its type and other miscellaneous details
+     * @param data String to represent all the details of the task, including its type and
+     *             other miscellaneous details.
+     * @param storage ArrayList representing the database of tasks.
+     * @throws FRIDAYException If an error occurs while reading from the database.
      */
     private void populateProgramMemory(String data, ArrayList<Task> storage) throws FRIDAYException {
         String[] taskElements = data.split("\\|");
@@ -96,8 +110,9 @@ public class Storage {
     }
 
     /**
-     * This function writes the content of the task list to the storage file
-     * @param taskList List of tasks stored within an ArrayList
+     * This function writes the content of the task list to the storage file.
+     *
+     * @param taskList ArrayList representing a list of tasks.
      */
     public void updateStorage(ArrayList<Task> taskList) {
         try {

@@ -20,7 +20,7 @@ public class TaskList {
      * The initial task list is populated with the tasks from the provided list.
      * </p>
      *
-     * @param list the list of tasks to initialize the TaskList with
+     * @param list ArrayList representing the list of tasks to initialize the TaskList with.
      */
     public TaskList(ArrayList<Task> list) {
         this.taskList = new ArrayList<>();
@@ -32,9 +32,10 @@ public class TaskList {
     }
 
     /**
-     * removes the task from the task list
-     * @param index
-     * @throws FRIDAYException
+     * This method removes the task from the task list.
+     *
+     * @param index An integer representing the index of the task.
+     * @throws FRIDAYException If the index does not match that of any task in the list.
      */
     public void removeTask(int index) throws FRIDAYException {
         if (taskList.isEmpty()) {
@@ -47,9 +48,10 @@ public class TaskList {
     }
 
     /**
-     * Method returns a String representation of the list of tasks if there are any.
-     * If no tasks are available, it returns a String to communicate that
-     * @return String representation of the list of tasks
+     * This method returns a String representation of the list of tasks if there are any.
+     * If no tasks are available, it returns a String to communicate that.
+     *
+     * @return String representation of the list of tasks.
      */
     public String displayTasks() {
         if (taskList.isEmpty()) {
@@ -63,8 +65,10 @@ public class TaskList {
     }
 
     /**
-     * Marks the task at the given index as complete
-     * @param index index of the task that is to be marked as complete
+     * Marks the task at the given index as complete.
+     *
+     * @param index integer representing the index of the task that is to be marked as complete.
+     * @throws FRIDAYException If the index does not match that of any task in the list.
      */
     public void markTask(int index) throws FRIDAYException {
         if (index >= taskList.size() || index < 0) {
@@ -77,8 +81,10 @@ public class TaskList {
     }
 
     /**
-     * Marks the task at the given index as incomplete
-     * @param index index of the task that is to be marked as incomplete
+     * This method marks the task at a given index as incomplete.
+     *
+     * @param index An integer that represents the index of the task.
+     * @throws FRIDAYException If the index does not match that of any task in the list.
      */
     public void unMarkTask(int index) throws FRIDAYException {
         if (index >= taskList.size() || index < 0) {
@@ -94,10 +100,22 @@ public class TaskList {
         return this.taskList;
     }
 
+    /**
+     * Returns the number of tasks in the list.
+     *
+     * @return Integer representing the number of tasks in the list.
+     */
     public int numTasks() {
         return taskList.size();
     }
 
+    /**
+     * Returns the task at a specific index.
+     *
+     * @param index Integer representing the index of the task.
+     * @return Task object representing the task at a given index.
+     * @throws FRIDAYException If the index does not match that of any task in the list.
+     */
     public Task getTaskAt(int index) throws FRIDAYException {
         if (index >= taskList.size() || index < 0) {
             throw new FRIDAYException("Hey it appears that the task number you entered does not exist");
@@ -106,10 +124,11 @@ public class TaskList {
     }
 
     /**
-     * This method searches the tasklist and returns an ArrayList of Tasks
-     * that have descriptions which contain the keyword
-     * @param keyword the keyword that the user tries to search for
-     * @return ArrayList of tasks that have descriptions containing the keyword
+     * This method searches the task list and returns a list of tasks
+     * that have descriptions which contain the keyword.
+     *
+     * @param keyword String representing the keyword that the user tries to search for.
+     * @return ArrayList of tasks that have descriptions containing the keyword.
      */
     public ArrayList<Task> search(String keyword) throws FRIDAYException {
         if (taskList.isEmpty()) {
@@ -124,6 +143,9 @@ public class TaskList {
         return list;
     }
 
+    /**
+     * Deletes all tasks currently in the list.
+     */
     public void deleteAllTasks() {
         this.taskList.clear();
     }

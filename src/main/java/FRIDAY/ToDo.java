@@ -12,21 +12,24 @@ public class ToDo extends Task {
     /**
      * Constructs a new ToDo task with the specified description
      * and type.
+     *
      * <p>
      * The constructor initializes the to-do task with the given description
      * and sets the completion status based on the type parameter.
      * A type greater than 0 indicates the task is complete.
      * </p>
      *
-     * @param description the description of the to-do task
-     * @param type the type of the task; if greater than 0, the task is complete
+     * @param description A String representing the description of the to-do task.
+     * @param type an integer representing the type of the task.
+     *             If greater than 0, the task is complete.
      */
     public ToDo(String description, int type) {
         super(description, type);
     }
 
     /**
-     * outputs all the information pertaining the task in a specified format for storage purposes
+     * This method outputs all the information pertaining the task in a specified format for storage purposes.
+     *
      * @return a string containing all important details of the task
      */
     public String storageDisplay() {

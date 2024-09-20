@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Represents a parser class that is responsible for making sense of user input
+ * This class represents a parser that is responsible for making sense of user input.
  *
  * <p>
  *     This class is responsible for taking in Strings that the user inputs and converting them into
@@ -15,11 +15,15 @@ import java.util.Set;
 public class Parser {
     private static final Set<String> allowedCommands = new HashSet<>(Arrays.asList(
             "todo", "event", "deadline", "mark", "list", "unmark", "delete", "archive", "search", "bye"));
-    private static final Set<String> commandsWithoutDescription = new HashSet<>(Arrays.asList("list", "archive", "bye"));
+    private static final Set<String> commandsWithoutDescription = new HashSet<>(Arrays.asList("list",
+            "archive", "bye"));
+
     /**
-     * This method takes in a string and returns the type of action that the program needs to execute
-     * @param input a String representing user input
-     * @return a String representing the type of action the proogram is meant to execute
+     * This method takes in a string and returns the type of action that the program needs to execute.
+     *
+     * @param input String representing user input.
+     * @return String representing the type of action the program is meant to execute.
+     * @throws FRIDAYException If the the command is not recognized.
      */
     public static String parseCmd(String input) throws FRIDAYException {
         String[] parts = input.split(" ");
@@ -32,9 +36,11 @@ public class Parser {
 
     /**
      * This method takes in a String representing user input and returns the
-     * details of the task that is meant to be created
-     * @param input String representing user input
-     * @return a String consisting of all relevant task details
+     * details of the task that is meant to be created.
+     *
+     * @param input String representing user input.
+     * @return String consisting of all relevant task details.
+     * @throws FRIDAYException If the relevant details are not entered.
      */
     public static String parseTaskDetails(String input) throws FRIDAYException {
         String keyword = parseCmd(input);
@@ -56,9 +62,10 @@ public class Parser {
     }
 
     /**
-     * this method returns a deadline task
-     * @param taskDetails description of the deadline task, deadline date
-     * @return deadline task
+     * This method creates a Deadline task containing all relevant details as input by the user.
+     *
+     * @param taskDetails String containing the description of the deadline task and the deadline date.
+     * @return Deadline task.
      */
     public static Task parseDeadline(String taskDetails) {
         String[] deadlineDetails = taskDetails.split("/");
@@ -68,9 +75,10 @@ public class Parser {
     }
 
     /**
-     * creates an Event task
-     * @param taskDetails decsription, start and end times of the task
-     * @return Event task
+     * This method creates an Event task containing all relevant details as input by the user.
+     *
+     * @param taskDetails String containing the description, start and end times of the task.
+     * @return Event task.
      */
     public static Task parseEvent(String taskDetails) {
         String[] eventDetails = taskDetails.split("/from");

@@ -1,7 +1,7 @@
 package FRIDAY;
 
 /**
- * Exception is thrown whenever an error occurs with the bot
+ * This exception is thrown whenever an error occurs with the bot.
  */
 @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
 public class FRIDAYException extends Exception {

@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 /**
- * this bot acts as an interactive todo list to manage and track the tasks of users
+ * Represents a bot that acts as an interactive todo list to manage and track the tasks of users.
+ * <p>
+ * This class represents an interactive bot that tracks and manages a user's tasks, similar to a todo list.
+ * </p>
  */
 @SuppressWarnings("checkstyle:AbbreviationAsWordInName")
 public class FRIDAY {
@@ -15,7 +18,7 @@ public class FRIDAY {
     private TaskList programArchive;
 
     /**
-     * constructor for bot
+     * Constructor for bot.
      */
     public FRIDAY() {
         //divider
@@ -33,7 +36,11 @@ public class FRIDAY {
     }
 
     /**
-     * starts the bot
+     * This method takes in a String representing user input, and returns a String representing the
+     * response from the bot.
+     *
+     * @param userInput String representing user input.
+     * @return String representing the response of the program.
      */
     public String getResponse(String userInput) {
         String response = "";
@@ -51,12 +58,13 @@ public class FRIDAY {
     }
 
     /**
-     * causes the bot to perform the action corresponding to the user input.
-     * storage is updated after every performed action
+     * This method takes in a String representing a command, and a String representing other miscellaneous information
+     * entered by the user, and performs the relevant action.
      *
-     * @param keyword indicates the type of action that the bot should perform
-     * @param taskDetails contains miscellaneous information about the task, if applicable
-     * @throws FRIDAYException exception is thrown when the type of action to be performed is not recognized
+     * @param keyword String that represents the given command dictating the type of action that the bot should
+     *                perform.
+     * @param taskDetails String contains miscellaneous information about the task, if applicable.
+     * @throws FRIDAYException This exception is thrown when the type of action to be performed is not recognized.
      */
     public String performAction(String keyword, String taskDetails) throws FRIDAYException {
         //keywords trigger respective actions
