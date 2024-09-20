@@ -88,6 +88,10 @@ public class TaskManager {
      */
     public String markTaskAsComplete(int taskId) {
         Task task = tasks.get(taskId - 1);
+        if (task.isCompleted()) {
+            return "This task was already marked as complete:\n"
+                    + task.toString();
+        }
         task.setComplete();
         ui.printLines("Nice, I've marked this task as complete:\n"
                 + task.toString());
@@ -102,6 +106,10 @@ public class TaskManager {
      */
     public String markTaskAsIncomplete(int taskId) {
         Task task = tasks.get(taskId - 1);
+        if (!task.isCompleted()) {
+            return "This task was already unmarked and incomplete:\n"
+                    + task.toString();
+        }
         task.setIncomplete();
         ui.printLines("Ok, I've marked this task as incomplete:\n"
                 + task.toString());
@@ -146,6 +154,8 @@ public class TaskManager {
             return "There are no deadline tasks in your list!";
         }
 
+        // Solution below inspired by:
+        // https://stackoverflow.com/questions/71548399/what-is-the-use-of-comparator-comparing-in-respect-to-comparator
         deadlineTasks.sort(Comparator.comparing(DeadlineTask::getDeadline));
         taskString += stringBuilder(deadlineTasks);
         return taskString;

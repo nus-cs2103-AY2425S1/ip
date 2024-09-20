@@ -18,9 +18,9 @@ public enum CommandType {
     private final String command;
 
     /**
-     * Constructs a CommandType object.
+     * Constructs a CommandType object with a given String command.
      *
-     * @param command The command.
+     * @param command The command as a String.
      */
     CommandType(String command) {
         this.command = command;

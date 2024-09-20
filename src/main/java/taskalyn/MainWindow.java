@@ -60,6 +60,8 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getTaskalynDialog(response, taskalynImage)
         );
         userInput.clear();
+        // Solution below inspired by:
+        // https://stackoverflow.com/questions/30543619/how-to-use-pausetransition-method-in-javafx
         if (input.equalsIgnoreCase("bye")) {
             PauseTransition delay = new PauseTransition(Duration.seconds(5));
             delay.setOnFinished(event -> javafx.application.Platform.exit());

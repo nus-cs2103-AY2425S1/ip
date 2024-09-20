@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 /**
- * Manages reading from and writing to the database file.
+ * Manages reading from and writing to the database file of Taskalyn.
  */
 public class Database {
     private static final String DIRECTORY = "./data";
@@ -16,7 +16,7 @@ public class Database {
     private static final Path FILE_PATH = Paths.get(DIRECTORY, FILE_NAME);
 
     /**
-     * Constructs the database object.
+     * Constructs the database object and creates database file.
      */
     public Database() {
         try {
