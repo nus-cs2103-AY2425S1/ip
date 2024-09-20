@@ -43,6 +43,9 @@ public class FindCommand implements Command {
 
         if (!inputs[1].equals("-e")) {
             this.searchTerm = inputs[1];
+            for (int i = 2; i < inputs.length; i++) {
+                this.searchTerm += " " + inputs[i];
+            }
             this.isExactMatch = false;
             return this;
         }
@@ -51,6 +54,9 @@ public class FindCommand implements Command {
             throw new InvalidInputException("Insufficient arguments for exact Find");
         }
         this.searchTerm = inputs[2];
+        for (int i = 3; i < inputs.length; i++) {
+            this.searchTerm += " " + inputs[i];
+        }
         return this;
     }
 }
