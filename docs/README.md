@@ -37,7 +37,7 @@ Instead of `/by` in deadlines, you can write down `/from` what time the event st
 e.g. `event CS hackathon /from 30th Feb /to 32nd Mar`
 
 ## List!
-And now, whenever you want to see what exciting activitis
+And now, whenever you want to see what exciting activities
 are coming up, you can just type `list` and Neon will tell you!
 
 ```
