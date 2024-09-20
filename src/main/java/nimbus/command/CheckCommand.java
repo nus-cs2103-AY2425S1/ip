@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
-import nimbus.exception.WrongDateTimeFormatException;
+import nimbus.exception.WrongCheckInputException;
 import nimbus.task.DeadlineTask;
 import nimbus.task.EventTask;
 import nimbus.task.Task;
@@ -36,11 +36,9 @@ public class CheckCommand extends Command {
 
     /**
      * prints out the list of tasks due on date provided
-     *
-     * @throws WrongDateTimeFormatException if date and time format is wrong
      */
     @Override
-    public String execute() throws WrongDateTimeFormatException {
+    public String execute() {
         assert tasks != null : "Task list should not be null";
         assert userInput.length() > 5 : "User input is too short to contain date";
         String date = userInput.substring(5).trim();
@@ -64,14 +62,14 @@ public class CheckCommand extends Command {
      *
      * @param date the user input date
      * @return LocalDate that represents user input date in correct format
-     * @throws WrongDateTimeFormatException if user input date time format is wrong
+     * @throws WrongCheckInputException if user input date time format is wrong
      */
-    private LocalDate parseDate(String date) throws WrongDateTimeFormatException {
+    private LocalDate parseDate(String date) throws WrongCheckInputException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         try {
             return LocalDate.parse(date, formatter);
         } catch (DateTimeParseException e) {
-            throw new WrongDateTimeFormatException();
+            throw new WrongCheckInputException();
         }
     }
 
