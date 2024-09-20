@@ -30,6 +30,16 @@ Got it. I've added this task:
 Now you have 1 tasks in the list.
 ```
 
+```
+Each task is represented as
+[T][X][#fun] <task> (additional info)
+T - type of task
+X - Whether task is done
+#fun - tag of task
+task - name of task
+additional info - any deadlines or time constraint
+```
+
 ### Delete Tasks
 - Delete your tasks that you don't need
 
