@@ -54,6 +54,11 @@ public class Storage {
      */
     private FileWriter createNewDataStore(String filePath) throws IOException {
         assert filePath != null : "filePath cannot be null";
+        String directoryPath = "./data";
+        File directory = new File(directoryPath);
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
         Path path = Paths.get(filePath);
         File file = path.toFile();
         if (!file.exists()) {

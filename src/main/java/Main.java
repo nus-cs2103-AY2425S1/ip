@@ -16,7 +16,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private final Astor astor = new Astor("./src/main/data/Astor.txt");
+    private final Astor astor = new Astor("./data/Astor.txt");
 
     @Override
     public void start(Stage stage) {
