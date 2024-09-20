@@ -196,3 +196,4 @@ ZBot data are saved in the hard disk automatically after any command that change
 | Unmark | `unmark INDEX` | `unmark 1` |
 | Delete | `delete INDEX` | `delete 1` |
 | Find | `find KEYWORD` | `find look at` |
+| Note | `note INDEX NOTE` | `note 1 link to code base: https://github.com/se-edu/addressbook-level3` |
