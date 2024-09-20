@@ -73,8 +73,8 @@ public class TaskList {
     /**
      * Displays all tasks in the task list using the provided {@code Ui} instance.
      *
-     * @return The list of tasks that the user currently has.
      * @param ui The {@code Ui} instance used to display tasks.
+     * @return The list of tasks that the user currently has.
      */
     public String showTasks(Ui ui) {
         StringBuilder taskString = new StringBuilder();

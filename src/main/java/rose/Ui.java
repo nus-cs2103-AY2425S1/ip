@@ -52,8 +52,8 @@ public class Ui {
     /**
      * Displays a message indicating a task has been marked as done.
      *
-     * @return A string indicating the marked task.
      * @param task The task that was marked as done.
+     * @return A string indicating the marked task.
      */
     public String showMark(Task task) {
         StringBuilder outputString = new StringBuilder();
