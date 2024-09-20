@@ -5,7 +5,7 @@ import java.util.List;
 
 public class TaskList {
     protected final ArrayList<Task> tasks;
-    
+
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
@@ -17,15 +17,15 @@ public class TaskList {
     public Task getTask(int index) {
         return this.tasks.get(index);
     }
-    
+
     public int getCount() {
         return this.tasks.size();
     }
-    
+
     public void addTask(Task task) {
         this.tasks.add(task);
     }
-    
+
     public Task markTaskAsDone(int index) {
         Task task = this.tasks.get(index);
         task.markAsDone();
@@ -37,7 +37,7 @@ public class TaskList {
         task.markAsNotDone();
         return task;
     }
-    
+
     public Task deleteTask(int index) {
         return this.tasks.remove(index);
     }

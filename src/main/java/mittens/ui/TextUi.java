@@ -9,16 +9,16 @@ import java.util.Scanner;
 
 public class TextUi extends Ui {
     private final static String GREETING_MESSAGE = """
-             /\\_/\\     ____________________
-             >^,^<    / Hi, I'm Mittens!   \\
-              / \\     \\ I'm a cat! Meow :3 /
-             (___)_/   --------------------""";
+            /\\_/\\     ____________________
+            >^,^<    / Hi, I'm Mittens!   \\
+             / \\     \\ I'm a cat! Meow :3 /
+            (___)_/   --------------------""";
 
     private final static String GOODBYE_MESSAGE = """
-             /\\_/\\     _____________
-             >^,^<    ( Bye-bye! :3 )
-              / \\      -------------
-             (___)_/""";
+            /\\_/\\     _____________
+            >^,^<    ( Bye-bye! :3 )
+             / \\      -------------
+            (___)_/""";
 
     private final Scanner in;
     private final PrintStream out;
@@ -31,11 +31,11 @@ public class TextUi extends Ui {
         this.in = new Scanner(in);
         this.out = out;
     }
-    
+
     public void printMessage(String message) {
         this.out.println(message);
     }
-    
+
     public void printBlankLine() {
         this.out.println();
     }
@@ -43,15 +43,15 @@ public class TextUi extends Ui {
     public void printMittens(String message) {
         int len = message.length();
         String uiMessage = """
-                 /\\_/\\     %s
-                 >^,^<    ( %s )
-                  / \\      %s
-                 (___)_/""".formatted("_".repeat(len + 2),
+                /\\_/\\     %s
+                >^,^<    ( %s )
+                 / \\      %s
+                (___)_/""".formatted("_".repeat(len + 2),
                 message, "-".repeat(len + 2));
 
         this.out.println(uiMessage);
     }
-    
+
     public void printErrorMessage(MittensException e) {
         String mittensMessage = e.getMittensMessage();
         int len = mittensMessage.length();
@@ -64,7 +64,7 @@ public class TextUi extends Ui {
                  >x.x<    ( %s )
                   / \\      %s
                  (___)_/
-                
+                                
                 Error: %s
                 %s""".formatted("_".repeat(len + 2), mittensMessage,
                 "-".repeat(len + 2), errorMessage, helpMessage);
@@ -94,12 +94,12 @@ public class TextUi extends Ui {
         }
         this.printBlankLine();
     }
-    
+
     @Override
     public void showRegularMessage(String... messages) {
         showRegularMessage(List.of(messages));
     }
-    
+
     @Override
     public void showMittensMessage(List<String> messages) {
         this.printBlankLine();
