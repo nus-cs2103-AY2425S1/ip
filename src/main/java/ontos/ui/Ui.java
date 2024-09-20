@@ -246,11 +246,12 @@ public class Ui {
                 + "2. todo <description>: Adds a todo task to the task list.\n"
                 + "3. deadline <description> /by <yyyy-mm-dd>: Adds a deadline task to the task list.\n"
                 + "4. event <description> /from <yyyy-mm-dd> /to <yyyy-mm-dd>: Adds an event task to the task list.\n"
-                + "5. done <index>: Marks the task at the specified index as done.\n"
-                + "6. delete <index>: Deletes the task at the specified index.\n"
-                + "7. find <keyword>: Finds tasks that contain the keyword.\n"
-                + "8. help: Displays the list of commands.\n"
-                + "9. bye: Exits the program.";
+                + "5. mark <index>: Marks the task at the specified index as done.\n"
+                + "6. unmark <index>: Marks the task at the specified index as undone.\n"
+                + "7. delete <index>: Deletes the task at the specified index.\n"
+                + "8. find <keyword>: Finds tasks that contain the keyword.\n"
+                + "9. help: Displays the list of commands.\n"
+                + "10. bye: Prints the goodbye message.";
         System.out.println(output);
         return output;
     }
