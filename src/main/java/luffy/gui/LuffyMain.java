@@ -25,6 +25,7 @@ public class LuffyMain extends Application {
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
+            stage.setTitle("Luffy Bot");
             fxmlLoader.<MainWindow>getController().setLuffy(luffy); // inject the Duke instance
             stage.show();
         } catch (IOException e) {
