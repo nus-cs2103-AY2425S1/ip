@@ -1,7 +1,12 @@
 package fred;
 
-import fred.Exceptions.*;
-
+import fred.Exceptions.EmptyInputException;
+import fred.Exceptions.EmptyKeywordsException;
+import fred.Exceptions.EmptyTaskDescriptionException;
+import fred.Exceptions.FredException;
+import fred.Exceptions.InvalidTagException;
+import fred.Exceptions.InvalidTaskNumberException;
+import fred.Exceptions.UnknownCommandException;
 import java.util.Arrays;
 
 /**
