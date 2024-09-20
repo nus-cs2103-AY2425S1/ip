@@ -24,6 +24,14 @@ import java.util.Arrays;
  */
 public class Parser {
     public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+    /**
+     * Parses the input command array and returns the corresponding Command object.
+     *
+     * @param inputArr the array of user input strings
+     * @return a Command object corresponding to the user input
+     * @throws ElonException if the input command is invalid or required parameters are missing
+     */
     public static Command parse(String[] inputArr) throws ElonException{
         assert inputArr.length > 0 : "Input command array is empty";
         String commandPhrase = inputArr[0];

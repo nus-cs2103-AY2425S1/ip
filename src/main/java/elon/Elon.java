@@ -13,13 +13,12 @@ import java.io.IOException;
 public class Elon {
     private Ui ui = new Ui();
     private TaskList list;
-
     private Storage storage;
 
     /**
-     * Constructs an Elon object with the specified Storage.
+     * Constructs an Elon object with the specified storage path.
      *
-     * @param storagePath the String path to create Storage object used for loading and saving tasks
+     * @param storagePath the String path to create a Storage object used for loading and saving tasks
      */
     public Elon(String storagePath) {
         try {
@@ -30,7 +29,6 @@ public class Elon {
             this.list = new TaskList();
         }
     }
-
 
     /**
      * Starts the application by greeting the user, loading the task list,
@@ -56,6 +54,9 @@ public class Elon {
 
     /**
      * Generates a response for the user's chat message.
+     *
+     * @param inputArr the array of user input strings
+     * @return a response string generated based on the user input
      */
     public String getResponse(String[] inputArr) {
         try {

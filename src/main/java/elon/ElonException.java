@@ -12,8 +12,4 @@ public class ElonException extends Exception{
     public ElonException(String message) {
         super(message);
     }
-
-    public String getMessage() {
-        return super.getMessage();
-    }
 }
