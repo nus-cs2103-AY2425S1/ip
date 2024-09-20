@@ -1,10 +1,21 @@
 # Colby User Guide
 
-// Product screenshot goes here
+![](/Users/amithav/Desktop/2103 iP/docs/Ui.png)
 
 Ever felt like all your tasks and plans were catching up to you too fast? 
 Why not try out Colby, a task manager right at your fingertips! It can help 
 you track your tasks, deadlines and events all in one place!
+
+## Features
+Here are all the commands you can use with Colby!
+- `todo`
+- `deadline`
+- `event`
+- `list`
+- `mark`
+- `unmark`
+- `delete`
+- `find`
 
 ## Adding tasks
 
@@ -20,15 +31,8 @@ With an event task, you need to add a start and end date/time of your event.
 Each task added to you list will be marked with either [T], [D] or [E], along with the status of
 whether the task has been completed, represented by a [X].
 
-Example: `keyword (optional arguments)`
 
-// A description of the expected outcome goes here
-
-```
-expected output
-```
-
-## ToDo tasks
+## ToDo tasks: `todo`
 
 Using the todo command to add your tasks helps you take note of any tasks 
 with no deadline or simply have a fixed duration to be completed in and will be represented 
@@ -48,7 +52,7 @@ Alright, I have added this task to the list:
 [T][] math quiz (needs 1 hour)
 ```
 
-## Deadline tasks
+## Deadline tasks: `deadline`
 
 Using the deadline command to add your tasks helps you take note of any tasks
 with deadlines, be it just a date or time as well. They will be represented
@@ -69,7 +73,7 @@ Alright, I have added this task to the list:
 [D][] math quiz (by: Oct 15 2024 13:02)
 ```
 
-## Event tasks
+## Event tasks: `event`
 
 Using the event command to add your tasks helps you take note of any events
 with start and end dates or time. They will be represented
@@ -90,7 +94,7 @@ Alright, I have added this task to the list:
 [E][] meeting (from: 2pm to: 4pm)
 ```
 
-## List
+## Viewing all tasks: `list`
 
 With the list command, Colby will list out all the tasks you have added so far!
 
@@ -104,7 +108,7 @@ Here's all the tasks you have to do:
 3. [E][] meeting (from: 2pm to: 4pm)
 ```
 
-## Mark and Unmark
+## Marking status of tasks: `mark` and `unamrk`
 The mark and unmark commands help you indicate whether you are finished with a task in your list.
 They can be used by entering mark/unmark followed by the number of the task in the entire list.
 
@@ -116,7 +120,7 @@ Command: `mark 2`
 2. [D][X] math quiz (by: Oct 15 2024 13:02)
 3. [E][] meeting (from: 2pm to: 4pm)
 ```
-## Delete
+## Deleting a task from the list: `delete`
 With the delete command, you can delete a task from your list, based on the task's number in the list.
 
 ### Example: 
@@ -134,7 +138,7 @@ to:
 ```
 and show `"Okay, I have removed this task from your list: meeting (from: 2pm to: 4pm)"`
 
-## Find 
+## Searching for tasks in the list: `list`
 You can use the find command to search our list for tasks matching the keyword you enter!
 
 ### Example:
