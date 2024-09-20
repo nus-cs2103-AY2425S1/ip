@@ -14,12 +14,20 @@ public class DeleteCommand implements Command {
     /**
      * Constructs a DeleteCommand instance with the command input.
      *
-     * @param fullCommand the full command string input
+     * @param fullCommand the full command string input.
      */
     public DeleteCommand(String fullCommand) {
         this.fullCommand = fullCommand;
     }
 
+    /**
+     * Executes the command to delete a task from the task list.
+     * Updates the UI and saves the changes to storage.
+     *
+     * @param list The task list on which the action is performed.
+     * @param ui The UI to display information.
+     * @param storage The storage to save the updated task list.
+     */
     @Override
     public void executeCommand(TaskList list, Ui ui, Storage storage) {
         assert this.fullCommand != null;

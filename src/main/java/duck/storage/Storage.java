@@ -24,7 +24,7 @@ public class Storage {
     /**
      * Constructs a Storage instance with the specified file path.
      *
-     * @param filePath the path to the file for loading and saving tasks
+     * @param filePath the path to the file for loading and saving tasks.
      */
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -33,7 +33,7 @@ public class Storage {
     /**
      * Loads tasks from the file.
      *
-     * @return an ArrayList of tasks loaded from the file
+     * @return an ArrayList of tasks loaded from the file.
      */
     public ArrayList<Task> load() {
         File file = new File(filePath);
@@ -70,7 +70,7 @@ public class Storage {
     /**
      * Saves the tasks to the file.
      *
-     * @param list the TaskList containing tasks to be saved
+     * @param list the TaskList containing tasks to be saved.
      */
     public void saveTasks(TaskList list) {
         try (FileWriter writer = new FileWriter(filePath)) {
