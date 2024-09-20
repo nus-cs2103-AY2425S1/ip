@@ -40,6 +40,9 @@ public class Ui extends Application {
     public Ui() {
     }
 
+    /**
+     * Initializes the controller class.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
