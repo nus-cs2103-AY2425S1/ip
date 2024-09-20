@@ -1,47 +1,54 @@
 .root {
-    main-color: rgb(237, 255, 242);       /* Create a looked-up color called "main-color" within root. */
-    -fx-background-color: main-color;
+    main-color: #1e1e1e;       /* Darker main background color */
+    accent-color: #9b4cfc;     /* An accent color for buttons and interactive elements */
+    -fx-background-color: main-color;  /* Root background */
 }
 
 .text-field {
-    -fx-background-color: #d9ffe2;
+    -fx-background-color: #2c2c2c;  /* Darker text field background */
+    -fx-text-fill: #e0e0e0;         /* Light text color for better readability */
     -fx-font: 20px "Arial";
+    -fx-border-color: #3c3c3c;      /* Subtle border to give structure */
+    -fx-border-radius: 5px;
 }
 
 .button {
-    -fx-background-color: mediumspringgreen;
+    -fx-background-color: #3c3c3c;  /* Dark background for buttons */
+    -fx-text-fill: #ffffff;         /* White text for good contrast */
     -fx-font: italic bold 16px "Arial";
+    -fx-border-color: accent-color; /* Adding accent color border */
+    -fx-border-radius: 5px;         /* Rounded corners */
 }
 
 .button:hover {
-    -fx-background-color:cyan;
+    -fx-background-color: #4a4a4a;  /* Lighter hover background */
     -fx-font-size: 18px;
+    -fx-border-color: accent-color; /* Accent color on hover */
 }
 
 .button:pressed {
-    -fx-background-color:orange;
+    -fx-background-color: #5a5a5a;  /* Even lighter background on press */
     -fx-font-size: 20px;
+    -fx-border-color: #bb86fc;      /* Keep accent border on press */
 }
 
 .scroll-pane,
 .scroll-pane .viewport {
-    -fx-background-color: transparent;
+    -fx-background-color: transparent; /* Keep transparent */
 }
 
 .scroll-bar {
-    -fx-font-size: 10px;  /* Change width of scroll bar. */
-    -fx-background-color: main-color;
+    -fx-background-color: #3a3a3a;  /* Match scrollbar to darker theme */
+    -fx-font-size: 10px;
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: #ff9cb4;
-    -fx-background-radius: 1em;
+    -fx-background-color: #bb86fc;  /* Use accent color for the scrollbar thumb */
+    -fx-background-radius: 10px;    /* More rounded for modern look */
 }
 
-/* Hides the increment and decrement buttons. */
 .scroll-bar .increment-button,
 .scroll-bar .decrement-button {
     -fx-pref-height: 0;
-    -fx-opacity: 0;
+    -fx-opacity: 0;                 /* Keep buttons hidden */
 }
-
