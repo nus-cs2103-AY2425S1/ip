@@ -24,6 +24,16 @@ public class Event extends Task {
     }
 
     /**
+     * Constructor.
+     */
+    public Event() {
+        super();
+        this.startDay = "";
+        this.startTime = "";
+        this.endTime = "";
+    }
+
+    /**
      * Constructor to initialise a task previously recorded.
      *
      * @param description Input based on user.

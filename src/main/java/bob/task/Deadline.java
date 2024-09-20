@@ -23,6 +23,14 @@ public class Deadline extends Task {
     }
 
     /**
+     * Constructor.
+     */
+    public Deadline() {
+        super();
+        this.endDate = "";
+    }
+
+    /**
      * Constructor to initialise a task.
      *
      * @param description Input based on user.

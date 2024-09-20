@@ -49,8 +49,7 @@ public class Command {
                 + "- event\n"
                 + "- deadline\n"
                 + "- todo\n"
-                + "- bye\n"
-                ;
+                + "- bye\n";
     }
 
     public String getInput() {

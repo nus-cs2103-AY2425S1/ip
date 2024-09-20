@@ -30,8 +30,8 @@ public class TodoCommand extends Command {
             taskList.updateWithNewTask(newTodoTask);
             storage.saveTaskListToStorage(taskList);
             Ui.showAddedTaskConfirmation(taskList);
-            String TodoTaskAddedConfirmationMessage = taskList.getAddedTaskString();
-            return TodoTaskAddedConfirmationMessage;
+            String todoTaskAddedConfirmationMessage = taskList.getAddedTaskString();
+            return todoTaskAddedConfirmationMessage;
         } catch (InvalidTaskException e) {
             System.err.println(e.getMessage());
             return e.getMessage();

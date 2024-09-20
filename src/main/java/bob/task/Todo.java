@@ -15,6 +15,12 @@ public class Todo extends Task {
     }
 
     /**
+     * Constructor.
+     */
+    public Todo() {
+        super();
+    }
+    /**
      * Constructor to initialise a task that has been recorded before.
      *
      * @param description Input based on user.

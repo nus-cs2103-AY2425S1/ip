@@ -53,14 +53,14 @@ public class Parser {
 
 
     /**
-     * Parses the input given by user.
+     * Returns Command based on the input given by user.
+     *
      * @param input Input by user.
      * @return Command to be executed.
      */
     public static Command parseCommand(String input) {
         String[] inputWordsList = Parser.parseInputIntoStringArray(input);
         String keyword = inputWordsList[0];
-
         switch (keyword) {
         case "list":
             return new ListCommand(input);
@@ -210,7 +210,6 @@ public class Parser {
 
     /**
      * Returns a String array of the event's details,
-     * Example: [<description>, <startDay>, <start time>, <end time>].
      *
      * @param input Input command from user.
      * @return

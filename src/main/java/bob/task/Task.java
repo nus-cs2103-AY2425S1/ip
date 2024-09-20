@@ -19,6 +19,14 @@ public class Task {
     }
 
     /**
+     * Constructor
+     */
+    public Task() {
+        this.description = "";
+        this.isDone = false;
+        this.tag = "";
+    }
+    /**
      * Constructor to initialise a task previously recorded.
      *
      * @param description Input based on user.

@@ -1,2 +1,4 @@
 T | 1 | run
 E | 0 | birthday | Mon | 7pm | 10pm | bestie
+D | 0 | submission | 22 Sep 2024
+E | 0 | lunch party | Mon | 11am | 2pm
