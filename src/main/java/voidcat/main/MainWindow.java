@@ -24,7 +24,7 @@ public class MainWindow extends AnchorPane{
 
     private VoidCat voidCat;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/UserCat.png"));
     private Image voidCatImage = new Image(this.getClass().getResourceAsStream("/images/VoidCat.png"));
 
     @FXML
