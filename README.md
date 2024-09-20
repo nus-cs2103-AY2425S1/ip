@@ -1,6 +1,3 @@
-# Mendel User Guide
-![Demo screenshot of Mendel chatbot](Ui.png)
-
 ## Product Overview
 Mendel is a chatbot application that helps users to remind themselves of various events including Todo, Event
 and Deadlines. It also supports additional utility features namely finding tasks by keyword and reminding users of
