@@ -40,10 +40,12 @@ public enum Command {
     public static String getCommandContentsFromString(String s) {
         System.out.println(s);
         for (Command c : Command.values()) {
-            if (s.startsWith(LIST.command)) {
-                return "";
-            } else if (s.startsWith(c.command)) {
-                return s.substring(c.command.length() + 1);
+            if (s.startsWith(c.command)) {
+                if (s.length() == c.command.length()) {
+                    return "";
+                }
+                String output = s.substring(c.command.length() + 1);
+                return output;
             }
         }
         return "";

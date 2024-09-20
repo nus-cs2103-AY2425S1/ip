@@ -14,166 +14,33 @@ public class Sinatra {
     private static final String FILE_PATH = "tasks.txt";
 
 
-    private ArrayList<Task> tasks;
-    private Storage storage;
     private Ui ui;
+    private Parser parser;
 
     /**
      * Constructs a new Sinatra object, initializes tasks, prints the introduction,
      * loads tasks from storage, and starts the scanner for user input.
      */
     public Sinatra() {
-        this.tasks = new ArrayList<Task>();
+
         ui = new Ui();
         ui.printIntro();
-        this.storage = new Storage(FILE_PATH);
-        this.tasks = storage.loadTasksFromFile();
-    }
-
-
-    /**
-     * Generates a response for the user's chat message.
-     */
-    public String getResponse(String input) {
-        List<String> output = handleInputs(input);
-        StringBuilder response = new StringBuilder();
-        for (String s : output) {
-            response.append(s).append("\n");
-        }
-        return "Sinatra: \n" + response.toString();
-    }
-
-    private ArrayList<Task> findTasksWithContent(String contentPart) {
-        return tasks.stream()
-                .filter(task -> task.getContent().contains(contentPart))
-                .collect(Collectors.toCollection(ArrayList::new));
+        parser = new Parser();
     }
 
     /**
-     * Starts the scanner to handle user inputs.
-     */
-    private void sinatraScanner() {
-        Scanner scanner = new Scanner(System.in);
-        List<String> output;
-        while (true) {
-            String input = scanner.nextLine();
-            output = handleInputs(input);
-            for (String s : output) {
-                System.out.println(s);
-            }
-        }
-    }
-
-    /**
-     * Checks if the task is already in the this.tasks.
+     * handles querys from user to Sinatra
      *
-     * @param testTask
+     * @param input
      * @return
      */
-    private boolean isTaskInTasksMemory(Task testTask) {
-        for (Task task : tasks) {
-            if (Objects.equals(task.getContent(), testTask.getContent())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Handles the user inputs and performs the corresponding actions.
-     *
-     * @param message the user input message
-     */
-    private List<String> handleInputs(String message) {
-        ui.newOutput();
-        try {
-            Command command = Command.getCommandFromString(message);
-            String commandContents = command.getCommandContentsFromString(message);
-            switch (command) {
-            case LIST:
-                ui.cacheList(tasks);
-                break;
-            case BYE:
-                ui.cacheByeMessage();
-                System.exit(0);
-                break;
-            case MARK:
-                Task markTask = tasks.get(Integer.parseInt(commandContents) - 1);
-                markTask.setStatus(true);
-                ui.cacheMarkedDoneMessage(markTask);
-                break;
-            case UNMARK:
-                Task unmarkTask = tasks.get(Integer.parseInt(commandContents) - 1);
-                unmarkTask.setStatus(false);
-                ui.cacheUnmarkDoneMessage(unmarkTask);
-                break;
-            case TODO:
-                if (message.length() <= Command.TODO.getCommand().length()) {
-                    ui.cacheToDoExceptionMessage();
-                    break;
-                }
-                ToDo toDo = new ToDo(commandContents, false);
-                if (isTaskInTasksMemory(toDo)) {
-                    ui.cacheTaskAlreadyExistsExceptionMessage();
-                    break;
-                }
-                toDo.appendToStorage(FILE_PATH);
-                tasks.add(toDo);
-                ui.cacheToDoMessage(toDo, tasks.size());
-                break;
-            case DEADLINE:
-                if (message.length() <= Command.DEADLINE.getCommand().length()) {
-                    ui.cacheDeadlineExceptionMessage();
-                    break;
-                }
-                String[] parts = commandContents.split(" /by ");
-                String content = parts[0];
-                String dateTimeString = parts[1];
-                Deadline deadline = new Deadline(content, false, dateTimeString);
-                if (isTaskInTasksMemory(deadline)) {
-                    ui.cacheTaskAlreadyExistsExceptionMessage();
-                    break;
-                }
-                deadline.appendToStorage(FILE_PATH);
-                tasks.add(deadline);
-                ui.cacheDeadlineMessage(deadline, tasks.size());
-                break;
-            case EVENT:
-                if (message.length() <= Command.EVENT.getCommand().length()) {
-                    ui.cacheEventExceptionMessage();
-                    break;
-                }
-                String[] eventParts = commandContents.split(" /from ");
-                String eventContent = eventParts[0];
-                String[] timeParts = eventParts[1].split(" /to ");
-                String from = timeParts[0];
-                String to = timeParts[1];
-                Event event = new Event(eventContent, false, from, to);
-                if (isTaskInTasksMemory(event)) {
-                    ui.cacheTaskAlreadyExistsExceptionMessage();
-                    break;
-                }
-                event.appendToStorage(FILE_PATH);
-                tasks.add(event);
-                ui.cacheEventMessage(event, tasks.size());
-                break;
-            case DELETE:
-                Task deleteTask = tasks.get(Integer.parseInt(commandContents) - 1);
-                tasks.remove(deleteTask);
-                ui.cacheTaskAlreadyExistsExceptionMessage();
-                break;
-            case FIND:
-                String contentPart = commandContents;
-                ArrayList<Task> foundTasks = findTasksWithContent(contentPart);
-                ui.cacheFindMessage(foundTasks);
-                break;
-            default:
-                ui.cacheUnknownCommandMessage();
-                break;
-            }
-        } catch (Exception e) {
-            ui.cacheUnexpectedErrorMessage(e);
-        }
-        return ui.getOutput();
+    public String handleQuery(String input) {
+        String response = parser.getResponse(input);
+        return response;
     }
 }
+
+
+
+
+

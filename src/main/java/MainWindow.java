@@ -22,7 +22,7 @@ public class MainWindow extends AnchorPane {
 
     private Sinatra sinatra;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Dean.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Sinatra.png"));
 
     @FXML
@@ -44,7 +44,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = sinatra.getResponse(input);
+        String response = sinatra.handleQuery(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
