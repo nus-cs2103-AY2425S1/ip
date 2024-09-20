@@ -30,6 +30,7 @@ public class Main extends Application {
         try {
             assert stage != null : "Stage must not be null";
             assert kj != null : "KillJoy instance must not be null";
+            stage.setTitle("KillJoy");
             FXMLLoader fxmlLoader = loadFxml();
             AnchorPane mainLayout = fxmlLoader.load();
             initializeScene(stage, mainLayout);
