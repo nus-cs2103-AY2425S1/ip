@@ -31,7 +31,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the bob instance */
+    /** Injects the bob instance. */
     public void setBob(Bob b) {
         bob = b;
         dialogContainer.getChildren().add(DialogBox.getBobDialog("Hello! Me Bob", bobImage));

@@ -18,7 +18,8 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns string format of deadline
+     * Returns string format of deadline.
+     * 
      * @return String
      */
     @Override

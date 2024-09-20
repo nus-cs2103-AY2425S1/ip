@@ -13,7 +13,7 @@ import task.Tasklist;
 import task.Todo;
 
 /**
- * Storage class handles reading and writing to a file
+ * Storage class handles reading and writing to a file.
  */
 public class Storage {
     protected String filePath;
@@ -23,8 +23,9 @@ public class Storage {
     }
 
     /**
-     * Updates the data file whenever tasklist is updated
-     * @param s The filepath
+     * Updates the data file whenever tasklist is updated.
+     * 
+     * @param s The filepath.
      */
     public void updateDataFile(String s) {
         try {
@@ -53,7 +54,8 @@ public class Storage {
 
     /**
      * Retrieves the data file
-     * @param s The filepath
+     * 
+     * @param s The filepath.
      */
     public Tasklist retrieveDataFile(String s) {
         File dataFile = new File(this.filePath);

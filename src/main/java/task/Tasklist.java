@@ -15,7 +15,8 @@ public class Tasklist {
     }
 
     /**
-     * Returns a string of all the tasks
+     * Returns a string of all the tasks.
+     * 
      * @return String
      */
     public String getList() {
@@ -29,7 +30,8 @@ public class Tasklist {
     }
 
     /**
-     * Returns a string of all the tasks matching regex
+     * Returns a string of all the tasks matching regex.
+     * 
      * @return String
      */
     public String getMatchRegex(String s) {
@@ -50,7 +52,8 @@ public class Tasklist {
     }
 
     /**
-     * Returns a string of all the tasks matching regex exactly
+     * Returns a string of all the tasks matching regex exactly.
+     * 
      * @return String
      */
     public String getMatchRegexExact(String s) {
@@ -71,9 +74,10 @@ public class Tasklist {
     }
 
     /**
-     * Return string of the task at that position
-     * @param pos
-     * @return Task
+     * Return string of the task at that position.
+     * 
+     * @param pos Position of the task.
+     * @return Task.
      */
     public Task getStr(int pos) {
         return taskList.get(pos);
@@ -81,6 +85,7 @@ public class Tasklist {
 
     /**
      * Returns the last Task object in the taskList.
+     * 
      * @return The `getLast()` method is returning the last `Task` object in the `taskList` collection.
      */
     public Task getLast() {
@@ -88,7 +93,8 @@ public class Tasklist {
     }
 
     /**
-     * Return size of tasklist
+     * Returns size of tasklist.
+     * 
      * @return The `getSize()` method returns the size of the `taskList`.
      */
     public int getSize() {
@@ -97,6 +103,7 @@ public class Tasklist {
 
     /**
      * Adds a Task object to a taskList.
+     * 
      * @param t The parameter `t` in the `add` method represents a `Task` to add to `tasklist`
      */
     public void add(Task t) {
@@ -106,6 +113,7 @@ public class Tasklist {
 
     /**
      * Removes an element from the `taskList` at the specified position.
+     * 
      * @param pos index of element to delete
      */
     public void delete(int pos) {
