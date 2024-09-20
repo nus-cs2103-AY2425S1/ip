@@ -104,7 +104,7 @@ class ParserTest {
 
     @Test
     void parseCommand_validDeadlineCommand_returnsDeadlineCommand() throws BingBongException {
-        Command command = Parser.parseCommand("deadline finish project /by 12/12/2023 1800");
+        Command command = Parser.parseCommand("deadline finish project /by 12/12/2050 1800");
         assertTrue(command instanceof DeadlineCommand);
     }
 
@@ -116,7 +116,7 @@ class ParserTest {
 
     @Test
     void parseCommand_validEventCommand_returnsEventCommand() throws BingBongException {
-        Command command = Parser.parseCommand("event concert /from 12/12/2023 1800 /to 12/12/2023 2000");
+        Command command = Parser.parseCommand("event concert /from 12/12/2023 1800 /to 12/12/2050 2000");
         assertTrue(command instanceof EventCommand);
     }
 
@@ -128,8 +128,8 @@ class ParserTest {
 
     @Test
     void parseDeadlineDateTime_validInput_returnsCorrectDateTime() throws BingBongException {
-        LocalDateTime dateTime = Parser.parseDeadlineDateTime("deadline finish project /by 12/12/2023 1800");
-        assertEquals(LocalDateTime.of(2023, 12, 12, 18, 0), dateTime);
+        LocalDateTime dateTime = Parser.parseDeadlineDateTime("deadline finish project /by 12/12/2050 1800");
+        assertEquals(LocalDateTime.of(2050, 12, 12, 18, 0), dateTime);
     }
 
     @Test
@@ -141,9 +141,9 @@ class ParserTest {
     @Test
     void parseEventDateTime_validInput_returnsCorrectDateTimeArray() throws BingBongException {
         LocalDateTime[] dateTimes = Parser.parseEventDateTime(
-                "event concert /from 12/12/2023 1800 /to 12/12/2023 2000");
-        assertEquals(LocalDateTime.of(2023, 12, 12, 18, 0), dateTimes[0]);
-        assertEquals(LocalDateTime.of(2023, 12, 12, 20, 0), dateTimes[1]);
+                "event concert /from 12/12/2050 1800 /to 12/12/2050 2000");
+        assertEquals(LocalDateTime.of(2050, 12, 12, 18, 0), dateTimes[0]);
+        assertEquals(LocalDateTime.of(2050, 12, 12, 20, 0), dateTimes[1]);
     }
 
     @Test
