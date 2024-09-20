@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import duck.exceptions.BeforeEarliestTimeException;
-import duck.exceptions.UsageException;
 import duck.tasks.DateAndTime;
 import duck.tasks.Deadline;
 import duck.tasks.DoAfter;
@@ -105,8 +104,6 @@ public class TaskList {
         } catch (IOException e) {
             System.out.println(e.toString());
             System.out.println("File read error!");
-        } catch (UsageException e) {
-            System.out.println("File format error!");
         } catch (BeforeEarliestTimeException e) {
             System.out.println("DoAfter task wrongly marked as done in file!");
         }

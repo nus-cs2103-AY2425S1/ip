@@ -1,18 +1,10 @@
 package duck.tasks;
 
-import duck.exceptions.DeadlineUsageException;
-
 public class Deadline extends Task {
     private final DateAndTime deadline;
 
-    public Deadline(String description, DateAndTime deadline) throws DeadlineUsageException {
+    public Deadline(String description, DateAndTime deadline) {
         super(description);
-
-        if (description == null || description.equals("")
-                || deadline == null) {
-            throw new DeadlineUsageException();
-        }
-
         this.deadline = deadline;
     }
 

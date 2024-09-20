@@ -1,14 +1,8 @@
 package duck.tasks;
 
-import duck.exceptions.TodoUsageException;
-
 public class Todo extends Task {
-    public Todo(String description) throws TodoUsageException {
+    public Todo(String description) {
         super(description);
-
-        if (description == null || description.equals("")) {
-            throw new TodoUsageException();
-        }
     }
 
     @Override

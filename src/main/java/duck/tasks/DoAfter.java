@@ -5,19 +5,12 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 
 import duck.exceptions.BeforeEarliestTimeException;
-import duck.exceptions.DeadlineUsageException;
 
 public class DoAfter extends Task {
     private final DateAndTime earliestTime;
 
-    public DoAfter(String description, DateAndTime earliestTime) throws DeadlineUsageException {
+    public DoAfter(String description, DateAndTime earliestTime) {
         super(description);
-
-        if (description == null || description.equals("")
-                || earliestTime == null) {
-            throw new DeadlineUsageException();
-        }
-
         this.earliestTime = earliestTime;
     }
 
@@ -28,7 +21,7 @@ public class DoAfter extends Task {
     public void markAsDone() throws BeforeEarliestTimeException {
         LocalDate dateNow = ZonedDateTime.now(ZoneId.systemDefault()).toLocalDate();
         LocalDate earliestDate = earliestTime.getDate();
-        if (dateNow.isAfter(earliestDate)) {
+        if (dateNow.isAfter(earliestDate) || dateNow.equals(earliestDate)) {
             this.isDone = true;
         } else {
             throw new BeforeEarliestTimeException(this, earliestDate, dateNow);

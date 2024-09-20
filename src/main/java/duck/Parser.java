@@ -1,7 +1,7 @@
 package duck;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.StringJoiner;
 import java.util.StringTokenizer;
 
@@ -100,9 +100,9 @@ public class Parser {
      */
     public String getUntil(String pattern) {
         StringJoiner sj = new StringJoiner(" ");
-        while (st.hasMoreTokens()) {
-            String word = st.nextToken();
-            if (word.equals(pattern)) {
+        while (hasMoreTokens()) {
+            String word = nextToken();
+            if (word.startsWith(pattern)) {
                 token = word;
                 break;
             }
@@ -111,26 +111,15 @@ public class Parser {
         return sj.toString();
     }
 
-    /**
-     * Read tokens until before the pattern specified has been found
-     * and joins them into a single line. (Excludes the pattern.) Then,
-     * remove the pattern.
-     *
-     * @return tokens until before the pattern joined into a single line
-     */
-    public String getUntilAndRemovePattern(String pattern) {
-        String output = getUntil(pattern);
-        nextToken();
-        return output;
-    }
+    public Map<String, String> parseArgs() {
+        Map<String, String> parts = new HashMap<>();
+        String argName = "";
 
-    public List<String> parseArgs(String... args) {
-        List<String> parts = new ArrayList<>();
-        for (String arg : args) {
-            String part = getUntilAndRemovePattern(arg);
-            parts.add(part);
+        while (hasMoreTokens()) {
+            String part = getUntil("/");
+            parts.put(argName, part);
+            argName = getWord();
         }
-        parts.add(getRemainingLine());
         return parts;
     }
 }
