@@ -42,37 +42,36 @@ Wiggly is a task management application that helps you keep track of your tasks,
 ### Adding Deadline
 
 - **Description**: Adds a task that needs to be done by a specific date/time.
-- **Usage**: `deadline <task description> /by <date/time>`
-- **Example**: `deadline Submit assignment /by 2023-10-10 23:59`
+- **Usage**: `deadline <task description> /by <date>`
+- **Example**: `deadline Submit assignment /by 2023-10-10`
 - **Output**:
     ```
     Got it. I've added this task:
-        [D][ ] Submit assignment (by: Oct 10 2023 11:59 PM)
+        [D][ ] Submit assignment (by: 10 Oct 2023)
     Now you have 2 tasks in the list.
     ```
   
 ### Adding Event
 
 - **Description**: Adds a task that starts at a specific date/time and ends at a specific date/time.
-- **Usage**: `event <task description> /at <start date/time> to <end date/time>`
-- **Example**: `event Team meeting /at 2023-10-10 14:00 to 2023-10-10 16:00`
+- **Usage**: `event <task description> /at <start date/time> to <end date>`
+- **Example**: `event Team meeting /at 2023-10-10 14:00 to 2023-10-10`
 - **Output**:
     ```
     Got it. I've added this task:
-        [E][ ] Team meeting (at: Oct 10 2023 2:00 PM to Oct 10 2023 4:00 PM)
+        [E][ ] Team meeting (at: 10 Oct 2023 to 10 Oct 2023)
     Now you have 3 tasks in the list.
     ```
 ### Listing Tasks
 
 - **Description**: Lists all the tasks in your task list.
 - **Usage**: `list`
-- **Example**: `list`
 - **Output**:
     ```
     Here are the tasks in your list:
     1. [T][ ] Read a book
-    2. [D][ ] Submit assignment (by: Oct 10 2023 11:59 PM)
-    3. [E][ ] Team meeting (at: Oct 10 2023 2:00 PM to Oct 10 2023 4:00 PM)
+    2. [D][ ] Submit assignment (by: 10 Oct 2023)
+    3. [E][ ] Team meeting (at: 10 Oct 2023 to 10 Oct 2023)
     ```
 ### Marking Tasks as Done
 
@@ -92,7 +91,7 @@ Wiggly is a task management application that helps you keep track of your tasks,
 - **Output**:
     ```
     Noted. I've removed this task:
-        [D][ ] Submit assignment (by: Oct 10 2023 11:59 PM)
+        [D][ ] Submit assignment (by: 10 Oct 2023)
     Now you have 2 tasks in the list.
     ```
 ### Finding Tasks
@@ -109,7 +108,6 @@ Wiggly is a task management application that helps you keep track of your tasks,
 ### Archiving Tasks
 - **Description**: Archives all the tasks in your task list in a file named `archive.txt` in `./data` directory.
 - **Usage**: `archive`
-- **Example**: `archive`
 - **Output**:
     ```
     All tasks have been archived.
@@ -119,7 +117,6 @@ Wiggly is a task management application that helps you keep track of your tasks,
 
 - **Description**: Exits the application.
 - **Usage**: `bye`
-- **Example**: `bye`
 - **Output**:
     ```
     Bye. Hope to see you again soon!
