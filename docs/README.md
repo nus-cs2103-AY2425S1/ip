@@ -105,7 +105,18 @@ corresponding task number
   Noted my dearest master. I've removed this task:
   [E][ ] celebrate birthday   (from: Mon, 02 Dec 2019 18:00 to: Mon, 02 Dec 2019 20:00)
   Now you have 4 tasks in the list. uwu~ rawr xd
+  ```
+  
+## Find a specific task
+If you want to look for a specific task within the list on your bot, you can use this command and input a word for 
+the bot to return that task for you
 
+**__Command__**: `find <keyword>`
+
+- Example Input: `find Go`
+- Example Output:
+  ```
+  1. [T][ ] Go Home
   ```
   
 ## Snooze your tasks
