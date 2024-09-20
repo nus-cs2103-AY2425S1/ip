@@ -6,7 +6,7 @@
 
 - ### [Quick Start](#quick-start)
 - ### [Commands](#commands)
-  - [Listing all tasks: `list`](#listing-all-tasks)
+  - [Listing all tasks: `list`](#1-listing-all-tasks)
   - [Adding a todo: `todo`](#adding-todo)
   - [Adding a deadline: `deadline`](#adding-deadlines)
   - [Adding an event: `event`](#adding-events)
@@ -37,40 +37,63 @@ Some example commands you can try:
 
 ## Commands
 
-### Listing all tasks
-See a list of all tasks
+### 1. Listing all tasks
+You can list all the tasks using the command:
 ```
 list
 ```
+This will display a list of tasks in the following format:
+```
+[type][status] <description> (timeframe)
+```
+- **type**: `T` for todo, `D` for deadline, `E` for event
+- **status**: `X` for completed task and empty otherwise
 
-### Adding todo
+**Example output:**
+```
+1. [T][] eat banana
+2. [D][X] eat 10 bananas (by:2024-09-25)
+3. [E][] banana eating competition (from: 2024-09-26 to: 2024-09-27)
+```
+
+---
+
+### 2. Adding todo
 Adds a new todo to the task list
 ```
 todo <task>
 ```
-Example:
+**Example Usage:**
 ```
 todo eat banana
 ```
 This adds a new todo `eat banana` to the task list
 
-### Adding deadlines
+---
+
+### 3. Adding deadlines
 ```
 deadline <task> /by <date>
 ```
-Example:
-```
-deadline eat banana /by 2024-11-11
-```
-This adds a new task `eat banana` with the deadline `2024-11-11`
+**Date format:** `YYYY-MM-DD` e.g. `2024-09-25`
+(We follow the ISO-8601 calendar system)
 
-Note that date input should follow the ISO-8601 calendar system.
+**Example Usage:**
+```
+deadline eat 10 bananas /by 2024-09-25
+```
+This adds a new task `eat 10 bananas` with the deadline `2024-09-25`
 
-### Adding events
+---
+
+### 4. Adding events
 ```
 event <task> /from <date> /to <date>
 ```
-Example:
+**Date format:** `YYYY-MM-DD` e.g. `2024-09-25`
+(We follow the ISO-8601 calendar system)
+
+**Example Usage:**
 ```
 event eat banana /from 2024-01-01 /to 2024-12-31
 ```
@@ -78,7 +101,9 @@ This adds a new event `eat banana` that lasts from `2024-01-01` to `2024-12-31`
 
 Note that date input should follow the ISO-8601 calendar system.
 
-### Task marking
+---
+
+### 5. Task marking
 To mark a task as completed:
 ```
 mark <task index>
@@ -88,45 +113,60 @@ To unmark a task:
 ```
 unmark <task index>
 ```
-Example:
+**Example Usage:**
 ```
 mark 1 
 ```
 This marks the first task in the list as completed.
 
-### Deleting tasks
+---
+
+### 6. Deleting tasks
 ```
 delete <task index>
 ```
-Example:
+**Example Usage:**
 ```
 delete 5
 ```
 This deletes the 5th task in the list
 
-### Searching for tasks
+---
+
+### 7. Searching for tasks
+You can find all tasks that contain a specific word/phrase by using
 ```
 find <query>
 ```
-Example:
+**Example Usage:**
 ```
 find eat banana
 ```
-This will return a list of all tasks that contain the term `eat banana`.
+**Example Output:**
+```
+[T][] eat banana
+[D][] eat banana contest (by: 2024-09-25)
+```
 
-### Undo command
+---
+
+### 8. Undo command
 Reverts the last executed command.
 ```
 undo
 ```
 
-### Help command
+---
+
+### 9. Help command
 See a list of all available commands and their usage.
 ```
 help
 ```
 
-### Bye command
+---
+
+### 10. Bye command
 Exits the chat and closes the app interface.
 ```
 bye
