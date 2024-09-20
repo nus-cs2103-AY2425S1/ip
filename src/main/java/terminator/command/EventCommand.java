@@ -2,6 +2,7 @@ package terminator.command;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import terminator.task.EventTask;
@@ -13,8 +14,8 @@ import terminator.task.Task;
 public class EventCommand extends Command {
 
     private static final String ERR_MSG = """
-            Event description cannot be empty.\n
-            Usage: event <description> /from dd/MM/yyyy HH:mm /to dd/MM/yyyy HH:mm""";
+            Invalid input format.\n
+            Usage: event <description> /from dd/MM/yyyy HHmm /to dd/MM/yyyy HHmm""";
 
     public EventCommand(String input) {
         super(input);
@@ -46,13 +47,27 @@ public class EventCommand extends Command {
 
         // Create LocalDateTime objects
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        LocalDateTime fromDate = LocalDateTime.parse(fromDateString, dateTimeFormatter);
-        LocalDateTime toDate = LocalDateTime.parse(toDateString, dateTimeFormatter);
 
-        // Add to TaskList
-        Task t = new EventTask(description, fromDate, toDate);
-        todoList.add(t);
+        try {
+            LocalDateTime fromDate = LocalDateTime.parse(fromDateString, dateTimeFormatter);
+            LocalDateTime toDate = LocalDateTime.parse(toDateString, dateTimeFormatter);
 
-        return "Mission parameters updated. Added new objective:\n\n" + t;
+            // If end date is before start date, return error response
+            if (fromDate.compareTo(toDate) == 1) {
+                return "Error: end date cannot be before start date.";
+            }
+
+            // Add to TaskList
+            Task t = new EventTask(description, fromDate, toDate);
+            todoList.add(t);
+
+            return "Mission parameters updated. Added new objective:\n\n" + t;
+        } catch (DateTimeParseException e) {
+            throw new TerminatorException(
+                    """
+                    Error: invalid date time input.\n
+                    Months should be between 1-12, and days should be between 1-31.
+                    The hour should be between 00 to 23, and the minute should be between 00 and 59.""");
+        }
     }
 }

@@ -41,7 +41,8 @@ public class UnmarkCommand extends Command {
                 throw new TerminatorException("Index out of bounds.");
             }
         } catch (NumberFormatException nfe) {
-            System.out.println("Error: index is not a valid integer.");
+            response = "Error: index is not a valid integer.";
+            System.out.println(response);
         }
         return response;
     }

@@ -39,7 +39,7 @@ public class DeleteCommand extends Command {
                 throw new TerminatorException("Index out of bounds.");
             }
         } catch (NumberFormatException nfe) {
-            System.out.println("Error: index is not a valid integer.");
+            throw new TerminatorException("Error: index is not a valid integer.");
         }
         return response;
     }

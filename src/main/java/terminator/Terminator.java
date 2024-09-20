@@ -76,7 +76,7 @@ public class Terminator {
                 }
                 System.out.println(response);
             } catch (TerminatorException de) {
-                System.out.println("Error detected: " + de.getMessage());
+                System.out.println("Error: " + de.getMessage());
             }
             terminalUi.printHorizontalLine();
             input = sc.nextLine();

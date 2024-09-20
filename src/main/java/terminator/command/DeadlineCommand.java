@@ -2,6 +2,7 @@ package terminator.command;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import terminator.task.DeadlineTask;
@@ -12,7 +13,7 @@ import terminator.task.Task;
  */
 public class DeadlineCommand extends Command {
     private static final String ERR_MSG = """
-            Deadline description cannot be empty.\n
+            Invalid input format.\n
             Usage: deadline <description> /by dd/MM/yyyy HHmm""";
 
     public DeadlineCommand(String input) {
@@ -39,13 +40,22 @@ public class DeadlineCommand extends Command {
         }
         String byDateString = input.substring(byIdx + 4);
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        LocalDateTime byDate = LocalDateTime.parse(byDateString, dateTimeFormatter);
 
-        // Add to TaskList
-        Task t = new DeadlineTask(description, byDate);
-        todoList.add(t);
+        try {
+            LocalDateTime byDate = LocalDateTime.parse(byDateString, dateTimeFormatter);
 
-        String response = "Mission parameters updated. Added new objective:\n\n" + t;
-        return response;
+            // Add to TaskList
+            Task t = new DeadlineTask(description, byDate);
+            todoList.add(t);
+
+            String response = "Mission parameters updated. Added new objective:\n\n" + t;
+            return response;
+        } catch (DateTimeParseException e) {
+            throw new TerminatorException(
+                    """
+                    Error: invalid date time input.\n
+                    Months should be between 1-12, and days should be between 1-31.
+                    The hour should be between 00 to 23, and the minute should be between 00 and 59.""");
+        }
     }
 }
