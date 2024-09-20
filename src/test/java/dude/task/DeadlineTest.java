@@ -2,6 +2,7 @@ package dude.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
@@ -15,14 +16,14 @@ public class DeadlineTest {
 
     @BeforeEach
     public void setUp() {
-        LocalDateTime deadlineDateTime = LocalDateTime.of(2024, 9, 1, 10, 56);
-        deadline = new Deadline("task 1", deadlineDateTime);
+        LocalDateTime byDateTime = LocalDateTime.of(2024, 9, 1, 10, 56);
+        deadline = new Deadline("task 1", byDateTime);
     }
 
     @Test
     public void testConstructor() {
-        LocalDateTime deadlineDateTime = LocalDateTime.of(1111, 11, 11, 11, 11);
-        deadline = new Deadline("task 2", deadlineDateTime);
+        LocalDateTime byDateTime = LocalDateTime.of(1111, 11, 11, 11, 11);
+        deadline = new Deadline("task 2", byDateTime);
 
         assertEquals("task 2", deadline.description);
         assertEquals(LocalDateTime.of(1111, 11, 11, 11, 11), deadline.by);
@@ -71,6 +72,20 @@ public class DeadlineTest {
         deadline.markAsDone();
 
         assertEquals("[D][X] task 1 (by: Sep 01 2024 10:56)", deadline.toString());
+    }
+
+    @Test
+    public void testEquals() {
+        LocalDateTime sameBy = LocalDateTime.of(2024, 9, 1, 10, 56);
+        LocalDateTime differentBy = LocalDateTime.of(1111, 11, 11, 11, 11);
+
+        Deadline sameTask = new Deadline("task 1", sameBy);
+        Deadline differentNameTask = new Deadline("task 2", sameBy);
+        Deadline differentByTask = new Deadline("task 1", differentBy);
+
+        assertEquals(deadline, sameTask);
+        assertNotEquals(deadline, differentNameTask);
+        assertNotEquals(deadline, differentByTask);
     }
 }
 

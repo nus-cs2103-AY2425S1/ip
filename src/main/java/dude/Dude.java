@@ -123,7 +123,7 @@ public class Dude {
 
         String taskName = taskDes.strip();
         if (!isLegalName(taskName)) {
-            throw  new DudeInvalidNameException();
+            throw new DudeInvalidNameException();
         }
 
         Task newTask = new ToDo(taskName);
@@ -160,7 +160,7 @@ public class Dude {
         LocalDateTime by = Parser.stringToDateTime(splitBy[1].strip());
         String taskName = splitDes[0].strip();
         if (!isLegalName(taskName)) {
-            throw  new DudeInvalidNameException();
+            throw new DudeInvalidNameException();
         }
 
         Task newTask = new Deadline(taskName, by);
@@ -209,7 +209,7 @@ public class Dude {
 
         String taskName = splitDes[0].strip();
         if (!isLegalName(taskName)) {
-            throw  new DudeInvalidNameException();
+            throw new DudeInvalidNameException();
         }
 
         Task newTask = new Event(taskName, from, to);
