@@ -19,6 +19,8 @@ public class DeadlineCommand {
 
     private void add(String task) throws MichaelException {
         String[] parts = task.split("/");
+        assert parts.length == 2 : "Format of deadline task is incorrect";
+
         for (int i = 0; i < parts.length - 1; i++) {
             String curr = parts[i];
             parts[i] = curr.substring(0, curr.length() - 1);

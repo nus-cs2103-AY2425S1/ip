@@ -21,11 +21,12 @@ public class Parser {
      * @throws MichaelException If an invalid command is entered or an existing command is used incorrectly.
      */
     public String parse(String input) throws MichaelException {
+        assert input != null : "Input cannot be null";
+
         if (input.startsWith("bye")) {
             ByeCommand bc = new ByeCommand();
             return bc.feedback();
-        }
-        if (input.startsWith("mark")) { // mark a task as done
+        } else if (input.startsWith("mark")) { // mark a task as done
             MarkCommand mc = new MarkCommand(tasks);
             mc.check(input);
             saveToFile();
