@@ -37,37 +37,48 @@ public class CheckCommand extends Command {
     /**
      * prints out the list of tasks due on date provided
      *
-     * @throws WrongDateTimeFormatException
+     * @throws WrongDateTimeFormatException if date and time format is wrong
      */
     @Override
     public String execute() throws WrongDateTimeFormatException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         String date = userInput.substring(5).trim();
-        try {
-            LocalDate selectedDate = LocalDate.parse(date, formatter);
-            String output = "";
-            int counter = 1;
+        LocalDate selectedDate = parseDate(date);
 
-            for (Task task : this.tasks) {
-                if (task instanceof DeadlineTask) {
-                    DeadlineTask deadlineTask = (DeadlineTask) task;
-                    LocalDate taskDate = deadlineTask.getDeadline().getDateTime().toLocalDate();
-                    if (selectedDate.equals(taskDate)) {
-                        output += counter + ". " + deadlineTask + "\n";
-                        counter++;
-                    }
-                } else if (task instanceof EventTask) {
-                    EventTask eventTask = (EventTask) task;
-                    LocalDate taskDate = eventTask.getEventDate().getDateTime().toLocalDate();
-                    if (selectedDate.equals(taskDate)) {
-                        output += counter + ". " + eventTask + "\n";
-                        counter++;
-                    }
+        String output = "";
+        int counter = 1;
+
+        for (Task task : this.tasks) {
+            if (task instanceof DeadlineTask) {
+                DeadlineTask deadlineTask = (DeadlineTask) task;
+                LocalDate taskDate = deadlineTask.getDeadline().getDateTime().toLocalDate();
+                if (selectedDate.equals(taskDate)) {
+                    output += counter + ". " + deadlineTask + "\n";
+                    counter++;
+                }
+            } else if (task instanceof EventTask) {
+                EventTask eventTask = (EventTask) task;
+                LocalDate taskDate = eventTask.getEventDate().getDateTime().toLocalDate();
+                if (selectedDate.equals(taskDate)) {
+                    output += counter + ". " + eventTask + "\n";
+                    counter++;
                 }
             }
-            output += ("These tasks are due on "
-                    + selectedDate.toString() + Ui.HORIZONTAL_LINE);
-            return output;
+        }
+        output += ("These tasks are due on " + selectedDate + Ui.HORIZONTAL_LINE);
+        return output;
+    }
+
+    /**
+     * Parses the date to make sure that the date is in the right format
+     *
+     * @param date the user input date
+     * @return LocalDate that represents user input date in correct format
+     * @throws WrongDateTimeFormatException if user input date time format is wrong
+     */
+    private LocalDate parseDate(String date) throws WrongDateTimeFormatException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+        try {
+            return LocalDate.parse(date, formatter);
         } catch (DateTimeParseException e) {
             throw new WrongDateTimeFormatException();
         }

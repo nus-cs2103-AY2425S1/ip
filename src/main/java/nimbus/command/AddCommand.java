@@ -56,47 +56,11 @@ public class AddCommand extends Command {
         }
         // here handle the different task types
         if (taskDescription.startsWith("todo")) {
-            String temp = taskDescription.substring(4).trim();
-            if (temp.isEmpty()) {
-                throw new MissingDescriptionException("todo");
-            }
-
-            String taskName = taskDescription.substring(5);
-            taskList.add(new TodoTask(taskName));
+            addTodoTask();
         } else if (taskDescription.startsWith("deadline")) {
-            String temp = taskDescription.substring(8).trim();
-            if (temp.isEmpty()) {
-                throw new MissingDescriptionException("deadline");
-            }
-            if (!temp.contains("/by")) {
-                throw new MissingDeadlineException();
-            }
-
-
-            int byIndex = taskDescription.indexOf("/by");
-            String taskName = taskDescription.substring(9, byIndex);
-            String deadline = taskDescription.substring(byIndex + 4);
-
-            taskList.add(new DeadlineTask(taskName, deadline));
+            addDeadlineTask();
         } else if (taskDescription.startsWith("event")) {
-            String temp = taskDescription.substring(5).trim();
-            if (temp.isEmpty()) {
-                throw new MissingDescriptionException("event");
-            }
-            if (!temp.contains("/from")) {
-                throw new MissingStartEndTimeException("/from");
-            }
-            if (!temp.contains("/to")) {
-                throw new MissingStartEndTimeException("/to");
-            }
-
-            int fromIndex = taskDescription.indexOf("/from");
-            int toIndex = taskDescription.indexOf("/to");
-            String taskName = taskDescription.substring(6, fromIndex).trim();
-            String startTime = taskDescription.substring(fromIndex + 5, toIndex).trim();
-            String endTime = taskDescription.substring(toIndex + 3).trim();
-
-            taskList.add(new EventTask(taskName, startTime, endTime));
+            addEventTask();
         } else {
             return "Please use keywords: todo, deadline or event";
         }
@@ -104,5 +68,62 @@ public class AddCommand extends Command {
                 + "\n" + "Nimbus.Nimbus says you have " + tasks.size() + " tasks in your list!"
                 + Ui.HORIZONTAL_LINE;
         return output;
+    }
+
+    /**
+     * Adds a TodoTask into ArrayList of tasks in TaskList object
+     */
+    private void addTodoTask() {
+        String temp = taskDescription.substring(4).trim();
+        if (temp.isEmpty()) {
+            throw new MissingDescriptionException("todo");
+        }
+
+        String taskName = taskDescription.substring(5);
+        taskList.add(new TodoTask(taskName));
+    }
+
+    /**
+     * Adds a DeadlineTask into ArrayList of tasks in TaskList object
+     */
+    private void addDeadlineTask() {
+        String temp = taskDescription.substring(8).trim();
+        if (temp.isEmpty()) {
+            throw new MissingDescriptionException("deadline");
+        }
+        if (!temp.contains("/by")) {
+            throw new MissingDeadlineException();
+        }
+
+
+        int byIndex = taskDescription.indexOf("/by");
+        String taskName = taskDescription.substring(9, byIndex);
+        String deadline = taskDescription.substring(byIndex + 4);
+
+        taskList.add(new DeadlineTask(taskName, deadline));
+    }
+
+    /**
+     * Adds a EventTask into ArrayList of tasks in TaskList object
+     */
+    private void addEventTask() {
+        String temp = taskDescription.substring(5).trim();
+        if (temp.isEmpty()) {
+            throw new MissingDescriptionException("event");
+        }
+        if (!temp.contains("/from")) {
+            throw new MissingStartEndTimeException("/from");
+        }
+        if (!temp.contains("/to")) {
+            throw new MissingStartEndTimeException("/to");
+        }
+
+        int fromIndex = taskDescription.indexOf("/from");
+        int toIndex = taskDescription.indexOf("/to");
+        String taskName = taskDescription.substring(6, fromIndex).trim();
+        String startTime = taskDescription.substring(fromIndex + 5, toIndex).trim();
+        String endTime = taskDescription.substring(toIndex + 3).trim();
+
+        taskList.add(new EventTask(taskName, startTime, endTime));
     }
 }

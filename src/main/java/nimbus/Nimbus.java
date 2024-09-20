@@ -63,6 +63,7 @@ public class Nimbus {
 
     /**
      * Returns the Nimbus response when user has entered an input
+     *
      * @param input string input by user
      * @return string response from Nimbus
      */
