@@ -85,6 +85,15 @@ public class TaskList {
         return String.valueOf(taskString);
     }
 
+    /**
+     * Finds tasks in the task list that match the given keyword.
+     * <p>
+     * Searches through the task list and returns tasks that contain the keyword.
+     *
+     * @param keyword The keyword to search for in the task descriptions.
+     * @param ui The {@code Ui} instance used to display the matching tasks.
+     * @return A string representation of the tasks that match the keyword.
+     */
     public String findTask(String keyword, Ui ui) {
         ArrayList<Task> matchingTasks = new ArrayList<Task>();
         for (Task task : tasks) {
@@ -92,8 +101,6 @@ public class TaskList {
                 matchingTasks.add(task);
             }
         }
-
         return ui.showFind(matchingTasks);
-
     }
 }

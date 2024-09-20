@@ -48,10 +48,6 @@ public class Ui {
         return message;
     }
 
-    public void showLine() {
-        System.out.println("    " + HORIZONTAL_LINE);
-    }
-
 
     /**
      * Displays a message indicating a task has been marked as done.
@@ -69,8 +65,8 @@ public class Ui {
     /**
      * Displays a message indicating a task has been marked as not done.
      *
-     * @return A string indicating the unmarked task.
      * @param task The task that was marked as not done.
+     * @return A string indicating the unmarked task.
      */
     public String showUnmark(Task task) {
         StringBuilder outputString = new StringBuilder();
@@ -118,7 +114,8 @@ public class Ui {
     public String showFind(ArrayList<Task> matchingTasks) {
         StringBuilder outputString = new StringBuilder();
         if (!matchingTasks.isEmpty()) {
-            outputString.append(String.format("Here are %d tasks that matches your keyword : \n", matchingTasks.size()));
+            outputString.append(String.format("Here are %d tasks that matches your keyword : \n",
+                    matchingTasks.size()));
             for (Task task : matchingTasks) {
                 outputString.append(task.toString());
                 outputString.append("\n");

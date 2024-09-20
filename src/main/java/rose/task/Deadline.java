@@ -5,8 +5,8 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a task that needs to be done before a specific date/time.
- * A <code>Deadline</code> object is represented by the description of the task, the date of deadline, and the status
- * of completion. e.g., <code>[D][X] return book (by: Aug 24 2024)</code>.
+ * A <code>Deadline</code> object is represented by the description of the task, the date of deadline, the status
+ * of completion and an optional tagging. e.g., <code>[D][X] return book (by: Aug 24 2024) #urgent</code>.
  */
 public class Deadline extends Task {
     protected LocalDate byDate;
@@ -36,11 +36,12 @@ public class Deadline extends Task {
     /**
      * Returns a string representation of the deadline task in a comma-separated format.
      *
-     * <p>The format is: <code>"D,status,taskName,byDate"</code>, where <code>status</code>
+     * <p>The format is: <code>"D,status,taskName,byDate,tag"</code>, where <code>status</code>
      * is "X" if the task is done, and a space (" ") if the task is not done. The <code>byDate</code>
-     * is the deadline by which the task needs to be completed, formatted as "yyyy-MM-dd".</p>
+     * is the deadline by which the task needs to be completed, formatted as "yyyy-MM-dd". The <code>tag</code> is
+     * optional and can be an empty string if the user doesn't give a tag.</p>
      *
-     * @return A comma-separated string representing the deadline task's type, status, name, and deadline.
+     * @return A comma-separated string representing the deadline task's type, status, name, deadline, and tag.
      */
     @Override
     public String commaString() {

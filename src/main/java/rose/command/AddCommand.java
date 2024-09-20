@@ -35,14 +35,17 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Adds a new task to the list.
+     * Executes the add task command.
+     * <p>
+     * Adds a new task to the task list based on the task type and saves it to storage.
      *
-     * @param tasks current list of tasks.
-     * @param ui ui object to show message to user.
-     * @param storage storage object to store the data.
-     * @return A message indicating the result of the operation, such as the added task or an error message.
-     * @throws RoseException If input is incomplete or tasktype is unknown.
+     * @param tasks The current list of tasks.
+     * @param ui The {@code Ui} object to show messages to the user.
+     * @param storage The {@code Storage} object to save the task list.
+     * @return A message indicating the added task or an error message.
+     * @throws RoseException If the input is incomplete or the task type is unknown.
      */
+    @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             Task newTask = createTask(taskType, taskName);
@@ -57,6 +60,15 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Creates a task based on the provided task type and name.
+     *
+     * @param taskType The type of task to create (Todo, Deadline, Event).
+     * @param taskName The name or description of the task.
+     * @return The created {@code Task}.
+     * @throws RoseException If the task type is unknown or the input format is invalid.
+     * @throws DateTimeParseException If the date format is incorrect.
+     */
     private Task createTask(TaskType taskType, String taskName) throws RoseException, DateTimeParseException {
         assert taskName != null : "Task name cannot be null.";
         String tag = "";
@@ -64,7 +76,7 @@ public class AddCommand extends Command {
         if (taskName.contains("#")) {
             String[] parts = taskName.split("#");
             tag = parts[1];
-            taskDesc = parts[0];
+            taskDesc = parts[0].trim();
         }
 
         switch (taskType) {
@@ -79,10 +91,25 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Creates a Todo task.
+     *
+     * @param taskDesc The description of the task.
+     * @param tag The tag associated with the task (if any).
+     * @return The created {@code Todo} task.
+     */
     private Task createTodoTask(String taskDesc, String tag) {
         return new Todo(taskDesc, tag);
     }
 
+    /**
+     * Creates a Deadline task.
+     *
+     * @param taskDesc The description of the task, including the deadline date.
+     * @param tag The tag associated with the task (if any).
+     * @return The created {@code Deadline} task.
+     * @throws RoseException If the deadline date is missing or incorrectly formatted.
+     */
     private Task createDeadlineTask(String taskDesc, String tag) throws RoseException {
         String[] parts = taskDesc.split(DEADLINE_DELIMITER);
         if (parts.length < 2) {
@@ -91,6 +118,14 @@ public class AddCommand extends Command {
         return new Deadline(parts[0], LocalDate.parse(parts[1], INPUT_FORMAT), tag);
     }
 
+    /**
+     * Creates an Event task.
+     *
+     * @param taskDesc The description of the task, including the start and end dates.
+     * @param tag The tag associated with the task (if any).
+     * @return The created {@code Event} task.
+     * @throws RoseException If the event dates are missing or incorrectly formatted.
+     */
     private Task createEventTask(String taskDesc, String tag) throws RoseException {
         String[] partsA = taskDesc.split(EVENT_FROM_DELIMITER);
         if (partsA.length < 2) {
@@ -104,6 +139,13 @@ public class AddCommand extends Command {
                 LocalDate.parse(partsB[1], INPUT_FORMAT), tag);
     }
 
+    /**
+     * Saves the list of tasks to storage.
+     *
+     * @param storage The {@code Storage} object used to save tasks.
+     * @param tasks The current list of tasks to save.
+     * @param ui The {@code Ui} object to show error messages if saving fails.
+     */
     private void saveTasks(Storage storage, TaskList tasks, Ui ui) {
         try {
             storage.save(tasks.getTaskList());

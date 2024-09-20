@@ -18,6 +18,16 @@ public class DeleteCommand extends Command {
         this.idx = idx;
     }
 
+    /**
+     * Executes the delete command to remove a task from the task list.
+     *
+     * @param tasks The TaskList from which the task will be deleted.
+     * @param ui The Ui instance for displaying messages to the user.
+     * @param storage The Storage instance for saving the updated task list.
+     * @return A message indicating the result of the delete operation,
+     *     which can include success or error messages.
+     */
+    @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
             Task deleted = tasks.getTask(idx - 1);

@@ -13,11 +13,17 @@ import rose.command.Command;
  */
 public class Rose {
 
-    private final String FILE_PATH = "data/tasks.txt";
+    private static final String FILE_PATH = "data/tasks.txt";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Creates an instance of the Rose application.
+     * <p>
+     * Initializes the user interface, storage, and task list components.
+     * Loads tasks from the file, or starts with an empty task list if the file cannot be read.
+     */
     public Rose() {
         ui = new Ui();
         storage = new Storage(FILE_PATH);
@@ -26,41 +32,17 @@ public class Rose {
         } catch (IOException e) {
             ui.showLoadingError();
             tasks = new TaskList();
+        } catch (RoseException e) {
+            ui.showError(e.getMessage());
+            tasks = new TaskList();
         }
     }
 
     /**
-     * Starts the main loop of the application.
+     * Processes a user input command and returns the result as a response.
      *
-     * <p>This method displays the opening message and continuously listens for user input,
-     * processing commands until the user exits the application. It handles errors and ensures
-     * the user interface is updated accordingly after each command.</p>
-     */
-    public void run() {
-        ui.showOpening();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine();
-                Command currentCommand = Parser.parse(fullCommand);
-                currentCommand.execute(tasks, ui, storage);
-                isExit = currentCommand.isExit();
-            } catch (RoseException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
-            }
-        }
-    }
-
-    /**
-     * Serves as the entry point for the application.
-     *
-     * <p>This method creates a new instance of {@code Rose} with the specified file path and
-     * starts the application by calling the {@link #run()} method.</p>
-     *
-     * @param args Command-line arguments (not used).
+     * @param input The user input command.
+     * @return The result of executing the command, or an error message if an exception occurs.
      */
     public String getResponse(String input) {
         try {

@@ -43,7 +43,7 @@ public class Storage {
      *         stored in the file.
      * @throws IOException If an I/O error occurs during file reading or creation.
      */
-    public ArrayList<Task> load() throws IOException {
+    public ArrayList<Task> load() throws IOException, RoseException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
 
@@ -68,10 +68,12 @@ public class Storage {
                                 LocalDate.parse(parts[4], INPUT_FORMAT),
                                 parts[1].equals("X"), parts[5]));
                         break;
+                    default:
+                        throw new RoseException("List of tasks can't be fully loaded because of wrong data format.");
                     }
                 }
             } catch (DateTimeParseException e) {
-                System.out.println("List of tasks cant be fully loaded because date is in the wrong format");
+                throw new RoseException("List of tasks can't be fully loaded because date is in the wrong format");
             }
         } else {
             file.getParentFile().mkdirs();

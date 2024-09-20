@@ -2,7 +2,8 @@ package rose.task;
 
 /**
  * Represents a task.
- * A <code>Task</code> object is represented by the description of the task and the status of completion.
+ * A <code>Task</code> object is represented by the description of the task, the status of completion, and an
+ * optional tag.
  * e.g., <code>[X] read book</code>.
  */
 public class Task {
