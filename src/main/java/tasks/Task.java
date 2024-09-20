@@ -26,71 +26,89 @@ public abstract class Task implements Serializable {
     public static void checkValidCommand(String[] taskInfoArray, TaskType type) throws EchoException {
         // Return incorrect input message when the length of input less or equal to 1
         if (taskInfoArray.length <= 1 || taskInfoArray[1].isEmpty()) {
-            String msg = "Oops! The description of a " + type + " cannot be empty.";
+            String msg = "Oops! The description of a " + taskInfoArray[0] + " task cannot be empty.";
             throw new EchoException(msg);
         }
 
-        // If input length is greater than 1, check each part
-        String description = taskInfoArray[1];
-
         // When the task type is deadline, check description and end time
         if (type == TaskType.DEADLINE) {
-            // Check whether user inputs the keyword '/by'
-            if (!description.contains("/by")) {
-                String msg = "Oops! The description of a deadline should contain a '/by' keywords";
-                throw new EchoException(msg);
-            }
-
-            // Check whether user inputs a valid description of the task
-            if (taskInfoArray[1].indexOf("/by") <= 1) {
-                String msg = "Oops! Please give me more information about your task.";
-                throw new EchoException(msg);
-            }
-
-            // Check whether user inputs a valid end time of a deadline task
-            if (taskInfoArray[1].split("/by ").length <= 1) {
-                String msg = "Oops! The end time of a deadline cannot be empty.";
-                throw new EchoException(msg);
-            }
-
-            String deadline = taskInfoArray[1].split(" /by ")[1];
-            String dateTimePattern = "^\\d{4}/\\d{2}/\\d{2} \\d{2}:\\d{2}$";
-            // Check whether user input a valid end time format
-            if (!Pattern.matches(dateTimePattern, deadline)) {
-                String msg = "Please input a valid deadline format i.e. \"yyyy/MM/dd HH:mm\".";
-                throw new EchoException(msg);
-            }
+            validateDeadline(taskInfoArray);
         }
 
         // When the task type is event, check description, start time and end time
         if (type == TaskType.EVENT) {
-            // Check whether user inputs keywords '/from' and '/to'
-            if (!taskInfoArray[1].contains("/from") || !taskInfoArray[1].contains("/to")) {
-                String msg = "Oops! The description of an event should"
-                        + " contain a '/from' and '/to' keywords";
-                throw new EchoException(msg);
-            }
+            validateEvent(taskInfoArray);
+        }
+    }
 
-            // Check whether user inputs a valid description of the task
-            if (taskInfoArray[1].indexOf("/from") <= 1) {
-                String msg = "Please give me more information about your task.";
-                throw new EchoException(msg);
-            }
+    /**
+     * Validates the user's input for a DEADLINE task.
+     *
+     * @param taskInfoArray the task description and time information provided by the user.
+     * @throws EchoException if the deadline description or time format is invalid.
+     */
+    private static void validateDeadline(String[] taskInfoArray) throws EchoException {
+        // Check whether user inputs the keyword '/by'
+        if (!taskInfoArray[1].contains("/by")) {
+            String msg = "Oops! The description of a deadline should contain a '/by' keywords";
+            throw new EchoException(msg);
+        }
 
-            // Get the time information by splitting the string
-            String timeInfo = taskInfoArray[1].split("/from")[1];
+        // Check whether user inputs a valid description of the task
+        if (taskInfoArray[1].indexOf("/by") <= 1) {
+            String msg = "Oops! Please give me more information about your task.";
+            throw new EchoException(msg);
+        }
 
-            // Check whether user inputs a valid start time of an event task
-            if (timeInfo.indexOf("/to") <= 1) {
-                String msg = "Oops! The start time of an event cannot be empty.";
-                throw new EchoException(msg);
-            }
+        // Check whether user inputs a valid end time of a deadline task
+        if (taskInfoArray[1].split("/by ").length <= 1) {
+            String msg = "Oops! The end time of a deadline cannot be empty.";
+            throw new EchoException(msg);
+        }
 
-            // Check whether user inputs a valid end time of an event task
-            if (timeInfo.split("/to ").length <= 1) {
-                String msg = "Oops! The end time of an event cannot be empty.";
-                throw new EchoException(msg);
-            }
+        String deadline = taskInfoArray[1].split(" /by ")[1];
+        String dateTimePattern = "^\\d{4}/\\d{2}/\\d{2} \\d{2}:\\d{2}$";
+
+        // Check whether user input a valid end time format
+        if (!Pattern.matches(dateTimePattern, deadline)) {
+            String msg = "Please input a valid deadline format i.e. \"yyyy/MM/dd HH:mm\".";
+            throw new EchoException(msg);
+        }
+    }
+
+    /**
+     * Validates the user's input for an EVENT task.
+     *
+     * @param taskInfoArray the task description and time information provided by the user.
+     * @throws EchoException if the event description or time format is invalid.
+     */
+    private static void validateEvent(String[] taskInfoArray) throws EchoException {
+        // Check whether user inputs keywords '/from' and '/to'
+        if (!taskInfoArray[1].contains("/from") || !taskInfoArray[1].contains("/to")) {
+            String msg = "Oops! The description of an event should"
+                    + " contain a '/from' and '/to' keywords";
+            throw new EchoException(msg);
+        }
+
+        // Check whether user inputs a valid description of the task
+        if (taskInfoArray[1].indexOf("/from") <= 1) {
+            String msg = "Please give me more information about your task.";
+            throw new EchoException(msg);
+        }
+
+        // Get the time information by splitting the string
+        String timeInfo = taskInfoArray[1].split("/from")[1];
+
+        // Check whether user inputs a valid start time of an event task
+        if (timeInfo.indexOf("/to") <= 1) {
+            String msg = "Oops! The start time of an event cannot be empty.";
+            throw new EchoException(msg);
+        }
+
+        // Check whether user inputs a valid end time of an event task
+        if (timeInfo.split("/to ").length <= 1) {
+            String msg = "Oops! The end time of an event cannot be empty.";
+            throw new EchoException(msg);
         }
     }
 
