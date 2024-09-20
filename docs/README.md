@@ -62,6 +62,7 @@ Wiggly is a task management application that helps you keep track of your tasks,
     [E][ ] Team meeting (at: 10 Oct 2023 to 10 Oct 2023)
   Now you have 3 tasks in the list.
   ```
+  
 ### Listing Tasks
 
 - **Description**: Lists all the tasks in your task list.
@@ -84,6 +85,7 @@ Wiggly is a task management application that helps you keep track of your tasks,
   Nice! I've marked this task as done:
     [T][X] Read a book
   ```
+  
 ### Deleting Tasks
 
 - **Description**: Deletes a task from your task list.
@@ -95,6 +97,7 @@ Wiggly is a task management application that helps you keep track of your tasks,
     [D][ ] Submit assignment (by: 10 Oct 2023)
   Now you have 2 tasks in the list.
   ```
+  
 ### Finding Tasks
 
 - **Description**: Finds tasks that contain a specific keyword.
