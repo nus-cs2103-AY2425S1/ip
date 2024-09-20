@@ -22,6 +22,8 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setTitle("Him");
+            stage.setMinHeight(220);
+            stage.setMinWidth(417);
             fxmlLoader.<control.MainWindow>getController().setHim(him);  // inject the Him instance
             stage.show();
         } catch (IOException e) {
