@@ -77,7 +77,7 @@ class ParserTest {
             assertEquals("Feb 12 2024", parser.getBy());
             fail();
         } catch (LukeException e) {
-            assertEquals("Invalid Date format", e.getMessage());
+            assertEquals("Invalid Date, must be of format: yyyy-MM-dd and valid date", e.getMessage());
         }
     }
 
