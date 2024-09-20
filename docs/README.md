@@ -143,8 +143,7 @@ Meow! Here is your schedule on Mon, 30 Sep 2024:
 [D][ ] Submit report (by: Mon, 30 Sep 2024 6:00pm)
 ```
 ### 10. Help Command
-   If you're ever lost and need to know what commands Neko can handle, just type help.
-
+If you're ever lost and need to know what commands Neko can handle, just type help.
 - Command:
 ```
 help
@@ -164,20 +163,22 @@ Here are the available commands meow!
 9. view [date] - Views the tasks scheduled on the given date
 10. help - Shows this list of commands
 ```
-
+---
 ## Summary
-| Command                          | Description                                                         |
-|-----------------------------------|---------------------------------------------------------------------|
-| `add todo [description]`          | Adds a new To-do task to the list                                    |
+
+| Command                                | Description                                                             |
+|----------------------------------------|-------------------------------------------------------------------------|
+| `add todo [description]`               | Adds a new To-do task to the list                                        |
 | `add deadline [description] /by [yyyyMMddTHH:mm]` | Adds a new Deadline task with a specific date and time              |
-| `add event [description] /from [yyyyMMddTHH:mm] /to [yyyyMMddTHH:mm]` | Adds a new Event task with a start and end date/time                |
-| `list`                            | Displays all the tasks in the list                                   |
-| `mark [task number]`              | Marks a task as done                                                 |
-| `unmark [task number]`            | Marks a task as not done                                             |
-| `delete [task number]`            | Deletes a task from the list                                         |
-| `find [keyword]`                  | Finds tasks that match the given keyword                             |
-| `view [yyyyMMdd]`                 | Displays tasks scheduled on the given date                           |
-| `help`                            | Displays the list of available commands                              |
+| `add event [description] /from [yyyyMMddTHH:mm] /to [yyyyMMddTHH:mm]` | Adds a new Event task with a start and end date/time          |
+| `list`                                 | Displays all the tasks in the list                                       |
+| `mark [task number]`                   | Marks a task as done                                                     |
+| `unmark [task number]`                 | Marks a task as not done                                                 |
+| `delete [task number]`                 | Deletes a task from the list                                             |
+| `find [keyword]`                       | Finds tasks that match the given keyword                                 |
+| `view [yyyyMMdd]`                      | Displays tasks scheduled on the given date                               |
+| `help`                                 | Displays the list of available commands                                  |
+
 
 ## Conclusion
 Neko is designed to make task management as easy and fun as possible with its interactive and intuitive command-line interface. Whether you're managing deadlines or long events, Neko has you covered with just a few simple commands. Keep your tasks organized and let Neko handle the details.
