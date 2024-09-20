@@ -56,7 +56,7 @@ public class Rei {
                             LocalDateTime.parse(prompt.substring(prompt.indexOf("/to") + 4))));
                     break;
                 case DELETE:
-                    taskIndex = Integer.parseInt(prompt);
+                    taskIndex = Integer.parseInt(prompt.substring(6).trim());
                     output = tasks.deleteTask(taskIndex);
                     break;
                 case FIND:
