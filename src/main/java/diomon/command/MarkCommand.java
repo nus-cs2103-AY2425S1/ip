@@ -19,5 +19,5 @@ public class MarkCommand extends Command{
         } catch (IndexOutOfBoundsException e) {
             setResponse("Index out of bound, please try again");
         }
-    };
+    }
 }
