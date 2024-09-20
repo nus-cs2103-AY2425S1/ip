@@ -6,7 +6,7 @@ Duck is a desktop chat application to track tasks on a Graphical User Interface 
 
 ## Adding Tasks
 
-There are four types of tasks: todo, deadline, event and do-after.
+There are four types of tasks: todo, deadline, event and doafter.
 
 ### Adding todos
 
@@ -62,17 +62,17 @@ Got it. I've added this task:
 Now you have 3 tasks in the list.
 ```
 
-### Adding do-after tasks
+### Adding doafter tasks
 
-Adds a do-after task to the task list. These are tasks that need to be done after a specific time.
+Adds a doafter task to the task list. These are tasks that need to be done after a specific time.
 
-Format: `do-after <description> /after <earliest_date>`
+Format: `doafter <description> /after <earliest_date>`
 
-`<description>` can be any text. `<earliest_date>` is in "yyyy-MM-dd" format.
+`<description>` can be any text. `<earliest_date>` is in "yyyy-MM-dd" format. The task can be marked as done on the earliest date, but not before.
 
-Example: `do-after clean up /after 2024-09-21`
+Example: `doafter clean up /after 2024-09-21`
 
-Expected outcome: Adds an do-after task with the description "clean up", and earliest date "2024-09-21".
+Expected outcome: Adds an doafter task with the description "clean up", and earliest date "2024-09-21".
 
 ```
 Got it. I've added this task:

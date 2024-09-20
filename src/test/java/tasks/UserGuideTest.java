@@ -29,7 +29,7 @@ public class UserGuideTest {
         assertEquals("Got it. I've added this task:\n" +
                 "  [A][ ] clean up (after: 21 SEPTEMBER 2024)\n" +
                 "Now you have 4 tasks in the list.",
-                duck.getResponse("do-after clean up /after 2024-09-21"));
+                duck.getResponse("doafter clean up /after 2024-09-21"));
 
         assertEquals("Here are the tasks in your list:\n" +
                 "    1. [T][ ] read book\n" +
