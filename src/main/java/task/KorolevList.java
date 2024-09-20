@@ -103,8 +103,8 @@ public class KorolevList {
     /**
      * Adds new task to the array list of tasks.
      *
-     * @param event description of the event
-     * @throws DukeException when failing to add event
+     * @param event description of the event.
+     * @throws DukeException when failing to add event.
      */
     public String addEvent(String event) throws DukeException {
         String target = event.split("\\s")[0];
@@ -135,7 +135,7 @@ public class KorolevList {
      * Marks the specific task to be done
      *
      * @param index index of the event.
-     * @throws DukeException the index is out of bound
+     * @throws DukeException the index is out of bound.
      */
     public String markEvent(int index) throws DukeException {
         if (index >= this.events.size() || index < 0) {
@@ -193,10 +193,10 @@ public class KorolevList {
     }
 
     /**
-     * Removes a specific task
+     * Removes a specific task.
      *
-     * @param index index of the task
-     * @throws DukeException when the index is out of the range of the array list
+     * @param index index of the task.
+     * @throws DukeException when the index is out of the range of the array list.
      */
     public String removeEvent(int index) throws DukeException {
         if (index >= this.events.size() || index < 0) {
@@ -212,12 +212,11 @@ public class KorolevList {
     }
 
     /**
-     * Unmarks a specific task to a state of incomplete
+     * Unmarks a specific task to a state of incomplete.
      *
-     * @param index index of the task
-     * @throws DukeException when the index is out of the range of the array list
+     * @param index index of the task.
+     * @throws DukeException when the index is out of the range of the array list.
      */
-
     public String unmarkEvent(int index) throws DukeException {
         if (index >= this.events.size() || index < 0) {
             throw new DukeException(outOfIndexError);
@@ -231,9 +230,9 @@ public class KorolevList {
     }
 
     /**
-     * Generates the message that will be written into local file
+     * Generates the message that will be written into local file.
      *
-     * @return message to be recorded
+     * @return message to be recorded.
      */
     private String createSaveInfo() {
         StringBuilder msg = new StringBuilder();
@@ -244,7 +243,7 @@ public class KorolevList {
     }
 
     /**
-     * Saves the information of task list to the
+     * Saves the information of task list to the.
      */
     public void saveEvent() {
         String msg = this.createSaveInfo();
@@ -253,7 +252,7 @@ public class KorolevList {
 
 
     /**
-     * Loads records about events from hard disk
+     * Loads records about events from hard disk.
      */
     public void loadEvent() {
         storage.readLines(this.events);

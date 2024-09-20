@@ -5,7 +5,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
 /**
- * Represents a task of event type
+ * Represents a task of event type.
  */
 public class KorolevEvent extends KorolevTask {
     private String type;
@@ -15,9 +15,9 @@ public class KorolevEvent extends KorolevTask {
     /**
      * Constructs new object of KorolevEvent.
      *
-     * @param name description of the task
-     * @param start starting time
-     * @param end ending time
+     * @param name description of the task.
+     * @param start starting time.
+     * @param end ending time.
      */
     public KorolevEvent(String name, String start, String end) throws DateTimeParseException {
         super(name);
@@ -32,7 +32,7 @@ public class KorolevEvent extends KorolevTask {
     /**
      * Overrides toString method in KorolevTask.
      *
-     * @return string representation of KorolevEvent
+     * @return string representation of KorolevEvent.
      */
     @Override
     public String toString() {

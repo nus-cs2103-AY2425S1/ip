@@ -8,7 +8,7 @@ public class KorolevTask {
     /**
      * Constructs an object of KorolevTask.
      *
-     * @param name description of the task
+     * @param name description of the task.
      */
     public KorolevTask(String name) {
         this.name = name;
@@ -29,9 +29,9 @@ public class KorolevTask {
     }
 
     /**
-     * Checks whether the task is complete
+     * Checks whether the task is complete.
      *
-     * @return the state whether the task is complete
+     * @return the state whether the task is complete.
      */
     public boolean isComplete() {
         return this.isDone;
@@ -40,7 +40,7 @@ public class KorolevTask {
     /**
      * Adds tag to a specific Korolev Task.
      *
-     * @param tag input about users from tag
+     * @param tag input about users from tag.
      */
     public void tag(String tag) {
         this.tag = tag;
@@ -49,7 +49,7 @@ public class KorolevTask {
     /**
      * Displays tag information of a specific Korolev task.
      *
-     * @return formatted tag information
+     * @return formatted tag information.
      */
     public String showTag() {
         return tag == null ? "[tag:]" : "[tag:" + this.tag + "]";
@@ -64,10 +64,10 @@ public class KorolevTask {
     }
 
     /**
-     * Checks whether the task name contains the keyword
+     * Checks whether the task name contains the keyword.
      *
-     * @param keyword keys input by users
-     * @return tests whether the description contains certain keywords
+     * @param keyword keys input by users.
+     * @return tests whether the description contains certain keywords.
      */
     public boolean match(String keyword) {
         return this.name.contains(keyword);
@@ -76,7 +76,7 @@ public class KorolevTask {
     /**
      * Overrides toString method in KorolevTask.
      *
-     * @return string representation of Object
+     * @return string representation of Object.
      */
     @Override
     public String toString() {

@@ -4,7 +4,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 /**
- * Represents a task of deadline type
+ * Represents a task of deadline type.
  */
 public class KorolevDeadline extends KorolevTask {
     private LocalDateTime deadline;
@@ -12,8 +12,8 @@ public class KorolevDeadline extends KorolevTask {
     /**
      * Constructs new object of KorolevDeadline.
      *
-     * @param name description of the task
-     * @param date deadline
+     * @param name description of the task.
+     * @param date deadline.
      */
     public KorolevDeadline(String name, String date) {
         super(name);
@@ -25,7 +25,7 @@ public class KorolevDeadline extends KorolevTask {
     /**
      * Overrides toString method in KorolevTask.
      *
-     * @return string representation of KorolevDeadline
+     * @return string representation of KorolevDeadline.
      */
     @Override
     public String toString() {

@@ -93,7 +93,7 @@ public class KorolevCommand {
     /**
      * Executes the respective command based on input string.
      *
-     * @return whether the execution is successful or not
+     * @return whether the execution is successful or not.
      */
     public String executeCommand() {
         if (input.equals("bye")) {

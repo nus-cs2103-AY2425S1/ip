@@ -3,7 +3,7 @@ package task;
 import task.KorolevTask;
 
 /**
- * Represents a task of Todo type
+ * Represents a task of Todo type.
  */
 public class KorolevTodo extends KorolevTask {
     private String type;
@@ -11,7 +11,7 @@ public class KorolevTodo extends KorolevTask {
     /**
      * Constructs an object of KorolevTodo.
      *
-     * @param name description of the todo task
+     * @param name description of the todo task.
      */
     public KorolevTodo(String name) {
         super(name);
@@ -23,7 +23,7 @@ public class KorolevTodo extends KorolevTask {
     /**
      * Overrides toString method in KorolevTask.
      *
-     * @return string representation of KorolevTodo
+     * @return string representation of KorolevTodo.
      */
     @Override
     public String toString() {
