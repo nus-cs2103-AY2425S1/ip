@@ -11,7 +11,7 @@ public abstract class Command {
     
     /** Whether the program should exit upon execution */
     protected boolean isExit;
-    
+
     public Command() {
         this.isExit = false;
     }
@@ -24,7 +24,7 @@ public abstract class Command {
      * @param storage The running program's storage
      */
     public abstract void execute(TaskList tasks, Ui ui, Storage storage);
-    
+
     public boolean isExit() {
         return this.isExit;
     }

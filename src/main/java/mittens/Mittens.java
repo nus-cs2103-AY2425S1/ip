@@ -17,7 +17,7 @@ public class Mittens {
     private final Ui ui;
     private final Storage storage;
     private final TaskList taskList;
-    
+
     /**
      * Creates a new Mittens object with the specified storage file path.
      * 
@@ -26,7 +26,7 @@ public class Mittens {
     public Mittens(String storageFilePath) {
         this.ui = new TextUi();
         this.storage = new Storage(storageFilePath);
-        
+
         TaskList temp;
         try {
             temp = this.storage.load();
@@ -43,7 +43,7 @@ public class Mittens {
             ui.showErrorMessage(newException);
             throw new RuntimeException("Error occurred during initialization");
         }
-        
+
         this.taskList = temp;
     }
 
@@ -52,12 +52,12 @@ public class Mittens {
      */
     public void run() {
         CommandParser commandParser = new CommandParser();
-        
+
         ui.showGreetingMessage();
 
         while (true) {
             String input = ui.getUserInput();
-            
+
             try {
                 Command command = commandParser.parse(input);
                 command.execute(this.taskList, this.ui, this.storage);
@@ -69,7 +69,7 @@ public class Mittens {
             }
         }
     }
-    
+
     public static void main(String[] args) {
         Mittens mittens = new Mittens("data/data.txt");
         mittens.run();

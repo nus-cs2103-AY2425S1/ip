@@ -27,7 +27,7 @@ public class CommandParserTest {
             fail();
         }
     }
-    
+
     @Test
     public void parse_addCommandTodo_parsedCorrectly() {
         try {
@@ -60,7 +60,7 @@ public class CommandParserTest {
             fail();
         }
     }
-    
+
     @Test
     public void parse_markCommand_parsedCorrectly() {
         try {
@@ -70,7 +70,7 @@ public class CommandParserTest {
             fail();
         }
     }
-    
+
     @Test
     public void parse_unmarkCommand_parsedCorrectly() {
         try {
@@ -80,7 +80,7 @@ public class CommandParserTest {
             fail();
         }
     }
-    
+
     @Test
     public void parse_deleteCommand_parsedCorrectly() {
         try {
@@ -90,7 +90,7 @@ public class CommandParserTest {
             fail();
         }
     }
-    
+
     @Test
     public void parse_exitCommand_parsedCorrectly() {
         try {
@@ -100,7 +100,7 @@ public class CommandParserTest {
             fail();
         }
     }
-    
+
     @Test
     public void parse_unknownCommand_exceptionThrown() {
         try {
@@ -120,7 +120,7 @@ public class CommandParserTest {
             assertEquals("Invalid date format for 'by' flag", e.getMessage());
         }
     }
-    
+
     @Test
     public void parse_addCommandDeadlineUnknownFlag_exceptionThrown() {
         try {
@@ -130,7 +130,7 @@ public class CommandParserTest {
             assertEquals("'unknown' is not a known flag", e.getMessage());
         }
     }
-    
+
     @Test
     public void parse_addCommandDeadlineDuplicateFlag_exceptionThrown() {
         try {
@@ -140,7 +140,7 @@ public class CommandParserTest {
             assertEquals("Found duplicate of 'by' flag", e.getMessage());
         }
     }
-    
+
     @Test
     public void parse_addCommandEventNoToFlag_exceptionThrown() {
         try {

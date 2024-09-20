@@ -21,20 +21,20 @@ public class StorageTest {
     @Test
     public void save_validTaskList_success(@TempDir Path tempDir) {
         Path filePath = tempDir.resolve("data.txt");
-        
+
         TaskList tasks = new TaskList();
         tasks.addTask(new Todo("todoName"));
         tasks.addTask(new Deadline("deadlineName", LocalDate.of(2024, 1, 31)));
         tasks.addTask(new Event("eventName", LocalDate.of(2024, 1, 31), LocalDate.of(2024, 2, 1)));
         tasks.markTaskAsDone(1);
-        
+
         Storage storage = new Storage(filePath.toString());
         try {
             storage.save(tasks);
         } catch (StorageFileException e) {
             fail();
         }
-        
+
         try {
             List<String> lines = Files.readAllLines(filePath);
             assertEquals(3, lines.size());
@@ -45,18 +45,18 @@ public class StorageTest {
             fail();
         }
     }
-    
+
     @Test
     public void load_validTaskList_success(@TempDir Path tempDir) {
         Path filePath = tempDir.resolve("data.txt");
         try {
             Files.createFile(filePath);
-            Files.write(filePath, List.of("T| |todoName","D|X|deadlineName|2024-01-31",
+            Files.write(filePath, List.of("T| |todoName", "D|X|deadlineName|2024-01-31",
                     "E| |eventName|2024-01-31|2024-02-01"));
         } catch (IOException e) {
             fail();
         }
-        
+
         Storage storage = new Storage(filePath.toString());
         try {
             TaskList tasks = storage.load();

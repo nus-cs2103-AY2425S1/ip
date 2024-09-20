@@ -1,6 +1,10 @@
 package mittens.storage;
 
-import mittens.task.*;
+import mittens.task.Deadline;
+import mittens.task.Event;
+import mittens.task.Task;
+import mittens.task.TaskList;
+import mittens.task.Todo;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,7 +18,7 @@ import java.util.ArrayList;
  */
 public class Storage {
     protected final Path filePath;
-    
+
     /**
      * Creates a new Storage object with the specified file path.
      * 
@@ -58,7 +62,7 @@ public class Storage {
             throw new StorageFileException("Unable to write to storage file");
         }
     }
-    
+
     /**
      * Loads the task list from the storage file.
      * 
@@ -76,7 +80,7 @@ public class Storage {
             }
             return new TaskList();
         }
-        
+
         try {
             ArrayList<String> encodedTasks = new ArrayList<>(Files.readAllLines(this.filePath));
             TaskList taskList = new TaskList();
@@ -84,18 +88,18 @@ public class Storage {
                 String[] taskComponents = encodedTask.split("\\|");
                 Task task = null;
                 switch (taskComponents[0]) {
-                    case "T":
-                        task = new Todo(taskComponents[2]);
-                        break;
-                    case "D":
-                        task = new Deadline(taskComponents[2], LocalDate.parse(taskComponents[3]));
-                        break;
-                    case "E":
-                        task = new Event(taskComponents[2], LocalDate.parse(taskComponents[3]),
-                                LocalDate.parse(taskComponents[4]));
-                        break;
-                    default:
-                        throw new StorageFileException("Corrupted storage file");
+                case "T":
+                    task = new Todo(taskComponents[2]);
+                    break;
+                case "D":
+                    task = new Deadline(taskComponents[2], LocalDate.parse(taskComponents[3]));
+                    break;
+                case "E":
+                    task = new Event(taskComponents[2], LocalDate.parse(taskComponents[3]),
+                            LocalDate.parse(taskComponents[4]));
+                    break;
+                default:
+                    throw new StorageFileException("Corrupted storage file");
                 }
                 if (taskComponents[1].equals("X")) {
                     task.markAsDone();

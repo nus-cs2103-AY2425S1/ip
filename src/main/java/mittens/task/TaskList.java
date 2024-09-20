@@ -9,7 +9,7 @@ import java.util.List;
 public class TaskList {
     
     protected final ArrayList<Task> tasks;
-    
+
     /**
      * Initializes a task list.
      */
@@ -30,7 +30,7 @@ public class TaskList {
     public Task getTask(int index) {
         return this.tasks.get(index);
     }
-    
+
     /**
      * Gets the number of tasks in the list.
      * 
@@ -39,7 +39,7 @@ public class TaskList {
     public int getCount() {
         return this.tasks.size();
     }
-    
+
     /**
      * Adds a task to the list.
      * 
@@ -48,7 +48,7 @@ public class TaskList {
     public void addTask(Task task) {
         this.tasks.add(task);
     }
-    
+
     /**
      * Marks a task as done.
      * 
@@ -72,7 +72,7 @@ public class TaskList {
         task.markAsNotDone();
         return task;
     }
-    
+
     /**
      * Deletes a task from the list.
      * 
