@@ -86,7 +86,7 @@ public class Ui {
         return (e.getMessage());
     }
 
-    public String showNoTask() {
+    public static String showNoTask() {
         return "Omgggg... yayyy!!!! \nYou are free from tasks XD";
     }
 
