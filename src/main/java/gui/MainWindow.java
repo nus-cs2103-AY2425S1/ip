@@ -64,7 +64,7 @@ public class MainWindow extends AnchorPane {
             // Solution to close gui below adapted from
             // https://stackoverflow.com/questions/27334455/how-to-close-a-stage-after-a-certain-amount-of-time-javafx
             if (input.trim().equalsIgnoreCase("bye")) {
-                PauseTransition delay = new PauseTransition(Duration.seconds(2));
+                PauseTransition delay = new PauseTransition(Duration.seconds(1));
                 delay.setOnFinished(event -> Platform.exit());
                 delay.play();
             }
