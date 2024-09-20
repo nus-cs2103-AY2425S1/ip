@@ -10,6 +10,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import main.KukiShinobu;
 
+import java.util.Objects;
+
 /**
  * Controller for the main GUI.
  */
@@ -27,9 +29,13 @@ public class MainWindow extends AnchorPane {
     private KukiShinobu kukiShinobu;
     private Stage stage;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/AetherAvatar.png"));
+    private Image userImage = new Image(
+            Objects.requireNonNull(
+                    this.getClass().getResourceAsStream("/images/AetherAvatar.png")
+            )
+    );
     private Image kukiShinobuImage =
-            new Image(this.getClass().getResourceAsStream("/images/KukiShinobuAvatar.png"));
+            new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/KukiShinobuAvatar.png")));
 
     @FXML
     public void initialize() {
@@ -78,10 +84,6 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getKukiShinobuDialog(response, kukiShinobuImage)
         );
         userInput.clear();
-
-//        System.out.println("Input: " + input);
-//        System.out.println("Output: " + response);
-//        System.out.println();
 
         // Checks if KukiShinobu::isExit is true, then exit the program if so
         if (kukiShinobu.isExit()) {

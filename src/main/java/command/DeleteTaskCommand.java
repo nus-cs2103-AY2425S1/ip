@@ -3,6 +3,7 @@ package command;
 import storage.Storage;
 import task.TaskList;
 import exception.KukiShinobuException;
+import exception.InvalidCommandKukiShinobuException;
 
 /**
  * Represents a command to delete a task from the task list.
@@ -14,19 +15,19 @@ public class DeleteTaskCommand extends Command {
     /**
      * Constructs a DeleteTaskCommand with the specified index of the task to be deleted.
      * <p>
-     * If the provided index is not a valid integer, a {@code KukiShinobuException} is thrown
+     * If the provided index is not a valid integer, a {@code InvalidCommandKukiShinobuException} is thrown
      * with an error message indicating the issue.
      * </p>
      *
      * @param indexString The index of the task as a string.
      *                    It will be parsed into an integer.
-     * @throws KukiShinobuException If the indexString is not a valid integer.
+     * @throws InvalidCommandKukiShinobuException If the indexString is not a valid integer.
      */
-    public DeleteTaskCommand(String indexString) throws KukiShinobuException {
+    public DeleteTaskCommand(String indexString) throws InvalidCommandKukiShinobuException {
         try {
             this.taskIndex = Integer.parseInt(indexString);
         } catch (NumberFormatException e) {
-            throw new KukiShinobuException("Invalid task index: Please enter a numeric value.");
+            throw new InvalidCommandKukiShinobuException("Invalid task index: Please enter a numeric value.");
         }
     }
 

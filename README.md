@@ -87,10 +87,10 @@ To release a new version of the bot:
 2. Upload the JAR file.
 3. Ensure that only one JAR file is uploaded to avoid confusion during grading or usage.
 
-## Credits
+## Acknowledgements
 
 ### Use of Generative AI
-Generative AI tools, including ChatGPT, were heavily used for creating detailed Javadocs, commit messages, and occasional code refactoring throughout the development of Kuki Shinobu.
+Generative AI tools, including ChatGPT, were heavily used for creating detailed Javadocs, commit messages, test suite creation and occasional code refactoring throughout the development of Kuki Shinobu.
 
 ### JavaFX Tutorial
 The GUI for this project was created with guidance from the [JavaFX tutorial](https://se-education.org/guides/tutorials/javaFx.html).

@@ -1,6 +1,6 @@
 package command;
 
-import exception.KukiShinobuException;
+import exception.InvalidCommandKukiShinobuException;
 import storage.Storage;
 import task.Task;
 import task.TaskList;
@@ -20,11 +20,11 @@ public class FindCommand extends Command {
      * Constructs a {@code FindCommand} with the specified keyword.
      *
      * @param arguments The keyword to search for in the task descriptions.
-     * @throws KukiShinobuException If no keyword is provided.
+     * @throws InvalidCommandKukiShinobuException If no keyword is provided.
      */
-    public FindCommand(String arguments) throws KukiShinobuException {
+    public FindCommand(String arguments) throws InvalidCommandKukiShinobuException {
         if (arguments.isEmpty()) {
-            throw new KukiShinobuException("No keyword is provided!");
+            throw new InvalidCommandKukiShinobuException("No keyword is provided!");
         }
 
         this.keyword = arguments;
@@ -45,7 +45,6 @@ public class FindCommand extends Command {
     public String execute(TaskList taskList, Storage storage) {
         StringBuilder response = new StringBuilder();
 
-        //TODO: Perhaps update findMatchingTasks to return a TaskList instead to we can reuse the toString method
         ArrayList<Task> matchingTasks = taskList.findMatchingTasks(this.keyword);
 
         if (matchingTasks.isEmpty()) {

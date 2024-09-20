@@ -1,6 +1,6 @@
 package command;
 
-import exception.KukiShinobuException;
+import exception.InvalidCommandKukiShinobuException;
 import storage.Storage;
 import task.TaskList;
 import task.Todo;
@@ -17,14 +17,14 @@ public class AddTodoCommand extends Command {
 
     /**
      * Creates an AddTodoCommand with the specified arguments.
-     * If the argument is empty, it throws a KukiShinobuException indicating the description is missing.
+     * If the argument is empty, it throws a InvalidCommandKukiShinobuException indicating the description is missing.
      *
      * @param arguments The string containing the task description and tags (e.g., "do homework #school #urgent").
-     * @throws KukiShinobuException if the task description is missing.
+     * @throws InvalidCommandKukiShinobuException if the task description is missing.
      */
-    public AddTodoCommand(String arguments) throws KukiShinobuException {
+    public AddTodoCommand(String arguments) throws InvalidCommandKukiShinobuException {
         if (arguments.isEmpty()) {
-            throw new KukiShinobuException("Todo is missing description!");
+            throw new InvalidCommandKukiShinobuException("Todo is missing description!");
         }
 
         // Split the arguments by space, identifying tags (starting with #)
@@ -48,7 +48,7 @@ public class AddTodoCommand extends Command {
         // Ensure there is at least a description
         String description = descriptionBuilder.toString();
         if (description.isEmpty()) {
-            throw new KukiShinobuException("Todo is missing description!");
+            throw new InvalidCommandKukiShinobuException("Todo is missing description!");
         }
 
         // Create a new Todo with the description and tags

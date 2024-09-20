@@ -52,16 +52,6 @@ public class KukiShinobu {
     }
 
     /**
-     * Converts an integer to a boolean.
-     *
-     * @param i The integer to convert.
-     * @return True if the integer is non-zero, otherwise false.
-     */
-    public static boolean readBoolean(int i) {
-        return i != 0;
-    }
-
-    /**
      * Checks if the application should exit.
      *
      * @return True if the exit condition is met, otherwise false.

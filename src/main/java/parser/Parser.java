@@ -12,7 +12,7 @@ import command.ListCommand;
 import command.MarkTaskCommand;
 import command.UnknownCommand;
 import command.UnmarkTaskCommand;
-import exception.KukiShinobuException;
+import exception.InvalidCommandKukiShinobuException;
 
 /**
  * Parses user input into executable commands.
@@ -45,9 +45,9 @@ public class Parser {
         try {
             switch (command) {
                 case "bye":
-                    return new ExitCommand();
+                    return new ExitCommand(arguments);
                 case "list":
-                    return new ListCommand();
+                    return new ListCommand(arguments);
                 case "find":
                     return new FindCommand(arguments);
                 case "mark":
@@ -65,10 +65,10 @@ public class Parser {
                 default:
                     return new UnknownCommand();
             }
-        } catch (KukiShinobuException e) {
+        } catch (InvalidCommandKukiShinobuException e) {
             // In the event an error occurred during the instantiation of a Command,
-            // possibly due to invalid format of arguments, a KukiShinobuException will be thrown, resulting in
-            // an InvalidCommand being returned
+            // possibly due to invalid format of arguments, a InvalidCommandKukiShinobuException will be thrown,
+            // resulting in an InvalidCommand being returned
             return new InvalidCommand(e.getMessage());
         }
     }
