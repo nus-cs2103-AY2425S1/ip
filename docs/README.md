@@ -1,6 +1,7 @@
 # Ratchet User Guide
 
-![Screenshot of Ratchet](Ui.png)<br>
+![Screenshot of Ratchet](Ui.png)
+
 <sup>Credits: [Ratchet Image](https://www.vectorstock.com/royalty-free-vector/vintage-ratchet-wrench-concept-vector-30215572),
 [Bolt Image](https://en.ac-illust.com/clip-art/23670858/bolt)</sup>
 
