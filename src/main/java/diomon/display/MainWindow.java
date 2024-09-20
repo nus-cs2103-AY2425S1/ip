@@ -23,12 +23,13 @@ public class MainWindow extends AnchorPane {
 
     private Diomon diomon;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.jpg"));
-    private Image diomonImage = new Image(this.getClass().getResourceAsStream("/images/Diomon.jpg"));
+    private Image userImage = new Image(getClass().getResourceAsStream("/images/User.jpg"));
+    private Image diomonImage = new Image(getClass().getResourceAsStream("/images/Diomon.jpg"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().add(DialogBox.getWelcome(diomonImage));
     }
 
     public void setDuke(Diomon d) {

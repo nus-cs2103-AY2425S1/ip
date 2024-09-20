@@ -1,11 +1,10 @@
 package diomon.command;
 
 import diomon.Storage;
-import diomon.task.Task;
-import diomon.task.TaskList;
 import diomon.exception.MissingInputException;
 import diomon.parser.Parser;
-import diomon.ui.Ui;
+import diomon.task.Task;
+import diomon.task.TaskList;
 
 public class AddEventCommand extends AddCommand{
 
@@ -14,7 +13,7 @@ public class AddEventCommand extends AddCommand{
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Storage storage) {
         try {
             if (input == null) {
                 throw new MissingInputException();
@@ -23,7 +22,7 @@ public class AddEventCommand extends AddCommand{
             tasks.add(newTask);
             setResponse(String.format("Task: ( %s ) has been added.", newTask));
         } catch (RuntimeException e) {
-            throw e;
+            throw new RuntimeException("Something went wrong, please check your input");
         }
     }
 }

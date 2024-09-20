@@ -12,15 +12,6 @@ public class Task {
     boolean completed;
 
     /**
-     * Enum representing the types of tasks supported.
-     */
-    public enum TaskType {
-        TODO,
-        EVENT,
-        DEADLINE,
-    }
-
-    /**
      * Constructs a {@code Task} with the given description. By default, the task is not completed.
      *
      * @param task The description of the task.

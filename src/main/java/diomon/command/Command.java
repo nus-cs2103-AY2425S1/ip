@@ -2,7 +2,6 @@ package diomon.command;
 
 import diomon.Storage;
 import diomon.task.TaskList;
-import diomon.ui.Ui;
 
 /**
  * The {@code Commands} class represents a collection of commands that can be executed
@@ -15,7 +14,7 @@ public abstract class Command {
     protected boolean canExit;
     protected String response;
 
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage);
+    public abstract void execute(TaskList tasks, Storage storage);
 
     public enum Types {
         TODO,
@@ -65,7 +64,7 @@ public abstract class Command {
         for(Types t : Types.values()) {
             if (t.name().equalsIgnoreCase(command)) return t;
         }
-        throw new RuntimeException("Nein, the command dont exist");
+        throw new RuntimeException("Neigh, the command don't exist");
     }
 
 }

@@ -8,13 +8,13 @@ import java.util.ArrayList;
  * It also allows conversion of tasks to string representations suitable for display and storage.
  */
 public class TaskList {
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     /**
      * Constructs an empty {@code TaskList}.
      */
     public TaskList() {
-        this.tasks = new ArrayList<Task>();
+        this.tasks = new ArrayList<>();
     }
 
     /**
@@ -23,7 +23,7 @@ public class TaskList {
      * @param args One or more {@code Task} objects to initialize the list with.
      */
     public TaskList(Task... args) {
-        this.tasks = new ArrayList<Task>();
+        this.tasks = new ArrayList<>();
         for (Task task : args) {
             this.add(task);
         }
@@ -65,13 +65,13 @@ public class TaskList {
      * @return A {@link TaskList} containing tasks whose descriptions contain the input string.
      */
     public TaskList fuzzyFind(String input) {
-        TaskList temp = new TaskList();
+        TaskList result = new TaskList();
         for (Task i : tasks) {
             if (i.description.contains(input)){
-                temp.add(i);
+                result.add(i);
             }
         }
-        return temp;
+        return result;
     }
 
     /**
@@ -100,12 +100,12 @@ public class TaskList {
      */
     @Override
     public String toString() {
-        String temp = "";
+        String result = "";
         for (int i = 0; i < tasks.size(); i++){
             Task t = tasks.get(i);
-            temp = temp.concat(String.format("%d-> [%s][%s] %s\n", i + 1, t.getTypeIcon(), t.getStatusIcon(), t));
+            result = result.concat(String.format("%d-> [%s][%s] %s\n", i + 1, t.getTypeIcon(), t.getStatusIcon(), t));
         }
-        return temp;
+        return result;
     }
 
     /**
@@ -115,11 +115,10 @@ public class TaskList {
      * @return A string containing all tasks formatted for storage.
      */
     public String toStorageString() {
-        String temp ="";
-        for (int i = 0; i < tasks.size(); i++) {
-            Task t = tasks.get(i);
-            temp = temp.concat(String.format("%s\n", t.toStorageString()));
+        String result ="";
+        for (Task t : tasks) {
+            result = result.concat(String.format("%s\n", t.toStorageString()));
         }
-        return temp;
+        return result;
     }
 }

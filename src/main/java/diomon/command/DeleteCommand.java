@@ -2,14 +2,13 @@ package diomon.command;
 
 import diomon.Storage;
 import diomon.task.TaskList;
-import diomon.ui.Ui;
 
 public class DeleteCommand extends Command{
     public DeleteCommand(String input) {
         this.input = input;
     }
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Storage storage) {
         try {
             int i = Integer.parseInt(input);
             setResponse(String.format("Task %d: %s has been deleted", i, tasks.get(i - 1)));
