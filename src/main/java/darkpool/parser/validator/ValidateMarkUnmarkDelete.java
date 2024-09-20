@@ -17,7 +17,7 @@ public class ValidateMarkUnmarkDelete {
      */
     public static void validate(String[] userInput) throws DarkpoolException {
         if (userInput.length < 2 || Objects.equals(userInput[1], "")) {
-            throw new DarkpoolException("bro wheres the number 🗿");
+            throw new DarkpoolException("bro wheres the number");
         }
     }
 
