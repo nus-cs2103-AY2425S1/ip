@@ -22,10 +22,10 @@ public class MainWindow extends Application {
     private Button sendButton;
     private Scene scene;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
-    private Bob bob  = new Bob();
+    private  final Bob bob  = new Bob();
 
     /**
      * Creates a dialog box containing user input, and appends it to the dialog

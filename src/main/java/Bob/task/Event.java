@@ -6,8 +6,8 @@ import java.util.Locale;
 
 public class Event extends Task {
 
-    private LocalDateTime from;
-    private LocalDateTime to;
+    private final LocalDateTime from;
+    private final LocalDateTime to;
 
     /**
      * Converts a LocalDateTime object to a string.
@@ -17,7 +17,8 @@ public class Event extends Task {
      */
     private static String dateTimeToString(LocalDateTime dateTime) {
         // Correct format: "MMM dd yyyy" e.g., (Oct 15 2019)
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm", Locale.ENGLISH);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm", 
+                Locale.ENGLISH);
         return dateTime.format(formatter);
     }
 
@@ -41,6 +42,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + dateTimeToString(from) + " to: " + dateTimeToString(to) + ")";
+        return "[E]" + super.toString() + " (from: " + dateTimeToString(from) 
+                + " to: " + dateTimeToString(to) + ")";
     }
 }
