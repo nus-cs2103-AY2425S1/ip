@@ -13,12 +13,20 @@ public class ListCommand implements Command {
     /**
      * Constructs a ListCommand instance with the command input.
      *
-     * @param fullCommand the full command string input
+     * @param fullCommand the full command string input.
      */
     public ListCommand(String fullCommand) {
         this.fullCommand = fullCommand;
     }
 
+    /**
+     * Executes the command to list tasks from the task list.
+     * Updates the UI.
+     *
+     * @param list The task list on which the action is performed.
+     * @param ui The UI to display information.
+     * @param storage The storage for tasks.
+     */
     @Override
     public void executeCommand(TaskList list, Ui ui, Storage storage) {
         assert this.fullCommand.equals("list");

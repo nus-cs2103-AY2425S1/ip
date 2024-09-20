@@ -18,7 +18,7 @@ public class Duck {
 
     /**
      * Constructs a Duck instance.
-     * @param filePath the path to the file for loading and saving tasks
+     * @param filePath The path to the file for loading and saving tasks.
      */
     public Duck(String filePath) {
         ui = new Ui();
@@ -50,10 +50,9 @@ public class Duck {
     }
 
     /**
-     * The entry point of the application. Initializes a Duck instance
-     * and starts the application.
+     * Initializes a Duck instance and starts the application.
      *
-     * @param args command line arguments
+     * @param args Command line arguments.
      */
     public static void main(String[] args) {
         String filePath = "data/duck.txt";
@@ -62,6 +61,9 @@ public class Duck {
 
     /**
      * Generates a response for the user's chat message.
+     *
+     * @param input The user's input message.
+     * @return The generated response to the user's message.
      */
     public String getResponse(String input) {
         String response;

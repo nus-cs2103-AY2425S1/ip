@@ -6,7 +6,7 @@ import duck.task.Task;
 import duck.task.TaskList;
 
 /**
- * The Ui class deals with interactions with the user.
+ * Represents the Ui class that deals with interactions with the user.
  */
 public class Ui {
     private Scanner scanner;
@@ -24,7 +24,7 @@ public class Ui {
     }
 
     /**
-     * Show welcome message when Duck starts running.
+     * Shows welcome message when Duck starts running.
      */
     public void showWelcomeMessage() {
         String welcomeMessage = "Hello! I'm Duck\nWhat can I do for you?";
@@ -33,7 +33,7 @@ public class Ui {
     }
 
     /**
-     * Show goodbye message when user inputs bye.
+     * Shows goodbye message when user inputs bye.
      */
     public void showGoodbyeMessage() {
         String goodbyeMessage = "Bye. Hope to see you again soon!";
@@ -42,7 +42,7 @@ public class Ui {
     }
 
     /**
-     * Show message when task is added.
+     * Shows message when task is added.
      */
     public void showAddTaskMessage(Task task, TaskList list) {
         this.lastResponse = "Got it. I've added this task:" + task;
@@ -51,7 +51,7 @@ public class Ui {
     }
 
     /**
-     * Show the number of tasks message.
+     * Shows the number of tasks message.
      */
     public void showNumOfTasksMessage(TaskList list) {
         this.lastResponse = "Now you have " + list.getSize() + " tasks in the list.";
@@ -59,7 +59,7 @@ public class Ui {
     }
 
     /**
-     * Show message when task is marked.
+     * Shows message when task is marked.
      */
     public void showMarkedTaskMessage(Task task) {
         this.lastResponse = "Nice! I've marked this task as done: " + task;
@@ -67,7 +67,7 @@ public class Ui {
     }
 
     /**
-     * Show message when task is unmarked.
+     * Shows message when task is unmarked.
      */
     public void showUnmarkedTaskMessage(Task task) {
         this.lastResponse = "OK, I've marked this task as not done yet: " + task;
@@ -86,7 +86,7 @@ public class Ui {
     }
 
     /**
-     * Message to display upcoming deadlines in the current task list.
+     * Displays upcoming deadlines in the current task list.
      *
      * @param upcomingDeadlines the current task list
      */
@@ -110,10 +110,16 @@ public class Ui {
         scanner.close();
     }
 
+    /**
+     * Shows an invalid command message to the user.
+     */
     public void showInvalidCommand() {
         System.out.println("Invalid command. Please try again.");
     }
 
+    /**
+     * Shows an error message when loading tasks fails.
+     */
     public void showLoadingError() {
         System.out.println("Error loading tasks from file.");
     }

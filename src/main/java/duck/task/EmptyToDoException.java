@@ -1,7 +1,7 @@
 package duck.task;
 
 /**
- * Exception thrown to indicate that a ToDo is empty.
+ * Represents an exception thrown to indicate that a ToDo is empty.
  */
 public class EmptyToDoException extends Exception {
     /**

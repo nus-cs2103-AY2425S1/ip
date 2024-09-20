@@ -21,8 +21,8 @@ public class TaskCommand implements Command {
     /**
      * Constructs a TaskCommand instance with the specified command input and command type.
      *
-     * @param fullCommand the full command string input
-     * @param commandType the type of command: "todo", "deadline" or "event"
+     * @param fullCommand the full command string input.
+     * @param commandType the type of command: "todo", "deadline" or "event".
      */
     public TaskCommand(String fullCommand, String commandType) {
         this.fullCommand = fullCommand;
@@ -30,11 +30,11 @@ public class TaskCommand implements Command {
     }
 
     /**
-     * Executes the command depending on the commandType
+     * Executes the command depending on the commandType.
      *
-     * @param list the task list to update
-     * @param ui the user interface to interact with the user
-     * @param storage the storage to save the updated task list
+     * @param list the task list to update.
+     * @param ui the user interface to interact with the user.
+     * @param storage the storage to save the updated task list.
      */
     @Override
     public void executeCommand(TaskList list, Ui ui, Storage storage) {
@@ -55,8 +55,8 @@ public class TaskCommand implements Command {
     /**
      * Parses and creates a ToDo task.
      *
-     * @param fullCommand the full command string input
-     * @return a ToDo task
+     * @param fullCommand the full command string input.
+     * @return a ToDo task.
      */
     public static Task parseToDo(String fullCommand) {
         try {
@@ -73,8 +73,8 @@ public class TaskCommand implements Command {
     /**
      * Parses and creates a Deadline task.
      *
-     * @param fullCommand the full command string input
-     * @return a Deadline task
+     * @param fullCommand the full command string input.
+     * @return a Deadline task.
      */
     public static Task parseDeadline(String fullCommand) {
         String[] commandParts = fullCommand.split("/by");
@@ -85,8 +85,8 @@ public class TaskCommand implements Command {
     /**
      * Parses and creates an Event task.
      *
-     * @param fullCommand the full command string input
-     * @return an Event task
+     * @param fullCommand the full command string input.
+     * @return an Event task.
      */
     public static Task parseEvent(String fullCommand) {
         String[] commandParts = fullCommand.split("/from|/to");
