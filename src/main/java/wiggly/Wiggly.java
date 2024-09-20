@@ -45,7 +45,6 @@ public class Wiggly {
      */
     public void run() {
 
-        ui.printGreeting();
         boolean isExit = false;
 
         while (!isExit) {
