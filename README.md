@@ -14,12 +14,4 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
 1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
    In the same dialog, set the **Project language level** field to the `SDK default` option.
 3. After that, locate the `src/main/java/babblebot/Launcher.java` file, right-click it, and choose `Run Launcher.main()` (if the code editor is showing compile errors, try restarting the IDE). 
-   ```
-   Hello from
-__________       ___.  ___.   .__        ___.           __   
-\______   \_____ \_ |__\_ |__ |  |   ____\_ |__   _____/  |_ 
- |    |  _/\__  \ | __ \| __ \|  | _/ __ \| __ \ /  _ \   __\
- |    |   \ / __ \| \_\ \ \_\ \  |_\  ___/| \_\ (  <_> )  |  
- |______  /(____  /___  /___  /____/\___  >___  /\____/|__|  
-        \/      \/    \/    \/          \/    \/         
-   ```
+
