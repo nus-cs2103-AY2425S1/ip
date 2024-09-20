@@ -36,6 +36,7 @@ public class Murphy {
      * the program.
      */
     public void inputListener(String input) {
+        assert !(input.isEmpty());
         if (input.equals("bye")) {
             bye();
         } else if (input.equals("list")) {

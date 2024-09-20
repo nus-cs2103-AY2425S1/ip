@@ -25,6 +25,7 @@ public class TaskList {
      * @throws MurphyException If the content in the save file is not as per the expected format.
      */
     public TaskList(Scanner scanner) throws MurphyException {
+        assert scanner != null;
         tasks = new ArrayList<>();
         while (scanner.hasNext()) {
             String nextTask = scanner.nextLine();
@@ -55,6 +56,7 @@ public class TaskList {
      * @return A String to be displayed by the UI.
      */
     public String addItem(Task task) {
+        assert task != null;
         tasks.add(task);
         return String.format("Got it. I've added this task:\n%s\nNow you have %d task(s) in the list.",
                 task, tasks.size());
