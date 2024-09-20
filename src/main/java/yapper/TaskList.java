@@ -335,13 +335,4 @@ public class TaskList {
         }
         return toReturn;
     }
-
-    /**
-     * Exits the program.
-     */
-    public String exit() {
-        String toReturn = "Yapper shall yap next time!";
-        System.out.println(toReturn);
-        return toReturn;
-    }
 }

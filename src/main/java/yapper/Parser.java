@@ -24,9 +24,7 @@ public class Parser {
      */
     public String readCommand(String command) {
         try {
-            if (command.equals("bye")) {
-                return this.taskList.exit();
-            } else if (command.equals("list")) {
+            if (command.equals("list")) {
                 return this.taskList.returnList();
             } else if (command.startsWith("mark")) {
                 return this.taskList.mark(command);
