@@ -31,19 +31,19 @@ public class EditCommand extends Command {
     public EditCommand(String args) throws JeffException {
         // guard clause to ensure args not empty
         if (args.isEmpty()) {
-            throw new JeffException("There have to be arguments in the form "
-                    + "\nedit X newDescription newEndDate newStartDate");
+            throw new JeffException("Arguments in the format below, they must be\n"
+                    + "edit X newDescription newEndDate newStartDate");
         }
         String[] parts = args.split(" ", 2);
 
         // ensure that the length of parts is at least 2
         if (parts.length != 2) {
-            throw new JeffException("You did not specify enough arguments!");
+            throw new JeffException("Enough arguments, you did not specify!");
         }
 
         // ensure that the command in the integers place is a number
         if (!Command.isNumeric(parts[0])) {
-            throw new JeffException("You did not specify an integer!");
+            throw new JeffException("An integer, you did not specify!");
         }
         this.index = Integer.parseInt(parts[0]) - 1;
         this.args = parts[1];
@@ -62,7 +62,7 @@ public class EditCommand extends Command {
         } else if (task instanceof Event event) {
             editTask(tasks, ui, storage, event);
         } else {
-            throw new JeffException("Unsupported task type.");
+            throw new JeffException("Unsupported task type!");
         }
     }
 
@@ -78,7 +78,7 @@ public class EditCommand extends Command {
         String[] parsedArgs = args.split(" ", 2);
 
         if (parsedArgs.length < 1) {
-            throw new JeffException("Please provide a valid new description.");
+            throw new JeffException("Valid new description, you must provide!");
         }
 
         String newDescription = parsedArgs[0];
@@ -100,7 +100,7 @@ public class EditCommand extends Command {
         String[] parsedArgs = args.split("/by", 2);
 
         if (parsedArgs.length < 2) {
-            throw new JeffException("Please provide a valid new description and deadline.");
+            throw new JeffException("Valid new description and deadline, you must provide!");
         }
 
         String newDescription = parsedArgs[0].trim();
@@ -109,7 +109,7 @@ public class EditCommand extends Command {
         try {
             newEndTime = LocalDateTime.parse(parsedArgs[1].trim(), Storage.getDateTimeFormatter());
         } catch (DateTimeParseException e) {
-            throw new JeffException("You need to format your deadline dates as: " + Storage.getDateFormat());
+            throw new JeffException("Dates in the format below, they must be: \n" + Storage.getDateFormat());
         }
 
         Deadline updatedTask = new Deadline(newDescription, newEndTime);
@@ -130,7 +130,7 @@ public class EditCommand extends Command {
         String[] parsedArgs = args.split("/from | /to ", 3);
 
         if (parsedArgs.length < 3) {
-            throw new JeffException("Please provide a valid new description, start time, and end time.");
+            throw new JeffException("Valid new description, start time and end time, you must provide!");
         }
 
         String newDescription = parsedArgs[0].trim();
@@ -141,7 +141,7 @@ public class EditCommand extends Command {
             newStartTime = LocalDateTime.parse(parsedArgs[1].trim(), Storage.getDateTimeFormatter());
             newEndTime = LocalDateTime.parse(parsedArgs[2].trim(), Storage.getDateTimeFormatter());
         } catch (DateTimeParseException e) {
-            throw new JeffException("You need to format your event dates as: " + Storage.getDateFormat());
+            throw new JeffException("Event dates in the format below, they must be: \n" + Storage.getDateFormat());
         }
 
         Event updatedTask = new Event(newDescription, newStartTime, newEndTime);

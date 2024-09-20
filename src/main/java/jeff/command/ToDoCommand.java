@@ -22,7 +22,7 @@ public class ToDoCommand extends Command {
     public ToDoCommand(String args) throws JeffException {
         super();
         if (args.isEmpty()) {
-            throw new JeffException("You must provide one number after the command!");
+            throw new JeffException("One number after the command, you must provide!");
         }
         this.args = args;
     }

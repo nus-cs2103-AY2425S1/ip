@@ -31,7 +31,7 @@ public class PrintCommand extends Command {
         super();
 
         if (args.isEmpty()) {
-            throw new JeffException("You must provide a date after the command!");
+            throw new JeffException("A date after the command, you must provide!");
         }
 
         this.args = args;
@@ -57,7 +57,7 @@ public class PrintCommand extends Command {
             }
 
             if (!isFound) {
-                ui.showMessage("No tasks due on this date.");
+                ui.showMessage("Due on this date, no tasks are.");
             }
         } catch (DateTimeParseException e) {
             throw new JeffException("Invalid date format! Please use 'DD/MM/YYYY'.");

@@ -32,7 +32,7 @@ public class EventCommand extends Command {
     public EventCommand(String args) throws JeffException {
         super();
         if (args.isEmpty() || !args.contains("/from") || !args.contains("/to")) {
-            throw new JeffException("You must provide a valid event task in the format: task /from date /to date!");
+            throw new JeffException("Arguments in the format below, they must be: \n: task /from date /to date!");
         }
         this.args = args;
     }
@@ -41,8 +41,8 @@ public class EventCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws JeffException {
         String[] parts = args.split("/from | /to ", 3);
         if (parts.length < 3) {
-            throw new JeffException("You did not follow the format for providing an event!"
-                    + "\nIt should be: task /from date /to date");
+            throw new JeffException("Arguments in the format below, they must be: \n"
+                    + "task /from date /to date");
         }
         try {
             tasks.addTask(new Event(
@@ -53,7 +53,7 @@ public class EventCommand extends Command {
             storage.saveTask(tasks.getTasks());
             ui.showMessage("added: " + tasks.getTask(tasks.size() - 1));
         } catch (DateTimeParseException e) {
-            throw new JeffException("You need to format your dates as follows: " + Storage.getDateFormat());
+            throw new JeffException("Dates in the format below, they must be: \n " + Storage.getDateFormat());
         }
     }
 }

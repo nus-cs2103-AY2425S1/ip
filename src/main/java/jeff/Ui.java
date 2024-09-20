@@ -45,7 +45,7 @@ public class Ui {
     public void showWelcome() {
         showMessage("Hello there!");
         System.out.println(LOGO);
-        showMessage("What can I do for you?");
+        showMessage("Aid you, in what way can I?");
         this.showLine();
     }
 
@@ -84,7 +84,7 @@ public class Ui {
     }
 
     public void showExit() {
-        showMessage("Bye for now...");
+        showMessage("Do or do not, there is no try...");
     }
 
     public void setDialogContainer(VBox dCont) {
