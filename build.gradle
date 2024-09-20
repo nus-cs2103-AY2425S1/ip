@@ -61,7 +61,7 @@ run {
 jar {
     manifest {
         attributes(
-                'Main-Class': 'Darkpool.Launcher',
+                'Main-Class': 'darkpool.Launcher',
                 'Implementation-Title': 'Darkpool',
                 'Implementation-Version': '1.0',
                 'Implementation-Vendor': 'Arnav Goel'
