@@ -13,7 +13,7 @@ and easily show all your tasks so you won't forget to complete any tasks!
 ## Features
 <div markdown="block" class="alert alert-info">
 
-**:information_source: Notes about the command format:**<br>
+**Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `deadline TASK_DESCRIPTION`, `TASK_DESCRIPTION` is a parameter which can be used as `deadline return book`.
