@@ -113,8 +113,8 @@ public class KotoriTest {
 
         assertEquals(
                 "These are the tasks related to this date 2020-10-10\n"
-                + "1. [D][ ] something  (by: 2020-10-11)\n"
-                + "2. [E][ ] project meeting  (from: 2020-10-08 to: 2020-10-26)\n",
+                + "1. [D][ ] something  (by: Oct 11 2020)\n"
+                + "2. [E][ ] project meeting  (from: Oct 8 2020 to: Oct 26 2020)\n",
                 new SearchCommand(list, "2020-10-10").execute());
     }
     @Test
@@ -125,8 +125,8 @@ public class KotoriTest {
             list.add(Task.of("event project meeting for something/from 2020-10-08/to 2020-10-26"));
         } catch (Exception e) { }
         assertEquals("These are(is) the task(s) that match the description\n"
-                + "1. [D][ ] something  (by: 2020-10-11)\n"
-                + "2. [E][ ] project meeting for something (from: 2020-10-08 to: 2020-10-26)\n",
+                + "1. [D][ ] something  (by: Oct 11 2020)\n"
+                + "2. [E][ ] project meeting for something (from: Oct 8 2020 to: Oct 26 2020)\n",
                 new FindCommand(list, "something").execute());
     }
 

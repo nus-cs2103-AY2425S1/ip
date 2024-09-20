@@ -24,7 +24,7 @@
       - Example output :
        ```
        Now you have 1 tasks in list
-       1. [D][ ] CS2103T ip (by: 2024-09-26)
+       1. [D][ ] CS2103T ip (by: Sep 26 2024)
        ```
    3. `Event`: 
       - Format : event `description` /from  `YYYY-MM-DD` /to `YYYY-MM-DD`
@@ -32,7 +32,7 @@
       - Example output :
        ```
        Now you have 1 tasks in list
-       1. [E][ ] CS2103T ip (from: 2024-08-16 to: 2024-09-26)
+       1. [E][ ] CS2103T ip (from: Aug 16 2024 to: Sep 26 2024)
        ```
 2. `View` all tasks
    - Format : list
@@ -75,8 +75,8 @@
    - Example output: 
    ```
    These are(is) the task(s) that match the description
-   1. [D][ ] CS2103T weekly work  (by: 2020-10-11)
-   2. [E][ ] project meeting for CS2103T (from: 2020-10-08 to: 2020-10-26)
+   1. [D][ ] CS2103T weekly work  (by: Oct 11 2020)
+   2. [E][ ] project meeting for CS2103T (from: Oct 08 2020 to: Oct 26 2020)
    ```
 2. `Search` tasks that need to be done before a date:
     - search `date`
@@ -85,7 +85,7 @@
     ```
     These are the tasks related to this date 2020-10-10
     1. [D][ ] something  (by: 2020-10-11)
-    2. [E][ ] project meeting  (from: 2020-10-08 to: 2020-10-26)
+    2. [E][ ] project meeting  (from: Oct 08 2020 to: Oct 26 2020)
    ```
 3. `Sort` all tasks based on due time, the most urgent task in front:
    - Sort is done based on by time of Deadline and to time of Event
@@ -94,8 +94,8 @@
    ```
    I have sorted the list for you~ ^_^
    This is your new task list.
-    1. [D][ ] something  (by: 2020-10-11)
-    2. [E][ ] project meeting  (from: 2020-10-08 to: 2020-10-26)
+    1. [D][ ] something  (by: Oct 11 2020)
+    2. [E][ ] project meeting  (from: Oct 10 2020 to: Oct 26 2020)
     3. [T][X] wash clothes
    ```
 
