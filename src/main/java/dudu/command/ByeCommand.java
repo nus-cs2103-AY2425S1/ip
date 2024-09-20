@@ -21,7 +21,10 @@ public class ByeCommand extends Command {
     @Override
     public String execute(TaskList taskList, UI ui, Storage storage) {
         PauseTransition pause = new PauseTransition(Duration.seconds(3));
-        pause.setOnFinished(event -> Platform.exit());
+        pause.setOnFinished(event -> {
+            Platform.exit();
+            System.exit(0);
+        });
         pause.play();
         return ui.getGoodbyeMessage();
     }
