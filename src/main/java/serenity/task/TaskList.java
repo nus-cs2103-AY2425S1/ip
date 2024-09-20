@@ -62,12 +62,14 @@ public class TaskList {
         String[] description = input.split(" ");
         if (description.length == 1) {
             throw new SerenityException("Error: The description of an event cannot be empty.");
-        } else {
-            String taskDescription = input.split(" ", 2)[1];
-            String[] parts = taskDescription.split("/from");
-            String[] timings = parts[1].split("/to");
-            return new Event(parts[0].strip(), timings[0].strip(), timings[1].strip());
         }
+        String taskDescription = input.split(" ", 2)[1];
+        if (!taskDescription.contains("/from") || !taskDescription.contains("/to")) {
+            throw new SerenityException("Error: Missing event info.");
+        }
+        String[] parts = taskDescription.split("/from");
+        String[] timings = parts[1].split("/to");
+        return new Event(parts[0].strip(), timings[0].strip(), timings[1].strip());
     }
 
     /**
@@ -81,11 +83,13 @@ public class TaskList {
         String[] description = input.split(" ");
         if (description.length == 1) {
             throw new SerenityException("Error: The description of a deadline cannot be empty.");
-        } else {
-            String taskDescription = input.split(" ", 2)[1];
-            String[] parts = taskDescription.split("/by");
-            return new Deadline(parts[0].strip(), parts[1].strip());
         }
+        String taskDescription = input.split(" ", 2)[1];
+        if (!taskDescription.contains("/by")) {
+            throw new SerenityException("Error: Missing deadline info.");
+        }
+        String[] parts = taskDescription.split("/by");
+        return new Deadline(parts[0].strip(), parts[1].strip());
     }
 
     /**

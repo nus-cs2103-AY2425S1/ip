@@ -14,7 +14,6 @@ import serenity.Serenity;
  */
 public class Main extends Application {
 
-
     private Serenity serenity = new Serenity();
 
     @Override
