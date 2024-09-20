@@ -8,7 +8,7 @@ import wenjiebot.commands.Command;
 import wenjiebot.exceptions.WenJieException;
 
 /**
- * The WenJie class represents the main application for the wenjiebot individual project.
+ * WenJie class represents the main application for the wenjiebot individual project.
  * It initializes the user interface, storage, and task list, and controls
  * the execution flow of the bot by processing user commands.
  */
