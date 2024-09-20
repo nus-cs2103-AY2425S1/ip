@@ -1,24 +1,95 @@
-# Duke project template
+# ArsenBot
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+ArsenBot is an interactive chatbot designed to assist users with task management and provide a friendly conversational experience.
 
-## Setting up in Intellij
+## Features
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+- **Add Tasks**: Easily add tasks of different types.
+- **Mark Tasks as Done**: Keep track of completed tasks.
+- **List Tasks**: View all your tasks in one place.
+- **Delete Tasks**: Remove tasks you no longer need.
+- **Find Tasks**: Search for specific tasks in your list.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
+### Installation
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/ArtillerySun/ip.git
    ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
+2. **Navigate to the project directory**:
+   ```bash
+   cd ip
    ```
+3. **Build the project**:
+   ```bash
+   ./gradlew build
+   ```
+
+### Running the Bot
+
+To run the ArsenBot, use the following command:
+
+```bash
+java -jar build/libs/ArsenBot-all.jar
+ ```
+
+## Usage
+
+After starting the application, you can interact with ArsenBot through the graphical user interface. Here are some commands you can use:
+
+### Adding a Task
+
+You can add three types of tasks:
+
+- **ToDo:**
+    - Command: `todo [task description]`
+    - Example: `todo Finish project report`
+
+- **Deadline:**
+    - Command: `deadline [task description] /by [date]`
+    - Example: `deadline Submit assignment /by 2024-09-30`
+
+- **Event:**
+    - Command: `event [task description] /from [start time] /to [end time]`
+    - Example: `event Team meeting /from 2024-09-25 1000 /to 2024-09-25 1100`
+
+ArsenBot will confirm the addition and let you know the current number of tasks.
+
+### Deleting Tasks
+
+To delete a task, type the command `delete [task number]`. For example:
+
+```
+delete 1
+```
+
+ArsenBot will inform you that the task has been removed.
+
+### Viewing Tasks
+
+To see all your tasks, simply type:
+
+```
+list
+```
+
+ArsenBot will display a numbered list of your tasks.
+
+### Exiting the Application
+
+To exit, just type:
+
+```
+bye
+```
+
+ArsenBot will say goodbye and close the application.
+
+## Error Handling
+
+If you enter an incorrect command or incomplete information, ArsenBot will provide user-friendly error messages, guiding you on what is required. For example:
+
+- If you forget to include a description for a ToDo task, ArsenBot will respond with:
+  ```
+  Error: The todo command requires a description.
+  ```
