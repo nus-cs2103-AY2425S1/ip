@@ -2,3 +2,4 @@ T | 0 | read book
 T | 0 | dance
 T | 1 | swim
 T | 0 | study
+D | 1 | study | 2024-09-20 2359

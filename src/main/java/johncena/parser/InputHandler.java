@@ -12,6 +12,7 @@ import johncena.commands.DeleteCommand;
 import johncena.commands.OnCommand;
 import johncena.commands.HelpCommand;
 import johncena.commands.Command;
+import johncena.commands.FindCommand;
 
 import johncena.exceptions.CenaException;
 import johncena.exceptions.CenaInvalidTaskIndexException;
@@ -84,6 +85,9 @@ public class InputHandler {
             } else if (input.startsWith("on ")) {
                 String date = input.substring(3).trim();
                 command = new OnCommand(tasks, date);
+            } else if (input.startsWith("find ")) {
+                String keyword = input.substring(5).trim();
+                command = new FindCommand(tasks, keyword);
             } else {
                 throw new CenaUnknownCommandException("I'm sorry, but I don't know what that means :-(");
             }
