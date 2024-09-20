@@ -17,7 +17,7 @@ public abstract class Task {
     /**
      * Takes in the description of the task to initialise Task object with a completion status of undone.
      * This constructor is used for taking in a user input.
-     * @param description
+     * @param description The description of task.
      */
     public Task(String description) {
         this.description = description;
@@ -27,8 +27,8 @@ public abstract class Task {
     /**
      * Takes in description and whether the task status is complete to initialise the Task object.
      * This constructor is used for taking in a save file input.
-     * @param description
-     * @param isDone
+     * @param description The description of task.
+     * @param isDone The status if the task is complete.
      */
     public Task(String description, boolean isDone) {
         this.description = description;

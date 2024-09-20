@@ -11,8 +11,8 @@ public class SortCommand extends Command {
     /**
      * Sorts the current tasklist according to a task priority, then also rewrites the savefile
      * in the order of changed tasklist.
-     * @param list represents tasklist
-     * @param storage represents save file handler
+     * @param list Tasklist.
+     * @param storage Save file handler.
      * @throws JudeException
      */
     @Override

@@ -23,7 +23,7 @@ public class Main extends Application {
      * Load the main window and set the scene, Jude and set stage to the main window.
      * Displays the stage and generate a welcome message.
      * </p>
-     * @param stage
+     * @param stage The stage which is to be shown to the user.
      */
     @Override
     public void start(Stage stage) {

@@ -39,8 +39,8 @@ public class Deadline extends Task {
     /**
      * Takes in the String representation of the date and time of a particular format.
      * Parses the String representation to LocalDateTime object.
-     * @param deadline the String which parsed from the user input, containing information about the deadline.
-     * @throws JudeException if the format of the input is not valid.
+     * @param deadline The String which parsed from the user input, containing information about the deadline.
+     * @throws JudeException If the format of the input is not valid.
      */
     public LocalDateTime parseDateAndTime(String deadline) throws JudeException {
         try {

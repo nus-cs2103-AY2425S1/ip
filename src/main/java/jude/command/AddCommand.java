@@ -18,9 +18,9 @@ public class AddCommand extends Command {
 
     /**
      * Adds task to the TaskList. Notifies the user that the task has been added.
-     * @param list that will store the task added.
-     * @param storage will write the task data onto the save file
-     * @throws JudeException if any one of the method fails
+     * @param list TaskList to store the task to be added.
+     * @param storage Save File controller which writes the task data onto the save file.
+     * @throws JudeException If any one of the method fails.
      */
     @Override
     public void execute(TaskList list, Storage storage) throws JudeException {

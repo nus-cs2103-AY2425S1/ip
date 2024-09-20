@@ -11,9 +11,9 @@ public class ListCommand extends Command {
 
     /**
      * Lists the tasks in the TaskList. Displays the taskList onto the ui.
-     * @param list that will return the string representation of the tasklist
-     * @param storage
-     * @throws JudeException if any one of the method call fails
+     * @param list Task List that returns the string representation of the tasklist.
+     * @param storage Save file handler.
+     * @throws JudeException If any one of the method call fails.
      */
     @Override
     public void execute(TaskList list, Storage storage) throws JudeException {

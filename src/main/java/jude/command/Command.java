@@ -15,9 +15,9 @@ public abstract class Command {
 
     /**
      * Executes the task that has to be done by the command.
-     * @param list represents tasklist
-     * @param storage represents save file handler
-     * @throws JudeException if any one of the method call fails
+     * @param list Tasklist.
+     * @param storage Save file handler.
+     * @throws JudeException If any one of the method call fails.
      */
     public abstract void execute(TaskList list, Storage storage) throws JudeException;
 

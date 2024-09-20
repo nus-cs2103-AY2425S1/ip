@@ -11,9 +11,9 @@ public class ExitCommand extends Command {
 
     /**
      * Exits the program. Sets the isExit to true, which is to be tracked in the main method of the chatbot.
-     * @param list
-     * @param storage
-     * @throws JudeException if any one of the method call fails
+     * @param list Tasklist.
+     * @param storage Save file handler.
+     * @throws JudeException If any one of the method call fails.
      */
     @Override
     public void execute(TaskList list, Storage storage) {

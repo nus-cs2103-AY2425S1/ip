@@ -25,8 +25,8 @@ public class DialogBox extends HBox {
 
     /**
      * Represents the dialog box with a profile picture and the message.
-     * @param text the message of users.
-     * @param img the profile picture.
+     * @param text The message of users.
+     * @param img The profile picture.
      */
     public DialogBox(String text, Image img) {
         try {

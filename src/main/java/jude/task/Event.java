@@ -30,11 +30,11 @@ public class Event extends Task {
 
     /**
      * Creates the Event object.
-     * @param description of the Task.
-     * @param fromDateTime represents the starting time, which the format is expected to be of the save file format.
-     * @param toDateTime represents the ending time, which the format is expected to be of the save file format.
-     * @param isDone represents that status of the task isDone.
-     * @throws JudeException if the format of the time is not in the expected format.
+     * @param description Description of the Task.
+     * @param fromDateTime Starting date and time of event, which the format is expected to be of the save file format.
+     * @param toDateTime Ending date and time of Event, which the format is expected to be of the save file format.
+     * @param isDone Status of the task isDone.
+     * @throws JudeException If the format of the time is not in the expected format.
      */
     public Event(String description, String fromDateTime, String toDateTime, boolean isDone) throws JudeException {
         super(description, isDone);
@@ -42,6 +42,11 @@ public class Event extends Task {
         this.toDateTime = LocalDateTime.parse(toDateTime);
     }
 
+    /**
+     * Creates the Event object.
+     * @param dateTimeStr The input date and time from user.
+     * @throws JudeException If the format of the time is not in the expected format.
+     */
     private LocalDateTime parseDateTime(String dateTimeStr) throws JudeException {
         try {
             DateTimeFormatter format = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
@@ -51,6 +56,7 @@ public class Event extends Task {
                     + "Provide: day/month/year time (e.g. 1/1/2000 1800).");
         }
     }
+
     @Override
     public String toStringDetails() {
         return String.format("[E]%s (from: %s to: %s)",

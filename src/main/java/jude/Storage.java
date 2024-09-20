@@ -34,7 +34,7 @@ public class Storage {
      * Loads the save file. Creates the file if the file does not exist in the filePath.
      *
      * @return TaskList containing the information read from the save file.
-     * @throws JudeException if there was error loading the file.
+     * @throws JudeException If there was error loading the file.
      */
     public List<Task> load() throws JudeException {
         if (!fileExists()) {
@@ -101,8 +101,8 @@ public class Storage {
     /**
      * Saves the current Tasklist to the save file.
      *
-     * @param list the TaskList created during the execution of Jude chatbot program.
-     * @throws JudeException if there was an error while creating a save file.
+     * @param list The TaskList created during the execution of Jude chatbot program.
+     * @throws JudeException If there was an error while creating a save file.
      */
     public void save(TaskList list) throws JudeException {
         try {

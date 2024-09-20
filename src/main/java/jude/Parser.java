@@ -26,9 +26,9 @@ public class Parser {
      * Identifies the Command from the user input and returns the identified command.
      * throws a JudeException if the command is not valid.
      *
-     * @param input
+     * @param input The String to be parsed.
      * @return Command from the user.
-     * @throws JudeException if the command is not valid, containing the possible reason for invalidity.
+     * @throws JudeException If the command is not valid, containing the possible reason for invalidity.
      */
     public static Command parse(String input) throws JudeException {
 

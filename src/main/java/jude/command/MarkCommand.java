@@ -16,9 +16,9 @@ public class MarkCommand extends Command {
 
     /**
      * Marks the task as done. Save the changes into the save file.
-     * @param list
-     * @param storage will save the marked version of task data to the save file
-     * @throws JudeException if any one of the method call fails
+     * @param list TaskList that marks the task from the list.
+     * @param storage Save file handler that saves the marked version of task data to the save file.
+     * @throws JudeException If any one of the method call fails.
      */
     @Override
     public void execute(TaskList list, Storage storage) throws JudeException {
