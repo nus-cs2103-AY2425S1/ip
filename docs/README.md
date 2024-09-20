@@ -1,7 +1,6 @@
 # Bob User Guide
 
-// Product screenshot goes here
-
+![UI.png](UI.png)
 
 Welcome to Bob, your personal assistant to stay on top of all your tasks and assignments.
 
