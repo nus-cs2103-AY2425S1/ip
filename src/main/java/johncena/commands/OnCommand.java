@@ -35,7 +35,6 @@ public class OnCommand implements Command {
     public String execute() {
 
         StringBuilder sb = new StringBuilder();
-        //sb.append("____________________________________________________________\n");
         sb.append(" Here are the tasks on ").append(targetDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))).append(":\n");
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
@@ -43,19 +42,6 @@ public class OnCommand implements Command {
                 sb.append(" ").append(i + 1).append(".").append(task).append("\n");
             }
         }
-        //sb.append("____________________________________________________________\n");
         return sb.toString();
-
-//        System.out.println("____________________________________________________________");
-//        System.out.println(" Here are the tasks on " + targetDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
-//                + ":");
-//        for (int i = 0; i < tasks.size(); i++) {
-//            Task task = tasks.get(i);
-//            if (task.occursOn(targetDate)) {
-//                System.out.println(" " + (i + 1) + "." + task);
-//            }
-//        }
-//        System.out.println("____________________________________________________________");
-
     }
 }

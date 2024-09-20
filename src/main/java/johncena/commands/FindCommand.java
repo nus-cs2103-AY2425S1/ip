@@ -32,7 +32,6 @@ public class FindCommand implements Command {
     @Override
     public String execute() {
         StringBuilder sb = new StringBuilder();
-        //sb.append("____________________________________________________________\n");
         sb.append(" Here are the matching tasks in your list:\n");
         int index = 1;
         for (Task task : tasks) {
@@ -41,7 +40,6 @@ public class FindCommand implements Command {
             }
             index++;
         }
-        //sb.append("____________________________________________________________\n");
         return sb.toString();
     }
 }

@@ -41,18 +41,11 @@ public class DeleteCommand implements Command {
         Storage.saveTasks(tasks);
 
         StringBuilder sb = new StringBuilder();
-        sb.append("____________________________________________________________\n");
         sb.append(" Noted. I've removed this task:\n");
         sb.append("   ").append(removedTask).append("\n");
         sb.append(" Now you have ").append(tasks.size()).append(" tasks in the list.\n");
-        sb.append("____________________________________________________________\n");
 
         return sb.toString();
-//        System.out.println("____________________________________________________________");
-//        System.out.println(" Noted. I've removed this task:");
-//        System.out.println("   " + removedTask);
-//        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
-//        System.out.println("____________________________________________________________");
 
     }
 }

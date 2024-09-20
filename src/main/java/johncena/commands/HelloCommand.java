@@ -16,15 +16,8 @@ public class HelloCommand implements Command {
     @Override
     public String  execute() {
         StringBuilder sb = new StringBuilder();
-        //sb.append("____________________________________________________________\n");
         sb.append("Hello from\n").append(Logo.getLogo()).append("\n");
         sb.append(" What can I do for you?\n");
-        //sb.append("____________________________________________________________\n");
         return sb.toString();
-
-//        System.out.println("____________________________________________________________");
-//        System.out.println("Hello from\n" + Logo.getLogo());
-//        System.out.println(" What can I do for you?");
-//        System.out.println("____________________________________________________________");
     }
 }
