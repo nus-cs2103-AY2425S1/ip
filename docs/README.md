@@ -106,3 +106,12 @@ The tasks would be formatted as follows:
 Here are the matching tasks in your list:
 {task}
 ```
+
+## Exitting the Program
+Command: `bye` 
+
+Ends the chatbot conversation and saves the tasks that the user has added.
+
+Command: `exit`
+
+Closes the GUI.
