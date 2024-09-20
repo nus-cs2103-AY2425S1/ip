@@ -191,10 +191,5 @@ public class Ui {
         return output = new ArrayList<String>();
     }
 
-    /**
-     * Displays an error message indicating a loading error.
-     */
-    public void showLoadingError() {
-        System.out.println("Error loading file");
-    }
+
 }

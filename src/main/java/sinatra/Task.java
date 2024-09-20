@@ -3,7 +3,7 @@ package sinatra;
 /**
  * Represents a task in the Sinatra application.
  */
-public class Task {
+public abstract class Task {
 
     private String content;
     private Boolean isStatus;
