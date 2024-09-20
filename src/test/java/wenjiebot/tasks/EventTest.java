@@ -4,13 +4,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import wenjiebot.exceptions.InvalidDateInputException;
 
 public class EventTest {
 
     private Event event;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws InvalidDateInputException {
         event = new Event("celebrate birthday", "2/12/2019 1800", "2/12/2019 2000");
     }
 

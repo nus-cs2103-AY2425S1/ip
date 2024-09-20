@@ -1,6 +1,5 @@
 package wenjiebot;
 
-import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -14,11 +13,10 @@ import wenjiebot.exceptions.WenJieException;
  * the execution flow of the bot by processing user commands.
  */
 public class WenJie {
-
-    private Storage storage;
-    private TaskList tasks;
-    private Ui ui;
     private static final String hardDisk = "./wenjie.txt";
+    private final Storage storage;
+    private final TaskList tasks;
+    private final Ui ui;
 
     /**
      * Constructs a WenJie instance with the specified file path for storage.

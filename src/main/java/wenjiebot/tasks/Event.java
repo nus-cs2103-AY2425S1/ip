@@ -1,11 +1,11 @@
 package wenjiebot.tasks;
 
-import wenjiebot.exceptions.InvalidDateInputException;
-import wenjiebot.exceptions.InvalidSnoozeFormatException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import wenjiebot.exceptions.InvalidDateInputException;
+import wenjiebot.exceptions.InvalidSnoozeFormatException;
 
 /**
  * The Event class represents an event task in the wenjiebot application.
@@ -16,7 +16,6 @@ public class Event extends Task {
 
     protected String from;
     protected String to;
-
     protected LocalDateTime fromInDateTime;
     protected LocalDateTime toInDateTime;
 
@@ -39,7 +38,13 @@ public class Event extends Task {
             throw new InvalidDateInputException();
         }
     }
-
+    /**
+     * Sets the date and time for the event using the provided string.
+     * The input must contain both the start time ("/from") and end time ("/to").
+     *
+     * @param newDate A string containing the new start and end times in the format "/from d/M/yyyy HHmm /to d/M/yyyy HHmm".
+     * @throws InvalidSnoozeFormatException if the input format is invalid or cannot be parsed.
+     */
     @Override
     public void setDateTime(String newDate) throws InvalidSnoozeFormatException {
         int fromIndex = newDate.indexOf("/from") + 6;

@@ -1,11 +1,11 @@
 package wenjiebot.tasks;
 
-import wenjiebot.exceptions.InvalidDateInputException;
-import wenjiebot.exceptions.InvalidSnoozeFormatException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import wenjiebot.exceptions.InvalidDateInputException;
+import wenjiebot.exceptions.InvalidSnoozeFormatException;
 
 /**
  * The Deadline class represents a deadline task in the wenjiebot application.
@@ -34,7 +34,13 @@ public class Deadline extends Task {
             throw new InvalidDateInputException();
         }
     }
-
+    /**
+     * Sets the date and time for the deadline using the provided string.
+     * The input must contain the due time ("/by").
+     *
+     * @param newDate A string containing the new start and end times in the format "/by d/M/yyyy HHmm".
+     * @throws InvalidSnoozeFormatException if the input format is invalid or cannot be parsed.
+     */
     @Override
     public void setDateTime(String newDate) throws InvalidSnoozeFormatException {
         by = newDate.replace("/by", "").trim();

@@ -5,39 +5,51 @@ import java.util.ArrayList;
 import wenjiebot.Storage;
 import wenjiebot.TaskList;
 import wenjiebot.Ui;
-import wenjiebot.exceptions.*;
+import wenjiebot.exceptions.NoNumberInputtedException;
+import wenjiebot.exceptions.OutOfBoundsException;
+import wenjiebot.exceptions.WenJieException;
 import wenjiebot.tasks.Task;
 
-
-
+/**
+ * Represents a command to snooze an existing task by changing its associated date and time.
+ * The command can handle snoozing tasks of different types, including ToDo, Event, and Deadline tasks.
+ */
 public class SnoozeCommand extends Command {
 
-    private static String regexToDo = "todo .*";
-    private static String regexDeadline = "deadline .* /by .*";
-    private static String regexEvent = "event .* /.* /.*";
-
     /**
-     * Enum representing the type of event (ToDo, Event, Deadline).
+     * Regex pattern for matching ToDo tasks.
      */
-    private enum TypeOfEvent {
-        TODO,
-        EVENT,
-        DEADLINE
-    }
-
-    private TypeOfEvent typeOfEvent;
+    private static String regexToDo = "todo .*";
 
     /**
-     * Constructs an SnoozeCommand with the specified activity status, input, and type of event.
+     * Regex pattern for matching Deadline tasks.
+     */
+    private static String regexDeadline = "deadline .* /by .*";
+
+    /**
+     * Regex pattern for matching Event tasks.
+     */
+    private static String regexEvent = "event .* /.* /.*";
+    /**
+     * Constructs a {@code SnoozeCommand} with the specified exit status and input.
      *
-     * @param isExit boolean indicating whether the Bot will exit after this command executes.
-     * @param input the input associated with this command.
+     * @param isExit a boolean indicating whether the bot will exit after this command is executed.
+     * @param input the input string representing the user's command.
      */
     public SnoozeCommand(boolean isExit, String input) {
         super(isExit, input);
     }
 
-
+    /**
+     * Executes the SnoozeCommand to update the date and time of a task in the task list.
+     * If the task number is valid and within bounds, the date and time are updated, and
+     * the user is informed that the task has been snoozed.
+     *
+     * @param tasks the list of tasks.
+     * @param ui the user interface to display messages.
+     * @param storage the storage handler for saving and loading tasks.
+     * @throws WenJieException if there is an error with the command input, task bounds, or task type.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws WenJieException {
         String[] parts = getInput().split(" ");
@@ -54,6 +66,7 @@ public class SnoozeCommand extends Command {
         if (taskNo + 1 > taskList.size()) {
             throw new OutOfBoundsException();
         }
+
         taskList.get(taskNo).setDateTime(desc);
         ui.showLine();
         System.out.println("Nyess master~~, I've snoozed this task:\n" + taskList.get(taskNo));
