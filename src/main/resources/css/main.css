@@ -1,6 +1,8 @@
 .root {
-    main-color: rgb(53, 51, 61);     /* Create a looked-up color called "main-color" within root. */
+    main-color: rgb(53, 51, 61);
     -fx-background-color: main-color;
+    -fx-background-image: url("../images/background.JPG");
+    -fx-background-size: cover;
 }
 
 .text-field {
