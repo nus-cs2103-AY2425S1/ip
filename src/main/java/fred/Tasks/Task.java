@@ -53,7 +53,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return String.format("[%s] %s (%s)", getStatusIcon(), description, getTags());
+        return String.format("[%s] %s %s", getStatusIcon(), description, getTags());
     }
 
     /**
@@ -80,7 +80,11 @@ public abstract class Task {
     }
 
     public String getTags() {
+        if (tags.isEmpty()) {
+            return "";
+        }
         StringBuilder tagsAsString = new StringBuilder();
+        tagsAsString.append("(");
         for (String tag : tags) {
             tagsAsString.append(tag);
             tagsAsString.append(", ");
@@ -88,6 +92,7 @@ public abstract class Task {
         if (!tagsAsString.isEmpty()) {
             tagsAsString.setLength(tagsAsString.length() - 2);
         }
+        tagsAsString.append(")");
         return tagsAsString.toString();
     }
 }

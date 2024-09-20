@@ -67,48 +67,49 @@ public class Fred {
         String message;
         Task task;
         switch (action.getCommand()) {
-            case EXIT:
-                message = "Bye. Hope to see you again soon!";
-                break;
-            case LIST_TASKS:
-                message = tasks.getTasksAsString();
-                break;
-            case MARK_TASK:
-                task = tasks.markTaskAsDone(action.getTaskNumber());
-                message = String.format("Nice! I've marked this task as done:\n" +
-                        "   %s", task);
-                break;
-            case UNMARK_TASK:
-                task = tasks.markTaskAsNotDone(action.getTaskNumber());
-                message = String.format("OK, I've marked this task as not done yet:\n" +
-                        "   %s", task);
-                break;
-            case DELETE_TASK:
-                task = tasks.deleteFromTaskList(action.getTaskNumber());
-                storage.deleteFromDataFile(action.getTaskNumber());
-                message = String.format("Noted. I've removed this task:\n" +
-                        "   %s", task);
-                break;
-            case ADD_TODO_TASK:
-            case ADD_EVENT_TASK:
-            case ADD_DEADLINE_TASK:
-                task = tasks.createTask(action.getTaskType(), action.getTaskDetails());
-                tasks.addToTaskList(task);
-                storage.appendToDataFile(task);
-                message = String.format("Got it. I've added this task:\n" +
-                        "   %s\n" +
-                        "Now you have %d tasks in the list.", task, tasks.getTaskListSize());
-                break;
-            case FIND_TASK:
-                String tasksWithKeyword = tasks.findTasksInTaskList(action.getKeyword());
-                message = "Here are the matching tasks in your list:\n" + tasksWithKeyword;
-                break;
-            case TAG_TASK:
-                tasks.addTagToTask(action.getTaskNumber(), action.getTag());
-                message = "OK, I've added the tag.";
-                break;
-            default:
-                return null;
+        case EXIT:
+            message = "Bye. Hope to see you again soon!";
+            break;
+        case LIST_TASKS:
+            message = tasks.getTasksAsString();
+            break;
+        case MARK_TASK:
+            task = tasks.markTaskAsDone(action.getTaskNumber());
+            message = String.format("Nice! I've marked this task as done:\n" +
+                    "   %s", task);
+            break;
+        case UNMARK_TASK:
+            task = tasks.markTaskAsNotDone(action.getTaskNumber());
+            message = String.format("OK, I've marked this task as not done yet:\n" +
+                    "   %s", task);
+            break;
+        case DELETE_TASK:
+            task = tasks.deleteFromTaskList(action.getTaskNumber());
+            storage.deleteFromDataFile(action.getTaskNumber());
+            message = String.format("Noted. I've removed this task:\n" +
+                    "   %s", task);
+            break;
+        case ADD_TODO_TASK:
+        case ADD_EVENT_TASK:
+        case ADD_DEADLINE_TASK:
+            task = tasks.createTask(action.getTaskType(), action.getTaskDetails());
+            tasks.addToTaskList(task);
+            storage.appendToDataFile(task);
+            message = String.format("Got it. I've added this task:\n" +
+                    "   %s\n" +
+                    "Now you have %d tasks in the list.", task, tasks.getTaskListSize());
+            break;
+        case FIND_TASK:
+            String tasksWithKeyword = tasks.findTasksInTaskList(action.getKeyword());
+            message = "Here are the matching tasks in your list:\n" + tasksWithKeyword;
+            break;
+        case TAG_TASK:
+            task  = tasks.addTagToTask(action.getTaskNumber(), action.getTag());
+            message = String.format("OK, I've added the tag to this task:\n" +
+                    "   %s\n", task);
+            break;
+        default:
+            return null;
         }
         return message;
     }
