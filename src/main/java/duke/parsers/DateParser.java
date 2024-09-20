@@ -32,7 +32,7 @@ public class DateParser {
                 date = LocalDate.parse(s, formatter);
                 return date.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
             } catch (DateTimeParseException e) {
-                continue; // will be caught as a null return.
+                // will be caught as a null return.
             }
         }
         return null;

@@ -15,7 +15,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
@@ -66,12 +69,18 @@ public class NotgptJavaFX extends Application {
      */
     @Override
     public void start(Stage primaryStage) {
+        // Set Application icon
         primaryStage.setTitle("Notgpt");
+        Image icon = new Image(getClass().getResourceAsStream("/icon.png"));
+        primaryStage.getIcons().add(icon);
+
         // Load avatar images
         userAvatar = new Image(getClass().getResourceAsStream("/user_avatar.png"));
         botAvatar = new Image(getClass().getResourceAsStream("/bot_avatar2.jpg"));
         assert userAvatar != null : "there is no user image";
         assert botAvatar != null : "there is no bot image";
+
+        Circle clip = new Circle(45);
 
         // Create UI components
         chatBox = new VBox(10);
@@ -154,15 +163,26 @@ public class NotgptJavaFX extends Application {
         avatarView.setFitHeight(90);
         avatarView.setFitWidth(90);
 
+        Circle borderCircle = new Circle (45,45,45);
+        borderCircle.setStroke(Color.WHITE);
+        borderCircle.setStrokeWidth(8);
+        borderCircle.setFill(Color.TRANSPARENT);
+
+        Circle clip = new Circle(45,45,45);
+        avatarView.setClip(clip);
+
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().addAll(borderCircle, avatarView);
+
         HBox messageBox = new HBox(10);
         messageBox.setAlignment(isUser ? Pos.BOTTOM_RIGHT : Pos.BOTTOM_LEFT);
 
         if (isUser) {
             messageLabel.setStyle("-fx-background-color: #DCF8C6; -fx-background-radius: 10;");
-            messageBox.getChildren().addAll(messageLabel, avatarView);
+            messageBox.getChildren().addAll(messageLabel, stackPane);
         } else {
             messageLabel.setStyle("-fx-background-color: white; -fx-background-radius: 10;");
-            messageBox.getChildren().addAll(avatarView, messageLabel);
+            messageBox.getChildren().addAll(stackPane, messageLabel);
         }
         chatBox.getChildren().add(messageBox);
         Platform.runLater(() -> {

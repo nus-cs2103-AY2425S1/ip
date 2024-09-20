@@ -18,7 +18,6 @@ public class Notgpt {
     }
 
     public static void main(String[] args) {
-
         NotgptJavaFX.main(args);
     }
 }
