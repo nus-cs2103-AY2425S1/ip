@@ -194,6 +194,9 @@ public class TaskList {
         for (int i = 0; i < tasks.size(); i++) {
             res += "    " + (i + 1) + "." + tasks.get(i).toString() + "\n";
         }
+        if (res.isEmpty()) {
+            return "No tasks in list!";
+        }
         return res;
     }
 }
