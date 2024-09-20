@@ -16,7 +16,7 @@ public class FixedDurationTask extends Task {
         } catch (ArrayIndexOutOfBoundsException | InputErrorException | NumberFormatException e) {
             throw new TaskException("Sorry, the description you " +
                     "gave does not follow the format for FixedDurationTasks.\n" +
-                    "\nIt should be ('description' /for 'integer' /hr " +
+                    "\nIt should be ('description' /for 'integer' /hrs " +
                     "'integer between 0 and 60'mins)");
         }
     }

@@ -7,10 +7,10 @@ public class DeleteCommand extends Command {
 
     /**
      *
-     * @param index The index that determines which task will be deleted.
+     * @param input The index that determines which task will be deleted.
      */
-    public DeleteCommand(int index) {
-        this.index = index;
+    public DeleteCommand(String input) throws TaskException {
+        this.index = getNumFromString(input);
     }
 
     /**
@@ -35,4 +35,12 @@ public class DeleteCommand extends Command {
         return temp;
 
     }
+    private static int getNumFromString(String input) throws TaskException {
+        try {
+            return Integer.parseInt(input.replaceAll("[^0-9]", ""));
+        } catch (NumberFormatException e) {
+            throw new TaskException("Input after delete has to be an integer.");
+        }
+    }
+
 }

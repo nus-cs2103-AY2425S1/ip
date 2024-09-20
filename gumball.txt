@@ -7,3 +7,7 @@
 [ ] todo check
 [ ] deadline test /by 2002-02-10
 [ ] todo test thing
+[ ] todo Assignment 2
+[ ] todo assignment
+[ ] event project meeting /from Mon 2pm /to 4pm
+[ ] fixed work /for 2 /hrs 30mins

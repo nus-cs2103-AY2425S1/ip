@@ -15,11 +15,9 @@ public class Parser {
         if (input.equals("list")) {
             return new ListCommand();
         } else if (input.startsWith("mark ")) {
-            int num = getNumFromString(input);
-            return new MarkCommand(num);
+            return new MarkCommand(input);
         } else if (input.startsWith("delete ")) {
-            int num = getNumFromString(input);
-            return new DeleteCommand(num);
+            return new DeleteCommand(input);
         } else if (isATask(input)) {
             return new AddCommand(input);
         } else if(input.startsWith("find ")) {
@@ -36,9 +34,5 @@ public class Parser {
                 || input.startsWith("deadline")
                 || input.startsWith("event")
                 || input.startsWith("fixed");
-    }
-
-    private static int getNumFromString(String input) {
-        return Integer.parseInt(input.replaceAll("[^0-9]", ""));
     }
 }

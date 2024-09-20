@@ -22,7 +22,7 @@ public class Deadline extends Task {
                  | StringIndexOutOfBoundsException e) {
             throw new TaskException("Sorry, the description you " +
                     "gave does not follow the format for deadlines.\n" +
-                    "\nIt should be ('name' /by 'date' in the format yyyy-mm-dd)" );
+                    "\nIt should be ('description' /by 'date' in the format yyyy-mm-dd)" );
         }
     }
 
