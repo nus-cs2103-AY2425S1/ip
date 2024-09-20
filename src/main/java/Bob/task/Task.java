@@ -2,9 +2,14 @@ package bob.task;
 
 public class Task {
 
-    private String description;
+    private final String description;
     private boolean isDone;
 
+    /**
+     * Constructor for Task.
+     *
+     * @param description
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;

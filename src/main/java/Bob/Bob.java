@@ -3,7 +3,6 @@ package bob;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import bob.task.Task;
 
@@ -12,8 +11,7 @@ import bob.task.Task;
  */
 public class Bob {
 
-    private Scanner scanner = new Scanner(System.in);
-    private List<Task> tasks = new ArrayList<>();
+    private final List<Task> tasks = new ArrayList<>();
 
     /**
      * Prints a help message. Will be run when the user types "help", or at the start of the program.
@@ -47,12 +45,12 @@ public class Bob {
             } else if (userInput.startsWith("mark") 
                     || userInput.startsWith("unmark") 
                     || userInput.startsWith("delete")) {
-                return Parser.processTaskModificationCommands(userInput, tasks);
+                return Parser.executeTaskModificationCommands(userInput, tasks);
             } else if (userInput.startsWith("todo") 
                     || userInput.startsWith("deadline") 
                     || userInput.startsWith("event")
                     || userInput.startsWith("find")) {
-                return Parser.processTaskCreationCommands(userInput, tasks);
+                return Parser.executeTaskCreationCommands(userInput, tasks);
             } else if (userInput.startsWith("help")) {
                 return printHelpString();
             } else {
