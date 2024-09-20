@@ -124,31 +124,15 @@ public abstract class Task implements Serializable {
         String[] taskInfoArray = taskInfo.split(" ", 2);
         String type = taskInfoArray[0].toUpperCase();
 
-        // Create a new task variable without initialize it
-        Task newTask;
-
         // Create task object
         try {
             switch (TaskType.valueOf(type)) {
             case TODO:
-                checkValidCommand(taskInfoArray, TaskType.TODO);
-                String todoInfo = taskInfoArray[1];
-                newTask = new ToDo(todoInfo);
-                break;
+                return createToDoTask(taskInfoArray);
             case DEADLINE:
-                checkValidCommand(taskInfoArray, TaskType.DEADLINE);
-                String ddlInfo = taskInfoArray[1].split(" /by ")[0];
-                String deadline = taskInfoArray[1].split(" /by ")[1];
-                newTask = new Deadline(ddlInfo, deadline);
-                break;
+                return createDeadlineTask(taskInfoArray);
             case EVENT:
-                checkValidCommand(taskInfoArray, TaskType.EVENT);
-                String eventInfo = taskInfoArray[1].split(" /from ")[0];
-                String[] timeInfo = taskInfoArray[1].split(" /from ")[1].split(" /to ");
-                String startTime = timeInfo[0];
-                String endTime = timeInfo[1];
-                newTask = new Event(eventInfo, startTime, endTime);
-                break;
+                return createEventTask(taskInfoArray);
             default:
                 throw new EchoException();
             }
@@ -157,8 +141,49 @@ public abstract class Task implements Serializable {
             String guide = "Please enter a valid task type: todo/deadline/event";
             throw new EchoException(msg + "\n" + guide);
         }
+    }
 
-        return newTask;
+    /**
+     * Creates a ToDo task from the task information array.
+     *
+     * @param taskInfoArray the array of task information.
+     * @return a new ToDo task.
+     * @throws EchoException if the task information is invalid.
+     */
+    private static Task createToDoTask(String[] taskInfoArray) throws EchoException {
+        checkValidCommand(taskInfoArray, TaskType.TODO);
+        String todoInfo = taskInfoArray[1];
+        return new ToDo(todoInfo);
+    }
+
+    /**
+     * Creates a Deadline task from the task information array.
+     *
+     * @param taskInfoArray the array of task information.
+     * @return a new Deadline task.
+     * @throws EchoException if the task information is invalid.
+     */
+    private static Task createDeadlineTask(String[] taskInfoArray) throws EchoException {
+        checkValidCommand(taskInfoArray, TaskType.DEADLINE);
+        String ddlInfo = taskInfoArray[1].split(" /by ")[0];
+        String deadline = taskInfoArray[1].split(" /by ")[1];
+        return new Deadline(ddlInfo, deadline);
+    }
+
+    /**
+     * Creates an Event task from the task information array.
+     *
+     * @param taskInfoArray the array of task information.
+     * @return a new Event task.
+     * @throws EchoException if the task information is invalid.
+     */
+    private static Task createEventTask(String[] taskInfoArray) throws EchoException {
+        checkValidCommand(taskInfoArray, TaskType.EVENT);
+        String eventInfo = taskInfoArray[1].split(" /from ")[0];
+        String[] timeInfo = taskInfoArray[1].split(" /from ")[1].split(" /to ");
+        String startTime = timeInfo[0];
+        String endTime = timeInfo[1];
+        return new Event(eventInfo, startTime, endTime);
     }
 
     public void setMark() {
@@ -195,6 +220,5 @@ public abstract class Task implements Serializable {
         }
         return info;
     }
-
 
 }
