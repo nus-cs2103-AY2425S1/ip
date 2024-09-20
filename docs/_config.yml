@@ -4,5 +4,5 @@ plugins:
 
 title: Darkpool
 description: User guide for Darkpool
-show_downloads: "true"
+show_downloads: "false"
 google_analytics: G-1Y8C5GB12D
