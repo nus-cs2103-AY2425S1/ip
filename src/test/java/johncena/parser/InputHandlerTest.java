@@ -1,9 +1,15 @@
 package johncena.parser;
 
 import johncena.art.Logo;
-import johncena.commands.*;
-import johncena.exceptions.*;
-import johncena.tasks.*;
+
+import johncena.exceptions.CenaException;
+import johncena.exceptions.CenaUnknownCommandException;
+
+import johncena.tasks.Task;
+import johncena.tasks.Deadline;
+import johncena.tasks.Event;
+import johncena.tasks.Todo;
+
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -15,7 +21,11 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 
 import johncena.storage.Storage;
 
