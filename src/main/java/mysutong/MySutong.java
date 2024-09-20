@@ -3,9 +3,9 @@ package mysutong;
 import java.io.IOException;
 
 /**
- * mysutong.Main class for the MySutong application, which manages tasks.
+ * Main class for the MySutong application, which manages tasks.
  * This class is responsible for initializing the application, loading existing tasks from storage,
- * and handling user interactions through a command loop.
+ * and handling user interactions through a command loop or a GUI.
  */
 public class MySutong {
     private Storage storage;
@@ -14,8 +14,8 @@ public class MySutong {
 
     /**
      * Constructs a new instance of MySutong with a specified file path for storage.
-     * Initializes the user interface, storage, and task list. It handles errors during the loading of tasks
-     * and initializes an empty task list if necessary.
+     * Initializes the user interface, storage, and task list. If there is an error loading the tasks from storage,
+     * an empty task list will be initialized, and an error will be shown in the UI.
      *
      * @param filePath the path to the file where tasks are stored.
      */
@@ -35,8 +35,10 @@ public class MySutong {
     }
 
     /**
-     * Runs the main loop of the application. Continuously reads user commands and executes them
-     * using the Parser until the application is terminated. It handles any exceptions during command execution.
+     * Runs the main loop of the application.
+     * Continuously reads user commands from the CLI, delegates execution of the commands to the {@link Parser},
+     * and displays the output through the {@link Ui}. This loop continues until the application is terminated.
+     * It handles any exceptions that may occur during command execution and displays them via the UI.
      */
     public void run() {
         ui.showWelcome();
@@ -51,6 +53,14 @@ public class MySutong {
         }
     }
 
+    /**
+     * Gets a response from MySutong for the given user input.
+     * This method is used in the GUI to process user input, delegate the command to the {@link Parser},
+     * and return the output as a string. It captures any errors that occur and returns them as part of the response.
+     *
+     * @param input The user input/command to be processed.
+     * @return The response from MySutong after executing the given command.
+     */
     public String getResponse(String input) {
         Parser parser = new Parser();
         try {
@@ -66,6 +76,7 @@ public class MySutong {
     /**
      * The entry point of the MySutong application.
      * Initializes and runs the application with a predefined path for task storage.
+     * This method starts the CLI version of MySutong.
      *
      * @param args command-line arguments (not used).
      */
