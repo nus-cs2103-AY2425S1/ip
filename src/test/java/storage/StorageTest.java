@@ -13,7 +13,7 @@ public class StorageTest {
     @Test
     public void readFromFile() throws IOException {
         Storage storage = new Storage();
-        File file = new File(".\\src\\main\\data\\task_list.txt");
+        File file = new File("./src/main/data/task_list.txt");
         Scanner sc = new Scanner(file);
         StringBuilder sb = new StringBuilder();
         while (sc.hasNext()) {

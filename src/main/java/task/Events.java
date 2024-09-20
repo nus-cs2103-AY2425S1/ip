@@ -53,7 +53,9 @@ public class Events extends Task {
         }
 
         information.append(" (from: ")
-                .append(dateTimeSystem.formatLocalTimeDate(e.getStart())).append(" to: ").append(dateTimeSystem.formatLocalTimeDate(e.getEnd())).append(")");
+                .append(dateTimeSystem.formatLocalTimeDate(e.getStart()))
+                .append(" to: ")
+                .append(dateTimeSystem.formatLocalTimeDate(e.getEnd())).append(")");
         storage.write(String.valueOf(information));
     }
 
