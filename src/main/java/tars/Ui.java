@@ -24,10 +24,12 @@ public class Ui {
      */
     public String help() {
         return "List of commands that you can do while using Tars!\n"
-                + "1. Simply use t(for ToDos), d(for Deadline) and e(for event)\n"
-                + "eg: t read book --> todo read book\n"
-                + "2. Mark, unmark or delete tasks by using m/um/delete and the index of the task\n"
-                + "3. State list to see your list of tasks";
+                + "1. add Todo, eg: t read book\n"
+                + "2. add deadline, eg: d read book /by 2019-10-15 18:30\n"
+                + "3. add event, eg: e read book /from 2019-10-15 18:30 /to 2019-10-16 19:30\n"
+                + "4. Mark, unmark or delete tasks by using m/um/delete and the index of the task\n"
+                + "5. Find tasks in the list using task description words\n eg: find read book or find book\n"
+                + "6. State list to see your list of tasks";
     }
 
     /**

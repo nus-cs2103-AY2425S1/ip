@@ -49,6 +49,10 @@ public class MainWindow extends AnchorPane {
         );
     }
 
+    //DaUser.png image address: https://mbtifiction.com/wp-content/uploads/2015/09/interstellar05.jpg
+    //BACKGROUND.jpg address: https://i.pinimg.com/originals/e7/4d/a1/e74da16d2822588bdbf0889d15e884a2.jpg
+    //DaDuke.png:
+    //https://w0.peakpx.com/wallpaper/545/464/HD-wallpaper-tars-ai-christopher-nolan-interstellar-nolan-robot.jpg
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.

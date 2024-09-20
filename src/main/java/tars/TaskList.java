@@ -45,10 +45,10 @@ public class TaskList {
         String result = "";
         if (status == 1) {
             taskList.get(index - 1).mark();
-            result = " Nice! I've marked this task as done:" + taskList.get(index - 1);
+            result = " Nice! I've marked this task as done:\n" + taskList.get(index - 1);
         } else if (status == 0) {
             taskList.get(index - 1).unmark();
-            result = " OK, I've marked this task as not done yet:" + taskList.get(index - 1);
+            result = " OK, I've marked this task as not done yet:\n" + taskList.get(index - 1);
         }
         return result;
     }
@@ -65,7 +65,7 @@ public class TaskList {
         Task temp = taskList.get(index - 1);
         taskList.remove(temp);
 
-        String result = " Noted. I've removed this task:" + temp + "\n" + " Now you have "
+        String result = " Noted. I've removed this task:\n" + temp + "\n" + " Now you have "
                 + taskList.size() + " tasks in the list\n";
 
         return result;
@@ -191,7 +191,7 @@ public class TaskList {
             taskList.add(eventTask);
             result = ui.printTask(eventTask, taskList.size());
         } catch (DateTimeException e) {
-            result = " Please state date and time of from and to of event" + "in YYYY-MM-dd HH:mm format\n";
+            result = " Please state date and time of from and to of event" + " in YYYY-MM-dd HH:mm format\n";
         }
         return result;
     }

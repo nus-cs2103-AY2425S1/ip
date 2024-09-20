@@ -80,6 +80,12 @@ Find a task from the list by searching with a keyword
 
 Example: `find read book` 
 This will print all the tasks that has the keyword "book" in it.
+This is how TARS would reply!:
+```
+Here are the matching tasks in your list:
+1. [D] [ ] read book (by: Oct 15 2019 18:30)
+2. [E] [ ] read book (from: Oct 15 2019 18:30 to: Oct 15 2019 20:00)
+```
 
 ## Mark tasks
 All tasks are default unmarked. Mark a task as **completed** using the index of the task. 
