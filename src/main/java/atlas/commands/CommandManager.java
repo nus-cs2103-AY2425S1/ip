@@ -1,5 +1,6 @@
 package atlas.commands;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 
 import atlas.exceptions.AtlasException;
@@ -167,6 +168,15 @@ public class CommandManager {
             throw new AtlasException("The description of an event cannot be empty.");
         } else if (commandsArray.length < 4) {
             throw new AtlasException("An event requires a description, start and end times, in that order.");
+        }
+
+        // Solution below adapted from
+        // https://github.com/woke02/ip/blob/master/src/main/java/chatsy/commands/EventCommand.java
+        // Check that the start time for an event is before the end time
+        LocalDateTime startTime = DateTime.formatDate(commandsArray[1]);
+        LocalDateTime endTime = DateTime.formatDate(commandsArray[2]);
+        if (startTime.isAfter(endTime) || startTime.isEqual(endTime)) {
+            throw new AtlasException("Event start time must be before end time.");
         }
 
         return new EventCommand(commandsArray[1],
