@@ -2,7 +2,7 @@ package johncena;
 
 import johncena.storage.Storage;
 import johncena.tasks.Task;
-import johncena.exceptions.*;
+import johncena.exceptions.CenaException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
