@@ -15,6 +15,7 @@ XBot will help you to track your tasks and to cheer you on!!
 7. Find a task - `find <prefix>`
 8. Delete the task - `delete <task number>`
 9. View the tasks on certain date - `view <date>`
+10. Close the application - `bye`
 
 ---
 
@@ -138,7 +139,18 @@ The `<date>` here only accepts `D/M/YYYY` instead of `D/M/YYYY HHMM`!_
 
 ---
 
+## Close the Application
+
+This closes the application.
+
+Command: `bye`
+
+_Note: Your data would be stored even after the application is closed._
+
+---
+
 ## Appendix
+
 ### DateTime Formats
 Generally, _unless specified_, the allowed date format are as follows: 
 ```
