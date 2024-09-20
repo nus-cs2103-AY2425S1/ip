@@ -20,7 +20,6 @@ public class Todo extends Task {
 
     @Override
     public String toString() {
-        System.out.println(super.toString());
         return "[T]" + super.toString() + "tags: " + this.getTagsAsString();
     }
 }

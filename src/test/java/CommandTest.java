@@ -12,7 +12,7 @@ import task.TaskList;
 
 public class CommandTest {
 
-    private static final String STORAGE_PATH = "src/main/data/blitz.txt";
+    private static final String STORAGE_PATH = "src/main/resource/data/blitz.txt";
 
     @Test
     public void executeTodoWithoutDescription() throws InvalidTaskException {

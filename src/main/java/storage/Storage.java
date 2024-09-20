@@ -32,7 +32,7 @@ public class Storage {
         File directory = file.getParentFile();
 
         if (!directory.exists()) {
-            directory.mkdir();
+            directory.mkdirs();
         }
 
         if (!file.exists()) {
