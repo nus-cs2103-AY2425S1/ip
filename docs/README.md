@@ -1,6 +1,6 @@
 # Wenjie Bot User Guide
 
-![UI.png](UI.png)
+![UI.png](Ui.png)
 
 Wenjie bot is a useful bot that helps you with your everyday tasks, ensuring you never forget to do certain work, 
 all the while giving you a visually entertaining GUI so that you will never get bored!
