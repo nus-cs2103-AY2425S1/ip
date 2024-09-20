@@ -18,7 +18,7 @@ can display the statistics of current
 
 ## Quick start
 1. Ensure you have `java 17` or above installed in your PC.
-2. Download the latest `.jar` file from <a href="https://github.com/CYX22222003/ip/releases/download/A-UserGuide/korolev.DukeKorolev.jar">here</a>
+2. Download the latest `.jar` file from <a href="https://github.com/CYX22222003/ip/releases/download/A-Release/korolev.DukeKorolev.jar">here</a>
 3. Copy the file to the folder you want to use as the home folder for your DukeKorolev
 4. Open command terminal, `cd` into the selected folder with jar file
 5. run command `java -jar korolev.DukeKorolev.jar`. A GUI similar to the image above will be shown in the screen
