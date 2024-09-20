@@ -1,9 +1,12 @@
 package windebot;
 
 import commands.Command;
-import exceptions.*;
-
-import java.time.format.DateTimeParseException;
+import exceptions.EmptyDescriptionException;
+import exceptions.IndexOutBoundsException;
+import exceptions.InvalidDateFormatException;
+import exceptions.NotIntegerException;
+import exceptions.TooManyParametersException;
+import exceptions.UnsupportedCommandException;
 
 /**
  * The Winde class is the main class that runs the WindeBot chatbot.
