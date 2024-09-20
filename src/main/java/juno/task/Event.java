@@ -14,8 +14,8 @@ import juno.manager.exception.TaskManagerException;
  */
 public class Event extends Task {
     private static final String DATE_TIME_EXCEPTION_STRING = "Your format for date is wrong! Please use this format: "
-            + "add event {description} "
-            + "/yyyy MM dd hh.mma /yyyy MM dd hh.mma .";
+            + "add event {TASK_DESCRIPTION}"
+            + "/yyyy MM dd hh.mma/yyyy MM dd hh.mma.";
     private static final String DATE_TIME_FORMAT_STRING = "yyyy MM dd hh.mma";
     protected LocalDateTime startTime;
     protected LocalDateTime endTime;
@@ -45,7 +45,7 @@ public class Event extends Task {
         super(description, taskType);
         try {
             this.startTime = LocalDateTime.parse(startTimeString.trim(),
-                    DateTimeFormatter.ofPattern("yyyy MM dd hh.mma"));
+                    DateTimeFormatter.ofPattern(DATE_TIME_FORMAT_STRING));
             this.endTime = LocalDateTime.parse(endTimeString.trim(), DateTimeFormatter.ofPattern(
                     DATE_TIME_FORMAT_STRING));
         } catch (DateTimeParseException e) {

@@ -15,7 +15,7 @@ import juno.manager.exception.TaskManagerException;
  */
 public class Deadline extends Task {
     private static final String DATE_TIME_EXCEPTION_STRING = "Your format for date is wrong! Please use this format: "
-            + "add deadline {description}"
+            + "add deadline {TASK_DESCRIPTION}"
             + "/yyyy MM dd hh.mma (e.g. add deadline homework /2024 11 17 10.00AM)";
     private static final String DATE_TIME_FORMAT_STRING = "yyyy MM dd hh.mma";
     protected LocalDateTime endTime;

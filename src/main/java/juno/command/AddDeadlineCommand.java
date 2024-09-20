@@ -19,7 +19,7 @@ public class AddDeadlineCommand extends AddCommand {
             + "Maybe you can try renaming it and input again?";
     private static final String INVALID_ADD_TASK_ERROR = "\uD83D\uDE15 Hmm, something went wrong. Did you add task "
             + "correctly? (\uD83D\uDCA1 Tip: Use \"add {Specify Task Type e.g. todo, deadline, or event} "
-            + "/ {Input task description here}\" to add a task)";
+            + "/{Input task description here}/{TIME} (for deadline and event)\" to add a task)";
 
     /**
      * Constructs an AddDeadlineCommand instance that takes in a specified user input, TaskManager instance,
