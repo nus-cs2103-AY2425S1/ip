@@ -20,7 +20,7 @@ public class LuffyUI {
     }
 
     public void showLine() {
-        System.out.println("__________________________________________________________");
+        System.out.println("________________________________________________________");
     }
 
     /**
