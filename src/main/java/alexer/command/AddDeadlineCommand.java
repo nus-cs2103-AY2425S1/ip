@@ -11,6 +11,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+import static alexer.Prompter.MESSAGE_ADD_DEADLINE_TASK;
+
 /**
  * A command to create a new deadline task,
  * that consists of a deadline date & time value,
@@ -47,8 +49,8 @@ public class AddDeadlineCommand extends Command {
         taskManager.addTask(deadline);
         taskManager.saveTasks();
 
-        return new Response(String.format(
-                "No problems! I’ve added the task to your list:\n\n\t%s\n\nYou have %d tasks now.",
+        return new Response(String.format("%s\n\n\t%s\n\nYou have %d tasks now.",
+                MESSAGE_ADD_DEADLINE_TASK,
                 deadline, taskManager.getTaskCount()));
     }
 }

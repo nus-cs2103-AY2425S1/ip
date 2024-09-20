@@ -81,7 +81,7 @@ public class Alexer {
             System.exit(0);
             return null;
         } else {
-            return new Response("Uh-oh, I did not understand what you are trying to do.");
+            return new Response(Prompter.MESSAGE_COMMAND_NOT_FOUND);
         }
     }
 

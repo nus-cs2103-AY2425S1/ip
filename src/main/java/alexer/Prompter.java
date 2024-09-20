@@ -22,6 +22,14 @@ public class Prompter {
             "Have a great day!";
     public static final String MESSAGE_TASKS = "Sure thing! Here is your task list:\n\n";
     public static final String MESSAGE_TASKS_FOUND = "I got you! Here is what I found:\n";
+    public static final String MESSAGE_COMMAND_NOT_FOUND = "Uh-oh, I did not understand what you are trying to do.";
+    public static final String MESSAGE_MARK_TASK = "Great job completing the task! Keep up the great work!";
+    public static final String MESSAGE_UNMARK_TASK = "Alright, it seems you are not done with that yet.\n" +
+            "I have unmarked it for you.";
+    public static final String MESSAGE_DELETE_TASK = "Don't want to see that task anymore? I got you!";
+    public static final String MESSAGE_ADD_EVENT_TASK = "Noted! I’ve added a new event to your tasks:";
+    public static final String MESSAGE_ADD_TODO_TASK = "Sure! I’ve added the todo to your list:";
+    public static final String MESSAGE_ADD_DEADLINE_TASK = "No problems! I’ve added the task to your list:";
 
     /**
      * Builds the response containing logo of the chatbot

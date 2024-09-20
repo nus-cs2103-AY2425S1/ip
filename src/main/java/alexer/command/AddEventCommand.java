@@ -8,6 +8,8 @@ import alexer.ui.Response;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+import static alexer.Prompter.MESSAGE_ADD_EVENT_TASK;
+
 /**
  * A command to create a new event task,
  * that consists of an event starting date & time value,
@@ -41,8 +43,7 @@ public class AddEventCommand extends Command {
         taskManager.addTask(event);
         taskManager.saveTasks();
 
-        return new Response(String.format(
-                "Noted! I’ve added a new event to your tasks:\n\n\t%s\n\nYou have %d tasks now.",
-                event, taskManager.getTaskCount()));
+        return new Response(String.format("%s\n\n\t%s\n\nYou have %d tasks now.",
+                MESSAGE_ADD_EVENT_TASK, event, taskManager.getTaskCount()));
     }
 }

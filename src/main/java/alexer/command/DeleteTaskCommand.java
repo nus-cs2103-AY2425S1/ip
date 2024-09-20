@@ -5,6 +5,8 @@ import alexer.task.Task;
 import alexer.task.TaskManager;
 import alexer.ui.Response;
 
+import static alexer.Prompter.MESSAGE_DELETE_TASK;
+
 /**
  * A command to delete an existing task by the
  * ordered position of the task as indicated
@@ -25,9 +27,7 @@ public class DeleteTaskCommand extends Command {
         Task task = taskManager.removeTask(index);
         taskManager.saveTasks();
 
-        String response = "Don't want to see that task anymore? I got you!\n\n" +
-                String.format("\t%s\n\nYou have %d tasks remaining.", task, taskManager.getTaskCount());
-
-        return new Response(response);
+        return new Response(String.format("%s\n\n\t%s\n\nYou have %d tasks remaining.",
+                MESSAGE_DELETE_TASK, task, taskManager.getTaskCount()));
     }
 }

@@ -5,6 +5,8 @@ import alexer.task.TaskManager;
 import alexer.task.Todo;
 import alexer.ui.Response;
 
+import static alexer.Prompter.MESSAGE_ADD_TODO_TASK;
+
 /**
  * A command to create a new to-do task.
  *
@@ -27,8 +29,7 @@ public class AddTodoCommand extends Command {
         taskManager.addTask(todo);
         taskManager.saveTasks();
 
-        return new Response(String.format(
-                "Sure! I’ve added the todo to your list:\n\n\t%s\n\nYou have %d tasks now.",
-                todo, taskManager.getTaskCount()));
+        return new Response(String.format("%s\n\n\t%s\n\nYou have %d tasks now.",
+                MESSAGE_ADD_TODO_TASK, todo, taskManager.getTaskCount()));
     }
 }
