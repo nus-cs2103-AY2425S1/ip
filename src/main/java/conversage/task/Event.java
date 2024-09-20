@@ -32,9 +32,10 @@ public class Event extends Task {
             this.to = LocalDateTime.parse(to, INPUT_FORMAT);
 
         } catch (DateTimeParseException e) {
-            System.out.println("The provided datE/time format is invalid! "
+            throw new ConverSageException("The provided date/time format is invalid! "
                     + "Please use the following format: yyyy-MM-dd HH:mm.");
         }
+
     }
 
     @Override
