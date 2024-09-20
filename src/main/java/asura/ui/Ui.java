@@ -48,6 +48,10 @@ public class Ui extends Application {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Sets the Asura instance
+     * @param asura the Asura instance to be set
+     */
     public void setAsura(Asura asura) {
         this.asura = asura;
     }
