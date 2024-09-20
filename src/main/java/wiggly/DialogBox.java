@@ -59,7 +59,7 @@ public class DialogBox extends HBox {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getWigglyDialog(String text, Image img) {
         assert text != null : "Text must not be null";
         assert img != null : "Image must not be null";
 
