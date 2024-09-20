@@ -49,11 +49,13 @@ public class Event extends Task {
 
     /**
      * Compares this {@code Event} with the specified object for equality.
-     * Two {@code Event} objects are considered equal if they have the same description, start date, and end date.
+     * Two {@code Event} objects are considered equal if they have the same description,
+     * start date, and end date.
      *
      * @param obj The object to compare this {@code Event} with.
-     * @return {@code true} if the specified object is an {@code Event} with the same description, start date, and end date;
-     *         {@code false} otherwise.
+     * @return {@code true} if the specified object is an {@code Event} with the same description, start date,
+     *      and end date;
+     *      {@code false} otherwise.
      */
     @Override
     public boolean equals(Object obj) {

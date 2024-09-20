@@ -1,6 +1,7 @@
 package seedu.task;
 
 import java.util.ArrayList;
+
 import seedu.parser.BobException;
 import seedu.storage.Storage;
 import seedu.ui.Formatter;

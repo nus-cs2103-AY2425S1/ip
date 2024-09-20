@@ -1,7 +1,8 @@
 package seedu.task;
 
 /**
- * The {@code ToDo} class represents a task that only has a description with no specific time associated with it.
+ * The {@code ToDo} class represents a task that only has a description with no specific time
+ * associated with it.
  * It extends the {@code Task} class, making it a simple task with no deadlines or event times.
  */
 public class ToDo extends Task {
@@ -28,7 +29,8 @@ public class ToDo extends Task {
 
     /**
      * Converts the {@code ToDo} task into a string format suitable for saving in a text file.
-     * The format includes the task type "T", completion status (1 for done, 0 for not done), and the task's description.
+     * The format includes the task type "T", completion status (1 for done, 0 for not done),
+     * and the task's description.
      *
      * @return A formatted string representing the ToDo task to be saved.
      */

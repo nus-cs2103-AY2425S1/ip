@@ -17,7 +17,8 @@ import seedu.ui.Formatter;
 
 /**
  * The {@code Storage} class handles the loading and saving of tasks to and from a file.
- * It interacts with the {@code TaskList} to manage the tasks and the {@code Formatter} class to provide feedback to the user.
+ * It interacts with the {@code TaskList} to manage the tasks and the {@code Formatter}
+ * class to provide feedback to the user.
  */
 public class Storage {
 

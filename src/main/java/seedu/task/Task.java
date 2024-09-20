@@ -2,7 +2,8 @@ package seedu.task;
 
 /**
  * An abstract class that represents a generic task.
- * It contains the essential attributes and methods common to all types of tasks, such as description and completion status.
+ * It contains the essential attributes and methods common to all types of tasks, such as
+ * description and completion status.
  */
 public abstract class Task {
     protected String description;

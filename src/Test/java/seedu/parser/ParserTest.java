@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.task.Task;
 import seedu.task.TaskList;
 
 public class ParserTest {
