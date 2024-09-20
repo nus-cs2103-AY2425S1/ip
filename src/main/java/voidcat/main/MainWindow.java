@@ -12,7 +12,7 @@ import voidcat.ui.Ui;
 /**
  * Controller for the main GUI.
  */
-public class MainWindow extends AnchorPane{
+public class MainWindow extends AnchorPane {
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -27,6 +27,9 @@ public class MainWindow extends AnchorPane{
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/UserCat.png"));
     private Image voidCatImage = new Image(this.getClass().getResourceAsStream("/images/VoidCat.png"));
 
+    /**
+     * Initialises the Main window with the dialogContainer containing the dialog boxes
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -36,7 +39,7 @@ public class MainWindow extends AnchorPane{
     }
 
     /**
-     *Injects the VoidCat instance and welcomes the user
+     * Injects the VoidCat instance and welcomes the user
      * @param v VoidCat instance
      */
     public void setVoidCat(VoidCat v) {

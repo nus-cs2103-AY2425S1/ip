@@ -1,7 +1,5 @@
 package voidcat.task;
 
-import voidcat.task.Task;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -10,8 +8,8 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
 
-    protected LocalDateTime by;
     protected static final DateTimeFormatter FORMATTER_DATETIME = DateTimeFormatter.ofPattern("uuuu-MM-dd HHmm");
+    protected LocalDateTime by;
 
     /**
      * Constructs a new Deadline task with the specified description and due date.
@@ -46,7 +44,8 @@ public class Deadline extends Task {
 
     @Override
     public String toSaveFormat() {
-        return String.format("%s | %d | %s | %s", this.getTaskType(), (this.isDone ? 1 : 0), this.description, this.by.format(FORMATTER_DATETIME));
+        return String.format("%s | %d | %s | %s", this.getTaskType(), (this.isDone ? 1 : 0),
+                this.description, this.by.format(FORMATTER_DATETIME));
     }
 
     @Override

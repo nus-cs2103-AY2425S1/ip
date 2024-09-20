@@ -1,13 +1,13 @@
 package voidcat.main;
 
+import java.io.IOException;
+
 import voidcat.exception.VoidCatException;
 import voidcat.parser.Parser;
 import voidcat.storage.Storage;
 import voidcat.task.TaskList;
 import voidcat.ui.Ui;
 
-import java.io.IOException;
-import java.lang.SecurityException;
 /**
  * Represents the main class of the Void Cat program.
  * It manages the overall flow of the program,

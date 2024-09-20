@@ -2,8 +2,6 @@ package voidcat.ui;
 
 import voidcat.task.Task;
 
-import java.util.Scanner;
-
 /**
  * Represents the user interface for Void Cat.
  * It handles the display of messages to the user, such as task-related messages,
@@ -13,27 +11,27 @@ public class Ui {
     private static final String name = "Void Cat ฅ^•ﻌ•^ฅ\n";
 
     private static final String[] greetings = {
-            "Hello! I'm your friendly cat helper, \n",
-            "Purr... Hello, wanderer. I am \n",
-            "Mew! Welcome human! I'm \n",
-            "Greetings from the abyss, friend, for I am\n",
-            "Meow! Happy to help, they call me \n"
+        "Hello! I'm your friendly cat helper, \n",
+        "Purr... Hello, wanderer. I am \n",
+        "Mew! Welcome human! I'm \n",
+        "Greetings from the abyss, friend, for I am\n",
+        "Meow! Happy to help, they call me \n"
     };
 
     private static final String[] assistGreetings = {
-            "How can this void assist you today?",
-            "At your service, human.",
-            "What help does human need today?",
-            "Need any help?",
-            "What can I do for you?"
+        "How can this void assist you today?",
+        "At your service, human.",
+        "What help does human need today?",
+        "Need any help?",
+        "What can I do for you?"
     };
 
     private static final String[] exits = {
-            "Purr... Until next time, friend.",
-            "Meow! I shall vanish into the shadows now.",
-            "Farewell! May your path be clear.",
-            "Mew! See you in the void again soon.",
-            "The void calls, but I'll return. Goodbye!"
+        "Purr... Until next time, friend.",
+        "Meow! I shall vanish into the shadows now.",
+        "Farewell! May your path be clear.",
+        "Mew! See you in the void again soon.",
+        "The void calls, but I'll return. Goodbye!"
     };
 
     /**
@@ -42,7 +40,7 @@ public class Ui {
      * @return A formatted welcome message with a greeting and logo.
      */
     public static String welcome() {
-        return  greetings[(int) (Math.random() * greetings.length)]
+        return greetings[(int) (Math.random() * greetings.length)]
                 + name
                 + assistGreetings[(int) (Math.random() * assistGreetings.length)]
                 + "\nType `help` to see a list of commands you can use.";
@@ -85,7 +83,8 @@ public class Ui {
      * @return A formatted message indicating the task has been removed.
      */
     public String showDeleteTaskMessage(Task removedTask, int size) {
-        return "ฅ^._.^ฅ Noted. I've removed this task:\n\n" + removedTask + "\n\nNow you have " + size + " tasks in the list";
+        return "ฅ^._.^ฅ Noted. I've removed this task:\n\n" + removedTask
+                + "\n\nNow you have " + size + " tasks in the list";
     }
 
     /**
@@ -116,7 +115,8 @@ public class Ui {
      * @return A formatted message indicating the task has been added.
      */
     public String showAddTaskMessage(Task task, int size) {
-        return "/ᐠ ^ ˕ ^マ Got it. I've added this task:\n\n" + task + "\n\nNow you have " + size + " tasks in the list";
+        return "/ᐠ ^ ˕ ^マ Got it. I've added this task:\n\n" + task
+                + "\n\nNow you have " + size + " tasks in the list";
     }
 
 }

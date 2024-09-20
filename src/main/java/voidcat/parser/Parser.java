@@ -1,14 +1,18 @@
 package voidcat.parser;
 
-import voidcat.storage.Storage;
-import voidcat.task.*;
-import voidcat.exception.VoidCatException;
-import voidcat.ui.Ui;
-
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.LocalDateTime;
+
+import voidcat.exception.VoidCatException;
+import voidcat.storage.Storage;
+import voidcat.task.Deadline;
+import voidcat.task.Event;
+import voidcat.task.Task;
+import voidcat.task.TaskList;
+import voidcat.task.ToDo;
+import voidcat.ui.Ui;
 
 /**
  * Represents a parser that handles user commands and executes tasks accordingly.
@@ -32,7 +36,8 @@ public class Parser {
      * @throws SecurityException If there's an error related to file security.
      * @throws IllegalArgumentException If invalid arguments are provided for commands.
      */
-    public String parseAndExecute(String fullCommand, TaskList tasks, Ui ui, Storage storage) throws VoidCatException, IOException, SecurityException, IllegalArgumentException {
+    public String parseAndExecute(String fullCommand, TaskList tasks, Ui ui, Storage storage)
+            throws VoidCatException, IOException, SecurityException, IllegalArgumentException {
         String[] splitInput = fullCommand.split(" ", 2);
         String commandWord = splitInput[0];
         String arguments = splitInput.length > 1 ? splitInput[1] : "";
@@ -141,14 +146,17 @@ public class Parser {
     private String handleAddDeadlineCommand(String arguments, TaskList tasks, Ui ui) throws VoidCatException {
         String[] details = arguments.split(" /by ");
         if (details.length != 2) {
-            throw new VoidCatException("Meow~ AH! The description of a deadline and the deadline can't be empty!\nRemember to put:\n/by <yyyy-mm-dd hhmm> after the description!");
+            throw new VoidCatException("Meow~ AH! The description of a deadline and the deadline can't be empty!"
+                    + "\nRemember to put:\n"
+                    + "/by <yyyy-mm-dd hhmm> after the description!");
         }
         try {
             Deadline newTask = new Deadline(details[0], details[1]);
             tasks.addTask(newTask);
             return ui.showAddTaskMessage(newTask, tasks.size());
         } catch (DateTimeParseException d) {
-            throw new VoidCatException("Meow~ AH!\nCheck if:\n1. Input time is valid\n2. Format of the 24h date time is in yyyy-mm-dd hhmm");
+            throw new VoidCatException("Meow~ AH!\nCheck if:\n1. Input time is valid"
+                    + "\n2. Format of the 24h date time is in yyyy-mm-dd hhmm");
         }
     }
 
@@ -161,10 +169,13 @@ public class Parser {
      * @return The response message after adding the task.
      * @throws VoidCatException If the description or start and end date time is empty.
      */
-    private String handleAddEventCommand(String arguments, TaskList tasks, Ui ui) throws VoidCatException, IllegalArgumentException {
+    private String handleAddEventCommand(String arguments, TaskList tasks, Ui ui)
+            throws VoidCatException, IllegalArgumentException {
         String[] details = arguments.split(" /from | /to ");
         if (details.length != 3) {
-            throw new VoidCatException("Meow~ AH! The description of an event, and the start and end time can't be empty!\nRemember to put:\n/from <yyyy-mm-dd hhmm> /to <yyyy-mm-dd hhmm> after the description!");
+            throw new VoidCatException("Meow~ AH! The description of an event,"
+                    + " and the start and end time can't be empty!"
+                    + "\nRemember to put:\n/from <yyyy-mm-dd hhmm> /to <yyyy-mm-dd hhmm> after the description!");
         }
         try {
             LocalDateTime dfrom = LocalDateTime.parse(details[1], DateTimeFormatter.ofPattern("uuuu-MM-dd HHmm"));
@@ -176,7 +187,8 @@ public class Parser {
             tasks.addTask(newTask);
             return ui.showAddTaskMessage(newTask, tasks.size());
         } catch (DateTimeParseException d) {
-            throw new VoidCatException("Meow~ AH!\nCheck if:\n1. Input time is valid\n2. Format of the 24h date time is in yyyy-mm-dd hhmm");
+            throw new VoidCatException("Meow~ AH!\nCheck if:\n1. Input time is valid"
+                    + "\n2. Format of the 24h date time is in yyyy-mm-dd hhmm");
         }
     }
 

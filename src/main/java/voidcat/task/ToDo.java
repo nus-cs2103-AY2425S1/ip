@@ -1,7 +1,5 @@
 package voidcat.task;
 
-import voidcat.task.Task;
-
 /**
  * Represents a ToDo task, which is a simple task with no specific deadline or event time.
  */

@@ -1,8 +1,5 @@
 package voidcat.storage;
 
-import voidcat.task.*;
-import voidcat.exception.VoidCatException;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -10,6 +7,13 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import voidcat.exception.VoidCatException;
+import voidcat.task.Deadline;
+import voidcat.task.Event;
+import voidcat.task.Task;
+import voidcat.task.TaskList;
+import voidcat.task.ToDo;
 
 /**
  * Represents the storage where tasks are saved and loaded from
@@ -35,7 +39,7 @@ public class Storage {
      * @throws IOException If file cannot be read.
      * @throws VoidCatException If file or directory cannot be created or no tasks found.
      * @throws SecurityException If read access to the file is denied
-     * when checking if file exists.
+     *         when checking if file exists.
      */
     public ArrayList<Task> load() throws IOException, VoidCatException, SecurityException {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -73,7 +77,7 @@ public class Storage {
      * @param file The file to check for saved tasks.
      * @throws VoidCatException If file or directory cannot be created.
      * @throws SecurityException If read access to the directory is denied
-     * when checking if directory exists.
+     *         when checking if directory exists.
      * @throws IOException If an I/O error occurs.
      */
     private void ensureFileAndDirectoryExist(File file) throws VoidCatException, SecurityException, IOException {

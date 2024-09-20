@@ -1,11 +1,11 @@
 package voidcat.task;
 
-import voidcat.exception.VoidCatException;
-
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
+
+import voidcat.exception.VoidCatException;
 
 /**
  * Represents a list of tasks and provides methods for managing tasks
@@ -68,7 +68,8 @@ public class TaskList {
      */
     public String listTasks() throws VoidCatException {
         if (this.tasks.isEmpty()) {
-            throw new VoidCatException("No saved tasks found yet! Task list is empty.\nStart adding tasks and track them!");
+            throw new VoidCatException("No saved tasks found yet! Task list is empty."
+                    + "\nStart adding tasks and track them!");
         }
         String responseList = "Here are the tasks from your list ^•ﻌ•^ฅ♡ :\n\n";
         for (int i = 0; i < this.tasks.size(); i++) {
