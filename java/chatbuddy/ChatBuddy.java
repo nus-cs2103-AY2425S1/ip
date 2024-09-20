@@ -63,7 +63,6 @@ public class ChatBuddy {
         try {
             Command command = parseCommand(input);
             if (command == null) {
-                // Return the specific error message from the UI
                 return ui.getOutput();
             }
             return executeCommand(command);
@@ -97,7 +96,7 @@ public class ChatBuddy {
      */
     private String executeCommand(Command command) {
         if (command == null) {
-            return ui.getOutput(); 
+            return ui.getOutput();
         }
         try {
             return command.execute(tasks, ui, storage);
