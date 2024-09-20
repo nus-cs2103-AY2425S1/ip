@@ -202,4 +202,4 @@ See you soon!
 # Acknowledgements
 - The dragon and user icon is used from the video "The Ultimate How to Train Your Dragon Recap Cartoon" by Cas van de Pol. (https://youtu.be/4dDUWRWqcIo?si=2XFx8QF6qbVMHcVk) 
 - The background is used from Pinterest (https://www.pinterest.com/pin/434315957799147671/)
-- AI tools like ChatGPT by OpenAI, Claude by Anthropic AI and Copilot by Github are used to aid in developing the project. Can refer to [this file](./AI.md) for more information.
+- AI tools like ChatGPT by OpenAI, Claude by Anthropic AI and Copilot by Github are used to aid in developing the project. Can refer to [this file](../AI.md) for more information.
