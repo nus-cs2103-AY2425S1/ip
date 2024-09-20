@@ -86,6 +86,7 @@ public class BitBot {
                     // if it does not fall in any of this keyword,
                     // throw an error saying there is no such keyword.
                     throwUnknownWordError();
+                    break;
                 }
 
             } else {
