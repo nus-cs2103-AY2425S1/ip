@@ -56,52 +56,61 @@ public class AddCommand extends Command {
     }
 
     private boolean validateTaskData(String data) {
-        String[] trimmedData = data.split(" ");
-        String taskType = trimmedData[0];
-        boolean isValidOrder;
-        //Check for whitespace
-        for (String s : trimmedData) {
-            boolean isEmptyData = s.trim().isEmpty();
-            if (isEmptyData) {
-                return false;
-            }
+        // Check for empty or whitespace-only data
+        String[] trimmedData = data.trim().split("\\s+", 2);
+
+        if (trimmedData.length < 2) {
+            return false;
         }
-        //Assign order based on task type
+
+        String taskType = trimmedData[0];
+        String taskDetails = trimmedData[1];
+        boolean isValidOrder;
+
         switch (taskType) {
         case "todo":
-            isValidOrder = (trimmedData.length == 2);
+            isValidOrder = !taskDetails.trim().isEmpty();
             break;
         case "deadline":
-            isValidOrder = (trimmedData.length == 5 && trimmedData[2].equals("/by"));
+            isValidOrder = taskDetails.contains("/by");
             break;
         case "event":
-            isValidOrder = (trimmedData.length == 8 && trimmedData[2].equals("/from")
-                    && trimmedData[5].equals("/to"));
+            int fromIndex = taskDetails.indexOf("/from");
+            int toIndex = taskDetails.indexOf("/to");
+            isValidOrder = fromIndex != -1 && toIndex != -1 && fromIndex < toIndex; // Checks /from before /to
             break;
         default:
-            isValidOrder = false;
+            isValidOrder = false; // Invalid task type
         }
+
         return isValidOrder;
     }
 
-    private String[] formatTaskData(String data) {
-        String[] trimmedData = data.split(" ");
-        String taskType = trimmedData[0];
-        String[] formattedData;
-        switch (taskType) {
-        case "todo":
-            formattedData = new String[]{trimmedData[1]};
-            break;
-        case "deadline":
-            formattedData = new String[]{trimmedData[1], trimmedData[3] + " " + trimmedData[4]};
-            break;
-        case "event":
-            formattedData = new String[]{trimmedData[1], trimmedData[3] + " " + trimmedData[4],
-                    trimmedData[6] + " " + trimmedData[7]};
-            break;
-        default:
-            formattedData = new String[]{};
+    private String[] formatTaskData(String data) throws GravitasException {
+        try {
+            String[] trimmedData = data.split(" ", 2);
+            String taskType = trimmedData[0];
+            String[] formattedData;
+            switch (taskType) {
+            case "todo":
+                formattedData = new String[]{trimmedData[1]};
+                break;
+            case "deadline":
+                String[] formattedBy = trimmedData[1].split(" /by ", 2);
+                formattedData = new String[]{trimmedData[1], formattedBy[1]};
+                break;
+            case "event":
+                String eventDescription = trimmedData[1].split(" /from")[0];
+                String formattedFrom = trimmedData[1].split(" /from ")[1].split(" /to ")[0];
+                String formattedTo = trimmedData[1].split(" /to ")[1];
+                formattedData = new String[]{eventDescription, formattedFrom, formattedTo};
+                break;
+            default:
+                formattedData = new String[]{};
+            }
+            return formattedData;
+        } catch (Exception e) {
+            throw new GravitasException(INVALID_TASK_FORMAT);
         }
-        return formattedData;
     }
 }
