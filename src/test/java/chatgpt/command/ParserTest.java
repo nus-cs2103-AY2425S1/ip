@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-
 public class ParserTest {
 
     @Test
@@ -47,11 +46,11 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_exitCommand() {
-        ExitCommand expectedClass = new ExitCommand();
+    public void parse_listCommand() {
+        ListCommand expectedClass = new ListCommand();
         Command actualClass;
         try {
-            actualClass = Parser.parse("bye");
+            actualClass = Parser.parse("list");
             assertSame(expectedClass.getClass(), actualClass.getClass());
         } catch (ChatBotException e) {
             fail();
@@ -59,11 +58,23 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_listCommand() {
-        ListCommand expectedClass = new ListCommand();
+    public void parse_findCommand() {
+        FindCommand expectedClass = new FindCommand("test");
         Command actualClass;
         try {
-            actualClass = Parser.parse("list");
+            actualClass = Parser.parse("find test");
+            assertSame(expectedClass.getClass(), actualClass.getClass());
+        } catch (ChatBotException e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void parse_showCommand() {
+        ShowCommand expectedClass = new ShowCommand(0);
+        Command actualClass;
+        try {
+            actualClass = Parser.parse("show 0");
             assertSame(expectedClass.getClass(), actualClass.getClass());
         } catch (ChatBotException e) {
             fail();

@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class StorageTest {
     @Test
     public void load_fromTextFile() {
-        Storage storage = new Storage("\\data\\testData.txt");
+        Storage storage = new Storage("\\src\\test\\data\\dummyData.txt");
         ArrayList<Task> actual;
         String expected = "[[T][ ] todoTest, " +
                 "[D][ ] deadlineTest (by: 06 Sep 2024 14:00)," +
@@ -26,7 +26,7 @@ public class StorageTest {
 
     @Test
     public void load_fromMissingFile_exceptionThrown() {
-        Storage storage = new Storage("\\data\\missingFile.txt");
+        Storage storage = new Storage("\\src\\test\\data\\missingFile.txt");
         String expected = "Problem with reading from file";
         try {
             assertEquals(expected, storage.load());

@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    private static final String DEFAULT_SAVE_FILE_PATH = "\\data\\data1.txt";
+    private static final String DEFAULT_SAVE_FILE_PATH = "\\data\\saveData.txt";
 
     private ChatGpt chatGpt;
 
