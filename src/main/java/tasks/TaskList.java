@@ -93,6 +93,7 @@ public class TaskList implements Serializable {
         assert index >= 0 && index <= allTasks.size() - 1 : "Index should be in proper range";
         String message = "Noted. I've removed this task:" + "\n";
         Task t = allTasks.get(index);
+
         // Remove the task from list and return the size of list
         allTasks.remove(index);
         return message + t.toString() + "\n" + "Now you have "
