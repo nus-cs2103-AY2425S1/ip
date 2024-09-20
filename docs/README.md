@@ -4,6 +4,19 @@
 
 Welcome to Friday, your personal task management assistant! Friday helps you organize your tasks efficiently by supporting various types of tasks, such as Todos, Deadlines, and Events. You can easily add, update, and track your tasks through simple commands.
 
+## Quick Start
+**[Download the release here](https://github.com/blanklogic/ip/releases)**
+
+### Usage
+To run the application, follow these steps:
+
+1. **Download the JAR File**
+2. **Open a Command Window** in the folder containing the JAR file.
+3. **Execute the JAR File** using the command:
+   ```bash
+   java -jar friday.jar
+   ```
+
 ## Adding Todos
 
 Use the `todo` command to add tasks with a specific todo.
