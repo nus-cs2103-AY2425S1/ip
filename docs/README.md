@@ -100,3 +100,108 @@ Added the following task to your list:
 [E][] marathon (from today to Sep 21 2024)
 ````
 
+
+
+# `List` all tasks
+
+Shows a list of all tasks in the task list.
+
+Format: `list`
+
+
+
+# `Mark` task as completed
+
+Marks the selected task as completed.
+
+Format: `mark TASK_NUMBER`
+
+- Marks the task at the specified `TASK_NUMBER` as completed. 
+- The task number refers to the number shown in the displayed task list. 
+- The task number must be a positive integer and match up to the task list. 
+
+Examples:
+
+- `list` followed by `mark 2` marks the 2nd task in the task list as done as long as it exists and has not already been marked. 
+
+Example outcome:
+
+````
+Congratulations! I've marked the following task as done:
+[D][X] buy birthday present (by Sep 30 2024)
+````
+
+
+
+# `Unmark` task as incomplete
+
+Unmarks a task such that it is incomplete. 
+
+Format: `unmark TASK_NUMBER`
+
+- Unmarks the task at the specified `TASK_NUMBER` as incomplete. 
+- The task number refers to the number shown in the displayed task list. 
+- The task number must be a positive integer and match up to the task list. 
+
+Examples:
+
+- `list` followed by `unmark 2` unmarks the 2nd task in the task list as long as it exists and is marked. 
+
+Example outcome:
+
+````
+Ok! Task no longer marked as done:
+[D][] buy birthday present (by Sep 30 2024)
+````
+
+
+
+# `Delete` task
+
+Deletes a task from the task list. 
+
+Format: `delete TASK_NUMBER`
+
+- Deletes the task at the specified `TASK_NUMBER`. 
+- The task number refers to the number shown in the displayed task list. 
+- The task number must be a positive integer and match up to the task list. 
+
+Examples:
+
+- `list` followed by `delete 2` deletes the 2nd task in the task list as long as it exists.
+
+Example outcome:
+
+````
+As you wish, this task has been removed:
+[D][] buy birthday present (by Sep 30 2024)
+````
+
+
+
+# `Find` task
+
+Finds a task whose name contains any of the given keywords. 
+
+Format: `find KEYWORD`
+
+- The search is case-insensitive. e.g. `read` will match `Read`
+- The order of the keywords matter. e.g. `party birthday` will *not* match `birthday party`
+- Only the task name is searched. 
+- Partial words can be matched. e.g. `par` will match `party`
+- Any task that has a name matching the full keyword(s) given will be returned. e.g. `ook` will match `buy a book`
+
+Examples:
+
+- `find meeting`
+
+````
+Here are the tasks containing keywrod meeting:
+[E][] project meeting (from Sep 22 2024 to Sep 23 2024)
+[E][] staff meeting (from today to Sep 21 2024)
+````
+
+
+
+# `Prioritize` task
+
