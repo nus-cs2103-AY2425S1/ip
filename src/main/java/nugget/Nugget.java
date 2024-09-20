@@ -2,16 +2,16 @@ package nugget;
 
 import nugget.command.Command;
 import nugget.exception.NuggetException;
-import nugget.gui.ChatUIController;
+import nugget.gui.ChatUiController;
 
 public class Nugget {
     private Ui ui;
     private Storage storage;
     private TaskList tasks;
     private Parser parser;
-    private ChatUIController gui;
+    private ChatUiController gui;
 
-    public Nugget(String filePath, ChatUIController gui) {
+    public Nugget(String filePath, ChatUiController gui) {
         this.gui = gui;
         ui = new Ui(gui);
         storage = new Storage(filePath);

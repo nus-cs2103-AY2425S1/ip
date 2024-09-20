@@ -8,7 +8,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
 import nugget.Nugget;
 
-public class ChatUIController {
+public class ChatUiController {
 
     @FXML
     private ScrollPane scrollPane;
