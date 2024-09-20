@@ -39,7 +39,18 @@ public class Command {
      * @return
      */
     public String execute(TaskList taskList, Storage storage, Ui ui) {
-        return "Invalid Command given. Please enter a valid command.";
+        return "Invalid Command given. \nPlease enter a valid command:\n\n"
+                + "- list\n"
+                + "- find\n"
+                + "- mark\n"
+                + "- unmark\n"
+                + "- tag\n"
+                + "- untag\n"
+                + "- event\n"
+                + "- deadline\n"
+                + "- todo\n"
+                + "- bye\n"
+                ;
     }
 
     public String getInput() {
