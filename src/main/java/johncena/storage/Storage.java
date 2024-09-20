@@ -1,10 +1,7 @@
 package johncena.storage;
 
-import johncena.tasks.Deadline;
-import johncena.tasks.Event;
-import johncena.tasks.Task;
-import johncena.tasks.Todo;
 import johncena.exceptions.CenaException;
+import johncena.tasks.*;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -13,8 +10,19 @@ import java.util.ArrayList;
  * This class is responsible for saving and loading tasks from a file.
  */
 public class Storage {
-    private static final String FILE_PATH = "./data/CenaTaskList.txt";
+
+    private static String filePath = "./data/CenaTaskList.txt"; // Default file path
     public static final String SEPARATOR = " | ";
+
+    /**
+     * Sets the file path for saving and loading tasks.
+     *
+     * @param path The file path to set.
+     */
+    public static void setFilePath(String path) {
+        filePath = path;
+    }
+
 
     /**
      * Saves the list of tasks to a file.
@@ -23,7 +31,7 @@ public class Storage {
      */
     public static void saveTasks(ArrayList<Task> tasks) {
         try {
-            FileWriter fw = new FileWriter(FILE_PATH);
+            FileWriter fw = new FileWriter(filePath);
             for (Task task : tasks) {
                 fw.write(toSaveString(task) + System.lineSeparator());
             }
@@ -33,6 +41,7 @@ public class Storage {
         }
     }
 
+
     /**
      * Loads the list of tasks from a file.
      *
@@ -41,9 +50,9 @@ public class Storage {
     public static ArrayList<Task> loadTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
-            File file = new File(FILE_PATH);
+            File file = new File(filePath);
 
-            // check if directory or file do not exist
+            // Check if directory or file do not exist
             if (!file.getParentFile().exists()) {
                 file.getParentFile().mkdirs();
             }
@@ -55,7 +64,6 @@ public class Storage {
             String line;
             while ((line = reader.readLine()) != null) {
                 try {
-                    // Assuming the toString method of tasks.Task class returns a string that can be used to recreate the task
                     tasks.add(parseTask(line));
                 } catch (CenaException e) {
                     System.out.println(e.getMessage());
