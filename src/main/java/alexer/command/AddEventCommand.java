@@ -8,6 +8,14 @@ import alexer.ui.Response;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+/**
+ * A command to create a new event task,
+ * that consists of an event starting date & time value,
+ * as well as an event ending date & time value,
+ * supplied by the "/from" and "/to" arguments respectively.
+ *
+ * @author sayomaki
+ */
 public class AddEventCommand extends Command {
     public AddEventCommand() {
         super("event");

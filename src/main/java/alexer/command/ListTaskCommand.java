@@ -5,14 +5,12 @@ import alexer.Prompter;
 import alexer.ui.Response;
 
 /**
- * Command to list all the tasks in the chatbot
+ * Command to list all the tasks in the chatbot,
+ * with ordered numbering prefix for the tasks
  *
  * @author sayomaki
  */
 public class ListTaskCommand extends Command {
-    /**
-     * Creates the list task command
-     */
     public ListTaskCommand() {
         super("list");
     }

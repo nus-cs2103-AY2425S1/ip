@@ -5,6 +5,11 @@ import alexer.task.TaskManager;
 import alexer.task.Todo;
 import alexer.ui.Response;
 
+/**
+ * A command to create a new to-do task.
+ *
+ * @author sayomaki
+ */
 public class AddTodoCommand extends Command {
     public AddTodoCommand() {
         super("todo");

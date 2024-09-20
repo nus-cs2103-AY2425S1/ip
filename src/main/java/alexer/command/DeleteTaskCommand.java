@@ -5,6 +5,13 @@ import alexer.task.Task;
 import alexer.task.TaskManager;
 import alexer.ui.Response;
 
+/**
+ * A command to delete an existing task by the
+ * ordered position of the task as indicated
+ * by the list task command.
+ *
+ * @author sayomaki
+ */
 public class DeleteTaskCommand extends Command {
 
     public DeleteTaskCommand() {

@@ -8,6 +8,13 @@ import alexer.ui.Response;
 
 import java.util.List;
 
+/**
+ * A command to find tasks that has the description
+ * containing the search word term. Can return more
+ * than one task, and the output is shown as a list.
+ *
+ * @author sayomaki
+ */
 public class FindTaskCommand extends Command {
     public FindTaskCommand() {
         super("find");

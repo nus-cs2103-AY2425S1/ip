@@ -5,10 +5,16 @@ import alexer.task.TaskManager;
 import alexer.ui.Response;
 
 /**
- * Command to mark tasks as done.
- * Usage: mark <n>
+ * Command to mark tasks as done. Does nothing if
+ * task is already marked as done.
+ *
+ * <p>
+ * Usage: mark
  *      where n is the index of the task
  * Example: mark 3
+ * </p>
+ *
+ * @author sayomaki
  */
 public class MarkTaskCommand extends Command {
     public MarkTaskCommand() {

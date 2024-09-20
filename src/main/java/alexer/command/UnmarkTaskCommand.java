@@ -4,6 +4,12 @@ import alexer.Alexer;
 import alexer.task.TaskManager;
 import alexer.ui.Response;
 
+/**
+ * A command to un-mark a task as done. Will do
+ * nothing for tasks not marked as done.
+ *
+ * @author sayomaki
+ */
 public class UnmarkTaskCommand extends Command {
     public UnmarkTaskCommand() {
         super("unmark");

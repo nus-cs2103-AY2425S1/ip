@@ -11,6 +11,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+/**
+ * A command to create a new deadline task,
+ * that consists of a deadline date & time value,
+ * supplied by the "/by" argument.
+ *
+ * @author sayomaki
+ */
 public class AddDeadlineCommand extends Command {
     public AddDeadlineCommand() {
         super("deadline");
@@ -25,7 +32,7 @@ public class AddDeadlineCommand extends Command {
 
         String description = Arrays.stream(arguments).limit(keywordIndex)
                 .collect(Collectors.joining(" "));
-        String by =  Arrays.stream(arguments).skip(keywordIndex + 1).collect(Collectors.joining(" "));
+        String by = Arrays.stream(arguments).skip(keywordIndex + 1).collect(Collectors.joining(" "));
 
         LocalDateTime dateTime;
         DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");

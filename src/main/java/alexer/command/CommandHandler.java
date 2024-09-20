@@ -44,6 +44,9 @@ public class CommandHandler {
         return commands.get(command);
     }
 
+    /**
+     * Registers all the commands for the chatbot.
+     */
     private void registerAllCommands() {
         registerCommand(new ListTaskCommand());
         registerCommand(new FindTaskCommand());
