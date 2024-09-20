@@ -26,7 +26,7 @@ public class Easton {
     public static final String LIST_HEADER_RESPONSE = "Here are the tasks in your list:";
     public static final String MARK_HEADER_RESPONSE = "Nice! I've marked this task as done:";
     public static final String UNMARK_HEADER_RESPONSE = "OK, I've marked this task as not done yet:";
-    public static final String ARCHIVE_HEADER_RESPONSE = "The following item(s) were archived:";
+    public static final String ARCHIVE_HEADER_RESPONSE = "The following task(s) were archived:";
     private ArrayList<Task> tasks = new ArrayList<>();
     private Storage storage;
 
