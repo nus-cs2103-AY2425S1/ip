@@ -1,5 +1,6 @@
 package eevee;
 
+import eevee.task.Task;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -27,8 +28,8 @@ public class TaskTest {
      */
     @Test
     public void testConstructor_initialization() {
-        assertEquals("Test", t.description, "Description in initialized task should match input");
-        assertFalse(t.isDone, "Task should be marked as undone initially");
+        assertEquals("Test", t.getDescription(), "Description in initialized task should match input");
+        assertFalse(t.getIsDone(), "Task should be marked as undone initially");
     }
 
     /**
@@ -45,15 +46,15 @@ public class TaskTest {
     @Test
     public void testRepeatedMarkAndUnmark() {
         t.markAsDone();
-        assertTrue(t.isDone, "Task should be marked as done");
+        assertTrue(t.getIsDone(), "Task should be marked as done");
 
         t.unmarkAsDone();
-        assertFalse(t.isDone, "Task should not be marked as done");
+        assertFalse(t.getIsDone(), "Task should not be marked as done");
 
         t.markAsDone();
-        assertTrue(t.isDone, "Task should again be marked as done");
+        assertTrue(t.getIsDone(), "Task should again be marked as done");
 
         t.unmarkAsDone();
-        assertFalse(t.isDone, "Task should again not be marked as done");
+        assertFalse(t.getIsDone(), "Task should again not be marked as done");
     }
 }

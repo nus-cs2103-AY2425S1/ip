@@ -1,4 +1,4 @@
-package eevee;
+package eevee.gui;
 
 import java.io.IOException;
 import java.util.Collections;

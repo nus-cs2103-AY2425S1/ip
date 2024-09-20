@@ -1,4 +1,4 @@
-package eevee;
+package eevee.task;
 
 /**
  * Represents a type of Task to be done.

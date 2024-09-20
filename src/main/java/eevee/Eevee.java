@@ -1,5 +1,7 @@
 package eevee;
 
+import eevee.task.*;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -98,7 +100,7 @@ public class Eevee {
     private String handleMarkCommand(String input) throws EeveeException, IOException {
         int taskNumber = parser.parseTaskNumber(input);
         Task t = tasks.getTask(taskNumber);
-        if (t.isDone) {
+        if (t.getIsDone()) {
             throw new EeveeException("Task has already been marked as done.");
         }
         t.markAsDone();
@@ -109,7 +111,7 @@ public class Eevee {
     private String handleUnmarkCommand(String input) throws EeveeException, IOException {
         int taskNumber = parser.parseTaskNumber(input);
         Task t = tasks.getTask(taskNumber);
-        if (!t.isDone) {
+        if (!t.getIsDone()) {
             throw new EeveeException("Task is not marked as done. "
                     + "Needs to be marked done in order to unmark it.");
         }
@@ -157,7 +159,7 @@ public class Eevee {
         if (info.length < 3 || info[0].isEmpty() || info[1].isEmpty() || info[2].isEmpty()) {
             throw new EeveeException("Event description, start and/or end timings not provided. "
                     + "Please input a start time denoted by '/from' "
-                    + "and an end time denoted by '/to' when using task type eevee.Event");
+                    + "and an end time denoted by '/to' when using task type eevee.task.Event");
         }
 
         // Create and store task

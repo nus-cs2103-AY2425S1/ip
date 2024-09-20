@@ -1,7 +1,8 @@
-package eevee;
+package eevee.gui;
 
 import java.io.IOException;
 
+import eevee.Eevee;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

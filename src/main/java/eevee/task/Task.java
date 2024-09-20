@@ -1,4 +1,4 @@
-package eevee;
+package eevee.task;
 
 /**
  * Represents a Task object.
@@ -48,6 +48,15 @@ public class Task {
      */
     public String getDescription() {
         return this.description;
+    }
+
+    /**
+     * Returns whether Task is done or not.
+     *
+     * @return Task boolean isDone.
+     */
+    public boolean getIsDone() {
+        return this.isDone;
     }
 
     /**

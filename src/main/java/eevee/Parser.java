@@ -1,5 +1,7 @@
 package eevee;
 
+import eevee.task.Task;
+
 /**
  * Parses user input to interpret the extracted commands and task numbers.
  */

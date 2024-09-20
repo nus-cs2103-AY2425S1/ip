@@ -1,5 +1,6 @@
-package eevee;
+package eevee.gui;
 
+import eevee.gui.Main;
 import javafx.application.Application;
 
 /**

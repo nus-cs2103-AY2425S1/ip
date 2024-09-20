@@ -1,5 +1,7 @@
 package eevee;
 
+import eevee.task.Task;
+import eevee.task.TaskList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

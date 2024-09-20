@@ -1,4 +1,6 @@
-package eevee;
+package eevee.task;
+
+import eevee.task.Task;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
