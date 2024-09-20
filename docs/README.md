@@ -2,7 +2,7 @@
 
 Welcome to Toothless, your friendly dragon companion for managing your tasks, deadlines and events! This user guide will help you get started with Toothless and its features.
 
-![Toothless sample display](docs/Ui.png)
+![Toothless sample display](./Ui.png)
 
 # Features
 ## Category A: Adding Tasks
