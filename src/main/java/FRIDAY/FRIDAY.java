@@ -109,7 +109,7 @@ public class FRIDAY {
         case (""):
             return ui.emptyInput();
         default:
-            throw new FRIDAYException("It appears that you have attempted to log an unrecognized class type. Please try again");
+            throw new FRIDAYException("I'm sorry, I don't know what that means :<");
         }
     }
 }

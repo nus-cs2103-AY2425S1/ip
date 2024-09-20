@@ -13,15 +13,21 @@ import java.util.Set;
  * </p>
  */
 public class Parser {
+    private static final Set<String> allowedCommands = new HashSet<>(Arrays.asList(
+            "todo", "event", "deadline", "mark", "list", "unmark", "delete", "archive", "search", "bye"));
     private static final Set<String> commandsWithoutDescription = new HashSet<>(Arrays.asList("list", "archive", "bye"));
     /**
      * This method takes in a string and returns the type of action that the program needs to execute
      * @param input a String representing user input
      * @return a String representing the type of action the proogram is meant to execute
      */
-    public static String parseCmd(String input) {
+    public static String parseCmd(String input) throws FRIDAYException {
         String[] parts = input.split(" ");
-        return parts[0];
+        String keyword = parts[0].toLowerCase();
+        if (!allowedCommands.contains(keyword)) {
+            throw new FRIDAYException("Sorry, I don't know what this means :<");
+        }
+        return keyword;
     }
 
     /**
