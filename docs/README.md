@@ -185,14 +185,14 @@ Advanced users are welcome to update data directly by editing that data file.
 discarded when you exit the app.
 
 ### Command summary
-| Action       | Format, Examples                                                                                                  |
-|--------------|-------------------------------------------------------------------------------------------------------------------|
-| List         | `list`                                                                                                            |
-| Todo         | `todo [DESCRIPTION]`, `todo read book`                                                                            |
-| Dealine      | `deadline [DESCRIPTION] /by [DEADLINE]`, `deadline submit proposal /by 2024-08-17 12:00`                          |
-| Event        | `event [DESCRIPTION] /from [START] /to [END]`, `event birthday party /from 2024-09-09 17:00 /to 2024-09-09 22:00` |
-| Mark         | `unmark [INDEX]`, `mark 2`                                                                                        |
-| Unmark       | `unmark [INDEX]`, `unmark 2`                                                                                      |
-| Delete       | `delete [INDEX]`, `delete 5`                                                                                      |
-| Find         | `find [KEYWORD]`, `find submit`                                                                                   |
-| Bye          | `bye`                                                                                                             |
+| Action   | Format, Examples                                                                                                  |
+|----------|-------------------------------------------------------------------------------------------------------------------|
+| List     | `list`                                                                                                            |
+| Todo     | `todo [DESCRIPTION]`, `todo read book`                                                                            |
+| Deadline | `deadline [DESCRIPTION] /by [DEADLINE]`, `deadline submit proposal /by 2024-08-17 12:00`                          |
+| Event    | `event [DESCRIPTION] /from [START] /to [END]`, `event birthday party /from 2024-09-09 17:00 /to 2024-09-09 22:00` |
+| Mark     | `unmark [INDEX]`, `mark 2`                                                                                        |
+| Unmark   | `unmark [INDEX]`, `unmark 2`                                                                                      |
+| Delete   | `delete [INDEX]`, `delete 5`                                                                                      |
+| Find     | `find [KEYWORD]`, `find submit`                                                                                   |
+| Bye      | `bye`                                                                                                             |
