@@ -12,21 +12,14 @@ public class Event extends Task {
     private String unformattedTo;
     private LocalDateTime from;
     private LocalDateTime to;
-    /**
-     * Creates a new chobo.Event task.
-     *
-     * @param name The name of the task.
-     * @param done The status of the task (true if done, false otherwise).
-     * @param from The start time/date of the event.
-     * @param to   The end time/date of the event.
-     */
-    public Event(String name, boolean done, String from, String to) {
+
+    public Event(String name, boolean done, String unformattedFrom, String unformattedTo) {
         super(name, done);
-        unformattedFrom = from;
-        unformattedTo = to;
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d-M-yyyy HHmm");
-        this.from = LocalDateTime.parse(from.trim(), dateTimeFormatter);
-        this.to = LocalDateTime.parse(to.trim(), dateTimeFormatter);
+        this.unformattedFrom = unformattedFrom;
+        this.unformattedTo = unformattedTo;
+        this.from = LocalDateTime.parse(unformattedFrom.trim(), dateTimeFormatter);
+        this.to = LocalDateTime.parse(unformattedTo.trim(), dateTimeFormatter);
     }
 
     @Override

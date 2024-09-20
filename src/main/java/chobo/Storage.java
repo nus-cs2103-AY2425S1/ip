@@ -10,14 +10,16 @@ import java.util.Scanner;
  */
 public class Storage {
     private final String filePath;
+    private final Ui ui;
 
     /**
      * Instantiates a new Storage.
      *
      * @param filePath the file path
      */
-    public Storage(String filePath) {
+    public Storage(String filePath, Ui ui) {
         this.filePath = filePath;
+        this.ui = ui;
     }
 
     /**
@@ -25,8 +27,8 @@ public class Storage {
      *
      * @return the array list
      */
-    public ArrayList<Task> loadTasks() {
-        ArrayList<Task> tasks = new ArrayList<>();
+    public TaskList loadTasks() throws InputException{
+        TaskList tasks = new TaskList();
         try {
             File file = new File(filePath);
             if (!file.exists()) {
@@ -40,29 +42,36 @@ public class Storage {
                 String taskType = parts[0];
                 boolean isDone = parts[1].equals("1");
                 String name = parts[2];
-                assert taskType.equals("T") || taskType.equals("D") 
-                || taskType.equals("E") : "Task type should be one of those";
+                assert taskType.equals("T") || taskType.equals("D") || taskType.equals("E") : "Task type should be one of those";
 
+                Command command;
                 switch (taskType) {
                 case "T":
-                    tasks.add(new ToDo(name, isDone));
+                    command = new AddToDoCommand(name);
                     break;
                 case "D":
                     String by = parts[3];
-                    tasks.add(new Deadline(name, isDone, by));
+                    command = new AddDeadlineCommand(name, by);
                     break;
                 case "E":
                     String from = parts[3];
                     String to = parts[4];
-                    tasks.add(new Event(name, isDone, from, to));
+                    command = new AddEventCommand(name, from, to);
                     break;
+                default:
+                    continue; // Skip unknown task types
+                }
+
+                // Execute the command to add the task
+                command.execute(tasks, ui, this); // Ensure your Command classes have an execute method
+                if (isDone) {
+                    tasks.getTask(tasks.getTotalTask() - 1).mark(); // Mark the last added task as done
                 }
             }
             scanner.close();
         } catch (IOException e) {
-            System.out.println("Error loading tasks");
+            System.out.println("Error loading tasks: " + e.getMessage());
         }
-        
         return tasks;
     }
 

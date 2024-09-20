@@ -11,10 +11,13 @@ public class Main extends Application {
 
     private Chobo chobo = new Chobo();
 
+    public Main() throws InputException {
+    }
+
     @Override
     public void start(Stage stage) {
         MainWindow mainWindow = new MainWindow();
-        mainWindow.setChobo(chobo); 
+        mainWindow.setChobo(chobo);
 
         Scene scene = new Scene(mainWindow);
         stage.setScene(scene);

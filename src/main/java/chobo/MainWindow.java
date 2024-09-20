@@ -27,8 +27,8 @@ public class MainWindow extends AnchorPane {
 
     private Chobo chobo;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/anon.jpg"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/anon.jpg"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/anon.png"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/hackerwlaptop.png"));
 
     /**
      * Instantiates a new Main window.

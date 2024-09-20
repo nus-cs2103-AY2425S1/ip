@@ -32,7 +32,7 @@ public class Deadline extends Task {
 
     @Override
     public String getType() {
-        return "T";
+        return "D";
     }
 
     /**

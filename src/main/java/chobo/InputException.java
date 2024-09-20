@@ -19,11 +19,11 @@ public class InputException extends Exception {
      */
     public InputException(String msg) {
         super(msg.equals("name") ? "pls include name of task"
-                : msg.equals("todo") ? "todo format: todo xxxxx"
-                : msg.equals("event") ? "event format: event xxxxx /from xxxxx /to xxxxx"
-                : msg.equals("deadline") ? "deadline format: deadline xxxxx /by xxxx"
+                : msg.equals("todo") ? "todo format: todo [name of task]"
+                : msg.equals("event") ? "event format: event [name of task] /from [dd-mm-yyyy tttt] /to [dd-mm-yyyy tttt]"
+                : msg.equals("deadline") ? "deadline format: deadline [name of task] /by [dd-mm-yyyy tttt]"
                 : msg.equals("id") ? "invalid task ID"
-                : msg.equals("find") ? "find format: find xxxxx"
+                : msg.equals("find") ? "find format: find [name of task]"
                 : msg.equals("duplicate") ? "duplicate task!"
                 : "invalid input");
     }

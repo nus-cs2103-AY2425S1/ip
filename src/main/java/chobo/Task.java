@@ -83,7 +83,8 @@ public abstract class Task {
             return false;
         }
         Task task = (Task) obj;
-        return this.name.equals(task.name);
+        return this.name.equals(task.name) &&
+                this.getType().equals(task.getType());
     }
 
     @Override
