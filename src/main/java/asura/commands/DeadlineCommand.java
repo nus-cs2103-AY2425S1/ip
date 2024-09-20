@@ -45,7 +45,6 @@ public class DeadlineCommand extends Command {
         output.append("Got it. I've added this deadline:\n").append(newDeadline).append("\n").append("Now you have ")
                 .append(tasklist.size()).append(" tasks in your list.\n");
         return output.toString();
-        // ui.printString(output.toString());
     }
 
     /**

@@ -42,7 +42,6 @@ public class EventCommand extends Command {
         storage.save(tasklist.getTaskList());
         output.append("Got it. I've added this event:\n").append(newEvent.toString()).append("\n").append("Now you have ")
                 .append(tasklist.size()).append(" tasks in your list.\n");
-        //ui.printString(output.toString());
         return output.toString();
     }
 

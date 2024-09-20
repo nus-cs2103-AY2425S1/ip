@@ -33,7 +33,6 @@ public class DeleteCommand extends Command {
                 .append("Now you have ").append(tasklist.size()).append(" tasks in your list.\n");
         storage.save(tasklist.getTaskList());
         return output.toString();
-        //ui.printString(output.toString());
     }
 
     /**
