@@ -68,7 +68,13 @@ public class TaskList {
             throw new SerenityException("Error: Missing event info.");
         }
         String[] parts = taskDescription.split("/from");
+        if (parts.length == 1) {
+            throw new SerenityException("Error: Missing event info.");
+        }
         String[] timings = parts[1].split("/to");
+        if (timings.length == 1 || parts[0].strip() == " " || timings[0].strip() == "" || timings[1] == "") {
+            throw new SerenityException("Error: Missing event info.");
+        }
         return new Event(parts[0].strip(), timings[0].strip(), timings[1].strip());
     }
 
@@ -89,6 +95,9 @@ public class TaskList {
             throw new SerenityException("Error: Missing deadline info.");
         }
         String[] parts = taskDescription.split("/by");
+        if (parts[0].strip() == "" || parts[1].strip() == "") {
+            throw new SerenityException("Error: Missing deadline info.");
+        }
         return new Deadline(parts[0].strip(), parts[1].strip());
     }
 
@@ -103,10 +112,10 @@ public class TaskList {
         String[] description = input.split(" ");
         if (description.length == 1) {
             throw new SerenityException("Error: The description of a todo cannot be empty.");
-        } else {
-            String taskDescription = input.split(" ", 2)[1];
-            return new Todo(taskDescription.strip());
         }
+        String taskDescription = input.split(" ", 2)[1];
+        return new Todo(taskDescription.strip());
+
     }
 
     /**
@@ -232,7 +241,6 @@ public class TaskList {
         if (parts.length == 1) {
             throw new SerenityException("Error: Missing info to update task with.");
         }
-
         String[] command = parts[0].split(" ");
         if (command.length == 1) {
             throw new SerenityException("Error: Missing index.");
@@ -268,7 +276,7 @@ public class TaskList {
      *
      * @return String representation to save as data.
      */
-    public String toDataFormat() {
+    public String formatData() {
         String data = "";
         for (int i = 0; i < tasks.size(); i++) {
             data += tasks.get(i).formatData() + "\n";

@@ -132,7 +132,7 @@ public class Storage {
     public void writeToFile(TaskList tasks) throws IOException {
         //overwrite
         FileWriter fw = new FileWriter(filePath);
-        fw.write(tasks.toDataFormat());
+        fw.write(tasks.formatData());
         fw.close();
     }
 
