@@ -46,6 +46,7 @@ Here’s a summary of what ChatBuddy can do:
 | **Update Task Description**   | `update INDEX description NEW_DESCRIPTION`             | `update 5 description Finish presentation`           | Updates the description of a task.                 |
 | **Update Deadline Date**      | `update INDEX date NEW_DATE`                           | `update 5 date 2024-09-30`                           | Updates the due date of a deadline task.           |
 | **Update Event Dates**        | `update INDEX from NEW_START_DATE /to NEW_END_DATE`    | `update 4 from 2024-09-18 /to 2024-09-19`            | Updates the start and end date of an event task.   |
+| **Find Task**                 | `find KEYWORD`                                         | `find homework`                                      | Finds and lists all tasks containing the keyword.  |
 | **Exit the Application**      | `bye`                                                  | `bye`                                                | Exits the ChatBuddy application.                   |
 
 ---
@@ -139,7 +140,18 @@ Here’s a summary of what ChatBuddy can do:
     update 5 date 2024-09-30
     ```
 
-9. **Exit the Application**:
+9. **Find Tasks by Keyword**:
+
+    ```bash
+    find KEYWORD
+    ```
+
+   Example:
+    ```bash
+   find book
+    ```
+
+10. **Exit the Application**:
 
     ```bash
     bye
@@ -169,5 +181,7 @@ Here’s a summary of what ChatBuddy can do:
 
 1. **Realistic Data**: When adding tasks, try to input real data. Instead of "Test task", use actual task names like "Complete homework" or "Prepare for exam".
 2. **Navigation**: Use the `list` command regularly to see the updated task statuses.
+3. **Keep Dates Updated**: Use the `update` command to keep your task dates accurate, especially if deadlines or event dates change.
+4. **Search for Tasks**: Use the `find` command to keep your task dates accurate, especially if deadlines or event dates change.
 
 ---
