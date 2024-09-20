@@ -3,7 +3,6 @@ package commands;
 import storage.Storage;
 import storage.TaskList;
 import tasks.Task;
-import ui.UI;
 
 /**
  * Represents a command to find tasks that contain a specific keyword or phrase.
@@ -28,10 +27,10 @@ public class FindCommand implements Command {
      *
      * @param storage the Storage object for handling task persistence
      * @param master the TaskList object containing the list of tasks
-     * @return false, indicating that the application should not terminate
+     * @return String that denotes a response that is displayed to the user
      */
     @Override
-    public boolean execute(Storage storage, TaskList master) {
+    public String execute(Storage storage, TaskList master) {
         String s = "";
         for (int i = 0; i < master.getSize(); i++) {
             Task task = master.getTasks().get(i);
@@ -39,13 +38,12 @@ public class FindCommand implements Command {
                 s += "\n" + task;
             }
         }
+        String prepend;
         if (!s.isEmpty()) {
-            System.out.printf("Friday > Here are the tasks containing \"%s\"!%n", this.description);
-            System.out.println(s);
+            prepend = String.format("Friday > Here are the tasks containing \"%s\"!%n", this.description);
         } else {
-            System.out.printf("Friday > Sorry! There are no tasks containing \"%s\".%n", this.description);
+            return String.format("Friday > Sorry! There are no tasks containing \"%s\".%n", this.description);
         }
-        UI.printLine();
-        return false;
+        return prepend + s;
     }
 }

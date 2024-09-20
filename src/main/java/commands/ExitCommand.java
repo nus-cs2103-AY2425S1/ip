@@ -2,7 +2,6 @@ package commands;
 
 import storage.Storage;
 import storage.TaskList;
-import ui.UI;
 
 /**
  * Represents a command that advises the user to use the "bye" command to exit the application.
@@ -20,9 +19,7 @@ public class ExitCommand implements Command {
      * @return false, indicating that the application should not terminate
      */
     @Override
-    public boolean execute(Storage storage, TaskList master) {
-        System.out.println("Friday > Type \"bye\" or \"Bye\" to exit");
-        UI.printLine();
-        return false;
+    public String execute(Storage storage, TaskList master) {
+        return "Friday > Type \"bye\" or \"Bye\" to exit";
     }
 }

@@ -37,20 +37,19 @@ public class Friday {
      * Upon termination, it saves the task list to the storage file.
      */
     public void run() {
-        this.ui.init();
+        System.out.println(this.ui.init());
         boolean isByeCommand = false;
 
         while (!isByeCommand) {
             System.out.print("Your input > ");
             String[] parsed = this.ui.getInput();
             Command command = Parser.parse(parsed);
-            boolean isBye = command.execute(this.storage, this.tasks);
-            if (isBye) {
+            String response = command.execute(this.storage, this.tasks);
+            System.out.println(response);
+            if (parsed[0].equalsIgnoreCase("bye")) {
                 isByeCommand = true;
             }
         }
-
-        this.ui.terminate();
         this.storage.saveList(this.tasks.getTasks());
     }
 
@@ -68,6 +67,11 @@ public class Friday {
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        return "Friday heard: " + input;
+        String[] parsed = input.split(" ", 2);
+        if (parsed[0].equalsIgnoreCase("bye")) {
+            System.exit(0);
+        }
+        Command command = Parser.parse(parsed);
+        return command.execute(this.storage, this.tasks);
     }
 }

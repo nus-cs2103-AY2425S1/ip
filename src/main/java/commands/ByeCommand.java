@@ -14,10 +14,10 @@ public class ByeCommand implements Command {
      *
      * @param storage the Storage object for handling task persistence
      * @param master the TaskList object containing the list of tasks
-     * @return true, indicating that the application should terminate
+     * @return String that denotes a response that is displayed to the user
      */
     @Override
-    public boolean execute(Storage storage, TaskList master) {
-        return true;
+    public String execute(Storage storage, TaskList master) {
+        return "Friday > Bye! See you soon!";
     }
 }

@@ -2,7 +2,6 @@ package commands;
 
 import storage.Storage;
 import storage.TaskList;
-import ui.UI;
 
 /**
  * Represents a command that lists all tasks in the task list.
@@ -16,16 +15,13 @@ public class ListCommand implements Command {
      *
      * @param storage the Storage object for handling task persistence
      * @param master the TaskList object containing the list of tasks
-     * @return false, indicating that the application should not terminate
+     * @return String that denotes a response that is displayed to the user
      */
     @Override
-    public boolean execute(Storage storage, TaskList master) {
+    public String execute(Storage storage, TaskList master) {
         if (master.getSize() <= 0) {
-            System.out.println("Friday > No tasks in here! Try adding something!");
-        } else {
-            System.out.println("Friday > Here's everything!\n" + master);
+            return "Friday > No tasks in here! Try adding something!";
         }
-        UI.printLine();
-        return false;
+        return "Friday > Here's everything!\n" + master;
     }
 }

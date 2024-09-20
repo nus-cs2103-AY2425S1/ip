@@ -2,7 +2,6 @@ package commands;
 
 import storage.Storage;
 import storage.TaskList;
-import ui.UI;
 
 /**
  * Represents a command to mark or unmark a task as completed or incomplete.
@@ -29,19 +28,18 @@ public class MarkCommand implements Command {
      *
      * @param storage the Storage object for handling task persistence
      * @param master the TaskList object containing the list of tasks
-     * @return false, indicating that the application should not terminate
+     * @return String that denotes a response that is displayed to the user
      */
     @Override
-    public boolean execute(Storage storage, TaskList master) {
+    public String execute(Storage storage, TaskList master) {
+        String response;
         try {
             int index = Integer.parseInt(this.description);
-
-            master.setTaskCompletion(this.action, index - 1);
+            response = master.setTaskCompletion(this.action, index - 1);
             storage.saveList(master.getTasks());
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            System.out.println("Friday > Input the task number (1 - " + master.getSize() + ") to mark/unmark the task");
+            return new InvalidCommand("mark").execute(storage, master);
         }
-        UI.printLine();
-        return false;
+        return response;
     }
 }

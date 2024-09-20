@@ -75,12 +75,12 @@ public class TaskList {
      *
      * @param task the index of the task to be removed
      */
-    public void removeTask(int task) {
+    public String removeTask(int task) {
         Task temp = tasks.get(task);
         this.tasks.remove(task);
 
-        System.out.println("Friday > Successfully removed: " + temp.getName());
-        System.out.println("Friday > You now have " + getSize() + " total tasks left.");
+        String response = "Friday > Successfully removed: " + temp.getName();
+        return response + "\nFriday > You now have " + getSize() + " total tasks left.";
     }
 
     /**
@@ -126,18 +126,18 @@ public class TaskList {
      * @param action the action to perform ("mark" for done, any other value for undone)
      * @param task   the index of the task to be marked
      */
-    public void setTaskCompletion(String action, int task) {
+    public String setTaskCompletion(String action, int task) {
         Task temp = tasks.get(task);
         if (action.equals("mark") || action.equals("Mark")) {
             if (!temp.isDone()) {
                 temp.setDone();
             }
-            System.out.println("Friday > Good job! Marked as done :)");
+            return "Friday > Good job! Marked as done :)";
         } else {
             if (temp.isDone()) {
                 this.tasks.get(task).setUndone();
             }
-            System.out.println("Friday > Oh man! Marked as undone :(");
+            return "Friday > Oh man! Marked as undone :(";
         }
     }
 

@@ -14,7 +14,7 @@ public interface Command {
      *
      * @param storage the Storage object for handling task persistence
      * @param master the TaskList object containing the list of tasks
-     * @return true if the command should terminate the application, false otherwise
+     * @return String that results from a command execution that is to be displayed to the user
      */
-    boolean execute(Storage storage, TaskList master);
+    String execute(Storage storage, TaskList master);
 }

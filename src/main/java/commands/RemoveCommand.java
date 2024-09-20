@@ -2,7 +2,6 @@ package commands;
 
 import storage.Storage;
 import storage.TaskList;
-import ui.UI;
 
 /**
  * Represents a command to remove a task from the task list.
@@ -26,19 +25,19 @@ public class RemoveCommand implements Command {
      *
      * @param storage the Storage object for handling task persistence
      * @param master  the TaskList object containing the list of tasks
-     * @return false, indicating that the application should not terminate
+     * @return String that denotes a response that is displayed to the user
      */
     @Override
-    public boolean execute(Storage storage, TaskList master) {
+    public String execute(Storage storage, TaskList master) {
+        String response;
         try {
             int index = Integer.parseInt(this.description);
 
-            master.removeTask(index - 1);
+            response = master.removeTask(index - 1);
             storage.saveList(master.getTasks());
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            System.out.println("Friday > Input the task number (1 - " + master.getSize() + ") to remove the task");
+            return new InvalidCommand(description).execute(storage, master);
         }
-        UI.printLine();
-        return false;
+        return response;
     }
 }

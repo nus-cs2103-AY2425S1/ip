@@ -2,7 +2,6 @@ package commands;
 
 import storage.Storage;
 import storage.TaskList;
-import ui.UI;
 
 /**
  * Represents a command that displays a help message with a list of available commands.
@@ -12,15 +11,15 @@ public class HelpCommand implements Command {
 
     /**
      * Executes the help command, displaying a list of available commands and usage instructions.
-     * The method prints a help message to the user and returns false, indicating that the app should not terminate.
+     * The method prints a help message to the user.
      *
      * @param storage the Storage object for handling task persistence
      * @param master the TaskList object containing the list of tasks
-     * @return false, indicating that the application should not terminate
+     * @return String that denotes a response that is displayed to the user
      */
     @Override
-    public boolean execute(Storage storage, TaskList master) {
-        System.out.println("""
+    public String execute(Storage storage, TaskList master) {
+        return """
                         Friday > Hello! I'm Friday! Your personal chatbot for ensuring you get things done by Friday ;)
                         To create a new task, type "add <task name>" and follow the instructions.
 
@@ -32,8 +31,6 @@ public class HelpCommand implements Command {
                         remove <index>  remove task from list
                         find <keyword>  find keyword in list
                         bye             exit program
-                        """);
-        UI.printLine();
-        return false;
+                        """;
     }
 }

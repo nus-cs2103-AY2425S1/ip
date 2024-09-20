@@ -39,24 +39,6 @@ public class Event extends Task {
     }
 
     /**
-     * Returns the start date of the event.
-     *
-     * @return the start date of the event
-     */
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    /**
-     * Returns the end date of the event.
-     *
-     * @return the end date of the event
-     */
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    /**
      * Converts the event task into a string format suitable for saving to a file or database.
      * The format is "e,taskName,completionStatus,startDate,endDate", where completionStatus is "y" if the task is done,
      * and "n" if it is not done.

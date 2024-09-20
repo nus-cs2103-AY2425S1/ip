@@ -2,7 +2,6 @@ package commands;
 
 import storage.Storage;
 import storage.TaskList;
-import ui.UI;
 
 /**
  * Represents a command that is invoked when the user inputs an invalid or incomplete command.
@@ -26,29 +25,16 @@ public class InvalidCommand implements Command {
      *
      * @param storage the Storage object for handling task persistence
      * @param master the TaskList object containing the list of tasks
-     * @return false, indicating that the application should not terminate
+     * @return String that denotes a response that is displayed to the user
      */
     @Override
-    public boolean execute(Storage storage, TaskList master) {
-        switch(description) {
-        case "mark":
-        case "unmark":
-            System.out.println("Friday > Input the task number to mark/unmark the task");
-            break;
-        case "add":
-            System.out.println("Friday > Try doing add <task name>");
-            break;
-        case "remove":
-            System.out.println("Friday > Input the task number (1 - " + master.getSize() + ") to remove the task");
-            break;
-        case "find":
-            System.out.println("Friday > Try doing find <keyword>");
-            break;
-        default:
-            System.out.println("Friday > Hmm...you can't do that. Try add/remove <task> or \"help\" for more options");
-            break;
-        }
-        UI.printLine();
-        return false;
+    public String execute(Storage storage, TaskList master) {
+        return switch (description) {
+        case "mark", "unmark" -> "Friday > Input the task number to mark/unmark the task";
+        case "add" -> "Friday > Try doing add <task name>";
+        case "remove" -> "Friday > Input the task number (1 - " + master.getSize() + ") to remove the task";
+        case "find" -> "Friday > Try doing find <keyword>";
+        default -> "Friday > Hmm...you can't do that. Try add/remove <task> or \"help\" for more options";
+        };
     }
 }

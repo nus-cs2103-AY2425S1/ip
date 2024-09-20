@@ -35,15 +35,6 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns the deadline date of the task.
-     *
-     * @return the deadline date of the task
-     */
-    public LocalDate getDeadline() {
-        return deadline;
-    }
-
-    /**
      * Converts the deadline task into a string format suitable for saving to a file or database.
      * The format is "d,taskName,completionStatus,deadlineDate", where completionStatus is "y" if the task is done,
      * and "n" if it is not done.

@@ -43,7 +43,7 @@ test {
 }
 
 application {
-    mainClass.set("friday.Friday")
+    mainClass.set("gui.Launcher")
 }
 
 shadowJar {

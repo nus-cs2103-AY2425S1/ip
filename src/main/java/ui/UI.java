@@ -12,59 +12,53 @@ public class UI {
 
     /**
      * Constructs a UI object and initializes the Scanner for reading user input.
+     * The Scanner is used to read input from the console.
      */
     public UI() {
         this.sc = new Scanner(System.in);
     }
 
     /**
-     * Initializes the user interface by displaying a welcome message and a logo.
+     * Initializes the user interface by returning a welcome message and a logo.
      * This method is called at the start of the program to greet the user.
+     *
+     * @return A string containing the ASCII art logo and the welcome message.
      */
-    public void init() {
-        String logo = """
+    public String init() {
+        return """
                 ___________        .__     .___               \s
                 \\_   _____/_______ |__|  __| _/_____    ___.__.
                  |    __)  \\_  __ \\|  | / __ | \\__  \\  <   |  |
                  |     \\    |  | \\/|  |/ /_/ |  / __ \\_ \\___  |
                  \\___  /    |__|   |__|\\____ | (____  / / ____|
                      \\/                     \\/      \\/  \\/    \s
-                """;
-
-        System.out.println("Loading........\n" + logo);
-        printLine();
-        System.out.println("""
+               \s
                 Hello! I'm Friday!
-                What would you like to do?
-                """);
+                What would you like to do?               \s
+               \s""";
     }
 
     /**
-     * Reads input from the user and returns it as an array of Strings.
-     * The input is split into two parts: the command and the argument.
+     * Reads a line of input from the user and splits it into command and arguments.
+     * The input is split into two parts: the command and the argument (if any).
+     * If the user only provides a command, the second part of the array will be empty.
+     * After reading the input, a separator line is printed.
      *
-     * @return an array containing the command and argument provided by the user
+     * @return an array of two Strings: the first is the command and the second is the argument.
      */
     public String[] getInput() {
         String input = this.sc.nextLine();
-        printLine();
+        System.out.println(printLine());
         return input.split(" ", 2);
     }
 
     /**
-     * Prints a line separator to the console.
-     * This is used to visually separate different sections of the output.
+     * Returns a line separator string to visually separate different sections of output.
+     * This is primarily used after user input to add clarity to the console display.
+     *
+     * @return a string containing a line of dashes for separation.
      */
-    public static void printLine() {
-        System.out.println("----------------------------------------------");
-    }
-
-    /**
-     * Terminates the user interface by displaying a goodbye message.
-     * This method is called when the program is about to exit.
-     */
-    public void terminate() {
-        System.out.println("Friday > Bye! See you soon!");
-        printLine();
+    public static String printLine() {
+        return "----------------------------------------------";
     }
 }
