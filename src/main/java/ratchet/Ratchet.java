@@ -27,10 +27,21 @@ public class Ratchet {
         storage.loadTasks(tasks);
     }
 
+    /**
+     * Returns Ui for Ratchet.
+     *
+     * @return Ui for ratchet.
+     */
     public Ui getUi() {
         return ui;
     }
 
+    /**
+     * Returns the response of Ratchet to the input.
+     *
+     * @param input User input.
+     * @return String containing the response from Ratchet.
+     */
     public String getResponse(String input) {
         try {
             Command command = parser.parse(input);
