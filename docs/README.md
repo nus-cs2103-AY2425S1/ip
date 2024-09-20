@@ -55,24 +55,25 @@ Wiggly is a task management application that helps you keep track of your tasks,
 
 - **Description**: Adds a task that starts at a specific date and ends at a specific date.
 - **Usage**: `event <task description> /at <start date> to <end date>`
-- **Example**: `event Team meeting /at 2023-10-10 to 2023-10-10`
-- **Output**:
-    ```
-    Got it. I've added this task:
-        [E][ ] Team meeting (at: 10 Oct 2023 to 10 Oct 2023)
-    Now you have 3 tasks in the list.
-    ```
+- **Example**: `event Team meeting /at 2023-10-10 14:00 to 2023-10-10`
+  - **Output**:
+  ```
+  Got it. I've added this task:
+    [E][ ] Team meeting (at: 10 Oct 2023 to 10 Oct 2023)
+  Now you have 3 tasks in the list.
+  ```
 ### Listing Tasks
 
 - **Description**: Lists all the tasks in your task list.
 - **Usage**: `list`
 - **Output**:
-    ```
-    Here are the tasks in your list:
-    1. [T][ ] Read a book
-    2. [D][ ] Submit assignment (by: 10 Oct 2023)
-    3. [E][ ] Team meeting (at: 10 Oct 2023 to 10 Oct 2023)
-    ```
+  ```
+  Here are the tasks in your list:
+      1. [T][ ] Read a book
+      2. [D][ ] Submit assignment (by: 10 Oct 2023)
+      3. [E][ ] Team meeting (at: 10 Oct 2023 to 10 Oct 2023)
+  ```
+  
 ### Marking Tasks as Done
 
 - **Description**: Marks a task as done.
