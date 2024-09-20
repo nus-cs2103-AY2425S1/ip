@@ -119,4 +119,53 @@ public class Storage {
         }
         return tasks;
     }
+
+    /**
+     * Deletes a line from the file.
+     *
+     * @param row the line to delete
+     */
+    public void deleteLineFromFile(int row) {
+        try {
+            File file = new File(this.fileName);
+            Scanner myReader = new Scanner(file);
+            ArrayList<String> lines = new ArrayList<>();
+            while (myReader.hasNextLine()) {
+                lines.add(myReader.nextLine());
+            }
+            myReader.close();
+            FileWriter fileWriter = new FileWriter(this.fileName);
+            for (int i = 0; i < lines.size(); i++) {
+                if (i != row) {
+                    fileWriter.write(lines.get(i) + "\n");
+                }
+            }
+            fileWriter.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("file not created");
+            File file = new File(this.fileName);
+            try {
+                file.createNewFile();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Clears the file.
+     */
+    public void clear() {
+        try {
+            FileWriter file = new FileWriter(this.fileName);
+            file.write("");
+            file.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
 }

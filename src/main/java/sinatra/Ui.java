@@ -13,9 +13,9 @@ public class Ui {
     private static final String MARKED_DONE_MESSAGE = "Nice! I've marked this task as done: ";
     private static final String MARKED_NOT_DONE_MESSAGE = "OK, I've marked this task as not done yet: ";
     private static final String TODO_EXCEPTION_MESSAGE = "OOPS!!! The description of a todo cannot be empty.";
-    private static final String DEADLINE_EXCEPTION_MESSAGE = "OOPS!!! The description of a deadline cannot be empty.";
+    private static final String DEADLINE_EXCEPTION_MESSAGE = "OOPS!!! The deadline was filled wrongly.";
     private static final String TASK_ALREADY_EXISTS_EXCEPTION_MESSAGE = "Task already exists and was not added";
-    private static final String EVENT_EXCEPTION_MESSAGE = "OOPS!!! The description of an event cannot be empty.";
+    private static final String EVENT_EXCEPTION_MESSAGE = "OOPS!!! The event was filled wrongly.";
     private static final String ADDED_TASK_MESSAGE = "Got it. I've added this task:";
     private static final String REMOVED_TASK_MESSAGE = "Noted. I've removed this task:";
     private static final String TASK_COUNT_MESSAGE = "Now you have %d tasks in the list.";

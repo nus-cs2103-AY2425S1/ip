@@ -34,6 +34,18 @@ public class Task {
     }
 
     /**
+     * Deletes the task data from the storage file.
+     *
+     * @param filename
+     * @param row
+     */
+    public void deleteFromStorage(String filename, int row) {
+        Storage storage = new Storage(filename);
+        storage.deleteLineFromFile(row);
+
+    }
+
+    /**
      * Sets the content of the task.
      *
      * @param content the new content of the task

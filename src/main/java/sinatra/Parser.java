@@ -25,13 +25,26 @@ public class Parser {
         this.tasks = storage.loadTasksFromFile();
     }
 
+    public void setTasks(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+
+    /**
+     * Starts the parser.
+     */
+    public void deleteAllTasks() {
+        tasks.clear();
+        storage.clear();
+    }
+
     /**
      * Checks if the task is already in the this.tasks.
      *
      * @param testTask
      * @return
      */
-    private boolean isTaskInTasksMemory(Task testTask) {
+    public boolean isTaskInTasksMemory(Task testTask) {
         for (Task task : tasks) {
             if (Objects.equals(task.getContent(), testTask.getContent())) {
                 return true;
@@ -73,12 +86,16 @@ public class Parser {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
+    public int getTaskSize() {
+        return tasks.size();
+    }
+
     /**
      * Handles the user inputs and performs the corresponding actions.
      *
      * @param message the user input message
      */
-    private List<String> handleInputs(String message) {
+    public List<String> handleInputs(String message) {
         ui.newOutput();
         try {
             Command command = Command.getCommandFromString(message);
@@ -117,7 +134,7 @@ public class Parser {
                 ui.cacheToDoMessage(toDo, tasks.size());
                 break;
             case DEADLINE:
-                if (commandContents.isEmpty()) {
+                if (commandContents.isEmpty() || !commandContents.contains(" /by ")) {
                     ui.cacheDeadlineExceptionMessage();
                     break;
                 }
@@ -134,7 +151,8 @@ public class Parser {
                 ui.cacheDeadlineMessage(deadline, tasks.size());
                 break;
             case EVENT:
-                if (commandContents.isEmpty()) {
+                if (commandContents.isEmpty() || !commandContents.contains(" /from ")
+                        || !commandContents.contains(" /to ")) {
                     ui.cacheEventExceptionMessage();
                     break;
                 }
@@ -154,8 +172,10 @@ public class Parser {
                 break;
             case DELETE:
                 Task deleteTask = tasks.get(Integer.parseInt(commandContents) - 1);
+                deleteTask.deleteFromStorage(FILE_PATH, Integer.parseInt(commandContents) - 1);
                 tasks.remove(deleteTask);
-                ui.cacheTaskAlreadyExistsExceptionMessage();
+                ui.cacheDeleteMessage(deleteTask, tasks.size());
+
                 break;
             case FIND:
                 String contentPart = commandContents;
