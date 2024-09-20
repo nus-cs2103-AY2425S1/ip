@@ -1,14 +1,10 @@
 package elon;
 
-import elon.task.Deadline;
-import elon.task.Event;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import elon.task.Task;
 import elon.task.TaskList;
-import elon.task.ToDo;
-
-import java.util.ArrayList;
-import java.time.LocalDate;
-import java.util.Scanner;
 
 /**
  * Provides user interface functions for interacting with the task list and its tasks.

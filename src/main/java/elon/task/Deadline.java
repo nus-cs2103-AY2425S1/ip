@@ -1,7 +1,5 @@
 package elon.task;
 
-import elon.task.Task;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -48,7 +46,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        return "D | " + (this.getIsDone()? "1" : "0")
+        return "D | " + (this.getIsDone() ? "1" : "0")
                 + " | " + super.toFileString() + " | "
                 + this.by;
     }

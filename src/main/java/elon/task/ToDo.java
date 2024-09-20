@@ -1,7 +1,5 @@
 package elon.task;
 
-import elon.task.Task;
-
 /**
  * Represents a ToDo task, which is a specific type of Task.
  */
@@ -38,7 +36,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toFileString() {
-        return "T | " + (this.getIsDone()? "1" : "0")
+        return "T | " + (this.getIsDone() ? "1" : "0")
                 + " | " + super.toFileString();
     }
 }

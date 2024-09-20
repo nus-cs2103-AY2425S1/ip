@@ -1,7 +1,5 @@
 package elon;
 
-import elon.task.*;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -9,6 +7,12 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import elon.task.Deadline;
+import elon.task.Event;
+import elon.task.Task;
+import elon.task.TaskList;
+import elon.task.ToDo;
 
 /**
  * Handles the loading and saving of tasks to and from a file.
@@ -54,17 +58,17 @@ public class Storage {
         String description = elements[2];
 
         switch (type) {
-            case "T":
-                return new ToDo(description, isDone);
-            case "D":
-                LocalDateTime by = LocalDateTime.parse(elements[3]);
-                return new Deadline(description, isDone, by);
-            case "E":
-                LocalDateTime start = LocalDateTime.parse(elements[3]);
-                LocalDateTime end = LocalDateTime.parse(elements[4]);
-                return new Event(description, isDone, start, end);
-            default:
-                throw new ElonException("Invalid task format.");
+        case "T":
+            return new ToDo(description, isDone);
+        case "D":
+            LocalDateTime by = LocalDateTime.parse(elements[3]);
+            return new Deadline(description, isDone, by);
+        case "E":
+            LocalDateTime start = LocalDateTime.parse(elements[3]);
+            LocalDateTime end = LocalDateTime.parse(elements[4]);
+            return new Event(description, isDone, start, end);
+        default:
+            throw new ElonException("Invalid task format.");
         }
     }
 
@@ -104,7 +108,7 @@ public class Storage {
      * @throws IOException if an I/O error occurs while writing to the file
      */
     public void saveFile(TaskList list) throws IOException {
-        try(FileWriter fileWriter = new FileWriter(this.file)) {
+        try (FileWriter fileWriter = new FileWriter(this.file)) {
             int i = 0;
             while (i < list.listSize()) {
                 Task task = list.getTask(i);
