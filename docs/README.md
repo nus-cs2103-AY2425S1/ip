@@ -26,7 +26,7 @@ Carly is an intuitive chatbot designed to help you manage your tasks effortlessl
 ## Features
 | **Feature**          | **Description**                                                                          |
 |----------------------|------------------------------------------------------------------------------------------|
-| **Adding Tasks**     | `todo TASK_DESCRIPTION` for simple tasks. <br> `deadline TASK_DESCRIPTION /by DATE` for deadlines. <br> `event TASK_DESCRIPTION /from START_TIME /to END_TIME` for events. |
+| **Adding Tasks**     | `todo TASK_DESCRIPTION` for simple tasks.  `deadline TASK_DESCRIPTION /by DATE` for deadlines.  `event TASK_DESCRIPTION /from START_TIME /to END_TIME` for events. |
 | **Finding Tasks**    | `find KEYWORD` to search for specific tasks.                                            |
 | **Marking Tasks**    | `mark INDEX` to mark a task as done.                                                    |
 | **Unmarking Tasks**  | `unmark INDEX` to revert a task to not done.                                           |
@@ -51,9 +51,9 @@ output:
 Awesome! I've added this task:
     [T][ ] cook pasta
 You've got 1 task on your plate!
-```
+```   
 
-<br></br>
+<br><br>
 ### Adding deadlines
 Set deadlines for your tasks to ensure you stay on track.
 
@@ -70,7 +70,7 @@ Awesome! I've added this task:
 You've got 1 task on your plate!
 ```
 
-<br></br>
+<br><br>
 ### Adding events
 Set events for your tasks with start and end datetime.
 ```
@@ -84,7 +84,7 @@ You've got 3 task on your plate!
 ```
 
 
-<br></br>
+<br><br>
 ### Finding Tasks
 Finding specific tasks based on an entry
 
@@ -102,7 +102,7 @@ You've got 1 task on your plate!
 ```
 
 
-<br></br>
+<br><br>
 ### Marking tasks
 Mark a task as done.
 
@@ -117,7 +117,7 @@ Nice! I've marked this task as done:
 You've got 4 tasks on your plate!
 ```
 
-<br></br>
+<br><br>
 ### Unmarking tasks
 Unmark a task to indicate it's not done.
 
@@ -131,7 +131,8 @@ OK! I've unmarked this task:
     [D][ ] submit assignment 1 (by: Dec 10 2024)
 You've got 5 tasks on your plate!
 ```
-<br></br>
+
+<br><br>
 ### Sorting Tasks
 Organize your tasks by deadlines.
 
@@ -152,7 +153,7 @@ Output:
 You've got 5 task on your plate!
 ```
 
-<br></br>
+<br><br>
 ### Listing Tasks
 View all your current tasks.
 
@@ -173,7 +174,9 @@ Here are the tasks in your list:
 
 You've got 2 tasks to tackle!
 ```
-<br></br>
+
+
+<br><br>
 ### Exiting
 End your session, and exit the window when you're done.
 
