@@ -29,4 +29,13 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void stop() {
+        // Handle any cleanup code if necessary before the application closes
+        System.out.println("Application is stopping...");
+    }
+    public static void main(String[] args) {
+        launch(args); // This starts the JavaFX application
+    }
 }

@@ -59,8 +59,11 @@ public class Vinegar {
                 // Assert that the command was successfully parsed
                 assert c != null : "Parsed command should not be null.";
 
-                c.execute(tasks, ui, storage);
+                String commandResponse = c.execute(tasks, ui, storage);
+                getResponse(commandResponse);
+
                 isExit = c.isExit();
+
             } catch (VinegarException | IOException e) {
                 getResponse(ui.showError(e.getMessage()));
             }

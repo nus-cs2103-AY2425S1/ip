@@ -4,6 +4,8 @@ import vinegar.task.TaskList;
 import vinegar.storage.Storage;
 import vinegar.ui.Ui;
 
+import javafx.application.Platform;
+
 /**
  * Exits the application.
  * <p>
@@ -30,6 +32,10 @@ public class ExitCommand extends Command {
      */
     @Override
     public boolean isExit() {
+        System.out.println("Attempting to exit the application...");
+        Platform.exit();  // Close the JavaFX platform from the main thread
+        System.exit(0);   // Forcefully terminate the program
+
         return true;
     }
 }
