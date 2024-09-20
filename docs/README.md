@@ -6,7 +6,7 @@ Dawn is a text-based chatbot that helps you to manage your todos, deadlines, and
 
 Below are some features supported by Dawn
 
-## Adding todos, deadlines, and events
+## Feature 1: Adding todos, deadlines, and events
 
 You can add todos (tasks without deadlines), deadlines (tasks with deadlines), and events easily by entering the following commands: 
 - *todo [task]*
@@ -39,7 +39,7 @@ deadline [task name] /by [date yyyy-mm-dd] [time]
 For example: deadline submit assignment1 /by 2024-09-16 2pm
 ```
 
-## Finding tasks / events
+## Feature 2: Finding tasks / events
 
 You can search for a specific task / event by using the ***find*** keyword followed by the ***name of the task or event***
 
@@ -50,7 +50,7 @@ Finding the matching tasks in your list...
 2. [E][] CS2103T Lecture (from: Sept 20 2024 4pm to: 6pm)
 ```
 
-## List all the tasks and events
+## Feature 3: List all the tasks and events
 
 You can list all the tasks currently in the list by using the ***list*** keyword
 
@@ -63,7 +63,7 @@ listing all tasks...
 3. [E][] CS2103T Lecture (from: Sept 20 2024 4pm to: 6pm)
 ```
 
-## Mark or unmark a task as done 
+## Feature 4: Mark or unmark a task as done 
 
 You can mark or unmark a task by using the ***mark*** or ***unmark*** keyword followed by the ***index of the task*** in the list. Tasks marked as done will have a 'X' shown.
 
@@ -79,7 +79,7 @@ Ok, I've marked this task as not done :(
 1. [T][] Assignment 1
 ```
 
-## Deleting tasks and events
+## Feature 5: Deleting tasks and events
 
 You can delete a task from the list by using the ***delete*** keyword followed by the ***index of the task*** in the list 
 
@@ -90,7 +90,7 @@ Ok, I have removed this task for you:
 Now you have 2 task(s) in the list
 ```
 
-## Getting a reminder on upcoming deadlines and events 
+## Feature 6: Getting a reminder on upcoming deadlines and events 
 
 You can ask Dawn to remind you of upcoming deadlines and events by using the ***remind*** keyword. Dawn will list out all the events happening today, and deadlines that are due within this week. 
 
@@ -102,7 +102,7 @@ Events happening today:
 1. [E][] CS2103T Lecture (from: Sept 20 2024 4pm to: 6pm)
 ```
 
-## Exiting the chat
+## Feature 7: Exiting the chat
 
 To exit the chat, just say ***bye*** to Dawn! Don't worry about losing the tasks and events that you've entered. Dawn will keep them in a safe place and load these tasks back for you when you next open the chat! 
 
