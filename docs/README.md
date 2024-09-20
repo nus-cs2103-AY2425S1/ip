@@ -30,7 +30,7 @@ The chatbot will provide the following response if it has successfully added the
 > 
 >   [T] [ ] task 
 > 
-> Now you have (number of tasks) tasks in the list.
+> Now you have 2 tasks in the list.
 
 #### Deadline Tasks
 
@@ -49,7 +49,7 @@ The chatbot will provide the following response if it has successfully added the
 >
 >  [D] [ ] task (by: Dec 5 2024 1800)
 >
-> Now you have (number of tasks) tasks in the list.
+> Now you have 2 tasks in the list.
 
 #### Event Tasks
 
@@ -68,7 +68,7 @@ The chatbot will provide the following response if it has successfully added the
 >
 >  [E] [ ] task (from: Dec 5 2024 1800 to: Dec 6 2024 1800)
 >
-> Now you have (number of tasks) tasks in the list.
+> Now you have 3 tasks in the list.
 
 ### Listing Tasks
 
@@ -250,3 +250,9 @@ Will yield the following output:
 > OK. I've tagged the following task:
 > 
 > [T] [ ] do poetry #fun
+
+### Exiting the application
+
+User can input the following command to exit and close the application
+
+> bye
