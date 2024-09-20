@@ -67,8 +67,7 @@ public class Rei {
                     output = "annyeong";
                     break;
                 default:
-                    output = "no";
-                    //do nothing
+                    assert false : "switch-case should never reach this"
                     break;
             }
             storage.save(tasks);
