@@ -16,3 +16,4 @@ deadline eat /by 1777-09-12
 deadline pray /by 2023-11-02
 deadline study /by 1987-12-12
 
+https://chinsekyi.github.io/ip/
