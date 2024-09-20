@@ -5,7 +5,7 @@
 - Handle exception when we mark a non-task
   - Test: mark todo
 - Add coding standard check to intellisense
-- Handle bye for gui
 - `list` when there are no tasks
 - Standardise all variable naming to "date"
 - Make `indentLevel`s static variables
+- Add build CI
