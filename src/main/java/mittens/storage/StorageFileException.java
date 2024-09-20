@@ -2,6 +2,9 @@ package mittens.storage;
 
 import mittens.MittensException;
 
+/**
+ * Represents an exception related to the storage file.
+ */
 public class StorageFileException extends MittensException {
     private static final String MITTENS_MESSAGE = "Meow?! Something's wrong with your storage!";
     private static final String HELP_MESSAGE = "Your storage might be corrupted. " +
