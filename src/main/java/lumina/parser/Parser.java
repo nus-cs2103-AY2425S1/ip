@@ -43,6 +43,7 @@ public class Parser {
      */
     public Task parseDataLine(String line) {
         String[] parts = line.split(" \\| ");
+        assert parts.length > 1 : "Line should have atleast 2 parts";
         Task task = null;
         try {
             assert parts.length >= 3 : "line should have atleast 3 parts";

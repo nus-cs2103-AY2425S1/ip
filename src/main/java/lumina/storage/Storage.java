@@ -96,6 +96,7 @@ public class Storage {
 
         // get path to data file
         Path path = Paths.get(DATA_FILE_PATH);
+        assert Files.exists(path) : "File should exist";
 
         // get line stream and collect it into an array
         try (Stream<String> lines = Files.lines(path)) {

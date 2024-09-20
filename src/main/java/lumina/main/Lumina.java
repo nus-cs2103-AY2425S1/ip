@@ -51,6 +51,9 @@ public class Lumina {
             // of more than once Lumina instance, to prevent data from being corrupted
             throw new IllegalStateException("Lumina has already been instantiated!");
         }
+
+        assert luminaCount == 0 : "luminaCount should be 0";
+
         luminaCount++;
         ui = new Ui();
         parser = new Parser();
