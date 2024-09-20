@@ -39,11 +39,11 @@ public class Main extends Application {
         try {
             taskList = new TaskList(data);
         } catch (IndexOutOfBoundsException | NoSuchElementException e) {
-            //ui.speak("Savefile is corrupted!");
+            ui.speak("Savefile is corrupted!");
             taskList = new TaskList();
         }
-        //ui.speak("Hello, I'm Vecrosen.");
-        //ui.speak("What can I do for you?");
+        ui.speak("Hello, I'm Vecrosen.");
+        ui.speak("What can I do for you?");
     }
 
     /**
