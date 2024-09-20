@@ -51,7 +51,7 @@ public class DialogBox extends HBox {
     public static DialogBox getUserDialog(String text, Image img) {
         Label textLabel = new Label(text);
         DialogBox dialogbox = new DialogBox(text, img); // Creates a new user dialog box.
-        dialogbox.setStyle("-fx-background-color: lightblue;");
+        dialogbox.setStyle("-fx-background-color: lightblue;"); //To distinguish between user and Bot
         return dialogbox;
     }
 
