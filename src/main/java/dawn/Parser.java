@@ -33,7 +33,7 @@ public class Parser {
             case BYE:
                 String logo = "૮꒰ ˶• ༝ •˶꒱ა ♡";
                 saveTasks("./data/dawn.txt");
-                return "Bye! Nice chatting with you :)\n See you next time, Dawn out \n" + logo;
+                return "Bye! Nice chatting with you :)\nSee you next time, Dawn out \n" + logo;
             case LIST:
                 return list();
             case MARK:

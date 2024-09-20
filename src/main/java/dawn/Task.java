@@ -24,7 +24,7 @@ public class Task {
      * @return status of the task as an icon
      */
     protected String getStatusIcon() {
-        return isDone ? "X" : " ";
+        return isDone ? "X" : "  ";
     }
 
     /**
@@ -63,6 +63,7 @@ public class Task {
     }
 
     protected boolean isAMatch(String d) {
-        return this.desc.contains(d);
+        String capitalDesc = this.desc.toUpperCase();
+        return capitalDesc.contains(d.toUpperCase());
     }
 }
