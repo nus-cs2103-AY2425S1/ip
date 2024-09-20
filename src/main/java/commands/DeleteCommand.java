@@ -41,7 +41,7 @@ public class DeleteCommand {
 
     /** Sends help information of command 'delete' to user */
     public static String getHelpMessage() {
-        return "Delete a task from task list \n\n"
+        return "Delete a task from task list. \n\n"
                 + "Format:\n"
                 + "\t delete<whitespace>[index]\n"
                 + "- [index] is the index of task you want to delete.\n\n"
