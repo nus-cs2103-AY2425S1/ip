@@ -17,7 +17,7 @@ import seedu.ui.Formatter;
 
 /**
  * The {@code Storage} class handles the loading and saving of tasks to and from a file.
- * It interacts with the {@code TaskList} and {@code Ui} classes to manage the tasks and provide feedback to the user.
+ * It interacts with the {@code TaskList} to manage the tasks and the {@code Formatter} class to provide feedback to the user.
  */
 public class Storage {
 
@@ -27,8 +27,9 @@ public class Storage {
 
     /**
      * Loads tasks from the specified file into the given {@code TaskList}.
+     * If the file does not exist, it simply does nothing.
      *
-     * @param tl The {@code TaskList} where tasks will be loaded into.
+     * @param tl The {@code TaskList} where tasks will be loaded.
      */
     public void loadTasks(TaskList tl) {
         assert tl != null;
@@ -48,6 +49,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses a line from the file and converts it into a {@code Task}.
+     * The task could be a {@code ToDo}, {@code Deadline}, or {@code Event}.
+     *
+     * @param line The line to parse, representing a task in string format.
+     * @return The parsed {@code Task}, or null if the line is not valid.
+     */
     private Task parseTask(String line) {
         String[] taskParts = line.trim().split(" \\| ");
         Task task;
@@ -77,11 +85,11 @@ public class Storage {
 
     /**
      * Prepares the file for saving tasks by creating the necessary directories and clearing the file contents.
-     * If an error occurs during this process, an error message is displayed to the user.
+     * If an error occurs during this process, an error message is displayed using the {@code Formatter}.
      */
     public void prepareSave() {
         try {
-            Files.createDirectories(Path.of("data")); // Hard-coded
+            Files.createDirectories(Path.of("data")); // Hard-coded to the "data" directory
             FileWriter fw = new FileWriter(FILE_PATH);
             assert fw != null;
             fw.close(); // Clear the file contents by closing the newly created FileWriter
@@ -92,7 +100,8 @@ public class Storage {
 
     /**
      * Appends a task's string representation to the file.
-     * If an error occurs during this process, an error message is displayed to the user.
+     * The task is saved in the specified format for later loading.
+     * If an error occurs during this process, an error message is displayed using the {@code Formatter}.
      *
      * @param s The string representation of the task to be saved.
      */
