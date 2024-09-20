@@ -170,7 +170,7 @@ public class SecondMind {
     private String getMatchFromInstruction(String[] instruction) {
         String[] instructionCopy = getInstructionCopy(instruction);
         instructionCopy[0] = "";
-        String match = String.join(" ", instructionCopy);
+        String match = String.join(" ", instructionCopy).trim();
         return match;
     }
 
