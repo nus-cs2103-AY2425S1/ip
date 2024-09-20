@@ -1,6 +1,6 @@
-# **Sinatra: An assistant with Swing**
+# **Sinatra: A Swingin' Pal**
 
-Sinatra can help you keep track of your life's events
+Sinatra helps you track your life when you can't track it yourself
 
 - Inspired by Frank Sinatra
 - Simply Spectacular
