@@ -77,7 +77,7 @@ Mark a task as done.
 
 Format: `mark <index>`
 
-Example: `delete 1`
+Example: `mark 1`
 
 Expected output:
 ```
@@ -90,7 +90,7 @@ Mark a task as not done.
 
 Format: `unmark <index>`
 
-Example: `delete 1`
+Example: `unmark 1`
 
 Expected output:
 ```
@@ -128,13 +128,13 @@ The list of tasks is saved in the hard drive after any changes are made to it.
 
 ## Command summary
 
-| Command       | Format, Example                                                                                        |
-|---------------|--------------------------------------------------------------------------------------------------------|
-| **todo**      | todo DESCRIPTION<br/>e.g. todo read book                                                               |
-| **deadline**  | deadline DESCRIPTION /by DEADLINE <br/>deadline do homework /by 17/09/2024                             |
-| **event**     | event DESCRIPTION /from START_DATE /to END_DATE<br/>event attend party /from 18/09/2024 /to 18/10/2024 |
-| **delete**    | delete INDEX<br/>e.g. delete 1                                                                         |
-| **mark**      | mark INDEX or mark INDEX PRIORITY<br/>e.g. mark 1; mark 1 high                                         |
-| **unmark**    | unmark INDEX<br/>e.g. unmark 1                                                                         |
-| **list**      | list                                                                                                   |
-| **bye**       | bye                                                                                                    |
+| Command      | Format, Example                                                                                          |
+|--------------|----------------------------------------------------------------------------------------------------------|
+| **todo**     | `todo <description>`<br/>e.g. `todo read book`                                                           |
+| **deadline** | `deadline <description> /by <deadline>` <br/>e.g. `deadline return book /by 2/12/2019 1800`              |
+| **event**    | `event <description> /by <deadline>`<br/>e.g. `event project meeting /from 2/12/2020 1800 /to 2/12/3030` |
+| **delete**   | `delete <index>`<br/>e.g. `delete 1`                                                                     |
+| **mark**     | `mark <index>` or `mark <index> <priority>`<br/>e.g. `mark 1`or `mark 1 high`                            |
+| **unmark**   | `unmark <index>`<br/>e.g. `unmark 1`                                                                     |
+| **list**     | `list`                                                                                                   |
+| **bye**      | `bye`                                                                                                    |
