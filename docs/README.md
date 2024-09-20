@@ -52,6 +52,9 @@ Format: `mark INDEX`
 - The index must be a positive integer
 - The index cannot be greater than the number of tasks in the task list
 
+Example:
+- `mark 1`
+
 ## Unmarking a task
 
 Unmarks the task at the given index as done.
@@ -62,6 +65,9 @@ Format: `unmark INDEX`
 - The index must be a positive integer
 - The index cannot be greater than the number of tasks in the task list
 
+Example:
+- `unmark 1`
+
 ## Finding a task
 
 Finds all tasks in the task list which contains the given keyword.
@@ -71,6 +77,10 @@ Format: `find KEYWORD`
 - The search is case-sensitive e.g. `book` will not match `Book`
 - Only description is searched
 
+Example:
+- `find book`
+- `find write`
+
 ## Deleting a task
 Deletes the task at the given index.
 
@@ -79,6 +89,9 @@ Format: `delete INDEX`
 - The index refers to te index number shown in the task list
 - The index must be a positive integer 
 - The index cannot be greater than the number of tasks in the task list
+
+Example:
+- `delete 1`
 
 ## Updating a task
 
