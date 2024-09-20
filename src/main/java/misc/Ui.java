@@ -11,6 +11,9 @@ import task.Task;
 import task.Tasklist;
 import task.Todo;
 
+/**
+ * Class to manage user inputs
+ */
 public class Ui {
     /**
      * Prints a farewell message to the user.
@@ -43,7 +46,7 @@ public class Ui {
      * Returns reply for mark done command.
      * @return String
      */
-    public String replyMarkDone(int pos, Tasklist tasklist) throws PositionException{
+    public String replyMarkDone(int pos, Tasklist tasklist) throws PositionException {
         if (pos >= tasklist.getSize() || pos < 0) {
             throw new PositionException(pos);
         }
@@ -110,7 +113,7 @@ public class Ui {
         String[] splitString = s.split("/by");
         if (splitString.length != 2 || Objects.equals(splitString[0], "")
             || Objects.equals(splitString[1], "")) {
-                throw new MissingParamsException("deadline");
+            throw new MissingParamsException("deadline");
         }
 
         try {

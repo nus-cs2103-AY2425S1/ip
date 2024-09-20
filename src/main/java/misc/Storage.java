@@ -12,6 +12,9 @@ import task.Event;
 import task.Tasklist;
 import task.Todo;
 
+/**
+ * Storage class handles reading and writing to a file
+ */
 public class Storage {
     protected String filePath;
 
@@ -21,7 +24,7 @@ public class Storage {
 
     /**
      * Updates the data file whenever tasklist is updated
-     * @param s The string to write to the data file
+     * @param s The filepath
      */
     public void updateDataFile(String s) {
         try {
@@ -35,7 +38,7 @@ public class Storage {
                     System.out.println("Failed to create the file.");
                 }
             }
-            
+
             // Always write to the file, whether it exists or is newly created
             FileWriter writer = new FileWriter(this.filePath);
             writer.write(s);
@@ -47,6 +50,11 @@ public class Storage {
         }
     }
 
+
+    /**
+     * Retrieves the data file
+     * @param s The filepath
+     */
     public Tasklist retrieveDataFile(String s) {
         File dataFile = new File(this.filePath);
         Tasklist t = new Tasklist();
@@ -70,7 +78,7 @@ public class Storage {
                     }
                     t.add(todo);
                     break;
-                    
+
                 case 'E':
                     System.out.println("here");
                     line = line.substring(3);
@@ -96,6 +104,8 @@ public class Storage {
                         deadline.setDone();
                     }
                     t.add(deadline);
+                    break;
+                default:
                     break;
                 }
             }

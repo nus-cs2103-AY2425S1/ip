@@ -1,8 +1,16 @@
 package task;
+
+/**
+ * The `Task` class represents a task with a description and completion status, providing methods to mark the
+ * task as done or undone.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Constructor for Task class.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -48,4 +56,3 @@ public class Task {
         return String.format("[%s] %s", getStatusIcon(), this.description);
     }
 }
-

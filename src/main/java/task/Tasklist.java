@@ -3,6 +3,10 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The `Tasklist` class manages a list of `Task` objects, providing methods to add, delete, and retrieve tasks
+ * based on various criteria.
+ */
 public class Tasklist {
     private ArrayList<Task> taskList;
 
@@ -45,7 +49,7 @@ public class Tasklist {
         return retString;
     }
 
-        /**
+    /**
      * Returns a string of all the tasks matching regex exactly
      * @return String
      */
@@ -93,8 +97,7 @@ public class Tasklist {
 
     /**
      * Adds a Task object to a taskList.
-     * @param t The parameter `t` in the `add` method represents a `Task` object that you want to add to
-     * the `taskList`.
+     * @param t The parameter `t` in the `add` method represents a `Task` to add to `tasklist`
      */
     public void add(Task t) {
         taskList.add(t);

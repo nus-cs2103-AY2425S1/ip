@@ -2,10 +2,16 @@ package task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The Event class extends Task and represents an event with a description, start date, and end date.
+ */
 public class Event extends Task {
     protected LocalDate from;
     protected LocalDate to;
 
+    /**
+     * Constructor for Event class.
+     */
     public Event(String description, LocalDate from, LocalDate to) {
         super(description);
         this.from = from;

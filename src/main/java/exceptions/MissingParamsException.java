@@ -1,5 +1,8 @@
 package exceptions;
 
+/**
+ * The `MissingParamsException` class represents an exception for when a command has incomplete description.
+ */
 public class MissingParamsException extends Exception {
     private String command;
 

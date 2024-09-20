@@ -1,5 +1,8 @@
 package exceptions;
 
+/**
+ * The `PositionException` class represents an exception for an invalid position in Java.
+ */
 public class PositionException extends Exception {
     private int pos;
 
