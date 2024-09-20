@@ -1,6 +1,7 @@
 package pebble;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,18 +28,29 @@ public class Storage {
         ArrayList<Task> tasksList = new ArrayList<>();
         File file = new File(filePath);
         if (file.exists()) {
-            Scanner scanner = new Scanner(file);
-            while (scanner.hasNext()) {
-                String line = scanner.nextLine();
-                Task task = Parser.parseTaskFromString(line);
-                tasksList.add(task);
-            }
-            scanner.close();
+            populateTasks(file, tasksList);
         } else {
             file.getParentFile().mkdirs();
             file.createNewFile();
         }
         return tasksList;
+    }
+
+    /**
+     * Populate tasks list with tasks that is read from file
+     * @param file File that stores the tasks locally
+     * @param tasksList Array List that holds all the tasks
+     * @throws FileNotFoundException Exception when no file is found
+     */
+
+    private static void populateTasks(File file, ArrayList<Task> tasksList) throws FileNotFoundException {
+        Scanner scanner = new Scanner(file);
+        while (scanner.hasNext()) {
+            String line = scanner.nextLine();
+            Task task = Parser.parseTaskFromString(line);
+            tasksList.add(task);
+        }
+        scanner.close();
     }
 
     /**

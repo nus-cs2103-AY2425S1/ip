@@ -1,1 +1,4 @@
-[T][ ] hw
+[T][X] deadline
+[D][ ] lecture video (by: tmr)
+[E][ ] birthday (from: woehrow to: werjw)
+[T][ ] this assignment

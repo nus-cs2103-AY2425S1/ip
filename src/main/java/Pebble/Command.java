@@ -18,14 +18,6 @@ public class Command {
         this.arguments = arguments;
     }
 
-    public CommandType getCommandType() {
-        return commandType;
-    }
-
-    public String getArguments() {
-        return arguments;
-    }
-
     public String execute(TasksList tasksList, Ui ui, Storage storage) {
         String response = "";
         try {

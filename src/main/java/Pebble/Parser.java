@@ -7,12 +7,19 @@ import java.util.Arrays;
  *  Parser class converts String inputs into usable commands and arguments
  */
 public class Parser {
+    private static final int DESCRIPTION_OFFSET = 2;
+    private static final String DEADLINE_BY = " (by: ";
+    private static final String EVENT_FROM = " (from: ";
+    private static final String EVENT_TO = " to: ";
+    private static final int DEADLINE_BY_OFFSET = DEADLINE_BY.length();
+    private static final int EVENT_FROM_OFFSET = EVENT_FROM.length();
+    private static final int EVENT_TO_OFFSET = EVENT_TO.length();
 
     /**
-     * Parse strings into commands.
+     * Parses given string input to get corresponding command.
      *
-     * @param input String inputs.
-     * @return Command output.
+     * @param input String inputs from the user.
+     * @return Command output that is understood by program
      */
     public static Command parseCommand(String input) {
         String[] words = input.split(" ", 2);
@@ -54,23 +61,23 @@ public class Parser {
      */
     private static String convertToProperSyntax(String command) {
         command = command.toLowerCase();
-        if (Arrays.asList("goodbye", "bb", "sayonara").contains(command)) {
+        if (Arrays.asList("bye", "goodbye", "bb", "sayonara").contains(command)) {
             command = "bye";
-        } else if (Arrays.asList("ls", "tasks").contains(command)) {
+        } else if (Arrays.asList("list", "ls", "tasks").contains(command)) {
             command = "list";
-        } else if (Arrays.asList("m", "done").contains(command)) {
+        } else if (Arrays.asList("mark", "m", "done").contains(command)) {
             command = "mark";
-        } else if (Arrays.asList("um", "undo").contains(command)) {
+        } else if (Arrays.asList("unmark", "um", "undo").contains(command)) {
             command = "unmark";
-        } else if (Arrays.asList("t", "td").contains(command)) {
+        } else if (Arrays.asList("todo", "t", "td").contains(command)) {
             command = "todo";
-        } else if (Arrays.asList("d", "dl").contains(command)) {
+        } else if (Arrays.asList("deadline", "d", "dl").contains(command)) {
             command = "deadline";
-        } else if (Arrays.asList("e", "ev").contains(command)) {
+        } else if (Arrays.asList("event", "e", "ev").contains(command)) {
             command = "event";
-        } else if (Arrays.asList("dl", "rm", "remove").contains(command)) {
+        } else if (Arrays.asList("delete", "dl", "rm", "remove").contains(command)) {
             command = "delete";
-        } else if (Arrays.asList("search", "f").contains(command)) {
+        } else if (Arrays.asList("find", "search", "f").contains(command)) {
             command = "find";
         } else {
             command = "unknown";
@@ -96,8 +103,13 @@ public class Parser {
         return new InvalidTask();
     }
 
+    /**
+     * Converts stored string into ToDo task
+     * @param line String stored in the local task list text file
+     * @return Converted ToDo task
+     */
     private static ToDo createToDoTask(String line) {
-        String description = extractDescription(line);
+        String description = extractDescriptionForToDo(line);
         ToDo todo = new ToDo(description);
         if (line.contains("[X]")) {
             todo.markAsDone();
@@ -105,6 +117,11 @@ public class Parser {
         return todo;
     }
 
+    /**
+     * Converts stored string into Deadline task
+     * @param line String stored in the local task list text file
+     * @return Converted Deadline task
+     */
     private static Deadline createDeadlineTask(String line) {
         String description = extractDescriptionForDeadline(line);
         String by = extractDeadlineDate(line);
@@ -121,6 +138,11 @@ public class Parser {
         return deadline;
     }
 
+    /**
+     * Converts stored string into Event task
+     * @param line String stored in the local task list text file
+     * @return Converted Event task
+     */
     private static Event createEventTask(String line) {
         String description = extractDescriptionForEvent(line);
         String from = extractEventStart(line);
@@ -138,27 +160,57 @@ public class Parser {
         return event;
     }
 
-    private static String extractDescription(String line) {
-        return line.substring(line.indexOf("] ") + 2); // Generic description for ToDo
+    /**
+     * Extract description of a ToDo given a ToDo formatted string
+     * @param line A properly formatted string
+     * @return Description of ToDo
+     */
+    private static String extractDescriptionForToDo(String line) {
+        return line.substring(line.indexOf("] ") + DESCRIPTION_OFFSET);
     }
 
+    /**
+     * Extract description of a Deadline given a Deadline formatted string
+     * @param line A properly formatted string
+     * @return Description of Deadline
+     */
     private static String extractDescriptionForDeadline(String line) {
-        return line.substring(line.indexOf("] ") + 2, line.lastIndexOf(" (by: "));  // Skip adding 'by'
+        return line.substring(line.indexOf("] ") + DESCRIPTION_OFFSET, line.lastIndexOf(DEADLINE_BY));
     }
 
+    /**
+     * Extract description of an Event given an Event formatted string
+     * @param line A properly formatted string
+     * @return Description of Event
+     */
     private static String extractDescriptionForEvent(String line) {
-        return line.substring(line.indexOf("] ") + 2, line.lastIndexOf(" (from: "));  // Skip adding 'from' and 'to'
+        return line.substring(line.indexOf("] ") + DESCRIPTION_OFFSET, line.lastIndexOf(EVENT_FROM));
     }
 
+    /**
+     * Extract date of a Deadline given a Deadline formatted string
+     * @param line A properly formatted string
+     * @return Date in string form
+     */
     private static String extractDeadlineDate(String line) {
-        return line.substring(line.lastIndexOf(" (by: ") + 6, line.length() - 1);
+        return line.substring(line.lastIndexOf(DEADLINE_BY) + DEADLINE_BY_OFFSET, line.length() - 1);
     }
 
+    /**
+     * Extract start date of an Event given an Event formatted string
+     * @param line A properly formatted string
+     * @return Date in string form
+     */
     private static String extractEventStart(String line) {
-        return line.substring(line.lastIndexOf(" (from: ") + 8, line.lastIndexOf(" to: "));
+        return line.substring(line.lastIndexOf(EVENT_FROM) + EVENT_FROM_OFFSET, line.lastIndexOf(EVENT_TO));
     }
 
+    /**
+     * Extract end date of an Event given an Event formatted string
+     * @param line A properly formatted string
+     * @return Date in string form
+     */
     private static String extractEventEnd(String line) {
-        return line.substring(line.lastIndexOf(" to: ") + 5, line.length() - 1);
+        return line.substring(line.lastIndexOf(EVENT_TO) + EVENT_TO_OFFSET, line.length() - 1);
     }
 }
