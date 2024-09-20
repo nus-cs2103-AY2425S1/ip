@@ -5,6 +5,12 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 
 import flychat.Deadline;
+import flychat.command.AddDeadlineCommand;
+import flychat.command.AddEventCommand;
+import flychat.command.AddTodoCommand;
+import flychat.command.Command;
+import flychat.command.InvalidCommand;
+import flychat.core.FlyChat.CommandType;
 import flychat.tasks.Event;
 import flychat.tasks.Task;
 import flychat.tasks.Todo;
@@ -13,15 +19,18 @@ import flychat.tasks.Todo;
  * Contains methods that create and edit tasks.
  */
 public class TaskList {
-    private ArrayList<Task> storageList;
-    private Parser parser;
+    private final ArrayList<Task> storageList;
+    private final Parser parser;
+    private final Ui ui;
 
     /**
      * Constructs a new TaskList object.
      */
     public TaskList() {
+
         storageList = new ArrayList<>();
         parser = new Parser();
+        ui = new Ui();
     }
 
     /**
@@ -31,37 +40,39 @@ public class TaskList {
      * @return String containing announcement of command completion.
      */
     public String addTask(String inputString) {
-        if (parser.parseCommand(inputString).equals("todo")) {
-            try {
-                Todo newToDo = Todo.createNewTodo(parser.getTaskDescription(inputString), false);
-                addToList(newToDo);
-                return "Task added:\n  " + newToDo + "\nNow you have " + storageList.size()
-                        + " tasks in the list. HAVE FUN ^o^";
-            } catch (InputMismatchException e) {
-                return "Please ensure your todo has a description TT";
-            }
+        CommandType commandType = getCommandType(parser.parseCommand(inputString));
+        Command command = getAddTaskCommand(commandType);
 
-        } else if (parser.parseCommand(inputString).equals("event")) {
-            try {
-                Event newEvent = Event.createNewEvent(parser.getTaskDescription(inputString),
-                        parser.getEventStartTime(inputString), parser.getEventEndTime(inputString), false);
-                addToList(newEvent);
-                return "Task added:\n  " + newEvent + "\nNow you have " + storageList.size()
-                        + " tasks in the list. HAVE FUN ^o^";
-            } catch (InputMismatchException e) {
-                return "Please ensure your event has a description, a start and end time TT";
-            }
+        try {
+            return command.execute(this, ui, parser, inputString);
+        } catch (InputMismatchException e) {
+            return e.getMessage();
+        }
+    }
 
-        } else { /* remaining case is deadline task cases */
-            try {
-                Deadline newDeadline = Deadline.createNewDeadline(parser.getTaskDescription(inputString),
-                        parser.getDeadlineEndDate(inputString), false);
-                addToList(newDeadline);
-                return "Task added:\n  " + newDeadline + "\nNow you have " + storageList.size()
-                        + " tasks in the list. HAVE FUN ^o^";
-            } catch (InputMismatchException e) {
-                return e.getMessage();
-            }
+    private Command getAddTaskCommand(CommandType commandType) {
+        switch (commandType) {
+        case TODO:
+            return new AddTodoCommand();
+        case EVENT:
+            return new AddEventCommand();
+        case DEADLINE:
+            return new AddDeadlineCommand();
+        default:
+            return new InvalidCommand();
+        }
+    }
+
+    private CommandType getCommandType(String commandString) {
+        switch (commandString) {
+        case "todo":
+            return CommandType.TODO;
+        case "event":
+            return CommandType.EVENT;
+        case "deadline":
+            return CommandType.DEADLINE;
+        default:
+            return CommandType.INVALID;
         }
     }
 
@@ -72,11 +83,16 @@ public class TaskList {
      */
     public String announceItems() {
         String finalString = "";
+
+        if (getSize() == 0) {
+            return finalString;
+        }
+
         //i is used to print out the index of each item so it has to be incremented
-        for (int i = 0; i < storageList.size() - 1; i++) {
+        for (int i = 0; i < getSize() - 1; i++) {
             finalString += ((i + 1) + ". " + storageList.get(i) + "\n");
         }
-        return finalString + storageList.size() + ". " + storageList.get(storageList.size() - 1);
+        return finalString + getSize() + ". " + storageList.get(getSize() - 1);
     }
 
     /**
@@ -112,7 +128,7 @@ public class TaskList {
     public String deleteTask(int index) throws IndexOutOfBoundsException {
         Task targetTask = storageList.get(index - 1);
         storageList.remove(targetTask);
-        return "Task removed:\n  " + targetTask + "\nNow you have " + storageList.size()
+        return "Task removed:\n  " + targetTask + "\nNow you have " + getSize()
                 + " tasks in the list. SOLDIER ON! ^o^";
     }
 
@@ -122,7 +138,12 @@ public class TaskList {
      * @param keyWord
      * @return String announcing results of the search.
      */
-    public String find(String keyWord) {
+    public String find(String keyWord) throws IllegalArgumentException {
+
+        if (keyWord.equals("")) {
+            throw new IllegalArgumentException("Please enter a keyword to search for.");
+        }
+
         int counter = 1;
         String finalString = "Here are the matching tasks in your list:\n";
 
@@ -180,7 +201,11 @@ public class TaskList {
         }
         return saveString;
     }
-    private void addToList(Task task) {
+    public void addToList(Task task) {
         storageList.add(task);
+    }
+
+    public int getSize() {
+        return storageList.size();
     }
 }

@@ -21,6 +21,9 @@ public class DialogBox extends HBox {
     private ImageView displayPicture;
 
     public DialogBox(String text, Image img) {
+        assert text != null : "Text parameter is null";
+        assert img != null : "Image parameter is null";
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -30,13 +33,20 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
+        assert dialog != null : "Dialog label is not initialized";
+        assert displayPicture != null : "Display picture is not initialized";
+
         dialog.setText(text);
         displayPicture.setImage(img);
     }
 
+    /**
+     * Flips the dialog box such that the ImageView is on the right and text on the left.
+     */
     private void flip() {
         setAlignment(Pos.TOP_LEFT);
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
+        assert !tmp.isEmpty() : "Children list is empty";
         FXCollections.reverse(tmp);
         getChildren().setAll(tmp);
     }

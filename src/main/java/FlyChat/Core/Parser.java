@@ -1,6 +1,7 @@
 package flychat.core;
 
 import java.io.IOException;
+import java.util.InputMismatchException;
 
 /**
  * Contains methods involved in parsing user input.
@@ -77,7 +78,11 @@ public class Parser {
         return inputString.replaceAll(".*to:\\s|\\)", "");
     }
 
-    public int getTargetTaskIndex(String inputString) {
-        return Integer.valueOf(inputString.replaceAll("[^0-9]", ""));
+    public int getTargetTaskIndex(String inputString) throws InputMismatchException{
+        try {
+            return Integer.valueOf(inputString.replaceAll("[^0-9]", ""));
+        } catch (NumberFormatException e) {
+            throw new InputMismatchException("Please enter a valid task number TT");
+        }
     }
 }
