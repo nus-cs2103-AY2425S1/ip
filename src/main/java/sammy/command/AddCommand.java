@@ -33,8 +33,10 @@ public class AddCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+        assert tasks != null: "Tasks should not be null";
         tasks.add(task);
         storage.save(tasks);
+
         return ui.showAddTask(task, tasks.size());
     }
 }
