@@ -19,11 +19,11 @@ have a personality, but it was dropped because of the _Great Assignment Calamity
 - [Command summary](#command-summary)
 
 # Quick Start
-1. Ensure you have Java `17` installed on your Compueter.
+1. Ensure you have Java `17` installed on your Computer.
 2. Download the latest .jar file from [here](https://github.com/BlazeChron/ip/releases/tag/A-Release).
 3. Copy the file to the folder you want to use as the _home folder_ for YapMeister.
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar yapmeister.jar` command to run the application.
-5. Refer to [Features](#features) for a list of commands
+5. Refer to [Features](#features) for a list of commands. Or [Command summary](#command-summary).
 
 # Features
 
