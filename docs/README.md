@@ -168,7 +168,7 @@ delete 1
 deletes [T][] personalize ip
 ```
 
-### 9. Exiting
+### 10. Exiting
 
 You can exit Lumina by using the following command:
 
