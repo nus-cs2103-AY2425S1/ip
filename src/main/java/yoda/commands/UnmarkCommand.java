@@ -55,7 +55,7 @@ public class UnmarkCommand extends Command {
      *
      * @return true if input format is valid and index is in bounds of task list.
      */
-    private boolean hasValidFormat() {
+    public boolean hasValidFormat() {
         String[] splitInput = input.split(" ", 2);
         if (splitInput.length == 2) {
             if (splitInput[1].matches("\\d+")) {

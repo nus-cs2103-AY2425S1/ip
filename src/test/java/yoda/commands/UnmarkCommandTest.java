@@ -10,28 +10,30 @@ import yoda.TaskList;
 import yoda.exceptions.YodaException;
 import yoda.tasks.Todo;
 
-public class MarkCommandTest {
+public class UnmarkCommandTest {
     @Test
     public void run_validInput_success() throws YodaException {
         TaskList taskList = new TaskList();
         taskList.add(new Todo("sleep"));
-        MarkCommand command = new MarkCommand(taskList, "mark 1");
+        MarkCommand markCommand = new MarkCommand(taskList, "mark 1");
+        markCommand.run();
+        UnmarkCommand unmarkCommand = new UnmarkCommand(taskList, "unmark 1");
 
-        command.run();
+        unmarkCommand.run();
 
-        assertEquals("X", taskList.get(0).getStatusIcon());
+        assertEquals(" ", taskList.get(0).getStatusIcon());
     }
 
     @Test
     public void run_invalidInput_exceptionThrown() {
         TaskList taskList = new TaskList();
         taskList.add(new Todo("sleep"));
-        MarkCommand command = new MarkCommand(taskList, "mark");
+        UnmarkCommand unmarkCommand = new UnmarkCommand(taskList, "unmark");
         try {
-            command.run();
+            unmarkCommand.run();
         } catch (Exception e) {
-            assertEquals("Mark... which one?\n"
-                    + "Command should be in format: mark [number]", e.getMessage());
+            assertEquals("Unmark... which one?\n"
+                    + "Command should be in format: unmark [number]", e.getMessage());
         }
     }
 
@@ -39,12 +41,12 @@ public class MarkCommandTest {
     public void run_inputOutOfBounds_exceptionThrown() {
         TaskList taskList = new TaskList();
         taskList.add(new Todo("sleep"));
-        MarkCommand command = new MarkCommand(taskList, "mark 3");
+        UnmarkCommand unmarkCommand = new UnmarkCommand(taskList, "unmark 2");
         try {
-            command.run();
+            unmarkCommand.run();
         } catch (Exception e) {
-            assertEquals("Mark... which one?\n"
-                    + "Command should be in format: mark [number]", e.getMessage());
+            assertEquals("Unmark... which one?\n"
+                    + "Command should be in format: unmark [number]", e.getMessage());
         }
     }
 
@@ -52,12 +54,12 @@ public class MarkCommandTest {
     public void run_nonsenseInput_exceptionThrown() {
         TaskList taskList = new TaskList();
         taskList.add(new Todo("sleep"));
-        MarkCommand command = new MarkCommand(taskList, "sleep");
+        UnmarkCommand unmarkCommand = new UnmarkCommand(taskList, "sleep");
         try {
-            command.run();
+            unmarkCommand.run();
         } catch (Exception e) {
-            assertEquals("Mark... which one?\n"
-                    + "Command should be in format: mark [number]", e.getMessage());
+            assertEquals("Unmark... which one?\n"
+                    + "Command should be in format: unmark [number]", e.getMessage());
         }
     }
 
@@ -65,15 +67,15 @@ public class MarkCommandTest {
     public void checkForValidInt_validInput_returnTrue() {
         TaskList taskList = new TaskList();
         taskList.add(new Todo("sleep"));
-        assertTrue(new MarkCommand(taskList, "mark 1").hasValidFormat());
+        assertTrue(new UnmarkCommand(taskList, "unmark 1").hasValidFormat());
     }
     @Test
     public void checkValidToDo_invalidInput_returnFalse() {
         TaskList taskList = new TaskList();
         taskList.add(new Todo("sleep"));
 
-        assertFalse(new MarkCommand(taskList, "mark").hasValidFormat());
-        assertFalse(new MarkCommand(taskList, "").hasValidFormat());
-        assertFalse(new MarkCommand(taskList, "sleep").hasValidFormat());
+        assertFalse(new UnmarkCommand(taskList, "unmark").hasValidFormat());
+        assertFalse(new UnmarkCommand(taskList, "").hasValidFormat());
+        assertFalse(new UnmarkCommand(taskList, "sleep").hasValidFormat());
     }
 }
