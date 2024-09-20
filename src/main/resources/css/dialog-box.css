@@ -1,0 +1,26 @@
+.label {
+    -fx-background-color: main-color; /* Soft light grey background */
+    -fx-border-color: #808080;
+    -fx-border-width: 2px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-text-fill: ladder(main-color, #f0f0f0 49%, #333333 50%); /* Text color to match light grey background */
+}
+
+.reply-label {
+    -fx-background-color: main-color; /* Match the background color */
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+    -fx-border-color: #808080;
+}
+
+#displayPicture {
+    -fx-background-color: transparent;
+
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}

@@ -1,7 +1,38 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hello I'm Bobby
+What can I do for you today?
+Tasks successfully saved to file.
+Task added successfully:
+  [T][ ] read book
+Now you have 1 tasks in the list.
+Tasks successfully saved to file.
+Nice! I've marked these tasks as done:
+ - [T][X] read book
 
+Tasks successfully saved to file.
+OK, I've marked these tasks as not done yet:
+ - [T][ ] read book
+
+1.[T][ ] read book
+OOPS!!! Invalid date format. Please use yyyy-MM-dd.
+1.[T][ ] read book
+OOPS!!! Invalid date format. Please use yyyy-MM-dd.
+1.[T][ ] read book
+Tasks successfully saved to file.
+Nice! I've marked these tasks as done:
+ - [T][X] read book
+
+OOPS!!! The task number provided is invalid.
+OOPS!!! The task number provided is invalid.
+1.[T][X] read book
+OOPS!!! The description of todo cannot be empty!
+OOPS!!! The task number provided is invalid.
+OOPS!!! The description or deadline of a deadline task cannot be empty.
+OOPS!!! The description, start time, or end time of an event cannot be empty.
+Tasks successfully saved to file.
+Task removed successfully:
+ - [T][X] read book
+Now you have 0 tasks in the list.
+OOPS!!! The task number provided is invalid.
+OOPS!!! The task number provided is invalid.
+No tasks added to the list yet.
+Bye. Hope to see you again soon!

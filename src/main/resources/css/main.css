@@ -1,0 +1,60 @@
+.root {
+    /* main-color: rgb(237, 255, 242);       /* Create a looked-up color called "main-color" within root. */
+    main-color: #f0f0f0; /* Soft light grey background */
+    accent-color: #808080; /* Neutral grey accent */
+    highlight-color: #005f73; /* Dark cyan for highlights */
+    button-hover-color: #94d2bd; /* Soft greenish-cyan for button hover */
+    button-pressed-color: #ff8b6a; /* Warm coral for button press */
+    scroll-bar-color: #a8dadc; /* Soft pastel blue for scrollbar */
+    thumb-color: #457b9d; /* Muted blue for scrollbar thumb */
+    -fx-background-color: main-color;
+}
+
+.text-field {
+    -fx-background-color: #e0e0e0;
+    -fx-font: 20px "Arial";
+    -fx-text-fill: #333;
+}
+
+.button {
+    -fx-background-color: accent-color;
+    -fx-font: italic bold 16px "Arial";
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-background-color: button-hover-color;
+    -fx-font-size: 18px;
+}
+
+.button:pressed {
+    -fx-background-color: button-pressed-color;
+    -fx-font-size: 20px;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;  /* Change width of scroll bar. */
+    -fx-background-color: main-color;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;
+    -fx-background-color: scroll-bar-color; /* Soft pastel blue for scrollbar background */
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: thumb-color; /* Muted blue for the thumb */
+    -fx-background-radius: 1em;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
