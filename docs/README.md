@@ -1,6 +1,6 @@
 # ChadGPT User Guide
 
-![app.png](app.png)
+![Ui.png](Ui.png)
 
 Don't be a lowly minion, be a chad! Let ChadGPT help you track all your minion tasks.
 
