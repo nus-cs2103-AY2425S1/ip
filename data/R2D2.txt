@@ -1,0 +1,4 @@
+T | 0 | complete my 2103T assignment
+D | 0 | submit Assignment 1 (2100)  | 12/9/2024 1300
+E | 0 | event company get-together | 13/9/2024 1300 | 13/9/2024 2200
+T | 0 | clean the house
