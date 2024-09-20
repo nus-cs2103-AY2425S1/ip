@@ -50,20 +50,9 @@ public class CheckCommand extends Command {
         int counter = 1;
 
         for (Task task : this.tasks) {
-            if (task instanceof DeadlineTask) {
-                DeadlineTask deadlineTask = (DeadlineTask) task;
-                LocalDate taskDate = deadlineTask.getDeadline().getDateTime().toLocalDate();
-                if (selectedDate.equals(taskDate)) {
-                    output += counter + ". " + deadlineTask + "\n";
-                    counter++;
-                }
-            } else if (task instanceof EventTask) {
-                EventTask eventTask = (EventTask) task;
-                LocalDate taskDate = eventTask.getEventDate().getDateTime().toLocalDate();
-                if (selectedDate.equals(taskDate)) {
-                    output += counter + ". " + eventTask + "\n";
-                    counter++;
-                }
+            if (isTaskOnSelectedDate(task, selectedDate)) {
+                output += stringFormatter(counter, task);
+                counter++;
             }
         }
         output += ("These tasks are due on " + selectedDate + Ui.HORIZONTAL_LINE);
@@ -84,5 +73,34 @@ public class CheckCommand extends Command {
         } catch (DateTimeParseException e) {
             throw new WrongDateTimeFormatException();
         }
+    }
+
+    /**
+     * Formats the task string to be shown as a list later on
+     *
+     * @param counter index of current task
+     * @param task current task
+     * @return a formatted string for the task
+     */
+    private String stringFormatter(int counter, Task task) {
+        return counter + ". " + task + "\n";
+    }
+
+    /**
+     * Checks if the task in task list has a due date or happens on selected date
+     *
+     * @param task current task being checked
+     * @param selectedDate user input date to check for
+     * @return true if task falls on selected date, false if task do not fall on selected date
+     */
+    private boolean isTaskOnSelectedDate(Task task, LocalDate selectedDate) {
+        if (task instanceof DeadlineTask) {
+            LocalDate taskDate = ((DeadlineTask) task).getDeadline().getDateTime().toLocalDate();
+            return selectedDate.equals(taskDate);
+        } else if (task instanceof EventTask) {
+            LocalDate taskDate = ((EventTask) task).getEventDate().getDateTime().toLocalDate();
+            return selectedDate.equals(taskDate);
+        }
+        return false;
     }
 }
