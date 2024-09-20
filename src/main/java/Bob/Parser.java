@@ -36,7 +36,7 @@ class Parser {
     }
 
     /**
-     * Command to list all tasks.
+     * Returns a list of tasks in a human-readable string.
      *
      * @param tasks
      */
