@@ -1,30 +1,73 @@
-# Duke User Guide
+# Rex User Guide
 
-// Update the title above to match the actual product name
+Rex is many things. A chatbot, a task tracker, a ***companion***. 
 
-// Product screenshot goes here
+It is a desktop app for tracking tasks, 
+optimized for use via a CLI while still having the benefits of a GUI.
 
-// Product intro goes here
+## Features
 
-## Adding deadlines
+Notes on commands:
+- Extraneous parameters for commands will throw an error (eg. `help 123` will not be recognised, enter `help` instead)
+- Erroneous parameters will also throw an error if entered in the wrong format
+- Task descriptions must contain at least one character that is not whitespace
+- Task numbers are relative to the list of **ALL** tasks
+- Date format: DD-MM-YY (eg. `1 Jan 2024` and `1/1/24` will not be recognised, enter `01-01-24` instead)
+- Time format: HHmm; 24-hour format (eg. `11:59pm` and `23:59` will not be recognised, enter `2359` instead)
 
-// Describe the action and its outcome.
+Error messages will show the correct usage of the command, so fret not!
+Alternatively, enter `help` to show the list of commands available! rawr
 
-// Give examples of usage
+## Viewing Help
+Shows the list of available commands and how to use them
 
-Example: `keyword (optional arguments)`
+Format: `help`
 
-// A description of the expected outcome goes here
+## Adding a task
+Adds a ToDo, Deadline or Event task to Rex's huge memory for him to track them for you
 
-```
-expected output
-```
+Format:
+- `todo <description>`
+- `deadline <description> /by <date> <time>`
+- `event <description> /from <date> <time> /to <date> <time>`
 
-## Feature ABC
+## Listing all tasks
+Displays a list of added tasks, their statuses and times
 
-// Feature details
+Format: `list`
 
+## Viewing a schedule
+Displays the tasks to be done by or starting from the specified date
 
-## Feature XYZ
+Format: `schedule <date>`
 
-// Feature details
+## Finding a task
+Display the tasks that contains the specified keyword
+
+Format: `find <keyword>`
+
+## Marking/unmarking a task
+Marks/unmarks tasks as completed and updates the list
+
+Format:
+- `mark <task number>`
+- `unmark <task number>`
+
+## Deleting a task
+Deletes a task from the list
+
+Format: `delete <task number>`
+
+## rawr
+Talks to Rex in an intellectual and sophisticated manner
+
+Format: `rawr` (keep it simple or Rex may get agitated)
+
+## Exiting the program
+Exits the program and politely saying bye to Rex
+
+Format: `bye`
+
+## Saving the data
+Data on tasks is saved in Rex's massive brain (your computer's hard disk, actually) automatically after any command changes the data.
+There is no need to save manually.
