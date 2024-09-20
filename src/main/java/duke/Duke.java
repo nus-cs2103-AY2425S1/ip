@@ -324,6 +324,8 @@ public class Duke {
          * @param rank the 1-indexed index of the task we wish to remove
          */
         String deleteTask(int rank) {
+            assert rank >= 1;
+            assert rank <= tasks.size();
 
             if(rank < 1 || rank > tasks.size()) {
                 System.out.println("Error: The task number is out of bounds. Terminating program.");
@@ -362,6 +364,9 @@ public class Duke {
          * in our array of tasks
          */
         String markTask(int rank) {
+            assert rank >= 1;
+            assert rank <= tasks.size();
+
             if(rank < 1 || rank > tasks.size()) {
                 System.out.println("Error: The task number is out of bounds. Terminating program.");
                 System.exit(0);
@@ -380,6 +385,8 @@ public class Duke {
          * in our array of tasks
          */
         String unmarkTask(int rank) {
+            assert rank >= 1;
+            assert rank <= tasks.size();
 
             if(rank < 1 || rank > tasks.size()) {
                 System.out.println("Error: The task number is out of bounds. Terminating program.");
@@ -829,7 +836,7 @@ public class Duke {
 
             response = taskList.unmarkTask(rankToUnmark);
         } else if(command.equals("todo")) {
-
+            assert input.length() > 5;
 
             if(input.length() == 4) {
                 ui.printError("Error: The description of a todo cannot be empty. Terminating program.");
@@ -846,6 +853,8 @@ public class Duke {
             taskName = taskName.trim();
             response = taskList.addTask(new Task(taskName, TODO));
         } else if(command.equals("deadline")) {
+            assert input.length() > 9;
+
 
             if(input.length() <= 9) {
                 ui.printError("Error: The description of a deadline cannot be empty. Terminating program.");
@@ -877,6 +886,8 @@ public class Duke {
             response = taskList.addTask(new Task(taskName, DEADLINE, deadline));
 
         } else if(command.equals("event")) {
+
+            assert input.length() > 6;
 
             if(input.length() <= 5) {
                 ui.printError("Error: The description of an event cannot be empty. Terminating program.");
@@ -923,6 +934,7 @@ public class Duke {
 
             response = taskList.addTask(new Task(taskName, EVENT, eventTimings));
         } else if(command.equals("delete")) {
+            assert input.length() > 7;
 
             if(input.length() <= 7) {
                 ui.printError("Error: You need to specify which task to delete. Terminating program.");
@@ -933,6 +945,8 @@ public class Duke {
 
             response = taskList.deleteTask(rankToDelete);
         }  else if(command.equals("find")) {
+            assert input.length() > 5;
+
             if(input.length() <= 5) {
                 ui.printError("Error: You need to give a search query. Terminating program.");
                 response = "Error: You need to give a search query.";
