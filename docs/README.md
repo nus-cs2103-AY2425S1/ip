@@ -1,10 +1,6 @@
-# Duke User Guide
+# Eevee User Guide
 
-// Update the title above to match the actual product name
-
-// Product screenshot goes here
-
-// Product intro goes here
+![Ui](/Users/nasya/Documents/GitHub/ip/docs/Ui.png)**Eevee** is a task manager to help make your life more convenient, optimized for use via commands. Eevee can help you track your tasks fast with a minimalistic GUI. 
 
 ## Adding deadlines
 

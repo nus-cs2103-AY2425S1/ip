@@ -43,8 +43,8 @@ public class Eevee {
      * 
      * @param input The String user inputs that should be a command.
      * @return The response to the given command. 
-     * @throws EeveeException
-     * @throws IOException
+     * @throws EeveeException If input is not valid.
+     * @throws IOException If data is unable to be saved.
      */
     public String getResponse(String input) throws EeveeException, IOException {
         Parser.Command command = parser.parseCommand(input);
