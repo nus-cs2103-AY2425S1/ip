@@ -143,7 +143,7 @@ public class Parser {
         String[] markParameters = commandBody.split(" ");
 
         if (markParameters.length > 1) {
-            throw new BlitzInvalidParameterMoreThanOneException("mark [Integer]");
+            throw new BlitzInvalidParameterMoreThanOneException("mark [Index]");
         }
 
         assert markParameters.length == 1 : "Mark command should have exactly one parameter";
@@ -165,7 +165,7 @@ public class Parser {
         String[] unmarkParameters = commandBody.split(" ");
 
         if (unmarkParameters.length > 1) {
-            throw new BlitzInvalidParameterMoreThanOneException("unmark [Integer]");
+            throw new BlitzInvalidParameterMoreThanOneException("unmark [Index]");
         }
 
         assert unmarkParameters.length == 1 : "Unmark command should have exactly one parameter";
@@ -204,7 +204,7 @@ public class Parser {
      */
     private static Command parseDeadlineCommand(String command, String commandBody) throws BlitzException {
         if (!isRegexMatched(DEADLINE_PATTERN, command)) {
-            throw new BlitzInvalidParameterRegexException("deadline [Task name] /by [yyyy-mm-dd hhmm]");
+            throw new BlitzInvalidParameterRegexException("deadline [Task description] /by [yyyy-mm-dd hhmm]");
         }
 
         String[] deadlineParameters = commandBody.split(" /by ");
@@ -234,7 +234,7 @@ public class Parser {
     private static Command parseEventCommand(String command, String commandBody) throws BlitzException {
         if (!isRegexMatched(EVENT_PATTERN, command)) {
             throw new BlitzInvalidParameterRegexException(
-                    "event [Task name] /from [yyyy-mm-dd hhmm] /to [yyyy-mm-dd hhmm]");
+                    "event [Task description] /from [yyyy-mm-dd hhmm] /to [yyyy-mm-dd hhmm]");
         }
 
         String[] fromParameters = commandBody.split(" /from ");
@@ -267,7 +267,7 @@ public class Parser {
         String[] deleteParameters = commandBody.split(" ");
 
         if (deleteParameters.length > 1) {
-            throw new BlitzInvalidParameterMoreThanOneException("delete [Integer]");
+            throw new BlitzInvalidParameterMoreThanOneException("delete [Index]");
         }
 
         assert deleteParameters.length == 1 : "Delete command should have exactly one parameter";

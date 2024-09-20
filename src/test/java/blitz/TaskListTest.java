@@ -87,5 +87,4 @@ public class TaskListTest {
         list.addTask(todo);
         assertNotEquals(new TaskList(new ArrayList<>()), list);
     }
-
 }

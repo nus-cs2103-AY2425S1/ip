@@ -79,10 +79,17 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        String descriptionWithNewline = super.toString();
-        String descriptionWithoutNewline = descriptionWithNewline.substring(0, descriptionWithNewline.length() - 1);
+        String description = super.toString();
+        int lastIndex = description.length() - 1;
+        boolean isLastCharNewline = description.charAt(lastIndex) == '\n';
 
-        return descriptionWithoutNewline;
+        if (isLastCharNewline) {
+            String descriptionWithoutNewline = description.substring(0, lastIndex);
+
+            return descriptionWithoutNewline;
+        }
+
+        return description;
     }
 
     /**
