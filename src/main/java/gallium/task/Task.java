@@ -2,6 +2,8 @@ package gallium.task;
 
 import java.text.ParseException;
 
+import gallium.main.GalliumException;
+
 /**
  * The Task class represents a task with a description and a completion status.
  */
@@ -88,11 +90,11 @@ public class Task {
 
     }
 
-    public void setFrom(String message) throws ParseException {
+    public void setFrom(String message) throws GalliumException, ParseException {
 
     }
 
-    public void setTo(String message) throws ParseException {
+    public void setTo(String message) throws GalliumException, ParseException {
 
     }
 

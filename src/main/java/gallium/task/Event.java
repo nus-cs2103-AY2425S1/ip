@@ -7,6 +7,11 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Date;
 
+import java.util.logging.Logger;
+import java.util.logging.Level;
+
+import gallium.main.GalliumException;
+
 /**
  * Represents an Event task.
  */
@@ -20,6 +25,12 @@ public class Event extends Task {
     private static final String SPACE_TO = " /to";
     private static final String FROM_COLON = "from:";
     private static final String TO_COLON = "to:";
+
+    private static final Logger logger = Logger.getLogger(Event.class.getName());
+
+
+    private SimpleDateFormat inputTime = new SimpleDateFormat("HHmm");
+    private SimpleDateFormat outputTime = new SimpleDateFormat("hh:mm a");
 
     protected String desc;
     protected String from;
@@ -37,7 +48,7 @@ public class Event extends Task {
      * @throws ParseException         If there is an error parsing the time.
      * @throws DateTimeParseException If there is an error parsing the date.
      */
-    public Event(String description) throws ParseException {
+    public Event(String description) throws GalliumException, ParseException {
         super(description);
         try {
             if (description.startsWith(EVENT)) {
@@ -105,42 +116,83 @@ public class Event extends Task {
             this.toTime = to.split(", ")[1];
     }
 
-    private void parseDateTime() throws ParseException {
-        parseFrom(from);
-        parseTo(to);
-    }
-
-    private void parseFrom(String from) throws ParseException {
+    private void parseDateTime() throws GalliumException, ParseException {
         String fromDateString = from.split(" ")[0];
+        String toDateString = to.split(" ")[0];
+        Date fromTime24 = parseTime(from);
+        Date toTime24 = parseTime(to);
+        if (checkFromBeforeTo(fromDateString, toDateString, fromTime24, toTime24)) {
         this.fromDate = LocalDate.parse(fromDateString).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        SimpleDateFormat inputTime = new SimpleDateFormat("HHmm");
-        SimpleDateFormat outputTime = new SimpleDateFormat("hh:mm a");
-        Date time24 = inputTime.parse(from.split(" ")[1]);
-        this.fromTime = outputTime.format(time24);
+        this.toDate = LocalDate.parse(toDateString).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        this.fromTime = outputTime.format(fromTime24);
+        this.toTime = outputTime.format(toTime24);
+        } else {
+            throw new GalliumException("From must be before to!! Please reenter your input!!");
+        }
     }
 
-    private void parseTo(String to) throws ParseException {
-        String toDateString = to.split(" ")[0];
-        this.toDate = LocalDate.parse(toDateString).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        SimpleDateFormat inputTime = new SimpleDateFormat("HHmm");
-        SimpleDateFormat outputTime = new SimpleDateFormat("hh:mm a");
-        Date time24 = inputTime.parse(to.split(" ")[1]);
-        this.toTime = outputTime.format(time24);
+    private Date parseTime(String message) throws ParseException {
+        Date time24 = inputTime.parse(message.split(" ")[1]);
+        return time24;
     }
+
 
     @Override
     public void setDesc(String message) {
         this.desc = message;
     }
 
-    public void setFrom(String message) throws ParseException {
-        this.from = message;
-        parseFrom(message);
+    public void setFrom(String from) throws GalliumException, ParseException {
+        String fromDateString = from.split(" ")[0];
+        logger.info("fromdatestring:" + fromDateString);
+        String toDateString = LocalDate.parse(this.toDate, DateTimeFormatter.ofPattern("MMM dd yyyy")).format(DateTimeFormatter.ofPattern("yyyy-MM-d"));
+        logger.info("\ntodatestring:" + toDateString);
+        Date fromTime24 = parseTime(from);
+        logger.info("\nfromtime24: "+inputTime.format(fromTime24));
+        Date toTime12 = outputTime.parse(this.toTime);
+        Date toTime24 = inputTime.parse(inputTime.format(toTime12));
+        logger.info("\ntotime24: "+inputTime.format(toTime24));
+        if (checkFromBeforeTo(fromDateString, toDateString, fromTime24, toTime24)) {
+        this.fromDate = LocalDate.parse(fromDateString).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        this.fromTime = outputTime.format(fromTime24);
+        this.from = from;
+        } else {
+            throw new GalliumException("From must be before to!!");
+        }
     }
 
-    public void setTo(String message) throws ParseException {
-        this.to = message;
-        parseTo(message);
+    public void setTo(String to) throws GalliumException, ParseException {
+        logger.info("setTo started");
+        logger.info("\nfromdate:"+this.fromDate);
+        String fromDateString = LocalDate.parse(this.fromDate, DateTimeFormatter.ofPattern("MMM d yyyy")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        logger.info("fromdatestring:" + fromDateString);
+        String toDateString = to.split(" ")[0];
+        logger.info("\ntodatestring:" + toDateString);
+        Date fromTime12 = outputTime.parse(this.toTime);
+        Date fromTime24 = inputTime.parse(inputTime.format(fromTime12));
+        logger.info("\nfromtime24: "+inputTime.format(fromTime24));
+        Date toTime24 = parseTime(to);
+        logger.info("\ntotime24: "+inputTime.format(toTime24));       
+        if (checkFromBeforeTo(fromDateString, toDateString, fromTime24, toTime24)) {
+        this.toDate = LocalDate.parse(toDateString).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        this.toTime = outputTime.format(toTime24);
+        this.to = to;
+        } else {
+            throw new GalliumException("From must be before to!!");
+        }
+    }
+
+    private boolean checkFromBeforeTo(String fromDateString, String toDateString, Date fromTime, Date toTime) {
+        LocalDate from = LocalDate.parse(fromDateString);
+        LocalDate to = LocalDate.parse(toDateString);
+        boolean fromBeforeTo = from.isBefore(to);
+        boolean fromEqualsTo = from.equals(to);
+        boolean fromBeforeToTime = fromTime.before(toTime);
+        return fromBeforeTo
+        ? fromBeforeTo
+        : fromEqualsTo
+        ? fromBeforeToTime
+        : false;
     }
     
 }

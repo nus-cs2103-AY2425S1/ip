@@ -71,6 +71,8 @@ public class Storage {
             }
         } catch (ParseException e) {
             ui.showWrongDateTimeFormat();
+        } catch (GalliumException e) {
+            ui.showGalliumException(e);
         }
         Task.count = taskArrayList.size() + 1;
         scanner.close();
