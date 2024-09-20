@@ -2,7 +2,6 @@ package astor;
 
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
-import java.util.zip.DataFormatException;
 
 import astor.command.Command;
 import astor.exception.AstorException;
