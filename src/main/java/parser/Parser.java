@@ -47,23 +47,23 @@ public class Parser {
 
     private static final DateTimeFormatter SINGLEDIGITDATETIMESLASH = new DateTimeFormatterBuilder()
             .appendPattern("d/M/yyyy") // Single or double-digit day and month
-            .appendPattern(" HHmm")    // Time in 24-hour format, without a separator
+            .appendPattern(" HHmm") // Time in 24-hour format, without a separator
             .toFormatter()
             .withResolverStyle(ResolverStyle.SMART);
 
     private static final DateTimeFormatter SINGLEDIGITDATETIMEDASH = new DateTimeFormatterBuilder()
             .appendPattern("d-M-yyyy") // Single or double-digit day and month
-            .appendPattern(" HHmm")    // Time in 24-hour format, without a separator
+            .appendPattern(" HHmm") // Time in 24-hour format, without a separator
             .toFormatter()
             .withResolverStyle(ResolverStyle.SMART);
     private static final DateTimeFormatter DASHONLYDATE = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     private static final DateTimeFormatter SLASHONLYDATE = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private static final DateTimeFormatter PRINTDATEFORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
     private static final DateTimeFormatter[] DATE_TIME_FORMATTERS =
-            new DateTimeFormatter[] {DASHFORMATTER, SLASHFORMATTER, PRINTDATEFORMATTER,
-                    SINGLEDIGITDATETIMESLASH, SINGLEDIGITDATETIMEDASH};
+        new DateTimeFormatter[] {DASHFORMATTER, SLASHFORMATTER, PRINTDATEFORMATTER,
+            SINGLEDIGITDATETIMESLASH, SINGLEDIGITDATETIMEDASH};
     private static final DateTimeFormatter[] DATE_ONLY_FORMATTERS =
-            new DateTimeFormatter[] {DASHONLYDATE, SLASHONLYDATE, SINGLEDIGITDATESLASH, SINGLEDIGITDATEDASH};
+        new DateTimeFormatter[] {DASHONLYDATE, SLASHONLYDATE, SINGLEDIGITDATESLASH, SINGLEDIGITDATEDASH};
 
 
     /**

@@ -1,6 +1,6 @@
 # Chatterbox 
 
-![Chatterbox](ui.png)
+![Chatterbox](Ui.png)
 
 
 Chatterbox is your personal assistant designed to help you organize tasks and manage your time in an intuitive and streamlined manner.
