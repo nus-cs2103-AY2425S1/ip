@@ -1,7 +1,12 @@
 # Prince User Guide
 
+<img width="1710" alt="Ui" src="https://github.com/user-attachments/assets/01d31738-33f4-4ae6-9c65-f9bed287d5ac">
+
+
 Welcome to Prince, your personal task management assistant! Prince helps to keep track of all your tasks, whether they 
 are regular ToDo tasks, tasks with Deadlines or just events, in a simple and efficient way.
+
+<img width="1710" alt="UiAdd" src="https://github.com/user-attachments/assets/58382ed8-2883-4845-8dbf-cda149753752">
 
 ## Adding ToDo task
 
@@ -49,6 +54,8 @@ Expected outcome :
     [E][ ] award ceremony (from: Dec 31 2024, 6:00 pm to: Dec 31 2024, 7:00 pm)
  Now you have 1 tasks in the list
  How else would you like me to edit your TODO list today?'
+ 
+<img width="1710" alt="UiDelete List" src="https://github.com/user-attachments/assets/efc9752a-b83d-4bde-b50b-26ad5cfaad48">
 
 
 ## Deleting tasks
@@ -134,6 +141,8 @@ Expected outcome :
 or
 
 'You do not have any tasks in your list as of now.'
+
+<img width="1710" alt="UiArchive Bye" src="https://github.com/user-attachments/assets/418e2687-fb75-487e-9da7-e4221c2eb9c7">
 
 ## Archive a list
 
