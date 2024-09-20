@@ -35,6 +35,12 @@ To add a "Deadline" task (ie. a task with a deadline), use the command:
 
 deadline [task] /by [deadline] (eg. "deadline homework /by 20-09-2024")
 
+The dates can be in the formats:
+
+- dd-MM-yyyy
+- dd/MM/yyyy
+- yyyy-MM-dd
+
 It is also possible to put a date as a deadline that does not follow the normal format of a date.
 
 eg. you can use the command "deadline homework /by tomorrow"
