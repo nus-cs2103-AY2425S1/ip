@@ -22,7 +22,7 @@ public class Deadline extends Task {
      */
     public Deadline(String taskInfo, String deadline) throws TimeFormatException {
         super(taskInfo);
-        try  {
+        try {
             this.deadline = LocalDateTime.parse(generateParse(deadline));
         } catch (DateTimeParseException e) {
             throw new TimeFormatException();
