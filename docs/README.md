@@ -11,13 +11,15 @@ DailyTasks is a simple desktop application that allows you to manage and track y
   - [Adding an Event](#adding-an-event)
   - [Listing All Tasks](#listing-all-tasks)
   - [Searching for Tasks](#searching-for-tasks)
-  - [Filtering Tasks by DateTime](#filtering-tasks-by-datetime)
+  - [Filtering For Ongoing Events by DateTime](#filtering-for-ongoing-events-by-datetime)
   - [Deleting a Task](#deleting-a-task)
   - [Marking a Task as Completed](#marking-a-task-as-completed)
   - [Unmark a Task as Completed](#unmark-a-task-as-completed)
   - [Setting Task Priority](#setting-task-priority)
-- [Saving Data](#saving-data)
+  - [Save Data and Close the GUI](#save-data-and-close-the-gui)
 - [Command Summary](#command-summary)
+- [Credits](#credits)
+  - [JavaFX Tutorial](#javafx-tutorial)
 
 ## Quick Start
 1. Ensure that you have Java 17 or above installed on your computer.
@@ -262,21 +264,37 @@ Noted. I've added the priority 1 to this task:
 [E] [ ] [Priority: 1] Team meeting (from: Sep 18 2024, 10:00 am to: Sep 18 2024, 12:00 pm)
 ```
 
-## Saving Data
-- The tasks are saved automatically to a text file (`data/save.txt`) **only** when you close the application successfully.
-- The data is saved in plain text, allowing you to back it up or transfer it to another device.
+### Save Data and Close the GUI
+The tasks are saved automatically to a text file (`data/save.txt`) **only** when you close the application successfully. The data is saved in plain text, allowing you to back it up or transfer it to another device.
+
+**Format:**
+```
+bye
+```
+
+**Example:**
+```
+bye
+```
+
+**Expected Output:**
+GUI closes immediately and the data is saved automatically to a text file (`data/save.txt`)
 
 ## Command Summary
 
-| Action                         | Format                                        | Example                                                        |
-|--------------------------------|-----------------------------------------------|----------------------------------------------------------------|
-| **Add a To-Do**                | `todo <xyz>`                                  | `todo Buy groceries`                                           |
-| **Add a Deadline**             | `deadline <xyz> /by <datetime>`               | `deadline Submit project report /by 20/09/2024 1800`           |
-| **Add an Event**               | `event <xyz> /from <datetime> /to <datetime>` | `event Team meeting /from 18/09/2024 1000 /to 18/09/2024 1200` |
-| **List All Tasks**             | `list`                                        | `list`                                                         |
-| **Search for Tasks**           | `find <description>`                          | `find groceries`                                               |
-| **Filter Tasks by DateTime**   | `filter <datetime>`                           | `filter 20/09/2024 1200`                                       |
-| **Delete a Task**              | `delete <taskIndex>`                          | `delete 2`                                                     |
-| **Mark a Task as Completed**   | `mark <taskIndex>`                            | `mark 1`                                                       |
-| **Unmark a Task as Completed** | `unmark <taskIndex>`                          | `unmark 1`                                                     |
-| **Set Task Priority**          | `priority <taskIndex> <taskPriority>`         | `priority 3 high`                                              |
+| Action                          | Format                                        | Example                                                        |
+|---------------------------------|-----------------------------------------------|----------------------------------------------------------------|
+| **Add a To-Do**                 | `todo <xyz>`                                  | `todo Buy groceries`                                           |
+| **Add a Deadline**              | `deadline <xyz> /by <datetime>`               | `deadline Submit project report /by 20/09/2024 1800`           |
+| **Add an Event**                | `event <xyz> /from <datetime> /to <datetime>` | `event Team meeting /from 18/09/2024 1000 /to 18/09/2024 1200` |
+| **List All Tasks**              | `list`                                        | `list`                                                         |
+| **Search for Tasks**            | `find <description>`                          | `find groceries`                                               |
+| **Filter Tasks by DateTime**    | `filter <datetime>`                           | `filter 20/09/2024 1200`                                       |
+| **Delete a Task**               | `delete <taskIndex>`                          | `delete 2`                                                     |
+| **Mark a Task as Completed**    | `mark <taskIndex>`                            | `mark 1`                                                       |
+| **Unmark a Task as Completed**  | `unmark <taskIndex>`                          | `unmark 1`                                                     |
+| **Set Task Priority**           | `priority <taskIndex> <taskPriority>`         | `priority 3 high`                                              |
+| **Save Data and Close the GUI** | `bye`                                         | `bye`                                                          |
+## Credits
+### JavaFX Tutorial
+The GUI code was largely referenced and inspired by [this JavaFX tutorial](https://se-education.org/guides/tutorials/javaFx.html)
