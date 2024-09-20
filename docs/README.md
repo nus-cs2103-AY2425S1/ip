@@ -4,6 +4,21 @@
 
 Alex is a smart, friendly, and intuitive task management chatbot. It helps you   keep track of tasks, deadlines, and events effortlessly through a user-friendly interface. With Alex, you can manage your to-dos, schedule important events, and set deadlines. Whether you're looking to organize your day or track long-term projects, Alex has got you covered.
 
+The features Alex provides include:
+* Adding Tasks (Deadlines, ToDos, Events, Fixed Duration, Default)
+* Marking and Unmarking Tasks
+* Deleting Tasks
+* Viewing Task List
+* Finding Tasks
+* Telling User a Joke
+
+## Installation
+To download the latest version of Alex, 
+1. Go to the project's [releases](https://github.com/yikyak02/ip/releases).
+2. Download the ```.jar``` file.
+3. Run the ```jar``` file by clicking on it.
+
+## Features
 ## Adding deadlines
 
 Action: Adds a task with a deadline to the task list.
