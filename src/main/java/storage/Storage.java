@@ -35,7 +35,7 @@ public class Storage {
     public Storage() {
 
         checkDirectory();
-        HIST_FILE = Paths.get(System.getProperty("user.dir"), "data", "command1.txt").toString();
+        HIST_FILE = Paths.get(System.getProperty("user.dir"), "data", "taskHistory.txt").toString();
     }
 
     /**
