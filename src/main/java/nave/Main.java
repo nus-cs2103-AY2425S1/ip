@@ -24,6 +24,7 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
+            stage.setTitle("Nave");
             fxmlLoader.<MainWindow>getController().setNave(nave); // inject the Nave instance
             fxmlLoader.<MainWindow>getController().setScene(scene);
             fxmlLoader.<MainWindow>getController().greetUser();
