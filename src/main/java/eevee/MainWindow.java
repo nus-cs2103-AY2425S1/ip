@@ -40,6 +40,10 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().add(DialogBox.getEeveeDialog(greeting, eeveeImage));
     }
 
+    private void showErrorMessage(String message) {
+        dialogContainer.getChildren().add(DialogBox.getEeveeDialog(message, eeveeImage));
+    }
+
     /** Injects the Duke instance */
     public void setEevee(Eevee e) {
         eevee = e;
@@ -55,11 +59,18 @@ public class MainWindow extends AnchorPane {
         if (input.isEmpty()) {
             return;
         }
-        String response = eevee.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getEeveeDialog(response, eeveeImage)
-        );
+
+        try {
+            String response = eevee.getResponse(input);
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getEeveeDialog(response, eeveeImage)
+            );
+        } catch (EeveeException e) {
+            showErrorMessage(e.getMessage());
+        } catch (IOException e) {
+            showErrorMessage("Something went wrong with the input or output. Try again.");
+        }
         userInput.clear();
     }
 }
