@@ -78,6 +78,7 @@ public class TaskList {
      */
     public String showTasks(Ui ui) {
         StringBuilder taskString = new StringBuilder();
+        taskString.append(String.format("You have %d task(s)\n", this.tasks.size()));
         for (int i = 0; i < tasks.size(); i++) {
             String stringToAdd = (i + 1) + ". " + tasks.get(i).toString() + "\n";
             taskString.append(stringToAdd);

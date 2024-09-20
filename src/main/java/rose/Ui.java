@@ -57,7 +57,7 @@ public class Ui {
      */
     public String showMark(Task task) {
         StringBuilder outputString = new StringBuilder();
-        outputString.append("Marked as done : \n");
+        outputString.append("Congrats on completing this task~~\nThis task is marked as done : \n    ");
         outputString.append(task.toString());
         return String.valueOf(outputString);
     }
@@ -70,7 +70,7 @@ public class Ui {
      */
     public String showUnmark(Task task) {
         StringBuilder outputString = new StringBuilder();
-        outputString.append("Marked as not done : \n");
+        outputString.append("Don't forget to complete this task later~~\nThis task is marked as not done : \n    ");
         outputString.append(task.toString());
         return String.valueOf(outputString);
     }
@@ -84,7 +84,7 @@ public class Ui {
      */
     public String showDelete(Task task, int size) {
         StringBuilder outputString = new StringBuilder();
-        outputString.append("Noted. I've removed this task :\n");
+        outputString.append("Noted~~ I've removed this task :\n    ");
         outputString.append(task.toString());
         outputString.append(String.format("\nNow you have %d task in the list.", size));
         return String.valueOf(outputString);
@@ -99,7 +99,7 @@ public class Ui {
      */
     public String showAdd(Task task, int size) {
         StringBuilder outputString = new StringBuilder();
-        outputString.append("Got it. I've added this task :\n    ");
+        outputString.append("Got it~~ I've added this task :\n    ");
         outputString.append(task.toString());
         outputString.append(String.format("\nNow you have %d tasks in the list.", size));
         return String.valueOf(outputString);
