@@ -5,7 +5,14 @@ import mittens.storage.Storage;
 import mittens.task.TaskList;
 import mittens.ui.Ui;
 
+/**
+ * Represents a command for exiting the program.
+ */
 public class ExitCommand extends Command {
+    
+    /**
+     * Creates a new ExitCommand object.
+     */
     public ExitCommand() {
         super();
         this.isExit = true;

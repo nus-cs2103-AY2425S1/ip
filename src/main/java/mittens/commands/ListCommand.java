@@ -8,7 +8,11 @@ import mittens.ui.Ui;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a command for listing all tasks in the task list.
+ */
 public class ListCommand extends Command {
+    
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         List<String> messages = new ArrayList<>();
