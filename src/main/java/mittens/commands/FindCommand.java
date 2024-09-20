@@ -32,7 +32,7 @@ public class FindCommand extends Command {
         }
 
         for (int i = 0; i < count; i++) {
-            Task task = tasks.getTask(i);
+            Task task = matchingTasks.get(i);
             messages.add("%d. %s".formatted(i + 1, task));
         }
 
