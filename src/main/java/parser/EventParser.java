@@ -20,7 +20,7 @@ public class EventParser {
      * @return content between start and stop
      * @throws ParseException when cannot find any content with given start and stop
      */
-    public static String parseName(String start, String stop, String input)  throws ParseException {
+    public static String parseName(String start, String stop, String input) throws ParseException {
         Pattern pattern = Pattern.compile(start + "\\s+(.+)\\s*" + stop);
         Matcher matcher = pattern.matcher(input);
 
@@ -67,7 +67,11 @@ public class EventParser {
 
         if (m.find()) {
             taskDescription = m.group(1);
-            return new KorolevTodo(taskDescription);
+            KorolevTodo out = new KorolevTodo(taskDescription);
+            if (checkComplete(record)) {
+                out.markTask();
+            }
+            return out;
         } else {
             throw new ParseException("fail to parse the record");
         }
@@ -84,7 +88,11 @@ public class EventParser {
         if (m1.find() && m2.find()) {
             taskDescription = m1.group(1);
             date = DateParser.parseRecordedDate(m2.group(1));
-            return new KorolevDeadline(taskDescription, date);
+            KorolevDeadline out = new KorolevDeadline(taskDescription, date);
+            if (checkComplete(record)) {
+                out.markTask();
+            }
+            return out;
         } else {
             throw new ParseException("fail to parse the record");
         }
@@ -105,7 +113,11 @@ public class EventParser {
             taskDescription = m1.group(1);
             from = DateParser.parseRecordedDate(m2.group(1).strip());
             to = DateParser.parseRecordedDate(m3.group(1).strip());
-            return new KorolevEvent(taskDescription, from, to);
+            KorolevEvent out = new KorolevEvent(taskDescription, from, to);
+            if (checkComplete(record)) {
+                out.markTask();
+            }
+            return out;
         } else {
             throw new ParseException("fail to parse the record");
         }
@@ -120,5 +132,9 @@ public class EventParser {
         } else {
             return null;
         }
+    }
+
+    private static boolean checkComplete(String record) {
+        return record.contains("[X]");
     }
 }
