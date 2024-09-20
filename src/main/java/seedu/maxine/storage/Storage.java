@@ -59,8 +59,7 @@ public class Storage implements MaxineStorage {
 
         File file = new File(filePath);
 
-        try (BufferedWriter writer =
-                     new BufferedWriter(new FileWriter(file, false))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, false))) {
             for (Task item : tasks) {
                 writer.write(item.writeToFile());
                 writer.newLine();
