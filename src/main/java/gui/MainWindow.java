@@ -1,5 +1,7 @@
 package gui;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 import michael.Michael;
 import michael.MichaelException;
@@ -32,6 +35,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
+        // Greet user
+        dialogContainer.getChildren().add(
+        DialogBox.getMichaelDialog("Hello! I'm Michael.\n" + "What can I do for you?", michaelImage)
+        );
     }
 
     /** Injects the Michael instance */
@@ -52,9 +60,19 @@ public class MainWindow extends AnchorPane {
                     DialogBox.getUserDialog(input, userImage),
                     DialogBox.getMichaelDialog(response, michaelImage)
             );
-            userInput.clear();
+
+            // Solution to close gui below adapted from
+            // https://stackoverflow.com/questions/27334455/how-to-close-a-stage-after-a-certain-amount-of-time-javafx
+            if (input.trim().equalsIgnoreCase("bye")) {
+                PauseTransition delay = new PauseTransition(Duration.seconds(2));
+                delay.setOnFinished(event -> Platform.exit());
+                delay.play();
+            }
+
         } catch (MichaelException e) {
             dialogContainer.getChildren().add(DialogBox.getMichaelDialog(e.getMessage(), michaelImage));
+        } finally {
+            userInput.clear();
         }
     }
 }
