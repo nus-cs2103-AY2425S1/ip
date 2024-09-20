@@ -24,7 +24,7 @@ An example that Shnoop will respond with:
 ```
 Try typing 'todo', 'event' or 'deadline' followed by stating the task description.
 ```
-
+___
 ### Adding a todo-task: ```todo``` / ```deadline``` / ```event```
 
 #### Add a todo task to the list
@@ -37,7 +37,7 @@ Resultant task added:
 ```
 [T] [ ] Research on adopting dogs
 ```
-_________________________
+___
 #### Add a deadline task to the list
 Format: ```deadline [task_details] [/by {task_deadline}]```
 
@@ -59,7 +59,7 @@ Resultant task added:
 ```
 [D] [ ] Contact Tom on Dog Things (by: Jun 6 2024)
 ```
-_________________________
+___
 #### Add an event task to the list
 Format: ```event [task_details] [/from {task_start}] [/to {task_end}]```
 
@@ -73,7 +73,7 @@ Resultant task added:
 ```
 [E] [ ] Dog Adoption Party (from: Aug 8 2024 to: Aug 10 2024)
 ```
-_________________________
+___
 ### Listing all tasks: ```list```
 
 Shows a list of all tasks in the todo-list.
@@ -82,7 +82,7 @@ Format: ```list```
 
 > [!TIP]
 > If you type ```list 1```, it will sort the list alphabetically
-_________________________
+___
 ### Deleting tasks: ```delete```
 
 Deletes a specified task. Specify task number based on the numbering seen in ```list```.
@@ -94,7 +94,7 @@ Examples:
 
 > [!WARNING]
 > The task number is based on the number the task is associated with when the ```list``` command is run, do not base the number on the sorted variant of the list command (i.e ```list 1```)
-_________________________
+___
 ### Mark a task: ```mark```
 
 Marks a specified task. Specify task number based on the numbering seen in
@@ -109,7 +109,7 @@ Example of a marked task:
 ```
 [E] [X] Dog Adoption Party (from: Aug 8 2024 to: Aug 10 2024)
 ```
-_________________________
+___
 ### Unmark a task: ```unmark```
 
 Unmarks a specified task. Specify task number based on the numbering seen in
@@ -124,7 +124,7 @@ Example of an umarked task:
 ```
 [E] [ ] Dog Adoption Party (from: Aug 8 2024 to: Aug 10 2024)
 ```
-_________________________
+___
 ### List all tasks with given phrase: ```find```
 
 Lists all tasks whose description contain the given keyword / phrase.
@@ -139,7 +139,7 @@ An example of a resultant listing:
 [T] [ ] Research on adopting dogs
 [E] [X] Dog Adoption Party (from: Aug 8 2024 to: Aug 10 2024)
 ```
-_________________________
+___
 ### Saving all changes: ```bye```
 
 Saves all changes made to the task list.
@@ -148,4 +148,4 @@ Format: ```bye```
 
 > [!IMPORTANT]
 > If you do not wish to save the tasks you have added or delete, you can use this aspect of the app as an undo feature. Hence, if you wish to undo / not save progress, do not type ```bye```, otherwise, remember to use this command to save all progress.
-_________________________
+___
