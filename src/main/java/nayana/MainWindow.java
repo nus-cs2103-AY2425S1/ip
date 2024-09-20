@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 /**
- * Controller for the main GUI of the application.
+ * Controller for the main GUI of the Nayana application.
  * Manages the interaction between user input and the display of dialog boxes.
  */
 public class MainWindow extends AnchorPane {
