@@ -52,3 +52,6 @@ Upon starting, KillJoy will greet you and await your commands. Use the available
 KillJoy now allows you to archive your tasks in a dedicated folder. Each archive file gets a unique name, so you can keep a complete history of all your tasks without overwriting previous archives. Archiving happens automatically when tasks are completed and ready to be stored for later reference.
 
 ---
+
+This README is generated with help of ChatGPT
+
