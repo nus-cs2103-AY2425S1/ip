@@ -4,13 +4,25 @@ import johncena.tasks.Task;
 
 import java.util.ArrayList;
 
+/**
+ * The {@code ListCommand} class implements the {@code Command} interface and provides
+ * the functionality to execute the "list" command, which lists all tasks in the task list.
+ */
 public class ListCommand implements Command {
     private ArrayList<Task> tasks;
 
+    /**
+     * Constructs a new {@code ListCommand} with the specified task list.
+     *
+     * @param tasks the list of tasks
+     */
     public ListCommand(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * Executes the "list" command. Lists all tasks in the task list.
+     */
     @Override
     public void execute() {
         System.out.println("____________________________________________________________");

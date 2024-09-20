@@ -12,12 +12,19 @@ import java.util.Scanner;
 import johncena.parser.InputHandler;
 import johncena.commands.HelloCommand;
 
-
+/**
+ * The {@code JohnCena} class is the main class of the John Cena program.
+ */
 public class JohnCena {
     private static ArrayList<Task> tasks = new ArrayList<>();
     private static InputHandler inputHandler;
 
 
+    /**
+     * The main entry point of the John Cena program.
+     *
+     * @param args the command-line arguments
+     */
     public static void main(String[] args) {
 
         tasks = Storage.loadTasks();

@@ -7,13 +7,27 @@ import johncena.tasks.Task;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * The {@code InputHandler} class is responsible for handling user input and executing the corresponding commands.
+ */
 public class InputHandler {
     private ArrayList<Task> tasks;
 
+    /**
+     * Constructs a new {@code InputHandler} with the specified list of tasks.
+     *
+     * @param tasks the list of tasks
+     */
     public InputHandler(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * Handles the user input and executes the corresponding command.
+     *
+     * @param input the user input
+     * @throws CenaException if an exception occurs while executing the command
+     */
     public void handleInput(String input) throws CenaException {
         Command command = null;
 

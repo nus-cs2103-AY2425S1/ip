@@ -1,7 +1,16 @@
 package johncena.commands;
 
+/**
+ * The {@code HelpCommand} class implements the {@code Command} interface and provides
+ * the functionality to execute the "help" command, which displays the list of commands
+ * that the user can use.
+ */
 public class HelpCommand implements Command {
 
+
+    /**
+     * Executes the "help" command. Displays the list of commands that the user can use.
+     */
     @Override
     public void execute() {
         System.out.println("____________________________________________________________");
