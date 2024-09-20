@@ -21,15 +21,10 @@ public abstract class Command {
      * @param tasks that tracks the application's tasks
      * @param ui that handles the printing and reading on inputs and outputs
      * @param storage that handles saving and reading text file with saved data
+     * @return String representing the message associated with the command to display
      * @throws ChatBotException if command is unable to execute successfully
      */
     public abstract String execute(TaskList tasks,
                                  Ui ui, Storage storage) throws ChatBotException;
 
-    /**
-     * Returns the status on whether the program should terminate.
-     *
-     * @return a boolean representing whether the program should terminate
-     */
-    public abstract boolean isExit();
 }

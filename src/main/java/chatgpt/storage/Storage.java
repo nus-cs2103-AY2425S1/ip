@@ -70,6 +70,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Returns a Task based on the given saved taskType and inputs.
+     *
+     * @param taskType of the saved Task
+     * @param inputs of the saved Task
+     * @return Task representing the saved data
+     * @throws ChatBotException if there are problems with the input or format
+     */
     private Task parseSaveData(String taskType, String[] inputs)
             throws ChatBotException {
         String taskName = inputs[2];

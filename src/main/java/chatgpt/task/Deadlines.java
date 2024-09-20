@@ -17,10 +17,12 @@ public class Deadlines extends Task {
     private LocalDateTime deadline;
 
     /**
-     * Constructor of a new deadline task that has the task description
-     * and deadline of the given task.
+     * Constructor of a new deadline task that has the task description, note (if applicable)
+     * and deadline of the given task. If there is no note, it is saved
+     * as "NA".
      *
      * @param task is the description/task name
+     * @param note of the task if applicable otherwise it is "NA"
      * @param deadline is the deadline of the given task
      * @throws ChatBotException if deadline is not given or given in the wrong format
      */
@@ -47,10 +49,12 @@ public class Deadlines extends Task {
     }
 
     /**
-     * Constructor of a deadline task that may be completed and contains the task description
-     * and deadline of the given task.
+     * Constructor of a deadline task that may be completed and contains the task description,
+     * note (if applicable) and deadline of the given task. If there is no note,
+     * it is saved as "NA".
      *
      * @param task is the description/task name
+     * @param note of the task if applicable otherwise it is "NA"
      * @param deadline is the deadline of hte given task
      * @throws ChatBotException if deadline is not given or given in the wrong format
      */

@@ -10,14 +10,16 @@ public abstract class Task {
     private String task;
     /** Status on whether the task has been completed **/
     private boolean isCompleted;
-
+    /** note of the task **/
     private String note;
 
     /**
-     * Constructor of new task given the description,
-     * whereby default the task is not completed.
+     * Constructor of new task given the description and note (if applicable),
+     * whereby default the task is not completed. If there is no note, it is saved
+     * as "NA".
      *
      * @param task is the description/task name
+     * @param note of the task if applicable otherwise it is "NA"
      * @throws IllegalArgumentException if the description of the task is empty
      */
     public Task(String task, String note) throws IllegalArgumentException {
@@ -30,9 +32,11 @@ public abstract class Task {
     }
 
     /**
-     * Constructor of new task given the description and completion status.
+     * Constructor of new task given the description, note (if applicable) and
+     * completion status. f there is no note, it is saved as "NA".
      *
      * @param task is the description/task name
+     * @param note of the task if applicable otherwise it is "NA"
      * @throws IllegalArgumentException if the description of the task is empty
      */
     public Task(String task, String note, Boolean isCompleted) throws IllegalArgumentException {
@@ -78,6 +82,12 @@ public abstract class Task {
         return isCompleted ? "|1|" + s : "|0|" + s;
     }
 
+    /**
+     * Returns the note of the task formatted as a String.
+     * If there is no notes, a default message is returned.
+     *
+     * @return task as a string in the appropriate format for saving
+     */
     public String toShowNote() {
         if (note.equals("NA")) {
             return "No note has been added to this task";

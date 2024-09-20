@@ -21,7 +21,7 @@ public class CompleteCommand extends Command {
      * complete or incomplete.
      *
      * @param index of the task within the TaskList
-     * @param isCompleted represents the status of the task
+     * @param isCompleted represents the new status of the task
      */
     public CompleteCommand(int index, boolean isCompleted) {
         this.index = index;
@@ -37,6 +37,7 @@ public class CompleteCommand extends Command {
      * @param tasks that tracks the application's tasks
      * @param ui that handles the printing and reading on inputs and outputs
      * @param storage that handles saving and reading text file with saved data
+     * @return String to show that a task has been set as complete/incomplete
      * @throws ChatBotException if index is out of bounds
      */
     @Override
@@ -59,17 +60,4 @@ public class CompleteCommand extends Command {
         task.setCompleted(isCompleted);
         return task;
     }
-
-    /**
-     * {@inheritDoc}
-     *
-     * In CompleteCommand, it will always return false.
-     *
-     * @return false
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
 }

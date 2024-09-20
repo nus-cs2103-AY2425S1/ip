@@ -19,10 +19,12 @@ public class Events extends Task {
     private LocalDateTime endDate;
 
     /**
-     * Constructor of a new event that has the description/name,
-     * start and end datetime of the given event.
+     * Constructor of a new event that has the description/name, note (if applicable),
+     * start and end datetime of the given event. If there is no note, it is
+     * saved as "NA".
      *
      * @param task is the description/task name
+     * @param note of the task if applicable otherwise it is "NA"
      * @param startDate is the start date of the given event
      * @param endDate is the end date of the given event
      * @throws ChatBotException if start and end date is not given or given in the wrong format
@@ -61,9 +63,11 @@ public class Events extends Task {
 
     /**
      * Constructor of an event that may have been completed and has
-     * the description/name, start and end datetime of the given event.
+     * the description/name, note (if applicable), start and end datetime of
+     * the given event. If there is no note, it is saved as "NA".
      *
      * @param task is the description/task name
+     * @param note of the task if applicable otherwise it is "NA"
      * @param startDate is the start date of the given event
      * @param endDate is the end date of the given event
      * @throws ChatBotException if start and end date is not given or given in the wrong format

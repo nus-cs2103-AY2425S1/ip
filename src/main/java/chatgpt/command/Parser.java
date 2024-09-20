@@ -8,7 +8,6 @@ import chatgpt.exception.ChatBotException;
 public abstract class Parser {
     /** Enum of the possible Command types **/
     private enum Commands {
-        BYE,
         LIST,
         MARK,
         UNMARK,
@@ -32,7 +31,6 @@ public abstract class Parser {
         try {
             String[] inputs = fullCommand.split(" ", 2);
             return switch (Commands.valueOf(inputs[0].toUpperCase())) {
-            case BYE -> new ExitCommand();
             case LIST -> new ListCommand();
             case TODO -> new AddCommand("TODO", inputs[1]);
             case DEADLINE -> new AddCommand("DEADLINE", inputs[1]);
@@ -49,6 +47,4 @@ public abstract class Parser {
             throw new ChatBotException("\t Oh no!! Inputs after the command cannot be empty");
         }
     }
-
-
 }

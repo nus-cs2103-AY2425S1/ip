@@ -19,7 +19,6 @@ public class ChatGpt {
     private Ui ui;
     /** Stores the list of task **/
     private TaskList tasks;
-
     private boolean hasErrorLoading = false;
 
     /**
@@ -39,6 +38,11 @@ public class ChatGpt {
         }
     }
 
+    /** Returns the corresponding String after running the command.
+     *
+     * @param input representing the full command
+     * @return String representing the corresponding message of the command
+     */
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
@@ -48,14 +52,29 @@ public class ChatGpt {
         }
     }
 
+    /**
+     * Returns true if the program has error loading save data and false otherwise.
+     *
+     * @return boolean of whether the program had error loading save data
+     */
     public boolean hasErrorLoading() {
         return this.hasErrorLoading;
     }
 
+    /**
+     * Returns Welcome message from Ui class.
+     *
+     * @return welcome message as a String
+     */
     public static String getWelcome() {
         return Ui.showWelcome();
     }
 
+    /**
+     * Returns loading error message
+     *
+     * @return loading error message as a string
+     */
     public static String getLoadingError(){
         return Ui.showLoadingError();
     }

@@ -11,50 +11,50 @@ public class Ui {
     private static final String NAME = "ChatGPT";
 
     /**
-     * Displays the welcome message.
+     * Returns the welcome message.
+     *
+     * @return String representing the welcome message
      */
     public static String showWelcome() {
         String welcome = "Hello! I'm " + NAME
                 + "\nWhat can I do for you?";
+
         return welcome;
     }
 
     /**
-     * Displays the exit message.
-     */
-    public String showExit() {
-        return "Bye. Hope to see you again soon!";
-    }
-
-    /**
-     * Displays the error message from any exceptions caught.
+     * Returns the error message from any exceptions caught.
      *
      * @param errorMessage of the exception that was caught
+     * @return String representing the error message
      */
     public String showError(String errorMessage) {
         return errorMessage;
     }
 
     /**
-     * Displays the message for adding of a task and
+     * Returns the message for adding of a task and
      * how many task there are left in the list.
      *
      * @param task that is being added
      * @param taskNum is the number of task in the list after addition
+     * @return String showing the message for an added task
      */
     public String showAddTask(Task task, int taskNum) {
         String message = "Got it. I've added this task:"
         + "\n  " + task.toString()
         + "\nNow you have " + taskNum + " tasks in your list.";
+
         return message;
     }
 
     /**
-     * Displays the message for deleting of a task and
+     * Returns the message for deleting of a task and
      * how many task there are left in the list.
      *
      * @param task that is being deleted
      * @param taskNum is the number of task in the list after deletion
+     * @return String showing the message for a deleted taks
      */
     public String showDeleteTask(Task task, int taskNum) {
         String message = "Noted. I've removed this task:"
@@ -65,9 +65,10 @@ public class Ui {
     }
 
     /**
-     * Displays the message for marking a task as complete.
+     * Returns the message for marking a task as complete.
      *
      * @param task that is completed
+     * @return String shows a task has been marked complete
      */
     public String showCompleteTask(Task task) {
         String message = " Nice! I've marked this task as done: \n  "
@@ -77,9 +78,10 @@ public class Ui {
     }
 
     /**
-     * Displays the message for marking a task as not complete.
+     * Returns the message for marking a task as not complete.
      *
      * @param task that is not completed
+     * @return String shows a task has been marked not complete
      */
     public String showUncompleteTask(Task task) {
         String message = " OK, I've marked this task as not done yet: \n  "
@@ -89,10 +91,11 @@ public class Ui {
     }
 
     /**
-     * Displays the task within the list.
-     * Displays an empty list message when the given list is empty
+     * Returns all task within the list as a String.
+     * Returns an empty list message when the given list is empty.
      *
      * @param tasks is the list of Task to be displayed
+     * @return String representing all the task within the list
      */
     public String showList(TaskList tasks) {
         String message;
@@ -110,10 +113,11 @@ public class Ui {
     }
 
     /**
-     * Displays the tasks that contain the keyword.
-     * Displays a nothing found message when the given list is empty
+     * Returns the tasks that contain the keyword.
+     * Returns a nothing found message when the given list is empty
      *
      * @param tasks is the list of Task that contains the keyword to be displayed
+     * @return String representing all the relevant found task
      */
     public String showFound(TaskList tasks) {
         String message;
@@ -130,6 +134,12 @@ public class Ui {
         return message;
     }
 
+    /**
+     * Returns the details of the given task, including the notes
+     *
+     * @param task to display
+     * @return String representing the details of the task
+     */
     public String showTask(Task task) {
         return "Here is the task you want to know more about ^-^"
                 + "\n  Task details : " + task.toString()
@@ -137,7 +147,9 @@ public class Ui {
     }
 
     /**
-     * Displays an error message when there is a problem loading data from the save file.
+     * Returns an error message when there is a problem loading data from the save file.
+     *
+     * @return String representing error message when loading save data
      */
     public static String showLoadingError() {
         String message = "There was a problem with the save file"

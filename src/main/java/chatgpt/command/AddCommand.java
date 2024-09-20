@@ -28,8 +28,8 @@ public class AddCommand extends Command {
     /**
      * The constructor for an AddCommand with the given inputs and task type.
      *
-     * @param taskType
-     * @param input
+     * @param taskType to be added
+     * @param input that represents the data to be stored
      */
     public AddCommand(String taskType, String input) {
         this.taskType = Type.valueOf(taskType);
@@ -40,11 +40,12 @@ public class AddCommand extends Command {
      * {@inheritDoc}
      *
      * In AddCommand, it creates a new Task subclass based on the task type given,
-     * adds it to the local tasklist and saves it to the text file.
+     * adds it to the local task list and saves it to the text file.
      *
      * @param tasks that tracks the application's tasks
      * @param ui that handles the printing and reading on inputs and outputs
      * @param storage that handles saving and reading text file with saved data
+     * @return String to show that a task has been added
      * @throws ChatBotException if there are missing inputs or arguments with wrong format
      */
     @Override
@@ -101,17 +102,5 @@ public class AddCommand extends Command {
                 + "\n\t Enter the event in the format: event <Task> "
                 + "/from <Start Date/Time> /to <End Date/Time>");
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * In AddCommand, it will always return false.
-     *
-     * @return false
-     */
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }
