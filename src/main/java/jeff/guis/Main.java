@@ -5,12 +5,13 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import jeff.Jeff;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Jeff using FXML.
  */
 public class Main extends Application {
 
@@ -26,7 +27,11 @@ public class Main extends Application {
             stage.setMinHeight(220);
             stage.setMinWidth(417);
             stage.setMaxWidth(417); // Add this if you didn't automatically resize elements
-            fxmlLoader.<MainWindow>getController().setJeff(jeff); // inject the Duke instance
+            stage.setTitle("Jeff");
+            // Set the window icon as jeff
+            Image icon = new Image(this.getClass().getResourceAsStream("/images/yoda.jpg"));
+            stage.getIcons().add(icon);
+            fxmlLoader.<MainWindow>getController().setJeff(jeff); // inject the Jeff instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
