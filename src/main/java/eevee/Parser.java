@@ -42,7 +42,7 @@ public class Parser {
         }
     }
 
-    public Task.Priority parsePriority(String input) {
+    public Task.Priority parsePriority(String input) throws EeveeException {
         input = input.trim().toUpperCase();
 
         if (input.contains("HIGH")) {
@@ -52,7 +52,8 @@ public class Parser {
         } else if (input.contains("LOW")) {
             return Task.Priority.LOW;
         } else {
-            return Task.Priority.LOW;
+            throw new EeveeException("This is not a valid priority level. "
+                    + "Priority level must be low, medium or high.");
         }
     }
 }

@@ -52,7 +52,6 @@ public class Eevee {
         switch (command) {
         case BYE:
             System.exit(0);
-            return "Bye. Hope to see you again soon!\n";
         case LIST:
             return handleListCommand(input);
         case MARK:
@@ -76,7 +75,7 @@ public class Eevee {
         }
     }
 
-    private String handleListCommand(String input) {
+    private String handleListCommand(String input) throws EeveeException {
         String[] s = input.trim().split(" ");
 
         if (s.length <= 1) {
