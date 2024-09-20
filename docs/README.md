@@ -33,7 +33,7 @@ Now you have 1 task in the list.
 
 For task that have end dates.
 
-Format: `deadline DESCRIPTION /by END-DATE`
+Format: `deadline DESCRIPTION /by YYYY-MM-DD`
 
 Examples:
 - `deadline return book /by 2019-12-02`
@@ -49,7 +49,7 @@ Now you have 1 task in the list.
 
 For task that have start and end dates.
 
-Format: `event DESCRIPTION /by END-DATE /to START-DATE`
+Format: `event DESCRIPTION /by YYYY-MM-DD /to YYYY-MM-DD`
 
 Examples:
 - `event project meeting /from 2019-12-02 /to 2019-12-08`
