@@ -53,7 +53,7 @@ public class CheckCommand extends Command {
                 counter++;
             }
         }
-        output += ("These tasks are due on " + selectedDate + Ui.HORIZONTAL_LINE);
+        output += ("Nimbus reminds you that these tasks are due on " + selectedDate + Ui.HORIZONTAL_LINE);
         System.out.println(output);
         return output;
     }

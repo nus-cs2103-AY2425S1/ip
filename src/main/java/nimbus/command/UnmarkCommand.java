@@ -44,7 +44,7 @@ public class UnmarkCommand extends Command {
             return "Already Unmarked";
         } else {
             tasks.get(index).setIncomplete();
-            String output = "Nimbus.Nimbus shall mark this as not done:\n"
+            String output = "Nimbus shall mark this as not done:\n"
                     + "    " + tasks.get(index).toString() + Ui.HORIZONTAL_LINE;
             System.out.println(output);
             return output;

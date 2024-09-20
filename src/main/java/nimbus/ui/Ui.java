@@ -21,7 +21,7 @@ public class Ui {
             + "`--'  `--'     `--'     `--'   `--'  `------'    `-----'     `-----'  \n";
     private static final String welcomeMessage = "Hello from \n" + logo + HORIZONTAL_LINE
             + " \nHow can I help you today~ UwU" + HORIZONTAL_LINE;;
-    private static final String endingMessage = "BAIBAI! NIMBUS WEEEEEEEEE" + HORIZONTAL_LINE;
+    private static final String endingMessage = logo + "BAIBAI! NIMBUS WEEEEEEEEE" + HORIZONTAL_LINE;
     private final TaskList taskList;
 
     /**

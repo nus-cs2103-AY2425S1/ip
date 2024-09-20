@@ -54,7 +54,7 @@ public class DeleteCommand extends Command {
             assert task != null : "Task should not be null";
 
             taskList.delete(task);
-            String output = "Nimbus.Nimbus has removed the task! \n"
+            String output = "Nimbus has removed the task! \n"
                     + "    " + temp + "\n" + "You have " + tasks.size()
                     + " tasks left!" + Ui.HORIZONTAL_LINE;
             System.out.println(output);

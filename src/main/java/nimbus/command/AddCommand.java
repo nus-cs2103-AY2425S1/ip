@@ -65,8 +65,8 @@ public class AddCommand extends Command {
         } else {
             return "Please use keywords: todo, deadline or event";
         }
-        String output = "Nimbus.Nimbus added this: \n" + tasks.get(tasks.size() - 1).toString()
-                + "\n" + "Nimbus.Nimbus says you have " + tasks.size() + " tasks in your list!"
+        String output = "Nimbus added this: \n" + tasks.get(tasks.size() - 1).toString()
+                + "\n" + "Nimbus says you have " + tasks.size() + " tasks in your list!"
                 + Ui.HORIZONTAL_LINE;
         System.out.println(output);
         return output;
