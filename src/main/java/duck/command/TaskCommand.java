@@ -7,6 +7,8 @@ import duck.storage.Storage;
 import duck.task.Deadline;
 import duck.task.EmptyToDoException;
 import duck.task.Event;
+import duck.task.InvalidDeadlineException;
+import duck.task.InvalidEventException;
 import duck.task.Task;
 import duck.task.TaskList;
 import duck.task.ToDo;
@@ -49,10 +51,14 @@ public class TaskCommand implements Command {
             storage.saveTasks(list);
         } catch (InvalidDateFormatException e) {
             ui.showInvalidDateFormat();
+        } catch (InvalidDeadlineException e) {
+            ui.showInvalidDeadline();
+        } catch (InvalidEventException e) {
+            ui.showInvalidEvent();
         }
     }
 
-    private Task createTask() throws InvalidDateFormatException {
+    private Task createTask() throws InvalidDateFormatException, InvalidDeadlineException, InvalidEventException {
         return switch (this.commandType) {
         case "todo" -> parseToDo(this.fullCommand);
         case "deadline" -> parseDeadline(this.fullCommand);
@@ -85,13 +91,16 @@ public class TaskCommand implements Command {
      * @param fullCommand the full command string input.
      * @return a Deadline task.
      */
-    public static Task parseDeadline(String fullCommand) throws InvalidDateFormatException {
+    public static Task parseDeadline(String fullCommand) throws InvalidDateFormatException, InvalidDeadlineException {
         String[] commandParts = fullCommand.split("/by");
+        if (commandParts.length != 2) {
+            throw new InvalidDeadlineException("Invalid command format! Use: deadline <desc> /by <yyyy-mm-dd>");
+        }
         LocalDate date;
         try {
             date = LocalDate.parse(commandParts[1].trim());
         } catch (DateTimeParseException e) {
-            throw new InvalidDateFormatException("Invalid date format");
+            throw new InvalidDateFormatException("Invalid date format, should be <yyyy-mm-dd>");
         }
         return new Deadline(commandParts[0].split(" ", 2)[1], date);
     }
@@ -102,8 +111,11 @@ public class TaskCommand implements Command {
      * @param fullCommand the full command string input.
      * @return an Event task.
      */
-    public static Task parseEvent(String fullCommand) {
+    public static Task parseEvent(String fullCommand) throws InvalidEventException {
         String[] commandParts = fullCommand.split("/from|/to");
+        if (commandParts.length < 3) {
+            throw new InvalidEventException("Invalid command format! Use: event <desc> /from <start> /to <end>");
+        }
         return new Event(commandParts[0].split(" ", 2)[1], commandParts[1], commandParts[1]);
     }
 }

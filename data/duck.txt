@@ -2,4 +2,4 @@ T | 0 | read book
 E | 0 | project meeting | Aug 6th 2pm | 4pm
 D | 1 | Finish project report  | 2024-09-21
 D | 0 | finish ip  | 2024-09-20
-E | 0 | eve  |  test  |  test 
+E | 1 | eve  |  test  |  test 

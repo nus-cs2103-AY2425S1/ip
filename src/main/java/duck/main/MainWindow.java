@@ -52,7 +52,16 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duck.getResponse(input);
+        String response;
+
+        try {
+            response = duck.getResponse(input);
+            if (response == null || response.isEmpty()) {
+                throw new Exception("Invalid response from Duck.");
+            }
+        } catch (Exception e) {
+            response = "Error: " + e.getMessage();
+        }
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)

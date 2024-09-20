@@ -43,6 +43,8 @@ public class Ui {
 
     /**
      * Shows message when task is added.
+     *
+     * @param task The task to be added
      */
     public void showAddTaskMessage(Task task, TaskList list) {
         this.lastResponse = "Got it. I've added this task:" + task;
@@ -52,6 +54,8 @@ public class Ui {
 
     /**
      * Shows the number of tasks message.
+     *
+     * @param list the current task list.
      */
     public void showNumOfTasksMessage(TaskList list) {
         this.lastResponse = "Now you have " + list.getSize() + " tasks in the list.";
@@ -60,6 +64,8 @@ public class Ui {
 
     /**
      * Shows message when task is marked.
+     *
+     * @param task The task to be marked
      */
     public void showMarkedTaskMessage(Task task) {
         this.lastResponse = "Nice! I've marked this task as done: " + task;
@@ -77,7 +83,7 @@ public class Ui {
     /**
      * Displays all tasks in the current task list.
      *
-     * @param list the current task list
+     * @param list the current task list.
      */
     public void showTasks(TaskList list) {
         this.lastResponse = "Here are the tasks in your list: ";
@@ -104,6 +110,14 @@ public class Ui {
     }
 
     /**
+     * Shows error message.
+     */
+    public void showErrorMessage(String errorMessage) {
+        this.lastResponse = "Error:" + errorMessage;
+        System.out.println(this.lastResponse);
+    }
+
+    /**
      * Closes the scanner used for reading user input.
      */
     public void closeScanner() {
@@ -114,14 +128,32 @@ public class Ui {
      * Shows an invalid command message to the user.
      */
     public void showInvalidCommand() {
-        System.out.println("Invalid command. Please try again.");
+        this.lastResponse = "Invalid command. Please try again.";
+        System.out.println(this.lastResponse);
     }
 
     /**
      * Shows an invalid date format message to the user.
      */
     public void showInvalidDateFormat() {
-        System.out.println("Invalid date format. Please try again.");
+        this.lastResponse = "Invalid date format. Please try again.";
+        System.out.println(this.lastResponse);
+    }
+
+    /**
+     * Shows an invalid deadline message to the user.
+     */
+    public void showInvalidDeadline() {
+        this.lastResponse = "Invalid deadline command. Please try again.";
+        System.out.println(this.lastResponse);
+    }
+
+    /**
+     * Shows an invalid event message to the user.
+     */
+    public void showInvalidEvent() {
+        this.lastResponse = "Invalid event command. Please try again.";
+        System.out.println(this.lastResponse);
     }
 
     /**
