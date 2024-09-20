@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 
 import easton.exception.DateTimeFormatException;
-import easton.exception.EmptyDescriptionException;
 import easton.exception.InvalidFormatException;
 
 
