@@ -2,7 +2,7 @@
 
 ![Nave product screenshot.](/docs/Ui.png)
 
-Nave is an interactive chatbot that helps to keep track of your tasks!
+Nave is an interactive bot that helps to keep track of your tasks!
 
 
 ## Getting Help
