@@ -27,11 +27,19 @@ public class FixedDurationTask extends Task {
         return durationInMinutes;
     }
 
+    /**
+     * Gets the type of the task.
+     * @return The type of the task (FIXED_DURATION).
+     */
     @Override
     public TaskType getTaskType() {
         return TaskType.FIXED_DURATION;
     }
 
+    /**
+     * Gets the string representation of the FixedDuration task.
+     * @return The string representation of the task.
+     */
     @Override
     public String toString() {
         return "[F][ ] " + getDescription() + " (Duration: " + durationInMinutes + " minutes)";

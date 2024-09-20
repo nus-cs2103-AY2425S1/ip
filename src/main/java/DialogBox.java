@@ -44,9 +44,25 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
         dialog.getStyleClass().add("reply-label");
     }
+
+    /**
+     * Creates a new dialog box for the user.
+     *
+     * @param text The text entered by the user.
+     * @param img The image representing the user.
+     * @return A DialogBox containing the user's input and display picture.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
+
+    /**
+     * Creates a new dialog box for Alex, flipping the image and text order.
+     *
+     * @param text The response text from Alex.
+     * @param img The image representing Alex.
+     * @return A DialogBox containing Alex's response and display picture, with the layout flipped.
+     */
     public static DialogBox getAlexDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

@@ -4,8 +4,9 @@ package Alex.Task;
  * Abstract base class for all tasks.
  */
 public abstract class Task {
-    protected String description;
     public boolean isDone;
+    protected String description;
+
 
     /**
      * Constructs a Task with the given description.

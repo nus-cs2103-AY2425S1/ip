@@ -93,7 +93,7 @@ public class TaskList {
      * @return A list of tasks that match the keyword.
      */
     public ArrayList<Task> findTasks(String keyword) {
-        return tasks.stream() //creates a stream from the tasks arraylist and gathers filtered tasks into a new Arraylist
+        return tasks.stream() //creates a stream from the tasks arraylist and gathers filtered tasks into new Arraylist
                 .filter(task -> task.getDescription().toLowerCase().contains(keyword.toLowerCase()))
                 .collect(Collectors.toCollection(ArrayList::new));
     }

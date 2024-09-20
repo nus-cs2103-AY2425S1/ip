@@ -18,6 +18,14 @@ public class ExitCommand extends CommandBase {
         isExit = true;
     }
 
+    /**
+     * Executes the ExitCommand
+     * updates the Ui with a bye message and exits.
+     *
+     * @param tasks   The TaskList to which the task will be added.
+     * @param ui      The Ui instance responsible for displaying output to the user.
+     * @param storage The Storage instance used to save the updated task list.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showBye();

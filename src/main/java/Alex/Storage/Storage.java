@@ -78,7 +78,7 @@ public class Storage {
      * @param line The line to parse.
      * @return The parsed Task object, or null if the line is invalid.
      */
-    private Task parseTaskFromLine(String line) throws AlexException{
+    private Task parseTaskFromLine(String line) throws AlexException {
         String[] parts = line.split(" \\| ");
         if (parts.length < 2) {
             return null; // Skip invalid lines

@@ -51,6 +51,11 @@ public class Alex {
             return ui.getOutput(); // Return the error message
         }
     }
+
+    /**
+     * Displays greeting to user
+     * @return Greeting from Alex to user
+     */
     public String getWelcomeMessage() {
         return ui.showWelcome();
     }

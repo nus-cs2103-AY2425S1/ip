@@ -20,6 +20,15 @@ public class DeleteCommand extends CommandBase {
         this.index = index;
     }
 
+    /**
+     * Executes the DeleteCommand by removing the specified task from the TaskList,
+     * updating the Ui with a success message, and saving the updated task list to storage.
+     *
+     * @param tasks   The TaskList to which the task will be added.
+     * @param ui      The Ui instance responsible for displaying output to the user.
+     * @param storage The Storage instance used to save the updated task list.
+     * @throws AlexException If an error occurs while saving the task list.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws AlexException {
         try {
