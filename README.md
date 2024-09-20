@@ -53,7 +53,7 @@ Here are the main commands you can use to interact with JBot.
 ### 1. `list`
 Displays all tasks currently in the list.
 
-```bash
+```
 list
 ```
 
@@ -67,12 +67,12 @@ list
 ### 2. `todo`
 Adds a new to-do task to the list.
 
-```bash
+```
 todo <task description>
 ```
 
 - **Example**:
-  ```bash
+  ```
   todo Buy groceries
   ```
 
@@ -84,12 +84,12 @@ todo <task description>
 ### 3. `event`
 Adds a new event task to the list with a specified start and end time.
 
-```bash
+```
 event <event description> /from <start time> /to <end time>
 ```
 
 - **Example**:
-  ```bash
+  ```
   event Team meeting /from 2pm /to 4pm
   ```
 
@@ -101,13 +101,13 @@ event <event description> /from <start time> /to <end time>
 ### 4. `deadline`
 Adds a new task with a deadline.
 
-```bash
-deadline <task description> /by <deadline>
+```
+deadline <task description> /by <deadline in d/M/yyyy HHmm>
 ```
 
 - **Example**:
-  ```bash
-  deadline Submit assignment /by 2024-09-21
+  ```
+  deadline return book /by 2/12/2024 1800
   ```
 
    - Output:
@@ -118,12 +118,12 @@ deadline <task description> /by <deadline>
 ### 5. `mark`
 Marks a specific task as completed. The task index is based on the current list.
 
-```bash
+```
 mark <task index>
 ```
 
 - **Example**:
-  ```bash
+  ```
   mark 2
   ```
 
@@ -136,12 +136,12 @@ mark <task index>
 ### 6. `unmark`
 Unmarks a completed task.
 
-```bash
+```
 unmark <task index>
 ```
 
 - **Example**:
-  ```bash
+  ```
   unmark 2
   ```
 
@@ -154,12 +154,12 @@ unmark <task index>
 ### 7. `delete`
 Deletes a task from the list.
 
-```bash
+```
 delete <task index>
 ```
 
 - **Example**:
-  ```bash
+  ```
   delete 1
   ```
 
@@ -172,12 +172,12 @@ delete <task index>
 ### 8. `find`
 Finds tasks that match a keyword.
 
-```bash
+```
 find <keyword>
 ```
 
 - **Example**:
-  ```bash
+  ```
   find assignment
   ```
 
@@ -189,12 +189,12 @@ find <keyword>
 ### 9. `bye`
 Exits the application.
 
-```bash
+```
 bye
 ```
 
 - **Example**:
-  ```bash
+  ```
   bye
   ```
 
@@ -208,7 +208,7 @@ bye
 ### 10. `help`
 Displays a help message with available commands and usage instructions.
 
-```bash
+```
 help
 ```
 
