@@ -1,4 +1,4 @@
-package duke.exceptions;
+package carine.exceptions;
 
 /**
  * This exception is thrown when a task is not found in the task list.

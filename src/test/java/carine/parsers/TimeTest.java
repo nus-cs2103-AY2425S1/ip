@@ -1,10 +1,10 @@
-package duke.parsers;
+package carine.parsers;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import duke.exceptions.InvalidDateException;
+import carine.exceptions.InvalidDateException;
 
 public class TimeTest {
     @Test

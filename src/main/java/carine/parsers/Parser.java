@@ -1,10 +1,11 @@
-package duke.parsers;
+package carine.parsers;
 
-import duke.exceptions.*;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.TaskList;
-import duke.tasks.Todo;
+import carine.exceptions.*;
+import carine.tasks.Deadline;
+import carine.tasks.Event;
+import carine.tasks.TaskList;
+import carine.tasks.Todo;
+import carine.ui.Ui;
 
 /**
  * The `Parser` class is responsible for interpreting user input and executing
@@ -56,6 +57,8 @@ public class Parser {
             return handleDeleteTask(userInput);
         } else if (userInput.startsWith("find")) {
             return handleFindTask(userInput);
+        } else if (userInput.equals("command")) {
+            return Ui.printCommand();
         } else {
             throw new InvalidInputException();
         }
@@ -74,9 +77,9 @@ public class Parser {
                 return taskList.unmarkTask(Integer.parseInt(split[1]));
             }
         } catch (NumberFormatException e) {
-            return "Please enter numbers only";
+            return "ERROR: Please enter numbers only";
         } catch (IndexOutOfBoundsException e) {
-            return "Index number you inputted does not exist";
+            return "ERROR: Index number you inputted does not exist";
         }
     }
 
@@ -113,15 +116,15 @@ public class Parser {
         try {
             return taskList.deleteTask(Integer.parseInt(split[1]));
         } catch (NumberFormatException e) {
-            return "Please enter numbers only";
+            return "ERROR: Please enter numbers only";
         } catch (IndexOutOfBoundsException e) {
-            return "Index number you inputted does not exist";
+            return "ERROR: Index number you inputted does not exist";
         }
     }
 
     private String handleFindTask(String message) throws TaskNotFoundException, InvalidInputException {
         String[] parts = message.split(" ", 2);
-        if (parts.length != 2) {
+        if (parts.length != 2 || parts[1].isEmpty()) {
             throw new InvalidInputException();
         }
         String keyword = parts[1].trim();

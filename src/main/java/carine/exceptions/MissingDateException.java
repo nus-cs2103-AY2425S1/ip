@@ -1,4 +1,4 @@
-package duke.exceptions;
+package carine.exceptions;
 
 /**
  * This exception is thrown when a task is created without the necessary date or time information.

@@ -44,16 +44,28 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
-        dialog.getStyleClass().add("reply-label");
+        dialog.getStyleClass().add("carine-label");
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var db = new DialogBox(text, img);
+        db.dialog.getStyleClass().add("user-label");
+        return db;
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getCarineDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+        if (text.startsWith("ERROR:")) {
+            db.dialog.getStyleClass().add("carine-error-label");
+        }
+        return db;
+    }
+
+    public static DialogBox getReminderDialog(String text, Image img) {
+        var db = new DialogBox(text, img);
+        db.flip();
+        db.dialog.getStyleClass().add("reminder-label");
         return db;
     }
 }
