@@ -45,7 +45,6 @@ test {
 
 application {
     mainClass.set("wenjiebot.gui.Launcher")
-    mainClassName = 'wenjiebot.WenJie'
 }
 
 shadowJar {

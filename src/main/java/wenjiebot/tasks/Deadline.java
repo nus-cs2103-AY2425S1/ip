@@ -27,6 +27,12 @@ public class Deadline extends Task {
         this.dateTime = LocalDateTime.parse(by.trim(), formatter);
     }
 
+    @Override
+    public void setDateTime(String newDate) {
+        by = newDate.replace("/by", "").trim();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        dateTime = LocalDateTime.parse(by.trim(), formatter);
+    }
     /**
      * Returns a string representation of the Deadline in a format suitable for storage.
      * The format includes the type of task, description, and due date and time.

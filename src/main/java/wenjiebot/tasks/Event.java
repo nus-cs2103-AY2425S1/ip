@@ -32,6 +32,19 @@ public class Event extends Task {
         this.toInDateTime = LocalDateTime.parse(to.trim(), formatter);
     }
 
+    @Override
+    public void setDateTime(String newDate) {
+        int fromIndex = newDate.indexOf("/from") + 6;
+        int toIndex = newDate.indexOf("/to") + 4;
+
+        String fromDateTime = newDate.substring(fromIndex, toIndex - 4).trim();
+        String toDateTime = newDate.substring(toIndex).trim();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        this.fromInDateTime = LocalDateTime.parse(fromDateTime, formatter);
+        this.toInDateTime = LocalDateTime.parse(toDateTime, formatter);
+    }
+
     /**
      * Returns a string representation of the Event in a format suitable for storage.
      * The format includes the type of task, description, start time, and end time.
