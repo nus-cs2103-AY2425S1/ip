@@ -105,7 +105,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[D] %s (by: %s)", this.task.toString(), this.getDate(), this.deadlineTime);
+        return String.format("[D] %s (by: %s %s)", this.task.toString(), this.getDate(), this.deadlineTime);
     }
 
 }

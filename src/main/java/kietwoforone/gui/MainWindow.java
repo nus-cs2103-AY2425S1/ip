@@ -10,6 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import kietwoforone.KieTwoForOne;
 import kietwoforone.exceptions.KieTwoForOneException;
+import kietwoforone.storage.Storage;
 import kietwoforone.ui.UI;
 
 /**
@@ -38,9 +39,18 @@ public class MainWindow extends AnchorPane {
         );
     }
 
-    /** Injects the KieTwoForOne instance */
+    /**
+     *  Injects the KieTwoForOne instance and loads data from the tasks.txt file.
+     */
     public void setKie(KieTwoForOne k) {
         kie = k;
+        try {
+            Storage storage = kie.getStorage();
+            storage.loadFile(kie.getTasks().getTaskList());
+        } catch (KieTwoForOneException e) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getKieDialog(e.getMessage(), chatbotImage));
+        }
     }
 
     /**

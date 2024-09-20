@@ -48,7 +48,6 @@ test {
 
 application {
     mainClassName = 'kietwoforone.gui.Launcher'
-
 }
 
 shadowJar {
@@ -57,6 +56,6 @@ shadowJar {
     archiveClassifier = null
 }
 
-run{
+run {
     standardInput = System.in
 }

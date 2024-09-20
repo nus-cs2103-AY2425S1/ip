@@ -65,8 +65,25 @@ public class KieTwoForOne {
             c.execute(tasks, ui, storage);
             return ui.getResponse();
         } catch (KieTwoForOneException e) {
-            return "Error: " + e.getMessage();
+            return e.getMessage();
         }
     }
 
+    /**
+     * Returns the TaskList object
+     *
+     * @return TaskList
+     */
+    public TaskList getTasks() {
+        return this.tasks;
+    }
+
+    /**
+     * Returns the Storage object
+     *
+     * @return Storage
+     */
+    public static Storage getStorage() {
+        return storage;
+    }
 }

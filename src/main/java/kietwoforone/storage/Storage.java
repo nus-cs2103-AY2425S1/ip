@@ -3,6 +3,7 @@ package kietwoforone.storage;
 import kietwoforone.exceptions.KieTwoForOneException;
 import kietwoforone.tasks.Task;
 import java.io.EOFException;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
  */
 public class Storage {
 
-    private static String filePath = "data/tasks.txt";
+    private static String filePath = new File("data/tasks.txt").getAbsolutePath();
 
     /**
      * Saves data to a file by writing the task objects to tasks.txt file.

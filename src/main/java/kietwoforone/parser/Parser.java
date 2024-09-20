@@ -105,6 +105,8 @@ public class Parser {
         case TAG:
             try {
                 return new TagCommand(Integer.valueOf(taskDetails[0]), taskDetails[1]);
+            } catch (NumberFormatException e) {
+                throw new KieTwoForOneException("Please input your instruction in the format: tag (index) /(tag)");
             } catch (ArrayIndexOutOfBoundsException e) {
                 throw new KieTwoForOneException("Please input a valid index and tag!");
             }
