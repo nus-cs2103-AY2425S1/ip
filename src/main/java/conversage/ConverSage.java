@@ -1,5 +1,6 @@
 package conversage;
 
+import conversage.command.ByeCommand;
 import conversage.command.Command;
 import conversage.exception.ConverSageException;
 import conversage.storage.Storage;
@@ -14,7 +15,7 @@ public class ConverSage {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-
+    public Command lastCommand;
     /**
      * Constructs a ConverSage object with the specified file path for storage.
      *
@@ -65,10 +66,20 @@ public class ConverSage {
     public String getResponse(String input) {
         try {
             Command command = Parser.parse(input);
+            lastCommand = command;
             return command.execute(tasks, ui, storage);
         } catch (ConverSageException e) {
             return e.getMessage();
         }
+    }
+
+    /**
+     * Checks if the application should exit.
+     *
+     * @return true if the application should exit, false otherwise.
+     */
+    public boolean shouldExit() {
+        return lastCommand instanceof ByeCommand;
     }
 
     /**
