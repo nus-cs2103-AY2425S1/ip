@@ -109,7 +109,9 @@ public class TaskList {
             String[] tokens = taskToParse.split(DELIMITER);
             //To handle the different types of tasks separately.
             switch (tokens[0]) {
-                case "Event" -> TaskList.add(Event.of(tokens[1],tokens[2],tokens[3],tokens[4]));
+                case "Event" -> TaskList.add(Event.of(tokens[1],tokens[2],
+                        LocalDateTime.parse(tokens[3]),
+                        LocalDateTime.parse(tokens[4])));
                 case "Deadline" -> TaskList.add(Deadline.of(tokens[1],tokens[2], LocalDateTime.parse(tokens[3])));
                 case "Todo" -> TaskList.add(new Todo(tokens[1],tokens[2]));
             }
