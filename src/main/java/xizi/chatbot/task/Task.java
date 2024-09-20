@@ -48,6 +48,16 @@ public abstract class Task {
             tags.add(tag);
         }
     }
+    /**
+     * Removes a tag from the task.
+     *
+     * @param tag {@code true} is String that contains the tag information.
+     */
+    public void removeTag(String tag) {
+        if (tags.contains(tag)) {
+            tags.remove(tag);
+        }
+    }
 
     public String getTags() {
         return String.join(", ", tags);

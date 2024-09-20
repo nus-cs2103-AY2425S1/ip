@@ -35,7 +35,7 @@ public class DeleteCommandTest {
     public void setUp() {
         tasks = new TaskList();
         ui = new Ui();
-        storage = new Storage("deleteCommandTest.txt");
+        storage = new Storage("./data/deleteCommandTest.txt");
 
         // Adding a Todo task
         tasks.addTask(new Todo("read book"));
