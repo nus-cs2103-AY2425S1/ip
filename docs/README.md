@@ -2,7 +2,7 @@
 
 Welcome to Toothless, your friendly dragon companion for managing your tasks, deadlines and events! This user guide will help you get started with Toothless and its features.
 
-![Toothless sample display](/Users/joannehing/Documents/CS2103T/Individual Project/docs/Ui.png)
+![Toothless sample display](./Ui.png)
 
 # Features
 ## Category A: Adding Tasks
@@ -202,4 +202,4 @@ See you soon!
 # Acknowledgements
 - The dragon and user icon is used from the video "The Ultimate How to Train Your Dragon Recap Cartoon" by Cas van de Pol. (https://youtu.be/4dDUWRWqcIo?si=2XFx8QF6qbVMHcVk) 
 - The background is used from Pinterest (https://www.pinterest.com/pin/434315957799147671/)
-- AI tools like ChatGPT by OpenAI, Claude by Anthropic AI and Copilot by Github are used to aid in developing the project. Can refer to [this file](/Users/joannehing/Documents/CS2103T/Individual Project/AI.md) for more information.
+- AI tools like ChatGPT by OpenAI, Claude by Anthropic AI and Copilot by Github are used to aid in developing the project. Can refer to [this file](../AI.md) for more information.
