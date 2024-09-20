@@ -20,13 +20,10 @@ public class Storage {
 
     /**
      * Constructs a Storage object with the specified file path.
-     * Ensures that the directory for the file exists.
-     *
-     * @param filePath the path to the file where tasks will be stored
+     * Sets the file path to "data/tasks.json" and ensures that the directory exists.
      */
-    public Storage(String filePath) {
-        assert filePath != null : "File path cannot be null";
-        this.filePath = filePath;
+    public Storage() {
+        this.filePath = "data/tasks.txt"; // Set the path for the tasks file
         ensureDirectoryExists();
     }
 
@@ -35,8 +32,11 @@ public class Storage {
      * If the directory does not exist, it creates it.
      */
     private void ensureDirectoryExists() {
-        File directory = new File(new File(filePath).getParent());
-        assert directory != null : "Directory object creation failed";
+        File directory = new File("data"); // Create a 'data' directory in the current working directory
+        if (!directory.exists()) {
+            directory.mkdirs(); // Create the directory if it doesn't exist
+        }
+        assert directory.exists() : "Directory creation failed";
     }
 
     /**

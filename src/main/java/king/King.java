@@ -7,7 +7,7 @@ import king.ui.Ui;
  * The main class for the King application. It handles initialization, task storage, and user interaction.
  */
 public class King {
-    private static final String DATA_FILE_PATH = "./data/King.txt";
+    private static final String DATA_FILE_PATH = "data/tasks.json"; // Updated to match Storage class
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
@@ -16,26 +16,11 @@ public class King {
      * Initializes the King application with the specified file path for storing tasks.
      * Loads tasks from the file, if available. If there is an issue loading the tasks,
      * initializes an empty task list.
-     *
-     * @param filePath The file path to load and store tasks.
-     */
-    public King(String filePath) {
-        this.ui = new Ui();
-        this.storage = new Storage(filePath);
-        try {
-            tasks = new TaskList(storage.loadTasks());
-        } catch (KingException e) {
-            tasks = new TaskList();
-        }
-    }
-
-    /**
-     * Constructs a new King instance.
      */
     public King() {
+        this.ui = new Ui();
+        this.storage = new Storage();
         try {
-            this.ui = new Ui();
-            this.storage = new Storage(DATA_FILE_PATH);
             tasks = new TaskList(storage.loadTasks());
         } catch (KingException e) {
             tasks = new TaskList();
@@ -84,6 +69,6 @@ public class King {
     }
 
     public static void main(String[] args) {
-        new King("data/King.txt").run();
+        new King().run(); // Calls the default constructor
     }
 }
