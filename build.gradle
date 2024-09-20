@@ -54,8 +54,9 @@ application {
 
 shadowJar {
     archiveBaseName = "LuffyBot"
-    archiveVersion = "ABC"
+    archiveVersion = "Final"
     archiveClassifier = null
+    archiveFileName = 'luffy.jar'
 }
 
 tasks.named('jar').configure {
