@@ -26,6 +26,7 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
+            stage.setTitle("Darkpool");
             fxmlLoader.<MainWindow>getController().setDarkpool(darkpool);
             stage.show();
         } catch (IOException e) {
