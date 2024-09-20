@@ -71,12 +71,20 @@ Format: delete INDEX
 
 ### deadline
 Format_1 (deadline): update INDEX datetime /to NEWDATETIME
+
+- for deadline task with both date and time
 ![image](https://github.com/user-attachments/assets/717608dd-7b97-493b-bcf8-77f3c4727bd9)
 
 Format_2 (deadline): update INDEX date /to NEWDATE
+
+- for deadline task with only date
+  
 ![image](https://github.com/user-attachments/assets/e9ce0603-3dc5-4fdb-9306-c6d5fd9318ae)
 
 Format_3 (deadline): update INDEX time /to NEWTIME
+
+- for deadline task with only time
+  
 ![image](https://github.com/user-attachments/assets/a1f2ab9a-befb-42bd-9ad7-4fca1efd3c42)
 
 ### event
