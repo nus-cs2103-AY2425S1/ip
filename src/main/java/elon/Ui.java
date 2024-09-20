@@ -16,12 +16,17 @@ import java.util.Scanner;
 public class Ui {
     private Scanner scanner;
 
-    public Ui () {
+    /**
+     * Initializes the Ui object and sets up the scanner for user input.
+     */
+    public Ui() {
         this.scanner = new Scanner(System.in);
     }
 
     /**
      * Draws a horizontal line in the console for separation.
+     *
+     * @return a string representing a horizontal line
      */
     public String drawLine() {
         return "-------------------------------------------------------\n";
@@ -29,22 +34,36 @@ public class Ui {
 
     /**
      * Prints a greeting message to the console.
+     *
+     * @return a greeting message
      */
     public static String greetMessage() {
-        return "Hello! I'm Elon\n" +  "What can I do for you?\n";
+        return "Hello! I'm Elon\n" + "What can I do for you?\n";
     }
 
     /**
      * Prints a goodbye message to the console.
+     *
+     * @return a string goodbye message
      */
     public String exitMessage() {
         return "Bye. Hope to see you again soon!";
     }
 
+    /**
+     * Gets user input as an array of strings.
+     *
+     * @return an array of strings containing the user input
+     */
     public String[] getInputArr() {
         return scanner.nextLine().split(" ");
     }
 
+    /**
+     * Displays a message indicating an invalid index.
+     *
+     * @return a string message for an invalid index
+     */
     public String showInvalidIndex() {
         return "Index out of range.\n";
     }
@@ -52,9 +71,9 @@ public class Ui {
     /**
      * Prints the tasks in the list to the console.
      * If the list is empty, prints a message indicating that there are no tasks.
-     * Otherwise, prints each task with its index, incremented by 1 from the index in the list.
      *
      * @param list the TaskList containing tasks to be displayed
+     * @return a string representation of the tasks in the list
      */
     public String listTasks(TaskList list) {
         if (list.isEmpty()) {
@@ -69,60 +88,61 @@ public class Ui {
     }
 
     /**
-     * Marks the task at the specified index as done and prints the task to the console.
-     * If the task is already marked as done, prints a message indicating so.
+     * Marks the specified task as done and returns a message.
      *
-     * @param index the index of the task to mark as done
-     * @param list the TaskList containing the task
+     * @param task the task to mark as done
+     * @return a string message indicating the task has been marked as done
      */
     public String markTask(Task task) {
         return "Nice! I've marked this task as done:\n" + task.toString() + "\n";
     }
 
     /**
-     * Marks the task at the specified index as not done and prints the task to the console.
-     * If the task is already marked as not done, prints a message indicating so.
+     * Marks the specified task as not done and returns a message.
      *
-     * @param index the index of the task to mark as not done
-     * @param list  the TaskList containing the task
+     * @param task the task to mark as not done
+     * @return a string message indicating the task has been marked as not done
      */
     public String unmarkTask(Task task) {
         return "OK, I've marked this task as not done yet:\n" + task.toString() + "\n";
     }
 
     /**
-     * Prints a message indicating that a task has been added to the list.
+     * Starts the task addition process and returns a message.
+     *
+     * @return a string message indicating a task has been added
      */
     public String startAddTask() {
         return "Got it. I've added this task:\n";
     }
 
     /**
-     * Prints a message indicating the updated number of tasks in the list after adding a new task.
+     * Returns a message indicating the updated number of tasks in the list after adding a new task.
      *
      * @param size the updated number of tasks in the list
+     * @return a string message with the current task count
      */
     public String endAddTask(int size) {
         return String.format("Now you have %d tasks in the list.\n", size);
     }
 
     /**
-     * Adds a ToDo task to the task list based on the provided input array.
-     * Throws an ElonException if the description is missing.
+     * Displays a message when adding a ToDo task to the list.
      *
-     * @param inputArr the input array containing the task description
-     * @param list the TaskList to add the ToDo task to
-     * @throws ElonException if the description is not specified
+     * @param task the task being added
+     * @param list the TaskList to add the task to
+     * @return a string message indicating the task has been added
      */
     public String addTask(Task task, TaskList list) {
         return startAddTask() + task.toString() + "\n" + endAddTask(list.listSize());
     }
 
     /**
-     * Deletes the task at the specified index from the task list and prints a message to console.
+     * Deletes the specified task from the task list and returns a message.
      *
-     * @param index the index of the task to delete
+     * @param task the task to delete
      * @param list the TaskList containing the task
+     * @return a string message indicating the task has been deleted
      */
     public String deleteTask(Task task, TaskList list) {
         return "Noted. I've removed this task:\n" + task.toString() + "\n" + endAddTask(list.listSize());
@@ -132,6 +152,7 @@ public class Ui {
      * Displays the tasks that match the given keyword.
      *
      * @param matchingTasks the list of tasks that match the keyword
+     * @return a string representation of the matching tasks
      */
     public String showMatchingTasks(ArrayList<Task> matchingTasks) {
         if (matchingTasks.isEmpty()) {
@@ -145,6 +166,12 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays a message indicating a task has been snoozed.
+     *
+     * @param task the task that has been snoozed
+     * @return a string message indicating the task has been snoozed
+     */
     public String snoozeTask(Task task) {
         return "Nice! I've snoozed this task:\n" + task.toString() + "\n";
     }
