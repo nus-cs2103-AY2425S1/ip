@@ -25,6 +25,8 @@ public class Main extends Application {
             stage.setScene(scene);
             final String windowTitle = "Bob Task Tracker";
             stage.setTitle(windowTitle);
+            stage.setMinHeight(220);
+            stage.setMinWidth(417);
             fxmlLoader.<MainWindow>getController().setBob(bob); // inject the Bob instance
             stage.show();
         } catch (IOException e) {
