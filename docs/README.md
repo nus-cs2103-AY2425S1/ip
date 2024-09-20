@@ -62,7 +62,6 @@ Adds an event task to the task list.
 - `DESCRIPTION` is the description of the task.
 - `START` is the start time of the event task.
 - `END` is the end time of the event task.
-
 >[!NOTE] 
 > Entering new events with clashing time periods with existing events will produce a warning and new event will
 > not be added.
@@ -182,7 +181,6 @@ application.
 
 Assistinator data is automatically saved as a txt file `[JAR file location]/data/assistinator.txt`.
 Advanced users are welcome to update data directly by editing that data file.
-
 > [!CAUTION]
 > Editing the data file directly with invalid formats may cause Assistinator to behave unexpectedly.
 >Assistinator will only load the lines of data that are in the correct format. Data with incorrect format will be
