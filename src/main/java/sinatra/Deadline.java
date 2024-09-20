@@ -14,8 +14,8 @@ public class Deadline extends Task {
     /**
      * Constructs a new Deadline object with the specified content, status, and dateTimeString.
      *
-     * @param content the content of the Deadline task
-     * @param status the status of the Deadline task
+     * @param content        the content of the Deadline task
+     * @param status         the status of the Deadline task
      * @param dateTimeString the deadline time of the task in the format d/M/yyyy HHmm
      */
     public Deadline(String content, Boolean status, String dateTimeString) {
@@ -44,15 +44,6 @@ public class Deadline extends Task {
      */
     public String getDataForStorage() {
         return "Sinatra.Deadline:" + super.getContent() + "," + super.isMarkedString() + "," + dateTimeString;
-    }
-
-    /**
-     * Returns the deadline time of the task.
-     *
-     * @return the deadline time of the task
-     */
-    public String getBy() {
-        return dateTimeString;
     }
 
     /**

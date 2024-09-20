@@ -6,9 +6,6 @@ package sinatra;
  */
 public class Sinatra {
 
-    private static final String FILE_PATH = "tasks.txt";
-
-
     private Ui ui;
     private Parser parser;
 
