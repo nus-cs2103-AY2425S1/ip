@@ -18,6 +18,7 @@ public class Fred {
     TaskList tasks;
     Ui ui;
     Parser parser;
+    boolean isRunning;
 
     /**
      * Constructs a new Fred object and initializes the Storage, TaskList, Ui, and Parser components.
@@ -27,6 +28,7 @@ public class Fred {
         tasks = new TaskList();
         ui = new Ui();
         parser = new Parser();
+        isRunning = true;
     }
 
     /**
@@ -69,6 +71,7 @@ public class Fred {
         switch (action.getCommand()) {
         case EXIT:
             message = "Bye. Hope to see you again soon!";
+            isRunning = false;
             break;
         case LIST_TASKS:
             message = tasks.getTasksAsString();
@@ -124,6 +127,10 @@ public class Fred {
         } catch (FredException e) {
             return e.getMessage();
         }
+    }
+
+    boolean getIsRunning() {
+        return isRunning;
     }
 }
 
