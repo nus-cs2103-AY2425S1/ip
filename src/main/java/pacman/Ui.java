@@ -11,6 +11,8 @@ public class Ui {
     private static final String BYE = "Good bye. Hope to see you soon!";
     private final Scanner scanner;
 
+    private String output = "";
+
     public Ui() {
         scanner = new Scanner(System.in);
     }
@@ -20,6 +22,8 @@ public class Ui {
      */
     public void showGreet() {
         System.out.println("  " + GREET);
+        output = output.concat(GREET);
+        output = output.concat(System.lineSeparator());
     }
 
     /**
@@ -27,6 +31,8 @@ public class Ui {
      */
     public void showBye() {
         System.out.println("  " + BYE);
+        output = output.concat(BYE);
+        output = output.concat(System.lineSeparator());
     }
 
     /**
@@ -36,6 +42,14 @@ public class Ui {
      */
     public void showResult(String result) {
         System.out.println("  " + result);
+        output = output.concat(result);
+        output = output.concat(System.lineSeparator());
+    }
+
+    public String flushOutput() {
+        String tmp = output;
+        output = "";
+        return tmp;
     }
 
     /**
