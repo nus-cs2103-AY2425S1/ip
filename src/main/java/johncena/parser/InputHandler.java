@@ -1,34 +1,34 @@
 package johncena.parser;
 
-import johncena.commands.HelloCommand;
-import johncena.commands.ByeCommand;
-import johncena.commands.EventCommand;
-import johncena.commands.TodoCommand;
-import johncena.commands.DeadlineCommand;
-import johncena.commands.ListCommand;
-import johncena.commands.MarkCommand;
-import johncena.commands.UnmarkCommand;
-import johncena.commands.DeleteCommand;
-import johncena.commands.OnCommand;
-import johncena.commands.HelpCommand;
-import johncena.commands.Command;
-import johncena.commands.FindCommand;
-
-import johncena.exceptions.CenaException;
-import johncena.exceptions.CenaInvalidTaskIndexException;
-import johncena.exceptions.CenaInvalidDeadlineException;
-import johncena.exceptions.CenaInvalidEventException;
-import johncena.exceptions.CenaUnknownCommandException;
-
-import johncena.tasks.Task;
-
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+
+import johncena.commands.ByeCommand;
+import johncena.commands.Command;
+import johncena.commands.DeadlineCommand;
+import johncena.commands.DeleteCommand;
+import johncena.commands.EventCommand;
+import johncena.commands.FindCommand;
+import johncena.commands.HelloCommand;
+import johncena.commands.HelpCommand;
+import johncena.commands.ListCommand;
+import johncena.commands.MarkCommand;
+import johncena.commands.OnCommand;
+import johncena.commands.TodoCommand;
+import johncena.commands.UnmarkCommand;
+import johncena.exceptions.CenaException;
+import johncena.exceptions.CenaInvalidDeadlineException;
+import johncena.exceptions.CenaInvalidEventException;
+import johncena.exceptions.CenaInvalidTaskIndexException;
+import johncena.exceptions.CenaUnknownCommandException;
+import johncena.tasks.Task;
+
 
 /**
  * The {@code InputHandler} class is responsible for handling user input and executing the corresponding commands.
  */
 public class InputHandler {
+
     private ArrayList<Task> tasks;
 
     /**
@@ -66,21 +66,25 @@ public class InputHandler {
             } else if (input.startsWith("deadline ")) {
                 String[] parts = input.substring(9).split(" /by ");
                 if (parts.length < 2) {
-                    throw new CenaInvalidDeadlineException("Incorrect description for deadline. It should contain only /by.");
+                    throw new CenaInvalidDeadlineException("Incorrect description for deadline. It should contain "
+                            + "only /by.");
                 }
                 command = new DeadlineCommand(tasks, parts[0], parts[1]);
             } else if (input.startsWith("event ")) {
                 String[] parts = input.substring(6).split(" /from | /to ");
                 if (parts.length < 3) {
-                    throw new CenaInvalidEventException("Incorrect description for event. It should contain /from and /to.");
+                    throw new CenaInvalidEventException("Incorrect description for event. It should contain "
+                            + "/from and /to.");
                 }
                 command = new EventCommand(tasks, parts[0], parts[1], parts[2]);
             } else if (input.startsWith("delete ")) {
                 int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
                 command = new DeleteCommand(tasks, taskIndex);
-            } else if (input.equals("hello") || input.equals("hi") || input.equals("hey") || input.equals("yo") || input.equals("sup")) {
+            } else if (input.equals("hello") || input.equals("hi") || input.equals("hey")
+                    || input.equals("yo") || input.equals("sup")) {
                 command = new HelloCommand();
-            } else if (input.equals("help") || input.equals("commands") || input.equals("command") || input.equals("cmds") || input.equals("cmd")) {
+            } else if (input.equals("help") || input.equals("commands") || input.equals("command")
+                    || input.equals("cmds") || input.equals("cmd")) {
                 command = new HelpCommand();
             } else if (input.startsWith("on ")) {
                 String date = input.substring(3).trim();
@@ -96,7 +100,8 @@ public class InputHandler {
                 command.execute();
             }
 
-        } catch (CenaInvalidTaskIndexException | CenaInvalidDeadlineException | CenaInvalidEventException | DateTimeParseException e) {
+        } catch (CenaInvalidTaskIndexException | CenaInvalidDeadlineException | CenaInvalidEventException
+                 | DateTimeParseException e) {
             System.out.println("____________________________________________________________");
             System.out.println(" OOPS!!! " + e.getMessage());
             System.out.println("____________________________________________________________");

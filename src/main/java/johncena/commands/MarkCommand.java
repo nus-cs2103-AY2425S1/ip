@@ -1,10 +1,10 @@
 package johncena.commands;
 
+import java.util.ArrayList;
+
 import johncena.exceptions.CenaInvalidTaskIndexException;
 import johncena.storage.Storage;
 import johncena.tasks.Task;
-
-import java.util.ArrayList;
 
 /**
  * The {@code MarkCommand} class implements the {@code Command} interface and provides

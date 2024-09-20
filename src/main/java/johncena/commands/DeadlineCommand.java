@@ -1,18 +1,17 @@
 package johncena.commands;
 
+import java.util.ArrayList;
+
 import johncena.exceptions.CenaInvalidDeadlineException;
 import johncena.storage.Storage;
 import johncena.tasks.Deadline;
 import johncena.tasks.Task;
 
-import java.util.ArrayList;
-
-
 /**
  * The {@code DeadlineCommand} class implements the {@code Command} interface and provides
  * the functionality to execute the "deadline" command, which adds a deadline task to the task list.
  */
-public class DeadlineCommand implements Command{
+public class DeadlineCommand implements Command {
 
     private ArrayList<Task> tasks;
     private String description;

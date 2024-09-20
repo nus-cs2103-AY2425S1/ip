@@ -1,12 +1,11 @@
 package johncena.commands;
 
+import java.util.ArrayList;
+
 import johncena.exceptions.CenaInvalidEventException;
 import johncena.storage.Storage;
 import johncena.tasks.Event;
 import johncena.tasks.Task;
-
-import java.util.ArrayList;
-
 
 /**
  * The {@code EventCommand} class implements the {@code Command} interface and provides

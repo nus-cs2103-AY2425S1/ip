@@ -1,10 +1,10 @@
 package johncena.commands;
 
+import java.util.ArrayList;
+
 import johncena.exceptions.CenaInvalidTaskIndexException;
 import johncena.storage.Storage;
 import johncena.tasks.Task;
-
-import java.util.ArrayList;
 
 
 /**
@@ -15,6 +15,12 @@ public class DeleteCommand implements Command {
     private ArrayList<Task> tasks;
     private int taskIndex;
 
+    /**
+     * Constructs a new {@code DeleteCommand} with the specified task list and task index.
+     *
+     * @param tasks the list of tasks
+     * @param taskIndex the index of the task to remove
+     */
     public DeleteCommand(ArrayList<Task> tasks, int taskIndex) {
         this.tasks = tasks;
         this.taskIndex = taskIndex;

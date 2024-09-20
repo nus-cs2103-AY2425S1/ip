@@ -1,8 +1,8 @@
 package johncena.commands;
 
-import johncena.tasks.Task;
-
 import java.util.ArrayList;
+
+import johncena.tasks.Task;
 
 /**
  * The {@code FindCommand} class implements the {@code Command} interface and provides

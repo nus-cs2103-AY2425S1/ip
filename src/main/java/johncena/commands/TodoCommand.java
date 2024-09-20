@@ -1,12 +1,13 @@
 package johncena.commands;
 
+import java.util.ArrayList;
+
+import johncena.exceptions.CenaEmptyDescriptionException;
 import johncena.exceptions.CenaInvalidTodoException;
+import johncena.storage.Storage;
 import johncena.tasks.Task;
 import johncena.tasks.Todo;
-import johncena.storage.Storage;
-import johncena.exceptions.CenaEmptyDescriptionException;
 
-import java.util.ArrayList;
 
 /**
  * The {@code TodoCommand} class implements the {@code Command} interface and provides

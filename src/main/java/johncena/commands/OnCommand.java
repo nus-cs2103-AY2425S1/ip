@@ -1,10 +1,11 @@
 package johncena.commands;
 
-import johncena.tasks.Task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+
+import johncena.tasks.Task;
 
 /**
  * The {@code OnCommand} class implements the {@code Command} interface and provides
@@ -33,7 +34,8 @@ public class OnCommand implements Command {
     @Override
     public void execute() {
         System.out.println("____________________________________________________________");
-        System.out.println(" Here are the tasks on " + targetDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ":");
+        System.out.println(" Here are the tasks on " + targetDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                + ":");
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             if (task.occursOn(targetDate)) {

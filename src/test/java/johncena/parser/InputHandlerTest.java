@@ -1,17 +1,7 @@
 package johncena.parser;
 
-import johncena.art.Logo;
-
-import johncena.exceptions.CenaException;
-import johncena.exceptions.CenaUnknownCommandException;
-
-import johncena.tasks.Task;
-import johncena.tasks.Deadline;
-import johncena.tasks.Event;
-import johncena.tasks.Todo;
-
-
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -21,15 +11,20 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import johncena.art.Logo;
+import johncena.exceptions.CenaException;
+import johncena.exceptions.CenaUnknownCommandException;
+import johncena.storage.Storage;
+import johncena.tasks.Deadline;
+import johncena.tasks.Event;
+import johncena.tasks.Task;
+import johncena.tasks.Todo;
+
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
-
-import johncena.storage.Storage;
-
-import java.io.IOException;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * This class tests the InputHandler class.

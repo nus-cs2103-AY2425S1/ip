@@ -1,11 +1,5 @@
 package johncena.storage;
 
-import johncena.exceptions.CenaException;
-import johncena.tasks.Deadline;
-import johncena.tasks.Event;
-import johncena.tasks.Task;
-import johncena.tasks.Todo;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -13,13 +7,20 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import johncena.exceptions.CenaException;
+import johncena.tasks.Deadline;
+import johncena.tasks.Event;
+import johncena.tasks.Task;
+import johncena.tasks.Todo;
+
+
+
 /**
  * This class is responsible for saving and loading tasks from a file.
  */
 public class Storage {
-
-    private static String filePath = "./data/CenaTaskList.txt"; // Default file path
     public static final String SEPARATOR = " | ";
+    private static String filePath = "./data/CenaTaskList.txt"; // Default file path
 
     /**
      * Sets the file path for saving and loading tasks.
@@ -98,23 +99,23 @@ public class Storage {
         String taskType = taskDescription[0];
 
         switch (taskType) {
-            case "T":
-                task = new Todo(taskDescription[2]);
-                break;
+        case "T":
+            task = new Todo(taskDescription[2]);
+            break;
 
-            case "D":
-                task = new Deadline(taskDescription[2], taskDescription[3]);
-                break;
+        case "D":
+            task = new Deadline(taskDescription[2], taskDescription[3]);
+            break;
 
-            case "E":
-                String[] eventTimes = taskDescription[3].split(" ~ ");
-                task = new Event(taskDescription[2], eventTimes[0], eventTimes[1]);
-                break;
+        case "E":
+            String[] eventTimes = taskDescription[3].split(" ~ ");
+            task = new Event(taskDescription[2], eventTimes[0], eventTimes[1]);
+            break;
 
 
-            default:
-                System.out.println("Unknown task type: " + taskType);
-                break;
+        default:
+            System.out.println("Unknown task type: " + taskType);
+            break;
         }
 
         boolean isDone = taskDescription[1].equals("1");

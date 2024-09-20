@@ -1,16 +1,18 @@
 package johncena;
 
-import johncena.storage.Storage;
-import johncena.tasks.Task;
-import johncena.exceptions.CenaException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import johncena.parser.InputHandler;
 import johncena.commands.HelloCommand;
+import johncena.exceptions.CenaException;
+import johncena.parser.InputHandler;
+import johncena.storage.Storage;
+import johncena.tasks.Task;
+
+
 
 /**
  * The {@code JohnCena} class is the main class of the John Cena program.

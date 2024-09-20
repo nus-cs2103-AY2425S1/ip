@@ -10,7 +10,7 @@ import johncena.tasks.Task;
  * The {@code UnmarkCommand} class implements the {@code Command} interface and provides
  * the functionality to execute the "unmark" command, which marks a task as not done in the task list.
  */
-public class UnmarkCommand implements Command{
+public class UnmarkCommand implements Command {
     private ArrayList<Task> tasks;
     private int taskIndex;
 
