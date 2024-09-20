@@ -27,7 +27,7 @@ With Ratchet you will never miss out on anything **important** ever again.
 2. Download the latest `.jar` file from [here](https://github.com/ckclion/ip/releases).
 3. Copy the file to the folder you want to use as the _home folder_ for your Ratchet Bot.
 4. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar ratchet.jar 
-command to run the application.
+command to run the application. (Alternatively you can double-click the ratchet.jar file)
 5. Refer to the [Features](#features) below for details of each command.
 
 
