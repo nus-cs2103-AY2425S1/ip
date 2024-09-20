@@ -16,8 +16,8 @@ public class ExitCommand extends Command {
      * @param storage Storage that saves data into a file.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
-        ui.showByeMessage();
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return ui.showByeMessage();
     }
 
     /**

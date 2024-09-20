@@ -2,7 +2,6 @@ package alisa.gui;
 
 import alisa.Alisa;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -18,35 +17,32 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
-
     private Alisa alisa;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/ian.jpg"));
+    private Image alisaImage = new Image(this.getClass().getResourceAsStream("/images/alisa.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
+    /** Injects the Alisa instance */
     public void setDuke(Alisa a) {
         alisa = a;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Alisa's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = alisa.getResponse(input);
+        String response = alisa.run(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(response, alisaImage)
         );
         userInput.clear();
     }

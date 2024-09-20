@@ -28,10 +28,10 @@ public class MarkCommand extends Command {
      * @throws AlisaException If the storage file can't be updated.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws AlisaException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws AlisaException {
         String message = taskList.markTask(index);
-        ui.showMessage(message);
         storage.syncFile(taskList);
+        return message;
     }
 
     /**

@@ -15,15 +15,28 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
+    private File taskFile;
     private String filePath;
 
     /**
      * Constructs an instance of Storage.
      *
-     * @param filePath Directory path of the storage file.
+     * @param filePath The path of the file in storage.
      */
     public Storage(String filePath) {
         this.filePath = filePath;
+        this.taskFile = new File(filePath);
+
+        File parentDirectory = taskFile.getParentFile();
+        if (parentDirectory != null && !parentDirectory.exists()) {
+            parentDirectory.mkdirs();
+        }
+
+        try {
+            taskFile.createNewFile();
+        } catch (IOException e) {
+            System.out.println("There was an error while creating the file!");
+        }
     }
 
     /**
@@ -35,7 +48,10 @@ public class Storage {
     public ArrayList<Task> loadFile() throws AlisaException {
         ArrayList<Task> taskList = new ArrayList<>();
         try {
-            Scanner sc = new Scanner(new File(filePath));
+//            if (!taskFile.exists()) {
+//                taskFile.createNewFile();
+//            }
+            Scanner sc = new Scanner(taskFile);
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
                 String[] inputArray = line.split(" \\| ");
@@ -67,11 +83,14 @@ public class Storage {
                         taskList.add(newEvent);
                         break;
                 }
-                sc.close();
             }
+            sc.close();
         } catch (FileNotFoundException e) {
             throw new AlisaException("File can't be read!");
         }
+//        } catch (IOException e) {
+//            System.out.println(e.getMessage());
+//        }
         return taskList;
     }
 
@@ -87,8 +106,8 @@ public class Storage {
             fw.write(taskList.convertToFileString());
             fw.close();
         } catch (IOException e) {
+//            System.out.println(e.getMessage());
             throw new AlisaException("Couldn't update file!!");
         }
-
     }
 }
