@@ -72,7 +72,7 @@ public class Storage {
             FileWriter fw = new FileWriter(TASK_FILE_PATH);
             fw.write(tasks.toData());
             fw.close();
-            return "Synced task list to storage";
+            return "";
         } catch (IOException e) {
             return "Failed to save task list to disk: " + e.getMessage();
         }

@@ -43,11 +43,14 @@ public class Bot {
             Action action = parser.parseInput(input);
             String actionResponse = action.execute(tasks);
             String saveResponse = storage.saveTaskList(tasks);
-            String response = actionResponse + "\n\n" + saveResponse;
+            String response = actionResponse + (
+                    saveResponse.isBlank() ? "" : "\n\n" + saveResponse
+            );
 
             // If it is a terminal action, we close the program asynchronously after 3 seconds
             if (action.isTerminal()) {
-                CompletableFuture.delayedExecutor(3, TimeUnit.SECONDS).execute(() -> System.exit(0));
+                CompletableFuture.delayedExecutor(3, TimeUnit.SECONDS).
+                        execute(() -> System.exit(0));
             }
 
             return response;

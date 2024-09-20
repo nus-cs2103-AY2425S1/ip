@@ -9,6 +9,7 @@ import bot.action.Action;
 import bot.action.AddTaskAction;
 import bot.action.DeleteTaskAction;
 import bot.action.ExitAction;
+import bot.action.HelpAction;
 import bot.action.ListTaskAction;
 import bot.action.MarkTaskAction;
 import bot.action.SearchTaskAction;
@@ -58,6 +59,7 @@ public class Parser {
                 case UNMARK -> new UnmarkTaskAction(parseTaskId(args));
                 case FIND -> new SearchTaskAction(args);
                 case UNDO -> new UndoAction();
+                case HELP -> new HelpAction();
                 case EXIT -> new ExitAction();
             };
             // CHECKSTYLE.ON: Indentation
