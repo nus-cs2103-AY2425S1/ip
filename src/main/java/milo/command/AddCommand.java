@@ -20,7 +20,7 @@ public class AddCommand extends Command {
     private final String[] taskDesc;
     private Task curTask;
 
-    private boolean dateError = false;
+    private boolean hasDateError = false;
 
     public AddCommand(String[] taskDesc, TaskTypes.TaskType taskType) {
         this.taskDesc = taskDesc;
@@ -59,7 +59,7 @@ public class AddCommand extends Command {
                             this.curTask = new Deadline(deadlineDesc[0].strip(), curDate);
                             taskList.add(this.curTask);
                         } catch (DateTimeParseException e) {
-                            this.dateError = true;
+                            this.hasDateError = true;
                         }
                     }
                 }
@@ -83,7 +83,7 @@ public class AddCommand extends Command {
                             this.curTask = new Event(eventDesc[0].strip(), fromDate, toDate);
                             taskList.add(curTask);
                         } catch (DateTimeParseException e) {
-                            this.dateError = true;
+                            this.hasDateError = true;
                         }
                     }
                 }
@@ -101,7 +101,7 @@ public class AddCommand extends Command {
             }
             return ui.printAddTask(curTask, taskList.getNumberOfTasks());
         case DEADLINE:
-            if (this.dateError) {
+            if (this.hasDateError) {
                 return ui.printError(TaskTypes.TaskType.DATE, "");
             }
             if (super.hasError) {
@@ -109,7 +109,7 @@ public class AddCommand extends Command {
             }
             return ui.printAddTask(this.curTask, taskList.getNumberOfTasks());
         case EVENT:
-            if (this.dateError) {
+            if (this.hasDateError) {
                 return ui.printError(TaskTypes.TaskType.DATE, "");
             }
             if (super.hasError) {

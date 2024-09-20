@@ -18,6 +18,7 @@ public class Main extends Application {
         Scene scene = new Scene(mainWindow);  // Use the MainWindow instance as the root
         scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
         stage.setScene(scene);
+        stage.setTitle("Milo");
         stage.show();
     }
 }
