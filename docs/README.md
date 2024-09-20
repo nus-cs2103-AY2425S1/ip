@@ -213,9 +213,9 @@ bye
 - **Expected Output:**
   ```
   Bye. Hope to see you again soon!
-                   ∧,,,∧
-                ( ̳• · •̳)
-                /    づ♡
+       ∧,,,∧
+    ( ̳• · •̳)
+    /    づ♡
   ```
 
 ---
