@@ -30,4 +30,23 @@ public class EventCommandTest {
             fail("Exception should not have been thrown for valid input.");
         }
     }
+
+    @Test
+    void testExecuteWithInvalidDateFormat() {
+        MichaelScottException exception = assertThrows(MichaelScottException.class, () -> {
+            new EventCommand("homework /from 2024/03/02 12:00 /to 2024/04/02 12:30");
+        });
+
+        assertEquals("Whoa, that date’s all messed up! Try again, but this time use the format like this:YYYY-MM-DD HH:MM. It’s not rocket science... I think!", exception.getMessage());
+    }
+
+    @Test
+    void testExecuteWithMissingDescriptionOrDate() {
+        TaskList taskList = new TaskList();
+        MichaelScottException exception = assertThrows(MichaelScottException.class, () -> {
+            new EventCommand("homework /from");  // Missing /by and date
+        });
+
+        assertEquals("Alright, I need the event description, the start time, and the end time. Easy-peasy.Here’s a little example to make it crystal clear:'Event Career fair /from 2024-02-02 12:00 /to 2024-02-02 17:00.", exception.getMessage());
+    }
 }

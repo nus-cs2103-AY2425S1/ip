@@ -35,12 +35,11 @@ class DeadlineCommandTest {
 
     @Test
     void testExecuteWithInvalidDateFormat() {
-        TaskList taskList = new TaskList();
         MichaelScottException exception = assertThrows(MichaelScottException.class, () -> {
             new DeadlineCommand("homework /by 2024/03/02 12:00");
         });
 
-        assertEquals("Invalid date format. Please use the format YYYY-MM-DD HH:MM.", exception.getMessage());
+        assertEquals("Whoa, that date’s all messed up! Try again, but this time use the format like this:YYYY-MM-DD HH:MM. It’s not rocket science... I think!", exception.getMessage());
     }
 
     @Test
@@ -50,6 +49,6 @@ class DeadlineCommandTest {
             new DeadlineCommand("homework");  // Missing /by and date
         });
 
-        assertEquals("Please provide both the task description and deadline (Here is an example: deadline homework /by 2024-03-02 12:00).", exception.getMessage());
+        assertEquals("Okay, here’s what I need from you. Give me the task and the deadline—easy, right?Oh, and here’s an example, because I’m a great teacher:'deadline homework /by 2024-03-02 12:00.' ", exception.getMessage());
     }
 }
