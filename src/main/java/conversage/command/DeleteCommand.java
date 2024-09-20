@@ -23,6 +23,16 @@ public class DeleteCommand extends Command {
         this.toDel = Integer.parseInt(toDel);
     }
 
+
+    /**
+     * Executes the delete command, removing a task from the task list, updating the UI, and saving the task list.
+     *
+     * @param tasks   The task list to delete the task from.
+     * @param ui      The UI to update.
+     * @param storage The storage to save the task list to.
+     * @return A message indicating the task has been deleted.
+     * @throws ConverSageException If an error occurs during execution.
+     */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws ConverSageException {
         assert toDel > 0 && toDel <= tasks.size() : "Task index should be within valid range";

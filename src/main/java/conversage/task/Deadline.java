@@ -35,12 +35,22 @@ public class Deadline extends Task {
 
     }
 
+    /**
+     * Returns the string representation of the deadline in file format.
+     *
+     * @return The string representation of the deadline in file format.
+     */
     @Override
     public String toFileFormat() {
         return "conversage.task.Deadline | " + (isDone ? "Done" : "Not Done")
                 + " | " + taskDesc + " | " + deadline.format(INPUT_FORMAT);
     }
 
+    /**
+     * Returns the string representation of the deadline.
+     *
+     * @return The string representation of the deadline.
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + this.deadline.format(OUTPUT_FORMAT) + ")";

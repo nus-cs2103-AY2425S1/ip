@@ -22,6 +22,15 @@ public class MarkCommand extends Command {
         this.taskIndex = Integer.parseInt(taskIndex);
     }
 
+    /**
+     * Executes the mark command, marking a task as done, updating the UI, and saving the task list.
+     *
+     * @param tasks   The task list containing the task to be marked as done.
+     * @param ui      The UI to update.
+     * @param storage The storage to save the task list to.
+     * @return A message indicating the task has been marked as done.
+     * @throws ConverSageException If an error occurs during execution.
+     */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws ConverSageException {
         assert taskIndex > 0 && taskIndex < tasks.size(): "Task index should be within valid range";

@@ -72,6 +72,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a deadline task from the given input string.
+     *
+     * @param input the input string containing the task description and deadline.
+     * @return the parsed deadline task.
+     * @throws ConverSageException if the input string is invalid.
+     */
     private static Deadline parseDeadline(String input) throws ConverSageException {
         if (!input.contains(" /by ")) {
             throw new ConverSageException("The deadline task requires a description and a deadline.");
@@ -80,6 +87,13 @@ public class Parser {
         return new Deadline(parts[0], parts[1]);
     }
 
+    /**
+     * Parses an event task from the given input string.
+     *
+     * @param input the input string containing the task description, start time, and end time.
+     * @return the parsed event task.
+     * @throws ConverSageException if the input string is invalid.
+     */
     private static Event parseEvent(String input) throws ConverSageException {
         if (!input.contains(" /from ") || !input.contains(" /to ")) {
             throw new ConverSageException("The event task requires a description, start time, and an end time");

@@ -11,10 +11,25 @@ import conversage.ui.Ui;
 public class ErrorCommand extends Command{
     private final String errorMsg;
 
+    /**
+     * Constructs an ErrorCommand with the specified error message.
+     *
+     * @param msg the error message to display.
+     */
     public ErrorCommand(String msg) {
         this.errorMsg = msg;
     }
 
+
+    /**
+     * Executes the error command, displaying the error message in the UI.
+     *
+     * @param tasks   The task list (not used in this command).
+     * @param ui      The UI to update.
+     * @param storage The storage (not used in this command).
+     * @return The error message.
+     * @throws ConverSageException If an error occurs during execution.
+     */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws ConverSageException {
         ui.showLine();

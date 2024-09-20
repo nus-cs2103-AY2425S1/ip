@@ -21,7 +21,6 @@ public class ConverSage {
      *
      * @param filePath the path to the file where tasks are stored.
      */
-
     public ConverSage(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -52,17 +51,39 @@ public class ConverSage {
         }
     }
 
+    /**
+     * Returns the list of tasks.
+     *
+     * @return the list of tasks.
+     */
     public TaskList getTasks() {
         return tasks;
     }
 
+    /**
+     * Returns the UI component.
+     *
+     * @return the UI component.
+     */
     public Ui getUi() {
         return ui;
     }
 
+    /**
+     * Returns the storage component.
+     *
+     * @return the storage component.
+     */
     public Storage getStorage() {
         return storage;
     }
+
+    /**
+     * Gets the response from ConverSage for the given user input.
+     *
+     * @param input The user input.
+     * @return The response from ConverSage.
+     */
     public String getResponse(String input) {
         try {
             Command command = Parser.parse(input);

@@ -38,12 +38,22 @@ public class Event extends Task {
 
     }
 
+    /**
+     * Returns the string representation of the event in file format.
+     *
+     * @return The string representation of the event in file format.
+     */
     @Override
     public String toFileFormat() {
         return "conversage.task.Event | " + (isDone ? "Done" : "Not Done") + " | "
                 + taskDesc + " | " + from.format(INPUT_FORMAT) + " | " + to.format(INPUT_FORMAT);
     }
 
+    /**
+     * Returns the string representation of the event.
+     *
+     * @return The string representation of the event.
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from.format(OUTPUT_FORMAT)

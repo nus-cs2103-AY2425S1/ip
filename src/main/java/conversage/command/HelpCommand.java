@@ -5,6 +5,9 @@ import conversage.storage.Storage;
 import conversage.task.TaskList;
 import conversage.ui.Ui;
 
+/**
+ * Represents a command to display help information.
+ */
 public class HelpCommand extends Command {
 
     private static final String HELP_MESSAGE =
@@ -23,6 +26,15 @@ public class HelpCommand extends Command {
                     + "May your path be clear and your tasks be light, seeker.";
 
 
+    /**
+     * Executes the help command, displaying the help message in the UI.
+     *
+     * @param tasks   The task list (not used in this command).
+     * @param ui      The UI to update.
+     * @param storage The storage (not used in this command).
+     * @return The help message.
+     * @throws ConverSageException If an error occurs during execution.
+     */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws ConverSageException {
         ui.showLine();

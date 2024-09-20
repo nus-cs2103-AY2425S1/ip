@@ -18,11 +18,22 @@ public class ToDo extends Task {
 
     }
 
+    /**
+     * Returns the string representation of the todo in file format.
+     *
+     * @return The string representation of the todo in file format.
+     */
     @Override
     public String toFileFormat() {
         return "conversage.task.ToDo | " + (isDone ? "Done" : "Not Done") + " | " + taskDesc;
     }
 
+
+    /**
+     * Returns the string representation of the todo.
+     *
+     * @return The string representation of the todo.
+     */
     @Override
     public String toString() {
         return "[T]" + super.toString();

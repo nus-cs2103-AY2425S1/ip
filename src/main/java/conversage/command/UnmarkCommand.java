@@ -22,6 +22,15 @@ public class UnmarkCommand extends Command {
         this.taskIndex = Integer.parseInt(taskIndex);
     }
 
+    /**
+     * Executes the unmark command, marking a task as not done, updating the UI, and saving the task list.
+     *
+     * @param tasks   The task list containing the task to be unmarked as not done.
+     * @param ui      The UI to update.
+     * @param storage The storage to save the task list to.
+     * @return A message indicating the task has been unmarked as not done.
+     * @throws ConverSageException If an error occurs during execution.
+     */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws ConverSageException {
         Task task = tasks.getTask(taskIndex - 1); // since tasks are 0-indexed

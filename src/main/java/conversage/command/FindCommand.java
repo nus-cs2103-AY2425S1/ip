@@ -9,20 +9,31 @@ import conversage.ui.Ui;
 import java.util.List;
 
 
-
-
-
-
-
-
+/**
+ * Represents a command to find tasks containing a keyword.
+ */
 public class FindCommand extends Command {
     // Find command will have the keyword using which we must match
     String keyword;
 
+    /**
+     * Constructs a FindCommand with the specified keyword.
+     *
+     * @param keyword the keyword to search for in tasks.
+     */
     public FindCommand(String keyword) {
         this.keyword = keyword;
     }
 
+    /**
+     * Executes the find command, searching for tasks containing the keyword, updating the UI with the results.
+     *
+     * @param tasks   The task list to search within.
+     * @param ui      The UI to update.
+     * @param storage The storage (not used in this command).
+     * @return A message indicating the search results.
+     * @throws ConverSageException If an error occurs during execution.
+     */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws ConverSageException {
         assert tasks != null : "TaskList cannot/should not be null";
