@@ -27,7 +27,7 @@ public class DeleteCommand extends Command {
      * @param tasks   the task list from which the task will be deleted
      * @param ui      the UI component to display information to the user
      * @param storage the storage component to save the updated task list
-     * @return
+     * @return a string message confirming the task has been deleted, including the task details and the updated task count
      * @throws NaegaException if the task index is invalid
      */
     @Override

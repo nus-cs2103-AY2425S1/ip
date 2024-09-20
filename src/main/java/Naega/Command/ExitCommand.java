@@ -17,7 +17,7 @@ public class ExitCommand extends Command {
      * @param tasks   the task list to be saved
      * @param ui      the UI component to display information to the user
      * @param storage the storage component to save the task list
-     * @return
+     * @return a string message showing a farewell message and separator lines
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {

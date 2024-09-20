@@ -26,7 +26,7 @@ public class AddCommand extends Command {
      * @param tasks   the task list to which the task will be added
      * @param ui      the UI component to display information to the user
      * @param storage the storage component to save the updated task list
-     * @return
+     * @return a string message that confirms the task has been added, including the task details and the updated task count
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
