@@ -67,6 +67,8 @@ public class Storage {
      * @param filePath Path of the file.
      * @return A file storing the app data.
      * @throws TecnaStorageException If there are errors when working with files.
+     * @author Feng1231-reused.
+     * Code being used in https://github.com/Feng1231/ip.
      */
     private File createFileIfDoesNotExist(String filePath) throws TecnaStorageException {
         try {

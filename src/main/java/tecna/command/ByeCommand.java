@@ -7,7 +7,7 @@ import tecna.ui.Ui;
 /**
  * Represents the Command of type ByeCommand (exit the app).
  *
- * @author Adapted from Feng1231.
+ * @author Solution below inspired by https://github.com/Feng1231/ip.
  */
 public class ByeCommand extends Command {
     /**

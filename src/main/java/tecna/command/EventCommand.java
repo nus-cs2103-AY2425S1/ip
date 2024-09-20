@@ -14,7 +14,7 @@ import static tecna.util.DateTimeUtil.DATE_TIME_PATTERN;
 /**
  * Represents the Command of type EventCommand (add an event task).
  *
- * @author Adapted from Feng1231.
+ * @author Solution below inspired by https://github.com/Feng1231/ip.
  */
 public class EventCommand extends Command {
     /**

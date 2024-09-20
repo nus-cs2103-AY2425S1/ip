@@ -8,7 +8,7 @@ import tecna.ui.Ui;
 /**
  * Represents a Command of type FindCommand (find tasks containing a specific keyword).
  *
- * @author Adapted from Feng1231.
+ * @author Solution below inspired by https://github.com/Feng1231/ip.
  */
 public class FindCommand extends Command {
     /**
