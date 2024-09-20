@@ -9,13 +9,27 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * Represents a file storage for saving and loading tasks.
+ */
 public class Storage {
     protected final Path filePath;
     
+    /**
+     * Creates a new Storage object with the specified file path.
+     * 
+     * @param filePath The file path where the tasks are stored
+     */
     public Storage(String filePath) {
         this.filePath = Path.of(filePath);
     }
-    
+
+    /**
+     * Saves the task list to the storage file in CSV-like form.
+     * 
+     * @param taskList The task list to save
+     * @throws StorageFileException If an error occurs while writing to the storage file
+     */
     public void save(TaskList taskList) throws StorageFileException {
         try {
             ArrayList<String> encodedTasks = new ArrayList<>();
@@ -45,6 +59,13 @@ public class Storage {
         }
     }
     
+    /**
+     * Loads the task list from the storage file.
+     * 
+     * @return The task list obtained by decoding the storage file
+     * @throws StorageFileException If an error occurs while reading from the storage file
+     * or if the file is corrupted
+     */
     public TaskList load() throws StorageFileException {
         if (!Files.exists(this.filePath)) {
             try {

@@ -6,9 +6,18 @@ import mittens.task.Task;
 import mittens.task.TaskList;
 import mittens.ui.Ui;
 
+/**
+ * Represents a command for deleting a task from the task list.
+ */
 public class DeleteCommand extends Command {
+    
     protected int index;
 
+    /**
+     * Creates a new DeleteCommand object with the specified index of the task to delete.
+     * 
+     * @param index The index of the task to delete (1-indexed)
+     */
     public DeleteCommand(int index) {
         super();
         this.index = index;

@@ -9,12 +9,20 @@ import mittens.task.TaskList;
 import mittens.ui.TextUi;
 import mittens.ui.Ui;
 
-
+/**
+ * Represents the main class where the program is initialized and the main loop is run.
+ */
 public class Mittens {
+    
     private final Ui ui;
     private final Storage storage;
     private final TaskList taskList;
     
+    /**
+     * Creates a new Mittens object with the specified storage file path.
+     * 
+     * @param storageFilePath The file path to the storage file
+     */
     public Mittens(String storageFilePath) {
         this.ui = new TextUi();
         this.storage = new Storage(storageFilePath);
@@ -39,6 +47,9 @@ public class Mittens {
         this.taskList = temp;
     }
 
+    /**
+     * Runs the main loop of the program which accepts user input.
+     */
     public void run() {
         CommandParser commandParser = new CommandParser();
         
