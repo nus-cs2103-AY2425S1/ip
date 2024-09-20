@@ -8,6 +8,13 @@ import diomon.task.Todo;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.stream.Stream;
 
 
 /**
@@ -31,7 +38,7 @@ public class Parser {
         return switch (t) {
             case LIST -> new ListCommand();
             case BYE -> new ByeCommand();
-            case HELP -> new HelpCommand();
+            case HELP -> new HelpCommand(inputContent);
             case TODO -> new AddTodoCommand(inputContent);
             case DEADLINE -> new AddDeadlineCommand(inputContent);
             case EVENT -> new AddEventCommand(inputContent);
@@ -106,14 +113,19 @@ public class Parser {
         if (checkStoredStatus(dataArr[1])) {
             throw new RuntimeException("CompletionStatus seem to be wrong");
         }
-        if (dataArr.length == 5) {
-            return new Event(dataArr[1].equals(Task.COMPLETEICON),
-                    dataArr[2],
-                    LocalDate.parse(dataArr[3], DATEFORMATTER),
-                    LocalDate.parse(dataArr[4], DATEFORMATTER));
-        } else {
+        if (dataArr.length != 5) {
             throw new RuntimeException("Error loading event task, data stored is wrong");
         }
+        try {
+            LocalDate from = LocalDate.parse(dataArr[3], DATEFORMATTER);
+            LocalDate to =LocalDate.parse(dataArr[4], DATEFORMATTER);
+
+            return new Event(dataArr[1].equals(Task.COMPLETEICON), dataArr[2], from, to);
+        } catch (RuntimeException e){
+            throw new RuntimeException("Date dont seem to exist... Are you ok?");
+        }
+
+
     }
 
     /**
@@ -138,18 +150,28 @@ public class Parser {
      */
     public static Event parseEvent(String task){
         String[] taskArr = task.split("/", 3);
-        if (taskArr.length == 3){
-            String[] from = taskArr[1].split(" ", 2);
-            String[] to = taskArr[2].split(" ", 2);
-            boolean isValidFrom = from[0].equalsIgnoreCase("from") && from.length == 2;
-            boolean isValidTo = to[0].equalsIgnoreCase("to") && to.length == 2;
-            if (isValidFrom && isValidTo) {
-                return new Event(taskArr[0],
-                        LocalDate.parse(from[1].replaceAll(" ",""), Parser.DATEFORMATTER),
-                        LocalDate.parse(to[1].replaceAll(" ",""),Parser.DATEFORMATTER));
-            }
+        if (taskArr.length != 3) {
+            throw new RuntimeException("Problem creating Event, Please check your input is correct");
         }
-        throw new RuntimeException("Error parsing Event");
+
+        String[] fromArray = taskArr[1].split(" ", 2);
+        String[] toArray = taskArr[2].split(" ", 2);
+        boolean isValidFrom = fromArray[0].equalsIgnoreCase("from") && fromArray.length == 2;
+        boolean isValidTo = toArray[0].equalsIgnoreCase("to") && toArray.length == 2;
+        if (!(isValidFrom && isValidTo)) {
+            throw new RuntimeException("Problem creating Event, Please check your input is correct");
+        }
+        try {
+            LocalDate from = LocalDate.parse(fromArray[1].replaceAll(" ",""), Parser.DATEFORMATTER);
+            LocalDate to = LocalDate.parse(toArray[1].replaceAll(" ",""),Parser.DATEFORMATTER);
+            if (to.isBefore(from)) {
+                throw new RuntimeException("Start date is after the end date");
+            }
+            return new Event(taskArr[0], from, to);
+        } catch (DateTimeParseException e) {
+            throw new RuntimeException("Date dont seem to exist... Are you ok?");
+        }
+
     }
 
     /**
@@ -164,14 +186,19 @@ public class Parser {
      */
     public static Deadline parseDeadline(String task){
         String[] taskArray = task.split("/", 2);
-        if (taskArray.length == 2){
-            String[] by = taskArray[1].split(" ", 2);
-            boolean isValidBy = by[0].equalsIgnoreCase("by") && by.length == 2;
-            if (isValidBy) {
-                return new Deadline(taskArray[0], LocalDate.parse(by[1], Parser.DATEFORMATTER));
-            }
+        if (taskArray.length != 2) {
+            throw new RuntimeException("Error creating Deadline, Please check your input is correct");
         }
-        throw new RuntimeException("Error creating Deadline, Please check your format is correct");
+        String[] by = taskArray[1].split(" ", 2);
+        boolean isValidBy = by[0].equalsIgnoreCase("by") && by.length == 2;
+        if (!isValidBy) {
+            throw new RuntimeException("Error creating Deadline, Please check your input is correct");
+        }
+        try {
+            return new Deadline(taskArray[0], LocalDate.parse(by[1], Parser.DATEFORMATTER));
+        } catch (DateTimeParseException e) {
+            throw new RuntimeException("Date dont seem to exist... Are you ok?");
+        }
     }
 
     /**
@@ -186,4 +213,16 @@ public class Parser {
     public static Todo parseTodo(String task){
         return new Todo(task);
     }
+
+    public static List<Integer> processNumbers(String input) {
+        Stream<String> numbers = Arrays.stream(input.split(" "));
+        String[] cleanedNumbers = numbers.filter(str -> !str.isEmpty())
+                .toArray(String[]::new);
+        List<Integer> results = new ArrayList<>();
+        for (String num : cleanedNumbers) {
+            results.add(Integer.parseInt(num));
+        }
+        return results;
+    }
+
 }
