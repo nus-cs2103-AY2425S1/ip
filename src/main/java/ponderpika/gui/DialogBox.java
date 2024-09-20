@@ -44,6 +44,15 @@ public class DialogBox extends HBox {
         displayPicture.setImage(image);
     }
 
+    private void changeDialogStyle(String commandType) {
+        if (commandType.equals("DELETE")) {
+            text.getStyleClass().add("delete-label");
+        }
+        if (commandType.equals("TODO") || commandType.equals("DEADLINE") || commandType.equals("EVENT")) {
+            text.getStyleClass().add("add-label");
+        }
+    }
+
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
      */
@@ -59,9 +68,10 @@ public class DialogBox extends HBox {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getPikaDialog(String text, Image img) {
+    public static DialogBox getPikaDialog(String text, Image img, String commandType) {
         var db = new DialogBox(text, img);
         db.flip();
+        db.changeDialogStyle(commandType);
         return db;
     }
 }

@@ -20,6 +20,7 @@ public class PonderPika {
     private TaskList taskList = new TaskList();
     private final Ui ui = new Ui();
     private final Parser parser = new Parser();
+    private String commandType;
 
     /**
      * Constructs a new PonderPika instance.
@@ -43,10 +44,20 @@ public class PonderPika {
         Command command;
         try {
             command = parser.parseCommand(userInput);
+            commandType = command.getAction().toString();
+            System.out.println(commandType);
             return handleCommand(command);
         } catch (PonderPikaException e) {
             return e.toString();
         }
+    }
+
+    /**
+     * Returns the commandType for the particular user input
+     * @return type of command given by user
+     */
+    public String getCommandType() {
+        return commandType;
     }
 
     /**

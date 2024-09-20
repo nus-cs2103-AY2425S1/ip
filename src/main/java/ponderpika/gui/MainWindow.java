@@ -42,7 +42,7 @@ public class MainWindow extends AnchorPane {
         userInput.requestFocus();
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         String greeting = "HELLO, I'm Ponder Pika" + "\nIt is a great day to ponder! How may I help you?";
-        dialogContainer.getChildren().add(DialogBox.getPikaDialog(greeting, botImage));
+        dialogContainer.getChildren().add(DialogBox.getPikaDialog(greeting, botImage, ""));
 
         // @@author Ed Eden-Rump
         //Reused from https://edencoding.com/how-to-add-an-image-to-a-button/
@@ -70,9 +70,10 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String userText = userInput.getText();
         String pikaText = ponderPika.getResponse(userText);
+        String commandType = ponderPika.getCommandType();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, userImage),
-                DialogBox.getPikaDialog(pikaText, botImage)
+                DialogBox.getPikaDialog(pikaText, botImage, commandType)
         );
         userInput.clear();
         if (userText.equalsIgnoreCase("bye")) {
