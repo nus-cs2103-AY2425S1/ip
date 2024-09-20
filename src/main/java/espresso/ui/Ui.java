@@ -6,7 +6,7 @@ import espresso.command.InvalidCommandException;
 public class Ui {
 
     public String printLine() {
-        return "________________________________________________\n";
+        return "__________________________________\n";
     }
 
     public String printWelcome() {

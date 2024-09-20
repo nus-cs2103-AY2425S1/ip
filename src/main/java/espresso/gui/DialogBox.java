@@ -37,11 +37,10 @@ public class DialogBox extends HBox {
 
         // Create a container for the message and display picture
         VBox messageContainer = new VBox(this.message);
-        messageContainer.setMaxWidth(300);  // Adjust width based on layout
-        VBox.setVgrow(messageContainer, Priority.ALWAYS);  // Ensure it grows properly
+        messageContainer.setMaxWidth(300);
+        VBox.setVgrow(messageContainer, Priority.ALWAYS);
 
-        // Set alignment and add the elements to the HBox
-        this.setAlignment(Pos.TOP_RIGHT);  // Align right for user, modify for bot
+        this.setAlignment(Pos.TOP_RIGHT);
         getChildren().addAll(messageContainer, avatar);
     }
 
