@@ -129,7 +129,7 @@ Sorts tasks in ascending or descending order based on task attributes.
   - descending: `/d`
 - Null values are always considered "largest", in ascending order they are ranked last.
 
-For example: `sort name /d`, before (left) and after (right)
+For example: `sort name /d`, before and after.
 
 <div style="text-align: center;"><img src="sort-before-demo.png" alt="sort-before-demo" width="301" height="115"/>
 <img src="sort-after-demo.png" alt="sort-after-demo" width="301" height="115"/></div>
@@ -150,7 +150,7 @@ Exits the program.
 Format: `bye`
 
 ## Saving and Loading
-Jackson uses active saving in a save file in `/src/main/resources/texts/data.txt`.
+Jackson uses active saving in a save file in `data/data.txt`.
 
 The task list is always saved after **any modification to itself**, so there is no need to
 use a save command. If the save file does not exist, the program will create a new save file in the path
