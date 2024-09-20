@@ -43,7 +43,7 @@ public class AddDeadlineCommandTest {
         assertEquals(1, this.mockTaskList.size());
         Task t = this.mockTaskList.get(0);
         assertInstanceOf(Deadline.class, t);
-        assertEquals("Finish homework ", t.getDescription());
+        assertEquals("Finish homework", t.getDescription());
 
         verify(this.mockFileManager).writeTasksToFile(this.mockTaskList);
     }
