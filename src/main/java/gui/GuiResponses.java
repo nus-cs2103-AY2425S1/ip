@@ -63,7 +63,7 @@ public class GuiResponses {
             toReturn.append("You have fewer than 5 tasks. It seems the load is manageable for now."
                     + "\nKeep going!");
         }
-        if (userList.size() >5 && userList.size() <= 10) {
+        if (userList.size() > 5 && userList.size() <= 10) {
             toReturn.append("You have between 5 and 10 tasks. "
                     + "Though the workload is noticeable, it remains within a manageable range. "
                     + "The path ahead is clearer, but the journey still requires your attention.");
@@ -144,7 +144,7 @@ public class GuiResponses {
      */
     public String getSearchList(ArrayList<Task> matches) {
         StringBuilder toReturn = new StringBuilder("Here are the tasks that align with your search:\n");
-        if (matches.size() == 0) {
+        if (matches.isEmpty()) {
             toReturn.append("...It seems there are no tasks that match your criteria at this moment. "
                     + "Sometimes, the answers we seek remain hidden.");
         }
@@ -160,7 +160,7 @@ public class GuiResponses {
 
     public String getTaggedTasks(Set<Task> tasks) {
         StringBuilder toReturn = new StringBuilder("Here are the tasks that have been tagged:\n");
-        if (tasks.size() == 0) {
+        if (tasks.isEmpty()) {
             toReturn.append("...It seems there are no tasks that have been tagged at this moment. "
                     + "Sometimes, the answers we seek remain hidden.");
         }
