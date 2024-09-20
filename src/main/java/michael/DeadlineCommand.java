@@ -11,6 +11,13 @@ public class DeadlineCommand {
         this.tasks = tasks;
     }
 
+    /**
+     * Checks the format of the given task and adds the new task to the chatbot
+     * if the format matches what is expected.
+     *
+     * @param input User input to the chatbot.
+     * @throws MichaelException If task is written in an invalid format.
+     */
     public void check(String input) throws MichaelException {
         if (input.length() < 10) { // no deadline task given
             throw new MichaelException("Enter a task with a deadline as follows: [task] /by [YYYY-MM-DD].");
@@ -41,6 +48,11 @@ public class DeadlineCommand {
         tasks.add(this.newTask);
     }
 
+    /**
+     * Returns the task added by the user as feedback back to them.
+     *
+     * @return Confirmation of the task added by the user.
+     */
     public String feedback() {
         String message = "Got it. I've added this task:\n" + "  " + this.newTask.toString()
                 + "\n" + "Now you have " + tasks.size() + " tasks in the list.";

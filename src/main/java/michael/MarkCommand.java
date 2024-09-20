@@ -13,6 +13,13 @@ public class MarkCommand {
         this.tasks = tasks;
     }
 
+    /**
+     * Checks that a valid task is given to be marked and marks it as done if
+     * the command is used correctly.
+     *
+     * @param input User's input to the chatbot.
+     * @throws MichaelException If a non-number or a number out of range is given.
+     */
     public void check(String input) throws MichaelException {
         if (input.length() < 6) { // no number given to mark
             throw new MichaelException(error);
@@ -42,6 +49,11 @@ public class MarkCommand {
         task.doTask();
     }
 
+    /**
+     * Confirms that the task intended to be marked by the user has been marked.
+     *
+     * @return The task that was marked by the chatbot.
+     */
     public String feedback() {
         return "Nice! I've marked this task as done:\n" + "  " + tasks.get(position);
     }

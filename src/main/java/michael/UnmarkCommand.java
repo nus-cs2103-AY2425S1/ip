@@ -13,6 +13,14 @@ public class UnmarkCommand {
         this.tasks = tasks;
     }
 
+    /**
+     * Checks if command is used correctly and unmarks the corresponding task
+     * if the format is valid.
+     *
+     * @param input User's input to the chatbot.
+     * @throws MichaelException If a non-number is given or a number out of bounds is given
+     * as the position of the task to be unmarked.
+     */
     public void check(String input) throws MichaelException {
         if (input.length() < 8) { // no number given to unmark
             throw new MichaelException(error);
@@ -42,6 +50,11 @@ public class UnmarkCommand {
         task.undoTask();
     }
 
+    /**
+     * Confirms the task that was unmarked.
+     *
+     * @return Task that was unmarked by the chatbot.
+     */
     public String feedback() {
         return "OK, I've marked this task as not done yet:\n" + "  " + tasks.get(position);
     }

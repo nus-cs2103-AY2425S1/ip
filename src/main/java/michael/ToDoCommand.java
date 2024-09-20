@@ -11,6 +11,12 @@ public class ToDoCommand {
         this.tasks = tasks;
     }
 
+    /**
+     * Checks the task to be added and adds it if valid.
+     *
+     * @param input User's input to the chatbot.
+     * @throws MichaelException If no task is given to be added.
+     */
     public void check(String input) throws MichaelException {
         if (input.length() < 6) { // no task given
             throw new MichaelException("Enter a task to be done.");
@@ -23,6 +29,11 @@ public class ToDoCommand {
         tasks.add(this.newTask);
     }
 
+    /**
+     * Returns the task added to the chatbot.
+     *
+     * @return Confirmation of the task added.
+     */
     public String feedback() {
         String message = "Got it. I've added this task:\n" + "  " + this.newTask.toString()
                 + "\n" + "Now you have " + tasks.size() + " tasks in the list.";

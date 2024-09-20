@@ -11,6 +11,13 @@ public class EventCommand {
         this.tasks = tasks;
     }
 
+    /**
+     * Checks the event input by the user and adds it to the chatbot
+     * if the format is correct.
+     *
+     * @param input User's input to the chatbot.
+     * @throws MichaelException If event's format is invalid.
+     */
     public void check(String input) throws MichaelException {
         if (input.length() < 7) { // no event given
             throw new MichaelException("Enter a valid event with format: [task] /from [start] /to [end].");
@@ -36,6 +43,11 @@ public class EventCommand {
         tasks.add(this.newTask);
     }
 
+    /**
+     * Returns the event added to the chatbot back to the user.
+     *
+     * @return Confirmation of the event added by the user.
+     */
     public String feedback() {
         String message = "Got it. I've added this task:\n" + "  " + this.newTask.toString() + "\n"
                 + "Now you have " + tasks.size() + " tasks in the list.";

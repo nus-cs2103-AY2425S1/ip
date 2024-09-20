@@ -14,6 +14,13 @@ public class DeleteCommand {
         this.tasks = tasks;
     }
 
+    /**
+     * Checks that delete command is used correctly and deletes corresponding task
+     * if valid position of task is given.
+     *
+     * @param input User's input to the chatbot.
+     * @throws MichaelException If a non-number is given to be deleted or the number is not in the valid range.
+     */
     public void check(String input) throws MichaelException {
         if (input.length() < 8) { // no number given to delete
             throw new MichaelException(error);
@@ -44,6 +51,11 @@ public class DeleteCommand {
         tasks.delete(position);
     }
 
+    /**
+     * Returns the task deleted by the chatbot as feedback to the user.
+     *
+     * @return Confirmation of the deleted task.
+     */
     public String feedback() {
         return "Noted. I've removed this task:\n" + "  " + this.deletedTask + "\n"
                 + "Now you have " + tasks.size() + " tasks in the list.";

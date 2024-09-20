@@ -10,6 +10,11 @@ public class ListCommand {
         this.tasks = tasks;
     }
 
+    /**
+     * Lists all tasks that are being tracked by the chatbot.
+     *
+     * @return All tasks in the chatbot.
+     */
     public String feedback() {
         String list = "Here are the tasks in your list:\n";
 

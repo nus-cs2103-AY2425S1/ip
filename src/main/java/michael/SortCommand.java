@@ -10,10 +10,18 @@ public class SortCommand {
         this.tasks = tasks;
     }
 
+    /**
+     * Calls sort method in the TaskList class to sort the tasks accordingly.
+     */
     public void sort() {
         tasks.sort();
     }
 
+    /**
+     * Confirms that the tasks were sorted by the chatbot.
+     *
+     * @return Feedback to the user that tasks were sorted.
+     */
     public String feedback() {
         return "Tasks have been sorted.";
     }

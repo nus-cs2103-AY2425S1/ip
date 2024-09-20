@@ -20,6 +20,7 @@ public class Parser {
     /**
      * Parses user's input and carries out actions corresponding to their command.
      * If the command is invalid or used incorrectly, a  MichaelException is thrown.
+     * Saves the new state of the chatbot when needed.
      *
      * @param input User input to chatbot that needs to be processed.
      * @return Feedback to user on operation carried out.

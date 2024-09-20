@@ -41,6 +41,13 @@ public class Task implements Comparable<Task> {
         return this.taskName;
     }
 
+    /**
+     * Compares this task to another according to their alphabetical order.
+     *
+     * @param other the task to be compared.
+     * @return A negative integer if this task comes before the other alphabetically, 0 if equal,
+     * or a positive integer if this task follows the other alphabetically.
+     */
     @Override
     public int compareTo(Task other) {
         String myName = this.taskName;
