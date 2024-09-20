@@ -1,30 +1,23 @@
-# JEFF User Guide
+hi! my name
+# JEFF
+> rotted, my brain has become - Yoda probably idk
 
-// Update the title above to match the actual product name
+JEFF unclutters your brain from all the important tasks that you have to remember, so you can fill it with _useless memes_ instead. JEFF is
+- fast
+- reliable
+- always at your side
+- **ALWAYS** at your side
+  ~~beware the chatbot, for it hides in your walls.~~
 
-// Product screenshot goes here
+## JEFF features:
+- [x] Manage your tasks
+- [x] Manage your deadlines
+- [x] Manage your life (***COMING SOON***)
 
-// Product intro goes here
 
-## Adding deadlines
-
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
+To all my fellow Java Programmers, you can clone my [repo](https://github.com/shardhrv/ip) and run the bot for yourself by running the `main` function that looks like
 ```
-expected output
+public static void main(String[] args) {
+        new JEFF().run();
+}
 ```
-
-## Feature ABC
-
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
