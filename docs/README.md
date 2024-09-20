@@ -66,7 +66,9 @@ Task added
 8 tasks in list
 ```
 
-## Handling Duplicates
+## Features
+
+### 1. Handling Duplicates
 The Atreides chatbot has a special feature to ensure that no duplicate events get added. 
 
 For example, if there is a Event task, project meeting (from: Aug 6th 2pm to: 4pm) and another task with the same name, start and end time gets added, Atreides chatbot will prompt that it is a duplicate task.
@@ -77,3 +79,56 @@ Atreides chatbot will print the index and the duplicate task to the user.
 Same Task identified 
 8.[E][] project meeting (from Aug 2pm to 4pm)
 ```
+
+### 2. Finding a task
+
+The Atreides chatbot is able to find tasks and show the details of the task. 
+
+For example, if there is an event task "project meeting (from: Aug 6th 2pm to: 4pm)" and a todo task "prep for project meeting".
+If project meeting is searched, it will return the event task and todo task.
+
+`find project meeting`
+```
+Here are the matching tasks in your list:
+1.[E][] project meeting (from: Aug 6th 2pm to: 4pm)
+2.[T][] prep for project meeting
+```
+
+### 3. Marking/Unmarking a task
+
+You can use the Atreides chatbot to mark tasks that you have completed and unmark tasks that need further revision.
+You can mark the task using its 1-based index.
+
+For example, you have a todo task "read book"
+```
+1.[T][] read book
+```
+You can `mark 1` to mark the first task
+```
+Thank you, one task completed:
+[T][X] read book
+```
+The X indicates that the task has been completed. 
+
+Similarly, you can `unmark 1` to unmark the first task
+```
+Noted, this task has been unmarked
+[T][] read book
+```
+
+## Summary of commands
+| Command                                           | Description                                                                           |
+|---------------------------------------------------|---------------------------------------------------------------------------------------|
+| `todo <Name>`                                     | Add a todo task with the name of the task                                             |
+| `event <Name> /from <Start time> /to <End Time>`  | Add a event task with start and end times.                                            |
+| `deadline <Name> /from <Start time> /to <End Time>` | Add a event task with start and end times.                                            |
+| `list`                                            | Print the list of tasks with its index numbers and details                            |
+| `delete <index>`                                  | Delete a task using on its 1-based index                                              |
+| `mark <index>`                                    | Mark a task as completed using its 1-based index                                      |
+| `unmark <index>`                                  | Unmark a task as being incompleted using its 1-based index                            |
+| `bye`                                             | Command to exit the program                                                           |
+
+
+
+
+
