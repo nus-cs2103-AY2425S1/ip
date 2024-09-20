@@ -27,7 +27,7 @@ traditional GUI apps.
 ## Quick start
 
 1. Ensure you have Java `17` or above installed in your Computer.
-2. Download the lastest .jar from here.
+2. Download the latest .jar from here.
 3. Copy the file to the folder you want to use as the home folder for your Mummy
 4. Open a command terminal, `cd` into the folder you put the jar file in, and
    use the `java -jar mummy.jar` command to run the application. A GUI similar
@@ -39,7 +39,7 @@ traditional GUI apps.
     - `todo submit homework`: Adds a todo task with description `submit homework`
     - `delete 1`: Deletes the 1st task shown in the current list.
     - `bye`: Exits the app.
-6. Refer to the Features below for deatils for each command.
+6. Refer to the Features below for details for each command.
 
 ## Features
 
@@ -104,11 +104,11 @@ Reverses recent command executions.
 
 Format: `undo`
 
-### Redoing recently undone commands: `Redo`
+### Redoing recently undone commands: `redo`
 
 Reverses recently undone commands.
 
-Format: `undo`
+Format: `redo`
 
 ### Exiting the program: `bye`
 
