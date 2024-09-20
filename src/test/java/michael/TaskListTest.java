@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TaskListTest {
 
     @Test
-    public void Test1() {
+    public void SizeTest() {
         TaskList ls = new TaskList();
         ls.add(new ToDo("Test"));
         ls.add(new Deadline("Second Test", "2024-09-09"));
@@ -15,7 +15,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void Test2() {
+    public void GetTest() {
         TaskList ls = new TaskList();
         ls.add(new ToDo("Test"));
         ls.add(new Deadline("Second Test", "2024-09-09"));
@@ -23,7 +23,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void Test3() {
+    public void DeleteTest() {
         TaskList ls = new TaskList();
         ls.add(new Deadline("Second Test", "2024-09-09"));
         ls.add(new ToDo("Test"));
