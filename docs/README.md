@@ -64,6 +64,7 @@ Format:
 deadline <description> /by <date>
 ```
 Remember that the date must be in dd-mm-yyyy format or else it will throw an error
+
 Example:
 ```deadline submit homework /by 20-10-2024```
 
