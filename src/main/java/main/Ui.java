@@ -10,12 +10,6 @@ import task.Task;
 public class Ui {
 
     /**
-     * Constructs a {@code Ui} instance, initializing the message storage.
-     */
-    public Ui() {
-    }
-
-    /**
      * Displays a welcome message to the user.
      */
     public static String welcome() {
