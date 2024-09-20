@@ -5,10 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 import org.junit.jupiter.api.Test;
 
+import bot.exceptions.InvalidDatetimeException;
 import bot.exceptions.InvalidTaskDescriptionException;
 import bot.tasks.Deadline;
 
@@ -39,11 +39,11 @@ public class ParserTest {
 
     @Test
     public void parseDeadlineTask_invalidDate_exceptionThrown() {
-        DateTimeParseException e = assertThrows(
-                DateTimeParseException.class, () -> new Parser().parseDeadlineTask("return book /by 2024-99-99")
+        InvalidDatetimeException e = assertThrows(
+                InvalidDatetimeException.class, () -> new Parser().parseDeadlineTask("return book /by 2024-99-99")
         );
         assertEquals(
-                "Text '2024-99-99' could not be parsed: Invalid value for MonthOfYear (valid values 1 - 12): 99",
+                "'2024-99-99' is not a valid date/time",
                 e.getMessage()
         );
     }
