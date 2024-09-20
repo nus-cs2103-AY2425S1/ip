@@ -21,6 +21,7 @@ public class Todo extends Task {
 
     public Todo() {
         super();
+        setTaskType(TaskTypes.TODO);
     }
 
     @Override

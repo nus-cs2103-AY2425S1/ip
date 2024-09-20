@@ -105,4 +105,5 @@ public final class ReplyTextMessages {
     public static final String FIND_USAGE = "";
     public static final String ALIAS_ADDED_TEXT_2s = "Alias added! %s can now be executed with %s.";
     public static final String ALIAS_USAGE = "";
+    public static final String LAUNCHER_HELP_TEXT = "";
 }

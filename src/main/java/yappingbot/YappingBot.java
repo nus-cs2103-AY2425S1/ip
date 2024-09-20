@@ -56,7 +56,7 @@ public class YappingBot {
             ArrayList<String> s = storage.loadListFromFile();
             YappingBotExceptionList e = userList.generateFromRaw(s);
             e.checkExceptions();
-        } catch (YappingBotSaveFileNotFoundException e) {
+        } catch (YappingBotException e) {
             ui.printError(e);
         }
     }

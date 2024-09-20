@@ -1,14 +1,9 @@
 package yappingbot;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import yappingbot.commands.Parser;
 import yappingbot.commands.commands.LauncherCommand;
-import yappingbot.storage.Storage;
-import yappingbot.ui.UiCli;
-import yappingbot.ui.gui.MainGuiApplication;
 
 /**
  * A launcher class to workaround classpath issues.

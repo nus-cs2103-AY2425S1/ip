@@ -26,18 +26,29 @@ class UiCliTest {
 
     @Test
     void testPrint() throws IOException {
-        final String expected = " |  test 1\n"
-                                + "\n"
-                                + " |\n"
-                                + "\n"
-                                + " |  multiline\n"
-                                + " |  Allowed\n"
-                                + "\n";
+        final String expected =
+                " |  test 1\n"
+                + "\n"
+                + " |\n"
+                + "\n"
+                + " |  multiline\n"
+                + " |  Allowed\n"
+                + "\n"
+                + " |  This is a very very very very longggggg line lakdjjadkjldkjsaldkjdklasjd\n"
+                + " |  lkdjalksdjalkdjalkdjalkdjadkljadlkajdklajdlkajdalkdjsldjldjaldkjadlkajdl\n"
+                + " |  kajd Random space here laksjdalkdjalkdjalkdjaldkjalkdjadlkjadlkajdlkasjd\n"
+                + " |  lasjdjalkdjalskdjaslkdjasldjas\n";
+
         TestHelper h = new TestHelper();
         h.captureStdOut();
         ui.print("test 1");
         ui.print("");
         ui.print("multiline\nAllowed");
+        ui.print("This is a very very very very longggggg line "
+                 + "lakdjjadkjldkjsaldkjdklasjdlkdjalksdjalkdjalkdjalkdjadkljadlkajdklajdlkajdalkd"
+                 + "jsldjldjaldkjadlkajdlkajd "
+                 + "Random space here laksjdalkdjalkdjalkdjaldkjalkdjadlkjadlkajdlkasjdlasj"
+                 + "djalkdjalskdjaslkdjasldjas");
         h.stopCapture();
         assertEquals(expected, h.toString());
     }

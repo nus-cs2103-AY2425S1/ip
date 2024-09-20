@@ -34,6 +34,7 @@ do
   true
 done
 
+../gradlew shadowjar
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
 java -jar ../build/libs/yappingbot.jar -c -s ./savefile < input.txt > ACTUAL.TXT
 

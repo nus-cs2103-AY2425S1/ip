@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.Spliterator;
 import java.util.function.Consumer;
 
+import yappingbot.commands.Parser;
 import yappingbot.exceptions.YappingBotException;
 import yappingbot.exceptions.YappingBotExceptionList;
 import yappingbot.exceptions.YappingBotOobException;
@@ -83,9 +84,10 @@ public class TaskList implements Iterable<Task> {
      * @throws YappingBotOobException Exception if index provided is out of bounds.
      */
     public Task deleteTask(int index) throws YappingBotOobException {
-        assert tasks != null;
-        assert index < size;
         assert tasks.size() == size;
+        if (index >= size) {
+            throw new YappingBotOobException(ReplyTextMessages.SELECT_TASK_MISSING_TEXT_1d, index);
+        }
 
         Task t = get(index);
         tasks.remove(index);

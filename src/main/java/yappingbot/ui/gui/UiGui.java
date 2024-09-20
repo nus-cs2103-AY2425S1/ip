@@ -12,9 +12,9 @@ import yappingbot.ui.Ui;
  */
 public class UiGui implements Ui {
 
-    final ArrayDeque<String> inputBuffer = new ArrayDeque<>();
-    final ArrayDeque<String> outputBuffer = new ArrayDeque<>();
-    private boolean streamsClosed = false; // When programme ends, this will be set true.
+    private volatile ArrayDeque<String> inputBuffer = new ArrayDeque<>();
+    private volatile ArrayDeque<String> outputBuffer = new ArrayDeque<>();
+    private volatile boolean streamsClosed = false; // When programme ends, this will be set true.
 
     // OUTPUT methods
 
@@ -50,14 +50,16 @@ public class UiGui implements Ui {
 
     @Override
     public boolean hasOutputLines() {
-        // busywait until there is output to be shown to the user
-        while (outputBuffer.isEmpty()) {
-            Thread.onSpinWait();
+        // busywait until there is input from user to be processed
+        while (true) {
             if (streamsClosed) {
                 return false;
             }
+            Thread.onSpinWait();
+            if (!outputBuffer.isEmpty()) {
+                return true;
+            }
         }
-        return true;
     }
 
     @Override
@@ -86,13 +88,15 @@ public class UiGui implements Ui {
     @Override
     public boolean hasInputLines() {
         // busywait until there is input from user to be processed
-        while (inputBuffer.isEmpty()) {
-            Thread.onSpinWait();
+        while (true) {
             if (streamsClosed) {
                 return false;
             }
+            Thread.onSpinWait();
+            if (!inputBuffer.isEmpty()) {
+                return true;
+            }
         }
-        return true;
     }
 
     @Override

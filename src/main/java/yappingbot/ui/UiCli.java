@@ -12,6 +12,7 @@ import yappingbot.exceptions.YappingBotIoException;
 public class UiCli implements Ui {
     private static final String PREFIX = " |  ";
     private static final String PREFIX_EMPTY = " |";
+    private static final int MAX_STRING_LENGTH = 72;
     private final Scanner scanner;
 
     public UiCli() {
@@ -99,26 +100,35 @@ public class UiCli implements Ui {
     private String quoteSinglelineText(String line) {
         if (line == null || line.trim().isEmpty()) {
             return PREFIX_EMPTY + "\n";
+        } else if (line.length() >= MAX_STRING_LENGTH) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(PREFIX);
+            int p = 0;
+            int nextBoundary = 0;
+            while (p < line.length()) {
+                nextBoundary = line.indexOf(' ', p + 1);
+                if (nextBoundary < 0) {
+                    nextBoundary = line.length();
+                }
+
+                if ((p % MAX_STRING_LENGTH) + (nextBoundary - p) > MAX_STRING_LENGTH) {
+                    nextBoundary = p + (MAX_STRING_LENGTH - (p % MAX_STRING_LENGTH));
+                }
+
+                if (nextBoundary < p) {
+                    break;
+                }
+
+                sb.append(line, p, nextBoundary);
+                p = nextBoundary;
+                if (p % MAX_STRING_LENGTH == 0) {
+                    sb.append("\n").append(PREFIX);
+                }
+            }
+            return sb.toString();
         } else {
             return PREFIX + line.replaceAll("\n", "") + "\n";
         }
-    }
-
-    /**
-     * Decorates the given string, to denote that it is the bot's output.
-     * This accepts a StringBuilder for efficiently dealing with multiple lines.
-     *
-     * @param line String to be decorated.
-     * @param sb StringBuilder that the decorated line will be appended to.
-     */
-    private void quoteSinglelineText(String line, StringBuilder sb) {
-        if (line.trim().isEmpty()) {
-            sb.append(PREFIX_EMPTY);
-        } else {
-            sb.append(PREFIX);
-            sb.append(line.replaceAll("\n", ""));
-        }
-        sb.append("\n");
     }
 
     /**
@@ -136,7 +146,7 @@ public class UiCli implements Ui {
         String[] lines = text.split("\n");
         StringBuilder sb = new StringBuilder();
         for (String l : lines) {
-            quoteSinglelineText(l, sb);
+            sb.append(quoteSinglelineText(l));
         }
         return sb.toString();
     }
