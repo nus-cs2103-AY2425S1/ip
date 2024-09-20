@@ -1,24 +1,117 @@
-# Duke project template
+# ThatOneGuy User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+ThatOneGuy is a task management application that seems to absolutely hate its job.
 
-## Setting up in Intellij
+Nevertheless, it will still help keep track of tasks, so you don't have to.
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+![ThatOneGuyUI](./docs/Ui.png)
+The app in use
+
+## Adding tasks
+
+Three task types are supported by ThatOneGuy:
+* Todos have a description attached.
+* Deadlines have a due date in addition to a description.
+* Events have two dates, each depicting the start and end of the event, as well as a description.
+
+To add a todo, use `todo <task description>`
+
+To add a deadline, use `deadline <task description> /by <due date>`
+
+To add an event, use `event <task description> /from <start date> /to <end date>`
+
+Note that dates are formatted as YYYY-MM-DD hh:mm (eg. 2024-10-20 12:30)
+
+Example 1: `todo break something` outputs:
+```
+Fine. Added this lousy task:
+[T] [ ] break something
+That's 1 tasks for your ass to handle.
+```
+
+Example 2: `deadline whack table /by 2024-09-01 12:00` outputs:
+```
+Fine. Added this lousy task:
+[D] [ ] whack table (by: 2024-09-01 12:00)
+That's 2 tasks for your ass to handle.
+```
+
+Example 3: `event malding /from 2024-09-02 11:00 /to 2024-09-04 19:00` outputs:
+```
+Fine. Added this lousy task:
+[E] [ ] malding (from: 2024-09-02 11:00 to: 2024-09-04 19:00)
+That's 3 tasks for your ass to handle.
+```
+
+## Listing tasks
+
+Bring up a list of your current tasks using `list`.
+
+This is the output in this case:
+```
+Here are your damned tasks. Complete them or something.
+1. [T] [ ] break something
+2. [D] [ ] whack table (by: 2024-09-01 12:00)
+3. [E] [ ] malding (from: 2024-09-02 11:00 to: 2024-09-04 19:00)
+```
+
+## Marking tasks as complete/incomplete
+ ThatOneGuy supports marking tasks as complete/incomplete. It even alerts you if a task was already marked as complete/incomplete.
+ 
+To mark a task as complete, use `mark <task number>`.
+
+To instead mark a task as complete, use `unmark <task number>`.
+
+Example 1: `mark 2` (first run)
+```
+Eh. Consider this task done:
+[D] [X] whack table (by: 2024-09-01 12:00)
+```
+
+Example 2: `mark 2` (second run)
+```
+You dingus. This task was already done:
+[D] [X] whack table (by: 2024-09-01 12:00)
+```
+
+Example 3: `unmark 2`
+```
+Sucks to be you. Looks like you haven't done this task:
+[D] [ ] whack table (by: 2024-09-01 12:00)
+```
+
+## Finding tasks
+
+The `find` command can be used to search for tasks containing a particular keyword.
+
+Use it like this:
+
+`find <keyword>`
+
+Example: `find whack`
+```
+These are your damned tasks, that actually match the keywords:
+1. [D] [ ] whack table (by: 2024-09-01 12:00)
+```
+
+## Deleting tasks
+
+Tasks can be deleted in ThatOneGuy using `delete <task number>`.
+Example: `delete 1`
+```
+There goes this dumb task:
+[T] [ ] break something
+Your ass still needs to handle 2 more tasks.
+```
+
+## Built-in help command
+
+Not sure how a command works? Use `help`.
+
+You can choose to append the name of a command to `help`, as in `help <command>`,
+to get a short description of the command and its syntax.
+
+But if you simply type `help`, the application will show the syntax for every command.
+
+## And of course, type `bye` to exit ThatOneGuy.
