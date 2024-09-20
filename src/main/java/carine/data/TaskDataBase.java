@@ -75,10 +75,6 @@ public class TaskDataBase {
         default:
             throw new IllegalStateException("Unexpected task type");
         }
-
-        if (!parts[1].equals("1") || !parts[1].equals("1")) {
-            throw new IllegalStateException("Unexpected format for mark task");
-        }
         if (parts[1].equals("1")) {
             task.markAsDone();
         }
