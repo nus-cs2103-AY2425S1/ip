@@ -32,6 +32,7 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute() {
+        assert tasks != null : "Task list should not be null";
         if (userInput.length() < 6) {
             return "Please enter what you want to find"
                     + "\n" + "For example: find tutorial";
@@ -41,6 +42,7 @@ public class FindCommand extends Command {
         String output = "";
         int counter = 1;
         for (Task task : tasks) {
+            assert task != null : "Task should not be null";
             if (task.getTaskName().contains(temp)) {
                 output += counter + ". " + task + "\n";
                 counter++;

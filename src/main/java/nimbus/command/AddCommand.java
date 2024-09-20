@@ -49,6 +49,7 @@ public class AddCommand extends Command {
      */
     @Override
     public String execute() {
+        assert tasks != null : "task list should not be null";
         if (!taskDescription.startsWith("todo")
                 && !taskDescription.startsWith("deadline")
                 && !taskDescription.startsWith("event")) {
