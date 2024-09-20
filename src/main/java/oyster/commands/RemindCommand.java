@@ -18,30 +18,51 @@ public class RemindCommand extends Command {
      */
     @Override
     public void execute() {
-        TaskList taskList = LogicController.getTaskList();
-
         StringBuilder builder = new StringBuilder();
 
         // Find ongoing events first
-        ArrayList<Task> ongoingEvents = taskList.filter(
-            task -> task instanceof EventTask castedTask
-                && !task.isMarked()
-                && castedTask.hasStarted()
-                && !castedTask.isDue());
-
-        if (ongoingEvents.isEmpty()) {
-            builder.append("You have no ongoing events.").append("\n");
-        } else {
-            builder.append(ongoingEvents.size()).append(" ongoing events:").append("\n");
-        }
-        for (Task task : ongoingEvents) {
-            builder.append("• ").append(task).append("\n");
-        }
+        buildTasksIntoStrings(getTasksOverdue(), builder, "You have no ongoing events.", "ongoing events:");
 
         builder.append("\n");
 
         // Find overdue tasks next
-        ArrayList<Task> overdueTasks = taskList.filter(
+        buildTasksIntoStrings(getTasksOverdue(), builder, "You have none overdue, well done!.", "overdue items:");
+
+        builder.append("\n");
+
+        // Find soon due tasks next
+        buildTasksIntoStrings(getTasksDueSoon(), builder, "You have none due soon, well done!", "tasks due soon:");
+
+        // Display message
+        setMessage(builder.toString().trim());
+    }
+
+    private void buildTasksIntoStrings(
+        ArrayList<Task> tasks, StringBuilder builder, String emptyMessage, String notEmptyMessage) {
+        if (tasks.isEmpty()) {
+            builder.append(emptyMessage).append("\n");
+        } else {
+            builder.append(tasks.size()).append(" ").append(notEmptyMessage).append("\n");
+        }
+        for (Task task : tasks) {
+            builder.append("• ").append(task).append("\n");
+        }
+    }
+
+    private ArrayList<Task> getOngoingEvents() {
+        TaskList taskList = LogicController.getTaskList();
+
+        return taskList.filter(
+            task -> task instanceof EventTask castedTask
+                && !task.isMarked()
+                && castedTask.hasStarted()
+                && !castedTask.isDue());
+    }
+
+    private ArrayList<Task> getTasksOverdue() {
+        TaskList taskList = LogicController.getTaskList();
+
+        return taskList.filter(
             task -> {
                 if (task instanceof DeadlineTask || task instanceof EventTask) {
                     if (!task.isMarked()) {
@@ -51,20 +72,12 @@ public class RemindCommand extends Command {
                 }
                 return false;
             });
+    }
 
-        if (overdueTasks.isEmpty()) {
-            builder.append("You have none overdue, well done!.").append("\n");
-        } else {
-            builder.append(overdueTasks.size()).append(" overdue items:").append("\n");
-        }
-        for (Task task : overdueTasks) {
-            builder.append("• ").append(task).append("\n");
-        }
+    private ArrayList<Task> getTasksDueSoon() {
+        TaskList taskList = LogicController.getTaskList();
 
-        builder.append("\n");
-
-        // Find soon due tasks next
-        ArrayList<Task> dueSoonTasks = taskList.filter(
+        return taskList.filter(
             task -> {
                 if (task instanceof DeadlineTask castedTask) {
                     return !task.isMarked() && !castedTask.isDue();
@@ -75,17 +88,5 @@ public class RemindCommand extends Command {
                 }
                 return false;
             });
-
-        if (dueSoonTasks.isEmpty()) {
-            builder.append("You have none due soon, well done!").append("\n");
-        } else {
-            builder.append(dueSoonTasks.size()).append(" tasks due soon:").append("\n");
-        }
-        for (Task task : dueSoonTasks) {
-            builder.append("• ").append(task).append("\n");
-        }
-
-        // Display message
-        setMessage(builder.toString().trim());
     }
 }

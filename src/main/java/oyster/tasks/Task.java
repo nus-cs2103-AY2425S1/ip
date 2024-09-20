@@ -8,9 +8,9 @@ public abstract class Task {
     private String description;
 
     /**
-     * Create a Task given its values.
+     * Creates a Task given its values.
      *
-     * @param description Create a Task given a description.
+     * @param description Description of the Task.
      */
     public Task(String description) {
         assert description != null;

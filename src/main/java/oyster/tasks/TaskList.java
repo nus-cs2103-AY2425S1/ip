@@ -90,9 +90,9 @@ public class TaskList {
     }
 
     /**
-     * A copy of the ArrayList used to hold all the Tasks.
+     * Copies and returns the ArrayList used to hold all the Tasks.
      *
-     * @return A copy of the ArrayList used to hold all the Tasks.
+     * @return Copy of ArrayList used to hold all the Tasks.
      */
     public ArrayList<Task> getItems() {
         @SuppressWarnings("unchecked")
@@ -102,10 +102,10 @@ public class TaskList {
 
 
     /**
-     * A copy of the ArrayList filtered according to a predicate.
+     * Copies and returns the ArrayList filtered according to a predicate.
      *
      * @param predicate Filtering function that takes in a Task and returns a boolean
-     * @return A copy of the ArrayList after filtering.
+     * @return Copy of ArrayList after filtering.
      */
     public ArrayList<Task> filter(Predicate<Task> predicate) {
         @SuppressWarnings("unchecked")
