@@ -6,12 +6,18 @@ package chatsy.exceptions;
 public class EmptyDescriptionException extends ChatsyException {
 
     /**
-     * Returns a string representation of the error message indicating an empty description.
-     *
-     * @return The error message as a string.
+     * Constructs an {@code EmptyDescriptionException} with a default error message.
      */
-    @Override
-    public String toString() {
-        return "The description cannot be empty.";
+    public EmptyDescriptionException() {
+        super("The description cannot be empty.");
+    }
+
+    /**
+     * Constructs an {@code EmptyDescriptionException} with a custom error message.
+     *
+     * @param message The custom error message.
+     */
+    public EmptyDescriptionException(String message) {
+        super(message);
     }
 }

@@ -82,7 +82,7 @@ public class TaskManager {
      * @return The list of tasks.
      */
     public List<Task> getTasks() {
-        return new ArrayList<>(tasks);  // Return a copy to preserve encapsulation
+        return new ArrayList<>(tasks);
     }
 
     /**

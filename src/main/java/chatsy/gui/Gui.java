@@ -19,10 +19,10 @@ import javafx.util.Duration;
 public class Gui {
 
     /** The image representing the user in the chat dialog. */
-    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.jpg"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.jpg"));
 
     /** The image representing Chatsy in the chat dialog. */
-    private final Image chatsyImage = new Image(this.getClass().getResourceAsStream("/images/Chatsy.jpg"));
+    private Image chatsyImage = new Image(this.getClass().getResourceAsStream("/images/Chatsy.jpg"));
 
     @FXML
     private ScrollPane chatHistoryScrollPane;
@@ -95,15 +95,19 @@ public class Gui {
         addUserDialog(input);
 
         try {
+            // Get the response from Chatsy by executing the parsed command
             String response = chatsy.handleCommand(input);
             addChatsyDialog(response, false);
 
+            // Clear the input after processing
             userInput.clear();
 
+            // If the command should cause the application to exit, handle the exit process
             if (chatsy.getParser().parse(input).shouldExit()) {
                 handleExit();
             }
         } catch (ChatsyException e) {
+            // Display the error message from the exception in the chat
             addChatsyDialog(e.getMessage(), true);
         }
     }
@@ -112,6 +116,7 @@ public class Gui {
      * Handles the exit process by saving tasks and closing the window after a brief pause.
      */
     private void handleExit() {
+        // Save tasks and close the window with a 1-second delay
         chatsy.exit();
 
         PauseTransition pause = new PauseTransition(Duration.seconds(1));

@@ -44,13 +44,14 @@ test {
 }
 
 application {
-    mainClass.set("chatsy.Chat")
+    mainClass.set("chatsy.Launcher")
 }
 
 shadowJar {
     archiveBaseName = "chatsy"
     archiveClassifier = null
-    archiveVersion = "v0.1"
+    archiveFileName = 'chatsy.jar'
+    archiveVersion = "0.2"
 }
 
 run{

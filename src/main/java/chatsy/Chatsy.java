@@ -1,8 +1,8 @@
 package chatsy;
 
 import chatsy.exceptions.ChatsyException;
-import chatsy.exceptions.LocalFileException;
 import chatsy.exceptions.InvalidTaskStringException;
+import chatsy.exceptions.LocalFileException;
 import chatsy.parser.Parser;
 
 /**

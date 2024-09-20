@@ -1,9 +1,20 @@
 package chatsy.parser;
 
-import chatsy.commands.*;
+import chatsy.TaskManager;
+import chatsy.commands.ByeCommand;
+import chatsy.commands.Command;
+import chatsy.commands.DeadlineCommand;
+import chatsy.commands.DeleteCommand;
+import chatsy.commands.EventCommand;
+import chatsy.commands.FindCommand;
+import chatsy.commands.ListCommand;
+import chatsy.commands.MarkCommand;
+import chatsy.commands.SortCommand;
+import chatsy.commands.TodoCommand;
+import chatsy.commands.UnknownCommand;
+import chatsy.commands.UnmarkCommand;
 import chatsy.exceptions.ChatsyException;
 import chatsy.exceptions.InvalidCommandException;
-import chatsy.TaskManager;
 
 /**
  * Parses user input and delegates execution to the appropriate command.

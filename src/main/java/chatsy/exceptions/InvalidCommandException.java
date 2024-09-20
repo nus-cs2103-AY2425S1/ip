@@ -6,12 +6,18 @@ package chatsy.exceptions;
 public class InvalidCommandException extends ChatsyException {
 
     /**
-     * Returns a string representation of the error message indicating an invalid command.
-     *
-     * @return The error message as a string.
+     * Constructs an {@code InvalidCommandException} with a default error message.
      */
-    @Override
-    public String toString() {
-        return "I'm sorry, but I don't know what that means :-(";
+    public InvalidCommandException() {
+        super("I'm sorry, but I don't know what that means :-(");
+    }
+
+    /**
+     * Constructs an {@code InvalidCommandException} with a custom error message.
+     *
+     * @param message The custom error message.
+     */
+    public InvalidCommandException(String message) {
+        super(message);
     }
 }

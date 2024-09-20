@@ -6,12 +6,9 @@ package chatsy.exceptions;
 public class InvalidTaskStringException extends ChatsyException {
 
     /**
-     * Returns a string representation of the error message indicating an invalid task string format.
-     *
-     * @return The error message as a string.
+     * Constructs an {@code InvalidTaskStringException} with a default error message.
      */
-    @Override
-    public String toString() {
-        return "The task data is in an invalid format.";
+    public InvalidTaskStringException() {
+        super("The task data is in an invalid format.");
     }
 }

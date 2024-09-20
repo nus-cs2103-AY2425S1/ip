@@ -8,11 +8,13 @@ import chatsy.exceptions.InvalidTaskStringException;
 
 /**
  * Represents an abstract command that can be executed.
+ * Commands modify the state of the {@link TaskManager} and may throw various exceptions
+ * depending on the command's validity and the state of the tasks.
  */
 public abstract class Command {
 
     /**
-     * Executes the command with the given task manager.
+     * Executes the command with the given {@link TaskManager}.
      *
      * @param taskManager The task manager to be modified by the command.
      * @return A string response after executing the command.

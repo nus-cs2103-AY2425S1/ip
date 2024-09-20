@@ -6,12 +6,18 @@ package chatsy.exceptions;
 public class InvalidTaskIndexException extends ChatsyException {
 
     /**
-     * Returns a string representation of the error message indicating an invalid task index.
-     *
-     * @return The error message as a string.
+     * Constructs an {@code InvalidTaskIndexException} with a default error message.
      */
-    @Override
-    public String toString() {
-        return "Oops, invalid index provided.\n";
+    public InvalidTaskIndexException() {
+        super("Oops, invalid index provided.");
+    }
+
+    /**
+     * Constructs an {@code InvalidTaskIndexException} with a custom error message.
+     *
+     * @param message The custom error message.
+     */
+    public InvalidTaskIndexException(String message) {
+        super(message);
     }
 }
