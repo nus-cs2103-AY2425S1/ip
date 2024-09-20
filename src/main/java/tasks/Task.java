@@ -38,16 +38,6 @@ public abstract class Task {
     }
 
     /**
-     * returns a string to be displayed when task is successfully marked as done
-     *
-     * @return A string to show that task is marked as done
-     */
-    public String markedNotification() {
-        return "Nice! I've marked this task as done:\n"
-                + this.displayTask();
-    }
-
-    /**
      * Marks the task as undone
      */
     public void markAsUndone() {

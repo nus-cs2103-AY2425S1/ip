@@ -11,7 +11,7 @@ public class Parser {
     //private Kira kira;
     private List list;
     public enum CommandType {
-        LIST, FIND, MARK, UNMARK, DELETE, BYE, EVENT, DEADLINE, TODO, PRIORITISE, UNPRIORITISE;
+        LIST, FIND, MARK, UNMARK, DELETE, BYE, EVENT, DEADLINE, TODO, PRIORITISE, UNPRIORITISE
         }
     public Parser(List list) {
         //this.kira = kira;
