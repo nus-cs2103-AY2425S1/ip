@@ -12,7 +12,7 @@ import task.Tasklist;
 import task.Todo;
 
 /**
- * Class to manage user inputs
+ * Class to manage user inputs.
  */
 public class Ui {
     /**
