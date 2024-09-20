@@ -21,7 +21,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Converts a string (in a specified format) to a date object.
+     * Converts a String (in a specified format) to a date object.
      *
      * @param dateString The string representation of the date.
      * @return The date representation of the given string.
