@@ -61,7 +61,7 @@ following command:
 For example if the user had inputted the following command: 
 
 > event task /from 2024-12-05 1800 /to 2024-12-06 1800
-> 
+
 The chatbot will provide the following response if it has successfully added the task to the task list.
 
 > Got it. I've added this task:
