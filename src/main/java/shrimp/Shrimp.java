@@ -96,30 +96,19 @@ public class Shrimp {
             userInput = userInput.trim();
 
             CommandType commandType = Parser.parseCommand(userInput);
-            switch (commandType) {
-            case BYE: //exits the program
-                return fetchExit();
-            case LIST:
-                return fetchList();
-            case MARK:
-                return fetchMark(userInput, commandType, true);
-            case UNMARK:
-                return fetchMark(userInput, commandType, false);
-            case DELETE:
-                return fetchDelete(userInput, commandType);
-            case ADD:
-                return fetchAdd(userInput, commandType);
-            case DEADLINE:
-                return fetchDeadline(userInput, commandType);
-            case EVENT:
-                return fetchEvent(userInput, commandType);
-            case CLEAR:
-                return fetchClear();
-            case FIND:
-                return fetchFind(userInput, commandType);
-            default:
-                throw new ShrimpException.InvalidCommandException();
-            }
+            return switch (commandType) {
+            case BYE -> fetchExit();
+            case LIST -> fetchList();
+            case MARK -> fetchMark(userInput, commandType, true);
+            case UNMARK -> fetchMark(userInput, commandType, false);
+            case DELETE -> fetchDelete(userInput, commandType);
+            case ADD -> fetchAdd(userInput, commandType);
+            case DEADLINE -> fetchDeadline(userInput, commandType);
+            case EVENT -> fetchEvent(userInput, commandType);
+            case CLEAR -> fetchClear();
+            case FIND -> fetchFind(userInput, commandType);
+            default -> throw new ShrimpException.InvalidCommandException();
+            };
         } catch (ShrimpException e) {
             return ui.printError(e.getMessage() + String.format(" (%s)", e.getErrorCode()));
         } catch (Exception e) {
@@ -130,12 +119,13 @@ public class Shrimp {
     /**
      * Handles the "find" command by searching for tasks that match the given keyword.
      *
-     * @param userInput the user's input containing the find command.
+     * @param userInput   the user's input containing the find command.
      * @param commandType the type of command being processed.
      * @return the result of the find operation.
      * @throws ShrimpException.MissingArgumentException if the keyword is missing.
      */
-    private static String fetchFind(String userInput, CommandType commandType) throws ShrimpException.MissingArgumentException {
+    private static String fetchFind(String userInput, CommandType commandType)
+            throws ShrimpException.MissingArgumentException {
         if (userInput.length() <= 5) {
             throw new ShrimpException.MissingArgumentException(commandType);
         }
@@ -157,7 +147,7 @@ public class Shrimp {
     /**
      * Adds an event task with a description and time range to the task list.
      *
-     * @param userInput the user's input containing the event command.
+     * @param userInput   the user's input containing the event command.
      * @param commandType the type of command being processed.
      * @return the result of the event addition.
      * @throws ShrimpException if the input format is incorrect or the time range is invalid.
@@ -181,7 +171,7 @@ public class Shrimp {
     /**
      * Adds a deadline task with a description and due date to the task list.
      *
-     * @param userInput the user's input containing the deadline command.
+     * @param userInput   the user's input containing the deadline command.
      * @param commandType the type of command being processed.
      * @return the result of the deadline addition.
      * @throws ShrimpException if the input format is incorrect.
@@ -201,7 +191,7 @@ public class Shrimp {
     /**
      * Adds a to-do task to the task list.
      *
-     * @param userInput the user's input containing the add command.
+     * @param userInput   the user's input containing the add command.
      * @param commandType the type of command being processed.
      * @return the result of the to-do addition.
      * @throws ShrimpException if the input format is incorrect or contains invalid characters.
@@ -220,7 +210,7 @@ public class Shrimp {
     /**
      * Deletes a task from the task list based on its index.
      *
-     * @param userInput the user's input containing the delete command.
+     * @param userInput   the user's input containing the delete command.
      * @param commandType the type of command being processed.
      * @return the result of the delete operation.
      * @throws ShrimpException if the task number is invalid or out of bounds.
@@ -239,9 +229,9 @@ public class Shrimp {
     /**
      * Marks or unmarks a task in the task list as done/undone.
      *
-     * @param userInput the user's input containing the mark/unmark command.
+     * @param userInput   the user's input containing the mark/unmark command.
      * @param commandType the type of command being processed.
-     * @param toMark {@code true} if the task is to be marked as done, {@code false} if to unmark.
+     * @param toMark      {@code true} if the task is to be marked as done, {@code false} if to unmark.
      * @return the result of the mark/unmark operation.
      * @throws ShrimpException if the task number is invalid or out of bounds.
      */
@@ -291,7 +281,7 @@ public class Shrimp {
      * Extracts the task number from the user input for MARK, UNMARK, or DELETE commands.
      *
      * @param userInput the user's input containing the command and task number.
-     * @param type the type of command being processed.
+     * @param type      the type of command being processed.
      * @return the task number (zero-based index).
      * @throws ShrimpException if the task number is missing or not a valid integer.
      */
