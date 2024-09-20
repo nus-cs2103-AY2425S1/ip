@@ -52,7 +52,7 @@ public class HelpCommand extends Command {
     public String execute(String userInput, Storage storage, Ui ui, TaskList tasks) {
         String[] cmd = userInput.split(" ");
         if (cmd.length == 1) {
-            return OVERALL_HELP_MSG + BYE_MSG + DELETE_MSG + DELETE_MSG + EVENT_MSG + FIND_MSG + HELP_MSG
+            return OVERALL_HELP_MSG + BYE_MSG + DEADLINE_MSG + DELETE_MSG + EVENT_MSG + FIND_MSG + HELP_MSG
                     + LIST_MSG + MARK_MSG + TODO_MSG + UNMARK_MSG;
         } else {
             switch (cmd[1]) {
