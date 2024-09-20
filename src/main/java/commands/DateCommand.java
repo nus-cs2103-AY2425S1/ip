@@ -2,10 +2,10 @@ package commands;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import exceptions.EmptyDescriptionException;
-import exceptions.TooManyParametersException;
 import tasks.Task;
 import windebot.History;
 import windebot.Reminder;
@@ -27,28 +27,35 @@ public class DateCommand extends Command {
      * @param history The History object used to save the data
      * @return true if the command was executed successfully.
      * @throws EmptyDescriptionException If no date is provided in the input.
-     * @throws TooManyParametersException If too many parameters are provided in the input.
+     * @throws DateTimeParseException If date is not correct.
      */
     public boolean execute(String input, Reminder reminder, Ui ui, History history)
-            throws EmptyDescriptionException, TooManyParametersException {
-        String[] command = input.split(" ");
-        assert(command.length == 2);
-        if (command.length == 2) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            LocalDate date = LocalDate.parse(command[1], formatter);
-            ui.print("These are the tasks you have for " + date.toString());
-            ArrayList<Task> tasksOnDate = reminder.getTasksOnDate(date);
-            if (tasksOnDate != null) {
-                for (Task task : tasksOnDate) {
-                    ui.print(task.toString());
+            throws EmptyDescriptionException {
+        try {
+            String[] command = input.split(" ", 2);
+            if (command.length < 2) {
+                throw new EmptyDescriptionException();
+            }
+            String search = command[1].trim();
+            if (!(search.equals(""))) {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                LocalDate date = LocalDate.parse(command[1], formatter);
+                ui.print("These are the tasks you have for " + date.toString());
+                ArrayList<Task> tasksOnDate = reminder.getTasksOnDate(date);
+                if (tasksOnDate != null) {
+                    for (Task task : tasksOnDate) {
+                        ui.print(task.toString());
+                    }
+                } else {
+                    ui.print("Hurray! No tasks on: " + date.toString());
                 }
             } else {
-                ui.print("Hurray! No tasks on: " + date.toString());
+                throw new EmptyDescriptionException();
             }
-        } else if (command.length < 2) {
-            throw new EmptyDescriptionException("I NEED TO KNOW THE DATE!");
-        } else {
-            throw new TooManyParametersException("ONE AT A TIME!");
+        } catch (DateTimeParseException e) {
+            ui.invalidDateFormatMessage();
+        } catch (EmptyDescriptionException e) {
+            ui.emptyDescriptionMessage();
         }
         return true;
     }

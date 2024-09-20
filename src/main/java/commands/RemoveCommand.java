@@ -1,6 +1,7 @@
 package commands;
 
 import exceptions.EmptyDescriptionException;
+import exceptions.IndexOutBoundsException;
 import exceptions.TooManyParametersException;
 import tasks.Task;
 import windebot.History;
@@ -28,18 +29,25 @@ public class RemoveCommand extends Command {
      */
     public boolean execute(String input, Reminder reminder, Ui ui, History history)
             throws EmptyDescriptionException, TooManyParametersException {
-        String[] command = input.split(" ");
-        assert(command.length == 2);
-        if (command.length == 2) {
-            Task deleted = reminder.remove(Integer.parseInt(command[1]) - 1);
-            ui.print("Noted. I've removed this task:");
-            ui.print("    " + deleted.toString());
-            ui.print("Now you have " + reminder.size() + " tasks in the list.");
-            history.save(reminder.getSchedule());
-        } else if (command.length < 2) {
-            throw new EmptyDescriptionException("I NEED TO KNOW WHAT I'M DELETING!");
-        } else {
-            throw new TooManyParametersException("ONE AT A TIME!");
+        try {
+            String[] command = input.split(" ", 2);
+            if (command.length < 2) {
+                throw new EmptyDescriptionException();
+            }
+            String search = command[1].trim();
+            if (!(search.equals(""))) {
+                Task deleted = reminder.remove(Integer.parseInt(command[1]) - 1);
+                ui.print("Noted. I've removed this task:");
+                ui.print("    " + deleted.toString());
+                ui.print("Now you have " + reminder.size() + " tasks in the list.");
+                history.save(reminder.getSchedule());
+            } else {
+                throw new EmptyDescriptionException();
+            }
+        } catch (EmptyDescriptionException e) {
+            ui.emptyDescriptionMessage();
+        } catch (IndexOutBoundsException e) {
+            ui.indexOutBoundsMessage();
         }
         return true;
     }

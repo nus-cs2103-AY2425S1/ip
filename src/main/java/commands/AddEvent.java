@@ -6,6 +6,7 @@ import java.time.format.DateTimeParseException;
 
 import exceptions.EmptyDescriptionException;
 import exceptions.InvalidDateFormatException;
+import exceptions.TooManyParametersException;
 import tasks.Event;
 import windebot.History;
 import windebot.Reminder;
@@ -27,11 +28,11 @@ public class AddEvent extends Command {
      * @param ui The Ui object used to interact with the user.
      * @param history The History object used to save the data
      * @return true if the command was executed successfully.
-     * @throws EmptyDescriptionException If the input is incomplete or incorrectly formatted.
+     * @throws InvalidDateFormatException If the input date is incorrectly formatted.
      */
 
     public boolean execute(String input, Reminder reminder, Ui ui, History history)
-            throws EmptyDescriptionException, InvalidDateFormatException {
+            throws EmptyDescriptionException, InvalidDateFormatException, TooManyParametersException {
         String[] command = input.split(" ", 2);
         String[] order = command[1].split(" /from | /to ");
         String taskDescription = order[0].trim();
@@ -46,13 +47,19 @@ public class AddEvent extends Command {
                 ui.print("    " + eventTask.toString());
                 ui.print("Now you have " + reminder.size() + " tasks in the list.");
                 history.save(reminder.getSchedule());
+            } else if (order.length > 3) {
+                throw new TooManyParametersException();
             } else {
-                throw new EmptyDescriptionException("ADD THE CORRECT PARAMETERS!");
+                throw new EmptyDescriptionException();
             }
-            return true;
         } catch (DateTimeParseException e) {
-            throw new InvalidDateFormatException("FOLLOW THE CORRECT DATE FORMAT: DD/MM/YYYY HH:MM");
+            ui.invalidDateFormatMessage();
+        } catch (EmptyDescriptionException e) {
+            ui.emptyDescriptionMessage();
+        } catch (TooManyParametersException e) {
+            ui.tooManyParametersMessage();
         }
+        return true;
     }
 
     /**

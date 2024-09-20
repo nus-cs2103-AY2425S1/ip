@@ -8,10 +8,8 @@ public class NotIntegerException extends Exception {
 
     /**
      * Constructs a new NotIntegerException with the specified detail message.
-     *
-     * @param message The detail message explaining the reason for the exception.
      */
-    public NotIntegerException(String message) {
-        super(message);
+    public NotIntegerException() {
+        super("Input a valid Integer stoopid");
     }
 }

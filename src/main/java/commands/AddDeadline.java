@@ -6,6 +6,7 @@ import java.time.format.DateTimeParseException;
 
 import exceptions.EmptyDescriptionException;
 import exceptions.InvalidDateFormatException;
+import exceptions.TooManyParametersException;
 import tasks.Deadline;
 import windebot.History;
 import windebot.Reminder;
@@ -30,12 +31,12 @@ public class AddDeadline extends Command {
      */
 
     public boolean execute(String input, Reminder reminder, Ui ui, History history)
-            throws EmptyDescriptionException, InvalidDateFormatException {
+            throws EmptyDescriptionException, InvalidDateFormatException, TooManyParametersException {
         String[] command = input.split(" ", 2);
         String[] order = command[1].split(" /by ");
         String taskDescription = order[0].trim();
         try {
-            if (!(taskDescription.equals("")) && (order.length == 3)) {
+            if (!(taskDescription.equals("")) && (order.length == 2)) {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
                 LocalDateTime deadline = LocalDateTime.parse(order[1], formatter);
                 Deadline deadlineTask = new Deadline(taskDescription, deadline);
@@ -44,13 +45,19 @@ public class AddDeadline extends Command {
                 ui.print("    " + deadlineTask.toString());
                 ui.print("Now you have " + reminder.size() + " tasks in the list.");
                 history.save(reminder.getSchedule());
+            } else if (order.length > 2) {
+                throw new TooManyParametersException();
             } else {
-                throw new EmptyDescriptionException("ADD THE CORRECT PARAMETERS!");
+                throw new EmptyDescriptionException();
             }
-            return true;
         } catch (DateTimeParseException e) {
-            throw new InvalidDateFormatException("FOLLOW THE CORRECT DATE FORMAT: DD/MM/YYYY HH:MM");
+            ui.invalidDateFormatMessage();
+        } catch (EmptyDescriptionException e) {
+            ui.emptyDescriptionMessage();
+        } catch (TooManyParametersException e) {
+            ui.tooManyParametersMessage();
         }
+        return true;
     }
 
     /**

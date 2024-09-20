@@ -82,4 +82,32 @@ public class Ui {
     public String getOutput() {
         return this.output;
     }
+
+    public void invalidDateFormatMessage() {
+        this.print("FOLLOW THE CORRECT DATE FORMAT: DD/MM/YYYY HH:MM");
+    }
+
+    public void emptyDescriptionMessage() {
+        this.print("Either you've missed some parameters or you typed the command wrongly");
+    }
+
+    public void indexOutBoundsMessage() {
+        this.print("Input a valid task number");
+    }
+
+    public void notIntegerMessage() {
+        this.print("Input a valid Integer stoopid");
+    }
+
+    public void tooManyParametersMessage() {
+        this.print("One input at a time!");
+    }
+
+    public void unsupportedCommandMessage() {
+        this.print("GO TO OUR GITHUB PAGE FOR THE LIST OF COMMANDS STOOPID!");
+    }
+
+    public void unsupportedFilePathMessage() {
+        this.print("WRONG SAVE FILE!");
+    }
 }

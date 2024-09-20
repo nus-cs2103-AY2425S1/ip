@@ -8,10 +8,8 @@ public class TooManyParametersException extends Exception {
 
     /**
      * Constructs a new TooManyParametersException with the specified detail message.
-     *
-     * @param message The detail message explaining the reason for the exception.
      */
-    public TooManyParametersException(String message) {
-        super(message);
+    public TooManyParametersException() {
+        super("One input at a time!");
     }
 }

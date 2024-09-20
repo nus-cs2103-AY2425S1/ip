@@ -27,26 +27,31 @@ public class FindCommand extends Command {
      */
 
     public boolean execute(String input, Reminder reminder, Ui ui, History history)
-            throws EmptyDescriptionException, TooManyParametersException {
-        String[] command = input.split(" ", 2);
-        assert(command.length == 2);
-        if (command.length == 2) {
-            ui.print("Here are the matching tasks in your list:");
-            String keyWord = command[1];
-            boolean isTaskFound = true;
-            for (Task task : reminder.getSchedule()) {
-                if (task.getAction().contains(keyWord)) {
-                    ui.print(task.toString());
-                    isTaskFound = false;
+            throws EmptyDescriptionException {
+        try {
+            String[] command = input.split(" ", 2);
+            if (command.length < 2) {
+                throw new EmptyDescriptionException();
+            }
+            String search = command[1].trim();
+            if (!(search.equals(""))) {
+                ui.print("Here are the matching tasks in your list:");
+                String keyWord = command[1];
+                boolean isTaskFound = true;
+                for (Task task : reminder.getSchedule()) {
+                    if (task.getAction().contains(keyWord)) {
+                        ui.print(task.toString());
+                        isTaskFound = false;
+                    }
                 }
+                if (isTaskFound) {
+                    ui.print("No words matches your query stoopid");
+                }
+            } else {
+                throw new EmptyDescriptionException();
             }
-            if (isTaskFound) {
-                ui.print("No words matches your query stoopid");
-            }
-        } else if (command.length < 2) {
-            throw new EmptyDescriptionException("I NEED TO KNOW WHAT I'M MARKING!");
-        } else {
-            throw new TooManyParametersException("ONE AT A TIME!");
+        } catch (EmptyDescriptionException e) {
+            ui.emptyDescriptionMessage();
         }
         return true;
     }

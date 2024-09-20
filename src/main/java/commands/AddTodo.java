@@ -27,17 +27,24 @@ public class AddTodo extends Command {
 
     public boolean execute(String input, Reminder reminder, Ui ui, History history)
             throws EmptyDescriptionException {
-        String[] command = input.split(" ", 2);
-        String taskDescription = command[1].trim();
-        if (!(taskDescription.equals(""))) {
-            Todos todoTask = new Todos(taskDescription);
-            reminder.addTodo(todoTask);
-            ui.print("Got it. I've added this task:");
-            ui.print("    " + todoTask.toString());
-            ui.print("Now you have " + reminder.size() + " tasks in the list.");
-            history.save(reminder.getSchedule());
-        } else {
-            throw new EmptyDescriptionException("I NEED TO KNOW WHAT I'M TODO-ING!");
+        try {
+            String[] command = input.split(" ", 2);
+            if (command.length < 2) {
+                throw new EmptyDescriptionException();
+            }
+            String taskDescription = command[1].trim();
+            if (!(taskDescription.equals(""))) {
+                Todos todoTask = new Todos(taskDescription);
+                reminder.addTodo(todoTask);
+                ui.print("Got it. I've added this task:");
+                ui.print("    " + todoTask.toString());
+                ui.print("Now you have " + reminder.size() + " tasks in the list.");
+                history.save(reminder.getSchedule());
+            } else {
+                throw new EmptyDescriptionException();
+            }
+        } catch (EmptyDescriptionException e) {
+            ui.emptyDescriptionMessage();
         }
         return true;
     }

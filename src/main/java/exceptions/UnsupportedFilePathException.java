@@ -8,10 +8,8 @@ public class UnsupportedFilePathException extends Exception {
 
     /**
      * Constructs a new UnsupportedFilePathException with the specified detail message.
-     *
-     * @param message The detail message explaining the reason for the exception.
      */
-    public UnsupportedFilePathException(String message) {
-        super(message);
+    public UnsupportedFilePathException() {
+        super("WRONG SAVE FILE!");
     }
 }

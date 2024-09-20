@@ -13,6 +13,7 @@ import commands.ErrorCommand;
 import commands.FindCommand;
 import commands.ListCommand;
 import commands.RemoveCommand;
+import exceptions.EmptyDescriptionException;
 import exceptions.UnsupportedCommandException;
 
 /**
@@ -30,7 +31,11 @@ public class Parser {
      * @throws UnsupportedCommandException If the command is not recognized.
      */
 
-    public static Command parse(String input) throws UnsupportedCommandException {
+    public static Command parse(String input)
+            throws UnsupportedCommandException, EmptyDescriptionException {
+        if (input.equals("")) {
+            throw new EmptyDescriptionException();
+        }
         String[] parts = input.split(" ", 2);
         SubCommandType command = getCommandType(parts[0]);
         // String arguments = (parts.length > 1) ? parts[1] : "";
@@ -74,10 +79,10 @@ public class Parser {
                 commands = new ErrorCommand();
                 break;
             default:
-                throw new UnsupportedCommandException("TYPE /HELP FOR HELP STOOPIDD");
+                throw new UnsupportedCommandException();
             }
         } catch (UnsupportedCommandException uce) {
-            System.out.println("TYPE /HELP FOR HELP STOOPIDD: " + uce.getMessage());
+            throw new UnsupportedCommandException();
         }
         return commands;
     }
@@ -90,29 +95,29 @@ public class Parser {
      */
 
     private static SubCommandType getCommandType(String input) {
-        if (input.startsWith("todo ")) {
+        if (input.startsWith("todo")) {
             return SubCommandType.TODO;
-        } else if (input.startsWith("deadline ")) {
+        } else if (input.startsWith("deadline")) {
             return SubCommandType.DEADLINE;
-        } else if (input.startsWith("event ")) {
+        } else if (input.startsWith("event")) {
             return SubCommandType.EVENT;
         } else if (input.equals("list")) {
             return SubCommandType.LIST;
-        } else if (input.startsWith("delete ")) {
+        } else if (input.startsWith("delete")) {
             return SubCommandType.DELETE;
         } else if (input.equals("bye")) {
             return SubCommandType.BYE;
-        } else if (input.startsWith("mark ")) {
+        } else if (input.startsWith("mark")) {
             return SubCommandType.MARK;
-        } else if (input.startsWith("unmark ")) {
+        } else if (input.startsWith("unmark")) {
             return SubCommandType.UNMARK;
-        } else if (input.startsWith("date ")) {
+        } else if (input.startsWith("date")) {
             return SubCommandType.DATE;
-        } else if (input.startsWith("find ")) {
+        } else if (input.startsWith("find")) {
             return SubCommandType.FIND;
-        } else if (input.startsWith("change ") || input.startsWith("cutoff ")
-                || input.startsWith("start ") || input.startsWith("end ")
-                || input.startsWith("action ")) {
+        } else if (input.startsWith("change") || input.startsWith("cutoff")
+                || input.startsWith("start") || input.startsWith("end")
+                || input.startsWith("action")) {
             return SubCommandType.CHANGE;
         } else {
             return SubCommandType.UNKNOWN;

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
+import exceptions.IndexOutBoundsException;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -15,10 +16,10 @@ import tasks.Todos;
  */
 
 public class Reminder {
-    private static ArrayList<Task> schedule;
-    private static Hashtable<LocalDate, ArrayList<Task>> calendar;
+    private ArrayList<Task> schedule;
+    private Hashtable<LocalDate, ArrayList<Task>> calendar;
 
-    private static int selected;
+    private int selected;
 
     /**
      * Constructs a Reminder object with an empty task list and calendar.
@@ -65,7 +66,7 @@ public class Reminder {
      * @param task The Event task to add.
      */
 
-    public static void addEvent(Event task) {
+    public void addEvent(Event task) {
         schedule.add(task);
         calendar.computeIfAbsent(task.getDate(), key -> new ArrayList<>()).add(task);
     }
@@ -76,7 +77,7 @@ public class Reminder {
      * @param task The Deadline task to add.
      */
 
-    public static void addDeadline(Deadline task) {
+    public void addDeadline(Deadline task) {
         schedule.add(task);
         calendar.computeIfAbsent(task.getDate(), key -> new ArrayList<>()).add(task);
     }
@@ -87,7 +88,7 @@ public class Reminder {
      * @param task The Todos task to add.
      */
 
-    public static void addTodo(Todos task) {
+    public void addTodo(Todos task) {
         schedule.add(task);
     }
 
@@ -98,7 +99,10 @@ public class Reminder {
      * @return The removed task.
      */
 
-    public static Task remove(int i) {
+    public Task remove(int i) throws IndexOutBoundsException {
+        if (i > size()) {
+            throw new IndexOutBoundsException();
+        }
         Task task = schedule.remove(i);
         LocalDate date = task.getDate();
         calendar.computeIfPresent(date, (key, value) -> {
@@ -116,7 +120,7 @@ public class Reminder {
      * @return The removed task.
      */
 
-    public static Task replace(int i, Task newTask) {
+    public Task replace(int i, Task newTask) {
         Task task = schedule.get(i);
         schedule.set(i, newTask);
         LocalDate date = task.getDate();
@@ -133,7 +137,10 @@ public class Reminder {
      * @param i The index of the task to mark as completed.
      */
 
-    public static void mark(int i) {
+    public void mark(int i) throws IndexOutBoundsException {
+        if (i > size()) {
+            throw new IndexOutBoundsException();
+        }
         Task task = schedule.remove(i);
         if (task.getClass() != Todos.class) {
             LocalDate date = task.getDate();
@@ -154,7 +161,10 @@ public class Reminder {
      * @param i The index of the task to mark as not completed.
      */
 
-    public static void unmark(int i) {
+    public void unmark(int i) throws IndexOutBoundsException {
+        if (i > size()) {
+            throw new IndexOutBoundsException();
+        }
         Task task = schedule.remove(i);
         if (task.getClass() != Todos.class) {
             LocalDate date = task.getDate();
@@ -176,11 +186,11 @@ public class Reminder {
      * @return The list of tasks on the specified date.
      */
 
-    public static ArrayList<Task> getTasksOnDate(LocalDate date) {
+    public ArrayList<Task> getTasksOnDate(LocalDate date) {
         return calendar.getOrDefault(date, new ArrayList<>());
     }
 
-    public static ArrayList<Task> getSchedule() {
+    public ArrayList<Task> getSchedule() {
         return schedule;
     }
 
@@ -194,7 +204,7 @@ public class Reminder {
      * @param i The int of the new selected task to edit
      */
 
-    public static void changeSelected(int i) {
+    public void changeSelected(int i) {
         selected = i;
     }
 
@@ -205,11 +215,11 @@ public class Reminder {
      * @return The task at the specified index.
      */
 
-    public static Task getTask(int i) {
+    public Task getTask(int i) {
         return schedule.get(i);
     }
 
-    public static int size() {
+    public int size() {
         return schedule.size();
     }
 }
