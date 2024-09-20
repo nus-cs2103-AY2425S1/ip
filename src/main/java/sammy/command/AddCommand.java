@@ -19,6 +19,7 @@ public class AddCommand extends Command {
      * @param task The task to be added.
      */
     public AddCommand(Task task) {
+        assert task != null : "Task cannot be null";
         this.task = task;
     }
 
@@ -33,7 +34,9 @@ public class AddCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
-        assert tasks != null: "Tasks should not be null";
+        assert tasks != null : "TaskList cannot be null";
+        assert ui != null : "UI cannot be null";
+        assert storage != null : "Storage cannot be null";
         tasks.add(task);
         storage.save(tasks);
 
