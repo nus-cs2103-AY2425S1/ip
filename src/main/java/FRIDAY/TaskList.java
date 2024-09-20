@@ -40,7 +40,7 @@ public class TaskList {
         if (taskList.isEmpty()) {
             throw new FRIDAYException("Hey your task list is currently empty!");
         }
-        if (index >= taskList.size() || index <= 0) {
+        if (index >= taskList.size() || index < 0) {
             throw new FRIDAYException("Hey it appears that the task number you entered does not exist");
         }
         taskList.remove(index);

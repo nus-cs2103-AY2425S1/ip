@@ -84,8 +84,8 @@ public class FRIDAY {
             taskList.addTask(newEvent);
             return ui.printAdd(newEvent, taskList.numTasks());
         case ("delete"):
-            Task deletedTask = taskList.getTaskAt(Integer.parseInt(taskDetails.substring(0, 1)) - 1);
-            taskList.removeTask(Integer.parseInt(taskDetails.substring(0, 1)) - 1);
+            Task deletedTask = taskList.getTaskAt(Integer.parseInt(taskDetails) - 1);
+            taskList.removeTask(Integer.parseInt(taskDetails) - 1);
             return ui.printRemove(deletedTask, taskList.numTasks());
         case ("bye"):
             ArrayList<Task> list = this.taskList.getList();
