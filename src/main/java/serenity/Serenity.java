@@ -9,7 +9,6 @@ import serenity.task.TaskList;
 /**
  * Represents a chatbot used for task management.
  */
-
 @SuppressWarnings("checkstyle:Regexp")
 public class Serenity {
 
@@ -23,7 +22,6 @@ public class Serenity {
      *
      * @param filePath The path of file where data is stored.
      */
-
     public Serenity(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -67,7 +65,6 @@ public class Serenity {
      *
      * @return Welcome message.
      */
-
     public String welcome() {
         return "Hi, I'm Serenity!\n" + "What can I do for you?";
     }
@@ -76,7 +73,6 @@ public class Serenity {
     /**
      * Runs the Serenity chatbot
      */
-
     public void run() {
 
         ui.showWelcome();
@@ -92,15 +88,6 @@ public class Serenity {
             }
         }
     }
-
-
-
-    /**
-     * The main method that runs the Serenity chatbot.
-     *
-     * @param args
-     */
-
     public static void main(String[] args) {
         new Serenity("./data/serenity.txt").run();
     }

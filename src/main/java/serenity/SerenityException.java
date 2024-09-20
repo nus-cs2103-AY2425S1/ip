@@ -3,7 +3,6 @@ package serenity;
 /**
  * Represents a custom exception in the Serenity class.
  */
-
 public class SerenityException extends Exception {
 
     /**

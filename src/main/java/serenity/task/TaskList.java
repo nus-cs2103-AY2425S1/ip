@@ -4,9 +4,6 @@ import java.util.ArrayList;
 
 import serenity.SerenityException;
 
-
-
-
 /**
  * Represents a list of tasks, where tasks can be added, deleted
  * and marked as done or undone.
@@ -48,7 +45,7 @@ public class TaskList {
         } else if (input.startsWith("event")) {
             t = createEvent(input);
         } else {
-            throw new SerenityException("Error: Type of task is not specified.");
+            throw new SerenityException("Error: Type of task is invalid.");
         }
 
         return t;
@@ -80,7 +77,6 @@ public class TaskList {
      * @return Deadline with given task description.
      * @throws SerenityException If task description is missing.
      */
-
     private static Task createDeadline(String input) throws SerenityException {
         String[] description = input.split(" ");
         if (description.length == 1) {
@@ -104,14 +100,13 @@ public class TaskList {
         if (description.length == 1) {
             throw new SerenityException("Error: The description of a todo cannot be empty.");
         } else {
-            //remove the type of task
             String taskDescription = input.split(" ", 2)[1];
-            return new Todo(taskDescription);
+            return new Todo(taskDescription.strip());
         }
     }
 
     /**
-     * Adds task to TaskList.
+     * Adds task to task list.
      *
      * @param t Task to be added.
      * @return Message to be displayed when task is added.
@@ -119,6 +114,7 @@ public class TaskList {
     public String addTask(Task t) {
         tasks.add(t);
         assert tasks.contains(t) : "Task failed to be added to task list";
+
         String numOfTasks = tasks.size() == 1 ? "task" : "tasks";
         return ("Got it. I've added this task:\n" + t
                 + "\nNow you have " + tasks.size() + " " + numOfTasks + " in the list.");
@@ -126,7 +122,7 @@ public class TaskList {
     }
 
     /**
-     * Deletes task from TaskList.
+     * Deletes task from task list.
      *
      * @param input Command containing index of task to delete.
      * @return Message to be displayed when task is deleted.
@@ -140,6 +136,9 @@ public class TaskList {
         }
 
         int index = Integer.parseInt(input.substring(7)) - 1;
+        if (index < 0 || index > tasks.size() - 1) {
+            throw new SerenityException("Error: Index is out of bounds.");
+        }
         Task t = tasks.get(index);
         tasks.remove(index);
 
@@ -166,11 +165,17 @@ public class TaskList {
 
         if (input.startsWith("mark")) {
             int index = Integer.parseInt(input.substring(5)) - 1;
+            if (index < 0 || index > tasks.size() - 1) {
+                throw new SerenityException("Error: Index is out of bounds.");
+            }
             Task t = tasks.get(index);
             t.markAsDone();
             message = "Nice! I've marked this task as done:\n" + t;
         } else if (input.startsWith("unmark")) {
             int index = Integer.parseInt(input.substring(7)) - 1;
+            if (index < 0 || index > tasks.size() - 1) {
+                throw new SerenityException("Error: Index is out of bounds.");
+            }
             Task t = tasks.get(index);
             t.markAsNotDone();
             message = "OK, I've marked this task as not done yet:\n" + t;
@@ -197,7 +202,6 @@ public class TaskList {
 
         String keyWord = parts[1].strip();
         ArrayList<Task> foundTasks = new ArrayList<>();
-
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).toString().contains(keyWord)) {
                 foundTasks.add(tasks.get(i));
@@ -229,8 +233,10 @@ public class TaskList {
         if (command.length == 1) {
             throw new SerenityException("Error: Missing index");
         }
-
         int index = Integer.parseInt(command[1]) - 1;
+        if (index < 0 || index > tasks.size() - 1) {
+            throw new SerenityException("Error: Index is out of bounds.");
+        }
         String taskDescription = parts[1].strip();
         Task newTask = TaskList.createTask(taskDescription);
         Task t = tasks.set(index, newTask);
@@ -264,6 +270,5 @@ public class TaskList {
             data += tasks.get(i).formatData() + "\n";
         }
         return data;
-
     }
 }

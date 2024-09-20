@@ -7,13 +7,13 @@ import serenity.task.TaskList;
 
 
 /**
- * Represents a parser that parses user inputs and carries out the actions corresponding to the command.
+ * Represents a parser that parses user inputs and executes the actions corresponding to the command.
  */
-
 public class Parser {
 
     /**
-     * Obtains command from user input and carries out the corresponding actions.
+     * Parses user input, carries out corresponding actions and
+     * displays corresponding message.
      *
      * @param input User's input.
      * @param tasks List of tasks.
@@ -69,7 +69,7 @@ public class Parser {
     }
 
     /**
-     * Parses user input and carries out corresponding actions and
+     * Parses user input, carries out corresponding actions and
      * returns message to be displayed.
      *
      * @param input User's input
@@ -92,7 +92,7 @@ public class Parser {
                 message = tasks.toString();
                 break;
             case "todo", "deadline", "event":
-                t = tasks.createTask(input);
+                t = TaskList.createTask(input);
                 message = tasks.addTask(t);
                 storage.saveTask(t);
                 break;

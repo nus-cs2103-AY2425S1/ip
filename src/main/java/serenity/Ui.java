@@ -5,11 +5,9 @@ import java.util.Scanner;
 import serenity.task.TaskList;
 
 
-
 /**
  * Represents user interface that handles user interactions.
  */
-
 public class Ui {
 
     private static final String HORIZONTAL_LINE = "__________________________________________";
@@ -23,7 +21,7 @@ public class Ui {
     }
 
     /**
-     * Display welcome message.
+     * Displays welcome message.
      */
     public void showWelcome() {
         System.out.println(HORIZONTAL_LINE);
@@ -32,7 +30,7 @@ public class Ui {
     }
 
     /**
-     * Display goodbye message and close scanner.
+     * Displays goodbye message and close scanner.
      */
     public void showGoodbye() {
         this.sc.close();
@@ -42,7 +40,7 @@ public class Ui {
     }
 
     /**
-     * Get command from user input.
+     * Gets command from user input.
      * @return User's input.
      */
     public String readCommand() {
@@ -50,18 +48,17 @@ public class Ui {
     }
 
     /**
-     * Display message of loading error.
+     * Displays message of loading error.
      */
     public void showLoadingError() {
         System.out.println("Error: File cannot be loaded.");
     }
 
     /**
-     * Display message to user.
+     * Displays message to user.
      *
      * @param message Message to be displayed.
      */
-
     public void showMessage(String message) {
         System.out.println(HORIZONTAL_LINE);
         System.out.println(message);
@@ -69,7 +66,7 @@ public class Ui {
     }
 
     /**
-     * Display TaskList to user.
+     * Displays TaskList to user.
      *
      * @param tasks TaskList to be displayed.
      */
