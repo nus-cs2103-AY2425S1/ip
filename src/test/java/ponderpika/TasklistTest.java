@@ -34,33 +34,33 @@ class TaskListTest {
     }
 
     @Test
-    void addTask_ValidTask_TaskAdded() throws DuplicateTaskException {
+    void addTaskValidTask_taskAdded() throws DuplicateTaskException {
         taskList.addTask(task1);
         assertEquals(1, taskList.getTasks().size());
         assertEquals(task1, taskList.getTasks().get(0));
     }
 
     @Test
-    void addTask_DuplicateTask_ThrowsDuplicateTaskException() throws DuplicateTaskException {
+    void addTaskDuplicateTask_throwsDuplicateTaskException() throws DuplicateTaskException {
         taskList.addTask(task1);
         assertDoesNotThrow(() -> taskList.addTask(task2));
         assertThrows(DuplicateTaskException.class, () -> taskList.addTask(task1));
     }
 
     @Test
-    void deleteTask_ValidIndex_TaskDeleted() throws InvalidTaskIndexException, DuplicateTaskException {
+    void deleteTaskValidIndex_taskDeleted() throws InvalidTaskIndexException, DuplicateTaskException {
         taskList.addTask(task2);
         taskList.deleteTask(1);
         assertTrue(taskList.getTasks().isEmpty());
     }
 
     @Test
-    void deleteTask_InvalidIndex_ThrowsInvalidTaskIndexException() {
+    void deleteTaskInvalidIndex_throwsInvalidTaskIndexException() {
         assertThrows(InvalidTaskIndexException.class, () -> taskList.deleteTask(10));
     }
 
     @Test
-    void markTask_ValidIndex_TaskMarked() throws InvalidTaskIndexException, TaskAlreadyMarkedException,
+    void markTaskValidIndex_taskMarked() throws InvalidTaskIndexException, TaskAlreadyMarkedException,
             DuplicateTaskException {
         taskList.addTask(task1);
         taskList.markTask(1);
@@ -68,12 +68,12 @@ class TaskListTest {
     }
 
     @Test
-    void markTask_InvalidIndex_ThrowsInvalidTaskIndexException() {
+    void markTaskInvalidIndex_throwsInvalidTaskIndexException() {
         assertThrows(InvalidTaskIndexException.class, () -> taskList.markTask(5));
     }
 
     @Test
-    void markTask_TaskAlreadyMarked_ThrowsTaskAlreadyMarkedException() throws TaskAlreadyMarkedException,
+    void markTaskTaskAlreadyMarked_throwsTaskAlreadyMarkedException() throws TaskAlreadyMarkedException,
             InvalidTaskIndexException, DuplicateTaskException {
         taskList.addTask(task2);
         taskList.markTask(1);
@@ -81,7 +81,7 @@ class TaskListTest {
     }
 
     @Test
-    void unmarkTask_ValidIndex_TaskUnmarked() throws InvalidTaskIndexException, TaskAlreadyUnmarkedException,
+    void unmarkTaskValidIndex_taskUnmarked() throws InvalidTaskIndexException, TaskAlreadyUnmarkedException,
             DuplicateTaskException {
         taskList.addTask(task2);
         taskList.getTasks().get(0).markDone();
@@ -90,19 +90,19 @@ class TaskListTest {
     }
 
     @Test
-    void unmarkTask_InvalidIndex_ThrowsInvalidTaskIndexException() {
+    void unmarkTaskInvalidIndex_throwsInvalidTaskIndexException() {
         assertThrows(InvalidTaskIndexException.class, () -> taskList.unmarkTask(8));
     }
 
     @Test
-    void unmarkTask_TaskAlreadyUnmarked_ThrowsTaskAlreadyUnmarkedException() throws DuplicateTaskException,
+    void unmarkTaskTaskAlreadyUnmarked_throwsTaskAlreadyUnmarkedException() throws DuplicateTaskException,
             InvalidTaskIndexException, TaskAlreadyUnmarkedException {
         taskList.addTask(task2);
         assertThrows(TaskAlreadyUnmarkedException.class, () -> taskList.unmarkTask(1));
     }
 
     @Test
-    void setPriorityLevel_ValidIndex_PrioritySet() throws InvalidTaskIndexException, InvalidPriorityException,
+    void setPriorityLevelValidIndex_prioritySet() throws InvalidTaskIndexException, InvalidPriorityException,
             DuplicateTaskException {
         taskList.addTask(task2);
         String response = taskList.setPriorityLevel(1, "H");
@@ -111,25 +111,25 @@ class TaskListTest {
     }
 
     @Test
-    void setPriorityLevel_InvalidIndex_ThrowsInvalidTaskIndexException() {
+    void setPriorityLevelInvalidIndex_throwsInvalidTaskIndexException() {
         assertThrows(InvalidTaskIndexException.class, () -> taskList.setPriorityLevel(9, "M"));
     }
 
     @Test
-    void setPriorityLevel_InvalidPriority_ThrowsInvalidPriorityException() throws DuplicateTaskException {
+    void setPriorityLevelInvalidPriority_throwsInvalidPriorityException() throws DuplicateTaskException {
         taskList.addTask(task2);
         taskList.addTask(task1);
         assertThrows(InvalidPriorityException.class, () -> taskList.setPriorityLevel(2, "X"));
     }
 
     @Test
-    void printTasks_EmptyList_ReturnsEmptyMessage() {
+    void printTasksEmptyList_returnsEmptyMessage() {
         String result = taskList.printTasks();
         assertEquals("Task list is Empty!", result);
     }
     
     @Test
-    void printTasks_NonEmptyList_ReturnsTaskList() throws DuplicateTaskException {
+    void printTasksNonEmptyList_returnsTaskList() throws DuplicateTaskException {
         taskList.addTask(task2);
         taskList.addTask(task1);
         String result = taskList.printTasks();
@@ -139,14 +139,14 @@ class TaskListTest {
     }
 
     @Test
-    void findTasks_ExistingKeyword_ReturnsMatchingTasks() throws NoMatchingTasksFoundException, DuplicateTaskException {
+    void findTasksExistingKeyword_returnsMatchingTasks() throws NoMatchingTasksFoundException, DuplicateTaskException {
         taskList.addTask(task1);
         String result = taskList.findTasks("food");
         assertTrue(result.contains("[T][ ] Eat food"));
     }
 
     @Test
-    void findTasks_NonExistingKeyword_ThrowsNoMatchingTasksFoundException() {
+    void findTasksNonExistingKeyword_throwsNoMatchingTasksFoundException() {
         assertThrows(NoMatchingTasksFoundException.class, () -> taskList.findTasks("party"));
     }
 }
