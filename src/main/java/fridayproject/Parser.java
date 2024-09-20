@@ -62,6 +62,8 @@ public class Parser {
                 return addEvent(inputString); // Add an event task
             } else if (inputString.startsWith("find ")) {
                 return findWord(inputString); // Find tasks with a keyword in the description
+            } else if (inputString.startsWith("viewSchedule ")) {
+                return viewSchedule(inputString); // View the schedule for a specific date
             } else {
                 return ui.displayUnknownCommandError(); // Display an error message for unknown commands
             }
@@ -258,5 +260,31 @@ public class Parser {
                 + "Please enter a valid keyword.");
         }
         return taskList.findTasks(keyword);
+    }
+
+    /*
+     * Views the schedule for a specific date.
+     * @param input The user input.
+     * @return The schedule for the specific date.
+     * @throws FridayException If the date is invalid.
+     * Example: viewSchedule("viewSchedule 2021-09-30");
+     */
+    private String viewSchedule(String input) throws FridayException {
+        assert input != null : "Input should not be null";
+
+        if (input.length() < 14) {
+            throw new FridayException("I'm sorry, but I don't know what that means :(((\n" 
+                + "Please enter a valid date in yyyy-MM-dd format.");
+        }
+        String date = input.substring(13).trim();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate dateNum;
+        try {
+            dateNum = LocalDate.parse(date, formatter);
+        } catch (Exception e) {
+            throw new FridayException("Invalid date format! Please enter in yyyy-MM-dd.");
+        }
+        
+        return taskList.getTasksForSpecificDate(dateNum);
     }
 }
