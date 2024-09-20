@@ -35,14 +35,20 @@ You can create three different types of tasks, specifying task description, and 
 
 **Example usage:**
 
+`todo Buy Groceries
+`
+
+`deadline Submit Assignment /by 2024-09-30 14:00
+`
+
 `event Project meeting /from 2024-09-25 14:00 /to 2024-09-25 15:30
 `
 
-**Expected output:**
+**Expected output (from each command):**
 
 ```
 Got it. I've added this task.
-Now you have 4 tasks in the list
+Now you have 3 tasks in the list
 ```
 
 
