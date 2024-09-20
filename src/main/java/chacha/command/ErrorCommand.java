@@ -14,7 +14,7 @@ public class ErrorCommand extends Command {
     }
 
     /**
-     * Returns the string representation of response to user inputting
+     * Returns the string representation of the error response to user inputting
      * a command that the chatbot cannot recognise.
      *
      * @param userInput User input

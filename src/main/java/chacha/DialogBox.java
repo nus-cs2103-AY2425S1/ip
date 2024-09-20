@@ -43,6 +43,7 @@ public class DialogBox extends HBox {
                 displayPicture.getFitWidth() / 2);
         displayPicture.setClip(circleOutline);
 
+        // Used AI for help with padding between dialog and image.
         this.setSpacing(10);
         this.setAlignment(Pos.CENTER_RIGHT);
     }

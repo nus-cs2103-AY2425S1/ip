@@ -24,7 +24,7 @@ public class TaskTest {
                 "PrintTask should show task as done with 'X'");
 
         Task undoneTask = new Task("Test task marked undone", false);
-        assertEquals("[ ] Test task undone", undoneTask.printTask(),
+        assertEquals("[ ] Test task marked undone", undoneTask.printTask(),
                 "PrintTask should show task as not done with ' '");
     }
 

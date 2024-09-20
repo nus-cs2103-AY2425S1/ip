@@ -1,9 +1,8 @@
 package chacha.command.stub;
 
+import java.io.IOException;
 
 import chacha.Storage;
-
-import java.io.IOException;
 
 /**
  * Stub for Storage class.

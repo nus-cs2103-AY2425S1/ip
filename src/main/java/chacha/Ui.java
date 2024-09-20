@@ -90,9 +90,20 @@ public class Ui {
         return result;
     }
 
+    /**
+     * Returns string representation of error message to unknown commands.
+     *
+     * @return String representation.
+     */
     public String printError() {
         return "Hmmm... I don't seem to understand this. Please input another command! \n";
     }
+
+    /**
+     * Returns string representation of error message to blank input.
+     *
+     * @return String representation.
+     */
     public String printBlankError() {
         return "Hmmm... It seems like you left the input blank. \n";
     }

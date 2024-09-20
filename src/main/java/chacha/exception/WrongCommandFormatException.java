@@ -10,7 +10,8 @@ public class WrongCommandFormatException extends Exception {
     private String msg;
 
     /**
-     * Constructs a new EventTimeException with a specified error message
+     * Constructs a new EventTimeException with the type of error, giving the corresponding
+     * message.
      */
     public WrongCommandFormatException(String type) {
         switch (type) {

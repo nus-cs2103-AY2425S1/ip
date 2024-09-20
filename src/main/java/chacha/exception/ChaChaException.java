@@ -5,7 +5,7 @@ package chacha.exception;
  */
 public class ChaChaException extends Exception {
     /**
-     * Constructs a new ChaChaException with a specified error message
+     * Constructs a new ChaChaException.
      */
     public ChaChaException() {
     }

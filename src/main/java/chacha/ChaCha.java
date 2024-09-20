@@ -23,7 +23,7 @@ public class ChaCha {
     /**
      * Constructs a new ChaCha instance
      * It checks if the file for storing tasks exists and creates it if not.
-     * In case of errors during file creation, appropriate exceptions are handled.
+     * In case of errors during file creation, the respective exceptions are handled.
      */
     public ChaCha() {
         try {
@@ -46,6 +46,7 @@ public class ChaCha {
 
     /**
      * Generates a response for the user input.
+     *
      * @param userInput User input.
      * @return String representation of response.
      */

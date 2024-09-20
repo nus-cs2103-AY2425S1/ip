@@ -5,13 +5,12 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * Represents the Task that is a Deadline for the user.
- *
  */
 public class DeadlineTask extends Task {
     protected LocalDate date;
 
     /**
-     * Creates a DeadlineTask, initialising the description, isDone status and date.
+     * Creates a DeadlineTask with the description, isDone status and date.
      * @param description Description of task
      * @param isDone Status of task
      * @param date Date task needs to be done by

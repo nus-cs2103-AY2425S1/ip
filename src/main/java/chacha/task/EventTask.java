@@ -15,7 +15,7 @@ public class EventTask extends Task {
     protected LocalTime endTime;
 
     /**
-     * Creates a EventTask object, initialising description, isDone status, date, startTime and endTime.
+     * Creates a EventTask object with description, isDone status, date, startTime and endTime.
      *
      * @param description Description of task
      * @param isDone Status of task
