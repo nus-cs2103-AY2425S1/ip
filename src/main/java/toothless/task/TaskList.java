@@ -90,9 +90,10 @@ public class TaskList {
     }
 
     /**
-     * Mark a task as undone.
+     * Marks a task as undone.
      *
      * @param index The index of the task to be marked as undone.
+     * @param ui    The user interface.
      * @return The message to be displayed after marking the task as undone.
      * @throws ToothlessExceptions If the index is out of range.
      */
