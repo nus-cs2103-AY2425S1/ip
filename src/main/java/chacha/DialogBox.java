@@ -42,6 +42,9 @@ public class DialogBox extends HBox {
                 displayPicture.getFitHeight() / 2,
                 displayPicture.getFitWidth() / 2);
         displayPicture.setClip(circleOutline);
+
+        this.setSpacing(10);
+        this.setAlignment(Pos.CENTER_RIGHT);
     }
 
     /**
@@ -51,7 +54,7 @@ public class DialogBox extends HBox {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
-        setAlignment(Pos.TOP_LEFT);
+        setAlignment(Pos.CENTER_LEFT);
     }
 
     /**
@@ -62,7 +65,9 @@ public class DialogBox extends HBox {
      * @return A DialogBox object.
      */
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        DialogBox userDialogBox = new DialogBox(text, img);
+        userDialogBox.setAlignment(Pos.CENTER_RIGHT);
+        return userDialogBox;
     }
 
     /**
@@ -73,8 +78,10 @@ public class DialogBox extends HBox {
      * @return A DialogBox object.
      */
     public static DialogBox getChaChaDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
-        db.flip();
-        return db;
+        var chachaDialogBox = new DialogBox(text, img);
+        chachaDialogBox.flip();
+        chachaDialogBox.setAlignment(Pos.CENTER_LEFT);
+
+        return chachaDialogBox;
     }
 }

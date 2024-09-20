@@ -8,35 +8,51 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
             minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="600.0" prefWidth="400.0"
+            prefHeight="700.0" prefWidth="400.0"
             xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="chacha.MainWindow">
     <children>
         <TextField fx:id="userInput"
-                   layoutY="558.0"
                    onAction="#handleUserInput"
+                   layoutY="558.0"
                    prefHeight="41.0"
                    prefWidth="324.0"
-                   AnchorPane.bottomAnchor="1.0" />
+                   AnchorPane.bottomAnchor="5.0"
+                   AnchorPane.leftAnchor="5.0"
+                   AnchorPane.rightAnchor="85.0" />
         <Button fx:id="sendButton"
+                mnemonicParsing="false"
                 layoutX="324.0"
                 layoutY="558.0"
-                mnemonicParsing="false"
                 onAction="#handleUserInput"
                 prefHeight="41.0"
                 prefWidth="76.0"
-                text="Send" />
+                text="Send"
+                AnchorPane.bottomAnchor="5.0"
+                AnchorPane.rightAnchor="5.0" />
         <ScrollPane fx:id="scrollPane"
                     hbarPolicy="NEVER"
+                    vbarPolicy="ALWAYS"
                     hvalue="1.0"
+                    vvalue="1.0"
                     prefHeight="557.0"
                     prefWidth="400.0"
-                    vvalue="1.0">
+                    style="-fx-background: lightgray;"
+                    AnchorPane.topAnchor="0.0"
+                    AnchorPane.bottomAnchor="50.0"
+                    AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0">
             <content>
                 <VBox fx:id="dialogContainer"
-                      prefHeight="552.0"
-                      prefWidth="388.0" />
+                      style="-fx-padding: 10; -fx-background-color: linear-gradient(to right, rgba(255, 126, 95, 0.7), rgba(254, 180, 123, 0.7));"
+                      alignment="TOP_RIGHT"
+                      prefHeight="652.0"
+                      prefWidth="388.0"
+                      AnchorPane.bottomAnchor="0.0"
+                      AnchorPane.leftAnchor="0.0"
+                      AnchorPane.rightAnchor="0.0"
+                      VBox.vgrow="ALWAYS"/>
             </content>
         </ScrollPane>
     </children>

@@ -17,6 +17,7 @@ import javafx.util.Duration;
 public class MainWindow extends AnchorPane {
     private static final String GREETING = "Hello! I'm ChaCha the ChatBot. :) \n"
             + "What can I do for you? \n";
+    // Used AI for help with formatting the application, asking for common functions to use and how to use them.
     @FXML
     private ScrollPane scrollPane;
     @FXML
