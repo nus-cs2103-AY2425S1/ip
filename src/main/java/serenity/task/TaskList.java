@@ -59,8 +59,8 @@ public class TaskList {
      * @throws SerenityException If task description is missing.
      */
     private static Task createEvent(String input) throws SerenityException {
-        String[] description = input.split(" ");
-        if (description.length == 1) {
+        String[] components = input.split(" ");
+        if (components.length == 1) {
             throw new SerenityException("Error: The description of an event cannot be empty.");
         }
         String taskDescription = input.split(" ", 2)[1];
@@ -72,7 +72,8 @@ public class TaskList {
             throw new SerenityException("Error: Missing event info.");
         }
         String[] timings = parts[1].split("/to");
-        if (timings.length == 1 || parts[0].strip() == " " || timings[0].strip() == "" || timings[1] == "") {
+        if (timings.length == 1 || parts[0].isBlank() || timings[0].isBlank()
+                || timings[1].isBlank()) {
             throw new SerenityException("Error: Missing event info.");
         }
         return new Event(parts[0].strip(), timings[0].strip(), timings[1].strip());
@@ -86,8 +87,8 @@ public class TaskList {
      * @throws SerenityException If task description is missing.
      */
     private static Task createDeadline(String input) throws SerenityException {
-        String[] description = input.split(" ");
-        if (description.length == 1) {
+        String[] components = input.split(" ");
+        if (components.length == 1) {
             throw new SerenityException("Error: The description of a deadline cannot be empty.");
         }
         String taskDescription = input.split(" ", 2)[1];
@@ -95,7 +96,7 @@ public class TaskList {
             throw new SerenityException("Error: Missing deadline info.");
         }
         String[] parts = taskDescription.split("/by");
-        if (parts[0].strip() == "" || parts[1].strip() == "") {
+        if (parts[0].isBlank() || parts[1].isBlank()) {
             throw new SerenityException("Error: Missing deadline info.");
         }
         return new Deadline(parts[0].strip(), parts[1].strip());
@@ -109,13 +110,12 @@ public class TaskList {
      * @throws SerenityException If task description is missing.
      */
     private static Todo createTodo(String input) throws SerenityException {
-        String[] description = input.split(" ");
-        if (description.length == 1) {
+        String[] components = input.split(" ");
+        if (components.length == 1) {
             throw new SerenityException("Error: The description of a todo cannot be empty.");
         }
         String taskDescription = input.split(" ", 2)[1];
         return new Todo(taskDescription.strip());
-
     }
 
     /**
