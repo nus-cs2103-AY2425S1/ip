@@ -9,10 +9,13 @@ public class Deadline extends Task {
 
     public Deadline(String description, String deadline) {
         super(description);
+        assert description != null && !description.isEmpty() : "Description cannot be null or empty";
+        assert deadline != null && !deadline.isEmpty() : "Deadline cannot be null or empty";
         this.deadline = parseDate(deadline);
     }
 
     private LocalDateTime parseDate(String date) {
+        assert date != null && !date.isEmpty() : "Date cannot be null or empty";
         DateTimeFormatter[] formatters = {
                 DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"),
                 DateTimeFormatter.ofPattern("d/M/yyyy HHmm"),

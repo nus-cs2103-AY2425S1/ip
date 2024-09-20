@@ -26,6 +26,7 @@ public class Ui {
     public String showWelcomeMessage() {
         String welcomeMessage = buildMessage(" Hello! I'm sammy.ui.sammy.Sammy.", " What can I do for you?");
         printMessage(welcomeMessage);
+
         return welcomeMessage;
     }
 
@@ -62,6 +63,7 @@ public class Ui {
      * @param tasks The TaskList containing tasks to be displayed.
      */
     public String showTaskList(TaskList tasks) {
+        assert tasks != null : "TaskList cannot be null";
         StringBuilder taskList = new StringBuilder();
         taskList.append(LINE_SEPARATOR).append("\n").append(TASK_LIST_HEADER);
 
@@ -104,6 +106,7 @@ public class Ui {
     }
 
     public String showFindResults(TaskList tasks) {
+        assert tasks != null : "TaskList cannot be null";
         StringBuilder findResult = new StringBuilder();
 
         findResult.append(MATCHING_TASKS_HEADER);

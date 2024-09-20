@@ -30,6 +30,8 @@ public class Parser {
      * @throws SammyException If the command is invalid or if there is an issue during parsing.
      */
     public static Command parse(String fullCommand) throws SammyException {
+        assert fullCommand != null && !fullCommand.isEmpty() : "Command cannot be null or empty";
+
         String[] parts = fullCommand.split(" ", 2);
         String commandWord = parts[0];
         String arguments = parts.length > 1 ? parts[1] : "";
@@ -91,6 +93,7 @@ public class Parser {
      * @throws IllegalArgumentException If the task format is invalid or unrecognized.
      */
     public static Task parseTask(String line) {
+        assert line != null && !line.isEmpty() : "Line cannot be null or empty";
         System.out.println("Parsing line: " + line);
 
         String taskType = line.substring(1, 2);
@@ -158,6 +161,7 @@ public class Parser {
      * @return The string representation of the given Task.
      */
     public static String taskToString(Task task) {
+        assert task != null : "Task cannot be null";
         return task.toString();
     }
 }
