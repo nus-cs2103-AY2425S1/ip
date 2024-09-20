@@ -22,7 +22,13 @@ public class DialogBox extends HBox {
     private Label dialog;
     @FXML
     private ImageView displayPicture;
-
+    /**
+     * Constructs a DialogBox with the specified text and image.
+     * The image is clipped to a circular shape, and the text is wrapped to fit the box width.
+     *
+     * @param text The text to be displayed in the dialog box.
+     * @param img  The image to be shown beside the text.
+     */
     private DialogBox(String text, ImageView img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/DialogBox.fxml"));
