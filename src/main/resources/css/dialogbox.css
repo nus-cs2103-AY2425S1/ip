@@ -1,0 +1,21 @@
+.dialog {
+    -fx-background-color: #ffffff; /* White background for the dialog */
+    -fx-border-color: #e0e0e0; /* Light grey border */
+    -fx-border-radius: 10; /* More rounded corners for a modern look */
+    -fx-padding: 10; /* Padding inside the dialog */
+    -fx-margin: 5; /* Space between dialogs */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0, 0, 2); /* Subtle shadow effect */
+}
+
+.label {
+    -fx-text-fill: #333333; /* Dark text for better contrast */
+    -fx-font-size: 14px; /* Consistent font size */
+    -fx-wrap-text: true; /* Allow text to wrap within the dialog */
+}
+
+.image-view {
+    -fx-fit-height: 30; /* Set a fixed height for images */
+    -fx-fit-width: 30; /* Set a fixed width for images */
+    -fx-preserve-ratio: true; /* Maintain aspect ratio */
+    -fx-padding: 5; /* Padding around images for spacing */
+}

@@ -1,0 +1,23 @@
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 5;
+    -fx-padding: 10; /* Increased padding for better aesthetics */
+    -fx-pref-height: 41; /* Consistent height */
+    -fx-hgrow: ALWAYS; /* Allow it to grow in width */
+    -fx-font-size: 14px; /* Set a readable font size */
+}
+
+.button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-border-radius: 5;
+    -fx-pref-height: 41; /* Consistent height */
+    -fx-padding: 10; /* Increased padding */
+    -fx-hgrow: ALWAYS; /* Allow it to grow in width */
+    -fx-font-size: 14px; /* Set a readable font size */
+}
+
+.button:hover {
+    -fx-background-color: #45a049;
+}
