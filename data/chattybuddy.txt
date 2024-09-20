@@ -2,3 +2,6 @@ T | 0 | finish homework
 T | 0 | finish homework
 T | 0 | homework
 D | 1 | homework | 2024-09-09
+T | 0 | homework
+D | 0 | submit assignment | 2024-09-09
+E | 0 | CS seminar | 2024-10-22 0000 | 2024-10-24 0000
