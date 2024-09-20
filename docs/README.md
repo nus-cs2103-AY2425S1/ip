@@ -185,6 +185,7 @@ Advanced users are welcome to update data directly by editing that data file.
 discarded when you exit the app.
 
 ### Command summary
+
 | Action   | Format, Examples                                                                                                  |
 |----------|-------------------------------------------------------------------------------------------------------------------|
 | List     | `list`                                                                                                            |
