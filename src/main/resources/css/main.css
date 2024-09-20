@@ -1,0 +1,51 @@
+.root {
+    main-color: rgb(255, 255, 255);       /* Create a looked-up color called "main-color" within root. */
+    -fx-background-image: url("../images/ChatBackground.jpg"); /* Set image */
+    -fx-background-size: cover;
+}
+
+.text-field {
+    -fx-background-color: rgb(255, 255, 255);
+    -fx-font: 13px "Arial";
+    -fx-focus-color: transparent;
+    -fx-background-radius: 0;
+    -fx-padding: 5px 20px;
+    -fx-prompt-text-fill: rgb(148, 163, 184);
+}
+
+.button {
+    -fx-background-color: rgb(255, 255, 255);
+    -fx-background-radius: 0;
+}
+
+.button:hover {
+    -fx-background-color: rgb(226, 232, 240);
+}
+
+.button:pressed {
+    -fx-background-color: rgb(203, 213, 225);
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 8px;  /* Change width of scroll bar. */
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-radius: 1em;
+    -fx-background-color: rgb(71, 85, 105);
+    -fx-opacity: 0.8;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+

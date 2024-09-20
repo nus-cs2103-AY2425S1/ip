@@ -1,0 +1,35 @@
+.label {
+    -fx-background-color: white;
+    -fx-border-color: #00b4d8;
+    -fx-border-width: 0px;
+    -fx-background-radius: 1em 1em 1em 1em;
+    -fx-border-radius: 1em 1em 1em 1em;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 2, 0.5, 1, 1);
+}
+
+.reply-label {
+    -fx-background-radius: 1em 1em 1em 1em;
+    -fx-border-radius: 1em 1em 1em 1em;
+    -fx-line-spacing: 5px;
+}
+
+.error-label {
+    -fx-background-color: #fff2f2;
+    -fx-background-radius: 1em 1em 1em 1em;
+    -fx-effect: dropshadow(gaussian, rgba(255, 120, 120, 0.5), 2, 0.7, 1, 1);
+    -fx-border-radius: 1em 1em 1em 1em;
+    -fx-line-spacing: 5px;
+}
+
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}
+
