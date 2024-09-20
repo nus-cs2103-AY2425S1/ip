@@ -35,8 +35,8 @@ public class AddCommand extends Command {
      * to the task list and updates the storage.
      *
      * @param tasks   The TaskList object that stores all tasks.
-     * @param ui      The Ui object that handles user interactions.
-     * @param storage The Storage object that handles loading and saving tasks to the file.
+     * @param ui      The Ui object that handles user interaction.
+     * @param storage The Storage object that handles loading and saving task to file.
      * @throws IOException   If an error occurs while saving tasks to the file.
      * @throws KobeException If the user input is invalid, such as incorrect formatting or missing fields.
      */
