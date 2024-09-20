@@ -2,10 +2,10 @@
 
 A sample of the chatbot window:
 <p align="center">
-  <img src="Ui.png" alt="Carly UI" width="300"/>
+  <img src="Ui.png" alt="Carly UI" width="450"/>
 </p>
 
-## Carly: Your Personal Task Management Chatbot
+## Carly: Your Personal Task Management Chatbot 💬
 Carly is an intuitive chatbot designed to help you manage your tasks effortlessly. With simple command-based interactions, you can easily create, mark, unmark, delete, and find tasks—all in one place. Whether you’re planning a busy day or keeping track of deadlines, Carly is here to streamline your productivity. Experience efficient task management like never before with Carly!
 
 ---
@@ -24,15 +24,16 @@ Carly is an intuitive chatbot designed to help you manage your tasks effortlessl
 
 ---
 ## Features
-| **Feature**                  | **Description**                                                                                   |
-|------------------------------|---------------------------------------------------------------------------------------------------|
-| **Adding Tasks**             | Use `todo TASK_DESCRIPTION` for simple tasks. <br> Use `deadline TASK_DESCRIPTION /by DATE` for tasks with deadlines. <br> Use `event TASK_DESCRIPTION /from START_TIME /to END_TIME` for events. |
-| **Finding Tasks**            | Use `find KEYWORD` to search for specific tasks.                                                 |
-| **Marking Tasks**            | Use `mark INDEX` to mark a task as done.                                                         |
-| **Unmarking Tasks**          | Use `unmark INDEX` to revert a task to not done.                                                |
-| **Sorting Tasks**            | Use `sort` to organize tasks by their deadlines.                                                 |
-| **Listing Tasks**            | Use `list` to view all current tasks.                                                            |
-| **Exiting Carly**            | Use `bye` to end your session.                                                                    |
+| **Feature**          | **Description**                                                                          |
+|----------------------|------------------------------------------------------------------------------------------|
+| **Adding Tasks**     | `todo TASK_DESCRIPTION` for simple tasks. <br> `deadline TASK_DESCRIPTION /by DATE` for deadlines. <br> `event TASK_DESCRIPTION /from START_TIME /to END_TIME` for events. |
+| **Finding Tasks**    | `find KEYWORD` to search for specific tasks.                                            |
+| **Marking Tasks**    | `mark INDEX` to mark a task as done.                                                    |
+| **Unmarking Tasks**  | `unmark INDEX` to revert a task to not done.                                           |
+| **Sorting Tasks**    | `sort` to organize tasks by their deadlines.                                            |
+| **Listing Tasks**    | `list` to view all current tasks.                                                       |
+| **Exiting Carly**    | `bye` to end your session.                                                               |
+
 
 ---
 ## Help
@@ -52,7 +53,7 @@ Awesome! I've added this task:
 You've got 1 task on your plate!
 ```
 
-
+<br></br>
 ### Adding deadlines
 Set deadlines for your tasks to ensure you stay on track.
 
@@ -69,7 +70,7 @@ Awesome! I've added this task:
 You've got 1 task on your plate!
 ```
 
-
+<br></br>
 ### Adding events
 Set events for your tasks with start and end datetime.
 ```
@@ -82,6 +83,8 @@ Awesome! I've added this task:
 You've got 3 task on your plate!
 ```
 
+
+<br></br>
 ### Finding Tasks
 Finding specific tasks based on an entry
 
@@ -98,6 +101,8 @@ Output:
 You've got 1 task on your plate!
 ```
 
+
+<br></br>
 ### Marking tasks
 Mark a task as done.
 
@@ -112,7 +117,7 @@ Nice! I've marked this task as done:
 You've got 4 tasks on your plate!
 ```
 
-
+<br></br>
 ### Unmarking tasks
 Unmark a task to indicate it's not done.
 
@@ -126,7 +131,7 @@ OK! I've unmarked this task:
     [D][ ] submit assignment 1 (by: Dec 10 2024)
 You've got 5 tasks on your plate!
 ```
-
+<br></br>
 ### Sorting Tasks
 Organize your tasks by deadlines.
 
@@ -147,7 +152,7 @@ Output:
 You've got 5 task on your plate!
 ```
 
-
+<br></br>
 ### Listing Tasks
 View all your current tasks.
 
@@ -168,8 +173,8 @@ Here are the tasks in your list:
 
 You've got 2 tasks to tackle!
 ```
-
-### Exiting Carly
+<br></br>
+### Exiting
 End your session, and exit the window when you're done.
 
 #### Usage
