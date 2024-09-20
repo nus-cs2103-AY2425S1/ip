@@ -63,4 +63,18 @@ public class DialogBox extends HBox {
         db.flip();
         return db;
     }
+    /**
+     * Returns a dialog box with red-colored text to indicate an error.
+     * The text is styled with inline CSS to be red.
+     */
+    public static DialogBox getColorDialog(String text, Image img, boolean flip, String colour) {
+        var db = new DialogBox(text, img);
+        if (flip) {
+            db.flip();
+        }
+        // change text colour to specified colour
+        db.dialog.setStyle("-fx-text-fill: " + colour + ";");
+
+        return db;
+    }
 }
