@@ -10,18 +10,21 @@ It's a little relectuctant but it'll get the job done...\
 Also includes a data file which stores Tasks between sessions, you can edit it if you want but all invalid lines of data will simply not be read
 
  - [Quick start](#quick-start)
+ - [Commands](#commands)
+ - [Command Summary](#command-summary)
   - [Adding Tasks](#adding-tasks)
     - [Adding a TODO](#adding-todos-todo)`todo`
     - [Adding a DEADLINE ](#adding-deadlines-deadline)`deadline`
     - [Adding an EVENT](#adding-events-event) `event`
   - [Date Formats](#date-formats)
-  - [Listing all Tasks](#listing-all-tasks)`list`
-  - [Marking a Task](#marking-a-task)`mark`
-  - [Unmarking a Task ](#unmarking-a-task)`unmark`
-  - [Deleting a Task](#deleting-a-task)`delete`
-  - [Finding a Task using keyword](#finding-a-task-using-keyword)`find`
-  - [Clearing all Tasks](#clearing-all-tasks)`clear`
-  - [Exiting the program](#exiting-the-program)`bye`
+  - [Additional Commands](#additional-commands)
+    - [Listing all Tasks](#listing-all-tasks)`list`
+    - [Marking a Task](#marking-a-task)`mark`
+    - [Unmarking a Task ](#unmarking-a-task)`unmark`
+    - [Deleting a Task](#deleting-a-task)`delete`
+    - [Finding a Task using keyword](#finding-a-task-using-keyword)`find`
+    - [Clearing all Tasks](#clearing-all-tasks)`clear`
+    - [Exiting the program](#exiting-the-program)`bye`
   - [Image Sources](#image-sources) 
 
 
@@ -41,6 +44,21 @@ Commmands are not case sensitive so eg. "todo" and "ToDo" are both valid
 Most commands follow the format `[command] <additional info>` without any of the brackets
 
 Note that commands are read as the first string of letters before a white space
+
+## Command Summary
+
+| Command  | Format, Example                                                                                                               |
+|----------|-------------------------------------------------------------------------------------------------------------------------------|
+| List     | `list`                                                                                                                        |
+| Todo     | `todo DESCRIPTION` <br/>e.g., `todo read book`                                                                                |
+| Deadline | `deadline DESCRIPTION /by STRING` <br/>e.g., `deadline submit assignment /by 2024-11-11`                                   |
+| Event    | `event DESCRIPTION /from STRING /to STRING` <br/>e.g., `event Party /from 2024-09-29 /to 2024-11-27` |
+| Mark     | `mark INDEX` <br/>e.g., `mark 2`                                                                                              |
+| Unmark   | `unmark INDEX` <br/>e.g., `unmark 1`                                                                                          |
+| Delete   | `delete INDEX` <br/>e.g., `delete 3`                                                                                          |
+| Find     | `find STRING` <br/>e.g., `find assignment`                                                                                   |
+| Bye      | `bye`                                                                                                                         |
+
 
 ## Adding tasks
 #### Adding TODOs: `todo`
@@ -100,6 +118,7 @@ Example: Let's say today is 20th Sep 2024 then
 `Event Carnival /from tues /to 2024-09-27`\
 would return the Event `[E][ ] Carnival (From:  24 Sep 2024 to: 27 Sept 2024)`
 
+## Additional Commands
 ### Listing all tasks
 
 Use this command to view the current task list. Tasks are sorted by order in which they were added into the list
