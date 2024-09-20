@@ -4,3 +4,4 @@ T | 0 | lunch
 T | 0 | borrow book
 D | 0 | return book | 12/12/2025 1900
 E | 0 | project meeting | 2/12/2022 1600 | 19/12/2022 1900
+T | 0 | booking
