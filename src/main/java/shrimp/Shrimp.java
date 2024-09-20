@@ -26,18 +26,40 @@ import shrimp.utility.Ui;
  * The {@code Shrimp} class serves as the entry point for the Shrimp chatbot application.
  * It handles the main program flow, including user interaction, task management,
  * and command execution.
+ *
+ * <p> The Shrimp chatbot allows users to manage a list of tasks through various commands,
+ * such as adding, deleting, marking tasks as complete, and searching for tasks.
+ * The application also supports deadlines and events with time ranges.
  */
 public class Shrimp {
 
+    // Static fields and constants
+
+    /**
+     * The status of whether a task is done, initialized to false.
+     */
     private static final Boolean hasDone = false;
+
+    /**
+     * The instance of the {@code Ui} class used to interact with the user interface.
+     */
     private static final Ui ui = new Ui();
+
+    /**
+     * The task list that stores all tasks managed by the chatbot.
+     */
     private static TaskList taskList = new TaskList();
 
+    /**
+     * A regular expression to ensure input contains only alphanumeric characters and spaces.
+     */
     private static final String ALLOWED_CHARACTERS_REGEX = "^[\\w\\s]+$"; // Only allows alphanumeric and spaces
 
     /**
-     * Runs the chatbot, handling user input and executing commands.
-     * The loop continues until the user issues the "bye" command.
+     * Starts the Shrimp chatbot and loads the saved task list, if available.
+     * If loading fails, an empty task list is initialized.
+     *
+     * @return a message indicating the result of the task loading process.
      */
     public String runChatBot() {
         try {
@@ -49,10 +71,22 @@ public class Shrimp {
         }
     }
 
+    /**
+     * Displays the welcome message to the user when the chatbot is started.
+     *
+     * @return the welcome message string.
+     */
     public String showWelcome() {
         return ui.printWelcome();
     }
 
+    /**
+     * Processes the user's input and executes the corresponding command.
+     * If the input is invalid, an error message is returned.
+     *
+     * @param userInput the user's input command string.
+     * @return the result of the command execution or an error message.
+     */
     public String getResponse(String userInput) {
         try {
             if (userInput == null || userInput.isEmpty()) {
@@ -93,6 +127,14 @@ public class Shrimp {
         }
     }
 
+    /**
+     * Handles the "find" command by searching for tasks that match the given keyword.
+     *
+     * @param userInput the user's input containing the find command.
+     * @param commandType the type of command being processed.
+     * @return the result of the find operation.
+     * @throws ShrimpException.MissingArgumentException if the keyword is missing.
+     */
     private static String fetchFind(String userInput, CommandType commandType) throws ShrimpException.MissingArgumentException {
         if (userInput.length() <= 5) {
             throw new ShrimpException.MissingArgumentException(commandType);
@@ -102,11 +144,24 @@ public class Shrimp {
         return findCommand.run(taskList, ui);
     }
 
+    /**
+     * Clears all tasks from the task list.
+     *
+     * @return the result of the clear operation.
+     */
     private static String fetchClear() {
         ClearCommand clearCommand = new ClearCommand();
         return clearCommand.run(taskList, ui);
     }
 
+    /**
+     * Adds an event task with a description and time range to the task list.
+     *
+     * @param userInput the user's input containing the event command.
+     * @param commandType the type of command being processed.
+     * @return the result of the event addition.
+     * @throws ShrimpException if the input format is incorrect or the time range is invalid.
+     */
     private static String fetchEvent(String userInput, CommandType commandType) throws ShrimpException {
         if (userInput.length() <= 6 || !userInput.contains("/from") || !userInput.contains("/to")) {
             throw new ShrimpException.MissingArgumentException(commandType);
@@ -123,6 +178,14 @@ public class Shrimp {
         return addEvent.run(taskList, ui);
     }
 
+    /**
+     * Adds a deadline task with a description and due date to the task list.
+     *
+     * @param userInput the user's input containing the deadline command.
+     * @param commandType the type of command being processed.
+     * @return the result of the deadline addition.
+     * @throws ShrimpException if the input format is incorrect.
+     */
     private static String fetchDeadline(String userInput, CommandType commandType) throws ShrimpException {
         if (userInput.length() <= 9 || !userInput.contains("/by")) {
             throw new ShrimpException.MissingArgumentException(commandType);
@@ -135,6 +198,14 @@ public class Shrimp {
         return addDeadline.run(taskList, ui);
     }
 
+    /**
+     * Adds a to-do task to the task list.
+     *
+     * @param userInput the user's input containing the add command.
+     * @param commandType the type of command being processed.
+     * @return the result of the to-do addition.
+     * @throws ShrimpException if the input format is incorrect or contains invalid characters.
+     */
     private static String fetchAdd(String userInput, CommandType commandType) throws ShrimpException {
         if (userInput.length() <= 5) {
             throw new ShrimpException.MissingArgumentException(commandType);
@@ -146,6 +217,14 @@ public class Shrimp {
         return addTodo.run(taskList, ui);
     }
 
+    /**
+     * Deletes a task from the task list based on its index.
+     *
+     * @param userInput the user's input containing the delete command.
+     * @param commandType the type of command being processed.
+     * @return the result of the delete operation.
+     * @throws ShrimpException if the task number is invalid or out of bounds.
+     */
     private static String fetchDelete(String userInput, CommandType commandType) throws ShrimpException {
         int indexDelete = getTaskNumber(userInput, commandType);
         if (indexDelete > taskList.size()) {
@@ -157,6 +236,15 @@ public class Shrimp {
         return deleteCommand.run(taskList, ui);
     }
 
+    /**
+     * Marks or unmarks a task in the task list as done/undone.
+     *
+     * @param userInput the user's input containing the mark/unmark command.
+     * @param commandType the type of command being processed.
+     * @param toMark {@code true} if the task is to be marked as done, {@code false} if to unmark.
+     * @return the result of the mark/unmark operation.
+     * @throws ShrimpException if the task number is invalid or out of bounds.
+     */
     private static String fetchMark(String userInput, CommandType commandType, boolean toMark) throws ShrimpException {
         int indexMark = getTaskNumber(userInput, commandType);
         if (indexMark > taskList.size()) {
@@ -168,6 +256,12 @@ public class Shrimp {
         return markCommand.run(taskList, ui);
     }
 
+    /**
+     * Displays the list of tasks in the task list.
+     *
+     * @return the result of the list command.
+     * @throws ShrimpException.EmptyArrayException if the task list is empty.
+     */
     private static String fetchList() throws ShrimpException.EmptyArrayException {
         if (taskList.isEmpty()) {
             throw new ShrimpException.EmptyArrayException();
@@ -176,11 +270,19 @@ public class Shrimp {
         return listCommand.run(taskList, ui);
     }
 
+    /**
+     * Exits the Shrimp chatbot and saves the current task list.
+     *
+     * @return the result of the exit command.
+     */
     private static String fetchExit() {
         ExitCommand exitCommand = new ExitCommand();
         return exitCommand.run(taskList, ui);
     }
 
+    /**
+     * Saves the current task list to persistent storage.
+     */
     public static void saveTasks() {
         Storage.saveTasks(taskList);
     }
@@ -188,10 +290,10 @@ public class Shrimp {
     /**
      * Extracts the task number from the user input for MARK, UNMARK, or DELETE commands.
      *
-     * @param userInput The user's input containing the command and task number.
-     * @param type      The type of command being processed.
-     * @return The task number (zero-based index).
-     * @throws ShrimpException If the task number is missing or not a valid integer.
+     * @param userInput the user's input containing the command and task number.
+     * @param type the type of command being processed.
+     * @return the task number (zero-based index).
+     * @throws ShrimpException if the task number is missing or not a valid integer.
      */
     static int getTaskNumber(String userInput, Parser.CommandType type) throws ShrimpException {
         assert userInput != null : "userInput is null";
@@ -207,9 +309,9 @@ public class Shrimp {
     /**
      * Parses a {@code String} into a {@code LocalDateTime} object using the defined date/time pattern.
      *
-     * @param input The date/time string to be parsed.
-     * @return The parsed {@code LocalDateTime} object.
-     * @throws ShrimpException If the date/time format is invalid.
+     * @param input the date/time string to be parsed.
+     * @return the parsed {@code LocalDateTime} object.
+     * @throws ShrimpException if the date/time format is invalid.
      */
     static LocalDateTime getDateTime(String input) throws ShrimpException {
         try {
@@ -219,6 +321,12 @@ public class Shrimp {
         }
     }
 
+    /**
+     * Validates the user's input string to ensure it contains only allowed characters.
+     *
+     * @param input the input string to be validated.
+     * @throws ShrimpException if the input contains invalid characters.
+     */
     private static void validateInput(String input) throws ShrimpException {
         if (!input.matches(ALLOWED_CHARACTERS_REGEX)) {
             throw new ShrimpException.InvalidCharacterException();
