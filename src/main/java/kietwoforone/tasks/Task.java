@@ -11,6 +11,7 @@ public class Task implements Serializable {
 
     protected String description;
     protected boolean isDone;
+    private String tag = "";
 
     /**
      * Constructor for a new Task object.
@@ -93,7 +94,8 @@ public class Task implements Serializable {
     }
 
     public String addTag(String tag) {
-        return this.toString() + " " + "#" + tag;
+        this.tag = tag;
+        return this.toString();
     }
 
     /**

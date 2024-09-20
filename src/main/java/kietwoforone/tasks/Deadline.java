@@ -13,6 +13,7 @@ public class Deadline extends Task {
     private LocalDate deadlineDate;
     private String deadlineTime;
     private Task task;
+    private String tag = "";
 
     /**
      * Constructor for a new Deadline object.
@@ -95,7 +96,8 @@ public class Deadline extends Task {
 
     @Override
     public String addTag(String tag) {
-        return this.toString() + " " + "#" + tag;
+        this.tag = tag;
+        return this.toString();
     }
 
     /**
@@ -105,7 +107,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[D] %s (by: %s %s)", this.task.toString(), this.getDate(), this.deadlineTime);
+        return String.format("[D] %s (by: %s %s) [%s]", this.task.toString(), this.getDate(), this.deadlineTime, this.tag);
     }
 
 }

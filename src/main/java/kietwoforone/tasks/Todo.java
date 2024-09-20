@@ -6,6 +6,7 @@ package kietwoforone.tasks;
 public class Todo extends Task {
 
     private Task task;
+    private String tag = "";
 
     /**
      * Constructor for new Todo object.
@@ -65,7 +66,8 @@ public class Todo extends Task {
 
     @Override
     public String addTag(String tag) {
-        return this.toString() + " " + "#" + tag;
+        this.tag = tag;
+        return this.toString();
     }
 
     /**
@@ -75,7 +77,7 @@ public class Todo extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[T] %s", this.task.toString());
+        return String.format("[T] %s [%s]", this.task.toString(), this.tag);
     }
 
 }

@@ -28,7 +28,7 @@ The chatbot will provide the following response if it has successfully added the
 
 > Got it. I've added this task:
 > 
->   [T] [ ] task 
+>   [T] [ ] task []
 > 
 > Now you have 2 tasks in the list.
 
@@ -47,7 +47,7 @@ The chatbot will provide the following response if it has successfully added the
 
 > Got it. I've added this task:
 >
->  [D] [ ] task (by: Dec 5 2024 1800)
+>  [D] [ ] task (by: Dec 5 2024 1800) []
 >
 > Now you have 2 tasks in the list.
 
@@ -60,13 +60,13 @@ following command:
 
 For example if the user had inputted the following command: 
 
-> event task /from 2024-12-05 1800 /to 2024-12-06 1800
+> event task /from 2024-12-05 1800 /to 2024-12-06 1800 []
 
 The chatbot will provide the following response if it has successfully added the task to the task list.
 
 > Got it. I've added this task:
 >
->  [E] [ ] task (from: Dec 5 2024 1800 to: Dec 6 2024 1800)
+>  [E] [ ] task (from: Dec 5 2024 1800 to: Dec 6 2024 1800) []
 >
 > Now you have 3 tasks in the list.
 
@@ -81,9 +81,9 @@ This is done by inputting the following command>
 Using the previous inputs from the adding tasks section calling this command would display the following
 
 > Here are the tasks in your list:
-> 1. [T] [ ] task
-> 2. [D] [ ] task (by: Dec 5 2024 1800)
-> 3. [E] [ ] task (from: Dec 5 2024 1800 to: Dec 6 2024 1800)
+> 1. [T] [ ] task ] []
+> 2. [D] [ ] task (by: Dec 5 2024 1800) []
+> 3. [E] [ ] task (from: Dec 5 2024 1800 to: Dec 6 2024 1800) []
 
 ### Marking and Unmarking tasks
 
@@ -104,7 +104,7 @@ Would yield the following response from the chatbot.
 
 > Nice! I've marked this task as done:
 > 
-> [T] [X] task
+> [T] [X] task []
 
 #### Unmarking tasks
 
@@ -121,7 +121,7 @@ Would yield the following response from the chatbot.
 
 > OK. I've marked this task as incomplete:
 > 
-> [T] [ ] task
+> [T] [ ] task []
 
 ### Deleting tasks
 
@@ -138,7 +138,7 @@ Would yield the following response from the chatbot:
 
 >Noted. I've removed the task:
 > 
->[T] [ ] task
+>[T] [ ] task []
 > 
 >Now you have 2 tasks in the list.
 
@@ -150,8 +150,8 @@ Would yield the following output:
 
 >Here are the tasks in your list:
 > 
-> 1. [D] [ ] task (by: Dec 5 2024 1800)
-> 2. [E] [ ] task (from: Dec 5 2024 1800 to: Dec 6 2024 1800)
+> 1. [D] [ ] task (by: Dec 5 2024 1800) []
+> 2. [E] [ ] task (from: Dec 5 2024 1800 to: Dec 6 2024 1800) []
 
 We can see that the task Todo task has been deleted and there are 2 tasks left.
 
@@ -171,8 +171,8 @@ For example using the above task list, inputting the following:
 Would yield the following output:
 
 > Here are the tasks occurring on this date:
-> 1. [D] [ ] task (by: Dec 5 2024 1800)
-> 2. [E] [ ] task (from: Dec 5 2024 1800 to: Dec 6 2024 1800)
+> 1. [D] [ ] task (by: Dec 5 2024 1800) []
+> 2. [E] [ ] task (from: Dec 5 2024 1800 to: Dec 6 2024 1800) []
 
 Since the date inputted lies wihtin both the deadline and event duration.
 
@@ -183,7 +183,7 @@ On the other hand inputting the following:
 Would yield the following output:
 
 > Here are the tasks occurring on this date:
-> 1. [E] [ ] task (from: Dec 5 2024 1800 to: Dec 6 2024 1800)
+> 1. [E] [ ] task (from: Dec 5 2024 1800 to: Dec 6 2024 1800) []
 
 Since the date does not lie within the deadline but lies within the event duration.
 
@@ -196,11 +196,11 @@ Users can make use of the find functionality in our chatbot to filter tasks by w
 Given the following task list:
 
 > Here are the tasks in your list:
-> 1. [D] [ ] task (by: Dec 5 2024 1800)
-> 2. [E] [ ] task (from: Dec 5 2024 1800 to: Dec 6 2024 1800)
-> 3. [T] [ ] do work
-> 4. [T] [ ] do work tomorrow
-> 5. [T] [ ] do poetry
+> 1. [D] [ ] task (by: Dec 5 2024 1800) []
+> 2. [E] [ ] task (from: Dec 5 2024 1800 to: Dec 6 2024 1800) []
+> 3. [T] [ ] do work []
+> 4. [T] [ ] do work tomorrow []
+> 5. [T] [ ] do poetry []
 
 Users can input a word from the sentence such as:
 
@@ -209,9 +209,9 @@ Users can input a word from the sentence such as:
 And yield the following output:
 
 > Here are the matching tasks in your list:
-> 1. [T] [ ] do work
-> 2. [T] [ ] do work tomorrow
-> 3. [T] [ ] do poetry
+> 1. [T] [ ] do work []
+> 2. [T] [ ] do work tomorrow []
+> 3. [T] [ ] do poetry []
 
 They may also input more than one word:
 
@@ -220,8 +220,8 @@ They may also input more than one word:
 And yield the following output:
 
 > Here are the matching tasks in your list:
-> 1. [T] [ ] do work
-> 2. [T] [ ] do work tomorrow
+> 1. [T] [ ] do work []
+> 2. [T] [ ] do work tomorrow []
 
 They may even also input part of a word:
 
@@ -230,8 +230,8 @@ They may even also input part of a word:
 And yield the following output:
 
 > Here are the matching tasks in your list:
-> 1. [D] [ ] task (by: Dec 5 2024 1800)
-> 2. [E] [ ] task (from: Dec 5 2024 1800 to: Dec 6 2024 1800)
+> 1. [D] [ ] task (by: Dec 5 2024 1800) []
+> 2. [E] [ ] task (from: Dec 5 2024 1800 to: Dec 6 2024 1800) []
 
 ### Tagging tasks
 
@@ -249,7 +249,7 @@ Will yield the following output:
 
 > OK. I've tagged the following task:
 > 
-> [T] [ ] do poetry #fun
+> [T] [ ] do poetry [fun]
 
 ### Exiting the application
 

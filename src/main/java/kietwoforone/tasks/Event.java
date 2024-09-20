@@ -15,7 +15,7 @@ public class Event extends Task{
     private LocalDate endDate;
     private String endTime;
     private Task task;
-
+    private String tag = "";
     /**
      * Constructor for a new Event object.
      *
@@ -116,7 +116,8 @@ public class Event extends Task{
 
     @Override
     public String addTag(String tag) {
-        return this.toString() + " " + "#" + tag;
+        this.tag = tag;
+        return this.toString();
     }
 
     /**
@@ -126,7 +127,7 @@ public class Event extends Task{
      */
     @Override
     public String toString() {
-        return String.format("[E] %s (from: %s %s to: %s %s)", this.task.toString(), this.getStartDate(), this.startTime, this.getEndDate(), this.endTime);
+        return String.format("[E] %s (from: %s %s to: %s %s) [%s]", this.task.toString(), this.getStartDate(), this.startTime, this.getEndDate(), this.endTime, this.tag);
     }
 
 }
