@@ -1,10 +1,8 @@
-# Duke User Guide
+# Nave User Guide
 
-// Update the title above to match the actual product name
+![Nave product screenshot.](/docs/Ui.png)
 
-// Product screenshot goes here
-
-// Product intro goes here
+Nave is an interactive chatbot that helps to keep track of your tasks!
 
 ## Adding deadlines
 
@@ -20,11 +18,28 @@ Example: `keyword (optional arguments)`
 expected output
 ```
 
-## Feature ABC
+## Getting Help
+Use `/help` to get a list of all commands that Nave accepts.
 
-// Feature details
+## Add tasks
 
+There are three types of tasks you can add.\
+To add a Todo: `todo {name of task}`\
+To add a Deadline: `deadline {name of task} /by {date}`\
+To add an Event: `event {name of task} /from {date} /to {date}`\
+All dates are in YYYY-MM-DD format.
 
-## Feature XYZ
+## List tasks
 
-// Feature details
+`list` will list all tasks you have. 
+
+## Mark and Unmark
+
+`mark {index}` and `unmark {index}` will mark or unmark the task
+at the index of the list. 
+
+## Find a task
+`find {keyword}` will find all tasks whose name have the keyword.
+
+## Exiting 
+`bye` will exit Nave. 
