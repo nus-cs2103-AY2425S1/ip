@@ -37,7 +37,7 @@ public class Kobe {
     /**
      * Processes user input and returns the chatbot's response.
      *
-     * @param input The user's input command.
+     * @param input The user's input commands.
      * @return The response from the chatbot.
      */
     public String getResponse(String input) {
