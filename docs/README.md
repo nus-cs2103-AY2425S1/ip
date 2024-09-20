@@ -1,5 +1,9 @@
 # Reminderebot User Guide
 
+The title of the product is named Reminderebot.
+
+![Reminderbot in action](Ui.png?raw=true "Screenshot")
+
 Reminderebot is a graphical user interface (GUI) desktop app that helps you track your upcoming tasks.
 To start using Reminderebot, you can:
 
@@ -197,6 +201,3 @@ Usage
 Bye. Hope to see you again soon!
 > exits
 ```
-
-## Screenshots
-![Reminderbot in action](Ui.png?raw=true "Screenshot")
