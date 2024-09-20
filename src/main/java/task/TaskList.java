@@ -40,7 +40,7 @@ public class TaskList {
      * @return The {@code Task} object if found, {@code null} otherwise.
      */
     public Task getTaskByID(int id){
-        if (id >= 1 && id <= TASKS.size()) {
+        if (VALIDATE.outOfBound(TASKS.size(), id)) {
             return TASKS.get(id - 1);
         }
         return null;
@@ -75,9 +75,9 @@ public class TaskList {
      */
     public Task createTask(TaskType type, String desc, LocalDateTime... args) {
         return switch (type) {
-            case TODO -> new ToDo(desc);
-            case DEADLINE -> new Deadline(desc, args[0]);
-            case EVENT -> new Event(desc, args[0], args[1]);
+        case TODO -> new ToDo(desc);
+        case DEADLINE -> new Deadline(desc, args[0]);
+        case EVENT -> new Event(desc, args[0], args[1]);
         };
     }
 

@@ -1,6 +1,7 @@
 package utility;
 
 import exception.DescriptionNotFoundException;
+import exception.KeyNotFoundException;
 import task.Task;
 import task.TaskList;
 import task.TaskType;
@@ -59,7 +60,7 @@ public class Parser {
             try {
                 int taskNumber = Integer.parseInt(trimCommand(userInput, 5));
                 if (!tasks.markTask(taskNumber)) {
-                    return message.printTaskNotExists();
+                    return message.printTaskNotExists(taskNumber);
                 } else {
                     storage.save(tasks);
                     return message.printHeader("mark") + tasks.getTaskByID(taskNumber);
@@ -74,7 +75,7 @@ public class Parser {
             try {
                 int taskNumber = Integer.parseInt(trimCommand(userInput, 7));
                 if (!tasks.unmarkTask(taskNumber)) {
-                    return message.printTaskNotExists();
+                    return message.printTaskNotExists(taskNumber);
                 } else {
                     storage.save(tasks);
                     return message.printHeader("unmark") + tasks.getTaskByID(taskNumber);
@@ -90,7 +91,7 @@ public class Parser {
                 int taskNumber = Integer.parseInt(trimCommand(userInput, 7));
                 Task toBeRemoved = tasks.getTaskByID(taskNumber);
                 if (!tasks.deleteTask(taskNumber) || toBeRemoved == null) {
-                    return message.printTaskNotExists();
+                    return message.printTaskNotExists(taskNumber);
                 } else {
                     storage.save(tasks);
                     return message.printHeader("delete") + toBeRemoved + message.printTaskCount(tasks.getTaskCount());
@@ -170,7 +171,7 @@ public class Parser {
             try {
                 String keyword = trimCommand(userInput, 5);
                 if (keyword.isEmpty()) {
-                    return message.printEmptyKey();
+                    throw new KeyNotFoundException();
                 }
                 String result = tasks.findTask(keyword);
                 if (result == null) {
@@ -178,7 +179,7 @@ public class Parser {
                 } else {
                     return message.printHeader("find") + result;
                 }
-            } catch (StringIndexOutOfBoundsException e) {
+            } catch (StringIndexOutOfBoundsException | KeyNotFoundException e) {
                 return message.printEmptyKey();
             }
         }

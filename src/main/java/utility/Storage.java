@@ -19,20 +19,15 @@ public class Storage {
      * @param tasks The {@code TaskList} to populate with the loaded tasks.
      */
     public void load(TaskList tasks) {
-
         new Validator().checkFileExists(FILEPATH);
-
         Parser dateTimeParser = new Parser();
-
         try (BufferedReader reader = new BufferedReader(new FileReader(FILEPATH))) {
             String line;
-
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(" \\| ");
                 String taskType = parts[0].trim();
                 boolean isDone = parts[1].trim().equals("1");
                 String desc = parts[2].trim();
-
                 switch (taskType) {
                 case "T" -> {
                     ToDo todo = new ToDo(desc);
@@ -53,7 +48,6 @@ public class Storage {
                 default -> System.out.println("Invalid task type in db.txt: " + taskType);
                 }
             }
-
         } catch (ArrayIndexOutOfBoundsException | IOException e) {
             System.out.println("An error occurred while loading tasks: " + e.getMessage());
         }
@@ -87,9 +81,7 @@ public class Storage {
         String taskType = task instanceof ToDo ? "T" : task instanceof Deadline ? "D" : "E";
         String status = task.getDone() ? "1" : "0";
         String line = taskType + " | " + status + " | " + task.getDesc();
-
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-
         if (task instanceof Deadline deadline) {
             line += " | " + deadline.getBy().format(formatter);
         } else if (task instanceof Event event) {

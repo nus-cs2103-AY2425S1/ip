@@ -21,15 +21,12 @@ public class Validator {
     public void checkFileExists(String filePath) {
         File file = new File(filePath);
         File directory = new File(file.getParent());
-
         try {
             if (!directory.exists()) {
-                boolean isCreated = directory.mkdir();
-                if (!isCreated) {
+                if (!directory.mkdir()) {
                     System.out.println("Issue creating Directory");
                 }
             }
-
             if (!file.exists()) {
                 if (!file.createNewFile()) {
                     System.out.println("Issue creating File.");
@@ -55,7 +52,7 @@ public class Validator {
             if (!task.getDesc().equals(newTask.getDesc())) {
                 continue;
             }
-            if (isDuplicateDeadline(task, newTask) || isDuplicateEvent(task, newTask) || isDuplicateToDo(task, newTask)) {
+            if (isDuplicateDeadline(task, newTask) | isDuplicateEvent(task, newTask) | isDuplicateToDo(task, newTask)) {
                 return true;
             }
         }

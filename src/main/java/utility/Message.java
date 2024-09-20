@@ -23,8 +23,8 @@ public class Message {
      *
      * @return A string message stating that task was not found.
      */
-    public String printTaskNotExists() {
-        return "TaskID does not Exists.";
+    public String printTaskNotExists(int id) {
+        return "There is no Task " + id + ".";
     }
 
     /**
