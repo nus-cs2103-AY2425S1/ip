@@ -51,7 +51,7 @@ public class Parser {
             switch (inputs[0]) {
             case "bye":
                 command = new ByeCommand().parse(input);
-                return false;
+                break;
             case "list":
                 command = new ListCommand().parse(input);
                 break;
