@@ -90,7 +90,7 @@ public class Ui {
      * @return The formatted message.
      */
     public String getTaskUnmarked(Task task) {
-        return "OK, I've marked this task as not done yet:\n" + task;
+        return "OK, I've unmarked this task:\n" + task;
     }
 
     /**

@@ -27,7 +27,7 @@ that need to be completed by a particular date and time.
 
 Example: `deadline Project Submission /by 2019-10-10 1800`
 
-Note that the time should be in this yyyy-MM-dd HHmm format
+Note that the time should be in yyyy-MM-dd HHmm format
 
 When you successfully add a deadline, Bean will confirm the task addition with the following output:
 
@@ -45,7 +45,7 @@ The `event` command helps you add tasks that occur at a specific date and time r
 
 **Example:** `event Team meeting /from 2024-09-21 0900 /to 2024-09-22 1100`
 
-Note that the time should be in this yyyy-MM-dd HHmm format
+Note that the time should be in yyyy-MM-dd HHmm format
 
 When you successfully add an event, Bean will confirm the task addition with the following output:
 
@@ -97,7 +97,7 @@ The `unmark` command lets you undo the completion status of a task, in case you 
 When you unmark a task, Bean will confirm the change:
 
 ```
-Nice! I've marked this task as done:
+Nice! I've unmarked this task as done:
 [T][ ] Buy groceries
 ```
 
