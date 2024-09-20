@@ -13,9 +13,9 @@ public class DeadlineTask extends Task {
     private static final SimpleDateFormat inputFormat = new SimpleDateFormat("dd-MM-yyyy");
     private static final SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMM yyyy");
 
-    public DeadlineTask(String description, String by) throws ParseException {
+    public DeadlineTask(String description, String dl) throws ParseException {
         super(description);
-        this.dl = inputFormat.parse(by);
+        this.dl = inputFormat.parse(dl);
     }
 
     @Override
