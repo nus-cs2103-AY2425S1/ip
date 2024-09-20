@@ -11,9 +11,11 @@ public class Main extends Application {
     private Nugget nugget;
     private ChatUI chatUI;
 
+    private static final String DEFAULT_FILE_PATH = "data/nugget.txt";
+
     @Override
     public void start(Stage primaryStage) throws Exception {
-        nugget = new Nugget("data/nugget.txt", this);
+        nugget = new Nugget(DEFAULT_FILE_PATH, this);
 
         chatUI = new ChatUI(nugget);
 

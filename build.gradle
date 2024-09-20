@@ -47,7 +47,7 @@ test {
 }
 
 application {
-    mainClass.set("nugget.gui.Main")
+    mainClass.set("nugget.gui.Launcher")
 }
 
 shadowJar {

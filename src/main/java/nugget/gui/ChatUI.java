@@ -87,7 +87,7 @@ public class ChatUI {
         scrollPane.setFitToWidth(true);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        messageArea.heightProperty().addListener((observable, oldValue, newValue) -> scrollPane.setVvalue(1.0));
+        messageArea.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
     }
 
     private void configureInputField() {
@@ -106,6 +106,7 @@ public class ChatUI {
             addMessage(input, true);
             nugget.handleInput(input);
             inputField.clear();
+            inputField.requestFocus();
         }
     }
 

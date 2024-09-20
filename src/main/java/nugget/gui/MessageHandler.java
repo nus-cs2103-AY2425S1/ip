@@ -16,7 +16,7 @@ public class MessageHandler {
         Label messageLabel = new Label(message);
         messageLabel.setWrapText(true);
         messageLabel.setMaxWidth(350);
-        messageLabel.setPadding(new Insets(10));  // Add padding inside the label
+        messageLabel.setPadding(new Insets(10)); // Add padding inside the label
 
         ImageView profileImage = new ImageView(isUser ? userImage : botImage);
         profileImage.setFitWidth(40);

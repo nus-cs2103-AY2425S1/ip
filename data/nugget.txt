@@ -1,4 +1,1 @@
-[T][X] sleep
-[D][ ] wake up (by: Apr 23 2023, 10:00 am)
-[E][ ] meeting (from: Mar 22 2024, 09:00 am to: Mar 22 2024, 11:00 am)
-[E][ ] eat lunch (from: Sep 20 2022, 09:00 am to: Sep 20 2022, 10:00 am)
+[T][ ] sleep
