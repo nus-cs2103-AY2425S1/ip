@@ -42,7 +42,7 @@ test {
 }
 
 application {
-    mainClass.set("Dawn.Gui.Launcher")
+    mainClass.set("dawn.gui.Launcher")
 }
 
 shadowJar {
