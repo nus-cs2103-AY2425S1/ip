@@ -11,16 +11,22 @@ There are three types of task that you can add:
 2. Deadline Tasks
 3. Event Tasks
 
+##### Table of Contents
+1. [Viewing entire task list](#viewing-entire-task-list)
+2. [Adding todos](#adding-todos)
+3. [Adding deadlines](#adding-deadlines)
+4. [Adding events](#adding-events)
+5. [Update task](#update-task)
+6. [Delete task](#delete-task)
+7. [Mark task as done](#mark-task-as-done)
+8. [Mark task as not done](#mark-task-as-not-done)
+9. [Finding specific task](#finding-specific-task)
+
 ## Viewing entire task list
 Shows current saved tasks in task list.  
 _**NOTE:** If this is your first time booting up the chatbot, there would be no tasks shown._  
 
 **Syntax:**   
-```
-list
-```
-
-**Example:** 
 ```
 list
 ```
@@ -74,7 +80,8 @@ You now have {total number of tasks} tasks in your task list.
 ```
 
 ## Adding events
-Add event task to the tasks list. An event task is a task that has
+Add event task to the tasks list.   
+An event task is a task that has
 a starting datetime and an ending datetime.  
 
 **Syntax:** 
