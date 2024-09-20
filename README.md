@@ -9,7 +9,7 @@ Sinatra helps you track your life when you can't track it yourself
 To get started:
 
 1. Download the `Sinatra.jar` file from [here](https://github.com/travisim/ip/releases).
-2. Run the command `java -jar "Sinatra.jar"`
+2. Run the command `java -jar "Sinatra.jar"`.
 
 ## Features:
 
@@ -36,32 +36,34 @@ To get started:
 
 4. **Mark/unmark tasks**
    Marks a task as done or not done.
+   The task number corresponds to the row number when `list` is run.
     - **Format**: `mark [task number]` or `unmark [task number]`
     - **Examples**:
         - `mark 1`
         - `unmark 2`
 
-5. **Search for tasks**
+6. **Search for tasks**
    Searches for tasks content containing the keyword.
     - **Format**: `find [keyword]`
     - **Examples**:
         - `find project`
         - `find book`
 
-6. **List all tasks**
+7. **List all tasks**
    Lists all tasks in the task list.
     - **Format**: `list`
     - **Examples**:
         - `list`
 
-7. **Delete tasks**
+8. **Delete tasks**
    Deletes a task from the list.
+   The task number corresponds to the row number when `list` is run.
     - **Format**: `delete [task number]`
     - **Examples**:
+        - `delete 1`
         - `delete 2`
-        - `delete 3`
 
-8. **Duplicate tasks detection**
+9. **Duplicate tasks detection**
    Automatically detects and prevents adding duplicate tasks.
     - **Description**: When you try to add a task that already exists in the list, Sinatra will notify you that "Task
       already exists and was not added"
