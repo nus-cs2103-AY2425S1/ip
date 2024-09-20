@@ -135,6 +135,11 @@ public class Ui {
         return taskString;
     }
 
+    /**
+     * Displays the message.
+     *
+     * @param message The message to display.
+     */
     public String showMessage(String message) {
         return message;
     }

@@ -1,5 +1,8 @@
 package vinegar;
 
+import java.io.File;
+import java.io.IOException;
+
 /**
  * Validates input and command arguments for the Vinegar application.
  * <p>
@@ -35,5 +38,42 @@ public class Validator {
             }
         }
         return false;
+    }
+
+    /**
+     * Validates if a file exists.
+     *
+     * @param file The file to check.
+     * @throws IOException If the file does not exist.
+     */
+    public static void validateFileExists(File file) throws IOException {
+        if (!file.exists()) {
+            throw new IOException("Task file does not exist.");
+        }
+    }
+
+    /**
+     * Validates if the task line format is correct by ensuring the expected number of parts.
+     *
+     * @param parts The split parts of a task line.
+     * @param expectedParts The expected number of parts in the task line.
+     * @throws IllegalArgumentException If the format is invalid (fewer parts than expected).
+     */
+    public static void validateTaskLineFormat(String[] parts, int expectedParts) {
+        if (parts.length < expectedParts) {
+            throw new IllegalArgumentException("Invalid task format, expected at least " + expectedParts + " parts.");
+        }
+    }
+
+    /**
+     * Validates the task type by checking if it matches known types.
+     *
+     * @param type The task type string.
+     * @throws IllegalArgumentException If the task type is unknown.
+     */
+    public static void validateTaskType(String type) {
+        if (!type.equals("T") && !type.equals("D") && !type.equals("E")) {
+            throw new IllegalArgumentException("Unknown task type: " + type);
+        }
     }
 }
