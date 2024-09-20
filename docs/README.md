@@ -1,6 +1,6 @@
 # Ruby User Guide
 
-![Product Image](/Ui.png.jpg)
+![Product Image](/Ui.png)
 
 Welcome to Ruby, your personal task management chatbot. Below is a guide on how to use Ruby’s available commands!
 
