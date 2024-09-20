@@ -14,7 +14,7 @@ import astor.exception.AstorException;
  */
 public class Astor {
     private static final String DESTINATION_STORAGE = "./src/main/data/astor.Astor.txt";
-    private static final String INTRODUCTION_LINE = "Hello, I'm Astor!\n" + "What can I do for you?\n";
+    private static final String INTRODUCTION_LINE = "Hello! I'm Astor!\n" + "What can I do for you?\n";
 
     private Ui ui;
     private Storage storage;

@@ -156,7 +156,7 @@ public class TaskList {
         String output;
         if (task.isDone()) {
             task.markUndone();
-            output = "OK, I've marked this task as not done yet:\n" + taskIndex
+            output = "OK! I've marked this task as not done yet:\n" + taskIndex
                     + ". " + task;
         } else {
             output = "This task is already marked as uncompleted:\n" + taskIndex
@@ -182,7 +182,7 @@ public class TaskList {
         if (taskIndex >= 1 && taskIndex <= taskList.size()) {
             Task task = taskList.remove(taskIndex - 1);
             storage.updateData(taskList);
-            return "Noted. I've removed this task:\n  "
+            return "Noted! I've removed this task:\n  "
                     + task + "\nNow you have " + taskList.size() + " tasks in the list.";
         } else {
             throw DeleteTaskOutOfRangeException.outOfRangeTaskToDelete(taskList.size());
