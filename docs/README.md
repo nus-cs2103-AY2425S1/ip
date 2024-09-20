@@ -7,7 +7,7 @@ EchoBot is your ultimate task manager, designed to free up your mental space so 
 * Easy to learn so you can get started right away.
 * Blazing fast for quick and efficient task management.
 
-<img src="Ui.png" width="40%">
+<div align="center"><img src="Ui.png" width="40%"></div>
 
 ## Features
 
@@ -141,6 +141,7 @@ There are 4 tasks in the list:
 ### `unmark`
 
 Unmark a task in the task list as incomplete.
+
 **Format**: `unmark<whitespace>[index]`
 
 **Example**:
@@ -163,9 +164,10 @@ There are 4 tasks in the list:
 ### `tag`
 
 Tag a task in the task list.
+
 **Format**: `unmark<whitespace>[index]`
 
-**Example**: `tag 2 #important`, tag the second task in the list as #improtant
+**Example**: `tag 2 #important`, tag the second task in the list as `#improtant`
 
 **Expect Output**:
 
