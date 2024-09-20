@@ -9,15 +9,15 @@ import momo.exception.MomoException;
 
 /**
  * Represents the list of Task objects stored in an ArrayList and provides
- * range of functionalities for all task objects within the list
+ * range of functionalities for all task objects within the list.
  */
 public class TaskList {
 
     private final ArrayList<Task> list = new ArrayList<>();
 
     /**
-     * Constructor for tasklist to be populated with pre-existing file text
-     * @param fileText represents String containing text from file
+     * Constructor for tasklist to be populated with pre-existing file text.
+     * @param fileText represents String containing text from file.
      */
     public TaskList(String fileText) {
         try {
@@ -35,9 +35,9 @@ public class TaskList {
     }
 
     /**
-     * Returns the number of tasks in the ArrayList
+     * Returns the number of tasks in the ArrayList.
      *
-     * @return The int number of tasks in the ArrayList
+     * @return The int number of tasks in the ArrayList.
      */
     public int getCount() {
         return list.size();
@@ -58,9 +58,9 @@ public class TaskList {
 
 
     /**
-     * Deletes specified task via index from the ArrayList
+     * Deletes specified task via index from the ArrayList.
      *
-     * @param index Index of task to be deleted
+     * @param index Index of task to be deleted.
      */
     public void deleteTask(int index) {
         list.remove(index);
@@ -68,10 +68,10 @@ public class TaskList {
 
     /**
      * Populates the TaskList with all  the task strings inside the file
-     * when the file is first loaded when the user boots up the program
+     * when the file is first loaded when the user boots up the program.
      *
-     * @param input Refers to the string containing all tasks from the storage file
-     * @throws MomoException thrown when file is corrupted
+     * @param input Refers to the string containing all tasks from the storage file.
+     * @throws MomoException thrown when file is corrupted.
      */
     public void populateTaskList(String input) throws MomoException {
 
@@ -83,7 +83,6 @@ public class TaskList {
         for (String taskString : taskStrings) {
             String[] inputs = taskString.split("\\|");
 
-            // For deadline and events assumption is that file will always be correctly formatted
             switch (inputs[0]) {
             case "T":
                 if (Objects.equals(inputs[1], "1")) {

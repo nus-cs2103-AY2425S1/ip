@@ -15,20 +15,19 @@ import momo.task.TaskList;
 /**
  * Handles the main control flow of the chatbot program, responsible
  * for initialising the programs necessary components like {@link Storage}, {@link TaskList},
- * and {@link Ui} to get the program running
+ * and {@link Ui} to get the program running.
  */
 public class Momo {
 
     public static final String FILE_PATH = "data/momo.txt";
-    public static final String ARCHIVE_FILE_PATH = "data/archive.txt";
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
     /**
-     * hihi
-     * @param filePath
+     * Constructor for Momo object
+     * @param filePath Represents file location where the tasks will be loaded
      */
     public Momo(String filePath) {
         this.ui = new Ui();
@@ -52,30 +51,31 @@ public class Momo {
 
 
     public String processCommand(String input, CommandType command) {
-
         try {
-            if (command == CommandType.BYE) {
+            switch (command) {
+            case BYE:
                 ui.showFarewell();
-            } else if (command == CommandType.LIST) {
+                break;
+            case LIST:
                 return ui.printList(tasks);
-            } else if (command == CommandType.FIND) {
+            case FIND:
                 return FindCommand.run(input, tasks);
-            } else if (command == CommandType.MARK) {
+            case MARK:
                 return MarkCommand.run(input, tasks, storage);
-            } else if (command == CommandType.UNMARK) {
+            case UNMARK:
                 return UnmarkCommand.run(input, tasks, storage);
-            } else if (command == CommandType.DELETE) {
+            case DELETE:
                 return DeleteCommand.run(input, tasks, storage);
-            } else {
-                if (command == CommandType.TODO) {
-                    return TodoCommand.run(input, storage, tasks);
-                } else if (command == CommandType.DEADLINE) {
-                    return DeadlineCommand.run(input, storage, tasks);
-                } else if (command == CommandType.EVENT) {
-                    return EventCommand.run(input, storage, tasks);
-                } else if (command == CommandType.ARCHIVE) {
-                    return ArchiveCommand.run(input, tasks, storage);
-                }
+            case TODO:
+                return TodoCommand.run(input, storage, tasks);
+            case DEADLINE:
+                return DeadlineCommand.run(input, storage, tasks);
+            case EVENT:
+                return EventCommand.run(input, storage, tasks);
+            case ARCHIVE:
+                return ArchiveCommand.run(input, tasks, storage);
+            default:
+                throw new MomoException("Invalid command");
             }
         } catch (MomoException e) {
             return e.getMessage();
@@ -93,7 +93,6 @@ public class Momo {
             return e.getMessage();
         }
     }
-
 }
 
 

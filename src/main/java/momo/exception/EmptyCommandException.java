@@ -1,7 +1,7 @@
 package momo.exception;
 
 /**
- * Thrown when user gives empty command
+ * Thrown when user gives empty or null command.
  */
 public class EmptyCommandException extends MomoException {
     public EmptyCommandException() {

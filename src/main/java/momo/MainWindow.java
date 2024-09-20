@@ -27,7 +27,10 @@ public class MainWindow extends AnchorPane {
     private final Image momoImage = new Image(this.getClass().getResourceAsStream("/images/momoIcon.png"));
 
     /**
-     * hihi.
+     * Initializes the UI components of the main window. This method binds the vertical scroll
+     * property of the scroll pane to the height of the dialog container to ensure automatic
+     * scrolling as new messages are added. It also displays an initial greeting message
+     * from Momo when the application starts.
      */
     @FXML
     public void initialize() {

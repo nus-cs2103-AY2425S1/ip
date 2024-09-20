@@ -14,19 +14,24 @@ import momo.task.TaskList;
  * Handles the functionality of adding an event, updating the {@link TaskList} and
  * {@link Storage} to include it. It also validates the initial user input. If it was
  * not properly formatted an {@link InvalidCommandException} is thrown which prompts
- * user to submit a proper input
+ * user to submit a proper input.
  */
 public class EventCommand extends AddCommand {
 
     public static final int COMMAND_PREFIX_OFFSET = 5;
 
     /**
-     * Runs event command
-     * @param input
-     * @param storage
-     * @param tasks
-     * @throws InvalidCommandException
-     * @throws StorageException
+     * Executes the event command, creating a new event task from the user input,
+     * adding it to the task list, and storing it in persistent storage. The method
+     * validates the input and handles task management and file I/O operations.
+     * It provides feedback to the user once the task is successfully added.
+     *
+     * @param input The user input that describes the event task (expected to contain task details).
+     * @param storage The storage handler responsible for saving the new event task to the file.
+     * @param tasks The task list to which the new event will be added.
+     * @return A string message indicating that the event has been successfully added and the total task count.
+     * @throws InvalidCommandException If the input is improperly formatted or the event task could not be created.
+     * @throws StorageException If there is an error saving the task to storage.
      */
     public static String run(String input, Storage storage, TaskList tasks) throws InvalidCommandException,
             StorageException {

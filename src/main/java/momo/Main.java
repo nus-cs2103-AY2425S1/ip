@@ -1,5 +1,4 @@
 package momo;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -7,6 +6,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 
+/**
+ * The Main class serves as the entry point for the JavaFX application. It initializes
+ * the main window of the application by loading the FXML layout and preparing the
+ * necessary components to be displayed in the stage.
+ */
 public class Main extends Application {
 
     @Override

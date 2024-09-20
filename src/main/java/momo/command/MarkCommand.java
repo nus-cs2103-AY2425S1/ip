@@ -6,7 +6,6 @@ import java.io.IOException;
 
 import momo.Storage;
 import momo.StorageException;
-import momo.Ui;
 import momo.exception.InvalidCommandException;
 import momo.task.Task;
 import momo.task.TaskList;
@@ -17,31 +16,33 @@ import momo.task.TaskList;
  */
 public class MarkCommand {
 
+    public static final int COMMAND_PREFIX_OFFSET = 4;
+
     /**
      * Runs the {@code MarkCommand}, handling the validation of the input, updating the
      * specified task's completion in the {@link TaskList} and rewriting the {@link Storage}
      * to include the task with the updated completion.
      *
-     * @param input   User command which begins with 'mark'
-     * @param tasks   TaskList object including all tasks the user has added
-     * @param storage Storage object which handles saving new data persistently
-     * @throws InvalidCommandException thrown when number is not in list or is improperly formatted
-     * @throws StorageException        thrown when task is not rewritten to file successfully
+     * @param input User command which begins with 'mark'.
+     * @param tasks TaskList object including all tasks the user has added.
+     * @param storage Storage object which handles saving new data persistently.
+     * @throws InvalidCommandException thrown when number is not in list or is improperly formatted.
+     * @throws StorageException thrown when task is not rewritten to file successfully.
      */
     public static String run(String input, TaskList tasks, Storage storage) throws InvalidCommandException,
             StorageException {
 
         try {
-            int index = Integer.parseInt(input.substring(4).trim()) - 1;
+            int index = Integer.parseInt(input.substring(COMMAND_PREFIX_OFFSET).trim()) - 1;
 
             if (index >= tasks.getCount() || index < 0) {
-                throw new InvalidCommandException("You can only mark a number your task list contains, mortal");
+                throw new InvalidCommandException("You can only mark a number your task list contains, mortal.");
             }
 
             Task taskToMark = tasks.getTask(index);
             taskToMark.markComplete();
 
-            storage.RewriteTasksToFile(FILE_PATH, tasks.getTaskList());
+            storage.rewriteTasksToFile(FILE_PATH, tasks.getTaskList());
             return "Good human. I've marked this task:\n " + taskToMark;
 
         } catch (NumberFormatException e) {

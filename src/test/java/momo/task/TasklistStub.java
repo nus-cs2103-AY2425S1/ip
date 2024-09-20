@@ -2,6 +2,9 @@ package momo.task;
 
 import java.util.ArrayList;
 
+/**
+ * TaskList stub for testing.
+ */
 public class TasklistStub extends TaskList {
     private final ArrayList<Task> list = new ArrayList<>();
     public TasklistStub(String fileText) {

@@ -13,21 +13,26 @@ import momo.task.TaskList;
 /**
  * Handles the delete task functionality, handling the validation of input and
  * updating the {@link TaskList} and rewriting the {@link Storage} file such that
- * they do not include the deleted task anymore
+ * they do not include the deleted task anymore.
  */
 public class DeleteCommand {
 
     public static final int COMMAND_PREFIX_OFFSET = 6;
 
     /**
-     * Runs delete command, validating and deleting user task from list and rewriting file if the delete command is
-     * valid, with comprehensive exception handling
-     * @param input
-     * @param tasks
-     * @param storage
-     * @throws InvalidCommandException
-     * @throws StorageException
+     * Executes the delete command, validating user input, deleting the specified task from
+     * the task list, and updating the storage file accordingly. If the input is invalid
+     * or the specified task index is out of bounds, an appropriate exception is thrown.
+     * Upon successful deletion, the updated task list is written back to the storage file.
+     *
+     * @param input  The user input that specifies the task to delete, expected to be a valid index.
+     * @param tasks  The current list of tasks from which a task will be deleted.
+     * @param storage The storage handler responsible for rewriting the updated task list to the file.
+     * @return A string message indicating the task has been successfully deleted.
+     * @throws InvalidCommandException If input is wrongly formatted or has invalid number.
+     * @throws StorageException If there is an error writing the updated task list to the storage file.
      */
+
     public static String run(String input, TaskList tasks, Storage storage) throws InvalidCommandException,
             StorageException {
         assert tasks != null : "TaskList should not be null";
@@ -43,7 +48,7 @@ public class DeleteCommand {
             assert (tasks.getCount() > 0);
             tasks.deleteTask(index);
 
-            storage.RewriteTasksToFile(FILE_PATH, tasks.getTaskList());
+            storage.rewriteTasksToFile(FILE_PATH, tasks.getTaskList());
 
             return "Noted. I've removed this task:\n" + deletedTask + String.format("\n Now you have %d task(s) in "
                     + "the list%n", tasks.getCount());

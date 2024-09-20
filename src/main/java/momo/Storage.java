@@ -1,7 +1,5 @@
 package momo;
 
-import momo.task.Task;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -9,9 +7,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import momo.task.Task;
+
 /**
  * Storage handles the loading, updating and saving of user tasks from the
- * ArrayList into the Storage object file which is stored in the {@code filePath}
+ * ArrayList into the Storage object file which is stored in the {@code filePath}.
  */
 public class Storage {
     // Should handle file creation, file loading, load into list
@@ -87,15 +87,14 @@ public class Storage {
     }
 
     /**
-     * Rewrites ArrayList of tasks to the storage file when commands are
-     * used to modify/delete pre-existing tasks in the TaskList
-     * like mark/unmark/Delete
+     * Rewrites ArrayList of tasks to the storage file when commands are used to modify/delete pre-existing tasks in
+     * the TaskList like mark/unmark/Delete.
      *
-     * @param filePath path to file which will be rewritten to
-     * @param list     ArrayList containing all task objects from the TaskList
-     * @throws IOException thrown when there are errors writing the string into the file
+     * @param filePath Path to file which will be rewritten to.
+     * @param list     ArrayList containing all task objects from the TaskList.
+     * @throws IOException Thrown when there are errors writing the string into the file.
      */
-    public void RewriteTasksToFile(String filePath, ArrayList<Task> list) throws IOException {
+    public void rewriteTasksToFile(String filePath, ArrayList<Task> list) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         for (Task task : list) {
             fw.write(task.toFileString() + "\n");

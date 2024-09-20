@@ -6,11 +6,17 @@ import java.time.format.DateTimeFormatter;
 /**
  * This class represents a Deadline task object that has been created,
  * storing the due date as a {@code LocalDate} object and providing functionality
- * for converting the object to a file string to store in the storage file
+ * for converting the object to a file string to store in the storage file.
  */
 public class Deadline extends Task {
     protected LocalDate by;
 
+    /**
+     * Constructor for deadline object.
+     * @param task Description of the deadline.
+     * @param by Deadline date formatted as LocalDate object.
+     * @param isCompleted Boolean which depicts whether deadline has been met.
+     */
     public Deadline(String task, LocalDate by, boolean isCompleted) {
         super(task, isCompleted);
         this.by = by;
