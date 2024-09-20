@@ -30,18 +30,17 @@ public class Event extends Task{
      * @param to The ending date and time of this event
      * @return an event
      */
-   protected static Event of(String description, String status, String from, String to) {
+   protected static Event of(String description, String status,
+                             LocalDateTime from, LocalDateTime to) {
        Task.Status newStatus = Task.Status.valueOf(status);
-       LocalDateTime fromDateTime = LocalDateTime.parse(from);
-       LocalDateTime toDateTime = LocalDateTime.parse(to);
-       return new Event(description, newStatus, fromDateTime, toDateTime);
+       return new Event(description, newStatus, from, to);
    }
 
     @Override
     public String toString() {
         String str = "[E]" +
                 super.toString() +
-                String.format("(From: %s To: %s)",
+                String.format(" (From: %s To: %s)",
                         from.format(DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm")),
                         to.format(DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm")));
         return str;

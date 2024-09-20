@@ -51,7 +51,7 @@ public class Deadline extends Task{
     public String toString() {
         String str = "[D]" +
                 super.toString() +
-                "(Deadline: " +
+                " (Deadline: " +
                 deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) +
                 ")";
         return str;
