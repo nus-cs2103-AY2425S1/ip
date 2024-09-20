@@ -1,5 +1,6 @@
 package kobe.command;
 
+import kobe.KobeException;
 import kobe.util.Storage;
 import kobe.task.TaskList;
 import kobe.util.Ui;
@@ -18,7 +19,8 @@ public abstract class Command {
      * @param tasks   The TaskList object containing all tasks.
      * @param ui      The Ui object responsible for user interactions.
      * @param storage The Storage object responsible for saving and loading tasks.
-     * @throws IOException If an error occurs during file operations while executing the command.
+     * @throws IOException   If an error occurs during file operations while executing the command.
+     * @throws KobeException If an application-specific error occurs.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws IOException;
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, KobeException;
 }
