@@ -21,6 +21,7 @@ import chacha.exception.WrongTimeFormatException;
 import chacha.task.EventTask;
 
 public class EventCommandTest {
+    // Used AI to learn how to make stubs and how to use it in EventCommandTest.
     @Test
     public void testExecute_expectedOutcome() throws WrongDateFormatException, WrongTimeFormatException, IOException {
         ChaCha chacha = new ChaCha();
