@@ -35,7 +35,7 @@ public class Deadline extends Task {
      * @throws TaskManagerException If the date-time format is incorrect.
      */
     public Deadline(String description, String endTimeString, String taskType) throws TaskManagerException {
-        super(description, taskType);
+        super(description.trim(), taskType);
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT_STRING, Locale.ENGLISH);
             this.endTime = LocalDateTime.parse(endTimeString.trim(), formatter);

@@ -43,7 +43,7 @@ public class Event extends Task {
             String startTimeString,
             String endTimeString,
             String taskType) throws TaskManagerException {
-        super(description, taskType);
+        super(description.trim(), taskType);
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT_STRING, Locale.ENGLISH);
             this.startTime = LocalDateTime.parse(startTimeString.trim(), formatter);
