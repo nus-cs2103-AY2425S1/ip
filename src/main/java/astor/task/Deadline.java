@@ -2,6 +2,9 @@ package astor.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import astor.exception.TimeFormatException;
 
 /**
  * Represents a deadline task.
@@ -17,7 +20,7 @@ public class Deadline extends Task {
      * @param taskInfo a description of the task
      * @param deadline a string representing the deadline in ISO-8601 format
      */
-    public Deadline(String taskInfo, String deadline) {
+    public Deadline(String taskInfo, String deadline) throws TimeFormatException {
         super(taskInfo);
         this.deadline = LocalDateTime.parse(generateParse(deadline));
     }

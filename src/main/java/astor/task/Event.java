@@ -3,6 +3,8 @@ package astor.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import astor.exception.TimeFormatException;
+
 /**
  * Represents a task with a start and end time.
  *
@@ -19,7 +21,7 @@ public class Event extends Task {
      * @param start a string representing the start time in ISO-8601 format
      * @param end a string representing the end time in ISO-8601 format
      */
-    public Event(String taskInfo, String start, String end) {
+    public Event(String taskInfo, String start, String end) throws TimeFormatException {
         super(taskInfo);
         this.start = LocalDateTime.parse(generateParse(start));
         this.end = LocalDateTime.parse(generateParse(end));
