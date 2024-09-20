@@ -1,6 +1,7 @@
 package duck.command;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 import duck.storage.Storage;
 import duck.task.Deadline;
@@ -37,7 +38,7 @@ public class TaskCommand implements Command {
      * @param storage the storage to save the updated task list.
      */
     @Override
-    public void executeCommand(TaskList list, Ui ui, Storage storage) {
+    public void executeCommand(TaskList list, Ui ui, Storage storage) throws InvalidDateFormatException {
         assert this.fullCommand != null;
         assert this.commandType != null;
 
@@ -76,9 +77,14 @@ public class TaskCommand implements Command {
      * @param fullCommand the full command string input.
      * @return a Deadline task.
      */
-    public static Task parseDeadline(String fullCommand) {
+    public static Task parseDeadline(String fullCommand) throws InvalidDateFormatException {
         String[] commandParts = fullCommand.split("/by");
-        LocalDate date = LocalDate.parse(commandParts[1].trim());
+        LocalDate date;
+        try {
+            date = LocalDate.parse(commandParts[1].trim());
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateFormatException("Invalid date format");
+        }
         return new Deadline(commandParts[0].split(" ", 2)[1], date);
     }
 
