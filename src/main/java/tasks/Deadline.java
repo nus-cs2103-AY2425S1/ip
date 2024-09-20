@@ -15,6 +15,12 @@ public class Deadline extends Task {
         this.localDateTime = convertStringToLdt(deadline);
     }
 
+    /**
+     * Converts date in String format DD/MM/YYYY HHmm to LocalDateTime
+     *
+     * @param string Date in format DD/MM/YYYY
+     * @return LocalDateTime
+     */
     public static LocalDateTime convertStringToLdt(String string) {
         String[] strings = string.split("/");
         int dayOfMonth = Integer.parseInt(strings[0]);
@@ -30,6 +36,13 @@ public class Deadline extends Task {
                 Integer.parseInt(hour), Integer.parseInt(minute));
         return LocalDateTime.of(localDate, localTime);
     }
+
+    /**
+     * Converts LocalDateTime to date in String format DD Month YYYY HH:mm
+     *
+     * @param ldt LocalDateTime
+     * @return date in format DD Month YYYY HH:mm
+     */
     public static String convertLdtToString(LocalDateTime ldt) {
         String month = ldt.getMonth().getDisplayName(
                 TextStyle.valueOf("SHORT"), new Locale("English"));
@@ -41,11 +54,23 @@ public class Deadline extends Task {
         return month + " " + dayOfMonth + " " + year + " " + time;
     }
 
+    /**
+     * Extract name of task from user's input of format {taskName} /from {date} /to {date}
+     *
+     * @param detail User's input of format {taskName} /from {date} /to {date}
+     * @return Name of task
+     */
     public static String extractName(String detail) {
         String[] strings = detail.split(" /by ", 2);
         return strings[0];
     }
 
+    /**
+     * Extract date from user's input of format {taskName} /from {date} /to {date}
+     *
+     * @param detail User's input without command, of format {taskName} /from {date} /to {date}
+     * @return Date of format DD/MM/YYYY HHmm
+     */
     public static String extractDate(String detail) {
         String[] strings = detail.split(" /by ", 2);
         return strings[1];

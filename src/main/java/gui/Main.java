@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class Main extends Application {
 
-    private Kira kira = new Kira("data/kira.txt");
+    private Kira kira = new Kira("kira.txt");
     @Override
     public void start(Stage stage) {
         try {

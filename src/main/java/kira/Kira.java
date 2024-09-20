@@ -20,6 +20,13 @@ public class Kira {
         this.ui = new Ui();
     }
 
+    /**
+     * Returns Kira's response that corresponds to user's input
+     * Returns an error message if there is an exception
+     *
+     * @param input User's input
+     * @return Kira's response
+     */
     public String getResponse(String input) {
 
         Parser parser = new Parser(this.list);

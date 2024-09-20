@@ -35,17 +35,6 @@ public class List {
     }
 
     /**
-     * Returns a string to be displayed when task is successfully added to list
-     * Displays that it has been added and the updated number of tasks
-     *
-     * @param task A task that was added
-     * @return A string to be displayed
-     */
-    public String addedNotification(Task task) {
-        return task.addedString() + numOfTasks();
-    }
-
-    /**
      * Returns a string to be displayed when user commands "list"
      *
      * @return A string of list of tasks
@@ -59,7 +48,7 @@ public class List {
     }
 
     public Task getTask(int index) throws InvalidTaskException {
-        if (tasks.get(index) == null) {
+        if (tasks.isEmpty() || index + 1 > tasks.size()) {
             throw new InvalidTaskException(index);
         }
         return tasks.get(index);

@@ -15,15 +15,6 @@ public abstract class Task {
     }
 
     /**
-     * Returns a string to be displayed when task is successfully added to list
-     *
-     * @return A string of response by Kira
-     */
-    public String addedString() {
-        return "Got it. I've added this task:\n" + displayTask();
-    }
-
-    /**
      * Returns a string of display of a task that
      * shows the task name, whether it is done and date (if applicable)
      *

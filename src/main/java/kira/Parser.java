@@ -62,6 +62,10 @@ public class Parser {
      *
      * @param command Command type
      * @param userInput User's input
+     * @return A specific task, if it is needed for getResponse() method later on
+     * @throws EmptyException If command other than list or bye is entered without any following input
+     * @throws InvalidTaskException If index of task specified does not exist
+     * @throws UnreadableException If user's input is not as expected
      */
     public Task execute(CommandType command, String userInput) throws EmptyException, InvalidTaskException, UnreadableException {
 
@@ -140,7 +144,8 @@ public class Parser {
      *
      * @param command Command type
      * @param detail User's input
-     * @return Response by Kira
+     * @param task Specified task needed to get the correct response
+     * @return Kira's response
      */
     public String getResponse(CommandType command, String detail, Task task) {
         switch (command) {

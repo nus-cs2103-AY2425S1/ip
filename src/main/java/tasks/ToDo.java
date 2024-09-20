@@ -1,7 +1,6 @@
 package tasks;
 
 public class ToDo extends Task {
-    //private String input;
 
     public ToDo(String taskName) {
         super(taskName);
