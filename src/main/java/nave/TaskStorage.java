@@ -44,6 +44,18 @@ public class TaskStorage {
      * @param list the {@code TaskList} to which the tasks will be added
      */
     public void onStart(TaskList list) {
+        File dir = new File("./data");
+        File file = new File(filePathString);
+        if (!dir.exists()) {
+            dir.mkdirs();
+        } else if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println("File could not be created. Create it manually.");
+                System.exit(0);
+            }
+        }
         try {
             File loadFile = new File(filePathString);
             Scanner scanner = new Scanner(loadFile);
@@ -67,13 +79,8 @@ public class TaskStorage {
             }
         } catch (FileNotFoundException e) {
             //Local storage file should be created beforehand at "./data/tasks.txt"
-            if (!Files.isDirectory(Path.of("./data"))) {
-                System.out.println("Directory './data' does not exist. Please create it first.");
-                System.exit(0);
-            } else {
-                System.out.println("File './data/tasks.txt' does not exist. Please create it first.");
-                System.exit(0);
-            }
+            System.out.println("File './data/tasks.txt' does not exist. Please create it first.");
+            System.exit(0);
         }
     }
 
