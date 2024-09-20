@@ -1,5 +1,9 @@
 /* Style for the HBox container */
 :root {
+    -fx-background-image: url('../images/background.jpg');
+    -fx-background-size: cover; /* Cover the entire area */
+    -fx-background-repeat: no-repeat; /* Do not repeat the image */
+    -fx-background-position: center center; /* Center the background image */
     -fx-background-color: transparent;
 }
 
