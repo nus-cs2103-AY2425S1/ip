@@ -52,7 +52,7 @@ public class TaskList {
     }
 
     private Task createDeadline(String[] taskInfo)
-            throws PassedDateTimeException, EmptyTaskDescriptionException {
+            throws PassedDateTimeException, EmptyTaskDescriptionException, InvalidCommandFormat {
         if (taskInfo.length == 1) {
             throw new EmptyTaskDescriptionException();
         }
@@ -60,21 +60,29 @@ public class TaskList {
         //["deadline", description, /by, {deadline}]
         taskInfo[0] = "";
         String[] newTaskInfo = String.join(" ", taskInfo).split(" /by ");
+        if (newTaskInfo.length <= 1) {
+            throw new InvalidCommandFormat();
+        }
         String taskDescription = newTaskInfo[0].trim();
         String taskDeadline = formatDateTime(newTaskInfo[1]);
         return new DeadlineTask(taskDescription, taskDeadline);
     }
 
     private Task createEvent(String[] taskInfo)
-            throws PassedDateTimeException, EmptyTaskDescriptionException {
+            throws PassedDateTimeException, EmptyTaskDescriptionException, InvalidCommandFormat {
         if (taskInfo.length == 1) {
             throw new EmptyTaskDescriptionException();
         }
         //Format of taskInfo:
         //["event", {description}, /from, {taskStart}, /to, {eventEnd}]
         String[] newTaskInfo = String.join(" ", taskInfo).split(" /");
-        //Format of newTaskInfo:
+        //Format of valid newTaskInfo:
         //["event {description}", "from {taskStart}", "to {eventEnd}"]
+        if (newTaskInfo.length <= 2
+                || (!newTaskInfo[1].contains("from"))
+                || (!newTaskInfo[2].contains("to"))) {
+            throw new InvalidCommandFormat();
+        }
         //Prefix of taskInfo[0] is "event "
         String taskDescription = newTaskInfo[0].substring(6);
         //Prefix of taskInfo[1] is "from "
@@ -95,7 +103,7 @@ public class TaskList {
      */
     public Task createTask(String[] instruction)
             throws EmptyCommandException, EmptyTaskDescriptionException, UnknownCommandException,
-                    DateTimeParseException, PassedDateTimeException {
+                    DateTimeParseException, PassedDateTimeException, InvalidCommandFormat {
         String[] taskInfo = instruction[1].split(" ");
         String taskType = taskInfo[0];
         if (instruction[0].equals("")) {

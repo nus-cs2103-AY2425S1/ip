@@ -222,7 +222,8 @@ public class SecondMind {
             addTaskToList(newTask);
             addTaskToStorage(newTask);
             return getTaskCreationMessage(newTask);
-        } catch (EmptyCommandException | EmptyTaskDescriptionException | UnknownCommandException | IOException e) {
+        } catch (EmptyCommandException | EmptyTaskDescriptionException | UnknownCommandException
+                 | IOException | InvalidCommandFormat e) {
             return e.toString();
         } catch (DateTimeParseException e) {
             return DATE_TIME_PARSE_EXCEPTION_MESSAGE;
