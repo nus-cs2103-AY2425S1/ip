@@ -30,8 +30,5 @@ jobs:
           java-version: '17'
           java-package: jdk+fx
 
-      - name: Set locale
-        run: sudo update-locale LANG=en_US.UTF-8
-
       - name: Build and check with Gradle
         run: ./gradlew check
