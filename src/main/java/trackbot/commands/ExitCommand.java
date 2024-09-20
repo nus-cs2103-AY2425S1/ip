@@ -1,7 +1,6 @@
 package trackbot.commands;
 
 import javafx.animation.PauseTransition;
-import javafx.application.Platform;
 import javafx.util.Duration;
 import trackbot.TrackBotStorage;
 import trackbot.task.TrackList;
@@ -17,7 +16,7 @@ public class ExitCommand extends Command {
 
         // Delay 5 seconds for the app to exit
         PauseTransition delay = new PauseTransition(Duration.seconds(5));
-        delay.setOnFinished(event -> Platform.exit());
+        delay.setOnFinished(event -> System.exit(0));
         delay.play();
 
         return message;
