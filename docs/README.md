@@ -1,8 +1,10 @@
 # Yoda User Guide
 **A Star Wars themed chat-bot for you to manage your tasks today!**
+![Screenshot of Yoda GUI](https://maertan.github.io/ip/Ui.png)
+
 
 ## Installing Yoda
-1. Ensure that your computer runs Java 17.
+1. Ensure that your computer runs Java 17. (run `java -version` in terminal to ensure that your terminal is using Java 17)
 2. Download the latest `yoda.jar` file.
 3. Open a terminal window at the folder containing `yoda.jar`. 
 4. Run the command `java -jar yoda.jar`
