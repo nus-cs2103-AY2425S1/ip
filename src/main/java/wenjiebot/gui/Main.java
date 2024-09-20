@@ -1,6 +1,8 @@
 package wenjiebot.gui;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -14,8 +16,14 @@ import wenjiebot.WenJie;
  * graphical user interface (GUI) version of the WenJie bot.
  */
 public class Main extends Application {
-    private WenJie wenJie = new WenJie("./src/main/java/data/wenjie.txt");
+    //private final String absolutePath = Paths.get("src", "main", "java", "data", "wenjie.txt").toString();
+    private static final String hardDisk = "./wenjie.txt";
+    private final WenJie wenJie = new WenJie(getAbsolutePath(hardDisk));
 
+    private String getAbsolutePath(String relativePath) {
+        File file = new File(relativePath);
+        return file.getAbsolutePath();
+    }
     /**
      * Starts the JavaFX application and sets up the main window.
      *
@@ -31,6 +39,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setWenJie(wenJie);
+            stage.setTitle("Wenjie Bot");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

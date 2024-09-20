@@ -1,7 +1,11 @@
 package wenjiebot.tasks;
 
+import wenjiebot.exceptions.InvalidDateInputException;
+import wenjiebot.exceptions.InvalidSnoozeFormatException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * The Event class represents an event task in the wenjiebot application.
@@ -23,17 +27,21 @@ public class Event extends Task {
      * @param from The start time of the event.
      * @param to The end time of the event.
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, String from, String to) throws InvalidDateInputException {
         super(description);
         this.from = from.trim();
         this.to = to.trim();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        this.fromInDateTime = LocalDateTime.parse(from.trim(), formatter);
-        this.toInDateTime = LocalDateTime.parse(to.trim(), formatter);
+        try {
+            this.fromInDateTime = LocalDateTime.parse(from.trim(), formatter);
+            this.toInDateTime = LocalDateTime.parse(to.trim(), formatter);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateInputException();
+        }
     }
 
     @Override
-    public void setDateTime(String newDate) {
+    public void setDateTime(String newDate) throws InvalidSnoozeFormatException {
         int fromIndex = newDate.indexOf("/from") + 6;
         int toIndex = newDate.indexOf("/to") + 4;
 
@@ -41,8 +49,12 @@ public class Event extends Task {
         String toDateTime = newDate.substring(toIndex).trim();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        this.fromInDateTime = LocalDateTime.parse(fromDateTime, formatter);
-        this.toInDateTime = LocalDateTime.parse(toDateTime, formatter);
+        try {
+            this.fromInDateTime = LocalDateTime.parse(fromDateTime, formatter);
+            this.toInDateTime = LocalDateTime.parse(toDateTime, formatter);
+        } catch (DateTimeParseException e) {
+            throw new InvalidSnoozeFormatException();
+        }
     }
 
     /**

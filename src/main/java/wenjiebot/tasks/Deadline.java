@@ -1,7 +1,11 @@
 package wenjiebot.tasks;
 
+import wenjiebot.exceptions.InvalidDateInputException;
+import wenjiebot.exceptions.InvalidSnoozeFormatException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * The Deadline class represents a deadline task in the wenjiebot application.
@@ -20,18 +24,26 @@ public class Deadline extends Task {
      * @param description The description of the deadline.
      * @param by The due date and time of the deadline in the format "d/M/yyyy HHmm".
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws InvalidDateInputException {
         super(description);
         this.by = by.trim();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        this.dateTime = LocalDateTime.parse(by.trim(), formatter);
+        try {
+            this.dateTime = LocalDateTime.parse(by.trim(), formatter);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateInputException();
+        }
     }
 
     @Override
-    public void setDateTime(String newDate) {
+    public void setDateTime(String newDate) throws InvalidSnoozeFormatException {
         by = newDate.replace("/by", "").trim();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        dateTime = LocalDateTime.parse(by.trim(), formatter);
+        try {
+            dateTime = LocalDateTime.parse(by.trim(), formatter);
+        } catch (DateTimeParseException e) {
+            throw new InvalidSnoozeFormatException();
+        }
     }
     /**
      * Returns a string representation of the Deadline in a format suitable for storage.
