@@ -1,7 +1,6 @@
 # Fred User Guide
 
 <img width="402" alt="Ui" src="https://github.com/user-attachments/assets/264e72c3-59dc-495c-b229-294d637741c5">
-// Product screenshot goes here
 
 Fred is a chatbot that helps you to:
 - Add and delete tasks
