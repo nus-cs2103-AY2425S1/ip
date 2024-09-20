@@ -14,6 +14,8 @@ import static java.lang.System.exit;
  */
 public class FileDbDriver implements DbDriverInterface {
 
+    public final String DEFAULT_DB_PATH = "db.txt";
+
     /**
      * Initializes the database by checking for the existence of the "db.txt" file.
      * If the file doesn't exist, it creates one. The contents of the file are then returned as a string.
@@ -23,8 +25,13 @@ public class FileDbDriver implements DbDriverInterface {
     public String init() {
         try {
             Path currentWorkingDirectory = Paths.get("").toAbsolutePath();
-            Path parentDirectory = currentWorkingDirectory.getParent();
-            Path dbFilePath = parentDirectory.resolve("db.txt");
+            Path dbConfigPath = currentWorkingDirectory.resolve("config.txt");
+            if (!Files.exists(dbConfigPath)) {
+                Files.createFile(dbConfigPath);
+                Files.write(dbConfigPath, DEFAULT_DB_PATH.getBytes());
+            }
+            String db_path = Files.readString(dbConfigPath);
+            Path dbFilePath = currentWorkingDirectory.resolve(db_path);
             // Check if the file exists
             if (!Files.exists(dbFilePath)) {
                 Files.createFile(dbFilePath);
@@ -48,7 +55,13 @@ public class FileDbDriver implements DbDriverInterface {
     public void save(String rawString) {
         try {
             Path currentWorkingDirectory = Paths.get("").toAbsolutePath();
-            Path dbFilePath = currentWorkingDirectory.resolve("db.txt");
+            Path dbConfigPath = currentWorkingDirectory.resolve("config.txt");
+            if (!Files.exists(dbConfigPath)) {
+                Files.createFile(dbConfigPath);
+                Files.write(dbConfigPath, DEFAULT_DB_PATH.getBytes());
+            }
+            String db_path = Files.readString(dbConfigPath);
+            Path dbFilePath = currentWorkingDirectory.resolve(db_path);
             // Check if the file exists
             if (!Files.exists(dbFilePath)) {
                 Files.createFile(dbFilePath);
@@ -69,7 +82,13 @@ public class FileDbDriver implements DbDriverInterface {
     public String read() {
         try {
             Path currentWorkingDirectory = Paths.get("").toAbsolutePath();
-            Path dbFilePath = currentWorkingDirectory.resolve("db.txt");
+            Path dbConfigPath = currentWorkingDirectory.resolve("config.txt");
+            if (!Files.exists(dbConfigPath)) {
+                Files.createFile(dbConfigPath);
+                Files.write(dbConfigPath, DEFAULT_DB_PATH.getBytes());
+            }
+            String db_path = Files.readString(dbConfigPath);
+            Path dbFilePath = currentWorkingDirectory.resolve(db_path);
             if (!Files.exists(dbFilePath)) {
                 return "";
             }
