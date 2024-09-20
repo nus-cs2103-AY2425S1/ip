@@ -1,6 +1,6 @@
 package michael;
 
-public class Task {
+public class Task implements Comparable<Task> {
     private final String taskName;
     private boolean isDone;
 
@@ -36,6 +36,14 @@ public class Task {
 
     public String getTaskName() {
         return this.taskName;
+    }
+
+    @Override
+    public int compareTo(Task other) {
+        String myName = this.taskName;
+        String yourName = other.taskName;
+
+        return myName.compareToIgnoreCase(yourName); // Use built in String compare method, ignoring case
     }
 
     @Override

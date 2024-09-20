@@ -1,6 +1,7 @@
 package michael;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -27,5 +28,9 @@ public class TaskList {
 
     public void delete(int index) {
         tasks.remove(index);
+    }
+
+    public void sort() {
+        Collections.sort(tasks);
     }
 }
