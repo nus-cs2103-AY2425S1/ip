@@ -33,7 +33,7 @@ test {
 }
 
 application {
-    mainClass.set("blacknut.ui.Main")
+    mainClass.set("blacknut.ui.Launcher")
 }
 
 shadowJar {
