@@ -7,6 +7,7 @@ import java.util.ArrayList;
  * The Jard class represents the main application that interacts with the user.
  * It handles the core functionality of the chatbot, including task management,
  * user input processing, and file storage.
+ * Code was created with the help of ChatGPT.
  */
 public class Jard {
     private Storage storage;

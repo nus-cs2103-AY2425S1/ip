@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 
 /**
  * A GUI for Jard using FXML.
+ * Code is copied from the JavaFX tutorial provided on the 2103T website.
  */
 public class Main extends Application {
 
