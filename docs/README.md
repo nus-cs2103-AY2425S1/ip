@@ -3,7 +3,7 @@
 
 # KillJoy User Guide
 
-![KillJoy UI](./ui.png)
+![KillJoy UI](./Ui.png)
 
 Meet **KillJoy**—your sassy, tech-savvy sidekick who's always three steps ahead. Need something done? Relax, KillJoy’s already on it. With a personality as sharp as its skills, this assistant doesn’t just follow orders—it owns them. Whether it’s organizing your tasks or throwing some banter your way, KillJoy is here to ensure life’s never boring.
 
