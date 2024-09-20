@@ -32,9 +32,6 @@ public class Meeks extends Application {
         Echo echo = new Echo();
         Ui ui = new Ui();
 
-        ui.greet();
-
-
         while (true) {
             String command = scanner.nextLine();
             echo.setWord(command);

@@ -6,7 +6,6 @@ import tasks.ToDoTask;
 import tasks.Task;
 
 public class Parser {
-
     /**
      * Returns a DeadlineTask object that can be used to get the details of the Task.
      *

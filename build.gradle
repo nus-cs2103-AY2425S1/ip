@@ -47,7 +47,10 @@ test {
 
 application {
     mainClass.set("Launcher")
+<<<<<<< HEAD
     applicationDefaultJvmArgs = ['-ea']
+=======
+>>>>>>> branch-Level-10
 }
 
 shadowJar {

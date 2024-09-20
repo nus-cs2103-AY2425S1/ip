@@ -50,41 +50,41 @@ public class Echo {
         Command command;
 
         switch (commandWord) {
-        case "list":
-            command = new ListCommand();
-            break;
-        case "mark":
-            command = new MarkCommand();
-            break;
-        case "unmark":
-            command = new UnmarkCommand();
-            break;
-        case "find":
-            command = new FindCommand();
-            break;
-        case "todo":
-            command = new ToDoCommand();
-            break;
-        case "deadline":
-            command = new DeadlineCommand();
-            break;
-        case "event":
-            command = new EventCommand();
-            break;
-        case "update":
-            command = new UpdateCommand();
-            break;
-        case "delete":
-            command = new DeleteCommand();
-            break;
-        case "save":
-            command = new SaveCommand();
-            break;
-        case "bye":
-            command = new ByeCommand();
-            break;
-        default:
-            command = new InvalidCommand();
+            case "list":
+                command = new ListCommand();
+                break;
+            case "mark":
+                command = new MarkCommand();
+                break;
+            case "unmark":
+                command = new UnmarkCommand();
+                break;
+            case "find":
+                command = new FindCommand();
+                break;
+            case "todo":
+                command = new ToDoCommand();
+                break;
+            case "deadline":
+                command = new DeadlineCommand();
+                break;
+            case "event":
+                command = new EventCommand();
+                break;
+            case "update":
+                command = new UpdateCommand();
+                break;
+            case "delete":
+                command = new DeleteCommand();
+                break;
+            case "save":
+                command = new SaveCommand();
+                break;
+            case "bye":
+                command = new ByeCommand();
+                break;
+            default:
+                command = new InvalidCommand();
         }
         return command.execute(parts, list, ui, storage, parser);
     }

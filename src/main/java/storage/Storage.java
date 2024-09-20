@@ -76,7 +76,6 @@ public class Storage {
                 }
                 String startStr = parts[3];
                 String endStr = parts[4];
-
                 // Parse the string in the current inputFormat
                 LocalDateTime start = LocalDateTime.parse(startStr, inputFormat);
                 LocalDateTime end = LocalDateTime.parse(endStr, inputFormat);
