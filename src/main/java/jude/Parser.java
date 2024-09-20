@@ -7,6 +7,7 @@ import jude.command.ExitCommand;
 import jude.command.FindCommand;
 import jude.command.ListCommand;
 import jude.command.MarkCommand;
+import jude.command.SortCommand;
 import jude.command.UnmarkCommand;
 import jude.task.Deadline;
 import jude.task.Event;
@@ -46,8 +47,9 @@ public class Parser {
 
         try {
             return switch (header) {
-            case "bye" -> getExitCommand(split, header);
-            case "list" -> getListCommand(split, header);
+            case "bye" -> getSingleCommand(header, description);
+            case "list" -> getSingleCommand(header, description);
+            case "sort" -> getSingleCommand(header, description);
             case "mark" -> getIndexCommand(header, description);
             case "unmark" -> getIndexCommand(header, description);
             case "delete" -> getIndexCommand(header, description);
@@ -99,19 +101,24 @@ public class Parser {
             command = new UnmarkCommand(index);
             break;
         default:
-            throw new JudeException("Invalid header");
+            assert false : "Invalid header: " + header;
+            command = null;
         }
         return command;
     }
 
-    private static ListCommand getListCommand(String[] split, String header) throws JudeException {
-        checkOneWord(split, header);
-        return new ListCommand();
-    }
-
-    private static ExitCommand getExitCommand(String[] split, String header) throws JudeException {
-        checkOneWord(split, header);
-        return new ExitCommand();
+    private static Command getSingleCommand(String header, String description) throws JudeException {
+        if (description != "") {
+            throw new JudeException("Poyo, the description of a " + header + " must be empty.");
+        }
+        switch (header) {
+        case "bye": return new ExitCommand();
+        case "list": return new ListCommand();
+        case "sort": return new SortCommand();
+        default:
+            assert false : "Invalid header: " + header;
+            return null;
+        }
     }
 
     private static Event parseEventTask(String description) throws JudeException {
@@ -121,12 +128,6 @@ public class Parser {
     private static Deadline parseDeadlineTask(String description) throws JudeException {
         String[] words = description.split(" /by ", 2);
         return new Deadline(words[0], words[1]);
-    }
-
-    private static void checkOneWord(String[] split, String header) throws JudeException {
-        if (split.length != 1) {
-            throw new JudeException("Poyo, the description of a " + header + " must be empty.");
-        }
     }
 
     private static int parseIndex(String description) throws JudeException {

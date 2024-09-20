@@ -1,6 +1,8 @@
 package jude;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import jude.task.Task;
@@ -57,7 +59,7 @@ public class TaskList {
 
     /** Returns the String representation of the TaskList to be written in the save file. */
     public String toFileFormat() {
-        return list.stream().map(x -> x.toFileFormat()).reduce("", (x, y) -> y + x + "\n");
+        return list.stream().map(x -> x.toFileFormat()).reduce("", (x, y) -> x + y + "\n");
     }
 
     /** Returns the String representation of the TaskList to be displayed on the Ui. */
@@ -89,5 +91,9 @@ public class TaskList {
         }
 
         return matches.toString();
+    }
+
+    public void sortByDates() {
+        Collections.sort(list, Comparator.comparing(Task::getDueDateTime));
     }
 }

@@ -1,5 +1,7 @@
 package jude.task;
 
+import java.time.LocalDateTime;
+
 /**
  * Represents a Task with a description and completion status.
  *
@@ -8,7 +10,7 @@ package jude.task;
  *
  * @author Judy Park
  */
-public class Task {
+public abstract class Task {
     private String description;
     private boolean isDone;
 
@@ -65,4 +67,6 @@ public class Task {
     public String toFileFormat() {
         return String.format("%s | %d | %s", " ", getStatusBinary(), getDescription());
     }
+
+    public abstract LocalDateTime getDueDateTime();
 }

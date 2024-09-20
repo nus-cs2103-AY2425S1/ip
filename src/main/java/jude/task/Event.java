@@ -64,4 +64,9 @@ public class Event extends Task {
         return String.format("%s | %d | %s | %s | %s",
                 "E", getStatusBinary(), getDescription(), this.fromDateTime, toDateTime);
     }
+
+    @Override
+    public LocalDateTime getDueDateTime() {
+        return toDateTime;
+    }
 }
