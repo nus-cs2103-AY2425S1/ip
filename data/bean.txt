@@ -1,6 +1,8 @@
-T | 1 | new task
-T | 0 | asa
-D | 0 | asdas | 2019-10-10 1800
+T | 1 | hello
+T | 0 | asdas /by 2019-10-10 1000
+D | 0 | Project submission | 2019-10-20 2000
 D | 1 | asdas | 2019-10-10 1800
 E | 0 | sasdas | 2018-10-10 1800 | 2018-10-11 1800
 D | 0 | new deadline | 2019-12-12 1800
+D | 0 | project submission | 2019-10-10 1800
+E | 0 | Team meeting | 2024-09-21 0900 | 2024-09-22 1100
