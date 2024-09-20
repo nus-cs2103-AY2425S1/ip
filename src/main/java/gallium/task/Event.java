@@ -8,7 +8,6 @@ import java.time.format.DateTimeParseException;
 import java.util.Date;
 
 import java.util.logging.Logger;
-import java.util.logging.Level;
 
 import gallium.main.GalliumException;
 
