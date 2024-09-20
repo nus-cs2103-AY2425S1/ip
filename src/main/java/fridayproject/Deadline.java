@@ -57,3 +57,4 @@ public class Deadline extends Tasks {
         return "D | " + (this.isDone ? "1" : "0") + " | " + this.description + " | " + this.date;
     }
 }
+
