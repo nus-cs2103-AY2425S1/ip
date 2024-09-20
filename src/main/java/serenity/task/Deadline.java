@@ -2,6 +2,11 @@ package serenity.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import serenity.SerenityException;
+
+
 
 /**
  * Represents a type of Task that has a deadline.
@@ -16,10 +21,14 @@ public class Deadline extends Task {
      * @param description Description of task.
      * @param by Deadline of task.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws SerenityException {
         super(description);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("[dd/MM/yyyy]");
-        this.date = LocalDate.parse(by, formatter);
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("[dd/MM/yyyy]");
+            this.date = LocalDate.parse(by, formatter);
+        } catch (DateTimeParseException e) {
+            throw new SerenityException("Error: Invalid date. Please enter date in format dd/mm/yyyy.");
+        }
     }
 
     /**

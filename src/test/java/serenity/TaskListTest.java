@@ -36,7 +36,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void addTask_validDeadline_success() {
+    public void addTask_validDeadline_success() throws SerenityException{
         ArrayList<Task> tasks = new ArrayList<>();
         TaskList taskList = new TaskList(tasks);
         Deadline t = new Deadline("return book", "30/08/2024");
