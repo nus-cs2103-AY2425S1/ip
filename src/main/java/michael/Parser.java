@@ -63,6 +63,10 @@ public class Parser {
             FindCommand fc = new FindCommand(tasks);
             fc.check(input);
             return fc.feedback();
+        } else if (input.startsWith("sort")) {
+            SortCommand sc = new SortCommand(tasks);
+            sc.sort();
+            return sc.feedback();
         } else { // invalid command
             throw new MichaelException(invalidCommand);
         }
