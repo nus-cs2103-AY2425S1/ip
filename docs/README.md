@@ -2,34 +2,34 @@
 
 > "The key is not to prioritize what's on your schedule, but to schedule your priorities." -Stephen Covey ([source](https://www.brainyquote.com/authors/stephen-covey-quotes))
 
-EchoBot is your ultimate task manager, designed to free up your mental space so you can focus on what truly matters. With EchoBot you can effortlessly keep track of your tasks without the hassle of remembering every detail. :wink: It’s:
+EchoBot is your ultimate task manager, designed to free up your mental space so you can focus on what truly matters. With EchoBot you can effortlessly keep track of your tasks without the hassle of remembering every detail. It’s:
 
-* Easy to learn so you can get started right away. :dizzy:
-* Blazing fast for quick and efficient task management. :star2:
+* Easy to learn so you can get started right away.
+* Blazing fast for quick and efficient task management.
 
 <img src="Ui.png" width="40%">
 
 ## Features
 
-### :blue_book: Create Tasks
+### Create Tasks
 
 - [`todo`](#todo): Create quick TODOs to help keep your tasks on track.
 - [`deadline`](#deadline): Create tasks that need to be done before a specific date/time.
 - [`event`](#event): Create tasks that start at a specific date/time and ends at a specific date/time.
 
-### :books: View Tasks
+### View Tasks
 
 - [`list`](#list): List all tasks in the task list
 - [`find`](#find): Find tasks with specific keywords
 
-### :memo: Manage Tasks
+### Manage Tasks
 
 - [`mark`](#mark): Mark a task as done
 - [`unmark`](#unmark): Unmark a task as incomplete
 - [`tag`](#tag): Tag a task
 - [`delete`](#delete): Delete a task from the task list
 
-### :book: Get Help
+### Get Help
 
 - [`help`](#help): Get general help information
 - [`help [command]`](#help): Get help information about a specific command
