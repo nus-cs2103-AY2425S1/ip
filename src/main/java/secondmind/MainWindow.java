@@ -1,5 +1,6 @@
 package secondmind;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -54,12 +55,11 @@ public class MainWindow extends AnchorPane {
         if (response.equals(this.EXIT_COMMAND)) {
             Stage stage = (Stage) sendButton.getScene().getWindow();
             stage.close();
-        } else {
-            dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getDukeDialog(response, secondMindImage)
-            );
-            userInput.clear();
         }
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getDukeDialog(response, secondMindImage)
+        );
+        userInput.clear();
     }
 }
