@@ -1,20 +1,19 @@
-# Duke User Guide
+# Dawn User Guide
 
-// Update the title above to match the actual product name
+![Ui](https://github.com/user-attachments/assets/7de331c1-2510-4c93-80c9-64fceb8cc688)
 
-// Product screenshot goes here
+Dawn is a text-based chatbot that helps you to manage your todos, deadlines, and events! 
 
-// Product intro goes here
+Below are some features supported by Dawn
 
-## Adding deadlines
+## Adding todos, deadlines, and events
 
-// Describe the action and its outcome.
+You can add todos (tasks without deadlines), deadlines (tasks with deadlines), and events easily 
 
-// Give examples of usage
+Example: `todo Assignment 1`
 
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
+On successful addition of the task or event, Dawn will return a success message and display the task / event added. 
+If the addition was unsuccessful, Dawn will remind you to follow the correct format 
 
 ```
 expected output
