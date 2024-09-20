@@ -1,5 +1,6 @@
 package miku.ui;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -46,6 +47,6 @@ public class DialogPane extends AnchorPane {
                 DialogBox.getDukeDialog(reponse, new Image(getClass().getResourceAsStream("/miku.jpeg")))
         );
         inputField.clear();
-        scrollPane.setVvalue(1.0);
+        Platform.runLater(() -> scrollPane.setVvalue(1.0));
     }
 }
