@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 import org.junit.jupiter.api.Test;
 
-
 /**
  * Tests for Parser class.
  */
@@ -21,8 +20,9 @@ public class ParserTest {
         assertInstanceOf(MarkDoneCommand.class, Parser.getCommandType("mark"));
         assertInstanceOf(MarkUndoneCommand.class, Parser.getCommandType("unmark"));
         assertInstanceOf(DeleteCommand.class, Parser.getCommandType("delete"));
+        assertInstanceOf(FindCommand.class, Parser.getCommandType("find"));
+        assertInstanceOf(HelpCommand.class, Parser.getCommandType("help"));
         assertInstanceOf(UnknownCommand.class, Parser.getCommandType("random"));
-
     }
 
     /**
@@ -37,6 +37,8 @@ public class ParserTest {
         assertInstanceOf(MarkDoneCommand.class, Parser.getCommandType("  mark 1  "));
         assertInstanceOf(MarkUndoneCommand.class, Parser.getCommandType("  unmark 1  "));
         assertInstanceOf(DeleteCommand.class, Parser.getCommandType("  delete 1  "));
+        assertInstanceOf(FindCommand.class, Parser.getCommandType("  find  "));
+        assertInstanceOf(HelpCommand.class, Parser.getCommandType("  help  "));
         assertInstanceOf(UnknownCommand.class, Parser.getCommandType("  random  "));
     }
 }
