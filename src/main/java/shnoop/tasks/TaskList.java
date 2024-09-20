@@ -92,6 +92,12 @@ public class TaskList {
         return result;
     }
 
+    /**
+     * Lists out all the tasks in TaskList.
+     *
+     * @param mode Integer representing what mode of list to use.
+     * @return If true, return sorted list of all tasks in TaskList, unsorted list if otherwise.
+     */
     public String sortedList(int mode) {
         if (mode == 0) {
             return list();

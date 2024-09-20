@@ -56,9 +56,9 @@ public class Storage {
      * @throws ImproperFileTypeException If file is corrupt or not in the proper format.
      */
     protected static Task readFileToTask(String line) throws EmptyDescriptionException, ImproperFileTypeException {
-        boolean taskIsCompleted = false;
+        boolean isTaskCompleted = false;
         if (line.substring(0, 1).equals("1")) {
-            taskIsCompleted = true;
+            isTaskCompleted = true;
         } else if (!(line.substring(0, 1).equals("0"))) {
             throw new ImproperFileTypeException();
         }
@@ -68,18 +68,18 @@ public class Storage {
             switch (taskType) {
             case ("001"):
                 // Todo
-                return new Todo(line.substring(4, line.length()), taskIsCompleted);
+                return new Todo(line.substring(4, line.length()), isTaskCompleted);
             case ("002"):
                 // Event
                 desc = line.substring(4, line.indexOf("/from/"));
                 String from = line.substring(line.indexOf("/from/") + 6, line.indexOf("/to/"));
                 String to = line.substring(line.indexOf("/to/") + 4, line.length());
-                return new Event(desc, from, to, taskIsCompleted);
+                return new Event(desc, from, to, isTaskCompleted);
             case ("003"):
                 // Deadline
                 desc = line.substring(4, line.indexOf("/by/"));
                 String by = line.substring(line.indexOf("/by/") + 4, line.length());
-                return new Deadline(desc, by, taskIsCompleted);
+                return new Deadline(desc, by, isTaskCompleted);
             default:
                 throw new RuntimeException();
             }
