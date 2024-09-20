@@ -67,8 +67,7 @@ public class Storage {
                     task = new Deadline(lineParts[2], LocalDateTime.parse(lineParts[3], formatter));
                     break;
                 case "E":
-                    String[] fromTo = lineParts[3].split(" - ");
-                    task = new Event(lineParts[2], LocalDateTime.parse(fromTo[0], formatter), LocalDateTime.parse(fromTo[1], formatter));
+                    task = new Event(lineParts[2], LocalDateTime.parse(lineParts[3], formatter), LocalDateTime.parse(lineParts[4], formatter));
                     break;
             }
 
