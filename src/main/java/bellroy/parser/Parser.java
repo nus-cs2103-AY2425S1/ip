@@ -45,14 +45,10 @@ public class Parser {
                     return Ui.printTaskList(taskList);
                 case("mark"):
                     int position = Integer.parseInt(userInput.split(" ")[1]);
-                    taskList.get(position - 1).markDone();
-                    storage.save(taskList);
-                    return Ui.markedDone(taskList.get(position - 1));
+                    return markTask(taskList, storage, position);
                 case("unmark"):
                     int pos = Integer.parseInt(userInput.split(" ")[1]);
-                    taskList.get(pos - 1).undo();
-                    storage.save(taskList);
-                    return Ui.markedUndone(taskList.get(pos - 1));
+                    return unmarkTask(taskList, storage, pos);
                 case("todo"):
                     Task todo = new Todo(description);
                     taskList.addTask(todo);
@@ -107,5 +103,32 @@ public class Parser {
         } catch (IOException e) {
             return e.getMessage();
         }
+    }
+    /**
+     * unmarks a task in the tasklist
+     * @param taskList tasklist to find the task
+     * @param storage storage to save the change
+     * @param pos position of the task
+     * @return the String message to print
+     * @throws IOException
+     */
+    private static String unmarkTask(TaskList taskList, Storage storage, int pos) throws IOException {
+        taskList.get(pos - 1).undo();
+        storage.save(taskList);
+        return Ui.markedUndone(taskList.get(pos - 1));
+    }
+
+    /**
+     * marks a task as done
+     * @param taskList tasklist to find the task
+     * @param storage storage to save the change
+     * @param position position of the task
+     * @return the String message to print
+     * @throws IOException
+     */
+    private static String markTask(TaskList taskList, Storage storage, int position) throws IOException {
+        taskList.get(position - 1).markDone();
+        storage.save(taskList);
+        return Ui.markedDone(taskList.get(position - 1));
     }
 }

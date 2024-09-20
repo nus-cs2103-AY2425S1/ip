@@ -1,0 +1,2 @@
+[T][X] swim
+[T][X] fire
