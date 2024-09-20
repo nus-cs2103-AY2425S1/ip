@@ -1,4 +1,4 @@
-package duke.tasks;
+package carine.tasks;
 
 /**
  * This class represents a task.

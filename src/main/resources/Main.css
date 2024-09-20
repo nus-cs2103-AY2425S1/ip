@@ -1,19 +1,19 @@
 .root {
-    -fx-background-color: #ECDDD0;
+    -fx-background-color: white;
 }
 
 .text-field {
-    -fx-background-color: #CED2C2;
+    -fx-background-color: #ffcab8;
     -fx-font: 15px "Verdana";
 }
 
 .button {
-    -fx-background-color: #92B1B6;
+    -fx-background-color: #ff8e6a;
     -fx-font: italic bold 16px "Verdana";
 }
 
 .button:hover {
-    -fx-background-color:#92B1B6;
+    -fx-background-color:#ff8e6a;
     -fx-font-size: 18px;
 }
 
@@ -33,7 +33,7 @@
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: #92B1B6;
+    -fx-background-color: #ff8e6a;
     -fx-background-radius: 1em;
 }
 

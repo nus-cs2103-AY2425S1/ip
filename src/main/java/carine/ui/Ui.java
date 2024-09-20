@@ -1,4 +1,4 @@
-package duke.ui;
+package carine.ui;
 
 /**
  * This class represents a reply from the chatbot.
@@ -9,9 +9,16 @@ public class Ui {
      * Prints greeting message.
      */
     public static String printGreeting() {
-        StringBuilder stringBuilder = new StringBuilder("Hello! I'm Carine, your personal task planning assistant\n")
-                .append("What can I do for you? \n\n")
-                .append("List of available commands: \n")
+        StringBuilder stringBuilder = new StringBuilder("Hello! I'm Carine, your personal task planning assistant! \n")
+                .append("What can I do for you?");
+        return stringBuilder.toString();
+    }
+
+    /**
+     * Prints all available commands for user's reference.
+     */
+    public static String printCommand() {
+        StringBuilder stringBuilder = new StringBuilder("List of available commands: \n")
                 .append("   1. Create a new task without deadline: todo [name] \n")
                 .append("   2. Create a new task with deadline: deadline [name] /by [time] \n")
                 .append("   3. Create a new task with duration: event [name] /from [time] /to [time] \n")

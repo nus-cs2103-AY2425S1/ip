@@ -1,4 +1,4 @@
-package duke.exceptions;
+package carine.exceptions;
 
 /**
  * The `InvalidDateException` class represents an exception that is thrown when a date

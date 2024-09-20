@@ -6,18 +6,39 @@
     -fx-font-family: "Verdana";
 }
 
-.reply-label {
-    -fx-background-color: #BFD1DF;
+.carine-label {
+    -fx-background-color: #ffa7bd;
     -fx-background-radius: 1em 1em 1em 1em;
     -fx-border-radius: 1em 1em 1em 1em;
     -fx-font-family: "Verdana";
 }
 
-#displayPicture {
-    /* Change size of image. */
-    -fx-scale-x: 0.8;
-    -fx-scale-y: 0.8;
+.carine-error-label {
+    -fx-background-color: white;
+    -fx-text-fill: red;
+    -fx-font-weight: bold;
+    -fx-padding: 10;
+    -fx-border-radius: 1em 1em 1em 1em;
+    -fx-background-radius: 1em 1em 1em 1em;
+}
 
-    /* Rotate image clockwise by degrees. */
+.user-label {
+    -fx-background-color: #bfb461;
+    -fx-background-radius: 1em 1em 1em 1em;
+    -fx-border-radius: 1em 1em 1em 1em;
+    -fx-font-family: "Verdana";
+}
+
+.reminder-label {
+    -fx-background-color: linear-gradient(to right, #f66262, #ff638a);
+    -fx-border-radius: 1em 1em 1em 1em;
+    -fx-background-radius: 1em 1em 1em 1em;
+    -fx-padding: 10px;
+}
+
+#displayPicture {
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
     -fx-rotate: 0;
 }

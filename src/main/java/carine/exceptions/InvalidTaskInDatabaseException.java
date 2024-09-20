@@ -1,4 +1,4 @@
-package duke.exceptions;
+package carine.exceptions;
 
 /**
  * This exception is thrown when tasks stored in database fail to load.
