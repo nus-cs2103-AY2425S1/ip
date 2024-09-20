@@ -19,9 +19,6 @@ public class Deadline extends Task {
      */
     public Deadline(String desc, String dueDate) throws ChatterboxExceptions.ChatterBoxNoInput {
         super(desc);
-        if (dueDate.isEmpty()) {
-            throw new ChatterboxExceptions.ChatterBoxNoInput("Missing deadline date for Deadline");
-        }
         this.dueDate = dueDate;
         this.dueDateObj = null;
     }
@@ -34,7 +31,6 @@ public class Deadline extends Task {
      */
     public Deadline(String desc, LocalDateTime dueDateObj) throws ChatterboxExceptions.ChatterBoxNoInput {
         super(desc);
-
         this.dueDateObj = dueDateObj;
         this.dueDate = null;
     }
