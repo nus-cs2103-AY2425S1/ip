@@ -18,6 +18,8 @@ import javafx.scene.shape.Circle;
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
  * and a label containing text from the speaker.
+ *
+ * @author mongj (adapted from SE-EDU)
  */
 public class DialogBox extends HBox {
     @FXML

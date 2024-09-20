@@ -3,6 +3,8 @@ package bot.exceptions;
 /**
  * A <code>BotException</code> thrown when a task description
  * cannot be parsed due to malformed datetime.
+ *
+ * @author mongj
  */
 public class InvalidDatetimeException extends BotException {
     public InvalidDatetimeException(String dt) {

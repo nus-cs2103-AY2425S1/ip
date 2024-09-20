@@ -59,7 +59,7 @@ public abstract class Action {
     }
 
     /**
-     * Executes the action
+     * Executes the action.
      *
      * @param taskList to execute the action on.
      * @return A message representing the result of the execution.

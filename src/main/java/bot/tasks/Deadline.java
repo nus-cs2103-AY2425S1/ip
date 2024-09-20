@@ -6,6 +6,8 @@ import bot.enums.TaskSymbol;
 
 /**
  * Represents an deadline task.
+ *
+ * @author mongj
  */
 public class Deadline extends Task {
 

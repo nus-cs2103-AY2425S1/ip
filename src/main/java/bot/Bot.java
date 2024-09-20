@@ -12,6 +12,8 @@ import bot.tasks.TaskList;
 
 /**
  * Represents a bot that the user interacts with.
+ *
+ * @author mongj
  */
 public class Bot {
     private final TaskList tasks;
@@ -49,8 +51,8 @@ public class Bot {
 
             // If it is a terminal action, we close the program asynchronously after 3 seconds
             if (action.isTerminal()) {
-                CompletableFuture.delayedExecutor(3, TimeUnit.SECONDS).
-                        execute(() -> System.exit(0));
+                CompletableFuture.delayedExecutor(3, TimeUnit.SECONDS)
+                        .execute(() -> System.exit(0));
             }
 
             return response;

@@ -2,6 +2,8 @@ package bot.tasks;
 
 /**
  * Represents a generic completable task.
+ *
+ * @author mongj
  */
 public abstract class Task {
     protected String description;
@@ -21,7 +23,7 @@ public abstract class Task {
      * Creates a new <code>Task</code> object.
      *
      * @param description of the task.
-     * @param isDone indicating if the task is compelted.
+     * @param isDone indicating if the task is completed.
      */
     public Task(String description, boolean isDone) {
         this.description = description;
@@ -53,7 +55,7 @@ public abstract class Task {
      * Generates a string representation of the data
      * for storing in the data file.
      *
-     * @return String representation of the data
+     * @return String representation of the data.
      */
     public String toData() {
         return description + " | " + isDone;

@@ -28,10 +28,12 @@ import bot.tasks.Todo;
 /**
  * Represents a parser that is used to parse all string inputs
  * into <code>Action</code> that the bot can execute.
+ *
+ * @author mongj
  */
 public class Parser {
     /**
-     * Parses the given string input from user
+     * Parses the given string input from user.
      *
      * @param input String input from user
      * @return an executable <code>Command</code>

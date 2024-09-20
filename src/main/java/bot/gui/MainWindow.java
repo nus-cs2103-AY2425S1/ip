@@ -14,6 +14,8 @@ import javafx.scene.layout.VBox;
 
 /**
  * Controller for the main GUI.
+ *
+ * @author mongj (adapted from SE-EDU)
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -43,7 +45,7 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(Message.INTRO, botImage));
     }
 
-    /** Injects the Duke instance */
+    /** Injects the Bot instance */
     public void setBot(Bot b) {
         bot = b;
     }

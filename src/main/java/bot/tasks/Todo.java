@@ -4,6 +4,8 @@ import bot.enums.TaskSymbol;
 
 /**
  * Represents a todo task.
+ *
+ * @author mongj
  */
 public class Todo extends Task {
     /**

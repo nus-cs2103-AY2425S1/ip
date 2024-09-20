@@ -71,3 +71,5 @@ Reverts the last executed command
 ```
 undo
 ```
+
+A date without a time-zone in the ISO-8601 calendar system, such as 2007-12-03.

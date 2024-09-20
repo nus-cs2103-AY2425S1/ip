@@ -6,6 +6,8 @@ import bot.enums.TaskSymbol;
 
 /**
  * Represents an event task.
+ *
+ * @author mongj
  */
 public class Event extends Task {
 

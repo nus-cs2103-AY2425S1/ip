@@ -4,6 +4,8 @@ import bot.exceptions.InvalidCommandException;
 
 /**
  * Represents a command issued by the user.
+ *
+ * @author mongj
  */
 public enum Command {
     LIST("list", "list", "List all tasks"),
@@ -26,6 +28,8 @@ public enum Command {
      * Creates a new <code>Command</code> object.
      *
      * @param name of the command.
+     * @param usage of the command.
+     * @param description of the command.
      */
     Command(String name, String usage, String description) {
         this.name = name;
@@ -49,6 +53,11 @@ public enum Command {
         throw new InvalidCommandException(input);
     }
 
+    /**
+     * Constructs a help message for the command.
+     *
+     * @return a help message containing the name, usage, and description of the command.
+     */
     public String getHelpMessage() {
         return "• " + name + ": " + usage + "\n " + description;
     }

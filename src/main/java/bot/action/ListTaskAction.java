@@ -9,7 +9,7 @@ import bot.tasks.TaskList;
  */
 public class ListTaskAction extends Action {
     /**
-     * Lists all <code>Task</code> in the <code>TaskList</code>
+     * Lists all <code>Task</code> in the <code>TaskList</code>.
      *
      * @param taskList to use.
      * @return A list of tasks.

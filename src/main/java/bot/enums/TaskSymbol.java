@@ -4,6 +4,8 @@ import bot.exceptions.InvalidTaskEnumException;
 
 /**
  * Represents the symbol of <code>Task</code> objects.
+ *
+ * @author mongj
  */
 public enum TaskSymbol {
     TODO("T"),

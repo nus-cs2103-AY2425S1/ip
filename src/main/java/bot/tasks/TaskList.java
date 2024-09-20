@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * List of tasks stored by the bot
+ * List of tasks stored by the bot.
  *
  * @author mongj
  */
@@ -108,10 +108,10 @@ public class TaskList {
 
     /**
      * Returns a string of all the <code>Task</code> in the <code>TaskList</code>
-     * that match the given query string
+     * that match the given query string.
      *
-     * @param queryString Search string to query
-     * @return String of all the tasks matching the given query string
+     * @param queryString Search string to query.
+     * @return String of all the tasks matching the given query string.
      */
     public String search(String queryString) {
         List<Task> filteredList = tasks
