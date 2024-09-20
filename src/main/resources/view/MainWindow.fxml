@@ -34,6 +34,7 @@
         <ScrollPane fx:id="scrollPane"
                     fitToWidth="true"
                     hbarPolicy="NEVER"
+                    vbarPolicy="ALWAYS"
                     hvalue="1.0"
                     prefHeight="557.0"
                     prefWidth="400.0"
@@ -45,7 +46,8 @@
             <content>
                 <VBox fx:id="dialogContainer"
                       prefHeight="552.0"
-                      prefWidth="388.0" />
+                      prefWidth="388.0"
+                      VBox.vgrow="ALWAYS"/>
             </content>
         </ScrollPane>
     </children>
