@@ -1,6 +1,6 @@
 # Boombotroz User Guide
 
-![Screenshot of my chatbot's GUI when it is ran]()
+![Screenshot of my chatbot's GUI when it is ran](./Ui.png)
 
 Boombotroz is a interactive chatbot that helps the user to keep track of the tasks they have in their lives. 
 
