@@ -12,7 +12,7 @@ public class FindCommand extends Command{
     public void execute(TaskList tasks, Storage storage) {
         assert input != null;
         try {
-            setResponse("Remember to keep ur search history clean!\n" + tasks.fuzzyFind(input));
+            setResponse("Remember to keep your search history clean!\n" + tasks.fuzzyFind(input));
         } catch (RuntimeException e) {
             setResponse("Something went wrong with the search");
         }

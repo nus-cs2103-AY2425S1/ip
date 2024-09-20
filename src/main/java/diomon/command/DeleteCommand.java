@@ -21,7 +21,7 @@ public class DeleteCommand extends Command{
             List<Integer> indexList = Parser.processNumbers(input);
             for (Integer i = 0; i < indexList.size(); i++) {
                 Integer index = indexList.get(i);
-                response.append(String.format("Task ( %s ) has been deleted\n", tasks.get(index - 1 - i)));
+                response.append(String.format("Task ( %s ) has been thanosed\n", tasks.get(index - 1 - i)));
                 tasks.remove( index - 1 - i);
             }
             setResponse(response.toString());
