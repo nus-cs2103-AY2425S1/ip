@@ -71,7 +71,6 @@ public class Storage {
     public void loadTasks(TaskList tasks) throws FileNotFoundException {
         File f = new File(filePath);
         if (!f.exists() || f.length() == 0) {
-            System.out.println("No tasks yet, add some!");
             return;
         }
         Scanner scanner = new Scanner(f);

@@ -12,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * Represents the controller for the main GUI.
@@ -23,16 +24,16 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
-
     private Eevee eevee;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image eeveeImage = new Image(this.getClass().getResourceAsStream("/images/eevee.jpeg"));
+    private Image userImage = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/images/user.png")));
+    private Image eeveeImage = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/images/eevee.jpeg")));
 
     @FXML
     public void initialize() {
+
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         showGreeting();
     }
