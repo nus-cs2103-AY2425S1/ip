@@ -50,7 +50,7 @@ public class DayToDateParser {
     }
 
     public static void main(String[] args) {
-        String day = "tuesss";
+        String day = "fri";
         LocalDate nextDate = getNextDateForDay(day);
         System.out.println("Next " + day + " is on : " + nextDate);
     }
