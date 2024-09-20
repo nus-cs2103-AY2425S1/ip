@@ -14,9 +14,10 @@ import killjoy.main.UserInterface;
 import killjoy.processing.Parser;
 import killjoy.task.Task;
 
+/**
+ * These tests generated with the help of ChatGPT
+ */
 public class ParserTest {
-
-    private Parser parser;
 
     @BeforeEach
     public void setUp() {
@@ -74,3 +75,4 @@ public class ParserTest {
         assertNull(result);
     }
 }
+

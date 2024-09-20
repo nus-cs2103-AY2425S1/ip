@@ -9,6 +9,9 @@ import org.junit.jupiter.api.Test;
 
 import killjoy.task.Task;
 
+/**
+ * These tests are generated with the help of ChatGPT
+ */
 public class TaskTest {
 
     private Task todo;
