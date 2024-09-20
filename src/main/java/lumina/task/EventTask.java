@@ -11,7 +11,7 @@ public class EventTask extends Task {
     private LocalDate startDateObject;
     private LocalDate endDateTime;
     /**
-     * Constructur for Event task
+     * Constructor for Event task
      *
      * @param description description of task
      * @param startDateObject start date of task

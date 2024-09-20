@@ -1,8 +1,6 @@
 package lumina.main;
 
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import lumina.exception.LuminaException;
 import lumina.parser.Parser;
@@ -72,76 +70,41 @@ public class Lumina {
         String command = msg.split(" ")[0].trim();
 
         String resp = "";
-
-        switch (command) {
-        case ECHO_EXIT_STRING:
-            storage.saveData(taskList);
-            resp = EXIT_RESPONSE;
-            break;
-        case ECHO_LIST_STRING:
-            resp = taskList.listTasks();
-            break;
-        case ECHO_UNMARK_TASK_STRING:
-            try {
+        try {
+            switch (command) {
+            case ECHO_EXIT_STRING:
+                storage.saveData(taskList);
+                resp = EXIT_RESPONSE;
+                break;
+            case ECHO_LIST_STRING:
+                resp = taskList.listTasks();
+                break;
+            case ECHO_UNMARK_TASK_STRING:
                 resp = taskList.markTaskNotDone(msg);
-            } catch (LuminaException e) {
-                resp = e.getMessage();
-            }
-            break;
-        case ECHO_MARK_TASK_STRING:
-            try {
+                break;
+            case ECHO_MARK_TASK_STRING:
                 resp = taskList.markTaskDone(msg);
-            } catch (LuminaException e) {
-                resp = e.getMessage();
-            }
-            break;
-        case ECHO_TODO_TASK:
-            try {
+                break;
+            case ECHO_TODO_TASK:
                 resp = taskList.handleTodoTask(msg);
-            } catch (LuminaException e) {
-                resp = e.getMessage();
-            }
-            break;
-        case ECHO_EVENT_TASK:
-            try {
+                break;
+            case ECHO_EVENT_TASK:
                 resp = taskList.handleEventTask(msg);
-            } catch (LuminaException e) {
-                resp = e.getMessage();
-            }
-            break;
-        case ECHO_DEADLINE_TASK:
-            try {
+                break;
+            case ECHO_DEADLINE_TASK:
                 resp = taskList.handleDeadlineTask(msg);
-            } catch (LuminaException e) {
-                resp = e.getMessage();
-            }
-            break;
-        case ECHO_DELETE_TASK:
-            try {
+                break;
+            case ECHO_DELETE_TASK:
                 resp = taskList.deleteTask(msg);
-            } catch (LuminaException e) {
-                resp = e.getMessage();
+                break;
+            case ECHO_FIND_TASK:
+                resp = taskList.findTasks(msg);
+                break;
+            default:
+                resp = DEFAULT_MESSAGE;
             }
-            break;
-        case ECHO_FIND_TASK:
-            try {
-                // Define the regex pattern to match the first word followed by any whitespace
-                Pattern pattern = Pattern.compile("^\\S+\\s*(.*)$");
-                Matcher matcher = pattern.matcher(msg);
-
-                // Check if the pattern matches
-                if (matcher.find()) {
-                    resp = taskList.findTasks(matcher.group(1));
-                } else {
-                    // if it doesn't throw exception
-                    throw new LuminaException("Oh no! invalid find command! Please try again");
-                }
-            } catch (LuminaException e) {
-                resp = e.getMessage();
-            }
-            break;
-        default:
-            resp = DEFAULT_MESSAGE;
+        } catch (LuminaException e) {
+            resp = e.getMessage();
         }
         return resp;
     }
