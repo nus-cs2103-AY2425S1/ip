@@ -1,0 +1,3 @@
+D | 0 | Complete Mondstadt exploration | 2024-10-01 | [exploration,Mondstadt]
+E | 1 | Participate in Ludi Harpastum | 2024-10-10 | 2024-10-10 | [festival,Mondstadt]
+E | 0 | Hrishraj Mandal | 2024-09-29 | 2024-09-29 | []

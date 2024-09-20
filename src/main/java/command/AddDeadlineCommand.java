@@ -1,6 +1,6 @@
 package command;
 
-import exception.KukiShinobuException;
+import exception.InvalidCommandKukiShinobuException;
 import storage.Storage;
 import task.Deadline;
 import task.TaskList;
@@ -26,9 +26,9 @@ public class AddDeadlineCommand extends Command {
      * </p>
      *
      * @param arguments The arguments string containing the task description and deadline.
-     * @throws KukiShinobuException If the arguments are not correctly formatted.
+     * @throws InvalidCommandKukiShinobuException If the arguments are not correctly formatted.
      */
-    public AddDeadlineCommand(String arguments) throws KukiShinobuException {
+    public AddDeadlineCommand(String arguments) throws InvalidCommandKukiShinobuException {
         // Regex pattern for tags
         Pattern tagPattern = Pattern.compile("#(\\w+)");
         Matcher tagMatcher = tagPattern.matcher(arguments);
@@ -49,9 +49,9 @@ public class AddDeadlineCommand extends Command {
         // Check if the pattern matches
         if (!deadlineMatcher.matches()) {
             if (!arguments.contains("/by")) {
-                throw new KukiShinobuException("You're missing the /by flag and argument!");
+                throw new InvalidCommandKukiShinobuException("You're missing the /by flag and argument!");
             } else {
-                throw new KukiShinobuException("Deadline is missing the description or is in an incorrect format!");
+                throw new InvalidCommandKukiShinobuException("Deadline is missing the description or is in an incorrect format!");
             }
         }
 
@@ -61,7 +61,7 @@ public class AddDeadlineCommand extends Command {
 
         // Check if the description is empty
         if (taskDescription.isEmpty()) {
-            throw new KukiShinobuException("The description of the deadline cannot be empty!");
+            throw new InvalidCommandKukiShinobuException("The description of the deadline cannot be empty!");
         }
 
         // Validate and parse the due date
@@ -69,7 +69,7 @@ public class AddDeadlineCommand extends Command {
         try {
             dueDate = LocalDate.parse(dueDateString);
         } catch (DateTimeParseException e) {
-            throw new KukiShinobuException("Deadline date is in an incorrect format! Please use yyyy-MM-dd.");
+            throw new InvalidCommandKukiShinobuException("Deadline date is in an incorrect format! Please use yyyy-MM-dd.");
         }
 
         // Create Deadline object with extracted tags

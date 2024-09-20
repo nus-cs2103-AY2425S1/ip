@@ -144,13 +144,16 @@ event Participate in Ludi Harpastum /to 2024-10-12 /from 2024-10-10 #festival #M
 
 **Example**:
 - **Input**: `find Diluc`
-- **Output**: There are no tasks that contain the keyword!
+- **Output**: `There are no tasks that contain the keyword!`
 
 - **Input**: `find Mondstadt`
 - **Output**: Here are the matching tasks in your list:
   ```
   1.[D][ ] Complete Mondstadt exploration (by: Oct 1 2024) [#exploration #Mondstadt]
   ```
+
+**Note**
+The keyword is case-sensitive! (e.g. "hello" != "Hello")
 
 ---
 

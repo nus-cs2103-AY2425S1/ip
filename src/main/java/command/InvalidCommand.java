@@ -1,6 +1,5 @@
 package command;
 
-import exception.KukiShinobuException;
 import storage.Storage;
 import task.TaskList;
 
@@ -12,7 +11,6 @@ import task.TaskList;
  * </p>
  */
 public class InvalidCommand extends Command {
-
     private final String errorMessage;
 
     /**

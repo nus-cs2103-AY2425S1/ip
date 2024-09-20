@@ -1,6 +1,6 @@
 package command;
 
-import exception.KukiShinobuException;
+import exception.InvalidCommandKukiShinobuException;
 import storage.Storage;
 import task.Event;
 import task.TaskList;
@@ -23,10 +23,10 @@ public class AddEventCommand extends Command {
      *
      * @param arguments The string containing the task description, start time, end time, and tags
      *                  (format: <name> /from YYYY-MM-DD /to YYYY-MM-DD #another_tag #other_tag).
-     * @throws KukiShinobuException if the arguments are missing the description, start time, end time, or tags,
-     *                               or if the date formats are incorrect.
+     * @throws InvalidCommandKukiShinobuException if the arguments are missing the description, start time, end time, or tags,
+     *                                            or if the date formats are incorrect.
      */
-    public AddEventCommand(String arguments) throws KukiShinobuException {
+    public AddEventCommand(String arguments) throws InvalidCommandKukiShinobuException {
         // Define regex pattern for task description, start and end times, and optional tags
         Pattern pattern = Pattern.compile(
                 "^(.*?)\\s+/from\\s+(\\d{4}-\\d{2}-\\d{2})\\s+/to\\s+(\\d{4}-\\d{2}-\\d{2})(?:\\s+(#.*))?$",
@@ -35,12 +35,12 @@ public class AddEventCommand extends Command {
 
         if (!matcher.matches()) {
             if (!arguments.contains("/from") || !arguments.contains("/to")) {
-                throw new KukiShinobuException("Event is missing description, from, or to.");
+                throw new InvalidCommandKukiShinobuException("Event is missing description, from, or to.");
             } else {
-                throw new KukiShinobuException(
+                throw new InvalidCommandKukiShinobuException(
                         "The format of your command is in correct. Here are a few potential reasons:\n" +
-                                "- event description is missing\n" +
                                 "\n" +
+                                "- event description is missing\n" +
                                 "- date format is incorrect\n" +
                                 "- /to is defined before /from\n" +
                                 "\n" +
@@ -55,12 +55,12 @@ public class AddEventCommand extends Command {
 
         // Check if task description is empty
         if (taskDescription.isEmpty()) {
-            throw new KukiShinobuException("The description of the event cannot be empty!");
+            throw new InvalidCommandKukiShinobuException("The description of the event cannot be empty!");
         }
 
         // Check if date formats are valid
         if (!isValidDate(start) || !isValidDate(end)) {
-            throw new KukiShinobuException("The date format must be YYYY-MM-DD.");
+            throw new InvalidCommandKukiShinobuException("The date format must be YYYY-MM-DD.");
         }
 
         // Extract tags if present
