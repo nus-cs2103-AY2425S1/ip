@@ -61,9 +61,9 @@ public enum Command {
         case TODO:
             return "todo <description>";
         case DEADLINE:
-            return "deadline <description> /by <date: DD-MM-YY> <time: HHMM>";
+            return "deadline <description> /by <date: DD-MM-YY> <time: HHmm>";
         case EVENT:
-            return "event <description> /from <date: DD-MM-YY> <time: HHMM> /to <date: DD-MM-YY> <time: HHMM>";
+            return "event <description> /from <date: DD-MM-YY> <time: HHmm> /to <date: DD-MM-YY> <time: HHmm>";
         case LIST:
             return "list";
         case SCHEDULE:
