@@ -10,7 +10,7 @@ import tira.task.TaskList;
  */
 public class Parser {
     private TaskList taskList;
-    private final Ui ui = new Ui();
+    private Ui ui;
     /**
      * Constructs a Parser instance with the specified taskList.
      *
@@ -18,6 +18,7 @@ public class Parser {
      */
     public Parser(TaskList taskList) {
         this.taskList = taskList;
+        this.ui = new Ui();
     }
 
     /**
@@ -26,43 +27,36 @@ public class Parser {
      * @param command Main command entered by user.
      * @throws TiraException Custom Tira exception class.
      */
-    public void parseCommand(String command) throws TiraException {
+    public String parseCommand(String command) throws TiraException {
         String [] commandSplitBySpace = command.split(" ");
         String taskType = commandSplitBySpace[0];
+        System.out.println("Enter Parse Command");
         try {
             switch(taskType) {
             case "list":
-                ui.showTaskList(taskList);
-                break;
+                return ui.showTaskList(taskList);
             case "mark":
-                taskList.markTask(command, commandSplitBySpace);
-                break;
+                return(taskList.markTask(command, commandSplitBySpace));
             case "unmark":
-                taskList.unmarkTask(command, commandSplitBySpace);
-                break;
+                return(taskList.unmarkTask(command, commandSplitBySpace));
             case "delete":
-                taskList.delete(commandSplitBySpace);
-                break;
+                return(taskList.delete(commandSplitBySpace));
             case "todo":
-                taskList.addToDo(command, commandSplitBySpace);
-                break;
+                return(taskList.addToDo(command, commandSplitBySpace));
             case "deadline":
-                taskList.addDeadline(command, commandSplitBySpace);
-                break;
+                return(taskList.addDeadline(command, commandSplitBySpace));
             case "event":
-                taskList.addEvent(command, commandSplitBySpace);
-                break;
+                return(taskList.addEvent(command, commandSplitBySpace));
             case "find":
-                taskList.findTask(command, commandSplitBySpace);
-                break;
+                return(taskList.findTask(command, commandSplitBySpace));
             case "statistics":
                 ui.showStatistics(taskList.getTasks());
-                break;
+                return ui.getOutMessage();
             default:
                 throw new TiraException("What task is this??? Please rethink your task!");
             }
         } catch (TiraException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
     }
 }

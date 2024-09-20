@@ -1,5 +1,6 @@
 package tira;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -21,7 +22,7 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Tira tira;
-    private Ui ui;
+    private Ui ui = new Ui();
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user_image.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/tira_image.png"));
@@ -42,9 +43,22 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() {
+    private void handleUserInput() throws TiraException {
         String input = userInput.getText();
-        String response = tira.getResponse(input);
+        if (input.equals("bye")) {
+            ui.showBye();
+            String byeString = ui.getOutMessage();
+            dialogContainer.getChildren().add(
+                    DialogBox.getDukeDialog(byeString, dukeImage)
+            );
+            Platform.exit();
+        }
+        String response;
+        try {
+            response = tira.getResponse(input);
+        } catch (TiraException e) {
+            response = e.getMessage();
+        }
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)

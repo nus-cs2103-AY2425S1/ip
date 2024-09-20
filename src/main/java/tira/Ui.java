@@ -16,14 +16,18 @@ import tira.task.ToDo;
  * This class serves as an input for TaskList, Storage, and Tira Main.
  */
 public class Ui {
+    private StringBuilder outMessage;
     private final Scanner scanner;
     private final PrintWriter printer = new PrintWriter(System.out);
 
     /**
      * Constructs a Ui instance with a Scanner for reading user input.
      */
+    // Solution using StringBuilder inspired by
+    // https://github.com/hansneddyanto/ip/blob/master/src/main/java/hana/Ui.java
     public Ui() {
         this.scanner = new Scanner(System.in);
+        this.outMessage = new StringBuilder();
     }
 
 
@@ -34,6 +38,13 @@ public class Ui {
      */
     public String read() {
         return scanner.nextLine();
+    }
+
+    public String getOutMessage() {
+        String outString = this.outMessage.toString();
+        this.outMessage = new StringBuilder();
+        return outString;
+
     }
 
     /**
@@ -52,7 +63,7 @@ public class Ui {
      * Displays a goodbye message to the user.
      */
     public void showBye() {
-        System.out.println("Bye. Come back with treats, MIAO!");
+        outMessage.append("Bye. Come back with treats, MIAO!");
     }
 
     /*
@@ -63,17 +74,17 @@ public class Ui {
      *
      * @param taskList The TaskList containing the tasks to display.
      */
-    public void showTaskList(TaskList taskList) {
+    public String showTaskList(TaskList taskList) {
         ArrayList<Task> tasks = taskList.getTasks();
-        printer.println("HERE ARE THE CURRENT TASKS:");
+        outMessage.append("HERE ARE THE CURRENT TASKS:\n");
         for (int i = 0; i < tasks.size(); i++) {
             Task currTask = tasks.get(i);
-            printer.print((i + 1)
+            outMessage.append((i + 1)
                     + ". "
                     + currTask
                     + "\n");
         }
-        printer.flush();
+        return outMessage.toString();
     }
 
     /**
@@ -82,11 +93,10 @@ public class Ui {
      * @param task The Task that has been marked as done.
      */
     public void showMarkTask(Task task) {
-        printer.println("NYA! Good job on this task:"
+        outMessage.append("NYA! Good job on this task:"
                 + "\n"
                 + task
                 + "\n");
-        printer.flush();
     }
 
     /**
@@ -95,11 +105,10 @@ public class Ui {
      * @param task The Task that has been unmarked.
      */
     public void showUnmarkTask(Task task) {
-        printer.println("MRAWWW! Don't forget to return to this task:"
+        outMessage.append("MRAWWW! Don't forget to return to this task:"
                 + "\n"
                 + task
                 + "\n");
-        printer.flush();
     }
 
     /**
@@ -109,12 +118,11 @@ public class Ui {
      * @param taskSize The current size of the task list.
      */
     public void showAddTask(Task task, int taskSize) {
-        printer.println("Miao! Got it. I've added this task to my cat brain:\n"
+        outMessage.append("Miao! Got it. I've added this task to my cat brain:\n"
                 + task
                 + "\nNow you have "
                 + taskSize
                 + " task(s) in the list!");
-        printer.flush();
     }
 
 
@@ -125,19 +133,18 @@ public class Ui {
      * @param taskSize The current size of the task list.
      */
     public void showDelete(Task task, int taskSize) {
-        printer.println("Noted, Miao! I've removed this task:\n"
+        outMessage.append("Noted, Miao! I've removed this task:\n"
                 + task
                 + "\nNow you have "
                 + taskSize
                 + " task(s) in the list!");
-        printer.flush();
     }
 
     /**
      * Displays an error message when there is an issue loading the file.
      */
     public void showLoadingError() {
-        System.out.println("Oh no... There is an error while loading the file! ");
+        outMessage.append("Oh no... There is an error while loading the file! ");
     }
 
 
@@ -145,8 +152,7 @@ public class Ui {
      * Displays a message indicating that no matching task was found.
      */
     public void showNoMatchingTask() {
-        printer.println("Miao... No such task... Sorry!");
-        printer.flush();
+        outMessage.append("Miao... No such task... Sorry!");
     }
 
     /**
@@ -155,11 +161,10 @@ public class Ui {
      * @param tasks An ArrayList of matching tasks.
      */
     public void showMatchingTasks(ArrayList<Task> tasks) {
-        printer.println("Miao!!!! I found the tasks in my cat brain! They are:");
+        outMessage.append("Miao!!!! I found the tasks in my cat brain! They are:");
         for (Task task: tasks) {
-            printer.println(task);
+            outMessage.append(task);
         }
-        printer.flush();
     }
 
     private Statistics countStats (ArrayList<Task> tasks) {
@@ -189,8 +194,8 @@ public class Ui {
 
     public void showStatistics(ArrayList<Task> taskList) {
         Statistics stats = countStats(taskList);
-        printer.println("OK MIAO! Here's your TaskList statistics:\n");
-        printer.println("Number of tasks in the list: " + stats.getTotalTasks()
+        outMessage.append("OK MIAO! Here's your TaskList statistics:\n");
+        outMessage.append("Number of tasks in the list: " + stats.getTotalTasks()
                 + "\nTODOS\nToDos: " + stats.toDoCount
                 + "\nMarked ToDos: " + stats.markedToDoCount
                 + "\nUnmarked ToDos: " + stats.unmarkedToDoCount  + "\n"
@@ -204,6 +209,5 @@ public class Ui {
                 + "Total number of Unmarked tasks:" + stats.getTotalUnmarkedTasks() + "\n"
                 + "% of Marked tasks: " + stats.getTotalMarkedTasks() * 100/stats.getTotalTasks()
         );
-        printer.flush();
     }
 }

@@ -48,7 +48,6 @@ public class Tira {
      */
 
     public void run() throws TiraException {
-        Ui ui = new Ui();
         ui.showWelcome();
         PrintWriter printer = new PrintWriter(System.out);
         //Solution for Save below (Level-7)
@@ -86,8 +85,21 @@ public class Tira {
         new Tira("data/tasks/txt").run();
     }
 
-    public String getResponse(String input) {
-        return "Tira heard: " + input;
+    public String getResponse(String input) throws TiraException {
+        String command = input;
+        String[] splitCommand = command.split(" ");
+        String firstWord = splitCommand[0];
+        String output = "";
+        try {
+            if (command.equals("bye")) { //BYE
+                output = "Bye, MIAO!";
+            } else {
+                output = parser.parseCommand(command);
+            }
+            return output;
+        } catch (TiraException e) {
+            return(e.getMessage());
+        }
     }
 }
 
