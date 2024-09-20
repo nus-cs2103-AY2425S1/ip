@@ -11,7 +11,7 @@ import sammy.GUI.MainWindow;
 
 public class Main extends Application {
 
-    private Sammy sammy = new Sammy("./data/Sammy.txt");
+    private Sammy sammy = new Sammy("./sammy.txt");
 
     @Override
     public void start(Stage stage) {

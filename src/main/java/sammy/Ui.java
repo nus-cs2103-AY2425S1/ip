@@ -8,18 +8,24 @@ import java.util.Scanner;
 /**
  * Handles interactions with the user by displaying messages and reading input.
  */
+import java.util.Scanner;
+
 public class Ui {
-    private final String line = "____________________________________________________________";
+
+    private static final String LINE_SEPARATOR = "____________________________________________________________";
+    private static final String TASK_ADDED_MESSAGE = " Got it. I've added this task:\n";
+    private static final String TASK_REMOVED_MESSAGE = " Noted. I've removed this task:\n";
+    private static final String MARK_TASK_DONE_MESSAGE = " Nice! I've marked this task as done:\n";
+    private static final String UNMARK_TASK_MESSAGE = " OK, I've marked this task as not done yet:\n";
+    private static final String TASK_LIST_HEADER = " Here are the tasks in your list:\n";
+    private static final String MATCHING_TASKS_HEADER = "Here are the matching tasks in your list:\n";
 
     /**
      * Displays a welcome message when the program starts.
      */
     public String showWelcomeMessage() {
-        String welcomeMessage = line + "\n Hello! I'm sammy.ui.sammy.Sammy.\n" + "What can I do for you?\n" + line;
-        System.out.println(line);
-        System.out.println(" Hello! I'm sammy.ui.sammy.Sammy.");
-        System.out.println(" What can I do for you?");
-        System.out.println(line);
+        String welcomeMessage = buildMessage(" Hello! I'm sammy.ui.sammy.Sammy.", " What can I do for you?");
+        printMessage(welcomeMessage);
         return welcomeMessage;
     }
 
@@ -27,10 +33,8 @@ public class Ui {
      * Displays a goodbye message when the program ends.
      */
     public String showGoodbyeMessage() {
-        String goodbyeMessage = line + "\n Bye. Hope to see you again soon!\n" + line;
-        System.out.println(line);
-        System.out.println(" Bye. Hope to see you again soon!");
-        System.out.println(line);
+        String goodbyeMessage = buildMessage(" Bye. Hope to see you again soon!");
+        printMessage(goodbyeMessage);
         return goodbyeMessage;
     }
 
@@ -38,7 +42,7 @@ public class Ui {
      * Displays a horizontal line used as a separator for messages.
      */
     public String showLine() {
-        return line;
+        return LINE_SEPARATOR;
     }
 
     /**
@@ -47,10 +51,8 @@ public class Ui {
      * @param message The error message to be displayed.
      */
     public String showErrorMessage(String message) {
-        String errorMessage = line + "\n OOPS!!! \n" + message;
-        System.out.println(line);
-        System.out.println(" OOPS!!! " + message);
-        System.out.println(line);
+        String errorMessage = buildMessage(" OOPS!!!", message);
+        printMessage(errorMessage);
         return errorMessage;
     }
 
@@ -61,15 +63,13 @@ public class Ui {
      */
     public String showTaskList(TaskList tasks) {
         StringBuilder taskList = new StringBuilder();
-        taskList.append(line).append("\n");
-        taskList.append(" Here are the tasks in your list:\n");
+        taskList.append(LINE_SEPARATOR).append("\n").append(TASK_LIST_HEADER);
 
         for (int i = 0; i < tasks.size(); i++) {
-            taskList.append(" ").append(i + 1).append(".").append(tasks.get(i)).append("\n");
+            taskList.append(" ").append(i + 1).append(". ").append(tasks.get(i)).append("\n");
         }
 
-        taskList.append(line);
-
+        taskList.append(LINE_SEPARATOR);
         return taskList.toString();
     }
 
@@ -80,14 +80,8 @@ public class Ui {
      * @param size The current number of tasks in the list.
      */
     public String showAddTask(Task task, int size) {
-        StringBuilder addTask = new StringBuilder();
-        addTask.append(line).append("\n");
-        addTask.append(" Got it. I've added this task:\n");
-        addTask.append(" ").append(task).append("\n");
-        addTask.append(" Now you have ").append(size).append(" tasks in the list.\n");
-        addTask.append(line);
-
-        return addTask.toString();
+        StringBuilder addTaskMessage = buildTaskActionMessage(TASK_ADDED_MESSAGE, task, size);
+        return addTaskMessage.toString();
     }
 
     /**
@@ -97,42 +91,22 @@ public class Ui {
      * @param size The current number of tasks in the list.
      */
     public String showRemoveTask(Task task, int size) {
-        StringBuilder removeTask = new StringBuilder();
-        removeTask.append(line).append("\n");
-        removeTask.append(" Noted. I've removed this task:\n");
-        removeTask.append(" ").append(task).append("\n");
-        removeTask.append(" Now you have ").append(size).append(" tasks in the list.\n");
-        removeTask.append(line);
-
-        return removeTask.toString();
+        StringBuilder removeTaskMessage = buildTaskActionMessage(TASK_REMOVED_MESSAGE, task, size);
+        return removeTaskMessage.toString();
     }
 
     public String showMarkTask(Task task) {
-        StringBuilder markTask = new StringBuilder();
-        markTask.append(line).append("\n");
-        markTask.append(" Nice! I've marked this task as done:\n");
-        markTask.append(" ").append(task).append("\n");
-        markTask.append(line);
-        return markTask.toString();
-
+        return buildTaskActionMessage(MARK_TASK_DONE_MESSAGE, task).toString();
     }
 
     public String showUnmarkTask(Task task) {
-        StringBuilder unmarkTask = new StringBuilder();
-
-        unmarkTask.append(line).append("\n");
-        unmarkTask.append(" OK, I've marked this task as not done yet:\n");
-        unmarkTask.append(" ").append(task).append("\n");
-        unmarkTask.append(line);
-
-        return unmarkTask.toString();
+        return buildTaskActionMessage(UNMARK_TASK_MESSAGE, task).toString();
     }
-
 
     public String showFindResults(TaskList tasks) {
         StringBuilder findResult = new StringBuilder();
 
-        findResult.append("Here are the matching tasks in your list:\n");
+        findResult.append(MATCHING_TASKS_HEADER);
 
         for (int i = 0; i < tasks.size(); i++) {
             findResult.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
@@ -141,7 +115,6 @@ public class Ui {
         return findResult.toString();
     }
 
-
     /**
      * Reads and returns the next line of input from the user.
      *
@@ -149,7 +122,50 @@ public class Ui {
      */
     public String readCommand() {
         Scanner scanner = new Scanner(System.in);
-        return scanner.nextLine();
+        String command = scanner.nextLine();
+        return command;
+    }
+
+    /**
+     * Builds a message enclosed within separator lines.
+     *
+     * @param lines The lines to include in the message.
+     * @return The full message string.
+     */
+    private String buildMessage(String... lines) {
+        StringBuilder message = new StringBuilder(LINE_SEPARATOR).append("\n");
+        for (String line : lines) {
+            message.append(line).append("\n");
+        }
+        message.append(LINE_SEPARATOR);
+        return message.toString();
+    }
+
+    /**
+     * Builds a task action message (e.g., task added, task removed).
+     *
+     * @param actionMessage The action message (e.g., "Got it. I've added this task:").
+     * @param task The task being acted upon.
+     * @param size The current number of tasks (optional).
+     * @return The StringBuilder containing the full message.
+     */
+    private StringBuilder buildTaskActionMessage(String actionMessage, Task task, int... size) {
+        StringBuilder taskMessage = new StringBuilder(LINE_SEPARATOR).append("\n");
+        taskMessage.append(actionMessage);
+        taskMessage.append(" ").append(task).append("\n");
+        if (size.length > 0) {
+            taskMessage.append(" Now you have ").append(size[0]).append(" tasks in the list.\n");
+        }
+        taskMessage.append(LINE_SEPARATOR);
+        return taskMessage;
+    }
+
+    /**
+     * Prints the message to the console.
+     *
+     * @param message The message to be printed.
+     */
+    private void printMessage(String message) {
+        System.out.println(message);
     }
 }
-
