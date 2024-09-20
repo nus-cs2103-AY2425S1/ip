@@ -25,8 +25,8 @@ public class MainWindow extends AnchorPane {
 
     private Astor astor;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/image/image1.png"));
-    private Image astorImage = new Image(this.getClass().getResourceAsStream("/image/image2.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user-modified.png"));
+    private Image astorImage = new Image(this.getClass().getResourceAsStream("/images/astor2.png"));
 
     @FXML
     public void initialize() {
@@ -38,7 +38,7 @@ public class MainWindow extends AnchorPane {
         assert astor != null : "astor must not be null";
 
         this.astor = astor;
-        this.dialogContainer.getChildren().addAll(DialogBox.getAstorDialog(astor.welcomeMessage(), astorImage));
+        this.dialogContainer.getChildren().addAll(DialogBox.getAstorDialog(astor.welcomeMessage(), astorImage, "not_a_command"));
     }
 
     /**
@@ -49,9 +49,10 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = astor.getResponse(input);
+        String commandType = astor.getCommandType();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getAstorDialog(response, astorImage)
+                DialogBox.getAstorDialog(response, astorImage, commandType)
         );
         userInput.clear();
         if (response.startsWith("Bye")) {

@@ -19,6 +19,7 @@ public class Astor {
     private Ui ui;
     private Storage storage;
     private TaskList taskList;
+    private String commandType;
 
 
     /**
@@ -67,7 +68,9 @@ public class Astor {
     public String getResponse(String input) {
         String output = "";
         try {
+            commandType = "not_a_command";
             Command c = Parser.process(input);
+            commandType = c.getClass().getSimpleName();
             output = c.execute(taskList, ui, storage);
         } catch (AstorException | DateTimeParseException e) {
             output = e.getMessage();
@@ -75,6 +78,10 @@ public class Astor {
             output = "An error occurred while writing to the file555.";
         }
         return output;
+    }
+
+    public String getCommandType() {
+        return commandType;
     }
 
     /**
