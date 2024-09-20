@@ -16,7 +16,7 @@ public enum CommandType {
             + " Please specify its duration with a \"/from\" and then a \"/to\" in the format dd-mm-yyy"),
     DELETE("Takes in the index of the task to be deleted"),
     FIND("Takes in a certain key word I could try really hard to find for you within your tasks"),
-    HELP("I can repeat this message if u want :)");
+    HELP("I can repeat this message if you want :)");
 
     private String description;
     private CommandType(String description) {

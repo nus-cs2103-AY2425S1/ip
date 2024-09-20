@@ -1,7 +1,5 @@
-T|true|make 1
-T|false|make 2
-T|false|make 3
-T|false|stop make
-T|false|end me
-D|true|fly|2025-03-22
-T|false|add my fav
+T|true|Grab a drink
+D|false|Get poster done|2024-10-01
+E|false|Project Event|2024-10-02|2024-10-04
+T|false|Clean up after event
+T|false|Get ingredients for dinner

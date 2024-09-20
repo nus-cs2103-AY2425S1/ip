@@ -28,6 +28,8 @@ public class Launcher {
 
     /**
      * End launcher along with the JavaFx program with a 3-second delay
+     * Adapted from
+     * <a href="https://stackoverflow.com/questions/30543619/how-to-use-pausetransition-method-in-javafx">...</a>
      */
     public static void exit() {
         out.disableWindow();
