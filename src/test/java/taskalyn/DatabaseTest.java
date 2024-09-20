@@ -33,6 +33,9 @@ public class DatabaseTest {
         this.ui = new Ui();
         this.db = new MockDatabase();
         this.taskManager = new TaskManager(db, ui);
+        while (taskManager.getTaskSize() > 0) {
+            taskManager.deleteTask(1);
+        }
     }
 
     /**

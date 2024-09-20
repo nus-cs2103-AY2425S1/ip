@@ -24,6 +24,9 @@ public class TaskManagerTest {
         MockDatabase database = new MockDatabase();
         database.clearDatabase();
         taskManager = new TaskManager(database, ui);
+        while (taskManager.getTaskSize() > 0) {
+            taskManager.deleteTask(1);
+        }
     }
 
     @Test
