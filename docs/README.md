@@ -1,6 +1,6 @@
 # Jeff User Guide
 
-![](jeff_chatbot_ss.png)
+![](Ui.png)
 
 Jeff is your personal assistant for maintaining tasks and deadlines.
 
