@@ -227,4 +227,31 @@ public class TaskList {
         }
         return matchingTasks;
     }
+
+    public boolean detectDuplicateTask(String name) {
+        for (Task task : listOfTasks) {
+            if (task.getName().equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean detectDuplicateTask(String name, LocalDateTime dueDate) {
+        for (Task task : listOfTasks) {
+            if (task.getName().equals(name) && task.getDueDate().equals(dueDate)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean detectDuplicateTask(String name, String start, String end) {
+        for (Task task : listOfTasks) {
+            if (task.getName().equals(name) && task.getStart().equals(start) && task.getEnd().equals(end)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

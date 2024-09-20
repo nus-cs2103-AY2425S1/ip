@@ -1,5 +1,7 @@
 package taskpack;
 
+import java.time.LocalDateTime;
+
 /**
  * Used to represent a Todo task.
  */
@@ -16,6 +18,22 @@ public class Todo extends Task {
     public Todo(String name, boolean isCompleted) {
         super(name, isCompleted);
     }
+
+    @Override
+    public LocalDateTime getDueDate() {
+        return null;
+    }
+
+    @Override
+    public String getStart() {
+        return null;
+    }
+
+    @Override
+    public String getEnd() {
+        return null;
+    }
+
     @Override
     public String toString() {
         return "[T]" + super.toString();

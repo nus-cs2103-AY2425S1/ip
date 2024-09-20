@@ -109,7 +109,7 @@ public class Parser {
 
     private String parseTodoTask(String taskName) {
         try {
-            return taskList.createTodoTask(taskName);
+            return taskList.detectDuplicateTask(taskName) ? ui.showDuplicateTodoDetectedMessage() : taskList.createTodoTask(taskName);
         } catch (ArrayIndexOutOfBoundsException e) {
             return ui.showNeedMoreInfoTodoMessage();
         } catch (IOException e) {
@@ -121,10 +121,13 @@ public class Parser {
     private String parseDeadlineTask(String taskName) {
         try {
             String[] todoStringArray = taskName.split(" /by ");
-            String dueDate = todoStringArray[1];
+            String dueDateString = todoStringArray[1];
             String name = todoStringArray[0].split(" ", 2)[1];
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd kkmm");
-            return taskList.createDeadlineTask(name, LocalDateTime.parse(dueDate, formatter));
+            LocalDateTime dueDate = LocalDateTime.parse(dueDateString, formatter);
+            return taskList.detectDuplicateTask(name, dueDate)
+                    ? ui.showDuplicateDeadlineDetectedMessage()
+                    : taskList.createDeadlineTask(name, dueDate);
         }
         catch (ArrayIndexOutOfBoundsException e) {
             return ui.showNeedMoreInfoDeadlineMessage();
@@ -139,7 +142,11 @@ public class Parser {
             String[] eventStringArray = taskName.split(" /from ");
             String[] duration = eventStringArray[1].split(" /to ");
             String name = eventStringArray[0].split(" ", 2)[1];
-            return taskList.createEventTask(name, duration[0], duration[1]);
+            String start = duration[0];
+            String end = duration[1];
+            return taskList.detectDuplicateTask(name, start, end)
+                    ? ui.showDuplicateEventDetectedMessage()
+                    : taskList.createEventTask(name, start, end);
         } catch (ArrayIndexOutOfBoundsException e) {
             return ui.showNeedMoreInfoEventMessage();
         } catch (IOException e) {

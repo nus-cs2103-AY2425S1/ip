@@ -1,5 +1,7 @@
 package taskpack;
 
+import java.time.LocalDateTime;
+
 /**
  * Parent class for tasks, has its own subclass tasks.
  */
@@ -54,6 +56,19 @@ public class Task {
     public String getName() {
         return this.name;
     }
+
+    public LocalDateTime getDueDate() {
+        return null;
+    }
+
+    public String getStart() {
+        return null;
+    }
+
+    public String getEnd() {
+        return null;
+    }
+
 
     /**
      * Returns a string that is more easily parseable by Parser when file is read upon start.

@@ -1,5 +1,8 @@
 package taskpack;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 /**
  * Used to represent an Event task.
  */
@@ -36,6 +39,21 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + start + " to: " + end + ")";
+    }
+
+    @Override
+    public LocalDateTime getDueDate() {
+        return null;
+    }
+
+    @Override
+    public String getStart() {
+        return this.start;
+    }
+
+    @Override
+    public String getEnd() {
+        return this.end;
     }
 
     /**

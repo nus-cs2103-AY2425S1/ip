@@ -32,6 +32,21 @@ public class Deadline extends Task {
     }
 
     @Override
+    public LocalDateTime getDueDate() {
+        return this.dueDate;
+    }
+
+    @Override
+    public String getStart() {
+        return null;
+    }
+
+    @Override
+    public String getEnd() {
+        return null;
+    }
+
+    @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mma");
         return "[D]" + super.toString() + " (by: " + this.dueDate.format(formatter) + ")";

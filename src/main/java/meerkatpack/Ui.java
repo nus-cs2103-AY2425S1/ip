@@ -92,6 +92,18 @@ public class Ui {
         return (LINES + "\nbruh. i need more info to create your event task.\n" + LINES);
     }
 
+    public String showDuplicateTodoDetectedMessage() {
+        return (LINES + "\nstop trolling, the task is already present\n" + LINES);
+    }
+
+    public String showDuplicateEventDetectedMessage() {
+        return (LINES + "\nstop trolling, the task is already present\n" + LINES);
+    }
+
+    public String showDuplicateDeadlineDetectedMessage() {
+        return (LINES + "\nstop trolling, the task is already present\n" + LINES);
+    }
+
     /**
      * Shows message to greet user.
      */
