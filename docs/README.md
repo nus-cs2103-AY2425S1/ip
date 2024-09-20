@@ -2,6 +2,8 @@
 
 The title of the product is named Jard.
 
+https://wujinhan1.github.io/ip/
+
 ![Jard](Ui.png)
 
 Jard is a reminder chatbot with three different types of things to remind. Todo, deadline, and event.
