@@ -27,6 +27,9 @@ public class Ui {
      * @param taskCount number of tasks in the list
      */
     public String showTaskAdded(Task task, int taskCount) {
+        if (task.toString().contains("Please")) {
+            return task.toString();
+        }
         return "Alright, I have added this task to the list:" + task + "\n"
                 + "Your list now has " + taskCount + (taskCount == 1 ? " task" : " tasks") + " :)";
     }
@@ -58,8 +61,4 @@ public class Ui {
                 "    " + task.toString();
     }
 
-    public String showUnknownCommandMessage() {
-        return "Sorry!! I'm not sure how to add that to the list for you, " +
-                "try specifying the type of task!";
-    }
 }

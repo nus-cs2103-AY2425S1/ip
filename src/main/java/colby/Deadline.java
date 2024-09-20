@@ -24,8 +24,17 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        String formattedEnd = formattedEnd = changeDateTime(end);
-        return "[D]" + super.toString() + " (by: " + formattedEnd + ")";
+        try {
+            String formattedEnd = formattedEnd = changeDateTime(end);
+            if (formattedEnd.contains("Wrong")) {
+                throw new ColbyException("Please input the date in the YYYY/MM/DD " +
+                        "format and time in HH-MM format so that I can help you save them!\"");
+            }
+            return "[D]" + super.toString() + " (by: " + formattedEnd + ")";
+        } catch (ColbyException e) {
+            String message = e.getMessage();
+            return message;
+        }
     }
 
     @Override

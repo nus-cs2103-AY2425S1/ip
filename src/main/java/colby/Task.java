@@ -50,13 +50,11 @@ public class Task {
      * @return String of date/time in new format
      */
     public String changeDateTime(String input) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
         try {
             if (input.split(" ").length < 2) {
                 String[] dateSplit = input.split("/");
                 if (dateSplit.length != 3 || dateSplit[0].trim().length() != 4) {
-                    throw new WrongDateTimeFormatException("Please input the date in the YYYY/MM/DD " +
-                            "format so that I can help you save it!");
+                    throw new WrongDateTimeFormatException("Wrong format");
                 } else {
                     this.dateTime = LocalDateTime.of(Integer.parseInt(dateSplit[0]),
                             Integer.parseInt(dateSplit[1]), Integer.parseInt(dateSplit[2]), 23, 59);
@@ -68,18 +66,18 @@ public class Task {
                 String[] timeSplit = time.split("-");
 
                 if (dateSplit.length != 3 || time.length() != 5) {
-                    throw new WrongDateTimeFormatException("Please input the date in the YYYY/MM/DD " +
-                            "format and time in HH-MM format so that I can help you save them!");
+                    throw new WrongDateTimeFormatException("Wrong format");
                 } else {
                     this.dateTime = LocalDateTime.of(Integer.parseInt(dateSplit[0]),
                             Integer.parseInt(dateSplit[1]), Integer.parseInt(dateSplit[2]),
                             Integer.parseInt(timeSplit[0]), Integer.parseInt(timeSplit[1]));
                 }
             }
-        } catch (Exception e) {
+        } catch (WrongDateTimeFormatException e) {
             String message = e.getMessage();
-            System.out.println(message);
+            return message;
         }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
         String formattedDateTime = dateTime.format(formatter);
         return formattedDateTime;
     }
