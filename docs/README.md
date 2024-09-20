@@ -147,7 +147,7 @@ Unmark a task in the task list as incomplete.
 **Example**:
 
 ```
-mark 2 // mark the second task in the list as uncompleted
+unmark 2 // mark the second task in the list as uncompleted
 list
 ```
 
