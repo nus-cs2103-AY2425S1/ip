@@ -20,6 +20,7 @@ add todo Buy groceries
 Purrfect! I've added this task meow ฅ/ᐠᓀ ﻌ ᓂマ
 [T][ ] Buy groceries
 ```
+
 ### 2. Adding Deadlines
    You can add tasks with a specific deadline using the add deadline command. This feature allows you to keep track of tasks that must be completed by a certain date and time.
 
@@ -36,6 +37,7 @@ add deadline Submit report /by 20240930T18:00
 Purrfect! I've added this task meow ฅ/ᐠᓀ ﻌ ᓂマ
   [D][ ] Submit report (by: Mon, 30 Sep 2024 6:00pm)
 ```
+
 ### 3. Adding Events
    Neko can also help manage events that span over a period of time. Use the add event command to log events that have both a start and end date/time.
 - Command format:
@@ -51,6 +53,7 @@ add event CS2103T project presentation /from 20240929T14:00 /to 20240929T16:00
 Purrfect! I've added this task meow ฅ/ᐠᓀ ﻌ ᓂマ
 [E][ ] CS2103T project presentation (from: Sun, 29 Sep 2024 2:00pm to: Sun, 29 Sep 2024 4:00pm)
 ```
+
 ### 4. Listing Tasks
    You can easily view all your tasks by using the list command. Neko will show you all the tasks you have added, whether they are to-do items, deadlines, or events.
 - Command:
@@ -64,6 +67,7 @@ Here are the tasks in your list meow:
 2. [D][ ] Submit report (by: Mon, 30 Sep 2024 6:00pm)
 3. [E][ ] CS2103T project presentation (from: Sun, 29 Sep 2024 2:00pm to: Sun, 29 Sep 2024 4:00pm)
 ```
+
 ### 5. Marking Tasks as Done
    Neko allows you to mark tasks as done once you have completed them.
 - Command format:
@@ -79,6 +83,7 @@ mark 1
 Nice meow! I've marked this task as done:
 [T][X] Buy groceries
 ```
+
 ### 6. Unmarking Tasks
    If you mistakenly mark a task as done, you can easily unmark it.
 
@@ -95,6 +100,7 @@ unmark 1
 Ok meow, I've marked this task as not done yet:
 [T][ ] Buy groceries
 ```
+
 ### 7. Deleting Tasks
    If you no longer need a task, you can delete it using the delete command.
 
@@ -111,6 +117,7 @@ delete 2
 Noted meow. I've removed this task:
 [D][ ] Submit report (by: Mon, 30 Sep 2024 6:00pm)
 ```
+
 ### 8. Finding Tasks
    Need to find a task quickly? Use the find command to search for tasks based on keywords.
 
@@ -127,6 +134,7 @@ find presentation
 Here are the matching tasks in your list meow:
 1. [E][ ] CS2103T project presentation (from: Sun, 29 Sep 2024 2:00pm to: Sun, 29 Sep 2024 4:00pm)
 ```
+
 ### 9. Viewing Tasks on a Specific Date
    You can view all tasks scheduled on a specific date using the view [date] command.
 - Command format:
@@ -142,6 +150,7 @@ view 20240930
 Meow! Here is your schedule on Mon, 30 Sep 2024:
 [D][ ] Submit report (by: Mon, 30 Sep 2024 6:00pm)
 ```
+
 ### 10. Help Command
 If you're ever lost and need to know what commands Neko can handle, just type help.
 - Command:
