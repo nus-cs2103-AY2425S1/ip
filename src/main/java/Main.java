@@ -1,4 +1,5 @@
 import java.io.IOException;
+
 import chatbot.bot.Bword;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -6,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/** Main class to enable the GUI */
 public class Main extends Application {
     private static final String FILELOCATION = "./data/bword.txt";
     private Bword bword = new Bword(FILELOCATION);
@@ -18,7 +20,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setBword(bword);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setBword(bword); // inject the Duke instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

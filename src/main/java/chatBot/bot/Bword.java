@@ -21,6 +21,7 @@ public class Bword {
     private TaskList taskList;
     private Ui ui;
 
+    /** Constructor */
     public Bword(String s) {
         this.ui = new Ui();
         this.storage = new Storage(s);
