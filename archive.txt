@@ -4,3 +4,7 @@ T | 0 | books return
 T | 0 | paint book
 T | 1 | print task
 T | 0 | play darts
+T | 0 | find parking
+D | 0 | return book | Oct 15 2024, 6:00 pm
+E | 0 | project meeting | Oct 15 2024, 6:00 pm | Oct 15 2024, 7:00 pm
+T | 0 | prank
