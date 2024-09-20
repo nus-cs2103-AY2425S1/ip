@@ -9,10 +9,8 @@ import java.util.Scanner;
 
 public class Storage {
     private String filePath;
-    private ArrayList<Task> tasks;
 
     public Storage(String filePath) {
-        this.tasks = new ArrayList<>();
         this.filePath = filePath;
     }
 
@@ -56,7 +54,7 @@ public class Storage {
      * @return The ArrayList of tasks saved in the text file at the specified path.
      * @throws IOException If an error occurs with opening the file at the specified path.
      */
-    public ArrayList<Task> load() throws IOException {
+    public TaskList load() throws IOException {
         File f = new File(this.filePath);
         File parent = f.getParentFile();
 
@@ -67,6 +65,8 @@ public class Storage {
         if (!f.exists()) { // create file if it does not exist
             f.createNewFile();
         }
+
+        TaskList tasks = new TaskList();
 
         // Read in tasks from saved file
         Scanner s = new Scanner(f);
@@ -117,7 +117,7 @@ public class Storage {
      *
      * @throws IOException If file at the specified path cannot be written to.
      */
-    public void save() throws IOException {
+    public void save(TaskList tasks) throws IOException {
         FileWriter writer = new FileWriter(this.filePath);
         for (int i = 0; i < tasks.size(); i++) {
             Task t = tasks.get(i);
