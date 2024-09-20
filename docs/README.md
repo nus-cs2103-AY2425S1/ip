@@ -58,7 +58,6 @@ Alright, I've deleted lunch
 
 Example: `(un)mark 1`
 
-
 ```
 Great, I've marked lunch as done!
 Okay, I've unmarked lunch as not done!
