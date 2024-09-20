@@ -1,5 +1,6 @@
-D : 0 : return book : Sep 9 2024 1800
 T : 1 : revise for exam
 T : 0 : complete CS2103T assignment
 D : 0 : submit assignment : Sep 20 2024 2359
-T : 0 : go to the gym
+T : 0 : do housechores
+D : 0 : mark CS1101 missions : Sep 20 2024 1800
+E : 0 : party : Sep 20 2024 2000 : Sep 21 2024 0700
