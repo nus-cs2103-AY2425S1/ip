@@ -6,6 +6,10 @@ import java.time.format.DateTimeFormatter;
 
 import task.Task;
 
+/**
+ * Represents an Event task that needs to be start and end a specific date and optionally, time.
+ * This class extends the {@link Task} class.
+ */
 public class Event extends Task {
 
     private LocalDate startDate;

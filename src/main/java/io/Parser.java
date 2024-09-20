@@ -15,8 +15,25 @@ import commands.UnmarkCommand;
 import exceptions.InvalidDateException;
 import exceptions.InvalidTaskException;
 
-
-
+/**
+ * The {@code Parser} class is responsible for interpreting user input and converting it into
+ * the corresponding {@link commands.Command} objects that can be executed.
+ * It also provides functionality to convert stored task data into a format that can be
+ * processed by the system, and vice versa.
+ * <p>
+ * The class supports various commands including adding tasks, marking tasks as done or undone,
+ * deleting tasks, finding tasks by description or tags, and listing all tasks.
+ * </p>
+ * <p>
+ * The {@code Parser} ensures that user input is correctly parsed and that dates are converted
+ * to the expected formats. It also ensures that task data stored in files can be converted back
+ * to user input formats when loading tasks from storage.
+ * </p>
+ * <p>
+ * If invalid input is encountered, the {@code Parser} throws relevant exceptions such as
+ * {@link exceptions.InvalidTaskException} and {@link exceptions.InvalidDateException}.
+ * </p>
+ */
 public class Parser {
 
     /**
@@ -41,7 +58,8 @@ public class Parser {
         case 'D':
             return deadlineInputToUserInput(data, descriptionStartIndex);
         default:
-            return "";  // line should never be reached, data coming from persistent input always has correct format
+            // default should never be reached, data coming from persistent input always has correct format
+            return "";
         }
     }
 
