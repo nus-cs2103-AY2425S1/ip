@@ -17,8 +17,11 @@ public class AddTodoCommand extends AddCommand{
             if (input == null) {
                 throw new MissingInputException();
             }
+
             Task newTask = Parser.parseTodo(input);
             tasks.add(newTask);
+            assert tasks.contains(newTask);
+
             setResponse(String.format("Task: ( %s ) has been added.", newTask));
         } catch (RuntimeException e) {
             throw new RuntimeException("Something went wrong, please check your input");

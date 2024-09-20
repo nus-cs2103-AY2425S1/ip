@@ -12,8 +12,6 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.stream.Stream;
 
 
@@ -34,6 +32,7 @@ public class Parser {
         String[] inputArray = input.split(" ", 2);
         String inputCommand = inputArray[0];
         String inputContent = inputArray.length == 1 ? null: inputArray[1];
+
         Command.Types t = Command.checkType(inputCommand);
         return switch (t) {
             case LIST -> new ListCommand();
@@ -59,6 +58,7 @@ public class Parser {
      */
     public static Task loadTask(String data) {
         String[] dataArr = data.split("\\|");
+
         return switch (dataArr[0]) {
             case Todo.TYPEICON -> parseStoredTodo(dataArr);
             case Event.TYPEICON -> parseStoredEvent(dataArr);
@@ -78,6 +78,7 @@ public class Parser {
         if (checkStoredStatus(dataArr[1])) {
             throw new RuntimeException("CompletionStatus seem to be wrong");
         }
+
         if (dataArr.length == 3) {
             return new Todo(dataArr[1].equals(Task.COMPLETEICON), dataArr[2]);
         }
@@ -98,6 +99,7 @@ public class Parser {
         if (dataArr.length != 4) {
             throw new RuntimeException("Error loading deadline task, data stored is wrong");
         }
+
         LocalDate by = LocalDate.parse(dataArr[3], DATEFORMATTER);
         return new Deadline(dataArr[1].equals(Task.COMPLETEICON), dataArr[2], by);
     }
@@ -116,6 +118,7 @@ public class Parser {
         if (dataArr.length != 5) {
             throw new RuntimeException("Error loading event task, data stored is wrong");
         }
+
         try {
             LocalDate from = LocalDate.parse(dataArr[3], DATEFORMATTER);
             LocalDate to =LocalDate.parse(dataArr[4], DATEFORMATTER);
@@ -163,6 +166,7 @@ public class Parser {
         if (!(isValidFrom && isValidTo)) {
             throw new RuntimeException("Problem creating Event, Please check your input is correct");
         }
+
         try {
             LocalDate from = LocalDate.parse(fromArray[1].replaceAll(" ",""), Parser.DATEFORMATTER);
             LocalDate to = LocalDate.parse(toArray[1].replaceAll(" ",""),Parser.DATEFORMATTER);
@@ -191,11 +195,13 @@ public class Parser {
         if (taskArray.length != 2) {
             throw new RuntimeException("Error creating Deadline, Please check your input is correct");
         }
+
         String[] by = taskArray[1].split(" ", 2);
         boolean isValidBy = by[0].equalsIgnoreCase("by") && by.length == 2;
         if (!isValidBy) {
             throw new RuntimeException("Error creating Deadline, Please check your input is correct");
         }
+
         try {
             return new Deadline(taskArray[0], LocalDate.parse(by[1], Parser.DATEFORMATTER));
         } catch (DateTimeParseException e) {
@@ -220,6 +226,7 @@ public class Parser {
         Stream<String> numbers = Arrays.stream(input.split(" "));
         String[] cleanedNumbers = numbers.filter(str -> !str.isEmpty())
                 .toArray(String[]::new);
+
         List<Integer> results = new ArrayList<>();
         for (String num : cleanedNumbers) {
             results.add(Integer.parseInt(num));

@@ -68,10 +68,15 @@ public class TaskList {
         StringBuilder results = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).description.contains(input)){
-                results.append(String.format("%d. %s", i + 1, tasks.get(i)));
+                results.append(String.format("%d. %s\n", i + 1, tasks.get(i)));
             }
         }
+
         return results.toString();
+    }
+
+    public boolean contains(Task o) {
+        return tasks.contains(o);
     }
 
     /**
