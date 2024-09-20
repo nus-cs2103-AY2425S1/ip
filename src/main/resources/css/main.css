@@ -5,13 +5,13 @@
 
 .text-field {
     -fx-background-color: #E3D6C3;
-    -fx-font: 20px "Courier";
+    -fx-font: 20px 'Merriweather', serif;
     -fx-text-fill: rgb(0, 0, 0);
 }
 
 .button {
     -fx-background-color: #C7B29E;
-    -fx-font: bold 16px "Courier";
+    -fx-font: bold 16px 'Merriweather', serif;
     -fx-text-fill: white;
     -fx-transition: -fx-background-color -fx-font-size 0.3s;
 }
