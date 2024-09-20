@@ -1,49 +1,53 @@
 # NotGPT User Guide
-<picture>
+<p align="center">
     <img alt="Screenshot of notGPT Gui interactions" src="Ui.png"
         width="60%"
     >
-</picture>
+</pe>
 
-notGPT is a **desktop app for task management**. 
-Whether it is a simple TODO, a DEADLINE or an EVENT, 
-notGPT is here to ensure that you don't lose sight of what is important.
+NotGPT is a **desktop app for task management**. 
+It's a little relectuctant but it'll get the job done...\
+Also includes a data file which stores Tasks between sessions, you can edit it if you want but all invalid lines of data will simply not be read
 
  - [Quick start](#quick-start)
-  - [Adding tasks](#adding-tasks)
+  - [Adding Tasks](#adding-tasks)
     - [Adding a TODO](#adding-todos-todo)`todo`
-     - [Date formats](#date-formats) 
     - [Adding a DEADLINE ](#adding-deadlines-deadline)`deadline`
     - [Adding an EVENT](#adding-events-event) `event`
-  - [Listing all tasks](#listing-all-tasks)`list`
-  - [Marking a task](#marking-a-task)`mark`
-  - [Unmarking a task ](#unmarking-a-task)`unmark`
-  - [Deleting a task](#deleting-a-task)`delete`
-  - [Finding a task using keyword](#finding-a-task-using-keyword)`find`
-  - [Clearing the list](#clearing-the-list)`clear`
+  - [Date Formats](#date-formats)
+  - [Listing all Tasks](#listing-all-tasks)`list`
+  - [Marking a Task](#marking-a-task)`mark`
+  - [Unmarking a Task ](#unmarking-a-task)`unmark`
+  - [Deleting a Task](#deleting-a-task)`delete`
+  - [Finding a Task using keyword](#finding-a-task-using-keyword)`find`
+  - [Clearing all Tasks](#clearing-all-tasks)`clear`
   - [Exiting the program](#exiting-the-program)`bye`
+  - [Image Sources](#image-sources) 
 
 
 ## Quick Start
 
-1. Ensure you have a Java `17` or above installed in your computer.
+1. Ensure you have a Java Runtime `17` or above installed in your computer.
 2. Download the latest `.jar` file in the repository.
-3. Copy the file to the folder you want to use as the _home folder_ for your notGPT chatbot.
-4. Open a command terminal, `cd` into the folder you put the jar file in, 
+3. Copy the file to the directory you want to use as the root directory for your NotGPT chatbot.
+4. Open a command terminal, `cd` into the directory/folder with the .jar file, 
 and use the `java -jar notGPT.jar` command to run the application.
-5. Type the command in the command box and press Enter to execute it. The command lists are as below.
+5. or just click on which also works...
 
 
-## Commands
+# Commands
 Commmands are not case sensitive so eg. "todo" and "ToDo" are both valid
 
-### Adding tasks
+Most commands follow the format `[command] <additional info>` without any of the brackets
+
+Note that commmands are read as the first string of letters before a white space
+
+## Adding tasks
 #### Adding TODOs: `todo`
 
 Use this command to help you add a TODO item to the task list.
-Once added, it can be seen when you list out the tasks.
 
-Command: `todo <name_of_TODO_item> [#<tag_name>]`
+Command: `todo <name_of_TODO_item>`
 
 Example: `todo submit 2106 lab`
 
@@ -54,8 +58,7 @@ Okie, I added it into the list:
   [T][ ] submit 2106 lab
 Now you have 1 tasks in the list.
 ```
-##### Date formats
-stuff
+
 #### Adding DEADLINEs: `deadline`
 
 Use this command to help you add a DEADLINE to the task list.
@@ -89,6 +92,17 @@ Okie, I added it into the list:
   [E][ ] recess week (from: 2024 Sep 21  07:00 to: 2024 Sep 29  23:00)
 Now you have 3 tasks in the list.
 ```
+
+#### Date formats
+For Event and Deadline there are a few Acceptable input formats which you can use for the additional info that will automatically be recognised and converted into 
+```LocalDates``` dates in the task itself
+
+You can use any of the following: yyyy-MM-dd, yyyy.MM.dd, dd-MM-yyyy, dd.MM.yyyy \
+Or you can simply input the day itself (e. thursday) or it's shorthand (eg. mon) which will be recognised as the next valid date which that day occurs (if you tyhpe today's day of the week it will  return today).
+
+
+Example: Let's say today is 20th Sep 2024 then
+`Event Carnival /from tues /to 2024-09-27` would return the Event `Carnival (From:  24 Sep 2024 to: 27 Sept 2024)
 
 ### Listing all tasks
 
@@ -168,7 +182,7 @@ Meow~ Here you are!
 [E][ ] recess week (from: 2024 Sep 21  07:00 to: 2024 Sep 29  23:00)
 ```
 
-### Clearing the list
+### Clearing all Tasks
 
 Use this command to add or update tag to a task.
 
@@ -186,8 +200,7 @@ I have tagged this task:)
 
 ### Exiting the program
 
-Say goodbye to the chatbot if you like before you close it.
-
+Say goodbye to the chatbot if you like before you close it. \
 Command: `bye`
 
 Example: `bye`
@@ -198,3 +211,7 @@ Expected output:
 Bye. Hope I can see you again soon!
 Next time bring me some cat food please!!!
 ```
+
+### Image Sources
+[Bot profile](https://www.youtube.com/watch?app=desktop&v=fKtJslkLnMw) Frieren: Beyond Journey's End \
+[User profile picture](https://wysi.fandom.com/wiki/Giga_Chad?file=Giga.jpg) Giga Chad
