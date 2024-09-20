@@ -18,30 +18,30 @@ public enum CommandType {
      * @return the CommandType that corresponds to the command string.
      */
     public static CommandType fromString(String command) {
-        if (command.startsWith("todo")) {
+        String lowerCaseCommand = command.toLowerCase();
+        if (lowerCaseCommand.startsWith("todo")) {
             return TODO;
-        } else if (command.startsWith("deadline")) {
+        } else if (lowerCaseCommand.startsWith("deadline")) {
             return DEADLINE;
-        } else if (command.startsWith("event")) {
+        } else if (lowerCaseCommand.startsWith("event")) {
             return EVENT;
-        } else if (command.startsWith("fixed")) {
+        } else if (lowerCaseCommand.startsWith("fixed")) {
             return FIXED_DURATION;
-        } else if (command.startsWith("mark")) {
+        } else if (lowerCaseCommand.startsWith("mark")) {
             return MARK;
-        } else if (command.startsWith("unmark")) {
+        } else if (lowerCaseCommand.startsWith("unmark")) {
             return UNMARK;
-        } else if (command.startsWith("delete")) {
+        } else if (lowerCaseCommand.startsWith("delete")) {
             return DELETE;
-        } else if (command.startsWith("find")) {
+        } else if (lowerCaseCommand.startsWith("find")) {
             return FIND;
-        } else if (command.startsWith("list on")) {
+        } else if (lowerCaseCommand.startsWith("list on")) {
             return LIST_ON;
-        } else if (command.equalsIgnoreCase("list")) {
+        } else if (lowerCaseCommand.startsWith("list")) {
             return LIST;
-        } else if (command.equalsIgnoreCase("help")) {
+        } else if (lowerCaseCommand.startsWith("help")) {
             return HELP;
-
-        } else if (command.equalsIgnoreCase("bye")) {
+        } else if (lowerCaseCommand.startsWith("bye")) {
             return BYE;
         } else {
             return INVALID;
