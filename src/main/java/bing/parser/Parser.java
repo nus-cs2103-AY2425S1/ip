@@ -18,7 +18,7 @@ public class Parser {
      *
      * @param input The user input string to be parsed.
      * @return A Command object representing the user's command. Returns an InvalidCommand
-     *         if the command type is unknown or if parsing fails.
+     * if the command type is unknown or if parsing fails.
      */
     public Command parse(String input) {
         String[] tokens = input.split(" ", 2); // Split into command and rest
@@ -59,6 +59,8 @@ public class Parser {
                 return parseEvent(details);
             case "find":
                 return new FindCommand(details.trim());
+            case "stats":
+                return new StatsCommand();
             default:
                 return new InvalidCommand();
         }
@@ -70,7 +72,7 @@ public class Parser {
      * @param details The details string for the deadline command, expected to contain
      *                task description and deadline.
      * @return A DeadlineCommand object representing the deadline task. Returns an
-     *         InvalidCommand if the details are malformed or parsing fails.
+     * InvalidCommand if the details are malformed or parsing fails.
      */
     private Command parseDeadline(String details) {
         String[] parts = details.split(" /by ");
@@ -94,7 +96,7 @@ public class Parser {
      * @param details The details string for the event command, expected to contain
      *                task description, start time, and end time.
      * @return An EventCommand object representing the event task. Returns an InvalidCommand
-     *         if the details are malformed or parsing fails.
+     * if the details are malformed or parsing fails.
      */
     private Command parseEvent(String details) {
         String[] parts = details.split(" /from ");
@@ -117,4 +119,5 @@ public class Parser {
             return new InvalidCommand();
         }
     }
+
 }

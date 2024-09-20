@@ -1,6 +1,11 @@
 package bing.task;
 
 import java.util.ArrayList;
+import bing.task.Task;
+import bing.task.TaskStatus;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Represents a list of tasks.
@@ -85,5 +90,45 @@ public class TaskList {
             }
         }
         return new TaskList(matchingTasks);
+    }
+
+    public String getTotalTasks() {
+        return String.valueOf(tasks.size());
+    }
+
+    public String getUnmarkedTasks() {
+        int count = 0;
+        for (Task task : tasks) {
+            if (task.getStatus() == TaskStatus.DONE) {
+                count++;
+            }
+        }
+        return String.valueOf(count);
+    }
+
+    public String getMarkedTasks() {
+        int count = 0;
+        for (Task task : tasks) {
+            if (task.getStatus() == TaskStatus.UNDONE) {
+                count++;
+            }
+        }
+        return String.valueOf(count);
+    }
+
+    public Map<String, Long> getTaskBreakdownByType() {
+        return tasks.stream().collect(Collectors.groupingBy(
+                task -> {
+                    if (task instanceof ToDo) {
+                        return "ToDo";
+                    } else if (task instanceof Deadline) {
+                        return "Deadline";
+                    } else if (task instanceof Event) {
+                        return "Event";
+                    }
+                    return "Unknown";
+                },
+                Collectors.counting()
+        ));
     }
 }

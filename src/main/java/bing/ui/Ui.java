@@ -2,6 +2,7 @@ package bing.ui;
 
 import java.util.Scanner;
 import bing.task.TaskList;
+import java.util.Map;
 
 
 /**
@@ -71,6 +72,13 @@ public class Ui {
      */
     public String showError(String message) {
         return "Error: " + message;
+    }
+
+    public String showStatistics(TaskList tasks) {
+        return   "Total tasks: " + tasks.getTotalTasks() + "\n" +
+                "Marked tasks: " + tasks.getMarkedTasks() + "\n" +
+                "Unmarked tasks: " + tasks.getUnmarkedTasks();
+
     }
 
 }
