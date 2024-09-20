@@ -28,6 +28,7 @@ public class Storage {
      * @param path The file path to set.
      */
     public static void setFilePath(String path) {
+        assert path != null : "File path should not be null";
         filePath = path;
     }
 
@@ -38,6 +39,7 @@ public class Storage {
      * @param tasks The list of tasks to save.
      */
     public static void saveTasks(ArrayList<Task> tasks) {
+        assert tasks != null : "Tasks list should not be null";
         try {
             FileWriter fw = new FileWriter(filePath);
             for (Task task : tasks) {
@@ -94,6 +96,7 @@ public class Storage {
      * @throws CenaException If the line cannot be parsed into a tasks.Task object.
      */
     private static Task parseTask(String line) throws CenaException {
+        assert line != null : "Line to parse should not be null";
         Task task = null;
         String[] taskDescription = line.trim().split("\\s*\\|\\s*");
         String taskType = taskDescription[0];
@@ -133,6 +136,7 @@ public class Storage {
      * @return The string representation of the tasks.Task object.
      */
     private static String toSaveString(Task task) {
+        assert task != null : "Task to save should not be null";
         String taskStatus = task.isTaskDone() ? "1" : "0";
         String taskDescription = "";
 

@@ -37,6 +37,7 @@ public class InputHandler {
      * @param tasks the list of tasks
      */
     public InputHandler(ArrayList<Task> tasks) {
+        assert tasks != null : "Tasks list should not be null";
         this.tasks = tasks;
     }
 
@@ -47,6 +48,7 @@ public class InputHandler {
      * @throws CenaException if an exception occurs while executing the command
      */
     public Command handleInput(String input) throws CenaException {
+        assert input != null : "Input should not be null";
         Command command = null;
 
         try {
@@ -95,17 +97,7 @@ public class InputHandler {
             } else {
                 throw new CenaUnknownCommandException("I'm sorry, but I don't know what that means :-(");
             }
-
-//        } catch (CenaInvalidTaskIndexException | CenaInvalidDeadlineException | CenaInvalidEventException
-//                 | DateTimeParseException e) {
-//            System.out.println("____________________________________________________________");
-//            System.out.println(" OOPS!!! " + e.getMessage());
-//            System.out.println("____________________________________________________________");
-
         } catch (NumberFormatException e) {
-            //            System.out.println("____________________________________________________________");
-            //            System.out.println(" OOPS!!! Task number must be a valid integer.");
-            //            System.out.println("____________________________________________________________");
             throw new CenaInvalidTaskIndexException("Task number must be a valid integer.");
         }
 
