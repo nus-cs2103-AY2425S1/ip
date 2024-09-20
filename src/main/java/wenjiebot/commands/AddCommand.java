@@ -1,7 +1,6 @@
 package wenjiebot.commands;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import wenjiebot.Parser;
 import wenjiebot.Storage;

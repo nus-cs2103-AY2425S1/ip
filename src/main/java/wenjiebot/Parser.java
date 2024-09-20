@@ -1,6 +1,13 @@
 package wenjiebot;
-
-import wenjiebot.commands.*;
+import wenjiebot.commands.AddCommand;
+import wenjiebot.commands.ByeCommand;
+import wenjiebot.commands.Command;
+import wenjiebot.commands.DeleteCommand;
+import wenjiebot.commands.FindCommand;
+import wenjiebot.commands.ListCommand;
+import wenjiebot.commands.MarkCommand;
+import wenjiebot.commands.SnoozeCommand;
+import wenjiebot.commands.UnmarkCommand;
 import wenjiebot.exceptions.NoFollowUpException;
 import wenjiebot.exceptions.UnknownCommandException;
 
