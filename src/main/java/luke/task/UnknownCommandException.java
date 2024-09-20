@@ -1,7 +1,10 @@
 package luke.task;
 
-public class UnknownCommandException extends Exception{
-    public UnknownCommandException(){
+/**
+ * The {@code UnknownCommandException} is thrown whenever an unrecognised command is passed to Luke.
+ */
+public class UnknownCommandException extends Exception {
+    public UnknownCommandException() {
         super();
     }
 }
