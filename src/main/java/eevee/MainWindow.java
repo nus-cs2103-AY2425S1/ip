@@ -1,6 +1,7 @@
 package eevee;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -31,6 +32,12 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        showGreeting();
+    }
+
+    private void showGreeting() {
+        String greeting = "Hello! I'm Eevee. How can I help you today?";
+        dialogContainer.getChildren().add(DialogBox.getEeveeDialog(greeting, eeveeImage));
     }
 
     /** Injects the Duke instance */
