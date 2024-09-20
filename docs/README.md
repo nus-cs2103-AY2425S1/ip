@@ -35,7 +35,7 @@ To get started with Juno, follow these steps:
 > 
 > - For commands that do not take in any parameters, e.g. `list`, please ensure that the command is used exactly as shown in the feature list.
 
-### 1. List Tasks: `list`
+### 1. List All Tasks: `list`
 Displays all the tasks in the task list.
 
 Format: `list`
@@ -47,7 +47,7 @@ Expected output:
 
 The above shows the expected output of `list` if the task list currently has a `deadline` task and an `event` task.
 
-### 2. Add Todo Tasks: `add todo`
+### 2. Add Todo Task: `add todo`
 Adds a Todo task into the task list.
 
 Format: `add todo {TASK_DESCRIPTION}`
@@ -63,7 +63,7 @@ Expected output:
 
 The above shows the expected output of `add todo Buy dinner` if the task list currently has 2 other tasks.
 
-### 3. Add Deadline Tasks: `add deadline`
+### 3. Add Deadline Task: `add deadline`
 Adds a Deadline task into the task list, with an end time.
 
 Format: `add deadline {TASK_DESCRIPTION}/{END_TIME}`
@@ -80,7 +80,7 @@ Expected output:
 
 The above shows the expected output of `add deadline Wash shoes/2024 09 20 03.44PM` if the task list currently has 3 other tasks.
 
-### 4. Add Event Tasks: `add event`
+### 4. Add Event Task: `add event`
 Adds an Event task into the task list, with a start time and an end time.
 
 Format: `add event {TASK_DESCRIPTION}/{START_TIME}/{END_TIME}`
