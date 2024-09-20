@@ -23,26 +23,36 @@ public class Parser {
         if (command.equals("bye") && newInput.length == 1) {
             return new String[] {"bye"};
         } else if (command.equals("mark")) {
+            return new String[] {"mark", newInput[1]};
+            /*
             try {
                 int taskNumber = Integer.parseInt(newInput[1]);
                 return new String[] {"mark", String.valueOf(taskNumber)};
             } catch (NumberFormatException e) {
                 throw e;
-            } 
+            }
+             */
         } else if (command.equals("unmark")) {
+            return new String[] {"unmark", newInput[1]};
+            /*
             try {
                 int taskNumber = Integer.parseInt(newInput[1]);
                 return new String[] {"unmark", String.valueOf(taskNumber)};
             } catch (NumberFormatException e) {
                 throw e;
-            } 
+            }
+             */
         } else if (command.equals("delete")) {
+            return new String[] {"delete", newInput[1]};
+            /*
             try {
                 int taskNumber = Integer.parseInt(newInput[1]);
                 return new String[] {"delete", String.valueOf(taskNumber)};
             } catch (NumberFormatException e) {
                 throw e;
-            } 
+            }
+
+             */
         } else if (command.equals("list")) {
             return new String[] {"list"};
         } else if (command.equals("find")) {

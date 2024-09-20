@@ -3,13 +3,12 @@ package secondmind;
 public class InvalidTaskNumberException extends Exception {
     int invalidTaskNumber;
 
-    public InvalidTaskNumberException(int invalidTaskNumber) {
+    public InvalidTaskNumberException() {
         super();
-        this.invalidTaskNumber = invalidTaskNumber;
     }
 
     @Override
     public String toString() {
-        return String.format("Warning! Task number %d does not exist!", this.invalidTaskNumber);
+        return String.format("Warning! Invalid task number entered!");
     }
 }

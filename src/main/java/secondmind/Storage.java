@@ -102,7 +102,7 @@ public class Storage {
      */
     public void delete(int taskNumber, int taskCount) throws InvalidTaskNumberException, FileNotFoundException, IOException {
         if (taskNumber <= 0 || taskNumber > taskCount) {
-            throw new InvalidTaskNumberException(taskNumber);
+            throw new InvalidTaskNumberException();
         }
         //Remove line "taskNumber" from data file
         int lineNumber = 1;

@@ -51,9 +51,13 @@ public class SecondMind {
     }
 
     private int getTaskNumberFromInstruction(String[] instruction)
-            throws NumberFormatException {
-        int taskNumber = Integer.parseInt(instruction[1]);
-        return taskNumber;
+            throws InvalidTaskNumberException {
+        try {
+            int taskNumber = Integer.parseInt(instruction[1]);
+            return taskNumber;
+        } catch (NumberFormatException e) {
+            throw new InvalidTaskNumberException();
+        }
     }
 
     private void modifyStatusInTaskList(int taskNumber, boolean isDone)
@@ -70,7 +74,7 @@ public class SecondMind {
         storage.updateTaskInDataFile(taskNumber, isDone, taskList.getTaskCount());
     }
 
-    private String getTaskUpdateMessage(int taskNumber, boolean isDone) {
+    private String getTaskUpdateMessage(int taskNumber, boolean isDone) throws InvalidTaskNumberException {
         String taskDescription = taskList.getTask(taskNumber).getDescription();
         if (!isDone) {
             String message = "I've marked the following task as incomplete:\n" + taskDescription;
@@ -119,10 +123,17 @@ public class SecondMind {
         return message;
     }
 
+    private void checkTaskNumberValidity(int taskNumber, int taskCount) throws InvalidTaskNumberException {
+        if (taskNumber <= 0 || taskNumber > taskCount) {
+            throw new InvalidTaskNumberException();
+        }
+    }
+
     private String executeDeleteInstruction(String[] instruction) {
         try {
             int taskNumber = getTaskNumberFromInstruction(instruction);
             int taskCount = taskList.getTaskCount();
+            checkTaskNumberValidity(taskNumber, taskCount);
             Task currTask = taskList.getTask(taskNumber);
             deleteTaskFromStorage(taskNumber, taskCount);
             deleteFromTaskList(taskNumber);

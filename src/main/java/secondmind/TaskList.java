@@ -144,7 +144,7 @@ public class TaskList {
      */
     public void markAsDone(int taskNumber) throws InvalidTaskNumberException {
         if (taskNumber <= 0 || taskNumber > getTaskCount()) {
-            throw new InvalidTaskNumberException(taskNumber);
+            throw new InvalidTaskNumberException();
         } else {
             Task curr = this.taskList.get(taskNumber-1);
             curr.markAsDone();
@@ -159,7 +159,7 @@ public class TaskList {
      */
     public void markAsUndone(int taskNumber) throws InvalidTaskNumberException {
         if (taskNumber <= 0 || taskNumber > getTaskCount()) {
-            throw new InvalidTaskNumberException(taskNumber);
+            throw new InvalidTaskNumberException();
         } else {
             Task curr = this.taskList.get(taskNumber-1);
             curr.markAsUndone();
@@ -173,11 +173,7 @@ public class TaskList {
      * @throws InvalidTaskNumberException If the task number is invalid.
      */
     public void delete(int taskNumber) throws InvalidTaskNumberException {
-        try {
-            this.taskList.remove(taskNumber-1);
-        } catch (IndexOutOfBoundsException e) {
-            throw new InvalidTaskNumberException(taskNumber);
-        }
+        this.taskList.remove(taskNumber-1);
     }
 
     /**
