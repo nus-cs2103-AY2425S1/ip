@@ -14,7 +14,11 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke();
+    /*
+    IntelliJ IDEA AI suggested using the "final" keyword, which was apt in this context as implementation-wise, only
+    a single, unchanging instance of the Duke class is created.
+     */
+    private final Duke duke = new Duke();
 
     @Override
     public void start(Stage stage) {

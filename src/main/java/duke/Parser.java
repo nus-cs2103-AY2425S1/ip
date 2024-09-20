@@ -100,18 +100,7 @@ public class Parser {
             return ui.guiTaskActionDisplay(task, "add", tasks);
         }
         case "event": {
-            String[] eventParts = remainingInput.split(" /from ", 2);
-            if (eventParts.length < 2) {
-                throw new InvalidCommandException();
-            }
-            String name = eventParts[0];
-            String[] timeParts = eventParts[1].split(" /to ", 2);
-            if (timeParts.length < 2) {
-                throw new InvalidCommandException();
-            }
-            String start = timeParts[0];
-            String end = timeParts[1];
-            Event task = new Event(name, start, end);
+            var task = getEvent(remainingInput);
             tasks.add(task);
             return ui.guiTaskActionDisplay(task, "add", tasks);
         }
@@ -145,6 +134,25 @@ public class Parser {
         }
     }
 
+    /*
+    IntelliJ IDEA's AI was used to extract this method from the performCommandAndGetParseResponse method. It recommended
+    to extract this method. The suggestion helped to improve SLAP usage within the code, hence I implemented it.
+     */
+    private static Event getEvent(String remainingInput) throws InvalidCommandException {
+        String[] eventParts = remainingInput.split(" /from ", 2);
+        if (eventParts.length < 2) {
+            throw new InvalidCommandException();
+        }
+        String name = eventParts[0];
+        String[] timeParts = eventParts[1].split(" /to ", 2);
+        if (timeParts.length < 2) {
+            throw new InvalidCommandException();
+        }
+        String start = timeParts[0];
+        String end = timeParts[1];
+        return new Event(name, start, end);
+    }
+
     private void throwInvalidInputExceptions() throws InvalidCommandException,
             EmptyNonTaskCommandException, EmptyTaskException {
         String[] parts = inputString.split(" ", 2);
@@ -154,6 +162,11 @@ public class Parser {
         if (!VALID_COMMANDS.contains(instruction)) {
             throw new InvalidCommandException();
         }
+
+        /*
+        ChatGPT AI recommended using the Stream.of(...).anyMatch(...::...) functionality to use the optimality of Java
+        Streams in checking for String equality.
+         */
         if (remainingInput.isEmpty()) {
             if (Stream.of("todo", "event", "deadline", "delete", "snooze").anyMatch(instruction::equals)) {
                 throw new EmptyTaskException();

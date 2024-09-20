@@ -44,8 +44,11 @@ public class Task {
         return "";
     }
 
+    /*
+    IntelliJ IDEA AI's recommendation was to remove the "return;" statement as it was unnecessary. The apt suggestion
+    which helped improve code quality was implemented.
+     */
     public void snooze(LocalDate newDate) {
-        return;
     }
 
     /**
