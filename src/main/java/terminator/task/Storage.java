@@ -119,13 +119,13 @@ public final class Storage {
                 Task task = null;
                 switch(taskType) {
                 case TODO:
-                    parseTodo(desc);
+                    task = parseTodo(desc);
                     break;
                 case EVENT:
-                    parseEvent(desc);
+                    task = parseEvent(desc);
                     break;
                 case DEADLINE:
-                    parseDeadline(desc);
+                    task = parseDeadline(desc);
                     break;
                 default:
                     // We shouldn't reach this condition since we already checked the TaskType beforehand

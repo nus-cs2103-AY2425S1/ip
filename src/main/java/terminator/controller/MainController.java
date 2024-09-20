@@ -21,7 +21,7 @@ import terminator.components.DialogBox;
  */
 public class MainController {
 
-    private final Terminator terminator;
+    private Terminator terminator;
 
     @FXML
     private AnchorPane root;
@@ -95,7 +95,7 @@ public class MainController {
      * No-args constructor to allow JavaFX runtime to instantiate the controller.
      */
     public MainController() {
-        this.terminator = new Terminator();
+
     }
 
     @FXML
@@ -122,5 +122,9 @@ public class MainController {
         Circle clip = new Circle(40, 40, 40);
         titleImage.setClip(clip);
 
+    }
+
+    public void setTerminator(Terminator t) {
+        this.terminator = t;
     }
 }

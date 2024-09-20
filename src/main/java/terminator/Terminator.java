@@ -89,7 +89,10 @@ public class Terminator {
         terminalUi.showExitMsg();
     }
 
-    private void loadStorage() {
+    /**
+     * Loads the task data from storage.
+     */
+    public void loadStorage() {
         try {
             storage.loadDataFromFile(taskList);
         } catch (TerminatorException e) {
@@ -121,7 +124,10 @@ public class Terminator {
         return response;
     }
 
-    private void writeToStorage() {
+    /**
+     * Writes the task data to storage.
+     */
+    public void writeToStorage() {
         try {
             taskList.writeToDisk(storage);
         } catch (TerminatorException de) {
