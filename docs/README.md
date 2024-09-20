@@ -1,7 +1,6 @@
 # Astor User Guide
 
-// ![Product screenshot of Astor] 
-(https://raw.githubusercontent.com/yyihaoc/ip/refs/heads/master/docs/Ui.png)
+// ![Product screenshot of Astor](https://raw.githubusercontent.com/yyihaoc/ip/refs/heads/master/docs/Ui.png)
 
 ## Why choose Astor?
 Astor is your go-to app for recording tasks and remembering deadlines for you!
