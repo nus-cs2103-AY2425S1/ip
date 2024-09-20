@@ -42,9 +42,6 @@ public class Jackson {
             "YXB1cmEKTWFyaWxhaCBraXRhIGJlcnNhdHUKRGVuZ2FuIHNlbWFuZ2F0IHlhbmcgYmFydQpTZW11Y" +
             "SBraXRhIGJlcnNlcnUKTWFqdWxhaCBTaW5nYXB1cmEKTWFqdWxhaCBTaW5nYXB1cmE=";
 
-    // Stores secret text for greedy loading
-    private static String secret = "";
-
     // Stores previous command type for css style changing
     private Commands.CommandType commandType;
 
