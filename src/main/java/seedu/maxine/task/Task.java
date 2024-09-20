@@ -1,7 +1,6 @@
 package seedu.maxine.task;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -28,10 +27,8 @@ public class Task {
     protected int num;
 
     static {
-        FORMATS.add(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
         FORMATS.add(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         FORMATS.add(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        FORMATS.add(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         FORMATS.add(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
@@ -132,17 +129,9 @@ public class Task {
         for (DateTimeFormatter formatter : FORMATS) {
             try {
                 // Check if the formatter pattern includes time
-                if (formatter.toString().contains("HH:mm")) {
-                    // Try parsing as LocalDateTime
-                    LocalDateTime deadline = LocalDateTime.parse(dateTime, formatter);
-                    DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
-                    return deadline.format(outputFormatter);
-                } else {
-                    // Try parsing as LocalDate
-                    LocalDate deadline = LocalDate.parse(dateTime, formatter);
-                    DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-                    return deadline.format(outputFormatter);
-                }
+                LocalDate deadline = LocalDate.parse(dateTime, formatter);
+                DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+                return deadline.format(outputFormatter);
             } catch (DateTimeParseException e) {
                 // Continue checking with other formats
             }

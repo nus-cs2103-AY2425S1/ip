@@ -203,11 +203,15 @@ public class Command {
         }
     }
     /**
-     * Handles the deletion of a specific task or all tasks based on user input.
+     * Handles the deletion of tasks based on the user's input.
      *
-     * @param input The input string from the user, expected to be in the format:
-     *              "delete [task no.]" or "delete all".
-     * @return A message indicating the result of the deletion operation.
+     * <p>This method processes the input string, which should follow the
+     * format: "delete [task no.]" or "delete all". It checks for
+     * the validity of the task number and deletes the corresponding
+     * task if valid. If "all" is specified, all tasks will be deleted.</p>
+     *
+     * @param input The user input containing the delete command.
+     * @return A message indicating if the delete operation was successful.
      * @throws MaxineException if the input format is incorrect.
      */
     public String handleDelete(String input) {
