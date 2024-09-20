@@ -17,11 +17,11 @@ public class Blitz {
      * @param path File path to read and store the tasks.
      */
     public Blitz(String path) throws BlitzException {
-        this.ui = new Ui();
-        this.storage = new Storage(path);
-        this.taskList = storage.readFromFile();
+        ui = new Ui();
+        storage = new Storage(path);
+        taskList = storage.readFromFile();
 
-        assert this.taskList != null : "TaskList must be properly initialized after reading from file";
+        assert taskList != null : "TaskList must be properly initialized after reading from file";
     }
 
 
@@ -35,11 +35,11 @@ public class Blitz {
         try {
             Command command = Parser.parse(inp);
 
-            this.taskList = storage.readFromFile();
+            taskList = storage.readFromFile();
 
-            assert this.taskList != null : "TaskList must be properly initialized after reading from file";
+            assert taskList != null : "TaskList must be properly initialized after reading from file";
 
-            return command.execute(this.taskList, this.ui, this.storage);
+            return command.execute(taskList, ui, storage);
         } catch (BlitzException e) {
             return e.toString();
         }

@@ -23,7 +23,7 @@ public class EventCommand extends Command {
      */
     public EventCommand(String... values) {
         super(values[0]);
-        this.parameters = new String[values.length - 1];
+        parameters = new String[values.length - 1];
         System.arraycopy(values, 1, parameters, 0, parameters.length);
 
         assert parameters.length == 3 : "Event command must have exactly three parameters";

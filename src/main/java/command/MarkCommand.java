@@ -38,7 +38,7 @@ public class MarkCommand extends Command {
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) throws BlitzException {
         try {
-            int index = Integer.parseInt(this.parameter) - 1;
+            int index = Integer.parseInt(parameter) - 1;
 
             if (list.isEmpty()) {
                 throw new BlitzEmptyTaskListException();

@@ -53,7 +53,6 @@ public class Parser {
         if (!Instruction.isValidCommand(commandName)) {
             throw new BlitzCommandDoesNotExistException();
         }
-
         if (commandParts.length == 1) {
             throw new BlitzNoParameterException();
         }

@@ -42,7 +42,7 @@ public class TaskList {
      * @return True if ArrayList in TaskList is not empty, false otherwise.
      */
     public boolean isEmpty() {
-        return this.list.isEmpty();
+        return list.isEmpty();
     }
 
     /**
@@ -51,7 +51,7 @@ public class TaskList {
      * @return The number of elements in the ArrayList of TaskList.
      */
     public int getSize() {
-        return this.list.size();
+        return list.size();
     }
 
     /**
@@ -60,7 +60,7 @@ public class TaskList {
      * @param task Task object that is to be added to the TaskList.
      */
     public void addTask(Task task) {
-        this.list.add(task);
+        list.add(task);
     }
 
     /**
@@ -70,7 +70,7 @@ public class TaskList {
      * @return Task object that has been deleted.
      */
     public Task deleteTask(int i) {
-        return this.list.remove(i);
+        return list.remove(i);
     }
 
     /**
@@ -80,7 +80,7 @@ public class TaskList {
      * @return Task object that is specified by the index.
      */
     public Task getTask(int i) {
-        return this.list.get(i);
+        return list.get(i);
     }
 
     /**
@@ -89,7 +89,7 @@ public class TaskList {
      * @return ArrayList of all the Task objects in the TaskList.
      */
     public ArrayList<Task> getAllTask() {
-        return this.list;
+        return list;
     }
 
     /**
@@ -99,7 +99,7 @@ public class TaskList {
      * @return True if at least one task in the list is considered equal, false otherwise.
      */
     public boolean isTaskExist(Task task) {
-        return this.list.stream().anyMatch(t -> t.isEqualWithoutStatus(task));
+        return list.stream().anyMatch(t -> t.isEqualWithoutStatus(task));
     }
 
     /**

@@ -22,6 +22,6 @@ public class BlitzIoException extends BlitzException {
      */
     @Override
     public String toString() {
-        return this.desc + ", please try again or contact administrator!";
+        return desc + ", please try again or contact administrator!";
     }
 }

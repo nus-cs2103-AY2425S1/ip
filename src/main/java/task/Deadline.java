@@ -48,7 +48,7 @@ public class Deadline extends Task {
     private String convertDatetimeToString(String format) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
 
-        return this.dateTime.format(formatter);
+        return dateTime.format(formatter);
     }
 
     /**
@@ -58,7 +58,7 @@ public class Deadline extends Task {
      */
     @Override
     public String convertTaskToString() {
-        return this.type + "::" + super.isDone() + "::" + super.getDescription() + "::"
+        return type + "::" + super.isDone() + "::" + super.getDescription() + "::"
                 + convertDatetimeToString("yyyy-MM-dd HHmm") + "\n";
     }
 
@@ -69,7 +69,7 @@ public class Deadline extends Task {
      */
     @Override
     public String getType() {
-        return this.type;
+        return type;
     }
 
     /**

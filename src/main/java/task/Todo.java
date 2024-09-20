@@ -39,7 +39,7 @@ public class Todo extends Task {
      */
     @Override
     public String convertTaskToString() {
-        return this.type + "::" + super.isDone() + "::" + super.getDescription() + "\n";
+        return type + "::" + super.isDone() + "::" + super.getDescription() + "\n";
     }
 
     /**
@@ -49,7 +49,7 @@ public class Todo extends Task {
      */
     @Override
     public String getType() {
-        return this.type;
+        return type;
     }
 
     /**

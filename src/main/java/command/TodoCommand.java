@@ -36,7 +36,7 @@ public class TodoCommand extends Command {
      */
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) throws BlitzException {
-        Task taskToAdd = new Todo(this.parameter, "T", false);
+        Task taskToAdd = new Todo(parameter, "T", false);
 
         if (list.isTaskExist(taskToAdd)) {
             throw new BlitzDuplicateTaskException();

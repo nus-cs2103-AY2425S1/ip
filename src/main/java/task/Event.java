@@ -64,9 +64,9 @@ public class Event extends Task {
      */
     @Override
     public String convertTaskToString() {
-        return this.type + "::" + super.isDone() + "::" + super.getDescription() + "::"
-                + convertDatetimeToString("yyyy-MM-dd HHmm", this.startDateTime) + "::"
-                + convertDatetimeToString("yyyy-MM-dd HHmm", this.endDateTime) + "\n";
+        return type + "::" + super.isDone() + "::" + super.getDescription() + "::"
+                + convertDatetimeToString("yyyy-MM-dd HHmm", startDateTime) + "::"
+                + convertDatetimeToString("yyyy-MM-dd HHmm", endDateTime) + "\n";
     }
 
     /**
@@ -76,7 +76,7 @@ public class Event extends Task {
      */
     @Override
     public String getType() {
-        return this.type;
+        return type;
     }
 
     /**
@@ -109,8 +109,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         return super.toString() + " ("
-                + "from: " + convertDatetimeToString("dd MMM yyyy HH:mm", this.startDateTime)
-                + " to: " + convertDatetimeToString("dd MMM yyyy HH:mm", this.endDateTime) + ")";
+                + "from: " + convertDatetimeToString("dd MMM yyyy HH:mm", startDateTime)
+                + " to: " + convertDatetimeToString("dd MMM yyyy HH:mm", endDateTime) + ")";
     }
 
     /**

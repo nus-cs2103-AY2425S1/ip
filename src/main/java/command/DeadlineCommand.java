@@ -23,7 +23,7 @@ public class DeadlineCommand extends Command {
      */
     public DeadlineCommand(String... values) {
         super(values[0]);
-        this.parameters = new String[values.length - 1];
+        parameters = new String[values.length - 1];
         System.arraycopy(values, 1, parameters, 0, parameters.length);
 
         assert parameters.length == 2 : "CommandDeadline requires exactly two parameters";

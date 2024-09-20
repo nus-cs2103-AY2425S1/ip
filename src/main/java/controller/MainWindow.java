@@ -52,6 +52,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = blitz.getResponse(input);
+
         if (response.equalsIgnoreCase("bye")) {
             System.exit(0);
         }
