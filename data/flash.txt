@@ -6,3 +6,4 @@ D| | math /by 2020-04-05
 D| | eng /by 18:00
 T| | red
 E| | project /from 16:00 /to 18:00 /on 2020-04-05
+T| | read book

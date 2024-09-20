@@ -1,6 +1,6 @@
 .root {
     main-color: #e0e0e0; /* Light blue background */
--fx-background-image: url("../images/Background.jpg"); /* Set image */
+-fx-background-image: url("../images/Background.png"); /* Set image */
     -fx-background-size: stretch;
 
      }
