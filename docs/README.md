@@ -1,8 +1,18 @@
 # Ruby User Guide
 
-[Product Image](/Ui.png.jpg)
+![Product Image](/Ui.png.jpg)
 
 Welcome to Ruby, your personal task management chatbot. Below is a guide on how to use Ruby’s available commands!
+
+## Getting Started
+
+Before using Ruby, follow these steps:
+
+1. Install Java 17 on your computer. 
+2. Under GitHub Releases, download the latest version of the jar file of Ruby (`ruby.jar`).
+3. Open a terminal and navigate to the directory containing the jar file using the `cd` command.
+4. Run the command java -jar ruby.jar. A GUI resembling the one above shouold appear.
+5. You are now ready to use Ruby! Follow the rest of the guide to learn about Ruby's features.
 
 ## Features 
 
@@ -14,6 +24,10 @@ Welcome to Ruby, your personal task management chatbot. Below is a guide on how 
 
 - Ruby will show all your tasks with their statuses (done or not done).
 - Tasks are listed in the order they were added.
+
+![List](/list.jpg)
+
+---
 
 ### Tasks with no duration: `todo`
 
@@ -27,6 +41,10 @@ Welcome to Ruby, your personal task management chatbot. Below is a guide on how 
 
 **Example**: `todo Read a book` Adds a task of type todo into your list of tasks.
 
+![Todo](/todo.jpg)
+
+---
+
 ### Tasks with a deadline: `deadline`
 
 **Description**: Adds a task with a deadline.
@@ -39,6 +57,10 @@ Welcome to Ruby, your personal task management chatbot. Below is a guide on how 
 - Tasks added with `deadline` appear with `[D]` and the deadline date.
 
 **Example**: `deadline Submit assignment /by 2024-09-20 2359` Adds a task due on 2024-09-20 2359.
+
+![Deadline](/deadline.jpg)
+
+---
 
 ### Tasks with a start and end date: `event`
 
@@ -55,6 +77,10 @@ Welcome to Ruby, your personal task management chatbot. Below is a guide on how 
 
 **Example**: `event Project meeting /from 2024-09-22 2359 /to 2024-09-23 2359` Adds a task from the period 2024-09-22 2359 /to 2024-09-23 2359.
 
+![Event](/event.jpg)
+
+---
+
 ### Remove task: `delete`
 
 **Description**: Removes a task from the list.
@@ -66,6 +92,10 @@ Welcome to Ruby, your personal task management chatbot. Below is a guide on how 
 - TASK_NUMBER must be within the number of tasks in task list.
 
 **Example**: `delete 2` deletes the second task in the task list.
+
+![Delete](/delete.jpg)
+
+---
 
 ### Mark tasks: `mark`
 
@@ -79,6 +109,10 @@ Welcome to Ruby, your personal task management chatbot. Below is a guide on how 
 
 **Example**: `mark 1` marks task 1 in the list of tasks as done. 
 
+![Mark](/mark.jpg)
+
+---
+
 ### Unmark tasks: `unmark`
 
 **Description**: Marks a task as not done.
@@ -91,6 +125,10 @@ Welcome to Ruby, your personal task management chatbot. Below is a guide on how 
 
 **Example**: `unmark 1` marks task 1 in the list of tasks as not done.
 
+![Unmark](/unmark.jpg)
+
+---
+
 ### Exiting Ruby: `bye`
 
 **Description**: Exits Ruby.
@@ -99,6 +137,8 @@ Welcome to Ruby, your personal task management chatbot. Below is a guide on how 
 
 - Use this command to exit the application. Ruby will automatically save your tasks.
 
+---
+
 ### Sort tasks: `sort`
 
 **Description**: Sorts tasks alphabetically.
@@ -106,6 +146,10 @@ Welcome to Ruby, your personal task management chatbot. Below is a guide on how 
 **Format**: `sort`
 
 - This will reorder the tasks alphabetically by their description.
+
+![Sort](/sort.jpg)
+
+---
 
 ### Search for specific tasks: `find`
 
@@ -117,6 +161,10 @@ Welcome to Ruby, your personal task management chatbot. Below is a guide on how 
 - When KEYWORD is empty, `find` performs the same function as `list`
 
 **Example**: `find book` searches for tasks with book in their name.
+
+![Find](/find.jpg)
+
+---
 
 Feel free to explore these commands and efficiently manage your tasks with Ruby!
 
