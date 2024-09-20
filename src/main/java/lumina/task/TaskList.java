@@ -167,7 +167,6 @@ public class TaskList {
      */
 
     public String handleDeadlineTask(String msg) throws LuminaException {
-        String[] msgSplit = msg.split(" ");
         Pattern pattern = Pattern.compile("^\\S+\\s+(.*?)\\s+/by\\s+(.*)$");
         Matcher matcher = pattern.matcher(msg);
 
