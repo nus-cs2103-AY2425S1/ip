@@ -52,7 +52,7 @@ test {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "xbot"
     archiveClassifier = null
 }
 
