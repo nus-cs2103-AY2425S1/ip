@@ -31,8 +31,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        this.setStyle("-fx-background-image: url('/images/background.jpg'); -fx-background-size: cover;");
-        getStylesheets().add(getClass().getResource("/css/mainwindow.css").toExternalForm());
+        this.setStyle("-fx-background-color: #e0f7fa;"); // Light blue background
         userInput.getStyleClass().add("text-field");
         sendButton.getStyleClass().add("button");
     }
@@ -41,7 +40,7 @@ public class MainWindow extends AnchorPane {
     public void setKing(King k) {
         king = k;
         dialogContainer.getChildren().add(
-                DialogBox.getKingDialog(king.getUi().showWelcome(), kingImage) // Display the welcome message
+                DialogBox.getKingDialog(king.getUi().showWelcome(), kingImage)
         );
     }
 
@@ -66,4 +65,3 @@ public class MainWindow extends AnchorPane {
         }
     }
 }
-

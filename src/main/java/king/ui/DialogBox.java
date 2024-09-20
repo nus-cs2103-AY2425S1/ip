@@ -1,9 +1,13 @@
 package king.ui;
 
 import java.io.IOException;
+import java.util.Collections;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,6 +29,9 @@ public class DialogBox extends HBox {
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
+            this.getStylesheets().add(getClass().getResource("/css/dialogbox.css").toExternalForm());
+            this.getStyleClass().add("dialog"); // Add common dialog style
+            displayPicture.getStyleClass().add("image-view");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -33,18 +40,26 @@ public class DialogBox extends HBox {
         displayPicture.setImage(img);
     }
 
+    /**
+     * Flips the dialog box such that the ImageView is on the left and text on the right.
+     */
+    private void flip() {
+        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
+        Collections.reverse(tmp);
+        getChildren().setAll(tmp);
+        setAlignment(Pos.TOP_LEFT);
+    }
+
     public static DialogBox getUserDialog(String text, Image img) {
         var db = new DialogBox(text, img);
-        // Set the order: text first, then user image
-        db.getChildren().setAll(db.dialog, db.displayPicture);
-        db.setAlignment(Pos.CENTER_RIGHT); // Align to the right for the user
+        db.setStyle("-fx-background-color: #e0f7fa;"); // Light blue background for user
         return db;
     }
 
-
     public static DialogBox getKingDialog(String text, Image img) {
         var db = new DialogBox(text, img);
-        db.setAlignment(Pos.CENTER_LEFT); // Ensure King's dialog aligns correctly
+        db.setStyle("-fx-background-color: #fff3e0;"); // Light orange background for King
+        db.flip();
         return db;
     }
 }
