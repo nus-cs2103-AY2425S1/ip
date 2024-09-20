@@ -1,6 +1,7 @@
 package max.task;
 
 import max.exception.MaxException;
+import max.main.Max;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,8 +67,12 @@ public class TaskList {
      * @param index The index of the task to be retrieved.
      * @return The task at the specified index.
      */
-    public Task getTask(int index) {
-        return storedTasks.get(index);
+    public Task getTask(int index) throws MaxException {
+        try {
+            return storedTasks.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new MaxException("The task index does not exist");
+        }
     }
 
     /**
@@ -75,7 +80,10 @@ public class TaskList {
      *
      * @return An ArrayList containing all the tasks in the TaskList.
      */
-    public ArrayList<Task> getTasks() {
+    public ArrayList<Task> getTasks() throws MaxException {
+        if (this.storedTasks.isEmpty()) {
+            throw new MaxException("There are no tasks in this list.");
+        }
         return storedTasks;
     }
 

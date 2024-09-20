@@ -46,7 +46,7 @@ public class Parser {
 
     /**
      * Parses the input text and performs the corresponding action.
-     * It handles various commands such as 'bye', 'list', 'todo', 'deadline', etc.
+     * It handles various commands such as 'hi', 'bye', 'list', etc.
      *
      * @param text the input command from the user
      * @return true if the command is 'bye', indicating the application should exit, false otherwise
@@ -119,7 +119,7 @@ public class Parser {
      *
      * @param text the input command
      */
-    private void handleSimpleCommand(String text) {
+    private void handleSimpleCommand(String text) throws MaxException {
         switch (text) {
         case "hi":
         case "hello":
@@ -339,7 +339,7 @@ public class Parser {
      * Calls the Ui component to print the entire task list, showing all current tasks.
      * </p>
      */
-    private void handleList() {
+    private void handleList() throws MaxException {
         ui.printList(false);
         ui.list(taskList.getTasks());
     }
@@ -353,7 +353,7 @@ public class Parser {
      *
      * @param index The index of the task in the task list to be marked as not done.
      */
-    private void handleUnmark(int index) {
+    private void handleUnmark(int index) throws MaxException {
         Task task = taskList.getTask(index);
         task.markNotDone();
         ui.printMarkNotDone(task);
@@ -368,7 +368,7 @@ public class Parser {
      *
      * @param index The index of the task in the task list to be marked as done.
      */
-    private void handleMark(int index) {
+    private void handleMark(int index) throws MaxException {
         Task task = taskList.getTask(index);
         task.markDone();
         ui.printMarkDone(task);
