@@ -202,6 +202,8 @@ Bye! Hope to see you again soon meow ฅ ฅ
 | `help`                                 | Displays the list of available commands                                  |
 | `bye`                                 | Exit the Neko chatbot                                                    |
 
+## Acknowledgment of AI Assistance
+This project has utilized AI tools such as ChatGPT to assist in drafting parts of the JavaDocs and this User Guide to ensure comprehensive and detailed documentation.
 
 ## Conclusion
 Neko is designed to make task management as easy and fun as possible with its interactive and intuitive command-line interface. Whether you're managing deadlines or long events, Neko has you covered with just a few simple commands. Keep your tasks organized and let Neko handle the details.
