@@ -228,6 +228,11 @@ public class TaskList {
         return matchingTasks;
     }
 
+    /**
+     * Detects duplicate todo tasks based on name.
+     * @param name The name of the task to check for equality.
+     * @return Boolean indicating if duplicate is detected
+     */
     public boolean detectDuplicateTask(String name) {
         for (Task task : listOfTasks) {
             if (task.getName().equals(name)) {
@@ -237,6 +242,12 @@ public class TaskList {
         return false;
     }
 
+    /**
+     * Detects duplicate deadline tasks based on name and dueDate.
+     * @param name The name of the task to check for equality.
+     * @param dueDate The dueDate of the task to check for equality.
+     * @return Boolean indicating if duplicate is detected.
+     */
     public boolean detectDuplicateTask(String name, LocalDateTime dueDate) {
         for (Task task : listOfTasks) {
             if (task.getName().equals(name) && task.getDueDate().equals(dueDate)) {
@@ -246,6 +257,13 @@ public class TaskList {
         return false;
     }
 
+    /**
+     * Detects duplicate deadline tasks based on name, start and end period.
+     * @param name The name of the task to check for equality.
+     * @param start The string of the start period.
+     * @param end The string of the end period.
+     * @return Boolean indicating if duplicate is detected.
+     */
     public boolean detectDuplicateTask(String name, String start, String end) {
         for (Task task : listOfTasks) {
             if (task.getName().equals(name) && task.getStart().equals(start) && task.getEnd().equals(end)) {
