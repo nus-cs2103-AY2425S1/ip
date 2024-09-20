@@ -72,11 +72,12 @@ public class TaskList {
                 }
             }
         }
-        if (matchingTasks.getSize() > 0) {
-            return matchingTasks.getTasksAsString();
-        } else {
+
+        if (matchingTasks.getSize() == 0) {
             return "No tasks match your search key. Try another search key.";
         }
+
+        return matchingTasks.getTasksAsString();
     }
 
     /**
