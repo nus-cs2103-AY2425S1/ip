@@ -79,13 +79,7 @@ public class Parser {
         if (matcher.matches()) {
             String task = matcher.group(1);
             String deadline = matcher.group(2);
-            LocalDate parsedDate;
-            try {
-                parsedDate = LocalDate.parse(deadline);
-                return new Deadline(task, parsedDate);
-            } catch (DateTimeParseException e) {
-                throw new InvalidDatetimeException(deadline);
-            }
+            return new Deadline(task, parseDate(deadline));
         } else {
             throw new InvalidTaskDescriptionException(args);
         }
@@ -98,14 +92,14 @@ public class Parser {
      * @return <code>Event</code> task
      * @throws InvalidTaskDescriptionException Invalid task description cannot be parsed
      */
-    public Event parseEventTask(String args) throws InvalidTaskDescriptionException {
+    public Event parseEventTask(String args) throws InvalidTaskDescriptionException, InvalidDatetimeException {
         Pattern regex = Pattern.compile("(.*)\\s/from\\s(.*)\\s/to\\s(.*)");
         Matcher matcher = regex.matcher(args);
         if (matcher.matches()) {
             String task = matcher.group(1);
             String from = matcher.group(2);
             String to = matcher.group(3);
-            return new Event(task, LocalDate.parse(from), LocalDate.parse(to));
+            return new Event(task, parseDate(from), parseDate(to));
         } else {
             throw new InvalidTaskDescriptionException(args);
         }
@@ -121,6 +115,14 @@ public class Parser {
             return taskIndex;
         } catch (NumberFormatException e) {
             throw new InvalidTaskIdException(arr[0]);
+        }
+    }
+
+    private LocalDate parseDate(String input) throws InvalidDatetimeException {
+        try {
+            return LocalDate.parse(input);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDatetimeException(input);
         }
     }
 }
