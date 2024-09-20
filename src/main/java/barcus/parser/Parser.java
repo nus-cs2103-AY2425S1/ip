@@ -1,7 +1,9 @@
 package barcus.parser;
 
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import barcus.command.AddDeadlineCommand;
@@ -193,11 +195,22 @@ public class Parser {
             throw new BarcusException("please have an integer after 'delete'");
         }
         try {
-            int[] pos = new int[words.length - 1];
+            //int[] pos = new int[words.length - 1];
+            List<Integer> pos = new ArrayList<>();
             for (int i = 1; i < words.length; i++) {
-                pos[i - 1] = Integer.parseInt(words[i]);
+                //pos[i - 1] = Integer.parseInt(words[i]);
+                int temp = Integer.parseInt(words[i]);
+                if (!pos.contains(temp)) {
+                    pos.add(temp);
+                }
             }
-            return new DeleteCommand(pos);
+            Collections.sort(pos, Collections.reverseOrder());
+            int[] convertedPos = new int[pos.size()];
+            for (int i = 0; i < pos.size(); i++) {
+                convertedPos[i] = pos.get(i);
+            }
+            System.out.println(convertedPos);
+            return new DeleteCommand(convertedPos);
         } catch (NumberFormatException e) {
             throw new BarcusException("please have an integer after 'delete'");
         }
