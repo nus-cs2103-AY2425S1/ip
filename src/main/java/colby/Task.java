@@ -69,6 +69,8 @@ public class Task {
         if (input.contains("/needs")) {
             String[] split = input.split("/needs");
             duration = split[0] + " (needs " + split[1] + ")";
+        } else {
+            duration = input;
         }
         return duration;
     }
