@@ -25,7 +25,7 @@ Here are a list of features that Bobby provides:
 
 Create a todo task in the following format: `todo TASK_NAME DESCRIPTION`
 
-Create a deadline task in the following format: `deadline TASK_NAME /by TASK_NAME DATE`
+Create a deadline task in the following format: `deadline TASK_NAME /by DATE`
 
 > The `DATE` has to be in `YYYY-MM-DD` format
 
@@ -55,7 +55,6 @@ to `KEYWORD`
 
 E.g: `find assignment` will display a list of tasks containing the word `assignment`
 - `find` is case-sensitive. E.g: `Homework` and `homework` will not match
-- Only full words will be matched
 
 ### Archiving
 
