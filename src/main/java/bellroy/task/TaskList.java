@@ -108,6 +108,9 @@ public class TaskList {
 
     @Override
     public String toString() {
+        if (this.isEmpty()) {
+            return "There are no tasks in the tasklist! Hootray!";
+        }
         String s = "";
         for (int i = 0; i < taskList.size(); i++) {
             s += String.format("%d.%s", i+ 1, taskList.get(i));

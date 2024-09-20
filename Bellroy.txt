@@ -1,4 +1,0 @@
-[T][ ] run errands
-[T][ ] shower
-[D][ ] homework (by: Sep 27 2024, 6:00 pm)
-[D][ ]  homework (by: Apr 09 2022, 6:45 pm)
