@@ -116,4 +116,58 @@ public class TaskManagerTest {
         assertEquals(expectedOutput, actualOutput,
                 "This should be the UI message when a task is found by find command.");
     }
+
+    @Test
+    public void getTaskSize_addNoTasks_returnZero() {
+        assertEquals(0, taskManager.getTaskSize(), "There should be a task size of 0 since empty.");
+    }
+
+    @Test
+    public void getTaskSize_addOneTask_returnCorrectSize() {
+        taskManager.addTask(new TodoTask("go to school", false));
+        assertEquals(1, taskManager.getTaskSize(), "There should be a task size of 1.");
+    }
+
+    @Test
+    public void getTaskSize_deleteTask_returnCorrectSize() {
+        taskManager.addTask(new TodoTask("go to school", false));
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+        taskManager.addTask(new DeadlineTask("hw", LocalDateTime.parse("11-09-2024 1300", formatter), false));
+        taskManager.deleteTask(1);
+        assertEquals(1, taskManager.getTaskSize(), "There should be a task size of 1 after deletion.");
+    }
+
+    @Test
+    public void getTaskSize_addMultipleTasks_returnCorrectSize() {
+        taskManager.addTask(new TodoTask("go to school", false));
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+        taskManager.addTask(new DeadlineTask("hw", LocalDateTime.parse("11-09-2024 1300", formatter), false));
+
+        taskManager.addTask(new EventTask("party", LocalDateTime.parse("11-09-2024 1800", formatter),
+                LocalDateTime.parse("11-09-2024 2000", formatter), false));
+        assertEquals(3, taskManager.getTaskSize(), "There should be a task size of 3 after adding 3 tasks.");
+    }
+
+    @Test
+    public void getTaskSize_markTaskAsComplete_returnNoChangeInSize() {
+        taskManager.addTask(new TodoTask("go to school", false));
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+        taskManager.addTask(new DeadlineTask("hw", LocalDateTime.parse("11-09-2024 1300", formatter), false));
+        taskManager.markTaskAsComplete(1);
+        assertEquals(2, taskManager.getTaskSize(), "There should be a task size of 2 since no change after mark.");
+    }
+
+    @Test
+    public void getTaskSize_markTaskAsIncomplete_returnNoChangeInSize() {
+        taskManager.addTask(new TodoTask("go to school", false));
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
+        taskManager.addTask(new DeadlineTask("hw", LocalDateTime.parse("11-09-2024 1300", formatter), false));
+        taskManager.markTaskAsComplete(1);
+        taskManager.markTaskAsIncomplete(1);
+        assertEquals(2, taskManager.getTaskSize(), "There should be a task size of 2 since no change after unmark.");
+    }
 }
