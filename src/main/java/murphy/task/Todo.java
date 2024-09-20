@@ -2,6 +2,8 @@ package murphy.task;
 
 import murphy.MurphyException;
 
+import java.time.LocalDate;
+
 public class Todo extends Task {
     public Todo(String description) throws MurphyException {
         super(description);
@@ -19,5 +21,10 @@ public class Todo extends Task {
     @Override
     public String toSaveString() {
         return "T|" + super.toSaveString();
+    }
+
+    @Override
+    public boolean isWithinDate(LocalDate date) {
+        return false;
     }
 }

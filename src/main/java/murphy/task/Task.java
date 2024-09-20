@@ -2,6 +2,8 @@ package murphy.task;
 
 import murphy.MurphyException;
 
+import java.time.LocalDate;
+
 /**
  * An abstract class which is inherited by other forms of Tasks.
  */
@@ -71,4 +73,6 @@ abstract public class Task {
     public boolean containsString(String search) {
         return description.contains(search);
     }
+
+    public abstract boolean isWithinDate(LocalDate date);
 }

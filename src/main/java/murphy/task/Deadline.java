@@ -44,4 +44,9 @@ public class Deadline extends Task {
     public String toSaveString() {
         return "D|" + super.toSaveString() + "|" + this.by;
     }
+
+    @Override
+    public boolean isWithinDate(LocalDate date) {
+        return !date.isAfter(by);
+    }
 }
