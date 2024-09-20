@@ -1,0 +1,36 @@
+/* Main label styling for the dialog bubbles (user messages) */
+.label {
+    -fx-background-color: #4761F5;
+    -fx-background-radius: 18px;
+    -fx-border-radius: 18px;
+    -fx-padding: 10px 14px;
+    -fx-text-fill: #F3F4FE;
+    -fx-font-size: 15px;
+    -fx-font-family: "Source Sans Pro", sans-serif;
+    -fx-font-weight: normal;
+}
+
+/* Reply dialog bubble */
+.reply-label {
+    -fx-background-color: #F1F1F1;
+    -fx-background-radius: 18px;
+    -fx-border-radius: 18px;
+    -fx-padding: 10px 14px; /* Consistent padding */
+    -fx-text-fill: #000000;
+    -fx-font-size: 15px;
+    -fx-font-family: "Source Sans Pro", sans-serif;
+    -fx-font-weight: normal;
+}
+
+/* Avatar (Display Picture) */
+#displayPicture {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-border-radius: 100%; /* Circular image for a modern look */
+}
+
+/* General text alignment and padding for both user and reply bubbles */
+.label, .reply-label {
+    -fx-alignment: center-left; /* Left-align the text inside the dialog bubbles */
+    -fx-wrap-text: true; /* Ensure that text wraps inside the bubbles */
+}

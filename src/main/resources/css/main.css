@@ -1,0 +1,78 @@
+.root {
+    -fx-background-color: #FFFFFF;
+    -fx-font-family: "Segoe UI", "Arial", sans-serif; /* Use a modern font */
+}
+
+/* TextField */
+.text-field {
+    -fx-background-color: #F3F3F3;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-padding: 10px; /* Add padding for breathing room */
+    -fx-font-size: 15px; /* Simple font */
+    -fx-border-color: #CCCCCC; /* Light gray border */
+    -fx-border-width: 1px;
+}
+
+.text-field:focused {
+    -fx-background-color: #F3F3F3;
+    -fx-border-color: #4761F5;
+    -fx-border-width: 1.5px;
+}
+
+/* Button */
+/* Set the fill color for the SVG icons */
+.button .svg-path {
+    -fx-fill: #4761F5; /* Default color for SVG icon */
+}
+
+/* Change color on hover */
+.button:hover .svg-path {
+    -fx-fill: #3B55D9; /* Darker color on hover */
+}
+
+/* Change color on pressed */
+.button:pressed .svg-path {
+    -fx-fill: #2F44B2; /* Even darker color on press */
+}
+
+/* Button styling */
+.button {
+    -fx-background-color: transparent;
+    -fx-border-color: none;
+    -fx-padding: 5px;
+}
+
+.button:hover {
+    -fx-background-color: rgba(71, 97, 245, 0.1); /* Light background on hover */
+}
+
+.button:pressed {
+    -fx-background-color: rgba(47, 68, 178, 0.2); /* Slightly darker background when pressed */
+}
+
+/* ScrollPane and ScrollBar */
+.scroll-pane, .scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #1A73E8; /* Flat blue color for the scroll thumb */
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+}
+
+/* Hides the increment and decrement buttons */
+.scroll-bar .increment-button, .scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+
+/* Global Styling for Transitions */
+* {
+    -fx-transition: all 0.2s ease-in-out;
+}

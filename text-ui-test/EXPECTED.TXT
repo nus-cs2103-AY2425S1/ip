@@ -1,7 +1,568 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Meowdy! I'm Purrfessor Dipsy, Keeper of the Cozy Sunbeam and Purrtector of the Realm of Naps.
+How can I purrvide assistance? Purrhaps I could lend a paw!
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Your task list is as empty as a well-sunned nap spot.
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Error: Unrecognized command.
 
+Usage: <command> [options]
+
+Commands:
+  todo <description>                            Create a new todo item
+  deadline <description> /by <date>             Create a task with a deadline (yyyy-MM-dd)
+  event <description> /from <start> /to <end>   Create an event with start and end dates
+  mark <index>                                  Mark the task at the given index as done
+  unmark <index>                                Unmark the task at the given index
+  list                                          List all tasks
+  list <date>                                   List tasks on the specified date
+  bye                                           Exit the program
+
+Examples:
+  todo Buy treats for Dipsy
+  deadline Submit report /by 2024-05-12
+  event Conference /from 2024-08-12 /to 2024-08-14
+  mark 1
+
+Date format: yyyy-MM-dd
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+(=ↀωↀ=)ノ Task added!
+[T][ ] borrow book
+You now have 1 tasks in your list.
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+A task file has been created locally.
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Error: Unrecognized command.
+
+Usage: <command> [options]
+
+Commands:
+  todo <description>                            Create a new todo item
+  deadline <description> /by <date>             Create a task with a deadline (yyyy-MM-dd)
+  event <description> /from <start> /to <end>   Create an event with start and end dates
+  mark <index>                                  Mark the task at the given index as done
+  unmark <index>                                Unmark the task at the given index
+  list                                          List all tasks
+  list <date>                                   List tasks on the specified date
+  bye                                           Exit the program
+
+Examples:
+  todo Buy treats for Dipsy
+  deadline Submit report /by 2024-05-12
+  event Conference /from 2024-08-12 /to 2024-08-14
+  mark 1
+
+Date format: yyyy-MM-dd
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+(=ↀωↀ=)ノ Task added!
+[D][ ] return book (by: Aug 26 2024)
+You now have 2 tasks in your list.
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Error: Unrecognized command.
+
+Usage: <command> [options]
+
+Commands:
+  todo <description>                            Create a new todo item
+  deadline <description> /by <date>             Create a task with a deadline (yyyy-MM-dd)
+  event <description> /from <start> /to <end>   Create an event with start and end dates
+  mark <index>                                  Mark the task at the given index as done
+  unmark <index>                                Unmark the task at the given index
+  list                                          List all tasks
+  list <date>                                   List tasks on the specified date
+  bye                                           Exit the program
+
+Examples:
+  todo Buy treats for Dipsy
+  deadline Submit report /by 2024-05-12
+  event Conference /from 2024-08-12 /to 2024-08-14
+  mark 1
+
+Date format: yyyy-MM-dd
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+(=ↀωↀ=)ノ Task added!
+[E][ ] project meeting (from: Aug 25 2024 to: Aug 26 2024)
+You now have 3 tasks in your list.
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Error: Unrecognized command.
+
+Usage: <command> [options]
+
+Commands:
+  todo <description>                            Create a new todo item
+  deadline <description> /by <date>             Create a task with a deadline (yyyy-MM-dd)
+  event <description> /from <start> /to <end>   Create an event with start and end dates
+  mark <index>                                  Mark the task at the given index as done
+  unmark <index>                                Unmark the task at the given index
+  list                                          List all tasks
+  list <date>                                   List tasks on the specified date
+  bye                                           Exit the program
+
+Examples:
+  todo Buy treats for Dipsy
+  deadline Submit report /by 2024-05-12
+  event Conference /from 2024-08-12 /to 2024-08-14
+  mark 1
+
+Date format: yyyy-MM-dd
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Time to stretch those paws and tackle your tasks!
+1.[T][ ] borrow book
+2.[D][ ] return book (by: Aug 26 2024)
+3.[E][ ] project meeting (from: Aug 25 2024 to: Aug 26 2024)
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Error: Unrecognized command.
+
+Usage: <command> [options]
+
+Commands:
+  todo <description>                            Create a new todo item
+  deadline <description> /by <date>             Create a task with a deadline (yyyy-MM-dd)
+  event <description> /from <start> /to <end>   Create an event with start and end dates
+  mark <index>                                  Mark the task at the given index as done
+  unmark <index>                                Unmark the task at the given index
+  list                                          List all tasks
+  list <date>                                   List tasks on the specified date
+  bye                                           Exit the program
+
+Examples:
+  todo Buy treats for Dipsy
+  deadline Submit report /by 2024-05-12
+  event Conference /from 2024-08-12 /to 2024-08-14
+  mark 1
+
+Date format: yyyy-MM-dd
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Meow! I’ve scratched this task off the list!
+[D][X] return book (by: Aug 26 2024)
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Error: Unrecognized command.
+
+Usage: <command> [options]
+
+Commands:
+  todo <description>                            Create a new todo item
+  deadline <description> /by <date>             Create a task with a deadline (yyyy-MM-dd)
+  event <description> /from <start> /to <end>   Create an event with start and end dates
+  mark <index>                                  Mark the task at the given index as done
+  unmark <index>                                Unmark the task at the given index
+  list                                          List all tasks
+  list <date>                                   List tasks on the specified date
+  bye                                           Exit the program
+
+Examples:
+  todo Buy treats for Dipsy
+  deadline Submit report /by 2024-05-12
+  event Conference /from 2024-08-12 /to 2024-08-14
+  mark 1
+
+Date format: yyyy-MM-dd
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Time to stretch those paws and tackle your tasks!
+1.[T][ ] borrow book
+2.[D][X] return book (by: Aug 26 2024)
+3.[E][ ] project meeting (from: Aug 25 2024 to: Aug 26 2024)
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Error: Unrecognized command.
+
+Usage: <command> [options]
+
+Commands:
+  todo <description>                            Create a new todo item
+  deadline <description> /by <date>             Create a task with a deadline (yyyy-MM-dd)
+  event <description> /from <start> /to <end>   Create an event with start and end dates
+  mark <index>                                  Mark the task at the given index as done
+  unmark <index>                                Unmark the task at the given index
+  list                                          List all tasks
+  list <date>                                   List tasks on the specified date
+  bye                                           Exit the program
+
+Examples:
+  todo Buy treats for Dipsy
+  deadline Submit report /by 2024-05-12
+  event Conference /from 2024-08-12 /to 2024-08-14
+  mark 1
+
+Date format: yyyy-MM-dd
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Mrrreow! I’ve batted this task back onto the list.
+[D][ ] return book (by: Aug 26 2024)
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Error: Unrecognized command.
+
+Usage: <command> [options]
+
+Commands:
+  todo <description>                            Create a new todo item
+  deadline <description> /by <date>             Create a task with a deadline (yyyy-MM-dd)
+  event <description> /from <start> /to <end>   Create an event with start and end dates
+  mark <index>                                  Mark the task at the given index as done
+  unmark <index>                                Unmark the task at the given index
+  list                                          List all tasks
+  list <date>                                   List tasks on the specified date
+  bye                                           Exit the program
+
+Examples:
+  todo Buy treats for Dipsy
+  deadline Submit report /by 2024-05-12
+  event Conference /from 2024-08-12 /to 2024-08-14
+  mark 1
+
+Date format: yyyy-MM-dd
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Time to stretch those paws and tackle your tasks!
+1.[T][ ] borrow book
+2.[D][ ] return book (by: Aug 26 2024)
+3.[E][ ] project meeting (from: Aug 25 2024 to: Aug 26 2024)
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Error: Unrecognized command.
+
+Usage: <command> [options]
+
+Commands:
+  todo <description>                            Create a new todo item
+  deadline <description> /by <date>             Create a task with a deadline (yyyy-MM-dd)
+  event <description> /from <start> /to <end>   Create an event with start and end dates
+  mark <index>                                  Mark the task at the given index as done
+  unmark <index>                                Unmark the task at the given index
+  list                                          List all tasks
+  list <date>                                   List tasks on the specified date
+  bye                                           Exit the program
+
+Examples:
+  todo Buy treats for Dipsy
+  deadline Submit report /by 2024-05-12
+  event Conference /from 2024-08-12 /to 2024-08-14
+  mark 1
+
+Date format: yyyy-MM-dd
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Purrr, I've swatted this task away:
+[D][ ] return book (by: Aug 26 2024)
+You now have 2 tasks in your list.
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Error: Unrecognized command.
+
+Usage: <command> [options]
+
+Commands:
+  todo <description>                            Create a new todo item
+  deadline <description> /by <date>             Create a task with a deadline (yyyy-MM-dd)
+  event <description> /from <start> /to <end>   Create an event with start and end dates
+  mark <index>                                  Mark the task at the given index as done
+  unmark <index>                                Unmark the task at the given index
+  list                                          List all tasks
+  list <date>                                   List tasks on the specified date
+  bye                                           Exit the program
+
+Examples:
+  todo Buy treats for Dipsy
+  deadline Submit report /by 2024-05-12
+  event Conference /from 2024-08-12 /to 2024-08-14
+  mark 1
+
+Date format: yyyy-MM-dd
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Time to stretch those paws and tackle your tasks!
+1.[T][ ] borrow book
+2.[E][ ] project meeting (from: Aug 25 2024 to: Aug 26 2024)
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Error: Unrecognized command.
+
+Usage: <command> [options]
+
+Commands:
+  todo <description>                            Create a new todo item
+  deadline <description> /by <date>             Create a task with a deadline (yyyy-MM-dd)
+  event <description> /from <start> /to <end>   Create an event with start and end dates
+  mark <index>                                  Mark the task at the given index as done
+  unmark <index>                                Unmark the task at the given index
+  list                                          List all tasks
+  list <date>                                   List tasks on the specified date
+  bye                                           Exit the program
+
+Examples:
+  todo Buy treats for Dipsy
+  deadline Submit report /by 2024-05-12
+  event Conference /from 2024-08-12 /to 2024-08-14
+  mark 1
+
+Date format: yyyy-MM-dd
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Error: 'todo' command requires a description.
+Usage: todo <description>
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Error: Unrecognized command.
+
+Usage: <command> [options]
+
+Commands:
+  todo <description>                            Create a new todo item
+  deadline <description> /by <date>             Create a task with a deadline (yyyy-MM-dd)
+  event <description> /from <start> /to <end>   Create an event with start and end dates
+  mark <index>                                  Mark the task at the given index as done
+  unmark <index>                                Unmark the task at the given index
+  list                                          List all tasks
+  list <date>                                   List tasks on the specified date
+  bye                                           Exit the program
+
+Examples:
+  todo Buy treats for Dipsy
+  deadline Submit report /by 2024-05-12
+  event Conference /from 2024-08-12 /to 2024-08-14
+  mark 1
+
+Date format: yyyy-MM-dd
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Error: 'deadline' command requires a 'by' date.
+Usage: deadline <description> /by <day/date/time>
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Error: Unrecognized command.
+
+Usage: <command> [options]
+
+Commands:
+  todo <description>                            Create a new todo item
+  deadline <description> /by <date>             Create a task with a deadline (yyyy-MM-dd)
+  event <description> /from <start> /to <end>   Create an event with start and end dates
+  mark <index>                                  Mark the task at the given index as done
+  unmark <index>                                Unmark the task at the given index
+  list                                          List all tasks
+  list <date>                                   List tasks on the specified date
+  bye                                           Exit the program
+
+Examples:
+  todo Buy treats for Dipsy
+  deadline Submit report /by 2024-05-12
+  event Conference /from 2024-08-12 /to 2024-08-14
+  mark 1
+
+Date format: yyyy-MM-dd
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Invalid date format: 26-08-2024 Please enter the date in the format yyyy-MM-dd (e.g., 2024-08-25).
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Error: Unrecognized command.
+
+Usage: <command> [options]
+
+Commands:
+  todo <description>                            Create a new todo item
+  deadline <description> /by <date>             Create a task with a deadline (yyyy-MM-dd)
+  event <description> /from <start> /to <end>   Create an event with start and end dates
+  mark <index>                                  Mark the task at the given index as done
+  unmark <index>                                Unmark the task at the given index
+  list                                          List all tasks
+  list <date>                                   List tasks on the specified date
+  bye                                           Exit the program
+
+Examples:
+  todo Buy treats for Dipsy
+  deadline Submit report /by 2024-05-12
+  event Conference /from 2024-08-12 /to 2024-08-14
+  mark 1
+
+Date format: yyyy-MM-dd
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Error: 'event' command requires a description, a '/from' time, and a '/to' time.
+Usage: event <description> /from <day/date/time> /to <day/date/time>
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Error: Unrecognized command.
+
+Usage: <command> [options]
+
+Commands:
+  todo <description>                            Create a new todo item
+  deadline <description> /by <date>             Create a task with a deadline (yyyy-MM-dd)
+  event <description> /from <start> /to <end>   Create an event with start and end dates
+  mark <index>                                  Mark the task at the given index as done
+  unmark <index>                                Unmark the task at the given index
+  list                                          List all tasks
+  list <date>                                   List tasks on the specified date
+  bye                                           Exit the program
+
+Examples:
+  todo Buy treats for Dipsy
+  deadline Submit report /by 2024-05-12
+  event Conference /from 2024-08-12 /to 2024-08-14
+  mark 1
+
+Date format: yyyy-MM-dd
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Invalid date format: 08-25-2024 Please enter the date in the format yyyy-MM-dd (e.g., 2024-08-25).
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Error: Unrecognized command.
+
+Usage: <command> [options]
+
+Commands:
+  todo <description>                            Create a new todo item
+  deadline <description> /by <date>             Create a task with a deadline (yyyy-MM-dd)
+  event <description> /from <start> /to <end>   Create an event with start and end dates
+  mark <index>                                  Mark the task at the given index as done
+  unmark <index>                                Unmark the task at the given index
+  list                                          List all tasks
+  list <date>                                   List tasks on the specified date
+  bye                                           Exit the program
+
+Examples:
+  todo Buy treats for Dipsy
+  deadline Submit report /by 2024-05-12
+  event Conference /from 2024-08-12 /to 2024-08-14
+  mark 1
+
+Date format: yyyy-MM-dd
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Error: Unrecognized command.
+
+Usage: <command> [options]
+
+Commands:
+  todo <description>                            Create a new todo item
+  deadline <description> /by <date>             Create a task with a deadline (yyyy-MM-dd)
+  event <description> /from <start> /to <end>   Create an event with start and end dates
+  mark <index>                                  Mark the task at the given index as done
+  unmark <index>                                Unmark the task at the given index
+  list                                          List all tasks
+  list <date>                                   List tasks on the specified date
+  bye                                           Exit the program
+
+Examples:
+  todo Buy treats for Dipsy
+  deadline Submit report /by 2024-05-12
+  event Conference /from 2024-08-12 /to 2024-08-14
+  mark 1
+
+Date format: yyyy-MM-dd
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Error: Unrecognized command.
+
+Usage: <command> [options]
+
+Commands:
+  todo <description>                            Create a new todo item
+  deadline <description> /by <date>             Create a task with a deadline (yyyy-MM-dd)
+  event <description> /from <start> /to <end>   Create an event with start and end dates
+  mark <index>                                  Mark the task at the given index as done
+  unmark <index>                                Unmark the task at the given index
+  list                                          List all tasks
+  list <date>                                   List tasks on the specified date
+  bye                                           Exit the program
+
+Examples:
+  todo Buy treats for Dipsy
+  deadline Submit report /by 2024-05-12
+  event Conference /from 2024-08-12 /to 2024-08-14
+  mark 1
+
+Date format: yyyy-MM-dd
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Error: index given in 'delete <index>' lies outside of the table's valid range.
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Error: Unrecognized command.
+
+Usage: <command> [options]
+
+Commands:
+  todo <description>                            Create a new todo item
+  deadline <description> /by <date>             Create a task with a deadline (yyyy-MM-dd)
+  event <description> /from <start> /to <end>   Create an event with start and end dates
+  mark <index>                                  Mark the task at the given index as done
+  unmark <index>                                Unmark the task at the given index
+  list                                          List all tasks
+  list <date>                                   List tasks on the specified date
+  bye                                           Exit the program
+
+Examples:
+  todo Buy treats for Dipsy
+  deadline Submit report /by 2024-05-12
+  event Conference /from 2024-08-12 /to 2024-08-14
+  mark 1
+
+Date format: yyyy-MM-dd
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Error: index given in 'mark/unmark <index>' lies outside of the table's valid range.
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Error: Unrecognized command.
+
+Usage: <command> [options]
+
+Commands:
+  todo <description>                            Create a new todo item
+  deadline <description> /by <date>             Create a task with a deadline (yyyy-MM-dd)
+  event <description> /from <start> /to <end>   Create an event with start and end dates
+  mark <index>                                  Mark the task at the given index as done
+  unmark <index>                                Unmark the task at the given index
+  list                                          List all tasks
+  list <date>                                   List tasks on the specified date
+  bye                                           Exit the program
+
+Examples:
+  todo Buy treats for Dipsy
+  deadline Submit report /by 2024-05-12
+  event Conference /from 2024-08-12 /to 2024-08-14
+  mark 1
+
+Date format: yyyy-MM-dd
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Error: index given in 'mark/unmark <index>' lies outside of the table's valid range.
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Error: Unrecognized command.
+
+Usage: <command> [options]
+
+Commands:
+  todo <description>                            Create a new todo item
+  deadline <description> /by <date>             Create a task with a deadline (yyyy-MM-dd)
+  event <description> /from <start> /to <end>   Create an event with start and end dates
+  mark <index>                                  Mark the task at the given index as done
+  unmark <index>                                Unmark the task at the given index
+  list                                          List all tasks
+  list <date>                                   List tasks on the specified date
+  bye                                           Exit the program
+
+Examples:
+  todo Buy treats for Dipsy
+  deadline Submit report /by 2024-05-12
+  event Conference /from 2024-08-12 /to 2024-08-14
+  mark 1
+
+Date format: yyyy-MM-dd
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+Fur-well friend, stay paw-sitive!
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
