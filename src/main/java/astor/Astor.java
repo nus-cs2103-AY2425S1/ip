@@ -13,6 +13,7 @@ import astor.exception.AstorException;
  */
 public class Astor {
     private static final String DESTINATION_STORAGE = "./src/main/data/astor.Astor.txt";
+    private static final String INTRODUCTION_LINE = "Hello, I'm Astor!\n" + "What can I do for you?\n";
 
     private Ui ui;
     private Storage storage;
@@ -56,6 +57,10 @@ public class Astor {
                 ui.showLine();
             }
         }
+    }
+
+    public String welcomeMessage() {
+        return INTRODUCTION_LINE;
     }
 
     public String getResponse(String input) {

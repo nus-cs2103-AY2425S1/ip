@@ -34,6 +34,7 @@ public class MainWindow extends AnchorPane {
         assert astor != null : "astor must not be null";
 
         this.astor = astor;
+        this.dialogContainer.getChildren().addAll(DialogBox.getAstorDialog(astor.welcomeMessage(), astorImage));
     }
 
     /**
