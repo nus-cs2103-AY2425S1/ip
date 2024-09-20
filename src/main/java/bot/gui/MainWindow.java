@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import bot.Bot;
 import bot.constants.Message;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -28,10 +29,10 @@ public class MainWindow extends AnchorPane {
     private Bot bot;
 
     private final Image userImage = new Image(
-            Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaUser.png"))
+            Objects.requireNonNull(this.getClass().getResourceAsStream("/images/Minion.png"))
     );
     private final Image botImage = new Image(
-            Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaDuke.png"))
+            Objects.requireNonNull(this.getClass().getResourceAsStream("/images/Chad.png"))
     );
 
     /**
@@ -40,7 +41,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(Message.INTRO, userImage));
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(Message.INTRO, botImage));
     }
 
     /** Injects the Duke instance */
