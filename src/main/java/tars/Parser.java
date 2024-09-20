@@ -1,6 +1,7 @@
 package tars;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Processes User inputs and executes commands based on inputs
@@ -120,25 +121,30 @@ public class Parser {
         assert entryParts.length > 0 : "Invalid input of task!";
 
         StringBuilder strBuild = new StringBuilder();
+        StringBuilder prefixBuild = new StringBuilder();
         ArrayList<Task> resultList = new ArrayList<>();
-        String taskPrefix = entryParts[1];
+
+        for (int i = 1; i < entryParts.length; i++) {
+            prefixBuild.append(entryParts[i]).append(" ");
+        }
+
+        String taskPrefix = prefixBuild.toString().trim();
 
         for (int i = 0; i < tasks.getList().size(); i++) {
-            String[] j = tasks.getList().get(i).toString().split(" ");
-
-            for (int k = 3; k < j.length; k++) {
-                if (j[k].equals(taskPrefix)) {
-                    resultList.add(tasks.getList().get(i));
-                }
+            String j = tasks.getList().get(i).description;
+            if (j.contains(taskPrefix)) {
+                resultList.add(tasks.getList().get(i));
             }
         }
 
-        for (int i = 0; i < resultList.size(); i++) {
-            strBuild.append("    " + (i + 1) + ". " + resultList.get(i) + "\n");
+        if (resultList.isEmpty()) {
+            result = "Sorry, no tasks matching input given!\n" + "Have you typed the name correctly?";
+        } else {
+            for (int i = 0; i < resultList.size(); i++) {
+                strBuild.append("    " + (i + 1) + ". " + resultList.get(i).toString() + "\n");
+            }
+            result = " Here are the matching tasks in your list" + "\n" + strBuild.toString();
         }
-        result = (LINE + "\n" + " Here are the matching tasks in your list" + "\n" + strBuild.toString() + "\n"
-                + LINE);
-
         return result;
     }
 }
