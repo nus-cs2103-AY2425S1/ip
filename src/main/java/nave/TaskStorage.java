@@ -48,6 +48,12 @@ public class TaskStorage {
         File file = new File(filePathString);
         if (!dir.exists()) {
             dir.mkdirs();
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println("File could not be created. Create it manually.");
+                System.exit(0);
+            }
         } else if (!file.exists()) {
             try {
                 file.createNewFile();
