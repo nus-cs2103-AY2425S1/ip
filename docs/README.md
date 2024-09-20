@@ -10,7 +10,7 @@ A chatbot that takes care of your todo list and task tracking!
 ### Adding events
 `event <task name> /from <time> /to <time>`
 
-### Listing all tasks wiht their indices
+### Listing all tasks with their indices
 `list`
 
 ### Check and Uncheck tasks
