@@ -11,6 +11,7 @@ import bob.ui.Ui;
  */
 public class TaskList {
 
+    private static final int FAIL_NUMBER = -1;
     private ArrayList<Task> records;
     private int latestRecordedIndex;
     private Task latestDeletedRecord;
@@ -116,6 +117,9 @@ public class TaskList {
         if (inputArray.length != 2) {
             throw new InvalidTaskException("Invalid format. Should be 'delete <integer>'.");
         }
+        if (taskNumber == FAIL_NUMBER) {
+            throw new InvalidTaskException("Invalid format. Should be 'delete <integer>'.");
+        }
         if (!isValidRecord(taskNumber)) {
             throw new InvalidTaskException("Task number provided is out of range.");
         }
@@ -159,10 +163,11 @@ public class TaskList {
      * @return
      */
     public String getMatchingRecordsString(ArrayList<Task> matchingRecords) {
-        String matchingRecordsString = "";
+        String matchingRecordsString = "These are the matching tasks: \n";
         int counter = 1;
         for (Task task: matchingRecords) {
             matchingRecordsString += "\t" + counter + "." + task.getTaskListItem() + "\n";
+            counter++;
         }
         if (matchingRecordsString == "") {
             matchingRecordsString = "No matching results found.";
@@ -207,6 +212,9 @@ public class TaskList {
      */
     public void markTaskInTaskList(String input, boolean isCompleted) throws InvalidTaskException {
         int taskNumber = Parser.parseTaskNumberFromInput(input);
+        if (taskNumber == FAIL_NUMBER) {
+            throw new InvalidTaskException("Invalid format. Should be 'mark <integer>'.");
+        }
         String[] inputArray = Parser.parseInputIntoStringArray(input);
         if (inputArray.length != 2) {
             throw new InvalidTaskException("Invalid format. Should be 'mark <integer>'.");
@@ -246,6 +254,9 @@ public class TaskList {
             throw new InvalidTaskException("Invalid format. Should be 'tag <integer> <tag>'.");
         }
         int taskNumber = convertStringToNumber(inputArray[1]);
+        if (taskNumber == FAIL_NUMBER) {
+            throw new InvalidTaskException("Invalid format. Should be 'mark <integer>'.");
+        }
         if (!isValidRecord(taskNumber)) {
             throw new InvalidTaskException("Task number provided is out of range.");
         }
@@ -261,9 +272,12 @@ public class TaskList {
      * @param input User input.
      * @return
      */
-    public String getTaggedTaskString(String input) {
+    public String getTaggedTaskString(String input) throws InvalidTaskException {
         String[] inputArray = Parser.parseInputIntoStringArray(input);
         int taskNumber = Integer.parseInt(inputArray[1]);
+        if (taskNumber == FAIL_NUMBER) {
+            throw new InvalidTaskException("Invalid format. Should be 'tag <integer> <tag>'.");
+        }
         Task currTask = getIndexedTask(taskNumber);
         String taggedTaskString = "Got it. I've tagged this task:\n\t"
                 + currTask.getTaskListItem()
@@ -274,12 +288,12 @@ public class TaskList {
     /**
      * Convert String to integer.
      *
-     * @param str
+     * @param string
      * @return
      */
-    private int convertStringToNumber(String str) {
+    private int convertStringToNumber(String string) {
         try {
-            return Integer.parseInt(str);
+            return Integer.parseInt(string);
         } catch (NumberFormatException e) {
             System.err.println("String not convertible to number.");
             return -1;
@@ -295,13 +309,15 @@ public class TaskList {
     public void untagTaskInTaskList(String input) throws InvalidTaskException {
         String[] inputArray = Parser.parseInputIntoStringArray(input);
         if (inputArray.length != 2) {
-            throw new InvalidTaskException("Invalid format. Should be 'tag <integer>'.");
+            throw new InvalidTaskException("Invalid format. Should be 'untag <integer>'.");
         }
         int taskNumber = convertStringToNumber(inputArray[1]);
+        if (taskNumber == FAIL_NUMBER) {
+            throw new InvalidTaskException("Invalid format. Should be 'untag <integer>'.");
+        }
         if (!isValidRecord(taskNumber)) {
             throw new InvalidTaskException("Task number provided is out of range.");
         }
-
         Task currTask = getIndexedTask(taskNumber);
         currTask.untagTask();
     }

@@ -1,7 +1,2 @@
-T | 0 | help session | 1
-T | 1 | jump | 2
-T | 0 | jumping jacks
-D | 0 | test5 | 20 Sep 2024
-D | 0 | test6 | 12 Dec 2024
-E | 0 | birthday celebration | Mon | 7pm | 10pm
-E | 0 | run around | Tue | 6pm | 7pm
+T | 1 | run
+E | 0 | birthday | Mon | 7pm | 10pm | bestie

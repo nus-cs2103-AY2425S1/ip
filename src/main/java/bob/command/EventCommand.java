@@ -41,11 +41,11 @@ public class EventCommand extends Command {
     }
 
     private static Task getEventTask(String input) throws InvalidTaskException {
-        String eventDescription = Parser.parseDescriptionFromInput(input);
-        String[] inputArray = Parser.parseInputIntoStringArray(input);
-        String day = inputArray[Arrays.asList(inputArray).indexOf("/from") + 1];
-        String startTime = inputArray[Arrays.asList(inputArray).indexOf("/from") + 2];
-        String endTime = inputArray[Arrays.asList(inputArray).indexOf("/to") + 1];
+        String[] eventDetailArray = Parser.parseEvent(input);
+        String eventDescription = eventDetailArray[0];
+        String day = eventDetailArray[1];
+        String startTime = eventDetailArray[2];
+        String endTime = eventDetailArray[3];
         Task newEventTask = new Event(eventDescription, day, startTime, endTime);
         return newEventTask;
     }

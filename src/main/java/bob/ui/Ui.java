@@ -28,10 +28,19 @@ public class Ui {
     /**
      * Prints welcome message.
      */
-    public void showWelcome() {
+    public static void showWelcome() {
         String welcome = "Hello! I'm Bob\n"
                 + "\tWhat can I do for you?";
         Ui.printLines(welcome);
+    }
+
+    /**
+     * Returns a string representation of Bob's welcome message.
+     */
+    public static String getWelcomeMessage() {
+        String welcome = "Hello! I'm Bob\n"
+                + "What can I do for you?";
+        return welcome;
     }
 
     /**

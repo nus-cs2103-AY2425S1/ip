@@ -32,6 +32,7 @@ public class Parser {
      * @return LocalDate object.
      */
     @SuppressWarnings("checkstyle:EmptyCatchBlock")
+    // Modified with reference from chatGPT.
     public static LocalDate parseDate(String date) {
         List<DateTimeFormatter> inputFormatters = List.of(
                 DateTimeFormatter.ofPattern("yyyy-MM-dd"), //type 1 date format
@@ -62,7 +63,7 @@ public class Parser {
 
         switch (keyword) {
         case "list":
-            return new ListCommand();
+            return new ListCommand(input);
         case "mark":
             return new MarkCommand(input, true);
         case "unmark":
@@ -104,15 +105,21 @@ public class Parser {
             if (arrayOfCommandAndRemainingInput.length == 1) {
                 throw new InvalidTaskException("OOPS!!! The description of todo cannot be empty.");
             }
-            String todoDescription = arrayOfCommandAndRemainingInput[1];
+            if (arrayOfCommandAndRemainingInput[1].trim().isEmpty()) {
+                throw new InvalidTaskException("OOPS!!! The description of todo cannot be empty.");
+            }
+            String todoDescription = arrayOfCommandAndRemainingInput[1].trim();
             return todoDescription;
         case "deadline":
             if (arrayOfCommandAndRemainingInput.length == 1) {
                 throw new InvalidTaskException("OOPS!!! The description of deadline cannot be empty.");
             }
+            if (arrayOfCommandAndRemainingInput[1].trim().isEmpty()) {
+                throw new InvalidTaskException("OOPS!!! The description of deadline cannot be empty.");
+            }
             String[] deadlineSubString = arrayOfCommandAndRemainingInput[1].split("/by");
             if (deadlineSubString.length <= 1) {
-                throw new InvalidTaskException("Invalid use of deadline. Should be '<event> /by <date>'.");
+                throw new InvalidTaskException("Invalid use of deadline. Should be '<task> /by <date>'.");
             }
             String deadlineDecription = deadlineSubString[0].trim();
             return deadlineDecription;
@@ -120,12 +127,16 @@ public class Parser {
             if (arrayOfCommandAndRemainingInput.length == 1) {
                 throw new InvalidTaskException("OOPS!!! The description of event cannot be empty.");
             }
+            if (arrayOfCommandAndRemainingInput[1].trim().isEmpty()) {
+                throw new InvalidTaskException("OOPS!!! The description of event cannot be empty.");
+            }
             String[] eventSubString = arrayOfCommandAndRemainingInput[1].split("/from");
             if (eventSubString.length <= 1) {
                 if (eventSubString.length == 0) {
-                    throw new InvalidTaskException("OOPS!!! The event description cannot be empty.");
+                    throw new InvalidTaskException("OOPS!!! The event description cannot be empty.\n"
+                            + "Should be '<description> /from <day> <start_time> /to <end_time>'");
                 }
-                throw new InvalidTaskException("Invalid use of event format."
+                throw new InvalidTaskException("Invalid use of event format. \n"
                         + "Should be '<description> /from <day> <start_time> /to <end_time>'");
             }
             String eventDescription = eventSubString[0].trim();
@@ -179,6 +190,9 @@ public class Parser {
         } catch (NumberFormatException e) {
             System.err.println(e.getMessage());
             return -1;
+        } catch (ArrayIndexOutOfBoundsException f) {
+            System.err.println(f.getMessage());
+            return -1;
         }
     }
 
@@ -192,5 +206,63 @@ public class Parser {
         String[] separateKeywordFromTaskNumber = input.split(" ", 2);
         String searchKeyword = separateKeywordFromTaskNumber[1];
         return searchKeyword;
+    }
+
+    /**
+     * Returns a String array of the event's details,
+     * Example: [<description>, <startDay>, <start time>, <end time>].
+     *
+     * @param input Input command from user.
+     * @return
+     */
+    public static String[] parseEvent(String input) throws InvalidTaskException {
+        verifyEventCommand(input);
+        String[] eventDetails = new String[4];
+        String[] inputArray = Parser.parseInputIntoStringArray(input);
+        eventDetails[0] = Parser.parseDescriptionFromInput(input).trim();
+        eventDetails[1] = inputArray[Arrays.asList(inputArray).indexOf("/from") + 1].trim();
+        eventDetails[2] = inputArray[Arrays.asList(inputArray).indexOf("/from") + 2].trim();
+        eventDetails[3] = inputArray[Arrays.asList(inputArray).indexOf("/to") + 1].trim();
+        return eventDetails;
+    }
+
+    /**
+     * Verifies the event command, and throws an InvalidTaskException for any invalid formats.
+     *
+     * @param input Event command given by user.
+     * @throws InvalidTaskException
+     */
+    private static void verifyEventCommand(String input) throws InvalidTaskException {
+        String[] twoPartSeparatedWithFrom = input.split("/from");
+        if (twoPartSeparatedWithFrom.length != 2) {
+            throw new InvalidTaskException("Invalid Format: "
+                    + "Should be '<description> /from <day> <start_time> /to <end_time>'");
+        }
+        if (twoPartSeparatedWithFrom[1].trim().isEmpty()) {
+            throw new InvalidTaskException("Invalid Format: \n"
+                    + "No day, start_time nor end_time specified. \n"
+                    + "Should be '<description> /from <day> <start_time> /to <end_time>'");
+        }
+        if (twoPartSeparatedWithFrom[1].equals("/to")) {
+            throw new InvalidTaskException("Invalid Format: \n"
+                    + "Day and start_time needs to be specified.\n"
+                    + "Should be '<description> /from <day> <start_time> /to <end_time>'");
+        }
+        String[] twoPartSeparatedWithBy = twoPartSeparatedWithFrom[1].trim().split("/to");
+        if (twoPartSeparatedWithBy.length != 2) {
+            throw new InvalidTaskException("Invalid Format: "
+                    + "Should be '<description> /from <day> <start_time> /to <end_time>'");
+        }
+        String[] dayAndStartTimeOnly = twoPartSeparatedWithBy[0].split(" ");
+        if (dayAndStartTimeOnly.length > 2) {
+            throw new InvalidTaskException("Invalid Format: \n"
+                    + "Too many parameters. \n"
+                    + "Should be '<description> /from <day> <start_time> /to <end_time>'");
+        }
+        if (dayAndStartTimeOnly.length < 2) {
+            throw new InvalidTaskException("Invalid Format: \n"
+                    + "Too few parameters. \n"
+                    + "Should be '<description> /from <day> <start_time> /to <end_time>'");
+        }
     }
 }
