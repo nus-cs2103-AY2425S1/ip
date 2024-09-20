@@ -1,6 +1,6 @@
 # Dawn User Guide
 
-![Ui](https://github.com/user-attachments/assets/7de331c1-2510-4c93-80c9-64fceb8cc688)
+![Ui of Dawn chatbot](https://github.com/user-attachments/assets/7de331c1-2510-4c93-80c9-64fceb8cc688)
 
 Dawn is a text-based chatbot that helps you to manage your todos, deadlines, and events! 
 
