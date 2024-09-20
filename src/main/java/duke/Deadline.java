@@ -23,11 +23,10 @@ public class Deadline extends Task {
     }
 
     /**
-     * Set the deadline of the Deadline object to a new value, by inputting the new deadline using the
-     * {@link LocalDate} format.
+     * Sets the deadline of this {@code Deadline} object to a new value.
+     * The new deadline is specified using the {@link LocalDate} format.
      *
-     * @param deadline The date the task should be completed by, using the {@link LocalDate} format.
-     *
+     * @param deadline The date by which the task should be completed, in {@link LocalDate} format.
      */
     public void setDeadline(LocalDate deadline) {
         this.deadline = deadline;

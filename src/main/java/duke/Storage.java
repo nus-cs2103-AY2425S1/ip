@@ -20,9 +20,10 @@ public class Storage {
     }
 
     /**
-     * The method that loads task information from the user to the program upon running the program.
-     * @return an ArrayList holding in order, all the user's tasks.
-     * @throws FileNotFoundException If the file storing the tasks of the user cannot be found, this error is thrown.
+     * Loads task information from the user's stored file when the program starts.
+     *
+     * @return An {@link ArrayList} containing the user's tasks in order.
+     * @throws FileNotFoundException If the file storing the user's tasks cannot be found.
      */
     public ArrayList<Task> load() throws FileNotFoundException {
         File f = new File(this.filepath); // create a File for the given file path

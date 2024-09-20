@@ -18,7 +18,6 @@ public class Ui {
                                       + "      `--`--``--`-----``  `--`---'`--`-----' `--`         \n"
                                       + "\n";
 
-    private boolean flag = false;
     private Scanner scanner;
 
     /**
@@ -90,9 +89,9 @@ public class Ui {
     }
 
     /**
-     * The method that displays the customised header when the user enters the appropriate command before it lists
-     * the tasks.
-     * @param tasks The Tasklist object holding tasks currently stored in the program.
+     * Displays the customized header when the user enters the appropriate command before listing tasks.
+     *
+     * @param tasks The {@code Tasklist} object containing the tasks currently stored in the program.
      */
     public void display(TaskList tasks) throws TaskListOutOfBoundsException {
         System.out.println("Behold, the tasks you have envisioned are now before your eyes:");

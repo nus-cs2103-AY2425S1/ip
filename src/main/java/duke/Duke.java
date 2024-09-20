@@ -16,10 +16,6 @@ public class Duke {
     private TaskList tasks;
     private final Ui ui;
 
-    //private static void addItem(String inp) {
-    //    userInputs.add(new duke.Task(inp));
-    //}
-
     /**
      * Constructor for the main Duke class which handles the overall functionality of task managing program.
      *
