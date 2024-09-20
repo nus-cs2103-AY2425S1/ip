@@ -84,6 +84,14 @@ public class UserInterface {
     }
 
     /**
+     * Displays the message when the user enters an invalid command format for date.
+     */
+    public static String displayInvalidCommandFormatMessageForDate() {
+        return ("DANGER !! Invalid command format/nPlease enter the date in the format yyyy-mm-dd "
+                + "or yyyy-mm-dd HH:mm");
+    }
+
+    /**
      * Displays the message when the user enters an invalid date format.
      */
     public static String displayTaskDoesNotExistMessage() {
