@@ -36,8 +36,4 @@ public class Main extends Application {
     public void updateOutput(String message) {
         chatUI.addMessage(message, false);
     }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
 }
