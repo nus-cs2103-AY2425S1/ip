@@ -84,15 +84,22 @@ public class Storage {
      * @throws RubyException If the task type is invalid.
      */
     private Task createTask(String[] parts) throws RubyException {
+        LocalDateTime now = LocalDateTime.now();
         switch (parts[0]) {
         case "T":
             return new Todo(parts[2]);
         case "D":
             LocalDateTime by = LocalDateTime.parse(parts[3], FORMATTER);
+            if (by.isBefore(now)) {
+                throw new RubyException("Deadline cannot be set in the past.");
+            }
             return new Deadline(parts[2], by);
         case "E":
             LocalDateTime from = LocalDateTime.parse(parts[3], FORMATTER);
             LocalDateTime to = LocalDateTime.parse(parts[4], FORMATTER);
+            if (to.isBefore(from)) {
+                throw new RubyException("Event end time cannot be before the start time.");
+            }
             return new Event(parts[2], from, to);
         default:
             throw new RubyException("Invalid task type.");

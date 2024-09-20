@@ -123,6 +123,11 @@ public class Parser {
         validateDescription(words);
         String[] deadlineParts = splitCommand(words[1], " /by ");
         LocalDateTime deadlineDate = parseDateTime(deadlineParts[1]);
+
+        if (deadlineDate.isBefore(LocalDateTime.now())) {
+            throw new RubyException("OOPS!!! The deadline cannot be in the past.");
+        }
+
         Task deadline = new Deadline(deadlineParts[0].trim(), deadlineDate);
         taskList.addTask(deadline);
         saveTasks(storage, taskList);
@@ -145,6 +150,11 @@ public class Parser {
         String[] times = splitCommand(eventParts[1], " /to ");
         LocalDateTime startTime = parseDateTime(times[0]);
         LocalDateTime endTime = parseDateTime(times[1]);
+
+        if (endTime.isBefore(startTime)) {
+            throw new RubyException("OOPS!!! The event end time cannot be before the start time.");
+        }
+
         Task event = new Event(eventParts[0].trim(), startTime, endTime);
         taskList.addTask(event);
         saveTasks(storage, taskList);
