@@ -33,11 +33,17 @@ public class EventCommand extends Command {
      * @throws YodaException if the input or date format is invalid.
      */
     public String run() throws YodaException {
-        if (!hasValidFormat(input)) {
-            throw new YodaException("An event must have a description, start time and end time, no...?"
-                    + "\n" + "Command should be in format: event [name] /from [yyyy-mm-dd HHmm]"
-                    + "/to [yyyy-mm-dd HHmm]");
-        }
+        checkFormat();
+        return handleInput();
+    }
+
+    /**
+     * Handles input to produce Yoda's response.
+     *
+     * @return Yoda's response as a string.
+     * @throws YodaException
+     */
+    public String handleInput() throws YodaException {
         String[] splitInput = input.split(" ", 2);
         String task = splitInput[1];
         String[] splitTask = task.split(" /from ", 2);
@@ -60,24 +66,29 @@ public class EventCommand extends Command {
     }
 
     /**
-     * Checks if the input and date format is valid.
+     * Checks if the input format is valid.
      *
-     * @param input User input to be validated.
-     * @return true if the input and date format is valid.
+     * @throws YodaException if format is invalid
      */
 
-    public static boolean hasValidFormat(String input) {
+    public void checkFormat() throws YodaException {
         String[] splitInput = input.split(" ", 2);
+        boolean hasValidFormat = false;
         if (splitInput.length == 2) {
             String[] splitTask = splitInput[1].split("/from ", 2);
             if (splitTask.length == 2) {
                 String[] times = splitTask[1].split("/to ", 2);
-                return times.length == 2;
+                hasValidFormat = times.length == 2;
             } else {
-                return false;
+                hasValidFormat = false;
             }
         } else {
-            return false;
+            hasValidFormat = false;
+        }
+        if (!hasValidFormat) {
+            throw new YodaException("An event must have a description, start time and end time, no...?"
+                    + "\n" + "Command should be in format: event [name] /from [yyyy-mm-dd HHmm]"
+                    + "/to [yyyy-mm-dd HHmm]");
         }
     }
 

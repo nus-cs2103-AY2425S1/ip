@@ -29,10 +29,11 @@ public class TodoCommand extends Command {
      * @throws YodaException if input format is invalid.
      */
     public String run() throws YodaException {
-        if (!hasValidFormat()) {
-            throw new YodaException("A todo must have a description, no...?" + "\n"
-                    + "Command should be in format: todo [description]");
-        }
+        checkFormat();
+        return handle();
+    }
+
+    private String handle() {
         String[] splitInput = input.split(" ", 2);
         String task = splitInput[1];
         Todo newTask = new Todo(task);
@@ -42,6 +43,12 @@ public class TodoCommand extends Command {
         return message;
     }
 
+    private void checkFormat() throws YodaException {
+        if (!hasValidFormat()) {
+            throw new YodaException("A todo must have a description, no...?" + "\n"
+                    + "Command should be in format: todo [description]");
+        }
+    }
     /**
      * Checks if input format is valid.
      *

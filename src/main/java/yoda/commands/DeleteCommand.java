@@ -30,10 +30,17 @@ public class DeleteCommand extends Command {
      * @throws YodaException if input formatting is invalid.
      */
     public String run() throws YodaException {
-        if (!hasValidFormat(input)) {
-            throw new YodaException("Delete... which one?" + "\n"
-                    + "Command should be in format: delete [number]");
-        }
+        checkFormat();
+        return handleInput();
+    }
+
+    /**
+     * Handles input to produce Yoda's response.
+     *
+     * @return Yoda's response as a string.
+     * @throws YodaException
+     */
+    public String handleInput() throws YodaException {
         String[] splitInput = input.split(" ", 2);
         int index = Integer.parseInt(splitInput[1]);
         Task currentTask = taskList.get(index - 1);
@@ -46,20 +53,24 @@ public class DeleteCommand extends Command {
     /**
      * Checks if input format is valid.
      *
-     * @return true if input formatting is valid.
+     * @throws YodaException if format is invalid
      */
-
-    public boolean hasValidFormat(String input) {
+    public void checkFormat() throws YodaException {
         String[] splitInput = input.split(" ", 2);
+        boolean hasValidFormat = false;
         if (splitInput.length == 2) {
             if (splitInput[1].matches("\\d+")) {
                 int index = Integer.parseInt(splitInput[1]);
-                return index <= taskList.getLength() && index > 0;
+                hasValidFormat = index <= taskList.getLength() && index > 0;
             } else {
-                return false;
+                hasValidFormat = false;
             }
         } else {
-            return false;
+            hasValidFormat = false;
+        }
+        if (!hasValidFormat) {
+            throw new YodaException("Delete... which one?" + "\n"
+                    + "Command should be in format: delete [number]");
         }
     }
 

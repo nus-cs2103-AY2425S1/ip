@@ -32,21 +32,8 @@ public class FindCommand extends Command {
      * @throws YodaException if input format is invalid.
      */
     public String run() throws YodaException {
-        if (!checkValidInput()) {
-            throw new YodaException("Find... what?" + "\n" + "Command should be in format: find [words]");
-        }
-        String[] splitInput = input.split(" ", 2);
-        String keyword = splitInput[1];
-        ArrayList<Task> matchingTasks = findTasks(keyword);
-
-        StringBuilder message = new StringBuilder();
-        message.append("Matching tasks:\n");
-
-        for (int i = 0; i < matchingTasks.size(); i++) {
-            message.append(i + 1).append(". ").append(matchingTasks.get(i)).append("\n");
-        }
-
-        return message.toString();
+        checkInput();
+        return handle();
     }
 
     /**
@@ -66,15 +53,33 @@ public class FindCommand extends Command {
         return matchingTasks;
     }
 
+    private String handle() {
+        String[] splitInput = input.split(" ", 2);
+        String keyword = splitInput[1];
+        ArrayList<Task> matchingTasks = findTasks(keyword);
+
+        StringBuilder message = new StringBuilder();
+        message.append("Matching tasks:\n");
+
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            message.append(i + 1).append(". ").append(matchingTasks.get(i)).append("\n");
+        }
+
+        return message.toString();
+    }
 
     /**
      * Checks if input format is valid.
      *
-     * @return true if input format is valid.
+     * @throws YodaException if input format was invalid.
      */
-    private boolean checkValidInput() {
+    private void checkInput() throws YodaException {
         String[] splitInput = input.split(" ", 2);
-        return splitInput.length == 2;
+        boolean hasValidFormat = splitInput.length == 2;
+
+        if (hasValidFormat) {
+            throw new YodaException("Find... what?" + "\n" + "Command should be in format: find [words]");
+        }
     }
 
 }

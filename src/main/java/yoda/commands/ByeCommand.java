@@ -13,6 +13,7 @@ public class ByeCommand extends Command {
      * @return Yoda's response as a string
      */
     public String run() {
-        return "Bye. See you again soon, I hope to.";
+        String goodbyeMessage = "Bye. See you again soon, I hope to.";
+        return goodbyeMessage;
     }
 }

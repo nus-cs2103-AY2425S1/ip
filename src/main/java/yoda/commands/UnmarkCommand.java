@@ -30,10 +30,11 @@ public class UnmarkCommand extends Command {
      * @throws YodaException if input format is valid or task is out of bounds
      */
     public String run() throws YodaException {
-        if (!hasValidFormat(input)) {
-            throw new YodaException("Unmark... which one?" + "\n"
-                    + "Command should be in format: unmark [number]");
-        }
+        checkFormat();
+        return handle();
+    }
+
+    private String handle() {
         String[] splitInput = input.split(" ", 2);
         int index = Integer.parseInt(splitInput[1]);
         Task currentTask = taskList.get(index - 1);
@@ -42,12 +43,19 @@ public class UnmarkCommand extends Command {
         return message;
     }
 
+    private void checkFormat() throws YodaException {
+        if (!hasValidFormat()) {
+            throw new YodaException("Unmark... which one?" + "\n"
+                    + "Command should be in format: unmark [number]");
+        }
+    }
+
     /**
      * Checks if input format is valid and index is in bounds of task list.
      *
      * @return true if input format is valid and index is in bounds of task list.
      */
-    private boolean hasValidFormat(String input) {
+    private boolean hasValidFormat() {
         String[] splitInput = input.split(" ", 2);
         if (splitInput.length == 2) {
             if (splitInput[1].matches("\\d+")) {

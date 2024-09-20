@@ -32,10 +32,17 @@ public class DeadlineCommand extends Command {
      * @throws YodaException if input format was invalid.
      */
     public String run() throws YodaException {
-        if (!hasValidFormat(input)) {
-            throw new YodaException("A deadline must have a description and due by date, no...?"
-                    + "\n" + "Command should be in format: deadline [name] /by [yyyy-mm-dd]");
-        }
+        checkFormat();
+        return handleInput();
+    }
+
+    /**
+     * Handles input to produce Yoda's response.
+     *
+     * @return Yoda's response as a string.
+     * @throws YodaException
+     */
+    public String handleInput() throws YodaException {
         String[] splitInput = input.split(" ", 2);
         String task = splitInput[1];
         String[] splitTask = task.split(" /by ", 2);
@@ -56,15 +63,21 @@ public class DeadlineCommand extends Command {
     /**
      * Checks if formatting of input is valid for the deadline command.
      *
-     * @return true of formatting is valid.
+     * @throws YodaException if format is invalid
      */
-    public boolean hasValidFormat(String input) {
+    public void checkFormat() throws YodaException {
         String[] splitInput = input.split(" ", 2);
+        boolean hasValidFormat = false;
         if (splitInput.length == 2) {
             String[] splitTask = splitInput[1].split("/by ", 2);
-            return splitTask.length == 2;
+            hasValidFormat = splitTask.length == 2;
         } else {
-            return false;
+            hasValidFormat = false;
+        }
+        if (!hasValidFormat) {
+            String errorMessage = "A deadline must have a description and due by date, no...?"
+                    + "\n" + "Command should be in format: deadline [name] /by [yyyy-mm-dd]";
+            throw new YodaException(errorMessage);
         }
     }
 }
