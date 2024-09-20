@@ -73,7 +73,7 @@ public abstract class Task {
      */
     private int LevenshteinDistanceForSubstrings(String original, String matchStr) {
         int min = Integer.MAX_VALUE;
-        for (int i = 0; i < original.length() - matchStr.length(); i++) {
+        for (int i = 0; i < original.length() - matchStr.length() + 1; i++) {
             int curr = LevenshteinDistance(original.substring(i, i + matchStr.length()), matchStr);
             if (curr < min) {
                 min = curr;

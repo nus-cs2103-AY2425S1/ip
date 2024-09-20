@@ -40,18 +40,38 @@ public class Parser {
      */
     public static Command parseCommand(String userCommand)
             throws EmptyArgumentException, MissingArgumentException, InvalidInputException, InvalidTaskNumberException {
-        Scanner scanner = new Scanner(userCommand);
+        Scanner scanner = new Scanner(userCommand.trim());
         String input = scanner.next();
         Command command = switch (input) {
         case "bye" -> new ByeCommand();
         case "list" -> new ListCommand();
-        case "mark" -> new MarkCommand(scanner.nextInt() - 1);
-        case "unmark" -> new UnmarkCommand(scanner.nextInt() - 1);
+        case "mark" -> {
+            if (!scanner.hasNextInt()) {
+                throw new InvalidTaskNumberException();
+            }
+            yield new MarkCommand(scanner.nextInt() - 1);
+        }
+        case "unmark" -> {
+            if (!scanner.hasNextInt()) {
+                throw new InvalidTaskNumberException();
+            }
+            yield new UnmarkCommand(scanner.nextInt() - 1);
+        }
         case "todo" -> new AddTaskCommand(Parser.newToDo(scanner.nextLine().trim()));
         case "deadline" -> new AddTaskCommand(Parser.newDeadline(scanner.nextLine().trim()));
         case "event" -> new AddTaskCommand(Parser.newEvent(scanner.nextLine().trim()));
-        case "delete" -> new DeleteCommand(scanner.nextInt() - 1);
-        case "find" -> new FindCommand(scanner.nextLine().trim());
+        case "delete" -> {
+            if (!scanner.hasNextInt()) {
+                throw new InvalidTaskNumberException();
+            }
+            yield new DeleteCommand(scanner.nextInt() - 1);
+        }
+        case "find" -> {
+            if (scanner.hasNextLine()) {
+                yield new FindCommand(scanner.nextLine().trim());
+            }
+            throw new EmptyArgumentException("keyword", "find command");
+        }
         default -> throw new InvalidInputException();
         };
         return command;
