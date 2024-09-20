@@ -1,6 +1,6 @@
 # Ontos User Guide
 
-![sample image of gui](https://github.com/KiKuasaurus/ip/blob/master/docs/Ui.png)
+![sample image of gui](Ui.png)
 
 ## Features
 
