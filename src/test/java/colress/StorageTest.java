@@ -19,7 +19,8 @@ public class StorageTest {
         } catch (IOException e) {
             fail();
         } catch (FileCorruptedException e) {
-            assertEquals("What is this?! The task file seems to be corrupted! Delete the file and try again.",
+            assertEquals("What is this?! The task file seems to be corrupted!"
+                            + "Here, I'll create a new file for you.",
                     e.getMessage());
         }
     }
@@ -33,7 +34,8 @@ public class StorageTest {
         } catch (IOException e) {
             fail();
         } catch (FileCorruptedException e) {
-            assertEquals("What is this?! The task file seems to be corrupted! Delete the file and try again.",
+            assertEquals("What is this?! The task file seems to be corrupted!"
+                            + "Here, I'll create a new file for you.",
                     e.getMessage());
         }
     }
@@ -47,7 +49,8 @@ public class StorageTest {
         } catch (IOException e) {
             fail();
         } catch (FileCorruptedException e) {
-            assertEquals("What is this?! The task file seems to be corrupted! Delete the file and try again.",
+            assertEquals("What is this?! The task file seems to be corrupted!"
+                            + "Here, I'll create a new file for you.",
                     e.getMessage());
         }
     }
