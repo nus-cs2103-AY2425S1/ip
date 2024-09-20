@@ -52,6 +52,7 @@ public class Storage {
 
     /**
      * Loads the file from the text file
+     * Made use of ChatGPT to correct and refine this method until functional
      *
      * @param taskList target tasklist where tasks are loaded into
      */
