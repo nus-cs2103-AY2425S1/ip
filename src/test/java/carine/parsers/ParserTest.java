@@ -42,7 +42,7 @@ public class ParserTest {
             parser.parse(message);
         });
 
-        assertEquals("OOPS!!! Please ensure that date format are in dd/MM/yyyy HH:mm or dd/MM/yyyy",
+        assertEquals("OOPS!!! Please ensure that date format are in dd/MM/yyyy HH:mm or dd/MM/yyyy.",
                 exception.toString());
     }
 

@@ -29,7 +29,7 @@ public class TimeTest {
 
     @Test
     public void testParseDateTime_InvalidDate() {
-        String invalidFormat = "01-09-2024"; // Incorrect separators
+        String invalidFormat = "01-09-2024";
         assertThrows(InvalidDateException.class, () -> new Time(invalidFormat));
     }
 }
