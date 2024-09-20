@@ -7,16 +7,17 @@ import java.util.Scanner;
  */
 public class Ui {
 
-    private static final String logo = " ,--.--------.    ,----.    ,-,--.             ,---.      \n"
-                                      + "/==/,  -   , -\\,-.--` , \\ ,-.'-  _\\  _.-.    .--.'  \\     \n"
-                                      + "\\==\\.-.  - ,-./==|-  _.-`/==/_ ,_.'.-,.'|    \\==\\-/\\ \\    \n"
-                                      + " `--`\\==\\- \\  |==|   `.-.\\==\\  \\  |==|, |    /==/-|_\\ |   \n"
-                                      + "      \\==\\_ \\/==/_ ,    / \\==\\ -\\ |==|- |    \\==\\,   - \\  \n"
-                                      + "      |==|- ||==|    .-'  _\\==\\ ,\\|==|, |    /==/ -   ,|  \n"
-                                      + "      |==|, ||==|_  ,`-._/==/\\/ _ |==|- `-._/==/-  /\\ - \\ \n"
-                                      + "      /==/ -//==/ ,     /\\==\\ - , /==/ - , ,|==\\ _.\\=\\.-' \n"
-                                      + "      `--`--``--`-----``  `--`---'`--`-----' `--`         \n"
-                                      + "\n";
+    private static final String logo = """
+            '  $$$$$$$$\\                             $$\\          \s
+            '  \\__$$     __|                             $$ |         \s
+            '      $$ | $$$$$$\\      $$$$$$$\\ $$ | $$$$$$$\\ \s
+            '      $$ | $$   __$$\\   $$    _____|$$ |  \\______$$\\\s
+            '      $$ | $$$$$$$$|  \\$$$$$$\\  $$ | $$$$$$$$ |
+            '      $$ | $$      ____|   \\_____$$\\  $$ |$$  ____$$ |
+            '      $$ | \\$$$$$$$\\  $$$$$$$ | $$ | \\$$$$$$$ |
+            '      \\__|   \\________|   \\_______/    \\__|  \\_________|
+
+            """;
 
     private Scanner scanner;
 
@@ -58,10 +59,10 @@ public class Ui {
     }
 
     public String getGreet() {
-        return "________________________________________________________\n"
+        return "____________________________________________________\n"
                 + "Hello! I'm\n" + logo
                 + "How may I be of service to you in this moment?\n"
-                + "________________________________________________________\n";
+                + "____________________________________________________\n";
 
     }
 
@@ -81,11 +82,11 @@ public class Ui {
      * @return The tasks as an enumerated string.
      */
     public String stringList(TaskList tasks) throws TaskListOutOfBoundsException {
-        String acc = "";
+        StringBuilder acc = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            acc = acc + (i + 1) + "." + tasks.get(i) + "\n";
+            acc.append(i + 1).append(".").append(tasks.get(i)).append("\n");
         }
-        return acc;
+        return acc.toString();
     }
 
     /**
