@@ -28,6 +28,15 @@ public class SearchByTagCommand implements Command {
         this.tag = inputParts[2].replace("#", ""); //remove # in front of the tag
     }
 
+    /**
+     * Executes the search tag command, and print out all tasks with the given tag
+     *
+     *
+     * @param tasks The task list containing all tasks.
+     * @param storage The storage handler for saving the updated task list.
+     * @param ui      The user interface for interacting with the user.
+     *
+     */
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) {
         List<Task> tasksWithTag = tasks.searchByTag(tag);

@@ -16,7 +16,7 @@ import xizi.chatbot.Xizi;
 
 
 /**
- * Controller for the main GUI.
+ * Serves as the controller for the main GUI.
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -44,7 +44,9 @@ public class MainWindow extends AnchorPane {
         showWelcomeMessage();
     }
 
-    /** Injects the Xizi instance */
+    /**
+     * Injects the Xizi instance
+     */
     public void setXizi(Xizi bot) {
         xizi = bot;
     }

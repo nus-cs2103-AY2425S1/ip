@@ -35,6 +35,16 @@ public class RemoveTagCommand implements Command {
         }
     }
 
+    /**
+     * Executes the remove tag command, removing a specific tag from a task.
+     *
+     *
+     * @param tasks The task list containing all tasks.
+     * @param storage The storage handler for saving the updated task list.
+     * @param ui      The user interface for interacting with the user.
+     * @throws IOException   If an I/O error occurs during saving the tasks.
+     * @throws XiziException If the task number is invalid.
+     */
     @Override
     public void execute(TaskList tasks, Storage storage, Ui ui) throws IOException {
         if (taskIndex >= 0 && taskIndex < tasks.getSize()) {

@@ -50,33 +50,56 @@ public class ListOnDateCommand implements Command {
     @Override
     public void execute(TaskList actions, Storage storage, Ui ui) {
         ui.showLine();
-        boolean hasTasksFound = false;
-        List<Task> tasksOnDate = new ArrayList<>();
-
         try {
-            for (Task task : actions.getItems()) {
-                // Check if the task is an Event
-                if (task instanceof Event) {
-                    Event event = (Event) task;
-                    if (isConcurrent(event)) {
-                        tasksOnDate.add(event);
-                        hasTasksFound = true;
-                    }
-                } else if (task instanceof Deadline) {
-                    Deadline deadline = (Deadline) task;
-                    LocalDateTime deadlineDate = deadline.getDdl();
-
-                    // Compare date and time (ignore seconds and milliseconds)
-                    if (deadlineDate.equals(date)) {
-                        tasksOnDate.add(deadline);
-                        hasTasksFound = true;
-                    }
-                }
-            }
+            List<Task> tasksOnDate = getTasksOnDate(actions);
+            printTasksOnDate(ui, tasksOnDate);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        if (!hasTasksFound) {
+        ui.showLine();
+    }
+
+    /**
+     * Retrieves the tasks scheduled on the specific date, including overlapping events and deadlines due on that date.
+     *
+     * @param actions The task list containing all tasks.
+     * @return A list of tasks scheduled on the specific date.
+     */
+    private List<Task> getTasksOnDate(TaskList actions) {
+        List<Task> tasksOnDate = new ArrayList<>();
+        for (Task task : actions.getItems()) {
+            if (task instanceof Event) {
+                if (isConcurrent((Event) task)) {
+                    tasksOnDate.add(task);
+                }
+            } else if (task instanceof Deadline) {
+                if (isDeadlineOnDate((Deadline) task)) {
+                    tasksOnDate.add(task);
+                }
+            }
+        }
+        return tasksOnDate;
+    }
+
+    /**
+     * Checks if a deadline is due on the specified date.
+     *
+     * @param deadline The deadline task to check.
+     * @return true if the deadline is on the specified date, false otherwise.
+     */
+    private boolean isDeadlineOnDate(Deadline deadline) {
+        LocalDateTime deadlineDate = deadline.getDdl();
+        return deadlineDate.equals(date); // Compare date (ignoring seconds and milliseconds)
+    }
+
+    /**
+     * Prints the tasks found on the specific date to the user.
+     *
+     * @param ui          The user interface for displaying messages.
+     * @param tasksOnDate The list of tasks scheduled on the specific date.
+     */
+    private void printTasksOnDate(Ui ui, List<Task> tasksOnDate) {
+        if (tasksOnDate.isEmpty()) {
             ui.printMessage("No tasks found on this date.");
             return;
         }
@@ -84,10 +107,8 @@ public class ListOnDateCommand implements Command {
         for (Task task : tasksOnDate) {
             ui.printMessage(task.toString());
         }
-
-
-        ui.showLine();
     }
+
 
 
     private boolean isConcurrent(Event event) {
