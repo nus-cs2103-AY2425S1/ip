@@ -224,3 +224,8 @@ bye
 ```
 
 Example: `bye`
+
+## Final Notes
+
+- Upon the execution of all the commands, the chatBot Bob will automatically save the changes made to the 
+existing task list
