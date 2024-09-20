@@ -19,6 +19,7 @@ ZBot is a task management application that helps you keep track of your tasks ef
     - [Exiting the program : `bye`](#exiting-the-program--bye)
   - [Saving the data](#saving-the-data)
   - [Command summary](#command-summary)
+  - [Known issues](#known-issues)
 
 ## Quickstart
 1. Ensure you have Java `17` or above installed in your Computer.
@@ -197,3 +198,7 @@ ZBot data are saved in the hard disk automatically after any command that change
 | Delete | `delete INDEX` | `delete 1` |
 | Find | `find KEYWORD` | `find look at` |
 | Note | `note INDEX NOTE` | `note 1 link to code base: https://github.com/se-edu/addressbook-level3` |
+
+## Known issues
+
+1. using comma `,` in task description and note. As the tasks data are stored with `,` delimiter, using `,` in task description or note will cause subsequent text to be lost or parsed as a note upon relaunching of app. As solving the problem requires the non-trivial task of reformating existing storage data, users are advised againsts using `,` in task description of notes. Instead, keep task description short and include further information by utilising the `note` feature.
