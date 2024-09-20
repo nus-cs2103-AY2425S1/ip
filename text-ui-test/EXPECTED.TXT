@@ -1,7 +1,8 @@
-____________________________________________________________
-Hello! I'm duck.main.Duck
+
+Hello! I'm Duck
 What can I do for you?
-____________________________________________________________
-Got it. I've added this task:
-[T][ ] todo test1
-Now you have 1 tasks in the list.
+
+OK, I've marked this task as not done yet: [D][ ] return book (by: Oct 15 2024)
+
+Bye. Hope to see you again soon!
+
