@@ -10,7 +10,7 @@ public class EventCommand {
 
     public void check(String input) throws MichaelException {
         if (input.length() < 7) { // no event given
-            throw new MichaelException("Enter a valid event.");
+            throw new MichaelException("Enter a valid event with format: [task] /from [start] /to [end].");
         }
 
         String task = input.substring(6);
@@ -19,11 +19,14 @@ public class EventCommand {
 
     private void add(String task) throws MichaelException {
         String[] parts = task.split("/");
-        assert parts.length == 3 : "Format of event task is incorrect";
+
+        if (parts.length != 3) {
+            throw new MichaelException("Follow format: [task] /from [start] /to [end]");
+        }
 
         for (int i = 0; i < parts.length - 1; i++) {
             String curr = parts[i];
-            parts[i] = curr.substring(0, curr.length() - 1);
+            parts[i] = curr.trim();
         }
 
         this.newTask = new Event(parts[0], parts[1].substring(5), parts[2].substring(3));
@@ -32,7 +35,7 @@ public class EventCommand {
 
     public String feedback() {
         String message = "Got it. I've added this task:\n" + "  " + this.newTask.toString() + "\n"
-                + "Now you have " + String.valueOf(tasks.size()) + " tasks in the list.";
+                + "Now you have " + tasks.size() + " tasks in the list.";
         return message;
     }
 }

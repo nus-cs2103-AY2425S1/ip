@@ -18,8 +18,17 @@ public class DeleteCommand {
 
         try {
             this.position = Integer.parseInt(input.substring(7)) - 1;
-            assert position > 0 : "Position of task to delete should be positive";
-            assert position <= tasks.size() : "Position of task to delete cannot be out of bounds";
+
+            if (position < 0) {
+                throw new MichaelException("Position of task to delete should be positive");
+            }
+
+            if (position >= tasks.size()) {
+                throw new MichaelException("Position of task to delete is out of bounds");
+            }
+
+            assert position >= 0 : "Position of task to delete should be positive";
+            assert position < tasks.size() : "Position of task to delete cannot be out of bounds";
 
             this.delete();
         } catch (NumberFormatException e) {

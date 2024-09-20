@@ -17,8 +17,17 @@ public class UnmarkCommand {
 
         try {
             this.position = Integer.parseInt(input.substring(7)) - 1;
-            assert position > 0 : "Position of task to unmark should be positive";
-            assert position <= tasks.size() : "Position of task to unmark cannot be out of bounds";
+
+            if (position < 0) {
+                throw new MichaelException("Position of task to unmark should be positive");
+            }
+
+            if (position >= tasks.size()) {
+                throw new MichaelException("Position of task to unmark is out of bounds");
+            }
+
+            assert position >= 0 : "Position of task to unmark should be positive";
+            assert position < tasks.size() : "Position of task to unmark cannot be out of bounds";
 
             this.unmark();
         } catch (NumberFormatException e) {

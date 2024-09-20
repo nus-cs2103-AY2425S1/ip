@@ -17,8 +17,17 @@ public class MarkCommand {
 
         try {
             this.position = Integer.parseInt(input.substring(5)) - 1;
-            assert position > 0 : "Position of task to mark should be positive";
-            assert position <= tasks.size() : "Position of task to mark cannot be out of bounds";
+
+            if (position < 0) {
+                throw new MichaelException("Position of task to mark should be positive");
+            }
+
+            if (position >= tasks.size()) {
+                throw new MichaelException("Position of task is out of range");
+            }
+
+            assert position >= 0 : "Position of task to mark should be positive";
+            assert position < tasks.size() : "Position of task to mark cannot be out of bounds";
 
             this.mark();
         } catch (NumberFormatException e) {

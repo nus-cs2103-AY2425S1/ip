@@ -5,8 +5,10 @@ import java.io.IOException;
 public class Parser {
     private TaskList tasks;
     private Storage storage;
-    private String invalidCommand = "Invalid command entered. Please enter one of the following valid commands: "
-            + "todo, deadline, event, mark, unmark, list, delete, bye, find";
+    private String invalidCommand = "Invalid command entered. Please enter one of the following valid commands:\n"
+            + "todo [task]\n" + "deadline [task] /by [YYYY-MM-DD]\n"
+            + "event [task] /from [start day & time] /to [end time]\n" + "mark [number]\n" + "unmark [number]\n"
+            + "list\n" + "delete [number]\n" +  "bye\n" +  "find [keyword]\n" + "sort\n";
     public Parser(TaskList tasks, Storage storage) {
         this.tasks = tasks;
         this.storage = storage;
@@ -21,8 +23,6 @@ public class Parser {
      * @throws MichaelException If an invalid command is entered or an existing command is used incorrectly.
      */
     public String parse(String input) throws MichaelException {
-        assert input != null : "Input cannot be null";
-
         if (input.startsWith("bye")) {
             ByeCommand bc = new ByeCommand();
             return bc.feedback();

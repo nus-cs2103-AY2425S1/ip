@@ -12,7 +12,7 @@ public class ToDoCommand {
         if (input.length() < 6) { // no task given
             throw new MichaelException("Enter a task to be done.");
         }
-        this.add(input.substring(5));
+        this.add(input.substring(5).trim());
     }
 
     private void add(String task) {
