@@ -21,6 +21,8 @@ public class HelpCommand extends Command {
                 -UNMARK
                 -BYE
                 -HELP
+                -FIND
+                -Delete
 
                 Type `Help [Command]` for more info on each command. (E.g `help list`)"""),
         TODO("Type `todo [Description]` to save a new Todo task."),

@@ -4,14 +4,30 @@ Want a simple bloatware free task manager? Diomon is a lightweight command-line 
 ![Main view of application](/Ui.png)
 
 ****
-## Setup Guide
-1. Ensure that you have Java `17` or above installed in your computer
-2. Download the latest `.jar` file from here.
-3. Copy the file to the folder you'll use as the home folder.
-4. Open up your terminal, `cd` into the folder and run `java -jar diomon.jar` to run the application
+## Table of Contents
+- [Setup Guide](#setup-guide)
+- [Commands](#commands)
+  -[Todo](#adding-todo-task-todo)
+  -[Deadline](#adding-deadlines-deadline)
+  -[Event](#adding-events-event)
+  -[List](#listing-tasks-list)
+  -[Mark](#marking-tasks-mark)
+  -[Unmark](#unmarking-tasks-unmark)
+  -[Bye](#exit-bye)
+  -[Help](#help-help)
+  -[Find](#finding-tasks-find)
+  -[Delete](#deleting-tasks-delete)
 
 ****
-## Features
+## Setup Guide
+1. Ensure that you have Java `17` or above installed in your computer
+2. Download the latest `.jar` file. 
+3. Open up your terminal, `cd` into the folder and run `java -jar diomon.jar` to run the application
+ - `cd path/to/the/folder/that/contain/the/file`
+ - `java -jar diomon.jar`
+
+****
+## Commands
 > Note: Values wrapped in `[]` are parameters that the user need to supply.
 > 
 > `[Date]` should be in dd-MM-yyyy format. Do include 0 infront for single digit days or month
@@ -22,24 +38,25 @@ Want a simple bloatware free task manager? Diomon is a lightweight command-line 
 > 
 > `[functions]` name of the commands 
 
-| Functions | Format                                        | Description                                                            |
-|-----------|-----------------------------------------------|------------------------------------------------------------------------|
-| Todo      | `todo [description]`                          | Adds a Todo task                                                       |
-| Deadline  | `deadline [description] /by [Date]`           | Adds a Deadline Task                                                   |
-| Event     | `event [description] /from [Date] /to [Date]` | Adds a Event Task                                                      |
-| List      | `list`                                        | List out all your Tasks                                                |
-| Mark      | `mark [Index]`                                | Marks task at index as done                                            |
-| UnMark    | `ummark [Index]`                              | Marks task at index as incomplete                                      |
-| Delete    | `delete [Index]`                              | Delete task at index                                                   |
-| Find      | `find [description]`                          | Find task with description containing the [description] provided       |
-| Bye       | `bye`                                         | Saves your tasks and closes the application                            |
-| Help      | `help [functions]`                            | Provides you with more information regarding the [functions] provided  |
+| Commands | Format                                        | Description                                                            | Example                                                     |
+|----------|-----------------------------------------------|------------------------------------------------------------------------|-------------------------------------------------------------|
+| Todo     | `todo [description]`                          | Adds a Todo task                                                       | `todo buy milk`                                             |
+| Deadline | `deadline [description] /by [Date]`           | Adds a Deadline Task                                                   | `deadline buy milk /by 11-09-2001`                          |
+| Event    | `event [description] /from [Date] /to [Date]` | Adds a Event Task                                                      | `event flight to manhattan /from 10-09-2001 /to 11-09-2001` |
+| List     | `list`                                        | List out all your Tasks                                                | `list`                                                      |
+| Mark     | `mark [Index]`                                | Marks task at index as done                                            | `mark 1 2`                                                  |
+| UnMark   | `ummark [Index]`                              | Marks task at index as incomplete                                      | `umark 1`                                                   |
+| Delete   | `delete [Index]`                              | Delete task at index                                                   | `delete 2`                                                  |
+| Find     | `find [description]`                          | Find task with description containing the [description] provided       | `find fold`                                                 |
+| Bye      | `bye`                                         | Saves your tasks and closes the application                            | `bye`                                                       |
+| Help     | `help [functions]`                            | Provides you with more information regarding the [functions] provided  | `help delete`                                               |
 
 ***
 ## Adding Todo Task: `todo`
 Adds a Todo Task
 
-**Format** `todo [description]`
+**Format** 
+`todo [description]`
 
 **Example** 
 - `todo buy milk`
@@ -55,7 +72,8 @@ Task: ( fold clothes ) has been added.
 ## Adding Deadlines: `deadline`
 Adds a Todo Task
 
-**Format** `deadline [description] /by [Date]`
+**Format** 
+`deadline [description] /by [Date]`
 
 **Example**
 - `deadline buy milk /by 11-09-2001`
@@ -71,7 +89,8 @@ Task: ( fold clothes (by: 11-09-2001 (TUESDAY))) has been added.
 ## Adding events: `event`
 Adds a Todo Task
 
-**Format** `event [description] /from [Date] /to [Date]`
+**Format** 
+`event [description] /from [Date] /to [Date]`
 
 **Example**
 - `event flight to manhattan /from 10-09-2001 /to 11-09-2001`
@@ -85,10 +104,11 @@ Task: ( flight to manhattan (From: 10-09-2001 To: 11-09-2001) ) has been added.
 ## Listing Tasks: `list`
 Lists all the task
 
-**Format** `list`
+**Format**
+`list`
 
 **Example**
-- `list`
+`list`
 
 **Result:**
 ```dtd
@@ -102,7 +122,8 @@ Here ya go!
 ## Marking Tasks: `mark`
 Marks task as complete
 
-**Format** `mark [Index]`
+**Format** 
+`mark [Index]`
 
 **Example**
 - `mark 1 2`
@@ -114,10 +135,11 @@ Marks task as complete
 ```
 
 ***
-## UnMarking Tasks: `unmark`
+## Unmarking Tasks: `unmark`
 Marks task as incomplete
 
-**Format** `unmark [Index]`
+**Format** 
+`unmark [Index]`
 
 **Example**
 - `umark 1`
@@ -132,7 +154,8 @@ Ya did a little oopies, just like your mom
 ## Deleting Tasks: `delete`
 Delete task 
 
-**Format** `Delete [Index]`
+**Format** 
+`Delete [Index]`
 
 **Example**
 - `delete 2`
@@ -146,7 +169,8 @@ Task ( flight to manhattan (From: 10-09-2001 To: 11-09-2001) ) has been thanosed
 ## Finding Tasks: `find`
 find tasks containing the prompt given
 
-**Format** `find [description]`
+**Format** 
+`find [description]`
 
 **Example**
 - `find fold`
@@ -161,7 +185,8 @@ Remember to keep your search history clean!
 ## Help: `help`
 Gives more information on how to use the command
 
-**Format** `help` / `help [functions]`
+**Format** 
+`help` / `help [functions]`
 
 **Example**
 - `help delete`
@@ -176,9 +201,11 @@ Type `delete [index]` to delete the task as incomplete.
 ## Exit: `bye`
 Saves and closes the application
 
-**Format** `bye`
+**Format** 
+`bye`
 
-**Example** `bye`
+**Example** 
+`bye`
 
 **Expected Outcome:**
 the application closes. what else is there?

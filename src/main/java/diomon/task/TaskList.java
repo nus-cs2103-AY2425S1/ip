@@ -64,14 +64,14 @@ public class TaskList {
      * @param input The string to search for in the task descriptions.
      * @return A {@link TaskList} containing tasks whose descriptions contain the input string.
      */
-    public TaskList fuzzyFind(String input) {
-        TaskList result = new TaskList();
-        for (Task i : tasks) {
-            if (i.description.contains(input)){
-                result.add(i);
+    public String fuzzyFind(String input) {
+        StringBuilder results = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            if (tasks.get(i).description.contains(input)){
+                results.append(String.format("%d. %s", i + 1, tasks.get(i)));
             }
         }
-        return result;
+        return results.toString();
     }
 
     /**
