@@ -22,6 +22,7 @@ public class Ui extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Ui.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            stage.setTitle("JBot");
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setJbot(jbot);
             stage.show();
