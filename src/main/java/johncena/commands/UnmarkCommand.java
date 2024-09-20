@@ -31,16 +31,26 @@ public class UnmarkCommand implements Command {
      * @throws CenaInvalidTaskIndexException if the task index is invalid
      */
     @Override
-    public void execute() throws CenaInvalidTaskIndexException {
+    public String execute() throws CenaInvalidTaskIndexException {
         if (taskIndex < 0 || taskIndex >= tasks.size()) {
             throw new CenaInvalidTaskIndexException("The task index is invalid.");
         }
         tasks.get(taskIndex).markAsNotDone();
         Storage.saveTasks(tasks);
-        System.out.println("____________________________________________________________");
-        System.out.println(" OK, I've marked this task as not done yet:");
-        System.out.println("   " + tasks.get(taskIndex));
-        System.out.println("____________________________________________________________");
+
+        StringBuilder sb = new StringBuilder();
+        //sb.append("____________________________________________________________\n");
+        sb.append(" OK, I've marked this task as not done yet:\n");
+        sb.append("   ").append(tasks.get(taskIndex)).append("\n");
+        //sb.append("____________________________________________________________\n");
+
+        return sb.toString();
+
+//        System.out.println("____________________________________________________________");
+//        System.out.println(" OK, I've marked this task as not done yet:");
+//        System.out.println("   " + tasks.get(taskIndex));
+//        System.out.println("____________________________________________________________");
+//
     }
 
 }

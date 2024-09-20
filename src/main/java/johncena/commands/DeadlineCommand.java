@@ -36,18 +36,26 @@ public class DeadlineCommand implements Command {
      * @throws CenaInvalidDeadlineException if the description for the deadline is incorrect
      */
     @Override
-    public void execute() throws CenaInvalidDeadlineException {
+    public String execute() throws CenaInvalidDeadlineException {
         if (description.isEmpty() || by.isEmpty()) {
             throw new CenaInvalidDeadlineException("Incorrect description for deadline. It should contain only /by.");
         }
         Task task = new Deadline(description, by);
         tasks.add(task);
         Storage.saveTasks(tasks);
-        System.out.println("____________________________________________________________");
-        System.out.println(" Got it. I've added this task:");
-        System.out.println("   " + task);
-        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
-        System.out.println("____________________________________________________________");
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("____________________________________________________________\n");
+        sb.append(" Got it. I've added this task:\n");
+        sb.append("   ").append(task).append("\n");
+        sb.append(" Now you have ").append(tasks.size()).append(" tasks in the list.\n");
+        sb.append("____________________________________________________________\n");
+//        System.out.println("____________________________________________________________");
+//        System.out.println(" Got it. I've added this task:");
+//        System.out.println("   " + task);
+//        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+//        System.out.println("____________________________________________________________");
+        return sb.toString();
 
     }
 }

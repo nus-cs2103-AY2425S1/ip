@@ -30,16 +30,18 @@ public class FindCommand implements Command {
      * in their description and prints the matching tasks.
      */
     @Override
-    public void execute() {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Here are the matching tasks in your list:");
+    public String execute() {
+        StringBuilder sb = new StringBuilder();
+        //sb.append("____________________________________________________________\n");
+        sb.append(" Here are the matching tasks in your list:\n");
         int index = 1;
         for (Task task : tasks) {
             if (task.getDescription().contains(keyword)) {
-                System.out.println(" " + index + "." + task);
+                sb.append(" ").append(index).append(".").append(task).append("\n");
             }
             index++;
         }
-        System.out.println("____________________________________________________________");
+        //sb.append("____________________________________________________________\n");
+        return sb.toString();
     }
 }

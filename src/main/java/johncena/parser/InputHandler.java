@@ -46,7 +46,7 @@ public class InputHandler {
      * @param input the user input
      * @throws CenaException if an exception occurs while executing the command
      */
-    public void handleInput(String input) throws CenaException {
+    public Command handleInput(String input) throws CenaException {
         Command command = null;
 
         try {
@@ -96,19 +96,20 @@ public class InputHandler {
                 throw new CenaUnknownCommandException("I'm sorry, but I don't know what that means :-(");
             }
 
-            if (command != null) {
-                command.execute();
-            }
+//        } catch (CenaInvalidTaskIndexException | CenaInvalidDeadlineException | CenaInvalidEventException
+//                 | DateTimeParseException e) {
+//            System.out.println("____________________________________________________________");
+//            System.out.println(" OOPS!!! " + e.getMessage());
+//            System.out.println("____________________________________________________________");
 
-        } catch (CenaInvalidTaskIndexException | CenaInvalidDeadlineException | CenaInvalidEventException
-                 | DateTimeParseException e) {
-            System.out.println("____________________________________________________________");
-            System.out.println(" OOPS!!! " + e.getMessage());
-            System.out.println("____________________________________________________________");
         } catch (NumberFormatException e) {
-            System.out.println("____________________________________________________________");
-            System.out.println(" OOPS!!! Task number must be a valid integer.");
-            System.out.println("____________________________________________________________");
+            //            System.out.println("____________________________________________________________");
+            //            System.out.println(" OOPS!!! Task number must be a valid integer.");
+            //            System.out.println("____________________________________________________________");
+            throw new CenaInvalidTaskIndexException("Task number must be a valid integer.");
         }
+
+        return command;
     }
 }
+

@@ -33,17 +33,26 @@ public class DeleteCommand implements Command {
      * @throws CenaInvalidTaskIndexException if the task index is invalid
      */
     @Override
-    public void execute() throws CenaInvalidTaskIndexException {
+    public String execute() throws CenaInvalidTaskIndexException {
         if (taskIndex < 0 || taskIndex >= tasks.size()) {
             throw new CenaInvalidTaskIndexException("The task index is invalid.");
         }
         Task removedTask = tasks.remove(taskIndex);
         Storage.saveTasks(tasks);
-        System.out.println("____________________________________________________________");
-        System.out.println(" Noted. I've removed this task:");
-        System.out.println("   " + removedTask);
-        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
-        System.out.println("____________________________________________________________");
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("____________________________________________________________\n");
+        sb.append(" Noted. I've removed this task:\n");
+        sb.append("   ").append(removedTask).append("\n");
+        sb.append(" Now you have ").append(tasks.size()).append(" tasks in the list.\n");
+        sb.append("____________________________________________________________\n");
+
+        return sb.toString();
+//        System.out.println("____________________________________________________________");
+//        System.out.println(" Noted. I've removed this task:");
+//        System.out.println("   " + removedTask);
+//        System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
+//        System.out.println("____________________________________________________________");
 
     }
 }

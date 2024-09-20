@@ -14,5 +14,5 @@ public interface Command {
      *
      * @throws CenaException if an error occurs during the execution of the command
      */
-    void execute() throws CenaException;
+    String execute() throws CenaException;
 }

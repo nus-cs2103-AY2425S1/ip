@@ -24,12 +24,23 @@ public class ListCommand implements Command {
      * Executes the "list" command. Lists all tasks in the task list.
      */
     @Override
-    public void execute() {
-        System.out.println("____________________________________________________________");
-        System.out.println(" Here are the tasks in your list:");
+    public String execute() {
+
+        StringBuilder sb = new StringBuilder();
+        //sb.append("____________________________________________________________\n");
+        sb.append(" Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println(" " + (i + 1) + "." + tasks.get(i));
+            sb.append(" ").append(i + 1).append(".").append(tasks.get(i)).append("\n");
         }
-        System.out.println("____________________________________________________________");
+        //sb.append("____________________________________________________________\n");
+        return sb.toString();
+//
+//        System.out.println("____________________________________________________________");
+//        System.out.println(" Here are the tasks in your list:");
+//        for (int i = 0; i < tasks.size(); i++) {
+//            System.out.println(" " + (i + 1) + "." + tasks.get(i));
+//        }
+//        System.out.println("____________________________________________________________");
+//
     }
 }

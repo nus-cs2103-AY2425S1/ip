@@ -45,7 +45,7 @@ test {
 }
 
 application {
-    mainClass.set("johncena.JohnCena")
+    mainClass.set("johncena.Launcher")
 }
 
 shadowJar {
