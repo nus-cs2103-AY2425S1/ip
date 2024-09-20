@@ -208,5 +208,10 @@ understand the command to be `list` as the chatbot aims to make the best effort 
 Hence, no error will be thrown and the command will be executed accordingly.
 2. The app is able to handle multiple spaces between words and will default all multiple spaces to single space. 
 
+## Credit
+1. The JavaFx guide from [SE-Edu](https://se-education.org/guides/tutorials/javaFx.html)
+   had been used to create the frontend chatbot.
+2. ChatGPT has been utilised to improve the language of javaDocs only by inputting the method signature and
+   explaining what the method does.
 ***
 [^1]: The *recommended* date format is in MMM dd yyy (e.g Sep 19 2024);
