@@ -25,11 +25,13 @@ public class Storage {
                 } else {
                     System.out.println("Failed to create the file.");
                 }
-            } else {
-                FileWriter writer = new FileWriter(this.filePath);
-                writer.write(s);
-                writer.close();
             }
+            
+            // Always write to the file, whether it exists or is newly created
+            FileWriter writer = new FileWriter(this.filePath);
+            writer.write(s);
+            writer.close();
+
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
