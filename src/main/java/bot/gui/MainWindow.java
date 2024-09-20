@@ -55,11 +55,14 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        userInput.clear();
+        if (input.isBlank()) {
+            return;
+        }
         String response = bot.handleInput(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, botImage)
         );
-        userInput.clear();
     }
 }
