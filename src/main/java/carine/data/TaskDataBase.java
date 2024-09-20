@@ -13,6 +13,7 @@ import carine.tasks.Todo;
  * The `TaskDataBase` class provides methods to load and save tasks to and from a file.
  */
 public class TaskDataBase {
+    private static File taskDatabase = new File("data/tasklist.txt");
 
     /**
      * Loads tasks from a file and returns them as a list.
@@ -22,9 +23,8 @@ public class TaskDataBase {
      * @throws InvalidDateException If a date in the file is invalid or cannot be parsed.
      */
     public static List<Task> load() throws IOException, InvalidDateException {
-        File file = new File("data/tasklist.txt");
-        ensureFileExists(file);
-        List<String> lines = readFile(file);
+        ensureFileExists(taskDatabase);
+        List<String> lines = readFile(taskDatabase);
         return parseTasks(lines);
     }
 
@@ -73,14 +73,28 @@ public class TaskDataBase {
             task = new Event(parts[2], parts[3], parts[4]);
             break;
         default:
-            throw new IllegalStateException("Unexpected task type: " + parts[0]);
+            throw new IllegalStateException("Unexpected task type");
         }
 
+        if (!parts[1].equals("1") || !parts[1].equals("1")) {
+            throw new IllegalStateException("Unexpected format for mark task");
+        }
         if (parts[1].equals("1")) {
             task.markAsDone();
         }
 
         return task;
+    }
+
+    /** Clears file storing tasks if error found.*/
+    public static void clearTaskList() throws IOException {
+        if (taskDatabase.exists()) {
+            PrintWriter writer = new PrintWriter(taskDatabase);
+            writer.print("");
+            writer.close();
+        } else {
+            throw new IOException("Task list file not found.");
+        }
     }
 
     /**
@@ -89,8 +103,7 @@ public class TaskDataBase {
      * @param tasks The list of tasks to be saved to the file.
      */
     public static void save(List<Task> tasks) throws IOException {
-        File file = new File("data/tasklist.txt");
-        BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(taskDatabase));
 
         for (Task task : tasks) {
             writer.write(task.toDataFormat());
