@@ -1,4 +1,4 @@
-import mysutong.MySutong;
+package mysutong;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

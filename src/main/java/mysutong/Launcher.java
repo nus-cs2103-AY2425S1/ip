@@ -1,3 +1,5 @@
+package mysutong;
+
 import javafx.application.Application;
 
 /**

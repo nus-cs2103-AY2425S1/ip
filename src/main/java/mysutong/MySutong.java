@@ -3,7 +3,7 @@ package mysutong;
 import java.io.IOException;
 
 /**
- * Main class for the MySutong application, which manages tasks.
+ * mysutong.Main class for the MySutong application, which manages tasks.
  * This class is responsible for initializing the application, loading existing tasks from storage,
  * and handling user interactions through a command loop.
  */
