@@ -61,13 +61,13 @@ public class EventParser {
     }
 
     private static KorolevTodo parseTodoRecord(String record) throws ParseException {
-        Pattern p = Pattern.compile("\\]\\s(.+)\\[tag");
+        Pattern p = Pattern.compile("\\]\\s(.+)\\s*\\[tag");
         Matcher m = p.matcher(record);
         String taskDescription;
 
         if (m.find()) {
             taskDescription = m.group(1);
-            KorolevTodo out = new KorolevTodo(taskDescription);
+            KorolevTodo out = new KorolevTodo(taskDescription.strip());
             if (checkComplete(record)) {
                 out.markTask();
             }

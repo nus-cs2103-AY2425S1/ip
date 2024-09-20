@@ -18,14 +18,14 @@ public class EventParserTest {
     @Test
     public void parseTodo_correctInput_success() throws Exception {
         String msg = "[T][ ] Todo test123 [tag:]";
-        KorolevTodo expected = new KorolevTodo("Todo test123 ");
+        KorolevTodo expected = new KorolevTodo("Todo test123");
         assertEquals(expected.toString(), EventParser.parseLoadedRecord(msg).toString());
     }
 
     @Test
     public void parseTodo_incorrectInput_exceptionThrown() {
         try {
-            String msg = "(T)( ) Todo test123  [tag:]";
+            String msg = "(T)( ) Todo test123 [tag:]";
             KorolevTodo expected = new KorolevTodo("Todo test123");
             assertEquals(expected.toString(), EventParser.parseLoadedRecord(msg).toString());
             fail();
