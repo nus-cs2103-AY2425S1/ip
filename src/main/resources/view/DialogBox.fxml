@@ -11,9 +11,9 @@
             <padding>
                 <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
             </padding>
-            <HBox.margin>
-                <Insets left="20.0" right="20.0" top="20.0" bottom="20.0" />
-            </HBox.margin></Label>
+            <HBox.hgrow>
+            </HBox.hgrow>
+        </Label>
         <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" />
     </children>
     <padding>

@@ -7,9 +7,7 @@
 }
 
 .label {
-    -fx-font-family: "Arial";
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
+    -fx-font-size: 14px;
 }
 
 .reply-label {
@@ -18,7 +16,6 @@
 }
 
 #displayPicture {
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
     -fx-scale-x: 1;
     -fx-scale-y: 1;
     -fx-rotate: 0;
