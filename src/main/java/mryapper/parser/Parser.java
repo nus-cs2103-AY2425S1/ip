@@ -186,7 +186,12 @@ public class Parser {
         int taskNumber = parseEditCommandTaskNumber(params[0]);
         TaskField field = parseForFieldToEdit(params[1]);
 
-        return new EditTask(taskNumber, field, params[2]);
+        String newString = params[2];
+        if (isFieldADate(field)) {
+            newString = DateTimeParser.parseDateTime(newString);
+        }
+
+        return new EditTask(taskNumber, field, newString);
     }
 
     private static String[] verifyEditCommandSyntax(
@@ -238,5 +243,9 @@ public class Parser {
         if (taskNumber <= 0) {
             throw new IllegalArgumentException("Task number should be a positive integer");
         }
+    }
+
+    private static boolean isFieldADate(TaskField field) {
+        return field != TaskField.DESCRIPTION;
     }
 }

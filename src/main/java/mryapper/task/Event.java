@@ -31,6 +31,7 @@ public class Event extends Task {
                 return this;
             case END_TIME:
                 this.eventEnd = newString;
+                return this;
             default:
                 throw new IllegalArgumentException("You can only edit an event with "
                         + "/description, /from or /to");
