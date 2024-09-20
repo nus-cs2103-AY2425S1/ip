@@ -46,6 +46,8 @@ application {
 shadowJar {
     archiveBaseName = "Naega"
     archiveClassifier = null
+    archiveVersion = version
+    mergeServiceFiles()
 }
 
 run {

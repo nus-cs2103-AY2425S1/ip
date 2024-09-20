@@ -25,12 +25,13 @@ public class Naega {
      *
      * @param filePath the path to the file where tasks are stored
      */
-
     public Naega(String filePath) {
         ui = new Ui();
+        assert filePath != null && !filePath.isEmpty() : "File path must not be null or empty";
         storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
+            assert tasks != null : "Tasks list should not be null after loading";
         } catch (NaegaException e) {
             ui.showLoadingError();
             tasks = new TaskList();
@@ -48,20 +49,22 @@ public class Naega {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
+                assert fullCommand != null && !fullCommand.trim().isEmpty() : "Command should not be null or empty";
                 ui.showLine();
                 Command command = Parser.parse(fullCommand);
+                assert command != null : "Parsed command should not be null";
                 command.execute(tasks, ui, storage);
                 isExit = command.isExit();
             } catch (NaegaException e) {
                 ui.showError(e.getMessage());
             } catch (IOException e) {
-                // Consider logging the exception or providing a more specific message
                 throw new RuntimeException("Unexpected error occurred during IO operations.", e);
             } finally {
                 ui.showLine();
             }
         }
     }
+
     /**
      * Processes the input command and returns the appropriate response.
      * This method is called in the GUI to handle user input.
@@ -70,13 +73,15 @@ public class Naega {
      * @return the response from Naega
      */
     public String getResponse(String input) {
+        assert input != null && !input.isEmpty() : "Input should not be null or empty";
         try {
             Command command = Parser.parse(input);
+            assert command != null : "Parsed command should not be null";
             return command.execute(tasks, ui, storage);
         } catch (NaegaException | IOException e) {
             return "Error: " + e.getMessage();
         }
-    };
+    }
 
     /**
      * The entry point of the application. Creates a new Naega instance with
@@ -84,7 +89,6 @@ public class Naega {
      *
      * @param args command-line arguments (not used)
      */
-
     public static void main(String[] args) {
         new Naega("data/tasks.txt").run();
     }

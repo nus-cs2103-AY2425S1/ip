@@ -3,24 +3,29 @@ package Naega.Task;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList {
 
     private final ArrayList<Task> tasks;
 
     /**
-     * Creates an empty TaskList.
+     * Constructs an empty TaskList.
      * Initializes an ArrayList to store tasks.
      */
     public TaskList() {
         this.tasks = new ArrayList<>();
+        assert tasks != null : "Task list should be initialized";
     }
 
     /**
-     * Creates a TaskList with the specified list of tasks.
+     * Constructs a TaskList with the specified list of tasks.
      *
      * @param tasks the initial list of tasks
      */
     public TaskList(ArrayList<Task> tasks) {
+        assert tasks != null : "Initial task list must not be null";
         this.tasks = tasks;
     }
 
@@ -30,6 +35,7 @@ public class TaskList {
      * @param task the task to add
      */
     public void addTask(Task task) {
+        assert task != null : "Task to add must not be null";
         tasks.add(task);
     }
 
@@ -39,6 +45,7 @@ public class TaskList {
      * @param index the index of the task to delete
      */
     public void deleteTask(int index) {
+        assert index >= 0 && index < tasks.size() : "Index to delete must be valid";
         tasks.remove(index);
     }
 
@@ -49,6 +56,7 @@ public class TaskList {
      * @return the task at the specified index
      */
     public Task getTask(int index) {
+        assert index >= 0 && index < tasks.size() : "Index to retrieve must be valid";
         return tasks.get(index);
     }
 
@@ -68,6 +76,7 @@ public class TaskList {
      * @return a list of tasks that contain the keyword
      */
     public List<Task> findTasksByKeyword(String keyword) {
+        assert keyword != null && !keyword.isEmpty() : "Search keyword must not be null or empty";
         List<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (task.getDescription().contains(keyword)) {
