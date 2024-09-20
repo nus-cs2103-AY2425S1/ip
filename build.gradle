@@ -5,7 +5,7 @@ plugins {
     id 'checkstyle'
 }
 
-mainClassName = 'chatgpt.ChatGPT'
+mainClassName = 'chatgpt.Launcher'
 
 repositories {
     mavenCentral()
