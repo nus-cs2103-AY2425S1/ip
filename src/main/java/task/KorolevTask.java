@@ -56,7 +56,7 @@ public class KorolevTask {
     }
 
     /**
-     * Untags a specific tasks
+     * Untags a specific tasks.
      *
      */
     public void untag() {

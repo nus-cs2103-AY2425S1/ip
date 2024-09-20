@@ -25,24 +25,52 @@ public class DateParser {
         }
     }
 
+    /**
+     * Parses the date information after the keyword by.
+     *
+     * @param eventString input from user.
+     * @return the string of date after keyword by.
+     * @throws ParseException when fails to find a valid date.
+     */
     public static String parseBy(String eventString) throws ParseException {
         assert !eventString.isEmpty();
         return parseDateTimeGeneral(
                 "/by\\s+(\\d{4}-\\d{2}-\\d{2})\\s*(\\d{2}:\\d{2})*", eventString);
     }
 
+    /**
+     * Parses the date information after the keyword from.
+     *
+     * @param eventString input from user.
+     * @return the string of date.
+     * @throws ParseException the date is in invalid format.
+     */
     public static String parseFrom(String eventString) throws ParseException {
         assert !eventString.isEmpty();
         return parseDateTimeGeneral(
                 "/from\\s+(\\d{4}-\\d{2}-\\d{2})\\s*(\\d{2}:\\d{2})*", eventString);
     }
 
+    /**
+     * Parses the date information after the keyword to.
+     *
+     * @param eventString input from user.
+     * @return the string of date.
+     * @throws ParseException the date is in invalid format.
+     */
     public static String parseTo(String eventString) throws ParseException {
         assert !eventString.isEmpty();
         return parseDateTimeGeneral(
                 "/to\\s+(\\d{4}-\\d{2}-\\d{2})\\s*(\\d{2}:\\d{2})*", eventString);
     }
 
+    /**
+     * Converts a specific dates into desired format.
+     *
+     * @param dateString string of date.
+     * @return transformed string of date.
+     * @throws ParseException when fails to match string of date to new pattern.
+     */
     public static String parseRecordedDate(String dateString) throws ParseException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm MMM d yyyy")
                 .withLocale(Locale.ENGLISH);

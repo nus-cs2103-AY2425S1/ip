@@ -4,7 +4,7 @@ import exception.DukeException;
 import task.KorolevList;
 
 /**
- * Represents a command entity input by users
+ * Represents a command entity input by users.
  */
 public class KorolevCommand {
     private String[] target;

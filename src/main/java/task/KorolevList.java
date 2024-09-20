@@ -13,17 +13,16 @@ import java.util.ArrayList;
  * Represents a list of KorolevTask
  */
 public class KorolevList {
-    private static String outOfIndexError = "The index is out of bound!";
-    private static String listNotice = "Here are the tasks in your list:\n";
-    private static String markNotice = "Nice! I've marked this task as done:";
-    private static String unmarkNotice = "OK, I've marked this task as not done yet:";
-    private static String deleteNotice = "Noted. I've removed this task:";
-    private static String filteredNotice = "Here are the matching tasks in your list:";
-    private static String tagNotice = "Noted, here is the tagged task:";
-    private static String untagNotice = "Noted, here is the untagged task:";
-    private static String statsNotice = "Here is the summary of tasks: ";
-    private static String finishedMsg = "Number of finished tasks: ";
-    private static String unfinishedMsg = "Number of unfinished tasks: ";
+    private static final String OUT_Of_INDEX_ERROR = "The index is out of bound!";
+    private static final String LIST_NOTICE = "Here are the tasks in your list:\n";
+    private static final String MARK_NOTICE = "Nice! I've marked this task as done:";
+    private static final String UNMARK_NOTICE = "OK, I've marked this task as not done yet:";
+    private static final String DELETE_NOTICE = "Noted. I've removed this task:";
+    private static final String FILTERED_NOTICE = "Here are the matching tasks in your list:";
+    private static final String UNTAG_NOTICE = "Noted, here is the untagged task:";
+    private static final String STATS_NOTICE = "Here is the summary of tasks: ";
+    private static final String FINISHED_MSG = "Number of finished tasks: ";
+    private static final String UNFINISHED_MSG = "Number of unfinished tasks: ";
 
     private ArrayList<KorolevTask> events;
 
@@ -128,7 +127,7 @@ public class KorolevList {
      * @return the string representation of task lists
      */
     public String displayList() {
-        return listNotice + this.toString();
+        return LIST_NOTICE + this.toString();
     }
 
     /**
@@ -139,46 +138,67 @@ public class KorolevList {
      */
     public String markEvent(int index) throws DukeException {
         if (index >= this.events.size() || index < 0) {
-            throw new DukeException(outOfIndexError);
+            throw new DukeException(OUT_Of_INDEX_ERROR);
         }
         KorolevTask t = this.events.get(index);
         t.markTask();
-        System.out.println(markNotice);
+        System.out.println(MARK_NOTICE);
         System.out.println(t);
 
-        return markNotice + "\n" + t;
+        return MARK_NOTICE + "\n" + t;
     }
 
+    /**
+     * Tags an task with a tag.
+     *
+     * @param index index of the task.
+     * @param tag name of the tag to be added.
+     * @return successful tagging message.
+     * @throws DukeException fail to find the task with index.
+     */
     public String tagEvent(int index, String tag) throws DukeException {
         if (index >= this.events.size() || index < 0) {
-            throw new DukeException(outOfIndexError);
+            throw new DukeException(OUT_Of_INDEX_ERROR);
         }
 
         KorolevTask t = this.events.get(index);
         t.tag(tag);
-        System.out.println(tagNotice);
+        String TAG_NOTICE = "Noted, here is the tagged task:";
+        System.out.println(TAG_NOTICE);
         System.out.println(t);
 
-        return tagNotice + "\n" + t;
+        return TAG_NOTICE + "\n" + t;
     }
 
+    /**
+     * Untags a specific event.
+     *
+     * @param index index of the task in the event list.
+     * @return successful untag information.
+     * @throws DukeException fail to untag the task.
+     */
     public String untagEvent(int index) throws DukeException {
         if (index >= this.events.size() || index < 0) {
-            throw new DukeException(outOfIndexError);
+            throw new DukeException(OUT_Of_INDEX_ERROR);
         }
 
         KorolevTask t = this.events.get(index);
         t.untag();
-        System.out.println(untagNotice);
+        System.out.println(UNTAG_NOTICE);
         System.out.println(t);
 
-        return untagNotice + "\n" + t;
+        return UNTAG_NOTICE + "\n" + t;
     }
 
+    /**
+     * Displays the statistical summary of a specific KorolevList.
+     *
+     * @return stats of the Korolev task repository.
+     */
     public String showStats() {
-        return statsNotice + "\n"
-                + finishedMsg + this.countMark() + "\n"
-                + unfinishedMsg + (this.events.size() - this.countMark());
+        return STATS_NOTICE + "\n"
+                + FINISHED_MSG + this.countMark() + "\n"
+                + UNFINISHED_MSG + (this.events.size() - this.countMark());
     }
 
     private int countMark() {
@@ -200,14 +220,14 @@ public class KorolevList {
      */
     public String removeEvent(int index) throws DukeException {
         if (index >= this.events.size() || index < 0) {
-            throw new DukeException(outOfIndexError);
+            throw new DukeException(OUT_Of_INDEX_ERROR);
         }
         KorolevTask t = this.events.remove(index);
         System.out.println(t);
-        System.out.println(deleteNotice);
+        System.out.println(DELETE_NOTICE);
         System.out.println("Now you have " + this.events.size() + " tasks in the list.");
 
-        return t + "\n" + deleteNotice + "\n"
+        return t + "\n" + DELETE_NOTICE + "\n"
                 + "Now you have " + this.events.size() + " tasks in the list.";
     }
 
@@ -219,14 +239,14 @@ public class KorolevList {
      */
     public String unmarkEvent(int index) throws DukeException {
         if (index >= this.events.size() || index < 0) {
-            throw new DukeException(outOfIndexError);
+            throw new DukeException(OUT_Of_INDEX_ERROR);
         }
         KorolevTask t = this.events.get(index);
         t.unmarkTask();
-        System.out.println(unmarkNotice);
+        System.out.println(UNMARK_NOTICE);
         System.out.println(t);
 
-        return unmarkNotice + "\n" + t;
+        return UNMARK_NOTICE + "\n" + t;
     }
 
     /**
@@ -271,13 +291,13 @@ public class KorolevList {
     }
 
     public static String displayFilteredList(ArrayList<KorolevTask> tasks) {
-        System.out.println(filteredNotice);
+        System.out.println(FILTERED_NOTICE);
         StringBuilder msg = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             msg.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
         }
         System.out.println(msg.toString());
 
-        return filteredNotice + "\n" + msg.toString();
+        return FILTERED_NOTICE + "\n" + msg.toString();
     }
 }
