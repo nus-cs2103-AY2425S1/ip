@@ -1,24 +1,45 @@
-# Duke project template
+# Majimabot
+>"He's alright." - Ono Michio
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+## What is Majimabot?
+This portable instance of the Mad Dog of Shimano can't fight for you, but what he lacks in combat skills, he makes up for in clerical tasks!
 
-## Setting up in Intellij
+What can he do, you ask?
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+1. Keep track of various tasks
+   * 'Todo', tasks which are either done or not
+   * 'Deadline' tasks where you can specify a date and time to accomplish it by
+   * 'Event' tasks which take place during two points in time
+2. Mark tasks as completed or not
+3. Find specific tasks you have listed
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+... and more to come! <sub>(If I feel like it.)</sub>
+
+## How _do_ I use Majimabot? 🤔
+
+Majima tracks three types of tasks, as stated above.
+Typing 'todo' in the console, followed by a short description, stores a task with the corresponding description.
+Entering 'deadline', followed by a description, seperated by a '/by' and a valid date-time format of "dd-MM-YYYY HHmm" creates a task with a deadline that Majima will keep track of.
+An event has a description, a /from and /to time which does not need to follow a date-time format.
+
+To know what tasks Majima is currently keeping track of, simply tell Majima
+`list`
+and he'll show you what tasks he's currently remembering.
+
+Furthermore, tasks can be marked or unmarked to keep track of their completion. In a list like such,
+```
+1. [T][ ] Beat up thugs
+2. [T][ ] Random sidequest
+3. [T][ ] Throw the trash
+```
+executing `mark 3` would mark the task like so:
+```
+1. [T][ ] Beat up thugs
+2. [T][ ] Random sidequest
+3. [T][X] Throw the trash
+```
+
+Need a quick reminder? Just tell Majimabot `help` and he'll remind ya all about what he can do!
+
+## So, what are you waiting for!
+Majimabot remembers tasks in between runs, so download the .jar [here](https://github.com/Meowloid/ip/releases/tag/A-Jar), put him in a directory of your choice, and get started! And it's all for **FREE**!
