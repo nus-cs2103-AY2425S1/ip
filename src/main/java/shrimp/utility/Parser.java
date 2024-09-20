@@ -19,7 +19,8 @@ public class Parser {
     }
 
     /**
-     * A {@code DateTimeFormatter} instance that defines a flexible pattern for parsing and formatting date-time strings.
+     * A {@code DateTimeFormatter} instance that defines a flexible pattern for parsing and formatting
+     * date-time strings.
      * <p>The supported format is {@code day/month/year} with optional time components {@code HH:mm} or {@code HHmm}.
      * Defaults to midnight if no time is provided.</p>
      */
@@ -41,12 +42,13 @@ public class Parser {
 
     /**
      * Parses the user input string and determines the corresponding {@code CommandType}.
-     * <p>The user input is matched against a predefined list of commands such as {@code bye}, {@code list}, {@code mark}, etc.
+     * <p>The user input is matched against a predefined list of commands such
+     * as {@code bye}, {@code list}, {@code mark}, etc.
      * If no valid command is found, {@link CommandType#ERROR} is returned.</p>
      *
      * @param userInput The input string entered by the user.
      * @return The {@link CommandType} that corresponds to the user input.
-     *         If the command is not recognized, {@link CommandType#ERROR} is returned.
+     *      If the command is not recognized, {@link CommandType#ERROR} is returned.
      * @throws AssertionError if {@code userInput} is {@code null}.
      */
     public static CommandType parseCommand(String userInput) {
@@ -64,7 +66,8 @@ public class Parser {
                 "find", CommandType.FIND
         );
 
-        // Stream through the map entries and return the corresponding command type entries and check if the userInput starts with any key
+        // Stream through the map entries and return the corresponding command type
+        // entries and check if the userInput starts with any key
         return commandTypeMap.entrySet().stream()
                 .filter(entry -> userInput.startsWith(entry.getKey()))
                 .map(Map.Entry::getValue)

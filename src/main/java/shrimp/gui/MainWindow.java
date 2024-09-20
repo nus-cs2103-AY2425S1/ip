@@ -63,7 +63,8 @@ public class MainWindow {
         String response = shrimp.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                response.contains("ERR") ? DialogBox.getErrorDialog(response, shrimpImage) : DialogBox.getShrimpDialog(response, shrimpImage)
+                response.contains("ERR") ? DialogBox.getErrorDialog(response, shrimpImage)
+                        : DialogBox.getShrimpDialog(response, shrimpImage)
         );
         if (response.contains("Bye")) {
             PauseTransition delay = new PauseTransition(Duration.seconds(2));
