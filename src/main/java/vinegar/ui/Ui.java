@@ -143,4 +143,17 @@ public class Ui {
     public String showMessage(String message) {
         return message;
     }
+
+    public String showHelp() {
+        return "Here are some commands you can use:\n"
+                + "1. `list` - View all tasks\n"
+                + "2. `todo <description>` - Add a new todo task\n"
+                + "3. `deadline <description> /by <date>` - Add a new deadline task\n"
+                + "4. `event <description> /at <time>` - Add a new event task\n"
+                + "5. `done <task_number>` - Mark a task as done\n"
+                + "6. `delete <task_number>` - Delete a task\n"
+                + "7. `find <keyword>` - Find tasks containing a keyword\n"
+                + "8. `help` - Show this help page\n"
+                + "9. `bye` - Exit the app\n";
+    }
 }

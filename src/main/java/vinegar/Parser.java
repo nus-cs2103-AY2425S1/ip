@@ -20,6 +20,8 @@ public class Parser {
     public static Command parse(String fullCommand) throws VinegarException {
         String[] inputParts = fullCommand.split(" ", 2);
         String instruction = inputParts[0].toLowerCase();
+        String errorMessage = "Please use these commands: todo, deadline, event, list, mark, unmark, "
+                + "bye, help";
 
         switch (instruction) {
             case "bye":
@@ -40,9 +42,10 @@ public class Parser {
                 return new DeleteCommand(inputParts);
             case "find":
                 return new FindCommand(inputParts);
-            // Other cases
+            case "help":
+                return new HelpCommand();
             default:
-                throw new VinegarException("Please use these commands: todo, deadline, event, list, mark, unmark, bye");
+                throw new VinegarException(errorMessage);
         }
     }
 }

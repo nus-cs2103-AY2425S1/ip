@@ -6,7 +6,12 @@ import vinegar.task.Task;
 import vinegar.task.Todo;
 import vinegar.Validator;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +38,7 @@ public class Storage {
         // Assert that the directory path is not null
         assert this.directoryPath != null : "Directory path should not be null.";
     }
-    
+
     /**
      * Loads tasks from the storage file.
      *
@@ -44,7 +49,11 @@ public class Storage {
         List<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
 
-        Validator.validateFileExists(file);
+        if (!file.exists()) {
+            // Load sample data if file doesn't exist
+            loadSampleData(tasks);
+            return tasks;
+        }
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
@@ -60,6 +69,17 @@ public class Storage {
 
         assert tasks != null : "Tasks list should not be null after loading from file.";
         return tasks;
+    }
+
+    /**
+     * Loads sample tasks into the list of tasks.
+     *
+     * @param tasks The empty list of tasks.
+     */
+    private void loadSampleData(List<Task> tasks) {
+        tasks.add(new Todo("Read documentation"));
+        tasks.add(new Deadline("Submit project proposal", "2023-09-25"));
+        tasks.add(new Event("Team meeting", "2023-09-22", "2023-09-23"));
     }
 
     /**
