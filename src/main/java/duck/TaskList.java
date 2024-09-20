@@ -64,41 +64,44 @@ public class TaskList {
         return tasks.size();
     }
 
+    private Task createTaskFromRecord(List<String> record) throws BeforeEarliestTimeException {
+        assert record.size() > 2;
+        String taskType = record.get(0);
+        Boolean isDone = Boolean.valueOf(record.get(1));
+        String description = record.get(2);
+        Task task = null;
+
+        if (taskType.equals("T")) {
+            assert record.size() == 3;
+            task = new Todo(description);
+        } else if (taskType.equals("D")) {
+            assert record.size() == 4;
+            task = new Deadline(description, new DateAndTime(record.get(3)));
+        } else if (taskType.equals("E")) {
+            assert record.size() == 5;
+            task = new Event(description,
+                    new DateAndTime(record.get(3)), new DateAndTime(record.get(4)));
+        } else if (taskType.equals("A")) {
+            assert record.size() == 4;
+            task = new DoAfter(description, new DateAndTime(record.get(3)));
+        }
+
+        assert task != null;
+        if (isDone) {
+            task.markAsDone();
+        }
+        return task;
+    }
+
     /**
      * Loads the task list from the data file.
      */
     public void getTaskListFromFile() {
         try {
             System.out.println("Working Directory = " + System.getProperty("user.dir"));
-
             List<List<String>> records = CSV_HANDLER.getRecords();
             for (List<String> record : records) {
-                assert record.size() > 2;
-                String taskType = record.get(0);
-                Boolean isDone = Boolean.valueOf(record.get(1));
-                String description = record.get(2);
-                Task task = null;
-
-                if (taskType.equals("T")) {
-                    assert record.size() == 3;
-                    task = new Todo(description);
-                } else if (taskType.equals("D")) {
-                    assert record.size() == 4;
-                    task = new Deadline(description, new DateAndTime(record.get(3)));
-                } else if (taskType.equals("E")) {
-                    assert record.size() == 5;
-                    task = new Event(description,
-                            new DateAndTime(record.get(3)), new DateAndTime(record.get(4)));
-                } else if (taskType.equals("A")) {
-                    assert record.size() == 4;
-                    task = new DoAfter(description, new DateAndTime(record.get(3)));
-                }
-
-                if (isDone) {
-                    task.markAsDone();
-                }
-
-                assert task != null;
+                Task task = createTaskFromRecord(record);
                 addTask(task);
             }
         } catch (IOException e) {
@@ -129,6 +132,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * Gets a list of tasks whose string representations contain a pattern.
+     */
     public TaskList filterTasksByPattern(String pattern) {
         TaskList filteredTasks = new TaskList();
         for (Task task : tasks) {
