@@ -15,7 +15,7 @@ public class TaskList implements Serializable {
      *
      * @return A string containing all tasks in the list.
      */
-    public String listAllTask() {
+    public String listAllTasks() {
         if (this.allTasks.isEmpty()) {
             return "Emmm, there is no task in the list." + "\n"
                     + "Please feel free to add some tasks!";

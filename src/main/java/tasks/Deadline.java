@@ -18,13 +18,13 @@ public class Deadline extends Task implements Serializable {
     /**
      * Creates task that need to be done before a specific date/time.
      *
-     * @param task task information of the deadline task.
+     * @param description task information of the deadline task.
      * @param deadline the time by which the task needs to be completed,
      *                 in the format "yyyy/MM/dd HH:mm".
      * @throws DateTimeParseException if the deadline string is not in the correct format.
      */
-    public Deadline(String task, String deadline) throws EchoException {
-        this.task = task;
+    public Deadline(String description, String deadline) throws EchoException {
+        this.description = description;
 
         // Parse the time strings into LocalDateTime objects
         try {

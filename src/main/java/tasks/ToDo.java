@@ -11,10 +11,10 @@ public class ToDo extends Task implements Serializable {
     /**
      * Creates a task to be completed.
      *
-     * @param task without any date/time attached to it.
+     * @param description without any date/time attached to it.
      */
-    public ToDo(String task) {
-        this.task = task;
+    public ToDo(String description) {
+        this.description = description;
     }
 
     /**

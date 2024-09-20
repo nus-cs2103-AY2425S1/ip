@@ -21,12 +21,12 @@ public class Event extends Task implements Serializable {
      * An event will start at a specific date/time
      * and ends at a specific date/time.
      *
-     * @param task task information of the event.
+     * @param description task information of the event.
      * @param startTime start time of the event.
      * @param endTime end time of the event.
      */
-    public Event(String task, String startTime, String endTime) throws EchoException {
-        this.task = task;
+    public Event(String description, String startTime, String endTime) throws EchoException {
+        this.description = description;
 
         // Create a DateTimeFormatter and parse the time strings into LocalDateTime objects
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm", Locale.US);

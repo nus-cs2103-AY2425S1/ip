@@ -10,7 +10,7 @@ import exceptions.EchoException;
  * Each task has a description and a completion status.
  */
 public abstract class Task implements Serializable {
-    protected String task;
+    protected String description;
     protected boolean isDone = false;
     protected String tag = "";
 
@@ -80,13 +80,13 @@ public abstract class Task implements Serializable {
             // Get the time information by splitting the string
             String timeInfo = taskInfoArray[1].split("/from")[1];
 
-            // Check whether user inputs a valid start time of a event task
+            // Check whether user inputs a valid start time of an event task
             if (timeInfo.indexOf("/to") <= 1) {
                 String msg = "Oops! The start time of an event cannot be empty.";
                 throw new EchoException(msg);
             }
 
-            // Check whether user inputs a valid end time of a event task
+            // Check whether user inputs a valid end time of an event task
             if (timeInfo.split("/to ").length <= 1) {
                 String msg = "Oops! The end time of an event cannot be empty.";
                 throw new EchoException(msg);
@@ -156,7 +156,7 @@ public abstract class Task implements Serializable {
     }
 
     public String getDescription() {
-        return this.task;
+        return this.description;
     }
 
     public void setTag(String tag) {
@@ -171,7 +171,7 @@ public abstract class Task implements Serializable {
     @Override
     public String toString() {
         String statusIcon = this.getStatusIcon();
-        String info = statusIcon + " " + this.task;
+        String info = statusIcon + " " + this.description;
         if (this.tag != "") {
             info += " " + this.tag;
         }

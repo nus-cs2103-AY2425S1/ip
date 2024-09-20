@@ -11,7 +11,7 @@ public class ListCommand {
 
     /** Lists all tasks in the task list */
     public static String run(TaskList allTasks) {
-        return allTasks.listAllTask();
+        return allTasks.listAllTasks();
     }
 
     /** Sends help information of command 'list' to user */
