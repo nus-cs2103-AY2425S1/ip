@@ -20,9 +20,9 @@ Milo is a task and client management tool designed to streamline your workflow, 
 ### Quick Start
 
 1. Ensure you have Java `17` or above installed on your Computer.
-2. Download the latest `.jar` file from here.
+2. Download the latest `.jar` file from [here](https://github.com/JumpyJay/ip/releases/tag/A-Release).
 3. Copy the file to the folder you want to use as the home folder for your Milo bot.
-4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar milo.jar` command to run the application. A GUI similar to the below should appear in a few seconds.
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar Milo.jar` command to run the application. A GUI similar to the below should appear in a few seconds.
 
 ![image](https://github.com/user-attachments/assets/ee27ac5d-b282-4e00-a03e-c924a3edaae9)
 
@@ -51,24 +51,30 @@ list_client
 ---
 
 ### 2. **Add a New Client**
-- **Command:** `client`
+- **Command:** `client [name] [condition]`
 - **Description:** Adds a new client to the system with relevant information.
 - **Usage Example:**
 ```
-client John Doe 92345678 john.doe@example.com
+client john lumbago
 ```
-- **Expected Output:** "Client John Doe added successfully."
+- **Expected Output:**
+  "Oh got it! I've added this client:
+   john (condition: lumbago)
+  Now you have <x> clients in your contacts"
 
 ---
 
 ### 3. **Delete a Client**
-- **Command:** `delete_client`
+- **Command:** `delete_client [index]`
 - **Description:** Deletes an existing client by ID.
 - **Usage Example:**
 ```
 delete_client 2
 ```
-- **Expected Output:** "Client with ID 2 deleted successfully."
+- **Expected Output:**
+  "Okay~ I've removed this client:
+  john (condition: lumbago)
+  Now you have <x> clients in your contacts"
 
 ---
 
@@ -103,7 +109,9 @@ find_task report
 ```
 mark 3
 ```
-- **Expected Output:** "Task 3 marked as complete."
+- **Expected Output:**
+  "Nice! I've marked this task as done:
+  <task_details>"
 
 ---
 
@@ -114,7 +122,9 @@ mark 3
 ```
 unmark 3
 ```
-- **Expected Output:** "Task 3 marked as incomplete."
+- **Expected Output:**
+  "Sure! I've marked this as not done yet:
+  <task_details>"
 
 ---
 
@@ -125,42 +135,54 @@ unmark 3
 ```
 delete_task 5
 ```
-- **Expected Output:** "Task 5 deleted successfully."
+- **Expected Output:**
+  "Alrighty~ I've removed this task:
+  <task_details>
+  Now you have <x> tasks in the list"
 
 ---
 
 ## **Task Creation Commands**
 
 ### 9. **Add a Todo Task**
-- **Command:** `todo`
+- **Command:** `todo [description]`
 - **Description:** Adds a new Todo task.
 - **Usage Example:**
 ```
 todo Buy groceries
 ```
-- **Expected Output:** "Todo task 'Buy groceries' added successfully."
+- **Expected Output:** 
+  "Got it! I've added this task:
+   [T][] Buy groceries
+  Now you have <x> task in the list"
 
 ---
 
 ### 10. **Add a Deadline Task**
-- **Command:** `deadline`
+- **Command:** `deadline [description] /by [end date in format (YYYY-MM-DD)]`
 - **Description:** Adds a new task with a deadline.
 - **Usage Example:**
 ```
 deadline Submit report /by 2024-09-30
 ```
-- **Expected Output:** "Deadline task 'Submit report' added with a deadline of 2024-09-30."
+- **Expected Output:**
+  "Got it! I've added this task:
+   [D][] Submit report (by:2024-09-30)
+  Now you have <x> task in the list"
 
 ---
 
 ### 11. **Add an Event Task**
-- **Command:** `event`
+- **Command:** `event [description] /from [start date in format (YYYY-MM-DD)] /to [end date in format (YYYY-MM-DD)]`
 - **Description:** Adds a new event task with a date and time.
 - **Usage Example:**
 ```
-event Team meeting /at 2024-09-20 14:00
+event Team meeting /from 2024-09-20 /to 2024-09-21
 ```
-- **Expected Output:** "Event 'Team meeting' added for 2024-09-20 at 14:00."
+- **Expected Output:**
+   "Got it! I've added this task:
+   [E][] Team meeting (from:2024-09-20 to: 2024-09-21)
+  Now you have <x> task in the list"
 
 ---
 
@@ -173,6 +195,10 @@ event Team meeting /at 2024-09-20 14:00
 ```
 bye
 ```
-- **Expected Output:** "Goodbye! See you next time."
+- **Expected Output:**
+  "Bye. Hope to see you again soon!
+                   ∧,,,∧
+                ( ̳• · •̳)
+                /    づ♡"
 
 ---
