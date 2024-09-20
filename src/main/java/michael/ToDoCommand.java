@@ -22,7 +22,7 @@ public class ToDoCommand {
 
     public String feedback() {
         String message = "Got it. I've added this task:\n" + "  " + this.newTask.toString()
-                + "\n" + "Now you have " + String.valueOf(tasks.size()) + " tasks in the list.";
+                + "\n" + "Now you have " + tasks.size() + " tasks in the list.";
         return message;
     }
 }

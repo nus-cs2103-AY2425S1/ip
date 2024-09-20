@@ -25,7 +25,6 @@ public class MarkCommand {
     private void mark() {
         Task task = tasks.get(position);
         task.doTask();
-        this.feedback();
     }
 
     public String feedback() {

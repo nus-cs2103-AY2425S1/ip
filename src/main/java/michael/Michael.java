@@ -54,10 +54,6 @@ public class Michael extends Application {
                 String input = user.nextLine().strip();
                 String feedback = parser.parse(input);
                 ui.giveFeedback(feedback);
-
-                if (input.equals("bye")) {
-                    break;
-                }
             } catch (MichaelException e) {
                 ui.showLoadingError(e.getMessage());
             }
@@ -80,9 +76,5 @@ public class Michael extends Application {
 
     public Parser getParser() {
         return this.parser;
-    }
-
-    public Ui getUi() {
-        return this.ui;
     }
 }
