@@ -17,22 +17,7 @@ public class Ui {
      * @return Formatted message.
      */
     public static String say(String message) {
-        return say(message.split("\n"));
-    }
-
-    /**
-     * Returns a multi-line message as if Him is saying it.
-     *
-     * @param message String array where each element is printed on a new line.
-     * @return Formatted message.
-     */
-    public static String say(String[] message) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Him: ").append(message[0]).append("\n");
-        for (int i = 1; i < message.length; i++) {
-            sb.append("        ").append(message[i]).append("\n");
-        }
-        return sb.toString();
+        return message;
     }
 
     /**
@@ -41,7 +26,7 @@ public class Ui {
      * @return Greeting.
      */
     public static String greet() {
-        return say(new String[]{"Hello! I'm Him", "What can I do for you?"});
+        return say("Hello! I'm Him\nWhat can I do for you?");
     }
 
     /**

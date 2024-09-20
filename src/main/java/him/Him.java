@@ -38,7 +38,7 @@ public class Him {
         } catch (IOException e) {
             return him.Ui.showSaveFailure();
         } catch (HimException e) {
-            return him.Ui.say(e.getMessage().split("\n"));
+            return him.Ui.say(e.getMessage());
         }
 
     }
