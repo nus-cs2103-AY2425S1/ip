@@ -24,13 +24,48 @@ Meet **KillJoy**—your sassy, tech-savvy sidekick who's always three steps ahea
 
 ## Getting Started
 
-1. **Download KillJoy**:
-    - Clone the repository from GitHub.
-    - Open the command line and navigate to the folder where KillJoy is stored.
+## How to Test KillJoy JAR File
 
-2. **Running KillJoy**:
-    - Open a terminal in the project directory and run `java -jar KillJoy.jar`.
-    - KillJoy will greet you and is ready to assist with your tasks.
+To test the `KillJoy.jar` file, follow the steps below:
+
+### Prerequisites
+
+- Ensure you have Java 17 installed on your system. You can verify your Java version by running the following command in your terminal or command prompt:
+
+  ```bash
+  java -version
+  ```
+
+  You should see output similar to:
+  ```bash
+  java version "17.0.x"
+  ```
+
+### Steps to Test
+
+1. **Download the JAR File**:
+- Navigate to the [Releases](https://github.com/thisisaditya17/ip/releases) section of this repository.
+- Download the latest `killjoy.jar` file.
+
+2. **Open Terminal or Command Prompt**:
+
+3. **Navigate to the Directory**:
+- Use the `cd` command to navigate to the directory where you downloaded the `killjoy.jar` file. For example:
+
+  ```bash
+  cd Downloads
+  ```
+
+4. **Run the JAR File**:
+- To execute the JAR file, use the following command:
+
+  ```bash
+  java -jar killjoy.jar
+  ```
+
+5. **Interact with KillJoy**:
+- Once the application starts, KillJoy will greet you, and you can begin using the various commands (e.g., adding tasks, marking tasks, deleting tasks).
+
 
 ---
 
@@ -207,3 +242,4 @@ Ends the session and saves the current task list. KillJoy bids you farewell with
 Bubyyeee & Don't Stwesszz. Time to hide now!!
 ```
 ---
+This is generated with help of ChatGPT
