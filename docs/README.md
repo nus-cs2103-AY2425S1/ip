@@ -1,5 +1,5 @@
 # Tanjiro Bot 
-![Screenshot of the Tanjiro Bot](docs/Ui.png)
+![Screenshot of the Tanjiro Bot](Ui.png)
 
 ## Description:
 Tanjiro Bot is an intelligent assistant bot that helps you stay organised and productive. It provides various commands for the user to use:
