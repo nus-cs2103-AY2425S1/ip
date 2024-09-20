@@ -26,9 +26,10 @@ This is a project done by Xingye for a greenfield Java project. It's named after
 1. Ensure you have Java `17` (preferred) or above installed.
 2. Download the `Miku.jar` file from here
 3. Double click to run the file **OR** Open a command terminal, `cd` to the folder where the jar file is located, run the jar file using `java -jar Miku.jar`.
-   A GUI similar to the below should appear, some sample conversations are shown in the example.
-   <img width="446" alt="image" src="https://github.com/user-attachments/assets/e81f26c4-f666-4efa-bea2-73b65e1238ce">
-4. Type the command in the command box and press the send button to chat with Miku. e.g. typing `list` will prompt Miku to show you what events that you have told Miku to memorise, check the [Features](##Features) below for more commands.
+   A GUI similar to the below should appear, the example shows what happens when `list` command is entered.
+   
+<img width="446" alt="image" src="https://zhou-colla.github.io/ip/Ui.png">
+5. Type the command in the command box and press the send button to chat with Miku. e.g. typing `list` will prompt Miku to show you what events that you have told Miku to memorise, check the [Features](##Features) below for more commands.
 
 ## Features
 
@@ -39,6 +40,7 @@ E.g. The command sections are highlighted:
 
 **Notes about the format of Miku's responses:**
 Miku's responses will be wrapped in a dialog box. E.g. Miku's response to `list` command is shown below.
+
 <img width="390" alt="image" src="https://github.com/user-attachments/assets/ae055792-fc46-43b6-825a-ad5a839c4bfb">
 
 ### View the task list: `list`
@@ -144,6 +146,7 @@ STRING: the string value that the description of the task contains
 Example: `find Read a book`
 
 Expected outcome of the example:
+
 <img width="374" alt="image" src="https://github.com/user-attachments/assets/cf63059a-c98c-496a-a21a-d4f42bde915c">
 
 
