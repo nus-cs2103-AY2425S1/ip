@@ -2,45 +2,165 @@
 
 ![Screenshot](Ui.png)
 
-## Welcome to Nimbus, a cloud that helps you manage your tasks!
+#### Introducing Nimbus!
+A cute cloud that keeps track of your daily tasks.  
+It can handle todo tasks, tasks with deadlines and also events!
 
-## Adding deadlines
+## Add Tasks
 
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
+### Add Todo Task
+This adds a todo task which is any task that does not have any due dates.  
+##### Format:  
 ```
-expected output
+todo Cut the apple
+```
+The task will be created and added to the existing task list.  
+
+##### Expected Output:
+```
+Nimbus added this: 
+[T][ ] Cut the apple
 ```
 
-## Level 0
+### Add Deadline Task
+This adds a deadline task which is a task that has a deadline.  
+##### Format:  
+```
+deadline quiz /by 22/8/2024 1200
+```
+The task will be created and added to the existing task list.  
 
-nimbus.nimbus is now able to say hi and bye!
+##### Expected Output:
+```
+Nimbus added this: 
+[D][ ] quiz (by: Aug 22 2024 12:00 pm)
+```
 
-Check out the ASCII art when you start nimbus.nimbus!
+### Add Event Task
+This adds an event task which is a task that has a start and end time.  
+##### Format:  
+```
+event floor event /from 25/9/2024 1400 /to 1900
+```
+The task will be created and added to the existing task list.  
 
+##### Expected Output:
+```
+Nimbus added this: 
+[E][ ] floor event (from: Sep 25 2024 2:00 pm to: Sep 25 2024 7:00 pm)
+```
 
-## Level 1
+## Delete Task
+This deletes a task when provided an index.  
+##### Format:  
+```
+delete 1
+```
+The task will be deleted from the existing task list.  
 
-nimbus.nimbus is mimicking you.
+##### Expected Output:
+```
+Nimbus has removed the task! 
+    [T][ ] Cut the apple
+```
 
-## Level 2
+## List Task
+This lists out all existing tasks in the task list 
+##### Format:  
+```
+list
+```
+Prints all existing tasks in the task list.  
 
-nimbus.nimbus can now add tasks into a list
+##### Expected Output:
+```
+Nimbus says this is your list: 
+1. [E][ ] floor event (from: Sep 25 2024 2:00 pm to: Sep 25 2024 7:00 pm)
+```
 
-nimbus.nimbus can show you your list
+## Mark Task
+This marks a task as done.  
+##### Format:  
+```
+mark 1
+```
+The task will be marked done in the existing task list.  
 
-## Level 3
+##### Expected Output:
+```
+Nimbus shall mark this as done:
+    [E][X] floor event (from: Sep 25 2024 2:00 pm to: Sep 25 2024 7:00 pm)
+```
 
-nimbus.nimbus can mark tasks as completed or incomplete
+## Unmark Task
+This marks a task as undone.  
+##### Format:  
+```
+unmark 1
+```
+The task will be marked undone in the existing task list.  
 
-nimbus.nimbus will tell you if the task exist if it is out of range
+##### Expected Output:
+```
+Nimbus shall mark this as not done:
+    [E][ ] floor event (from: Sep 25 2024 2:00 pm to: Sep 25 2024 7:00 pm)
+```
 
-## Level 4
+## Find Task
+Based on the provided keyword, find the task in the task list.  
+##### Format:  
+```
+find floor event
+```
+Prints a list of tasks that contain the keyword in their task descriptions.  
 
-nimbus.nimbus now knows how to handle todo, deadline and event task types
+##### Expected Output:
+```
+1. [E][ ] floor event (from: Sep 25 2024 2:00 pm to: Sep 25 2024 7:00 pm)
+Here are your results :3
+```
+
+## Check Task
+Based on the provided date time, find tasks due on the date or events happening on the date.  
+##### Format:  
+```
+check 25/9/2024
+```
+Prints a list of tasks that either due on the selected date or happening on the date.  
+
+##### Expected Output:
+```
+1. [E][ ] floor event (from: Sep 25 2024 2:00 pm to: Sep 25 2024 7:00 pm)
+Nimbus reminds you that these tasks are due on 2024-09-25
+```
+
+## Ending the program
+Ends the program and saves all changes in text file.  
+GUI will close after 3 seconds of wait time.
+##### Format:  
+```
+bye
+```
+Prints a goodbye message.  
+
+##### Expected Output:
+```
+
+     .-') _             _   .-')    .-. .-')                  .-')    
+    ( OO ) )           ( '.( OO )_  \  ( OO )                ( OO ).  
+,--./ ,--,'    ,-.-')   ,--.   ,--.) ;-----.\   ,--. ,--.   (_)---\_) 
+|   \ |  |\    |  |OO)  |   `.'   |  | .-.  |   |  | |  |   /    _ |  
+|    \|  | )   |  |  \  |         |  | '-' /_)  |  | | .-') \  :` `.  
+|  .     |/    |  |(_/  |  |'.'|  |  | .-. `.   |  |_|( OO ) '..`''.) 
+|  |\    |    ,|  |_.'  |  |   |  |  | |  \  |  |  | | `-' /.-._)   \ 
+|  | \   |   (_|  |     |  |   |  |  | '--'  / ('  '-'(_.-' \       / 
+`--'  `--'     `--'     `--'   `--'  `------'    `-----'     `-----'  
+BAIBAI! NIMBUS WEEEEEEEEE
+------------------------------------------------------------------------
+```
+
+## Handling of exceptions
+There are multiple exceptions to catch invalid user input and they  
+provide guidance on the correct way to format your input!
+
+# Hope that you enjoy using Nimbus!!!
