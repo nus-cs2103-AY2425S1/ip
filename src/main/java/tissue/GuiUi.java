@@ -90,12 +90,16 @@ public class GuiUi {
     }
 
     private String findResponse() {
-        ArrayList<Task> matches = taskList.searchKeyword(parser.retrieveNextString());
-        String s = INDENT + "Here are the matching tasks!\n";
-        for (Task task : matches) {
-            s = s + INDENT + task + "\n";
+        try {
+            ArrayList<Task> matches = taskList.searchKeyword(parser.retrieveNextString());
+            String s = INDENT + "Here are the matching tasks!\n";
+            for (Task task : matches) {
+                s = s + INDENT + task + "\n";
+            }
+            return s;
+        } catch (NoSuchElementException e) {
+            return "Please input an element.";
         }
-        return s;
     }
 
     public String getResponse(String input) {
@@ -213,6 +217,7 @@ public class GuiUi {
                 unmark [number]
                 list
                 delete [number]
+                find [keyword]
                 """;
     }
 }
