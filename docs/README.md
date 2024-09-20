@@ -47,11 +47,8 @@ mark <task index>
 // mark as incompleted
 unmark <task index>
 ```
-not marked as done:
-`[E][ ] task3 (from: 2024-06-22 04:00 pm to: 2024-06-22 06:00 pm)`
-
-checked as done: 
-`[E][X] task3 (from: 2024-06-22 04:00 pm to: 2024-06-22 06:00 pm)`
+not marked as done: `[E][ ] task3 (from: 2024-06-22 04:00 pm to: 2024-06-22 06:00 pm)`
+checked as done: `[E][X] task3 (from: 2024-06-22 04:00 pm to: 2024-06-22 06:00 pm)`
 
 ### Deleting tasks
 - Deletes a task by index.
