@@ -67,7 +67,8 @@ public class Ui extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<Ui>getController().setAsura(asura);  // inject the Duke instance
+            stage.setTitle("Asura");
+            fxmlLoader.<Ui>getController().setAsura(asura);  // inject the Asura instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
