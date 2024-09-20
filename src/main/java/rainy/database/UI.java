@@ -57,7 +57,7 @@ public class UI {
      * Displays message when the user provides a date in the wrong format.
      */
     public String invalidDateDeadline() {
-        return "Please input a date and time  in the format MM/DD/YYYY HHMM!";
+        return "Please input a date and time in the format MM/DD/YYYY HHMM!";
     }
 
     /**
@@ -166,8 +166,8 @@ public class UI {
         System.out.println("Task has been updated!");
     }
 
-    public void invalidDeadlineParameter() {
-        System.out.println("Please enter a valid parameter for editing your Deadline!!!");
+    public String invalidDeadlineParameter() {
+        return "Please enter a valid parameter for editing your Deadline!!!";
     }
 
     public void invalidEventParameter() {
