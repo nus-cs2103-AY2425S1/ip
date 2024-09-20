@@ -4,17 +4,26 @@
 
 > _Organize with ease, accomplish with **Ollie ☺** !_ ️
 
+---
+
 # What is Ollie️ ☺️
 
 **Ollie ☺**️ is your task manager app! 
 - Manages your tasks for you
 - _User-friendly_ syntax using one-letter commands eg `-l` to list all tasks
 - [Features](#features)
-  - [Adding tasks](#add-a-task)
-  - [Listing tasks](#list-all-tasks)
-  - [Deleting tasks](#delete-a-task)
-  - [Marking tasks](#mark-a-task-as-done)
-  - [Finding tasks](#find-tasks)
+  - [Add tasks](#add-a-task)
+      - [Add a Todo Task](#add-a-todo-task) `todo`
+      - [Add a Deadline Task](#add-a-deadline-task) `deadline`
+      - [Add an Event Task](#add-an-event-task) `event`
+  - [List all tasks](#list-all-tasks) `-l`
+  - [Delete tasks](#delete-a-task) `-d`
+  - Mark tasks
+     - [Mark a task as done](#mark-a-task-as-done) `-m`
+     - [Unark a task as done](#unmark-a-task-as-done) `-u`
+  - [Find tasks](#find-tasks) `-f`
+
+---
 
 # How to use Ollie️ ☺️
 1. Make sure Java 17 or above is installed.
@@ -30,6 +39,8 @@
 
 7. Please refer to [features](#features) for the commands that can be typed.
 
+--- 
+
 # Features
 Function | Command | Format | Example
 ---|---|---|---
@@ -38,7 +49,7 @@ Function | Command | Format | Example
 [Add an Event task](#add-a-deadline-task) | `event` | `event <description> /from: <YYYY-MM-DD HH:MM> /to: <YYYY-MM-DD HH:MM>` | `event meeting /from: 2021-09-17 14:00 /to: 2021-09-17 16:00`
 [List all tasks](#list-all-tasks) | `-l` | `-l` | `-l`
 [Mark a task as done](#mark-a-task-as-done) | `-m`| `-m <task number>` | `-m 1`
-[Mark a task as undone](#mark-a-task-as-undone) | `-u`| `-u <task number>` | `-u 1`
+[Mark a task as undone](#unmark-a-task-as-done) | `-u`| `-u <task number>` | `-u 1`
 [Delete a task](#delete-a-task) | `-d` | `-d <task number>` | `-d 1`
 [Find a task with the keyword](#find-tasks) | `-f` | `-f <keyword to find>`| `-f book`
 
@@ -49,6 +60,8 @@ Function | Command | Format | Example
 
 **Other commands:**
 - `-b`: Say bye to Ollie ☺
+
+</br>
 
 ## Add a task
 There are 3 types of tasks that can be added to the task list:
@@ -90,6 +103,8 @@ Example: `event meeting /from: 2021-09-17 14:00 /to: 2021-09-17 16:00` adds an E
 
 <img src="./images/Event.png" width="300">
 
+</br>
+
 ## List all tasks
 > ```
 > -l
@@ -99,6 +114,8 @@ Example: `event meeting /from: 2021-09-17 14:00 /to: 2021-09-17 16:00` adds an E
 Example: `-l` lists all tasks in the task list.
 
 <img src="./images/List.png" width="300">
+
+</br>
 
 ## Update a task
 ### Mark a task as done
@@ -111,7 +128,7 @@ Example: `-m 1` marks the first task in the list as done.
 
 <img src="./images/Mark.png" width="300">
 
-### Mark a task as undone
+### Unmark a task as done
 > ```
 > -u <task number>
 > ```
@@ -130,6 +147,8 @@ Example: `-u 1` marks the first task in the list as undone.
 Example: `-d 3` deletes the third task in the list.
 
 <img src="./images/Delete.png" width="300">
+
+</br>
 
 ## Find tasks
 > ```
