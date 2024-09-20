@@ -12,6 +12,24 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import luke.command.Command;
 
+/**
+ * The {@code LukeUiWindow} class represents the main user interface (UI) window for interacting with Luke.
+ * This class is responsible for handling user inputs, displaying Luke's responses, and managing the dialog flow
+ * between the user and the application.
+ * <p>
+ *
+ * Key features:
+ * <ul>
+ *   <li>Displays welcome messages and instructions for the user</li>
+ *   <li>Handles the user's input and provides responses from the {@link Luke} instance</li>
+ *   <li>Loads previous task data from storage upon initialisation</li>
+ *   <li>Allows the user to create a new save file if one is missing</li>
+ * </ul>
+ *
+ * @see Luke
+ * @see DialogBox
+ * @see Storage
+ */
 public class LukeUiWindow extends AnchorPane {
     @FXML
     private ScrollPane scrollPane;

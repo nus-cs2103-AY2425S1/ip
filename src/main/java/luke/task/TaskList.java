@@ -6,9 +6,11 @@ import java.util.List;
 import luke.env.Constants;
 
 /**
- * TaskList.java --- stores a ArrayList of Tasks (todo, deadline, event).
+ * The {@code TaskList} class stores a ArrayList of Tasks (todo, deadline, event).
  * It also has methods that can be used to modify or inspect the state of the Task ArrayList.
- * @author frymash
+ *
+ * @see TaskList
+ * @see luke.Ui
  */
 public class TaskList {
     private ArrayList<Task> taskList = new ArrayList<>();
@@ -36,7 +38,7 @@ public class TaskList {
 
     /**
      * Prints a message to inform the user that the task they had called does not exist.
-     * @param taskNumber the index number of the task the user had tried to call.
+     * @param taskNumber The index number of the task the user had tried to call.
      */
     public static String taskNotFound(int taskNumber) {
         return "task " + taskNumber + " doesn't exist...try another number!\n";
@@ -44,7 +46,7 @@ public class TaskList {
 
     /**
      * Returns information on the size of the task list.
-     * @return a string message with information on the size of the task list.
+     * @return A string message with information on the size of the task list.
      */
     public String listSizeUpdateMessage() {
         int listSize = taskList.size();
@@ -57,12 +59,12 @@ public class TaskList {
 
     /**
      * Adds a task from user input or save data to the task list.
-     * @param command task type (todo, deadline, event).
-     * @param taskDetails details of the task.
-     * @param isMarked true if the task to be added is marked as done.
-     * @param isLoadingFromDisk true if the task to be added originated from save data.
-     * @throws NoDescriptionException thrown when args is a blank string.
-     * @throws UnknownCommandException thrown when any command apart from the task types are passed to the function.
+     * @param command Task type (todo, deadline, event).
+     * @param taskDetails Details of the task.
+     * @param isMarked True if the task to be added is marked as done.
+     * @param isLoadingFromDisk True if the task to be added originated from save data.
+     * @throws NoDescriptionException Thrown when args is a blank string.
+     * @throws UnknownCommandException Thrown when any command apart from the task types are passed to the function.
      */
     public String addToList(String command, String taskDetails, boolean isMarked, boolean isLoadingFromDisk)
             throws NoDescriptionException, UnknownCommandException {

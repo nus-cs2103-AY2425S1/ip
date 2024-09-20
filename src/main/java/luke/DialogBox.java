@@ -14,6 +14,15 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+/**
+ * The {@code DialogBox} class represents a custom JavaFX component that displays a dialog box with text
+ * and an accompanying image (the user is represented by an Ewok and Luke is represented by Luke Skywalker.)
+ * It is used in Luke to show both user messages and Luke's responses.
+ * <p>
+ * This class is designed to load the layout from an FXML file and includes methods to format the dialog
+ * box, such as flipping the display to show either the user dialog or Luke's dialog.
+ * </p>
+ */
 public class DialogBox extends HBox {
     @FXML
     private Label dialog;

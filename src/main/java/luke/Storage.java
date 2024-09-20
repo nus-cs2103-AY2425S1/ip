@@ -11,6 +11,22 @@ import luke.env.Constants;
 import luke.task.Task;
 import luke.task.TaskList;
 
+/**
+ * The {@code storage} class handles the loading and saving of task data from a file.
+ * <p>
+ * This class is responsible for:
+ * <ul>
+ *     <li>Checking if save data exists</li>
+ *     <li>Creating a save file at saveDataPath if it doesn't exist</li>
+ *     <li>Saving the current task list to the save file</li>
+ *     <li>Loading task data from the save file into the application</li>
+ * </ul>
+ * The save data is stored in a file at a path specified by {@link Constants#FILE_PATH}.
+ *
+ * @see TaskList
+ * @see Task
+ * @see Ui
+ */
 public class Storage {
     private static final Path saveDataPath = Paths.get(Constants.FILE_PATH);
 
@@ -28,9 +44,8 @@ public class Storage {
     }
 
     /**
-     * Creates a save file.
-     * This function will only be called if the user indicates that they want a save file to be created.
-     * @throws IOException if any I/O errors occur
+     * Creates a save file to be stored at the location specified in saveDataPath.
+     * @throws IOException If any I/O errors occur
      */
     public static void createSaveFile() throws IOException {
         Files.createFile(saveDataPath);
@@ -38,7 +53,7 @@ public class Storage {
 
     /**
      * Writes the task list data into the save file.
-     * @param taskList  a list of Task objects
+     * @param taskList A list of Task objects
      */
     public static void saveData(TaskList taskList) {
         try {
