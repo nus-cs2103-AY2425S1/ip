@@ -2,6 +2,7 @@ package astor.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import astor.exception.TimeFormatException;
 
@@ -23,8 +24,12 @@ public class Event extends Task {
      */
     public Event(String taskInfo, String start, String end) throws TimeFormatException {
         super(taskInfo);
-        this.start = LocalDateTime.parse(generateParse(start));
-        this.end = LocalDateTime.parse(generateParse(end));
+        try {
+            this.start = LocalDateTime.parse(generateParse(start));
+            this.end = LocalDateTime.parse(generateParse(end));
+        } catch (DateTimeParseException e) {
+            throw new TimeFormatException();
+        }
     }
 
     /**

@@ -72,6 +72,7 @@ public class Task {
         if (dateAndTime.length < 3) {
             throw new TimeFormatException();
         }
+
         String parsedDate = dateAndTime[2] + "-" + dateAndTime[1] + "-" + dateAndTime[0];
 
         if (dateAndTime.length > 3) {
@@ -83,19 +84,6 @@ public class Task {
         }
         return parsedDate;
     }
-
-    /*
-    public static LocalDateTime generateLocalDateTime(String deadline) {
-        String parse = Task.generateParse(deadline);
-        try {
-            return LocalDateTime.parse(parse);
-        } catch (DateTimeParseException e) {
-
-        }
-
-    }
-
-     */
 
     /**
      * Returns a string description of the task data for saving or processing.

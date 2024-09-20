@@ -2,6 +2,7 @@ package astor.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import astor.exception.TimeFormatException;
 
@@ -21,7 +22,12 @@ public class Deadline extends Task {
      */
     public Deadline(String taskInfo, String deadline) throws TimeFormatException {
         super(taskInfo);
-        this.deadline = LocalDateTime.parse(generateParse(deadline));
+        try  {
+            this.deadline = LocalDateTime.parse(generateParse(deadline));
+        } catch (DateTimeParseException e) {
+            throw new TimeFormatException();
+        }
+
     }
 
     /**

@@ -16,7 +16,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private final Astor astor = new Astor("./src/main/data/astor.Astor.txt");
+    private final Astor astor = new Astor("./src/main/data/Astor.txt");
 
     @Override
     public void start(Stage stage) {
@@ -30,6 +30,7 @@ public class Main extends Application {
             stage.setMinHeight(220);
             stage.setMinWidth(417);
             fxmlLoader.<MainWindow> getController().setAstor(astor); // inject the Duke instance
+            stage.setTitle("Astor");
             stage.show();
             stage.toFront();
 
