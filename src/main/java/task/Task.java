@@ -81,7 +81,7 @@ public abstract class Task {
         String[] tokens = s.split(" ");
         StringBuilder name = new StringBuilder();
         for (int i = 2; i < tokens.length; i++) {
-            name.append(tokens[i]);
+            name.append(tokens[i]).append(" ");
         }
 
 
@@ -105,7 +105,7 @@ public abstract class Task {
                 if (tokens[i].equals("(by:")) {
                     isName = false;
                 } else {
-                    name.append(tokens[i]);
+                    name.append(tokens[i]).append(" ");
                 }
             } else {
                 fullDate.append(tokens[i]).append(" ");
@@ -139,7 +139,7 @@ public abstract class Task {
                 if (tokens[i].equals("(from:")) {
                     isName = false;
                 } else {
-                    name.append(tokens[i]);
+                    name.append(tokens[i]).append(" ");
                 }
             } else {
                 if (tokens[i].equals("to:")) {

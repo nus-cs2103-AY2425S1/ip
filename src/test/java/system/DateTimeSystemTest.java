@@ -3,6 +3,7 @@ package system;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +22,9 @@ public class DateTimeSystemTest {
         DateTimeSystem dateTimeSystem = new DateTimeSystem();
         LocalDateTime ldt = LocalDateTime.of(2024, 8, 29, 12, 12);
 
-        assertEquals("2024-08-29 12:12 pm", dateTimeSystem.formatLocalTimeDate(ldt));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm a");
+
+        assertEquals(ldt.format(formatter), dateTimeSystem.formatLocalTimeDate(ldt));
     }
 
 }

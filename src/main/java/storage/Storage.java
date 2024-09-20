@@ -31,11 +31,7 @@ public class Storage {
     public void createFile() {
         file.getParentFile().mkdirs();
         try {
-            if (file.createNewFile()) {
-                System.out.println("File created: " + file.getName());
-            } else {
-                System.out.println("File already exists.");
-            }
+            file.createNewFile();
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
