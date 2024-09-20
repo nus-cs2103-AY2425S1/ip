@@ -4,7 +4,6 @@ import java.util.Objects;
 
 import bot.Bot;
 import bot.constants.Message;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
