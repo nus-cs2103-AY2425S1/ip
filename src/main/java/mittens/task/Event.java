@@ -4,9 +4,17 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
+    
     protected LocalDate from;
     protected LocalDate to;
 
+    /**
+     * Creates an Event task with the given description and date range.
+     * 
+     * @param description The description of the task
+     * @param from The start date of the event
+     * @param to The end date of the event
+     */
     public Event(String description, LocalDate from, LocalDate to) {
         super(description);
         this.from = from;
