@@ -26,7 +26,10 @@ public class DateParser {
      * @return reformatted {@link String} after being parsed as a {@link LocalDate} and back into the desired format
      */
     public String giveDate(String s) {
-        LocalDate date = null;
+        LocalDate date = DayToDateParser.getNextDateForDay(s);
+        if(date != null){
+            return date.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
+        }
         for (DateTimeFormatter formatter : formatters) {
             try {
                 date = LocalDate.parse(s, formatter);
