@@ -1,7 +1,7 @@
-package sage.exception;
+package totoro.exception;
 
 import org.junit.jupiter.api.Test;
-import sage.Sage;
+import totoro.Sage;
 
 import static org.junit.jupiter.api.Assertions.*;
 

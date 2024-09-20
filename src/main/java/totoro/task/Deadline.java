@@ -1,11 +1,7 @@
-package sage.task;
+package totoro.task;
 
-import sage.exception.SageException;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * Deadline class represents a task with a deadline
@@ -20,7 +16,7 @@ public class Deadline extends Task{
      * @param by The due date and time of the task
      * @throws SageException if the description or due date is empty or deadline format is invalid
      */
-    public Deadline(String description, LocalDateTime by) throws SageException {
+    public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
     }

@@ -1,8 +1,8 @@
-package sage;
+package totoro;
 
-import sage.exception.SageException;
-import sage.task.TaskList;
-import sage.task.Task;
+import totoro.exception.TotoroException;
+import totoro.task.TaskList;
+import totoro.task.Task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -38,11 +38,11 @@ public class Ui {
      * Display a goodbye message to the users when they exit the application
      */
     public String showGoodbyeMessage() {
-        return "Awww :(( Hope to see you again next time!";
+        return "Bye!! Hope to see you again next time :)";
     }
 
 
-    public String showErrorMessage(SageException e) {
+    public String showErrorMessage(TotoroException e) {
         return e.toString();
     }
 
@@ -118,6 +118,7 @@ public class Ui {
                 + "7. deadline <description> /by <dd/MM/yyyy HH:mm>: Adds a deadine task to your list\n"
                 + "8. event <description> /from <dd/MM/yyyy HH:mm> /to <dd/MM/yyyy HH:mm>: Adds an event task to your list\n"
                 + "9. delete <task number>: Deletes the task from your list\n"
-                + "10. find <keyword>: Searches for tasks matching your keyword";
+                + "10. find <keyword>: Searches for tasks matching your keyword"
+                + "11. schedule <dd/MM/yy>: Searches for tasks matching your date";
     }
 }

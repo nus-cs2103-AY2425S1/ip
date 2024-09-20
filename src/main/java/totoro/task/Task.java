@@ -1,4 +1,4 @@
-package sage.task;
+package totoro.task;
 
 /**
  * Represents an abstract task in the task management application

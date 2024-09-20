@@ -1,14 +1,15 @@
-package sage.storage;
+package totoro.storage;
 
-import sage.exception.SageException;
-import sage.task.*;
+import totoro.exception.TotoroException;
+import totoro.exception.TotoroFileException;
+import totoro.exception.TotoroFileFormatException;
+import totoro.task.*;
 
 
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -30,7 +31,7 @@ public class Storage {
      * @return Lists of tasks loaded from the file
      * @throws SageException If there is an error loading the tasks
      */
-    public ArrayList<Task> load() throws SageException {
+    public ArrayList<Task> load() throws TotoroException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(this.filePath);
 
@@ -46,7 +47,7 @@ public class Storage {
                 tasks.add(parseTask(line));
             }
         } catch (IOException e) {
-            throw new SageException("Error loading tasks");
+            throw new TotoroFileException();
         }
         return tasks;
     }
@@ -57,7 +58,7 @@ public class Storage {
      * @param tasks TaskList containing the tasks to be saved
      * @throws SageException If there is an error saving the tasks
      */
-    public void saveTasks(ArrayList<Task> tasks) throws SageException{
+    public void saveTasks(ArrayList<Task> tasks) throws TotoroFileException {
         try {
             File file = new File(filePath);
             file.getParentFile().mkdirs();
@@ -72,7 +73,7 @@ public class Storage {
             bufferedWriter.close();
             fileWriter.close();
         } catch (IOException e) {
-            throw new SageException("Error saving tasks");
+            throw new TotoroFileException();
         }
     }
 
@@ -83,7 +84,7 @@ public class Storage {
      * @return The Task object represented by the input line
      * @throws SageException If the task type is invalid or if the line format is incorrect
      */
-    private Task parseTask(String line) throws SageException {
+    private Task parseTask(String line) throws TotoroFileFormatException {
         String parts[] = line.split(" \\| ");
         assert parts.length >= 3;
 
@@ -106,7 +107,7 @@ public class Storage {
                 task = new Event(description, from, to);
                 break;
             default:
-                throw new SageException("Invalid task type");
+                throw new TotoroFileFormatException();
         }
         if (parts[1].equals("1")) {
             task.markAsDone();

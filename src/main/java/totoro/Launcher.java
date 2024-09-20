@@ -1,4 +1,4 @@
-package sage;
+package totoro;
 
 import javafx.application.Application;
 
