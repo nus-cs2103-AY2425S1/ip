@@ -30,7 +30,7 @@ public class Storage {
     }
 
     /**
-     * Load the user's task data.
+     * Loads the user's task data.
      * @return The saved list of tasks of the user.
      * @throws AsuraException If loading the data fails.
      */
