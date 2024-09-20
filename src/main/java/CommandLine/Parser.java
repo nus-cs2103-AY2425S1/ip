@@ -78,7 +78,7 @@ public class Parser {
                 return "Enter a word";
             }
         default:
-            return "Unknown command, type help for a list of available commands";
+            return "Unknown command, refer to the user guide for list of commands";
 
         }
     }

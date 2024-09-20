@@ -4,11 +4,14 @@
 
 Welcome to NotAGPT! It's a chatbot that helps you keep track of your tasks.
 
+## Installation
+Please run this in a folder where you have permissions to create a directory.
+This will be used to store your tasks.
+
 ## Tasks
 
 There are 3 types of tasks you can add. Todos, deadlines and events.
 Todos have no date associated with them, deadlines have an ending date, while events have a start and end time.
-
 
 ## Viewing the tasklist
 
@@ -83,7 +86,7 @@ Now you have 3 tasks in the list.
 ```
 
 ## Marking task as done
-Now, if you type `list`, you should see see all the tasks you've added.
+Now, if you type `list`, you should see all the tasks you've added.
 If you want to mark a task as done, simply type `mark (index)`. 
 Example: `mark 2`
 You should see the [T][X] (name of task)
