@@ -31,7 +31,8 @@ public class DeleteCommand extends Command {
      */
     public String run() throws YodaException {
         if (!hasValidFormat(input)) {
-            throw new YodaException("Delete... which one?");
+            throw new YodaException("Delete... which one?" +
+                    "\n" + "Command should be in format: delete [number]");
         }
         String[] splitInput = input.split(" ", 2);
         int index = Integer.parseInt(splitInput[1]);

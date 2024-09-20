@@ -33,7 +33,8 @@ public class DeadlineCommand extends Command {
      */
     public String run() throws YodaException {
         if (!hasValidFormat(input)) {
-            throw new YodaException("A deadline must have a description and due by time, no...?");
+            throw new YodaException("A deadline must have a description and due by date, no...?" +
+                    "\n" + "Command should be in format: deadline [name] /by [yyyy-mm-dd]");
         }
         String[] splitInput = input.split(" ", 2);
         String task = splitInput[1];

@@ -4,6 +4,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
 
 <fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
     <children>
@@ -16,7 +19,53 @@
          </padding>
          <opaqueInsets>
             <Insets />
-         </opaqueInsets></Label>
+         </opaqueInsets>
+         <textFill>
+            <LinearGradient endX="1.0" endY="1.0" startY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="1.0" green="0.18333333730697632" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.006711409395973154">
+                     <color>
+                        <Color red="1.0" green="0.18333333730697632" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.18264036667212302">
+                     <color>
+                        <Color red="1.0" green="0.5" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.3505688328695367">
+                     <color>
+                        <Color red="0.8684210777282715" green="0.7151072025299072" blue="0.03216374292969704" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.5149165166148305">
+                     <color>
+                        <Color red="0.22534112632274628" green="0.8947368264198303" blue="0.057992201298475266" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.7137420199705353">
+                     <color>
+                        <Color red="0.17592592537403107" green="0.7253086566925049" blue="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.9060402684563756">
+                     <color>
+                        <Color red="0.5" blue="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.5" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </textFill></Label>
         <ImageView fx:id="displayPicture" fitHeight="91.0" fitWidth="91.0" pickOnBounds="true" preserveRatio="true" />
     </children>
     <padding>

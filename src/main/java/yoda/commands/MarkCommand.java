@@ -31,7 +31,8 @@ public class MarkCommand extends Command {
      */
     public String run() throws YodaException {
         if (!hasValidFormat()) {
-            throw new YodaException("Mark... which one?");
+            throw new YodaException("Mark... which one?" +
+                    "\n" + "Command should be in format: mark [number]");
         }
         String[] splitInput = input.split(" ", 2);
         int index = Integer.parseInt(splitInput[1]);

@@ -30,7 +30,8 @@ public class TodoCommand extends Command {
      */
     public String run() throws YodaException {
         if (!hasValidFormat()) {
-            throw new YodaException("A todo must have a description, no...?");
+            throw new YodaException("A todo must have a description, no...?" +
+                    "\n" + "Command should be in format: todo [description]");
         }
         String[] splitInput = input.split(" ", 2);
         String task = splitInput[1];

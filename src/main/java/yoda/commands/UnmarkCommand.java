@@ -31,7 +31,8 @@ public class UnmarkCommand extends Command {
      */
     public String run() throws YodaException {
         if (!hasValidFormat(input)) {
-            throw new YodaException("Unmark... which one?");
+            throw new YodaException("Unmark... which one?" +
+                    "\n" + "Command should be in format: unmark [number]");
         }
         String[] splitInput = input.split(" ", 2);
         int index = Integer.parseInt(splitInput[1]);

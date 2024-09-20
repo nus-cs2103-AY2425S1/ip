@@ -33,7 +33,8 @@ public class FindCommand extends Command {
      */
     public String run() throws YodaException {
         if (!checkValidInput()) {
-            throw new YodaException("Find... what?");
+            throw new YodaException("Find... what?" +
+                    "\n" + "Command should be in format: find [words]");
         }
         String[] splitInput = input.split(" ", 2);
         String keyword = splitInput[1];
