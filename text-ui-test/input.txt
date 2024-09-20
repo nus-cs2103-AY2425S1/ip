@@ -1,0 +1,9 @@
+event project meeting /from Tuesday 3pm /to 4pm
+list
+mark 1
+deadline problem set 1 /by Wed 1600
+list
+todo buy groceries
+list
+mark 3
+bye

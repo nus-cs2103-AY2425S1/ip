@@ -1,0 +1,10 @@
+> Task :compileJava UP-TO-DATE
+> Task :processResources UP-TO-DATE
+> Task :classes UP-TO-DATE
+
+> Task :run
+Launching
+Previous Task list of size: 4 Loaded
+
+BUILD SUCCESSFUL in 19s
+3 actionable tasks: 1 executed, 2 up-to-date
