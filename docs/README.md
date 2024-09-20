@@ -1,4 +1,4 @@
-# Chatsy
+# Chatsy User Guide
 
 ![Screenshot of UI](Ui.png)
 
