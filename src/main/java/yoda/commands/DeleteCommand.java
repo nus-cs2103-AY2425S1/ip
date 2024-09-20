@@ -26,13 +26,13 @@ public class DeleteCommand extends Command {
      * Executes a delete command and deletes the task at the specified
      * index from the task list.
      *
-     * @return
+     * @return Yoda's response as a string
      * @throws YodaException if input formatting is invalid.
      */
     public String run() throws YodaException {
         if (!hasValidFormat(input)) {
-            throw new YodaException("Delete... which one?" +
-                    "\n" + "Command should be in format: delete [number]");
+            throw new YodaException("Delete... which one?" + "\n"
+                    + "Command should be in format: delete [number]");
         }
         String[] splitInput = input.split(" ", 2);
         int index = Integer.parseInt(splitInput[1]);

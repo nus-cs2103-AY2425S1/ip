@@ -28,13 +28,13 @@ public class DeadlineCommand extends Command {
     /**
      * Executes the command to add a new deadline task to the tasklist.
      *
-     * @return
+     * @return Yoda's response as a string
      * @throws YodaException if input format was invalid.
      */
     public String run() throws YodaException {
         if (!hasValidFormat(input)) {
-            throw new YodaException("A deadline must have a description and due by date, no...?" +
-                    "\n" + "Command should be in format: deadline [name] /by [yyyy-mm-dd]");
+            throw new YodaException("A deadline must have a description and due by date, no...?"
+                    + "\n" + "Command should be in format: deadline [name] /by [yyyy-mm-dd]");
         }
         String[] splitInput = input.split(" ", 2);
         String task = splitInput[1];

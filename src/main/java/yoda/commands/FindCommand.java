@@ -28,13 +28,12 @@ public class FindCommand extends Command {
     /**
      * Executes the FindCommand and displays a list of matching tasks.
      *
-     * @return
+     * @return Yoda's response as a string
      * @throws YodaException if input format is invalid.
      */
     public String run() throws YodaException {
         if (!checkValidInput()) {
-            throw new YodaException("Find... what?" +
-                    "\n" + "Command should be in format: find [words]");
+            throw new YodaException("Find... what?" + "\n" + "Command should be in format: find [words]");
         }
         String[] splitInput = input.split(" ", 2);
         String keyword = splitInput[1];

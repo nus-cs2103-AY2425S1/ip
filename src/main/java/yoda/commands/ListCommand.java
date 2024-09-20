@@ -23,7 +23,7 @@ public class ListCommand extends Command {
     /**
      * Executes the ListCommand and displays the task list.
      *
-     * @return
+     * @return Yoda's response as a string
      */
     public String run() {
         StringBuilder message = new StringBuilder();

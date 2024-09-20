@@ -1,11 +1,11 @@
 package yoda.commands;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
 
 import yoda.TaskList;
 import yoda.exceptions.YodaException;
@@ -32,7 +32,8 @@ public class MarkCommandTest {
             command.run();
             fail();
         } catch (Exception e) {
-            assertEquals("Mark... which one?", e.getMessage());
+            assertEquals("Mark... which one?\n"
+                    + "Command should be in format: mark [number]", e.getMessage());
         }
     }
 
@@ -45,7 +46,8 @@ public class MarkCommandTest {
             command.run();
             fail();
         } catch (Exception e) {
-            assertEquals("Mark... which one?", e.getMessage());
+            assertEquals("Mark... which one?\n"
+                    + "Command should be in format: mark [number]", e.getMessage());
         }
     }
 
@@ -58,7 +60,8 @@ public class MarkCommandTest {
             command.run();
             fail();
         } catch (Exception e) {
-            assertEquals("Mark... which one?", e.getMessage());
+            assertEquals("Mark... which one?\n"
+                    + "Command should be in format: mark [number]", e.getMessage());
         }
     }
 

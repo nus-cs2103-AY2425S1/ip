@@ -26,6 +26,11 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/UserImage.png"));
     private Image yodaImage = new Image(this.getClass().getResourceAsStream("/images/YodaImage.png"));
 
+    /**
+     * Initializes the GUI components.
+     * Binds the scroll pane to the height of the dialog container
+     * and adds an initial greeting message from Yoda.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

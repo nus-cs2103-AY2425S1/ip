@@ -10,7 +10,7 @@ public class ByeCommand extends Command {
      * Executes the ByeCommand by printing a goodbye message to the console.
      * This message indicates the end of the session.
      *
-     * @return
+     * @return Yoda's response as a string
      */
     public String run() {
         return "Bye. See you again soon, I hope to.";

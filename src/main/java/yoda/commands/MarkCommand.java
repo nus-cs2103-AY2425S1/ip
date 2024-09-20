@@ -26,13 +26,13 @@ public class MarkCommand extends Command {
     /**
      * Executes the command to mark a task as done.
      *
-     * @return
+     * @return Yoda's response as a string
      * @throws YodaException if input format is valid or task is out of bounds
      */
     public String run() throws YodaException {
         if (!hasValidFormat()) {
-            throw new YodaException("Mark... which one?" +
-                    "\n" + "Command should be in format: mark [number]");
+            throw new YodaException("Mark... which one?" + "\n"
+                    + "Command should be in format: mark [number]");
         }
         String[] splitInput = input.split(" ", 2);
         int index = Integer.parseInt(splitInput[1]);

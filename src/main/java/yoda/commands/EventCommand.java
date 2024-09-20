@@ -29,14 +29,14 @@ public class EventCommand extends Command {
     /**
      * Executes the command to add a new event task to the task list.
      *
-     * @return
+     * @return Yoda's response as a string
      * @throws YodaException if the input or date format is invalid.
      */
     public String run() throws YodaException {
         if (!hasValidFormat(input)) {
-            throw new YodaException("An event must have a description, start time and end time, no...?" +
-                    "\n" + "Command should be in format: event [name] /from [yyyy-mm-dd HHmm]" +
-                    "/to [yyyy-mm-dd HHmm]");
+            throw new YodaException("An event must have a description, start time and end time, no...?"
+                    + "\n" + "Command should be in format: event [name] /from [yyyy-mm-dd HHmm]"
+                    + "/to [yyyy-mm-dd HHmm]");
         }
         String[] splitInput = input.split(" ", 2);
         String task = splitInput[1];

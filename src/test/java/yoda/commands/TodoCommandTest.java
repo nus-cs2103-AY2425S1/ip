@@ -1,8 +1,9 @@
 package yoda.commands;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
 
 import yoda.TaskList;
 import yoda.exceptions.YodaException;
@@ -28,7 +29,8 @@ public class TodoCommandTest {
             command.run();
             fail();
         } catch (Exception e) {
-            assertEquals("A todo must have a description, no...?", e.getMessage());
+            assertEquals("A todo must have a description, no...?\n"
+                    + "Command should be in format: todo [description]", e.getMessage());
         }
     }
 

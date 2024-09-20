@@ -25,13 +25,13 @@ public class TodoCommand extends Command {
     /**
      * Executes a TodoCommand and adds a new to-do task to the list.
      *
-     * @return
+     * @return Yoda's response as a string
      * @throws YodaException if input format is invalid.
      */
     public String run() throws YodaException {
         if (!hasValidFormat()) {
-            throw new YodaException("A todo must have a description, no...?" +
-                    "\n" + "Command should be in format: todo [description]");
+            throw new YodaException("A todo must have a description, no...?" + "\n"
+                    + "Command should be in format: todo [description]");
         }
         String[] splitInput = input.split(" ", 2);
         String task = splitInput[1];
