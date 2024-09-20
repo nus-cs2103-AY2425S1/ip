@@ -11,6 +11,9 @@ import java.util.Locale;
  * Represents a date time class containing the methods to format date times in various formats.
  */
 public class DateTime {
+    /**
+     * Formats the date time for printing and sets locale to SG.
+     */
     public static final DateTimeFormatter DATE_TIME_PRINT_OUTPUT_FORMATTER =
             DateTimeFormatter.ofPattern("MMM d yyyy h:mm a", new Locale("en", "SG"));
     public static final DateTimeFormatter DATE_TIME_FILE_OUTPUT_FORMATTER =
