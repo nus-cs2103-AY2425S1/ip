@@ -20,6 +20,10 @@ public class DeleteCommand {
      * @throws IllegalArgumentException If the index is out of bounds.
      */
     public static String run(String[] commandArray, TaskList allTasks) throws EchoException {
+        if (commandArray.length < 2) {
+            throw new EchoException("Oops! Your delete command is invalid.");
+        }
+
         try {
             int deleteIdx = Integer.parseInt(commandArray[1]) - 1;
             return allTasks.delete(deleteIdx);

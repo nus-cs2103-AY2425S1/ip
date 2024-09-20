@@ -1,5 +1,6 @@
 package commands;
 
+import exceptions.EchoException;
 import tasks.TaskList;
 
 /**
@@ -15,7 +16,11 @@ public class FindCommand {
      * @param allTasks task list.
      * @return A string containing the list of tasks that match the search keywords.
      */
-    public static String run(String[] commandArray, TaskList allTasks) {
+    public static String run(String[] commandArray, TaskList allTasks) throws EchoException {
+        if (commandArray.length < 2) {
+            throw new EchoException("Oops! Your find command is invalid.");
+        }
+
         String keywords = commandArray[1];
         return allTasks.find(keywords);
     }

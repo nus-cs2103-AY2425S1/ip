@@ -1,5 +1,6 @@
 package commands;
 
+import exceptions.EchoException;
 import tasks.TaskList;
 
 /**
@@ -17,11 +18,22 @@ public class TagCommand {
      * @return A string confirming that the task has been tag.
      * @throws IllegalArgumentException If the index is out of bounds.
      */
-    public static String run(String[] commandArray, TaskList allTasks)
-            throws IndexOutOfBoundsException {
-        int index = Integer.parseInt(commandArray[1].split(" ", 2)[0]) - 1;
-        String tag = commandArray[1].split(" ", 2)[1];
-        return allTasks.tagTask(index, tag);
+    public static String run(String[] commandArray, TaskList allTasks) throws EchoException {
+        if (commandArray.length < 2) {
+            throw new EchoException("Oops! Your tag command is invalid.");
+        }
+
+        if (commandArray[1].split(" ").length != 2) {
+            throw new EchoException("Oops! Your tag command is invalid.");
+        }
+
+        try {
+            int index = Integer.parseInt(commandArray[1].split(" ", 2)[0]) - 1;
+            String tag = commandArray[1].split(" ", 2)[1];
+            return allTasks.tagTask(index, tag);
+        } catch (AssertionError e) {
+            throw new EchoException(e.getMessage());
+        }
     }
 
     /** Sends help information of command 'tag' to user */

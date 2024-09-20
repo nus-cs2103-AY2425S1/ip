@@ -19,12 +19,15 @@ public class MarkCommand {
      * @throws IllegalArgumentException If the index is out of bounds.
      */
     public static String run(String[] commandArray, TaskList allTasks) throws EchoException {
+        if (commandArray.length < 2) {
+            throw new EchoException("Oops! Your mark command is invalid.");
+        }
+
         try {
             int markIdx = Integer.parseInt(commandArray[1]) - 1;
             return allTasks.markTask(markIdx);
-
-        } catch (IllegalArgumentException e) {
-            throw new EchoException("There is only " + allTasks.getSize()
+        } catch (AssertionError e) {
+            throw new EchoException("There is " + allTasks.getSize()
                     + " tasks in the list. Please enter a valid index.");
         }
     }

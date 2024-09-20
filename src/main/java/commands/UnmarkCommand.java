@@ -1,5 +1,6 @@
 package commands;
 
+import exceptions.EchoException;
 import tasks.TaskList;
 
 /**
@@ -17,10 +18,18 @@ public class UnmarkCommand {
      * @return A string confirming that the task has been marked as not done.
      * @throws IllegalArgumentException If the index is out of bounds.
      */
-    public static String run(String[] commandArray, TaskList allTasks)
-            throws IndexOutOfBoundsException {
-        int unmarkIdx = Integer.parseInt(commandArray[1]) - 1;
-        return allTasks.unmarkTask(unmarkIdx);
+    public static String run(String[] commandArray, TaskList allTasks) throws EchoException {
+        if (commandArray.length < 2) {
+            throw new EchoException("Oops! Your unmark command is invalid.");
+        }
+
+        try {
+            int unmarkIdx = Integer.parseInt(commandArray[1]) - 1;
+            return allTasks.unmarkTask(unmarkIdx);
+        } catch (AssertionError e) {
+            throw new EchoException("There is " + allTasks.getSize()
+                    + " tasks in the list. Please enter a valid index.");
+        }
     }
 
     /** Sends help information of command 'unmark' to user */
