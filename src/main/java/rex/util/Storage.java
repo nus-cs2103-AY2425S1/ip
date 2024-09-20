@@ -20,6 +20,12 @@ public class Storage {
     private final String filePath;
     private final String tempPath;
 
+    /**
+     * Constructs a new {@code Storage} object with the specified file paths for the task list and temporary file.
+     *
+     * @param filePath The path to the main file where tasks are stored.
+     * @param tempPath The path to the temporary file used for updates.
+     */
     public Storage(String filePath, String tempPath) {
         this.filePath = filePath;
         this.tempPath = tempPath;

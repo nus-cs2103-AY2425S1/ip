@@ -50,7 +50,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = rex.getResponse(input)  + "\n";
+        String response = rex.getResponse(input) + "\n";
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getRexDialog(response, rexImage)
