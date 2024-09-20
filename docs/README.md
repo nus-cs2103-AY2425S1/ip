@@ -21,8 +21,6 @@ Format: `help <keyword>`
 Example: `help todo`
 
 Expected outcome:
-`help todo` -- 
-
 ```
 Want to add a To Do -- todo
 
