@@ -34,7 +34,7 @@ public class UnmarkCommand {
         try {
             int index = Integer.parseInt(input.substring(COMMAND_PREFIX_OFFSET).trim()) - 1;
             if (index >= tasks.getCount() || index < 0) {
-                throw new InvalidCommandException("You can only unmark a number your task list contains");
+                throw new InvalidCommandException("You can only unmark a number your task list contains, mortal.");
             }
 
             Task taskToUnmark = tasks.getTask(index);
