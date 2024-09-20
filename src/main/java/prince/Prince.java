@@ -113,18 +113,6 @@ public class Prince {
     public static void main(String[] args) {
         new Prince("./data","data/prince.Prince.txt").run();
 
-        //createListFile();
-        //loadTasksFromFile(filePath);
-        // if any words, repeat scanning, but the moment the word is bye,
-        // then exit and print bye
-
-        /*try {
-            System.out.println(conversation(line));
-        } catch (exception.IncompleteDescException e) {
-            System.out.println(e.getMessage());
-        } catch (exception.UnknownWordException e) {
-            System.out.println(e.getMessage());
-        }*/
     }
 }
 

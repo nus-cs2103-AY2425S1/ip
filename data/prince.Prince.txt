@@ -1,3 +1,0 @@
-T | 0 | find parking
-D | 0 | return book | Dec 21 2024, 5:00 pm
-E | 1 | project meeting | Dec 22 2024, 12:00 pm | Dec 31 2024, 6:00 pm
