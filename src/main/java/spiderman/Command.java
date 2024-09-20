@@ -75,6 +75,10 @@ public class Command {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         try {
+            if (!input[0].startsWith("event ") || !input[1].startsWith("from ") || !input[2].startsWith("to ")) {
+                return "Invalid format! The correct format is: event {description} /from {from} /to {to}";
+            }
+
             String fromString = input[1].replaceFirst("from", "").trim();
             String toString = input[2].replaceFirst("to", "").trim();
 
