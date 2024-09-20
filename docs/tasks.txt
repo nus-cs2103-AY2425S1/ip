@@ -1,2 +1,1 @@
 T|0|Sample task| 
-T|0|homework| 
