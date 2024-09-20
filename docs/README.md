@@ -202,5 +202,5 @@ Example: `bye`
 | Update        | `update INDEX FIELD NEWVALUE`                                     | `update 1 description go to church`                          |
 | Save          | `save`                                                            | `save`                                                       |
 | Exit          | `bye`                                                             | `bye`                                                        |
-    
+
 

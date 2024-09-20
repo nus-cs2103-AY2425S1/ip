@@ -60,4 +60,5 @@ public abstract class Task implements Updatable {
     public String getTaskType() {
         return "";
     }
+
 }
