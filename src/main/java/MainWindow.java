@@ -6,6 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import sinatra.Sinatra;
+
 /**
  * Controller for the main GUI.
  */
@@ -21,15 +22,17 @@ public class MainWindow extends AnchorPane {
 
     private Sinatra sinatra;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Sinatra.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Duke instance */
+    /**
+     * Injects the Duke instance
+     */
     public void setSinatra(Sinatra s) {
         sinatra = s;
     }
