@@ -19,8 +19,13 @@ public class TodoCommand extends Command {
                           TagList tagList,
                           TaskList taskList, Parser parser)
             throws ChatterboxExceptions.ChatterBoxNoInput,
-            ChatterboxExceptions.ChatterBoxMissingParameter {
+            ChatterboxExceptions.ChatterBoxMissingParameter, ChatterboxExceptions.ChatterBoxInvalidInput {
         taskList.addTodo(parser.parseTodo(input));
         return guiResponses.addTaskMsg("Todo", taskList.size());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof TodoCommand;
     }
 }

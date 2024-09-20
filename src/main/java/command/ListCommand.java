@@ -28,7 +28,12 @@ public class ListCommand extends Command {
     public String execute(String input, GuiResponses guiResponses,
                           TagList tagList, TaskList taskList, Parser parser)
             throws ChatterboxExceptions.ChatterBoxNoInput,
-            ChatterboxExceptions.ChatterBoxMissingParameter {
-        return guiResponses.displayList(taskList);
+            ChatterboxExceptions.ChatterBoxMissingParameter, ChatterboxExceptions.ChatterBoxInvalidInput {
+        return guiResponses.listTaskMsg(taskList);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof ListCommand;
     }
 }

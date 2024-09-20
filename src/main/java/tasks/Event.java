@@ -64,11 +64,11 @@ public class Event extends Task {
     public String getDescription() {
 
         if (this.startDateObj != null && this.endDateObj != null) {
-            return super.getDescription() + String.format("( from %s to %s )",
+            return super.getDescription() + String.format("( from %s to %s ) " + this.getTags(),
                     this.startDateObj.format(parser.Parser.getPrintDateFormatter()),
                     this.endDateObj.format(parser.Parser.getPrintDateFormatter()));
         }
-        return super.getDescription() + String.format("( from %s to %s )"
+        return super.getDescription() + String.format("( from %s to %s ) "
                 + this.getTags(), this.startDate, this.endDate);
     }
 

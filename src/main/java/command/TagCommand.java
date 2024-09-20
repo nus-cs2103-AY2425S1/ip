@@ -29,26 +29,46 @@ public class TagCommand extends Command {
     public String execute(String input, GuiResponses guiResponses,
                            TagList tagList,
                            TaskList taskList, Parser parser) throws ChatterboxExceptions.ChatterBoxNoInput,
-            ChatterboxExceptions.ChatterBoxMissingParameter {
+            ChatterboxExceptions.ChatterBoxMissingParameter, ChatterboxExceptions.ChatterBoxInvalidInput {
         String result;
-        String tagText = parser.parseTagText(input);
-        int tagIndex = parser.parseTagIndex(input) - 1;
+        String tagText = parser.tagCommandParseTagName(input);
+        if (tagText.isEmpty()) {
+            throw new ChatterboxExceptions.ChatterBoxMissingParameter("Tag missing");
+        }
+        if (tagText.contains(" ")) {
+            throw new ChatterboxExceptions.ChatterBoxInvalidInput("Tags cannot have whitespace");
+        }
+        int tagIndex = parser.tagCommandParseTaskIndex(input);
+        if (tagIndex < 1 || tagIndex > taskList.size()) {
+            return guiResponses.getInvalidIndexMessage();
+        }
+        tagIndex = tagIndex - 1;
+        Tag tag;
+        tag = getTag(tagList, tagText);
+        if (tag.isTagged(taskList.getTask(tagIndex))) {
+            return guiResponses.alreadyTaggedMsg(taskList.getTask(tagIndex), tagText);
+        }
+        tag.tagTask(taskList.getTask(tagIndex));
+        taskList.getTask(tagIndex).addTag(tag);
+        result = guiResponses.tagTaskMsg(taskList.getTask(tagIndex), tagText);
+
+
+        return result;
+    }
+
+    private static Tag getTag(TagList tagList, String tagText) {
         Tag tag;
         if (tagList.containsTag(tagText)) {
-            tag = tagList.getTag(tagText); //finds the tag
-            taskList.getTask(tagIndex).addTag(tag); //adds tag to the task object
-            tag.tagTask(taskList.getTask(tagIndex)); //adds task to the tag object
-
-
-            result = guiResponses.taggedTasks(taskList.getTask(tagIndex), tagText);
-
+            tag = tagList.getTag(tagText);
         } else {
             tag = new Tag(tagText);
             tagList.addTag(tag);
-            taskList.getTask(tagIndex).addTag(new Tag(tagText));
-            result = guiResponses.taggedTasks(taskList.getTask(tagIndex), tagText);
         }
+        return tag;
+    }
 
-        return result;
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof TagCommand;
     }
 }

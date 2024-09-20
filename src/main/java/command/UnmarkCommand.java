@@ -27,8 +27,16 @@ public class UnmarkCommand extends Command {
     public String execute(String input, GuiResponses guiResponses,
                           TagList tagList, TaskList taskList, Parser parser)
             throws ChatterboxExceptions.ChatterBoxNoInput,
-            ChatterboxExceptions.ChatterBoxMissingParameter {
+            ChatterboxExceptions.ChatterBoxMissingParameter, ChatterboxExceptions.ChatterBoxInvalidInput {
         int index = parser.extractNum(input) - 1;
+        if (index < 0 || index >= taskList.size()) {
+            return guiResponses.getInvalidIndexMessage();
+        }
         return guiResponses.unmarkMsg(taskList.unmarkTask(index));
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof UnmarkCommand;
     }
 }

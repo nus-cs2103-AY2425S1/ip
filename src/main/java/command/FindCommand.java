@@ -21,10 +21,15 @@ public class FindCommand extends Command {
     public String execute(String input, GuiResponses guiResponses,
                            TagList tagList,
                            TaskList taskList, Parser parser) throws ChatterboxExceptions.ChatterBoxNoInput,
-            ChatterboxExceptions.ChatterBoxMissingParameter {
+            ChatterboxExceptions.ChatterBoxMissingParameter, ChatterboxExceptions.ChatterBoxInvalidInput {
         String keywords = parser.parseFind(input).trim();
 
         ArrayList<Task> matches = taskList.findTasks(keywords);
         return guiResponses.getSearchList(matches);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof FindCommand;
     }
 }

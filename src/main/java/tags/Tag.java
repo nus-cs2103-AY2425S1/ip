@@ -1,6 +1,7 @@
 package tags;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import tasks.Task;
 
@@ -12,11 +13,17 @@ public class Tag {
 
     private final String tagName;
 
-    private ArrayList<Task> taggedTasks = new ArrayList<>();
+    private Set<Task> taggedTasks = new HashSet<>();
 
 
+    /**
+     * Creates a tag with the given name
+     * @param tagName the name of the tag
+     */
     public Tag(String tagName) {
-        this.tagName = tagName;
+        tagName = tagName.trim();
+
+        this.tagName = tagName.toLowerCase();
     }
 
     /**
@@ -52,7 +59,7 @@ public class Tag {
      * Gets string with of all tagged tasks descriptions
      * @return string of all tagged tasks descriptions
      */
-    public String getTaggedTasks() {
+    public String getTaggedTasksString() {
         StringBuilder taggedTasksString = new StringBuilder();
         for (Task task : taggedTasks) {
             taggedTasksString.append(task.getDescription()).append("\n");
@@ -61,10 +68,24 @@ public class Tag {
     }
 
     /**
+     * Gets the set of tagged tasks
+     * @return set of tagged tasks
+     */
+    public Set<Task> getTaggedTasks() {
+        return taggedTasks;
+    }
+
+
+    public void untagTask(Task task) {
+        taggedTasks.remove(task);
+    }
+    /**
      * Checks if a task is under the tag
      * @param task the task to be checked
      */
     public boolean isTagged(Task task) {
         return taggedTasks.contains(task);
     }
+
+
 }

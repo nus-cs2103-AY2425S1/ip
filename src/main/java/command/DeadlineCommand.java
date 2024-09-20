@@ -30,7 +30,7 @@ public class DeadlineCommand extends Command {
     public String execute(String input, GuiResponses guiResponses,
                                    TagList tagList,
                            TaskList taskList, Parser parser) throws ChatterboxExceptions.ChatterBoxNoInput,
-                            ChatterboxExceptions.ChatterBoxMissingParameter {
+            ChatterboxExceptions.ChatterBoxMissingParameter, ChatterboxExceptions.ChatterBoxInvalidInput {
         String[] parsed = parser.parseDeadline(input);
 
 
@@ -49,5 +49,10 @@ public class DeadlineCommand extends Command {
 
         return guiResponses.addTaskMsg("Deadline", taskList.size());
 
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof DeadlineCommand;
     }
 }

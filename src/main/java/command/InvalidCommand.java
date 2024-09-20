@@ -17,7 +17,12 @@ public class InvalidCommand extends Command {
     public String execute(String input, GuiResponses guiResponses,
                           TagList tagList,
                           TaskList taskList, Parser parser) throws ChatterboxExceptions.ChatterBoxNoInput,
-            ChatterboxExceptions.ChatterBoxMissingParameter {
+            ChatterboxExceptions.ChatterBoxMissingParameter, ChatterboxExceptions.ChatterBoxInvalidInput {
         return guiResponses.getInvalidCommandMessage();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof InvalidCommand;
     }
 }

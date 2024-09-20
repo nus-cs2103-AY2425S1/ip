@@ -35,8 +35,8 @@ public class GuiResponses {
      * generates String for standard goodbye
      * @return string format of the goodbye message
      */
-    public String goodBye() {
-        return "Bye! Hope to see you again!";
+    public String goodbye() {
+        return "Farewell. May our paths cross again in the future.";
 
 
     }
@@ -46,7 +46,7 @@ public class GuiResponses {
      * @param tasks TaskList object
      * @return String representation of tasks in list
      */
-    public String displayList(TaskList tasks) {
+    public String listTaskMsg(TaskList tasks) {
         ArrayList<Task> userList = tasks.getTasks();
         StringBuilder toReturn = new StringBuilder(
                 String.format("You have %d Tasks in List: \n", userList.size()));
@@ -61,7 +61,12 @@ public class GuiResponses {
         }
         if (userList.size() > 0 && userList.size() < 5) {
             toReturn.append("You have fewer than 5 tasks. It seems the load is manageable for now."
-                    + "\n Keep going!");
+                    + "\nKeep going!");
+        }
+        if (userList.size() >5 && userList.size() <= 10) {
+            toReturn.append("You have between 5 and 10 tasks. "
+                    + "Though the workload is noticeable, it remains within a manageable range. "
+                    + "The path ahead is clearer, but the journey still requires your attention.");
         }
         if (userList.size() > 10) {
             toReturn.append("The list has grown beyond 10 tasks... sometimes it feels like the journey is endless.");
@@ -84,7 +89,7 @@ public class GuiResponses {
      * @return msg for marking a task
      */
     public String markMsg(Task task) {
-        return "You've completed the task %s" + "\n" + task.getDescription()
+        return String.format("You've completed the task") + "\n" + task.getDescription()
                 + "\n" + "Each completed task is a step closer to clarity, "
                 + "though the journey may still feel long...";
     }
@@ -108,9 +113,15 @@ public class GuiResponses {
      * @return standard template for displaying added task
      */
     public String addTaskMsg(String type, int size) {
-        return String.format("Added %s to Tasks", type) + "\n"
-                + String.format("Currently %d tasks in List. ", size)
-                + String.format("Sometimes, I wonder if you have too much time on your hands... (¬_¬)", size);
+        if (size > 5) {
+            return String.format("Added task of type %s to your list", type) + "\n"
+                    + String.format("There are now %d tasks in total. ", size)
+                    + String.format("\nI cannot help but ponder whether this accumulation reflects a lack of time"
+                    + "or an inability to manage it...", size);
+        }
+        return String.format("Task of type %s has been added. You now have %d tasks in total. " + "\n"
+                + "It seems your list isn't overwhelming yet. "
+                + "Sometimes, having fewer tasks can be as mundane as having too many.", type, size);
 
     }
 
@@ -147,18 +158,59 @@ public class GuiResponses {
 
     }
 
+    public String getTaggedTasks(Set<Task> tasks) {
+        StringBuilder toReturn = new StringBuilder("Here are the tasks that have been tagged:\n");
+        if (tasks.size() == 0) {
+            toReturn.append("...It seems there are no tasks that have been tagged at this moment. "
+                    + "Sometimes, the answers we seek remain hidden.");
+        }
+        for (Task task : tasks) {
+            toReturn.append(String.format("[%s][%s] %s",
+                    task.getTaskSymbol(),
+                    task.getStatus() ? "X" : " ",
+                    task.getDescription()) + "\n");
+        }
+        return toReturn.toString();
+    }
+
     /**
      * Gets String representation of tagged task
      * @param task Task that is tagged
      * @param tagName name of tag
      * @return String representation of tagged task
      */
-    public String taggedTasks(Task task, String tagName) {
+    public String untagTagMsg(Task task, String tagName) {
+        return String.format("Ah, it appears the tag '%s' has been removed from the task \n[%s]. "
+                + "\nSometimes, the tools at our disposal may seem somewhat inadequate. "
+                + "Rest assured, even in these moments of apparent simplicity, "
+                + "there is always room for growth and improvement.", tagName, task.getDescription());
+    }
+    /**
+     * Gets String representation of tagged task
+     * @param task Task that is tagged
+     * @param tagName name of tag
+     * @return String representation of tagged task
+     */
+    public String tagTaskMsg(Task task, String tagName) {
         return String.format("The task has been tagged with '%s'.\n"
                 + "This addition might change how you perceive and approach this task, "
                 + "adding another layer to its significance:\n"
-                + "%s", tagName, task.descNoTags());
+                + "%s", tagName.toLowerCase(), task.descNoTags());
     }
+
+    /**
+     * Gets String representation of already tagged task message
+     * @param task Task that is already tagged
+     * @param tagName name of tag
+     * @return response to an already tagged message
+     */
+    public String alreadyTaggedMsg(Task task, String tagName) {
+        return String.format("The task \n'%s' \nalready bears the tag '%s'. "
+                        + "\nOne might wonder if you’re simply repeating the same actions without much thought. "
+                        + "\nPerhaps it’s time to reconsider if these tags are serving any real purpose.",
+                task.getDescription(), tagName);
+    }
+
     /**
      * Gets String representation of all tags
      * @param tagKeys set of strings of tags
@@ -178,12 +230,37 @@ public class GuiResponses {
     }
 
     /**
+     * Gets String representation of tag not found
+     * @param tagName name of tag
+     * @return String representation of tag not found
+     */
+    public String tagNotFoundMsg(String tagName) {
+        return String.format("The tag '%s' was not found. Sometimes, the answers we seek remain hidden.", tagName);
+    }
+
+    /**
      * Gets String representation of invalid command response
      * @return String representation of invalid command response
      */
     public String getInvalidCommandMessage() {
-        return "It seems I didn’t quite grasp that command. Sometimes, our communication can be elusive."
-                + " Please try again.";
+        return "It seems I didn't quite grasp that command. Communication can be a delicate thing, can't it?"
+                + " Perhaps, you could try again.";
+    }
+
+    /**
+     * Gets String representation of invalid index
+     * @return String representation of invalid index
+     */
+    public String getInvalidIndexMessage() {
+        return "It seems the index you have entered is invalid. "
+                + "Sometimes, the path to clarity is not as straightforward as we would like, don't you think?";
+    }
+
+    public String getErrorMessage(String errorMessage) {
+        return "It seems an error has occurred\n" + errorMessage
+                + "\nEven in moments like these, there is something to be learned";
+
+
     }
 
 }

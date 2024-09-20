@@ -31,7 +31,12 @@ public class ByeCommand extends Command {
     public String execute(String input, GuiResponses guiResponses,
                           TagList tagList, TaskList taskList, Parser parser)
             throws ChatterboxExceptions.ChatterBoxNoInput,
-            ChatterboxExceptions.ChatterBoxMissingParameter {
+            ChatterboxExceptions.ChatterBoxMissingParameter, ChatterboxExceptions.ChatterBoxInvalidInput {
         return null;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof ByeCommand;
     }
 }

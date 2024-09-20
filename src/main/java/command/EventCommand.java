@@ -31,7 +31,7 @@ public class EventCommand extends Command {
     public String execute(String input, GuiResponses guiResponses,
                            TagList tagList,
                            TaskList taskList, Parser parser) throws ChatterboxExceptions.ChatterBoxNoInput,
-            ChatterboxExceptions.ChatterBoxMissingParameter {
+            ChatterboxExceptions.ChatterBoxMissingParameter, ChatterboxExceptions.ChatterBoxInvalidInput {
         String[] eventParsed = parser.parseEvent(input);
 
         LocalDateTime startDate = parser.parseDateTime(eventParsed[1]); //from 4
@@ -45,5 +45,10 @@ public class EventCommand extends Command {
         }
 
         return guiResponses.addTaskMsg("Event", taskList.size());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof EventCommand;
     }
 }

@@ -29,7 +29,12 @@ public class AllTagsCommand extends Command {
     public String execute(String input, GuiResponses guiResponses,
                            TagList tagList,
                            TaskList taskList, Parser parser) throws ChatterboxExceptions.ChatterBoxNoInput,
-            ChatterboxExceptions.ChatterBoxMissingParameter {
+            ChatterboxExceptions.ChatterBoxMissingParameter, ChatterboxExceptions.ChatterBoxInvalidInput {
         return guiResponses.displayAllTags(tagList.getAllTags());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof AllTagsCommand;
     }
 }

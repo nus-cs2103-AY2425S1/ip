@@ -15,7 +15,7 @@ public class EventTest {
     public void eventDesc_normalString() {
         String expected = "event 1 ( from now to tmr )";
         try {
-            assertEquals(expected, (new Event("event 1", "now", "tmr")).getDescription());
+            assertEquals(expected, (new Event("event 1", "now", "tmr")).descNoTags());
 
         } catch (ChatterboxExceptions.ChatterBoxNoInput e) {
             System.out.println("input error");
@@ -29,7 +29,7 @@ public class EventTest {
 
         String expected = "event 1 ( from Jan 21 2001, 21:12 to Feb 03 2001, 00:00 )";
         try {
-            assertEquals(expected, new Event("event 1", fromTest, toTest).getDescription());
+            assertEquals(expected, new Event("event 1", fromTest, toTest).descNoTags());
         } catch (ChatterboxExceptions.ChatterBoxNoInput e) {
             System.out.println("error input");
         }
