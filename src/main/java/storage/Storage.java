@@ -25,7 +25,20 @@ public class Storage {
      * @param filePath The path to the file where tasks will be stored and retrieved from.
      */
     public Storage(String filePath) {
+        // credit to Justin yeo another student in the course for this code
         this.file = new File(filePath);
+        File parentDir = file.getParentFile();
+
+        if (parentDir != null && !parentDir.exists()) {
+            parentDir.mkdirs();
+        }
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**

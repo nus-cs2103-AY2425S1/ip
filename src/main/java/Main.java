@@ -13,7 +13,7 @@ import ui.MainWindow;
  */
 public class Main extends Application {
 
-    private final Delphi delphi = new Delphi("../ip/src/main/HardDisk.txt");
+    private final Delphi delphi = new Delphi("./data/HardDisk.txt");
 
     /**
      * @param stage the primary stage for this application, onto which
