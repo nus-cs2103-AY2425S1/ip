@@ -9,7 +9,7 @@ The chatbot keeps your task saved in txt format and supports reminders when you 
 2. Download the latest .jar from the release.
 3. Copy the file to the folder you use as the home folder for Chatterbox.
 4. Open a terminal and run the application in the folder with java -jar chatterbox.jar
-5. A GUI similar to this should appear.
+5. A GUI similar to this should appear.\
 ![Startup.png](Startup.png)
 6. Type the commands in the text box at the bottom.\
     Some commands you can try:
