@@ -58,9 +58,11 @@ list_client
 client john lumbago
 ```
 - **Expected Output:**
-  "Oh got it! I've added this client:
+  ```
+  Oh got it! I've added this client:
    john (condition: lumbago)
-  Now you have <x> clients in your contacts"
+  Now you have <x> clients in your contacts
+  ```
 
 ---
 
@@ -72,9 +74,11 @@ client john lumbago
 delete_client 2
 ```
 - **Expected Output:**
-  "Okay~ I've removed this client:
+  ```
+  Okay~ I've removed this client:
   john (condition: lumbago)
-  Now you have <x> clients in your contacts"
+  Now you have <x> clients in your contacts
+  ```
 
 ---
 
@@ -110,9 +114,10 @@ find_task report
 mark 3
 ```
 - **Expected Output:**
-  "Nice! I've marked this task as done:
-  <task_details>"
-
+  ```
+  Nice! I've marked this task as done:
+  <task_details>
+  ```
 ---
 
 ### 7. **Mark a Task as Incomplete**
@@ -123,8 +128,10 @@ mark 3
 unmark 3
 ```
 - **Expected Output:**
-  "Sure! I've marked this as not done yet:
-  <task_details>"
+  ```
+  Sure! I've marked this as not done yet:
+  <task_details>
+  ```
 
 ---
 
@@ -136,9 +143,11 @@ unmark 3
 delete_task 5
 ```
 - **Expected Output:**
-  "Alrighty~ I've removed this task:
+- ```
+  Alrighty~ I've removed this task:
   <task_details>
-  Now you have <x> tasks in the list"
+  Now you have <x> tasks in the list
+  ```
 
 ---
 
@@ -152,9 +161,11 @@ delete_task 5
 todo Buy groceries
 ```
 - **Expected Output:** 
-  "Got it! I've added this task:
+  ```
+  Got it! I've added this task:
    [T][] Buy groceries
-  Now you have <x> task in the list"
+  Now you have <x> task in the list
+  ```
 
 ---
 
@@ -166,9 +177,11 @@ todo Buy groceries
 deadline Submit report /by 2024-09-30
 ```
 - **Expected Output:**
-  "Got it! I've added this task:
+  ```
+  Got it! I've added this task:
    [D][] Submit report (by:2024-09-30)
-  Now you have <x> task in the list"
+  Now you have <x> task in the list
+  ```
 
 ---
 
@@ -180,9 +193,11 @@ deadline Submit report /by 2024-09-30
 event Team meeting /from 2024-09-20 /to 2024-09-21
 ```
 - **Expected Output:**
-   "Got it! I've added this task:
+  ```
+   Got it! I've added this task:
    [E][] Team meeting (from:2024-09-20 to: 2024-09-21)
-  Now you have <x> task in the list"
+  Now you have <x> task in the list
+  ```
 
 ---
 
@@ -196,9 +211,11 @@ event Team meeting /from 2024-09-20 /to 2024-09-21
 bye
 ```
 - **Expected Output:**
-  "Bye. Hope to see you again soon!
+  ```
+  Bye. Hope to see you again soon!
                    ∧,,,∧
                 ( ̳• · •̳)
-                /    づ♡"
+                /    づ♡
+  ```
 
 ---
