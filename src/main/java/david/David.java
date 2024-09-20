@@ -8,8 +8,9 @@ import david.exceptions.DavidException;
 import david.exceptions.DavidInvalidArgumentsException;
 import david.exceptions.DavidInvalidDateTimeException;
 import david.exceptions.DavidInvalidDeadlineException;
+import david.exceptions.DavidInvalidIndexRangeException;
+import david.exceptions.DavidInvalidNoTaskException;
 import david.exceptions.DavidInvalidRangeException;
-import david.exceptions.DavidInvalidTaskException;
 import david.exceptions.DavidInvalidTimeException;
 import david.exceptions.DavidUnknownActionException;
 import david.parser.DateParser;
@@ -223,25 +224,25 @@ public class David {
      *
      * @param s String index to delete.
      * @throws DavidInvalidArgumentsException if arguments are invalid.
-     * @throws DavidInvalidTaskException if task is invalid.
+     * @throws DavidInvalidNoTaskException if task is invalid.
      */
-    public String deleteTask(String s) throws DavidInvalidArgumentsException, DavidInvalidTaskException {
-        try {
-            String index = StringParser.parseStringToArguments(s);
-            int i = Integer.parseInt(index) - 1;
+    public String deleteTask(String s) throws DavidInvalidArgumentsException, DavidInvalidIndexRangeException,
+            DavidInvalidNoTaskException {
+        String index = StringParser.parseStringToArguments(s.trim());
+        int i = Integer.parseInt(index) - 1;
 
-            //Throws error when invalid indexed task is provided
-            if (i >= tasks.getSize()) {
-                throw new DavidInvalidTaskException();
-            }
-
-            Task t = tasks.getTask(i);
-            tasks.deleteTask(i);
-
-            return ui.displaySuccessfulDeleteMessage(t, this.tasks.getSize());
-        } catch (NumberFormatException e) {
-            return ui.displayErrorMessage("The number you entered is not a valid number. Please enter a valid number");
+        //Throws error when invalid indexed task is provided
+        if (i < 0 || i > tasks.getSize()) {
+            throw new DavidInvalidIndexRangeException();
         }
+        if (tasks.getSize() == 0) {
+            throw new DavidInvalidNoTaskException();
+        }
+
+        Task t = tasks.getTask(i);
+        tasks.deleteTask(i);
+        return ui.displaySuccessfulDeleteMessage(t, this.tasks.getSize());
+
     }
 
     /**
@@ -250,18 +251,23 @@ public class David {
      * @param s String index to mark.
      * @throws DavidInvalidArgumentsException if arguments are invalid.
      */
-    public String markTaskAsDone(String s) throws DavidInvalidArgumentsException {
-        try {
-            String index = StringParser.parseStringToArguments(s);
-            Task t = tasks.getTask(Integer.parseInt(index) - 1);
-            t.markAsDone();
+    public String markTaskAsDone(String s) throws DavidInvalidArgumentsException, DavidInvalidIndexRangeException,
+            DavidInvalidNoTaskException {
+        String index = StringParser.parseStringToArguments(s.trim());
+        int i = Integer.parseInt(index) - 1;
 
-            return ui.displayMarkAsDoneMessage(t);
-        } catch (IndexOutOfBoundsException e) {
-            return ui.displayErrorMessage("No such task! Please enter a valid task.");
-        } catch (NumberFormatException e) {
-            return ui.displayErrorMessage("The number you entered is not a valid number. Please enter a valid number");
+        if (i < 0 || i > tasks.getSize()) {
+            throw new DavidInvalidIndexRangeException();
         }
+
+        if (tasks.getSize() == 0) {
+            throw new DavidInvalidNoTaskException();
+        }
+
+        Task t = tasks.getTask(Integer.parseInt(index) - 1);
+        t.markAsDone();
+        return ui.displayMarkAsDoneMessage(t);
+
     }
 
     /**
@@ -270,18 +276,22 @@ public class David {
      * @param s String index to mark.
      * @throws DavidInvalidArgumentsException if arguments are invalid.
      */
-    public String markTaskAsUnDone(String s) throws DavidInvalidArgumentsException {
-        try {
-            String index = StringParser.parseStringToArguments(s);
-            Task t = tasks.getTask(Integer.parseInt(index) - 1);
-            t.markAsUnDone();
+    public String markTaskAsUnDone(String s) throws DavidInvalidArgumentsException, DavidInvalidIndexRangeException,
+            DavidInvalidNoTaskException {
+        String index = StringParser.parseStringToArguments(s);
+        int i = Integer.parseInt(index) - 1;
 
-            return ui.displayMarkAsUnDoneMessage(t);
-        } catch (IndexOutOfBoundsException e) {
-            return ui.displayErrorMessage("No such task! Please enter a valid task.");
-        } catch (NumberFormatException e) {
-            return ui.displayErrorMessage("The number you entered is not a valid number. Please enter a valid number");
+        if (i < 0 || i > tasks.getSize()) {
+            throw new DavidInvalidIndexRangeException();
         }
+
+        if (tasks.getSize() == 0) {
+            throw new DavidInvalidNoTaskException();
+        }
+
+        Task t = tasks.getTask(Integer.parseInt(index) - 1);
+        t.markAsUnDone();
+        return ui.displayMarkAsUnDoneMessage(t);
     }
 
     /**

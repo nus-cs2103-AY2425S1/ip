@@ -51,6 +51,11 @@ public class Storage {
             Scanner sc = new Scanner(f);
             while (sc.hasNextLine()) {
                 Task t = parseTask(sc.nextLine());
+
+                if (t == null) {
+                    break;
+                }
+
                 tasks.add(t);
             }
         } catch (FileNotFoundException e) {
@@ -71,22 +76,16 @@ public class Storage {
         String[] taskInformation = s.split("\\|");
         Task t = null;
 
-        //Checks if the task is completed.
-        boolean isCompleted = false;
-        if (taskInformation[1].equals(TASK_COMPLETED)) {
-            isCompleted = true;
-        }
-
         switch (taskInformation[0]) {
         case "T":
             //Details a "TODO" task
-            t = new TodoTask(taskInformation[2], isCompleted);
+            t = new TodoTask(taskInformation[2], false);
             break;
         case "D":
             //Details a "Deadline task"
             try {
                 LocalDateTime byDate = DateParser.getDate(taskInformation[3]);
-                t = new DeadlineTask(taskInformation[2], byDate, isCompleted);
+                t = new DeadlineTask(taskInformation[2], byDate, false);
                 break;
             } catch (DavidInvalidDateTimeException e) {
                 System.out.println("error");
@@ -97,7 +96,7 @@ public class Storage {
             try {
                 LocalDateTime fromDate = DateParser.getDate(taskInformation[3]);
                 LocalDateTime toDate = DateParser.getDate(taskInformation[4]);
-                t = new EventTask(taskInformation[2], fromDate, toDate, isCompleted);
+                t = new EventTask(taskInformation[2], fromDate, toDate, false);
                 break;
             } catch (DavidInvalidDateTimeException e) {
                 System.out.println("error");
@@ -106,6 +105,11 @@ public class Storage {
         default:
             break;
         }
+
+        if (t != null && taskInformation[1].equals(TASK_COMPLETED)) {
+            t.markAsDone();
+        }
+
         return t;
     }
 
