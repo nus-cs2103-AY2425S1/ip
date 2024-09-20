@@ -7,7 +7,6 @@ todo <task name>
 ```
 you get: [T][ ] task1
 
-> [!TIP] 
 > Format of date and time:
 > `yyyy-MM-dd HHmm (24Hr)` or `yyyy-MM-dd hh:mm am (12Hr)`
 
