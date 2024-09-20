@@ -16,7 +16,7 @@ public class ListCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         sb = new StringBuilder();
-        ui.showMessage("Here are your current tasks: ");
+        ui.showMessage("Your current tasks, here they are: ");
         String taskListString = IntStream.range(0, tasks.size())
                 .mapToObj(i -> (i + 1) + ". " + tasks.getTask(i))
                 .collect(Collectors.joining("\n"));

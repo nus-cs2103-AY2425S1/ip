@@ -30,7 +30,7 @@ public class FindCommand extends Command {
     public FindCommand(String args) throws JeffException {
         super();
         if (args.isEmpty()) {
-            throw new JeffException("You must provide a search term!");
+            throw new JeffException("A search term, you must provide!");
         }
         this.args = args.trim();
     }
@@ -46,11 +46,11 @@ public class FindCommand extends Command {
                         .contains(args.toLowerCase()))
                 .toList();
         if (matchedList.isEmpty()) {
-            ui.showMessage("There are no matching tasks...");
+            ui.showMessage("No matching tasks, there are...");
             return;
         }
         // print out the tasks in the list
-        ui.showMessage("The following results match: ");
+        ui.showMessage("Match, the following results do: ");
         IntStream.range(0, matchedList.size())
                 .forEach(i -> ui.showMessage((i + 1) + ". " + matchedList.get(i)));
     }

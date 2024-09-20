@@ -32,7 +32,7 @@ public class DeadlineCommand extends Command {
     public DeadlineCommand(String args) throws JeffException {
         super();
         if (args.isEmpty() || !args.contains("/by")) {
-            throw new JeffException("You must provide a valid deadline task in the format: task /by date!");
+            throw new JeffException("Provide a valid deadline in the following format, you must! \n : task /by date!");
         }
         this.args = args;
     }
@@ -41,12 +41,14 @@ public class DeadlineCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws JeffException {
         String[] parts = args.split("/by", 2);
         try {
-            tasks.addTask(new Deadline(parts[0].trim(),
-                    LocalDateTime.parse(parts[1].trim(), Storage.getDateTimeFormatter())));
+            tasks.addTask(
+                    new Deadline(parts[0].trim(), LocalDateTime.parse(parts[1].trim(), Storage.getDateTimeFormatter())
+                    )
+            );
             storage.saveTask(tasks.getTasks());
             ui.showMessage("added: " + tasks.getTask(tasks.size() - 1));
         } catch (DateTimeParseException e) {
-            throw new JeffException("You need to format your dates as follows: " + Storage.getDateFormat());
+            throw new JeffException("Format your date as follows, you must:\n" + Storage.getDateFormat());
         }
     }
 }

@@ -25,7 +25,7 @@ public class UnMarkCommand extends Command {
     public UnMarkCommand(String args) throws JeffException {
         super();
         if (args.isEmpty() || !isNumeric(args)) {
-            throw new JeffException("You must provide one number after the command!");
+            throw new JeffException("One number after the command, you must provide!");
         }
         this.args = args;
     }
@@ -34,11 +34,11 @@ public class UnMarkCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws JeffException {
         int i = Integer.parseInt(args);
         if (i <= 0 || i > tasks.size()) {
-            throw new JeffException("The number is outside the range!");
+            throw new JeffException("Outside the range, this number is!");
         }
         tasks.getTask(i - 1).markNotDone();
         storage.updateSave(tasks.getTasks(), i - 1);
-        ui.showMessage("Alrighty, I marked this as not done:");
+        ui.showMessage("Marked this as not done, I have:");
         ui.showMessage("" + tasks.getTask(i - 1));
     }
 }

@@ -24,7 +24,7 @@ public class DeleteCommand extends Command {
     public DeleteCommand(String args) throws JeffException {
         super();
         if (args.isEmpty() || !isNumeric(args)) {
-            throw new JeffException("You must provide one number after the command!");
+            throw new JeffException("Provide one number after the command, you must!");
         }
         this.args = args;
     }
@@ -33,10 +33,10 @@ public class DeleteCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws JeffException {
         int i = Integer.parseInt(args);
         if (i <= 0 || i > tasks.size()) {
-            throw new JeffException("The number is outside the range!");
+            throw new JeffException("Outside the range, the number is!");
         }
 
-        ui.showMessage("Ok, I will delete this task:");
+        ui.showMessage("Delete this task, I will:");
         ui.showMessage("" + tasks.getTask(i - 1));
         tasks.deleteTask(i - 1);
         storage.updateSave(tasks.getTasks());
