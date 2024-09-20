@@ -1,0 +1,16 @@
+[D][X] submit CS2100 assignment 1 //high /by 2024-09-19 2359
+[T][X] things //high
+[T][ ] s //high
+[E][ ] JB trip with friends //medium /from 2024-09-15 0900 /to 2024-09-16 2100
+[T][ ] faiow efaw //medium
+[T][ ] f //low
+[T][ ] things 
+[E][ ] f  /from 2024-12-10 0500 /to 2024-06-11 1900
+[D][ ] s  /by 2024-10-05 1000
+[E][ ] faw  /from 2024-10-09 1600 /to 2024-10-09 1800
+[T][ ] things 
+[T][ ] afwio /bya f0 
+[T][ ] laundry 
+[E][ ] task  /from 2024-10-10 1900 /to 2024-09-10 1000
+[D][ ] f  /by 2024-10-09 1000
+[E][ ] how are you  /from 2029-10-10 1000 /to 2029-10-10 1000

@@ -1,0 +1,8 @@
+todo borrow book from the Jurong East Regional library
+todo sing a song
+deadline write a poem /by next wednesday
+event go for night run /from tues 3pm /to 5pm
+mark 2
+list
+unmark 2
+bye
