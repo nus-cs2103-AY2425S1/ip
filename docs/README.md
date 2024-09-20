@@ -15,7 +15,7 @@ ChatGPT is a **desktop app for managing tasks, optimized for use via a Command L
 
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar chatgpt-1.0.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](docs/Ui.png)
+   ![Ui](Ui.png)
 
 5. Type the command in the command box and press Enter to execute it. e.g. typing **`list`** and pressing Enter will display the dummy data.<br>
    Some example commands you can try:
@@ -130,7 +130,7 @@ Format: `find KEYWORD`
 
 Examples:
 * `find iP` returns `Deadline task to Submit iP`<br>
-  ![result for 'find iP'](docs/findiPResults.png)
+  ![result for 'find iP'](findiPResults.png)
 
 ### Deleting a task : `delete`
 
