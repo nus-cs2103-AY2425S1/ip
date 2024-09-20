@@ -42,7 +42,6 @@ public class Storage {
      * @param tasksList Array List that holds all the tasks
      * @throws FileNotFoundException Exception when no file is found
      */
-
     private static void populateTasks(File file, ArrayList<Task> tasksList) throws FileNotFoundException {
         Scanner scanner = new Scanner(file);
         while (scanner.hasNext()) {

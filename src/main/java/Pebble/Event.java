@@ -24,7 +24,6 @@ public class Event extends Task {
      * @param from Start date/time.
      * @param to End date/time.
      */
-
     public Event(String description, String from, String to) {
         super(description);
         try {

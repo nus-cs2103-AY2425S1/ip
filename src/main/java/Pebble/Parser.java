@@ -54,37 +54,40 @@ public class Parser {
     }
 
     /**
-     * Converts string command to proper command syntax.
-     * Accommodates alternative command strings
-     * @param command Command inputted by user
-     * @return Command String accepted by program
+     * Converts users' string command to proper command syntax.
+     * Accommodates friendlier and alternative command strings
+     *
+     * @param userCommand Command inputted by user that is not yet formatted
+     * @return Formatted command that is recognised by program
      */
-    private static String convertToProperSyntax(String command) {
-        command = command.toLowerCase();
-        if (Arrays.asList("bye", "goodbye", "bb", "sayonara").contains(command)) {
+    private static String convertToProperSyntax(String userCommand) {
+        userCommand = userCommand.toLowerCase();
+        String command;
+
+        // Below are supported syntax
+        if (Arrays.asList("bye", "goodbye", "bb", "sayonara").contains(userCommand)) {
             command = "bye";
-        } else if (Arrays.asList("list", "ls", "tasks").contains(command)) {
+        } else if (Arrays.asList("list", "ls", "tasks").contains(userCommand)) {
             command = "list";
-        } else if (Arrays.asList("mark", "m", "done").contains(command)) {
+        } else if (Arrays.asList("mark", "m", "tag").contains(userCommand)) {
             command = "mark";
-        } else if (Arrays.asList("unmark", "um", "undo").contains(command)) {
+        } else if (Arrays.asList("unmark", "um", "untag").contains(userCommand)) {
             command = "unmark";
-        } else if (Arrays.asList("todo", "t", "td").contains(command)) {
+        } else if (Arrays.asList("todo", "t", "td").contains(userCommand)) {
             command = "todo";
-        } else if (Arrays.asList("deadline", "d", "dl").contains(command)) {
+        } else if (Arrays.asList("deadline", "d", "dl").contains(userCommand)) {
             command = "deadline";
-        } else if (Arrays.asList("event", "e", "ev").contains(command)) {
+        } else if (Arrays.asList("event", "e", "ev").contains(userCommand)) {
             command = "event";
-        } else if (Arrays.asList("delete", "dl", "rm", "remove").contains(command)) {
+        } else if (Arrays.asList("delete", "rm", "remove").contains(userCommand)) {
             command = "delete";
-        } else if (Arrays.asList("find", "search", "f").contains(command)) {
+        } else if (Arrays.asList("find", "search", "f").contains(userCommand)) {
             command = "find";
         } else {
             command = "unknown";
         }
         return command;
     }
-
 
     /**
      * Parses saved tasks in pebble.txt and returns them as instances of Task object.

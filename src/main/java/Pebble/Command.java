@@ -18,6 +18,7 @@ public class Command {
         this.arguments = arguments;
     }
 
+
     public String execute(TasksList tasksList, Ui ui, Storage storage) {
         String response = "";
         try {
@@ -60,8 +61,21 @@ public class Command {
     }
 
     private String handleBye(Ui ui) {
-        return ui.showGoodbye();
+        String goodbyeMessage = ui.showGoodbye();
+
+        // Schedule the app to close after showing the goodbye message
+        new Thread(() -> {
+            try {
+                Thread.sleep(1000);  // Delay to let the message show
+                System.exit(0);      // Close the application
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+
+        return goodbyeMessage;
     }
+
 
     private String handleList(Ui ui, TasksList tasksList) {
         return ui.showTasksList(tasksList.getAllTasks());

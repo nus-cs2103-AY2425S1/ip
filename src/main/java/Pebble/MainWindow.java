@@ -36,6 +36,8 @@ public class MainWindow extends AnchorPane {
         pebble = p;
     }
 
+
+
     /**
      * Creates two dialog boxes, one echoing user input and the other containing
      * Duke's reply and then appends them to the dialog container.
@@ -46,6 +48,7 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         assert input != null : "User input should not be null";
         String response = pebble.getResponse(input);
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)

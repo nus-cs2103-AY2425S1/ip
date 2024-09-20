@@ -1,4 +1,4 @@
-[T][X] deadline
-[D][ ] lecture video (by: tmr)
-[E][ ] birthday (from: woehrow to: werjw)
-[T][ ] this assignment
+[T][ ] task1
+[E][ ] orientation week (from: 4/10/2024 to: 11/10/2024)
+[T][ ] homework
+[D][X] english homework (by: tmr)
