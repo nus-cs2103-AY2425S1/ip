@@ -59,11 +59,13 @@ public abstract class Task {
      * If done, return X, else return " "
      */
     public String getStatusIcon() {
+
         return (isDone ? "X" : " "); // mark done task with X
     }
 
     //getter
     public String getTaskDesc() {
+
         return desc; // mark done task with X
     }
 
@@ -71,6 +73,7 @@ public abstract class Task {
      * Returns string representation of task
      */
     public String print() {
+
         return "[" + this.getStatusIcon() + "] " + desc;
     }
 
@@ -85,14 +88,14 @@ public abstract class Task {
     /**
      * Sets the date and time of the task.
      *
-     * @param updatedDateTime the new date and time to be assigned to the task.
+     * @param updatedDateTime the new date and time to be assigned to the deadline task.
      */
     public abstract void setDateTime(LocalDateTime updatedDateTime);
 
     /**
      * Sets the time of the task
      *
-     * @param updatedDeadlineTime the new time to be assigned to the task.
+     * @param updatedDeadlineTime the new time to be assigned to the deadline task.
      */
     public abstract void setTime(LocalTime updatedDeadlineTime);
 

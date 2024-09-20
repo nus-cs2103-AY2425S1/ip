@@ -15,6 +15,7 @@ public class EventCommand extends Command {
      */
     @Override
     public String execute() {
+
         return storeList.addItem(userInput.substring(5), "event");
     }
 

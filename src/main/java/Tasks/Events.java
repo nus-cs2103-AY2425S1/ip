@@ -204,7 +204,7 @@ public class Events extends Task {
      */
     @Override
     public void setDateTime(LocalDateTime updatedDateTime) {
-        //do nothing
+        //do nothing for deadline tasks
 
     }
 
@@ -213,7 +213,7 @@ public class Events extends Task {
      */
     @Override
     public void setTime(LocalTime updatedDeadlineTime) {
-        //do nothing
+        //do nothing for deadline tasks
     }
 
     /**

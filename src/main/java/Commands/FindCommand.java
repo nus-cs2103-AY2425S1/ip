@@ -4,6 +4,7 @@ public class FindCommand extends Command {
     private String userInput;
 
     public FindCommand(String userInput) {
+
         this.userInput = userInput;
     }
 
@@ -22,6 +23,7 @@ public class FindCommand extends Command {
 
     @Override
     public boolean isExit() {
+
         return false;
     }
 }

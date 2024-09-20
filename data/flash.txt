@@ -1,4 +1,8 @@
-D|X| math homework /by 2020-02-03 12:00
-E| | project meeting /from 12:00 /to 20:00 /on 2020-02-03
-D| | math homework /by 2020-03-02
-D| | /by 19:00
+E| | project meeting /from 17:00 /to 19:00 /on 2020-06-07
+D| | math homework /by 2020-06-07
+D| | /by 20:00
+D| | sci /by 2020-06-07 17:00
+D| | math /by 2020-04-05
+D| | eng /by 18:00
+T| | red
+E| | project /from 16:00 /to 18:00 /on 2020-04-05

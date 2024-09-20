@@ -43,7 +43,7 @@ public class ToDos extends Task {
      */
     @Override
     public void setDateTime(LocalDateTime updatedDateTime) {
-        // do nothing
+        // do nothing cause todo has no date or time attribute
 
     }
 
@@ -76,6 +76,7 @@ public class ToDos extends Task {
      */
     @Override
     public void setDesc(String newValue) {
+        // do nothing as todo has no date or time attributes
     }
 
 }

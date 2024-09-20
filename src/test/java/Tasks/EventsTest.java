@@ -24,7 +24,7 @@ public class EventsTest {
         try {
             assertEquals("[E][ ] read book (from: 4:00 pm to: 6:00 pm on: Apr 05 2020", new Events("read book /from ").print());
         } catch (EmptyEventTimingException | EmptyEventException | EmptyEventDateException | InvalidTimeException e) {
-            assertEquals("     OOPS! Event start time not given leh. Pls provide in the following format: event project meeting /from 16:00 /to 18:00 /on yyyy-MM-dd or dd/MM/yyyy", e.getMessage());
+            assertEquals("OOPS!!! Event start time not given leh. Pls provide in the following format: event project meeting /from 16:00 /to 18:00 /on yyyy-MM-dd or dd/MM/yyyy", e.getMessage());
         }
     }
 
@@ -33,7 +33,7 @@ public class EventsTest {
         try {
             assertEquals("[E][ ] read book (from: 4:00 pm to: 6:00 pm on: Apr 05 2020", new Events("read book /from 16:00  ").print());
         } catch (EmptyEventTimingException | EmptyEventException | EmptyEventDateException e) {
-            assertEquals("     OOPS! Event end time not given leh. Pls provide in the following format: event project meeting /from 16:00 /to 18:00 /on yyyy-MM-dd or dd/MM/yyyy", e.getMessage());
+            assertEquals("OOPS!!! Event end time not given leh. Pls provide in the following format: event project meeting /from 16:00 /to 18:00 /on yyyy-MM-dd or dd/MM/yyyy", e.getMessage());
         } catch (InvalidTimeException e) {
             throw new RuntimeException(e);
         }
@@ -44,7 +44,7 @@ public class EventsTest {
         try {
             assertEquals("[E][ ] read book (from: 4:00 pm to: 6:00 pm on: Apr 05 2020", new Events("read book /from 16:00 /to 18:00").print());
         } catch (EmptyEventDateException | EmptyEventException | EmptyEventTimingException | InvalidTimeException e) {
-            assertEquals("     OOPS! Event date not given leh. Pls provide in the following format: event project meeting /from 16:00 /to 18:00 /on yyyy-MM-dd or dd/MM/yyyy", e.getMessage());
+            assertEquals("OOPS!!! Event date not given leh. Pls provide in the following format: event project meeting /from 16:00 /to 18:00 /on yyyy-MM-dd or dd/MM/yyyy", e.getMessage());
         }
     }
 }

@@ -15,6 +15,7 @@ public class DueCommand extends Command {
      */
     @Override
     public String execute() {
+
         return storeList.dueOnDate(userInput.substring(4).trim());
     }
 

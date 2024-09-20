@@ -97,7 +97,7 @@ public class StorelistTest {
             // Assert that the task was deleted correctly
             storeList.get(size).print();
         } catch (InvalidIndexException e) {
-            assertEquals("Task number does not exist", e.getMessage());
+            assertEquals("Task number does not exist leh", e.getMessage());
         }
     }
 

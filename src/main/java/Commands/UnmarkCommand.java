@@ -6,6 +6,7 @@ public class UnmarkCommand extends Command {
     String userInput;
 
     public UnmarkCommand(String userInput) {
+
         this.userInput = userInput;
     }
 
