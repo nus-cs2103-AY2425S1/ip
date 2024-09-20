@@ -5,6 +5,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
 import bot.action.Action;
+import bot.constants.Message;
 import bot.exceptions.BotException;
 import bot.storage.Storage;
 import bot.tasks.TaskList;
@@ -46,12 +47,12 @@ public class Bot {
 
             // If it is a terminal action, we close the program asynchronously after 3 seconds
             if (action.isTerminal()) {
-                CompletableFuture.delayedExecutor(3, TimeUnit.SECONDS).execute(() -> System.exit(1));
+                CompletableFuture.delayedExecutor(3, TimeUnit.SECONDS).execute(() -> System.exit(0));
             }
 
             return response;
         } catch (BotException e) {
-            return e.getMessage();
+            return Message.ERROR + "\n\n" + e.getMessage() + "\n\n" + Message.HELP;
         }
     }
 }
