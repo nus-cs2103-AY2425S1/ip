@@ -54,7 +54,7 @@ public class Storage {
             }
 
             // create file if it doesnt exist
-            File saveFile = new File(this.filePath);
+            File saveFile = new File(this.fullPath);
             if (!saveFile.exists()) {
                 saveFile.createNewFile();
             }
