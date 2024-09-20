@@ -29,7 +29,7 @@ Wiggly is a task management application that helps you keep track of your tasks,
 
 ### Adding ToDo
 
-- **Description**: Adds a simple task without any date/time attached to it.
+- **Description**: Adds a simple task without any date attached to it.
 - **Usage**: `todo <task description>`
 - **Example**: `todo Read a book`
 - **Output**:
@@ -41,7 +41,7 @@ Wiggly is a task management application that helps you keep track of your tasks,
   
 ### Adding Deadline
 
-- **Description**: Adds a task that needs to be done by a specific date/time.
+- **Description**: Adds a task that needs to be done by a specific date.
 - **Usage**: `deadline <task description> /by <date>`
 - **Example**: `deadline Submit assignment /by 2023-10-10`
 - **Output**:
@@ -53,8 +53,8 @@ Wiggly is a task management application that helps you keep track of your tasks,
   
 ### Adding Event
 
-- **Description**: Adds a task that starts at a specific date/time and ends at a specific date/time.
-- **Usage**: `event <task description> /at <start date/time> to <end date>`
+- **Description**: Adds a task that starts at a specific date and ends at a specific date.
+- **Usage**: `event <task description> /at <start date> to <end date>`
 - **Example**: `event Team meeting /at 2023-10-10 14:00 to 2023-10-10`
 - **Output**:
     ```
