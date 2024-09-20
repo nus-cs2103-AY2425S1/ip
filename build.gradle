@@ -52,6 +52,7 @@ application {
 
 shadowJar {
     archiveBaseName = "lumina"
+    archiveFileName = "lumina.jar"
     archiveClassifier = null
 }
 
