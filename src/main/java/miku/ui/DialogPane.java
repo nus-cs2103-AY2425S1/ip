@@ -1,6 +1,5 @@
 package miku.ui;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -32,7 +31,16 @@ public class DialogPane extends AnchorPane {
      */
     public void add(Node node) {
         this.box.getChildren().add(node);
-        scrollPane.setVvalue(1.0);
+    }
+
+    /**
+     * Initialises a dialog container.
+     */
+    @FXML
+    public void initialize() {
+        box.heightProperty().addListener((observable, oldValue, newValue) -> {
+            scrollPane.setVvalue(1.0); // Scroll to the bottom
+        });
     }
 
     /**
@@ -41,12 +49,11 @@ public class DialogPane extends AnchorPane {
     @FXML
     public void handleUserInput() {
         Run run = new Run();
-        String reponse = run.getResponse(inputField.getText());
+        String response = run.getResponse(inputField.getText());
         box.getChildren().addAll(
                 DialogBox.getUserDialog(inputField.getText(), new Image(getClass().getResourceAsStream("/user.png"))),
-                DialogBox.getDukeDialog(reponse, new Image(getClass().getResourceAsStream("/miku.jpeg")))
+                DialogBox.getDukeDialog(response, new Image(getClass().getResourceAsStream("/miku.jpeg")))
         );
         inputField.clear();
-        Platform.runLater(() -> scrollPane.setVvalue(1.0));
     }
 }
