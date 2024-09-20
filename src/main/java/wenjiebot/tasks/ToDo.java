@@ -1,5 +1,7 @@
 package wenjiebot.tasks;
 
+import wenjiebot.exceptions.SnoozeOnTodoException;
+
 /**
  * The ToDo class represents a specific type of task that has no deadline or additional attributes.
  * It extends the Task class to provide a representation for tasks without any extra details.
@@ -17,7 +19,8 @@ public class ToDo extends Task {
     }
 
     @Override
-    public void setDateTime(String newDate) {
+    public void setDateTime(String newDate) throws SnoozeOnTodoException {
+        throw new SnoozeOnTodoException();
     }
 
     /**

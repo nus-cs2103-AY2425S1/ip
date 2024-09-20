@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+import wenjiebot.exceptions.InvalidDateInputException;
 import wenjiebot.exceptions.NoFileException;
 import wenjiebot.tasks.Deadline;
 import wenjiebot.tasks.Event;
@@ -52,23 +53,22 @@ public class Storage {
     public void readTasks() {
         File file = new File(filePath);
 
-        // Check if file exists, if not create a new file
         if (doesFileExist(file)) {
-            return; // Exit as there is nothing to read yet
+            return;
         }
 
-        // Guard clause for handling IO exception
         try {
             String content = new String(Files.readAllBytes(Paths.get(filePath)));
-            // Guard clause for empty content
             if (content.isBlank()) {
-                return; // No tasks to process, so return early
+                return;
             }
             extractContentIntoTasks(content);
 
         } catch (IOException e) {
             System.out.println("An error occurred while reading the file.");
             e.printStackTrace();
+        } catch (InvalidDateInputException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -79,7 +79,7 @@ public class Storage {
      *
      * @param content The string content containing tasks separated by newlines.
      */
-    private void extractContentIntoTasks(String content) {
+    private void extractContentIntoTasks(String content) throws InvalidDateInputException {
         String[] parts = content.split("\n");
 
         for (String stringifiedTask : parts) {
@@ -119,7 +119,7 @@ public class Storage {
      * @param isDone whether the task is marked as done.
      * @return the corresponding Task object.
      */
-    private static Task convertStringToTask(String stringifiedTask, boolean isDone) {
+    private static Task convertStringToTask(String stringifiedTask, boolean isDone) throws InvalidDateInputException {
         String description = stringifiedTask.substring(8);
         Task taskToAdd = null;
 

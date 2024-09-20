@@ -13,10 +13,10 @@ import wenjiebot.exceptions.WenJieException;
  * the execution flow of the bot by processing user commands.
  */
 public class WenJie {
-
-    private Storage storage;
-    private TaskList tasks;
-    private Ui ui;
+    private static final String hardDisk = "./wenjie.txt";
+    private final Storage storage;
+    private final TaskList tasks;
+    private final Ui ui;
 
     /**
      * Constructs a WenJie instance with the specified file path for storage.
@@ -72,8 +72,7 @@ public class WenJie {
      * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
-        String filePath = "./src/main/java/data/wenjie.txt";
-        new WenJie(filePath).run();
+        new WenJie(hardDisk).run();
     }
 
     /**

@@ -2,6 +2,10 @@ package wenjiebot.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import wenjiebot.exceptions.InvalidDateInputException;
+import wenjiebot.exceptions.InvalidSnoozeFormatException;
 
 /**
  * The Event class represents an event task in the wenjiebot application.
@@ -12,7 +16,6 @@ public class Event extends Task {
 
     protected String from;
     protected String to;
-
     protected LocalDateTime fromInDateTime;
     protected LocalDateTime toInDateTime;
 
@@ -23,17 +26,27 @@ public class Event extends Task {
      * @param from The start time of the event.
      * @param to The end time of the event.
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, String from, String to) throws InvalidDateInputException {
         super(description);
         this.from = from.trim();
         this.to = to.trim();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        this.fromInDateTime = LocalDateTime.parse(from.trim(), formatter);
-        this.toInDateTime = LocalDateTime.parse(to.trim(), formatter);
+        try {
+            this.fromInDateTime = LocalDateTime.parse(from.trim(), formatter);
+            this.toInDateTime = LocalDateTime.parse(to.trim(), formatter);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateInputException();
+        }
     }
-
+    /**
+     * Sets the date and time for the event using the provided string.
+     * The input must contain both the start time ("/from") and end time ("/to").
+     *
+     * @param newDate A string containing the new start and end times in the format "/from d/M/yyyy HHmm /to d/M/yyyy HHmm".
+     * @throws InvalidSnoozeFormatException if the input format is invalid or cannot be parsed.
+     */
     @Override
-    public void setDateTime(String newDate) {
+    public void setDateTime(String newDate) throws InvalidSnoozeFormatException {
         int fromIndex = newDate.indexOf("/from") + 6;
         int toIndex = newDate.indexOf("/to") + 4;
 
@@ -41,8 +54,12 @@ public class Event extends Task {
         String toDateTime = newDate.substring(toIndex).trim();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        this.fromInDateTime = LocalDateTime.parse(fromDateTime, formatter);
-        this.toInDateTime = LocalDateTime.parse(toDateTime, formatter);
+        try {
+            this.fromInDateTime = LocalDateTime.parse(fromDateTime, formatter);
+            this.toInDateTime = LocalDateTime.parse(toDateTime, formatter);
+        } catch (DateTimeParseException e) {
+            throw new InvalidSnoozeFormatException();
+        }
     }
 
     /**

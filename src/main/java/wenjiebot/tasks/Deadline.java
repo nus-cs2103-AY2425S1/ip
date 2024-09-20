@@ -2,6 +2,10 @@ package wenjiebot.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import wenjiebot.exceptions.InvalidDateInputException;
+import wenjiebot.exceptions.InvalidSnoozeFormatException;
 
 /**
  * The Deadline class represents a deadline task in the wenjiebot application.
@@ -20,18 +24,32 @@ public class Deadline extends Task {
      * @param description The description of the deadline.
      * @param by The due date and time of the deadline in the format "d/M/yyyy HHmm".
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, String by) throws InvalidDateInputException {
         super(description);
         this.by = by.trim();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        this.dateTime = LocalDateTime.parse(by.trim(), formatter);
+        try {
+            this.dateTime = LocalDateTime.parse(by.trim(), formatter);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateInputException();
+        }
     }
-
+    /**
+     * Sets the date and time for the deadline using the provided string.
+     * The input must contain the due time ("/by").
+     *
+     * @param newDate A string containing the new start and end times in the format "/by d/M/yyyy HHmm".
+     * @throws InvalidSnoozeFormatException if the input format is invalid or cannot be parsed.
+     */
     @Override
-    public void setDateTime(String newDate) {
+    public void setDateTime(String newDate) throws InvalidSnoozeFormatException {
         by = newDate.replace("/by", "").trim();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        dateTime = LocalDateTime.parse(by.trim(), formatter);
+        try {
+            dateTime = LocalDateTime.parse(by.trim(), formatter);
+        } catch (DateTimeParseException e) {
+            throw new InvalidSnoozeFormatException();
+        }
     }
     /**
      * Returns a string representation of the Deadline in a format suitable for storage.
