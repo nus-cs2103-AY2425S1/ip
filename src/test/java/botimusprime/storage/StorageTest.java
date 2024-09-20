@@ -10,11 +10,18 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
+/**
+ * Unit tests for the {@link Storage} class, which handles loading and saving tasks to disk.
+ */
 public class StorageTest {
     private static final String TEST_FILE_NAME = "test_tasks.txt";
     private File testFile;
 
+    /**
+     * Sets up the test environment before each test.
+     * Creates a temporary test file in the data directory.
+     * Deletes it if it already exists.
+     */
     @BeforeEach
     public void setup() {
         testFile = new File(new File("./data"), TEST_FILE_NAME);
@@ -24,6 +31,10 @@ public class StorageTest {
         }
     }
 
+    /**
+     * Cleans up the test environment after each test.
+     * Deletes the temporary test file if it exists.
+     */
     @AfterEach
     public void reset() {
         if (testFile.exists()) {
@@ -31,6 +42,10 @@ public class StorageTest {
         }
     }
 
+    /**
+     * Tests loading tasks from disk when the file does not exist.
+     * Expects an empty task list to be returned.
+     */
     @Test
     public void testLoadFromDisk_FileDoesNotExist() {
         Storage storage = new Storage("fake_file.txt");
@@ -41,6 +56,13 @@ public class StorageTest {
         assertTrue(taskList.getTasks().isEmpty());
     }
 
+    /**
+     * Tests loading tasks from disk when the file exists and contains valid tasks.
+     * Expects the task list to contain the correct number of tasks
+     * with accurate descriptions and completion statuses.
+     *
+     * @throws IOException if an I/O error occurs while writing to the test file.
+     */
     @Test
     public void testLoadFromDisk_FileExistsWithValidTasks() throws IOException {
         File file = new File(new File("./data"), TEST_FILE_NAME);

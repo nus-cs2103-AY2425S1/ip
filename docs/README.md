@@ -5,20 +5,6 @@
 Hey, human! This is a user guide on how to use BotimusPrime, a chatbot designed
 for **keeping track of your daily tasks and schedules via a Command Line Interface (CLI)!**
 
-## Adding deadlines
-
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
-```
-expected output
-```
-
 ## Adding To-dos
 
 The chatbot allows you to add to-dos, which are simple tasks that don't 

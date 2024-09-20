@@ -6,6 +6,7 @@ import botimusprime.storage.Storage;
 import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -178,9 +179,11 @@ public class TaskList {
             return "Your task has no description, human.";
         }
 
-        LocalDateTime date = Parser.stringToDateTime(deadline);
+        LocalDateTime date;
 
-        if (date == null) {
+        try {
+            date = Parser.stringToDateTime(deadline);
+        } catch (DateTimeParseException e) {
             return "Your date is in the wrong format, human.";
         }
 
@@ -232,14 +235,16 @@ public class TaskList {
         String from = fromAndTo[0].trim();
         String to = fromAndTo[1].trim();
 
-        LocalDateTime fromDate = Parser.stringToDateTime(from);
-        LocalDateTime toDate = Parser.stringToDateTime(to);
+        LocalDateTime fromDate;
+        LocalDateTime toDate;
 
-        if (fromDate == null) {
-            return "Your from date is in the wrong format, human.";
-        } else if (toDate == null) {
-            return "Your to date is in the wrong format, human.";
+        try {
+            fromDate = Parser.stringToDateTime(from);
+            toDate = Parser.stringToDateTime(to);
+        } catch (DateTimeParseException e) {
+            return "One of your dates is in the wrong format, human.";
         }
+
 
         Event task = new Event(description, false, fromDate, toDate);
 
@@ -251,6 +256,12 @@ public class TaskList {
                                 task, tasks.size());
     }
 
+    /**
+     * Finds tasks in the list that match the user's input.
+     *
+     * @param input the user's input containing the command and search query
+     * @return a string indicating matching tasks, or a message if no tasks match
+     */
     public String findTask(String input) {
         assert !input.isEmpty();
 
@@ -278,19 +289,36 @@ public class TaskList {
         }
     }
 
+    /**
+     * Views the schedule for a specified date.
+     *
+     * @param input the user's input containing the command and the date string
+     * @return a string with the schedule for the specified date, or an error message if the date format is incorrect
+     */
     public String viewSchedule(String input) {
         String dateString = input.substring(5).trim();
 
-        LocalDateTime date = Parser.stringToDateTime(dateString);
-        if (date == null) {
+        LocalDateTime date;
+
+        try {
+            date = Parser.stringToDateTime(dateString);
+        } catch (DateTimeParseException e) {
             return "Your date is in the wrong format, human.";
         }
+
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM d, yyyy");
         String formattedDate = date.toLocalDate().format(dateFormatter);
 
         return filterTaskByDate(date, formattedDate);
     }
 
+    /**
+     * Filters tasks by a specified date and returns the matching tasks.
+     *
+     * @param date the LocalDateTime object representing the date to filter tasks
+     * @param formattedDate the string representation of the formatted date
+     * @return a string listing tasks scheduled for the specified date, or a message if no tasks are scheduled
+     */
     public String filterTaskByDate(LocalDateTime date, String formattedDate) {
         ArrayList<Task> todaysTasks = new ArrayList<>();
         StringBuilder resultString = new StringBuilder(

@@ -32,13 +32,14 @@ public class Parser {
     }
 
     /**
-     * Converts a date and time string into a LocalDateTime object.
-     * The method tries to parse the string using different date and time formats.
+     * Converts a string representation of a date and time into a {@link LocalDateTime} object.
+     * Supports multiple date formats including ISO and slash-separated formats.
      *
-     * @param timeString The date and/or time string to be converted.
-     * @return A LocalDateTime object representing the parsed date and time.
+     * @param timeString the string representation of the date and time to convert
+     * @return a {@link LocalDateTime} object representing the specified date and time
+     * @throws DateTimeParseException if the input string does not match any supported date format
      */
-    public static LocalDateTime stringToDateTime(String timeString) {
+    public static LocalDateTime stringToDateTime(String timeString) throws DateTimeParseException {
         DateTimeFormatter isoDateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         DateTimeFormatter isoDateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter slashDateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
@@ -49,22 +50,18 @@ public class Parser {
         Pattern slashDateTimePattern = Pattern.compile("\\d{2}/\\d{2}/\\d{4} \\d{4}");
         Pattern slashDatePattern = Pattern.compile("\\d{2}/\\d{2}/\\d{4}");
 
-        try {
-            if (isoDateTimePattern.matcher(timeString).matches()) {
-                return LocalDateTime.parse(timeString, isoDateTimeFormatter);
-            } else if (isoDatePattern.matcher(timeString).matches()) {
-                return LocalDate.parse(timeString, isoDateFormatter).atStartOfDay();
-            } else if (slashDateTimePattern.matcher(timeString).matches()) {
-                return LocalDateTime.parse(timeString, slashDateTimeFormatter);
-            } else if (slashDatePattern.matcher(timeString).matches()) {
-                return LocalDate.parse(timeString, slashDateFormatter).atStartOfDay();
-            } else {
-                return null;
-            }
-        } catch (DateTimeParseException e) {
-            return null;
-        }
 
+        if (isoDateTimePattern.matcher(timeString).matches()) {
+            return LocalDateTime.parse(timeString, isoDateTimeFormatter);
+        } else if (isoDatePattern.matcher(timeString).matches()) {
+            return LocalDate.parse(timeString, isoDateFormatter).atStartOfDay();
+        } else if (slashDateTimePattern.matcher(timeString).matches()) {
+            return LocalDateTime.parse(timeString, slashDateTimeFormatter);
+        } else if (slashDatePattern.matcher(timeString).matches()) {
+            return LocalDate.parse(timeString, slashDateFormatter).atStartOfDay();
+        } else {
+            throw new DateTimeParseException("Invalid date", timeString, 0);
+        }
     }
 
     /**
