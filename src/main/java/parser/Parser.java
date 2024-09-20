@@ -95,7 +95,13 @@ public class Parser {
             throw new InvalidInputException("Please provide a task number to mark or unmark.");
         }
 
-        int taskIndex = getTaskIndex(slicedStrings);
+        int taskIndex;
+
+        try {
+            taskIndex = getTaskIndex(slicedStrings);
+        } catch (NumberFormatException e) {
+            throw new InvalidInputException("The task number should be a valid integer.");
+        }
 
         if (isMarking) {
             taskList.markTask(taskIndex);
@@ -221,7 +227,14 @@ public class Parser {
             throw new InvalidInputException("Please provide a task number to delete.");
         }
 
-        int taskIndex = getTaskIndex(slicedStrings);
+        int taskIndex;
+
+        try {
+            taskIndex = getTaskIndex(slicedStrings);
+        } catch (NumberFormatException e) {
+            throw new InvalidInputException("The task number should be a valid integer.");
+        }
+
         Task deletedTask = taskList.getTask(taskIndex);
         taskList.deleteTask(taskIndex);
         storage.saveCommands("delete", deletedTask);
@@ -277,15 +290,7 @@ public class Parser {
             }
         }
 
-        int numberOfTimesToUndo = Integer.parseInt(slicedStrings[1]);
-        if (numberOfTimesToUndo > storage.getCommandsSize()) {
-            throw new InvalidInputException("The number of times "
-                    + "you want to undo exceeds the total number of command entries!");
-        }
-        if (numberOfTimesToUndo <= 0) {
-            throw new InvalidInputException("The number of times "
-                    + "you want to undo is invalid!");
-        }
+        int numberOfTimesToUndo = getNumberOfTimesToUndo(slicedStrings, storage);
         for (int i = 1; i <= numberOfTimesToUndo; i++) {
             try {
                 Map<String, Task> lastCommand = storage.lastCommand();
@@ -295,6 +300,24 @@ public class Parser {
             }
         }
         return "The previous commands have been undone";
+    }
+
+    private static int getNumberOfTimesToUndo(String[] slicedStrings, Storage storage) throws InvalidInputException {
+        int numberOfTimesToUndo;
+        try {
+            numberOfTimesToUndo = Integer.parseInt(slicedStrings[1]);
+        } catch (NumberFormatException e) {
+            throw new InvalidInputException("The task number should be a valid integer.");
+        }
+        if (numberOfTimesToUndo > storage.getCommandsSize()) {
+            throw new InvalidInputException("The number of times "
+                    + "you want to undo exceeds the total number of command entries!");
+        }
+        if (numberOfTimesToUndo <= 0) {
+            throw new InvalidInputException("The number of times "
+                    + "you want to undo is invalid!");
+        }
+        return numberOfTimesToUndo;
     }
 
     private static void handleSingleUndoCommand(
