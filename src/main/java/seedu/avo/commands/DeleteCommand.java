@@ -6,10 +6,22 @@ import seedu.avo.tasks.TaskManager;
  * Represents the command to delete a task
  */
 public class DeleteCommand extends Command {
+    private static DeleteCommand instance;
     private static final int INPUT_SIZE = 2;
     private final TaskManager manager;
-    public DeleteCommand(TaskManager manager) {
+    private DeleteCommand(TaskManager manager) {
         this.manager = manager;
+    }
+    /**
+     * Returns a singleton instance of DeleteCommand
+     * @param manager A TaskManager to control task specific jobs
+     * @return A single instance of DeleteCommand
+     */
+    public static DeleteCommand of(TaskManager manager) {
+        if (instance == null) {
+            instance = new DeleteCommand(manager);
+        }
+        return instance;
     }
     @Override
     public CommandResult execute(String userInput) throws AvoException {

@@ -37,8 +37,8 @@ public abstract class Task {
     }
     @Override
     public boolean equals(Object o) {
-        if (o instanceof Task) {
-            return name.equals(((Task) o).name);
+        if (o instanceof Task t) {
+            return name.equals(t.name);
         }
         return false;
     }

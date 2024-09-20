@@ -35,8 +35,8 @@ public class Deadline extends Task {
     }
     @Override
     public boolean equals(Object o) {
-        if (o instanceof Deadline) {
-            return super.equals(o) && dueDate.equals(((Deadline) o).dueDate);
+        if (o instanceof Deadline d) {
+            return super.equals(o) && dueDate.equals(d.dueDate);
         }
         return false;
     }

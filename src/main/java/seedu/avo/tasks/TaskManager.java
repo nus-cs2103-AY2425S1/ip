@@ -37,7 +37,7 @@ public class TaskManager {
     }
 
     /**
-     * Mark a task as completed
+     * Marks a task as completed
      * @param index The index of the completed task
      */
     public String completeTask(int index) {
@@ -47,7 +47,7 @@ public class TaskManager {
         return formatter.showTaskMarked(tasks, index);
     }
     /**
-     * Mark a task as uncompleted
+     * Marks a task as uncompleted
      * @param index The index of the uncompleted task
      */
     public String unCompleteTask(int index) {

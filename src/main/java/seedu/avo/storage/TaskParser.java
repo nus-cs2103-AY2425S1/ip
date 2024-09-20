@@ -17,28 +17,28 @@ public class TaskParser extends FileParser<Task> {
     public Task parse(String input) throws AvoException {
         String[] inputs = input.split(" : ");
         assert inputs.length > 0 : "inputs should not be empty";
-        String type = inputs[0];
-        Task task;
-        switch (type) {
-        case "T":
-            task = new ToDo(inputs[2]);
-            break;
-        case "D":
-            LocalDateTime dueDate = DateTime.parseFromStorage(inputs[3]);
-            task = new Deadline(inputs[2], dueDate);
-            break;
-        case "E":
-            LocalDateTime startTime = DateTime.parseFromStorage(inputs[3]);
-            LocalDateTime endTime = DateTime.parseFromStorage(inputs[4]);
-            task = new Event(inputs[2], startTime, endTime);
-            break;
-        default:
-            throw new AvoException("Invalid task type in storage");
-        }
+        Task task = getTaskType(inputs);
         boolean isCompleted = Integer.parseInt(inputs[1]) == 1;
         if (isCompleted) {
             task.complete();
         }
         return task;
+    }
+
+    private Task getTaskType(String[] inputs) throws AvoException {
+        String type = inputs[0];
+        switch (type) {
+        case "T":
+            return new ToDo(inputs[2]);
+        case "D":
+            LocalDateTime dueDate = DateTime.parseFromStorage(inputs[3]);
+            return new Deadline(inputs[2], dueDate);
+        case "E":
+            LocalDateTime startTime = DateTime.parseFromStorage(inputs[3]);
+            LocalDateTime endTime = DateTime.parseFromStorage(inputs[4]);
+            return new Event(inputs[2], startTime, endTime);
+        default:
+            throw new AvoException("Invalid task type in storage");
+        }
     }
 }

@@ -7,10 +7,22 @@ import seedu.avo.tasks.TaskManager;
  * Represents the command to search tasks by name
  */
 public class SearchNameCommand extends Command {
+    private static SearchNameCommand instance;
     private static final int INPUT_SIZE = 2;
     private final TaskManager manager;
-    public SearchNameCommand(TaskManager manager) {
+    private SearchNameCommand(TaskManager manager) {
         this.manager = manager;
+    }
+    /**
+     * Returns a singleton instance of SearchNameCommand
+     * @param manager A TaskManager to control task specific jobs
+     * @return A single instance of SearchNameCommand
+     */
+    public static SearchNameCommand of(TaskManager manager) {
+        if (instance == null) {
+            instance = new SearchNameCommand(manager);
+        }
+        return instance;
     }
     @Override
     public CommandResult execute(String userInput) throws AvoException {

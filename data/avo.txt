@@ -1,5 +1,5 @@
-T : 1 : think of an idea
-D : 1 : return book : Sep 9 2024 1800
-E : 0 : attend orientation : Sep 1 2024 1800 : Sep 4 2024 1800
-T : 0 : revise for exam
+D : 0 : return book : Sep 9 2024 1800
+T : 1 : revise for exam
 T : 0 : complete CS2103T assignment
+D : 0 : submit assignment : Sep 20 2024 2359
+T : 0 : go to the gym

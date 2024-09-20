@@ -6,10 +6,22 @@ import seedu.avo.tasks.TaskManager;
  * Represents the command to mark a task as uncompleted
  */
 public class UnmarkCommand extends Command {
+    private static UnmarkCommand instance;
     private static final int INPUT_SIZE = 2;
     private final TaskManager manager;
-    public UnmarkCommand(TaskManager manager) {
+    private UnmarkCommand(TaskManager manager) {
         this.manager = manager;
+    }
+    /**
+     * Returns a singleton instance of UnmarkCommand
+     * @param manager A TaskManager to control task specific jobs
+     * @return A single instance of UnmarkCommand
+     */
+    public static UnmarkCommand of(TaskManager manager) {
+        if (instance == null) {
+            instance = new UnmarkCommand(manager);
+        }
+        return instance;
     }
     @Override
     public CommandResult execute(String userInput) throws AvoException {

@@ -7,7 +7,6 @@ import seedu.avo.exceptions.AvoException;
  */
 public class HelpCommand extends Command {
     private static final HelpCommand INSTANCE = new HelpCommand();
-
     private HelpCommand() {}
     public static HelpCommand of() {
         return INSTANCE;

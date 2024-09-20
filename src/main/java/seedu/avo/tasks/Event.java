@@ -43,4 +43,13 @@ public class Event extends Task {
         String endTimeStr = DateTime.format(endTime);
         return String.format("[E] %s (from: %s to: %s)", super.toString(), startTimeStr, endTimeStr);
     }
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Event e) {
+            return super.equals(o)
+                    && startTime.equals(e.startTime)
+                    && endTime.equals(e.endTime);
+        }
+        return false;
+    }
 }

@@ -9,10 +9,22 @@ import seedu.avo.utils.DateTime;
  * Represents the command to search tasks by date
  */
 public class SearchDateCommand extends Command {
+    private static SearchDateCommand instance;
     private static final int INPUT_SIZE = 2;
     private final TaskManager manager;
-    public SearchDateCommand(TaskManager manager) {
+    private SearchDateCommand(TaskManager manager) {
         this.manager = manager;
+    }
+    /**
+     * Returns a singleton instance of SearchDateCommand
+     * @param manager A TaskManager to control task specific jobs
+     * @return A single instance of SearchDateCommand
+     */
+    public static SearchDateCommand of(TaskManager manager) {
+        if (instance == null) {
+            instance = new SearchDateCommand(manager);
+        }
+        return instance;
     }
     @Override
     public CommandResult execute(String userInput) throws AvoException {

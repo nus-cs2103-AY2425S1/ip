@@ -16,17 +16,17 @@ public class CommandManager {
      */
     public CommandManager(TaskManager taskManager) {
         commandMap = new HashMap<String, Command>();
-        commandMap.put(CommandName.LIST.getName(), new ListCommand(taskManager));
-        commandMap.put(CommandName.MARK.getName(), new MarkCommand(taskManager));
-        commandMap.put(CommandName.UNMARK.getName(), new UnmarkCommand(taskManager));
-        commandMap.put(CommandName.TODO.getName(), new TodoCommand(taskManager));
-        commandMap.put(CommandName.DEADLINE.getName(), new DeadlineCommand(taskManager));
-        commandMap.put(CommandName.EVENT.getName(), new EventCommand(taskManager));
-        commandMap.put(CommandName.DELETE.getName(), new DeleteCommand(taskManager));
-        commandMap.put(CommandName.SEARCH_DATE.getName(), new SearchDateCommand(taskManager));
-        commandMap.put(CommandName.SEARCH_NAME.getName(), new SearchNameCommand(taskManager));
+        commandMap.put(CommandName.LIST.getName(), ListCommand.of(taskManager));
+        commandMap.put(CommandName.MARK.getName(), MarkCommand.of(taskManager));
+        commandMap.put(CommandName.UNMARK.getName(), UnmarkCommand.of(taskManager));
+        commandMap.put(CommandName.TODO.getName(), TodoCommand.of(taskManager));
+        commandMap.put(CommandName.DEADLINE.getName(), DeadlineCommand.of(taskManager));
+        commandMap.put(CommandName.EVENT.getName(), EventCommand.of(taskManager));
+        commandMap.put(CommandName.DELETE.getName(), DeleteCommand.of(taskManager));
+        commandMap.put(CommandName.SEARCH_DATE.getName(), SearchDateCommand.of(taskManager));
+        commandMap.put(CommandName.SEARCH_NAME.getName(), SearchNameCommand.of(taskManager));
         commandMap.put(CommandName.HELP.getName(), HelpCommand.of());
-        commandMap.put(CommandName.EXIT.getName(), new ExitCommand());
+        commandMap.put(CommandName.EXIT.getName(), ExitCommand.of());
         unknownCommand = UnknownCommand.of();
     }
 
