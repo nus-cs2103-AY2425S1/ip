@@ -1,7 +1,7 @@
 package taskalyn;
 
 /**
- * Represents an exception when a task does not exist.
+ * Represents an exception thrown when a task does not exist.
  */
 public class NoSuchTaskException extends Exception {
 

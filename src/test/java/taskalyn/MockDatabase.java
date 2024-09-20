@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 /**
- * Creates a MockDatabase that uses a different database file from the main Taskalyn application.
+ * Creates a MockDatabase for JUnit testing that uses a different database file from the main Taskalyn application.
  */
 public class MockDatabase extends Database {
     private static final String DIRECTORY = "./data";
@@ -65,17 +65,6 @@ public class MockDatabase extends Database {
      */
     public List<String> readFromDatabase() throws IOException {
         return Files.readAllLines(FILE_PATH);
-    }
-
-    /**
-     * Returns the total number of tasks in the database file.
-     *
-     * @return Total number of tasks.
-     * @throws IOException If an I/O error occurs during reading.
-     */
-    public int getDatabaseSize() throws IOException {
-        List<String> textLines = readFromDatabase();
-        return textLines.size();
     }
 
     /**
