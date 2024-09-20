@@ -10,7 +10,7 @@ public class Ui {
     * Displays the welcome message when the program starts.
     */
     public String displayWelcome() {
-        String greeting = "Hello! I'm Friday\nWhat can I do for you?\n";
+        String greeting = " Hello! I'm Friday\n Great to see you!\n What can I do for you?\n";
         return greeting;
     }
 
