@@ -77,7 +77,7 @@ public class FindCommand extends Command {
         String[] splitInput = input.split(" ", 2);
         boolean hasValidFormat = splitInput.length == 2;
 
-        if (hasValidFormat) {
+        if (!hasValidFormat) {
             throw new YodaException("Find... what?" + "\n" + "Command should be in format: find [words]");
         }
     }
