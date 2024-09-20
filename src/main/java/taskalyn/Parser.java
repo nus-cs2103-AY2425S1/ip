@@ -35,6 +35,7 @@ public class Parser {
      */
     public String parse(String input) {
         String[] items = input.trim().split(" ", 2);
+        items = Arrays.stream(items).map(parts -> parts.trim()).toArray(String[]::new);
         String commandString = items[0];
 
         try {
@@ -42,6 +43,8 @@ public class Parser {
             if (command == null) {
                 return "Sorry bro, no clue what you're saying!";
             }
+
+            checkArgumentCount(items, command);
 
             switch (command) {
             case BYE:
@@ -51,25 +54,18 @@ public class Parser {
             case SORT:
                 return handleSortCommand();
             case FIND:
-                checkArgumentCount(items, command);
                 return handleFindCommand(items);
             case DELETE:
-                checkArgumentCount(items, command);
                 return handleDeleteCommand(items);
             case MARK:
-                checkArgumentCount(items, command);
                 return handleMarkCommand(items);
             case UNMARK:
-                checkArgumentCount(items, command);
                 return handleUnmarkCommand(items);
             case TODO:
-                checkArgumentCount(items, command);
                 return handleTodoCommand(items);
             case DEADLINE:
-                checkArgumentCount(items, command);
                 return handleDeadlineCommand(items);
             case EVENT:
-                checkArgumentCount(items, command);
                 return handleEventCommand(items);
             default:
                 return "Sorry bro, no clue what you're saying!";
@@ -156,7 +152,7 @@ public class Parser {
      * @throws CommandFormatException If the command format was written incorrectly.
      */
     private String handleFindCommand(String[] items) throws CommandFormatException {
-        checkForEmptyCommandParameters(items[1], CommandType.FIND, TASK_DESCRIPTION);
+        checkForEmptyCommandArguments(items[1], CommandType.FIND, TASK_DESCRIPTION);
         assert !items[1].isEmpty() : "The keyword to be searched cannot be empty.";
         return taskManager.searchTasksByKeyword(items[1]);
     }
@@ -169,7 +165,7 @@ public class Parser {
      * @throws CommandFormatException Command format is incorrect.
      */
     private String handleTodoCommand(String[] items) throws CommandFormatException {
-        checkForEmptyCommandParameters(items[1], CommandType.TODO, TASK_DESCRIPTION);
+        checkForEmptyCommandArguments(items[1], CommandType.TODO, TASK_DESCRIPTION);
         assert !items[1].isEmpty() : "Task description cannot be empty.";
         return taskManager.addTask(new TodoTask(items[1], false));
     }
@@ -182,12 +178,12 @@ public class Parser {
      * @throws CommandFormatException Command format is incorrect.
      */
     private String handleDeadlineCommand(String[] items) throws CommandFormatException {
-        checkForEmptyCommandParameters(items[1], CommandType.DEADLINE, COMMAND_FORMAT);
+        checkForEmptyCommandArguments(items[1], CommandType.DEADLINE, COMMAND_FORMAT);
 
         // Returns [taskDescription, deadlineDate]
         String[] splitInput = splitInputOverKeyword(items[1], "/by", CommandType.DEADLINE);
 
-        checkForEmptyCommandParameters(splitInput[0], CommandType.DEADLINE, TASK_DESCRIPTION);
+        checkForEmptyCommandArguments(splitInput[0], CommandType.DEADLINE, TASK_DESCRIPTION);
 
         // Ensures that task description is not empty
         assert !splitInput[0].isEmpty() : "Task description cannot be empty.";
@@ -209,12 +205,12 @@ public class Parser {
      * @throws CommandFormatException Command format is incorrect.
      */
     private String handleEventCommand(String[] items) throws CommandFormatException {
-        checkForEmptyCommandParameters(items[1], CommandType.EVENT, COMMAND_FORMAT);
+        checkForEmptyCommandArguments(items[1], CommandType.EVENT, COMMAND_FORMAT);
 
         // Returns [taskDescription, fromDate + /to + toDate]
         String[] splitInput = splitInputOverKeyword(items[1], "/from", CommandType.EVENT);
 
-        checkForEmptyCommandParameters(splitInput[0], CommandType.EVENT, TASK_DESCRIPTION);
+        checkForEmptyCommandArguments(splitInput[0], CommandType.EVENT, TASK_DESCRIPTION);
 
         // Ensures that task description is not empty
         assert !splitInput[0].isEmpty() : "Task description cannot be empty.";
@@ -246,18 +242,19 @@ public class Parser {
     private String handleTaskOperation(String[] items, Function<Integer, String> taskOperation, CommandType commandType)
             throws CommandFormatException, NoSuchTaskException {
         if (items.length != 2) {
-            throw new CommandFormatException("Aw... " + commandType
+            throw new CommandFormatException("Aw... " + commandType.toString().toLowerCase()
                     + " command must have just 2 arguments: "
-                    + commandType + " {task number}.");
+                    + commandType.toString().toLowerCase()
+                    + " {task number}.");
         }
 
         try {
             int taskIndex = getTaskIndex(items);
             return taskOperation.apply(taskIndex);
         } catch (NumberFormatException e) {
-            throw new CommandFormatException("Aw... " + commandType
+            throw new CommandFormatException("Aw... " + commandType.toString().toLowerCase()
                     + " command must be followed by a number (e.g. "
-                    + commandType
+                    + commandType.toString().toLowerCase()
                     + " 1).");
         }
     }
@@ -296,29 +293,35 @@ public class Parser {
     private void checkArgumentCount(String[] items, CommandType command) throws CommandFormatException {
         String commandFormat = getCommandFormat(command);
         assert commandFormat != null : "Command format cannot be null.";
-        if (items.length != 2) {
-            throw new CommandFormatException("Aw... " + command
+        if (command == CommandType.BYE || command == CommandType.LIST || command == CommandType.SORT) {
+            if (items.length > 1) {
+                throw new CommandFormatException("Aw... " + command.toString().toLowerCase()
+                        + " command must be just one word, e.g. "
+                        + commandFormat);
+            }
+        } else if (items.length != 2) {
+            throw new CommandFormatException("Aw... " + command.toString().toLowerCase()
                     + " command is incomplete. The format is: "
                     + commandFormat);
         }
     }
 
     /**
-     * Checks if a command is following its command format.
+     * Checks if a command input has any empty arguments and checks command format.
      *
-     * @param argument An input parameter in the user command.
+     * @param argument An argument in the user input command.
      * @param command The main user command.
-     * @param parameter The parameter that is looked for by this method.
+     * @param check The parameter that is checked by this method.
      * @throws CommandFormatException If the command format is written incorrectly.
      */
-    private void checkForEmptyCommandParameters(String argument, CommandType command, String parameter)
+    private void checkForEmptyCommandArguments(String argument, CommandType command, String check)
             throws CommandFormatException {
         if (argument.isEmpty() || argument.equals(" ")) {
-            String exceptionMessage = "Aw... " + command + " command must ";
+            String exceptionMessage = "Aw... " + command.toString().toLowerCase() + " command must ";
 
-            if (Objects.equals(parameter, TASK_DESCRIPTION)) {
+            if (Objects.equals(check, TASK_DESCRIPTION)) {
                 exceptionMessage += "contain a non-empty task description.";
-            } else if (Objects.equals(parameter, COMMAND_FORMAT)) {
+            } else if (Objects.equals(check, COMMAND_FORMAT)) {
                 exceptionMessage += "follow the following command format: " + getCommandFormat(command);
             }
             throw new CommandFormatException(exceptionMessage);
@@ -333,6 +336,12 @@ public class Parser {
      */
     private String getCommandFormat(CommandType command) {
         switch (command) {
+        case BYE:
+            return "bye";
+        case LIST:
+            return "list";
+        case SORT:
+            return "sort";
         case FIND:
             return "find {keyword}";
         case TODO:
@@ -341,6 +350,12 @@ public class Parser {
             return "deadline {task} /by {date in dd-MM-yyyy HHmm}";
         case EVENT:
             return "event {task} /from {date in dd-MM-yyyy HHmm} /to {date in dd-MM-yyyy HHmm}";
+        case MARK:
+            return "mark {task number}";
+        case UNMARK:
+            return "unmark {task number}";
+        case DELETE:
+            return "delete {task number}";
         default:
             return null;
         }
@@ -358,7 +373,10 @@ public class Parser {
     private String[] splitInputOverKeyword(String input, String keyword, CommandType command)
             throws CommandFormatException {
         if (!input.contains(keyword)) {
-            throw new CommandFormatException("Aw... " + command + " command should contain " + keyword + ".");
+            throw new CommandFormatException("Aw... " + command.toString().toLowerCase()
+                    + " command should contain "
+                    + keyword
+                    + ".");
         }
 
         String[] splitInput = Arrays.stream(input.split(keyword, 2))
