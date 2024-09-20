@@ -36,13 +36,6 @@ public class Nayana {
     }
 
     /**
-     * Generates a response for the user's chat message.
-     */
-    public String getResponse(String input) {
-        return "Nayana heard: " + input;
-    }
-
-    /**
      * Returns the user interface instance associated with this class.
      *
      * @return The Ui instance.
