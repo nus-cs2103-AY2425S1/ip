@@ -32,7 +32,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        String welcomeMessage = "Hi there, I am Avo.";
+        String welcomeMessage = "Hi there, I am Avo. Enter 'help' for a list of valid commands.";
         dialogContainer.getChildren().addAll(
                 DialogBox.getAvoDialog(welcomeMessage, avoImage)
         );

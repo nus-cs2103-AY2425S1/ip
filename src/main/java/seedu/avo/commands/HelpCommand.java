@@ -20,10 +20,12 @@ public class HelpCommand extends Command {
                 + "unmark <name> - unmark a task\n\n"
                 + "delete <index> - delete a task\n\n"
                 + "find <name> - search for tasks\n\n"
-                + "on <date> - search for tasks occuring on date\n\n"
+                + "on <yyyy-mm-dd> - search for tasks occuring on date\n\n"
                 + "todo <name> - add a new todo type task\n\n"
-                + "deadline <name> /by<date> - add a new deadline type task\n\n"
-                + "event <name> /from<date> /to<date> - add a new event type task\n\n";
+                + "deadline <name> /by <yyyy-mm-dd HH:mm> - add a new deadline type task\n\n"
+                + "event <name> /from <yyyy-mm-dd HH:mm> /to <yyyy-mm-dd HH:mm> - add a new event type task\n\n"
+                + "exit - close the application\n\n"
+                + "Visit https://zwezeya.github.io/ip/ for a detailed user guide";
         return new CommandResult(helpMessage, false);
     }
 }
