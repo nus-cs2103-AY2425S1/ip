@@ -4,6 +4,7 @@ import vinegar.task.Deadline;
 import vinegar.task.Event;
 import vinegar.task.Task;
 import vinegar.task.Todo;
+import vinegar.Validator;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class Storage {
         // Assert that the directory path is not null
         assert this.directoryPath != null : "Directory path should not be null.";
     }
-
+    
     /**
      * Loads tasks from the storage file.
      *
@@ -43,53 +44,67 @@ public class Storage {
         List<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
 
-        // If the file doesn't exist, return an empty list
-        if (!file.exists()) return tasks;
-
-        // Assert that the file exists before reading
-        assert file.exists() : "Task file should exist before attempting to load tasks.";
+        Validator.validateFileExists(file);
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(" \\| ");
-                String type = parts[0];
-                boolean isDone = parts[1].equals("1");
-                String description = parts[2];
-                Task task = null;
-
-                // Assert that the line format is valid
-                assert parts.length >= 3 : "Each task line should have at least 3 parts (type, isDone, description).";
-
-                switch (type) {
-                case "T":
-                    task = new Todo(description);
-                    break;
-                case "D":
-                    // Assert that the deadline has the required date
-                    assert parts.length >= 4 : "Deadline task must have a date.";
-                    task = new Deadline(description, parts[3]);
-                    break;
-                case "E":
-                    // Assert that the event has the required start and end times
-                    assert parts.length >= 5 : "Event task must have a start and end time.";
-                    task = new Event(description, parts[3], parts[4]);
-                    break;
-                default:
-                    assert false : "Unknown task type found in file: " + type;
+                Task task = parseTaskLine(line);
+                if (task != null) {
+                    tasks.add(task);
                 }
-                if (task != null && isDone) {
-                    task.markAsDone();
-                }
-                tasks.add(task);
             }
         } catch (IOException e) {
-            throw new IOException(" OOPS!!! Unable to load tasks from file.");
+            throw new IOException("OOPS!!! Unable to load tasks from file.");
         }
 
-        // Assert that tasks were successfully loaded
         assert tasks != null : "Tasks list should not be null after loading from file.";
         return tasks;
+    }
+
+    /**
+     * Parses a line from the storage file and creates the corresponding task.
+     *
+     * @param line The line to parse.
+     * @return The created task, or null if parsing fails.
+     */
+    private Task parseTaskLine(String line) {
+        String[] parts = line.split(" \\| ");
+        Validator.validateTaskLineFormat(parts, 3); // Ensure there are at least 3 parts
+
+        String type = parts[0];
+        boolean isDone = parts[1].equals("1");
+        String description = parts[2];
+
+        Validator.validateTaskType(type);
+
+        Task task = createTask(type, parts);
+        if (task != null && isDone) {
+            task.markAsDone();
+        }
+        return task;
+    }
+
+    /**
+     * Creates a task object based on its type and parts.
+     *
+     * @param type  The type of the task (Todo, Deadline, Event).
+     * @param parts The parts of the task line (split data).
+     * @return The created task, or null if the type is unknown.
+     */
+    private Task createTask(String type, String[] parts) {
+        switch (type) {
+        case "T":
+            return new Todo(parts[2]);
+        case "D":
+            Validator.validateTaskLineFormat(parts, 4); // Ensure deadline task has at least 4 parts
+            return new Deadline(parts[2], parts[3]);
+        case "E":
+            Validator.validateTaskLineFormat(parts, 5); // Ensure event task has at least 5 parts
+            return new Event(parts[2], parts[3], parts[4]);
+        default:
+            return null;
+        }
     }
 
     /**
