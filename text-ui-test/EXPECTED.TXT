@@ -1,7 +1,94 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hi there, I'm Susan!
+How may I help you be productive today?
+~~~
+~~~
+ Got it. I've added this task:
+   [T][ ] read book
+ You have 1 task(s) in the list.
+~~~
+~~~
+ Got it. I've added this task:
+   [D][ ] return book (by Sept 01 2024)
+ You have 2 task(s) in the list.
+~~~
+~~~
+ Got it. I've added this task:
+   [E][ ] book club (from: Sept 01 2024 2:00 pm to: 4:00 pm)
+ You have 3 task(s) in the list.
+~~~
+~~~
+ Here are the tasks in your list:
 
+ 1.[T][ ] read book
+ 2.[D][ ] return book (by Sept 01 2024)
+ 3.[E][ ] book club (from: Sept 01 2024 2:00 pm to: 4:00 pm)
+~~~
+~~~
+ Alright! I've un/marked this task:
+   [T][X] read book
+ You have 3 task(s) in the list.
+~~~
+~~~
+ Alright! I've un/marked this task:
+   [T][ ] read book
+ You have 3 task(s) in the list.
+~~~
+~~~
+NOT OK. The description of a task cannot be empty.
+~~~
+~~~
+NOT OK. To add a deadline: deadline + description + /by yyyy-MM-dd
+~~~
+~~~
+NOT OK. Please key date in the format: yyyy-MM-dd
+~~~
+~~~
+NOT OK. To add a deadline: deadline + description + /by yyyy-MM-dd
+~~~
+~~~
+NOT OK. To add an event: event + description + /from yyyy-MM-dd HHmm + /to yyyy-MM-dd HHmm
+~~~
+~~~
+NOT OK. Please key date/time in the format: yyyy-MM-dd HHmm
+~~~
+~~~
+NOT OK. To add an event: event + description + /from yyyy-MM-dd HHmm + /to yyyy-MM-dd HHmm
+~~~
+~~~
+NOT OK. Please enter a valid task index to mark / unmark.
+~~~
+~~~
+NOT OK. Please enter a valid task index to mark / unmark.
+~~~
+~~~
+NOT OK. Please enter a valid task index to delete.
+~~~
+~~~
+NOT OK. Please enter a valid task index to delete.
+~~~
+~~~
+ Got it. I've added this task:
+   [T][ ] buy pens
+ You have 4 task(s) in the list.
+~~~
+~~~
+ Noted. I've removed this task:
+   [T][ ] buy pens
+ You have 3 task(s) in the list.
+~~~
+~~~
+Here are the matching tasks in your list:
+
+ 1.[T][ ] read book
+ 2.[D][ ] return book (by Sept 01 2024)
+ 3.[E][ ] book club (from: Sept 01 2024 2:00 pm to: 4:00 pm)
+~~~
+~~~
+Sorry! No tasks found matching your keyword.
+~~~
+~~~
+NOT OK. You cry a lot and you are not productive! Please give a valid command.
+~~~
+~~~
+Good bye, slay the day!
+~~~

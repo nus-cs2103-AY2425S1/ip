@@ -1,0 +1,23 @@
+todo read book
+deadline return book /by 2024-09-01
+event book club /from 2024-09-01 1400 /to 2024-09-01 1600
+list
+mark 1
+unmark 1
+todo
+deadline submit essay
+deadline submit essay /by 01/09/2024
+deadline submit essay /d 01-09-2024
+event project meeting
+event project meeting /from 01/09/2024 2pm /to 01/09/2024 4pm
+event project meeting /f 2024-09-01 1400 /t 2024-09-01 1600
+mark -3
+unmark 10
+delete 10
+delete -1
+todo buy pens
+delete 4
+find book
+find project
+blah
+bye
