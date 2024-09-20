@@ -77,7 +77,7 @@ public class Storage {
 
             os.writeObject(taskList);
 
-            // close ObjectOutputStream
+            // close ObjectOutputStream and FileOutputStream
             os.close();
             fileStream.close();
         } catch (IOException e) {
