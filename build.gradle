@@ -56,4 +56,4 @@ run{
     standardInput = System.in
 }
 
-mainClassName = "park.Park"
+mainClassName = "park.Launcher"
