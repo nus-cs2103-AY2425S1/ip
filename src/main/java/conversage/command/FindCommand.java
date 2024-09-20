@@ -41,7 +41,7 @@ public class FindCommand extends Command {
                     toRet = toRet + "Unveiled by the sage's insight, these tasks resonate with your search:\n";
                 }
                 ui.showMessage(count + " " + task.toString());
-                toRet = toRet + count + " " + task.toString() + "\n";
+                toRet = toRet + count + ". " + task.toString() + "\n";
                 count++;
             }
         }
