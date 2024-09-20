@@ -1,30 +1,73 @@
 # ChadGPT User Guide
 
-// Update the title above to match the actual product name
+![app.png](app.png)
 
-// Product screenshot goes here
+Don't be a lowly minion, be a chad! Let ChadGPT help you track all your minion tasks.
 
-// Product intro goes here
-
-## Adding deadlines
-
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
+### Adding tasks
+Adds a new todo to the task list
 ```
-expected output
+todo <task>
+```
+Example:
+```
+todo eat banana
+```
+This adds a new todo `eat banana` to the task list
+
+### Adding deadlines
+```
+deadline <task> /by <date>
+```
+Example:
+```
+deadline eat banana /by 2024-11-11
+```
+This adds a new task `eat banana` with the deadline `2024-11-11`
+
+### Adding events
+```
+event <task> /from <date> /to <date>
+```
+Example:
+```
+event eat banana /from 2024-01-01 /to 2024-12-31
+```
+This adds a new event `eat banana` that lasts from `2024-01-01` to `2024-12-31`
+
+### Listing all tasks
+```
+list
 ```
 
-## Feature ABC
+### Task marking
+To mark a task as completed:
+```
+mark <index of task>
+```
 
-// Feature details
+To unmark a task: 
+```
+unmark <index of task>
+```
 
+### Deleting tasks
+```
+delete <task index>
+```
 
-## Feature XYZ
+### Searching for tasks
+```
+find <query>
+```
+Example:
+```
+find banana
+```
+This will return a list of all tasks that contain the word `banana`.
 
-// Feature details
+### Undo command
+Reverts the last executed command
+```
+undo
+```
