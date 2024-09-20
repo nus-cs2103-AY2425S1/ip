@@ -36,35 +36,44 @@ public class Storage {
      * @return an ArrayList of tasks loaded from the file.
      */
     public ArrayList<Task> load() {
-        File file = new File(filePath);
         ArrayList<Task> taskList = new ArrayList<>();
+        File file = new File(filePath);
 
         if (!file.exists()) {
             return taskList;
         }
 
+        try {
+            loadTasksFromFile(file, taskList);
+        } catch (InvalidCommandException e) {
+            System.out.println("Invalid command: " + e.getMessage());
+        }
+        return taskList;
+    }
+
+    private void loadTasksFromFile(File file, ArrayList<Task> taskList) throws InvalidCommandException {
         try (Scanner fileScanner = new Scanner(file)) {
             while (fileScanner.hasNext()) {
                 String line = fileScanner.nextLine();
                 String[] parts = line.split(" \\| ");
-
-                Task task = switch (parts[0]) {
-                case "T" -> new ToDo(parts[2]);
-                case "D" -> new Deadline(parts[2], LocalDate.parse(parts[3]));
-                case "E" -> new Event(parts[2], parts[3], parts[4]);
-                default -> throw new InvalidCommandException("Invalid task type in file");
-                };
-
+                Task task = createTask(parts);
                 if (parts[1].equals("1")) {
                     task.mark();
                 }
-
                 taskList.add(task);
             }
-        } catch (IOException | InvalidCommandException e) {
-            System.out.println("Error: " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage());
         }
-        return taskList;
+    }
+
+    private Task createTask(String[] parts) throws InvalidCommandException {
+        return switch (parts[0]) {
+        case "T" -> new ToDo(parts[2]);
+        case "D" -> new Deadline(parts[2], LocalDate.parse(parts[3]));
+        case "E" -> new Event(parts[2], parts[3], parts[4]);
+        default -> throw new InvalidCommandException("Invalid task type in file");
+        };
     }
 
     /**
