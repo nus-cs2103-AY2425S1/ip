@@ -103,4 +103,4 @@ Format:
 to be precise and exact. For example, if `basketball games` and `buy noodles again` are task
 descriptions, then the search keyword `"ga"` will return both of them.
 2. The date formats that can be parsed are also limited. In general, the format should be
-"dd/mm/yyyy xxxx" where "xxxx" is the time in 24 hour format.
+"dd/mm/yyyy xxxx" where "xxxx" is the time in 24-hour format.
