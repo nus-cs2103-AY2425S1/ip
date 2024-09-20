@@ -38,29 +38,32 @@ Examples:
 
 ## Listing all tasks
 
-Lists all tasks in the task list.
+Shows a list of all tasks in the task list.
 
 Format: `list`
 
 ## Marking a task
+
 Marks the task at the given index as done.
 
 Format: `mark INDEX`
 
-- The index refers to te index number shown in the task list
+- The index refers to the index number shown in the task list
 - The index must be a positive integer
 - The index cannot be greater than the number of tasks in the task list
 
 ## Unmarking a task
+
 Unmarks the task at the given index as done.
 
 Format: `mark INDEX`
 
-- The index refers to te index number shown in the task list
+- The index refers to the index number shown in the task list
 - The index must be a positive integer
 - The index cannot be greater than the number of tasks in the task list
 
 ## Finding a task
+
 Finds all tasks in the task list which contains the given keyword.
 
 Format: `find KEYWORD`
@@ -84,11 +87,18 @@ Updates the task at the given index
 Format: `update INDEX /update TASK_TYPE DESCRIPTION`
 
 - The task type is either `todo`, `deadline`, or `event`
-- The description required is dependent on the task type 
+- The description required is dependent on the task type  
 
 Examples:
+- `update 1 /update todo read mystery book`
 - `update 2 /update deadline return book /by 22/09/2024`
 - `update 3 /update event project meeting /from Monday 3pm /to 5pm`
+
+## Exiting chatbot 
+
+Displays goodbye message and exits chatbot.
+
+Format: `bye`
 
 
 
