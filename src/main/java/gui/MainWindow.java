@@ -25,6 +25,7 @@ public class MainWindow extends AnchorPane {
 
     private Michael michael;
 
+    // Images from icons-for-free.com
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image michaelImage = new Image(this.getClass().getResourceAsStream("/images/michael.png"));
 

@@ -22,6 +22,8 @@ public class Parser {
      * @return Feedback to user on operation carried out.
      * @throws MichaelException If an invalid command is entered or an existing command is used incorrectly.
      */
+
+    // Solution of abstracting commands out inspired from reviewing peer PRs (@kahsuann, @justsparsh)
     public String parse(String input) throws MichaelException {
         if (input.startsWith("bye")) {
             ByeCommand bc = new ByeCommand();
