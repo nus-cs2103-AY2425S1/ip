@@ -1,0 +1,7 @@
+[E][X][5] task2 (from: Jun 06 2025 to: Jun 07 2025)
+[E][ ][5] birthday planning (from: Dec 12 2024 to: Dec 25 2024)
+[T][ ][3] task2
+[D][ ][3] wash clothes (by: Dec 12 2024)
+[T][ ][2] task2 3
+[T][ ][2] buy shirt
+[T][ ][1] task5
