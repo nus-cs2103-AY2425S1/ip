@@ -150,7 +150,7 @@ Expected output:
 
 ```
 I have removed it from the list :)
-  [D][ ] 2103 iP user guide (by: 2024 9�� 20  23:59)
+  [D][ ] 2103 iP user guide (by: 2024 Sep 20  23:59)
 Now you have 2 tasks in the list.
 ```
 

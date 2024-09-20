@@ -67,7 +67,7 @@ public class TaskList {
     public String findTask(String keyword) {
         StringBuilder str = new StringBuilder();
         tasks.stream().filter(task -> task.containsKeyword(keyword))
-                .forEach(task -> str.append(task.toString()));
+                .forEach(task -> str.append(task.toString() + "\n"));
         return str.toString();
     }
 
