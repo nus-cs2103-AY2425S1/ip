@@ -46,7 +46,7 @@ public class MainWindow extends AnchorPane {
             mrYapper.loadData();
             dialogContainer.getChildren().addAll(DialogBox.getYapperDialog(y.greet(), yapperImage));
         } catch (IOException e) {
-            forceExit("An error occurred while creating a data file for storage :(");
+            forceExit("An error occurred while creating a data file for storage :(\n" + e.getMessage());
         } catch (InvalidFileDataException e) {
             forceExit(e.getMessage());
         }

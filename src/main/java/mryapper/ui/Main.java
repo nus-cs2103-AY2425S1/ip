@@ -15,7 +15,7 @@ import mryapper.MrYapper;
  */
 public class Main extends Application {
 
-    private MrYapper mrYapper = new MrYapper("src/data/tasks.txt");
+    private MrYapper mrYapper = new MrYapper("data/tasks.txt");
     private final int MIN_WINDOW_HEIGHT = 500;
     private final int MIN_WINDOW_WIDTH = 400;
 

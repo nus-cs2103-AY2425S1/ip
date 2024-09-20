@@ -65,6 +65,11 @@ public class Storage {
     }
 
     private TaskList createNewDataFile(File file) throws IOException {
+        boolean isParentDirectoryCreated = file.getParentFile().mkdir();
+        if (!isParentDirectoryCreated) {
+            throw new IOException();
+        }
+
         boolean isFileCreationSuccessful = file.createNewFile();
         if (!isFileCreationSuccessful) {
             throw new IOException();
