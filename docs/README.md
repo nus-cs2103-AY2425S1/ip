@@ -31,7 +31,7 @@ Gotcha! I've added this task:
 Now you have 2 task(s) in the list
 ```
 
-**Example #3:** `event party /from 2pm /to `
+**Example #3:** `event party /from 2pm /to ...`
 
 ```
 Make sure you include both the task description and the time in this format:
