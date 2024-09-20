@@ -174,7 +174,7 @@ You can exit Lumina by using the following command:
 
 - **Command Format:** `bye`
 
-This will save the current state of tasks, which will be loaded the next time Lumina starts up
+This will save the current state of tasks, which will be loaded the next time Lumina starts up again :)
 
 #### Example Usage:
 ```
