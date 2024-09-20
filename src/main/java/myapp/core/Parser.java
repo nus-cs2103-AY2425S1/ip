@@ -188,9 +188,15 @@ public class Parser {
     public static LocalDateTime parseDeadlineDateTime(String input) throws BingBongException {
         try {
             String by = input.substring(9).trim().split(" /by ")[1].trim();
-            return DateTimeHandler.parse(by);
+            LocalDateTime byDateTime = DateTimeHandler.parse(by);
+
+            if (byDateTime.isBefore(LocalDateTime.now())) {
+                throw new InvalidFormatException("The end date/time cannot be earlier than today.");
+            }
+
+            return byDateTime;
         } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
-            throw new InvalidFormatException("The deadline format is incorrect. Use: deadline <task> /by <time>");
+            throw new InvalidFormatException("The deadline format is incorrect. Use: deadline <task> /by <date> <time>");
         }
     }
 
@@ -213,7 +219,9 @@ public class Parser {
             LocalDateTime fromDateTime = DateTimeHandler.parse(parts[1].trim());
             LocalDateTime toDateTime = DateTimeHandler.parse(parts[2].trim());
 
-            if (toDateTime.isBefore(fromDateTime)) {
+            if (toDateTime.isBefore(LocalDateTime.now())) {
+                throw new InvalidFormatException("The end date/time cannot be earlier than today.");
+            } else if (toDateTime.isBefore(fromDateTime)) {
                 throw new InvalidFormatException("The end date/time cannot be earlier than the start date/time.");
             }
 
