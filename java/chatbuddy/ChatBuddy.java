@@ -44,7 +44,7 @@ public class ChatBuddy {
             tasks = new TaskList(storage.load());
         } catch (ChatBuddyException e) {
             ui.showLoadingError();
-            tasks = new TaskList(); // Create an empty task list if loading fails
+            tasks = new TaskList();
         }
     }
 
@@ -63,7 +63,8 @@ public class ChatBuddy {
         try {
             Command command = parseCommand(input);
             if (command == null) {
-                return "Sorry, I don't understand your command.";
+                // Return the specific error message from the UI
+                return ui.getOutput();
             }
             return executeCommand(command);
         } catch (Exception e) {
@@ -84,7 +85,7 @@ public class ChatBuddy {
             return Parser.parse(input);
         } catch (ChatBuddyException e) {
             ui.showError(e.getMessage());
-            return null; // Return null if parsing fails
+            return null;
         }
     }
 
@@ -96,13 +97,13 @@ public class ChatBuddy {
      */
     private String executeCommand(Command command) {
         if (command == null) {
-            return ui.getOutput(); // Return error message if command parsing failed
+            return ui.getOutput(); 
         }
         try {
             return command.execute(tasks, ui, storage);
         } catch (ChatBuddyException e) {
             ui.showError(e.getMessage());
-            return ui.getOutput(); // Return error message if command execution fails
+            return ui.getOutput();
         }
     }
 
