@@ -30,49 +30,51 @@ public class TaskList {
      * @return The created Task object.
      */
     Task createTask(TaskType taskType, String taskDetails) throws FredException {
-        Task task = null;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         String[] taskDetailsArr = taskDetails.split(" /", 3);
         String description = taskDetailsArr[0];
 
-        if (taskType == TaskType.TODO) {
-            task = new Todo(description);
-        } else if (taskType == TaskType.DEADLINE) {
-            String byStr = taskDetailsArr[1];
-            if (!byStr.startsWith("by ")) {
-                throw new InvalidDeadlineException();
-            }
-            byStr = byStr.substring(3);
-            LocalDateTime by;
-            try {
-                by = LocalDateTime.parse(byStr, formatter);
-            } catch (DateTimeParseException e) {
-                throw new InvalidDeadlineException();
-            }
-            task = new Deadline(description, by);
-        } else if (taskType == TaskType.EVENT) {
-            String fromStr = taskDetailsArr[1];
-            String toStr = taskDetailsArr[2];
-            if (!fromStr.startsWith("from ")) {
-                throw new InvalidEventException();
-            }
-            if (!toStr.startsWith("to ")) {
-                throw new InvalidEventException();
-            }
-            fromStr = fromStr.substring(5);
-            toStr = toStr.substring(3);
-            LocalDateTime from;
-            LocalDateTime to;
-            try {
-                from = LocalDateTime.parse(fromStr, formatter);
-                to = LocalDateTime.parse(toStr, formatter);
-            } catch (DateTimeParseException e) {
-                throw new InvalidEventException();
-            }
-            task = new Event(description, from, to);
+        switch (taskType) {
+            case TODO:
+                return createTodoTask(description);
+            case DEADLINE:
+                return createDeadlineTask(description, taskDetailsArr[1], formatter);
+            case EVENT:
+                return createEventTask(description, taskDetailsArr[1], taskDetailsArr[2], formatter);
+            default:
+                return null;
         }
-        return task;
     }
+
+    private Task createTodoTask(String description) {
+        return new Todo(description);
+    }
+
+    private Task createDeadlineTask(String description, String byStr, DateTimeFormatter formatter) throws FredException {
+        if (!byStr.startsWith("by ")) {
+            throw new InvalidDeadlineException();
+        }
+        try {
+            LocalDateTime by = LocalDateTime.parse(byStr.substring(3), formatter);
+            return new Deadline(description, by);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDeadlineException();
+        }
+    }
+
+    private Task createEventTask(String description, String fromStr, String toStr, DateTimeFormatter formatter) throws FredException {
+        if (!fromStr.startsWith("from ") || !toStr.startsWith("to ")) {
+            throw new InvalidEventException();
+        }
+        try {
+            LocalDateTime from = LocalDateTime.parse(fromStr.substring(5), formatter);
+            LocalDateTime to = LocalDateTime.parse(toStr.substring(3), formatter);
+            return new Event(description, from, to);
+        } catch (DateTimeParseException e) {
+            throw new InvalidEventException();
+        }
+    }
+
 
     /**
      * Adds a task to the task list.
