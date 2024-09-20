@@ -25,6 +25,7 @@ Examples:
 Task with a deadline.  
 
 Format: `deadline {NAME} /by {DATE}`
+- `DATE` format in `yyyy-mm-dd HH:mm`
 
 Examples:
 - `todo return a book /by 2024-12-27 18:00`
@@ -33,6 +34,7 @@ Examples:
 Task with a start and end time.  
 
 Format: `event {NAME} /from {DATE} /to {DATE}`
+- `DATE` format in `yyyy-mm-dd HH:mm`
 
 Examples:
 - `event project meeting /from 2024-12-05 18:00 /to 2024-12-27 18:00`
@@ -89,11 +91,12 @@ Examples:
 #### Search by date
 Searches all tasks that occurs on `DATE`  
 
-Format: `on {DATE}`  
+Format: `on {DATE}`
+- `DATE` format in `yyyy-mm-dd`
 
 Examples:
 - `on 2024-12-05`
-- 
+
 #### Viewing help
 Shows a message explaining how to access the help page.  
 
