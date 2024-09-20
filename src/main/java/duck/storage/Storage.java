@@ -19,7 +19,7 @@ import duck.task.ToDo;
  */
 public class Storage {
 
-    private final String FILE_PATH;
+    private final String filePath;
 
     /**
      * Constructs a Storage instance with the specified file path.
@@ -27,7 +27,7 @@ public class Storage {
      * @param filePath the path to the file for loading and saving tasks
      */
     public Storage(String filePath) {
-        this.FILE_PATH = filePath;
+        this.filePath = filePath;
     }
 
     /**
@@ -36,7 +36,7 @@ public class Storage {
      * @return an ArrayList of tasks loaded from the file
      */
     public ArrayList<Task> load() {
-        File file = new File(FILE_PATH);
+        File file = new File(filePath);
         ArrayList<Task> taskList = new ArrayList<>();
 
         if (!file.exists()) {
@@ -73,7 +73,7 @@ public class Storage {
      * @param list the TaskList containing tasks to be saved
      */
     public void saveTasks(TaskList list) {
-        try (FileWriter writer = new FileWriter(FILE_PATH)) {
+        try (FileWriter writer = new FileWriter(filePath)) {
             for (Task task : list.getList()) {
                 writer.write(task.toFileString() + "\n");
             }
@@ -81,7 +81,7 @@ public class Storage {
             System.out.println("Error saving tasks to file: " + e.getMessage());
         }
 
-        try (Scanner fileScanner = new Scanner(new File(FILE_PATH))) {
+        try (Scanner fileScanner = new Scanner(new File(filePath))) {
             int lineCount = 0;
             while (fileScanner.hasNextLine()) {
                 fileScanner.nextLine();
