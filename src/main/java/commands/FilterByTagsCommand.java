@@ -13,7 +13,7 @@ import task.TaskList;
  * that match the specified tags.
  */
 public class FilterByTagsCommand extends FindCommand {
-    private String[] tagsToFilterBy;
+    private final String[] tagsToFilterBy;
 
     /**
      * Constructs a {@code FilterByTagsCommand} with the specified tags to filter by.

@@ -43,10 +43,10 @@ public class AddTaskCommand extends Command {
                     .append("Oh my goodness you have ").append(taskList.getSize()).append(" tasks remaining\n");
 
             taskList.writeToStorage();
-        } catch (NoTaskDescriptionException e) {
-            return ErrorMessageHandler.getNoTaskDescriptionMessage();
         } catch (InvalidTaskException e) {
             return ErrorMessageHandler.getInvalidTaskMessage();
+        } catch (NoTaskDescriptionException e) {
+            return ErrorMessageHandler.getNoTaskDescriptionMessage();
         } catch (InvalidDateException e) {
             return ErrorMessageHandler.getInvalidDateMessage();
         }

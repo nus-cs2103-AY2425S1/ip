@@ -52,11 +52,11 @@ public class Parser {
 
     private static String eventInputToUserInput(String data, int descriptionStartIndex) throws InvalidDateException {
         int endIndex = data.indexOf("(");
-        String description = data.substring(descriptionStartIndex, endIndex).trim();
-
         int fromIndex = data.indexOf("(from");
         int toIndex = data.indexOf("to:");
         int lastIndex = data.indexOf(")");
+
+        String description = data.substring(descriptionStartIndex, endIndex).trim();
         String fromDate = data.substring(fromIndex + 6, toIndex - 1);
         fromDate = Parser.convertDateFormat(fromDate, "MMM dd yyyy", "dd/MM/yyyy");
         String toDate = data.substring(toIndex + 4, lastIndex);
@@ -66,8 +66,9 @@ public class Parser {
 
     private static String deadlineInputToUserInput(String data, int descriptionStartIndex) throws InvalidDateException {
         int descriptionEndIndex = data.indexOf("(");
-        String description = data.substring(descriptionStartIndex, descriptionEndIndex).trim();
         int deadlineIndex = data.indexOf("(by");
+
+        String description = data.substring(descriptionStartIndex, descriptionEndIndex).trim();
         String date = data.substring(deadlineIndex + 4, data.indexOf(")"));
         String inputDateFormat = Parser.convertDateFormat(date.trim(), "MMM dd yyyy", "dd/MM/yyyy");
         return "deadline " + description + " /by " + inputDateFormat;
