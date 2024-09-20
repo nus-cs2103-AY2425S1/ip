@@ -1,3 +1,8 @@
+---
+layout: page
+title: TrackBot User Guide
+---
+
 # TrackBot User Guide
 
 ![Ui.png](Ui.png)
@@ -8,9 +13,25 @@ By combining Command Line Interface (CLI) and Graphical User Interface (GUI),
 it allows everyone to manage their tasks faster than traditional GUI apps.
 Our GUI allows users to view their interactions with TrackBot.
 
+## Table of Contents
+- [Features](#features)
+  * [Adding a task](#adding-a-task)
+    - [ToDo](#1-adding-a-todo-task--todo)
+    - [Deadline](#2-adding-a-task-with-deadline--deadline)
+    - [Event](#3-adding-an-event-with-starting-datetime-and-ending-datetime--event)
+  * [Listing all tasks](#listing-all-tasks--list)
+  * [Deleting a task](#deleting-a-task--delete)
+  * [Marking a task](#marking-a-task--mark)
+  * [Unmarking a task](#unmarking-a-task--unmark)
+  * [Finding a task](#finding-a-task--find)
+  * [Exiting the application](#exiting-the-application--bye)
+- [Command Summary](#command-summary)
+
 ## Features
 
 ### Adding a task
+- Duplicated task with the same descriptions will not be added.
+- Users have to delete the existing task with the same description before adding a task with the same description.
 
 #### 1. Adding a todo task : ```todo```
 
@@ -92,6 +113,7 @@ Examples:
 
 Expected output:
 <br>
+![delete_output.png](delete_output.png)
 
 ### Marking a task : ```mark```
 
@@ -137,26 +159,37 @@ Find a task with a specified description in the task list.
 
 Format: ```find <task keyword>```
 - The search is case-insensitive. e.g Quiz will match quiz
-  The order of the keywords does not matter. e.g. Hans Bo will match Bo Hans
-  Only the name is searched.
-  Only full words will be matched e.g. Han will not match Hans
-  Persons matching at least one keyword will be returned (i.e. OR search). e.g. Hans Bo will return Hans Gruber, Bo Yang
+- Only the description is searched.
+- Partial or full words will be matched e.g. assign will match assignment
 
 Examples:
 - ```find read book```
-- ```find zoom```
+- ```find assign```
 
 Expected output:
 <br>
 ![find_half_output.png](find_half_output.png)
 
-### Exit Command : ```bye```
+### Exiting the application : ```bye```
 
-TrackBot will reply ```"Bye. Hope to see you again soon!"```.
+The application will display the exit message and automatically close after a 5-second delay.
+
+Expected output:
+<br>
+![bye_output.png](bye_output.png)
 
 <br>
-<br>
-<br>
+--------------------------------------------------------------------------------------------------------------------
 
+## Command summary
 
+| Action     | Format, Examples                                                                                                                                                                                                                                                                      |
+|------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**    | `todo <task description>` <br> e.g. `todo read book` <br> `deadline <task description> /by <date/time>` <br> e.g. `deadline assignment /by 30-Dec-2025` <br> `event <description> /from <start> /to <end>` <br> e.g. `event project zoom /from 2024-12-02 12:12 /to 2024-12-03 13:30` |
+| **List**   | `list`                                                                                                                                                                                                                                                                                |
+| **Delete** | `delete <task number>`<br> e.g., `delete 3`                                                                                                                                                                                                                                           |
+| **Mark**   | `mark <task number>`<br> e.g., `mark 3`                                                                                                                                                                                                                                               |
+| **Unmark** | `unmark <task number>`<br> e.g., `unmark 3`                                                                                                                                                                                                                                           |
+| **Find**   | `find <task keyword>`<br> e.g., `find quiz`                                                                                                                                                                                                                                           |
+| **Exit**   | `bye`                                                                                                                                                                                                                                                                                 |
 
