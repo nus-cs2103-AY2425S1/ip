@@ -1,10 +1,8 @@
-# nimbus.nimbus User Guide
+# Nimbus User Guide
 
-// Update the title above to match the actual product name
+![Screenshot](Ui.png)
 
-// Product screenshot goes here
-
-// Product intro goes here
+## Welcome to Nimbus, a cloud that helps you manage your tasks!
 
 ## Adding deadlines
 

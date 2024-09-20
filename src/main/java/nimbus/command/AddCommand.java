@@ -99,8 +99,8 @@ public class AddCommand extends Command {
 
 
         int byIndex = taskDescription.indexOf("/by");
-        String taskName = taskDescription.substring(9, byIndex);
-        String deadline = taskDescription.substring(byIndex + 4);
+        String taskName = taskDescription.substring(9, byIndex).trim();
+        String deadline = taskDescription.substring(byIndex + 4).trim();
 
         taskList.add(new DeadlineTask(taskName, deadline));
     }
