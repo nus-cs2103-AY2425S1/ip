@@ -1,8 +1,9 @@
 package kobe.command;
 
-import kobe.util.Storage;
+import kobe.KobeException;
 import kobe.task.Task;
 import kobe.task.TaskList;
+import kobe.util.Storage;
 import kobe.util.Ui;
 
 import java.io.IOException;
@@ -28,10 +29,14 @@ public class MarkCommand extends Command {
      * @param tasks   The TaskList object containing all tasks.
      * @param ui      The Ui object responsible for user interactions.
      * @param storage The Storage object responsible for saving and loading tasks.
-     * @throws IOException If an error occurs during file operations while executing the command.
+     * @throws IOException   If an error occurs during file operations while executing the command.
+     * @throws KobeException If the task number is invalid.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, KobeException {
+        if (taskIndex < 0 || taskIndex >= tasks.size()) {
+            throw new KobeException("Invalid task number: " + (taskIndex + 1) + ". Please enter a valid task number between 1 and " + tasks.size() + ".");
+        }
         Task task = tasks.getTask(taskIndex);
         task.markAsDone();
         ui.setResponse("Nice! I've marked this task as done:\n  " + task);
