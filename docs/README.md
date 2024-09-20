@@ -126,6 +126,16 @@ Format: `deadline <task description> \by <time string>` or `d <task description>
 Constrain: `<time string>` must be in the form of `yyyy-mm-dd` if not, 
 the bot will inform you that the format is not correct
 
+Sample commands:
+
+```
+deadline dead /by 2024-12-31
+```
+
+```
+d CS2103T tP feature /by 2024-09-22
+```
+
 Sample outcome:
 
 ![deadline_pic](images/Deadline.png)
