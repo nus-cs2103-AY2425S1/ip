@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class Storage {
 
-    private static String filePath = new File("data/tasks.txt").getAbsolutePath();
+    private static String filePath = "data/tasks.txt";
 
     /**
      * Saves data to a file by writing the task objects to tasks.txt file.
@@ -40,8 +40,9 @@ public class Storage {
 
     /**
      * Loads data from the tasks.txt file and adds the created objects to the task list.
+     * If the directory containing the tasks.txt file does not exist, create the directory and the file,
      * Throws a KieTwoForOneException exception when the file being loaded from does not exist.
-     * Throws a KieTwoForOneException exception when the object being loaded is a Task object.
+     * Throws a KieTwoForOneException exception when the object being loaded is not a Task object.
      *
      * @param tasks
      * @throws KieTwoForOneException
@@ -49,6 +50,14 @@ public class Storage {
     public static void loadFile(ArrayList<Task> tasks) throws KieTwoForOneException {
         assert tasks != null: "TaskList cannot be null.";
         try {
+            File file = new File(filePath);
+            File folder = file.getParentFile();
+            if (folder != null && !folder.exists()) {
+                folder.mkdirs();
+            }
+            if (!file.exists()) {
+                file.createNewFile();
+            }
             ObjectInputStream fileLoader = new ObjectInputStream(new FileInputStream(filePath));
             while (true) {
                 try {
@@ -60,7 +69,7 @@ public class Storage {
             }
             fileLoader.close();
         } catch (IOException e) {
-            throw new KieTwoForOneException("File not found!");
+            throw new KieTwoForOneException("File not found! Creating new storage file.");
         } catch (ClassNotFoundException e) {
             throw new KieTwoForOneException("Not a task!");
         }
