@@ -39,6 +39,7 @@ public class Murphy {
      * the program.
      */
     public void inputListener(String input) {
+        assert !(input.isEmpty());
         if (input.equals("bye")) {
             ui.showText("Bye. Hope to see you again soon!");
             try {
