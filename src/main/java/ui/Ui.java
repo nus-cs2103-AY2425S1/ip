@@ -14,7 +14,7 @@ public class Ui {
     public String welcomeMessage() {
         String res = "";
         res += "Hello! I'm Delphi, the greatest oracle in all of the classical world.\n";
-        res += "For now, I will be acting as a personal assistant for you to manage; your tasks:)";
+        res += "For now, I will be acting as a personal assistant for you to manage your tasks:)";
         return res;
     }
 

@@ -125,7 +125,7 @@ public class Parser {
         String[] res = new String[2];
         int slashIndex = s.indexOf("/by");
         if (slashIndex == -1) {
-            throw new InvalidInputException();
+            throw new InvalidInputException("Deadlines are of the form 'deadline DESCRIPTION /by DEADLINE'");
         }
         //remove whitespace to ensure correct formatting
         res[0] = s.substring(0, slashIndex).trim();
@@ -167,7 +167,7 @@ public class Parser {
 
         // make sure there is a "from" and "to" part
         if (fromIndex == -1 || toIndex == -1 || toIndex <= fromIndex) {
-            throw new InvalidInputException();
+            throw new InvalidInputException("Events are of the form 'event DESCRIPTION /from START /to END'");
         }
 
         // Extract the event description
