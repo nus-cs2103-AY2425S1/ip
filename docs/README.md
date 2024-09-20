@@ -63,7 +63,8 @@ Adds an event task to the task list.
 - `START` is the start time of the event task.
 - `END` is the end time of the event task.
 
->[!NOTE] Entering new events with clashing time periods with existing events will produce a warning and new event will
+>[!NOTE] 
+> Entering new events with clashing time periods with existing events will produce a warning and new event will
 > not be added.
 
 **Example:** `event birthday party /from 2024-09-09 17:00 /to 2024-09-09 22:00`
