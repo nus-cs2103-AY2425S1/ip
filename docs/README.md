@@ -179,7 +179,7 @@ application.
 Assistinator data is automatically saved as a txt file `[JAR file location]/data/assistinator.txt`.
 Advanced users are welcome to update data directly by editing that data file.
 
-> [!CAUTION]
+> **CAUTION**
 > Editing the data file directly with invalid formats may cause Assistinator to behave unexpectedly.
 >Assistinator will only load the lines of data that are in the correct format. Data with incorrect format will be
 discarded when you exit the app.
