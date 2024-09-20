@@ -113,7 +113,7 @@ public class Snipe {
      * @throws SnipeException If an application-specific error occurs during initialisation.
      */
     public static void main(String[] args) throws IOException, SnipeException {
-        Snipe snipe = new Snipe("../data");
+        Snipe snipe = new Snipe("data");
         snipe.initChat();
     }
 }
