@@ -55,7 +55,7 @@ public class Parser {
     private String executeMonolithicCommand(String command, String currAction) {
         if (command.equals("bye")) {
             return new LeaveCommand().speak();
-        } else if (command.equals("list")) {
+        } else if (command.equals("list") && currAction.split(" ").length == 1) {
             return this.taskStorage.speak();
         } else {
             throw new MendelException("OOPS! I cannot understand command\nCheck the first word.");
