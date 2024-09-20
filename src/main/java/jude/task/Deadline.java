@@ -63,4 +63,9 @@ public class Deadline extends Task {
         return String.format("%s | %d | %s | %s",
                 "D", getStatusBinary(), getDescription(), this.dateTime);
     }
+
+    @Override
+    public LocalDateTime getDueDateTime() {
+        return dateTime;
+    }
 }
