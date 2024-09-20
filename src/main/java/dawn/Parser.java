@@ -1,7 +1,7 @@
-package Dawn;
+package dawn;
 
-import static Dawn.Storage.saveTasks;
-import static Dawn.TaskList.*;
+import static dawn.Storage.saveTasks;
+import static dawn.TaskList.*;
 
 public class Parser {
     private String command;

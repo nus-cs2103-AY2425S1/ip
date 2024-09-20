@@ -1,4 +1,4 @@
-package Dawn.Gui;
+package dawn.gui;
 
 import javafx.application.Application;
 

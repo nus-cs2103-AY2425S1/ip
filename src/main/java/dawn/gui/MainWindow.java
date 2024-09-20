@@ -1,7 +1,5 @@
-package Dawn.Gui;
+package dawn.gui;
 
-import Dawn.DawnException;
-import Dawn.TaskList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -22,7 +20,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Dawn.Dawn dawn;
+    private dawn.Dawn dawn;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.jpg"));
     private Image dawnImage = new Image(this.getClass().getResourceAsStream("/images/DaDawn.png"));
@@ -36,7 +34,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /** Injects the Duke instance */
-    public void setDawn(Dawn.Dawn d) {
+    public void setDawn(dawn.Dawn d) {
         dawn = d;
     }
 

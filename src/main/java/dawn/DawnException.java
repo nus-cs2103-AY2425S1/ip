@@ -1,4 +1,4 @@
-package Dawn;
+package dawn;
 
 public class DawnException extends Exception{
     String msg;

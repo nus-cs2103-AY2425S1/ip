@@ -1,8 +1,6 @@
-package Dawn;
+package dawn;
 
-import static Dawn.Storage.saveTasks;
-import static Dawn.TaskList.*;
-import static Dawn.TaskList.doByToday;
+import static dawn.TaskList.*;
 
 public class ParserStub {
     private String command;

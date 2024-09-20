@@ -1,14 +1,12 @@
-package Dawn;
+package dawn;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import static Dawn.TaskList.getTask;
-import static Dawn.TaskList.numOfTasks;
+import static dawn.TaskList.getTask;
+import static dawn.TaskList.numOfTasks;
 
 public class Storage {
     private String filePath;

@@ -1,4 +1,4 @@
-package Dawn.Gui;
+package dawn.gui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class UserInterface extends Application {
-    private Dawn.Dawn dawn = new Dawn.Dawn();
+    private dawn.Dawn dawn = new dawn.Dawn();
 
     @Override
     public void start(Stage stage) {

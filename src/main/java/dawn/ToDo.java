@@ -1,4 +1,4 @@
-package Dawn;
+package dawn;
 public class ToDo extends Task {
     /**
      * Creates a new instance of a ToDo task

@@ -1,4 +1,4 @@
-package Dawn;
+package dawn;
 public class Task {
     private String desc;
     private boolean isDone;

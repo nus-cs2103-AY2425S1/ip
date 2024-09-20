@@ -1,5 +1,5 @@
 ------------------------------------------------------------
-Dawn 🌙 speaking, what can I do for you?
+dawn 🌙 speaking, what can I do for you?
   Gotcha! I've added this task: 
   [T][ ] read a book
   Now you have 1 task(s) in the list 
@@ -17,5 +17,5 @@ listing all tasks...
 2.   [E][ ] party  (from: 7pm  to: 9pm)  
 3.   [D][ ] CS2103T IP  (by: today!)  
 4.   [E][ ] mahjong  (from: 5pm  to: 6pm)  
-Byeeee~ nice chatting with you! See you next time, Dawn 🌙 out
+Byeeee~ nice chatting with you! See you next time, dawn 🌙 out
 ------------------------------------------------------------
