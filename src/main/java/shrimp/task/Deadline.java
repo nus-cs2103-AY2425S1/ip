@@ -8,18 +8,18 @@ import java.time.format.DateTimeFormatter;
  * A {@code Deadline} task has a description, a due date, and a completion status.
  */
 public class Deadline extends Task {
-    private final LocalDateTime by;
+    private final LocalDateTime deadline;
 
     /**
      * Constructs a {@code Deadline} task with the specified description, due date, and completion status.
      *
      * @param description The description of the task.
-     * @param by          The date and time by which the task should be completed.
+     * @param deadline    The date and time by which the task should be completed.
      * @param isDone      The completion status of the task.
      */
-    public Deadline(String description, LocalDateTime by, boolean isDone) {
+    public Deadline(String description, LocalDateTime deadline, boolean isDone) {
         super(description, isDone);
-        this.by = by;
+        this.deadline = deadline;
     }
 
     /**
@@ -29,7 +29,7 @@ public class Deadline extends Task {
      */
     @Override
     public Deadline markAsDone() {
-        return new Deadline(getDescription(), this.by, true);
+        return new Deadline(getDescription(), this.deadline, true);
     }
 
     /**
@@ -39,7 +39,7 @@ public class Deadline extends Task {
      */
     @Override
     public Deadline markAsNotDone() {
-        return new Deadline(getDescription(), this.by, false);
+        return new Deadline(getDescription(), this.deadline, false);
     }
 
     /**
@@ -56,8 +56,8 @@ public class Deadline extends Task {
      *
      * @return The due date and time.
      */
-    public LocalDateTime getBy() {
-        return by;
+    public LocalDateTime getDeadline() {
+        return deadline;
     }
 
     /**
@@ -68,6 +68,6 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         DateTimeFormatter pattern = DateTimeFormatter.ofPattern("MMM dd yyyy");
-        return getType() + super.toString() + " (by: " + by.format(pattern) + ")";
+        return getType() + super.toString() + " (by: " + deadline.format(pattern) + ")";
     }
 }

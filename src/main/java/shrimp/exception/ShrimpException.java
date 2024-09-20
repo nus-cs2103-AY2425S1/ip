@@ -1,6 +1,5 @@
 package shrimp.exception;
 
-import shrimp.utility.AnsiCode;
 import shrimp.utility.Parser;
 
 /**
@@ -10,11 +9,11 @@ import shrimp.utility.Parser;
  */
 public class ShrimpException extends Exception {
 
-    //fields used by shrimp.task, formatted
-    private static final String description = AnsiCode.ITALIC + "description" + AnsiCode.RESET + AnsiCode.RED;
-    private static final String by = AnsiCode.ITALIC + "by" + AnsiCode.RESET + AnsiCode.RED;
-    private static final String from = AnsiCode.ITALIC + "from" + AnsiCode.RESET + AnsiCode.RED;
-    private static final String to = AnsiCode.ITALIC + "to" + AnsiCode.RESET + AnsiCode.RED;
+    //fields used by shrimp, formatted
+    private static final String description = "description";
+    private static final String by = "by";
+    private static final String from = "from";
+    private static final String to = "to";
 
     //the error code of the exception raised
     private final String errorCode;
@@ -155,5 +154,35 @@ public class ShrimpException extends Exception {
             super(errorMessage, errorCode);
         }
 
+    }
+
+    /**
+     * Thrown when the end date is earlier than start date. (ERR007)
+     */
+    public static class InvalidEventException extends ShrimpException {
+        private static final String errorCode = "ERR007";
+        private static final String errorMessage = "The end time is earlier than the start time...";
+
+        /**
+         * Constructs an {@code InvalidEventException}.
+         */
+        public InvalidEventException() {
+            super(errorMessage, errorCode);
+        }
+    }
+
+    /**
+     * Thrown when user enters a special character. (ERR008)
+     */
+    public static class InvalidCharacterException extends ShrimpException {
+        private static final String errorCode = "ERR008";
+        private static final String errorMessage = "The character you put in is invalid...";
+
+        /**
+         * Constructs an {@code InvalidCharacterException}.
+         */
+        public InvalidCharacterException() {
+            super(errorMessage, errorCode);
+        }
     }
 }

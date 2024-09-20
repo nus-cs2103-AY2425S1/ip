@@ -3,7 +3,7 @@ package shrimp.task;
 /**
  * Represents an abstract task with a description and a completion status.
  * Subclasses of {@code Task} must implement methods to mark the task as done or not done, and
- *  to return the type of the task.
+ * to return the type of the task.
  */
 public abstract class Task {
     private final String description; //description of the task

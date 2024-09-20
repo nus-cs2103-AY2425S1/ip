@@ -1,0 +1,32 @@
+.label {
+    -fx-background-color: #e0f7fa;
+    -fx-border-color: #009688;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 10 15 10 15;
+    -fx-text-fill: #00695c;
+    -fx-font-size: 14px;
+}
+
+.reply-label {
+    -fx-background-color: #f1f8e9;
+    -fx-border-color: #7cb342;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 10 15 10 15;
+    -fx-text-fill: #33691e;
+}
+
+.error-label {
+    -fx-background-color: #ffebee;
+    -fx-border-color: #d32f2f;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 10 15 10 15;
+    -fx-text-fill: #c62828;
+}
+
+#displayPicture {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 10, 0.5, 5, 5);
+    -fx-background-radius: 50%;
+}
