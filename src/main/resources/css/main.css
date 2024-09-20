@@ -1,7 +1,6 @@
 .root {
     main-color: rgb(237, 255, 242);
     -fx-background-color: main-color;
-    -fx-background-image: url("../images/background.jpg"); /* Set image */
     -fx-background-size: stretch;
     -fx-background-repeat: stretch;
 }
