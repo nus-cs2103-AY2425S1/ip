@@ -127,7 +127,7 @@ public class Donk {
                 }
             }
             storage.writeToFile("./save.txt", tasks);
-            break;
+            return "Goodbye!";
         case "todo":
             return todo(input, inputArray);
         case "deadline":
@@ -143,13 +143,29 @@ public class Donk {
         case "mark":
             return mark(Parser.parseIndex(inputArray));
         case "list":
-            return ui.listTasks(tasks);
+            return list(inputArray);
         default:
             throw new Exception("Ehhh not sure what this is man");
         }
 
-        return "error with executing command";
 
+    }
+
+    /**
+     * list task, optionally sorted by deadline or start date
+     * @param inputArray
+     * @return String list of tasks
+     */
+    private String list(String[] inputArray) {
+        if (inputArray.length > 1 && inputArray[1].equalsIgnoreCase("sorted")) {
+            // return "wtf";
+            return tasks.sorted().toString();
+        }
+        String s = "";
+        for (String word: inputArray) {
+            s += word;
+        }
+        return ui.listTasks(tasks);
     }
 
     /**

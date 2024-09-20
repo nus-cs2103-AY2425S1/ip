@@ -9,6 +9,17 @@ public class ToDo extends Task {
         super(description, "T");
     }
 
+    @Override
+    public String getIsoDate() {
+        return "0";
+    }
+
+    @Override
+    public int compareTo(Task task) {
+        return -1;
+    }
+
+    @Override
     public String toString() {
         return "[T] " + super.toString();
     }
