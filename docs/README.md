@@ -133,4 +133,23 @@ to:
 2. [D][X] math quiz (by: Oct 15 2024 13:02)
 ```
 and show `"Okay, I have removed this task from your list: meeting (from: 2pm to: 4pm)"`
+
 ## Find 
+You can use the find command to search our list for tasks matching the keyword you enter!
+
+### Example:
+Command: `find quiz`
+
+In a list of 
+```
+1. [T][] english quiz
+2. [D][X] math hw (by: Oct 15 2024 13:02)
+3. [E][] meeting (from: 2pm to: 4pm)
+4. [D][X] math quiz (by: Oct 15 2024 13:02)
+```
+
+Colby will return to you:
+```
+1. [T][] english quiz
+2. [D][X] math quiz (by: Oct 15 2024 13:02)
+```
