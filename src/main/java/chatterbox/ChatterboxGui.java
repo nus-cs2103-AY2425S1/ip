@@ -1,7 +1,6 @@
 package chatterbox;
 
 import java.io.FileNotFoundException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import chatterboxexceptions.ChatterboxExceptions;
@@ -248,12 +247,5 @@ public class ChatterboxGui {
     public String getGreeting() {
         return guiResponses.greeting();
     }
-    public static void main(String[] args) {
 
-        Chatterbox myChat = new Chatterbox(
-                Paths.get(System.getProperty("user.dir"), "data" , "command1.txt").toString());
-        myChat.run();
-
-
-    }
 }

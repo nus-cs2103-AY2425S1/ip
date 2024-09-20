@@ -27,7 +27,7 @@ public class GuiResponses {
      */
     public String greeting() {
         return "Greetings. I am " + GuiResponses.BOTNAME + ".\n"
-                + "In this moment, I am here to assist you with your thoughts and tasks. "
+                + "I am here to assist you with your thoughts and tasks. "
                 + "How may I guide you today?";
     }
 
