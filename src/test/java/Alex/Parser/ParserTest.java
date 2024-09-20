@@ -1,6 +1,7 @@
+package Alex.Parser;
 import Alex.Command.Command;
 import Alex.Exceptions.AlexException;
-import Alex.Parser.Parser;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
