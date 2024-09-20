@@ -106,4 +106,8 @@ public class Ui {
     public String getInvalidInputMessage() {
         return INVALID_INPUT_MESSAGE;
     }
+
+    public static String getExitMessage() {
+        return EXIT_MESSAGE;
+    }
 }

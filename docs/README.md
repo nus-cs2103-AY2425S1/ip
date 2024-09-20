@@ -2,8 +2,6 @@ Neko User Guide
 ---
 ### Neko - Your Friendly Task Management Cat Chatbot
 Neko is a cute, friendly task management chatbot designed to help you manage your daily tasks efficiently. Neko can add, delete, mark tasks as done, and even list all tasks in your schedule. Whether you're organizing deadlines, events, or simple to-do lists, Neko is here to help you keep everything on track with ease.
-
-![Ui.png](./Ui.png)
 ## Features
 ### 1. Adding To-do Tasks
 You can add simple to-do tasks to your task list using the `add todo` command. This is perfect for quick tasks that don't have specific deadlines.
@@ -69,19 +67,20 @@ Here are the tasks in your list meow:
 ```
 
 ### 5. Marking Tasks as Done
-   Neko allows you to mark tasks as done once you have completed them.
+Neko allows you to mark tasks as done once you have completed them. You can also mark multiple tasks at once by providing their indices separated by spaces.
 - Command format:
 ```
-mark [task number]
+mark [task number 1] [task number 2] [task number 3] ...
 ```
 - Example input:
 ```
-mark 1
+mark 1 2
 ```
 - Expected output:
 ```
-Nice meow! I've marked this task as done:
+Nice meow! I've marked these tasks as done:
 [T][X] Buy groceries
+[D][X] Submit report (by: Mon, 30 Sep 2024 6:00pm)
 ```
 
 ### 6. Unmarking Tasks
@@ -89,32 +88,34 @@ Nice meow! I've marked this task as done:
 
 - Command format:
 ```
-unmark [task number]
+unmark [task number 1] [task number 2] [task number 3] ...
 ```
 Example input:
 ```
-unmark 1
+unmark 1 2
 ```
 - Expected output:
 ```
-Ok meow, I've marked this task as not done yet:
+Ok meow, I've marked these tasks as not done yet:
 [T][ ] Buy groceries
+[D][ ] Submit report (by: Mon, 30 Sep 2024 6:00pm)
 ```
 
 ### 7. Deleting Tasks
-   If you no longer need a task, you can delete it using the delete command.
+If you no longer need a task, you can delete it using the delete command. You can also delete multiple tasks at once by providing their indices separated by spaces.
 
 - Command format:
 ```
-delete [task number]
+delete [task number 1] [task number 2] [task number 3] ...
 ```
 - Example input:
 ```
-delete 2
+delete 1 2 3
 ```
 - Expected output:
 ```
-Noted meow. I've removed this task:
+Noted meow. I've removed the tasks:
+[T][ ] Buy groceries
 [D][ ] Submit report (by: Mon, 30 Sep 2024 6:00pm)
 ```
 
@@ -173,6 +174,17 @@ Here are the available commands meow!
 9. view [date] - Views the tasks scheduled on the given date
 10. help - Shows this list of commands
 ```
+
+### 11. Exit Command 
+To exit the Neko chatbot, use the bye command. This will stop the chatbot and close the application.
+- Command:
+```
+bye
+```
+- Expected output:
+```
+Bye! Hope to see you again soon meow ฅ ฅ
+```
 ---
 ## Summary
 
@@ -188,6 +200,7 @@ Here are the available commands meow!
 | `find [keyword]`                       | Finds tasks that match the given keyword                                 |
 | `view [yyyyMMdd]`                      | Displays tasks scheduled on the given date                               |
 | `help`                                 | Displays the list of available commands                                  |
+| `bye`                                 | Exit the Neko chatbot                                                    |
 
 
 ## Conclusion

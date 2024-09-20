@@ -6,6 +6,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import javafx.application.Platform;
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
+
 import neko.task.Deadline;
 import neko.task.Event;
 import neko.task.Task;
@@ -138,6 +142,9 @@ public class Neko {
         case COMMAND_VIEW:
             response = handleViewCommand(input);
             break;
+        case COMMAND_EXIT:
+           response = handleExit();
+           break;
         default:
             response = ui.getInvalidInputMessage();
         }
@@ -341,4 +348,13 @@ public class Neko {
         }
         return response.toString().trim();
     }
+
+    private String handleExit() {
+        PauseTransition pause = new PauseTransition(Duration.seconds(1.5));
+        pause.setOnFinished(event -> Platform.exit());
+        pause.play();
+
+        return Ui.getExitMessage();
+    }
+
 }
