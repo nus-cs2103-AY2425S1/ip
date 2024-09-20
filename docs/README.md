@@ -95,5 +95,13 @@ To delete an item, use the command:
 
 This will delete the specified item.
 
+### 8. Unmarking Items
+
+To mark an item, use the command:
+
+- **Command Format:** `unmark <item number>`
+
+This will unmark the specified item.
+
 ## Saving
 Data in every session is automatically saved and retrieved from "data.txt" file
