@@ -24,7 +24,11 @@ public class Ui {
     /**
      * Displays a welcome message to the user.
      */
+
+    Boolean run_once = false;
+
     public String showWelcome() {
+
         return "______________________________" + "\n" +
                 "Hi! My name is bing.Bing" + "\n" +
                 "How can I help you?" + "\n" +

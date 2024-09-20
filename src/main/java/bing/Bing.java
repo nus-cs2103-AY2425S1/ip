@@ -75,6 +75,9 @@ public class Bing {
         }
     }
 
+    public String getWelcomeMessage() {
+        return ui.showWelcome();
+    }
 
     /**
      * Main entry point for the application.

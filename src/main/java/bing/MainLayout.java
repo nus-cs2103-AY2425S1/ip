@@ -26,6 +26,8 @@ public class MainLayout {
 
     public void setBing(Bing b) {
         bing = b;
+        String welcomeMessage = bing.getWelcomeMessage();
+        dialogContainer.getChildren().add(DialogBox.getBingDialog(welcomeMessage));
     }
 
     @FXML

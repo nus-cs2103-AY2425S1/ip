@@ -9,9 +9,9 @@
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="bing.MainLayout">
     <children>
-        <ScrollPane fx:id="scrollPane" prefHeight="500.0" prefWidth="400.0" hbarPolicy="NEVER">
+        <ScrollPane fx:id="scrollPane" prefHeight="500.0" prefWidth="400.0" hbarPolicy="NEVER" vbarPolicy="ALWAYS">
             <content>
-                <VBox fx:id="dialogContainer" prefHeight="500.0" prefWidth="400.0"/>
+                <VBox fx:id="dialogContainer" prefHeight="500.0" prefWidth="400.0" VBox.vgrow="ALWAYS"/>
             </content>
         </ScrollPane>
         <TextField fx:id="userInput" layoutY="520.0" layoutX="50.0" prefHeight="30.0" prefWidth="280.0"/>
