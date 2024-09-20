@@ -5,7 +5,7 @@
 Joseph helps you keep track of stuff, allowing you to:
 - Add and delete tasks
 - Mark and unmark tasks
-- Work with tasks of varying details
+- Work with tasks of varying details (ToDos, Deadlines, Events)
 
 ## Simple Commands
 
