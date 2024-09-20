@@ -8,7 +8,19 @@ import mittens.task.Todo;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a parser for commands.
+ */
 public class CommandParser {
+
+    /**
+     * Parses the input and returns the corresponding command.
+     * If no match with any command format is found, a BadInputException is thrown.
+     * 
+     * @param input The user input to parse
+     * @return The corresponding Command object
+     * @throws BadInputException If the input does not match any known command format
+     */
     public Command parse(String input) throws BadInputException {
         if (input.equals("bye")) {
             return new ExitCommand();
