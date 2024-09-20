@@ -4,8 +4,13 @@ import cloud.util.Storage;
 import cloud.util.TaskList;
 import cloud.util.Ui;
 
+/**
+ * Represents a command to find tasks that match the specified keywords.
+ * A <code>FindCommand</code> object does a search operation
+ * within the task list.
+ */
 public class FindCommand extends Command {
-    private String keywords;
+    private final String keywords;
 
     public FindCommand(String keywords) {
         this.keywords = keywords;

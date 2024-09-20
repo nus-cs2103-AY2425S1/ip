@@ -1,10 +1,12 @@
 package cloud.util;
 
 import cloud.command.Command;
+import cloud.command.CommandType;
 import cloud.command.DeadlineCommand;
 import cloud.command.DeleteCommand;
 import cloud.command.EventCommand;
 import cloud.command.FindCommand;
+import cloud.command.HelpCommand;
 import cloud.command.ListCommand;
 import cloud.command.MarkCommand;
 import cloud.command.TodoCommand;
@@ -12,8 +14,22 @@ import cloud.command.UnmarkCommand;
 import cloud.exception.CloudException;
 import cloud.exception.UnrecognisedCommandException;
 
+/**
+ * Parses user input into command objects.
+ * <p>
+ * The <code>Parser</code> class interprets user commands from a string input and creates
+ * corresponding command objects that represent the operations to be performed.
+ * </p>
+ */
 public class Parser {
 
+    /**
+     * Parses the input string into a Command object.
+     *
+     * @param input the user input string
+     * @return a Command object representing the parsed command
+     * @throws CloudException if the input is unrecognized or invalid
+     */
     public Command parse(String input) throws CloudException {
         assert input != null : "Input cannot be null";
         String[] split = input.split(" ", 2);
@@ -40,6 +56,8 @@ public class Parser {
             return parseUnmark(body);
         case "find":
             return parseFind(body);
+        case "help":
+            return parseHelp(body);
         default:
             throw new UnrecognisedCommandException("Unrecognised command");
         }
@@ -51,19 +69,33 @@ public class Parser {
      * @return a ListCommand object
      */
     private Command parseList(String body) throws CloudException {
-        if (body.strip().length() > 0) {
-            throw new CloudException("Invalid ");
+        if (!body.isBlank()) {
+            throw new UnrecognisedCommandException();
         }
         return new ListCommand();
     }
 
+    /**
+     * Parses a todo command into a TodoCommand object.
+     *
+     * @param body the command body (description of the todo task)
+     * @return a TodoCommand object
+     * @throws CloudException if the description is empty
+     */
     private Command parseTodo(String body) throws CloudException {
-        if (body.strip().length() == 0) {
+        if (body.isBlank()) {
             throw new UnrecognisedCommandException("Add a description to you task and try again");
         }
         return new TodoCommand(body);
     }
 
+    /**
+     * Parses a deadline command into a DeadlineCommand object.
+     *
+     * @param body the command body (description and due date of the deadline task)
+     * @return a DeadlineCommand object
+     * @throws CloudException if the command body does not contain "/by" or the date format is invalid
+     */
     private Command parseDeadline(String body) throws CloudException {
         if (!body.contains("/by")) {
             throw new UnrecognisedCommandException();
@@ -98,16 +130,27 @@ public class Parser {
     }
 
     private Command parseFind(String body) throws CloudException {
-        if (body.strip().length() == 0) {
+        if (body.isBlank()) {
             throw new UnrecognisedCommandException("Please enter a keyword");
         }
         return new FindCommand(body);
     }
 
+    private Command parseHelp(String body) throws CloudException {
+        if (body.isBlank()) {
+            return new HelpCommand();
+        }
+        try {
+            return new HelpCommand(CommandType.valueOf(body.toUpperCase()));
+
+        } catch (IllegalArgumentException e) {
+            throw new UnrecognisedCommandException();
+        }
+    }
+
     private int stringToIndex(String s) throws CloudException {
         try {
-            int index = Integer.parseInt(s.strip());
-            return index;
+            return Integer.parseInt(s.strip());
         } catch (NumberFormatException e) {
             throw new UnrecognisedCommandException();
         }

@@ -5,6 +5,10 @@ import cloud.util.Storage;
 import cloud.util.TaskList;
 import cloud.util.Ui;
 
+/**
+ * Represents a command to add a todo task.
+ * A <code>TodoCommand</code> object adds a todo task with a description to the task list.
+ */
 public class TodoCommand extends Command {
     private final String description;
 

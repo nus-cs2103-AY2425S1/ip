@@ -3,6 +3,10 @@ package cloud.task;
 import cloud.exception.CloudException;
 import cloud.util.DateTime;
 
+/**
+ * Represents a task with a deadline.
+ * A <code>Deadline</code> object includes a description and a due date and time.
+ */
 public class Deadline extends Task {
     protected DateTime by;
 
@@ -11,7 +15,6 @@ public class Deadline extends Task {
      *
      * @param desc description of the task
      * @param by   expiry date and time of the task, in the format "dd/MM/yyyy HH:mm"
-     * @throws CloudException if date or time input format is invalid
      */
     public Deadline(String desc, DateTime by) {
         super(desc);

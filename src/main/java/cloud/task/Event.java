@@ -1,8 +1,11 @@
 package cloud.task;
 
-import cloud.exception.CloudException;
 import cloud.util.DateTime;
 
+/**
+ * Represents an event with a start and end time.
+ * An <code>Event</code> object includes a description, start time, and end time.
+ */
 public class Event extends Task {
     protected DateTime start;
     protected DateTime end;
@@ -13,7 +16,6 @@ public class Event extends Task {
      * @param desc  description of the event
      * @param start start date and time of the event, in the format "dd/MM/yyyy HH:mm"
      * @param end   end date and time of the event, in the format "dd/MM/yyyy HH:mm"
-     * @throws CloudException if the date or time input format is invalid
      */
     public Event(String desc, DateTime start, DateTime end) {
         super(desc);

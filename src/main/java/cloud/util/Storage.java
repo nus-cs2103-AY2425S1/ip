@@ -17,8 +17,12 @@ import cloud.task.Todo;
 
 
 /**
- * Represents the data storage for the chatbot.
- * This class is responsible for reading from and writing to the storage file.
+ * Handles reading from and writing to the storage file for tasks.
+ * <p>
+ * The <code>Storage</code> class is responsible for managing the persistence
+ * of tasks by providing methods to save tasks to a file and load tasks from
+ * the file into a <code>TaskList</code> object.
+ * </p>
  */
 public class Storage {
     private final String filePath;

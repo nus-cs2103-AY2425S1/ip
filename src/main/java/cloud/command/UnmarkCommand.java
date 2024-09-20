@@ -4,6 +4,10 @@ import cloud.util.Storage;
 import cloud.util.TaskList;
 import cloud.util.Ui;
 
+/**
+ * Represents a command to unmark a task as not done.
+ * A <code>UnmarkCommand</code> object sets the status of the task at the index to not done.
+ */
 public class UnmarkCommand extends Command {
     private final int index;
 

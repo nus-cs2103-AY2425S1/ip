@@ -6,9 +6,14 @@ import cloud.util.Storage;
 import cloud.util.TaskList;
 import cloud.util.Ui;
 
+/**
+ * Represents a command to add a deadline task. A <code>DeadlineCommand</code>
+ * object corresponds to a task with a description and a due date.
+ */
 public class DeadlineCommand extends Command {
     private final String description;
     private final DateTime dueDate;
+
 
     public DeadlineCommand(String description, DateTime dueDate) {
         this.description = description;

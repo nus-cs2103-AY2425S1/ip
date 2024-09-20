@@ -5,7 +5,9 @@ import cloud.util.TaskList;
 import cloud.util.Ui;
 
 /**
- * Prints the user's list of tasks.
+ * Represents a command to display all tasks in the user's task list.
+ * A <code>ListCommand</code> object outputs the current list of tasks
+ * or a message if the list is empty.
  */
 public class ListCommand extends Command {
     @Override
