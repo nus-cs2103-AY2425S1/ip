@@ -41,7 +41,7 @@ public class MainWindow extends AnchorPane {
     public void setKing(King k) {
         king = k;
         dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog(king.getUi().showWelcome(), kingImage) // Display the welcome message
+                DialogBox.getKingDialog(king.getUi().showWelcome(), kingImage) // Display the welcome message
         );
     }
 
@@ -55,7 +55,7 @@ public class MainWindow extends AnchorPane {
         String response = king.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, kingImage)
+                DialogBox.getKingDialog(response, kingImage)
         );
         userInput.clear();
 
