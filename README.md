@@ -1,7 +1,7 @@
 # Not-gpt
 
 This is a project is a basic chatbot which can be used to keep track of your tasks at hand.
-Head to [releases](https://github.com/flyingsalsa/ip/releases/tag/v0.1.1) on how to use it! 
+Head to the Official [UserGuide](https://flyingsalsa.github.io/ip/) on how to use it! 
 
 ## Commands   
 ### Note that all commands are NOT case-sensitive and the very FIRST word before a whitespace will be read as the command. <br> Most commands must be of the form (command) xxx where xxx is follow up text. For example,
