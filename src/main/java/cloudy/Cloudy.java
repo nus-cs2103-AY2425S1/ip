@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -115,11 +116,15 @@ public class Cloudy {
         assert command!= null : "Command should not be null";
         try {
             String searchDescription = command.getTaskDescription();
-            if (searchDescription == null) {
-                return showInvalidCommand();
+            if (Objects.equals(searchDescription, "")) {
+                return "Please type in something to find!";
             }
             ArrayList<Task> matchingTasks = tasks.findTasks(searchDescription);
-          
+
+            if (matchingTasks.isEmpty()) {
+                return "There are no tasks matching your list.";
+            }
+            
             return "Here are the matching tasks in your list:\n" +
                     IntStream.range(0, matchingTasks.size())
                             .mapToObj(i -> (i + 1) + ". " + matchingTasks.get(i).printTaskOnList())
