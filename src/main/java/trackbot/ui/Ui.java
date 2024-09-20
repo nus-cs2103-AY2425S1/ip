@@ -16,7 +16,7 @@ public class Ui {
      * Displays a goodbye message to the user.
      */
     public String showBye() {
-        return "Bye. Hope to see you again soon!";
+        return "Bye. Hope to see you again soon! The application will automatically close in 5 seconds.";
     }
 
     /**
