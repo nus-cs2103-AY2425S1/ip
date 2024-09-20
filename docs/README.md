@@ -12,7 +12,7 @@ The 3 categories of tasks that can be managed are:
 
 ## Mizz Demo
 
-![Screenshot of Mizz](./images/Ui.png)
+![Screenshot of Mizz](./Ui.png)
 
 ## Features
 
