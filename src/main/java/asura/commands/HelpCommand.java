@@ -20,7 +20,7 @@ public class HelpCommand extends Command{
         output.append("Commands\n");
         output.append("list                                displays the items in the task list.\n");
         output.append("todo <Task name>                     Adds a new todo task into the task list.\n");
-        output.append("deadline <Task name> /by <Date>      Adds a new deadline task into the task list.\n");
+        output.append("deadline <Task name> /by <Date> <Time>      Adds a new deadline task into the task list.\n");
         output.append("event <Task name> /from <DateTime> /to <DateTime>      Adds a new deadline task into the task list.\n");
         output.append("mark <Task number>                  Marks the indicated task as completed.\n");
         output.append("unmark <Task number>                Marks the indicated task as uncompleted.\n");
