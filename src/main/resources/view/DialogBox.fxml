@@ -8,6 +8,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<!-- @@author singa-pirate -->
+<!-- Adapted his UI styling -->
 <fx:root alignment="CENTER_RIGHT" maxHeight="1.9" minHeight="-Infinity" maxWidth="1.9" minWidth="-Infinity"  prefWidth="750.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <StackPane maxHeight="-Infinity" minHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" HBox.hgrow="NEVER">
