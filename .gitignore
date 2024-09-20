@@ -1,3 +1,7 @@
+#Build jar files
+/build/
+libs/lewis.jar
+
 # IDEA files
 /.idea/
 /out/
