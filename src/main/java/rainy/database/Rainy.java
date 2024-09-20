@@ -61,6 +61,8 @@ public class Rainy {
         Storage storage = new Storage();
         TaskTracker tm;
         Parser ps = new Parser();
+        File directory = new File("data");
+        storage.checkIfDirectoryExists(directory);
         try {
             File newFile = new File("data/rainy.txt");
             tm = storage.copyPreviousFiles(newFile);
