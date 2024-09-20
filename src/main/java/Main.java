@@ -3,8 +3,8 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import xbot.XBot;
 
@@ -14,7 +14,7 @@ import xbot.XBot;
 public class Main extends Application {
 
     private XBot xbot = new XBot();
-    Image icon = new Image(this.getClass().getResourceAsStream("/images/Flower.jpeg"));
+    private Image icon = new Image(this.getClass().getResourceAsStream("/images/Flower.jpeg"));
 
     @Override
     public void start(Stage stage) {
