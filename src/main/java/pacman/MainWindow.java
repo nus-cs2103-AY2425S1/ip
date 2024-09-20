@@ -26,8 +26,8 @@ public class MainWindow extends AnchorPane {
 
     private Pacman pacman;
 
-    private Image ghostImage = new Image(this.getClass().getResourceAsStream("/images/ghost.png"));
-    private Image pacmanImage = new Image(this.getClass().getResourceAsStream("/images/pacman.png"));
+    private Image ghostImage = new Image(this.getClass().getResourceAsStream("/images/Ghost.png"));
+    private Image pacmanImage = new Image(this.getClass().getResourceAsStream("/images/Pacman.png"));
     private String greet = "Hello! I'm PacMan. How can I help you?";
 
     @FXML
