@@ -8,7 +8,7 @@ import java.util.Scanner;
 import java.nio.file.Path;
 
 /**
- * Main class for Papagu chatbot
+ * Runs the Papagu program
  */
 public class Papagu {
 
