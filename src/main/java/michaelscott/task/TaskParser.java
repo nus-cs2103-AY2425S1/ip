@@ -25,14 +25,14 @@ public class TaskParser {
         String taskType = split[0].trim();
 
         task = switch (taskType) {
-            case "T" -> new Todo(name);
-            case "D" -> new Deadline(name, LocalDateTime.parse(split[3], formatter));
-            case "E" ->
-                    new Event(name, LocalDateTime.parse(split[3], formatter), LocalDateTime.parse(split[4], formatter));
-            case "P" ->
-                    new Period(name, LocalDate.parse(split[3], dateFormatter),
-                            LocalDate.parse(split[4], dateFormatter));
-            default -> throw new MichaelScottException("Wrong stuff");
+        case "T" -> new Todo(name);
+        case "D" -> new Deadline(name, LocalDateTime.parse(split[3], formatter));
+        case "E" ->
+                new Event(name, LocalDateTime.parse(split[3], formatter), LocalDateTime.parse(split[4], formatter));
+        case "P" ->
+                new Period(name, LocalDate.parse(split[3], dateFormatter),
+                        LocalDate.parse(split[4], dateFormatter));
+        default -> throw new MichaelScottException("Wrong stuff");
         };
 
         if (status == 1) {

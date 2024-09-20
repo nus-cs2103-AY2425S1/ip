@@ -6,6 +6,9 @@ package michaelscott.utils;
  */
 public class Ui {
 
+    /**
+     * This method is used to show an error to the user
+     */
     public static void showError(String message) {
         printLine();
         println(message);

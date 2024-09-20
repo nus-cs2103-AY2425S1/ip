@@ -22,18 +22,19 @@ public class CommandParser {
         String args = parts.length > 1 ? parts[1] : "";
 
         return switch (command.toLowerCase()) {
-            case "list" -> new ListCommand();
-            case "bye" -> new ExitCommand();
-            case "mark" -> new MarkCommand(args);
-            case "unmark" -> new UnmarkCommand(args);
-            case "delete" -> new DeleteCommand(args);
-            case "todo" -> new TodoCommand(args);
-            case "deadline" -> new DeadlineCommand(args);
-            case "event" -> new EventCommand(args);
-            case "period" -> new PeriodCommand(args);
-            case "clear" -> new ClearlistCommand();
-            case "find" -> new FindCommand(args);
-            default -> throw new MichaelScottException("That’s not a command... or is it? Nope, definitely not. Let’s try again!");
+        case "list" -> new ListCommand();
+        case "bye" -> new ExitCommand();
+        case "mark" -> new MarkCommand(args);
+        case "unmark" -> new UnmarkCommand(args);
+        case "delete" -> new DeleteCommand(args);
+        case "todo" -> new TodoCommand(args);
+        case "deadline" -> new DeadlineCommand(args);
+        case "event" -> new EventCommand(args);
+        case "period" -> new PeriodCommand(args);
+        case "clear" -> new ClearlistCommand();
+        case "find" -> new FindCommand(args);
+        default -> throw new MichaelScottException(
+                "That’s not a command... or is it? Nope, definitely not. Let’s try again!");
         };
     }
 }

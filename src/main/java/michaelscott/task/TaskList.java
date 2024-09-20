@@ -14,6 +14,9 @@ public class TaskList {
         this.tasks = new ArrayList<Task>();
     }
 
+    /**
+     * Constructs a task list
+     */
     public TaskList(ArrayList<Task> tasks) {
         assert tasks != null : "Tasks list cannot be null";
         this.tasks = tasks;
@@ -23,6 +26,10 @@ public class TaskList {
         return this.tasks;
     }
 
+    /**
+     * Adds a task to the tasklist
+     * @param task
+     */
     public void addTask(Task task) {
         assert task != null : "Task list cannot be null";
         tasks.add(task);

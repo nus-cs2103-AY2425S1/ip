@@ -1,8 +1,11 @@
 package michaelscott.command;
 
-import michaelscott.utils.MichaelScottException;
 import michaelscott.task.TaskList;
+import michaelscott.utils.MichaelScottException;
 
+/**
+ * This represents the interface for a command
+ */
 public interface Command {
 
     String execute(TaskList tasks) throws MichaelScottException;
