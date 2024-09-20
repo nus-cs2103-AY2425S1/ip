@@ -202,6 +202,7 @@ public class MainWindow extends VBox {
             alert.setTitle("Error");
             alert.setHeaderText("Error");
             alert.setContentText(e.getMessage());
+            alert.showAndWait();
             denim.exit();
         }
     }

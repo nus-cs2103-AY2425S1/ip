@@ -2,6 +2,8 @@ package denim.storage;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -17,6 +19,7 @@ import denim.tasks.Deadline;
 import denim.tasks.Event;
 import denim.tasks.Task;
 import denim.tasks.Todo;
+
 
 /**
  * Handles the input operations for task data in the Denim application.
@@ -43,7 +46,7 @@ public class ReadTaskFile {
     );
 
 
-    private final File taskFile;
+    private File taskFile;
 
     /**
      * Creates a new ReadTaskFile object with the given path name.
@@ -55,7 +58,14 @@ public class ReadTaskFile {
     }
 
     /**
-     *
+     * Sets taskFile to a new File.
+     */
+    private void setTaskFile(File file) {
+        taskFile = file;
+    }
+
+    /**
+     * Checks if the given Data in the file is not corrupted.
      */
     private boolean isTaskFileDataValid(String fileData) {
 
@@ -172,18 +182,21 @@ public class ReadTaskFile {
      * @throws DenimException If the file cannot be created.
      */
     public void handleFileCorruption() throws DenimFileException {
-        File denimFile = new File("data", "denim.txt");
-        File corruptedDataFile = new File("data", "corrupted.txt");
+        File directory = new File("data");
+        File corruptedDataFile = new File(directory, "corrupted.txt");
+        File deletedDataFile = new File(directory, "denim.txt");
 
-        corruptedDataFile.delete();
-        denimFile.renameTo(corruptedDataFile);
-
-        File newDenimFile = new File("data", "denim.txt");
         try {
-            newDenimFile.createNewFile();
+            Files.copy(taskFile.toPath(), corruptedDataFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
-            throw new DenimFileException("Unable to create denim.txt");
+            throw new DenimFileException("Unable to copy denim.txt into corrupted.txt."
+                    + "\nTry doing it manually instead.");
         }
+
+        if (!deletedDataFile.delete()) {
+            throw new DenimFileException("Unable to delete denim.txt. Please delete it manually.");
+        }
+        throw new DenimFileException("Relaunch the Application");
     }
 
     private void updateTaskList(TaskList taskList) throws DenimFileException, DenimFileCorruptionException {

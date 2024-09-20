@@ -51,8 +51,6 @@ public class Main extends Application {
             fxmlMainLoader.<MainWindow>getController().displayGreetingMessage();
         } catch (DenimFileCorruptionException e) {
             fxmlMainLoader.<MainWindow>getController().handleFileCorruption();
-            stage.show();
-            fxmlMainLoader.<MainWindow>getController().displayGreetingMessage();
         }
     }
 }
