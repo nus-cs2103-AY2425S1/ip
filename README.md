@@ -2,6 +2,8 @@
 
 Gallium is your **todos, deadlines and events manager chatbot**,voptimized for use via a **Command Line Interface (CLI)** while still having the benefits of a **Graphical User Interface (GUI)**.
 
+![Gallium UI](./Ui.png)
+
 - [Commands](#commands)
   - [Viewing the Task List: `list`](#viewing-the-task-list-list)
   - [Adding Todo Tasks: `todo`](#adding-todo-tasks-todo)
@@ -118,17 +120,23 @@ Edits task details at index `i` of task list.
 
 - index `i` starts at 1.
 
-User Input Flow
+### User Input Flow
 
-1. Initial Command:
-   Format: `edit <Index>`
-   Example: `edit 1`
-2. Prompt for Editing:
-   - Todo tasks: User will be prompted to enter a new description.
-   - Deadline tasks: The user will be prompted to enter the index represented by the field followed by the new details of the field.
-     1. description
-     2. date
-   - Event tasks: The user will be prompted to enter the index represented by the field followed by the new details of the field. 1. description 2. from date 3. to date
+### Initial Command:
+
+Format: `edit <Index>`
+Example: `edit 1`
+
+### Prompt for Editing:
+
+- Todo tasks: User will be prompted to enter a new description.
+- Deadline tasks: The user will be prompted to enter the index represented by the field followed by the new details of the field.
+  1.  description
+  2.  date
+- Event tasks: The user will be prompted to enter the index represented by the field followed by the new details of the field.
+  1. description
+  2. from date
+  3. to date
      Format: `<Index>. <New details>`
      Example: `2. 2024-09-20 2359`
 
