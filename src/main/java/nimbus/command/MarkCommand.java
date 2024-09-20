@@ -46,6 +46,7 @@ public class MarkCommand extends Command {
             tasks.get(index).setComplete();
             String output = "Nimbus.Nimbus shall mark this as done:\n"
                     + "    " + tasks.get(index).toString() + Ui.HORIZONTAL_LINE;
+            System.out.println(output);
             return output;
         }
     }

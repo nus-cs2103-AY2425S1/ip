@@ -49,6 +49,7 @@ public class FindCommand extends Command {
             }
         }
         output += ("Here are your results :3" + Ui.HORIZONTAL_LINE);
+        System.out.println(output);
         return output;
     }
 }

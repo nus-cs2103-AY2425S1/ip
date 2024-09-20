@@ -54,6 +54,7 @@ public class CheckCommand extends Command {
             }
         }
         output += ("These tasks are due on " + selectedDate + Ui.HORIZONTAL_LINE);
+        System.out.println(output);
         return output;
     }
 

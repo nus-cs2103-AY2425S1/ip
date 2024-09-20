@@ -57,6 +57,7 @@ public class DeleteCommand extends Command {
             String output = "Nimbus.Nimbus has removed the task! \n"
                     + "    " + temp + "\n" + "You have " + tasks.size()
                     + " tasks left!" + Ui.HORIZONTAL_LINE;
+            System.out.println(output);
             return output;
         }
     }

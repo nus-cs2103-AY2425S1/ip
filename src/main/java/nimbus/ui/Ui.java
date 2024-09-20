@@ -5,7 +5,8 @@ package nimbus.ui;
  */
 
 public class Ui {
-    public static final String HORIZONTAL_LINE = "\n---------------------------------------";
+    public static final String HORIZONTAL_LINE =
+            "\n------------------------------------------------------------------------";
     // Came up with the name and used an online ASCII art generator
     // Generator: https://patorjk.com/software/taag/#p=display&h=0&v=0&f=Ghost&t=nimbus
     private static String logo = "\n"
@@ -35,14 +36,16 @@ public class Ui {
     /**
      * Prints out welcome message to user when user first enters chatbot
      */
-    public static void showWelcome() {
+    public static String showWelcome() {
         System.out.println(welcomeMessage);
+        return welcomeMessage;
     }
 
     /**
      * Prints out goodbye message when user exits the chatbot
      */
     public static String goodbyeMessage() {
+        System.out.println(endingMessage);
         return endingMessage;
     }
 }

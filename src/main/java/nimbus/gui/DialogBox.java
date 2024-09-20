@@ -60,7 +60,9 @@ public class DialogBox extends HBox {
      * @return DialogBox for user
      */
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img);
+        db.dialog.getStyleClass().add("user-dialog");
+        return db;
     }
 
     /**
@@ -70,7 +72,8 @@ public class DialogBox extends HBox {
      * @return DialogBox for nimbus
      */
     public static DialogBox getNimbusDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img);
+        db.dialog.getStyleClass().add("bot-dialog");
         db.flip();
         return db;
     }

@@ -9,6 +9,8 @@
 .reply-label {
     -fx-background-radius: 1em 1em 1em 0;
     -fx-border-radius: 1em 1em 1em 0;
+    -fx-font-family: "Courier New";
+    -fx-font-size: 10pt;
 }
 
 #displayPicture {
@@ -23,3 +25,22 @@
     -fx-rotate: 0;
 }
 
+.user-dialog {
+    -fx-background-color: #E7CCCC;
+    -fx-border-color: black;
+    -fx-border-width: 2px;
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-padding: 10;
+    -fx-text-fill: black;
+}
+
+.bot-dialog {
+    -fx-background-color: #E5D9F2;
+    -fx-border-color: #CDC1FF;
+    -fx-border-width: 2px;
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-padding: 10;
+    -fx-text-fill: black;
+}

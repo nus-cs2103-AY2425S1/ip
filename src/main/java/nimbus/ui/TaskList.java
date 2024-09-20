@@ -9,7 +9,6 @@ import nimbus.task.Task;
  * This class store the arraylist of tasks
  */
 public class TaskList {
-    private static String horizontalLine = "\n-------------------------------------------------";
     private ArrayList<Task> taskList;
     /**
      * Creates a TaskList object with a new arraylist of size 100
@@ -55,7 +54,7 @@ public class TaskList {
                 output += (String.valueOf(i + 1) + ". " + taskList.get(i) + "\n");
             }
         }
-        output += horizontalLine;
+        output += Ui.HORIZONTAL_LINE;
         System.out.println(output);
         return output;
     }
