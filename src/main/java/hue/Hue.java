@@ -48,7 +48,7 @@ public class Hue {
      * <p>
      * This method checks whether a file exists at the given {@code filePath}. If the file does not
      * exist, it creates the necessary directories and then create the file. If the file already
-     * exists, no action is taken. 
+     * exists, no action is taken.
      * </p>
      * <p>
      * This method also handles any {@code IOException} that may occur during file creation, printing
