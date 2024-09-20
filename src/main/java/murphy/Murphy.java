@@ -9,6 +9,9 @@ import murphy.task.TaskList;
 import murphy.task.Todo;
 import murphy.ui.Ui;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 /**
  * Main class of the Murphy application, a chatbot which can record and display tasks.
  */
@@ -55,6 +58,8 @@ public class Murphy {
             event(input);
         } else if (input.startsWith("find ")) {
             find(input);
+        } else if (input.startsWith("schedule")) {
+            getSchedule(input);
         } else {
             ui.showError("Command not found");
         }
@@ -79,6 +84,7 @@ public class Murphy {
         String[] split = input.split(" ");
         if (split.length != 2) {
             ui.showError("mark usage: \"mark [task number]\"");
+            return;
         }
         try {
             int index = Integer.parseInt(split[1]);
@@ -92,6 +98,7 @@ public class Murphy {
         String[] split = input.split(" ");
         if (split.length != 2) {
             ui.showError("unmark usage: \"unmark [task number]\"");
+            return;
         }
         try {
             int index = Integer.parseInt(split[1]);
@@ -105,6 +112,7 @@ public class Murphy {
         String[] split = input.split(" ");
         if (split.length != 2) {
             ui.showError("delete usage: \"delete [task number]\"");
+            return;
         }
         try {
             int index = Integer.parseInt(split[1]);
@@ -126,6 +134,7 @@ public class Murphy {
     private void deadline(String input) {
         if (!input.contains("/by ")) {
             ui.showError("deadline usage: \"deadline [description] /by [date]\"");
+            return;
         }
         String[] split = input.split("/by ");
         try {
@@ -139,6 +148,7 @@ public class Murphy {
     private void event(String input) {
         if (!input.contains("/from ") || !input.contains("/to ")) {
             ui.showError("event usage: \"event [description] /from [date] /to [date]\"");
+            return;
         }
         String[] split = input.split("/from ");
         String[] split2 = split[1].split("/to ");
@@ -155,6 +165,20 @@ public class Murphy {
             ui.showText(tasks.find(input.substring(5)));
         } catch (MurphyException e) {
             ui.showError(e.getMessage());
+        }
+    }
+
+    private void getSchedule(String input) {
+        String[] split = input.split(" ");
+        if (split.length != 2) {
+            ui.showError("usage: \"schedule [yyyy-mm-dd]\"");
+            return;
+        }
+        try {
+            LocalDate date = LocalDate.parse(split[1].trim());
+            ui.showText(tasks.getSchedule(date));
+        } catch (DateTimeParseException e) {
+            ui.showError("Date should be in the format yyyy-mm-dd.");
         }
     }
 }

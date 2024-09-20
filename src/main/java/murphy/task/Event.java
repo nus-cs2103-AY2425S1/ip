@@ -56,4 +56,9 @@ public class Event extends Task {
     public String toSaveString() {
         return "E|" + super.toSaveString() + "|" + this.from + "|" + this.to;
     }
+
+    @Override
+    public boolean isWithinDate(LocalDate date) {
+        return !date.isBefore(from) && !date.isAfter(to);
+    }
 }

@@ -1,5 +1,6 @@
 package murphy.task;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
@@ -147,6 +148,17 @@ public class TaskList {
         TaskList matchedTasks = new TaskList();
         for (Task task : tasks) {
             if (task.containsString(search)) {
+                matchedTasks.addItem(task);
+            }
+        }
+        return matchedTasks.toString();
+    }
+
+    public String getSchedule(LocalDate date) {
+        assert date != null;
+        TaskList matchedTasks = new TaskList();
+        for (Task task : tasks) {
+            if (task.isWithinDate(date)) {
                 matchedTasks.addItem(task);
             }
         }
