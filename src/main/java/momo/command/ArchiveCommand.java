@@ -118,7 +118,8 @@ public class ArchiveCommand extends Command {
             return index;
 
         } catch (NumberFormatException e) {
-            throw new InvalidCommandException("Watch out mortal: You did not format your number properly...");
+            throw new InvalidCommandException("Watch out mortal: You did not format your archive command properly.."
+                    + ".\n\nYou can only 'archive <index>' or 'archive all'");
         }
     }
 
