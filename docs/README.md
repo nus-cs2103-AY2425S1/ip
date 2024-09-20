@@ -229,3 +229,6 @@ Example: `bye`
 
 - Upon the execution of all the commands, the chatBot Bob will automatically save the changes made to the 
 existing task list
+
+## Acknowledgements
+- Sparse use of chatGPT involved when debugging.
