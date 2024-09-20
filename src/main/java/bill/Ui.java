@@ -229,7 +229,6 @@ public class Ui {
                 return handleHelp(parsedInput, guide);
             case LIST:
                 return handleList(parsedInput, tasks, userList);
-                //return tasks.showList(userList);
             case MARK:
                 // Fallthrough
             case UNMARK:
