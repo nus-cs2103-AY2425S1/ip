@@ -8,7 +8,7 @@ Delphi can remember the tasks you've inputted from the last time you used the ap
 ## Quick start
 
 1. Ensure you have Java 17 installed.
-2. Download the latest .jar file from here.
+2. Download the latest .jar file from [here](https://github.com/naythee169/ip/releases/download/v2.0/Delphi.jar).
 3. Copy the file to the folder you want to use as the home folder for Delphi.
 4. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar Delphi.jar command to run the application.
 5. Type commands into the command box and press Enter or click the Send button to execute it.
