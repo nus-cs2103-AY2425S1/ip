@@ -1,0 +1,45 @@
+.root {
+    main-color: rgb(250, 238, 250); /* Create a looked-up color called "main-color" within root. */
+    -fx-background-color: main-color;
+}
+
+.text-field {
+    -fx-background-color: #ebceed;
+    -fx-font: bold 12px "Courier New";
+}
+
+.button {
+    -fx-background-color: #90f1e5;
+    -fx-font: italic bold 16px "Courier New";
+}
+
+.button:hover {
+    -fx-background-color: #37eed6;
+    -fx-font-size: 18px;
+}
+
+.button:pressed {
+    -fx-background-color: #00fad3;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 15px; /* Change width of scroll bar. */
+    -fx-background-color: #ab9fcc;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #997ad5;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+
