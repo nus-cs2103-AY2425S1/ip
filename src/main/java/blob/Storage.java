@@ -51,7 +51,8 @@ public class Storage {
             int isChecked = Integer.parseInt(array[1]);
             String taskName = array[2];
 
-            if (taskType.equals("T")) {
+            switch (taskType) {
+            case "T" -> {
                 ArrayList<String> tags = new ArrayList<>();
                 for (int i = 5; i < array.length; i++) {
                     tags.add(array[i]);
@@ -59,22 +60,23 @@ public class Storage {
 
                 Todo t = new Todo(taskName, isChecked == 1, tags);
                 tasks.add(t);
-
-            } else if (taskType.equals("D")) {
+            }
+            case "D" -> {
                 ArrayList<String> tags = new ArrayList<>();
                 for (int i = 5; i < array.length; i++) {
                     tags.add(array[i]);
                 }
                 Deadline d = new Deadline(taskName, isChecked == 1, array[3], tags);
                 tasks.add(d);
-
-            } else if (taskType.equals("E")) {
+            }
+            case "E" -> {
                 ArrayList<String> tags = new ArrayList<>();
                 for (int i = 5; i < array.length; i++) {
                     tags.add(array[i]);
                 }
                 Event e = new Event(taskName, isChecked == 1, array[3], array[4], tags);
                 tasks.add(e);
+            }
             }
         }
         return tasks;
@@ -92,22 +94,24 @@ public class Storage {
             Task t = database.get(i);
             String isChecked = String.valueOf(t.isDone ? 1 : 0);
 
-            if (t.type.equals("T")) {
+            switch (t.type) {
+            case "T" -> {
                 StringBuilder data = new StringBuilder(String.format("%s,%s,%s,%s,%s,%s\n",
                         t.type, isChecked, t.name, NA_DATA, NA_DATA, t.displayTags()));
                 allData.append(data);
-
-            } else if (t.type.equals("D")) {
+            }
+            case "D" -> {
                 Deadline d = (Deadline) t;
                 StringBuilder data = new StringBuilder(String.format("%s,%s,%s,%s,%s,%s\n",
                         t.type, isChecked, t.name, d.getDeadline(), NA_DATA, t.displayTags()));
                 allData.append(data);
-                
-            } else if (t.type.equals("E")) {
+            }
+            case "E" -> {
                 Event e = (Event) t;
                 StringBuilder data = new StringBuilder(String.format("%s,%s,%s,%s,%s,%s\n",
                         t.type, isChecked, t.name, e.getStart(), e.getEnd(), t.displayTags()));
                 allData.append(data);
+            }
             }
         }
         fw.write(allData.toString());

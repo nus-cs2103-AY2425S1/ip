@@ -144,27 +144,22 @@ public class Parser {
                 end = j;
             }
         }
-
         // task name error handling
         if (start <= 1) {
             return "What's the name of your event? Please add it 😅!";
         }
-
         // start string error handling
         if (end - start <= 1) {
             return "When does your event begin? Please add it 😅!";
         }
-
         // end string error handling
         if (end == arr.length - 1) {
             return "What time does your event end? Please let me know 😅!";
         }
-
         //'/from' only having date or time
         if (end - start == 2) {
             return "You need to add both DATE and TIME to your event's start \uD83D\uDD27! (Format: yyyy-mm-dd HH:mm)";
         }
-
         //'/to' only having date or time
         if (end == arr.length - 2) {
             return "You need to add both DATE and TIME to your event's end \uD83D\uDD27! (Format: yyyy-mm-dd HH:mm)";
@@ -209,7 +204,7 @@ public class Parser {
             return msg.toString();
             //if 'find' entered with more than 1 keyword
         } else if (arr.length > 2) {
-            msg.append("You can only enter on keyword!");
+            msg.append("You can only enter one keyword!");
             return msg.toString();
         } else {
             String keyword = arr[1];
