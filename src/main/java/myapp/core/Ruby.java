@@ -22,7 +22,7 @@ public class Ruby {
     private final Ui ui;
     private final Parser parser;
 
-    private static final String DEFAULT_FILE_PATH = "data/tasks.txt";
+    private static final String DEFAULT_FILE_PATH = "./data/tasks.txt";
 
     /**
      * Constructs a new {@code Ruby} instance with the specified file path for storage.

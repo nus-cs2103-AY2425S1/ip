@@ -1,5 +1,6 @@
 package myapp.storage;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -41,6 +42,11 @@ public class Storage {
      */
     public List<Task> load() throws IOException, RubyException {
         Path path = Paths.get(filePath);
+        File file = new File(filePath);
+        File directory = file.getParentFile();
+        if (directory != null && !directory.exists()) {
+            directory.mkdirs();
+        }
         if (!Files.exists(path)) {
             return new ArrayList<>();
         }
@@ -111,6 +117,12 @@ public class Storage {
      * @throws IOException If an I/O error occurs while writing to the file.
      */
     public void save(List<Task> tasks) throws IOException {
+        File file = new File(filePath);
+        File directory = file.getParentFile();
+        if (directory != null && !directory.exists()) {
+            directory.mkdirs(); 
+        }
+
         try (FileWriter writer = new FileWriter(filePath)) {
             for (Task task : tasks) {
                 String taskString = formatTask(task);
