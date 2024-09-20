@@ -24,7 +24,7 @@ public class TaskListTest {
     }
     @AfterEach
     public void deleteFile() throws IOException {
-        Files.deleteIfExists(Paths.get("./data/rex.txt"));
+        Files.deleteIfExists(Paths.get(TESTFILE_PATH));
     }
 
     @Test
