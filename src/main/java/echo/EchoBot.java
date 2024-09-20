@@ -18,6 +18,9 @@ public class EchoBot {
     public EchoBot() {
         Storage.init();
         this.allTasks = Storage.getData();
+        if (this.allTasks == null) {
+            this.allTasks = new TaskList();
+        }
     }
 
     /**

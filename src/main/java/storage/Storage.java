@@ -56,6 +56,7 @@ public class Storage {
      * to the file.
      */
     public static void setEmptyFile() {
+
         File f = new File(Storage.DATA_PATH);
 
         if (f.length() == 0) {
@@ -78,6 +79,7 @@ public class Storage {
 
             // close ObjectOutputStream
             os.close();
+            fileStream.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -94,8 +96,16 @@ public class Storage {
         try {
             FileInputStream fileStream = new FileInputStream(Storage.DATA_PATH);
             ObjectInputStream outputStream = new ObjectInputStream(fileStream);
+
             allTasks = (TaskList) outputStream.readObject();
+            // return a empty task list if bot got null from data file
+            if (allTasks == null) {
+                allTasks = new TaskList();
+            }
+
             outputStream.close();
+            fileStream.close();
+
             return allTasks;
         } catch (IOException e) {
             System.out.println("Get Data Error: " + e.getMessage());
