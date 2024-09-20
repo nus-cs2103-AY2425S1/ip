@@ -48,7 +48,7 @@ public class Parser {
         Parser.commandMap.put("help", HelpCommand.getInstance());
 
         // Assert that all expected commands are present in the map
-        assert Parser.commandMap.size() == 9 : "Command map size should be 9 after initialization";
+        assert Parser.commandMap.size() == 10 : "Command map size should be 9 after initialization";
         assert Parser.commandMap.containsKey("list") : "Command map should contain 'list' command";
         assert Parser.commandMap.containsKey("bye") : "Command map should contain 'bye' command";
         assert Parser.commandMap.containsKey("mark") : "Command map should contain 'mark' command";
@@ -68,10 +68,8 @@ public class Parser {
      * @throws InvalidCommandException If the user input does not match any known command.
      */
     public static JBotCommand parse(String userInput) throws InvalidCommandException {
-        assert userInput != null && !userInput.isEmpty() : "User input should not be null or empty";
 
         String inputCommand = userInput.split(" ")[0];
-        assert inputCommand != null && !inputCommand.isEmpty() : "Parsed input command should not be null or empty";
 
         JBotCommand command = Parser.commandMap.get(inputCommand);
 
