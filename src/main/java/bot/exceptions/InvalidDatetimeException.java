@@ -6,6 +6,6 @@ package bot.exceptions;
  */
 public class InvalidDatetimeException extends BotException {
     public InvalidDatetimeException(String dt) {
-        super(dt + " is not a valid date/time");
+        super("'" + dt + "'" + " is not a valid date/time");
     }
 }
