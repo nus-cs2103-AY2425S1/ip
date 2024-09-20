@@ -10,7 +10,7 @@ It can handle todo tasks, tasks with deadlines and also events!
 1. Ensure that you have installed `java 17` on your computer
 2. Download the `.jar` file from [here](https://github.com/SlothyCat/ip/releases/download/v0.2/nimbus.jar)
 3. Save the file to a suitable folder
-4. Open your command terminal, go to the folder you saved the .jar file and enter `java -jar nimbus.jar` to start the program.
+4. Open your command terminal, `cd` to the folder you saved the .jar file and enter `java -jar nimbus.jar` to start the program.
 
 
 ## Add Tasks
