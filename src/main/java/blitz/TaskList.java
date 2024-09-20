@@ -1,6 +1,7 @@
 package blitz;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import exception.BlitzException;
 import task.Task;
@@ -18,6 +19,21 @@ public class TaskList {
      */
     public TaskList(ArrayList<Task> list) {
         this.list = list;
+    }
+
+    /**
+     * Returns a list of tasks that matched the specified pattern.
+     *
+     * @param pattern The String pattern to match against the task.
+     * @throws BlitzException If error occurs while processing Task String.
+     */
+    public TaskList getMatchedTasks(String pattern) throws BlitzException {
+        TaskList matchedTaskList = convertStringListToTaskList(list.stream()
+                .map(Task::convertTaskToString)
+                .filter(str -> str.contains(pattern))
+                .collect(Collectors.toCollection(ArrayList::new)));
+
+        return matchedTaskList;
     }
 
     /**
@@ -77,22 +93,6 @@ public class TaskList {
     }
 
     /**
-     * Converts a list of String into a TaskList by parsing each String into a Task.
-     *
-     * @param list The list of String containing the strings to be converted to Task object.
-     * @return TaskList containing the Task objects converted from the String.
-     */
-    public static TaskList convertStringListToTaskList(ArrayList<String> list) throws BlitzException {
-        ArrayList<Task> taskList = new ArrayList<>();
-
-        for (String str : list) {
-            taskList.add(Task.convertStringToTask(str));
-        }
-
-        return new TaskList(taskList);
-    }
-
-    /**
      * Checks whether the specified Task exists in the list of tasks (without comparing status).
      *
      * @param task Task to be checked for existence in the list.
@@ -100,6 +100,22 @@ public class TaskList {
      */
     public boolean isTaskExist(Task task) {
         return this.list.stream().anyMatch(t -> t.isEqualWithoutStatus(task));
+    }
+
+    /**
+     * Converts a list of String into a TaskList by parsing each String into a Task.
+     *
+     * @param list The list of String containing the strings to be converted to Task object.
+     * @return TaskList containing the Task objects converted from the String.
+     */
+    private TaskList convertStringListToTaskList(ArrayList<String> list) throws BlitzException {
+        ArrayList<Task> taskList = new ArrayList<>();
+
+        for (String str : list) {
+            taskList.add(Task.convertStringToTask(str));
+        }
+
+        return new TaskList(taskList);
     }
 
     /**

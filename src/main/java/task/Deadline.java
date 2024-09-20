@@ -25,6 +25,21 @@ public class Deadline extends Task {
     }
 
     /**
+     * Creates a new Deadline object using the provided details.
+     *
+     * @param details Array of String containing the details of the deadline task.
+     * @return A new Deadline object with the specified details.
+     */
+    public static Deadline createDeadlineWithDetails(String[] details) {
+        String type = details[0];
+        boolean status = Boolean.parseBoolean(details[1]);
+        String description = details[2];
+        LocalDateTime dateTime = convertStringToLocalDateTime(details[3]);
+
+        return new Deadline(description, type, dateTime, status);
+    }
+
+    /**
      * Converts date time in this object to String using specified format.
      *
      * @param format String represents the desired format.
@@ -57,6 +72,9 @@ public class Deadline extends Task {
         return this.type;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isEqualWithoutStatus(Task task) {
         if (this == task) {

@@ -1,4 +1,5 @@
 package exception;
+
 /**
  * Represents an exception where a duplicated task is added to the list.
  */

@@ -67,7 +67,7 @@ public class Ui {
             assert curr != null : "Task in task list must not be null";
 
             string += (i + 1) + ". [" + curr.getType() + "]"
-                    + "[" + (curr.getStatus() ? "X" : " ") + "] " + curr + "\n";
+                    + "[" + (curr.isDone() ? "X" : " ") + "] " + curr + "\n";
         }
 
         return string;

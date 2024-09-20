@@ -19,13 +19,27 @@ public class Todo extends Task {
     }
 
     /**
+     * Creates a new Todo object using the provided details.
+     *
+     * @param details Array of String containing the details of the todo task.
+     * @return A new Todo object with the specified details.
+     */
+    public static Todo createTodoWithDetails(String[] details) {
+        String type = details[0];
+        boolean status = Boolean.parseBoolean(details[1]);
+        String description = details[2];
+
+        return new Todo(description, type, status);
+    }
+
+    /**
      * Converts this object to String representation (different format with toString()).
      *
      * @return String representation of this Todo object.
      */
     @Override
     public String convertTaskToString() {
-        return this.type + "::" + super.isDone() + "::" + super.getDescription();
+        return this.type + "::" + super.isDone() + "::" + super.getDescription() + "\n";
     }
 
     /**
@@ -38,6 +52,9 @@ public class Todo extends Task {
         return this.type;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isEqualWithoutStatus(Task task) {
         if (this == task) {
@@ -53,6 +70,19 @@ public class Todo extends Task {
         boolean isDescriptionSame = super.getDescription().equals(todo.getDescription());
 
         return isTypeSame && isDescriptionSame;
+    }
+
+    /**
+     * Returns a String representation of this object.
+     *
+     * @return String representing this Todo object.
+     */
+    @Override
+    public String toString() {
+        String descriptionWithNewline = super.toString();
+        String descriptionWithoutNewline = descriptionWithNewline.substring(0, descriptionWithNewline.length() - 1);
+
+        return descriptionWithoutNewline;
     }
 
     /**

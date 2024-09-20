@@ -18,6 +18,7 @@ import exception.BlitzException;
 import exception.BlitzInvalidParameterMoreThanOneException;
 import exception.BlitzInvalidParameterRegexException;
 import exception.BlitzNoParameterException;
+import exception.BlitzProhibitedCharacterException;
 
 /**
  * Handles parsing of command String and convert it into corresponding Command Object.
@@ -180,9 +181,14 @@ public class Parser {
      * @param command The full command string.
      * @param commandBody The parameter of the command.
      * @return A corresponding TodoCommand object.
+     * @throws BlitzException If description contains the special characters "::".
      */
-    private static Command parseTodoCommand(String command, String commandBody) {
+    private static Command parseTodoCommand(String command, String commandBody) throws BlitzException {
         String todoDescription = commandBody;
+
+        if (todoDescription.contains("::")) {
+            throw new BlitzProhibitedCharacterException("::");
+        }
 
         return new TodoCommand(command, todoDescription);
     }
@@ -193,7 +199,8 @@ public class Parser {
      * @param command The full command string.
      * @param commandBody The parameter of the command.
      * @return A corresponding DeadlineCommand object.
-     * @throws BlitzException If the command string does not match the expected pattern.
+     * @throws BlitzException If the command string does not match the expected pattern or description contains the
+     *     special characters "::".
      */
     private static Command parseDeadlineCommand(String command, String commandBody) throws BlitzException {
         if (!isRegexMatched(DEADLINE_PATTERN, command)) {
@@ -208,6 +215,10 @@ public class Parser {
         String deadlineDescription = deadlineParameters[0];
         String byParameterValue = deadlineParameters[1];
 
+        if (deadlineDescription.contains("::")) {
+            throw new BlitzProhibitedCharacterException("::");
+        }
+
         return new DeadlineCommand(command, deadlineDescription, byParameterValue);
     }
 
@@ -217,7 +228,8 @@ public class Parser {
      * @param command The full command string.
      * @param commandBody The parameter of the command.
      * @return A corresponding EventCommand object.
-     * @throws BlitzException If the command string does not match the expected pattern.
+     * @throws BlitzException If the command string does not match the expected pattern  or description contains the
+     *     special characters "::".
      */
     private static Command parseEventCommand(String command, String commandBody) throws BlitzException {
         if (!isRegexMatched(EVENT_PATTERN, command)) {
@@ -235,6 +247,10 @@ public class Parser {
         String eventDescription = fromParameters[0];
         String fromParameterValue = toParameters[0];
         String toParameterValue = toParameters[1];
+
+        if (eventDescription.contains("::")) {
+            throw new BlitzProhibitedCharacterException("::");
+        }
 
         return new EventCommand(command, eventDescription, fromParameterValue, toParameterValue);
     }

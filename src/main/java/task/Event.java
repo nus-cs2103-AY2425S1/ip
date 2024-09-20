@@ -29,6 +29,22 @@ public class Event extends Task {
     }
 
     /**
+     * Creates a new Event object using the provided details.
+     *
+     * @param details Array of String containing the details of the Event task.
+     * @return A new Event object with the specified details.
+     */
+    public static Event createEventWithDetails(String[] details) {
+        String type = details[0];
+        boolean eventStauts = Boolean.parseBoolean(details[1]);
+        String eventDescription = details[2];
+        LocalDateTime startDateTime = convertStringToLocalDateTime(details[3]);
+        LocalDateTime endDateTime = convertStringToLocalDateTime(details[4]);
+
+        return new Event(eventDescription, type, startDateTime, endDateTime, eventStauts);
+    }
+
+    /**
      * Converts specified date time (LocalDateTime) to String using specified format.
      *
      * @param format String represents the desired format.
@@ -63,6 +79,9 @@ public class Event extends Task {
         return this.type;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isEqualWithoutStatus(Task task) {
         if (this == task) {

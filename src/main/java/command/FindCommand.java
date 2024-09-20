@@ -1,14 +1,10 @@
 package command;
 
-import java.util.ArrayList;
-import java.util.stream.Collectors;
-
 import blitz.Storage;
 import blitz.TaskList;
 import blitz.Ui;
 import exception.BlitzEmptyTaskListException;
 import exception.BlitzException;
-import task.Task;
 
 /**
  * Represents a "find" command in the Blitz application.
@@ -42,12 +38,11 @@ public class FindCommand extends Command {
             throw new BlitzEmptyTaskListException();
         }
 
-        ArrayList<Task> allTasks = list.getAllTask();
+        if (parameter.equals("::")) {
+            throw new BlitzEmptyTaskListException();
+        }
 
-        TaskList matchedTasks = TaskList.convertStringListToTaskList(allTasks.stream()
-                .map(Task::convertTaskToString)
-                .filter(str -> str.contains(this.parameter))
-                .collect(Collectors.toCollection(ArrayList::new)));
+        TaskList matchedTasks = list.getMatchedTasks(parameter);
 
         if (matchedTasks.isEmpty()) {
             throw new BlitzEmptyTaskListException();

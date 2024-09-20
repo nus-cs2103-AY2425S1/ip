@@ -40,31 +40,19 @@ public abstract class Task {
                 throw new BlitzIoException("Failed to read from database");
             }
 
-            String todoDescription = taskDetails[2];
-            boolean todoStatus = Boolean.parseBoolean(taskDetails[1]);
-
-            return new Todo(todoDescription, type, todoStatus);
+            return Todo.createTodoWithDetails(taskDetails);
         case "D":
             if (taskDetails.length != 4) {
                 throw new BlitzIoException("Failed to read from database");
             }
 
-            String deadlineDescription = taskDetails[2];
-            LocalDateTime dateTime = convertStringToLocalDateTime(taskDetails[3]);
-            boolean deadlineStatus = Boolean.parseBoolean(taskDetails[1]);
-
-            return new Deadline(deadlineDescription, type, dateTime, deadlineStatus);
+            return Deadline.createDeadlineWithDetails(taskDetails);
         case "E":
             if (taskDetails.length != 5) {
                 throw new BlitzIoException("Failed to read from database");
             }
 
-            String eventDescription = taskDetails[2];
-            LocalDateTime startDateTime = convertStringToLocalDateTime(taskDetails[3]);
-            LocalDateTime endDateTime = convertStringToLocalDateTime(taskDetails[4]);
-            boolean eventStauts = Boolean.parseBoolean(taskDetails[1]);
-
-            return new Event(eventDescription, type, startDateTime, endDateTime, eventStauts);
+            return Event.createEventWithDetails(taskDetails);
         default:
             throw new BlitzIoException("Failed to read from database");
         }
@@ -87,37 +75,6 @@ public abstract class Task {
     }
 
     /**
-     * Returns the description of this Task object.
-     *
-     * @return String representation of the description of this Task object.
-     */
-    public String getDescription() {
-        return this.description;
-    }
-
-    /**
-     * Returns the status of this Task object (done or not done).
-     *
-     * @return True if the task is done, false otherwise.
-     */
-    public boolean getStatus() {
-        return this.isDone;
-    }
-
-    public boolean isDone() {
-        return this.isDone;
-    }
-
-    /**
-     * Sets the value of isDone in this object.
-     *
-     * @param isDone Boolean value to be set.
-     */
-    public void setDone(boolean isDone) {
-        this.isDone = isDone;
-    }
-
-    /**
      * Returns the type of this object.
      *
      * @return String representation of the type of this object.
@@ -131,7 +88,6 @@ public abstract class Task {
      */
     public abstract String convertTaskToString();
 
-
     /**
      * Compares two Task objects and determines if they are equal without considering status.
      *
@@ -140,6 +96,33 @@ public abstract class Task {
      *     in both objects are the same, false otherwise.
      */
     public abstract boolean isEqualWithoutStatus(Task task);
+
+    /**
+     * Returns the description of this Task object.
+     *
+     * @return String representation of the description of this Task object.
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
+     * Returns the status of this Task object (done or not done).
+     *
+     * @return True if the task is done, false otherwise.
+     */
+    public boolean isDone() {
+        return this.isDone;
+    }
+
+    /**
+     * Sets the value of isDone in this object.
+     *
+     * @param isDone Boolean value to be set.
+     */
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
+    }
 
     /**
      * Returns a String representation of this object.
