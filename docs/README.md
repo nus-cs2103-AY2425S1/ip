@@ -25,7 +25,7 @@ Also includes a data file which stores Tasks between sessions, you can edit it i
   - [Image Sources](#image-sources) 
 
 
-## Quick Start
+# Quick Start
 
 1. Ensure you have a Java Runtime `17` or above installed in your computer.
 2. Download the latest `.jar` file in the repository.
@@ -40,7 +40,7 @@ Commmands are not case sensitive so eg. "todo" and "ToDo" are both valid
 
 Most commands follow the format `[command] <additional info>` without any of the brackets
 
-Note that commmands are read as the first string of letters before a white space
+Note that commands are read as the first string of letters before a white space
 
 ## Adding tasks
 #### Adding TODOs: `todo`
@@ -76,7 +76,6 @@ better finish it quick... you have X tasks now
 #### Adding EVENTs: `event`
 
 Use this command to help you add an EVENT to the task list.
-Once added, it can be seen when you list out the tasks.
 
 Command: `event <name_of_EVENT> /from <Additional info> /to <Additional info>`
 
@@ -89,8 +88,8 @@ Wow "recess week /from Now /to Forever"
 is an Event in your life huh? you have X tasks now
 ```
 
-#### Date formats
-For Event and Deadline there are a few Acceptable input formats which you can use for the additional info that will automatically be recognised and converted into 
+## Date formats
+For `Event` and `Deadline` there are a few Acceptable input formats which you can use for the additional info that will automatically be recognised and converted into 
 ```LocalDates``` dates in the task itself instead of being stored as a String.
 
 You can use any of the following: yyyy-MM-dd, yyyy.MM.dd, dd-MM-yyyy, dd.MM.yyyy \
@@ -207,7 +206,7 @@ It's finally over... *yawn*
 I'm heading to bed
 ```
 
-### Image Sources
+# Image Sources
 [Bot profile](https://www.youtube.com/watch?app=desktop&v=fKtJslkLnMw) (Frieren: Beyond Journey's End) \
 [User profile picture](https://wysi.fandom.com/wiki/Giga_Chad?file=Giga.jpg) (Giga Chad meme)\
 Application Icon was drawn inside powerpoint
