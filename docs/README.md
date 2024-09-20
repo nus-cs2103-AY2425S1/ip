@@ -43,7 +43,7 @@ A GUI similar to the below should appear
 
 Below is a summary of commands and corresponding examples to utilize Hoshi.
 
-1. Add todo/deadline/event - `Add deadline CS2103 2022-12-1`
+1. Add todo/deadline/event - `Add deadline CS2103 2022-12-01`
 2. Mark/Unmark - `Mark 1`
 3. Delete - `Delete 1`
 4. Find - `Find ASG`

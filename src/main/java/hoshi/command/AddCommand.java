@@ -134,21 +134,21 @@ public class AddCommand implements Command {
             switch (taskType) {
             case "todo":
 
-                desc = processDescription(splitInput, DESCRIPTION_INDEX, splitInputLength);
+                desc = processDescription(splitInput, splitInputLength);
                 break;
             case "deadline":
                 if (splitInputLength - 1 == DESCRIPTION_INDEX) {
                     throw new HoshiException("Hoshi doesn't understand! Try YYYY-MM-DD format for the deadline.");
                 }
-
-                desc = processDescription(splitInput, DESCRIPTION_INDEX, splitInputLength - 1);
+                // splitInput - 1 to ignore the last date field of Deadline
+                desc = processDescription(splitInput, splitInputLength - 1);
                 break;
             case "event":
                 if (splitInputLength - 1 == DESCRIPTION_INDEX) {
                     throw new HoshiException("Hoshi doesn't understand! Try YYYY-MM-DD format for the event.");
                 }
-
-                desc = processDescription(splitInput, DESCRIPTION_INDEX, splitInputLength - 2);
+                // splitInput - 2 to ignore the last 2 date fields of Event
+                desc = processDescription(splitInput, splitInputLength - 2);
                 break;
             default:
                 throw new HoshiException("Hoshi doesn't understand! Unknown task type.");
@@ -163,16 +163,15 @@ public class AddCommand implements Command {
     }
 
     /**
-     * Gets the description from the splitInput for use in handleAdd.
+     * Processes the description in the splitInput array by concatenating the relevant indices.
      *
      * @param splitInput list where each element represents a word in the split input.
-     * @param startIndex the index indicating where to start the description from.
-     * @param endIndex the index indicating where to end the description.
+     * @param endIndex   the index indicating where to end the description.
      */
-    private String processDescription(String[] splitInput, int startIndex, int endIndex) {
+    private String processDescription(String[] splitInput, int endIndex) {
         //Solution below adapted from https://www.geeksforgeeks.org/java-util-arrays-copyofrange-java/
-        // Concatenate elements from index 2 to the 3rd element hence -2
-        return String.join(" ", Arrays.copyOfRange(splitInput, startIndex, endIndex));
+        // Concatenate elements from description index to end index
+        return String.join(" ", Arrays.copyOfRange(splitInput, DESCRIPTION_INDEX, endIndex));
     }
 
 }
