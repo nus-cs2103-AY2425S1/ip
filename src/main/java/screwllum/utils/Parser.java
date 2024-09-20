@@ -25,6 +25,7 @@ public class Parser {
      * @throws InvalidDateFormatException if a date in the input is not in the expected format.
      */
     public static List<String> parseUserInput(String input) throws InvalidCommandException, InvalidDateFormatException {
+        assert input != null : "Input must be at least of type string, even if empty";
         List<String> tokens = new ArrayList<>();
         String[] segments = input.split("/");
         tokens.add(segments[0].split(" ", 2)[0].toLowerCase());
