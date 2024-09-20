@@ -21,6 +21,7 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Tira tira;
+    private Ui ui;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user_image.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/tira_image.png"));
@@ -28,10 +29,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
     }
 
     /** Injects the Duke instance */
-    public void setDuke(Tira d) {
+    public void setTira(Tira d) {
         tira = d;
     }
 

@@ -169,7 +169,6 @@ public class Storage {
                 tasks.add(todo);
                 break;
             case "D":
-                System.out.println("Entering deadline");
                 LocalDate endDate = this.getStartDate(splitTaskLine);
 
                 Deadline deadline = new Deadline(description, endDate);

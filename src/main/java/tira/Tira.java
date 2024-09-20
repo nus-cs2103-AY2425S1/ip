@@ -51,10 +51,6 @@ public class Tira {
         Ui ui = new Ui();
         ui.showWelcome();
         PrintWriter printer = new PrintWriter(System.out);
-        // check the user input
-        /*
-        ArrayList<Task> taskList = new ArrayList<Task>();
-         */
         //Solution for Save below (Level-7)
         // inspired by:
         // https://github.com/hansneddyanto/ip/blob/master/src/main/java/Hana.java

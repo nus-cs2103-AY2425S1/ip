@@ -1,4 +1,5 @@
 package tira;
+import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -25,6 +26,7 @@ public class Ui {
         this.scanner = new Scanner(System.in);
     }
 
+
     /**
      * Reads the next line of input from the user.
      *
@@ -38,8 +40,12 @@ public class Ui {
      * Displays a welcome message to the user.
      */
     public void showWelcome() {
-        System.out.println("MIAO! I'm TIRAMISU THE CAT (TIRA)\n"
-                + "What can I do for you today, miao?\n");
+        System.out.println(this.getWelcome());
+    }
+
+    public String getWelcome() {
+        return "MIAO! I'm TIRAMISU THE CAT (TIRA)\n"
+                + "What can I do for you today, miao?\n";
     }
 
     /**
