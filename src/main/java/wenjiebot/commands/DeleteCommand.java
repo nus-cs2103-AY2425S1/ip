@@ -58,13 +58,13 @@ public class DeleteCommand extends Command {
 
         ui.showLine();
         System.out.println(
-                "Noted. I've removed this task:\n"
+                "Noted my dearest master. I've removed this task:\n"
                         + taskToRemove + "\n"
-                        + "Now you have " + taskList.size() + " tasks in the list.");
+                        + "Now you have " + taskList.size() + " tasks in the list. uwu~ rawr xd");
         ui.showLine();
 
-        ui.setOutput("Noted. I've removed this task:\n"
+        ui.setOutput("Noted my dearest master. I've removed this task:\n"
                 + taskToRemove + "\n"
-                + "Now you have " + taskList.size() + " tasks in the list.");
+                + "Now you have " + taskList.size() + " tasks in the list. uwu~ rawr xd");
     }
 }

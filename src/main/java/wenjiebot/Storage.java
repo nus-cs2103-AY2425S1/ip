@@ -101,10 +101,10 @@ public class Storage {
         if (!file.exists()) {
             try {
                 Files.createFile(Paths.get(filePath)); // Create the file if it doesn't exist
-                System.out.println("File not found. A new file has been created: " + filePath);
+                System.out.println("File nyaaat found. UWU A nyew file has been created: " + filePath);
                 return true;
             } catch (IOException e) {
-                System.out.println("An error occurred while creating the file.");
+                System.out.println("NYAAA aNYA~ther error occurred while creating the file.");
                 e.printStackTrace();
                 return true;
             }
@@ -182,7 +182,7 @@ public class Storage {
             writer.write(formattedString.toString());
             writer.flush();
         } catch (IOException e) {
-            System.out.println("An error occurred while saving the file.");
+            System.out.println("NYAAAAA pookie theres an error occurred while saving the file.");
             e.printStackTrace();
         }
     }
