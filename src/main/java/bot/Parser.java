@@ -1,6 +1,7 @@
 package bot;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,6 +17,7 @@ import bot.action.UnmarkTaskAction;
 import bot.enums.Command;
 import bot.exceptions.BotException;
 import bot.exceptions.InvalidCommandException;
+import bot.exceptions.InvalidDatetimeException;
 import bot.exceptions.InvalidTaskDescriptionException;
 import bot.exceptions.InvalidTaskIdException;
 import bot.tasks.Deadline;
@@ -71,13 +73,19 @@ public class Parser {
      * @return <code>Deadline</code> task
      * @throws InvalidTaskDescriptionException Invalid task description cannot be parsed
      */
-    public Deadline parseDeadlineTask(String args) throws InvalidTaskDescriptionException {
+    public Deadline parseDeadlineTask(String args) throws InvalidTaskDescriptionException, InvalidDatetimeException {
         Pattern regex = Pattern.compile("(.*)\\s/by\\s(.*)");
         Matcher matcher = regex.matcher(args);
         if (matcher.matches()) {
             String task = matcher.group(1);
             String deadline = matcher.group(2);
-            return new Deadline(task, LocalDate.parse(deadline));
+            LocalDate parsedDate;
+            try {
+                parsedDate = LocalDate.parse(deadline);
+                return new Deadline(task, parsedDate);
+            } catch (DateTimeParseException e) {
+                throw new InvalidDatetimeException(deadline);
+            }
         } else {
             throw new InvalidTaskDescriptionException(args);
         }
