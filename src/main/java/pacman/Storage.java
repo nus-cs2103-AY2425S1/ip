@@ -40,12 +40,17 @@ public class Storage {
                 boolean isTaskDone = data.split("/")[1].equals("1");
                 String task = data.split("/")[2];
                 switch (type) {
-                case "T" -> list.add(new Todo(task));
+                case "T" -> {
+                    assert data.split("/").length == 3;
+                    list.add(new Todo(task));
+                }
                 case "D" -> {
+                    assert data.split("/").length == 4;
                     String by = data.split("/")[3];
                     list.add(new Deadline(task, by));
                 }
                 case "E" -> {
+                    assert data.split("/").length == 5;
                     String from = data.split("/")[3];
                     String to = data.split("/")[4];
                     list.add(new Event(task, from, to));
