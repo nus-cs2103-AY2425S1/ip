@@ -3,6 +3,11 @@ package froggy;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The {@code TaskList} class manages a collection of tasks.
+ * It provides methods to add, remove, and search for tasks,
+ * as well as to mark tasks as done or undone.
+ */
 public class TaskList {
 
     private List<Task> tasks = new ArrayList<>();
@@ -17,10 +22,6 @@ public class TaskList {
 
     public List<Task> getTasks() {
         return tasks;
-    }
-
-    public int getSize() {
-        return tasks.size();
     }
 
     public void printTasks() {
@@ -47,10 +48,6 @@ public class TaskList {
 
     public void removeTask(int index) {
         tasks.remove(index);
-    }
-
-    public void add(Task task) {
-        tasks.add(task);
     }
 
     public void add(Task task, Storage storage) {

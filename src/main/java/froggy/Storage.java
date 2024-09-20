@@ -8,14 +8,31 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The {@code Storage} class handles reading from and writing to a file that stores the user's task list.
+ * It is responsible for loading tasks from a specified file and saving tasks back to that file.
+ */
 public class Storage {
 
     private String filePath;
 
+    /**
+     * Constructs a new {@code Storage} object with the specified file path.
+     *
+     * @param filePath The path of the file where tasks will be saved and loaded from.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads the tasks from the specified file. If the file does not exist, it will create a new file.
+     * The file is expected to store tasks in a specific format,
+     * where each line represents a task (todo, deadline, or event).
+     *
+     * @return A {@code List<Task>} containing the tasks loaded from the file.
+     * @throws FroggyException If the file format is invalid or the file cannot be read correctly.
+     */
     public List<Task> loadTasks() throws FroggyException {
         List<Task> taskList = new ArrayList<>();
         File file = new File(filePath);
@@ -64,6 +81,12 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves the tasks to the specified file by overwriting its contents. The tasks are written
+     * in a specific format so they can be read back into the program later.
+     *
+     * @param newTaskList A {@code List<Task>} containing the tasks to be saved to the file.
+     */
     public void saveTasks(List<Task> newTaskList) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Task t : newTaskList) {
@@ -75,6 +98,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the tasks from a {@code TaskList} object by overwriting the file with its contents.
+     * This is an overloaded version of {@code saveTasks(List<Task>)}.
+     *
+     * @param newTaskList A {@code TaskList} containing the tasks to be saved.
+     */
     public void saveTasks(TaskList newTaskList) {
         saveTasks(newTaskList.getTasks());
     }
