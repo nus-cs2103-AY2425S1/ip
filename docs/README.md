@@ -1,10 +1,12 @@
 # ChaCha User Guide
 
-// Update the title above to match the actual product name
+![Screenshot of Ui.png](./docs/Ui.png)
 
-// Product screenshot goes here
+Procrastinating? Forgetting tasks? Not to worry, ChaCha is here to help you!
 
-// Product intro goes here
+ChaCha is a chatbot that can help you keep track of your tasks, including todo, deadlines and events. 
+
+Explore productivity with ChaCha the ChatBot!
 
 ## Viewing help: `help`
 
