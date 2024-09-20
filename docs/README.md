@@ -25,7 +25,7 @@ Command Line Interface (CLI) while still maintaining an aesthetic Graphical User
 ## Quick start guide
 
 1. Ensure you have Java 17 installed on your computer. You can check this by using the command `java -version`
-2. Download the latest jar file
+2. Download the latest jar file from [here](https://github.com/rahula1008/ip/releases)
 3. Copy the file to the folder you want to use as the *home folder*
 4. Open your terminal, `cd` into the folder you put the jar file in, and use the following command:
 5. `java -jar SirPotato.jar`
