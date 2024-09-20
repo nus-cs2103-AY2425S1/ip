@@ -116,8 +116,8 @@ public class StorageTest {
             Deadline test = new Deadline("dead 1", "tmr");
             Tag tag1 = new Tag("#tag1");
             Tag tag2 = new Tag("#tag2");
-            test.addTag(tag2);
             test.addTag(tag1);
+            test.addTag(tag2);
             assertEquals(new Deadline("dead 1", "tmr").descNoTags(),
                     taskList.get(0).descNoTags());
             assertEquals(test.getDescription(), taskList.get(0).getDescription());

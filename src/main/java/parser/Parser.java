@@ -143,19 +143,29 @@ public class Parser {
      * @param input of format mark/unmark {int}
      * @return the int in the input string
      */
-    public int extractNum(String input) {
+    public int extractNum(String input) throws ChatterboxExceptions.ChatterBoxInvalidInput {
         assert input != null;
 
         int length = input.length();
         assert length > 0;
         StringBuilder numberBuild = new StringBuilder();
+        Boolean isNegative = false;
         for (int i = length - 1; i >= 0; i--) {
             char currentChar = input.charAt(i);
             if (Character.isDigit(currentChar)) {
                 numberBuild.insert(0, currentChar);
+            } else if (currentChar == '-') {
+                isNegative = true;
+                break;
             } else {
                 break;
             }
+        }
+        if (numberBuild.length() == 0) {
+            throw new ChatterboxExceptions.ChatterBoxInvalidInput("No number found");
+        }
+        if (isNegative) {
+            throw new ChatterboxExceptions.ChatterBoxInvalidInput("Negative number found");
         }
         return Integer.parseInt(numberBuild.toString());
     }

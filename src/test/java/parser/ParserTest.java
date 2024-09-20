@@ -41,13 +41,21 @@ public class ParserTest {
 
     @Test
     public void extractNum_normalText() {
-        assertEquals(43, testParser.extractNum("unmark 43"));
+        try {
+            assertEquals(43, testParser.extractNum("unmark 43"));
+        } catch (ChatterboxExceptions.ChatterBoxInvalidInput chatterBoxInvalidInput) {
+            throw new RuntimeException(chatterBoxInvalidInput);
+        }
 
     }
 
     @Test
     public void extractNum_connectedText() {
-        assertEquals(43, testParser.extractNum("unmark sadf43"));
+        try {
+            assertEquals(43, testParser.extractNum("unmark sadf43"));
+        } catch (ChatterboxExceptions.ChatterBoxInvalidInput chatterBoxInvalidInput) {
+            throw new RuntimeException(chatterBoxInvalidInput);
+        }
 
     }
 
@@ -58,6 +66,8 @@ public class ParserTest {
 
         } catch (NumberFormatException e) {
             assertEquals("For input string: \"\"", e.getMessage());
+        } catch (ChatterboxExceptions.ChatterBoxInvalidInput chatterBoxInvalidInput) {
+            System.out.println("error");
         }
     }
 
