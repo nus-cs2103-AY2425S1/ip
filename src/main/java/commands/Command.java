@@ -1,6 +1,9 @@
 package commands;
 
 import exceptions.EmptyDescriptionException;
+import exceptions.IndexOutBoundsException;
+import exceptions.InvalidDateFormatException;
+import exceptions.NotIntegerException;
 import exceptions.TooManyParametersException;
 import windebot.History;
 import windebot.Reminder;
@@ -27,7 +30,8 @@ public abstract class Command {
      */
 
     public abstract boolean execute(String input, Reminder reminder, Ui ui, History history)
-            throws EmptyDescriptionException, TooManyParametersException;
+            throws EmptyDescriptionException, TooManyParametersException,
+            NotIntegerException, IndexOutBoundsException, InvalidDateFormatException;
 
     /**
      * Exits the chatbot

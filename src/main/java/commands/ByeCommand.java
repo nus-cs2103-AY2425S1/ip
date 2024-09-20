@@ -22,6 +22,7 @@ public class ByeCommand extends Command {
      */
 
     public boolean execute(String input, Reminder reminder, Ui ui, History history) {
+        ui.print("Bye! Hope to see you again soon!");
         return false;
     }
 

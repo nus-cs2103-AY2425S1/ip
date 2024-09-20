@@ -2,8 +2,10 @@ package commands;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import exceptions.EmptyDescriptionException;
+import exceptions.InvalidDateFormatException;
 import tasks.Event;
 import windebot.History;
 import windebot.Reminder;
@@ -29,25 +31,28 @@ public class AddEvent extends Command {
      */
 
     public boolean execute(String input, Reminder reminder, Ui ui, History history)
-            throws EmptyDescriptionException {
+            throws EmptyDescriptionException, InvalidDateFormatException {
         String[] command = input.split(" ", 2);
-        String[] order = command[1].split(" /from ");
-        if (order.length == 2) {
-            String[] fillerName = order[1].split(" /to ");
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-            LocalDateTime start = LocalDateTime.parse(fillerName[0], dateFormatter);
-            LocalDateTime end = LocalDateTime.parse(fillerName[1], dateFormatter);
-            Event eventTask = new Event(order[0], start, end);
-            reminder.addEvent(eventTask);
-            ui.print("Got it. I've added this task:");
-            ui.print("    " + eventTask.toString());
-            ui.print("Now you have " + reminder.size() + " tasks in the list.");
-            history.save(reminder.getSchedule());
-        } else {
-            throw new EmptyDescriptionException("WHEN EVENT DATE!");
+        String[] order = command[1].split(" /from | /to ");
+        String taskDescription = order[0].trim();
+        try {
+            if (!(taskDescription.equals("")) && (order.length == 3)) {
+                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+                LocalDateTime start = LocalDateTime.parse(order[1], dateFormatter);
+                LocalDateTime end = LocalDateTime.parse(order[2], dateFormatter);
+                Event eventTask = new Event(taskDescription, start, end);
+                reminder.addEvent(eventTask);
+                ui.print("Got it. I've added this task:");
+                ui.print("    " + eventTask.toString());
+                ui.print("Now you have " + reminder.size() + " tasks in the list.");
+                history.save(reminder.getSchedule());
+            } else {
+                throw new EmptyDescriptionException("ADD THE CORRECT PARAMETERS!");
+            }
+            return true;
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateFormatException("FOLLOW THE CORRECT DATE FORMAT: DD/MM/YYYY HH:MM");
         }
-        return true;
     }
 
     /**

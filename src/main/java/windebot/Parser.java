@@ -90,29 +90,29 @@ public class Parser {
      */
 
     private static SubCommandType getCommandType(String input) {
-        if (input.startsWith("todo")) {
+        if (input.startsWith("todo ")) {
             return SubCommandType.TODO;
-        } else if (input.startsWith("deadline")) {
+        } else if (input.startsWith("deadline ")) {
             return SubCommandType.DEADLINE;
-        } else if (input.startsWith("event")) {
+        } else if (input.startsWith("event ")) {
             return SubCommandType.EVENT;
         } else if (input.equals("list")) {
             return SubCommandType.LIST;
-        } else if (input.startsWith("delete")) {
+        } else if (input.startsWith("delete ")) {
             return SubCommandType.DELETE;
         } else if (input.equals("bye")) {
             return SubCommandType.BYE;
-        } else if (input.startsWith("mark")) {
+        } else if (input.startsWith("mark ")) {
             return SubCommandType.MARK;
-        } else if (input.startsWith("unmark")) {
+        } else if (input.startsWith("unmark ")) {
             return SubCommandType.UNMARK;
-        } else if (input.startsWith("date")) {
+        } else if (input.startsWith("date ")) {
             return SubCommandType.DATE;
-        } else if (input.startsWith("find")) {
+        } else if (input.startsWith("find ")) {
             return SubCommandType.FIND;
-        } else if (input.startsWith("change") || input.startsWith("cutoff")
-                || input.startsWith("start") || input.startsWith("end")
-                || input.startsWith("action")) {
+        } else if (input.startsWith("change ") || input.startsWith("cutoff ")
+                || input.startsWith("start ") || input.startsWith("end ")
+                || input.startsWith("action ")) {
             return SubCommandType.CHANGE;
         } else {
             return SubCommandType.UNKNOWN;
