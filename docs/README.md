@@ -110,10 +110,27 @@ They can be used by entering mark/unmark followed by the number of the task in t
 
 ### Example:
 
-Command: mark 2
+Command: `mark 2`
 ```
 1. [T][] hw1
 2. [D][X] math quiz (by: Oct 15 2024 13:02)
 3. [E][] meeting (from: 2pm to: 4pm)
 ```
+## Delete
+With the delete command, you can delete a task from your list, based on the task's number in the list.
 
+### Example: 
+Command: `delete 3`
+The list will change from: 
+```
+1. [T][] hw1
+2. [D][X] math quiz (by: Oct 15 2024 13:02)
+3. [E][] meeting (from: 2pm to: 4pm)
+```
+to:
+```
+1. [T][] hw1
+2. [D][X] math quiz (by: Oct 15 2024 13:02)
+```
+and show `"Okay, I have removed this task from your list: meeting (from: 2pm to: 4pm)"`
+## Find 
