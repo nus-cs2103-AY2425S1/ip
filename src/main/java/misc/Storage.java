@@ -60,6 +60,10 @@ public class Storage {
         Tasklist t = new Tasklist();
         String[] splitLine;
 
+        if (!dataFile.exists()) {
+            return t;
+        }
+
         try (BufferedReader reader = new BufferedReader(new FileReader(dataFile))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -67,10 +71,8 @@ public class Storage {
                 line = line.replaceAll("[\\[\\]()]", "");
                 boolean isDone = line.charAt(1) == 'X';
 
-                System.out.println("have line" + line);
                 switch(line.charAt(0)) {
                 case 'T':
-                    System.out.println("here");
                     line = line.substring(3);
                     Todo todo = new Todo(line);
                     if (isDone) {
@@ -80,12 +82,11 @@ public class Storage {
                     break;
 
                 case 'E':
-                    System.out.println("here");
                     line = line.substring(3);
                     splitLine = line.split("from:|to:");
                     DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM dd yyyy");
-                    LocalDate dateFrom = LocalDate.parse(splitLine[1], format);
-                    LocalDate dateTo = LocalDate.parse(splitLine[2], format);
+                    LocalDate dateFrom = LocalDate.parse(splitLine[1].strip(), format);
+                    LocalDate dateTo = LocalDate.parse(splitLine[2].strip(), format);
                     Event event = new Event(splitLine[0], dateFrom, dateTo);
                     if (isDone) {
                         event.setDone();
@@ -98,8 +99,8 @@ public class Storage {
                     line = line.substring(3);
                     splitLine = line.split("by:");
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-                    LocalDate dateBy = LocalDate.parse(splitLine[1], formatter);
-                    Deadline deadline = new Deadline(splitLine[0], dateBy);
+                    LocalDate dateBy = LocalDate.parse(splitLine[1].strip(), formatter);
+                    Deadline deadline = new Deadline(splitLine[0].strip(), dateBy);
                     if (isDone) {
                         deadline.setDone();
                     }
