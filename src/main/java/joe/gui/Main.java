@@ -15,7 +15,7 @@ import joe.main.Joe;
  */
 public class Main extends Application {
 
-    private final Joe joe = new Joe("data/joe.txt");
+    private final Joe joe = new Joe("joe.txt");
 
     @Override
     public void start(Stage stage) {

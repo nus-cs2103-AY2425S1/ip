@@ -139,9 +139,11 @@ public class Parser {
      * @throws IllegalArgumentException if the user input is invalid
      * @throws InvalidCommandException  if the user input is not recognised
      * @throws DateTimeParseException   if the date and time string is not in the correct format
+     * @throws InvalidIndexException    if the task index is invalid
      */
     public Command parseCommand(String userCmd)
-            throws IllegalArgumentException, InvalidCommandException, DateTimeParseException {
+            throws IllegalArgumentException, InvalidCommandException,
+            DateTimeParseException, InvalidIndexException {
         Command c;
         if (userCmd.startsWith("mark")) {
             c = new MarkCommand(tasks, getTaskIndex(userCmd));

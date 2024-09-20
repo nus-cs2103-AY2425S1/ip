@@ -3,6 +3,7 @@ package joe.tasks;
 import joe.exceptions.InvalidIndexException;
 import joe.utils.Parser;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -60,9 +61,14 @@ public class TaskList {
      * @throws IOException if an I/O error occurs
      */
     private static void writeFileData(String fileData) throws IOException {
-        FileWriter fw = new FileWriter("data/joe.txt");
-        fw.write(fileData);
-        fw.close();
+        String jarPath = TaskList.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+        String jarDir = new File(jarPath).getParentFile().getPath();
+
+        File file = new File(jarDir, "joe.txt");
+
+        try (FileWriter fw = new FileWriter(file)) {
+            fw.write(fileData);
+        }
     }
 
     /**
@@ -133,8 +139,9 @@ public class TaskList {
      * Checks if the index is valid.
      *
      * @param index the index to be checked
+     * @throws InvalidIndexException if the index is invalid
      */
-    private void checkValidIndex(int index) {
+    private void checkValidIndex(int index) throws InvalidIndexException {
         if (index - 1 >= tasks.size() || index - 1 < 0) {
             throw new InvalidIndexException(index);
         }
@@ -221,9 +228,9 @@ public class TaskList {
     private String getSaveMessage() {
         return "Saving your tasks......\n"
                 + tasks.stream()
-                .map(Task::toString)
-                .collect(Collectors.joining(" (saved)\n"))
-                + "Your tasks have been successfully saved.\n";
+                       .map(Task::toString)
+                       .collect(Collectors.joining(" (saved)\n"))
+                + " (saved)\nYour tasks have been successfully saved.";
     }
 
     /**
@@ -261,7 +268,7 @@ public class TaskList {
      */
     private String getScheduleString(LocalDateTime targetDate) {
         class TaskCounter {
-            static int count = 0;
+            private static int count = 0;
 
             static int index() {
                 return ++count;

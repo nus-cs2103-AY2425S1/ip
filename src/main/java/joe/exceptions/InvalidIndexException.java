@@ -1,6 +1,11 @@
 package joe.exceptions;
 
-public class InvalidIndexException extends RuntimeException {
+import java.lang.reflect.InvocationTargetException;
+
+/**
+ * Represents an exception when the user inputs an invalid index.
+ */
+public class InvalidIndexException extends InvocationTargetException {
     private final int index;
 
     /**

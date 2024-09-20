@@ -59,7 +59,11 @@ public class Ui {
                 return e.getMessage();
             }
         }
-        return c.execute();
+        try {
+            return c.execute();
+        } catch (InvalidIndexException e) {
+            return e.getMessage();
+        }
     }
 
     /**

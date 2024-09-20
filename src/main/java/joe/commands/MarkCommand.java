@@ -3,6 +3,8 @@ package joe.commands;
 import joe.exceptions.InvalidIndexException;
 import joe.tasks.TaskList;
 
+import java.lang.reflect.InvocationTargetException;
+
 /**
  * Represents a command to mark a task as done in the task list.
  */
