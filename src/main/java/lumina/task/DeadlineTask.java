@@ -38,6 +38,11 @@ public class DeadlineTask extends Task {
                 + byDateObject.toString();
     }
 
+    @Override
+    public boolean isUpcoming() {
+        return this.byDateObject.isAfter(LocalDate.now());
+    }
+
     /**
      * Overrides string representation to show more complete information of Deadline task
      *

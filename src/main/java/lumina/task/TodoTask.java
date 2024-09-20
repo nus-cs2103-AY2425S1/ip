@@ -27,6 +27,11 @@ public class TodoTask extends Task {
         return "T | " + super.getStatusAndDescription();
     }
 
+    @Override
+    public boolean isUpcoming() {
+        return false;
+    }
+
     /**
      * Overrides string representation to show more complete information of
      * Todo task

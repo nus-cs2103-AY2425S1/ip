@@ -31,6 +31,7 @@ public class Lumina {
     private static final String ECHO_EVENT_TASK = "event";
     private static final String ECHO_DELETE_TASK = "delete";
     private static final String ECHO_FIND_TASK = "find";
+    private static final String ECHO_REMIND_TASK = "remind";
     private static final String DEFAULT_MESSAGE = "Oh no! I don't know what to "
         + "do with this command! Please try again";
 
@@ -102,6 +103,9 @@ public class Lumina {
                 break;
             case ECHO_FIND_TASK:
                 resp = taskList.findTasks(msg);
+                break;
+            case ECHO_REMIND_TASK:
+                resp = taskList.remindTasks();
                 break;
             default:
                 resp = DEFAULT_MESSAGE;

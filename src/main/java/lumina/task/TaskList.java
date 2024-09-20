@@ -218,6 +218,7 @@ public class TaskList {
                 tasks.size()));
         return deleteTaskMessage.toString();
     }
+
     /**
      * Searches for tasks in the list that contain the specified search string in their description.
      *
@@ -241,6 +242,29 @@ public class TaskList {
         int count = 1;
         for (int i = 0; i < this.tasks.size(); i++) {
             if (this.tasks.get(i).findInDescription(searchString)) {
+                if (count > 1) {
+                    findTasksMessage.append("\n");
+                }
+                findTasksMessage.append(Integer.toString(count)).append(".");
+                findTasksMessage.append(this.tasks.get(i));
+                count++;
+            }
+        }
+        return findTasksMessage.toString();
+    }
+
+    /**
+     * Searches for tasks in the list that are upcoming
+     *
+     * @return String response
+     */
+    public String remindTasks() throws LuminaException {
+
+        StringBuilder findTasksMessage = new StringBuilder();
+        findTasksMessage.append("Here are the upcoming tasks in your list:\n");
+        int count = 1;
+        for (int i = 0; i < this.tasks.size(); i++) {
+            if (this.tasks.get(i).isUpcoming()) {
                 if (count > 1) {
                     findTasksMessage.append("\n");
                 }
@@ -285,6 +309,7 @@ public class TaskList {
         Task task = new EventTask(desc, startDateObject, endDateObject);
         return this.addTask(task);
     }
+
 
     /**
      * Sets the data for the task list.

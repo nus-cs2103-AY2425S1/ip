@@ -93,6 +93,13 @@ public abstract class Task {
     }
 
     /**
+     * Checks whether a task is upcoming
+     *
+     * @return true if the task is upcoming; else false
+     */
+    public abstract boolean isUpcoming();
+
+    /**
      * Checks for equality of two tasks
      *
      * @param obj object to be checked
