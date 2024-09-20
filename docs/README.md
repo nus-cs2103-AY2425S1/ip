@@ -10,19 +10,20 @@ Kitty is a **desktop app for task management**.
 Whether it is a simple TODO, a DEADLINE or an EVENT, 
 Kitty is here to ensure that you don't lose sight of what is important.
 
-- Quick Start
-- Features
-  - Adding tasks to the list
-    - Adding TODOs: `todo`
-    - Adding DEADLINEs: `deadline`
-    - Adding EVENTs: `event`
-  - Listing all tasks: `list`
-  - Marking a task: `mark`
-  - Unmarking a task: `unmark`
-  - Deleting a task: `delete`
-  - Finding a task using keyword: `find`
-  - Tagging a task: `tag`
-  - Saying goodbye: `bye`
+- [Quick Start](#quick-start)
+- [Features](#features)
+  - [Adding tasks to the list](#adding-tasks-to-the-list)
+    - [Adding TODOs: `todo`](#adding-todos-todo)
+    - [Adding DEADLINEs: `deadline`](#adding-deadlines-deadline)
+    - [Adding EVENTs: `event`](#adding-events-event)
+  - [Listing all tasks: `list`](#listing-all-tasks)
+  - [Marking a task: `mark`](#marking-a-task)
+  - [Unmarking a task: `unmark`](#unmarking-a-task)
+  - [Deleting a task: `delete`](#deleting-a-task)
+  - [Finding a task using keyword: `find`](#finding-a-task-using-keyword)
+  - [Tagging a task: `tag`](#tagging-a-task)
+  - [Saying goodbye: `bye`](#saying-goodbye)
+
 
 ## Quick Start
 
