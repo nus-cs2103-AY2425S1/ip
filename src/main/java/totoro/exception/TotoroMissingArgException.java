@@ -2,6 +2,14 @@ package totoro.exception;
 
 import totoro.command.CommandType;
 
+/**
+ * Represents an exception that is thrown when a required argument is missing
+ * for a specific command in the Totoro chatbot
+ * <p>
+ *     This exception customises error messages based on the command type, guiding
+ *     users to provide the necessary commands for successful command execution
+ * </p>
+ */
 public class TotoroMissingArgException extends TotoroException {
     private CommandType command;
 

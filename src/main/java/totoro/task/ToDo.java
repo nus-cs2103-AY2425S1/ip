@@ -9,7 +9,7 @@ public class ToDo extends Task {
      * Constructs a ToDo task with the specified description
      *
      * @param description The description of the todo task
-     * @throws SageException If the description is empty
+     *
      */
     public ToDo(String description) {
         super(description);

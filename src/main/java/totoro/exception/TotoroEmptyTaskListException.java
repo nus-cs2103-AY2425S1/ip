@@ -1,5 +1,9 @@
 package totoro.exception;
 
+/**
+ * Represents an exception thrown when an operation is attempted on an empty task list
+ * This is a specific type of {@link TotoroException} that indicates that there are no tasks in the list
+ */
 public class TotoroEmptyTaskListException extends TotoroException {
     @Override
     public String toString() {

@@ -56,14 +56,14 @@ public class DialogBox extends HBox {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getSageDialog(String text, Image img) {
+    public static DialogBox getTotoroDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;
     }
 
-    public static DialogBox getSageWelcome(Image img) {
-        String welcome = "Helloo, I'm Sage!\n" + "What can I do for you?";
+    public static DialogBox getTotoroWelcome(Image img) {
+        String welcome = "Hi~~ It's Totoro!!\n" + "How can I help you today? ;)";
         var db = new DialogBox(welcome, img);
         db.flip();
         return db;

@@ -16,7 +16,6 @@ public class Event extends Task {
      * @param description The description of the event
      * @param from The data and time the event starts
      * @param to The date and time the event ends
-     * @throws SageException if the description is empty or if the time format is inavlid
      */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);

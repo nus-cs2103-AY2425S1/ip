@@ -1,19 +1,52 @@
 package totoro.parser;
 
-/**public class ParserTest {
+import totoro.command.CommandType;
+import totoro.exception.TotoroMissingArgException;
+import totoro.exception.TotoroUnknownCommandException;
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+public class ParserTest {
     @Test
-    public void testParse_toDoCommand_emptyDescription() {
-        Parser parser = new Parser();
-        Exception exception = assertThrows(SageException.class, () -> parser.parse("todo"),
-                "Expected SageException for empty description in 'todo' command");
-        assertEquals("The description of todo task cannot be empty!", exception.getMessage());
+    public void testParse_ValidCommand() throws TotoroUnknownCommandException {
+        String userCommand = "todo read book";
+        CommandType expectedCommand = CommandType.TODO;
+
+        CommandType parsedCommand = Parser.parseCommand(userCommand);
+
+        assertEquals(expectedCommand, parsedCommand);
     }
 
     @Test
-    public void testParse_UnknownCommand() {
-        Parser parser = new Parser();
-        Exception exception = assertThrows(SageException.class, () -> parser.parse("unknownCommand"),
-                "Expected SageException for unknown command");
-        assertEquals("Sorry, what do you mean? :p", exception.getMessage());
+    public void testParse_InvalidCommand_ThrowsException() {
+        String userCommand = "fly high";
+
+        assertThrows(TotoroUnknownCommandException.class, () -> {
+            Parser.parseCommand(userCommand);
+        });
     }
-} */
+
+    @Test
+    public void testParse_ValidArgs() throws TotoroMissingArgException {
+        String userInput = "todo read book";
+        CommandType command = CommandType.TODO;
+
+        String expectedArgs = "read book";
+
+        String parsedArgs = Parser.parseArgs(command, userInput);
+
+        assertEquals(expectedArgs, parsedArgs);
+    }
+
+    @Test
+    public void testParse_MissingArgs_ThrowsException() {
+        String userInput = "todo";
+        CommandType command = CommandType.TODO;
+
+        assertThrows(TotoroMissingArgException.class, () -> {
+            Parser.parseArgs(command, userInput);
+        });
+    }
+}

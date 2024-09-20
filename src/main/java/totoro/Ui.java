@@ -15,6 +15,10 @@ import java.util.Scanner;
 public class Ui {
     private Scanner scanner;
 
+    /**
+     * Constructs a Ui instance and initialises the scanner for user input
+     *
+     */
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
@@ -42,6 +46,13 @@ public class Ui {
     }
 
 
+    /**
+     * Displays an error message based on the provided TotoroException
+     *
+     * @param e The exception to be displayed
+     * @return The error message as a string
+     *
+     */
     public String showErrorMessage(TotoroException e) {
         return e.toString();
     }
@@ -62,26 +73,62 @@ public class Ui {
         return "Here are the tasks for you:\n" + sb;
     }
 
+    /**
+     * Displays a message when a task is marked as done
+     *
+     * @param task The task that was marked as done
+     * @return A message indicating that the task has been marked
+     *
+     */
     public String showMarkedTask(Task task) {
         return "YAY! Another task completed! I will mark this task as done:\n" + task;
     }
 
+    /**
+     * Displays a message when a task is unmarked
+     *
+     * @param task The task that was unmarked
+     * @return A message indicating that the task has been unmarked
+     *
+     */
     public String showUnmarkedTask(Task task) {
         return "Aw ok, please remember to complete this task later:\n" + task;
     }
 
+    /**
+     * Displays a message when a new task is added
+     *
+     * @param task The task that was added
+     * @param numberOfTasks The current number of tasks in the list
+     * @return A message indicating that the task has been added
+     *
+     */
     public String showAddedTask(Task task, int numberOfTasks) {
         return "A new task? I'm on it!! I will add this task to the list:\n" + task +
                 "\nNow you have " + numberOfTasks +
                 (numberOfTasks > 1 ? " tasks" : " task") + " in your list";
     }
 
+    /**
+     * Displays a message when a task is deleted
+     *
+     * @param task The task that was deleted
+     * @param numberOfTasks The current number of tasks remaining in the list
+     * @return A message indicating that the task has been deleted
+     *
+     */
     public String showDeletedTask(Task task, int numberOfTasks) {
         return "Got it! I will remove this task:\n" + task +
                 "\nNow you have " + numberOfTasks +
                 (numberOfTasks > 1 ? " tasks" : " task") + " in your list";
     }
 
+    /**
+     * Displays the result of a search for tasks matching a keyword
+     *
+     * @param tasks The TaskList object containing the matching tasks
+     * @return A string representation of the matching tasks
+     */
     public String showSearchedTask(TaskList tasks) {
         if (tasks.size() == 0) {
             return "Sorry I could not find any matching tasks :(";
@@ -93,6 +140,13 @@ public class Ui {
         return "Yay yay hope these are the tasks you are looking for:\n" + sb;
     }
 
+    /**
+     * Displays the tasks scheduled for a specific date
+     *
+     * @param tasks The list of tasks scheduled for the date
+     * @param date The date for which tasks are being displayed
+     * @return A string representation of the scheduled tasks
+     */
     public String showScheduledTask(List<Task> tasks, LocalDate date) {
         if (tasks.isEmpty()) {
             return "Sorryy I could not find any tasks scheduled for " +
@@ -107,6 +161,11 @@ public class Ui {
         return response.toString();
     }
 
+    /**
+     * Displays a help message with a list of available commands
+     *
+     * @return A string representation of the help message
+     */
     public String showHelp() {
         return "Need a hand?\n" + "Follow these Totoro commands:\n"
                 + "1. bye: Use when you want to exit\n"

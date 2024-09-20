@@ -13,7 +13,7 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 
 /**
- * The main class for the Sage task management application
+ * The main class for the Totoro task management application
  * This class initializes the application components, manages user interactions,
  * and controls the overall flow of the application
  */
@@ -27,7 +27,7 @@ public class Totoro {
     private CommandType commandType;
 
     /**
-     * Constructs a Sage instance with the specified file path
+     * Constructs a Totoro instance with the specified file path
      * Initializes the UI, storage, parser, and task list.
      * Attempts to load tasks from the file; if unsuccessful, initializes with an empty task list
      *
@@ -43,6 +43,18 @@ public class Totoro {
         }
     }
 
+    /**
+     * Processes user input and returns an appropriate response
+     * <p>
+     *     Parses the input command, determines the corresponding action,
+     *     and returns the result of that action. If the command is unknown,
+     *     an exception is thrown
+     * </p>
+     *
+     * @param input The user input command
+     * @return A string response based on the executed command
+     *
+     */
     public String getResponse(String input) {
         try {
             commandType = Parser.parseCommand(input);
@@ -78,6 +90,12 @@ public class Totoro {
         }
     }
 
+    /**
+     * Retrieves the command type of the last processed command
+     *
+     * @return The command type of the last processed command
+     *
+     */
     public CommandType getCommandType() {
         return commandType;
     }
@@ -95,6 +113,12 @@ public class Totoro {
         }
     }
 
+    /**
+     * Exits the application and saves the current tasks to storage
+     *
+     * @throws TotoroFileException If there is an error while saving tasks to storage
+     *
+     */
     private void exit() throws TotoroFileException {
         assert this.isExit;
         try {
@@ -229,6 +253,11 @@ public class Totoro {
         }
     }
 
+    /**
+     * The main method to start the application
+     *
+     * @param args Command line arguments (not used)
+     */
     public static void main(String[] args) {
         new Totoro().run();
     }

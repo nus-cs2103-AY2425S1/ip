@@ -33,7 +33,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().add(DialogBox.getSageWelcome(totoroImage));
+        dialogContainer.getChildren().add(DialogBox.getTotoroWelcome(totoroImage));
         userInput.setPromptText("try 'help'");
         sendButton.setDisable(true);
         sendButton.getStyleClass().add("disabled");
@@ -50,14 +50,14 @@ public class MainWindow extends AnchorPane {
         });
     }
 
-    /** Injects the Duke instance */
+    /** Injects the Totoro instance */
     public void setTotoro(Totoro t) {
         assert t != null;
         totoro = t;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Totoro's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -67,7 +67,7 @@ public class MainWindow extends AnchorPane {
         CommandType commandType = totoro.getCommandType();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getSageDialog(response, totoroImage)
+                DialogBox.getTotoroDialog(response, totoroImage)
         );
         userInput.clear();
         userInput.setPromptText("try 'help'");

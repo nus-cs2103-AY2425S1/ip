@@ -13,23 +13,25 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * Storage class handles the loading and saving of tasks to a file
+ * The {@code Storage} class handles the loading and saving of tasks to and from a file
  */
 public class Storage {
     private String filePath;
 
     /**
-     * Constructor to initialise the storage with the given file path
+     * Constructs a {@code Storage} object with the specified file path for loading and saving tasks
+     *
+     * @param filepath The path to the file where tasks are stored
       */
     public Storage(String filepath) {
         this.filePath = filepath;
     }
 
     /**
-     * Loads tasks from the file at the specified file path
+     * Loads tasks from the file specified by the {@code filePath}
      *
      * @return Lists of tasks loaded from the file
-     * @throws SageException If there is an error loading the tasks
+     * @throws TotoroException If there is an error loading the tasks
      */
     public ArrayList<Task> load() throws TotoroException {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -39,7 +41,9 @@ public class Storage {
             if (!file.exists()) {
                 return tasks;
             }
-            assert file.isFile();
+            if (!file.isFile()) {
+                throw new TotoroFileFormatException();
+            }
 
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
@@ -56,12 +60,15 @@ public class Storage {
      * Save the lists of tasks to the file at the specified file path
      *
      * @param tasks TaskList containing the tasks to be saved
-     * @throws SageException If there is an error saving the tasks
+     * @throws TotoroFileException If there is an error saving the tasks
      */
     public void saveTasks(ArrayList<Task> tasks) throws TotoroFileException {
         try {
             File file = new File(filePath);
-            file.getParentFile().mkdirs();
+            File parentDir = file.getParentFile();
+            if (parentDir != null) {
+                parentDir.mkdirs();
+            }
             FileWriter fileWriter = new FileWriter(file);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
@@ -78,15 +85,17 @@ public class Storage {
     }
 
     /**
-     * Parses a line of text and converts it into a task object
+     * Parses a line from the Storage file and converts it into a {@code Task} object
      *
      * @param line The line of text representing the task
-     * @return The Task object represented by the input line
-     * @throws SageException If the task type is invalid or if the line format is incorrect
+     * @return The {@code Task} object represented by the input line
+     * @throws TotoroFileFormatException If the task type is invalid or if the line format is incorrect
      */
     private Task parseTask(String line) throws TotoroFileFormatException {
         String parts[] = line.split(" \\| ");
-        assert parts.length >= 3;
+        if (parts.length < 3) {
+            throw new TotoroFileFormatException();
+        }
 
         String taskType = parts[0];
         String description = parts[2];

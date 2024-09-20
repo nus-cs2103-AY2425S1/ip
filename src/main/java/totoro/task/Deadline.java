@@ -14,7 +14,6 @@ public class Deadline extends Task{
      *
      * @param description The description of the task
      * @param by The due date and time of the task
-     * @throws SageException if the description or due date is empty or deadline format is invalid
      */
     public Deadline(String description, LocalDateTime by) {
         super(description);
