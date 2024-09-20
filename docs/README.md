@@ -4,19 +4,6 @@
 
 Nave is an interactive chatbot that helps to keep track of your tasks!
 
-## Adding deadlines
-
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
-```
-expected output
-```
 
 ## Getting Help
 Use `/help` to get a list of all commands that Nave accepts.
