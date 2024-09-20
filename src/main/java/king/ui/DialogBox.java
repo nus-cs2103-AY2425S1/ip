@@ -30,6 +30,9 @@ public class DialogBox extends HBox {
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
+            this.getStylesheets().add(getClass().getResource("/css/dialogbox.css").toExternalForm());
+            this.getStyleClass().add("dialog");
+            displayPicture.getStyleClass().add("image-view");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -37,6 +40,7 @@ public class DialogBox extends HBox {
         dialog.setText(text);
         displayPicture.setImage(img);
     }
+
 
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.

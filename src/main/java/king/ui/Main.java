@@ -1,7 +1,6 @@
 package king.ui;
 
 import java.io.IOException;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -23,6 +22,8 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setMinWidth(400); // Set minimum width
+            stage.setMinHeight(600); // Set minimum height
             fxmlLoader.<MainWindow>getController().setKing(king); // inject the King instance
             stage.show();
         } catch (IOException e) {

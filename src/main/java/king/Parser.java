@@ -18,6 +18,31 @@ public class Parser {
         String command = parts[0];
 
         switch (command) {
+            case "list":
+                return new ListCommand();
+
+            case "delete":
+            case "mark":
+            case "unmark":
+            case "todo":
+            case "deadline":
+            case "event":
+            case "find":
+            case "remind":
+                // Check if there is a second part (details)
+                if (parts.length < 2 || parts[1].trim().isEmpty()) {
+                    // Return an InvalidCommand with an error message
+                    return new InvalidCommand();
+                }
+                break;
+            case "bye":
+                return new ExitCommand();
+
+            default:
+                return new InvalidCommand();
+        }
+
+        switch (command) {
         case "list":
             return new ListCommand();
         case "delete":

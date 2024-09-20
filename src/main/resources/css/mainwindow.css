@@ -1,0 +1,21 @@
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 5;
+    -fx-padding: 5;
+    -fx-pref-height: 41; /* Ensures the height remains consistent */
+    -fx-hgrow: ALWAYS; /* Allow it to grow in width */
+}
+
+.button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-border-radius: 5;
+    -fx-pref-height: 41; /* Consistent height */
+    -fx-padding: 10;
+    -fx-hgrow: ALWAYS; /* Allow it to grow in width */
+}
+
+.button:hover {
+    -fx-background-color: #45a049;
+}

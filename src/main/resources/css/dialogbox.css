@@ -1,0 +1,37 @@
+/* Style for the dialog box */
+.dialog-box {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+    -fx-margin: 5px;
+}
+
+/* Style for labels */
+.label {
+    -fx-text-fill: #333333;
+    -fx-font-size: 14px;
+}
+
+/* Style for buttons */
+.button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 16px;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+}
+
+/* Specific styling for the user input field */
+#userInput {
+    -fx-background-color: #f0f0f0;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1px;
+    -fx-padding: 5px;
+}
+
+/* Specific styling for the scroll pane */
+#scrollPane {
+    -fx-background-color: #fafafa;
+}

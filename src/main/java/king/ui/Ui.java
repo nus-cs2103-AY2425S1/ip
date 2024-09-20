@@ -49,6 +49,13 @@ public class Ui {
     }
 
     /**
+     * Displays an parser error message.
+     */
+    public String showParserError() {
+        return "This command is invalid. Read the user guide to see what I can do you nut.";
+    }
+
+    /**
      * Displays the current list of tasks.
      *
      * @param taskList the list of tasks to be displayed
@@ -58,7 +65,7 @@ public class Ui {
         for (int i = 0; i < taskList.size(); i++) {
             builder.append(" ").append(i + 1).append(". ").append(taskList.getTask(i).toString()).append("\n");
         }
-        return builder.toString();
+        return "Here are your list of duties:\n" + builder;
     }
 
     /**

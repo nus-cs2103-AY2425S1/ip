@@ -38,7 +38,7 @@ public class DeleteCommand extends Command {
             storage.save(tasks.getTaskList());
             return ui.showTaskRemoved(removedTask, tasks.size());
         } else {
-            return ui.showErrorAsString(new KingException("Enter a valid task number!"));
+            throw new KingException("Enter a valid task number within the list you buffoon!");
         }
     }
 

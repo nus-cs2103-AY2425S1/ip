@@ -31,6 +31,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        this.setStyle("-fx-background-image: url('/images/background.jpg'); -fx-background-size: cover;");
+        getStylesheets().add(getClass().getResource("/css/mainwindow.css").toExternalForm());
+        userInput.getStyleClass().add("text-field");
+        sendButton.getStyleClass().add("button");
     }
 
     /** Injects the King instance */
