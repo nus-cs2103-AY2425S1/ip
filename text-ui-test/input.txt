@@ -1,0 +1,29 @@
+todo
+deadline
+event
+todo task 1
+deadline task 2 /by friday
+deadline task 3
+event task 4 /from tmr /to sunday
+event task 5 /to wednesday
+event task 6 /from morning
+event task 7
+list
+mark 1
+mark 2
+mark 3
+mark 100
+list
+unmark 1
+unmark 2
+unmark 3
+unmark 100
+list
+delete 2
+list
+delete 1
+list
+thisisaninvalidcommand
+thisisaninvalidcommand withargument one two three
+bye
+
