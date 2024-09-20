@@ -66,7 +66,7 @@ public class Event extends Task {
     }
 
     /**
-     * Return string rep
+     * Returns string rep
      * @return string
      */
     @Override

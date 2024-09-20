@@ -206,10 +206,8 @@ public class Parser {
             throw new BarcusException("please have an integer after 'delete'");
         }
         try {
-            //int[] pos = new int[words.length - 1];
             List<Integer> pos = new ArrayList<>();
             for (int i = 1; i < words.length; i++) {
-                //pos[i - 1] = Integer.parseInt(words[i]);
                 int temp = Integer.parseInt(words[i]);
                 if (!pos.contains(temp)) {
                     pos.add(temp);

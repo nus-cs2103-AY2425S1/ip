@@ -56,12 +56,10 @@ public class Storage {
         try {
             Scanner s = new Scanner(file);
             while (s.hasNextLine()) {
-                //String line = s.next();
                 String[] lineSplit = s.nextLine().split(" \\| ");
 
                 if (lineSplit[0].equals("T")) {
                     tasks.addTask(new Todo(lineSplit[2], lineSplit[1].equals("1"), lineSplit[3]));
-                    //System.out.println("added");
                 } else if (lineSplit[0].equals("D")) {
                     tasks.addTask(new Deadline(
                             lineSplit[2],
@@ -95,9 +93,6 @@ public class Storage {
     public void upload(TaskList tasks) throws BarcusException {
         try (FileWriter writer = new FileWriter(this.filePath);
              BufferedWriter bfWriter = new BufferedWriter(writer)) {
-            //for (Task task: tasks) {
-            //    bfWriter.write(task.convertToSavedString() + "\n");
-            //}
             bfWriter.write(tasks.convertToSavable());
         } catch (IOException e) {
             throw new BarcusException("error updating txt save file");

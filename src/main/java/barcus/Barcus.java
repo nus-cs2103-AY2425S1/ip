@@ -7,7 +7,7 @@ import barcus.storage.Storage;
 import barcus.tasklist.TaskList;
 
 /**
- * Main class for Barcus chatbot
+ * Class for Barcus chatbot
  */
 public class Barcus {
     private Storage storage;
@@ -38,7 +38,6 @@ public class Barcus {
             Command c = Parser.parse(input);
             c.execute(tasks, storage);
             commandType = c.getClass().getSimpleName();
-            //System.out.println("Command type: " + commandType);
             return c.getString();
         } catch (BarcusException e) {
             commandType = "UnknownCommand";

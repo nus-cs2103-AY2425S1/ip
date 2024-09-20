@@ -37,7 +37,6 @@ public class Task {
         } else {
             this.tags = new ArrayList<>(Arrays.asList(tags.split(", ")));
         }
-        //System.out.println(Arrays.toString(tags.split(", ")));
     }
 
     /**
@@ -123,7 +122,7 @@ public class Task {
     }
 
     /**
-     * To convert tags into string to display and save
+     * Converts tags into string to display and save
      * @return String of tags
      */
     private String getTagsString() {
@@ -131,7 +130,7 @@ public class Task {
     }
 
     /**
-     * Return string representation
+     * Returns string representation
      * @return string representation
      */
     @Override

@@ -32,7 +32,7 @@ public class Todo extends Task {
     }
 
     /**
-     * Return string representation
+     * Returns string representation
      * @return string
      */
     @Override
