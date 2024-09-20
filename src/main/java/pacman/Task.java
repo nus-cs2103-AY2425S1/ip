@@ -7,7 +7,7 @@ package pacman;
  */
 public class Task {
     private final String taskName;
-    private boolean markDone = false;
+    private boolean isMarkDone = false;
 
     public Task(String taskName) {
         this.taskName = taskName;
@@ -19,7 +19,7 @@ public class Task {
      * @param marked The status of the mark
      */
     public void setMarkDone(boolean marked) {
-        this.markDone = marked;
+        this.isMarkDone = marked;
     }
 
     /**
@@ -28,7 +28,7 @@ public class Task {
      * @return a <code>String</code> that is readable and writeable by <code>Storage</code>
      */
     public String toFile() {
-        String mark = this.markDone ? "1" : "0";
+        String mark = this.isMarkDone ? "1" : "0";
         return mark + "/" + taskName;
     }
 
@@ -38,7 +38,7 @@ public class Task {
 
     @Override
     public String toString() {
-        String mark = this.markDone ? "X" : " ";
+        String mark = this.isMarkDone ? "X" : " ";
         return "[" + mark + "] " + this.taskName;
     }
 }
