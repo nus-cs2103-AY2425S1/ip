@@ -3,7 +3,10 @@ package atlas.tasks;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
+import java.util.Locale;
+import java.util.TimeZone;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,6 +15,15 @@ import org.junit.jupiter.api.Test;
  */
 public class DeadlineTest {
     private Deadline deadline;
+
+    /**
+     * Sets the Locale Time to be the same as that of the GitHub servers.
+     */
+    @BeforeAll
+    public static void setUp() {
+        Locale.setDefault(new Locale("en", "SG"));
+        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Singapore"));
+    }
 
     /**
      * Initializes a Deadline object before each test.

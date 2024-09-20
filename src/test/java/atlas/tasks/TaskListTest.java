@@ -6,8 +6,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -15,6 +18,15 @@ import org.junit.jupiter.api.Test;
  */
 public class TaskListTest {
     private ArrayList<Task> initialTaskList = new ArrayList<>();
+
+    /**
+     * Sets the Locale Time to be the same as that of the GitHub servers.
+     */
+    @BeforeAll
+    public static void setUp() {
+        Locale.setDefault(new Locale("en", "SG"));
+        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Singapore"));
+    }
 
     /**
      * Cleans up the initial task list after each test.
