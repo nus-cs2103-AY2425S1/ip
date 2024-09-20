@@ -149,6 +149,7 @@ If you're ever lost and need to know what commands Neko can handle, just type he
 help
 ```
 - Expected output:
+
 ```
 Here are the available commands meow!
 
