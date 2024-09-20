@@ -20,6 +20,8 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) {
         super(description);
+        assert description != null : "Description should not be null";
+        assert by != null : "Deadline should not be null";
         this.by = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 

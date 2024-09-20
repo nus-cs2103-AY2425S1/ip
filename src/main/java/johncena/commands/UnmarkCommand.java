@@ -32,6 +32,8 @@ public class UnmarkCommand implements Command {
      */
     @Override
     public String execute() throws CenaInvalidTaskIndexException {
+        assert taskIndex >= 0 : "Task index should be non-negative";
+        assert taskIndex < tasks.size() : "Task index should be within the bounds of the task list";
         if (taskIndex < 0 || taskIndex >= tasks.size()) {
             throw new CenaInvalidTaskIndexException("The task index is invalid.");
         }

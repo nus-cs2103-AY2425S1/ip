@@ -79,6 +79,7 @@ public class JohnCena {
      * @return the response
      */
     public String getResponse(String input) {
+        assert input != null : "Input should not be null";
         try {
             Command command = inputHandler.handleInput(input);
             return command.execute();

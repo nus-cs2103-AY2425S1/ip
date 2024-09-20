@@ -37,6 +37,8 @@ public class DeadlineCommand implements Command {
      */
     @Override
     public String execute() throws CenaInvalidDeadlineException {
+        assert description != null : "Description should not be null";
+        assert by != null : "Deadline should not be null";
         if (description.isEmpty() || by.isEmpty()) {
             throw new CenaInvalidDeadlineException("Incorrect description for deadline. It should contain only /by.");
         }

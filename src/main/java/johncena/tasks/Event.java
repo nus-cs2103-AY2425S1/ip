@@ -21,6 +21,9 @@ public class Event extends Task {
      */
     public Event(String description, String from, String to) {
         super(description);
+        assert description != null : "Description should not be null";
+        assert from != null : "Event start date should not be null";
+        assert to != null : "Event end date should not be null";
         this.from = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         this.to = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
