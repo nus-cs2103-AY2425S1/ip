@@ -32,7 +32,7 @@ public class MainWindow extends Application {
      * container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        assert(userInput != null);
+        assert(userInput != null) : "User input is null";
 
         String userText = userInput.getText();
         String dukeText = bob.getResponse(userInput.getText());
@@ -52,6 +52,8 @@ public class MainWindow extends Application {
      */
     @Override
     public void start(Stage stage) {
+        assert (stage != null) : "Stage is null";
+        
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
