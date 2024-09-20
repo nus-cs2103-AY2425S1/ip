@@ -4,7 +4,7 @@ plugins:
 
 title: Darkpool
 description: User guide for Darkpool
-show_downloads: ["true" or "false" (unquoted) to indicate whether to provide a download URL]
-google_analytics: [Your Google Analytics tracking ID]
+show_downloads: "true"
+google_analytics: G-1Y8C5GB12D
 github:
   zip_url: https://github.com/arnav-goel10/ip/
