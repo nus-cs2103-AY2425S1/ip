@@ -74,7 +74,7 @@ Now you have 2 tasks in the list.
 
 ### Adding event
 
-Writes a event encapsulated within a start to end date range
+Writes a event encapsulated within a start to end date range in the given specified order
 
 `event <description> /from <date> /to <date>`[^1]
 
