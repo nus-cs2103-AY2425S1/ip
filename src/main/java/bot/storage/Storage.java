@@ -24,7 +24,6 @@ public class Storage {
     private static final String DIR_PATH = "data";
     private static final String TASK_FILE_PATH = DIR_PATH + "/tasks.txt";
 
-    // TODO: Allow constructor to take in file path
     public Storage() {
         init();
     }
@@ -40,24 +39,22 @@ public class Storage {
             boolean ok = d.mkdir();
             if (!ok) {
                 System.out.println("Failed to initialize storage directory");
-                System.exit(0);
+                System.exit(1);
             }
         }
 
-        // TODO: Abstract storage of each type into its own class
         // Initialize task storage
         File f = new File(TASK_FILE_PATH);
-        // TODO: Validate file content to make sure it is not corrupted
         if (!f.exists()) {
             try {
                 boolean ok = f.createNewFile();
                 if (!ok) {
                     System.out.println("Failed to initialize storage file at " + TASK_FILE_PATH);
-                    System.exit(0);
+                    System.exit(1);
                 }
             } catch (IOException e) {
                 System.out.println("Error initialising storage file at " + TASK_FILE_PATH);
-                System.exit(0);
+                System.exit(1);
             }
         }
     }
