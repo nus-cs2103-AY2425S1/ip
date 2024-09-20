@@ -15,8 +15,6 @@ java -jar count.jar
 
 Check that you have Java installed in order to use Count!
 
-![Ui.png](Ui.png)
-
 Welcome to Count, your new digital assistant here to help streamline your day!  
 Now with innovative functions such as a built-in task list, you can effortlessly manage and track your tasks and deadlines,  
 ensuring nothing slips through the cracks.
