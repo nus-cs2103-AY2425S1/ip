@@ -7,9 +7,19 @@ Yapmeister is a **desktop app for managing tasks, optimised for use via a Comman
 having the benefits of a Graphical User Interface (GUI). Yapmeister is the app's titular character. He was supposed to
 have a personality, but it was dropped because of the _Great Assignment Calamity_[^1].
 
+- Quick Start
+- Features
+  - [Adding items `todo` `deadline` `event`](#adding-items)
+  - Listing items `list`
+  - Marking items `mark` `unmark`
+  - Finding items `find`
+  - Deleting items `delete`
+  - Exiting `bye`
+- FAQ
+- Known issues
+- Command summary
 
-
-## Adding deadlines
+## Adding items
 
 // Describe the action and its outcome.
 
@@ -33,9 +43,6 @@ expected output
 // Feature details
 
 
-[^1]: hi
-<details>
-<summary>Great Assignment Calamity</summary>
+[^1]: Great Assignment Calamity
 A natural disaster caused by the mass compression of long term assignment deadlines, claiming the 
 grades of at least one person, probably.
-</details>
