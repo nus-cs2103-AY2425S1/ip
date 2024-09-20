@@ -34,6 +34,7 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
+        dialog.getStylesheets().add(getClass().getResource("/css/dialog-box.css").toExternalForm());
         dialog.setText(text);
         displayPicture.setImage(img);
     }
@@ -46,6 +47,7 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+        dialog.getStyleClass().add("reply-label");
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
