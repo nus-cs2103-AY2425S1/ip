@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TodoTest {
 
-    @Test // Tests that a Todo object is correctly created with the specified name.
+    @Test // Test that a Todo object is correctly created with the specified name.
     public void testTodoCreation() {
         Todo todo = new Todo("Read book");
         assertEquals("Read book", todo.name, "Todo name should be 'Read book'.");
