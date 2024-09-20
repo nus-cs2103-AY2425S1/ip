@@ -39,6 +39,16 @@ Format: `mark <task number>` or `m <task number>`
 
 Constrain: `<task number>` should be a positive number which is less than the current length of the tasklist.
 
+Sample commands: 
+
+```
+mark 1
+```
+
+```
+m 1
+```
+
 Sample outcome:
 
 ![mark_pic](images/Mark.png)
