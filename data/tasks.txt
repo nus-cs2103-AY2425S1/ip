@@ -1,0 +1,7 @@
+T | 1 | Submit SEP Application
+D | 1 | CS2100 Assignment 1 | 2024-09-16T13:00:00
+T | 1 | Study for test on Friday :(
+E | 0 | 2024 Hackathon | 2024-10-04T10:00:00 | 2024-11-04T10:00:00
+D | 0 | Submit tP week 6 | 2024-09-22T23:59:00
+D | 0 | Submit iP week 6 | 2024-09-20T11:59:00
+D | 0 | CS2101 Presentation | 2024-09-17T12:00:00
