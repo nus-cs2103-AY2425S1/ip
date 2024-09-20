@@ -165,7 +165,7 @@ Input: `remind`
 Expected outcome:
 ```
 Please complete these tasks soon:
-[D][ ] Homework 1  (by: Sep 18, 2024 16:00)
+[D][ ] Homework 1 (by: Sep 18, 2024 16:00)
 ```
 If there are no deadlines due in the next 24 hours:
 ```
