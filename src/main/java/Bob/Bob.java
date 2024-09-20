@@ -77,6 +77,7 @@ public class Bob {
             assert storage != null : "Storage should not be null";
 
         } while (!input.equals("bye"));
+
         ui.showGoodbye();
         scanner.close();
     }
