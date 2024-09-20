@@ -95,11 +95,11 @@ public class Parser {
         if (checkStoredStatus(dataArr[1])) {
             throw new RuntimeException("CompletionStatus seem to be wrong");
         }
-        if (dataArr.length == 4) {
-            return new Deadline(dataArr[1].equals(Task.COMPLETEICON), dataArr[2], LocalDate.parse(dataArr[3], DATEFORMATTER));
-        } else {
+        if (dataArr.length != 4) {
             throw new RuntimeException("Error loading deadline task, data stored is wrong");
         }
+        LocalDate by = LocalDate.parse(dataArr[3], DATEFORMATTER);
+        return new Deadline(dataArr[1].equals(Task.COMPLETEICON), dataArr[2], by);
     }
 
     /**
@@ -119,7 +119,9 @@ public class Parser {
         try {
             LocalDate from = LocalDate.parse(dataArr[3], DATEFORMATTER);
             LocalDate to =LocalDate.parse(dataArr[4], DATEFORMATTER);
-
+            if (to.isBefore(from)) {
+                throw new RuntimeException("Start date is after the end date");
+            }
             return new Event(dataArr[1].equals(Task.COMPLETEICON), dataArr[2], from, to);
         } catch (RuntimeException e){
             throw new RuntimeException("Date dont seem to exist... Are you ok?");

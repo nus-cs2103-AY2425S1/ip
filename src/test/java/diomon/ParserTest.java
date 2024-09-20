@@ -66,7 +66,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseStoredTodoTest1(){
+    public void parseStoredEventTest1(){
         assertEquals(Parser.parseStoredEvent(new String[]{Event.TYPEICON,
                         " ",
                         "eventTask",
@@ -79,7 +79,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parseStoredTodoTest2(){
+    public void parseStoredEventTest2(){
         assertEquals(Parser.parseStoredEvent(new String[]{Event.TYPEICON, "X", "eventTask", "01-09-2024", "02-09-2024"}),
                 new Event(true,
                         "eventTask",
@@ -88,18 +88,18 @@ public class ParserTest {
     }
 
     @Test
-    public void parseStoredTodoTest3(){
-        DateTimeParseException e = assertThrows(DateTimeParseException.class,
+    public void parseStoredEventTest3(){
+        RuntimeException e = assertThrows(RuntimeException.class,
                 () -> Parser.parseStoredEvent(new String[]{Event.TYPEICON,
                         "X",
                         "eventTask",
                         "01-09-2024",
                         "02-9-2024"}));
-        assertEquals("Text '02-9-2024' could not be parsed at index 3",e.getMessage());
+        assertEquals("Date dont seem to exist... Are you ok?",e.getMessage());
     }
 
     @Test
-    public void parseStoredTodoTest4(){
+    public void parseStoredEventTest4(){
         RuntimeException e = assertThrows(RuntimeException.class,
                 () -> Parser.parseStoredEvent(new String[]{Event.TYPEICON,
                         "Y",
@@ -120,5 +120,18 @@ public class ParserTest {
                         "ss"}));
         assertEquals("Error loading event task, data stored is wrong",e.getMessage());
     }
+
+    @Test
+    public void parseStoredEventTest6(){
+        RuntimeException e = assertThrows(RuntimeException.class,
+                () -> Parser.parseStoredEvent(new String[]{Event.TYPEICON,
+                        " ",
+                        "eventTask",
+                        "05-09-2024",
+                        "02-09-2024"}));
+        assertEquals("Date dont seem to exist... Are you ok?",e.getMessage());
+    }
+
+
 
 }
