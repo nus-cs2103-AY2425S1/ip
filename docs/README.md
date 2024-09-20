@@ -3,7 +3,7 @@
     <img alt="Screenshot of notGPT Gui interactions" src="Ui.png"
         width="60%"
     >
-</pe>
+</p>
 
 NotGPT is a **desktop app for task management**. 
 It's a little relectuctant but it'll get the job done...\
