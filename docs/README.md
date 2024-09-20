@@ -1,4 +1,4 @@
-# NotGPT
+# NotGPT User Guide
 <picture>
     <img alt="Screenshot of notGPT Gui interactions" src="Ui.png"
         width="60%"
