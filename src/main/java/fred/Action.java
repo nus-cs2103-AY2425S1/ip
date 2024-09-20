@@ -1,8 +1,6 @@
 package fred;
 
 public class Action {
-
-
     private Command command;
     private int taskNumber;
     private TaskType taskType;

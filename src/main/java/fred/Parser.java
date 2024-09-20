@@ -23,7 +23,7 @@ public class Parser {
      * @return A String array where the first element is the command, and subsequent elements are arguments.
      * @throws FredException If the input is invalid or contains an unknown command.
      */
-    Action parseInput(String input) throws FredException {
+    public Action parseInput(String input) throws FredException {
         input = input.strip();
         if (input.isEmpty()) {
             throw new EmptyInputException();
@@ -47,7 +47,7 @@ public class Parser {
         return action;
     }
 
-    Command getCommand(String inputPart) throws UnknownCommandException {
+    private Command getCommand(String inputPart) throws UnknownCommandException {
         Command[] commands = Command.values();
         for (Command command : commands) {
             if (inputPart.equals(command.getCommandName())) {
@@ -57,7 +57,7 @@ public class Parser {
         throw new UnknownCommandException();
     }
 
-    int getTaskNumber(String inputPart) throws InvalidTaskNumberException {
+    private int getTaskNumber(String inputPart) throws InvalidTaskNumberException {
         try {
             int taskNumber = Integer.parseInt(inputPart) - 1;
             return taskNumber;
@@ -66,21 +66,21 @@ public class Parser {
         }
     }
 
-    String getTaskDetails(String inputPart) throws EmptyTaskDescriptionException {
+    private String getTaskDetails(String inputPart) throws EmptyTaskDescriptionException {
         if (inputPart.isEmpty()) {
             throw new EmptyTaskDescriptionException();
         }
         return inputPart;
     }
 
-    String getKeyword(String inputPart) throws EmptyKeywordsException {
+    private String getKeyword(String inputPart) throws EmptyKeywordsException {
         if (inputPart.isEmpty()) {
             throw new EmptyKeywordsException();
         }
         return inputPart;
     }
 
-    TaskType getTaskType(Command command) {
+    private TaskType getTaskType(Command command) {
         switch (command) {
             case ADD_TODO_TASK:
                 return TaskType.TODO;
@@ -93,14 +93,14 @@ public class Parser {
         }
     }
 
-    String getTag(String inputPart) throws InvalidTagException {
+    private String getTag(String inputPart) throws InvalidTagException {
         if (inputPart.isEmpty()) {
             throw new InvalidTagException();
         }
         return inputPart;
     }
 
-    Action getAddAction(Command command, String input) throws FredException {
+    private Action getAddAction(Command command, String input) throws FredException {
         String[] inputParts = input.split(" ", 2);
         if (inputParts.length < 2) {
             throw new EmptyTaskDescriptionException();
@@ -110,7 +110,7 @@ public class Parser {
         return new Action(command, taskType, taskDetails);
     }
 
-    Action getActionWithTaskNumber(Command command, String input) throws FredException {
+    private Action getActionWithTaskNumber(Command command, String input) throws FredException {
         String[] inputParts = input.split(" ", 2);
         if (inputParts.length < 2) {
             throw new InvalidTaskNumberException();
@@ -119,7 +119,7 @@ public class Parser {
         return new Action(command, taskNumber);
     }
 
-    Action getFindAction(Command command, String input) throws FredException {
+    private Action getFindAction(Command command, String input) throws FredException {
         String[] inputParts = input.split(" ", 2);
         if (inputParts.length < 2) {
             throw new EmptyKeywordsException();
@@ -128,7 +128,7 @@ public class Parser {
         return new Action(command, keyword);
     }
 
-    Action getTagAction(Command command, String input) throws FredException {
+    private Action getTagAction(Command command, String input) throws FredException {
         String[] inputParts = input.split(" ", 3);
         if (inputParts.length < 3) {
             throw new InvalidTagException();

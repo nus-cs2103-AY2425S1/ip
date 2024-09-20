@@ -19,12 +19,12 @@ import java.util.Scanner;
  * the application to load and save tasks between sessions.
  */
 public class Storage {
-    File dataFile;
+    private File dataFile;
 
     /**
      * Ensures that the data file and its directory exist. If not, they are created.
      */
-    void getDataFile() {
+    public void getDataFile() {
         File dataDirectory = new File("./data");
         if (!dataDirectory.exists() || !dataDirectory.isDirectory()) {
             dataDirectory.mkdir();
@@ -44,7 +44,7 @@ public class Storage {
      *
      * @return An ArrayList containing the tasks read from the data file.
      */
-    ArrayList<Task> getTasksFromDataFile() {
+    public ArrayList<Task> getTasksFromDataFile() {
         ArrayList<Task> tasks = new ArrayList<>();
         Scanner scanner = null;
         try {
@@ -57,7 +57,6 @@ public class Storage {
             String line = scanner.nextLine();
             String[] lineParts = line.split(" \\| ");
             Task task = null;
-
             switch (lineParts[0]) {
                 case "T":
                     task = new Todo(lineParts[2]);
@@ -69,7 +68,6 @@ public class Storage {
                     task = new Event(lineParts[2], LocalDateTime.parse(lineParts[3], formatter), LocalDateTime.parse(lineParts[4], formatter));
                     break;
             }
-
             if (lineParts[1].equals("1")) {
                 task.markAsDone();
             } else if (lineParts[1].equals("0")) {
@@ -85,7 +83,7 @@ public class Storage {
      *
      * @param taskNumber The index of the task to be deleted from the data file.
      */
-    void deleteFromDataFile(int taskNumber) {
+    public void deleteFromDataFile(int taskNumber) {
         File tempFile = new File("./data/tmp.txt");
         try {
             FileWriter writer = new FileWriter(tempFile);
@@ -113,7 +111,7 @@ public class Storage {
      *
      * @param task The task to be added to the data file.
      */
-    void appendToDataFile(Task task) {
+    public void appendToDataFile(Task task) {
         try {
             FileWriter writer = new FileWriter(dataFile, true);
             writer.write(task.getDataFormat() + System.lineSeparator());

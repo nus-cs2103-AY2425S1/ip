@@ -13,11 +13,11 @@ import java.util.List;
  * tasks like adding, marking, or deleting tasks.
  */
 public class Fred {
-    Storage storage;
-    TaskList tasks;
-    Ui ui;
-    Parser parser;
-    boolean isRunning;
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+    private Parser parser;
+    private boolean isRunning;
 
     /**
      * Constructs a new Fred object and initializes the Storage, TaskList, Ui, and Parser components.
@@ -34,25 +34,16 @@ public class Fred {
      * Runs the Fred application. This method loads tasks from the storage, greets the user,
      * and enters a loop to process user inputs and execute corresponding actions.
      */
-    void run() {
+    public void run() {
         storage.getDataFile();
         ArrayList<Task> tasksFromDataFile = storage.getTasksFromDataFile();
         tasks.loadTasksFromDataFile(tasksFromDataFile);
     }
 
     /**
-     * The main method to start the Fred application.
-     *
-     * @param args Command-line arguments (not used).
-     */
-    public static void main(String[] args) {
-        new Fred().run();
-    }
-
-    /**
      * Exits the Fred application by terminating the program.
      */
-    void exit() {
+    public void exit() {
         System.exit(0);
     }
 
@@ -64,7 +55,7 @@ public class Fred {
      * @param action A String array containing the action and its parameters.
      * @throws FredException If the action is invalid or cannot be executed.
      */
-    String executeAction(Action action) throws FredException {
+    private String executeAction(Action action) throws FredException {
         switch (action.getCommand()) {
             case EXIT:
                 isRunning = false;
@@ -117,7 +108,7 @@ public class Fred {
     }
 
 
-    String getResponse(String input) {
+    public String getResponse(String input) {
         try {
             Action action = parser.parseInput(input);
             Command command = action.getCommand();
@@ -129,7 +120,7 @@ public class Fred {
         }
     }
 
-    boolean getIsRunning() {
+    public boolean getIsRunning() {
         return isRunning;
     }
 }

@@ -28,7 +28,7 @@ public class TaskList {
      * @param taskDetails The details of the task, including description and any time-related information.
      * @return The created Task object.
      */
-    Task createTask(TaskType taskType, String taskDetails) throws FredException {
+    public Task createTask(TaskType taskType, String taskDetails) throws FredException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         String[] taskDetailsArr = taskDetails.split(" /", 3);
         String description = taskDetailsArr[0];
@@ -80,7 +80,7 @@ public class TaskList {
      *
      * @param task The task to be added to the list.
      */
-    void addToTaskList(Task task) {
+    public void addToTaskList(Task task) {
         tasks.add(task);
     }
 
@@ -91,7 +91,7 @@ public class TaskList {
      * @return The task that was marked as done.
      * @throws FredException If the task number is invalid.
      */
-    Task markTaskAsDone(int taskNumber) throws FredException {
+    public Task markTaskAsDone(int taskNumber) throws FredException {
         try {
             Task task = tasks.get(taskNumber);
             task.markAsDone();
@@ -108,7 +108,7 @@ public class TaskList {
      * @return The task that was marked as not done.
      * @throws FredException If the task number is invalid.
      */
-    Task markTaskAsNotDone(int taskNumber) throws FredException {
+    public Task markTaskAsNotDone(int taskNumber) throws FredException {
         try {
             Task task = tasks.get(taskNumber);
             task.markAsNotDone();
@@ -125,7 +125,7 @@ public class TaskList {
      * @return The task that was deleted.
      * @throws FredException If the task number is invalid.
      */
-    Task deleteFromTaskList(int taskNumber) throws FredException {
+    public Task deleteFromTaskList(int taskNumber) throws FredException {
         try {
             Task task = tasks.remove(taskNumber);
             return task;
@@ -139,7 +139,7 @@ public class TaskList {
      *
      * @param tasks The list of tasks to be loaded into the task list.
      */
-    void loadTasksFromDataFile(ArrayList<Task> tasks) {
+    public void loadTasksFromDataFile(ArrayList<Task> tasks) {
         for (Task task : tasks) {
             addToTaskList(task);
         }
@@ -150,7 +150,7 @@ public class TaskList {
      *
      * @return The size of the task list.
      */
-    int getTaskListSize() {
+    public int getTaskListSize() {
         return tasks.size();
     }
 
@@ -159,7 +159,7 @@ public class TaskList {
      *
      * @return An ArrayList containing all tasks.
      */
-    String getTasksAsString() {
+    public String getTasksAsString() {
         StringBuilder taskListSb = new StringBuilder();
         int index = 1;
         for (Task task : tasks) {
@@ -169,7 +169,7 @@ public class TaskList {
         return taskListSb.toString();
     }
 
-    String findTasksInTaskList(String keyword) {
+    public String findTasksInTaskList(String keyword) {
         StringBuilder tasksWithKeyword = new StringBuilder();
         for (Task task : tasks) {
             if (task.checkForKeyword(keyword)) {
@@ -180,7 +180,7 @@ public class TaskList {
         return tasksWithKeyword.toString();
     }
 
-    Task addTagToTask(int taskNumber, String tag) throws FredException {
+    public Task addTagToTask(int taskNumber, String tag) throws FredException {
         try {
             Task task = tasks.get(taskNumber);
             task.addTag(tag);
