@@ -14,29 +14,27 @@ EchoBot is your ultimate task manager, designed to free up your mental space so 
 ## Features
 
 ### Create Tasks
-- Create quick TODOs to help keep your tasks on track.
-- Create tasks that need to be done before a specific date/time.
-- Create tasks that start at a specific date/time and ends at a specific date/time.
+- [`todo`](#todo): Create quick TODOs to help keep your tasks on track.
+- [`deadline`](#deadline): Create tasks that need to be done before a specific date/time.
+- [`event`](#event): Create tasks that start at a specific date/time and ends at a specific date/time.
 
 ### View Tasks
-- List all tasks in the task list
-- Find tasks with specific keywords
+- [`list`](#list): List all tasks in the task list
+- [`find`](#find): Find tasks with specific keywords
 
 ### Manage Tasks
-- Mark a task as done
-- Unmark a task as incomplete
-- Tag a task
-- Delete a task from the task list
+- [`mark`](#mark): Mark a task as done
+- [`unmark`](#unmark): Unmark a task as incomplete
+- [`tag`](#tag): Tag a task
+- [`delete`](#delete): Delete a task from the task list
 
 ### Get Help
 - Get general help information 
-- Get help information about a specific command.
+- Get help information about a specific command
 
 ## Usage
 
-### Create Tasks
-
-#### `todo`
+### `todo`
 Create quick TODOs to help keep your tasks on track.
 
 **Format**: `todo<whitespace>[description]`
@@ -50,7 +48,7 @@ Got it. I've added this task:
 Now you have 5 tasks in the list.
 ```
 
-#### `deadline`
+### `deadline`
 Create tasks that need to be done before a specific date/time.
 
 **Format**: `deadline<whitespace>[description]<whitespace>/by<whitespace>[time]`
@@ -64,7 +62,7 @@ Got it. I've added this task:
 Now you have 6 tasks in the list.
 ```
 
-#### `event`
+### `event`
 Create tasks that start at a specific date/time and ends at a specific date/time.
 
 **Format**: `event<whitespace>[description]<whitespace>/from<whitespace>[start time]<whitespace>/to<whitespace>[end time]`
@@ -78,9 +76,7 @@ Got it. I've added this task:
 Now you have 7 tasks in the list.
 ```
 
-### View Tasks
-
-#### `list`
+### `list`
 Lists all tasks with their details in the task list in order.
 
 **Format**: `list`
@@ -94,7 +90,7 @@ There are 4 tasks in the list:
 4. [E][] go to lab (from 12 Sep 2024 08:00 to 12 Sep 2024 12:00）
 ```
 
-#### `find`
+### `find`
 Find a task by searching for a keyword in the task description.
 
 **Format**: `find<whitespace>[keywords]`
@@ -107,9 +103,7 @@ Here are the matching tasks in your list:
 1. [D][X] CS2100 A1 (by 10 Sep 2024 23:59)
 ```
 
-### Manage Tasks
-
-#### `mark`
+### `mark`
 Mark a task in the task list as done.
 
 **Format**: `mark<whitespace>[index]`
@@ -129,7 +123,7 @@ There are 4 tasks in the list:
 4. [E][] go to lab (from 12 Sep 2024 08:00 to 12 Sep 2024 12:00）
 ```
 
-#### `unmark`
+### `unmark`
 Unmark a task in the task list as incomplete.
 **Format**: `unmark<whitespace>[index]`
 
@@ -147,7 +141,7 @@ There are 4 tasks in the list:
 4. [E][] go to lab (from 12 Sep 2024 08:00 to 12 Sep 2024 12:00）
 ```
 
-#### `tag`
+### `tag`
 Tag a task in the task list.
 **Format**: `unmark<whitespace>[index]`
 
@@ -159,7 +153,7 @@ OK, l've tag this task:
     [D][X] CS2100 A1 #improtant (by 10 Sep 2024 23:59）
 ```
 
-#### `delete`
+### `delete`
 Delete a task from task list.
 
 **Format**: `delete<whitespace>[index]`
@@ -173,8 +167,6 @@ Noted. I've removed this task:
 Now you have 3 tasks in the list.
 ```
 
-### Get Help
-
-#### `help`
+### `help`
 - `help` Get general help information.
 - `help<whitespace>[command]` Get help information about a specific command.
