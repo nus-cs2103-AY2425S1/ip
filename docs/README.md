@@ -1,6 +1,6 @@
 # ChaCha User Guide
 
-![Screenshot of Ui.png](./docs/Ui.png)
+![Screenshot of Ui](./Ui.png/)
 
 Procrastinating? Forgetting tasks? Not to worry, ChaCha is here to help you!
 
