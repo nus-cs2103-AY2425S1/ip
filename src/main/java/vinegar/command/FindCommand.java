@@ -24,15 +24,15 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         List<Task> matchingTasks = tasks.getTasks().stream()
                 .filter(task -> task.toString().toLowerCase().contains(keyword))
                 .collect(Collectors.toList());
 
         if (matchingTasks.isEmpty()) {
-            ui.showMessage("No tasks found containing the keyword: " + keyword);
+            return ui.showMessage("No tasks found containing the keyword: " + keyword);
         } else {
-            ui.showMatchingTaskList(matchingTasks);
+            return ui.showMatchingTaskList(matchingTasks);
         }
     }
 }

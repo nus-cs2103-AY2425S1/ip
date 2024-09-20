@@ -64,10 +64,10 @@ public class AddEventCommand extends Command {
      * @throws IOException      If there is an I/O error during file operations.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws VinegarException, IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws VinegarException, IOException {
         Task eventTask = new Event(description, from, to);
         tasks.addTask(eventTask);
-        ui.printTaskAdded(eventTask, tasks.size());
         storage.save(tasks.getTasks());
+        return ui.printTaskAdded(eventTask, tasks.size());
     }
 }

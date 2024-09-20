@@ -44,13 +44,13 @@ public class DeleteCommand extends Command {
      * @throws IOException      If an error occurs while saving the task list.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws VinegarException, IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws VinegarException, IOException {
         if (index < 0 || index >= tasks.size()) {
             throw new VinegarException("Invalid task number. Please ensure the task number is correct and try again.");
         }
 
         Task taskToRemove = tasks.removeTask(index);
-        ui.showDeleted(taskToRemove, tasks.size());
         storage.save(tasks.getTasks());
+        return ui.showDeleted(taskToRemove, tasks.size());
     }
 }

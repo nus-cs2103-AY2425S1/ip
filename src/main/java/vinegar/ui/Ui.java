@@ -35,17 +35,8 @@ public class Ui {
     /**
      * Displays a welcome message to the user when the application starts.
      */
-    public void showWelcome() {
-        System.out.println("____________________________________________________________");
-        System.out.println("Hello! I'm vinegar.Vinegar\n" + "What Can I do for you?");
-        System.out.println("____________________________________________________________");
-    }
-
-    /**
-     * Displays a divider line to separate sections in the output.
-     */
-    public void showLine() {
-        System.out.println("____________________________________________________________");
+    public String showWelcome() {
+        return  "Hello! I'm vinegar.Vinegar\n" + "What Can I do for you?";
     }
 
     /**
@@ -53,15 +44,15 @@ public class Ui {
      *
      * @param message The error message to display.
      */
-    public void showError(String message) {
-        System.out.println(" OOPS!!! " + message);
+    public String showError(String message) {
+        return " OOPS!!! " + message;
     }
 
     /**
      * Displays an error message indicating failure to load tasks from a file.
      */
-    public void showLoadingError() {
-        System.out.println(" OOPS!!! Unable to load tasks from file.");
+    public String showLoadingError() {
+        return " OOPS!!! Unable to load tasks from file.";
     }
 
     /**
@@ -69,18 +60,20 @@ public class Ui {
      *
      * @param tasks The TaskList containing the current tasks.
      */
-    public void showTaskList(TaskList tasks) {
-        System.out.println(" Here are the tasks in your list:");
+    public String showTaskList(TaskList tasks) {
+        String taskString = "";
+        taskString += " Here are the tasks in your list:";
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + "." + tasks.get(i));
+            taskString += i + 1 + "." + tasks.get(i) + "\n";
         }
+        return taskString;
     }
 
     /**
      * Displays a goodbye message when the user exits the application.
      */
-    public void showGoodbye() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String showGoodbye() {
+       return "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -89,12 +82,10 @@ public class Ui {
      * @param task The task that was added.
      * @param size The total number of tasks in the list after adding the new task.
      */
-    public void printTaskAdded(Task task, int size) {
-        showLine();
-        System.out.println(" Got it. I've added this task:");
-        System.out.println("   " + task);
-        System.out.println(" Now you have " + size + " tasks in the list.");
-        showLine();
+    public String printTaskAdded(Task task, int size) {
+        return  " Got it. I've added this task:"
+                + "   " + task
+                + "\nNow you have " + size + " tasks in the list.";
     }
 
     /**
@@ -102,11 +93,9 @@ public class Ui {
      *
      * @param task The task that was marked as done.
      */
-    public void showMarked(Task task) {
-        showLine();
-        System.out.println(" Nice! I've marked this task as done:");
-        System.out.println("   " + task);
-        showLine();
+    public String showMarked(Task task) {
+        return  " Nice! I've marked this task as done:"
+                + "   " + task;
     }
 
     /**
@@ -114,11 +103,10 @@ public class Ui {
      *
      * @param task The task that was marked as not done.
      */
-    public void showUnmarked(Task task) {
-        showLine();
-        System.out.println(" OK, I've marked this task as not done yet:");
-        System.out.println("   " + task);
-        showLine();
+
+    public String showUnmarked(Task task) {
+        return  " OK, I've marked this task as not done yet:"
+                + "   " + task;
     }
 
     /**
@@ -127,12 +115,10 @@ public class Ui {
      * @param task The task that was deleted.
      * @param size The total number of tasks remaining in the list.
      */
-    public void showDeleted(Task task, int size) {
-        showLine();
-        System.out.println(" Noted. I've removed this task:");
-        System.out.println("   " + task);
-        System.out.println(" Now you have " + size + " tasks in the list.");
-        showLine();
+    public String showDeleted(Task task, int size) {
+        return  " Noted. I've removed this task:"
+                + "   " + task
+                + "\nNow you have " + size + " tasks in the list.";
     }
 
     /**
@@ -140,14 +126,16 @@ public class Ui {
      *
      * @param tasks The list of tasks to display.
      */
-    public void showMatchingTaskList(List<Task> tasks) {
-        System.out.println(" Here are the matching tasks in your list:");
+    public String showMatchingTaskList(List<Task> tasks) {
+        String taskString = "";
+        taskString += " Here are the matching tasks in your list:\n";
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + "." + tasks.get(i));
+            taskString += (i + 1) + "." + tasks.get(i) + "/n";
         }
+        return taskString;
     }
 
-    public void showMessage(String message) {
-        System.out.println(message);
+    public String showMessage(String message) {
+        return message;
     }
 }

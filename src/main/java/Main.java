@@ -5,13 +5,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import vinegar.Vinegar;
 
 /**
  * A GUI for Duke using FXML.
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke();
+    private Vinegar vinegar = new Vinegar("./data/vinegar.txt");
 
     @Override
     public void start(Stage stage) {
@@ -20,7 +21,9 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);  // inject the Duke instance
+            stage.setMinHeight(220);
+            stage.setMinWidth(417);
+            fxmlLoader.<MainWindow>getController().setVinegar(vinegar);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

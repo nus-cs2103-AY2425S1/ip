@@ -25,7 +25,7 @@ public abstract class Command {
      * @throws VinegarException If the command encounters an error during execution.
      * @throws IOException      If an error occurs while interacting with the storage.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws VinegarException, IOException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws VinegarException, IOException;
 
     /**
      * Determines whether the command signals an exit from the application.

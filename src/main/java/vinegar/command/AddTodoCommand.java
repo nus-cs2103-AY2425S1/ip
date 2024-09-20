@@ -40,10 +40,10 @@ public class AddTodoCommand extends Command {
      * @throws IOException      If an error occurs while saving the task to storage.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws VinegarException, IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws VinegarException, IOException {
         Task todoTask = new Todo(description);
         tasks.addTask(todoTask);
-        ui.printTaskAdded(todoTask, tasks.size());
         storage.save(tasks.getTasks());
+        return ui.printTaskAdded(todoTask, tasks.size());
     }
 }

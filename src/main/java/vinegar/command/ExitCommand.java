@@ -19,8 +19,8 @@ public class ExitCommand extends Command {
      * @param storage The Storage for saving the updated task list (not used in this command).
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showGoodbye();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.showGoodbye();
     }
 
     /**
