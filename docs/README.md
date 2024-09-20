@@ -7,8 +7,8 @@ Yapmeister is a **desktop app for managing tasks, optimised for use via a Comman
 having the benefits of a Graphical User Interface (GUI). Yapmeister is the app's titular character. He was supposed to
 have a personality, but it was dropped because of the _Great Assignment Calamity_[^1].
 
-- Quick Start
-- Features
+- [Quick Start](#quick-start)
+- [Features](#features)
   - [Adding items `todo` `deadline` `event`](#adding-items)
   - [Listing items `list`](#listing-items-list)
   - [Marking items `mark` `unmark`](#marking-items-mark-unmark)
@@ -17,6 +17,15 @@ have a personality, but it was dropped because of the _Great Assignment Calamity
   - [Exiting `bye`](#exiting-bye)
 - [FAQ](#faq)
 - [Command summary](#command-summary)
+
+# Quick Start
+1. Ensure you have Java `17` installed on your Compueter.
+2. Download the latest .jar file from [here](https://github.com/BlazeChron/ip/releases/tag/A-Release).
+3. Copy the file to the folder you want to use as the _home folder_ for YapMeister.
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar yapmeister.jar` command to run the application.
+5. Refer to [Features](#features) for a list of commands
+
+# Features
 
 ## Adding items
 ### Todo item `todo`
@@ -60,7 +69,7 @@ Format: `mark INDEX` `unmark INDEX`
 
 `INDEX` follows the indexing in `list`
 
-![Screenshot of a mark example usage](https://github.com/BlazeChron/ip/blob/A-Release/docs/mark-example.png?raw=true)
+![Screenshot of a mark example usage](https://github.com/BlazeChron/ip/blob/master/docs/mark-example.png?raw=true)
 
 ## Finding items `find`
 Finds items and lists them.
@@ -99,5 +108,4 @@ Yes
 | Delete item  | `delete INDEX`                                       |
 | Exit         | `bye`                                                |
 
-[^1]: Great Assignment Calamity: A natural disaster caused by the mass compression of long term assignment deadlines, claiming the 
-grades of at least one person, probably.
+[^1]: Great Assignment Calamity: A natural disaster caused by the mass compression of long term assignment deadlines, claiming the grades of at least one person, probably.
