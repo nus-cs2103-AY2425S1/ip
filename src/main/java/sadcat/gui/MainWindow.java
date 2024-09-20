@@ -30,8 +30,8 @@ public class MainWindow extends AnchorPane {
     private SadCat sadcat;
     private Stage stage;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image sadCatImage = new Image(this.getClass().getResourceAsStream("/images/sadcat.png"));
+    private Image userImage = new Image(getClass().getResourceAsStream("/images/user.png"));
+    private Image sadCatImage = new Image(getClass().getResourceAsStream("/images/sadcat.png"));
     private boolean isDarkMode = false;
 
     /**

@@ -25,14 +25,12 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: "
-                + this.from.format(printFormatter) + " to: "
-                + this.to.format(printFormatter) + ")";
+                + from.format(printFormatter) + " to: "
+                + to.format(printFormatter) + ")";
     }
 
     @Override
     public String saveFormat() {
-        return "E | " + super.saveFormat() + " | "
-                + this.from.format(saveFormatter)
-                + " | " + this.to.format(saveFormatter);
+        return "E | " + super.saveFormat() + " | " + from.format(saveFormatter) + " | " + to.format(saveFormatter);
     }
 }
