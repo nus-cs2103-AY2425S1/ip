@@ -56,21 +56,21 @@ public class Storage {
                 boolean isDone = Boolean.parseBoolean(fileContent[1]);
                 String description = fileContent[2];
                 switch (taskType) {
-                    case "T":
-                        Task todo = new Todo(description, isDone);
-                        tasks.add(todo);
-                        break;
-                    case "D":
-                        LocalDateTime by = LocalDateTime.parse(fileContent[3]);
-                        Task deadline = new Deadline(description, by, isDone);
-                        tasks.add(deadline);
-                        break;
-                    case "E":
-                        LocalDateTime from = LocalDateTime.parse(fileContent[3]);
-                        LocalDateTime to = LocalDateTime.parse(fileContent[4]);
-                        Task event = new Event(description, from, to, isDone);
-                        tasks.add(event);
-                        break;
+                case "T":
+                    Task todo = new Todo(description, isDone);
+                    tasks.add(todo);
+                    break;
+                case "D":
+                    LocalDateTime by = LocalDateTime.parse(fileContent[3]);
+                    Task deadline = new Deadline(description, by, isDone);
+                    tasks.add(deadline);
+                    break;
+                case "E":
+                    LocalDateTime from = LocalDateTime.parse(fileContent[3]);
+                    LocalDateTime to = LocalDateTime.parse(fileContent[4]);
+                    Task event = new Event(description, from, to, isDone);
+                    tasks.add(event);
+                    break;
                 }
             }
         } catch (FileNotFoundException e) {

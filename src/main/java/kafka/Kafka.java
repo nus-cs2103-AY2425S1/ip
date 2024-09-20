@@ -30,7 +30,7 @@ public class Kafka {
         }
     }
     public String getResponse(String input) {
-        String output = "";
+        String output;
         try {
             output = Parser.parseCommand(input, taskList, storage, ui);
         } catch (KafkaException | IOException e) {

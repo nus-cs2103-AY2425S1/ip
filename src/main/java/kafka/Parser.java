@@ -37,8 +37,7 @@ public class Parser {
             output = ui.goodbye();
             break;
         case "list":
-            output = ui.getList();
-            taskList.printList();
+            output = ui.getList() + "\n" + taskList.printList();
             break;
         case "mark":
             int taskNumberMark = Integer.parseInt(arguments);
@@ -72,8 +71,7 @@ public class Parser {
             if (temp.isEmpty()) {
                 throw new KafkaException("Hmm, it seems that no task aligns with that word... mind trying again?");
             }
-            output = ui.find();
-            temp.printList();
+            output = ui.find() + "\n" + temp.printList();
             break;
         case "todo":
             if (arguments.isEmpty()) {
