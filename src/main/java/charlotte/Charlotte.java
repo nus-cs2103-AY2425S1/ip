@@ -37,11 +37,9 @@ public class Charlotte {
 
     /**
      * Starts and runs the Charlotte chatbot.
-     * <p>
      * This method displays the welcome message, then enters a loop where it continuously reads user commands,
      * parses them, and executes the corresponding commands. The loop continues until an exit command is received.
      * If any exceptions are encountered during command execution, an error message is displayed to the user.
-     * </p>
      */
     public void run() {
         ui.printWelcome();
@@ -77,10 +75,8 @@ public class Charlotte {
 
     /**
      * The main method to start the Charlotte chatbot.
-     * <p>
      * This method creates an instance of the Charlotte chatbot with the specified data file path and
      * starts the application by calling the run method.
-     * </p>
      *
      * @param args Command-line arguments (not used in this application).
      */

@@ -23,12 +23,10 @@ public class MarkCommand extends Command {
 
     /**
      * Executes the command to mark a task as done.
-     * <p>
      * This method checks if the provided index is valid (i.e., within the range of the task list). If it is
      * valid, the task at the specified index is marked as done, and the updated task list is saved to storage.
      * The user is informed of the successful update via the UI. If the index is invalid, a CharlotteException
      * is thrown.
-     * </p>
      *
      * @param tasks The TaskList object containing all the tasks, including the one to be marked as done.
      * @param ui The Ui object used to display messages to the user.

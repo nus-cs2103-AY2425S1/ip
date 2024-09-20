@@ -35,10 +35,8 @@ public class AddCommand extends Command {
     /**
      * Executes the command to add the task to the task list, updates the user interface,
      * and saves the updated task list.
-     * <p>
      * This method adds the task to the TaskList, informs the user of the successful addition,
      * and then saves the updated task list to storage.
-     * </p>
      *
      * @param tasks The TaskList object where the task will be added.
      * @param ui The Ui object used to communicate with the user.
