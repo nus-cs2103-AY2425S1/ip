@@ -17,15 +17,6 @@ public class DeadlineTest {
     private Deadline deadline;
 
     /**
-     * Sets the Locale Time to be the same as that of the GitHub servers.
-     */
-    @BeforeAll
-    public static void setUp() {
-        Locale.setDefault(new Locale("en", "SG"));
-        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Singapore"));
-    }
-
-    /**
      * Initializes a Deadline object before each test.
      */
     @BeforeEach

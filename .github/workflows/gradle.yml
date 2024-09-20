@@ -31,6 +31,4 @@ jobs:
           java-package: jdk+fx
 
       - name: Build and check with Gradle
-        env:
-          LANG: en_SG.UTF-8
         run: ./gradlew check

@@ -20,15 +20,6 @@ public class TaskListTest {
     private ArrayList<Task> initialTaskList = new ArrayList<>();
 
     /**
-     * Sets the Locale Time to be the same as that of the GitHub servers.
-     */
-    @BeforeAll
-    public static void setUp() {
-        Locale.setDefault(new Locale("en", "SG"));
-        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Singapore"));
-    }
-
-    /**
      * Cleans up the initial task list after each test.
      */
     @AfterEach
