@@ -41,6 +41,9 @@ public class Task {
         return toString();
     }
 
+    /**
+     * Returns the description of the task.
+     */
     public String getDescription() {
         return text;
     }

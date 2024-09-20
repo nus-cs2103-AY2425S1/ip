@@ -14,11 +14,20 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) {
+        assert flyChat != null : "FlyChat instance is not initialized";
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            assert fxmlLoader != null : "FXMLLoader is not initialized";
+
             AnchorPane ap = fxmlLoader.load();
+            assert ap != null : "AnchorPane is not initialized";
+
             Scene scene = new Scene(ap);
+            assert scene != null : "Scene is not initialized";
+
             stage.setScene(scene);
+
             fxmlLoader.<MainWindow>getController().setFlyChat(flyChat);  // inject the FlyChat instance
             stage.show();
         } catch (IOException e) {

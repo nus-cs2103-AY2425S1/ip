@@ -18,6 +18,7 @@ public class Storage {
      */
     public void findSaveFile(String filePath) {
         File storageFolder = new File("./data");
+
         if (!storageFolder.exists()) {
             storageFolder.mkdirs();
         }
@@ -34,6 +35,9 @@ public class Storage {
      * Reads the save file and saves all tasks present in the save file to the task list.
      */
     public void loadSaveFile(TaskList loadTarget) {
+        assert loadTarget != null : "TaskList loadTarget is null";
+        assert saveFile.exists() : "Save file does not exist";
+
         try {
             Scanner saveReader = new Scanner(saveFile);
             while (saveReader.hasNextLine()) {
@@ -41,8 +45,19 @@ public class Storage {
             }
             saveReader.close();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
-            saveFile.delete();
+            handleIOException(e);
+        }
+    }
+
+    /**
+     * Handles IOException by printing the error message and attempting to recreate the save file.
+     *
+     * @param e IOException to handle.
+     */
+    private void handleIOException(IOException e) {
+        System.out.println(e.getMessage());
+
+        if (saveFile.delete()) {
             try {
                 saveFile.createNewFile();
             } catch (IOException f) {
@@ -57,12 +72,17 @@ public class Storage {
      * @param source String to be written into the save file.
      */
     public void writeToSave(String source) {
+        assert source != null && !source.isEmpty() : "Source string is null or empty";
+        assert saveFile.exists() : "Save file does not exist";
+
         //Replaces old file with a new file with updated contents
         try {
             File tmp = File.createTempFile("tmp", "");
+
             BufferedWriter writer = new BufferedWriter(new FileWriter(tmp));
             writer.write(source);
             writer.close();
+
             if (saveFile.delete()) {
                 tmp.renameTo(saveFile);
             }
