@@ -85,11 +85,11 @@ public class TaskList {
             }
         } catch (NumberFormatException e){
             throw new DawnException("Please specify the index of the task to be deleted in this format: " +
-                    "delete [index]\n For example: to delete the first task in the list, you can type <delete 1>");
+                    "delete [index]\n For example: to delete the first task in the list, you can type  delete 1");
         }
         StringBuilder s = new StringBuilder();
         Task t = tasks.get(ind - 1); // to account for index starting at 0
-        s.append("OK! I have removed this task for you: \n" + t);
+        s.append("OK! I have removed this task for you: \n" + t + "\n");
         tasks.remove(ind - 1);
         s.append(String.format("Now you have %d task(s) in the list \n", tasks.size()));
         return String.valueOf(s);
@@ -142,13 +142,13 @@ public class TaskList {
             if (tasks.get(i) instanceof Deadline) {
                 Deadline d = (Deadline) tasks.get(i);
                 if (d.getDate().equals(LocalDate.now())) {
-                    s.append(d);
+                    s.append(d + "\n");
                     haveTasks = true;
                 }
             } else if (tasks.get(i) instanceof Event) {
                 Event e = (Event) tasks.get(i);
                 if (e.getDate().equals(LocalDate.now())) {
-                    s.append(e);
+                    s.append(e + "\n");
                     haveTasks = true;
                 }
             }

@@ -33,7 +33,7 @@ public class Parser {
             case BYE:
                 String logo = "૮꒰ ˶• ༝ •˶꒱ა ♡";
                 saveTasks("./data/dawn.txt");
-                return "Bye! Nice chatting with you :)\n See you next time, Bunny out \n" + logo;
+                return "Bye! Nice chatting with you :)\n See you next time, Dawn out \n" + logo;
             case LIST:
                 return list();
             case MARK:
@@ -53,7 +53,7 @@ public class Parser {
                 return TaskList.remind();
             }
         } catch (IllegalArgumentException e) {
-            throw new DawnException("I do not undestand what you mean.. please try something else!\n");
+            throw new DawnException("I don't undestand what you mean.. (˚ ˃̣̣̥⌓˂̣̣̥ ) \n");
         }
         return cmd;
     }
