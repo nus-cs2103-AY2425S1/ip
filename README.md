@@ -53,7 +53,7 @@ This project has referenced code and solutions from popular websites like Stack 
 
 ## Image Sources
 
-- [Dean martin on IMDb](https://www.imdb.com/name/nm0001509/)
+- [Dean Martin on IMDb](https://www.imdb.com/name/nm0001509/)
 - [Frank Sinatra on The Movie Database](https://www.themoviedb.org/person/4347-frank-sinatra/images/profiles)
 
 For more information, please visit the [GitHub repository](https://github.com/travisim/ip).
