@@ -17,10 +17,9 @@ import system.Ui;
  * Tasks have a name, status, and a tag.
  */
 public abstract class Task {
-
-    public static Ui ui = new Ui();
-    public static DateTimeSystem dateTimeSystem = new DateTimeSystem();
-    public static Storage storage;
+    protected static Ui ui = new Ui();
+    protected static DateTimeSystem dateTimeSystem = new DateTimeSystem();
+    protected static Storage storage;
 
     static {
         try {
@@ -66,104 +65,114 @@ public abstract class Task {
         String[] lines = sb.toString().split("\n");
         for (String s : lines) {
             if (s.contains("[T]")) {
-                String[] tokens = s.split(" ");
-                StringBuilder name = new StringBuilder();
-                for (int i = 2; i < tokens.length; i++) {
-                    name.append(tokens[i]);
-                }
-
-
-                Task t = new ToDos(name.toString());
-                if (s.contains("[X]")) {
-                    t.setCurrentStatus(Status.MARKED);
-                } else {
-                    t.setCurrentStatus(Status.UNMARKED);
-                }
+                Task t = initTodo(s);
                 TaskList.addTasks(t);
             } else if (s.contains("[D]")) {
-                String[] tokens = s.split(" ");
-                StringBuilder name = new StringBuilder();
-                StringBuilder fullDate = new StringBuilder();
-                boolean isName = true;
-                for (int i = 2; i < tokens.length; i++) {
-                    if (isName) {
-                        if (tokens[i].equals("(by:")) {
-                            isName = false;
-                        } else {
-                            name.append(tokens[i]);
-                        }
-                    } else {
-                        fullDate.append(tokens[i]).append(" ");
-                    }
-                }
-                String[] fullDateTokens = fullDate.toString().split(" ");
-                String[] dateTokens = fullDateTokens[0].split("-");
-                String[] timeTokens = fullDateTokens[1].split(":");
-
-                LocalDateTime ldt = dateTimeSystem.createDateTime(dateTokens[0],
-                        dateTokens[1], dateTokens[2], timeTokens[0], timeTokens[1]);
-
-                Task d = new Deadlines(name.toString(), ldt);
-                if (s.contains("[X]")) {
-                    d.setCurrentStatus(Status.MARKED);
-                } else {
-                    d.setCurrentStatus(Status.UNMARKED);
-                }
+                Task d = initDeadline(s);
                 TaskList.addTasks(d);
-
             } else if (s.contains("[E]")) {
-                String[] tokens = s.split(" ");
-                StringBuilder name = new StringBuilder();
-                StringBuilder start = new StringBuilder();
-                StringBuilder end = new StringBuilder();
-                boolean isName = true;
-                boolean isEnd = false;
-                for (int i = 2; i < tokens.length; i++) {
-                    if (isEnd) {
-                        end.append(tokens[i]).append(" ");
-                    }
-                    if (isName) {
-
-                        if (tokens[i].equals("(from:")) {
-                            isName = false;
-                        } else {
-                            name.append(tokens[i]);
-                        }
-                    } else {
-
-                        if (tokens[i].equals("to:")) {
-                            isEnd = true;
-                        } else {
-                            start.append(tokens[i]).append(" ");
-                        }
-                    }
-                }
-
-                String[] fullDateTokenStart = start.toString().split(" ");
-                String[] dateTokenStart = fullDateTokenStart[0].split("-");
-                String[] timeTokenStart = fullDateTokenStart[1].split(":");
-
-                LocalDateTime ldtStart =
-                        dateTimeSystem.createDateTime(dateTokenStart[0], dateTokenStart[1], dateTokenStart[2],
-                                timeTokenStart[0], timeTokenStart[1]);
-
-                String[] fullDateTokenEnd = end.toString().split(" ");
-                String[] dateTokenEnd = fullDateTokenEnd[0].split("-");
-                String[] timeTokenEnd = fullDateTokenEnd[1].split(":");
-
-                LocalDateTime ldtEnd =
-                        dateTimeSystem.createDateTime(dateTokenEnd[0], dateTokenEnd[1], dateTokenEnd[2],
-                                timeTokenEnd[0], timeTokenEnd[1]);
-
-                Task e = new Events(name.toString(), ldtStart, ldtEnd);
-                if (s.contains("[X]")) {
-                    e.setCurrentStatus(Status.MARKED);
-                } else {
-                    e.setCurrentStatus(Status.UNMARKED);
-                }
+                Task e = initEvent(s);
                 TaskList.addTasks(e);
             }
         }
+    }
+
+    private static Task initTodo(String s) throws IOException {
+        String[] tokens = s.split(" ");
+        StringBuilder name = new StringBuilder();
+        for (int i = 2; i < tokens.length; i++) {
+            name.append(tokens[i]);
+        }
+
+
+        Task t = new ToDos(name.toString());
+        if (s.contains("[X]")) {
+            t.setCurrentStatus(Status.MARKED);
+        } else {
+            t.setCurrentStatus(Status.UNMARKED);
+        }
+
+        return t;
+    }
+
+    private static Task initDeadline(String s) throws IOException {
+        String[] tokens = s.split(" ");
+        StringBuilder name = new StringBuilder();
+        StringBuilder fullDate = new StringBuilder();
+        boolean isName = true;
+        for (int i = 2; i < tokens.length; i++) {
+            if (isName) {
+                if (tokens[i].equals("(by:")) {
+                    isName = false;
+                } else {
+                    name.append(tokens[i]);
+                }
+            } else {
+                fullDate.append(tokens[i]).append(" ");
+            }
+        }
+
+        LocalDateTime ldt = processInitEventDateTime(fullDate);
+
+        Task d = new Deadlines(name.toString(), ldt);
+        if (s.contains("[X]")) {
+            d.setCurrentStatus(Status.MARKED);
+        } else {
+            d.setCurrentStatus(Status.UNMARKED);
+        }
+
+        return d;
+    }
+
+    private static Task initEvent(String s) throws IOException {
+        String[] tokens = s.split(" ");
+        StringBuilder name = new StringBuilder();
+        StringBuilder start = new StringBuilder();
+        StringBuilder end = new StringBuilder();
+        boolean isName = true;
+        boolean isEnd = false;
+        for (int i = 2; i < tokens.length; i++) {
+            if (isEnd) {
+                end.append(tokens[i]).append(" ");
+            }
+            if (isName) {
+                if (tokens[i].equals("(from:")) {
+                    isName = false;
+                } else {
+                    name.append(tokens[i]);
+                }
+            } else {
+                if (tokens[i].equals("to:")) {
+                    isEnd = true;
+                } else {
+                    start.append(tokens[i]).append(" ");
+                }
+            }
+        }
+
+        LocalDateTime ldtStart = processInitEventDateTime(start);
+        LocalDateTime ldtEnd = processInitEventDateTime(end);
+
+        Task e = new Events(name.toString(), ldtStart, ldtEnd);
+        if (s.contains("[X]")) {
+            e.setCurrentStatus(Status.MARKED);
+        } else {
+            e.setCurrentStatus(Status.UNMARKED);
+        }
+
+        return e;
+    }
+
+    private static LocalDateTime processInitEventDateTime(StringBuilder s) {
+        String[] fullDateToken = s.toString().split(" ");
+        String[] dateToken = fullDateToken[0].split("-");
+        String[] timeToken = fullDateToken[1].split(":");
+
+        LocalDateTime localDateTime =
+                dateTimeSystem.createDateTime(dateToken[0], dateToken[1], dateToken[2],
+                        timeToken[0], timeToken[1]);
+
+        return localDateTime;
     }
 
     /**
@@ -192,7 +201,15 @@ public abstract class Task {
         response = ui.delete_message(temp);
         return response;
     }
-
+    /**
+     * Searches for tasks that match the given input in the stored task list and formats them for display.
+     * This method reads the task list from storage, splits it into individual lines,
+     * and filters tasks that contain the specified input.
+     *
+     * @param input The string to search for within the task list.
+     * @return A formatted string containing the numbered tasks that match the input.
+     * @throws FileNotFoundException If the file containing the task list cannot be found.
+     */
     public static String viewTask(String input) throws FileNotFoundException {
         StringBuilder sb = storage.read();
         String temp = sb.toString();

@@ -10,7 +10,6 @@ import javafx.application.Platform;
 import javafx.util.Duration;
 import task.*;
 
-
 /**
  * The Parser class is responsible for parsing user input strings and
  * executing the corresponding tasks or commands within the system. This class
@@ -491,7 +490,8 @@ public class Parser {
      * @param endDay     The end day of the event as a string.
      * @return True if any of the start or end date components are invalid, otherwise False.
      */
-    private boolean checkEventDateValidity(String startYear, String startMonth, String startDay, String endYear, String endMonth, String endDay) {
+    private boolean checkEventDateValidity(String startYear, String startMonth,
+                                           String startDay, String endYear, String endMonth, String endDay) {
         boolean isStartYearValid = startYear.length() == 4;
         boolean isStartMonthValid = !startMonth.isEmpty() && startMonth.length() <= 2;
         boolean isStartDayValid = !startDay.isEmpty() && startDay.length() <= 2;
@@ -544,7 +544,8 @@ public class Parser {
      * @param endDay     The end day of the event as a string.
      * @throws AssertionError if the start or end year, month, or day does not meet the required conditions.
      */
-    private void assertEventDateTime(String startYear, String startMonth, String startDay, String endYear, String endMonth, String endDay) {
+    private void assertEventDateTime(String startYear, String startMonth,
+                                     String startDay, String endYear, String endMonth, String endDay) {
         assert Integer.parseInt(startYear) >= 2024;
         assert Integer.parseInt(startMonth) > 0 && Integer.parseInt(startMonth) <= 12;
         assert Integer.parseInt(startDay) > 0 && Integer.parseInt(startDay) <= 31;

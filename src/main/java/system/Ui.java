@@ -152,6 +152,14 @@ public class Ui {
                 + sb.toString();
     }
 
+    /**
+     * Displays a message indicating the matching tasks in a list with the given date.
+     * This method prints a message followed by the content of the matching task.
+     *
+     * @param date a String that represents the date.
+     * @param sb   StringBuilder object that holds the found tasks to be displayed.
+     * @return a String message displaying task that was found based on the date.
+     */
     public String viewTaskMessage(String date, StringBuilder sb) {
         return "Here are the matching tasks for this date: "
                 + date + "\n"
