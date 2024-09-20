@@ -8,21 +8,21 @@ import java.time.format.DateTimeFormatter;
  * An {@code Event} task has a description, a start time, an end time, and a completion status.
  */
 public class Event extends Task {
-    private final LocalDateTime from;
-    private final LocalDateTime to;
+    private final LocalDateTime eventStart;
+    private final LocalDateTime eventEnd;
 
     /**
      * Constructs an {@code Event} task with the specified description, start time, end time, and completion status.
      *
      * @param description  The description of the task.
-     * @param from         The start time of the event.
-     * @param to           The end time of the event.
+     * @param eventStart   The start time of the event.
+     * @param eventEnd     The end time of the event.
      * @param hasCompleted The completion status of the event.
      */
-    public Event(String description, LocalDateTime from, LocalDateTime to, Boolean hasCompleted) {
+    public Event(String description, LocalDateTime eventStart, LocalDateTime eventEnd, Boolean hasCompleted) {
         super(description, hasCompleted);
-        this.from = from;
-        this.to = to;
+        this.eventStart = eventStart;
+        this.eventEnd = eventEnd;
     }
 
     /**
@@ -32,7 +32,7 @@ public class Event extends Task {
      */
     @Override
     public Event markAsDone() {
-        return new Event(getDescription(), this.from, this.to, true);
+        return new Event(getDescription(), this.eventStart, this.eventEnd, true);
     }
 
     /**
@@ -42,7 +42,7 @@ public class Event extends Task {
      */
     @Override
     public Event markAsNotDone() {
-        return new Event(getDescription(), this.from, this.to, false);
+        return new Event(getDescription(), this.eventStart, this.eventEnd, false);
     }
 
     /**
@@ -50,6 +50,7 @@ public class Event extends Task {
      *
      * @return A string representing the type of the task, "[E]" for Event.
      */
+    @Override
     public String getType() {
         return "[E]";
     }
@@ -59,8 +60,8 @@ public class Event extends Task {
      *
      * @return The start time of the event.
      */
-    public LocalDateTime getFrom() {
-        return from;
+    public LocalDateTime getEventStart() {
+        return eventStart;
     }
 
     /**
@@ -68,8 +69,8 @@ public class Event extends Task {
      *
      * @return The end time of the event.
      */
-    public LocalDateTime getTo() {
-        return to;
+    public LocalDateTime getEventEnd() {
+        return eventEnd;
     }
 
     /**
@@ -80,6 +81,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         DateTimeFormatter pattern = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        return getType() + super.toString() + " (from: " + from.format(pattern) + " to: " + to.format(pattern) + ")";
+        return getType() + super.toString() + " (from: " + eventStart.format(pattern) + " to: "
+                + eventEnd.format(pattern) + ")";
     }
 }

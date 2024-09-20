@@ -3,6 +3,7 @@ package shrimp.utility;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
+import java.util.Map;
 
 /**
  * The {@code Parser} class provides methods to parse user commands and format date-time strings.
@@ -14,7 +15,7 @@ public class Parser {
      * Enum representing the various command types that can be parsed from user input.
      */
     public enum CommandType {
-        LIST, BYE, MARK, UNMARK, ADD, DEADLINE, EVENT, ERROR, DELETE, CLEAR
+        LIST, BYE, MARK, UNMARK, ADD, DEADLINE, EVENT, ERROR, DELETE, CLEAR, FIND
     }
 
     /**
@@ -30,7 +31,7 @@ public class Parser {
             .appendLiteral('/')
             // Year (4 digits)
             .appendValue(ChronoField.YEAR, 4)
-            .appendLiteral(' ')
+            .optionalStart().appendLiteral(' ').optionalEnd()
             .optionalStart().appendPattern("HH:mm").optionalEnd()
             .optionalStart().appendPattern("HHmm").optionalEnd()
             .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
@@ -44,26 +45,25 @@ public class Parser {
      * @return The {@code CommandType} corresponding to the user input.
      */
     public static CommandType parseCommand(String userInput) {
-        if (userInput.equalsIgnoreCase("bye")) {
-            return CommandType.BYE;
-        } else if (userInput.equalsIgnoreCase("list")) {
-            return CommandType.LIST;
-        } else if (userInput.startsWith("mark")) {
-            return CommandType.MARK;
-        } else if (userInput.startsWith("unmark")) {
-            return CommandType.UNMARK;
-        } else if (userInput.startsWith("deadline")) {
-            return CommandType.DEADLINE;
-        } else if (userInput.startsWith("event")) {
-            return CommandType.EVENT;
-        } else if (userInput.startsWith("todo")) {
-            return CommandType.ADD;
-        } else if (userInput.startsWith("delete")) {
-            return CommandType.DELETE;
-        } else if (userInput.startsWith("clear")) {
-            return CommandType.CLEAR;
-        }else {
-            return CommandType.ERROR;
-        }
+        assert userInput != null : "userInput is null";
+        Map<String, CommandType> commandTypeMap = Map.of(
+                "bye", CommandType.BYE,
+                "list", CommandType.LIST,
+                "mark", CommandType.MARK,
+                "unmark", CommandType.UNMARK,
+                "deadline", CommandType.DEADLINE,
+                "event", CommandType.EVENT,
+                "todo", CommandType.ADD,
+                "delete", CommandType.DELETE,
+                "clear", CommandType.CLEAR,
+                "find", CommandType.FIND
+        );
+
+        // Loop through map entries and check if the userInput starts with any key
+        return commandTypeMap.entrySet().stream()
+                .filter(entry -> userInput.startsWith(entry.getKey()))
+                .map(Map.Entry::getValue)
+                .findFirst()
+                .orElse(CommandType.ERROR);
     }
 }

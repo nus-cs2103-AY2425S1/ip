@@ -1,6 +1,5 @@
 package shrimp.exception;
 
-import shrimp.utility.AnsiCode;
 import shrimp.utility.Parser;
 
 /**
@@ -10,11 +9,11 @@ import shrimp.utility.Parser;
  */
 public class ShrimpException extends Exception {
 
-    //fields used by shrimp.task, formatted
-    private static final String description = AnsiCode.ITALIC + "description" + AnsiCode.RESET + AnsiCode.RED;
-    private static final String by = AnsiCode.ITALIC + "by" + AnsiCode.RESET + AnsiCode.RED;
-    private static final String from = AnsiCode.ITALIC + "from" + AnsiCode.RESET + AnsiCode.RED;
-    private static final String to = AnsiCode.ITALIC + "to" + AnsiCode.RESET + AnsiCode.RED;
+    //fields used by shrimp, formatted
+    private static final String description = "description";
+    private static final String by = "by";
+    private static final String from = "from";
+    private static final String to = "to";
 
     //the error code of the exception raised
     private final String errorCode;
@@ -62,9 +61,12 @@ public class ShrimpException extends Exception {
         private static final String errorMessage_toDo = "I need a " + description + " to make a TODO...";
         private static final String errorMessage_mark = "You didn't indicate which task to mark...";
         private static final String errorMessage_unmark = "You didn't indicate which task to unmark...";
-        private static final String errorMessage_deadline = "I need a " + description + " and a " + by + " to make a DEADLINE...";
-        private static final String errorMessage_event = "I need a " + description + ", a " + from + " and a " + to + " to make an EVENT...";
+        private static final String errorMessage_deadline = "I need a " + description + " and a "
+                + by + " to make a DEADLINE...";
+        private static final String errorMessage_event = "I need a " + description + ", a " + from
+                + " and a " + to + " to make an EVENT...";
         private static final String errorMessage_delete = "You didn't indicate which task to delete...";
+        private static final String errorMessage_find = "I need something to search for...";
         private static final String errorMessage_default = "There seems to be an issue somewhere! :<";
 
         /**
@@ -78,13 +80,14 @@ public class ShrimpException extends Exception {
 
         private static String switchErrorMessage(Parser.CommandType command) {
             return switch (command) {
-                case ADD -> errorMessage_toDo;
-                case MARK -> errorMessage_mark;
-                case UNMARK -> errorMessage_unmark;
-                case DEADLINE -> errorMessage_deadline;
-                case EVENT -> errorMessage_event;
-                case DELETE -> errorMessage_delete;
-                default -> errorMessage_default;
+            case ADD -> errorMessage_toDo;
+            case MARK -> errorMessage_mark;
+            case UNMARK -> errorMessage_unmark;
+            case DEADLINE -> errorMessage_deadline;
+            case EVENT -> errorMessage_event;
+            case DELETE -> errorMessage_delete;
+            case FIND -> errorMessage_find;
+            default -> errorMessage_default;
             };
         }
     }
@@ -101,7 +104,8 @@ public class ShrimpException extends Exception {
          */
         public NumberFormatException() {
             super(errorMessage, errorCode);
-        };
+        }
+
     }
 
     /**
@@ -116,7 +120,8 @@ public class ShrimpException extends Exception {
          */
         public EmptyArrayException() {
             super(errorMessage, errorCode);
-        };
+        }
+
     }
 
     /**
@@ -131,7 +136,8 @@ public class ShrimpException extends Exception {
          */
         public ArrayIndexOutOfBoundException() {
             super(errorMessage, errorCode);
-        };
+        }
+
     }
 
     /**
@@ -146,6 +152,31 @@ public class ShrimpException extends Exception {
          */
         public InvalidDateTimeException() {
             super(errorMessage, errorCode);
-        };
+        }
+
+    }
+
+    public static class InvalidEventException extends ShrimpException {
+        private static final String errorCode = "ERR007";
+        private static final String errorMessage = "The end time is earlier than the start time...";
+
+        /**
+         * Constructs an {@code InvalidEventException}.
+         */
+        public InvalidEventException() {
+            super(errorMessage, errorCode);
+        }
+    }
+
+    public static class InvalidCharacterException extends ShrimpException {
+        private static final String errorCode = "ERR008";
+        private static final String errorMessage = "The character you put in is invalid...";
+
+        /**
+         * Constructs an {@code InvalidCharacterException}.
+         */
+        public InvalidCharacterException() {
+            super(errorMessage, errorCode);
+        }
     }
 }
