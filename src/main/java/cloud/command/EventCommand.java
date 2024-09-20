@@ -6,6 +6,10 @@ import cloud.util.Storage;
 import cloud.util.TaskList;
 import cloud.util.Ui;
 
+/**
+ * Represents a command to add an event task. An <code>EventCommand</code>
+ * object corresponds to a task with a description, start date, and end date.
+ */
 public class EventCommand extends Command {
     private final String description;
     private final DateTime startDate;

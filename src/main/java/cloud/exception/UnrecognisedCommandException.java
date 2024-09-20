@@ -1,7 +1,7 @@
 package cloud.exception;
 
 /**
- * Exception for handling unrecognised commands
+ * Represents an exception for handling unrecognised commands
  */
 public class UnrecognisedCommandException extends CloudException {
     public UnrecognisedCommandException(String message) {
@@ -9,6 +9,6 @@ public class UnrecognisedCommandException extends CloudException {
     }
 
     public UnrecognisedCommandException() {
-        super("I did not understand that, please try again.");
+        super("Sorry I did not understand that. Type 'help' to see the list of available commands.");
     }
 }

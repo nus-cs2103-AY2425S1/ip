@@ -6,6 +6,13 @@ import java.time.format.DateTimeParseException;
 
 import cloud.exception.CloudException;
 
+/**
+ * Represents a date and time with a specific format.
+ * <p>
+ * A <code>DateTime</code> object handles date and time information, providing methods
+ * to parse datetime strings and format them for saving or display.
+ * </p>
+ */
 public class DateTime {
     private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm a");

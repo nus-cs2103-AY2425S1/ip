@@ -1,5 +1,10 @@
 package cloud.command;
 
+
+/**
+ * Represents the types of commands available.
+ * Each command type has a usage string and description.
+ */
 public enum CommandType {
     LIST("list", "Shows all tasks in your list"),
     TODO("todo <description>", "Adds a todo task"),
@@ -11,7 +16,6 @@ public enum CommandType {
     FIND("find <keyword>", "Finds tasks that match the keyword"),
     HELP("help", "Shows the list of all available commands"),
     EXIT("bye", "Exits the application");
-
 
     private final String usage;
     private final String description;
