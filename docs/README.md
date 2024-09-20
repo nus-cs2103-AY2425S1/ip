@@ -122,7 +122,7 @@ Format: `mark TASK_NUMBER`
 
 Examples:
 
-- `list` followed by `mark 2` marks the 2nd task in the task list as done as long as it exists and has not already been marked. 
+- `mark 2` marks the 2nd task in the task list as done as long as it exists and has not already been marked. 
 
 Example outcome:
 
@@ -145,7 +145,7 @@ Format: `unmark TASK_NUMBER`
 
 Examples:
 
-- `list` followed by `unmark 2` unmarks the 2nd task in the task list as long as it exists and is marked. 
+- `unmark 2` unmarks the 2nd task in the task list as long as it exists and is marked. 
 
 Example outcome:
 
@@ -168,7 +168,7 @@ Format: `delete TASK_NUMBER`
 
 Examples:
 
-- `list` followed by `delete 2` deletes the 2nd task in the task list as long as it exists.
+- `delete 2` deletes the 2nd task in the task list as long as it exists.
 
 Example outcome:
 
@@ -204,4 +204,46 @@ Here are the tasks containing keywrod meeting:
 
 
 # `Prioritize` task
+
+Prioritizes a task as low, medium or high priority. 
+
+Format: `prioritize TASK_NUMBER PRIORITY_LEVEL`
+
+- Sets priority level for the task at the specified `TASK_NUMBER`. 
+- The task number refers to the number shown in the displayed task list. 
+- The task number must be a positive integer and match up to the task list.
+- The priority level is case-insensitive. e.g. `high` will yield the same result as `HIGH`
+
+- Priority level is set as `low` on default if not specified using `prioritize` command.
+- `PRIORITY_LEVEL` must be `low`, `medium`, or `high`.
+- `TASK_NUMBER` and `PRIORITY_LEVEL` must be separated by whitespace.
+
+Examples:
+
+- `prioritize 5 high`
+
+````
+Ok! I've set the priority of the following task to HIGH:
+[E][] staff meeting (from today to Sep 21 2024)
+````
+
+
+
+# `List` tasks of a certain priority level
+
+Lists all tasks that match the specified priority level. 
+
+Format: `list PRIORITY_LEVEL`
+
+- `PRIORITY_LEVEL` must be `low`, `medium`, or `high`.
+
+Examples:
+
+- `list high`
+
+````
+Here are your tasks of HIGH priority:
+1. [T][] Drink water
+5. [E][] staff meeting (from today to Sep 21 2024)
+````
 
