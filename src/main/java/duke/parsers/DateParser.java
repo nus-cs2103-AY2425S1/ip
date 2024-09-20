@@ -27,7 +27,7 @@ public class DateParser {
      */
     public String giveDate(String s) {
         LocalDate date = DayToDateParser.getNextDateForDay(s);
-        if(date != null){
+        if (date != null) {
             return date.format(DateTimeFormatter.ofPattern("d MMM yyyy"));
         }
         for (DateTimeFormatter formatter : formatters) {
