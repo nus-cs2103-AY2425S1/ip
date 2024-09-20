@@ -30,7 +30,6 @@ public class UnmarkCommand extends Command {
         tasklist.unMark(selection);
         storage.save(tasklist.getTaskList());
         output.append("OK, I've marked this task as not done yet:").append("\n").append(tasklist.get(selection).toString());
-        //ui.printString(output.toString());
         return output.toString();
     }
 

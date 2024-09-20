@@ -32,7 +32,6 @@ public class TodoCommand extends Command {
         tasklist.addTask(newTodo);
         storage.save(tasklist.getTaskList());
         output.append("Got it. I've added this todo:\n").append(newTodo).append("\n").append("Now you have ").append(tasklist.size()).append(" tasks in your list.\n");
-        //ui.printString(output.toString());
         return output.toString();
     }
 

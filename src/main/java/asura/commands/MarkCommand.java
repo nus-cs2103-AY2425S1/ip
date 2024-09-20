@@ -30,7 +30,6 @@ public class MarkCommand extends Command {
         tasklist.mark(selection);
         storage.save(tasklist.getTaskList());
         output.append("Nice! I've marked this task as done:").append("\n").append(tasklist.get(selection).toString());
-        //ui.printString(output.toString());
         return output.toString();
     }
 

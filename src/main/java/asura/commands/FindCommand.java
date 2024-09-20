@@ -30,7 +30,6 @@ public class FindCommand extends Command {
     public String execute(TaskList taskList, Ui ui, Storage storage) {
         List<Task> filtered = taskList.find(description);
         TaskList temp = new TaskList(filtered);
-        //ui.printString(temp.toString());
         return temp.toString();
     }
 
