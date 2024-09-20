@@ -8,19 +8,21 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -156,38 +158,63 @@ public class NotgptJavaFX extends Application {
     }
 
     private void displayMessage(String message, boolean isUser) {
-        Label messageLabel = new Label(message);
-        messageLabel.setWrapText(true);
-        messageLabel.setPadding(new Insets(8));
-        messageLabel.setMaxWidth(220);
-        messageLabel.setFont(Font.font("System", FontWeight.NORMAL, FONT_SIZE));
+        Text messageText = new Text(message);
+        messageText.setFont(Font.font("System", FontWeight.NORMAL, FONT_SIZE));
 
+        // Create TextFlow
+        TextFlow textFlow = new TextFlow(messageText);
+        textFlow.setPadding(new Insets(8));
+        textFlow.setMaxWidth(220);
+        double maxHeight = 40;
+        textFlow.setMaxHeight(maxHeight);
+
+        // Calculate preferred height
+        double prefHeight = messageText.getLayoutBounds().getHeight() + 16; // Padding
+        textFlow.setPrefHeight(Math.min(prefHeight, maxHeight));
+
+        // Create avatar
         ImageView avatarView = new ImageView(isUser ? userAvatar : botAvatar);
         avatarView.setFitHeight(90);
         avatarView.setFitWidth(90);
+        VBox avatarWrapper = new VBox();
+        avatarWrapper.setMaxHeight(90);
+        avatarWrapper.setMaxWidth(90);
+        avatarWrapper.getChildren().add(avatarView);
+        avatarWrapper.setPadding(new Insets(0, 0, 4, 0)); // Add bottom padding here
 
+        Circle clip = new Circle(45, 45, 45);
+        avatarView.setClip(clip);
+
+        // Create Circle for avatar border
         Circle borderCircle = new Circle(45, 45, 45);
         borderCircle.setStroke(Color.WHITE);
         borderCircle.setStrokeWidth(8);
         borderCircle.setFill(Color.TRANSPARENT);
 
-        Circle clip = new Circle(45, 45, 45);
-        avatarView.setClip(clip);
+        // Create StackPane for avatar and border
+        StackPane avatarContainer = new StackPane();
+        avatarContainer.getChildren().addAll(borderCircle, avatarWrapper);
+        avatarContainer.setAlignment(Pos.CENTER); // Align avatar to bottom
 
-        StackPane stackPane = new StackPane();
-        stackPane.getChildren().addAll(borderCircle, avatarView);
+        StackPane avatar = new StackPane();
+        avatar.getChildren().add(avatarContainer);
+        avatarContainer.setAlignment(Pos.BOTTOM_CENTER);
 
+        // Create HBox for message and avatar
         HBox messageBox = new HBox(10);
         messageBox.setAlignment(isUser ? Pos.BOTTOM_RIGHT : Pos.BOTTOM_LEFT);
+        messageBox.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
+        // Add message text and avatar to HBox
         if (isUser) {
-            messageLabel.setStyle("-fx-background-color: #DCF8C6; -fx-background-radius: 10;");
-            messageBox.getChildren().addAll(messageLabel, stackPane);
+            textFlow.setStyle("-fx-background-color: #DCF8C6; -fx-background-radius: 10;");
+            messageBox.getChildren().addAll(textFlow, avatar);
         } else {
-            messageLabel.setStyle("-fx-background-color: white; -fx-background-radius: 10;");
-            messageBox.getChildren().addAll(stackPane, messageLabel);
+            textFlow.setStyle("-fx-background-color: white; -fx-background-radius: 10;");
+            messageBox.getChildren().addAll(avatar, textFlow);
         }
         chatBox.getChildren().add(messageBox);
+
         Platform.runLater(() -> {
             scrollPane.layout(); // Force scrollPane to refresh layout
             scrollPane.setVvalue(1.0); // Scroll to the bottom
