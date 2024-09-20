@@ -58,20 +58,6 @@ run {
     standardInput = System.in
 }
 
-jar {
-    manifest {
-        attributes(
-                'Main-Class': 'darkpool.Launcher',
-                'Implementation-Title': 'Darkpool',
-                'Implementation-Version': '1.0',
-                'Implementation-Vendor': 'Arnav Goel'
-        )
-    }
-    from {
-        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-    }
-}
-
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
