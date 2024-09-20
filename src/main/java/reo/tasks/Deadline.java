@@ -9,7 +9,7 @@ public class Deadline extends Task {
     private LocalDate deadline;
 
     /**
-     * Constructor for the Deadline class.
+     * Acts as the constructor for the Deadline class.
      *
      * @param name The name of the deadline task.
      * @param isDone The completion status of the deadline task.
@@ -50,7 +50,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * toString method for the Deadline class.
+     * Acts as the toString method for the Deadline class.
      *
      * @return The string representation of the event to be displayed to user.
      */

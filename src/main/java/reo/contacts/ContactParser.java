@@ -1,9 +1,9 @@
 package reo.contacts;
 
-import reo.storage.ContactStorage;
-
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import reo.storage.ContactStorage;
 
 /** Parses a given user input related to contact management */
 public class ContactParser {
@@ -21,7 +21,7 @@ public class ContactParser {
     }
 
     /**
-     * Constructor for the Parser class.
+     * Acts as the constructor for the Parser class.
      *
      * @param input The raw user input from the UI.
      * @param contacts The list of contacts in the user's list at the time of the input.
@@ -41,8 +41,8 @@ public class ContactParser {
     }
 
     /**
-     * Interpret user's command, make the necessary file changes,
-     * and display the corresponding UI.
+     * Interprets user's command, makes the necessary file changes,
+     * and displays the corresponding UI.
      *
      * @return The String representation of the response
      * for the corresponding command.

@@ -78,7 +78,7 @@ public class TaskList {
     }
 
     /**
-     * Get the size of the stored ArrayList so far.
+     * Gets the size of the stored ArrayList so far.
      *
      * @return The size of the current ArrayList.
      */
@@ -87,7 +87,7 @@ public class TaskList {
     }
 
     /**
-     * Get the String representation of the task
+     * Gets the String representation of the task
      * at the specified index (0-indexed) of the ArrayList.
      *
      * @param taskNumber Index of the task of interest.
@@ -99,7 +99,7 @@ public class TaskList {
     }
 
     /**
-     * Get the Task object
+     * Gets the Task object
      * at the specified index (0-indexed) of the ArrayList.
      *
      * @param taskNumber Index of the task of interest.
@@ -110,7 +110,7 @@ public class TaskList {
     }
 
     /**
-     * Filter the current task list.
+     * Filters the current task list.
      *
      * @param s The keyword to search for.
      * @return A new ArrayList, which only contains tasks whose names
@@ -125,7 +125,7 @@ public class TaskList {
     }
 
     /**
-     * Create the String representation of the stored ArrayList so far.
+     * Creates the String representation of the stored ArrayList so far.
      *
      * @return The String representation of the stored ArrayList so far.
      */
