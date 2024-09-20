@@ -28,7 +28,7 @@ public class ParserTest {
     public void deleteTaskTest() throws BoomException, IOException {
         String home = System.getProperty("user.home");
         java.nio.file.Path path = java.nio.file.Paths.get(home, "ip", "src", "test");
-        s = new Storage(path.toString() + "/data-text.txt");
+        s = new Storage(path);
         Task task1 = new ToDo(true, "cook", 1);
         Task task2 = new ToDo(false, "clean", 2);
         tl.addTask(task1);

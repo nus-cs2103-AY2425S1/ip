@@ -114,3 +114,7 @@ Got it. I've added this task:
 Now you have 5 tasks in the list.
 ```
 
+## Credits
+- https://github.com/nigeltzy/ip
+- https://chpic.su/en/stickers/BubuAndDudu21_Sbor/038/
+- https://i.scdn.co/image/ab6761610000e5eb8a3dd5854574c440b83e42c6

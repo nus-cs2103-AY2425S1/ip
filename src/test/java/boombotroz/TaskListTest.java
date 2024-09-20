@@ -25,12 +25,12 @@ public class TaskListTest {
         Task task2 = new ToDo(false, "clean", 2);
         tl.addTask(task1);
         tl.addTask(task2);
-        assertEquals("[T][X][1] cook\n[T][ ][2] clean\n", tl.getAll());
+        assertEquals("[T][ ][2] clean\n[T][X][1] cook\n", tl.getAll());
         Task task3 = new Deadline(true, "eat", "2030-01-01", 1);
         task3.hasDate(ui);
         tl.addTask(task3);
-        assertEquals("[T][X][1] cook\n[T][ ][2] clean\n"
-                + "[D][X][1] eat (by: Jan 1 2030)\n", tl.getAll());
+        assertEquals("[T][ ][2] clean\n[T][X][1] cook\n"
+                + "[D][X][1] eat (by: Jan 01 2030)\n", tl.getAll());
     }
 
 }

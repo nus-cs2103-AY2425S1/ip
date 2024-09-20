@@ -17,9 +17,9 @@ public class Boombotroz {
     /**
      * Creates necessary objects and existence of text file to be written into.
      *
-     * @param filePath file path to text file.
+     * @param path file path to text file.
      */
-    public Boombotroz(String filePath) {
+    public Boombotroz(java.nio.file.Path path) {
         commands.add("list");
         commands.add("mark");
         commands.add("unmark");
@@ -28,9 +28,9 @@ public class Boombotroz {
         commands.add("todo");
         commands.add("deadline");
         commands.add("event");
-        assert filePath != null && !filePath.isEmpty() : "File path should not be null or empty.";
+        assert path != null : "File path should not be null or empty.";
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(path);
         taskList = new TaskList();
         parser = new Parser();
         try {
@@ -41,6 +41,9 @@ public class Boombotroz {
 
         }
 
+    }
+    public Boombotroz() {
+        this(java.nio.file.Paths.get(System.getProperty("user.home"), "ip", "src", "main"));
     }
 
     /**

@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Scanner;
@@ -11,16 +12,22 @@ import java.util.Scanner;
  * Deals with loading tasks from the file and saving tasks in the file.
  */
 public class Storage {
-    private String filePath;
-
+    private final java.nio.file.Path path;
     /**
      * Assigns file path to variable.
      *
-     * @param filePath
+     * @param path File path where text file will be located.
      */
-    public Storage(String filePath) {
-        this.filePath = filePath;
+    public Storage(java.nio.file.Path path) {
+        this.path = path;
+    }
 
+    public Storage() {
+        //@@author nws321--reused
+        //Reused from https://github.com/Nigeltzy/ip/blob/master/src/main/java/shnoop/storage/Storage.java
+        // with minor modifications
+        path = java.nio.file.Paths.get(System.getProperty("user.home"), "ip", "src", "main");
+        //@@author
     }
 
     /**
@@ -31,7 +38,7 @@ public class Storage {
      * @throws FileNotFoundException If no such file in directory.
      */
     public String printTasks(TaskList taskList) throws FileNotFoundException {
-        File f = new File(filePath);
+        File f = new File(path.toString() + "/data.txt");
         Scanner scanner = new Scanner(f);
         String s = "";
         while (scanner.hasNext()) {
@@ -48,7 +55,27 @@ public class Storage {
      * @throws FileNotFoundException If no such file in directory.
      */
     public void loadTasks(TaskList taskList) throws FileNotFoundException {
-        File f = new File(filePath);
+        //@@author nws321--reused
+        //Reused from https://github.com/Nigeltzy/ip/blob/master/src/main/java/shnoop/storage/Storage.java
+        // with minor modifications
+        boolean hasDirectory = java.nio.file.Files.exists(path);
+        if (!hasDirectory) {
+            try {
+                Files.createDirectories(path);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        File f = new File(path.toFile(), "data.txt");
+        if (!f.exists()) {
+            try {
+                f.createNewFile();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        //@@author
+
         Scanner scanner = new Scanner(f);
         while (scanner.hasNext()) {
             String line = scanner.nextLine();
@@ -73,7 +100,7 @@ public class Storage {
      * @throws IOException If writing to file has issue.
      */
     public void writeTasks(String tasks) throws IOException {
-        FileWriter fw = new FileWriter(filePath);
+        FileWriter fw = new FileWriter(path.toString() + "/data.txt");
         fw.write(tasks);
         fw.close();
     }
