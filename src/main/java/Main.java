@@ -37,6 +37,7 @@ public class Main extends Application {
             stage.setMinWidth(300);
             stage.setMinHeight(400);
             stage.setResizable(true);
+            stage.setTitle("Charlotte");
 
             fxmlLoader.<MainWindow>getController().setCharlotte(charlotte); // inject the Charlotte instance
             stage.show();
