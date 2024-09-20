@@ -121,7 +121,8 @@ public class Ui {
 
     /**
      * Returns a formatted string that lists all tasks in the provided {@code TaskList} that match the search criteria.
-     * <p>The returned string starts with a message indicating that matching tasks have been found, followed by an ordered list of tasks.</p>
+     * <p>The returned string starts with a message indicating that matching tasks have been found, followed
+     * by an ordered list of tasks.</p>
      *
      * @param taskList The {@code TaskList} containing the tasks that match the search criteria.
      * @return A formatted string displaying all matching tasks, each prefixed by its position in the list.
