@@ -17,16 +17,7 @@ public class TaskList {
         this.listOfTasks = listOfTasks;
     }
 
-    /**
-     * Prints all the tasks in the list
-     */
-    public String printTasks() {
-        String taskList = "";
-        for (int i = 0; i < listOfTasks.size(); i++) {
-            taskList += String.format("%d. %s\n", i + 1, listOfTasks.get(i).toString());
-        }
-        return "Here are the tasks in your list: \n" + taskList;
-    }
+
 
     /**
      * Returns the number of tasks on the list
@@ -47,7 +38,8 @@ public class TaskList {
 
     /**
      * Adds a new Task instance to the list
-     * @param newTask the new task
+     * @param newTask the new Task
+     * @return the message after adding a Task to the list
      */
     public String addTask(Task newTask) {
         listOfTasks.add(newTask);
@@ -59,6 +51,7 @@ public class TaskList {
     /**
      * Marks a Task as completed
      * @param index the Task index
+     * @return the message, whether the process succeeds or fails
      */
     public String markTask(int index) {
         if (index <= getNumOfTasks() && index > 0) {
@@ -72,6 +65,7 @@ public class TaskList {
     /**
      * Unmarks a Task from being completed
      * @param index the Task index
+     * @return the message, differs whether the process succeeds or fails
      */
     public String unmarkTask(int index) {
         if (index <= getNumOfTasks() && index > 0) {
@@ -83,8 +77,9 @@ public class TaskList {
     }
 
     /**
-     * Deletes a Task from the list
-     * @param index the Task index
+     * Deletes a Task from TaskList
+     * @param index the index of the Task to be deleted
+     * @return the message, differs whether the process succeeds or fails
      */
     public String deleteTask(int index) {
         if (index <= getNumOfTasks() && index > 0) {
@@ -97,9 +92,11 @@ public class TaskList {
         }
     }
 
+
     /**
-     * Prints all tasks that match a given keyword
-     * @param keyword the keyword
+     * Finds the Tasks in TaskList containing a specific keyword
+     * @param keyword
+     * @return the message, differs whether the process succeeds or fails
      */
     public String findTasks(String keyword) {
         List<Task> filteredList = this.listOfTasks.stream().filter(task -> task.getTaskName().contains(keyword)).toList();
@@ -117,7 +114,20 @@ public class TaskList {
     }
 
     /**
-     * Converts the list of tasks into its storing format in String
+     * Returns the list of Tasks in String
+     * @return the message and the list of Tasks in String
+     */
+    @Override
+    public String toString() {
+        String taskList = "";
+        for (int i = 0; i < listOfTasks.size(); i++) {
+            taskList += String.format("%d. %s\n", i + 1, listOfTasks.get(i).toString());
+        }
+        return "Here are the tasks in your list: \n" + taskList;
+    }
+
+    /**
+     * Converts the list of Tasks into its storing format in String
      * @return the String format for storing the tasks
      */
     public String toStoringFormat() {

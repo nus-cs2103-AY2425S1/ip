@@ -33,7 +33,7 @@ public class Rei {
             int taskIndex;
             switch (promptType) {
                 case LIST:
-                    output = tasks.printTasks();
+                    output = tasks.toString();
                     break;
                 case MARK:
                     taskIndex = Integer.parseInt(prompt.substring(4).trim());
