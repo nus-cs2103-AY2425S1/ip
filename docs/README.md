@@ -24,6 +24,8 @@ What can ChoaticBot do for you:
 - [x]  Managing events
 - [ ]  Reminders (coming soon)
 
+![Screenshot of Choaticbot](./Ui.png)
+
 ## Features
 
 #### Adding a task to do: `todo`
