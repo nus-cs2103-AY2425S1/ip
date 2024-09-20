@@ -12,24 +12,24 @@ import yappingbot.exceptions.YappingBotInvalidSaveFileException;
 import yappingbot.exceptions.YappingBotInvalidSaveFileException;
 import yappingbot.tasks.tasklist.TaskTypes;
 
-class DeadlineTest {
+class EventTest {
 
     @Test
     void getTaskTypeTest() {
-        Deadline t = new Deadline();
-        assertEquals(TaskTypes.DEADLINE, t.getTaskType());
-    }
-
-    @Test
-    void setTaskTypeTest() {
-        Deadline t = new Deadline();
-        t.setTaskType(TaskTypes.EVENT);
+        Event t = new Event();
         assertEquals(TaskTypes.EVENT, t.getTaskType());
     }
 
     @Test
+    void setTaskTypeTest() {
+        Event t = new Event();
+        t.setTaskType(TaskTypes.TODO);
+        assertEquals(TaskTypes.TODO, t.getTaskType());
+    }
+
+    @Test
     void setTaskDoneTest() {
-        Deadline t = new Deadline("", false);
+        Event t = new Event("", false);
         assertFalse(t.isTaskDone());
 
         t.setTaskDone(true);
@@ -41,7 +41,7 @@ class DeadlineTest {
 
     @Test
     void setTaskNameTest() {
-        Deadline t = new Deadline("", false);
+        Event t = new Event("", false);
         String expected = "asdasd";
         t.setTaskName(expected);
         assertEquals(expected, t.getTaskName());
@@ -49,23 +49,23 @@ class DeadlineTest {
 
     @Test
     void isTaskDoneTest() {
-        Deadline t = new Deadline("", false);
+        Event t = new Event("", false);
         assertFalse(t.isTaskDone());
 
-        t = new Deadline("", true);
+        t = new Event("", true);
         assertTrue(t.isTaskDone());
     }
 
     @Test
     void getTaskNameTest() {
         String expected = "asdasd";
-        Deadline t = new Deadline(expected, false);
+        Event t = new Event(expected, false);
         assertEquals(expected, t.getTaskName());
     }
 
     @Test
     void getTaskDoneCheckmarkTest() {
-        Deadline t = new Deadline("", false);
+        Event t = new Event("", false);
         assertEquals(" ", t.getTaskDoneCheckmark());
 
         t.setTaskDone(true);
@@ -78,43 +78,47 @@ class DeadlineTest {
     @Test
     void testToStringTest() {
         String n = "asd asd 123";
-        String d = "2024-12-21";
-        Deadline t = new Deadline(n, false, d);
+        String d1 = "2024-12-21";
+        String d2 = "2026-11-05";
+        Event t = new Event(n, false, d1, d2);
 
-        String expected = n + " (by: Dec 21 2024)";
+        String expected = n + " (from: Dec 21 2024 to: Nov 5 2026)";
         assertEquals(expected, t.toString());
     }
 
     @Test
     void serializeTest() {
         String n = "asd asd 123";
-        String d = "2023-12-23";
-        Deadline t = new Deadline(n, false, d);
+        String d1 = "2024-12-21";
+        String d2 = "2026-11-05";
+        Event t = new Event(n, false, d1, d2);
 
-        String expected1 = "DEADLINE:" + n + ":false:" + d;
+        String expected1 = "EVENT:" + n + ":false:" + d1 + ":" + d2;
         assertEquals(expected1, t.serialize());
 
         t.setTaskDone(true);
-        String expected2 = "DEADLINE:" + n + ":true:" + d;
+        String expected2 = "EVENT:" + n + ":true:" + d1 + ":" + d2;
         assertEquals(expected2, t.serialize());
     }
 
     @Test
     void deserializeTest() {
-        Deadline t = new Deadline();
-        String input1 = "DEADLINE:a:false:2023-12-11";
+        Event t = new Event();
+        String input1 = "EVENT:a:false:2023-12-11:2024-12-23";
         t.deserialize(input1.split(":"));
         assertEquals("a", t.getTaskName());
         assertFalse(t.isTaskDone());
-        assertEquals("2023-12-11", t.getDeadline());
+        assertEquals("2023-12-11", t.getStartTime());
+        assertEquals("2024-12-23", t.getEndTime());
 
-        String input2 = "DEADLINE:b:true:2011-12-23";
+        String input2 = "EVENT:b:true:2003-12-11:2014-12-23";
         t.deserialize(input2.split(":"));
         assertEquals("b", t.getTaskName());
         assertTrue(t.isTaskDone());
-        assertEquals("2011-12-23", t.getDeadline());
+        assertEquals("2003-12-11", t.getStartTime());
+        assertEquals("2014-12-23", t.getEndTime());
 
-        String input3 = "DEADLINE:c:true:2011-12-23:extra:data";
+        String input3 = "EVENT:c:true:2011-12-23:2023-12-22:extra:data";
         t.deserialize(input3.split(":"));
         assertEquals("c", t.getTaskName());
         assertTrue(t.isTaskDone());
@@ -127,60 +131,96 @@ class DeadlineTest {
                                        + "tasklist.TaskTypes." + input4.split(":")[0];
         assertEquals(expectedErrorMessage1, e1.getErrorMessage());
 
-        String input5 = "DEADLINE:";
+        String input5 = "EVENT:";
         YappingBotException e2 = assertThrowsExactly(YappingBotInvalidSaveFileException.class,
                                                      () -> t.deserialize(input5.split(":")));
         String expectedErrorMessage2 = "Error Reading save file! The following error was "
                                        + "encountered: Missing Data Values";
         assertEquals(expectedErrorMessage2, e2.getErrorMessage());
 
-        String input6 = "DEADLINE:f:true:INVALID-date";
+        String input6 = "EVENT:f:true:INVALID-date:INVALID-date";
         YappingBotException e3 = assertThrowsExactly(YappingBotInvalidSaveFileException.class,
                                                      () -> t.deserialize(input6.split(":")));
-        String expectedErrorMessage3 = "I'm sorry, I do not understand what 'INVALID-date' is!\n"
-                                       + "Time value must be given in any valid date-time format!";
+        String expectedErrorMessage3 = "Error Reading save file! The following error was "
+                                       + "encountered: I'm sorry, I do not understand what "
+                                       + "'INVALID-date' is!\nTime value must be given in any "
+                                       + "valid date-time format!";
+
         assertEquals(expectedErrorMessage3, e3.getErrorMessage());
+
+        String input7 = "EVENT:f:true:2023-12-12:INVALID-date";
+        YappingBotException e4 = assertThrowsExactly(YappingBotInvalidSaveFileException.class,
+                                                     () -> t.deserialize(input7.split(":")));
+        String expectedErrorMessage4 = "Error Reading save file! The following error was "
+                                       + "encountered: I'm sorry, I do not understand what "
+                                       + "'INVALID-date' is!\nTime value must be given in any "
+                                       + "valid date-time format!";
+        assertEquals(expectedErrorMessage4, e4.getErrorMessage());
     }
 
     @Test
     void isStringFoundInTaskTest() {
-        Deadline t = new Deadline("abc 123", false, "2023-12-11");
+        String d1 = "2024-12-21";
+        String d2 = "2026-11-05";
+        Event t = new Event("abc 123", false, d1, d2);
         assertTrue(t.isStringFoundInTask("abc 123"));
         assertTrue(t.isStringFoundInTask("c 1"));
         assertTrue(t.isStringFoundInTask("abc"));
         assertTrue(t.isStringFoundInTask("123"));
         assertTrue(t.isStringFoundInTask(" "));
-        assertTrue(t.isStringFoundInTask("2023"));
-        assertTrue(t.isStringFoundInTask("2023-12"));
-        assertTrue(t.isStringFoundInTask("12-11"));
+        assertTrue(t.isStringFoundInTask("2024"));
+        assertTrue(t.isStringFoundInTask("2024-12"));
+        assertTrue(t.isStringFoundInTask("12-21"));
+        assertTrue(t.isStringFoundInTask("2026-11-05"));
+        assertTrue(t.isStringFoundInTask("2024-12-21"));
+
         assertFalse(t.isStringFoundInTask("123 abc"));
         assertFalse(t.isStringFoundInTask(""));
         assertFalse(t.isStringFoundInTask("111111111111"));
         assertFalse(t.isStringFoundInTask("  "));
-        assertFalse(t.isStringFoundInTask("2023 12"));
-        assertFalse(t.isStringFoundInTask("2023-0-11"));
+        assertFalse(t.isStringFoundInTask("2024 12"));
+        assertFalse(t.isStringFoundInTask("2026-0-11"));
         assertFalse(t.isStringFoundInTask("12- 11"));
+        assertFalse(t.isStringFoundInTask("2024-12-21 2026-11-05"));
     }
 
     @Test
     void getTaskTypeSymbolTest() {
-        Deadline t = new Deadline();
-        assertEquals("D", t.getTaskTypeSymbol());
+        Event t = new Event();
+        assertEquals("E", t.getTaskTypeSymbol());
     }
 
     @Test
-    void getDeadlineTest() {
-        String d = "2024-12-21";
-        Deadline t = new Deadline("", false, d);
-        assertEquals(d, t.getDeadline());
+    void getStartTimeTest() {
+        String d1 = "2024-12-21";
+        String d2 = "2026-11-05";
+        Event t = new Event("", false, d1, d2);
+        assertEquals(d1, t.getStartTime());
 
     }
 
     @Test
-    void setDeadlineTest() {
-        Deadline t = new Deadline();
+    void setStartTimeTest() {
+        Event t = new Event();
         String d = "2024-12-21";
-        t.setDeadline(d);
-        assertEquals(d, t.getDeadline());
+        t.setStartTime(d);
+        assertEquals(d, t.getStartTime());
+    }
+
+    @Test
+    void getEndTimeTest() {
+        String d1 = "2024-12-21";
+        String d2 = "2026-11-05";
+        Event t = new Event("", false, d1, d2);
+        assertEquals(d2, t.getEndTime());
+
+    }
+
+    @Test
+    void setEndTimeTest() {
+        Event t = new Event();
+        String d = "2024-12-21";
+        t.setEndTime(d);
+        assertEquals(d, t.getEndTime());
     }
 }

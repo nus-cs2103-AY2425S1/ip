@@ -78,8 +78,7 @@ public class Deadline extends Task {
             this.deadline = LocalDate.parse(deadline);
         } catch (DateTimeParseException e) {
             throw new YappingBotIncorrectCommandException(
-                    ReplyTextMessages.TIME_PARSE_HINT,
-                    deadline);
+                    ReplyTextMessages.TIME_PARSE_HINT, deadline);
         }
     }
 
@@ -117,7 +116,7 @@ public class Deadline extends Task {
         try {
             super.deserialize(stringDataSlices);
             this.setDeadline(stringDataSlices[3].replaceAll("/colon", ":"));
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | YappingBotIncorrectCommandException e) {
             throw new YappingBotInvalidSaveFileException(e.getMessage());
         }
     }

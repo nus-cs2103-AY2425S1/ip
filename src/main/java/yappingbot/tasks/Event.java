@@ -147,14 +147,13 @@ public class Event extends Task {
         assert stringDataSlices != null;
         if (stringDataSlices.length < 5) {
             throw new YappingBotInvalidSaveFileException(
-                    ReplyTextMessages.INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES
-            );
+                    ReplyTextMessages.INVALID_SAVE_FILE_EXCEPTION_MISSING_VALUES);
         }
         try {
             super.deserialize(stringDataSlices);
             this.setStartTime(stringDataSlices[3].replaceAll("/colon", ":"));
             this.setEndTime(stringDataSlices[4].replaceAll("/colon", ":"));
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | YappingBotIncorrectCommandException e) {
             throw new YappingBotInvalidSaveFileException(e.getMessage());
         }
     }
@@ -164,7 +163,7 @@ public class Event extends Task {
         assert searchString != null;
         // abuse the shortcircuiting
         return (super.isStringFoundInTask(searchString)
-                || getStartTime().contains(searchString)
-                || getEndTime().contains(searchString));
+                || !searchString.isEmpty() && getStartTime().contains(searchString)
+                || !searchString.isEmpty() && getEndTime().contains(searchString));
     }
 }
