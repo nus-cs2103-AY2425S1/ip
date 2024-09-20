@@ -53,6 +53,10 @@ public class CommandParser {
             } catch (NumberFormatException e) {
                 throw new BadInputException("Argument for command 'delete' must be a number");
             }
+        } else if (input.startsWith("find")) {
+            String keyword = input.substring(5);
+
+            return new FindCommand(keyword);
         } else if (input.startsWith("todo")) {
             String description = input.substring(5);
 
