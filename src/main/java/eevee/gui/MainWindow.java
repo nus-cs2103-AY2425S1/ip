@@ -2,7 +2,6 @@ package eevee.gui;
 
 import eevee.Eevee;
 import eevee.EeveeException;
-import eevee.gui.DialogBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -18,6 +17,8 @@ import java.util.Objects;
  * Represents the controller for the main GUI.
  */
 public class MainWindow extends AnchorPane {
+    @FXML
+    public Button sendButton;
     @FXML
     private ScrollPane scrollPane;
     @FXML

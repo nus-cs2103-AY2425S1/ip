@@ -1,4 +1,4 @@
-package eevee.gui;
+package eevee;
 
 import eevee.gui.Main;
 import javafx.application.Application;

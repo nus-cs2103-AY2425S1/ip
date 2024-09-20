@@ -193,6 +193,6 @@ public class Eevee {
      * @param args Command-line arguments are not used in this program.
      */
     public static void main(String[] args) {
-        new Eevee("data/tasks.txt");
+        new Eevee("src/main/java/data/tasks.txt");
     }
 }
