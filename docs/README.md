@@ -94,3 +94,4 @@ Your input data will be automatically saved in the program's disk.
 <h2 style="color: #9370db ">Acknowledgement</h2>
 1. Tecna's Avatar: [Wallpaper Flare](https://www.wallpaperflare.com/search?wallpaper=Tecna)
 2. User's Avatar: Adapted from [SE-EDU JavaFX Tutorial](https://se-education.org/guides/tutorials/javaFx.html) 
+3. json-simple (third-party library): [Google Code](https://code.google.com/archive/p/json-simple/)
