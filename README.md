@@ -78,6 +78,10 @@ software.
 
 This project has referenced code and solutions from popular websites like Stack Overflow, GeeksforGeeks, and more.
 
+## Legal Arbitration Clause
+
+By using this software, you agree that any disputes arising out of or in connection with this software shall be resolved through binding arbitration in accordance with the rules of the Singapore International Arbitration Centre. The place of arbitration shall be Singapore, and the language of arbitration shall be English. The decision of the arbitrator shall be final and binding on the parties.
+
 ## Credits
 
 - **JavaFX**: This project uses JavaFX, an open-source, next-generation client application platform for desktop, mobile,
