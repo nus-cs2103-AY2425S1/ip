@@ -23,6 +23,18 @@ public class Ui {
 
     /** A horizontal line used for formatting output. */
     private static final String HORIZONTAL_LINE = "_".repeat(LINE_LENGTH);
+    public static final String HELP_INSTRUCTIONS = "Hello! Here are your list of helpful commands:\n" +
+            "\n" +
+            "'list' - shows you your current list of tasks\n" +
+            "'mark n' - marks the task at number n on your list as done\n" +
+            "'unmark n' - unmarks the task at number n on your list as not done\n" +
+            "'todo task_name' - adds a todo task with task_name to your list\n" +
+            "'deadline task_name /by due_date' - adds a deadline task with task_name to your list with a deadline of due_date\n" +
+            "'event task_name /from start_date /to end_date' - adds an event task with task_name with a start_date to end_date\n" +
+            "'delete n' - deletes the task at number n on your list\n" +
+            "'find _keyword_' - searches for all items in your list that has the _keyword_ inside\n" +
+            "\n" +
+            "'help' - shows the list of useful commands";
     public static final String WELCOME_MESSAGE = "Hello! I'm\n" + NAME + "\nWhat can I do for you?";
 
     /** The {@link Scanner} object for reading user input. */

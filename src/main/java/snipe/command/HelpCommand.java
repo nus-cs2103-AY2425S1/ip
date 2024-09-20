@@ -36,19 +36,14 @@ public class HelpCommand extends Command{
             TaskList archiveTasks,
             Storage archiveStorage
     ) throws SnipeException, IOException {
-        String filePath = "data/helpinstructions.txt"; // Instructions manual
-
-        // Assert that the file exists
-        assert Files.exists(Paths.get(filePath)) : "Help instructions file does not exist";
-
         try {
-            String content = new String(Files.readAllBytes(Paths.get(filePath)));
+            String content = Ui.HELP_INSTRUCTIONS;
 
             // Assert that the content read from the file is not null
             assert content != null : "File content should not be null";
 
             return content;
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println("Error reading the file: " + e.getMessage());
             return "Sorry, help list is not available at the current moment";
         }
