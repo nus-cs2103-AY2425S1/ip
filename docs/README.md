@@ -1,10 +1,13 @@
-# yapmeister.YapMeister User Guide
+# YapMeister User Guide
 
-// Update the title above to match the actual product name
 
-// Product screenshot goes here
+![Screenshot of the UI](https://github.com/BlazeChron/ip/blob/A-Release/docs/Ui.png?raw=true)
 
-// Product intro goes here
+Yapmeister is a **desktop app for managing tasks, optimised for use via a Command Line Interface (CLI)** while still
+having the benefits of a Graphical User Interface (GUI). Yapmeister is the app's titular character. He was supposed to
+have a personality, but it was dropped because of the _Great Assignment Calamity_[^1].
+
+
 
 ## Adding deadlines
 
@@ -28,3 +31,11 @@ expected output
 ## Feature XYZ
 
 // Feature details
+
+
+[^1]: hi
+<details>
+<summary>Great Assignment Calamity</summary>
+A natural disaster caused by the mass compression of long term assignment deadlines, claiming the 
+grades of at least one person, probably.
+</details>
