@@ -1,11 +1,7 @@
 # Momo User Guide
 
-// Update the title above to match the actual product name
-
-// Product screenshot goes here
 ![Screenshot of Momo chatbot](Ui.png)
 
-// Product intro goes here
 Want to manage and complete your tasks with a little extra  _caring_ nudge? Momo is the perfect companion for you! 
 This friendly chatbot helps you to organize your daily tasks, deadlines and events!
 
