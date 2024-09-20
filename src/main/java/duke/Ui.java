@@ -95,11 +95,11 @@ public class Ui {
      * @param tasks The Tasklist object holding tasks currently stored in the program.
      */
     public void display(TaskList tasks) throws TaskListOutOfBoundsException {
-        System.out.println("Here are the tasks in your list:");
+        System.out.println("Behold, the tasks you have envisioned are now before your eyes:");
         printList(tasks);
     }
     public String guiDisplay(TaskList tasks) throws TaskListOutOfBoundsException {
-        return "Here are the tasks in your list:\n" + stringList(tasks);
+        return "Behold, the tasks you have envisioned are now before your eyes:\n" + stringList(tasks);
     }
 
     /**
