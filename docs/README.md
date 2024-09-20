@@ -157,4 +157,4 @@ Format of input `bye`
 | Unmark a completed task   | `unmark [task ID]`                                                                                                         | `unmark 4`                                                       |
 | Find a task               | `find [keyword]`                                                                                                           | `find aerodynamics`                                              |
 | Display statistics        | `stats`                                                                                                                    | `stats`                                                          |
-| Exit the program          | `exit`                                                                                                                     | `exit`                                                           |
+| Exit the program          | `bye`                                                                                                                      | `bye`                                                            |
