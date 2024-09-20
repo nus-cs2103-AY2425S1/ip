@@ -55,7 +55,7 @@ Wiggly is a task management application that helps you keep track of your tasks,
 
 - **Description**: Adds a task that starts at a specific date and ends at a specific date.
 - **Usage**: `event <task description> /at <start date> to <end date>`
-- **Example**: `event Team meeting /at 2023-10-10 14:00 to 2023-10-10`
+- **Example**: `event Team meeting /at 2023-10-10 to 2023-10-10`
 - **Output**:
   ```
   Got it. I've added this task:
