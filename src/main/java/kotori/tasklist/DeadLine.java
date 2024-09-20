@@ -3,6 +3,7 @@ package kotori.tasklist;
 import kotori.parser.InvalidNumberOfArgumentException;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 class DeadLine extends Task {
     private static final int deadlineKeyWordLength = 9;
@@ -12,6 +13,7 @@ class DeadLine extends Task {
     private static final int expectedParts = 2;
     private static final int expectedArugment = 2;
     protected LocalDate deadLine;
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
 
     public DeadLine(boolean isDone, String description, String deadLine) {
         super(isDone, description);
@@ -20,7 +22,7 @@ class DeadLine extends Task {
 
     @Override
     public String toString() {
-        return String.format("[D][%s] %s (by: %s)", getStatusIcon(), description, deadLine);
+        return String.format("[D][%s] %s (by: %s)", getStatusIcon(), description, deadLine.format(formatter));
     }
 
     /**

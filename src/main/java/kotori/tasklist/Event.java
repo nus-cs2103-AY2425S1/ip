@@ -1,5 +1,6 @@
 package kotori.tasklist;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import kotori.parser.InvalidNumberOfArgumentException;
 
@@ -13,6 +14,7 @@ class Event extends Task {
     private static final int toPos = 2;
     private static final int lengthOfTo = 3;
     private static final int expectedArugment = 3;
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
     protected LocalDate from;
     protected LocalDate to;
     /**
@@ -27,7 +29,8 @@ class Event extends Task {
 
     @Override
     public String toString() {
-        return String.format("[E][%s] %s (from: %s to: %s)", getStatusIcon(), description, from, to);
+        return String.format("[E][%s] %s (from: %s to: %s)", getStatusIcon(), description,
+                from.format(formatter), to.format(formatter));
     }
 
     /**
