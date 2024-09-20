@@ -1,6 +1,6 @@
 package conversage;
 
-import conversage.ConverSage;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -51,6 +51,10 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, sageImage)
         );
         userInput.clear();
+
+        if (conversage.shouldExit()) {
+            Platform.exit();
+        }
     }
 
 }
