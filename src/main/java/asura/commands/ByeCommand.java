@@ -13,10 +13,11 @@ public class ByeCommand extends Command {
     }
 
     /**
-     * No operations to be done when user exits the program.
+     * No operations are performed when the user exits the program.
      * @param tasklist The list of tasks of the user.
      * @param ui The UI object to give user feedback.
      * @param storage The storage object to save/load tasks.
+     * @return A farewell message to the user.
      */
     public String execute(TaskList tasklist, Ui ui, Storage storage) {
         return "Bye!";
