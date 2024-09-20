@@ -261,3 +261,9 @@ Examples:
 Your task list has been saved successfully!
 Bye! Hope to see you again soon!
 ```
+
+## Image Attribution
+
+[Orion Nebula Image](https://www.flickr.com/photos/7634329@N07/495636660/)
+
+[User Image](https://www.flaticon.com/free-icon/blank-user_16467)

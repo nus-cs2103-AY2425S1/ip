@@ -30,3 +30,7 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
 ## Acknowledgements
 
 ASCII Art Generator for Logo: https://patorjk.com/software/taag/
+
+Image for Orion Nebula: https://www.flickr.com/photos/7634329@N07/495636660/
+
+Image for User Icon: https://www.flaticon.com/free-icon/blank-user_16467
