@@ -49,7 +49,7 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
-        String input = userInput.getText();
+        String input = userInput.getText().trim();
         if (input.equals("bye")) {
             // Close the window
             System.exit(0);
