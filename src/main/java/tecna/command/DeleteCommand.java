@@ -39,6 +39,9 @@ public class DeleteCommand extends Command {
      * @throws WrongFormatException If the Delete command is in wrong format.
      */
     public int parseDeleteCommand(int taskListSize) throws WrongFormatException {
+        if (taskListSize < 1) {
+            throw new WrongFormatException("delete", "You have no tasks to delete.\nAdd some tasks, my dear!");
+        }
         String[] input_words = message.split("\\s+");
 
         if (input_words.length != 2) {

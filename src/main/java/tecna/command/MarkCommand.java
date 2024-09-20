@@ -41,6 +41,9 @@ public class MarkCommand extends Command {
      * @throws WrongFormatException If the command is in wrong format.
      */
     public int parseMarkCommand(int taskListSize) throws WrongFormatException {
+        if (taskListSize < 1) {
+            throw new WrongFormatException("mark", "You have no tasks to mark.\nAdd some tasks, my dear!");
+        }
         String[] input_words = message.split("\\s+");
 
         if (input_words.length != 2) {

@@ -41,6 +41,10 @@ public class UnmarkCommand extends Command {
      * @throws WrongFormatException If the command is in wrong format.
      */
     public int parseUnmarkCommand(int taskListSize) throws WrongFormatException {
+        if (taskListSize < 1) {
+            throw new WrongFormatException("unmark", "You have no tasks to unmark.\nAdd some tasks, my dear!");
+        }
+
         String[] input_words = message.split("\\s+");
 
         if (input_words.length != 2) {
