@@ -351,7 +351,8 @@ public class Parser {
     }
 
     private boolean timeValidity(String hour, String min) {
-        return Integer.parseInt(hour) >= 0 && Integer.parseInt(hour) < 24 && Integer.parseInt(min) >= 0 && Integer.parseInt(min) < 60;
+        return Integer.parseInt(hour) >= 0 && Integer.parseInt(hour) < 24
+                && Integer.parseInt(min) >= 0 && Integer.parseInt(min) < 60;
     }
 
     /**
