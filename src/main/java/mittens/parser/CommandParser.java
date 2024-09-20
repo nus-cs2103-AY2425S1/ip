@@ -4,6 +4,7 @@ import mittens.commands.AddCommand;
 import mittens.commands.Command;
 import mittens.commands.DeleteCommand;
 import mittens.commands.ExitCommand;
+import mittens.commands.FindCommand;
 import mittens.commands.ListCommand;
 import mittens.commands.MarkCommand;
 import mittens.commands.UnmarkCommand;
