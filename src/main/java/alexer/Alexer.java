@@ -23,8 +23,6 @@ import java.util.stream.Collectors;
  * @author sayomaki
  */
 public class Alexer {
-    private static final String BREAK = "____________________________________________________________";
-
     /** Wordart logo of the chatbot **/
     public static final String LOGO = """
                      .     .                           
@@ -39,11 +37,8 @@ public class Alexer {
     private static Alexer alexer;
 
     private final Scanner scanner;
-
     private final TaskManager tasks;
-
     private final Prompter prompter;
-
     private final CommandHandler commandHandler;
 
     /**
