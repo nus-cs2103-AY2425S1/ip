@@ -35,8 +35,8 @@ public class Ui {
     /**
      * Prints the introduction message.
      */
-    public void printIntro() {
-        System.out.println(INTRO_MESSAGE);
+    public void cacheIntro() {
+        output.add(INTRO_MESSAGE);
     }
 
     /**

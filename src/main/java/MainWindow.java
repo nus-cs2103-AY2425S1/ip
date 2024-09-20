@@ -38,6 +38,17 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
+     * Shows the hello message from Sinatra
+     */
+    public void showHelloMessage() {
+        String helloMessage = "Why you sneak, I'm Sinatra, whats your fancy?";
+        dialogContainer.getChildren().add(
+                DialogBox.getDukeDialog(helloMessage,
+                        new Image(this.getClass().getResourceAsStream("/images/sinatra.png")))
+        );
+    }
+
+    /**
      * Creates two dialog boxes, one echoing user input and the other Sinatra's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */

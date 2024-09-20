@@ -19,9 +19,11 @@ public class Sinatra {
     public Sinatra() {
 
         ui = new Ui();
-        ui.printIntro();
+        ui.cacheIntro();
         parser = new Parser();
+
     }
+
 
     /**
      * handles querys from user to Sinatra
