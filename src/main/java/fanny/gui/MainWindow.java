@@ -73,7 +73,7 @@ public class MainWindow extends AnchorPane {
      * @param input The command to be executed.
      */
     private void handleExit(String input) {
-        if (input.trim().matches("^bye\\s+.*$")) {
+        if (input.trim().matches("^bye(\\s+.*)?$")) {
             PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
             delay.setOnFinished(event -> javafx.application.Platform.exit());
             delay.play();
