@@ -14,22 +14,58 @@ To get started:
 ## Features:
 
 1. **Add tasks**
-    - `todo taskTest`
-2. **Add deadlines**
-    - `deadline return book /by 2/12/2019 1800`
-3. **Add events**
-    - `event project meeting /from Mon 2pm /to 4pm`
-4. **Mark/unmark tasks**
-    - `mark 1`
-    - `unmark 2`
-5. **Search for tasks**
-    - `find {project}`
-6. **List all tasks**
-    - `list`
-7. **Delete tasks**
-    - `delete 2`
-8. **Duplicate tasks detection**
+   Adds tasks to the list.
+    - **Format**: `todo [task]`
+    - **Examples**:
+        - `todo dance`
+        - `todo exercise`
 
+2. **Add deadlines**
+   Adds a deadline to the list.
+    - **Format**: `deadline [task] /by [date and time]`
+    - **Examples**:
+        - `deadline return book /by 2/12/2019 1800`
+        - `deadline submit report /by 5/10/2024 1200`
+
+3. **Add events**
+   Adds an event to the list.
+    - **Format**: `event [task] /from [start time] /to [end time]`
+    - **Examples**:
+        - `event project meeting /from Mon 2pm /to Mon 4pm`
+        - `event team lunch /from Fri 12pm /to Fri 1pm`
+
+4. **Mark/unmark tasks**
+   Marks a task as done or not done.
+    - **Format**: `mark [task number]` or `unmark [task number]`
+    - **Examples**:
+        - `mark 1`
+        - `unmark 2`
+
+5. **Search for tasks**
+   Searches for tasks content containing the keyword.
+    - **Format**: `find [keyword]`
+    - **Examples**:
+        - `find project`
+        - `find book`
+
+6. **List all tasks**
+   Lists all tasks in the task list.
+    - **Format**: `list`
+    - **Examples**:
+        - `list`
+
+7. **Delete tasks**
+   Deletes a task from the list.
+    - **Format**: `delete [task number]`
+    - **Examples**:
+        - `delete 2`
+        - `delete 3`
+
+8. **Duplicate tasks detection**
+   Automatically detects and prevents adding duplicate tasks.
+    - **Description**: When you try to add a task that already exists in the list, Sinatra will notify you that "Task
+      already exists and was not added"
+      
 ## Legal Disclaimer
 
 This software, Sinatra, is provided "as is", without warranty of any kind, express or implied, including but not limited

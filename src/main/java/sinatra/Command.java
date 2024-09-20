@@ -44,7 +44,6 @@ public enum Command {
                 if (s.length() == c.command.length() || s.charAt(c.command.length()) != ' ') {
                     return "";
                 }
-          
                 String output = s.substring(c.command.length() + 1);
                 return output;
             }
