@@ -41,20 +41,23 @@ public class PrintCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws JeffException {
         try {
             LocalDate date = LocalDate.parse(args, DATE_FORMATTER);
-            System.out.println("Tasks due on " + date.format(DATE_FORMATTER) + ":");
-            boolean found = false;
+            ui.showMessage("Tasks due on " + date.format(DATE_FORMATTER) + ":");
+            boolean isFound = false;
             for (Task task : tasks.getTasks()) {
-                if (task instanceof Deadline) {
-                    Deadline deadlineTask = (Deadline) task;
-                    if (deadlineTask.getDueDate().toLocalDate().equals(date)) {
-                        System.out.println(deadlineTask);
-                        found = true;
-                    }
+                // Guard clause
+                if (!(task instanceof Deadline deadlineTask)) {
+                    continue;
+                }
+
+                // Check if deadline date is same as search date
+                if (deadlineTask.getDueDate().toLocalDate().equals(date)) {
+                    ui.showMessage(deadlineTask.toString());
+                    isFound = true;
                 }
             }
 
-            if (!found) {
-                System.out.println("No tasks due on this date.");
+            if (!isFound) {
+                ui.showMessage("No tasks due on this date.");
             }
         } catch (DateTimeParseException e) {
             throw new JeffException("Invalid date format! Please use 'DD/MM/YYYY'.");
