@@ -14,7 +14,7 @@ import rizzler.Rizzler;
  */
 public class Main extends Application {
 
-    private Rizzler rizzler = new Rizzler();
+    private final Rizzler rizzler = new Rizzler();
 
     @Override
     public void start(Stage stage) {

@@ -36,6 +36,8 @@ public class MainWindow extends AnchorPane {
     /** Injects the Rizzler instance */
     public void setRizzler(Rizzler d) {
         assert d != null : "rizzler must not be null";
+        assert userImage == null : "userImage must not be null";
+        assert rizzlerImage == null : "rizzlerImage must not be null";
         rizzler = d;
     }
 
