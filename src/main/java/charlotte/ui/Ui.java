@@ -34,7 +34,7 @@ public class Ui {
      * This line is used to separate different sections of the UI output.
      */
     public String printLine() {
-        return "________________________________________";
+        return "______________________________________";
     }
 
     /**
@@ -42,7 +42,7 @@ public class Ui {
      * This method displays a greeting and prompts the user to enter commands.
      */
     public String printWelcome() {
-        return printLine() + "\nHello! I'm Charlotte!\nWhat can I do for you?\n" + printLine();
+        return "Hello! I'm Charlotte!\nWhat can I do for you?";
     }
 
     /**
@@ -50,7 +50,7 @@ public class Ui {
      * This method displays a goodbye message to the user.
      */
     public String printExit() {
-        return printLine() + "\nBye. Hope to see you again soon!\n" + printLine();
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -68,7 +68,7 @@ public class Ui {
      */
     public String showError(String message) {
         assert message != null : "Error message should not be null";
-        return printLine() + "\n" + message + "\n" + printLine();
+        return message;
     }
 
     /**
@@ -78,6 +78,6 @@ public class Ui {
      */
     public String showMessage(String message) {
         assert message != null : "Display message should not be null";
-        return printLine() + "\n" + message + "\n" + printLine();
+        return message;
     }
 }

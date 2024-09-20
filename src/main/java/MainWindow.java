@@ -5,6 +5,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 /**
  * Controller for the main GUI.
@@ -33,6 +34,9 @@ public class MainWindow extends AnchorPane {
         assert scrollPane != null : "scrollPane should be initialised";
         assert charlotteImage != null : "charlotteImage should not be null";
         assert userImage != null : "userImage should not be null";
+
+        // Allow the dialogContainer to grow as the window resizes
+        VBox.setVgrow(dialogContainer, Priority.ALWAYS);
 
         String welcomeMessage = "Hello! I'm Charlotte!\nWhat can I do for you?";
         dialogContainer.getChildren().add(DialogBox.getCharlotteDialog(welcomeMessage, charlotteImage));

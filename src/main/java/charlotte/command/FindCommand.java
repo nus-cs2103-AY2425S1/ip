@@ -50,13 +50,11 @@ public class FindCommand extends Command {
         if (matchingTasks.isEmpty()) {
             result.append(ui.showMessage("No tasks found matching the keyword: " + keyword));
         } else {
-            result.append(ui.printLine()).append("\n");
             result.append("Here are the matching tasks in your list:\n");
             for (int i = 0; i < matchingTasks.getSize(); i++) {
                 assert matchingTasks.getTask(i) != null : "Matching task should not be null";
                 result.append((i + 1)).append(". ").append(matchingTasks.getTask(i)).append("\n");
             }
-            result.append(ui.printLine()).append("\n");
         }
 
         return result.toString();

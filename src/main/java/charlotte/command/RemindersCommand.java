@@ -33,19 +33,17 @@ public class RemindersCommand extends Command {
                 .filter(task -> isWithinOneWeek(task, today, nextWeek))
                 .peek(task -> {
                     if (result.length() == 0) {
-                        result.append(ui.printLine())
-                                .append("\nHere are your tasks with upcoming deadlines or events starting within one week:\n");
+                        result.append("\nHere are your tasks with upcoming deadlines "
+                                + "or events starting within one week:\n");
                     }
                     result.append(task).append("\n");
                 })
                 .count() > 0;
 
         if (!hasReminders) {
-            result.append(ui.printLine())
-                    .append("\nYou have no upcoming deadlines or events within one week! \n");
+            result.append("\nYou have no upcoming deadlines or events within one week! \n");
         }
 
-        result.append(ui.printLine()).append("\n");
         return result.toString();
     }
 

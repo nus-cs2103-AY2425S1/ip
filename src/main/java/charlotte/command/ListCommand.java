@@ -32,7 +32,6 @@ public class ListCommand extends Command {
         if (tasks.isEmpty()) {
             result.append("Your task list is currently empty\n");
         } else {
-            result.append(ui.printLine()).append("\n");
             result.append("Here are the tasks in your list:\n");
 
             //Add each task to the result string
@@ -40,7 +39,6 @@ public class ListCommand extends Command {
                 assert tasks.getTask(i) != null : "Task should not be null";
                 result.append((i + 1)).append(". ").append(tasks.getTask(i)).append("\n");
             }
-            result.append(ui.printLine()).append("\n");
         }
 
         return result.toString();

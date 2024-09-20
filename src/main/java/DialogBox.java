@@ -27,7 +27,7 @@ public class DialogBox extends HBox {
      * @param text The text to be displayed in the dialog box.
      * @param img The image to be displayed in the dialog box.
      */
-    private DialogBox(String text, Image img) {
+    private DialogBox(String text, Image img, String styleClass) {
         assert text != null : "Text for DialogBox should not be null";
         assert img != null : "Image for Dialog Box should not be null";
 
@@ -45,6 +45,7 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+        dialog.getStyleClass().add(styleClass);
     }
 
     /**
@@ -67,7 +68,7 @@ public class DialogBox extends HBox {
     public static DialogBox getUserDialog(String text, Image img) {
         assert text != null : "User dialog text should not be null";
         assert img != null : "User image should not be null";
-        return new DialogBox(text, img);
+        return new DialogBox(text, img, "user-message");
     }
 
     /**
@@ -80,7 +81,7 @@ public class DialogBox extends HBox {
     public static DialogBox getCharlotteDialog(String text, Image img) {
         assert text != null : "Charlotte dialog text should not be null";
         assert img != null : "Charlotte image should not be null";
-        var db = new DialogBox(text, img);
+        var db = new DialogBox(text, img, "bot-message");
         db.flip();
         return db;
     }

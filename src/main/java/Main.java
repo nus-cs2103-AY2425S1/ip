@@ -31,8 +31,12 @@ public class Main extends Application {
             assert ap != null : "AnchorPane should be initialised from the FXML file";
 
             Scene scene = new Scene(ap);
+            scene.getStylesheets().add(getClass().getResource("/view/styles.css").toExternalForm());
             stage.setScene(scene);
             assert stage.getScene() != null : "Scene should be properly set in the stage";
+            stage.setMinWidth(300);
+            stage.setMinHeight(400);
+            stage.setResizable(true);
 
             fxmlLoader.<MainWindow>getController().setCharlotte(charlotte); // inject the Charlotte instance
             stage.show();
