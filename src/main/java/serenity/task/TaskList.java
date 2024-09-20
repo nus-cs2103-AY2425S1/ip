@@ -132,7 +132,7 @@ public class TaskList {
 
         String[] parts = input.split(" ");
         if (parts.length == 1) {
-            throw new SerenityException("Error: Missing task index.");
+            throw new SerenityException("Error: Missing index.");
         }
 
         int index = Integer.parseInt(input.substring(7)) - 1;
@@ -158,7 +158,7 @@ public class TaskList {
 
         String[] parts = input.split(" ");
         if (parts.length == 1) {
-            throw new SerenityException("Error: Missing task index.");
+            throw new SerenityException("Error: Missing index.");
         }
 
         String message;
@@ -231,7 +231,7 @@ public class TaskList {
 
         String[] command = parts[0].split(" ");
         if (command.length == 1) {
-            throw new SerenityException("Error: Missing index");
+            throw new SerenityException("Error: Missing index.");
         }
         int index = Integer.parseInt(command[1]) - 1;
         if (index < 0 || index > tasks.size() - 1) {

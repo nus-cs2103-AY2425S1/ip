@@ -13,7 +13,7 @@ public class TodoTest {
     }
 
     @Test
-    public void formatData() {
+    public void testFormatData() {
         assertEquals("T | 0 | read book", new Todo("read book").formatData());
     }
 

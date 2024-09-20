@@ -66,7 +66,6 @@ public class Storage {
      * @return Task created with the task description.
      * @throws SerenityException If task description is invalid and task cannot be created.
      */
-
     public Task loadTask(String taskDescription) throws SerenityException {
         String[] parts = taskDescription.split("\\|");
         Task t;
