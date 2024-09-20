@@ -2,6 +2,7 @@ package pacman;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Represents a task with deadline. A <code>Deadline</code> object corresponds to
@@ -10,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
     private final LocalDate by;
 
-    Deadline(String task, String by) {
+    Deadline(String task, String by) throws DateTimeParseException {
         super(task);
         this.by = LocalDate.parse(by);
     }

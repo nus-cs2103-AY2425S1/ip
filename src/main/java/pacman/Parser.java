@@ -1,5 +1,7 @@
 package pacman;
 
+import java.time.format.DateTimeParseException;
+
 /**
  * Implements execution of the command that is sent
  */
@@ -32,14 +34,14 @@ public class Parser {
         addList(new Todo(task));
     }
 
-    private static void addDeadline(String task) {
+    private static void addDeadline(String task) throws ArrayIndexOutOfBoundsException, DateTimeParseException {
         String[] splitter = task.split("/", 2);
         String taskName = splitter[0];
         String by = splitter[1].split(" ", 2)[1];
         addList(new Deadline(taskName, by));
     }
 
-    private static void addEvent(String task) {
+    private static void addEvent(String task) throws ArrayIndexOutOfBoundsException, DateTimeParseException {
         String[] splitter = task.split("/", 3);
         String taskName = splitter[0];
         String from = splitter[1].split(" ", 2)[1];
@@ -55,7 +57,7 @@ public class Parser {
         ui.showResult("Now you have " + list.getSize() + " tasks in the list.");
     }
 
-    private static void addTask(String matcher) {
+    private static void findTask(String matcher) {
         ui.showResult(list.findTask(matcher));
     }
 
@@ -98,16 +100,32 @@ public class Parser {
             }
         }
         case "todo" -> {
-            String task = command.split(" ", 2)[1];
-            addTodo(task);
+            try {
+                String task = command.split(" ", 2)[1];
+                addTodo(task);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                ui.showResult("I'm sorry, but I can't find the task name :(");
+            }
         }
         case "deadline" -> {
-            String task = command.split(" ", 2)[1];
-            addDeadline(task);
+            try {
+                String task = command.split(" ", 2)[1];
+                addDeadline(task);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                ui.showResult("I'm sorry, but I can't find the task name or the time :(");
+            } catch (DateTimeParseException e) {
+                ui.showResult("I'm sorry, but invalid date/time format, it should be YYYY-MM-DD");
+            }
         }
         case "event" -> {
-            String task = command.split(" ", 2)[1];
-            addEvent(task);
+            try {
+                String task = command.split(" ", 2)[1];
+                addEvent(task);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                ui.showResult("I'm sorry, but I can't find the task name or the time :(");
+            } catch (DateTimeParseException e) {
+                ui.showResult("I'm sorry, but invalid date/time format, it should be YYYY-MM-DD");
+            }
         }
         case "delete" -> {
             try {
@@ -119,7 +137,11 @@ public class Parser {
             }
         }
         case "find" -> {
-            addTask(command.split(" ", 2)[1]);
+            try {
+                findTask(command.split(" ", 2)[1]);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                ui.showResult("I'm sorry, but I can't find the task name that to be find :(");
+            }
         }
         default -> ui.showResult("I'm sorry, but I can't understand what you ask :(");
         }

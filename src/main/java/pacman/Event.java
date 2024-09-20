@@ -2,6 +2,7 @@ package pacman;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Represents an event. A <code>Event</code> object corresponds to
@@ -11,7 +12,7 @@ public class Event extends Task {
     private final LocalDate from;
     private final LocalDate to;
 
-    Event(String task, String from, String to) {
+    Event(String task, String from, String to) throws DateTimeParseException {
         super(task);
         this.from = LocalDate.parse(from);
         this.to = LocalDate.parse(to);
