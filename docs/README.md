@@ -1,11 +1,21 @@
-# Duke User Guide
+# Milo User Guide
 
-// Update the title above to match the actual product name
+Milo is a task and client management tool designed to streamline your workflow, optimized for use through a Command Line Interface (CLI). It allows users to efficiently manage tasks and client information using simple text-based commands. Whether you're adding new clients, scheduling tasks, or tracking deadlines, Milo ensures quick and easy access to essential features with minimal effort.
 
-// Product screenshot goes here
-
-// Product intro goes here
-
+- Quick Start
+- Features
+   1. [List All Clients](#1-list-all-clients)
+   2. [Add a New Client](#2-add-a-new-client)
+   3. [Delete a Client](#3-delete-a-client)
+   4. [List All Tasks](#4-list-all-tasks)
+   5. [Find a Task](#5-find-a-task)
+   6. [Mark a Task as Complete](#6-mark-a-task-as-complete)
+   7. [Mark a Task as Incomplete](#7-mark-a-task-as-incomplete)
+   8. [Delete a Task](#8-delete-a-task)
+   9. [Add a Todo Task](#9-add-a-todo-task)
+   10. [Add a Deadline Task](#10-add-a-deadline-task)
+   11. [Add an Event Task](#11-add-an-event-task)
+   12. [Say Goodbye](#12-say-goodbye)
 ---
 ### Quick Start
 
@@ -97,7 +107,7 @@ mark 3
 
 ---
 
-### 7. **Unmark a Task (Mark as Incomplete)**
+### 7. **Mark a Task as Incomplete**
 - **Command:** `unmark`
 - **Description:** Marks a task as incomplete using its ID.
 - **Usage Example:**
