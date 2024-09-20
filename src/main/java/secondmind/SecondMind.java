@@ -75,12 +75,12 @@ public class SecondMind {
     }
 
     private String getTaskUpdateMessage(int taskNumber, boolean isDone) throws InvalidTaskNumberException {
-        String taskDescription = taskList.getTask(taskNumber).getDescription();
+        String taskDescription = taskList.getTask(taskNumber).toString();
         if (!isDone) {
-            String message = "I've marked the following task as incomplete:\n" + taskDescription;
+            String message = "I've marked the following task as incomplete:\n\t" + taskDescription;
             return message;
         }
-        String message = "Well done! You have completed the following task:\n" + taskDescription;
+        String message = "Well done! You have completed the following task:\n\t" + taskDescription;
         return message;
     }
 
@@ -152,8 +152,9 @@ public class SecondMind {
     private String executeListInstruction() {
         StringBuilder sb = new StringBuilder();
         ArrayList<Task> tl = this.taskList.getTaskList();
-        for (Task task : tl) {
-            sb.append(task.toString());
+        for (int i = 1; i <= tl.size(); i++) {
+            sb.append(i).append(". ");
+            sb.append(tl.get(i-1).toString());
             sb.append("\n");
         }
         return sb.toString();
