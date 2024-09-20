@@ -1,30 +1,68 @@
-# Duke User Guide
+# Julie User Guide
 
-// Update the title above to match the actual product name
+![A screenshot of the Julie Chatbot in use.](../docs/Ui.png)
 
-// Product screenshot goes here
+_Hi! I'm Julie! A personal Chatbot who can 
+help you keep track of your tasks!_
 
-// Product intro goes here
+## Adding Tasks
+Julie supports 3 types of tasks:
 
-## Adding deadlines
+### Todos: Tasks with no time constraints.
 
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
+Example: `todo taskName`
 
 ```
-expected output
+Nice! I've added it to the list! 
+T[ ] taskName
 ```
 
-## Feature ABC
+### Deadlines: Tasks with a deadline.
 
-// Feature details
+Example: `deadline taskName /by yyyy-mm-dd`
 
+```
+Nice! I've added it to the list! 
+D[ ] taskName (by: mmm dd yy)
+```
 
-## Feature XYZ
+### Events: Tasks with a start and end time.
 
-// Feature details
+Example: `event taskName /from yyyy-mm-dd 
+/to yyyy-mm-dd`
+
+```
+Nice! I've added it to the list! 
+D[ ] taskName (from: mmm dd yy to: mmm dd yy)
+```
+
+## Marking Tasks:
+A task can either be marked as completed, or incomplete.
+
+### Marking Completion:
+Example: `mark taskNumber`
+
+```
+Ooh, this task is done!
+T[X] taskName //the task that corresponds with the number
+```
+
+### Un-marking Completion:
+Example: `unmark taskNumber`
+
+```
+Oop, this task is not yet done
+T[ ] taskName //the task that corresponds with the number
+```
+
+## List
+`list` will return the list of tasks currently recorded by Julie
+
+## Delete
+`delete taskNumber` will delete the corresponding task
+
+## Tag
+`tag taskNumber tagString` will add a Tag with the tagString to the corresponding task.
+
+## Find
+`find searchString` will return a list of all tasks with the string in the name.

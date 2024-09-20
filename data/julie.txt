@@ -4,3 +4,7 @@ T | nothing
 T | 1
 T | 2
 T | 1
+T | Task1
+T | Task 2
+E | Event1 | 2002-02-02 | 2002-03-02
+D | Deadline1 | 2002-02-02
