@@ -89,3 +89,9 @@ output:
 Here are the matching tasks in your list:
 1.[E][X] F1 Grand Prix (from: Sept-22-2024 20:00 to: 10:00)
 ```
+
+
+
+Acknowledgements:
+The images were taken from  https://onepiece.fandom.com/wiki/Pappag and https://onepiece.fandom.com/wiki/Enel
+Github Copilot was used to autocomplete parts of code.
