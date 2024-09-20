@@ -81,6 +81,16 @@ Add a todo task to the tasklist
 
 Format: `todo <task description>` or `t <task description>`
 
+Sample commands:
+
+```
+todo Midterm Revision
+```
+
+```
+t CS4236 Problem Set 6
+```
+
 Sample outcome:
 
 ![todo_pic](images/Todo.png)
