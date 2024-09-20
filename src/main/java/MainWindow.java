@@ -65,6 +65,11 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getRudolfDialog(response, rudolfImage)
         );
+
+        if (input.equals("bye")) {
+            System.exit(0);
+        }
+
         userInput.clear();
     }
 }

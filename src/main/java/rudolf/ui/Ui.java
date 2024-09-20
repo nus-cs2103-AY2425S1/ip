@@ -107,22 +107,6 @@ public class Ui {
     }
 
     /**
-     * Generates a farewell message when the user exits the application.
-     *
-     * @return The farewell message as a string.
-     */
-    public String showGoodbyeMessage() {
-        String festiveMessage =
-                "Merry★* 。 • ˚ ˚ ˛ ˚ ˛ •\n" +
-                        "•。★Christmas★ 。* 。\n" +
-                        "° 。 ° ˛˚˛ * Π__。˚\n" +
-                        "˚ ˛ •˛•˚ */__/~＼。˚ ˚ ˛\n" +
-                        "˚ ˛ •˛• ˚ ｜ 田田 ｜門｜ ˚\n" +
-                        "And a happy new year!";
-        return "Bye~ Hope to see you again!\n" + festiveMessage + "\n";
-    }
-
-    /**
      * Generates a message when an unknown command is entered.
      *
      * @return The unknown command message as a string.

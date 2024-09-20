@@ -50,6 +50,7 @@ To run **Rudolf: Your Christmas Task Companion**, follow these simple steps:
 | `list sorted by description`       | Lists tasks sorted alphabetically by description.      |
 | `bye`                              | Exits the application.                                 |
 
+**Note:** `<date>` is in the format `yyyy-MM-dd HHmm`.
 ---
 
 ## Examples of Commands
@@ -132,20 +133,11 @@ Hooray! The elves found these matching tasks in your list:
 
 ---
 
-## Festive Farewell 🎁
+## Farewell 🎁
 
-When you're ready to leave, say `bye` and Rudolf will send you off with some holiday cheer:
+When you're ready to leave, say `bye` to exit the application
 ```bash
 bye
-```
-```bash
-Bye~ Hope to see you again!
-Merry★* 。 • ˚ ˚ ˛ ˚ ˛ •
-•。★Christmas★ 。* 。
-° 。 ° ˛˚˛ * Π__。˚
-˚ ˛ •˛•˚ */__/~＼。˚ ˚ ˛
-˚ ˛ •˛• ˚ ｜ 田田 ｜門｜ ˚
-And a happy new year!
 ```
 
 ---

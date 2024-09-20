@@ -52,8 +52,6 @@ public class Parser {
             return deleteTask(input);
         } else if (input.startsWith("find")) {
             return handleFind(input);
-        } else if (input.equals("bye")) {
-            return ui.showGoodbyeMessage();
         } else if (input.startsWith("list sorted by date")) {
             List<Task> sortedByDate = tasks.getTasksSortedByDate();
             return ui.showTaskList(sortedByDate);
