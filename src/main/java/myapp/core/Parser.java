@@ -40,7 +40,7 @@ public class Parser {
     public static Command parseCommand(String input) throws BingBongException {
         assert input != null : "Input should not be null";
         assert !input.trim().isEmpty() : "Input should not be empty";
-        CommandType command = CommandType.fromString(input);
+        CommandType command = CommandType.fromString(input.trim());
 
         assert command != null : "Command should not be null";
         switch (command) {
