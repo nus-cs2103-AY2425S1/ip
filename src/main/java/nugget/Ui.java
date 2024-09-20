@@ -2,13 +2,12 @@ package nugget;
 
 import java.util.ArrayList;
 
-import nugget.gui.ChatUIController;
-import nugget.gui.Main;
+import nugget.gui.ChatUiController;
 
 public class Ui {
-    private ChatUIController gui;
+    private ChatUiController gui;
 
-    public Ui(ChatUIController gui) {
+    public Ui(ChatUiController gui) {
         this.gui = gui;
     }
 

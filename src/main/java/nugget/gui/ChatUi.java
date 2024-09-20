@@ -11,7 +11,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import nugget.Nugget;
 
-public class ChatUI {
+public class ChatUi {
 
     private static final String USER_IMAGE_PATH = "/images/nugget.jpeg";
     private static final String BOT_IMAGE_PATH = "/images/bot.jpeg";
@@ -25,7 +25,7 @@ public class ChatUI {
     private Image userImage;
     private Image botImage;
 
-    public ChatUI(Nugget nugget) {
+    public ChatUi(Nugget nugget) {
         this.nugget = nugget;
         initializeComponents();
     }

@@ -11,10 +11,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ChatUI.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ChatUi.fxml"));
         VBox root = loader.load();
 
-        ChatUIController controller = loader.getController();
+        ChatUiController controller = loader.getController();
         Nugget nugget = new Nugget("data/nugget.txt", controller);
         controller.setNugget(nugget);
 
