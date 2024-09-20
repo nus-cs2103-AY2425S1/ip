@@ -1,9 +1,9 @@
 package juno.task;
 
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Locale;
 
 import com.google.gson.annotations.Expose;
 
@@ -37,8 +37,8 @@ public class Deadline extends Task {
     public Deadline(String description, String endTimeString, String taskType) throws TaskManagerException {
         super(description, taskType);
         try {
-            this.endTime = LocalDateTime.parse(endTimeString.trim(), DateTimeFormatter.ofPattern(
-                    DATE_TIME_FORMAT_STRING));
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT_STRING, Locale.ENGLISH);
+            this.endTime = LocalDateTime.parse(endTimeString.trim(), formatter);
         } catch (DateTimeParseException e) {
             throw new TaskManagerException(DATE_TIME_EXCEPTION_STRING,
                     TaskManagerException.ErrorType.INVALID_DATETIME_ARGUMENT);

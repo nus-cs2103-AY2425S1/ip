@@ -3,6 +3,7 @@ package juno.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Locale;
 
 import com.google.gson.annotations.Expose;
 
@@ -44,10 +45,9 @@ public class Event extends Task {
             String taskType) throws TaskManagerException {
         super(description, taskType);
         try {
-            this.startTime = LocalDateTime.parse(startTimeString.trim(),
-                    DateTimeFormatter.ofPattern(DATE_TIME_FORMAT_STRING));
-            this.endTime = LocalDateTime.parse(endTimeString.trim(), DateTimeFormatter.ofPattern(
-                    DATE_TIME_FORMAT_STRING));
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT_STRING, Locale.ENGLISH);
+            this.startTime = LocalDateTime.parse(startTimeString.trim(), formatter);
+            this.endTime = LocalDateTime.parse(endTimeString.trim(), formatter);
         } catch (DateTimeParseException e) {
             throw new TaskManagerException(DATE_TIME_EXCEPTION_STRING,
                     TaskManagerException.ErrorType.INVALID_DATETIME_ARGUMENT);
