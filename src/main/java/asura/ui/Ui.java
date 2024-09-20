@@ -80,7 +80,7 @@ public class Ui extends Application {
      * @param error The error specified.
      */
     public void showError(String error) {
-        System.out.println(formatResponse(error));
+        dialogContainer.getChildren().add(DialogBox.getAsuraDialog(error, asuraImage));
     }
 
     /**

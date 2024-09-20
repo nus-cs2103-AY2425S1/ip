@@ -39,7 +39,9 @@ public class Storage {
         File data = new File(filePath);
         data.getParentFile().mkdirs();
         try {
-            data.createNewFile();
+            if (data.createNewFile()) {
+                throw new AsuraException("Existing data not detected, starting with a clean slate.");
+            }
             Scanner scanner = new Scanner(data);
             while (scanner.hasNextLine()) {
                 String[] task = scanner.nextLine().split("\\|");
