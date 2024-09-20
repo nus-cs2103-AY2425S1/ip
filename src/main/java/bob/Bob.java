@@ -16,7 +16,7 @@ public class Bob {
     private Ui ui;
 
     public Bob() {
-        this.storage = new Storage("src/main/dataFile.txt");
+        this.storage = new Storage("../dataFile.txt");
         this.tasklist = new Tasklist();
         this.ui = new Ui();
     }
