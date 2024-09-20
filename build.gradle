@@ -51,7 +51,7 @@ checkstyle {
 }
 
 shadowJar {
-    archiveBaseName = "main"
+    archiveBaseName = "rainy"
     archiveClassifier = null
 }
 

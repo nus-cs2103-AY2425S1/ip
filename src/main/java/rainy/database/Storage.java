@@ -79,7 +79,7 @@ public class Storage {
         Files.lines(newFile.toPath()).skip(SKIP_FIRST).forEach(x -> {
             int charLabel = 0;
             int markedLabel = 0;
-            if ((trace.get() + 1) % 10 == 0) {
+            if ((trace.get() + 1) == 10 || (trace.get() + 1) == 100) {
                 charLabel = nextCounter.incrementAndGet();
                 markedLabel = markedCounter.incrementAndGet();
             } else {
@@ -132,7 +132,14 @@ public class Storage {
      * @return             Returns the updated <code>TaskTracker</code> object.
      */
     public TaskTracker updateToDo(TaskTracker taskTracker, String userInput) {
-        taskTracker.addListToDo(userInput.substring(START_TASK_DESC));
+        int actualStart = START_TASK_DESC;
+        if (taskTracker.getCounter() >= 9) {
+            actualStart++;
+        }
+        if (taskTracker.getCounter() >= 99) {
+            actualStart += 2;
+        }
+        taskTracker.addListToDo(userInput.substring(actualStart));
         return taskTracker;
     }
 
@@ -143,7 +150,14 @@ public class Storage {
      * @return              Returns the updated <code>TaskTracker</code> object.
      */
     public TaskTracker updateDeadline(TaskTracker taskTracker, String userInput) {
-        String updatedOldData = userInput.substring(START_TASK_DESC, userInput.length() - 1);
+        int actualStart = START_TASK_DESC;
+        if (taskTracker.getCounter() >= 9) {
+            actualStart++;
+        }
+        if (taskTracker.getCounter() >= 99) {
+            actualStart += 2;
+        }
+        String updatedOldData = userInput.substring(actualStart, userInput.length() - 1);
         String[] deadlineSplit = updatedOldData.split(" \\(");
         taskTracker.addListDeadline(deadlineSplit[START_INDEX] + " ", deadlineSplit[SKIP_FIRST]);
         return taskTracker;
@@ -156,7 +170,14 @@ public class Storage {
      * @return              Returns the updated <code>TaskTracker</code> object.
      */
     public TaskTracker updateEvent(TaskTracker taskTracker, String userInput) {
-        String updatedOldData = userInput.substring(START_TASK_DESC, userInput.length() - 1);
+        int actualStart = START_TASK_DESC;
+        if (taskTracker.getCounter() >= 9) {
+            actualStart++;
+        }
+        if (taskTracker.getCounter() >= 99) {
+            actualStart += 2;
+        }
+        String updatedOldData = userInput.substring(actualStart, userInput.length() - 1);
         String[] eventSplit = updatedOldData.split(" \\(");
         String newDate = eventSplit[SKIP_FIRST].split(" from ")[START_INDEX];
         String newTime = eventSplit[SKIP_FIRST].split(" from ")[SKIP_FIRST];
