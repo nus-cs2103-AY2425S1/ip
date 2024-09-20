@@ -83,7 +83,7 @@ public class EditCommand extends Command {
             } else if (message.startsWith("3. ")) {
                     selectedTask.setTo(message.substring(3));
             } else {
-                throw new GalliumException("What?? I don't understand!! \nPlease enter your input again!");
+                throw new GalliumException("Hmmm, I don't understand!! \nPlease enter your input again!");
             }
         } catch (ParseException | DateTimeParseException e) {
             throw e;
