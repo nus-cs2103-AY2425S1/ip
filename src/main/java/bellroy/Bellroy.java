@@ -1,6 +1,6 @@
 package bellroy;
 
-import bellroy.GUI.Ui;
+import bellroy.gui.Ui;
 import bellroy.parser.Parser;
 import bellroy.storage.Storage;
 import bellroy.task.TaskList;

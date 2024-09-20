@@ -11,14 +11,14 @@ public class TaskList {
     private List<Task> taskList;
 
     /**
-     * If there is no existing TaskList, create a new list.
+     * Creates a new tasklist if there is no existing tasklist
      */
     public TaskList() {
         this.taskList = new ArrayList<>();
     }
 
     /**
-     * If there exists a TaskList, take in that list and proceed to add and delete accordingly
+     * Takes in the provided tasklist
      * @param taskList
      */
     public TaskList(List<Task> taskList) {

@@ -1,4 +1,4 @@
-package bellroy.GUI;
+package bellroy.gui;
 
 import bellroy.task.Task;
 import bellroy.task.TaskList;

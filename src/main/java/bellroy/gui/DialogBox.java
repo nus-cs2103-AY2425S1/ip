@@ -1,4 +1,4 @@
-package bellroy.GUI;
+package bellroy.gui;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;

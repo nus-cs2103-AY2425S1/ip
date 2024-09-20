@@ -2,7 +2,7 @@ package bellroy.parser;
 
 import bellroy.storage.Storage;
 import bellroy.task.TaskList;
-import bellroy.GUI.Ui;
+import bellroy.gui.Ui;
 import bellroy.task.Event;
 import bellroy.task.Task;
 import bellroy.task.Todo;
