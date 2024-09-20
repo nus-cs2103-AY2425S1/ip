@@ -49,31 +49,28 @@ Use this command to help you add a TODO item to the task list.
 
 Command: `todo <name_of_TODO_item>`
 
-Example: `todo submit 2106 lab`
+Example: `todo Finish 2100 Lab 3`
 
 Expected output:
 
 ```
-Okie, I added it into the list:
-  [T][ ] submit 2106 lab
-Now you have 1 tasks in the list.
+Added "Finish 2100 Lab 3" as a new task
+I guess you have X tasks now
 ```
 
 #### Adding DEADLINEs: `deadline`
 
 Use this command to help you add a DEADLINE to the task list.
-Once added, it can be seen when you list out the tasks.
 
-Command: `deadline <name_of_DEADLINE> /by yyyy/mm/dd HH:MM [#<tag_name>]`
+Command: `deadline <name_of_DEADLINE> /by <Additional info>`
 
-Example: `deadline 2103 iP user guide /by 2024/09/20 23:59`
+Example: `deadline finish README /by Tomorrow`
 
 Expected output:
 
 ```
-Okie, I added it into the list:
-  [D][ ] 2103 iP user guide (by: 2024 Sep 20  23:59)
-Now you have 2 tasks in the list.
+lol "finish README /by Tomorrow" is a new deadline,
+better finish it quick... you have X tasks now
 ```
 
 #### Adding EVENTs: `event`
@@ -81,32 +78,32 @@ Now you have 2 tasks in the list.
 Use this command to help you add an EVENT to the task list.
 Once added, it can be seen when you list out the tasks.
 
-Command: `event <name_of_EVENT> /from yyyy/mm/dd HH:MM /to yyyy/mm/dd HH:MM [#<tag_name>]`
+Command: `event <name_of_EVENT> /from <Additional info> /to <Additional info>`
 
-Example: `event recess week /from 2024/09/21 07:00 /to 2024/09/29 23:00`
+Example: `event recess week /from Now /to Forever`
 
 Expected output:
 
 ```
-Okie, I added it into the list:
-  [E][ ] recess week (from: 2024 Sep 21  07:00 to: 2024 Sep 29  23:00)
-Now you have 3 tasks in the list.
+Wow "recess week /from Now /to Forever"
+is an Event in your life huh? you have X tasks now
 ```
 
 #### Date formats
 For Event and Deadline there are a few Acceptable input formats which you can use for the additional info that will automatically be recognised and converted into 
-```LocalDates``` dates in the task itself
+```LocalDates``` dates in the task itself instead of being stored as a String.
 
 You can use any of the following: yyyy-MM-dd, yyyy.MM.dd, dd-MM-yyyy, dd.MM.yyyy \
 Or you can simply input the day itself (e. thursday) or it's shorthand (eg. mon) which will be recognised as the next valid date which that day occurs (if you tyhpe today's day of the week it will  return today).
 
 
 Example: Let's say today is 20th Sep 2024 then
-`Event Carnival /from tues /to 2024-09-27` would return the Event `Carnival (From:  24 Sep 2024 to: 27 Sept 2024)
+`Event Carnival /from tues /to 2024-09-27`\
+would return the Event `[E][ ] Carnival (From:  24 Sep 2024 to: 27 Sept 2024)`
 
 ### Listing all tasks
 
-Use this command to view the current task list.
+Use this command to view the current task list. Tasks are sorted by order in which they were added into the list
 
 Command: `list`
 
@@ -115,92 +112,90 @@ Example: `list`
 Expected output:
 
 ```
-Meow~ Here you are!
-1.[T][ ] submit 2106 lab
-2.[D][ ] 2103 iP user guide (by: 2024 Sep 20  23:59)
-3.[E][ ] recess week (from: 2024 Sep 21  07:00 to: 2024 Sep 29  23:00)
+1. [T][ ] Finish 2100 Lab 3
+2. [D][ ] finish README (by: Tomorrow)
+3. [E][ ] recess week (from: Now to: Forever)
 ```
 
 ### Marking a task
 
 Use this command to mark a task as done.
 
-Command: `mark <number_of_the_item_in_the_list>`
+Command: `mark <Task index number>`
 
 Example: `mark 1`
 
 Expected output:
 
 ```
-Well done! You have completed this task!
- [T][X] submit 2106 lab
+Marked 1 as completed
+use "list" to see changes
 ```
 
 ### Unmarking a task
 
 Use this command to unmark the task back to the status of not done yet.
 
-Command: `unmark <number_of_the_item_in_the_list>`
+Command: `unmark <Task index number>`
 
 Example: `unmark 1`
 
 Expected output:
 
 ```
-Meow~ Okay we can continue this task!
-  [T][ ] submit 2106 lab
+marked 1 as uncompleted
+use "list" to see changes
 ```
 
 ### Deleting a task
 
 Use this command to delete a task from the task list.
 
-Command: `delete <number_of_the_item_in_the_list>`
+Command: `delete <Task index number>`
 
 Example: `delete 2`
 
 Expected output:
 
 ```
-I have removed it from the list :)
-  [D][ ] 2103 iP user guide (by: 2024 Sep 20  23:59)
-Now you have 2 tasks in the list.
+Deleted 2
+use "list" to see changes
 ```
 
 ### Finding a task using keyword
 
-Use this command to search for a task with the keyword.
+Use this command to search for all tasks whose description contains the input <String> as a substring
 
-Command: `find <keyword>`
+Command: `find <String>`
 
 Example: `find recess`
 
 Expected output:
 
 ```
-Meow~ Here you are!
-[E][ ] recess week (from: 2024 Sep 21  07:00 to: 2024 Sep 29  23:00)
+1. [E][ ] recess week (from: Now to: Forever)
 ```
 
 ### Clearing all Tasks
 
 Use this command to add or update tag to a task.
 
-Command: `tag <number_of_the_item_in_the_list> <tag_name>`
+Command: `clear`
 
-Example: `tag 1 important`
+Example: `clear`
 
 Expected output: 
 
 ```
-I have tagged this task:)
-[T][ ] submit 2106 lab #important
+I removed everything from your task list,
+hope you don't regret it...
 ```
 
 
 ### Exiting the program
 
-Say goodbye to the chatbot if you like before you close it. \
+ALternate way to close the program from within the Chatbox itself, comes with a goodbye message! (lol)
+
 Command: `bye`
 
 Example: `bye`
@@ -208,10 +203,11 @@ Example: `bye`
 Expected output:
 
 ```
-Bye. Hope I can see you again soon!
-Next time bring me some cat food please!!!
+It's finally over... *yawn*
+I'm heading to bed
 ```
 
 ### Image Sources
-[Bot profile](https://www.youtube.com/watch?app=desktop&v=fKtJslkLnMw) Frieren: Beyond Journey's End \
-[User profile picture](https://wysi.fandom.com/wiki/Giga_Chad?file=Giga.jpg) Giga Chad
+[Bot profile](https://www.youtube.com/watch?app=desktop&v=fKtJslkLnMw) (Frieren: Beyond Journey's End) \
+[User profile picture](https://wysi.fandom.com/wiki/Giga_Chad?file=Giga.jpg) (Giga Chad meme)\
+Application Icon was drawn inside powerpoint
