@@ -5,6 +5,7 @@ package carine.exceptions;
  */
 public class InvalidTaskInDatabaseException extends Exception {
     public String toString() {
-        return "There are invalid inputs in database, please clear and try again";
+        return "ERROR: There are invalid inputs in database, you can only continue after you reset the data base. \n\n"
+                + "To reset database: reset";
     }
 }
