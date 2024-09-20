@@ -26,6 +26,9 @@ public class Event extends Task {
      */
     public Event(String desc, String startDate, String endDate) throws ChatterboxExceptions.ChatterBoxNoInput {
         super(desc);
+        if (startDate.isEmpty() || endDate.isEmpty()) {
+            throw new ChatterboxExceptions.ChatterBoxNoInput("Missing input for Event");
+        }
         this.startDate = startDate;
         this.endDate = endDate;
         this.startDateObj = null;
