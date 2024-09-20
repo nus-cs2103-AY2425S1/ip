@@ -18,6 +18,10 @@ public class DeadlineTask extends Task {
         this.dl = inputFormat.parse(dl);
     }
 
+    public Date getDeadline() {
+        return this.dl;
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + outputFormat.format(dl) + ")";

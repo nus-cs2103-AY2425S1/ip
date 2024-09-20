@@ -24,6 +24,12 @@ public class EventTask extends Task {
             throw new InvalidCommandException("Invalid event time.");
         }
     }
+    public Date getStarts() {
+        return this.starts;
+    }
+    public Date getEnds() {
+        return this.ends;
+    }
 
     @Override
     public String toString() {

@@ -101,6 +101,55 @@ public class TaskList {
         return res;
     }
 
+    public boolean detectAnomaly(Task newTask) {
+        for (Task task : tasks) {
+            if (task instanceof EventTask && newTask instanceof EventTask) {
+                EventTask existingTask = (EventTask) task;
+                EventTask eventTask = (EventTask) newTask;
+
+                // Check for overlapping event times
+                if (eventTask.getEnds().after(existingTask.getStarts()) && eventTask.getStarts().before(existingTask.getEnds())) {
+                    return true; // Conflict found
+                }
+
+            } else if (task instanceof DeadlineTask && newTask instanceof DeadlineTask) {
+                DeadlineTask existingTask = (DeadlineTask) task;
+                DeadlineTask deadlineTask = (DeadlineTask) newTask;
+
+                // Check if two DeadlineTasks have the same date
+                if (existingTask.getDeadline().equals(deadlineTask.getDeadline())) {
+                    return true; // Conflict found
+                }
+
+            } else if (task instanceof EventTask && newTask instanceof DeadlineTask) {
+                EventTask eventTask = (EventTask) task;
+                DeadlineTask deadlineTask = (DeadlineTask) newTask;
+
+                // Check if the deadline falls within the event's time range
+                if (deadlineTask.getDeadline().after(eventTask.getStarts()) && deadlineTask.getDeadline().before(eventTask.getEnds())) {
+                    return true; // Conflict found
+                }
+
+            } else if (task instanceof DeadlineTask && newTask instanceof EventTask) {
+                DeadlineTask deadlineTask = (DeadlineTask) task;
+                EventTask eventTask = (EventTask) newTask;
+
+                // Check if the deadline falls within the event's time range
+                if (deadlineTask.getDeadline().after(eventTask.getStarts()) && deadlineTask.getDeadline().before(eventTask.getEnds())) {
+                    return true; // Conflict found
+                }
+            }
+        }
+        return false; // No conflict
+    }
+
+    public Task addTaskWithAnomalyCheck(Task task) throws InvalidCommandException {
+        if (detectAnomaly(task)) {
+            throw new InvalidCommandException("Scheduling conflict detected.");
+        }
+        return addTask(task);
+    }
+
     /**
      * Returns a string representation of the TaskList, where each task is preceded
      * by its position in the list.

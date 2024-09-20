@@ -42,13 +42,13 @@ public class Parser {
             if (split.length != 2) {
                 throw new InvalidCommandException("Invalid deadline format.");
             }
-            return ui.printTaskAdded(taskList.addTask(new DeadlineTask(split[0], split[1])), "deadline");
+            return ui.printTaskAdded(taskList.addTaskWithAnomalyCheck(new DeadlineTask(split[0], split[1])), "deadline");
         } else if (checkInput(input, "event ")) {
             String[] split = input.substring(6).split(" /from | /to ");
             if (split.length != 3) {
                 throw new InvalidCommandException("Invalid event format.");
             }
-            return ui.printTaskAdded(taskList.addTask(new EventTask(split[0], split[1], split[2])), "event");
+            return ui.printTaskAdded(taskList.addTaskWithAnomalyCheck(new EventTask(split[0], split[1], split[2])), "event");
         } else if (checkInput(input, "delete ")) {
             int i = Integer.parseInt(input.substring(7)) - 1;
             String res = ui.printTaskRemoved(taskList.getTask(i));
