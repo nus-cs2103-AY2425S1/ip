@@ -94,7 +94,6 @@ public class Parser {
             }
         }
         //if no matching format is found
-
         return null;
     }
 
