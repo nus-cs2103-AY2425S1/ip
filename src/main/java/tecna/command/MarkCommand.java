@@ -8,7 +8,7 @@ import tecna.ui.Ui;
 /**
  * Represents a Command of type MarkCommand (mark a specified task as done).
  *
- * @author Adapted from Feng1231.
+ * @author Solution below inspired by https://github.com/Feng1231/ip.
  */
 public class MarkCommand extends Command {
     /**

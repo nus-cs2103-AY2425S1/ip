@@ -9,7 +9,7 @@ import tecna.exception.TaskDuplicateException;
 import tecna.task.Task;
 
 /**
- * Stores all the tasks avaiables in the app.
+ * Stores all the tasks avaiable in the app.
  *
  * @author DennieDan.
  */
@@ -120,7 +120,7 @@ public class TaskList {
      * Finds and prints all the matching tasks.
      *
      * @param keyword is one word that user enters to filter the task.
-     * @author Generated with the help of ChatGPT at 11:13PM 12 Sep 2024.
+     * @author Improved with the help of ChatGPT at 11:13PM 12 Sep 2024.
      */
     public String findTasks(String keyword) {
         assert !keyword.isEmpty(); // handled by CommandScanner
@@ -147,7 +147,8 @@ public class TaskList {
      * Prints string representation of the taskList.
      *
      * @return A string of all tasks in the list.
-     * @author brendanng7.
+     * @author brendanng7-reused.
+     * Code being used in https://github.com/brendanng7/ip.
      */
     @Override
     public String toString() {
