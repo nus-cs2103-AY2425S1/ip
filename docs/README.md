@@ -7,7 +7,7 @@ Bob is a task tracker.
 It can manage different kinds of task, such as todos, 
 deadlines or examples.
 
-Built with Java and gradle.
+Built with Java and Gradle.
 
 ## Adding Tasks
 
@@ -15,7 +15,7 @@ There are 3 types of tasks: Todos, Deadlines, Events
 
 ### Todos
 
-For task that has no start or end dates.
+For tasks that have no start or end dates.
 
 Format: `todo DESCRIPTION`
 
@@ -31,7 +31,7 @@ Now you have 1 task in the list.
 
 ### Deadlines
 
-For task that have end dates.
+For tasks that have end dates.
 
 Format: `deadline DESCRIPTION /by YYYY-MM-DD`
 
@@ -47,9 +47,9 @@ Now you have 1 task in the list.
 
 ### Events
 
-For task that have start and end dates.
+For tasks that have start and end dates.
 
-Format: `event DESCRIPTION /by YYYY-MM-DD /to YYYY-MM-DD`
+Format: `event DESCRIPTION /from YYYY-MM-DD /to YYYY-MM-DD`
 
 Examples:
 - `event project meeting /from 2019-12-02 /to 2019-12-08`
@@ -118,7 +118,7 @@ Expected output:
 ```
 Noted. I've removed this task:
 [T][ ] borrow book
-Now you have 2 tasks in the list.
+Now you have 0 tasks in the list.
 ```
 
 ### Finding tasks by name: `find`
