@@ -48,6 +48,12 @@ public class Event extends Task {
                 + " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
     }
 
+    /**
+     * Indicates whether some other object is "equal to" this Event object.
+     *
+     * @param obj the reference object with which to compare.
+     * @return true if this object is the same as the obj argument; false otherwise.
+     */
     @Override
     public boolean equals(Object obj) {
         boolean isEvent = obj instanceof Event;

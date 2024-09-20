@@ -34,6 +34,12 @@ public class ToDo extends Task {
         return "[T]" + super.toString();
     }
 
+    /**
+     * Indicates whether some other object is "equal to" this ToDo object.
+     *
+     * @param obj the reference object with which to compare.
+     * @return true if this object is the same as the obj argument; false otherwise.
+     */
     @Override
     public boolean equals(Object obj) {
         boolean isToDo = obj instanceof ToDo;

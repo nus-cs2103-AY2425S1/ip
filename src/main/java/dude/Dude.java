@@ -29,9 +29,10 @@ public class Dude {
     private boolean isRunning;
 
     /**
-     * Constructs a Dude with the specified directory.
+     * Constructs a Dude object with the specified directory for storing data files.
      *
-     * @param filePath The directory where data files is stored.
+     * @param filePath The directory where data files are stored. It must not be empty.
+     * @throws AssertionError if the filePath is empty.
      */
     public Dude(String filePath) {
         assert !filePath.isEmpty();
@@ -100,9 +101,11 @@ public class Dude {
     }
 
     /**
-     * Greet the user.
+     * Returns a greeting message.
      *
-     * @return A greeting message.
+     *
+     * @return A String containing the greeting message.
+     * @throws AssertionError if the system is not running.
      */
     public String greet() {
         assert isRunning;
@@ -110,11 +113,13 @@ public class Dude {
     }
 
     /**
-     * Adds a new ToDo task to the task list.
+     * Adds a new ToDo task to the task list and return a message indicating the task has been added.
      *
-     * @param taskDes The task description.
-     * @return A message indicating the task has been added.
-     * @throws DudeException If an error occurs during processing.
+     * @param taskDes The description of the task to be added.
+     * @return A confirmation message that the task has been added, including the current task count.
+     * @throws AssertionError if the system is not running.
+     * @throws DudeNullDescriptionException if the task description is empty.
+     * @throws DudeInvalidNameException if the task name is invalid.
      */
     public String addToDo(String taskDes) throws DudeException {
         if (taskDes.isEmpty()) {
@@ -134,11 +139,14 @@ public class Dude {
     }
 
     /**
-     * Adds a new Deadline task to the task list.
+     * Adds a new Deadline task to the task list and return a message indicating the task has been added.
      *
-     * @param taskDes The task description.
-     * @return A message indicating the task has been added.
-     * @throws DudeException If an error occurs during processing.
+     * @param taskDes The description of the task to be added.
+     * @return A confirmation message that the task has been added, including the current task count.
+     * @throws AssertionError if the system is not running.
+     * @throws DudeNullDateTimeException if the date and time is empty
+     * @throws DudeNullDescriptionException if the task description is empty.
+     * @throws DudeInvalidNameException if the task name is invalid.
      */
     public String addDeadline(String taskDes) throws DudeException {
         if (taskDes.isEmpty()) {
@@ -171,11 +179,14 @@ public class Dude {
     }
 
     /**
-     * Adds a new Event task to the task list.
+     * Adds a new Event task to the task list and return a message indicating the task has been added.
      *
-     * @param taskDes The task description.
-     * @return A message indicating the task has been added.
-     * @throws DudeException If an error occurs during processing.
+     * @param taskDes The description of the task to be added.
+     * @return A confirmation message that the task has been added, including the current task count.
+     * @throws AssertionError if the system is not running.
+     * @throws DudeNullDateTimeException if the date and time is empty
+     * @throws DudeNullDescriptionException if the task description is empty.
+     * @throws DudeInvalidNameException if the task name is invalid.
      */
     public String addEvent(String taskDes) throws DudeException {
         if (taskDes.isEmpty()) {
@@ -219,6 +230,12 @@ public class Dude {
         return ui.showAdd(newTask, taskList);
     }
 
+    /**
+     * Checks if a task name is valid by ensuring it does not contain illegal characters.
+     *
+     * @param taskName The task name to validate.
+     * @return true if the task name does not contain any illegal characters; false otherwise.
+     */
     public boolean isLegalName(String taskName) {
         String[] illegalStrings = {"|", "/"};
 
@@ -232,11 +249,12 @@ public class Dude {
     }
 
     /**
-     * Marks a task in task list as completed.
+     * Marks a task in task list as completed and return a message indicating it.
      *
-     * @param taskDes The task description.
-     * @return A message indicating the task has been marked as completed.
-     * @throws DudeException If an error occurs during processing.
+     * @param taskDes The string containing the index of the task to mark as done.
+     * @return A message confirming that the task has been marked as done.
+     * @throws AssertionError if the system is not running.
+     * @throws DudeException If the task description or the number is invalid.
      */
     public String mark(String taskDes) throws DudeException {
         if (taskDes.isEmpty()) {
@@ -250,11 +268,12 @@ public class Dude {
     }
 
     /**
-     * Marks a task in task list as not completed.
+     * Marks a task in task list as not completed and return a message indicating it.
      *
-     * @param taskDes The task description.
-     * @return A message indicating the task has been marked as not completed.
-     * @throws DudeException If an error occurs during processing.
+     * @param taskDes The string containing the index of the task to mark as not done.
+     * @return A message confirming that the task has been marked as not done.
+     * @throws AssertionError if the system is not running.
+     * @throws DudeException If the task description or the number is invalid.
      */
     public String unmark(String taskDes) throws DudeException {
         if (taskDes.isEmpty()) {
@@ -268,11 +287,12 @@ public class Dude {
     }
 
     /**
-     * Deletes a task from the task list.
+     * Deletes a task in task list and return a message indicating it.
      *
-     * @param taskDes The task description.
-     * @return A message indicating the task has been deleted.
-     * @throws DudeException If an error occurs during processing.
+     * @param taskDes The string containing the index of the task to delete.
+     * @return A message confirming that the task has been deleted.
+     * @throws AssertionError if the system is not running.
+     * @throws DudeException If the task description or the number is invalid.
      */
     public String delete(String taskDes) throws DudeException {
         if (taskDes.isEmpty()) {
@@ -309,10 +329,11 @@ public class Dude {
     }
 
     /**
-     * Finds tasks in the task list that match the provided description.
+     * Finds and returns tasks that match the given task description.
      *
-     * @param taskDes The task description.
-     * @return A message listing the matching tasks.
+     * @param taskDes The string containing the description to search for.
+     * @return A message displaying the list of tasks that match the description.
+     * @throws AssertionError if the system is not running.
      * @throws DudeNullDescriptionException If the provided task description is empty.
      * @throws DudeTaskNotFoundException If no tasks matching the description are found.
      */
@@ -332,11 +353,12 @@ public class Dude {
     }
 
     /**
-     * Define a new shortcut.
+     * Defines a new shortcut for a specific command type and return a message indicating successful define.
      *
-     * @param taskDes The task description.
-     * @return A message indicating the shortcut has been added.
-     * @throws DudeException If an error occurs during processing.
+     * @param taskDes The string containing the shortcut and command type, separated by a space.
+     * @return A message confirming the new shortcut definition.
+     * @throws AssertionError if the system is not running.
+     * @throws DudeException If the task description is empty or input is invalid.
      */
     public String define(String taskDes) throws DudeException {
         if (taskDes.isEmpty()) {
@@ -355,11 +377,12 @@ public class Dude {
     }
 
     /**
-     * Delete a previously added shortcut.
+     * Deletes a previously defined shortcut and return a message indicating successful delete.
      *
-     * @param taskDes The task description.
-     * @return A message indicating the shortcut has been deleted.
-     * @throws DudeException If an error occurs during processing.
+     * @param taskDes The string containing the shortcut.
+     * @return A message confirming the shortcut deletion.
+     * @throws AssertionError if the system is not running.
+     * @throws DudeException If the task description is empty or input is invalid.
      */
     public String undefine(String taskDes) throws DudeException {
         if (taskDes.isEmpty()) {
@@ -384,9 +407,9 @@ public class Dude {
     }
 
     /**
-     * Checks if the Dude application is currently running.
+     * Terminates the application and saves the current state. Return a farewell message.
      *
-     * @return True if the Dude application is running, false otherwise.
+     * @return A farewell message to the user.
      */
     public boolean isRunning() {
         return isRunning;
