@@ -4,19 +4,22 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import colby.Colby;
+import colby.Storage;
 
 /**
  * A GUI for Duke using FXML.
  */
 public class Main extends Application {
-
+    File f = new File("Data.txt");
+    boolean checkFile = f.createNewFile();
     private Colby colby = new Colby("Data.txt");
 
-    public Main() throws FileNotFoundException {
+    public Main() throws IOException {
     }
 
     @Override

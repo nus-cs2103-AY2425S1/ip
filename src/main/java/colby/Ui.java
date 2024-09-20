@@ -4,8 +4,6 @@ package colby;
  * Includes the methods used to print messages for the user to see
  */
 
-import java.util.List;
-
 public class Ui {
     /**
      * Prints welcome message of the chatbot introdui=cing it's name and asking what it can do
@@ -34,19 +32,6 @@ public class Ui {
     }
 
     /**
-     * Prints out all the tasks in the list
-     * @param taskList list containing the tasks to br printed
-     */
-    /*public String showTaskList(TaskList taskList) {
-        String list = "";
-
-        for (int i = 0; i < taskList.size(); i++) {
-            list = list + "  " + (i + 1) + ". " + taskList.getTask(i).toString() + "\n";
-        }
-        return "Here's all the tasks you have to do:" + Storage.returnFileContents();
-    }*/
-
-    /**
      * Prints a message that the task has been marked as done
      * @param task task that shows it is marked as done
      */
@@ -73,12 +58,8 @@ public class Ui {
                 "    " + task.toString();
     }
 
-    public void showLoadingError() {
-        System.out.println("Error loading file. Starting with an empty task list.");
-    }
-
-    public void showUnknownCommandMessage() {
-        System.out.println("Sorry!! I'm not sure how to add that to the list for you, " +
-                "try specifying the type of task!");
+    public String showUnknownCommandMessage() {
+        return "Sorry!! I'm not sure how to add that to the list for you, " +
+                "try specifying the type of task!";
     }
 }

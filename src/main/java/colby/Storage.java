@@ -109,14 +109,4 @@ public class Storage {
         }
         return list;
     }
-
-    public void checkFile() {
-        try {
-            File myObj = new File(filePath);
-            myObj.createNewFile();
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-    }
 }

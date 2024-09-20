@@ -2,7 +2,6 @@ package colby;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class Colby {
 
@@ -16,6 +15,13 @@ public class Colby {
         taskList = storage.buildList();
     }
 
+    /**
+     * Returns a string based on the input that the user enters, shows an unknown command message if
+     * input is not one of the available commands
+     * @param input the string that the user inputs into the text box
+     * @return string of what happens once the respective command is executed
+     * @throws IOException
+     */
         public String getResponse(String input) throws IOException {
             String command = Parser.parseCommand(input);
 
@@ -57,7 +63,8 @@ public class Colby {
                 return ui.showTaskDeleted(task);
             } else if (command.startsWith("find")) {
                 return taskList.printMatchingTasks(input.split(" ", 2)[1]);
+            } else {
+                return ui.showUnknownCommandMessage();
             }
-            return "";
         }
 }
