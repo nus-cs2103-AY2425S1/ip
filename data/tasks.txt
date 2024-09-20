@@ -7,3 +7,5 @@ todo list
 todo eat lunch
 deadline do cs2103t homework /by 2024-09-15
 event club /from 2024-09-15 /to 2024-09-16
+todo eat things
+todo eat dinner

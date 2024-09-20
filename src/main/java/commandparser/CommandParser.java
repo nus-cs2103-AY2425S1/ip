@@ -1,5 +1,6 @@
 package commandparser;
 
+import exception.GenesisException;
 import storage.Storage;
 import taskmanager.TaskManager;
 import task.Task;
@@ -114,9 +115,14 @@ public class CommandParser {
         String initial = parts[1].trim();
         LocalDate deadline = LocalDate.parse(initial);
         Deadline deadlineTask = new Deadline(taskName, deadline, input);
-        String temp = taskManager.addTask(deadlineTask, isSilent);
-        this.storage.writeTasks();
-        return temp;
+        String temp;
+        try {
+            temp = taskManager.addTask(deadlineTask, isSilent);
+            this.storage.writeTasks();
+            return temp;
+        } catch (GenesisException e) {
+            return e.getMessage();
+        }
     }
 
     /**
@@ -131,9 +137,14 @@ public class CommandParser {
             return "You need a task description!";
         }
         Todo todoTask = new Todo(taskName, input);
-        String temp = taskManager.addTask(todoTask, isSilent);
-        this.storage.writeTasks();
-        return temp;
+        String temp;
+        try {
+            temp = taskManager.addTask(todoTask, isSilent);
+            this.storage.writeTasks();
+            return temp;
+        } catch (GenesisException e) {
+            return e.getMessage();
+        }
     }
 
     /**
@@ -162,8 +173,13 @@ public class CommandParser {
         LocalDate startDate = LocalDate.parse(initialStartDate);
         LocalDate endDate = LocalDate.parse(initialEndDate);
         Event eventTask = new Event(taskName, startDate, endDate, input);
-        String temp = taskManager.addTask(eventTask, isSilent);
-        this.storage.writeTasks();
-        return temp;
+        String temp;
+        try {
+            temp = taskManager.addTask(eventTask, isSilent);
+            this.storage.writeTasks();
+            return temp;
+        } catch (GenesisException e) {
+            return e.getMessage();
+        }
     }
 }

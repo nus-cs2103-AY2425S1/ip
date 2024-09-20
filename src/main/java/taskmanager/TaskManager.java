@@ -1,5 +1,6 @@
 package taskmanager;
 
+import exception.GenesisException;
 import task.Task;
 
 import java.util.ArrayList;
@@ -35,9 +36,9 @@ public class TaskManager {
      * @param task The task to add.
      * @param isSilent If true, suppress output messages.
      */
-    public String addTask(Task task, boolean isSilent) {
+    public String addTask(Task task, boolean isSilent) throws GenesisException {
         if (isDuplicate(task)) {
-            return "This task already exists in the list.";
+            throw new GenesisException("This task already exists in the list.");
         }
         tasks.add(task);
         if (isSilent) {
