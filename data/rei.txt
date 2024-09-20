@@ -1,5 +1,4 @@
 T | 0 | read book
-D | 1 | return book | 2019-12-02T15:00
 D | 0 | project meeting | 2019-12-02T12:00
 E | 0 | meeting | 2019-12-02T12:00 to 2020-01-01T10:00
 E | 0 | this | 2024-11-02T02:00 to 2024-11-02T04:00
@@ -8,3 +7,6 @@ D | 1 | buy iphone  | 2024-12-12T06:00
 T | 0 | hahhaa
 T | 0 | new new
 D | 0 | eat  | 2024-09-20T02:57
+T | 0 | newevent
+D | 0 | makan sama iman  | 2024-09-20T23:00
+T | 0 | makan
