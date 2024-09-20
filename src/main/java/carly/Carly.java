@@ -95,11 +95,11 @@ public class Carly {
         return this.taskList.delete(taskDescription);
     }
 
-    private String findTask(String taskDescription) throws CarlyException {
+    private String findTask(String taskDescription) {
         return this.taskList.find(taskDescription);
     }
 
-    private String addToDoTask(String taskDescription) throws CarlyException {
+    private String addToDoTask(String taskDescription) {
         return this.taskList.addToDo(taskDescription);
     }
 
@@ -112,6 +112,9 @@ public class Carly {
     }
 
     public static void main(String[] args) {
+        Carly carly = new Carly();
+        System.out.println(carly.getResponse("todo cook pasta"));
+        System.out.println(carly.getResponse("todo read"));
     }
 }
 

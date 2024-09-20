@@ -4,15 +4,6 @@ To complete:
 - exceptions: event /from /to (empty description)
 - GUI: when bye is entered, carly should return bye before exiting.
 
-/*String logo = " ,-----.              ,--.          \n"
-                + "'  .--./,--,--.,--.--.|  |,--. ,--. \n"
-                + "|  |   ' ,-.  ||  .--'|  | \\  '  / \n"
-                + "'  '--'\\ '-'  ||  |   |  |  \\   ' \n"
-                + " `-----'`--`--'`--'   `--'.-'  /    \n"
-                + "                          `---'  ";
-
-        System.out.println("Hello from\n" + logo);*/
-
 
 gradle tools:
 ./gradlew run
@@ -20,9 +11,6 @@ gradle tools:
 ./gradlew test
 ./gradlew clean shadowJar
 ./gradlew clean build
-
-shortcut:
-- double click on code -> softwrap
 
 deadline eat /by 1777-09-12
 deadline pray /by 2023-11-02

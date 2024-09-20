@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.AudioClip;
 
 /**
  * Controller for the main GUI.
@@ -22,19 +23,24 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
     @FXML
-    private TextField nameInput;
 
-    private String userName;
+    private AudioClip sendSound;
+
 
     private Carly carly;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/elephanticon.jpg"));
-    private Image carlyImage = new Image(this.getClass().getResourceAsStream("/images/penguinicon.jpg"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/elephanticon.jpg"));
+    private final Image carlyImage = new Image(this.getClass().getResourceAsStream("/images/penguinicon.jpg"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         startChat();
+
+        userInput.setPromptText("Type here...");
+
+        String soundPath = "/sounds/send_sound.mp3";
+        sendSound = new AudioClip(this.getClass().getResource(soundPath).toString());
     }
 
     /** Injects the Carly instance */
@@ -59,8 +65,10 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+        sendSound.play();
         String input = userInput.getText();
         String response = carly.getResponse(input);
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getCarlyDialog(response, carlyImage));

@@ -1,5 +1,4 @@
 package carly.utils;
-//CHECKSTYLE.OFF: RuleName
 import carly.exception.CarlyNoTaskDescription;
 import carly.exception.CarlyUnknownInputException;
 import org.junit.jupiter.api.Test;
@@ -56,4 +55,3 @@ public class ParserTest {
         assertEquals(errorMessage, thrown.getMessage());
     }
 }
-//CHECKSTYLE.ON: RuleName

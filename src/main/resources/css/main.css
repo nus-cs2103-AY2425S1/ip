@@ -3,6 +3,16 @@
     -fx-background-color: main-color;
 }
 
+.text-field .text {
+    -fx-font-family: "Al Nile";
+    -fx-font-size: 20px; /* Adjust the font size */
+    -fx-fill: gray; /* Color of the prompt text */
+}
+
+.text-field:focused .text {
+     -fx-fill: darkgray; /* Color of the prompt text when the TextField is focused */
+}
+
 .text-field {
     -fx-background-color: #d9ffe2;
     -fx-font: 20px "Al Nile";

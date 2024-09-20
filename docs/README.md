@@ -1,10 +1,12 @@
-# carly.Carly User Guide
+# Carly User Guide
 
 // Update the title above to match the actual product name
 
 // Product screenshot goes here
+![Ui.png](Ui.png)
 
 // Product intro goes here
+
 
 ## Adding deadlines
 

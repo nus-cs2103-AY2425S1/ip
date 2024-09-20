@@ -16,7 +16,7 @@ public class TaskPrinter {
         StringBuilder sb = new StringBuilder();
 
         if (taskList.isEmpty()) {
-            sb.append("Oh no. TIt looks like your task list is empty. Time to add some tasks!");
+            sb.append("Oh no. It looks like your task list is empty. Time to add some tasks!");
         } else {
             sb.append(msg).append("\n");
             IntStream.range(0, taskList.getSize())
@@ -33,6 +33,9 @@ public class TaskPrinter {
 
     /** Prints the list of tasks found with a custom message. */
     public String printFindResults(String keyword) {
+        if (taskList.isEmpty()) {
+            return "Oops! There's no result that matches \"" + keyword + "\". \nMaybe try a different search?";
+        }
         return printTaskList(taskList, "Here's the tasks that matches \"" + keyword + "\": ");
     }
 
