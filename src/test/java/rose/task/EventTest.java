@@ -15,7 +15,7 @@ public class EventTest {
         Event event = new Event("Hackathon", LocalDate.parse("2024-12-01"),
                 LocalDate.parse("2024-12-04"));
         assertEquals("[E][ ] Hackathon (from: Dec 01 2024 to: Dec 04 2024)", event.toString());
-        assertEquals("E, ,Hackathon,2024-12-01,2024-12-04", event.commaString());
+        assertEquals("E, ,Hackathon,2024-12-01,2024-12-04,", event.commaString());
     }
 
     @Test
