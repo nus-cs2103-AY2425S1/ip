@@ -1,6 +1,6 @@
 package ratchet.command;
 
-import ratchet.exception.InvalidCommandArgumentException;
+import ratchet.exception.InvalidCommandArgumentIndex;
 import ratchet.storage.Storage;
 import ratchet.task.Task;
 import ratchet.task.TaskList;
@@ -22,7 +22,7 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public String execute(Storage storage, TaskList tasks, Ui ui) throws InvalidCommandArgumentException {
+    public String execute(Storage storage, TaskList tasks, Ui ui) throws InvalidCommandArgumentIndex {
         StringBuilder res = new StringBuilder("OK, I've marked these task as not done yet:");
         try {
             for (int index : indexes) {
@@ -31,7 +31,7 @@ public class UnmarkCommand extends Command {
             }
             return res + ui.printWithSeparator(tasks.toString());
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidCommandArgumentException("Please enter a valid task index!");
+            throw new InvalidCommandArgumentIndex();
         }
     }
 }

@@ -1,5 +1,6 @@
 package ratchet.command;
 
+import ratchet.exception.InvalidCommandArgumentIndex;
 import ratchet.exception.RatchetException;
 import ratchet.storage.Storage;
 import ratchet.task.TaskList;
@@ -18,5 +19,5 @@ public abstract class Command {
      * @return String to be displayed after execution.
      * @throws RatchetException If there is an error during execution.
      */
-    public abstract String execute(Storage storage, TaskList tasks, Ui ui) throws RatchetException;
+    public abstract String execute(Storage storage, TaskList tasks, Ui ui) throws InvalidCommandArgumentIndex;
 }
