@@ -24,7 +24,7 @@ public class DialogBox extends HBox {
     /**
      * Creates a new DialogBox with the given text and image.
      */
-    public DialogBox()  {
+    public DialogBox() {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/DialogBox.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.setController(this);

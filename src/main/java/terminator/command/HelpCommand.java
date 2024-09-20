@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import terminator.task.Task;
 
+/**
+ * A command representing user requesting for usage help.
+ */
 public class HelpCommand extends Command {
 
     private static final String ERR_MSG = """
@@ -31,8 +34,7 @@ public class HelpCommand extends Command {
             throw new TerminatorException(ERR_MSG);
         }
         String response = """
-                The list of available commands are:   
-                
+                The list of available commands are:\n
                 • help
                 • list
                 • todo <description>
@@ -40,10 +42,9 @@ public class HelpCommand extends Command {
                 • event <description> /from dd/MM/yyyy HHmm /to dd/MM/yyyy HHmm
                 • mark <index>
                 • unmark <index>
-                • delete <index> 
+                • delete <index>
                 • find <description>
-                • bye
-                
+                • bye\n
                 (Note that the items in the task list are 1-indexed.)""";
         return response;
     }

@@ -48,6 +48,13 @@ public class MainController {
     private TextField userInput;
 
     /**
+     * No-args constructor to allow JavaFX runtime to instantiate the controller.
+     */
+    public MainController() {
+
+    }
+
+    /**
      * Creates a dialog box containing user input, and appends it to
      * the dialog container. Clears the user input after processing.
      */
@@ -89,13 +96,6 @@ public class MainController {
         scrollPane.viewportBoundsProperty().addListener(((observable, oldBounds, newBounds) -> {
             terminatorDb.setPrefWidth(newBounds.getWidth());
         }));
-    }
-
-    /**
-     * No-args constructor to allow JavaFX runtime to instantiate the controller.
-     */
-    public MainController() {
-
     }
 
     @FXML
