@@ -1,6 +1,0 @@
-FIXED_DURATION | 0 | buy food | 5
-DEFAULT | 0 | add dinner
-DEFAULT | 0 | read book
-DEFAULT | 0 | read book
-DEFAULT | 0 | tell joke
-TODO | 0 | cook lunch
