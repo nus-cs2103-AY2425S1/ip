@@ -49,7 +49,6 @@ public class Parser {
                 case "delete":
                     String[] deleteParts = input.split(" ");
                     Integer index = Integer.parseInt(deleteParts[1]);
-                    Task deletedTask = taskList.getTask(index - 1);
                     taskList.deleteFromList(index - 1);
                     return ui.printDelete(index - 1, taskList);
                 default:
