@@ -49,6 +49,7 @@ Format of input: `todo [task description]`
 * the keyword `todo` is case-sensitive
 * there is a space between `todo` and task description
 * anything appears after `todo` will be used as task description  
+* Don't use reserved word "/by", "/from", "[X]", "to" in the documents.
 
 Example: `todo read aerodynamics documents`   
 <img src='add_todo.png'>
@@ -63,6 +64,7 @@ Format of input: `event [task description] /from [start time with format YYYY-MM
 keyword 
 * The time must include the year, month and date of the event. 
 * It is optional to key in the specific time, the default time will be `00:00`
+* Don't use reserved word "/by", "/from", "[X]", "to" in the documents.
 
 Example: `event launch Sputnik satellite /from 1960-01-01 /to 1961-02-03`  
 <img src='add_event.png'>  
