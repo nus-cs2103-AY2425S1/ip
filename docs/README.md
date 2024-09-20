@@ -142,16 +142,18 @@ Example: `help`
 
 Expected outcome:
 ```
-Here are the available commands:
-1. todo [task description] - Adds a ToDo task
-2. deadline [task description] /by [date] - Adds a Deadline task
-3. event [task description] /from [start time] /to [end time] - Adds an Event task
-4. list - Lists all tasks
-5. mark [task number] - Marks a task as done
-6. unmark [task number] - Unmarks a task
-7. delete [task number] - Deletes a task              
-8. find [keyword] - Finds tasks containing the keyword
-9. bye - Exits the application                        
-10. help - Displays this help message
+Welcome, seeker of wisdom. Here are the commands that ConverSage understands:
+1. todo [task description] - Adds a ToDo task, a step on your journey.
+2. deadline [task description] /by [date] - Adds a Deadline task, marking the end of a quest.
+3. event [task description] /from [start time] /to [end time] - Adds an Event task, a moment in time to remember.
+4. list - Lists all tasks, revealing the path ahead.
+5. mark [task number] - Marks a task as done, a milestone achieved.
+6. unmark [task number] - Unmarks a task, revisiting a step.
+7. delete [task number] - Deletes a task, removing an obstacle from your path.
+8. find [keyword] - Finds tasks containing the keyword, seeking wisdom in your notes.
+9. bye - Exits the application, bidding you farewell for now.
+10. help - Displays this help message, guiding you on your journey.
 
+Note: For any timings, please use the format: yyyy-MM-dd HH:mm.
+May your path be clear and your tasks be light, seeker.
 ```

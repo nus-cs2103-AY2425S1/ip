@@ -45,12 +45,14 @@ public class Parser {
             return new AddCommand(new ToDo(commandParts[1]));
         case "deadline":
             if (commandLen < 2) {
-                return new ErrorCommand("Please specify the description and deadline of the task!");
+                return new ErrorCommand("Please specify the description and deadline of the task!\n"
+                                            + "Use this format for dates: yyyy-MM-dd HH:mm. Use the 'help' command if needed.");
             }
             return new AddCommand(Parser.parseDeadline(commandParts[1]));
         case "event":
             if (commandLen < 2) {
-                return new ErrorCommand("Please specify the description and event time (from and to)!");
+                return new ErrorCommand("Please specify the description and event time (from and to)!\n"
+                                            + "Use this format for dates: yyyy-MM-dd HH:mm. Use the 'help' command if needed.");
             }
             return new AddCommand(Parser.parseEvent(commandParts[1]));
         case "delete":
@@ -80,9 +82,10 @@ public class Parser {
 
     private static Event parseEvent(String input) throws ConverSageException {
         if (!input.contains(" /from ") || !input.contains(" /to ")) {
-            throw new ConverSageException("The event task requires a start time and an end time");
+            throw new ConverSageException("The event task requires a description, start time, and an end time");
         }
         String[] parts = input.split(" /from | /to ");
+
         return new Event(parts[0], parts[1], parts[2]);
     }
 }
