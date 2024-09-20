@@ -23,7 +23,6 @@ Example: `help todo`
 Expected outcome:
 ```
 Want to add a To Do -- todo
-
 This is how you should input the command: todo <description>
 ```
 ## Adding deadlines: `deadline`
