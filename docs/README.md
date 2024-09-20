@@ -1,5 +1,5 @@
 # Tecna User Guide
-<img src="UGProductScreenshot.png" alt="App screenshot" width="300"/>
+<img src="Ui.png" alt="App screenshot" width="300"/>
 
 **_Tecna_** is one of the main characters in Winx Club, originating from the planet Zenith, a highly advanced world focused on technology and logic. As the Fairy of Technology, **_Tecna_** possesses unique abilities that allow her to control and manipulate digital systems, reflecting her sharp intellect and analytical mind.
 
@@ -42,9 +42,13 @@ Command format: `find [keyword]`
 > **NOTE:** 
 > A valid keyword contains only **1 word**.
 
-Example: both `find magic`
+Example: `find magic` returns
 
-<img src="UGFindMagic.png" alt="find magic" width="300"/>
+```
+Here are the matching tasks in your list:
+1. [T][ ] prepare for the magic meeting
+2. [D][ ] submit a magic formula to Professor Winx (by: 20 September 2024 11:59 PM)
+```
 
 ## Mark a task as Done
 Marks a task with the corresponding index number as done.
@@ -87,6 +91,6 @@ Your input data will be automatically saved in the program's disk.
 | __Delete__                | `delete [index number]`<br/>e.g., `delete 2`                                                                                                                    |
 | __Bye__                   | `bye`                                                                                                                                                           |
 
-<h2 style="color: #9370db ">Sources</h2>
-1. Tecna's Avatar: [Avatar Abyss](https://avatars.alphacoders.com/avatars/view/318384)
+<h2 style="color: #9370db ">Acknowledgement</h2>
+1. Tecna's Avatar: [Wallpaper Flare](https://www.wallpaperflare.com/search?wallpaper=Tecna)
 2. User's Avatar: Adapted from [SE-EDU JavaFX Tutorial](https://se-education.org/guides/tutorials/javaFx.html) 
