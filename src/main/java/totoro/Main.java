@@ -1,4 +1,4 @@
-package sage;
+package totoro;
 
 import java.io.IOException;
 
@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 
 public class Main extends Application {
-    private Sage sage = new Sage();
+    private Totoro totoro = new Totoro();
 
     @Override
     public void start(Stage stage) {
@@ -24,7 +24,7 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
-            fxmlLoader.<MainWindow>getController().setSage(sage);  // inject the Sage instance
+            fxmlLoader.<MainWindow>getController().setTotoro(totoro);  // inject the Sage instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

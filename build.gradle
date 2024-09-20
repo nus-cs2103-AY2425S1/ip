@@ -43,12 +43,12 @@ test {
 }
 
 application {
-    mainClass.set("sage.Launcher")
+    mainClass.set("totoro.Launcher")
 }
 
 shadowJar {
     archiveBaseName = "duke"
-    archiveFileName = "sage.jar";
+    archiveFileName = "totoro.jar";
     archiveClassifier = null
 }
 

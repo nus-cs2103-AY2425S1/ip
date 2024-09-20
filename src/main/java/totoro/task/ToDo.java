@@ -1,6 +1,5 @@
-package sage.task;
+package totoro.task;
 
-import sage.exception.SageException;
 
 /**
  * Represents a todo task in the task management applicaton
@@ -12,11 +11,8 @@ public class ToDo extends Task {
      * @param description The description of the todo task
      * @throws SageException If the description is empty
      */
-    public ToDo(String description) throws SageException {
+    public ToDo(String description) {
         super(description);
-        if (description.isEmpty()) {
-            throw new SageException("Oh No! I don't know what task to do :(");
-        }
     }
     @Override
     public String toString() {

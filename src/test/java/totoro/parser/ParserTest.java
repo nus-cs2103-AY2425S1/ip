@@ -1,9 +1,4 @@
-package sage.parser;
-
-import org.junit.jupiter.api.Test;
-import sage.exception.SageException;
-
-import static org.junit.jupiter.api.Assertions.*;
+package totoro.parser;
 
 /**public class ParserTest {
     @Test

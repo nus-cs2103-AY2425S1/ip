@@ -1,4 +1,4 @@
-package sage.command;
+package totoro.command;
 
 public enum CommandType {
     BYE, LIST, MARK, UNMARK, DELETE, FIND, SCHEDULE, TODO, DEADLINE, EVENT, HELP;

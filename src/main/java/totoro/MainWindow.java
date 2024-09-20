@@ -1,4 +1,4 @@
-package sage;
+package totoro;
 
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
@@ -10,7 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-import sage.command.CommandType;
+import totoro.command.CommandType;
 
 /**
  * Controller for the main GUI.
@@ -25,15 +25,15 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Sage sage;
+    private Totoro totoro;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image sageImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image totoroImage = new Image(this.getClass().getResourceAsStream("/images/DaTotoro.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().add(DialogBox.getSageWelcome(sageImage));
+        dialogContainer.getChildren().add(DialogBox.getSageWelcome(totoroImage));
         userInput.setPromptText("try 'help'");
         sendButton.setDisable(true);
         sendButton.getStyleClass().add("disabled");
@@ -51,9 +51,9 @@ public class MainWindow extends AnchorPane {
     }
 
     /** Injects the Duke instance */
-    public void setSage(Sage s) {
-        assert s != null;
-        sage = s;
+    public void setTotoro(Totoro t) {
+        assert t != null;
+        totoro = t;
     }
 
     /**
@@ -63,11 +63,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = sage.getResponse(input);
-        CommandType commandType = sage.getCommandType();
+        String response = totoro.getResponse(input);
+        CommandType commandType = totoro.getCommandType();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getSageDialog(response, sageImage)
+                DialogBox.getSageDialog(response, totoroImage)
         );
         userInput.clear();
         userInput.setPromptText("try 'help'");

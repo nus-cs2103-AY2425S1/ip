@@ -1,10 +1,7 @@
-package sage.task;
-
-import sage.exception.SageException;
+package totoro.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * Event class represents a task that occurs during a specific period of time
@@ -21,7 +18,7 @@ public class Event extends Task {
      * @param to The date and time the event ends
      * @throws SageException if the description is empty or if the time format is inavlid
      */
-    public Event(String description, LocalDateTime from, LocalDateTime to) throws SageException {
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         this.from = from;
         this.to = to;
