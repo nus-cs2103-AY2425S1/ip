@@ -11,7 +11,7 @@ Hoshi is a user-friendly assistant that aids you in keeping track of your tasks 
 5. Graphical User Interface
 6. Help Window
 
-## Setting up in Intellij (For Development, skip to Running JAR File for Quick Start)
+## Setting up in Intellij (For Quick Start, skip to Running JAR File)
 
 Prerequisites: JDK 17, update Intellij to the most recent version.
 
@@ -59,10 +59,12 @@ Adds a todo, deadline or event to Hoshi.
 Format: `add TASKTYPE DESCRIPTION STARTDATE ENDDATE`
 
 Examples:
-- `add todo ASG1` - Adds a todo task called "ASG1"
-- `add deadline ASG1 2022-12-12` - Adds a deadline task called "ASG1" with end date "2022-12-12"
-- `add event ASG1 2022-12-12 2022-12-22` - Adds an event task called "ASG1" 
-with "2022-12-12", "2022-12-22" being start and end dates respectively
+- `add todo ASG1` 
+- Adds a todo task with description "ASG1"
+- `add deadline ASG1 2022-12-12`
+- Adds a deadline task with description "ASG1" with end date "2022-12-12"
+- `add event ASG1 2022-12-12 2022-12-22`
+- Adds an event task with description "ASG1" with "2022-12-12", "2022-12-22" being start and end dates respectively
 
 Note that dates must be in YYYY-MM-DD format
 
