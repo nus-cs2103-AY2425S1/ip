@@ -24,6 +24,7 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
+            stage.setTitle("Eevee");
             fxmlLoader.<MainWindow>getController().setEevee(eevee);  // inject the Duke instance
             stage.show();
         } catch (IOException e) {
