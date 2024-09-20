@@ -29,7 +29,7 @@ Welcome to **Denim**, your super cute and efficient task management companion! W
 3. **Open a command terminal**, `cd` into the folder and use the `java -jar denim.jar` to run the application.
 4. **A GUI should appear as such with some sample data.**
 
-![Capture.PNG](Capture.PNG)
+![Capture.PNG](Ui.png)
 ---
 
 ### Summary of Commands
