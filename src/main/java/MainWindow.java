@@ -32,6 +32,10 @@ public class MainWindow extends AnchorPane {
     /** Injects the XBot instance */
     public void setXBot(XBot xbot) {
         this.xbot = xbot;
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(XBot.greet(), dukeImage)
+        );
+
     }
 
     /**

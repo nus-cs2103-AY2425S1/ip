@@ -63,7 +63,7 @@ public class Ui {
     /**
      * Displays a goodbye message to the user when the application terminates.
      */
-    public String showBye() {
+    public static String showBye() {
         return ("Byebyeee... hope to see you again soon! >.<");
     }
 

@@ -2,6 +2,9 @@ package xbot;
 
 import java.io.IOException;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.util.Duration;
 import xbot.exception.XBotException;
 import xbot.parser.Parser;
 import xbot.storage.Storage;
@@ -51,5 +54,26 @@ public class XBot {
             output = ui.mainErrorMessage(e);
         }
         return output;
+    }
+
+    /**
+     * Prints a greeting message to the user at the start of the application.
+     */
+    public static String greet() {
+        String output = "";
+        output = output + ("Helloooo I'm XBot XD\n");
+        output = output + ("What can I do for you? :) \n");
+        return output;
+    }
+
+    /**
+     * Prints a goodbye message to the user.
+     */
+    public static String exit() {
+        // Close javafx application after 1.5 seconds
+        PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
+        delay.setOnFinished(event -> Platform.exit());
+        delay.play();
+        return Ui.showBye();
     }
 }

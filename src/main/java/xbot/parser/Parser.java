@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import xbot.TaskList;
+import xbot.XBot;
 import xbot.command.DeadlineCommand;
 import xbot.command.DeleteCommand;
 import xbot.command.EventCommand;
@@ -308,7 +309,7 @@ public class Parser {
             output = new ViewCommand().execute(list, ui, storage, rest);
             break;
         case "bye":
-            output = ui.showBye();
+            output = XBot.exit();
             break;
         default:
             throw new XBotException("Ah...sorry I don't know what that means >_<\n"
