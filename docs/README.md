@@ -1,6 +1,7 @@
 # Bob User Guide
 
-![UI.png](UI.png)
+![UI.png](Ui.png)
+
 
 Welcome to Bob, your personal assistant to stay on top of all your tasks and assignments.
 
