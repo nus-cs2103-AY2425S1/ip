@@ -5,7 +5,11 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
 import java.util.ArrayList;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
 
 import toothless.exceptions.ToothlessExceptions;
 import toothless.task.Deadline;
@@ -22,8 +26,20 @@ public class Storage {
 
     /**
      * Saves the tasks to a file.
+     * Creates the file if it does not exist.
      */
     public void saveTask(ArrayList<Task> list) {
+        try {
+            Path directory = Paths.get(DATA_FILE_PATH).getParent();
+            Files.createDirectories(directory);
+            Files.createFile(Paths.get(DATA_FILE_PATH));
+        } catch (FileAlreadyExistsException e) {
+            // File already exists
+        } catch (IOException e) {
+            System.out.println("Oh no! There is an error creating the file.");
+            e.printStackTrace();
+        }
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(DATA_FILE_PATH))) {
             for (Task task : list) {
                 writer.write(getTaskData(task));

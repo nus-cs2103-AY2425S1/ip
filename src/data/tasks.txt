@@ -1,5 +1,1 @@
-D | 0 | Test Deadline | 12/12/2050 1800
-T | 0 | study
-T | 0 | study
-T | 0 | train toothless
-D | 0 | feed toothless  | 12/12/2024 1235
+T | 1 | study
