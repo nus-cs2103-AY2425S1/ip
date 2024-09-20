@@ -1,5 +1,6 @@
 package max.main;
 
+import max.exception.MaxException;
 import max.task.Task;
 
 import java.util.ArrayList;
@@ -71,8 +72,12 @@ public class Ui {
      *
      * @param tasks The list of tasks to be printed.
      */
-    public void list(ArrayList<Task> tasks) {
+    public void list(ArrayList<Task> tasks) throws MaxException {
         assert tasks != null : "Task list cannot be null.";
+
+        if (tasks.isEmpty()) {
+            throw new MaxException("There are no tasks in the list.");
+        }
 
         for (int i = 0; i < tasks.size(); i++) {
             int count = i + 1;

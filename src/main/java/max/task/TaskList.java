@@ -80,10 +80,7 @@ public class TaskList {
      *
      * @return An ArrayList containing all the tasks in the TaskList.
      */
-    public ArrayList<Task> getTasks() throws MaxException {
-        if (this.storedTasks.isEmpty()) {
-            throw new MaxException("There are no tasks in this list.");
-        }
+    public ArrayList<Task> getTasks(){
         return storedTasks;
     }
 
