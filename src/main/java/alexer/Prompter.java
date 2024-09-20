@@ -17,6 +17,12 @@ public class Prompter {
                   /---'\\   |   |----'  /\\   |----' |   '
                 ,'      \\ /\\__ `.___, /  \\  `.___, /   """;
 
+    public static final String MESSAGE_GREETING = "Hello from %s, what can I do for you today?";
+    public static final String MESSAGE_GOODBYE = "Goodbye! If you ever want to chat again, I'll be here.\n" +
+            "Have a great day!";
+    public static final String MESSAGE_TASKS = "Sure thing! Here is your task list:\n\n";
+    public static final String MESSAGE_TASKS_FOUND = "I got you! Here is what I found:\n";
+
     /**
      * Builds the response containing logo of the chatbot
      * @return the response instance with the logo
@@ -30,7 +36,7 @@ public class Prompter {
      * @return the response instance with the greeting message
      */
     public Response buildGreeting() {
-        return new Response(String.format("Hello from %s, what can I do for you today?", Alexer.NAME));
+        return new Response(String.format(MESSAGE_GREETING, Alexer.NAME));
     }
 
     /**
@@ -39,7 +45,7 @@ public class Prompter {
      * @return the response instance with the goodbye message
      */
     public Response buildGoodbye() {
-        return new Response("Goodbye! If you ever want to chat again, I'll be here.\nHave a great day!");
+        return new Response(MESSAGE_GOODBYE);
     }
 
     /**
@@ -48,7 +54,7 @@ public class Prompter {
      * @return the response instance with the list of tasks
      */
     public Response buildTaskList(String tasks) {
-        return new Response("Sure thing! Here is your task list:\n\n" + tasks);
+        return new Response(MESSAGE_TASKS + tasks);
     }
 
     /**
@@ -57,6 +63,6 @@ public class Prompter {
      * @return the response instance with the list of tasks
      */
     public Response buildFilteredTaskList(String tasks) {
-        return new Response("I got you! Here is what I found:\n" + tasks);
+        return new Response(MESSAGE_TASKS_FOUND + tasks);
     }
 }
