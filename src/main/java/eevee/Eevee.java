@@ -8,7 +8,6 @@ import java.util.ArrayList;
  * Represents a task management program.
  */
 public class Eevee {
-    private Ui ui;
     private Storage storage;
     private TaskList tasks;
     private Parser parser;
@@ -21,7 +20,6 @@ public class Eevee {
      */
     public Eevee(String filePath) {
         assert filePath != null;
-        this.ui = new Ui();
         this.storage = new Storage(filePath);
         this.tasks = new TaskList();
         this.parser = new Parser();
@@ -29,7 +27,7 @@ public class Eevee {
         try {
             storage.loadTasks(tasks);
         } catch (FileNotFoundException e) {
-            ui.printMessage("File not found!");
+            System.out.println("File not found!");
         }
     }
 
@@ -53,7 +51,8 @@ public class Eevee {
 
         switch (command) {
         case BYE:
-            return ui.getExit();
+            System.exit(0);
+            return "Bye. Hope to see you again soon!\n";
         case LIST:
             return handleListCommand(input);
         case MARK:
