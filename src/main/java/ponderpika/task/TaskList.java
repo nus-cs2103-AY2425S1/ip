@@ -135,8 +135,9 @@ public class TaskList {
         if (!possiblePriority) {
             throw new InvalidPriorityException();
         }
-        tasks.get(index).setPriority(priority);
-        return String.format("Priority set to %s for %s", priority.toUpperCase(), tasks.get(index).getDescription());
+        tasks.get(index - 1).setPriority(priority);
+        return String.format("Priority set to %s for %s", priority.toUpperCase(),
+                tasks.get(index - 1).getDescription());
     }
 
     /**
