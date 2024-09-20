@@ -30,7 +30,7 @@ public class DialogBox extends HBox {
      * The FXML layout is loaded from {@code /view/DialogBox.fxml} and initialized.
      *
      * @param messageText The text message to be displayed in the dialog box.
-     * @param image The image to be displayed next to the text message (e.g., user or bot's profile picture).
+     * @param image       The image to be displayed next to the text message (e.g., user or bot's profile picture).
      */
     private DialogBox(String messageText, Image image) {
         try {
@@ -66,7 +66,7 @@ public class DialogBox extends HBox {
      * Creates a dialog box for the user.
      *
      * @param messageText The user's message to be displayed.
-     * @param userImage The image representing the user.
+     * @param userImage   The image representing the user.
      * @return A {@code DialogBox} with the user's message and image.
      */
     public static DialogBox getUserDialog(String messageText, Image userImage) {
