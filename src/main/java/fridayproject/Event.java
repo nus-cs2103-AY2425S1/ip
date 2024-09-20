@@ -1,5 +1,8 @@
 package fridayproject;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /*
  * Represents an event task.
  * An event task has a description, a start time and an end time.
@@ -25,6 +28,24 @@ public class Event extends Tasks {
         
         this.start = start;
         this.end = end;
+    }
+
+    /*
+     * Returns the start time of the event task.
+     * @return The start time of the event task.
+     */
+    public LocalDate getStartDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return LocalDate.parse(this.start, formatter);
+    }
+
+    /*
+     * Returns the end time of the event task.
+     * @return The end time of the event task.
+     */
+    public LocalDate getEndDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return LocalDate.parse(this.end, formatter);
     }
 
     /*
