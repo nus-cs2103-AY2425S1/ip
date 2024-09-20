@@ -25,6 +25,9 @@ public class NewOutputStream extends OutputStream {
         this.rainyImage = rainyImage;
     }
 
+    // This method to route the console output to the GUI is inspired by
+    // https://stackoverflow.com/questions/64276170/how-to-redirect-output-from-system-out-to-javafx-textarea
+
     /**
      * Captures the output string and builds it character by character.
      * @param b   the {@code byte}.

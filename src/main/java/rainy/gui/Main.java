@@ -16,6 +16,8 @@ import javafx.stage.Stage;
 import rainy.database.Rainy;
 import rainy.database.UI;
 
+// GUI inspired by https://se-education.org/guides/tutorials/javaFx.html
+
 /**
  * Loads the FXML file and initiates the GUI.
  */
