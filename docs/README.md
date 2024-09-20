@@ -10,7 +10,7 @@ have a personality, but it was dropped because of the _Great Assignment Calamity
 - Quick Start
 - Features
   - [Adding items `todo` `deadline` `event`](#adding-items)
-  - Listing items `list`
+  - [Listing items `list`](#listing-items)
   - Marking items `mark` `unmark`
   - Finding items `find`
   - Deleting items `delete`
@@ -20,28 +20,59 @@ have a personality, but it was dropped because of the _Great Assignment Calamity
 - Command summary
 
 ## Adding items
+### Todo item `todo`
+Adds a Todo item with no deadline
 
-// Describe the action and its outcome.
+Format: `todo ITEM`
 
-// Give examples of usage
+Example:
+- `todo Add personality to Yapmeister`
 
-Example: `keyword (optional arguments)`
+### Deadline item `deadline`
+Adds a Deadline item with a deadline
+Format: `deadline ITEM /by DEADLINE`
+If `DEADLINE` is in the format `YYYY-MM-DD` format, will be converted to `ISO_WEEK_DATE` format
 
-// A description of the expected outcome goes here
+Examples:
+- `deadline end this /by 2020-01-01`
+    - Date is converted to `2020-W01-3`
+- `deadline end that /by tomorrow`
+    - Date is left as `tomorrow`
 
-```
-expected output
-```
+### Event item `event`
+Adds an Event item with a start and end
 
-## Feature ABC
+Format: `event ITEM /from START /to END`
 
-// Feature details
+If either `START` or `END` are in the format `YYYY-MM-DD` format, will be converted to `ISO_WEEK_DATE` format (See `deadline`)
 
+Examples:
+- `event mentally check out /from 8am /to 8pm`
 
-## Feature XYZ
+## Listing items `list`
+Shows a list of all items.
 
-// Feature details
+## Marking items `mark` `unmark`
+Marks/Unmarks an item in the list as done or undone.
 
+Format: `mark INDEX` `unmark INDEX`
+
+`INDEX` follows the indexing in `list`
+
+![Screenshot of a mark example usage](https://github.com/BlazeChron/ip/blob/A-Release/docs/mark-example.png?raw=true)
+
+## Finding items `find`
+Finds items and lists them
+
+Format: `find [-e] SEARCH_TERM`
+
+`-e` flag will force an exact search for the term
+
+## Deleting items `delete`
+## Exiting `bye`
+## FAQ
+## Known issues
+## Command summary
 
 [^1]: Great Assignment Calamity
 A natural disaster caused by the mass compression of long term assignment deadlines, claiming the 
