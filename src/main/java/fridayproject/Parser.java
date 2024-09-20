@@ -71,6 +71,11 @@ public class Parser {
     }
 
 
+    /*
+     * Lists the tasks in the task list.
+     * @return The list of tasks.
+     * Example: listTasks();
+     */
     private String listTasks() {
         if (taskList.size() == 0) {
             return "Your task list is empty.";
@@ -82,6 +87,14 @@ public class Parser {
         return sb.toString().trim();
     }
 
+    /*
+     * Marks a task as done.
+     * @param input The user input.
+     * @return The message indicating that the task has been marked as done.
+     * @throws FridayException If the task number is invalid.
+     * @throws IOException If an I/O error occurs.
+     * Example: markTask("mark 1");
+     */
     private String markTask(String input) throws FridayException, IOException {
         assert input != null : "Input should not be null";
 
@@ -98,6 +111,14 @@ public class Parser {
             + taskList.getTask(taskNumber).toString();
     }
 
+    /*
+     * Marks a task as not done.
+     * @param input The user input.
+     * @return The message indicating that the task has been marked as not done.
+     * @throws FridayException If the task number is invalid.
+     * @throws IOException If an I/O error occurs.
+     * Example: unmarkTask("unmark 1");
+     */
     private String unmarkTask(String input) throws FridayException, IOException {
         assert input != null : "Input should not be null";
         
@@ -115,6 +136,14 @@ public class Parser {
             + taskList.getTask(taskNumber).toString();
     }
 
+    /*
+     * Deletes a task.
+     * @param input The user input.
+     * @return The message indicating that the task has been deleted.
+     * @throws FridayException If the task number is invalid.
+     * @throws IOException If an I/O error occurs.
+     * Example: deleteTask("delete 1");
+     */
     private String deleteTask(String input) throws FridayException, IOException {
         assert input != null : "Input should not be null";
 
@@ -134,6 +163,14 @@ public class Parser {
         return "false";
     }
 
+    /*
+     * Adds a todo task.
+     * @param input The user input.
+     * @return The message indicating that the todo task has been added.
+     * @throws FridayException If the task description is invalid.
+     * @throws IOException If an I/O error occurs.
+     * Example: addTodo("todo read book");
+     */
     private String addTodo(String input) throws FridayException, IOException {
         assert input != null : "Input should not be null";
 
@@ -148,6 +185,14 @@ public class Parser {
             + todo.toString() + "\nNow you have " + taskList.size() + " tasks in the list.";
     }
 
+    /*
+     * Adds a deadline task.
+     * @param input The user input.
+     * @return The message indicating that the deadline task has been added.
+     * @throws FridayException If the task description or date is invalid.
+     * @throws IOException If an I/O error occurs.
+     * Example: addDeadline("deadline return book /by 2021-09-30");
+     */
     private String addDeadline(String input) throws FridayException, IOException {
         assert input != null : "Input should not be null";
 
@@ -171,6 +216,14 @@ public class Parser {
         }
     }
 
+    /*
+     * Adds an event task.
+     * @param input The user input.
+     * @return The message indicating that the event task has been added.
+     * @throws FridayException If the task description or date is invalid.
+     * @throws IOException If an I/O error occurs.
+     * Example: addEvent("event project meeting /at 2021-09-30 14:00 to 16:00");
+     */
     private String addEvent(String input) throws FridayException, IOException {
         assert input != null : "Input should not be null";
 
@@ -188,6 +241,14 @@ public class Parser {
             + event.toString() + "\nNow you have " + taskList.size() + " tasks in the list.";
     }
 
+    /*
+     * Finds tasks that contain a specific keyword.
+     * @param input The user input.
+     * @return The list of tasks that contain the keyword.
+     * @throws FridayException If the keyword is invalid.
+     * @throws IOException If an I/O error occurs.
+     * Example: findWord("find book");
+     */
     private String findWord(String input) throws FridayException, IOException {
         assert input != null : "Input should not be null";
         
