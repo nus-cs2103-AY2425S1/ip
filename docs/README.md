@@ -1,8 +1,7 @@
-# notGPT User Guide
-
+# NotGPT
 <picture>
     <img alt="Screenshot of notGPT Gui interactions" src="Ui.png"
-        width="50%"
+        width="60%"
     >
 </picture>
 
@@ -10,10 +9,10 @@ notGPT is a **desktop app for task management**.
 Whether it is a simple TODO, a DEADLINE or an EVENT, 
 notGPT is here to ensure that you don't lose sight of what is important.
 
-
- - [Features]
-  - [Adding tasks]
-    - [Adding a TODO ](#adding-todos-todo)`todo`
+ - **Quick start**
+  - **Adding tasks** 
+    - [Adding a TODO](#adding-todos-todo)`todo`
+     - [Date formats](#date-formats) 
     - [Adding a DEADLINE ](#adding-deadlines-deadline)`deadline`
     - [Adding an EVENT](#adding-events-event) `event`
   - [Listing all tasks](#listing-all-tasks)`list`
@@ -35,8 +34,8 @@ and use the `java -jar notGPT.jar` command to run the application.
 5. Type the command in the command box and press Enter to execute it. The command lists are as below.
 
 
-## Features
-Commmands are not case sensitive
+## Commands
+Commmands are not case sensitive so eg. "todo" and "ToDo" are both valid
 
 ### Adding tasks
 #### Adding TODOs: `todo`
@@ -55,7 +54,8 @@ Okie, I added it into the list:
   [T][ ] submit 2106 lab
 Now you have 1 tasks in the list.
 ```
-
+##### Date formats
+stuff
 #### Adding DEADLINEs: `deadline`
 
 Use this command to help you add a DEADLINE to the task list.
