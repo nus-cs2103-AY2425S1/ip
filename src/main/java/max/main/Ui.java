@@ -76,7 +76,7 @@ public class Ui {
         assert tasks != null : "Task list cannot be null.";
 
         if (tasks.isEmpty()) {
-            throw new MaxException("There are no tasks in the list.");
+            throw new MaxException("Oh no! There are no tasks in the list.");
         }
 
         for (int i = 0; i < tasks.size(); i++) {
