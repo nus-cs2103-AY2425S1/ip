@@ -286,7 +286,7 @@ public class StoreList {
             return updateEventEndTime(itemNum, newValue, task);
 
         } else {
-            return "Only task type desc, date, startTime, endTime, time are allowed";
+            return "Only task type desc, date, startTime, endTime, time, datetime are allowed";
         }
     }
 

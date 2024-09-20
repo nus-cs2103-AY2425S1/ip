@@ -52,7 +52,7 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "flash"
+    archiveBaseName = "EmoteX"
     archiveClassifier = null
 }
 
