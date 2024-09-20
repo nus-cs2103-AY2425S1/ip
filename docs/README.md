@@ -1,6 +1,6 @@
 # Charlotte User Guide
 
-![Screenshot of the product](/docs/Ui.png)
+![Screenshot of the product](Ui.png)
 
 Charlotte is a personal chatbot assistant designed to help you manage your tasks and events. 
 
