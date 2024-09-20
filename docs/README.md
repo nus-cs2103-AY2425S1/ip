@@ -1,6 +1,6 @@
 # Bob User Guide
 
-![BobUi](docs/Ui.png)
+![BobUi](Ui.png)
 
 Bob is a user-friendly task managing chatbot designed to help you keep track of 
 your tasks, deadlines, and events efficiently. With a simple command-based 
