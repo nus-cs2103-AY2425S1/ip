@@ -191,7 +191,7 @@ public class SecondMind {
     }
 
     private void addTaskToList(Task task)
-            throws EmptyCommandException, EmptyToDoException, UnknownCommandException, DateTimeParseException {
+            throws EmptyCommandException, EmptyTaskDescriptionException, UnknownCommandException, DateTimeParseException {
         taskList.addToTaskList(task);
     }
 
@@ -222,7 +222,7 @@ public class SecondMind {
             addTaskToList(newTask);
             addTaskToStorage(newTask);
             return getTaskCreationMessage(newTask);
-        } catch (EmptyCommandException | EmptyToDoException | UnknownCommandException | IOException e) {
+        } catch (EmptyCommandException | EmptyTaskDescriptionException | UnknownCommandException | IOException e) {
             return e.toString();
         } catch (DateTimeParseException e) {
             return DATE_TIME_PARSE_EXCEPTION_MESSAGE;

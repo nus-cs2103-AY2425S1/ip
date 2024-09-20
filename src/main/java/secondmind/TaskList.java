@@ -41,9 +41,9 @@ public class TaskList {
         return ldt.format(formatter);
     }
 
-    private Task createToDo(String[] taskInfo) throws EmptyToDoException {
+    private Task createToDo(String[] taskInfo) throws EmptyTaskDescriptionException {
         if (taskInfo.length == 1) {
-            throw new EmptyToDoException();
+            throw new EmptyTaskDescriptionException();
         }
         taskInfo[0] = "";
         String taskDescription = String.join(" ", taskInfo);
@@ -51,7 +51,11 @@ public class TaskList {
         return new ToDoTask(taskDescription);
     }
 
-    private Task createDeadline(String[] taskInfo) throws PassedDateTimeException {
+    private Task createDeadline(String[] taskInfo)
+            throws PassedDateTimeException, EmptyTaskDescriptionException {
+        if (taskInfo.length == 1) {
+            throw new EmptyTaskDescriptionException();
+        }
         //Format of taskInfo:
         //["deadline", description, /by, {deadline}]
         taskInfo[0] = "";
@@ -61,7 +65,11 @@ public class TaskList {
         return new DeadlineTask(taskDescription, taskDeadline);
     }
 
-    private Task createEvent(String[] taskInfo) throws PassedDateTimeException {
+    private Task createEvent(String[] taskInfo)
+            throws PassedDateTimeException, EmptyTaskDescriptionException {
+        if (taskInfo.length == 1) {
+            throw new EmptyTaskDescriptionException();
+        }
         //Format of taskInfo:
         //["event", {description}, /from, {taskStart}, /to, {eventEnd}]
         String[] newTaskInfo = String.join(" ", taskInfo).split(" /");
@@ -81,12 +89,12 @@ public class TaskList {
      *
      * @param instruction The instruction to be converted to a Task object.
      * @throws EmptyCommandException If the command is empty.
-     * @throws EmptyToDoException If the ToDo task description is empty.
+     * @throws EmptyTaskDescriptionException If the task description is empty.
      * @throws UnknownCommandException If the command is unknown.
      * @throws DateTimeParseException If the date-time format is invalid.
      */
     public Task createTask(String[] instruction)
-            throws EmptyCommandException, EmptyToDoException, UnknownCommandException,
+            throws EmptyCommandException, EmptyTaskDescriptionException, UnknownCommandException,
                     DateTimeParseException, PassedDateTimeException {
         String[] taskInfo = instruction[1].split(" ");
         String taskType = taskInfo[0];
@@ -108,7 +116,7 @@ public class TaskList {
      *
      * @param task The task object to be added.
      * @throws EmptyCommandException If the command is empty.
-     * @throws EmptyToDoException If the ToDo task description is empty.
+     * @throws EmptyTaskDescriptionException If the task description is empty.
      * @throws UnknownCommandException If the command is unknown.
      * @throws DateTimeParseException If the date-time format is invalid.
      */
