@@ -1,6 +1,5 @@
 package task;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -208,9 +207,9 @@ public abstract class Task {
      *
      * @param input The string to search for within the task list.
      * @return A formatted string containing the numbered tasks that match the input.
-     * @throws FileNotFoundException If the file containing the task list cannot be found.
+     * @throws IOException If the file containing the task list cannot be found.
      */
-    public static String viewTask(String input) throws FileNotFoundException {
+    public static String viewTask(String input) throws IOException {
         StringBuilder sb = storage.read();
         String temp = sb.toString();
         String[] lineTokens = temp.split("\n");
@@ -231,9 +230,9 @@ public abstract class Task {
      *
      * @param input String to search for in task names.
      * @return String containing the matched tasks.
-     * @throws FileNotFoundException If the storage file is not found.
+     * @throws IOException If the storage file is not found.
      */
-    public static String findTask(String input) throws FileNotFoundException {
+    public static String findTask(String input) throws IOException {
         StringBuilder sb = storage.read();
         String temp = sb.toString();
         String[] lineTokens = temp.split("\n");
@@ -265,9 +264,9 @@ public abstract class Task {
      * Lists all tasks in the task list.
      *
      * @return String containing all tasks.
-     * @throws FileNotFoundException If the storage file is not found.
+     * @throws IOException If the storage file is not found.
      */
-    public static String list_task() throws FileNotFoundException {
+    public static String list_task() throws IOException {
         StringBuilder temp = storage.read();
         if (temp.toString().equals("")) {
             return ui.emptyList();

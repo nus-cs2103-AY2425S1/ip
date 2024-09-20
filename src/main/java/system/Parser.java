@@ -145,7 +145,7 @@ public class Parser {
      * @return A String containing the results of the search.
      * @throws FileNotFoundException If the task file is not found during the search.
      */
-    public String performFind(String input) throws FileNotFoundException {
+    public String performFind(String input) throws IOException {
         String trimmedInput = input.trim();
 
         if (trimmedInput.length() < 5) {
@@ -166,7 +166,7 @@ public class Parser {
      * @return A String containing the results of the search.
      * @throws FileNotFoundException If the task file is not found during the search.
      */
-    public String performView(String input) throws FileNotFoundException {
+    public String performView(String input) throws IOException {
         String trimmedInput = input.trim();
         if (trimmedInput.length() < 5) {
             return ui.invalidCommand();
@@ -195,9 +195,9 @@ public class Parser {
      * Retrieves and prints all the tasks stored in the task list.
      *
      * @return A String containing the formatted list of tasks.
-     * @throws FileNotFoundException If the task file is not found when attempting to list tasks.
+     * @throws IOException If the task file is not found when attempting to list tasks.
      */
-    public String performListTasks() throws FileNotFoundException {
+    public String performListTasks() throws IOException {
         return Task.list_task();
     }
 

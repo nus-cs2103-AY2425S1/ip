@@ -35,10 +35,8 @@ public class Tanjiro {
     public String run(String userInput) throws IOException {
         assert true;
         Ui ui = new Ui();
-        Storage storage = new Storage();
         Parser parser = new Parser();
 
-        storage.createFile();
         Task.init_list();
 
         StringBuilder response = new StringBuilder();

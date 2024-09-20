@@ -12,7 +12,7 @@ import java.util.Scanner;
  * It provides methods to create, read, write, update, and delete lines in the file.
  */
 public class Storage {
-    private static final String PATH = ".\\src\\main\\data\\task_list.txt";
+    private static final String PATH = "./task_list.txt";
     private File file;
     private Scanner scanner;
     private FileWriter fileWriterAmend;
@@ -23,33 +23,22 @@ public class Storage {
     }
 
     /**
-     * Creates a new file with the specified file path.
-     * If the file already exists, it will not be overwritten.
-     *
-     * @throws IOException If an I/O error occurs while creating the file.
-     */
-    public void createFile() {
-        file.getParentFile().mkdirs();
-        try {
-            file.createNewFile();
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * Reads the contents of a file and returns it as a StringBuilder object.
      * The file is read line by line, and each line is appended to the StringBuilder object.
      *
      * @return StringBuilder containing the entire contents of the file, with each line separated by a newline.
-     * @throws FileNotFoundException If the file specified by the path does not exist.
+     * @throws IOException If the file specified by the path does not exist.
      */
-    public StringBuilder read() throws FileNotFoundException {
-        scanner = new Scanner(file);
+    public StringBuilder read() throws IOException {
         StringBuilder sb = new StringBuilder();
-        while (scanner.hasNext()) {
-            sb.append(scanner.nextLine() + "\n");
+
+        try {
+            scanner = new Scanner(file);
+            while (scanner.hasNext()) {
+                sb.append(scanner.nextLine() + "\n");
+            }
+        } catch (FileNotFoundException e) {
+            clear();
         }
 
         return sb;
