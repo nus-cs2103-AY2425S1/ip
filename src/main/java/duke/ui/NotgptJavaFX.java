@@ -207,10 +207,10 @@ public class NotgptJavaFX extends Application {
 
         // Add message text and avatar to HBox
         if (isUser) {
-            textFlow.setStyle("-fx-background-color: #DCF8C6; -fx-background-radius: 10;");
+            textFlow.setStyle("-fx-background-color: #DCF8C6; -fx-background-radius: 12 12 0 12;");
             messageBox.getChildren().addAll(textFlow, avatar);
         } else {
-            textFlow.setStyle("-fx-background-color: white; -fx-background-radius: 10;");
+            textFlow.setStyle("-fx-background-color: white; -fx-background-radius: 12 12 12 0;");
             messageBox.getChildren().addAll(avatar, textFlow);
         }
         chatBox.getChildren().add(messageBox);
