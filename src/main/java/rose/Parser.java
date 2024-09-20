@@ -38,7 +38,7 @@ public class Parser {
      * @throws RoseException If the input command is unrecognized or the format is incorrect.
      */
     public static Command parse(String fullCommand) throws RoseException {
-        String[] input = fullCommand.split(" ", 2);
+        String[] input = fullCommand.trim().split(" ", 2);
         String command = input[0].toLowerCase();
         String message = (input.length > 1) ? input[1].trim() : "";
 

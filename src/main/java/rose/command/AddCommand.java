@@ -75,7 +75,7 @@ public class AddCommand extends Command {
         String taskDesc = taskName;
         if (taskName.contains("#")) {
             String[] parts = taskName.split("#");
-            tag = parts[1];
+            tag = parts[1].trim();
             taskDesc = parts[0].trim();
         }
 
@@ -115,7 +115,7 @@ public class AddCommand extends Command {
         if (parts.length < 2) {
             throw new RoseException("Deadline task is missing '" + DEADLINE_DELIMITER + "'.");
         }
-        return new Deadline(parts[0], LocalDate.parse(parts[1], INPUT_FORMAT), tag);
+        return new Deadline(parts[0].trim(), LocalDate.parse(parts[1].trim(), INPUT_FORMAT), tag);
     }
 
     /**
@@ -135,8 +135,8 @@ public class AddCommand extends Command {
         if (partsB.length < 2) {
             throw new RoseException("Event task is missing '" + EVENT_TO_DELIMITER + "'.");
         }
-        return new Event(partsA[0], LocalDate.parse(partsB[0], INPUT_FORMAT),
-                LocalDate.parse(partsB[1], INPUT_FORMAT), tag);
+        return new Event(partsA[0].trim(), LocalDate.parse(partsB[0].trim(), INPUT_FORMAT),
+                LocalDate.parse(partsB[1].trim(), INPUT_FORMAT), tag);
     }
 
     /**
