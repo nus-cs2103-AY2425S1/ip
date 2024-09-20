@@ -16,6 +16,8 @@ public class ListCommand extends Command {
         int count = tasks.getCount();
         if (count == 0) {
             messages.add("Meow?! Your list is empty!");
+        } else {
+            messages.add("You have %d tasks in your list, here they are :3".formatted(count));
         }
         
         for (int i = 0; i < count; i++) {
