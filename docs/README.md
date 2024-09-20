@@ -8,8 +8,9 @@ Hoshi is a user-friendly assistant that aids you in keeping track of your tasks 
 2. Mark/Unmark Tasks as Complete/Incomplete
 3. Delete Tasks
 4. Find Tasks
-5. Graphical User Interface
+5. List Tasks
 6. Help Window
+7. Graphical User Interface
 
 ## Setting up in Intellij (For Quick Start, skip to Running JAR File)
 
