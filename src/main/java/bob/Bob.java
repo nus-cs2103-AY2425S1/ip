@@ -17,7 +17,7 @@ public class Bob {
 
     public Bob() {
         this.storage = new Storage("./dataFile.txt");
-        this.tasklist = new Tasklist();
+        this.tasklist = this.storage.retrieveDataFile("./dataFile.txt");
         this.ui = new Ui();
     }
 
