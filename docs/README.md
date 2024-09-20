@@ -38,6 +38,7 @@ Format of input: `deadline [task description] /by [end time with format YYYY-MM-
 * there is a space between `deadline` and task description
 * It must contain a date to following `/by`
 * The time is optional. The default time is `00:00`
+* Don't use reserved word "/by", "/from", "[X]", "to" in the documents.
 
 Example: `deadline meet with Gagarin /by 1970-01-01 12:00`  
 <img src='add_deadline.png'>
