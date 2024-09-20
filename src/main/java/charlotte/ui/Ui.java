@@ -30,14 +30,6 @@ public class Ui {
     }
 
     /**
-     * Prints a horizontal line to the console for formatting purposes.
-     * This line is used to separate different sections of the UI output.
-     */
-    public String printLine() {
-        return "______________________________________";
-    }
-
-    /**
      * Prints a welcome message to the console when the application starts.
      * This method displays a greeting and prompts the user to enter commands.
      */

@@ -52,7 +52,7 @@ public class Parser {
         case "bye":
             return new ExitCommand();
         default:
-            throw new CharlotteException("Sorry I don't know what that means :( Please try again!");
+            throw new CharlotteException("Oh no, I don't know what that means :( Try again!");
         }
     }
 
