@@ -29,23 +29,19 @@ public class Kafka {
             isExitChat = true;
         }
     }
-    public void run() {
-        Scanner scanner = new Scanner(System.in);
-
-        ui.greet();
-        while (!isExitChat) {
-            try {
-                Parser.parseCommand(scanner.nextLine(), taskList, storage, ui);
-            } catch (KafkaException | IOException e) {
-                ui.showError(e);
-            } catch (DateTimeParseException e) {
-                ui.incorrectDateDetails();
-            }
+    public String getResponse(String input) {
+        String output = "";
+        try {
+            output = Parser.parseCommand(input, taskList, storage, ui);
+        } catch (KafkaException | IOException e) {
+            output = ui.showError(e);
+        } catch (DateTimeParseException e) {
+            output = ui.incorrectDateDetails();
         }
-        ui.goodbye();
+        return output;
     }
 
     public static void main(String[] args) {
-        new Kafka("C:/Users/Nicholas/Downloads/Kafka.txt").run();
+        System.out.println(Ui.greet());
     }
 }

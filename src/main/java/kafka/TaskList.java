@@ -38,16 +38,16 @@ public class TaskList {
     /**
      * Prints all tasks in the list.
      */
-    public void printList() {
+    public String printList() {
         if (tasks.isEmpty()) {
-            return;
+            return "";
         }
         String listMessage = "";
         for (int i = 0; i < this.tasks.size(); i++) {
             Task t = this.tasks.get(i);
             listMessage += "  " + (i + 1) + "." + t + "\n";
         }
-        System.out.println(listMessage);
+        return listMessage;
     }
 
     /**
