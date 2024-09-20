@@ -1,7 +1,5 @@
 # Prince User Guide
 
-// Product screenshot goes here
-
 Welcome to Prince, your personal task management assistant! Prince helps to keep track of all your tasks, whether they 
 are regular ToDo tasks, tasks with Deadlines or just events, in a simple and efficient way.
 
@@ -16,7 +14,7 @@ length of the list.
 
 Expected outcome : 
 'Got it. I've added this task:
-    [T][ ] Buy groceries
+    [T][ ] Paint flowers
  Now you have 1 tasks in the list
  How else would you like me to edit your TODO list today?'
 

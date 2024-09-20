@@ -47,6 +47,7 @@ public class Prince {
      * Constructor of Prince
      *
      * Initialises the various components and creates the files necessary for storage
+     * Citations : Used ChatGPT to understand the file's in-built functions
      *
      * @param dirPath
      * @param filePath
@@ -60,6 +61,10 @@ public class Prince {
         taskList = new TaskList(storage.loadTasksFromFile());
     }
 
+    /**
+     * creates file directory if it does not exist
+     * @param dirPath
+     */
 
     private void createDirectoryIfNotExists(String dirPath) {
         File dir = new File(dirPath);

@@ -22,6 +22,9 @@ import java.util.Scanner;
 /**
  * Handles storage of user data and user tasks in the file
  * Creates the necessary files and directories
+ *
+ * Citations : Made use of ChatGPT to learn and understand the implementation of FileWriter and PrintWriter
+ *
  */
 
 public class Storage {
