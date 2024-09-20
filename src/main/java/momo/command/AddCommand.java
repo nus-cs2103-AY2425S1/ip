@@ -6,8 +6,8 @@ import java.io.IOException;
 
 import momo.Storage;
 import momo.StorageException;
-import momo.Ui;
 import momo.task.Task;
+import momo.task.TaskList;
 
 /**
  * The {@code AddCommand} class provides implementations for adding tasks
@@ -34,13 +34,7 @@ public class AddCommand extends Command {
         }
     }
 
-    /**
-     * Prints a confirmation message displaying the task which has just
-     * been successfully added to the TaskList and storage file
-     *
-     * @param task Task object to be printed
-     */
-    public static void printTaskAdded(Task task, Ui ui) {
-        ui.printDialogue("Noted. I've added this task:\n " + task);
+    public static String returnCountString(TaskList tasks) {
+        return String.format("\nNow you have %d task(s) in the list%n", tasks.getCount());
     }
 }

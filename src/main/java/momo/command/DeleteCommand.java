@@ -6,7 +6,6 @@ import java.io.IOException;
 
 import momo.Storage;
 import momo.StorageException;
-import momo.Ui;
 import momo.exception.InvalidCommandException;
 import momo.task.Task;
 import momo.task.TaskList;
@@ -20,21 +19,18 @@ public class DeleteCommand {
 
     public static final int COMMAND_PREFIX_OFFSET = 6;
 
-
     /**
      * Runs delete command, validating and deleting user task from list and rewriting file if the delete command is
      * valid, with comprehensive exception handling
      * @param input
      * @param tasks
      * @param storage
-     * @param ui
      * @throws InvalidCommandException
      * @throws StorageException
      */
-    public static void run(String input, TaskList tasks, Storage storage, Ui ui) throws InvalidCommandException,
+    public static String run(String input, TaskList tasks, Storage storage) throws InvalidCommandException,
             StorageException {
         assert tasks != null : "TaskList should not be null";
-        assert ui != null : "Ui should not be null";
 
         try {
             int index = Integer.parseInt(input.substring(COMMAND_PREFIX_OFFSET).trim()) - 1;
@@ -47,9 +43,10 @@ public class DeleteCommand {
             assert (tasks.getCount() > 0);
             tasks.deleteTask(index);
 
-            ui.printDialogue("Noted. I've removed this task:\n " + deletedTask);
-            ui.printDialogue(String.format("Now you have %d task(s) in the list%n", tasks.getCount()));
             storage.RewriteTasksToFile(FILE_PATH, tasks.getTaskList());
+
+            return "Noted. I've removed this task:\n" + deletedTask + String.format("\n Now you have %d task(s) in "
+                    + "the list%n", tasks.getCount());
 
         } catch (NumberFormatException e) {
             throw new InvalidCommandException("Watch out: You did not format your number properly...");

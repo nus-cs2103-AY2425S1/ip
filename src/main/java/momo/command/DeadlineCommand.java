@@ -5,7 +5,6 @@ import java.time.LocalDate;
 
 import momo.Storage;
 import momo.StorageException;
-import momo.Ui;
 import momo.exception.InvalidCommandException;
 import momo.task.Deadline;
 import momo.task.Task;
@@ -25,23 +24,21 @@ public class DeadlineCommand extends AddCommand {
      * @param input is the user input
      * @param storage is the file object
      * @param tasks is the task list
-     * @param ui is the ui object
      * @throws InvalidCommandException when user input is invalid
      * @throws StorageException when there is an issue with loading the storage file
      */
-    public static void run(String input, Storage storage, TaskList tasks, Ui ui) throws InvalidCommandException,
+    public static String run(String input, Storage storage, TaskList tasks) throws InvalidCommandException,
             StorageException {
 
         assert tasks != null : "TaskList should not be null";
-        assert ui != null : "Ui should not be null";
 
 
         try {
             Task deadline = getTask(input);
             tasks.addTask(deadline);
             addToStorage(storage, deadline);
-            printTaskAdded(deadline, ui);
-            ui.printDialogue(String.format("Now you have %d task(s) in the list%n", tasks.getCount()));
+            return "Noted. I've added this task:\n" + deadline
+                    + returnCountString(tasks);
 
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidCommandException("You better format your deadline properly or else [REDACTED]");

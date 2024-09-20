@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 /**
  * Controller for the main GUI.
  */
@@ -22,22 +23,26 @@ public class MainWindow extends AnchorPane {
 
     private Momo momo;
 
-    private Ui ui;
-
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/userIcon.png"));
     private final Image momoImage = new Image(this.getClass().getResourceAsStream("/images/momoIcon.png"));
 
+    /**
+     * hihi.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
+        String greeting = "Greetings mortal... I am Ṁ̴̙O̵̖̓M̷͇̈O̸̠͋.\nWhat will you do for me?";
+
+        dialogContainer.getChildren().addAll(
+                DialogBox.getMomoDialog(greeting, momoImage)
+        );
     }
 
     /** Injects the Momo instance */
     public void setMomo() {
-        this.ui = new Ui(dialogContainer, userInput);
-        this.momo = new Momo(Momo.FILE_PATH, this.ui);
-        this.ui.setMomo(momo);
-        this.momo.run();
+        this.momo = new Momo(Momo.FILE_PATH);
     }
 
     /**
@@ -46,6 +51,15 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
-        ui.getUserInput();
+        String input = userInput.getText().trim();
+        String response = momo.getResponse(input);
+
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getMomoDialog(response, momoImage)
+        );
+        userInput.clear();
+
+
     }
 }

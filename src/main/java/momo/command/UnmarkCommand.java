@@ -28,7 +28,7 @@ public class UnmarkCommand {
      * @throws InvalidCommandException thrown when number is not in list or is improperly formatted
      * @throws StorageException        thrown when task is not rewritten to file successfully
      */
-    public static void run(String input, TaskList tasks, Storage storage, Ui ui) throws InvalidCommandException,
+    public static String run(String input, TaskList tasks, Storage storage) throws InvalidCommandException,
             StorageException {
 
         try {
@@ -41,11 +41,11 @@ public class UnmarkCommand {
             Task taskToUnmark = tasks.getTask(index);
             taskToUnmark.unmark();
 
-            ui.printDialogue("Noted... I've unmarked this task:\n " + taskToUnmark);
             storage.RewriteTasksToFile(FILE_PATH, tasks.getTaskList());
+            return "How dare you undo what is not to be undone... I've unmarked this task:\n " + taskToUnmark;
 
         } catch (NumberFormatException e) {
-            throw new InvalidCommandException("Watch out: You did format not your number properly...");
+            throw new InvalidCommandException("Watch out mortal: You did format not your number properly...");
         } catch (IOException e) {
             throw new StorageException(e.getMessage());
         }

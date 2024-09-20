@@ -24,7 +24,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
 
-            // Inject the Duke instance
+            // Inject the Momo instance
             fxmlLoader.<MainWindow>getController().setMomo();
 
             stage.show();

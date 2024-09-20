@@ -10,7 +10,6 @@ import java.nio.file.StandardOpenOption;
 
 import momo.Storage;
 import momo.StorageException;
-import momo.Ui;
 import momo.exception.InvalidCommandException;
 import momo.task.Task;
 import momo.task.TaskList;
@@ -22,15 +21,14 @@ import momo.task.TaskList;
 public class ArchiveCommand extends Command {
     public static final int COMMAND_PREFIX_OFFSET = 7;
 
-    public static void run(String input, TaskList tasks, Storage storage, Ui ui) throws InvalidCommandException,
+    public static String run(String input, TaskList tasks, Storage storage) throws InvalidCommandException,
             StorageException {
 
         // if "Archive" only, archive all tasks
         if (input.equals("archive all")) {
             try {
                 archiveAllTasks(tasks, storage);
-                ui.printDialogue("Noted. I've archived all tasks");
-                return;
+                return "Noted. I've archived all tasks";
             } catch (IOException e) {
                 throw new StorageException(e.getMessage());
             }
@@ -44,24 +42,23 @@ public class ArchiveCommand extends Command {
             }
 
             Task archivedTask = tasks.getTask(index);
-            ui.printDialogue("Noted. I've archived this task:\n " + archivedTask);
 
             try {
                 storage.addTaskToFile("data/archive.txt", archivedTask.toFileString());
+                tasks.deleteTask(index);
+                storage.RewriteTasksToFile(FILE_PATH, tasks.getTaskList());
+
+                return "Noted. I've archived this task:\n " + archivedTask
+                        + String.format("\nNow you have %d task(s)"
+                        + " in the active list%n", tasks.getCount());
+
             } catch (IOException ioe) {
                 throw new StorageException(ioe.getMessage());
             }
 
-            tasks.deleteTask(index);
-            ui.printDialogue(String.format("Now you have %d task(s) in the active list%n", tasks.getCount()));
-            storage.RewriteTasksToFile(FILE_PATH, tasks.getTaskList());
-
         } catch (NumberFormatException e) {
             throw new InvalidCommandException("Watch out: You did not format your number properly...");
-        } catch (IOException e) {
-            throw new StorageException(e.getMessage());
         }
-
     }
 
     public static void archiveAllTasks(TaskList tasks, Storage storage) throws IOException {

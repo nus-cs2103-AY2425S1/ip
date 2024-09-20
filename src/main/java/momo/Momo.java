@@ -1,8 +1,14 @@
 package momo;
 
-import javafx.scene.image.Image;
-import javafx.scene.shape.Arc;
-import momo.command.*;
+import momo.command.ArchiveCommand;
+import momo.command.CommandType;
+import momo.command.DeadlineCommand;
+import momo.command.DeleteCommand;
+import momo.command.EventCommand;
+import momo.command.FindCommand;
+import momo.command.MarkCommand;
+import momo.command.TodoCommand;
+import momo.command.UnmarkCommand;
 import momo.exception.MomoException;
 import momo.task.TaskList;
 
@@ -13,13 +19,6 @@ import momo.task.TaskList;
  */
 public class Momo {
 
-    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/userIcon.png"));
-    private final Image momoImage = new Image(this.getClass().getResourceAsStream("/images/momoIcon.png"));
-
-
-    /**
-     * The file path where the task data is stored.
-     */
     public static final String FILE_PATH = "data/momo.txt";
     public static final String ARCHIVE_FILE_PATH = "data/archive.txt";
 
@@ -27,8 +26,12 @@ public class Momo {
     private TaskList tasks;
     private Ui ui;
 
-    public Momo(String filePath, Ui ui) {
-        this.ui = ui;
+    /**
+     * hihi
+     * @param filePath
+     */
+    public Momo(String filePath) {
+        this.ui = new Ui();
         storage = new Storage(filePath);
 
         try {
@@ -46,53 +49,50 @@ public class Momo {
      * reminders on properly formatting the input depending on user
      * input until the 'bye' command is triggered
      */
-    public void run() {
-        ui.showGreeting();
-    }
 
-    public void processCommand(String input, CommandType command) {
+
+    public String processCommand(String input, CommandType command) {
 
         try {
             if (command == CommandType.BYE) {
                 ui.showFarewell();
             } else if (command == CommandType.LIST) {
-                ui.printList(tasks);
+                return ui.printList(tasks);
             } else if (command == CommandType.FIND) {
-                FindCommand.run(input, tasks, ui);
+                return FindCommand.run(input, tasks);
             } else if (command == CommandType.MARK) {
-                MarkCommand.run(input, tasks, storage, ui);
+                return MarkCommand.run(input, tasks, storage);
             } else if (command == CommandType.UNMARK) {
-                UnmarkCommand.run(input, tasks, storage, ui);
+                return UnmarkCommand.run(input, tasks, storage);
             } else if (command == CommandType.DELETE) {
-                DeleteCommand.run(input, tasks, storage, ui);
+                return DeleteCommand.run(input, tasks, storage);
             } else {
                 if (command == CommandType.TODO) {
-                    TodoCommand.run(input, storage, tasks, ui);
+                    return TodoCommand.run(input, storage, tasks);
                 } else if (command == CommandType.DEADLINE) {
-                    DeadlineCommand.run(input, storage, tasks, ui);
+                    return DeadlineCommand.run(input, storage, tasks);
                 } else if (command == CommandType.EVENT) {
-                    EventCommand.run(input, storage, tasks, ui);
+                    return EventCommand.run(input, storage, tasks);
                 } else if (command == CommandType.ARCHIVE) {
-                    ArchiveCommand.run(input, tasks, storage, ui);
+                    return ArchiveCommand.run(input, tasks, storage);
                 }
             }
         } catch (MomoException e) {
-            ui.printDialogue(e.getMessage());
+            return e.getMessage();
+        }
+
+        return "";
+    }
+
+    public String getResponse(String input) {
+        try {
+            CommandType command = Parser.parseInput(input);
+            assert command != null;
+            return processCommand(input, command);
+        } catch (MomoException e) {
+            return e.getMessage();
         }
     }
-
-    /**
-     * Main method which is the entry point to the chatbot program
-     *
-     * @param args CLI arguments (not used)
-     * @throws MomoException if unexpected chatbot related errors occur
-     */
-    public static void main(String[] args)  {
-        // new Momo(FILE_PATH).run();
-    }
-
-
-
 
 }
 

@@ -16,12 +16,10 @@ public class FindCommand extends Command {
      * Runs the find command
      * @param input
      * @param tasks
-     * @param ui
      * @throws InvalidCommandException
      */
-    public static void run(String input, TaskList tasks, Ui ui) throws InvalidCommandException {
+    public static String run(String input, TaskList tasks) throws InvalidCommandException {
         assert tasks != null : "TaskList should not be null";
-        assert ui != null : "Ui should not be null";
 
         StringBuilder matchingTasks = new StringBuilder();
         String desc = input.substring(COMMAND_PREFIX_OFFSET).trim().toLowerCase();
@@ -39,10 +37,9 @@ public class FindCommand extends Command {
         }
 
         if (matchingTasks.isEmpty()) {
-            ui.printDialogue("There are no matching tasks in your list");
+            return "There are no matching tasks in your list";
         } else {
-            ui.printDialogue("Here are the matching tasks in your list:");
-            ui.printDialogue(matchingTasks.toString());
+            return "Here are the matching tasks in your list:" + matchingTasks.toString();
         }
     }
 }

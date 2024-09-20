@@ -19,11 +19,10 @@ public class TodoCommand extends AddCommand {
      * @param input
      * @param storage
      * @param tasks
-     * @param ui
      * @throws InvalidCommandException
      * @throws StorageException
      */
-    public static void run(String input, Storage storage, TaskList tasks, Ui ui) throws InvalidCommandException,
+    public static String run(String input, Storage storage, TaskList tasks) throws InvalidCommandException,
             StorageException {
         String desc = input.substring(4).trim();
 
@@ -35,9 +34,8 @@ public class TodoCommand extends AddCommand {
 
         tasks.addTask(todo);
         addToStorage(storage, todo);
-        printTaskAdded(todo, ui);
 
-        ui.printDialogue(String.format("Now you have %d task(s) in the list%n", tasks.getCount()));
+        return "Noted. I've added this task:\n" + todo + returnCountString(tasks);
     }
 
 }

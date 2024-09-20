@@ -57,7 +57,6 @@ public class DeleteCommandTest {
         expectedMessage = "You can only delete a number your task list contains";
         assertTrue(numberNotInListException.getMessage().contains(expectedMessage));
 
-
     }
 
 

@@ -28,24 +28,25 @@ public class MarkCommand {
      * @throws InvalidCommandException thrown when number is not in list or is improperly formatted
      * @throws StorageException        thrown when task is not rewritten to file successfully
      */
-    public static void run(String input, TaskList tasks, Storage storage, Ui ui) throws InvalidCommandException,
+    public static String run(String input, TaskList tasks, Storage storage) throws InvalidCommandException,
             StorageException {
 
         try {
             int index = Integer.parseInt(input.substring(4).trim()) - 1;
 
             if (index >= tasks.getCount() || index < 0) {
-                throw new InvalidCommandException("You can only mark a number your task list contains");
+                throw new InvalidCommandException("You can only mark a number your task list contains, mortal");
             }
 
             Task taskToMark = tasks.getTask(index);
             taskToMark.markComplete();
 
-            ui.printDialogue("Good human. I've marked this task:\n " + taskToMark);
             storage.RewriteTasksToFile(FILE_PATH, tasks.getTaskList());
+            return "Good human. I've marked this task:\n " + taskToMark;
 
         } catch (NumberFormatException e) {
-            throw new InvalidCommandException("Watch out: You did format not your number properly...");
+            throw new InvalidCommandException("Watch out: You did format not your number properly... don't make me "
+                    + "warn you again (ʘ  ʘ)");
         } catch (IOException e) {
             throw new StorageException(e.getMessage());
         }
