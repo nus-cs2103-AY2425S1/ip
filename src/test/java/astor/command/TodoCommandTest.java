@@ -71,7 +71,7 @@ public class TodoCommandTest {
             String expectedOutput = "Got it. I've added this task:\n  "
                     + "[T] [ ] read" + "\nNow you have " + 1 + " tasks in the list.\n";
             String actualOutput = outputStream.toString();
-            assertEquals(expectedOutput, actualOutput);
+            assertEquals(normalizeLineEndings(expectedOutput).trim(), normalizeLineEndings(actualOutput).trim());
         } catch (Exception e) {
             Assertions.fail("Exception should not have been thrown");
         }
@@ -93,7 +93,7 @@ public class TodoCommandTest {
             String expectedOutput = "Got it. I've added this task:\n  "
                     + "[T] [ ] read and write" + "\nNow you have " + 1 + " tasks in the list.\n";
             String actualOutput = outputStream.toString();
-            assertEquals(expectedOutput, actualOutput);
+            assertEquals(normalizeLineEndings(expectedOutput).trim(), normalizeLineEndings(actualOutput).trim());
         } catch (Exception e) {
             Assertions.fail("Exception should not have been thrown");
         }
@@ -137,7 +137,7 @@ public class TodoCommandTest {
             String expectedOutput = "Got it. I've added this task:\n  "
                     + "[T] [ ] read and write" + "\nNow you have " + 1 + " tasks in the list.\n";
             String actualOutput = outputStream.toString();
-            assertEquals(expectedOutput, actualOutput);
+            assertEquals(normalizeLineEndings(expectedOutput).trim(), normalizeLineEndings(actualOutput).trim());
         } catch (Exception e) {
             Assertions.fail("Exception should not have been thrown");
         }
