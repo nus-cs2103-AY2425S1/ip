@@ -1,0 +1,15 @@
+todo
+deadline
+event
+todo 2103 iP
+deadline 2103 iP /by friday
+deadline 2101
+event splashdown /by 28th August
+event splashdown /from 28th Aug /to 29th Aug
+mark 1
+list
+mark 9
+delete 2
+list
+deadline level 8 /by 2024-08-27
+bye
