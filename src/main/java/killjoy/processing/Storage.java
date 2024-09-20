@@ -126,7 +126,6 @@ public class Storage {
             readTasksFromFile(file);
             return UserInterface.displayTaskLoadedMessage();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
             return UserInterface.displayFileNotFoundMessage();
         }
     }

@@ -135,6 +135,7 @@ public class KillJoy {
             this.taskCount = this.taskList.size();
             return str;
         case "archive":
+            assert inputAsList.length == 1 : "Invalid archive command";
             this.taskList = saveAndLoad.archiveTasks(this.taskList);
             this.taskCount = 0;
             return UserInterface.displayTaskArchivedMessage();
