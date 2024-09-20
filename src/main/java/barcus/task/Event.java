@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import barcus.exception.BarcusException;
+
 /**
  * Task with from and to dates
  */
@@ -21,10 +23,14 @@ public class Event extends Task {
      * @param to date
      * @throws DateTimeParseException when error parsing date
      */
-    public Event(String description, String from, String to) throws DateTimeParseException {
+    public Event(String description, String from, String to) throws DateTimeParseException, BarcusException {
         super(description);
         this.from = LocalDateTime.parse(from, fromFormatter);
         this.to = LocalDateTime.parse(to, fromFormatter);
+
+        if (!this.to.isAfter(this.from)) {
+            throw new BarcusException("please make sure that the /from date is before the /to date");
+        }
     }
 
     /**
@@ -45,6 +51,8 @@ public class Event extends Task {
         super(description, isDone, tags);
         this.from = LocalDateTime.parse(from, fromFormatter);
         this.to = LocalDateTime.parse(to, fromFormatter);
+
+
     }
 
     /**

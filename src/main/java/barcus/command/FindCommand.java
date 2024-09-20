@@ -28,8 +28,11 @@ public class FindCommand extends Command {
     @Override
     public void execute(TaskList tasks, Storage storage) {
         TaskList tasksSubstring = tasks.findTask(toFind);
-        tasksSubstring.showTaskList();
-        output = "Here are the matching tasks!\n" + tasksSubstring.getTaskListDisplay();
+        if (tasksSubstring.getLength() == 0) {
+            output = "No tasks found with that in the description or tags!";
+        } else {
+            output = "Here are the matching tasks!\n" + tasksSubstring.getTaskListDisplay();
+        }
     }
 
     /**

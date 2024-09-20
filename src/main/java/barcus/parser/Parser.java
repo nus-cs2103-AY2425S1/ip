@@ -158,7 +158,13 @@ public class Parser {
         if (!wordsList.contains("/by")) {
             throw new BarcusException("please include '/by' and deadline after it");
         }
+
         int byI = wordsList.indexOf("/by");
+
+        if (byI == 1) {
+            throw new BarcusException("please include a task description");
+        }
+
         return new AddDeadlineCommand(
                 String.join(" ", Arrays.copyOfRange(words, 1, byI)),
                 String.join(" ", Arrays.copyOfRange(words, byI + 1, words.length)));
@@ -178,6 +184,11 @@ public class Parser {
         }
         int fromI = wordsList.indexOf("/from");
         int toI = wordsList.indexOf("/to");
+
+        if (fromI == 1) {
+            throw new BarcusException("please include a task description");
+        }
+
         return new AddEventCommand(
                 String.join(" ", Arrays.copyOfRange(words, 1, fromI)),
                 String.join(" ", Arrays.copyOfRange(words, fromI + 1, toI)),
@@ -209,7 +220,6 @@ public class Parser {
             for (int i = 0; i < pos.size(); i++) {
                 convertedPos[i] = pos.get(i);
             }
-            System.out.println(convertedPos);
             return new DeleteCommand(convertedPos);
         } catch (NumberFormatException e) {
             throw new BarcusException("please have an integer after 'delete'");
