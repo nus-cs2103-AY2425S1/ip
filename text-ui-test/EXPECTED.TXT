@@ -1,7 +1,37 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hello! I'm
+  ____      _ _
+ / ___|___ | | |__  _   _
+| |   / _ \| | '_ \| | | |
+| |__| (_) | | |_) | |_| |
+\____\___/|_|_.__/ \__, /
+                   |___/
 
+What can I do for you?
+
+  Alright, I have added this task to the list:
+    [T][ ] borrow book
+  Your list now has 1 task :)
+  Alright, I have added this task to the list:
+    [D][ ] return book  (by: Sunday)
+  Your list now has 2 tasks :)
+  Alright, I have added this task to the list:
+    [E][ ] project meeting  (from: Mon 2pm to: 4pm)
+  Your list now has 3 tasks :)
+Here's all the tasks you have to do:
+  1. [T][ ] borrow book
+  2. [D][ ] return book  (by: Sunday)
+  3. [E][ ] project meeting  (from: Mon 2pm to: 4pm)
+  Great job! I have now marked this task as done!
+    [X] deadline return book /by Sunday
+  Great job! I have now marked this task as done!
+    [X] event project meeting /from Mon 2pm /to 4pm
+Here's all the tasks you have to do:
+  1. [T][ ] borrow book
+  2. [D][X] return book  (by: Sunday)
+  3. [E][X] project meeting  (from: Mon 2pm to: 4pm)
+  Alright, I have marked this task as not done yet.
+    [ ] event project meeting /from Mon 2pm /to 4pm
+Here's all the tasks you have to do:
+  1. [T][ ] borrow book
+  2. [D][X] return book  (by: Sunday)
+  3. [E][ ] project meeting  (from: Mon 2pm to: 4pm)
