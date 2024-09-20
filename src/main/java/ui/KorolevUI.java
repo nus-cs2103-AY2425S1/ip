@@ -18,16 +18,6 @@ public class KorolevUI {
     private KorolevList repo = new KorolevList();
 
     /**
-     * Initializes the interaction UI with users and reads commands.
-     */
-    public void run() {
-        System.out.println(newLogo);
-        repo.loadEvent();
-        this.readCommands();
-        System.out.println(end);
-    }
-
-    /**
      * Reads the inputs of users and executes commands based on the input.
      */
     private void readCommands() {
