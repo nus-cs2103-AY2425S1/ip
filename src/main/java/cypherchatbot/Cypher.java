@@ -13,9 +13,6 @@ import javafx.application.Platform;
 import javafx.util.Duration;
 
 
-
-
-
 /**
  *  Represents the entry point for the Cypher ChatBot Application.
  *  This class is responsible for initialising the various components
@@ -55,7 +52,10 @@ public class Cypher {
             if (c.showExitStatus()) {
                 // The application closes after 3 seconds
                 PauseTransition delay = new PauseTransition(Duration.seconds(3));
-                delay.setOnFinished((e) -> Platform.exit());
+                delay.setOnFinished((e) -> {
+                    Platform.exit();
+                    System.exit(0);
+                });
                 delay.play();
             }
             this.sendDialog(c.execute(tasks, ui, storage));

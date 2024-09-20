@@ -1,7 +1,18 @@
 package cypherchatbot.util;
 
 import cypherchatbot.CypherException;
-import cypherchatbot.command.*;
+import cypherchatbot.command.ByeCommand;
+import cypherchatbot.command.Command;
+import cypherchatbot.command.DeadlineCommand;
+import cypherchatbot.command.DeleteCommand;
+import cypherchatbot.command.EventCommand;
+import cypherchatbot.command.FindCommand;
+import cypherchatbot.command.HelpCommand;
+import cypherchatbot.command.ListCommand;
+import cypherchatbot.command.MarkCommand;
+import cypherchatbot.command.SortCommand;
+import cypherchatbot.command.ToDoCommand;
+import cypherchatbot.command.UnmarkCommand;
 
 
 /**
