@@ -4,6 +4,9 @@
 
 > _Organize with ease, accomplish with **Ollie ☺** !_ ️
 
+</br>
+
+
 ---
 
 # What is Ollie️ ☺️
@@ -12,16 +15,19 @@
 - Manages your tasks for you
 - _User-friendly_ syntax using one-letter commands eg `-l` to list all tasks
 - [Features](#features)
-  - [Add tasks](#add-a-task)
+  - [Add a task](#add-a-task)
       - [Add a Todo Task](#add-a-todo-task) `todo`
       - [Add a Deadline Task](#add-a-deadline-task) `deadline`
       - [Add an Event Task](#add-an-event-task) `event`
   - [List all tasks](#list-all-tasks) `-l`
-  - [Delete tasks](#delete-a-task) `-d`
-  - Mark tasks
+  - [Mark a task](#mark-a-task)
      - [Mark a task as done](#mark-a-task-as-done) `-m`
      - [Unark a task as done](#unmark-a-task-as-done) `-u`
+  - [Delete a task](#delete-a-task) `-d`
   - [Find tasks](#find-tasks) `-f`
+
+</br>
+
 
 ---
 
@@ -38,6 +44,10 @@
 <img src="./images/Start.png" width="300">
 
 7. Please refer to [features](#features) for the commands that can be typed.
+
+
+</br>
+
 
 --- 
 
@@ -103,7 +113,9 @@ Example: `event meeting /from: 2021-09-17 14:00 /to: 2021-09-17 16:00` adds an E
 
 <img src="./images/Event.png" width="300">
 
+
 </br>
+
 
 ## List all tasks
 > ```
@@ -117,7 +129,7 @@ Example: `-l` lists all tasks in the task list.
 
 </br>
 
-## Update a task
+## Mark a task
 ### Mark a task as done
 > ```
 > -m <task number>
@@ -138,7 +150,11 @@ Example: `-u 1` marks the first task in the list as undone.
 
 <img src="./images/Unmark.png" width="300">
 
-### Delete a task
+
+</br>
+
+
+## Delete a task
 > ```
 > -d <task number>
 > ```
@@ -149,6 +165,7 @@ Example: `-d 3` deletes the third task in the list.
 <img src="./images/Delete.png" width="300">
 
 </br>
+
 
 ## Find tasks
 > ```
