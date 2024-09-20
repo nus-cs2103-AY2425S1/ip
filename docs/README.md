@@ -19,7 +19,7 @@ Some example commands you can try:
 - `list` : Lists all tasks.
 - `todo buy groceries`: Adds a ToDo task with the description "buy groceries" to the list.
 - `delete 3` : Deletes the 3rd task shown in the list.
-- `exit` : Exits the app.
+- `bye` : Exits the app.
 
 ## Features
 
@@ -63,10 +63,10 @@ Snoozes (postpones) the end date of a Deadline or Event task to a new date.
 - **Example**: `snooze 3 2024-09-25 13:00`: Snoozes the end date of the 3rd task 
 to September 25, 2024 1300 hrs.
 
-### Exiting the Program: `exit`
+### Exiting the Program: `bye`
 Exits the Elon application.
 
-- **Format**: `exit`
+- **Format**: `bye`
 
 ### Saving Data
 Elon automatically saves your tasks after any command that changes the data. There is no need to manually save.
