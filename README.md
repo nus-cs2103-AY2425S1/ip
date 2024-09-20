@@ -16,7 +16,7 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
 3. After that, locate the `src/main/java/BotimusPrime.java` file, right-click it, and choose `Run BotimusPrime.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
    ```
    Hello from
-
+   
 __________        __  .__                     __________        .__                
 \______   \ _____/  |_|__| _____  __ __  _____\______   \_______|__| _____   ____  
  |    |  _//  _ \   __\  |/     \|  |  \/  ___/|     ___/\_  __ \  |/     \_/ __ \ 
