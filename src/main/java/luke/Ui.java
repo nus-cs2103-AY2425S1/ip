@@ -2,7 +2,6 @@ package luke;
 
 import java.util.List;
 
-import javafx.application.Platform;
 import luke.command.Command;
 import luke.env.Constants;
 import luke.task.NoDescriptionException;
@@ -28,28 +27,30 @@ public class Ui {
      * @return command output
      */
     public static String handleCommand(Command command, boolean isLoadingFromDisk) {
-        switch (command.getCommand()) {
-        case "bye" -> {
-            // return "yeah bye bye to you too human being <3";
-            Platform.exit();
+        try {
+            switch (command.getCommand()) {
+            case "bye" -> {
+                return Constants.BYE_MESSAGE;
+            }
+            case "list" -> {
+                return showList();
+            }
+            case "mark", "unmark" -> {
+                return handleTaskMarking(command);
+            }
+            case "delete" -> {
+                return handleDelete(command);
+            }
+            case "find" -> {
+                return handleFind(command);
+            }
+            default -> {
+                return handleAddTask(command, isLoadingFromDisk);
+            }
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return Constants.BAD_COMMAND;
         }
-        case "list" -> {
-            return showList();
-        }
-        case "mark", "unmark" -> {
-            return handleTaskMarking(command);
-        }
-        case "delete" -> {
-            return handleDelete(command);
-        }
-        case "find" -> {
-            return handleFind(command);
-        }
-        default -> {
-            return handleAddTask(command, isLoadingFromDisk);
-        }
-        }
-        return "";
     }
 
     public static String showList() {
@@ -61,11 +62,12 @@ public class Ui {
      * @param command the mark/unmark command word and its associated tasks
      */
     public static String handleTaskMarking(Command command) {
+        // assert command.getArgs() != null;
         int taskToMark = Integer.parseInt(command.getArgs());
         try {
             Task task = taskList.getTask(taskToMark - 1);
             task.changeMark();
-            Storage.saveData(taskList);
+            Storage.saveData(taskList.getTaskList());
             return (command.getCommand().equals("mark")
                     ? "ok i've marked"
                     : "ok i've unmarked")
@@ -85,7 +87,7 @@ public class Ui {
         int taskToDelete = Integer.parseInt(command.getArgs());
         try {
             Task deletedTask = taskList.removeTask(taskToDelete - 1);
-            Storage.saveData(taskList);
+            Storage.saveData(taskList.getTaskList());
             return "alright i've purged this task for you:\n"
                     + Constants.INDENT + deletedTask.taskDescription() + "\n"
                     + taskList.listSizeUpdateMessage();

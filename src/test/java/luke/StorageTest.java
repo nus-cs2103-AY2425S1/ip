@@ -15,7 +15,7 @@ public class StorageTest {
         Storage storage = new Storage();
         TaskList taskList = new TaskList();
         taskList.addToList("todo", "read book", true, false);
-        storage.saveData(taskList);
+        storage.saveData(taskList.getTaskList());
         List<String> lines = storage.loadData();
         assertEquals(1, lines.size());
         assertEquals("X | todo | read book", lines.get(0).strip());
