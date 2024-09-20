@@ -38,6 +38,12 @@ public class Deadline extends Task {
         return this.text;
     }
 
+    /**
+     * Reschedules the task.
+     *
+     * @param date new task date
+     * @param time new task time
+     */
     public void setDateTime(LocalDate date, LocalTime time) {
         this.date = date;
         this.time = time;

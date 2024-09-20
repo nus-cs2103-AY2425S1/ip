@@ -39,6 +39,14 @@ public class Event extends Task {
         return this.text;
     }
 
+    /**
+     * Reschedules the task.
+     *
+     * @param startDate new task "from" date
+     * @param startTime new task "from" time
+     * @param endDate new task "to" date
+     * @param endTime new task "to" time
+     */
     public void setDatesTimes(LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime) {
         this.start = startDate;
         this.end = endDate;
