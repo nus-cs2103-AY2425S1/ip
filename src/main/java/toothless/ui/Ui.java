@@ -65,7 +65,8 @@ public class Ui {
      */
     public String unknownCommand() {
         return "I'm sorry, I do not understand what you mean.\n"
-                + "Please enter a valid command.\n\n";
+                + "Please enter a valid command.\n\n"
+                + "Enter 'help' to see the list of commands.\n\n";
     }
 
     /**
