@@ -39,8 +39,8 @@ public class Event extends Task {
      * @param toMsg Postfix after /to
      * @param done Marked task
      */
-    public Event(String description, String fromMsg, String toMsg, boolean done) {
-        super(description, done);
+    public Event(String description, String fromMsg, String toMsg, boolean done, String priority) {
+        super(description, done, priority);
         this.fromMsg = fromMsg;
         this.toMsg = toMsg;
     }
@@ -58,8 +58,8 @@ public class Event extends Task {
             // boolean if true, then data will be written to the end of the file rather than the beginning.
             FileWriter fw = new FileWriter(dataFile, true);
 
-            String builder = "E | " + this.getDone1() + " | " + super.writeToDatafile(dataFile)
-                    + " | " + this.fromMsg + "-" + this.fromMsg + "\n";
+            String builder = "E | " + this.getDone1() + " | " + super.getPriority() + " | "
+                    + super.writeToDatafile(dataFile) + " | " + this.fromMsg + "-" + this.fromMsg + "\n";
             fw.write(builder);
 
             //flushing & closing the writer

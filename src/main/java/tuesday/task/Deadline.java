@@ -35,8 +35,8 @@ public class Deadline extends Task {
      * @param byMsg Postfix after /by
      * @param done Marked data from data file
      */
-    public Deadline(String description, String byMsg, boolean done) {
-        super(description, done);
+    public Deadline(String description, String byMsg, boolean done, String priority) {
+        super(description, done, priority);
         byMsg = this.handleByMsg(byMsg);
         this.byMsg = byMsg;
     }
@@ -91,8 +91,8 @@ public class Deadline extends Task {
             // boolean if true, then data will be written to the end of the file rather than the beginning.
             FileWriter fw = new FileWriter(dataFile, true);
 
-            String builder = "D | " + this.getDone1() + " | " + super.writeToDatafile(dataFile)
-                    + " | " + this.byMsg + "\n";
+            String builder = "D | " + this.getDone1() + " | " + super.getPriority() + " | "
+                    + super.writeToDatafile(dataFile) + " | " + this.byMsg + "\n";
             fw.write(builder);
 
             //flushing & closing the writer

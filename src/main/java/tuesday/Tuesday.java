@@ -1,6 +1,7 @@
 package tuesday;
 
 import tuesday.command.Command;
+import tuesday.command.HelpCommand;
 import tuesday.command.Parser;
 import tuesday.task.Task;
 import tuesday.util.Storage;
@@ -41,6 +42,7 @@ public class Tuesday {
     public Tuesday() {
         ui = new Ui();
         storage = new Storage("src/main/data/tuesday.txt");
+        this.commandType = "hi";
         try {
             // Add all the tasks in the data file to the Tasks class
             tasks = new Task(storage.load());

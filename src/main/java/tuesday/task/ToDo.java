@@ -26,8 +26,8 @@ public class ToDo extends Task {
      * @param description Description of the Command
      * @param done Marked task
      */
-    public ToDo(String description, boolean done) {
-        super(description, done);
+    public ToDo(String description, boolean done, String priority) {
+        super(description, done, priority);
     }
 
     /**
@@ -44,7 +44,8 @@ public class ToDo extends Task {
             // boolean if true, then data will be written to the end of the file rather than the beginning.
             FileWriter fw = new FileWriter(dataFile, true);
 
-            builder = "T | " + this.getDone1() + " | " + super.writeToDatafile(dataFile) + "\n";
+            builder = "T | " + this.getDone1() + " | " + super.writeToDatafile(dataFile) + " | "
+                    + super.getPriority() + "\n";
             fw.write(builder);
 
             //flushing & closing the writer

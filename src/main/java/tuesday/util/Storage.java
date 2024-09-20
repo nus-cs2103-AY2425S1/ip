@@ -60,16 +60,16 @@ public class Storage {
 
                 switch (userInputArr[0]) {
                 case "T":
-                    ToDo taskItem = new ToDo(userInputArr[2], userInputArr[1].equals("1"));
+                    ToDo taskItem = new ToDo(userInputArr[3], userInputArr[1].equals("1"), userInputArr[2]);
                     break;
                 case "D":
-                    Deadline deadlineItem = new Deadline(userInputArr[2],
-                            userInputArr[3], userInputArr[1].equals("1"));
+                    Deadline deadlineItem = new Deadline(userInputArr[3],
+                            userInputArr[4], userInputArr[1].equals("1"), userInputArr[2]);
                     break;
                 case "E":
-                    String[] userInputArrEvent = userInputArr[3].split("-");
-                    Event eventItem = new Event(userInputArr[2],
-                            userInputArrEvent[0], userInputArrEvent[1], userInputArr[1].equals("1"));
+                    String[] userInputArrEvent = userInputArr[4].split("-");
+                    Event eventItem = new Event(userInputArr[3],
+                            userInputArrEvent[0], userInputArrEvent[1], userInputArr[1].equals("1"), userInputArr[2]);
                     break;
                 default:
                     break;

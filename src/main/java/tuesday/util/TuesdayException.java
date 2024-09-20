@@ -13,6 +13,7 @@ public class TuesdayException extends Exception {
      */
     public TuesdayException(String errorMessage) {
         this.errorMessage = errorMessage;
+
     }
 
     public String getMessage() {

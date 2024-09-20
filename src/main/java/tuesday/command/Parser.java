@@ -35,8 +35,11 @@ public class Parser {
             return new FindCommand(command, userInputArr[1]);
         } else if (userInputArr[0].equals("edit")) {
             return new EditCommand(command, userInputArr[1]);
-        } else {
-            throw new TuesdayException("Hey there!! I do not know what you mean. Can you type it out differently?");
+        } else if (userInputArr[0].equals("help")) {
+            return new HelpCommand(command);
+        }
+        else {
+            throw new TuesdayException("Hey there!! I do not know what you mean. You may type 'help'");
         }
     }
 }

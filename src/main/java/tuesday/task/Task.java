@@ -18,7 +18,7 @@ public class Task {
     private String description;
     private boolean isMarked;
 
-    private String Priority;
+    private String priority;
 
     /**
      * Constructor for Task
@@ -32,7 +32,7 @@ public class Task {
         }
         this.description = description;
         this.isMarked = false;
-        this.Priority = " ";
+        this.priority = " ";
         Task.taskArrayList.add(this);
         count++;
     }
@@ -44,9 +44,10 @@ public class Task {
      * @param description Description of the command
      * @param isMarked Marked task
      */
-    public Task(String description, boolean isMarked) {
+    public Task(String description, boolean isMarked, String priority) {
         this.description = description;
         this.isMarked = isMarked;
+        this.priority = priority;
         Task.taskArrayList.add(this);
         count++;
     }
@@ -132,7 +133,11 @@ public class Task {
     }
 
     public void setPriority(String priority) {
-        this.Priority = priority;
+        this.priority = priority;
+    }
+
+    public String getPriority() {
+        return this.priority;
     }
     /**
      * Used for an output message
@@ -142,6 +147,6 @@ public class Task {
     @Override
     public String toString() {
         assert this.description != null : "Use the constructor first";
-        return "[" + this.getDoneX() + "][" + this.Priority + "] " + this.description;
+        return "[" + this.getDoneX() + "][" + this.priority + "] " + this.description;
     }
 }
