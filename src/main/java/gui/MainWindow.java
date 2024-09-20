@@ -1,9 +1,10 @@
 package gui;
 
+import java.util.Objects;
+
 import duke.Duke;
 import duke.Ui;
 import javafx.fxml.FXML;
-//import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -27,12 +28,10 @@ public class MainWindow extends AnchorPane {
 
     private Duke duke;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaTesla.png"));
-
-    //private MainWindow() {
-    //    FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
-    //}
+    private final Image userImage = new Image(Objects.requireNonNull(this.getClass()
+            .getResourceAsStream("/images/DaUser.png")));
+    private final Image dukeImage = new Image(Objects.requireNonNull(this.getClass()
+            .getResourceAsStream("/images/DaTesla.png")));
 
     /**
      * Initializes the GUI with a default message from Tesla.

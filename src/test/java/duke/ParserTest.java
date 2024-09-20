@@ -11,8 +11,12 @@ import org.junit.jupiter.api.Test;
 
 public class ParserTest {
 
+    /*
+    IntelliJ IDEA AI recommended removing redundant Exception throws that were initially necessary but became redundant
+    after code compilation.
+     */
     @Test
-    public void processTest() throws EmptyCommandException, InvalidCommandException, TaskListOutOfBoundsException {
+    public void processTest() {
         Parser p = new Parser("xkcd");
         assertThrows(InvalidCommandException.class, ()-> p.process(new TaskList(new ArrayList<>()), new Ui()));
         //fail();
@@ -25,8 +29,16 @@ public class ParserTest {
         Todo todo = new Todo("borrow book");
         tasks.add(todo);
         p.setInputString("deadline return book /by 2012-06-06");
-        assertEquals("Got it. I've added this task:\n[D][ ] return book (by: Jun 6 2012)\nNow you have 2"
-                        + " tasks in the list.\n",
+        /*
+        IntelliJ IDEA AI recommended changing string concatenation to a text block, which improved the code quality upon
+        implementation.
+         */
+        assertEquals("""
+                        Got it. I've added this task:
+                        [D][ ] return book (by: Jun 6 2012)
+                        Now you have 2\
+                         tasks in the list.
+                        """,
                 p.stringProcess(tasks, new Ui()));
     }
 }

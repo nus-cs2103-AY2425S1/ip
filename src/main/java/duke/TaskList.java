@@ -13,8 +13,11 @@ public class TaskList {
         setTaskList(userInputs);
     }
 
+    /*
+    IntelliJ IDEA AI recommended removing "Task" from the typing of the ArrayList to make use of Generics.
+     */
     public TaskList() {
-        userInputs = new ArrayList<Task>();
+        userInputs = new ArrayList<>();
     }
 
     private void setTaskList(ArrayList<Task> userInputs) {
