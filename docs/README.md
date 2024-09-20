@@ -67,7 +67,7 @@ Now you have 1 task in the list.
 
 Shows a list of all the tasks that is being tracked.
 
-Format: `event DESCRIPTION /by END-DATE /to START-DATE`
+Format: `list`
 
 Expected output:
 ```
@@ -140,7 +140,7 @@ Expected output:
 
 Saves all tasks to a file and exits the program.
 
-Format: bye
+Format: `bye`
 
 Expected output:
 ```
