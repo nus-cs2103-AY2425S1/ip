@@ -144,6 +144,5 @@ ___
 ___
 #### Help feature
 User can get a help page receiving a list of all commands they can use.
-___
 #### Finding tasks feature
 User can search for all relevant tasks with a keyword.
