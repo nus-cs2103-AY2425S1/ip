@@ -66,56 +66,57 @@ public class Fred {
      * @throws FredException If the action is invalid or cannot be executed.
      */
     String executeAction(Action action) throws FredException {
-        String message;
-        Task task;
         switch (action.getCommand()) {
-        case EXIT:
-            message = "Bye. Hope to see you again soon!";
-            isRunning = false;
-            break;
-        case LIST_TASKS:
-            message = tasks.getTasksAsString();
-            break;
-        case MARK_TASK:
-            task = tasks.markTaskAsDone(action.getTaskNumber());
-            message = String.format("Nice! I've marked this task as done:\n" +
-                    "   %s", task);
-            break;
-        case UNMARK_TASK:
-            task = tasks.markTaskAsNotDone(action.getTaskNumber());
-            message = String.format("OK, I've marked this task as not done yet:\n" +
-                    "   %s", task);
-            break;
-        case DELETE_TASK:
-            task = tasks.deleteFromTaskList(action.getTaskNumber());
-            storage.deleteFromDataFile(action.getTaskNumber());
-            message = String.format("Noted. I've removed this task:\n" +
-                    "   %s", task);
-            break;
-        case ADD_TODO_TASK:
-        case ADD_EVENT_TASK:
-        case ADD_DEADLINE_TASK:
-            task = tasks.createTask(action.getTaskType(), action.getTaskDetails());
-            tasks.addToTaskList(task);
-            storage.appendToDataFile(task);
-            message = String.format("Got it. I've added this task:\n" +
-                    "   %s\n" +
-                    "Now you have %d tasks in the list.", task, tasks.getTaskListSize());
-            break;
-        case FIND_TASK:
-            String tasksWithKeyword = tasks.findTasksInTaskList(action.getKeyword());
-            message = "Here are the matching tasks in your list:\n" + tasksWithKeyword;
-            break;
-        case TAG_TASK:
-            task  = tasks.addTagToTask(action.getTaskNumber(), action.getTag());
-            message = String.format("OK, I've added the tag to this task:\n" +
-                    "   %s\n", task);
-            break;
-        default:
-            return null;
+            case EXIT:
+                isRunning = false;
+                return "Bye. Hope to see you again soon!";
+            case LIST_TASKS:
+                return tasks.getTasksAsString();
+            case MARK_TASK:
+                return modifyTask(action, true);
+            case UNMARK_TASK:
+                return modifyTask(action, false);
+            case DELETE_TASK:
+                return deleteTask(action);
+            case ADD_TODO_TASK:
+            case ADD_EVENT_TASK:
+            case ADD_DEADLINE_TASK:
+                return addTask(action);
+            case FIND_TASK:
+                return findTasks(action);
+            case TAG_TASK:
+                tasks.addTagToTask(action.getTaskNumber(), action.getTag());
+                return "OK, I've added the tag.";
+            default:
+                return null;
         }
-        return message;
     }
+
+    private String modifyTask(Action action, boolean markAsDone) throws FredException {
+        Task task = markAsDone ? tasks.markTaskAsDone(action.getTaskNumber()) : tasks.markTaskAsNotDone(action.getTaskNumber());
+        String status = markAsDone ? "done" : "not done yet";
+        return String.format("OK, I've marked this task as %s:\n   %s", status, task);
+    }
+
+    private String deleteTask(Action action) throws FredException {
+        Task task = tasks.deleteFromTaskList(action.getTaskNumber());
+        storage.deleteFromDataFile(action.getTaskNumber());
+        return String.format("Noted. I've removed this task:\n   %s", task);
+    }
+
+    private String addTask(Action action) throws FredException {
+        Task task = tasks.createTask(action.getTaskType(), action.getTaskDetails());
+        tasks.addToTaskList(task);
+        storage.appendToDataFile(task);
+        return String.format("Got it. I've added this task:\n   %s\nNow you have %d tasks in the list.",
+                task, tasks.getTaskListSize());
+    }
+
+    private String findTasks(Action action) {
+        String tasksWithKeyword = tasks.findTasksInTaskList(action.getKeyword());
+        return "Here are the matching tasks in your list:\n" + tasksWithKeyword;
+    }
+
 
     String getResponse(String input) {
         try {
