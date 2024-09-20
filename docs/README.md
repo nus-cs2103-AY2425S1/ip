@@ -21,7 +21,7 @@ notGPT is here to ensure that you don't lose sight of what is important.
   - [Unmarking a task: `unmark`](#unmarking-a-task)
   - [Deleting a task: `delete`](#deleting-a-task)
   - [Finding a task using keyword: `find`](#finding-a-task-using-keyword)
-  - [Tagging a task: `tag`](#tagging-a-task)
+  - [Clearing the list: ``](#Clearing-the-list)
   - [Saying goodbye: `bye`](#saying-goodbye)
 
 
@@ -169,7 +169,7 @@ Meow~ Here you are!
 [E][ ] recess week (from: 2024 Sep 21  07:00 to: 2024 Sep 29  23:00)
 ```
 
-### Tagging a task
+### Clearing the list
 
 Use this command to add or update tag to a task.
 
