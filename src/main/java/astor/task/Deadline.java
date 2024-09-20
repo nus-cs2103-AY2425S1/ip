@@ -1,0 +1,93 @@
+package astor.task;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import astor.exception.TimeFormatException;
+
+/**
+ * Represents a deadline task.
+ *
+ * Deadline tasks includes task information and deadline for the task. Has
+ */
+public class Deadline extends Task {
+    private final LocalDateTime deadline;
+
+    /**
+     * Constructs a Deadline object with a task description and a deadline string.
+     *
+     * @param taskInfo a description of the task
+     * @param deadline a string representing the deadline in ISO-8601 format
+     */
+    public Deadline(String taskInfo, String deadline) throws TimeFormatException {
+        super(taskInfo);
+        try {
+            this.deadline = LocalDateTime.parse(generateParse(deadline));
+        } catch (DateTimeParseException e) {
+            throw new TimeFormatException();
+        }
+
+    }
+
+    /**
+     * Constructs a Deadline object with a task description and a LocalDateTime deadline.
+     *
+     * @param taskInfo a description of the task
+     * @param deadline a {@code LocalDateTime} object representing the deadline
+     */
+    public Deadline(String taskInfo, LocalDateTime deadline) {
+        super(taskInfo);
+        assert deadline != null : "deadline cannot be null";
+        this.deadline = deadline;
+    }
+
+    /**
+     * Returns a string representation of the deadline task.
+     *
+     * The string representation includes the task type, completion status, task description,
+     * and the deadline formatted as "MMM dd yyyy".
+     *
+     * @return a string representation of the deadline task
+     */
+    @Override
+    public String toString() {
+        String s = "[D] ";
+        if (this.isDone()) {
+            s += "[X] ";
+        } else {
+            s += "[ ] ";
+        }
+        s += this.getTaskInfo() + " (by: "
+                + this.deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+        return s;
+    }
+
+    /**
+     * Returns a string description of the task data for storing the task data.
+     *
+     * The string includes the task type, completion status, task description, and the deadline.
+     *
+     * @return a string description of the task data
+     */
+    @Override
+    public String dataDescription() {
+        int i = isDone() ? 1 : 0;
+        return "D | " + i + " | " + this.getTaskInfo() + " | " + deadline;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null) {
+            return false;
+        }
+        if (o instanceof Deadline) {
+            Deadline other = (Deadline) o;
+            return this.deadline.equals(other.deadline) && this.getTaskInfo().equals(other.getTaskInfo());
+        }
+        return false;
+    }
+}

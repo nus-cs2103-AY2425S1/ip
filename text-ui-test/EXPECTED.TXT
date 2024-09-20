@@ -1,7 +1,74 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hello, I'm astor.Astor!
+What can I do for you?
+--------------------------------------
+Please be clear on what to do!
+Type "list" to see the list of astor.task,
 
+"mark" or "unmark" to mark tasks, "todo" (astor.task info) to create todo astor.task,
+"deadline" (astor.task info) /by (deadline) to create deadline tasks,
+"event" (astor.task info) /from (start time) /to (end time) to create event tasks
+--------------------------------------
+Got it. I've added this astor.task:
+  [T] [ ] borrow book
+Now you have 1 tasks in the list.
+--------------------------------------
+Here are the tasks in your list:
+1. [T] [ ] borrow book
+--------------------------------------
+Got it. I've added this astor.task:
+  [D] [ ] return book (by: Sunday)
+Now you have 2 tasks in the list.
+--------------------------------------
+Got it. I've added this astor.task:
+  [E] [ ] project meeting (from: Mon 2pm to: 4pm)
+Now you have 3 tasks in the list.
+--------------------------------------
+Here are the tasks in your list:
+1. [T] [ ] borrow book
+2. [D] [ ] return book (by: Sunday)
+3. [E] [ ] project meeting (from: Mon 2pm to: 4pm)
+--------------------------------------
+This astor.task is already marked as uncompleted:
+[T] [ ] borrow book
+--------------------------------------
+Nice! I've marked this astor.task as done:
+[T] [X] borrow book
+--------------------------------------
+This astor.task is already done:
+[T] [X] borrow book
+--------------------------------------
+OK, I've marked this astor.task as not done yet:
+[T] [ ] borrow book
+--------------------------------------
+Please enter a valid astor.task number between 1 and 3
+--------------------------------------
+Please enter a valid astor.task number between 1 and 3
+--------------------------------------
+Please indicated clearly which astor.task to mark!
+--------------------------------------
+Please indicated clearly which astor.task to mark!
+--------------------------------------
+Please type something!
+--------------------------------------
+Please be specific about what to do!
+--------------------------------------
+Please be specific about what to do!
+--------------------------------------
+Please be specific about what to do!
+--------------------------------------
+Please enter a valid astor.task number between 1 and 3
+--------------------------------------
+Noted. I've removed this astor.task:
+  [T] [ ] borrow book
+Now you have 2 tasks in the list.
+--------------------------------------
+Noted. I've removed this astor.task:
+  [D] [ ] return book (by: Sunday)
+Now you have 1 tasks in the list.
+--------------------------------------
+Noted. I've removed this astor.task:
+  [E] [ ] project meeting (from: Mon 2pm to: 4pm)
+Now you have 0 tasks in the list.
+--------------------------------------
+No astor.task to delete!
+--------------------------------------
