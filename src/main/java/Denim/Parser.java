@@ -44,7 +44,8 @@ public class Parser {
     public static final Pattern MARK_UNMARK_DELETE_ARGUMENT_FORMAT = Pattern.compile("(?<taskNumber>\\d+)");
 
     public static final Pattern FIND_ARGUMENT_FORMAT = Pattern.compile("(?<taskDescription>.+)");
-    public static final Pattern HELP_ARGUMENT_FORMAT = Pattern.compile("help");
+    public static final Pattern HELP_ARGUMENT_FORMAT = Pattern.compile("^help$");
+    public static final Pattern LIST_ARGUMENT_FORMAT = Pattern.compile("^list$");
 
     /**
      * Parses the user input and returns the corresponding command.
@@ -82,13 +83,13 @@ public class Parser {
             return prepareDelete(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return prepareList();
+            return prepareList(userInput);
 
         case ExitCommand.COMMAND_WORD:
             return prepareBye();
 
         case HelpCommand.COMMAND_WORD:
-            return prepareHelp(arguments);
+            return prepareHelp(userInput);
 
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
@@ -222,7 +223,11 @@ public class Parser {
      *
      * @return The list command.
      */
-    private Command prepareList() {
+    private Command prepareList(String args) {
+        final Matcher matcher = LIST_ARGUMENT_FORMAT.matcher(args);
+        if (!matcher.matches()) {
+            return new InvalidCommand("Wrong format for list command OwO", ListCommand.COMMAND_USAGE);
+        }
         return new ListCommand();
     }
 
