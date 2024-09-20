@@ -1,6 +1,12 @@
 package mittens.parser;
 
-import mittens.commands.*;
+import mittens.commands.AddCommand;
+import mittens.commands.Command;
+import mittens.commands.DeleteCommand;
+import mittens.commands.ExitCommand;
+import mittens.commands.ListCommand;
+import mittens.commands.MarkCommand;
+import mittens.commands.UnmarkCommand;
 import mittens.task.Deadline;
 import mittens.task.Event;
 import mittens.task.Todo;

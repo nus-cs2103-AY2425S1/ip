@@ -1,6 +1,10 @@
 package mittens.storage;
 
-import mittens.task.*;
+import mittens.task.Deadline;
+import mittens.task.Event;
+import mittens.task.Task;
+import mittens.task.TaskList;
+import mittens.task.Todo;
 
 import java.io.IOException;
 import java.nio.file.Files;
