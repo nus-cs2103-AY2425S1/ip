@@ -7,9 +7,9 @@ todo <task name>
 ```
 you get: [T][ ] task1
 
-#### *Format of date and time:*
-`yyyy-MM-dd HHmm (24Hr)` or
-`yyyy-MM-dd hh:mm am (12Hr)`
+> [!TIP] 
+> Format of date and time:
+> `yyyy-MM-dd HHmm (24Hr)` or `yyyy-MM-dd hh:mm am (12Hr)`
 
 ### Adding deadlines
 ```
