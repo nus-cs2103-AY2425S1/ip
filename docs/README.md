@@ -1,6 +1,6 @@
 <h1 style="color: #9370db">Ai User Guide</h1>
 
-<img src="Ui.png" alt="App screenshot" width="300"/>
+<img src="Ui.png" alt="App screenshot" width="400"/>
 
 
 > Hey Hey Hey! Did ya miss me? >.<  
@@ -131,7 +131,6 @@ delete 7
 ```
 
 
-
-Selling you the best lie 💖  
+<text style="color: #9370db">Selling you the best lie 💖</text>
 
 _Signing out now... 愛してる~_ ✨
