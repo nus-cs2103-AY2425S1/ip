@@ -1,0 +1,56 @@
+.root {
+    -fx-background-color: #f0f0f0;
+}
+
+.text-field {
+    -fx-background-color: white;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 5;
+}
+
+.button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-border-radius: 5;
+}
+
+.label {
+    -fx-background-color: #E1FFC7;
+    -fx-background-radius: 15;
+    -fx-padding: 10 15 10 15;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.dark-mode {
+    -fx-background-color: #2b2b2b;
+}
+
+.dark-mode .text-field {
+    -fx-background-color: #3c3f41;
+    -fx-text-fill: white;
+    -fx-border-color: #555555;
+}
+
+.dark-mode .button {
+    -fx-background-color: #365880;
+}
+
+.dark-mode .label {
+    -fx-background-color: #4b6eaf;
+    -fx-text-fill: white;
+}
+
+.dark-mode .scroll-pane {
+    -fx-background: #2b2b2b;
+}
+
+.dark-mode .scroll-pane > .viewport {
+    -fx-background-color: #2b2b2b;
+}
