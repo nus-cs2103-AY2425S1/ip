@@ -45,11 +45,13 @@ public class Storage {
         try {
             if (Files.notExists(directoryPath)) {
                 // Create the directory if it doesn't exist
+                System.out.println("Creating data directory: " + directoryPath);
                 Files.createDirectory(directoryPath);
             }
 
             if (Files.notExists(filePath)) {
                 // Create the file if it doesn't exist
+                System.out.println("Creating data file: " + filePath);
                 Files.createFile(filePath);
             }
 
