@@ -28,12 +28,13 @@ public class Bing {
      * @param filePath the path to the file where tasks are stored
      */
     public Bing(String filePath) {
+        assert filePath != null : "File path cannot be null";
         ui = new Ui();
         storage = new Storage(filePath);
         parser = new Parser();
         try {
             tasks = new TaskList(storage.load());
-            assert tasks != null : "Task list can not be null.";
+            assert tasks != null : "Task list cannot be null.";
         } catch (IOException e) {
             ui.showError("Failed to load tasks.");
             tasks = new TaskList();
@@ -49,7 +50,7 @@ public class Bing {
         while (!isExit) {
             String fullCommand = ui.readCommand();
             Command command = parser.parse(fullCommand);
-            assert command != null : "Parsed command should not be null.";
+            assert command != null : "Parsed command cannot be null.";
             command.execute(tasks, ui, storage);
             isExit = command.isExit();
         }
@@ -57,8 +58,8 @@ public class Bing {
 
     public String byeResponse(String input) throws ParseException {
         if (input.equals("bye")) {
-            assert tasks != null : "Task list can not be null.";
-            assert storage != null : "Storage can not be null.";
+            assert tasks != null : "Task list cannot be null.";
+            assert storage != null : "Storage cannot be null.";
             try {
                 storage.save(tasks.getTasks());
             } catch (IOException e) {

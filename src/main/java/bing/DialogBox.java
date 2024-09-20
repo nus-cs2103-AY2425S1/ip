@@ -14,12 +14,12 @@ public class DialogBox extends HBox{
     private Label text;
     private ImageView displayPicture;
 
-    public DialogBox(String l, Image iv) {
-        assert l != null : "Label text can not be null.";
-        assert iv != null : "Image can not be null.";
+    public DialogBox(String labelText, Image img) {
+        assert labelText != null : "Label text cannot be null.";
+        assert img != null : "Image cannot be null.";
 
-        text = new Label(l);
-        displayPicture = new ImageView(iv);
+        text = new Label(labelText);
+        displayPicture = new ImageView(img);
         text.setWrapText(true);
         displayPicture.setFitWidth(50.0);
         displayPicture.setFitHeight(50.0);
@@ -29,23 +29,20 @@ public class DialogBox extends HBox{
     }
 
     public static DialogBox getUserDialog(String input) {
-        Image userImg = new Image("/images/user.png");
-        if (userImg.isError()) {
-            System.out.println("Error loading user image.");
-        }
-        DialogBox userDialog = new DialogBox(input, userImg);
-        userDialog.setAlignment(Pos.TOP_RIGHT);
-        return userDialog;
+        return createDialog(input, "/images/user.png", Pos.TOP_RIGHT);
     }
 
     public static DialogBox getBingDialog(String response) {
-        Image bingImg = new Image("/images/bot.png");
-        if (bingImg.isError()) {
-            System.out.println("Error loading bot image.");
-        }
-        DialogBox bingDialog = new DialogBox(response, bingImg);
-        bingDialog.setAlignment(Pos.TOP_LEFT);
-        return bingDialog;
+        return createDialog(response, "/images/bot.png", Pos.TOP_LEFT);
     }
 
+    private static DialogBox createDialog(String input, String imagePath, Pos alignment) {
+        Image img = new Image(imagePath);
+        if (img.isError()) {
+            System.out.println("Error loading image from: " + imagePath);
+        }
+        DialogBox dialog = new DialogBox(input, img);
+        dialog.setAlignment(alignment);
+        return dialog;
+    }
 }
