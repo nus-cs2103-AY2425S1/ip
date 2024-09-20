@@ -38,7 +38,7 @@ public class TaskList implements Serializable {
      * @param index index of target Task object.
      * @return A string confirming that the task has been marked as done.
      */
-    public String markTask(int index) {
+    public String markTask(int index) throws AssertionError {
         assert index >= 0 && index <= allTasks.size() - 1 : "Index should be in proper range";
         Task task = this.allTasks.get(index);
         task.setMark();
@@ -51,7 +51,7 @@ public class TaskList implements Serializable {
      * @param index index of target Task object.
      * @return A string confirming that the task has been marked as not done.
      */
-    public String unmarkTask(int index) {
+    public String unmarkTask(int index) throws AssertionError {
         assert index >= 0 && index <= allTasks.size() - 1 : "Index should be in proper range";
         Task task = this.allTasks.get(index);
         task.setUnmark();
@@ -64,7 +64,7 @@ public class TaskList implements Serializable {
      * @param index index of target Task object.
      * @return A string confirming that the task has been tag as not done.
      */
-    public String tagTask(int index, String tag) {
+    public String tagTask(int index, String tag) throws AssertionError {
         assert index >= 0 && index <= allTasks.size() - 1 : "Index should be in proper range";
         Task task = this.allTasks.get(index);
         task.setTag(tag);
@@ -89,7 +89,7 @@ public class TaskList implements Serializable {
      * @param index index of target Task object.
      * @return A string confirming that the task was deleted, along with the number of remaining tasks in the list.
      */
-    public String delete(int index) {
+    public String delete(int index) throws AssertionError {
         assert index >= 0 && index <= allTasks.size() - 1 : "Index should be in proper range";
         String message = "Noted. I've removed this task:" + "\n";
         Task t = allTasks.get(index);
