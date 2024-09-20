@@ -8,7 +8,7 @@ import java.util.Optional;
  * @author DennieDan.
  */
 public class WrongFormatException extends Exception {
-    private String task;
+    private String type;
     private String solution;
     private String message;
 
@@ -20,7 +20,7 @@ public class WrongFormatException extends Exception {
      */
     public WrongFormatException(String type, String solution) {
         super("Wrong format of ");
-        this.task = task;
+        this.type= type;
         this.solution = solution;
     }
 
@@ -32,7 +32,7 @@ public class WrongFormatException extends Exception {
     public String getMessage() {
         Optional.ofNullable(message)
                 .ifPresentOrElse(x -> {},
-                        () -> setMessage((new StringBuilder(super.getMessage())).append(task).append(". \n").append(solution).toString()));
+                        () -> setMessage((new StringBuilder(super.getMessage())).append(type).append(". \n").append(solution).toString()));
         return message;
     }
 }

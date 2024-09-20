@@ -60,7 +60,7 @@ public class DeadlineCommand extends Command {
 
         String[] description = message.split("deadline\\s+|/by\\s+", -1);
 
-        if (description[1].isBlank()) {
+        if (description.length < 2 || description[1].isBlank()) {
             throw new WrongFormatException("deadline", "Deadline task's [task name] must not be empty!");
         }
 
