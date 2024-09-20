@@ -1,10 +1,12 @@
 package cloud.util;
 
 import cloud.command.Command;
+import cloud.command.CommandType;
 import cloud.command.DeadlineCommand;
 import cloud.command.DeleteCommand;
 import cloud.command.EventCommand;
 import cloud.command.FindCommand;
+import cloud.command.HelpCommand;
 import cloud.command.ListCommand;
 import cloud.command.MarkCommand;
 import cloud.command.TodoCommand;
@@ -40,6 +42,8 @@ public class Parser {
             return parseUnmark(body);
         case "find":
             return parseFind(body);
+        case "help":
+            return parseHelp(body);
         default:
             throw new UnrecognisedCommandException("Unrecognised command");
         }
@@ -51,14 +55,14 @@ public class Parser {
      * @return a ListCommand object
      */
     private Command parseList(String body) throws CloudException {
-        if (body.strip().length() > 0) {
-            throw new CloudException("Invalid ");
+        if (!body.isBlank()) {
+            throw new UnrecognisedCommandException();
         }
         return new ListCommand();
     }
 
     private Command parseTodo(String body) throws CloudException {
-        if (body.strip().length() == 0) {
+        if (body.isBlank()) {
             throw new UnrecognisedCommandException("Add a description to you task and try again");
         }
         return new TodoCommand(body);
@@ -98,16 +102,27 @@ public class Parser {
     }
 
     private Command parseFind(String body) throws CloudException {
-        if (body.strip().length() == 0) {
+        if (body.isBlank()) {
             throw new UnrecognisedCommandException("Please enter a keyword");
         }
         return new FindCommand(body);
     }
 
+    private Command parseHelp(String body) throws CloudException {
+        if (body.isBlank()) {
+            return new HelpCommand();
+        }
+        try {
+            return new HelpCommand(CommandType.valueOf(body));
+
+        } catch (IllegalArgumentException e) {
+            throw new UnrecognisedCommandException();
+        }
+    }
+
     private int stringToIndex(String s) throws CloudException {
         try {
-            int index = Integer.parseInt(s.strip());
-            return index;
+            return Integer.parseInt(s.strip());
         } catch (NumberFormatException e) {
             throw new UnrecognisedCommandException();
         }

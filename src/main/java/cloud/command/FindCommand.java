@@ -5,7 +5,7 @@ import cloud.util.TaskList;
 import cloud.util.Ui;
 
 public class FindCommand extends Command {
-    private String keywords;
+    private final String keywords;
 
     public FindCommand(String keywords) {
         this.keywords = keywords;
