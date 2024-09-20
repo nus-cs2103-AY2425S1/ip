@@ -51,6 +51,7 @@ To run **Rudolf: Your Christmas Task Companion**, follow these simple steps:
 | `bye`                              | Exits the application.                                 |
 
 **Note:** `<date>` is in the format `yyyy-MM-dd HHmm`.
+
 ---
 
 ## Examples of Commands
@@ -135,7 +136,7 @@ Hooray! The elves found these matching tasks in your list:
 
 ## Farewell 🎁
 
-When you're ready to leave, say `bye` to exit the application
+When you're ready to leave, say `bye` to exit the application:
 ```bash
 bye
 ```
