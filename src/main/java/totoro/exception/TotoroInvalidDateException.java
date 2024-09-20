@@ -2,6 +2,14 @@ package totoro.exception;
 
 import totoro.command.CommandType;
 
+/**
+ * Represents an exception that is thrown when an invalid date is provided
+ * for a specified command in the Totoro chatbot
+ * <p>
+ *     This exception customises error messages based on the command type,
+ *     providing the correct date format for command that involve deadlines or events
+ * </p>
+ */
 public class TotoroInvalidDateException extends TotoroException {
     private CommandType command;
 

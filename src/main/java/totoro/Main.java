@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Totoro using FXML.
  */
 
 public class Main extends Application {
@@ -21,10 +21,11 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            stage.setTitle("Totoro");
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
-            fxmlLoader.<MainWindow>getController().setTotoro(totoro);  // inject the Sage instance
+            fxmlLoader.<MainWindow>getController().setTotoro(totoro);  // inject the Totoro instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

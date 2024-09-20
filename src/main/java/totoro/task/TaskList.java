@@ -77,6 +77,18 @@ public class TaskList {
         return new TaskList(filtered);
     }
 
+    /**
+     * Retrieves a list of tasks that occur on a specific date
+     *
+     * This method checks both deadline and event tasks in the list
+     * For deadline tasks, it compares the task's deadline date to the specified
+     * For event tasks, it checks if either the start date or end date of event
+     * matches the specified date
+     *
+     * @param date The date for which to retrieve tasks
+     * @return A list of tasks that are due or occurring on the specified date
+     *
+     */
     public List<Task> getTaskForDate(LocalDate date) {
         List<Task> tasksForDate = new ArrayList<>();
         for (Task task : tasks) {

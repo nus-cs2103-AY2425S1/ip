@@ -1,79 +1,69 @@
-/**package sage.storage;
+package totoro.storage;
 
-import org.junit.jupiter.api.*;
-import sage.exception.SageException;
-import sage.task.Task;
-import sage.task.TaskList;
-import sage.task.ToDo;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import totoro.exception.TotoroException;
+import totoro.exception.TotoroFileFormatException;
+import totoro.task.Task;
+import totoro.task.ToDo;
 
+import java.io.BufferedWriter;
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.List;
+import java.io.FileWriter;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class StorageTest {
-    private static final String TEST_FILE_PATH = "test_tasks.txt";
+    private final String filePath = "testStorage.txt";
     private Storage storage;
+    private File testFile;
 
     @BeforeEach
     public void setUp() {
-        storage = new Storage(TEST_FILE_PATH);
+        storage = new Storage(filePath);
+        testFile = new File(filePath);
     }
 
     @AfterEach
-    public void tearDown() throws Exception {
-        Files.deleteIfExists(Path.of(TEST_FILE_PATH));
+    public void tearDown() {
+        if (testFile.exists()) {
+            testFile.delete();
+        }
     }
 
     @Test
-    public void testSaveTasks() throws SageException {
-        TaskList tasks = new TaskList();
-        tasks.addTask(new ToDo("buy milk"));
-        tasks.addTask(new ToDo("borrow book"));
+    public void testSaveAndLoadTasks() throws TotoroException {
+        // Create test tasks
+        ArrayList<Task> tasks = new ArrayList<>();
+        tasks.add(new ToDo("buy groceries"));
+        tasks.add(new ToDo("read book"));
 
-        assertDoesNotThrow(() -> storage.saveTasks(tasks));
-
-        File file = new File(TEST_FILE_PATH);
-        assertTrue(file.exists(), "The file should exist after saving tasks");
-        assertTrue(file.length() > 0, "The file should not be empty after saving tasks");
-    }
-
-    @Test
-    public void testLoadTasks_fileExists() throws SageException {
-        TaskList tasks = new TaskList();
-        tasks.addTask(new ToDo("buy milk"));
-        tasks.addTask(new ToDo("borrow book"));
+        // Save tasks to file
         storage.saveTasks(tasks);
 
-        List<Task> loadedTasks = storage.load();
-        assertEquals(2, loadedTasks.size(),
-                "The loaded tasks list should contain two tasks");
-        assertEquals(tasks.get(0).toString(), loadedTasks.get(0).toString(),
-                "The first loaded tasks should match the first saved tasks");
-        assertEquals(tasks.get(1).toString(), loadedTasks.get(1).toString(),
-                "The second loaded tasks should match the second saved tasks");
+        // Load tasks from file
+        ArrayList<Task> loadedTasks = storage.load();
+
+        // Check that tasks are correctly saved and loaded
+        assertEquals(2, loadedTasks.size());
+        assertEquals("buy groceries", tasks.get(0).getDescription());
+        assertEquals("read book", tasks.get(1).getDescription());
     }
 
-    /**@Test
-    public void testLoadTasks_fileDoesNotExist() {
-        assertDoesNotThrow(() -> {
-            List<Task> loadedTasks = storage.load();
-            assertEquals(0, loadedTasks.size(),
-                    "The loaded tasks list should be empty if the file does not exist");
+    @Test
+    public void testLoadTasks_invalidFormat() throws Exception {
+        // Write invalid data to the test file
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(testFile))) {
+            bufferedWriter.write("Invalid task format");
+        } catch (Exception e) {
+            fail("Failed to set up invalid test data");
+        }
+
+        // Expect TotoroFileFormatException to be thrown
+        assertThrows(TotoroFileFormatException.class, () -> {
+            storage.load();
         });
     }
-     */
-
-    /**@Test
-    public void testLoadTasks_fileCorrupted() throws Exception {
-        Files.writeString(Path.of(TEST_FILE_PATH), "invalid data\nmore invalid data");
-
-        SageException exception = assertThrows(SageException.class, () -> storage.load(),
-                "Expected SageException when loading from a corrupted file");
-        assertTrue(exception.getMessage().contains("Error loading tasks from file"),
-                "The error message should indicate a problem when loading the file");
-    }
-    */
-/**} */
+}

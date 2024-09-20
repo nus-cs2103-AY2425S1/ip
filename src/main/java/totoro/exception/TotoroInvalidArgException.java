@@ -2,6 +2,14 @@ package totoro.exception;
 
 import totoro.command.CommandType;
 
+/**
+ * Represents an exception that is thrown when an invalid argument is provided
+ * for a specified command in the Totoro chatbot
+ * <p>
+ *     This exception customised error messages based on the command type,
+ *     helping users by providing the correct usage format or the command they attempted
+ * </p>
+ */
 public class TotoroInvalidArgException extends TotoroException {
     private CommandType command;
 
