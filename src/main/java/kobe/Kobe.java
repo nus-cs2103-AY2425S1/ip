@@ -50,8 +50,10 @@ public class Kobe {
             return ui.getLatestResponse(); // Return the latest response set by the command
         } catch (KobeException e) {
             return e.getMessage();
+        } catch (IOException e) {
+            return "An error occurred while accessing the file: " + e.getMessage();
         } catch (Exception e) {
-            return "Error: " + e.getMessage();
+            return "An unexpected error occurred: " + e.getMessage();
         }
     }
 }
