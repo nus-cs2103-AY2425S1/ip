@@ -2,18 +2,12 @@ package terminator.components;
 
 import java.io.IOException;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.shape.Circle;
 import terminator.Main;
 
 /**
@@ -25,13 +19,7 @@ public class DialogBox extends HBox {
     private Label displayText;
 
     @FXML
-    private ImageView displayPicture;
-
-    private Image userImage =
-            new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
-
-    private Image terminatorImage =
-            new Image(this.getClass().getResourceAsStream("/images/terminator.jpg"));
+    private AnchorPane labelContainer;
 
     /**
      * Creates a new DialogBox with the given text and image.
@@ -49,18 +37,6 @@ public class DialogBox extends HBox {
             System.err.println(e.getMessage());
             System.err.println("Error loading DialogBox component");
         }
-
-        this.setAlignment(Pos.TOP_RIGHT);
-    }
-
-    /**
-     * Flips the dialog box such that the ImageView is on the left and text on the right.
-     */
-    private void flip() {
-        this.setAlignment(Pos.TOP_LEFT);
-        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
-        FXCollections.reverse(tmp);
-        this.getChildren().setAll(tmp);
     }
 
     /**
@@ -72,9 +48,8 @@ public class DialogBox extends HBox {
     public static DialogBox getUserDialog(String s) {
         DialogBox db = new DialogBox();
         db.displayText.setText(s);
-        setMargin(db.displayText, new Insets(16.0, 8.0, 0.0, 0.0));
-        db.displayPicture.setImage(db.userImage);
-        db.displayPicture.setClip(new Circle(50, 50, 50));
+        db.setAlignment(Pos.CENTER_RIGHT);
+        db.labelContainer.setStyle("-fx-background-radius: 12px 10px 0 12px;");
         return db;
     }
 
@@ -87,14 +62,9 @@ public class DialogBox extends HBox {
     public static DialogBox getTerminatorDialog(String s) {
         DialogBox db = new DialogBox();
         db.displayText.setText(s);
-        setMargin(db.displayText, new Insets(16.0, 0.0, 0.0, 8.0));
-        db.displayPicture.setImage(db.terminatorImage);
-        System.out.println(db.terminatorImage.getWidth());
-        db.displayPicture.setClip(new Circle(
-                40,
-                40,
-                40));
-        db.flip();
+        db.setAlignment(Pos.CENTER_LEFT);
+        db.labelContainer.setStyle("-fx-background-color: #fff");
+        db.displayText.setStyle("-fx-text-fill: #000");
         return db;
     }
 }

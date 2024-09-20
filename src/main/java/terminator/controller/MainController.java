@@ -2,12 +2,17 @@ package terminator.controller;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
+import terminator.Main;
 import terminator.Terminator;
 import terminator.components.DialogBox;
 
@@ -22,6 +27,18 @@ public class MainController {
     private AnchorPane root;
 
     @FXML
+    private AnchorPane titleBar;
+
+    @FXML
+    private ImageView titleImage;
+
+    @FXML
+    private Label appTitle;
+
+    @FXML
+    private MenuButton optionsButton;
+
+    @FXML
     private VBox dialogContainer;
 
     @FXML
@@ -29,9 +46,6 @@ public class MainController {
 
     @FXML
     private TextField userInput;
-
-    @FXML
-    private Button sendButton;
 
     /**
      * Creates a dialog box containing user input, and appends it to
@@ -45,13 +59,36 @@ public class MainController {
         }
         String response = terminator.getResponse(input);
 
+        userInput.clear();
+
         DialogBox userDb = DialogBox.getUserDialog(input);
         DialogBox terminatorDb = DialogBox.getTerminatorDialog(response);
 
+        // Set initial width to be scroll pane's viewport width
+        userDb.setPrefWidth(scrollPane.viewportBoundsProperty().get().getWidth());
+        terminatorDb.setPrefWidth(scrollPane.viewportBoundsProperty().get().getWidth());
+
         dialogContainer.getChildren().addAll(userDb, terminatorDb);
-        userDb.prefWidthProperty().bind(dialogContainer.widthProperty());
-        terminatorDb.prefWidthProperty().bind(dialogContainer.widthProperty());
+
+        // Add listener to update width of dialog boxes when user resizes the window
+        scrollPane.viewportBoundsProperty().addListener(((observable, oldBounds, newBounds) -> {
+            double newWidth = newBounds.getWidth();
+            userDb.setPrefWidth(newWidth);
+            terminatorDb.setPrefWidth(newWidth);
+        }));
+
         userInput.clear();
+    }
+
+    @FXML
+    private void showHelpMessage() {
+        String response = terminator.getResponse("help");
+        DialogBox terminatorDb = DialogBox.getTerminatorDialog(response);
+        terminatorDb.setPrefWidth(scrollPane.viewportBoundsProperty().get().getWidth());
+        dialogContainer.getChildren().add(terminatorDb);
+        scrollPane.viewportBoundsProperty().addListener(((observable, oldBounds, newBounds) -> {
+            terminatorDb.setPrefWidth(newBounds.getWidth());
+        }));
     }
 
     /**
@@ -63,11 +100,27 @@ public class MainController {
 
     @FXML
     private void initialize() {
-        scrollPane.setVvalue(1.0);
+        // When new content is added to the chat, set scroll pane scroll position all the way down
         dialogContainer.heightProperty().addListener((observable) -> {
             scrollPane.setVvalue(1.0);
         });
-        scrollPane.setBackground(Background.EMPTY);
-        dialogContainer.setBackground(Background.EMPTY);
+
+        // Set custom font for app title
+        appTitle.setFont(Font.loadFont(Main.class.getResource("/fonts/terminator.ttf").toExternalForm(),
+                16));
+
+        // Add help dialog
+        DialogBox helpDb = DialogBox.getUserDialog(
+                "Enter \"help\" to see available commands, or click the help button in the top right hand corner.");
+        dialogContainer.getChildren().add(helpDb);
+        scrollPane.viewportBoundsProperty().addListener(((observable, oldBounds, newBounds) -> {
+            double newWidth = newBounds.getWidth();
+            helpDb.setPrefWidth(newWidth);
+        }));
+
+        Image img = titleImage.getImage();
+        Circle clip = new Circle(40, 40, 40);
+        titleImage.setClip(clip);
+
     }
 }

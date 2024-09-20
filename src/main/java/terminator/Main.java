@@ -26,13 +26,19 @@ public class Main extends Application {
             // Load root node from FXML file
             AnchorPane root = fxmlLoader.load();
 
-            // Load custom font
+            // Load custom fonts
             Font.loadFont(Main.class.getResource("/fonts/terminator.ttf").toExternalForm(), 10);
+            Font.loadFont(Main.class.getResource("/fonts/Poppins-Regular.ttf").toExternalForm(), 10);
 
-            // Create and show the scene
+            // Create the scene
             Scene scene = new Scene(root);
             stage.setTitle("Terminator");
             stage.setScene(scene);
+
+            // Set minimum size for the stage
+            stage.setMinWidth(700);
+            stage.setMinHeight(450);
+
             stage.show();
         } catch (IOException e) {
             System.err.println("Error loading from fxml file.");

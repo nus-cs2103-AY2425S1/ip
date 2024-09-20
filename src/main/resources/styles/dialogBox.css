@@ -1,0 +1,15 @@
+.dialogBox {
+
+}
+
+.labelContainer {
+    -fx-padding: 16px;
+    -fx-background-color:  #1e5fe3;
+    -fx-background-insets: 6px 6px 6px 6px;
+    -fx-background-radius: 10px 12px 12px 0;
+}
+
+.displayText {
+    -fx-text-fill: white;
+    -fx-font-family: "Poppins Regular";
+}

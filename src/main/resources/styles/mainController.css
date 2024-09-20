@@ -1,33 +1,27 @@
 .root {
--fx-background-image: url("/images/matrix.png");
+    -fx-background-color: #eeeeee;
 }
 
 .scrollPane {
-
-}
-
-.dialogContainer {
-
-}
-
-.dialog-box {
-
+    -fx-background: #eeeeee;
+    -fx-background-insets: 1;
 }
 
 .label {
-    -fx-font-family: 'Terminator Real NFI';
-    -fx-blend-mode: src-atop;
-    -fx-text-fill: black;
+
 }
 
-.user-input {
-    -fx-prompt-text-fill: linear-gradient(from 0% 0% to 100% 100%, #FF0000, #0000FF);
-    -fx-background-color: white;
-    -fx-font-family: 'Terminator Real NFI';
+.userInput {
+    -fx-background-color: #eaeaea, #fff;
+    -fx-font-family: "Poppins Regular";
+    -fx-background-radius: 24px, 24px;
+    -fx-background-insets: -1px, 0;
+    -fx-padding: 10px 20px 10px 20px;
+    -fx-prompt-text-fill: #d3d3d3;
 }
 
-.user-input:focused {
-    -fx-background-color: blue, white;
-    -fx-background-radius: 4, 4;
-    -fx-background-insets: 1 1 0 1, 0 0 1 0; // top, right, bottom, left
+.userInput:focused {
+    -fx-background-color: #1e6ac1, #fff;
+    -fx-background-insets: 0px 0px -1px 0px, 0;
+    -fx-prompt-text-fill: #6d6d6d;
 }

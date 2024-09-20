@@ -36,7 +36,7 @@ public class HelpCommand extends Command {
                 • help
                 • list
                 • todo <description>
-                • deadline /by dd/MM/yyyy HHmm
+                • deadline <description> /by dd/MM/yyyy HHmm
                 • event <description> /from dd/MM/yyyy HHmm /to dd/MM/yyyy HHmm
                 • mark <index>
                 • unmark <index>
@@ -44,7 +44,7 @@ public class HelpCommand extends Command {
                 • find <description>
                 • bye
                 
-                Note that the items in the task list are 1-indexed.""";
+                (Note that the items in the task list are 1-indexed.)""";
         return response;
     }
 }
