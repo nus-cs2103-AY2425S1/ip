@@ -1,5 +1,6 @@
 # Bean User Guide
-![Ui.png](..%2Fsrc%2Fmain%2Fresources%2Fimages%2FUi.png)
+![Ui.png](/Users/tzuche/IdeaProjects/ip/src/main/resources/images/Ui.png)
+
 Bean is a command-line-based chatbot that supports a variety of commands such as add, list, mark, unmark, edit, delete, 
 and find tasks. It handles different types of tasks, including todos, deadlines, and events. This guide will walk you through how to use Bean effectively.
 
