@@ -1,5 +1,8 @@
 package michael;
 
+/**
+ * Represents the command to exit the chatbot
+ */
 public class ByeCommand {
     public ByeCommand() {}
 

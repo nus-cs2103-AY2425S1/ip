@@ -1,5 +1,8 @@
 package michael;
 
+/**
+ * Represents the command to add a deadline task to the chatbot
+ */
 public class DeadlineCommand {
     private TaskList tasks;
     private Deadline newTask;

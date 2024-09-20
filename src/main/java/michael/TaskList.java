@@ -3,6 +3,9 @@ package michael;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Keeps track of tasks to be managed by the chatbot
+ */
 public class TaskList {
     private ArrayList<Task> tasks;
 

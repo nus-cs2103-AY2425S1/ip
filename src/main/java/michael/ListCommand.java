@@ -1,5 +1,8 @@
 package michael;
 
+/**
+ * Represents the command to list out all tasks currently tracked by the chatbot
+ */
 public class ListCommand {
     private TaskList tasks;
 

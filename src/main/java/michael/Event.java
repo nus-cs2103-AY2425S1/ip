@@ -1,5 +1,8 @@
 package michael;
 
+/**
+ * Represents an event that starts and ends at a specified time
+ */
 public class Event extends Task {
     private String start;
     private String end;

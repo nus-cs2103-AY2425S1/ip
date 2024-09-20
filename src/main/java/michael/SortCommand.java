@@ -1,5 +1,8 @@
 package michael;
 
+/**
+ * Represents the command to sort existing tasks lexicographically, ignoring case
+ */
 public class SortCommand {
     private TaskList tasks;
 

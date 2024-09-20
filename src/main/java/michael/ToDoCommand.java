@@ -1,5 +1,8 @@
 package michael;
 
+/**
+ * Represents the command to add a simple task
+ */
 public class ToDoCommand {
     private TaskList tasks;
     private ToDo newTask;

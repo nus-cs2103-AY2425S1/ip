@@ -1,5 +1,8 @@
 package michael;
 
+/**
+ * Represents the command to unmark an existing task
+ */
 public class UnmarkCommand {
     private TaskList tasks;
     private int position;

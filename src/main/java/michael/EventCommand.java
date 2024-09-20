@@ -1,5 +1,8 @@
 package michael;
 
+/**
+ * Represents the command to add an event to the chatbot
+ */
 public class EventCommand {
     private TaskList tasks;
     private Event newTask;

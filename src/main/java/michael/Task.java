@@ -1,5 +1,8 @@
 package michael;
 
+/**
+ * Represents a generic task
+ */
 public class Task implements Comparable<Task> {
     private final String taskName;
     private boolean isDone;

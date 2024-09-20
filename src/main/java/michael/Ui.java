@@ -1,5 +1,8 @@
 package michael;
 
+/**
+ * Text Ui for chatbot
+ */
 public class Ui {
     private final String BORDER = "--------------------------------------";
 

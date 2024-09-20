@@ -1,5 +1,8 @@
 package michael;
 
+/**
+ * Represents the command to delete an existing task from the list
+ */
 public class DeleteCommand {
     private TaskList tasks;
     private int position;

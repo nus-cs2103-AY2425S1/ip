@@ -1,17 +1,20 @@
 package michael;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-
-import java.util.Scanner;
+import gui.MainWindow;
 
 import java.io.IOException;
 
-import gui.MainWindow;
+import java.util.Scanner;
 
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+/**
+ * Controls the logic of the chatbot
+ */
 public class Michael extends Application {
     private Ui ui; // Handles user interactions
     private Storage storage; // Handles loading and saving of tasks

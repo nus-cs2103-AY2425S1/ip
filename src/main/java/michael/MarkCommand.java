@@ -1,5 +1,8 @@
 package michael;
 
+/**
+ * Represents the command to mark an existing task as done
+ */
 public class MarkCommand {
     private TaskList tasks;
     private int position;

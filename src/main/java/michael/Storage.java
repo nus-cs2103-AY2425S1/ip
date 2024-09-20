@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles loading and storage of tasks from and into external file
+ */
 public class Storage {
     private String filePath;
 

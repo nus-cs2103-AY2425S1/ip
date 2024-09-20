@@ -1,5 +1,9 @@
 package michael;
 
+/**
+ * Represents the command to search for tasks within the chatbot
+ * that match a given keyword
+ */
 public class FindCommand {
     private TaskList tasks;
     private String keyword;

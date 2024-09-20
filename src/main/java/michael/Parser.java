@@ -2,6 +2,9 @@ package michael;
 
 import java.io.IOException;
 
+/**
+ * Handles user input and allows chatbot to execute accordingly
+ */
 public class Parser {
     private TaskList tasks;
     private Storage storage;

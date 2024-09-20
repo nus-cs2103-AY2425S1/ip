@@ -1,8 +1,11 @@
 package michael;
 
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 
+/**
+ * Represents a task with a deadline for it to be completed by
+ */
 public class Deadline extends Task {
     private LocalDate deadline;
 
