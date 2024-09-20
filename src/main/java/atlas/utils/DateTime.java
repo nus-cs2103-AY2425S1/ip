@@ -5,13 +5,14 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 /**
  * Represents a date time class containing the methods to format date times in various formats.
  */
 public class DateTime {
     public static final DateTimeFormatter DATE_TIME_PRINT_OUTPUT_FORMATTER =
-            DateTimeFormatter.ofPattern("MMM d yyyy h:mm a");
+            DateTimeFormatter.ofPattern("MMM d yyyy h:mm a", new Locale("en", "SG"));
     public static final DateTimeFormatter DATE_TIME_FILE_OUTPUT_FORMATTER =
             DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
