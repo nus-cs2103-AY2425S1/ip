@@ -33,11 +33,11 @@ Wiggly is a task management application that helps you keep track of your tasks,
 - **Usage**: `todo <task description>`
 - **Example**: `todo Read a book`
 - **Output**:
-    ```
-    Got it. I've added this task:
-        [T][ ] Read a book
-    Now you have 1 task in the list.
-    ```
+  ```
+  Got it. I've added this task:
+      [T][ ] Read a book
+  Now you have 1 task in the list.
+  ```
   
 ### Adding Deadline
 
@@ -45,11 +45,11 @@ Wiggly is a task management application that helps you keep track of your tasks,
 - **Usage**: `deadline <task description> /by <date>`
 - **Example**: `deadline Submit assignment /by 2023-10-10`
 - **Output**:
-    ```
-    Got it. I've added this task:
-        [D][ ] Submit assignment (by: 10 Oct 2023)
-    Now you have 2 tasks in the list.
-    ```
+  ```
+  Got it. I've added this task:
+      [D][ ] Submit assignment (by: 10 Oct 2023)
+  Now you have 2 tasks in the list.
+  ```
   
 ### Adding Event
 
