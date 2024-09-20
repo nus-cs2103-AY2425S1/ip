@@ -18,7 +18,6 @@ public abstract class Command {
      * @param tasks   the task list to be manipulated by the command
      * @param ui      the UI component to display information to the user
      * @param storage the storage component to save changes
-     * @return
      * @throws NaegaException if an error occurs during command execution
      * @throws IOException    if an I/O error occurs
      */

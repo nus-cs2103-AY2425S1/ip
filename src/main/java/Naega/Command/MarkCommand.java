@@ -5,8 +5,6 @@ import Naega.Storage.Storage;
 import Naega.Task.TaskList;
 import Naega.Ui.Ui;
 
-import java.io.IOException;
-
 /**
  * Represents a command to mark a specific task as done.
  */
@@ -30,10 +28,10 @@ public class MarkCommand extends Command {
      * @param tasks   the task list to update
      * @param ui      the UI component to display the updated task
      * @param storage the storage component to save the updated task list
-     * @return
+     * @return a string message that confirms the task has been marked as done and displays the task details
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.getTask(index).markAsDone();
         storage.save(tasks.getTasks());
 
