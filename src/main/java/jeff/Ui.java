@@ -67,7 +67,7 @@ public class Ui {
     }
 
     public void showError(String error) {
-        showMessage(RED + "ERROR!" + RESET + " " + error);
+        showMessage("ERROR! " + error);
     }
 
     public String readCommand() {
