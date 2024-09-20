@@ -182,17 +182,10 @@ public class Storage {
             throw new ChatterboxExceptions.ChatterBoxNoInput("Error loading event");
         }
         String desc = rest.substring(0, startBracket).trim();
-        String startDate = rest.substring(startBracket + 7, toStart).trim();
+        String startDate = getStartDate(rest, startBracket, toStart);
         LocalDateTime startDateObj = parser.parseDateTime(startDate);
         String endDate;
-        if (tagStart == -1) {
-            endDate = rest.substring(toStart + 3, rest.length() - 2).trim();
-
-        } else {
-            int bracketEnd = rest.indexOf(") /tags");
-
-            endDate = rest.substring(toStart + 3, bracketEnd).trim();
-        }
+        endDate = getEndDate(rest, tagStart, toStart);
         LocalDateTime endDateObj = parser.parseDateTime(endDate);
 
 
@@ -202,6 +195,23 @@ public class Storage {
             nextTask = new Event(desc, startDate, endDate);
         }
         return nextTask;
+    }
+
+    private static String getStartDate(String rest, int startBracket, int toStart) {
+        return rest.substring(startBracket + 7, toStart).trim();
+    }
+
+    private static String getEndDate(String rest, int tagStart, int toStart) {
+        String endDate;
+        if (tagStart == -1) {
+            endDate = rest.substring(toStart + 3, rest.length() - 2).trim();
+
+        } else {
+            int bracketEnd = rest.indexOf(") /tags");
+
+            endDate = rest.substring(toStart + 3, bracketEnd).trim();
+        }
+        return endDate;
     }
 
     private static Deadline loadDeadline(Parser parser, String rest, int tagStart)
