@@ -39,7 +39,7 @@ list
 ### Check and Uncheck tasks
 - Mark tasks as complete or incomplete by index.
 - Reflected by 'X' in '[ ]'.
-- All three types of tasks: todo, deadline, event can be marked and unmarked
+- All three types of tasks: todo, deadline, event can be marked and unmarked.
 ```
 // mark as completed
 mark <task index>
