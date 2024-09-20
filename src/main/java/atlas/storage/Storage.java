@@ -23,7 +23,7 @@ public class Storage {
     private final ArrayList<Task> tasks;
 
     /**
-     * Initialises Storage.
+     * Initialises Atlas's Storage.
      *
      * @param filepath The filepath of the file where tasks will be loaded from and saved to.
      */
