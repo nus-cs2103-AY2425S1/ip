@@ -18,6 +18,7 @@ public class Storage {
      */
     public void findSaveFile(String filePath) {
         File storageFolder = new File("./data");
+
         if (!storageFolder.exists()) {
             storageFolder.mkdirs();
         }
@@ -44,8 +45,19 @@ public class Storage {
             }
             saveReader.close();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
-            saveFile.delete();
+            handleIOException(e);
+        }
+    }
+
+    /**
+     * Handles IOException by printing the error message and attempting to recreate the save file.
+     *
+     * @param e IOException to handle.
+     */
+    private void handleIOException(IOException e) {
+        System.out.println(e.getMessage());
+
+        if (saveFile.delete()) {
             try {
                 saveFile.createNewFile();
             } catch (IOException f) {
@@ -66,9 +78,11 @@ public class Storage {
         //Replaces old file with a new file with updated contents
         try {
             File tmp = File.createTempFile("tmp", "");
+
             BufferedWriter writer = new BufferedWriter(new FileWriter(tmp));
             writer.write(source);
             writer.close();
+
             if (saveFile.delete()) {
                 tmp.renameTo(saveFile);
             }

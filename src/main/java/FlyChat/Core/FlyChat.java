@@ -2,6 +2,16 @@ package flychat.core;
 
 import java.util.InputMismatchException;
 
+import flychat.command.AddTaskCommand;
+import flychat.command.ByeCommand;
+import flychat.command.Command;
+import flychat.command.DeleteCommand;
+import flychat.command.FindCommand;
+import flychat.command.InvalidCommand;
+import flychat.command.ListCommand;
+import flychat.command.MarkCommand;
+import flychat.command.UnmarkCommand;
+
 /**
  * Contains the main methods and components for FlyChat.
  */
@@ -12,6 +22,10 @@ public class FlyChat {
     private final TaskList taskList = new TaskList();
     private final Parser parser = new Parser();
 
+    public enum CommandType {
+        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, BYE, INVALID
+    }
+
     public FlyChat() {
         assert ui != null : "Ui object is not initialized";
         assert storage != null : "Storage object is not initialized";
@@ -19,6 +33,9 @@ public class FlyChat {
         assert parser != null : "Parser object is not initialized";
     }
 
+    /**
+     * Links the FlyChat instance to a save file.
+     */
     public void startUp() {
         storage.findSaveFile("./data/save.txt");
         storage.loadSaveFile(taskList);
@@ -43,48 +60,68 @@ public class FlyChat {
 
     }
 
+    /**
+     * Processes the input string and returns the response.
+     *
+     * @param inputString The input string from the user.
+     * @return The response string.
+     * @throws InputMismatchException If the input string is invalid.
+     */
     private String processCommands(String inputString) throws InputMismatchException {
         assert inputString != null && !inputString.isEmpty() : "Input string is null or empty";
-        String finalString;
-
-        //when user types "list", list of tasks is returned
-        if (parser.parseCommand(inputString).equals("list")) {
-            finalString = ui.announceString(taskList.announceItems());
-        //when user types "mark [num]", the task with index num is marked as done
-        } else if (parser.parseCommand(inputString).equals("mark")) {
-            try {
-                finalString = ui.announceString(taskList.mark(parser.getTargetTaskIndex(inputString)));
-            } catch (IndexOutOfBoundsException e) {
-                finalString = ui.announceString("Please ensure that you typed the correct task number");
-            }
-        //when user types "unmark [num]", the task with index num is marked as not done
-        } else if (parser.parseCommand(inputString).equals("unmark")) {
-            try {
-                finalString = ui.announceString(taskList.unmark(parser.getTargetTaskIndex(inputString)));
-            } catch (IndexOutOfBoundsException e) {
-                finalString = ui.announceString("Please ensure that you typed the correct task number");
-            }
-        //when user types todo/deadline/event at the start, a new corresponding task is created
-        } else if (parser.parseCommand(inputString).equals("todo")
-                || parser.parseCommand(inputString).equals("deadline")
-                || parser.parseCommand(inputString).equals("event")) {
-            finalString = ui.announceString(taskList.addTask(inputString));
-        //when user types "delete [num]", the task with the index num is removed
-        } else if (parser.parseCommand(inputString).equals("delete")) {
-            try {
-                finalString = ui.announceString(taskList.deleteTask(parser.getTargetTaskIndex(inputString)));
-            } catch (IndexOutOfBoundsException e) {
-                finalString = ui.announceString("Please ensure that you typed the correct task number");
-            }
-        } else if (parser.parseCommand(inputString).equals("find")) {
-            finalString = ui.announceString(taskList.find(parser.getKeyWord(inputString)));
-        } else if (parser.parseCommand(inputString).equals("bye")) {
-            finalString = ui.bye();
-        } else {
-            throw new InputMismatchException("Invalid input command");
-        }
+    
+        CommandType commandType = getCommandType(parser.parseCommand(inputString));
+        Command command = getCommand(commandType);
+    
+        String finalString = command.execute(taskList, ui, parser, inputString);
         storage.writeToSave(taskList.formatSaveString());
         return finalString;
+    }
+
+    private CommandType getCommandType(String commandString) {
+        switch (commandString) {
+        case "list":
+            return CommandType.LIST;
+        case "mark":
+            return CommandType.MARK;
+        case "unmark":
+            return CommandType.UNMARK;
+        case "todo":
+        case "deadline":
+        case "event":
+            return CommandType.TODO;
+        case "delete":
+            return CommandType.DELETE;
+        case "find":
+            return CommandType.FIND;
+        case "bye":
+            return CommandType.BYE;
+        default:
+            return CommandType.INVALID;
+        }
+    }
+    
+    private Command getCommand(CommandType commandType) {
+        switch (commandType) {
+        case LIST:
+            return new ListCommand();
+        case MARK:
+            return new MarkCommand();
+        case UNMARK:
+            return new UnmarkCommand();
+        case TODO:
+        case DEADLINE:
+        case EVENT:
+            return new AddTaskCommand();
+        case DELETE:
+            return new DeleteCommand();
+        case FIND:
+            return new FindCommand();
+        case BYE:
+            return new ByeCommand();
+        default:
+            return new InvalidCommand();
+        }
     }
 
 }
