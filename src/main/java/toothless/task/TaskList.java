@@ -79,7 +79,7 @@ public class TaskList {
      * @throws ToothlessExceptions If the index is out of range.
      */
     public String markDone(int index, Ui ui) throws ToothlessExceptions {
-        assert index > 0 && index > list.size(): "Index should be greater than 0 and less than the size of the list";
+        assert index > 0 && index > list.size() : "Index should be greater than 0 and less than the size of the list";
         if (index > list.size() || index < 1) {
             throw new ToothlessExceptions("The index is out of range! Please enter a valid index.\n\n");
         }
@@ -97,7 +97,7 @@ public class TaskList {
      * @throws ToothlessExceptions If the index is out of range.
      */
     public String markUndone(int index, Ui ui) throws ToothlessExceptions {
-        assert index > 0 && index > list.size(): "Index should be greater than 0 and less than the size of the list";
+        assert index > 0 && index > list.size() : "Index should be greater than 0 and less than the size of the list";
         if (index > list.size() || index < 1) {
             throw new ToothlessExceptions("The index is out of range! Please enter a valid index.\n\n");
         }
@@ -115,7 +115,7 @@ public class TaskList {
      * @throws ToothlessExceptions If the index is out of range.
      */
     public String deleteTask(int index) throws ToothlessExceptions {
-        assert index > 0 && index > list.size(): "Index should be greater than 0 and less than the size of the list";
+        assert index > 0 && index > list.size() : "Index should be greater than 0 and less than the size of the list";
         if (index > list.size() || index < 1) {
             throw new ToothlessExceptions("The index is out of range! Please enter a valid index.\n\n");
         }

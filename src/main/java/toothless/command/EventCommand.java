@@ -29,19 +29,24 @@ public class EventCommand extends Command {
     public String executeCommand(TaskList taskList, Ui ui, Storage storage) throws ToothlessExceptions {
         assert description != null : "Description cannot be null";
         if (description.isEmpty()) {
-            throw new NoDescriptionExceptions("event", "event <description> /from <start time> /to <end time>");
+            throw new NoDescriptionExceptions("event",
+                    "event <description> /from <start time> /to <end time>");
         } else if (!description.contains("/from") || !description.contains("/to")) {
-            throw new NoTimelineExceptions("event", "event <description> /from <start time> /to <end time>");
+            throw new NoTimelineExceptions("event",
+                    "event <description> /from <start time> /to <end time>");
         }
         String[] splitEvent = description.split("/from");
         if (splitEvent.length != 2) {
-            throw new NoTimelineExceptions("event", "event <description> /from <start time> /to <end time>");
+            throw new NoTimelineExceptions("event",
+                    "event <description> /from <start time> /to <end time>");
         }
         String[] splitEventTime = splitEvent[1].split("/to");
         if (splitEventTime.length != 2) {
-            throw new NoTimelineExceptions("event", "event <description> /from <start time> /to <end time>");
+            throw new NoTimelineExceptions("event",
+                    "event <description> /from <start time> /to <end time>");
         }
-        String response = taskList.addTask(new Event(splitEvent[0], splitEventTime[0], splitEventTime[1]), ui, taskList);
+        String response = taskList.addTask(new Event(splitEvent[0], splitEventTime[0],
+                splitEventTime[1]), ui, taskList);
         storage.saveTask(taskList.getList());
         return response;
     }

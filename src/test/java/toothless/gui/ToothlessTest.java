@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import toothless.command.Command;
 import toothless.exceptions.ToothlessExceptions;
 import toothless.storage.Storage;
