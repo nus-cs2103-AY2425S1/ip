@@ -51,7 +51,7 @@ public class TaskListTest {
             taskList.addTask(task1);
         });
 
-        assertEquals("Oops!! This task already exist.\n", exception.getMessage());
+        assertEquals("Oops!! This task already exist.", exception.getMessage());
     }
 
     @Test

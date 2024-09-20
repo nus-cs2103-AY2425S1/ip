@@ -10,7 +10,7 @@ public class DudeShortcutDeleteException extends DudeException {
      * that user attempts to delete a pre-defined command.
      */
     public DudeShortcutDeleteException() {
-        super("You can't delete a command type.");
+        super("Don't you dare to delete a command type.");
     }
 
     /**
@@ -20,6 +20,6 @@ public class DudeShortcutDeleteException extends DudeException {
      * @param shortcut The shortcut that was attempted to be deleted.
      */
     public DudeShortcutDeleteException(String shortcut) {
-        super("\"" + shortcut + "\" is not defined as a valid shortcut yet.");
+        super("\"" + shortcut + "\" is not even defined as a shortcut yet.");
     }
 }

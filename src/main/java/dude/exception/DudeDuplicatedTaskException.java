@@ -9,6 +9,6 @@ public class DudeDuplicatedTaskException extends DudeException {
      * Constructs a DudeDuplicatedTaskException with no detail message.
      */
     public DudeDuplicatedTaskException() {
-        super("This task already exist.");
+        super("This task already exist! Try a new one.");
     }
 }
