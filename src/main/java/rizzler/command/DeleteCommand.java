@@ -10,6 +10,13 @@ import rizzler.ui.RizzlerException;
  */
 public class DeleteCommand extends Command {
     private final int taskToDelete;
+    protected static final String COMMAND_OVERVIEW = "delete: deletes a task from the log permanently.";
+    protected static final String[] COMMAND_FORMAT = new String[] {
+            "Usage: ",
+            "\"delete {task ID number}\"",
+            "Examples: ",
+            "\"delete 3\"",
+            "\"delete 1\""};
 
     /**
      * Constructor for a <code>DeleteCommand</code> object.

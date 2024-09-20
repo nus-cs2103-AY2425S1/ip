@@ -6,12 +6,12 @@ import rizzler.task.TaskLog;
 /**
  * Represents the ending of chatbot execution.
  */
-public class EndCommand extends Command {
+public class ByeCommand extends Command {
 
     /**
-     * Constructor for an EndCommand object.
+     * Constructor for an ByeCommand object.
      */
-    public EndCommand() {
+    public ByeCommand() {
         super();
     }
 

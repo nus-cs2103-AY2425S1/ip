@@ -21,18 +21,20 @@ import rizzler.task.ToDo;
  */
 public class Storage {
     private static final Path STORAGE_PATH = Paths.get("taskStorage", "taskLog.tsv");
-    private File file;
+    private final File file;
 
     /**
      * Constructor for a <code>Storage</code> object.
      */
     protected Storage() {
         File file = new File(STORAGE_PATH.toString());
-        if (!file.getParentFile().exists()) {       // if the taskStorage directory does not exist, create it
+        if (!file.getParentFile().exists()) {
+            // if the taskStorage directory does not exist, create it
             boolean parentDirCreated = file.getParentFile().mkdirs();
             assert parentDirCreated : "Failed to create parent directory";
         }
-        if (!file.isFile()) {                       // if the file does not exist, create it
+        if (!file.isFile()) {
+            // if the file does not exist, create it
             boolean fileCreated = createFile(file);
             assert fileCreated : "Failed to create file";
         }
