@@ -66,8 +66,17 @@ public class Ui {
         );
     }
 
+    /**
+     * Adds an error to be displayed to the user
+     * @param error
+     */
     public void showError(String error) {
-        showMessage(RED + "ERROR!" + RESET + " " + error);
+        dialogContainer.getChildren().add(
+                DialogBox.getColorDialog("ERROR", jeffImage, true, "red")
+        );
+        dialogContainer.getChildren().add(
+                DialogBox.getJeffDialog(error, jeffImage)
+        );;
     }
 
     public String readCommand() {
