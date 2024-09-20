@@ -9,6 +9,13 @@ import rizzler.task.TaskLog;
  */
 public class DeadlineCommand extends Command {
     private final Deadline deadline;
+    protected static final String COMMAND_OVERVIEW = "deadline: creates a task that has to be done by a deadline.";
+    protected static final String[] COMMAND_FORMAT = new String[] {
+            "Usage: ",
+            "\"deadline {description} /by {time/date}\"",
+            "Examples: ",
+            "deadline Finish Homework /by 2024-06-23",
+            "deadline buy birthday present for dave /by this friday!!!"};
 
     /**
      * Constructor for a DeadlineCommand object. Also creates a <code>Deadline</code> object.

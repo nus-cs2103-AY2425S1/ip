@@ -14,8 +14,7 @@ public class HelpCommand extends Command {
             "once you've completed a task, you can \"mark\" it as done, or \"unmark\" it if you "
                     + "realise afterwards that it's not quite done yet.",
             "if you'd like, you can delete tasks that you no longer want to see with \"delete\".",
-            "you can get more information on any of the above commands if you just use it with the help command,"
-                    + " like as \"help event\" or \"help delete\"",
+            "you can even find specific tasks with \"find\"!",
             "and lastly, if ya' ever get bored of lil' ol' me, you can enter \"bye\" to exit the program.",
             "",
             "looking forward to workin' with ya' honey.",
@@ -50,5 +49,4 @@ public class HelpCommand extends Command {
     public String[] execute(Storage storage, TaskLog taskLog) {
         return helpMessage;
     }
-
 }

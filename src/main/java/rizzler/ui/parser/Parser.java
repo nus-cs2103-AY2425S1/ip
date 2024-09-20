@@ -4,10 +4,10 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import rizzler.command.ByeCommand;
 import rizzler.command.Command;
 import rizzler.command.DeadlineCommand;
 import rizzler.command.DeleteCommand;
-import rizzler.command.EndCommand;
 import rizzler.command.EventCommand;
 import rizzler.command.FindCommand;
 import rizzler.command.HelpCommand;
@@ -45,7 +45,7 @@ public class Parser {
         String userInputFirstWord = userInputArr[0].trim().toLowerCase();
         switch (userInputFirstWord) {
         case "bye":
-            outputCommand = new EndCommand();
+            outputCommand = new ByeCommand();
             break;
         case "help":
             try {
