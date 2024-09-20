@@ -22,7 +22,6 @@ public class Michael extends Application {
     private Parser parser; // Processes user commands
     private final String PATH = "./data/save.txt"; // File path for save file of tasks
 
-    private static Michael michael = new Michael();
     /**
      * Initialises the chatbot.
      *
@@ -40,9 +39,6 @@ public class Michael extends Application {
         }
     }
 
-    public static void main(String[] args) {
-        michael.run();
-    }
 
     /**
      * Runs main logic of program.
@@ -78,7 +74,7 @@ public class Michael extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setMichael(michael);  // inject the Michael instance
+            fxmlLoader.<MainWindow>getController().setMichael(this);  // inject the Michael instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
