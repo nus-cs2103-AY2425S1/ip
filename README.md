@@ -7,6 +7,8 @@ guaranteed to make your day with its humour.
 
 This is built with a project template for a greenfield Java project, named _Duke_.
 
+View the [**User Guide**](https://chuajunyu.github.io/ip/).
+
 ## Setting up in Intellij
 
 Prerequisites: JDK 17, update Intellij to the most recent version.
