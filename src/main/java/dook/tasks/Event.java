@@ -1,5 +1,8 @@
 package dook.tasks;
 
+import dook.Dook;
+import dook.DookException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -17,8 +20,11 @@ public class Event extends Task {
      * @param start The start time of the Event.
      * @param end The end time of the Event.
      */
-    public Event(String description, LocalDateTime start, LocalDateTime end) {
+    public Event(String description, LocalDateTime start, LocalDateTime end) throws DookException {
         super(description);
+        if (start.isAfter(end)) {
+            throw new DookException("Start time cannot be after end time");
+        }
         this.start = start;
         this.end = end;
     }

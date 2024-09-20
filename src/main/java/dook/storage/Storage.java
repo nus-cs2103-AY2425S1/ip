@@ -99,24 +99,30 @@ public class Storage {
      * @return The task created based on the task type and components, or null if the task type is not recognized.
      */
     private Task getType(String taskType, String[] components, DateTimeFormatter formatter, boolean isDone) {
-        Task task;
-        switch (taskType) {
-        case "T":
-            task = new Todo(components[2]);
-            break;
-        case "D":
-            task = new Deadline(components[2], LocalDateTime.parse(components[3], formatter));
-            break;
-        case "E":
-            task = new Event(components[2], LocalDateTime.parse(components[3], formatter),
-                    LocalDateTime.parse(components[4], formatter));
-            break;
-        default:
-            return null;
-        }
+        Task task = null;
+        try {
+            switch (taskType) {
+            case "T":
+                task = new Todo(components[2]);
+                break;
+            case "D":
+                task = new Deadline(components[2], LocalDateTime.parse(components[3], formatter));
+                break;
+            case "E":
+                task = new Event(components[2], LocalDateTime.parse(components[3], formatter),
+                        LocalDateTime.parse(components[4], formatter));
+                break;
+            default:
+                return null;
+            }
 
-        if (isDone) {
-            task.markAsDone();
+            if (isDone) {
+                task.markAsDone();
+            }
+
+
+        } catch (DookException e) {
+            System.out.println(e.getMessage());
         }
 
         return task;
