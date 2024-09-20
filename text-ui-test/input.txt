@@ -1,0 +1,18 @@
+list
+sort
+todo borrow book
+delete 1
+event project meeting /on 19/08/2024 /1800 to 2000
+deadline return book /by 02/12/2019 1800
+sort
+mark 1
+mark 2
+unmark 1
+todo
+deadline
+event
+blah
+deadline finish
+event finish
+deadline finish / 1234
+bye
