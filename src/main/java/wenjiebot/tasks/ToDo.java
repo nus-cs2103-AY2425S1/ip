@@ -16,6 +16,10 @@ public class ToDo extends Task {
         super(description);
     }
 
+    @Override
+    public void setDateTime(String newDate) {
+    }
+
     /**
      * Returns a string representation of the ToDo in a format suitable for storage.
      * The format includes the task type identifier ("T") and the task details.

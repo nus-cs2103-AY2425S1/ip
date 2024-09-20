@@ -4,7 +4,7 @@ package wenjiebot.tasks;
  * The Task class represents a general task in the wenjiebot application.
  * It includes information about the task's description and completion status.
  */
-public class Task {
+public abstract class Task {
 
     protected String description;
     protected boolean isDone;
@@ -19,6 +19,8 @@ public class Task {
         this.description = description;
         this.isDone = false;
     }
+
+    public abstract void setDateTime(String newDate);
 
     /**
      * Returns the status icon of the task.

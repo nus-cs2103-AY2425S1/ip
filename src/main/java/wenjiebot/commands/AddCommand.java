@@ -3,6 +3,7 @@ package wenjiebot.commands;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import wenjiebot.Parser;
 import wenjiebot.Storage;
 import wenjiebot.TaskList;
 import wenjiebot.Ui;
@@ -96,14 +97,13 @@ public class AddCommand extends Command {
      */
     private Event getEvent() throws NoFollowUpException, InvalidDateInputException {
         String input = getInput();
-        String[] parts = input.split(" ");
 
         if (input.length() <= 5) {
             throw new NoFollowUpException();
         }
 
-        String from = parseFromDate(parts);
-        String to = parseToDate(parts);
+        String from = Parser.parseFromDate(input);
+        String to = Parser.parseToDate(input);
 
         int endIndex = findEndIndex(input);
         if (endIndex == 0) {
@@ -114,51 +114,6 @@ public class AddCommand extends Command {
         assert(!desc.isEmpty());
         return new Event(desc, from, to);
     }
-
-    /**
-     * Parses the 'from' date from the input parts.
-     *
-     * @param parts the parts of the input string.
-     * @return the 'from' date as a string.
-     */
-    private String parseFromDate(String[] parts) {
-        StringBuilder from = new StringBuilder();
-        for (int i = 0; i < parts.length; i++) {
-            if (parts[i].charAt(0) == '/') {
-                int j = i + 1;
-                while (j < parts.length && parts[j].charAt(0) != '/') {
-                    from.append(parts[j]).append(" ");
-                    j++;
-                }
-                break;
-            }
-        }
-        assert(!from.isEmpty());
-        return from.toString().trim();
-    }
-
-    /**
-     * Parses the 'to' date from the input parts.
-     *
-     * @param parts the parts of the input string.
-     * @return the 'to' date as a string.
-     */
-    private String parseToDate(String[] parts) {
-        StringBuilder to = new StringBuilder();
-        boolean foundFrom = false;
-        for (int i = 0; i < parts.length; i++) {
-            if (Objects.equals(parts[i], "/to")) {
-                foundFrom = true;
-                continue;
-            }
-            if (foundFrom) {
-                to.append(parts[i]).append(" ");
-            }
-        }
-        assert(!to.isEmpty());
-        return to.toString().trim();
-    }
-
     /**
      * Finds the end index of the description in the input string.
      *
@@ -183,12 +138,10 @@ public class AddCommand extends Command {
      */
     private Deadline getDeadline() throws NoFollowUpException, InvalidDateInputException {
         String input = getInput();
-        String[] parts = input.split(" ");
-
         if (input.length() <= 9) {
             throw new NoFollowUpException();
         }
-        String by = parseByDate(parts);
+        String by = Parser.parseByDate(input);
         int endIndex = findEndIndex(input);
         if (endIndex == 0) {
             throw new InvalidDateInputException();
@@ -197,26 +150,6 @@ public class AddCommand extends Command {
         String desc = input.substring(9, endIndex);
         return new Deadline(desc, by);
     }
-
-    /**
-     * Parses the 'by' date from the input parts.
-     *
-     * @param parts the parts of the input string.
-     * @return the 'by' date as a string.
-     */
-    private String parseByDate(String[] parts) {
-        StringBuilder by = new StringBuilder();
-        boolean foundBy = false;
-        for (String part : parts) {
-            if (part.charAt(0) == '/') {
-                foundBy = true;
-            } else if (foundBy) {
-                by.append(part).append(" ");
-            }
-        }
-        return by.toString().trim();
-    }
-
     /**
      * Prints an acknowledgment message to the user after a task has been added to the list.
      *

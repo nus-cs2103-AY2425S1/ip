@@ -20,7 +20,7 @@ import wenjiebot.tasks.ToDo;
  */
 public class Storage {
 
-    private String filePath;
+    private final String filePath;
     private ArrayList<Task> tasks = new ArrayList<>(0);
 
     /**
