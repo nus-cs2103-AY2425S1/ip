@@ -1,5 +1,5 @@
 # SecondMind User Guide
-// Product screenshot goes here
+<img width="801" alt="Product Screenshot" src="UI.png">
 
 SecondMind is a chatbot designed to assist you by keeping track of your to-do tasks, deadlines, and events. 
 
