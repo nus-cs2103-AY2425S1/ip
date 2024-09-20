@@ -2,10 +2,10 @@
 
 > "The key is not to prioritize what's on your schedule, but to schedule your priorities." -Stephen Covey ([source](https://www.brainyquote.com/authors/stephen-covey-quotes))
 
-EchoBot is your ultimate task manager, designed to free up your mental space so you can focus on what truly matters. With EchoBot you can effortlessly keep track of your tasks without the hassle of remembering every detail.:wink: It’s:
+EchoBot is your ultimate task manager, designed to free up your mental space so you can focus on what truly matters. With EchoBot you can effortlessly keep track of your tasks without the hassle of remembering every detail. :wink: It’s:
 
-* Easy to learn so you can get started right away.:dizzy:
-* Blazing fast for quick and efficient task management.:star2:
+* Easy to learn so you can get started right away. :dizzy:
+* Blazing fast for quick and efficient task management. :star2:
 
 <img src="Ui.png" width="40%">
 
