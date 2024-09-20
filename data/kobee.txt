@@ -1,0 +1,4 @@
+T | 0 | eat breakfast | food
+D | 0 | math assignment | 2024-09-18 2359 | homework
+E | 0 | party | 2024-09-18 1400 | 2024-09-19 2200 | fun
+T | 0 | eatie
