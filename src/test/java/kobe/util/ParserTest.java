@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ParserTest {
 
-    @Test // Verifies that a valid todo command is parsed correctly into an AddCommand.
+    @Test // Verify that a valid todo command is parsed correctly into an AddCommand.
     public void testParseAddCommand() throws KobeException {
         Command command = Parser.parse("todo Read book");
         assertTrue(command instanceof AddCommand, "Command should be of type AddCommand.");
