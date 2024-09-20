@@ -70,3 +70,9 @@ Exits the Elon application.
 
 ### Saving Data
 Elon automatically saves your tasks after any command that changes the data. There is no need to manually save.
+
+## Acknowledgements:
+- Elon.png from https://www.biography.com/business-leaders/elon-musk
+- User.png from https://en.wikipedia.org/wiki/Mark_Zuckerberg#/media/File:Mark_Zuckerberg_F8_2019_Keynote_(32830578717)_(cropped).jpg
+- Use of ChatGPT to help with improving most of the JavaDoc comments
+- AB3 User Guide for the format to write this User Guide
