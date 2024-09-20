@@ -35,7 +35,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         String welcomeMessage = "Welcome to SecondMind!\nWhat can i help you with today?";
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(welcomeMessage, secondMindImage)
+                DialogBox.getSecondMindDialog(welcomeMessage, secondMindImage)
         );
     }
 
@@ -58,7 +58,7 @@ public class MainWindow extends AnchorPane {
         }
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, secondMindImage)
+                DialogBox.getSecondMindDialog(response, secondMindImage)
         );
         userInput.clear();
     }
