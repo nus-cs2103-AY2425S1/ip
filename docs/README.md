@@ -114,6 +114,14 @@ Example: `list` followed by `delete 2` deletes the 2nd task in the task list.
 
 
 
+## Exiting the program: `bye`
+
+Exits the program.
+
+Format: `bye`
+
+
+
 ## Saving the data
 
 Tasks data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
