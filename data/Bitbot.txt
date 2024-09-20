@@ -1,4 +1,0 @@
-T| |borrow book|NIL|NIL|NIL
-E| |go overseas|Feb 20 2025 10:00|Feb 21 2025 12:00|NIL
-D| |finish homework|tomorrow|NIL|NIL
-D| |return book|Nov 25 2024|NIL|NIL

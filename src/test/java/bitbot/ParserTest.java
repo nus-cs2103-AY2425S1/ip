@@ -7,6 +7,10 @@ import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
 
+/*
+I used GPT to help me with the generation of test cases.
+ */
+
 /**
  * Unit test for Parser class.
  */

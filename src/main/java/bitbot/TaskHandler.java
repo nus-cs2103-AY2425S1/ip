@@ -174,11 +174,15 @@ public class TaskHandler {
     public static String handleList(ArrayList<Task> arrayList) {
 
         StringBuilder result = new StringBuilder();
-        result.append("          ____________________________________\n          Here are the tasks in your list:\n");
-        for (int i = 1; i < arrayList.size() + 1; i++) {
-            result.append("          " + i + ". " + arrayList.get(i - 1).finalString() + "\n");
+        if (arrayList.isEmpty()) {
+            result.append("          You have an empty list. Add something to the list first :)");
+        } else {
+            result.append("          ____________________________________\n          Here are the tasks in your list:\n");
+            for (int i = 1; i < arrayList.size() + 1; i++) {
+                result.append("          " + i + ". " + arrayList.get(i - 1).finalString() + "\n");
+            }
+            result.append("          ____________________________________\n");
         }
-        result.append("          ____________________________________\n");
         return result.toString();
     }
 
@@ -310,7 +314,10 @@ public class TaskHandler {
      * @param index the index in which the task is meant to be marked as done
      * @return a String
      */
-    public static String handleMark(ArrayList<Task> arrayList, int index) {
+    public static String handleMark(ArrayList<Task> arrayList, int index) throws BitBotException {
+        if (arrayList.get(index - 1).isDone) {
+            throwRepetitionError("marked as done");
+        }
         arrayList.get(index - 1).markAsDone();
         return "          ____________________________________\n          "
                 + "Yay nice! I've marked this task as done:\n"
@@ -326,10 +333,13 @@ public class TaskHandler {
      * @param index the index in which the task is meant to be unmarked
      * @return a String
      */
-    public static String handleUnmark(ArrayList<Task> arrayList, int index) {
+    public static String handleUnmark(ArrayList<Task> arrayList, int index) throws BitBotException {
+        if (!arrayList.get(index - 1).isDone) {
+            throwRepetitionError("unmarked");
+        }
         arrayList.get(index - 1).markAsUndone();
         return "          ____________________________________\n          "
-                + "Okay, I've marked this task as not done yet:"
+                + "Okay, I've marked this task as not done yet:\n"
                 + "             " + arrayList.get(index - 1).finalString()
                 + "\n"
                 + "          ____________________________________\n";
@@ -404,6 +414,10 @@ public class TaskHandler {
         }
 
         return numberPart;
+    }
+
+    private static void throwRepetitionError(String text) throws BitBotException {
+        throw new BitBotException("OOPS!! Task is already " + text + "!");
     }
 
 }

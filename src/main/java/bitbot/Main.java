@@ -39,10 +39,15 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+
             stage.setScene(scene);
-            stage.setMinHeight(220);
-            stage.setMinWidth(417);
+            stage.setMinHeight(300);
+            stage.setMinWidth(800);
+
             fxmlLoader.<MainWindow>getController().setBitbot(bitbot); //inject the BitBot instance
+            // to change the title of the GUI box
+            stage.setTitle("BitBot, your todo companion");
+
             stage.show();
 
         } catch (IOException e) {

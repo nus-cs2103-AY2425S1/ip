@@ -55,6 +55,7 @@ class StorageTest {
         Files.deleteIfExists(TEST_FILE);
     }
 
+    // I used GPT to help me get the first test case.
     @Test
     void testEnsureFileExists() throws IOException {
         // Test ensuring file exists when it's already created
@@ -69,31 +70,31 @@ class StorageTest {
     }
 
     @Test
-    void testReadTodoTaskDescription() throws IOException, FileNotFoundException {
+    void testReadTodoTaskDescription_success() throws IOException, FileNotFoundException {
         assertInstanceOf(Todo.class, tasks.get(0));
         assertEquals("Read book", tasks.get(0).taskDescription);
     }
 
     @Test
-    void testReadDeadlineTaskDescription() throws IOException {
+    void testReadDeadlineTaskDescription_success() throws IOException {
         assertInstanceOf(Deadline.class, tasks.get(1));
         assertEquals("Submit assignment", tasks.get(1).taskDescription);
     }
 
     @Test
-    void testReadEventTaskDescription() throws IOException, FileNotFoundException {
+    void testReadEventTaskDescription_success() throws IOException, FileNotFoundException {
         assertInstanceOf(Events.class, tasks.get(2));
         assertEquals("Attend meeting", tasks.get(2).taskDescription);
     }
 
     @Test
-    void testReadDeadlineTaskFinalString() throws IOException, FileNotFoundException {
+    void testReadDeadlineTaskFinalString_success() throws IOException, FileNotFoundException {
         assertInstanceOf(Deadline.class, tasks.get(1));
         assertEquals("[D][ ] Submit assignment (by: Sep 20 2024 18:00)",
                 tasks.get(1).finalString());
     }
     @Test
-    void testReadEventsTaskFinalString() throws IOException, FileNotFoundException {
+    void testReadEventsTaskFinalString_success() throws IOException, FileNotFoundException {
         assertInstanceOf(Events.class, tasks.get(2));
         assertEquals("[E][ ] Attend meeting (from: Sep 22 2024 10:00 to: Sep 22 2024 12:00)",
                 tasks.get(2).finalString());

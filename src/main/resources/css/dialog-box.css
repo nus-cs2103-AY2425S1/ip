@@ -5,7 +5,7 @@ with minor modifications
 */
 
 .label {
-    -fx-background-color: linear-gradient(to bottom right, #00ffbf, #00ddff);
+    -fx-background-color: linear-gradient(to bottom right, #F4A460 , #40E0D0);
     -fx-border-color: #d55e00 #009e73 #cc79a7 #0072b2;
     -fx-border-width: 2.5px;
     -fx-background-radius: 1em 1em 0 1em;

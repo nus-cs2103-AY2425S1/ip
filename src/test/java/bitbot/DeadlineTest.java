@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
  * Unit Test for Deadline class
  */
 public class DeadlineTest {
+    // I used GPT to create the first test case as a reference.
     @Test
     public void testFinalString_withLocalDateTime() {
         LocalDateTime dateTime = LocalDateTime.of(2024, 8, 30, 16, 0);

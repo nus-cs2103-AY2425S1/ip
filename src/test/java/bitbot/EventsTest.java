@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
  * Unit test for Events class
  */
 public class EventsTest {
+    // I used GPT to generate the first test case.
     @Test
     public void testFinalString_withLocalDateTime() {
         LocalDateTime dateTime = LocalDateTime.of(2024, 8, 30, 16, 0);

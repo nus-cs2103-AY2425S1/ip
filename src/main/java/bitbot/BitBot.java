@@ -27,9 +27,6 @@ public class BitBot {
     }
     public String getResponse(String input) {
         String finalResponse = null;
-        StringBuilder from = new StringBuilder();
-        StringBuilder to = new StringBuilder();
-        StringBuilder by = new StringBuilder();
         String keyWord = null;
         String textPart = null;
         StringBuilder sb = new StringBuilder();

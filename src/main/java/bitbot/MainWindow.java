@@ -32,7 +32,9 @@ public class MainWindow extends AnchorPane {
 
     private UI ui = new UI();
 
+    //Picture adopted from Google images
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
+    //Picture adopted from Google images
     private Image bitbotImage = new Image(this.getClass().getResourceAsStream("/images/Duke.png"));
 
     /**
