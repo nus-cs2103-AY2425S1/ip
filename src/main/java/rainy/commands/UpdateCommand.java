@@ -11,11 +11,11 @@ import rainy.tasks.TaskTracker;
  * Parent class of the separate Update classes for each type of class.
  */
 public class UpdateCommand extends Command {
+    private static final int INVALID_RESPONSE = -1;
+    private static final char ERROR_OUTPUT = '`';
     protected int validResponse;
     protected TaskTracker taskTracker;
     protected String[] updateParameters;
-    private static final int INVALID_RESPONSE = -1;
-    private static final char ERROR_OUTPUT = '`';
 
     /**
      * Constructs a new <code>UpdateCommand</code>
