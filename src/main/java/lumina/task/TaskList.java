@@ -193,6 +193,7 @@ public class TaskList {
             }
         }
 
+        assert by : "command should have by tag";
         if (!by) {
             throw new LuminaException("Oh no! Lumina detected invalid format for your "
                     + "Deadline Task! Please try again");
@@ -341,6 +342,7 @@ public class TaskList {
             }
         }
 
+        assert from && to : "command should have from and to tags";
         if (!from || !to) {
             throw new LuminaException("Oh no! Lumina detected invalid format for your "
                     + "Event Task! Please try again");

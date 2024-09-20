@@ -43,6 +43,7 @@ public class Parser {
      */
     public Task parseDataLine(String line) {
         String[] parts = line.split(" \\| ");
+        assert parts.length > 1 : "Line should have atleast 2 parts";
         LuminaException luminaException = new LuminaException(
                 String.format("Corrupt data entry: %s", line)
         );
