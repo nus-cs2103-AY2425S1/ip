@@ -8,9 +8,9 @@ import lemon.command.Command;
 import lemon.command.CommandType;
 import lemon.command.DeleteTaskCommand;
 import lemon.command.FindTaskCommand;
+import lemon.command.HelpCommand;
 import lemon.command.ListTaskCommand;
 import lemon.command.MarkTaskCommand;
-import lemon.command.HelpCommand;
 import lemon.command.UnmarkTaskCommand;
 
 /**

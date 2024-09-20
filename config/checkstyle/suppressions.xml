@@ -7,5 +7,5 @@
 <suppressions>
   <suppress checks="JavadocType" files=".*Test\.java"/>
   <suppress checks="MissingJavadocMethodCheck" files=".*Test\.java"/>
-  <suppress checks="ConstantName" files=".app/Launcher.java"/>
+  <suppress checks="ConstantName" files="/lemon/app/Launcher.java"/>
 </suppressions>

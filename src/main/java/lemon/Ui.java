@@ -252,6 +252,10 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints the help message along all possible commands lemon supports
+     * @param commandsMsg Message that contains all possible commands and its descriptions
+     */
     public void printHelpPage(String commandsMsg) {
         String helpMsg = " No problem, here are the possible commands I can help you with :D\n";
         if (Launcher.IS_GUI) {
@@ -260,7 +264,7 @@ public class Ui {
             Launcher.out.print();
         } else {
             System.out.println(helpMsg);
-           System.out.println(commandsMsg);
+            System.out.println(commandsMsg);
         }
     }
 }

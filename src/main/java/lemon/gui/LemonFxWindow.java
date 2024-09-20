@@ -24,6 +24,7 @@ public class LemonFxWindow extends AnchorPane {
 
     private Lemon lemon;
 
+    // Picture from https://custom-cursor.com/en/collection/cute-cursors/cute-lemon
     private Image lemonImage = new Image(this.getClass().getResourceAsStream("/images/Lemonww.png"));
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User1.jpg"));
 

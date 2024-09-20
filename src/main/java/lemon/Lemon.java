@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 import lemon.app.Launcher;
 import lemon.command.Command;
-import lemon.command.CommandType;
 
 /**
  * Lemon chatbot that can be used to track tasks given to it
@@ -91,14 +90,6 @@ public class Lemon {
     }
 
     /**
-     * Return the previous {@link Command} executed by lemon
-     * @return {@link Command} reference
-     */
-//    public Command getPreviousCommand() {
-//        return previousCommand;
-//    }
-
-    /**
      * JavaFx implementation of receiving a response from lemon
      * @param input instruction provided by the user to be processed into a command
      */
@@ -112,12 +103,4 @@ public class Lemon {
             ui.printUnexpectedException(e, "UNEXPECTED ERROR FOUND");
         }
     }
-
-//    private void storePreviousCommand(Command c) {
-//        if (c.getCommandType() != CommandType.UNDO) {
-//            previousCommand = c;
-//        } else {
-//            previousCommand = null;
-//        }
-//    }
 }
