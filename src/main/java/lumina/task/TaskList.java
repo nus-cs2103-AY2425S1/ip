@@ -2,6 +2,8 @@ package lumina.task;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import lumina.exception.LuminaException;
@@ -166,43 +168,21 @@ public class TaskList {
 
     public String handleDeadlineTask(String msg) throws LuminaException {
         String[] msgSplit = msg.split(" ");
-        if (msgSplit.length < 4) { // need desc and bydatetime
+        Pattern pattern = Pattern.compile("^\\S+\\s+(.*?)\\s+/by\\s+(.*)$");
+        Matcher matcher = pattern.matcher(msg);
+
+        if (!matcher.matches()) {
             throw new LuminaException("Oh no! Lumina detected invalid format for your "
                     + "Deadline Task! Please try again");
         }
+        String desc = matcher.group(1).trim();
+        String byDateTime = matcher.group(2).trim();
 
-        StringBuilder builder = new StringBuilder();
-        String desc = "";
-        String byDateTime = "";
-        boolean by = false;
-
-        for (int i = 1; i < msgSplit.length; i++) {
-            if (msgSplit[i].equals("/by")) {
-                if (by) {
-                    throw new LuminaException("Oh no! Lumina detected invalid format for "
-                            + "your Deadline Task.Task! Please try again");
-                }
-                by = true;
-                desc = builder.toString().trim();
-                builder = new StringBuilder();
-                continue;
-            }
-            builder.append(msgSplit[i]);
-            if (i < msgSplit.length - 1) {
-                builder.append(" ");
-            }
-        }
-
-        assert by : "command should have by tag";
-        if (!by) {
-            throw new LuminaException("Oh no! Lumina detected invalid format for your "
-                    + "Deadline Task! Please try again");
-        }
-        byDateTime = builder.toString().trim();
         if (desc.isEmpty() || byDateTime.isEmpty()) {
             throw new LuminaException("Oh no! Lumina detected invalid format for your "
                     + "Deadline Task! Please try again");
         }
+
         LocalDate byDateObject = parser.parseDateString(byDateTime);
         Task task = new DeadlineTask(desc, byDateObject);
         return this.addTask(task);
@@ -241,10 +221,21 @@ public class TaskList {
     /**
      * Searches for tasks in the list that contain the specified search string in their description.
      *
-     * @param searchString the string to search for within task descriptions
+     * @param msg the message containing search string
      * @return String response
      */
-    public String findTasks(String searchString) {
+    public String findTasks(String msg) throws LuminaException {
+        // Define the regex pattern to match the first word followed by any whitespace
+        Pattern pattern = Pattern.compile("^\\S+\\s*(.*)$");
+        Matcher matcher = pattern.matcher(msg);
+
+        String searchString;
+        if (!matcher.find()) {
+            // if it doesn't match throw exception
+            throw new LuminaException("Oh no! invalid find command! Please try again");
+        }
+        searchString = matcher.group(1);
+
         StringBuilder findTasksMessage = new StringBuilder();
         findTasksMessage.append("Here are the matching tasks in your list:\n");
         int count = 1;
@@ -271,101 +262,26 @@ public class TaskList {
      */
     public String handleEventTask(String msg) throws LuminaException {
         String[] msgSplit = msg.split(" ");
-        if (msgSplit.length < 6) { // need desc, startDateTime, endDateTime
+        Pattern pattern = Pattern.compile("^\\S+\\s+(.*?)\\s+/from\\s+(.*?)\\s+/to\\s+(.*)$");
+        Matcher matcher = pattern.matcher(msg);
+
+        if (!matcher.matches()) {
             throw new LuminaException("Oh no! Lumina detected invalid format for your "
                     + "Event Task! Please try again");
         }
 
-        enum Type {
-            DESC, FROM, TO
-        }
+        String desc = matcher.group(1).trim();
+        String startDateTime = matcher.group(2).trim();
+        String endDateTime = matcher.group(3).trim();
 
-        Type currentType = Type.DESC;
-
-        StringBuilder builder = new StringBuilder();
-        String desc = "";
-        String startDateTime = "";
-        String endDateTime = "";
-        boolean from = false;
-        boolean to = false;
-        for (int i = 1; i < msgSplit.length; i++) {
-            if (msgSplit[i].equals("/from")) {
-                if (from) {
-                    throw new LuminaException("Oh no! Lumina detected invalid format for "
-                            + "your Event Task! Please try again");
-                }
-                switch (currentType) {
-                case DESC:
-                    desc = builder.toString().trim();
-                    break;
-                case FROM:
-                    startDateTime = builder.toString().trim();
-                    break;
-                case TO:
-                    endDateTime = builder.toString().trim();
-                    break;
-                default:
-                    break;
-                }
-                builder = new StringBuilder();
-                from = true;
-                currentType = Type.FROM;
-                continue;
-            }
-            if (msgSplit[i].equals("/to")) {
-                if (to) {
-                    throw new LuminaException("Oh no! Lumina detected invalid format for "
-                            + "your Event Task! Please try again");
-                }
-                switch (currentType) {
-                case DESC:
-                    desc = builder.toString().trim();
-                    break;
-                case FROM:
-                    startDateTime = builder.toString().trim();
-                    break;
-                case TO:
-                    endDateTime = builder.toString().trim();
-                    break;
-                default:
-                    break;
-                }
-
-                builder = new StringBuilder();
-                to = true;
-                currentType = Type.TO;
-                continue;
-            }
-            builder.append(msgSplit[i]);
-            if (i < msgSplit.length - 1) {
-                builder.append(" ");
-            }
-        }
-
-        assert from && to : "command should have from and to tags";
-        if (!from || !to) {
+        if (desc.isEmpty() || startDateTime.isEmpty() || endDateTime.isEmpty()) {
             throw new LuminaException("Oh no! Lumina detected invalid format for your "
                     + "Event Task! Please try again");
         }
-        switch (currentType) {
-        case DESC:
-            desc = builder.toString().trim();
-            break;
-        case FROM:
-            startDateTime = builder.toString().trim();
-            break;
-        case TO:
-            endDateTime = builder.toString().trim();
-            break;
-        default:
-            break;
-        }
-        if (desc.trim().isEmpty() || startDateTime.trim().isEmpty() || endDateTime.trim().isEmpty()) {
-            throw new LuminaException("Oh no! Lumina detected invalid format for your "
-                    + "Event Task! Please try again");
-        }
+
         LocalDate startDateObject = parser.parseDateString(startDateTime);
         LocalDate endDateObject = parser.parseDateString(endDateTime);
+
         Task task = new EventTask(desc, startDateObject, endDateObject);
         return this.addTask(task);
     }

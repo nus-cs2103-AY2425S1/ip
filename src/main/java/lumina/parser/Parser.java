@@ -44,51 +44,36 @@ public class Parser {
     public Task parseDataLine(String line) {
         String[] parts = line.split(" \\| ");
         assert parts.length > 1 : "Line should have atleast 2 parts";
-        LuminaException luminaException = new LuminaException(
-                String.format("Corrupt data entry: %s", line)
-        );
-
         Task task = null;
-
         try {
-            if (parts.length < 3) {
-                throw luminaException;
-            }
+            assert parts.length >= 3 : "line should have atleast 3 parts";
             String type = parts[0].trim();
             boolean isDone = parts[1].trim().equals("1");
             String description = parts[2].trim();
             switch (type) {
             case "T":
-                if (parts.length != 3) {
-                    throw luminaException;
-                }
+                assert parts.length == 3 : "Todo task should have 3 parts";
                 task = new TodoTask(description, isDone);
                 break;
             case "D":
-                if (parts.length != 4) {
-                    throw luminaException;
-                }
-                String byDateTime = parts[3].trim();
-                LocalDate byDateObject = parseDateString(byDateTime);
+                assert parts.length == 4 : "Deadline task should have 4 parts";
+                LocalDate byDateObject = parseDateString(parts[3].trim());
                 task = new DeadlineTask(description, byDateObject, isDone);
                 break;
             case "E":
-                if (parts.length != 5) {
-                    throw luminaException;
-                }
-                String startDateTime = parts[3].trim();
-                String endDateTime = parts[4].trim();
-                LocalDate startDateObject = parseDateString(startDateTime);
-                LocalDate endDateObject = parseDateString(endDateTime);
+                assert parts.length == 5 : "Event task should have 5 parts";
+                LocalDate startDateObject = parseDateString(parts[3].trim());
+                LocalDate endDateObject = parseDateString(parts[4].trim());
                 task = new EventTask(description, startDateObject, endDateObject, isDone);
                 break;
             default:
-                throw luminaException;
+                throw new LuminaException(
+                        String.format("Corrupt data entry: %s", line)
+                );
             }
         } catch (LuminaException e) {
             System.err.println(e.getMessage());
         }
-
         return task;
     }
 }
