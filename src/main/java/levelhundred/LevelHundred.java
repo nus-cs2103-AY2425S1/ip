@@ -34,6 +34,9 @@ public class LevelHundred {
         this.initialiseTaskList();
     }
 
+    /**
+     * Initialises task list
+     */
     private void initialiseTaskList() {
         try {
             ArrayList<Task> tasks = this.storage.load();
