@@ -1,3 +1,4 @@
+// USED AI generate some code and also referenced @rituliP for some code
 package espresso.gui;
 
 import javafx.application.Application;
@@ -22,6 +23,7 @@ public class Main extends Application {
             Scene scene = new Scene(mainLayout);
             primaryStage.setTitle("Espresso");
             primaryStage.setScene(scene);
+            MainWindow controller = fxmlLoader.getController();
             primaryStage.show();
         } catch (Exception e) {
             e.printStackTrace();

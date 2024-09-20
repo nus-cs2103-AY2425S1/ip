@@ -1,5 +1,5 @@
 package espresso.gui;
-//took some help from @RitulKumarSingh
+//Reference from @RitulKumarSingh for MainWindow.fxml
 import espresso.command.InvalidCommandException;
 import espresso.Espresso;
 import javafx.animation.PauseTransition;
