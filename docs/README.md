@@ -77,7 +77,7 @@ Format of input: `mark [task ID]`
 * an out-of-bound error message will be prompted if the task ID is out of range
 * an error will be prompted from the chatbot if the task ID is not a number 
 
-Example: `mark 1`
+Example: `mark 1`  
 <img src='mark.png'>
 
 ### Unmark a completed task
