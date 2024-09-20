@@ -28,22 +28,26 @@ public class TaskList {
         tasks = new ArrayList<>();
         while (scanner.hasNext()) {
             String nextTask = scanner.nextLine();
-            String[] taskDetails = nextTask.split("\\|");
-            if (Objects.equals(taskDetails[0], "T") && taskDetails.length == 3) {
-                Task task = new Todo(taskDetails[2], Boolean.parseBoolean(taskDetails[1]));
-                tasks.add(task);
-            } else if (Objects.equals(taskDetails[0], "D") && taskDetails.length == 4) {
-                Task task = new Deadline(taskDetails[2], Boolean.parseBoolean(taskDetails[1]),
-                        taskDetails[3]);
-                tasks.add(task);
-            } else if (Objects.equals(taskDetails[0], "E") && taskDetails.length == 5) {
-                Task task = new Event(taskDetails[2], Boolean.parseBoolean(taskDetails[1]),
-                        taskDetails[3], taskDetails[4]);
-                tasks.add(task);
-            } else {
-                throw new MurphyException("Save file seems to be corrupted. Overriding save.");
-            }
+            Task task = parseSaveTask(nextTask);
+            tasks.add(task);
         }
+    }
+
+    private Task parseSaveTask(String nextTask) throws MurphyException {
+        String[] taskDetails = nextTask.split("\\|");
+        Task task;
+        if (Objects.equals(taskDetails[0], "T") && taskDetails.length == 3) {
+            task = new Todo(taskDetails[2], Boolean.parseBoolean(taskDetails[1]));
+        } else if (Objects.equals(taskDetails[0], "D") && taskDetails.length == 4) {
+            task = new Deadline(taskDetails[2], Boolean.parseBoolean(taskDetails[1]),
+                    taskDetails[3]);
+        } else if (Objects.equals(taskDetails[0], "E") && taskDetails.length == 5) {
+            task = new Event(taskDetails[2], Boolean.parseBoolean(taskDetails[1]),
+                    taskDetails[3], taskDetails[4]);
+        } else {
+            throw new MurphyException("Save file seems to be corrupted. Overriding save.");
+        }
+        return task;
     }
 
     /**
