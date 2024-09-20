@@ -43,12 +43,26 @@ public class DialogBox extends HBox {
         dialog.getStyleClass().add("carine-label");
     }
 
+    /**
+     * Creates a dialog box that displays the user's input message with the user's image.
+     *
+     * @param text The message to be displayed in the dialog box.
+     * @param img  The image representing the user.
+     * @return A {@code DialogBox} instance containing the user's message and image.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.dialog.getStyleClass().add("user-label");
         return db;
     }
 
+    /**
+     * Creates a dialog box that displays Carine's input message with the user's image.
+     *
+     * @param text The message to be displayed in the dialog box.
+     * @param img  The image representing Carine.
+     * @return A {@code DialogBox} instance containing the Carine's message and image.
+     */
     public static DialogBox getCarineDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
@@ -58,6 +72,13 @@ public class DialogBox extends HBox {
         return db;
     }
 
+    /**
+     * Creates a dialog box that displays reminder message.
+     *
+     * @param text The message to be displayed in the dialog box.
+     * @param img  The image representing Carine.
+     * @return A {@code DialogBox} instance containing the Carine's message and image.
+     */
     public static DialogBox getReminderDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
