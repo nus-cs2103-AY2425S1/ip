@@ -11,7 +11,9 @@ public class Ui {
     private Scanner sc = new Scanner(System.in);
 
     /**
-     * Prints the welcome message.
+     * Returns the intro message.
+     *
+     * @return The intro message.
      */
     public String intro() {
         return "Hello! I'm ZBot\n" + "What can I do for you?";
@@ -26,7 +28,7 @@ public class Ui {
     }
 
     /**
-     * Prints additional message after adding a task.
+     * Returns message when the task is added.
      *
      * @param task
      * @param size
@@ -40,7 +42,7 @@ public class Ui {
     }
 
     /**
-     * Prints additional message after deleting a task.
+     * Returns message when the task is deleted.
      *
      * @param task
      * @param size
@@ -54,7 +56,7 @@ public class Ui {
     }
 
     /**
-     * Prints additional message after marking a task as done.
+     * Returns message when the task is marked as done.
      *
      * @param task
      */
@@ -66,7 +68,7 @@ public class Ui {
     }
 
     /**
-     * Prints additional message after marking a task as not done.
+     * Returns message when the task is marked as not done.
      *
      * @param task
      */
@@ -92,7 +94,7 @@ public class Ui {
     }
 
     /**
-     * Prints additional message after adding a note to task.
+     * Returns message when a note is added to a task.
      */
     public String generateAddNoteMsg(Task task) {
         StringBuilder response = new StringBuilder();
