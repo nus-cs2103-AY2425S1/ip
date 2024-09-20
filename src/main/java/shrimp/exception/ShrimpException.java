@@ -156,6 +156,9 @@ public class ShrimpException extends Exception {
 
     }
 
+    /**
+     * Thrown when the end date is earlier than start date. (ERR007)
+     */
     public static class InvalidEventException extends ShrimpException {
         private static final String errorCode = "ERR007";
         private static final String errorMessage = "The end time is earlier than the start time...";
@@ -168,6 +171,9 @@ public class ShrimpException extends Exception {
         }
     }
 
+    /**
+     * Thrown when user enters a special character. (ERR008)
+     */
     public static class InvalidCharacterException extends ShrimpException {
         private static final String errorCode = "ERR008";
         private static final String errorMessage = "The character you put in is invalid...";

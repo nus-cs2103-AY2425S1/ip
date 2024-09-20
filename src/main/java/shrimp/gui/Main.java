@@ -10,9 +10,20 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import shrimp.Shrimp;
 
+/**
+ * The Main class serves as the entry point for the JavaFX GUI application.
+ * It is responsible for loading the main application window and setting up the GUI.
+ */
 public class Main extends Application {
     private final Shrimp shrimp = new Shrimp();
 
+    /**
+     * This method is called when the application is launched.
+     * It sets up the main application window by loading the FXML layout,
+     * configuring the scene, and displaying the stage.
+     *
+     * @param stage The primary stage for this application.
+     */
     @Override
     public void start(Stage stage) {
         try {
@@ -31,6 +42,10 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * This method is called when the application is closed.
+     * It ensures that tasks are saved before the application exits.
+     */
     @Override
     public void stop() {
         shrimp.saveTasks();
