@@ -10,14 +10,14 @@
   ```
     - Observations:
   ```
-  While helpful, ChatGPT’s JavaDoc comments sometimes don't follow CS2103T's required format.
+  While helpful, ChatGPT’s JavaDoc comments sometimes do not follow CS2103T's required format.
 
   A common issue encountered:
   In method header comments, the first sentence should begin with action words like "Adds...", "Removes...", or "Updates..." rather than "Add" or "Adding."
   For instance, in the `addTask()` method, ChatGPT's comment might incorrectly start with "Adding a task to the list."
 
   ```
-- Used Copilot to autocomplete some code.
+- Used Copilot to autocomplete some code. 
     - Observation:
    ```
   Copilot effectively reduced time spent on boilerplate code.
