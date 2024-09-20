@@ -1,5 +1,7 @@
 package ponderpika.exception;
 
+// Commit message template below adapted from ChatGPT, major changes here
+// For other exceptions, used this as a reference with minor changes
 /**
  * Exception thrown when a required description for a task is missing.
  * <p>
