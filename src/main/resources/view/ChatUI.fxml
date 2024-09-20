@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="nugget.gui.ChatUIController" prefWidth="400" prefHeight="600">
+    <children>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" VBox.vgrow="ALWAYS">
+            <content>
+                <VBox fx:id="messageArea" />
+            </content>
+        </ScrollPane>
+        <HBox alignment="CENTER">
+            <TextField fx:id="inputField" HBox.hgrow="ALWAYS" onAction="#handleInput" promptText="Enter command..." />
+            <Button fx:id="submitButton" text="Submit" onAction="#handleInput" />
+        </HBox>
+    </children>
+</VBox>

@@ -1,10 +1,11 @@
 package nugget;
 
 import nugget.command.*;
-import nugget.exception.EmptyDescriptionException;
-import nugget.exception.InvalidTaskNumberException;
-import nugget.exception.NuggetException;
-import nugget.exception.UnknownCommandException;
+import nugget.exception.*;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * The {@code Parser} class is responsible for parsing user input and converting it into {@code Command} objects.
@@ -12,6 +13,7 @@ import nugget.exception.UnknownCommandException;
  */
 public class Parser {
 
+    private static final String DATE_FORMAT = "yyyy-MM-dd HHmm"; // Expected date format
     private TaskList tasks;
 
     /**
@@ -108,11 +110,15 @@ public class Parser {
      * @throws NuggetException If the input format is incorrect.
      */
     private Task parseDeadline(String details) throws NuggetException {
+        if (!details.contains(" /by ")) {
+            throw new InvalidDeadlineFormatException();
+        }
         String[] parts = details.split(" /by ", 2);
 
         if (parts.length < 2) {
             throw new EmptyDescriptionException();
         }
+        validateDate(parts[1].trim());
         return new Deadline(parts[0].trim(), parts[1].trim());
     }
 
@@ -124,6 +130,9 @@ public class Parser {
      * @throws NuggetException If the input format is incorrect.
      */
     private Task parseEvent(String details) throws NuggetException {
+        if (!details.contains(" /from ") || !details.contains(" /to ")) {
+            throw new InvalidEventFormatException();
+        }
         String[] parts = details.split(" /from ", 2);
         if (parts.length < 2) {
             throw new EmptyDescriptionException();
@@ -132,6 +141,18 @@ public class Parser {
         if (timeParts.length < 2) {
             throw new EmptyDescriptionException();
         }
+        validateDate(timeParts[0]);
+        validateDate(timeParts[1]);
         return new Event(parts[0].trim(), timeParts[0].trim(), timeParts[1].trim());
+    }
+
+    private void validateDate(String date) throws InvalidDateFormatException {
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+        sdf.setLenient(false);
+        try {
+            Date parsedDate = sdf.parse(date);
+        } catch (ParseException e) {
+            throw new InvalidDateFormatException(); // Custom exception for invalid date format
+        }
     }
 }
