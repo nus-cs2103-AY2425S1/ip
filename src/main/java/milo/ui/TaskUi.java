@@ -42,7 +42,7 @@ public class TaskUi extends Ui{
      */
     public String printUnmark(Task curTask) {
         assert curTask != null;
-        return "Ok, I've marked this as not done yet:\n" +
+        return "Sure, I've marked this as not done yet:\n" +
                 "  " + curTask + "\n";
     }
 
@@ -55,7 +55,7 @@ public class TaskUi extends Ui{
     public String printDelete(Task curTask, int numberOfTasks) {
         assert curTask != null;
         StringBuilder response = new StringBuilder();
-        response.append("Noted. I've removed this task:\n");
+        response.append("Alrighty~ I've removed this task:\n");
         response.append("  ").append(curTask).append("\n");
         if (numberOfTasks == 1) {
             response.append("Now you have ").append(numberOfTasks).append(" task in the list.\n");
@@ -74,7 +74,7 @@ public class TaskUi extends Ui{
     public String printAddTask(Task curTask, int numberOfTasks) {
         assert curTask != null;
         StringBuilder response = new StringBuilder();
-        response.append("Got it. I've added this task:\n");
+        response.append("Got it! I've added this task:\n");
         response.append("  ").append(curTask).append("\n");
         if (numberOfTasks == 1) {
             response.append("Now you have ").append(numberOfTasks).append(" task in the list.\n");
@@ -93,7 +93,7 @@ public class TaskUi extends Ui{
     public String printFoundTask(TaskList todoList, int tasksFound) {
         assert todoList.getNumberOfTasks() > 0;
         StringBuilder response = new StringBuilder();
-        response.append("Here are the matching tasks in your list:\n");
+        response.append("These are the matching tasks in your list:\n");
         for (int i = 0; i < tasksFound; i++) {
             response.append(i + 1).append(".").append(todoList.get(i).toString()).append("\n");
         }
