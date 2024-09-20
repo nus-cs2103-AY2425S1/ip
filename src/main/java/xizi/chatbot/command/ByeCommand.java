@@ -5,7 +5,7 @@ import xizi.chatbot.Ui;
 import xizi.chatbot.task.TaskList;
 
 /**
- * The {@code ByeCommand} class represents a command to terminate the application.
+ * Represents a command to terminate the application.
  * This command displays a goodbye message to the user.
  */
 public class ByeCommand implements Command {

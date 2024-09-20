@@ -9,7 +9,7 @@ import xizi.chatbot.task.TaskList;
 
 
 /**
- * The {@code Command} interface represents an executable command in the Xizi chatbot.
+ * Represents an executable command in the Xizi chatbot.
  */
 public interface Command {
 

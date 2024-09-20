@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import xizi.chatbot.Storage;
 import xizi.chatbot.Ui;
-import xizi.chatbot.XiziException;
 import xizi.chatbot.task.Task;
 import xizi.chatbot.task.TaskList;
 /**
@@ -19,14 +18,17 @@ public class TagCommand implements Command {
      * Parses the input to extract the task number that should be tagged.
      *
      * @param userInput The user input containing the task number and the tag string.
-     * @throws XiziException If the input format is invalid or the task number cannot be parsed.
+     * @throws IllegalArgumentException If the task number is not a valid integer.
      */
     public TagCommand(String userInput) {
         String[] tagParts = userInput.split(" ");
-        int taskNum = Integer.parseInt(tagParts[1]);
-        String tag = tagParts[2].replace("#", "");
-        this.taskIndex = taskNum - 1; // Convert to 0-based index
-        this.tag = tag;
+        try {
+            int taskNum = Integer.parseInt(tagParts[1]);
+            this.taskIndex = taskNum - 1; // Convert to 0-based index
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Task number must be a valid integer.");
+        }
+        this.tag = tagParts[2].replace("#", "");
     }
 
     /**

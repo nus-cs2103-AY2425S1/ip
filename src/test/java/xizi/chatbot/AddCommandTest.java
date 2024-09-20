@@ -19,7 +19,7 @@ import xizi.chatbot.task.Todo;
 
 
 /**
- * Unit tests for various task addition commands in the application.
+ * Tests for various task addition commands in the application.
  * This class tests the functionality of adding different types of tasks to the {@link TaskList}.
  */
 public class AddCommandTest {
@@ -123,4 +123,34 @@ public class AddCommandTest {
 
         assertEquals("The description of a todo cannot be empty.", exception.getMessage());
     }
+
+    /**
+     * Tests the behavior when adding a {@code Deadline} task with an invalid description.
+     * Verifies that an exception is thrown with an appropriate error message.
+     */
+    @Test
+    public void testAddInvalidDeadlineCommand() {
+        Exception exception = assertThrows(Exception.class, () -> {
+            DeadlineCommand addCommand = new DeadlineCommand("deadline /by 23/12/2020 2355");
+            addCommand.execute(tasks, storage, ui);
+        });
+
+        assertEquals("The description or time of a deadline cannot be empty.", exception.getMessage());
+    }
+
+    /**
+     * Tests the behavior when adding an {@code Event} task with an invalid description.
+     * Verifies that an exception is thrown with an appropriate error message.
+     */
+    @Test
+    public void testAddInvalidEventCommand() {
+        Exception exception = assertThrows(Exception.class, () -> {
+            EventCommand addCommand = new EventCommand("event fr4jjdi4 /by djnejisje /to ewjhj");
+            addCommand.execute(tasks, storage, ui);
+        });
+
+        assertEquals("Invalid event command format. Use: event <description> /from <start> /to <end>",
+                exception.getMessage());
+    }
+
 }

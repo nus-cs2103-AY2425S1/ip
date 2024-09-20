@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Enum representing various types of commands that can be processed by the chatbot.
+ * Represents various types of commands that can be processed by the chatbot, as enums.
  * Each command type is associated with a regular expression pattern used to match user input.
  */
 public enum CommandType {
