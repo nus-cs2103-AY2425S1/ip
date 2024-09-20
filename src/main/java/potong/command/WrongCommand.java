@@ -10,7 +10,7 @@ import potong.Ui;
 public class WrongCommand extends Command {
 
     private static final String OUTPUT_STRING = String.format("Sorry, that is not a command.\nTo write a command,"
-                    + " try:\nlist\ntodo [task]\ndeadline [task] /by [deadline]\n event [task] /from [start]"
+                    + " try:\nlist\ntodo [task]\ndeadline [task] /by [YYYY-MM-DD]\n event [task] /from [start]"
                     + "/to [end]\nmark/unmark/delete [index]\nfind [keyword]\ntag [index] [tags]\nbye");
     /**
      * Initialise the WrongCommand class

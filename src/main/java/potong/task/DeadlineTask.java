@@ -2,6 +2,7 @@ package potong.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import potong.exceptions.IllegalInputPotongException;
 
@@ -26,7 +27,11 @@ public class DeadlineTask extends Task {
             throw new IllegalInputPotongException("Your deadline cannot be empty!");
         }
         this.deadline = deadline;
-        this.date = LocalDate.parse(deadline);
+        try {
+            this.date = LocalDate.parse(deadline);
+        } catch (DateTimeParseException e) {
+            throw new IllegalInputPotongException("Your deadline format should be YYYY-MM-DD!");
+        }
     }
 
     /**
@@ -44,7 +49,11 @@ public class DeadlineTask extends Task {
             throw new IllegalInputPotongException("Your deadline cannot be empty!");
         }
         this.deadline = deadline;
-        this.date = LocalDate.parse(deadline);
+        try {
+            this.date = LocalDate.parse(deadline);
+        } catch (DateTimeParseException e) {
+            throw new IllegalInputPotongException("Your deadline format should be YYYY-MM-DD!");
+        }
     }
 
     /**
