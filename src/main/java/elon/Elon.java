@@ -1,10 +1,11 @@
 package elon;
 
+import java.io.IOException;
+
 import elon.command.Command;
 import elon.command.ExitCommand;
 import elon.task.TaskList;
 
-import java.io.IOException;
 
 /**
  * The main entry point for the Elon application.

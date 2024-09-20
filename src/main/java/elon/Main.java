@@ -24,7 +24,7 @@ public class Main extends Application {
             stage.setMinWidth(417);
             stage.setMaxWidth(417);
 
-            fxmlLoader.<MainWindow>getController().setElon(elon);  // inject the Elon instance
+            fxmlLoader.<MainWindow>getController().setElon(elon); //inject the Elon instance
             stage.show();
         } catch (IOException e) {
             System.out.println(e);

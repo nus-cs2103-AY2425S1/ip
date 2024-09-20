@@ -1,7 +1,5 @@
 package elon.task;
 
-import elon.task.Task;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -51,7 +49,7 @@ public class Event extends Task {
      */
     @Override
     public String toFileString() {
-        return "E | " + (this.getIsDone()? "1" : "0")
+        return "E | " + (this.getIsDone() ? "1" : "0")
                 + " | " + super.toFileString() + " | "
                 + this.start + " | " + this.end;
     }

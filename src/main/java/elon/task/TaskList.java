@@ -1,10 +1,10 @@
 package elon.task;
 
-import elon.ElonException;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+
+import elon.ElonException;
 
 /**
  * Represents a list of tasks and provides operations to carry out on them.
@@ -113,7 +113,15 @@ public class TaskList {
                 .collect(Collectors.toCollection(ArrayList<Task>::new));
     }
 
-    public void snooze(int index, LocalDateTime newDate) throws ElonException{
+    /**
+     * Snoozes a task by updating its date to a new specified date.
+     *
+     * @param index   the index of the task to snooze
+     * @param newDate the new date to set for the task
+     * @throws ElonException if the task is a ToDo task
+     */
+
+    public void snooze(int index, LocalDateTime newDate) throws ElonException {
         Task taskToSnooze = this.list.get(index);
         if (taskToSnooze instanceof Deadline || taskToSnooze instanceof Event) {
             taskToSnooze.snooze(newDate);

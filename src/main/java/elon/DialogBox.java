@@ -59,6 +59,12 @@ public class DialogBox extends HBox {
         return db;
     }
 
+    /**
+     * Creates a dialog box that greets the user with a message.
+     *
+     * @param img the image to display in the dialog box
+     * @return a DialogBox containing the greeting message and the specified image
+     */
     public static DialogBox greetUser(Image img) {
         var db = new DialogBox(Ui.greetMessage(), img);
         db.flip();

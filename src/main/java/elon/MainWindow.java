@@ -24,20 +24,26 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Initializes the main window and greets the user.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(DialogBox.greetUser(dukeImage));
     }
 
-    /** Injects the Elon instance */
+    /**
+     * Sets the Elon instance.
+     *
+     * @param e the Elon instance
+     */
     public void setElon(Elon e) {
         this.elon = e;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Handles user input and displays it in dialog boxes.
      */
     @FXML
     private void handleUserInput() {
