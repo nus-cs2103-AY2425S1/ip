@@ -20,7 +20,7 @@ public class MarkCommand implements Command {
     /**
      * Constructs a {@code MarkCommand} with the specified task index and mark status.
      *
-     * @param index  The index of the task to be marked or unmarked.
+     * @param index   The index of the task to be marked or unmarked.
      * @param hasMark {@code true} if the task is to be marked as done, {@code false} otherwise.
      */
     public MarkCommand(int index, Boolean hasMark) {
