@@ -84,6 +84,13 @@ She offers:
   [E][ ] Participate in Ludi Harpastum (from: Oct 10 2024 to: Oct 12 2024) [#festival #Mondstadt]
   Now you have 3 tasks in the list.
   ```
+  
+**Note**
+
+Please ensure that the `/from` argument is defined before the `/to` argunment. For example, the following command will be rejected: 
+```
+event Participate in Ludi Harpastum /to 2024-10-12 /from 2024-10-10 #festival #Mondstadt
+```
 
 ---
 

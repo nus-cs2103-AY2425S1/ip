@@ -164,9 +164,16 @@ public class TaskList {
      */
     @Override
     public String toString() {
-        return IntStream.range(0, this.tasks.size())
-                .mapToObj(i -> (i + 1) + "." + this.tasks.get(i))
-                .collect(Collectors.joining(System.lineSeparator()));
+        if (this.tasks.isEmpty()) {
+            return "There are no tasks yet! Use the `todo`, `deadline` or `event` commands to add!";
+        } else {
+            return "Here are the tasks in your list:"
+                    + System.lineSeparator()
+                    + IntStream.range(0, this.tasks.size())
+                    .mapToObj(i -> (i + 1) + "." + this.tasks.get(i))
+                    .collect(Collectors.joining(System.lineSeparator()));
+
+        }
     }
 
     /**

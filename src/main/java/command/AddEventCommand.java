@@ -37,7 +37,14 @@ public class AddEventCommand extends Command {
             if (!arguments.contains("/from") || !arguments.contains("/to")) {
                 throw new KukiShinobuException("Event is missing description, from, or to.");
             } else {
-                throw new KukiShinobuException("Event description or date format is incorrect.");
+                throw new KukiShinobuException(
+                        "The format of your command is in correct. Here are a few potential reasons:\n" +
+                                "- event description is missing\n" +
+                                "\n" +
+                                "- date format is incorrect\n" +
+                                "- /to is defined before /from\n" +
+                                "\n" +
+                                "Check out the user guide for a more detailed explanation on usage.");
             }
         }
 
