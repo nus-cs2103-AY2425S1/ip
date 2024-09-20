@@ -79,7 +79,7 @@ public class Deadline extends Task {
         } catch (DateTimeParseException e) {
             throw new YappingBotIncorrectCommandException(
                     ReplyTextMessages.TIME_PARSE_HINT,
-                    e.getMessage());
+                    deadline);
         }
     }
 
@@ -126,7 +126,7 @@ public class Deadline extends Task {
     public boolean isStringFoundInTask(String searchString) {
         // abuse the shortcircuiting
         return (super.isStringFoundInTask(searchString)
-                || getDeadline().contains(searchString));
+                || !searchString.isEmpty() && getDeadline().contains(searchString));
     }
 }
 

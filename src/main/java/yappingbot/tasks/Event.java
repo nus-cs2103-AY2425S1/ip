@@ -81,7 +81,7 @@ public class Event extends Task {
             this.startTime = LocalDate.parse(startTime);
         } catch (DateTimeParseException e) {
             throw new YappingBotIncorrectCommandException(
-                    ReplyTextMessages.TIME_PARSE_HINT, e.getMessage()
+                    ReplyTextMessages.TIME_PARSE_HINT, startTime
             );
         }
     }
@@ -109,7 +109,7 @@ public class Event extends Task {
             this.endTime = LocalDate.parse(endTime);
         } catch (DateTimeParseException e) {
             throw new YappingBotIncorrectCommandException(
-                    ReplyTextMessages.TIME_PARSE_HINT, e.getMessage()
+                    ReplyTextMessages.TIME_PARSE_HINT, endTime
             );
         }
     }
