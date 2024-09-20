@@ -33,8 +33,8 @@ Examples:
 #### Event
 Task with a start and end time.  
 
-Format: `event {NAME} /from {DATE} /to {DATE}`
-- `DATE` format in `yyyy-mm-dd HH:mm`
+Format: `event {NAME} /from {START_DATE} /to {END_DATE}`
+- `START_DATE` and `END_DATE` format in `yyyy-mm-dd HH:mm`
 
 Examples:
 - `event project meeting /from 2024-12-05 18:00 /to 2024-12-27 18:00`
