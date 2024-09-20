@@ -5,6 +5,7 @@ import yappingbot.commands.CommandBase;
 import yappingbot.exceptions.YappingBotException;
 import yappingbot.exceptions.YappingBotIncorrectCommandException;
 import yappingbot.storage.Storage;
+import yappingbot.stringconstants.ReplyTextMessages;
 import yappingbot.ui.UiCli;
 import yappingbot.ui.gui.MainGuiApplication;
 
@@ -91,7 +92,7 @@ public class LauncherCommand extends CommandBase<LauncherCommand.Args, LauncherC
     @Override
     public String getHelpText() {
         // TODO: add help text for launcher
-        return "";
+        return ReplyTextMessages.LAUNCHER_HELP_TEXT;
     }
 
     /**

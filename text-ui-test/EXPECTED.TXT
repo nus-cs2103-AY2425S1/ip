@@ -1,8 +1,11 @@
- |  Error Reading save file! The following error was encountered: yappingbot.exceptions.YappingBotInvalidSaveFileException: Error Reading save file! The following error was encountered: Unable to parse value - No enum constant yappingbot.tasks.tasklist.TaskTypes.Ajdskljdas
- |  yappingbot.exceptions.YappingBotInvalidSaveFileException: Error Reading save file! The following error was encountered: Unable to parse value - Error Reading save file! The following error was encountered: Missing Data Values
  |  Hello! I'm YappingBot
  |  What can I do for you?
 
+ |  2 warnings were generated!:
+ |  Error Reading save file! The following error was encountered: Unable to parse value - No enum constant yappingbot.tasks.tasklist.TaskTypes.Ajdskljdas
+ |  ---
+ |  Error Reading save file! The following error was encountered: Unable to parse value - Error Reading save file! The following error was encountered: Missing Data Values
+ |  ---
  |  Available commands: list, mark, unmark, todo, event, deadline, find.
  |  I'm sorry, I do not understand what 'asdasd' is!
  |  Available commands: list, mark, unmark, todo, event, deadline, find.
