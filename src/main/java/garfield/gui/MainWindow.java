@@ -43,11 +43,20 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = garfield.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, garfieldImage)
-        );
-        userInput.clear();
+        try {
+            String response = garfield.getResponse(input);
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getDukeDialog(response, garfieldImage)
+            );
+            userInput.clear();
+        } catch (Exception e) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getDukeDialog("Oops, an unknown error occurred...", garfieldImage)
+            );
+            userInput.clear();
+        }
+
     }
 }
