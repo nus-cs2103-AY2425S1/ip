@@ -44,7 +44,11 @@ public class Storage {
         List<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
 
-        Validator.validateFileExists(file);
+        if (!file.exists()) {
+            // Load sample data if file doesn't exist
+            loadSampleData(tasks);
+            return tasks;
+        }
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
@@ -60,6 +64,17 @@ public class Storage {
 
         assert tasks != null : "Tasks list should not be null after loading from file.";
         return tasks;
+    }
+
+    /**
+     * Loads sample tasks into the list of tasks.
+     *
+     * @param tasks The empty list of tasks.
+     */
+    private void loadSampleData(List<Task> tasks) {
+        tasks.add(new Todo("Read documentation"));
+        tasks.add(new Deadline("Submit project proposal", "2023-09-25"));
+        tasks.add(new Event("Team meeting", "2023-09-22", "2023-09-23"));
     }
 
     /**

@@ -41,18 +41,6 @@ public class Validator {
     }
 
     /**
-     * Validates if a file exists.
-     *
-     * @param file The file to check.
-     * @throws IOException If the file does not exist.
-     */
-    public static void validateFileExists(File file) throws IOException {
-        if (!file.exists()) {
-            throw new IOException("Task file does not exist.");
-        }
-    }
-
-    /**
      * Validates if the task line format is correct by ensuring the expected number of parts.
      *
      * @param parts The split parts of a task line.
