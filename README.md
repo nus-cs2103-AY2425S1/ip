@@ -1,4 +1,4 @@
-### **Sinatra: An assistant with Swing‍♂️**
+# **Sinatra: An assistant with Swing**
 
 Sinatra can help you keep track of your life's events
 
@@ -11,7 +11,7 @@ To get started:
 1. Download the `Sinatra.jar` file from [here](https://github.com/travisim/ip/releases).
 2. Run the command `java -jar "Sinatra.jar"`
 
-### Features:
+## Features:
 
 1. **Add tasks**
     - `todo taskTest`
@@ -30,7 +30,7 @@ To get started:
     - `delete 2`
 8. **Duplicate tasks detection**
 
-### Legal Disclaimer
+## Legal Disclaimer
 
 This software, Sinatra, is provided "as is", without warranty of any kind, express or implied, including but not limited
 to the warranties of merchantability, fitness for a particular purpose, and noninfringement. In no event shall the
@@ -40,7 +40,7 @@ software.
 
 This project has referenced code and solutions from popular websites like Stack Overflow, GeeksforGeeks, and more.
 
-### Credits
+## Credits
 
 - **JavaFX**: This project uses JavaFX, an open-source, next-generation client application platform for desktop, mobile,
   and embedded systems built on Java.
@@ -51,9 +51,9 @@ This project has referenced code and solutions from popular websites like Stack 
 - **GitHub**: This project is hosted on GitHub, a platform for version control and collaboration, allowing developers to
   work together on projects from anywhere.
 
-### Image Sources
+## Image Sources
 
-- [Dean martin on IMDb](https://www.imdb.com/name/nm0001509/)
+- [Dean Martin on IMDb](https://www.imdb.com/name/nm0001509/)
 - [Frank Sinatra on The Movie Database](https://www.themoviedb.org/person/4347-frank-sinatra/images/profiles)
 
 For more information, please visit the [GitHub repository](https://github.com/travisim/ip).
