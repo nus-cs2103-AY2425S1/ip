@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -51,71 +52,110 @@ public class Main extends Application {
      * @param input Input provided by the user.
      */
     public static void respond(String input) {
-        int itemNo;
-        String desc;
         ArrayList<Object> parseArgs = new ArrayList<Object>();
         Parser.ActionType actionType = Parser.parse(input, parseArgs);
+        performAction(actionType, parseArgs);
+        taskList.save(data);
+    }
+
+    private static void performAction(Parser.ActionType actionType, ArrayList<Object> parseArgs) {
         switch (actionType) {
         case BYE:
-            ui.speak("Bye. Hope to see you again soon!");
+            exitProgram();
             return;
         case MARK:
-            itemNo = (Integer) parseArgs.get(0);
-            try {
-                String target = taskList.setDone(itemNo, true);
-                ui.speak("Task marked as complete: " + target);
-            } catch (IndexOutOfBoundsException e) {
-                ui.speak("Invalid task number!");
-            }
+            setCompletion((Integer) parseArgs.get(0), true);
             break;
         case UNMARK:
-            itemNo = (Integer) parseArgs.get(0);
-            try {
-                String target = taskList.setDone(itemNo, false);
-                ui.speak("Task marked as incomplete: " + target);
-            } catch (IndexOutOfBoundsException e) {
-                ui.speak("Invalid task number!");
-            }
+            setCompletion((Integer) parseArgs.get(0), false);
             break;
-        case list:
+        case LIST:
             taskList.printList(ui);
             break;
         case TODO:
-            desc = (String) parseArgs.get(0);
-            taskList.addTask(new Task(desc));
-            ui.speak("Todo added: " + desc);
-            break;
+            // Fallthrough
         case DEADLINE:
-            desc = (String) parseArgs.get(0);
-            taskList.addTask(new Deadline(desc, (String) parseArgs.get(1)));
-            ui.speak("Deadline added: " + desc);
-            break;
+            // Fallthrough
         case EVENT:
-            desc = (String) parseArgs.get(0);
-            taskList.addTask(new Event(desc, (String) parseArgs.get(1), (String) parseArgs.get(2)));
-            ui.speak("Event added: " + desc);
+            addTask(actionType, parseArgs);
             break;
         case DELETE:
-            itemNo = (Integer) parseArgs.get(0);
-            String target = taskList.deleteTask(itemNo);
-            ui.speak("Removing task: " + target);
-            ui.speak("You now have " + taskList.getListSize() + " tasks left in record.");
+            deleteTask((Integer) parseArgs.get(0));
             break;
         case FIND:
-            ArrayList<Integer> indices = new ArrayList<Integer>();
-            ArrayList<Task> res = taskList.find((String) parseArgs.get(0), indices);
-            ui.printList(res, indices, "Here are the matching tasks:", "No matches!");
+            handleFind((String) parseArgs.get(0));
             break;
         case FORMATTING:
             ui.alertInvalidFormat((String) parseArgs.get(0));
             break;
         case UNDEFINED:
-            ui.speak("Sorry, I don't understand.");
-            ui.speak("Commands: todo deadline event mark unmark delete list bye");
+            handleUndefined();
             break;
         default:
             System.err.println("Action type not recognized!");
         }
-        taskList.save(data);
-    } // TODO shorten
+    } // I don't see a non-redundant way to shorten this any further.
+
+    private static void setCompletion(Integer itemNo, boolean isDone) {
+        if (itemNo > taskList.getListSize()) {
+            ui.speak("Invalid task number!");
+            return;
+        }
+        String target = taskList.setDone(itemNo, isDone);
+        String newStateString = "incomplete";
+        if (isDone) {
+            newStateString = "complete";
+        }
+        ui.speak("Task marked as " + newStateString + ": " + target);
+    }
+
+    private static void addTask(Parser.ActionType taskType, ArrayList<Object> args) {
+        String desc = (String) args.get(0);
+        Task task;
+        String typeString;
+        switch (taskType) {
+        case TODO:
+            task = new Task(desc);
+            typeString = "Todo";
+            break;
+        case DEADLINE:
+            task = new Deadline(desc, (String) args.get(1));
+            typeString = "Deadline";
+            break;
+        case EVENT:
+            task = new Event(desc, (String) args.get(1), (String) args.get(2));
+            typeString = "Event";
+            break;
+        default:
+            throw new IllegalArgumentException("taskType does not correspond to the action of adding a task");
+        }
+        taskList.addTask(task);
+        ui.speak(typeString + " added: " + desc);
+    }
+
+    private static void deleteTask(Integer itemNo) {
+        if (itemNo >= taskList.getListSize()) {
+            ui.speak("Invalid task number!");
+            return;
+        }
+        String target = taskList.deleteTask(itemNo);
+        ui.speak("Removing task: " + target);
+        ui.speak("You now have " + taskList.getListSize() + " tasks left in record.");
+    }
+
+    private static void handleFind(String term) {
+        ArrayList<Integer> indices = new ArrayList<Integer>();
+        ArrayList<Task> res = taskList.find(term, indices);
+        ui.printList(res, indices, "Here are the matching tasks:", "No matches!");
+    }
+
+    private static void handleUndefined() {
+        ui.speak("Sorry, I don't understand.");
+        ui.speak("Commands: todo deadline event mark unmark delete list bye");
+    }
+
+    private static void exitProgram() {
+        ui.speak("Bye. Hope to see you again soon!");
+        Platform.exit();
+    }
 }
