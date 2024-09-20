@@ -6,7 +6,7 @@ import java.util.Locale;
 
 public class Deadline extends Task {
 
-    private LocalDateTime by;
+    private final LocalDateTime by;
 
     /**
      * Converts a LocalDateTime object to a string.
@@ -16,7 +16,8 @@ public class Deadline extends Task {
      */
     private static String dateTimeToString(LocalDateTime dateTime) {
         // Correct format: "MMM dd yyyy" e.g., (Oct 15 2019)
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm", Locale.ENGLISH);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm", 
+                Locale.ENGLISH);
         return dateTime.format(formatter);
     }
 

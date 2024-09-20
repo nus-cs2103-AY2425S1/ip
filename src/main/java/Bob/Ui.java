@@ -23,14 +23,14 @@ public class Ui {
     }
 
     /**
-     * Runs the dialogue with the user.
+     * Runs the dialogue with the user (only used for CLI mode).
      *
      * @param scanner
      * @param tasks
      */
     public static void runDialogue(Scanner scanner, List<Task> tasks) {
         Ui.printDialogueCLI("Hello! I'm Bob\nWhat can I do for you?");
-
+        
         while (true) {
             try {
                 String userInput = scanner.nextLine().trim();
@@ -41,9 +41,9 @@ public class Ui {
                 } else if (userInput.equalsIgnoreCase("list")) {
                     Parser.executeListCommand(tasks);
                 } else if (userInput.startsWith("mark") || userInput.startsWith("unmark") || userInput.startsWith("delete")) {
-                    Parser.processTaskModificationCommands(userInput, tasks);
+                    Parser.executeTaskModificationCommands(userInput, tasks);
                 } else if (userInput.startsWith("todo") || userInput.startsWith("deadline") || userInput.startsWith("event")) {
-                    Parser.processTaskCreationCommands(userInput, tasks);
+                    Parser.executeTaskCreationCommands(userInput, tasks);
                 } else {
                     throw new BobException("I'm sorry, but I don't know what that means :(");
                 }

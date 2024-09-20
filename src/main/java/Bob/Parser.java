@@ -53,10 +53,11 @@ class Parser {
      *
      * @param userInput
      * @param tasks
+     * @return String
      * @throws BobException
      * @throws IOException
      */
-    public static String processTaskModificationCommands(String userInput, List<Task> tasks) 
+    public static String executeTaskModificationCommands(String userInput, List<Task> tasks) 
             throws BobException, IOException {
         String[] words = userInput.split(" ");
         int index = Integer.parseInt(words[1]) - 1;
@@ -82,6 +83,61 @@ class Parser {
     }
 
     /**
+     * Parses the user input to create a deadline task.
+     * 
+     * @param userInput
+     * @return Deadline
+     * @throws BobException
+     */
+    public static Task getDeadlineFromUserInput(String userInput) throws BobException {
+        String[] parts = userInput.substring(9).split(" /by ");
+
+        if (parts[0].trim().isEmpty()) {
+            throw new BobException("The description of a deadline cannot be empty.");
+        }
+
+        LocalDateTime by = Parser.parseDateTime(parts[1].trim());
+        return new Deadline(parts[0].trim(), by);
+    }
+
+    /**
+     * Parses the user input to create a todo task.
+     * 
+     * @param userInput
+     * @return Todo
+     * @throws BobException
+     */
+    public static Task getTodoFromUserInput(String userInput) throws BobException {
+        String description = userInput.substring(5).trim();
+
+        if (description.isEmpty()) {
+            throw new BobException("The description of a todo cannot be empty.");
+        }
+
+        return new Todo(description);
+    }
+
+    /**
+     * Parses the user input to create an event task.
+     * 
+     * @param userInput
+     * @return Event
+     * @throws BobException
+     */
+    public static Task getEventFromUserInput(String userInput) throws BobException {
+        String[] parts = userInput.substring(6).split(" /from ");
+        String[] times = parts[1].split(" /to ");
+
+        if (parts[0].trim().isEmpty()) {
+            throw new BobException("The description of an event cannot be empty.");
+        }
+
+        LocalDateTime from = Parser.parseDateTime(times[0].trim());
+        LocalDateTime to = Parser.parseDateTime(times[1].trim());
+        return new Event(parts[0].trim(), from, to);
+    }
+
+    /**
      * Creates a new task based on the user input and adds it to the list of
      * tasks.
      *
@@ -90,35 +146,18 @@ class Parser {
      * @throws BobException
      * @throws IOException
      */
-    public static String processTaskCreationCommands(String userInput, List<Task> tasks) 
+    public static String executeTaskCreationCommands(String userInput, List<Task> tasks) 
             throws BobException, IOException {
         Task newTask = null;
         if (userInput.startsWith("todo")) {
-            String description = userInput.substring(5).trim();
-
-            if (description.isEmpty()) {
-                throw new BobException("The description of a todo cannot be empty.");
-            }
-            
-            newTask = new Todo(description);
+            newTask = getTodoFromUserInput(userInput);
 
         } else if (userInput.startsWith("deadline")) {
-            String[] parts = userInput.substring(9).split(" /by ");
-            if (parts[0].trim().isEmpty()) {
-                throw new BobException("The description of a deadline cannot be empty.");
-            }
-            LocalDateTime by = Parser.parseDateTime(parts[1].trim());
-            newTask = new Deadline(parts[0].trim(), by);
+            newTask = getDeadlineFromUserInput(userInput);
 
         } else if (userInput.startsWith("event")) {
-            String[] parts = userInput.substring(6).split(" /from ");
-            String[] times = parts[1].split(" /to ");
-            if (parts[0].trim().isEmpty()) {
-                throw new BobException("The description of an event cannot be empty.");
-            }
-            LocalDateTime from = Parser.parseDateTime(times[0].trim());
-            LocalDateTime to = Parser.parseDateTime(times[1].trim());
-            newTask = new Event(parts[0].trim(), from, to);
+            newTask = getEventFromUserInput(userInput);
+
         } else if (userInput.startsWith("find")) {
             String keyword = userInput.substring(5).trim();
             return Storage.findTasks(tasks, keyword);
@@ -131,7 +170,4 @@ class Parser {
         return "Got it. I've added this task: \n" + newTask + "\nNow you have " + tasks.size() 
                 + " tasks in the list.";
     }
-
-    
-
 }

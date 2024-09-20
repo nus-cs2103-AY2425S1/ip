@@ -14,8 +14,8 @@ import javafx.scene.layout.HBox;
  */
 public class DialogBox extends HBox {
 
-    private Label text;
-    private ImageView displayPicture;
+    private final Label text;
+    private final ImageView displayPicture;
 
     /**
      * Constructor for a dialog box in the Bob application.
@@ -42,17 +42,24 @@ public class DialogBox extends HBox {
      */
     private void flip() {
         this.setAlignment(Pos.TOP_LEFT);
-        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
-        FXCollections.reverse(tmp);
-        this.getChildren().setAll(tmp);
+        ObservableList<Node> list = FXCollections.observableArrayList(this.getChildren());
+        FXCollections.reverse(list);
+        this.getChildren().setAll(list);
     }
 
-    public static DialogBox getUserDialog(String s, Image i) {
-        return new DialogBox(s, i);
+    public static DialogBox getUserDialog(String text, Image image) {
+        return new DialogBox(text, image);
     }
 
-    public static DialogBox getDukeDialog(String s, Image i) {
-        var db = new DialogBox(s, i);
+    /**
+     * Returns a dialog box with the text and image of the Duke chat bot. 
+     * 
+     * @param text
+     * @param image
+     * @return
+     */
+    public static DialogBox getDukeDialog(String text, Image image) {
+        var db = new DialogBox(text, image);
         db.flip();
         return db;
     }
