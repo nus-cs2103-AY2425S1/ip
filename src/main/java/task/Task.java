@@ -60,7 +60,7 @@ public abstract class Task {
      * @throws IOException If an I/O error occurs while reading from storage.
      */
     public static void init_list() throws IOException {
-        TaskList.tasks.clear();
+        TaskList.getTasks().clear();
         StringBuilder sb = storage.read();
         String[] lines = sb.toString().split("\n");
         for (String s : lines) {
@@ -184,7 +184,7 @@ public abstract class Task {
      */
     public static String deleteTask(int index) throws IOException {
         String response = "";
-        ArrayList<Task> temporaryTaskList = TaskList.tasks;
+        ArrayList<Task> temporaryTaskList = TaskList.getTasks();
         if (temporaryTaskList.isEmpty()) {
             response = ui.emptyList();
             return response;
@@ -284,7 +284,7 @@ public abstract class Task {
      */
     public static String mark_task(int index) throws IOException {
         String response = "";
-        ArrayList<Task> temporaryTaskList = TaskList.tasks;
+        ArrayList<Task> temporaryTaskList = TaskList.getTasks();
         if (temporaryTaskList.isEmpty()) {
             response = ui.emptyList();
         } else {
@@ -315,7 +315,7 @@ public abstract class Task {
      */
     public static String unmark_task(int index) throws IOException {
         String response = "";
-        ArrayList<Task> temporaryTaskList = TaskList.tasks;
+        ArrayList<Task> temporaryTaskList = TaskList.getTasks();
         if (temporaryTaskList.isEmpty()) {
             response = ui.emptyList();
         } else {
@@ -353,7 +353,7 @@ public abstract class Task {
     }
 
     public int get_list_size() {
-        return TaskList.tasks.size();
+        return TaskList.getTasks().size();
     }
 
     public abstract LocalDateTime getDate();

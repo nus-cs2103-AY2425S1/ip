@@ -42,7 +42,7 @@ public class Events extends Task {
     private void updateTasklist(Events e) throws IOException {
         String marked = "[X]";
         String unmarked = "[_]";
-        int index = TaskList.tasks.size();
+        int index = TaskList.getTasks().size();
         StringBuilder information;
         if (e.getCurrentStatus() == Status.MARKED) {
             information = new StringBuilder(index
@@ -52,7 +52,8 @@ public class Events extends Task {
                     + ". [" + e.getTag() + "]" + unmarked + " " + e.getName());
         }
 
-        information.append(" (from: ").append(dateTimeSystem.formatLocalTimeDate(e.getStart())).append(" to: ").append(dateTimeSystem.formatLocalTimeDate(e.getEnd())).append(")");
+        information.append(" (from: ")
+                .append(dateTimeSystem.formatLocalTimeDate(e.getStart())).append(" to: ").append(dateTimeSystem.formatLocalTimeDate(e.getEnd())).append(")");
         storage.write(String.valueOf(information));
     }
 

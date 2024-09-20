@@ -40,7 +40,7 @@ public class Deadlines extends Task {
     private void updateTasklist(Deadlines d) throws IOException {
         String marked = "[X]";
         String unmarked = "[_]";
-        int index = TaskList.tasks.size();
+        int index = TaskList.getTasks().size();
         StringBuilder information;
         if (d.getCurrentStatus() == Status.MARKED) {
             information = new StringBuilder(index + ". [" + d.getTag() + "]" + marked + " " + d.getName());

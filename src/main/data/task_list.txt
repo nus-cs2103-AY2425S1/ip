@@ -1,5 +1,5 @@
 1. [T][X] sleep
-2. [T][X] exercise
+2. [T][_] exercise
 3. [D][_] ip project  (by: 2024-12-12 23:59 pm)
 4. [E][X] exam  (from: 2024-10-10 15:00 pm to: 2024-10-10 17:00 pm)
 5. [T][_] play
@@ -8,5 +8,6 @@
 8. [D][_] assignment  (by: 2024-11-11 11:11 am)
 9. [D][_] play computer  (by: 2024-12-12 12:12 pm)
 10. [E][_] music festival  (from: 2024-12-30 18:00 pm to: 2024-12-31 00:00 am)
-11. [D][_] test  (by: 2024-12-12 00:00 am)
-12. [D][_] test  (by: 2024-12-12 00:00 am)
+11. [T][_] wtf 
+12. [D][_] smlj  (by: 2024-12-12 22:22 pm)
+13. [E][_] lol  (from: 2024-12-12 00:00 am to: 2024-12-12 23:59 pm)

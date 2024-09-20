@@ -8,7 +8,12 @@ import java.util.Arrays;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.util.Duration;
-import task.*;
+import task.Deadlines;
+import task.Events;
+import task.Task;
+import task.TaskList;
+import task.ToDos;
+
 
 /**
  * The Parser class is responsible for parsing user input strings and
@@ -137,8 +142,7 @@ public class Parser {
      * The task name starts from the 5th character onwards until the last character.
      *
      * @param input A string containing the input command followed by the task name.
-     * @return A String containing the results of the search,
-     * listing all tasks that match the search query.
+     * @return A String containing the results of the search.
      * @throws FileNotFoundException If the task file is not found during the search.
      */
     public String performFind(String input) throws FileNotFoundException {
@@ -159,8 +163,7 @@ public class Parser {
      * The task name starts from the 5th character onwards until the last character.
      *
      * @param input A string containing the input command followed by the date.
-     * @return A String containing the results of the search,
-     * listing all tasks that match the search query.
+     * @return A String containing the results of the search.
      * @throws FileNotFoundException If the task file is not found during the search.
      */
     public String performView(String input) throws FileNotFoundException {
@@ -235,14 +238,14 @@ public class Parser {
         int listNo;
         if (containUnmark(trimmedInput)) {
             listNo = Integer.parseInt(trimmedInput.substring(7));
-            if (listNo != TaskList.tasks.size() && listNo <= 0) {
+            if (listNo != TaskList.getTasks().size() && listNo <= 0) {
                 return ui.indexOutOfBounds();
             }
             return Task.unmark_task(listNo);
         }
 
         listNo = Integer.parseInt(trimmedInput.substring(5));
-        if (listNo != TaskList.tasks.size() && listNo <= 0) {
+        if (listNo != TaskList.getTasks().size() && listNo <= 0) {
             return ui.indexOutOfBounds();
         }
 
@@ -257,8 +260,7 @@ public class Parser {
      *
      * @param input Input string containing the command to create a to-do task as well as
      *              the name of the task.
-     * @return A String indicating the result of adding the to-do task or
-     * an error message if the input is invalid.
+     * @return A String indicating the result of adding the to-do task.
      */
     public String performToDo(String input) {
         String response = "";
@@ -565,8 +567,8 @@ public class Parser {
      */
     public String performDelete(String input) throws IOException {
         int listNo = Integer.parseInt(input.substring(7));
-        if (listNo <= TaskList.tasks.size() && listNo > 0) {
-            assert listNo <= TaskList.tasks.size() && listNo > 0;
+        if (listNo <= TaskList.getTasks().size() && listNo > 0) {
+            assert listNo <= TaskList.getTasks().size() && listNo > 0;
             return Task.deleteTask(listNo);
         } else {
             return ui.indexOutOfBounds();

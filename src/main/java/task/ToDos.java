@@ -34,7 +34,7 @@ public class ToDos extends Task {
     private void updateTaskList(ToDos t) throws IOException {
         String marked = "[X]";
         String unmarked = "[_]";
-        int index = TaskList.tasks.size();
+        int index = TaskList.getTasks().size();
         StringBuilder information;
         if (t.getCurrentStatus() == Status.MARKED) {
             information = new StringBuilder(index + ". [" + t.getTag() + "]" + marked + " " + t.getName());
