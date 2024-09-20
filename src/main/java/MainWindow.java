@@ -1,3 +1,4 @@
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -6,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import muller.Muller;
 
 /**
@@ -55,7 +57,10 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
         if (response.trim().equalsIgnoreCase("Bye. Hope to see you again soon!")) {
-            Platform.exit();  // This will close the JavaFX application
+            // Create a delay before closing the application
+            PauseTransition delay = new PauseTransition(Duration.seconds(2));  // 2 seconds delay
+            delay.setOnFinished(event -> Platform.exit());  // Exit the application after the delay
+            delay.play();  // Start the delay
         }
     }
 }
