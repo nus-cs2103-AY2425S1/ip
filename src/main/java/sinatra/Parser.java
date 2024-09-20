@@ -102,85 +102,31 @@ public class Parser {
             String commandContents = command.getCommandContentsFromString(message);
             switch (command) {
             case LIST:
-                ui.cacheList(tasks);
+                handleList();
                 break;
             case BYE:
-                ui.cacheByeMessage();
-                System.exit(0);
+                handleBye();
                 break;
             case MARK:
-                Task markTask = tasks.get(Integer.parseInt(commandContents) - 1);
-                markTask.setStatus(true);
-                ui.cacheMarkedDoneMessage(markTask);
+                handleMark(commandContents);
                 break;
             case UNMARK:
-                Task unmarkTask = tasks.get(Integer.parseInt(commandContents) - 1);
-                unmarkTask.setStatus(false);
-                ui.cacheUnmarkDoneMessage(unmarkTask);
+                handleUnmark(commandContents);
                 break;
             case TODO:
-
-                if (commandContents.isEmpty()) {
-                    ui.cacheToDoExceptionMessage();
-                    break;
-                }
-                ToDo toDo = new ToDo(commandContents, false);
-                if (isTaskInTasksMemory(toDo)) {
-                    ui.cacheTaskAlreadyExistsExceptionMessage();
-                    break;
-                }
-                toDo.appendToStorage(FILE_PATH);
-                tasks.add(toDo);
-                ui.cacheToDoMessage(toDo, tasks.size());
+                handleTodo(commandContents);
                 break;
             case DEADLINE:
-                if (commandContents.isEmpty() || !commandContents.contains(" /by ")) {
-                    ui.cacheDeadlineExceptionMessage();
-                    break;
-                }
-                String[] parts = commandContents.split(" /by ");
-                String content = parts[0];
-                String dateTimeString = parts[1];
-                Deadline deadline = new Deadline(content, false, dateTimeString);
-                if (isTaskInTasksMemory(deadline)) {
-                    ui.cacheTaskAlreadyExistsExceptionMessage();
-                    break;
-                }
-                deadline.appendToStorage(FILE_PATH);
-                tasks.add(deadline);
-                ui.cacheDeadlineMessage(deadline, tasks.size());
+                handleDeadline(commandContents);
                 break;
             case EVENT:
-                if (commandContents.isEmpty() || !commandContents.contains(" /from ")
-                        || !commandContents.contains(" /to ")) {
-                    ui.cacheEventExceptionMessage();
-                    break;
-                }
-                String[] eventParts = commandContents.split(" /from ");
-                String eventContent = eventParts[0];
-                String[] timeParts = eventParts[1].split(" /to ");
-                String from = timeParts[0];
-                String to = timeParts[1];
-                Event event = new Event(eventContent, false, from, to);
-                if (isTaskInTasksMemory(event)) {
-                    ui.cacheTaskAlreadyExistsExceptionMessage();
-                    break;
-                }
-                event.appendToStorage(FILE_PATH);
-                tasks.add(event);
-                ui.cacheEventMessage(event, tasks.size());
+                handleEvent(commandContents);
                 break;
             case DELETE:
-                Task deleteTask = tasks.get(Integer.parseInt(commandContents) - 1);
-                deleteTask.deleteFromStorage(FILE_PATH, Integer.parseInt(commandContents) - 1);
-                tasks.remove(deleteTask);
-                ui.cacheDeleteMessage(deleteTask, tasks.size());
-
+                handleDelete(commandContents);
                 break;
             case FIND:
-                String contentPart = commandContents;
-                ArrayList<Task> foundTasks = findTasksWithContent(contentPart);
-                ui.cacheFindMessage(foundTasks);
+                handleFind(commandContents);
                 break;
             default:
                 ui.cacheUnknownCommandMessage();
@@ -190,5 +136,92 @@ public class Parser {
             ui.cacheUnexpectedErrorMessage(e);
         }
         return ui.getOutput();
+    }
+
+    private void handleList() {
+        ui.cacheList(tasks);
+    }
+
+    private void handleBye() {
+        ui.cacheByeMessage();
+        System.exit(0);
+    }
+
+    private void handleMark(String commandContents) {
+        Task markTask = tasks.get(Integer.parseInt(commandContents) - 1);
+        markTask.setStatus(true);
+        ui.cacheMarkedDoneMessage(markTask);
+    }
+
+    private void handleUnmark(String commandContents) {
+        Task unmarkTask = tasks.get(Integer.parseInt(commandContents) - 1);
+        unmarkTask.setStatus(false);
+        ui.cacheUnmarkDoneMessage(unmarkTask);
+    }
+
+    private void handleTodo(String commandContents) {
+        if (commandContents.isEmpty()) {
+            ui.cacheToDoExceptionMessage();
+            return;
+        }
+        ToDo toDo = new ToDo(commandContents, false);
+        if (isTaskInTasksMemory(toDo)) {
+            ui.cacheTaskAlreadyExistsExceptionMessage();
+            return;
+        }
+        toDo.appendToStorage(FILE_PATH);
+        tasks.add(toDo);
+        ui.cacheToDoMessage(toDo, tasks.size());
+    }
+
+    private void handleDeadline(String commandContents) {
+        if (commandContents.isEmpty() || !commandContents.contains(" /by ")) {
+            ui.cacheDeadlineExceptionMessage();
+            return;
+        }
+        String[] parts = commandContents.split(" /by ");
+        String content = parts[0];
+        String dateTimeString = parts[1];
+        Deadline deadline = new Deadline(content, false, dateTimeString);
+        if (isTaskInTasksMemory(deadline)) {
+            ui.cacheTaskAlreadyExistsExceptionMessage();
+            return;
+        }
+        deadline.appendToStorage(FILE_PATH);
+        tasks.add(deadline);
+        ui.cacheDeadlineMessage(deadline, tasks.size());
+    }
+
+    private void handleEvent(String commandContents) {
+        if (commandContents.isEmpty() || !commandContents.contains(" /from ") || !commandContents.contains(" /to ")) {
+            ui.cacheEventExceptionMessage();
+            return;
+        }
+        String[] eventParts = commandContents.split(" /from ");
+        String eventContent = eventParts[0];
+        String[] timeParts = eventParts[1].split(" /to ");
+        String from = timeParts[0];
+        String to = timeParts[1];
+        Event event = new Event(eventContent, false, from, to);
+        if (isTaskInTasksMemory(event)) {
+            ui.cacheTaskAlreadyExistsExceptionMessage();
+            return;
+        }
+        event.appendToStorage(FILE_PATH);
+        tasks.add(event);
+        ui.cacheEventMessage(event, tasks.size());
+    }
+
+    private void handleDelete(String commandContents) {
+        Task deleteTask = tasks.get(Integer.parseInt(commandContents) - 1);
+        deleteTask.deleteFromStorage(FILE_PATH, Integer.parseInt(commandContents) - 1);
+        tasks.remove(deleteTask);
+        ui.cacheDeleteMessage(deleteTask, tasks.size());
+    }
+
+    private void handleFind(String commandContents) {
+        String contentPart = commandContents;
+        ArrayList<Task> foundTasks = findTasksWithContent(contentPart);
+        ui.cacheFindMessage(foundTasks);
     }
 }

@@ -69,14 +69,10 @@ public class Storage {
         assert f.exists() : this.fileName + " does not exist";
         try {
             FileWriter file = new FileWriter(this.fileName, true);
-            try {
-                file.write(line);
-                file.write("\n");
-                file.close();
-            } catch (IOException e) {
-                System.out.println("An error occurred.");
-                e.printStackTrace();
-            }
+            file.write(line);
+            file.write("\n");
+            file.close();
+
         } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();

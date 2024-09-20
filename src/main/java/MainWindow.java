@@ -22,8 +22,8 @@ public class MainWindow extends AnchorPane {
 
     private Sinatra sinatra;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Dean.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Sinatra.png"));
+    private Image martinImage = new Image(this.getClass().getResourceAsStream("/images/Dean.png"));
+    private Image sinatraImage = new Image(this.getClass().getResourceAsStream("/images/Sinatra.png"));
 
     @FXML
     public void initialize() {
@@ -31,14 +31,14 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Injects the Duke instance
+     * Injects the Sinatra instance
      */
     public void setSinatra(Sinatra s) {
         sinatra = s;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Sinatra's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -46,8 +46,8 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = sinatra.handleQuery(input);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getUserDialog(input, martinImage),
+                DialogBox.getDukeDialog(response, sinatraImage)
         );
         userInput.clear();
     }

@@ -30,7 +30,7 @@ public enum Command {
      */
     public static Command getCommandFromString(String s) {
         for (Command c : Command.values()) {
-            if (s.startsWith(c.command)) {
+            if (s.startsWith(c.command) && (s.length() == c.command.length() || s.charAt(c.command.length()) == ' ')) {
                 return c;
             }
         }
@@ -41,9 +41,10 @@ public enum Command {
         System.out.println(s);
         for (Command c : Command.values()) {
             if (s.startsWith(c.command)) {
-                if (s.length() == c.command.length()) {
+                if (s.length() == c.command.length() || s.charAt(c.command.length()) != ' ') {
                     return "";
                 }
+          
                 String output = s.substring(c.command.length() + 1);
                 return output;
             }
