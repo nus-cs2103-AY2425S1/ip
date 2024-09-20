@@ -9,8 +9,8 @@ notGPT is a **desktop app for task management**.
 Whether it is a simple TODO, a DEADLINE or an EVENT, 
 notGPT is here to ensure that you don't lose sight of what is important.
 
- - **Quick start**
-  - **Adding tasks** 
+ - [Quick start](#quick-start)
+  - [Adding tasks](#adding-tasks)
     - [Adding a TODO](#adding-todos-todo)`todo`
      - [Date formats](#date-formats) 
     - [Adding a DEADLINE ](#adding-deadlines-deadline)`deadline`
