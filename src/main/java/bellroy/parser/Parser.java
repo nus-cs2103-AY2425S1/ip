@@ -59,22 +59,28 @@ public class Parser {
                     storage.save(taskList);
                     return Ui.taskAddedMessage(todo, taskList.size());
                 case("deadline"):
-                    String dueDate = input[1].split(" ", 2)[1].trim();
                     try {
+                        String dueDate = input[1].split(" ", 2)[1].trim();
                         Task deadline = new Deadline(description, dueDate);
                         taskList.addTask(deadline);
                         storage.save(taskList);
                         return Ui.taskAddedMessage(deadline, taskList.size());
                     } catch (DateTimeParseException e) {
-                        return Ui.deadlineError();
+                        return Ui.deadlineDateError();
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        return Ui.deadlineFormatError();
                     }
                 case("event"):
-                    String startTime = input[1].split(" /", 2)[0].split(" ", 2)[1].trim();
-                    String endTime = input[1].split(" /", 2)[1].split(" ", 2)[1].trim();
-                    Task event = new Event(description, startTime, endTime);
-                    taskList.addTask(event);
-                    storage.save(taskList);
-                    return Ui.taskAddedMessage(event,taskList.size());
+                    try {
+                        String startTime = input[1].split(" /", 2)[0].split(" ", 2)[1].trim();
+                        String endTime = input[1].split(" /", 2)[1].split(" ", 2)[1].trim();
+                        Task event = new Event(description, startTime, endTime);
+                        taskList.addTask(event);
+                        storage.save(taskList);
+                        return Ui.taskAddedMessage(event, taskList.size());
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        return Ui.eventFormatError();
+                    }
                 case("delete"):
                     int target = Integer.parseInt(userInput.split(" ")[1]);
                     Task taskToDelete = taskList.get(target - 1);

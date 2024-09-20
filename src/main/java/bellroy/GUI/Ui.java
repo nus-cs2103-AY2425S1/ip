@@ -127,8 +127,28 @@ public class Ui {
         }
     }
 
-    public static String deadlineError() {
-        return "Please input a valid date-time format";
+    /**
+     * Error message if the input due date is in the wrong format
+     * @return the message to be printed
+     */
+    public static String deadlineDateError() {
+        return "Hoot! Please input a valid date-time format";
+    }
+
+    /**
+     * Error message if the input does not contain the /by to split the task
+     * @return the message to be printed
+     */
+    public static String deadlineFormatError() {
+        return "Hoot! Please ensure your format is correct!\n" + "e.g deadline (description) /by (dueDate)\n";
+    }
+
+    /**
+     * Error message if the input does not contain the /from and /to for the event task
+     * @return the message to be printed
+     */
+    public static String eventFormatError() {
+        return "Hoot! Please ensure your format is correct!\n" + "e.g. event (description) /from (start) /to (end)\n";
     }
 
 }
