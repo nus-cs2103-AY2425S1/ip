@@ -83,7 +83,7 @@ public class AddCommand extends Command {
             break;
 
         default:
-            System.out.println("No matching types of tasks");
+            System.out.println("oh nyaa~~ theres no matching types of tasks");
             break;
         }
     }
