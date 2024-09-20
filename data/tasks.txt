@@ -1,5 +1,5 @@
-T | 1 | read book
-D | 1 | eat | 2024-09-20
+T | 1 | read story
+D | 1 | CS2103S iP | 2023-09-18
 D | 1 | Submit assignment | 2023-09-12
 E | 0 | Attend workshop | 2024-09-17 | 2024-09-18
-D | 0 | gym date 2025-09-14 | 2024-09-25
+D | 1 | presentation | 2024-09-25

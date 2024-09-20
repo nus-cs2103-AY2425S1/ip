@@ -55,7 +55,7 @@ public class Event extends Task {
         try {
             String[] dateRange = newDate.split(" /to ");
             if (dateRange.length != 2 || !newDate.contains("/from")) {
-                throw new ChatBuddyException("Invalid date format. Please provide both start and end dates with the format: 'update' <number of task> <date> <yyyy-MM-dd> '/to' <yyyy-MM-dd>");
+                throw new ChatBuddyException("Invalid date format. Please provide both start and end dates with the format: <'update'> <number of task> <'date'> <yyyy-MM-dd> <'/to'> <yyyy-MM-dd>");
             }
             this.from = LocalDate.parse(dateRange[0], INPUT_FORMATTER);
             this.to = LocalDate.parse(dateRange[1], INPUT_FORMATTER);

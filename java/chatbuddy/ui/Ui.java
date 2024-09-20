@@ -174,4 +174,12 @@ public class Ui {
         output.append("Got it. I've updated this task:\n ")
                 .append(task).append("\n");
     }
+
+    /**
+     * Appends the goodbye message to the current output.
+     * This method is typically called when the chatbot is about to exit or terminate the session.
+     */
+    public void showGoodbye() {
+        output.append("Goodbye! Hope to see you again soon!");
+    }
 }

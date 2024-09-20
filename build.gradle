@@ -14,18 +14,10 @@ dependencies {
 
     String javaFxVersion = '17.0.7'
 
-    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
-    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'linux'
-    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'mac'
-    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'linux'
-    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'mac'
-    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'linux'
-    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
-    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
 }
 
 sourceSets {
@@ -58,11 +50,15 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "ChatBuddy"
-    archiveClassifier = null
-    archiveVersion = "1.0"
+    archiveBaseName.set('ChatBuddy')
+    archiveClassifier.set(null)
+    archiveVersion.set('1.0')
 }
 
-run{
+run {
+    jvmArgs = [
+            "--module-path", "/path/to/javafx-sdk-17.0.7/lib",
+            "--add-modules", "javafx.controls,javafx.fxml"
+    ]
     standardInput = System.in
 }

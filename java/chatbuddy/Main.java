@@ -23,6 +23,7 @@ public class Main extends Application {
 
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("ChatBuddy");
             fxmlLoader.<MainWindow>getController().setChatBuddy(chatbuddy);
             stage.show();
         } catch (IOException e) {

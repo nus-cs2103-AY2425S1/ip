@@ -10,14 +10,17 @@ import chatbuddy.ui.Ui;
 public class ExitCommand extends Command {
 
     /**
-     * Executes the exit command, displaying the farewell message.
+     * Executes the command to display the goodbye message and terminates the session.
+     * This method is typically called when the user triggers the "bye" command to exit the chatbot.
      *
      * @param tasks   The task list (unused in this command).
-     * @param ui      The user interface to display the farewell message.
+     * @param ui      The user interface to display the goodbye message.
      * @param storage The storage (unused in this command).
+     * @return The goodbye message to be displayed to the user.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        ui.showGoodbye();
         return ui.getOutput();
     }
 

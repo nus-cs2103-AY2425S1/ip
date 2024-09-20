@@ -165,13 +165,28 @@ public class Parser {
      * @throws ChatBuddyException If the task number, field type, or new details are invalid.
      */
     private static Command parseUpdateCommand(String[] parts) throws ChatBuddyException {
-        String[] updateParts = parts[1].split(" ", 3);
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new ChatBuddyException("Usage: update <task number> <field type> <new details>");
+        }
+
+        String[] updateParts = parts[1].split(" ", 3); // Split into task number, field type, and new details
         if (updateParts.length < 3) {
             throw new ChatBuddyException("Usage: update <task number> <field type> <new details>");
         }
-        int taskIndex = Integer.parseInt(updateParts[0]);
-        String fieldType = updateParts[1];
-        String newDetails = updateParts[2];
-        return new UpdateCommand(taskIndex, newDetails, fieldType);
+
+        try {
+            int taskIndex = Integer.parseInt(updateParts[0]);  // Parse the task number
+            String fieldType = updateParts[1];
+            String newDetails = updateParts[2];
+
+            if (!fieldType.equals("description") && !fieldType.equals("date")) {
+                throw new ChatBuddyException("Invalid field type for update. Should be 'description' or 'date'.");
+            }
+
+            return new UpdateCommand(taskIndex, newDetails, fieldType);
+        } catch (NumberFormatException e) {
+            throw new ChatBuddyException("Task number must be a valid integer.");
+        }
     }
+
 }

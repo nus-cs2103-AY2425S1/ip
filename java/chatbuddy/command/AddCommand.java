@@ -108,14 +108,21 @@ public class AddCommand extends Command {
      * @throws ChatBuddyException If the description or date format is invalid.
      */
     private Event createEvent() throws ChatBuddyException {
-        String[] eventParts = description.split(" /from | /to ");
-        if (eventParts.length < 3 || eventParts[1].trim().isEmpty() || eventParts[2].trim().isEmpty()) {
-            throw new ChatBuddyException("The start time or end time of an event cannot be empty. Format: event <description> /from <start> /to <end>");
+        String[] eventParts = description.split(" /from ");
+        if (eventParts.length < 2) {
+            throw new ChatBuddyException("The start time of the event is missing. Format: event <description> /from <start> /to <end>");
         }
+
+        String[] dateParts = eventParts[1].split(" /to ");
+        if (dateParts.length < 2) {
+            throw new ChatBuddyException("The end time of the event is missing. Format: event <description> /from <start> /to <end>");
+        }
+
         try {
-            return new Event(eventParts[0], eventParts[1], eventParts[2]);
+            return new Event(eventParts[0].trim(), dateParts[0].trim(), dateParts[1].trim());
         } catch (DateTimeParseException e) {
             throw new ChatBuddyException("Invalid date format for the event. Please use 'yyyy-MM-dd'.");
         }
     }
+
 }

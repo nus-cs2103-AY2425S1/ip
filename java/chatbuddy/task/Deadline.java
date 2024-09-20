@@ -42,7 +42,7 @@ public class Deadline extends Task {
     public void updateDate(String newDate) throws ChatBuddyException {
         assert newDate != null && !newDate.trim().isEmpty() : "New date must not be null or empty";
         if (newDate.contains("/by") || newDate.contains("/from") || newDate.contains("/to")) {
-            throw new ChatBuddyException("Invalid format. Please provide the deadline with the format: 'update' <number of task> 'date' <yyyy-MM-dd> to update a deadline task");
+            throw new ChatBuddyException("Invalid format. Please provide the deadline with the format: <'update'> <number of task> <'date'> <yyyy-MM-dd>");
         }
 
         try {
