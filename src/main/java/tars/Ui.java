@@ -34,6 +34,11 @@ public class Ui {
                 + "3. State list to see your list of tasks";
     }
 
+    public String printTask(Task task, int size) {
+        return " Got it. I've added this task:\n" + task + "\n" + " Now you have "
+                + size + " tasks in the list";
+    }
+
     /**
      * Provides exit message to be displayed to user when exiting Tars
      * This command is executed after the "bye" input, which is handled in Tars application

@@ -1,5 +1,6 @@
 package tars;
 
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -14,9 +15,11 @@ import java.util.ArrayList;
 public class TaskList {
     private static final String LINE = " _____________________________________________";
     private ArrayList<Task> taskList;
+    private Ui ui;
 
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
+        this.ui = new Ui();
     }
     public TaskList() {
         this.taskList = new ArrayList<Task>();
@@ -79,10 +82,7 @@ public class TaskList {
         assert !description.isEmpty() : "Description for ToDos cannot be empty";
         ToDos todo = new ToDos(description);
         taskList.add(todo);
-
-        result = LINE + " Got it. I've added this task:" + todo + "\n" + " Now you have "
-                            + taskList.size() + " tasks in the list" + LINE;
-
+        result = ui.printTask(todo, taskList.size());
         return result;
     }
 
@@ -129,16 +129,15 @@ public class TaskList {
         assert !description.isEmpty() : "Description for Deadline cannot be empty";
         assert date.length() != 17 : "Deadline date format is invalid";
 
-        if (date.length() == 16) {
+        try {
             DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             LocalDateTime dateTime = LocalDateTime.parse(date.trim(), format);
+
             deadlineTask = new Deadline(description, dateTime);
             taskList.add(deadlineTask);
+            result = ui.printTask(deadlineTask, taskList.size());
 
-            result = LINE + "    Got it. I've added this task:" + deadlineTask + "    Now you have "
-                    + taskList.size() + " tasks in the list" + "\n" + LINE;
-
-        } else {
+        } catch (DateTimeException e) {
             result = " Please state date and time of deadline\n" + "in YYYY-MM-dd HH:mm format";
         }
         return result;
@@ -171,20 +170,18 @@ public class TaskList {
         assert fromDate.length() != 16 : "Event date format is invalid";
         assert toDate.length() != 16 : "Event date format is invalid";
 
-        if (fromDate.length() == 16 && toDate.length() == 16) {
+        try {
             DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             LocalDateTime fromTime = LocalDateTime.parse(fromDate.trim(), format);
             LocalDateTime toTime = LocalDateTime.parse(toDate.trim(), format);
 
             Event eventTask = new Event(description, fromTime, toTime);
             taskList.add(eventTask);
-            result = LINE + "    Got it. I've added this task:" + eventTask
-                    + "    Now you have " + taskList.size() + " tasks in the list" + "\n" + LINE;
-        } else {
+            result = ui.printTask(eventTask, taskList.size());
+        } catch (DateTimeException e) {
             result = LINE + "\n" + " Please state date and time of from and to of event"
-                    + "in YYYY-MM-dd HH:mm format\n" + LINE;
+                     + "in YYYY-MM-dd HH:mm format\n" + LINE;
         }
-
         return result;
     }
 }

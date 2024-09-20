@@ -1,7 +1,6 @@
 package tars;
 
 import java.util.ArrayList;
-import java.util.function.IntUnaryOperator;
 
 /**
  * Processes User inputs and executes commands based on inputs
@@ -38,8 +37,7 @@ public class Parser {
             } else if (entryParts[0].equals("list")) {
                 result = this.listPrint(tasks);
             } else {
-                throw new TarsException(LINE + "\n" + "    OOPS! Only accept a t/e/d as input"
-                        + "\n" + LINE);
+                throw new TarsException("OOPS! Type \"help\" to see how to enter commands!");
             }
         } catch (TarsException e) {
             result = e.getMessage();
@@ -80,7 +78,7 @@ public class Parser {
         } else if (task[0].equals("e")) {
             result = taskList.addEvent(task, entry);
         } else {
-            result = "OOPS! Unable to add task. Please type 'help'!";
+            result = "OOPS! Wrong input. Please type 'help'!";
         }
 
         return result;

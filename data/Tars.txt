@@ -2,7 +2,8 @@ T 0 return book
 D 0 read book by: 2019-10-19T18:30
 T 1 read manual
 D 0 read book by: 2018-10-15T18:30
-D 1 read book by: 2018-10-15T18:30
 T 0 read comic
 E 0 fly high from: 2019-10-19T18:00 to: 2019-10-19T18:45
-D 0 finish code by: 2018-10-15T18:30
+D 0 finish project by: 2019-10-15T18:30
+D 0 read book by: 2019-10-15T18:30
+E 0 group meeting from: 2019-10-15T18:30 to: 2019-10-15T20:00
