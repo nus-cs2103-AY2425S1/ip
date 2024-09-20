@@ -107,5 +107,6 @@ public class Ui extends AnchorPane {
         dialogContainer.getChildren().add(DialogBox.getUserDialog(input, userImage));
         Main.respond(input);
         userInput.clear();
+        assert userInput.getText().isEmpty();
     }
 }
