@@ -326,6 +326,12 @@ public class Parser {
             String hour = time.substring(0, 2);
             String minute = time.substring(2);
 
+            if (!timeValidity(hour, minute)) {
+                System.out.println(hour + " " + minute);
+                response = ui.twentyFourHourClock();
+                return response;
+            }
+
             LocalDateTime ldt = dateTimeSystem.createDateTime(year, month, day, hour, minute);
             boolean isBefore = dateTimeSystem.compareDateTime(ldt);
             if (!isBefore) {
@@ -342,6 +348,10 @@ public class Parser {
             response = ui.empty_deadline();
         }
         return response;
+    }
+
+    private boolean timeValidity(String hour, String min) {
+        return Integer.parseInt(hour) >= 0 && Integer.parseInt(hour) < 24 && Integer.parseInt(min) >= 0 && Integer.parseInt(min) < 60;
     }
 
     /**
@@ -453,6 +463,11 @@ public class Parser {
             }
 
             if (fullDateTokenStart[1].length() != 4 && fullDateTokenEnd[1].length() != 4) {
+                response = ui.twentyFourHourClock();
+                return response;
+            }
+
+            if (!timeValidity(startHour, startMinute) || !timeValidity(endHour, endMinute)) {
                 response = ui.twentyFourHourClock();
                 return response;
             }
