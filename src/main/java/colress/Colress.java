@@ -58,6 +58,7 @@ public final class Colress {
             storage.loadTasks(taskList);
             return getTasks();
         } catch (FileCorruptedException e) {
+            storage.createFile();
             hasError = true;
             return e.getMessage();
         } catch (IOException e) {

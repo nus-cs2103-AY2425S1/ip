@@ -103,6 +103,18 @@ public final class Storage {
         repopulateTasks(taskList);
     }
 
+    /**
+     * Facilitates creating a new task file.
+     */
+    public void createFile() {
+        try {
+            taskFile.delete();
+            taskFile.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void initialiseFileWriter() throws IOException {
         writer = new FileWriter(taskFile, false);
     }
