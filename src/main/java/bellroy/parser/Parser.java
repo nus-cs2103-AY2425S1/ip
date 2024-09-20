@@ -50,33 +50,11 @@ public class Parser {
                     int pos = Integer.parseInt(userInput.split(" ")[1]);
                     return unmarkTask(taskList, storage, pos);
                 case("todo"):
-                    Task todo = new Todo(description);
-                    taskList.addTask(todo);
-                    storage.save(taskList);
-                    return Ui.taskAddedMessage(todo, taskList.size());
+                    return createTodo(taskList, storage, description);
                 case("deadline"):
-                    try {
-                        String dueDate = input[1].split(" ", 2)[1].trim();
-                        Task deadline = new Deadline(description, dueDate);
-                        taskList.addTask(deadline);
-                        storage.save(taskList);
-                        return Ui.taskAddedMessage(deadline, taskList.size());
-                    } catch (DateTimeParseException e) {
-                        return Ui.deadlineDateError();
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        return Ui.deadlineFormatError();
-                    }
+                    return createDeadline(taskList, storage, input, description);
                 case("event"):
-                    try {
-                        String startTime = input[1].split(" /", 2)[0].split(" ", 2)[1].trim();
-                        String endTime = input[1].split(" /", 2)[1].split(" ", 2)[1].trim();
-                        Task event = new Event(description, startTime, endTime);
-                        taskList.addTask(event);
-                        storage.save(taskList);
-                        return Ui.taskAddedMessage(event, taskList.size());
-                    } catch (ArrayIndexOutOfBoundsException e) {
-                        return Ui.eventFormatError();
-                    }
+                    return createEvent(taskList, storage, input, description);
                 case("delete"):
                     int target = Integer.parseInt(userInput.split(" ")[1]);
                     Task taskToDelete = taskList.get(target - 1);
@@ -104,6 +82,67 @@ public class Parser {
             return e.getMessage();
         }
     }
+
+    /**
+     * creates an event task to add to the tasklist
+     * @param taskList tasklist to find the task
+     * @param storage storage to save the change
+     * @param description name of the task
+     * @param input user input to get the start and end
+     * @return task created string
+     * @throws IOException
+     */
+    private static String createEvent(TaskList taskList, Storage storage, String[] input, String description) throws IOException {
+        try {
+            String startTime = input[1].split(" /", 2)[0].split(" ", 2)[1].trim();
+            String endTime = input[1].split(" /", 2)[1].split(" ", 2)[1].trim();
+            Task event = new Event(description, startTime, endTime);
+            taskList.addTask(event);
+            storage.save(taskList);
+            return Ui.taskAddedMessage(event, taskList.size());
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return Ui.eventFormatError();
+        }
+    }
+
+    /**
+     * creates a deadline task to add to the tasklist
+     * @param taskList tasklist to find the task
+     * @param storage storage to save the change
+     * @param description name of the task
+     * @param input user input to get dueDate
+     * @return task created string
+     * @throws IOException
+     */
+    private static String createDeadline(TaskList taskList, Storage storage, String[] input, String description) throws IOException {
+        try {
+            String dueDate = input[1].split(" ", 2)[1].trim();
+            Task deadline = new Deadline(description, dueDate);
+            taskList.addTask(deadline);
+            storage.save(taskList);
+            return Ui.taskAddedMessage(deadline, taskList.size());
+        } catch (DateTimeParseException e) {
+            return Ui.deadlineDateError();
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return Ui.deadlineFormatError();
+        }
+    }
+
+    /**
+     * creates a todo task to add to the tasklist
+     * @param taskList tasklist to find the task
+     * @param storage storage to save the change
+     * @param description name of the task
+     * @return task created string
+     * @throws IOException
+     */
+    private static String createTodo(TaskList taskList, Storage storage, String description) throws IOException {
+        Task todo = new Todo(description);
+        taskList.addTask(todo);
+        storage.save(taskList);
+        return Ui.taskAddedMessage(todo, taskList.size());
+    }
+
     /**
      * unmarks a task in the tasklist
      * @param taskList tasklist to find the task
