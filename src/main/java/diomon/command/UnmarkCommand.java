@@ -1,7 +1,11 @@
 package diomon.command;
 
 import diomon.Storage;
+import diomon.exception.MissingInputException;
+import diomon.parser.Parser;
 import diomon.task.TaskList;
+
+import java.util.List;
 
 public class UnmarkCommand extends Command{
     public UnmarkCommand(String input) {
@@ -9,16 +13,24 @@ public class UnmarkCommand extends Command{
     }
     @Override
     public void execute(TaskList tasks, Storage storage) {
-        assert input != null;
         try {
-            int i = Integer.parseInt(input);
-            tasks.unmark( i- 1);
-            setResponse(String.format("( %s ) has been unmarked\n" +
-                    "Ya did a little oopies, just like your mom", tasks.get(i - 1)));
+            if (input == null) {
+                throw new MissingInputException();
+            }
+            StringBuilder response = new StringBuilder();
+            List<Integer> indexList = Parser.processNumbers(input);
+            for (Integer i : indexList) {
+                tasks.unmark(i - 1);
+                response.append(String.format("( %s ) has been unmarked\n", tasks.get(i - 1)));
+            }
+            response.append("Ya did a little oopies, just like your mom");
+            setResponse(response.toString());
         } catch (NumberFormatException e) {
             setResponse("Argument given for undoing a completed task is wrong, please try again");
         } catch (ArrayIndexOutOfBoundsException e) {
             setResponse("Index out of bound");
+        } catch (RuntimeException e) {
+            setResponse("Something went wrong, please check your input");
         }
     }
 }

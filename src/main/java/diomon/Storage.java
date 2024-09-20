@@ -66,12 +66,8 @@ public class Storage {
         try {
             if (lastIndex != -1) {
                 String firstPart = temp.substring(0, lastIndex);
-                boolean createDir = new File(firstPart).mkdirs();
-                boolean createFile = filePath.createNewFile();
-                boolean success = createDir && createFile;
-                if (!success) {
-                    throw new RuntimeException("Data file failed to be created");
-                }
+                new File(firstPart).mkdirs();
+                filePath.createNewFile();
             }
         } catch (IOException e) {
             throw new RuntimeException("Something went wrong with data file, might be security issue");
