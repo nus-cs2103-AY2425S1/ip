@@ -161,7 +161,7 @@ public class Shrimp {
         LocalDateTime from = getDateTime(eventDetails[1].trim());
         LocalDateTime to = getDateTime(eventDetails[2].trim());
         if (to.isBefore(from)) {
-            throw new ShrimpException.InvalidCommandException();
+            throw new ShrimpException.InvalidEventException();
         }
         Task newEvent = new Event(eventDescription, from, to, hasDone);
         AddCommand addEvent = new AddCommand(newEvent);
