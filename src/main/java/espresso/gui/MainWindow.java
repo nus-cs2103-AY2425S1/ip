@@ -37,6 +37,7 @@ public class MainWindow {
     @FXML
     public void initialize() throws InvalidCommandException, ParseException {
         espresso = new Espresso();
+        assert espresso != null : "Espresso instance should be initialized";
         scrollPane.setFitToWidth(true);
 
         dialogBoxContainer.setPrefWidth(scrollPane.getWidth());
@@ -49,8 +50,10 @@ public class MainWindow {
     @FXML
     private void handleUserInput() throws ParseException {
         String input = userInputMessage.getText();
+        assert input != null : "User input should not be null";
         if (!input.isEmpty()) {
             String response = espresso.getResponse(input);
+            assert response != null : "Response from espresso should not be null";
             dialogBoxContainer.getChildren().addAll(
                     DialogBox.createUserDialog(input),
                     DialogBox.createBotDialog(response)
