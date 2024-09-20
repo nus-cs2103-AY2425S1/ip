@@ -247,3 +247,28 @@ Here are your tasks of HIGH priority:
 5. [E][] staff meeting (from today to Sep 21 2024)
 ````
 
+
+
+# Exit the program
+
+Exits the program.
+
+Format: `bye`
+
+
+
+# Command Summary
+
+| Command        | Format, Examples                                             |
+| -------------- | ------------------------------------------------------------ |
+| **Todo**       | `todo TASK_NAME` e.g. `todo exercise`                        |
+| **Deadline**   | `deadline TASK_NAME /by DEADLINE`  e.g. `deadline buy birthday present /by 2024-09-30` |
+| **Event**      | `event TASK_NAME /from START_TIME /to END_TIME` e.g. `event meeting /from 2024-09-22 /to 2024-09-23` |
+| **List**       | `list` OR `list PRIORITY_LEVEL` e.g. `list high`             |
+| **Mark**       | `mark TASK_NUMBER` e.g. `mark 2`                             |
+| **Unmark**     | `unmark TASK_NUMBER` e.g. `unmark 2`                         |
+| **Delete**     | `delete TASK_NUMBER` e.g. `delete 2`                         |
+| **Find**       | `find KEYWORD` e.g. `find meeting`                           |
+| **Prioritize** | `prioritize TASK_NUMBER PRIORITY_LEVEL` e.g. `prioritize 5 high` |
+| **Bye**        | `bye`                                                        |
+
