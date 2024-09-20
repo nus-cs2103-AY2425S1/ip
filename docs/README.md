@@ -16,7 +16,11 @@ Adds a task that needs to be done without any date/time attached to it.
 - `todo laundry`
 
 **Expected output:**
-// to be edited later
+```angular2html
+Got it~~ I've added this task :
+    [T][] read class materials
+Now you have 7 tasks in the list.
+```
 
 ### 2. Deadline Task
 Adds a task that needs to be done before a specific date/time.
@@ -29,7 +33,11 @@ Adds a task that needs to be done before a specific date/time.
   - `deadline apply for TA position /by 2024-12-01`
 
 **Expected output:**
-// to be edited later
+```angular2html
+Got it~~ I've added this task :
+    [D][] LAT2201 homework (by: Sep 20 2024)
+Now you have 5 tasks in the list.
+```
 
 ### 3. Event Task
 Adds a task that starts at a specific date/time and ends at a specific date/time.
@@ -41,12 +49,17 @@ Adds a task that starts at a specific date/time and ends at a specific date/time
   - 'event career fair /from 2024-12-01 /to 2024-12-04'
 
 **Expected output:**
-// to be edited later
+```angular2html
+Got it~~ I've added this task :
+    [E][] hackhaton (from: Oct 10 2024 to: Oct 12 2024)
+Now you have 1 tasks in the list.
+```
 
 
 ### 4. Tagging a Task
 
-Tags a task by a specific tag, like #urgent or #fun. This is optional and can only be done during task creation
+Tags a task by a specific tag, like #urgent, #fun, #easy, or anything user wants.
+This is optional and can only be done during task creation
 
 **Format**: <TASK_CREATION_COMMAND> #<TAG_WORD>
 
@@ -56,7 +69,12 @@ Tags a task by a specific tag, like #urgent or #fun. This is optional and can on
   - 'event career fair /from 2024-12-01 /to 2024-12-04 #fun'
 
 **Expected output:**
-// to be edited later
+```angular2html
+Got it~~ I've added this task :
+    [D][] submit CCA proposal (by: Oct 01 2024) #CCA
+Now you have 7 tasks in the list.
+```
+
 
 
 ## Listing Tasks
@@ -65,7 +83,14 @@ Displays all tasks in your list.
 **Format:** `list`
 
 **Expected output:**
-//to be edited later
+```angular2html
+You have 5 task(s)
+    1. [T][] read class materials
+    2. [D][X] submit CCA proposal (by: Oct 01 2024) #CCA
+    3. [E][] hackhaton (from: Oct 10 2024 to: Oct 12 2024)
+    4. [D][X] LAT2201 homework (by: Sep 20 2024)
+    5. [T][] buy gift for mom #urgent
+```
 
 ## Marking a Task as Done
 
@@ -78,7 +103,11 @@ Marks a task as done/completed.
 - 'mark 4'
 
 **Expected output:**
-//to be edited later
+```angular2html
+Congrats on completing this task~~
+This task is marked as done :
+    [T][X] read class materials
+```
 
 ## Unmarking a Task
 
@@ -91,7 +120,11 @@ Unmarks a task to be not done/incomplete.
 - 'unmark 4'
 
 **Expected output:**
-//to be edited later
+```angular2html
+Don't forget to complete this task later~~
+This task is marked as not done :
+    [T][] read class materials
+```
 
 ## Deleting a Task
 
@@ -104,7 +137,11 @@ Removes a task from your list by its index.
 - 'delete 3'
 
 **Expected output:**
-//to be edited later
+```
+Noted~~ I've removed this task :
+[D][X] submit CCA proposal (by: Oct 01 2024) #CCA
+Now you have 4 tasks in the list
+```
 
 ## Finding Task(s)
 
@@ -116,7 +153,11 @@ Search for tasks containing a keyword.
 - `find homework'
 
 **Expected output:**
-//to be edited later
+```
+Here are 1 task that matches your keyword :
+[D][X] LAT2201 homework (by: Sep 20 2024)
+```
+
 
 
 ## Exiting Rose
@@ -126,4 +167,6 @@ Exits the application
 **Format**: `bye`
 
 **Expected output:**
-//to be edited later
+```angular2html
+See you~~ Don't forget to drink some water ^_^
+```
