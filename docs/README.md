@@ -52,7 +52,7 @@ You can add three types of tasks: Todos, Deadlines, and Events.
 Whenever a task is added correctly, there will be a message sent which shows the task just added to confirm it and
 shows the number of tasks in the current list.
 
-### Adding a Todo: ``
+### Adding a Todo: 
 To add a simple task without a due date, use the todo command followed by the task description.
 ``` 
 todo <task_description>
