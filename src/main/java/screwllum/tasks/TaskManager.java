@@ -32,6 +32,7 @@ public class TaskManager {
      * @throws InvalidIndexException If the index provided in the command (e.g., for toggle or delete) is out of bounds.
      */
     public String execute(List<String> tokens, Ui ui) throws InvalidIndexException {
+        assert tokens != null : "If parser works properly, there should always be a List of tokens";
         List<Task> list = null;
         String result = "";
 

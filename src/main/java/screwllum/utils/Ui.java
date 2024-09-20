@@ -33,6 +33,7 @@ public class Ui {
      * @return The response related to the requested command token
      */
     public String showMessage(List<String> tokens, List<Task> taskList) {
+        assert tokens != null : "Similar to task manager, there should be tokens at this stage";
         String response = "";
         switch (tokens.get(0)) {
         case "bye":
