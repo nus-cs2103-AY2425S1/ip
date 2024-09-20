@@ -54,6 +54,7 @@ public class Task {
 
     /**
      * Gets task name
+     *
      * @return String of task name
      */
     public String getTaskName() {

@@ -48,6 +48,7 @@ public class EventTask extends Task {
 
     /**
      * gets event start date
+     *
      * @return DateTime value of startTime
      */
     public DateTime getEventDate() {

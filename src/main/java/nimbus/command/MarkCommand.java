@@ -17,8 +17,8 @@ public class MarkCommand extends Command {
      * Creates a MarkCommand Object
      * Stores userInput and allows taskList to be passed in
      *
-     * @param userInput
-     * @param taskList
+     * @param userInput user input about task
+     * @param  taskList object getting passed to add task in
      */
     public MarkCommand(String userInput, TaskList taskList) {
         super(userInput, taskList);

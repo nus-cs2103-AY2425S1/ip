@@ -20,6 +20,7 @@ public class TaskList {
 
     /**
      * gets the arraylist of tasks
+     *
      * @return arraylist of tasks
      */
     public ArrayList<Task> getTaskList() {
@@ -28,6 +29,7 @@ public class TaskList {
 
     /**
      * adds task into arraylist of tasks
+     *
      * @param task task that is supposed to be added
      */
     public void add(Task task) {
@@ -36,6 +38,7 @@ public class TaskList {
 
     /**
      * deletes task from arraylist of tasks
+     *
      * @param task task that is supposed to be deleted
      */
     public void delete(Task task) {

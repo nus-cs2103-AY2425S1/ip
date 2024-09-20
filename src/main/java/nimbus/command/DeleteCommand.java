@@ -33,7 +33,6 @@ public class DeleteCommand extends Command {
     /**
      * Removes a task from the list based on the index in userInput
      */
-
     @Override
     public String execute() {
         assert tasks != null : "Task list should not be null";

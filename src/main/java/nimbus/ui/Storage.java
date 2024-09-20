@@ -72,63 +72,7 @@ public class Storage {
                     if (parts.length < 3 || parts.length > 4) {
                         logger.log(Level.WARNING, "Corrupted Line: " + line);
                     }
-
-                    String taskType = parts[0];
-                    boolean isCompleted = parts[1].equals("1");
-                    String description = parts[2];
-
-                    switch (taskType) {
-                    case "T":
-                        if (parts.length == 3) {
-                            TodoTask todoTask;
-                            todoTask = new TodoTask(description, isCompleted);
-                            taskList.add(todoTask);
-                            // logger.log(Level.INFO,"Todo nimbus.task.Task is added");
-                        } else {
-                            logger.log(Level.WARNING, "Corrupted Line: " + line
-                                    + " Line wrong format for nimbus.task.TodoTask");
-                        }
-                        break;
-                    case "D":
-                        if (parts.length == 4) {
-                            String deadline = parts[3];
-
-                            DeadlineTask deadlineTask = new DeadlineTask(description,
-                                    isCompleted, deadline);
-                            taskList.add(deadlineTask);
-                            // logger.log(Level.INFO,"Deadline nimbus.task.Task is added");
-                        } else {
-                            logger.log(Level.WARNING, "Corrupted Line: " + line
-                                    + " Line wrong format for nimbus.task.DeadlineTask");
-                        }
-                        break;
-                    case "E":
-                        if (parts.length == 4) {
-                            String[] time = parts[3].split(" - ");
-                            String startTime = time[0];
-                            String endTime = time[1];
-
-                            if (endTime.contains("pm") && !startTime.contains("pm")
-                                    && !startTime.contains("am")) {
-                                startTime += "pm";
-                            } else if (endTime.contains("am") && !startTime.contains("pm")
-                                    && !startTime.contains("am")) {
-                                startTime += "am";
-                            }
-
-                            EventTask eventTask = new EventTask(description, isCompleted,
-                                    startTime, endTime);
-                            taskList.add(eventTask);
-                            // logger.log(Level.INFO,"Event nimbus.task.Task is added");
-                        } else {
-                            logger.log(Level.WARNING, "Corrupted Line: " + line
-                                    + " Line wrong format for nimbus.task.EventTask");
-                        }
-                        break;
-                    default:
-                        logger.log(Level.WARNING, "nimbus.task.Task does not start with T/D/E: " + line);
-                        break;
-                    }
+                    processLine(parts, taskList, line);
                 }
             } catch (WrongDateTimeFormatException e) {
                 System.out.println(e.getMessage());
@@ -138,6 +82,109 @@ public class Storage {
         } catch (IOException e) {
             logger.log(Level.SEVERE, e.getMessage(), e);
         }
+    }
+
+    /**
+     * This function helps to process the line of text in the text file and adds the
+     * task into the ArrayList in taskList if the text description is valid
+     *
+     * @param parts an array of strings where different elements of the array provide
+     *              different information about the task, for example type of task
+     * @param taskList an object that stores the array list of tasks where tasks will
+     *                 be added into
+     * @param line line of text in text file
+     */
+    private void processLine(String[] parts, TaskList taskList, String line) {
+        String taskType = parts[0];
+        boolean isCompleted = parts[1].equals("1");
+        String description = parts[2];
+
+        switch (taskType) {
+        case "T":
+            if (parts.length == 3) {
+                handleTodo(description, isCompleted, taskList);
+            } else {
+                logger.log(Level.WARNING, "Corrupted Line: " + line
+                        + " Line wrong format for nimbus.task.TodoTask");
+            }
+            break;
+        case "D":
+            if (parts.length == 4) {
+                String deadline = parts[3];
+                handleDeadline(description, isCompleted, deadline, taskList);
+            } else {
+                logger.log(Level.WARNING, "Corrupted Line: " + line
+                        + " Line wrong format for nimbus.task.DeadlineTask");
+            }
+            break;
+        case "E":
+            if (parts.length == 4) {
+                String[] time = parts[3].split(" - ");
+                handleEvent(description, isCompleted, time, taskList);
+            } else {
+                logger.log(Level.WARNING, "Corrupted Line: " + line
+                        + " Line wrong format for nimbus.task.EventTask");
+            }
+            break;
+        default:
+            logger.log(Level.WARNING, "nimbus.task.Task does not start with T/D/E: " + line);
+            break;
+        }
+    }
+
+    /**
+     * Handles the case where the line of text in text file stores information for a todoTask
+     *
+     * @param description task description
+     * @param isCompleted boolean value of whether the task has been completed
+     * @param taskList an object that stores the array list of tasks where tasks will
+     *                 be added into
+     */
+    private void handleTodo(String description, boolean isCompleted, TaskList taskList) {
+        TodoTask todoTask;
+        todoTask = new TodoTask(description, isCompleted);
+        taskList.add(todoTask);
+    }
+
+    /**
+     * Handles the case where the line of text in text file stores information for a deadlineTask
+     *
+     * @param description task description
+     * @param isCompleted boolean value of whether the task has been completed
+     * @param deadline String value for deadline of deadlineTask
+     * @param taskList an object that stores the array list of tasks where tasks will
+     *                 be added into
+     */
+    private void handleDeadline(String description, boolean isCompleted, String deadline,
+                                TaskList taskList) {
+        DeadlineTask deadlineTask = new DeadlineTask(description, isCompleted, deadline);
+        taskList.add(deadlineTask);
+    }
+
+    /**
+     * Handles the case where the line of text in text file stores information for a eventTask
+     *
+     * @param description task description
+     * @param isCompleted boolean value of whether the task has been completed
+     * @param time array of strings that provide information about the start and end time of event
+     * @param taskList an object that stores the array list of tasks where tasks will
+     *                 be added into
+     */
+    private void handleEvent(String description, boolean isCompleted, String[] time,
+                             TaskList taskList) {
+        String startTime = time[0];
+        String endTime = time[1];
+
+        if (endTime.contains("pm") && !startTime.contains("pm")
+                && !startTime.contains("am")) {
+            startTime += "pm";
+        } else if (endTime.contains("am") && !startTime.contains("pm")
+                && !startTime.contains("am")) {
+            startTime += "am";
+        }
+
+        EventTask eventTask = new EventTask(description, isCompleted, startTime, endTime);
+        taskList.add(eventTask);
     }
 
     /**

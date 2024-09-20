@@ -17,8 +17,8 @@ public class UnmarkCommand extends Command {
      * Creates a UnmarkCommand Object
      * Stores userInput and allows taskList to be passed in
      *
-     * @param userInput
-     * @param taskList
+     * @param userInput user input about task
+     * @param taskList taskList object getting passed to add task in
      */
     public UnmarkCommand(String userInput, TaskList taskList) {
         super(userInput, taskList);
