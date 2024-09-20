@@ -56,6 +56,7 @@ public class Duke {
 
             ui.printClosing();
             response = "bye!";
+            System.exit(0);
 
         } else if(command.equals("list")) {
 
@@ -180,6 +181,7 @@ public class Duke {
             int rankToDelete = Integer.valueOf(parser.getArgument('\n'));
 
             response = taskList.deleteTask(rankToDelete);
+
         }  else if(command.equals("find")) {
             assert input.length() > 5;
 
