@@ -279,9 +279,6 @@ public class TaskList {
     }
 
     public String viewSchedule(String input) {
-        ArrayList<Task> todaysTasks = new ArrayList<>();
-
-
         String dateString = input.substring(5).trim();
 
         LocalDateTime date = Parser.stringToDateTime(dateString);
@@ -291,6 +288,11 @@ public class TaskList {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM d, yyyy");
         String formattedDate = date.toLocalDate().format(dateFormatter);
 
+        return filterTaskByDate(date, formattedDate);
+    }
+
+    public String filterTaskByDate(LocalDateTime date, String formattedDate) {
+        ArrayList<Task> todaysTasks = new ArrayList<>();
         StringBuilder resultString = new StringBuilder(
                 "Here's your schedule for " + formattedDate + ":\n");
 
@@ -307,8 +309,10 @@ public class TaskList {
                 Event eventTask = (Event) task;
                 LocalDateTime fromDate = eventTask.getFromDate();
                 LocalDateTime toDate = eventTask.getToDate();
-                boolean isTimeBetween = (fromDate.isBefore(date) && toDate.isAfter(date)) ||
-                        fromDate.isEqual(date) || toDate.isEqual(date);
+                boolean isTimeBetween = (fromDate.toLocalDate().isBefore(date.toLocalDate()) &&
+                        toDate.toLocalDate().isAfter(date.toLocalDate())) ||
+                        fromDate.toLocalDate().isEqual(date.toLocalDate()) ||
+                        toDate.toLocalDate().isEqual(date.toLocalDate());
                 if (isTimeBetween) {
                     todaysTasks.add(task);
                     resultString.append(task).append("\n");

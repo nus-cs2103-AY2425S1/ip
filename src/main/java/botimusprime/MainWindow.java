@@ -22,8 +22,8 @@ public class MainWindow extends AnchorPane {
 
     private BotimusPrime botimusPrime;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/ShiaLaBeouf.jpg"));
+    private Image botimusPrimeImage = new Image(this.getClass().getResourceAsStream("/images/botimusPrime.png"));
 
     @FXML
     public void initialize() {
@@ -36,12 +36,13 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing BotimusPrime's reply and then appends
+     * them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
-        String input = userInput.getText();
+        String input = userInput.getText().trim();
 
         if (input.equals("bye")) {
             System.exit(0);
@@ -51,7 +52,7 @@ public class MainWindow extends AnchorPane {
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getBotimusPrimeDialog(response, botimusPrimeImage)
         );
 
         userInput.clear();

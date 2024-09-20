@@ -5,6 +5,7 @@ import botimusprime.ui.Ui;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -48,17 +49,22 @@ public class Parser {
         Pattern slashDateTimePattern = Pattern.compile("\\d{2}/\\d{2}/\\d{4} \\d{4}");
         Pattern slashDatePattern = Pattern.compile("\\d{2}/\\d{2}/\\d{4}");
 
-        if (isoDateTimePattern.matcher(timeString).matches()) {
-            return LocalDateTime.parse(timeString, isoDateTimeFormatter);
-        } else if (isoDatePattern.matcher(timeString).matches()) {
-            return LocalDate.parse(timeString, isoDateFormatter).atStartOfDay();
-        } else if (slashDateTimePattern.matcher(timeString).matches()) {
-            return LocalDateTime.parse(timeString, slashDateTimeFormatter);
-        } else if (slashDatePattern.matcher(timeString).matches()) {
-            return LocalDate.parse(timeString, slashDateFormatter).atStartOfDay();
-        } else {
+        try {
+            if (isoDateTimePattern.matcher(timeString).matches()) {
+                return LocalDateTime.parse(timeString, isoDateTimeFormatter);
+            } else if (isoDatePattern.matcher(timeString).matches()) {
+                return LocalDate.parse(timeString, isoDateFormatter).atStartOfDay();
+            } else if (slashDateTimePattern.matcher(timeString).matches()) {
+                return LocalDateTime.parse(timeString, slashDateTimeFormatter);
+            } else if (slashDatePattern.matcher(timeString).matches()) {
+                return LocalDate.parse(timeString, slashDateFormatter).atStartOfDay();
+            } else {
+                return null;
+            }
+        } catch (DateTimeParseException e) {
             return null;
         }
+
     }
 
     /**

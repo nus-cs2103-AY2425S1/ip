@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for BotimusPrime using FXML.
  */
 public class Main extends Application {
 
@@ -22,11 +22,12 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Botimus Prime");
 
             stage.setMinHeight(220);
             stage.setMinWidth(417);
 
-            fxmlLoader.<MainWindow>getController().setBotimusPrime(botimusPrime);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setBotimusPrime(botimusPrime);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
