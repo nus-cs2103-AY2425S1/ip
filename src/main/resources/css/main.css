@@ -1,16 +1,16 @@
 .root {
-    main-color: rgb(60, 55, 52);       /* Create a looked-up color called "main-color" within root. */
+    main-color: #f7ece1;  /* Create a looked-up color called "main-color" within root. */
     -fx-background-color: main-color;
 }
 
 .text-field {
-    -fx-background-color: #615952;
+    -fx-background-color: #E3D6C3;
     -fx-font: 20px "Courier";
-    -fx-text-fill: white;
+    -fx-text-fill: rgb(0, 0, 0);
 }
 
 .button {
-    -fx-background-color: rgb(138, 112, 96);
+    -fx-background-color: #C7B29E;
     -fx-font: bold 16px "Courier";
     -fx-text-fill: white;
     -fx-transition: -fx-background-color -fx-font-size 0.3s;
@@ -37,7 +37,7 @@
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: rgb(179, 140, 132);;
+    -fx-background-color: #D8CFC4;
     -fx-background-radius: 2em;
 }
 

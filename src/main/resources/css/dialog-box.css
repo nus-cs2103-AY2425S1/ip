@@ -1,12 +1,12 @@
 .label {
-    -fx-background-color: linear-gradient(to bottom right, rgb(255, 229, 224), rgb(255, 241, 229));
-    -fx-border-color: rgb(0, 0, 0);
+    -fx-background-color: #e3cec8;
+    -fx-border-color: #917f7b;
     -fx-border-width: 1px;
     -fx-background-radius: 2em 2em 0 2em;
     -fx-border-radius: 2em 2em 0 2em;
-    -fx-font: 16px "Courier";
+    -fx-font: 16px 'Merriweather', serif;
     -fx-padding: 6px;
-    -fx-border-insets: 20px rgb(60, 55, 52);
+    -fx-border-insets: 10px rgb(60, 55, 52);
 }
 
 .reply-label {
