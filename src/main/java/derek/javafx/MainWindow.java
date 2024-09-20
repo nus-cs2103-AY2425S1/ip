@@ -27,7 +27,7 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
     private Derek derek;
     private Ui ui;
-    private String userName;
+    private String userName = "unnamed user";
     private boolean isWaitingforUserName;
     private boolean isWaitingforResponse;
     private boolean isWaitingforConsent;
@@ -68,7 +68,7 @@ public class MainWindow extends AnchorPane {
                 response = this.ui.initiateUserInteraction(this.userName);
                 this.isWaitingforUserName = false;
                 dialogContainer.getChildren().addAll(
-                        DialogBox.getUserDialog(input, userImage),
+                        DialogBox.getUserDialog(this.userName, input, userImage),
                         DialogBox.getDerekDialog(response, derekImage)
                 );
                 userInput.clear();
@@ -77,27 +77,27 @@ public class MainWindow extends AnchorPane {
                 isWaitingforConsent = false;
                 isWaitingforUserName = true;
                 dialogContainer.getChildren().addAll(
-                        DialogBox.getUserDialog(input, userImage),
+                        DialogBox.getUserDialog(this.userName, input, userImage),
                         DialogBox.getDerekDialog(response, derekImage)
                 );
                 userInput.clear();
             } else if (isWaitingforResponse) {
                 response = this.ui.processCommands(input);
                 dialogContainer.getChildren().addAll(
-                        DialogBox.getUserDialog(input, userImage),
+                        DialogBox.getUserDialog(this.userName, input, userImage),
                         DialogBox.getDerekDialog(response, derekImage)
                 );
                 userInput.clear();
             }
         } catch (IncorrectCommandException e) {
             dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(userInput.getText(), userImage),
+                    DialogBox.getUserDialog(this.userName, userInput.getText(), userImage),
                     DialogBox.getDerekDialog(e.getMessage(), derekImage)
             );
             userInput.clear();
         } catch (DateTimeParseException e) {
             dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(userInput.getText(), userImage),
+                    DialogBox.getUserDialog(this.userName, userInput.getText(), userImage),
                     DialogBox.getDerekDialog("Please enter your date in the correct format: " +
                             "DD/MM/YYYY HH:MM", derekImage)
             );

@@ -12,6 +12,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment;
+
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
@@ -22,8 +25,10 @@ public class DialogBox extends HBox {
     private Label dialog;
     @FXML
     private ImageView displayPicture;
+    @FXML
+    private Label speaker;
 
-    private DialogBox(String text, Image img) {
+    private DialogBox(String speakerName, String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -32,7 +37,7 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        speaker.setText(speakerName);
         dialog.setText(text);
         displayPicture.setImage(img);
     }
@@ -40,20 +45,35 @@ public class DialogBox extends HBox {
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
      */
-    private void flip() {
-        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
-        Collections.reverse(tmp);
-        getChildren().setAll(tmp);
+    private void flipDialogBox() {
         setAlignment(Pos.TOP_LEFT);
     }
 
-    public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+    private void flipInternalComponents() {
+        HBox innerHBox = (HBox) this.getChildren().get(0);
+
+        ObservableList<Node> children = innerHBox.getChildren();
+
+        if (children.size() == 2) {
+            Node image = children.get(0);
+            VBox textBox = (VBox) children.get(1);
+
+            innerHBox.getChildren().clear();
+            innerHBox.getChildren().addAll(textBox, image);
+            textBox.setAlignment(Pos.CENTER_RIGHT);
+            dialog.setTextAlignment(TextAlignment.RIGHT);
+        }
+    }
+
+    public static DialogBox getUserDialog(String user, String text, Image img) {
+        var db = new DialogBox(user, text, img);
+        db.flipInternalComponents();
+        return db;
     }
 
     public static DialogBox getDerekDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
-        db.flip();
+        var db = new DialogBox("Derek", text, img);
+        db.flipDialogBox();
         return db;
     }
 

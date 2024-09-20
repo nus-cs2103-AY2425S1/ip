@@ -20,7 +20,7 @@ import java.time.format.DateTimeFormatter;
  * It interacts with the {@code TaskList} to manage tasks persistently.
  */
 public class Storage {
-    private String dataFilePathName = "./data/derek.txt";
+    private String dataFilePathName = "../../data/derek.txt";
     private TaskList taskList;
 
     /**
