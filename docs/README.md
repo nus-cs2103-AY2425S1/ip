@@ -31,15 +31,7 @@ Gotcha! I've added this task:
 Now you have 2 task(s) in the list
 ```
 
-**Example #3:** `event CS2103T Lecture /from 2024-09-20 4pm /to 6pm`
-
-```
-Gotcha! I've added this task:
-3. [E][] CS2103T Lecture (from: Sept 20 2024 4pm to: 6pm)
-Now you have 3 task(s) in the list
-```
-
-**Example #4:** `event party /from 2pm`
+**Example #3:** `event party /from 2pm /to `
 
 ```
 Make sure you include both the task description and the time in this format:
