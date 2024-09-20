@@ -46,7 +46,7 @@ public class Prompter {
     /**
      * Builds a response with the list of filtered tasks
      * @param tasks the list of tasks to be included
-     * @return the reponse instance with the list of tasks
+     * @return the response instance with the list of tasks
      */
     public Response buildFilteredTaskList(String tasks) {
         return new Response("I got you! Here is what I found:\n" + tasks);
