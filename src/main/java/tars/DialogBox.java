@@ -1,5 +1,8 @@
 package tars;
 
+import java.io.IOException;
+import java.util.Collections;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,10 +14,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
-import java.io.IOException;
-import java.util.Collections;
-
 /**
+ * @@author SKarthikeyan28 --reused
+ * Code from SE Student Projects JavaFX guide (https://se-education.org/guides/tutorials/javaFx.html)
+ * with minor modifications.
+ *
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
  * and a label containing text from the speaker.
  */
@@ -24,6 +28,12 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Creates a DialogBox object to display the message with an image too
+     *
+     * @param text
+     * @param img
+     */
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -53,7 +63,7 @@ public class DialogBox extends HBox {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getTarsDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;

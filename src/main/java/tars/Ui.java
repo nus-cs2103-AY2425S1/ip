@@ -1,9 +1,9 @@
 package tars;
+
 /**
- * Class represents a User interface which handles the entry and exit messages for the User
+ * Represents a User interface which handles the entry and exit messages for the User
  *
  * @author csk
- * @version 1
  */
 public class Ui {
 
@@ -12,8 +12,6 @@ public class Ui {
 
     /**
      * Provides welcome message to be displayed to user when first starting Tars chatbot or re-starting the bot
-     *
-     * @return String (Welcome message)
      */
     public String welcome() {
         return "Hello! I'm Tars! Your one-stop Task Manager.\n" + "\n"
@@ -23,8 +21,6 @@ public class Ui {
 
     /**
      * States features of the Tars chatbot that users can use while running the application
-     *
-     * @return String (help message)
      */
     public String help() {
         return "List of commands that you can do while using Tars!\n"
@@ -34,6 +30,12 @@ public class Ui {
                 + "3. State list to see your list of tasks";
     }
 
+    /**
+     * Returns output message for successful addition of Task after handled by taskList
+     *
+     * @param task
+     * @param size
+     */
     public String printTask(Task task, int size) {
         return " Got it. I've added this task:\n" + task + "\n" + " Now you have "
                 + size + " tasks in the list";
@@ -42,8 +44,6 @@ public class Ui {
     /**
      * Provides exit message to be displayed to user when exiting Tars
      * This command is executed after the "bye" input, which is handled in Tars application
-     *
-     * @return String (bye message)
      */
     public String bye() {
         return "Bye. Hope to see you again soon!";

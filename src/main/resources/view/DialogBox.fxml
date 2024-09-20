@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- @@author SKarthikeyan28 -reused
+ Code from SE Student Projects JavaFX guide (https://se-education.org/guides/tutorials/javaFx.html)
+ with minor modifications -->
+
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>

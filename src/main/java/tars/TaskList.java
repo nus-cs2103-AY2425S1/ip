@@ -6,17 +6,20 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
- * Class represents a taskList which handles the list of the tasks being added by the User
+ * Represents a taskList which handles the list of the tasks being added by the User
  * Handles operations of adding tasks to list based on input of Task type
  *
- * @author csk
- * @version 1
+ * @author SKarthikeyan28
  */
 public class TaskList {
-    private static final String LINE = " _____________________________________________";
     private ArrayList<Task> taskList;
     private Ui ui;
 
+    /**
+     * Constructs TaskList object while initialising task list and Ui objects
+     *
+     * @param taskList
+     */
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
         this.ui = new Ui();
@@ -25,27 +28,27 @@ public class TaskList {
         this.taskList = new ArrayList<Task>();
     }
 
+    /**
+     * Gets arraylist of tasks from taskList object
+     */
     public ArrayList<Task> getList() {
         return this.taskList;
     }
 
     /**
-     * Marks task done or unmarks task as not done based on user input
+     * Marks task done or un marks task as not done based on user input
      *
      * @param index
      * @param status
-     * @return String (message to convey action taken by application)
      */
     public String markTask(int index, int status) {
         String result = "";
         if (status == 1) {
             taskList.get(index - 1).mark();
-            result = LINE + "\n" + " Nice! I've marked this task as done:"
-                    + taskList.get(index - 1) + "\n" + LINE;
+            result = " Nice! I've marked this task as done:" + taskList.get(index - 1);
         } else if (status == 0) {
             taskList.get(index - 1).unmark();
-            result = LINE + " OK, I've marked this task as not done yet:"
-                    + taskList.get(index - 1) + "\n" + LINE;
+            result = " OK, I've marked this task as not done yet:" + taskList.get(index - 1);
         }
         return result;
     }
@@ -54,7 +57,6 @@ public class TaskList {
      * Deletes task from master list of tasks based on index of task given
      *
      * @param index
-     * @return
      */
     public String deleteTask(int index) {
         if (index < 0 || index > taskList.size()) {
@@ -63,29 +65,18 @@ public class TaskList {
         Task temp = taskList.get(index - 1);
         taskList.remove(temp);
 
-        String result = LINE + "\n" + " Noted. I've removed this task:" + temp + "\n" + " Now you have "
-                + taskList.size() + " tasks in the list\n" + LINE;
+        String result = " Noted. I've removed this task:" + temp + "\n" + " Now you have "
+                + taskList.size() + " tasks in the list\n";
 
         return result;
     }
 
     /**
-     * Adds todos task to list and prints out statement on confirmation of addition task
+     * Gets Description of task based on input given by user
      *
      * @param task
-     * @param entry
+     * @param end
      */
-    public String addToDos(String[] task, String entry) {
-        String result = "";
-        String description = this.getDescription(task, null);
-
-        assert !description.isEmpty() : "Description for ToDos cannot be empty";
-        ToDos todo = new ToDos(description);
-        taskList.add(todo);
-        result = ui.printTask(todo, taskList.size());
-        return result;
-    }
-
     public String getDescription(String[] task, String end) {
         StringBuilder strBuild = new StringBuilder();
         for (int i = 1; i < task.length; i++) {
@@ -98,6 +89,12 @@ public class TaskList {
         return strBuild.toString().trim();
     }
 
+    /**
+     * Forms Date of task based on input given by user for event or deadline
+     *
+     * @param task
+     * @param end
+     */
     public String getDate(String[] task, int start, int end) {
         StringBuilder strBuild = new StringBuilder();
         for (int i = start; i < end; i++) {
@@ -107,14 +104,28 @@ public class TaskList {
     }
 
     /**
+     * Adds todos task to list and prints out statement on confirmation of addition task
+     *
+     * @param task
+     */
+    public String addToDos(String[] task) {
+        String result = "";
+        String description = this.getDescription(task, null);
+
+        assert !description.isEmpty() : "Description for ToDos cannot be empty";
+        ToDos todo = new ToDos(description);
+        taskList.add(todo);
+        result = ui.printTask(todo, taskList.size());
+        return result;
+    }
+
+    /**
      * Adds deadline task to list and prints out statement on confirmation of addition
      * Handles format of deadline task input required, like specific format of deadline to be stated
      *
      * @param task
-     * @param entry
-     * @return string representation of task
      */
-    public String addDeadline(String[] task, String entry) {
+    public String addDeadline(String[] task) {
         String result = "";
         int dateIndex = 0;
         for (int i = 1; i < task.length; i++) {
@@ -130,6 +141,7 @@ public class TaskList {
         assert date.length() != 17 : "Deadline date format is invalid";
 
         try {
+            //Checked with Chat-GPT on taking date as input and storing as LocalDateTime object
             DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             LocalDateTime dateTime = LocalDateTime.parse(date.trim(), format);
 
@@ -148,9 +160,8 @@ public class TaskList {
      * Handles format of event task input required, like specific format of from and to date/time to be stated
      *
      * @param task
-     * @param entry
      */
-    public String addEvent(String[] task, String entry) {
+    public String addEvent(String[] task) {
         String result = " ";
         String description = getDescription(task, "/from");
         int fromIndex = 0;
@@ -171,6 +182,7 @@ public class TaskList {
         assert toDate.length() != 16 : "Event date format is invalid";
 
         try {
+            //Checked with Chat-GPT on taking date as input and storing as LocalDateTime object
             DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
             LocalDateTime fromTime = LocalDateTime.parse(fromDate.trim(), format);
             LocalDateTime toTime = LocalDateTime.parse(toDate.trim(), format);
@@ -179,8 +191,7 @@ public class TaskList {
             taskList.add(eventTask);
             result = ui.printTask(eventTask, taskList.size());
         } catch (DateTimeException e) {
-            result = LINE + "\n" + " Please state date and time of from and to of event"
-                     + "in YYYY-MM-dd HH:mm format\n" + LINE;
+            result = " Please state date and time of from and to of event" + "in YYYY-MM-dd HH:mm format\n";
         }
         return result;
     }

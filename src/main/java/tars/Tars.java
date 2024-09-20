@@ -3,13 +3,10 @@ package tars;
 import java.io.IOException;
 
 /**
- * This class is Chatbot application which handles Task Management, mainly ToDos, Deadline and Event tasks
- * Users can add the 3 different type of tasks and carry out other functions like mark, unmark and delete
- * Users can also view all the tasks added in a LIST
- * This application will run till "bye" command given
+ * Acts as main class for Tars application which handles Task Management, mainly ToDos, Deadline and Event tasks
+ * Users can add the 3 different type of tasks and carry out other functions like mark, un mark and delete
  *
- * @author csk
- * @version 1
+ * @author SKarthikeyan28
  */
 public class Tars {
     private TaskList taskList;
@@ -62,8 +59,4 @@ public class Tars {
 
         return result;
     }
-
-    /*public static void main(String[] args) throws IOException {
-        new Tars("./data/Tars.txt").run();
-    }*/
 }

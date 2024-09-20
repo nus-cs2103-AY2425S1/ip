@@ -1,6 +1,5 @@
 package tars;
 
-
 import java.io.IOException;
 
 import javafx.animation.PauseTransition;
@@ -15,6 +14,10 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 /**
+ * @@author SKarthikeyan28 --reused
+ * Code from SE Student Projects JavaFX guide (https://se-education.org/guides/tutorials/javaFx.html)
+ * with minor modifications.
+ *
  * Controller for the main GUI.
  */
 public class MainWindow extends AnchorPane {
@@ -42,7 +45,7 @@ public class MainWindow extends AnchorPane {
         tars = t;
         ui = new Ui();
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(ui.welcome(), tarsImage)
+                DialogBox.getTarsDialog(ui.welcome(), tarsImage)
         );
     }
 
@@ -56,7 +59,7 @@ public class MainWindow extends AnchorPane {
         String response = tars.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, tarsImage)
+                DialogBox.getTarsDialog(response, tarsImage)
         );
         userInput.clear();
         //Checked with Chat-GPT on how to exit JavaFX application upon receiving "bye" as input

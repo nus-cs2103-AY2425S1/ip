@@ -4,18 +4,17 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Class represents a generic class with a Description and isDone status
+ * Represents a generic class with a Description and isDone status
  * Serves as a base class for other Task types like ToDos, Deadline, Event
  *
  * @author csk
- * @version 1
  */
 public class Task {
     protected String description;
     protected boolean isDone;
 
     /**
-     * Constructor for new Task with specified description
+     * Constructs new Task with specified description
      * The task will be initialised with marked as not done
      *
      * @param description (description of Task)
@@ -42,7 +41,7 @@ public class Task {
     }
 
     /**
-     * Marks the task as not done
+     * Marks the task or un marks a task as not done
      */
     public void unmark() {
         this.isDone = false;
@@ -68,7 +67,7 @@ public class Task {
     }
 }
 /**
-* Class represents ToDos task, which only has a description
+* Represents ToDos task, which only has a description
 * Extends from Task class
 *
 * @see Task
@@ -109,7 +108,7 @@ class ToDos extends Task {
     }
 }
 /**
- * Class represents Deadline Task, which has a specific deadline
+ * Represents Deadline Task, which has a specific deadline
  * Extends from Task class and also has an extra field for deadline of task
  *
  * @see Task
@@ -149,7 +148,7 @@ class Deadline extends Task {
     }
 }
 /**
- * Class represents Event task, which has a description, and start and end time
+ * Represents Event task, which has a description, and start and end time
  * Extends from Task class and has extra fields to store start and end time of event
  *
  * @see Task

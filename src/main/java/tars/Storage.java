@@ -10,19 +10,19 @@ import java.util.Scanner;
 /**
  * Handles the storing of the Tasks added to the list and retrieves information of Tasks when reopened
  *
- * @author csk
- * @version 1
+ * @author SKarthikeyan28
  */
 public class Storage {
     protected static File taskFile;
 
     /**
-     * Constructor for Storage object which takes in a filePath and sets filePath field in object
+     * Constructs storage object which takes in a filePath and sets filePath field in object
      *
      * @param filePath
      * @throws IOException
      */
     public Storage(String filePath) throws IOException {
+        //checked on Chat-GPT on creating storage file and retrieving creating storage file
         this.taskFile = new File(filePath); // create a File for the given file path
 
         if (!taskFile.exists()) {
@@ -39,6 +39,7 @@ public class Storage {
      * @throws IOException
      */
     public static void writeFile(String filePath, ArrayList<Task> tasks) throws IOException {
+        //checked on Chat-GPT on writing to an existing storage file
         FileWriter fileWriter = new FileWriter(filePath);
 
         assert !filePath.isEmpty() : "File path cannot be empty!";
@@ -61,7 +62,7 @@ public class Storage {
         ArrayList<Task> itemsList = new ArrayList<>();
 
         while (s.hasNext()) {
-            String entry = s.nextLine(); //Task from each line
+            String entry = s.nextLine(); //tasks from each line of file stored
             String[] entryParts = entry.split(" ");
             Task task = writeTask(entryParts);
 
@@ -76,7 +77,8 @@ public class Storage {
     /**
      * Forms description of task given, based on entry registered im storage file
      *
-     * @param entryParts and taskType.
+     * @param entryParts
+     * @param end
      * @return String (task description)
      */
     public static String getTaskDesc(String[] entryParts, int end) {
@@ -92,7 +94,8 @@ public class Storage {
     /**
      * Writes LocalDateTime date for Deadline or Event based on entry stored
      *
-     * @param entryParts and keyword
+     * @param entryParts
+     * @param start
      * @return LocalDateTime object
      */
     public static LocalDateTime getTaskDate(String[] entryParts, int start) {
@@ -110,38 +113,41 @@ public class Storage {
     public static Task writeTask(String[] entryParts) {
         String taskType = entryParts[0];
         String taskDescript = " ";
-
+        //no break statements for each case as return statements act as break
         switch (taskType) {
-            case "T":
-                taskDescript = getTaskDesc(entryParts, entryParts.length);
-                return new ToDos(taskDescript.trim());
-            case "D":
-                int dateIndex = 0;
-                for (int i = 1; i < entryParts.length; i++) {
-                    if (entryParts[i].equals("by:")) {
-                        dateIndex = i + 1;
-                    }
+        case "T":
+            taskDescript = getTaskDesc(entryParts, entryParts.length);
+            return new ToDos(taskDescript.trim());
+        case "D":
+            int dateIndex = 0;
+            for (int i = 1; i < entryParts.length; i++) {
+                if (entryParts[i].equals("by:")) {
+                    dateIndex = i + 1;
                 }
-                taskDescript = getTaskDesc(entryParts, dateIndex - 1);
-                LocalDateTime deadlineDate = getTaskDate(entryParts, dateIndex);
-                return new Deadline(taskDescript.trim(), deadlineDate);
-            case "E":
-                int fromIndex = 0;
-                int toIndex = 0;
+            }
 
-                for (int i = 1; i < entryParts.length; i++) {
-                    if (entryParts[i].equals("from:")) {
-                        fromIndex = i + 1;
-                    } else if (entryParts[i].equals("to:")) {
-                        toIndex = i + 1;
-                    }
+            taskDescript = getTaskDesc(entryParts, dateIndex - 1);
+            LocalDateTime deadlineDate = getTaskDate(entryParts, dateIndex);
+            return new Deadline(taskDescript.trim(), deadlineDate);
+        case "E":
+            int fromIndex = 0;
+            int toIndex = 0;
+
+            for (int i = 1; i < entryParts.length; i++) {
+                if (entryParts[i].equals("from:")) {
+                    fromIndex = i + 1;
+                } else if (entryParts[i].equals("to:")) {
+                    toIndex = i + 1;
                 }
-                taskDescript = getTaskDesc(entryParts, fromIndex - 1);
-                LocalDateTime fromDate = getTaskDate(entryParts, fromIndex);
-                LocalDateTime toDate = getTaskDate(entryParts, toIndex);
-                return new Event(taskDescript.trim(), fromDate, toDate);
-            default:
-                throw new IllegalArgumentException("Unknown task type: " + taskType);
+            }
+
+            taskDescript = getTaskDesc(entryParts, fromIndex - 1);
+            LocalDateTime fromDate = getTaskDate(entryParts, fromIndex);
+            LocalDateTime toDate = getTaskDate(entryParts, toIndex);
+            return new Event(taskDescript.trim(), fromDate, toDate);
+        default:
+            //checked on Chat-GPT for error to throw in default block
+            throw new IllegalArgumentException("Unknown task type: " + taskType);
         }
     }
 }
