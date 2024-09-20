@@ -14,7 +14,7 @@ public class ExitCommand extends Command {
      *
      * @param tasks   The TaskList object containing all tasks (not used in this command).
      * @param ui      The Ui object responsible for user interactions.
-     * @param storage The Storage object responsible for saving and loading tasks (not used in this command).
+     * @param storage The Storage object responsible for saving and loading tasks.
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
