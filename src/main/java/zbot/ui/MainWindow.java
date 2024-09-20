@@ -26,7 +26,7 @@ public class MainWindow extends AnchorPane {
     private Ui ui = new Ui();
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/default-avatar.jpg"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/zbot-dp.jpg"));
+    private Image zbotImage = new Image(this.getClass().getResourceAsStream("/images/zbot-dp.jpg"));
 
     /**
      * Initializes the main window.
@@ -34,10 +34,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(ui.intro(), dukeImage));
+        dialogContainer.getChildren().add(DialogBox.getZBotDialog(ui.intro(), zbotImage));
     }
 
-    /** Injects the Duke instance */
+    /** Injects the ZBot instance */
     public void setZbot(ZBot zbot) {
         this.zbot = zbot;
     }
@@ -57,7 +57,7 @@ public class MainWindow extends AnchorPane {
         String response = zbot.executeInput(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage));
+                DialogBox.getZBotDialog(response, zbotImage));
         userInput.clear();
     }
 
@@ -67,6 +67,6 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void showIntroMsg() {
         String introMsg = ui.intro();
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(introMsg, dukeImage));
+        dialogContainer.getChildren().add(DialogBox.getZBotDialog(introMsg, zbotImage));
     }
 }
