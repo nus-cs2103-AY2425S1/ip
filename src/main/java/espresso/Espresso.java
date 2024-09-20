@@ -49,7 +49,7 @@ public class Espresso {
             } catch (IOException e) {
                 return ui.printError("An error occurred while saving the data file: " + e.getMessage());
             }
-            return "We shall meet again.";
+            return "It was nice talking to you!" + "\n" + "Until next time....";
         }
         try {
             return Parser.parse(input, taskList, ui);
