@@ -21,6 +21,7 @@ public class Parser {
     public static Command parse(String fullCommand) throws ConverSageException {
         String[] commandParts = fullCommand.split(" ", 2);
         String command = commandParts[0];
+        int commandLen = commandParts.length;
 
         switch (command.toLowerCase()) {
         case "list":
@@ -28,18 +29,39 @@ public class Parser {
         case "bye":
             return new ByeCommand();
         case "mark":
+            if (commandLen < 2) {
+                return new ErrorCommand("Please specify which task to mark as done!");
+            }
             return new MarkCommand(commandParts[1]);
         case "unmark":
+            if (commandLen < 2) {
+                return new ErrorCommand("Please specify which task to unmark!");
+            }
             return new UnmarkCommand(commandParts[1]);
         case "todo":
+            if (commandLen < 2) {
+                return new ErrorCommand("Please specify the description of the ToDo task!");
+            }
             return new AddCommand(new ToDo(commandParts[1]));
         case "deadline":
+            if (commandLen < 2) {
+                return new ErrorCommand("Please specify the description and deadline of the task!");
+            }
             return new AddCommand(Parser.parseDeadline(commandParts[1]));
         case "event":
+            if (commandLen < 2) {
+                return new ErrorCommand("Please specify the description and event time (from and to)!");
+            }
             return new AddCommand(Parser.parseEvent(commandParts[1]));
         case "delete":
+            if (commandLen < 2) {
+                return new ErrorCommand("Please specify which task to delete!");
+            }
             return new DeleteCommand(commandParts[1]);
         case "find":
+            if (commandLen < 2) {
+                return new ErrorCommand("Please specify the keyword to find tasks!");
+            }
             return new FindCommand(commandParts[1]);
         case "help":
             return new HelpCommand();
