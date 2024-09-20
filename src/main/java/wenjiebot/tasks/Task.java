@@ -1,6 +1,7 @@
 package wenjiebot.tasks;
 
 import wenjiebot.exceptions.InvalidSnoozeFormatException;
+import wenjiebot.exceptions.SnoozeOnTodoException;
 
 /**
  * The Task class represents a general task in the wenjiebot application.
@@ -22,7 +23,7 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    public abstract void setDateTime(String newDate) throws InvalidSnoozeFormatException;
+    public abstract void setDateTime(String newDate) throws InvalidSnoozeFormatException, SnoozeOnTodoException;
 
     /**
      * Returns the status icon of the task.

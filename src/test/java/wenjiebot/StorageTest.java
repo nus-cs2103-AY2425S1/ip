@@ -14,7 +14,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import wenjiebot.exceptions.NoFileException;
+import wenjiebot.exceptions.InvalidDateInputException;
 import wenjiebot.tasks.Deadline;
 import wenjiebot.tasks.Event;
 import wenjiebot.tasks.Task;
@@ -48,7 +48,7 @@ public class StorageTest {
     }
 
     @Test
-    public void testReadTasksFromFile() throws IOException, NoFileException {
+    public void testReadTasksFromFile() throws IOException, InvalidDateInputException {
         String fileContent = "T | 1 | read book\n"
                 + "D | 0 | submit assignment /by 2/12/2019 1800\n"
                 + "E | 1 | celebrate /from 2/12/2019 1800 /to 2/12/2019 2000\n";
@@ -70,7 +70,7 @@ public class StorageTest {
     }
 
     @Test
-    public void testWriteTasksToFile() throws IOException {
+    public void testWriteTasksToFile() throws InvalidDateInputException, IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         tasks.add(new ToDo("read book"));
         tasks.add(new Deadline("submit assignment ", "2/12/2019 1800"));
