@@ -1,7 +1,5 @@
 package bob.command;
 
-import java.util.Arrays;
-
 import bob.exception.InvalidTaskException;
 import bob.parser.Parser;
 import bob.storage.Storage;
@@ -16,7 +14,7 @@ import bob.ui.Ui;
 public class EventCommand extends Command {
 
     /**
-     * Constructor to initalise EventCommand
+     * Constructor to initialise EventCommand
      *
      * @param input
      */

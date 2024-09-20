@@ -11,7 +11,7 @@ import bob.ui.Ui;
 public class DeleteCommand extends Command {
 
     /**
-     * Constructor to initalise DeleteCommand
+     * Constructor to initialise DeleteCommand
      *
      * @param input
      */

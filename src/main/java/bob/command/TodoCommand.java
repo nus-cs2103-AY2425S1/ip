@@ -38,6 +38,13 @@ public class TodoCommand extends Command {
         }
     }
 
+    /**
+     * Returns a todo task.
+     *
+     * @param input Input command from user.
+     * @return todo task.
+     * @throws InvalidTaskException
+     */
     private static Task getTodoTask(String input) throws InvalidTaskException {
         String todoDescription = Parser.parseDescriptionFromInput(input);
         Task newTodoTask = new Todo(todoDescription);

@@ -16,7 +16,7 @@ import bob.ui.Ui;
 public class FindCommand extends Command {
 
     /**
-     * Constructor to initalise FindCommand
+     * Constructor to initialise FindCommand
      *
      * @param input
      */

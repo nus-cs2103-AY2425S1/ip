@@ -95,6 +95,9 @@ public class Task {
         }
     }
 
+    /**
+     * Returns the letter associated with the task.
+     */
     public String getTaskLetter() {
         return " ";
     }
