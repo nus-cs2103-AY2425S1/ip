@@ -49,7 +49,7 @@ public class EventCommand extends AddCommand {
                     "Sorry... I do not understand your input... >_< \n"
                             + "could you use this format instead? \n"
                             + "event <task> /from <start time> /to <end time> "
-                            + "(e.g. deadline Assignment 1 /by 9/4/2024 2359)");
+                            + "(e.g. event Beach Day /from 9/4/2024 0900 /to 9/4/2024 1700)");
         }
 
         String from = timeParts[0].trim();
