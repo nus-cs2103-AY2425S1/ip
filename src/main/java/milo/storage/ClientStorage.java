@@ -40,7 +40,7 @@ public class ClientStorage extends Storage<Client> {
 
     private Client formatterToClient(String client) {
         String[] clientDesc = client.split("\\|");
-        return new Client(clientDesc[0], clientDesc[1]);
+        return new Client(clientDesc[0].strip(), clientDesc[1].strip());
     }
 
     private String formatterToText(Client client) {

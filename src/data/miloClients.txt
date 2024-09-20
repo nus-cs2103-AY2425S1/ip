@@ -1,2 +1,2 @@
-bob  |  pain
-steve  |  pain
+bob|pain
+steve|pain

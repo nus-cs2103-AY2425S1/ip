@@ -11,10 +11,10 @@ public class Client {
 
     @Override
     public String toString() {
-        return this.name + ", condition: " + this.condition;
+        return this.name + " ( condition: " + this.condition + " )";
     }
 
     public String toTextString() {
-        return name + " | " + condition;
+        return name + "|" + condition;
     }
 }

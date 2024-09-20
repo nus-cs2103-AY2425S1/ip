@@ -7,7 +7,7 @@ public class ClientUi extends Ui{
 
     public String printAddClient(Client curClient, int numberOfClients) {
         StringBuilder response = new StringBuilder();
-        response.append("Got it. I've added this client:\n");
+        response.append("Oh got it! I've added this client:\n");
         response.append("  ").append(curClient).append("\n");
         if (numberOfClients == 1) {
             response.append("Now you have ").append(numberOfClients).append(" clients in your contacts.\n");
@@ -28,7 +28,7 @@ public class ClientUi extends Ui{
 
     public String printDeleteClient(Client curClient, int numberOfClients) {
         StringBuilder response = new StringBuilder();
-        response.append("Noted. I've removed this client:\n");
+        response.append("Okay~ I've removed this client:\n");
         response.append("  ").append(curClient).append("\n");
         if (numberOfClients == 1) {
             response.append("Now you have ").append(numberOfClients).append(" task in your contacts.\n");
