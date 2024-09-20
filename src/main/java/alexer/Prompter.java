@@ -9,12 +9,20 @@ import alexer.ui.Response;
  * @author sayomaki
  */
 public class Prompter {
+    /** Wordart logo of the chatbot **/
+    public static final String LOGO = """
+                     .     .                           
+                    /|     |     ___  _  .-   ___  .___
+                   /  \\    |   .'   `  \\,'  .'   ` /   \\
+                  /---'\\   |   |----'  /\\   |----' |   '
+                ,'      \\ /\\__ `.___, /  \\  `.___, /   """;
+
     /**
      * Builds the response containing logo of the chatbot
      * @return the response instance with the logo
      */
     public Response buildLogo() {
-        return new Response(Alexer.LOGO);
+        return new Response(LOGO);
     }
 
     /**

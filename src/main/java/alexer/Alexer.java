@@ -23,14 +23,6 @@ import java.util.stream.Collectors;
  * @author sayomaki
  */
 public class Alexer {
-    /** Wordart logo of the chatbot **/
-    public static final String LOGO = """
-                     .     .                           
-                    /|     |     ___  _  .-   ___  .___
-                   /  \\    |   .'   `  \\,'  .'   ` /   \\
-                  /---'\\   |   |----'  /\\   |----' |   '
-                ,'      \\ /\\__ `.___, /  \\  `.___, /   """;
-
     /** Name of the chatbot **/
     public static final String NAME = "Alexer";
 
