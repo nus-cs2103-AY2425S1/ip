@@ -1,5 +1,6 @@
 package chatsy;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -159,9 +160,9 @@ public class TaskManager {
     public void sortDeadlinesChronologically() {
         tasks.sort(Comparator.comparing(task -> {
             if (task instanceof DeadlineTask) {
-                return ((DeadlineTask) task).getBy(); // Sort by deadline
+                return ((DeadlineTask) task).getBy();
             }
-            return null;
+            return LocalDate.MAX;
         }));
     }
 
@@ -173,7 +174,7 @@ public class TaskManager {
             if (task instanceof DeadlineTask) {
                 return ((DeadlineTask) task).getBy();
             }
-            return null;
+            return LocalDate.MIN;
         }).reversed());
     }
 }

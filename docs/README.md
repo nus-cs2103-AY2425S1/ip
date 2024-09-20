@@ -4,6 +4,15 @@
 
 Chatsy is a personalised task management chatbot.
 
+
+## Quick start
+
+1. Ensure you have Java 11 or above installed in your computer
+2. Download the latest `chatsy.jar` [here](https://github.com/woke02/ip/releases/tag/A-Release)
+3. Copy the file to the folder you want to use as the home folder for the application
+4. Open a command terminal, `cd` to the folder you put the `jar` file in, then use `java -jar chatsy.jar` command to run the application. You should see the GUI of the application and a `data` folder being created in the application's folder
+5. Try interacting with the chat bot using the commands [below](#features)!
+
 ## Features
 
 - [create tasks](#create-tasks---todo-deadline-event)
