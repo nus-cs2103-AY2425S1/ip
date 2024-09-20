@@ -31,7 +31,6 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
-
 }
 
 test {
@@ -48,10 +47,8 @@ test {
     }
 }
 
-mainClassName = "nen.Main"
-
 application {
-    mainClass.set("nen.Main")
+    mainClass.set("nen.components.Launcher")
 }
 
 shadowJar {

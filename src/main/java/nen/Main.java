@@ -28,6 +28,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setNen2(nen2);
+            fxmlLoader.<MainWindow>getController().greet();
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

@@ -38,6 +38,14 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
+     * Greets the user
+     */
+    public void greet() {
+        dialogContainer.getChildren()
+                .add(DialogBox
+                        .getNen2Dialog("Hello! I'm Nen2 \nWhat can I do for you?", nen2Image, ""));
+    }
+    /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
