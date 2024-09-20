@@ -76,7 +76,7 @@ public class Storage {
      * @param taskData The data of the task.
      * @return The task parsed from the data.
      */
-    private Task parseDataToTask(String taskData) {
+    Task parseDataToTask(String taskData) {
         String[] splitData = taskData.split(" \\| ");
 
         String taskType = splitData[0];

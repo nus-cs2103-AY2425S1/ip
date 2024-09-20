@@ -13,7 +13,7 @@ import toothless.exceptions.ToothlessExceptions;
 public class Event extends Task {
 
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy[ ]HHmm");
-    private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+    private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
     protected LocalDateTime eventStart;
     protected LocalDateTime eventEnd;
 
@@ -90,7 +90,7 @@ public class Event extends Task {
     @Override
     public String toFileString() {
         return "E | " + (isDone ? "1" : "0") + " | " + description + " | "
-                + eventStart.format(INPUT_FORMATTER) + " | " + eventEnd.format(INPUT_FORMATTER);
+                + eventStart.format(OUTPUT_FORMATTER) + " | " + eventEnd.format(OUTPUT_FORMATTER);
     }
 
     @Override
