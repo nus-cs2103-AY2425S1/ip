@@ -1,4 +1,6 @@
 plugins {
+    id 'checkstyle'
+    id 'com.diffplug.spotless' version '6.11.0'
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
@@ -51,6 +53,20 @@ shadowJar {
     archiveBaseName = "elon"
     archiveClassifier = null
     archiveFileName = 'elon.jar'
+}
+
+checkstyle {
+    toolVersion = '10.2'
+}
+
+spotless {
+    java {
+        target 'src/**/*.java'
+
+        checkstyle {
+            configFile = file('config/checkstyle/checkstyle.xml')
+        }
+    }
 }
 
 mainClassName = 'elon.Launcher'
