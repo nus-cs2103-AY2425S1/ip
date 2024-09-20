@@ -30,6 +30,7 @@ public class Gale {
     public Gale() {
         this.ui = new Ui();
         this.storage = new Storage("src/main/java/gale/data/galeTasks.txt");
+        this.mainWindow = new MainWindow();
         try {
             this.taskList = new TaskList(storage.loadTasks());
         } catch (IOException e) {
@@ -49,6 +50,7 @@ public class Gale {
     public Gale(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
+        this.mainWindow = new MainWindow();
         try {
             this.taskList = new TaskList(storage.loadTasks());
         } catch (IOException e) {

@@ -151,8 +151,13 @@ public class Parser {
         if (command.equals("deadline") && !input.contains("/by")) {
             throw new GaleException(errorMsg);
         }
-        if (command.equals("event") && (!input.contains("/from") || !input.contains("/to"))) {
-            throw new GaleException(errorMsg);
+        if (command.equals("event")) {
+            if (!input.contains("/from") || !input.contains("/to")) {
+                throw new GaleException(errorMsg);
+            }
+            if (input.indexOf("/from") > input.indexOf("/to")) {
+                throw new GaleException(errorMsg);
+            }
         }
         String[] parts = input.substring(prefixLen).split(regex);
         boolean isInvalidCommand = parts.length != partsNum || parts[0].trim().isEmpty() || parts[1].trim().isEmpty();

@@ -2,3 +2,5 @@ D | 0 | submit my homework on canvas | high | 2024-09-20 23:59
 E | 1 | attend friend's birthday party | medium | 2024-09-23 18:00 | 2024-09-23 22:00
 T | 0 | go to the gym | none
 D | 0 | finish my homework | none | 2024-09-18 14:00
+T | 0 | go to the gym | none
+E | 0 | abced | none | 2024-09-20 19:00 | 2024-09-20 20:00
