@@ -22,6 +22,7 @@ import java.io.IOException;
      * @param filePath The file path where tasks are stored.
      */
     public Sammy(String filePath) {
+        assert filePath != null && !filePath.isEmpty() : "File path cannot be null or empty";
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -30,9 +31,13 @@ import java.io.IOException;
             ui.showErrorMessage("Error loading tasks from file");
             tasks = new TaskList();
         }
+        assert tasks != null : "TaskList must be initialized";
+        assert storage != null : "Storage must be initialized";
+        assert ui != null : "UI must be initialized";
     }
 
     public String getResponse(String input) {
+        assert input != null && !input.isEmpty() : "Input cannot be null or empty";
         try {
             String line = ui.showLine();
             Command command = Parser.parse(input);
@@ -52,6 +57,7 @@ import java.io.IOException;
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
+                assert fullCommand != null && !fullCommand.isEmpty() : "Command cannot be null or empty";
                 ui.showLine();
                 Command command = Parser.parse(fullCommand);
                 command.execute(tasks, ui, storage);
@@ -63,13 +69,6 @@ import java.io.IOException;
             }
         }
     }
-
-    /**
-     * The main method to launch the Sammy application.
-     *
-     * @param args Command-line arguments (not used).
-     */
-
 }
 
 

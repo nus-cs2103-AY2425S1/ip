@@ -20,7 +20,7 @@ public class Event extends Task {
         this.startTime = LocalDateTime.parse(startTime, inputFormat);
         this.endTime = LocalDateTime.parse(endTime, inputFormat);
 
-        sert this.endTime.isAfter(this.startTime) : "End time must be after start time";
+        assert this.endTime.isAfter(this.startTime) : "End time must be after start time";
     }
 
     @Override
