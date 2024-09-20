@@ -40,6 +40,11 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws SilverWolfException {
+        int taskLength = tasks.getSize();
+        if (index >= taskLength || index < 0) {
+            feedback = "Invalid task number";
+            return;
+        }
         Task task = tasks.getTasks().get(index); // Retrieve the task to be deleted based on the index.
         tasks.deleteTask(index); // Remove the task from the task list.
         storage.save(tasks.getTasks()); // Save the updated task list to storage.
