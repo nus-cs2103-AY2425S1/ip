@@ -26,7 +26,7 @@ To add an event, type `event {description} /from {datetime} /to {datetime}` or `
 - The format of the datetime should be `yyyy-mm-dd HHmm`. 
 
 ### 2. Deleting tasks
-To delete a task, type `delete {index}` or `d {index}`. For example `delete 1` deletes the first task.
+To delete a task, type `delete {index}` or `del {index}`. For example `delete 1` deletes the first task.
 
 ### 3. Listing tasks
 To list all tasks, type `list` or `l`. A list of all tasks will be shown
