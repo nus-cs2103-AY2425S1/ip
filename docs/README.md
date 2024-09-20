@@ -87,7 +87,7 @@ Format of input: `unmark [task ID]`
 * an out-of-bound error message will be prompted if the task ID is out of range
 * an error will be prompted from the chatbot if the task ID is not a number
 
-Example: `unmark 1`
+Example: `unmark 1`  
 <img src='unmark.png'>
 
 ### Add tag to a task 
@@ -99,7 +99,7 @@ Format of input: `tag [task ID] [task description]`
 * an error will be prompted from the chatbot if the task ID is not a number
 * an empty task description will do noting to the task  
 
-Example:  `tag 2 important event`
+Example:  `tag 2 important event`  
 <img src='tag.png'>
 
 ### Untag a task
@@ -124,7 +124,7 @@ Example: `find aerodynamics`
 
 ### Delete a task
 Delete a task from the list of tasks.  
-Format of input: `delete [task ID]`
+Format of input: `delete [task ID]`  
 * `delete` is case-sensitive
 * an out-of-bound error message will be prompted if the task ID is out of range
 * an error will be prompted from the chatbot if the task ID is not a number
