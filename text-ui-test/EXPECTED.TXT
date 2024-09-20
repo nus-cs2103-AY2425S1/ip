@@ -2,8 +2,7 @@
 Hello! I'm Duck
 What can I do for you?
 
-Got it. I've added this task:[T][ ] test1
-Now you have 3 tasks in the list.
+OK, I've marked this task as not done yet: [D][ ] return book (by: Oct 15 2024)
 
 Bye. Hope to see you again soon!
 
