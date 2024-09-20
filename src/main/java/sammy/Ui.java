@@ -17,7 +17,7 @@ public class Ui {
     public String showWelcomeMessage() {
         String welcomeMessage = line + "\n Hello! I'm sammy.ui.sammy.Sammy.\n" + "What can I do for you?\n" + line;
         System.out.println(line);
-        System.out.println(" Hello! I'm sammy.ui.sammy.Sammy.");
+        System.out.println(" Hello! I'm Sammy.");
         System.out.println(" What can I do for you?");
         System.out.println(line);
         return welcomeMessage;
@@ -47,6 +47,7 @@ public class Ui {
      * @param message The error message to be displayed.
      */
     public String showErrorMessage(String message) {
+        assert message != null && !message.isEmpty() : "Error message cannot be null or empty";
         String errorMessage = line + "\n OOPS!!! \n" + message;
         System.out.println(line);
         System.out.println(" OOPS!!! " + message);
@@ -60,6 +61,7 @@ public class Ui {
      * @param tasks The TaskList containing tasks to be displayed.
      */
     public String showTaskList(TaskList tasks) {
+        assert tasks != null : "TaskList cannot be null";
         StringBuilder taskList = new StringBuilder();
         taskList.append(line).append("\n");
         taskList.append(" Here are the tasks in your list:\n");
@@ -80,6 +82,8 @@ public class Ui {
      * @param size The current number of tasks in the list.
      */
     public String showAddTask(Task task, int size) {
+        assert task != null : "Task cannot be null";  // Ensuring the task is valid
+        assert size >= 0 : "Task size cannot be negative";  // Ensuring the task size is valid
         StringBuilder addTask = new StringBuilder();
         addTask.append(line).append("\n");
         addTask.append(" Got it. I've added this task:\n");
@@ -97,6 +101,8 @@ public class Ui {
      * @param size The current number of tasks in the list.
      */
     public String showRemoveTask(Task task, int size) {
+        assert task != null : "Task cannot be null";
+        assert size >= 0 : "Task size cannot be negative";
         StringBuilder removeTask = new StringBuilder();
         removeTask.append(line).append("\n");
         removeTask.append(" Noted. I've removed this task:\n");
@@ -108,6 +114,7 @@ public class Ui {
     }
 
     public String showMarkTask(Task task) {
+        assert task != null : "Task cannot be null";
         StringBuilder markTask = new StringBuilder();
         markTask.append(line).append("\n");
         markTask.append(" Nice! I've marked this task as done:\n");
@@ -118,6 +125,7 @@ public class Ui {
     }
 
     public String showUnmarkTask(Task task) {
+        assert task != null : "Task cannot be null";
         StringBuilder unmarkTask = new StringBuilder();
 
         unmarkTask.append(line).append("\n");
@@ -130,6 +138,7 @@ public class Ui {
 
 
     public String showFindResults(TaskList tasks) {
+        assert tasks != null : "TaskList cannot be null";
         StringBuilder findResult = new StringBuilder();
 
         findResult.append("Here are the matching tasks in your list:\n");

@@ -21,6 +21,7 @@ public class UnmarkCommand extends Command {
      * @param index The index of the task to be unmarked as not done.
      */
     public UnmarkCommand(int index) {
+        assert index >= 0 : "Index must be non-negative";
         this.index = index;
     }
 
@@ -36,6 +37,9 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws SammyException, IOException {
+        assert tasks != null: "Tasks cannot be null";
+        assert ui != null : "UI object cannot be null";
+        assert storage != null : "Storage object cannot be null";
         if (index < 0 || index >= tasks.size()) {
             throw new InvalidTaskNumberException();
         }

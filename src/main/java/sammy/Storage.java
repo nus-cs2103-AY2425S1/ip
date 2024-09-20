@@ -21,10 +21,27 @@ public class Storage {
     /**
      * Creates a Storage object to manage the file located at the specified file path.
      *
-     * @param filePath The file path where tasks are stored.
+     * @param fileName The file path where tasks are stored.
      */
-    public Storage(String filePath) {
-        this.filePath = filePath;
+    public Storage(String fileName) {
+        assert fileName != null && !fileName.isEmpty() : "File name cannot be null or empty";
+        this.filePath = System.getProperty("user.dir") + File.separator + fileName;
+        createFileIfNotExists();
+        assert filePath != null && !filePath.isEmpty() : "File path cannot be null or empty";
+    }
+
+    /**
+     * Creates a new file in the current working directory if it does not exist.
+     */
+    private void createFileIfNotExists() {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();  // Create the new file in the working directory
+            } catch (IOException e) {
+                System.out.println("Error creating file: " + e.getMessage());
+            }
+        }
     }
 
     /**
@@ -61,6 +78,7 @@ public class Storage {
      * @throws IOException If there is an error writing to the file.
      */
     public void save(TaskList tasks) throws IOException {
+        assert tasks != null : "TaskList cannot be null";
         BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
         for (Task task : tasks.getAllTasks()) {
             writer.write(Parser.taskToString(task));
