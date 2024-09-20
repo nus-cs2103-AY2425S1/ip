@@ -45,7 +45,7 @@ public class Parser {
 
         Command command;
 
-        switch (userCommand.toLowerCase()) {
+        switch (userCommand.toLowerCase().trim()) {
         case "list":
             command = new ListCommand(taskList, ui);
             return command;
