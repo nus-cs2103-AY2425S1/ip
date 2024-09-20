@@ -21,11 +21,12 @@ public class Storage {
 
     /**
      * Constructs a storage object that manages a file specified by the given file path.
+     * code reused but modified from Justin yeo, another student in this course
      *
+     * @author naythee169 - reused
      * @param filePath The path to the file where tasks will be stored and retrieved from.
      */
     public Storage(String filePath) {
-        // credit to Justin yeo another student in the course for this code
         this.file = new File(filePath);
         File parentDir = file.getParentFile();
 
