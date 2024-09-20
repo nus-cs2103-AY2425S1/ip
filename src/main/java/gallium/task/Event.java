@@ -126,7 +126,7 @@ public class Event extends Task {
         this.fromTime = outputTime.format(fromTime24);
         this.toTime = outputTime.format(toTime24);
         } else {
-            throw new GalliumException("From must be before to!! Please reenter your input!!");
+            throw new GalliumException("＼(｀0´)／ From must be before to!! Please reenter your input!!");
         }
     }
 
@@ -156,7 +156,7 @@ public class Event extends Task {
         this.fromTime = outputTime.format(fromTime24);
         this.from = from;
         } else {
-            throw new GalliumException("From must be before to!!");
+            throw new GalliumException("＼(｀0´)／ From must be before to!! Please reenter your input!!");
         }
     }
 
@@ -177,7 +177,7 @@ public class Event extends Task {
         this.toTime = outputTime.format(toTime24);
         this.to = to;
         } else {
-            throw new GalliumException("From must be before to!!");
+            throw new GalliumException("＼(｀0´)／ From must be before to!! Please reenter your input!!");
         }
     }
 

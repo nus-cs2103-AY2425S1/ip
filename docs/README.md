@@ -131,14 +131,17 @@ Example: `edit 1`
 
 - Todo tasks: User will be prompted to enter a new description.
 - Deadline tasks: The user will be prompted to enter the index represented by the field followed by the new details of the field.
-  1.  description
-  2.  date
+
+1. description
+2. date
+
 - Event tasks: The user will be prompted to enter the index represented by the field followed by the new details of the field.
-  1. description
-  2. from date
-  3. to date
-     Format: `<Index>. <New details>`
-     Example: `2. 2024-09-20 2359`
+
+1. description
+2. from date
+3. to date
+   Format: `<Index>. <New details>`
+   Example: `2. 2024-09-20 2359`
 
 ## Exiting: `bye`
 

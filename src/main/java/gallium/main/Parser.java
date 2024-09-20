@@ -60,7 +60,7 @@ public class Parser {
             case TODO:
             case DEADLINE:
             case EVENT:
-                throw new GalliumException("OOPS!!! The description of a " + message + " cannot be empty.");
+                throw new GalliumException("＼(｀0´)／ The description of a " + message + " cannot be empty.");
             default:
             return returnCommand(message);
             }
@@ -93,7 +93,7 @@ public class Parser {
         } else if (message.startsWith(EDIT)) {
             return new EditCommand(message);
         } else {
-            throw new GalliumException("OOPS!!! I'm sorry, but I don't know what that means :(");
+            throw new GalliumException("(✖﹏✖) I'm sorry, but I don't know what that means :(");
         }
     }
 

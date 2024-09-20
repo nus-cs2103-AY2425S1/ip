@@ -39,11 +39,11 @@ public class Ui {
     }
 
     public static String printHelloMessage() {
-        return "Hello! I am Gallium :). What can I do for you?";
+        return "Hello! I am Gallium ⸜(｡˃ ᵕ ˂ )⸝♡. \nWhat can I help you?";
     }
 
     public String printInputAgainMessage() {
-        this.append("\nWhat can I do for you?");
+        this.append("\nWhat can I help you?");
         return this.getOutput();
     }
 
@@ -72,13 +72,13 @@ public class Ui {
      * @param task   The Task that was marked or unmarked.
      */
     public void printMarkMessage(boolean isMark, Task task) {
-        append((isMark ? "Nice! I've marked this task as done: "
-                : "OK, I've marked this task as not done yet: ") + "\n" + "    "
+        append((isMark ? "Yayyyy! I've marked this task as done: "
+                : "Aw man, I've marked this task as not done yet: ") + "\n" + "    "
                 + task.toString());
     }
 
     public void printEditMessage(Task task) {
-        append("You have edited this task: " + task.toString());
+        append("Yippee! You have edited this task: " + task.toString());
     }
 
     public void printShowTask(Task task) {
@@ -105,7 +105,7 @@ public class Ui {
      * @param todo The Todo task that was added.
      */
     public void printAddTodo(Todo todo) {
-        append("Got it. I've added this todo: \n"
+        append("⸜(｡˃ ᵕ ˂ )⸝♡ I've added this todo: \n"
                 + todo.toString()
                 + "\nNow you have " + Task.count + " " + Task.taskCount() + " in the list."
                 + "\n");
@@ -117,7 +117,7 @@ public class Ui {
      * @param deadline The Deadline task that was added.
      */
     public void printAddDeadline(Deadline deadline) {
-        append("Got it. I've added this deadline: \n"
+        append("⸜(｡˃ ᵕ ˂ )⸝♡ I've added this deadline: \n"
                         + deadline.toString()
                         + "\nNow you have " + Task.count + " " + Task.taskCount() + " in the list."
                         + "\n");
@@ -129,7 +129,7 @@ public class Ui {
      * @param event The Event task that was added.
      */
     public void printAddEvent(Event event) {
-        append("Got it. I've added this event: \n"
+        append("⸜(｡˃ ᵕ ˂ )⸝♡ I've added this event: \n"
                 + event.toString()
                 + "\nNow you have " + Task.count + " " + Task.taskCount() + " in the list.\n");
     }
@@ -140,7 +140,7 @@ public class Ui {
      * @param task The Task that was deleted.
      */
     public void printDelete(Task task) {
-        append("Noted. I've removed this task:" + "\n"
+        append("Okieee! I've removed this task:" + "\n"
                 + task.toString());
         append("\nNow you have " + (Task.count - 1) + " " + Task.taskCountDelete()
                         + " in the list.\n");
@@ -171,7 +171,7 @@ public class Ui {
     }
 
     public void showCreateFileError(IOException e) {
-        append("Error creating file:" + e.getMessage());
+        append("Oh no! Error creating file:" + e.getMessage());
     }
 
     /**
@@ -194,14 +194,14 @@ public class Ui {
      * Prints a message to show that the deadline date is missing.
      */
     public void showIncompleteDeadline() {
-        append("Please put the date of the deadline!!");
+        append("＼(｀0´)／ Please put the date of the deadline!!");
     }
 
     /**
      * Prints a message to show that the event details are incomplete.
      */
     public void showIncompleteEvent() {
-        append("Please put the from and to of the event!!");
+        append("＼(｀0´)／ Please put the from and to of the event!!");
     }
 
     /**
@@ -210,7 +210,7 @@ public class Ui {
      * @param index The index that was out of range.
      */
     public void showWrongIndex() {
-        append("Please put a number between 1 and " + (Task.count - 1)
+        append("＼(｀0´)／ Please put a number between 1 and " + (Task.count - 1)
                 + "!" + "\nNow you have " + (Task.count - 1) + " " + Task.taskCountDelete()
                 + " in the list.");
     }
@@ -221,20 +221,20 @@ public class Ui {
      * @param e The IOException that was thrown.
      */
     public void showIOException(IOException e) {
-        append("Something went wrong: " + e.getMessage());
+        append("Oh no! Something went wrong: " + e.getMessage());
     }
 
     /**
      * Prints a message to show invalid date/time format.
      */
     public void showWrongDateTimeFormat() {
-        append("Invalid date/time format! Please put in YYYY-MM-DD and 24 hours (HHMM) format!");
+        append("＼(｀0´)／ Invalid date/time format! Please put in YYYY-MM-DD and 24 hours (HHMM) format!");
     }
 
     /**
      * Prints a bye message when the program exits.
      */
     public void printByeMessage() {
-        append("Bye. Hope to see you again soon!");
+        append("Thanks!!♪(･ω･)ﾉ Bye, hope to see you again soon!");
     }
 }
