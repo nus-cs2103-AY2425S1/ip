@@ -12,14 +12,18 @@
 1. Ensure you have Java `17` or above installed on your Computer.
 2. Download the latest `.jar` file from here.
 3. Copy the file to the folder you want to use as the home folder for your Milo bot.
-4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar milo.jar` command to run the application.A GUI similar to the below should appear in a few seconds.
-   ![image](https://github.com/user-attachments/assets/ee27ac5d-b282-4e00-a03e-c924a3edaae9)
-5. Type the command in the text box and press Enter to execute it
-     Some examples you can try.
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar milo.jar` command to run the application. A GUI similar to the below should appear in a few seconds.
+
+![image](https://github.com/user-attachments/assets/ee27ac5d-b282-4e00-a03e-c924a3edaae9)
+
+5. Type the command in the text box and press Enter to execute it.
+
+   Some examples you can try:
    - `list_task`: List all tasks.
    - `list_client`: List all clients.
    - `delete_task [index]`: Delete task at specified index.
    - `bye`: Exits the app.
+
 
 ---
 
