@@ -1,23 +1,27 @@
 package ponderpika;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import ponderpika.exception.DuplicateTaskException;
 import ponderpika.exception.InvalidPriorityException;
 import ponderpika.exception.InvalidTaskIndexException;
 import ponderpika.exception.NoMatchingTasksFoundException;
 import ponderpika.exception.TaskAlreadyMarkedException;
 import ponderpika.exception.TaskAlreadyUnmarkedException;
-
 import ponderpika.task.Deadline;
 import ponderpika.task.Task;
 import ponderpika.task.TaskList;
 import ponderpika.task.Todo;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TaskListTest {
     private TaskList taskList;
@@ -127,7 +131,7 @@ class TaskListTest {
         String result = taskList.printTasks();
         assertEquals("Task list is Empty!", result);
     }
-    
+
     @Test
     void printTasksNonEmptyList_returnsTaskList() throws DuplicateTaskException {
         taskList.addTask(task2);
