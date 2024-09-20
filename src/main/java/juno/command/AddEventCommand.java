@@ -55,7 +55,7 @@ public class AddEventCommand extends AddCommand {
         try {
             taskInfo = this.userInput.split(SPLIT_TASK_DELIMITER, 3)[2];
             String[] taskInfoArray = taskInfo.split(SPLIT_TASK_INFO_DELIMITER, 3);
-            taskDescription = taskInfoArray[0];
+            taskDescription = taskInfoArray[0].trim();
             // Check if the task already exists
             if (super.taskManager.isDuplicateTask(taskDescription)) {
                 throw new TaskManagerException(DUPLICATE_TASK_ERROR, TaskManagerException.ErrorType.DUPLICATE_TASK);

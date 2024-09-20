@@ -48,7 +48,7 @@ public class AddTodoCommand extends AddCommand {
         assert this.userInput != null : "User input in AddTodoCommand() cannot be null!";
         assert this.tasks != null : "Task array should not be null!";
         try {
-            taskInfo = this.userInput.split(SPLIT_TASK_DELIMITER, 3)[2];
+            taskInfo = this.userInput.split(SPLIT_TASK_DELIMITER, 3)[2].trim();
         } catch (ArrayIndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
             throw new TaskManagerException(INVALID_ADD_TASK_ERROR,
                     TaskManagerException.ErrorType.INVALID_ADD_TASK_NUMBER);
