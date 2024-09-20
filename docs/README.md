@@ -5,7 +5,7 @@
 Bob is a task tracker. 
 
 It can manage different kinds of task, such as todos, 
-deadlines or examples.
+deadlines or events.
 
 Built with Java and Gradle.
 
