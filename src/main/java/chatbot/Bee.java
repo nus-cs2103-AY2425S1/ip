@@ -55,27 +55,23 @@ public class Bee {
         try {
             if (input.matches("bye.*")) {
                 return userLeavesResponse();
-            } else if (input.equalsIgnoreCase("list")) {
+            } else if (input.matches("list.*")) {
                 return listAllTasks();
-
             } else if (input.matches("mark (.+)")) {
                 Matcher matcher = Parser.getMatcher(input, "mark (\\d+)");
                 if (matcher.matches()) {
                     return markTaskAsDoneResponse(matcher);
                 }
-
             } else if (input.matches("unmark (.+)")) {
                 Matcher matcher = Parser.getMatcher(input, "unmark (\\d+)");
                 if (matcher.matches()) {
                     return markTaskAsIncompleteResponse(matcher);
                 }
-
             } else if (input.matches("delete (.+)")) {
                 Matcher matcher = Parser.getMatcher(input, "delete (\\d+)");
                 if (matcher.matches()) {
                     return deleteTaskResponse(matcher);
                 }
-
             } else if (input.matches("todo (.*)")) {
                 Matcher matcher = Parser.getMatcher(input, "todo (\\S.*)");
                 if (matcher.matches()) {
@@ -83,7 +79,6 @@ public class Bee {
                 } else {
                     throw new InvalidInputException("name", "task");
                 }
-
             } else if (input.matches("deadline (.*)")) {
                 Matcher matcher = Parser.getMatcher(input, "deadline (\\S.*) /by (\\S.*)");
                 if (matcher.matches()) {
@@ -91,29 +86,24 @@ public class Bee {
                 } else {
                     throw new InvalidInputException("name, and due date", "deadline");
                 }
-
             } else if (input.matches("event (.*)")) {
                 Matcher matcher = Parser.getMatcher(input, "event (\\S.*) /from (\\S.*) /to (\\S.*)");
                 if (matcher.matches()) {
                     return addEventResponse(matcher);
                 }
-
             } else if (input.matches("find (.*)")) {
                 Matcher matcher = Parser.getMatcher(input, "find (\\S.*)");
                 if (matcher.matches()) {
                     return findTaskResponse(matcher);
                 }
-
-            } else if (input.matches("help")) {
+            } else if (input.matches("help.*")) {
                 return Ui.HELP;
             } else {
                 // Throws exception when nothing, whitespaces, or no name is provided
                 throw new BeeException("Say something helpful.");
             }
-
         } catch (BeeException e) {
             return e.getMessage();
-
         } catch (DateTimeParseException e) {
             // Guides user on date time input formats
             return "Format your time in: "

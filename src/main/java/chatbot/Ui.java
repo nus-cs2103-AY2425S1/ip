@@ -43,7 +43,7 @@ public class Ui {
              Format your time in:
                  yyyy-MM-dd HHmm (24Hr)
                      or yyyy-MM-dd hh:mm am (12Hr).
-                 You can replace - with \\ as well;
+                 You can replace - with / as well;
             """;
 
     /**
