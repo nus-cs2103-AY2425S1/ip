@@ -1,5 +1,6 @@
 package jbot.command;
 
+import javafx.application.Platform;
 import jbot.JBot;
 
 /**
@@ -31,6 +32,11 @@ public class ByeCommand implements JBotCommand {
      */
     @Override
     public String run(String input) {
-        return "Bye. Hope to see you again soon!";
+        String farewellMessage = "Bye. Hope to see you again soon!";
+
+        // Exit the JavaFX application gracefully
+        Platform.exit();
+
+        return farewellMessage;
     }
 }

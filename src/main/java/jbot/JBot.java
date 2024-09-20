@@ -38,10 +38,10 @@ public class JBot {
     public String getResponse(String userInput) {
         try {
             JBotCommand command = Parser.parse(userInput);
+            Storage.updateData();
             return command.run(userInput);
         } catch (Exception e) {
-            e.printStackTrace();
-            return "An error occurred while processing your command.";
+            return e.getMessage();
         }
     }
 }

@@ -1,24 +1,236 @@
-# Duke project template
+# JBot User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Welcome to **JBot**, your personal task management chatbot. This guide will help you get started and understand how to use JBot effectively.
 
-## Setting up in Intellij
+## Table of Contents
+- [Introduction](#introduction)
+- [Getting Started](#getting-started)
+   - [Running the Application](#running-the-application)
+   - [User Interface Overview](#user-interface-overview)
+- [Commands](#commands)
+   - [1. `list`](#1-list)
+   - [2. `todo`](#2-todo)
+   - [3. `event`](#3-event)
+   - [4. `deadline`](#4-deadline)
+   - [5. `mark`](#5-mark)
+   - [6. `unmark`](#6-unmark)
+   - [7. `delete`](#7-delete)
+   - [8. `find`](#8-find)
+   - [9. `bye`](#9-bye)
+   - [10. `help`](#10-help)
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+---
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
+## Introduction
+
+JBot is a task management chatbot designed to help you organize your tasks efficiently. You can create to-do lists, set deadlines, mark tasks as done, and much more using simple commands.
+
+---
+
+## Getting Started
+
+### Running the Application
+
+1. **Launch the Application**: To start the JBot application, run the `JBot.jar` file, which will start the JavaFX interface.
+   ```bash
+   java -jar JBot.jar
    ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+
+2. **Graphical Interface**: Once the application starts, a graphical user interface (GUI) will appear where you can type your commands.
+
+### User Interface Overview
+
+- **Input Box**: Enter your commands here.
+- **Output Area**: JBot will display responses and task updates in this section.
+- **Task List**: View all your tasks in a scrollable list.
+
+---
+
+## Commands
+
+Here are the main commands you can use to interact with JBot.
+
+### 1. `list`
+Displays all tasks currently in the list.
+
+```bash
+list
+```
+
+- **Example**:
+  ```
+  1. [T][ ] Buy groceries
+  2. [D][X] Submit assignment (by: Sep 21 2024)
+  3. [E][ ] Team meeting (from: 2pm to 4pm)
+  ```
+
+### 2. `todo`
+Adds a new to-do task to the list.
+
+```bash
+todo <task description>
+```
+
+- **Example**:
+  ```bash
+  todo Buy groceries
+  ```
+
+   - Output:
+     ```
+     Added: [T][ ] Buy groceries
+     ```
+
+### 3. `event`
+Adds a new event task to the list with a specified start and end time.
+
+```bash
+event <event description> /from <start time> /to <end time>
+```
+
+- **Example**:
+  ```bash
+  event Team meeting /from 2pm /to 4pm
+  ```
+
+   - Output:
+     ```
+     Added: [E][ ] Team meeting (from: 2pm to 4pm)
+     ```
+
+### 4. `deadline`
+Adds a new task with a deadline.
+
+```bash
+deadline <task description> /by <deadline>
+```
+
+- **Example**:
+  ```bash
+  deadline Submit assignment /by 2024-09-21
+  ```
+
+   - Output:
+     ```
+     Added: [D][ ] Submit assignment (by: Sep 21 2024)
+     ```
+
+### 5. `mark`
+Marks a specific task as completed. The task index is based on the current list.
+
+```bash
+mark <task index>
+```
+
+- **Example**:
+  ```bash
+  mark 2
+  ```
+
+   - Output:
+     ```
+     Nice! I've marked this task as done:
+     [D][X] Submit assignment (by: Sep 21 2024)
+     ```
+
+### 6. `unmark`
+Unmarks a completed task.
+
+```bash
+unmark <task index>
+```
+
+- **Example**:
+  ```bash
+  unmark 2
+  ```
+
+   - Output:
+     ```
+     OK, I've marked this task as not done yet:
+     [D][ ] Submit assignment (by: Sep 21 2024)
+     ```
+
+### 7. `delete`
+Deletes a task from the list.
+
+```bash
+delete <task index>
+```
+
+- **Example**:
+  ```bash
+  delete 1
+  ```
+
+   - Output:
+     ```
+     Noted. I've removed this task:
+     [T][ ] Buy groceries
+     ```
+
+### 8. `find`
+Finds tasks that match a keyword.
+
+```bash
+find <keyword>
+```
+
+- **Example**:
+  ```bash
+  find assignment
+  ```
+
+   - Output:
+     ```
+     1. [D][X] Submit assignment (by: Sep 21 2024)
+     ```
+
+### 9. `bye`
+Exits the application.
+
+```bash
+bye
+```
+
+- **Example**:
+  ```bash
+  bye
+  ```
+
+   - Output:
+     ```
+     Bye. Hope to see you again soon!
+     ```
+
+  The application will close after displaying this message.
+
+### 10. `help`
+Displays a help message with available commands and usage instructions.
+
+```bash
+help
+```
+
+- **Output**:
+    ```
+    Here are the available commands:
+    - list: Display all tasks.
+    - todo <task>: Add a to-do task.
+    - event <task> /from <time> /to <time>: Add an event.
+    - deadline <task> /by <deadline>: Add a task with a deadline.
+    - mark <index>: Mark a task as completed.
+    - unmark <index>: Unmark a task.
+    - delete <index>: Delete a task.
+    - find <keyword>: Find tasks by keyword.
+    - bye: Exit the application.
+    ```
+
+---
+
+## Additional Information
+
+- JBot stores tasks in a JSON file (`JBotStorage.json`) in the `data` directory.
+- All tasks and their statuses will be saved automatically and loaded the next time you run the application.
+
+Feel free to reach out for any questions or feedback!
