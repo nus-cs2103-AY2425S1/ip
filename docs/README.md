@@ -62,6 +62,8 @@ If you are using the `.jar` to run the program please skip to the __quick start_
 
 >Do note that the images to display expected outcomes uses sample data
 
+> Also for all commands it is __NOT__ case-sensitve and space sensitive so `aDd` will be processed as `add` and `deLete     ` will be processed as `delete`
+
 ## Listing Tasks - `list`
 Displays a list of all tasks that is being kept track of by Quack.
 
@@ -89,7 +91,7 @@ __Example__:
 - < Quack will prompt you the task description >
 - `Complete assignment`
 
-> For deadline and event tasks, Quack will prompt you for some date input in ths following format: DD/MM/YYYY HH:MM:SS
+> For deadline and event tasks, Quack will prompt you for some date input in this following format: DD/MM/YYYY HH:MM:SS
 
 __Sample Output:__
 <br/>
@@ -102,6 +104,8 @@ Ask Quack to find all tasks that matches the description or contains a substring
 Format
 - `find`
 - `<Task description>`
+
+> Note that the task description is not case-sensitive but it is space sensitive since it checks for the substring in the task description
 
 __Example:__
 - `find`
@@ -153,6 +157,8 @@ Format
 - `tag` or `untag`
 - `<Task index as shown in the list>`
 - `<Tag label>`
+
+> When taggung a task there is no need to include the # as Quack will automatically add the # for you
 
 __Example:__
 - `tag`
