@@ -54,7 +54,7 @@ checkstyle {
 shadowJar {
     archiveBaseName = "avo"
     archiveClassifier = null
-    archiveVersion = "v0.3"
+    archiveVersion = "v0.4"
 }
 
 run{
