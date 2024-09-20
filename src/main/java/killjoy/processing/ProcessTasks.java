@@ -52,7 +52,7 @@ public class ProcessTasks {
             break;
         }
         case DEADLINE: {
-            String invalidCommandFormat = checkDateTimeIsNullError(input);
+            String invalidCommandFormat = checkDateTimeIsNullError(input, Task.TaskType.DEADLINE);
             if (invalidCommandFormat != null) {
                 return invalidCommandFormat;
             }
@@ -60,7 +60,7 @@ public class ProcessTasks {
             break;
         }
         case EVENT: {
-            String invalidCommandFormat = checkDateTimeIsNullError(input);
+            String invalidCommandFormat = checkDateTimeIsNullError(input, Task.TaskType.EVENT);
             if (invalidCommandFormat != null) {
                 return invalidCommandFormat;
             }
@@ -115,23 +115,27 @@ public class ProcessTasks {
      * @param input The user input.
      * @return error message
      */
-    private String checkDateTimeIsNullError(String input) {
-        String date1 = Parser.getFromTimeString(input);
-        LocalDateTime dateTime = Parser.parseStringToLocalDateTime(date1);
-        if (dateTime == null) {
-            return UserInterface.displayInvalidCommandFormatMessage();
-        }
-        String[] inputSplitBySlash = input.split("/");
-        if (inputSplitBySlash.length >= EVENT_INPUT_MIN_LENGTH) {
-            String date2 = Parser.getToTimeString(input);
-            LocalDateTime dateTime2 = Parser.parseStringToLocalDateTime(date2);
+    private String checkDateTimeIsNullError(String input, Task.TaskType taskType) {
+        if (taskType == Task.TaskType.DEADLINE) {
+            String by = Parser.getByTimeString(input);
+            LocalDateTime dateTime = Parser.parseStringToLocalDateTime(by);
+            if (dateTime == null) {
+                return UserInterface.displayInvalidCommandFormatMessageForDate();
+            }
+        } else if (taskType == Task.TaskType.EVENT) {
+            String from = Parser.getFromTimeString(input);
+            LocalDateTime dateTime = Parser.parseStringToLocalDateTime(from);
+            if (dateTime == null) {
+                return UserInterface.displayInvalidCommandFormatMessageForDate();
+            }
+            String to = Parser.getToTimeString(input);
+            LocalDateTime dateTime2 = Parser.parseStringToLocalDateTime(to);
             if (dateTime2 == null) {
-                return UserInterface.displayInvalidCommandFormatMessage();
+                return UserInterface.displayInvalidCommandFormatMessageForDate();
             }
         }
         return null;
     }
-
     /**
      * Marks or deletes a task.
      *
