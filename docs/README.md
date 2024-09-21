@@ -1,9 +1,9 @@
-# bellroy User Guide
+# Bellroy User Guide
 
 ![Example of bellroy in use](Ui.png)
 
 Having trouble managing your deadlines? Fret not, as bellroy is your new companion.
-bellroy will be your new to-do list, helping you keep track of deadlines!
+Bellroy will be your new to-do list, helping you keep track of deadlines!
 It's Clean, Simple, and ~~Lightweight~~ Featherweight
 
 ## Features
