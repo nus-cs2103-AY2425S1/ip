@@ -12,6 +12,7 @@ import java.util.Scanner;
 
 /**
  * Manages storage operations for task data, including loading from and saving to files.
+ * Abolished version for chatbot without ui
  */
 public class Storage {
 
