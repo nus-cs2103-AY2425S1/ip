@@ -13,16 +13,26 @@ public class HelpCommand extends Command {
 
     @Override
     public Response run(String... arguments) {
-        return new Response("Alexer, a chat bot to improve your life by managing your tasks.\n" +
-                "Here are commands for Alexer:\n\n" +
-                "\ttodo <description> - Creates a new To-Do task with a description\n" +
-                "\tevent <description> /from <when> /to <when> - Adds an event with starting and ending time\n" +
-                "\tdeadline <description> /by <date-time> - Add a new deadline task with deadline given\n" +
-                "\tmark <index> - Marks a task as completed/done\n" +
-                "\tlist - Shows all your tasks and numbered by their index\n" +
-                "\tfind <keyword> - Searches for a task with description that contains the given keyword\n" +
-                "\tdelete <index> - Removes the task at the given index from your task list\n" +
-                "\nExample usage (do try them out!):\n\n" +
-                "\ttodo do maths homework\nlist\nfind homework\nmark 1\ndelete 1\n");
+        return new Response("""
+                Alexer, a chat bot to improve your life by managing your tasks.
+
+                Here are commands for Alexer:
+
+                \ttodo <description> - Creates a new To-Do task with a description
+                \tevent <description> /from <when> /to <when> - Adds an event with starting and ending time
+                \tdeadline <description> /by <date-time> - Add a new deadline task with deadline given
+                \tmark <index> - Marks a task as completed/done
+                \tlist - Shows all your tasks and numbered by their index
+                \tfind <keyword> - Searches for a task with description that contains the given keyword
+                \tdelete <index> - Removes the task at the given index from your task list
+
+                Example usage (do try them out!):
+
+                \ttodo do maths homework
+                \tlist
+                \tfind homework
+                \tmark 1
+                \tdelete 1
+        """);
     }
 }
