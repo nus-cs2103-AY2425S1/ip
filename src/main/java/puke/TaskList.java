@@ -139,6 +139,15 @@ public class TaskList {
     }
 
     /**
+     * Returns the list of tasks.
+     *
+     * @return an ArrayList of Task objects.
+     */
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
+    /**
      * Finds and returns a list of all tasks containing the specified keyword in their description.
      *
      * @param keyword the keyword to search for in the task descriptions

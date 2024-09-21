@@ -13,4 +13,12 @@ public class EmptyDescriptionException extends PukeException {
     public EmptyDescriptionException(String taskType) {
         super("OOPS!!! The description of a " + taskType + " cannot be empty.");
     }
+
+    /**
+     * Constructs an EmptyDescriptionException without a specific task type,
+     * useful for contexts where task type is not directly relevant.
+     */
+    public EmptyDescriptionException() {
+        super("OOPS!!! The task description cannot be empty.");
+    }
 }

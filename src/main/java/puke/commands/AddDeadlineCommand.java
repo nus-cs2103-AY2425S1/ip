@@ -6,7 +6,7 @@ import java.time.format.DateTimeParseException;
 
 import puke.TaskList;
 import puke.exceptions.EmptyDescriptionException;
-import puke.exceptions.MissingTimeException;
+import puke.exceptions.MissingDeadlineTimeException;
 import puke.exceptions.WrongDateTimeFormatException;
 import puke.message.MessageBuilder;
 
@@ -24,17 +24,17 @@ public class AddDeadlineCommand extends Command {
      *
      * @param args the string containing the task description followed by '/by' and the deadline time.
      * @throws EmptyDescriptionException    if the task description is empty.
-     * @throws MissingTimeException         if the deadline time is missing or empty.
+     * @throws MissingDeadlineTimeException         if the deadline time is missing or empty.
      * @throws WrongDateTimeFormatException if the deadline time does not match the required format.
      */
-    public AddDeadlineCommand(String args) throws EmptyDescriptionException, MissingTimeException,
+    public AddDeadlineCommand(String args) throws EmptyDescriptionException, MissingDeadlineTimeException,
             WrongDateTimeFormatException {
         if (args.isEmpty()) {
             throw new EmptyDescriptionException("deadline");
         }
         String[] parts = args.split(" /by ");
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
-            throw new MissingTimeException();
+            throw new MissingDeadlineTimeException();
         }
         this.description = parts[0].trim();
         this.by = parts[1].trim();
