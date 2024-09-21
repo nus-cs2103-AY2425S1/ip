@@ -105,7 +105,7 @@ HERE ARE THE CURRENT TASKS:
 1. [D][] borrow book (by: 12 Sep 2020)
 ```
 
-## Find Tasks: 'find'
+## Find Tasks: `find`
 Finds task(s) with matching description names. 
 
 Format: `find DESCRIPTION`
@@ -128,7 +128,7 @@ Miao!!!! I found the tasks in my cat brain! They are:
 Calculates the statistics of tasks in the list.
 Format: `statistics`
 
-xample: `statistics`
+Example: `statistics`
 
 Given the list is:
 ```angular2html
@@ -161,3 +161,17 @@ Total number of Marked tasks: 2
 Total number of Unmarked tasks: 1
 % of Marked Tasks: 66
 ```
+
+## Exiting the program: `bye`
+Exists the program
+
+Format: `exit`
+
+## Saving the data
+Tira chatbot saves automatically your tasks in a txt file called tira.txt. 
+There is no need to save manually. The directory is ./data of the directory your jar file is in.
+
+## Editing the data file
+Tira chatbot will edit your txt file with the updated list automatically after you exit the application.
+Please refrain from editing the tira.txt file directly as it may lead to formatting issues.
+
