@@ -1,11 +1,13 @@
 package ava.files;
 
 import ava.task.Task;
-import jdk.jshell.spi.ExecutionControl;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +19,9 @@ public class FileManager {
     //TODO: optimize serialization
     private String path;
     private File file;
+    private BufferedReader reader;
+    private BufferedWriter writer;
+    private List<Task> taskList;
 
     /**
      * Default path used to store tasks
@@ -36,8 +41,9 @@ public class FileManager {
     }
 
     /**
-     * Create a new FileManager with given path
+     * Creates a new FileManager with given path
      *
+     * <br>
      * if no file exists at the given path one is created
      * @param path Path to the file
      */
@@ -45,53 +51,83 @@ public class FileManager {
         assert path != null;
         this.path = path;
         this.file = new File(path);
+
         try {
             boolean isDirCreated = file.getParentFile().mkdirs();
             if(isDirCreated){
                 //TODO: log info
                 System.out.println("new dir created");
             }
-            boolean fileExists = file.createNewFile();
-            if(!fileExists){
-                //TODO: log error
-//                System.out.println("new file created");
+            boolean doesFileExist = file.createNewFile();
+            if(!doesFileExist){
+                // TODO: log error
+                // System.out.println("new file created");
             }
-
 
         } catch (IOException | SecurityException e){
             //TODO: use error system
             System.out.println("Invalid path");
         }
+
+        try {
+            reader = new BufferedReader(new FileReader(file));
+        } catch (FileNotFoundException e) {
+           System.out.println("File corrupted or not found.");
+        }
+
+        try {
+            writer = new BufferedWriter(new FileWriter(file));
+        } catch (IOException e) {
+            System.out.println("File corrupted or not found.");
+        }
+
+        // default Task handler
+        taskList = new TaskList();
     }
 
+    /**
+     * Reads tasks from file
+     *
+     * <br>
+     * Reads tasks from file, parse them and
+     * returns a list
+     * <br>
+     * used for initial loading of tasks
+     * @return List of tasks
+     */
     public List<Task> getTasks() {
         // TODO: implement reading from file
-
-        // move file reader to an instance variable
-        // usebufferedReader
         try {
-            FileReader reader = new FileReader(file);
-            reader.read();
-        } catch(FileNotFoundException e){
-            //TODO: log error
-            System.out.println("File not found");
+            String line = reader.readLine();
+            while(line != null) {
+                /*
+                 * read
+                 * parse for type
+                 * create task
+                 * add task to taskList
+                 */
+
+                line = reader.readLine();
+            }
+
         } catch (IOException e) {
             //TODO: deal with this
             // throw new Ill(e);
         }
-        return new ArrayList<Task>(){
-            @Override
-            public String toString() {
-                StringBuilder out = new StringBuilder();
-                for(int i = 1; i <=size();i++){
-                    out.append(i);
-                    out.append(". ");
-                    out.append(get(i - 1));
-                    out.append("\n");
-                }
-                return out.toString();
-            }
-        };
+
+        return taskList;
+    }
+
+    /**
+     * Writes tasks to file
+     *
+     * <br>
+     * Writes tasks to file,
+     * used to save tasks after each update
+     * @param tasks List of tasks to write
+     */
+    public void writeTasks(List<Task> tasks){
+
     }
 
     public static void main(String[] args) {

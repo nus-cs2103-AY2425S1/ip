@@ -11,10 +11,15 @@ public class TaskManager {
 
     private final List<Task> tasks;
     private final FileManager fileManager;
+
+    /**
+     * Creates a new TaskManager
+     */
     public TaskManager() {
         this.fileManager = new FileManager();
         this.tasks = fileManager.getTasks();
     }
+
 
     public List<Task> getTasks() {
         // in the future return a view of the list

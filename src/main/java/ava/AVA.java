@@ -8,8 +8,6 @@ import ava.task.TaskManager;
 import java.io.PrintStream;
 import java.util.List;
 
-import static ava.commands.Parser.*;
-
 public class AVA {
 
     /**
