@@ -41,11 +41,13 @@ Lists all tasks.
 ```
 todo <description>
 ```
+Create a todo with string description.
 
 ### Create a deadline
 ```
 deadline/ddl <description> /by <yyyy-mm-dd[ hh:mm]>
 ```
+Create a deadline with description and due date (time is option).
 #### Example
 ```
 ddl hw1 /by 2024-10-02
@@ -55,6 +57,7 @@ ddl hw1 /by 2024-10-02
 ```
 event/eve <description> /from <yyyy-mm-dd[ hh:mm]> /to <yyyy-mm-dd[ hh:mm]>
 ```
+Create an event with description and duration (time is optional).
 #### Example
 ```
 event CCA /from 2024-10-02 18:00 /to 2024-10-02 20:00
@@ -67,11 +70,12 @@ mark/m <index>
 ```
 unmark/um <index>
 ```
-
+Mark or unmark a task with its index on the list (start with 1).
 ### Delete a task
 ```
 delete/del <index>
 ```
+Delete a task with its index on the list (start with 1).
 
 ### Find tasks
 ```
@@ -81,8 +85,8 @@ find <keyword>
 on <yyyy-mm-dd>
 ```
 
-Find tasks with keyword\
-List tasks on date
+Find tasks matching with keyword.\
+List all tasks on a specific date.
 
 ### Exit the program
 ```
