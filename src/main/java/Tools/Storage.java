@@ -10,13 +10,27 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
+/**
+ * Manages storage operations for task data, including loading from and saving to files.
+ */
 public class Storage {
+
     private String filePath;
 
+    /**
+     * Constructs a NewStorage object configured to operate on the specified file path.
+     *
+     * @param filePath The path of the file used for storage.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the specified file into a NewTaskList.
+     *
+     * @throws FileNotFoundException If the specified file does not exist.
+     */
     public TaskList load() throws FileNotFoundException {
         TaskList tasks = new TaskList();
         File file = new File(filePath);
@@ -73,6 +87,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves all tasks from a task list to the specified file.
+     *
+     * @param tasks The task list containing tasks to be saved.
+     */
     public void saveTasks(TaskList tasks) {
         File file = new File(filePath);
 
