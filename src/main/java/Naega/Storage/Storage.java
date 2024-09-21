@@ -103,4 +103,10 @@ public class Storage {
             System.out.println("Error writing to file: " + e.getMessage());
         }
     }
+
+    public boolean fileExists() {
+        File file = new File(filePath);
+        System.out.println("Checking if file exists: " + file.getAbsolutePath());  // Debugging
+        return file.exists();
+    }
 }

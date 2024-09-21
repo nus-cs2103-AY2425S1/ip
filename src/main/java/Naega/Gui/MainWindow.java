@@ -22,10 +22,9 @@ public class MainWindow extends AnchorPane {
     @FXML
     private TextField userInput;
 
-
     private Naega naega;
     private final TaskList taskList = new TaskList();
-    private final Ui ui = new Ui(); // Add instance of Ui class
+    private final Ui ui = new Ui();  // Add instance of Ui class
 
     private final Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/IMG_6086.jpg")));
     private final Image naegaImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/IMG_6087.jpg")));
@@ -33,22 +32,33 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+    }
+
+    public void setNaega(Naega naega) {
+        this.naega = naega;
+
+        // Perform actions that depend on naega here, after it's initialized
+        if (naega.isFirstRun()) {
+            String helpMessage = naega.getHelpMessage();
+            DialogBox helpDialog = DialogBox.getNaegaDialog(helpMessage, naegaImage);
+            dialogContainer.getChildren().add(helpDialog);
+        }
 
         // Display the welcome message
         String welcomeMessage = ui.showWelcome();
         DialogBox welcomeDialog = DialogBox.getNaegaDialog(welcomeMessage, naegaImage);
         dialogContainer.getChildren().add(welcomeDialog);
 
-        // Try to load tasks, and show a loading error if it fails
+        String instructions = getInstructions();
+        DialogBox instructionDialog = DialogBox.getNaegaDialog(instructions, naegaImage);
+        dialogContainer.getChildren().add(instructionDialog);
+
         try {
-            ArrayList<Task> tasks = taskList.getTasks();// Assuming there's a method like this to load tasks
+            ArrayList<Task> tasks = taskList.getTasks();  // Assuming there's a method like this to load tasks
         } catch (Exception e) {
             showLoadingErrorInGui();  // Display loading error if something goes wrong
         }
-    }
 
-    public void setNaega(Naega naega) {
-        this.naega = naega;
     }
 
     /**
@@ -68,7 +78,6 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
-
     /**
      * Displays a loading error message in the GUI using the Ui class.
      */
@@ -76,5 +85,19 @@ public class MainWindow extends AnchorPane {
         String loadingError = ui.showLoadingError();
         DialogBox loadingErrorDialog = DialogBox.getNaegaDialog(loadingError, naegaImage);
         dialogContainer.getChildren().add(loadingErrorDialog);
+    }
+
+    private String getInstructions() {
+        return """
+                Instructions:
+                - todo [task]: Adds a todo task.
+                - deadline [task] /by yyyy-MM-dd HHmm: Adds a task with a deadline.
+                - event [task] /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm: Adds an event with a start and end time.
+                - list: Displays all tasks.
+                - mark [task number]: Marks a task as done.
+                - unmark [task number]: Marks a task as not done.
+                - delete [task number]: Deletes a task.
+                - bye: Exits the app.
+                """;
     }
 }

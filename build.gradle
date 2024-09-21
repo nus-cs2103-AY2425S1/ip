@@ -40,7 +40,7 @@ test {
 
 application {
     // Ensure this points to your main class
-    mainClass.set("Naega.GUI.Main")  // Adjust if you are using packages, e.g., "Naega.Main"
+    mainClass.set("Naega.Gui.Main")  // Adjust if you are using packages, e.g., "Naega.Main"
 }
 
 shadowJar {

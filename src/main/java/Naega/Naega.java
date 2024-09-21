@@ -3,10 +3,13 @@ package Naega;
 import Naega.Command.Command;
 import Naega.Parser.Parser;
 import Naega.Storage.Storage;
-import Naega.Task.TaskList;
+import Naega.Task.*;
 import Naega.Ui.Ui;
 
+import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * The main class for the Naega application.
@@ -17,6 +20,7 @@ public class Naega {
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
+    private boolean firstRun;
 
     /**
      * Creates a new Naega instance with the specified file path.
@@ -29,13 +33,60 @@ public class Naega {
         ui = new Ui();
         assert filePath != null && !filePath.isEmpty() : "File path must not be null or empty";
         storage = new Storage(filePath);
-        try {
-            tasks = new TaskList(storage.load());
-            assert tasks != null : "Tasks list should not be null after loading";
-        } catch (NaegaException e) {
-            ui.showLoadingError();
+
+        // First-run logic: If no saved file is found, it's the first run
+        firstRun = !storage.fileExists();
+        if (firstRun) {
             tasks = new TaskList();
+            loadSampleData();
+            storage.save(tasks.getTasks());
+            firstRun = true;  // Mark this as the first run
+        } else {
+            try {
+                tasks = new TaskList(storage.load());
+                assert tasks != null : "Tasks list should not be null after loading";
+                firstRun = false;
+            } catch (NaegaException e) {
+                ui.showLoadingError();
+                tasks = new TaskList();
+            }
         }
+    }
+
+    /**
+     * Checks if this is the first time the app is being run.
+     *
+     * @return true if it's the first run, false otherwise
+     */
+    public boolean isFirstRun() {
+        return firstRun;
+    }
+
+    /**
+     * Returns the help message that is displayed on the first run.
+     * Includes sample data and instructions.
+     *
+     * @return a help message containing sample tasks and usage instructions
+     */
+    public String getHelpMessage() {
+        return "Sample Data Loaded:\n"
+                + "- todo: Finish reading the help guide\n"
+                + "- deadline: Submit assignment by 2024-09-25 2359\n"
+                + "- event: Meet with mentor from 2024-09-30 1400 to 2024-09-30 1500\n";
+    }
+
+    /**
+     * Loads sample tasks for the first run.
+     */
+    public void loadSampleData() {
+        tasks.addTask(new Todo("Sample Todo"));
+        tasks.addTask(new Deadline("Sample Deadline", LocalDateTime.parse("2024-09-25T23:59", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"))));
+        tasks.addTask(new Event("Sample Event", LocalDateTime.parse("2024-09-25T10:00", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm")),
+                LocalDateTime.parse("2024-09-25T12:00", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"))));
+
+        // Save the tasks to storage after loading the sample data
+        System.out.println("Saving sample data...");
+        storage.save(tasks.getTasks());
     }
 
     /**
