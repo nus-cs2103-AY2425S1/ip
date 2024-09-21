@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import enums.StatusMessage;
@@ -35,22 +36,29 @@ public class Storage {
         Scanner s = new Scanner(f);
         while (s.hasNextLine()) {
             String data = s.nextLine();
-            taskList.addTask(fromData(data));
+            Task task = fromData(data);
+            if (task != null) {
+                taskList.addTask(task);
+            }
         }
         return new Response(StatusMessage.FILE_LOAD_SUCCESS.getMessage(), false);
     }
 
     private Task fromData(String data) {
-        String[] args = data.split(" \\| ");
-        return switch (args[0]) {
-        case "T" -> new Todo(args[1], Boolean.parseBoolean(args[2]));
-        case "D" -> new Deadline(args[1], Boolean.parseBoolean(args[2]), LocalDate.parse(args[3]));
-        case "E" -> new Event(args[1],
-                Boolean.parseBoolean(args[2]),
-                LocalDate.parse(args[3]),
-                LocalDate.parse(args[4]));
-        default -> null;
-        };
+        try {
+            String[] args = data.split(" \\| ");
+            return switch (args[0]) {
+            case "T" -> new Todo(args[1], Boolean.parseBoolean(args[2]));
+            case "D" -> new Deadline(args[1], Boolean.parseBoolean(args[2]), LocalDate.parse(args[3]));
+            case "E" -> new Event(args[1],
+                    Boolean.parseBoolean(args[2]),
+                    LocalDate.parse(args[3]),
+                    LocalDate.parse(args[4]));
+            default -> null;
+            };
+        } catch (ArrayIndexOutOfBoundsException | DateTimeParseException e) {
+            return null;
+        }
     }
 
     /**
