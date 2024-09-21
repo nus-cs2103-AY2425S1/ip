@@ -157,16 +157,12 @@ public class TaskList {
                 .map(fileRecord -> fileRecord.split("\\s*\\|\\s*"))
                 .flatMap(tokens -> {
                     try {
-                        switch (tokens[0]) {
-                        case "T":
-                            return Stream.of(new ToDo(tokens[2], tokens[1].equals("1")));
-                        case "D":
-                            return Stream.of(new Deadline(tokens[2], tokens[1].equals("1"), tokens[3]));
-                        case "E":
-                            return Stream.of(new Event(tokens[2], tokens[1].equals("1"), tokens[3], tokens[4]));
-                        default:
-                            return Stream.of();
-                        }
+                        return switch (tokens[0]) {
+                        case "T" -> Stream.of(new ToDo(tokens[2], tokens[1].equals("1")));
+                        case "D" -> Stream.of(new Deadline(tokens[2], tokens[1].equals("1"), tokens[3]));
+                        case "E" -> Stream.of(new Event(tokens[2], tokens[1].equals("1"), tokens[3], tokens[4]));
+                        default -> Stream.of();
+                        };
                     } catch (IndexOutOfBoundsException e) {
                         return Stream.of();
                     }

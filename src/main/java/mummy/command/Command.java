@@ -21,7 +21,7 @@ public abstract class Command {
      */
     public enum CommandType {
         BYE, LIST, MARK, UNMARK, ADD, DELETE, FIND,
-        UNDO, UNKNOWN
+        UNDO, REDO, UNKNOWN
     }
 
     /**
@@ -43,30 +43,20 @@ public abstract class Command {
     public static Command of(String fullCommand) throws MummyException {
         HashMap<String, String> arguments = Parser.parse(fullCommand);
 
-        switch (arguments.getOrDefault("command", "")) {
-        case "bye":
-            return new ByeCommand(arguments);
-        case "list":
-            return new ListCommand(arguments);
-        case "mark":
-            return new MarkCommand(arguments);
-        case "unmark":
-            return new UnmarkCommand(arguments);
-        case "todo":
-            return new ToDoCommand(arguments);
-        case "deadline":
-            return new DeadlineCommand(arguments);
-        case "event":
-            return new EventCommand(arguments);
-        case "delete":
-            return new DeleteCommand(arguments);
-        case "find":
-            return new FindCommand(arguments);
-        case "undo":
-            return new UndoCommand(arguments);
-        default:
-            throw new MummyException("I'm sorry, but I don't know what that means :-(");
-        }
+        return switch (arguments.getOrDefault("command", "")) {
+        case "bye" -> new ByeCommand(arguments);
+        case "list" -> new ListCommand(arguments);
+        case "mark" -> new MarkCommand(arguments);
+        case "unmark" -> new UnmarkCommand(arguments);
+        case "todo" -> new ToDoCommand(arguments);
+        case "deadline" -> new DeadlineCommand(arguments);
+        case "event" -> new EventCommand(arguments);
+        case "delete" -> new DeleteCommand(arguments);
+        case "find" -> new FindCommand(arguments);
+        case "undo" -> new UndoCommand(arguments);
+        case "redo" -> new RedoCommand(arguments);
+        default -> throw new MummyException("I'm sorry, but I don't know what that means :-(");
+        };
     }
 
     /**
@@ -162,6 +152,34 @@ public abstract class Command {
         @Override
         public String undo(TaskList taskList, Storage storage) throws MummyException {
             throw new MummyException("Undo command cannot be undone.\n"
+                    + "Undo is an irreversible action."
+            );
+        }
+    }
+
+    private static final class RedoCommand extends Command {
+        public RedoCommand(HashMap<String, String> arguments) {
+            super(arguments);
+        }
+
+        @Override
+        public String execute(TaskList taskList, Storage storage) {
+            return "Command redone.";
+        }
+
+        @Override
+        public boolean isExit() {
+            return false;
+        }
+
+        @Override
+        public CommandType getCommandType() {
+            return CommandType.REDO;
+        }
+
+        @Override
+        public String undo(TaskList taskList, Storage storage) throws MummyException {
+            throw new MummyException("Redo command cannot be undone.\n"
                     + "Undo is an irreversible action."
             );
         }
