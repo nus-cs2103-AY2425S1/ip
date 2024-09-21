@@ -22,20 +22,9 @@ import java.util.Scanner;
  */
 public class Elysia {
 
-    private InputOutputHandler handler = new InputOutputHandler();
+    private final InputOutputHandler handler = new InputOutputHandler();
 
-    /**
-     * The main method that starts the elysia.ui.Elysia application.
-     * Displays an initial greeting, processes user commands, and handles the application shutdown.
-     *
-     */
-    public void start() {
 
-        Message.print("Hi~! I'm elysia.ui.Elysia! As you can see, I'm a girl as beautiful as a flower!\n" +
-                "How can I help you today? I'm all ears!");
-
-        Message.print("Aww, going already? Don't miss me too much, ok?");
-    }
 
     public String getResponse(String input) {
         String response;

@@ -6,6 +6,8 @@ import elysia.storage.FileReaderWriter;
 import elysia.tasks.TaskList;
 import elysia.ui.Message;
 
+import java.util.Objects;
+
 public class UnmarkCommand extends Command {
     String[] args;
 
@@ -30,6 +32,7 @@ public class UnmarkCommand extends Command {
             taskList.unmarkTask(taskNumber);
             output.append("Making a pretty girl undo her work is not good for her health! \n");
             output.append(taskList.printTask(taskNumber));
+            assert(!Objects.equals(taskList.getSizeAsString(), "0"));
         } catch (IndexOutOfBoundsException e) {
             output.append("Uh oh, this task number does not exist...");
         } catch (NullPointerException e) {

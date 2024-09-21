@@ -6,6 +6,8 @@ import elysia.storage.FileReaderWriter;
 import elysia.tasks.TaskList;
 import elysia.ui.Message;
 
+import java.util.Objects;
+
 public class MarkCommand extends Command {
     String[] args;
 
@@ -30,6 +32,7 @@ public class MarkCommand extends Command {
             taskList.markTask(taskNumber);
             output.append("Amazing! You've completed this task! \n");
             output.append(taskList.printTask(taskNumber));
+            assert(!Objects.equals(taskList.getSizeAsString(), "0"));
         } catch (IndexOutOfBoundsException e) {
             output.append("Uh oh, this task number does not exist...");
         } catch (NullPointerException e) {
