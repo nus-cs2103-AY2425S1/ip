@@ -1,30 +1,158 @@
-# components.Light User Guide
+# Light User Guide
 
-// Update the title above to match the actual product name
+![Product screenshot](../docs/Ui.png)
 
-// Product screenshot goes here
 
-// Product intro goes here
+Light is a Deathnote-themed task management application that helps users keep track of their tasks, deadlines, and events. It supports adding, listing, marking, unmarking, deleting tasks, and undoing/redoing actions.
 
-## Adding deadlines
+## Getting Started
 
-// Describe the action and its outcome.
+### Prerequisites
+- Java 11 or above
+- Gradle
 
-// Give examples of usage
+### Running the Application
+1. Clone the repository.
+2. Navigate to the project directory.
+3. Run the application using Gradle:
+   ```
+   gradle run
+   ```
+## Features
 
-Example: `keyword (optional arguments)`
+### Adding deadlines
+Adds a Deadline task to the task list.
 
-// A description of the expected outcome goes here
+**Usage:** deadline TASK_DESCRIPTION /by DATE TIME
+
+**Example**: `deadline return book /by 3/12/2022 0200`
 
 ```
-expected output
+1. [D][ ] return book (by: Dec 3 2022 0200)
 ```
 
-## Feature ABC
+### Adding events
+Adds an Event task to the task list.
 
-// Feature details
+**Usage:** event TASK_DESCRIPTION /from DATE TIME /to DATE TIME
 
+**Example**: `event project meeting /from 3/12/2022 0200 /to 4/12/2022 1200`
 
-## Feature XYZ
+```
+1. [E][ ] project meeting (from: Dec 3 2022 0200 to: Dec 4 2022 1200)
+```
 
-// Feature details
+### Adding todos
+Adds a Todo task to the task list.
+
+**Usage:** todo TASK_DESCRIPTION
+
+**Example**: `todo read book`
+
+```
+1. [T][ ] read book
+```
+
+### Listing tasks
+Lists all tasks in the task list.
+
+**Usage:** list
+
+**Example**: `list`
+
+```
+1. [D][ ] return book (by: Dec 3 2022 0200)
+2. [E][ ] project meeting (from: Dec 3 2022 0200 to: Dec 4 2022 1200)
+3. [T][ ] read book
+```
+
+### Marking tasks as done
+Marks a task as done.
+
+**Usage:** mark TASK_INDEX
+
+**Example**: `mark 1`
+
+```
+1. [D][X] return book (by: Dec 3 2022 0200)
+```
+
+### Unmarking tasks
+Unmarks a task as done.
+
+**Usage:** unmark TASK_INDEX
+
+**Example**: `unmark 1`
+
+```
+1. [D][ ] return book (by: Dec 3 2022 0200)
+```
+
+### Deleting tasks
+Deletes a task from the task list.
+
+**Usage:** delete TASK_INDEX
+
+**Example**: `delete 1`
+
+```
+1. [E][ ] project meeting (from: Dec 3 2022 0200 to: Dec 4 2022 1200)
+2. [T][ ] read book
+```
+to
+```
+1. [T][ ] read book
+```
+
+### Undoing actions
+Undoes the last action.
+
+**Usage:** undo
+
+**Example**: `undo` (after doing `todo read book`)
+
+```
+1. [D][ ] return book (by: Dec 3 2022 0200)
+2. [E][ ] project meeting (from: Dec 3 2022 0200 to: Dec 4 2022 1200)
+3. [T][ ] read book
+```
+to
+```
+1. [D][ ] return book (by: Dec 3 2022 0200)
+2. [E][ ] project meeting (from: Dec 3 2022 0200 to: Dec 4 2022 1200)
+```
+
+### Redoing actions
+Redoes the last undone action.
+
+**Usage:** redo after doing `undo`
+
+**Example**: `redo`
+
+```
+1. [D][ ] return book (by: Dec 3 2022 0200)
+2. [E][ ] project meeting (from: Dec 3 2022 0200 to: Dec 4 2022 1200)
+```
+to
+```
+1. [D][ ] return book (by: Dec 3 2022 0200)
+2. [E][ ] project meeting (from: Dec 3 2022 0200 to: Dec 4 2022 1200)
+3. [T][ ] read book
+```
+
+### Exiting the application
+Exits the application.
+
+**Usage:** bye
+
+**Example**: `bye`
+
+```
+Bye. Hope to see you again soon!
+```
+
+## Acknowledgements
+Images used:
+1. [Light_Yagami](https://en.wikipedia.org/wiki/File:Light_from_Death_Note.jpg)
+2. [Ryuk](https://static.wikia.nocookie.net/all-worlds-alliance/images/b/b1/D87d814ca13eaa34c11af49e09dd6a28--death-note-cosplay-shinigami.png/revision/latest?cb=20190130121440)
+3. [Background](https://www.freepik.com/free-photo/white-crinkled-paper-texture-background_13461872.htm#query=paper%20texture&position=2&from_view=keyword&track=ais_hybrid&uuid=3b33941a-3d2c-4820-b104-1c36398c3d09)
