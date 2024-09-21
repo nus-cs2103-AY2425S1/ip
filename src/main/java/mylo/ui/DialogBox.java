@@ -2,6 +2,7 @@ package mylo.ui;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
@@ -51,6 +53,9 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
+
+        Circle clip = new Circle(25, 25, 25);
+        displayPicture.setClip(clip);
         displayPicture.setImage(img);
     }
 
@@ -61,7 +66,30 @@ public class DialogBox extends HBox {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
-        setAlignment(Pos.TOP_LEFT);
+        setAlignment(Pos.BOTTOM_LEFT);
+
+        // Find Label and change background colour
+        List<Node> list = this.getChildren().stream().filter((Node node) -> node.getId().equals("dialog")).toList();
+        assert list.get(0) instanceof Label : "Flip() found the wrong child";
+        Label label = (Label) list.get(0);
+        label.setStyle("-fx-background-color: gainsboro; -fx-background-radius: 10; -fx-label-padding: 8;");
+    }
+
+    /**
+     * Flips the dialog box such that the ImageView is on the left and text on the right.
+     * This is different from regular flip to highlight error message, particularly by setting the background red.
+     */
+    private void errorFlip() {
+        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
+        Collections.reverse(tmp);
+        getChildren().setAll(tmp);
+        setAlignment(Pos.BOTTOM_LEFT);
+
+        // Find Label and change background colour
+        List<Node> list = this.getChildren().stream().filter((Node node) -> node.getId().equals("dialog")).toList();
+        assert list.get(0) instanceof Label : "errorFlip() found the wrong child";
+        Label label = (Label) list.get(0);
+        label.setStyle("-fx-background-color: palevioletred; -fx-background-radius: 10; -fx-label-padding: 8;");
     }
 
     /**
@@ -89,9 +117,15 @@ public class DialogBox extends HBox {
      * @param img The system's display image.
      * @return A flipped DialogBox displaying the system's text and image.
      */
-    public static DialogBox getMyloDialog(String text, Image img) {
+    public static DialogBox getMyloDialog(String text, Image img, boolean isError) {
         var db = new DialogBox(text, img);
-        db.flip();
+
+        if (isError) {
+            db.errorFlip();
+        } else {
+            db.flip();
+        }
+
         return db;
     }
 }

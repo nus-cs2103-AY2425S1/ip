@@ -29,6 +29,8 @@ public class Gui extends Application implements Ui {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             Mylo.main();
+            stage.setMinHeight(417);
+            stage.setMinWidth(417);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

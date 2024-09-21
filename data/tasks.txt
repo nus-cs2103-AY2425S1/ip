@@ -1,4 +1,7 @@
 TODO | True | Run Debugger
-EVENT | False | Event | 13-08-2024 0800 | 15-08-2024 0800
-DEADLINE | False | Todo | 19-09-2024 1700
-EVENT | False | Event | 13-08-2024 0900 | 15-08-2024 0800
+EVENT | True | Event | 13-08-2024 0900 | 15-08-2024 0800
+TODO | True | Run
+TODO | False | 1
+TODO | False | 2
+TODO | False | 3
+TODO | False | 4
