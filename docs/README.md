@@ -15,7 +15,7 @@ format:
 ### todo
 Adding a todo task to the tasklist, priority can be specified, but it's optional. Priority should be an integer.
 
-format:
+format: 
 > todo DESCRIPTION p PRIORITY
 
 > todo DESCRIPTION
@@ -23,7 +23,7 @@ format:
 ### deadline
 Adding a deadline task to the tasklist with a specified date in the form of yyyy-mm-dd, priority can be specified, but it's optional. Priority should be an integer.
 
-format:
+format: 
 > deadline DESCRIPTION by yyyy-mm-dd p PRIORITY
 
 > deadline DESCRIPTION by yyyy-mm-dd
@@ -31,7 +31,7 @@ format:
 ### event
 Adding a event task to the tasklist with a starting time and an ending time, priority can be specified, but it's optional. Priority should be an integer.
 
-format:
+format: 
 > event DESCRIPTION from STARTING_TIME to ENDING_TIME p PRIORITY
 
 > event DESCRIPTION from STARTING_TIME to ENDING_TIME
