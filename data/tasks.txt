@@ -1,6 +1,5 @@
 T | 0 | read story
 D | 1 | CS2103S iP | 2023-09-18
-D | 1 | Submit assignment | 2023-09-12
 E | 0 | Attend workshop | 2024-09-17 | 2024-09-18
 D | 1 | presentation | 2024-09-25
 T | 0 | math tutorial sheet
