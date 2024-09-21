@@ -5,10 +5,18 @@ import java.time.LocalDate;
 public class Parser {
 
     public LocalDate parseDate(String date) {
+        assert date != null && !date.isEmpty() : "Date string cannot be null or empty.";
         return LocalDate.parse(date);
     }
 
     public String parseInput(String input, TaskList taskList, Storage storage, Ui ui) {
+        
+        // Assert that the important objects passed are not null
+        assert input != null : "Input cannot be null.";
+        assert taskList != null : "TaskList cannot be null.";
+        assert storage != null : "Storage cannot be null.";
+        assert ui != null : "Ui cannot be null.";
+
         Task task = null;
         ui.printWelcome();
         if (input.equals("bye")) {

@@ -74,6 +74,8 @@ public class TaskList {
     }
 
     public ArrayList<Task> findTasks(String keyword) {
+
+        assert keyword != null : "Keyword string cannot be null.";
         ArrayList<Task> foundTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (task.getDescription().contains(keyword)) {
