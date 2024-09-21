@@ -19,7 +19,10 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setchatgptMoreOOP(chatgptMoreOOP);  // inject the Duke instance
+            stage.setMinHeight(220);
+            stage.setMinWidth(417);
+            // stage.setMaxWidth(417); // Add this if you didn't automatically resize elements
+            fxmlLoader.<MainWindow>getController().setchatgptMoreOOP(chatgptMoreOOP);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

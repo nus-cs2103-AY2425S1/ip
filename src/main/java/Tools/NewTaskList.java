@@ -9,6 +9,7 @@ import Tasks.Todo;
 
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 
 public class NewTaskList {
     private ArrayList<Task> tasks;
@@ -61,7 +62,7 @@ public class NewTaskList {
                 task.update(descriptionPart, priority);
                 return "Description updated to " + descriptionPart + " and priority updated to " + priority;
             } catch (Exception e) {
-                return "Error parsing description or priority";
+                return "Description update failed";
             }
         } else if (hasDescription) {
             String description = updates.substring(updates.indexOf("d") + 1).trim();
@@ -115,18 +116,22 @@ public class NewTaskList {
 
         String description = "";
 
+        Todo task;
+
         if (input.contains(" p ")) {
             String[] splits = input.split(" p ");
             description = splits[0].substring(5).trim();
             String priority = splits[1];
-            tasks.add(new Todo(description, priority));
+            task = new Todo(description, priority);
+            tasks.add(this.tasks.size(), task);
         } else {
             description = input.substring(5).trim();
-            tasks.add(new Todo(description));
+            task = new Todo(description);
+            tasks.add(task);
         }
         return "Got it. I've added this task:\n  " +
-                new Todo(description) + "\nNow you have " +
-                tasks.size() + " tasks in the list" + tasks.size() + ".";
+                task + "\nNow you have " +
+                tasks.size() + " tasks in the list" + ".";
 
     }
 
@@ -180,15 +185,17 @@ public class NewTaskList {
         }
         String start = parts[1].trim();
         String end = parts[2].trim();
-
+        Event event;
         if (parts.length > 3) {
             String priority = parts[3].trim();
-            tasks.add(new Event(description, start, end, priority));
+            event = new Event(description, start, end, priority);
+            tasks.add(event);
         } else {
-            tasks.add(new Event(description, start, end));
+            event = new Event(description, start, end);
+            tasks.add(event);
         }
         return "Got it. I've added this task:\n"
-                + "  " + new Event(description, start, end) + "\n"
+                + "  " + event + "\n"
                 + "Now you have " + tasks.size() + " tasks in the list.";
     }
 
@@ -210,6 +217,10 @@ public class NewTaskList {
         }
 
         return "findTask function from NewTaskList";
+    }
+
+    public int size() {
+        return tasks.size();
     }
 
 

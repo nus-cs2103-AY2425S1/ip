@@ -20,6 +20,7 @@ public class NewParser {
         try {
             if (input.equals("bye")) {
                 storage.saveTasks(tasks);
+                
                 return "Bye. Hope to see you again soon!";
             } else if (input.startsWith("delete")) {
                 int size = tasks.size();
