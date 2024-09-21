@@ -27,6 +27,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Killua Chatbot");
             fxmlLoader.<MainWindow>getController().setKillua(killua);
             fxmlLoader.<MainWindow>getController().setStage(stage);
             stage.show();
