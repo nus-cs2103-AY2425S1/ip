@@ -177,3 +177,6 @@ For example:
 The `<task number>` for `study CS2101` should be 2. 
 
 ---
+
+## Sample output of the application
+![Screenshot of the Bruno app in action](Ui.png)
