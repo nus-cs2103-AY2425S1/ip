@@ -1,5 +1,7 @@
 package echochat;
 
+import exceptions.IndexOutOfBoundsError;
+
 public class ChatBot {
     private Ui ui;
     private Parser parser;
@@ -48,10 +50,16 @@ public class ChatBot {
             case LIST:
                 return ui.showTaskList(taskList.getTaskList());
             case MARK:
+                if (command.getIndex() - 1 < 0 || command.getIndex() - 1 >= taskList.getLength()) {
+                    throw new IndexOutOfBoundsError();
+                }
                 Task taskToMark = taskList.getTaskList().get(command.getIndex() - 1);
                 taskToMark.markDone();
                 return ui.showTaskMarked(taskToMark);
             case UNMARK:
+                if (command.getIndex() - 1 < 0 || command.getIndex() - 1 >= taskList.getLength()) {
+                    throw new IndexOutOfBoundsError();
+                }
                 Task taskToUnmark = taskList.getTaskList().get(command.getIndex() - 1);
                 taskToUnmark.markUndone();
                 return ui.showTaskUnmarked(taskToUnmark);

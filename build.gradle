@@ -5,6 +5,7 @@ plugins {
 }
 
 
+mainClassName = 'echochat.Launcher'
 
 repositories {
     mavenCentral()

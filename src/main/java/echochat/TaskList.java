@@ -62,4 +62,13 @@ public class TaskList {
             throw new IndexOutOfBoundsError();
         }
     }
+
+    /**
+     * Returns length of taskList.
+     *
+     * @return length of taskList.
+     */
+    public int getLength() {
+        return taskList.size();
+    }
 }
