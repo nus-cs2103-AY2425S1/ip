@@ -8,7 +8,7 @@ Welcome to Friday, your personal task management assistant! This chatbot helps y
 
 ## Adding To-Do Tasks
 
-The todo command allows you to add a to-do task to the task list. A to-do task is a simple task that does not have any specific deadline or event time.
+The `todo` command allows you to add a to-do task to the task list. A to-do task is a simple task that does not have any specific deadline or event time.
 
 Format: `todo DESCRIPTION`
 
@@ -24,7 +24,7 @@ Now you have N tasks in the list.
 
 ## Adding Deadlines
 
-The deadline command allows you to add a task with a specific deadline to the task list. You must provide a task description and a date for deadline. This will create a task that is marked with a deadline.
+The `deadline` command allows you to add a task with a specific deadline to the task list. You must provide a task description and a date for deadline. This will create a task that is marked with a deadline.
 
 Format: `deadline DESCRIPTION /by DATE`
 
@@ -40,7 +40,7 @@ Now you have N tasks in the list.
 
 ## Adding Events
 
-The event command allows you to add a task for a scheduled event to the task list. You must provide a task description and specify the start and end times of the event. This will create a task that is marked with a specific date and times.
+The `event` command allows you to add a task for a scheduled event to the task list. You must provide a task description and specify the start and end times of the event. This will create a task that is marked with a specific date and times.
 
 Format: `event DESCRIPTION /from START_TIME /to END_TIME`
 
