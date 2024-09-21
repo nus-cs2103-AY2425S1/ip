@@ -33,6 +33,8 @@ public class Parser {
         switch (tokens.get(0)) {
         case "bye":
             // Fallthrough
+        case "archive":
+            // Fallthrough
         case "list":
             // Do nothing
             break;
