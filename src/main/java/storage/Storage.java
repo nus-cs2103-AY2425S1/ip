@@ -23,14 +23,14 @@ import tasks.Task;
 import tasks.Todo;
 
 /**
- * Handles the storage of Task history
+ * Handles the storage of Task history.
  */
 public class Storage {
 
     private final String HIST_FILE;
 
     /**
-     * Initializes Storage class with no specified storage file, creates a data directory and storage file command1
+     * Initializes Storage class with no specified storage file, creates a data directory and storage file.
      */
     public Storage() {
 
@@ -39,16 +39,18 @@ public class Storage {
     }
 
     /**
-     * Initializes with path to txt file containing commands
-     * @param filePath path to a file with command inputs
+     * Initializes with path to txt file containing commands.
+     *
+     * @param filePath path to a file with command inputs.
      */
     public Storage(String filePath) {
         this.HIST_FILE = filePath;
     }
 
     /**
-     * Saves the input arraylist
-     * @param userList contains ArrayList of task
+     * Saves the input ArrayList of tasks to the history file.
+     *
+     * @param userList contains ArrayList of tasks.
      */
     public void saveHistory(ArrayList<Task> userList) {
 
@@ -81,10 +83,12 @@ public class Storage {
         }
     }
 
+
     /**
-     * Gets the string representation of a task
-     * @param currentTask
-     * @return String representation of task
+     * Gets the string representation of a task.
+     *
+     * @param currentTask the task to be converted to a string.
+     * @return String representation of the task.
      */
     private static String getStoredString(Task currentTask) {
         String taskStr = String.format("%s | %s | %s", currentTask.getTaskSymbol(),
@@ -93,12 +97,12 @@ public class Storage {
     }
 
     /**
-     * Loads the history of tasks from the file with path specified in HIST_FILE
+     * Loads the history of tasks from the file with path specified in HIST_FILE.
      *
-     * @param parser Parser object used to parse input
-     * @param loadedTasks ArrayList to store tasks
-     * @param loadedTags TagList object to store tags
-     * @throws FileNotFoundException Exception thrown if the file is not found at the specified path
+     * @param parser Parser object used to parse input.
+     * @param loadedTasks ArrayList to store tasks.
+     * @param loadedTags TagList object to store tags.
+     * @throws FileNotFoundException Exception thrown if the file is not found at the specified path.
      */
     public void load(Parser parser, ArrayList<Task> loadedTasks, TagList loadedTags) throws FileNotFoundException {
         File f = new File(this.HIST_FILE);
@@ -121,10 +125,11 @@ public class Storage {
     /**
      * Parses the task from the input string [Symbol] |   | [Text] ...
      *
-     * @param parser
-     * @param nextLine
-     * @param loadedTasks
-     * @throws ChatterboxExceptions.ChatterBoxNoInput
+     * @param parser Parser object used to parse input.
+     * @param nextLine the line of text to be parsed.
+     * @param loadedTasks ArrayList to store tasks
+     * @param loadedTags TagList object to store tags.
+     * @throws ChatterboxExceptions.ChatterBoxNoInput Exception thrown if the input is invalid.
      */
     protected void parseTask(Parser parser, String nextLine, ArrayList<Task> loadedTasks, TagList loadedTags)
             throws ChatterboxExceptions.ChatterBoxNoInput {
@@ -257,8 +262,7 @@ public class Storage {
 
 
     /**
-     * Used to check for directory used to store data and create if not present,
-     *
+     * Used to check for directory used to store data and create if not present.
      */
     private static void checkDirectory() {
 
@@ -270,8 +274,9 @@ public class Storage {
     }
 
     /**
-     * Gets the HIST_FILE path string
-     * @return HIST_FILE path string
+     * Gets the HIST_FILE path string.
+     *
+     * @return HIST_FILE path string.
      */
     public String getHistFilePath() {
         return HIST_FILE;

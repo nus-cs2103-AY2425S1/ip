@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 /**
- * Represents a list of tags
+ * Represents a list of tags.
  */
 public class TagList {
     private final HashMap<String, Tag> tags;
@@ -14,7 +14,7 @@ public class TagList {
     }
 
     /**
-     * adds a tag object to list of tags
+     * Adds a tag object to this.tags.
      *
      */
     public void addTag(Tag tag) {
@@ -22,10 +22,10 @@ public class TagList {
     }
 
     /**
-     * Adds a tag object to this.tags using string argument (done during loading)
+     * Adds a tag object to this.tags using string argument (done during loading).
      *
-     * @param tagName the name of the tag to be added
-     * @return the tag object created
+     * @param tagName String of name of the tag to be added.
+     * @return the Tag object created.
      */
     public Tag addTagFromString(String tagName) {
         Tag tag = new Tag(tagName);
@@ -34,38 +34,38 @@ public class TagList {
     }
 
     /**
-     * Removes a tag from this.tags
+     * Removes a tag from this.tags.
      *
-     * @param tagName the name of the tag to be removed
+     * @param tagName the name of the tag to be removed.
      */
     public void removeTag(String tagName) {
         tags.remove(tagName);
     }
 
     /**
-     * Checks if a tag is in this.tags
+     * Checks if a tag is in this.tags.
      *
-     * @param tagName the name of the tag to be checked
-     * @return true if tag is in list, false otherwise
+     * @param tagName the name of the tag to be checked.
+     * @return true if tag is in list, false otherwise.
      */
     public boolean containsTag(String tagName) {
         return tags.containsKey(tagName);
     }
 
     /**
-     * Gets a tag object from this.tags
+     * Gets a tag object from this.tags.
      *
-     * @param tagName the name of the tag to be retrieved
-     * @return the tag object
+     * @param tagName the name of the tag to be retrieved.
+     * @return the tag object.
      */
     public Tag getTag(String tagName) {
         return tags.get(tagName);
     }
 
     /**
-     * Gets set of all tag names in the list
+     * Gets set of all tag names in the list.
      *
-     * @return Set of all String representation of tag names
+     * @return Set of all String representation of tag names.
      */
     public Set<String> getAllTags() {
 

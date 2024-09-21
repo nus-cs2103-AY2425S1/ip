@@ -23,7 +23,8 @@ public class GuiResponses {
 
     /**
      * Gets String for standard greeting
-     * @return String format of the greeting
+     *
+     * @return String format of the greeting.
      */
     public String greeting() {
         return "Greetings. I am " + GuiResponses.BOTNAME + ".\n"
@@ -33,7 +34,8 @@ public class GuiResponses {
 
     /**
      * Gets String for standard goodbye
-     * @return string format of the goodbye message
+     *
+     * @return string format of the goodbye message.
      */
     public String goodbye() {
         return "Farewell. May our paths cross again in the future.";
@@ -42,9 +44,10 @@ public class GuiResponses {
     }
 
     /**
-     * Returns message string for list of tasks, along with additional comments
-     * @param tasks TaskList object
-     * @return String representation of tasks in list along with additional remarks
+     * Returns message string for list of tasks, along with additional comments.
+     *
+     * @param tasks TaskList object.
+     * @return String representation of tasks in list along with additional remarks.
      */
     public String listTaskMsg(TaskList tasks) {
         ArrayList<Task> userList = tasks.getTasks();
@@ -76,17 +79,19 @@ public class GuiResponses {
 
     /**
      * Gets description of task
-     * @param task to get description
-     * @return task description
+     *
+     * @param task Task object to get description of.
+     * @return String representation of task description.
      */
     public String getTaskDescription(Task task) {
         return task.getDescription();
     }
 
     /**
-     * Gets message response indicating a task has been marked
-     * @param task that got marked
-     * @return msg A message confirming task marked
+     * Gets message response indicating a task has been marked.
+     *
+     * @param task Task that was marked.
+     * @return msg A message confirming task marked.
      */
     public String markMsg(Task task) {
         return String.format("You've completed the task") + "\n" + task.getDescription()
@@ -95,9 +100,10 @@ public class GuiResponses {
     }
 
     /**
-     * Gets message response indicating a taksk has been unmarked
-     * @param task The task that was unmarked
-     * @return msg A message confirming task unmarked
+     * Gets message response indicating a task has been unmarked.
+     *
+     * @param task The task that was unmarked.
+     * @return msg A message confirming task unmarked.
      */
     public String unmarkMsg(Task task) {
         return "The task has been marked as undone."
@@ -108,9 +114,10 @@ public class GuiResponses {
 
     /**
      * Returns standard template for displaying added task
-     * @param type type of task
-     * @param size size of user task list
-     * @return standard template for displaying added task
+     *
+     * @param type String representation of task type.
+     * @param size Size of the TaskList object task is added to.
+     * @return String representation of message indicating task added.
      */
     public String addTaskMsg(String type, int size) {
         if (size > 5) {
@@ -126,10 +133,11 @@ public class GuiResponses {
     }
 
     /**
-     * Returns message for deleting a task
-     * @param task Task that is deleted
-     * @param size size of the tasks.TaskList object task is removed from
-     * @return Deleted task message
+     * Returns message for deleting a task.
+     *
+     * @param task Task that is deleted.
+     * @param size Size of the tasks.TaskList object task is removed from.
+     * @return Deleted task message.
      */
     public String delTaskMsg(Task task, int size) {
         return "The task has been removed: " + task.getDescription() + "\n"
@@ -138,9 +146,10 @@ public class GuiResponses {
     }
 
     /**
-     * Gets String representation of matching search
-     * @param matches Tasklist of searches that match criteria
-     * @return String representation of matching search
+     * Gets String representation of tasks matching search criteria
+     *
+     * @param matches Tasklist of searches that match criteria.
+     * @return String representation of matching search.
      */
     public String getSearchList(ArrayList<Task> matches) {
         StringBuilder toReturn = new StringBuilder("Here are the tasks that align with your search:\n");
@@ -159,9 +168,10 @@ public class GuiResponses {
     }
 
     /**
-     * Gets String representation of tagged tasks
-     * @param tasks Set of tasks that are tagged
-     * @return String representation of tagged tasks
+     * Gets String representation of tagged tasks.
+     *
+     * @param tasks Set of tasks that are tagged.
+     * @return String representation of tagged tasks.
      */
     public String getTaggedTasks(Set<Task> tasks) {
         StringBuilder toReturn = new StringBuilder("Here are the tasks that have been tagged:\n");
@@ -179,10 +189,11 @@ public class GuiResponses {
     }
 
     /**
-     * Gets String representation of tagged task
-     * @param task Task that is tagged
-     * @param tagName name of tag
-     * @return String representation of tagged task
+     * Gets String representation of tagged task.
+     *
+     * @param task Task that is tagged.
+     * @param tagName String representation of tag name.
+     * @return String message indicating task has been untagged.
      */
     public String untagTagMsg(Task task, String tagName) {
         return String.format("Ah, it appears the tag '%s' has been removed from the task \n[%s]. "
@@ -191,10 +202,11 @@ public class GuiResponses {
                 + "there is always room for growth and improvement.", tagName, task.getDescription());
     }
     /**
-     * Gets String representation of tagged task
-     * @param task Task that is tagged
-     * @param tagName name of tag
-     * @return String representation of tagged task
+     * Gets message response indicating a task has been tagged.
+     *
+     * @param task Task that is tagged.
+     * @param tagName name of tag.
+     * @return String representation of tagged task.
      */
     public String tagTaskMsg(Task task, String tagName) {
         return String.format("The task has been tagged with '%s'.\n"
@@ -204,10 +216,11 @@ public class GuiResponses {
     }
 
     /**
-     * Gets String representation of already tagged task message
-     * @param task Task that is already tagged
-     * @param tagName name of tag
-     * @return response to an already tagged message
+     * Gets String representation of already tagged task message.
+     *
+     * @param task Task that is already tagged.
+     * @param tagName name of tag.
+     * @return response to an already tagged message.
      */
     public String alreadyTaggedMsg(Task task, String tagName) {
         return String.format("The task \n'%s' \nalready bears the tag '%s'. "
@@ -217,9 +230,10 @@ public class GuiResponses {
     }
 
     /**
-     * Gets String representation of all tags
-     * @param tagKeys set of strings of tags
-     * @return String representation of all tags
+     * Gets String representation of all tags message.
+     *
+     * @param tagKeys Set of strings of tags.
+     * @return String representation of all tags.
      */
     public String displayAllTags(Set<String> tagKeys) {
         if (tagKeys.isEmpty()) {
@@ -235,17 +249,19 @@ public class GuiResponses {
     }
 
     /**
-     * Gets String representation of tag not found
-     * @param tagName name of tag
-     * @return String representation of tag not found
+     * Gets String representation of tag not found.
+     *
+     * @param tagName String name of tag.
+     * @return String representation of tag not found.
      */
     public String tagNotFoundMsg(String tagName) {
         return String.format("The tag '%s' was not found. Sometimes, the answers we seek remain hidden.", tagName);
     }
 
     /**
-     * Gets String representation of invalid command response
-     * @return String representation of invalid command response
+     * Gets String representation of invalid command response.
+     *
+     * @return String representation of invalid command response.
      */
     public String getInvalidCommandMessage() {
         return "It seems I didn't quite grasp that command. Communication can be a delicate thing, can't it?"
@@ -253,14 +269,21 @@ public class GuiResponses {
     }
 
     /**
-     * Gets String representation of invalid index
-     * @return String representation of invalid index
+     * Gets String representation of invalid index.
+     *
+     * @return String representation of invalid index.
      */
     public String getInvalidIndexMessage() {
         return "It seems the index you have entered is invalid. "
                 + "Sometimes, the path to clarity is not as straightforward as we would like, don't you think?";
     }
 
+    /**
+     * Gets String representation of error message by the chatbot.
+     *
+     * @param errorMessage String of error message.
+     * @return String representation of error message.
+     */
     public String getErrorMessage(String errorMessage) {
         return "It seems an error has occurred\n" + errorMessage
                 + "\nEven in moments like these, there is something to be learned";

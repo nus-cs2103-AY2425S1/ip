@@ -14,7 +14,7 @@ import tasks.Task;
 import tasks.TaskList;
 
 /**
- * Main class that encapsulates all gui chatbot functionality
+ * Main class that encapsulates all gui chatbot functionality.
  */
 public class ChatterboxGui {
     private final GuiResponses guiResponses;
@@ -25,8 +25,9 @@ public class ChatterboxGui {
     private final TagList userTags;
 
     /**
-     * Initiates ChatterboxGui with a prior history filepath
-     * @param filepath contains the history of tasks
+     * Initiates ChatterboxGui with a prior history filepath.
+     *
+     * @param filepath contains the history of tasks.
      */
     public ChatterboxGui(String filepath) {
         assert filepath != null;
@@ -50,7 +51,7 @@ public class ChatterboxGui {
     }
 
     /**
-     * Initiates ChatterboxGui with no prior history
+     * Initiates ChatterboxGui with no prior history.
      */
     public ChatterboxGui() {
         this.guiResponses = new GuiResponses();
@@ -73,8 +74,9 @@ public class ChatterboxGui {
 
 
     /**
-     * Checks if the ChatterboxGui instance has any tasks
-     * @return true if there are tasks else false
+     * Checks if the ChatterboxGui instance has any tasks.
+     *
+     * @return true if there are tasks else false.
      */
     public boolean hasTasks() {
         if (tasks.size() > 0) {
@@ -85,7 +87,7 @@ public class ChatterboxGui {
 
 
     /**
-     * Processes the user input to return the appropriate response
+     * Processes the user input to return the appropriate response.
      */
     public HashMap<String, String> processInput(String input) {
         input = input.trim();
@@ -112,8 +114,9 @@ public class ChatterboxGui {
 
 
     /**
-     * Gets the greeting string
-     * @return greeting String
+     * Gets the greeting string.
+     *
+     * @return greeting String.
      */
     public String getGreeting() {
         return guiResponses.greeting();
@@ -123,8 +126,9 @@ public class ChatterboxGui {
         return guiResponses.goodbye();
     }
     /**
-     * Gets the name of the chatbot
-     * @return name of the chatbot
+     * Gets the name of the chatbot.
+     *
+     * @return name of the chatbot.
      */
     public String getName() {
         return "Chatterbox";

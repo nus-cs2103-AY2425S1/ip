@@ -6,7 +6,7 @@ import chatterboxexceptions.ChatterboxExceptions;
 
 
 /**
- * Event subclass of Task that has  a startDate and endDate, represented by either a String or LocalDateTime object
+ * Event subclass of Task that has  a startDate and endDate, represented by either a String or LocalDateTime object.
  */
 public class Event extends Task {
 
@@ -18,11 +18,12 @@ public class Event extends Task {
 
 
     /**
-     * Initializes Event Object with Strings
-     * @param desc description of event
-     * @param startDate String description of startDate
-     * @param endDate String description of endDate
-     * @throws ChatterboxExceptions.ChatterBoxNoInput if description is empty
+     * Initializes Event Object with Strings.
+     *
+     * @param desc description of event.
+     * @param startDate String description of startDate.
+     * @param endDate String description of endDate.
+     * @throws ChatterboxExceptions.ChatterBoxNoInput if description or dates are empty.
      */
     public Event(String desc, String startDate, String endDate) throws ChatterboxExceptions.ChatterBoxNoInput {
         super(desc);
@@ -36,11 +37,12 @@ public class Event extends Task {
     }
 
     /**
-     * Initializes Event Object with LocalDateTime objects
-     * @param desc description of event
-     * @param startDateObj LocalDateTime of start time
-     * @param endDateObj  LocalDateTime of end time
-     * @throws ChatterboxExceptions.ChatterBoxNoInput
+     * Initializes Event Object with LocalDateTime objects.
+     *
+     * @param desc description of event.
+     * @param startDateObj LocalDateTime of start time.
+     * @param endDateObj  LocalDateTime of end time.
+     * @throws ChatterboxExceptions.ChatterBoxNoInput if description is empty.
      */
     public Event(String desc, LocalDateTime startDateObj, LocalDateTime endDateObj)
             throws ChatterboxExceptions.ChatterBoxNoInput {

@@ -29,7 +29,7 @@ import command.UnmarkCommand;
 
 
 /**
- * Parser class has various methods to parse user input
+ * The Parser class provides methods to parse user input into commands and dates.
  */
 public class Parser {
 
@@ -67,10 +67,10 @@ public class Parser {
 
 
     /**
-     * Parses a string for possible DateTime objects
+     * Parses a string for possible DateTime objects.
      *
-     * @param dateTimeString String that could contain a date time
-     * @return LocalDateTime representing time in string or null if no valid date time found
+     * @param dateTimeString String that could contain a date time.
+     * @return LocalDateTime representing time in string or null if no valid date time found.
      *
      */
 
@@ -100,10 +100,10 @@ public class Parser {
 
 
     /**
-     * Parses a string of text to check if text has a valid command listed in ValidCommandS
+     * Parses a string of text to check if it has a valid command.
      *
-     * @param input to be parsed,
-     * @return corresponding Command object enum to the command in text
+     * @param input the input to be parsed.
+     * @return corresponding Command object.
      */
     public Command parseCommandType(String input) {
         String text = input.trim().toLowerCase();
@@ -138,10 +138,13 @@ public class Parser {
 
         }
     }
+
     /**
-     * Extracts the integer index for mark and unmark
-     * @param input of format mark/unmark {int}
-     * @return the int in the input string
+     * Extracts the integer index for mark and unmark commands.
+     *
+     * @param input the input of format mark/unmark {int}.
+     * @return the integer index in the input string.
+     * @throws ChatterboxExceptions.ChatterBoxInvalidInput if no number or a negative number is found.
      */
     public int extractNum(String input) throws ChatterboxExceptions.ChatterBoxInvalidInput {
         assert input != null;
@@ -171,20 +174,21 @@ public class Parser {
     }
 
     /**
-     * Parses a string to obtain description for todo without white space
-     * @param desc of format todo {text}
-     * @return substring of task description
+     * Parses a string to obtain the description for a todo command.
+     *
+     * @param desc the input of format todo {text}.
+     * @return the substring of the task description.
      */
     public String parseTodo(String desc) {
         return desc.substring(4).trim();
     }
 
     /**
-     * Parses a string to obtain text for deadline parameters
+     * Parses a string to obtain text for deadline parameters.
      *
-     * @param desc String of format deadline [text] /by [text]
-     * @return String[] with the 0 index with the description and 1 index as {text}
-     * @throws chatterboxexceptions.ChatterboxExceptions.ChatterBoxNoInput if no text is found
+     * @param desc the input of format deadline [text] /by [text].
+     * @return a String array with the description at index 0 and the deadline at index 1.
+     * @throws ChatterboxExceptions.ChatterBoxMissingParameter if no deadline date is found.
      */
     public String[] parseDeadline(String desc) throws ChatterboxExceptions.ChatterBoxMissingParameter {
 
@@ -216,11 +220,12 @@ public class Parser {
 
 
     /**
-     * Parses the event string for the desc, from and to time strings
+     * Parses the event string for the description, from, and to time strings.
      *
-     * @param desc takes in a string of format text /from text /to text
-     * @return String[] with 0 being the first text, 1 the from text and 2 being the to text
-     * @throws ChatterboxExceptions.ChatterBoxMissingParameter if any of parameters not detected
+     * @param desc the input of format text /from text /to text.
+     * @return a String array with the description at index 0, the from time at index 1,
+     * and the to time at index 2.
+     * @throws ChatterboxExceptions.ChatterBoxMissingParameter if any parameters are not detected.
      */
     public String[] parseEvent(String desc) throws ChatterboxExceptions.ChatterBoxMissingParameter {
 
@@ -270,9 +275,10 @@ public class Parser {
     }
 
     /**
-     * Parses the tag name from a tag command
-     * @param desc of format findtag {text}
-     * @return the text used to search for tagname
+     * Parses the tag name from a findtag command.
+     *
+     * @param desc the input of format findtag {text}.
+     * @return the text used to search for the tag name.
      */
     public String findTagParseTagName(String desc) {
         return desc.substring(7).trim();
@@ -281,9 +287,11 @@ public class Parser {
 
 
     /**
-     * Parses the tag text from a tag command
-     * @param desc of format tag /i {index} /t {text}
-     * @return the text after /t
+     * Parses the tag text from a tag command.
+     *
+     * @param desc the input of format tag /i {index} /t {text}.
+     * @return the text after /t.
+     * @throws ChatterboxExceptions.ChatterBoxMissingParameter if no tag text is found.
      */
     public String tagCommandParseTagName(String desc) throws ChatterboxExceptions.ChatterBoxMissingParameter {
 
@@ -296,10 +304,11 @@ public class Parser {
     }
 
     /**
-     * Parses the tag index from a tag command
-     * @param desc of format tag /i{index} /t{text}
-     * @return the index after /i
-     * @throws ChatterboxExceptions.ChatterBoxMissingParameter if no index is found
+     * Parses the tag index from a tag command.
+     *
+     * @param desc the input of format tag /i {index} /t {text}.
+     * @return the index after /i.
+     * @throws ChatterboxExceptions.ChatterBoxMissingParameter if no index is found.
      */
     public int tagCommandParseTaskIndex(String desc) throws ChatterboxExceptions.ChatterBoxMissingParameter {
         int start = desc.indexOf("/i");
@@ -318,9 +327,10 @@ public class Parser {
 
 
     /**
-     * Parses for keywords in a find command
-     * @param command starting with find
-     * @return the keywords after find
+     * Parses for keywords in a find command.
+     *
+     * @param command the input starting with find.
+     * @return the keywords after find.
      */
     public String parseFind(String command) {
         return command.substring(4);
@@ -328,9 +338,11 @@ public class Parser {
 
 
     /**
-     * Parses for index in a delete command
-     * @param desc input of format removetag /i {index} /t {text}
-     * @return the index of task to delete tag from
+     * Parses for the index in a delete command.
+     *
+     * @param desc the input of format removetag /i {index} /t {text}.
+     * @return the index of the task to delete the tag from.
+     * @throws ChatterboxExceptions.ChatterBoxMissingParameter if the index is missing or in the wrong order.
      */
     public int parseRemoveTagIndex(String desc) throws ChatterboxExceptions.ChatterBoxMissingParameter {
         int start = desc.indexOf("/i");
@@ -352,9 +364,11 @@ public class Parser {
     }
 
     /**
-     * Parses for tag name in a remove tag command
-     * @param desc input of format removetag /i {index} /t {text}
-     * @return the tag name
+     * Parses for the tag name in a remove tag command.
+     *
+     * @param desc the input of format removetag /i {index} /t {text}.
+     * @return the tag name.
+     * @throws ChatterboxExceptions.ChatterBoxMissingParameter if no tag text is found.
      */
     public String parseRemoveTagName(String desc) throws ChatterboxExceptions.ChatterBoxMissingParameter {
         int start = desc.indexOf("/t");
@@ -365,7 +379,8 @@ public class Parser {
     }
     /**
      * Returns a DateTimeFormatter used for printing LocalDateTime objects
-     * @return PRINTDATEFORMATTER, standard formatter for dates
+     *
+     * @return standard formatter for dates.
      */
     public static DateTimeFormatter getPrintDateFormatter() {
 

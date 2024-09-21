@@ -7,7 +7,7 @@ import tasks.Task;
 
 
 /**
- * Represents a tag that can be added to tasks
+ * Represents a tag that can be added to tasks.
  */
 public class Tag {
 
@@ -17,8 +17,9 @@ public class Tag {
 
 
     /**
-     * Creates a tag with the given name
-     * @param tagName the name of the tag
+     * Creates a tag with the given name.
+     *
+     * @param tagName the name of the tag.
      */
     public Tag(String tagName) {
         tagName = tagName.trim();
@@ -27,8 +28,9 @@ public class Tag {
     }
 
     /**
-     * Returns the name of the tag
-     * @return the name of the tag
+     * Returns the name of the tag.
+     *
+     * @return the name of the tag.
      */
     public String getTagName() {
         return tagName;
@@ -48,16 +50,18 @@ public class Tag {
     }
 
     /**
-     * Adds a task to the list of tagged tasks
-     * @param task the task to be added
+     * Adds a task to the list of tagged tasks.
+     *
+     * @param task the task to be added.
      */
     public void tagTask(Task task) {
         taggedTasks.add(task);
     }
 
     /**
-     * Gets string with of all tagged tasks descriptions
-     * @return string of all tagged tasks descriptions
+     * Gets string with of all tagged tasks descriptions.
+     *
+     * @return string of all tagged tasks descriptions.
      */
     public String getTaggedTasksString() {
         StringBuilder taggedTasksString = new StringBuilder();
@@ -68,20 +72,27 @@ public class Tag {
     }
 
     /**
-     * Gets the set of tagged tasks
-     * @return set of tagged tasks
+     * Gets the set of tagged tasks.
+     *
+     * @return set of tagged tasks.
      */
     public Set<Task> getTaggedTasks() {
         return taggedTasks;
     }
 
 
+    /**
+     * Removes a task from the list of tagged tasks.
+     *
+     * @param task the task to be removed.
+     */
     public void untagTask(Task task) {
         taggedTasks.remove(task);
     }
     /**
-     * Checks if a task is under the tag
-     * @param task the task to be checked
+     * Checks if a task is under the tag.
+     *
+     * @param task the task to be checked.
      */
     public boolean isTagged(Task task) {
         return taggedTasks.contains(task);

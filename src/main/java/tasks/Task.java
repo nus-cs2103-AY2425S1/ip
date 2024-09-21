@@ -9,7 +9,8 @@ import tags.Tag;
 
 
 /**
- * Abstract class that defines Task
+ * Abstract class that defines Task.
+ * A Task has a description, status and a set of tags.
  */
 public abstract class Task {
     private Boolean status;
@@ -18,9 +19,10 @@ public abstract class Task {
 
 
     /**
-     * Initializes an undone task
-     * @param desc is a string describing task
-     * @throws ChatterboxExceptions.ChatterBoxNoInput if no input
+     * Initializes an undone task.
+     *
+     * @param desc String describing task.
+     * @throws ChatterboxExceptions.ChatterBoxNoInput if no input string.
      */
     public Task(String desc) throws ChatterboxExceptions.ChatterBoxNoInput {
         if (desc.trim().isEmpty()) {
@@ -32,9 +34,9 @@ public abstract class Task {
 
 
     /**
-     * Gets the string representation of all tags under a tasks
+     * Gets the string representation of all tags under a tasks.
      *
-     * @return String representation of all tags
+     * @return String representation of all tags.
      *
      */
     public String getTags() {
@@ -50,48 +52,54 @@ public abstract class Task {
     }
 
     /**
-     * Returns a string with description of task
-     * @return string of description of task
+     * Returns a string with description of task.
+     *
+     * @return string of description of task.
      */
     public String getDescription() {
         return this.desc + " ";
     }
 
     /**
-     * Gets status of task
-     * @return true if done, false if undone
+     * Gets status of task.
+     *
+     * @return true if done, false if undone.
      */
     public Boolean getStatus() {
         return this.status;
     }
 
     /**
-     * Sets status of task
-     * @param stat true or false
+     * Sets status of task.
+     *
+     * @param stat true or false.
      */
     public void setStatus(Boolean stat) {
         this.status = stat;
     }
 
     /**
-     * Gets the symbol of the task
-     * @return a string representing the task
+     * Gets the symbol of the associated task class.
+     *
+     * @return a string representing the task.
      */
     public String getTaskSymbol() {
         return "";
     }
 
     /**
-     * Gets the tags of the task
-     * @param tag the tag to task list of tag
+     * Adds a tag to the task.
+     *
+     * @param tag the tag to add to task list of tag.
      */
     public void addTag(Tag tag) {
         this.tags.add(tag);
     }
 
     /**
-     * Removes the tag from the task
-     * @param tag the tag to be removed
+     * Removes the tag from the task.
+     *
+     * @param tag the tag to be removed.
      */
     public void removeTag(Tag tag) {
         this.tags.remove(tag);
@@ -114,5 +122,10 @@ public abstract class Task {
         return Objects.hash(this.getDescription()) == Objects.hash(other.getDescription());
     }
 
+    /**
+     * Returns a string with description of task without tags.
+     *
+     * @return string of description of task without tags.
+     */
     public abstract String descNoTags();
 }

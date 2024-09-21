@@ -5,16 +5,17 @@ import java.time.LocalDateTime;
 import chatterboxexceptions.ChatterboxExceptions;
 
 /**
- * Subclass of Task that handles a single deadline specification
+ * Subclass of Task that handles a single deadline specification.
  */
 public class Deadline extends Task {
     private final LocalDateTime dueDateObj;
     private final String dueDate;
 
     /**
-     *  Constructor for Deadline using raw string
-     * @param desc description of the task
-     * @param dueDate raw string deadline
+     *  Constructor for Deadline using input string.
+     *
+     * @param desc description of the task.
+     * @param dueDate input string deadline.
      * @throws ChatterboxExceptions.ChatterBoxNoInput
      */
     public Deadline(String desc, String dueDate) throws ChatterboxExceptions.ChatterBoxNoInput {
@@ -24,10 +25,11 @@ public class Deadline extends Task {
     }
 
     /**
-     * Constructor for Deadline using LocalDateTime objects
-     * @param desc description of the task
-     * @param dueDateObj LocalDateTime of deadline
-     * @throws ChatterboxExceptions.ChatterBoxNoInput if no desc found
+     * Constructor for Deadline using LocalDateTime objects.
+     *
+     * @param desc description of the task.
+     * @param dueDateObj LocalDateTime of deadline.
+     * @throws ChatterboxExceptions.ChatterBoxNoInput if no desc found.
      */
     public Deadline(String desc, LocalDateTime dueDateObj) throws ChatterboxExceptions.ChatterBoxNoInput {
         super(desc);
