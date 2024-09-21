@@ -39,6 +39,7 @@ public class TaskList {
      * Prints all tasks in the list.
      */
     public String printList() {
+        assert tasks.isEmpty() : "List is empty, unable to print list.";
         if (tasks.isEmpty()) {
             return "";
         }
