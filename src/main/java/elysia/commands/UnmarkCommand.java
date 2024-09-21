@@ -5,6 +5,8 @@ import elysia.exceptions.WrongArgumentException;
 import elysia.storage.FileReaderWriter;
 import elysia.tasks.TaskList;
 
+import java.util.Objects;
+
 /**
  * Represents a command to unmark a task in the task list.
  * Extends the {@code Command} class and handles the parsing and validation of task arguments for unmarking tasks.
@@ -51,6 +53,7 @@ public class UnmarkCommand extends Command {
             taskList.unmarkTask(taskNumber);
             output.append("Making a pretty girl undo her work is not good for her health! \n");
             output.append(taskList.printTask(taskNumber));
+            assert(!Objects.equals(taskList.getSizeAsString(), "0"));
         } catch (IndexOutOfBoundsException e) {
             output.append("Uh oh, this task number does not exist...");
         } catch (NullPointerException e) {

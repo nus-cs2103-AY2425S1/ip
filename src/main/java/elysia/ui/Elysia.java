@@ -17,7 +17,7 @@ import elysia.Parser.InputOutputHandler;
  */
 public class Elysia {
 
-    private InputOutputHandler handler = new InputOutputHandler();
+    private final InputOutputHandler handler = new InputOutputHandler();
 
 
     /**

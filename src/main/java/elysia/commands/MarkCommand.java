@@ -5,6 +5,8 @@ import elysia.exceptions.WrongArgumentException;
 import elysia.storage.FileReaderWriter;
 import elysia.tasks.TaskList;
 
+import java.util.Objects;
+
 /**
  * Represents a command to mark a task as completed in the task list.
  * Extends the {@code Command} class and handles the parsing and validation of task arguments.
@@ -49,8 +51,9 @@ public class MarkCommand extends Command {
 
         try {
             taskList.markTask(taskNumber);
-            output.append("Amazing! You've completed this task! \n")
-                    .append(taskList.printTask(taskNumber));
+            output.append("Amazing! You've completed this task! \n");
+            output.append(taskList.printTask(taskNumber));
+            assert(!Objects.equals(taskList.getSizeAsString(), "0"));
         } catch (IndexOutOfBoundsException e) {
             output.append("Uh oh, this task number does not exist...");
         } catch (NullPointerException e) {

@@ -6,6 +6,8 @@ import elysia.storage.FileReaderWriter;
 import elysia.tasks.Event;
 import elysia.tasks.TaskList;
 
+import java.util.Objects;
+
 /**
  * Represents a command to create a new event task in the Elysia application.
  * Extends the {@code Command} class and handles the parsing and validation of event task arguments.
@@ -48,10 +50,9 @@ public class EventCommand extends Command {
 
         Event event = new Event(eventArgs[0], eventArgs[1], eventArgs[2]);
         taskList.addTask(event);
-        output.append("Added the task below to your list~\n")
-                .append(event.toString()).append("\n")
-                .append("Wow! You now have ").append(taskList.getSizeAsString()).append(" tasks in your list!");
-
+        assert(!Objects.equals(taskList.getSizeAsString(), "0"));
+        output.append("Added the task below to your list~\n").append(event.toString()).append("\n");
+        output.append("Wow! You now have ").append(taskList.getSizeAsString()).append(" tasks in your list!");
         return output.toString();
     }
 }

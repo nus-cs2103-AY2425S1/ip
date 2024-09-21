@@ -9,6 +9,7 @@ import elysia.tasks.TaskList;
 import elysia.Parser.DateTimeParser;
 
 import java.time.format.DateTimeParseException;
+import java.util.Objects;
 
 /**
  * Represents a command to create a new deadline task in the Elysia application.
@@ -61,10 +62,9 @@ public class DeadlineCommand extends Command {
         }
 
         taskList.addTask(deadline);
-        output.append("Added the task below to your list~\n")
-                .append(deadline.toString()).append("\n")
-                .append("Wow! You now have ").append(taskList.getSizeAsString()).append(" tasks in your list!");
-
+        assert(!Objects.equals(taskList.getSizeAsString(), "0"));
+        output.append("Added the task below to your list~\n").append(deadline.toString()).append("\n");
+        output.append("Wow! You now have ").append(taskList.getSizeAsString()).append(" tasks in your list!");
         return output.toString();
     }
 }
