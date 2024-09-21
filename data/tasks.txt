@@ -1,1 +1,2 @@
 T | 0 | HWAC welfare pack planning
+E | 0 | Group meeting | 2024-09-24 2000 | 2024-09-24 2100
