@@ -9,7 +9,7 @@ import java.util.jar.JarFile;
 import java.util.stream.Collectors;
 
 class ClassGetter {
-    public static Set<Class<?>> getAllClasses(String packageName) {
+    public static Set<Class<?>> getClassesFromPackage(String packageName) {
         if (isRunningFromJar()) {
             String classPath;
             try {

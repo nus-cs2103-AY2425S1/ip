@@ -22,7 +22,7 @@ public class Parser {
 
     private void loadCommands() {
         commandTable = new HashMap<>();
-        Set<Class<?>> allClasses = ClassGetter.getAllClasses(Command.class.getPackageName());
+        Set<Class<?>> allClasses = ClassGetter.getClassesFromPackage(Command.class.getPackageName());
 
         for (Class<?> clazz : allClasses) {
             if (!Command.class.isAssignableFrom(clazz)) {
