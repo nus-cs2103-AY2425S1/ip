@@ -1,14 +1,16 @@
 package elysia.exceptions;
 
 /**
- * Represents a custom exception for the elysia.ui.Elysia application.
- * Extends the Exception class and provides a way to signal errors specific to the application.
+ * Custom exception class for handling errors specific to the Elysia application.
+ * Extends the {@code Exception} class and provides a mechanism to display custom error messages.
  */
-public class ElysiaException extends Exception{
+public class ElysiaException extends Exception {
+
     /**
-     * Constructs a new ElysiaException with the specified detail message.
+     * Constructs a new {@code ElysiaException} with the specified detail message.
+     * The message can provide additional context about the error encountered in the application.
      *
-     * @param message The detail message that provides information about the exception.
+     * @param message the detail message that describes the exception.
      */
     public ElysiaException(String message) {
         super(message);

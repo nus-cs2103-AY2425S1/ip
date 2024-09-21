@@ -10,11 +10,6 @@ import elysia.exceptions.ElysiaException;
 
 import elysia.Parser.InputOutputHandler;
 
-import elysia.ui.Message;
-
-import java.util.Scanner;
-
-
 /**
  * The main class for the elysia.ui.Elysia application.
  * This class handles the main program loop, where user input is continuously accepted and processed.
@@ -24,19 +19,21 @@ public class Elysia {
 
     private InputOutputHandler handler = new InputOutputHandler();
 
+
     /**
-     * The main method that starts the elysia.ui.Elysia application.
-     * Displays an initial greeting, processes user commands, and handles the application shutdown.
-     *
+     * Gets the fileMessage
+     * @return String of the message when file is loaded
      */
-    public void start() {
-
-        Message.print("Hi~! I'm elysia.ui.Elysia! As you can see, I'm a girl as beautiful as a flower!\n" +
-                "How can I help you today? I'm all ears!");
-
-        Message.print("Aww, going already? Don't miss me too much, ok?");
+    public String getFileMessage() {
+        return handler.fileMessage();
     }
 
+    /**
+     * Gets the output string by parsing the input and executing the respective commands.
+     * Catches the exceptions
+     * @param input The user's input as a string.
+     * @return The output string to be put into DialogBox
+     */
     public String getResponse(String input) {
         String response;
         try {

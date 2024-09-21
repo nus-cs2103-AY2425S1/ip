@@ -4,42 +4,50 @@ import elysia.commands.*;
 import elysia.exceptions.ElysiaException;
 import elysia.storage.FileReaderWriter;
 import elysia.tasks.TaskList;
-import elysia.ui.Message;
 
 /**
- * Handles user input and output for the elysia.ui.Elysia application.
- * Manages the parsing of user commands and interactions with the task list.
+ * Handles user input and output for the Elysia application.
+ * This class is responsible for parsing user commands and interacting
+ * with the task list and file system through various command objects.
  */
 public class InputOutputHandler {
     TaskList taskList;
     FileReaderWriter fileReaderWriter;
 
     /**
-     * Constructs an InputOutputHandler and initializes the task list and file reader/writer.
-     * Loads any previously saved tasks from the file.
+     * Constructs an InputOutputHandler and initializes the task list.
+     * This method sets up the {@code TaskList} but does not immediately
+     * interact with the file storage.
      */
     public InputOutputHandler() {
         taskList = new TaskList();
-        fileReaderWriter = new FileReaderWriter(taskList);
-        String msg = fileReaderWriter.readFile();
-        if (!msg.isEmpty()) {
-            Message.print(msg);
-        }
     }
 
     /**
-     * Parses user input and executes the corresponding command.
-     * Supports commands for adding, deleting, marking, unmarking tasks, and more.
+     * Reads tasks from the file and returns any saved tasks as a message.
+     * Initializes the {@code FileReaderWriter} object and reads from the task file.
      *
-     * @param input The user's command as a string.
-     * @return {@code true} if the application should continue running; {@code false} if the application should exit.
-     * @throws ElysiaException If the input command is unknown.
-     * @throws StringIndexOutOfBoundsException If there is an error processing the input string.
+     * @return a string message representing the tasks read from the file.
      */
-    public Command parseInput (String input) throws ElysiaException {
+    public String fileMessage() {
+        fileReaderWriter = new FileReaderWriter(taskList);
+        return fileReaderWriter.readFile();
+    }
+
+    /**
+     * Parses the user input and returns the corresponding command.
+     * This method processes the user input and maps it to the appropriate
+     * command (such as adding, deleting, or marking tasks). If the command
+     * is unrecognized, it returns an {@code UnknownCommand}.
+     *
+     * @param input the raw input string provided by the user.
+     * @return a {@code Command} object corresponding to the parsed user input.
+     * @throws ElysiaException if there is an error while parsing the command.
+     */
+    public Command parseInput(String input) throws ElysiaException {
         String[] splitInput = input.split(" ", 2);
         String command = splitInput[0];
-        switch(command) {
+        switch (command) {
         case "bye":
             return new ByeCommand(taskList, fileReaderWriter);
         case "list":
