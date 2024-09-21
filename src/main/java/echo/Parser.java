@@ -1,6 +1,7 @@
 package echo;
 
 
+import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
 
@@ -38,17 +39,21 @@ public class Parser {
      * @throws EchoException If the input string does not contain valid start and end times.
      */
     public static String[] parseEventTime(String part) throws EchoException {
-        String[] details = part.split(" /from ", 2);
-        if (details.length == 2) {
-            String[] times = details[1].split(" /to ", 2);
-            if (times.length == 2) {
-                return times;
+        try {
+            String[] details = part.split(" /from ", 2);
+            if (details.length == 2) {
+                String[] times = details[1].split(" /to ", 2);
+                if (times.length == 2) {
+                    return times;
+                } else {
+                    throw new EchoException("Please specify the task  deadline.");
+                }
             } else {
-                throw new EchoException("Please specify the task  deadline.");
-            }
-        } else {
-            throw new EchoException("Please specify the task description and deadline.");
+                throw new EchoException("Please specify the task description and deadline.");
 
+            }
+        } catch (DateTimeParseException e) {
+            throw new EchoException("enter date in the yyyy-mm-dd format");
         }
 
     }

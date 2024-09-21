@@ -179,11 +179,17 @@ public class TaskList {
      * @throws DateTimeParseException If the event time format is invalid.
      */
     public Events addEvent( String input) throws EchoException, DateTimeParseException {
-        String eventDes = Parser.parseEventDes(input);
-        String[] times = Parser.parseEventTime(input);
-        Events eventTask = new Events(eventDes, times[0], times[1]);
-        this.tasks.add(eventTask);
-        return eventTask;
+        try {
+            String eventDes = Parser.parseEventDes(input);
+            String[] times = Parser.parseEventTime(input);
+            Events eventTask = new Events(eventDes, times[0], times[1]);
+            this.tasks.add(eventTask);
+            return eventTask;
+        } catch (EchoException e) {
+            throw new RuntimeException(e);
+        } catch (DateTimeParseException e) {
+            throw new EchoException("Enter in YYYY-MM-DD format");
+        }
 
     }
 
