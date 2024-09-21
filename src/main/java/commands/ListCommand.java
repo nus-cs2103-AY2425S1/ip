@@ -38,7 +38,8 @@ public class ListCommand extends Command {
         return (totalTasks == 1
                 ? "Here is the task in your list:\n"
                 : "Here are the tasks in your list:\n")
-                + responseBody;
+                + responseBody
+                + this.getQuirkyResponse();
     }
 
     /**

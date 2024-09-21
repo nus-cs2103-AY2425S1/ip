@@ -55,10 +55,10 @@ public class TaskStorage {
      * @return The components within the task string, if found to be valid.
      * @throws BrockException If its invalid.
      */
-    public static String[] processTaskString(String taskString) throws BrockException {
+    public String[] processTaskString(String taskString) throws BrockException {
         String[] taskComponents = taskString.split("\\. ", 2);
         if (taskComponents.length < 2) {
-            throw new BrockException("Invalid task entry - missing task number!");
+            this.resetSaveFile("Invalid task entry - missing task number!");
         }
         return taskComponents;
     }
@@ -71,7 +71,7 @@ public class TaskStorage {
      * @throws BrockException If task string is invalid.
      */
     private Task convertToTaskObject(String taskString) throws BrockException {
-        String[] taskComponents = processTaskString(taskString);
+        String[] taskComponents = this.processTaskString(taskString);
 
         String taskDetails = taskComponents[1];
         char taskType = taskDetails.charAt(1);
@@ -83,10 +83,10 @@ public class TaskStorage {
         TaskManager taskManager = TASK_MANAGERS.get(taskType);
         if (taskManager == null) {
             this.resetSaveFile("Invalid task entry - unrecognized task type!");
+            return null;
         }
         // CHECKSTYLE.OFF: Indentation
         try {
-            assert taskManager != null;
             return taskManager.convertToTaskObject(taskBody, taskStatus);
         } catch (BrockException e) {
             // Enter this block if there are any save file corruptions

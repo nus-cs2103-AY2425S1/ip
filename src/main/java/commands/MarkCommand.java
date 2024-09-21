@@ -53,7 +53,8 @@ public class MarkCommand extends Command {
      */
     private String getResponse(TaskList tasks, int taskIndex) {
         return "Nice! I've marked this task as done:\n"
-                + "  " + tasks.getTaskDetails(taskIndex);
+                + "  " + tasks.getTaskDetails(taskIndex)
+                + this.getQuirkyResponse();
     }
 
     /**
