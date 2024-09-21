@@ -85,7 +85,7 @@ Use this command to help you add an EVENT to the task list.\
 
 Command: `event <name_of_EVENT> /from <Additional info> /to <Additional info>`
 
-Example: `event recess week /from Now /to Forever` or `event recess week /to Now /from Forever`
+Example: `event recess week /from Now /to Forever` or `event recess week /to Forever /from Now`
 
 ## Date formats
 For `Event` and `Deadline` there are a few Acceptable input formats which you can use for the additional info that will automatically be recognised and converted into 
