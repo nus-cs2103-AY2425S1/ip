@@ -41,6 +41,15 @@ public class TaskList implements Iterable<Task> {
         TASKS.clear();
     }
 
+    /**
+     * Returns this task list as a <code>List&lt;Task&gt;</code>.
+     *
+     * @return a list of tasks
+     */
+    public List<Task> getTasks() {
+        return TASKS;
+    }
+
     @Override
     public String toString() {
         StringBuilder text = new StringBuilder();
