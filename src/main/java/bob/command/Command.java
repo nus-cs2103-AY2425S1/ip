@@ -15,4 +15,21 @@ public abstract class Command {
 
     public abstract boolean isExit();
     public abstract void execute(TaskList tasks, Ui ui, Storage storage);
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof Command)) {
+            return false;
+        }
+
+        Command command = (Command) object;
+
+        try {
+            this.getClass().cast(command);
+        } catch (ClassCastException e) {
+            return false;
+        }
+
+        return this.arguments.equals(command.arguments);
+    }
 }

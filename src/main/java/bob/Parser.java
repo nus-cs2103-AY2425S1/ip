@@ -20,7 +20,7 @@ public class Parser {
         this.loadCommands();
     }
 
-    public void loadCommands() {
+    private void loadCommands() {
         commandTable = new HashMap<>();
         Set<Class<?>> allClasses = getAllClasses(Command.class.getPackageName());
 
@@ -59,7 +59,7 @@ public class Parser {
         }
     }
 
-    public Class<? extends Command> getCommand(String command) {
+    private Class<? extends Command> getCommand(String command) {
         Class<? extends Command> clazz = commandTable.get(command);
         if (clazz == null) {
             throw new UnknownCommandException();
