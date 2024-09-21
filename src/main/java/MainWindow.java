@@ -38,9 +38,6 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
-        assert scrollPane != null : "ScrollPane should not be null"; // Assert that scrollPane is initialized
-        assert dialogContainer != null : "DialogContainer should not be null"; // Assert that dialogContainer is initialized
-
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         scrollPane.setFitToWidth(true);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
@@ -54,7 +51,6 @@ public class MainWindow extends AnchorPane {
      * @param d The Dave instance that handles tasks and processes user commands.
      */
     public void setDave(Dave d) {
-        assert d != null : "Dave instance should not be null"; // Assert that a valid Dave instance is passed
         dave = d;
     }
 
@@ -66,11 +62,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        assert input != null && !input.isEmpty() : "User input should not be null or empty"; // Assert input is valid
-
         String response = dave.getResponse(input);
-        assert response != null : "Response from Dave should not be null"; // Assert response is valid
-
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
