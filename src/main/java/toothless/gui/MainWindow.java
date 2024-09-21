@@ -11,6 +11,7 @@ import toothless.ui.Ui;
 
 /**
  * Controller for the main GUI.
+ * This class is implemented by referencing to the JavaFX tutorial provided by the SE-EDU website.
  */
 public class MainWindow extends AnchorPane {
     @FXML
