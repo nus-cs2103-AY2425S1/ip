@@ -70,18 +70,21 @@ public class TaskManager {
     public Task createTodo(String description) {
         Task todo = new Todo(description);
         taskList.add(todo);
+        saveTasks();
         return todo;
     }
 
     public Task createDeadline(String description, LocalDateTime by) {
         Task deadline = new Deadline(description, by);
         taskList.add(deadline);
+        saveTasks();
         return deadline;
     }
 
     public Task createEvent(String description, String from, String to) {
         Task event = new Event(description, from, to);
         taskList.add(event);
+        saveTasks();
         return event;
     }
 
@@ -144,7 +147,7 @@ public class TaskManager {
 
     /**
      * Saves all the tasks to the hard disk in a file.
-     * 
+     *
      * @return Whether the save is successful
      */
     public boolean saveTasks() {

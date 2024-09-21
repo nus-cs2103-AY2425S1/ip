@@ -46,7 +46,6 @@ public class AddDeadlineCommand extends Command {
 
         TaskManager taskManager = Alexer.getInstance().getTaskManager();
         Task deadline = taskManager.createDeadline(description, dateTime);
-        taskManager.saveTasks();
 
         return new Response(String.format("%s\n\n\t%s\n\nYou have %d tasks now.",
                 MESSAGE_ADD_DEADLINE_TASK,

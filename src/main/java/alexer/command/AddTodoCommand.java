@@ -26,8 +26,6 @@ public class AddTodoCommand extends Command {
         }
 
         Task todo = taskManager.createTodo(description);
-        taskManager.saveTasks();
-
         return new Response(String.format("%s\n\n\t%s\n\nYou have %d tasks now.",
                 MESSAGE_ADD_TODO_TASK, todo, taskManager.getTaskCount()));
     }

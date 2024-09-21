@@ -40,7 +40,6 @@ public class AddEventCommand extends Command {
 
         TaskManager taskManager = Alexer.getInstance().getTaskManager();
         Task event = taskManager.createEvent(description, from, to);
-        taskManager.saveTasks();
 
         return new Response(String.format("%s\n\n\t%s\n\nYou have %d tasks now.",
                 MESSAGE_ADD_EVENT_TASK, event, taskManager.getTaskCount()));
