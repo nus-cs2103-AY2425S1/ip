@@ -1,6 +1,9 @@
 package nugget.command;
 
-import nugget.*;
+import nugget.Storage;
+import nugget.Task;
+import nugget.TaskList;
+import nugget.Ui;
 
 /**
  * Represents a command to add a task to the task list.

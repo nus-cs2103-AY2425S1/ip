@@ -1,11 +1,13 @@
 package nugget;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class TaskListTest {
 
@@ -33,7 +35,8 @@ public class TaskListTest {
         taskList.addTask(deadlineTask);
         taskList.deleteTask(0);
         assertEquals(1, taskList.size(), "Task list size should be 1 after deleting a task");
-        assertEquals(deadlineTask, taskList.getTask(0), "Remaining task should be the deadline task after deleting the first task");
+        assertEquals(deadlineTask, taskList.getTask(0), "Remaining task should be the "
+                     + "deadline task after deleting the first task");
     }
 
     @Test

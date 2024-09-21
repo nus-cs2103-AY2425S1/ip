@@ -1,6 +1,8 @@
 package nugget.command;
 
-import nugget.*;
+import nugget.Storage;
+import nugget.TaskList;
+import nugget.Ui;
 import nugget.exception.InvalidTaskNumberException;
 import nugget.exception.NuggetException;
 

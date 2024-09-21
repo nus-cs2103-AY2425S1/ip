@@ -1,4 +1,2 @@
 [T][ ] sleep
-[E][ ] Client meeting (from: Sep 24 2024, 09:00 am to: Sep 24 2024, 11:00 am)
-[E][ ] Team meeting (from: Sep 24 2024, 12:00 pm to: Sep 24 2024, 02:00 pm)
-[D][ ] Eat (by: Oct 10 2024, 07:00 pm)
+[T][ ] eat as

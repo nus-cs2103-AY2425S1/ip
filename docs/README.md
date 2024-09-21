@@ -1,7 +1,5 @@
 # Nugget Chatbot User Guide
-
-![Ui.png](..%2F..%2F..%2F..%2FDocuments%2FUi.png)
-
+![Ui.png](Ui.png)
 ## Introduction
 Nugget is a task tracker chatbot designed to help users organize and plan their day effectively. It supports three types of tasks:
 - **Todo**: Tasks without a deadline.

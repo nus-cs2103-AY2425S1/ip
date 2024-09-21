@@ -1,11 +1,25 @@
 package nugget;
 
-import nugget.command.*;
-import nugget.exception.*;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import nugget.command.AddTaskCommand;
+import nugget.command.Command;
+import nugget.command.DeleteTaskCommand;
+import nugget.command.FindTaskCommand;
+import nugget.command.ListCommand;
+import nugget.command.MarkTaskCommand;
+import nugget.command.SortListCommand;
+import nugget.command.UnmarkTaskCommand;
+import nugget.exception.EmptyDescriptionException;
+import nugget.exception.InvalidDateFormatException;
+import nugget.exception.InvalidDeadlineFormatException;
+import nugget.exception.InvalidEventFormatException;
+import nugget.exception.InvalidTaskNumberException;
+import nugget.exception.NuggetException;
+import nugget.exception.UnknownCommandException;
+
 
 /**
  * The {@code Parser} class is responsible for parsing user input and converting it into {@code Command} objects.

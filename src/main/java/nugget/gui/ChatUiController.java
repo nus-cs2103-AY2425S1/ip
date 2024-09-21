@@ -1,13 +1,17 @@
 package nugget.gui;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Button;
-import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
 import nugget.Nugget;
 
+/**
+ * Controller class for the Chat UI in a Nugget application.
+ * This class handles user input, displays messages in the chat, and integrates with the Nugget backend.
+ */
 public class ChatUiController {
 
     @FXML
@@ -23,6 +27,10 @@ public class ChatUiController {
     private Image userImage;
     private Image botImage;
 
+    /**
+     * Initializes the ChatUiController.
+     * Loads the user and bot images and sets up automatic scrolling for the chat area.
+     */
     @FXML
     public void initialize() {
         userImage = new Image(getClass().getResourceAsStream("/images/nugget.jpeg"));
@@ -30,6 +38,11 @@ public class ChatUiController {
         messageArea.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
     }
 
+    /**
+     * Sets the Nugget instance used by the controller.
+     *
+     * @param nugget The Nugget instance to handle user input.
+     */
     public void setNugget(Nugget nugget) {
         this.nugget = nugget;
     }

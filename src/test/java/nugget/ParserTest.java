@@ -1,5 +1,11 @@
 package nugget;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import nugget.command.AddTaskCommand;
 import nugget.command.Command;
 import nugget.command.ListCommand;
@@ -8,10 +14,6 @@ import nugget.exception.EmptyDescriptionException;
 import nugget.exception.InvalidTaskNumberException;
 import nugget.exception.NuggetException;
 import nugget.exception.UnknownCommandException;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class ParserTest {
 

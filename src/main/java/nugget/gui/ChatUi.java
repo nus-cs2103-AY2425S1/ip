@@ -11,6 +11,12 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import nugget.Nugget;
 
+
+/**
+ * Represents the user interface for the chat application.
+ * The {@code ChatUi} class handles the graphical layout, user input, and
+ * displays the interaction between the user and the Nugget bot.
+ */
 public class ChatUi {
 
     private static final String USER_IMAGE_PATH = "/images/nugget.jpeg";
@@ -25,6 +31,11 @@ public class ChatUi {
     private Image userImage;
     private Image botImage;
 
+    /**
+     * Constructs a {@code ChatUi} object and initializes the graphical components.
+     *
+     * @param nugget The {@code Nugget} bot instance to handle user input.
+     */
     public ChatUi(Nugget nugget) {
         this.nugget = nugget;
         initializeComponents();
@@ -42,7 +53,6 @@ public class ChatUi {
         configureInputField();
 
         submitButton = new Button("Submit");
-        submitButton.setOnAction(e -> handleInput());
 
         HBox inputLayout = new HBox(10, inputField, submitButton);
         inputLayout.setAlignment(Pos.BOTTOM_CENTER);
