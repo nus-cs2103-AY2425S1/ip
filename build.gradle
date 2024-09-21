@@ -1,25 +1,21 @@
 plugins {
     id 'java'
     id 'application'
-    id 'org.openjfx.javafxplugin' version '0.0.13'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'org.openjfx.javafxplugin' version '0.0.14'
 }
 
 group 'com.example'
 version '1.0-SNAPSHOT'
-
-sourceCompatibility = '11'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    String javaFxVersion = '17.0.7'
 
-    String javaFxVersion = '22.0.2'
-    implementation "org.openjfx:javafx-controls:22.0.2"
-    implementation "org.openjfx:javafx-fxml:22.0.2"
+    // JavaFX dependencies for all platforms
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'linux'
@@ -32,33 +28,34 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
-}
 
-javafx {
-    version = "22.0.2"
-    modules = [ 'javafx.controls', 'javafx.fxml' ]
-}
-
-application {
-    mainClass.set("bing.Main")
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
 }
 
 test {
     useJUnitPlatform()
 }
 
-run {
-    standardInput = System.in
+application {
+    mainClass.set("bing.Main")
 }
 
-jar {
+javafx {
+    version = '17.0.7'
+    modules = ['javafx.controls', 'javafx.fxml']  // Add any other modules you need
+}
+
+shadowJar {
+    archiveBaseName = 'bing'
+    archiveClassifier = null
+    archiveVersion = ''  // Remove version suffix
+    mergeServiceFiles()  // Ensure the dependencies are bundled
     manifest {
-        attributes(
-                'Main-Class': 'bing.Main'
-        )
+        attributes 'Main-Class': 'bing.Main'  // Ensure the correct main class is specified
     }
-    from {
-        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-    }
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+run {
+    standardInput = System.in
 }
