@@ -3,7 +3,7 @@
 >
 >2<sup>nd</sup> of the Flame-Chasers, Elysia. As you can see, I'm a girl beautiful like a flower.
 
-ElysiaPro will gladly to help you to remember things you need to do. She's,
+Elysia will gladly to help you to remember things you need to do. She's,
 - text-based
 - easy to learn
 - ~~FAST~~ SUPER FAST to help
