@@ -15,6 +15,7 @@ Gallium is your **todos, deadlines and events manager chatbot**, optimized for u
   - [Filtering Tasks by Date: `date`](#filtering-tasks-by-date-date)
   - [Editing Tasks: `edit`](#editing-tasks-edit)
   - [Exiting: `bye`](#exiting-bye)
+- [Storage](#storage)
 - [Command Summary](#command-summary)
 
 # Quick Start
@@ -23,9 +24,9 @@ Gallium is your **todos, deadlines and events manager chatbot**, optimized for u
 
 2. Download the latest `.jar` file from here.
 
-3. Copy the file to the folder you want to use as the home folder for your AddressBook.
+3. Copy the file to the folder you want to use as the home folder for Gallium.
 
-4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar gallium.jar` command to run the application.
    A GUI similar to the below should appear in a few seconds.
 
 ![Gallium UI](./Ui.png)
@@ -174,6 +175,10 @@ Example: `2. 2024-09-20 2359`
 Exits the program.
 
 Format: `bye`
+
+# Storage
+
+Gallium saves all your tasks automatically to a local file named `gallium.txt` stored in `[Gallium JAR file location]/data/`. There is no need to save manually.
 
 # Command Summary
 
