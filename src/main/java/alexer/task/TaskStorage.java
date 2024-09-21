@@ -89,24 +89,33 @@ public class TaskStorage {
      * @return Whether the save is successful
      */
     public boolean saveTasks(List<Task> taskList) {
-        File file = new File(saveFile);
-        // ensure our data directory exists first
-        file.getParentFile().mkdir();
+        ensureDirectoryExists();
 
         try {
             FileWriter fileWriter = new FileWriter(saveFile);
+            String output = getSaveString(taskList);
 
-            StringBuilder output = new StringBuilder();
-            for (Task task : taskList) {
-                output.append(task.toTaskString()).append("\n");
-            }
-
-            fileWriter.write(output.toString());
+            fileWriter.write(output);
             fileWriter.close();
             return true;
         } catch (IOException e) {
             System.out.println("Error! Failed to save tasks!");
             return false;
         }
+    }
+
+    private void ensureDirectoryExists() {
+        File file = new File(saveFile);
+        // ensure our data directory exists first before saving file
+        file.getParentFile().mkdir();
+    }
+
+    private String getSaveString(List<Task> taskList) {
+        StringBuilder output = new StringBuilder();
+        for (Task task : taskList) {
+            output.append(task.toTaskString()).append("\n");
+        }
+
+        return output.toString();
     }
 }
