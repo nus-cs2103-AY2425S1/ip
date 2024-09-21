@@ -3,24 +3,40 @@ package Tools;
 import Exception.EmptyDescriptionException;
 import Exception.MissingDateException;
 
+/**
+ * Parser for handling and routing commands to manage task operations.
+ */
 public class NewParser {
 
     NewTaskList tasks;
 
     NewStorage storage;
 
-
+    /**
+     * Constructs a new parser with associated task list and storage.
+     *
+     * @param tasks The task list to be managed and manipulated.
+     * @param storage The storage system to save task changes.
+     */
     public NewParser(NewTaskList tasks, NewStorage storage) {
         this.tasks = tasks;
         this.storage = storage;
 
     }
 
+    /**
+     * Parses and processes user input commands to perform task operations.
+     *
+     * @param input The user input command.
+     * @return A string message reflecting the result of the command execution.
+     * @throws EmptyDescriptionException if a task description is missing.
+     * @throws MissingDateException if a required date for a task is missing.
+     */
     public String parse(String input) {
         try {
             if (input.equals("bye")) {
                 storage.saveTasks(tasks);
-                
+
                 return "Bye. Hope to see you again soon!";
             } else if (input.startsWith("delete")) {
                 int size = tasks.size();
