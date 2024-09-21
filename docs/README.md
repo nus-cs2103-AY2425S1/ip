@@ -6,7 +6,7 @@ store these types of tasks. Users can tag tasks, mark completion and find tasks 
 ![Ui.png](Ui.png)
 
 ## Quick Start Guide
-1. Ensure Java 17 or later is installed on your device. 
+1. Ensure Java 17 is installed on your device. 
 2. Download the JAR file from this repository.
 3. Place the JAR file in a desired directory and run it by double-clicking. 
 4. Type the desired command and click enter or the send button to begin using Twilight.
