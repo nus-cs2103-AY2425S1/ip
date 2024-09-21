@@ -1,7 +1,5 @@
 package optimus;
 
-import javafx.application.Platform;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -20,11 +18,20 @@ public class Storage {
     List<Task> loadFile() throws FileNotFoundException, OptimusException {
         File f = new File(filepath);
         List<Task> record = new ArrayList<>();
+
         if (!f.exists()) {
-            System.out.println("No existing data file found in given directory. A new record will be established");
+            System.out.println("No existing data file found in the given directory. A new record will be established.");
             return record;
         }
-        Scanner s = new Scanner(f); // Taken from notes
+
+        Scanner s = new Scanner(f);
+        processFileLines(s, record);
+        s.close();
+
+        return record;
+    }
+
+    private void processFileLines(Scanner s, List<Task> record) throws OptimusException {
         while (s.hasNextLine()) {
             String line = s.nextLine();
             String[] parts = line.split(" \\| ");
@@ -32,21 +39,7 @@ public class Storage {
             boolean isDone = parts[1].equals("1");
             String description = parts[2];
 
-            Task task = null;
-            switch (taskType) {
-            case "T":
-                task = new ToDos(description);
-                break;
-            case "D":
-                String by = parts.length > 3 ? parts[3] : "";
-                task = new Deadlines(description, by);
-                break;
-            case "E":
-                String from = parts.length > 3 ? parts[3] : "";
-                String to = parts.length > 4 ? parts[4] : "";
-                task = new Events(description, from, to);
-                break;
-            }
+            Task task = createTask(taskType, description, parts);
 
             if (task != null) {
                 if (isDone) {
@@ -55,9 +48,27 @@ public class Storage {
                 record.add(task);
             }
         }
-        s.close();
-        return record;
     }
+
+    private Task createTask(String taskType, String description, String[] parts) throws OptimusException {
+        switch (taskType) {
+            case "T":
+                return new ToDos(description);
+            case "D":
+                String by = parts.length > 3 ? parts[3] : "";
+                return new Deadlines(description, by);
+            case "E":
+                String from = parts.length > 3 ? parts[3] : "";
+                String to = parts.length > 4 ? parts[4] : "";
+                return new Events(description, from, to);
+            default:
+                return null;
+        }
+    }
+
+
+
+
 
     public void saveToFile(List<Task> record) throws IOException {
         FileWriter fw = new FileWriter(filepath);
