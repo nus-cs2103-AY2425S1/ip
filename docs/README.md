@@ -1,30 +1,79 @@
-# Duke User Guide
+# Muffin User Guide
 
-// Update the title above to match the actual product name
+![Screenshot of product Ui.](docs/Ui.png)
 
-// Product screenshot goes here
+Muffin is a simple and intuitive task list manager that helps you keep track of your to-dos, deadlines, and events with 
+ease. The app supports a variety of task types and allows you to perform several useful operations, including listing, 
+marking, unmarking, and deleting tasks. You can also undo actions and search for specific tasks using a keyword.
 
-// Product intro goes here
+## Features
 
-## Adding deadlines
+### Todo Tasks: Create simple tasks 
+Format: `todo [task]`
 
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
+Example:
 ```
-expected output
+todo buy apples
 ```
 
-## Feature ABC
+### Deadline Tasks: Create tasks with a deadline
+Format: `deadline [task] /by [date]`
 
-// Feature details
+Example:
+```
+deadline submit assignment /by 2024-09-24
+```
 
+### Event Tasks: Create tasks with start and end dates
+Format: `event [task] /from [start date] /to [end date]`
 
-## Feature XYZ
+Example:
+```
+event school fair /from 2024-09-24 /to 2024-09-26
+```
 
-// Feature details
+### List Tasks: View all tasks currently in the list 
+Format: `list`
+
+### Mark Tasks: Update completed tasks
+by specifying its index using the format: `mark [index]`
+
+Example:
+```
+mark 1
+```
+
+### Unmark Tasks: Unmark previously marked task
+by specifying its index using the format: `unmark [index]`
+
+Example:
+```
+unmark 1
+```
+
+### Delete Tasks: Remove a task from the list
+by specifying its index using the format: `delete [index]`
+
+Example:
+```
+delete 1
+```
+
+### Find Tasks: Search for tasks containing a specific keyword
+Format: `find [keyword]`
+
+Example:
+```
+find assignment
+```
+
+### Undo Actions: Undo the most recent operations
+Format: `undo`
+
+### Exit: End the application 
+Format: `bye`
+
+## Installation
+1. Clone this repository to your local machine.
+2. Ensure you have the necessary dependencies installed. 
+3. Run the app!
