@@ -1,7 +1,143 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hello! I'm Meep
+What can I do for you?
 
+Here are the list of commands you can use:
+1. todo <description>: Adds a todo task to the list.
+2. deadline <description> /by <date>: Adds a deadline task to the list.
+3. event <description> /from <date> /to <date>: Adds an event task to the list.
+4. list: Lists all tasks in the list.
+5. mark <index>: Marks the task at the specified index as done.
+6. unmark <index>: Marks the task at the specified index as not done.
+7. delete <index>: Deletes the task at the specified index.
+8. find <keyword>: Finds tasks that contain the specified keyword.
+9. bye: Exits the application.
+
+Got it. I've added this task:
+[T][ ] read book
+Now you have 1 tasks in the list
+
+Sorry, there is something wrong with the date format.
+Please use the format: d/M/yyyy HHmm
+
+Got it. I've added this task:
+[D][ ] return book (by: 12th of September 2021, 6:00pm)
+Now you have 2 tasks in the list
+
+Got it. I've added this task:
+[E][ ] project meeting (from: 12th of September 2021, 2:00pm to: 12th of September 2021, 4:00pm)
+Now you have 3 tasks in the list
+
+Here are the tasks in your list:
+1. [T][ ] read book
+2. [D][ ] return book (by: 12th of September 2021, 6:00pm)
+3. [E][ ] project meeting (from: 12th of September 2021, 2:00pm to: 12th of September 2021, 4:00pm)
+
+Nice! I've marked this task as done:
+[T][X] read book
+
+Nice! I've marked this task as done:
+[D][X] return book (by: 12th of September 2021, 6:00pm)
+
+Here are the tasks in your list:
+1. [T][X] read book
+2. [D][X] return book (by: 12th of September 2021, 6:00pm)
+3. [E][ ] project meeting (from: 12th of September 2021, 2:00pm to: 12th of September 2021, 4:00pm)
+
+OK, I've marked this task as not done yet:
+[T][ ] read book
+
+Here are the tasks in your list:
+1. [T][ ] read book
+2. [D][X] return book (by: 12th of September 2021, 6:00pm)
+3. [E][ ] project meeting (from: 12th of September 2021, 2:00pm to: 12th of September 2021, 4:00pm)
+
+Sorry, I don't understand that command. Please try again.
+Try using the 'help' command for a list of available commands.
+
+Sorry, there is something wrong with your event command.
+Event command should be in the format: event <description> /from <date> /to <date>
+
+Noted. I've removed this task:
+[T][ ] read book
+
+Now you have 2 tasks in the list
+
+Here are the tasks in your list:
+1. [D][X] return book (by: 12th of September 2021, 6:00pm)
+2. [E][ ] project meeting (from: 12th of September 2021, 2:00pm to: 12th of September 2021, 4:00pm)
+
+Sorry, there is something wrong with your delete command.
+Delete command should be in the format: delete <index>
+The index should be a number within the range of the list
+
+Noted. I've removed this task:
+[D][X] return book (by: 12th of September 2021, 6:00pm)
+
+Now you have 1 tasks in the list
+
+Noted. I've removed this task:
+[E][ ] project meeting (from: 12th of September 2021, 2:00pm to: 12th of September 2021, 4:00pm)
+
+Now you have 0 tasks in the list
+
+Sorry, there is something wrong with your delete command.
+Delete command should be in the format: delete <index>
+The index should be a number within the range of the list
+
+Got it. I've added this task:
+[T][ ] borrow book
+Now you have 1 tasks in the list
+
+Here are the tasks in your list:
+1. [T][ ] borrow book
+
+Sorry, there is something wrong with your todo command.
+Todo command should be in the format: todo <description>
+
+Sorry, there is something wrong with your deadline command.
+Deadline command should be in the format: deadline <description> /by <date>
+
+Sorry, there is something wrong with your event command.
+Event command should be in the format: event <description> /from <date> /to <date>
+
+Got it. I've added this task:
+[E][ ] project meeting (from: 12th of September 2021, 2:00pm to: 12th of September 2021, 4:00pm)
+Now you have 2 tasks in the list
+
+Got it. I've added this task:
+[D][ ] return book (by: 12th of September 2021, 6:00pm)
+Now you have 3 tasks in the list
+
+Got it. I've added this task:
+[T][ ] read book
+Now you have 4 tasks in the list
+
+Nice! I've marked this task as done:
+[T][X] borrow book
+
+Here are the tasks in your list:
+1. [T][X] borrow book
+2. [E][ ] project meeting (from: 12th of September 2021, 2:00pm to: 12th of September 2021, 4:00pm)
+3. [D][ ] return book (by: 12th of September 2021, 6:00pm)
+4. [T][ ] read book
+
+Here are the matching tasks in your list:
+1. [T][X] borrow book
+3. [D][ ] return book (by: 12th of September 2021, 6:00pm)
+4. [T][ ] read book
+
+Here are the matching tasks in your list:
+1. [T][X] borrow book
+3. [D][ ] return book (by: 12th of September 2021, 6:00pm)
+4. [T][ ] read book
+
+Got it. I've added this task:
+[T][ ] test archive
+Now you have 5 tasks in the list
+
+Noted. I've archived this task:
+[T][ ] test archive
+
+Now you have 4 tasks in the list
+
+Bye! Have a great day!

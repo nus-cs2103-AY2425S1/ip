@@ -1,0 +1,34 @@
+help
+todo read book
+deadline return book /by Sunday
+deadline return book /by 12/9/2021 1800
+event project meeting /from 12/9/2021 1400 /to 12/9/2021 1600
+list
+mark 1
+mark 2
+list
+unmark 1
+list
+blah blah
+event project meeting 2 /from 12/9/2021 1400
+delete 1
+list
+delete 3
+delete 1
+delete 1
+delete 1
+todo borrow book
+list
+todo
+deadline
+event
+event project meeting /from 12/9/2021 1400 /to 12/9/2021 1600
+deadline return book /by 12/9/2021 1800
+todo read book
+mark 1
+list
+find book
+find Book
+todo test archive
+archive 5
+bye
