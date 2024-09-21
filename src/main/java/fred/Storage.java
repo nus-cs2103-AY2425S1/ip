@@ -46,37 +46,46 @@ public class Storage {
      */
     public ArrayList<Task> getTasksFromDataFile() {
         ArrayList<Task> tasks = new ArrayList<>();
-        Scanner scanner = null;
-        try {
-            scanner = new Scanner(dataFile);
+        try (Scanner scanner = new Scanner(dataFile)) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            while (scanner.hasNext()) {
+                String line = scanner.nextLine();
+                String[] lineParts = line.split(" \\| ");
+                Task task = createTaskFromLine(lineParts, formatter);
+                if (task != null) {
+                    setTaskStatus(task, lineParts[1]);
+                    tasks.add(task);
+                }
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        while (scanner.hasNext()) {
-            String line = scanner.nextLine();
-            String[] lineParts = line.split(" \\| ");
-            Task task = null;
-            switch (lineParts[0]) {
-                case "T":
-                    task = new Todo(lineParts[2]);
-                    break;
-                case "D":
-                    task = new Deadline(lineParts[2], LocalDateTime.parse(lineParts[3], formatter));
-                    break;
-                case "E":
-                    task = new Event(lineParts[2], LocalDateTime.parse(lineParts[3], formatter), LocalDateTime.parse(lineParts[4], formatter));
-                    break;
-            }
-            if (lineParts[1].equals("1")) {
-                task.markAsDone();
-            } else if (lineParts[1].equals("0")) {
-                task.markAsNotDone();
-            }
-            tasks.add(task);
-        }
         return tasks;
     }
+
+    private Task createTaskFromLine(String[] lineParts, DateTimeFormatter formatter) {
+        switch (lineParts[0]) {
+            case "T":
+                return new Todo(lineParts[2]);
+            case "D":
+                return new Deadline(lineParts[2], LocalDateTime.parse(lineParts[3], formatter));
+            case "E":
+                return new Event(lineParts[2],
+                        LocalDateTime.parse(lineParts[3], formatter),
+                        LocalDateTime.parse(lineParts[4], formatter));
+            default:
+                return null;
+        }
+    }
+
+    private void setTaskStatus(Task task, String status) {
+        if ("1".equals(status)) {
+            task.markAsDone();
+        } else if ("0".equals(status)) {
+            task.markAsNotDone();
+        }
+    }
+
 
     /**
      * Deletes a specific task from the data file by rewriting the file without the specified task.
