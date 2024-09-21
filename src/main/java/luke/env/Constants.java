@@ -18,4 +18,6 @@ public class Constants {
     public static final List<String> TASK_TYPES = List.of(new String[]{"todo", "event", "deadline"});
     public static final String FILE_PATH = "./data/Luke.txt";
     public static final int PAUSE = 2000;
+    public static final String DUPLICATE_TASK_MESSAGE = "hey, that task already exists in this list. "
+            + "try adding another task.";
 }

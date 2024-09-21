@@ -1,7 +1,10 @@
 package luke.task;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.List;
 
 /**
  * The {@code Deadline} class represents the Deadline task type. The Deadline task contains a task name,
@@ -25,10 +28,37 @@ import java.time.format.DateTimeFormatter;
  * @see Event
  */
 public class Deadline extends Task {
-    protected static final DateTimeFormatter DATE_TIME_INPUT_FORMATTER =
-            DateTimeFormatter.ofPattern("d/MM/yyyy HH:mm");
+    protected static final List<DateTimeFormatter> DATE_TIME_INPUT_FORMATTERS = List.of(
+            DateTimeFormatter.ofPattern("d/M/yyyy HH:mm"), // e.g., "3/9/2024, 1430" for 3 Sept 2024, 1430 hrs
+            DateTimeFormatter.ofPattern("dd/M/yyyy"), // e.g., "23/9/2024, 14:30" for 23 Sept 2024, 14:30 hrs
+            DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm"), // e.g., "Sep 23 2024, 14:30"
+            DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"), // e.g., "23/09/2024 14:30"
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"), // e.g., "2024-09-23 14:30"
+            DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm"), // e.g., "09-23-2024 14:30"
+            DateTimeFormatter.ofPattern("dd MMM yyyy, HH:mm"), // e.g., "23 Sep 2024, 14:30"
+            DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"), // e.g., "2024/09/23 14:30"
+            DateTimeFormatter.ofPattern("MMM dd, yyyy HH:mm"), // e.g., "Sep 23, 2024 14:30"
+            DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm") // e.g., "23-09-2024 14:30"
+    );
+    protected static final List<DateTimeFormatter> DATE_INPUT_FORMATTERS = List.of(
+            DateTimeFormatter.ofPattern("d/M/yyyy"), // e.g., "3/9/2024" for 3 Sept 2024
+            DateTimeFormatter.ofPattern("dd/M/yyyy"), // e.g., "23/9/2024" for 23 Sept 2024
+            DateTimeFormatter.ofPattern("dd/MM/yyyy"), // e.g., "23/09/2024"
+            DateTimeFormatter.ofPattern("MMM dd yyyy"), // e.g., "Sep 23, 2024"
+            DateTimeFormatter.ofPattern("dd/MM/yyyy"), // e.g., "23/09/2024"
+            DateTimeFormatter.ofPattern("yyyy-MM-dd"), // e.g., "2024-09-23"
+            DateTimeFormatter.ofPattern("MM-dd-yyyy"), // e.g., "09-23-2024"
+            DateTimeFormatter.ofPattern("dd MMM yyyy"), // e.g., "23 Sep 2024"
+            DateTimeFormatter.ofPattern("yyyy/MM/dd"), // e.g., "2024/09/23"
+            DateTimeFormatter.ofPattern("MMM dd, yyyy"), // e.g., "Sep 23, 2024"
+            DateTimeFormatter.ofPattern("dd-MM-yyyy") // e.g., "23-09-2024"
+    );
+
     protected static final DateTimeFormatter DATE_TIME_OUTPUT_FORMATTER =
             DateTimeFormatter.ofPattern("MMM d yyyy, HH:mm");
+
+    protected static final DateTimeFormatter DATE_OUTPUT_FORMATTER =
+            DateTimeFormatter.ofPattern("MMM d yyyy");
     protected String deadline;
 
     /**
@@ -40,16 +70,49 @@ public class Deadline extends Task {
      */
     public Deadline(String taskName, String deadline, boolean isDone) {
         super(taskName, isDone);
-        if (deadline.charAt(0) == '0') {
-            deadline = deadline.substring(1, deadline.length() - 1);
+        this.deadline = parseDateTime(deadline);
+    }
+
+    /**
+     * Parses the given deadline string into a formatted date or date-time string.
+     * <p>
+     * This method tries to parse the input string using a series of predefined {@link DateTimeFormatter}
+     * patterns. It first attempts to parse the string as a {@link LocalDateTime} (i.e., containing both
+     * date and time). If none of the date-time patterns match, it then attempts to parse the string as
+     * a {@link LocalDate} (i.e., date only).
+     * </p>
+     * <p>
+     * If the input string is successfully parsed as a {@code LocalDateTime}, it will be formatted
+     * using {@code "MMM d yyyy, HH:mm"} (e.g., "Sep 23 2024, 14:30"). If the input string is parsed
+     * as a {@code LocalDate}, it will be formatted using {@code "MMM d yyyy"} (e.g., "Sep 23 2024").
+     * </p>
+     *
+     * @param deadline The input string representing the deadline in various date or date-time formats.
+     * @return The formatted deadline string if parsing is successful. Otherwise, it will return the unformatted string.
+     */
+    public String parseDateTime(String deadline) {
+        // 1. Try to parse as a LocalDateTime (date + time)
+        for (DateTimeFormatter formatter : DATE_TIME_INPUT_FORMATTERS) {
+            try {
+                LocalDateTime parsedDate = LocalDateTime.parse(deadline, formatter);
+                return parsedDate.format(DATE_TIME_OUTPUT_FORMATTER);
+            } catch (DateTimeParseException ignored) {
+                // Ignore and try the next formatter
+            }
         }
-        try {
-            LocalDateTime parsedDateInput = LocalDateTime.parse(deadline, DATE_TIME_INPUT_FORMATTER);
-            this.deadline = parsedDateInput.format(DATE_TIME_OUTPUT_FORMATTER);
-        } catch (java.time.format.DateTimeParseException e) {
-            // assuming the input is already formatted in the output format
-            this.deadline = deadline;
+
+        // 2. If no LocalDateTime format worked, try parsing as a LocalDate (date-only)
+        for (DateTimeFormatter formatter : DATE_INPUT_FORMATTERS) {
+            try {
+                LocalDate parsedDate = LocalDate.parse(deadline, formatter);
+                return parsedDate.format(DATE_OUTPUT_FORMATTER);
+            } catch (DateTimeParseException ignored) {
+                // Ignore and try the next formatter
+            }
         }
+
+        // If the deadline string doesn't match any format, return the unformatted deadline.
+        return deadline;
     }
 
     @Override

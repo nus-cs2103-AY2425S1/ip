@@ -24,8 +24,12 @@ public class TaskList {
         return taskList.get(index);
     }
 
-    public void addTask(Task task) {
+    public boolean addTask(Task task) {
+        if (checkDuplicate(task)) {
+            return false;
+        }
         taskList.add(task);
+        return true;
     }
 
     /**
@@ -93,12 +97,16 @@ public class TaskList {
 
     private String addTodoToList(String taskDetails, boolean isMarked, boolean isLoadingFromDisk) {
         Todo todo = new Todo(taskDetails, isMarked);
-        taskList.add(todo);
-        Storage.saveData(taskList);
+        boolean notDuplicate = addTask(todo);
         if (!isLoadingFromDisk) {
-            return "i've thrown this to-do into your task list:\n"
-                    + Constants.INDENT + todo.taskDescription() + "\n"
-                    + listSizeUpdateMessage();
+            if (notDuplicate) {
+                Storage.saveData(taskList);
+                return "i've thrown this to-do into your task list:\n"
+                        + Constants.INDENT + todo.taskDescription() + "\n"
+                        + listSizeUpdateMessage();
+            } else {
+                return Constants.DUPLICATE_TASK_MESSAGE;
+            }
         }
         return "";
     }
@@ -113,14 +121,14 @@ public class TaskList {
         String taskName = taskAndDeadline[0];
         String deadline = taskAndDeadline[1];
         Deadline dl = new Deadline(taskName, deadline, isMarked);
-        addTask(dl);
-        Storage.saveData(taskList);
-        if (!isLoadingFromDisk) {
+        boolean notDuplicate = addTask(dl);
+        if (!isLoadingFromDisk && notDuplicate) {
+            Storage.saveData(taskList);
             return "the new deadline's been added to your task list:\n"
                     + Constants.INDENT + dl.taskDescription() + "\n"
                     + listSizeUpdateMessage();
         }
-        return "";
+        return Constants.DUPLICATE_TASK_MESSAGE;
     }
 
     private String addEventToList(String taskDetails, boolean isMarked, boolean isLoadingFromDisk) {
@@ -134,14 +142,14 @@ public class TaskList {
         String from = taskAndTimings[1];
         String to = taskAndTimings[2];
         Event event = new Event(taskName, from, to, isMarked);
-        addTask(event);
-        Storage.saveData(taskList);
-        if (!isLoadingFromDisk) {
+        boolean notDuplicate = addTask(event);
+        if (!isLoadingFromDisk && notDuplicate) {
+            Storage.saveData(taskList);
             return "aaaaand this event is now in your task list:\n"
                     + Constants.INDENT + event.taskDescription() + "\n"
                     + listSizeUpdateMessage();
         }
-        return "";
+        return Constants.DUPLICATE_TASK_MESSAGE;
     }
 
     /**
@@ -172,5 +180,21 @@ public class TaskList {
             list = list + listing + "\n";
         }
         return list;
+    }
+
+    /**
+     * Checks if there is a duplicate task in the task list.
+     * Two tasks are considered duplicates if they have the same name and are of the same type.
+     *
+     * @param newTask The task that will be checked for duplication
+     * @return true if the task list contains a duplicate task
+     */
+    public boolean checkDuplicate(Task newTask) {
+        for (Task task : taskList) {
+            if (newTask.equals(task)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
