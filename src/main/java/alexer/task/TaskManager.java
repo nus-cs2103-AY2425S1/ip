@@ -67,6 +67,12 @@ public class TaskManager {
         taskList.add(task);
     }
 
+    /**
+     * Creates a new To-do task with the given description
+     *
+     * @param description the description of the task
+     * @return a new to-do task as a task object
+     */
     public Task createTodo(String description) {
         Task todo = new Todo(description);
         taskList.add(todo);
@@ -74,6 +80,13 @@ public class TaskManager {
         return todo;
     }
 
+    /**
+     * Creates a new Deadline task with the given description and due datetime
+     *
+     * @param description the description of the deadline
+     * @param by the date time of the deadline
+     * @return a new deadline task as a task object
+     */
     public Task createDeadline(String description, LocalDateTime by) {
         Task deadline = new Deadline(description, by);
         taskList.add(deadline);
@@ -81,6 +94,14 @@ public class TaskManager {
         return deadline;
     }
 
+    /**
+     * Creates a new Event task with the given description and starting/ending times
+     *
+     * @param description the description of the event
+     * @param from the starting date/time string of the event
+     * @param to the ending date/time string of the event
+     * @return a new event task as a task object
+     */
     public Task createEvent(String description, String from, String to) {
         Task event = new Event(description, from, to);
         taskList.add(event);
@@ -88,11 +109,18 @@ public class TaskManager {
         return event;
     }
 
-    public List<Task> findTask(String description) {
+    /**
+     * Finds and returns a list of tasks with the description
+     * containing the keyword given
+     *
+     * @param keyword the keyword string to search for
+     * @return a list of tasks with the keyword string in description
+     */
+    public List<Task> findTask(String keyword) {
         List<Task> tasks = new ArrayList<>();
 
         for (Task task : taskList) {
-            if (task.getDescription().contains(description)) {
+            if (task.getDescription().contains(keyword)) {
                 tasks.add(task);
             }
         }
