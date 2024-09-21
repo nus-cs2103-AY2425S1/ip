@@ -60,6 +60,8 @@ public class AddCommand extends Command {
                 ui.printAddEvent(event);
                 taskList.add(event);
                 Task.count++;
+            } else {
+                throw new GalliumException("Remember to include a space after your command!! \nExample: todo do stuff");
             }
             storage.writeFile(ui);
         } catch (ArrayIndexOutOfBoundsException e) {
