@@ -1,17 +1,15 @@
 package jackson;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.regex.Matcher;
-import java.util.stream.Stream;
 
 import jackson.enums.Actions;
 import jackson.enums.Commands;
 import jackson.exceptions.DuplicatedTaskException;
 import jackson.exceptions.InvalidArgumentException;
+import jackson.exceptions.JacksonException;
 import jackson.exceptions.OutOfListException;
 import jackson.exceptions.SyntaxException;
 import jackson.exceptions.UnsupportedCommandException;
@@ -37,10 +35,10 @@ public class Jackson {
     private static final String PATH = "data/data.txt";
 
     // Path list to read secret text from
-    private static final String SECRET_TEXT = "TWFyaSBraXRhIHJha3lhdCBTaW5nYXB1cmEKU2FtYS1" +
-            "zYW1hIG1lbnVqdSBiYWhhZ2lhCkNpdGEtY2l0YSBraXRhIHlhbmcgbXVsaWEKQmVyamF5YSBTaW5n" +
-            "YXB1cmEKTWFyaWxhaCBraXRhIGJlcnNhdHUKRGVuZ2FuIHNlbWFuZ2F0IHlhbmcgYmFydQpTZW11Y" +
-            "SBraXRhIGJlcnNlcnUKTWFqdWxhaCBTaW5nYXB1cmEKTWFqdWxhaCBTaW5nYXB1cmE=";
+    private static final String SECRET_TEXT = "TWFyaSBraXRhIHJha3lhdCBTaW5nYXB1cmEKU2FtYS1"
+            + "zYW1hIG1lbnVqdSBiYWhhZ2lhCkNpdGEtY2l0YSBraXRhIHlhbmcgbXVsaWEKQmVyamF5YSBTaW5n"
+            + "YXB1cmEKTWFyaWxhaCBraXRhIGJlcnNhdHUKRGVuZ2FuIHNlbWFuZ2F0IHlhbmcgYmFydQpTZW11Y"
+            + "SBraXRhIGJlcnNlcnUKTWFqdWxhaCBTaW5nYXB1cmEKTWFqdWxhaCBTaW5nYXB1cmE=";
 
     // Stores previous command type for css style changing
     private Commands.CommandType commandType;
@@ -79,14 +77,8 @@ public class Jackson {
      */
     public String getResponse(String input) {
         // Variables for main loop
-        Task task;
         Response response;
-        Actions.ActionType action;
-        Matcher matcher;
-        ArrayList<Task> tasks;
 
-        int index;
-        boolean isAscending;
         String output;
         System.out.println(input); // for debugging purposes
 
@@ -94,82 +86,9 @@ public class Jackson {
         try {
             // first parse input and get response (or throw error here)
             response = Parser.parse(input);
-            action = response.getAction();
-            matcher = response.getMatcher();
 
             // decide what action to take based on action object received from parser
-            switch (action) {
-            case LIST:
-                output = this.ui.printList(this.taskList);
-                this.commandType = Commands.CommandType.NORMAL;
-                break;
-            case TODO:
-                task = new Todo(matcher.group(1));
-                this.taskList.addTask(task);
-                output = this.ui.printAfterAddList(task, this.taskList);
-                this.commandType = Commands.CommandType.LIST;
-                break;
-            case DEADLINE:
-                task = new Deadline(matcher.group(1), matcher.group(2));
-                this.taskList.addTask(task);
-                output = this.ui.printAfterAddList(task, this.taskList);
-                this.commandType = Commands.CommandType.LIST;
-                break;
-            case EVENT:
-                task = new Event(matcher.group(1), matcher.group(2), matcher.group(3));
-                this.taskList.addTask(task);
-                output = this.ui.printAfterAddList(task, this.taskList);
-                this.commandType = Commands.CommandType.LIST;
-                break;
-            case MARK:
-                index = Integer.parseInt(matcher.group(1)) - 1;
-                task = this.taskList.mark(index);
-                output = this.ui.printAfterMark(task);
-                this.commandType = Commands.CommandType.TASK;
-                break;
-            case UNMARK:
-                index = Integer.parseInt(matcher.group(1)) - 1;
-                task = this.taskList.unmark(index);
-                output = this.ui.printAfterUnmark(task);
-                this.commandType = Commands.CommandType.TASK;
-                break;
-            case DELETE:
-                index = Integer.parseInt(matcher.group(1)) - 1;
-                task = this.taskList.deleteTask(index);
-                output = this.ui.printAfterDeleteList(task, this.taskList);
-                this.commandType = Commands.CommandType.LIST;
-                break;
-            case FIND:
-                tasks = this.taskList.findTasks(matcher.group(1));
-                output = this.ui.printAfterFindList(tasks, matcher.group(1));
-                this.commandType = Commands.CommandType.LIST;
-                break;
-            case SORT:
-                isAscending = matcher.group(2) == null || matcher.group(2).equals("/a");
-                this.taskList.sort(matcher.group(1), isAscending);
-                output = this.ui.printSortedList(this.taskList);
-                this.commandType = Commands.CommandType.LIST;
-                break;
-            case HELP:
-                output = matcher.group(1) == null
-                        ? this.ui.printCommandList()
-                        : this.ui.printFormatGuide(matcher.group(1));
-                this.commandType = Commands.CommandType.NORMAL;
-                break;
-            case BYE:
-                output = this.storage.save(this.taskList);
-                this.commandType = Commands.CommandType.EXIT;
-                break;
-            case SECRET:
-                output = this.printSecret();
-                this.commandType = Commands.CommandType.SECRET;
-                break;
-            case INVALID:
-                throw new UnsupportedCommandException(input);
-            default:
-                output = "Unknown error! Contact the developer...\n";
-                break;
-            }
+            output = this.makeDecision(response);
 
             // save task list to storage after every command
             this.storage.save(this.taskList);
@@ -202,8 +121,184 @@ public class Jackson {
             output = this.ui.printUnknownError(e);
             this.commandType = Commands.CommandType.ERROR;
         }
-
         return output;
+    }
+
+    /**
+     * Decides what the output should be based on current action to take.
+     * @return String response.
+     */
+    public String makeDecision(Response response) throws
+            JacksonException, IOException {
+        Actions.ActionType action = response.getAction();
+        Matcher matcher = response.getMatcher();
+
+        switch (action) {
+        case LIST:
+            return this.executeList();
+        case TODO:
+            return this.executeTodo(matcher);
+        case DEADLINE:
+            return this.executeDeadline(matcher);
+        case EVENT:
+            return this.executeEvent(matcher);
+        case MARK:
+            return this.executeMark(matcher);
+        case UNMARK:
+            return this.executeUnmark(matcher);
+        case DELETE:
+            return this.executeDelete(matcher);
+        case FIND:
+            return this.executeFind(matcher);
+        case SORT:
+            return this.executeSort(matcher);
+        case HELP:
+            return this.executeHelp(matcher);
+        case BYE:
+            return this.executeBye();
+        case SECRET:
+            return this.executeSecret();
+        case INVALID:
+            throw new UnsupportedCommandException();
+        default:
+            return "Unknown error! Contact the developer...\n";
+        }
+    }
+
+    /**
+     * Executes list command.
+     * @return String response.
+     */
+    public String executeList() {
+        this.commandType = Commands.CommandType.NORMAL;
+        return this.ui.printList(this.taskList);
+    }
+
+    /**
+     * Executes todo command.
+     * @param matcher Matcher object used to parse command.
+     * @return String response.
+     */
+    public String executeTodo(Matcher matcher) throws DuplicatedTaskException {
+        Task task = new Todo(matcher.group(1));
+        this.taskList.addTask(task);
+        this.commandType = Commands.CommandType.LIST;
+        return this.ui.printAfterAddList(task, this.taskList);
+    }
+
+    /**
+     * Executes deadline command.
+     * @param matcher Matcher object used to parse command.
+     * @return String response.
+     */
+    public String executeDeadline(Matcher matcher) throws DuplicatedTaskException {
+        Task task = new Deadline(matcher.group(1), matcher.group(2));
+        this.taskList.addTask(task);
+        this.commandType = Commands.CommandType.LIST;
+        return this.ui.printAfterAddList(task, this.taskList);
+    }
+
+    /**
+     * Executes event command.
+     * @param matcher Matcher object used to parse command.
+     * @return String response.
+     */
+    public String executeEvent(Matcher matcher)
+            throws DuplicatedTaskException, InvalidArgumentException {
+        Task task = new Event(matcher.group(1), matcher.group(2), matcher.group(3));
+        this.taskList.addTask(task);
+        this.commandType = Commands.CommandType.LIST;
+        return this.ui.printAfterAddList(task, this.taskList);
+    }
+
+    /**
+     * Executes mark command.
+     * @param matcher Matcher object used to parse command.
+     * @return String response.
+     */
+    public String executeMark(Matcher matcher) throws OutOfListException {
+        int index = Integer.parseInt(matcher.group(1)) - 1;
+        Task task = this.taskList.mark(index);
+        this.commandType = Commands.CommandType.TASK;
+        return this.ui.printAfterMark(task);
+    }
+
+    /**
+     * Executes unmark command.
+     * @param matcher Matcher object used to parse command.
+     * @return String response.
+     */
+    public String executeUnmark(Matcher matcher) throws OutOfListException {
+        int index = Integer.parseInt(matcher.group(1)) - 1;
+        Task task = this.taskList.unmark(index);
+        this.commandType = Commands.CommandType.TASK;
+        return this.ui.printAfterUnmark(task);
+    }
+
+    /**
+     * Executes delete command.
+     * @param matcher Matcher object used to parse command.
+     * @return String response.
+     */
+    public String executeDelete(Matcher matcher) throws OutOfListException {
+        int index = Integer.parseInt(matcher.group(1)) - 1;
+        Task task = this.taskList.deleteTask(index);
+        this.commandType = Commands.CommandType.LIST;
+        return this.ui.printAfterDeleteList(task, this.taskList);
+    }
+
+    /**
+     * Executes find command.
+     * @param matcher Matcher object used to parse command.
+     * @return String response.
+     */
+    public String executeFind(Matcher matcher) {
+        ArrayList<Task> tasks = this.taskList.findTasks(matcher.group(1));
+        this.commandType = Commands.CommandType.LIST;
+        return this.ui.printAfterFindList(tasks, matcher.group(1));
+    }
+
+    /**
+     * Executes sort command.
+     * @param matcher Matcher object used to parse command.
+     * @return String response.
+     */
+    public String executeSort(Matcher matcher) throws OutOfListException {
+        boolean isAscending = matcher.group(2) == null || matcher.group(2).equals("/a");
+        this.taskList.sort(matcher.group(1), isAscending);
+        this.commandType = Commands.CommandType.LIST;
+        return this.ui.printSortedList(this.taskList);
+    }
+
+    /**
+     * Executes help command.
+     * @param matcher Matcher object used to parse command.
+     * @return String response.
+     */
+    public String executeHelp(Matcher matcher) {
+        String output = matcher.group(1) == null
+                ? this.ui.printCommandList()
+                : this.ui.printFormatGuide(matcher.group(1));
+        this.commandType = Commands.CommandType.NORMAL;
+        return output;
+    }
+
+    /**
+     * Executes bye command.
+     * @return String response.
+     */
+    public String executeBye() throws IOException {
+        this.commandType = Commands.CommandType.EXIT;
+        return this.storage.save(this.taskList);
+    }
+
+    /**
+     * Executes secret command.
+     * @return String response.
+     */
+    public String executeSecret() {
+        this.commandType = Commands.CommandType.SECRET;
+        return printSecret();
     }
 
     /**
