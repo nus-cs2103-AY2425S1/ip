@@ -8,9 +8,10 @@ import java.io.FileWriter;
 import java.io.BufferedWriter;
 
 public class Storage {
-    Parser parser = new Parser();
+
     File file = new File("./data/duke.txt");
     public ArrayList<Task> loadTasks() {
+        Parser parser = new Parser();
         ArrayList<Task> tasks = new ArrayList<>();
         try {
 

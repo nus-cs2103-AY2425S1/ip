@@ -47,17 +47,16 @@ public class Parser {
                     break;
                 case "Deadline":
                     input = input.trim();
-                    String[] string = input.split(" ", 4);
-                    task = new Deadline(string[1], Boolean.parseBoolean(string[2]), this.parseDate(string[3]));
+                    String[] deadlineParts = input.split(" ", 4);
+                    task = new Deadline(deadlineParts[1], Boolean.parseBoolean(deadlineParts[2]), this.parseDate(deadlineParts[3]));
                     break;
                 case "Event":
-                    String[] eventString = input.split(" ", 5);
-                    task = new Event(eventString[1], false, this.parseDate(eventString[3]), this.parseDate(eventString[4]));
+                    String[] eventParts = input.split(" ", 5);
+                    task = new Event(eventParts[1], false, this.parseDate(eventParts[3]), this.parseDate(eventParts[4]));
                     break;
                 case "delete":
-                    String[] deleteString = input.split(" ");
-                    Integer index = Integer.parseInt(deleteString[1]);
-                    Task deletedTask = taskList.getTask(index - 1);
+                    String[] deleteParts = input.split(" ");
+                    Integer index = Integer.parseInt(deleteParts[1]);
                     taskList.deleteFromList(index - 1);
                     return ui.printDelete(index - 1, taskList);
                 default:

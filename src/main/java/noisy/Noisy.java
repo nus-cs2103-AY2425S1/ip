@@ -1,6 +1,5 @@
 package noisy;
 
-import java.util.Scanner;
 
 
 
