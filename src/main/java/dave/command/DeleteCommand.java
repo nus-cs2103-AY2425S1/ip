@@ -50,13 +50,8 @@ public class DeleteCommand extends Command {
             storage.saveFile(tasks);
             return output;
         } catch (IndexOutOfBoundsException e) {
-            ui.showLine();
             return "Oh no! You have entered an invalid number. Please try again.";
-        } catch (IOException e) {
-            ui.showLine();
-            return "An error occurred while saving the task to the file.";
         } catch (Exception e) {
-            ui.showLine();
             return "An unexpected error occurred while deleting the task.";
         }
     }

@@ -48,8 +48,6 @@ public class AddCommand extends Command {
                     + "Now you have " + tasks.getSize() + " tasks in the list.";
             storage.amendFile(task); // Ensure amendFile is accessed via the correct instance
             return output;
-        } catch (IOException e) {
-            return "An error occurred while saving the task to the file.";
         } catch (Exception e) {
             return "An unexpected error occurred while adding the task.";
         }

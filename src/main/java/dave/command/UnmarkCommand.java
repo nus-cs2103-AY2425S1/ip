@@ -45,8 +45,6 @@ public class UnmarkCommand extends Command {
             return "Ok, I've marked this task as not done yet:\n" + task;
         } catch (IndexOutOfBoundsException e) {
             return "Oh no! You have entered an invalid number. Please try again.";
-        } catch (IOException e) {
-            return "An error occurred while saving the task to the file.";
         } catch (Exception e) {
             return "An unexpected error occurred while marking the task.";
         }

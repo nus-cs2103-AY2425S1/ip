@@ -12,7 +12,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Dave dave = new Dave("C:\\Users\\thamy\\OneDrive\\data\\daveData.txt");
+    private Dave dave = new Dave("./data/daveData.txt");
 
     @Override
     public void start(Stage stage) {

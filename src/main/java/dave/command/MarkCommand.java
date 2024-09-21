@@ -46,8 +46,6 @@ public class MarkCommand extends Command {
             return "Nice! I've marked this task as done:\n" + task;
         } catch (IndexOutOfBoundsException e) {
             return "Oh no! You have entered an invalid number. Please try again.";
-        } catch (IOException e) {
-            return "An error occurred while saving the task to the file.";
         } catch (Exception e) {
             return "An unexpected error occurred while marking the task.";
         }

@@ -31,6 +31,7 @@ public class Storage {
     public Storage(String filePath, TaskList taskList) {
         assert filePath != null && !filePath.isEmpty() : "File path must not be null or empty";
         Storage.filePath = filePath;
+        createFileIfNeeded(); // Ensure the file is created only if it doesn't exist
         loadTasks(taskList);
     }
 
@@ -51,25 +52,30 @@ public class Storage {
      * Saves the given TaskList to the file.
      *
      * @param dataList The TaskList containing tasks to be saved.
-     * @throws IOException If an I/O error occurs while writing to the file.
      */
-    public static void saveFile(TaskList dataList) throws IOException {
-        File fileObj = createFile();
-        writeTasksToFile(dataList, fileObj);
+    public static void saveFile(TaskList dataList) {
+        File fileObj = createFileIfNeeded();
+        try {
+            writeTasksToFile(dataList, fileObj);
+        } catch (IOException e) {
+            System.out.println("Error occurred while saving tasks: " + e.getMessage());
+        }
     }
 
     /**
-     * Creates the file if it doesn't already exist.
+     * Creates the file if it doesn't already exist. If the file exists, it does nothing.
      *
      * @return The File object for the file path.
-     * @throws IOException If an I/O error occurs while creating the file.
      */
-    private static File createFile() throws IOException {
-        assert filePath != null : "File path must not be null";
+    private static File createFileIfNeeded() {
         File fileObj = new File(filePath);
-        fileObj.getParentFile().mkdirs();
-        if (!fileObj.exists()) {
-            fileObj.createNewFile();
+        try {
+            fileObj.getParentFile().mkdirs(); // Ensure parent directories exist
+            if (!fileObj.exists()) {
+                fileObj.createNewFile(); // Create the file if it doesn't exist
+            }
+        } catch (IOException e) {
+            System.out.println("Error occurred while creating file: " + e.getMessage());
         }
         return fileObj;
     }
@@ -91,10 +97,8 @@ public class Storage {
 
     /**
      * Clears the contents of the file.
-     *
-     * @throws IOException If an I/O error occurs while writing to the file.
      */
-    public static void clearFile() throws IOException {
+    public static void clearFile() {
         writeToFile("");
     }
 
@@ -102,12 +106,12 @@ public class Storage {
      * Writes content to the file, overwriting the existing contents.
      *
      * @param content The content to be written to the file.
-     * @throws IOException If an I/O error occurs while writing to the file.
      */
-    private static void writeToFile(String content) throws IOException {
-        assert filePath != null : "File path must not be null";
+    private static void writeToFile(String content) {
         try (FileWriter fw = new FileWriter(filePath, false)) {
             fw.write(content);
+        } catch (IOException e) {
+            System.out.println("Error occurred while clearing file: " + e.getMessage());
         }
     }
 
@@ -115,13 +119,13 @@ public class Storage {
      * Appends a task to the file.
      *
      * @param task The Task to be appended to the file.
-     * @throws IOException If an I/O error occurs while writing to the file.
      */
-    public static void amendFile(Task task) throws IOException {
-        assert filePath != null : "File path must not be null";
-        File fileObj = createFile();
+    public static void amendFile(Task task) {
+        File fileObj = createFileIfNeeded();
         try (FileWriter fw = new FileWriter(fileObj, true)) {
             fw.write(task.write());
+        } catch (IOException e) {
+            System.out.println("Error occurred while appending task: " + e.getMessage());
         }
     }
 
@@ -132,8 +136,6 @@ public class Storage {
      * @throws IOException If an I/O error occurs while reading from the file.
      */
     public ArrayList<Task> loadFile() throws IOException {
-        assert filePath != null : "File path must not be null";
-
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
         if (!file.exists()) {
@@ -148,6 +150,8 @@ public class Storage {
                     tasks.add(task);
                 }
             }
+        } catch (IOException e) {
+            System.out.println("Error occurred while reading tasks: " + e.getMessage());
         }
         return tasks;
     }
@@ -157,9 +161,8 @@ public class Storage {
      *
      * @param line The line of text representing a task.
      * @return The parsed Task.
-     * @throws IOException If an error occurs while parsing the task.
      */
-    private Task parseTask(String line) throws IOException {
+    private Task parseTask(String line) {
         String[] parts = line.split(" \\| ");
         String taskType = parts[0].trim();
         boolean isDone = parts[1].trim().equals("1");
@@ -181,12 +184,9 @@ public class Storage {
      * @param description The task description.
      * @param parts       Additional parts of the task for deadlines or events.
      * @return The created Task.
-     * @throws IOException                    If an I/O error occurs while creating the task.
-     * @throws InvalidDescriptionException    If the description is invalid.
-     * @throws InvalidDateTimeFormatException If the date or time format is invalid.
      */
     private Task createTask(String taskType, boolean isDone, String description, String[] parts)
-            throws IOException, InvalidDescriptionException, InvalidDateTimeFormatException {
+            throws InvalidDescriptionException, InvalidDateTimeFormatException {
         switch (taskType) {
         case "T":
             return createTodoTask(description, isDone);
@@ -195,7 +195,8 @@ public class Storage {
         case "E":
             return createEventTask(description, isDone, parts[3]);
         default:
-            throw new IOException("Unrecognized task type: " + taskType);
+            System.out.println("Unrecognized task type: " + taskType);
+            return null;
         }
     }
 
