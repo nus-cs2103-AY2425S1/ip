@@ -170,6 +170,7 @@ public class Parser {
             String searchWord = userInput.substring(5).trim();
             ArrayList<Task> filteredTasks = new ArrayList<>();
             for (Task task : taskList.getTasks()) {
+                // 'contains' keyword will search for a substring of desc even though it is not a complete word
                 if (task.contains(searchWord)) {
                     filteredTasks.add(task);
                 }
