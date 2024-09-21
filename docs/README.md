@@ -9,7 +9,7 @@ BotManager is a chatbot that will help you track and manage your tasks.
 Notes about the command format:<br>
 
 * Words in `<>` are the parameters to be supplied by the user.<br>
-e.g. in `todo <description>`, `<description>` is a parameter.
+e.g. in `todo <name>`, `<name>` is a parameter.
 
 * The command format must be followed exactly, and all arguments must be in the order given.
 * All dates have to be entered in the format `yyyy-mm-dd`.
