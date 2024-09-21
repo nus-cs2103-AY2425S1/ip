@@ -5,12 +5,21 @@ import bob.exception.BobException;
 
 import java.io.IOException;
 
+/**
+ * The main class of BobBot.
+ * BobBot is a chatbot that helps users manage tasks.
+ */
 public class Bob {
     private final Storage storage;
     private final Ui ui;
     private final Parser parser;
     private TaskList tasks;
 
+    /**
+     * Constructs a Bob instance that stores data at the given filePath.
+     *
+     * @param filePath where this instance of BobBot stores its data
+     */
     public Bob(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
