@@ -47,7 +47,7 @@ public class AddCommandTest {
      * @throws Exception If there is an error executing the command.
      */
     @Test
-    public void testAddTodoCommand() throws Exception {
+    public void todoCommandConstructor_validTask_success() throws Exception {
         TodoCommand addCommand = new TodoCommand("todo read book");
         addCommand.execute(tasks, storage, ui);
 
@@ -63,7 +63,7 @@ public class AddCommandTest {
      * @throws Exception If there is an error executing the command.
      */
     @Test
-    public void testAddDeadlineCommand() throws Exception {
+    public void deadlineCommandConstructor_validTask_success() throws Exception {
         DeadlineCommand addCommand = new DeadlineCommand("deadline submit report /by 1/12/2024 2359");
         addCommand.execute(tasks, storage, ui);
 
@@ -79,7 +79,7 @@ public class AddCommandTest {
      * @throws Exception If there is an error executing the command.
      */
     @Test
-    public void testAddEventCommand() throws Exception {
+    public void eventCommandConstructor_validTask_success() throws Exception {
         EventCommand addCommand = new EventCommand("event team meeting /from 5/12/2024 1400 /to 5/12/2024 1600");
         addCommand.execute(tasks, storage, ui);
 
@@ -95,7 +95,7 @@ public class AddCommandTest {
      * @throws Exception If there is an error executing the commands.
      */
     @Test
-    public void testAddMultipleTasks() throws Exception {
+    public void commandConstructors_addMultipleTasks_success() throws Exception {
         TodoCommand todoCommand = new TodoCommand("todo finish homework");
         DeadlineCommand deadlineCommand = new DeadlineCommand("deadline project submission /by 15/12/2024 1800");
         EventCommand eventCommand = new EventCommand("event birthday party /from 10/12/2024 1900 /to 10/12/2024 2200");
@@ -115,7 +115,7 @@ public class AddCommandTest {
      * Verifies that an exception is thrown with an appropriate error message.
      */
     @Test
-    public void testAddEmptyTodoCommand() {
+    public void execute_emptyTodoCommand_exceptionThrown() {
         Exception exception = assertThrows(Exception.class, () -> {
             TodoCommand addCommand = new TodoCommand("todo ");
             addCommand.execute(tasks, storage, ui);
@@ -125,11 +125,11 @@ public class AddCommandTest {
     }
 
     /**
-     * Tests the behavior when adding a {@code Deadline} task with an invalid description.
+     * Tests the behavior when adding a {@code Deadline} task with an empty description.
      * Verifies that an exception is thrown with an appropriate error message.
      */
     @Test
-    public void testAddInvalidDeadlineCommand() {
+    public void execute_emptyDeadlineCommand_exceptionThrown() {
         Exception exception = assertThrows(Exception.class, () -> {
             DeadlineCommand addCommand = new DeadlineCommand("deadline /by 23/12/2020 2355");
             addCommand.execute(tasks, storage, ui);
@@ -139,11 +139,25 @@ public class AddCommandTest {
     }
 
     /**
+     * Tests the behavior when adding a {@code Deadline} task with an invalid datetime format.
+     * Verifies that an exception is thrown with an appropriate error message.
+     */
+    @Test
+    public void execute_invalidDeadlineCommandDate_exceptionThrown() {
+        Exception exception = assertThrows(Exception.class, () -> {
+            DeadlineCommand addCommand = new DeadlineCommand("deadline jdiwkdjx /by redjinwdnc");
+            addCommand.execute(tasks, storage, ui);
+        });
+
+        assertEquals("Invalid date/time format. Use the format: d/M/yyyy HHmm", exception.getMessage());
+    }
+
+    /**
      * Tests the behavior when adding an {@code Event} task with an invalid description.
      * Verifies that an exception is thrown with an appropriate error message.
      */
     @Test
-    public void testAddInvalidEventCommand() {
+    public void execute_invalidEventCommand_exceptionThrown() {
         Exception exception = assertThrows(Exception.class, () -> {
             EventCommand addCommand = new EventCommand("event fr4jjdi4 /by djnejisje /to ewjhj");
             addCommand.execute(tasks, storage, ui);

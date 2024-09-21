@@ -79,7 +79,7 @@ public class TagCommandTest {
      * @throws XiziException  if an error occurs within the command execution.
      */
     @Test
-    public void testValidTaskTag() throws IOException, XiziException {
+    public void execute_validTaskTag_success() throws IOException, XiziException {
         // Create a TagCommand for task 1 with tag #urgent
         TagCommand command = new TagCommand("tag 1 #urgent");
 
@@ -103,7 +103,7 @@ public class TagCommandTest {
      * @throws IOException if an I/O error occurs during task manipulation.
      */
     @Test
-    public void testInvalidTaskNumber() throws IOException {
+    public void execute_invalidTaskNumber_exceptionThrown() throws IOException {
         // Create a TagCommand for a non-existing task (task 5)
         TagCommand command = new TagCommand("tag 5 #urgent");
 
@@ -124,7 +124,7 @@ public class TagCommandTest {
      * @throws XiziException  if an error occurs within the command execution.
      */
     @Test
-    public void testMultipleTaskTagging() throws IOException, XiziException {
+    public void execute_multipleTaskTagging_success() throws IOException, XiziException {
         TagCommand command1 = new TagCommand("tag 1 #urgent");
         TagCommand command2 = new TagCommand("tag 2 #important");
         TagCommand command3 = new TagCommand("tag 3 #meeting");
@@ -149,7 +149,7 @@ public class TagCommandTest {
      *
      */
     @Test
-    public void testNonNumericTaskNumber() {
+    public void constructor_nonNumericTaskNumber_exceptionThrown() {
 
         // Invalid input where task number is non-numeric
         String userInput = "tag one #important";

@@ -25,7 +25,7 @@ public class DeadlineTest {
      * Verifies that the deadline date and time are returned correctly.
      */
     @Test
-    public void testGetDdl() {
+    public void getDdl_validTask_success() {
         LocalDateTime deadline = LocalDateTime.of(2023, 12, 25, 18, 0);
         Deadline deadlineTask = new Deadline("Submit assignment", deadline);
         LocalDateTime result = deadlineTask.getDdl();
@@ -33,24 +33,11 @@ public class DeadlineTest {
     }
 
     /**
-     * Tests the handling of an invalid date string using {@link LocalDateTime#parse(CharSequence, DateTimeFormatter)}.
-     * Verifies that a {@link DateTimeParseException} is thrown when attempting to parse an invalid date string.
-     */
-    @Test
-    public void testInvalidDate() {
-        Exception exception = assertThrows(DateTimeParseException.class, () -> {
-            LocalDateTime.parse("32/12/2023 1800", DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
-        });
-
-        assertTrue(exception.getMessage().contains("could not be parsed"));
-    }
-
-    /**
      * Tests the {@link Deadline} constructor with an invalid date format.
      * Verifies that a {@link DateTimeParseException} is thrown.
      */
     @Test
-    public void testInvalidDateFormatInDeadlineConstructor() {
+    public void deadlineConstructor_invalidDate_exceptionThrown() {
         String invalidDateString = "12/25/2023 6pm"; // Wrong format
 
         Exception exception = assertThrows(DateTimeParseException.class, () -> {
@@ -67,7 +54,7 @@ public class DeadlineTest {
      * Ensures that the deadline is correctly parsed and formatted.
      */
     @Test
-    public void testValidDeadlineWithDifferentTimeFormats() {
+    public void deadlineConstructor_multipleValidDates_success() {
         String[] validTimeFormats = {"25/12/2023 1800", "1/1/2024 0900", "31/12/2023 2359"};
 
         for (String validTimeFormat : validTimeFormats) {
@@ -84,7 +71,7 @@ public class DeadlineTest {
      * Verifies that the deadline date is formatted in the correct output format.
      */
     @Test
-    public void testDeadlineOutputFormat() {
+    public void toString_validTaskDisplay_success() {
         LocalDateTime deadline = LocalDateTime.of(2023, 12, 25, 18, 0);
         Deadline deadlineTask = new Deadline("Submit assignment", deadline);
 

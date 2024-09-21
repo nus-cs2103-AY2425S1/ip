@@ -55,7 +55,7 @@ public class DeleteCommandTest {
      * @throws Exception If there is an error executing the command.
      */
     @Test
-    public void testDeleteCommand() throws Exception {
+    public void execute_validTodoDeletion_success() throws Exception {
         // Deleting the first task (Todo)
         DeleteCommand deleteCommand = new DeleteCommand("delete 1");
         deleteCommand.execute(tasks, storage, ui);
@@ -67,13 +67,31 @@ public class DeleteCommandTest {
     }
 
     /**
+     * Tests the functionality of the {@link DeleteCommand} to delete a deadline task.
+     * Verifies that the correct task is removed and that the remaining tasks are as expected.
+     *
+     * @throws Exception If there is an error executing the command.
+     */
+    @Test
+    public void execute_validDdlDeletion_success() throws Exception {
+        // Deleting the first task (Todo)
+        DeleteCommand deleteCommand = new DeleteCommand("delete 2");
+        deleteCommand.execute(tasks, storage, ui);
+
+        // Verifying the Todo task is deleted and the remaining tasks are correct
+        assertEquals(2, tasks.getSize());
+        assertEquals("read book", tasks.getItems().get(0).getName());
+        assertEquals("team meeting", tasks.getItems().get(1).getName()); // Event should be second
+    }
+
+    /**
      * Tests deleting an Event task.
      * Verifies that the Event is correctly removed.
      *
      * @throws Exception If there is an error executing the command.
      */
     @Test
-    public void testDeleteEvent() throws Exception {
+    public void execute_validEventDeletion_success() throws Exception {
         // Deleting the Event task (third task in the list)
         DeleteCommand deleteCommand = new DeleteCommand("delete 3");
         deleteCommand.execute(tasks, storage, ui);
@@ -89,7 +107,7 @@ public class DeleteCommandTest {
      * Verifies that an exception is thrown when the task index does not exist.
      */
     @Test
-    public void testDeleteInvalidTask() {
+    public void execute_invalidTaskNumber_exceptionThrown() {
         Exception exception = assertThrows(Exception.class, () -> {
             DeleteCommand deleteCommand = new DeleteCommand("delete 4"); // Out of range
             deleteCommand.execute(tasks, storage, ui);
@@ -99,13 +117,13 @@ public class DeleteCommandTest {
     }
 
     /**
-     * Tests deleting the last task (Event) from the task list.
+     * Tests deleting the first task (Event) from the task list.
      * Verifies the list is empty after deleting all tasks.
      *
      * @throws Exception If there is an error executing the command.
      */
     @Test
-    public void testDeleteLastTask() throws Exception {
+    public void execute_deleteAllTasks_success() throws Exception {
         // Deleting all tasks one by one
         DeleteCommand deleteCommand1 = new DeleteCommand("delete 1"); // Delete Todo
         deleteCommand1.execute(tasks, storage, ui);
@@ -125,7 +143,7 @@ public class DeleteCommandTest {
      * Verifies that an exception is thrown when trying to delete from an empty list.
      */
     @Test
-    public void testDeleteFromEmptyList() {
+    public void execute_deleteFromEmptyList_exceptionThrown() {
         tasks = new TaskList(); // Reinitialize as empty
         Exception exception = assertThrows(Exception.class, () -> {
             DeleteCommand deleteCommand = new DeleteCommand("delete 1");

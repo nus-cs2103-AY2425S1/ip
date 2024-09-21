@@ -69,7 +69,7 @@ public class RemoveTagCommandTest {
      * @throws IOException    if an I/O error occurs during task manipulation.
      */
     @Test
-    public void testValidTaskRemoveTag() throws IOException, XiziException {
+    public void execute_validTaskRemoveTag_success() throws IOException, XiziException {
         // Create a RemoveTagCommand for task 1 with tag #urgent
         RemoveTagCommand command = new RemoveTagCommand("remove tag 1 #urgent");
 
@@ -92,7 +92,7 @@ public class RemoveTagCommandTest {
      * @throws IOException if an I/O error occurs during task manipulation.
      */
     @Test
-    public void testInvalidTaskNumber() throws IOException, XiziException {
+    public void execute_invalidTaskNumber_exceptionThrown() throws IOException, XiziException {
         // Create a RemoveTagCommand for a non-existing task (task 5)
         RemoveTagCommand command = new RemoveTagCommand("remove tag 5 #urgent");
 
@@ -112,7 +112,7 @@ public class RemoveTagCommandTest {
      *
      */
     @Test
-    public void testNonNumericTaskNumber() {
+    public void constructor_nonNumericTaskNumber_exceptionThrown() {
         // Invalid input where task number is non-numeric
         String userInput = "remove tag one #urgent";
 
@@ -128,7 +128,7 @@ public class RemoveTagCommandTest {
      *
      */
     @Test
-    public void testInvalidInputFormat() {
+    public void constructor_invalidInputFormat_exceptionThrown() {
         // Invalid input format with missing tag
         String userInput = "remove tag 1";
 
@@ -146,7 +146,7 @@ public class RemoveTagCommandTest {
      * @throws IOException if an I/O error occurs during task manipulation.
      */
     @Test
-    public void testTaskWithoutTag() throws IOException, XiziException {
+    public void execute_taskWithoutTag_exceptionThrown() throws IOException, XiziException {
         // Remove the tag from the first task to make it untagged
         tasks.getItems().get(0).removeTag("urgent");
         storage.saveTasks(tasks.getItems());
