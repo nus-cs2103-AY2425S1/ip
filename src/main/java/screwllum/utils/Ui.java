@@ -3,6 +3,9 @@ package screwllum.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.util.Duration;
 import screwllum.tasks.Task;
 
 /**
@@ -42,6 +45,9 @@ public class Ui {
         case "list":
             response = getListResponse(taskList);
             break;
+        case "archive":
+            response = getArchiveResponse();
+            break;
         case "toggle":
             response = getToggleResponse(taskList, tokens);
             break;
@@ -62,6 +68,10 @@ public class Ui {
             // No response
         }
         return response;
+    }
+
+    private String getArchiveResponse() {
+        return "Alright, I have archived your tasks in a file called archive.txt.";
     }
 
     private List<Task> filter(String keywords, List<Task> taskList) {
@@ -88,7 +98,10 @@ public class Ui {
     }
 
     private String getByeResponse() {
-        return "It was my pleasure, good bye. Close the application window thanks!";
+        PauseTransition delay = new PauseTransition(Duration.seconds(2));
+        delay.setOnFinished(event -> Platform.exit());
+        delay.play();
+        return "It was my pleasure, good bye!";
     }
 
     private String getToggleResponse(List<Task> taskList, List<String> tokens) {

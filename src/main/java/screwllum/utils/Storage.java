@@ -18,18 +18,34 @@ import screwllum.tasks.ToDo;
  * Represents an object that handles the reading and writing of tasks to and from a file.
  */
 public class Storage {
-    private String filePath;
+    private static String saveFile = "Save.txt";
+    private static String archiveFile = "Archive.txt";
 
-    public Storage(String filePath) {
-        this.filePath = filePath;
+    /**
+     * Writes the list of tasks to the archival file. Utilised when the user invokes the archive command.
+     *
+     * @param taskList The list of tasks to be archived.
+     */
+    public void archiveTasks(List<Task> taskList) {
+        writeToFile(taskList, archiveFile);
+    }
+
+    /**
+     * Writes the list of tasks to the save file. Utilised when the application is closed.
+     *
+     * @param taskList The list of tasks to be saved.
+     */
+    public void saveTasks(List<Task> taskList) {
+        writeToFile(taskList, saveFile);
     }
 
     /**
      * Writes the list of tasks to a file. Each task is written in a format suitable for reloading.
      *
      * @param taskList The list of tasks to be saved to the file.
+     * @param filePath The file to be written to.
      */
-    public void writeToFile(List<Task> taskList) {
+    public void writeToFile(List<Task> taskList, String filePath) {
         try {
             FileWriter fw = new FileWriter(filePath);
             for (Task task : taskList) {
@@ -51,7 +67,7 @@ public class Storage {
      * @throws IllegalFileFormatException If a line in the file does not match the expected format.
      */
     public List<Task> load() throws IOException, IllegalFileFormatException {
-        File file = new File(filePath);
+        File file = new File(saveFile);
         List<Task> taskList = new ArrayList<Task>();
         try {
             Scanner sc = new Scanner(file);
@@ -62,7 +78,7 @@ public class Storage {
                 taskList.add(task);
             }
         } catch (FileNotFoundException e) {
-            FileWriter fw = new FileWriter(filePath, true);
+            FileWriter fw = new FileWriter(saveFile, true);
             fw.close();
         }
         return taskList;

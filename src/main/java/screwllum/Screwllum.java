@@ -19,19 +19,15 @@ public class Screwllum {
     private TaskManager taskManager;
     private Ui ui;
     private String welcomeMessage;
-    public Screwllum() {
-        this("Save.txt");
-    }
 
     /**
      * Constructor for the class, which initialises other classes as well as the welcome message depending on
      * the presence or absence of exceptions.
      *
-     * @param filePath
      */
-    public Screwllum(String filePath) {
+    public Screwllum() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage();
         try {
             taskManager = new TaskManager(storage.load());
             welcomeMessage = "Pleased to meet you!";
@@ -53,8 +49,7 @@ public class Screwllum {
     public String getResponse(String userInput) {
         try {
             List<String> tokens = Parser.parseUserInput(userInput);
-            String result = taskManager.execute(tokens, ui);
-            storage.writeToFile(taskManager.getTaskList());
+            String result = taskManager.execute(tokens, ui, storage);
             return result;
         } catch (ScrewllumException e) {
             return ui.showError(e.getMessage());
