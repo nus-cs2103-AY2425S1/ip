@@ -76,7 +76,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM yyyy h:mm a");
-        return String.format("[%s] %s (by: %s)", getTaskType(),
-                super.toString(), formatter.format(deadline));
+        return String.format("[%s] %s (by: %s)", getTaskType(), super.toString(),
+                formatter.format(deadline).replace("am", "AM").replace("pm","PM"));
     }
 }
