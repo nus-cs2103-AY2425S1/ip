@@ -58,7 +58,7 @@ public class MainWindow extends AnchorPane {
      * @param welcomeMessage The message to be displayed as a welcome note.
      */
     public void showWelcomeMessage(String welcomeMessage) {
-        DialogBox welcomeDialog = DialogBox.getMyloDialog(welcomeMessage, myloImage);
+        DialogBox welcomeDialog = DialogBox.getMyloDialog(welcomeMessage, myloImage, false);
         dialogContainer.getChildren().add(welcomeDialog);
     }
 
@@ -97,7 +97,7 @@ public class MainWindow extends AnchorPane {
             Command command = Parser.parse(userCommand);
             String response = controller.execute(command);
 
-            DialogBox responseBox = DialogBox.getMyloDialog(response, myloImage);
+            DialogBox responseBox = DialogBox.getMyloDialog(response, myloImage, false);
             dialogContainer.getChildren().add(responseBox);
             controller.notifyTui(response, false);
 
@@ -107,7 +107,7 @@ public class MainWindow extends AnchorPane {
         } catch (NoSuchCommandException | StorageOperationException | InsufficientInfoException
                  | IllegalValueException | IndexOutOfBoundsException | DuplicatedTaskException e) {
             String errorMessage = e.getMessage();
-            DialogBox errorBox = DialogBox.getMyloDialog(errorMessage, myloImage);
+            DialogBox errorBox = DialogBox.getMyloDialog(errorMessage, myloImage, true);
             dialogContainer.getChildren().add(errorBox);
             controller.notifyTui(errorMessage, false);
         } finally {
