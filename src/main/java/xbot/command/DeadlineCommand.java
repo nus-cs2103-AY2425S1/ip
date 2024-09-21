@@ -15,7 +15,7 @@ public class DeadlineCommand extends AddCommand {
     @Override
     public String execute(TaskList list, Ui ui, Storage storage, String rest) throws XBotException {
         if (rest.trim().isEmpty()) {
-            throw new XBotException("I cannot add a deadline with empty description >.<");
+            throw new XBotException("I cannot add a deadline with empty description and empty date >.<");
         }
         String output = addDeadline(list, rest);
         storage.saveTask(list);
@@ -31,29 +31,39 @@ public class DeadlineCommand extends AddCommand {
      */
     public String addDeadline(TaskList list, String rest) throws XBotException {
         String[] parts = rest.split("/by", 2);
-        if (parts.length == 2) {
-            String taskDescription = parts[0].trim();
-            String deadline = parts[1].trim();
-            if (!deadline.isEmpty() && Parser.isValidDateFormat(deadline)) {
-                Task newTask = new Deadline(taskDescription, deadline);
-                list.add(newTask);
 
-                String output;
-                output = ("Here comes another pending deadline! \n"
-                        + "I've added this task:\n");
-                output = output + (newTask.toString() + "\n");
-                output = output + ("And now you have " + list.size() + " tasks in the list!! Jiayouu :D");
-                return output;
-            } else {
-                throw new XBotException("Sorry...I cannot read this date input >_< \n"
-                        + "you might want to try these date format instead :0\n"
-                        + "D/M/YYYY (e.g. 9/4/2024) or D/M/YYYY HHMM (e.g. 9/4/2024 2359)");
-            }
-        } else {
+        if (parts.length != 2) {
             throw new XBotException("Sorry... I do not understand your input... >_< \n"
                     + "could you use this format instead? \n"
                     + "deadline <task> /by <date> (e.g. deadline Assignment 1 /by 9/4/2024 2359)");
         }
+
+        String taskDescription = parts[0].trim();
+        String deadline = parts[1].trim();
+
+        if (taskDescription.isEmpty()) {
+            throw new XBotException("I cannot add a deadline with empty description >.<");
+        }
+
+        if (deadline.isEmpty()) {
+            throw new XBotException("I cannot add a deadline with empty deadline date >.<");
+        }
+
+        if (deadline.isEmpty() || Parser.isValidDateFormat(deadline)) {
+            throw new XBotException("Sorry...I cannot read this date input >_< \n"
+                    + "you might want to try these date format instead :0\n"
+                    + "D/M/YYYY (e.g. 9/4/2024) or D/M/YYYY HHMM (e.g. 9/4/2024 2359)");
+        }
+
+        Task newTask = new Deadline(taskDescription, deadline);
+        list.add(newTask);
+
+        String output;
+        output = ("Here comes another pending deadline! \n"
+                + "I've added this task:\n");
+        output = output + (newTask.toString() + "\n");
+        output = output + ("And now you have " + list.size() + " tasks in the list!! Jiayouu :D");
+        return output;
     }
 }
 

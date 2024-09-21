@@ -15,7 +15,7 @@ public class EventCommand extends AddCommand {
     @Override
     public String execute(TaskList list, Ui ui, Storage storage, String rest) throws XBotException {
         if (rest.trim().isEmpty()) {
-            throw new XBotException("I cannot add an event with empty description >.<");
+            throw new XBotException("I cannot add an event with empty description and empty dates >.<");
         }
         String output = addEvent(list, rest);
         storage.saveTask(list);
@@ -37,12 +37,16 @@ public class EventCommand extends AddCommand {
                     "Sorry... I do not understand your input... >_< \n"
                             + "could you use this format instead? \n"
                             + "event <task> /from <start time> /to <end time> "
-                            + "(e.g. deadline Assignment 1 /by 9/4/2024 2359)");
+                            + "(e.g. event Beach Day /from 9/4/2024 0900 /to 9/4/2024 1700)");
         }
 
         String taskDescription = parts[0].trim();
         String time = parts[1].trim();
         String[] timeParts = time.split("/to", 2);
+
+        if (taskDescription.isEmpty()) {
+            throw new XBotException("I cannot add an event with empty description >.<");
+        }
 
         if (timeParts.length != 2) {
             throw new XBotException(
