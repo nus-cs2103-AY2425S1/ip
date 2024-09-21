@@ -1,40 +1,59 @@
 package Tools;
 
-import Exception.EmptyDescriptionException;
-import Exception.MissingDateException;
 import Tasks.Deadline;
 import Tasks.Event;
 import Tasks.Task;
 import Tasks.Todo;
+import Exception.EmptyDescriptionException;
+import Exception.MissingDateException;
 
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.PriorityQueue;
 
+/**
+ * Manages a list of tasks and provides methods to manipulate and retrieve tasks.
+ */
 public class NewTaskList {
     private ArrayList<Task> tasks;
 
+    /**
+     * Constructs an empty list of tasks.
+     */
     public NewTaskList() {
         tasks = new ArrayList<>();
-
     }
 
+    /**
+     * Returns the list of tasks.
+     *
+     * @return the list of tasks
+     */
     public ArrayList<Task> getTasks() {
         return tasks;
     }
 
+    /**
+     * Deletes a task from the list based on its ID.
+     *
+     * @param id the index of the task to be deleted
+     * @return a confirmation message about the removed task
+     */
     public String deleteTask(int id) {
         if (id < 0 || id >= this.tasks.size()) {
             return "Task ID is out of range!";
-
         }
 
-        Task removedTask = this.tasks.remove(id); // Removes the task and captures it for confirmation message
+        Task removedTask = this.tasks.remove(id);
         return "Noted. I've removed this task:\n  " + removedTask +
                 "\nNow you have " + tasks.size() + " tasks in the list.";
-
     }
 
+    /**
+     * Updates a task in the list based on user input.
+     *
+     * @param input the user input containing task ID and details for update
+     * @return a response message indicating the outcome of the update
+     */
     public String updateTask(String input) {
         // First, split the input on spaces to determine the basic parts
         String[] args = input.split("\\s+", 3); // Split into three parts: command, ID, rest
@@ -82,8 +101,11 @@ public class NewTaskList {
         }
     }
 
-
-
+    /**
+     * Returns a formatted string listing all tasks.
+     *
+     * @return a formatted string of all tasks
+     */
     public String listTasks() {
         String tasklist = "";
 
@@ -95,19 +117,45 @@ public class NewTaskList {
         return tasklist;
     }
 
+    /**
+     * Marks a task as done.
+     *
+     * @param id the index of the task to mark as done
+     * @return a confirmation message stating the task is marked done
+     */
     String markTask(int id) {
         tasks.get(id).markDone();
         return"Nice! I've marked this task as done:";
     }
+
+
+    /**
+     * Marks a task as not done.
+     *
+     * @param id the index of the task to mark as not done
+     * @return a confirmation message stating the task is marked not done
+     */
     String unmarkTask(int id) {
         tasks.get(id).unmarkDone();
         return"OK, I've marked this task as not done yet:";
     }
 
+    /**
+     * Adds a new task to the list.
+     *
+     * @param task the task to add
+     */
     void add(Task task) {
         tasks.add(task);
     }
 
+    /**
+     * Adds a new Todo task to the list based on user input.
+     *
+     * @param input the user input describing the todo task
+     * @return a confirmation message indicating the task has been added
+     * @throws EmptyDescriptionException if the description is missing
+     */
     public String addTodoTask(String input) throws EmptyDescriptionException {
 
         if (input.trim().length() <= 5) {
@@ -135,6 +183,14 @@ public class NewTaskList {
 
     }
 
+    /**
+     * Adds a new Deadline task to the list based on user input.
+     *
+     * @param input the user input describing the deadline task
+     * @return a confirmation message indicating the task has been added
+     * @throws EmptyDescriptionException if the description is missing
+     * @throws MissingDateException if the date is missing
+     */
     public String addDeadlineTask(String input) throws EmptyDescriptionException, MissingDateException {
         String[] parts = input.split(" by ");
         if (parts.length < 2) {
@@ -166,6 +222,14 @@ public class NewTaskList {
         }
     }
 
+    /**
+     * Adds a new Event task to the list based on user input.
+     *
+     * @param input the user input describing the event task
+     * @return a confirmation message indicating the task has been added
+     * @throws EmptyDescriptionException if the description is missing
+     * @throws MissingDateException if the event time is missing
+     */
     String addEventTask(String input) throws EmptyDescriptionException, MissingDateException {
         String[] parts = {};
         if (input.contains(" p ")) {
@@ -199,10 +263,21 @@ public class NewTaskList {
                 + "Now you have " + tasks.size() + " tasks in the list.";
     }
 
+    /**
+     * Checks if the task list is empty.
+     *
+     * @return true if the list is empty, false otherwise
+     */
     public boolean isEmpty() {
         return tasks.isEmpty();
     }
 
+    /**
+     * Searches for tasks containing the specified keyword.
+     *
+     * @param input the keyword to search for
+     * @return a list of tasks matching the keyword
+     */
     public String findTask(String input) {
         NewTaskList foundTasks = new NewTaskList();
         for (Task task : tasks) {
@@ -219,6 +294,11 @@ public class NewTaskList {
         return "findTask function from NewTaskList";
     }
 
+    /**
+     * Returns the number of tasks in the list.
+     *
+     * @return the size of the task list
+     */
     public int size() {
         return tasks.size();
     }
