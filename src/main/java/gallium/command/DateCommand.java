@@ -64,7 +64,9 @@ public class DateCommand extends Command {
             String tasks = tasksStringBuilder.toString();
             ui.printMatchingDate(tasks);
         } catch (DateTimeParseException e) {
-            ui.showWrongDateTimeFormat();
+            throw new GalliumException("3:( Invalid date format! Please put in YYYY-MM-DD format!!\nExample: date 2024-09-09");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new GalliumException("Please put a space after your command! \nExample: date 2024-09-09");
         }
     }
 }

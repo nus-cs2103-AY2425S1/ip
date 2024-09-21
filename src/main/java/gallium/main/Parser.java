@@ -79,7 +79,7 @@ public class Parser {
 
     private Command returnCommand(String message) throws GalliumException {
         assert message != null && message != "": "Message cannot be empty";
-        if (message.matches(MARK + " \\d+") || message.matches(UNMARK + " \\d+")) {
+        if (message.startsWith(MARK) || message.startsWith(UNMARK)) {
             return new MarkCommand(message);
         } else if (message.startsWith(TODO) || message.startsWith(DEADLINE)
                 || message.startsWith(EVENT)) {

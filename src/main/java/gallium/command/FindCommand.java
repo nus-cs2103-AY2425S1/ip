@@ -32,15 +32,20 @@ public class FindCommand extends Command {
      *                          command.
      */
     public void execute(TaskList taskList, Ui ui, Storage storage) throws GalliumException {
-        StringBuilder tasksStringBuilder = new StringBuilder();
-        String keyword = Message.split("find ")[1];
-        for (int i = 1; i < Task.count; i++) {
-            Task task = taskList.getTask(i - 1);
-            if (task.getDesc().contains(keyword)) {
-                tasksStringBuilder.append("\n    " + task.toString());
+        try {
+            StringBuilder tasksStringBuilder = new StringBuilder();
+            String keyword = Message.split("find ")[1];
+            for (int i = 1; i < Task.count; i++) {
+                Task task = taskList.getTask(i - 1);
+                if (task.getDesc().contains(keyword)) {
+                    tasksStringBuilder.append("\n    " + task.toString());
+                }
             }
+            String tasks = tasksStringBuilder.toString();
+            ui.printMatchingFind(tasks);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new GalliumException("Please put a space after your command! \nExample: find CS2103T");
         }
-        String tasks = tasksStringBuilder.toString();
-        ui.printMatchingFind(tasks);
+
     }
 }

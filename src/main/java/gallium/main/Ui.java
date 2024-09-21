@@ -152,8 +152,11 @@ public class Ui {
      * @param tasks The tasks that match the date.
      */
     public void printMatchingDate(String tasks) {
-        append("Deadlines/Events that match the date: ");
-        append(tasks);
+        if (tasks.equals("")) {
+            append("Aw man no matching dates :(");
+        } else { append("Deadlines/Events that match the date: ");
+            append(tasks);
+        }
     }
 
     /**
