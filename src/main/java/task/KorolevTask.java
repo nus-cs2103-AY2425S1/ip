@@ -3,8 +3,8 @@ package task;
 public class KorolevTask {
     private boolean isDone = false;
     private String name;
-
     private String tag;
+
     /**
      * Constructs an object of KorolevTask.
      *
