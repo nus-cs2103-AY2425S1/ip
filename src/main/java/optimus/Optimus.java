@@ -40,8 +40,12 @@ public class Optimus {
             return Parser.parseCommand(input, tasks, ui, storage);
         } catch (OptimusException | IOException e) {
             // Return the error message if an exception occurs
-            return "Error: " + e.getMessage();
+            return e.getMessage();
         }
+    }
+
+    public Ui getUi () {
+        return ui;
     }
 
 

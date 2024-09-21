@@ -1,4 +1,6 @@
 E | 0 | eat help | 25/12/2022 16:00 | 25/12/2022 17:00
 T | 0 | borrow book
-E | 0 | meeting | 2024-09-10 14:00 | 2024-09-10 16:00
 T | 0 | borrow book mother
+T | 0 | gg
+D | 0 | return book | 21/02/2024 16:00
+E | 0 | project meeting | 22/02/2024 16:00 | 23/02/2024 17:00

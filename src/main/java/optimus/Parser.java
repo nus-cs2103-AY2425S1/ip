@@ -13,7 +13,7 @@ public class Parser {
         assert !text.isEmpty() : "Input text should not be empty";
         if (text.equals("bye")) {
             return handleByeCommand(record, ui, storage);
-        } else if (text.startsWith("find ")) {
+        } else if (text.startsWith("find")) {
             return handleFindCommand(text, record, ui);
         } else if (text.equals("list")) {
             return handleListCommand(record, ui);
@@ -23,11 +23,11 @@ public class Parser {
             return handleMarkCommand(text, record, ui);
         } else if (text.startsWith("unmark")) {
             return handleUnmarkCommand(text, record, ui);
-        } else if (text.startsWith("todo ")) {
+        } else if (text.startsWith("todo")) {
             return handleTodoCommand(text, record, ui);
-        } else if (text.startsWith("deadline ")) {
+        } else if (text.startsWith("deadline")) {
             return handleDeadlineCommand(text, record, ui);
-        } else if (text.startsWith("event ")) {
+        } else if (text.startsWith("event")) {
             return handleEventCommand(text, record, ui);
         } else {
             throw new OptimusException("I don't understand that command. Please try again with a valid command.");
@@ -43,10 +43,10 @@ public class Parser {
     }
 
     private static String handleFindCommand(String text, TaskList record, Ui ui) throws OptimusException {
-        String keyword = text.substring(5).trim();
-        if (keyword.isEmpty()) {
-            throw new OptimusException("The keyword provided is empty.");
+        if (text.trim().length() <= 4 || text.substring(4).trim().isEmpty()) {
+            throw new OptimusException("The keyword provided is empty. Please provide a valid search keyword.");
         }
+        String keyword = text.substring(5).trim();
         return record.findTasks(keyword, ui);
     }
 
@@ -97,10 +97,10 @@ public class Parser {
     }
 
     private static String handleTodoCommand(String text, TaskList record, Ui ui) throws OptimusException {
-        String description = text.substring(5).trim();
-        if (description.isEmpty()) {
+        if (text.trim().length() <= 4 || text.substring(4).trim().isEmpty()) {
             throw new OptimusException("The description of a todo cannot be empty. Please provide a task description.");
         }
+        String description = text.substring(5).trim();
         Task newTask = new ToDos(description);
         record.addTask(newTask);
         return ui.taskAdded(newTask, record.sizeOfRecord());
@@ -109,13 +109,11 @@ public class Parser {
     private static String handleDeadlineCommand(String text, TaskList record, Ui ui) throws OptimusException {
         String[] parts = text.split(" /by ");
         if (parts.length < 2) {
-            throw new OptimusException("The deadline format is incorrect. Please provide a description and a deadline.");
+            throw new OptimusException("The deadline format is incorrect. Please provide a description and a deadline " +
+                    "(eg. deadline desc /by date-time).");
         }
         String description = parts[0].substring(9).trim();
         String by = parts[1].trim();
-        if (description.isEmpty()) {
-            throw new OptimusException("The description of a deadline cannot be empty. Please provide a task description.");
-        }
         Task newTask = new Deadlines(description, by);
         record.addTask(newTask);
         return ui.taskAdded(newTask, record.sizeOfRecord());
@@ -124,14 +122,12 @@ public class Parser {
     private static String handleEventCommand(String text, TaskList record, Ui ui) throws OptimusException {
         String[] parts = text.split(" /from | /to ");
         if (parts.length < 3) {
-            throw new OptimusException("The event time format is incorrect. Please provide both 'from' and 'to' times.");
+            throw new OptimusException("The event time format is incorrect. Please provide both 'from' and 'to' times with" +
+                    "the description (eg. event desc /from from /to to).");
         }
         String description = parts[0].substring(6).trim();
         String from = parts[1].trim();
         String to = parts[2].trim();
-        if (description.isEmpty()) {
-            throw new OptimusException("The description of an event cannot be empty. Please provide a task description.");
-        }
         Task newTask = new Events(description, from, to);
         record.addTask(newTask);
         return ui.taskAdded(newTask, record.sizeOfRecord());
