@@ -34,7 +34,7 @@ public class FindCommand extends Command {
         List<Integer> foundIndices = getIndices(taskList, keyword); // Get the list of indices of matching tasks
 
         String listString = foundIndices.stream()
-                .map(index -> index.toString() + "."
+                .map(index -> (index + 1) + "."
                         + taskList.get(index).toString())
                 .reduce("", (a, b) -> a + "\n" + b);
 
