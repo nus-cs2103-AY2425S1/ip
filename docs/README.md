@@ -140,7 +140,7 @@ directory.
 | Deadline | `deadline [description] /by <deadline>`, e.g. `deadline homework /by today 2359`                                  |
 | Event    | `event [description] /from <from> /to <to>`, e.g. `event F1 night race /from 200924 1800 hrs /to 200924 2200 hrs` |
 | Mark     | `mark <task_number>`, e.g. `mark 3`                                                                               |
-| Unmark   | `mark <task_number>`, e.g. `unmark 3`                                                                             |
+| Unmark   | `unmark <task_number>`, e.g. `unmark 3`                                                                             |
 | Delete   | `delete <task_number>`, e.g. `delete 1`                                                                           | 
 | Find     | `find <keyword>`, e.g. `find work`                                                                                |
 | Undo     | `undo`                                                                                                            |
