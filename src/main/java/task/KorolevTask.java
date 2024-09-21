@@ -69,7 +69,7 @@ public class KorolevTask {
      * @param keyword keys input by users.
      * @return tests whether the description contains certain keywords.
      */
-    public boolean match(String keyword) {
+    public boolean isMatch(String keyword) {
         return this.name.contains(keyword);
     }
 

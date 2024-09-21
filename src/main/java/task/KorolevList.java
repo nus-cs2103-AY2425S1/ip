@@ -282,7 +282,7 @@ public class KorolevList {
         ArrayList<KorolevTask> out = new ArrayList<>();
 
         for (KorolevTask e : this.events) {
-            if (e.match(keyword)) {
+            if (e.isMatch(keyword)) {
                 out.add(e);
             }
         }
