@@ -1,0 +1,68 @@
+package atreides.ui;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import atreides.task.TaskList;
+
+/**
+ * Represents the storage for the list of tasks written to .txt file
+ */
+public class Storage {
+    private final String fileName;
+
+    Storage(String fileName) {
+        this.fileName = fileName;
+    }
+
+    /**
+     * @return a list of arrays of strings. Each string array corresponds to a command and task
+     * @throws AtreidesException if file not found
+     */
+    ArrayList<String[]> load() throws AtreidesException {
+        File file = new File(fileName);
+        try {
+            Scanner scanner = new Scanner(file);
+            ArrayList<String[]> list = new ArrayList<>();
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] words = line.split(" \\| ");
+                list.add(words);
+            }
+            return list;
+        } catch (Exception e) {
+            this.createFile();
+            throw new AtreidesException(e.getMessage());
+        }
+    }
+
+    void createFile() throws AtreidesException {
+        File file = new File(fileName);
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            throw new AtreidesException(e.getMessage());
+        }
+    }
+
+    /**
+     * writes the tasks into the .txt file after user exits chatbot
+     * @param tasks
+     * @throws AtreidesException if file not found
+     */
+    void writeTasks(TaskList tasks) throws AtreidesException {
+        try {
+            PrintWriter pw = new PrintWriter(fileName);
+            String taskString = tasks.writeList();
+            pw.print(taskString);
+            pw.flush();
+            pw.close();
+        } catch (FileNotFoundException e) {
+            throw new AtreidesException(e.getMessage());
+        }
+    }
+}
