@@ -9,6 +9,9 @@ import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
 
+/**
+ * Utility class that handles the parsing and formatting of datetime.
+ */
 public class DateTime {
     private static final DateTimeFormatter INPUT_FORMATTER =
             new DateTimeFormatterBuilder()
@@ -19,6 +22,14 @@ public class DateTime {
                     .toFormatter();
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("'{'dd-MMM-uuuu HHmm'}'");
 
+    /**
+     * Parses the given string with the format: <code>d[d]/M[M][/uuuu][ HHmm]</code> <br>
+     * The year and time defaults to the current year and 0000 respectively, if not provided.
+     *
+     * @param string the string to be parsed
+     * @return the LocalDateTime that corresponds to the string
+     * @throws InvalidDateTimeException if the given string does not follow the format
+     */
     public static LocalDateTime parse(String string) {
         switch (string) {
             case "now":
@@ -35,6 +46,13 @@ public class DateTime {
         }
     }
 
+    /**
+     * Formats the given LocalDateTime with the format: <code>{dd-MMM-uuuu HHmm}</code> <br>
+     * For example, <code>{09-Jun-2024 2200}</code>
+     *
+     * @param dateTime the datetime to be formatted
+     * @return the formatted string
+     */
     public static String format(LocalDateTime dateTime) {
         return OUTPUT_FORMATTER.format(dateTime);
     }

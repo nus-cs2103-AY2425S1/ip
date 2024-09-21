@@ -12,10 +12,16 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * The Parser class handles interpreting user input and provides the appropriate commands to be executed.
+ */
 public class Parser {
     private static final String ARGUMENT_PREFIX = "/";
-    private static HashMap<String, Class<? extends Command>> commandTable;
+    private HashMap<String, Class<? extends Command>> commandTable;
 
+    /**
+     * Constructs a parser instance and load commands into its search table from the <code>bob.command</code> package.
+     */
     public Parser() {
         this.loadCommands();
     }
@@ -49,6 +55,12 @@ public class Parser {
         return clazz;
     }
 
+    /**
+     * Parses the given string as user input.
+     *
+     * @param string the string to be parsed
+     * @return the command that corresponds to the given string
+     */
     public Command parse(String string) {
         Map<String, String> tokenizedString = tokenize(string);
         Class<? extends Command> commandClazz = getCommand(tokenizedString.get("CMD"));
@@ -61,6 +73,16 @@ public class Parser {
         }
     }
 
+    /**
+     * Tokenizes the given string into a map from argument name to their values.
+     * Unnamed arguments is mapped with key "", and the first word is mapped with key "CMD". For example: <br>
+     * <code>"event test description /from 19/2/2023 1935 /to tomorrow"</code> <br>
+     * is tokenized to <br>
+     * <code>{"CMD": "event", "": "test description", "from": "19/2/2023 1935", "to": "tomorrow"}</code>
+     *
+     * @param string the string to be tokenized
+     * @return a map containing argument names mapped to their values
+     */
     public static Map<String, String> tokenize(String string) {
         Map<String, String> map = new HashMap<>();
         String[] t = string.split(" ", 2);
