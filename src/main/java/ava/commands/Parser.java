@@ -1,8 +1,10 @@
 package ava.commands;
 
+import ava.task.Task;
 import ava.task.TaskManager;
 
 import java.time.format.DateTimeParseException;
+import java.util.List;
 
 public class Parser {
 
@@ -113,9 +115,9 @@ public class Parser {
         String event = command.substring(EVENT_LENGTH);
         String[] arguments = event.split("/");
 
-        if (arguments.length != 2) {
-            System.out.println("Invalid deadline format. Please use /by to separate the description and time");
-            throw new IllegalArgumentException("Invalid deadline format");
+        if (arguments.length != 3) {
+            System.out.println("Invalid event format. Please use /from and /to to separate the description and time");
+            throw new IllegalArgumentException("Invalid event format");
         }
 
         String description = arguments[0].trim();
@@ -199,7 +201,13 @@ public class Parser {
         return taskId;
     }
 
-    public static void parseFind(String command){
-
+    public static List<Task> parseFind(String command, TaskManager taskManager){
+        final int FIND_LENGTH = 5;
+        String keyword = command.substring(FIND_LENGTH);
+        if(keyword.isEmpty()){
+            System.out.println("I am sorry, but you need to provide me a keyword to search for.");
+            throw new IllegalArgumentException("No keyword provided");
+        }
+        return taskManager.getTasks(keyword);
     }
 }

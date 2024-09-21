@@ -95,8 +95,7 @@ public class AVA {
             }
             case DELETE: {
                 int taskId = Parser.parseDelete(currentInput);
-                Task task = taskManager.getTasks().get(taskId - 1);
-                taskManager.removeTask(taskId);
+                Task task = taskManager.removeTask(taskId);
                 out.println("Alright I have deleted this task");
                 out.printf("%d. %s %n",taskId,task);
                 break;
@@ -123,7 +122,11 @@ public class AVA {
                 break;
             }
             case FIND: {
-                Parser.parseFind(currentInput);
+                List<Task> tasks = Parser.parseFind(currentInput,taskManager);
+                out.println("Here are the tasks which match your search:");
+                out.println("----------------------------------------------------------------");
+                out.println(tasks);
+                out.println("----------------------------------------------------------------");
                 break;
             }
             default: {

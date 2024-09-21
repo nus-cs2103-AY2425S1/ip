@@ -30,16 +30,21 @@ public class TaskManager {
      * @return the tasks in the form of a list.
      */
     public List<Task> getTasks() {
-        // in the future return a view of the list
-        // rather than the list to avoid errors
         return tasks;
     }
 
 
+    /**
+     * Retrieves the tasks containing the
+     * search keyword in the form of a list.
+     *
+     * @param s the string to be searched.
+     * @return the tasks in the form of a list.
+     */
     public List<Task> getTasks(String s) {
-        // in the future return a view of the list
-        // rather than the list to avoid errors
-        return tasks;
+        List<Task>  filtered = tasks.stream().filter(task -> task.getTitle().contains(s)).<Task>toList();
+        // formats the list of tasks properly
+        return new TaskList(filtered);
     }
 
     private void sync(){
@@ -94,13 +99,17 @@ public class TaskManager {
      *
      * @param taskId id of task to be removed.
      */
-    public void removeTask(int taskId) {
+    public Task removeTask(int taskId) {
+        Task item;
         if(taskId > 0 && taskId <= tasks.size()) {
+            item = tasks.get(taskId - 1);
             tasks.remove(taskId - 1);
         } else {
+            System.out.println("Sorry, I could not find the task you wanted me to remove 😢.");
             throw new IllegalArgumentException("Trying to delete nonexistent task");
         }
 
         sync();
+        return item;
     }
 }
