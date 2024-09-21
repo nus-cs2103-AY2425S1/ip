@@ -121,6 +121,7 @@ public class Command {
         }
         case "help": {
             handleHelpCommand();
+            break;
         }
         case "find": {
             handleFindCommand(inputParts);
@@ -272,11 +273,11 @@ public class Command {
                 System.out.println("   " + removedTask);
                 System.out.println(" Now you have " + tasks.size() + " tasks in the list.");
                 return;
-                }
+            }
             System.out.println(" Oops! That task number doesn't exist.");
         } catch (NumberFormatException e) {
-                System.out.println("Please enter an item number to delete!");
-            }
+            System.out.println("Please enter an item number to delete!");
+        }
     }
 
     /**
