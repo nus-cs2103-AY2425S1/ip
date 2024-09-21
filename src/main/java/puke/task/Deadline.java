@@ -2,7 +2,10 @@ package puke.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Objects;
+
+import puke.exceptions.WrongDateTimeFormatException;
 
 /**
  * Represents a deadline task with a description, completion status, and a due date.
@@ -68,4 +71,20 @@ public class Deadline extends Task {
         return "D | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | "
                 + by.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
     }
+
+    /**
+     * Sets the due date of this deadline task.
+     * The provided date string must follow the format "dd/MM/yyyy HHmm".
+     *
+     * @param by the new due date in the format "dd/MM/yyyy HHmm".
+     * @throws WrongDateTimeFormatException if the provided date string is not in the correct format.
+     */
+    public void setBy(String by) throws WrongDateTimeFormatException {
+        try {
+            this.by = LocalDateTime.parse(by, INPUT_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new WrongDateTimeFormatException("dd/MM/yyyy HHmm");
+        }
+    }
+
 }

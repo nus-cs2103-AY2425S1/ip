@@ -8,6 +8,7 @@ import puke.commands.DeleteTaskCommand;
 import puke.commands.FindTaskCommand;
 import puke.commands.ListTasksCommand;
 import puke.commands.MarkTaskCommand;
+import puke.commands.UpdateTaskCommand;
 import puke.exceptions.EmptyInputException;
 import puke.exceptions.PukeException;
 import puke.exceptions.UnknownCommandException;
@@ -90,6 +91,8 @@ public class Parser {
             return new ListTasksCommand();
         case "find":
             return new FindTaskCommand(args);
+        case "update":
+            return new UpdateTaskCommand(args);
         default:
             throw new UnknownCommandException();
         }

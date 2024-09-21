@@ -2,7 +2,10 @@ package puke.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Objects;
+
+import puke.exceptions.WrongDateTimeFormatException;
 
 /**
  * Represents an event with a description, completion status, and time range.
@@ -72,5 +75,35 @@ public class Event extends Task {
         return "E | " + (isDone() ? "1" : "0") + " | " + getDescription() + " | "
                 + from.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")) + " | "
                 + to.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+    }
+
+    /**
+     * Sets the start time of this event.
+     * The provided date string must follow the format "dd/MM/yyyy HHmm".
+     *
+     * @param from the new start time in the format "dd/MM/yyyy HHmm".
+     * @throws WrongDateTimeFormatException if the provided date string is not in the correct format.
+     */
+    public void setFrom(String from) throws WrongDateTimeFormatException {
+        try {
+            this.from = LocalDateTime.parse(from, INPUT_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new WrongDateTimeFormatException("dd/MM/yyyy HHmm");
+        }
+    }
+
+    /**
+     * Sets the end time of this event.
+     * The provided date string must follow the format "dd/MM/yyyy HHmm".
+     *
+     * @param to the new end time in the format "dd/MM/yyyy HHmm".
+     * @throws WrongDateTimeFormatException if the provided date string is not in the correct format.
+     */
+    public void setTo(String to) throws WrongDateTimeFormatException {
+        try {
+            this.to = LocalDateTime.parse(to, INPUT_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new WrongDateTimeFormatException("dd/MM/yyyy HHmm");
+        }
     }
 }

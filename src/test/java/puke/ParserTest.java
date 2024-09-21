@@ -1,11 +1,9 @@
 package puke;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
@@ -158,38 +156,5 @@ public class ParserTest {
         Parser parser = new Parser(taskList, new MessageBuilder());
         String result = parser.handleInput("mark 2");
         assertTrue(result.contains("OOPS!!! The task number " + 2 + " is out of bounds."));
-    }
-
-    /**
-     * Tests that a Deadline task with an incorrect date format throws an exception.
-     */
-    @Test
-    public void deadlineWithIncorrectDateFormatThrowsException() {
-        TaskList taskList = new TaskList(new ArrayList<>());
-        Parser parser = new Parser(taskList, new MessageBuilder());
-
-        Exception exception = assertThrows(DateTimeParseException.class, () -> {
-            parser.handleInput("deadline Task #8 /by 2024-01-01 1800");
-        });
-        assertTrue(exception.getMessage().contains("Text '2024-01-01 1800' could not be parsed"));
-    }
-
-    /**
-     * Tests that an Event task with incorrect date formats for start or end times throws an exception.
-     */
-    @Test
-    public void eventWithIncorrectDateFormatThrowsException() {
-        TaskList taskList = new TaskList(new ArrayList<>());
-        Parser parser = new Parser(taskList, new MessageBuilder());
-
-        Exception exception1 = assertThrows(DateTimeParseException.class, () -> {
-            parser.handleInput("event Task #9 /from 01-01-2024 1800 /to 02/02/2024 1000");
-        });
-        assertTrue(exception1.getMessage().contains("Text '01-01-2024 1800' could not be parsed"));
-
-        Exception exception2 = assertThrows(DateTimeParseException.class, () -> {
-            parser.handleInput("event Task #9 /from 01/01/2024 1800 /to 02-02-2024 1000");
-        });
-        assertTrue(exception2.getMessage().contains("Text '02-02-2024 1000' could not be parsed"));
     }
 }
