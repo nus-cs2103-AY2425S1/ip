@@ -23,6 +23,7 @@ public class Noisy {
 
 
     public String getResponse(String input) {
+        assert input != null : "Input string cannot be null.";
         Parser parser = new Parser();
         Ui ui = new Ui();
         return parser.parseInput(input, taskList, storage, ui);
