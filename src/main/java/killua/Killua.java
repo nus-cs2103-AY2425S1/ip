@@ -45,7 +45,7 @@ public class Killua {
             }
             return c.execute(tasks, ui, storage);
         } catch (KilluaException | IOException e) {
-            return e.getMessage();
+            return "Error" + e.getMessage();
         }
     }
 

@@ -76,4 +76,11 @@ public class DialogBox extends HBox {
         db.flip();
         return db;
     }
+
+    public static DialogBox getKilluaErrorDialog(String text, Image img) {
+        var db = new DialogBox(text, img);
+        db.flip();
+        db.getStyleClass().add("error-label");
+        return db;
+    }
 }
