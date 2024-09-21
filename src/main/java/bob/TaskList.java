@@ -85,6 +85,15 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
+     * Returns this task list as a <code>List&lt;Task&gt;</code>.
+     *
+     * @return a list of tasks
+     */
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    /**
      * Returns the string representation of each task in this list, prefixed by its index (starting from 1)
      * and followed by a linebreak.
      */

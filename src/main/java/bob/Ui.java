@@ -6,8 +6,10 @@ import java.util.Scanner;
  * The Ui class handles interactions with the user, including reading inputs and printing outputs.
  */
 public class Ui {
+    // TODO: this class can become a stream structure
     private static final String ANSI_RESET = "\u001B[0m";
     private static final String ANSI_RED = "\u001B[31m";
+    private static final String ANSI_YELLOW_BACKGROUND = "\u001B[43m";
     private static final String SEPARATOR = "____________________________________________________________";
     private static final String LINE_PREFIX = "    ";
     private static final String LOGO = """
@@ -44,6 +46,32 @@ public class Ui {
                 + text.replace("\n", "\n ")
                 + "\n" + SEPARATOR;
         System.out.println(LINE_PREFIX + t.replace("\n", "\n" + LINE_PREFIX) + "\n");
+    }
+
+    /**
+     * Highlights occurrences of {@code keyword} in {@code text} with a yellow background, and returns the result.
+     * Occurrences of the keyword is matched ignoring the case if ignoreCase is true, and vice versa.
+     *
+     * @param text the text to output
+     * @param keyword the keyword to highlight
+     * @param ignoreCase matches occurrences of the keyword ignoring the case if true, and vice versa
+     */
+    public String highlightKeyword(String text, String keyword, boolean ignoreCase) {
+        if (!ignoreCase) {
+            return highlightKeyword(text, keyword);
+        }
+
+        return text.replaceAll("(?i)(" + keyword + ")",
+                ANSI_YELLOW_BACKGROUND + "$1" + ANSI_RESET);
+    }
+
+    /**
+     * {@code ignoreCase} defaults to {@code false}
+     *
+     * @see #highlightKeyword(String, String, boolean)
+     */
+    public String highlightKeyword(String text, String keyword) {
+        return text.replace(keyword, ANSI_YELLOW_BACKGROUND + keyword + ANSI_RESET);
     }
 
     /**
