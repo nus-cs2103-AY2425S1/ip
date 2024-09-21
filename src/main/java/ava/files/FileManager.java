@@ -1,8 +1,5 @@
 package ava.files;
 
-import ava.task.Task;
-import ava.task.TaskList;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -13,22 +10,25 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import ava.task.Task;
+import ava.task.TaskList;
+
+
+
 /**
  * Manages File I/O for AVA
  */
 public class FileManager {
 
+    /**
+     * Default path used to store tasks
+     */
+    private static final String DEFAULT_PATH = "./data/tasks.txt";
     private String path;
     private File file;
     private BufferedReader reader;
     private PrintWriter writer;
     private List<Task> taskList;
-
-    /**
-     * Default path used to store tasks
-     */
-    private static final String DEFAULT_PATH="./data/tasks.txt";
-
     /**
      * Creates a new FileManager with default path
      * <br>
@@ -37,7 +37,7 @@ public class FileManager {
      *
      * @see FileManager#FileManager(String)
      */
-    public FileManager(){
+    public FileManager() {
         this(DEFAULT_PATH);
     }
 
@@ -48,24 +48,24 @@ public class FileManager {
      *
      * @param path Path to the file
      */
-    public FileManager(String path){
+    public FileManager(String path) {
         assert path != null;
         this.path = path;
         this.file = new File(path);
 
         try {
             boolean isDirCreated = file.getParentFile().mkdirs();
-            if(isDirCreated){
+            if (isDirCreated) {
                 //TODO: log info
                 System.out.println("new dir created");
             }
-            boolean doesFileExist = file.createNewFile();
-            if(!doesFileExist){
+            boolean isFileCreated = file.createNewFile();
+            if (!isFileCreated) {
                 // TODO: log error
                 // System.out.println("new file created");
             }
 
-        } catch (IOException | SecurityException e){
+        } catch (IOException | SecurityException e) {
             //TODO: use error system
             System.out.println("Invalid path");
         }
@@ -73,7 +73,7 @@ public class FileManager {
         try {
             reader = new BufferedReader(new FileReader(file));
         } catch (FileNotFoundException e) {
-           System.out.println("File corrupted or not found.");
+            System.out.println("File corrupted or not found.");
         }
 
         // default Task handler
@@ -93,7 +93,7 @@ public class FileManager {
     public List<Task> getTasks() {
         try {
             String line = reader.readLine();
-            while(line != null) {
+            while (line != null) {
                 /*
                  * read
                  * deserialize
@@ -103,7 +103,7 @@ public class FileManager {
                 Task task;
                 try {
                     task = DataManager.deserialize(line);
-                } catch (IllegalArgumentException e){
+                } catch (IllegalArgumentException e) {
                     System.out.println("Data file is corrupted");
                     throw new IllegalArgumentException("Corrupted file");
                 }
@@ -127,7 +127,7 @@ public class FileManager {
      *
      * @param tasks List of tasks to write
      */
-    public void writeTasks(List<Task> tasks){
+    public void writeTasks(List<Task> tasks) {
 
         // erases the file.... as soon as writer is created...
         try {

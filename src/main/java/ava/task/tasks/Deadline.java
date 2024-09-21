@@ -1,9 +1,9 @@
 package ava.task.tasks;
 
-import ava.task.Task;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import ava.task.Task;
 
 /**
  * Represents a deadline
@@ -18,7 +18,7 @@ public class Deadline extends Task {
      * @param title the title.
      * @param time the time.
      */
-    public Deadline(String title,String time) {
+    public Deadline(String title, String time) {
         super(title);
         this.time = LocalDateTime.parse(time);
     }
@@ -59,6 +59,6 @@ public class Deadline extends Task {
      * @return the serialized string.
      */
     public String serialize() {
-        return String.format("D,%s,%s", super.serialize(),time);
+        return String.format("D,%s,%s", super.serialize(), time);
     }
 }

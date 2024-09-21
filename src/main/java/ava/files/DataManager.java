@@ -12,13 +12,14 @@ class DataManager {
         return task.serialize();
     }
 
-
+    // CHECKSTYLE:OFF: AbbreviationAsWordInName
+    // CHECKSTYLE:OFF: LocalFinalVariableName
     static Task deserialize(String task) {
         /*
          * parse for type
          * create task
          */
-        if(task.isEmpty()){
+        if (task.isEmpty()) {
             throw new IllegalArgumentException("Task identifier missing");
         }
 
@@ -31,44 +32,46 @@ class DataManager {
         case TODO -> {
             final int TASK_LENGTH = 3;
             final int DESCRIPTION_POSITION = 2;
-            if(taskInfo.length != TASK_LENGTH){
+            if (taskInfo.length != TASK_LENGTH) {
                 throw new IllegalArgumentException("Invalid Todo Task");
             }
             String description = taskInfo[DESCRIPTION_POSITION];
             boolean isDone = isMarkedDone(taskInfo[IS_DONE_LOCATION]);
-            return new Todo(description,isDone);
+            return new Todo(description, isDone);
         }
         case DEADLINE -> {
             final int DEADLINE_LENGTH = 4;
             final int DESCRIPTION_POSITION = 2;
             final int TIME_POSITION = 3;
-            if(taskInfo.length != DEADLINE_LENGTH){
+            if (taskInfo.length != DEADLINE_LENGTH) {
                 throw new IllegalArgumentException("Invalid Deadline Task");
             }
             String description = taskInfo[DESCRIPTION_POSITION];
             boolean isDone = isMarkedDone(taskInfo[IS_DONE_LOCATION]);
             String time = taskInfo[TIME_POSITION];
-            return new Deadline(description,isDone,time);
+            return new Deadline(description, isDone, time);
         }
         case EVENT -> {
             final int EVENT_LENGTH = 5;
             final int DESCRIPTION_POSITION = 2;
             final int START_TIME_POSITION = 3;
             final int END_TIME_POSITION = 4;
-            if(taskInfo.length != EVENT_LENGTH){
+            if (taskInfo.length != EVENT_LENGTH) {
                 throw new IllegalArgumentException("Invalid Event Task");
             }
             String description = taskInfo[DESCRIPTION_POSITION];
             boolean isDone = isMarkedDone(taskInfo[IS_DONE_LOCATION]);
             String startTime = taskInfo[START_TIME_POSITION];
             String endTime = taskInfo[END_TIME_POSITION];
-            return new Event(description,isDone,startTime,endTime);
+            return new Event(description, isDone, startTime, endTime);
         }
         default -> throw new IllegalStateException("Unexpected value: " + taskType);
         }
     }
+    //CHECKSTYLE:ON: AbbreviationAsWordInName
+    //CHECKSTYLE:ON: LocalFinalVariableName
 
-    static TaskType getTaskType(char c){
+    static TaskType getTaskType(char c) {
         return switch(c) {
         case 'T' -> TaskType.TODO;
         case 'D' -> TaskType.DEADLINE;
@@ -77,10 +80,10 @@ class DataManager {
         };
     }
 
-    static boolean isMarkedDone(String isDone){
-        if (isDone.equals("1")){
+    static boolean isMarkedDone(String isDone) {
+        if (isDone.equals("1")) {
             return true;
-        } else if (isDone.equals("0")){
+        } else if (isDone.equals("0")) {
             return false;
         } else {
             throw new IllegalArgumentException("Invalid isDone value");

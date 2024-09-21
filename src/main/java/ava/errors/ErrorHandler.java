@@ -1,5 +1,8 @@
 package ava.errors;
 
+/**
+ * Handles errors
+ */
 public class ErrorHandler {
 
     /**

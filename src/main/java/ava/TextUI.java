@@ -16,10 +16,11 @@ public class TextUI {
      * <br>
      * The model is separated into its own class for OOP.
      */
-    public static void run(){
+    public static void run() {
         Scanner scanner = new Scanner(System.in);
         AVA ava = new AVA(); //default ava.ava object
 
+        //CHECKSTYLE.OFF: Regexp
         // Greet the user
         System.out.println("""
                         Hiii,  I'm AVA (Assimilated Virtual Assistant). 🎀
@@ -37,9 +38,10 @@ public class TextUI {
                            but if you wanna leave you can just say bye. 🙂
                 ----------------------------------------------------------------
                 """);
+        //CHECKSTYLE.ON: Regexp
         ava.tellAva(scanner.nextLine());
         // Process user input until user says bye
-        while(ava.isRunning()){
+        while (ava.isRunning()) {
             ava.respond(System.out);
             ava.tellAva(scanner.nextLine());
         }

@@ -1,18 +1,20 @@
 package ava;
 
+import java.io.PrintStream;
+import java.util.List;
+
 import ava.commands.Command;
 import ava.commands.Parser;
 import ava.task.Task;
 import ava.task.TaskManager;
 
-import java.io.PrintStream;
-import java.util.List;
 
+//CHECKSTYLE.OFF: AbbreviationAsWordInName
 /**
  * Creates a model AVA which follows commands.
  */
 public class AVA {
-
+    //CHECKSTYLE.ON: AbbreviationAsWordInName
     /**
      * Current user input being processed by AVA.
      */
@@ -41,7 +43,7 @@ public class AVA {
      *
      * @return <span color="green">true</span> if AVA is running <span color="red">false</span> otherwise.
      */
-    public final boolean isRunning(){
+    public final boolean isRunning() {
         return !currentInput.equals("bye");
     }
 
@@ -57,15 +59,15 @@ public class AVA {
     //todo:have a non printstream version
     /**
      * Prints AVA's response to given PrintStream.
+     * TODO:refactor mark and unmark to remove redundancy
      *
      * @param out PrintStream to print AVA's response to.
-     * TODO:refactor mark and unmark to remove redundancy
      */
     public void respond(PrintStream out) {
         Command userInput;
         try {
-             userInput = Parser.parseCommand(currentInput);
-        } catch(IllegalArgumentException e){
+            userInput = Parser.parseCommand(currentInput);
+        } catch (IllegalArgumentException e) {
             out.println("I am sorry, but I am not capable of doing that yet 😢.");
             return;
         }
@@ -82,7 +84,7 @@ public class AVA {
                 Task task = taskManager.getTasks().get(taskId - 1);
                 task.markDone();
                 out.println("Alright I have marked this task as done");
-                out.printf("%d. %s %n",taskId,task);
+                out.printf("%d. %s %n", taskId, task);
                 break;
             }
             case UNMARK: {
@@ -90,14 +92,14 @@ public class AVA {
                 Task task = taskManager.getTasks().get(taskId - 1);
                 task.markNotDone();
                 out.println("Alright I have marked this task as not done");
-                out.printf("%d. %s %n",taskId,task);
+                out.printf("%d. %s %n", taskId, task);
                 break;
             }
             case DELETE: {
                 int taskId = Parser.parseDelete(currentInput);
                 Task task = taskManager.removeTask(taskId);
                 out.println("Alright I have deleted this task");
-                out.printf("%d. %s %n",taskId,task);
+                out.printf("%d. %s %n", taskId, task);
                 break;
             }
             case TODO: {
@@ -122,7 +124,7 @@ public class AVA {
                 break;
             }
             case FIND: {
-                List<Task> tasks = Parser.parseFind(currentInput,taskManager);
+                List<Task> tasks = Parser.parseFind(currentInput, taskManager);
                 out.println("Here are the tasks which match your search:");
                 out.println("----------------------------------------------------------------");
                 out.println(tasks);
@@ -134,7 +136,7 @@ public class AVA {
 
             }
             }
-        } catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             /* The responsibility of handling the error
              * is delegated to the respective parser methods
              *
@@ -149,7 +151,7 @@ public class AVA {
     }
 
 
-    public void streamResponse(){
+    public void streamResponse() {
         //TODO: implement
         //stream a response to output
     }

@@ -1,23 +1,25 @@
 package ava.files;
 
-import ava.task.Task;
-import ava.task.tasks.Todo;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import ava.task.Task;
+import ava.task.tasks.Todo;
+
+
+
 class FileManagerTest {
-
-
-    private FileManager fileManager;
     private static final String TEST_PATH = "./test_data/tasks.txt";
-
+    private FileManager fileManager;
     @BeforeEach
     void setUp() {
         // Create a new FileManager instance with a test path

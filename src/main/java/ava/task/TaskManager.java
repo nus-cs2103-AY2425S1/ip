@@ -1,11 +1,13 @@
 package ava.task;
 
+import java.util.List;
+
 import ava.files.FileManager;
 import ava.task.tasks.Deadline;
 import ava.task.tasks.Event;
 import ava.task.tasks.Todo;
 
-import java.util.List;
+
 
 /**
  *  Creates a TaskManager to manage tasks for AVA.
@@ -42,12 +44,12 @@ public class TaskManager {
      * @return the tasks in the form of a list.
      */
     public List<Task> getTasks(String s) {
-        List<Task>  filtered = tasks.stream().filter(task -> task.getTitle().contains(s)).<Task>toList();
+        List<Task> filtered = tasks.stream().filter(task -> task.getTitle().contains(s)).<Task>toList();
         // formats the list of tasks properly
         return new TaskList(filtered);
     }
 
-    private void sync(){
+    private void sync() {
         fileManager.writeTasks(tasks);
     }
 
@@ -77,7 +79,7 @@ public class TaskManager {
      * @param task description of deadline.
      * @param time time for deadline.
      */
-    public void addTask(String task,String time){
+    public void addTask(String task, String time) {
         addTask(new Deadline(task, time));
     }
 
@@ -89,7 +91,7 @@ public class TaskManager {
      * @param startTime start time of event.
      * @param endTime end time of event.
      */
-    public void addTask(String task,String startTime,String endTime){
+    public void addTask(String task, String startTime, String endTime) {
         addTask(new Event(task, startTime, endTime));
     }
 
@@ -101,7 +103,7 @@ public class TaskManager {
      */
     public Task removeTask(int taskId) {
         Task item;
-        if(taskId > 0 && taskId <= tasks.size()) {
+        if (taskId > 0 && taskId <= tasks.size()) {
             item = tasks.get(taskId - 1);
             tasks.remove(taskId - 1);
         } else {

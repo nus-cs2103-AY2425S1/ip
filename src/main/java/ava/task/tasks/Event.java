@@ -1,9 +1,11 @@
 package ava.task.tasks;
 
-import ava.task.Task;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import ava.task.Task;
+
+
 
 /**
  * Represents an event
@@ -11,8 +13,8 @@ import java.time.format.DateTimeFormatter;
 public class Event extends Task {
 
 
-    LocalDateTime startTime;
-    LocalDateTime endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
 
     /**
      * Creates a new event with the input title,
@@ -37,8 +39,8 @@ public class Event extends Task {
      * @param startTime the start time.
      * @param endTime the end time.
      */
-    public Event(String title,boolean isDone, String startTime, String endTime) {
-        super(title,isDone);
+    public Event(String title, boolean isDone, String startTime, String endTime) {
+        super(title, isDone);
         this.startTime = LocalDateTime.parse(startTime);
         this.endTime = LocalDateTime.parse(endTime);
     }
@@ -69,7 +71,7 @@ public class Event extends Task {
      * @return the serialized string.
      */
     public String serialize() {
-        return String.format("E,%s,%s,%s", super.serialize(),startTime,endTime);
+        return String.format("E,%s,%s,%s", super.serialize(), startTime, endTime);
     }
 
 }

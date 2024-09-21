@@ -1,11 +1,18 @@
 package ava.commands;
 
-import ava.task.Task;
-import ava.task.TaskManager;
-
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
+import ava.task.Task;
+import ava.task.TaskManager;
+
+
+//CHECKSTYLE.OFF: AbbreviationAsWordInName
+//CHECKSTYLE.OFF: LocalFinalVariableName
+
+/**
+ * Parses the user's input and maps it to the corresponding command
+ */
 public class Parser {
 
     /**
@@ -16,22 +23,22 @@ public class Parser {
      * @param command Command entered by user as text
      * @return Command corresponding to user's input.
      */
-    public static Command parseCommand(String command){
-        if(command.equals("list")){
+    public static Command parseCommand(String command) {
+        if (command.equals("list")) {
             return Command.LIST;
-        } else if(command.startsWith("mark")){
+        } else if (command.startsWith("mark")) {
             return Command.MARK;
-        } else if(command.startsWith("unmark")) {
+        } else if (command.startsWith("unmark")) {
             return Command.UNMARK;
-        } else if(command.startsWith("delete")){
+        } else if (command.startsWith("delete")) {
             return Command.DELETE;
-        } else if (command.startsWith("todo")){
+        } else if (command.startsWith("todo")) {
             return Command.TODO;
-        } else if (command.startsWith("deadline")){
+        } else if (command.startsWith("deadline")) {
             return Command.DEADLINE;
-        } else if (command.startsWith("event")){
+        } else if (command.startsWith("event")) {
             return Command.EVENT;
-        } else if (command.startsWith("find")){
+        } else if (command.startsWith("find")) {
             return Command.FIND;
         } else {
             throw new IllegalArgumentException("Unsupported Command");
@@ -47,11 +54,11 @@ public class Parser {
      * @param taskManager Task Manager to store the task
      * @return description of the To-Do task
      */
-    public static String parseToDo(String command, TaskManager taskManager){
+    public static String parseToDo(String command, TaskManager taskManager) {
         final int TODO_LENGTH = 5;
         String todo = command.substring(TODO_LENGTH);
 
-        if(todo.isEmpty()){
+        if (todo.isEmpty()) {
             System.out.println("The description of a todo cannot be empty.");
             throw new IllegalArgumentException("Empty todo description");
         }
@@ -68,7 +75,7 @@ public class Parser {
      * @param command a Deadline task
      * @param taskManager Task Manager to store the task
      */
-    public static String parseDeadline(String command, TaskManager taskManager){
+    public static String parseDeadline(String command, TaskManager taskManager) {
         final int DEADLINE_LENGTH = 9;
         String deadline = command.substring(DEADLINE_LENGTH);
         String[] arguments = deadline.split("/by");
@@ -78,13 +85,13 @@ public class Parser {
         }
 
         String description = arguments[0].trim();
-        if(description.isEmpty()){
+        if (description.isEmpty()) {
             System.out.println("The description of a deadline cannot be empty.");
             throw new IllegalArgumentException("Empty deadline description");
         }
 
         String time = arguments[1].trim();
-        if(time.isEmpty()){
+        if (time.isEmpty()) {
             System.out.println("You need to provide a time for the task.");
             throw new IllegalArgumentException("No time provided");
         }
@@ -107,7 +114,7 @@ public class Parser {
      * @param command an Event task
      * @param taskManager Task Manager to store the task
      */
-    public static String parseEvent(String command, TaskManager taskManager){
+    public static String parseEvent(String command, TaskManager taskManager) {
         final int EVENT_LENGTH = 6;
         final int FROM_LENGTH = 5;
         final int TO_LENGTH = 3;
@@ -121,19 +128,19 @@ public class Parser {
         }
 
         String description = arguments[0].trim();
-        if(description.isEmpty()){
+        if (description.isEmpty()) {
             System.out.println("The description of an event cannot be empty.");
             throw new IllegalArgumentException("Empty event description");
         }
 
         String startTime = arguments[1].substring(FROM_LENGTH).trim();
-        if(startTime.isEmpty()){
+        if (startTime.isEmpty()) {
             System.out.println("You need to provide a start time for the task.");
             throw new IllegalArgumentException("No time provided");
         }
 
         String endTime = arguments[2].substring(TO_LENGTH).trim();
-        if(endTime.isEmpty()){
+        if (endTime.isEmpty()) {
             System.out.println("You need to provide an endTime for the task.");
             throw new IllegalArgumentException("No time provided");
         }
@@ -153,7 +160,7 @@ public class Parser {
      * @param command the mark command
      * @return the task id of the task to be marked
      */
-    public static int parseMark(String command){
+    public static int parseMark(String command) {
         final int MARK_LENGTH = 5;
         int taskId;
         try {
@@ -171,7 +178,7 @@ public class Parser {
      * @param command the unmark command
      * @return the task id of the task to be unmarked
      */
-    public static int parseUnmark(String command){
+    public static int parseUnmark(String command) {
         final int UNMARK_LENGTH = 7;
         int taskId;
         try {
@@ -189,7 +196,7 @@ public class Parser {
      * @param command the delete command
      * @return the task id of the task to be deleted
      */
-    public static int parseDelete(String command){
+    public static int parseDelete(String command) {
         final int DELETE_LENGTH = 7;
         int taskId;
         try {
@@ -201,10 +208,17 @@ public class Parser {
         return taskId;
     }
 
-    public static List<Task> parseFind(String command, TaskManager taskManager){
+    /**
+     * Parses the find command and returns a list of tasks that match the keyword.
+     *
+     * @param command the find command.
+     * @param taskManager the task manager to search for tasks.
+     * @return a list of tasks that match the keyword.
+     */
+    public static List<Task> parseFind(String command, TaskManager taskManager) {
         final int FIND_LENGTH = 5;
         String keyword = command.substring(FIND_LENGTH);
-        if(keyword.isEmpty()){
+        if (keyword.isEmpty()) {
             System.out.println("I am sorry, but you need to provide me a keyword to search for.");
             throw new IllegalArgumentException("No keyword provided");
         }

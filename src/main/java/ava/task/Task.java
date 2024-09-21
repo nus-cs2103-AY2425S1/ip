@@ -3,7 +3,7 @@ package ava.task;
 /**
  * Represents a task
  */
-abstract public class Task {
+public abstract class Task {
     private String title;
     private boolean isDone;
     private Priority priority;
@@ -68,7 +68,7 @@ abstract public class Task {
      */
     @Override
     public String toString() {
-        return String.format("%s | %s", this.isDone?"✅ Done   ":"❌ Pending",title);
+        return String.format("%s | %s", this.isDone ? "✅ Done   " : "❌ Pending", title);
     }
 
     /**
@@ -79,6 +79,6 @@ abstract public class Task {
      * @return the serialized string
      */
     public String serialize() {
-        return String.format("%s,%s", this.isDone?"1":"0",title);
+        return String.format("%s,%s", this.isDone ? "1" : "0", title);
     }
 }
