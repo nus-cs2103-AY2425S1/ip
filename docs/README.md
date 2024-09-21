@@ -102,7 +102,7 @@ delete/del <index>
 tag <index> /tag <tag>+
 ```
 ```
-ntag <index> /tag <tag>+
+untag <index> /tag <tag>+
 ```
 
 ### Exit the program
