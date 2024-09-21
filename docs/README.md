@@ -5,7 +5,7 @@
 >    “A little planning goes a long way.” – Anonymous
 
 Ah, my dear friends, let Tesla be your guiding light, releasing your intellect from the
-tiresome encumbrance of memorizing every task that demands your attention.
+tiresome encumbrance of memorizing every tasks that demand your attention.
 This remarkable tool is:
 - elegantly text-based, allowing for seamless communication with your thoughts
 - astonishingly simple to grasp, requiring but a flicker of your mind’s energy to master
