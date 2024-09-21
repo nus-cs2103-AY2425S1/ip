@@ -29,6 +29,8 @@ Or else he will add you on his hit list!
 6. Auto-save tasks to disk
 7. Load tasks from disk on startup
 
+## Commands
+
 ### List all tasks
 ```
 list/ls
