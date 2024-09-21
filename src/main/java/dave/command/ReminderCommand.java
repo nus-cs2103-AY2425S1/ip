@@ -71,7 +71,7 @@ public class ReminderCommand extends Command {
             throw new IllegalStateException("Unexpected reminder task type: " + reminderTaskType);
         }
         if (undoneTasks.isEmpty()) {
-            return "I can't believe you didn't leave any tasks undone!";
+            return "I can't believe you didn't have any overdue undone tasks!";
         }
         return str + String.join("\n", undoneTasks.stream()
                 .map(Task::toString)
