@@ -1,9 +1,16 @@
 package bob;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.*;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.stream.Collectors;
@@ -19,8 +26,9 @@ class ClassGetter {
      *                    as defined in section 6.5.3 of The Java™ Language Specification
      * @return the set of classes in the package
      */
-    public static Set<Class<?>> getAllClasses(String packageName) {
+    public static Set<Class<?>> getClassesFromPackage(String packageName) {
         if (isRunningFromJar()) {
+            // If program is running from a JAR file
             String classPath;
             try {
                 classPath = ClassGetter.class
@@ -39,6 +47,7 @@ class ClassGetter {
                 return Set.<Class<?>>of();
             }
         } else {
+            // If program is not running from a JAR file
             return getAllClassesNotJar(packageName);
         }
     }
@@ -115,8 +124,9 @@ class ClassGetter {
                 continue;
             }
 
-            String className = entryName.substring(0, entryName.lastIndexOf('.'))
-                                        .replace('/', '.');
+            String className = entryName
+                    .substring(0, entryName.lastIndexOf('.')) // Remove ".class" from the end
+                    .replace('/', '.');
             set.add(className);
         }
 

@@ -145,7 +145,7 @@ public class Storage {
             return new ArrayList<>();
         }
 
-        List<Task> list = new ArrayList<>();
+        List<Task> tasks = new ArrayList<>();
         Scanner scanner;
         try {
             scanner = new Scanner(file);
@@ -155,28 +155,28 @@ public class Storage {
 
         while (scanner.hasNext()) {
             try {
-                list.add(decode(scanner.nextLine()));
+                tasks.add(decode(scanner.nextLine()));
             } catch (RuntimeException e) {
                 throw new FileCorruptedException();
             }
         }
 
-        return list;
+        return tasks;
     }
 
     /**
      * Saves the given task list in the file at the file path of this storage instance.
      *
-     * @param tasksList the task list to be saved in the file
+     * @param tasks the task list to be saved in the file
      * @throws IOException if the file cannot be opened
      */
-    public void save(TaskList tasksList) throws IOException {
+    public void save(TaskList tasks) throws IOException {
         if (!file.exists()) {
             createFile();
         }
 
         FileWriter fw = new FileWriter(file, false);
-        for (Task task : tasksList) {
+        for (Task task : tasks) {
             fw.write(encode(task));
         }
         fw.close();

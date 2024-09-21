@@ -10,13 +10,13 @@ import java.util.List;
  * Represents a list of tasks.
  */
 public class TaskList implements Iterable<Task> {
-    private final List<Task> TASKS;
+    private final List<Task> tasks;
 
     /**
      * Constructs an empty task list.
      */
     public TaskList() {
-        this.TASKS = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
     /**
@@ -25,7 +25,7 @@ public class TaskList implements Iterable<Task> {
      * @param tasks the tasks that are in the initial task list
      */
     public TaskList(List<Task> tasks) {
-        this.TASKS = tasks;
+        this.tasks = tasks;
     }
 
     /**
@@ -34,7 +34,7 @@ public class TaskList implements Iterable<Task> {
      * @return true if this list is empty, false otherwise
      */
     public boolean isEmpty() {
-        return TASKS.isEmpty();
+        return tasks.isEmpty();
     }
 
     /**
@@ -43,7 +43,7 @@ public class TaskList implements Iterable<Task> {
      * @param task the task to be added
      */
     public void add(Task task) {
-        TASKS.add(task);
+        tasks.add(task);
     }
 
     /**
@@ -54,7 +54,7 @@ public class TaskList implements Iterable<Task> {
      * @throws IndexOutOfBoundsException if the index is out of range (index &lt; 0 || index &gt;= size())
      */
     public Task remove(int index) {
-        return TASKS.remove(index);
+        return tasks.remove(index);
     }
 
     /**
@@ -65,7 +65,7 @@ public class TaskList implements Iterable<Task> {
      * @throws IndexOutOfBoundsException if the index is out of range (index &lt; 0 || index &gt;= size())
      */
     public Task get(int index) {
-        return TASKS.get(index);
+        return tasks.get(index);
     }
 
     /**
@@ -74,14 +74,14 @@ public class TaskList implements Iterable<Task> {
      * @return the number of tasks in this list
      */
     public int size() {
-        return TASKS.size();
+        return tasks.size();
     }
 
     /**
      * Removes all tasks in this list.
      */
     public void reset() {
-        TASKS.clear();
+        tasks.clear();
     }
 
     /**
@@ -93,10 +93,10 @@ public class TaskList implements Iterable<Task> {
         StringBuilder text = new StringBuilder();
 
         int i;
-        for (i = 0; i < TASKS.size() - 1; ++i) {
-            text.append(i + 1).append(".").append(TASKS.get(i)).append("\n");
+        for (i = 0; i < tasks.size() - 1; ++i) {
+            text.append(i + 1).append(".").append(tasks.get(i)).append("\n");
         }
-        text.append(i + 1).append(".").append(TASKS.get(i));
+        text.append(i + 1).append(".").append(tasks.get(i));
 
         return text.toString();
     }
@@ -108,6 +108,6 @@ public class TaskList implements Iterable<Task> {
      */
     @Override
     public Iterator<Task> iterator() {
-        return TASKS.iterator();
+        return tasks.iterator();
     }
 }

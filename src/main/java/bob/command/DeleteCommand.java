@@ -39,8 +39,8 @@ public class DeleteCommand extends Command {
         }
 
         Task task = tasks.remove(i);
-        ui.printWithFormat("OK, I've removed this task:\n" +
-                task + "\n" +
-                "Now you have " + tasks.size() + " tasks in the list.");
+        ui.printWithFormat("OK, I've removed this task:\n"
+                + task + "\n"
+                + "Now you have " + tasks.size() + " tasks in the list.");
     }
 }

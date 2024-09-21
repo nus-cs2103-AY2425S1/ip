@@ -1,13 +1,12 @@
 package bob.task;
 
-import bob.Bob;
 import bob.DateTime;
 
 import java.time.LocalDateTime;
 
 public class Event extends Task {
-    protected LocalDateTime from;
-    protected LocalDateTime to;
+    private final LocalDateTime from;
+    private final LocalDateTime to;
 
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);

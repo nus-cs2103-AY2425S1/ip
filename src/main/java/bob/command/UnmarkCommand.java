@@ -38,7 +38,7 @@ public class UnmarkCommand extends Command {
         }
 
         tasks.get(i).mark();
-        ui.printWithFormat("OK, I've marked this task as not done:\n" +
-                tasks.get(i));
+        ui.printWithFormat("OK, I've marked this task as not done:\n"
+                + tasks.get(i));
     }
 }
