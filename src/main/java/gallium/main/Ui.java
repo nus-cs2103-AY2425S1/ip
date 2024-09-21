@@ -39,7 +39,7 @@ public class Ui {
     }
 
     public static String printHelloMessage() {
-        return "Hello! I am Gallium!! :> \nWhat can I help you?";
+        return "Hellooooooooo! I am Gallium!! :> \nWhat can I help you?";
     }
 
     public String printInputAgainMessage() {
@@ -73,7 +73,7 @@ public class Ui {
      */
     public void printMarkMessage(boolean isMark, Task task) {
         append((isMark ? "Yayyyy! I've marked this task as done: "
-                : "Aw man, I've marked this task as not done yet: ") + "\n" + "    "
+                : "Aw man :( I've marked this task as not done yet: ") + "\n" + "    "
                 + task.toString());
     }
 
@@ -105,7 +105,7 @@ public class Ui {
      * @param todo The Todo task that was added.
      */
     public void printAddTodo(Todo todo) {
-        append(":> I've added this todo: \n"
+        append("Yayyy! :> I've added this todo: \n"
                 + todo.toString()
                 + "\nNow you have " + Task.count + " " + Task.taskCount() + " in the list."
                 + "\n");
@@ -117,7 +117,7 @@ public class Ui {
      * @param deadline The Deadline task that was added.
      */
     public void printAddDeadline(Deadline deadline) {
-        append(":> I've added this deadline: \n"
+        append("Yayyy! :> I've added this deadline: \n"
                         + deadline.toString()
                         + "\nNow you have " + Task.count + " " + Task.taskCount() + " in the list."
                         + "\n");
@@ -129,7 +129,7 @@ public class Ui {
      * @param event The Event task that was added.
      */
     public void printAddEvent(Event event) {
-        append(":> I've added this event: \n"
+        append("Yayyy! :> I've added this event: \n"
                 + event.toString()
                 + "\nNow you have " + Task.count + " " + Task.taskCount() + " in the list.\n");
     }
@@ -194,14 +194,17 @@ public class Ui {
      * Prints a message to show that the deadline date is missing.
      */
     public void showIncompleteDeadline() {
-        append("3:( Please put the date of the deadline!!");
+        append("3:( Incomplete information!! Please input your date & time in YYYY-MM-DD HHMM (24 hour) format!");
+        append("\nExample: deadline submit tp /by 2024-09-22 2359");
     }
 
     /**
      * Prints a message to show that the event details are incomplete.
      */
     public void showIncompleteEvent() {
-        append("3:( Please put the from and to of the event!!");
+        append("3:( Incomplete information!! Please put the from and to of the event!!");
+        append("\nPlease input your date & time in YYYY-MM-DD HHMM (24 hour) format!");
+        append("\nExample: event CS2103T meeting /from 2024-09-21 1530 /to 2024-09-21 1630");
     }
 
     /**

@@ -50,7 +50,7 @@ public class Deadline extends Task {
             parts = description.split("\\[D\\]\\[ \\] ");
             this.isDone = false;
         } else {
-            throw new IllegalArgumentException("＼(｀0´)／ Invalid deadline format");
+            throw new IllegalArgumentException("Invalid deadline format!! Please input your date/time in YYYY-MM-DD HHMM (24 hour) format!");
         }
         this.desc = parts[1].split(" \\(by:")[0];
         String[] byParts = parts[1].split("\\(by: ");
