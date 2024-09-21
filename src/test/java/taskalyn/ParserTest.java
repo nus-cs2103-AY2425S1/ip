@@ -10,7 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Verifies that the Parser properly handles user inputs and catches exceptions.
+ * Verifies that Parser class properly handles correct and incorrect user inputs.
  */
 public class ParserTest {
     private Parser parser;
@@ -25,6 +25,9 @@ public class ParserTest {
         taskManager = new TaskManager(mockDatabase, ui);
         parser = new Parser(ui, taskManager);
         mockDatabase.clearDatabase();
+        while (taskManager.getTaskSize() > 0) {
+            taskManager.deleteTask(1);
+        }
     }
 
     /**
@@ -46,11 +49,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_validSortCommand_returnSortedTasksMessage() throws IOException {
-        while (taskManager.getTaskSize() > 0) {
-            taskManager.deleteTask(1);
-        }
-        mockDatabase.clearDatabase();
+    public void parse_validSortCommand_returnSortedTasksMessage() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
         taskManager.addTask(new DeadlineTask("hw", LocalDateTime.parse("11-09-2024 1300", formatter), false));
         taskManager.addTask(new DeadlineTask("math", LocalDateTime.parse("13-09-2024 1500", formatter), false));
@@ -69,11 +68,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_validListCommand_returnTasksMessage() throws IOException {
-        while (taskManager.getTaskSize() > 0) {
-            taskManager.deleteTask(1);
-        }
-        mockDatabase.clearDatabase();
+    public void parse_validListCommand_returnTasksMessage() {
         taskManager.addTask(new TodoTask("go to gym", false));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
         taskManager.addTask(new DeadlineTask("hw", LocalDateTime.parse("11-09-2024 1300", formatter), false));
@@ -112,11 +107,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_validFindCommand_returnMatchingTasksMessage() throws IOException {
-        while (taskManager.getTaskSize() > 0) {
-            taskManager.deleteTask(1);
-        }
-        mockDatabase.clearDatabase();
+    public void parse_validFindCommand_returnMatchingTasksMessage() {
         taskManager.addTask(new TodoTask("go to gym", false));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
         taskManager.addTask(new DeadlineTask("hw", LocalDateTime.parse("11-09-2024 1300", formatter), false));
@@ -139,11 +130,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_validTodoCommand_returnTaskAddedMessage() throws IOException {
-        while (taskManager.getTaskSize() > 0) {
-            taskManager.deleteTask(1);
-        }
-        mockDatabase.clearDatabase();
+    public void parse_validTodoCommand_returnTaskAddedMessage() {
         taskManager.addTask(new TodoTask("go to gym", false));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
         taskManager.addTask(new DeadlineTask("hw", LocalDateTime.parse("11-09-2024 1300", formatter), false));
@@ -192,11 +179,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_validDeadlineCommand_returnTaskAddedMessage() throws IOException {
-        while (taskManager.getTaskSize() > 0) {
-            taskManager.deleteTask(1);
-        }
-        mockDatabase.clearDatabase();
+    public void parse_validDeadlineCommand_returnTaskAddedMessage() {
         taskManager.addTask(new TodoTask("go to gym", false));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
         taskManager.addTask(new DeadlineTask("hw", LocalDateTime.parse("11-09-2024 1300", formatter), false));
@@ -263,11 +246,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_validDeleteCommand_getDeleteTaskMessage() throws IOException {
-        while (taskManager.getTaskSize() > 0) {
-            taskManager.deleteTask(1);
-        }
-        mockDatabase.clearDatabase();
+    public void parse_validDeleteCommand_getDeleteTaskMessage() {
         taskManager.addTask(new TodoTask("go to gym", false));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
         taskManager.addTask(new DeadlineTask("hw", LocalDateTime.parse("11-09-2024 1300", formatter), false));
@@ -282,11 +261,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_invalidDeleteCommand_getNoSuchTaskMessage() throws IOException {
-        while (taskManager.getTaskSize() > 0) {
-            taskManager.deleteTask(1);
-        }
-        mockDatabase.clearDatabase();
+    public void parse_invalidDeleteCommand_getNoSuchTaskMessage() {
         taskManager.addTask(new TodoTask("go to gym", false));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
         taskManager.addTask(new DeadlineTask("hw", LocalDateTime.parse("11-09-2024 1300", formatter), false));
@@ -299,11 +274,14 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_validMarkCommand_getMarkTaskMessage() throws IOException {
-        while (taskManager.getTaskSize() > 0) {
-            taskManager.deleteTask(1);
-        }
-        mockDatabase.clearDatabase();
+    public void parse_invalidDeleteCommand_getNoTasksMessage() {
+        String actualResult = parser.parse("delete 1");
+        String expectedResult = "You have no tasks at the moment!";
+        assertEquals(expectedResult, actualResult, "The chatbot should tell user that they have no tasks.");
+    }
+
+    @Test
+    public void parse_validMarkCommand_getMarkTaskMessage() {
         taskManager.addTask(new TodoTask("go to gym", false));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
         taskManager.addTask(new DeadlineTask("hw", LocalDateTime.parse("11-09-2024 1300", formatter), false));
@@ -326,17 +304,21 @@ public class ParserTest {
 
     @Test
     public void parse_invalidMarkCommand_getNoSuchTaskMessage() {
+        taskManager.addTask(new TodoTask("go to gym", false));
         String actualResult = parser.parse("mark 64");
         String expectedResult = "Aw... that task doesn't exist. Try again!";
         assertEquals(expectedResult, actualResult, "The chatbot should tell user the task doesn't exist");
     }
 
     @Test
-    public void parse_validMarkCommand_getAlreadyMarkedMessage() throws IOException {
-        while (taskManager.getTaskSize() > 0) {
-            taskManager.deleteTask(1);
-        }
-        mockDatabase.clearDatabase();
+    public void parse_invalidMarkCommand_getNoTasksMessage() {
+        String actualResult = parser.parse("mark 1");
+        String expectedResult = "You have no tasks at the moment!";
+        assertEquals(expectedResult, actualResult, "The chatbot should tell user that they have no tasks.");
+    }
+
+    @Test
+    public void parse_validMarkCommand_getAlreadyMarkedMessage() {
         taskManager.addTask(new TodoTask("go to gym", false));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
         taskManager.addTask(new DeadlineTask("hw", LocalDateTime.parse("11-09-2024 1300", formatter), false));
@@ -351,11 +333,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_validUnmarkCommand_getUnmarkTaskMessage() throws IOException {
-        while (taskManager.getTaskSize() > 0) {
-            taskManager.deleteTask(1);
-        }
-        mockDatabase.clearDatabase();
+    public void parse_validUnmarkCommand_getUnmarkTaskMessage() {
         taskManager.addTask(new TodoTask("go to gym", false));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
         taskManager.addTask(new DeadlineTask("hw", LocalDateTime.parse("11-09-2024 1300", formatter), false));
@@ -378,11 +356,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_invalidUnmarkCommand_getNoSuchTaskMessage() throws IOException {
-        while (taskManager.getTaskSize() > 0) {
-            taskManager.deleteTask(1);
-        }
-        mockDatabase.clearDatabase();
+    public void parse_invalidUnmarkCommand_getNoSuchTaskMessage() {
         taskManager.addTask(new TodoTask("go to gym", false));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
         taskManager.addTask(new DeadlineTask("hw", LocalDateTime.parse("11-09-2024 1300", formatter), false));
@@ -395,11 +369,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_validUnmarkCommand_getAlreadyMarkedMessage() throws IOException {
-        while (taskManager.getTaskSize() > 0) {
-            taskManager.deleteTask(1);
-        }
-        mockDatabase.clearDatabase();
+    public void parse_validUnmarkCommand_getAlreadyMarkedMessage() {
         taskManager.addTask(new TodoTask("go to gym", false));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
         taskManager.addTask(new DeadlineTask("hw", LocalDateTime.parse("11-09-2024 1300", formatter), false));
@@ -410,5 +380,12 @@ public class ParserTest {
         String expectedResult = "This task was already unmarked and incomplete:\n"
                 + "[T][ ] go to gym";
         assertEquals(expectedResult, actualResult, "The chatbot should tell user that the task is already unmarked.");
+    }
+
+    @Test
+    public void parse_invalidUnmarkCommand_getNoTasksMessage() {
+        String actualResult = parser.parse("unmark 1");
+        String expectedResult = "You have no tasks at the moment!";
+        assertEquals(expectedResult, actualResult, "The chatbot should tell user that they have no tasks.");
     }
 }
