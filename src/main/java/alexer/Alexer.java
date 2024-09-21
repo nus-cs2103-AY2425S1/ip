@@ -117,6 +117,8 @@ public class Alexer {
     public void promptLoop() {
         String input = scanner.nextLine();
 
+        assert input != null; // we should always get some kind of input back
+
         Response response = processInput(input);
         response.printToConsole();
         promptLoop();
