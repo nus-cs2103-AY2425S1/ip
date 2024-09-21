@@ -1,33 +1,40 @@
 package ava.files;
 
 import ava.task.Task;
-import jdk.jshell.spi.ExecutionControl;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.PrintWriter;
 import java.util.List;
+import java.util.stream.Stream;
 
+/**
+ * Manages File I/O for AVA
+ */
 public class FileManager {
 
-
-    //TODO: Switch to environment variables
-    //TODO: optimize serialization
     private String path;
     private File file;
+    private BufferedReader reader;
+    private PrintWriter writer;
+    private List<Task> taskList;
 
     /**
      * Default path used to store tasks
      */
-    private static final String DEFAULT_PATH="./../data/tasks.txt";
+    private static final String DEFAULT_PATH="./data/tasks.txt";
 
     /**
-     * Create a new FileManager with default path
+     * Creates a new FileManager with default path
      * <br>
      * Calls {@link FileManager#FileManager(String)} internally to create the FileManager
      * Only use this constructor if user doesn't want to set file path
+     *
      * @see FileManager#FileManager(String)
      */
     public FileManager(){
@@ -35,65 +42,103 @@ public class FileManager {
     }
 
     /**
-     * Create a new FileManager with given path
-     *
+     * Creates a new FileManager with given path
+     * <br>
      * if no file exists at the given path one is created
+     *
      * @param path Path to the file
      */
     public FileManager(String path){
         assert path != null;
         this.path = path;
         this.file = new File(path);
+
         try {
             boolean isDirCreated = file.getParentFile().mkdirs();
             if(isDirCreated){
                 //TODO: log info
                 System.out.println("new dir created");
             }
-            boolean fileExists = file.createNewFile();
-            if(!fileExists){
-                //TODO: log error
-                System.out.println("Error creating file");
+            boolean doesFileExist = file.createNewFile();
+            if(!doesFileExist){
+                // TODO: log error
+                // System.out.println("new file created");
             }
-
 
         } catch (IOException | SecurityException e){
             //TODO: use error system
             System.out.println("Invalid path");
         }
-    }
 
-    public List<Task> getTasks() {
-        // TODO: implement reading from file
-
-        // move file reader to an instance variable
-        // usebufferedReader
         try {
-            FileReader reader = new FileReader(file);
-            reader.read();
-        } catch(FileNotFoundException e){
-            //TODO: log error
-            System.out.println("File not found");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            reader = new BufferedReader(new FileReader(file));
+        } catch (FileNotFoundException e) {
+           System.out.println("File corrupted or not found.");
         }
-        return new ArrayList<Task>(){
-            @Override
-            public String toString() {
-                StringBuilder out = new StringBuilder();
-                for(int i = 1; i <=size();i++){
-                    out.append(i);
-                    out.append(". ");
-                    out.append(get(i - 1));
-                    out.append("\n");
-                }
-                return out.toString();
-            }
-        };
+
+        // default Task handler
+        taskList = new TaskList();
     }
 
-    public static void main(String[] args) {
-        FileManager fileManager = new FileManager();
-        System.out.println(fileManager.getTasks());
+    /**
+     * Reads tasks from file
+     * <br>
+     * Reads tasks from file, parse them and
+     * returns a list
+     * <br>
+     * used for initial loading of tasks
+     *
+     * @return List of tasks
+     */
+    public List<Task> getTasks() {
+        try {
+            String line = reader.readLine();
+            while(line != null) {
+                /*
+                 * read
+                 * deserialize
+                 * add to taskList
+                 */
+
+                Task task;
+                try {
+                    task = DataManager.deserialize(line);
+                } catch (IllegalArgumentException e){
+                    System.out.println("Data file is corrupted");
+                    throw new IllegalArgumentException("Corrupted file");
+                }
+                taskList.add(task);
+                line = reader.readLine();
+            }
+
+        } catch (IOException e) {
+            //TODO: deal with this
+            // throw new Ill(e);
+        }
+
+        return taskList;
     }
+
+    /**
+     * Writes tasks to file
+     * <br>
+     * Writes tasks to file,
+     * used to save tasks after each update
+     *
+     * @param tasks List of tasks to write
+     */
+    public void writeTasks(List<Task> tasks){
+
+        // erases the file.... as soon as writer is created...
+        try {
+            writer = new PrintWriter(new BufferedWriter(new FileWriter(file)));
+        } catch (IOException e) {
+            System.out.println("File corrupted or not found.");
+        }
+
+        tasks.stream().map(DataManager::serialize).forEachOrdered(writer::println);
+        writer.flush();
+        writer.close();
+    }
+
 }

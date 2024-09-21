@@ -1,11 +1,16 @@
 package ava;
 
+import ava.commands.Command;
+import ava.commands.Parser;
 import ava.task.Task;
 import ava.task.TaskManager;
 
 import java.io.PrintStream;
 import java.util.List;
 
+/**
+ * Creates a model AVA which follows commands.
+ */
 public class AVA {
 
     /**
@@ -14,33 +19,36 @@ public class AVA {
     private String currentInput;
 
     /**
-     * TaskManager for AVA
+     * TaskManager for AVA.
      * <br>
-     * initialized on ava's creation
+     * Initialized on ava's creation.
      * <br><br>
-     * <code>final</code> to avoid unnecessary modifications
+     * <code>final</code> to avoid unnecessary modifications.
      */
     private final TaskManager taskManager;
 
     /**
-     * default constructor for AVA
+     * default constructor for AVA.
      */
     public AVA() {
         taskManager = new TaskManager();
     }
 
     /**
-     * Decides if AVA is running or not
-     * //TODO: switch to a state based system like Operating System Threads
-     * @return <span color="green">true</span> if AVA is running <span color="red">false</span> otherwise
+     * Decides if AVA is running or not.
+     *
+     * TODO: switch to a state based system like Operating System Threads
+     *
+     * @return <span color="green">true</span> if AVA is running <span color="red">false</span> otherwise.
      */
     public final boolean isRunning(){
         return !currentInput.equals("bye");
     }
 
     /**
-     * Updates the currentInput with the user input
-     * @param s the user input
+     * Updates the currentInput with the user input.
+     *
+     * @param s the user input.
      */
     public void tellAva(String s) {
         currentInput = s;
@@ -48,63 +56,95 @@ public class AVA {
 
     //todo:have a non printstream version
     /**
-     * Prints AVA's response to given PrintStream
-     * @param out PrintStream to print AVA's response to
-     * //TODO:refactor mark and unmark to remove redundancy
+     * Prints AVA's response to given PrintStream.
+     *
+     * @param out PrintStream to print AVA's response to.
+     * TODO:refactor mark and unmark to remove redundancy
      */
-    public void respond(PrintStream out){
-        if(currentInput.equals("list")){
-            List<Task> list = taskManager.getTasks();
-            out.println("Here are your tasks:");
-            out.println(list);
-        } else if(currentInput.startsWith("mark")){
-            int taskId;
-            try{
-                taskId = Integer.parseInt(currentInput.substring(5));
-            } catch(NumberFormatException e){
-                out.println("I am sorry, but you need to provide me a task id to mark or unmark something.");
-                return;
-            }
-            Task task = taskManager.getTasks().get(taskId-1);
-                task.markDone();
-                //TODO: use string format
-                out.println("Alright I have marked this task as done");
-                out.println(taskId +". " + task);
-            }
-         else if(currentInput.startsWith("unmark")){
-            int taskId;
-            try{
-                taskId = Integer.parseInt(currentInput.substring(5));
-            } catch(NumberFormatException e){
-                out.println("I am sorry, but you need to provide me a task id to mark or unmark something.");
-                return;
-            }
-            Task task = taskManager.getTasks().get(taskId-1);
-            task.markNotDone();
-            //TODO: use string format
-            out.println("Alright I have marked this task as not done");
-            out.println(taskId +". " + task);
-        } else if(currentInput.startsWith("delete")){
-            int taskId;
-            try{
-                taskId = Integer.parseInt(currentInput.substring(7));
-            } catch(NumberFormatException e){
-                out.println("I am sorry, but you need to provide me a task id to delete something.");
-                return;
-            }
-            Task task = taskManager.getTasks().get(taskId-1);
-            taskManager.removeTask(taskId);
-            //TODO: use string format
-            out.println("Alright I have deleted this task");
-            out.println(taskId +". " + task);
+    public void respond(PrintStream out) {
+        Command userInput;
+        try {
+             userInput = Parser.parseCommand(currentInput);
+        } catch(IllegalArgumentException e){
+            out.println("I am sorry, but I am not capable of doing that yet 😢.");
+            return;
         }
-        else{
-            taskManager.addTask(currentInput);
-            out.println("----------------------------------------------------------------");
-            out.println("Added " + currentInput);
-            out.println("----------------------------------------------------------------");
+        try {
+            switch (userInput) {
+            case LIST: {
+                List<Task> list = taskManager.getTasks();
+                out.println("Here are your tasks:");
+                out.println(list);
+                break;
+            }
+            case MARK: {
+                int taskId = Parser.parseMark(currentInput);
+                Task task = taskManager.getTasks().get(taskId - 1);
+                task.markDone();
+                out.println("Alright I have marked this task as done");
+                out.printf("%d. %s %n",taskId,task);
+                break;
+            }
+            case UNMARK: {
+                int taskId = Parser.parseUnmark(currentInput);
+                Task task = taskManager.getTasks().get(taskId - 1);
+                task.markNotDone();
+                out.println("Alright I have marked this task as not done");
+                out.printf("%d. %s %n",taskId,task);
+                break;
+            }
+            case DELETE: {
+                int taskId = Parser.parseDelete(currentInput);
+                Task task = taskManager.getTasks().get(taskId - 1);
+                taskManager.removeTask(taskId);
+                out.println("Alright I have deleted this task");
+                out.printf("%d. %s %n",taskId,task);
+                break;
+            }
+            case TODO: {
+                String todo = Parser.parseToDo(currentInput, taskManager);
+                out.println("----------------------------------------------------------------");
+                out.println("Added todo: " + todo);
+                out.println("----------------------------------------------------------------");
+                break;
+            }
+            case EVENT: {
+                String event = Parser.parseEvent(currentInput, taskManager);
+                out.println("----------------------------------------------------------------");
+                out.println("Added event: " + event);
+                out.println("----------------------------------------------------------------");
+                break;
+            }
+            case DEADLINE: {
+                String deadline = Parser.parseDeadline(currentInput, taskManager);
+                out.println("----------------------------------------------------------------");
+                out.println("Added deadline: " + deadline);
+                out.println("----------------------------------------------------------------");
+                break;
+            }
+            case FIND: {
+                Parser.parseFind(currentInput);
+                break;
+            }
+            default: {
+                taskManager.addTask(currentInput);
+
+            }
+            }
+        } catch (IllegalArgumentException e){
+            /* The responsibility of handling the error
+             * is delegated to the respective parser methods
+             *
+             * An IllegalArgumentException is thrown to exit the
+             * switch case forcefully while maintaining encapsulation
+             *
+             * This is why this catch block is empty
+             * as the error has already been handled
+             */
+            return;
         }
     }
+
 
     public void streamResponse(){
         //TODO: implement
@@ -112,10 +152,9 @@ public class AVA {
     }
 
     /**
-     *  Runs AVA
-     *
+     *  Runs AVA.
      *  <br>
-     *  Main driver method running AVA
+     *  Main driver method running AVA.
      */
     public static void main(String[] args) {
         TextUI.run();

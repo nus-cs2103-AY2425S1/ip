@@ -3,8 +3,10 @@ package ava.errors;
 public class ErrorHandler {
 
     /**
-     * //TODO:log to disk or console
-     * @param error Error received
+     * Handles the received error
+     *
+     * TODO:log to disk or console
+     * @param errors Errors received
      */
     public static void handle(Error... errors) {
 
