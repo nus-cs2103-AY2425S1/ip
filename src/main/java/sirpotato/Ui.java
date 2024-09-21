@@ -77,8 +77,8 @@ public class Ui {
      * @return Deletion of task message
      */
     public String displayDeletionMessage(Task task, TaskList tasks) {
-        String response = "Gotcha mate, I've deleted the following task: " + 
-                task + 
+        String response = "Gotcha mate, I've deleted the following task: \n" + 
+                task + "\n" +
                 "Now you've got " + (tasks.getSizeOfList()) + " tasks left.";
         System.out.println(response);
         return response;

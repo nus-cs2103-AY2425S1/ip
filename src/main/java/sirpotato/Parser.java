@@ -31,10 +31,16 @@ class Parser {
      */
     public static void checkForErrors(String userInput) throws DukeException {
         if (userInput.startsWith("todo")) {
+            if (!userInput.startsWith("todo ")) {
+                throw new DukeException("Mate, you may have misspelt or forgotten to type the rest of your command");
+            }
             if (userInput.trim().length() <= 5 || userInput.substring(5).isEmpty()) {
                 throw new DukeException("Mate, you have got to give us a description of the task");
             }
         } else if (userInput.startsWith("deadline")) {
+            if (!userInput.startsWith("deadline ")) {
+                throw new DukeException("Mate, you may have misspelt or forgotten to type the rest of your command");
+            }
             if (userInput.trim().length() <= 9) {
                 throw new DukeException("Mate, you need to give me a task description and deadline date");
             }
@@ -46,6 +52,9 @@ class Parser {
             }
             validateDateFormat(sectionedString[1].trim());
         } else if (userInput.startsWith("event")) {
+            if (!userInput.startsWith("event ")) {
+                throw new DukeException("Mate, you may have misspelt or forgotten to type the rest of your command");
+            }
             if (userInput.trim().length() <= 6) {
                 throw new DukeException("Mate, an event should have the description, the start, and the end.");
             }
@@ -57,6 +66,9 @@ class Parser {
             validateDateFormat(sectionedString[1].trim());
             validateDateFormat(sectionedString[2].trim());
         } else if (userInput.startsWith("delete")) {
+            if (!userInput.startsWith("delete ")) {
+                throw new DukeException("Mate, you may have misspelt or forgotten to type the rest of your command");
+            }
             if (userInput.trim().length() <= 7) {
                 throw new DukeException("You need to say which item to delete");
             } 
@@ -66,6 +78,9 @@ class Parser {
                 throw new DukeException("Mate, please give a task number(not text) to delete");
             }
         } else if (userInput.startsWith("sort")) {
+            if (!userInput.startsWith("sort ")) {
+                throw new DukeException("Mate, you may have misspelt or forgotten to type the rest of your command");
+            }
             if (userInput.trim().length() <= 5) {
                 throw new DukeException("Mate, please specify your category: either description or deadline");
             }
@@ -75,6 +90,9 @@ class Parser {
                 throw new DukeException("You have to sort by description or deadline");
             }
         } else if (userInput.trim().startsWith("mark")) {
+            if (!userInput.startsWith("mark ")) {
+                throw new DukeException("Mate, you may have misspelt or forgotten to type the rest of your command");
+            }
             if (userInput.trim().length() <= 5) {
                 throw new DukeException("Mate, please specify your task to mark");
             }
@@ -84,6 +102,9 @@ class Parser {
                 throw new DukeException("Mate, please give a task number(not text) to mark");
             }
         } else if (userInput.trim().startsWith("unmark")) {
+            if (!userInput.startsWith("unmark ")) {
+                throw new DukeException("Mate, you may have misspelt or forgotten to type the rest of your command");
+            }
             if (userInput.trim().length() <= 7) {
                 throw new DukeException("Mate, please specify your task to mark");
             }
@@ -93,6 +114,9 @@ class Parser {
                 throw new DukeException("Mate, please give a task number(not text) to unmark");
             }
         } else if (userInput.trim().startsWith("find")) {
+            if (!userInput.startsWith("find ")) {
+                throw new DukeException("Mate, you may have misspelt or forgotten to type the rest of your command");
+            }
             if (userInput.trim().length() <= 5) {
                 throw new DukeException("Mate, please specify a keyword/string to search for");
             }
@@ -122,9 +146,9 @@ class Parser {
     public static Command parseCommand(String userInput) throws DukeException {
         checkForErrors(userInput);
 
-        if (userInput.equals("bye")) {
+        if (userInput.trim().equals("bye")) {
             return new ExitCommand();
-        } else if (userInput.equals("list")) {
+        } else if (userInput.trim().equals("list")) {
             return new ListCommand();
         } else if (userInput.startsWith("mark")) {
             int itemNumber = Integer.parseInt(userInput.split(" ")[1]) - 1;
