@@ -140,10 +140,10 @@ The `help` command provides a list of all available commands and their usages.
 
 <b>Expected outcome</b>:
 ```
-list                                              List all tasks
 todo <name>                                       Add a todo with name
 deadline <name> /by <end date>                    Add a deadline with name and end date 
 event <name> /from <start date> /to <end date>    Add an event with name, start date and end date
+list                                              List all tasks
 mark <task index>                                 Mark task with corresponding task index as done
 unmark <task index>                               Mark task with corresponding task index as undone
 delete <task index>                               Delete task with corresponding task index
@@ -168,6 +168,6 @@ BotManager will automatically exit shortly after displaying this message
 Task data is automatically written to the data file after each command. There is no need to manually save data.
 
 ## Editing the data file
-Task data is saved in a text file at `[JAR file location]/data/tasks.txt`.<br>
+Task data is saved in a text file at `[JAR file location]/data/tasks.txt`. 
 Advanced users are welcome to update data directly by editing the text file. <br>
 <b>Note: BotManager will only load data in the valid format. All invalid data will be discarded in the next autosave. (i.e. after any command is ran)

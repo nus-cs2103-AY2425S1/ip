@@ -6,11 +6,11 @@ import exception.InvalidCommandException;
  * Enum representing the different commands available.
  */
 public enum Command {
-    LIST("list", "list", "List all tasks"),
     TODO("todo", "todo <name>", "Add a todo with name"),
     DEADLINE("deadline", "deadline <name> /by <end date>", "Add a deadline with name and end date "),
     EVENT("event", "event <name> /from <start date> /to <end date>",
             "Add an event with name, start date and end date"),
+    LIST("list", "list", "List all tasks"),
     MARK("mark", "mark <task index>", "Mark task with corresponding task index as done"),
     UNMARK("unmark", "unmark <task index>", "Mark task with corresponding task index as undone"),
     DELETE("delete", "delete <task index>", "Delete task with corresponding task index"),
