@@ -48,16 +48,16 @@ Note that commands are read as the first string of letters before a white space
 ## Command Summary
 
 | Command  | Format, Example                                                                                                               |
-|----------|-------------------------------------------------------------------------------------------------------------------------------|
-| List     | `list`                                                                                                                        |
-| Todo     | `todo DESCRIPTION` <br/>e.g., `todo read book`                                                                                |
-| Deadline | `deadline DESCRIPTION /by STRING` <br/>e.g., `deadline submit assignment /by 2024-11-11`                                   |
+|----------|-|
+| List     | `list` |
+| Todo     | `todo DESCRIPTION` <br/>e.g., `todo read book`|
+| Deadline | `deadline DESCRIPTION /by STRING` <br/>e.g., `deadline submit assignment /by 2024-11-11` |
 | Event    | `event DESCRIPTION /from STRING /to STRING` <br/>e.g., `event Party /from 2024-09-29 /to 2024-11-27` |
-| Mark     | `mark INDEX` <br/>e.g., `mark 2`                                                                                              |
-| Unmark   | `unmark INDEX` <br/>e.g., `unmark 1`                                                                                          |
-| Delete   | `delete INDEX` <br/>e.g., `delete 3`                                                                                          |
-| Find     | `find STRING` <br/>e.g., `find assignment`                                                                                   |
-| Bye      | `bye`                                                                                                                         |
+| Mark     | `mark INDEX` <br/>e.g., `mark 2`|
+| Unmark   | `unmark INDEX` <br/>e.g., `unmark 1`  |
+| Delete   | `delete INDEX` <br/>e.g., `delete 3` |
+| Find     | `find STRING` <br/>e.g., `find assignment`|
+| Bye      | `bye` |
 
 
 ## Adding tasks
