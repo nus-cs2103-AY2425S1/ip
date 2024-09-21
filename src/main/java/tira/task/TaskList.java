@@ -55,10 +55,13 @@ public class TaskList {
 
     public String markTask(String command, String[] commandSplitBySpace) throws TiraException {
         assert Integer.valueOf(commandSplitBySpace[1]) > 0 : "Task number should be more than 0";
-        if (commandSplitBySpace.length < 2 && command.equals("mark")){
-            throw new TiraException("MRAW?? WHERE IS THE TASK?");
+        if (commandSplitBySpace.length < 2){
+            throw new TiraException("MRAW?? Please give task number.");
         }
         int currNum = Integer.parseInt(commandSplitBySpace[1]) - 1;
+        if (currNum > tasks.size() - 1) {
+            throw new TiraException("MRAW?? There's less task in the list. Please review the task number");
+        }
         tasks.get(currNum).markStatus();
         Task currTask = tasks.get(currNum);
         ui.showMarkTask(currTask);
@@ -75,11 +78,13 @@ public class TaskList {
 
     public String unmarkTask(String command, String[] commandSplitBySpace) throws TiraException {
         assert Integer.valueOf(commandSplitBySpace[1]) > 0 : "Task number should be more than 0";
-        if (commandSplitBySpace.length < 2 && command.equals("unmark")) {
-            throw new TiraException("MRAW?? WHERE IS THE TASK?");
+        if (commandSplitBySpace.length < 2) {
+            throw new TiraException("MRAW?? Please give task number.");
         }
         int currNum = Integer.parseInt(commandSplitBySpace[1]) - 1;
-
+        if (currNum > tasks.size() - 1) {
+            throw new TiraException("MRAW?? There's less task in the list. Please review the task number");
+        }
         tasks.get(currNum).unmarkStatus();
         Task currTask = tasks.get(currNum);
         ui.showUnmarkTask(currTask);
