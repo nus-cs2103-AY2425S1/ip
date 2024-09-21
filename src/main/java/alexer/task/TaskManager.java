@@ -1,12 +1,8 @@
 package alexer.task;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * This class represents the task manager which handles
@@ -15,16 +11,23 @@ import java.util.Scanner;
  * @author sayomaki
  */
 public class TaskManager {
+    private final boolean storageEnabled = true; // tasks are stored/loaded automatically
     private final List<Task> taskList;
+    private final TaskStorage storage;
 
     /** The save file location for tasks **/
     public static final String SAVE_FILE = "./data/tasks.txt";
 
     /**
-     * Creates a new task manager
+     * Creates a new task manager, and loads tasks if required
      */
     public TaskManager() {
-        taskList = new ArrayList<>();
+        if (storageEnabled) {
+            storage = new TaskStorage(SAVE_FILE);
+            taskList = storage.loadTasks();
+        } else {
+            taskList = new ArrayList<>();
+        }
     }
 
     /**
@@ -76,7 +79,11 @@ public class TaskManager {
     public Task createTodo(String description) {
         Task todo = new Todo(description);
         taskList.add(todo);
-        saveTasks();
+
+        if (storageEnabled) {
+            storage.saveTasks(taskList);
+        }
+
         return todo;
     }
 
@@ -90,7 +97,11 @@ public class TaskManager {
     public Task createDeadline(String description, LocalDateTime by) {
         Task deadline = new Deadline(description, by);
         taskList.add(deadline);
-        saveTasks();
+
+        if (storageEnabled) {
+            storage.saveTasks(taskList);
+        }
+
         return deadline;
     }
 
@@ -105,7 +116,11 @@ public class TaskManager {
     public Task createEvent(String description, String from, String to) {
         Task event = new Event(description, from, to);
         taskList.add(event);
-        saveTasks();
+
+        if (storageEnabled) {
+            storage.saveTasks(taskList);
+        }
+
         return event;
     }
 
@@ -129,74 +144,12 @@ public class TaskManager {
     }
 
     /**
-     * Loads tasks from the task save file.
-     *
-     * @return boolean whether tasks loaded successfully
+     * Saves the tasks using task storage,
+     * does nothing if task persistence is disabled
      */
-    public boolean loadTasks() {
-        File file = new File(SAVE_FILE);
-        if (!file.isFile()) {
-            System.out.println("Failed to find task save file, not loading any tasks.");
-            return false;
-        }
-
-        try {
-            Scanner scanner = new Scanner(file);
-
-            while (scanner.hasNext()) {
-                String taskString = scanner.nextLine();
-                Task task;
-                if (taskString.startsWith("T")) {
-                    task = Todo.fromTaskString(taskString);
-                } else if (taskString.startsWith("D")) {
-                    task = Deadline.fromTaskString(taskString);
-                } else if (taskString.startsWith("E")) {
-                    task = Event.fromTaskString(taskString);
-                } else {
-                    System.out.println("Invalid task type found, skipping: " + taskString);
-                    continue;
-                }
-
-                if (task != null) {
-                    taskList.add(task);
-                } else {
-                    System.out.println("Failed to load task: " + taskString);
-                }
-            }
-
-            System.out.println("Loaded saved tasks from disk!");
-
-            return true;
-        } catch (IOException e) {
-            System.out.println("Error! Failed to load tasks!");
-            return false;
-        }
-    }
-
-    /**
-     * Saves all the tasks to the hard disk in a file.
-     *
-     * @return Whether the save is successful
-     */
-    public boolean saveTasks() {
-        File file = new File(SAVE_FILE);
-        // ensure our data directory exists first
-        file.getParentFile().mkdir();
-
-        try {
-            FileWriter fileWriter = new FileWriter(SAVE_FILE);
-
-            StringBuilder output = new StringBuilder();
-            for (Task task : taskList) {
-                output.append(task.toTaskString()).append("\n");
-            }
-
-            fileWriter.write(output.toString());
-            fileWriter.close();
-            return true;
-        } catch (IOException e) {
-            System.out.println("Error! Failed to save tasks!");
-            return false;
+    public void saveTasks() {
+        if (storageEnabled) {
+            storage.saveTasks(taskList);
         }
     }
 }

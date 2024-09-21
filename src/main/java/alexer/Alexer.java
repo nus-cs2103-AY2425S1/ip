@@ -103,7 +103,7 @@ public class Alexer {
      * data and prepares the chatbot for operation.
      */
     public void start() {
-        tasks.loadTasks();
+
     }
 
     /**
