@@ -19,6 +19,12 @@ public class MarkCommand extends Command {
         super(command);
     }
 
+    /**
+     * Checks if the mark command is valid.
+     *
+     * @param tasks List of current {@code Task} objects.
+     * @throws BrockException If mark command is invalid.
+     */
     private void validateMark(TaskList tasks) throws BrockException {
         String[] commandWords = this.processCommand();
         CommandUtility.validateLength(commandWords, "Mark ");
@@ -82,7 +88,7 @@ public class MarkCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public String getType() {
+    public String getCommandType() {
         return "mark";
     }
 }

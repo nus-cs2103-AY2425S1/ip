@@ -8,7 +8,7 @@ import task.ToDo;
  */
 public class TodoManager extends TaskManager {
     /**
-     * Creates a {@code ToDo} object corresponding to a todo task.
+     * Creates a {@code ToDo} object corresponding to a todo string.
      *
      * @param todoBody   String storing todo description.
      * @param todoStatus Character representing todo status.

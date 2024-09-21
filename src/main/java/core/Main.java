@@ -88,7 +88,7 @@ public class Main extends Application {
      *
      * @param stage A platform of sorts, as the backbone for the GUI application.
      */
-    private void setMinDimmensions(Stage stage) {
+    private void setMinDimensions(Stage stage) {
         stage.setMinHeight(MIN_HEIGHT);
         stage.setMinWidth(MIN_WIDTH);
     }
@@ -116,7 +116,7 @@ public class Main extends Application {
             // Finish setup
             Scene scene = new Scene(ap);
             this.setTitleAndIcon(stage);
-            this.setMinDimmensions(stage);
+            this.setMinDimensions(stage);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {

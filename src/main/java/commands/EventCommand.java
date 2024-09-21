@@ -195,7 +195,7 @@ public class EventCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public String getType() {
+    public String getCommandType() {
         return "event";
     }
 }

@@ -9,6 +9,13 @@ import utility.StorageUtility;
  * Class to manage event strings in task storage.
  */
 public class EventManager extends TaskManager {
+    /**
+     * Checks the body of the event string.
+     *
+     * @param eventBody EventBody to be checked.
+     * @return The event body, split into description and dateTime.
+     * @throws BrockException If the event body is invalid.
+     */
     private String[] processEventBody(String eventBody) throws BrockException {
         String[] parts = eventBody.split("\\(from: ", 2);
         if (parts.length < 2) {
@@ -17,6 +24,13 @@ public class EventManager extends TaskManager {
         return parts;
     }
 
+    /**
+     * Checks the start dateTime of the event string.
+     *
+     * @param startDateTime Start dateTime to be checked.
+     * @return The start date and start time, separated out, if valid.
+     * @throws BrockException If start dateTime is invalid.
+     */
     private String[] processStartDateTime(String startDateTime) throws BrockException {
         String[] startDateTimeParts = startDateTime.split(", ");
         String startDateString = StorageUtility.parseDate(startDateTimeParts[0]);
@@ -27,6 +41,13 @@ public class EventManager extends TaskManager {
         return new String[]{startDateString, startTimeString};
     }
 
+    /**
+     * Checks the end dateTime of the event string.
+     *
+     * @param endDateTime End dateTime to be checked.
+     * @return The end date and end time, separated out, if valid.
+     * @throws BrockException If end dateTime is invalid.
+     */
     private String[] processEndDateTime(String endDateTime) throws BrockException {
         String[] endDateTimeParts = endDateTime.substring(4)
                 .split(", ");
@@ -42,7 +63,7 @@ public class EventManager extends TaskManager {
     }
 
     /**
-     * Creates an {code Event} object corresponding to an event task.
+     * Creates an {@code Event} object corresponding to an event string.
      *
      * @param eventBody   String storing event description, as well as start and end datetime.
      * @param eventStatus Character representing event status.

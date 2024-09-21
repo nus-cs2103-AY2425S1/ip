@@ -7,7 +7,9 @@ import task.Task;
 import task.TaskList;
 
 
-// TODO: Refactor this into manager system
+// TODO: Refactor this into manager system (ie: have a bunch of managers (prevToggleManager, prevCreateManager, prevDeleteManager)
+//  handlePrevCommand or undoPrevCommand (override method) prevCommandManager (ABC)
+//  Where each manager handles prev command(s) -> generates a String response
 /**
  * Represents an undo command entered by the user.
  */
@@ -48,7 +50,7 @@ public class UndoCommand extends Command {
         tasks.addToList(lastDeletedTask);
         this.updateSaveFile(taskStorage, tasks, lastDeletedTask);
         return "Restoring deleted task...\n"
-                + "  " + tasks.getTaskDetails(lastDeletedTask) + "restored!\n"
+                + "  " + tasks.getTaskDetails(lastDeletedTask) + " restored!\n"
                 + tasks.getTasksSummary();
     }
 
@@ -86,6 +88,7 @@ public class UndoCommand extends Command {
         String previousCommand = this.processPreviousCommand(tempStorage);
         String responseHeader = "Undoing previous valid command: " + previousCommand + " ...\n\n";
 
+        // From here onwards, is cases where able to perform undo (except else block)
         String undoResponse;
         if (previousCommand.equals("mark")) {
             undoResponse = this.handlePrevIsMark(taskStorage, tempStorage, tasks);
@@ -110,7 +113,7 @@ public class UndoCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public String getType() {
+    public String getCommandType() {
         return "undo";
     }
 }

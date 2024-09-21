@@ -19,6 +19,12 @@ public class UnmarkCommand extends Command {
         super(command);
     }
 
+    /**
+     * Checks if the unmark command is valid.
+     *
+     * @param tasks List of current {@code Task} objects.
+     * @throws BrockException If the unmark command is invalid.
+     */
     private void validateUnmark(TaskList tasks) throws BrockException {
         String[] commandWords = this.processCommand();
         CommandUtility.validateLength(commandWords, "Unmark ");
@@ -82,7 +88,7 @@ public class UnmarkCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public String getType() {
+    public String getCommandType() {
         return "unmark";
     }
 }
