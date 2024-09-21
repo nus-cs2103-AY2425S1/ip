@@ -3,6 +3,10 @@ package Tools;
 import Exception.EmptyDescriptionException;
 import Exception.MissingDateException;
 
+/**
+ * abolished Parser for handling and routing commands to manage task operations.
+ * this one is used for Chatgpt without ui page
+ */
 public class Parser {
 
     TaskList tasks;
@@ -11,12 +15,25 @@ public class Parser {
 
     Ui ui;
 
+    /**
+     * Constructs a new parser with associated task list and storage.
+     *
+     * @param tasks The task list to be managed and manipulated.
+     * @param storage The storage system to save task changes.
+     */
     public Parser(TaskList tasks, Storage storage, Ui ui) {
         this.tasks = tasks;
         this.storage = storage;
         this.ui = ui;
     }
 
+    /**
+     * Parses and processes user input commands to perform task operations.
+     *
+     * @param input The user input command.
+     * @throws EmptyDescriptionException if a task description is missing.
+     * @throws MissingDateException if a required date for a task is missing.
+     */
     public void parse(String input) {
         try {
             if (input.equals("bye")) {
