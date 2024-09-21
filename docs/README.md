@@ -2,6 +2,8 @@ hi! my name
 # JEFF
 > rotted, my brain has become - Yoda probably idk
 
+![jeff](https://github.com/shardhrv/ip/blob/master/docs/Ui.png)
+
 JEFF unclutters your brain from all the important tasks that you have to remember, so you can fill it with _useless memes_ instead. JEFF is
 - fast
 - reliable
