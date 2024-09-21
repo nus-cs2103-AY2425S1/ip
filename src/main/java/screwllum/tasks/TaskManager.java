@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import screwllum.exception.InvalidIndexException;
+import screwllum.utils.Storage;
 import screwllum.utils.Ui;
 
 /**
@@ -31,12 +32,18 @@ public class TaskManager {
      * @return A string representing the results of the action that was executed
      * @throws InvalidIndexException If the index provided in the command (e.g., for toggle or delete) is out of bounds.
      */
-    public String execute(List<String> tokens, Ui ui) throws InvalidIndexException {
+    public String execute(List<String> tokens, Ui ui, Storage storage) throws InvalidIndexException {
         assert tokens != null : "If parser works properly, there should always be a List of tokens";
         List<Task> list = null; // This is for handling delete
         String result = "";
 
         switch (tokens.get(0)) {
+        case "bye":
+            executeBye(storage);
+            break;
+        case "archive":
+            executeArchive(storage);
+            break;
         case "toggle":
             executeToggle(tokens);
             break;
@@ -60,9 +67,15 @@ public class TaskManager {
         return list == null ? ui.showMessage(tokens, taskList) : ui.showMessage(tokens, list);
     }
 
-    public List<Task> getTaskList() {
-        return taskList;
+    private void executeArchive(Storage storage) {
+        storage.archiveTasks(taskList);
+        taskList.clear();
     }
+
+    private void executeBye(Storage storage) {
+        storage.saveTasks(taskList);
+    }
+
 
     private void executeToggle(List<String> tokens) throws InvalidIndexException {
         try {
