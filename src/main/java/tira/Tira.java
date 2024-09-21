@@ -9,9 +9,7 @@ import tira.task.TaskList;
 /**
  * Main class for Tira chatbot.
  * Manages initialization and execution of the Tira app.
- *
  */
-
 public class Tira {
     private static final String Directory = "./data";
     private static final String FileName = "./data/Tira.txt";
@@ -27,7 +25,6 @@ public class Tira {
      *
      * @param filePath Filepath of the file to be updated.
      */
-
     public Tira(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -45,7 +42,6 @@ public class Tira {
      * Runs Tira chatbot by accepting user input through Ui class.
      * @throws TiraException
      */
-
     public String getResponse(String input) throws TiraException {
         String command = input;
         String[] splitCommand = command.split(" ");

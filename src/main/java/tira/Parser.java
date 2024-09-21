@@ -35,9 +35,9 @@ public class Parser {
             case "list":
                 return ui.showTaskList(taskList);
             case "mark":
-                return taskList.markTask(command, commandSplitBySpace);
+                return taskList.markTask(commandSplitBySpace);
             case "unmark":
-                return taskList.unmarkTask(command, commandSplitBySpace);
+                return taskList.unmarkTask(commandSplitBySpace);
             case "delete":
                 return taskList.delete(commandSplitBySpace);
             case "todo":

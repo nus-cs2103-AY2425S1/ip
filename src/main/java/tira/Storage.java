@@ -36,7 +36,6 @@ public class Storage {
     /*
     Solution below inspired by https://github.com/hansneddyanto/ip/blob/master/src/main/java/hana/Storage.java
      */
-
     /**
      * Reads the String from the specified file.
      *
@@ -90,7 +89,6 @@ public class Storage {
 
     //@@hansneddyanto-reused
     // Hans is my friend and he has allowed me to refer to parts of his code.
-
     /**
      * Converts Task objects into String.
      *
@@ -150,7 +148,6 @@ public class Storage {
      * @param tasksFromFile The String of text read from the file.
      * @return the ArrayList of Task objects.
      */
-
     public ArrayList<Task> convertStringToTaskList(ArrayList<String> tasksFromFile) {
         ArrayList<Task> tasks = new ArrayList<Task>();
         for (String task : tasksFromFile) {
@@ -195,15 +192,23 @@ public class Storage {
         return tasks;
     }
 
-
-
-    private LocalDate getEndDate(String[] splitTaskLine) {
-        assert splitTaskLine.length >= 3 : "The splitTaskLine is not enough";
-        return LocalDate.parse(splitTaskLine[4].trim(), DATE_FORMATTER);
-    }
-
+    /**
+     * Reformats the start date from the text file
+     * @param splitTaskLine Text line that has been split based on |
+     * @return LocalDate start date of that task
+     */
     private LocalDate getStartDate(String[] splitTaskLine) {
         assert splitTaskLine.length >= 3 : "The splitTaskLine is not enough";
         return LocalDate.parse(splitTaskLine[3].trim(), DATE_FORMATTER);
+    }
+
+    /**
+     * Reformats the end date from the text file
+     * @param splitTaskLine Text line that has been split based on |
+     * @return LocalDate end date of that task
+     */
+    private LocalDate getEndDate(String[] splitTaskLine) {
+        assert splitTaskLine.length >= 3 : "The splitTaskLine is not enough";
+        return LocalDate.parse(splitTaskLine[4].trim(), DATE_FORMATTER);
     }
 }

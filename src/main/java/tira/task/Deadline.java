@@ -13,6 +13,7 @@ public class Deadline extends Task {
 
     /**
      * Initialises the Deadline class.
+     *
      * @param description the Task description.
      * @param endDate Deadline of the deadline task, represented by LocalDate.
      */

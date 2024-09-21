@@ -1,7 +1,6 @@
 package tira;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import tira.task.Deadline;
 import tira.task.Event;
@@ -16,7 +15,6 @@ import tira.task.ToDo;
  */
 public class Ui {
     private StringBuilder outMessage;
-    private final Scanner scanner;
     private final PrintWriter printer = new PrintWriter(System.out);
 
     /**
@@ -25,20 +23,14 @@ public class Ui {
     // Solution using StringBuilder inspired by
     // https://github.com/hansneddyanto/ip/blob/master/src/main/java/hana/Ui.java
     public Ui() {
-        this.scanner = new Scanner(System.in);
         this.outMessage = new StringBuilder();
     }
 
-
     /**
-     * Reads the next line of input from the user.
-     *
-     * @return The user's input as a String.
+     * Gets the current output message that will be displayed in the GUI
+     * and clears the outMessage in the Ui to prevent duplicates.
+     * @return The current string output message.
      */
-    public String read() {
-        return scanner.nextLine();
-    }
-
     public String getOutMessage() {
         String outString = this.outMessage.toString();
         this.outMessage = new StringBuilder();
@@ -122,7 +114,6 @@ public class Ui {
                 + " task(s) in the list!");
     }
 
-
     /**
      * Displays a message indicating that a task has been deleted from the list.
      *
@@ -144,7 +135,6 @@ public class Ui {
         outMessage.append("Oh no... There is an error while loading the file! ");
     }
 
-
     /**
      * Displays a message indicating that no matching task was found.
      */
@@ -164,6 +154,12 @@ public class Ui {
         }
     }
 
+    /**
+     * Count statistics for the given list of tasks.
+     *
+     * @param tasks TaskList of Tasks.
+     * @return Statistics object that has performed the calculations.
+     */
     private Statistics countStats(ArrayList<Task> tasks) {
         Statistics stats = new Statistics();
         for (Task task : tasks) {
@@ -181,7 +177,12 @@ public class Ui {
         return stats;
     }
 
-
+    /**
+     * Displays the statistics of the current TaskList to the GUI
+     *
+     * by storing the statistics string in the getOutMessage method.
+     * @param taskList The updated TaskList of tasks.
+     */
     public void showStatistics(ArrayList<Task> taskList) {
         Statistics stats = countStats(taskList);
         outMessage.append("OK MIAO! Here's your TaskList statistics:\n");

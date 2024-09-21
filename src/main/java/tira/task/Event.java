@@ -14,6 +14,7 @@ public class Event extends Task {
 
     /**
      * Initialises the Event class.
+     *
      * @param description The description of event.
      * @param startDate The start date and time of the event.
      * @param endDate The end date and time of the event.
@@ -26,6 +27,7 @@ public class Event extends Task {
 
     /**
      * Getter method to get the start date and time of event in LocalDate object.
+     *
      * @return Date and time in LocalDate object.
      */
     public LocalDate getStartDate() {
@@ -34,6 +36,7 @@ public class Event extends Task {
 
     /**
      * Getter method to get the end date of an event
+     *
      * @return EndDate of the event in LocalDate object.
      */
     public LocalDate getEndDate() {

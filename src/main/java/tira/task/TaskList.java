@@ -48,18 +48,17 @@ public class TaskList {
     /**
      * Marks the numbered task in the taskList.
      *
-     * @param command The main command that the user input
      * @param  commandSplitBySpace split using " "
      * @throws TiraException Custom Tira exception class
      */
-    public String markTask(String command, String[] commandSplitBySpace) throws TiraException {
+    public String markTask(String[] commandSplitBySpace) throws TiraException {
         assert Integer.valueOf(commandSplitBySpace[1]) > 0 : "Task number should be more than 0";
         if (commandSplitBySpace.length < 2) {
             throw new TiraException("MRAW?? Please give task number.");
         }
         int currNum = Integer.parseInt(commandSplitBySpace[1]) - 1;
         if (currNum > tasks.size() - 1 || currNum < 0) {
-            throw new TiraException("MRAW?? There's less task in the list. Please review the task number");
+            throw new TiraException("MRAW?? There's less or more task in the list. Please review the task number");
         }
         tasks.get(currNum).markStatus();
         Task currTask = tasks.get(currNum);
@@ -67,14 +66,13 @@ public class TaskList {
         return ui.getOutMessage();
     }
 
-      /**
-       * Unmarks the numbered task in the taskList.
-       * @param command The main command that the user input
-       * @param  command split using " "
-       * @throws TiraException Custom Tira exception class
-       */
+    /**
+     * Unmarks the numbered task in the taskList.
+     * @param  commandSplitBySpace split using " "
+     * @throws TiraException Custom Tira exception class
+     */
 
-    public String unmarkTask(String command, String[] commandSplitBySpace) throws TiraException {
+    public String unmarkTask(String[] commandSplitBySpace) throws TiraException {
         assert Integer.valueOf(commandSplitBySpace[1]) > 0 : "Task number should be more than 0";
         if (commandSplitBySpace.length < 2) {
             throw new TiraException("MRAW?? Please give task number.");
@@ -90,7 +88,7 @@ public class TaskList {
     }
 
     /**
-     * Adds the todo task into the task List.
+     * Adds the todo task into the TaskList
      *
      * @param command The command inputted by user
      * @param  commandSplitBySpace command split using " "
@@ -99,7 +97,7 @@ public class TaskList {
     public String addToDo(String command, String[] commandSplitBySpace) throws TiraException {
         if (commandSplitBySpace.length < 2) {
             System.out.println("There is an addToDo exception");
-            throw new TiraException("MRAW?? Please specify the task.");
+            throw new TiraException("MRAW?? Please specify the todo task.");
         }
         String description = "";
         for (int i = 1; i < commandSplitBySpace.length; i++) {
@@ -123,7 +121,7 @@ public class TaskList {
      */
     public String addDeadline(String command, String[] commandSplitBySpace) throws TiraException {
         if (commandSplitBySpace.length <= 1) {
-            throw new TiraException("MRAW?? Please specify task and the deadline date.");
+            throw new TiraException("MRAW?? Please specify deadline task and the deadline date.");
         } else if (commandSplitBySpace[1].startsWith("/")) {
             throw new TiraException("MRAW?? Please provide the deadline description");
         }
@@ -225,9 +223,15 @@ public class TaskList {
         }
     }
 
-    private static String extractAfterWord(String text, String beginning) {
-        int index = text.indexOf(beginning);
-        int startIndex = index + beginning.length();
+    /**
+     * Extracts the String after a certain word
+     * @param text the String that wants to be analysed
+     * @param beginWord that the rest of the string needs to be extracted after.
+     * @return
+     */
+    private static String extractAfterWord(String text, String beginWord) {
+        int index = text.indexOf(beginWord);
+        int startIndex = index + beginWord.length();
         return text.substring(startIndex).trim();
     }
 }
