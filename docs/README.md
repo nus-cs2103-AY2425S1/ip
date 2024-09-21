@@ -15,15 +15,13 @@ to aid you in **managing** daily tasks.
 Use **Timo** to take note of them! With features like add, delete, mark, unmark, undo etc...
 ### let Timo change your life!
 
-#
-
 
 ## Adding todo
 
 Adds a todo task to your task list
 
 #### prints added to list, as well as size of task list, otherwise returns error
-####
+
 
 ``` 
 ### How to use
@@ -48,7 +46,6 @@ Adds a deadline task to your task list
 
 
 #### prints added to list, as well as size of task list, otherwise returns error
-####
 
 ``` 
 ### How to use
@@ -75,7 +72,6 @@ Adds an event task to your task list
 
 
 #### prints added to list, as well as size of task list, otherwise returns error
-####
 
 ``` 
 ### How to use
@@ -100,8 +96,6 @@ You now have 3 tasks in your list
 Displays all the tasks in your task list
 
 #### prints out the task in task list, and error if used wrongly
-####
-
 ``` 
 ### How to use
 
@@ -124,7 +118,6 @@ Marks a task(todo/deadline/event) in your task list
 
 
 #### prints that task has been marked, and error if number is negative or does not exist
-####
 
 ``` 
 ### How to use
@@ -148,7 +141,6 @@ Unmarks a task(todo/deadline/event) in your task list
 
 
 #### prints that task has been unmarked, and error if number is negative or does not exist
-####
 
 ``` 
 ### How to use
@@ -173,7 +165,6 @@ Deletes a task(todo/deadline/event) in your task list
 
 
 #### prints that task has been removed, as well as the number of task in your list. If invalid input, prints out error
-####
 
 ``` 
 ### How to use
@@ -197,7 +188,7 @@ You now have 0 tasks in your list
 Undo your previous command
 
 #### prints the command to undo, undo the command and print output, if invalid input prints error
-####
+
 
 ``` 
 ### How to use
@@ -223,7 +214,6 @@ You now have 0 tasks in your list
 helps you to find tasks that contains the phrases you specified
 
 #### prints out the tasks which contain the phrase you specified, if invalid usage will print out error
-####
 
 ``` 
 ### How to use
@@ -248,7 +238,7 @@ Here are the tasks in your list:
 saves the program and exits
 
 #### saves task list inside list.txt file, greets and exit program, if invalid usage will print out error
-####
+
 
 ``` 
 ### How to use
