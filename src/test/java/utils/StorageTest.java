@@ -1,12 +1,6 @@
 package utils;
 
-import chatterboxerrors.ChatterBoxError;
-import chatterboxerrors.ChatterBoxMarkError;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.ToDo;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,58 +11,60 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import chatterboxerrors.ChatterBoxDataFileError;
+import chatterboxerrors.ChatterBoxError;
+import chatterboxerrors.ChatterBoxMarkError;
+import tasks.Deadline;
+import tasks.Event;
+import tasks.ToDo;
 
 public class StorageTest {
-    String TESTFILENAME = "test_save.txt";
-    private final TextUi testTextUi = new TextUi();
+    private static final String TEST_FILENAME = "src/test/data/test_save.txt";
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+    private static final LocalDateTime TEST_DATE_1 = LocalDate.parse("01/12/2024", DATE_FORMATTER).atStartOfDay();
+    private static final LocalDateTime TEST_DATE_2 = LocalDateTime.parse("02/12/2024 1600", DATE_TIME_FORMATTER);
 
     @BeforeEach
     public void setUp() throws Exception {
-        Path testFilePath = Paths.get(System.getProperty("user.dir"), TESTFILENAME);
+        Path testFilePath = Paths.get(System.getProperty("user.dir"), TEST_FILENAME);
         if (Files.notExists(testFilePath)) {
             Files.createFile(testFilePath);
         }
-
     }
 
     @Test
     public void testReadFromSaveTest() throws IOException, ChatterBoxMarkError {
-        FileWriter testWriter = new FileWriter(TESTFILENAME);
+        FileWriter testWriter = new FileWriter(TEST_FILENAME);
         testWriter.write("undone, todo assignment 1\n");
         testWriter.write("done, deadline assignment 2 /by 01/12/2024\n");
         testWriter.write("undone, event assignment 3 /from 01/12/2024 /to 02/12/2024 1600\n");
         testWriter.close();
 
-        DateTimeFormatter time1Formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        DateTimeFormatter time2Formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-
-        LocalDateTime time1 = LocalDate.parse("01/12/2024", time1Formatter).atStartOfDay();
-        LocalDateTime time2 = LocalDateTime.parse("02/12/2024 1600", time2Formatter);
-
-        Storage testStorage = new Storage(TESTFILENAME);
+        Storage testStorage = new Storage(TEST_FILENAME);
         StoredList testTaskList = new StoredList();
         testTaskList.addItem(new ToDo("assignment 1"));
-        testTaskList.addItem(new Deadline("assignment 2", time1));
-        testTaskList.addItem(new Event("assignment 3", time1, time2));
+        testTaskList.addItem(new Deadline("assignment 2", TEST_DATE_1));
+        testTaskList.addItem(new Event("assignment 3", TEST_DATE_1, TEST_DATE_2));
         testTaskList.getItem(1).setCompleted(true);
 
-        testStorage.readFromSave();
+        try {
+            testStorage.readFromSave();
+        } catch (ChatterBoxDataFileError e) {
+            e.printStackTrace();
+        }
         assertEquals(testTaskList.toString(), testStorage.getSaveList().toString());
     }
 
     @Test
     public void doCommandTest() throws ChatterBoxError {
-        DateTimeFormatter time1Formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        DateTimeFormatter time2Formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-
-        LocalDateTime time1 = LocalDate.parse("01/12/2024", time1Formatter).atStartOfDay();
-        LocalDateTime time2 = LocalDateTime.parse("02/12/2024 1600", time2Formatter);
-
         StoredList testTaskList = new StoredList();
         testTaskList.addItem(new ToDo("assignment 1"));
-        testTaskList.addItem(new Deadline("assignment 2", time1));
-        testTaskList.addItem(new Event("assignment 3", time1, time2));
+        testTaskList.addItem(new Deadline("assignment 2", TEST_DATE_1));
+        testTaskList.addItem(new Event("assignment 3", TEST_DATE_1, TEST_DATE_2));
         testTaskList.getItem(1).setCompleted(true);
 
         Storage testStorage = new Storage("");

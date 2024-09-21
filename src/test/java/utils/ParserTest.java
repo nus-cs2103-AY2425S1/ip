@@ -1,10 +1,18 @@
 package utils;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import chatterboxerrors.*;
+import chatterboxerrors.ChatterBoxDeadlineError;
+import chatterboxerrors.ChatterBoxDeleteError;
+import chatterboxerrors.ChatterBoxError;
+import chatterboxerrors.ChatterBoxEventError;
+import chatterboxerrors.ChatterBoxMarkError;
+import chatterboxerrors.ChatterBoxToDoError;
+
 
 public class ParserTest {
     @Test
@@ -23,7 +31,6 @@ public class ParserTest {
     @Test
     public void processInputCaseOneWrongInputTest() {
         assertThrows(ChatterBoxError.class, () -> Parser.processInput("bye bye"));
-
         assertThrows(ChatterBoxError.class, () -> Parser.processInput("list 1"));
         assertThrows(ChatterBoxError.class, () -> Parser.processInput("list as"));
     }
