@@ -20,7 +20,10 @@ public class FindTaskCommand extends Command {
         }
 
         String keyword = arguments[0];
+
         TaskManager taskManager = Alexer.getInstance().getTaskManager();
+        assert taskManager != null; // ensure that we definitely have a task manager
+
         List<Task> tasks = taskManager.findTask(keyword);
 
         StringBuilder output = new StringBuilder();

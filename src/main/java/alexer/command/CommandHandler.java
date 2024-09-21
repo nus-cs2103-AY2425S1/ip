@@ -53,5 +53,8 @@ public class CommandHandler {
         registerCommand(new AddTodoCommand());
         registerCommand(new AddDeadlineCommand());
         registerCommand(new AddEventCommand());
+
+        // ensure that we have command registered properly
+        assert !commands.isEmpty();
     }
 }

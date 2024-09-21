@@ -38,6 +38,11 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         Response response = Alexer.getInstance().processInput(input);
+
+        // ensure our images are not null
+        assert userImage != null;
+        assert dukeImage != null;
+
         dialogContainer.getChildren().add(MessageBox.createUserDialog(input, userImage));
         if (response != null) {
             dialogContainer.getChildren().add(MessageBox.createBotDialog(response.toString(), dukeImage));
