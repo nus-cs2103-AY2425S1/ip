@@ -1,6 +1,6 @@
 # bellroy User Guide
 
-![Example of bellroy in use](/docs/Ui.png)
+![Example of bellroy in use](Ui.png)
 
 Having trouble managing your deadlines? Fret not, as bellroy is your new companion.
 bellroy will be your new to-do list, helping you keep track of deadlines!
