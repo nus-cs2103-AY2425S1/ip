@@ -1,11 +1,7 @@
 # Bing User Guide
 
-// Update the title above to match the actual product name
-
-// Product screenshot goes here
 ![Product Screenshot](Ui.png)
 
-// Product intro goes here
 ## Introduction
 
 Welcome to **Bing**, your personalised task management assistant. With Bing, you can effortlessly manage your tasks, deadlines, and events. Bing's intuitive commands help you stay organized and on top of your schedule, offering a clean interface for both storing, marking and finding tasks.
@@ -163,10 +159,3 @@ Bye!
 Have a good day !
 ```
 
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-//Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
