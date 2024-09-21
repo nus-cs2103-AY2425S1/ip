@@ -44,11 +44,11 @@ test {
 }
 
 application {
-    mainClass.set("ChatgptMoreOOP")
+    mainClass.set("Main")
 }
 
 shadowJar {
-    archiveBaseName = "chatgptMoreOOP"
+    archiveBaseName = "Main"
     archiveClassifier = null
 }
 
@@ -59,3 +59,4 @@ run{
 checkstyle {
     toolVersion = '10.2'
 }
+
