@@ -1,5 +1,5 @@
-package duke.tasks;
-import duke.parsers.DateParser;
+package notgpt.tasks;
+import notgpt.parsers.DateParser;
 
 /**
  * Represents a task that has a deadline by which it must be completed.
@@ -28,7 +28,7 @@ public class Deadline extends Task {
         String[] parts = s.split(" /by ", 2);
         if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
             throw new IllegalArgumentException("Deadlines must include both a task description "
-                    + "and a 'by' time and not include extra \"/\"...");
+                    + "and a '/by' time and cannot include extra \"/\"...");
         }
         this.by = parts[1].trim();
         String toDate = dateParser.giveDate(by);

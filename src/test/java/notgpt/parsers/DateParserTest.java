@@ -1,4 +1,4 @@
-package duke.parsers;
+package notgpt.parsers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;

@@ -1,4 +1,4 @@
-package duke.parsers;
+package notgpt.parsers;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Task;
-import duke.tasks.Todo;
+import notgpt.tasks.Deadline;
+import notgpt.tasks.Event;
+import notgpt.tasks.Task;
+import notgpt.tasks.Todo;
 
 /**
  * This class is responsible for handling the reading and parsing of tasks from the data.txt file.

@@ -1,6 +1,6 @@
-package duke.commands;
+package notgpt.commands;
 
-import duke.tasks.Storage;
+import notgpt.storage.Storage;
 public class NumberCommand extends Command {
     public static String execute(Storage storage, String text, String command) {
         int i;
@@ -12,14 +12,19 @@ public class NumberCommand extends Command {
         if (0 < i && i <= storage.size()) {
             switch (command) {
             case "delete":
+                String task = storage.getTask(i - 1);
                 storage.delete(i);
-                return String.format("deleted %s\nuse \"list\" to see changes", i);
+                return String.format("deleted %s\n\"%s\"\nHope you got that right...", i, task);
             case "mark":
                 storage.mark(i);
-                return String.format("marked %s as completed\nuse \"list\" to see changes", i);
+                task = storage.getTask(i - 1);
+                return String.format("marked %s as completed\n\"%s\"\nwow you actually did something", i, task)
+                        + "... amazing...";
             case "unmark":
                 storage.unmark(i);
-                return String.format("marked %s as uncompleted\nuse \"list\" to see changes", i);
+                task = storage.getTask(i - 1);
+                return String.format("marked %s as uncompleted\n\"%s\"\nso finishing that was a lie huh?", i, task)
+                        + " Same tbh... doing stuff is hard";
             default:
                 return "I cant really use this command with numbers doe...";
             }

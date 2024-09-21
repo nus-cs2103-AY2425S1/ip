@@ -1,6 +1,6 @@
-package duke.commands;
+package notgpt.commands;
 
-import duke.tasks.Storage;
+import notgpt.storage.Storage;
 
 public class ListCommand extends Command {
     public static String execute(Storage storage) {

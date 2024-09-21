@@ -1,4 +1,4 @@
-package duke.parsers;
+package notgpt.parsers;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

@@ -1,4 +1,4 @@
-package duke.commands;
+package notgpt.commands;
 
 public abstract class Command {
 }

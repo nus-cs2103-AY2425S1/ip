@@ -1,6 +1,6 @@
-package duke.commands;
+package notgpt.commands;
 
-import duke.tasks.Storage;
+import notgpt.storage.Storage;
 public class DeadlineCommand extends Command {
     public static String execute(Storage storage, String text) {
         if (text.isEmpty()) {
@@ -11,7 +11,7 @@ public class DeadlineCommand extends Command {
                 return "The description of a deadline must include '/by' :/";
             }
             storage.deadline(text);
-            return "lol " + '\"' + text + "\"" + " is a new deadline, "
+            return "lol " + "\n\"" + storage.getTask(storage.size() - 1) + "\"\n" + "is a new deadline, "
                     + "better finish it quick..."
                     + String.format(" you have %s tasks now", storage.size());
         } catch (IllegalArgumentException e) {

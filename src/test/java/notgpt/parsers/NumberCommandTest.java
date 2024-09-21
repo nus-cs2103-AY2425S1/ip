@@ -1,12 +1,12 @@
-package duke.parsers;
+package notgpt.parsers;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import duke.commands.NumberCommand;
-import duke.tasks.Storage;
+import notgpt.commands.NumberCommand;
+import notgpt.storage.Storage;
 
 
 

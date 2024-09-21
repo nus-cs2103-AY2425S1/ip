@@ -1,4 +1,4 @@
-package duke.ui;
+package notgpt.ui;
 
 /**
  * The {@code Notgpt} class is a simple command-line application that serves as an interface

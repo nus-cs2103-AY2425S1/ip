@@ -52,11 +52,11 @@ test {
 }
 
 application {
-    mainClass.set("duke.ui.Notgpt")
+    mainClass.set("notgpt.ui.Notgpt")
 }
 
 shadowJar {
-    archiveFileName = 'notGPT.jar'
+    archiveFileName = 'NotGPT.jar'
     mergeServiceFiles()
     configurations = [project.configurations.runtimeClasspath]
 }

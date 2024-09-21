@@ -1,13 +1,13 @@
-package duke.parsers;
+package notgpt.parsers;
 
-import duke.commands.ClearCommand;
-import duke.commands.DeadlineCommand;
-import duke.commands.EventCommand;
-import duke.commands.FindCommand;
-import duke.commands.ListCommand;
-import duke.commands.NumberCommand;
-import duke.commands.TodoCommand;
-import duke.tasks.Storage;
+import notgpt.commands.ClearCommand;
+import notgpt.commands.DeadlineCommand;
+import notgpt.commands.EventCommand;
+import notgpt.commands.FindCommand;
+import notgpt.commands.ListCommand;
+import notgpt.commands.NumberCommand;
+import notgpt.commands.TodoCommand;
+import notgpt.storage.Storage;
 
 /**
  * The main driver class of the chatbot, called by notGPT

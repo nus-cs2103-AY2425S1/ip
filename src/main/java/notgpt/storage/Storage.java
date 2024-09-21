@@ -1,4 +1,4 @@
-package duke.tasks;
+package notgpt.storage;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,8 +8,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-import duke.parsers.FileDataParser;
-import duke.ui.Notgpt;
+import notgpt.parsers.FileDataParser;
+import notgpt.tasks.Deadline;
+import notgpt.tasks.Event;
+import notgpt.tasks.Task;
+import notgpt.tasks.Todo;
+import notgpt.ui.Notgpt;
 /**
  * The {@code Storage} class manages the storage, retrieval, and manipulation of tasks.
  * <p>
@@ -155,7 +159,7 @@ public class Storage {
     /**
      * Checks if the task is a duplicate of an already pre-existing task inside the arraylist
      *
-     * @param Task the new Task being check against the current arraylist of tasks
+     * @param task the new Task being check against the current arraylist of tasks
      */
     private boolean isDuplicate(Task task) {
         return taskList.stream()
@@ -189,6 +193,11 @@ public class Storage {
         taskList.clear();
         this.writeToFile();
     }
+
+    public String getTask(int i) {
+        return taskList.get(i).toString();
+    }
+
 
     /**
      * Returns the number of tasks currently stored.

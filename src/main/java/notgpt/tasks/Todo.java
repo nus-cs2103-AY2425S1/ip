@@ -1,4 +1,4 @@
-package duke.tasks;
+package notgpt.tasks;
 
 /**
  * Represents a simple task with no specific time constraints.

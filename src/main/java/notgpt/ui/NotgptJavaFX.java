@@ -1,6 +1,6 @@
-package duke.ui;
+package notgpt.ui;
 
-import duke.parsers.CommandParser;
+
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -25,6 +25,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import notgpt.parsers.CommandParser;
 
 /**
  * A JavaFX application that simulates a simple chatbot interface.

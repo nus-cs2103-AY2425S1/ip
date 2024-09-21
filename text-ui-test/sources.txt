@@ -1,11 +1,11 @@
-C:\Users\trist\Documents\GitHub\ip\src\main\java\duke\additionalparsers\DataParser.java
-C:\Users\trist\Documents\GitHub\ip\src\main\java\duke\additionalparsers\DateParser.java
-C:\Users\trist\Documents\GitHub\ip\src\main\java\duke\tasks\Deadline.java
-C:\Users\trist\Documents\GitHub\ip\src\main\java\duke\tasks\Event.java
-C:\Users\trist\Documents\GitHub\ip\src\main\java\duke\tasks\Storage.java
-C:\Users\trist\Documents\GitHub\ip\src\main\java\duke\tasks\Task.java
-C:\Users\trist\Documents\GitHub\ip\src\main\java\duke\tasks\Todo.java
-C:\Users\trist\Documents\GitHub\ip\src\main\java\duke\ui\Notgpt.java
-C:\Users\trist\Documents\GitHub\ip\src\main\java\duke\ui\Parser.java
+C:\Users\trist\Documents\GitHub\ip\src\main\java\notgpt\additionalparsers\DataParser.java
+C:\Users\trist\Documents\GitHub\ip\src\main\java\notgpt\additionalparsers\DateParser.java
+C:\Users\trist\Documents\GitHub\ip\src\main\java\notgpt\tasks\Deadline.java
+C:\Users\trist\Documents\GitHub\ip\src\main\java\notgpt\tasks\Event.java
+C:\Users\trist\Documents\GitHub\ip\src\main\java\notgpt\tasks\Storage.java
+C:\Users\trist\Documents\GitHub\ip\src\main\java\notgpt\tasks\Task.java
+C:\Users\trist\Documents\GitHub\ip\src\main\java\notgpt\tasks\Todo.java
+C:\Users\trist\Documents\GitHub\ip\src\main\java\notgpt\ui\Notgpt.java
+C:\Users\trist\Documents\GitHub\ip\src\main\java\notgpt\ui\Parser.java
 
 

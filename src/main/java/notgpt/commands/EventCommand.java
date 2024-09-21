@@ -1,6 +1,6 @@
-package duke.commands;
+package notgpt.commands;
 
-import duke.tasks.Storage;
+import notgpt.storage.Storage;
 
 public class EventCommand extends Command {
 
@@ -13,7 +13,7 @@ public class EventCommand extends Command {
                 return "The description of an event must include '/from' and '/to' :/";
             }
             storage.event(text);
-            return "Wow " + '\"' + text + "\"" + " is an event in your life huh?"
+            return "Wow " + "\n\"" + storage.getTask(storage.size() - 1) + "\"\n" + "is an event in your life huh?"
                     + String.format(" you have %s tasks now", storage.size());
         } catch (IllegalArgumentException e) {
             return e.getMessage();

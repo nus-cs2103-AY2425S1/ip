@@ -1,5 +1,5 @@
-package duke.tasks;
-import duke.parsers.DateParser;
+package notgpt.tasks;
+import notgpt.parsers.DateParser;
 
 /**
  * Represents an event task that occurs within a specific time frame.
@@ -37,8 +37,8 @@ public class Event extends Task {
             }
         }
         if (parts[0].trim().isEmpty() || from == null || to == null) {
-            throw new IllegalArgumentException("Events must include both task description and 'from' "
-                    + "and 'to' times and not include extra \"/\"...");
+            throw new IllegalArgumentException("Events must include both task description and '/from' "
+                    + "and '/to' times and not include extra \"/\"...");
         }
         String toDate = dateParser.giveDate(to);
         if (toDate != null) {

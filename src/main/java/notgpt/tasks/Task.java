@@ -1,4 +1,4 @@
-package duke.tasks;
+package notgpt.tasks;
 /**
  * The {@code Task} class represents a basic task with a description and a completion status.
  * <p>
