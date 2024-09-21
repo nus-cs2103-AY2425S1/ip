@@ -116,14 +116,14 @@ public class TaskFileManager {
             return;
         }
 
-        boolean parentDirectoryCreated = file.getParentFile().mkdirs();
-        boolean fileCreated = file.createNewFile();
+        boolean isParentDirectoryCreated = file.getParentFile().mkdirs();
+        boolean isFileCreated = file.createNewFile();
 
-        if (!parentDirectoryCreated) {
+        if (!isParentDirectoryCreated) {
             throw new IOException("An error occurred when trying to initialise the file directory " + file.getPath());
         }
 
-        if (!fileCreated) {
+        if (!isFileCreated) {
             throw new IOException("An error occurred when trying to initialise " + file.getName());
         }
     }
