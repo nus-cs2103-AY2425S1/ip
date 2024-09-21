@@ -18,45 +18,57 @@ public class DateTimeTest {
 
     @Test
     public void parse_validFormat_success() {
-        assertEquals(LocalDateTime.of(2024, 11, 12, 18, 30),
-                     DateTime.parse("12/11/2024 1830"));
-        assertEquals(LocalDateTime.of(2023, 12, 1, 19, 30),
-                     DateTime.parse("01/12/2023 1930"));
-        assertEquals(LocalDateTime.of(1999, 3, 5, 2, 0),
-                     DateTime.parse("05/03/1999 0200"));
+        assertEquals(
+                LocalDateTime.of(2024, 11, 12, 18, 30),
+                DateTime.parse("12/11/2024 1830"));
+        assertEquals(
+                LocalDateTime.of(2023, 12, 1, 19, 30),
+                DateTime.parse("01/12/2023 1930"));
+        assertEquals(
+                LocalDateTime.of(1999, 3, 5, 2, 0),
+                DateTime.parse("05/03/1999 0200"));
 
         // Date and month with only 1 digit
-        assertEquals(LocalDateTime.of(2019, 12, 1, 19, 30),
-                     DateTime.parse("1/12/2019 1930"));
-        assertEquals(LocalDateTime.of(1719, 1, 12, 0, 0),
-                     DateTime.parse("12/1/1719 0000"));
-        assertEquals(LocalDateTime.of(2019, 2, 4, 0, 0),
-                     DateTime.parse("4/2/2019 0000"));
+        assertEquals(
+                LocalDateTime.of(2019, 12, 1, 19, 30),
+                DateTime.parse("1/12/2019 1930"));
+        assertEquals(
+                LocalDateTime.of(1719, 1, 12, 0, 0),
+                DateTime.parse("12/1/1719 0000"));
+        assertEquals(
+                LocalDateTime.of(2019, 2, 4, 0, 0),
+                DateTime.parse("4/2/2019 0000"));
 
         // Omitted year defaults to current year
-        assertEquals(LocalDateTime.of(LocalDate.now().getYear(), 12, 1, 19, 30),
-                     DateTime.parse("1/12 1930"));
+        assertEquals(
+                LocalDateTime.of(LocalDate.now().getYear(), 12, 1, 19, 30),
+                DateTime.parse("1/12 1930"));
 
         // Omitted time defaults to 0000
-        assertEquals(LocalDateTime.of(2019, 12, 1, 0, 0),
-                     DateTime.parse("1/12/2019"));
+        assertEquals(
+                LocalDateTime.of(2019, 12, 1, 0, 0),
+                DateTime.parse("1/12/2019"));
 
         // Omitted year and time defaults to current year and 0000
-        assertEquals(LocalDateTime.of(LocalDate.now().getYear(), 12, 1, 0, 0),
-                     DateTime.parse("1/12"));
+        assertEquals(
+                LocalDateTime.of(LocalDate.now().getYear(), 12, 1, 0, 0),
+                DateTime.parse("1/12"));
     }
 
     @Test
     public void parse_specialValues_success() {
         // Special value "now" returns current time
-        assertEquals(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES),
-                     DateTime.parse("now").truncatedTo(ChronoUnit.MINUTES));
+        assertEquals(
+                LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES),
+                DateTime.parse("now").truncatedTo(ChronoUnit.MINUTES));
 
         // Special value "tmr" and "tomorrow" returns a day later at current time
-        assertEquals(LocalDateTime.now().plusDays(1).truncatedTo(ChronoUnit.MINUTES),
-                     DateTime.parse("tmr").truncatedTo(ChronoUnit.MINUTES));
-        assertEquals(LocalDateTime.now().plusDays(1).truncatedTo(ChronoUnit.MINUTES),
-                     DateTime.parse("tomorrow").truncatedTo(ChronoUnit.MINUTES));
+        assertEquals(
+                LocalDateTime.now().plusDays(1).truncatedTo(ChronoUnit.MINUTES),
+                DateTime.parse("tmr").truncatedTo(ChronoUnit.MINUTES));
+        assertEquals(
+                LocalDateTime.now().plusDays(1).truncatedTo(ChronoUnit.MINUTES),
+                DateTime.parse("tomorrow").truncatedTo(ChronoUnit.MINUTES));
     }
 
     @Test
@@ -91,6 +103,6 @@ public class DateTimeTest {
     @Test
     public void format_success() {
         assertEquals("{11-Dec-2019 1830}",
-                     DateTime.format(LocalDateTime.of(2019, 12, 11, 18, 30)));
+                DateTime.format(LocalDateTime.of(2019, 12, 11, 18, 30)));
     }
 }

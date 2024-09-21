@@ -21,17 +21,17 @@ public class DateTime {
 
     public static LocalDateTime parse(String string) {
         switch (string) {
-            case "now":
-                return LocalDateTime.now();
-            case "tmr":
-            case "tomorrow":
-                return LocalDateTime.now().plusDays(1);
-            default:
-                try {
-                    return LocalDateTime.from(INPUT_FORMATTER.parse(string));
-                } catch (DateTimeParseException e) {
-                    throw new InvalidDateTimeException();
-                }
+        case "now":
+            return LocalDateTime.now();
+        case "tmr":
+        case "tomorrow":
+            return LocalDateTime.now().plusDays(1);
+        default:
+            try {
+                return LocalDateTime.from(INPUT_FORMATTER.parse(string));
+            } catch (DateTimeParseException e) {
+                throw new InvalidDateTimeException();
+            }
         }
     }
 

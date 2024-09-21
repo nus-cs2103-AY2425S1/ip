@@ -38,7 +38,7 @@ public class MarkCommand extends Command {
         }
 
         tasks.get(i).mark();
-        ui.printWithFormat("Nice! I've marked this task as done:\n" +
-                tasks.get(i));
+        ui.printWithFormat("Nice! I've marked this task as done:\n"
+                + tasks.get(i));
     }
 }

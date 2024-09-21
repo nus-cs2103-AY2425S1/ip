@@ -7,38 +7,38 @@ import java.util.Iterator;
 import java.util.List;
 
 public class TaskList implements Iterable<Task> {
-    private final List<Task> TASKS;
+    private final List<Task> tasks;
 
     public TaskList() {
-        this.TASKS = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
     public TaskList(List<Task> tasks) {
-        this.TASKS = tasks;
+        this.tasks = tasks;
     }
 
     public boolean isEmpty() {
-        return TASKS.isEmpty();
+        return tasks.isEmpty();
     }
 
     public void add(Task task) {
-        TASKS.add(task);
+        tasks.add(task);
     }
 
     public Task remove(int index) {
-        return TASKS.remove(index);
+        return tasks.remove(index);
     }
 
     public Task get(int index) {
-        return TASKS.get(index);
+        return tasks.get(index);
     }
 
     public int size() {
-        return TASKS.size();
+        return tasks.size();
     }
 
     public void reset() {
-        TASKS.clear();
+        tasks.clear();
     }
 
     @Override
@@ -46,16 +46,16 @@ public class TaskList implements Iterable<Task> {
         StringBuilder text = new StringBuilder();
 
         int i;
-        for (i = 0; i < TASKS.size() - 1; ++i) {
-            text.append(i + 1).append(".").append(TASKS.get(i)).append("\n");
+        for (i = 0; i < tasks.size() - 1; ++i) {
+            text.append(i + 1).append(".").append(tasks.get(i)).append("\n");
         }
-        text.append(i + 1).append(".").append(TASKS.get(i));
+        text.append(i + 1).append(".").append(tasks.get(i));
 
         return text.toString();
     }
 
     @Override
     public Iterator<Task> iterator() {
-        return TASKS.iterator();
+        return tasks.iterator();
     }
 }

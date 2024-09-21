@@ -1,12 +1,11 @@
 package bob.task;
 
-import bob.Bob;
 import bob.DateTime;
 
 import java.time.LocalDateTime;
 
 public class Deadline extends Task {
-    protected LocalDateTime by;
+    private final LocalDateTime by;
 
     public Deadline(String description, LocalDateTime by) {
         super(description);

@@ -17,8 +17,8 @@ public class Storage {
     private final File file;
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("ddMMuuuuHHmm");
 
-    public Storage(String filepath) {
-        file = new File(filepath);
+    public Storage(String filePath) {
+        file = new File(filePath);
     }
 
     private void createFile() throws IOException {
@@ -112,7 +112,7 @@ public class Storage {
             createFile();
         }
 
-        List<Task> list = new ArrayList<>();
+        List<Task> tasks = new ArrayList<>();
         Scanner scanner;
         try {
             scanner = new Scanner(file);
@@ -122,22 +122,22 @@ public class Storage {
 
         while (scanner.hasNext()) {
             try {
-                list.add(decode(scanner.nextLine()));
+                tasks.add(decode(scanner.nextLine()));
             } catch (RuntimeException e) {
                 throw new FileCorruptedException();
             }
         }
 
-        return list;
+        return tasks;
     }
 
-    public void save(TaskList tasksList) throws IOException {
+    public void save(TaskList tasks) throws IOException {
         if (!file.exists()) {
             createFile();
         }
 
         FileWriter fw = new FileWriter(file, false);
-        for (Task task : tasksList) {
+        for (Task task : tasks) {
             fw.write(encode(task));
         }
         fw.close();

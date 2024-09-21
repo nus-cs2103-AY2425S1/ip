@@ -20,21 +20,23 @@ public class Ui {
         | '--------------' | '--------------' | '--------------' |
         '----------------' '----------------' '----------------'
         """;
-    private final Scanner SCANNER;
+    private final Scanner scanner;
 
     public Ui() {
-        this.SCANNER = new Scanner(System.in);
+        this.scanner = new Scanner(System.in);
     }
 
     public void printWithFormat(String text) {
-        String t = SEPARATOR + "\n " + text.replace("\n", "\n ") + "\n" + SEPARATOR;
+        String t = SEPARATOR + "\n "
+                + text.replace("\n", "\n ")
+                + "\n" + SEPARATOR;
         System.out.println(LINE_PREFIX + t.replace("\n", "\n" + LINE_PREFIX) + "\n");
     }
 
     public void printGreeting() {
         System.out.println(LOGO);
-        printWithFormat("Hey there! Bob at your service.\n" +
-                "Let's roll up our sleeves and get to work!");
+        printWithFormat("Hey there! Bob at your service.\n"
+                + "Let's roll up our sleeves and get to work!");
     }
 
     public void printExit() {
@@ -46,6 +48,6 @@ public class Ui {
     }
 
     public String readInput() {
-        return SCANNER.nextLine();
+        return scanner.nextLine();
     }
 }
