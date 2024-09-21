@@ -1,0 +1,84 @@
+.root {
+    -fx-background-color: #f7d8dc;
+}
+
+.text-field {
+    -fx-background-color: #fbeff2;
+    -fx-font: 18px "Poppins", sans-serif;
+    -fx-text-fill: #ff7096;
+    -fx-border-color: #ffb7c5;
+    -fx-border-radius: 15px;
+    -fx-padding: 12px;
+}
+
+.button {
+    -fx-background-color: #ffb7c5;
+    -fx-font: bold 16px "Poppins", sans-serif;
+    -fx-text-fill: white;
+    -fx-background-radius: 20px;
+    -fx-padding: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(255, 182, 193, 0.5), 10, 0, 0, 2); /* Soft shadow */
+}
+
+.button:hover {
+    -fx-background-color: #d9a7c7;
+    -fx-font-size: 18px;
+}
+
+.button:pressed {
+    -fx-background-color: #ff86a1;
+    -fx-font-size: 20px;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-background-color: #f7d8dc;
+    -fx-font-size: 10px;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #ff99cc;
+    -fx-background-radius: 1em;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+
+.label {
+    -fx-text-fill: #ff7096; /* Coral pink text color */
+    -fx-font-family: 'Poppins', sans-serif;
+    -fx-font-size: 16px;
+}
+
+/* Message area background */
+.message-area {
+    -fx-background-color: #ffe0e6;
+    -fx-text-fill: #ff7096;
+    -fx-font-family: 'Poppins', sans-serif;
+    -fx-padding: 15px;
+    -fx-border-radius: 20px;
+    -fx-border-color: #ffb7c5;
+}
+
+/* CSS for styling dialog labels */
+.user-label {
+    -fx-background-color: #ffb6c1;
+    -fx-padding: 10px;
+    -fx-background-radius: 15px;
+    -fx-text-fill: white;
+}
+
+.reply-label {
+    -fx-background-color: #fce4ec;
+    -fx-padding: 10px;
+    -fx-background-radius: 15px;
+    -fx-text-fill: #ff7096;
+}
+
