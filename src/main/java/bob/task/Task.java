@@ -26,7 +26,7 @@ public abstract class Task {
     }
 
     /**
-     * Get the status icon of this task.
+     * Returns the status icon of this task.
      *
      * @return "X" if this task is marked as done, " " otherwise
      */
@@ -35,14 +35,14 @@ public abstract class Task {
     }
 
     /**
-     * Mark this task as done.
+     * Marks this task as done.
      */
     public void mark() {
         this.isDone = true;
     }
 
     /**
-     * Mark this task as not done.
+     * Marks this task as not done.
      */
     public void unmark() {
         this.isDone = false;

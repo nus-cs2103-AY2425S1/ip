@@ -20,7 +20,7 @@ public class Parser {
     private HashMap<String, Class<? extends Command>> commandTable;
 
     /**
-     * Constructing a parser instance loads commands into its search table from the <code>bob.command</code> package.
+     * Constructs a parser instance and load commands into its search table from the <code>bob.command</code> package.
      */
     public Parser() {
         this.loadCommands();

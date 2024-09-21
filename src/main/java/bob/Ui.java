@@ -71,7 +71,7 @@ public class Ui {
     }
 
     /**
-     * Read an input from the user.
+     * Reads an input from the user.
      *
      * @return the string that was input
      */

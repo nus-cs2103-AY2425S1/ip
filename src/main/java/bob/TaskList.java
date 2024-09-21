@@ -13,14 +13,14 @@ public class TaskList implements Iterable<Task> {
     private final List<Task> TASKS;
 
     /**
-     * Construct an empty task list.
+     * Constructs an empty task list.
      */
     public TaskList() {
         this.TASKS = new ArrayList<>();
     }
 
     /**
-     * Construct a task list populated by the given list of tasks.
+     * Constructs a task list populated by the given list of tasks.
      *
      * @param tasks the tasks that are in the initial task list
      */
@@ -29,7 +29,7 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-     * Check if this list is empty.
+     * Checks if this list is empty.
      *
      * @return true if this list is empty, false otherwise
      */
@@ -38,7 +38,7 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-     * Add the given task to this list.
+     * Adds the given task to this list.
      *
      * @param task the task to be added
      */
@@ -58,7 +58,7 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-     * Get the task at the given index in this list.
+     * Returns the task at the given index in this list.
      *
      * @param index index of the task to return
      * @return the task at the given index in this list
@@ -84,6 +84,10 @@ public class TaskList implements Iterable<Task> {
         TASKS.clear();
     }
 
+    /**
+     * Returns the string representation of each task in this list, prefixed by its index (starting from 1)
+     * and followed by a linebreak.
+     */
     @Override
     public String toString() {
         StringBuilder text = new StringBuilder();
@@ -97,6 +101,11 @@ public class TaskList implements Iterable<Task> {
         return text.toString();
     }
 
+    /**
+     * Returns an iterator over the tasks in this list.
+     *
+     * @return an Iterator
+     */
     @Override
     public Iterator<Task> iterator() {
         return TASKS.iterator();

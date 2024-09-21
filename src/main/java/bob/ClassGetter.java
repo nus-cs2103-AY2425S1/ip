@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  */
 class ClassGetter {
     /**
-     * Gets all classes in the given package.
+     * Returns all classes in the given package.
      *
      * @param packageName the fully-qualified name of the package
      *                    as defined in section 6.5.3 of The Java™ Language Specification
@@ -57,7 +57,7 @@ class ClassGetter {
     }
 
     /**
-     * Gets all the classes in a package by manually scanning for classes in the file system.
+     * Returns all the classes in a package by manually scanning for classes in the file system.
      * Code from <a href="https://www.baeldung.com/java-find-all-classes-in-package">
      *     https://www.baeldung.com/java-find-all-classes-in-package
      * </a>
@@ -86,7 +86,7 @@ class ClassGetter {
     }
 
     /**
-     * Gets all the classes in a package by manually scanning the contents of a JAR file. This is done by:
+     * Returns all the classes in a package by manually scanning the contents of a JAR file. This is done by:
      * Opening the JAR file with the java JarFile class, then iterating through the JarEntries, and filtering
      * the classes that match the package name.
      *
