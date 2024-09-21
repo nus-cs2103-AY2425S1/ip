@@ -4,10 +4,13 @@ Welcome to lemon!\
 A lil guy that will help you keep track of tasks!
 
 ![](Ui.png)
->Open lemon using the following command in cmd
->``` java
->$ java -jar lemon.jar
->```
+## Quick start
+> [!IMPORTANT]
+> Download lemon.jar from [here](https://github.com/Dino-Nuggies/ip/releases/tag/A-Release)\
+> Open lemon using the following command in cmd
+> ``` java
+> $ java -jar .\lemon.jar
+> ```
 
 Here is a general list of things lemon can help you with
 
