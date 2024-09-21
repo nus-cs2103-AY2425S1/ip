@@ -8,6 +8,7 @@ import gallium.main.Ui;
 import gallium.task.Deadline;
 import gallium.task.Event;
 import gallium.task.Task;
+import gallium.task.Todo;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -53,6 +54,8 @@ public class DateCommand extends Command {
                 } else if (task instanceof Event) {
                     Event event = (Event) task;
                     dateString = event.getFromDate();
+                } else if (task instanceof Todo) {
+                    continue;
                 }
                 if (date.format(DateTimeFormatter.ofPattern("MMM d yyyy")).equals(dateString)) {
                     tasksStringBuilder.append("\n    " + task.toString());
