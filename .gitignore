@@ -16,5 +16,6 @@ bin/
 # Exclude JAR files in build/libs
 /build/libs/Elsa.jar
 
+# Exclude the entire test-ui-test folder as GUI is active
+/test-ui-test/
 /text-ui-test/ACTUAL.TXT
-text-ui-test/EXPECTED-UNIX.TXT
