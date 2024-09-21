@@ -10,7 +10,7 @@ public class KorolevCommand {
     private String[] target;
     private String input;
     private KorolevList repo;
-    private final String divider = "--------------------";
+
     public KorolevCommand(String command, KorolevList repo) {
         this.input = command;
         this.repo = repo;
