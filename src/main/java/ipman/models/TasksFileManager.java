@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 /**
@@ -42,10 +45,20 @@ public class TasksFileManager {
      * @param tasks <code>TaskList</code> of tasks to save
      */
     public void save(TaskList tasks) {
-        try (FileWriter fileWriter = new FileWriter(this.fileName)) {
-            for (Task task : tasks) {
-                fileWriter.write(task.serialize());
-                fileWriter.write('\n');
+        Path filePath = Paths.get(this.fileName);
+        try {
+            if (!Files.exists(filePath)) {
+                // File doesn't exist, create
+                // Solution below inspired by https://stackoverflow.com/a/59376080/4428725
+                Files.createDirectories(filePath.getParent());
+                Files.createFile(filePath);
+            }
+
+            try (FileWriter fileWriter = new FileWriter(this.fileName)) {
+                for (Task task : tasks) {
+                    fileWriter.write(task.serialize());
+                    fileWriter.write('\n');
+                }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
