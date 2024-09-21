@@ -10,22 +10,36 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
+/**
+ * Manages storage operations for task data, including loading from and saving to files.
+ */
 public class NewStorage {
     private String filePath;
 
+    /**
+     * Constructs a NewStorage object configured to operate on the specified file path.
+     *
+     * @param filePath The path of the file used for storage.
+     */
     public NewStorage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the specified file into a NewTaskList.
+     *
+     * @return A NewTaskList containing all tasks loaded from the file.
+     * @throws FileNotFoundException If the specified file does not exist.
+     */
     public NewTaskList load() throws FileNotFoundException {
         NewTaskList tasks = new NewTaskList();
         File file = new File(filePath);
         try {
             addTasks(tasks, file);
         } catch (FileNotFoundException e) {
-            new File("./data").mkdirs();
+            new File("./data").mkdirs(); // Try to create the directory if it doesn't exist
             try {
-                file.createNewFile();
+                file.createNewFile(); // Create the file if it does not exist
             } catch (Exception ex) {
                 System.out.println("Unable to create data file");
             }
@@ -34,45 +48,50 @@ public class NewStorage {
         return tasks;
     }
 
+    /**
+     * Parses a single task from its textual representation and adds it to the task list.
+     *
+     * @param split The split representation of the task details.
+     * @param tasks The task list where the parsed task will be added.
+     * @throws FileNotFoundException If the file to read tasks from does not exist.
+     */
     public void parseTask(String[] split, NewTaskList tasks) throws FileNotFoundException {
         switch (split[0]) {
-        case "T":
+            case "T":
+                Todo todo = new Todo(split[2], split[3]);
                 if (split[1].equals("1")) {
-                    Todo todo = new Todo(split[2], split[3]);
                     todo.markDone();
-                    tasks.add(todo);
-                } else {
-                    Todo todo = new Todo(split[2], split[3]);
-                    tasks.add(todo);
                 }
+                tasks.add(todo);
                 break;
 
-        case "D":
+            case "D":
+                Deadline deadline = new Deadline(split[2], split[3], split[4]);
                 if (split[1].equals("1")) {
-                    Deadline deadline = new Deadline(split[2], split[3], split[4]);
                     deadline.markDone();
-                    tasks.add(deadline);
-                } else {
-                    Deadline deadline = new Deadline(split[2], split[3], split[4]);
-                    tasks.add(deadline);
                 }
+                tasks.add(deadline);
                 break;
-        case "E":
+
+            case "E":
+                Event event = new Event(split[2], split[3], split[4], split[5]);
                 if (split[1].equals("1")) {
-                    Event event = new Event(split[2], split[3], split[4], split[5]);
                     event.markDone();
-                    tasks.add(event);
-                } else {
-                    Event event = new Event(split[2], split[3], split[4], split[5]);
-                    tasks.add(event);
                 }
+                tasks.add(event);
                 break;
         }
     }
 
+    /**
+     * Reads tasks from a file and populates a task list.
+     *
+     * @param tasks The task list to populate.
+     * @param file The file to read tasks from.
+     * @throws FileNotFoundException If the specified file does not exist.
+     */
     public void addTasks(NewTaskList tasks, File file) throws FileNotFoundException {
         Scanner fileScanner = new Scanner(file);
-
         while (fileScanner.hasNextLine()) {
             String line = fileScanner.nextLine();
             String[] split = line.split(" \\| ");
@@ -81,6 +100,11 @@ public class NewStorage {
         fileScanner.close();
     }
 
+    /**
+     * Saves all tasks from a task list to the specified file.
+     *
+     * @param tasks The task list containing tasks to be saved.
+     */
     public void saveTasks(NewTaskList tasks) {
         File file = new File(filePath);
 
@@ -105,5 +129,4 @@ public class NewStorage {
             System.out.println("Error writing to file.");
         }
     }
-
 }
