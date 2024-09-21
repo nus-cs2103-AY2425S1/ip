@@ -2,6 +2,9 @@
 
 DailyTasks is a simple desktop application that allows you to manage and track your daily tasks efficiently. The app provides a variety of commands to add, manage, and organize your tasks such as to-dos, deadlines, and events. This guide will walk you through how to use DailyTasks.
 
+Here's a sample image of the DailyTasks app:
+![Ui](./Ui.png)
+
 ## Table of Contents
 - [Quick Start](#quick-start)
 - [Features](#features)
