@@ -1,5 +1,7 @@
 package killua.gui;
 
+import java.util.Objects;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -26,8 +28,10 @@ public class MainWindow extends AnchorPane {
 
     private Killua killua;
     private Stage stage;
-    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/gon.jpg"));
-    private final Image killuaImage = new Image(this.getClass().getResourceAsStream("/images/killua.jpg"));
+    private final Image userImage = new Image(Objects
+            .requireNonNull(this.getClass().getResourceAsStream("/images/gon.jpg")));
+    private final Image killuaImage = new Image(Objects
+            .requireNonNull(this.getClass().getResourceAsStream("/images/killua.jpg")));
 
 
     /** Initialize main window */
