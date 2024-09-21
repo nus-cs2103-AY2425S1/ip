@@ -106,7 +106,7 @@ public class TodoCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public String getType() {
+    public String getCommandType() {
         return "todo";
     }
 }

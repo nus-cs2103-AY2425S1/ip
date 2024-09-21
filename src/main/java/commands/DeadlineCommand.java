@@ -147,7 +147,7 @@ public class DeadlineCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public String getType() {
+    public String getCommandType() {
         return "deadline";
     }
 }

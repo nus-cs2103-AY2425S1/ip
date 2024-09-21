@@ -17,6 +17,13 @@ public class DeadlineManager extends TaskManager {
         return parts;
     }
 
+    /**
+     * Validates the due dateTime of the deadline string.
+     *
+     * @param dateTime dateTime string to be verified.
+     * @return The due date and due time, separated out, if valid.
+     * @throws BrockException If dateTime is invalid.
+     */
     private String[] processDueDateTime(String dateTime) throws BrockException {
 
         String[] dateTimeParts = dateTime.split(", ");
@@ -33,7 +40,7 @@ public class DeadlineManager extends TaskManager {
     }
 
     /**
-     * Creates a {@code Deadline} object corresponding to a deadline task.
+     * Creates a {@code Deadline} object corresponding to a deadline string.
      *
      * @param deadlineBody   String storing deadline description and due datetime.
      * @param deadlineStatus Character representing deadline status.

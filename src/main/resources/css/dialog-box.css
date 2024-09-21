@@ -15,6 +15,10 @@
     -fx-background-insets: 2px 8px 2px 10px;
 }
 
+.error-reply {
+    -fx-background-color: #FF9999;
+}
+
 .styled-circle {
     -fx-stroke: skyblue;
     -fx-stroke-width: 1.5;

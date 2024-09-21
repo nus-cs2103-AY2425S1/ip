@@ -63,6 +63,17 @@ public class DialogBox extends HBox {
     }
 
     /**
+     * Changes the label color of Brock reply, if exception was caught.
+     *
+     * @param isException Indicator if exception was caught.
+     */
+    private void setErrorStyle(boolean isException) {
+        if (isException) {
+            dialog.getStyleClass().add("error-reply");
+        }
+    }
+
+    /**
      * Constructs a user dialog box.
      *
      * @param text Text string within the dialog box.
@@ -77,12 +88,14 @@ public class DialogBox extends HBox {
      * Constructs a Brock dialog box.
      *
      * @param text Text string within the dialog box.
+     * @param isException Indicator if exception was caught.
      * @param img Image within the dialog box.
      * @return Brock dialog box element.
      */
-    public static DialogBox getBrockDialog(String text, Image img) {
+    public static DialogBox getBrockDialog(String text, boolean isException, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+        db.setErrorStyle(isException);
         return db;
     }
 }

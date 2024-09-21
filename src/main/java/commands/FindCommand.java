@@ -89,7 +89,7 @@ public class FindCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public String getType() {
+    public String getCommandType() {
         return "find";
     }
 }

@@ -57,7 +57,7 @@ public class ListCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public String getType() {
+    public String getCommandType() {
         return "list";
     }
 }

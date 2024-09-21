@@ -114,6 +114,11 @@ public class TaskStorage {
         return tasks;
     }
 
+    /**
+     * Handles the directory creation.
+     *
+     * @return The message describing the directory creation operation.
+     */
     private String handleDirectory() {
         StringBuilder dirResult = new StringBuilder();
 
@@ -130,6 +135,12 @@ public class TaskStorage {
         return dirResult.toString();
     }
 
+    /**
+     * Handles the file creation.
+     *
+     * @return The message describing the file creation operation.
+     * @throws IOException If there are issues creating a new save file.
+     */
     private String handleFile() throws IOException {
         StringBuilder fileResult = new StringBuilder();
 

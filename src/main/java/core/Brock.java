@@ -80,20 +80,25 @@ public class Brock {
      *
      * @param processedCommand The processed user command to respond to.
      * @param tasks The list of existing tasks.
-     * @return A boolean indicating if the program should be terminated (only on bye command),
+     * @return First boolean indicating if the program should be terminated (only on bye command),
+     *      second boolean indicating if there was an exception caught,
      *      as well as a string storing the response to the command.
      */
-    public Pair<Boolean, String> respondToCommand(String processedCommand, TaskList tasks) {
+    public Pair<Boolean, Pair<Boolean, String>> respondToCommand(String processedCommand, TaskList tasks) {
         boolean isExit;
+        boolean isException;
         String overallResponse;
         isExit = processedCommand.equalsIgnoreCase("bye");
+        isException = false;
         try {
             Command commandObj = PARSER.handleCommand(processedCommand);
             overallResponse = commandObj.execute(TASK_STORAGE, TEMP_STORAGE, tasks);
-            TEMP_STORAGE.setPreviousCommand(commandObj.getType());
+            TEMP_STORAGE.setPreviousCommand(commandObj.getCommandType());
         } catch (BrockException e) {
             overallResponse = e.getMessage();
+            isException = true;
         }
-        return new Pair<>(isExit, overallResponse);
+
+        return new Pair<>(isExit, new Pair<>(isException, overallResponse));
     }
 }

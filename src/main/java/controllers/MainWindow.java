@@ -60,9 +60,9 @@ public class MainWindow extends AnchorPane {
         // Add listener function that listens to height of dialog container
         // When height increases (ie: user + brock dialog added), apply the listener function
         // Auto-scroll to the very bottom
-        this.dialogContainer.heightProperty().addListener((obs, oldBounds, newBounds) -> {
-            scrollPane.setVvalue(scrollPane.getVmax());
-        });
+        this.dialogContainer.heightProperty().addListener((obs, oldBounds, newBounds) ->
+            scrollPane.setVvalue(scrollPane.getVmax())
+        );
 
         // Add scroll callback function to dialog container
         // When dialog container is scrolled, apply the callback function
@@ -117,7 +117,7 @@ public class MainWindow extends AnchorPane {
      */
     public void showInitialResponse(String response) {
         dialogContainer.getChildren().addAll(
-                DialogBox.getBrockDialog(response, brockImage)
+                DialogBox.getBrockDialog(response, false, brockImage)
         );
     }
 
@@ -138,12 +138,13 @@ public class MainWindow extends AnchorPane {
      * Shows both user input and Brock response on the GUI.
      *
      * @param rawCommand Raw user input string.
+     * @param isException Indicator if exception was caught during response.
      * @param brockResponse Brock response string.
      */
-    private void showBothDialog(String rawCommand, String brockResponse) {
+    private void showBothDialog(String rawCommand, boolean isException, String brockResponse) {
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(rawCommand, userImage),
-                DialogBox.getBrockDialog(brockResponse, brockImage)
+                DialogBox.getBrockDialog(brockResponse, isException, brockImage)
         );
         this.userInput.clear();
     }
@@ -156,15 +157,22 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String rawCommand = userInput.getText();
+        if (rawCommand.isBlank()) {
+            // User did not type anything (besides whitespaces)
+            // Don't bother handling!
+            return;
+        }
         String processedCommand = this.processCommand(rawCommand);
-
-        Pair<Boolean, String> responseResult = this.brock
+        Pair<Boolean, Pair<Boolean,String>> responseResult = this.brock
                 .respondToCommand(processedCommand, this.tasks);
-        this.showBothDialog(rawCommand, responseResult.getSecond());
+
+        boolean isExit = responseResult.getFirst();
+        boolean isException = responseResult.getSecond().getFirst();
+        String brockResponse = responseResult.getSecond().getSecond();
+        this.showBothDialog(rawCommand, isException, brockResponse);
 
         // Exit after displaying the dialog boxes
         // So that user can see the input + response first
-        boolean isExit = responseResult.getFirst();
         if (isExit) {
             this.exitProgram();
         }

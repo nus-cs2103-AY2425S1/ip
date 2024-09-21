@@ -38,7 +38,7 @@ public class ByeCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public String getType() {
+    public String getCommandType() {
         return "bye";
     }
 }

@@ -55,5 +55,5 @@ public abstract class Command {
      *
      * @return Command type.
      */
-    public abstract String getType();
+    public abstract String getCommandType();
 }

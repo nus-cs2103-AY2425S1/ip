@@ -89,7 +89,7 @@ public class DeleteCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public String getType() {
+    public String getCommandType() {
         return "delete";
     }
 }
