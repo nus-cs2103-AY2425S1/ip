@@ -43,63 +43,68 @@ public class Parser {
         String commandInput = splitInput[0].toLowerCase();
         Command command;
 
-        // switch case for parsing commands
-        switch (commandInput) {
-        case "initialize":
-            command = new InitializeCommand();
-            break;
+        try {
+            // switch case for parsing commands
+            switch (commandInput) {
+            case "initialize":
+                command = new InitializeCommand();
+                break;
 
-        case "bye":
-            command = new ByeCommand();
-            break;
+            case "bye":
+                command = new ByeCommand();
+                break;
 
-        case "list":
-            command = new ListCommand();
-            break;
+            case "list":
+                command = new ListCommand();
+                break;
 
-        case "mark":
-            if (input.trim().length() < MIN_MARK_LENGTH) {
-                return ui.displayTaskToMark();
-            } else if (isNotInt(splitInput)) {
+            case "mark":
+                if (input.trim().length() < MIN_MARK_LENGTH) {
+                    return ui.displayTaskToMark();
+                } else if (isNotInt(splitInput)) {
+                    return ui.displayError(INPUT_ERROR_MESSAGE);
+                }
+                command = new MarkCommand(splitInput, true);
+                break;
+
+            case "unmark":
+                if (input.trim().length() < MIN_UNMARK_LENGTH) {
+                    return ui.displayTaskToMark();
+                } else if (isNotInt(splitInput)) {
+                    return ui.displayError(INPUT_ERROR_MESSAGE);
+                }
+                command = new MarkCommand(splitInput, false);
+                break;
+
+            case "delete":
+                if (input.trim().length() < MIN_DELETE_LENGTH) {
+                    return ui.displayTaskToDelete();
+                } else if (isNotInt(splitInput)) {
+                    return ui.displayError(INPUT_ERROR_MESSAGE);
+                }
+                int deleteIndex = Integer.parseInt(splitInput[1]) - 1;
+                command = new DeleteCommand(deleteIndex);
+                break;
+
+            case "add":
+                command = new AddCommand(splitInput);
+                break;
+
+            case "find":
+                if (input.trim().length() < MIN_FIND_LENGTH) {
+                    return ui.displayKeywordToFind();
+                }
+                String keyword = splitInput[1];
+                command = new FindCommand(keyword);
+                break;
+
+            default:
                 return ui.displayError(INPUT_ERROR_MESSAGE);
             }
-            command = new MarkCommand(splitInput, true);
-            break;
-
-        case "unmark":
-            if (input.trim().length() < MIN_UNMARK_LENGTH) {
-                return ui.displayTaskToMark();
-            } else if (isNotInt(splitInput)) {
-                return ui.displayError(INPUT_ERROR_MESSAGE);
-            }
-            command = new MarkCommand(splitInput, false);
-            break;
-
-        case "delete":
-            if (input.trim().length() < MIN_DELETE_LENGTH) {
-                return ui.displayTaskToDelete();
-            } else if (isNotInt(splitInput)) {
-                return ui.displayError(INPUT_ERROR_MESSAGE);
-            }
-            int deleteIndex = Integer.parseInt(splitInput[1]) - 1;
-            command = new DeleteCommand(deleteIndex);
-            break;
-
-        case "add":
-            command = new AddCommand(splitInput);
-            break;
-
-        case "find":
-            if (input.trim().length() < MIN_FIND_LENGTH) {
-                return ui.displayKeywordToFind();
-            }
-            String keyword = splitInput[1];
-            command = new FindCommand(keyword);
-            break;
-
-        default:
+        } catch (NumberFormatException e) {
             return ui.displayError(INPUT_ERROR_MESSAGE);
         }
+
         return command.execute(taskList, ui, storage);
     }
 
