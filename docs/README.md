@@ -1,6 +1,5 @@
 # Bean User Guide
 
-![b49dd1c6bd26bab8e2a940296bae0d10.png](..%2F..%2FjavaFXtut%2Fsrc%2Fmain%2Fresources%2Fimages%2Fb49dd1c6bd26bab8e2a940296bae0d10.png)
 
 Bean is the up and coming new task manager that will help you keep track of your tasks. It is a command line 
 application that is easy to use and will help you keep track of your tasks.

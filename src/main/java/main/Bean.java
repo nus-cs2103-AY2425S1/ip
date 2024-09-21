@@ -14,7 +14,7 @@ public class Bean {
 
     private String commandType;
 
-    private String path = "src\\main\\java\\data\\tasks.txt";
+    private String path = "./data/tasks.txt";
 
     /**
      * Creates the program with the given storage path

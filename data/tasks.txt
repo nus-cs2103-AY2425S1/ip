@@ -1,0 +1,6 @@
+1 event birthday /from 1920-12-12 /to 2020-12-13
+0 todo helloo
+0 deadline hii /by Today
+0 todo bye bye
+0 todo hi
+0 todo byeee
