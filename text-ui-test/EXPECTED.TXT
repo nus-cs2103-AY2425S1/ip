@@ -1,7 +1,113 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+====================
+Hello! I'm Lawrence and I'm here to establish another GST hike.
+What can I do for you?
+====================
+====================
+You have no tasks at the moment.
+====================
+====================
+Alright, added task:
+[T][ ] Text UI Testing
+ to the list.
+There is currently 1 task in the list.
+====================
+====================
+Unable to recognize command 'test'. Please try again.
+====================
+====================
+I've marked the task as complete:
+[T][X] Text UI Testing
+====================
+====================
+Task does not exist. Number must be within the range 1 to 1. Please try again.
+====================
+====================
+Alright, added task:
+[D][ ] cs2103 iP (by: 4pm today)
+ to the list.
+There are currently 2 tasks in the list.
+====================
+====================
+Alright, added task:
+[E][ ] cs2103 weekly briefing (from: 4pm to: 6pm)
+ to the list.
+There are currently 3 tasks in the list.
+====================
+====================
+Changed your mind? The task is set to incomplete:
+[T][ ] Text UI Testing
+====================
+====================
+I've marked the task as complete:
+[D][X] cs2103 iP (by: 4pm today)
+====================
+====================
+I've marked the task as complete:
+[T][X] Text UI Testing
+====================
+====================
+Here's your laundry list:
+1.[T][X] Text UI Testing
+2.[D][X] cs2103 iP (by: 4pm today)
+3.[E][ ] cs2103 weekly briefing (from: 4pm to: 6pm)
+====================
+====================
+I've marked the task as complete:
+[E][X] cs2103 weekly briefing (from: 4pm to: 6pm)
+====================
+====================
+Task does not exist. Number must be within the range 1 to 3. Please try again.
+====================
+====================
+Changed your mind? The task is set to incomplete:
+[D][ ] cs2103 iP (by: 4pm today)
+====================
+====================
+Here's your laundry list:
+1.[T][X] Text UI Testing
+2.[D][ ] cs2103 iP (by: 4pm today)
+3.[E][X] cs2103 weekly briefing (from: 4pm to: 6pm)
+====================
+====================
+Alright, added task:
+[T][ ] Get Deleted
+ to the list.
+There are currently 4 tasks in the list.
+====================
+====================
+Here's your laundry list:
+1.[T][X] Text UI Testing
+2.[D][ ] cs2103 iP (by: 4pm today)
+3.[E][X] cs2103 weekly briefing (from: 4pm to: 6pm)
+4.[T][ ] Get Deleted
+====================
+====================
+Task [T][ ] Get Deleted has been deleted.
+====================
+====================
+Changed your mind? The task is set to incomplete:
+[T][ ] Text UI Testing
+====================
+====================
+Alright, added task:
+[E][ ] clubbing (from: 10pm to: 2am)
+ to the list.
+There are currently 4 tasks in the list.
+====================
+====================
+Alright, added task:
+[T][ ] sleep
+ to the list.
+There are currently 5 tasks in the list.
+====================
+====================
+Here's your laundry list:
+1.[T][ ] Text UI Testing
+2.[D][ ] cs2103 iP (by: 4pm today)
+3.[E][X] cs2103 weekly briefing (from: 4pm to: 6pm)
+4.[E][ ] clubbing (from: 10pm to: 2am)
+5.[T][ ] sleep
+====================
+====================
+That's all folks! Hope to see you again soon!
+====================
