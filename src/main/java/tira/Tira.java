@@ -1,7 +1,6 @@
 package tira;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.time.format.DateTimeFormatter;
 
 import tira.task.TaskList;
@@ -66,7 +65,7 @@ public class Tira {
             }
             return output;
         } catch (TiraException e) {
-            return(e.getMessage());
+            return e.getMessage();
         }
     }
 }

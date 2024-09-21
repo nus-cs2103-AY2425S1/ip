@@ -61,4 +61,12 @@ public class Statistics {
     public int getTotalUnmarkedTasks() {
         return unmarkedToDoCount + unmarkedDeadlineCount + unmarkedEventCount;
     }
+
+    public int getMarkedPercentage() {
+        if (this.getTotalTasks() == 0) {
+            return 0;
+        } else {
+            return this.getTotalMarkedTasks() * 100 / this.getTotalTasks();
+        }
+    }
 }

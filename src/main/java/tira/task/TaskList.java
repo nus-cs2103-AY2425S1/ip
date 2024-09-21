@@ -44,7 +44,7 @@ public class TaskList {
     public ArrayList<Task> getTasks() {
         return this.tasks;
     }
-  
+
     /**
      * Marks the numbered task in the taskList.
      *
@@ -52,14 +52,13 @@ public class TaskList {
      * @param  commandSplitBySpace split using " "
      * @throws TiraException Custom Tira exception class
      */
-
     public String markTask(String command, String[] commandSplitBySpace) throws TiraException {
         assert Integer.valueOf(commandSplitBySpace[1]) > 0 : "Task number should be more than 0";
-        if (commandSplitBySpace.length < 2){
+        if (commandSplitBySpace.length < 2) {
             throw new TiraException("MRAW?? Please give task number.");
         }
         int currNum = Integer.parseInt(commandSplitBySpace[1]) - 1;
-        if (currNum > tasks.size() - 1) {
+        if (currNum > tasks.size() - 1 || currNum < 0) {
             throw new TiraException("MRAW?? There's less task in the list. Please review the task number");
         }
         tasks.get(currNum).markStatus();
@@ -69,12 +68,11 @@ public class TaskList {
     }
 
       /**
-     * Unmarks the numbered task in the taskList.
-     *
-     * @param command The main command that the user input
-     * @param  command split using " "
-     * @throws TiraException Custom Tira exception class
-     */
+       * Unmarks the numbered task in the taskList.
+       * @param command The main command that the user input
+       * @param  command split using " "
+       * @throws TiraException Custom Tira exception class
+       */
 
     public String unmarkTask(String command, String[] commandSplitBySpace) throws TiraException {
         assert Integer.valueOf(commandSplitBySpace[1]) > 0 : "Task number should be more than 0";
@@ -82,8 +80,8 @@ public class TaskList {
             throw new TiraException("MRAW?? Please give task number.");
         }
         int currNum = Integer.parseInt(commandSplitBySpace[1]) - 1;
-        if (currNum > tasks.size() - 1) {
-            throw new TiraException("MRAW?? There's less task in the list. Please review the task number");
+        if (currNum > tasks.size() - 1 || currNum < 0) {
+            throw new TiraException("MRAW?? There's less or more task in the list. Please review the task number");
         }
         tasks.get(currNum).unmarkStatus();
         Task currTask = tasks.get(currNum);
@@ -134,7 +132,7 @@ public class TaskList {
             throw new TiraException("MRAW?? Please specify the deadline date");
         }
         try {
-            LocalDate endDate = LocalDate.parse(extractAfterWord(commandSplitBySlash[1],"by").trim(), DATE_FORMATTER);
+            LocalDate endDate = LocalDate.parse(extractAfterWord(commandSplitBySlash[1], "by").trim(), DATE_FORMATTER);
             Task deadlineTask = new Deadline(extractAfterWord(commandSplitBySlash[0], "deadline"), endDate);
             tasks.add(deadlineTask);
             ui.showAddTask(deadlineTask, tasks.size());
@@ -152,7 +150,7 @@ public class TaskList {
      * @param commandSplitBySpace separated by the space
      * @throws TiraException custom Tira exception
      */
-    public String addEvent(String command, String[] commandSplitBySpace ) throws TiraException {
+    public String addEvent(String command, String[] commandSplitBySpace) throws TiraException {
         if (commandSplitBySpace.length <= 1) {
             throw new TiraException("MRAW?? Please specify event name and timing.");
         } else if (commandSplitBySpace[1].startsWith("/")) {
@@ -165,7 +163,7 @@ public class TaskList {
         }
         try {
             LocalDate startDate = LocalDate.parse(extractAfterWord(commandSplitBySlash[1], "from"), DATE_FORMATTER);
-            LocalDate endDate = LocalDate.parse(extractAfterWord(commandSplitBySlash[2],"to"), DATE_FORMATTER);
+            LocalDate endDate = LocalDate.parse(extractAfterWord(commandSplitBySlash[2], "to"), DATE_FORMATTER);
             Task eventTask = new Event(extractAfterWord(commandSplitBySlash[0], "event"), startDate, endDate);
             tasks.add(eventTask);
             ui.showAddTask(eventTask, tasks.size());
@@ -174,21 +172,20 @@ public class TaskList {
             return e.getMessage();
         }
     }
-
-      /**
+    /**
      * Deletes task of specific number in the task list.
      *
      * @param  commandSplitBySpace separated by the space
      * @throws TiraException custom Tira exception
      */
-    public String delete(String[] commandSplitBySpace) throws TiraException{
+    public String delete(String[] commandSplitBySpace) throws TiraException {
         assert Integer.valueOf(commandSplitBySpace[1]) > 0 : "Task number should be more than 0";
         if (commandSplitBySpace.length <= 1) {
             throw new TiraException("MRAW?? Please provide task number to delete");
         }
         int taskNumberToDelete = Integer.parseInt(commandSplitBySpace[1]);
-        if (taskNumberToDelete >= tasks.size()) {
-            throw new TiraException("MRAW?? There's less task in the list. Pleae check again");
+        if (taskNumberToDelete > tasks.size() || taskNumberToDelete < 0) {
+            throw new TiraException("MRAW?? There's less or more task in the list. Pleae check again");
         }
         Task taskToRemove = tasks.get(taskNumberToDelete - 1);
         tasks.remove(taskNumberToDelete - 1);

@@ -1,5 +1,4 @@
 package tira;
-import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -17,7 +16,6 @@ import tira.task.ToDo;
  */
 public class Ui {
     private StringBuilder outMessage;
-    private final Scanner scanner;
     private final PrintWriter printer = new PrintWriter(System.out);
 
     /**
@@ -26,18 +24,7 @@ public class Ui {
     // Solution using StringBuilder inspired by
     // https://github.com/hansneddyanto/ip/blob/master/src/main/java/hana/Ui.java
     public Ui() {
-        this.scanner = new Scanner(System.in);
         this.outMessage = new StringBuilder();
-    }
-
-
-    /**
-     * Reads the next line of input from the user.
-     *
-     * @return The user's input as a String.
-     */
-    public String read() {
-        return scanner.nextLine();
     }
 
     public String getOutMessage() {
@@ -165,7 +152,7 @@ public class Ui {
         }
     }
 
-    private Statistics countStats (ArrayList<Task> tasks) {
+    private Statistics countStats(ArrayList<Task> tasks) {
         Statistics stats = new Statistics();
 
         for (Task task : tasks) {
@@ -192,19 +179,19 @@ public class Ui {
     public void showStatistics(ArrayList<Task> taskList) {
         Statistics stats = countStats(taskList);
         outMessage.append("OK MIAO! Here's your TaskList statistics:\n");
-        outMessage.append("Number of tasks in the list: " + stats.getTotalTasks()
+        outMessage.append("Number of tasks in the list: " + stats.getTotalTasks() + "\n"
                 + "\nTODOS\nToDos: " + stats.toDoCount
                 + "\nMarked ToDos: " + stats.markedToDoCount
-                + "\nUnmarked ToDos: " + stats.unmarkedToDoCount  + "\n"
+                + "\nUnmarked ToDos: " + stats.unmarkedToDoCount + "\n"
                 + "\nDEADLINES\nDeadlines: " + stats.deadlineCount
                 + "\nMarked Deadlines: " + stats.markedDeadlineCount
                 + "\nUnmarked Deadlines: " + stats.unmarkedDeadlineCount + "\n"
                 + "\nEVENTS\nEvents: " + stats.eventCount
                 + "\nMarked Events: " + stats.markedEventCount
-                + "\nUnmarked Events: " + stats.unmarkedEventCount  + "\n"
-                + "Total number of Marked tasks:" + stats.getTotalMarkedTasks() + "\n"
+                + "\nUnmarked Events: " + stats.unmarkedEventCount + "\n"
+                + "\nTotal number of Marked tasks:" + stats.getTotalMarkedTasks() + "\n"
                 + "Total number of Unmarked tasks:" + stats.getTotalUnmarkedTasks() + "\n"
-                + "% of Marked tasks: " + stats.getTotalMarkedTasks() * 100/stats.getTotalTasks()
+                + "% of Marked tasks: " + stats.getTotalMarkedTasks() + "\n"
         );
     }
 }

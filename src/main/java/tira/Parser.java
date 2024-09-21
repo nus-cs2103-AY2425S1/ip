@@ -35,19 +35,19 @@ public class Parser {
             case "list":
                 return ui.showTaskList(taskList);
             case "mark":
-                return(taskList.markTask(command, commandSplitBySpace));
+                return taskList.markTask(command, commandSplitBySpace);
             case "unmark":
-                return(taskList.unmarkTask(command, commandSplitBySpace));
+                return taskList.unmarkTask(command, commandSplitBySpace);
             case "delete":
-                return(taskList.delete(commandSplitBySpace));
+                return taskList.delete(commandSplitBySpace);
             case "todo":
-                return(taskList.addToDo(command, commandSplitBySpace));
+                return taskList.addToDo(command, commandSplitBySpace);
             case "deadline":
-                return(taskList.addDeadline(command, commandSplitBySpace));
+                return taskList.addDeadline(command, commandSplitBySpace);
             case "event":
-                return(taskList.addEvent(command, commandSplitBySpace));
+                return taskList.addEvent(command, commandSplitBySpace);
             case "find":
-                return(taskList.findTask(command, commandSplitBySpace));
+                return taskList.findTask(command, commandSplitBySpace);
             case "statistics":
                 ui.showStatistics(taskList.getTasks());
                 return ui.getOutMessage();

@@ -1,11 +1,12 @@
 package tira.task;
 
-import java.time.LocalDate;
-
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.time.LocalDate;
+
+import org.junit.jupiter.api.Test;
 
 import tira.TiraException;
 
@@ -24,7 +25,7 @@ public class TaskListTest {
     public void testMarkTask() throws TiraException {
         TaskList tasks = new TaskList();
         tasks.addToDo("todo Finish assignment", "todo Finish assignment".split(" "));
-        tasks.markTask("mark -1", "mark -1".split(" "));
+        tasks.markTask("mark 1", "mark 1".split(" "));
         assertTrue(tasks.getTasks().get(0).getIsDone());
     }
 
