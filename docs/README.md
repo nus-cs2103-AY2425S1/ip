@@ -4,6 +4,8 @@
     <img src="Ui.png" alt="Taskalyn Screenshot" width="350">
 </div>
 
+*Images courtesy of Gemini by Google.*
+
 ## Introduction
 
 Taskalyn is your personal task manager.\
