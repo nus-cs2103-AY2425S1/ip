@@ -77,6 +77,24 @@ public class TaskList {
     }
 
     /**
+     * Tags the task specified by the task index with the given tag.
+     *
+     * @param index The index of the task to be tagged.
+     * @param tag The tag to be added.
+     * @return String announcing command completion.
+     * @throws IndexOutOfBoundsException If task index is out of bounds of the task list.
+     */
+    public String tag(int index, String[] tags) throws IndexOutOfBoundsException, IllegalArgumentException {
+        // index - 1 because task list displayed to user starts from 1
+        Task task = storageList.get(index - 1);
+
+        for (String t : tags) {
+            task.addTag(t);
+        }
+        return "Done:\n" + task.toString();
+    }
+
+    /**
      * Announces all the items currently in the task list.
      *
      * @return String containing information on all tasks in the task list.
@@ -152,7 +170,7 @@ public class TaskList {
         }
 
         for (Task t : storageList) {
-            if (t.getDescription().contains(keyWord)) {
+            if (t.getDescription().contains(keyWord) || t.getTags().contains(keyWord)) {
                 finalString += counter + ". " + t.toString() + "\n";
                 counter++;
             }
@@ -168,29 +186,42 @@ public class TaskList {
      * @throws IOException If save file is corrupted and unable to be read.
      */
     public void addTaskFromFile(String str) throws IOException {
-        boolean isCompleted = false;
-        isCompleted = parser.checkTaskCompletedFromFile(str);
+        Task createdTask;
+        boolean isCompleted = parser.checkTaskCompletedFromFile(str);
+        IOException saveFileCorruptedException = new IOException(
+                "Save file has been corrupted. Save progress will be reset");
 
         //format the task string properly using regex
         if (parser.getTaskTypeFromFile(str).equals("[T]")) {
             //To-do case
-            addToList(Todo.createNewTodo(parser.getTaskDescriptionFromFile(str), isCompleted));
+            createdTask = Todo.createNewTodo(parser.getTaskDescriptionFromFile(str), isCompleted);
         } else if (parser.getTaskTypeFromFile(str).equals("[D]")) {
             //Deadline case
-            addToList(Deadline.createNewDeadline(parser.getTaskDescriptionFromFile(str),
-                    parser.getDeadlineEndDateFromFile(str), isCompleted));
+            createdTask = Deadline.createNewDeadline(parser.getTaskDescriptionFromFile(str),
+                    parser.getDeadlineEndDateFromFile(str), isCompleted);
         } else if (parser.getTaskTypeFromFile(str).equals("[E]")) {
             //Event case
-            addToList(Event.createNewEvent(parser.getTaskDescriptionFromFile(str),
+            createdTask = Event.createNewEvent(parser.getTaskDescriptionFromFile(str),
                     parser.getEventStartTimeFromFile(str), parser.getEventEndTimeFromFile(str),
-                    isCompleted));
+                    isCompleted);
         } else {
-            throw new IOException("Save file has been corrupted. Save progress will be reset");
+            throw saveFileCorruptedException;
         }
+
+        try {
+            String[] tags = parser.getTagsFromFile(str);
+            for (String tag : tags) {
+                createdTask.addTag(tag);
+            }
+        } catch (IllegalArgumentException e) {
+            throw saveFileCorruptedException;
+        }
+
+        addToList(createdTask);
     }
 
     /**
-     * Formats information from all tasks in the task list to be saved into the save file.\
+     * Formats information from all tasks in the task list to be saved into the save file.
      *
      * @return String to be saved into the save file.
      */

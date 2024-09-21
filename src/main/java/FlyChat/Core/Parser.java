@@ -43,6 +43,21 @@ public class Parser {
         return inputString.replaceAll(".*/to\\s*", "").trim();
     }
 
+    /**
+     * Extracts the tags from the user input text.
+     *
+     * @return The tags.
+     */
+    public String[] getTags(String inputString) {
+        if (!inputString.contains("#")) {
+            throw new IllegalArgumentException("Please input at least 1 tag");
+        }
+
+        String tagsString = inputString.replaceAll("^.*\\s*#|\\s*#", " #").trim();
+        String tagsArray[] = tagsString.split(" ");
+        return tagsArray;
+    }
+
     public String getTaskTypeFromFile(String inputString) {
         return inputString.substring(0, 3);
     }
@@ -63,7 +78,7 @@ public class Parser {
     }
 
     public String getTaskDescriptionFromFile(String inputString) {
-        return inputString.replaceAll(".*]\\s|\\s\\(.*", "");
+        return inputString.replaceAll(".*]\\s|\\s/tags.*", "");
     }
 
     public String getDeadlineEndDateFromFile(String inputString) {
@@ -76,6 +91,12 @@ public class Parser {
 
     public String getEventEndTimeFromFile(String inputString) {
         return inputString.replaceAll(".*to:\\s|\\)", "");
+    }
+
+    public String[] getTagsFromFile(String inputString) {
+        String tagsString = inputString.replaceAll("^.*[|\\s*].*", "");
+        String tagsArray[] = tagsString.split(" ");
+        return tagsArray;
     }
 
     public int getTargetTaskIndex(String inputString) throws InputMismatchException{
