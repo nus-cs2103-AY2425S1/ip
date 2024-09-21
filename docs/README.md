@@ -283,18 +283,19 @@ GUI closes immediately and the data is saved automatically to a text file (`data
 ## Command Summary
 
 | Action                          | Format                                        | Example                                                        |
-|---------------------------------|-----------------------------------------------|----------------------------------------------------------------|
-| **Add a To-Do**                 | `todo <xyz>`                                  | `todo Buy groceries`                                           |
-| **Add a Deadline**              | `deadline <xyz> /by <datetime>`               | `deadline Submit project report /by 20/09/2024 1800`           |
-| **Add an Event**                | `event <xyz> /from <datetime> /to <datetime>` | `event Team meeting /from 18/09/2024 1000 /to 18/09/2024 1200` |
-| **List All Tasks**              | `list`                                        | `list`                                                         |
-| **Search for Tasks**            | `find <description>`                          | `find groceries`                                               |
-| **Filter Tasks by DateTime**    | `filter <datetime>`                           | `filter 20/09/2024 1200`                                       |
-| **Delete a Task**               | `delete <taskIndex>`                          | `delete 2`                                                     |
-| **Mark a Task as Completed**    | `mark <taskIndex>`                            | `mark 1`                                                       |
-| **Unmark a Task as Completed**  | `unmark <taskIndex>`                          | `unmark 1`                                                     |
-| **Set Task Priority**           | `priority <taskIndex> <taskPriority>`         | `priority 3 high`                                              |
-| **Save Data and Close the GUI** | `bye`                                         | `bye`                                                          |
+|----------------------------------|-----------------------------------------------|----------------------------------------------------------------|
+| **Add a To-Do**                  | `todo <xyz>`                                  | `todo Buy groceries`                                            |
+| **Add a Deadline**               | `deadline <xyz> /by <datetime>`               | `deadline Submit project report /by 20/09/2024 1800`            |
+| **Add an Event**                 | `event <xyz> /from <datetime> /to <datetime>` | `event Team meeting /from 18/09/2024 1000 /to 18/09/2024 1200`  |
+| **List All Tasks**               | `list`                                        | `list`                                                         |
+| **Search for Tasks**             | `find <description>`                          | `find groceries`                                               |
+| **Filter Tasks by DateTime**     | `filter <datetime>`                           | `filter 20/09/2024 1200`                                       |
+| **Delete a Task**                | `delete <taskIndex>`                          | `delete 2`                                                     |
+| **Mark a Task as Completed**     | `mark <taskIndex>`                            | `mark 1`                                                       |
+| **Unmark a Task as Completed**   | `unmark <taskIndex>`                          | `unmark 1`                                                     |
+| **Set Task Priority**            | `priority <taskIndex> <taskPriority>`         | `priority 3 high`                                              |
+| **Save Data and Close the GUI**  | `bye`                                         | `bye`                                                          |
+
 ## Credits
 ### JavaFX Tutorial
 The GUI code was largely referenced and inspired by [this JavaFX tutorial](https://se-education.org/guides/tutorials/javaFx.html)
