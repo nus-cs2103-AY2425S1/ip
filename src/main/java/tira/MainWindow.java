@@ -44,6 +44,7 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() throws TiraException {
+
         String input = userInput.getText();
         if (input.equals("bye")) {
             ui.showBye();

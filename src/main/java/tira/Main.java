@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
     private Tira tira = new Tira("data/tira.txt");
-
+    // Tira already initialises the storage class based on the filepath
     /**
      * Initializes the stage.
      *
@@ -28,7 +28,8 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
-            fxmlLoader.<MainWindow>getController().setTira(tira); // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setTira(tira);
+            stage.setTitle("Tira the Cafe Cat");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

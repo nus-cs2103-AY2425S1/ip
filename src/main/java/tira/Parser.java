@@ -29,8 +29,7 @@ public class Parser {
      */
     public String parseCommand(String command) throws TiraException {
         String [] commandSplitBySpace = command.split(" ");
-        String taskType = commandSplitBySpace[0];
-        System.out.println("Enter Parse Command");
+        String taskType = commandSplitBySpace[0];x
         try {
             switch(taskType) {
             case "list":
@@ -53,7 +52,7 @@ public class Parser {
                 ui.showStatistics(taskList.getTasks());
                 return ui.getOutMessage();
             default:
-                throw new TiraException("What task is this??? Please rethink your task!");
+                throw new TiraException("MRAWWW??? What task is this??? Please rethink your task!");
             }
         } catch (TiraException e) {
             return e.getMessage();

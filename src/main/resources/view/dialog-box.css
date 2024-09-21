@@ -1,14 +1,16 @@
 .label {
-    -fx-background-color: linear-gradient(to bottom right, #00ffbf, #00ddff);
+    -fx-background-color: linear-gradient(to bottom right, #FF0088FF, #FF9264FF);
     -fx-border-color: #0072b2 #0072b2 #0072b2 #0072b2;
     -fx-border-width: 2px;
-    -fx-background-radius: 10em 10em 0 10em;
-    -fx-border-radius: 1em 1em 0 1em;
+    -fx-background-radius: 1em;
+    -fx-border-radius: 1em;
+    -fx-padding: 10px;
 }
 
 .reply-label {
-    -fx-background-radius: 1em 1em 1em 0;
-    -fx-border-radius: 1em 1em 1em 0;
+    -fx-background-radius: 1em;
+    -fx-border-radius: 1em;
+    -fx-padding: 10px;
 }
 
 #displayPicture {

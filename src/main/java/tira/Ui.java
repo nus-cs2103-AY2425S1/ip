@@ -84,7 +84,9 @@ public class Ui {
                     + currTask
                     + "\n");
         }
-        return outMessage.toString();
+        String outString = this.outMessage.toString();
+        this.outMessage = new StringBuilder();
+        return outString;
     }
 
     /**

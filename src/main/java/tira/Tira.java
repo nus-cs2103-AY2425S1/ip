@@ -47,44 +47,6 @@ public class Tira {
      * @throws TiraException
      */
 
-    public void run() throws TiraException {
-        ui.showWelcome();
-        PrintWriter printer = new PrintWriter(System.out);
-        //Solution for Save below (Level-7)
-        // inspired by:
-        // https://github.com/hansneddyanto/ip/blob/master/src/main/java/Hana.java
-        while (true) {
-            String command = ui.read();
-            String[] splitCommand = command.split(" ");
-            String firstWord = splitCommand[0];
-            if (command.equals("bye")) { //BYE
-                break;
-            } else {
-                parser.parseCommand(command);
-            }
-        }
-        try {
-            storage.save(tasks.getTasks());
-            System.out.println("Your tasks have been saved to my cat brain, MIAO!");
-        } catch (IOException e) {
-            System.out.println("Error while saving tasks. Please try again");
-        }
-        ui.showBye();
-        printer.close();
-    }
-
-    /**
-     * Main method of Tira chatbot.
-     * @param args Terminal input.
-     * @throws TiraException
-     * @throws IOException
-     */
-
-    public static void main(String[] args) throws TiraException, IOException {
-        // variable declarations
-        new Tira("data/tasks/txt").run();
-    }
-
     public String getResponse(String input) throws TiraException {
         String command = input;
         String[] splitCommand = command.split(" ");
@@ -92,6 +54,12 @@ public class Tira {
         String output = "";
         try {
             if (command.equals("bye")) { //BYE
+                try {
+                    storage.save(tasks.getTasks());
+                    System.out.println("Your tasks have been saved to my cat brain, MIAO!");
+                } catch (IOException e) {
+                    System.out.println("Error while saving tasks. Please try again");
+                }
                 output = "Bye, MIAO!";
             } else {
                 output = parser.parseCommand(command);
