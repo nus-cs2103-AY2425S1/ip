@@ -70,7 +70,7 @@ public class Brock {
             // Save file was corrupted
             // Reset to blank file and proceed
             tasks = new TaskList(new ArrayList<>());
-            overallResponse = e.getMessage();
+            overallResponse = "[Corruption] \n" + e.getMessage();
         }
         return new Pair<>(tasks, overallResponse);
     }

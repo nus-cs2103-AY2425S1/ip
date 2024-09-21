@@ -166,7 +166,8 @@ public class EventCommand extends Command {
     private String getResponse(TaskList tasks, Task eventTask) {
         return "Got it. I've added this task:\n"
                 + "  " + tasks.getTaskDetails(eventTask) + '\n'
-                + tasks.getTasksSummary();
+                + tasks.getTasksSummary()
+                + this.getQuirkyResponse();
     }
 
     /**

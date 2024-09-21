@@ -118,7 +118,8 @@ public class DeadlineCommand extends Command {
     private String getResponse(TaskList tasks, Task deadlineTask) {
         return "Got it. I've added this task:\n"
                 + "  " + tasks.getTaskDetails(deadlineTask) + '\n'
-                + tasks.getTasksSummary();
+                + tasks.getTasksSummary()
+                + this.getQuirkyResponse();
     }
 
     /**

@@ -116,8 +116,9 @@ public class MainWindow extends AnchorPane {
      * @param response Initial Brock response to be displayed.
      */
     public void showInitialResponse(String response) {
+        boolean isCorruption = response.startsWith("[Corruption]");
         dialogContainer.getChildren().addAll(
-                DialogBox.getBrockDialog(response, false, brockImage)
+                DialogBox.getBrockDialog(response, isCorruption, brockImage)
         );
     }
 

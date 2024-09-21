@@ -56,7 +56,8 @@ public class DeleteCommand extends Command {
     private String getResponse(TaskList tasks, String deletedTaskDetails) {
         return "Noted. I've removed this task:\n"
                 + "  " + deletedTaskDetails + '\n'
-                + tasks.getTasksSummary();
+                + tasks.getTasksSummary()
+                + this.getQuirkyResponse();
     }
 
     /**

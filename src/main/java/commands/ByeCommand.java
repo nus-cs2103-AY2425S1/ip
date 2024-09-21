@@ -19,7 +19,8 @@ public class ByeCommand extends Command {
 
     private String getResponse() {
         return "Bye. Hope to see you again soon!\n"
-                + "Program will close now ...";
+                + "Program will close now ..."
+                + this.getQuirkyResponse();
     }
 
     /**

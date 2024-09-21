@@ -77,7 +77,8 @@ public class TodoCommand extends Command {
     private String getResponse(TaskList tasks, Task todoTask) {
         return "Got it. I've added this task:\n"
                 + "  " + tasks.getTaskDetails(todoTask) + '\n'
-                + tasks.getTasksSummary();
+                + tasks.getTasksSummary()
+                + this.getQuirkyResponse();
     }
 
     /**

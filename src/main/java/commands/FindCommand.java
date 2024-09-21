@@ -64,7 +64,9 @@ public class FindCommand extends Command {
                 ? "No matching tasks!"
                 : resultString;
 
-        return responseHeader + responseBody;
+        return responseHeader
+                + responseBody
+                + this.getQuirkyResponse();
     }
 
     /**

@@ -68,7 +68,7 @@ public class Main extends Application {
      */
     private void handleWelcomeMessage(MainWindow mainController) {
         String welcomeResponse = "Hello! I'm Brock\n"
-                + "What can I do for you?";
+                + "HEHEHE XD";
         mainController.showInitialResponse(welcomeResponse);
     }
 
