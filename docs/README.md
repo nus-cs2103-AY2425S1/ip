@@ -1,6 +1,6 @@
 # Muffin User Guide
 
-![Screenshot of product Ui.](docs/Ui.png)
+![Screenshot of product Ui.](Ui.png)
 
 Muffin is a simple and intuitive task list manager that helps you keep track of your to-dos, deadlines, and events with 
 ease. The app supports a variety of task types and allows you to perform several useful operations, including listing, 
