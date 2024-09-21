@@ -76,6 +76,16 @@ public class Ui {
     }
 
     /**
+     * Returns a string showing the task that has been tagged.
+     *
+     * @param task The task that has been tagged.
+     * @return A string representation of the tagged task.
+     */
+    public String showTaggedTask(Task task) {
+        return "Tagged Task: \n" + task.toString();
+    }
+
+    /**
      * Displays a message confirming that a task has been added.
      *
      * @param task The task that has been added.
