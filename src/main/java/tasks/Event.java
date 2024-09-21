@@ -51,13 +51,6 @@ public class Event extends Task {
         this.endDateObj = endDateObj;
     }
 
-    //    public String getStartDate() {
-    //        return startDate;
-    //    }
-    //
-    //    private String getEndDate() {
-    //        return this.endDate;
-    //    }
 
     @Override
     public String getTaskSymbol() {

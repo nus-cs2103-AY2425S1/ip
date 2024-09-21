@@ -22,7 +22,7 @@ public class TagList {
     }
 
     /**
-     * adds a tag object to list of tags using string argument (done during loading)
+     * Adds a tag object to this.tags using string argument (done during loading)
      *
      * @param tagName the name of the tag to be added
      * @return the tag object created
@@ -34,7 +34,7 @@ public class TagList {
     }
 
     /**
-     * removes a tag from the list of tags
+     * Removes a tag from this.tags
      *
      * @param tagName the name of the tag to be removed
      */
@@ -43,7 +43,7 @@ public class TagList {
     }
 
     /**
-     * checks if a tag is in the list of tags
+     * Checks if a tag is in this.tags
      *
      * @param tagName the name of the tag to be checked
      * @return true if tag is in list, false otherwise
@@ -53,7 +53,7 @@ public class TagList {
     }
 
     /**
-     * gets a tag object from the list of tags
+     * Gets a tag object from this.tags
      *
      * @param tagName the name of the tag to be retrieved
      * @return the tag object
@@ -63,9 +63,9 @@ public class TagList {
     }
 
     /**
-     * gets the list of tags
+     * Gets set of all tag names in the list
      *
-     * @return the String with all tags
+     * @return Set of all String representation of tag names
      */
     public Set<String> getAllTags() {
 

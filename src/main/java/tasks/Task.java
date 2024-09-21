@@ -18,7 +18,7 @@ public abstract class Task {
 
 
     /**
-     * initializes an undone task
+     * Initializes an undone task
      * @param desc is a string describing task
      * @throws ChatterboxExceptions.ChatterBoxNoInput if no input
      */
@@ -32,10 +32,10 @@ public abstract class Task {
 
 
     /**
-     * initializes a task with status
+     * Gets the string representation of all tags under a tasks
      *
-     * @return a string with tags
-     * @throws ChatterboxExceptions.ChatterBoxNoInput if no input
+     * @return String representation of all tags
+     *
      */
     public String getTags() {
         if (tags.size() <= 0) {
@@ -50,15 +50,15 @@ public abstract class Task {
     }
 
     /**
-     * returns a string with description of task
-     * @return string of description
+     * Returns a string with description of task
+     * @return string of description of task
      */
     public String getDescription() {
         return this.desc + " ";
     }
 
     /**
-     * gets status of task
+     * Gets status of task
      * @return true if done, false if undone
      */
     public Boolean getStatus() {
@@ -74,7 +74,7 @@ public abstract class Task {
     }
 
     /**
-     * gets the symbol of the task
+     * Gets the symbol of the task
      * @return a string representing the task
      */
     public String getTaskSymbol() {
@@ -82,7 +82,7 @@ public abstract class Task {
     }
 
     /**
-     * gets the tags of the task
+     * Gets the tags of the task
      * @param tag the tag to task list of tag
      */
     public void addTag(Tag tag) {
@@ -90,7 +90,7 @@ public abstract class Task {
     }
 
     /**
-     * removes the tag from the task
+     * Removes the tag from the task
      * @param tag the tag to be removed
      */
     public void removeTag(Tag tag) {

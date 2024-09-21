@@ -67,10 +67,10 @@ public class Parser {
 
 
     /**
-     * Takes in a string, trims it, and parses LocalDateTime if possible, if not null
+     * Parses a string for possible DateTime objects
      *
-     * @param dateTimeString String that should contain a date time
-     * @return LocalDateTime representing time in string
+     * @param dateTimeString String that could contain a date time
+     * @return LocalDateTime representing time in string or null if no valid date time found
      *
      */
 
@@ -101,7 +101,7 @@ public class Parser {
 
     /**
      * Parses a string of text to check if text has a valid command listed in ValidCommandS
-     * by checking the first word
+     *
      * @param input to be parsed,
      * @return corresponding Command object enum to the command in text
      */
@@ -139,7 +139,7 @@ public class Parser {
         }
     }
     /**
-     * Extracts the index for mark and unmark
+     * Extracts the integer index for mark and unmark
      * @param input of format mark/unmark {int}
      * @return the int in the input string
      */
@@ -171,19 +171,19 @@ public class Parser {
     }
 
     /**
-     * parses a string to obtain text for todo without white space
+     * Parses a string to obtain description for todo without white space
      * @param desc of format todo {text}
-     * @return the text description
+     * @return substring of task description
      */
     public String parseTodo(String desc) {
         return desc.substring(4).trim();
     }
 
     /**
-     * parses a string to obtain text for deaadline without white space
+     * Parses a string to obtain text for deadline parameters
      *
-     * @param desc of format deadline text /by text
-     * @return String[] with the [0] as the description and [1] as by {text}
+     * @param desc String of format deadline [text] /by [text]
+     * @return String[] with the 0 index with the description and 1 index as {text}
      * @throws chatterboxexceptions.ChatterboxExceptions.ChatterBoxNoInput if no text is found
      */
     public String[] parseDeadline(String desc) throws ChatterboxExceptions.ChatterBoxMissingParameter {
@@ -195,7 +195,7 @@ public class Parser {
         }
         StringBuilder plainDesc = new StringBuilder();
         StringBuilder deadline = new StringBuilder();
-        boolean commandEncountered = false;
+        boolean isByCommandPresent = false;
         for (int i = 8; i < desc.length(); i++) {
 
             if (i < endDate) {
@@ -203,9 +203,9 @@ public class Parser {
                 continue;
 
             }
-            if (desc.charAt(i) == '/' && !commandEncountered) {
+            if (desc.charAt(i) == '/' && !isByCommandPresent) {
                 i += 2;
-                commandEncountered = true;
+                isByCommandPresent = true;
                 continue;
             }
             deadline.append(desc.charAt(i));
@@ -216,7 +216,7 @@ public class Parser {
 
 
     /**
-     * Parses the event string for the desc, from and to time
+     * Parses the event string for the desc, from and to time strings
      *
      * @param desc takes in a string of format text /from text /to text
      * @return String[] with 0 being the first text, 1 the from text and 2 being the to text
@@ -239,8 +239,8 @@ public class Parser {
         StringBuilder plainDesc = new StringBuilder();
         StringBuilder startDate = new StringBuilder();
         StringBuilder endDate = new StringBuilder();
-        boolean fromCommandFound = false;
-        boolean toCommandFound = false;
+        boolean isFromCommandPresent = false;
+        boolean isToCommandPresent = false;
         //start with 5 to go past event
         for (int i = 5; i < desc.length(); i++) {
             if (i < fromStart) {
@@ -248,9 +248,9 @@ public class Parser {
                 continue;
             }
             if (i < toStart) {
-                if (desc.charAt(i) == '/' && !fromCommandFound) {
+                if (desc.charAt(i) == '/' && !isFromCommandPresent) {
                     i += 4;
-                    fromCommandFound = true;
+                    isFromCommandPresent = true;
                     continue;
                 }
                 startDate.append(desc.charAt(i));
@@ -258,9 +258,9 @@ public class Parser {
             }
 
 
-            if (desc.charAt(i) == '/' && !toCommandFound) {
+            if (desc.charAt(i) == '/' && !isToCommandPresent) {
                 i += 2;
-                toCommandFound = true;
+                isToCommandPresent = true;
                 continue;
             }
             endDate.append(desc.charAt(i));
@@ -272,7 +272,7 @@ public class Parser {
     /**
      * Parses the tag name from a tag command
      * @param desc of format findtag {text}
-     * @return the text
+     * @return the text used to search for tagname
      */
     public String findTagParseTagName(String desc) {
         return desc.substring(7).trim();
@@ -282,7 +282,7 @@ public class Parser {
 
     /**
      * Parses the tag text from a tag command
-     * @param desc of format tag /i{index} /t{text}
+     * @param desc of format tag /i {index} /t {text}
      * @return the text after /t
      */
     public String tagCommandParseTagName(String desc) throws ChatterboxExceptions.ChatterBoxMissingParameter {

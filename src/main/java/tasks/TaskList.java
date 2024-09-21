@@ -22,9 +22,9 @@ public class TaskList {
     }
 
     /**
-     * gets the userTasks of tasks.TaskList object
+     * Gets the ArrayList userTasks
      *
-     * @return an ArrayList userTasks
+     * @return an ArrayList Task objects
      */
     public ArrayList<Task> getTasks() {
         assert userTasks != null;
@@ -57,7 +57,7 @@ public class TaskList {
 
     /**
      * Adds a Todo to the Tasklist
-     * @param desc
+     * @param desc description of the task to be added
      * @return Returns the Todo that was added
      * @throws ChatterboxExceptions.ChatterBoxNoInput
      */
@@ -70,9 +70,9 @@ public class TaskList {
     /**
      * Adds a Deadline to the Tasklist
      *
-     * @param desc
-     * @param endDate
-     * @return RETURNS the Deadline that was added
+     * @param desc description of the task to be added
+     * @param endDate end date of the deadline
+     * @return Returns the Deadline that was added
      * @throws ChatterboxExceptions.ChatterBoxNoInput
      */
     public Deadline addDeadline(String desc, String endDate) throws ChatterboxExceptions.ChatterBoxNoInput {
@@ -82,11 +82,11 @@ public class TaskList {
     }
 
     /**
-     * Adds a Deadline to the Tasklist
+     * Adds a Deadline to the Tasklist with LocalDateTime Object
      *
-     * @param desc
-     * @param endDate
-     * @return the deadline Added
+     * @param desc description of the deadline to be added
+     * @param endDate LocalDateTime representation end date of the deadline
+     * @return the Deadline Object Added to the Tasklist
      * @throws ChatterboxExceptions.ChatterBoxNoInput
      */
     public Deadline addDeadline(String desc, LocalDateTime endDate) throws ChatterboxExceptions.ChatterBoxNoInput {
@@ -97,10 +97,10 @@ public class TaskList {
 
     /**
      *  Adds an Event to the Tasklist
-     * @param desc
-     * @param startDate
-     * @param endDate
-     * @return the event added
+     * @param desc description of the event
+     * @param startDate start date of the event in string format
+     * @param endDate end date of the event in string format
+     * @return the Event object that was added
      * @throws ChatterboxExceptions.ChatterBoxNoInput
      */
     public Event addEvent(String desc, String startDate, String endDate)
@@ -114,10 +114,10 @@ public class TaskList {
     /**
      * Adds an Event to the Tasklist
      *
-     * @param desc      description of event
-     * @param startDate start date of event
-     * @param endDate   end date of event
-     * @return the created event
+     * @param desc description of event
+     * @param startDate LocalDateTime start date of event
+     * @param endDate LocalDateTime end date of event
+     * @return the Event object that was added
      * @throws ChatterboxExceptions.ChatterBoxNoInput if no description was found
      */
     public Event addEvent(String desc, LocalDateTime startDate, LocalDateTime endDate)
@@ -141,17 +141,17 @@ public class TaskList {
      * Deletes task and index and returns it
      *
      * @param index of task to be deleted
-     * @return delted Task
+     * @return deleted Task object
      */
     public Task deleteTask(int index) {
         return userTasks.remove(index);
     }
 
     /**
-     * returns the description of a task
+     * Returns the description of the task at index in the list
      *
      * @param index
-     * @return
+     * @return description of task at index
      */
     public String getTaskDescription(int index) {
         assert index >= 0;
@@ -168,10 +168,10 @@ public class TaskList {
     }
 
     /**
-     * returns an ArrayList
+     * Returns an ArrayList of Task Objects matching the keywords
      *
-     * @param keywords is a string of keywords that should appear
-     * @return ArrayList with only tasks that have the keywords
+     * @param keywords is a string of keywords that should appear in task description
+     * @return ArrayList with only Task that have the keywords in description
      */
     public ArrayList<Task> findTasks(String keywords) {
         assert userTasks != null;
@@ -182,8 +182,15 @@ public class TaskList {
 
     }
 
+    /**
+     * Tags a task with a tag at index
+     *
+     * @param tag is Tag object to add the tag to the task
+     *
+     */
     public void tagTask(int index, Tag tag) {
-        userTasks.get(index).addTag(tag);
+        this.userTasks.get(index).addTag(tag);
+        tag.tagTask(this.userTasks.get(index));
     }
 
 

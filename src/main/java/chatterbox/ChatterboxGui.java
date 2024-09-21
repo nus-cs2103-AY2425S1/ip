@@ -14,7 +14,7 @@ import tasks.Task;
 import tasks.TaskList;
 
 /**
- * main class that encapsulates all gui chatbot functionality
+ * Main class that encapsulates all gui chatbot functionality
  */
 public class ChatterboxGui {
     private final GuiResponses guiResponses;
@@ -25,7 +25,7 @@ public class ChatterboxGui {
     private final TagList userTags;
 
     /**
-     * initiates ChatterboxGui with a prior history filepath
+     * Initiates ChatterboxGui with a prior history filepath
      * @param filepath contains the history of tasks
      */
     public ChatterboxGui(String filepath) {
@@ -73,7 +73,7 @@ public class ChatterboxGui {
 
 
     /**
-     * checks if the ChatterboxGui instance has any tasks
+     * Checks if the ChatterboxGui instance has any tasks
      * @return true if there are tasks else false
      */
     public boolean hasTasks() {

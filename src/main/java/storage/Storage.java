@@ -84,7 +84,7 @@ public class Storage {
     /**
      * Gets the string representation of a task
      * @param currentTask
-     * @return string representation of task
+     * @return String representation of task
      */
     private static String getStoredString(Task currentTask) {
         String taskStr = String.format("%s | %s | %s", currentTask.getTaskSymbol(),
@@ -93,12 +93,12 @@ public class Storage {
     }
 
     /**
-     * Loads the
+     * Loads the history of tasks from the file with path specified in HIST_FILE
      *
-     * @param parser parser used to parse input
+     * @param parser Parser object used to parse input
      * @param loadedTasks ArrayList to store tasks
-     * @param loadedTags TagList to store tags
-     * @throws FileNotFoundException
+     * @param loadedTags TagList object to store tags
+     * @throws FileNotFoundException Exception thrown if the file is not found at the specified path
      */
     public void load(Parser parser, ArrayList<Task> loadedTasks, TagList loadedTags) throws FileNotFoundException {
         File f = new File(this.HIST_FILE);
@@ -119,7 +119,7 @@ public class Storage {
     }
 
     /**
-     * Parses the task from the input string [Symbol] |   | [Text] ( from ... to )/tags ...
+     * Parses the task from the input string [Symbol] |   | [Text] ...
      *
      * @param parser
      * @param nextLine

@@ -22,8 +22,8 @@ public class GuiResponses {
     }
 
     /**
-     * generates String for standard greeting
-     * @return string format of the greeting
+     * Gets String for standard greeting
+     * @return String format of the greeting
      */
     public String greeting() {
         return "Greetings. I am " + GuiResponses.BOTNAME + ".\n"
@@ -32,7 +32,7 @@ public class GuiResponses {
     }
 
     /**
-     * generates String for standard goodbye
+     * Gets String for standard goodbye
      * @return string format of the goodbye message
      */
     public String goodbye() {
@@ -42,9 +42,9 @@ public class GuiResponses {
     }
 
     /**
-     * display the list of tasks
+     * Returns message string for list of tasks, along with additional comments
      * @param tasks TaskList object
-     * @return String representation of tasks in list
+     * @return String representation of tasks in list along with additional remarks
      */
     public String listTaskMsg(TaskList tasks) {
         ArrayList<Task> userList = tasks.getTasks();
@@ -84,9 +84,9 @@ public class GuiResponses {
     }
 
     /**
-     * gets msg for marking a task
+     * Gets message response indicating a task has been marked
      * @param task that got marked
-     * @return msg for marking a task
+     * @return msg A message confirming task marked
      */
     public String markMsg(Task task) {
         return String.format("You've completed the task") + "\n" + task.getDescription()
@@ -95,9 +95,9 @@ public class GuiResponses {
     }
 
     /**
-     * gets msg for unmarking a task
-     * @param task that got unmarked
-     * @return msg for unmarking a task
+     * Gets message response indicating a taksk has been unmarked
+     * @param task The task that was unmarked
+     * @return msg A message confirming task unmarked
      */
     public String unmarkMsg(Task task) {
         return "The task has been marked as undone."
@@ -107,7 +107,7 @@ public class GuiResponses {
     }
 
     /**
-     * Return standard template for displaying added task
+     * Returns standard template for displaying added task
      * @param type type of task
      * @param size size of user task list
      * @return standard template for displaying added task
@@ -126,7 +126,7 @@ public class GuiResponses {
     }
 
     /**
-     * returns message for deleting a task
+     * Returns message for deleting a task
      * @param task Task that is deleted
      * @param size size of the tasks.TaskList object task is removed from
      * @return Deleted task message
@@ -158,6 +158,11 @@ public class GuiResponses {
 
     }
 
+    /**
+     * Gets String representation of tagged tasks
+     * @param tasks Set of tasks that are tagged
+     * @return String representation of tagged tasks
+     */
     public String getTaggedTasks(Set<Task> tasks) {
         StringBuilder toReturn = new StringBuilder("Here are the tasks that have been tagged:\n");
         if (tasks.isEmpty()) {

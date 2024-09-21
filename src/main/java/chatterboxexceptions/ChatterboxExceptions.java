@@ -5,7 +5,7 @@ package chatterboxexceptions;
  */
 public class ChatterboxExceptions {
     /**
-     * basic ChatterboxError class
+     * Basic ChatterboxError super class
      */
     public static class ChatterBoxError extends Exception {
         public ChatterBoxError(String message) {
