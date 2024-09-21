@@ -96,6 +96,13 @@ To exit the application, simply type the `bye` command. Your tasks will be saved
 - **Commands Not Working:** Ensure you follow the correct command format as specified above.
 - **File Save/Load Errors:** If LutChat fails to save or load tasks, ensure you have proper file permissions in the directory where the application is running.
 
----
+## Credits
+Lutchat is made by:
+- Lutfir Rahman Bin Sharizal
 
+Images:
+- https://www.pinterest.com/pin/cute-ghost-icon--754986325039285968/ (Cute Ghost Icon)
+- https://www.dreamstime.com/illustration/human-being-fat-blob-person-people-androgynous-cute-cartoon-sticker-label-stick.html (Human Blob Icon)
+
+---
 This guide should help you use LutChat effectively to manage your tasks. If you encounter any issues or have suggestions for improvements, feel free to open an issue in the GitHub repository!
