@@ -35,6 +35,8 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
 
+            stage.setTitle("Naega - Task Manager");
+
             // Set the Naega instance in the MainWindow controller
             MainWindow controller = fxmlLoader.getController();
             controller.setNaega(naega);  // Inject the Naega instance into MainWindow

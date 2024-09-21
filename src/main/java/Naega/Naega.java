@@ -6,7 +6,6 @@ import Naega.Storage.Storage;
 import Naega.Task.*;
 import Naega.Ui.Ui;
 
-import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -44,7 +43,6 @@ public class Naega {
         } else {
             try {
                 tasks = new TaskList(storage.load());
-                assert tasks != null : "Tasks list should not be null after loading";
                 firstRun = false;
             } catch (NaegaException e) {
                 ui.showLoadingError();
@@ -69,10 +67,12 @@ public class Naega {
      * @return a help message containing sample tasks and usage instructions
      */
     public String getHelpMessage() {
-        return "Sample Data Loaded:\n"
-                + "- todo: Finish reading the help guide\n"
-                + "- deadline: Submit assignment by 2024-09-25 2359\n"
-                + "- event: Meet with mentor from 2024-09-30 1400 to 2024-09-30 1500\n";
+        return """
+                Sample Data Loaded:
+                - todo: Finish reading the help guide
+                - deadline: Submit assignment by 2024-09-25 2359
+                - event: Meet with mentor from 2024-09-30 1400 to 2024-09-30 1500
+                """;
     }
 
     /**
