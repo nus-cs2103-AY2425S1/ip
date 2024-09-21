@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# to redirect output to the EXPTECTED.TXT file, change directory in terminal to
+# where the compiled files are located, e.g. bin, then run this command
+# java -classpath ../bin Dawn < ../text-ui-test/input.txt > ../text-ui-test/EXPECTED.TXT
 
 # create bin directory if it doesn't exist
 if [ ! -d "../bin" ]
@@ -20,7 +23,7 @@ then
 fi
 
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ../bin Duke < input.txt > ACTUAL.TXT
+java -classpath ../bin Dawn < input.txt > ACTUAL.TXT
 
 # convert to UNIX format
 cp EXPECTED.TXT EXPECTED-UNIX.TXT

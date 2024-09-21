@@ -1,0 +1,34 @@
+.label {
+    -fx-background-color: #c2e2f5;
+    -fx-border-color: #A9CEE8;
+    -fx-border-width: 2px;
+    -fx-background-radius: 0.6em 0.6em 0 0.6em;
+    -fx-border-radius: 0.6em 0.6em 0 0.6em;
+}
+
+.reply-label {
+    -fx-background-radius: 0.6em 0.6em 0.6em 0;
+    -fx-border-radius: 0.6em 0.6em 0.6em 0;
+}
+
+.add-label {
+    -fx-background-color: yellow;
+}
+
+.marked-label {
+    -fx-background-color: palegreen;
+}
+
+.delete-label {
+    -fx-background-color: lightpink;
+}
+
+#displayPicture {
+
+    /* Change size of image. */
+    -fx-scale-x: 1;
+    -fx-scale-y: 1;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}
