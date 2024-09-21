@@ -1,11 +1,14 @@
 package flychat.tasks;
 
+import java.util.HashSet;
+
 /**
  * Represents the Tasks of the user.
  */
-public class Task {
+public abstract class Task {
     private boolean done;
     private String text;
+    private HashSet<String> tags;
 
     /**
      * Constructs a new Task object.
@@ -13,22 +16,43 @@ public class Task {
      * @param description
      */
     public Task(String description) {
-        this.done = false;
-        this.text = description;
+        done = false;
+        text = description;
+        tags = new HashSet<>();
     }
 
     /**
      * Changes the done boolean to true to mark a task.
      */
     public void completeTask() {
-        this.done = true;
+        done = true;
     }
 
     /**
      * Changes the done boolean to false to unmark a task.
      */
     public void uncompleteTask() {
-        this.done = false;
+        done = false;
+    }
+
+    /**
+     * Adds a tag to the task.
+     *
+     * @param tag The tag to be added.
+     */
+    public void addTag(String tag) throws IllegalArgumentException {
+        if (tag.equals("#")) {
+            throw new IllegalArgumentException("Tags cannot be empty or start with spaces.");
+        }
+
+        tags.add(tag);
+    }
+
+    /**
+     * Returns the tags of the task.
+     */
+    public HashSet<String> getTags() {
+        return tags;
     }
 
     /**
@@ -50,6 +74,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return "[" + (done ? "X" : " ") + "] " + this.text;
+        return "[" + (done ? "X" : " ") + "] " + text + " /tags [" + String.join(" ", tags) + "]";
     }
 }

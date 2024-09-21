@@ -10,6 +10,7 @@ import flychat.command.FindCommand;
 import flychat.command.InvalidCommand;
 import flychat.command.ListCommand;
 import flychat.command.MarkCommand;
+import flychat.command.TagCommand;
 import flychat.command.UnmarkCommand;
 
 /**
@@ -22,8 +23,11 @@ public class FlyChat {
     private final TaskList taskList = new TaskList();
     private final Parser parser = new Parser();
 
+    /**
+     * Enumerates the different types of commands that can be processed by FlyChat.
+     */
     public enum CommandType {
-        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, BYE, INVALID
+        LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, FIND, TAG, BYE, INVALID
     }
 
     public FlyChat() {
@@ -41,23 +45,30 @@ public class FlyChat {
         storage.loadSaveFile(taskList);
     }
 
+    /**
+     * Greets the user.
+     *
+     * @return The greeting message.
+     */
     public static String greetUser() {
         return Ui.greetUser();
     }
 
+    /**
+     * Shuts down the FlyChat instance.
+     *
+     * @return The shutdown message.
+     */
     public String shutDown() {
         return ui.bye();
     }
 
     public String getResponse(String inputString) {
-        assert inputString != null && !inputString.isEmpty() : "Input string is null or empty";
-
         try {
             return processCommands(inputString);
         } catch (InputMismatchException e) {
             return ui.announceString("I'm not sure what task you want me to do :((");
         }
-
     }
 
     /**
@@ -68,8 +79,6 @@ public class FlyChat {
      * @throws InputMismatchException If the input string is invalid.
      */
     private String processCommands(String inputString) throws InputMismatchException {
-        assert inputString != null && !inputString.isEmpty() : "Input string is null or empty";
-    
         CommandType commandType = getCommandType(parser.parseCommand(inputString));
         Command command = getCommand(commandType);
     
@@ -92,6 +101,8 @@ public class FlyChat {
             return CommandType.TODO;
         case "delete":
             return CommandType.DELETE;
+        case "tag":
+            return CommandType.TAG;
         case "find":
             return CommandType.FIND;
         case "bye":
@@ -117,6 +128,8 @@ public class FlyChat {
             return new DeleteCommand();
         case FIND:
             return new FindCommand();
+        case TAG:
+            return new TagCommand();
         case BYE:
             return new ByeCommand();
         default:

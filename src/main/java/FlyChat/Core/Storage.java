@@ -23,11 +23,13 @@ public class Storage {
             storageFolder.mkdirs();
         }
 
-        try {
-            saveFile = new File(filePath);
-            saveFile.createNewFile();
-        } catch (IOException e) {
-            System.out.println("Save file could not be created. Info will not be saved.");
+        saveFile = new File(filePath);
+        if (!saveFile.exists()) {
+            try {
+                saveFile.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Save file could not be created. Info will not be saved.");
+            }
         }
     }
 

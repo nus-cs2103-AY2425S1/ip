@@ -41,7 +41,8 @@ public class Event extends Task {
 
     @Override
     public String formatStringForSaving() {
-        return toString();
+        return "[E]" + super.toString() + " (from: " + this.startTime + " to: " 
+                + this.endTime + ")";
     }
 
     @Override

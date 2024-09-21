@@ -33,7 +33,7 @@ public class Todo extends Task {
 
     @Override
     public String formatStringForSaving() {
-        return toString();
+        return "[T]" + super.toString();
     }
 
     @Override
