@@ -14,16 +14,17 @@ public class Ui {
     private static final String WELCOME_MESSAGE = """
         Welcome to Killua Task Manager!
         Here are some commands you can use:
-            bye - Exit the application
-            list - List all tasks
-            mark <task number> - Mark a task as done
-            unmark <task number> - Mark a task as not done yet
-            delete <task number> - Delete a task
-            todo <description> - Add a new todo task
-            deadline <description> /by <yyyy-mm-dd> OR
-            deadline <description> /by <yyyy-mm-dd hh:mm> - Add a new deadline task
-            event <description> /from <yyyy-mm-dd> /to <yyyy-mm-dd> OR
-            event <description> /from <yyyy-mm-dd hh:mm> /to <yyyy-mm-dd hh:mm> - Add a new event task""";
+        \n
+        -list/ls - List all tasks
+        -mark/m <task number> - Mark a task as done
+        -unmark/um <task number> - Mark a task as not done yet
+        -delete/del <task number> - Delete a task
+        -todo <description> - Add a new todo task
+        -deadline/ddl <description> /by <yyyy-mm-dd[ hh:mm]> - Add a new deadline task
+        -event/eve <description> /from <yyyy-mm-dd[ hh:mm]> /to <yyyy-mm-dd[ hh:mm]> - Add a new event task
+        -on <yyyy-mm-dd> - List tasks on date
+        -find <keyword> - Find task with keyword
+        -bye - Exit the application""";
     private static final String ADD_TASK_MESSAGE = "Got it. I've added this task:\n";
     private static final String DELETE_TASK_MESSAGE = "OK, I've deleted this task:\n";
     private static final String EXIT_MESSAGE = "See you later!";

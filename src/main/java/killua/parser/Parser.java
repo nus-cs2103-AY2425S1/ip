@@ -35,10 +35,9 @@ public class Parser {
     private static final String ARGUMENT_EMPTY_MESSAGE = "Arguments cannot be empty!";
     private static final String INVALID_COMMAND_MESSAGE = "Sorry, I don't get what you mean:( ";
     private static final String INVALID_DEADLINE_MESSAGE = "Please use the correct format for deadlines:\n"
-            + "\tdeadline <description> /by <yyyy-mm-dd> OR \tdeadline <description> /by <yyyy-mm-dd hh:mm>";
+            + "\tdeadline(ddl) <description> /by <yyyy-mm-dd[ hh:mm]>";
     private static final String INVALID_EVENT_MESSAGE = "Please use the correct format for events:\n"
-            + "\tevent <description> /from <yyyy-mm-dd> /to <yyyy-mm-dd> OR "
-                    + "\tevent <description> /from <yyyy-mm-dd hh:mm> /to <yyyy-mm-dd hh:mm>";
+            + "\tevent <description> /from <yyyy-mm-dd[ hh:mm]> /to <yyyy-mm-dd[ hh:mm]>";
     private static final String INVALID_NUMBER_MESSAGE = "Please provide a valid task number!";
     private static final String INVALID_DATE_FORMAT_FROM_HISTORY = "Invalid date format from history: ";
     /**
@@ -57,17 +56,17 @@ public class Parser {
         switch (commandWord) {
         case "todo":
             return new AddCommand(parseTodo(arguments));
-        case "deadline":
+        case "deadline", "ddl":
             return new AddCommand(parseDeadline(arguments));
-        case "event":
+        case "event", "eve":
             return new AddCommand(parseEvent(arguments));
-        case "delete":
+        case "delete", "del":
             return new DeleteCommand(parseIndex(arguments));
-        case "mark":
+        case "mark", "m":
             return new MarkCommand(parseIndex(arguments));
-        case "unmark":
+        case "unmark", "um":
             return new UnmarkCommand(parseIndex(arguments));
-        case "list":
+        case "list", "ls":
             return new ListCommand();
         case "bye":
             return new ExitCommand();
@@ -117,9 +116,9 @@ public class Parser {
         checkEmptyArgument(arguments);
 
         try {
-            String[] parts = arguments.split(" /by ");
-            String description = parts[0].strip();
-            String dateTimeString = parts[1].strip();
+            String[] parts = arguments.split(" /by ", 2);
+            String description = parts[0].trim();
+            String dateTimeString = parts[1].trim();
             try {
                 // try parsing yyyy-MM-dd HH:mm
                 LocalDateTime dateTime = LocalDateTime.parse(dateTimeString, DATE_TIME_FORMATTER);

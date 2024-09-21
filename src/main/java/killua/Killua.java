@@ -36,6 +36,9 @@ public class Killua {
 
     /**
      * Generates a response for the user's chat message.
+     *
+     * @param input User input.
+     * @return Response from killua.
      */
     public String getResponse(String input) {
         try {
@@ -51,12 +54,17 @@ public class Killua {
 
     /**
      * Generates a welcome message.
+     *
+     * @return Welcome message.
      */
     public String welcomeUser() {
         return ui.welcomeUser();
     }
+
     /**
-     * Return running state.
+     * Get running state.
+     *
+     * @return Boolean value of running state.
      */
     public boolean isRunning() {
         return this.isRunning;
