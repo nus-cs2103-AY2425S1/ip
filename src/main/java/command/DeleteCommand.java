@@ -4,7 +4,6 @@ import exception.ParserException;
 import exception.TaskListException;
 import task.Task;
 import tasklist.TaskList;
-import ui.Ui;
 
 /**
  * Handles related issues to command delete
@@ -29,9 +28,11 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui) throws TaskListException {
+    public String getResponse(TaskList tasks) throws TaskListException {
+        String response = "";
         Task task = tasks.delete(this.idx);
-        ui.println("A task is deleted");
-        ui.println(task);
+        response += "A task is deleted\n";
+        response += task.toString() + "\n";
+        return response;
     }
 }

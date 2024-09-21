@@ -1,6 +1,5 @@
 package tomo;
 
-import command.ByeCommand;
 import command.Command;
 import command.DeadlineCommand;
 import command.DeleteCommand;
@@ -28,9 +27,7 @@ public class Parser {
             throw new ParserException("No command");
         }
         String type = cmdline.split(" ")[0];
-        if (type.equals("bye")) {
-            return new ByeCommand(cmdline);
-        } else if (type.equals("list")) {
+        if (type.equals("list")) {
             return new ListCommand(cmdline);
         } else if (type.equals("mark")) {
             return new MarkCommand(cmdline);

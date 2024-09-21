@@ -4,7 +4,6 @@ import exception.ParserException;
 import task.Task;
 import task.ToDo;
 import tasklist.TaskList;
-import ui.Ui;
 
 /**
  * Handles related issus to command todo
@@ -26,9 +25,11 @@ public class ToDoCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public String getResponse(TaskList tasks) {
+        String response = "";
         tasks.add(this.todo);
-        ui.println("A task is added");
-        ui.println(this.todo);
+        response += "A task is added\n";
+        response += this.todo + "\n";
+        return response;
     }
 }

@@ -2,7 +2,6 @@ package command;
 
 import exception.ParserException;
 import tasklist.TaskList;
-import ui.Ui;
 
 /**
  * Handles related issues to the find command
@@ -23,15 +22,16 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public String getResponse(TaskList tasks) {
         TaskList filteredTasks = tasks.find(this.pattern);
         if (filteredTasks.isEmpty()) {
-            ui.println("You have no task that contains pattern " + pattern);
+            return "You have no task that contains pattern " + pattern + "\n";
         } else {
-            ui.println("You have " + tasks.size() + " tasks that contains pattern " + pattern + " as follow:");
+            String response = "You have " + tasks.size() + " tasks that contains pattern " + pattern + " as follow:\n";
             for (int i = 0; i < filteredTasks.size(); ++i) {
-                ui.println((i + 1) + ". " + filteredTasks.get(i));
+                response += (i + 1) + ". " + filteredTasks.get(i) + "\n";
             }
+            return response;
         }
     }
 }

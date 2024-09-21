@@ -8,7 +8,6 @@ import task.Converter;
 import task.Event;
 import task.Task;
 import tasklist.TaskList;
-import ui.Ui;
 
 /**
  * Handles related issues to the event command
@@ -51,9 +50,11 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public String getResponse(TaskList tasks) {
+        String response = "";
         tasks.add(this.event);
-        ui.println("A task is added");
-        ui.println(this.event);
+        response += "A task is added\n";
+        response += this.event.toString() + "\n";
+        return response;
     }
 }

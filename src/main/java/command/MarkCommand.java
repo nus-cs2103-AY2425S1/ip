@@ -4,7 +4,6 @@ import exception.ParserException;
 import exception.TaskListException;
 import task.Task;
 import tasklist.TaskList;
-import ui.Ui;
 
 /**
  * Handles related issus to command mark
@@ -30,9 +29,11 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui) throws TaskListException {
+    public String getResponse(TaskList tasks) throws TaskListException {
+        String response = "";
         Task task = tasks.mark(this.idx);
-        ui.println("A task is marked");
-        ui.println(task);
+        response += "A task is marked\n";
+        response += task;
+        return response;
     }
 }

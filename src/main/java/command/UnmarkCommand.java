@@ -4,7 +4,6 @@ import exception.ParserException;
 import exception.TaskListException;
 import task.Task;
 import tasklist.TaskList;
-import ui.Ui;
 
 /**
  * Handles related issus to command unmark
@@ -30,9 +29,11 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui) throws TaskListException {
+    public String getResponse(TaskList tasks) throws TaskListException {
+        String response = "";
         Task task = tasks.unmark(this.idx);
-        ui.println("A task is unmarked");
-        ui.println(task);
+        response += "A task is unmarked\n";
+        response += task + "\n";
+        return response;
     }
 }

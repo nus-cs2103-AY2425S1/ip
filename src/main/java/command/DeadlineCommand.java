@@ -8,7 +8,6 @@ import task.Converter;
 import task.Deadline;
 import task.Task;
 import tasklist.TaskList;
-import ui.Ui;
 
 /**
  * Handles related issues of command deadline
@@ -47,9 +46,11 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public String getResponse(TaskList tasks) {
+        String response = "";
         tasks.add(this.deadline);
-        ui.println("A task is added");
-        ui.println(this.deadline);
+        response += "A task is added\n";
+        response += this.deadline.toString() + "\n";
+        return response;
     }
 }

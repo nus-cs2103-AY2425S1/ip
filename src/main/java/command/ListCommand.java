@@ -2,7 +2,6 @@ package command;
 
 import exception.ParserException;
 import tasklist.TaskList;
-import ui.Ui;
 
 /**
  * Handles related issus to command list
@@ -20,14 +19,15 @@ public class ListCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui) {
+    public String getResponse(TaskList tasks) {
         if (tasks.isEmpty()) {
-            ui.println("Oops, you have no task");
+            return "Oops, you have no task\n";
         } else {
-            ui.println("You have " + tasks.size() + " tasks as follow:");
+            String response = "You have " + tasks.size() + " tasks as follow:\n";
             for (int i = 0; i < tasks.size(); ++i) {
-                ui.println((i + 1) + ". " + tasks.get(i));
+                response += (i + 1) + ". " + tasks.get(i) + "\n";
             }
+            return response;
         }
     }
 }
