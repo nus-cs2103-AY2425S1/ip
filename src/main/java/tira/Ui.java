@@ -16,6 +16,7 @@ import tira.task.ToDo;
  */
 public class Ui {
     private StringBuilder outMessage;
+    private final Scanner scanner;
     private final PrintWriter printer = new PrintWriter(System.out);
 
     /**
@@ -24,7 +25,18 @@ public class Ui {
     // Solution using StringBuilder inspired by
     // https://github.com/hansneddyanto/ip/blob/master/src/main/java/hana/Ui.java
     public Ui() {
+        this.scanner = new Scanner(System.in);
         this.outMessage = new StringBuilder();
+    }
+
+
+    /**
+     * Reads the next line of input from the user.
+     *
+     * @return The user's input as a String.
+     */
+    public String read() {
+        return scanner.nextLine();
     }
 
     public String getOutMessage() {
@@ -146,35 +158,29 @@ public class Ui {
      * @param tasks An ArrayList of matching tasks.
      */
     public void showMatchingTasks(ArrayList<Task> tasks) {
-        outMessage.append("Miao!!!! I found the tasks in my cat brain! They are:");
+        outMessage.append("Miao!!!! I found the tasks in my cat brain! They are:\n");
         for (Task task: tasks) {
-            outMessage.append(task);
+            outMessage.append(task + "\n");
         }
     }
 
     private Statistics countStats(ArrayList<Task> tasks) {
         Statistics stats = new Statistics();
-
         for (Task task : tasks) {
             if (task instanceof Deadline) {
-                stats.addDeadlineCount();
-                if (task.getIsDone()) {
-                    stats.addMarkedDeadline();
-                }
+                stats.addTaskCount("deadline");
+                stats.addMarkOrUnmarkCount(task.getIsDone(), "deadline");
             } else if (task instanceof Event) {
-                stats.addEventCount();
-                if (task.getIsDone()) {
-                    stats.addMarkedEvent();
-                }
+                stats.addTaskCount("event");
+                stats.addMarkOrUnmarkCount(task.getIsDone(), "event");
             } else if (task instanceof ToDo) {
-                stats.addToDoCount();
-                if (task.getIsDone()) {
-                    stats.addMarkedToDo();
-                }
+                stats.addTaskCount("todo");
+                stats.addMarkOrUnmarkCount(task.getIsDone(), "todo");
             }
         }
         return stats;
     }
+
 
     public void showStatistics(ArrayList<Task> taskList) {
         Statistics stats = countStats(taskList);
@@ -191,7 +197,7 @@ public class Ui {
                 + "\nUnmarked Events: " + stats.unmarkedEventCount + "\n"
                 + "\nTotal number of Marked tasks:" + stats.getTotalMarkedTasks() + "\n"
                 + "Total number of Unmarked tasks:" + stats.getTotalUnmarkedTasks() + "\n"
-                + "% of Marked tasks: " + stats.getTotalMarkedTasks() + "\n"
+                + "% of Marked tasks: " + stats.getMarkedPercentage() + "\n"
         );
     }
 }

@@ -185,7 +185,7 @@ public class TaskList {
         }
         int taskNumberToDelete = Integer.parseInt(commandSplitBySpace[1]);
         if (taskNumberToDelete > tasks.size() || taskNumberToDelete < 0) {
-            throw new TiraException("MRAW?? There's less or more task in the list. Pleae check again");
+            throw new TiraException("MRAW?? There's less or more task in the list. Please check again");
         }
         Task taskToRemove = tasks.get(taskNumberToDelete - 1);
         tasks.remove(taskNumberToDelete - 1);

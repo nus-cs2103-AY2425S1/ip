@@ -23,33 +23,6 @@ public class Statistics {
         unmarkedEventCount = 0;
     }
 
-    public void addToDoCount() {
-        this.toDoCount++;
-    }
-
-    public void addMarkedToDo() {
-        this.markedToDoCount++;
-        this.unmarkedToDoCount = toDoCount - markedToDoCount;
-    }
-
-    public void addDeadlineCount() {
-        this.deadlineCount++;
-    }
-
-    public void addMarkedDeadline() {
-        this.markedDeadlineCount++;
-        this.unmarkedDeadlineCount = deadlineCount - markedDeadlineCount;
-    }
-
-    public void addEventCount() {
-        this.eventCount++;
-    }
-
-    public void addMarkedEvent() {
-        this.markedEventCount++;
-        this.unmarkedEventCount = eventCount - markedEventCount;
-    }
-
     public int getTotalTasks() {
         return this.deadlineCount + this.toDoCount + this.eventCount;
     }
@@ -69,4 +42,35 @@ public class Statistics {
             return this.getTotalMarkedTasks() * 100 / this.getTotalTasks();
         }
     }
+
+    public void addTaskCount(String task) {
+        if (task.equals("deadline")) {
+            this.deadlineCount++;
+        } else if (task.equals("event")) {
+            this.eventCount++;
+        } else if(task.equals("todo")) {
+            this.toDoCount++;
+        }
+    }
+
+    public void addMarkOrUnmarkCount(boolean isMark, String task) {
+        if (isMark) {
+            if (task.equals("deadline")) {
+                this.markedDeadlineCount++;
+            } else if (task.equals("event")) {
+                this.markedEventCount++;
+            } else if (task.equals("todo")) {
+                this.markedToDoCount++;
+            }
+         } else {
+            if (task.equals("deadline")) {
+                this.unmarkedDeadlineCount++;
+            } else if (task.equals("event")) {
+                this.unmarkedEventCount++;
+            } else if (task.equals("todo")) {
+                this.unmarkedToDoCount++;
+            }
+        }
+    }
+
 }
