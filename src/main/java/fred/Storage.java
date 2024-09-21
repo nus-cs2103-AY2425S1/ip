@@ -63,30 +63,6 @@ public class Storage {
         return tasks;
     }
 
-    private Task createTaskFromLine(String[] lineParts, DateTimeFormatter formatter) {
-        switch (lineParts[0]) {
-            case "T":
-                return new Todo(lineParts[2]);
-            case "D":
-                return new Deadline(lineParts[2], LocalDateTime.parse(lineParts[3], formatter));
-            case "E":
-                return new Event(lineParts[2],
-                        LocalDateTime.parse(lineParts[3], formatter),
-                        LocalDateTime.parse(lineParts[4], formatter));
-            default:
-                return null;
-        }
-    }
-
-    private void setTaskStatus(Task task, String status) {
-        if ("1".equals(status)) {
-            task.markAsDone();
-        } else if ("0".equals(status)) {
-            task.markAsNotDone();
-        }
-    }
-
-
     /**
      * Deletes a specific task from the data file by rewriting the file without the specified task.
      *
@@ -127,6 +103,29 @@ public class Storage {
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private Task createTaskFromLine(String[] lineParts, DateTimeFormatter formatter) {
+        switch (lineParts[0]) {
+            case "T":
+                return new Todo(lineParts[2]);
+            case "D":
+                return new Deadline(lineParts[2], LocalDateTime.parse(lineParts[3], formatter));
+            case "E":
+                return new Event(lineParts[2],
+                        LocalDateTime.parse(lineParts[3], formatter),
+                        LocalDateTime.parse(lineParts[4], formatter));
+            default:
+                return null;
+        }
+    }
+
+    private void setTaskStatus(Task task, String status) {
+        if ("1".equals(status)) {
+            task.markAsDone();
+        } else if ("0".equals(status)) {
+            task.markAsNotDone();
         }
     }
 }

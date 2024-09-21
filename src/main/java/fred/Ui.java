@@ -2,14 +2,14 @@ package fred;
 
 /**
  * The Ui class handles all user interactions, including printing messages
- * to the console and receiving user input. It is responsible for greeting the user,
- * printing task lists, and displaying messages in a consistent format.
+ * to the console. It is responsible for greeting the user, printing task lists,
+ * and displaying messages in a consistent format.
  */
 public class Ui {
-    private String line = "____________________________________________________________";
+    private final String line = "____________________________________________________________";
 
     /**
-     * Constructs a new Ui object and initializes the scanner for user input.
+     * Constructs a new Ui object.
      */
     public Ui() {
     }

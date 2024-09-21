@@ -1,5 +1,9 @@
 package fred;
 
+/**
+ * Enum representing various commands that can be issued in the application.
+ * Each command has a corresponding string representation.
+ */
 public enum Command {
     EXIT("bye"),
     LIST_TASKS("list"),
@@ -18,8 +22,12 @@ public enum Command {
         this.commandName = commandName;
     }
 
+    /**
+     * Returns the string representation of the command.
+     *
+     * @return the command name
+     */
     public String getCommandName() {
         return commandName;
     }
 }
-

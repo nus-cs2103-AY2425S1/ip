@@ -27,26 +27,27 @@ public class TaskList {
      * @param taskType The type of task to create ("todo", "deadline", or "event").
      * @param taskDetails The details of the task, including description and any time-related information.
      * @return The created Task object.
+     * @throws FredException If the task details are invalid.
      */
     public Task createTask(TaskType taskType, String taskDetails) throws FredException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         String[] taskDetailsArr = taskDetails.split(" /", 3);
         String description = taskDetailsArr[0];
         switch (taskType) {
-        case TODO:
-            return createTodoTask(description);
-        case DEADLINE:
-            if (taskDetailsArr.length != 2) {
-                throw new InvalidDeadlineException();
-            }
-            return createDeadlineTask(description, taskDetailsArr[1], formatter);
-        case EVENT:
-            if (taskDetailsArr.length != 3) {
-                throw new InvalidEventException();
-            }
-            return createEventTask(description, taskDetailsArr[1], taskDetailsArr[2], formatter);
-        default:
-            return null;
+            case TODO:
+                return createTodoTask(description);
+            case DEADLINE:
+                if (taskDetailsArr.length != 2) {
+                    throw new InvalidDeadlineException();
+                }
+                return createDeadlineTask(description, taskDetailsArr[1], formatter);
+            case EVENT:
+                if (taskDetailsArr.length != 3) {
+                    throw new InvalidEventException();
+                }
+                return createEventTask(description, taskDetailsArr[1], taskDetailsArr[2], formatter);
+            default:
+                return null;
         }
     }
 
@@ -78,7 +79,6 @@ public class TaskList {
             throw new InvalidEventException();
         }
     }
-
 
     /**
      * Adds a task to the task list.
@@ -160,9 +160,9 @@ public class TaskList {
     }
 
     /**
-     * Retrieves the list of tasks.
+     * Retrieves the list of tasks as a formatted string.
      *
-     * @return An ArrayList containing all tasks.
+     * @return A string representing all tasks in the task list.
      */
     public String getTasksAsString() {
         StringBuilder taskListSb = new StringBuilder();
@@ -174,6 +174,12 @@ public class TaskList {
         return taskListSb.toString();
     }
 
+    /**
+     * Finds tasks in the task list that contain the given keyword.
+     *
+     * @param keyword The keyword to search for in tasks.
+     * @return A string representing tasks that contain the keyword.
+     */
     public String findTasksInTaskList(String keyword) {
         StringBuilder tasksWithKeyword = new StringBuilder();
         for (Task task : tasks) {
@@ -185,6 +191,14 @@ public class TaskList {
         return tasksWithKeyword.toString();
     }
 
+    /**
+     * Adds a tag to a specific task in the task list.
+     *
+     * @param taskNumber The index of the task to be tagged.
+     * @param tag The tag to be added to the task.
+     * @return The task with the added tag.
+     * @throws FredException If the task number is invalid.
+     */
     public Task addTagToTask(int taskNumber, String tag) throws FredException {
         try {
             Task task = tasks.get(taskNumber);
@@ -195,4 +209,3 @@ public class TaskList {
         }
     }
 }
-

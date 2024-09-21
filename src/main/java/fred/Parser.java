@@ -17,10 +17,10 @@ import java.util.Arrays;
 public class Parser {
 
     /**
-     * Parses the user's input string and returns an array representing the command and its arguments.
+     * Parses the user's input string and returns an Action object representing the command and its arguments.
      *
      * @param input The raw input string entered by the user.
-     * @return A String array where the first element is the command, and subsequent elements are arguments.
+     * @return An Action object containing the command and its parameters.
      * @throws FredException If the input is invalid or contains an unknown command.
      */
     public Action parseInput(String input) throws FredException {
@@ -138,4 +138,3 @@ public class Parser {
         return new Action(command, taskNumber, tag);
     }
 }
-

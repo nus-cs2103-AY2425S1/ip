@@ -48,13 +48,33 @@ public class Fred {
     }
 
     /**
-     * Executes the user action based on the parsed input. The method supports
-     * various actions such as adding a task, marking it as done or not done,
-     * deleting a task, and printing the task list.
+     * Retrieves the response for the given user input. This method parses the input
+     * and executes the corresponding action by interacting with various components.
      *
-     * @param action A String array containing the action and its parameters.
-     * @throws FredException If the action is invalid or cannot be executed.
+     * @param input the user input in String format
+     * @return a String representing the application's response
      */
+    public String getResponse(String input) {
+        try {
+            Action action = parser.parseInput(input);
+            Command command = action.getCommand();
+            List<Command> commandList = Arrays.asList(Command.values());
+            assert commandList.contains(command) : "Command not recognized";
+            return executeAction(action);
+        } catch (FredException e) {
+            return e.getMessage();
+        }
+    }
+
+    /**
+     * Returns whether the Fred application is still running.
+     *
+     * @return true if the application is running, false otherwise
+     */
+    public boolean getIsRunning() {
+        return isRunning;
+    }
+
     private String executeAction(Action action) throws FredException {
         switch (action.getCommand()) {
             case EXIT:
@@ -106,22 +126,4 @@ public class Fred {
         String tasksWithKeyword = tasks.findTasksInTaskList(action.getKeyword());
         return "Here are the matching tasks in your list:\n" + tasksWithKeyword;
     }
-
-
-    public String getResponse(String input) {
-        try {
-            Action action = parser.parseInput(input);
-            Command command = action.getCommand();
-            List<Command> commandList = Arrays.asList(Command.values());
-            assert commandList.contains(command) : "Command not recognized";
-            return executeAction(action);
-        } catch (FredException e) {
-            return e.getMessage();
-        }
-    }
-
-    public boolean getIsRunning() {
-        return isRunning;
-    }
 }
-
