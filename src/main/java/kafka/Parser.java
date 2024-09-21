@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
  * This class parses user input commands and executes corresponding actions within the Kafka application.
  * It interacts with TaskList, Storage, and Ui objects to manage tasks, persist data, and provide user feedback.
  */
+
 public class Parser {
 
     /**
@@ -32,88 +33,135 @@ public class Parser {
         String arguments = splitInput.length > 1 ? splitInput[1] : "";
         String output = "";
 
-        switch (command) {
-        case "bye":
-            output = ui.goodbye();
-            break;
-        case "list":
-            output = ui.getList() + "\n" + taskList.printList();
-            break;
-        case "mark":
-            int taskNumberMark = Integer.parseInt(arguments);
-            Task taskToMark = taskList.tasks.get(taskNumberMark - 1);
-            taskList.mark(taskToMark);
-            storage.writeToFile(taskList.tasks);
-            output = ui.mark(taskToMark);
-            break;
-        case "unmark":
-            int taskNumberUnmark = Integer.parseInt(arguments);
-            Task taskToUnmark = taskList.tasks.get(taskNumberUnmark - 1);
-            taskList.unmark(taskToUnmark);
-            storage.writeToFile(taskList.tasks);
-            output = ui.unmark(taskToUnmark);
-            break;
-        case "delete":
-            if (taskList.tasks.isEmpty()) {
-                return "";
+        try {
+            switch (command) {
+            case "bye":
+                output = executeByeCommand(ui);
+                break;
+            case "list":
+                output = executeListCommand(taskList, ui);
+                break;
+            case "mark":
+                output = executeMarkCommand(arguments, taskList, storage, ui);
+                break;
+            case "unmark":
+                output = executeUnmarkCommand(arguments, taskList, storage, ui);
+                break;
+            case "delete":
+                output = executeDeleteCommand(arguments, taskList, storage, ui);
+                break;
+            case "find":
+                output = executeFindCommand(arguments, taskList, ui);
+                break;
+            case "todo":
+                output = executeTodoCommand(arguments, taskList, storage, ui);
+                break;
+            case "deadline":
+                output = executeDeadlineCommand(arguments, taskList, storage, ui);
+                break;
+            case "event":
+                output = executeEventCommand(arguments, taskList, storage, ui);
+                break;
+            default:
+                throw new KafkaException("Hmm... I'm not sure what you're getting at. Care to enlighten me?");
             }
-            int taskNumberDelete = Integer.parseInt(arguments);
-            Task taskToDelete = taskList.tasks.get(taskNumberDelete - 1);
-            taskList.delete(taskNumberDelete);
-            storage.writeToFile(taskList.tasks);
-            output = ui.delete(taskToDelete, taskList);
-            break;
-        case "find":
-            if (arguments.isEmpty()) {
-                throw new KafkaException("It seems you've left the details blank. Even the simplest tasks need some direction, don't you think?");
-            }
-            TaskList temp = taskList.find(arguments.toLowerCase());
-            if (temp.isEmpty()) {
-                throw new KafkaException("Hmm, it seems that no task aligns with that word... mind trying again?");
-            }
-            output = ui.find() + "\n" + temp.printList();
-            break;
-        case "todo":
-            if (arguments.isEmpty()) {
-                throw new KafkaException("It seems you've left the details blank. Even the simplest tasks need some direction, don't you think?");
-            }
-            Task todo = new Todo(arguments, false);
-            taskList.addTask(todo);
-            storage.writeToFile(taskList.tasks);
-            output = ui.addTask(todo, taskList);
-            break;
-        case "deadline":
-            if (arguments.isEmpty()) {
-                throw new KafkaException("It seems you've left the details blank. Even the simplest tasks need some direction, don't you think?");
-            }
-            String[] deadlineParts = arguments.split("/by ");
-            if (deadlineParts.length < 2) {
-                throw new KafkaException("It appears the details for this deadline task are off. Let's give it another go, shall we?");
-            }
-            LocalDateTime by = LocalDateTimeConverter.getLocalDateTime(deadlineParts[1]);
-            Task deadline = new Deadline(deadlineParts[0], by, false);
-            taskList.addTask(deadline);
-            storage.writeToFile(taskList.tasks);
-            output = ui.addTask(deadline, taskList);
-            break;
-        case "event":
-            if (arguments.isEmpty()) {
-                throw new KafkaException("It seems you've left the details blank. Even the simplest tasks need some direction, don't you think?");
-            }
-            String[] eventParts = arguments.split("/from | /to ");
-            if (eventParts.length < 3) {
-                throw new KafkaException("It appears the details for this event task are off. Let's give it another go, shall we?");
-            }
-            LocalDateTime from = LocalDateTimeConverter.getLocalDateTime(eventParts[1]);
-            LocalDateTime to = LocalDateTimeConverter.getLocalDateTime(eventParts[2]);
-            Task event = new Event(eventParts[0], from, to, false);
-            taskList.addTask(event);
-            storage.writeToFile(taskList.tasks);
-            output = ui.addTask(event, taskList);
-            break;
-        default:
-            throw new KafkaException("Hmm... I'm not sure what you're getting at. Care to enlighten me?");
+        } catch (IOException e) {
+            // Handle IOException here
+            ui.showError(e);
+        } catch (DateTimeParseException e) {
+            // Handle DateTimeParseException here
+            ui.incorrectDateDetails();
         }
+
         return output;
+    }
+
+    private static String executeByeCommand(Ui ui) {
+        return ui.goodbye();
+    }
+
+    private static String executeListCommand(TaskList taskList, Ui ui) {
+        ui.getList();
+        return taskList.printList();
+    }
+
+    private static String executeMarkCommand(String arguments, TaskList taskList, Storage storage, Ui ui) throws IOException {
+        int taskNumberMark = Integer.parseInt(arguments);
+        Task taskToMark = taskList.tasks.get(taskNumberMark - 1);
+        taskList.mark(taskToMark);
+        storage.writeToFile(taskList.tasks);
+        return ui.mark(taskToMark);
+    }
+
+    private static String executeUnmarkCommand(String arguments, TaskList taskList, Storage storage, Ui ui) throws IOException {
+        int taskNumberUnmark = Integer.parseInt(arguments);
+        Task taskToUnmark = taskList.tasks.get(taskNumberUnmark - 1);
+        taskList.unmark(taskToUnmark);
+        storage.writeToFile(taskList.tasks);
+        return ui.unmark(taskToUnmark);
+    }
+
+    private static String executeDeleteCommand(String arguments, TaskList taskList, Storage storage, Ui ui) throws IOException {
+        if (taskList.tasks.isEmpty()) {
+            return "";
+        }
+        int taskNumberDelete = Integer.parseInt(arguments);
+        Task taskToDelete = taskList.tasks.get(taskNumberDelete - 1);
+        taskList.delete(taskNumberDelete);
+        storage.writeToFile(taskList.tasks);
+        return ui.delete(taskToDelete, taskList);
+    }
+
+    private static String executeFindCommand(String arguments, TaskList taskList, Ui ui) throws KafkaException {
+        if (arguments.isEmpty()) {
+            throw new KafkaException("It seems you've left the details blank. Even the simplest tasks need some direction, don't you think?");
+        }
+        TaskList temp = taskList.find(arguments.toLowerCase());
+        if (temp.isEmpty()) {
+            throw new KafkaException("Hmm, it seems that no task aligns with that word... mind trying again?");
+        }
+        ui.find();
+        return temp.printList();
+    }
+
+    private static String executeTodoCommand(String arguments, TaskList taskList, Storage storage, Ui ui) throws IOException, KafkaException {
+        if (arguments.isEmpty()) {
+            throw new KafkaException("It seems you've left the details blank. Even the simplest tasks need some direction, don't you think?");
+        }
+        Task todo = new Todo(arguments, false);
+        taskList.addTask(todo);
+        storage.writeToFile(taskList.tasks);
+        return ui.addTask(todo, taskList);
+    }
+
+    private static String executeDeadlineCommand(String arguments, TaskList taskList, Storage storage, Ui ui) throws IOException, KafkaException {
+        if (arguments.isEmpty()) {
+            throw new KafkaException("It seems you've left the details blank. Even the simplest tasks need some direction, don't you think?");
+        }
+        String[] deadlineParts = arguments.split("/by ");
+        if (deadlineParts.length < 2) {
+            throw new KafkaException("It appears the details for this deadline task are off. Let's give it another go, shall we?");
+        }
+        LocalDateTime by = LocalDateTimeConverter.getLocalDateTime(deadlineParts[1]);
+        Task deadline = new Deadline(deadlineParts[0], by, false);
+        taskList.addTask(deadline);
+        storage.writeToFile(taskList.tasks);
+        return ui.addTask(deadline, taskList);
+    }
+
+    private static String executeEventCommand(String arguments, TaskList taskList, Storage storage, Ui ui) throws IOException, KafkaException {
+        if (arguments.isEmpty()) {
+            throw new KafkaException("It seems you've left the details blank. Even the simplest tasks need some direction, don't you think?");
+        }
+        String[] eventParts = arguments.split("/from | /to ");
+        if (eventParts.length < 3) {
+            throw new KafkaException("It appears the details for this event task are off. Let's give it another go, shall we?");
+        }
+        LocalDateTime from = LocalDateTimeConverter.getLocalDateTime(eventParts[1]);
+        LocalDateTime to = LocalDateTimeConverter.getLocalDateTime(eventParts[2]);
+        Task event = new Event(eventParts[0], from, to, false);
+        taskList.addTask(event);
+        storage.writeToFile(taskList.tasks);
+        return ui.addTask(event, taskList);
     }
 }
