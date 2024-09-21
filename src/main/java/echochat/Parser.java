@@ -17,6 +17,7 @@ public class Parser {
      * @throws InvalidCommandError if the input is not recognized as a valid command
      */
     public Command parse(String input) throws EmptyDescriptionError, InvalidCommandError {
+        assert input != null && !input.trim().isEmpty() : "Input must not be null or empty";
         String[] parts = input.split(" ", 2);
 
         if (isExitCommand(input)) {
@@ -36,6 +37,7 @@ public class Parser {
      * @return true if the input is "bye", false otherwise
      */
     private boolean isExitCommand(String input) {
+        assert input != null : "Input must not be null";
         return input.equals("bye");
     }
 
@@ -46,6 +48,7 @@ public class Parser {
      * @return true if the input is "list", false otherwise
      */
     private boolean isListCommand(String input) {
+        assert input != null : "Input must not be null";
         return input.equals("list");
     }
 
@@ -59,6 +62,8 @@ public class Parser {
      * @throws InvalidCommandError if the command is invalid or cannot be parsed
      */
     private Command parseActionCommand(String command, String details) throws EmptyDescriptionError, InvalidCommandError {
+        assert command != null && !command.isEmpty() : "Command must not be null or empty";
+        assert details != null : "Details must not be null";
         switch (command) {
         case "find":
             return new Command(CommandType.FIND, details, 1);
