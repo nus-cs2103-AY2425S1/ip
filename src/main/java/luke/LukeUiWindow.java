@@ -3,6 +3,7 @@ package luke;
 import java.io.IOException;
 import java.util.List;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import luke.command.Command;
 import luke.env.Constants;
 
@@ -90,14 +92,12 @@ public class LukeUiWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getLukeDialog(response, lukeImage)
         );
-        if (response.equals(Constants.BYE_MESSAGE)) {
-            try {
-                Thread.sleep(Constants.PAUSE);
-                Platform.exit();
-            } catch (InterruptedException e) {
-                Platform.exit();
-            }
-        }
         userInput.clear();
+        if (response.equals(Constants.BYE_MESSAGE)) {
+            // Enforce a 1.5-second pause and exit after the pause
+            PauseTransition pause = new PauseTransition(Duration.seconds(1.5));
+            pause.setOnFinished(event -> Platform.exit());
+            pause.play();
+        }
     }
 }

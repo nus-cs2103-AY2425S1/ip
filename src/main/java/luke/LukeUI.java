@@ -18,6 +18,7 @@ public class LukeUI extends Application {
     @Override
     public void start(Stage stage) {
         try {
+            stage.setTitle("Luke");
             FXMLLoader fxmlLoader = new FXMLLoader(LukeUI.class.getResource("/view/LukeUiWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
