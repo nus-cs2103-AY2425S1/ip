@@ -2,6 +2,7 @@ package chobo;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a task that needs to be done before a specific date/time.
  * A chobo.Deadline object corresponds to a task with a deadline
@@ -15,11 +16,11 @@ public class Deadline extends Task {
      * Instantiates a new chobo.Deadline task.
      *
      * @param taskName The name of the task.
-     * @param done The status of the task (true if done, false otherwise).
-     * @param date The deadline of the task.
+     * @param isDone   The status of the task (true if done, false otherwise).
+     * @param date     The deadline of the task.
      */
-    public Deadline(String taskName, boolean done, String date) {
-        super(taskName, done);
+    public Deadline(String taskName, boolean isDone, String date) {
+        super(taskName, isDone);
         this.unformattedDate = date;
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d-M-yyyy HHmm");
         this.by = LocalDateTime.parse(date.trim(), dateTimeFormatter);

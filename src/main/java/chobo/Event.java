@@ -13,8 +13,16 @@ public class Event extends Task {
     private LocalDateTime from;
     private LocalDateTime to;
 
-    public Event(String name, boolean done, String unformattedFrom, String unformattedTo) {
-        super(name, done);
+    /**
+     * Instantiates a new Event.
+     *
+     * @param taskName        Event name.
+     * @param isDone          Whether event is over.
+     * @param unformattedFrom Unformatted start date and time.
+     * @param unformattedTo   Unformatted end date and time.
+     */
+    public Event(String taskName, boolean isDone, String unformattedFrom, String unformattedTo) {
+        super(taskName, isDone);
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d-M-yyyy HHmm");
         this.unformattedFrom = unformattedFrom;
         this.unformattedTo = unformattedTo;

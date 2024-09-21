@@ -1,15 +1,15 @@
 package chobo;
 
 /**
- * The type Delete command.
+ * Represents command that deletes task.
  */
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
     private int taskId;
 
     /**
      * Instantiates a new Delete command.
      *
-     * @param taskId the task id
+     * @param taskId Task id of task to be deleted
      */
     public DeleteCommand(int taskId) {
         this.taskId = taskId;

@@ -3,7 +3,7 @@ package chobo;
 import java.util.Scanner;
 
 /**
- * The type Chobo.
+ * Represents a Chobo chatbot.
  */
 public class Chobo {
     private Ui ui;
@@ -18,7 +18,7 @@ public class Chobo {
      */
     public Chobo() throws InputException {
         ui = new Ui();
-        storage = new Storage(FILE_PATH,ui);
+        storage = new Storage(FILE_PATH, ui);
         taskList = storage.loadTasks();
         assert ui != null : "UI can not be null";
         assert storage != null : "Storage can not be null";

@@ -2,7 +2,7 @@ package chobo;
 
 
 /**
- * The type Command.
+ * Represents Command of user input.
  */
 public abstract class Command {
     /**

@@ -35,11 +35,11 @@ public class MainWindow extends AnchorPane {
      */
     public MainWindow() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/MainWindow.fxml"));
-        fxmlLoader.setRoot(this);  // Set this as the root node
-        fxmlLoader.setController(this);  // Set this as the controller
+        fxmlLoader.setRoot(this);
+        fxmlLoader.setController(this);
 
         try {
-            fxmlLoader.load();  // Load the FXML
+            fxmlLoader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }

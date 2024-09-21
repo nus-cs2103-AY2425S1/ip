@@ -3,7 +3,7 @@ package chobo;
 import java.util.ArrayList;
 
 /**
- * Represent a Find command which search for keywords.
+ * Represents a Find command which search for keywords.
  */
 public class FindCommand extends Command {
     private String keyword;

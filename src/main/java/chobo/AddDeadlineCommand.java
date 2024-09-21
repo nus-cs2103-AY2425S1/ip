@@ -15,7 +15,7 @@ public class AddDeadlineCommand extends Command {
      * Instantiates a new Add deadline command.
      *
      * @param taskName Name of deadline.
-     * @param by   Date and time for deadline.
+     * @param by       Date and time for deadline.
      * @throws InputException Input exception if input does not follow format.
      */
     public AddDeadlineCommand(String taskName, String by) throws InputException {

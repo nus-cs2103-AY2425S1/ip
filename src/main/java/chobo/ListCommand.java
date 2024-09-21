@@ -1,7 +1,7 @@
 package chobo;
 
 /**
- * Represents the command which lists the tasks.
+ * Represents the command which lists tasks.
  */
 public class ListCommand extends Command {
     @Override

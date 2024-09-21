@@ -1,4 +1,5 @@
 package chobo;
+
 /**
  * Represents an exception thrown when there is invalid input in the Chobo chatbot.
  * This exception is used to handle various cases of incorrect or missing input.

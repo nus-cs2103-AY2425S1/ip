@@ -1,5 +1,7 @@
 package chobo;
+
 import javafx.application.Application;
+
 /**
  * Represents a launcher class to workaround classpath issues.
  */

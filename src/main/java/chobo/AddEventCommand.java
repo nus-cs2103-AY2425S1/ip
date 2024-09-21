@@ -16,11 +16,11 @@ public class AddEventCommand extends Command {
      * Instantiates a new Add event command.
      *
      * @param taskName Name of the task.
-     * @param from Start date and time of the event.
-     * @param to   End date and time of the event.
+     * @param from     Start date and time of the event.
+     * @param to       End date and time of the event.
      * @throws InputException Input exception if input does not follow format.
      */
-    public AddEventCommand(String taskName, String from, String to) throws InputException{
+    public AddEventCommand(String taskName, String from, String to) throws InputException {
         this.taskName = taskName;
         this.unformattedFrom = from;
         this.unformattedTo = to;
