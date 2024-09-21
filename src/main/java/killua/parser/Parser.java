@@ -32,14 +32,16 @@ public class Parser {
     private static final DateTimeFormatter DATE_TIME_FORMATTER_FROM_HISTORY = DateTimeFormatter
             .ofPattern("MMM d yyyy HH:mm");
     private static final DateTimeFormatter DATE_FORMATTER_FROM_HISTORY = DateTimeFormatter.ofPattern("MMM d yyyy");
-    private static final String ARGUMENT_EMPTY_MESSAGE = "Arguments cannot be empty!";
-    private static final String INVALID_COMMAND_MESSAGE = "Sorry, I don't get what you mean:( ";
-    private static final String INVALID_DEADLINE_MESSAGE = "Please use the correct format for deadlines:\n"
-            + "\tdeadline(ddl) <description> /by <yyyy-mm-dd[ hh:mm]>";
-    private static final String INVALID_EVENT_MESSAGE = "Please use the correct format for events:\n"
-            + "\tevent <description> /from <yyyy-mm-dd[ hh:mm]> /to <yyyy-mm-dd[ hh:mm]>";
-    private static final String INVALID_NUMBER_MESSAGE = "Please provide a valid task number!";
-    private static final String INVALID_DATE_FORMAT_FROM_HISTORY = "Invalid date format from history: ";
+    private static final String ARGUMENT_EMPTY_MESSAGE = "Wow, you just forgot the arguments. Good job!";
+    private static final String INVALID_COMMAND_MESSAGE = "Seriously? I have no clue what you're trying to do.";
+    private static final String INVALID_DEADLINE_MESSAGE = "Wrong format again? Try using this if you can: \n"
+            + "\tdeadline/ddl <description> /by <yyyy-mm-dd[ hh:mm]>";
+    private static final String INVALID_EVENT_MESSAGE = "Can't even get the event format right? It's not that hard:\n"
+            + "\tevent/eve <description> /from <yyyy-mm-dd[ hh:mm]> /to <yyyy-mm-dd[ hh:mm]>";
+    private static final String INVALID_NUMBER_MESSAGE = "Are you sure that's a number? Because it's definitely not!";
+    private static final String INVALID_DATE_FORMAT_FROM_HISTORY = "Couldn't even handle the date from history."
+            + " Here's what went wrong: ";
+
     /**
      * Parses a command string and returns the corresponding Command object.
      *
