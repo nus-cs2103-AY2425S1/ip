@@ -27,18 +27,18 @@ public class UnmarkCommand extends Command {
             throw new MissingArgumentException("index of the task that you want to unmark");
         }
 
-        int i;
+        int index;
         try {
-            i = Integer.parseInt(argument) - 1;
+            index = Integer.parseInt(argument) - 1;
         } catch (NumberFormatException e) {
             throw new IncorrectArgumentException("an integer");
         }
-        if (i < 0 || i >= tasks.size()) {
+        if (index < 0 || index >= tasks.size()) {
             throw new IncorrectArgumentException("a valid index");
         }
 
-        tasks.get(i).mark();
+        tasks.get(index).mark();
         ui.printWithFormat("OK, I've marked this task as not done:\n"
-                + tasks.get(i));
+                + tasks.get(index));
     }
 }
