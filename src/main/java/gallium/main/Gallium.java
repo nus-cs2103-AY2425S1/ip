@@ -86,6 +86,10 @@ public class Gallium {
         return this.ui;
     }
 
+    public boolean isExit() {
+        return this.isExit;
+    }
+
     /**
      * The main entry point of Gallium.
      * 
