@@ -39,11 +39,12 @@ public class Ui {
     }
 
     public static String printHelloMessage() {
-        return "Hellooooooooo! I am Gallium!! :> \nWhat can I help you?";
+        return("Hellooooooooo! I am Gallium!! :> \nHow can I help you? \n" +
+        "Type \'help\' to see the list of available commands.");
     }
 
     public String printInputAgainMessage() {
-        this.append("\nWhat can I help you?");
+        this.append("\nHow can I help you?");
         return this.getOutput();
     }
 
@@ -242,5 +243,22 @@ public class Ui {
      */
     public void printByeMessage() {
         append("Thanks!! :> Bye, hope to see you again soon!");
+    }
+
+    public void printCommandList() {
+        this.append("Here are the list of commands:\n");
+        this.append(
+        "1. list	Displays the entire task list.\n" +
+        "2. todo <description>	Adds a todo task to the task list.\n" +
+        "3. deadline <description> /by <date>	Adds a deadline task to the task list.\n" +
+        "4. event <description> /from <date> /to <date>	Adds an event task to the task list.\n" +
+        "5. mark <index>	Marks a task at index i of task list as completed.\n" +
+        "6. unmark <index>	Marks a task at index i of task list as not completed.\n" +
+        "7. delete <index>	Deletes task at index i of task list.\n" +
+        "8. find <keyword>	Finds tasks which descriptions contains the keyword being input.\n" +
+        "9. edit <index>	Edits task details at index i of task list.\n" +
+        "10. date <date>	Finds tasks which date matches the date being input.\n" +
+        "11. help	Displays a list of valid commands.\n" +
+        "12. bye	Exits the program.");
     }
 }

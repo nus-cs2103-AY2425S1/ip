@@ -8,6 +8,7 @@ import gallium.command.DeleteCommand;
 import gallium.command.ErrorCommand;
 import gallium.command.EditCommand;
 import gallium.command.FindCommand;
+import gallium.command.HelpCommand;
 import gallium.command.ListCommand;
 import gallium.command.MarkCommand;
 
@@ -31,6 +32,7 @@ public class Parser {
     private static final String EDIT = "edit";
     private static final String HI = "hi";
     private static final String HELLO = "hello";
+    private static final String HELP = "help";
 
     private Ui ui;
 
@@ -96,6 +98,8 @@ public class Parser {
             return new EditCommand(message);
         } else if (message.startsWith(HI) || message.startsWith(HELLO)) {
             throw new GalliumException("Hii!! :>");
+        } else if (message.startsWith(HELP)) {
+            return new HelpCommand();
         } else {
             throw new GalliumException("Ohh noooo! I'm sorry, but I don't know what that means :(");
         }
