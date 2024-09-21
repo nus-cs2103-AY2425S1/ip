@@ -46,7 +46,7 @@ To add a deadline, type `deadline <description> /by <date>`
 * `dd/MM/yyyy`
 
 
-Example of usage
+Example of usage:
 `deadline submit assignment /by 12-12-2021 23:59`
 
 ##### Adding Event
@@ -59,9 +59,9 @@ To add an event type `event <description> /from <date> /to <date>`
 
 #### Listing Tasks
 To view all current tasks, type `list`.
-<br>Example of usage
-```list```
-<br> 
+<br>Example of usage: `list`
+
+
 Chatterbox will display
 ```
 [T][ ] task 1 /tags: tag1 
@@ -72,7 +72,7 @@ Chatterbox will display
 To mark a task as done, type `mark <task number>`
 <br>Where `<task number>` is the index of the task in the list
 
-Example of usage
+Example of usage:
 ```mark 1```
 
 #### Marking Task as undone
@@ -84,12 +84,12 @@ Example of usage
 #### Deleting Task
 To delete a task, type `delete <task number>`
 <br>Where `<task number>` is the index of the task in the list
-Example of usage
+Example of usage:
 ```delete 1```
 
 #### Finding Task
 To find a task, type `find <keyword>`
-Example of usage
+Example of usage:
 ```find assignment```
 
 #### Tagging Task
@@ -97,7 +97,7 @@ To tag a task, type `tag /i <task number> /t <tag>`
 <br>Where `<task number>` is the index of the task in the list
 <br>Where `<tag>` is the tag you want to add to the task
 `<tag>` is not case-sensitive (will be converted to lowercase) and should not contain whitespace
-<br>Example of usage
+<br>Example of usage:
 ```tag /i 1 /t tag1```
 
 #### Untagging Task
@@ -105,22 +105,22 @@ To untag a task, type `untag /i <task number> /t <tag>`
 <br>Where `<task number>` is the index of the task in the list
 <br>Where `<tag>` is the tag you want to remove from the task
 
-Example of usage
+Example of usage:
 ```untag /i 1 /t tag1```
 
 #### Listing all tags
 To view all tags, type `alltags`
-Example of usage
+Example of usage:
 ```alltags```
 
 #### Searching for all tasks tagged with a tag
 To view all tasks tagged with a tag, type `findtag <tag>`
-Example of usage
+Example of usage:
 ```findtag tag1```
 
 #### Exiting the program
 To exit the program, type `bye`
-Example of usage
+Example of usage:
 ```bye```
 
 
