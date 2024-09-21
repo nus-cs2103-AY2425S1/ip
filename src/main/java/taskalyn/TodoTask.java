@@ -8,11 +8,11 @@ public class TodoTask extends Task {
     /**
      * Constructs the TodoTask with description and completion status.
      *
-     * @param taskItem Description of task.
+     * @param taskDescription Description of task.
      * @param isCompleted Whether task has been completed or not.
      */
-    public TodoTask(String taskItem, boolean isCompleted) {
-        super(taskItem, isCompleted);
+    public TodoTask(String taskDescription, boolean isCompleted) {
+        super(taskDescription, isCompleted);
     }
 
     /**

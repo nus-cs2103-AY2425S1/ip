@@ -25,7 +25,7 @@ public class DatabaseTest {
     private MockDatabase db;
 
     /**
-     * Sets up ui, database, taskmanager and removes database file before each test.
+     * Sets up ui, database, taskManager and removes database file before each test.
      *
      */
     @BeforeEach
@@ -41,7 +41,7 @@ public class DatabaseTest {
     /**
      * Deletes database file after each test.
      *
-     * @throws IOException If an I/O error occurs during reading.
+     * @throws IOException If an I/O error occurs during reading of database.
      */
     @AfterEach
     public void tearDownTest() throws IOException {
@@ -50,6 +50,9 @@ public class DatabaseTest {
         }
     }
 
+    /**
+     * Verifies that the database file is created when no database file exists.
+     */
     @Test
     public void createDatabase_whenNoDatabaseFileExists() {
         assertTrue(Files.exists(TEST_FILE_PATH), "File should exist after database is initialized");
@@ -70,6 +73,11 @@ public class DatabaseTest {
         assertEquals("D | 0 | hw | 11-09-2024 1300", taskInfo.get(1));
     }
 
+    /**
+     * Verifies that database is updated correctly after task operations.
+     *
+     * @throws IOException If an I/O error occurs during reading of database.
+     */
     @Test
     public void updateDatabase_afterTaskOperations_updatedSuccessfully() throws IOException {
         taskManager.addTask(new TodoTask("go to school", false));
@@ -95,6 +103,11 @@ public class DatabaseTest {
         assertEquals("E | 1 | party | 11-09-2024 1800 | 11-09-2024 2000", taskInfo.get(2));
     }
 
+    /**
+     * Verifies that tasks read from database are shown in the expected format.
+     *
+     * @throws IOException If an I/O error occurs during reading of database.
+     */
     @Test
     public void readDatabase_readInExpectedFormat() throws IOException {
         taskManager.addTask(new TodoTask("go to school", false));
@@ -110,6 +123,11 @@ public class DatabaseTest {
         assertEquals("E | 0 | party | 11-09-2024 1800 | 11-09-2024 2000", tasks.get(2));
     }
 
+    /**
+     * Verifies that a newly created database contains no tasks.
+     *
+     * @throws IOException If an I/O error occurs during reading of database.
+     */
     @Test
     public void readDatabase_newCreatedDatabase_containsNoTasks() throws IOException {
         db.createDatabase();

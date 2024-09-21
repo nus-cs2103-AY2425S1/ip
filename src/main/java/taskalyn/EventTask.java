@@ -13,13 +13,13 @@ public class EventTask extends Task {
     /**
      * Constructs the EventTask object with description, from time, to time, and completion status.
      *
-     * @param taskItem Description of Event Task.
+     * @param taskDescription Description of Event Task.
      * @param fromDate From timing of event.
      * @param toDate To timing of event.
      * @param isCompleted Whether an Event Task is completed or not.
      */
-    public EventTask(String taskItem, LocalDateTime fromDate, LocalDateTime toDate, boolean isCompleted) {
-        super(taskItem, isCompleted);
+    public EventTask(String taskDescription, LocalDateTime fromDate, LocalDateTime toDate, boolean isCompleted) {
+        super(taskDescription, isCompleted);
         this.fromDate = fromDate;
         this.toDate = toDate;
     }

@@ -12,12 +12,12 @@ public class DeadlineTask extends Task {
     /**
      * Constructs the DeadlineTask object with description, deadline, and completion status.
      *
-     * @param taskItem Description of Deadline Task.
+     * @param taskDescription Description of Deadline Task.
      * @param deadlineDate Deadline of Deadline Task.
      * @param isCompleted Whether a Deadline Task is completed or not.
      */
-    public DeadlineTask(String taskItem, LocalDateTime deadlineDate, boolean isCompleted) {
-        super(taskItem, isCompleted);
+    public DeadlineTask(String taskDescription, LocalDateTime deadlineDate, boolean isCompleted) {
+        super(taskDescription, isCompleted);
         this.deadline = deadlineDate;
     }
 

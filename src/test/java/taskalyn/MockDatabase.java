@@ -61,7 +61,7 @@ public class MockDatabase extends Database {
      * Reads task data from the database file.
      *
      * @return List of task data.
-     * @throws IOException If an I/O error occurs during reading.
+     * @throws IOException If an I/O error occurs during reading of database.
      */
     public List<String> readFromDatabase() throws IOException {
         return Files.readAllLines(FILE_PATH);

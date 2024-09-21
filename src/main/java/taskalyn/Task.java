@@ -4,17 +4,17 @@ package taskalyn;
  * Abstract class for Task.
  */
 public abstract class Task {
-    private String taskItem;
+    private String taskDescription;
     private boolean isCompleted;
 
     /**
      * Constructs the Task object with description and completion status.
      *
-     * @param taskItem String for task description.
+     * @param taskDescription String for task description.
      * @param isCompleted Whether a task is completed or not.
      */
-    public Task(String taskItem, boolean isCompleted) {
-        this.taskItem = taskItem;
+    public Task(String taskDescription, boolean isCompleted) {
+        this.taskDescription = taskDescription;
         this.isCompleted = false;
     }
 
@@ -47,7 +47,7 @@ public abstract class Task {
      * @return String of task description.
      */
     public String getTaskDescription() {
-        return taskItem;
+        return taskDescription;
     }
 
     /**
@@ -57,7 +57,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return "[" + (this.isCompleted ? "X" : " ") + "] " + this.taskItem;
+        return "[" + (this.isCompleted ? "X" : " ") + "] " + this.taskDescription;
     }
 
     /**

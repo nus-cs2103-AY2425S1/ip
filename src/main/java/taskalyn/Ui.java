@@ -24,10 +24,10 @@ public class Ui {
      * @return A String saying that the task was added.
      */
     public String showAddTaskMessage(Task task, TaskManager taskManager) {
-        int numberofTasks = taskManager.getTaskSize();
+        int numberOfTasks = taskManager.getTaskSize();
         return "Got it, I've added this task to your list!\n"
-                + task.toString() + "\n" + "Wah bro... "
-                + numberofTasks + (numberofTasks > 1 ? " tasks already!" : " task already!");
+                + task.toString() + "\n"
+                + "Wah bro... " + numberOfTasks + (numberOfTasks > 1 ? " tasks already!" : " task already!");
     }
 
     /**
@@ -38,10 +38,10 @@ public class Ui {
      * @return A String saying that the task was deleted.
      */
     public String showDeleteTaskMessage(Task task, TaskManager taskManager) {
-        int numberofTasks = taskManager.getTaskSize();
+        int numberOfTasks = taskManager.getTaskSize();
         return "Awesome bro! One task gone :D\n"
-                + task.toString() + "\n" + "Wah bro... "
-                + numberofTasks + (numberofTasks > 1 ? " tasks already!" : " task already!");
+                + task.toString() + "\n"
+                + "Wah bro... " + numberOfTasks + (numberOfTasks > 1 ? " tasks already!" : " task already!");
     }
 
     /**

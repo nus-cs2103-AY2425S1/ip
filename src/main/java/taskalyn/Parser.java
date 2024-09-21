@@ -34,9 +34,9 @@ public class Parser {
      * @return String stating the reply from Taskalyn.
      */
     public String parse(String input) {
-        String[] items = input.trim().split(" ", 2);
-        items = Arrays.stream(items).map(parts -> parts.trim()).toArray(String[]::new);
-        String commandString = items[0];
+        String[] inputParts = input.trim().split(" ", 2);
+        inputParts = Arrays.stream(inputParts).map(parts -> parts.trim()).toArray(String[]::new);
+        String commandString = inputParts[0];
 
         try {
             CommandType command = CommandType.fromString(commandString);
@@ -44,7 +44,7 @@ public class Parser {
                 return "Sorry bro, no clue what you're saying!";
             }
 
-            checkArgumentCount(items, command);
+            checkArgumentCount(inputParts, command);
 
             switch (command) {
             case BYE:
@@ -54,19 +54,19 @@ public class Parser {
             case SORT:
                 return handleSortCommand();
             case FIND:
-                return handleFindCommand(items);
+                return handleFindCommand(inputParts);
             case DELETE:
-                return handleDeleteCommand(items);
+                return handleDeleteCommand(inputParts);
             case MARK:
-                return handleMarkCommand(items);
+                return handleMarkCommand(inputParts);
             case UNMARK:
-                return handleUnmarkCommand(items);
+                return handleUnmarkCommand(inputParts);
             case TODO:
-                return handleTodoCommand(items);
+                return handleTodoCommand(inputParts);
             case DEADLINE:
-                return handleDeadlineCommand(items);
+                return handleDeadlineCommand(inputParts);
             case EVENT:
-                return handleEventCommand(items);
+                return handleEventCommand(inputParts);
             default:
                 return "Sorry bro, no clue what you're saying!";
             }
@@ -105,83 +105,83 @@ public class Parser {
     /**
      * Returns a message String when a task is deleted.
      *
-     * @param items The user input split by whitespace.
+     * @param inputParts The user input split by whitespace.
      * @return String saying that task is deleted.
      * @throws CommandFormatException If the command format was written incorrectly.
      * @throws NoSuchTaskException No such task exists.
      * @throws IndexOutOfBoundsException The list index is out of bounds.
      */
-    private String handleDeleteCommand(String[] items) throws CommandFormatException, NoSuchTaskException,
+    private String handleDeleteCommand(String[] inputParts) throws CommandFormatException, NoSuchTaskException,
             IndexOutOfBoundsException {
-        return handleTaskOperation(items, taskManager::deleteTask, CommandType.DELETE);
+        return handleTaskOperation(inputParts, taskManager::deleteTask, CommandType.DELETE);
     }
 
     /**
      * Returns a message String saying that a task has been marked as complete.
      *
-     * @param items The user input split by whitespace.
+     * @param inputParts The user input split by whitespace.
      * @return String saying that task is marked as complete.
      * @throws CommandFormatException Command Format is incorrect.
      * @throws NoSuchTaskException No such task exists.
      * @throws IndexOutOfBoundsException The list index is out of bounds.
      */
-    private String handleMarkCommand(String[] items) throws CommandFormatException, NoSuchTaskException,
+    private String handleMarkCommand(String[] inputParts) throws CommandFormatException, NoSuchTaskException,
             IndexOutOfBoundsException {
-        return handleTaskOperation(items, taskManager::markTaskAsComplete, CommandType.MARK);
+        return handleTaskOperation(inputParts, taskManager::markTaskAsComplete, CommandType.MARK);
     }
 
     /**
      * Returns a message String saying that a task has been marked as incomplete.
      *
-     * @param items The user input split by whitespace.
+     * @param inputParts The user input split by whitespace.
      * @return String saying that a task has been marked as incomplete.
      * @throws CommandFormatException Command format is incorrect.
      * @throws NoSuchTaskException No such task exists.
      * @throws IndexOutOfBoundsException The list index is out of bounds.
      */
-    private String handleUnmarkCommand(String[] items) throws CommandFormatException, NoSuchTaskException,
+    private String handleUnmarkCommand(String[] inputParts) throws CommandFormatException, NoSuchTaskException,
             IndexOutOfBoundsException {
-        return handleTaskOperation(items, taskManager::markTaskAsIncomplete, CommandType.UNMARK);
+        return handleTaskOperation(inputParts, taskManager::markTaskAsIncomplete, CommandType.UNMARK);
     }
 
     /**
      * Returns the tasks filtered by keyword.
      *
-     * @param items The user input split by whitespace.
+     * @param inputParts The user input split by whitespace.
      * @return String stating the list of tasks with keyword.
      * @throws CommandFormatException If the command format was written incorrectly.
      */
-    private String handleFindCommand(String[] items) throws CommandFormatException {
-        checkForEmptyCommandArguments(items[1], CommandType.FIND, TASK_DESCRIPTION);
-        assert !items[1].isEmpty() : "The keyword to be searched cannot be empty.";
-        return taskManager.searchTasksByKeyword(items[1]);
+    private String handleFindCommand(String[] inputParts) throws CommandFormatException {
+        checkForEmptyCommandArguments(inputParts[1], CommandType.FIND, TASK_DESCRIPTION);
+        assert !inputParts[1].isEmpty() : "The keyword to be searched cannot be empty.";
+        return taskManager.searchTasksByKeyword(inputParts[1]);
     }
 
     /**
      * Adds a TodoTask and returns a message String saying that the TodoTask has been added.
      *
-     * @param items The user input split by whitespace.
+     * @param inputParts The user input split by whitespace.
      * @return String saying TodoTask has been added.
      * @throws CommandFormatException Command format is incorrect.
      */
-    private String handleTodoCommand(String[] items) throws CommandFormatException {
-        checkForEmptyCommandArguments(items[1], CommandType.TODO, TASK_DESCRIPTION);
-        assert !items[1].isEmpty() : "Task description cannot be empty.";
-        return taskManager.addTask(new TodoTask(items[1], false));
+    private String handleTodoCommand(String[] inputParts) throws CommandFormatException {
+        checkForEmptyCommandArguments(inputParts[1], CommandType.TODO, TASK_DESCRIPTION);
+        assert !inputParts[1].isEmpty() : "Task description cannot be empty.";
+        return taskManager.addTask(new TodoTask(inputParts[1], false));
     }
 
     /**
      * Adds a DeadlineTask and returns a message String saying that the DeadlineTask has been added.
      *
-     * @param items The user input split by whitespace.
+     * @param inputParts The user input split by whitespace.
      * @return String saying that DeadlineTask has been added.
      * @throws CommandFormatException Command format is incorrect.
      */
-    private String handleDeadlineCommand(String[] items) throws CommandFormatException {
-        checkForEmptyCommandArguments(items[1], CommandType.DEADLINE, COMMAND_FORMAT);
+    private String handleDeadlineCommand(String[] inputParts) throws CommandFormatException {
+        checkForEmptyCommandArguments(inputParts[1], CommandType.DEADLINE, COMMAND_FORMAT);
 
         // Returns [taskDescription, deadlineDate]
-        String[] splitInput = splitInputOverKeyword(items[1], "/by", CommandType.DEADLINE);
+        String[] splitInput = splitInputOverKeyword(inputParts[1], "/by", CommandType.DEADLINE);
 
         checkForEmptyCommandArguments(splitInput[0], CommandType.DEADLINE, TASK_DESCRIPTION);
 
@@ -200,15 +200,15 @@ public class Parser {
     /**
      * Adds an EventTask and returns a message String saying that EventTask has been added.
      *
-     * @param items The user input split by whitespace.
+     * @param inputParts The user input split by whitespace.
      * @return String saying that EventTask has been added.
      * @throws CommandFormatException Command format is incorrect.
      */
-    private String handleEventCommand(String[] items) throws CommandFormatException {
-        checkForEmptyCommandArguments(items[1], CommandType.EVENT, COMMAND_FORMAT);
+    private String handleEventCommand(String[] inputParts) throws CommandFormatException {
+        checkForEmptyCommandArguments(inputParts[1], CommandType.EVENT, COMMAND_FORMAT);
 
         // Returns [taskDescription, fromDate + /to + toDate]
-        String[] splitInput = splitInputOverKeyword(items[1], "/from", CommandType.EVENT);
+        String[] splitInput = splitInputOverKeyword(inputParts[1], "/from", CommandType.EVENT);
 
         checkForEmptyCommandArguments(splitInput[0], CommandType.EVENT, TASK_DESCRIPTION);
 
@@ -232,16 +232,16 @@ public class Parser {
     /**
      * Performs task operations for the delete, mark, and unmark commands.
      *
-     * @param items The user input split by whitespace.
+     * @param inputParts The user input split by whitespace.
      * @param taskOperation The taskManager method used by either delete, mark, or unmark.
      * @param commandType The name of the command.
      * @return String stating the status of task executed.
      * @throws CommandFormatException If the command format was written incorrectly.
      * @throws NoSuchTaskException If no such task index exists.
      */
-    private String handleTaskOperation(String[] items, Function<Integer, String> taskOperation, CommandType commandType)
-            throws CommandFormatException, NoSuchTaskException {
-        if (items.length != 2) {
+    private String handleTaskOperation(String[] inputParts, Function<Integer,
+            String> taskOperation, CommandType commandType) throws CommandFormatException, NoSuchTaskException {
+        if (inputParts.length != 2) {
             throw new CommandFormatException("Aw... " + commandType.toString().toLowerCase()
                     + " command must have just 2 arguments: "
                     + commandType.toString().toLowerCase()
@@ -249,7 +249,7 @@ public class Parser {
         }
 
         try {
-            int taskIndex = getTaskIndex(items);
+            int taskIndex = getTaskIndex(inputParts);
             return taskOperation.apply(taskIndex);
         } catch (NumberFormatException e) {
             throw new CommandFormatException("Aw... " + commandType.toString().toLowerCase()
@@ -262,12 +262,12 @@ public class Parser {
     /**
      * Gets the task index of a task and returns the index.
      *
-     * @param items The user input split by whitespace.
+     * @param inputParts The user input split by whitespace.
      * @return Task index in list of tasks.
      * @throws NoSuchTaskException If given task index is not within the list of tasks.
      */
-    private int getTaskIndex(String[] items) throws NoSuchTaskException {
-        int taskIndex = Integer.parseInt(items[1]);
+    private int getTaskIndex(String[] inputParts) throws NoSuchTaskException {
+        int taskIndex = Integer.parseInt(inputParts[1]);
         int taskCount = taskManager.getTaskSize();
         if (taskCount == 0) {
             throw new NoSuchTaskException("You have no tasks at the moment!");
@@ -286,20 +286,20 @@ public class Parser {
     /**
      * Checks if the user command is complete or incomplete.
      *
-     * @param items The user input split by whitespace.
+     * @param inputParts The user input split by whitespace.
      * @param command The command given by the user.
      * @throws CommandFormatException If the command format was written incorrectly.
      */
-    private void checkArgumentCount(String[] items, CommandType command) throws CommandFormatException {
+    private void checkArgumentCount(String[] inputParts, CommandType command) throws CommandFormatException {
         String commandFormat = getCommandFormat(command);
         assert commandFormat != null : "Command format cannot be null.";
         if (command == CommandType.BYE || command == CommandType.LIST || command == CommandType.SORT) {
-            if (items.length > 1) {
+            if (inputParts.length > 1) {
                 throw new CommandFormatException("Aw... " + command.toString().toLowerCase()
                         + " command must be just one word, e.g. "
                         + commandFormat);
             }
-        } else if (items.length != 2) {
+        } else if (inputParts.length != 2) {
             throw new CommandFormatException("Aw... " + command.toString().toLowerCase()
                     + " command is incomplete. The format is: "
                     + commandFormat);
@@ -362,12 +362,12 @@ public class Parser {
     }
 
     /**
-     * Returns an array of String containing the parameters of the user input when split over a keyword.
+     * Returns an array of String containing the arguments of the user input after splitting over a keyword.
      *
      * @param input The user input.
      * @param keyword The keyword that this method splits over.
      * @param command The command given by the user.
-     * @return array of String containing parameters of the user input.
+     * @return array of String containing arguments of the user input.
      * @throws CommandFormatException If the command was written incorrectly.
      */
     private String[] splitInputOverKeyword(String input, String keyword, CommandType command)
