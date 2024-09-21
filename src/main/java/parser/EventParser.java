@@ -68,7 +68,7 @@ public class EventParser {
         if (m.find()) {
             taskDescription = m.group(1);
             KorolevTodo out = new KorolevTodo(taskDescription.strip());
-            if (checkComplete(record)) {
+            if (isComplete(record)) {
                 out.markTask();
             }
             return out;
@@ -89,7 +89,7 @@ public class EventParser {
             taskDescription = m1.group(1);
             date = DateParser.parseRecordedDate(m2.group(1));
             KorolevDeadline out = new KorolevDeadline(taskDescription, date);
-            if (checkComplete(record)) {
+            if (isComplete(record)) {
                 out.markTask();
             }
             return out;
@@ -114,7 +114,7 @@ public class EventParser {
             from = DateParser.parseRecordedDate(m2.group(1).strip());
             to = DateParser.parseRecordedDate(m3.group(1).strip());
             KorolevEvent out = new KorolevEvent(taskDescription, from, to);
-            if (checkComplete(record)) {
+            if (isComplete(record)) {
                 out.markTask();
             }
             return out;
@@ -134,7 +134,7 @@ public class EventParser {
         }
     }
 
-    private static boolean checkComplete(String record) {
+    private static boolean isComplete(String record) {
         return record.contains("[X]");
     }
 }
