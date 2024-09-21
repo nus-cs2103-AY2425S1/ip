@@ -21,9 +21,8 @@ public abstract class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        if (this.tags == null) {
-            this.tags = new HashSet<>();  // Initialize only if null
-        }    }
+        this.tags = new HashSet<>();  // Initialize only if null
+    }
 
     public void addTag(String tag) {
         tags.add(tag);
@@ -70,6 +69,10 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    private String getTagsString() {
+        return tags.isEmpty() ? "" : " | Tags: " + tags;
+    }
+
     /**
      * Returns a string representation of the task, including its status and description.
      *
@@ -77,7 +80,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description + " Tags: checking" + tags;
+        return "[" + getStatusIcon() + "] " + description + getTagsString();
     }
 }
 
