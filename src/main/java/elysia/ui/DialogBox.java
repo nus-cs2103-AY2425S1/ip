@@ -49,10 +49,22 @@ public class DialogBox extends HBox {
         dialog.getStyleClass().add("reply-label");
     }
 
+    /**
+     * Shows what the user entered in a DialogBox
+     * @param text User input
+     * @param img User image
+     * @return a DialogBox containing the user input
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Shows Elysia's message in a flipped DialogBox
+     * @param text Elysia message
+     * @param img Elysia img
+     * @return a DialogBox containing Elysia message
+     */
     public static DialogBox getElysiaDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

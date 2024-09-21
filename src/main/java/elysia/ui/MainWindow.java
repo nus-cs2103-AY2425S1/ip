@@ -8,6 +8,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+import java.awt.dnd.DragSourceMotionListener;
+
 /**
  * Controller for the main GUI.
  */
@@ -26,6 +28,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/captain.jpg"));
     private Image elysiaImage = new Image(this.getClass().getResourceAsStream("/images/elysia.jpg"));
 
+    /**
+     * Initialises the scrollPane with a dialogContainer
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -36,11 +41,23 @@ public class MainWindow extends AnchorPane {
         this.elysia = elysia;
     }
 
+    /**
+     * Creates the welcome message DialogBox to be added upon application startup.
+     */
     @FXML
     public void showWelcome() {
         String welcome = "Hi~! I'm Elysia! As you can see, I'm a girl as beautiful as a flower!\n" +
                 "How can I help you today? I'm all ears!";
         dialogContainer.getChildren().addAll(DialogBox.getElysiaDialog(welcome, elysiaImage));
+    }
+
+    /**
+     * Creates the message for loading a file in a DialogBox.
+     */
+    @FXML
+    public void showFileMessage() {
+        String msg = elysia.getFileMessage();
+        dialogContainer.getChildren().addAll(DialogBox.getElysiaDialog(msg, elysiaImage));
     }
 
     /**
