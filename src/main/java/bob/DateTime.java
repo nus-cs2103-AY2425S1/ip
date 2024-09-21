@@ -23,7 +23,7 @@ public class DateTime {
     private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("'{'dd-MMM-uuuu HHmm'}'");
 
     /**
-     * Parses the given string with the format: d[d]/M[M][/uuuu][ HHmm]
+     * Parses the given string with the format: <code>d[d]/M[M][/uuuu][ HHmm]</code> <br>
      * The year and time defaults to the current year and 0000 respectively, if not provided.
      *
      * @param string the string to be parsed
@@ -47,7 +47,8 @@ public class DateTime {
     }
 
     /**
-     * Formats the given LocalDateTime with the format: {dd-MMM-uuuu HHmm}
+     * Formats the given LocalDateTime with the format: <code>{dd-MMM-uuuu HHmm}</code> <br>
+     * For example, <code>{09-Jun-2024 2200}</code>
      *
      * @param dateTime the datetime to be formatted
      * @return the formatted string

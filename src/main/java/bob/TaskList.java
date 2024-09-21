@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList implements Iterable<Task> {
     private final List<Task> TASKS;
 
@@ -48,7 +51,7 @@ public class TaskList implements Iterable<Task> {
      *
      * @param index index of the task to be removed
      * @return the removed task
-     * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size())
+     * @throws IndexOutOfBoundsException if the index is out of range (index &lt; 0 || index &gt;= size())
      */
     public Task remove(int index) {
         return TASKS.remove(index);
@@ -59,7 +62,7 @@ public class TaskList implements Iterable<Task> {
      *
      * @param index index of the task to return
      * @return the task at the given index in this list
-     * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size())
+     * @throws IndexOutOfBoundsException if the index is out of range (index &lt; 0 || index &gt;= size())
      */
     public Task get(int index) {
         return TASKS.get(index);

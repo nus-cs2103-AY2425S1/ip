@@ -75,9 +75,9 @@ public class Parser {
 
     /**
      * Tokenizes the given string into a map from argument name to their values.
-     * Unnamed arguments is mapped with key "", and the first word is mapped with key "CMD". For example:
-     * <code>"event test description /from 19/2/2023 1935 /to tomorrow"</code>
-     * is tokenized to
+     * Unnamed arguments is mapped with key "", and the first word is mapped with key "CMD". For example: <br>
+     * <code>"event test description /from 19/2/2023 1935 /to tomorrow"</code> <br>
+     * is tokenized to <br>
      * <code>{"CMD": "event", "": "test description", "from": "19/2/2023 1935", "to": "tomorrow"}</code>
      *
      * @param string the string to be tokenized

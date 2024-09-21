@@ -17,9 +17,9 @@ import java.util.Scanner;
  * The Storage class handles storing and reading data from files.
  * The formats for encoding and decoding each task is: <br>
  * <ul>
- *  <li>todo: "T&lt;isDone&gt;&lt;desc&gt;"</li>
- *  <li>deadline: "D&lt;isDone&gt;&lt;len(desc)#4&gt;&lt;desc&gt;&lt;by&gt;"</li>
- *  <li>event: "E&lt;isDone&gt;&lt;len(desc)#4&gt;&lt;desc&gt;&lt;len(from)#4&gt;&lt;from&gt;&lt;to&gt;"</li>
+ *  <li>todo: <code>T&lt;isDone&gt;&lt;desc&gt;</code></li>
+ *  <li>deadline: <code>D&lt;isDone&gt;&lt;len(desc)#4&gt;&lt;desc&gt;&lt;by&gt;</code></li>
+ *  <li>event: <code>E&lt;isDone&gt;&lt;len(desc)#4&gt;&lt;desc&gt;&lt;len(from)#4&gt;&lt;from&gt;&lt;to&gt;</code></li>
  * </ul>
  */
 public class Storage {
