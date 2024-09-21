@@ -62,6 +62,11 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Gets the response message of the command
+     *
+     * @return Response message of the command
+     */
     public String getString() {
         assert this.responseMessage != null : "The execute() method must be called first";
         return this.responseMessage;

@@ -37,7 +37,10 @@ public class EditCommand extends Command {
         this.editDataFromFile();
     }
 
-    public void editDataFromFile() {
+    /**
+     * Replaces a specific line in the data file and update the priority
+     */
+    private void editDataFromFile() {
         int i = 0;
         try {
             BufferedReader br = new BufferedReader(new FileReader("src/main/data/tuesday.txt"));
@@ -76,6 +79,11 @@ public class EditCommand extends Command {
         }
     }
 
+    /**
+     * Gets the response message of the command
+     *
+     * @return Response message of the command
+     */
     public String getString() {
         assert this.responseMessage != null : "The execute() method must be called first";
         return this.responseMessage;

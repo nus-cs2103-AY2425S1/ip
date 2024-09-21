@@ -49,10 +49,18 @@ public class MarkCommand extends Command {
         this.changeDataFromFile();
     }
 
+    /**
+     * Updates isMarked variable
+     */
     private void changeDoneInTask() {
         Task.getTaskArrayList().get(this.taskIndex - 1).changeDone(this.isMarked);
     }
 
+    /**
+     * Update the response Message
+     *
+     * @param ui The UI object
+     */
     private void getMarkMessage(Ui ui) {
         this.responseMessage = ui.showMarkMessage(this.taskIndex - 1, this.isMarked);
     }

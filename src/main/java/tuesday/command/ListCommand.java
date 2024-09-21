@@ -9,6 +9,7 @@ import tuesday.util.Ui;
  */
 public class ListCommand extends Command {
     private String responseMessage;
+
     /**
      * Constructor for ListCommand
      *
@@ -30,6 +31,11 @@ public class ListCommand extends Command {
         this.responseMessage = ui.showList();
     }
 
+    /**
+     * Gets the response message of the command
+     *
+     * @return Response message of the command
+     */
     public String getString() {
         assert this.responseMessage != null : "The execute() method must be called first";
         return this.responseMessage;
