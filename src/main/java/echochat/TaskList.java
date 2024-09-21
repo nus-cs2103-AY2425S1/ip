@@ -1,4 +1,6 @@
 package echochat;
+
+import exceptions.IndexOutOfBoundsError;
 import java.util.ArrayList;
 
 public class TaskList {
@@ -7,24 +9,35 @@ public class TaskList {
     private Storage storage = new Storage();
 
     /**
-     * Save tasks to file using Storage.
+     * Saves the current list of tasks to a file using the {@link Storage} class.
      */
     public void saveTasksToFile() {
         storage.save(taskList);
     }
 
     /**
-     * Loads tasks from saved file using Storage.
+     * Loads the list of tasks from a previously saved file using the {@link Storage} class.
+     * Updates the task list with the loaded tasks.
      */
     public void loadTasksFromFile() {
         taskList = storage.load();
     }
 
+    /**
+     * Retrieves the list of tasks.
+     *
+     * @return An {@link ArrayList} containing all tasks.
+     */
     public ArrayList<Task> getTaskList() {
         return taskList;
     }
 
-    public void addToList(Task task){
+    /**
+     * Adds a new task to the list and saves the updated list to the file.
+     *
+     * @param task The task to be added to the task list.
+     */
+    public void addToList(Task task) {
         try {
             taskList.add(task);
             saveTasksToFile();
@@ -34,14 +47,19 @@ public class TaskList {
     }
 
     /**
-     * Deletes task from tasklist.
+     * Deletes a task from the task list by index and saves the updated list to the file.
      *
-     * @param idx The index of the task to be removed
-     * @return The deleted task
+     * @param idx The index of the task to be removed (1-based index).
+     * @return The deleted {@link Task}.
+     * @throws IndexOutOfBoundsError If the provided index is out of bounds.
      */
-    public Task delete(int idx) {
-        Task task = taskList.remove(idx - 1);
-        saveTasksToFile();
-        return task;
+    public Task delete(int idx) throws IndexOutOfBoundsError {
+        try {
+            Task task = taskList.remove(idx - 1); // Convert 1-based index to 0-based index
+            saveTasksToFile();
+            return task;
+        } catch (IndexOutOfBoundsException e) {
+            throw new IndexOutOfBoundsError();
+        }
     }
 }

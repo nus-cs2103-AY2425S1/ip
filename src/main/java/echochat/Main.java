@@ -16,8 +16,6 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-
-
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;

@@ -1,4 +1,5 @@
 package echochat;
+
 import exceptions.EmptyDescriptionError;
 import exceptions.InvalidCommandError;
 
@@ -60,7 +61,7 @@ public class Parser {
     private Command parseActionCommand(String command, String details) throws EmptyDescriptionError, InvalidCommandError {
         switch (command) {
         case "find":
-            return new Command(CommandType.FIND, details, 0);
+            return new Command(CommandType.FIND, details, 1);
         case "mark":
             return new Command(CommandType.MARK, null, parseTaskNumber(details));
         case "unmark":
@@ -105,9 +106,10 @@ public class Parser {
      */
     private Command parseTask(String type, String details) throws InvalidCommandError, EmptyDescriptionError {
         String description = extractDescription(details);
-        String by = extractBy(details);
-        String from = extractFrom(details);
-        String to = extractTo(details);
+
+        String by = extractDetail(details, "by");
+        String from = extractDetail(details, "from");
+        String to = extractDetail(details, "to");
 
         if (description.isEmpty()) {
             throw new EmptyDescriptionError();
@@ -117,7 +119,6 @@ public class Parser {
         return new Command(determineCommandType(type), description, 0, task);
     }
 
-
     /**
      * Extracts the task description from the details string.
      *
@@ -125,54 +126,49 @@ public class Parser {
      * @return the extracted task description
      */
     private String extractDescription(String details) {
-        return details.split("/")[0].trim();
-    }
-
-    /**
-     * Extracts the "by" date for a deadline task from the details string.
-     *
-     * @param details the input string containing the task details
-     * @return the "by" date if present, null otherwise
-     */
-    private String extractBy(String details) {
-        return extractDetail(details, "by ");
-    }
-
-    /**
-     * Extracts the "from" time for an event task from the details string.
-     *
-     * @param details the input string containing the task details
-     * @return the "from" time if present, null otherwise
-     */
-    private String extractFrom(String details) {
-        return extractDetail(details, "from ");
-    }
-
-    /**
-     * Extracts the "to" time for an event task from the details string.
-     *
-     * @param details the input string containing the task details
-     * @return the "to" time if present, null otherwise
-     */
-    private String extractTo(String details) {
-        return extractDetail(details, "to ");
+        // Extract description by splitting at the first occurrence of "/" to avoid interfering with dates
+        int firstSlashIndex = details.indexOf('/');
+        if (firstSlashIndex != -1) {
+            return details.substring(0, firstSlashIndex).trim();
+        } else {
+            return details.trim(); // No slash, so the whole thing is a description
+        }
     }
 
     /**
      * Extracts a detail (such as a date or time) from the task details string.
      *
      * @param details the input string containing the task details
-     * @param prefix the prefix to look for (e.g., "by ", "from ", "to ")
-     * @return the extracted detail if present, null otherwise
+     * @param prefix the prefix to look for (e.g., "by", "from", "to")
+     * @return the extracted detail if present and not empty, null otherwise
+     * @throws InvalidCommandError if the extracted detail is empty
      */
-    private String extractDetail(String details, String prefix) {
-        for (String part : details.split("/")) {
-            part = part.trim();
-            if (part.startsWith(prefix)) {
-                return part.substring(prefix.length()).trim();
+    private String extractDetail(String details, String prefix) throws InvalidCommandError {
+        int prefixIndex = details.indexOf("/" + prefix);
+        if (prefixIndex != -1) {
+            // Find the starting point of the detail after the prefix
+            int detailStart = prefixIndex + prefix.length() + 1; // account for the length of the prefix and the '/'
+
+            // Find the next delimiter (another "/" or the end of the string)
+            int nextDelimiter = details.indexOf(" /", detailStart);
+
+            String extractedDetail;
+            if (nextDelimiter == -1) {
+                // If no further delimiter is found, take everything to the end of the string
+                extractedDetail = details.substring(detailStart).trim();
+            } else {
+                // If another delimiter is found, take the substring up to that point
+                extractedDetail = details.substring(detailStart, nextDelimiter).trim();
             }
+
+            // Check if the extracted detail is empty
+            if (extractedDetail.isEmpty()) {
+                throw new InvalidCommandError();
+            }
+
+            return extractedDetail;
         }
-        return null;
+        return null; // Return null if the prefix is not found
     }
 
     /**
@@ -223,5 +219,4 @@ public class Parser {
             throw new IllegalArgumentException("Invalid task type: " + type);
         }
     }
-
 }
