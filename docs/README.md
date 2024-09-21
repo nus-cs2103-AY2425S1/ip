@@ -12,6 +12,7 @@ It can handle todo tasks, tasks with deadlines and also events!
 3. Save the file to a suitable folder
 4. Open your command terminal, `cd` to the folder you saved the .jar file and enter `java -jar nimbus.jar` to start the program.
 
+# Features
 
 ## Add Tasks
 
@@ -167,7 +168,7 @@ BAIBAI! NIMBUS WEEEEEEEEE
 ```
 
 ## Handling of exceptions
-There are multiple exceptions to catch invalid user input and they  
+There are multiple exceptions to catch invalid user input, and they  
 provide guidance on the correct way to format your input!
 
 # Hope that you enjoy using Nimbus!!!

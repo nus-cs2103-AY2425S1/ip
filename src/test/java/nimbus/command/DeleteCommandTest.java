@@ -24,7 +24,7 @@ public class DeleteCommandTest {
     }
 
     /**
-     * Tests if multiple tasks can be deleted
+     * Tests if one task can be deleted from multiple tasks
      */
     @Test
     public void testDeleteCommand_manyTasks() {
@@ -34,7 +34,7 @@ public class DeleteCommandTest {
 
         String userInput = "delete 1";
         new DeleteCommand(userInput, taskList).execute();
-        assertEquals("[D][ ] Tutorial  (by: Aug 22 2024 6:00 pm)",
+        assertEquals("[D][ ] Tutorial (by: Aug 22 2024 6:00 pm)",
                 taskList.getTaskList().get(0).toString().trim());
     }
 
