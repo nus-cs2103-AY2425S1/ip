@@ -15,7 +15,7 @@ To use Maxine:
 
 1. Download the JAR file
 2. In your terminal, navigate to the directory containing the JAR file
-3. type in the command "java -jar "maxine.jar""
+3. type in the command `java -jar "maxine.jar"`
 
 NOTE: When you first use Maxine, it is expected that the command line
 may print some error messages in the command line
@@ -27,13 +27,13 @@ store data.
 
 To add a "Todo" task (ie. a task with no deadline), use the command:
 
-todo [task] (eg. "todo homework")
+`todo [task]` (eg. `todo homework`)
 
 ## Adding deadlines
 
 To add a "Deadline" task (ie. a task with a deadline), use the command:
 
-deadline [task] /by [deadline] (eg. "deadline homework /by 20-09-2024")
+`deadline [task] /by [deadline]` (eg. `deadline homework /by 20-09-2024`)
 
 The dates can be in the formats:
 
@@ -43,13 +43,13 @@ The dates can be in the formats:
 
 It is also possible to put a date as a deadline that does not follow the normal format of a date.
 
-eg. you can use the command "deadline homework /by tomorrow"
+eg. you can use the command `deadline homework /by tomorrow`
 
 ## Adding events
 
 To add an "Event" task (ie. a task with a start and end date), use the command:
 
-event [task] /from [start time] /to [end time] (eg. "event discussion /from today /to tomorrow")
+`event [task] /from [start time] /to [end time]` (eg. `event discussion /from today /to tomorrow`)
 
 Similar to the deadline task, you can use both a string which follows date format (or not)
 to fill in the start and end times of your event
@@ -57,33 +57,35 @@ to fill in the start and end times of your event
 ## View list
 
 Want to refer back to your task list? 
-No worries! Just type in the command "list" (without the inverted commas) to view your tasks
+No worries! Just type in the command `list` to view your tasks
 
 ## Mark your tasks when they are completed
 
-To mark you tasks as done, you can put in the command:
+To mark your tasks as done, you can put in the command:
 
-"mark [number]", where the number corresponds to the number on of the task on the task list
-(eg. "mark 1" to mark the first task on the list)
+`mark [number]`, where the number corresponds to the number of the task on the task list
+(eg. `mark 1` to mark the first task on the list)
 
 ## Unmark your tasks
 
 Accidentally marked a task as complete?
 
-Don't fret! Similar to marking a task, you can unmark a task by typing the command "unmark [number]"
+Don't fret! Similar to marking a task, you can unmark a task by typing the command
+`unmark [number]` (eg. `unmark 1`)
 
 ## Deleting a task
 
 If you would like to delete a task by using the command:
 
-"delete [number]", where the number corresponds to the task number in the task list.
+`delete [number]` (eg. `delete 1`), where the number corresponds to the task number in the task list.
 
 ## Clearing the list (Extension BCD)
 
-To delete everything in the list, use the command: "delete all"
+To delete everything in the list, use the command: `delete all`
 
 ## Finding specific tasks in your list
 
 If your list is too long and you would like to search for a specific task, just use the command:
 
-"find [keyword]", where keyword is the name of the task you would like to find
+`find [keyword]` (eg. `find project`, if you want to find a task called "project"),
+where keyword is the name of the task you would like to find
