@@ -38,7 +38,8 @@ public class FindCommand extends Command {
                         + taskList.get(index).toString())
                 .reduce("", (a, b) -> a + "\n" + b);
 
-        ui.printWithFormat("Here are the matching tasks in your list:" + listString);
+        ui.printWithFormat("Here are the matching tasks in your list:"
+                + ui.highlightKeyword(listString, keyword, true));
     }
 
     private static List<Integer> getIndices(List<Task> taskList, String keyword) {
