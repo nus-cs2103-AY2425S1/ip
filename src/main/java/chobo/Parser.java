@@ -53,7 +53,7 @@ public class Parser {
     }
 
     private static Command parseTodoCommand(String[] inputs) throws InputException {
-        if (inputs.length < 2) {
+        if (inputs.length < 2 || inputs[1].trim().isEmpty()) {
             throw new InputException("todo");
         }
         return new AddToDoCommand(inputs[1].trim());

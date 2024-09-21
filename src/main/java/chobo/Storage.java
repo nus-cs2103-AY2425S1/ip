@@ -61,8 +61,6 @@ public class Storage {
                 default:
                     continue; // Skip unknown task types
                 }
-
-                // Execute the command to add the task
                 command.execute(tasks, ui, this); // Ensure your Command classes have an execute method
                 if (isDone) {
                     tasks.getTask(tasks.getTotalTask() - 1).mark(); // Mark the last added task as done
