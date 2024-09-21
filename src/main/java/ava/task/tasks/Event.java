@@ -18,9 +18,9 @@ public class Event extends Task {
      * Creates a new event with the input title,
      * start time and end time
      *
-     * @param title the title
-     * @param startTime the start time
-     * @param endTime the end time
+     * @param title the title.
+     * @param startTime the start time.
+     * @param endTime the end time.
      */
     public Event(String title, String startTime, String endTime) {
         super(title);
@@ -31,7 +31,7 @@ public class Event extends Task {
     /**
      * Returns the string representation of the event
      *
-     * @return the string representation of the event
+     * @return the string representation of the event.
      */
     @Override
     public String toString() {
@@ -48,10 +48,10 @@ public class Event extends Task {
 
     /**
      * Serializes the event to a string
-     *
      * <br>
      * Optimizes the task's string representation for storage
-     * @return the serialized string
+     *
+     * @return the serialized string.
      */
     public String serialize() {
         return String.format("E,%s,%s,%s", super.serialize(),startTime,endTime);

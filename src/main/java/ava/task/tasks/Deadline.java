@@ -15,8 +15,8 @@ public class Deadline extends Task {
     /**
      * Creates a new deadline with the input title and time
      *
-     * @param title the title
-     * @param time the time
+     * @param title the title.
+     * @param time the time.
      */
     public Deadline(String title,String time) {
         super(title);
@@ -26,9 +26,9 @@ public class Deadline extends Task {
     /**
      * Creates a new deadline with the input title, completion status and time
      *
-     * @param title the title
-     * @param done the completion status
-     * @param time the time
+     * @param title the title.
+     * @param done the completion status.
+     * @param time the time.
      */
     public Deadline(String title, boolean done, String time) {
         super(title, done);
@@ -38,7 +38,7 @@ public class Deadline extends Task {
     /**
      * Returns the string representation of the deadline
      *
-     * @return the string representation of the deadline
+     * @return the string representation of the deadline.
      */
     @Override
     public String toString() {
@@ -53,10 +53,10 @@ public class Deadline extends Task {
 
     /**
      * Serializes the deadline to a string
-     *
      * <br>
      * Optimizes the task's string representation for storage
-     * @return the serialized string
+     *
+     * @return the serialized string.
      */
     public String serialize() {
         return String.format("D,%s,%s", super.serialize(),time);

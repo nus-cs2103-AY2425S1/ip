@@ -9,18 +9,19 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.PrintWriter;
 import java.util.List;
+import java.util.stream.Stream;
 
+/**
+ * Manages File I/O for AVA
+ */
 public class FileManager {
 
-
-    //TODO: Switch to environment variables
-    //TODO: optimize serialization
     private String path;
     private File file;
     private BufferedReader reader;
-    private BufferedWriter writer;
+    private PrintWriter writer;
     private List<Task> taskList;
 
     /**
@@ -30,10 +31,10 @@ public class FileManager {
 
     /**
      * Creates a new FileManager with default path
-     *
      * <br>
      * Calls {@link FileManager#FileManager(String)} internally to create the FileManager
      * Only use this constructor if user doesn't want to set file path
+     *
      * @see FileManager#FileManager(String)
      */
     public FileManager(){
@@ -42,9 +43,9 @@ public class FileManager {
 
     /**
      * Creates a new FileManager with given path
-     *
      * <br>
      * if no file exists at the given path one is created
+     *
      * @param path Path to the file
      */
     public FileManager(String path){
@@ -76,7 +77,7 @@ public class FileManager {
         }
 
         try {
-            writer = new BufferedWriter(new FileWriter(file));
+            writer = new PrintWriter(new BufferedWriter(new FileWriter(file)));
         } catch (IOException e) {
             System.out.println("File corrupted or not found.");
         }
@@ -87,26 +88,32 @@ public class FileManager {
 
     /**
      * Reads tasks from file
-     *
      * <br>
      * Reads tasks from file, parse them and
      * returns a list
      * <br>
      * used for initial loading of tasks
+     *
      * @return List of tasks
      */
     public List<Task> getTasks() {
-        // TODO: implement reading from file
         try {
             String line = reader.readLine();
             while(line != null) {
                 /*
                  * read
-                 * parse for type
-                 * create task
-                 * add task to taskList
+                 * deserialize
+                 * add to taskList
                  */
 
+                Task task;
+                try {
+                    task = DataManager.deserialize(line);
+                } catch (IllegalArgumentException e){
+                    System.out.println("Data file is corrupted");
+                    throw new IllegalArgumentException("Corrupted file");
+                }
+                taskList.add(task);
                 line = reader.readLine();
             }
 
@@ -120,18 +127,14 @@ public class FileManager {
 
     /**
      * Writes tasks to file
-     *
      * <br>
      * Writes tasks to file,
      * used to save tasks after each update
+     *
      * @param tasks List of tasks to write
      */
     public void writeTasks(List<Task> tasks){
-
+            tasks.stream().map(Task::serialize).forEachOrdered(writer::println);
     }
 
-    public static void main(String[] args) {
-        FileManager fileManager = new FileManager();
-        System.out.println(fileManager.getTasks());
-    }
 }

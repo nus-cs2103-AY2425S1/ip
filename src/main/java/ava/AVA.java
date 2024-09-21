@@ -8,6 +8,9 @@ import ava.task.TaskManager;
 import java.io.PrintStream;
 import java.util.List;
 
+/**
+ * Creates a model AVA which follows commands.
+ */
 public class AVA {
 
     /**
@@ -16,33 +19,36 @@ public class AVA {
     private String currentInput;
 
     /**
-     * TaskManager for AVA
+     * TaskManager for AVA.
      * <br>
-     * initialized on ava's creation
+     * Initialized on ava's creation.
      * <br><br>
-     * <code>final</code> to avoid unnecessary modifications
+     * <code>final</code> to avoid unnecessary modifications.
      */
     private final TaskManager taskManager;
 
     /**
-     * default constructor for AVA
+     * default constructor for AVA.
      */
     public AVA() {
         taskManager = new TaskManager();
     }
 
     /**
-     * Decides if AVA is running or not
-     * //TODO: switch to a state based system like Operating System Threads
-     * @return <span color="green">true</span> if AVA is running <span color="red">false</span> otherwise
+     * Decides if AVA is running or not.
+     *
+     * TODO: switch to a state based system like Operating System Threads
+     *
+     * @return <span color="green">true</span> if AVA is running <span color="red">false</span> otherwise.
      */
     public final boolean isRunning(){
         return !currentInput.equals("bye");
     }
 
     /**
-     * Updates the currentInput with the user input
-     * @param s the user input
+     * Updates the currentInput with the user input.
+     *
+     * @param s the user input.
      */
     public void tellAva(String s) {
         currentInput = s;
@@ -50,9 +56,10 @@ public class AVA {
 
     //todo:have a non printstream version
     /**
-     * Prints AVA's response to given PrintStream
-     * @param out PrintStream to print AVA's response to
-     * //TODO:refactor mark and unmark to remove redundancy
+     * Prints AVA's response to given PrintStream.
+     *
+     * @param out PrintStream to print AVA's response to.
+     * TODO:refactor mark and unmark to remove redundancy
      */
     public void respond(PrintStream out) {
         Command userInput;
@@ -145,10 +152,9 @@ public class AVA {
     }
 
     /**
-     *  Runs AVA
-     *
+     *  Runs AVA.
      *  <br>
-     *  Main driver method running AVA
+     *  Main driver method running AVA.
      */
     public static void main(String[] args) {
         TextUI.run();

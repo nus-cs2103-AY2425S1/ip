@@ -4,6 +4,11 @@ import ava.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Creates a class specialized for storing Tasks
+ *
+ * @inheritDoc
+ */
 public class TaskList extends ArrayList<Task> {
     @Override
     public String toString() {

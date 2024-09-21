@@ -2,16 +2,19 @@ package ava;
 
 import java.util.Scanner;
 
+
+/**
+ *  Provides a Text User Interface for AVA.
+ */
 public class TextUI {
     //TODO: add verbose toggle
 
     /**
-     * Provides a Text User Interface
-     *
+     * Provides a Text User Interface.
      * <br>
-     * This is the main function which keeps the interaction running between user and AVA
+     * This is the main function which keeps the interaction running between user and AVA.
      * <br>
-     * The model is separated into its own class for OOP
+     * The model is separated into its own class for OOP.
      */
     public static void run(){
         Scanner scanner = new Scanner(System.in);
