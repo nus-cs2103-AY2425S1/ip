@@ -14,6 +14,7 @@ Gallium is your **todos, deadlines and events manager chatbot**, optimized for u
   - [Finding Tasks: `find`](#finding-tasks-find)
   - [Filtering Tasks by Date: `date`](#filtering-tasks-by-date-date)
   - [Editing Tasks: `edit`](#editing-tasks-edit)
+  - [Viewing Commands: `help`](#viewing-commands-help)
   - [Exiting: `bye`](#exiting-bye)
 - [Storage](#storage)
 - [Command Summary](#command-summary)
@@ -37,7 +38,7 @@ Gallium is your **todos, deadlines and events manager chatbot**, optimized for u
 
 ## Viewing the Task List: `list`
 
-View the entire task list. The task list will be shown as follows:
+Displays the entire task list. The task list will be shown as follows:
 
 - Task Type (`T` is a Todo, `D` is a Deadline and `E` is an Event)
 - Status (`[X]` for completed, `[ ]` for incomplete)
@@ -170,6 +171,12 @@ Format: `<Index>. <New details>`
 
 Example: `2. 2024-09-20 2359`
 
+## Viewing Commands: `help`
+
+Displays a list of valid commands.
+
+Format: `help`
+
 ## Exiting: `bye`
 
 Exits the program.
@@ -194,4 +201,5 @@ Gallium saves all your tasks automatically to a local file named `gallium.txt` s
 | `find`     | `find <keyword>`                              | Finds tasks which descriptions contains the keyword being input. |
 | `edit`     | `edit <Index>`                                | Edits task details at index `i` of task list.                    |
 | `date`     | `date <date>`                                 | Finds tasks which date matches the date being input.             |
+| `help`     | `help`                                        | Displays a list of valid commands.                               |
 | `bye`      | `bye`                                         | Exits the program.                                               |
