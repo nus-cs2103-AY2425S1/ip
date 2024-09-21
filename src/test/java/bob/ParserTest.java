@@ -71,6 +71,11 @@ public class ParserTest {
         // exit
         assertEquals(new ExitCommand(Map.of("CMD", "bye")), parser.parse("bye"));
 
+        // find
+        assertEquals(
+                new FindCommand(Map.of("CMD", "find", "", "book")),
+                parser.parse("find book"));
+
         // list
         assertEquals(new ListCommand(Map.of("CMD", "list")), parser.parse("list"));
 
