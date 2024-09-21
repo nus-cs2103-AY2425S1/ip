@@ -1,8 +1,8 @@
 package alexer.command;
 
 import alexer.Alexer;
+import alexer.task.Task;
 import alexer.task.TaskManager;
-import alexer.task.Todo;
 import alexer.ui.Response;
 
 import static alexer.Prompter.MESSAGE_ADD_TODO_TASK;
@@ -25,8 +25,7 @@ public class AddTodoCommand extends Command {
             return new Response("Oh-no! You forgot to include a description for your task!");
         }
 
-        Todo todo = new Todo(description);
-        taskManager.addTask(todo);
+        Task todo = taskManager.createTodo(description);
         taskManager.saveTasks();
 
         return new Response(String.format("%s\n\n\t%s\n\nYou have %d tasks now.",

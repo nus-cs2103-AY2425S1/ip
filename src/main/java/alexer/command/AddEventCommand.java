@@ -1,7 +1,7 @@
 package alexer.command;
 
 import alexer.Alexer;
-import alexer.task.Event;
+import alexer.task.Task;
 import alexer.task.TaskManager;
 import alexer.ui.Response;
 
@@ -39,8 +39,7 @@ public class AddEventCommand extends Command {
         String to = Arrays.stream(arguments).skip(toIndex + 1).collect(Collectors.joining(" "));
 
         TaskManager taskManager = Alexer.getInstance().getTaskManager();
-        Event event = new Event(description, from, to);
-        taskManager.addTask(event);
+        Task event = taskManager.createEvent(description, from, to);
         taskManager.saveTasks();
 
         return new Response(String.format("%s\n\n\t%s\n\nYou have %d tasks now.",

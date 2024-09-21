@@ -1,7 +1,7 @@
 package alexer.command;
 
 import alexer.Alexer;
-import alexer.task.Deadline;
+import alexer.task.Task;
 import alexer.task.TaskManager;
 import alexer.ui.Response;
 
@@ -45,8 +45,7 @@ public class AddDeadlineCommand extends Command {
         }
 
         TaskManager taskManager = Alexer.getInstance().getTaskManager();
-        Deadline deadline = new Deadline(description, dateTime);
-        taskManager.addTask(deadline);
+        Task deadline = taskManager.createDeadline(description, dateTime);
         taskManager.saveTasks();
 
         return new Response(String.format("%s\n\n\t%s\n\nYou have %d tasks now.",
