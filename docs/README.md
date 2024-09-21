@@ -1,10 +1,22 @@
 # Dawn User Guide
 
-![Ui of Dawn chatbot](https://github.com/user-attachments/assets/7de331c1-2510-4c93-80c9-64fceb8cc688)
+Dawn is a text-based chatbot that helps you to manage your todos, deadlines, and events!
 
-Dawn is a text-based chatbot that helps you to manage your todos, deadlines, and events! 
+![Ui of Dawn chatbot](https://github.com/user-attachments/assets/7de331c1-2510-4c93-80c9-64fceb8cc688) 
 
-Below are some features supported by Dawn
+## Overview of available commands
+1. Add todo - `todo [task]`
+2. Add deadline - `deadline [task] /by [date yyyy-mm-dd] [time]`
+3. Add event - `event [task] /from [date yyyy-mm-dd] [time] /to [time]`
+4. Find task - `find [task]`
+5. List all the tasks and events - `list`
+6. Mark a task as done - `mark [index]`
+7. Mark a task as not done - `unmark [index]`
+8. Delete a task or event - `delete [index]`
+9. Get a reminder on upcoming deadlines and events - `remind`
+10. Exit the chat - `bye`
+
+---
 
 ## Feature 1: Adding todos, deadlines, and events
 
