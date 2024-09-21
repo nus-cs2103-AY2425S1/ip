@@ -102,16 +102,31 @@ public class Task {
 
     /**
      * update the content
+     *
+     * @param priority description
+     * priority is an integer
+     *
      */
 
     public void update(Integer priority) {
         this.priority = Integer.valueOf(priority);
     }
 
+    /**
+     * update the content
+     * @param  description
+     * description is a string
+     */
     public void update(String description) {
         this.description = description;
     }
 
+    /**
+     * update the content
+     * @param priority description
+     * @param  description
+     * description is a string, priority is an integer
+     */
     public void update(String description, Integer priority) {
         this.description = description;
         this.priority = priority;
