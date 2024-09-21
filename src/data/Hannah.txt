@@ -1,0 +1,9 @@
+T | 0 | read
+D | 1 | sleep | by 2024-05-03
+T | 1 | bake
+T | 1 | run
+E | 0 | walk | from 2022-05-10 to 2023-05-04
+T | 1 | eat
+T | 1 | sleep
+D | 1 | homework | by 2023-09-09
+E | 0 | hello | from 2030-08-08 to 2022-01-01

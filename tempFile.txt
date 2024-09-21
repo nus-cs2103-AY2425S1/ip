@@ -1,0 +1,13 @@
+T | 1 | read book
+D | 0 | return book | by June 6th
+E | 0 | project meeting | from 2pm to 6pm
+T | 1 | join sports club
+T | 1 | doeee
+D | 0 | return book | by June 7th
+E | 0 | project meeting | from 2pm to 6pm
+T | 1 | join sports club
+T | 0 | hi
+D | 0 | bye | by 8 
+E | 0 | concert | from 9 to 10
+T | 0 | hi
+T | 1 | hello
