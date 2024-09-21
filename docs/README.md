@@ -5,91 +5,197 @@
 ## Setup
 
 1. **Installation**: Ensure Java is installed on your system. Download the DrBrown application jar file and place it in a folder.
-2. **Running the Application**:
-    - **CLI Version**: Open a terminal or command prompt, navigate to the folder containing the jar file, and run `java -jar DrBrown.jar`.
-    - **GUI Version**: Launch the jar file directly or run it through a terminal with the `java -jar DrBrown.jar` command.
+2. **Running the Application**: Open a terminal or command prompt, navigate to the folder containing the jar file, and run `java -jar DrBrown.jar`.
 
-## Core Components
+## Features List
 
-### DrBrown Main Class
 
-- Initializes the application with a `Ui`, `Storage`, and `TaskList`.
-- Loads tasks from a file and handles errors in loading.
-- Processes user commands and outputs results or error messages.
+### Add Tasks
+Manage your tasks with three types:
 
-### Commands
+- **Todo**: A basic task with no time attached.
+- **Deadline**: Set a due date to remind you of your time-sensitive tasks.
+- **Event**: For tasks that have both a start and end date.
 
-Commands allow users to interact with the application to perform various operations. All commands extend the abstract `Command` class and implement the `executeCommand()` method:
+#### 1. Adding Todos:
 
-- **AddCommand**: Adds a task (`Todo`, `Deadline`, `Event`) to the task list.
-- **DeleteCommand**: Deletes a task by its index.
-- **ExitCommand**: Exits the application.
-- **FindCommand**: Finds tasks containing a specific keyword.
-- **ListCommand**: Lists all tasks.
-- **MarkCommand**: Marks a task as completed.
-- **UnmarkCommand**: Unmarks a task as not completed.
+- **Format**:
+  ```
+  todo {description} /priority {LOW|MEDIUM|HIGH}
+  ```
 
-### Tasks
+- **Example:**
+  ```
+  todo Complete assignment /priority HIGH
+  ```
+  
+- **Expected Output:**
+  ```
+  Doc, you don't just walk into a store and buy plutonium! But you sure can add this task to your list!
+  
+  [T][ ] Complete assignment | HIGH
+  
+  Your total count is now 1! Like the time circuits, everything's in sync – keep those tasks ticking along!
+  ```
+---
+#### 2. Adding Deadlines:
 
-Tasks represent the different types of activities users can manage:
+- **Format**:
+  ```
+  deadline {description} /by {date: MMM dd yyyy HH:mm} /priority {LOW|MEDIUM|HIGH}
+  ```
 
-- **Task**: The abstract base class for all tasks with common attributes like description, status, and priority.
-- **Todo**: A simple task with a description and priority.
-- **Deadline**: A task with a description, a deadline date/time, and priority.
-- **Event**: A task with a description, start and end date/time, and priority.
+- **Example:**
+  ```
+  deadline Submit report /by Oct 22 2005 16:00 /priority MEDIUM
+  ```
 
-### Priorities
+- **Expected Output:**
+  ```
+  Last night, Darth Vader came down from Planet Vulcan and told me that if you don't meet this deadline... he'd melt your brain! So, better get moving!
 
-There are three types of priorities that can be assigned to tasks:
+  [D][ ] Submit report | MEDIUM (by: Oct 22 2005 16:00)
 
-- **LOW**: Represents tasks with low urgency.
-- **MEDIUM**: Represents tasks with moderate urgency.
-- **HIGH**: Represents tasks with high urgency and importance.
+  Your total count is now 2! Like the time circuits, everything's in sync – keep those tasks ticking along!
+  ```
+---
+#### 3. Adding Events:
 
-### Utilities
+- **Format**:
+  ```
+  event {description} /from {start date: MMM dd yyyy HH:mm} /to {end date: MMM dd yyyy HH:mm} /priority {LOW|MEDIUM|HIGH}
+  ```
 
-Utility classes provide supporting functionality:
+- **Example:**
+  ```
+  event Team meeting /from Oct 22 2005 09:00 /to Oct 23 2005 11:00 /priority LOW
+  ```
 
-- **Ui**: Handles all user interface interactions, displaying messages and reading input. It provides themed messages for various operations and errors.
-- **Storage**: Handles loading and saving tasks to a file.
-- **TaskList**: Manages the list of tasks, providing methods to add, remove, mark, unmark, find, and list tasks.
-- **DrBrownException**: A custom exception class for handling application-specific errors.
+- **Expected Output:**
+  ```
+  The appropriate question is: 'When the hell are they?' Your event is now set in time!
 
-## Usage Instructions
+  [E][ ] Team meeting | LOW (from: Oct 22 2005 end: Oct 23 2005 11:00)
 
-### Adding Todo
+  Your total count is now 3! Like the time circuits, everything's in sync – keep those tasks ticking along!
+  ```
+---
+#### 4. Deleting Tasks
 
-- **Todo**: `todo {description} /priority {LOW|MEDIUM|HIGH}`
-- **Example**: `todo Complete assignment /priority HIGH`
+- **Format**:
+  ```
+  delete {index}
+  ```
 
-### Adding Deadline
-- **Deadline**: `deadline {description} /by {date: MMM dd yyyy HH:mm} /priority {LOW|MEDIUM|HIGH}`
-- **Example**: `deadline Submit report /by Oct 22 2005 /priority MEDIUM`
+- **Example:**
+  ```
+  delete 1
+  ```
 
-### Adding Event
-- **Event**: `event {description} /from {start date: MMM dd yyyy HH:mm} /to {end date: MMM dd yyyy HH:mm} /priority {LOW|MEDIUM|HIGH}`
-- **Example** - `event Team meeting /from Oct 22 2005 09:00 /to Oct 23 2005 11:00 /priority LOW`
+- **Expected Output:**
+  ```
+  That task's history has been erased! Just like Marty's fading photo - it's gone, like it never existed!
 
-### Deleting Tasks
+  [T][ ] Complete assignment | HIGH
 
-- **Delete a Task**: `delete {index}`
+  Your total count is now 2! Like the time circuits, everything's in sync - keep those tasks ticking along!
+  ```
+---
+#### 5. Listing Tasks
 
-### Listing Tasks
+- **Format**:
+  ```
+  list
+  ```
 
-- **List All Tasks**: `list`
+- **Example:**
+  ```
+  list
+  ```
 
-### Marking and Unmarking Tasks
+- **Expected Output:**
+  ```
+  Here's your list! Like Doc Brown's flux capacitor, this will help keep everything in perfect sync!
 
-- **Mark a Task**: `mark {index}`
-- **Unmark a Task**: `unmark {index}`
+  1. [D][ ] Submit report | MEDIUM (by: Oct 22 2005 16:00)
+  2. [E][ ] Team meeting | LOW (from: Oct 22 2005 end: Oct 23 2005 11:00)
+  ```
+---
+#### 6. Marking Tasks
 
-### Finding Tasks
+- **Format**:
+  ```
+  mark {index}
+  ```
 
-- **Find Tasks by Keyword**: `find {keyword}`
+- **Example:**
+  ```
+  mark 1
+  ```
 
-### Exiting the Application
+- **Expected Output:**
+  ```
+  Task complete! If my calculations are correct, when this baby hits 88 miles per hour... you're gonna see some serious progress!
 
-- **Exit**: `bye`
+  [D][X] Submit report | MEDIUM (by: Oct 22 2005 16:00)
+  ```
+---
+#### 7. Unmarking Tasks
+
+- **Format**:
+  ```
+  unmark {index}
+  ```
+
+- **Example:**
+  ```
+  unmark 1
+  ```
+
+- **Expected Output:**
+  ```
+  Looks like we're going back to the future—task unmarked! Time to revisit this one.
+
+  [D][ ] Submit report | MEDIUM (by: Oct 22 2005 16:00)
+  ```
+---
+#### 8. Finding Tasks
+
+- **Format**:
+  ```
+  find {keyword}
+  ```
+
+- **Example:**
+  ```
+  find report
+  ```
+
+- **Expected Output:**
+  ```
+  Here are the matching tasks in your list - it's your density... I mean, your destiny to get these done!
+
+  1. [D][ ] Submit report | MEDIUM (by: Oct 22 2005 16:00)
+  ```
+---
+#### 9. Exiting
+
+Do note that it is important to exit with bye in order to save the contents within the list.
+
+- **Format**:
+  ```
+  bye
+  ```
+
+- **Example:**
+  ```
+  bye
+  ```
+
+- **Expected Output:**
+  ```
+  Your future is whatever you make it, so make it a good one! Until next time, keep the DeLorean ready!
+  ```
 
 ## Error Handling
 

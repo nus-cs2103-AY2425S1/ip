@@ -125,7 +125,7 @@ public class Ui {
      * @return A string message introducing the matching tasks.
      */
     public String showFind() {
-        return "Here are the matching tasks in your list — it's your density... "
+        return "Here are the matching tasks in your list - it's your density... "
                 + "I mean, your destiny to get these done!\n";
     }
 
@@ -146,7 +146,7 @@ public class Ui {
      */
     public static String getTodoExceptionNoDescription() {
         return "Great Scott! You can't add a to-do without a "
-                + "description!\n\nUse the format: todo {description} /priority {priority}";
+                + "description!\n\nUse the format: todo {description} /priority {LOW|MEDIUM|HIGH}";
     }
 
     /**
@@ -156,7 +156,7 @@ public class Ui {
      */
     public static String getTodoExceptionNoPriority() {
         return "Whoa, this priority is heavy! Set it to 1, 2, or 3 to "
-                + "keep the timeline intact! Use the format: todo {description} /priority {priority}";
+                + "keep the timeline intact! Use the format: todo {description} /priority {LOW|MEDIUM|HIGH}";
     }
 
     /**
@@ -166,7 +166,7 @@ public class Ui {
      */
     public static String getTodoExceptionOthers() {
         return "Great Scott! You can't add a to-do without a description!"
-                + "\n\nUse the format: todo {description} /priority {priority}";
+                + "\n\nUse the format: todo {description} /priority {LOW|MEDIUM|HIGH}";
     }
 
     /**
@@ -187,7 +187,7 @@ public class Ui {
     public static String getDeadlineExceptionNoDescription() {
         return "Great Scott! You can't add a deadline without a "
                 + "description and date!\nUse the format: deadline {description} /by "
-                + "{MMM dd yyyy HH:mm} /priority {priority}";
+                + "{MMM dd yyyy HH:mm} /priority {LOW|MEDIUM|HIGH}";
     }
 
     /**
@@ -197,7 +197,7 @@ public class Ui {
      */
     public static String getDeadlineExceptionNoDate() {
         return "Hello? Hello? Anybody home? Looks like something's missing "
-                + "here!\nUse the format: deadline {description} /by {MMM dd yyyy HH:mm} /priority {priority}";
+                + "here!\nUse the format: deadline {description} /by {MMM dd yyyy HH:mm} /priority {LOW|MEDIUM|HIGH}";
     }
 
     /**
@@ -208,7 +208,7 @@ public class Ui {
     public static String getDeadlineExceptionOthers() {
         return "Looks like your Uncle Joey didn't make parole again... "
                 + "and you missed the date! Let's fix that deadline!\nUse the format: deadline "
-                + "{description} /by {MMM dd yyyy HH:mm} /priority {priority}";
+                + "{description} /by {MMM dd yyyy HH:mm} /priority {LOW|MEDIUM|HIGH}";
     }
 
     /**
@@ -239,7 +239,7 @@ public class Ui {
     public static String getEventExceptionNoDescription() {
         return "Great Scott! You can't add an event without a description "
                 + "and from and to date!\nUse the format: "
-                + "event {description} /from {MMM dd yyyy HH:mm} /to {MMM dd yyyy HH:mm} /priority {priority}";
+                + "event {description} /from {MMM dd yyyy HH:mm} /to {MMM dd yyyy HH:mm} /priority {LOW|MEDIUM|HIGH}";
     }
 
     /**
@@ -250,7 +250,7 @@ public class Ui {
     public static String getEventExceptionNoDate() {
         return "Looks like your Uncle Joey didn't make parole again... "
                 + "and you missed the date! Let's fix that event!\nUse the format: "
-                + "event {description} /from {MMM dd yyyy HH:mm} /to {MMM dd yyyy HH:mm} /priority {priority}";
+                + "event {description} /from {MMM dd yyyy HH:mm} /to {MMM dd yyyy HH:mm} /priority {LOW|MEDIUM|HIGH}";
     }
 
     /**
@@ -270,7 +270,7 @@ public class Ui {
     public static String getEventExceptionOthers() {
         return "Looks like your Uncle Joey didn't make parole again... "
                 + "and you missed the date! Let's fix that event!\nUse the format: "
-                + "event {description} /from {MMM dd yyyy HH:mm} /to {MMM dd yyyy HH:mm} /priority {priority}";
+                + "event {description} /from {MMM dd yyyy HH:mm} /to {MMM dd yyyy HH:mm} /priority {LOW|MEDIUM|HIGH}";
     }
 
     /**

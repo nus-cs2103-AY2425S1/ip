@@ -84,4 +84,30 @@ public class TodoTest {
         Todo todo = new Todo(true, description, validPriority);
         assertEquals("[T][X] Buy groceries | LOW", todo.toString());
     }
+
+    /**
+     * Tests the handling of a null description in the {@link Todo} constructor.
+     * Verifies that an {@code AssertionError} is thrown when the description is null.
+     */
+    @Test
+    public void testNullDescriptionTodo() {
+        try {
+            new Todo(false, null, validPriority);
+            fail("Expected AssertionError for null description");
+        } catch (AssertionError ignored) {
+            // Test passes
+        }
+    }
+
+    /**
+     * Tests the creation of a {@link Todo} task with an empty description.
+     * Ensures that the string representation of the created {@code Todo} object
+     * reflects the empty description correctly.
+     */
+    @Test
+    public void testEmptyDescriptionTodo() {
+        Todo todo = new Todo(false, "", validPriority);
+        assertEquals("[T][ ]  | LOW", todo.toString());
+    }
+
 }

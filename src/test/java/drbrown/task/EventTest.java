@@ -123,4 +123,32 @@ public class EventTest {
                 LocalDateTime.parse(validEndTime, fileDateTimeFormatter), validPriority);
         assertEquals("[E][X] Meeting | LOW (from: Sep 03 2024 end: Sep 03 2024 10:00)", event.toString());
     }
+
+    /**
+     * Tests the handling of a null end date in the {@link Event} constructor.
+     * Verifies that an {@code AssertionError} is thrown when the end date is null.
+     */
+    @Test
+    public void testNullEndDateEvent() {
+        try {
+            new Event(false, description,
+                    LocalDateTime.parse(validStartTime, fileDateTimeFormatter), null, validPriority);
+            fail("Expected AssertionError for null end date");
+        } catch (AssertionError ignored) {
+            // Test passes
+        }
+    }
+
+    /**
+     * Tests the creation of an {@link Event} task with an empty description.
+     * Ensures that the string representation of the created {@code Event} object
+     * reflects the empty description correctly.
+     */
+    @Test
+    public void testEmptyDescriptionEvent() {
+        Event event = new Event(false, "",
+                LocalDateTime.parse(validStartTime, fileDateTimeFormatter),
+                LocalDateTime.parse(validEndTime, fileDateTimeFormatter), validPriority);
+        assertEquals("[E][ ]  | LOW (from: Sep 03 2024 end: Sep 03 2024 10:00)", event.toString());
+    }
 }

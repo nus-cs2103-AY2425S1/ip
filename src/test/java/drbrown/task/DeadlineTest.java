@@ -117,4 +117,32 @@ public class DeadlineTest {
                 LocalDateTime.parse(validTime, fileDateTimeFormatter), validPriority);
         assertEquals("[D][X] Assignment | LOW (by: Sep 03 2024 10:10)", deadline.toString());
     }
+
+    /**
+     * Tests the handling of a null end date in the {@link Deadline} constructor.
+     * Verifies that an {@code AssertionError} is thrown when the end date is null.
+     */
+    @Test
+    public void testNullEndDateDeadline() {
+        try {
+            new Deadline(false, description, null, validPriority);
+            fail("Expected AssertionError for null end date");
+        } catch (AssertionError ignored) {
+            // Test passes
+        }
+    }
+
+    /**
+     * Tests the creation of a {@link Deadline} task with an empty description.
+     * Ensures that the string representation of the created {@code Deadline} object
+     * reflects the empty description correctly.
+     */
+    @Test
+    public void testEmptyDescriptionDeadline() {
+        Deadline deadline = new Deadline(false, "",
+                LocalDateTime.parse(validTime, fileDateTimeFormatter), validPriority);
+        assertEquals("[D][ ]  | LOW (by: Sep 03 2024 10:10)", deadline.toString());
+    }
+
+
 }
