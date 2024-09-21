@@ -22,7 +22,7 @@ public class Parser {
 
     private void loadCommands() {
         commandTable = new HashMap<>();
-        Set<Class<?>> allClasses = getAllClasses(Command.class.getPackageName());
+        Set<Class<?>> allClasses = ClassGetter.getAllClasses(Command.class.getPackageName());
 
         for (Class<?> clazz : allClasses) {
             if (!Command.class.isAssignableFrom(clazz)) {
@@ -37,25 +37,6 @@ public class Parser {
             }
 
             commandTable.put(command, clazz.asSubclass(Command.class));
-        }
-    }
-
-    // Code from https://www.baeldung.com/java-find-all-classes-in-package
-    private static Set<Class<?>> getAllClasses(String packageName) {
-        ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-        InputStream stream = classLoader.getResourceAsStream(packageName.replaceAll("[.]", "/"));
-        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-        return reader.lines()
-                .filter(filename -> filename.endsWith(".class"))
-                .map(filename -> filename.substring(0, filename.lastIndexOf('.')))
-                .map(className -> getClass(className, packageName))
-                .collect(Collectors.toSet());
-    }
-    private static Class<?> getClass(String className, String packageName) {
-        try {
-            return Class.forName(packageName + "." + className);
-        } catch (ClassNotFoundException e) {
-            return null;
         }
     }
 
