@@ -12,6 +12,7 @@ Welcome to LutChat! This guide will help you get started with LutChat, a simple 
 6. [Saving and Loading](#saving-and-loading)
 7. [Exiting the Application](#exiting-the-application)
 8. [Troubleshooting](#troubleshooting)
+9. [Credits](#credits)
 
 ## Introduction
 
