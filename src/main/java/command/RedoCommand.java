@@ -33,6 +33,6 @@ public class RedoCommand extends Command {
         tasks.addAll(oldTasks);
         String stringOfTask = TaskList.arrayToNumberedString(tasks);
         storage.write(stringOfTask);
-        return ui.beautifyMessage("Got it. I've redone the last command.\n" + stringOfTask);
+        return ui.beautifyMessage("5..4..3..2..1\nI've redone the last command.\n" + stringOfTask);
     }
 }

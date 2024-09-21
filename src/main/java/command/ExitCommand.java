@@ -29,6 +29,6 @@ public class ExitCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage, TaskListHistory taskListHistory) {
         new AssertCommand(tasks, ui, storage).assertExecute(tasks, ui, storage);
-        return ui.beautifyMessage(" Bye. Hope to see you again soon!");
+        return ui.beautifyMessage("Bye. I know I will see you again soon.");
     }
 }

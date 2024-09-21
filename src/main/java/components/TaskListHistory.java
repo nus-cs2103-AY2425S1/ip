@@ -36,8 +36,6 @@ public class TaskListHistory extends ArrayList<TaskList> {
         }
         super.add(taskList);
         currentPointer = this.size() - 1;
-        //System.out.println(currentPointer);
-        //this.stream().forEach(s-> System.out.println(s));
         return true;
     }
 
@@ -50,8 +48,6 @@ public class TaskListHistory extends ArrayList<TaskList> {
     public TaskList getPreviousState() throws LightException {
         if (this.currentPointer > 0) {
             this.currentPointer--;
-            //System.out.println(currentPointer);
-            //this.stream().forEach(s-> System.out.println(s));
             return this.get(this.currentPointer);
         } else {
             throw new LightException("No more previous state to undo.");
@@ -67,8 +63,6 @@ public class TaskListHistory extends ArrayList<TaskList> {
     public TaskList getNextState() throws LightException {
         if (this.currentPointer < this.size() - 1) {
             this.currentPointer++;
-            //System.out.println(currentPointer);
-            //this.stream().forEach(s-> System.out.println(s));
             return this.get(this.currentPointer);
         } else {
             throw new LightException("No more next state to redo.");

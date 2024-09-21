@@ -17,8 +17,12 @@ public class TaskList extends ArrayList<Task> {
         }
     }
     public static <T> String arrayToNumberedString(ArrayList<T> array) {
-        return IntStream.range(0, array.size()).mapToObj(number -> number + 1 + ". " + array.get(number)).map(Objects::toString)
-                .collect(Collectors.joining("\n"));
+        String taskString = IntStream.range(0, array.size()).mapToObj(number -> number + 1 + ". " + array.get(number)).map(Objects::toString)
+                .collect(Collectors.joining("\n")) ;
+        if (taskString.isEmpty()) {
+            return "No tasks in the list.";
+        }
+        return taskString;
     }
 
     /**

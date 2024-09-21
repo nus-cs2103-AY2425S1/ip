@@ -17,97 +17,32 @@ import static command.Command.CommandType.*;
  * Represents a parser that parses the user input and returns the corresponding command.
  */
 public class Parser {
+
     /**
-     * Parses the user input and returns the corresponding command.
+     * Parses the input string to a Command object.
      *
-     * @param fullCommand The user input to be parsed.
-     * @return The corresponding command.
-     * @throws LightException If the user input is invalid.
+     * @param fullCommand The input string to be parsed.
+     * @return The Command object parsed from the input string.
+     * @throws LightException If the input string is invalid.
      */
     public static Command parse(String fullCommand) throws LightException {
-        Task task = null;
-        String[] splitedBySlash;
         String[] splitedBySpace = fullCommand.split("\\s+", 2);
         String commandHeader = splitedBySpace[0];
-        String commandDescription = null;
-        if (splitedBySpace.length == 2) {
-            commandDescription = splitedBySpace[1];
-        }
-        switch (getCommandType(commandHeader)) {
-        case BYE:
-            return new ExitCommand();
-        case MARK:
-            try {
-                int itemNumber = Integer.parseInt(commandDescription) - 1;
-                return new MarkCommand(itemNumber, true);
-            } catch (NumberFormatException e) {
-                System.out.println(e);
-            }
-            break;
-        case UNMARK:
-            try {
-                int itemNumber = Integer.parseInt(commandDescription) - 1;
-                return new MarkCommand(itemNumber, false);
-            } catch (NumberFormatException e) {
-                System.out.println(e);
-            }
-            break;
-        case LIST:
-            return new ListCommand();
-        case DELETE:
-            try {
-                int taskNumber = Integer.parseInt(commandDescription) - 1;
-                return new DeleteCommand(taskNumber);
-            } catch (NumberFormatException e) {
-                System.out.println(e);
-            }
-            break;
-        case FIND:
-            return new FindCommand(commandDescription);
-        case UNDO:
-            return new UndoCommand();
-        case REDO:
-            return new RedoCommand();
-        default:
-            switch (getCommandType(commandHeader)) {
-            case TODO:
-                try {
-                    task = new Todo(commandDescription);
-                } catch (LightException e) {
-                    System.out.println(e);
-                }
-
-                break;
-            case DEADLINE:
-                try {
-                    splitedBySlash = commandDescription.split("/by ");
-                    task = new Deadline(splitedBySlash[0], splitedBySlash[1]);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Not enough arguments");
-                } catch (LightException e) {
-                    System.out.println(e);
-                }
-
-                break;
-            case EVENT:
-                try {
-                    splitedBySlash = commandDescription.split("/from ");
-                    String[] splitedBySlashTo = commandDescription.split("/to ");
-                    task = new Event(splitedBySlash[0], splitedBySlash[1].substring(0, splitedBySlash[1].indexOf("/to ")).stripTrailing(), splitedBySlashTo[1]);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    System.out.println("Not enough arguments");
-                } catch (LightException e) {
-                    System.out.println(e);
-                }
-
-                break;
-            }
-            if (task != null) {
-                return new AddCommand(task);
-            }
-
-        }
-        throw new LightException("Please key in a valid input");
+        String commandDescription = splitedBySpace.length == 2 ? splitedBySpace[1] : null;
+        return switch (getCommandType(commandHeader)) {
+            case BYE -> new ExitCommand();
+            case MARK -> new MarkCommand(commandDescription, true);
+            case UNMARK -> new MarkCommand(commandDescription, false);
+            case LIST -> new ListCommand();
+            case DELETE -> new DeleteCommand(commandDescription);
+            case FIND -> new FindCommand(commandDescription);
+            case UNDO -> new UndoCommand();
+            case REDO -> new RedoCommand();
+            case HELP -> new HelpCommand();
+            case TODO -> new AddCommand(new Todo(commandDescription));
+            case DEADLINE -> new AddCommand(Deadline.createDeadline(commandDescription));
+            case EVENT -> new AddCommand(Event.createEvent(commandDescription));
+        };
     }
 
     /**
@@ -129,8 +64,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the input string to a CommandType object.
+     *
+     * @param Command The input string to be parsed.
+     * @return The CommandType object parsed from the input string.
+     * @throws LightException If the input string is invalid.
+     */
     public static Command.CommandType getCommandType(String Command) throws LightException {
-        switch (Command) {
+        switch (Command.toLowerCase()) {
         case "bye":
             return BYE;
         case "mark":
@@ -153,11 +95,20 @@ public class Parser {
             return UNDO;
         case "redo":
             return REDO;
+        case "help":
+            return HELP;
         default:
             throw new LightException("Invalid command type");
         }
     }
 
+    /**
+     * Parses the input string to a CommandType object.
+     *
+     * @param Command The input string to be parsed.
+     * @return The CommandType object parsed from the input string.
+     * @throws LightException If the input string is invalid.
+     */
     public static Command.CommandType getCommandTypeFromStorage(char Command) throws LightException {
         switch (Command) {
         case 'T':

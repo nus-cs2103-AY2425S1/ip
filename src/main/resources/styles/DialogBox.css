@@ -1,0 +1,21 @@
+.label {
+    background:#AA5042;
+    -fx-background-color: background;
+    -fx-border-color: #753742;
+    -fx-border-width: 3px;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-border-radius: 1em 1em 0 1em;
+    -fx-text-fill: ladder(background, white 49%, black 50%);
+}
+
+.reply-label {
+    background:#333A3F;
+    -fx-background-color: background;
+    -fx-border-color: #191919;
+    -fx-border-width: 3px;
+    -fx-text-fill: ladder(background, white 49%, black 50%);
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-border-radius: 1em 1em 1em 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 8, 0);
+    -fx-text-fill: ladder(background, white 49%, black 50%);
+}

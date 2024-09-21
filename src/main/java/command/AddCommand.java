@@ -38,9 +38,7 @@ public class AddCommand extends Command {
         taskListHistory.add(tasks.clone());
         String stringOfTask = TaskList.arrayToNumberedString(tasks);
         storage.write(stringOfTask);
-        ui.beautifyMessage("Got it. I've added this task:\n" +
-                task +
-                "\nNow you have " + tasks.size() + " tasks in the list.");
-        return ui.beautifyMessage(stringOfTask);
+        return ui.beautifyMessage("5..4..3..2..1\nI've added the task:\n"
+                + ui.beautifyMessage(stringOfTask));
     }
 }

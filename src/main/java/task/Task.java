@@ -8,7 +8,7 @@ public class Task {
     protected boolean isDone;
 
     public Task(String description) throws LightException {
-        if (description.isEmpty()) {
+        if (description == null || description.isEmpty()) {
             throw new LightException("Description cannot be empty");
         }
         this.description = description;

@@ -1,0 +1,11 @@
+.root {
+    -fx-background-image: url("../images/Background.jpg");
+    -fx-effect: innershadow(gaussian, black, 100, 0, 0, 0);
+    -fx-background-size: stretch;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent; /* Keep background clean and dark */
+
+}

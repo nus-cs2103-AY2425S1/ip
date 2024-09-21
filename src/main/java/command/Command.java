@@ -41,11 +41,10 @@ abstract public class Command {
         DEADLINE,
         EVENT,
         FIND,
-        EXIT,
         MARK,
         UNMARK,
         HELP,
         UNDO,
-        REDO
+        REDO,
     }
 }

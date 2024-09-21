@@ -20,9 +20,13 @@ public class MarkCommand extends Command {
      * @param taskNumber The number of the task to be marked.
      * @param isMark     True if the task is to be marked as done, false if it is to be marked as undone.
      */
-    public MarkCommand(int taskNumber, boolean isMark) {
+    public MarkCommand(String taskNumber, boolean isMark) throws LightException {
         super();
-        this.taskNumber = taskNumber;
+        try {
+            this.taskNumber = Integer.parseInt(taskNumber) - 1;
+        } catch (NumberFormatException e) {
+            throw new LightException("The task number is invalid.");
+        }
         this.isMark = isMark;
     }
 
@@ -39,20 +43,23 @@ public class MarkCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage, TaskListHistory taskListHistory) throws LightException {
         new AssertCommand(tasks, ui, storage).assertExecute(tasks, ui, storage);
         String reply;
+        try {
+            if (isMark) {
+                tasks.get(taskNumber).markAsDone();
+                taskListHistory.add(tasks.clone());
+                reply = ui.beautifyMessage("5..4..3..2..1\nI've marked this task as done:\n" + tasks.get(taskNumber));
 
-        if (isMark) {
-            tasks.get(taskNumber).markAsDone();
-            taskListHistory.add(tasks.clone());
-            reply = ui.beautifyMessage("Nice! I've marked this task as done:\n" + tasks.get(taskNumber));
+            } else {
+                tasks.get(taskNumber).markAsUndone();
+                taskListHistory.add(tasks.clone());
+                reply = ui.beautifyMessage("5..4..3..2..1\nI've marked this task as undone:\n" + tasks.get(taskNumber));
+            }
 
-        } else {
-            tasks.get(taskNumber).markAsUndone();
-            taskListHistory.add(tasks.clone());
-            reply = ui.beautifyMessage("Nice! I've marked this task as undone:\n" + tasks.get(taskNumber));
+
+            storage.write(TaskList.arrayToNumberedString(tasks));
+            return reply;
+        } catch (IndexOutOfBoundsException e) {
+            throw new LightException("The task number is out of range.");
         }
-
-
-        storage.write(TaskList.arrayToNumberedString(tasks));
-        return reply;
     }
 }

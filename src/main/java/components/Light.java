@@ -2,6 +2,7 @@ package components;
 
 import command.Command;
 import exceptions.LightException;
+import javafx.application.Platform;
 import task.TaskList;
 
 import java.util.NoSuchElementException;
@@ -29,37 +30,6 @@ public class Light {
     }
 
     /**
-     * The main method of the components.Light program.
-     *
-     * @param args The command line arguments.
-     */
-    public static void main(String[] args) {
-        Light program = new Light("./data/saved.txt");
-        program.run();
-    }
-
-    /**
-     * Runs the Light program.
-     */
-    public void run() {
-        ui.welcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command command = Parser.parse(fullCommand);
-                command.execute(tasks, ui, storage, taskListHistory);
-                isExit = command.isExit();
-            } catch (LightException e) {
-                ui.showError(e);
-            } catch (NoSuchElementException e) {
-                ui.closeUi();
-                return;
-            }
-        }
-    }
-
-    /**
      * Gets the response from the Light program.
      *
      * @param input The input to the Light program.
@@ -68,6 +38,9 @@ public class Light {
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
+            if (c.isExit()) {
+                Platform.exit();
+            }
             return c.execute(tasks, ui, storage, taskListHistory);
         } catch (LightException e) {
             return e.toString();

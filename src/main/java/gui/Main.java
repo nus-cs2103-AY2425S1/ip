@@ -28,6 +28,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+
             stage.setTitle("Light");
             fxmlLoader.<MainWindow>getController().setLight(light);  // inject the Light instance
             stage.show();
