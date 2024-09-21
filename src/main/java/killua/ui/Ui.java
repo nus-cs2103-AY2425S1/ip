@@ -12,29 +12,32 @@ import killua.util.TaskList;
 public class Ui {
 
     private static final String WELCOME_MESSAGE = """
-        Welcome to Killua Task Manager!
-        Here are some commands you can use:
+        Oh, it's you. Welcome to Killua Task Manager... I guess.
+        You should already know these commands, but here they are anyway:
         \n
-        -list/ls - List all tasks
-        -mark/m <task number> - Mark a task as done
-        -unmark/um <task number> - Mark a task as not done yet
-        -delete/del <task number> - Delete a task
-        -todo <description> - Add a new todo task
-        -deadline/ddl <description> /by <yyyy-mm-dd[ hh:mm]> - Add a new deadline task
-        -event/eve <description> /from <yyyy-mm-dd[ hh:mm]> /to <yyyy-mm-dd[ hh:mm]> - Add a new event task
-        -on <yyyy-mm-dd> - List tasks on date
-        -find <keyword> - Find task with keyword
-        -bye - Exit the application""";
-    private static final String ADD_TASK_MESSAGE = "Got it. I've added this task:\n";
-    private static final String DELETE_TASK_MESSAGE = "OK, I've deleted this task:\n";
-    private static final String EXIT_MESSAGE = "See you later!";
-    private static final String TASK_EMPTY_MESSAGE = "Your task list is empty.";
-    private static final String SHOW_TASK_MESSAGE = "Here are the tasks in your list:\n";
-    private static final String MARK_TASK_MESSAGE = "Nice! I've marked this task as done:\n";
-    private static final String UNMARK_TASK_MESSAGE = "OK, I've marked this task as not done yet:\n";
-    private static final String TASK_NOT_FOUND_MESSAGE = "No tasks found for this date.\n";
-    private static final String NO_MATCHING_TASK_MESSAGE = "No matching task in your list!";
-    private static final String SHOW_MATCHED_TASK_MESSAGE = "Here are the Matching tasks in your list:";
+        -list/ls - I'll show you the tasks you haven't finished yet
+        -mark/m <task number> - Finally! You marked something as done
+        -unmark/um <task number> - Couldn't even finish it, huh? Unmark it
+        -delete/del <task number> - Remove a task... if you must
+        -todo <description> - Add yet another thing you'll probably never finish
+        -deadline/ddl <description> /by <yyyy-mm-dd[ hh:mm]> - Add a deadline. Like you'll follow it
+        -event/eve <description> /from <yyyy-mm-dd[ hh:mm]> /to <yyyy-mm-dd[ hh:mm]> - Add an event. Big plans, huh?
+        -on <yyyy-mm-dd> - I'll show you what you're supposed to do on this day, if you care
+        -find <keyword> - Search your list for something. I doubt you'll find it
+        -bye - Finally leaving? Good riddance!""";
+
+    private static final String ADD_TASK_MESSAGE = "Ugh, another task? Fine, I added it:\n";
+    private static final String DELETE_TASK_MESSAGE = "Gone. Hopefully that was important, but who knows.\n";
+    private static final String EXIT_MESSAGE = "Finally, some peace. Don't come back.";
+    private static final String TASK_EMPTY_MESSAGE = "Wow, nothing in your list? Shocking.";
+    private static final String SHOW_TASK_MESSAGE = "Here's your list. Try not to mess it up:\n";
+    private static final String MARK_TASK_MESSAGE = "About time! I marked this as done:\n";
+    private static final String UNMARK_TASK_MESSAGE = "Couldn't finish it? Fine, it's unmarked:\n";
+    private static final String TASK_NOT_FOUND_MESSAGE = "No tasks on that date. What a surprise.\n";
+    private static final String NO_MATCHING_TASK_MESSAGE = "Nothing matches. As expected.";
+    private static final String SHOW_MATCHED_TASK_MESSAGE = "Here are your so-called 'matching' tasks."
+            + " Good luck with them:";
+
     /**
      * Constructs Ui instance.
      */
@@ -54,7 +57,7 @@ public class Ui {
      * @param taskCount The total number of tasks in the list after the addition.
      */
     public String showTaskAdded(Task task, int taskCount) {
-        return ADD_TASK_MESSAGE + task + "\nNow you have " + taskCount + " tasks in the list.";
+        return ADD_TASK_MESSAGE + task + "\nNow you have " + taskCount + " tasks.";
     }
 
     /**
