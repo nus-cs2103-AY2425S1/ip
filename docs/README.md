@@ -2,7 +2,7 @@
 
 Gallium is your **todos, deadlines and events manager chatbot**, optimized for use via a **Command Line Interface (CLI)** while still having the benefits of a **Graphical User Interface (GUI)**. You can add todos, deadlines, and events into a tasklist, and mark them as completed, edit, delete them, and search for tasks.
 
-- [Quick Start] (#quick-start)
+- [Quick Start](#quick-start)
 - [Commands](#commands)
   - [Viewing the Task List: `list`](#viewing-the-task-list-list)
   - [Adding Todo Tasks: `todo`](#adding-todo-tasks-todo)
