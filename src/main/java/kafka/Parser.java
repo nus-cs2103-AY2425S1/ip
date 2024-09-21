@@ -34,42 +34,22 @@ public class Parser {
         String output = "";
 
         try {
-            switch (command) {
-            case "bye":
-                output = executeByeCommand(ui);
-                break;
-            case "list":
-                output = executeListCommand(taskList, ui);
-                break;
-            case "mark":
-                output = executeMarkCommand(arguments, taskList, storage, ui);
-                break;
-            case "unmark":
-                output = executeUnmarkCommand(arguments, taskList, storage, ui);
-                break;
-            case "delete":
-                output = executeDeleteCommand(arguments, taskList, storage, ui);
-                break;
-            case "find":
-                output = executeFindCommand(arguments, taskList, ui);
-                break;
-            case "todo":
-                output = executeTodoCommand(arguments, taskList, storage, ui);
-                break;
-            case "deadline":
-                output = executeDeadlineCommand(arguments, taskList, storage, ui);
-                break;
-            case "event":
-                output = executeEventCommand(arguments, taskList, storage, ui);
-                break;
-            default:
-                throw new KafkaException("Hmm... I'm not sure what you're getting at. Care to enlighten me?");
-            }
+            output = switch (command) {
+                case "bye" -> executeByeCommand(ui);
+                case "list" -> executeListCommand(taskList, ui);
+                case "mark" -> executeMarkCommand(arguments, taskList, storage, ui);
+                case "unmark" -> executeUnmarkCommand(arguments, taskList, storage, ui);
+                case "delete" -> executeDeleteCommand(arguments, taskList, storage, ui);
+                case "find" -> executeFindCommand(arguments, taskList, ui);
+                case "todo" -> executeTodoCommand(arguments, taskList, storage, ui);
+                case "deadline" -> executeDeadlineCommand(arguments, taskList, storage, ui);
+                case "event" -> executeEventCommand(arguments, taskList, storage, ui);
+                default ->
+                        throw new KafkaException("Hmm... I'm not sure what you're getting at. Care to enlighten me?");
+            };
         } catch (IOException e) {
-            // Handle IOException here
             ui.showError(e);
         } catch (DateTimeParseException e) {
-            // Handle DateTimeParseException here
             ui.incorrectDateDetails();
         }
 
