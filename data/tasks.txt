@@ -1,18 +1,13 @@
 T , 1 , read book
-D , 0 , return book , 2012-06-06
+D , 0 , return book , 2012-06-07
 E , 0 , project meeting , Aug 6th 2pm-4pm
 T , 1 , join sports club
 T , 1 , read book again
 T , 0 , borrow Jackson EM
-T , 0 , fix this code
-D , 1 , play Black Myth , 2024-09-06
-T , 0 , borrow book
-E , 0 , amazing race , Fri 6pm-7am
+E , 1 , amazing race , Fri 6pm-7am
 D , 1 , finish after action review , 2024-09-12
-D , 0 , finish 2103 , 2024-09-06
 T , 0 , borrow book
 D , 0 , finish work , 2012-06-11
-T , 0 , game everyday
-T , 1 , GAME EVERYDAYYY
 D , 0 , Finish CS2103 , 2021-12-23
 E , 0 , Stargazing , Mon 2pm-Tues 4pm
+D , 0 , Finish feature specification , 2024-09-22

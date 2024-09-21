@@ -10,7 +10,7 @@ import java.util.stream.Stream;
  */
 public class Parser {
     private static final Set<String> VALID_COMMANDS = Set.of("list", "mark", "unmark", "todo", "event", "deadline",
-            "delete", "snooze");
+            "delete", "snooze", "find");
     private String inputString;
 
     public Parser(String inputString) {
@@ -168,9 +168,9 @@ public class Parser {
         Streams in checking for String equality.
          */
         if (remainingInput.isEmpty()) {
-            if (Stream.of("todo", "event", "deadline", "delete", "snooze").anyMatch(instruction::equals)) {
+            if (Stream.of("todo", "event", "deadline").anyMatch(instruction::equals)) {
                 throw new EmptyTaskException();
-            } else if (Stream.of("mark", "unmark", "snooze").anyMatch(instruction::equals)) {
+            } else if (Stream.of("mark", "unmark", "delete", "snooze", "find").anyMatch(instruction::equals)) {
                 throw new EmptyNonTaskCommandException();
             }
         }
