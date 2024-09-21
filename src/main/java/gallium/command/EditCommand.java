@@ -53,7 +53,7 @@ public class EditCommand extends Command {
                 ui.printShowTask(selectedTask);
                 ui.printAskEditField(selectedTask);
                 this.isFieldSelected = true;
-            } catch (IndexOutOfBoundsException e) {
+            } catch (IndexOutOfBoundsException | NumberFormatException e) {
                 ui.showWrongIndex();
             }
         } else {
