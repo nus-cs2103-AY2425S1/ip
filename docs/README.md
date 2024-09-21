@@ -11,6 +11,7 @@ Chobo is a personal chatbot that assists with task management, helping users kee
 This feature allows you to add tasks with specific deadlines to your task list.
 
 Command: `deadline [task] /by [DD-MM-YYYY] [time (24 hour format)]`
+
 Example: `deadline CS2100 quiz /by 23-09-2024 2359`
 
 ```
@@ -24,6 +25,7 @@ added: [D][] CS2100 quiz (by Sep 23 2024, 11:59pm)
 This feature allows you to add to do tasks to your task list.
 
 Command: `todo [task]`
+
 Example: `todo EDX course`
 
 ```
@@ -38,6 +40,7 @@ added: [T][] EDX course
 This feature allows you to add event to your task list.
 
 Command: `event [task] /from [DD-MM-YYYY] [time (24 hour format)] /to [DD-MM-YYYY] [time (24 hour format)]`
+
 Example: `event Jay's bday party /from 30-09-2024 1100 /to 30-09-2024 1400`
 
 ```
@@ -65,6 +68,7 @@ Your tasks are:
 This feature allows you to mark tasks in your task list as complete
 
 Command: `mark [task number (as shown on task list)]`
+
 Example: `mark 1`
 
 ```
@@ -78,6 +82,7 @@ Nice! I have marked this task as done:
 This feature allows you to mark tasks in your task list as complete
 
 Command: `unmark [task number (as shown on task list)]`
+
 Example: `unmark 1`
 
 ```
@@ -91,6 +96,7 @@ OK, I have marked this task as not done yet:
 This feature allows you to remove a task from the task list.
 
 Command: `delete [task number (as shown on task list)]`
+
 Example: `delete 1`
 
 ```
@@ -103,6 +109,7 @@ deleted: [D][] CS2100 quiz (by Sep 23 2024, 11:59pm)
 
 This feature allows you to search for tasks based on keywords.
 Command: `find [keyword]`
+
 Example: `find course`
 ```
 expected output
