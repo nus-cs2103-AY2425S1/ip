@@ -5,13 +5,13 @@
 
 Welcome to Timo, your personal assistant bot! Timo is designed with the intention
 to aid you in **managing** daily tasks.
-#####
+
 - Have an interview to take note?
-#####
+
 - Have an event coming up?
-#####
+
 - Have a deadline that you must remember to hit?
-#####
+
 Use **Timo** to take note of them! With features like add, delete, mark, unmark, undo etc...
 ### let Timo change your life!
 
