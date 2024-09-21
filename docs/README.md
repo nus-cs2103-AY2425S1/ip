@@ -19,9 +19,9 @@ e.g. `2024-01-01`.
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 ## Adding todos: `todo`
-The `todo` command allows you to add basic tasks with only a description to the list.
+The `todo` command allows you to add basic tasks with only a name to the list.
 
-<b>Format</b>: `todo <description>`
+<b>Format</b>: `todo <name>`
 
 <b>Example</b>: `todo Do homework`
 
@@ -34,7 +34,7 @@ You have 1 task currently.
 ## Adding deadlines: `deadline`
 The `deadline` command allows you to add tasks which need to be completed by a set date to the list.
 
-<b>Format</b>: `deadline <description> /by <end date>`
+<b>Format</b>: `deadline <name> /by <end date>`
 
 <b>Example</b>: `deadline Submit project /by 2024-10-01`
 
@@ -47,7 +47,7 @@ You have 2 tasks currently.
 ## Adding events: `event`
 The `event` command allows you to add tasks which have a start and end date to the list.
 
-<b>Format</b>: `event <description> /from <start date> /to <end date>`
+<b>Format</b>: `event <name> /from <start date> /to <end date>`
 
 <b>Example</b>: `event Holiday /from 2024-10-01 /to 2024-10-08`
 
