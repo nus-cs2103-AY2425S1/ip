@@ -24,7 +24,6 @@ public class Statistics {
     }
 
     public void addToDoCount() {
-        System.out.println("adding ToDo count");
         this.toDoCount++;
     }
 

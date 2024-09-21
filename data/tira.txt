@@ -1,1 +1,4 @@
 T | 0 | borrow book
+E | 0 | wedding | 01 Jan 2020 | 01 Jan 2021
+E | 0 | book | 01 Jan 2020 | 01 Jan 2021
+D | 0 | singing | 01 Jan 2013

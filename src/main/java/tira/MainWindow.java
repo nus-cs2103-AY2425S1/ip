@@ -25,11 +25,16 @@ public class MainWindow extends AnchorPane {
     private Ui ui = new Ui();
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user_image.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/tira_image.png"));
+    private Image tiraImage = new Image(this.getClass().getResourceAsStream("/images/tira_image.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        String welcomeMessage = ui.showWelcome();
+        dialogContainer.getChildren().addAll(
+                DialogBox.getTiraDialog(welcomeMessage, tiraImage)
+        );
+
 
     }
 
@@ -44,15 +49,15 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() throws TiraException {
-
         String input = userInput.getText();
         if (input.equals("bye")) {
             ui.showBye();
             String byeString = ui.getOutMessage();
             dialogContainer.getChildren().add(
-                    DialogBox.getDukeDialog(byeString, dukeImage)
+                    DialogBox.getTiraDialog(byeString, tiraImage)
             );
-            Platform.exit();
+            userInput.setDisable(true);
+            sendButton.setDisable(true);
         }
         String response;
         try {
@@ -62,7 +67,7 @@ public class MainWindow extends AnchorPane {
         }
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getTiraDialog(response, tiraImage)
         );
         userInput.clear();
     }

@@ -29,7 +29,7 @@ public class Parser {
      */
     public String parseCommand(String command) throws TiraException {
         String [] commandSplitBySpace = command.split(" ");
-        String taskType = commandSplitBySpace[0];x
+        String taskType = commandSplitBySpace[0];
         try {
             switch(taskType) {
             case "list":

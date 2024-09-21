@@ -94,8 +94,9 @@ public class TaskList {
      * @throws TiraException Custom Tira Exception
      */
     public String addToDo(String command, String[] commandSplitBySpace) throws TiraException {
-        if (commandSplitBySpace.length < 2 && command.equals("ToDo")) {
-            throw new TiraException("MRAW?? WHERE IS THE TASK?");
+        if (commandSplitBySpace.length < 2) {
+            System.out.println("There is an addToDo exception");
+            throw new TiraException("MRAW?? Please specify the task.");
         }
         String description = "";
         for (int i = 1; i < commandSplitBySpace.length; i++) {
@@ -118,13 +119,18 @@ public class TaskList {
      * @throws TiraException custom Tira exception
      */
     public String addDeadline(String command, String[] commandSplitBySpace) throws TiraException {
-        if (commandSplitBySpace.length < 2 && command.equals("Deadline")) {
-            throw new TiraException("MRAW?? WHERE IS THE TASK?");
+        if (commandSplitBySpace.length <= 1) {
+            throw new TiraException("MRAW?? Please specify task and the deadline date.");
+        } else if (commandSplitBySpace[1].startsWith("/")) {
+            throw new TiraException("MRAW?? Please provide the deadline description");
         }
-        String[] dateCommands = command.split("/");
+        String[] commandSplitBySlash = command.split("/");
+        if (commandSplitBySlash.length < 2) {
+            throw new TiraException("MRAW?? Please specify the deadline date");
+        }
         try {
-            LocalDate endDate = LocalDate.parse(dateCommands[1].substring(3).trim(), DATE_FORMATTER);
-            Task deadlineTask = new Deadline(dateCommands[0].substring(8).trim(), endDate);
+            LocalDate endDate = LocalDate.parse(extractAfterWord(commandSplitBySlash[1],"by").trim(), DATE_FORMATTER);
+            Task deadlineTask = new Deadline(extractAfterWord(commandSplitBySlash[0], "deadline"), endDate);
             tasks.add(deadlineTask);
             ui.showAddTask(deadlineTask, tasks.size());
             return ui.getOutMessage();
@@ -142,14 +148,20 @@ public class TaskList {
      * @throws TiraException custom Tira exception
      */
     public String addEvent(String command, String[] commandSplitBySpace ) throws TiraException {
-        if (commandSplitBySpace.length < 2 && command.equals("Event")) {
-            throw new TiraException("MRAW?? WHERE IS THE TASK?");
+        if (commandSplitBySpace.length <= 1) {
+            throw new TiraException("MRAW?? Please specify event name and timing.");
+        } else if (commandSplitBySpace[1].startsWith("/")) {
+            throw new TiraException("MRAW?? Please provide event description!");
         }
-        String[] dateCommands = command.split("/");
+        String[] commandSplitBySlash = command.split("/");
+        if (commandSplitBySlash.length <= 2) {
+            throw new TiraException("MRAW?? Not enough details. Please provide:"
+                    + " event task, start date and end date");
+        }
         try {
-            LocalDate startDate = LocalDate.parse(dateCommands[1].substring(5).trim(), DATE_FORMATTER);
-            LocalDate endDate = LocalDate.parse(dateCommands[2].substring(3).trim(), DATE_FORMATTER);
-            Task eventTask = new Event(dateCommands[0].substring(6).trim(), startDate, endDate);
+            LocalDate startDate = LocalDate.parse(extractAfterWord(commandSplitBySlash[1], "from"), DATE_FORMATTER);
+            LocalDate endDate = LocalDate.parse(extractAfterWord(commandSplitBySlash[2],"to"), DATE_FORMATTER);
+            Task eventTask = new Event(extractAfterWord(commandSplitBySlash[0], "event"), startDate, endDate);
             tasks.add(eventTask);
             ui.showAddTask(eventTask, tasks.size());
             return ui.getOutMessage();
@@ -166,10 +178,13 @@ public class TaskList {
      */
     public String delete(String[] commandSplitBySpace) throws TiraException{
         assert Integer.valueOf(commandSplitBySpace[1]) > 0 : "Task number should be more than 0";
-        if (commandSplitBySpace.length < 2) {
-            throw new TiraException("MRAW?? WHERE IS THE TASK?");
+        if (commandSplitBySpace.length <= 1) {
+            throw new TiraException("MRAW?? Please provide task number to delete");
         }
         int taskNumberToDelete = Integer.parseInt(commandSplitBySpace[1]);
+        if (taskNumberToDelete >= tasks.size()) {
+            throw new TiraException("MRAW?? There's less task in the list. Pleae check again");
+        }
         Task taskToRemove = tasks.get(taskNumberToDelete - 1);
         tasks.remove(taskNumberToDelete - 1);
         ui.showDelete(taskToRemove, tasks.size());
@@ -208,4 +223,9 @@ public class TaskList {
         }
     }
 
+    private static String extractAfterWord(String text, String beginning) {
+        int index = text.indexOf(beginning);
+        int startIndex = index + beginning.length();
+        return text.substring(startIndex).trim();
+    }
 }

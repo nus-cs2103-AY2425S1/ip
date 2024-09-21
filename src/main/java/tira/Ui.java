@@ -50,11 +50,7 @@ public class Ui {
     /**
      * Displays a welcome message to the user.
      */
-    public void showWelcome() {
-        System.out.println(this.getWelcome());
-    }
-
-    public String getWelcome() {
+    public String showWelcome() {
         return "MIAO! I'm TIRAMISU THE CAT (TIRA)\n"
                 + "What can I do for you today, miao?\n";
     }
@@ -184,7 +180,6 @@ public class Ui {
                     stats.addMarkedEvent();
                 }
             } else if (task instanceof ToDo) {
-                System.out.println("Encountering a ToDo task");
                 stats.addToDoCount();
                 if (task.getIsDone()) {
                     stats.addMarkedToDo();
