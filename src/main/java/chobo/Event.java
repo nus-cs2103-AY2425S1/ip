@@ -24,7 +24,7 @@ public class Event extends Task {
 
     @Override
     public String toFileString() {
-        return String.format("%s|%d|%s|%s|%s", this.getType(), this.getIsDone() ? 1 : 0, this.getName(), unformattedFrom, unformattedTo);
+        return String.format("%s|%d|%s|%s|%s", this.getType(), this.getIsDone() ? 1 : 0, this.getTaskName(), unformattedFrom, unformattedTo);
     }
 
     public String getType() {

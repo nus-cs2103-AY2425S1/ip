@@ -21,16 +21,16 @@ public abstract class Task {
     }
 
     /**
-     * Gets type.
+     * Returns type of task.
      *
-     * @return the type
+     * @return Type of task
      */
     public abstract String getType();
 
     /**
-     * To file string string.
+     * Returns String representation formatted for file.
      *
-     * @return the string
+     * @return String representation of task
      */
     public abstract String toFileString();
 
@@ -43,16 +43,16 @@ public abstract class Task {
     }
 
     /**
-     * Get is done boolean.
+     * Returns Whether task is done.
      *
-     * @return the boolean
+     * @return Boolean on whether task is done.
      */
     public boolean getIsDone() {
         return isDone;
     }
 
     /**
-     * Unmark.
+     * Marks tasks as undone.
      */
     public void unmark() {
         this.isDone = false;
@@ -60,11 +60,11 @@ public abstract class Task {
     }
 
     /**
-     * Gets name.
+     * Returns task's name.
      *
      * @return the name
      */
-    public String getName() {
+    public String getTaskName() {
         return this.name;
     }
 

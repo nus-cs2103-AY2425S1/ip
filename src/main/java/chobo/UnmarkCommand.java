@@ -1,8 +1,16 @@
 package chobo;
 
+/**
+ * Represents the command to unmark tasks.
+ */
 public class UnmarkCommand extends Command{
     private int taskId;
 
+    /**
+     * Instantiates a new Unmark command.
+     *
+     * @param taskId Task id of task to be unmarked
+     */
     public UnmarkCommand(int taskId) {
         this.taskId = taskId;
     }

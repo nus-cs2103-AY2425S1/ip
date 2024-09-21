@@ -5,6 +5,16 @@ package chobo;
  */
 public class Parser {
 
+    /**
+     * Parse command.
+     *
+     * @param fullCommand The raw command (user input)
+     * @param taskList    User's task list
+     * @param ui          User's ui
+     * @param storage     User's storage
+     * @return Command representing user's input
+     * @throws InputException If user input is incorrectly formatted
+     */
     public static Command parse(String fullCommand, TaskList taskList, Ui ui, Storage storage) throws InputException {
         String[] inputs = fullCommand.split(" ", 2);
         String action = inputs[0];

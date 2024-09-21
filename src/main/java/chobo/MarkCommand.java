@@ -1,7 +1,7 @@
 package chobo;
 
 /**
- * The type Mark command.
+ * Represents the command that marks tasks as done
  */
 public class MarkCommand extends Command {
     private int taskId;
@@ -9,7 +9,7 @@ public class MarkCommand extends Command {
     /**
      * Instantiates a new Mark command.
      *
-     * @param taskId the task id
+     * @param taskId The task id (shown by list)
      */
     public MarkCommand(int taskId) {
         this.taskId = taskId;

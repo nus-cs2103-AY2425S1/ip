@@ -12,14 +12,14 @@ public class Deadline extends Task {
     private LocalDateTime by;
 
     /**
-     * Creates a new chobo.Deadline task.
+     * Instantiates a new chobo.Deadline task.
      *
-     * @param name The description of the task.
+     * @param taskName The name of the task.
      * @param done The status of the task (true if done, false otherwise).
      * @param date The deadline of the task.
      */
-    public Deadline(String name, boolean done, String date) {
-        super(name, done);
+    public Deadline(String taskName, boolean done, String date) {
+        super(taskName, done);
         this.unformattedDate = date;
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d-M-yyyy HHmm");
         this.by = LocalDateTime.parse(date.trim(), dateTimeFormatter);
@@ -27,7 +27,7 @@ public class Deadline extends Task {
 
     @Override
     public String toFileString() {
-        return String.format("%s|%d|%s|%s", this.getType(), this.getIsDone() ? 1 : 0, this.getName(), unformattedDate);
+        return String.format("%s|%d|%s|%s", this.getType(), this.getIsDone() ? 1 : 0, this.getTaskName(), unformattedDate);
     }
 
     @Override

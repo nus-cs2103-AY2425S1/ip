@@ -4,9 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-/**
- * The type Main.
- */
+
 public class Main extends Application {
 
     private Chobo chobo = new Chobo();
@@ -26,7 +24,7 @@ public class Main extends Application {
     }
 
     /**
-     * The entry point of application.
+     * Represents the entry point of application.
      *
      * @param args the input arguments
      */

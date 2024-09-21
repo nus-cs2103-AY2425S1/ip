@@ -4,15 +4,24 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The type Add event command.
+ */
 public class AddEventCommand extends Command {
-    private String description;
+    private String taskName;
     private String unformattedFrom;
     private String unformattedTo;
-//    private LocalDateTime from;
-//    private LocalDateTime to;
 
-    public AddEventCommand(String description, String from, String to) throws InputException{
-        this.description = description;
+    /**
+     * Instantiates a new Add event command.
+     *
+     * @param taskName Name of the task.
+     * @param from Start date and time of the event.
+     * @param to   End date and time of the event.
+     * @throws InputException Input exception if input does not follow format.
+     */
+    public AddEventCommand(String taskName, String from, String to) throws InputException{
+        this.taskName = taskName;
         this.unformattedFrom = from;
         this.unformattedTo = to;
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d-M-yyyy HHmm");
@@ -26,7 +35,7 @@ public class AddEventCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws InputException {
-        Task event = new Event(description, false, unformattedFrom, unformattedTo);
+        Task event = new Event(taskName, false, unformattedFrom, unformattedTo);
         taskList.addTask(event);
         storage.saveTasks(taskList.getTasks());
         return ui.showTaskAdded(event, taskList.getTotalTask());

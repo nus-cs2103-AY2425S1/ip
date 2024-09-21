@@ -13,6 +13,8 @@ public class Chobo {
 
     /**
      * Instantiates a new Chobo.
+     *
+     * @throws InputException If he input is not correctly formatted
      */
     public Chobo() throws InputException {
         ui = new Ui();
@@ -23,6 +25,12 @@ public class Chobo {
         assert taskList != null : "TaskList can not be null";
     }
 
+    /**
+     * Returns response to input as a string.
+     *
+     * @param input User's input
+     * @return response for input
+     */
     public String getResponse(String input) {
         Scanner scanner = new Scanner(input);
         String toReturn;

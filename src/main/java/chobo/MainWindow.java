@@ -12,7 +12,7 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 
 /**
- * The type Main window.
+ * Represents the main window.
  */
 public class MainWindow extends AnchorPane {
 
@@ -67,8 +67,8 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = chobo.getResponse(input);
         dialogContainer.getChildren().addAll(
-            DialogBox.getUserDialog(input, userImage),
-            DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
     }

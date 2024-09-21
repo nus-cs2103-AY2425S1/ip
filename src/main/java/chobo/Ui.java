@@ -9,52 +9,37 @@ public class Ui {
 
 
     public String showWelcome() {
-        return "Hello! I'm Chobo\nWhat can I do for you?";      
+        return "Hello! I'm Chobo\nWhat can I do for you?";
     }
 
     /**
-     * to Print goodbye.
-     */
-    public String showGoodbye() {
-        return "Bye. Hope to see you again soon!";
-    }
-    /**
-     * Print error.
+     * Returns string response when task added.
      *
-     * @param message the message
-     */
-    public String showError(String message) {
-        return (message);
-    }
-
-    /**
-     * Print task added.
-     *
-     * @param task       the task
-     * @param totalTasks the total tasks
+     * @param task       Task added.
+     * @param totalTasks Total number of tasks.
      */
     public String showTaskAdded(Task task, int totalTasks) {
         return ("added: " + task + "\n" + totalTasks + " task(s) in the list");
     }
 
     /**
-     * Print task deleted.
+     * Return string response when task deleted.
      *
-     * @param task       the task
-     * @param totalTasks the total tasks
+     * @param task       Task deleted.
+     * @param totalTasks Total number of tasks.
      */
     public String showTaskDeleted(Task task, int totalTasks) {
         return ("deleted: " + task + "\n" + totalTasks + " task(s) left in the list");
     }
 
     /**
-     * Print task list.
+     * Returns string representation of task list.
      *
-     * @param tasks the tasks
+     * @param tasks ArrayList of task.
      */
     public String showTaskList(ArrayList<Task> tasks) {
         String toReturn = "Your tasks are: \n";
-        if (tasks.size() > 0) {
+        if (!tasks.isEmpty()) {
             for (int i = 0; i < tasks.size(); i++) {
                 toReturn = toReturn + (i + 1) + "." + tasks.get(i) + "\n";
             }
@@ -64,18 +49,18 @@ public class Ui {
     }
 
     /**
-     * Show task marked.
+     * Returns string response after marking task.
      *
-     * @param task the task
+     * @param task Task getting marked.
      */
     public String showTaskMarked(Task task) {
         return "Nice! I have marked this task as done:\n" + task;
     }
 
     /**
-     * Show task unmarked.
+     * Returns string response after unmarking task.
      *
-     * @param task the task
+     * @param task Task getting unmarked.
      */
     public String showTaskUnmarked(Task task) {
         return "OK, I have marked this task as not done yet\n" + task;
@@ -83,9 +68,9 @@ public class Ui {
 
 
     /**
-     * Print matched tasks.
+     * Returns string response after finding matched tasks.
      *
-     * @param tasks the array of tasks
+     * @param tasks Array of tasks that matched with keyword.
      */
     public String showMatchedTasks(ArrayList<Task> tasks) {
         String toReturn = "The matching tasks in your list: \n";

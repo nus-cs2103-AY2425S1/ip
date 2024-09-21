@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 /**
- * The type Storage.
+ * Represents the user's storage.
  */
 public class Storage {
     private final String filePath;
@@ -15,7 +15,7 @@ public class Storage {
     /**
      * Instantiates a new Storage.
      *
-     * @param filePath the file path
+     * @param filePath File path
      */
     public Storage(String filePath, Ui ui) {
         this.filePath = filePath;
@@ -23,7 +23,7 @@ public class Storage {
     }
 
     /**
-     * Load tasks into array list.
+     * Loads tasks into array list.
      *
      * @return the array list
      */
@@ -59,11 +59,11 @@ public class Storage {
                     command = new AddEventCommand(name, from, to);
                     break;
                 default:
-                    continue; // Skip unknown task types
+                    continue;
                 }
-                command.execute(tasks, ui, this); // Ensure your Command classes have an execute method
+                command.execute(tasks, ui, this);
                 if (isDone) {
-                    tasks.getTask(tasks.getTotalTask() - 1).mark(); // Mark the last added task as done
+                    tasks.getTask(tasks.getTotalTask() - 1).mark();
                 }
             }
             scanner.close();
@@ -74,9 +74,9 @@ public class Storage {
     }
 
     /**
-     * Save tasks.
+     * Saves tasks in file.
      *
-     * @param tasks the tasks to be saved
+     * @param tasks List of tasks to be saved
      */
     public void saveTasks(ArrayList<Task> tasks) {
         try {

@@ -1,7 +1,7 @@
 package chobo;
 import java.util.ArrayList;
 /**
- * The type Task list.
+ * Represents a list of tasks.
  */
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -16,7 +16,7 @@ public class TaskList {
     /**
      * Instantiates a new Task list.
      *
-     * @param tasks the tasks
+     * @param tasks Arraylist of tasks to be represented
      */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
@@ -24,9 +24,9 @@ public class TaskList {
     }
 
     /**
-     * Add task.
+     * Adds task to list.
      *
-     * @param task the task
+     * @param task Task to be added.
      */
     public void addTask(Task task) throws InputException {
         if (tasks.contains(task)) {
@@ -37,16 +37,16 @@ public class TaskList {
     }
 
     /**
-     * Delete task.
+     * Deletes task from the list.
      *
-     * @param index the index
+     * @param index Index of the task to be deleted
      */
     public void deleteTask(int index) {
         tasks.remove(index);
     }
 
     /**
-     * Gets task.
+     * Returns task at particular index.
      *
      * @param index the index
      * @return the task
@@ -56,21 +56,20 @@ public class TaskList {
     }
 
     /**
-     * Gets total task.
+     * Returns total number of task.
      *
-     * @return the total task
+     * @return Total number of task
      */
     public int getTotalTask() {
         return tasks.size();
     }
 
     /**
-     * Gets tasks.
+     * Returns arraylist of tasks.
      *
-     * @return the tasks
+     * @return Arraylist of task
      */
     public ArrayList<Task> getTasks() {
         return tasks;
     }
-
 }

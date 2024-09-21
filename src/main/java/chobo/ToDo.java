@@ -8,11 +8,11 @@ public class ToDo extends Task {
     /**
      * Creates a new chobo.ToDo task.
      *
-     * @param name The description of the task.
+     * @param taskName The name of the task.
      * @param done The status of the task (true if done, false otherwise).
      */
-    public ToDo(String name, boolean done) {
-        super(name, done);
+    public ToDo(String taskName, boolean done) {
+        super(taskName, done);
     }
 
     @Override
@@ -21,7 +21,7 @@ public class ToDo extends Task {
     }
 
     public String toFileString() {
-        return String.format("%s|%d|%s", this.getType(), this.getIsDone() ? 1 : 0, this.getName());
+        return String.format("%s|%d|%s", this.getType(), this.getIsDone() ? 1 : 0, this.getTaskName());
     }
 
     /**
