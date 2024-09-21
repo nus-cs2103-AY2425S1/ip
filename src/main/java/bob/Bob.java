@@ -13,7 +13,7 @@ import bob.ui.Ui;
  * This is a chatBot class named Bob.
  */
 public class Bob {
-    private static final String FILE_PATH = "src/main/java/bob/data/tasks.txt";
+    private static final String FILE_PATH = "dataForBob/tasks.txt";
     private final Storage storage;
     private TaskList taskList;
     private Ui ui;

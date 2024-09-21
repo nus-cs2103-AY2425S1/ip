@@ -14,7 +14,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private static final String DEFAULT_FILE_PATH = "src/main/java/bob/data/tasks.txt";
+    private static final String DEFAULT_FILE_PATH = "dataForBob/tasks.txt";
 
     private Bob bob = new Bob(DEFAULT_FILE_PATH);
 
