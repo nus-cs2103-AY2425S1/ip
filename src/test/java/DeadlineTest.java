@@ -2,6 +2,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import org.junit.jupiter.api.Test;
@@ -19,14 +20,14 @@ import dave.task.Deadline;
 public class DeadlineTest {
 
     @Test
-    public void testDeadlineCreation_validDateTime()
-            throws InvalidDescriptionException, InvalidDateTimeFormatException {
+    public void testDeadlineCreation_validDateTime() throws InvalidDescriptionException {
         Deadline deadline = new Deadline("Submit report /by 2024-08-02 1800");
+
         LocalDate expectedDate = LocalDate.of(2024, 8, 2);
         LocalTime expectedTime = LocalTime.of(18, 0);
+        LocalDateTime expectedDateTime = LocalDateTime.of(expectedDate, expectedTime);
 
-        assertEquals(expectedDate, deadline.getDueDate());
-        assertEquals(expectedTime, deadline.getDueTime());
+        assertEquals(expectedDateTime, deadline.getDueDateTime());
     }
 
     @Test
