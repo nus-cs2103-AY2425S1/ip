@@ -4,11 +4,19 @@ import alexer.Alexer;
 import alexer.task.TaskManager;
 import alexer.ui.Response;
 
+import static alexer.Prompter.MESSAGE_MARK_TASK;
+
 /**
- * Command to mark tasks as done.
- * Usage: mark <n>
+ * Command to mark tasks as done. Does nothing if
+ * task is already marked as done.
+ *
+ * <p>
+ * Usage: mark
  *      where n is the index of the task
  * Example: mark 3
+ * </p>
+ *
+ * @author sayomaki
  */
 public class MarkTaskCommand extends Command {
     public MarkTaskCommand() {
@@ -24,7 +32,7 @@ public class MarkTaskCommand extends Command {
         taskManager.getTask(index - 1).markAsDone();
         taskManager.saveTasks();
 
-        return new Response("Great job completing the task! Keep up the great work!\n\n" +
-                String.format("\t%s", taskManager.getTask(index - 1)));
+        return new Response(String.format("%s\n\n\t%s",
+                MESSAGE_MARK_TASK, taskManager.getTask(index - 1)));
     }
 }

@@ -22,7 +22,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
+    /** Image for the user **/
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/aUser.png"));
+
+    /** Image for the chatbot/Alexer **/
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/aAlexer.png"));
 
     @FXML

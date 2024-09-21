@@ -44,10 +44,22 @@ public class MessageBox extends HBox {
         getChildren().setAll(nodes);
     }
 
+    /**
+     * Creates a message box originating from the user (user input).
+     * @param s the string to display
+     * @param i the user avatar image
+     * @return a message box to be displayed
+     */
     public static MessageBox createUserDialog(String s, Image i) {
         return new MessageBox(s, i);
     }
 
+    /**
+     * Creates a message box originating from the bot (bot response).
+     * @param s the response text string
+     * @param i the bot avatar image
+     * @return a message box to be displayed
+     */
     public static MessageBox createBotDialog(String s, Image i) {
         MessageBox msgBox = new MessageBox(s, i);
         msgBox.flip();

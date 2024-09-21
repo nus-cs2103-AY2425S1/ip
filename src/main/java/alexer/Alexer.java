@@ -23,27 +23,13 @@ import java.util.stream.Collectors;
  * @author sayomaki
  */
 public class Alexer {
-    private static final String BREAK = "____________________________________________________________";
-
-    /** Wordart logo of the chatbot **/
-    public static final String LOGO = """
-                     .     .                           
-                    /|     |     ___  _  .-   ___  .___
-                   /  \\    |   .'   `  \\,'  .'   ` /   \\
-                  /---'\\   |   |----'  /\\   |----' |   '
-                ,'      \\ /\\__ `.___, /  \\  `.___, /   """;
-
     /** Name of the chatbot **/
     public static final String NAME = "Alexer";
 
     private static Alexer alexer;
 
     private final Scanner scanner;
-
     private final TaskManager tasks;
-
-    private final Prompter prompter;
-
     private final CommandHandler commandHandler;
 
     /**
@@ -63,17 +49,7 @@ public class Alexer {
         alexer = this;
         scanner = new Scanner(System.in);
         tasks = new TaskManager();
-        prompter = new Prompter();
         commandHandler = new CommandHandler();
-    }
-
-    /**
-     * Returns the prompter instance that handles all bot responses
-     *
-     * @return An instance of the prompter
-     */
-    public Prompter getPrompter() {
-        return prompter;
     }
 
     /**
@@ -101,11 +77,11 @@ public class Alexer {
         }
 
         if (command.equals("bye")) {
-            prompter.buildGoodbye().printToConsole();
+            Prompter.buildGoodbye().printToConsole();
             System.exit(0);
             return null;
         } else {
-            return new Response("Uh-oh, I did not understand what you are trying to do.");
+            return new Response(Prompter.MESSAGE_COMMAND_NOT_FOUND);
         }
     }
 
@@ -129,15 +105,15 @@ public class Alexer {
      * data and prepares the chatbot for operation.
      */
     public void start() {
-        tasks.loadTasks();
+
     }
 
     /**
      * Starts the console chatbot routine for text-based usage
      */
     public void promptConsole() {
-        prompter.buildLogo().printToConsole();
-        prompter.buildGreeting().printToConsole();
+        Prompter.buildLogo().printToConsole();
+        Prompter.buildGreeting().printToConsole();
         promptLoop();
     }
 

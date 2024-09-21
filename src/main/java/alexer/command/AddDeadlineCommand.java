@@ -1,7 +1,7 @@
 package alexer.command;
 
 import alexer.Alexer;
-import alexer.task.Deadline;
+import alexer.task.Task;
 import alexer.task.TaskManager;
 import alexer.ui.Response;
 
@@ -11,6 +11,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+import static alexer.Prompter.MESSAGE_ADD_DEADLINE_TASK;
+
+/**
+ * A command to create a new deadline task,
+ * that consists of a deadline date & time value,
+ * supplied by the "/by" argument.
+ *
+ * @author sayomaki
+ */
 public class AddDeadlineCommand extends Command {
     public AddDeadlineCommand() {
         super("deadline");
@@ -25,7 +34,7 @@ public class AddDeadlineCommand extends Command {
 
         String description = Arrays.stream(arguments).limit(keywordIndex)
                 .collect(Collectors.joining(" "));
-        String by =  Arrays.stream(arguments).skip(keywordIndex + 1).collect(Collectors.joining(" "));
+        String by = Arrays.stream(arguments).skip(keywordIndex + 1).collect(Collectors.joining(" "));
 
         LocalDateTime dateTime;
         DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
@@ -36,12 +45,10 @@ public class AddDeadlineCommand extends Command {
         }
 
         TaskManager taskManager = Alexer.getInstance().getTaskManager();
-        Deadline deadline = new Deadline(description, dateTime);
-        taskManager.addTask(deadline);
-        taskManager.saveTasks();
+        Task deadline = taskManager.createDeadline(description, dateTime);
 
-        return new Response(String.format(
-                "No problems! I’ve added the task to your list:\n\n\t%s\n\nYou have %d tasks now.",
+        return new Response(String.format("%s\n\n\t%s\n\nYou have %d tasks now.",
+                MESSAGE_ADD_DEADLINE_TASK,
                 deadline, taskManager.getTaskCount()));
     }
 }

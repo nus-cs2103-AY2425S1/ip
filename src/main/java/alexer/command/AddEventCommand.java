@@ -1,13 +1,23 @@
 package alexer.command;
 
 import alexer.Alexer;
-import alexer.task.Event;
+import alexer.task.Task;
 import alexer.task.TaskManager;
 import alexer.ui.Response;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+import static alexer.Prompter.MESSAGE_ADD_EVENT_TASK;
+
+/**
+ * A command to create a new event task,
+ * that consists of an event starting date & time value,
+ * as well as an event ending date & time value,
+ * supplied by the "/from" and "/to" arguments respectively.
+ *
+ * @author sayomaki
+ */
 public class AddEventCommand extends Command {
     public AddEventCommand() {
         super("event");
@@ -29,12 +39,9 @@ public class AddEventCommand extends Command {
         String to = Arrays.stream(arguments).skip(toIndex + 1).collect(Collectors.joining(" "));
 
         TaskManager taskManager = Alexer.getInstance().getTaskManager();
-        Event event = new Event(description, from, to);
-        taskManager.addTask(event);
-        taskManager.saveTasks();
+        Task event = taskManager.createEvent(description, from, to);
 
-        return new Response(String.format(
-                "Noted! I’ve added a new event to your tasks:\n\n\t%s\n\nYou have %d tasks now.",
-                event, taskManager.getTaskCount()));
+        return new Response(String.format("%s\n\n\t%s\n\nYou have %d tasks now.",
+                MESSAGE_ADD_EVENT_TASK, event, taskManager.getTaskCount()));
     }
 }

@@ -4,6 +4,14 @@ import alexer.Alexer;
 import alexer.task.TaskManager;
 import alexer.ui.Response;
 
+import static alexer.Prompter.MESSAGE_UNMARK_TASK;
+
+/**
+ * A command to un-mark a task as done. Will do
+ * nothing for tasks not marked as done.
+ *
+ * @author sayomaki
+ */
 public class UnmarkTaskCommand extends Command {
     public UnmarkTaskCommand() {
         super("unmark");
@@ -18,9 +26,7 @@ public class UnmarkTaskCommand extends Command {
         taskManager.getTask(index - 1).unmarkDone();
         taskManager.saveTasks();
 
-        StringBuilder builder = new StringBuilder("Alright, it seems you are not done with that yet.\n");
-        builder.append("I have unmarked it for you.\n\n");
-        builder.append(String.format("\t%s", taskManager.getTask(index - 1)));
-        return new Response(builder.toString());
+        return new Response(String.format("%s\n\n\t%s",
+                MESSAGE_UNMARK_TASK, taskManager.getTask(index - 1)));
     }
 }

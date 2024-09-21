@@ -5,14 +5,12 @@ import alexer.Prompter;
 import alexer.ui.Response;
 
 /**
- * Command to list all the tasks in the chatbot
+ * Command to list all the tasks in the chatbot,
+ * with ordered numbering prefix for the tasks
  *
  * @author sayomaki
  */
 public class ListTaskCommand extends Command {
-    /**
-     * Creates the list task command
-     */
     public ListTaskCommand() {
         super("list");
     }
@@ -27,7 +25,6 @@ public class ListTaskCommand extends Command {
     @Override
     public Response run(String... arguments) {
         Alexer alexer = Alexer.getInstance();
-        Prompter prompter = alexer.getPrompter();
 
         int taskCount = alexer.getTaskManager().getTaskCount();
         StringBuilder response = new StringBuilder();
@@ -36,6 +33,6 @@ public class ListTaskCommand extends Command {
             response.append(String.format("\t%d: %s\n", i + 1, task));
         }
 
-        return prompter.buildTaskList(response.toString());
+        return Prompter.buildTaskList(response.toString());
     }
 }
