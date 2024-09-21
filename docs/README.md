@@ -7,7 +7,8 @@
 
 NotGPT is a **desktop app for task management**. 
 It's a little relectuctant but it'll get the job done...\
-Also includes a data file which stores Tasks between sessions, you can edit it if you want but all invalid lines of data will simply not be read
+Also includes a data file which stores Tasks between sessions and automatically saves after every commamnd,\
+you can edit it if you want but all invalid lines of data will be ignored
 
  - [Quick start](#quick-start)
  - [Commands](#commands)
@@ -93,11 +94,12 @@ better finish it quick... you have X tasks now
 
 #### Adding EVENTs: `event`
 
-Use this command to help you add an EVENT to the task list.
+Use this command to help you add an EVENT to the task list.\
+/to and /from can be used in either order
 
 Command: `event <name_of_EVENT> /from <Additional info> /to <Additional info>`
 
-Example: `event recess week /from Now /to Forever`
+Example: `event recess week /from Now /to Forever` or `event recess week /to Now /from Forever`
 
 Expected output:
 
