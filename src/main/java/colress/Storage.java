@@ -123,7 +123,7 @@ public final class Storage {
      * Facilitates writing tasks from the provided TaskList object to the text file.
      */
     public void writeToTaskFile(TaskList taskList) throws IOException {
-        String result = taskList.stream().map(Task::toTextFile).reduce("", (res, next) -> res + next);
+        String result = taskList.stream().map(Task::toTextFile).reduce("", (res, next) -> res + next + '\n');
         initialiseFileWriter();
         writer.write(result);
         writer.close();
