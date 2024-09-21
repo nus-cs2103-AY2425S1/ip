@@ -1,99 +1,127 @@
-# notGPT User Guide
-
-<picture>
+# NotGPT User Guide
+<p align="center">
     <img alt="Screenshot of notGPT Gui interactions" src="Ui.png"
-        width="50%"
+        width="60%"
     >
-</picture>
+</p>
 
-notGPT is a **desktop app for task management**. 
-Whether it is a simple TODO, a DEADLINE or an EVENT, 
-notGPT is here to ensure that you don't lose sight of what is important.
+NotGPT is a **desktop app for task management**. 
+It's a little relectuctant but it'll get the job done...\
+Also includes a data file which stores Tasks between sessions, you can edit it if you want but all invalid lines of data will simply not be read
 
-- [Quick Start](#quick-start)
-- [Features](#features)
-  - [Adding tasks to the list](#adding-tasks-to-the-list)
-    - [Adding TODOs: `todo`](#adding-todos-todo)
-    - [Adding DEADLINEs: `deadline`](#adding-deadlines-deadline)
-    - [Adding EVENTs: `event`](#adding-events-event)
-  - [Listing all tasks: `list`](#listing-all-tasks)
-  - [Marking a task: `mark`](#marking-a-task)
-  - [Unmarking a task: `unmark`](#unmarking-a-task)
-  - [Deleting a task: `delete`](#deleting-a-task)
-  - [Finding a task using keyword: `find`](#finding-a-task-using-keyword)
-  - [Tagging a task: `tag`](#tagging-a-task)
-  - [Saying goodbye: `bye`](#saying-goodbye)
+ - [Quick start](#quick-start)
+ - [Commands](#commands)
+ - [Command Summary](#command-summary)
+  - [Adding Tasks](#adding-tasks)
+    - [Adding a TODO](#adding-todos-todo)`todo`
+    - [Adding a DEADLINE ](#adding-deadlines-deadline)`deadline`
+    - [Adding an EVENT](#adding-events-event) `event`
+  - [Date Formats](#date-formats)
+  - [Additional Commands](#additional-commands)
+    - [Listing all Tasks](#listing-all-tasks)`list`
+    - [Marking a Task](#marking-a-task)`mark`
+    - [Unmarking a Task ](#unmarking-a-task)`unmark`
+    - [Deleting a Task](#deleting-a-task)`delete`
+    - [Finding a Task using keyword](#finding-a-task-using-keyword)`find`
+    - [Clearing all Tasks](#clearing-all-tasks)`clear`
+    - [Exiting the program](#exiting-the-program)`bye`
+  - [Image Sources](#image-sources) 
 
 
-## Quick Start
+# Quick Start
 
-1. Ensure you have a Java `17` or above installed in your computer.
+1. Ensure you have a Java Runtime `17` or above installed in your computer.
 2. Download the latest `.jar` file in the repository.
-3. Copy the file to the folder you want to use as the _home folder_ for your notGPT chatbot.
-4. Open a command terminal, `cd` into the folder you put the jar file in, 
+3. Copy the file to the directory you want to use as the root directory for your NotGPT chatbot.
+4. Open a command terminal, `cd` into the directory/folder with the .jar file, 
 and use the `java -jar notGPT.jar` command to run the application.
-5. Type the command in the command box and press Enter to execute it. The command lists are as below.
+5. or just click on which also works...
 
 
-## Features
+# Commands
+Commmands are not case sensitive so eg. "todo" and "ToDo" are both valid
 
-Content wrapped in `[]` in commands is optional.
+Most commands follow the format `[command] <additional info>` without any of the brackets
 
-### Adding tasks to the list
+Note that commands are read as the first string of letters before a white space
+
+## Command Summary
+
+| Command  | Format, Example                                                                                                               |
+|----------|-|
+| List     | `list` |
+| Todo     | `todo DESCRIPTION` <br/>e.g., `todo read book`|
+| Deadline | `deadline DESCRIPTION /by STRING` <br/>e.g., `deadline submit assignment /by 2024-11-11` |
+| Event    | `event DESCRIPTION /from STRING /to STRING` <br/>e.g., `event Party /from 2024-09-29 /to 2024-11-27` |
+| Mark     | `mark INDEX` <br/>e.g., `mark 2`|
+| Unmark   | `unmark INDEX` <br/>e.g., `unmark 1`  |
+| Delete   | `delete INDEX` <br/>e.g., `delete 3` |
+| Find     | `find STRING` <br/>e.g., `find assignment`|
+| Bye      | `bye` |
+
+
+## Adding tasks
 #### Adding TODOs: `todo`
 
 Use this command to help you add a TODO item to the task list.
-Once added, it can be seen when you list out the tasks.
 
-Command: `todo <name_of_TODO_item> [#<tag_name>]`
+Command: `todo <name_of_TODO_item>`
 
-Example: `todo submit 2106 lab`
+Example: `todo Finish 2100 Lab 3`
 
 Expected output:
 
 ```
-Okie, I added it into the list:
-  [T][ ] submit 2106 lab
-Now you have 1 tasks in the list.
+Added "Finish 2100 Lab 3" as a new task
+I guess you have X tasks now
 ```
 
 #### Adding DEADLINEs: `deadline`
 
 Use this command to help you add a DEADLINE to the task list.
-Once added, it can be seen when you list out the tasks.
 
-Command: `deadline <name_of_DEADLINE> /by yyyy/mm/dd HH:MM [#<tag_name>]`
+Command: `deadline <name_of_DEADLINE> /by <Additional info>`
 
-Example: `deadline 2103 iP user guide /by 2024/09/20 23:59`
+Example: `deadline finish README /by Tomorrow`
 
 Expected output:
 
 ```
-Okie, I added it into the list:
-  [D][ ] 2103 iP user guide (by: 2024 Sep 20  23:59)
-Now you have 2 tasks in the list.
+lol "finish README /by Tomorrow" is a new deadline,
+better finish it quick... you have X tasks now
 ```
 
 #### Adding EVENTs: `event`
 
 Use this command to help you add an EVENT to the task list.
-Once added, it can be seen when you list out the tasks.
 
-Command: `event <name_of_EVENT> /from yyyy/mm/dd HH:MM /to yyyy/mm/dd HH:MM [#<tag_name>]`
+Command: `event <name_of_EVENT> /from <Additional info> /to <Additional info>`
 
-Example: `event recess week /from 2024/09/21 07:00 /to 2024/09/29 23:00`
+Example: `event recess week /from Now /to Forever`
 
 Expected output:
 
 ```
-Okie, I added it into the list:
-  [E][ ] recess week (from: 2024 Sep 21  07:00 to: 2024 Sep 29  23:00)
-Now you have 3 tasks in the list.
+Wow "recess week /from Now /to Forever"
+is an Event in your life huh? you have X tasks now
 ```
 
+## Date formats
+For `Event` and `Deadline` there are a few Acceptable input formats which you can use for the additional info that will automatically be recognised and converted into 
+```LocalDates``` dates in the task itself instead of being stored as a String.
+
+You can use any of the following: yyyy-MM-dd, yyyy.MM.dd, dd-MM-yyyy, dd.MM.yyyy \
+Or you can simply input the day itself (e. thursday) or it's shorthand (eg. mon) which will be recognised as the next valid date which that day occurs (if you tyhpe today's day of the week it will  return today).
+
+
+Example: Let's say today is 20th Sep 2024 then
+`Event Carnival /from tues /to 2024-09-27`\
+would return the Event `[E][ ] Carnival (From:  24 Sep 2024 to: 27 Sept 2024)`
+
+## Additional Commands
 ### Listing all tasks
 
-Use this command to view the current task list.
+Use this command to view the current task list. Tasks are sorted by order in which they were added into the list
 
 Command: `list`
 
@@ -102,92 +130,89 @@ Example: `list`
 Expected output:
 
 ```
-Meow~ Here you are!
-1.[T][ ] submit 2106 lab
-2.[D][ ] 2103 iP user guide (by: 2024 Sep 20  23:59)
-3.[E][ ] recess week (from: 2024 Sep 21  07:00 to: 2024 Sep 29  23:00)
+1. [T][ ] Finish 2100 Lab 3
+2. [D][ ] finish README (by: Tomorrow)
+3. [E][ ] recess week (from: Now to: Forever)
 ```
 
 ### Marking a task
 
 Use this command to mark a task as done.
 
-Command: `mark <number_of_the_item_in_the_list>`
+Command: `mark <Task index number>`
 
 Example: `mark 1`
 
 Expected output:
 
 ```
-Well done! You have completed this task!
- [T][X] submit 2106 lab
+Marked 1 as completed
+use "list" to see changes
 ```
 
 ### Unmarking a task
 
 Use this command to unmark the task back to the status of not done yet.
 
-Command: `unmark <number_of_the_item_in_the_list>`
+Command: `unmark <Task index number>`
 
 Example: `unmark 1`
 
 Expected output:
 
 ```
-Meow~ Okay we can continue this task!
-  [T][ ] submit 2106 lab
+marked 1 as uncompleted
+use "list" to see changes
 ```
 
 ### Deleting a task
 
 Use this command to delete a task from the task list.
 
-Command: `delete <number_of_the_item_in_the_list>`
+Command: `delete <Task index number>`
 
 Example: `delete 2`
 
 Expected output:
 
 ```
-I have removed it from the list :)
-  [D][ ] 2103 iP user guide (by: 2024 Sep 20  23:59)
-Now you have 2 tasks in the list.
+Deleted 2
+use "list" to see changes
 ```
 
 ### Finding a task using keyword
 
-Use this command to search for a task with the keyword.
+Use this command to search for all tasks whose description contains the input <String> as a substring
 
-Command: `find <keyword>`
+Command: `find <String>`
 
 Example: `find recess`
 
 Expected output:
 
 ```
-Meow~ Here you are!
-[E][ ] recess week (from: 2024 Sep 21  07:00 to: 2024 Sep 29  23:00)
+1. [E][ ] recess week (from: Now to: Forever)
 ```
 
-### Tagging a task
+### Clearing all Tasks
 
 Use this command to add or update tag to a task.
 
-Command: `tag <number_of_the_item_in_the_list> <tag_name>`
+Command: `clear`
 
-Example: `tag 1 important`
+Example: `clear`
 
 Expected output: 
 
 ```
-I have tagged this task:)
-[T][ ] submit 2106 lab #important
+I removed everything from your task list,
+hope you don't regret it...
 ```
 
 
-### Saying goodbye
+### Exiting the program
 
-Say goodbye to the chatbot if you like before you close it.
+ALternate way to close the program from within the Chatbox itself, comes with a goodbye message! (lol)
 
 Command: `bye`
 
@@ -196,6 +221,11 @@ Example: `bye`
 Expected output:
 
 ```
-Bye. Hope I can see you again soon!
-Next time bring me some cat food please!!!
+It's finally over... *yawn*
+I'm heading to bed
 ```
+
+# Image Sources
+[Bot profile](https://www.youtube.com/watch?app=desktop&v=fKtJslkLnMw) (Frieren: Beyond Journey's End) \
+[User profile picture](https://wysi.fandom.com/wiki/Giga_Chad?file=Giga.jpg) (Giga Chad meme)\
+Application Icon was drawn inside powerpoint
