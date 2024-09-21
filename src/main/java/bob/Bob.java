@@ -26,7 +26,7 @@ public class Bob {
         parser = new Parser();
         try {
             tasks = new TaskList(storage.load());
-        } catch (BobException | IOException e) {
+        } catch (BobException e) {
             ui.printError(e.getMessage());
             tasks = new TaskList();
         }
