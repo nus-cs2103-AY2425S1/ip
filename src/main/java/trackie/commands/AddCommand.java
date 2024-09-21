@@ -17,11 +17,6 @@ import trackie.ui.TrackieException;
  * <code>arguments</code> that are passed in.
  */
 public class AddCommand extends Command {
-    private String description;
-    private String deadline;
-    private String start;
-    private String end;
-
     private StringBuilder retriever = new StringBuilder();
     private int ptr = 1;
 
@@ -42,123 +37,37 @@ public class AddCommand extends Command {
      * If an exception is thrown in the process of adding the command, its
      * error message will be displayed to the user.
      *
-     * @param tasklist The TaskList object to which a task will be added.
+     * @param taskList The TaskList object to which a task will be added.
      * @param storage The Storage object used to save the updated task list.
      */
     @Override
-    public String execute(TaskList tasklist, Storage storage) throws TrackieException {
+    public String execute(TaskList taskList, Storage storage) throws TrackieException {
         try {
             switch (arguments[0]) {
             case "todo":
-                if (arguments.length == 1) {
-                    throw new TrackieException("Correct usage: todo [desc]");
-                }
-                while (ptr < arguments.length) {
-                    retriever.append(arguments[ptr]).append(" ");
-                    ptr++;
-                }
-                description = retriever.substring(0, retriever.length() - 1);
-
-                Task todoTask = new Todo(description);
-                tasklist.addTask(todoTask);
-                storage.save();
+                Task todoTask = new Todo(super.fetchDescription());
+                taskList.addTask(todoTask);
+                assert !taskList.isEmpty() : "A task should have been added, but taskList was empty.";
                 return "Added: " + todoTask.toString();
             case "deadline":
-                if (arguments.length == 1) {
-                    throw new TrackieException("Correct usage: deadline [desc] /by [yyyy-mm-dd]");
-                }
-
-                //retrieve the description
-                while (!arguments[ptr].equals("/by")) {
-                    if (ptr == arguments.length - 1) {
-                        throw new TrackieException("Correct usage: deadline [desc] /by [yyyy-mm-dd]");
-                    }
-                    retriever.append(arguments[ptr]).append(' ');
-                    ptr++;
-                }
-                if (retriever.isEmpty()) {
-                    throw new TrackieException("Description cannot be empty!");
-                } else {
-                    description = retriever.substring(0, retriever.length() - 1);
-                }
-                retriever.setLength(0); //clear the stringbuilder
-
-                //retrieve the deadline
-                ptr++;
-                while (ptr < arguments.length) {
-                    retriever.append(arguments[ptr]).append(' ');
-                    ptr++;
-                }
-
-                if (retriever.isEmpty()) {
-                    throw new TrackieException("Deadline cannot be empty!");
-                } else {
-                    deadline = retriever.substring(0, retriever.length() - 1);
-                }
-
-                Task deadlineTask = new Deadline(description, deadline);
-                tasklist.addTask(deadlineTask);
-                storage.save();
+                Task deadlineTask = new Deadline(super.fetchDescription(), super.fetchDeadline());
+                taskList.addTask(deadlineTask);
+                assert !taskList.isEmpty() : "A task should have been added, but taskList was empty.";
                 return "Added: " + deadlineTask.toString();
-
             case "event":
-                if (arguments.length == 1) {
-                    throw new TrackieException("Correct usage: event [desc] /from [start] /to [end]");
-                }
-
-                //retrieve the description
-                while (!arguments[ptr].equals("/from")) {
-                    if (ptr == arguments.length - 1) {
-                        throw new TrackieException("Correct usage: event [desc] /from [start] /to [end]");
-                    }
-                    retriever.append(arguments[ptr]).append(' ');
-                    ptr++;
-                }
-                if (retriever.isEmpty()) {
-                    throw new TrackieException("Description cannot be empty!");
-                } else {
-                    description = retriever.substring(0, retriever.length() - 1);
-                }
-                retriever.setLength(0); //clear the stringbuilder;
-
-                ptr++;
-                if (ptr >= arguments.length) {
-                    throw new TrackieException("Correct usage: event [desc] /from [start] /to [end]");
-                }
-                //retrieve the start time
-                while (!arguments[ptr].equals("/to")) {
-                    if (ptr == arguments.length - 1) {
-                        throw new TrackieException("Correct usage: event [desc] /from [start] /to [end]");
-                    }
-                    retriever.append(arguments[ptr]).append(" ");
-                    ptr++;
-                }
-                if (retriever.isEmpty()) {
-                    throw new TrackieException("Start timing cannot be empty!");
-                } else {
-                    start = retriever.substring(0, retriever.length() - 1);
-                }
-                retriever.setLength(0); //clear the retriever
-                ptr++;
-                //retrieve the end time
-                while (ptr < arguments.length) {
-                    retriever.append(arguments[ptr]).append(" ");
-                    ptr++;
-                }
-                if (retriever.isEmpty()) {
-                    throw new TrackieException("End timing cannot be empty!");
-                } else {
-                    end = retriever.substring(0, retriever.length() - 1);
-                }
-                Task eventTask = new Event(description, start, end);
-                tasklist.addTask(eventTask);
-                storage.save();
+                Task eventTask = new Event(super.fetchDescription(), super.fetchStartTime(), super.fetchEndTime());
+                taskList.addTask(eventTask);
+                assert !taskList.isEmpty() : "A task should have been added, but taskList was empty.";
                 return "Added: " + eventTask.toString();
             default:
                 return "Invalid Command bro";
             }
-        } catch (TrackieException | DateTimeParseException e) {
+        } catch (TrackieException e) {
             return e.getMessage();
+        } catch (DateTimeParseException ex) {
+            return "Correct format for deadline: yyyy-dd-mm";
+        } finally {
+            storage.save();
         }
     }
 }
