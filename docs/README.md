@@ -1,6 +1,6 @@
 # Toothless User Guide
 
-Welcome to Toothless, your friendly dragon companion for managing your tasks, deadlines and events! This user guide will help you get started with Toothless and its features.
+Welcome to **Toothless**, your friendly dragon companion for **managing your tasks, deadlines and events**! This user guide will help you get started with Toothless and its features.
 
 ![Toothless sample display](./Ui.png)
 
@@ -23,6 +23,7 @@ added to the quest board!
 
 Now there is 1 quest in your quest board. 
 ```
+---
 
 ### Deadline Task :`deadline`
 - **Description**: Adds a Deadline task to the task list.
@@ -40,6 +41,7 @@ added to the quest board!
 
 Now there is 1 quest in your quest board!
 ```
+---
 
 ### Event Task :`event`
 - **Description**: Adds an Event task to the task list.
@@ -78,6 +80,7 @@ Example: `list`
     3. [E][ ] toothless birthday (from: 12 Dec 2024 00:00 to: 12 Dec 2024 23:59)
  |------------------------------------------|
 ```
+---
 
 ### Mark task as done :`mark`
 - **Description**: Marks a task as done.
@@ -92,6 +95,7 @@ Example: `mark 1`
 Good job! You have completed this quest!
 [T][X] train toothless
 ```
+---
 
 ### Mark task as undone :`unmark`
 - **Description**: Marks a task as undone.
@@ -106,6 +110,7 @@ Example: `unmark 1`
 Oops!Quest is back in play!
 [T][ ] train toothless
 ```
+---
 
 ### Delete task :`delete`
 - **Description**: Deletes a task from the task list.
@@ -123,6 +128,7 @@ is removed from the quest board.
 
 Now there is 2 quests in your quest board.
 ```
+---
 
 ### Find task :`find`
 - **Description**: Finds tasks with the specified keyword.
@@ -169,6 +175,8 @@ Category C: Other commands
 9. Shows the list of commands: help
 10. Exit the program: bye
 ```
+---
+
 ### Greetings : `hi`
 - **Description**: Greets the user.
 - **Format**: `hi`
@@ -180,10 +188,11 @@ Example: `hi`
 ```
 Hello! I'm Toothless\nHow can I help today dragon rider?
 ```
+---
 
 ### Exit :`bye`
 - **Description**: Exits the program.
-- **Format`: `bye`
+- **Format**: `bye`
 
 Exits the program and saves the task list to the hard disk.
 A message indicating the program has been exited will be displayed.
