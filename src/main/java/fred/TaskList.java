@@ -32,16 +32,21 @@ public class TaskList {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         String[] taskDetailsArr = taskDetails.split(" /", 3);
         String description = taskDetailsArr[0];
-
         switch (taskType) {
-            case TODO:
-                return createTodoTask(description);
-            case DEADLINE:
-                return createDeadlineTask(description, taskDetailsArr[1], formatter);
-            case EVENT:
-                return createEventTask(description, taskDetailsArr[1], taskDetailsArr[2], formatter);
-            default:
-                return null;
+        case TODO:
+            return createTodoTask(description);
+        case DEADLINE:
+            if (taskDetailsArr.length != 2) {
+                throw new InvalidDeadlineException();
+            }
+            return createDeadlineTask(description, taskDetailsArr[1], formatter);
+        case EVENT:
+            if (taskDetailsArr.length != 3) {
+                throw new InvalidEventException();
+            }
+            return createEventTask(description, taskDetailsArr[1], taskDetailsArr[2], formatter);
+        default:
+            return null;
         }
     }
 
