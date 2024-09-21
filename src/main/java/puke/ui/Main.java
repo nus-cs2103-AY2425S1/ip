@@ -1,10 +1,12 @@
 package puke.ui;
 
+import java.awt.*;
 import java.io.IOException;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import puke.Puke;
@@ -16,6 +18,8 @@ import puke.Puke;
 public class Main extends Application {
 
     private Puke puke = new Puke();
+
+    private javafx.scene.image.Image pukeImage = new Image(this.getClass().getResourceAsStream("/images/puke.png"));
 
     /**
      * Initializes and shows the primary stage of the application.
@@ -32,6 +36,8 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
+            stage.setTitle("Puke");
+            stage.getIcons().add(pukeImage);
             fxmlLoader.<MainWindow>getController().setPuke(puke);
             stage.show();
         } catch (IOException e) {
