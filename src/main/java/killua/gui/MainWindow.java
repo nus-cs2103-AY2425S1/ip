@@ -79,10 +79,17 @@ public class MainWindow extends AnchorPane {
         assert !input.trim().isEmpty() : "User input should not be empty!";
         String response = killua.getResponse(input);
         assert response != null : "Response from Killua should not be null!";
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getKilluaDialog(response, killuaImage)
-        );
+        if (response.startsWith("Error")) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getKilluaErrorDialog(response.substring(5), killuaImage)
+            );
+        } else {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getKilluaDialog(response, killuaImage)
+            );
+        }
         userInput.clear();
         exitWithDelay();
     }

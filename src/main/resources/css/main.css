@@ -1,27 +1,27 @@
 .root {
-    main-color: rgb(237, 255, 242);       /* Create a looked-up color called "main-color" within root. */
+    main-color: rgba(128, 128, 128, 0.06);       /* Create a looked-up color called "main-color" within root. */
     -fx-background-color: main-color;
     /*-fx-background-image: url("../images/background.jpg"); !* Set image *!
     -fx-background-size: stretch;*/
 }
 
 .text-field {
-    -fx-background-color: #d9ffe2;
+    -fx-background-color: #ffffff;
     -fx-font: 20px "Arial";
 }
 
 .button {
-    -fx-background-color: mediumspringgreen;
+    -fx-background-color: #3dcb37;
     -fx-font: italic bold 16px "Arial";
 }
 
 .button:hover {
-    -fx-background-color:cyan;
+    -fx-background-color: rgba(61, 203, 55, 0.56);
     -fx-font-size: 18px;
 }
 
 .button:pressed {
-    -fx-background-color:orange;
+    -fx-background-color: rgba(61, 203, 55, 0.56);
     -fx-font-size: 20px;
 }
 
@@ -36,7 +36,7 @@
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: #ff9cb4;
+    -fx-background-color: rgba(0, 0, 0, 0.27);
     -fx-background-radius: 1em;
 }
 
