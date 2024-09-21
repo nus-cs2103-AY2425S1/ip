@@ -1,5 +1,8 @@
 package sammy.task;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Represents a task with a description and a completion status.
  * This is an abstract class that serves as a base for different types of tasks.
@@ -7,6 +10,7 @@ package sammy.task;
 public abstract class Task {
     protected String description;
     protected boolean isDone;
+    protected Set<String> tags;
 
     /**
      * Constructs a Task object with the specified description.
@@ -17,6 +21,21 @@ public abstract class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.tags = new HashSet<>();  // Initialize only if null
+    }
+
+    public void addTag(String tag) {
+        tags.add(tag);
+    }
+
+    // Remove a tag from the task
+    public void removeTag(String tag) {
+        tags.remove(tag);
+    }
+
+    // Get all tags for the task
+    public Set<String> getTags() {
+        return tags;
     }
 
     /**
@@ -50,6 +69,10 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    private String getTagsString() {
+        return tags.isEmpty() ? "" : " | Tags: " + tags;
+    }
+
     /**
      * Returns a string representation of the task, including its status and description.
      *
@@ -57,7 +80,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description;
+        return "[" + getStatusIcon() + "] " + description + getTagsString();
     }
 }
 

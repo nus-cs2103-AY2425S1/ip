@@ -21,6 +21,7 @@ public class Parser {
     private static final String UNMARK_COMMAND = "unmark";
     private static final String FIND_COMMAND = "find";
     private static final String BYE_COMMAND = "bye";
+    private static final String TAG_COMMAND = "tag";
 
     /**
      * Parses the input command and returns the corresponding Command object.
@@ -53,12 +54,39 @@ public class Parser {
             return new UnmarkCommand(Integer.parseInt(arguments) - 1);
         case FIND_COMMAND:
             return new FindCommand(arguments);
+        case TAG_COMMAND:  // Handle tag command
+            return parseTagCommand(arguments);
         case BYE_COMMAND:
             return new ExitCommand();
         default:
             throw new InvalidCommandException();
         }
     }
+
+    /**
+     * Parses a tag command and returns the corresponding TagCommand object.
+     *
+     * @param arguments The arguments containing the task index and tag to add.
+     * @return TagCommand to tag a specific task.
+     * @throws SammyException If the task index or tag is invalid.
+     */
+    private static Command parseTagCommand(String arguments) throws SammyException {
+        String[] tagParts = arguments.split(" ", 2); // format: tag <taskIndex> <#tag>
+        if (tagParts.length != 2) {
+            throw new SammyException("Invalid format for tag command.");
+        }
+
+        int taskIndex;
+        try {
+            taskIndex = Integer.parseInt(tagParts[0]) - 1; // Convert 1-based index to 0-based
+        } catch (NumberFormatException e) {
+            throw new SammyException("Invalid task index.");
+        }
+
+        String tag = tagParts[1]; // The actual tag (e.g., "#fun")
+        return new TagCommand(taskIndex, tag);
+    }
+
 
     /**
      * Parses a deadline command and returns the corresponding AddCommand object.
