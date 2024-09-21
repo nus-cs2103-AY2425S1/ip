@@ -123,20 +123,21 @@ public class TaskList {
         if (commandSplitBySpace.length <= 1) {
             throw new TiraException("MRAW?? Please specify deadline task and the deadline date.");
         } else if (commandSplitBySpace[1].startsWith("/")) {
-            throw new TiraException("MRAW?? Please provide the deadline description");
+            throw new TiraException("MRAW?? Please input task this format: deadline DESCRIPTION /by yyyy-MM-dd");
         }
         String[] commandSplitBySlash = command.split("/");
         if (commandSplitBySlash.length < 2) {
             throw new TiraException("MRAW?? Please specify the deadline date");
         }
         try {
-            LocalDate endDate = LocalDate.parse(extractAfterWord(commandSplitBySlash[1], "by").trim(), DATE_FORMATTER);
+            LocalDate endDate = LocalDate.parse(extractAfterWord(commandSplitBySlash[1], "by").trim(),
+                    DATE_FORMATTER);
             Task deadlineTask = new Deadline(extractAfterWord(commandSplitBySlash[0], "deadline"), endDate);
             tasks.add(deadlineTask);
             ui.showAddTask(deadlineTask, tasks.size());
             return ui.getOutMessage();
         } catch (DateTimeParseException e) {
-            return e.getMessage();
+            throw new TiraException("MRAW?? Incorrect date format. Please enter in yyyy-MM-dd");
         }
 
     }
@@ -152,7 +153,8 @@ public class TaskList {
         if (commandSplitBySpace.length <= 1) {
             throw new TiraException("MRAW?? Please specify event name and timing.");
         } else if (commandSplitBySpace[1].startsWith("/")) {
-            throw new TiraException("MRAW?? Please provide event description!");
+            throw new TiraException("MRAW?? Please provide task in this format: event DESCRIPTION /from yyyy-MM-dd"
+                    + "/to yyyy-MM-dd" );
         }
         String[] commandSplitBySlash = command.split("/");
         if (commandSplitBySlash.length <= 2) {
@@ -160,14 +162,16 @@ public class TaskList {
                     + " event task, start date and end date");
         }
         try {
-            LocalDate startDate = LocalDate.parse(extractAfterWord(commandSplitBySlash[1], "from"), DATE_FORMATTER);
-            LocalDate endDate = LocalDate.parse(extractAfterWord(commandSplitBySlash[2], "to"), DATE_FORMATTER);
+            LocalDate startDate = LocalDate.parse(extractAfterWord(commandSplitBySlash[1], "from"),
+                    DATE_FORMATTER);
+            LocalDate endDate = LocalDate.parse(extractAfterWord(commandSplitBySlash[2], "to"),
+                    DATE_FORMATTER);
             Task eventTask = new Event(extractAfterWord(commandSplitBySlash[0], "event"), startDate, endDate);
             tasks.add(eventTask);
             ui.showAddTask(eventTask, tasks.size());
             return ui.getOutMessage();
         } catch (DateTimeParseException e) {
-            return e.getMessage();
+            throw new TiraException("MRAW?? Incorrect date format. Please enter in yyyy-MM-dd");
         }
     }
     /**

@@ -11,9 +11,6 @@ import tira.task.TaskList;
  * Manages initialization and execution of the Tira app.
  */
 public class Tira {
-    private static final String Directory = "./data";
-    private static final String FileName = "./data/Tira.txt";
-    private static final DateTimeFormatter IN_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private Ui ui;
     private TaskList tasks;
     private Storage storage;
