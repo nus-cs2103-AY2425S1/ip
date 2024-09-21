@@ -16,7 +16,7 @@ public class Event extends Task {
 
     /**
      * Creates a new event with the input title,
-     * start time and end time
+     * start time and end time.
      *
      * @param title the title.
      * @param startTime the start time.
@@ -24,6 +24,21 @@ public class Event extends Task {
      */
     public Event(String title, String startTime, String endTime) {
         super(title);
+        this.startTime = LocalDateTime.parse(startTime);
+        this.endTime = LocalDateTime.parse(endTime);
+    }
+
+    /**
+     * Creates a new event with the input title,done status,
+     * start time and end time.
+     *
+     * @param title the title.
+     * @param isDone the done status.
+     * @param startTime the start time.
+     * @param endTime the end time.
+     */
+    public Event(String title,boolean isDone, String startTime, String endTime) {
+        super(title,isDone);
         this.startTime = LocalDateTime.parse(startTime);
         this.endTime = LocalDateTime.parse(endTime);
     }

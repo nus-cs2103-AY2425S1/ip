@@ -27,11 +27,11 @@ public class Deadline extends Task {
      * Creates a new deadline with the input title, completion status and time
      *
      * @param title the title.
-     * @param done the completion status.
+     * @param isDone the completion status.
      * @param time the time.
      */
-    public Deadline(String title, boolean done, String time) {
-        super(title, done);
+    public Deadline(String title, boolean isDone, String time) {
+        super(title, isDone);
         this.time = LocalDateTime.parse(time);
     }
 

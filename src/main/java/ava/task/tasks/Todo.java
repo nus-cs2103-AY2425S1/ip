@@ -20,10 +20,10 @@ public class Todo extends Task {
      * Creates a new to-do with title and completion status
      *
      * @param title the title.
-     * @param done the completion status.
+     * @param isDone the completion status.
      */
-    public Todo(String title, boolean done) {
-        super(title, done);
+    public Todo(String title, boolean isDone) {
+        super(title, isDone);
     }
 
     /**

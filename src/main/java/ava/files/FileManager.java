@@ -27,7 +27,7 @@ public class FileManager {
     /**
      * Default path used to store tasks
      */
-    private static final String DEFAULT_PATH="./../data/tasks.txt";
+    private static final String DEFAULT_PATH="./data/tasks.txt";
 
     /**
      * Creates a new FileManager with default path
@@ -74,12 +74,6 @@ public class FileManager {
             reader = new BufferedReader(new FileReader(file));
         } catch (FileNotFoundException e) {
            System.out.println("File corrupted or not found.");
-        }
-
-        try {
-            writer = new PrintWriter(new BufferedWriter(new FileWriter(file)));
-        } catch (IOException e) {
-            System.out.println("File corrupted or not found.");
         }
 
         // default Task handler
@@ -134,7 +128,17 @@ public class FileManager {
      * @param tasks List of tasks to write
      */
     public void writeTasks(List<Task> tasks){
-            tasks.stream().map(Task::serialize).forEachOrdered(writer::println);
+
+        // erases the file.... as soon as writer is created...
+        try {
+            writer = new PrintWriter(new BufferedWriter(new FileWriter(file)));
+        } catch (IOException e) {
+            System.out.println("File corrupted or not found.");
+        }
+
+        tasks.stream().map(DataManager::serialize).forEachOrdered(writer::println);
+        writer.flush();
+        writer.close();
     }
 
 }
