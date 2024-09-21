@@ -1,0 +1,22 @@
+todo
+ok bro
+read books
+deadline assignment /by today 4pm
+event
+event dodgeball /from today 8pm /to 10pm
+deadline another assignment by today 1pm
+event rest from 8pm to 8am
+list
+todo read books
+mark 1
+mark 3
+mark 4
+list
+unmark 3
+list
+delete 4
+delete 3
+list
+delete 1
+list
+bye
