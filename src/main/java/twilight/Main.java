@@ -12,7 +12,7 @@ import javafx.stage.Stage;
  * A GUI for Twilight using FXML.
  */
 public class Main extends Application {
-    private Twilight twilight = new Twilight("data/Twilight.txt");
+    private Twilight twilight = new Twilight("./data/Twilight.txt");
 
     @Override
     public void start(Stage stage) {
@@ -21,6 +21,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Twilight");
             fxmlLoader.<MainWindow>getController().setTwilight(twilight); //inject the Twilight instance
             stage.show();
         } catch (IOException e) {

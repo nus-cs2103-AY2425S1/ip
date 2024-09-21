@@ -76,6 +76,10 @@ Example: 'Find book'
 Closes the application. 
 Format: 'bye'
 
+### Help Command: help
+Gives information on available commands.
+Format: 'help'
+
 ## Command Summary
 
 | Command  | Format                                       | Example                                   |
@@ -90,4 +94,4 @@ Format: 'bye'
 |  Delete  | 'delete taskNumber'                          | 'delete 2'                                |                                 
 |   Find   | 'find description'                           | 'find book'                               |
 |   Exit   | 'bye'                                        | 'bye'                                     |
-
+|   Help   | 'help'                                       | 'help'                                    |

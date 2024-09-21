@@ -6,7 +6,7 @@ package twilight;
 abstract class Command {
     /**
      * Executes the particular command assigned.
-     * Prints out a message to inform user of the execution of change.
+     * Returns a String to inform user of the execution of change.
      *
      * @param tasks Tasklist which may be modified during execution.
      * @param storage Storage to be updated via tasklist post changes.

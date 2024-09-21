@@ -5,7 +5,7 @@ package twilight;
  */
 public class Parser {
     private static final String[] COMMANDS = new String[]{"list", "mark", "unmark", "todo",
-            "event", "deadline", "delete", "find", "tag", "bye"};
+            "event", "deadline", "delete", "find", "tag", "bye", "help"};
 
     /**
      * Parses the string input and returns a command to be executed.
@@ -43,11 +43,14 @@ public class Parser {
                 return new ListCommand();
             } else if (input.equals("bye")) {
                 return new ExitCommand();
+            } else if (input.equals("help")) {
+                return new HelpCommand();
             } else {
                 throw new InvalidInputException("Not a valid input!");
             }
         }
     }
 }
+
 
 

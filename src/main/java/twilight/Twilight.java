@@ -20,7 +20,7 @@ public class Twilight {
             errorMessage = null;
         } catch (FileErrorException e) {
             tasks = new TaskList();
-            this.errorMessage = e.getMessage();
+            this.errorMessage = e.toString();
         }
     }
 
@@ -44,9 +44,11 @@ public class Twilight {
      */
     public String greet() {
         if (this.errorMessage != null) {
-            return this.errorMessage + "\n" + "Hello! I am Twilight your personal assistant\nWhat can I do for you?";
+            return this.errorMessage + "\n" + "Hello! I am Twilight your personal assistant"
+                    + "\nWhat can I do for you?";
         }
-        return "Hello! I am Twilight your personal assistant\nWhat can I do for you?";
+        return "Data Loaded.\nHello! I am Twilight your personal assistant."
+                + "\nWhat can I do for you?\nEnter 'help' for more information";
     }
 
     /**

@@ -70,7 +70,8 @@ public class Storage {
                 } else if ((input[0].equals("D"))){
                     tasks.add(new Deadline(input[1].equals("1"), input[2], input[3], input[4]));
                 } else {
-                    throw new FileErrorException("The file has been incorrectly modified and cannot be read.");
+                    throw new FileErrorException("The file has been incorrectly modified and cannot be read.\n"
+                            + "Please close the program and correct the file or add tasks to create a new file.");
                 }
             }
             return tasks;
