@@ -1,13 +1,13 @@
 package parser;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import exception.ParseException;
 import task.KorolevDeadline;
 import task.KorolevEvent;
 import task.KorolevTask;
 import task.KorolevTodo;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class EventParser {
     /**

@@ -1,7 +1,5 @@
 package task;
 
-import task.KorolevTask;
-
 /**
  * Represents a task of Todo type.
  */
