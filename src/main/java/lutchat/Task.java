@@ -5,7 +5,7 @@ package lutchat;
  * It serves as an abstract base class for different types of tasks such as Todo, Deadline, and Event.
  */
 public abstract class Task {
-    private boolean done;
+    private boolean isDone;
     private String description;
 
     /**
@@ -16,7 +16,7 @@ public abstract class Task {
      */
     public Task(String description) {
         this.description = description;
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
@@ -25,21 +25,21 @@ public abstract class Task {
      * @return true if the task is done, false otherwise.
      */
     public boolean isDone() {
-        return done;
+        return isDone;
     }
 
     /**
      * Marks the task as done.
      */
     public void markAsDone() {
-        this.done = true;
+        this.isDone = true;
     }
 
     /**
      * Marks the task as not done.
      */
     public void markAsUndone() {
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
@@ -49,7 +49,7 @@ public abstract class Task {
      */
     public String toFileFormat() {
         return getTaskType() + " | "
-                + (done ? "1" : "0") + " | "
+                + (isDone ? "1" : "0") + " | "
                 + description
                 + additionalDescDetailsToFileFormat();
     }
@@ -91,6 +91,6 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return (done ? "[X] " : "[ ] ") + description;
+        return (isDone ? "[X] " : "[ ] ") + description;
     }
 }
