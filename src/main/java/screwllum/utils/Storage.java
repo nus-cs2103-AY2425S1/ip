@@ -31,7 +31,7 @@ public class Storage {
     }
 
     /**
-     * Writes the list of tasks to the save file. Utilised after every command.
+     * Writes the list of tasks to the save file. Utilised when the application is closed.
      *
      * @param taskList The list of tasks to be saved.
      */
