@@ -1,8 +1,9 @@
 package echobot;
-import echobot.task.TaskList;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+
+import echobot.task.TaskList;
 
 /**
  * Main class for the EchoBot application.
