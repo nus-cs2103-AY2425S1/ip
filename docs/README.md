@@ -1,9 +1,8 @@
-# Gallium
+# Gallium User Guide
 
-![Gallium UI](./Ui.png)
+Gallium is your **todos, deadlines and events manager chatbot**, optimized for use via a **Command Line Interface (CLI)** while still having the benefits of a **Graphical User Interface (GUI)**. You can add todos, deadlines, and events into a tasklist, and mark them as completed, edit, delete them, and search for tasks.
 
-Gallium is your **todos, deadlines and events manager chatbot**,voptimized for use via a **Command Line Interface (CLI)** while still having the benefits of a **Graphical User Interface (GUI)**.
-
+- [Quick Start] (#quick-start)
 - [Commands](#commands)
   - [Viewing the Task List: `list`](#viewing-the-task-list-list)
   - [Adding Todo Tasks: `todo`](#adding-todo-tasks-todo)
@@ -17,6 +16,21 @@ Gallium is your **todos, deadlines and events manager chatbot**,voptimized for u
   - [Editing Tasks: `edit`](#editing-tasks-edit)
   - [Exiting: `bye`](#exiting-bye)
 - [Command Summary](#command-summary)
+
+# Quick Start
+
+1. Ensure you have Java `17` or above installed in your Computer.
+
+2. Download the latest `.jar` file from here.
+
+3. Copy the file to the folder you want to use as the home folder for your AddressBook.
+
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.
+   A GUI similar to the below should appear in a few seconds.
+
+![Gallium UI](./Ui.png)
+
+5. Refer to the Features below for details of each command.
 
 # Commands
 
@@ -68,6 +82,7 @@ Adds an event task to the task list.
 - `/from` date and `/to` date must be specified in `YYYY-MM-DD HHMM` format.
 
 Format: `event <Description> /from <date> /to <date>`
+
 Example: `event lecture /from 2024-09-20 2359 /to 2024-09-21 0159`
 
 ## Marking Tasks as Completed: `mark`
@@ -149,9 +164,10 @@ Example: `edit 1`
 1. description
 2. from date
 3. to date
-   Format: `<Index>. <New details>`
 
-   Example: `2. 2024-09-20 2359`
+Format: `<Index>. <New details>`
+
+Example: `2. 2024-09-20 2359`
 
 ## Exiting: `bye`
 
