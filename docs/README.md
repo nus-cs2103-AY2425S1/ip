@@ -15,7 +15,7 @@ store these types of tasks. Users can tag tasks, mark completion and find tasks 
 ### Creating a Todo Task: todo
 Adds a task to be completed to the task list.
 
-`Format: todo taskName`
+Format: `todo taskName`
 
 Examples:
 `todo read Getting Things Done` `todo Complete weekly reading`
@@ -29,7 +29,7 @@ There are 5 tasks in the list.
 ### Creating a Deadline Task: deadline
 Adds a deadline to the task list.
 
-`Format: deadline deadlineName /by YYYY-MM-DD` 
+Format: `deadline deadlineName /by YYYY-MM-DD` 
 
 - The date must follow this exact format and be valid.
 
@@ -45,7 +45,7 @@ There are 6 tasks in the list.
 ### Creating an Event Task: event
 Adds an event with a given start and end time to the task list.
 
-`Format: event eventName /from startTime /to endTime`
+Format: `event eventName /from startTime /to endTime`
  
 - The start and end time can be listed in any format as they are strings.
 
@@ -61,7 +61,7 @@ There are 7 tasks in the list.
 ### Tagging a Task: tag
 Tags a task.
 
-`Format: tag taskNumber #tag`
+Format: `tag taskNumber #tag`
 
 - Unlimited number of tags can be added.
 - Multiple tags can be added at once by listing them in series.
@@ -76,8 +76,7 @@ The task has been tagged:
 ```
 
 ### Listing Stored Tasks: list
-Lists the stored tasks with their status, descriptions and tags.
-`Format: list`
+Lists the stored tasks with their status, descriptions and tags. Format: `list`
 
 Sample output:
 ```
@@ -89,7 +88,7 @@ Here are the current tasks:
 
 ### Marking and Unmarking Task Completion: mark, unmark
 mark: Marks the task as complete.
-`Format: mark taskNumber`
+Format: `mark taskNumber`
 Example: `mark 1`
 
 Sample output:
@@ -99,12 +98,12 @@ Excellent I have marked it:
 ```
 
 unmark: Unmarks the task as incomplete.
-`Format: unmark taskNumber`
+Format: `unmark taskNumber`
 Example: `unmark 1` 
 
 ### Deleting Tasks: delete
 Deletes tasks from the task list.
-`Format: delete taskNumber`
+Format: `delete taskNumber`
 Example: `delete 1`
 
 Sample output:
@@ -115,11 +114,12 @@ Fine I have unmarked it:
 
 ### Finding Tasks According to Description: find
 Finds tasks whose name match a string description.
-`Format: find description`
+Format: `find description`
 Example: `Find book`
 
 Sample output:
-```Here are the matches:
+```
+Here are the matches:
 1. [T][ ] Read book
 2. [T][ ] Return book
 ```
@@ -148,7 +148,7 @@ Format: `help`
 |   Exit   | `bye`                                          | `bye`                                       |
 |   Help   | `help`                                         | `help`                                      |
 
-##Other notes
+## Other notes
 
 Twilight stores the tasks and reads them everytime you open the application. If the file has been incorrectly
 modified you will be notified. You may choose to close the application and fix the file or continue which will
