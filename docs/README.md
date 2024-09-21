@@ -165,7 +165,7 @@ Total number of Unmarked tasks: 1
 ## Exiting the program: `bye`
 Exists the program
 
-Format: `exit`
+Format: `bye`
 
 ## Saving the data
 Tira chatbot saves automatically your tasks in a txt file called tira.txt. 
