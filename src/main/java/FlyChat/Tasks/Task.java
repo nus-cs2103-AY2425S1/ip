@@ -31,7 +31,7 @@ public abstract class Task {
     /**
      * Changes the done boolean to false to unmark a task.
      */
-    public void uncompleteTask() {
+    public void undoCompleteTask() {
         done = false;
     }
 

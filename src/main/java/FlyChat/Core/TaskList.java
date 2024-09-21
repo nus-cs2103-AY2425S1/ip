@@ -133,7 +133,7 @@ public class TaskList {
      */
     public String unmark(int index) throws IndexOutOfBoundsException {
         //index - 1 because task list displayed to user starts from 1
-        storageList.get(index - 1).uncompleteTask();
+        storageList.get(index - 1).undoCompleteTask();
         return "I've marked the task as not done T.T :\n  " + storageList.get(index - 1).toString();
     }
 

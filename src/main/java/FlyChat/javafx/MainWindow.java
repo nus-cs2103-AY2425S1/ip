@@ -1,5 +1,6 @@
 package flychat.javafx;
 import flychat.core.FlyChat;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 public class MainWindow extends AnchorPane {
     @FXML
@@ -59,9 +61,9 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
 
         if (input.trim().equals("bye")) {
-            dialogContainer.getChildren().add(DialogBox.getFlyChatDialog(flyChat.shutDown(), flyChatImage));
-            //TODO Print the final goodbye message before exiting
-            System.exit(0);
+            PauseTransition goodbyePause = new PauseTransition(Duration.seconds(1.5));
+            goodbyePause.setOnFinished(event -> System.exit(0));
+            goodbyePause.play();
         }
     }
 }
