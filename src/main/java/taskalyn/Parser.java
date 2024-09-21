@@ -39,7 +39,7 @@ public class Parser {
         String commandString = inputParts[0];
 
         try {
-            CommandType command = CommandType.fromString(commandString);
+            CommandType command = CommandType.getCommandFromString(commandString);
             if (command == null) {
                 return "Sorry bro, no clue what you're saying!";
             }
@@ -181,20 +181,20 @@ public class Parser {
         checkForEmptyCommandArguments(inputParts[1], CommandType.DEADLINE, COMMAND_FORMAT);
 
         // Returns [taskDescription, deadlineDate]
-        String[] splitInput = splitInputOverKeyword(inputParts[1], "/by", CommandType.DEADLINE);
+        String[] arguments = splitInputOverKeyword(inputParts[1], "/by", CommandType.DEADLINE);
 
-        checkForEmptyCommandArguments(splitInput[0], CommandType.DEADLINE, TASK_DESCRIPTION);
+        checkForEmptyCommandArguments(arguments[0], CommandType.DEADLINE, TASK_DESCRIPTION);
 
         // Ensures that task description is not empty
-        assert !splitInput[0].isEmpty() : "Task description cannot be empty.";
+        assert !arguments[0].isEmpty() : "Task description cannot be empty.";
 
-        LocalDateTime deadlineDate = getDateTime(splitInput[1]);
+        LocalDateTime deadlineDate = getDateTime(arguments[1]);
 
         // Ensures date and time inputs are valid
         String deadlineDateAsString = deadlineDate.format(DateTimeFormatter.ofPattern(EXPECTED_DATE_FORMAT));
         assert deadlineDateAsString.matches("\\d{2}-\\d{2}-\\d{4} \\d{4}") : "Date and Time format is incorrect.";
 
-        return taskManager.addTask(new DeadlineTask(splitInput[0], deadlineDate, false));
+        return taskManager.addTask(new DeadlineTask(arguments[0], deadlineDate, false));
     }
 
     /**
@@ -208,15 +208,15 @@ public class Parser {
         checkForEmptyCommandArguments(inputParts[1], CommandType.EVENT, COMMAND_FORMAT);
 
         // Returns [taskDescription, fromDate + /to + toDate]
-        String[] splitInput = splitInputOverKeyword(inputParts[1], "/from", CommandType.EVENT);
+        String[] arguments = splitInputOverKeyword(inputParts[1], "/from", CommandType.EVENT);
 
-        checkForEmptyCommandArguments(splitInput[0], CommandType.EVENT, TASK_DESCRIPTION);
+        checkForEmptyCommandArguments(arguments[0], CommandType.EVENT, TASK_DESCRIPTION);
 
         // Ensures that task description is not empty
-        assert !splitInput[0].isEmpty() : "Task description cannot be empty.";
+        assert !arguments[0].isEmpty() : "Task description cannot be empty.";
 
         // Returns [fromDate, toDate]
-        String[] fromAndToDates = splitInputOverKeyword(splitInput[1], "/to", CommandType.EVENT);
+        String[] fromAndToDates = splitInputOverKeyword(arguments[1], "/to", CommandType.EVENT);
         LocalDateTime fromDate = getDateTime(fromAndToDates[0]);
         LocalDateTime toDate = getDateTime(fromAndToDates[1]);
 
@@ -226,7 +226,7 @@ public class Parser {
         String toDateAsString = toDate.format(DateTimeFormatter.ofPattern(EXPECTED_DATE_FORMAT));
         assert toDateAsString.matches("\\d{2}-\\d{2}-\\d{4} \\d{4}") : "toDate format is incorrect.";
 
-        return taskManager.addTask(new EventTask(splitInput[0], fromDate, toDate, false));
+        return taskManager.addTask(new EventTask(arguments[0], fromDate, toDate, false));
     }
 
     /**
@@ -379,11 +379,11 @@ public class Parser {
                     + ".");
         }
 
-        String[] splitInput = Arrays.stream(input.split(keyword, 2))
+        String[] arguments = Arrays.stream(input.split(keyword, 2))
                 .map(part -> part.trim())
                 .toArray(String[]::new);
 
-        return splitInput;
+        return arguments;
     }
 
     /**

@@ -20,7 +20,7 @@ public class MockDatabase extends Database {
      */
     public MockDatabase() {
         try {
-            List<String> textLines = Files.readAllLines(FILE_PATH);
+            Files.readAllLines(FILE_PATH);
             if (Files.notExists(FILE_PATH)) {
                 Files.createDirectory(Paths.get(DIRECTORY));
                 Files.createFile(FILE_PATH);

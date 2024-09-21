@@ -20,7 +20,7 @@ public class Database {
      */
     public Database() {
         try {
-            List<String> textLines = Files.readAllLines(FILE_PATH);
+            Files.readAllLines(FILE_PATH);
             if (Files.notExists(FILE_PATH)) {
                 Files.createDirectory(Paths.get(DIRECTORY));
                 Files.createFile(FILE_PATH);
@@ -47,11 +47,11 @@ public class Database {
     /**
      * Writes a list of task data to the database file.
      *
-     * @param lines List of task data to write.
+     * @param tasks List of task data to write.
      */
-    public void writeToDatabase(List<String> lines) {
+    public void writeToDatabase(List<String> tasks) {
         try {
-            Files.write(FILE_PATH, lines);
+            Files.write(FILE_PATH, tasks);
         } catch (IOException e) {
             System.out.println("Error writing database: " + e.getMessage());
         }

@@ -32,10 +32,11 @@ public enum CommandType {
      * @param commandString User input stating the command as a String.
      * @return CommandType object with the command.
      */
-    public static CommandType fromString(String commandString) {
-        for (CommandType command : CommandType.values()) {
-            if (command.command.equalsIgnoreCase(commandString)) {
-                return command;
+    public static CommandType getCommandFromString(String commandString) {
+        CommandType[] commands = CommandType.values();
+        for (int i = 0; i < commands.length; i++) {
+            if (commands[i].command.equalsIgnoreCase(commandString)) {
+                return commands[i];
             }
         }
         return null;

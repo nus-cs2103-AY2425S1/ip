@@ -72,7 +72,7 @@ public class TaskManager {
     public String listTasks() {
         String taskString = "Here are the tasks in your list:\n";
         if (!tasks.isEmpty()) {
-            taskString += stringBuilder(tasks);
+            taskString += buildStringFromTaskList(tasks);
         } else {
             taskString += "Nothing!";
         }
@@ -124,14 +124,15 @@ public class TaskManager {
      */
     public String searchTasksByKeyword(String keyword) {
         List<Task> matchedTasks = new ArrayList<>();
-        for (Task task : tasks) {
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
             if (task.getTaskDescription().contains(keyword)) {
                 matchedTasks.add(task);
             }
         }
         if (!matchedTasks.isEmpty()) {
             String matchingTasks = "Here are the matching tasks in your list:\n";
-            matchingTasks += stringBuilder(matchedTasks);
+            matchingTasks += buildStringFromTaskList(matchedTasks);
             return ui.showSearchTasksByKeywordMessage(matchingTasks);
         } else {
             return ui.showSearchTasksByKeywordMessage("Aw... there are no matching tasks :(");
@@ -157,7 +158,7 @@ public class TaskManager {
         // Solution below inspired by:
         // https://stackoverflow.com/questions/71548399/what-is-the-use-of-comparator-comparing-in-respect-to-comparator
         deadlineTasks.sort(Comparator.comparing(DeadlineTask::getDeadline));
-        taskString += stringBuilder(deadlineTasks);
+        taskString += buildStringFromTaskList(deadlineTasks);
         return taskString;
     }
 
@@ -166,9 +167,9 @@ public class TaskManager {
      */
     private void loadDatabase() {
         try {
-            List<String> textLines = this.database.readFromDatabase();
-            for (String line : textLines) {
-                Task task = parseTaskFromString(line);
+            List<String> taskLines = this.database.readFromDatabase();
+            for (int i = 0; i < taskLines.size(); i++) {
+                Task task = parseTaskFromString(taskLines.get(i));
                 if (task != null) {
                     tasks.add(task);
                 }
@@ -185,11 +186,11 @@ public class TaskManager {
      * @return A new TodoTask, DeadlineTask, or EventTask object or null.
      */
     private Task parseTaskFromString(String line) {
-        String[] parts = line.split(" \\| ");
-        assert parts.length >= 3 : "There should be at least 3 parts after splitting.";
-        String taskType = parts[0];
-        boolean isCompleted = parts[1].equals("1");
-        String taskInfo = parts[2];
+        String[] taskDetails = line.split(" \\| ");
+        assert taskDetails.length >= 3 : "There should be at least 3 parts after splitting.";
+        String taskType = taskDetails[0];
+        boolean isCompleted = taskDetails[1].equals("1");
+        String taskInfo = taskDetails[2];
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HHmm");
 
         switch (taskType) {
@@ -197,12 +198,12 @@ public class TaskManager {
             return new TodoTask(taskInfo, isCompleted);
 
         case "D":
-            LocalDateTime date = LocalDateTime.parse(parts[3], formatter);
+            LocalDateTime date = LocalDateTime.parse(taskDetails[3], formatter);
             return new DeadlineTask(taskInfo, date, isCompleted);
 
         case "E":
-            LocalDateTime fromDate = LocalDateTime.parse(parts[3], formatter);
-            LocalDateTime toDate = LocalDateTime.parse(parts[4], formatter);
+            LocalDateTime fromDate = LocalDateTime.parse(taskDetails[3], formatter);
+            LocalDateTime toDate = LocalDateTime.parse(taskDetails[4], formatter);
             return new EventTask(taskInfo, toDate, fromDate, isCompleted);
 
         default:
@@ -214,11 +215,12 @@ public class TaskManager {
      * Updates database with new task information.
      */
     private void updateDatabase() {
-        List<String> textLines = new ArrayList<>();
-        for (Task task : tasks) {
-            textLines.add(task.toDatabaseFormat());
+        List<String> taskLines = new ArrayList<>();
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            taskLines.add(task.toDatabaseFormat());
         }
-        database.writeToDatabase(textLines);
+        database.writeToDatabase(taskLines);
     }
 
     /**
@@ -227,7 +229,7 @@ public class TaskManager {
      * @param tasks A list of Task objects.
      * @return A formatted String of a list of Task objects.
      */
-    private String stringBuilder(List<? extends Task> tasks) {
+    private String buildStringFromTaskList(List<? extends Task> tasks) {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             stringBuilder.append(i + 1).append(".").append(tasks.get(i).toString());
