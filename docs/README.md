@@ -23,6 +23,7 @@ Format: `list`
 To add a todo task to the list of tasks, use the following format:
 todo {description}
 Example: `todo Buy dinner`
+
 Outcome:
 ```
 Got it. I've added this task:
@@ -33,8 +34,6 @@ Now you have 1 task in the list.
 To add a deadline task to the list of tasks, use the following format:
 deadline {description} /by yyyy-MM-dd HHmm
 Example: `deadline Complete assignment 1 /by 2024-09-24 1900`
-
-// A description of the expected outcome goes here
 
 Outcome:
 ```
@@ -47,8 +46,6 @@ Now you have 1 task in the list.
 To add an event task to the list of tasks, use the following format:
 event {description} /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm
 Example: `event Client meeting /from 2024-09-24 0900 /to 2024-09-24 1100`
-
-// A description of the expected outcome goes here
 
 Outcome:
 ```

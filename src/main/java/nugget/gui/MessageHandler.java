@@ -1,7 +1,8 @@
 package nugget.gui;
 
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import java.io.IOException;
+
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -9,7 +10,7 @@ import javafx.scene.layout.HBox;
 
 /**
  * A utility class responsible for handling the creation of message boxes in a chat interface.
- * It generates a formatted message box for both user and bot messages, with appropriate styling
+ * It loads FXML-based message boxes for both user and bot messages, with appropriate styling
  * and positioning within the chat window.
  */
 public class MessageHandler {
@@ -21,53 +22,31 @@ public class MessageHandler {
      * @param isUser A boolean indicating if the message is from the user (true) or the bot (false).
      * @param userImage The profile image of the user.
      * @param botImage The profile image of the bot.
-     * @return A HBox containing the message and the appropriate profile image, styled and aligned based on the sender.
+     * @return A HBox containing the message and the appropriate profile image, loaded from the FXML file.
      */
     public static HBox createMessageBox(String message, boolean isUser, Image userImage, Image botImage) {
-        HBox messageBox = createHbox();
-        Label messageLabel = createMessageLabel(message);
-
-        ImageView profileImage = createProfileImage(isUser, userImage, botImage);
+        HBox messageBox;
+        FXMLLoader loader;
 
         if (isUser) {
-            setUserMessageAlignment(messageBox, messageLabel, profileImage);
+            loader = new FXMLLoader(MessageHandler.class.getResource("/view/UserMessageBox.fxml"));
         } else {
-            setBotMessageAlignment(messageBox, messageLabel, profileImage);
+            loader = new FXMLLoader(MessageHandler.class.getResource("/view/BotMessageBox.fxml"));
         }
 
+        try {
+            messageBox = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new HBox(); // Return an empty HBox on failure
+        }
+
+        Label messageLabel = (Label) messageBox.lookup("#messageLabel");
+        ImageView profileImage = (ImageView) messageBox.lookup("#profileImage");
+
+        messageLabel.setText(message);
+        profileImage.setImage(isUser ? userImage : botImage);
+
         return messageBox;
-    }
-
-    private static HBox createHbox() {
-        HBox messageBox = new HBox(10);
-        messageBox.setPadding(new Insets(5));
-        return messageBox;
-    }
-
-    private static Label createMessageLabel(String message) {
-        Label messageLabel = new Label(message);
-        messageLabel.setWrapText(true);
-        messageLabel.setMaxWidth(350);
-        messageLabel.setPadding(new Insets(10));
-        return messageLabel;
-    }
-
-    private static ImageView createProfileImage(boolean isUser, Image userImage, Image botImage) {
-        ImageView profileImage = new ImageView(isUser ? userImage : botImage);
-        profileImage.setFitWidth(40);
-        profileImage.setFitHeight(40);
-        return profileImage;
-    }
-
-    private static void setUserMessageAlignment(HBox messageBox, Label messageLabel, ImageView profileImage) {
-        messageBox.setAlignment(Pos.CENTER_RIGHT);
-        messageBox.getChildren().addAll(messageLabel, profileImage);
-        messageLabel.setStyle("-fx-background-color: lightblue; -fx-background-radius: 10;");
-    }
-
-    private static void setBotMessageAlignment(HBox messageBox, Label messageLabel, ImageView profileImage) {
-        messageBox.setAlignment(Pos.CENTER_LEFT);
-        messageBox.getChildren().addAll(profileImage, messageLabel);
-        messageLabel.setStyle("-fx-background-color: lightgreen; -fx-background-radius: 10;");
     }
 }
