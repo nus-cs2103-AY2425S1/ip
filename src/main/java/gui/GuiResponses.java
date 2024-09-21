@@ -113,7 +113,7 @@ public class GuiResponses {
     }
 
     /**
-     * Returns standard template for displaying added task
+     * Returns standard template for displaying added task.
      *
      * @param type String representation of task type.
      * @param size Size of the TaskList object task is added to.
@@ -146,7 +146,7 @@ public class GuiResponses {
     }
 
     /**
-     * Gets String representation of tasks matching search criteria
+     * Gets String representation of tasks matching search criteria.
      *
      * @param matches Tasklist of searches that match criteria.
      * @return String representation of matching search.

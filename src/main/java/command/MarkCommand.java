@@ -14,14 +14,14 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * Executes the mark command
+     * Executes the mark command.
      *
-     * @param input the input from the user
-     * @param guiResponses the gui responses object used to output the response
-     * @param tagList
-     * @param taskList
-     * @param parser
-     * @return the gui response after executing the command
+     * @param input the input from the user.
+     * @param guiResponses the gui responses object used to output the response.
+     * @param tagList TagList object.
+     * @param taskList TaskList object.
+     * @param parser Parser object.
+     * @return the gui response after executing the command.
      */
     @Override
     public String execute(String input, GuiResponses guiResponses,

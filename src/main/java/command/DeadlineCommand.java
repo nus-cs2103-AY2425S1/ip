@@ -17,6 +17,7 @@ public class DeadlineCommand extends Command {
 
     /**
      * Executes the command to add a deadline task.
+     *
      * @param input The input string.
      * @param guiResponses The gui response object.
      * @param tagList The tag list object.
@@ -42,7 +43,6 @@ public class DeadlineCommand extends Command {
             taskList.addDeadline(parsed[0], parsed[1]);
 
         } else {
-            //add back by for string
 
             taskList.addDeadline(parsed[0], deadlineDate);
         }

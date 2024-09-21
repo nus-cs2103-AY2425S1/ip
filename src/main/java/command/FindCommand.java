@@ -11,7 +11,7 @@ import tasks.TaskList;
 
 
 /**
- * Represents a find command that can be executed by the user
+ * Represents a find command that can be executed by the user.
  */
 public class FindCommand extends Command {
     public FindCommand() {

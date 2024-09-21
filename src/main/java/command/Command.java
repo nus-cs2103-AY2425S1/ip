@@ -15,14 +15,14 @@ public abstract class Command {
     }
 
     /**
-     * Executes the command
+     * Executes the command.
      *
-     * @param input        the input from the user
-     * @param guiResponses the gui responses object used to output the response
-     * @param tagList
-     * @param taskList
-     * @param parser
-     * @return the gui response after executing the command
+     * @param input the input from the user.
+     * @param guiResponses the gui responses object used to output the response.
+     * @param tagList the TagList object.
+     * @param taskList the TaskList object.
+     * @param parser Parser Object.
+     * @return the gui response after executing the command.
      */
     public abstract String execute(String input, GuiResponses guiResponses,
                                    TagList tagList, TaskList taskList, Parser parser)

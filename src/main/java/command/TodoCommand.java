@@ -7,7 +7,7 @@ import tags.TagList;
 import tasks.TaskList;
 
 /**
- * Represents a todo command that can be executed by the user
+ * Represents a todo command that can be executed by the user.
  */
 public class TodoCommand extends Command {
     public TodoCommand() {

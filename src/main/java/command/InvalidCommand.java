@@ -7,7 +7,7 @@ import tags.TagList;
 import tasks.TaskList;
 
 /**
- * Represents an invalid command that can be executed by the user
+ * Represents an invalid command that can be executed by the user.
  */
 public class InvalidCommand extends Command {
     public InvalidCommand() {
