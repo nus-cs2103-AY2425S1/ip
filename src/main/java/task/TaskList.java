@@ -1,6 +1,7 @@
 package task;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -155,9 +156,11 @@ public class TaskList {
         }
 
         if (scheduleCount == 1) {
-            stringBuilder.insert(0, "1 task on " + date + "!\n");
+            stringBuilder.insert(0, "1 task on "
+                    + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + "!\n");
         } else {
-            stringBuilder.insert(0, scheduleCount + " tasks on " + date + "!\n");
+            stringBuilder.insert(0, scheduleCount + " tasks on "
+                    + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + "!\n");
         }
 
         return stringBuilder.toString();
