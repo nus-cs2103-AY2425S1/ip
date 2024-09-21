@@ -18,6 +18,16 @@ public class TaskList {
     }
 
     /**
+     * Instantiates task list with a task for testing.
+     *
+     * @param t Task to be added.
+     */
+    public TaskList(Task t) {
+        this.tasks = new ArrayList<Task>();
+        tasks.add(t);
+    }
+
+    /**
      * Instantiates an empty task list with an empty arraylist.
      */
     public TaskList() {
@@ -45,7 +55,7 @@ public class TaskList {
             tasks.get(taskNum).setDone();
             return tasks.get(taskNum).toString();
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidInputException("Task " + (taskNum + 1 ) + " does not exist.");
+            throw new InvalidInputException("Task " + (taskNum + 1) + " does not exist.");
         }
     }
 
@@ -60,7 +70,7 @@ public class TaskList {
             tasks.get(taskNum).setUndone();
             return tasks.get(taskNum).toString();
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidInputException("Task " + (taskNum + 1 ) + " does not exist.");
+            throw new InvalidInputException("Task " + (taskNum + 1) + " does not exist.");
         }
     }
 
@@ -72,11 +82,11 @@ public class TaskList {
      * Adds a particular event of any type to the list of events.
      *
      * @param t The particular task to be added.
-     * @return A string to show the event has been added and indicate the number of events in the tasklist.
+     * @return A string to show the event has been added and indicate the number of events in the task list.
      */
     public String add(Task t) {
         tasks.add(t);
-        return "added:" + tasks.get(tasks.size() - 1).toString() + "\n" + "There are "
+        return "added: " + tasks.get(tasks.size() - 1).toString() + "\n" + "There are "
                 + tasks.size() + " tasks in the list.";
     }
 
@@ -85,7 +95,8 @@ public class TaskList {
      *
      * @param taskNum The number of the task to be deleted.
      * @return A message to inform that the task has been deleted and stating the number of remaining tasks.
-     * @throws InvalidInputException If the value of the task to be deleted is greater than the number of tasks that exist.
+     * @throws InvalidInputException If the value of the task to be deleted
+     * is greater than the number of tasks that exist.
      */
     public String delete(int taskNum) throws InvalidInputException {
         try {

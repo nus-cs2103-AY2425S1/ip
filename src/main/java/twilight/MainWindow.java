@@ -8,8 +8,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-//import java.util.Timer;
-//import java.util.TimerTask;
 
 /**
  * Controller for the main GUI.
@@ -56,14 +54,7 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
         if (input.equals("bye")) {
-//            new Timer().schedule(new TimerTask() {
-//                public void run () { Platform.exit(); }
-//            }, 2000);
             Platform.exit();
         }
     }
-
-    //method for using timer and platform exit from:
-    //https://stackoverflow.com/questions/21974415/how-to-close-this-javafx-application-after-showing-a-message-in-a-text-area-elem
-    //not being used at the moment because platform exit makes gradle not terminate the run
 }

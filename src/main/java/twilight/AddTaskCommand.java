@@ -23,28 +23,37 @@ public class AddTaskCommand extends Command {
     @Override
     public String execute(TaskList tasks, Storage storage) throws InvalidInputException {
         String addition = "";
+        assert(type > 2 && type < 6);
         if (type == 3) {
             addition = tasks.add(new Todo(details));
         } else if (type == 4) {
-            String[] split = details.split(" /from | /to ");
-            try {
-                addition = tasks.add(new Event(split[0], split[1], split[2]));
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new InvalidInputException("Events must have the format:\nevent EventName /from startTime /to endTime");
-            }
+            addition = tasks.add(createEvent(details.split(" /from | /to ")));
+        } else if (type == 5) {
+            addition = tasks.add(createDeadline(details.split(" /by ")));
         } else {
-            String[] split = details.split(" /by ");
-            try {
-                addition = tasks.add(new Deadline(split[0], split[1]));
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new InvalidInputException("Deadlines must have the format:\ndeadline deadlineName /by YYYY-MM-DD");
-            }
+            throw new InvalidInputException("Input style is incorrect.");
         }
         try {
             storage.saveData(tasks.getTasks());
             return addition;
         } catch (IOException e) {
             return "error saving data after your last input";
+        }
+    }
+
+    private Deadline createDeadline(String[] split) throws InvalidInputException {
+        try {
+            return new Deadline(split[0], split[1]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new InvalidInputException("Deadlines must have the format:\ndeadline deadlineName /by YYYY-MM-DD");
+        }
+    }
+
+    private Event createEvent(String[] split) throws InvalidInputException {
+        try {
+            return new Event(split[0], split[1], split[2]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new InvalidInputException("Events must have the format:\nevent EventName /from startTime /to endTime");
         }
     }
 }

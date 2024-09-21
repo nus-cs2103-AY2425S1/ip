@@ -27,12 +27,12 @@ public class Storage {
     /**
      * Overrides old file and saves the data stored in the task list.
      *
-     * @param Tasks Tasklist to be stored.
+     * @param tasks Tasklist to be stored.
      * @throws IOException When there is an issue with the file preventing saving.
      */
-    public void saveData(ArrayList<Task> Tasks) throws IOException {
+    public void saveData(ArrayList<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(filePath);
-        for (Task task : Tasks) {
+        for (Task task : tasks) {
             fw.write(task.toStorageString());
             fw.write(System.getProperty("line.separator"));
         }
@@ -53,7 +53,7 @@ public class Storage {
     }
 
     /**
-     * Converts the String format of the tasks in file to Arraylist</tasks>.
+     * Converts the String format of the tasks in file to Arraylist<Task>.
      *
      * @return Arraylist to be stored in TaskList
      */
@@ -67,7 +67,7 @@ public class Storage {
                     tasks.add(new Todo(input[1].equals("1"), input[2], input[3]));
                 } else if ((input[0].equals("E"))) {
                     tasks.add(new Event(input[1].equals("1"), input[2], input[3], input[4], input[5]));
-                } else if ((input[0].equals("D"))){
+                } else if ((input[0].equals("D"))) {
                     tasks.add(new Deadline(input[1].equals("1"), input[2], input[3], input[4]));
                 } else {
                     throw new FileErrorException("The file has been incorrectly modified and cannot be read.\n"

@@ -1,5 +1,8 @@
 package twilight;
 
+/**
+ * Represents a command to give user information on the available commands in Twilight.
+ */
 public class HelpCommand extends Command {
     private static final String HELP_MESSAGE = """
             Commands to add tasks:

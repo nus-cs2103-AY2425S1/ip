@@ -4,11 +4,10 @@ package twilight;
  * Stores all the information pertaining to a task and allows modification to status.
  */
 public class Task {
-    protected String EMPTYTAG = "NA";
+    protected String EMPTY_TAG = "NA";
     protected String description;
     protected boolean isDone;
     protected String tag;
-//  false status indicates incomplete item
 
     /**
      * Creates a Task with status as incomplete.
@@ -18,7 +17,7 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        this.tag = EMPTYTAG;
+        this.tag = EMPTY_TAG;
     }
 
     /**
@@ -54,6 +53,11 @@ public class Task {
         }
     }
 
+    /**
+     * Marks task as complete.
+     *
+     * @throws InvalidInputException when task is already complete.
+     */
     public void setDone() throws InvalidInputException {
         if (!this.isDone) {
             this.isDone = true;
@@ -62,15 +66,25 @@ public class Task {
         }
     }
 
-    public void setUndone() throws InvalidInputException{
+    /**
+     * Marks task as incomplete.
+     *
+     * @throws InvalidInputException when task is already incomplete.
+     */
+    public void setUndone() throws InvalidInputException {
         if (!this.isDone) {
             throw new InvalidInputException("Task is already marked incomplete.");
         }
         this.isDone = false;
     }
 
+    /**
+     * Tags the task with the inputted tag.
+     *
+     * @param tag Description of tag to be added.
+     */
     public void tag(String tag) {
-        if (this.tag.equals(EMPTYTAG)) {
+        if (this.tag.equals(EMPTY_TAG)) {
             this.tag = tag;
         } else {
             this.tag += " " + tag;

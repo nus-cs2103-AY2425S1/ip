@@ -46,7 +46,7 @@ public class Deadline extends Task {
     @Override
     public String toStorageString() {
         if (this.tag.equals("")) {
-            return "D," + super.toStorageString() + "," + deadline + "," + EMPTYTAG;
+            return "D," + super.toStorageString() + "," + deadline + "," + EMPTY_TAG;
         }
         return "D," + super.toStorageString() + "," + deadline + "," + this.tag;
     }
