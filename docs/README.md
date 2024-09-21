@@ -1,5 +1,5 @@
 # Buu User Guide
-Buu Task Manager is a **command-line application for managing tasks**, inspired by the Dragon Ball character Buu. It offers an interactive and fun way to manage to-do lists, deadlines, events, and priorities while giving playful feedback. If you enjoy the command line and want a lighter approach to task management, Buu Task Manager will help you stay productive.
+Buu is a **command-line application for managing tasks**, inspired by the Dragon Ball character Buu. It offers an interactive and fun way to manage to-do lists, deadlines, events, and priorities while giving playful feedback. If you enjoy the command line and want a lighter approach to task management, Buu will help you stay productive.
 
 ![Buu Task Manager Screenshot](Ui.png)
 
@@ -11,7 +11,7 @@ Buu Task Manager is a **command-line application for managing tasks**, inspired 
 
 1. Copy the file to the folder you want to use as the _home folder_ for your Buu Task Manager.
 
-1. Open a command terminal, `cd` into the folder where you put the jar file, and use the `java -jar buu-task-manager.jar` command to run the application.<br>
+1. Open a command terminal, `cd` into the folder where you put the jar file, and use the `java -jar Buu.jar` command to run the application.<br>
    A command-line interface will appear. You can start interacting with Buu and managing your tasks right away.
 
 1. Type the command in the terminal and press Enter to execute it. e.g. typing **`help`** and pressing Enter will show available commands.<br>
