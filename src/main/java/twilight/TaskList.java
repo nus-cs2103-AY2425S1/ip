@@ -76,8 +76,8 @@ public class TaskList {
      */
     public String add(Task t) {
         tasks.add(t);
-        return "added: " + tasks.get(tasks.size() - 1).toString() + "\n" + "There are "
-                + tasks.size() + " tasks in the list";
+        return "added:" + tasks.get(tasks.size() - 1).toString() + "\n" + "There are "
+                + tasks.size() + " tasks in the list.";
     }
 
     /**
@@ -92,7 +92,7 @@ public class TaskList {
             tasks.remove(taskNum);
             return "The task has been successfully removed leaving: " + tasks.size() + " tasks";
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidInputException("Task " + (taskNum + 1) + " does not exist");
+            throw new InvalidInputException("Task " + (taskNum + 1) + " does not exist.");
         }
     }
 

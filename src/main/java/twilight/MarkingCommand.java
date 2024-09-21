@@ -31,9 +31,9 @@ public class MarkingCommand extends Command {
         String output = "";
         assert type >= 1;
         if (type == 1) {
-            output = "Excellent I have marked it: " + tasks.mark(taskNum);
+            output = "Excellent I have marked it:\n" + tasks.mark(taskNum);
         } else {
-            output = "Fine I have unmarked it: " + tasks.unmark(taskNum);
+            output = "Fine I have unmarked it:\n" + tasks.unmark(taskNum);
         }
         try {
             storage.saveData(tasks.getTasks());
