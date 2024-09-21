@@ -1,4 +1,4 @@
-package Naega.GUI;
+package Naega.Gui;
 
 import javafx.application.Application;
 

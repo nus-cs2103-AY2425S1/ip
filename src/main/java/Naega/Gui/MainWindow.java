@@ -1,4 +1,4 @@
-package Naega.GUI;
+package Naega.Gui;
 
 import Naega.Task.Task;
 import Naega.Task.TaskList;
