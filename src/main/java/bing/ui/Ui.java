@@ -30,7 +30,7 @@ public class Ui {
     public String showWelcome() {
 
         return "______________________________" + "\n" +
-                "Hi! My name is bing.Bing" + "\n" +
+                "Hi! My name is Bing" + "\n" +
                 "How can I help you?" + "\n" +
                 "______________________________";
     }

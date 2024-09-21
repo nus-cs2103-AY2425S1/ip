@@ -1,4 +1,4 @@
-D | 1 | quiz | 3/12/2004 1230
 T | 0 | read book
-D | 0 | return book | 2/12/2019 1800
-T | 0 | watch lecture
+D | 1 | return book | 2/12/2019 1800
+T | 0 | assignment
+E | 0 | function | 8/12/2024 1200 | 8/12/2024 1600
