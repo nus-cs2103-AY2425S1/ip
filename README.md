@@ -4,8 +4,7 @@ Welcome to **Gary**, your personal task management chatbot! Gary helps you keep 
 
 ## Getting started 
 1. To get started with Gary, ensure that you have Java 17 installed.
-2. Download Gary.jar from [here] (https://github.com/kuiktzecheng/ip/releases).
-3. Copy the jar file into an empty folder.
+2. Download Gary.jar from [[here]](https://github.com/kuiktzecheng/ip/releases).
 4. Open a command window in that folder.
 5. Run the command java -jar Gary.jar.
 
