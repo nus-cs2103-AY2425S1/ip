@@ -20,6 +20,7 @@ public class Command {
      * @throws InputException if the input is invalid and cannot be interpreted.
      */
     public void mark(String userInput) throws InputException {
+        assert userInput.startsWith("mark") : "Input should start with mark";
         try {
             int taskIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
             taskList.markTask(taskIndex);
@@ -36,6 +37,7 @@ public class Command {
      * @throws InputException if the input is invalid and cannot be interpreted.
      */
     public void unmark(String userInput) throws InputException {
+        assert userInput.startsWith("unmark") : "Input should start with unmark";
         try {
             int taskIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
             taskList.unmarkTask(taskIndex);
@@ -52,6 +54,7 @@ public class Command {
      * @throws InputException if the input is invalid and cannot be interpreted.
      */
     public void delete(String userInput) throws InputException {
+        assert userInput.startsWith("delete") : "Input should start with delete";
         try {
             int taskIndex = Integer.parseInt(userInput.split(" ")[1]) - 1;
             taskList.deleteTask(taskIndex);
@@ -68,6 +71,7 @@ public class Command {
      * @throws InputException if the input is invalid and cannot be interpreted.
      */
     public void todo(String userInput) throws InputException {
+        assert userInput.startsWith("todo") : "Input should start with todo";
         Task task = Parser.parseInputAsToDo(userInput);
         taskList.addTask(task);
         System.out.println(SEPARATOR);
@@ -80,6 +84,7 @@ public class Command {
      * @throws InputException if the input is invalid and cannot be interpreted.
      */
     public void deadline(String userInput) throws InputException {
+        assert userInput.startsWith("deadline") : "Input should start with deadline";
         Task task = Parser.parseInputAsDeadline(userInput);
         taskList.addTask(task);
         System.out.println(SEPARATOR);
@@ -92,6 +97,7 @@ public class Command {
      * @throws InputException if the input is invalid and cannot be interpreted.
      */
     public void event(String userInput) throws InputException {
+        assert userInput.startsWith("event") : "Input should start with event";
         Task task = Parser.parseInputAsEvent(userInput);
         taskList.addTask(task);
         System.out.println(SEPARATOR);
@@ -111,6 +117,7 @@ public class Command {
      * @param userInput The users' string input.
      */
     public void find(String userInput) {
+        assert userInput.startsWith("find") : "Input should start with find";
         taskList.listMatchingDescriptionTasks(Parser.getStringFromFindCommand(userInput));
         System.out.println(SEPARATOR);
     }
