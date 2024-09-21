@@ -6,8 +6,6 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.InputStream;
-
 /**
  * The main.Main class serves as the entry point for the Blitz chatbot application.
  * It sets up the primary stage and initializes the user interface.
