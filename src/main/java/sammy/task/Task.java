@@ -77,7 +77,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return "[" + getStatusIcon() + "] " + description + " Tags: " + tags;
+        return "[" + getStatusIcon() + "] " + description + " Tags: checking" + tags;
     }
 }
 
