@@ -3,7 +3,7 @@
 Welcome to lemon!\
 A lil guy that will help you keep track of tasks!
 
-![alt text](https://github.com/Dino-Nuggies/ip/docs/Ui.png?raw=true)
+![](Ui.png)
 >Open lemon using the following command in cmd
 >``` java
 >$ java -jar lemon.jar
@@ -68,10 +68,10 @@ Removes a task that lemon remembers based on its index
 
 ### Listing Tasks
 With `list` lemon will display all the task in its saved order.\
-This can also be helpful if you have forgotten what tasks you have gave to lemon and which index each task are under.
+This can also be helpful if you have forgotten what tasks you have given to lemon and which index each task are under.
 
 ### Finding Tasks
-Whenever you need to filter by a specific keyword from a longgg list of tasks\
+Whenever you need to filter by a specific keyword from a longgg list of tasks.\
 Using `find (keyword)` and lemon will display all tasks that description with the matching keyword
 
 ### Exiting lemon
