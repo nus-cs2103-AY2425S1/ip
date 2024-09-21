@@ -44,13 +44,13 @@ test {
 }
 
 application {
-    mainClass.set("Launcher")
+    mainClass.set("sammy.Launcher")
 }
 
 shadowJar {
     archiveBaseName = "sammy"
     archiveClassifier = null
-}
+    archiveVersion = "v0.2"}
 
 run{
     standardInput = System.in
