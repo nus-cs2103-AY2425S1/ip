@@ -7,3 +7,5 @@ D | 0 | friend's birthday | 2019-03-30 | 100000
 T | 0 | assignment | 1
 D | 0 | cs1231s tutorial | 2019-03-30 | 5
 E | 0 | cs1231s lecture | 1pm | 2pm | 10
+T | 0 | assignment2 p1 | 100000
+T | 0 | assignment2 | 1

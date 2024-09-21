@@ -89,7 +89,7 @@ public class NewTaskList {
 
         for (int i = 0; i < tasks.size(); i++) {
             int index = i+1;
-             tasklist += index + " , " + tasks.get(i).toString() + "\n";
+            tasklist += index + " , " + tasks.get(i).toString() + "\n";
         }
 
         return tasklist;
