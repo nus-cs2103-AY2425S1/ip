@@ -70,13 +70,6 @@ Command: `todo <name_of_TODO_item>`
 
 Example: `todo Finish 2100 Lab 3`
 
-Expected output:
-
-```
-Added "Finish 2100 Lab 3" as a new task
-I guess you have X tasks now
-```
-
 #### Adding DEADLINEs: `deadline`
 
 Use this command to help you add a DEADLINE to the task list.
@@ -84,13 +77,6 @@ Use this command to help you add a DEADLINE to the task list.
 Command: `deadline <name_of_DEADLINE> /by <Additional info>`
 
 Example: `deadline finish README /by Tomorrow`
-
-Expected output:
-
-```
-lol "finish README /by Tomorrow" is a new deadline,
-better finish it quick... you have X tasks now
-```
 
 #### Adding EVENTs: `event`
 
@@ -100,13 +86,6 @@ Use this command to help you add an EVENT to the task list.\
 Command: `event <name_of_EVENT> /from <Additional info> /to <Additional info>`
 
 Example: `event recess week /from Now /to Forever` or `event recess week /to Now /from Forever`
-
-Expected output:
-
-```
-Wow "recess week /from Now /to Forever"
-is an Event in your life huh? you have X tasks now
-```
 
 ## Date formats
 For `Event` and `Deadline` there are a few Acceptable input formats which you can use for the additional info that will automatically be recognised and converted into 
@@ -118,7 +97,7 @@ Or you can simply input the day itself (e. thursday) or it's shorthand (eg. mon)
 
 Example: Let's say today is 20th Sep 2024 then
 `Event Carnival /from tues /to 2024-09-27`\
-would return the Event `[E][ ] Carnival (From:  24 Sep 2024 to: 27 Sept 2024)`
+would return the Event `[E][ ] Carnival (From: 24 Sep 2024 to: 27 Sept 2024)`
 
 ## Additional Commands
 ### Listing all tasks
@@ -145,13 +124,6 @@ Command: `mark <Task index number>`
 
 Example: `mark 1`
 
-Expected output:
-
-```
-Marked 1 as completed
-use "list" to see changes
-```
-
 ### Unmarking a task
 
 Use this command to unmark the task back to the status of not done yet.
@@ -159,13 +131,6 @@ Use this command to unmark the task back to the status of not done yet.
 Command: `unmark <Task index number>`
 
 Example: `unmark 1`
-
-Expected output:
-
-```
-marked 1 as uncompleted
-use "list" to see changes
-```
 
 ### Deleting a task
 
@@ -175,13 +140,6 @@ Command: `delete <Task index number>`
 
 Example: `delete 2`
 
-Expected output:
-
-```
-Deleted 2
-use "list" to see changes
-```
-
 ### Finding a task using keyword
 
 Use this command to search for all tasks whose description contains the input <String> as a substring
@@ -189,12 +147,6 @@ Use this command to search for all tasks whose description contains the input <S
 Command: `find <String>`
 
 Example: `find recess`
-
-Expected output:
-
-```
-1. [E][ ] recess week (from: Now to: Forever)
-```
 
 ### Clearing all Tasks
 
