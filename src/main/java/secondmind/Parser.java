@@ -16,7 +16,7 @@ public class Parser {
      * @return A string array representing the command and its arguments.
      * @throws NumberFormatException If the input contains an invalid number format.
      */
-    public String[] processInput(String input) throws NumberFormatException, InvalidCommandFormatException {
+    public String[] processInput(String input) throws InvalidCommandFormatException {
         String[] newInput = input.split(" ");
         String[] ignoreInstruction = new String[] {"ignore"};
         String command = newInput[0];
