@@ -9,6 +9,9 @@ import duck.exceptions.TodoUsageException;
 import duck.tasks.Task;
 import duck.tasks.Todo;
 
+/**
+ * Class representing the command to create a "todo" task.
+ */
 public class TodoCommand extends TaskCommand {
     private static final Map<String, String> ARGS = Map.ofEntries();
 

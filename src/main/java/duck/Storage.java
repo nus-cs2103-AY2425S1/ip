@@ -10,10 +10,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Class that reads and write data to disk.
+ */
 public class Storage {
-    private final File filePath;
     private static final String COMMA_DELIMITER = ",";
 
+    private final File filePath;
     private List<List<String>> records = new ArrayList<>();
 
     public Storage(File filePath) {

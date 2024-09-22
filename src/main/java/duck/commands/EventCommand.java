@@ -11,6 +11,9 @@ import duck.tasks.DateAndTime;
 import duck.tasks.Event;
 import duck.tasks.Task;
 
+/**
+ * Class representing the command to create an "event" task.
+ */
 public class EventCommand extends TaskCommand {
     private static final Map<String, String> ARGS = Map.ofEntries(
             Map.entry("/from", "start_date"),
@@ -24,9 +27,9 @@ public class EventCommand extends TaskCommand {
     public String createNewTask(TaskList taskList) throws MissingArgsException, DateTimeParseException {
         verifyArgsArePresent(new EventUsageException());
         String description = parts.get("");
-        DateAndTime start_date = new DateAndTime(parts.get("/from"));
-        DateAndTime end_date = new DateAndTime(parts.get("/to"));
-        Task task = new Event(description, start_date, end_date);
+        DateAndTime startDate = new DateAndTime(parts.get("/from"));
+        DateAndTime endDate = new DateAndTime(parts.get("/to"));
+        Task task = new Event(description, startDate, endDate);
         String response = handleNewTask(task);
         return response;
     }

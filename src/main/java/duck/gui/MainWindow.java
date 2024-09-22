@@ -39,11 +39,17 @@ public class MainWindow extends AnchorPane {
         duck = d;
     }
 
+    /**
+     * Displays greeting on startup.
+     */
     public void showGreeting() {
         dialogContainer.getChildren().addAll(
                 DialogBox.getDuckDialog(duck.getGreeting(), duckImage));
     }
 
+    /**
+     * Loads tasks and displays greeting on startup.
+     */
     public void handleStartUp() {
         duck.loadTasks();
         showGreeting();

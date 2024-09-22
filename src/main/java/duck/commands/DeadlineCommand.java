@@ -11,6 +11,9 @@ import duck.tasks.DateAndTime;
 import duck.tasks.Deadline;
 import duck.tasks.Task;
 
+/**
+ * Class representing the command to create a "deadline" task.
+ */
 public class DeadlineCommand extends TaskCommand {
     private static final Map<String, String> ARGS = Map.ofEntries(
             Map.entry("/by", "due_date"));

@@ -12,11 +12,22 @@ import duck.exceptions.UsageException;
 import duck.tasks.Task;
 import duck.utils.Formatter;
 
+/**
+ * Class representing commands to create tasks.
+ */
 public abstract class TaskCommand extends Command {
+    protected Map<String, String> parts;
     private TaskList taskList;
     private Map<String, String> args;
-    protected Map<String, String> parts;
 
+    /**
+     * Constructor for TaskCommand.
+     *
+     * @param taskList   List of tasks.
+     * @param lineBuffer Buffer containing remaining command.
+     * @param args       A map from patterns (e.g. "/by", "/after") to argument
+     *                   names (e.g. "due_date", "earliest_date")
+     */
     public TaskCommand(TaskList taskList, Parser lineBuffer, Map<String, String> args) {
         this.taskList = taskList;
         this.parts = lineBuffer.parseArgs();

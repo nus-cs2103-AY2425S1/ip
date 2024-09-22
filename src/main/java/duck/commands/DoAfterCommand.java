@@ -11,6 +11,9 @@ import duck.tasks.DateAndTime;
 import duck.tasks.DoAfter;
 import duck.tasks.Task;
 
+/**
+ * Class representing the command to create a "doafter" task.
+ */
 public class DoAfterCommand extends TaskCommand {
     private static final Map<String, String> ARGS = Map.ofEntries(
             Map.entry("/after", "earliest_date"));
@@ -23,8 +26,8 @@ public class DoAfterCommand extends TaskCommand {
     public String createNewTask(TaskList taskList) throws MissingArgsException, DateTimeParseException {
         verifyArgsArePresent(new DoAfterUsageException());
         String description = parts.get("");
-        DateAndTime earliest_date = new DateAndTime(parts.get("/after"));
-        Task task = new DoAfter(description, earliest_date);
+        DateAndTime earliestDate = new DateAndTime(parts.get("/after"));
+        Task task = new DoAfter(description, earliestDate);
         String response = handleNewTask(task);
         return response;
     }

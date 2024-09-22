@@ -5,6 +5,9 @@ import java.util.Map;
 import java.util.StringJoiner;
 import java.util.StringTokenizer;
 
+/**
+ * Class representing a command parser.
+ */
 public class Parser {
     private final String line;
     private final StringTokenizer st;

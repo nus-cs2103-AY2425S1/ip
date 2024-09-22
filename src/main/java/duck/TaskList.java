@@ -13,17 +13,20 @@ import duck.tasks.Event;
 import duck.tasks.Task;
 import duck.tasks.Todo;
 
+/**
+ * Class representing a list of tasks.
+ */
 public class TaskList {
-    private final ArrayList<Task> tasks = new ArrayList<>();
-    // TODO: Refactor this
     // Path relative to project directory
-    private static final String[] dirPathParts = { "store" };
-    private static final String[] filePathParts = { "store", "tasks.csv" };
-    private static final String saveDirPath = String.join(File.separator, dirPathParts);
-    private static final String saveFilePath = String.join(File.separator, filePathParts);
-    private final File saveDir = new File(saveDirPath);
-    private static final File saveFile = new File(saveFilePath);
-    private static final Storage CSV_HANDLER = new Storage(saveFile);
+    private static final String[] DIR_PATH_PARTS = { "store" };
+    private static final String[] FILE_PATH_PARTS = { "store", "tasks.csv" };
+    private static final String SAVE_DIR_PATH = String.join(File.separator, DIR_PATH_PARTS);
+    private static final String SAVE_FILE_PATH = String.join(File.separator, FILE_PATH_PARTS);
+    private static final File SAVE_DIR = new File(SAVE_DIR_PATH);
+    private static final File SAVE_FILE = new File(SAVE_FILE_PATH);
+    private static final Storage CSV_HANDLER = new Storage(SAVE_FILE);
+
+    private final ArrayList<Task> tasks = new ArrayList<>();
 
     /**
      * Adds a task to the list.
@@ -124,8 +127,8 @@ public class TaskList {
         }
 
         try {
-            if (!saveDir.exists()) {
-                saveDir.mkdirs();
+            if (!SAVE_DIR.exists()) {
+                SAVE_DIR.mkdirs();
             }
             CSV_HANDLER.updateRecordsWithStrings(records);
         } catch (IOException e) {
@@ -146,6 +149,7 @@ public class TaskList {
         return filteredTasks;
     }
 
+    @Override
     public String toString() {
         StringBuilder output = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
