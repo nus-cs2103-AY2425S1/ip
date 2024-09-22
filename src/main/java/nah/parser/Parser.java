@@ -165,7 +165,9 @@ public class Parser {
                 throw new NahException(
                         " Nahh!!! Time should be in the format yyyy-mm-dd hhmm, with valid date and time\n");
             }
-
+            if (end.isBefore(start)) {
+                throw new NahException(" Nah!!! Ending time should be after starting time.");
+            }
             return new Command.AddCommand(new Events(des[0].trim(), start, end));
         }
         default: {
