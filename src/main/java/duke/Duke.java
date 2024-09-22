@@ -10,7 +10,7 @@ import java.util.Objects;
  * the information and display information accordingly for the user to see.
  */
 public class Duke {
-    private static final String FILE_NAME = "data/tasks.txt";
+    private static final String FILE_NAME = "./data/tasks.txt";
     private static final String GOODBYE_MESSAGE = "Farewell! Until we meet again.\n";
     private final Storage storage;
     private TaskList tasks;
@@ -76,7 +76,6 @@ public class Duke {
      * @return A response to the user's response.
      */
     public String getResponse(String userResponse) {
-        ui.greet();
         if (!Objects.equals(userResponse, "bye")) {
             try {
                 Parser ps = new Parser(userResponse);
