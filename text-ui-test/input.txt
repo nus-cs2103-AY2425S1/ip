@@ -1,0 +1,24 @@
+list
+delete 1
+todo after more OOP
+deadline return cd /by 2024-09-10 1200
+event coding /from 2024-10-10 0800 /to 2024-10-12 1700
+list
+mark 1
+unmark 1
+mark
+unmark
+mark 0
+unmark 0
+deadline
+deadline code project
+deadline test format /by 2024 Sep 15 2359
+deadline test time /by 2024 Sep 15 2500
+event
+event hackathon
+event test format /from 2024 09 20 10am /to 2024 09 25 5pm
+event test date input /from 2024-09-10 1000 /to 2024-09-01 1000
+list
+delete
+blah
+bye
