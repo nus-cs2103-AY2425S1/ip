@@ -1,24 +1,74 @@
-# Duke project template
+# Blitz User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+<img src="docs/Ui.png" alt="UI Screenshot" width="300"/>
 
-## Setting up in Intellij
+Blitz is a interactive chatbot to help plan tasks. Save important deadlines, dates all using your keyboard!!
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+## General Instructions
+1. All tasks must have descriptions
+2. All dates must follow a dd/MM/yyyy format
+3. Add tags at the end, after date and time
+4. Commands such as `list` do not take parameters
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Adding todo
+Add a todo task using the command below
+```
+todo math homework
+```
+
+## Adding deadlines
+Add a deadline task using the command below
+```
+deadline assignment 1 submission /by 12/4/2024 0800
+```
+**Note:** Time is optional
+
+## Adding events
+Add a event task using the command below
+```
+event wedding /from 10/10/2024 1700 /to 10/10/2024 1900
+```
+**Note:** Time is optional
+
+### TAGS!!
+Add tags to tasks to filter by tags
+```
+deadline assignment 1 submission /by 12/4/2024 0800 -t urgent difficult
+```
+Filter by tags using `find -t`
+
+### Filter tasks
+Tasks can be filtered by:
+1. Description
+2. Tags
+
+```
+find -t urgent
+find assignment
+```
+Without flag (e.g. `-t`) find defaults to filtering by description
+
+### Mark Tasks as done / undone
+```dtd
+list
+mark 1
+unmark 3
+```
+`list` is usually called  beforehand so user can see the indexes of the tasks and mark/unmark the appropriate task
+
+
+Output **before** marking: `1. [T][ ] science hw tags: no tags`
+
+Output **after** marking: `1. [T][X] science hw tags: no tags`
+
+### Delete tasks
+```dtd
+list
+delete 1
+```
+`list` is usually called  beforehand so user can see the indexes of the tasks and delete the appropriate task
+
+### Exit
+The `bye` command prints a farewell message but the program will still be running. Please exit, stop running the app to close it.
+
+Don't worry about saving, it is done automatically for you!! :blush:
