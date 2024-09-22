@@ -2,8 +2,8 @@ package johncena.parser;
 
 import java.util.ArrayList;
 import johncena.commands.*;
-        import johncena.exceptions.*;
-        import johncena.tasks.Task;
+import johncena.exceptions.*;
+import johncena.tasks.Task;
 
 public class InputHandler {
     private ArrayList<Task> tasks;
