@@ -46,6 +46,11 @@ public class TaskList {
         return userInputs;
     }
 
+    /**
+     * Deletes the specified index from the TaskList object.
+     * @param idx The index to be deleted
+     * @throws TaskListOutOfBoundsException
+     */
     public void delete(int idx) throws TaskListOutOfBoundsException {
         if (idx < 0 || idx > userInputs.size() - 1) {
             throw new TaskListOutOfBoundsException();
@@ -57,6 +62,12 @@ public class TaskList {
         return userInputs.size();
     }
 
+    /**
+     * Snoozes the task specified by the index.
+     * @param idx The 
+     * @param newDate
+     * @throws TaskListOutOfBoundsException
+     */
     public void snooze(int idx, LocalDate newDate) throws TaskListOutOfBoundsException {
         if (idx < 0 || idx > userInputs.size() - 1) {
             throw new TaskListOutOfBoundsException();

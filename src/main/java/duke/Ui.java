@@ -40,16 +40,6 @@ public class Ui {
     }
 
     /**
-     * Displays a custom message to the user if there is an issue with loading the hard drive-stored tasks into the
-     * program.
-     *
-     */
-    public void showLoadingError() {
-        System.out.println("Regrettably, the storage file you have indicated cannot be "
-                           + "located within the depths of the system.");
-    }
-
-    /**
      * Displays a custom message to be displayed to the user at the start of the program.
      *
      */
