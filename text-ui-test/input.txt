@@ -1,0 +1,23 @@
+todo borrow book
+deadline return book /by Sunday
+event project meeting /from Mon 2pm /to 4pm
+list
+deadline do homework /by no idea :-p
+list
+mark 2
+list
+mark 3
+list
+unmark 2
+list
+todo
+deadline
+deadline problem set 2
+event
+event kurt tay's party
+mark 30
+mark THISISNOTANUMBER
+delete 2
+list
+delete 100
+bye
