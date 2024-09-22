@@ -1,6 +1,9 @@
 package rizz.source;
 import java.util.ArrayList;
 import rizz.task.Task;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -83,6 +86,39 @@ public class TaskList {
         return matchingTasks;
     }
 
+    public String deleteTask(int... indexes) {
+        /*Must use List =/ ArrayList as List is stateless Arraylist.remove removes the element at index -> Stream API
+        cannot handle side effects! */
+        List<Task> deletedTasks = Arrays.stream(indexes)
+                .mapToObj(i -> this.tasks.remove(i - 1))
+                .toList();
+        return deletedTasks.toString();
+    }
+
+    public String markTask(int... indexes) {
+        List<Task> markedTasks = Arrays.stream(indexes)
+                .mapToObj(i -> this.getTask(i - 1))
+                .peek(Task::markAsDone)
+                .toList();
+        return markedTasks.toString();
+    }
+
+    public String unmarkTask(int... indexes) {
+        List<Task> unmarkedTasks = Arrays.stream(indexes)
+                .mapToObj(i -> this.getTask(i - 1))
+                .peek(Task::unmarkAsDone)
+                .toList();
+        return unmarkedTasks.toString();
+    }
+
+    public TaskList findByKeyword(String keyword) {
+        List<Task> matchingTasks = tasks.stream()
+                .filter(task -> task.getText().contains(keyword))
+                .toList();
+        //Need Casting, TaskList <: List
+        return new TaskList((ArrayList<Task>) matchingTasks);
+    }
+
     /**
      * Exports all tasks in the task list to an array of strings.
      * Each task is formatted for file storage by calling its export() method.
@@ -100,14 +136,12 @@ public class TaskList {
 
     @Override
     public String toString() {
-        if (this.getLength() == 0) {
+        if (tasks.isEmpty()) {
             return "Empty";
         } else {
-            StringBuilder tempStr = new StringBuilder();
-            for (int i = 0; i < this.getLength(); i++) {
-                tempStr.append(i + 1).append(". ").append(this.getTask(i)).append("\n");
-            }
-            return tempStr.toString();
+            return tasks.stream()
+                    .map(task -> (tasks.indexOf(task) + 1) + ". " + task)
+                    .collect(Collectors.joining("\n"));
         }
     }
     
