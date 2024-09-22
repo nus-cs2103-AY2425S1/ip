@@ -1,0 +1,7 @@
+echo test
+todo sample task one
+event sample task two /from today /to tomorrow
+deadline sample task three /by today
+mark 1
+list
+bye
