@@ -5,7 +5,9 @@ Screwllum is a HSR-themed task management application that helps users keep trac
 
 It can add tasks, delete them, toggle the status of the task, list all tasks as well as find tasks that match certain keywords.
 There is also an additional feature to archive all your existing tasks!
+
 --------------------------------------------------------------------------------------------------------------------
+
 ## Quick start
 
 1. Ensure that Java `17` or above is installed.
