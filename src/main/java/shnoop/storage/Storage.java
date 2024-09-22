@@ -129,6 +129,7 @@ public class Storage {
     }
     // @@author CS2103T Website
 
+
     /**
      * Loads file based on path Storage was initialised with. Creates new one if not available.
      * @return ArrayList of Tasks that was loaded from the text file.
@@ -136,12 +137,15 @@ public class Storage {
     public ArrayList<Task> load() throws ShnoopException, FileNotFoundException {
         boolean directoryExists = java.nio.file.Files.exists(path);
 
+        // @@author nigeltzy-reused
+        // Original author: Steve Hills
+        // Reused from https://www.sghill.net/2014/how-do-i-make-cross-platform-file-paths-in-java/
+        // with minor modifications
         if (!directoryExists) {
             try {
                 Files.createDirectories(path);
             } catch (IOException e) {
                 e.printStackTrace();
-                // TODO handle the exception
                 throw new ShnoopException("Another IOException error huh...");
             }
         }
@@ -156,6 +160,7 @@ public class Storage {
                 throw new ShnoopException("There has been an IOException Error.");
             }
         }
+        // @@author
 
 
         ArrayList<Task> result = loadFileContents(path.toString() + "/shnoopstorage.txt");

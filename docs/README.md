@@ -1,6 +1,6 @@
 # Shnoop User Guide
 
-![Screenshot of an application ChatBot showing two dogs conversing in English](/Ui.png)
+![Screenshot of an application ChatBot showing two dogs conversing in English](./Ui.png)
 
 > You could travel the world, but nothing comes close to the Shnoop chatbot <3
 
