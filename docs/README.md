@@ -128,6 +128,64 @@ OK, I've marked this task as not done yet:
 __________________________________________________
 ```
 
+## Deleting a task
+
+// Like other list edit commands, by using the "delete" keyword, you can instruct the
+chatbot to delete a task from the tasklist, the same instruction for all 3 types of
+task. The task is specified using its index in the tasklist.
+
+Here are some examples of how to utilise this function
+
+Example: `delete 1`
+
+The deleted task will be reflected in the output.
+```
+expected output 
+__________________________________________________
+roger that sir, I've removed this task:
+[T][ ] buy groceries
+__________________________________________________
+```
+
+## Finding a task
+
+// Like other list commands, by using the "find" keyword, you can instruct the
+chatbot to search for a task in the tasklist, based on the search parameters received.
+Any tasks with names that contain that keyword will be displayed in a list.
+
+Here are some examples of how to utilise this function
+
+Example: `find lecture`
+
+The matching tasks will be reflected in the output.
+```
+expected output 
+__________________________________________________
+Here are the matching tasks in your list:
+1. [D][ ] study for lecture (by: Sep 29 2024 07:00pm)
+__________________________________________________
+```
+
+## Detecting Duplicates in TaskList
+
+// When creating a task to be added to the tasklist, the chatbot will inform you if there
+is already an identical task present in the list. Tasks are identical if:
+- it shares the same name (todo task)
+- it shares the same name and due date (deadline task)
+- it shares the same name, start and end period (event task)
+
+Here are some examples of how to utilise this function
+
+Example: `event go JB /from tommorrow /to next fri`
+
+The chatbot will reject the creation of the identical task.
+```
+expected output 
+__________________________________________________
+stop trolling, the task is already present
+__________________________________________________
+```
+
 ## Feature XYZ
 
 // Feature details

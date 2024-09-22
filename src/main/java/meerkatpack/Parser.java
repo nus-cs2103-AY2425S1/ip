@@ -109,7 +109,7 @@ public class Parser {
 
     private String parseTodoTask(String taskName) {
         try {
-            return taskList.detectDuplicateTask(taskName) ? ui.showDuplicateTodoDetectedMessage() : taskList.createTodoTask(taskName);
+            return taskList.detectDuplicateTask(taskName) ? ui.showDuplicateDetectedMessage() : taskList.createTodoTask(taskName);
         } catch (ArrayIndexOutOfBoundsException e) {
             return ui.showNeedMoreInfoTodoMessage();
         } catch (IOException e) {
@@ -126,7 +126,7 @@ public class Parser {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd kkmm");
             LocalDateTime dueDate = LocalDateTime.parse(dueDateString, formatter);
             return taskList.detectDuplicateTask(name, dueDate)
-                    ? ui.showDuplicateDeadlineDetectedMessage()
+                    ? ui.showDuplicateDetectedMessage()
                     : taskList.createDeadlineTask(name, dueDate);
         }
         catch (ArrayIndexOutOfBoundsException e) {
@@ -145,7 +145,7 @@ public class Parser {
             String start = duration[0];
             String end = duration[1];
             return taskList.detectDuplicateTask(name, start, end)
-                    ? ui.showDuplicateEventDetectedMessage()
+                    ? ui.showDuplicateDetectedMessage()
                     : taskList.createEventTask(name, start, end);
         } catch (ArrayIndexOutOfBoundsException e) {
             return ui.showNeedMoreInfoEventMessage();

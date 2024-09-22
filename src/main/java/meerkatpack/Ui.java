@@ -92,15 +92,7 @@ public class Ui {
         return (LINES + "\nbruh. i need more info to create your event task.\n" + LINES);
     }
 
-    public String showDuplicateTodoDetectedMessage() {
-        return (LINES + "\nstop trolling, the task is already present\n" + LINES);
-    }
-
-    public String showDuplicateEventDetectedMessage() {
-        return (LINES + "\nstop trolling, the task is already present\n" + LINES);
-    }
-
-    public String showDuplicateDeadlineDetectedMessage() {
+    public String showDuplicateDetectedMessage() {
         return (LINES + "\nstop trolling, the task is already present\n" + LINES);
     }
 
@@ -174,7 +166,7 @@ public class Ui {
         result.append(LINES);
         result.append("\nHere are the matching tasks in your list:\n");
         for (int i = 1; i < (listOfTasks.size() + 1); i++) {
-            result.append(i).append(".").append(listOfTasks.get(i - 1).toString()).append("\n");
+            result.append(i).append(". ").append(listOfTasks.get(i - 1).toString()).append("\n");
         }
         result.append(LINES);
         return result.toString();

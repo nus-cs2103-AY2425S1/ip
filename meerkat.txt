@@ -1,3 +1,2 @@
-e,u,eat,today,tmr
-d,u,study for lecture,2024-09-29T19:00
-t,m,buy groceries
+t,u,buy groceries
+t,u,watch lecture
