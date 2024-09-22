@@ -47,7 +47,7 @@ public class PrevDeleteManager extends PrevCommandManager {
      */
     private String getResponse(Task lastDeletedTask, TaskList tasks) {
         return "Restoring deleted task...\n"
-                + "  " + tasks.getTaskDetails(lastDeletedTask) + " restored!\n"
+                + "  " + tasks.getTaskDetails(lastDeletedTask).trim() + " restored!\n"
                 + tasks.getTasksSummary()
                 + "\nLAO GAN MA!";
     }
