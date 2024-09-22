@@ -1,7 +1,13 @@
 # Cloud User Guide
+Cloud is a minimalistic desktop application for managing tasks, deadlines and events.
+
 ![Ui.png](Ui.png)
 
-Cloud is a minimalistic desktop application for managing tasks, deadlines and events.
+
+## Quick start
+1. Ensure you have `Java 17` installed.
+2. Download the latest `.jar` file from [here](https://github.com/chrisjohntan/ip/releases) into an empty folder.
+3. Open a command terminal, `cd` into the folder containing the jar file, and run `java -jar cloud.jar`.
 
 ## Adding todos: `todo`
 
