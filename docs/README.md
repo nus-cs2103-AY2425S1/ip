@@ -1,10 +1,10 @@
-![Luke Skywalker](https://github.com/frymash/ip/blob/master/src/main/resources/images/skywalker.png)
+![Luke Skywalker](src/main/resources/images/skywalker.png)
 
 # hey, i'm luke, your glorified task manager :)
 
 Luke is a chatbot that helps you keep track of your daily tasks. Think of Luke as an advanced to-do list that can help you track basic to-dos, events, as well as deadlines.
 
-![Luke in action](https://github.com/frymash/ip/blob/master/docs/Ui.png)
+![Luke in action](docs/Ui.png)
 
 # Table of Contents
 
