@@ -7,21 +7,22 @@ import java.time.LocalTime;
 
 public class AddEventCommand extends Command {
     private final String description;
-    private final LocalDateTime from;
-    private final LocalTime to;
+    private final LocalDateTime eventStartTime;
+    private final LocalTime eventEndTime;
 
-    public AddEventCommand(String description, LocalDateTime from, LocalTime to) {
+    public AddEventCommand(String description, LocalDateTime eventStartTime, LocalTime eventEndTime) {
         this.description = description;
-        this.from = from;
-        this.to = to;
+        this.eventStartTime= eventStartTime;
+        this.eventEndTime = eventEndTime;
     }
 
     @Override
     public String execute(TaskList tasks) {
-        if (this.description == null || this.description.trim().isEmpty() || this.from == null || this.to == null) {
+        if (this.description == null || this.description.trim().isEmpty() || this.eventStartTime == null
+                || this.eventEndTime == null) {
             return "Event, from and by cannot be empty";
         }
-        Event newEvent = new Event(description, from, to, false);
+        Event newEvent = new Event(description, eventStartTime, eventEndTime, false);
         tasks.addTask(newEvent);
         return "Event added: " + newEvent.toString();
     }

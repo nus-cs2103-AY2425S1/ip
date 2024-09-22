@@ -3,16 +3,16 @@ import rizz.source.TaskList;
 
 
 public class DeleteCommand extends Command {
-    private final int[] index;
+    private final int[] taskIndex;
 
-    public DeleteCommand(int... index) {
-        this.index = index;
+    public DeleteCommand(int... taskIndex) {
+        this.taskIndex = taskIndex;
     }
 
     @Override
     public String execute(TaskList tasks) {
 
-        return "Noted. I've removed these task:\n" + tasks.deleteTask(index)
+        return "Noted. I've removed these task:\n" + tasks.deleteTask(taskIndex)
                 + "Now you have " + tasks.getLength() + " tasks in the list.\n" + tasks.toString();
     }
 }
