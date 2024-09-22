@@ -149,7 +149,8 @@ public class Parser {
     private static String handleDeadline(String arguments) throws BotException {
         int byIndex = arguments.indexOf(" /by ");
         if (byIndex == -1) {
-            throw new BotException("Please format your instructions correctly. E.g., deadline [task] /by [MMddyyyy HHmm]");
+            throw new BotException("Please format your instructions correctly. E.g., deadline [task]" +
+                    " /by [MM-dd-yyyy HHmm]");
         }
         String taskDescription = arguments.substring(0, byIndex);
         String deadline = arguments.substring(byIndex + 5);
@@ -158,7 +159,7 @@ public class Parser {
             return UI.taskAddedMsg();
         } catch (DateTimeParseException e) {
             throw new BotException("I'm sorry, I had trouble understanding the deadline. " +
-                    "Please ensure you have formatted it correctly. [MMddyyyy HHmm]");
+                    "Please ensure you have formatted it correctly. [MM-dd-yyyy HHmm]");
         }
     }
 
@@ -173,7 +174,8 @@ public class Parser {
         int fromIndex = arguments.indexOf(" /from ");
         int toIndex = arguments.indexOf(" /to ");
         if (fromIndex == -1 || toIndex == -1) {
-            throw new BotException("Please format your instructions correctly. E.g., event [task] /from [MMddyyyy HHmm] /to [MMddyyyy HHmm]");
+            throw new BotException("Please format your instructions correctly. E.g., event [task] " +
+                    "/from [MM-dd-yyyy HHmm] /to [MM-dd-yyyy HHmm]");
         }
         String taskDescription = arguments.substring(0, fromIndex);
         String eventStart = arguments.substring(fromIndex + 7, toIndex);
@@ -183,7 +185,7 @@ public class Parser {
             return UI.taskAddedMsg();
         } catch (DateTimeParseException e) {
             throw new BotException("I had trouble understanding your starting and/or ending time. " +
-                    "Please ensure you have formatted it correctly. [MMddyyyy HHmm]");
+                    "Please ensure you have formatted it correctly. [MM-dd-yyyy HHmm]");
         }
     }
 
