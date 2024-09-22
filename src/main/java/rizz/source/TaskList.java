@@ -1,6 +1,9 @@
 package rizz.source;
 import java.util.ArrayList;
 import rizz.task.Task;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -23,46 +26,45 @@ public class TaskList {
         this.tasks.add(task);
     }
 
-    public String deleteTask(int... index) {
-        TaskList deletedTasks = new TaskList();
-        for (int i = 0; i < index.length; i++) {
-            //cause 2nd item of list is Arr[1]
-            Task task = this.getTask(index[i] - 1);
-            this.tasks.remove(index[i] - 1);
-            deletedTasks.addTask(task);
-        }
-        return deletedTasks.toString();
-    }
-
-    public String markTask(int... index) {
-        TaskList markTasks = new TaskList();
-        for (int i = 0; i < index.length; i++) {
-            //cause 2nd item of list is Arr[1]
-            Task task = this.getTask(index[i] - 1);
-            task.markAsDone();
-            markTasks.addTask(task);
-        }
-        return markTasks.toString();
-    }
-
-    public String unmarkTask(int... index) {
-        TaskList unmarkTasks = new TaskList();
-        for (int i = 0; i < index.length; i++) {
-            //cause 2nd item of list is Arr[1]
-            Task task = this.getTask(index[i] - 1);
-            task.unmarkAsDone();
-            unmarkTasks.addTask(task);
-        }
-        return unmarkTasks.toString();
-    }
-
-
     public int getLength() {
         return this.tasks.size();
     }
 
     public Task getTask(int index) {
         return this.tasks.get(index);
+    }
+
+    public String deleteTask(int... indexes) {
+        /*Must use List =/ ArrayList as List is stateless Arraylist.remove removes the element at index -> Stream API
+        cannot handle side effects! */
+        List<Task> deletedTasks = Arrays.stream(indexes)
+                .mapToObj(i -> this.tasks.remove(i - 1))
+                .toList();
+        return deletedTasks.toString();
+    }
+
+    public String markTask(int... indexes) {
+        List<Task> markedTasks = Arrays.stream(indexes)
+                .mapToObj(i -> this.getTask(i - 1))
+                .peek(Task::markAsDone)
+                .toList();
+        return markedTasks.toString();
+    }
+
+    public String unmarkTask(int... indexes) {
+        List<Task> unmarkedTasks = Arrays.stream(indexes)
+                .mapToObj(i -> this.getTask(i - 1))
+                .peek(Task::unmarkAsDone)
+                .toList();
+        return unmarkedTasks.toString();
+    }
+
+    public TaskList findByKeyword(String keyword) {
+        List<Task> matchingTasks = tasks.stream()
+                .filter(task -> task.getText().contains(keyword))
+                .toList();
+        //Need Casting, TaskList <: List
+        return new TaskList((ArrayList<Task>) matchingTasks);
     }
 
     /**
@@ -80,27 +82,14 @@ public class TaskList {
         return exportTasks;
     }
 
-    public TaskList findByKeyword(String keyword) {
-        TaskList matchingTasks = new TaskList();
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
-            if (task.getText().contains(keyword)) {
-                matchingTasks.addTask(task);
-            }
-        }
-        return matchingTasks;
-    }
-
     @Override
     public String toString() {
-        if (this.getLength() == 0) {
+        if (tasks.isEmpty()) {
             return "Empty";
         } else {
-            StringBuilder str = new StringBuilder();
-            for (int i = 0; i < this.getLength(); i++) {
-                str.append(i + 1).append(". ").append(this.getTask(i)).append("\n");
-            }
-            return str.toString();
+            return tasks.stream()
+                    .map(task -> (tasks.indexOf(task) + 1) + ". " + task)
+                    .collect(Collectors.joining("\n"));
         }
     }
     

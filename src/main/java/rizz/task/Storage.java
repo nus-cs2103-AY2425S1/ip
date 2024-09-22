@@ -43,16 +43,8 @@ public class Storage {
             Files.createDirectories(dataFilePath.getParent());
             Files.createFile(dataFilePath);
         }
-        String[] data = taskList.export();
-
-        StringBuilder builder = new StringBuilder();
-        if (data.length > 0) {
-            builder.append(data[0]);
-            for (int i = 1; i < data.length; i++) {
-                builder.append("\n").append(data[i]);
-            }
-        }
-        Files.writeString(dataFilePath, builder.toString());
+        String content = String.join("\n", taskList.export());
+        Files.writeString(dataFilePath, content.toString());
     }
 
     /**
@@ -63,18 +55,10 @@ public class Storage {
      */
     public ArrayList<Task> loadTasks() throws IOException {
         if (Files.exists(dataFilePath)) {
-            List<String> lines = Files.readAllLines(dataFilePath);
-            if (lines.isEmpty()) {
-                //do nothing
-            } else {
-                for (int i = 0; i < lines.size(); i++) {
-                    String line = lines.get(i);
-                    Task task = decodeTasks(line);
-                    if (task != null) {
-                        taskList.add(task);
-                    }
-                }
-            }
+            Files.readAllLines(dataFilePath).stream()
+                    .map(Storage::decodeTasks)
+                    .filter(task -> task != null)
+                    .forEach(taskList::add);
         }
         return taskList;
     }
