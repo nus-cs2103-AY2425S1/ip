@@ -1,0 +1,68 @@
+.root {
+    main-color: rgb(237, 255, 242);
+    -fx-background-image: url('../images/background.png');
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+}
+
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-font: 16px "Open Sans";
+    -fx-background-radius: 10px;
+    -fx-padding: 10px;
+}
+
+.circular-button {
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 5px;
+}
+
+.circular-button .image-view {
+    -fx-image: url("../images/send.png");
+    -fx-preserve-ratio: true;
+    -fx-fit-width: 20px;
+    -fx-fit-height: 20px;
+}
+
+.circular-button:hover {
+    -fx-background-color: #29A9E0;
+}
+
+.circular-button:hover .image-view {
+    -fx-image: url("../images/sendhover.png");
+    -fx-preserve-ratio: true;
+    -fx-fit-width: 20px;
+    -fx-fit-height: 20px;
+}
+
+.circular-button.disabled {
+    -fx-background-color: #E0E0E0; /* Light gray for disabled state */
+    -fx-border-color: #B0B0B0;
+    -fx-opacity: 0.5; /* Makes the button look disabled */
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;  /* Change width of scroll bar. */
+    -fx-background-color: main-color;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #ff9cb4;
+    -fx-background-radius: 1em;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+
