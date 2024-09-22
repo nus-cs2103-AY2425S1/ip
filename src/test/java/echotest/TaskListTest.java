@@ -1,13 +1,15 @@
+package echotest;
 
-import echo.EchoException;
-import echo.Task;
-import echo.TaskList;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import echo.EchoException;
+import echo.TaskList;
+import echo.task.Task;
 
 public class TaskListTest {
     private TaskList taskList;
@@ -37,6 +39,7 @@ public class TaskListTest {
         List<Task> tasks = taskList.getTasks();
         assertEquals(1, tasks.size());
     }
+
 
 
 }

@@ -1,7 +1,5 @@
 # Echo User Guide
 
-
-
 ![Ui.png](Ui.png)
 
 Echo is a task management application that helps you organize your tasks, deadlines, and events. It supports multiple
@@ -11,6 +9,7 @@ task types and features like adding, marking, and deleting tasks, with a clean, 
 
 
 ## Quick Start Guide
+
 1. Ensure Java 17 is installed on your device.
 2. Download the JAR file from this repository.
 3. Place the JAR file in a directory and run it by double-clicking.
@@ -21,6 +20,7 @@ task types and features like adding, marking, and deleting tasks, with a clean, 
 
 
 ### Adding Todos
+
 Adds a todo task that has no deadline
 
 enter: "todo [task name]"
@@ -92,6 +92,7 @@ Nice! I've marked this task as done:
 ```
 
 ### unmark
+
 unmark a task as done
 
 enter: "unmark [task number as shown in list]"
@@ -103,6 +104,7 @@ OK, I've marked this task as not done yet:
 [T] [ ] homework
 ```
 ### delete
+
 removes a task from the record
 enter: "delete [task number as shown in list]"
 
@@ -115,6 +117,7 @@ Now you have 3 tasks in the list.
 ```
 
 ### find 
+
 find a task with the given word
 enter: "find [word that exist in a task]"
 Example: `find week`
@@ -125,6 +128,7 @@ Example: `find week`
 ```
 
 ### edit
+
 edits a task that already exist
 
 enter: "edit [task number as shown in list]"

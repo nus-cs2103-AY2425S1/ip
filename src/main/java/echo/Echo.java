@@ -1,10 +1,14 @@
+package echo;
+
 import echo.*;
-import javafx.scene.control.TextInputDialog;
+import echo.task.Deadline;
+import echo.task.Events;
+import echo.task.Task;
+import echo.task.Todo;
 
 import java.io.FileNotFoundException;
 
 import java.io.IOException;
-import java.util.Optional;
 
 /**
  * The Echo class is the main entry point for the Echo application.
@@ -77,7 +81,7 @@ public class Echo {
                     return ui.showUnmarkedTask(tasks.getTask(Integer.parseInt(parts[1])));
                     //break;
                 case "todo":
-                    Task todo = tasks.addTodo(parts[1]);
+                    Todo todo = tasks.addTodo(parts[1]);
                     return ui.showTaskAdded(todo, tasks.getTasks().size());
                     //break;
                 case "deadline":

@@ -2,6 +2,8 @@ package echo;
 import java.util.List;
 import java.util.Scanner;
 
+import echo.task.Task;
+
 /**
  * The Ui class handles all interactions with the user.
  * It is responsible for displaying messages and receiving input from the user.
@@ -16,10 +18,15 @@ public class Ui {
         this.scanner = new Scanner(System.in);
     }
 
-
+    /**
+     * Takes a list of tasks that has been found and put into a string with numbering
+     *
+     * @param tasks List of tasks to be listed.
+     * @return String representation of a list of tasks.
+     */
     public static String showClassFound(List<Task> tasks) {
         StringBuilder ans = new StringBuilder();
-        for(int i = 0; i < tasks.size(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             int no = i + 1;
             //System.out.println(no + " . " + tasks.get(i).toString());
             ans.append(no).append(" . ").append(tasks.get(i).toString()).append("\n");
@@ -100,7 +107,6 @@ public class Ui {
      * @param size The total number of tasks in the list.
      */
     public String showTaskAdded(Task task, int size) {
-        //System.out.println("Got it. I've added this task:\n" + task + "\nNow you have " + size + " tasks in the list.");
         return "Got it. I've added this task:\n" + task + "\nNow you have " + size + " tasks in the list.";
     }
 
@@ -111,7 +117,6 @@ public class Ui {
      * @param size The total number of tasks remaining in the list.
      */
     public String showTaskRemoved(Task task, int size) {
-        //System.out.println("Noted. I've removed this task:\n" + task + "\nNow you have " + size + " tasks in the list.");
         return "Noted. I've removed this task:\n" + task + "\nNow you have " + size + " tasks in the list.";
     }
 
@@ -121,7 +126,6 @@ public class Ui {
      * @param task The task that was marked as done.
      */
     public String showMarkedTask(Task task) {
-        //System.out.println("Nice! I've marked this task as done:\n" + task);
         return "Nice! I've marked this task as done:\n" + task;
     }
 
@@ -131,7 +135,6 @@ public class Ui {
      * @param task The task that was marked as not done.
      */
     public String showUnmarkedTask(Task task) {
-        //System.out.println("OK, I've marked this task as not done yet:\n" + task);
         return "OK, I've marked this task as not done yet:\n" + task;
     }
 

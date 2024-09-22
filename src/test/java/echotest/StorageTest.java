@@ -1,12 +1,20 @@
-import echo.*;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+package echotest;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import echo.EchoException;
+import echo.Storage;
+import echo.TaskList;
+import echo.task.Task;
 
 class StorageTest {
     private Storage storage;
@@ -33,7 +41,8 @@ class StorageTest {
         assertTrue(file.exists());
     }
 
-    @Test void testLoadAfterSave() throws EchoException, IOException {
+    @Test
+    void testLoadAfterSave() throws EchoException, IOException {
         TaskList taskList = new TaskList();
         taskList.addTodo("Sample task");
         String init = taskList.listToString();

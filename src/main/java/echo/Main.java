@@ -1,5 +1,8 @@
+package echo;
+
 import java.io.IOException;
 
+import echo.Echo;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -13,7 +16,7 @@ public class Main extends Application {
 
     //private Duke duke = new Duke();
     public static final String DOCS_TASKS_TXT = "docs/tasks.txt";
-    private Echo echo = new Echo(DOCS_TASKS_TXT);
+    private echo.Echo echo = new Echo(DOCS_TASKS_TXT);
 
     @Override
     public void start(Stage stage) {
@@ -22,7 +25,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setEcho(echo);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setEcho(echo);
             stage.show();
             stage.setTitle("Echo");
         } catch (IOException e) {

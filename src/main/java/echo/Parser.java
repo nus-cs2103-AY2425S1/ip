@@ -25,7 +25,7 @@ public class Parser {
      * Parses the details of a deadline task from the user input.
      *
      * @param part The part of the input string that contains the deadline details.
-     * @return An array of strings where the first element is the task description and the second element is the deadline.
+     * @return A string of the task description
      */
     public static String parseDeadlineDes(String part) throws EchoException {
         String[] details = part.split(" /by ");
@@ -36,6 +36,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the details of a deadline task from the user input.
+     *
+     * @param part The part of the input string that contains the deadline details.
+     * @return A string representation of the deadline.
+     */
     public static String parseDeadlineTime(String part) throws EchoException {
         String[] details = part.split(" /by ");
         if (details.length == 2) {
@@ -82,21 +88,28 @@ public class Parser {
         return part.split(" /from ")[0];
     }
 
+    /**
+     * Checks if word toFInd is in task description
+     *
+     * @param des    String description of task
+     * @param toFind String of word to be found
+     * @return The event description as a string.
+     */
     public static boolean isPresent(String des, String toFind) {
         String[] parts = des.split(" ");
-        for(int i = 0; i < parts.length; i++){
-            if(Objects.equals(parts[i].toLowerCase(), toFind)){
+        for (int i = 0; i < parts.length; i++) {
+            if (Objects.equals(parts[i].toLowerCase(), toFind)) {
                 return true;
             }
         }
         return false;
     }
 
-    public static String parseEditNo(String part){
+    public static String parseEditNo(String part) {
         return part.split(" ")[0];
     }
 
-    public static String parseEditDes(String part){
+    public static String parseEditDes(String part) {
         return part.split(" ")[1];
     }
 

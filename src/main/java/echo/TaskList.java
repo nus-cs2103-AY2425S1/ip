@@ -1,15 +1,19 @@
 package echo;
 import java.io.FileNotFoundException;
-import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+
+import echo.task.Deadline;
+import echo.task.Events;
+import echo.task.Task;
+import echo.task.Todo;
 
 /**
  * The TaskList class manages a list of tasks, including adding, deleting, and marking tasks as done or undone.
  */
 public class TaskList {
-    List<Task> tasks;
+    private List<Task> tasks;
 
     /**
      * Constructs a TaskList object with an existing list of tasks. from Storage.load()
@@ -40,13 +44,33 @@ public class TaskList {
         StringBuilder listString = new StringBuilder();
 
         for (Task task : tasks) {
-            listString.append(task.getTypeLetter()).append("|").append(task.getIsDone()).append("|").append(task.getTaskDes()).append("|").append(task.getAdd()).append("\n");
+            listString.append(task.getTypeLetter()).append("|").append(task.getIsDone()).append("|")
+                    .append(task.getTaskDes()).append("|").append(task.getAdd()).append("\n");
+        }
+        return listString.toString();
+    }
+
+    /**
+     * Converts the current list of tasks to a string in a format suitable for saving to a file.
+     *
+     * @return A string representation of the current list of tasks.
+     */
+    public String listToString() {
+        StringBuilder listString = new StringBuilder();
+        for (Task task : tasks) {
+            listString.append(task.getTypeLetter()).append("|").append(task.getIsDone()).append("|")
+                    .append(task.getTaskDes()).append("|").append(task.getAdd()).append("\n");
 
         }
         return listString.toString();
     }
 
-
+    /**
+     * finds a list of tasks that contains word to find
+     *
+     * @param toFind The word to find in tasks.
+     * @return A string representation of the list of tasks found.
+     */
     public String find(String toFind) {
         List<Task> taskList = new ArrayList<>();
         for (Task task : tasks) {
@@ -59,25 +83,6 @@ public class TaskList {
         return Ui.showClassFound(taskList);
     }
 
-
-
-
-    /**
-     * Converts the current list of tasks to a string in a format suitable for saving to a file.
-     *
-     * @return A string representation of the current list of tasks.
-     */
-
-    public  String listToString() {
-        StringBuilder listString = new StringBuilder();
-        for (Task task : tasks) {
-            listString.append(task.getTypeLetter()).append("|").append(task.getIsDone()).append("|").append(task.getTaskDes()).append("|").append(task.getAdd()).append("\n");
-
-        }
-        return listString.toString();
-    }
-
-
     /**
      * Deletes a task from the list based on the task number.
      *
@@ -85,7 +90,7 @@ public class TaskList {
      * @return The task that was deleted.
      * @throws EchoException If the task number is invalid.
      */
-    public Task deleteTask( int num) throws EchoException {
+    public Task deleteTask(int num) throws EchoException {
         try {
 
             if (num > 0 && num <= this.tasks.size()) {
@@ -157,7 +162,7 @@ public class TaskList {
      * @throws EchoException         If the input format is incorrect.
      * @throws DateTimeParseException If the deadline format is invalid.
      */
-    public Deadline addDeadline( String input) throws EchoException, DateTimeParseException {
+    public Deadline addDeadline(String input) throws EchoException, DateTimeParseException {
         try {
             String details = Parser.parseDeadlineDes(input);
             String deadline = Parser.parseDeadlineTime(input);
@@ -178,14 +183,14 @@ public class TaskList {
      * @throws EchoException         If the input format is incorrect.
      * @throws DateTimeParseException If the event time format is invalid.
      */
-    public Events addEvent( String input) throws EchoException, DateTimeParseException {
+    public Events addEvent(String input) throws EchoException, DateTimeParseException {
         try {
             String eventDes = Parser.parseEventDes(input);
             String[] times = Parser.parseEventTime(input);
             Events eventTask = new Events(eventDes, times[0], times[1]);
             this.tasks.add(eventTask);
             return eventTask;
-        }  catch (DateTimeParseException e) {
+        } catch (DateTimeParseException e) {
             throw new EchoException("Enter date in YYYY-MM-DD format");
         }
 

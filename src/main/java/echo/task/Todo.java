@@ -1,4 +1,6 @@
-package echo;
+package echo.task;
+
+import echo.task.Task;
 
 /**
  * The Todo class represents a simple task that does not have any additional details such as a deadline or event time.

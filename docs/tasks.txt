@@ -1,3 +1,1 @@
 T|0|Sample task| 
-D|0|IP| /by 2024-09-23
-E|0|reccess week| /from 2024-10-01 /to 2024-10-01

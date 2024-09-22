@@ -1,4 +1,4 @@
-package echo;
+package echo.task;
 /**
  * The Task class represents a general task with a description and completion status.
  * It serves as an abstract base class for specific types of tasks like ToDos, Deadlines, and Events.

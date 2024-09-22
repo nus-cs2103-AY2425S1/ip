@@ -1,3 +1,5 @@
+package echo;
+
 import javafx.application.Application;
 
 /**
