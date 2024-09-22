@@ -19,8 +19,8 @@ public class ToDo extends Task{
 
     /**
      * Exports the ToD0 task as a formatted string for saving.
-     * The format will be: "T | <isDone> | <text>"
-     * where <isDone> = true -> 1, <isDone> = true -> 0
+     * The format will be: "T | (isDone) | (text)"
+     * where (isDone) = true -> 1, (isDone) = true -> 0
      *
      * @return The string representation of the ToD0 task for file storage.
      */
@@ -32,8 +32,8 @@ public class ToDo extends Task{
 
     /**
      * Returns a string representation of the ToD0 task.
-     * The format will be: "[T][X] <text>" if the task is done,
-     * or "[T][ ] <text>" if the task is not done.
+     * The format will be: "[T][X] (text)" if the task is done,
+     * or "[T][ ] (text)" if the task is not done.
      *
      * @return The string representation of the ToD0 task.
      */

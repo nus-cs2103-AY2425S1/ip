@@ -10,55 +10,29 @@ import rizz.task.Task;
 public class TaskList {
     private final ArrayList<Task> tasks;
 
-    /**
-     * Constructs an empty TaskList.
-     */
+
     public TaskList() {
         tasks = new ArrayList<>();
     }
 
-    /**
-     * Constructs a TaskList with the given tasks.
-     *
-     * @param tasks The list of tasks to initialize the TaskList with.
-     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
-    /**
-     * Adds a task to the task list.
-     *
-     * @param task The task to be added to the task list.
-     */
     public void addTask(Task task) {
         this.tasks.add(task);
     }
 
-    /**
-     * Deletes a task from the task list based on its index.
-     *
-     * @param index The 1-based index of the task to be removed.
-     */
-    public void deleteTask(int index) {
+    public String deleteTask(int index) {
+        String str = this.getTask(index - 1).toString();
         this.tasks.remove(index - 1);
+        return str;
     }
 
-    /**
-     * Returns the number of tasks in the list.
-     *
-     * @return The size of the task list.
-     */
     public int getLength() {
         return this.tasks.size();
     }
 
-    /**
-     * Retrieves a task from the task list by its index.
-     *
-     * @param index The 1-based index of the task to retrieve.
-     * @return The task at the given index.
-     */
     public Task getTask(int index) {
         return this.tasks.get(index);
     }
@@ -80,13 +54,26 @@ public class TaskList {
 
     public TaskList findByKeyword(String keyword) {
         TaskList matchingTasks = new TaskList();
-        for (int i=0; i<tasks.size(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             if (task.getText().contains(keyword)) {
                 matchingTasks.addTask(task);
             }
         }
         return matchingTasks;
+    }
+
+    @Override
+    public String toString() {
+        if (this.getLength() == 0) {
+            return "Empty";
+        } else {
+            StringBuilder str = new StringBuilder();
+            for (int i = 0; i < this.getLength(); i++) {
+                str.append(i + 1).append(". ").append(this.getTask(i)).append("\n");
+            }
+            return str.toString();
+        }
     }
     
 }

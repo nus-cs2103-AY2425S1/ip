@@ -1,6 +1,8 @@
 package rizz.source;
 import java.io.IOException;
 import rizz.command.Command;
+import rizz.command.Parser;
+import rizz.task.Storage;
 
 /**
  * The main class for the Rizz application, which manages tasks.
@@ -9,7 +11,6 @@ import rizz.command.Command;
 public class Rizz {
     private final Storage storage;
     private final TaskList tasks;
-    private final Ui ui;
 
     /**
      * Constructs a new Rizz application with the specified file path for task storage.
@@ -19,7 +20,6 @@ public class Rizz {
      * @throws IOException If an I/O error occurs when loading tasks from the file.
      */
     public Rizz(String filePath) throws IOException {
-        this.ui = new Ui();
         this.storage = new Storage(filePath);
         this.tasks = new TaskList(storage.loadTasks());
     }
@@ -30,30 +30,14 @@ public class Rizz {
      *
      * @throws IOException If an I/O error occurs when saving tasks to the file.
      */
-    public void run() throws IOException {
-        ui.greet();
-        boolean isExit = false;
-        while (!isExit) {
-            String userInput = this.ui.readCommand();
-            Command command = Parser.parseCommand(userInput);
-            if (command == null) {
-                ui.showError("Invalid command. Please try again.");
-                continue;
-            }
-            command.execute(tasks, ui, storage);
+    public String getResponse(String input) throws IOException {
+        Command command = Parser.parseCommand(input);
+        if (command != null) {
+            String str = command.execute(tasks);
             storage.saveTasks(tasks);
+            return str;
+        } else {
+            return "-1";
         }
     }
-
-    /**
-     * The main method that starts the Rizz application.
-     * Loads tasks from the specified file and begins processing user input.
-     *
-     * @param args Command line arguments (not used).
-     * @throws IOException If an I/O error occurs when loading tasks from the file.
-     */
-    public static void main(String[] args) throws IOException {
-        new Rizz("./data/rizz.txt").run();
-    }
-
 }

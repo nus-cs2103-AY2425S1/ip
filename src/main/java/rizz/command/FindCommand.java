@@ -1,12 +1,9 @@
 package rizz.command;
-
 import rizz.source.TaskList;
-import rizz.source.Ui;
-import rizz.source.Storage;
-
+import rizz.task.Task;
 
 public class FindCommand extends Command {
-    private String keyword;
+    private final String keyword;
 
     /**
      * Constructs a new FindCommand with the given keyword.
@@ -22,12 +19,14 @@ public class FindCommand extends Command {
      * and displaying the matching tasks.
      *
      * @param tasks The TaskList to search through.
-     * @param ui The Ui instance used to display the results.
-     * @param storage The Storage instance (not used here).
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks) {
         TaskList foundTasks = tasks.findByKeyword(keyword);
-        ui.showMatchingTasks(foundTasks);
+        if (foundTasks.getLength() == 0) {
+            return "No matching tasks found";
+        } else {
+            return "Here are the matching tasks in your list:\n" + foundTasks.toString();
+        }
     }
 }

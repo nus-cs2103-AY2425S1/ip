@@ -1,4 +1,4 @@
-package rizz.source;
+package rizz.command;
 
 /**
  * Represents the different types of commands that can be executed in the Rizz application.
@@ -8,5 +8,6 @@ public enum CommandType {
     BYE, LIST,
     TODO, EVENT, DEADLINE,
     MARK, UNMARK, DELETE,
+    FIND
 }
 

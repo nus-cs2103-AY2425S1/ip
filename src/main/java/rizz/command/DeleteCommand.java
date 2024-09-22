@@ -1,8 +1,6 @@
 package rizz.command;
 import rizz.source.TaskList;
-import rizz.source.Ui;
-import rizz.source.Storage;
-import java.io.IOException;
+
 
 public class DeleteCommand extends Command {
     private final int index;
@@ -12,12 +10,11 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        try {
-            tasks.deleteTask(index - 1);  
-            storage.saveTasks(tasks); 
-        } catch (IOException e) {
-            ui.showError("Unexpected error: " + e.getMessage());
-        } 
+    public String execute(TaskList tasks) {
+        String deletedTask = tasks.deleteTask(index - 1);
+
+        return "Noted. I've removed this task:\n" + deletedTask.toString()
+                + "Now you have %d tasks in the list.\n" + tasks.toString();
     }
 }
+
