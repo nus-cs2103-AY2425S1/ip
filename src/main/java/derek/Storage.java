@@ -20,7 +20,8 @@ import java.time.format.DateTimeFormatter;
  * It interacts with the {@code TaskList} to manage tasks persistently.
  */
 public class Storage {
-    private String dataFilePathName = "../../data/derek.txt";
+    private String dataDirectoryPath = "./data"; // Directory path for storing data
+    private String dataFilePathName = "./data/derek.txt"; // File path for task data
     private TaskList taskList;
 
     /**
@@ -41,11 +42,13 @@ public class Storage {
      */
     public TaskList readFile() {
         try {
+            File dataDir = new File(dataDirectoryPath);
+            if (!dataDir.exists()) {
+                dataDir.mkdirs(); // Create the data directory if it doesn't exist
+            }
             File tasks = new File(dataFilePathName);
             if (!tasks.exists()) {
-                throw new FileNotFoundException("Data file not found");
-            } else if (tasks.isDirectory()) {
-                throw new FileNotFoundException("Path is a directory");
+                tasks.createNewFile();
             }
             Scanner getList = new Scanner(tasks);
             while (getList.hasNext()) {

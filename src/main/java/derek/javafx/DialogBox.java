@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 
@@ -66,14 +67,16 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String user, String text, Image img) {
-        var db = new DialogBox(user, text, img);
+        DialogBox db = new DialogBox(user, text, img);
         db.flipInternalComponents();
         return db;
     }
 
     public static DialogBox getDerekDialog(String text, Image img) {
-        var db = new DialogBox("Derek", text, img);
+        DialogBox db = new DialogBox("Derek", text, img);
         db.flipDialogBox();
+        HBox.setHgrow(db, Priority.ALWAYS);
+        db.setMaxWidth(Float.POSITIVE_INFINITY);
         return db;
     }
 
