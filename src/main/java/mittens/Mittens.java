@@ -18,6 +18,7 @@ public class Mittens {
     public static final boolean IS_USING_GUI = true;
     public static final String DEFAULT_STORAGE_FILE_PATH = "data/data.txt";
 
+    private final CommandParser commandParser = new CommandParser();
     private final Ui ui;
     private final Storage storage;
     private TaskList taskList;
@@ -79,16 +80,21 @@ public class Mittens {
     }
 
     /**
-     * Runs the main loop of the program which accepts user input.
+     * Prepares the program to run and shows the greeting message.
      */
-    public void run() {
+    public void prepare_run() {
         if (taskList == null) {
             throw new RuntimeException("Task list is not initialized");
         }
 
-        CommandParser commandParser = new CommandParser();
-
         ui.showGreetingMessage();
+    }
+
+    /**
+     * Runs the main loop of the program which accepts user input.
+     */
+    public void run() {
+        prepare_run();
 
         while (true) {
             String input = ui.getUserInput();
