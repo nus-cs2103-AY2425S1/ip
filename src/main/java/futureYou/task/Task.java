@@ -5,7 +5,7 @@ package futureyou.task;
  */
 public class Task implements Comparable<Task> {
     private final String name;
-    private boolean completed = false;
+    private boolean isCompleted = false;
 
     /**
      * Constructs a Task with the specified name.
@@ -20,18 +20,18 @@ public class Task implements Comparable<Task> {
      * Constructs a Task with the specified name and completion status.
      *
      * @param taskName  The name of the task.
-     * @param completed The completion status of the task.
+     * @param isCompleted The completion status of the task.
      */
-    public Task(String taskName, boolean completed) {
+    public Task(String taskName, boolean isCompleted) {
         this.name = taskName;
-        this.completed = completed;
+        this.isCompleted = isCompleted;
     }
 
     /**
      * Marks the task as completed.
      */
     public Task markTask() {
-        this.completed = !this.completed;
+        this.isCompleted = !this.isCompleted;
         return this;
     }
 
@@ -50,7 +50,7 @@ public class Task implements Comparable<Task> {
      * @return task completion status (Boolean).
      */
     public boolean getTaskStatus() {
-        return this.completed;
+        return this.isCompleted;
     }
 
     /**

@@ -19,7 +19,7 @@ public class FutureYou {
     }
 
     /**
-     * The main method that runs the FutreYou Program.
+     * The main method that runs the FutureYou Program.
      *
      * @param args The command-line arguments.
      * @throws IOException if file does not exist
