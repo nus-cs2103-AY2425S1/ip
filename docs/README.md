@@ -1,6 +1,6 @@
 # Derek User Guide
 
-<img width="408" alt="Screenshot 2024-09-20 at 19 18 27" src="https://github.com/user-attachments/assets/730c0e9f-957e-4ccd-8055-70a2fa87f004">
+<img width="1440" alt="Ui" src="https://github.com/user-attachments/assets/f7e32e23-f968-4221-b473-79a6a937d550">
 
 Meet Derek! Your best friend, todo list, calendar all in one!  
 
