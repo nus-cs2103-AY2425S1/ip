@@ -22,7 +22,7 @@ import utility.Pair;
  * Controller class for the main GUI.
  */
 public class MainWindow extends AnchorPane {
-    private static final double SCROLL_AMOUNT = 0.0007;
+    private static final double SCROLL_AMOUNT = 0.0003;
 
     @FXML
     private ScrollPane scrollPane;
@@ -164,7 +164,7 @@ public class MainWindow extends AnchorPane {
             return;
         }
         String processedCommand = this.processCommand(rawCommand);
-        Pair<Boolean, Pair<Boolean,String>> responseResult = this.brock
+        Pair<Boolean, Pair<Boolean, String>> responseResult = this.brock
                 .respondToCommand(processedCommand, this.tasks);
 
         boolean isExit = responseResult.getFirst();

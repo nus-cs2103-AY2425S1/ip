@@ -32,15 +32,20 @@ public class UnmarkCommandTest extends BaseCommandTest {
             mc.execute(TASK_STORAGE, TEMP_STORAGE, TASKS);
         });
 
-        String expectedOutput = "OK, I've marked this task as not done yet:\n"
-                + "  [T][ ] borrow book ";
+        String expectedOutput = """
+                OK, I've marked this task as not done yet:
+                  [T][ ] borrow book\s
+                """;
 
-        // Local variable in function must be effectively final!
-        final String[] actualOutput = new String[1];
+        // Local variable in function must be final / effectively final!
+        // By making it an array, it satisfies this
+        final String[] temp = new String[1];
         UnmarkCommand uc = new UnmarkCommand("unmark 1");
         assertDoesNotThrow(() -> {
-            actualOutput[0] = uc.execute(TASK_STORAGE, TEMP_STORAGE, TASKS);
+            String rawOutput = uc.execute(TASK_STORAGE, TEMP_STORAGE, TASKS);
+            String processedOutput = this.removeQuirkyResponse(rawOutput);
+            temp[0] = processedOutput;
         });
-        assertEquals(expectedOutput, actualOutput[0]);
+        assertEquals(expectedOutput, temp[0]);
     }
 }

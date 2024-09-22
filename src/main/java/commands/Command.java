@@ -11,17 +11,17 @@ import task.TaskList;
  * Abstract class that defines a template for user commands.
  */
 public abstract class Command {
-    private final String command;
-
     private static final String[] quirkyResponses = {
-            "\nHEHEHEHA!",
-            "\nOH MAH GAWD!",
-            "\nBING CHILLING!",
-            "\nZHONG XINA!",
-            "\nAMAZINGG OwO!",
-            "\nGOOD JOB OwO!",
-            "\nLAO GAN MA!"
+        "\nHEHEHEHA!",
+        "\nOH MAH GAWD!",
+        "\nBING CHILLING!",
+        "\nZHONG XINA!",
+        "\nAMAZING OwO!",
+        "\nGOOD JOB OwO!",
+        "\nLAO GAN MA!"
     };
+
+    private final String command;
 
     /**
      * Stores the command string associated with user commands.
@@ -55,6 +55,7 @@ public abstract class Command {
      * Runs the user command.
      *
      * @param taskStorage {@code TaskStorage} object that creates and interfaces with save file.
+     * @param tempStorage {@code TempStorage} object that stores info required to undo previous valid command.
      * @param tasks {@code TaskList} object that stores the current tasks in an {@code ArrayList}.
      * @return Response string after executing the command.
      * @throws BrockException If there are any issues with running the command.

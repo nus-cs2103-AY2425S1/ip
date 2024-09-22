@@ -61,7 +61,7 @@ public class FindCommand extends Command {
                 ? "Here is the matching task in your list:\n"
                 : "Here are the matching tasks in your list:\n";
         String responseBody = numMatching == 0
-                ? "No matching tasks!"
+                ? "No matching tasks!\n"
                 : resultString;
 
         return responseHeader

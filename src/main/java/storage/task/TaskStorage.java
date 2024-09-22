@@ -10,10 +10,10 @@ import java.util.Map;
 import java.util.Scanner;
 
 import exceptions.BrockException;
-import storage.task.manager.DeadlineManager;
-import storage.task.manager.EventManager;
-import storage.task.manager.TaskManager;
-import storage.task.manager.TodoManager;
+import storage.task.managers.DeadlineManager;
+import storage.task.managers.EventManager;
+import storage.task.managers.TaskManager;
+import storage.task.managers.TodoManager;
 import task.Task;
 
 /**

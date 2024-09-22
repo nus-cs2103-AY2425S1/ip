@@ -1,4 +1,4 @@
-package storage.task.manager;
+package storage.task.managers;
 
 import exceptions.BrockException;
 import task.Deadline;

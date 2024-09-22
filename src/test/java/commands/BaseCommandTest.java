@@ -34,4 +34,9 @@ public abstract class BaseCommandTest {
             System.out.println(e.getMessage());
         }
     }
+
+    protected String removeQuirkyResponse(String rawOutput) {
+        int lastNewLineIndex = rawOutput.lastIndexOf("\n");
+        return rawOutput.substring(0, lastNewLineIndex);
+    }
 }

@@ -53,7 +53,7 @@ public class UnmarkCommand extends Command {
      */
     private String getResponse(TaskList tasks, int taskIndex) {
         return "OK, I've marked this task as not done yet:\n"
-                + "  " + tasks.getTaskDetails(taskIndex)
+                + "  " + tasks.getTaskDetails(taskIndex) + '\n'
                 + this.getQuirkyResponse();
     }
 

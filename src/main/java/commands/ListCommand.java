@@ -30,7 +30,7 @@ public class ListCommand extends Command {
 
         String responseBody;
         if (totalTasks == 0) {
-            responseBody = "No current tasks!";
+            responseBody = "No current tasks!\n";
         } else {
             responseBody = tasksString;
         }

@@ -28,15 +28,20 @@ public class MarkCommandTest extends BaseCommandTest {
         TodoCommand tc = new TodoCommand("todo borrow book");
         assertDoesNotThrow(() -> tc.execute(TASK_STORAGE, TEMP_STORAGE, TASKS));
 
-        String expectedOutput = "Nice! I've marked this task as done:\n"
-                + "  [T][X] borrow book ";
+        String expectedOutput = """
+                Nice! I've marked this task as done:
+                  [T][X] borrow book\s
+                """;
 
-        // Local variable in function must be effectively final!
-        final String[] actualOutput = new String[1];
+        // Local variable in function must be final / effectively final!
+        // By making it an array, it satisfies this
+        final String[] temp = new String[1];
         MarkCommand mc = new MarkCommand("mark 1");
         assertDoesNotThrow(() -> {
-            actualOutput[0] = mc.execute(TASK_STORAGE, TEMP_STORAGE, TASKS);
+            String rawOutput = mc.execute(TASK_STORAGE, TEMP_STORAGE, TASKS);
+            String processedOutput = this.removeQuirkyResponse(rawOutput);
+            temp[0] = processedOutput;
         });
-        assertEquals(expectedOutput, actualOutput[0]);
+        assertEquals(expectedOutput, temp[0]);
     }
 }

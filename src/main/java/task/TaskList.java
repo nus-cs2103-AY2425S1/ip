@@ -138,7 +138,8 @@ public class TaskList {
                 + totalTasks
                 + (totalTasks == 1
                 ? " task in the list."
-                : " tasks in the list.");
+                : " tasks in the list.")
+                + '\n';
     }
 
     /**
@@ -155,11 +156,6 @@ public class TaskList {
             taskNumber++;
         }
 
-        // If there are existing tasks, remove last newline from result
-        // So the GUI shows the full response (weird bug)
-        if (taskNumber > 1) {
-            result.deleteCharAt(result.length() - 1);
-        }
         return result.toString();
     }
 
@@ -196,12 +192,6 @@ public class TaskList {
                         .append(taskDetails).append('\n');
                 taskNumber++;
             }
-        }
-
-        // If there are existing tasks, remove last newline from result
-        // So the GUI shows the full response (weird bug)
-        if (taskNumber > 1) {
-            result.deleteCharAt(result.length() - 1);
         }
 
         // After the iteration, if task number is for example 5
