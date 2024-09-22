@@ -1,7 +1,7 @@
 package rizz.command;
 import rizz.source.TaskList;
 
-public class UnmarkCommand extends Command {
+public class UnmarkCommand extends SaveableCommand {
     private final int[] taskIndex;
 
     public UnmarkCommand(int... taskIndex) {

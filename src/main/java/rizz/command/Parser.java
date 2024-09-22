@@ -1,6 +1,7 @@
 package rizz.command;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * The Parser class is responsible for interpreting user input and converting it into specific commands.
@@ -40,7 +41,6 @@ public class Parser {
             return null;
         }
         assert commandType != null: "Command type  null at dis point";
-        assert details != null: "details type  null at dis point";
 
 
         switch (commandType) {
@@ -52,11 +52,17 @@ public class Parser {
             return new AddToDoCommand(details);
         case EVENT:
             String[] eventParts = details.split("/from|/to");
-            return new AddEventCommand(eventParts[0].trim(), LocalDateTime.parse(eventParts[1].trim()),
-                    LocalTime.parse(eventParts[2].trim()));
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmm");
+
+            LocalDateTime eventStart = LocalDateTime.parse(eventParts[1].trim(), dateTimeFormatter);
+            LocalTime eventEnd = LocalTime.parse(eventParts[2].trim(), timeFormatter);
+            return new AddEventCommand(eventParts[0].trim(), eventStart, eventEnd);
         case DEADLINE:
             String[] deadlineParts = details.split("/by");
-            LocalDateTime by = LocalDateTime.parse(deadlineParts[1].trim());
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+
+            LocalDateTime by = LocalDateTime.parse(deadlineParts[1].trim(), formatter);
             return new AddDeadlineCommand(deadlineParts[0].trim(), by);
         case MARK:
             return processMultipleTasks(details, commandType);
@@ -66,6 +72,8 @@ public class Parser {
             return processMultipleTasks(details, commandType);
         case FIND:
             return new FindCommand(details);
+        case UNDO:
+            return new UndoCommand();
         default:
             return null;
         }

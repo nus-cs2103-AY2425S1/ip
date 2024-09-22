@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 
-public class AddEventCommand extends Command {
+public class AddEventCommand extends SaveableCommand {
     private final String description;
     private final LocalDateTime eventStartTime;
     private final LocalTime eventEndTime;

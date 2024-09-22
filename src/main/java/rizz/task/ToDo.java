@@ -29,6 +29,12 @@ public class ToDo extends Task{
         return "T | " + (isDone ? "1" : "0") + " | " + text;
     }
 
+    @Override
+    public Task cloneCopy() {
+        return new ToDo(this.text, this.isDone);
+    }
+
+
 
     /**
      * Returns a string representation of the ToD0 task.

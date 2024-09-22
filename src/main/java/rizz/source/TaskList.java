@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 /**
  * Represents a list of tasks.
  * This class provides methods to manage tasks such as adding, deleting, and exporting tasks.
@@ -20,6 +19,15 @@ public class TaskList {
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
+
+    // TaskList.java
+    public TaskList(TaskList other) {
+        this.tasks = new ArrayList<>();
+        for (Task task : other.tasks) {
+            this.tasks.add(task.cloneCopy()); // Assuming each Task implements a clone method
+        }
+    }
+
 
     public void addTask(Task task) {
         assert task != null : "Task cannot be null";
@@ -42,7 +50,10 @@ public class TaskList {
         List<Task> deletedTasks = Arrays.stream(indexes)
                 .mapToObj(i -> this.tasks.remove(i - 1))
                 .toList();
-        return deletedTasks.toString();
+
+        return deletedTasks.stream()
+                .map(Task::toString)
+                .collect(Collectors.joining("\n"));
     }
 
     public String markTask(int... indexes) {
@@ -50,7 +61,10 @@ public class TaskList {
                 .mapToObj(i -> this.getTask(i - 1))
                 .peek(Task::markAsDone)
                 .toList();
-        return markedTasks.toString();
+
+        return markedTasks.stream()
+                .map(Task::toString)
+                .collect(Collectors.joining("\n"));
     }
 
     public String unmarkTask(int... indexes) {
@@ -58,7 +72,10 @@ public class TaskList {
                 .mapToObj(i -> this.getTask(i - 1))
                 .peek(Task::unmarkAsDone)
                 .toList();
-        return unmarkedTasks.toString();
+
+        return unmarkedTasks.stream()
+                .map(Task::toString)
+                .collect(Collectors.joining("\n"));
     }
 
     public TaskList findByKeyword(String keyword) {

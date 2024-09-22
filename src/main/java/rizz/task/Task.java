@@ -70,6 +70,9 @@ public abstract class Task {
         return text;
     }
 
+
+    public abstract Task cloneCopy();
+
     /**
      * Returns a string representation of the task.
      * The format will be: "[(status)] (text)"
