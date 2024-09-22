@@ -13,7 +13,7 @@ public class FindCommand extends Command {
 
     public FindCommand(String searchContent) {
         super();
-        this.searchContent = searchContent;
+        this.searchContent = searchContent.toLowerCase();
     }
 
     /**
