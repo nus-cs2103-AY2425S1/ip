@@ -23,7 +23,7 @@ String[] celebrationMessages = new String[]{
     "great job :)",
     "you're on a roll!"
 };
-
+```
 
 **What a gentleman, better than a real man for sure!**  
 You can have him with just a few easy steps!
