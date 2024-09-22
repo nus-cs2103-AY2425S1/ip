@@ -18,31 +18,13 @@ public class Ui {
     public Ui() {
         this.scanner = new Scanner(System.in);
     }
-
-    private static final String LOGO = " .----------------.  .----------------.  .----------------.  .----------------.\n" +
-            "| .--------------. || .--------------. || .--------------. || .--------------. |\n" +
-            "| |  ________    | || |      __      | || |    _______   | || |  ____  ____  | |\n" +
-            "| | |_   ___ `.  | || |     /  \\     | || |   /  ___  |  | || | |_   ||   _| | |\n" +
-            "| |   | |   `. \\ | || |    / /\\ \\    | || |  |  (__ \\_|  | || |   | |__| |   | |\n" +
-            "| |   | |    | | | || |   / ____ \\   | || |   '.___`-.   | || |   |  __  |   | |\n" +
-            "| |  _| |___.' / | || | _/ /    \\ \\_ | || |  |`\\____) |  | || |  _| |  | |_  | |\n" +
-            "| | |________.'  | || ||____|  |____|| || |  |_______.'  | || | |____||____| | |\n" +
-            "| |              | || |              | || |              | || |              | |\n" +
-            "| '--------------' || '--------------' || '--------------' || '--------------' |\n" +
-            " '----------------'  '----------------'  '----------------'  '----------------'";
     private static final String HORIZONTAL_LINE = "________________________________________";
-    private static final String GOODBYE = "   ___                _ _                  _ \n" +
-            "  / _ \\___   ___   __| | |__  _   _  ___  / \\\n" +
-            " / /_\\/ _ \\ / _ \\ / _` | '_ \\| | | |/ _ \\/  /\n" +
-            "/ /_\\\\ (_) | (_) | (_| | |_) | |_| |  __/\\_/ \n" +
-            "\\____/\\___/ \\___/ \\__,_|_.__/ \\__, |\\___\\/   \n" +
-            "                              |___/          ";
 
     /**
      * Displays the greeting message and logo to the user.
      */
     public static String displayGreeting() {
-        return "Hello! I'm Dash! What can I do for you?";
+        return "Hello! I'm DASH! What can I do for you?";
     }
 
     /**
@@ -75,15 +57,6 @@ public class Ui {
      */
     public static String showDateTimeParseError(String message) {
         return "Date format is wrong, please input dd-mm-yyyy hhmm: " + message;
-    }
-
-    /**
-     * Shows an unexpected error message to the user.
-     *
-     * @param message The error message to be displayed.
-     */
-    public static String showUnexpectedError(String message) {
-        return "UNEXPECTED ERROR: " + message;
     }
 
     /**
@@ -154,10 +127,22 @@ public class Ui {
         return message.toString();
     }
 
+    /**
+     * Returns a message indicating that a task has been marked as not done.
+     *
+     * @param task The task that was marked as not done.
+     * @return A message confirming the task has been unmarked.
+     */
     public static String showUnmarkTask(Task task) {
         return "OK, I've marked this task as not done yet:\n" + task;
     }
 
+    /**
+     * Returns a message indicating that a task has been marked as done.
+     *
+     * @param task The task that was marked as done.
+     * @return A message confirming the task has been marked as done.
+     */
     public static String showMarkTask(Task task) {
         return "Nice! I've marked this task as done:\n" + task;
     }

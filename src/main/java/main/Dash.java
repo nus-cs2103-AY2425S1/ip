@@ -3,6 +3,8 @@ package main;
 import command.Command;
 import exception.DashException;
 
+import java.time.format.DateTimeParseException;
+
 /**
  * Represents the main application for managing tasks using commands.
  * It handles the interaction between the user, task storage, and command execution.
@@ -36,6 +38,8 @@ public class Dash {
             isExit = command.isExit();
         } catch (DashException e) {
             return Ui.showError(e.getMessage());
+        } catch (DateTimeParseException e) {
+            return Ui.showDateTimeParseError(e.getMessage());
         }
         if (isExit) {
             return Ui.displayGoodbye();
