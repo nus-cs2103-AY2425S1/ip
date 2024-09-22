@@ -26,16 +26,16 @@ public class UI {
      */
     public String init() {
         return """
-                ___________        .__     .___               \s
-                \\_   _____/_______ |__|  __| _/_____    ___.__.
-                 |    __)  \\_  __ \\|  | / __ | \\__  \\  <   |  |
-                 |     \\    |  | \\/|  |/ /_/ |  / __ \\_ \\___  |
-                 \\___  /    |__|   |__|\\____ | (____  / / ____|
-                     \\/                     \\/      \\/  \\/    \s
-               \s
-                Hello! I'm Friday!
-                What would you like to do?               \s
-               \s""";
+                 ___________        .__     .___               \s
+                 \\_   _____/_______ |__|  __| _/_____    ___.__.
+                  |    __)  \\_  __ \\|  | / __ | \\__  \\  <   |  |
+                  |     \\    |  | \\/|  |/ /_/ |  / __ \\_ \\___  |
+                  \\___  /    |__|   |__|\\____ | (____  / / ____|
+                      \\/                     \\/      \\/  \\/    \s
+                \s
+                 Hello! I'm Friday!
+                 What would you like to do?               \s
+                \s""";
     }
 
     /**
@@ -48,17 +48,6 @@ public class UI {
      */
     public String[] getInput() {
         String input = this.sc.nextLine();
-        System.out.println(printLine());
         return input.split(" ", 2);
-    }
-
-    /**
-     * Returns a line separator string to visually separate different sections of output.
-     * This is primarily used after user input to add clarity to the console display.
-     *
-     * @return a string containing a line of dashes for separation.
-     */
-    public static String printLine() {
-        return "----------------------------------------------";
     }
 }

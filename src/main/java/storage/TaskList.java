@@ -4,8 +4,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Scanner;
-
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -30,43 +28,35 @@ public class TaskList {
 
     /**
      * Adds a task to the task list.
-     * The user is prompted to choose the type of task (Todo, Deadline, or Event),
-     * and additional input is gathered as needed.
+     * The task can be a Todo, Deadline, or Event depending on the length of the input array.
+     * Validations include duplicate checks and date format parsing for Deadline and Event types.
      *
-     * @param task the name of the task to be added
+     * @param task an array representing the task details; the first element is the task name,
+     *             followed by optional dates depending on task type
+     * @return a response message indicating the result of the addition, including success or error messages
      */
-    public void addTask(String task) {
-        Scanner sc = new Scanner(System.in);
-        if (isDuplicate(sc, task)) {
-            return;
+    public String addTask(String[] task) {
+        String response = "";
+        if (isDuplicate(task[0])) {
+            response = "Warning! You already have a task named: " + task[0];
         }
-        System.out.println("""
-                Choose a task type (1, 2 or 3):
-                1. Todo - No end date
-                2. Deadline - Has end date
-                3. Event - Has start and end date
-                """);
-        switch (getInputFromUser(sc, "(1, 2 or 3) > ")) {
-        case "1":
-            this.tasks.add(new Todo(task));
-            System.out.println("Friday > Okay, I've added a todo: " + task);
-            break;
-        case "2":
-            System.out.println("What is the deadline? In dd mm yyyy");
-            this.tasks.add(new Deadline(task, getDate("d", sc)));
-            System.out.println("Friday > Okay, I've added a deadline: " + task);
-            break;
-        case "3":
-            System.out.println("What is the start date? In dd mm yyyy");
-            LocalDate start = getDate("es", sc);
-            System.out.println("What is the end date? In dd mm yyyy");
-            LocalDate end = getDate("ee", sc);
-            this.tasks.add(new Event(task, start, end));
-            System.out.println("Friday > Okay, I've added an event: " + task);
-            break;
-        default:
-            System.out.println("Invalid task type! Try adding again.");
+        if (task.length == 1) {
+            this.tasks.add(new Todo(task[0]));
+            return response + "\nOkay, I've added a todo: " + task[0];
         }
+        try {
+            if (task.length == 2) {
+                this.tasks.add(new Deadline(task[0], getDate(task[1])));
+                return response + "\nOkay, I've added a deadline: " + task[0];
+            }
+            if (task.length == 3) {
+                this.tasks.add(new Event(task[0], getDate(task[1]), getDate(task[2])));
+                return response + "\nOkay, I've added an event: " + task[0];
+            }
+        } catch (DateTimeParseException e) {
+            return "Invalid date format! Please follow dd mm yyyy format! e.g 26 06 2002";
+        }
+        return "Error adding task! Did you make sure to key in the right format?";
     }
 
     /**
@@ -74,13 +64,14 @@ public class TaskList {
      * The task is removed from the list, and a confirmation message is displayed.
      *
      * @param task the index of the task to be removed
+     * @return a response message confirming successful removal of the task
      */
     public String removeTask(int task) {
         Task temp = tasks.get(task);
         this.tasks.remove(task);
 
-        String response = "Friday > Successfully removed: " + temp.getName();
-        return response + "\nFriday > You now have " + getSize() + " total tasks left.";
+        String response = "Successfully removed: " + temp.getName();
+        return response + "\nYou now have " + getSize() + " total tasks left.";
     }
 
     /**
@@ -125,63 +116,33 @@ public class TaskList {
      *
      * @param action the action to perform ("mark" for done, any other value for undone)
      * @param task   the index of the task to be marked
+     * @return a response message confirming the task's status change
      */
     public String setTaskCompletion(String action, int task) {
         Task temp = tasks.get(task);
-        if (action.equals("mark") || action.equals("Mark")) {
+        if (action.equalsIgnoreCase("mark")) {
             if (!temp.isDone()) {
                 temp.setDone();
             }
-            return "Friday > Good job! Marked as done :)";
+            return "Good job! Marked as done :)";
         } else {
             if (temp.isDone()) {
-                this.tasks.get(task).setUndone();
+                temp.setUndone();
             }
-            return "Friday > Oh man! Marked as undone :(";
+            return "Oh man! Marked as undone :(";
         }
     }
 
     /**
-     * Prompts the user for input with a given template and returns the user's response.
-     * The method continues to prompt until valid input is provided.
+     * Parses a user-input date string and returns it as a LocalDate object.
+     * The input is expected in the format "dd MM uuuu".
+     * If the input format is invalid, a DateTimeParseException is thrown.
      *
-     * @param sc       the Scanner object used to read user input
-     * @param template the prompt template to display to the user
-     * @return the user's input as a trimmed string
+     * @param date the date string to be parsed
+     * @return the parsed LocalDate object
      */
-    public String getInputFromUser(Scanner sc, String template) {
-        while (true) {
-            System.out.print(template);
-            String str = sc.nextLine();
-            if (str.isEmpty()) {
-                System.out.println("Friday > Invalid input! Did you make sure to type something?");
-            } else {
-                return str.trim();
-            }
-        }
-    }
-
-    /**
-     * Prompts the user for a date and returns the date as a LocalDate object.
-     * The date format is validated, and the method continues to prompt until a valid date is provided.
-     *
-     * @param type the type of date expected ("d" for deadline, "es" for event start, "ee" for event end)
-     * @param sc   the Scanner object used to read user input
-     * @return the user's input as a LocalDate object
-     */
-    public LocalDate getDate(String type, Scanner sc) {
-        try {
-            return switch (type) {
-            case "d" -> LocalDate.parse(getInputFromUser(sc, "Deadline (in dd mm yyyy) > "), this.inputFormatter);
-            case "es" ->
-                    LocalDate.parse(getInputFromUser(sc, "Start Date (in dd mm yyyy) > "), this.inputFormatter);
-            case "ee" -> LocalDate.parse(getInputFromUser(sc, "End Date (in dd mm yyyy) > "), this.inputFormatter);
-            default -> getDate(type, sc);
-            };
-        } catch (DateTimeParseException e) {
-            System.out.println("Friday > Invalid date format! Please follow dd mm yyyy format! e.g 26 06 2002");
-        }
-        return getDate(type, sc);
+    public LocalDate getDate(String date) {
+        return LocalDate.parse(date, this.inputFormatter);
     }
 
     /**
@@ -192,17 +153,9 @@ public class TaskList {
      */
     public int countCompleted(boolean isComplete) {
         int count = 0;
-        if (isComplete) {
-            for (Task task : this.tasks) {
-                if (task.isDone()) {
-                    count++;
-                }
-            }
-        } else {
-            for (Task task : this.tasks) {
-                if (!task.isDone()) {
-                    count++;
-                }
+        for (Task task : this.tasks) {
+            if (task.isDone() == isComplete) {
+                count++;
             }
         }
         assert count >= 0 : "Invalid number of completed tasks";
@@ -211,21 +164,15 @@ public class TaskList {
 
     /**
      * Checks if a task with the specified name already exists in the task list.
-     * If a duplicate task is found, the user is prompted to decide whether to proceed or not.
-     * The method returns true if the user chooses not to proceed, and false if there are no duplicates or
-     * if the user chooses to proceed despite the duplicate.
+     * The method returns true if a duplicate task is found, false otherwise.
      *
-     * @param sc     the Scanner object used to read user input
      * @param target the name of the task to check for duplicates
-     * @return true if a duplicate is found and the user chooses not to proceed, false otherwise
+     * @return true if a duplicate task is found, false otherwise
      */
-    public boolean isDuplicate(Scanner sc, String target) {
+    public boolean isDuplicate(String target) {
         for (Task task : this.tasks) {
-            if (task.equals(target)) {
-                System.out.println("Friday > There is already a task with the same name: " + target);
-                System.out.println("Friday > Do you still want to proceed? (Y/N)");
-                String ans = getInputFromUser(sc, "Y/N: ");
-                return !ans.equalsIgnoreCase("y");
+            if (task.getName().equalsIgnoreCase(target)) {
+                return true;
             }
         }
         return false;

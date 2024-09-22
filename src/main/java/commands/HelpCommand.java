@@ -21,7 +21,16 @@ public class HelpCommand implements Command {
     public String execute(Storage storage, TaskList master) {
         return """
                         Friday > Hello! I'm Friday! Your personal chatbot for ensuring you get things done by Friday ;)
-                        To create a new task, type "add <task name>" and follow the instructions.
+                        To create a new task, first choose a task type:
+
+                        1. Todo - No end date
+                        2. Deadline - Has end date
+                        3. Event - Has start and end date
+                        
+                        Then do either :
+                        Todo - add <name>
+                        Deadline - add <name> | <deadline date>
+                        Event - add <name> | <start date> | <end date>
 
                         Other commands:
                         help            displays this page

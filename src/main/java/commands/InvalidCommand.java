@@ -34,7 +34,7 @@ public class InvalidCommand implements Command {
         case "add" -> "Friday > Try doing add <task name>";
         case "remove" -> "Friday > Input the task number (1 - " + master.getSize() + ") to remove the task";
         case "find" -> "Friday > Try doing find <keyword>";
-        default -> "Friday > Hmm...you can't do that. Try add/remove <task> or \"help\" for more options";
+        default -> "Friday > Hmm...you can't do that. Try \"help\" for more options";
         };
     }
 }
