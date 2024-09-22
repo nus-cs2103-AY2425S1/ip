@@ -1,7 +1,119 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+____________________________________________________________
+Hello homie! I'm jackbean.command.JackBean, a chatbot designed to help you with your daily tasks!
+How may I help you today my homie?
+____________________________________________________________
+____________________________________________________________
+Yo Homieee, i did not catch what you are saying!
+Please use deadline, event, todo, or other command formats, type help if you are unsure of the formats!
+____________________________________________________________
+____________________________________________________________
+Got it homie! I've added your todo, LESGOOOOO:
+[T][ ] hello there my bro im testing
+Homie, you have 1 task(s) in the list now.
+____________________________________________________________
+____________________________________________________________
+Got it homie! I've added your deadline, LESGOOOOO:
+[D][ ] hOmIeEE im testing (by: tomorrow)
+Homie, you have 2 task(s) in the list now.
+____________________________________________________________
+____________________________________________________________
+Got it homie! I've added your event, LESGOOOOO:
+[E][ ] hello there my bro im testing (from: yesterday to: tOdAy)
+Homie, you have 3 task(s) in the list now.
+____________________________________________________________
+____________________________________________________________
+Yo homie!, here are the tasks in your list:
+1. [T][ ] hello there my bro im testing
+2. [D][ ] hOmIeEE im testing (by: tomorrow)
+3. [E][ ] hello there my bro im testing (from: yesterday to: tOdAy)
+____________________________________________________________
+____________________________________________________________
+This task hasn't been marked done yet my homie:
+[T][ ] hello there my bro im testing
+____________________________________________________________
+____________________________________________________________
+Yo homie!, here are the tasks in your list:
+1. [T][ ] hello there my bro im testing
+2. [D][ ] hOmIeEE im testing (by: tomorrow)
+3. [E][ ] hello there my bro im testing (from: yesterday to: tOdAy)
+____________________________________________________________
+____________________________________________________________
+LESGOOO homie! Good job on finishing this task:
+[D][X] hOmIeEE im testing (by: tomorrow)
+____________________________________________________________
+____________________________________________________________
+Yo homie!, here are the tasks in your list:
+1. [T][ ] hello there my bro im testing
+2. [D][X] hOmIeEE im testing (by: tomorrow)
+3. [E][ ] hello there my bro im testing (from: yesterday to: tOdAy)
+____________________________________________________________
+____________________________________________________________
+This task is already done my homie:
+[D][X] hOmIeEE im testing (by: tomorrow)
+____________________________________________________________
+____________________________________________________________
+Yo homie!, here are the tasks in your list:
+1. [T][ ] hello there my bro im testing
+2. [D][X] hOmIeEE im testing (by: tomorrow)
+3. [E][ ] hello there my bro im testing (from: yesterday to: tOdAy)
+____________________________________________________________
+____________________________________________________________
+Yo homie! Here are the commands you can use:
+1. list - to list all tasks
+2. todo <description> - to add a todo task
+3. deadline <description> /by <date> - to add a deadline task
+4. event <description> /from <date> /to <date> - to add an event task
+5. mark <task number> - to mark a task as done
+6. unmark <task number> - to mark a task as undone
+7. bye - to exit the program
+8. help - to see this message again
+9. maybe some easter eggs in the future? :)
+____________________________________________________________
+____________________________________________________________
+Yo Homieee, there are too many arguments for deadline!
+deadline should be of this format: deadline <description> /by <date>
+____________________________________________________________
+____________________________________________________________
+Yo Homieee, there are not enough arguments for event!
+event should be of this format: event <description> /from <date> /to <date>
+____________________________________________________________
+____________________________________________________________
+Yo Homieee, there are not enough arguments for todo!
+todo should be of this format: todo <description>
+____________________________________________________________
+____________________________________________________________
+Yo Homieee, there are not enough arguments for deadline!
+deadline should be of this format: deadline <description> /by <date>
+____________________________________________________________
+____________________________________________________________
+Yo Homieee, there are too many arguments for event!
+event should be of this format: event <description> /from <date> /to <date>
+____________________________________________________________
+____________________________________________________________
+Yo homie!, here are the tasks in your list:
+1. [T][ ] hello there my bro im testing
+2. [D][X] hOmIeEE im testing (by: tomorrow)
+3. [E][ ] hello there my bro im testing (from: yesterday to: tOdAy)
+____________________________________________________________
+____________________________________________________________
+Got it my homie! I've removed this task:
+[D][X] hOmIeEE im testing (by: tomorrow)
+Homie, you have 2 task(s) in the list now.
+____________________________________________________________
+____________________________________________________________
+Yo homie!, here are the tasks in your list:
+1. [T][ ] hello there my bro im testing
+2. [E][ ] hello there my bro im testing (from: yesterday to: tOdAy)
+____________________________________________________________
+____________________________________________________________
+Got it my homie! I've removed this task:
+[T][ ] hello there my bro im testing
+Homie, you have 1 task(s) in the list now.
+____________________________________________________________
+____________________________________________________________
+Yo homie!, here are the tasks in your list:
+1. [E][ ] hello there my bro im testing (from: yesterday to: tOdAy)
+____________________________________________________________
+____________________________________________________________
+Bye homie! Come back if you need anything else. jackbean.command.JackBean, signing off!
+____________________________________________________________
