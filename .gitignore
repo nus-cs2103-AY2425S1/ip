@@ -15,3 +15,14 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Ignore all .class files (Java compiled bytecode)
+# *.class
+
+# Ignore the data directory where chatbot stores its task data
+/data/
+
+# Avoid committing binary files (*.class, *.jar, *.exe)
+*.class
+*.jar
+*.exe
