@@ -41,7 +41,8 @@ public class DeadlineCommand implements Command {
         assert by != null : "Deadline should not be null";
         try {
             if (description.isEmpty() || by.isEmpty()) {
-                throw new CenaInvalidDeadlineException("Incorrect description for deadline. It should contain only /by.");
+                throw new CenaInvalidDeadlineException("Incorrect description for deadline. It should contain"
+                        + " only /by.");
             }
             Task task = new Deadline(description, by);
             tasks.add(task);

@@ -35,7 +35,7 @@ public class TodoCommand implements Command {
      * @throws CenaInvalidTodoException if the description of the todo is invalid
      */
     @Override
-    public String  execute() throws CenaEmptyDescriptionException, CenaInvalidTodoException {
+    public String execute() throws CenaEmptyDescriptionException, CenaInvalidTodoException {
         assert description != null : "Description should not be null";
 
         if (description.isEmpty()) {

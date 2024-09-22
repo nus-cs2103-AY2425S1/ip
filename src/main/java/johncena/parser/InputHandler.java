@@ -1,13 +1,40 @@
 package johncena.parser;
 
 import java.util.ArrayList;
-import johncena.commands.*;
-import johncena.exceptions.*;
+
+import johncena.commands.AfterCommand;
+import johncena.commands.ByeCommand;
+import johncena.commands.Command;
+import johncena.commands.DeadlineCommand;
+import johncena.commands.DeleteCommand;
+import johncena.commands.EventCommand;
+import johncena.commands.FindCommand;
+import johncena.commands.HelloCommand;
+import johncena.commands.HelpCommand;
+import johncena.commands.ListCommand;
+import johncena.commands.MarkCommand;
+import johncena.commands.OnCommand;
+import johncena.commands.TodoCommand;
+import johncena.commands.UnmarkCommand;
+import johncena.exceptions.CenaException;
+import johncena.exceptions.CenaInvalidAfterException;
+import johncena.exceptions.CenaInvalidDeadlineException;
+import johncena.exceptions.CenaInvalidEventException;
+import johncena.exceptions.CenaInvalidTaskIndexException;
+import johncena.exceptions.CenaUnknownCommandException;
 import johncena.tasks.Task;
 
+/**
+ * The {@code InputHandler} class handles the user input and returns the corresponding command.
+ */
 public class InputHandler {
     private ArrayList<Task> tasks;
 
+    /**
+     * Constructs a new {@code InputHandler} with the specified list of tasks.
+     *
+     * @param tasks The list of tasks.
+     */
     public InputHandler(ArrayList<Task> tasks) {
         assert tasks != null : "Tasks list should not be null";
         this.tasks = tasks;
@@ -102,7 +129,7 @@ public class InputHandler {
         String keyword = input.substring(5).trim();
         return new FindCommand(tasks, keyword);
     }
-    
+
     private Command createAfterCommand(String input) throws CenaInvalidAfterException {
         String[] parts = input.substring(6).split(" /after ");
         if (parts.length < 2) {
@@ -112,10 +139,12 @@ public class InputHandler {
     }
 
     private boolean isGreeting(String input) {
-        return input.equals("hello") || input.equals("hi") || input.equals("hey") || input.equals("yo") || input.equals("sup");
+        return input.equals("hello") || input.equals("hi") || input.equals("hey") || input.equals("yo")
+                || input.equals("sup");
     }
 
     private boolean isHelpCommand(String input) {
-        return input.equals("help") || input.equals("commands") || input.equals("command") || input.equals("cmds") || input.equals("cmd");
+        return input.equals("help") || input.equals("commands") || input.equals("command") || input.equals("cmds")
+                || input.equals("cmd");
     }
 }

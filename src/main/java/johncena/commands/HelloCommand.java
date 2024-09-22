@@ -14,7 +14,7 @@ public class HelloCommand implements Command {
      * Executes the "hello" command. Prints a welcome message and the ASCII art logo.
      */
     @Override
-    public String  execute() {
+    public String execute() {
         StringBuilder sb = new StringBuilder();
         sb.append("Hello from\n").append(Logo.getLogo()).append("\n");
         sb.append(" What can I do for you?\n");
