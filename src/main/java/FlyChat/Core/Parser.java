@@ -24,7 +24,7 @@ public class Parser {
      * @return The key words.
      */
     public String getKeyWord(String inputString) {
-        return inputString.length() == 4 ? "" : inputString.substring(5); // check for "find" case
+        return inputString.length() == 4 ? "" : inputString.substring(5).trim(); // check for "find" case
     }
 
     public String getTaskDescription(String inputString) {
@@ -32,14 +32,23 @@ public class Parser {
     }
 
     public String getDeadlineEndDate(String inputString) {
+        if (!inputString.contains("/by")) {
+            return "";
+        }
         return inputString.replaceAll(".*/by\\s*", "").trim();
     }
 
     public String getEventStartTime(String inputString) {
+        if (!inputString.contains("/from")) {
+            return "";
+        }
         return inputString.replaceAll(".*/from\\s*|\\s*/to.*", "");
     }
 
     public String getEventEndTime(String inputString) {
+        if (!inputString.contains("/to")) {
+            return "";
+        }
         return inputString.replaceAll(".*/to\\s*", "").trim();
     }
 
