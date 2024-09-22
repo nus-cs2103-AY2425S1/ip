@@ -34,7 +34,7 @@ Task added:
 Total number of tasks in list: 1   # number of tasks depends on the tasklist currently
 Type command "list" to see full list of tasks.
 ```
-`todo` command will fail if the task description is missing. <br>
+`todo` command will fail if the task description is missing or blank. <br>
 
 ### Add Deadline Task
 Add Deadline Task into the chatbot. The added task will be saved in the text file as well. <br>
@@ -48,7 +48,7 @@ Task added:
 Total number of tasks in list: 2   # number of tasks depends on the tasklist currently
 Type command "list" to see full list of tasks.
 ```
-`deadline` command will fail if the task description and/or deadline is missing. Error will be shown if the deadline format is not in **yyyy:MM:dd** (year:month:day) format. <br>
+`deadline` command will fail if the task description and/or deadline is missing or blank. Error will be shown if the deadline format is not in **yyyy:MM:dd** (year:month:day) format. <br>
 
 
 ### Add Event Task
@@ -63,7 +63,7 @@ Task added:
 Total number of tasks in list: 3   # number of tasks depends on the tasklist currently
 Type command "list" to see full list of tasks.
 ```
-`event` command will fail if the task description and/or start date&time and/or end date&time is missing. Error will be shown if the start and end date&time format is not in **yyyy:MM:ddThh:mm** (year:month:day T hours:minutes) format. The start date and time must also be before the end date and time as well.<br>
+`event` command will fail if the task description and/or start date&time and/or end date&time is missing or blank. Error will be shown if the start and end date&time format is not in **yyyy:MM:ddThh:mm** (year:month:day T hours:minutes) format. The start date and time must also be before the end date and time as well.<br>
 
 
 ### Mark Task
