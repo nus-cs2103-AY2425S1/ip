@@ -22,14 +22,6 @@ public class UnmarkCommand extends Command {
     }
 
     /**
-     * @inheritDoc
-     */
-    @Override
-    public String getCommandType() {
-        return "Unmark";
-    }
-
-    /**
      * Unmarks a task as done.
      *
      * @param tasks TaskList containing all tasks.

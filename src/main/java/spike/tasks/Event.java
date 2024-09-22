@@ -54,6 +54,42 @@ public class Event extends Task {
     }
 
     /**
+     * Updates the task based on the update type and updated part.
+     *
+     * @param updateType  The type of update to be made.
+     * @param updatedPart The updated part of the task.
+     * @return Task with the updated part.
+     */
+    public Task updateTask(String updateType, String updatedPart) throws IllegalArgumentException {
+        switch (updateType) {
+        case "description":
+            return new Event(updatedPart, this.from, this.to);
+        case "date time":
+            if (this.from.isAfter(LocalDateTime.parse(updatedPart))) {
+                throw new IllegalArgumentException("Start date and time cannot be after end date and time");
+            }
+            return new Event(this.getDescription(), LocalDateTime.parse(updatedPart), this.to);
+        case "end date time":
+            if (this.to.isBefore(LocalDateTime.parse(updatedPart))) {
+                throw new IllegalArgumentException("End date and time cannot be before start date and time");
+            }
+            return new Event(this.getDescription(), this.from, LocalDateTime.parse(updatedPart));
+        default:
+            throw new IllegalArgumentException("Please enter a valid option");
+        }
+    }
+
+    /**
+     * Returns the task type.
+     *
+     * @return Task type.
+     */
+    @Override
+    public String getTaskType() {
+        return "event";
+    }
+
+    /**
      * Converts the Event object to a string that can be saved to a file.
      * The format of the string is "E | 0 | description | start date and time | end date and time".
      *

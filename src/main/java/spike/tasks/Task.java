@@ -3,7 +3,7 @@ package spike.tasks;
 /**
  * Represents a task in the task list.
  */
-public class Task {
+public abstract class Task {
     private String description;
     private boolean isDone;
 
@@ -51,6 +51,15 @@ public class Task {
     }
 
     /**
+     * Updates the task based on the update type and updated part.
+     *
+     * @param updateType The type of update to be made.
+     * @param updatedPart The updated part of the task.
+     * @return Task with the updated part.
+     */
+    public abstract Task updateTask(String updateType, String updatedPart);
+
+    /**
      * Returns the string representation of the task to be written to file.
      * Format: | 1 | description
      *
@@ -69,5 +78,14 @@ public class Task {
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
+    }
+
+    /**
+     * Returns the type of the task in String format.
+     *
+     * @return Type of the task in String format.
+     */
+    public String getTaskType() {
+        return this.getClass().getSimpleName();
     }
 }

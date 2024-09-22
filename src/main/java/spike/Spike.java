@@ -1,7 +1,11 @@
 package spike;
 
+import javafx.fxml.FXML;
 import spike.commands.Command;
+import spike.commands.UpdateTaskCommand;
 import spike.exceptions.SpikeException;
+import spike.gui.DialogBox;
+import spike.gui.MainWindow;
 import spike.parser.Parser;
 import spike.storage.Storage;
 import spike.storage.TaskList;
@@ -17,7 +21,17 @@ public class Spike {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    private String commandType;
+    private Command currCommand;
+    private static SpikeState currentState = SpikeState.COMPLETE;
+
+    /**
+     * Represents the state of the update command.
+     */
+    public enum SpikeState {
+        UPDATE_AWAITING_REPLY,
+        UPDATE_AWAITING_NEW_VALUE,
+        COMPLETE
+    }
 
     /**
      * Constructs a Spike object with the specified file path.
@@ -45,22 +59,56 @@ public class Spike {
     }
 
     /**
+     * Sets the state of the update command.
+     *
+     * @param state The state of the update command.
+     */
+    public static void setSpikeState(SpikeState state) throws SpikeException {
+        currentState = state;
+    }
+
+    /**
      * Generates a response for the user's chat message.
      * Used for GUI applications.
      */
     public String getResponse(String input) {
         try {
-            Command c = Parser.parse(input);
-            c.execute(tasks, ui, storage);
-            commandType = c.getClass().getSimpleName();
+            if (currentState == SpikeState.COMPLETE) {
+                Command c = Parser.parse(input);
+                if (c instanceof UpdateTaskCommand) {
+                    currentState = SpikeState.UPDATE_AWAITING_REPLY;
+                }
+                c.execute(tasks, ui, storage);
+                setCurrCommandType(c);
+            } else if (currentState == SpikeState.UPDATE_AWAITING_REPLY) {
+                UpdateTaskCommand currUpdateCommand = (UpdateTaskCommand) currCommand;
+                currUpdateCommand.handleAwaitingReply(input, tasks, ui, storage);
+            } else if (currentState == SpikeState.UPDATE_AWAITING_NEW_VALUE) {
+                UpdateTaskCommand currUpdateCommand = (UpdateTaskCommand) currCommand;
+                currUpdateCommand.handleAwaitingNewValue(input, tasks, ui, storage);
+            }
             return ui.getStringToDisplay();
         } catch (SpikeException e) {
             return "Error: " + e.getMessage();
         }
     }
 
-    public String getCommandType() {
-        return commandType;
+    /**
+     * Sets the current command type.
+     *
+     * @param currCommand The current command.
+     */
+    public void setCurrCommandType(Command currCommand) {
+        this.currCommand = currCommand;
+    }
+
+    /**
+     * Returns the current command type.
+     *
+     * @return The current command type.
+     */
+    public String getCurrCommandType() {
+        return currCommand.getClass().getSimpleName();
     }
 
     /**

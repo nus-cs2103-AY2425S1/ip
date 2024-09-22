@@ -23,14 +23,6 @@ public class DeleteTaskCommand extends Command {
     }
 
     /**
-     * @inheritDoc
-     */
-    @Override
-    public String getCommandType() {
-        return "Delete Task";
-    }
-
-    /**
      * Deletes the task from the task list, shows a message to the user, and writes the task list to the file.
      *
      * @param tasks The task list from which the task is to be deleted.

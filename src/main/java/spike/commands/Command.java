@@ -26,13 +26,6 @@ public abstract class Command {
      * @return True if the command is an exit command, false otherwise.
      */
     public abstract boolean isExit();
-
-    /**
-     * Returns the type of the command.
-     *
-     * @return The type of the command.
-     */
-    public abstract String getCommandType();
 }
 
 

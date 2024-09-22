@@ -10,14 +10,6 @@ import spike.ui.Ui;
 public class ListCommand extends Command {
 
     /**
-     * @inheritDoc
-     */
-    @Override
-    public String getCommandType() {
-        return "List";
-    }
-
-    /**
      * Executes the command to list all tasks.
      *
      * @param tasks   The task list with all the tasks to be listed.

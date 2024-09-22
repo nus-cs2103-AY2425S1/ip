@@ -49,7 +49,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = spike.getResponse(input);
-        String commandType = spike.getCommandType();
+        String commandType = spike.getCurrCommandType();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getSpikeDialog(response, spikeImage, commandType)
