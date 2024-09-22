@@ -6,12 +6,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import java.io.IOException;
 
+
 /**
  * A GUI for Duke using FXML.
  */
 public class Main extends Application {
+    private final String dataFilePath = "./data/rizz.txt";
 
-    private final Rizz rizz = new Rizz("./data/rizz.txt");
+    private final Rizz rizz = new Rizz(dataFilePath);
 
     public Main() throws IOException {
     }

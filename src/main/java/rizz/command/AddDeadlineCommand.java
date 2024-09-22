@@ -5,19 +5,19 @@ import java.time.LocalDateTime;
 
 public class AddDeadlineCommand extends Command {
     private final String description;
-    private final LocalDateTime by;
+    private final LocalDateTime deadlineTimeBy;
 
-    public AddDeadlineCommand(String description, LocalDateTime by) {
+    public AddDeadlineCommand(String description, LocalDateTime deadlineTimeBy) {
         this.description = description;
-        this.by = by;
+        this.deadlineTimeBy = deadlineTimeBy;
     }
 
     @Override
     public String execute(TaskList tasks) {
-        if (description == null || description.trim().isEmpty() || by == null) {
+        if (description == null || description.trim().isEmpty() || deadlineTimeBy == null) {
             return "Description and by cannot be empty";
         }
-        Deadline newDeadline = new Deadline(description, by, false);
+        Deadline newDeadline = new Deadline(description, deadlineTimeBy, false);
         tasks.addTask(newDeadline);
         return "Deadline added: " + newDeadline.toString();
     }

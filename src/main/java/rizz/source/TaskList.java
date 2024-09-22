@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 public class TaskList {
     private final ArrayList<Task> tasks;
 
-
     public TaskList() {
         tasks = new ArrayList<>();
     }
@@ -23,6 +22,7 @@ public class TaskList {
     }
 
     public void addTask(Task task) {
+        assert task != null : "Task cannot be null";
         this.tasks.add(task);
     }
 
@@ -31,7 +31,59 @@ public class TaskList {
     }
 
     public Task getTask(int index) {
-        return this.tasks.get(index);
+        Task task = this.tasks.get(index);
+        assert task != null : "Task cannot be null";
+        return task;
+    }
+
+    public String deleteTask(int... index) {
+        TaskList deletedTasks = new TaskList();
+        for (int i = 0; i < index.length; i++) {
+            assert index[i] > 0 && index[i] <= this.getLength() : "Index out of bounds";
+            //cause 2nd item of list is Arr[1]
+            Task tempTask = this.getTask(index[i] - 1);
+
+            this.tasks.remove(index[i] - 1);
+            deletedTasks.addTask(tempTask);
+        }
+        return deletedTasks.toString();
+    }
+
+    public String markTask(int... index) {
+        TaskList markedTasks = new TaskList();
+        for (int i = 0; i < index.length; i++) {
+            assert index[i] > 0 && index[i] <= this.getLength() : "Index out of bounds";
+            //cause 2nd item of list is Arr[1]
+            Task tempTask = this.getTask(index[i] - 1);
+
+            tempTask.markAsDone();
+            markedTasks.addTask(tempTask);
+        }
+        return markedTasks.toString();
+    }
+
+    public String unmarkTask(int... index) {
+        TaskList unmarkTasks = new TaskList();
+        for (int i = 0; i < index.length; i++) {
+            assert index[i] > 0 && index[i] <= this.getLength() : "Index out of bounds";
+            //cause 2nd item of list is Arr[1]
+            Task tempTask = this.getTask(index[i] - 1);
+
+            tempTask.unmarkAsDone();
+            unmarkTasks.addTask(tempTask);
+        }
+        return unmarkTasks.toString();
+    }
+
+    public TaskList findByKeyword(String keyword) {
+        TaskList matchingTasks = new TaskList();
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.getText().contains(keyword)) {
+                matchingTasks.addTask(task);
+            }
+        }
+        return matchingTasks;
     }
 
     public String deleteTask(int... indexes) {
