@@ -17,14 +17,9 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     /**
-     * Path to the Bigdog storage file.
-     */
-    String storageFile = getClass().getClassLoader().getResource("Bigdog.txt").getPath();
-
-    /**
      * Instance of the Bigdog class.
      */
-    private Bigdog bigdog = new Bigdog(storageFile);
+    private final Bigdog bigdog = new Bigdog("src/main/java/bigdog/Bigdog.txt");
 
     /**
      * Starts the JavaFX application.
@@ -42,6 +37,7 @@ public class Main extends Application {
             stage.setMinWidth(417);
             fxmlLoader.<MainWindow>getController().setBigdog(bigdog);  // inject the Duke instance
             stage.show();
+            System.out.println("open");
 
         } catch (IOException e) {
             e.printStackTrace();
