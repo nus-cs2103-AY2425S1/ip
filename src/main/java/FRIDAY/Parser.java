@@ -54,8 +54,7 @@ public class Parser {
                 throw new FRIDAYException("Oops! It appears that you have left the task description empty");
             }
             String[] parts = result.split(" ");
-            String out = String.join(" ", parts);
-            return out;
+            return String.join(" ", parts);
         } else {
             throw new FRIDAYException("Oops! It appears that you have left the task description empty");
         }
