@@ -10,6 +10,9 @@ public class Parser {
     public static String parseCommand(String text, TaskList record, Ui ui, Storage storage) throws OptimusException, IOException {
         assert text != null : "Input text should not be null";
         text = text.trim();
+        if (text.equals("")) {
+            return "Input text should not be empty";
+        }
         assert !text.isEmpty() : "Input text should not be empty";
         if (text.equals("bye")) {
             return handleByeCommand(record, ui, storage);
@@ -30,7 +33,8 @@ public class Parser {
         } else if (text.startsWith("event")) {
             return handleEventCommand(text, record, ui);
         } else {
-            throw new OptimusException("I don't understand that command. Please try again with a valid command.");
+            throw new OptimusException("I don't understand that command. Please try again with a valid command (" +
+                    "List of commands: bye, find, list, delete, mark, unmark, todo, deadline & event).");
         }
     }
 
