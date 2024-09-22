@@ -131,7 +131,7 @@ The response can be interpreted as follows:
 - Start and end dates (if applicable) in `MMM d yyyy, h:mm a` format
 
 > [!NOTE]
-> If your key word is space, the chatBot will just show you all the task list**<br>
+> If your key word is space, the chatBot will just show you all the task list.<br>
 
 ![Find special case](find_command.png)
 
@@ -210,7 +210,7 @@ Response:
 ```
 > [!NOTE]
 > After a task is deleted, the remaining tasks will be automatically renumbered.<br> 
-> E.g: task list has 3 tasks with index 1, 2, 3, after deleting task 2, old task 3 will be come new task 2.
+> E.g: task list has 3 tasks with index 1, 2, 3, after deleting task 2, old task 3 will become new task 2.
 
 ### 9. View all the task
 
