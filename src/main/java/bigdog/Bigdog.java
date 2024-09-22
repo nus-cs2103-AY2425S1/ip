@@ -44,11 +44,12 @@ public class Bigdog {
         } catch (BigdogException
                  | DateTimeParseException
                  | NumberFormatException
-                 | IndexOutOfBoundsException e) {
+                 | IndexOutOfBoundsException
+                 | AssertionError e) {
             return e.getMessage();
         } finally {
-            storage.save(this.tasks.get());
         }
+        storage.save(this.tasks.get());
         return botReply;
     }
 

@@ -1,0 +1,5 @@
+O | D | study for midterms | 2024-09-23T23:00
+X | E | meeting with Elango | 2024-09-27T09:00 | 2024-09-27T21:00
+X | D | buy bread | 2024-09-25T00:00
+O | E | gym with Aston | 2024-09-23T16:00 | 2024-09-23T19:00
+O | T | visit Labrador Park

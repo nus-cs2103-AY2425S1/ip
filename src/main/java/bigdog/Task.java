@@ -20,7 +20,9 @@ public abstract class Task {
                     + "5. unmark\n"
                     + "6. delete\n"
                     + "7. list\n"
-                    + "8. bye";
+                    + "8. find\n"
+                    + "9. view\n"
+                    + "10. bye";
 
     /** Indicates whether the task has been marked as done. */
     private boolean marked;
