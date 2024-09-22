@@ -1,5 +1,6 @@
 package echo;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 
@@ -34,7 +35,8 @@ public class Events extends Task {
      */
     @Override
     public String toString() {
-        return "[E] " + super.toString() + " (from: " + start + " to: " + end + ")";
+        return "[E] " + super.toString() + " (from: " + start.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +
+                " to: " + end.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
     /**

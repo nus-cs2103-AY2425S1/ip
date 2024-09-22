@@ -1,5 +1,6 @@
 package echo;
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -158,15 +159,11 @@ public class TaskList {
      */
     public Deadline addDeadline( String input) throws EchoException, DateTimeParseException {
         try {
-            String[] details = input.split(" /by ", 2);
-            if (details.length == 2) {
-                Deadline deadlineTask = new Deadline(details[0], details[1]);
-                this.tasks.add(deadlineTask);
-                return deadlineTask;
-            } else {
-                throw new EchoException("Please specify the task description and deadline.");
-
-            }
+            String details = Parser.parseDeadlineDes(input);
+            String deadline = Parser.parseDeadlineTime(input);
+            Deadline deadlineTask = new Deadline(details, deadline);
+            this.tasks.add(deadlineTask);
+            return deadlineTask;
         } catch (DateTimeParseException e) {
             throw new EchoException("Enter date in YYYY-MM-DD format");
         }

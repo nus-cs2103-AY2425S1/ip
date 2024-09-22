@@ -27,8 +27,22 @@ public class Parser {
      * @param part The part of the input string that contains the deadline details.
      * @return An array of strings where the first element is the task description and the second element is the deadline.
      */
-    public static String[] parseDeadline(String part) {
-        return part.split(" /by ");
+    public static String parseDeadlineDes(String part) throws EchoException {
+        String[] details = part.split(" /by ");
+        if (details.length == 2) {
+            return details[0];
+        } else {
+            throw new EchoException("Please specify the task description and deadline.");
+        }
+    }
+
+    public static String parseDeadlineTime(String part) throws EchoException {
+        String[] details = part.split(" /by ");
+        if (details.length == 2) {
+            return details[1];
+        } else {
+            throw new EchoException("Please specify the task description and deadline.");
+        }
     }
 
     /**
@@ -46,7 +60,7 @@ public class Parser {
                 if (times.length == 2) {
                     return times;
                 } else {
-                    throw new EchoException("Please specify the task  deadline.");
+                    throw new EchoException("Please specify the task deadline.");
                 }
             } else {
                 throw new EchoException("Please specify the task description and deadline.");
