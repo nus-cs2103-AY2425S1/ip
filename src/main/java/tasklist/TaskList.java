@@ -23,6 +23,10 @@ public class TaskList {
         }
     }
 
+    /**
+     * Provides the length of the task list.
+     * @return the length of the task list.
+     */
     public int length() {
         assert tasks != null;
         return tasks.size();
@@ -49,10 +53,19 @@ public class TaskList {
         return tasks.remove(idx);
     }
 
+    /**
+     * Add a provided task to the end of the task list.
+     * @param t The task to append.
+     */
     public void addTask(Task t) {
         tasks.add(t);
     }
 
+    /**
+     * Checks if the provided task's description exact matches any other existing task.
+     * @param t the task to check against.
+     * @return a boolean value to indicate if any matches are found.
+     */
     public boolean checkIfDuplicate(Task t) {
         return tasks.stream()
                 .map(Task::getDescription)

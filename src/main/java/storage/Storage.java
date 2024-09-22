@@ -75,7 +75,6 @@ public class Storage {
             System.out.println("Something has gone wrong - text file is corrupted, or file creation is not working.");
             System.exit(1);
         }
-        
         return sc;
     }
 
