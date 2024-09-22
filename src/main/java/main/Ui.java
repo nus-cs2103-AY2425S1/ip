@@ -191,6 +191,4 @@ public class Ui {
         return "Got it. I've added this task:\n" + tasks.get(num - 1) + "\n"
                 + "Now you have " + num + " tasks in the list.";
     }
-
-
 }

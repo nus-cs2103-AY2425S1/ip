@@ -1,6 +1,7 @@
 package main;
 
 import exception.CorruptedFileException;
+import exception.WrongIndexException;
 import task.Deadline;
 import task.Event;
 import task.Task;
@@ -40,6 +41,7 @@ public class Storage {
         try {
             // Load file if it exists
             if (file.exists()) {
+                assert file.canRead() : "File exists but is not readable"; // Assert file is readable
                 Scanner scanner = new Scanner(file);
                 while (scanner.hasNext()) {
                     String line = scanner.nextLine();
@@ -99,6 +101,7 @@ public class Storage {
      * @param textToAppend The text to be added to the file.
      */
     public void appendToFile(String textToAppend) {
+        assert textToAppend != null : "Text to append is null";
         try (FileWriter fw = new FileWriter(this.file.getPath(), true)) {
             fw.write(textToAppend + System.lineSeparator());
         } catch (IOException e) {
@@ -112,6 +115,7 @@ public class Storage {
      * @param textToAdd The text to be written to the file.
      */
     public void writeToFile(String textToAdd) {
+        assert textToAdd != null : "Text to write is null";
         try (FileWriter fw = new FileWriter(this.file.getPath())) {
             fw.write(textToAdd + System.lineSeparator());
         } catch (IOException e) {
@@ -125,9 +129,13 @@ public class Storage {
      * @param markNum The index of the task to be marked as done.
      * @param tasks The TaskList containing the tasks.
      */
-    public String markTask(int markNum, TaskList tasks) {
+    public String markTask(int markNum, TaskList tasks) throws WrongIndexException {
+        if (markNum <= 0 || markNum > tasks.size()) {
+            throw new WrongIndexException("Index is out of bounds");
+        }
         int num = tasks.size();
         Task task = tasks.get(markNum - 1);
+        assert task != null : "Task cannot be null";
         task.markTaskAsDone();
         writeToFile(tasks.get(0).toFile());
         for (int i = 1; i < num; i++) {
@@ -142,9 +150,13 @@ public class Storage {
      * @param unmarkNum The index of the task to be unmarked.
      * @param tasks The TaskList containing the tasks.
      */
-    public String unmarkTask(int unmarkNum, TaskList tasks) {
+    public String unmarkTask(int unmarkNum, TaskList tasks) throws WrongIndexException {
+        if (unmarkNum <= 0 || unmarkNum > tasks.size()) {
+            throw new WrongIndexException("Index is out of bounds");
+        }
         int num = tasks.size();
         Task task = tasks.get(unmarkNum - 1);
+        assert task != null : "Task cannot be null";
         task.unmarkTask();
         writeToFile(tasks.get(0).toFile());
         for (int i = 1; i < num; i++) {
@@ -159,7 +171,10 @@ public class Storage {
      * @param deleteNum The index of the task to be deleted.
      * @param tasks The TaskList containing the tasks.
      */
-    public String deleteTask(int deleteNum, TaskList tasks) {
+    public String deleteTask(int deleteNum, TaskList tasks) throws WrongIndexException {
+        if (deleteNum <= 0 || deleteNum > tasks.size()) {
+            throw new WrongIndexException("Index is out of bounds");
+        }
         int num = tasks.size();
         Task task = tasks.removeTask(deleteNum - 1);
         if (!tasks.isEmpty()) {

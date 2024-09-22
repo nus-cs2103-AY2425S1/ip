@@ -1,7 +1,9 @@
 package command;
 
+import exception.WrongIndexException;
 import main.Storage;
 import main.TaskList;
+import main.Ui;
 
 /**
  * Represents a command to delete a task from the task list.
@@ -32,6 +34,10 @@ public class DeleteCommand extends Command {
     public String execute(TaskList tasks, Storage storage) {
         String[] parts = input.split(" ", 2);
         int deleteNum = Integer.parseInt(parts[1]);
-        return storage.deleteTask(deleteNum, tasks);
+        try {
+            return storage.deleteTask(deleteNum, tasks);
+        } catch (WrongIndexException e) {
+            return Ui.showError(e.getMessage());
+        }
     }
 }
