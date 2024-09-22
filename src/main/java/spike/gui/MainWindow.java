@@ -34,6 +34,10 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         userInput.setPromptText("Type here...");
+        DialogBox spikeDialog = DialogBox.getSpikeDialog("... ... (I'm Spike)\nI don't usually talk "
+                        + "but what can I do for you?",
+                spikeImage, "Hello");
+        dialogContainer.getChildren().add(spikeDialog);
     }
 
     /** Injects the Spike instance */

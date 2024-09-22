@@ -55,7 +55,7 @@ public class DialogBox extends HBox {
 
     private void changeDialogStyle(String commandType) {
         switch(commandType) {
-        case "AddTaskCommand", "MarkCommand", "UnmarkCommand", "FindCommand", "DeleteTaskCommand":
+        case "AddTaskCommand", "MarkCommand", "UnmarkCommand", "FindCommand", "DeleteTaskCommand", "UpdateTaskCommand":
             dialog.getStyleClass().add("success-reply-label");
             break;
         case "ByeCommand":
@@ -64,7 +64,7 @@ public class DialogBox extends HBox {
         case "ErrorCommand":
             dialog.getStyleClass().add("error-label");
             break;
-        case "ListCommand", "ListByDateCommand":
+        case "ListCommand", "ListByDateCommand", "Hello":
             dialog.getStyleClass().add("neutral-reply-label");
             break;
         default:
