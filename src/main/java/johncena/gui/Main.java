@@ -26,6 +26,7 @@ public class Main extends Application {
             stage.setMinHeight(220);
             stage.setMinWidth(417);
             fxmlLoader.<MainWindow>getController().setJohnCena(johnCena); // inject the JohnCena instance
+            stage.setTitle("John Cena Task Manager");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
