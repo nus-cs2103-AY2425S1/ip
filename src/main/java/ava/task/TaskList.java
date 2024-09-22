@@ -10,14 +10,27 @@ import java.util.List;
  */
 public class TaskList extends ArrayList<Task> {
 
+    /**
+     * Creates an empty TaskList.
+     */
     public TaskList() {
         super();
     }
 
+    /**
+     * Creates a TaskList with the given tasks.
+     *
+     * @param tasks the tasks to be added to the TaskList.
+     */
     public TaskList(List<Task> tasks) {
         super(tasks);
     }
 
+    /**
+     * Converts the List to a displayable format.
+     *
+     * @return the tasks in the form of a list.
+     */
     @Override
     public String toString() {
         StringBuilder out = new StringBuilder();

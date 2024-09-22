@@ -1,6 +1,8 @@
 package ava;
 
+import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import ava.commands.Command;
@@ -56,7 +58,6 @@ public class AVA {
         currentInput = s;
     }
 
-    //todo:have a non printstream version
     /**
      * Prints AVA's response to given PrintStream.
      * TODO:refactor mark and unmark to remove redundancy
@@ -150,7 +151,23 @@ public class AVA {
         }
     }
 
+    /**
+     * Responds to the current input as a String.
+     *
+     * @return the response to the user input.
+     */
+    public String respond() {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(outputStream);
+        respond(ps);
+        // the output stream acts as a buffer to convert the response to
+        // a string
+        return outputStream.toString(StandardCharsets.UTF_8);
+    }
 
+    /**
+     * Streams the response to the output.
+     */
     public void streamResponse() {
         //TODO: implement
         //stream a response to output

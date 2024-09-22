@@ -6,6 +6,7 @@ import javafx.application.Application;
  * Launcher to start the GUI.
  */
 public class Launcher {
+
     /**
      * Runs AVA.
      * <br>
