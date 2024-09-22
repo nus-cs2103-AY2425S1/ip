@@ -54,7 +54,7 @@ public class EventCommand implements Command {
             StringBuilder sb = new StringBuilder();
             sb.append(" Got it. I've added this task:\n");
             sb.append("   ").append(task).append("\n");
-            sb.append(" Now you have ").append(tasks.size()).append(" tasks in the list.\n");
+            sb.append(" Now you have ").append(tasks.size()).append(" tasks in the list. Keep hustling!\n");
             return sb.toString();
         } catch (CenaInvalidEventException e) {
             return e.getMessage();

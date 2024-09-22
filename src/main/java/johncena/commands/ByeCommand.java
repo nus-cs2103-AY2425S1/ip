@@ -18,7 +18,7 @@ public class ByeCommand implements Command {
     @Override
     public String execute() {
         StringBuilder sb = new StringBuilder();
-        sb.append(" Bye. Hope to see you again soon!\n");
+        sb.append(" You can't see me, but I'll be back!\n");
         sb.append("This was\n");
         sb.append(Logo.getLogo()).append("\n");
         sb.append("signing off!\n");

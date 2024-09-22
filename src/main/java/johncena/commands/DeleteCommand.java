@@ -41,7 +41,7 @@ public class DeleteCommand implements Command {
         Storage.saveTasks(tasks);
 
         StringBuilder sb = new StringBuilder();
-        sb.append(" Noted. I've removed this task:\n");
+        sb.append(" Noted. I've removed this task. Now, you can't see me and neither can you see that task:\n");
         sb.append("   ").append(removedTask).append("\n");
         sb.append(" Now you have ").append(tasks.size()).append(" tasks in the list.\n");
 

@@ -41,7 +41,7 @@ public class UnmarkCommand implements Command {
         Storage.saveTasks(tasks);
 
         StringBuilder sb = new StringBuilder();
-        sb.append(" OK, I've marked this task as not done yet:\n");
+        sb.append(" Alright , Champ! I've marked this task as not done yet:\n");
         sb.append("   ").append(tasks.get(taskIndex)).append("\n");
         return sb.toString();
     }

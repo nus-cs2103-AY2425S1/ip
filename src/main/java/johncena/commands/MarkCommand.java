@@ -39,7 +39,7 @@ public class MarkCommand implements Command {
         Storage.saveTasks(tasks);
 
         StringBuilder sb = new StringBuilder();
-        sb.append(" Nice! I've marked this task as done:\n");
+        sb.append(" You did it, Champ! I've marked this task as done:\n");
         sb.append("   ").append(tasks.get(taskIndex)).append("\n");
         return sb.toString();
     }

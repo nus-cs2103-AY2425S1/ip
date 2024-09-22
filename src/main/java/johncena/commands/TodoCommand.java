@@ -49,9 +49,9 @@ public class TodoCommand implements Command {
         Storage.saveTasks(tasks);
 
         StringBuilder sb = new StringBuilder();
-        sb.append(" Got it. I've added this task:\n");
+        sb.append(" Alright, Champ! I've added this task:\n");
         sb.append("   ").append(task).append("\n");
-        sb.append(" Now you have ").append(tasks.size()).append(" tasks in the list.\n");
+        sb.append(" Now you have ").append(tasks.size()).append(" tasks in the list. Keep hustling!\n");
         return sb.toString();
     }
 }

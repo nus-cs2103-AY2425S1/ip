@@ -27,10 +27,11 @@ public class ListCommand implements Command {
     public String execute() {
 
         StringBuilder sb = new StringBuilder();
-        sb.append(" Here are the tasks in your list:\n");
+        sb.append(" Alright, Champ! Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             sb.append(" ").append(i + 1).append(".").append(tasks.get(i)).append("\n");
         }
+        sb.append("Keep pushing forward and never give up!\n");
         return sb.toString();
     }
 }
