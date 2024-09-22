@@ -268,7 +268,9 @@ Try the command format start with `Hi`, `Hello`, `Oke`, `Yo` or `Nah` to explore
 ## FAQ
 
 **Q**: What if I type `Help` to the chatBot more than 2 times without closing the Help Window?<br>
-**A**: Only one HelpWindow is opened. Second `Help` command won't open second Help Window.
+**A**: Only one HelpWindow is opened. Second `Help` command won't open second Help Window.<br> 
+**Q**: Where can I can the hard disk (cache) that stores all the data of my tasks? <br>
+**A**: You should find a file name `Nah.txt` in the directory that you store the program (e.g : `C:\Users\Dell\Nah.txt`)
 
 
 --------------------------------------------------------------------------------------------------------------------
