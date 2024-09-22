@@ -1,0 +1,5 @@
+[D][ ] CS2103T ip (by: 20/09/2024 2359)
+[T][ ] Take out the trash
+[D][X] CS2100 Assignment1 (by: 16/09/2024 1300)
+[T][ ] CS2101 Midterm Feedback
+[T][X] Brush teeth

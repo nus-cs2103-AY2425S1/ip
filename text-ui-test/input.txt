@@ -1,0 +1,6 @@
+list
+todo grind league of legends
+list
+mark 1
+delete 1
+bye
