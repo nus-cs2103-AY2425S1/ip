@@ -8,7 +8,7 @@ public class TaskTest {
     @Test
     public void toString_success() {
         assertEquals(
-                "[ ] description",
+                "[ ] description ",
                 String.valueOf(new Task("description"))
         );
     }
@@ -16,7 +16,7 @@ public class TaskTest {
     @Test
     public void checkMark_success() {
         assertEquals(
-                "[X] description",
+                "[X] description ",
                 String.valueOf(new Task("description").markStatus())
         );
     }
