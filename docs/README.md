@@ -160,7 +160,7 @@ Here are the matching tasks in your list:
 
 ## Snoozing deadlines
 
-Lets the user delay a task with a deadline to a new date.
+Delay a task with a deadline to a new date.
 
 Format: `snooze <index> /by <date as yyyy-mm-dd>`
 
@@ -175,3 +175,16 @@ Got it. I've snoozed this task:
 Now you have 13 tasks in the list.
 ```
 
+## Closing the system
+
+Save the task list to the hard disk for future usage.
+
+Format: `bye`
+
+Example: `bye`
+
+The chatbot closes the application automatically and also
+saves the current task list to hard disk for later retrieval.
+
+Note: DO NOT close the system using the 'X' button if the task
+list is required to be saved to the system.
