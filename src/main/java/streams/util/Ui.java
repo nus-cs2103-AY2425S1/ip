@@ -19,11 +19,10 @@ public class Ui {
     }
 
     /**
-     * Displays a welcome message.
+     * Returns a welcome message.
      */
-    public void showWelcome() {
-        System.out.println("Hello from Streams!");
-        System.out.println("What can I do for you?");
+    public String showWelcome() {
+        return "Hello from Streams!\nWhat can I do for you?";
     }
 
     /**

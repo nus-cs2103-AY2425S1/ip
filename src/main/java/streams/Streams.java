@@ -6,21 +6,23 @@ import streams.task.TaskList;
 import streams.util.Parser;
 import streams.util.Storage;
 import streams.util.Ui;
-
 /**
  * Main class for the Streams task management application.
  */
-public class streams {
-    private Storage storage;
+public class Streams {
+    private final Storage storage;
     private TaskList tasks;
-    private Ui ui;
+    private final Ui ui;
 
+    private Parser parser;
+
+    String SAVE_FILES = "./src/main/data/saveFile.txt";
     /**
      * Constructs the main Duke application.
      *
      * @param filePath The file path for storing tasks.
      */
-    public streams(String filePath) {
+    public Streams(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -30,7 +32,6 @@ public class streams {
             tasks = new TaskList();
         }
     }
-
     /**
      * Runs the main loop of the application.
      */
@@ -51,13 +52,45 @@ public class streams {
             }
         }
     }
-
     /**
      * Main method to start the application.
      *
      * @param args Command line arguments (not used).
      */
     public static void main(String[] args) {
-        new streams("data/tasks.txt").run();
+        new Streams("data/saveFile.txt").run();
+    }
+
+    /**
+     * Processes a single command and returns the response.
+     *
+     * @param input The user's input command.
+     * @return The response from executing the command.
+     */
+    public String getResponse(String input) {
+        StringBuilder response = new StringBuilder();
+        try {
+            Command c = Parser.parse(input);
+
+            // Create a custom Ui that captures output
+            Ui captureUi = new Ui() {
+                @Override
+                public void showMessage(String message) {
+                    response.append(message).append("\n");
+                }
+                @Override
+                public void showError(String message) {
+                    response.append("Error: ").append(message).append("\n");
+                }
+            };
+            c.execute(tasks, captureUi, storage);
+
+            if (c.isExit()) {
+                response.append("Exiting Streams. Goodbye!");
+            }
+        } catch (StreamsException e) {
+            response.append("Error: ").append(e.getMessage());
+        }
+        return response.toString().trim();
     }
 }
