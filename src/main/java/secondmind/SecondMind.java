@@ -45,13 +45,16 @@ public class SecondMind {
         this.parser = new Parser();
     }
 
-    public String[] getInstructionsFromInput(String input) {
+    public String[] getInstructionsFromInput(String input) throws InvalidCommandFormatException {
         String[] instruction = parser.processInput(input);
         return instruction;
     }
 
     private int getTaskNumberFromInstruction(String[] instruction)
-            throws InvalidTaskNumberException {
+            throws InvalidTaskNumberException, InvalidCommandFormatException {
+        if (instruction.length <= 1) {
+            throw new InvalidCommandFormatException();
+        }
         try {
             int taskNumber = Integer.parseInt(instruction[1]);
             return taskNumber;
@@ -100,6 +103,8 @@ public class SecondMind {
         } catch (InvalidTaskNumberException e) {
             String errorMessage = formatInvalidTaskNumberExceptionMessage(e);
             return errorMessage;
+        } catch (InvalidCommandFormatException e) {
+            return e.toString();
         } catch (FileNotFoundException e) {
             return e.toString();
         } catch (IOException e) {
@@ -142,6 +147,8 @@ public class SecondMind {
         } catch (InvalidTaskNumberException e) {
             String errorMessage = formatInvalidTaskNumberExceptionMessage(e);
             return errorMessage;
+        } catch (InvalidCommandFormatException e) {
+            return e.toString();
         } catch (FileNotFoundException e) {
             return e.toString();
         } catch (IOException e) {
@@ -225,7 +232,7 @@ public class SecondMind {
             addTaskToStorage(newTask);
             return getTaskCreationMessage(newTask);
         } catch (EmptyCommandException | EmptyTaskDescriptionException | UnknownCommandException
-                 | IOException | InvalidCommandFormat e) {
+                 | IOException | InvalidCommandFormatException e) {
             return e.toString();
         } catch (DateTimeParseException e) {
             return DATE_TIME_PARSE_EXCEPTION_MESSAGE;
@@ -262,9 +269,13 @@ public class SecondMind {
     }
 
     public String getResponse(String userInput) {
-        String[] instruction = getInstructionsFromInput(userInput);
-        assert instruction != null;
-        String response = execute(instruction);
-        return response;
+        try {
+            String[] instruction = getInstructionsFromInput(userInput);
+            assert instruction != null;
+            String response = execute(instruction);
+            return response;
+        } catch (InvalidCommandFormatException e) {
+            return e.toString();
+        }
     }
 }

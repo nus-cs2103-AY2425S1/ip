@@ -52,7 +52,7 @@ public class TaskList {
     }
 
     private Task createDeadline(String[] taskInfo)
-            throws PassedDateTimeException, EmptyTaskDescriptionException, InvalidCommandFormat {
+            throws PassedDateTimeException, EmptyTaskDescriptionException, InvalidCommandFormatException  {
         if (taskInfo.length == 1) {
             throw new EmptyTaskDescriptionException();
         }
@@ -61,7 +61,7 @@ public class TaskList {
         taskInfo[0] = "";
         String[] newTaskInfo = String.join(" ", taskInfo).split(" /by ");
         if (newTaskInfo.length <= 1) {
-            throw new InvalidCommandFormat();
+            throw new InvalidCommandFormatException();
         }
         String taskDescription = newTaskInfo[0].trim();
         String taskDeadline = formatDateTime(newTaskInfo[1]);
@@ -69,7 +69,7 @@ public class TaskList {
     }
 
     private Task createEvent(String[] taskInfo)
-            throws PassedDateTimeException, EmptyTaskDescriptionException, InvalidCommandFormat {
+            throws PassedDateTimeException, EmptyTaskDescriptionException, InvalidCommandFormatException  {
         if (taskInfo.length == 1) {
             throw new EmptyTaskDescriptionException();
         }
@@ -81,7 +81,7 @@ public class TaskList {
         if (newTaskInfo.length <= 2
                 || (!newTaskInfo[1].contains("from"))
                 || (!newTaskInfo[2].contains("to"))) {
-            throw new InvalidCommandFormat();
+            throw new InvalidCommandFormatException();
         }
         //Prefix of taskInfo[0] is "event "
         String taskDescription = newTaskInfo[0].substring(6);
@@ -103,7 +103,7 @@ public class TaskList {
      */
     public Task createTask(String[] instruction)
             throws EmptyCommandException, EmptyTaskDescriptionException, UnknownCommandException,
-                    DateTimeParseException, PassedDateTimeException, InvalidCommandFormat {
+                    DateTimeParseException, PassedDateTimeException, InvalidCommandFormatException  {
         String[] taskInfo = instruction[1].split(" ");
         String taskType = taskInfo[0];
         if (instruction[0].equals("")) {
