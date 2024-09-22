@@ -6,6 +6,9 @@ import duck.exceptions.DeleteUsageException;
 import duck.tasks.Task;
 import duck.utils.Formatter;
 
+/**
+ * Class representing the delete command.
+ */
 public class DeleteCommand extends RunOnTaskAtIndexCommand {
     public DeleteCommand(TaskList taskList, Parser lineBuffer) {
         super(taskList, lineBuffer, new DeleteUsageException());

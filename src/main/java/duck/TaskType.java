@@ -2,6 +2,9 @@ package duck;
 
 import duck.commands.CommandType;
 
+/**
+ * Enum class for the type of task.
+ */
 public enum TaskType {
     TODO(CommandType.TODO.toString()),
     DEADLINE(CommandType.DEADLINE.toString()),
@@ -17,6 +20,7 @@ public enum TaskType {
         return this.name.equals(name);
     }
 
+    @Override
     public String toString() {
         return this.name;
     }

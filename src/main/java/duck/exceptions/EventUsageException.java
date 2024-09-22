@@ -1,7 +1,7 @@
 package duck.exceptions;
 
 /**
- * Class representing errors encountered by {@code EventCommand} class
+ * Class representing errors encountered by {@code EventCommand} class.
  */
 public class EventUsageException extends UsageException {
     /**

@@ -4,6 +4,9 @@ import duck.commands.Command;
 import duck.commands.CommandType;
 import duck.utils.Formatter;
 
+/**
+ * Main class of the Duck application.
+ */
 public class Duck {
     private static final String CHATBOT_NAME = "Duck";
 
@@ -46,12 +49,19 @@ public class Duck {
         return formatAsResponse(response);
     }
 
+    /**
+     * Gets greeting on startup.
+     *
+     * @return Greeting.
+     */
     public String getGreeting() {
         return GREETING;
     }
 
+    /**
+     * Loads saved tasks into task list on startup.
+     */
     public void loadTasks() {
-        // Get saved tasks
         TASKS.getTaskListFromFile();
     }
 }

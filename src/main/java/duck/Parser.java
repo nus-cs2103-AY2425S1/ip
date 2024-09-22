@@ -13,6 +13,11 @@ public class Parser {
     private final StringTokenizer st;
     private String token;
 
+    /**
+     * Constructor for Parser.
+     *
+     * @param line Input line.
+     */
     public Parser(String line) {
         this.line = line;
         this.st = new StringTokenizer(line);
@@ -96,7 +101,7 @@ public class Parser {
     }
 
     /**
-     * Read tokens until before the pattern specified has been found
+     * Reads tokens until before the pattern specified has been found
      * and joins them into a single line. (Excludes the pattern.)
      *
      * @return tokens until before the pattern joined into a single line
@@ -114,6 +119,13 @@ public class Parser {
         return sj.toString();
     }
 
+    /**
+     * Searches for words beginning with "/" and parses the corresponding argument
+     * values.
+     *
+     * @return A map from patterns (e.g. "/by", "/after") to argument
+     *         names (e.g. "due_date", "earliest_date").
+     */
     public Map<String, String> parseArgs() {
         Map<String, String> parts = new HashMap<>();
         String argName = "";

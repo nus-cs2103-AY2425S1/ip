@@ -26,8 +26,8 @@ public class DeadlineCommand extends TaskCommand {
     public String createNewTask(TaskList taskList) throws MissingArgsException, DateTimeParseException {
         verifyArgsArePresent(new DeadlineUsageException());
         String description = parts.get("");
-        DateAndTime due_date = new DateAndTime(parts.get("/by"));
-        Task task = new Deadline(description, due_date);
+        DateAndTime dueDate = new DateAndTime(parts.get("/by"));
+        Task task = new Deadline(description, dueDate);
         String response = handleNewTask(task);
         return response;
     }

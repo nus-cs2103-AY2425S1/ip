@@ -26,7 +26,7 @@ public abstract class TaskCommand extends Command {
      * @param taskList   List of tasks.
      * @param lineBuffer Buffer containing remaining command.
      * @param args       A map from patterns (e.g. "/by", "/after") to argument
-     *                   names (e.g. "due_date", "earliest_date")
+     *                   names (e.g. "due_date", "earliest_date").
      */
     public TaskCommand(TaskList taskList, Parser lineBuffer, Map<String, String> args) {
         this.taskList = taskList;

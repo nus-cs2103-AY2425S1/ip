@@ -6,9 +6,18 @@ import java.time.ZonedDateTime;
 
 import duck.exceptions.BeforeEarliestTimeException;
 
+/**
+ * Class representing a "doafter" task.
+ */
 public class DoAfter extends Task {
     private final DateAndTime earliestTime;
 
+    /**
+     * Constructor for DoAfter.
+     *
+     * @param description  Task description.
+     * @param earliestTime Earliest date this task can be marked as done.
+     */
     public DoAfter(String description, DateAndTime earliestTime) {
         super(description);
         this.earliestTime = earliestTime;

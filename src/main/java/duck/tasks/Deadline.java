@@ -1,8 +1,17 @@
 package duck.tasks;
 
+/**
+ * Class representing a "deadline" task.
+ */
 public class Deadline extends Task {
     private final DateAndTime deadline;
 
+    /**
+     * Constructor for Deadline.
+     *
+     * @param description Task description.
+     * @param deadline    Due date.
+     */
     public Deadline(String description, DateAndTime deadline) {
         super(description);
         this.deadline = deadline;

@@ -6,6 +6,9 @@ import duck.exceptions.UnmarkUsageException;
 import duck.tasks.Task;
 import duck.utils.Formatter;
 
+/**
+ * Class representing the "unmark" command.
+ */
 public class UnmarkCommand extends RunOnTaskAtIndexCommand {
     public UnmarkCommand(TaskList taskList, Parser lineBuffer) {
         super(taskList, lineBuffer, new UnmarkUsageException());

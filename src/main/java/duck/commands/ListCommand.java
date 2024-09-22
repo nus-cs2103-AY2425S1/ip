@@ -3,6 +3,9 @@ package duck.commands;
 import duck.TaskList;
 import duck.utils.Formatter;
 
+/**
+ * Class representing the "list" command.
+ */
 public class ListCommand extends Command {
     private TaskList taskList;
 

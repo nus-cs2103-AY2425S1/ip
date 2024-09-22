@@ -7,6 +7,9 @@ import duck.exceptions.MarkUsageException;
 import duck.tasks.Task;
 import duck.utils.Formatter;
 
+/**
+ * Class representing the "mark" command.
+ */
 public class MarkCommand extends RunOnTaskAtIndexCommand {
     public MarkCommand(TaskList taskList, Parser lineBuffer) {
         super(taskList, lineBuffer, new MarkUsageException());

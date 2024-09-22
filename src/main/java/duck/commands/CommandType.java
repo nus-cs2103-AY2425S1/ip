@@ -3,6 +3,9 @@ package duck.commands;
 import duck.Parser;
 import duck.TaskList;
 
+/**
+ * Factory class for {@code Command} objects.
+ */
 public enum CommandType {
     LIST("list") {
         @Override
@@ -91,15 +94,17 @@ public enum CommandType {
         return this.name.equals(str);
     }
 
-    /**
-     * Returns the name of the command.
-     *
-     * @return the name of the command
-     */
+    @Override
     public String toString() {
         return this.name;
     }
 
+    /**
+     * Checks if the given string is a {@code CommandType}.
+     *
+     * @param test String to be tested.
+     * @return Boolean indicating whether the given string is a {@code CommandType}.
+     */
     public static boolean contains(String test) {
         for (CommandType c : CommandType.values()) {
             if (c.name().equals(test)) {
@@ -109,7 +114,5 @@ public enum CommandType {
         return false;
     }
 
-    public Command createCommand(TaskList taskList, Parser lineBuffer) {
-        return null;
-    }
+    public abstract Command createCommand(TaskList taskList, Parser lineBuffer);
 }

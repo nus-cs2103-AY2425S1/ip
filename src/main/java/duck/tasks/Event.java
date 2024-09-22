@@ -1,9 +1,19 @@
 package duck.tasks;
 
+/**
+ * Class representing an "event" task.
+ */
 public class Event extends Task {
     private final DateAndTime from;
     private final DateAndTime to;
 
+    /**
+     * Constructor for Event.
+     *
+     * @param description Task description.
+     * @param from        Start date.
+     * @param to          End date.
+     */
     public Event(String description, DateAndTime from, DateAndTime to) {
         super(description);
 

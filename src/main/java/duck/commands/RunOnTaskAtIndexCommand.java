@@ -6,11 +6,22 @@ import duck.exceptions.InvalidTaskListIndexException;
 import duck.exceptions.RunOnTaskAtIndexUsageException;
 import duck.exceptions.TaskListIndexOutOfBoundsException;
 
+/**
+ * Class representing commands where the user specify a task list index to
+ * execute an action on a single task.
+ */
 public abstract class RunOnTaskAtIndexCommand extends Command {
     protected TaskList taskList;
     private Parser lineBuffer;
     private RunOnTaskAtIndexUsageException usageException;
 
+    /**
+     * Constructor for RunOnTaskAtIndexCommand.
+     *
+     * @param taskList       List of tasks.
+     * @param lineBuffer     Buffer containing remaining command.
+     * @param usageException The cause of this exception.
+     */
     public RunOnTaskAtIndexCommand(TaskList taskList, Parser lineBuffer,
             RunOnTaskAtIndexUsageException usageException) {
         this.taskList = taskList;

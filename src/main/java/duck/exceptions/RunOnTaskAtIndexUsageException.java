@@ -1,5 +1,9 @@
 package duck.exceptions;
 
+/**
+ * Class representing errors encountered by {@code RunOnTaskAtIndexCommand}
+ * objects.
+ */
 public class RunOnTaskAtIndexUsageException extends UsageException {
     public RunOnTaskAtIndexUsageException(String command) {
         super(command + " <task_number>", "task_number");
