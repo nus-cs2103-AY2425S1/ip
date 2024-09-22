@@ -59,7 +59,7 @@ public class Parser {
     }
 
     private String handleBye() {
-        return "So long, partner! 👋";
+        return "So long, partner!";
     }
 
     private String handleList(TaskList tasks) {
@@ -67,7 +67,7 @@ public class Parser {
             return "Yay! You have no tasks now!";
         }
 
-        StringBuilder response = new StringBuilder("Behold the mighty list of tasks! 📝\n");
+        StringBuilder response = new StringBuilder("Behold the mighty list of tasks!\n");
         for (int i = 0; i < tasks.size(); i++) {
             response.append(String.format("%d.%s%n", i + 1, tasks.get(i)));
         }
@@ -80,7 +80,7 @@ public class Parser {
         Task task = tasks.getTask(index);
         task.markAsDone();
         storage.saveTasks(tasks.getAllTasks());
-        return String.format("Task marked complete, like a pro! ✅\n%s", task);
+        return String.format("Task marked complete, like a pro! \n%s", task);
     }
 
     private String handleUnmark(String arguments, TaskList tasks, Storage storage) throws ShoAIException {
@@ -92,7 +92,7 @@ public class Parser {
         }
         task.markAsNotDone();
         storage.saveTasks(tasks.getAllTasks());
-        return String.format("Oopsie! Task is back on the to-do list. 🙈\n%s", task);
+        return String.format("Oopsie! Task is back on the to-do list.\n%s", task);
     }
 
 
@@ -101,7 +101,7 @@ public class Parser {
         Task newTodo = new Todo(arguments.trim());
         tasks.addTask(newTodo);
         storage.saveTasks(tasks.getAllTasks());
-        return String.format("A new task has joined the squad! 🎉\n%s\nNow you have %d task%s in the list.",
+        return String.format("A new task has joined the squad!\n%s\nNow you have %d task%s in the list.",
                 newTodo, tasks.size(), tasks.size() > 1 ? "s" : "");
     }
 
@@ -114,7 +114,7 @@ public class Parser {
         Task newDeadline = new Deadline(parts[0].trim(), deadlineDateTime);
         tasks.addTask(newDeadline);
         storage.saveTasks(tasks.getAllTasks());
-        return String.format("Deadline set, time’s ticking! ⏰\n%s\nNow you have %d task%s in the list.",
+        return String.format("Deadline set, time’s ticking!\n%s\nNow you have %d task%s in the list.",
                 newDeadline, tasks.size(), tasks.size() > 1 ? "s" : "");
     }
 
@@ -132,7 +132,7 @@ public class Parser {
         Task newEvent = new Event(parts[0].trim(), fromDateTime, toDateTime);
         tasks.addTask(newEvent);
         storage.saveTasks(tasks.getAllTasks());
-        return String.format("Event logged, let the countdown begin! 📆\n%s\nNow you have %d task%s in the list.",
+        return String.format("Event logged, let the countdown begin!\n%s\nNow you have %d task%s in the list.",
                 newEvent, tasks.size(), tasks.size() > 1 ? "s" : "");
     }
 
@@ -141,7 +141,7 @@ public class Parser {
         int index = parseIndex(arguments);
         Task removedTask = tasks.removeTask(index);
         storage.saveTasks(tasks.getAllTasks());
-        return String.format("Task deleted, like magic! ✨\n%s\nNow you have %d task%s in the list.",
+        return String.format("Task deleted, like magic!\n%s\nNow you have %d task%s in the list.",
                 removedTask, tasks.size(), tasks.size() > 1 ? "s" : "");
     }
 
@@ -197,7 +197,7 @@ public class Parser {
             return "No clients yet. Looks like it’s a quiet day!";
         }
 
-        StringBuilder response = new StringBuilder("Here’s the client roster! 📝\n");
+        StringBuilder response = new StringBuilder("Here’s the client roster!\n");
         for (int i = 0; i < clients.size(); i++) {
             response.append(String.format("%d.%s%n", i + 1, clients.get(i)));
         }
