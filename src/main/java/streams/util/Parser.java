@@ -94,16 +94,10 @@ public class Parser {
      */
     private static Command parseEvent(String rest) throws StreamsException {
         String[] parts = rest.split(" /from ");
-        if (parts.length != 2) {
-            throw new StreamsException("the format for events is 'event [description] "
-                    + "/from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm'");
-        }
+        assert parts.length == 2 : "Event command should have two parts separated by '/from'";
         String description = parts[0].trim();
         String[] timeParts = parts[1].split(" /to ");
-        if (timeParts.length != 2) {
-            throw new StreamsException("the format for events is 'event [description] "
-                    + "/from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm'");
-        }
+        assert timeParts.length == 2 : "Event time should have two parts separated by '/to'";
         String fromString = timeParts[0].trim();
         String toString = timeParts[1].trim();
         try {

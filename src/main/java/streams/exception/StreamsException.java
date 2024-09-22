@@ -6,7 +6,7 @@ package streams.exception;
  */
 public class StreamsException extends Exception {
     /**
-     * Constructs a new DrBrownException with the specified detail message.
+     * Constructs a new StreamsException with the specified detail message.
      *
      * @param message The detail message for the exception.
      */

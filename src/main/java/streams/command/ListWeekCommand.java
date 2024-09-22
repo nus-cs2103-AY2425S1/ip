@@ -10,7 +10,6 @@ import streams.task.TaskList;
 import streams.util.Storage;
 import streams.util.Ui;
 
-
 /**
  * Represents a command to list tasks for the upcoming week.
  */

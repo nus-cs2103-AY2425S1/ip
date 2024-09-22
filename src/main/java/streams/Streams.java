@@ -13,8 +13,9 @@ public class Streams {
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
+
     /**
-     * Constructs the main Duke application.
+     * Constructs the main Streams application.
      *
      * @param filePath The file path for storing tasks.
      */
