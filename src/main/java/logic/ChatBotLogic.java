@@ -73,29 +73,7 @@ public class ChatBotLogic {
      * Constructs a new {@code ChatBotLogic} instance, initializes the event chain type,
      * and loads the storage file containing tasks.
      */
-    private final List<String> jokeBank = List.of(
-            "Why don't programmers like nature? It has too many bugs.",
-            "Why do Java developers wear glasses? Because they don’t C#.",
-            "How many programmers does it take to change a light bulb? None, that's a hardware problem.",
-            "I would tell you a UDP joke, but you might not get it.",
-            "There are 10 types of people in the world: those who understand binary, and those who don’t.",
-            "Why do programmers prefer dark mode? Because the light attracts bugs.",
-            "What’s a programmer’s favorite hangout place? Foo Bar.",
-            "Why did the programmer quit his job? Because he didn’t get arrays.",
-            "A SQL query walks into a bar, walks up to two tables and asks, 'Can I join you?'",
-            "Why do programmers hate nature? It has too many trees (and trees have nodes).",
-            "What is a computer’s favorite snack? Microchips.",
-            "I tried to make a computer joke, but it wasn’t funny enough for the cache.",
-            "Why did the computer show up at work late? It had a hard drive.",
-            "In C, you really have to watch out for buffer overflows. In Java, you just get a stack trace.",
-            "Why don’t skeletons use Git? They don’t have enough backbone for version control.",
-            "How do you comfort a JavaScript bug? You console it.",
-            "Why can't a computer play tennis? It doesn’t like its server.",
-            "What's a computer’s least favorite type of music? The bluescreen.",
-            "Why did the developer go broke? Because he used up all his cache.",
-            "Why is Java like a smartphone? Once you start using it, you have no memory left.",
-            "What’s the object-oriented way to become wealthy? Inheritance."
-    );
+    private final List<String> jokeBank = List.of("Why don't programmers like nature? It has too many bugs.", "Why do Java developers wear glasses? Because they don’t C#.", "How many programmers does it take to change a light bulb? None, that's a hardware problem.", "I would tell you a UDP joke, but you might not get it.", "There are 10 types of people in the world: those who understand binary, and those who don’t.", "Why do programmers prefer dark mode? Because the light attracts bugs.", "What’s a programmer’s favorite hangout place? Foo Bar.", "Why did the programmer quit his job? Because he didn’t get arrays.", "A SQL query walks into a bar, walks up to two tables and asks, 'Can I join you?'", "Why do programmers hate nature? It has too many trees (and trees have nodes).", "What is a computer’s favorite snack? Microchips.", "I tried to make a computer joke, but it wasn’t funny enough for the cache.", "Why did the computer show up at work late? It had a hard drive.", "In C, you really have to watch out for buffer overflows. In Java, you just get a stack trace.", "Why don’t skeletons use Git? They don’t have enough backbone for version control.", "How do you comfort a JavaScript bug? You console it.", "Why can't a computer play tennis? It doesn’t like its server.", "What's a computer’s least favorite type of music? The bluescreen.", "Why did the developer go broke? Because he used up all his cache.", "Why is Java like a smartphone? Once you start using it, you have no memory left.", "What’s the object-oriented way to become wealthy? Inheritance.");
 
     /**
      * Constructs a new {@code ChatBotLogic} instance, initializes the default state,
@@ -261,7 +239,7 @@ public class ChatBotLogic {
         switch (userMessage) {
         case "view" -> {
             EventChainType.setState(this, EventChainType.VIEW);
-            return taskList.toString();
+            return "You currently have " + taskList.size() + "tasks: \n" + taskList.keySet().stream().reduce("", (x, y) -> x + taskList.get(y) + y + "\n");
         }
         case "add" -> {
             EventChainType.setState(this, EventChainType.ADD);
@@ -391,7 +369,8 @@ public class ChatBotLogic {
             taskList.put(tempName, Todo.createTodo(tempName, userMessage)); // push newly created task in map
             writer.writeMapToFile(taskList, filePath); // immediate rewrite storage upon update
             EventChainType.setState(this, EventChainType.ADD);
-            return "todo added. enter type for the next task to be added: ";
+            return "todo added. You currently have " + taskList.size()
+                    + " tasks: \n" + "enter type for the next task to be added: ";
         }
         }
     }
@@ -430,7 +409,8 @@ public class ChatBotLogic {
                 taskList.put(tempName, Deadline.createDeadline(tempName, tempDescription, byDate));
                 writer.writeMapToFile(taskList, filePath); // immediate rewrite storage upon update
                 EventChainType.setState(this, EventChainType.ADD);
-                return "deadline added. enter type for the next task to be added: ";
+                return "deadline added. You currently have " + taskList.size()
+                        + " tasks: \n" + "enter type for the next task to be added: ";
             } catch (DateTimeParseException e) {
                 return "invalid format. please retry";
             }
@@ -544,7 +524,8 @@ public class ChatBotLogic {
             tempEndTime = null;
             tempLocation = null;
             EventChainType.setState(this, EventChainType.ADD);
-            return "Event added successfully. Enter the type of the next task to add (todo, deadline, event):";
+            return "event added. You currently have " + taskList.size()
+                    + " tasks: \n" + "enter type for the next task to be added: ";
         }
         }
     }
