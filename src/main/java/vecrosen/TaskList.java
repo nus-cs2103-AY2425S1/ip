@@ -33,7 +33,7 @@ public class TaskList {
      */
     public TaskList(File file) {
         list = new ArrayList<Task>();
-        Storage.load(file, list);
+        Storage.loadTasks(file, list);
     }
 
     /**
@@ -78,7 +78,7 @@ public class TaskList {
      * @param file
      */
     public void save(File file) {
-        Storage.save(file, list);
+        Storage.saveTasks(file, list);
     }
 
     /**
@@ -91,7 +91,7 @@ public class TaskList {
         for (int i = 1; i <= list.size(); ++i) {
             indices.add(i);
         }
-        ui.printList(list, indices, "Here are the tasks you have:", "You have no tasks!");
+        ui.<Task>printList(list, indices, "Here are the tasks you have:", "You have no tasks!");
     }
 
     /**

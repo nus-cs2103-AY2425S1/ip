@@ -7,7 +7,8 @@ import java.util.ArrayList;
  */
 public class Parser {
     /** Action types recognized by Vecrosen */
-    public enum ActionType { UNDEFINED, FORMATTING, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, LIST, BYE, FIND };
+    public enum ActionType { UNDEFINED, FORMATTING, TODO, DEADLINE, EVENT, MARK, UNMARK,
+            DELETE, LIST, BYE, FIND, CLIENT };
     private static String badFormattingMessage;
 
     /**
@@ -49,13 +50,16 @@ public class Parser {
         } else if (input.matches("delete \\d+")) {
             getArgs(input, returnArgs, 7, true);
             return ActionType.DELETE;
+        } else if (input.matches("client .+ /address .+")) {
+            getArgs(input, returnArgs, 7, false, "/address");
+            return ActionType.CLIENT;
         } else if (checkBadFormatting(input)) {
             returnArgs.add(badFormattingMessage);
             return ActionType.FORMATTING;
         } else {
             return ActionType.UNDEFINED;
         }
-    } // cannot feasibly be shortened.
+    } // TODO: use for-loop and array.
 
     private static void getArgs(String input, ArrayList<Object> returnArgs, int firstArg,
                                 boolean isIntFirst, String... argTags) {

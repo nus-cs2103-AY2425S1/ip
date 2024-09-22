@@ -80,7 +80,7 @@ public class Ui extends AnchorPane {
      * @param intro Sentence to print before the list of tasks
      * @param noTasks Sentence to print if the list is empty
      */
-    public void printList(ArrayList<Task> list, ArrayList<Integer> indices, String intro, String noTasks) {
+    public <E> void printList(ArrayList<E> list, ArrayList<Integer> indices, String intro, String noTasks) {
         if (list.isEmpty()) {
             speak(noTasks);
             return;

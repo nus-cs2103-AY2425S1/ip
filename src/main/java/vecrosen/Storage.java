@@ -21,7 +21,7 @@ public class Storage {
      * @param file The file to save to.
      * @param list The list of tasks.
      */
-    public static void save(File file, ArrayList<Task> list) {
+    public static void saveTasks(File file, ArrayList<Task> list) {
         try {
             FileWriter fw = new FileWriter(file);
             for (int i = 0; i < list.size(); ++i) {
@@ -56,7 +56,7 @@ public class Storage {
      * @param file The file to read from.
      * @param list The array to hold the list of tasks.
      */
-    public static void load(File file, ArrayList<Task> list) {
+    public static void loadTasks(File file, ArrayList<Task> list) {
         if (!file.exists()) {
             return;
         }
@@ -86,6 +86,42 @@ public class Storage {
                 }
                 list.get(list.size() - 1).setDone(isDone);
             }
+            s.close();
+        } catch (FileNotFoundException e) {
+            System.err.println("File exists but cannot be found...?");
+        } catch (NoSuchElementException | IndexOutOfBoundsException e) {
+            System.err.println(list.size());
+            list.clear();
+            throw e;
+        }
+    }
+
+    public static void saveClients(File file, ArrayList<Client> list) {
+        try {
+            FileWriter fw = new FileWriter(file);
+            for (int i = 0; i < list.size(); ++i) {
+                Client t = list.get(i);
+                fw.write(t.getName() + "\n");
+                fw.write(t.getAddress() + "\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.err.println("Savefile cannot be accessed!");
+        }
+    }
+
+    public static void loadClients(File file, ArrayList<Client> list) {
+        if (!file.exists()) {
+            return;
+        }
+        try {
+            Scanner s = new Scanner(file);
+            while (s.hasNextLine()) {
+                String name = s.nextLine();
+                String address = s.nextLine();
+                list.add(new Client(name, address));
+            }
+            s.close();
         } catch (FileNotFoundException e) {
             System.err.println("File exists but cannot be found...?");
         } catch (NoSuchElementException | IndexOutOfBoundsException e) {
