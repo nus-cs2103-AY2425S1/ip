@@ -1,7 +1,7 @@
 # Knight2103 User Guide
 
 ## Overview
-**Screenshot of the product:**
+**Screenshot of the product:**<br>
 ![Screenshot of chatbot](/docs/Ui.png)
 
 **Summary:** Knight2103 is a chatbot that manages a record of tasks you need.  <br><br>
