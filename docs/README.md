@@ -2,12 +2,12 @@
 
 ![Representative screenshot of FlyChat](./Ui.png)
 
-> **_Losing your mind_ trying to remember all the tasks you have to do?**
+> **_Losing your mind_ trying to remember all the tasks you have to do?**  
 > Use _FlyChat_, and let your mind fly **free**
 
 ## Adding tasks
 
-There are _3_ types of tasks you can add in _FlyChat_: **Todo**, **Event**, **Deadline**
+There are _3_ types of tasks you can add in _FlyChat_: **Todo**, **Event**, **Deadline**  
 All fields, marked in <>, **must not** be empty.
 
 ### Todo
