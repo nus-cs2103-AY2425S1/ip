@@ -18,8 +18,8 @@ import screwllum.tasks.ToDo;
  * Represents an object that handles the reading and writing of tasks to and from a file.
  */
 public class Storage {
-    private static String saveFile = "Save.txt";
-    private static String archiveFile = "Archive.txt";
+    private static String saveFile = "./data/Save.txt";
+    private static String archiveFile = "./data/Archive.txt";
 
     /**
      * Writes the list of tasks to the archival file. Utilised when the user invokes the archive command.
@@ -47,6 +47,13 @@ public class Storage {
      */
     public void writeToFile(List<Task> taskList, String filePath) {
         try {
+            File file = new File(filePath);
+            File parentDirectory = file.getParentFile();
+
+            if (parentDirectory != null && !parentDirectory.exists()) {
+                parentDirectory.mkdirs();
+            }
+
             FileWriter fw = new FileWriter(filePath);
             for (Task task : taskList) {
                 fw.write(task.toSaveFormat() + "\n");
