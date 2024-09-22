@@ -148,9 +148,9 @@ public class Event extends Task {
      */
     @Override
     public boolean isOnDay(LocalDateTime date) {
-        boolean isAfterStart = date.isEqual(start) || date.isAfter(start);
-        boolean isBeforeEnd = date.isEqual(end) || date.isBefore(end);
-        return !this.isMarked() && isAfterStart && isBeforeEnd;
+        boolean isAfterStart = date.toLocalDate().isEqual(start.toLocalDate()) || start.isAfter(date);
+        boolean isBeforeEnd = date.toLocalDate().isEqual(end.toLocalDate()) || end.isBefore(date);
+        return !this.isMarked() && isAfterStart || isBeforeEnd;
     }
 
     /**

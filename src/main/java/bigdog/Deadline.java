@@ -63,15 +63,15 @@ public class Deadline extends Task {
     public static Deadline of(String s, boolean marked) throws BigdogException {
 
         assert s.length() > MIN_LENGTH_FOR_CORRUPTION_CHECK : "data file corrupted! Cause: " + s + "\n";
-
-        int index = s.indexOf('|');
-        if (index != -1) {
-            LocalDateTime end = LocalDateTime.parse(s.substring(index + 2).trim());
-            String description = s.substring(TASK_DESC_START_INDEX, index).trim();
-            return new Deadline(description, end, marked);
+        String[] deadlineParts = s.split("\\|");
+        if (deadlineParts.length != 3) {
+            throw new BigdogException("Data file corrupted! Cause: " + s);
         }
+        LocalDateTime end = LocalDateTime.parse(deadlineParts[2].trim());
+        String description = deadlineParts[1].trim();
+        return new Deadline(description, end, marked);
 
-        throw new BigdogException("Data file corrupted! Cause: " + s);
+
     }
 
     /**
@@ -127,7 +127,7 @@ public class Deadline extends Task {
      */
     @Override
     public boolean isOnDay(LocalDateTime date) {
-        return !this.isMarked() && (date.isEqual(end) || date.isBefore(end));
+        return !this.isMarked() && date.toLocalDate().isEqual(end.toLocalDate());
     }
 
     /**
