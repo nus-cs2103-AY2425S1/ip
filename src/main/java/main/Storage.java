@@ -75,7 +75,6 @@ public class Storage {
                             throw new CorruptedFileException("File is corrupted.");
                     }
                 }
-                System.out.println("Existing data file found. Data has been loaded.");
             } else {
                 if (file.getParentFile().exists()) {
                     file.createNewFile();
@@ -83,14 +82,11 @@ public class Storage {
                     file.getParentFile().mkdir();
                     file.createNewFile();
                 }
-                System.out.println("No existing data file found. New data file \"dash.txt\" has been created.");
             }
         } catch (IOException e) {
             System.out.println("I/O error has occurred when creating new file: " + e.getMessage());
         } catch (CorruptedFileException e) {
             System.out.println("Please erase data in file: " + e.getMessage());
-        } finally {
-            Ui.insertLine();
         }
         return list;
     }

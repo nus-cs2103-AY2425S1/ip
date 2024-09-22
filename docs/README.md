@@ -1,30 +1,34 @@
-# Duke User Guide
+# Dash
 
-// Update the title above to match the actual product name
+> “Your mind is for having ideas, not holding them.” – David Allen [(source)](https://dansilvestre.com/productivity-quotes/)
 
-// Product screenshot goes here
+Dash frees your mind of having to remember things you need to do. It's,
+- text-based
+- easy to learn
+- ~~FAST~~ *SUPER FAST* to use
 
-// Product intro goes here
+All you need to do is,
 
-## Adding deadlines
+1. download it from [here](https://github.com/lim-jt/ip).
+2. double-click it.
+3. add your tasks.
+4. let it manage your tasks for you 😉
 
-// Describe the action and its outcome.
+And it is **FREE**!
 
-// Give examples of usage
+Features:
 
-Example: `keyword (optional arguments)`
+- [X] Managing tasks
+- [ ] Managing deadlines (coming soon)
+- [ ] Reminders (coming soon)
 
-// A description of the expected outcome goes here
+
+If you are a Java programmer, you can use it to practice Java too. Here's the main method:
 
 ```
-expected output
+public class Main {
+    public static void main(String[] args) {
+        Application.launch(MainApp.class, args);
+    }
+}
 ```
-
-## Feature ABC
-
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
