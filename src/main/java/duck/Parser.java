@@ -56,9 +56,9 @@ public class Parser {
      * the buffer.
      *
      * @return the next token
+     * @throws NumberFormatException
      */
-    public int getInt() {
-        // TODO: Handle exception
+    public int getInt() throws NumberFormatException {
         return Integer.parseInt(nextToken());
     }
 

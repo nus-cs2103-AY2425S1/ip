@@ -40,8 +40,9 @@ public class TaskList {
      *
      * @param label
      * @return task with the given label
+     * @throws IndexOutOfBoundsException
      */
-    public Task getItem(int label) {
+    public Task getItem(int label) throws IndexOutOfBoundsException {
         return tasks.get(label - 1);
     }
 

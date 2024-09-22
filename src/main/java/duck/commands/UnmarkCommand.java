@@ -2,12 +2,13 @@ package duck.commands;
 
 import duck.Parser;
 import duck.TaskList;
+import duck.exceptions.UnmarkUsageException;
 import duck.tasks.Task;
 import duck.utils.Formatter;
 
 public class UnmarkCommand extends RunOnTaskAtIndexCommand {
     public UnmarkCommand(TaskList taskList, Parser lineBuffer) {
-        super(taskList, lineBuffer);
+        super(taskList, lineBuffer, new UnmarkUsageException());
     }
 
     @Override

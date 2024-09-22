@@ -1,7 +1,7 @@
 package duck.exceptions;
 
-public class CheckUsageException extends UsageException {
-    public CheckUsageException(String command) {
+public class RunOnTaskAtIndexUsageException extends UsageException {
+    public RunOnTaskAtIndexUsageException(String command) {
         super(command + " <task_number>", "task_number");
     }
 
