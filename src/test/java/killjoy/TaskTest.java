@@ -43,23 +43,23 @@ public class TaskTest {
     @Test
     public void testChangeStatus() {
         assertFalse(todo.getTaskStatus());
-        todo.changeStatus();
+        todo.changeStatusToDone();
         assertTrue(todo.getTaskStatus());
-        todo.changeStatus();
+        todo.changeStatusToNotDone();
         assertFalse(todo.getTaskStatus());
     }
 
     @Test
     public void testGetStatusIcon() {
         assertEquals(" ", todo.getStatusIcon());
-        todo.changeStatus();
+        todo.changeStatusToDone();
         assertEquals("X", todo.getStatusIcon());
     }
 
     @Test
     public void testToString() {
         assertEquals("[ ] dance", todo.toString());
-        todo.changeStatus();
+        todo.changeStatusToDone();
         assertEquals("[X] dance", todo.toString());
     }
 }

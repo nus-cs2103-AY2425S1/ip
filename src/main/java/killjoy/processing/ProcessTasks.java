@@ -154,11 +154,11 @@ public class ProcessTasks {
         }
         Task task = kj.getTask(taskIndex);
         if (inputCommand.equals("mark")) {
-            task.changeStatus();
+            task.changeStatusToDone();
             String str = UserInterface.getMarkString() + "\n" + task + "\n";
             return str;
         } else if (inputCommand.equals("unmark")) {
-            task.changeStatus();
+            task.changeStatusToNotDone();
             String str = UserInterface.getUnmarkString() + "\n" + task + "\n";
             return str;
         } else if (inputCommand.equals("delete")) {
@@ -243,10 +243,15 @@ public class ProcessTasks {
             return str;
         }
     }
-
+    /**
+     * Changes the status of the task.
+     *
+     * @param task The task.
+     * @param i The status of the task.
+     */
     private void changeStatusOfTask(Task task, int i) {
         if (i == 1) {
-            task.changeStatus();
+            task.changeStatusToDone();
         }
     }
 
