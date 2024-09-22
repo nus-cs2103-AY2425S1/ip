@@ -19,7 +19,7 @@ HERE ARE THE CURRENT TASKS:
 
 ## Add Deadlines:`deadline`
 Adds a task with deadline. 
-Format: `deadline DESCRIPTION by/ yyyy-MM-dd`
+Format: `deadline DESCRIPTION by /yyyy-MM-dd`
 
 Example: `deadline borrow book by/ 2020-09-12`
 
