@@ -29,7 +29,8 @@ public class Parser {
     private Command command;
 
     public Command parseCommand(String input)
-            throws EmptyDescriptionException, InvalidDateFormatException, UnknownCommandException, InvalidDateTimeFormatException, InvalidInputCommandException {
+            throws EmptyDescriptionException, InvalidDateFormatException, UnknownCommandException,
+            InvalidDateTimeFormatException, InvalidInputCommandException {
         String[] str = input.split(" ");
         String token = str[0].toLowerCase();
 
@@ -119,7 +120,8 @@ public class Parser {
     }
 
     private void parseEvent(String str)
-            throws EmptyDescriptionException, InvalidDateFormatException, InvalidDateTimeFormatException, InvalidInputCommandException {
+            throws EmptyDescriptionException, InvalidDateFormatException, InvalidDateTimeFormatException,
+            InvalidInputCommandException {
 
         String trimmed = str.substring(5).trim();
 

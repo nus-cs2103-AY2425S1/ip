@@ -4,10 +4,14 @@ package elysia.exception;
  * Represents an invalid date format exception.
  */
 public class InvalidDateFormatException extends ElysiaException {
+    /**
+     * Constructs an {@code InvalidDateFormatException} with a message indicating that the provided date format is
+     * invalid.
+     */
     public InvalidDateFormatException() {
         super("Oh my! I'm so sorry,\n"
                 + "but it seems that the date format is invalid.\n"
-                +"Let's use the formats like dd-mm-yyyy, yyy-mm-dd, dd mmm, dd mmm yyyy\n"
+                + "Let's use the formats like dd-mm-yyyy, yyy-mm-dd, dd mmm, dd mmm yyyy\n"
                 + "Here are some examples of valid input:\n"
                 + "23 Sep\n"
                 + "23rd Sep\n"

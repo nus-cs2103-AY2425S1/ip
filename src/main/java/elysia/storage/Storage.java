@@ -30,6 +30,12 @@ public class Storage {
         this.arrayLists = arrayLists;
     }
 
+    /**
+     * Loads the previous tasks from the local storage into the task list.
+     *
+     * @throws IOException
+     * @throws InvalidFileFormatException
+     */
     public void load() throws IOException, InvalidFileFormatException {
         Storage.createFile();
         this.scanFileContents(makeFilePath());

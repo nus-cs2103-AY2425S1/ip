@@ -13,6 +13,11 @@ import elysia.ui.Ui;
 public class MarkCommand extends Command {
     private int index;
 
+    /**
+     * Constructs a {@code MarkCommand} with the specified 1-indexed index.
+     *
+     * @param index
+     */
     public MarkCommand(int index) {
         super();
         this.index = index;

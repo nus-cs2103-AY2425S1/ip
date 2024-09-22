@@ -18,6 +18,13 @@ public class EventCommand extends Command {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
+    /**
+     * Constructs an {@code EventCommand} with the specified description, start time, and end time.
+     *
+     * @param description A brief description of the event.
+     * @param startTime
+     * @param endTime
+     */
     public EventCommand(String description, LocalDateTime startTime, LocalDateTime endTime) {
         this.description = description;
         this.startTime = startTime;

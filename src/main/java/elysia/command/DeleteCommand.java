@@ -13,6 +13,11 @@ import elysia.ui.Ui;
 public class DeleteCommand extends Command {
     private int index;
 
+    /**
+     * Creates a delete command.
+     *
+     * @param index The 1-indexed position of displayed list.
+     */
     public DeleteCommand(int index) {
         super();
         this.index = index;

@@ -1,6 +1,5 @@
 package elysia.ui;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import elysia.task.Task;

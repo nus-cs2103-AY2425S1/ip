@@ -4,6 +4,10 @@ package elysia.exception;
  * Represents an invalid command exception.
  */
 public class InvalidInputCommandException extends ElysiaException {
+    /**
+     * Constructs an {@code InvalidInputCommandException} with a message indicating that the format for the input
+     * command is invalid.
+     */
     public InvalidInputCommandException() {
         super("Oopsie! It looks like the format for this command is invalid.\n"
                 + "Here are some examples of valid command:\n"

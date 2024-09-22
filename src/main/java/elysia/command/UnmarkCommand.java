@@ -13,6 +13,11 @@ import elysia.ui.Ui;
 public class UnmarkCommand extends Command {
     private int index;
 
+    /**
+     * Constructs a {@code UnmarkCommand} with the specified 1-indexed positon.
+     *
+     * @param index
+     */
     public UnmarkCommand(int index) {
         super();
         this.index = index;

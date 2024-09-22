@@ -11,6 +11,11 @@ import elysia.ui.Ui;
 public class FindCommand extends Command {
     private String searchContent;
 
+    /**
+     * Constructs a {@code FindCommand} with the specified search content.
+     *
+     * @param searchContent
+     */
     public FindCommand(String searchContent) {
         super();
         this.searchContent = searchContent.toLowerCase();

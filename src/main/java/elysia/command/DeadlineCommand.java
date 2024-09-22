@@ -17,9 +17,15 @@ public class DeadlineCommand extends Command {
     private final String description;
     private final LocalDate deadline;
 
-    public DeadlineCommand(String description, LocalDate by) {
+    /**
+     * CConstructs a {@code DeadlineCommand} with the specified description and deadline.
+     *
+     * @param description The description for the deadline task.
+     * @param deadline    The deadline for the task, represented as a {@code LocalDate}.
+     */
+    public DeadlineCommand(String description, LocalDate deadline) {
         this.description = description;
-        this.deadline = by;
+        this.deadline = deadline;
     }
 
     /**
