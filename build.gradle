@@ -48,6 +48,7 @@ application {
 
 shadowJar {
     archiveBaseName = "brock"
+    archiveFileName = "brock.jar"
     archiveClassifier = null
 }
 
