@@ -29,8 +29,8 @@ public class Ui {
     public String bye() {
         String msg = ("Bye. Hope to see you again soon!" + System.lineSeparator()
                 + "____________________________________________________________\n");
-    displayMessage(msg);
-    return msg;
+        displayMessage(msg);
+        return msg;
     }
 
     /**

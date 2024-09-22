@@ -1,13 +1,11 @@
 package futureyou.gui;
 
+import java.util.Objects;
+
 import futureyou.FutureYou;
 import futureyou.Ui;
-
-import java.util.Objects;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
-
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -16,10 +14,13 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+
+
 /**
  * Controller for the main GUI.
  */
 public class MainWindow extends AnchorPane {
+    private final Ui ui = new Ui();
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -28,12 +29,9 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-
     private FutureYou futureYou;
-    private final Ui ui = new Ui();
-
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image futureYouImage = new Image(this.getClass().getResourceAsStream("/images/futureYou.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    private final Image futureYouImage = new Image(this.getClass().getResourceAsStream("/images/futureYou.png"));
 
     @FXML
     public void initialize() {
@@ -44,7 +42,9 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().add(DialogBox.getFutureYouDialog(initializationMessage, futureYouImage));
     }
 
-    /** Injects the Future You instance */
+    /**
+     * Injects the Future You instance
+     */
     public void setFutureYou(FutureYou futureYou) {
         this.futureYou = futureYou;
     }
