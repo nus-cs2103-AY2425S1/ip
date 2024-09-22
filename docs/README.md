@@ -70,10 +70,10 @@ find assignment
 ### Undo Actions: Undo the most recent operations
 Format: `undo`
 
-### Exit: End the application 
+### Exit the app: End the application 
 Format: `bye`
 
 ## Installation
-1. Clone this repository to your local machine.
-2. Ensure you have the necessary dependencies installed. 
-3. Run the app!
+1. Go to Releases in the repository.
+2. Download the latest jar file. 
+3. Double-click the jar file to run the app!
