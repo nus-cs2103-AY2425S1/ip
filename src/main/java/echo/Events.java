@@ -72,8 +72,12 @@ public class Events extends Task {
             return this.toString();
         case"start":
             this.start = LocalDate.parse((str[1]));
+            return "Ok. Start date changed to " + this.start;
+
         case"end":
             this.end = LocalDate.parse(str[1]);
+            return "Ok. End date changed to " + this.end;
+
         default:
             return "enter name (new name)\n or start (new date)\n or end (new date)";
         }
