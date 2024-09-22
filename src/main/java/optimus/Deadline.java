@@ -9,7 +9,7 @@ import java.time.format.DateTimeParseException;
  * This class extends the {@code Task} class and includes a due date/time for the task.
  * The due date is represented both as a string and as a {@code LocalDateTime} object.
  */
-public class Deadlines extends Task {
+public class Deadline extends Task {
 
     private String by;  // The string representation of the due date and time.
     private LocalDateTime dateTime;  // The parsed LocalDateTime object representing the due date and time.
@@ -21,7 +21,7 @@ public class Deadlines extends Task {
      * @param by The string representation of the due date/time for the task.
      * @throws OptimusException if the date-time string is invalid or cannot be parsed.
      */
-    public Deadlines(String description, String by) throws OptimusException {
+    public Deadline(String description, String by) throws OptimusException {
         super(description);
         this.by = by;
         this.dateTime = parseStringDeadline(by);  // Parse the string into a LocalDateTime object.

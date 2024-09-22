@@ -1,1 +1,3 @@
 T | 0 | eat
+T | 0 | eat at hawker
+D | 0 | submit hw | 22/02/2024 16:00

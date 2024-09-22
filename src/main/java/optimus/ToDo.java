@@ -3,12 +3,12 @@ package optimus;
 /**
  * Represents a to-do task in the Optimus application.
  */
-public class ToDos extends Task {
+public class ToDo extends Task {
 
     /**
      * Constructs a new ToDo task with the specified description.
      */
-    public ToDos(String description) {
+    public ToDo(String description) {
         super(description);
     }
 

@@ -7,7 +7,7 @@ import java.time.format.DateTimeParseException;
 /**
  * Represents an event task with a specific start and end date/time.
  */
-public class Events extends Task {
+public class Event extends Task {
 
     private String from;  // The string representation of the event start time.
     private String to;  // The string representation of the event end time.
@@ -22,7 +22,7 @@ public class Events extends Task {
      * @param to the string representation of the event end time in specific formats.
      * @throws OptimusException if the date-time strings cannot be parsed or are null/empty.
      */
-    public Events(String description, String from, String to) throws OptimusException {
+    public Event(String description, String from, String to) throws OptimusException {
         super(description);
         this.from = from;
         this.to = to;

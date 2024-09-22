@@ -7,11 +7,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class EventsTest {
 
-    private Events event;
+    private Event event;
 
     @BeforeEach
     public void setUp() throws OptimusException {
-        event = new Events("Test event", "1/09/2024 12:00", "1/09/2024 14:00");
+        event = new Event("Test event", "1/09/2024 12:00", "1/09/2024 14:00");
     }
 
     @Test

@@ -64,12 +64,12 @@ public class Parser {
             throw new OptimusException("The task number provided is empty. Please provide a valid task number.");
         }
         int taskNumber = Integer.parseInt(parts[1]) - 1;
-        if (taskNumber < 0 || taskNumber >= record.sizeOfRecord()) {
+        if (taskNumber < 0 || taskNumber >= record.getSizeOfRecord()) {
             throw new OptimusException("The task number provided is out of range. Please provide a valid task number.");
         }
         Task taskToDelete = record.getTask(taskNumber);
         record.deleteTask(taskNumber);
-        return ui.TaskDeleted(taskToDelete, record.sizeOfRecord());
+        return ui.TaskDeleted(taskToDelete, record.getSizeOfRecord());
     }
 
     private static String handleMarkCommand(String text, TaskList record, Ui ui) throws OptimusException {
@@ -78,7 +78,7 @@ public class Parser {
             throw new OptimusException("The task number provided is empty. Please provide a valid task number.");
         }
         int taskNumber = Integer.parseInt(parts[1]) - 1;
-        if (taskNumber < 0 || taskNumber >= record.sizeOfRecord()) {
+        if (taskNumber < 0 || taskNumber >= record.getSizeOfRecord()) {
             throw new OptimusException("The task number provided is out of range. Please provide a valid task number.");
         }
         Task taskToMark = record.getTask(taskNumber);
@@ -92,7 +92,7 @@ public class Parser {
             throw new OptimusException("The task number provided is empty. Please provide a valid task number.");
         }
         int taskNumber = Integer.parseInt(parts[1]) - 1;
-        if (taskNumber < 0 || taskNumber >= record.sizeOfRecord()) {
+        if (taskNumber < 0 || taskNumber >= record.getSizeOfRecord()) {
             throw new OptimusException("The task number provided is out of range. Please provide a valid task number.");
         }
         Task taskToUnmark = record.getTask(taskNumber);
@@ -105,9 +105,9 @@ public class Parser {
             throw new OptimusException("The description of a todo cannot be empty. Please provide a task description.");
         }
         String description = text.substring(5).trim();
-        Task newTask = new ToDos(description);
+        Task newTask = new ToDo(description);
         record.addTask(newTask);
-        return ui.taskAdded(newTask, record.sizeOfRecord());
+        return ui.taskAdded(newTask, record.getSizeOfRecord());
     }
 
     private static String handleDeadlineCommand(String text, TaskList record, Ui ui) throws OptimusException {
@@ -118,9 +118,9 @@ public class Parser {
         }
         String description = parts[0].substring(9).trim();
         String by = parts[1].trim();
-        Task newTask = new Deadlines(description, by);
+        Task newTask = new Deadline(description, by);
         record.addTask(newTask);
-        return ui.taskAdded(newTask, record.sizeOfRecord());
+        return ui.taskAdded(newTask, record.getSizeOfRecord());
     }
 
     private static String handleEventCommand(String text, TaskList record, Ui ui) throws OptimusException {
@@ -132,8 +132,8 @@ public class Parser {
         String description = parts[0].substring(6).trim();
         String from = parts[1].trim();
         String to = parts[2].trim();
-        Task newTask = new Events(description, from, to);
+        Task newTask = new Event(description, from, to);
         record.addTask(newTask);
-        return ui.taskAdded(newTask, record.sizeOfRecord());
+        return ui.taskAdded(newTask, record.getSizeOfRecord());
     }
 }

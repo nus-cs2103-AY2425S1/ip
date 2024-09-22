@@ -60,7 +60,7 @@ public class TaskList {
      *
      * @return The size of the task list.
      */
-    public int sizeOfRecord() {
+    public int getSizeOfRecord() {
         return record.size();
     }
 

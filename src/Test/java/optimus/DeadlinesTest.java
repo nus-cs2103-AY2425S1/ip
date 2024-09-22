@@ -7,11 +7,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DeadlinesTest {
 
-    private Deadlines deadline;
+    private Deadline deadline;
 
     @BeforeEach
     public void setUp() throws OptimusException {
-        deadline = new Deadlines("Test deadline", "1/09/2024 12:00");
+        deadline = new Deadline("Test deadline", "1/09/2024 12:00");
     }
 
     @Test

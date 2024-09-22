@@ -15,9 +15,9 @@ public class TaskListTest {
     public void setUp() throws OptimusException {
         // Set up a TaskList with some tasks for testing
         taskList = new TaskList(Arrays.asList(
-                new ToDos("Buy groceries"),
-                new Deadlines("Submit assignment", "2024-10-10 16:00"),
-                new Events("Project meeting", "2024-09-20 16:00", "2024-09-21 17:00")
+                new ToDo("Buy groceries"),
+                new Deadline("Submit assignment", "2024-10-10 16:00"),
+                new Event("Project meeting", "2024-09-20 16:00", "2024-09-21 17:00")
         ));
         ui = new Ui(); // Assuming Ui class exists
     }

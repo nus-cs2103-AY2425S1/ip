@@ -8,6 +8,7 @@ import java.util.Scanner;
  * The {@code Ui} class handles interactions with the user, including displaying messages
  * and reading input commands.
  */
+//Documentation done with help of GPT
 public class Ui {
     private Scanner scanner;  // Scanner for reading user input.
 
@@ -70,7 +71,7 @@ public class Ui {
      */
     public String listTasks(TaskList tasks) {
         StringBuilder response = new StringBuilder("Here are the tasks in your list:\n");
-        for (int i = 0; i < tasks.sizeOfRecord(); i++) {
+        for (int i = 0; i < tasks.getSizeOfRecord(); i++) {
             response.append((i + 1)).append(". ").append(tasks.getTask(i).toString()).append("\n");
         }
         return response.toString();

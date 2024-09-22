@@ -8,7 +8,7 @@ import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 
-//Done with help of chatGPT
+//Documentation done with help of chatGPT
 /**
  * The {@code Storage} class handles loading and saving tasks to and from a file.
  * It reads from an existing data file to initialize tasks and saves tasks back
@@ -88,14 +88,14 @@ public class Storage {
     private Task createTask(String taskType, String description, String[] parts) throws OptimusException {
         switch (taskType) {
             case "T":
-                return new ToDos(description);
+                return new ToDo(description);
             case "D":
                 String by = parts.length > 3 ? parts[3] : "";
-                return new Deadlines(description, by);
+                return new Deadline(description, by);
             case "E":
                 String from = parts.length > 3 ? parts[3] : "";
                 String to = parts.length > 4 ? parts[4] : "";
-                return new Events(description, from, to);
+                return new Event(description, from, to);
             default:
                 return null;
         }
