@@ -11,7 +11,7 @@ public class ParserTest {
     public void createEvent_invalidDateTime_fail() throws Exception {
 
         assertEquals(
-                "java.time.format.DateTimeParseException: Text '2029-20-08' could not be parsed:"
+                "java.time.format.DateTimeParseException: Text '2029-20-08' could not be parsed: "
                         + "Invalid value for MonthOfYear (valid values 1 - 12): 20",
                 new Duck().getResponse("event lesson /from 2029-20-08 /to 2030-07-08"));
     }
