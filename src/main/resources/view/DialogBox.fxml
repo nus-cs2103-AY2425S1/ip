@@ -6,11 +6,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
 <fx:root alignment="TOP_RIGHT"
          prefWidth="400.0"
+         stylesheets="@../css/dialog-box.css"
          type="javafx.scene.layout.HBox"
-         xmlns="http://javafx.com/javafx/17"
+         xmlns="http://javafx.com/javafx/22"
          xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <HBox HBox.hgrow="ALWAYS">
@@ -19,16 +19,23 @@
                        fitWidth="99.0"
                        pickOnBounds="true"
                        preserveRatio="true" />
-            <VBox spacing="10.0" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
-                <Label fx:id="speaker"
-                       text="Speaker"
-                       style="-fx-font-weight: bold;" />
-                <Label fx:id="dialog"
-                       text="Label"
-                       wrapText="true"
-                       minHeight="-Infinity"
-                       VBox.vgrow="ALWAYS"
-                       HBox.hgrow="ALWAYS" />
+            <VBox spacing="10.0"
+                  HBox.hgrow="ALWAYS"
+                  VBox.vgrow="ALWAYS">
+                <Label fx:id="speaker" style="-fx-font-weight: bold;" text="Speaker">
+               <VBox.margin>
+                  <Insets left="7.0" right="7.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="4.0" left="4.0" right="3.0" top="4.0" />
+               </padding></Label>
+                <Label fx:id="dialog" minHeight="-Infinity" text="Label" wrapText="true" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets left="7.0" right="7.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="6.0" left="6.0" right="10.0" top="6.0" />
+               </padding></Label>
             </VBox>
         </HBox>
     </children>
