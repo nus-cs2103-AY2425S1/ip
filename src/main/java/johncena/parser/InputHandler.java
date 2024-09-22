@@ -1,13 +1,38 @@
 package johncena.parser;
 
 import java.util.ArrayList;
-import johncena.commands.*;
-        import johncena.exceptions.*;
-        import johncena.tasks.Task;
 
+import johncena.commands.ByeCommand;
+import johncena.commands.Command;
+import johncena.commands.DeadlineCommand;
+import johncena.commands.DeleteCommand;
+import johncena.commands.EventCommand;
+import johncena.commands.FindCommand;
+import johncena.commands.HelpCommand;
+import johncena.commands.HelloCommand;
+import johncena.commands.ListCommand;
+import johncena.commands.MarkCommand;
+import johncena.commands.OnCommand;
+import johncena.commands.TodoCommand;
+import johncena.commands.UnmarkCommand;
+import johncena.exceptions.CenaException;
+import johncena.exceptions.CenaInvalidDeadlineException;
+import johncena.exceptions.CenaInvalidEventException;
+import johncena.exceptions.CenaInvalidTaskIndexException;
+import johncena.exceptions.CenaUnknownCommandException;
+import johncena.tasks.Task;
+
+/**
+ * The {@code InputHandler} class provides the functionality to handle user input and return the corresponding command.
+ */
 public class InputHandler {
     private ArrayList<Task> tasks;
 
+    /**
+     * Constructs an InputHandler with an existing list of tasks.
+     *
+     * @param tasks An ArrayList of tasks to initialize the InputHandler.
+     */
     public InputHandler(ArrayList<Task> tasks) {
         assert tasks != null : "Tasks list should not be null";
         this.tasks = tasks;
