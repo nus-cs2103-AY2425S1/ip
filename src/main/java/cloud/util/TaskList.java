@@ -127,13 +127,15 @@ public class TaskList {
 
     /**
      * Checks if a task's description contains the keyword.
-     *
+     * Method is case-insensitive
      * @param task The task to check
      * @param keyword The keyword to search for
      * @return True if the task description contains the keyword
      */
     private boolean taskContainsKeyword(Task task, String keyword) {
-        return task.getDescription().contains(keyword);
+        return task.getDescription()
+                .toLowerCase()
+                .contains(keyword.toLowerCase());
     }
 
     /**
