@@ -83,7 +83,9 @@ public class Storage {
                     default:
                         continue;
                 }
-                if (isDone) task.markAsDone();
+                if (isDone) {
+                    task.markAsDone();
+                }
                 tasks.add(task);
             }
         } catch (IOException | DateTimeParseException e) {
@@ -102,17 +104,17 @@ public class Storage {
         assert tasks != null : "Tasks list cannot be null";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
             for (Task task : tasks) {
-                String taskType = task instanceof ToDoTask ? "T" :
-                        task instanceof DeadlineTask ? "D" :
-                                task instanceof EventTask ? "E" : "";
+                String taskType = task instanceof ToDoTask ? "T"
+                        : task instanceof DeadlineTask ? "D"
+                        : task instanceof EventTask ? "E" : "";
                 String isDone = task.isCompleted() ? "1" : "0";
                 String taskString = taskType + " | " + isDone + " | " + task.getDescription();
 
                 if (task instanceof DeadlineTask) {
                     taskString += " | " + ((DeadlineTask) task).getBy().format(INPUT_FORMATTER);
                 } else if (task instanceof EventTask) {
-                    taskString += " | " + ((EventTask) task).getFrom().format(INPUT_FORMATTER) +
-                            " | " + ((EventTask) task).getTo().format(INPUT_FORMATTER);
+                    taskString += " | " + ((EventTask) task).getFrom().format(INPUT_FORMATTER)
+                            + " | " + ((EventTask) task).getTo().format(INPUT_FORMATTER);
                 }
 
                 writer.write(taskString);

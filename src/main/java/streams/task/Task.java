@@ -1,15 +1,19 @@
 package streams.task;
 
 import java.time.format.DateTimeFormatter;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
- * Represents a task in the task list.
+ * Represents an abstract task in the task list.
+ * This class provides common functionality for all types of tasks.
  */
 public abstract class Task {
     protected static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
 
     protected String description;
     protected boolean isCompleted;
+    protected Set<String> tags;
 
     /**
      * Constructs a Task with the given description.
@@ -20,6 +24,7 @@ public abstract class Task {
         assert description != null : "Task description should be null";
         this.description = description;
         this.isCompleted = false;
+        this.tags = new HashSet<>();
     }
 
     /**
@@ -50,13 +55,50 @@ public abstract class Task {
     }
 
     /**
+     * Adds a tag to the task.
+     *
+     * @param tag The tag to be added.
+     */
+    public void addTag(String tag) {
+        tags.add(tag.toLowerCase());
+    }
+
+    /**
+     * Removes a tag from the task.
+     *
+     * @param tag The tag to be removed.
+     */
+    public void removeTag(String tag) {
+        tags.remove(tag.toLowerCase());
+    }
+
+    /**
+     * Returns a copy of the task's tags.
+     *
+     * @return A new Set containing all tags of the task.
+     */
+    public Set<String> getTags() {
+        return new HashSet<>(tags);
+    }
+
+    /**
+     * Checks if the task has a specific tag.
+     *
+     * @param tag The tag to check for.
+     * @return true if the task has the tag, false otherwise.
+     */
+    public boolean hasTag(String tag) {
+        return tags.contains(tag.toLowerCase());
+    }
+
+    /**
      * Returns a string representation of the task.
      *
-     * @return A string representation of the task.
+     * @return A string representing the task, including its status, description, and tags.
      */
     @Override
     public String toString() {
-        return (isCompleted ? "[X] " : "[ ] ") + description;
+        return (isCompleted ? "[✓] " : "[✗] ") + description + " " + tags;
     }
 }
 

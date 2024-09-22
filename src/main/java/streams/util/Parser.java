@@ -5,11 +5,13 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import streams.command.AddCommand;
+import streams.command.AddTagCommand;
 import streams.command.Command;
 import streams.command.DeleteCommand;
 import streams.command.ExitCommand;
 import streams.command.ListCommand;
 import streams.command.ListDateCommand;
+import streams.command.ListTagCommand;
 import streams.command.ListWeekCommand;
 import streams.command.MarkCommand;
 import streams.command.SortDeadlineCommand;
@@ -60,6 +62,10 @@ public class Parser {
                 return new SortDeadlineCommand();
             case "bye":
                 return new ExitCommand();
+            case "tag":
+                return new AddTagCommand(rest);
+            case "list-tag":
+                return new ListTagCommand(rest);
             default:
                 throw new StreamsException("incorrect command: " + commandType);
         }
