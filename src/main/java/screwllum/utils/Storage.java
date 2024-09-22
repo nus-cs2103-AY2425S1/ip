@@ -23,20 +23,22 @@ public class Storage {
 
     /**
      * Writes the list of tasks to the archival file. Utilised when the user invokes the archive command.
+     * Will append to existing archival files.
      *
      * @param taskList The list of tasks to be archived.
      */
     public void archiveTasks(List<Task> taskList) {
-        writeToFile(taskList, archiveFile);
+        writeToFile(taskList, archiveFile, true);
     }
 
     /**
      * Writes the list of tasks to the save file. Utilised when the application is closed.
+     * Will overwrite existing save files.
      *
      * @param taskList The list of tasks to be saved.
      */
     public void saveTasks(List<Task> taskList) {
-        writeToFile(taskList, saveFile);
+        writeToFile(taskList, saveFile, false);
     }
 
     /**
@@ -44,8 +46,9 @@ public class Storage {
      *
      * @param taskList The list of tasks to be saved to the file.
      * @param filePath The file to be written to.
+     * @param isAppendMode Boolean to determine if the file to be written to will be overwritten or appended.
      */
-    public void writeToFile(List<Task> taskList, String filePath) {
+    public void writeToFile(List<Task> taskList, String filePath, boolean isAppendMode) {
         try {
             File file = new File(filePath);
             File parentDirectory = file.getParentFile();
@@ -54,7 +57,7 @@ public class Storage {
                 parentDirectory.mkdirs();
             }
 
-            FileWriter fw = new FileWriter(filePath);
+            FileWriter fw = new FileWriter(filePath, isAppendMode);
             for (Task task : taskList) {
                 fw.write(task.toSaveFormat() + "\n");
             }

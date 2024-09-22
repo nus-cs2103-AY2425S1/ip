@@ -53,13 +53,10 @@ public class MainWindow extends AnchorPane {
      * Displays an exit message when user closes the app via the close button instead of the bye command.
      */
     public void exit() {
-        String response = "I see you have closed the app. Your tasks have been saved, have a good day.";
+        String response = screwllum.getResponse("bye");;
         dialogContainer.getChildren().addAll(
                 DialogBox.getScrewllumDialog(response, screwllumImage)
         );
-        PauseTransition delay = new PauseTransition(Duration.seconds(2));
-        delay.setOnFinished(event -> Platform.exit());
-        delay.play();
     }
 
     /**
