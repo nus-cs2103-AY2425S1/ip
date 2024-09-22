@@ -97,6 +97,8 @@ Saves recorded task into an archival file and resets the list of recorded tasks.
 
 Format: `archive`
 
+* The archived file will be saved in `"/data/Archive.txt"`
+
 ### Exiting the program : `bye`
 
 Exits the program. 
