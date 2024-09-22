@@ -2,33 +2,22 @@ package johncena.parser;
 
 import java.util.ArrayList;
 
-<<<<<<< HEAD
 import johncena.commands.AfterCommand;
-=======
->>>>>>> branch-A-CodeQuality
 import johncena.commands.ByeCommand;
 import johncena.commands.Command;
 import johncena.commands.DeadlineCommand;
 import johncena.commands.DeleteCommand;
 import johncena.commands.EventCommand;
 import johncena.commands.FindCommand;
-<<<<<<< HEAD
 import johncena.commands.HelloCommand;
 import johncena.commands.HelpCommand;
-=======
-import johncena.commands.HelpCommand;
-import johncena.commands.HelloCommand;
->>>>>>> branch-A-CodeQuality
 import johncena.commands.ListCommand;
 import johncena.commands.MarkCommand;
 import johncena.commands.OnCommand;
 import johncena.commands.TodoCommand;
 import johncena.commands.UnmarkCommand;
 import johncena.exceptions.CenaException;
-<<<<<<< HEAD
 import johncena.exceptions.CenaInvalidAfterException;
-=======
->>>>>>> branch-A-CodeQuality
 import johncena.exceptions.CenaInvalidDeadlineException;
 import johncena.exceptions.CenaInvalidEventException;
 import johncena.exceptions.CenaInvalidTaskIndexException;
@@ -36,25 +25,15 @@ import johncena.exceptions.CenaUnknownCommandException;
 import johncena.tasks.Task;
 
 /**
-<<<<<<< HEAD
  * The {@code InputHandler} class handles the user input and returns the corresponding command.
-=======
- * The {@code InputHandler} class provides the functionality to handle user input and return the corresponding command.
->>>>>>> branch-A-CodeQuality
  */
 public class InputHandler {
     private ArrayList<Task> tasks;
 
     /**
-<<<<<<< HEAD
      * Constructs a new {@code InputHandler} with the specified list of tasks.
      *
      * @param tasks The list of tasks.
-=======
-     * Constructs an InputHandler with an existing list of tasks.
-     *
-     * @param tasks An ArrayList of tasks to initialize the InputHandler.
->>>>>>> branch-A-CodeQuality
      */
     public InputHandler(ArrayList<Task> tasks) {
         assert tasks != null : "Tasks list should not be null";
