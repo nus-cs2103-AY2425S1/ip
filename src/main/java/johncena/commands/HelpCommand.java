@@ -23,6 +23,8 @@ public class HelpCommand implements Command {
         sb.append("  todo [description] - Adds a todo task\n");
         sb.append("  deadline [description] /by [due date] - Adds a deadline task\n");
         sb.append("  event [description] /from [start date] /to [end date] - Adds an event task\n");
+        sb.append("  find [keyword] - Finds tasks with a specific keyword\n");
+        sb.append("  after [desription] /after [date] - Adds a task that you will do after a specific date\n");
         sb.append("  on [date] - Lists all tasks on a specific date\n");
         sb.append("  hello - Displays the welcome message\n");
         sb.append("  help - Displays the list of commands\n");

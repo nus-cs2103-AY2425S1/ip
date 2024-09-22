@@ -35,6 +35,7 @@ Follow these simple steps to set up the **John Cena** Todo List application:
 - **JUnit 5**: For testing the application.
 - **Gradle**: For building the project.
 - **Github Copilot**: For generating code snippets and javadoc comments.
+- **AB3 User Guide and blackpanther9229**: For the template of user guide.
 
 
 ## 🤖 Special Acknowledgment for GitHub Copilot

@@ -1,9 +1,6 @@
-T | 1 | read book
-T | 0 | dance
-D | 0 | study | 2024-09-20 2359
-D | 1 | cs2103t | 2024-09-20 2359
-D | 0 | study | 2023-09-20 1400
-A | 0 | tonight | 2024-03-12 1200
-D | 0 | birthday | 2024-09-25 2359
-T | 0 | coding
-E | 0 | party | 2024-05-06 0600 ~ 2024-06-07 0900
+T | 0 | eat dinner
+E | 0 | birthday | 2024-09-22 0001 ~ 2024-09-22 2359
+A | 0 | party | 2024-09-25 1600
+T | 0 | eat lunch
+D | 0 | submit report | 2024-09-22 1600
+T | 0 | eat dinner
