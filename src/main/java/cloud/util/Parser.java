@@ -112,8 +112,8 @@ public class Parser {
         }
         String[] details = body.split("/from|/to");
         String description = details[0];
-        DateTime startDate = DateTime.of(details[1]);
-        DateTime endDate = DateTime.of(details[2]);
+        DateTime startDate = DateTime.of(details[1].strip());
+        DateTime endDate = DateTime.of(details[2].strip());
         return new EventCommand(description, startDate, endDate);
     }
 

@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import cloud.exception.CloudException;
+import cloud.exception.DateFormatException;
 
 /**
  * Represents a date and time with a specific format.
@@ -28,13 +29,13 @@ public class DateTime {
      *
      * @param input date and time string in the format of "dd/MM/yyyy HH:mm"
      * @return a DateTime object
-     * @throws CloudException If input format is invalid
+     * @throws DateFormatException If input format is invalid
      */
-    public static DateTime of(String input) throws CloudException {
+    public static DateTime of(String input) throws DateFormatException {
         try {
             return new DateTime(LocalDateTime.parse(input, INPUT_FORMAT));
         } catch (DateTimeParseException e) {
-            throw new CloudException("Invalid date-time format: " + e.getMessage());
+            throw new DateFormatException("Invalid date-time format: Try again with dd/MM/yyyy HH:mm");
         }
     }
 
