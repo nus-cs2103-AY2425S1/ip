@@ -20,7 +20,7 @@ To embark upon your journey with Tesla, heed these brief instructions:
 1. Ensure that Java 17 or higher is present on your machine.
 2. Acquire the latest .jar file from [here]().
 3. Transfer this file to the folder you shall designate as the realm (folder) for your Tesla chatbot. 
-4. Invoke your command terminal, navigate to this folder, and execute the command java -jar tesla.jar.
+4. Invoke your command terminal, navigate to this folder, and execute the command "java -jar tesla.jar" (macOS) or "java jar .\tesla.jar" (Windows).
 
 In mere moments, a graphical interface replete with sample data shall manifest before you.
 
