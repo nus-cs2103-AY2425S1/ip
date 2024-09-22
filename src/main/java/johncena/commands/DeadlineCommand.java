@@ -36,21 +36,37 @@ public class DeadlineCommand implements Command {
      * @throws CenaInvalidDeadlineException if the description for the deadline is incorrect
      */
     @Override
-    public String execute() throws CenaInvalidDeadlineException {
+    public String execute() {
         assert description != null : "Description should not be null";
         assert by != null : "Deadline should not be null";
-        if (description.isEmpty() || by.isEmpty()) {
-            throw new CenaInvalidDeadlineException("Incorrect description for deadline. It should contain only /by.");
-        }
-        Task task = new Deadline(description, by);
-        tasks.add(task);
-        Storage.saveTasks(tasks);
+//        if (description.isEmpty() || by.isEmpty()) {
+//            throw new CenaInvalidDeadlineException("Incorrect description for deadline. It should contain only /by.");
+//        }
+//        Task task = new Deadline(description, by);
+//        tasks.add(task);
+//        Storage.saveTasks(tasks);
+//
+//        StringBuilder sb = new StringBuilder();
+//        sb.append(" Got it. I've added this task:\n");
+//        sb.append("   ").append(task).append("\n");
+//        sb.append(" Now you have ").append(tasks.size()).append(" tasks in the list.\n");
+//        return sb.toString();
+        try {
+            if (description.isEmpty() || by.isEmpty()) {
+                throw new CenaInvalidDeadlineException("Incorrect description for deadline. It should contain only /by.");
+            }
+            Task task = new Deadline(description, by);
+            tasks.add(task);
+            Storage.saveTasks(tasks);
 
-        StringBuilder sb = new StringBuilder();
-        sb.append(" Got it. I've added this task:\n");
-        sb.append("   ").append(task).append("\n");
-        sb.append(" Now you have ").append(tasks.size()).append(" tasks in the list.\n");
-        return sb.toString();
+            StringBuilder sb = new StringBuilder();
+            sb.append(" Got it. I've added this task:\n");
+            sb.append("   ").append(task).append("\n");
+            sb.append(" Now you have ").append(tasks.size()).append(" tasks in the list.\n");
+            return sb.toString();
+        } catch (CenaInvalidDeadlineException e) {
+            return e.getMessage();
+        }
 
     }
 }

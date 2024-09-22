@@ -39,20 +39,39 @@ public class EventCommand implements Command {
      * @throws CenaInvalidEventException if the description for the event is incorrect
      */
     @Override
-    public String execute() throws CenaInvalidEventException {
-        if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
-            throw new CenaInvalidEventException("Incorrect description for event. It should contain /from and /to.");
+    public String execute() {
+//        if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
+//            throw new CenaInvalidEventException("Incorrect description for event. It should contain /from and /to.");
+//        }
+//        Task task = new Event(description, from, to);
+//        tasks.add(task);
+//        Storage.saveTasks(tasks);
+//
+//        StringBuilder sb = new StringBuilder();
+//        sb.append(" Got it. I've added this task:\n");
+//        sb.append("   ").append(task).append("\n");
+//        sb.append(" Now you have ").append(tasks.size()).append(" tasks in the list.\n");
+//
+//        return sb.toString();
+        assert description != null : "Description should not be null";
+        assert from != null : "Start time should not be null";
+        assert to != null : "End time should not be null";
+        try {
+            if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
+                throw new CenaInvalidEventException("Incorrect description for event. It should contain /from and /to.");
+            }
+            Task task = new Event(description, from, to);
+            tasks.add(task);
+            Storage.saveTasks(tasks);
+
+            StringBuilder sb = new StringBuilder();
+            sb.append(" Got it. I've added this task:\n");
+            sb.append("   ").append(task).append("\n");
+            sb.append(" Now you have ").append(tasks.size()).append(" tasks in the list.\n");
+            return sb.toString();
+        } catch (CenaInvalidEventException e) {
+            return e.getMessage();
         }
-        Task task = new Event(description, from, to);
-        tasks.add(task);
-        Storage.saveTasks(tasks);
-
-        StringBuilder sb = new StringBuilder();
-        sb.append(" Got it. I've added this task:\n");
-        sb.append("   ").append(task).append("\n");
-        sb.append(" Now you have ").append(tasks.size()).append(" tasks in the list.\n");
-
-        return sb.toString();
 
     }
 }
