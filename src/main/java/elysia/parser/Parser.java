@@ -19,6 +19,7 @@ import elysia.command.UnmarkCommand;
 import elysia.exception.EmptyDescriptionException;
 import elysia.exception.InvalidDateFormatException;
 import elysia.exception.InvalidDateTimeFormatException;
+import elysia.exception.InvalidInputCommandException;
 import elysia.exception.UnknownCommandException;
 
 /**
@@ -28,7 +29,7 @@ public class Parser {
     private Command command;
 
     public Command parseCommand(String input)
-            throws EmptyDescriptionException, InvalidDateFormatException, UnknownCommandException, InvalidDateTimeFormatException {
+            throws EmptyDescriptionException, InvalidDateFormatException, UnknownCommandException, InvalidDateTimeFormatException, InvalidInputCommandException {
         String[] str = input.split(" ");
         String token = str[0].toLowerCase();
 
@@ -102,30 +103,31 @@ public class Parser {
         this.command = new ToDoCommand(input);
     }
 
-    private void parseDeadLine(String str) throws EmptyDescriptionException, InvalidDateFormatException {
+    private void parseDeadLine(String str)
+            throws EmptyDescriptionException, InvalidDateFormatException, InvalidInputCommandException {
         String trimmed = str.substring(8).trim();
         String[] inputArray = trimmed.split("/by ");
         String description = inputArray[0].trim();
 
         checkEmptyDescription("deadline", trimmed);
+        checkValidInputFormat(inputArray, 2);
 
         LocalDate date = DateParser.parseDate(inputArray[1]);
 
-        if (date == null) {
-            throw new InvalidDateFormatException();
-        }
 
         this.command = new DeadlineCommand(description, date);
     }
 
     private void parseEvent(String str)
-            throws EmptyDescriptionException, InvalidDateFormatException, InvalidDateTimeFormatException {
+            throws EmptyDescriptionException, InvalidDateFormatException, InvalidDateTimeFormatException, InvalidInputCommandException {
 
         String trimmed = str.substring(5).trim();
 
         checkEmptyDescription("event", trimmed);
 
         String[] inputArray = trimmed.split("/from | /to ");
+        checkValidInputFormat(inputArray, 3);
+
         String description = inputArray[0].trim();
 
         String[] dateTimeArray = inputArray[1].split("\\\\");
@@ -166,6 +168,12 @@ public class Parser {
     private void checkEmptyDescription(String eventType, String input) throws EmptyDescriptionException {
         if (input.isEmpty()) {
             throw new EmptyDescriptionException(eventType);
+        }
+    }
+
+    private void checkValidInputFormat(String[] arr, int num) throws InvalidInputCommandException {
+        if (arr.length != num) {
+            throw new InvalidInputCommandException();
         }
     }
 }

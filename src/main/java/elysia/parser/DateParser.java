@@ -72,7 +72,7 @@ public class DateParser {
     }
 
     /**
-     * Builds a map that map the next subsequent dates for Mon, Tues...Sun.
+     * Builds a map that map the next subsequent dates for Mon, Tue...Sun.
      **/
     public static Map<String, LocalDate> buildMap() {
         Map<String, LocalDate> map = new HashMap<>();
