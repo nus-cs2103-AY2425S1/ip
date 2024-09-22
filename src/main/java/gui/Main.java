@@ -7,14 +7,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
 import tomo.ToMo;
+
 /**
  * A GUI for Duke using FXML.
  */
 public class Main extends Application {
 
-    private static String DEFAULT_FILE = "./data/ToMo.txt";
+    private static final String DEFAULT_FILE = "./data/ToMo.txt";
     private ToMo tomo = new ToMo(DEFAULT_FILE);
 
     @Override

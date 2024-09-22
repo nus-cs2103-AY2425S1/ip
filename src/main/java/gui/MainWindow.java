@@ -7,7 +7,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
 import tomo.ToMo;
 
 /**
@@ -51,7 +50,7 @@ public class MainWindow extends AnchorPane {
     public void close() {
         tomo.close();
     }
-    
+
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();

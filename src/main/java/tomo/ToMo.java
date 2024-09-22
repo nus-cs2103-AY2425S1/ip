@@ -14,7 +14,10 @@ public class ToMo {
     private TaskList tasks;
     private Storage storage;
     private String initializeMessage = "";
-    
+    /**
+     * Constructor for the ToMo bot
+     * @param fileName the file to load and store tasks
+     */
     public ToMo(String fileName) {
         parser = new Parser();
         storage = new Storage(fileName);
@@ -23,7 +26,7 @@ public class ToMo {
             tasks = storage.load();
             if (tasks.isEmpty()) {
                 initializeMessage = "Your file is empty, we will start with an empty task list\n";
-            } else {   
+            } else {
                 initializeMessage = "Yay, successfully loaded " + (tasks.size()) + " tasks\n";
             }
         } catch (StorageException e) {
@@ -49,6 +52,9 @@ public class ToMo {
         }
     }
 
+    /**
+     * Closes the conversation between user and the bot
+     */
     public void close() {
         try {
             storage.store(tasks);
