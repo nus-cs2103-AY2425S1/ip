@@ -57,7 +57,7 @@ public class Storage {
 
 
     /**
-     * Parses a task from a string representation and returns the corresponding task
+     * Parses a task from a string representation (txt file) and returns the corresponding task
      * object.
      *
      * @param taskString The string representation of the task.
