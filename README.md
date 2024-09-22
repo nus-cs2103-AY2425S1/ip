@@ -15,7 +15,7 @@ Welcome to the **John Cena** Todo List application! This app helps you manage yo
 
 Follow these simple steps to set up the **John Cena** Todo List application:
 
-1. **Download the JAR file** from the [Releases](https://github.com/ishan-agarwal-05/johncena-todo/releases) section of this repository.
+1. **Download the JAR file** from the [Releases](https://github.com/ishan-agarwal-05/ip/releases) section of this repository.
 
 2. **Run the application** using the following command:
 
