@@ -2,6 +2,7 @@ package bigdog.GUI;
 
 import bigdog.Bigdog;
 import bigdog.Ui;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -9,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.util.Objects;
 
@@ -61,6 +63,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String userText = userInput.getText();
+        if (userText.equalsIgnoreCase("bye")) {
+            System.out.println("Closing...");
+            Platform.exit();
+        }
         String bigdogText = bigdog.getResponse(userInput.getText());
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, userImage),
