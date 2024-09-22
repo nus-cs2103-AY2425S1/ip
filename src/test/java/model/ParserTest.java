@@ -18,7 +18,6 @@ import exception.InvalidCommandException;
 import exception.InvalidCommandFormatException;
 import exception.InvalidDateFormatException;
 import exception.InvalidTaskIndexException;
-import task.Task;
 
 public class ParserTest {
     @Test
