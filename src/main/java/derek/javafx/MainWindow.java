@@ -4,7 +4,6 @@ import derek.Ui;
 import derek.exception.IncorrectCommandException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -37,6 +36,16 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        scrollPane.requestFocus();
+        scrollPane.sceneProperty().addListener((obs, oldScene, newScene) -> {
+            if (newScene != null) {
+                newScene.setOnScroll(event -> {
+                    double deltaY = event.getDeltaY() * 0.003; // Adjust scroll sensitivity
+                    scrollPane.setVvalue(scrollPane.getVvalue() - deltaY);
+                });
+            }
+        });
+
     }
 
     /** Injects the Duke instance */
