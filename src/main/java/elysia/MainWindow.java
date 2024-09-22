@@ -39,7 +39,7 @@ public class MainWindow extends AnchorPane {
         elysia = e;
         Ui ui = new Ui();
         dialogContainer.getChildren().addAll(
-                DialogBox.getElysiaDialog(ui.getWelcomeMessage(), elysiaImage)
+                DialogBox.getElysiaDialog(this.elysia.getFirstMessage(), elysiaImage)
         );
     }
 

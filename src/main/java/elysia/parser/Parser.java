@@ -1,7 +1,10 @@
 package elysia.parser;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
+import elysia.command.ClearCommand;
 import elysia.command.Command;
 import elysia.command.DeadlineCommand;
 import elysia.command.DeleteCommand;
@@ -15,6 +18,7 @@ import elysia.command.ToDoCommand;
 import elysia.command.UnmarkCommand;
 import elysia.exception.EmptyDescriptionException;
 import elysia.exception.InvalidDateFormatException;
+import elysia.exception.InvalidDateTimeFormatException;
 import elysia.exception.UnknownCommandException;
 
 /**
@@ -24,7 +28,7 @@ public class Parser {
     private Command command;
 
     public Command parseCommand(String input)
-            throws EmptyDescriptionException, InvalidDateFormatException, UnknownCommandException {
+            throws EmptyDescriptionException, InvalidDateFormatException, UnknownCommandException, InvalidDateTimeFormatException {
         String[] str = input.split(" ");
         String token = str[0].toLowerCase();
 
@@ -59,11 +63,18 @@ public class Parser {
         case "bye":
             parseExitCommand();
             break;
+        case "clear":
+            parseClearCommand();
+            break;
         default:
             throw new UnknownCommandException();
         }
 
         return command;
+    }
+
+    private void parseClearCommand() {
+        command = new ClearCommand();
     }
 
     private void parseElysiaCommand() {
@@ -83,10 +94,11 @@ public class Parser {
     }
 
     private void parseTodo(String str) throws EmptyDescriptionException {
+
         String input = str.substring(4).trim();
-        if (input.isEmpty()) {
-            throw new EmptyDescriptionException("todo");
-        }
+
+        checkEmptyDescription("todo", input);
+
         this.command = new ToDoCommand(input);
     }
 
@@ -95,9 +107,7 @@ public class Parser {
         String[] inputArray = trimmed.split("/by ");
         String description = inputArray[0].trim();
 
-        if (trimmed.isEmpty()) {
-            throw new EmptyDescriptionException("deadline");
-        }
+        checkEmptyDescription("deadline", trimmed);
 
         LocalDate date = DateParser.parseDate(inputArray[1]);
 
@@ -108,17 +118,31 @@ public class Parser {
         this.command = new DeadlineCommand(description, date);
     }
 
-    private void parseEvent(String str) throws EmptyDescriptionException {
+    private void parseEvent(String str)
+            throws EmptyDescriptionException, InvalidDateFormatException, InvalidDateTimeFormatException {
+
         String trimmed = str.substring(5).trim();
-        if (trimmed.isEmpty()) {
-            throw new EmptyDescriptionException("event");
-        }
+
+        checkEmptyDescription("event", trimmed);
 
         String[] inputArray = trimmed.split("/from | /to ");
         String description = inputArray[0].trim();
-        String startTime = inputArray[1];
-        String endTime = inputArray[2];
 
+        String[] dateTimeArray = inputArray[1].split("\\\\");
+
+        if (dateTimeArray.length != 2) {
+            throw new InvalidDateTimeFormatException("\\\\");
+        }
+
+        LocalDate date = DateParser.parseDate(dateTimeArray[0]);
+        LocalTime time1 = TimeParser.parseTime(dateTimeArray[1]);
+        LocalTime time2 = TimeParser.parseTime(inputArray[2].toUpperCase().trim());
+
+        LocalDateTime startTime;
+        LocalDateTime endTime;
+
+        startTime = LocalDateTime.of(date, time1);
+        endTime = LocalDateTime.of(date, time2);
 
         this.command = new EventCommand(description, startTime, endTime);
 
@@ -137,5 +161,11 @@ public class Parser {
     private void parseDeleteCommand(String input) {
         int index = Integer.parseInt(input.substring(7)) - 1;
         command = new DeleteCommand(index);
+    }
+
+    private void checkEmptyDescription(String eventType, String input) throws EmptyDescriptionException {
+        if (input.isEmpty()) {
+            throw new EmptyDescriptionException(eventType);
+        }
     }
 }

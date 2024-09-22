@@ -1,12 +1,15 @@
 package elysia.task;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
- * Represents an Event task with a description, starting time
- * and end time.
+ * Represents an Event task with a description, starting time and end time.
  */
 public class Event extends Task {
-    private String startTime;
-    private String endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
 
     /**
      * Constructs an event task.
@@ -15,10 +18,27 @@ public class Event extends Task {
      * @param startTime   The start time of the event.
      * @param endTime     the end time of the event.
      */
-    public Event(String description, String startTime, String endTime) {
+    public Event(String description, LocalDateTime startTime, LocalDateTime endTime) {
         super(description);
         this.startTime = startTime;
         this.endTime = endTime;
+    }
+
+    /**
+     * Returns start time of the event.
+     *
+     * @return
+     */
+    public LocalDateTime getStartTime() {
+        return this.startTime;
+    }
+
+    /**
+     * Returns end time of the event.
+     * @return
+     */
+    public LocalDateTime getEndTime() {
+        return this.endTime;
     }
 
     /**
@@ -28,7 +48,9 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + startTime + " to: " + endTime + ")";
+        return "[E]" + super.toString()
+                + " (from: " + this.startTime.format(DateTimeFormatter.ofPattern("d MMM hh:mma"))
+                + " to: " + this.endTime.format(DateTimeFormatter.ofPattern("hh:mma")) + ")";
     }
 
     /**

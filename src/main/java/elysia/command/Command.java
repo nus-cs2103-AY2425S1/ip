@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import elysia.exception.EmptyDescriptionException;
+import elysia.exception.InvalidDateTimeInputException;
 import elysia.task.Task;
 
 
@@ -26,5 +27,5 @@ public abstract class Command {
      * @throws EmptyDescriptionException If the description provided is empty.
      * @throws IOException               If an I/O error occurs during command execution.
      */
-    public abstract String execute(ArrayList<Task> tasks) throws EmptyDescriptionException, IOException;
+    public abstract String execute(ArrayList<Task> tasks) throws EmptyDescriptionException, IOException, InvalidDateTimeInputException;
 }

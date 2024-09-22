@@ -6,15 +6,20 @@ import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.Map;
 
+import elysia.exception.InvalidDateFormatException;
+
 /**
  * Parses the string input into LocalDate object.
  **/
 public class DateParser {
 
     /**
-     * Parses the string input into LocalDate object. To be stored in Deadline.
-     **/
-    public static LocalDate parseDate(String input) {
+     * Parses the string input into LocalDate object.
+     *
+     * @param input
+     * @return
+     */
+    public static LocalDate parseDate(String input) throws InvalidDateFormatException {
         LocalDate parsedDate = null;
 
         //get dates for next week
@@ -45,6 +50,8 @@ public class DateParser {
                 // the exception will be handled at Elysia
             }
         }
+
+        checkValidDateInput(parsedDate);
 
         return parsedDate;
     }
@@ -80,4 +87,11 @@ public class DateParser {
 
         return map;
     }
+
+    private static void checkValidDateInput(LocalDate date) throws InvalidDateFormatException {
+        if (date == null) {
+            throw new InvalidDateFormatException();
+        }
+    }
+
 }

@@ -5,10 +5,13 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import elysia.parser.DateParser;
+import elysia.exception.InvalidFileFormatException;
 import elysia.task.Deadline;
 import elysia.task.Event;
 import elysia.task.Task;
@@ -27,7 +30,7 @@ public class Storage {
         this.arrayLists = arrayLists;
     }
 
-    public void load() throws IOException {
+    public void load() throws IOException, InvalidFileFormatException {
         Storage.createFile();
         this.scanFileContents(makeFilePath());
     }
@@ -35,7 +38,7 @@ public class Storage {
     /**
      * Loads the saved list.
      **/
-    public void scanFileContents(String filePath) throws FileNotFoundException {
+    public void scanFileContents(String filePath) throws FileNotFoundException, InvalidFileFormatException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);
 
@@ -46,14 +49,23 @@ public class Storage {
                 String[] str = input.split(" \\| ");
 
                 if (str[0].equals("T")) {
+                    if (str.length != 3) {
+                        throw new InvalidFileFormatException();
+                    }
                     addToDos(str[2], Integer.parseInt(str[1]));
                 }
 
                 if (str[0].equals("D")) {
+                    if (str.length != 4) {
+                        throw new InvalidFileFormatException();
+                    }
                     addDeadline(str[2], Integer.parseInt(str[1]), str[3]);
                 }
 
                 if (str[0].equals("E")) {
+                    if (str.length != 5) {
+                        throw new InvalidFileFormatException();
+                    }
                     addEvent(str[2], Integer.parseInt(str[1]), str[3], str[4]);
                 }
             }
@@ -67,6 +79,7 @@ public class Storage {
     private void addToDos(String s, int i) {
 
         Task task = new ToDos(s);
+
         if (i == 1) {
             task.markAsDone();
         }
@@ -76,20 +89,35 @@ public class Storage {
     /**
      * Loads the Deadline Tasks from the saved file.
      **/
-    private void addDeadline(String s, int i, String by) {
-        Task task = new Deadline(s, DateParser.parseDate(by));
-        if (i == 1) {
-            task.markAsDone();
+    private void addDeadline(String s, int i, String by) throws InvalidFileFormatException {
+        Deadline deadline;
+
+        try {
+            deadline = new Deadline(s, LocalDate.parse(by));
+        } catch (DateTimeParseException e) {
+            throw new InvalidFileFormatException();
         }
-        arrayLists.add(task);
+
+        if (i == 1) {
+            deadline.markAsDone();
+        }
+
+        arrayLists.add(deadline);
     }
 
     /**
      * Loads the Event Tasks from the saved file.
      **/
-    private void addEvent(String s, int i, String from, String to) {
+    private void addEvent(String s, int i, String startTime, String endTime) throws InvalidFileFormatException {
 
-        Task task = new Event(s, from, to);
+        Event task;
+
+        try {
+            task = new Event(s, LocalDateTime.parse(startTime), LocalDateTime.parse(endTime));
+        } catch (DateTimeParseException e) {
+            throw new InvalidFileFormatException();
+        }
+
         if (i == 1) {
             task.markAsDone();
         }

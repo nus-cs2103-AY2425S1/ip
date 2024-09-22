@@ -3,6 +3,7 @@ package elysia;
 import java.io.IOException;
 import java.net.URL;
 
+import elysia.exception.InvalidFileFormatException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,7 +13,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
     private Elysia elysia = new Elysia();
 
-    public Main() throws IOException {
+    public Main() throws IOException, InvalidFileFormatException {
     }
 
     @Override

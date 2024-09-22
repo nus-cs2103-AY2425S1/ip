@@ -1,5 +1,6 @@
 package elysia.ui;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import elysia.task.Task;
@@ -108,6 +109,10 @@ public class Ui {
         result.append(" ").append(task).append("\n");
         result.append("Now you have " + arrayLists.size() + " tasks in the list.");
         return result.toString();
+    }
+
+    public String getClearTasksMessage() {
+        return "All right, all the tasks in the list have been cleared.";
     }
 
 }

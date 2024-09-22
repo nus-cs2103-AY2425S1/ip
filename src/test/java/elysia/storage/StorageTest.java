@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.AfterEach;
@@ -18,6 +19,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import elysia.exception.InvalidFileFormatException;
 import elysia.task.Deadline;
 import elysia.task.Event;
 import elysia.task.Task;
@@ -64,7 +66,7 @@ public class StorageTest {
      * @throws FileNotFoundException If the test file cannot be found.
      */
     @Test
-    public void storage_testAddToDos() throws FileNotFoundException {
+    public void storage_testAddToDos() throws FileNotFoundException, InvalidFileFormatException {
         storage.scanFileContents(createTestFile("T | 0 | borrow book\n"));
 
         assertEquals(1, tasks.size());
@@ -79,8 +81,8 @@ public class StorageTest {
      * @throws FileNotFoundException If the test file cannot be found.
      */
     @Test
-    public void storage_testAddDeadline() throws FileNotFoundException {
-        storage.scanFileContents(createTestFile("D | 1 | return book | 2024-09-02\n"));
+    public void storage_testAddDeadline() throws FileNotFoundException, InvalidFileFormatException {
+        storage.scanFileContents(createTestFile("D | 1 | return book | 2024-09-23\n"));
 
         assertEquals(1, tasks.size());
         assertInstanceOf(Deadline.class, tasks.get(0));
@@ -98,7 +100,9 @@ public class StorageTest {
     public void testHandleExit() throws IOException {
         tasks.add(new ToDos("read book"));
         tasks.add(new Deadline("return book", LocalDate.of(2024, 9, 2)));
-        tasks.add(new Event("project meeting", "Mon 6pm", "8pm"));
+        tasks.add(new Event("project meeting",
+                LocalDateTime.of(2024, 9, 23, 18, 0),
+                LocalDateTime.of(2024, 9, 23, 20, 0)));
 
         //append the given string to tempDir
         Path filePath = tempDir.resolve("tasks.txt");
@@ -110,7 +114,7 @@ public class StorageTest {
         System.out.println(content);
         assertTrue(content.contains("T | 0 | read book"));
         assertTrue(content.contains("D | 0 | return book | 2024-09-02"));
-        assertTrue(content.contains("E | 0 | project meeting | Mon 6pm | 8pm"));
+        assertTrue(content.contains("E | 0 | project meeting | 2024-09-23T18:00 | 2024-09-23T20:00"));
     }
 
     /**
