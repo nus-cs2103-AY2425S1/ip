@@ -35,8 +35,6 @@ public class FindCommand extends Command {
         int counter = 1;
         for (int i = 0; i < tasks.length(); i++) {
             Task task = tasks.getTaskAt(i);
-            System.out.println(task.getDescription());
-            System.out.println(task.getDescription().contains("z"));
             if (task.getDescription().contains(searchQuery)) {
                 listOfTasks
                         .append(counter)
