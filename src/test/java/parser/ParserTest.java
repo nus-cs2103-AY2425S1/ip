@@ -36,6 +36,7 @@ public class ParserTest {
             parser.parseUserInput("todo hello | world", tasks);
             fail("An invalid user input was not caught.");
         } catch (GrokInvalidUserInputException e) {
+            // Empty catch clause here: an exception is the expected pass state for this test.
             return;
         }
     }
@@ -46,6 +47,7 @@ public class ParserTest {
             parser.parseUserInput("deadline something s/o/met/hing / / ww", tasks);
             fail("An invalid user input was not caught.");
         } catch (GrokInvalidUserInputException e) {
+            // Empty catch clause here: an exception is the expected pass state for this test.
             return;
         }
     }
