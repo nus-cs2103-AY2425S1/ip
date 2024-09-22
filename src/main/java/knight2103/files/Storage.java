@@ -136,7 +136,7 @@ public class Storage {
         case "T" -> taskType = TaskType.TODO;
         case "D" -> taskType = TaskType.DEADLINE;
         case "E" -> taskType = TaskType.EVENT;
-        default -> throw new InvalidFileContentsException("Only T, E, D accepted but other characters"
+        default -> throw new InvalidFileContentsException("Only T, E, D accepted but other characters "
                 + "found in first column");
         }
         return taskType;
@@ -156,15 +156,15 @@ public class Storage {
         switch (taskType) {
         case TODO:
             expectedArrayLength = EXPECTED_TODO_ARRAY_LENGTH;
-            taskTypeName = "Todo";
+            taskTypeName = "TodoTask";
             break;
         case DEADLINE:
             expectedArrayLength = EXPECTED_DEADLINE_ARRAY_LENGTH;
-            taskTypeName = "Deadline";
+            taskTypeName = "DeadlineTask";
             break;
         case EVENT:
             expectedArrayLength = EXPECTED_EVENT_ARRAY_LENGTH;
-            taskTypeName = "Event";
+            taskTypeName = "EventTask";
             break;
         default:
             expectedArrayLength = ERROR_ARRAY_LENGTH;
@@ -208,7 +208,7 @@ public class Storage {
                     + " For Events task, it should be yyyy-MM-ddThh:mm format");
         } catch (DateTimeException e) {
             throw new InvalidFileContentsException(
-                    "Start date & time of the Event Task must be BEFORE end date & time");
+                    "Start date&time of Event Task must be BEFORE end date&time");
         }
         return taskToAdd;
     }

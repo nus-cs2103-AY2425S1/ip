@@ -22,4 +22,9 @@ public class Pair<T, V> {
     public V getSecondItem() {
         return this.secondItem;
     }
+
+    @Override
+    public String toString() {
+        return String.format("(%s, %s)", this.firstItem, this.secondItem);
+    }
 }

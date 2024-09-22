@@ -1,0 +1,4 @@
+D | 0 | return book | 2020-12-15 | 13:00
+T | 0 | read book
+T | borrow book| 
+E | 1 | book fair | 2020-12-25T18:00 | 2020-12-22T22:00
