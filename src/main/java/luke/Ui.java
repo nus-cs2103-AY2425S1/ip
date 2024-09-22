@@ -75,8 +75,14 @@ public class Ui {
     }
 
     /**
-     * Marks or unmarks tasks.
-     * @param command The mark/unmark command word and its associated tasks
+     * Toggles the completion status of a task identified by its number.
+     * If the task was unmarked, it will be marked as complete.
+     * If the task was already marked, it will be unmarked.
+     *
+     * @param command A Command object containing the mark/unmark command and the task number argument.
+     * @return A String message that confirms the marking/unmarking of the input task.
+     * @throws NumberFormatException If the provided task number is not a valid integer.
+     * @throws IndexOutOfBoundsException If the task number is out of range.
      */
     public static String handleTaskMarking(Command command) {
         // assert command.getArgs() != null;
