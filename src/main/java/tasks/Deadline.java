@@ -52,6 +52,6 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[E] " + super.toString() + "(by: " + due.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + ")";
+        return "[D] " + super.toString() + "(by: " + due.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + ")";
     }
 }
