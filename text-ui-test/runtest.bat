@@ -15,7 +15,15 @@ IF ERRORLEVEL 1 (
 REM no error here, errorlevel == 0
 
 REM run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ..\bin Duke < input.txt > ACTUAL.TXT
+java -classpath ..\bin NathanBot < input.txt > ACTUAL.TXT
 
 REM compare the output to the expected output
-FC ACTUAL.TXT EXPECTED.TXT
+@REM suggested by copilot, based on runtest.sh
+FC ACTUAL.TXT EXPECTED.TXT > NUL
+IF %ERRORLEVEL% EQU 0 (
+    echo Test result: PASSED
+    exit /b 0
+) ELSE (
+    echo Test result: FAILED
+    exit /b 1
+)

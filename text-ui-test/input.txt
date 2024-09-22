@@ -1,0 +1,19 @@
+"Hello"
+mark 10
+unmark 10
+mark
+unmark
+list
+todo todo1
+mark 1
+unmark 1
+list
+deadline deadline1
+deadline dealine2 /by Monday
+event event1
+event event1 /from Mon /to Tues
+list
+delete 5
+delete 3
+list
+bye
