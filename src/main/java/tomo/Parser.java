@@ -7,8 +7,10 @@ import command.EventCommand;
 import command.FindCommand;
 import command.ListCommand;
 import command.MarkCommand;
+import command.TagCommand;
 import command.ToDoCommand;
 import command.UnmarkCommand;
+import command.UntagCommand;
 import exception.ParserException;
 
 /**
@@ -43,8 +45,12 @@ public class Parser {
             return new EventCommand(cmdline);
         } else if (type.equals("find")) {
             return new FindCommand(cmdline);
+        } else if (type.equals("tag")) {
+            return new TagCommand(cmdline);
+        } else if (type.equals("untag")) {
+            return new UntagCommand(cmdline);
         } else {
-            throw new ParserException("Unknown command");
+            throw new ParserException("Unknown command: " + type);
         }
     }
 }

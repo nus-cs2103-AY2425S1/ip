@@ -9,7 +9,7 @@ import tasklist.TaskList;
  * Handles related issus to command unmark
  */
 
-public class UnmarkCommand extends Command {
+public class UnmarkCommand implements Command {
     private int idx;
     /**
      * Constructor for the unmark command from command line
@@ -22,7 +22,7 @@ public class UnmarkCommand extends Command {
             throw new ParserException("Missing argument idx for unmark command");
         }
         try {
-            this.idx = Integer.parseInt(args[1]) - 1;
+            idx = Integer.parseInt(args[1]) - 1;
         } catch (NumberFormatException e) {
             throw new ParserException("Invalid argument idx for unmark command: " + args[1]);
         }
@@ -31,7 +31,7 @@ public class UnmarkCommand extends Command {
     @Override
     public String getResponse(TaskList tasks) throws TaskListException {
         String response = "";
-        Task task = tasks.unmark(this.idx);
+        Task task = tasks.unmark(idx);
         response += "A task is unmarked\n";
         response += task + "\n";
         return response;

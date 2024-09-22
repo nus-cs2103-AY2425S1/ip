@@ -115,4 +115,38 @@ public class TaskList {
         }
         return filteredTasks;
     }
-};
+
+    /**
+     * tags a task
+     * @param i The index of the task to be tagged
+     * @param tag The tag to be added
+     * @return The tagged task
+     * @throws TaskListException If the given index is out of bound
+     */
+    public Task tag(int i, String tag) throws TaskListException {
+        if (i < 0 || i >= tasks.size()) {
+            throw new TaskListException("Idx out of bound for tag command");
+        }
+        Task task = tasks.get(i);
+        task.addTag(tag);
+        tasks.set(i, task);
+        return task;
+    }
+
+    /**
+     * Untags a task
+     * @param i The index of the task to be tagged
+     * @param tag
+      * @return The tagged task
+     * @throws TaskListException If the given index is out of bound
+     */
+    public Task untag(int i, String tag) throws TaskListException {
+        if (i < 0 || i >= tasks.size()) {
+            throw new TaskListException("Idx out of bound for untag command");
+        }
+        Task task = tasks.get(i);
+        task.removeTag(tag);
+        tasks.set(i, task);
+        return task;
+    }
+}

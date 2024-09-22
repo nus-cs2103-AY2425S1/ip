@@ -12,7 +12,7 @@ import tasklist.TaskList;
 /**
  * Handles related issues to the event command
  */
-public class EventCommand extends Command {
+public class EventCommand implements Command {
     private Task event;
     /**
      * Constructor for the command from command line
@@ -46,13 +46,13 @@ public class EventCommand extends Command {
         } catch (DateTimeParseException e) {
             throw new ParserException("Invalid format for argument end");
         }
-        this.event = new Event(description, start, end);
+        event = new Event(description, start, end);
     }
 
     @Override
     public String getResponse(TaskList tasks) {
         String response = "";
-        tasks.add(this.event);
+        tasks.add(event);
         response += "A task is added\n";
         response += this.event.toString() + "\n";
         return response;

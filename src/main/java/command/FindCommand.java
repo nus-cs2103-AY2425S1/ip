@@ -6,7 +6,7 @@ import tasklist.TaskList;
 /**
  * Handles related issues to the find command
  */
-public class FindCommand extends Command {
+public class FindCommand implements Command {
     private String pattern;
     /**
      * Constructor for the find command from command line
@@ -18,12 +18,12 @@ public class FindCommand extends Command {
         if (args.length == 1) {
             throw new ParserException("Missing argument pattern for command find");
         }
-        this.pattern = args[1];
+        pattern = args[1];
     }
 
     @Override
     public String getResponse(TaskList tasks) {
-        TaskList filteredTasks = tasks.find(this.pattern);
+        TaskList filteredTasks = tasks.find(pattern);
         if (filteredTasks.isEmpty()) {
             return "You have no task that contains the pattern \"" + pattern + "\"\n";
         } else {

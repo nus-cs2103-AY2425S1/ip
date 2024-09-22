@@ -6,7 +6,7 @@ import tasklist.TaskList;
 /**
  * Handles related issus to command list
  */
-public class ListCommand extends Command {
+public class ListCommand implements Command {
     /**
      * Constructor for the list command from command line
      * @param cmdline The command line from user

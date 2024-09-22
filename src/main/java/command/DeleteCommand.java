@@ -8,7 +8,7 @@ import tasklist.TaskList;
 /**
  * Handles related issues to command delete
  */
-public class DeleteCommand extends Command {
+public class DeleteCommand implements Command {
     private int idx;
     /**
      * Constructors for command delete from command line
@@ -21,7 +21,7 @@ public class DeleteCommand extends Command {
             throw new ParserException("Missing argument idx for delete command");
         }
         try {
-            this.idx = Integer.parseInt(args[1]) - 1;
+            idx = Integer.parseInt(args[1]) - 1;
         } catch (NumberFormatException e) {
             throw new ParserException("Invalid argument idx for delete command: " + args[1]);
         }
@@ -30,7 +30,7 @@ public class DeleteCommand extends Command {
     @Override
     public String getResponse(TaskList tasks) throws TaskListException {
         String response = "";
-        Task task = tasks.delete(this.idx);
+        Task task = tasks.delete(idx);
         response += "A task is deleted\n";
         response += task.toString() + "\n";
         return response;
