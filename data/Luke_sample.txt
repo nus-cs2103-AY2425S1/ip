@@ -1,4 +1,4 @@
-X | todo | read book
-X | deadline | return book /by 2/12/2020 15:00
-- | event | project meeting from Aug 6th 2pm to 4pm
-X | todo | join sports club
+- | todo | call yoda to book lightsaber training slots
+X | event | dinner with obi-wan from Monday 8pm to 9pm
+- | deadline | check in on padawans by Sep 20 2024, 18:00
+X | todo | execute order 66
