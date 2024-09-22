@@ -5,20 +5,21 @@
 ### Notes about the command format:
 - Words in ``UPPER_CASE`` are the parameters to be supplied by the user.
 
-  e.g. in add n/NAME, NAME is a parameter which can be used as add n/John Doe.
+  e.g. in todo TASK, TASK is a parameter which can be used as todo read book.
 
 ## Features
-- [Add Todos](https://github.com/Elinengu/ip/edit/master/docs/README.md#add-todos)
-- [Add Deadlines](https://github.com/Elinengu/ip/edit/master/docs/README.md#add-deadlines)
-- [Add Events](https://github.com/Elinengu/ip/edit/master/docs/README.md#add-events)
-- [List all](https://github.com/Elinengu/ip/edit/master/docs/README.md#list-all)
-- [Clear all](https://github.com/Elinengu/ip/edit/master/docs/README.md#clear-all)
-- [Mark task](https://github.com/Elinengu/ip/edit/master/docs/README.md#mark-task)
-- [Unmark task](https://github.com/Elinengu/ip/edit/master/docs/README.md#unmark-task)
-- [Delete task](https://github.com/Elinengu/ip/edit/master/docs/README.md#delete-task)
-- [Find task](https://github.com/Elinengu/ip/edit/master/docs/README.md#find-task)
-- [Call Elysia by her name](https://github.com/Elinengu/ip/edit/master/docs/README.md#elysia)
-- [Exit](https://github.com/Elinengu/ip/edit/master/docs/README.md#exit)
+- [Add Todos](https://elinengu.github.io/ip/#add-todos)
+- [Add Deadlines](https://elinengu.github.io/ip/#add-deadlines)
+- [Add Events](https://elinengu.github.io/ip/#add-events)
+- [List all](https://elinengu.github.io/ip/#list-all)
+- [Clear all](https://elinengu.github.io/ip/#clear-all)
+- [Mark task](https://elinengu.github.io/ip/#mark-task)
+- [Unmark task](https://elinengu.github.io/ip/#unmark-task)
+- [Delete task](https://elinengu.github.io/ip/#delete-task)
+- [Find task](https://elinengu.github.io/ip/#find-task)
+- [Call Elysia by her name](https://elinengu.github.io/ip/#elysia)
+- [Exit](https://elinengu.github.io/ip/#exit-1)
+
 ---
 ### Add Todos
 Adds a todo to the task list.
@@ -57,17 +58,11 @@ Shows a list of all tasks in the task list.
 
 Format: ``list``
 
-Examples:
-- list
-
 ---
 ### Clear all
 Clears all the tasks in the task list.
 
 Format: ``clear``
-
-Examples:
-- clear
 
 ---
 ### Mark task
@@ -112,8 +107,6 @@ Format: ``find TASK_DESCRIPTION``
 
 Examples:
 - ``find book`` displays all tasks containing the keyword "book" in the description.
-  
-Example: `keyword (optional arguments)`
 
 ---
 ### Elysia
