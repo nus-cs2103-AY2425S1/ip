@@ -68,7 +68,6 @@ public class Mittens {
      * @return A boolean indicating whether the program should exit
      */
     public boolean process(String input) {
-        CommandParser commandParser = new CommandParser();
         try {
             Command command = commandParser.parse(input);
             command.execute(this.taskList, this.ui, this.storage);
