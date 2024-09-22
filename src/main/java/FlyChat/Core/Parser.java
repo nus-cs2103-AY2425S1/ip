@@ -94,7 +94,7 @@ public class Parser {
     }
 
     public String[] getTagsFromFile(String inputString) {
-        String tagsString = inputString.replaceAll("^.*[|\\s*].*", "");
+        String tagsString = inputString.replaceAll("^.*\\{|\\s*\\}.*", "");
         String tagsArray[] = tagsString.split(" ");
         return tagsArray;
     }

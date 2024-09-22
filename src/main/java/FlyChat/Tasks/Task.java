@@ -74,6 +74,6 @@ public abstract class Task {
 
     @Override
     public String toString() {
-        return "[" + (done ? "X" : " ") + "] " + text + " /tags [" + String.join(" ", tags) + "]";
+        return "[" + (done ? "X" : " ") + "] " + text + " /tags {" + String.join(" ", tags) + "}";
     }
 }
