@@ -48,12 +48,15 @@ shadowJar {
     archiveClassifier = null
     archiveVersion = version
     mergeServiceFiles()
+    dependencies {
+        include(dependency("org.openjfx:.*"))
+    }
 }
 
 run {
     standardInput = System.in
     jvmArgs = [
-            '--module-path', "${System.getenv('PATH_TO_FX')}",
+            '--module-path', configurations.compileClasspath.asPath,
             '--add-modules', 'javafx.controls,javafx.fxml'
     ]
 }

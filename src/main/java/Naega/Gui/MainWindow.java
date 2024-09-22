@@ -26,8 +26,8 @@ public class MainWindow extends AnchorPane {
     private final TaskList taskList = new TaskList();
     private final Ui ui = new Ui();  // Add instance of Ui class
 
-    private final Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/IMG_6086.jpg")));
-    private final Image naegaImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/IMG_6087.jpg")));
+    private final Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/KorNaega.jpeg")));
+    private final Image naegaImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/TheNaega.jpeg")));
 
     @FXML
     public void initialize() {
