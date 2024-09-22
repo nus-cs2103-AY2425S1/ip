@@ -4,6 +4,30 @@
 ## introduction
 chatgptMoreOOP is a desktop chatbot app designed for task managing. With **simple but effective command on a clear interface** the user can do task management easily.
 
+## prerequiste
+Ensure you have Java 17 installed on your system. You can verify your Java version by running the following command in your terminal or command prompt:
+```angular2html
+java -version
+```
+should output
+```angular2html
+java version "17.0.x"
+```
+
+## Steps to Test
+1. download the jar file main.jar
+```angular2html
+https://github.com/lancehaha/ip/releases/tag/A-Release
+```
+2. open your terminal and go to the directory where you settle the jar file
++ ```angular2html
+  cd <the folder>
+  ```
+3. run the jar file with java17 and javafx components
++ ```angular2html
+  java -jar killjoy.jar
+  ```
+
 ## Features
 
 ### list
