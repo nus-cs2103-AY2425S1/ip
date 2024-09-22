@@ -18,6 +18,14 @@ public class Atlas implements ChatBot {
     }
 
     /**
+     * Generates a response for the user's chat message.
+     */
+    @Override
+    public String getResponse(String input) {
+        return "";
+    }
+
+    /**
      * <p>Starts the chatbot</p>
      */
     @Override
@@ -31,34 +39,34 @@ public class Atlas implements ChatBot {
             String[] inputParts = messageView.splitInput(input);
 
             switch (command) {
-            case Exit:
-                handleExit();
-                return;
-            case List:
-                handleList();
-                break;
-            case Mark:
-                handleMark(inputParts);
-                break;
-            case Unmark:
-                handleUnmark(inputParts);
-                break;
-            case Delete:
-                handleDelete(inputParts);
-                break;
-            case Find:
-                handleFind(inputParts);
-                break;
-            case ToDo:
-            case Event:
-            case Deadline:
-                handleAddTask(inputParts, command);
-                break;
-            case Unknown:
-                handleUnknown(inputParts);
-                break;
-            default:
-                messageView.send("this is the default enum");
+                case Exit:
+                    handleExit();
+                    return;
+                case List:
+                    handleList();
+                    break;
+                case Mark:
+                    handleMark(inputParts);
+                    break;
+                case Unmark:
+                    handleUnmark(inputParts);
+                    break;
+                case Delete:
+                    handleDelete(inputParts);
+                    break;
+                case Find:
+                    handleFind(inputParts);
+                    break;
+                case ToDo:
+                case Event:
+                case Deadline:
+                    handleAddTask(inputParts, command);
+                    break;
+                case Unknown:
+                    handleUnknown(inputParts);
+                    break;
+                default:
+                    messageView.send("this is the default enum");
             }
         }
     }
