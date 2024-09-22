@@ -23,8 +23,8 @@ public class MainWindow extends AnchorPane {
 
     private IpMan ipMan;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Elon.png"));
+    private Image ipManImage = new Image(this.getClass().getResourceAsStream("/images/IpMan.png"));
 
     /**
      * Initializes the main window.
@@ -33,7 +33,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(TextUi.getBanner(), dukeImage)
+                DialogBox.getDukeDialog(TextUi.getBanner(), ipManImage)
         );
     }
 
@@ -52,7 +52,7 @@ public class MainWindow extends AnchorPane {
         String response = ipMan.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(response, ipManImage)
         );
         userInput.clear();
     }
