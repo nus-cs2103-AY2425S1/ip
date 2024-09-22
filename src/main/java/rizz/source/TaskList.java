@@ -23,11 +23,39 @@ public class TaskList {
         this.tasks.add(task);
     }
 
-    public String deleteTask(int index) {
-        String str = this.getTask(index - 1).toString();
-        this.tasks.remove(index - 1);
-        return str;
+    public String deleteTask(int... index) {
+        TaskList deletedTasks = new TaskList();
+        for (int i = 0; i < index.length; i++) {
+            //cause 2nd item of list is Arr[1]
+            Task task = this.getTask(index[i] - 1);
+            this.tasks.remove(index[i] - 1);
+            deletedTasks.addTask(task);
+        }
+        return deletedTasks.toString();
     }
+
+    public String markTask(int... index) {
+        TaskList markTasks = new TaskList();
+        for (int i = 0; i < index.length; i++) {
+            //cause 2nd item of list is Arr[1]
+            Task task = this.getTask(index[i] - 1);
+            task.markAsDone();
+            markTasks.addTask(task);
+        }
+        return markTasks.toString();
+    }
+
+    public String unmarkTask(int... index) {
+        TaskList unmarkTasks = new TaskList();
+        for (int i = 0; i < index.length; i++) {
+            //cause 2nd item of list is Arr[1]
+            Task task = this.getTask(index[i] - 1);
+            task.unmarkAsDone();
+            unmarkTasks.addTask(task);
+        }
+        return unmarkTasks.toString();
+    }
+
 
     public int getLength() {
         return this.tasks.size();

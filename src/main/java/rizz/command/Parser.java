@@ -34,10 +34,9 @@ public class Parser {
         CommandType commandType;
 
         try {
-            // Convert the input string to a CommandType enum value
+            // convert input to CommandType enum value
             commandType = CommandType.valueOf(commandString);
         } catch (IllegalArgumentException e) {
-            // If the command doesn't match any enum value, return null
             return null;
         }
 
@@ -57,16 +56,35 @@ public class Parser {
             LocalDateTime by = LocalDateTime.parse(deadlineParts[1].trim());
             return new AddDeadlineCommand(deadlineParts[0].trim(), by);
         case MARK:
-            return new MarkCommand(Integer.parseInt(details));
+            return processMultipleTasks(details, commandType);
         case UNMARK:
-            return new UnmarkCommand(Integer.parseInt(details));
+            return processMultipleTasks(details, commandType);
         case DELETE:
-            return new DeleteCommand(Integer.parseInt(details));
+            return processMultipleTasks(details, commandType);
         case FIND:
             return new FindCommand(details);
         default:
             return null;
         }
     }
-    
+    private static Command processMultipleTasks(String details, CommandType commandType) {
+        // Split since they are space-separated
+        String[] indices = details.split(" ");
+
+        int[] index = new int[indices.length];
+        for (int i = 0; i < indices.length; i++) {
+            index[i] = Integer.parseInt(indices[i].trim());
+        }
+
+        switch (commandType) {
+        case MARK:
+            return new MarkCommand(index);
+        case UNMARK:
+            return new UnmarkCommand(index);
+        case DELETE:
+            return new DeleteCommand(index);
+        default:
+            return null;
+        }
+    }
 }
