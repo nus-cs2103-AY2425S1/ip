@@ -39,7 +39,7 @@ Follow these simple steps to set up the **John Cena** Todo List application:
 
 ## 🤖 Special Acknowledgment for GitHub Copilot
 
-Throughout the development of this project, GitHub Copilot was used extensively for code autofill and suggestions. This means that some segments of the code might be similar to other projects where Copilot was used.
+Throughout the development of this project, GitHub Copilot was used for code autofill and suggestions.
 
 For example:
 - The `Deadline` class was coded manually, but the `Event` class has similarities due to Copilot's autofill suggestions.
