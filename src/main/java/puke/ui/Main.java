@@ -1,6 +1,5 @@
 package puke.ui;
 
-import java.awt.*;
 import java.io.IOException;
 
 import javafx.application.Application;
