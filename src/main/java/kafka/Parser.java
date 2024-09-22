@@ -59,14 +59,37 @@ public class Parser {
         return output;
     }
 
+    /**
+     * Executes the "bye" command, which triggers the application to exit.
+     *
+     * @param ui The user interface object.
+     * @return A message indicating the application's exit.
+     */
     private static String executeByeCommand(Ui ui) {
         return ui.goodbye();
     }
 
+    /**
+     * Executes the "list" command, which displays all tasks in the task list.
+     *
+     * @param taskList The task list object.
+     * @param ui The user interface object.
+     * @return A string containing the list header and the formatted task list.
+     */
     private static String executeListCommand(TaskList taskList, Ui ui) {
         return ui.getList() + "\n" + taskList.printList();
     }
 
+    /**
+     * Executes the "mark" command, which marks a specified task as completed.
+     *
+     * @param arguments The task number to mark.
+     * @param taskList The task list object.
+     * @param storage The storage object for saving task data.
+     * @param ui The user interface object.
+     * @return A message indicating the task has been marked as completed.
+     * @throws IOException If there's an error writing to the storage.
+     */
     private static String executeMarkCommand(String arguments, TaskList taskList, Storage storage, Ui ui) throws IOException {
         int taskNumberMark = Integer.parseInt(arguments);
         Task taskToMark = taskList.tasks.get(taskNumberMark - 1);
@@ -75,6 +98,16 @@ public class Parser {
         return ui.mark(taskToMark);
     }
 
+    /**
+     * Executes the "unmark" command, which marks a specified task as incomplete.
+     *
+     * @param arguments The task number to unmark.
+     * @param taskList The task list object.
+     * @param storage The storage object for saving task data.
+     * @param ui The user interface object.
+     * @return A message indicating the task has been marked as incomplete.
+     * @throws IOException If there's an error writing to the storage.
+     */
     private static String executeUnmarkCommand(String arguments, TaskList taskList, Storage storage, Ui ui) throws IOException {
         int taskNumberUnmark = Integer.parseInt(arguments);
         Task taskToUnmark = taskList.tasks.get(taskNumberUnmark - 1);
@@ -83,6 +116,16 @@ public class Parser {
         return ui.unmark(taskToUnmark);
     }
 
+    /**
+     * Executes the "delete" command, which deletes a specified task from the task list.
+     *
+     * @param arguments The task number to delete.
+     * @param taskList The task list object.
+     * @param storage The storage object for saving task data.
+     * @param ui The user interface object.
+     * @return A message indicating the task has been deleted.
+     * @throws IOException If there's an error writing to the storage.
+     */
     private static String executeDeleteCommand(String arguments, TaskList taskList, Storage storage, Ui ui) throws IOException {
         if (taskList.tasks.isEmpty()) {
             return "";
@@ -94,6 +137,15 @@ public class Parser {
         return ui.delete(taskToDelete, taskList);
     }
 
+    /**
+     * Executes the "find" command, which searches for tasks containing a specified keyword.
+     *
+     * @param arguments The keyword to search for.
+     * @param taskList The task list object.
+     * @param ui The user interface object.
+     * @return A string containing the search results.
+     * @throws KafkaException If there's an error during the search.
+     */
     private static String executeFindCommand(String arguments, TaskList taskList, Ui ui) throws KafkaException {
         checkForEmptyArguments(arguments);
         TaskList temp = taskList.find(arguments.toLowerCase());
@@ -103,6 +155,17 @@ public class Parser {
         return ui.find() + "\n" + temp.printList();
     }
 
+    /**
+     * Executes the "todo" command, which creates a new todo task.
+     *
+     * @param arguments The description of the todo task.
+     * @param taskList The task list object.
+     * @param storage The storage object for saving task data.
+     * @param ui The user interface object.
+     * @return A message indicating the task has been added.
+     * @throws IOException If there's an error writing to the storage.
+     * @throws KafkaException If there's an error in the task creation process.
+     */
     private static String executeTodoCommand(String arguments, TaskList taskList, Storage storage, Ui ui) throws IOException, KafkaException {
         checkForEmptyArguments(arguments);
         Task todo = new Todo(arguments, false);
@@ -111,6 +174,17 @@ public class Parser {
         return ui.addTask(todo, taskList);
     }
 
+    /**
+     * Executes the "deadline" command, which creates a new deadline task with a specified deadline.
+     *
+     * @param arguments The description and deadline of the task (separated by "by").
+     * @param taskList The task list object.
+     * @param storage The storage object for saving task data.
+     * @param ui The user interface object.
+     * @return A message indicating the task has been added.
+     * @throws IOException If there's an error writing to the storage.
+     * @throws KafkaException If there's an error in the task creation process.
+     */
     private static String executeDeadlineCommand(String arguments, TaskList taskList, Storage storage, Ui ui) throws IOException, KafkaException {
         checkForEmptyArguments(arguments);
         String[] deadlineParts = arguments.split(BY_DELIMITER);
@@ -124,6 +198,17 @@ public class Parser {
         return ui.addTask(deadline, taskList);
     }
 
+    /**
+     * Executes the "event" command, which creates a new event task with specified start and end times.
+     *
+     * @param arguments The description, start time, and end time of the event (separated by "from" and "to").
+     * @param taskList The task list object.
+     * @param storage The storage object for saving task data.
+     * @param ui The user interface object.
+     * @return A message indicating the task has been added.
+     * @throws IOException If there's an error writing to the storage.
+     * @throws KafkaException If there's an error in the task creation process.
+     */
     private static String executeEventCommand(String arguments, TaskList taskList, Storage storage, Ui ui) throws IOException, KafkaException {
         checkForEmptyArguments(arguments);
         String[] eventParts = arguments.split(FROM_TO_DELIMITER);
@@ -138,6 +223,12 @@ public class Parser {
         return ui.addTask(event, taskList);
     }
 
+    /**
+     * Checks if the given arguments are empty.
+     *
+     * @param arguments The arguments to check.
+     * @throws KafkaException If the arguments are empty.
+     */
     private static void checkForEmptyArguments(String arguments) throws KafkaException {
         if (arguments.isEmpty()) {
             throw new KafkaException("It seems you've left the details blank. Even the simplest tasks need some direction, don't you think?");
