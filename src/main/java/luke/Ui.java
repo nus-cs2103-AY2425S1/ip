@@ -65,7 +65,7 @@ public class Ui {
                 return handleAddTask(command, isLoadingFromDisk);
             }
             }
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             return Constants.BAD_COMMAND;
         }
     }
