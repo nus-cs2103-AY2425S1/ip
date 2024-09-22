@@ -69,6 +69,9 @@ public class MainWindow extends AnchorPane {
         }
     }
 
+    /**
+     * Initializes the resizing property of DialogBox.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

@@ -27,7 +27,8 @@ public class HelpWindow extends AnchorPane {
     private final Image helperImage =
             new Image(this.getClass().getResourceAsStream("/images/helper.png"));
     private final DialogBox greeting = DialogBox.getNahDialog(
-            " Hello. This is Nah HelpBox. If you need more help on Nah command, type 'help'", helperImage);
+            " Hello. This is Nah HelpBox. If you need more help on Nah command, type 'help'."
+                   + " To exit this Help Window type 'exit'.", helperImage);
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -62,7 +63,7 @@ public class HelpWindow extends AnchorPane {
     }
 
     /**
-     * initializing method
+     * Initializes the resizing property of DialogBox.
      */
     @FXML
     public void initialize() {
