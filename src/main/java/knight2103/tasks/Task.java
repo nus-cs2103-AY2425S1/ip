@@ -12,10 +12,25 @@ public abstract class Task {
      * The task object by default has the completion status set as not done.
      *
      * @param description The description of the task.
+     * @throws IllegalArgumentException If the task description are all white space characters or empty
      */
-    Task(String description) {
+    Task(String description) throws IllegalArgumentException {
         this.description = description;
         this.isDone = false;
+
+        if (checkHasWhiteSpaceOnly(this.description) || this.description.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "Error: Task description must contain non-white space characters");
+        }
+    }
+
+    private boolean checkHasWhiteSpaceOnly(String string) {
+        for (int i = 0; i < string.length(); i++) {
+            if (string.charAt(i) != ' ') {
+                return false;
+            }
+        }
+        return true;
     }
 
     public String getDescription() {

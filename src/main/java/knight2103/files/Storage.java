@@ -209,6 +209,8 @@ public class Storage {
         } catch (DateTimeException e) {
             throw new InvalidFileContentsException(
                     "Start date&time of Event Task must be BEFORE end date&time");
+        } catch (IllegalArgumentException e) {
+            throw new InvalidFileContentsException(e.getMessage());
         }
         return taskToAdd;
     }

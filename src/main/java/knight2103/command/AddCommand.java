@@ -36,6 +36,7 @@ public class AddCommand extends Command {
      * yyyy-MM-dd format or the start and end time in EventTask instance is not written in
      * yyyy-MM-ddThh:mm format.
      * @throws DateTimeException If the start date and time of the event task is before the end date and time.
+     * @throws IllegalArgumentException If the task description are all white space characters or empty
      * @throws IOException If the FileWriter in saveToFile() function in Storage class cannot be instantiated.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) {
@@ -50,15 +51,16 @@ public class AddCommand extends Command {
 
         try {
             if (this.verb == CommandVerb.TODO) {
-                taskToAdd = new TodoTask(this.description);
+                taskToAdd = new TodoTask(this.description.trim());
             } else if (this.verb == CommandVerb.DEADLINE) {
                 String[] deadlineArray = this.description.split(DEADLINE_DELIMITER);
-                taskToAdd = new DeadlineTask(deadlineArray[TASK_DESCRIPTION_INDEX], deadlineArray[DEADLINE_INDEX]);
+                taskToAdd = new DeadlineTask(deadlineArray[TASK_DESCRIPTION_INDEX].trim(),
+                        deadlineArray[DEADLINE_INDEX].trim());
             } else { // CommandVerb.EVENT
                 String[] eventArray = this.description.split(EVENT_DELIMITER_1 + "|" + EVENT_DELIMITER_2);
-                taskToAdd = new EventTask(eventArray[TASK_DESCRIPTION_INDEX],
-                        eventArray[START_TIME_INDEX],
-                        eventArray[END_TIME_INDEX]);
+                taskToAdd = new EventTask(eventArray[TASK_DESCRIPTION_INDEX].trim(),
+                        eventArray[START_TIME_INDEX].trim(),
+                        eventArray[END_TIME_INDEX].trim());
             }
             tasks.add(taskToAdd);
             storage.saveToFile(taskToAdd);
@@ -73,6 +75,8 @@ public class AddCommand extends Command {
                     + "\nFor Deadline task, the format should be in yyyy-MM-dd"
                     + "\nFor Event task, the format should be in yyyy-MM-ddThh:mm";
         } catch (DateTimeException e) {
+            return e.getMessage();
+        } catch (IllegalArgumentException e) {
             return e.getMessage();
         } catch (IOException e) { // from saveToFile() in Storage class
             return "Failed to execute Command:\nProblems creating an instance of FileWriter";
