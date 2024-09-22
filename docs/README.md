@@ -5,7 +5,14 @@
 Welcome to **Sammy**! Sammy is a personal chatbot that helps you keep track of your daily tasks. You can add
 different types of tasks, mark them as done, or tag them for easy reference. Sammy can also help you manage deadlines 
 and events.
+---
+## Quick start
 
+1. Ensure you have Java 17 or above installed in your computer. You can install it from [here](https://www.oracle.com/java/technologies/downloads/#jdk17-windows)
+2. Download the latest `.jar` file from [here](https://github.com/zienxu/ip/releases)
+3. Copy the file to the folder you want to use as the *home folder* of your task list.
+4. Open a command terminal, `cd` into the folder you put the jar file in, and type `java -jar sammy.jar`  then press `enter` to run the application.
+5. Type your command in the text field at the bottom and press `Enter` or "Send" to execute it.
 ## Features
 
 ### Command Format
