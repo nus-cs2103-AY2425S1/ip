@@ -35,28 +35,30 @@ public class AddCommand extends Command {
      * @throws DateTimeParseException If the deadline in DeadlineTask instance is not written in
      * yyyy-MM-dd format or the start and end time in EventTask instance is not written in
      * yyyy-MM-ddThh:mm format.
-     * @throws IOException If the FileWriter in saveToFile() function in Storage class cannot be instantiated.
      * @throws DateTimeException If the start date and time of the event task is before the end date and time.
+     * @throws IOException If the FileWriter in saveToFile() function in Storage class cannot be instantiated.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task taskToAdd;
         final String DEADLINE_DELIMITER = " /by ";
         final String EVENT_DELIMITER_1 = " /from ";
         final String EVENT_DELIMITER_2 = " /to ";
-        final int DESCRIPTION_INDEX = 0;
+        final int TASK_DESCRIPTION_INDEX = 0;
         final int DEADLINE_INDEX = 1;
         final int START_TIME_INDEX = 1;
         final int END_TIME_INDEX = 2;
 
         try {
             if (this.verb == CommandVerb.TODO) {
-                taskToAdd = new TodoTask(this.predicate);
+                taskToAdd = new TodoTask(this.description);
             } else if (this.verb == CommandVerb.DEADLINE) {
-                String[] deadlineArray = this.predicate.split(DEADLINE_DELIMITER);
-                taskToAdd = new DeadlineTask(deadlineArray[DESCRIPTION_INDEX], deadlineArray[DEADLINE_INDEX]);
+                String[] deadlineArray = this.description.split(DEADLINE_DELIMITER);
+                taskToAdd = new DeadlineTask(deadlineArray[TASK_DESCRIPTION_INDEX], deadlineArray[DEADLINE_INDEX]);
             } else { // CommandVerb.EVENT
-                String[] eventArray = this.predicate.split(EVENT_DELIMITER_1 + "|" + EVENT_DELIMITER_2);
-                taskToAdd = new EventTask(eventArray[DESCRIPTION_INDEX], eventArray[START_TIME_INDEX], eventArray[END_TIME_INDEX]);
+                String[] eventArray = this.description.split(EVENT_DELIMITER_1 + "|" + EVENT_DELIMITER_2);
+                taskToAdd = new EventTask(eventArray[TASK_DESCRIPTION_INDEX],
+                        eventArray[START_TIME_INDEX],
+                        eventArray[END_TIME_INDEX]);
             }
             tasks.add(taskToAdd);
             storage.saveToFile(taskToAdd);
@@ -64,7 +66,8 @@ public class AddCommand extends Command {
         } catch (ArrayIndexOutOfBoundsException e) {
             return "Failed to execute Command:\nIncorrect Command input."
                     + String.format("\nFor Deadline " + "task,%sbefore deadline", DEADLINE_DELIMITER)
-                    + String.format("\nFor Event task," + "%sand%smust be present", EVENT_DELIMITER_1, EVENT_DELIMITER_2);
+                    + String.format("\nFor Event task," + "%sand%smust be present",
+                    EVENT_DELIMITER_1, EVENT_DELIMITER_2);
         } catch (DateTimeParseException e) {
             return "Failed to execute Command:\nInput of Date or time format is wrong."
                     + "\nFor Deadline task, the format should be in yyyy-MM-dd"

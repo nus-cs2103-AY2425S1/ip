@@ -9,11 +9,11 @@ import knight2103.tasks.TaskList;
  */
 public abstract class Command {
     protected final CommandVerb verb;
-    protected final String predicate;
+    protected final String description;
 
-    Command(CommandVerb verb, String predicate) {
+    Command(CommandVerb verb, String description) {
         this.verb = verb;
-        this.predicate = predicate;
+        this.description = description;
     }
 
     Command(CommandVerb verb) {

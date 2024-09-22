@@ -100,8 +100,8 @@ public class TaskList {
      *
      * @param compareLogic The Comparator class that contains the logic behind the sorting of Task objects.
      */
-    public void sort(Comparator<Task> compareLogic) { // hmm void or sort?
-        this.tasks.sort(compareLogic); // mmmm. What other exceptions will there be?
+    public void sort(Comparator<Task> compareLogic) {
+        this.tasks.sort(compareLogic);
     }
 
     /**

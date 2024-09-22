@@ -16,10 +16,10 @@ public class Pair<T, V> {
     }
 
     public T getFirstItem() {
-        return firstItem;
+        return this.firstItem;
     }
 
     public V getSecondItem() {
-        return secondItem;
+        return this.secondItem;
     }
 }

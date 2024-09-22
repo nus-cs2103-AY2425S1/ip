@@ -65,5 +65,10 @@ public abstract class Task {
                 this.isDone ? TASK_MARKED_LIST_STATUS : TASK_UNMARKED_LIST_STATUS, this.description);
     }
 
+    /**
+     * Returns the TaskType of the object.
+     *
+     * @return TaskType of the task object.
+     */
     public abstract TaskType showTaskType();
 }

@@ -19,7 +19,9 @@ public class Parser {
      * InvalidCommandException.
      */
     public static Command parse(String fullCommand) throws InvalidCommandException {
-        String[] commandArray = fullCommand.split(" ", 2);
+        final int NUMBER_OF_COMMAND_PARTS = 2;
+        String[] commandArray = fullCommand.split(" ", NUMBER_OF_COMMAND_PARTS);
+
         final String COMMAND_LIST_INPUT = "list";
         final String COMMAND_TODO_INPUT = "todo";
         final String COMMAND_DEADLINE_INPUT = "deadline";
@@ -31,24 +33,27 @@ public class Parser {
         final String COMMAND_SORT_INPUT = "sort";
         final String COMMAND_BYE_INPUT = "bye";
 
+        final int COMMAND_INDEX = 0;
+        final int DESCRIPTION_INDEX = 1;
+
         try {
-            switch (commandArray[0]) {
+            switch (commandArray[COMMAND_INDEX]) {
             case COMMAND_LIST_INPUT: // must be final
                 return new ListCommand();
             case COMMAND_TODO_INPUT:
-                return new AddCommand(CommandVerb.TODO, commandArray[1]);
+                return new AddCommand(CommandVerb.TODO, commandArray[DESCRIPTION_INDEX]);
             case COMMAND_DEADLINE_INPUT:
-                return new AddCommand(CommandVerb.DEADLINE, commandArray[1]);
+                return new AddCommand(CommandVerb.DEADLINE, commandArray[DESCRIPTION_INDEX]);
             case COMMAND_EVENT_INPUT:
-                return new AddCommand(CommandVerb.EVENT, commandArray[1]);
+                return new AddCommand(CommandVerb.EVENT, commandArray[DESCRIPTION_INDEX]);
             case COMMAND_MARK_INPUT:
-                return new ModifyCommand(CommandVerb.MARK, commandArray[1]);
+                return new ModifyCommand(CommandVerb.MARK, commandArray[DESCRIPTION_INDEX]);
             case COMMAND_UNMARK_INPUT:
-                return new ModifyCommand(CommandVerb.UNMARK, commandArray[1]);
+                return new ModifyCommand(CommandVerb.UNMARK, commandArray[DESCRIPTION_INDEX]);
             case COMMAND_DELETE_INPUT:
-                return new ModifyCommand(CommandVerb.DELETE, commandArray[1]);
+                return new ModifyCommand(CommandVerb.DELETE, commandArray[DESCRIPTION_INDEX]);
             case COMMAND_FIND_INPUT:
-                return new FindCommand(CommandVerb.FIND, commandArray[1]);
+                return new FindCommand(CommandVerb.FIND, commandArray[DESCRIPTION_INDEX]);
             case COMMAND_SORT_INPUT:
                 return new SortCommand();
             case COMMAND_BYE_INPUT:

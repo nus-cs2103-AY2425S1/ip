@@ -16,7 +16,11 @@ public class TodoTask extends Task {
         super(description);
     }
 
-    @Override
+    /**
+     * Returns the TaskType of the TodoTask object.
+     *
+     * @return TaskType of the TodoTask object.
+     */
     public TaskType showTaskType() {
         return TaskType.TODO;
     }

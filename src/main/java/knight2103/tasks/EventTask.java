@@ -1,7 +1,6 @@
 package knight2103.tasks;
 
 import java.time.DateTimeException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -40,7 +39,11 @@ public class EventTask extends Task {
         return this.startTime;
     }
 
-    @Override
+    /**
+     * Returns the TaskType of the EventTask object.
+     *
+     * @return TaskType of the EventTask object.
+     */
     public TaskType showTaskType() {
         return TaskType.EVENT;
     }

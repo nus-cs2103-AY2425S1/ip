@@ -28,7 +28,11 @@ public class DeadlineTask extends Task {
         return this.deadline;
     }
 
-    @Override
+    /**
+     * Returns the TaskType of the DeadlineTask object.
+     *
+     * @return TaskType of the DeadlineTask object.
+     */
     public TaskType showTaskType() {
         return TaskType.DEADLINE;
     }

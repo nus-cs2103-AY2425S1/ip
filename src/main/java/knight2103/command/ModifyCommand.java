@@ -33,7 +33,7 @@ public class ModifyCommand extends Command {
         try {
             Task taskAffected;
             String stringToReturn;
-            int taskIndex = Integer.parseInt(this.predicate) - 1;
+            int taskIndex = Integer.parseInt(this.description) - 1;
             if (this.verb == CommandVerb.MARK) {
                 taskAffected = tasks.mark(taskIndex);
                 stringToReturn = ui.showMark(taskAffected);

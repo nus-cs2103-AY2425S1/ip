@@ -9,8 +9,8 @@ import knight2103.tasks.TaskList;
  * and shows a list of matched task.
  */
 public class FindCommand extends Command {
-    FindCommand(CommandVerb verb, String search) {
-        super(verb, search); // verb must be CommandVerb.FIND
+    FindCommand(CommandVerb verb, String wordToSearch) {
+        super(verb, wordToSearch); // verb must be CommandVerb.FIND
     }
 
     /**
@@ -23,8 +23,8 @@ public class FindCommand extends Command {
      * @return The list of matched tasks in the bot's GUI after command execution.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        String wordToSearch = this.predicate;
-        TaskList filteredTasks = tasks.filter(task -> task.getDescription().contains(wordToSearch)) ;
+        String wordToSearch = this.description;
+        TaskList filteredTasks = tasks.filter(task -> task.getDescription().contains(wordToSearch));
         String matchedTaskListInString = filteredTasks.toString();
         return ui.showFind(matchedTaskListInString);
     }
