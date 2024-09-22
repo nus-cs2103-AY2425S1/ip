@@ -105,8 +105,7 @@ ___
 
 ### Mark a task: ```mark```
 
-Marks a specified task. Specify task number based on the numbering seen in
-```list```.
+Marks a specified task. Specify task number based on the numbering seen in ```list```.
 
 Format: ```mark [task_index]```
 
