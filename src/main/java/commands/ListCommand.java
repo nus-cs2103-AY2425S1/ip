@@ -20,8 +20,8 @@ public class ListCommand implements Command {
     @Override
     public String execute(Storage storage, TaskList master) {
         if (master.getSize() <= 0) {
-            return "Friday > No tasks in here! Try adding something!";
+            return "No tasks in here! Try adding something!";
         }
-        return "Friday > Here's everything!\n" + master;
+        return "Here's everything!\n" + master;
     }
 }

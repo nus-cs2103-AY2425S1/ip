@@ -29,12 +29,34 @@ public class InvalidCommand implements Command {
      */
     @Override
     public String execute(Storage storage, TaskList master) {
-        return switch (description) {
-        case "mark", "unmark" -> "Friday > Input the task number to mark/unmark the task";
-        case "add" -> "Friday > Try doing add <task name>";
-        case "remove" -> "Friday > Input the task number (1 - " + master.getSize() + ") to remove the task";
-        case "find" -> "Friday > Try doing find <keyword>";
-        default -> "Friday > Hmm...you can't do that. Try \"help\" for more options";
-        };
+        int s = master.getSize();
+        String response;
+        switch (description) {
+        case "mark":
+        case "unmark":
+            response = "Friday > Input the task number to mark/unmark the task";
+            break;
+        case "add":
+            response = "Friday > Try doing add <task name>";
+            break;
+        case "remove":
+            if (s == 0) {
+                response = "There are no tasks to remove!";
+            } else {
+                response = "Friday > Input the task number (1 - " + master.getSize() + ") to remove the task";
+            }
+            break;
+        case "find":
+            if (s == 0) {
+                response = "There are no tasks I can search from!";
+            } else {
+                response = "Friday > Try doing find <keyword>";
+            }
+            break;
+        default:
+            response = "Friday > Hmm...you can't do that. Try \"help\" for more options";
+            break;
+        }
+        return response;
     }
 }

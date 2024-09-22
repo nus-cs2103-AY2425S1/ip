@@ -36,7 +36,7 @@ public class RemoveCommand implements Command {
             response = master.removeTask(index - 1);
             storage.saveList(master.getTasks());
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            return new InvalidCommand(description).execute(storage, master);
+            return new InvalidCommand("remove").execute(storage, master);
         }
         return response;
     }

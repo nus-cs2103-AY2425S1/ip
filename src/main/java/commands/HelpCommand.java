@@ -20,13 +20,13 @@ public class HelpCommand implements Command {
     @Override
     public String execute(Storage storage, TaskList master) {
         return """
-                        Friday > Hello! I'm Friday! Your personal chatbot for ensuring you get things done by Friday ;)
+                        Hello! I'm Friday! Your personal chatbot for ensuring you get things done by Friday ;)
                         To create a new task, first choose a task type:
 
                         1. Todo - No end date
                         2. Deadline - Has end date
                         3. Event - Has start and end date
-                        
+
                         Then do either :
                         Todo - add <name>
                         Deadline - add <name> | <deadline date>

@@ -20,6 +20,6 @@ public class ExitCommand implements Command {
      */
     @Override
     public String execute(Storage storage, TaskList master) {
-        return "Friday > Type \"bye\" or \"Bye\" to exit";
+        return "Type \"bye\" or \"Bye\" to exit";
     }
 }

@@ -41,6 +41,8 @@ public class FindCommand implements Command {
         String prepend;
         if (!s.isEmpty()) {
             prepend = String.format("Friday > Here are the tasks containing \"%s\"!%n", this.description);
+        } else if (master.getSize() == 0) {
+            return new InvalidCommand("find").execute(storage, master);
         } else {
             return String.format("Friday > Sorry! There are no tasks containing \"%s\".%n", this.description);
         }

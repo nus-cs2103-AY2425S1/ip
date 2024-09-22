@@ -44,6 +44,9 @@ public class Parser {
             yield new InvalidCommand(parsed[0]);
         }
         case "add" -> {
+            if (parsed.length < 2) {
+                yield new InvalidCommand(parsed[0]);
+            }
             String[] details = parsed[1].split("\\|");
             for (int i = 0; i < details.length; i++) {
                 details[i] = details[i].trim();
@@ -53,13 +56,13 @@ public class Parser {
                 case 2 -> new AddCommand(details[0], details[1]);
                 case 3 -> new AddCommand(details[0], details[1], details[2]);
                 default -> new InvalidCommand(parsed[0]);
-            };
+                };
         }
         case "mark", "unmark" -> {
-        if (parsed.length > 1) {
-            yield new MarkCommand(parsed[0], parsed[1]);
-        }
-        yield new InvalidCommand(parsed[0]);
+            if (parsed.length > 1) {
+                yield new MarkCommand(parsed[0], parsed[1]);
+            }
+            yield new InvalidCommand(parsed[0]);
         }
         case "find" -> {
             if (parsed.length > 1 && !parsed[1].trim().isEmpty()) {

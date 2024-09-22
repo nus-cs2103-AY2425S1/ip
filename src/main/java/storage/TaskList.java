@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -38,20 +39,25 @@ public class TaskList {
     public String addTask(String[] task) {
         String response = "";
         if (isDuplicate(task[0])) {
-            response = "Warning! You already have a task named: " + task[0];
+            response = "Warning! You already have a task named: " + task[0] + "\n";
         }
         if (task.length == 1) {
             this.tasks.add(new Todo(task[0]));
-            return response + "\nOkay, I've added a todo: " + task[0];
+            return response + "Okay, I've added a todo: " + task[0];
         }
         try {
             if (task.length == 2) {
                 this.tasks.add(new Deadline(task[0], getDate(task[1])));
-                return response + "\nOkay, I've added a deadline: " + task[0];
+                return response + "Okay, I've added a deadline: " + task[0];
             }
             if (task.length == 3) {
-                this.tasks.add(new Event(task[0], getDate(task[1]), getDate(task[2])));
-                return response + "\nOkay, I've added an event: " + task[0];
+                LocalDate start = getDate(task[1]);
+                LocalDate end = getDate(task[2]);
+                if (start.isAfter(end)) {
+                    return "The start date is after the end date! Did you key in incorrectly?";
+                }
+                this.tasks.add(new Event(task[0], start, end));
+                return response + "Okay, I've added an event: " + task[0];
             }
         } catch (DateTimeParseException e) {
             return "Invalid date format! Please follow dd mm yyyy format! e.g 26 06 2002";

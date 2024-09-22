@@ -18,6 +18,6 @@ public class ByeCommand implements Command {
      */
     @Override
     public String execute(Storage storage, TaskList master) {
-        return "Friday > Bye! See you soon!";
+        return "Bye! See you soon!";
     }
 }
