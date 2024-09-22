@@ -1,7 +1,6 @@
-package rizz.source;
+package rizz.command;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import rizz.command.*; //Will change this later
 
 /**
  * The Parser class is responsible for interpreting user input and converting it into specific commands.
@@ -29,31 +28,41 @@ public class Parser {
      */
     public static Command parseCommand(String input) {
         String[] splitInput = input.split(" ", 2);
-        String command = splitInput[0];
+        String commandString= splitInput[0].toUpperCase(); // convert to enum later
         String details = splitInput.length > 1 ? splitInput[1] : null;
 
-        switch (command) {
-        case "bye":
+        CommandType commandType;
+
+        try {
+            // Convert the input string to a CommandType enum value
+            commandType = CommandType.valueOf(commandString);
+        } catch (IllegalArgumentException e) {
+            // If the command doesn't match any enum value, return null
+            return null;
+        }
+
+        switch (commandType) {
+        case BYE:
             return new ExitCommand();
-        case "list":
+        case LIST:
             return new ListCommand();
-        case "todo":
+        case TODO:
             return new AddToDoCommand(details);
-        case "event":
+        case EVENT:
             String[] eventParts = details.split("/from|/to");
             return new AddEventCommand(eventParts[0].trim(), LocalDateTime.parse(eventParts[1].trim()),
                     LocalTime.parse(eventParts[2].trim()));
-        case "deadline":
+        case DEADLINE:
             String[] deadlineParts = details.split("/by");
             LocalDateTime by = LocalDateTime.parse(deadlineParts[1].trim());
             return new AddDeadlineCommand(deadlineParts[0].trim(), by);
-        case "mark":
+        case MARK:
             return new MarkCommand(Integer.parseInt(details));
-        case "unmark":
+        case UNMARK:
             return new UnmarkCommand(Integer.parseInt(details));
-        case "delete":
+        case DELETE:
             return new DeleteCommand(Integer.parseInt(details));
-        case "find":
+        case FIND:
             return new FindCommand(details);
         default:
             return null;

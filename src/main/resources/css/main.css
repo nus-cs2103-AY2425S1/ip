@@ -1,0 +1,49 @@
+.root {
+    main-color: #f0f0f0;  /* Light gray background */
+    -fx-background-color: main-color;
+}
+
+.text-field {
+    -fx-background-color: #e6e6e6;  /* Light gray for the text field */
+    -fx-font: 16px "Arial";  /* Simplified font */
+    -fx-text-fill: #333;     /* Dark text */
+    -fx-background-radius: 5px; /* Soft rounded corners */
+    -fx-border-color: #ccc;  /* Light border */
+}
+
+.button {
+    -fx-background-color: #007bff; /* Subtle blue */
+    -fx-font: 14px "Arial";         /* Normal font */
+    -fx-text-fill: white;           /* White text */
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+}
+
+.button:hover {
+    -fx-background-color: #0056b3;  /* Darker blue on hover */
+}
+
+.button:pressed {
+    -fx-background-color: #004080;  /* Even darker blue when pressed */
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-background-color: transparent;  /* Keep scrollbar background transparent */
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #888;   /* Neutral gray for the thumb */
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}

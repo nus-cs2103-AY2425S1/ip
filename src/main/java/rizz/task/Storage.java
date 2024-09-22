@@ -1,4 +1,4 @@
-package rizz.source;
+package rizz.task;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -7,7 +7,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import rizz.task.*; // Will change later
+
+import rizz.source.TaskList;
 
 /**
  * Handles saving and loading tasks from a file.
@@ -17,7 +18,7 @@ import rizz.task.*; // Will change later
 public class Storage {
     private static final DateTimeFormatter readDateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final DateTimeFormatter readTimeFormatter = DateTimeFormatter.ofPattern("HHmm");
-    private Path dataFilePath;
+    private final Path dataFilePath;
     private final ArrayList<Task> taskList;
 
     /**
@@ -38,11 +39,11 @@ public class Storage {
      * @throws IOException If an I/O error occurs when writing to the file.
      */
     public void saveTasks(TaskList taskList) throws IOException {
-        String[] data = taskList.export();
         if (!Files.exists(dataFilePath)) {
             Files.createDirectories(dataFilePath.getParent());
             Files.createFile(dataFilePath);
         }
+        String[] data = taskList.export();
 
         StringBuilder builder = new StringBuilder();
         if (data.length > 0) {

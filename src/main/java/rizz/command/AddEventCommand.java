@@ -1,11 +1,9 @@
 package rizz.command;
 import rizz.source.TaskList;
-import rizz.source.Ui;
-import rizz.source.Storage;
 import rizz.task.Event;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.io.IOException;
+
 
 public class AddEventCommand extends Command {
     private final String description;
@@ -19,12 +17,12 @@ public class AddEventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        try {
-            tasks.addTask(new Event(description, from, to, false));
-            storage.saveTasks(tasks); 
-        } catch (IOException e) {
-            ui.showError("Unexpected error: " + e.getMessage());
+    public String execute(TaskList tasks) {
+        if (this.description == null || this.description.trim().isEmpty() || this.from == null || this.to == null) {
+            return "Event, from and by cannot be empty";
         }
+        Event newEvent = new Event(description, from, to, false);
+        tasks.addTask(newEvent);
+        return "Event added: " + newEvent.toString();
     }
 }

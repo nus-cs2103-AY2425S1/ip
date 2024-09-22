@@ -1,9 +1,6 @@
 package rizz.command;
 import rizz.source.TaskList;
-import rizz.source.Ui;
-import rizz.source.Storage;
 import rizz.task.Deadline;
-import java.io.IOException;
 import java.time.LocalDateTime;
 
 public class AddDeadlineCommand extends Command {
@@ -16,18 +13,13 @@ public class AddDeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks) {
         if (description == null || description.trim().isEmpty() || by == null) {
-            ui.invalidDeadlineCommand();
+            return "Description and by cannot be empty";
         }
-        try {
-            Deadline newDeadline = new Deadline(description, by, false);
-            tasks.addTask(newDeadline);
-            ui.addDeadline(newDeadline);
-            storage.saveTasks(tasks);
-        } catch (IOException e) {
-            ui.showError("Unexpected error: " + e.getMessage());
-        }
+        Deadline newDeadline = new Deadline(description, by, false);
+        tasks.addTask(newDeadline);
+        return "Deadline added: " + newDeadline.toString();
     }
 }
 
