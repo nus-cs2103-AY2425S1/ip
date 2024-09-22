@@ -78,7 +78,7 @@ Example: `Todo be a milionair`
 
 ### 2. Adding a Deadline
 
-To add a Deadline to the storage, use the following formar:
+To add a Deadline to the storage, use the following format:
 
 `Deadline 'Description' /by 'yyyy-mm-dd HHmm'`
 
@@ -114,7 +114,7 @@ To find matching tasks for some keywords, use the following format:
 `Find 'one or more key words'`
 
 * The search is case-insensitive. e.g `Oke` will match `oke`
-* Non-space word will be used to search. e.g `Oke eko` will be sperated to `Oke` and `eko` to search
+* Non-space word will be used to search. e.g `Oke eko` will be divided to `Oke` and `eko` to search
 * Only full words will be matched e.g. `Oke` will not match `Ok`
 
 Example:
@@ -130,7 +130,7 @@ Response:
 
 **:information_source: Note: space will be considered as nothing and the chatBot will just show you all the task list**<br>
 
-![Find sepcial case](find_command.png)
+![Find special case](find_command.png)
 
 </div>
 
@@ -248,7 +248,7 @@ And a helping window will show up after 1 second
 
 ![Screen shot of Nah chatBot window](helper.png)
 
-### 12. Exit the progeam
+### 12. Exit the program
 
 To exit the program, use the following command:
 
@@ -264,7 +264,7 @@ Try the command format start with `Hi`, `Hello`, `Oke`, `Yo` or `Nah` to explore
 ## FAQ
 
 **Q**: What if I type `Help` to the chatBot more than 2 times without closing the Help Window?<br>
-**A**: Only one HelpWindow is opened. Second `Help` command won't open second Help WIndow.
+**A**: Only one HelpWindow is opened. Second `Help` command won't open second Help Window.
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -276,18 +276,18 @@ Try the command format start with `Hi`, `Hello`, `Oke`, `Yo` or `Nah` to explore
 --------------------------------------------------------------------------------------------------------------------
 ## Command Summary
 
-| **Action**                         | **Format, Examples**                                                                                     |
-|------------------------------------|----------------------------------------------------------------------------------------------------------|
-| **Add To-do**                      | `Todo 'Description'`<br> e.g., `Todo Sleep`                                                              |
-| **Add Deadline**                   | `Deadline 'Description' /by 'yyyy-mm-dd HHmm'`<br> e.g., `Deadline IP /by 2024-09-20 1600`               |
-| **Add Event**                      | `Event 'Description' /from 'yyyy-mm-dd HHmm' /to 'yyyy-mm-dd HHmm'`<br> e.g., `Event dinner /from 2024-09-22 1900 /to 2024-09-22 2000` |
-| **Find Matching Tasks**            | `Find 'one or more key words'`<br> e.g., `Find dinner`                                                   |
-| **Find Tasks Before a Due Date**    | `Dueon 'yyyy-mm-dd HHmm'`<br> e.g., `Dueon 2024-10-10 2400`                                              |
-| **Mark Task as Done**              | `Mark 'ordinal number of the task'`<br> e.g., `Mark 2`                                                   |
-| **Unmark Task (Mark as Not Done)**  | `Unmark 'ordinal number of the task'`<br> e.g., `Unmark 2`                                               |
-| **Delete Task**                    | `Delete 'ordinal number of the task'`<br> e.g., `Delete 2`                                               |
-| **View All Tasks**                 | `List`                                                                                                   |
-| **Clean All Tasks**                | `Clean`                                                                                                  |
-| **Open Help Window**               | `Help`                                                                                                   |
-| **Exit Program**                   | `Bye`                                                                                                    |
-| **Special Interaction**            | `Hi`, `Hello`, `Oke`, `Yo`, `Nah`                                         |
+Action                        | Format, Examples                                                                                     |
+------------------------------------|------------------------------------------------------------------------------------------------------|
+**Add To-do**                      | `Todo 'Description'`<br> e.g., `Todo Sleep`                                                          |
+**Add Deadline**                   | `Deadline 'Description' /by 'yyyy-mm-dd HHmm'`<br> e.g., `Deadline IP /by 2024-09-20 1600`           |
+**Add Event**                      | `Event 'Description' /from 'yyyy-mm-dd HHmm' /to 'yyyy-mm-dd HHmm'`<br> e.g., `Event dinner /from 2024-09-22 1900 /to 2024-09-22 2000` |
+**Find Matching Tasks**            | `Find 'one or more key words'`<br> e.g., `Find dinner`                                               |
+**Find Tasks Before a Due Date**    | `Dueon 'yyyy-mm-dd HHmm'`<br> e.g., `Dueon 2024-10-10 2400`                                          |
+**Mark Task as Done**              | `Mark 'ordinal number of the task'`<br> e.g., `Mark 2`                                               |
+**Unmark Task (Mark as Not Done)**  | `Unmark 'ordinal number of the task'`<br> e.g., `Unmark 2`                                           |
+**Delete Task**                    | `Delete 'ordinal number of the task'`<br> e.g., `Delete 2`                                           |
+**View All Tasks**                 | `List`                                                                                               |
+**Clean All Tasks**                | `Clean`                                                                                              |
+**Open Help Window**               | `Help`                                                                                               |
+**Exit Program**                   | `Bye`                                                                                                |
+**Special Interaction**            | `Hi`, `Hello`, `Oke`, `Yo`, `Nah`                                         |
