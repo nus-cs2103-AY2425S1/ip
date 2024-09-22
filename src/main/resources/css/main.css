@@ -31,6 +31,7 @@
 
 .button:pressed {
     -fx-background-color:#1C3F60;
+    -fx-text-fill:#F3F6FA;
     -fx-font-size: 18px;
 }
 
