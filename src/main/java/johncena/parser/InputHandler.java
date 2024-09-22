@@ -13,6 +13,13 @@ public class InputHandler {
         this.tasks = tasks;
     }
 
+    /**
+     * Handles the user input and returns the corresponding command.
+     *
+     * @param input The user input.
+     * @return The command corresponding to the user input.
+     * @throws CenaException If the user input is invalid.
+     */
     public Command handleInput(String input) throws CenaException {
         assert input != null : "Input should not be null";
         try {
@@ -30,6 +37,8 @@ public class InputHandler {
                 return createDeadlineCommand(input);
             } else if (input.startsWith("event ")) {
                 return createEventCommand(input);
+            } else if (input.startsWith("after ")) {
+                return createAfterCommand(input);
             } else if (input.startsWith("delete ")) {
                 return createDeleteCommand(input);
             } else if (isGreeting(input)) {
@@ -92,6 +101,14 @@ public class InputHandler {
     private Command createFindCommand(String input) {
         String keyword = input.substring(5).trim();
         return new FindCommand(tasks, keyword);
+    }
+    
+    private Command createAfterCommand(String input) throws CenaInvalidAfterException {
+        String[] parts = input.substring(6).split(" /after ");
+        if (parts.length < 2) {
+            throw new CenaInvalidAfterException("Incorrect description for after task. It should contain /after.");
+        }
+        return new AfterCommand(tasks, parts[0], parts[1]);
     }
 
     private boolean isGreeting(String input) {

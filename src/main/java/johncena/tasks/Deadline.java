@@ -1,12 +1,11 @@
 package johncena.tasks;
 
-import johncena.exceptions.CenaInvalidDeadlineException;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import johncena.exceptions.CenaInvalidDeadlineException;
 
 /**
  * Represents a deadline task.
@@ -20,6 +19,8 @@ public class Deadline extends Task {
      *
      * @param description The description of the task.
      * @param by The deadline of the task.
+     *           The deadline should be in the format yyyy-MM-dd HHmm.
+     * @throws CenaInvalidDeadlineException if the deadline format is incorrect
      */
     public Deadline(String description, String by) throws CenaInvalidDeadlineException {
         super(description);

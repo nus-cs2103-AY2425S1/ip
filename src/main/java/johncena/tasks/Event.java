@@ -1,15 +1,15 @@
 package johncena.tasks;
 
-import johncena.exceptions.CenaInvalidEventException;
-
-import java.time.LocalDateTime;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import johncena.exceptions.CenaInvalidEventException;
+
 /**
  * Represents an event task.
- * An tasks.Event object corresponds to a task represented by a description, a start time, and an end time.
+ * A tasks.Event object corresponds to a task represented by a description, a start time, and an end time.
  */
 public class Event extends Task {
     protected LocalDateTime from;

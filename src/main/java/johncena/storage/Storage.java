@@ -8,10 +8,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import johncena.exceptions.CenaException;
+import johncena.tasks.After;
 import johncena.tasks.Deadline;
 import johncena.tasks.Event;
 import johncena.tasks.Task;
 import johncena.tasks.Todo;
+
 
 
 /**
@@ -99,6 +101,9 @@ public class Storage {
             String[] eventTimes = taskDescription[3].split(" ~ ");
             task = new Event(taskDescription[2], eventTimes[0], eventTimes[1]);
             break;
+        case "A":
+            task = new After(taskDescription[2], taskDescription[3]);
+            break;
         default:
             System.out.println("Unknown task type: " + taskType);
             break;
@@ -124,6 +129,9 @@ public class Storage {
         } else if (task instanceof Event event) {
             taskDescription = "E" + SEPARATOR + taskStatus + SEPARATOR + event.getDescription() + SEPARATOR
                     + event.getFrom() + " ~ " + event.getTo();
+        } else if (task instanceof After after) {
+            taskDescription = "A" + SEPARATOR + taskStatus + SEPARATOR + after.getDescription() + SEPARATOR
+                    + after.getAfter();
         }
 
         return taskDescription;
