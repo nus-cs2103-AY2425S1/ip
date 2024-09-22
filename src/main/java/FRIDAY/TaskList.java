@@ -74,9 +74,6 @@ public class TaskList {
         if (index >= taskList.size() || index < 0) {
             throw new FRIDAYException("Hey it appears that the task number you entered does not exist");
         }
-        if (taskList.isEmpty()) {
-            throw new FRIDAYException("Add some tasks to mark!");
-        }
         taskList.get(index).check();
     }
 
@@ -89,9 +86,6 @@ public class TaskList {
     public void unMarkTask(int index) throws FRIDAYException {
         if (index >= taskList.size() || index < 0) {
             throw new FRIDAYException("Hey it appears that the task number you entered does not exist");
-        }
-        if (taskList.isEmpty()) {
-            throw new FRIDAYException("Add some tasks to unmark!");
         }
         taskList.get(index).uncheck();
     }
