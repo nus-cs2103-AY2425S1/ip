@@ -20,16 +20,24 @@ public class ParserTest {
         tasks.add(new sinatra.ToDo("dance", false));
         ToDo testTask = new sinatra.ToDo("sing", false);
         Boolean output = true;
-        Parser parser = new sinatra.Parser();
-        parser.setTasks(tasks);
+        try {
+            parser = new sinatra.Parser();
+            parser.setTasks(tasks);
+        } catch (Exception e) {
+            System.out.println("Error in setting up parser");
+        }
         Boolean actual = parser.isTaskInTasksMemory(testTask);
         assertEquals(output, actual);
     }
 
     @BeforeEach
     public void setUp() {
-        parser = new Parser();
-        parser.deleteAllTasks();
+        try {
+            parser = new Parser();
+            parser.deleteAllTasks();
+        } catch (Exception e) {
+            System.out.println("Error in setting up parser");
+        }
     }
 
     @Test

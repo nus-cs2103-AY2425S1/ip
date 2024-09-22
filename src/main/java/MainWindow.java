@@ -35,6 +35,13 @@ public class MainWindow extends AnchorPane {
      */
     public void setSinatra(Sinatra s) {
         sinatra = s;
+        if (!s.isStorageLoadOk()) {
+            String helloMessage = "storage load failed, due to corrupted Tasks.txt, Storage file deleted";
+            dialogContainer.getChildren().add(
+                    DialogBox.getDukeDialog(helloMessage,
+                            new Image(this.getClass().getResourceAsStream("/images/Sinatra.png")))
+            );
+        }
     }
 
     /**

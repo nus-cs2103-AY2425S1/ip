@@ -13,7 +13,7 @@ import sinatra.Sinatra;
  */
 public class Main extends Application {
 
-    private Sinatra sinatra = new Sinatra();
+    private final Sinatra sinatra = new Sinatra();
 
     @Override
     public void start(Stage stage) {
@@ -22,6 +22,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Sinatra");
             MainWindow controller = fxmlLoader.getController();
             controller.setSinatra(sinatra); // inject the Sinatra instance
             controller.showHelloMessage(); // show the hello message

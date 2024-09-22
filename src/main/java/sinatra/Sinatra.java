@@ -7,7 +7,7 @@ package sinatra;
 public class Sinatra {
 
     private Ui ui;
-    private Parser parser;
+    private final Parser parser;
 
     /**
      * Constructs a new Sinatra object, initializes tasks, prints the introduction,
@@ -18,7 +18,6 @@ public class Sinatra {
         ui = new Ui();
         ui.cacheIntro();
         parser = new Parser();
-
     }
 
 
@@ -26,11 +25,15 @@ public class Sinatra {
      * handles querys from user to Sinatra
      *
      * @param input
-     * @return
+     * @return response
      */
     public String handleQuery(String input) {
         String response = parser.getResponse(input);
         return response;
+    }
+
+    public boolean isStorageLoadOk() {
+        return parser.isStorageLoadOk();
     }
 }
 

@@ -15,7 +15,7 @@ public class ToDoTest {
      */
     @Test
     public void newObjectFromDataTest() {
-        String input = "hi,true";
+        String input = "hi,True";
         ToDo output = sinatra.ToDo.newObjectFromData(input);
         ToDo actual = new sinatra.ToDo("hi", true);
         assertEquals(output.getContent(), actual.getContent());

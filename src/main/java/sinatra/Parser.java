@@ -66,6 +66,13 @@ public class Parser {
     }
 
     /**
+     * parser load ok
+     */
+    public boolean isStorageLoadOk() {
+        return storage.isStorageLoadOk();
+    }
+
+    /**
      * Starts the scanner to handle user inputs.
      */
     private void parserScanner() {

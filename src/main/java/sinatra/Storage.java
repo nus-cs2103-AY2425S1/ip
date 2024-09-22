@@ -13,6 +13,7 @@ import java.util.Scanner;
 public class Storage {
 
     private String fileName = "";
+    private boolean storageLoadStatus = true;
 
     /**
      * Constructs a new Storage instance with the specified file name.
@@ -54,6 +55,10 @@ public class Storage {
         return false;
     }
 
+    public boolean isStorageLoadOk() {
+        return storageLoadStatus;
+    }
+
     /**
      * Appends a line to the text file.
      *
@@ -84,7 +89,7 @@ public class Storage {
      *
      * @return a list of tasks loaded from the file
      */
-    public ArrayList<Task> loadTasksFromFile() {
+    public ArrayList<Task> loadTasksFromFile() throws IllegalArgumentException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
             File file = new File(this.fileName);
@@ -93,14 +98,25 @@ public class Storage {
                 String[] data = myReader.nextLine().split(":");
                 if (data.length == 0) {
                     break;
+                } else if (data.length == 1) {
+                    handleFileCorruption();
+                    return new ArrayList<>();
                 }
+
                 String className = data[0];
-                if (className.equals("Sinatra.ToDo")) {
-                    tasks.add(ToDo.newObjectFromData(data[1]));
-                } else if (className.equals("Sinatra.Event")) {
-                    tasks.add(Event.newObjectFromData(data[1]));
-                } else if (className.equals("Sinatra.Deadline")) {
-                    tasks.add(Deadline.newObjectFromData(data[1]));
+
+                try {
+                    if (className.equals("Sinatra.ToDo")) {
+                        tasks.add(ToDo.newObjectFromData(data[1]));
+                    } else if (className.equals("Sinatra.Event")) {
+                        tasks.add(Event.newObjectFromData(data[1]));
+                    } else if (className.equals("Sinatra.Deadline")) {
+                        tasks.add(Deadline.newObjectFromData(data[1]));
+                    }
+                } catch (IllegalArgumentException e) {
+                    System.out.println("error ");
+                    handleFileCorruption();
+                    return new ArrayList<>();
                 }
             }
             myReader.close();
@@ -113,8 +129,32 @@ public class Storage {
                 e1.printStackTrace();
             }
         }
+        System.out.println(tasks);
         return tasks;
     }
+
+    /**
+     * Delete all tasks from the file.
+     */
+    public void deleteAllTasks() {
+        try {
+            FileWriter file = new FileWriter(this.fileName);
+            file.write("");
+            file.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Clears the file corruption
+     */
+    public void handleFileCorruption() {
+        deleteAllTasks();
+        storageLoadStatus = false;
+    }
+
 
     /**
      * Deletes a line from the file.
@@ -165,3 +205,4 @@ public class Storage {
         }
     }
 }
+

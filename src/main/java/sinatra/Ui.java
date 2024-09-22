@@ -22,7 +22,7 @@ public class Ui {
     private static final String FIND_OUTPUT_START = "Here are the matching tasks in your list:";
     private static final String UNKNOWN_COMMAND_MESSAGE = "OOPS!!! I'm sorry, but I don't know what that means :-(";
     private static final String UNEXPECTED_ERROR_MESSAGE = "An unexpected error occurred: ";
-
+    private static final String FILE_LOAD_ERROR_MESSAGE = "An error occurred while loading the file.";
     private List<String> output;
 
     /**
@@ -37,6 +37,13 @@ public class Ui {
      */
     public void cacheIntro() {
         output.add(INTRO_MESSAGE);
+    }
+
+    /**
+     * Caches the file load error message.
+     */
+    public void cacheFileLoadError() {
+        output.add(FILE_LOAD_ERROR_MESSAGE);
     }
 
     /**
