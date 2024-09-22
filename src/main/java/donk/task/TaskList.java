@@ -81,4 +81,36 @@ public class TaskList {
                 .toList();
         return new TaskList(filteredList);
     }
+
+    /**
+     * sorts tasklist without mutating original
+     * @return new sorted tasklist
+     */
+    public TaskList sorted() {
+
+        List<Task> sortedList = this.tasks
+                .stream()
+                .sorted((Task t1, Task t2) -> t1.compareTo(t2))
+                .toList();
+        return new TaskList(sortedList);
+    }
+
+    /**
+     * return string representation of tasklist
+     * @return String list of tasks
+     */
+    @Override
+    public String toString() {
+        if (tasks.size() == 0) {
+            return "You've got not tasks yet bro. Add todo, deadline, or event tasks.";
+        }
+
+        String tasksString = "";
+
+        for (int i = 1; i <= tasks.size(); i++) {
+            tasksString += "\n" + i + ": " + this.getTask(i - 1).toString();
+        }
+
+        return tasksString;
+    }
 }

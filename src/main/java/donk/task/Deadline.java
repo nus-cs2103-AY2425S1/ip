@@ -44,9 +44,23 @@ public class Deadline extends Task {
      *         is the type of task, "isDone" is 1 if the task is completed, otherwise 0,
      *         "description" is the task description, and "dt" is the due date and time.
      */
+
+    public String getIsoDate() {
+        return this.dt.toString();
+    }
+
     @Override
     public String toFileSaveString() {
         return this.taskType + "|" + (this.isDone ? "1" : "0") + "|" + this.description + "|" + this.dt.toString();
+    }
+
+    @Override
+    public int compareTo(Task task) {
+        if (task.getTaskType() == "T") {
+            return 1;
+        } else {
+            return this.getIsoDate().compareTo(task.getIsoDate());
+        }
     }
 
 }

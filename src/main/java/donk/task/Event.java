@@ -74,6 +74,30 @@ public class Event extends Task {
     }
 
     /**
+     * get start date in ISO format
+     * @return ISO format start date string
+     */
+    @Override
+    public String getIsoDate() {
+        return this.startDt.toString();
+    }
+
+    /**
+     * compare task iso dates
+     * @param task
+     * @return int result of comparison
+     */
+    @Override
+    public int compareTo(Task task) {
+        if (task.getTaskType() == "T") {
+            return 1;
+        } else {
+            return this.getIsoDate().compareTo(task.getIsoDate());
+        }
+    }
+
+
+    /**
      * Returns a string representation of the Event object suitable for saving to a file.
      *
      * @return A string in the format "taskType|isDone|description|startDt|endDt", where "taskType"
