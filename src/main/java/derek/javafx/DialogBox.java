@@ -38,7 +38,9 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        speaker.getStyleClass().add("name");
         speaker.setText(speakerName);
+        dialog.setLineSpacing(2.0);
         dialog.setText(text);
         displayPicture.setImage(img);
     }
@@ -48,6 +50,8 @@ public class DialogBox extends HBox {
      */
     private void flipDialogBox() {
         setAlignment(Pos.TOP_LEFT);
+        dialog.getStyleClass().add("reply-label");
+        speaker.getStyleClass().add("reply-label");
     }
 
     private void flipInternalComponents() {
@@ -75,8 +79,6 @@ public class DialogBox extends HBox {
     public static DialogBox getDerekDialog(String text, Image img) {
         DialogBox db = new DialogBox("Derek", text, img);
         db.flipDialogBox();
-        HBox.setHgrow(db, Priority.ALWAYS);
-        db.setMaxWidth(Float.POSITIVE_INFINITY);
         return db;
     }
 

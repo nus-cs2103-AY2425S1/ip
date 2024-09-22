@@ -18,28 +18,38 @@
                        fitHeight="99.0"
                        fitWidth="99.0"
                        pickOnBounds="true"
-                       preserveRatio="true" />
+                       preserveRatio="true"/>
             <VBox spacing="10.0"
                   HBox.hgrow="ALWAYS"
                   VBox.vgrow="ALWAYS">
-                <Label fx:id="speaker" style="-fx-font-weight: bold;" text="Speaker">
-               <VBox.margin>
-                  <Insets left="7.0" right="7.0" />
-               </VBox.margin>
-               <padding>
-                  <Insets bottom="4.0" left="4.0" right="3.0" top="4.0" />
-               </padding></Label>
-                <Label fx:id="dialog" minHeight="-Infinity" text="Label" wrapText="true" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
-               <VBox.margin>
-                  <Insets left="7.0" right="7.0" />
-               </VBox.margin>
-               <padding>
-                  <Insets bottom="6.0" left="6.0" right="10.0" top="6.0" />
-               </padding></Label>
+                <Label fx:id="speaker"
+                       text="Speaker">
+                       <padding>
+                          <Insets bottom="4.0"
+                                  left="10.0"
+                                  right="10.0"
+                                  top="4.0" />
+                       </padding>
+                </Label>
+                <Label fx:id="dialog"
+                       minHeight="-Infinity"
+                       text="Label" wrapText="true"
+                       HBox.hgrow="ALWAYS"
+                       VBox.vgrow="ALWAYS" >
+                       <padding>
+                          <Insets bottom="7.0"
+                                  left="12.0"
+                                  right="12.0"
+                                  top="7.0" />
+                       </padding>
+                </Label>
             </VBox>
         </HBox>
     </children>
     <padding>
-        <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+        <Insets bottom="15.0"
+                left="5.0"
+                right="5.0"
+                top="15.0" />
     </padding>
 </fx:root>
