@@ -9,7 +9,8 @@ public class TaskListTest {
 
     private TaskList taskList;
     private Ui ui;
-
+    //ChatGPT helped with coming up with some of the tests. But it could not give correct inputs for some so
+    //had to tweak the code a bit
     @BeforeEach
     public void setUp() throws OptimusException {
         // Set up a TaskList with some tasks for testing
