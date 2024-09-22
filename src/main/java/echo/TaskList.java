@@ -157,15 +157,18 @@ public class TaskList {
      * @throws DateTimeParseException If the deadline format is invalid.
      */
     public Deadline addDeadline( String input) throws EchoException, DateTimeParseException {
-        String[] details = input.split(" /by ", 2);
-        if (details.length == 2) {
-            String[] des = details[0].split(" ", 2);
-            Deadline deadlineTask = new Deadline(details[0], details[1]);
-            this.tasks.add(deadlineTask);
-            return deadlineTask;
-        } else {
-            throw new EchoException("Please specify the task description and deadline.");
+        try {
+            String[] details = input.split(" /by ", 2);
+            if (details.length == 2) {
+                Deadline deadlineTask = new Deadline(details[0], details[1]);
+                this.tasks.add(deadlineTask);
+                return deadlineTask;
+            } else {
+                throw new EchoException("Please specify the task description and deadline.");
 
+            }
+        } catch (DateTimeParseException e) {
+            throw new EchoException("Enter date in YYYY-MM-DD format");
         }
     }
 
@@ -185,10 +188,8 @@ public class TaskList {
             Events eventTask = new Events(eventDes, times[0], times[1]);
             this.tasks.add(eventTask);
             return eventTask;
-        } catch (EchoException e) {
-            throw new RuntimeException(e);
-        } catch (DateTimeParseException e) {
-            throw new EchoException("Enter in YYYY-MM-DD format");
+        }  catch (DateTimeParseException e) {
+            throw new EchoException("Enter date in YYYY-MM-DD format");
         }
 
     }

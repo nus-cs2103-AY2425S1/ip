@@ -24,6 +24,7 @@ public class Main extends Application {
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setEcho(echo);  // inject the Duke instance
             stage.show();
+            stage.setTitle("Echo");
         } catch (IOException e) {
             e.printStackTrace();
         }
