@@ -30,7 +30,7 @@ public class Storage {
      * @throws FileNotFoundException If the file is not found at the specified path.
      * @return An ArrayList containing loaded tasks.
      */
-    public ArrayList<Task> load() throws FileNotFoundException, IOException {
+    public ArrayList<Task> load() throws IOException {
         this.getNewFile(filePath);
         ArrayList<Task> tasks = new ArrayList<>();
         this.printFileContents(tasks);
@@ -97,7 +97,7 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
+            throw new IOException("Something went wrong: " + e.getMessage());
         }
     }
 
