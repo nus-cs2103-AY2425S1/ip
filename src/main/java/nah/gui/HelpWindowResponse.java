@@ -52,7 +52,7 @@ public class HelpWindowResponse {
 
         switch (s.toLowerCase()) {
         case "exit": {
-            return "exit";
+            return "Closing Help Window";
         }
         case "bye": {
             return BYE_RESPONSE;

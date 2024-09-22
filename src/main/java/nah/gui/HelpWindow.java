@@ -2,6 +2,7 @@ package nah.gui;
 
 import java.io.IOException;
 
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import nah.Main;
 
 /**
@@ -88,8 +90,10 @@ public class HelpWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = HelpWindowResponse.responseTo(input);
-        if (response.equals("exit")) {
-            this.stage.close();
+        if (input.toLowerCase().trim().equals("exit")) {
+            PauseTransition pause = new PauseTransition(Duration.seconds(1));
+            pause.setOnFinished(event -> this.stage.close());
+            pause.play();
         }
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
