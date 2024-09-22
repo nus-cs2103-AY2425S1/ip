@@ -35,7 +35,7 @@ public class MainWindow extends AnchorPane {
         meow = d;
         dialogContainer.getChildren().add(
                 DialogBox.getDukeDialog(meow.getWelcomeMessage(), meowImage)
-        );
+        );     
     }
 
     /**
