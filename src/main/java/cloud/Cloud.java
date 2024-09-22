@@ -74,6 +74,8 @@ public class Cloud {
             return parseInput(userInput);
         } catch (DateFormatException e) {
             return new CloudResponse(e.getMessage(), ResponseStatus.DATE_ERROR);
+        } catch (IndexOutOfBoundsException e) {
+            return new CloudResponse("The task index provided is invalid", ResponseStatus.INPUT_ERROR);
         } catch (CloudException e) {
             return new CloudResponse(e.getMessage(), ResponseStatus.INPUT_ERROR);
         }
