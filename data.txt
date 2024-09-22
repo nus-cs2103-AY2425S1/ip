@@ -1,0 +1,6 @@
+T | X | Meet Leroy for lunch |  
+E |   | CS2100 Final | Nov 28 2024, 17:00 - Nov 28 2024, 19:00 
+D |   | CS2103T IP | Sep 20 2024, 23:59 
+T |   | 1 |  
+E |   | eatbread/f | Oct 9 2024, 02:46 - Oct 10 2024, 12:00 
+E |   | eatbread/from | Oct 9 2024, 12:00 - Oct 10 2024, 12:00 

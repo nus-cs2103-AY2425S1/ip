@@ -1,0 +1,4 @@
+Sep 19, 2024 2:33:32 PM sigma.Sigma <init>
+INFO: Initializing Sigma
+Sep 19, 2024 2:33:32 PM sigma.gui.Main start
+INFO: Stage has been set.
