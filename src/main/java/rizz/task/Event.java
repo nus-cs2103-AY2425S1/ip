@@ -11,10 +11,10 @@ import java.time.LocalTime;
 public class Event extends Task {
     private final LocalDateTime from;
     private final LocalTime to;
-    private DateTimeFormatter writeDateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
-    private DateTimeFormatter readDateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-    private DateTimeFormatter writeTimeFormatter = DateTimeFormatter.ofPattern("HHmm");
-    private DateTimeFormatter readTimeFormatter = DateTimeFormatter.ofPattern("HHmm");
+    private final DateTimeFormatter writeDateTimeFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
+    private final DateTimeFormatter readDateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private final DateTimeFormatter writeTimeFormatter = DateTimeFormatter.ofPattern("HHmm");
+    private final DateTimeFormatter readTimeFormatter = DateTimeFormatter.ofPattern("HHmm");
 
     /**
      * Constructs a new Event task.
@@ -32,7 +32,7 @@ public class Event extends Task {
 
     /**
      * Exports the Event task as a formatted string for saving.
-     * The format will be: "E | <isDone> | <text> | <from> <to>"
+     * The format will be: "E | (isDone) | (text) | (from) (to)"
      *
      * @return The string representation of the Event task for file storage.
      */
@@ -44,7 +44,7 @@ public class Event extends Task {
 
     /**
      * Returns a string representation of the Event task.
-     * The format will be: "[E][X] <text> (at: <from>-<to>)"
+     * The format will be: "[E][X] (text) (at: (from)-(to))"
      * where [X] indicates the task is done, and [ ] indicates it is not done.
      *
      * @return The string representation of the Event task.

@@ -36,56 +36,6 @@ public class TaskList {
         return task;
     }
 
-    public String deleteTask(int... index) {
-        TaskList deletedTasks = new TaskList();
-        for (int i = 0; i < index.length; i++) {
-            assert index[i] > 0 && index[i] <= this.getLength() : "Index out of bounds";
-            //cause 2nd item of list is Arr[1]
-            Task tempTask = this.getTask(index[i] - 1);
-
-            this.tasks.remove(index[i] - 1);
-            deletedTasks.addTask(tempTask);
-        }
-        return deletedTasks.toString();
-    }
-
-    public String markTask(int... index) {
-        TaskList markedTasks = new TaskList();
-        for (int i = 0; i < index.length; i++) {
-            assert index[i] > 0 && index[i] <= this.getLength() : "Index out of bounds";
-            //cause 2nd item of list is Arr[1]
-            Task tempTask = this.getTask(index[i] - 1);
-
-            tempTask.markAsDone();
-            markedTasks.addTask(tempTask);
-        }
-        return markedTasks.toString();
-    }
-
-    public String unmarkTask(int... index) {
-        TaskList unmarkTasks = new TaskList();
-        for (int i = 0; i < index.length; i++) {
-            assert index[i] > 0 && index[i] <= this.getLength() : "Index out of bounds";
-            //cause 2nd item of list is Arr[1]
-            Task tempTask = this.getTask(index[i] - 1);
-
-            tempTask.unmarkAsDone();
-            unmarkTasks.addTask(tempTask);
-        }
-        return unmarkTasks.toString();
-    }
-
-    public TaskList findByKeyword(String keyword) {
-        TaskList matchingTasks = new TaskList();
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
-            if (task.getText().contains(keyword)) {
-                matchingTasks.addTask(task);
-            }
-        }
-        return matchingTasks;
-    }
-
     public String deleteTask(int... indexes) {
         /*Must use List =/ ArrayList as List is stateless Arraylist.remove removes the element at index -> Stream API
         cannot handle side effects! */

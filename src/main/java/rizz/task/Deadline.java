@@ -8,8 +8,8 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
     private final LocalDateTime by;
-    private DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-    private DateTimeFormatter readFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+    private final DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+    private final DateTimeFormatter readFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     /**
      * Constructs a new Deadline task.
@@ -25,8 +25,8 @@ public class Deadline extends Task {
 
     /**
      * Exports the Deadline task as a formatted string for saving.
-     * The format will be: "D | <isDone> | <text> | <by>"
-     * where <by> is the deadline formatted as "yyyy-MM-dd HHmm".
+     * The format will be: "D | (isDone) | (text) | (by)"
+     * where (by) is the deadline formatted as "yyyy-MM-dd HHmm".
      *
      * @return The string representation of the Deadline task for file storage.
      */
@@ -37,8 +37,8 @@ public class Deadline extends Task {
 
     /**
      * Returns a string representation of the Deadline task.
-     * The format will be: "[D][<status>] <text> (by: <by>)"
-     * where <status> is either "X" for done or " " for not done, and <by> is the deadline formatted as "MMM dd yyyy".
+     * The format will be: "[D][(status)] (text) (by: (by))"
+     * where (status) is either "X" for done or " " for not done, and (by) is the deadline formatted as "MMM dd yyyy".
      *
      * @return The string representation of the Deadline task.
      */
