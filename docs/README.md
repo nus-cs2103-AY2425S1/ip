@@ -3,7 +3,8 @@
 Welcome to Friday, your personal task management assistant! This chatbot helps you stay organized by keeping track of your tasks, deadlines and events.
 
 
-<img width="398" alt="Ui" src="https://github.com/user-attachments/assets/6c185134-3bc7-4548-8cd0-fcbff9b43a53">
+<img width="398" alt="Ui" src="https://github.com/user-attachments/assets/9844030b-1075-45ce-a993-3f9fb4c8a989">
+
 
 
 ## Adding To-Do Tasks
@@ -66,7 +67,6 @@ Now you have N tasks in the list.
 | `unmark`      | Marks a task as not done.                    | `unmark 1`                                                        |
 | `delete`      | Deletes a task from the list.                | `delete 2`                                                        |
 | `find`        | Finds tasks by keyword(s).                   | `find book`                                                       |
-| `clear`       | Clears all tasks.                            | `clear`                                                           |
-| `help`        | Shows a help message.                        | `help`                                                            |
-| `exit`        | Exits the chatbot.                           | `exit`                                                            |
+| `view`        | Lists all [D] tasks scheduled on a date.     | `view 2024-01-23`                                                 |
+| `bye`         | Exits the chatbot.                           | `bye`                                                             |
 
