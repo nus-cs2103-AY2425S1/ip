@@ -1,2 +1,3 @@
-[T][ ] x
-[T][ ] y
+[T][X] todo
+[D][ ] deadline (by: Sep 22 2024, 03:00 PM)
+[E][ ] event (from: Sep 22 2024, 03:00 PM to: Sep 22 2024, 04:00 PM)

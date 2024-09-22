@@ -8,12 +8,14 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import tomo.ToMo;
 /**
  * A GUI for Duke using FXML.
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke();
+    private static String DEFAULT_FILE = "./data/ToMo.txt";
+    private ToMo tomo = new ToMo(DEFAULT_FILE);
 
     @Override
     public void start(Stage stage) {
@@ -22,7 +24,8 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setToMo(tomo);
+            stage.setOnCloseRequest(event -> fxmlLoader.<MainWindow>getController().close());
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

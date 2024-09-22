@@ -25,9 +25,9 @@ public class FindCommand extends Command {
     public String getResponse(TaskList tasks) {
         TaskList filteredTasks = tasks.find(this.pattern);
         if (filteredTasks.isEmpty()) {
-            return "You have no task that contains pattern " + pattern + "\n";
+            return "You have no task that contains the pattern \"" + pattern + "\"\n";
         } else {
-            String response = "You have " + tasks.size() + " tasks that contains pattern " + pattern + " as follow:\n";
+            String response = "You have " + tasks.size() + " tasks that contains the pattern \"" + pattern + "\" as follow:\n";
             for (int i = 0; i < filteredTasks.size(); ++i) {
                 response += (i + 1) + ". " + filteredTasks.get(i) + "\n";
             }
