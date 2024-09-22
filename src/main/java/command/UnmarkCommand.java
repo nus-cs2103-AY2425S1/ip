@@ -1,7 +1,9 @@
 package command;
 
+import exception.WrongIndexException;
 import main.Storage;
 import main.TaskList;
+import main.Ui;
 
 /**
  * Represents a command to unmark a task in the TaskList.
@@ -29,6 +31,10 @@ public class UnmarkCommand extends Command {
     public String execute(TaskList tasks, Storage storage) {
         String[] parts = this.input.split(" ", 2);
         int unmarkNum = Integer.parseInt(parts[1]);
-        return storage.unmarkTask(unmarkNum, tasks);
+        try {
+            return storage.unmarkTask(unmarkNum, tasks);
+        } catch (WrongIndexException e) {
+            return Ui.showError(e.getMessage());
+        }
     }
 }

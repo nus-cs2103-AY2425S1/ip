@@ -1,5 +1,6 @@
 package command;
 
+import exception.WrongIndexException;
 import main.Storage;
 import main.TaskList;
 import main.Ui;
@@ -31,12 +32,13 @@ public class MarkCommand extends Command {
         if (parts.length < 2) {
             return Ui.showMissingMarkIndex;
         }
-
         try {
             int markNum = Integer.parseInt(parts[1]);
             return storage.markTask(markNum, tasks);
         } catch (NumberFormatException e) {
             return Ui.showNumberFormatExceptionMessage;
+        } catch (WrongIndexException e) {
+            return Ui.showError(e.getMessage());
         }
     }
 }
