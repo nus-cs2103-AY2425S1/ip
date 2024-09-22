@@ -15,6 +15,11 @@ public class DeadlineCommand extends Command {
     private final DateTime dueDate;
 
 
+    /**
+     * Constructs a deadline command.
+     * @param description The description of the deadline task
+     * @param dueDate The due date of the deadline task
+     */
     public DeadlineCommand(String description, DateTime dueDate) {
         this.description = description;
         this.dueDate = dueDate;

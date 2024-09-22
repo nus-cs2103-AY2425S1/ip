@@ -4,6 +4,10 @@ import cloud.util.Storage;
 import cloud.util.TaskList;
 import cloud.util.Ui;
 
+
+/**
+ * Represents an executable user command.
+ */
 public abstract class Command {
     /**
      * Executes a command requested by the user, and returns the response to be displayed.

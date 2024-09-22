@@ -59,7 +59,7 @@ public class Parser {
         case "help":
             return parseHelp(body);
         default:
-            throw new UnrecognisedCommandException("Unrecognised command");
+            throw new UnrecognisedCommandException();
         }
     }
 

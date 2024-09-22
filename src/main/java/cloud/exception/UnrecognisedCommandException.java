@@ -9,6 +9,6 @@ public class UnrecognisedCommandException extends CloudException {
     }
 
     public UnrecognisedCommandException() {
-        super("Sorry I did not understand that. Type 'help' to see the list of available commands.");
+        super("Sorry I did not understand that. Enter \"help <your command>\" to view details.");
     }
 }

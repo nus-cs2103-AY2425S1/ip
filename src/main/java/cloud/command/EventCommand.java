@@ -15,6 +15,13 @@ public class EventCommand extends Command {
     private final DateTime startDate;
     private final DateTime endDate;
 
+    /**
+     * Constructs an Event command object.
+     *
+     * @param description The description of the event
+     * @param startDate   The start date and time of the event
+     * @param endDate     The end date and time of the event
+     */
     public EventCommand(String description, DateTime startDate, DateTime endDate) {
         this.description = description;
         this.startDate = startDate;
