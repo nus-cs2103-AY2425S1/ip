@@ -19,6 +19,8 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
+            stage.setMinHeight(220);
+            stage.setMinWidth(417);
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
@@ -27,6 +29,10 @@ public class Main extends Application {
             fxmlLoader.<MainWindow>getController().setScrewllum(screwllum); // Inject the Screwllum instance
             fxmlLoader.<MainWindow>getController().showWelcome();
             stage.show();
+            stage.setOnCloseRequest(e -> {
+                e.consume();
+                fxmlLoader.<MainWindow>getController().exit();
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }

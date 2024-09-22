@@ -1,10 +1,9 @@
-# screwllum.screwllum User Guide
+# Screwllum User Guide
 
 // Update the title above to match the actual product name
 
-// Product screenshot goes here
-
-// Product intro goes here
+![screenshot](Ui.png "Logo Title Text 1")
+Screwllum is a HSR-themed task management application that helps users keep track of their tasks, deadlines, and events. It supports adding, listing, marking, unmarking, deleting tasks, and undoing/redoing actions.
 
 ## Adding deadlines
 

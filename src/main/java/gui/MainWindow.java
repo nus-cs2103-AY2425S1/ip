@@ -1,5 +1,7 @@
 package gui;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import screwllum.Screwllum;
 
 /**
@@ -44,6 +47,19 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().addAll(
                 DialogBox.getScrewllumDialog(screwllum.showWelcome(), screwllumImage)
         );
+    }
+
+    /**
+     * Displays an exit message when user closes the app via the close button instead of the bye command.
+     */
+    public void exit() {
+        String response = "I see you have closed the app. Your tasks have been saved, have a good day.";
+        dialogContainer.getChildren().addAll(
+                DialogBox.getScrewllumDialog(response, screwllumImage)
+        );
+        PauseTransition delay = new PauseTransition(Duration.seconds(2));
+        delay.setOnFinished(event -> Platform.exit());
+        delay.play();
     }
 
     /**
