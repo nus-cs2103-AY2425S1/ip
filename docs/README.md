@@ -1,4 +1,4 @@
-![Luke Skywalker](../src/main/resources/images/skywalker.png)
+![Luke Skywalker](skywalker.png)
 
 # hey, i'm luke, your glorified task manager :)
 
