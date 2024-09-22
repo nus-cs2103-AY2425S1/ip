@@ -17,7 +17,7 @@ Just let Puke handle your task management while you manage the fun. And remember
 ### Quick Start
 
 1. **Ensure Java 17 or higher is installed on your computer.**
-2. **Download the latest .jar file from [here](https://example.com/latest).**
+2. **Download the latest .jar file from [here](https://github.com/iamdiluxedbutcooler/ip/releases/tag/A-Release).**
 3. **Place the file in your desired location.**
 4. **Open a terminal, navigate to the folder containing the .jar file, and run:**
 
