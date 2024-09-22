@@ -62,7 +62,13 @@ public class Storage {
      *     is thrown.
      */
     public void writeToFile(String filePath, TaskList tasks) throws IOException {
-        FileWriter fw = new FileWriter(filePath);
+        File file = new File(filePath);
+        File parentDir = file.getParentFile(); // Get the parent directory
+
+        if (parentDir != null && !parentDir.exists()) {
+            parentDir.mkdirs(); // Create the directory if it doesn't exist
+        }
+        FileWriter fw = new FileWriter(file);
         for (Task task : tasks.getTaskList()) {
             fw.write(task.getWriteFormat() + "\n");
         }
