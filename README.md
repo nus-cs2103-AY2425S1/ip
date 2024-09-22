@@ -24,3 +24,25 @@ Follow these simple steps to set up the **John Cena** Todo List application:
     ```
 
 ---
+
+## 📚 Acknowledgements
+
+- **Java**: The primary programming language used for this project.
+- **IntelliJ IDEA**: The IDE used for development.
+- **GitHub**: For hosting the project repository.
+- **OpenAI**: For providing AI assistance.
+- **JavaFX**: For the GUI framework.
+- **JUnit 5**: For testing the application.
+- **Gradle**: For building the project.
+- **Github Copilot**: For generating code snippets and javadoc comments.
+
+
+## 🤖 Special Acknowledgment for GitHub Copilot
+
+Throughout the development of this project, GitHub Copilot was used extensively for code autofill and suggestions. This means that some segments of the code might be similar to other projects where Copilot was used.
+
+For example:
+- The `Deadline` class was coded manually, but the `Event` class has similarities due to Copilot's autofill suggestions.
+- Many command classes, such as `TodoCommand`, `DeadlineCommand`, and `EventCommand`, were generated with significant help from Copilot.
+
+This extensive use of AI assistance has helped streamline the development process, but it also means that large segments of the code are AI-generated and might resemble code from other projects.
