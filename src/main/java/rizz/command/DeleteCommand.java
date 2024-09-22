@@ -2,7 +2,7 @@ package rizz.command;
 import rizz.source.TaskList;
 
 
-public class DeleteCommand extends Command {
+public class DeleteCommand extends SaveableCommand {
     private final int[] taskIndex;
 
     public DeleteCommand(int... taskIndex) {

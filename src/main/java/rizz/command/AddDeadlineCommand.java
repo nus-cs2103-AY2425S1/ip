@@ -3,7 +3,7 @@ import rizz.source.TaskList;
 import rizz.task.Deadline;
 import java.time.LocalDateTime;
 
-public class AddDeadlineCommand extends Command {
+public class AddDeadlineCommand extends SaveableCommand {
     private final String description;
     private final LocalDateTime deadlineTimeBy;
 

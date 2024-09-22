@@ -30,6 +30,11 @@ public class Event extends Task {
         this.to = to;
     }
 
+    @Override
+    public Task cloneCopy() {
+        return new Event(this.text, this.from, this.to, this.isDone);
+    }
+
     /**
      * Exports the Event task as a formatted string for saving.
      * The format will be: "E | (isDone) | (text) | (from) (to)"

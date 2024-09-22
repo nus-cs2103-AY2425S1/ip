@@ -1,7 +1,11 @@
 package rizz.source;
 import java.io.IOException;
+import java.util.Deque;
+import java.util.LinkedList;
 import rizz.command.Command;
 import rizz.command.Parser;
+import rizz.command.SaveableCommand;
+import rizz.command.UndoCommand;
 import rizz.task.Storage;
 
 /**
@@ -10,7 +14,9 @@ import rizz.task.Storage;
  */
 public class Rizz {
     private final Storage storage;
-    private final TaskList tasks;
+    private final Deque<TaskList> historyStack;
+    private TaskList tasks;
+
 
     /**
      * Constructs a new Rizz application with the specified file path for task storage.
@@ -22,6 +28,8 @@ public class Rizz {
     public Rizz(String filePath) throws IOException {
         this.storage = new Storage(filePath);
         this.tasks = new TaskList(storage.loadTasks());
+        this.historyStack = new LinkedList<>();
+
     }
 
     /**
@@ -33,11 +41,30 @@ public class Rizz {
     public String getResponse(String input) throws IOException {
         Command command = Parser.parseCommand(input);
         if (command != null) {
+            if (command instanceof SaveableCommand) {
+                this.saveSnapshot();
+                storage.saveTasks(tasks);
+            } else if (command instanceof UndoCommand) {
+                this.undo();
+            }
             String str = command.execute(tasks);
-            storage.saveTasks(tasks);
             return str;
         } else {
             return "-1";
         }
+    }
+
+    public void undo() throws IOException {
+        if (!historyStack.isEmpty()) {
+            tasks = historyStack.pop();
+            storage.saveTasks(tasks);
+        }
+    }
+
+    /**
+     * Save a snapshot of the current task list to the history stack.
+     */
+    private void saveSnapshot() {
+        historyStack.push(new TaskList(this.tasks));
     }
 }

@@ -42,9 +42,11 @@ public class Storage {
             Files.createDirectories(dataFilePath.getParent());
             Files.createFile(dataFilePath);
         }
+        Files.writeString(dataFilePath, "");
         String content = String.join("\n", taskList.export());
         Files.writeString(dataFilePath, content.toString());
     }
+
 
     /**
      * Loads tasks from the file and returns them as an ArrayList of Task objects.
@@ -53,6 +55,7 @@ public class Storage {
      * @throws IOException If an I/O error occurs when reading from the file.
      */
     public ArrayList<Task> loadTasks() throws IOException {
+        taskList.clear();
         if (Files.exists(dataFilePath)) {
             Files.readAllLines(dataFilePath).stream()
                     .map(Storage::decodeTasks)

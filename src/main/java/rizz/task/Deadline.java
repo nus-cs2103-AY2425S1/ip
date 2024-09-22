@@ -23,6 +23,11 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    @Override
+    public Task cloneCopy() {
+        return new Deadline(this.text, this.by, this.isDone);
+    }
+
     /**
      * Exports the Deadline task as a formatted string for saving.
      * The format will be: "D | (isDone) | (text) | (by)"

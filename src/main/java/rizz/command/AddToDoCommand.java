@@ -2,7 +2,7 @@ package rizz.command;
 import rizz.source.TaskList;
 import rizz.task.ToDo;
 
-public class AddToDoCommand extends Command {
+public class AddToDoCommand extends SaveableCommand {
     private final String description;
 
     public AddToDoCommand(String description) {
