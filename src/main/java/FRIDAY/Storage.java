@@ -28,7 +28,6 @@ public class Storage {
      *
      * @return ArrayList of Tasks.
      * @throws FRIDAYException If the file type in the storage file is not recognized.
-     * @throws FileNotFoundException If the storage file is unable to be found.
      */
     public ArrayList<Task> load() throws FRIDAYException {
         ArrayList<Task> tasks = new ArrayList<>();
