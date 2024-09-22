@@ -50,7 +50,8 @@ application {
 shadowJar {
     archiveBaseName = "sammy"
     archiveClassifier = null
-    archiveVersion = "v0.2"}
+    archiveVersion = "v0.2"
+}
 
 run{
     standardInput = System.in
