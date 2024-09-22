@@ -76,7 +76,7 @@ public class TaskList {
         for (Task task : tasks) {
 
             String des = task.getTaskDes();
-            if (Parser.isPresent(des, toFind)) {
+            if (Parser.isPresent(des, toFind.toLowerCase())) {
                 taskList.add(task);
             }
         }

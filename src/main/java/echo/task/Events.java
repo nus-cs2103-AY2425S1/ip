@@ -14,6 +14,16 @@ public class Events extends Task {
     private LocalDate start;
     private LocalDate end;
 
+
+    public LocalDate getStart() {
+        return start;
+    }
+
+
+    public LocalDate getEnd() {
+        return end;
+    }
+
     /**
      * Constructs an Events task with the specified description, start date, and end date.
      *
