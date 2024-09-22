@@ -1,6 +1,5 @@
 package rizz.command;
 import rizz.source.TaskList;
-import rizz.task.Task;
 
 public class FindCommand extends Command {
     private final String keyword;
