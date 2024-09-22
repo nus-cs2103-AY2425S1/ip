@@ -20,24 +20,42 @@ import tasks.Todo;
  */
 public class Storage {
     private final String filePath;
+    private final String fileName;
 
-    public Storage(String filePath) {
+    /**
+     * Initializes read and write capabilities to some given text file in a directory.
+     * @param filePath The absolute or relative directory the text file should be in.
+     * @param fileName The name of the text file, without any directories, and inclusive of ".txt" at the end.
+     */
+    public Storage(String filePath, String fileName) {
         this.filePath = filePath;
+        this.fileName = fileName;
+    }
+
+    private String fullDir() {
+        return filePath + fileName;
     }
 
     /**
-     * Opens a file at a given file directory.
+     * Opens a file at a given file directory and name during initialization of the object.
      * It should create a new empty file if the file does not exist, or open an existing file at the directory.
-     * @param f The file directory of a file which may or may not exist.
      */
-    public void openFile(File f) {
+    public void openFile() {
         try {
+            // Inspired by https://stackoverflow.com/questions/28947250/ to handle creation of directories.
+            File dir = new File(filePath);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+
+            File fullTextFileDir = new File(fullDir());
+
             // this creates a file only if it does not already exist - so running it un-conditionally is OK.
             // the only thing which changes is that it will return false if the file already exists.
-            if (f.createNewFile()) {
+            if (fullTextFileDir.createNewFile()) {
                 System.out.println("Text file not detected. Initiating a new file to hold records...");
             } else {
-                System.out.println("Reading data from existing text file at location: " + filePath);
+                System.out.println("Reading data from existing text file at location: " + fullDir());
             }
         } catch (IOException e) {
             System.out.println("An error occurred in file opening :(");
@@ -67,12 +85,19 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates a reader to read off text at a given existing text file.
+     * @param f The relative directory of the text file to read from.
+     * @return A scanner able to read from the text file.
+     */
     private Scanner createScannerAtFile(File f) {
         Scanner sc = null;
         try {
             sc = new Scanner(f);
         } catch (FileNotFoundException e) {
-            System.out.println("Something has gone wrong - text file is corrupted, or file creation is not working.");
+            System.out.println("Something has gone wrong - file creation is not working.\n"
+                    + "CHECK: Do you have a directory called 'data' at the same level as this app? If so, "
+                    + "please delete it before continuing.");
             System.exit(1);
         }
         return sc;
@@ -83,11 +108,10 @@ public class Storage {
      * @return an ArrayList of tasks.
      */
     public ArrayList<Task> parseTextStorage() {
-        File file = new File(filePath);
-        openFile(file);
+        openFile();
 
         ArrayList<Task> items = new ArrayList<>();
-        Scanner sc = createScannerAtFile(file);
+        Scanner sc = createScannerAtFile(new File(fullDir()));
 
         while (sc.hasNextLine()) {
             String s = sc.nextLine();
@@ -105,7 +129,7 @@ public class Storage {
     public void writeToTextStorage(TaskList tasks) {
         try {
             // this line potentially throws IOException.
-            FileWriter writer = new FileWriter(filePath);
+            FileWriter writer = new FileWriter(fullDir());
 
             tasks.getAllTasks()
                     .forEach(t -> {

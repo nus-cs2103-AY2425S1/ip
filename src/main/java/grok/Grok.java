@@ -13,7 +13,8 @@ import ui.Ui;
  * - Endlessly waits for commands until the bye command is encountered
  */
 public class Grok {
-    private static final String TEXT_FILE_DIRECTORY = "./data/duke.txt";
+    private static final String TEXT_FILE_DIRECTORY = "./data/";
+    private static final String TEXT_FILE_NAME = "grok.txt";
     private final Storage storage;
     private final Ui ui;
     private final TaskList taskList;
@@ -24,14 +25,14 @@ public class Grok {
      * initialize the application, and coordinate user inputs from user to relevant classes.
      */
     public Grok() {
-        storage = new Storage(TEXT_FILE_DIRECTORY);
+        storage = new Storage(TEXT_FILE_DIRECTORY, TEXT_FILE_NAME);
         taskList = new TaskList(storage.parseTextStorage());
         ui = new Ui();
         parser = new Parser();
     }
 
     /**
-     * Processes some user input, and returns the feedback to return to the user.
+     * Processes some user input, and returns the feedbackto return to the user.
      * Consider: Abstraction of user feedback into the command itself (need to handle javafx access issues.)
      * @param input - raw user input
      * @return the feedback to be provided back to the user.
