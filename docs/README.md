@@ -51,7 +51,7 @@ This command will add a task with the description "project meeting" and schedule
 
 ```
 Got it. I've added this task:
-  [E][ ] project meeting (from: Jan 23 2024 2pm  to: Jan 23 2024 5pm)
+  [E][ ] project meeting (from: Jan 23 2024 2pm  to: Jan 23 2024 4pm)
 Now you have N tasks in the list.
 ```
 
