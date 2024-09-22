@@ -22,6 +22,7 @@ public class Parser {
      * @throws DateTimeParseException If an error occurs while parsing date and time strings.
      */
     public static String parseCommand(String userInput, TaskList taskList, Storage storage, Ui ui) throws KafkaException, IOException, DateTimeParseException {
+        assert userInput != null && !userInput.trim().isEmpty() : "User input cannot be null or empty";
         String[] splitInput = userInput.trim().split(" ", 2);
 
         if (splitInput[0] == null) {

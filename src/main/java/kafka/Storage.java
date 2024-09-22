@@ -55,6 +55,7 @@ public class Storage {
                 String taskType = fileContent[0];
                 boolean isDone = Boolean.parseBoolean(fileContent[1]);
                 String description = fileContent[2];
+                assert taskType.equals("T") || taskType.equals("D") || taskType.equals("E") : "Invalid task type";
                 switch (taskType) {
                 case "T":
                     Task todo = new Todo(description, isDone);
