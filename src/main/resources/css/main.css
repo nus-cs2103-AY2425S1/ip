@@ -1,5 +1,5 @@
 .root {
-    main-color: rgb(237, 255, 242);       /* Create a looked-up color called "main-color" within root. */
+    main-color: #f5e6c8;       /* Create a looked-up color called "main-color" within root. */
     -fx-background-color: main-color;
 }
 
@@ -34,7 +34,7 @@
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: #ff9cb4;
+    -fx-background-color: #dddddd;
     -fx-background-radius: 1em;
 }
 
