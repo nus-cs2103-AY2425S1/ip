@@ -1,4 +1,3 @@
-D| |homework |Nov 11 1111 11:11 am
-T| |asd
-E| |asd |Nov 11 1111 11:11 am|Nov 11 1111 11:11 am
-D| |asd |Nov 11 1111 11:11 am
+T| |study
+D| |homework |Nov 11 2024 11:59 pm
+E| |exam |Dec 11 2024 11:00 am|Dec 11 2024 12:00 pm
