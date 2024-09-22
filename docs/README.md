@@ -138,6 +138,8 @@ Format: `view DD/MM/YYYY`
 
 Example: `view 27/09/2024`
 
+The unmarked tasks that are scheduled or are due that day should be listed:
+
 ```
 Here is your schedule for 27/09/2024
 1. [E][ ] meeting with Elango (from: 27 Sep 2024 09:00 to: 27 Sep 2024 21:00)
@@ -148,6 +150,8 @@ Here is your schedule for 27/09/2024
 Exits the program.
 
 Format: `bye`
+
+Thw following message will be shown and the window should close:
 
 ```
 Bye. Hope to see you again soon!
