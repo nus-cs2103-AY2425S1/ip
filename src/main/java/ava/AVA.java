@@ -172,5 +172,31 @@ public class AVA {
         //TODO: implement
         //stream a response to output
     }
+
+    //CHECKSTYLE.OFF: Regexp
+    /**
+     * Welcomes the user.
+     *
+     * @return welcome message for user.
+     */
+    public String welcomeUser() {
+        return """
+                       Hiii,  I'm AVA (Assimilated Virtual Assistant). 🎀
+                       I am a virtual personal assistant created by Nikhil.
+                                   Its sooo nice to meet you 🌸.
+                                   
+                        I am currently a toddler and can't do much 🙁 but
+                          don't worry I should soon be very capable 💖.
+                
+                ----------------------------------------------------------------
+                             I am here to help you and hope that'll
+                               we'll have lots of fun together 🎀.
+                               
+                        If you get lost just say help and I'll help you out
+                           but if you wanna leave you can just say bye. 🙂
+                ----------------------------------------------------------------
+                """;
+    }
+    //CHECKSTYLE.ON: Regexp
 }
 

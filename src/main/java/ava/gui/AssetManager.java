@@ -3,23 +3,73 @@ package ava.gui;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 
+import javax.print.DocFlavor;
+import java.io.InputStream;
+
 /**
  * Manages the interaction with the
  * assets.
  */
 public class AssetManager {
-    private static final String ASSET_PATH = "/ava/assets/";
-    private static final String IMAGE_PATH = ASSET_PATH + "images/";
 
-    private static final Image userImage = new Image(Application.class.getResourceAsStream(IMAGE_PATH + "user.jpg"));
-    private static final Image AVAImage = new Image(Application.class.getResourceAsStream(IMAGE_PATH + "AVA.jpg"));
+    //CHECKSTYLE.OFF: AbbreviationAsWordInName
+    private final String ASSET_PATH;
+    private final String IMAGE_PATH;
+
+    private final InputStream userImageStream;
+    private final InputStream AVAImageStream;
+
+    private final Image userImage;
+    private final Image AVAImage;
+    //CHECKSTYLE.ON: AbbreviationAsWordInName
+
+    /**
+     * Creates an AssetManager instance with default path.
+     */
+    public AssetManager() {
+        this("/assets/", "images/");
+    }
+
+    /**
+     * Creates an AssetManager instance with the specified path.
+     * This uses default paths for user and AVA.
+     *
+     * @param assetPath Path to the assets.
+     * @param imagePath relative path to the images from the assets.
+     */
+    public AssetManager(String assetPath, String imagePath) {
+        this(assetPath, imagePath, "user.jpg", "AVA.jpg");
+    }
+
+
+    /**
+     * Creates an AssetManager instance with the specified paths.
+     *
+     * @param assetPath Path to the assets.
+     * @param imagePath relative path to the images from the assets.
+     * @param userImagePath relative path to the user image from the assets.
+     * @param avaImagePath relative path to the AVA image from the assets.
+     */
+    public AssetManager(String assetPath, String imagePath, String userImagePath, String avaImagePath) {
+        this.ASSET_PATH = assetPath;
+        this.IMAGE_PATH = ASSET_PATH + imagePath;
+        this.userImageStream = Gui.class.getResourceAsStream(IMAGE_PATH + userImagePath);
+        this.AVAImageStream = Gui.class.getResourceAsStream(IMAGE_PATH + avaImagePath);
+
+        // the image streams should not be null
+        assert userImageStream != null;
+        assert AVAImageStream != null;
+
+        userImage = new Image(userImageStream);
+        AVAImage = new Image(AVAImageStream);
+    }
 
     /**
      * Gets the image of the user.
      *
      * @return Image of the user.
      */
-    public static Image getUserImage() {
+    public Image getUserImage() {
         return userImage;
     }
 
@@ -29,7 +79,7 @@ public class AssetManager {
      *
      * @return Image of AVA.
      */
-    public static Image getAVAImage() {
+    public Image getAVAImage() {
         return AVAImage;
     }
     //CHECKSTYLE.ON: AbbreviationAsWordInName

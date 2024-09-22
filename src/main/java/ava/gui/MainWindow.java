@@ -24,8 +24,13 @@ public class MainWindow extends AnchorPane {
 
     private AVA ava;
 
-    private Image userImage = AssetManager.getUserImage();
-    private Image avaImage = AssetManager.getAVAImage();
+    private AssetManager assetManager;
+    private Image userImage;
+    private Image avaImage;
+
+    private void welcomeMessage() {
+        dialogContainer.getChildren().add(DialogBox.getAVADialog(ava.welcomeUser(), avaImage));
+    }
 
     /**
      * Initializes the main window.
@@ -33,6 +38,9 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        assetManager = new AssetManager();
+        userImage = assetManager.getUserImage();
+        avaImage = assetManager.getAVAImage();
     }
 
     //CHECKSTYLE.OFF: AbbreviationAsWordInName
@@ -41,6 +49,7 @@ public class MainWindow extends AnchorPane {
      */
     public void setAVA(AVA ava) {
         this.ava = ava;
+        welcomeMessage();
     }
     //CHECKSTYLE.ON: AbbreviationAsWordInName
 
