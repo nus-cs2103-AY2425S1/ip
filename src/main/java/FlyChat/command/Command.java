@@ -10,10 +10,6 @@ public abstract class Command {
     /**
      * Executes the command.
      *
-     * @param taskList The task list to be modified.
-     * @param ui The user interface to interact with the user.
-     * @param parser The parser to parse user input.
-     * @param inputString The user input.
      * @return The response to the user.
      * @throws InputMismatchException If the input is invalid.
      */

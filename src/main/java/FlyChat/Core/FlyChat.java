@@ -31,10 +31,10 @@ public class FlyChat {
     }
 
     public FlyChat() {
-        assert ui != null : "Ui object is not initialized";
-        assert storage != null : "Storage object is not initialized";
-        assert taskList != null : "TaskList object is not initialized";
-        assert parser != null : "Parser object is not initialized";
+        assert ui != null : "Ui is not initialized";
+        assert storage != null : "Storage is not initialized";
+        assert taskList != null : "TaskList is not initialized";
+        assert parser != null : "Parser is not initialized";
     }
 
     /**
