@@ -3,6 +3,8 @@ package cloud;
 import java.io.IOException;
 import java.util.Collections;
 
+import cloud.util.CloudResponse;
+import cloud.util.ResponseStatus;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -36,7 +38,7 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
-        Circle circle = new Circle(50,50, 50);
+        Circle circle = new Circle(25, 25, 25);
         displayPicture.setClip(circle);
         displayPicture.setImage(img);
     }
@@ -56,10 +58,20 @@ public class DialogBox extends HBox {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getCloudDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+    public static DialogBox getCloudDialog(String message, Image img) {
+        var db = new DialogBox(message, img);
         db.flip();
         return db;
+    }
+
+    public static DialogBox getCloudDialog(CloudResponse response, Image img) {
+        var db = getCloudDialog(response.getMessage(), img);
+        db.setBackgroundColour(response.getResponseStatus());
+        return db;
+    }
+
+    private void setBackgroundColour(ResponseStatus responseStatus) {
+        this.setStyle("-fx-background-color: " + responseStatus.getColourHex());
     }
 }
 

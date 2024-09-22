@@ -13,7 +13,6 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    // TODO: change cloud methods to instance level
     private Cloud cloud = new Cloud();
 
     @Override
@@ -26,7 +25,7 @@ public class Main extends Application {
             fxmlLoader.setRoot(rootNode);
 
             AnchorPane root = fxmlLoader.load();
-            fxmlLoader.<MainWindow>getController().setCloud(cloud);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setCloud(cloud); // inject the Duke instance
 
 
             Scene scene = new Scene(root);
@@ -34,6 +33,7 @@ public class Main extends Application {
             stage.setMinHeight(220);
             stage.setMinWidth(417);
             stage.show();
+            stage.setTitle("Cloud");
         } catch (IOException e) {
             e.printStackTrace();
         }

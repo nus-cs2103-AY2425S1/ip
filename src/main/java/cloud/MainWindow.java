@@ -1,5 +1,6 @@
 package cloud;
 
+import cloud.util.CloudResponse;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -22,7 +23,7 @@ public class MainWindow extends AnchorPane {
 
     private Cloud cloud;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
     private Image cloudImage = new Image(this.getClass().getResourceAsStream("/images/cloud.jpg"));
 
     @FXML
@@ -33,7 +34,7 @@ public class MainWindow extends AnchorPane {
     /** Injects the Duke instance */
     public void setCloud(Cloud cloud) {
         this.cloud = cloud;
-        dialogContainer.getChildren().addAll(DialogBox.getCloudDialog(cloud.getGreeting(), cloudImage));
+        dialogContainer.getChildren().addAll(DialogBox.getCloudDialog(cloud.getStartUp(), cloudImage));
     }
 
     /**
@@ -43,7 +44,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = cloud.getResponse(input);
+        CloudResponse response = cloud.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getCloudDialog(response, cloudImage)
