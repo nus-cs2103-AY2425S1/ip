@@ -4,6 +4,7 @@ import java.time.format.DateTimeParseException;
 
 import command.Command;
 import fridayException.FridayException;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -78,15 +79,9 @@ public class MainWindow extends AnchorPane {
         return this;
     }
 
-//    public MainWindow setUi(Ui ui) {
-//        this.ui = ui;
-//        return this;
-//    }
-//
-//    public MainWindow setCli(Thread cliThread) {
-//        this.cliThread = cliThread;
-//        return this;
-//    }
+    public void showWelcomeMessage() {
+        dialogContainer.getChildren().add(DialogBox.getFridayDialog(dukeImage, gui.showWelcome()));
+    }
 
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
@@ -99,11 +94,9 @@ public class MainWindow extends AnchorPane {
         try {
             Command command = Parser.parseUserInput(input);
             response = command.executeGui(tasks, gui, storage);
-//            if ("bye".equals(input)) {
-//                cliThread.interrupt();
-//                ui.closeScanner();
-//                Platform.exit();
-//            }
+            if ("bye".equals(input)) {
+                Platform.exit();
+            }
         } catch (FridayException | DateTimeParseException | IndexOutOfBoundsException e) {
             if (e instanceof DateTimeParseException) {
                 response = gui.showError("Please enter a valid date in the format yyyy-mm-dd.");

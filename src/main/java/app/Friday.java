@@ -1,12 +1,14 @@
 package app;
 
 import command.Command;
+import controller.DialogBox;
 import controller.MainWindow;
 import fridayException.FridayException;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import parser.Parser;
@@ -35,6 +37,7 @@ public class Friday extends Application {
         this.storage = new Storage(filePath);
         this.ui = new Ui();
         this.gui = new UiGui();
+        boolean isUiOpen = true;
         try {
             this.tasks = new TaskList(storage.loadTasksFromFile());
         } catch (IOException e) {
@@ -87,15 +90,18 @@ public class Friday extends Application {
 
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-
+            stage.setMinHeight(220);
+            stage.setMinWidth(417);
             MainWindow controller = fxmlLoader.<MainWindow>getController();
             assert controller != null : "MainWindow controller should not be null";
 
             controller.setStorage(storage).setTasks(tasks).setGui(gui);
             stage.show();
+            controller.showWelcomeMessage();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     /**
@@ -112,5 +118,6 @@ public class Friday extends Application {
         
         thread.start();
         runGui(stage);
+
     }
 }

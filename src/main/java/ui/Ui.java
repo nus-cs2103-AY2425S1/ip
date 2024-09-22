@@ -42,7 +42,7 @@ public class Ui {
      */
     public void showWelcome() {
         System.out.println("___________________________________________________________");
-        System.out.println(" Hello! I'm Friday");
+        System.out.println(" Hello BO$$, I'm Friday!");
         System.out.println(" What can I do for you?");
         System.out.println("___________________________________________________________");
     }
@@ -52,7 +52,7 @@ public class Ui {
      */
     public void showGoodbye() {
         System.out.println("___________________________________________________________");
-        System.out.println(" Bye. Hope to see you again soon!");
+        System.out.println(" Bye BO$$. Hope to see you again soon!");
         System.out.println("___________________________________________________________");
     }
 
@@ -63,7 +63,7 @@ public class Ui {
      */
     public void showTaskList(List<Task> tasks) {
         System.out.println("    _______________________________________________________");
-        System.out.println("     Here are the tasks in your list:");
+        System.out.println("     BO$$, here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println("     " + (i + 1) + "." + tasks.get(i));
         }
@@ -78,9 +78,9 @@ public class Ui {
      */
     public void showTaskAdded(Task task, int size) {
         System.out.println("    _______________________________________________________");
-        System.out.println("     Got it. I've added this task:");
+        System.out.println("     Got it BO$$. I've added this task:");
         System.out.println("       " + task);
-        System.out.println("     Now you have " + size + " tasks in the list.");
+        System.out.println("     BO$$, now you have " + size + " tasks in the list.");
         System.out.println("    _______________________________________________________");
     }
 
@@ -92,9 +92,9 @@ public class Ui {
      */
     public void showTaskRemoved(Task task, int size) {
         System.out.println("    _______________________________________________________");
-        System.out.println("     Noted. I've removed this task:");
+        System.out.println("     Noted BO$$. I've removed this task:");
         System.out.println("       " + task);
-        System.out.println("     Now you have " + size + " tasks in the list.");
+        System.out.println("     BO$$, now you have " + size + " tasks in the list.");
         System.out.println("    _______________________________________________________");
     }
 
@@ -105,7 +105,7 @@ public class Ui {
      */
     public void showTaskMarked(Task task) {
         System.out.println("    _______________________________________________________");
-        System.out.println("     Nice! I've marked this task as done:");
+        System.out.println("     Nice BO$$! I've marked this task as done:");
         System.out.println("       " + task);
         System.out.println("    _______________________________________________________");
     }
@@ -117,7 +117,7 @@ public class Ui {
      */
     public void showTaskUnmarked(Task task) {
         System.out.println("    _______________________________________________________");
-        System.out.println("     OK, I've marked this task as not done yet:");
+        System.out.println("     OK BO$$, I've marked this task as not done yet:");
         System.out.println("       " + task);
         System.out.println("    _______________________________________________________");
     }
@@ -127,7 +127,7 @@ public class Ui {
      */
     public void showError(String message) {
         System.out.println("    _______________________________________________________");
-        System.out.println("     " + "OOPS!!! " + message);
+        System.out.println("     " + "OOPS BO$$!!! " + message);
         System.out.println("    _______________________________________________________");
     }
 
@@ -136,7 +136,7 @@ public class Ui {
      */
     public void showLoadingError() {
         System.out.println("    _______________________________________________________");
-        System.out.println("     An error occurred while loading tasks.");
+        System.out.println("     BO$$, an error occurred while loading tasks.");
         System.out.println("    _______________________________________________________");
     }
 
@@ -148,7 +148,7 @@ public class Ui {
      */
     public void showSearchList(List<Task> tasks, LocalDate searchDate) {
         System.out.println("    _______________________________________________________");
-        System.out.println("     Here are the deadlines/events in your list that's due/occurring :");
+        System.out.println("     BO$$, here are the deadlines/events in your list that's due/occurring :");
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i) instanceof Deadline deadline) {
                 if (deadline.getDeadline().equals(searchDate)) {
@@ -174,7 +174,7 @@ public class Ui {
      */
     public void showFindList(List<Task> tasks, String keyword) {
         System.out.println("    _______________________________________________________");
-        System.out.println("     Here are the matching tasks in your list:");
+        System.out.println("     BO$$ ,here are the matching tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).getTaskName().contains(keyword)) {
                 System.out.println("     " + (i + 1) + "." + tasks.get(i));
@@ -191,9 +191,9 @@ public class Ui {
     public void showSortedDeadlines(List<Deadline> deadlines) {
         System.out.println("    _______________________________________________________");
         if (deadlines.isEmpty()) {
-            System.out.println("     You have no deadlines in your list.");
+            System.out.println("     BO$$, you have no deadlines in your list.");
         } else {
-            System.out.println("     Here are the deadlines in your list, sorted by date:");
+            System.out.println("     BO$$, here are the deadlines in your list, sorted by date:");
             for (int i = 0; i < deadlines.size(); i++) {
                 System.out.println("     " + (i + 1) + "." + deadlines.get(i));
             }

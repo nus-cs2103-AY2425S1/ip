@@ -25,7 +25,7 @@ public class UiGui {
      */
     public String showWelcome() {
         return "___________________________________________________________\n"
-                + " Hello! I'm Friday\n"
+                + " Hello BO$$, I'm Friday!\n"
                 + " What can I do for you?\n"
                 + "___________________________________________________________\n";
     }
@@ -37,7 +37,7 @@ public class UiGui {
      */
     public String showGoodbye() {
         return "___________________________________________________________\n"
-                + " Bye. Hope to see you again soon!\n"
+                + " Bye BO$$. Hope to see you again soon!\n"
                 + "___________________________________________________________\n";
     }
 
@@ -50,7 +50,7 @@ public class UiGui {
     public String showTaskList(List<Task> tasks) {
         StringBuilder sb = new StringBuilder();
         sb.append("    _______________________________________________________\n");
-        sb.append("     Here are the tasks in your list:\n");
+        sb.append("     BO$$, here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             sb.append("     ").append(i + 1).append(". ").append(tasks.get(i)).append("\n");
         }
@@ -67,9 +67,9 @@ public class UiGui {
      */
     public String showTaskAdded(Task task, int size) {
         return "    _______________________________________________________\n"
-                + "     Got it. I've added this task:\n"
+                + "     Got it BO$$. I've added this task:\n"
                 + "       " + task + "\n"
-                + "     Now you have " + size + " tasks in the list.\n"
+                + "     BO$$, now you have " + size + " tasks in the list.\n"
                 + "    _______________________________________________________\n";
     }
 
@@ -82,9 +82,9 @@ public class UiGui {
      */
     public String showTaskRemoved(Task task, int size) {
         return "    _______________________________________________________\n"
-                + "     Noted. I've removed this task:\n"
+                + "     Noted BO$$. I've removed this task:\n"
                 + "       " + task + "\n"
-                + "     Now you have " + size + " tasks in the list.\n"
+                + "     BO$$ now you have " + size + " tasks in the list.\n"
                 + "    _______________________________________________________\n";
     }
 
@@ -96,7 +96,7 @@ public class UiGui {
      */
     public String showTaskMarked(Task task) {
         return "    _______________________________________________________\n"
-                + "     Nice! I've marked this task as done:\n"
+                + "     Nice BO$$! I've marked this task as done:\n"
                 + "       " + task + "\n"
                 + "    _______________________________________________________\n";
     }
@@ -109,7 +109,7 @@ public class UiGui {
      */
     public String showTaskUnmarked(Task task) {
         return "    _______________________________________________________\n"
-                + "     OK, I've marked this task as not done yet:\n"
+                + "     OK BO$$, I've marked this task as not done yet:\n"
                 + "       " + task + "\n"
                 + "    _______________________________________________________\n";
     }
@@ -121,7 +121,7 @@ public class UiGui {
      */
     public String showError(String message) {
         return "    _______________________________________________________\n"
-                + "     OOPS!!! " + message + "\n"
+                + "     OOPS BO$$!!! " + message + "\n"
                 + "    _______________________________________________________\n";
     }
 
@@ -132,7 +132,7 @@ public class UiGui {
      */
     public String showLoadingError() {
         return "    _______________________________________________________\n"
-                + "     An error occurred while loading tasks.\n"
+                + "     BO$$, An error occurred while loading tasks.\n"
                 + "    _______________________________________________________\n";
     }
 
@@ -146,7 +146,7 @@ public class UiGui {
     public String showSearchList(List<Task> tasks, LocalDate searchDate) {
         StringBuilder sb = new StringBuilder();
         sb.append("    _______________________________________________________\n");
-        sb.append("     Here are the deadlines/events in your list that's due/occurring on ").append(searchDate).append(":\n");
+        sb.append("     BO$$, here are the deadlines/events in your list that's due/occurring on ").append(searchDate).append(":\n");
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i) instanceof Deadline deadline) {
                 if (deadline.getDeadline().equals(searchDate)) {
@@ -175,7 +175,7 @@ public class UiGui {
     public String showFindList(List<Task> tasks, String keyword) {
         StringBuilder sb = new StringBuilder();
         sb.append("    _______________________________________________________\n");
-        sb.append("     Here are the matching tasks in your list:\n");
+        sb.append("     BO$$, here are the matching tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).getTaskName().contains(keyword)) {
                 sb.append("     ").append(i + 1).append(". ").append(tasks.get(i)).append("\n");
@@ -195,9 +195,9 @@ public class UiGui {
         StringBuilder sb = new StringBuilder();
         sb.append("    _______________________________________________________\n");
         if (deadlines.isEmpty()) {
-            sb.append("     You have no deadlines in your list.\n");
+            sb.append("     BO$$, you have no deadlines in your list.\n");
         } else {
-            sb.append("     Here are the deadlines in your list, sorted by date:\n");
+            sb.append("     BO$$, here are the deadlines in your list, sorted by date:\n");
             for (int i = 0; i < deadlines.size(); i++) {
                 sb.append("     ").append(i + 1).append(". ").append(deadlines.get(i)).append("\n");
             }
