@@ -1,8 +1,7 @@
 T | 0 | read book
-T | 1 | dance
-T | 1 | swim
+T | 0 | dance
 D | 0 | study | 2024-09-20 2359
-D | 0 | flight | 2024-09-20 2350
-D | 0 | cs2103t | 2024-09-20 2359
+D | 1 | cs2103t | 2024-09-20 2359
 D | 0 | study | 2023-09-20 1400
 A | 0 | tonight | 2024-03-12 1200
+T | 0 | poo
