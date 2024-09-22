@@ -35,7 +35,7 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
-            fxmlLoader.<MainWindow>getController().setBigdog(bigdog);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setBigdog(bigdog);
             stage.show();
             System.out.println("open");
 
