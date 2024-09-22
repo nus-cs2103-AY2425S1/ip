@@ -24,7 +24,10 @@ public class TaskList {
         this.userInputs = userInputs;
     }
 
-    public void set(int idx, boolean bool) {
+    public void set(int idx, boolean bool) throws TaskListOutOfBoundsException {
+        if (idx < 0 || idx >= userInputs.size()) {
+            throw new TaskListOutOfBoundsException();
+        }
         userInputs.get(idx).setDone(bool);
     }
 
@@ -43,7 +46,10 @@ public class TaskList {
         return userInputs;
     }
 
-    public void delete(int idx) {
+    public void delete(int idx) throws TaskListOutOfBoundsException {
+        if (idx < 0 || idx > userInputs.size() - 1) {
+            throw new TaskListOutOfBoundsException();
+        }
         userInputs.remove(idx);
     }
 
@@ -51,7 +57,10 @@ public class TaskList {
         return userInputs.size();
     }
 
-    public void snooze(int idx, LocalDate newDate) {
+    public void snooze(int idx, LocalDate newDate) throws TaskListOutOfBoundsException {
+        if (idx < 0 || idx > userInputs.size() - 1) {
+            throw new TaskListOutOfBoundsException();
+        }
         userInputs.get(idx).snooze(newDate);
     }
 
