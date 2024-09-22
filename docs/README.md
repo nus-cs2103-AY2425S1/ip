@@ -7,12 +7,12 @@
 
 ## Adding tasks
 
-There are _3_ types of tasks you can add in _FlyChat_: **Todo**, **Event**, **Deadline**  
-All fields, marked in <>, **must not** be empty.
+There are _3_ types of tasks you can add in _FlyChat_: **Todo**, **Event**, **Deadline**.  
+All fields, marked in `<>`, **must not** be empty.
 
 ### Todo
 
-Format: todo <description>
+Format: todo `<description>`
 
 eg. `todo Wash Dishes`
 
@@ -26,7 +26,7 @@ Now you have *n tasks in the list. HAVE FUN ^o^
 
 ### Event
 
-Format: event <description> /from <startTime> /to <endTime>
+Format: event `<description>` /from `<startTime>` /to `<endTime>`
 
 eg. `event Piano Lesson /from 2pm /to 4pm`
 
@@ -40,7 +40,7 @@ Now you have *n tasks in the list. HAVE FUN ^o^
 
 ### Deadline
 
-Format: deadline <description> /by <Date (yyyy-mm-dd)>
+Format: deadline `<description>` /by `<Date (yyyy-mm-dd)>`
 
 eg. `deadline CS2103T Assignment /by 2024-12-15`
 
@@ -60,7 +60,7 @@ Note: Tags **MUST** start with a "#".
 
 ### Adding Tags
 
-Format: tag <taskNumber> <tag>
+Format: tag `<taskNumber>` `<tag>`
 
 Description: Assigns `tag` to the specified task as a tag.
 
@@ -74,19 +74,19 @@ Description: Lists out all tasks in your task list.
 
 ### Mark / Undo Mark Task
 
-Format: mark <taskNumber> / unmark <taskNumber>
+Format: mark `<taskNumber>` / unmark `<taskNumber>`
 
 Description: Marks the specified task as completed or undo the mark.
 
 ### Delete
 
-Format: delete <taskNumber>
+Format: delete `<taskNumber>`
 
 Description: Deletes the specified task.
 
 ### Find
 
-Format: find <keyPhrase>
+Format: find `<keyPhrase>`
 
 Description: Lists out all tasks containing the `keyPhrase`.
 
