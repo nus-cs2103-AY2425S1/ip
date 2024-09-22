@@ -6,6 +6,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import screwllum.exception.EmptyDescriptionException;
 import screwllum.exception.InvalidCommandException;
 import screwllum.exception.InvalidDateFormatException;
 
@@ -117,9 +118,11 @@ public class Parser {
         try {
             String[] firstSegment = segments[0].split(" ", 2);
             tokens.add(firstSegment[1].trim());
+            if (tokens.get(1).isEmpty()) {
+                throw new InvalidCommandException("Empty description!");
+            }
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidCommandException("The correct usage is: <command> <desc:string>, you must have missed out"
-                    + " on adding the task description");
+            throw new InvalidCommandException("The correct usage is: <command> <desc:string>");
         }
     }
 
@@ -135,6 +138,9 @@ public class Parser {
             }
             tokens.add(secondSegment[1].trim());
             parseStringToDate(tokens.get(tokens.size() - 1));
+            if (tokens.get(1).isEmpty()) {
+                throw new InvalidCommandException("Empty description!");
+            }
         } catch (DateTimeParseException e) {
             throw new InvalidDateFormatException(tokens.get(tokens.size() - 1));
         } catch (IndexOutOfBoundsException e) {
@@ -156,6 +162,9 @@ public class Parser {
             tokens.add(thirdSegment[1].trim());
             parseStringToDate(tokens.get(tokens.size() - 1));
             parseStringToDate(tokens.get(tokens.size() - 2));
+            if (tokens.get(1).isEmpty()) {
+                throw new InvalidCommandException("Empty description!");
+            }
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidCommandException("The correct usage is: event <desc:string> /from <yyyy-M-d>"
                     + " /to <yyyy-M-d>");
