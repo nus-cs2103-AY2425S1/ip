@@ -64,7 +64,7 @@ public class Bob {
     /**
      * Generates a response for the user's chat message.
      *
-     * @param input
+     * @param input Input command from user.
      */
     public String getResponse(String input) {
         taskList = storage.loadUpdatedTaskList(); //Updates taskList based on previous input.
