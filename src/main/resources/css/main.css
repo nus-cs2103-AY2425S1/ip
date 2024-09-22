@@ -1,0 +1,60 @@
+@font-face {
+    -fx-font-family: "Custom Font";
+    src: url(../fonts/now.regular.otf);
+}
+.root {
+    -fx-background-color: #AFC1D0;
+}
+
+.text-field {
+    -fx-background-color: #F3F6FA;
+    -fx-font-family: "Custom Font";
+    -fx-font-size: 16px;
+    -fx-text-fill: #1C3F60;
+}
+
+.button {
+    -fx-background-color: #1C3F60;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-font-family: "Custom Font";
+    -fx-text-fill: #F3F6FA;
+}
+
+.button:hover {
+    -fx-background-color:#AFC1D0;
+    -fx-font-size: 16px;
+    -fx-text-fill: #1C3F60;
+    -fx-border-color: #1C3F60;
+    -fx-border-width: 2px;
+}
+
+.button:pressed {
+    -fx-background-color:#1C3F60;
+    -fx-text-fill:#F3F6FA;
+    -fx-font-size: 18px;
+}
+
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar {
+    -fx-font-size: 10px;  /* Change width of scroll bar. */
+    -fx-background-color: #AFC1D0;
+    -fx-text-fill: #F3F6FA;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #F3F6FA;
+    -fx-background-radius: 1em;
+}
+
+/* Hides the increment and decrement buttons. */
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+

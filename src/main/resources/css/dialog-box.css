@@ -1,0 +1,36 @@
+@font-face {
+   -fx-font-family: "Custom Font";
+    src: url(../fonts/now.regular.otf);
+}
+
+
+.label {
+    -fx-background-color: #1C3F60;
+    -fx-background-radius: 1em 1em 0 1em;
+    -fx-text-fill: #F3F6FA;
+    -fx-font-family: "Custom Font";
+}
+
+.reply-label {
+    -fx-background-color: #1C3F60;
+    -fx-background-radius: 1em 1em 1em 0;
+    -fx-text-fill: #F3F6FA;
+    -fx-font-family: "Custom Font";
+}
+
+.name {
+    -fx-font-size: 16px;
+}
+
+#displayPicture {
+    /* Shadow effect on image. */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.5, 5, 5);
+
+    /* Change size of image. */
+    -fx-scale-x: 2;
+    -fx-scale-y: 2;
+
+    /* Rotate image clockwise by degrees. */
+    -fx-rotate: 0;
+}
+
