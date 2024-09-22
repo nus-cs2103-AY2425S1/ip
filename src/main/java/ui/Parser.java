@@ -45,6 +45,7 @@ public class Parser {
         } catch (BotException e) {
             response = e.getMessage();
         }
+        Parser.storage.saveData();
         return response;
     }
 
@@ -224,7 +225,6 @@ public class Parser {
      * @return A goodbye message and saves the task data.
      */
     private static String handleBye() {
-        storage.saveData();
         return "Bye. Hope to see you again soon!\n";
     }
 }

@@ -20,19 +20,19 @@ Enter commands to manage your tasks.
 
 ## Commands
 
-| Command        | Description                            |
-|----------------|----------------------------------------|
-| `todo`         | Adds a ToDo task                       |
-| `deadline`     | Adds a Deadline task                   |
-| `event`        | Adds an Event task                     |
-| `list`         | Lists all tasks                        |
-| `mark`         | Marks a task as done                   |
-| `unmark`       | Marks a task as not done               |
-| `delete`       | Deletes a task                         |
-| `find`         | Finds tasks by keyword                 |
-| `clear`        | Clears all tasks                       |
-| `remind`       | Shows upcoming tasks                   |
-| `bye`          | Exits the program and saves tasks      |
+| Command        | Description                           |
+|----------------|---------------------------------------|
+| `todo`         | Adds a ToDo task                      |
+| `deadline`     | Adds a Deadline task                  |
+| `event`        | Adds an Event task                    |
+| `list`         | Lists all tasks                       |
+| `mark`         | Marks a task as done                  |
+| `unmark`       | Marks a task as not done              |
+| `delete`       | Deletes a task                        |
+| `find`         | Finds tasks by keyword                |
+| `clear`        | Clears all tasks                      |
+| `remind`       | Shows upcoming tasks                  |
+| `bye`          | Exits the program                     |
 
 
 ## Requirements
