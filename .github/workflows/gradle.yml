@@ -1,75 +1,50 @@
-#Disclaimer: This has been provided by ChatGPT and copied over. I do not own or claim credit to anything here.
+name: Java CI
 
-name: Gradle CI
-
-# Trigger the workflow on push or pull requests to the repository
-on:
-  push:
-    branches:
-      - master
-      - feature/*
-  pull_request:
-    branches:
-      - master
-      - feature/*
+on: [push, pull_request]
 
 jobs:
   build:
     strategy:
       matrix:
-        platform: [ubuntu-latest, macos-latest, windows-latest]  # Test on multiple platforms
+        platform: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.platform }}
 
     steps:
-      # Step 1: Check out the repository
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - name: Set up repository
+        uses: actions/checkout@master
 
-      # Step 2: Set up Java JDK 17 (if you're using Java 17 or adjust as needed)
-      - name: Set up JDK 17
-        uses: actions/setup-java@v1
+      - name: Set up repository
+        uses: actions/checkout@master
         with:
-          java-version: '17'
-          distribution: 'temurin'   # You can also use 'zulu' or 'adopt' depending on your needs
-          java-package: jdk+fx      # Use this if you're using JavaFX; if not, just use 'jdk'
+          ref: master
 
-      # Step 3: Validate the Gradle Wrapper to ensure it's valid and not compromised
+      - name: Merge to master
+        run: git checkout --progress --force ${{ github.sha }}
+
       - name: Validate Gradle Wrapper
         uses: gradle/wrapper-validation-action@v1
 
-      # Step 4: Build the project using Gradle
-      - name: Build with Gradle
-        run: ./gradlew build
-
-      # Step 5: Run tests using Gradle
-      - name: Run Gradle tests
-        run: ./gradlew test
-
-      # Step 6: Perform platform-specific IO redirection tests (Linux/Mac/Windows)
-
-      # Linux test (runs the 'runtest.sh' script if on Linux)
-      - name: Run IO redirection test on Linux
-        if: runner.os == 'Linux'
-        working-directory: ${{ github.workspace }}/text-ui-test
-        run: ./runtest.sh
-
-      # macOS test (runs the 'runtest.sh' script if on macOS)
-      - name: Run IO redirection test on macOS
-        if: runner.os == 'macOS'
-        working-directory: ${{ github.workspace }}/text-ui-test
-        run: ./runtest.sh
-
-      # Windows test (runs the 'runtest.bat' script if on Windows)
-      - name: Run IO redirection test on Windows
-        if: runner.os == 'Windows'
-        shell: cmd
-        working-directory: ${{ github.workspace }}/text-ui-test
-        run: runtest.bat
-
-      # Optional: Upload test results if there is a failure (for debugging purposes)
-      - name: Upload test results
-        if: failure()
-        uses: actions/upload-artifact@v2
+      - name: Setup JDK 17
+        uses: actions/setup-java@v1
         with:
-          name: test-results
-          path: build/test-results/
+          java-version: '17'
+          java-package: jdk+fx
+
+      - name: Build and check with Gradle
+        run: ./gradlew check
+
+      - name: Perform IO redirection test (*NIX)
+        if: runner.os == 'Linux'
+        working-directory:  ${{ github.workspace }}/text-ui-test
+        run: ./runtest.sh
+
+      - name: Perform IO redirection test (MacOS)
+        if: always() && runner.os == 'macOS'
+        working-directory:  ${{ github.workspace }}/text-ui-test
+        run: ./runtest.sh
+
+      - name: Perform IO redirection test (Windows)
+        if: always() && runner.os == 'Windows'
+        working-directory:  ${{ github.workspace }}/text-ui-test
+        shell: cmd
+        run: runtest.bat
