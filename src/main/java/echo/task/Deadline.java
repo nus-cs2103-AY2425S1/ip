@@ -18,7 +18,7 @@ public class Deadline extends Task {
      * @param by The due date of the task in the format "YYYY-MM-DD".
      * @throws DateTimeParseException If the date format is invalid.
      */
-    public Deadline (String description, String by) throws DateTimeParseException{
+    public Deadline(String description, String by) throws DateTimeParseException {
         super(description);
         this.by = LocalDate.parse(by);
     }
@@ -38,7 +38,7 @@ public class Deadline extends Task {
      *
      * @return A string representing the due date of the task.
      */
-    public String getAdd(){
+    public String getAdd() {
         return " /by " + this.by;
     }
 
@@ -60,10 +60,11 @@ public class Deadline extends Task {
 
         switch (command) {
         case"name":
-            this.taskDes = str[1];
+            super.setDes(str[1]);
             return this.toString();
         case"deadline":
             this.by = LocalDate.parse(str[1]);
+            return "Ok. Start date changed to " + this.by;
         default:
             return "enter name (new name)\n or deadline (new date)";
         }

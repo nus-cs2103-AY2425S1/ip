@@ -2,7 +2,6 @@ package echo;
 
 import java.io.IOException;
 
-import echo.Echo;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -14,7 +13,6 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    //private Duke duke = new Duke();
     public static final String DOCS_TASKS_TXT = "docs/tasks.txt";
     private echo.Echo echo = new Echo(DOCS_TASKS_TXT);
 

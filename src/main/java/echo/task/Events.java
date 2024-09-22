@@ -3,7 +3,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import echo.task.Task;
 
 
 /**
@@ -12,9 +11,8 @@ import echo.task.Task;
  */
 public class Events extends Task {
 
-
-    LocalDate start;
-    LocalDate end;
+    private LocalDate start;
+    private LocalDate end;
 
     /**
      * Constructs an Events task with the specified description, start date, and end date.
@@ -37,8 +35,8 @@ public class Events extends Task {
      */
     @Override
     public String toString() {
-        return "[E] " + super.toString() + " (from: " + start.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +
-                " to: " + end.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[E] " + super.toString() + " (from: " + start.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                + " to: " + end.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
     /**
@@ -70,12 +68,11 @@ public class Events extends Task {
 
         switch (command) {
         case"name":
-            this.taskDes = str[1];
+            super.setDes(str[1]);
             return this.toString();
         case"start":
             this.start = LocalDate.parse((str[1]));
             return "Ok. Start date changed to " + this.start;
-
         case"end":
             this.end = LocalDate.parse(str[1]);
             return "Ok. End date changed to " + this.end;

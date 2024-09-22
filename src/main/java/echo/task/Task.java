@@ -1,11 +1,12 @@
 package echo.task;
+
 /**
  * The Task class represents a general task with a description and completion status.
  * It serves as an abstract base class for specific types of tasks like ToDos, Deadlines, and Events.
  */
 public abstract class Task {
-    boolean isDone;
-    String taskDes;
+    private String taskDes;
+    private boolean isDone;
 
 
     /**
@@ -14,10 +15,26 @@ public abstract class Task {
      *
      * @param taskDes The description of the task.
      */
-    public Task(String taskDes){
+    public Task(String taskDes) {
         this.taskDes = taskDes;
         isDone = false;
     }
+
+    /**
+     * Returns the description of the task.
+     *
+     * @return The task's description as a String.
+     */
+    public String getDes() {
+        return taskDes;
+    }
+
+    public void setDes(String des) {
+        this.taskDes = des;
+    }
+
+
+
 
     /**
      * Marks the task as done.
@@ -39,7 +56,7 @@ public abstract class Task {
      * @return A string that shows whether the task is done and its description.
      */
     public String toString() {
-        if(isDone){
+        if (isDone) {
             return "[X] " + taskDes;
         } else {
             return "[ ] " + taskDes;
@@ -52,7 +69,7 @@ public abstract class Task {
      * @return "1" if the task is done, otherwise "0".
      */
     public String getIsDone() {
-        if(isDone) {
+        if (isDone) {
             return "1";
         }
         return "0";
@@ -63,7 +80,7 @@ public abstract class Task {
      *
      * @return The description of the task.
      */
-    public  String getTaskDes() {
+    public String getTaskDes() {
         return taskDes;
     }
 
