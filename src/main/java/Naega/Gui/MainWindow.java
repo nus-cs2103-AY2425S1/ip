@@ -54,11 +54,14 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().add(instructionDialog);
 
         try {
-            ArrayList<Task> tasks = taskList.getTasks();  // Assuming there's a method like this to load tasks
+            ArrayList<Task> tasks = taskList.getTasks();
+            for (Task task : tasks) {
+                DialogBox taskDialog = DialogBox.getNaegaDialog(task.toString(), naegaImage);
+                dialogContainer.getChildren().add(taskDialog);
+            }
         } catch (Exception e) {
-            showLoadingErrorInGui();  // Display loading error if something goes wrong
+            showLoadingErrorInGui();
         }
-
     }
 
     /**

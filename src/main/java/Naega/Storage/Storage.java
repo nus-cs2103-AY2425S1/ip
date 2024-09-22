@@ -28,6 +28,14 @@ public class Storage {
     public Storage(String filePath) {
         assert filePath != null && !filePath.isEmpty() : "File path must not be null or empty";
         this.filePath = filePath;
+
+        // Ensure the directory exists before writing to the file
+        File file = new File(filePath);
+        File directory = file.getParentFile(); // Get the parent directory (e.g., 'data/')
+
+        if (directory != null && !directory.exists()) {
+            directory.mkdirs(); // Create the 'data/' directory if it doesn't exist
+        }
     }
 
     /**

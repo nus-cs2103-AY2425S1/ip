@@ -26,11 +26,6 @@ public class Main extends Application {
             // Initialize the Naega instance with a file path
             naega = new Naega("data/tasks.txt");
 
-            // If it's the first run, load sample data
-            if (naega.isFirstRun()) {
-                naega.loadSampleData();  // Load sample data during the first run
-            }
-
             // Setup scene and show the stage
             Scene scene = new Scene(ap);
             stage.setScene(scene);

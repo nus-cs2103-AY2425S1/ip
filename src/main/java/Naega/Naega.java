@@ -6,6 +6,7 @@ import Naega.Storage.Storage;
 import Naega.Task.*;
 import Naega.Ui.Ui;
 
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -34,15 +35,14 @@ public class Naega {
         storage = new Storage(filePath);
 
         // First-run logic: If no saved file is found, it's the first run
-        firstRun = !storage.fileExists();
-        if (firstRun) {
+        if (!storage.fileExists()) {
             tasks = new TaskList();
-            loadSampleData();
+            loadSampleData(); // Load sample data only if it's the first run
             storage.save(tasks.getTasks());
             firstRun = true;  // Mark this as the first run
         } else {
             try {
-                tasks = new TaskList(storage.load());
+                tasks = new TaskList(storage.load()); // Load existing tasks if not the first run
                 firstRun = false;
             } catch (NaegaException e) {
                 ui.showLoadingError();
