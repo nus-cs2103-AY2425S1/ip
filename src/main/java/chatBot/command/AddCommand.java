@@ -34,6 +34,7 @@ public class AddCommand extends Command {
                 return output;
             }
         }
+        assert !this.desc.isEmpty() : "task description is empty, but code still running";
         if (action.equals("todo")) {
             try {
                 Task t = new ToDoTask(desc);
@@ -48,7 +49,7 @@ public class AddCommand extends Command {
         } else if (action.equals("deadline")) {
             try {
                 String[] arr = desc.split("/by");
-                Task t;
+                Task t = null;
                 try {
                     t = new Deadline(arr[0].strip(), arr[1].strip());
                 } catch (ArrayIndexOutOfBoundsException e) {
@@ -100,6 +101,7 @@ public class AddCommand extends Command {
                 System.out.println(output);
             }
         }
+        assert !output.isEmpty() : "output is empty, something went wrong in AddCommand";
         if (output.isEmpty()) {
             output = "something went wrong in AddCommand";
         }
