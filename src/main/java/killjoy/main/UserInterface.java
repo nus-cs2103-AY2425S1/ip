@@ -80,7 +80,8 @@ public class UserInterface {
      * Displays the message when the user enters an invalid command format.
      */
     public static String displayInvalidCommandFormatMessage() {
-        return ("DANGER !! Invalid command format");
+        return ("DANGER !! Invalid command format/n"
+            + "Refer to the user guide for the correct command format.");
     }
 
     /**
