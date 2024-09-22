@@ -92,6 +92,9 @@ public class Main extends Application {
         case DELETE:
             deleteTask((Integer) parseArgs.get(0));
             break;
+        case CLIENT:
+            addClient(parseArgs);
+            break;
         case FIND:
             handleFind((String) parseArgs.get(0));
             break;
@@ -153,6 +156,13 @@ public class Main extends Application {
         ui.speak("You now have " + taskList.getListSize() + " tasks left in record.");
     }
 
+    private static void addClient(ArrayList<Object> args) {
+        String name = (String) args.get(0);
+        String address = (String) args.get(1);
+        clientList.addClient(new Client(name, address));
+        ui.speak("Client added: " + name);
+    }
+
     private static void listEverything() {
         taskList.printList(ui);
         clientList.printList(ui);
@@ -166,7 +176,7 @@ public class Main extends Application {
 
     private static void handleUndefined() {
         ui.speak("Sorry, I don't understand.");
-        ui.speak("Commands: todo deadline event mark unmark delete list bye");
+        ui.speak("Commands: todo deadline event client mark unmark delete list bye");
     }
 
     private static void exitProgram() {

@@ -50,13 +50,13 @@ public class ClientList {
      *
      * @param index The index of the client to be removed, 1-indexed
      * @return The name of the removed client
-     */
+     */ // to be implemented
     public String deleteClient(int index) {
         index = index - 1;
         String rdesc = list.get(index).getName();
         list.remove(index);
         return rdesc;
-    } // to be implemented
+    }
 
     /**
      * Saves the contents of the list to the specified file
@@ -86,7 +86,7 @@ public class ClientList {
      * @param s The keyword to search by
      * @param indices Array to hold the indices of the found clients
      * @return The clients matching the query
-     */
+     */ // to be implemented
     public ArrayList<Client> find(String s, ArrayList<Integer> indices) {
         ArrayList<Client> res = new ArrayList<Client>();
         for (int i = 0; i < list.size(); ++i) {
