@@ -1,0 +1,4 @@
+T | 1 | yeet
+T | 0 | lmao
+T | 1 | hehe
+D | 0 | Submit assignment | 2024-09-30 2359
