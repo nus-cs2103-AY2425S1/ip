@@ -28,17 +28,19 @@ public class Parser {
      */
     public static Command parseCommand(String input) {
         String[] splitInput = input.split(" ", 2);
-        String commandString= splitInput[0].toUpperCase(); // convert to enum later
+        String commandString= splitInput[0].toUpperCase(); // convert to enum
         String details = splitInput.length > 1 ? splitInput[1] : null;
 
         CommandType commandType;
 
         try {
-            // convert input to CommandType enum value
+            // convert input -> CommandType enum val
             commandType = CommandType.valueOf(commandString);
         } catch (IllegalArgumentException e) {
             return null;
         }
+        assert commandType != null: "Command type != null at dis point";
+        assert details != null: "Command type != null at dis point";
 
         switch (commandType) {
         case BYE:
@@ -67,6 +69,7 @@ public class Parser {
             return null;
         }
     }
+
     private static Command processMultipleTasks(String details, CommandType commandType) {
         // Split since they are space-separated
         String[] indices = details.split(" ");

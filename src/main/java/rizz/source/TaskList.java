@@ -10,7 +10,6 @@ import rizz.task.Task;
 public class TaskList {
     private final ArrayList<Task> tasks;
 
-
     public TaskList() {
         tasks = new ArrayList<>();
     }
@@ -20,12 +19,24 @@ public class TaskList {
     }
 
     public void addTask(Task task) {
+        assert task != null : "Task cannot be null";
         this.tasks.add(task);
+    }
+
+    public int getLength() {
+        return this.tasks.size();
+    }
+
+    public Task getTask(int index) {
+        Task task = this.tasks.get(index);
+        assert task != null : "Task cannot be null";
+        return task;
     }
 
     public String deleteTask(int... index) {
         TaskList deletedTasks = new TaskList();
         for (int i = 0; i < index.length; i++) {
+            assert index[i] > 0 && index[i] <= this.getLength() : "Index out of bounds";
             //cause 2nd item of list is Arr[1]
             Task task = this.getTask(index[i] - 1);
             this.tasks.remove(index[i] - 1);
@@ -37,6 +48,7 @@ public class TaskList {
     public String markTask(int... index) {
         TaskList markTasks = new TaskList();
         for (int i = 0; i < index.length; i++) {
+            assert index[i] > 0 && index[i] <= this.getLength() : "Index out of bounds";
             //cause 2nd item of list is Arr[1]
             Task task = this.getTask(index[i] - 1);
             task.markAsDone();
@@ -48,6 +60,7 @@ public class TaskList {
     public String unmarkTask(int... index) {
         TaskList unmarkTasks = new TaskList();
         for (int i = 0; i < index.length; i++) {
+            assert index[i] > 0 && index[i] <= this.getLength() : "Index out of bounds";
             //cause 2nd item of list is Arr[1]
             Task task = this.getTask(index[i] - 1);
             task.unmarkAsDone();
@@ -56,13 +69,15 @@ public class TaskList {
         return unmarkTasks.toString();
     }
 
-
-    public int getLength() {
-        return this.tasks.size();
-    }
-
-    public Task getTask(int index) {
-        return this.tasks.get(index);
+    public TaskList findByKeyword(String keyword) {
+        TaskList matchingTasks = new TaskList();
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.getText().contains(keyword)) {
+                matchingTasks.addTask(task);
+            }
+        }
+        return matchingTasks;
     }
 
     /**
@@ -78,17 +93,6 @@ public class TaskList {
             exportTasks[i] = tasks.get(i).export();
         }
         return exportTasks;
-    }
-
-    public TaskList findByKeyword(String keyword) {
-        TaskList matchingTasks = new TaskList();
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
-            if (task.getText().contains(keyword)) {
-                matchingTasks.addTask(task);
-            }
-        }
-        return matchingTasks;
     }
 
     @Override
