@@ -27,31 +27,34 @@ public class TaskList {
         TaskList deletedTasks = new TaskList();
         for (int i = 0; i < index.length; i++) {
             //cause 2nd item of list is Arr[1]
-            Task task = this.getTask(index[i] - 1);
+            Task tempTask = this.getTask(index[i] - 1);
+
             this.tasks.remove(index[i] - 1);
-            deletedTasks.addTask(task);
+            deletedTasks.addTask(tempTask);
         }
         return deletedTasks.toString();
     }
 
     public String markTask(int... index) {
-        TaskList markTasks = new TaskList();
+        TaskList markedTasks = new TaskList();
         for (int i = 0; i < index.length; i++) {
             //cause 2nd item of list is Arr[1]
-            Task task = this.getTask(index[i] - 1);
-            task.markAsDone();
-            markTasks.addTask(task);
+            Task tempTask = this.getTask(index[i] - 1);
+
+            tempTask.markAsDone();
+            markedTasks.addTask(tempTask);
         }
-        return markTasks.toString();
+        return markedTasks.toString();
     }
 
     public String unmarkTask(int... index) {
         TaskList unmarkTasks = new TaskList();
         for (int i = 0; i < index.length; i++) {
             //cause 2nd item of list is Arr[1]
-            Task task = this.getTask(index[i] - 1);
-            task.unmarkAsDone();
-            unmarkTasks.addTask(task);
+            Task tempTask = this.getTask(index[i] - 1);
+
+            tempTask.unmarkAsDone();
+            unmarkTasks.addTask(tempTask);
         }
         return unmarkTasks.toString();
     }
@@ -83,9 +86,9 @@ public class TaskList {
     public TaskList findByKeyword(String keyword) {
         TaskList matchingTasks = new TaskList();
         for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
-            if (task.getText().contains(keyword)) {
-                matchingTasks.addTask(task);
+            Task tempTask = tasks.get(i);
+            if (tempTask.getText().contains(keyword)) {
+                matchingTasks.addTask(tempTask);
             }
         }
         return matchingTasks;
@@ -96,11 +99,11 @@ public class TaskList {
         if (this.getLength() == 0) {
             return "Empty";
         } else {
-            StringBuilder str = new StringBuilder();
+            StringBuilder tempStr = new StringBuilder();
             for (int i = 0; i < this.getLength(); i++) {
-                str.append(i + 1).append(". ").append(this.getTask(i)).append("\n");
+                tempStr.append(i + 1).append(". ").append(this.getTask(i)).append("\n");
             }
-            return str.toString();
+            return tempStr.toString();
         }
     }
     

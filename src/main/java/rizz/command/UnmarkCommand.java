@@ -2,15 +2,15 @@ package rizz.command;
 import rizz.source.TaskList;
 
 public class UnmarkCommand extends Command {
-    private final int[] index;
+    private final int[] taskIndex;
 
-    public UnmarkCommand(int... index) {
-        this.index = index;
+    public UnmarkCommand(int... taskIndex) {
+        this.taskIndex = taskIndex;
     }
 
     @Override
     public String execute(TaskList tasks) {
-        return "Nice! I've unmarked these task:\n" + tasks.unmarkTask(index);
+        return "Nice! I've unmarked these task:\n" + tasks.unmarkTask(taskIndex);
     }
 }
 
