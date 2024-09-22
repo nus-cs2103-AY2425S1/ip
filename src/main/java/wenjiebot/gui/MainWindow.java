@@ -40,6 +40,22 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        String greeting = "Eh wassup la bro, my name is Wen Jie.\n What you want? \nI got these commands for you, try"
+                + " them out my guy:\n"
+                + "1. todo <task>\n"
+                + "2. event <task> /from <dd/mm/yyyy HHmm> /to <dd/mm/yyyy HHmm>\n"
+                + "3. deadline <task> /by <dd/mm/yyyy HHmm>\n"
+                + "4. list\n"
+                + "5. mark <task index>\n"
+                + "6. unmark <task index>\n"
+                + "7. delete <task index>\n"
+                + "8. find <keyword>\n"
+                + "9. snooze <task no> /from <dd/mm/yyyy HHmm> /to <dd/mm/yyyy HHmm> OR "
+                + "snooze <task no> /by <dd/mm/yyyy HHmm>\n"
+                + "10. bye\n";
+        dialogContainer.getChildren().addAll(
+                DialogBox.getWenJieDialog(greeting, wenJieImage)
+        );
     }
 
     /**

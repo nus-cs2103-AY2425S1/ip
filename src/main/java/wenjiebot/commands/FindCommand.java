@@ -49,6 +49,14 @@ public class FindCommand extends Command {
                 result.add(task);
             }
         }
+        if (result.isEmpty()) {
+            String message = "Disaster has struck master-kun`, I couldn't find anything with that input T.T";
+            ui.showLine();
+            System.out.println(message);
+            ui.showLine();
+            ui.setOutput(message);
+            return;
+        }
         ui.showLine();
         System.out.println(displayList(result));
         ui.showLine();

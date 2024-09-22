@@ -15,7 +15,6 @@ import wenjiebot.WenJie;
  * graphical user interface (GUI) version of the WenJie bot.
  */
 public class Main extends Application {
-    //private final String absolutePath = Paths.get("src", "main", "java", "data", "wenjie.txt").toString();
     private static final String hardDisk = "./wenjie.txt";
     private final WenJie wenJie = new WenJie(getAbsolutePath(hardDisk));
 
@@ -40,6 +39,7 @@ public class Main extends Application {
             fxmlLoader.<MainWindow>getController().setWenJie(wenJie);
             stage.setTitle("Wenjie Bot");
             stage.show();
+            wenJie.greeting();
         } catch (IOException e) {
             e.printStackTrace();
         }

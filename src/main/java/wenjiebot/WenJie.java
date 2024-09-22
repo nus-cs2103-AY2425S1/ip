@@ -35,10 +35,8 @@ public class WenJie {
      * continuously processing user commands until the exit condition is met.
      */
     public void run() {
-        ui.showWelcome();
         Scanner scanner = new Scanner(System.in);
         Supplier<String> commandSupplier = () -> ui.readCommand(scanner);
-
         Stream.generate(commandSupplier)
                 .map(this::processCommand)
                 .takeWhile(result -> !result)
@@ -72,14 +70,14 @@ public class WenJie {
      * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
-        new WenJie(hardDisk).run();
+        WenJie wenJie = new WenJie(hardDisk);
+        wenJie.run();
     }
 
     /**
      * Generates a response for the user's chat message.
      */
     public String getResponse(String input) {
-        ui.showWelcome();
         try {
             Command c = Parser.parse(input);
             c.execute(tasks, ui, storage);
@@ -87,5 +85,12 @@ public class WenJie {
             ui.showError(e.getMessage());
         }
         return ui.getOutput();
+    }
+
+    /**
+     * Greets the user with a list of commands for them to try out
+     */
+    public void greeting() {
+        ui.showWelcome();
     }
 }

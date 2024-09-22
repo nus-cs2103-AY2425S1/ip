@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import wenjiebot.Storage;
 import wenjiebot.TaskList;
 import wenjiebot.Ui;
+import wenjiebot.exceptions.InvalidIndexException;
+import wenjiebot.exceptions.InvalidNumberException;
 import wenjiebot.exceptions.NoNumberInputtedException;
 import wenjiebot.exceptions.OutOfBoundsException;
 import wenjiebot.exceptions.WenJieException;
@@ -58,13 +60,20 @@ public class SnoozeCommand extends Command {
         if (parts.length <= 1) {
             throw new NoNumberInputtedException();
         }
-
-        int taskNo = Integer.parseInt(parts[1]) - 1;
+        int taskNo;
+        try {
+            taskNo = Integer.parseInt(parts[1]) - 1;
+        } catch (NumberFormatException e) {
+            throw new InvalidNumberException();
+        }
         int descIndex = getInput().indexOf(parts[2]);
         String desc = getInput().substring(descIndex);
 
         if (taskNo + 1 > taskList.size()) {
             throw new OutOfBoundsException();
+        }
+        if (taskNo < 0) {
+            throw new InvalidIndexException();
         }
 
         taskList.get(taskNo).setDateTime(desc);

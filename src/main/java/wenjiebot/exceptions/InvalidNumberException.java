@@ -1,27 +1,27 @@
 package wenjiebot.exceptions;
 
 /**
- * Represents an exception that is thrown when the user inputs a list number
- * that exceeds the current bounds of the list. This exception provides a custom
- * error message to notify the user about the invalid list number.
+ * Represents an exception that is thrown when the user a number with decimal points
+ * that is not a pure integer. This exception provides a custom
+ * error message to notify the user about the invalid number input.
  */
-public class InvalidIndexException extends WenJieException {
+public class InvalidNumberException extends WenJieException {
 
     /**
-     * Constructs an OutOfBoundsException with a default error message.
+     * Constructs an InvalidNumberException with a default error message.
      */
-    public InvalidIndexException() {
+    public InvalidNumberException() {
         super("test");
     }
 
     /**
      * Returns a custom error message that informs the user they have input
-     * a list number that has not yet been added to the list.
+     * a list number that cannot be parsed properly.
      *
      * @return the custom error message string
      */
     @Override
     public String getMessage() {
-        return "wah tough, you input an invalid number that can't be used to index the list";
+        return "oi you don't funny funny use weird numbers give me decimal points hor, I want pure integers PLSS";
     }
 }
