@@ -30,9 +30,9 @@ public class Screwllum {
         storage = new Storage();
         try {
             taskManager = new TaskManager(storage.load());
-            welcomeMessage = "Pleased to meet you!";
+            welcomeMessage = "Welcome back!";
         } catch (IOException e) {
-            welcomeMessage = "Hmm, something went wrong with file exception, I'll try to fix it...";
+            welcomeMessage = "This seems to be our first meeting, how are you!";
         } catch (IllegalFileFormatException e) {
             welcomeMessage = "How peculiar, your save file is corrupted. I will create a new one for you!";
         }
