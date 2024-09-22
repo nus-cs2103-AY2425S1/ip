@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+pixel.Main-Class: pixel.Pixel
+
