@@ -1,5 +1,6 @@
 package storage;
 
+import fridayException.FridayException;
 import task.Deadline;
 import task.Event;
 import task.Task;
@@ -50,12 +51,16 @@ public class Storage {
     public Task createTaskFromInput(String input) {
         assert input != null && !input.isEmpty() : "Input string should not be null or empty";
         String taskType = input.split(" ")[0];
-        return switch (taskType) {
-            case "T" -> new ToDo(input.substring(4), input.split(" ")[1].equals("0"));
-            case "D" -> new Deadline(input.substring(4), input.split(" ")[1].equals("0"));
-            case "E" -> new Event(input.substring(4), input.split(" ")[1].equals("0"));
-            default -> null;
-        };
+        try {
+            return switch (taskType) {
+                case "T" -> new ToDo(input.substring(4), input.split(" ")[1].equals("0"));
+                case "D" -> new Deadline(input.substring(4), input.split(" ")[1].equals("0"));
+                case "E" -> new Event(input.substring(4), input.split(" ")[1].equals("0"));
+                default -> null;
+            };
+        } catch (FridayException e) {
+            return null;
+        }
     }
 
     /**
@@ -81,16 +86,6 @@ public class Storage {
         if (!isFileUncorrupted(file)) {
             throw new IOException(" File is corrupted");
         }
-
-//        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-//            String line;
-//            while ((line = reader.readLine()) != null) {
-//                Task task = this.createTaskFromInput(line);
-//                if (task != null) {
-//                    tasks.add(task);
-//                }
-//            }
-//        }
 
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             List<Task> temp = reader.lines()

@@ -1,5 +1,7 @@
 package task;
 
+import fridayException.FridayException;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -16,10 +18,14 @@ public class Event extends Task {
      *
      * @param taskName The task name.
      */
-    public Event(String taskName) {
+    public Event(String taskName) throws FridayException {
         super(taskName.split("/from")[0]);
         this.startEvent = LocalDate.parse(taskName.split("/from ")[1].split("/to")[0].trim());
         this.endEvent = LocalDate.parse(taskName.split("/from ")[1].split("/to")[1].trim());
+        if (this.endEvent.isBefore(this.startEvent)) {
+            throw new FridayException("End date cannot be before start date.");
+        }
+
     }
 
     /**
@@ -28,10 +34,14 @@ public class Event extends Task {
      * @param taskName The task name.
      * @param isCompleted The completion status.
      */
-    public Event(String taskName, boolean isCompleted) {
+    public Event(String taskName, boolean isCompleted) throws FridayException {
+
         super(taskName.split("/from")[0], isCompleted);
         this.startEvent = LocalDate.parse(taskName.split("/from ")[1].split("/to")[0].trim());
         this.endEvent = LocalDate.parse(taskName.split("/from ")[1].split("/to")[1].trim());
+        if (this.endEvent.isBefore(this.startEvent)) {
+            throw new FridayException("End date cannot be before start date.");
+        }
     }
 
     /**

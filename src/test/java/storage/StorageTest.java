@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import fridayException.FridayException;
 import org.junit.jupiter.api.Test;
 import task.Deadline;
 import task.Event;
@@ -20,7 +21,7 @@ import java.util.List;
 public class StorageTest {
 
     @Test
-    public void saveTasksToFile_validData_fileSaved() throws IOException {
+    public void saveTasksToFile_validData_fileSaved() throws IOException, FridayException {
         Storage storage = new Storage("data/FridayTaskListTest.txt");
         List<Task> tasks = List.of(new ToDo("Task 1", false),
                 new Deadline("Task 2 /by 2024-10-09", false),
@@ -60,7 +61,7 @@ public class StorageTest {
     }
 
     @Test
-    public void createTaskFromInput_validInput_correctTask() {
+    public void createTaskFromInput_validInput_correctTask() throws FridayException {
         Storage storage = new Storage("data/FridayTaskListTest.txt");
 
         Task todo = storage.createTaskFromInput("T 0 Task 1");
