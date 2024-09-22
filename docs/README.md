@@ -277,7 +277,6 @@ Try the command format start with `Hi`, `Hello`, `Oke`, `Yo` or `Nah` to explore
 ## Known issues
 
 1. **Command Overwriting**, If users attempt to add a task with the same description as an existing one, the app does not prevent duplicates. Users should manage their tasks accordingly.
-2. **GUI resizing**, User should not resize the screen windows, as this version has not supported this.
 
 --------------------------------------------------------------------------------------------------------------------
 ## Command Summary
