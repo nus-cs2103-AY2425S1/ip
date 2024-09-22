@@ -215,7 +215,8 @@ public class Parser {
             return "Got it. I've added this task:\n  " + deadline.getTypeIcon() 
                 + deadline.toString() + "\nNow you have " + taskList.size() + " tasks in the list.";
         } catch (Exception e) {
-            throw new FridayException("Invalid date format! Please enter in yyyy-MM-dd.");
+            throw new FridayException("I'm sorry, but I don't know what that means :(((\n" 
+                + "Please enter a valid date in yyyy-MM-dd.");
         }
     }
 
@@ -235,9 +236,24 @@ public class Parser {
             throw new FridayException("I'm sorry, but I don't know what that means :(((\n" 
                 + "Please enter a valid task description.");
         }
+
         String remainingInput = input.substring(input.indexOf(" ") + 1);
         String[] eventParts = remainingInput.split(" /from ");
+
+        if (eventParts.length < 2) {
+            throw new FridayException("I'm sorry, but I don't know what that means :(((\n" 
+                + "Please enter in this format: event DESCRIPTION /from START_DATE_TIME /to END_DATE_TIME\n"
+                + "Example: event meeting /from 2021-09-30 1400 /to 2021-09-30 1600");
+        }
+
         String[] startEnd = eventParts[1].split(" /to ");
+
+        if (startEnd.length < 2) {
+            throw new FridayException("I'm sorry, but I don't know what that means :(((\n" 
+                + "Please enter in this format: event DESCRIPTION /from START_DATE_TIME /to END_DATE_TIME\n"
+                + "Example: event meeting /from 2021-09-30 1400 /to 2021-09-30 1600");
+        }
+
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
             LocalDateTime startDateTime = LocalDateTime.parse(startEnd[0], formatter);
@@ -251,9 +267,8 @@ public class Parser {
             storage.saveTasksToFile(taskList.getTasks());
             return "Got it. I've added this task:\n  " + event.getTypeIcon() 
                 + event.toString() + "\nNow you have " + taskList.size() + " tasks in the list.";
-            //return "from: " + formattedStartDateTime + " to: " + formattedEndDateTime;
         } catch (Exception e) {
-            throw new FridayException("Invalid date format! Please enter in yyyy-MM-dd HHmm.");
+            throw new FridayException("I'm sorry, but I don't know what that means :(((\n Please enter in yyyy-MM-dd HHmm.");
         }
     }
   
