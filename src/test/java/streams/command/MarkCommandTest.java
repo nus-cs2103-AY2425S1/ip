@@ -26,7 +26,7 @@ public class MarkCommandTest {
         Command markCommand = new MarkCommand("1", true);
         markCommand.execute(taskList, ui, storage);
 
-        assertTrue(taskList.getTask(0).isDone());
+        assertTrue(taskList.getTask(0).isCompleted());
     }
 
     @Test
@@ -38,7 +38,7 @@ public class MarkCommandTest {
         Command markCommand = new MarkCommand("1", false);
         markCommand.execute(taskList, ui, storage);
 
-        assertFalse(taskList.getTask(0).isDone());
+        assertFalse(taskList.getTask(0).isCompleted());
     }
 
     @Test

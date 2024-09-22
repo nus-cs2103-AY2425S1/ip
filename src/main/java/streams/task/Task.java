@@ -9,7 +9,7 @@ public abstract class Task {
     protected static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
 
     protected String description;
-    protected boolean isDone;
+    protected boolean isCompleted;
 
     /**
      * Constructs a Task with the given description.
@@ -17,8 +17,9 @@ public abstract class Task {
      * @param description The description of the task.
      */
     public Task(String description) {
+        assert description != null : "Task description should be null";
         this.description = description;
-        this.isDone = false;
+        this.isCompleted = false;
     }
 
     /**
@@ -30,22 +31,22 @@ public abstract class Task {
         return description;
     }
 
-    public boolean isDone() {
-        return isDone;
+    public boolean isCompleted() {
+        return isCompleted;
     }
 
     /**
      * Marks the task as done.
      */
     public void markAsDone() {
-        isDone = true;
+        isCompleted = true;
     }
 
     /**
      * Marks the task as not done.
      */
     public void markAsNotDone() {
-        isDone = false;
+        isCompleted = false;
     }
 
     /**
@@ -55,7 +56,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return (isDone ? "[X] " : "[ ] ") + description;
+        return (isCompleted ? "[X] " : "[ ] ") + description;
     }
 }
 

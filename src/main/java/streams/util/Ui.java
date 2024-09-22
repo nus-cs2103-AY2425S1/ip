@@ -1,18 +1,18 @@
 package streams.util;
 
-import streams.task.Task;
-
 import java.util.List;
 import java.util.Scanner;
+
+import streams.task.Task;
 
 /**
  * Handles user interface operations.
  */
 public class Ui {
-    private Scanner sc;
+    private final Scanner sc;
 
     /**
-     * Constructs a Ui object and initializes the scanner.
+     * Constructs an Ui object and initializes the scanner.
      */
     public Ui() {
         sc = new Scanner(System.in);
@@ -40,6 +40,7 @@ public class Ui {
      * @param tasks The list of matching tasks to display.
      */
     public void showMatchingTasks(List<Task> tasks) {
+        assert tasks != null : "Tasks list cannot be null";
         if (tasks.isEmpty()) {
             System.out.println("No matching tasks found.");
         } else {
@@ -64,6 +65,7 @@ public class Ui {
      * @param message The error message to display.
      */
     public void showError(String message) {
+        assert message != null && !message.isEmpty() : "Error message cannot be null or empty";
         System.out.println(message);
     }
 
@@ -73,6 +75,7 @@ public class Ui {
      * @param message The error message to display.
      */
     public void showMessage(String message) {
+        assert message != null : "Message cannot be null";
         System.out.println(message);
     }
 }

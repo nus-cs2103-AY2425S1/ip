@@ -1,8 +1,8 @@
 package streams.command;
 
-import streams.util.Storage;
 import streams.exception.StreamsException;
 import streams.task.TaskList;
+import streams.util.Storage;
 import streams.util.Ui;
 
 /**

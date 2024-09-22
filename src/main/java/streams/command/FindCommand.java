@@ -1,11 +1,11 @@
 package streams.command;
 
-import streams.exception.StreamsException;
+import java.util.List;
+
 import streams.task.Task;
 import streams.task.TaskList;
 import streams.util.Storage;
 import streams.util.Ui;
-import java.util.List;
 
 /**
  * Represents a command to find tasks containing a specific keyword.
@@ -19,6 +19,7 @@ public class FindCommand extends Command {
      * @param keyword The keyword to search for in task descriptions.
      */
     public FindCommand(String keyword) {
+        assert keyword != null : "Find keyword should not be null";
         this.keyword = keyword;
     }
 
@@ -31,6 +32,9 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        assert tasks != null : "Tasks should not be null";
+        assert ui != null : "Ui should not be null";
+        assert storage != null : "Storage should not be null";
         List<Task> matchingTasks = tasks.findTasks(keyword);
         ui.showMatchingTasks(matchingTasks);
     }

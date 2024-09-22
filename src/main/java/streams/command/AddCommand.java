@@ -18,6 +18,7 @@ public class AddCommand extends Command {
      * @param task The task to be added to the task list.
      */
     public AddCommand(Task task) {
+        assert task != null : "Task should not be null";
         this.task = task;
     }
 
@@ -31,6 +32,9 @@ public class AddCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws StreamsException {
+        assert tasks != null : "Tasks should not be null";
+        assert ui != null : "Ui should not be null";
+        assert storage != null : "Storage should not be null";
         tasks.addTask(task);
         ui.showMessage("Got it. I've added this task:\n  " + task);
         ui.showMessage("Now you have " + tasks.size() + " tasks in the list.");

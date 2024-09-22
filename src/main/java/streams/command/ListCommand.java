@@ -20,6 +20,9 @@ public class ListCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws StreamsException {
+        assert tasks != null : "Tasks should not be null";
+        assert ui != null : "Ui should not be null";
+        assert storage != null : "Storage should not be null";
         if (tasks.isEmpty()) {
             ui.showMessage("your task list is empty!!");
         } else {

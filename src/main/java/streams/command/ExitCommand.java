@@ -1,7 +1,7 @@
 package streams.command;
 
-import streams.util.Storage;
 import streams.task.TaskList;
+import streams.util.Storage;
 import streams.util.Ui;
 
 /**
@@ -18,6 +18,9 @@ public class ExitCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        assert tasks != null : "Tasks should not be null";
+        assert ui != null : "Ui should not be null";
+        assert storage != null : "Storage should not be null";
         ui.showMessage("Bye. Hope to see you again soon!");
     }
 

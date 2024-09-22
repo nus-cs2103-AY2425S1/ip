@@ -1,5 +1,10 @@
 package streams.command;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+
 import streams.exception.StreamsException;
 import streams.task.DeadlineTask;
 import streams.task.EventTask;
@@ -8,18 +13,13 @@ import streams.task.TaskList;
 import streams.util.Storage;
 import streams.util.Ui;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-
-
 /**
  * Represents a command to list tasks on a specific date.
  */
 public class ListDateCommand extends Command {
-    private LocalDate date;
+
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private LocalDate date;
 
     /**
      * Constructs a ListDateCommand with the specified date.
@@ -28,6 +28,7 @@ public class ListDateCommand extends Command {
      * @throws StreamsException If there's an error executing the command.
      */
     public ListDateCommand(String dateString) throws StreamsException {
+        assert dateString != null && !dateString.trim().isEmpty() : "Date string cannot be null or empty";
         try {
             this.date = LocalDate.parse(dateString, DATE_FORMATTER);
         } catch (DateTimeParseException e) {
@@ -44,14 +45,19 @@ public class ListDateCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        assert tasks != null : "Tasks should not be null";
+        assert ui != null : "Ui should not be null";
+        assert storage != null : "Storage should not be null";
         ArrayList<Task> tasksOnDate = new ArrayList<>();
         for (Task task : tasks.getTasks()) {
             if (task instanceof DeadlineTask) {
+                assert ((DeadlineTask) task).getBy() != null : "Deadline date should not be null";
                 if (((DeadlineTask) task).getBy().toLocalDate().equals(date)) {
                     tasksOnDate.add(task);
                 }
             } else if (task instanceof EventTask) {
                 EventTask eventTask = (EventTask) task;
+                assert eventTask.getFrom() != null && eventTask.getTo() != null : "Event dates should not be null";
                 if (eventTask.getFrom().toLocalDate().equals(date) || eventTask.getTo().toLocalDate().equals(date)) {
                     tasksOnDate.add(task);
                 }
