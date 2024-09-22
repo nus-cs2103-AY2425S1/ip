@@ -58,7 +58,6 @@ public class Ui extends AnchorPane {
      * @param s The string to be printed.
      */
     public void speak(String s) {
-        System.out.println(s);
         dialogContainer.getChildren().add(DialogBox.getVecrosenDialog(s, dukeImage));
     }
 

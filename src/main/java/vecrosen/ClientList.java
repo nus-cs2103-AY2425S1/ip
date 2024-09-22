@@ -3,8 +3,11 @@ package vecrosen;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ * Handles manipulating the current session's list of clients.
+ */
 public class ClientList {
-    private ArrayList<Client> list;
+    private final ArrayList<Client> list;
 
     /**
      * Initializes an empty list of clients.

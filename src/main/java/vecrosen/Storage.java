@@ -96,6 +96,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the client list to the specified file.
+     *
+     * @param file The file to save to.
+     * @param list The list of clients.
+     */
     public static void saveClients(File file, ArrayList<Client> list) {
         try {
             FileWriter fw = new FileWriter(file);
@@ -110,6 +116,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the data from the file into the client list.
+     *
+     * @param file The file to read from.
+     * @param list The array to hold the list of clients.
+     */
     public static void loadClients(File file, ArrayList<Client> list) {
         if (!file.exists()) {
             return;

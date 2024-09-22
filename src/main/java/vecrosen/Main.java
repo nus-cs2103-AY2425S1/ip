@@ -17,12 +17,15 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
     private static Ui ui;
+    private static ClientList clientList;
     private static TaskList taskList;
-    private static File data;
+    private static File taskData;
+    private static File clientData;
 
     @Override
     public void start(Stage stage) {
-        data = new File("data/vecrosen.txt");
+        taskData = new File("data/vecrosen.txt");
+        clientData = new File("data/vecrosenClients.txt");
         File datafolder = new File("data");
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
@@ -38,10 +41,16 @@ public class Main extends Application {
             datafolder.mkdir();
         }
         try {
-            taskList = new TaskList(data);
+            taskList = new TaskList(taskData);
         } catch (IndexOutOfBoundsException | NoSuchElementException e) {
             ui.speak("Savefile is corrupted!");
             taskList = new TaskList();
+        }
+        try {
+            clientList = new ClientList(clientData);
+        } catch (IndexOutOfBoundsException | NoSuchElementException e) {
+            ui.speak("Savefile is corrupted!");
+            clientList = new ClientList();
         }
         ui.speak("Hello, I'm Vecrosen.");
         ui.speak("What can I do for you?");
@@ -55,7 +64,8 @@ public class Main extends Application {
         ArrayList<Object> parseArgs = new ArrayList<Object>();
         Parser.ActionType actionType = Parser.parse(input, parseArgs);
         performAction(actionType, parseArgs);
-        taskList.save(data);
+        taskList.save(taskData);
+        clientList.save(clientData);
     }
 
     private static void performAction(Parser.ActionType actionType, ArrayList<Object> parseArgs) {
@@ -70,7 +80,7 @@ public class Main extends Application {
             setCompletion((Integer) parseArgs.get(0), false);
             break;
         case LIST:
-            taskList.printList(ui);
+            listEverything();
             break;
         case TODO:
             // Fallthrough
@@ -141,6 +151,11 @@ public class Main extends Application {
         String target = taskList.deleteTask(itemNo);
         ui.speak("Removing task: " + target);
         ui.speak("You now have " + taskList.getListSize() + " tasks left in record.");
+    }
+
+    private static void listEverything() {
+        taskList.printList(ui);
+        clientList.printList(ui);
     }
 
     private static void handleFind(String term) {
