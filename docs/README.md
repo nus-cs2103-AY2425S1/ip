@@ -27,7 +27,7 @@ makes organizing your life simpler and more efficient.
 # Quick Start
 . Ensure you have Java `17` or above installed in your Computer.
 
-1. Download the latest `.jar` file from [here](https://github.com/blackpanther9229/releases).
+1. Download the latest `.jar` file from [here](https://github.com/blackpanther9229/ip/releases).
 
 1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
 
