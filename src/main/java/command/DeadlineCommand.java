@@ -12,7 +12,7 @@ import tasklist.TaskList;
 /**
  * Handles related issues of command deadline
  */
-public class DeadlineCommand extends Command {
+public class DeadlineCommand implements Command {
     private Task deadline;
     /**
      * Construtor for the deadline command
@@ -48,9 +48,9 @@ public class DeadlineCommand extends Command {
     @Override
     public String getResponse(TaskList tasks) {
         String response = "";
-        tasks.add(this.deadline);
+        tasks.add(deadline);
         response += "A task is added\n";
-        response += this.deadline.toString() + "\n";
+        response += deadline.toString() + "\n";
         return response;
     }
 }

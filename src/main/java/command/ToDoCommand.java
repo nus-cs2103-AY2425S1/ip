@@ -8,7 +8,7 @@ import tasklist.TaskList;
 /**
  * Handles related issus to command todo
  */
-public class ToDoCommand extends Command {
+public class ToDoCommand implements Command {
     private Task todo;
     /**
      * Constructor for the todo command from command line

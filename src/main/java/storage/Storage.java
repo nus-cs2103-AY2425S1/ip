@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.format.DateTimeParseException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import exception.StorageException;
@@ -46,60 +46,64 @@ public class Storage {
 
         while (scanner.hasNext()) {
             String line = scanner.nextLine();
-            String[] args = line.split("\\[|\\]\\[|\\] ");
+            String[] args = line.split(" tags: ");
+            assert args.length == 1 || args.length == 2 : "The task should be splitted into non-tag part and optionally tag part";
+            String withoutTags = args[0];
+            String tags = args.length == 2 ? args[1] : "";
+            args = withoutTags.split("\\[|\\]\\[|\\] ");
             if (args[1].equals("T")) {
-                assert args.length == 4: "ToDo task should have 4 arguments after split";
-                assert args[0].isEmpty(): "The first argument after splitting ToDo should be empty";
-                
+                assert args.length == 4 : "ToDo task should have 4 arguments after split";
+                assert args[0].isEmpty() : "The first argument after splitting ToDo should be empty";
                 String description = args[3];
                 Task task = new ToDo(description);
                 if (args[2].equals("X")) {
                     task.mark();
                 }
-                
+                for (String tag : tags.split(" ")) {
+                    task.addTag(tag);
+                }
                 tasks.add(task);
             } else if (args[1].equals("D")) {
                 try {
                     String regex = "\\[|\\]\\[|\\] | \\(by: |\\)";
-                    args = line.split(regex);
-                    
-                    System.out.println(args.length);
-                    assert args.length == 5: "Deadline task should have 5 arguments after split";
-                    assert args[0].isEmpty(): "The first argument after splitting Deadline should be empty";
-                    
+                    args = withoutTags.split(regex);
+                    assert args.length == 5 : "Deadline task should have 5 arguments after split";
+                    assert args[0].isEmpty() : "The first argument after splitting Deadline should be empty";
                     String description = args[3];
                     LocalDateTime deadline = Converter.outputToDateTime(args[4]);
                     Task task = new Deadline(description, deadline);
-                    
                     if (args[2].equals("X")) {
                         task.mark();
                     }
+                    for (String tag : tags.split(" ")) {
+                        task.addTag(tag);
+                    }
                     tasks.add(task);
                 } catch (DateTimeParseException e) {
-                    assert false: "The arguments deadline for Deadline should be well-formatted";
+                    assert false : "The arguments deadline for Deadline should be well-formatted";
                 }
             } else {
-                assert args[1].equals("E"): "If a task is not ToDo or Deadline, it should be Event";
-                
+                assert args[1].equals("E") : "If a task is not ToDo or Deadline, it should be Event";
                 try {
                     String regex = "\\[|\\]\\[|\\] | \\(from: | to: |\\)";
-                    args = line.split(regex);
+                    args = withoutTags.split(regex);
                     String description = args[3];
-                    
-                    assert args.length == 6: "A event task should have 6 arguments after splitting";
-                    assert args[0].isEmpty(): "The first argument after splitting Event should be empty";
-                    
+                    assert args.length == 6 : "A event task should have 6 arguments after splitting";
+                    assert args[0].isEmpty() : "The first argument after splitting Event should be empty";
                     LocalDateTime start = Converter.outputToDateTime(args[4]);
                     LocalDateTime end = Converter.outputToDateTime(args[5]);
                     Task task = new Event(description, start, end);
                     if (args[2].equals("X")) {
                         task.mark();
                     }
+                    for (String tag : tags.split(" ")) {
+                        task.addTag(tag);
+                    }
                     tasks.add(task);
                 } catch (DateTimeParseException e) {
-                    assert false: "The arguments start and end for Event should be well-formatted";
+                    assert false : "The arguments start and end for Event should be well-formatted";
                 }
-            } 
+            }
         }
         scanner.close();
         return tasks;

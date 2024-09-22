@@ -35,6 +35,7 @@ public class Event extends Task {
     public String toString() {
         return "[E]" + super.toString()
             + " (from: " + Converter.dateTimeToOutput(start)
-            + " to: " + Converter.dateTimeToOutput(end) + ")";
+            + " to: " + Converter.dateTimeToOutput(end) + ") "
+            + getTagsToString();
     }
 }
