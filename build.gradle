@@ -30,10 +30,6 @@ dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
 }
-/*dependencies {
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
-    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
-}*/
 
 test {
     useJUnitPlatform()
@@ -50,7 +46,7 @@ test {
 }
 
 application {
-    mainClass.set("streams.streams")
+    mainClass.set("gui.Launcher")
 }
 
 shadowJar {
