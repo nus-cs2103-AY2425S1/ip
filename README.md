@@ -1,24 +1,50 @@
-# Duke project template
+# Meet Derek!
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+**"Derek saved my dog from getting run over"** – *Dr. Doofenshmirtz*
 
-## Setting up in Intellij
+Derek, your best friend, your buddy, your savior, is here to brighten up your life!
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+---
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## With Derek you can:
+
+- **Schedule** your very real social life!
+- **Sort** your life out with a to-do list!
+- Finally, **have a friend**!
+
+Wow! Sounds like a dream, doesn't it? 🫣  
+Well, this is real—Derek even celebrates your little achievements!
+
+```java
+String[] celebrationMessages = new String[]{
+    "yay!",
+    "woohoo!",
+    "let's go!!!!",
+    "great job :)",
+    "you're on a roll!"
+};
+
+
+**What a gentleman, better than a real man for sure!**  
+You can have him with just a few easy steps!
+
+---
+
+1. **[Download him here](https://github.com/haleemairfan/ip/releases/tag/A-Release)**  
+   *Don't tell him you downloaded him, he thinks he's real.*
+2. **Double-click** it!!!!
+3. **Start yapping** with him.
+
+---
+
+## Derek's Quirks
+
+- [x] Managing your tasks
+- [x] Managing your events
+- [x] Managing your deadlines
+- [x] Just a great guy in general
+
+---
+
+**So what are you waiting for?** Get Derek NOWWWW!  
+*Please get him, I need to get rid of him...*
