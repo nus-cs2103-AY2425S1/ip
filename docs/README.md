@@ -18,17 +18,18 @@ There is also an additional feature to archive all your existing tasks!
 --------------------------------------------------------------------------------------------------------------------
 ## Command summary (click on command to jump directly)
 
-Command | Format, Examples
---------|------------------
-**[Todo](#add-a-task)** | `todo DESC` <br> e.g., `todo dishes`
-**[Deadline](#add-a-task-with)** | `deadline DESC /by DEADLINE` <br> e.g., `deadline IP /by 2024-09-23`
-**[Event](#add-a-task-that)** | `event DESC /from STARTDATE /to ENDDATE` <br> e.g., `event National Day /from 2024-08-01 /to 2024-08-20`
-**[Delete](#delete)** | `delete INDEX`<br> e.g., `delete 3`
-**[Toggle](#toggle)** | `toggle INDEX`<br> e.g., `toggle 3`
-**[Find](#find)** | `find KEYWORD` <br> e.g., `find assignment`
-**[List](#list)** | `list`
-**[Archive](#archive)** | `archive`
-**[Bye](#exiting)** | `bye`
+| Command                                                     | Format, Examples                                                                                         |
+|-------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|
+| **[Todo](#add-a-task-todo)**                                | `todo DESC` <br> e.g., `todo dishes`                                                                     |
+| **[Deadline](#add-a-task-with-a-deadline-deadline)**        | `deadline DESC /by DEADLINE` <br> e.g., `deadline IP /by 2024-09-23`                                     |
+| **[Event](#add-a-task-that-spans-between-two-dates-event)** | `event DESC /from STARTDATE /to ENDDATE` <br> e.g., `event National Day /from 2024-08-01 /to 2024-08-20` |
+| **[Delete](#delete-a-task--delete)**                        | `delete INDEX`<br> e.g., `delete 3`                                                                      |
+| **[Toggle](#toggle-the-status-of-a-task--toggle)**          | `toggle INDEX`<br> e.g., `toggle 3`                                                                      |
+| **[Find](#find-tasks-by-description-find)**                 | `find KEYWORD` <br> e.g., `find assignment`                                                              |
+| **[List](#list-command-list)**                              | `list`                                                                                                   |
+| **[Archive](#archive-recorded-tasks--archive)**             | `archive`                                                                                                |
+| **[Bye](#exiting-the-program--bye)**                        | `bye`                                                                                                    |
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Commands
