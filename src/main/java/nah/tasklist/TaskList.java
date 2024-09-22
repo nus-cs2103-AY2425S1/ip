@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import nah.data.Deadlines;
+import nah.data.Events;
 import nah.data.Task;
 import nah.exceptions.NahException;
 
@@ -151,8 +153,8 @@ public class TaskList {
                 + IntStream.range(0, taskCount)
                         .mapToObj(i -> Map.entry(i, tasks.get(i))) // Create pairs of (index, task)
                         .filter(entry -> entry.getValue()
-                                instanceof Task.Deadlines || entry.getValue()
-                                instanceof Task.Events)
+                                instanceof Deadlines || entry.getValue()
+                                instanceof Events)
                         .filter(entry -> entry.getValue().isBefore(due) && !entry.getValue().isDone())
                         .map(entry -> (entry.getKey() + 1) + ". " + entry.getValue().toString())
                         .collect(Collectors.joining("\n ", " ", "\n"));

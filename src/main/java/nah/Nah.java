@@ -1,7 +1,5 @@
 package nah;
 
-import java.nio.file.Paths;
-
 import nah.command.Command;
 import nah.exceptions.NahException;
 import nah.parser.Parser;
@@ -13,8 +11,6 @@ import nah.ui.UI;
  * Our chatBot
  */
 public class Nah {
-    private static final String hardDisk =
-            Paths.get("src", "main", "Resources", "filePath", "Nah.txt").toString();
     private Storage storage;
     private UI ui;
     private TaskList tasks;
@@ -24,7 +20,7 @@ public class Nah {
      */
     public Nah() {
         ui = new UI();
-        storage = new Storage(hardDisk);
+        storage = new Storage();
         try {
             tasks = new TaskList(storage.load());
 
@@ -74,7 +70,7 @@ public class Nah {
      */
     public static void main(String[] args) {
 
-        Nah nah = new Nah(hardDisk);
+        Nah nah = new Nah();
 
     }
 }

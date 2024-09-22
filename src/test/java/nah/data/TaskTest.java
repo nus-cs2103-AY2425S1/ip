@@ -9,7 +9,7 @@ public class TaskTest {
      */
     @Test
     public void wordMatchTest1() {
-        Task t = new Task.ToDos("go to sleep");
+        Task t = new ToDos("go to sleep");
         assertEquals(true, t.isMatch("TO"));
     }
 
@@ -18,7 +18,7 @@ public class TaskTest {
      */
     @Test
     public void wordMatchTest2() {
-        Task t = new Task.ToDos("go to school");
+        Task t = new ToDos("go to school");
         assertEquals(true, t.isOneMatch("nah TODO"));
     }
 
@@ -27,7 +27,7 @@ public class TaskTest {
      */
     @Test
     public void wordMatchTest3() {
-        Task t = new Task.ToDos("go to school");
+        Task t = new ToDos("go to school");
         assertEquals(false, t.isOneMatch("nah nha anh"));
     }
 }

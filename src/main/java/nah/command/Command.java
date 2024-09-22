@@ -22,33 +22,7 @@ import nah.ui.UI;
  * @see Storage
  */
 public abstract class Command {
-    /*private final static String helpLine = " Please type 'Help' followed by one of these keywords to get the " +
-            "corresponding command format\n"
-            + " 1.Bye : to exit the program\n"
-            + " 2.List : to list the tasks in the storage\n"
-            + " 3.Clean : to clean the storage\n"
-            + " 4.Find : to find the matching tasks\n"
-            + " 5.DueOn : to find the uncompleted tasks that before due\n"
-            + " 6.Mark : to mark the corresponding task as done\n"
-            + " 7.Unmark : to mark the corresponding task as not done\n"
-            + " 8.Delete : to delete the task\n"
-            + " 9.Todo : to add a todo task\n"
-            + " 10.Deadline : to add a deadline task\n"
-            + " 11.Event : to add an event task\n";
-    private final static String exitFormat = "Bye";
-    private final static String listFormat = "List";
-    private final static String cleanFormat = "Clean";
-    private final static String findFormat = "Find 'one or more words')";
-    private final static String markFormat = "Mark 'ordinal number of the task'";
-    private final static String ummarkFormat = "Unmark 'ordinal number of the task'";
-    private final static String deleteFormat = "Delete 'ordinal number of the task'";
-    private final static String dueOnFormat = "DueOn yyyy-mm-dd HHmm";
-    private final static String toDoFormat = "Todo 'description'";
-    private final static String deadLineFormat = "Deadline 'description' /by yyyy-mm-dd HHmm";
-    private final static String eventFormat =
-            "Event 'description' /from yyyy-mm-dd HHmm /to yyyy-mm-dd HHmm";
 
-     */
     /**
      * Returns true this is exit command
      *

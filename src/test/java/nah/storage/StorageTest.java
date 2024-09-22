@@ -23,7 +23,7 @@ public class StorageTest {
         Storage storage = new Storage(data);
         try {
             LinkedList<Task> tasks = storage.load();
-            assertEquals("[D] [ ] ip week4 (by: Sep 5 2024, 4:00 PM)", tasks.get(2).toString());
+            assertEquals("[D] [  ] ip week4 (by: Sep 5 2024, 4:00 PM)", tasks.get(2).toString());
         } catch (NahException e) {
             System.out.println(e.getMessage());
             fail("Unexpected NahException");

@@ -15,11 +15,11 @@ import nah.exceptions.NahException;
  * Handles the storing the data into a hard disk.
  */
 public class Storage {
-    private static final String hardDisk =
-            Paths.get("src", "main", "resources", "filePath", "Nah.txt").toString();
+    private static final String HARD_DISK =
+            Paths.get("./Nah.txt").toString();
     private String filePath;
     public Storage() {
-        this.filePath = hardDisk;
+        this.filePath = HARD_DISK;
     }
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -43,7 +43,20 @@ public class Storage {
     }
 
 
+    /**
+     * Creates a new hard disk if it doesn't exist.
+     */
+    private void createNewHardDisk() throws NahException {
+        assert this.HARD_DISK.length() != 0 : "Nah!!! No path specified for our hard disk";
+        File newFile = new File(HARD_DISK);
 
+        // Creates a new file for caching data.
+        try {
+            newFile.createNewFile();
+        } catch (IOException e) {
+            throw new NahException("Nah!!! Hard disk file cannot be created");
+        }
+    }
 
     /**
      * Return a LinkList of tasks extracted from the file at filePath (helper method).
@@ -52,21 +65,19 @@ public class Storage {
      * @throws NahException if something wrong with the filePath
      */
     public LinkedList<Task> load() throws NahException {
-        LinkedList<Task> t = new LinkedList<Task>();
-        File f;
-        Scanner s;
+        LinkedList<Task> taskList = new LinkedList<Task>();
         try {
-            f = new File(filePath);
-            s = new Scanner(f);
-        } catch (FileNotFoundException | NullPointerException e) {
-            throw new NahException(" Nahh!!! Something is wrong with the filePath");
+            File f = new File(filePath);
+            Scanner s = new Scanner(f);
+            while (s.hasNext()) {
+                taskList.add(Decoder.decode(s.nextLine()));
+            }
+            s.close();
+        } catch (FileNotFoundException e) {
+            // file doesn't exist
+            this.createNewHardDisk();
         }
-
-        while (s.hasNext()) {
-            t.add(Decoder.decode(s.nextLine()));
-        }
-        s.close();
-        return t;
+        return taskList;
 
     }
 

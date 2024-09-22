@@ -7,30 +7,14 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import nah.command.Command;
-import nah.data.Task;
+import nah.data.Deadlines;
+import nah.data.Events;
+import nah.data.ToDos;
 import nah.exceptions.NahException;
 /**
  * Handles the parsing of user input into Command object for execution.
  */
 public class Parser {
-    /*public static EnumCommand convertToEnumCommand(String s) {
-        String cmd = s.trim().toLowerCase();
-        switch (cmd) {
-        case "" : return EnumCommand.UNKNOWN;
-        case "bye" : return EnumCommand.BYE;
-        case "list" : return EnumCommand.LIST;
-        case "clean" : return EnumCommand.CLEAN;
-        case "find" : return EnumCommand.FIND;
-        case "dueon" : return EnumCommand.DUEON;
-        case "mark" : return EnumCommand.MARK;
-        case "unmark" : return EnumCommand.UNMARK;
-        case "delete" : return EnumCommand.DELETE;
-        case "todo" : return EnumCommand.TODO;
-        case "deadline" : return EnumCommand.DEADLINE;
-        case "event" : return EnumCommand.EVENT;
-        default : return EnumCommand.UNKNOWN;
-        }
-    }*/
     /**
      * Converts a String command into an object of Command class.
      *
@@ -54,7 +38,7 @@ public class Parser {
             int i;
             try {
                 i = parseInt(cmd[1]);
-            } catch (NumberFormatException e) {
+            } catch (NumberFormatException e) { // the second word is not a number
                 return new Command.UnknownCommand();
             }
             return new Command.NahCommand(i);
@@ -63,13 +47,13 @@ public class Parser {
             return new Command.ReactCommand(cmd[0].toLowerCase());
         }
         case "clean": {
-            if (cmd.length >= 2 && !cmd[1].trim().isEmpty()) {
+            if (cmd.length >= 2 && !cmd[1].trim().isEmpty()) { // there are nonsense word after 'clean'
                 throw new NahException(" Nahh!!! Do not type nonsense after 'clean' command\n");
             }
             return new Command.CleanCommand();
         }
         case "list": {
-            if (cmd.length >= 2 && !cmd[1].trim().isEmpty()) {
+            if (cmd.length >= 2 && !cmd[1].trim().isEmpty()) { // there are nonsense word after 'list'
                 throw new NahException(" Nahh!!! Do not type nonsense after 'list' command\n");
             }
             return new Command.ListCommand();
@@ -82,7 +66,7 @@ public class Parser {
         }
         case "mark": {
             if (cmd.length < 2) {
-                throw new NahException(
+                throw new NahException(// No number for mark command
                         " Nah!!! Mark command needs a number\n");
             }
             int i;
@@ -113,8 +97,7 @@ public class Parser {
         }
         case "delete": {
             if (cmd.length < 2) {
-                throw new NahException(
-                        " Nah!!! Delete command needs a number\n");
+                throw new NahException(" Nah!!! Delete command needs a number\n");
             }
             int i;
             try {
@@ -128,7 +111,7 @@ public class Parser {
         case "dueon": {
             if (cmd.length < 2) {
                 throw new NahException(
-                        " Nah!!! DueOn command needs a number\n");
+                        " Nah!!! DueOn command needs a time\n");
             }
             return new Command.DueOnCommand(cmd[1]);
         }
@@ -137,7 +120,7 @@ public class Parser {
                 throw new NahException.LackDescriptionException(
                         " Nahhhh!!! Todo needs description\n");
             }
-            return new Command.AddCommand(new Task.ToDos(cmd[1].trim()));
+            return new Command.AddCommand(new ToDos(cmd[1].trim()));
         }
         case "deadline": {
             if (cmd.length < 2 || cmd[1].trim().isEmpty()) {
@@ -156,7 +139,7 @@ public class Parser {
                 throw new NahException(
                         " Nahh!!! Time should be in the format yyyy-mm-dd hhmm, with valid date and time\n");
             }
-            return new Command.AddCommand(new Task.Deadlines(des[0].trim(), by));
+            return new Command.AddCommand(new Deadlines(des[0].trim(), by));
         }
         case "event": {
             if (cmd.length < 2 || cmd[1].trim().isEmpty()) {
@@ -183,7 +166,7 @@ public class Parser {
                         " Nahh!!! Time should be in the format yyyy-mm-dd hhmm, with valid date and time\n");
             }
 
-            return new Command.AddCommand(new Task.Events(des[0].trim(), start, end));
+            return new Command.AddCommand(new Events(des[0].trim(), start, end));
         }
         default: {
             return new Command.UnknownCommand();
@@ -192,3 +175,4 @@ public class Parser {
 
     }
 }
+

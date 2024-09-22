@@ -1,6 +1,6 @@
 # Nah User Guide
 
-![Screen shot of Nah chatBot window](UI.png)
+![Screen shot of Nah chatBot window](Ui.png)
 
 Meet Nah, your dedicated chatbot assistant for managing daily 
 tasks, deadlines, and events. Designed to streamline your 

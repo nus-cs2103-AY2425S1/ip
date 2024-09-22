@@ -28,6 +28,8 @@ public class MainWindow extends AnchorPane {
             new Image(this.getClass().getResourceAsStream("/images/nah.png"));
     private final DialogBox greeting = DialogBox.getNahDialog(
             " Hello from Nah. How can I help you?", nahImage);
+    private final String helpCmd = "help";
+    private final String exitCmd = "bye";
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -86,14 +88,16 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getNahDialog(response, nahImage)
         );
         // exit the program after 1 second if the input is "bye"
-        if (input.trim().toLowerCase().equals("bye")) {
+        if (input.trim().toLowerCase().equals(exitCmd)) {
             PauseTransition pause = new PauseTransition(Duration.seconds(1));
             pause.setOnFinished(event -> this.stage.close());
             pause.play();
         }
-        // open a helpWindow if input is "help"
-        if (input.trim().toLowerCase().equals("help")) {
-            helpWindow.show();
+        // open a helpWindow after 1 second if input is "help"
+        if (input.trim().toLowerCase().equals(helpCmd)) {
+            PauseTransition pause = new PauseTransition(Duration.seconds(1));
+            pause.setOnFinished(event -> helpWindow.show());
+            pause.play();
         }
         userInput.clear();
     }
