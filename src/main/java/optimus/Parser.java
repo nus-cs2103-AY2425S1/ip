@@ -1,8 +1,8 @@
 package optimus;
+
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.util.Duration;
-
 import java.io.IOException;
 
 public class Parser {
