@@ -1,6 +1,5 @@
 package tira.task;
 
-import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -15,7 +14,6 @@ import tira.Ui;
 public class TaskList {
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private ArrayList<Task> tasks;
-    private final PrintWriter printer = new PrintWriter(System.out);
     private Ui ui;
 
     /**
@@ -154,7 +152,7 @@ public class TaskList {
             throw new TiraException("MRAW?? Please specify event name and timing.");
         } else if (commandSplitBySpace[1].startsWith("/")) {
             throw new TiraException("MRAW?? Please provide task in this format: event DESCRIPTION /from yyyy-MM-dd"
-                    + "/to yyyy-MM-dd" );
+                    + "/to yyyy-MM-dd");
         }
         String[] commandSplitBySlash = command.split("/");
         if (commandSplitBySlash.length <= 2) {
