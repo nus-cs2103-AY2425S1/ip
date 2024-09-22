@@ -152,7 +152,7 @@ public class Parser {
             throw new GrokInvalidUserInputException(
                     "OOPS! Sorry, I don't recognize your input :(\n"
                             + "Available commands are: "
-                            + "bye, list, mark, unmark, todo, deadline, event, delete"
+                            + "bye, list, mark, unmark, todo, deadline, event, delete, find"
             );
         }
     }

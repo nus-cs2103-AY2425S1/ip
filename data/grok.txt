@@ -1,5 +1,6 @@
-T |   | hello!
-D |   | cs2103t ip  | 2024-09-20
 D | X | hello  | 2020-10-10
 E |   | event holidays  | 2024-12-20 | 2025-01-01
 E |   | event td  | 2020-10-10 | 2020-10-12
+T |   | buy groceries
+D |   | cs2103t ip  | 2024-09-20
+E |   | holidays  | 2024-09-21 | 2024-09-30
