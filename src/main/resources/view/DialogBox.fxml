@@ -8,13 +8,15 @@
 <fx:root alignment="TOP_RIGHT"
          maxHeight="1.7976931348623157E308"
          maxWidth="1.7976931348623157E308"
-         prefWidth="400.0"
          spacing="10"
          type="javafx.scene.layout.HBox"
          xmlns="http://javafx.com/javafx/17"
          xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <HBox fx:id="freeSpace" minHeight="-Infinity" minWidth="20" style="-fx-background-color: lightblue;"/>
+        <HBox fx:id="freeSpace"
+              minHeight="-Infinity"
+              maxWidth="20"
+              style="-fx-background-color: lightblue;"/>
         <Label fx:id="dialog" text="Label" wrapText="true" minHeight="-Infinity"
             style = "-fx-background-color: lightGreen;
                     -fx-background-radius: 15;

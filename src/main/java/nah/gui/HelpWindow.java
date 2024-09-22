@@ -27,20 +27,7 @@ public class HelpWindow extends AnchorPane {
     private final Image helperImage =
             new Image(this.getClass().getResourceAsStream("/images/helper.png"));
     private final DialogBox greeting = DialogBox.getNahDialog(
-            " This is Nah HelpBox. These are Nah's single word command"
-                    + " 1.Bye : to exit the program\n"
-                    + " 2.List : to list the tasks in the storage\n"
-                    + " 3.Clean : to clean the storage\n"
-                    + " Or type one of these key words to get the corresponding command format\n"
-                    + " 1.Find : to find the matching tasks\n"
-                    + " 2.DueOn : to find the uncompleted tasks that before due\n"
-                    + " 3.Mark : to mark the corresponding task as done\n"
-                    + " 4.Unmark : to mark the corresponding task as not done\n"
-                    + " 5.Delete : to delete the task\n"
-                    + " 6.Todo : to add a todo task\n"
-                    + " 7.Deadline : to add a deadline task\n"
-                    + " 8.Event : to add an event task\n"
-                    + " Or type 'exit' to close Help Window ^:\n", helperImage);
+            " Hello. This is Nah HelpBox. If you need more help on Nah command, type 'help'", helperImage);
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -80,6 +67,8 @@ public class HelpWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.prefWidthProperty().bind(scrollPane.widthProperty());
+        dialogContainer.prefHeightProperty().bind(scrollPane.heightProperty());
     }
 
     public void show() {
