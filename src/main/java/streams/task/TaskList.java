@@ -1,10 +1,10 @@
 package streams.task;
 
-import streams.exception.StreamsException;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import streams.exception.StreamsException;
 
 /**
  * Represents a list of tasks.

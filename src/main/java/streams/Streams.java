@@ -13,10 +13,6 @@ public class Streams {
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
-
-    private Parser parser;
-
-    String SAVE_FILES = "./src/main/data/saveFile.txt";
     /**
      * Constructs the main Duke application.
      *

@@ -1,9 +1,9 @@
 package streams.util;
 
-import streams.task.Task;
-
 import java.util.List;
 import java.util.Scanner;
+
+import streams.task.Task;
 
 /**
  * Handles user interface operations.
@@ -12,7 +12,7 @@ public class Ui {
     private Scanner sc;
 
     /**
-     * Constructs a Ui object and initializes the scanner.
+     * Constructs an Ui object and initializes the scanner.
      */
     public Ui() {
         sc = new Scanner(System.in);

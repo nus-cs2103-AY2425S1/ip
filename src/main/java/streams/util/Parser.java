@@ -1,14 +1,22 @@
 package streams.util;
 
-import streams.command.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import streams.command.AddCommand;
+import streams.command.Command;
+import streams.command.DeleteCommand;
+import streams.command.ExitCommand;
+import streams.command.ListCommand;
+import streams.command.ListDateCommand;
+import streams.command.ListWeekCommand;
+import streams.command.MarkCommand;
+import streams.command.SortDeadlineCommand;
 import streams.exception.StreamsException;
 import streams.task.DeadlineTask;
 import streams.task.EventTask;
 import streams.task.ToDoTask;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * Parses user input into commands.
@@ -87,12 +95,14 @@ public class Parser {
     private static Command parseEvent(String rest) throws StreamsException {
         String[] parts = rest.split(" /from ");
         if (parts.length != 2) {
-            throw new StreamsException("the format for events is 'event [description] /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm'");
+            throw new StreamsException("the format for events is 'event [description] "
+                    + "/from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm'");
         }
         String description = parts[0].trim();
         String[] timeParts = parts[1].split(" /to ");
         if (timeParts.length != 2) {
-            throw new StreamsException("the format for events is 'event [description] /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm'");
+            throw new StreamsException("the format for events is 'event [description] "
+                    + "/from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm'");
         }
         String fromString = timeParts[0].trim();
         String toString = timeParts[1].trim();
