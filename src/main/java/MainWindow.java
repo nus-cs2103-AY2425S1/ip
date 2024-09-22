@@ -1,4 +1,5 @@
 import dave.Dave;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -6,6 +7,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * Controller for the main GUI.
@@ -31,6 +34,8 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("userImage.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("dukeImage.png"));
 
+    private Stage stage; // Store the Stage instance for closing the window
+
     /**
      * Initializes the MainWindow by binding the scroll pane's vertical value to the dialog container's height
      * and setting the scroll behavior.
@@ -55,6 +60,16 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
+     * Injects the Stage into the controller.
+     * This allows the MainWindow to control the Stage, such as closing the window when the "bye" command is entered.
+     *
+     * @param stage The Stage instance representing the main window.
+     */
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    /**
      * Handles user input by creating dialog boxes for both the user's input and Dave's response.
      * Adds the dialog boxes to the dialog container and clears the user input field after processing.
      * This method is triggered when the user clicks the "Send" button or presses enter.
@@ -68,6 +83,14 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
+
+        // Check if the input is "bye" and close the stage
+        if (input.equals("bye")) {
+            // Create a pause before closing the window
+            PauseTransition delay = new PauseTransition(Duration.seconds(0.75)); // Adjust the delay as needed
+            delay.setOnFinished(event -> stage.close()); // Close the stage after the delay
+            delay.play(); // Start the delay
+        }
     }
 
     /**

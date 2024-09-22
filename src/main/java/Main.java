@@ -32,6 +32,7 @@ public class Main extends Application {
             // Assert controller initialization
 
             controller.setDave(dave); // inject the Duke instance
+            controller.setStage(stage);
             controller.showWelcomeMessage();
 
             stage.setMinHeight(220);
