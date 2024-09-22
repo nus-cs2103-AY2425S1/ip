@@ -28,6 +28,7 @@ Format: ``todo TASK``
 
 Examples:
 - todo read book
+
 ---
 ### Add Deadlines 
 Adds a deadline to the task list.
