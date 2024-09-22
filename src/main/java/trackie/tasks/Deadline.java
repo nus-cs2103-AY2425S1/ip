@@ -1,13 +1,14 @@
 package trackie.tasks;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * Represents a class of the type "Deadline".
  */
 public class Deadline extends Task {
     private String type = "D";
-    private LocalDate deadline;
+    private LocalDateTime deadline;
 
     /**
      * Creates a deadline task.
@@ -17,7 +18,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String deadline) {
         super(description);
-        this.deadline = LocalDate.parse(deadline);
+        this.deadline = LocalDateTime.parse(deadline);
     }
 
     /**
@@ -29,7 +30,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String deadline, int status) {
         super(description, status);
-        this.deadline = LocalDate.parse(deadline);
+        this.deadline = LocalDateTime.parse(deadline);
     }
 
     /**

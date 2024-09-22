@@ -65,7 +65,7 @@ public class AddCommand extends Command {
         } catch (TrackieException e) {
             return e.getMessage();
         } catch (DateTimeParseException ex) {
-            return "Correct format for deadline: yyyy-dd-mm";
+            return "Correct format for date and time: yyyy-dd-mmThh:mm:ss";
         } finally {
             storage.save();
         }

@@ -1,13 +1,10 @@
 package trackie.storage;
 
-import javax.sound.midi.Track;
-import trackie.commands.ListCommand;
 import trackie.parsing.Parser;
 import trackie.tasks.Deadline;
 import trackie.tasks.Event;
 import trackie.tasks.Task;
 import trackie.tasks.Todo;
-import trackie.ui.Trackie;
 import trackie.ui.TrackieException;
 
 import java.io.File;
@@ -106,7 +103,7 @@ public class Storage {
                 data = String.format("D|%d|%s|%s", status, d.getDescription(), d.getDeadline());
             } else if (x instanceof Event) {
                 Event e = (Event) x;
-                data = String.format("E|%d|%s|%s|%s", status, e.getDescription(), e.getStart(), e.getEnd());
+                data = String.format("E|%d|%s|%s|%s", status, e.getDescription(), e.getStartTime(), e.getEndTime());
             }
 
             try {

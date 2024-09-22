@@ -83,7 +83,7 @@ public abstract class Command {
             ptr++;
         }
         if (startTimeFetcher.isEmpty()) {
-            throw new TrackieException("Deadline cannot be empty");
+            throw new TrackieException("Start time cannot be empty");
         }
         return startTimeFetcher.substring(0, startTimeFetcher.length() - 1);
     }
@@ -102,7 +102,7 @@ public abstract class Command {
             ptr++;
         }
         if (endTimeFetcher.isEmpty()) {
-            throw new TrackieException("Deadline cannot be empty");
+            throw new TrackieException("End time cannot be empty");
         }
         return endTimeFetcher.substring(0, endTimeFetcher.length() - 1);
     }
