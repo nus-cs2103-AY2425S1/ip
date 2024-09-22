@@ -30,7 +30,6 @@ public class Deadline extends Task {
         } catch (DateTimeParseException e) {
             throw new CenaInvalidDeadlineException("Incorrect format for deadline. Please use yyyy-MM-dd HHmm.");
         }
-//        this.by = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
 
     /**
