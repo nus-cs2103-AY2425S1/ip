@@ -11,7 +11,6 @@ import java.util.Scanner;
  * Represents the CLI version of the user interface.
  */
 public class TextUi extends Ui {
-    
     private final static String GREETING_MESSAGE = """
             /\\_/\\     ____________________
             >^,^<    / Hi, I'm Mittens!   \\
@@ -124,11 +123,6 @@ public class TextUi extends Ui {
             this.printMessage(message);
         }
         this.printBlankLine();
-    }
-
-    @Override
-    public void showRegularMessage(String... messages) {
-        showRegularMessage(List.of(messages));
     }
 
     @Override
