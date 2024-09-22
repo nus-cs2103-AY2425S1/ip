@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import action.Action;
 import action.AddTaskAction;
 import action.DeleteTaskAction;
+import action.FindTasksAction;
+import action.ListScheduleAction;
 import action.ListTasksAction;
 import action.MarkTaskAction;
 import action.UnmarkTaskAction;
@@ -16,6 +18,7 @@ import exception.InvalidCommandException;
 import exception.InvalidCommandFormatException;
 import exception.InvalidDateFormatException;
 import exception.InvalidTaskIndexException;
+import task.Task;
 
 public class ParserTest {
     @Test
@@ -144,5 +147,17 @@ public class ParserTest {
     public void parseInput_validDelete_success() throws BotException {
         Action action = new Parser().parseInput("delete 1");
         assertEquals(action.getClass(), DeleteTaskAction.class);
+    }
+
+    @Test
+    public void parseInput_validFind_success() throws BotException {
+        Action action = new Parser().parseInput("find string");
+        assertEquals(action.getClass(), FindTasksAction.class);
+    }
+
+    @Test
+    public void parseInput_validSchedule_success() throws BotException {
+        Action action = new Parser().parseInput("schedule 2024-01-01");
+        assertEquals(action.getClass(), ListScheduleAction.class);
     }
 }
