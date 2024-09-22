@@ -1,0 +1,5 @@
+T | true | read book | LOW
+D | true | return book | MEDIUM | 2024-06-06 1800
+E | true | project meeting | LOW | 2024-08-06 1800 | 2024-08-06 2000
+T | true | join sports club | HIGH
+T | false | join a fan club | LOW

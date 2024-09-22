@@ -1,0 +1,10 @@
+todo Read the Back to the Future script
+deadline Submit project /by 2024-08-25
+event Watch Back to the Future /from 18:00 /to 20:00
+list
+mark 1
+unmark 2
+list
+unmark 1
+list
+bye

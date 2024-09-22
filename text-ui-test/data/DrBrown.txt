@@ -1,0 +1,7 @@
+T | false | Read the Back to the Future script
+D | false | Go to dinner | 2024-10-15 1600
+E | false | Watch Back to the Future | 1945-09-12 1200 | 2027-11-20 0200
+E | false | Watch Back to the Future | 1945-09-12 1200 | 2027-11-20 0200
+T | false | Read the Back to the Future script
+D | false | Go to dinner | 2024-10-15 1600
+E | false | Watch Back to the Future | 1945-09-12 1200 | 2027-11-20 0200

@@ -1,0 +1,26 @@
+/* Main styling for the AnchorPane */
+.anchor-pane {
+    -fx-background-color: white;
+}
+
+/* Styling for the TextField (user input) */
+.text-field {
+    -fx-background-color: #f0f0f0;
+    -fx-text-fill: black;
+}
+
+/* Styling for the Send Button */
+.button {
+    -fx-background-color: #f0f0f0;
+    -fx-text-fill: black;
+}
+
+/* Styling for the ScrollPane */
+.scroll-pane {
+    -fx-background-color: white;
+}
+
+/* Styling for the VBox inside the ScrollPane */
+.vbox {
+    -fx-background-color: white;
+}
