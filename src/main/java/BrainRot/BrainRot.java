@@ -147,9 +147,16 @@ public class BrainRot {
         return ui.showAddTaskMsg(newTask.toString());
     }
 
+    /**
+     * Tags task in the task list based on the details provided.
+     *
+     * @param tag The tag of the task to be added.
+     * @throws IOException If an I/O error occurs during task saving.
+     */
     private String tagTask(String tag) throws IOException {
-        int tagIndex = Integer.parseInt(tag) - 1;
-        tasks.editTask(tagIndex, tag);
+        String[] parts = tag.split("#");
+        int tagIndex = Integer.parseInt(parts[0].trim()) - 1;
+        tasks.editTask(tagIndex, "#" + parts[1]);
         storage.save(tasks.getTasks());
         return ui.showTagTaskMsg(tag);
     }

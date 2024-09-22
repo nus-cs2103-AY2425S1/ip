@@ -38,3 +38,4 @@ Features of this bot:
 - Type "unmark" + [ number in list ] to unmark that task
 - Type "bye" to exit program
 - Type "find" + "[ action ]" to find a task
+- Type "tag" + "[number in list]" + "[# any tag]" will tag the task

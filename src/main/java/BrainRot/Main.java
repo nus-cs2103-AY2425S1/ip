@@ -28,7 +28,8 @@ public class Main extends Application{
     @Override
     public void start(Stage stage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/MainWindow.fxml"));
+
             // Initialize BrainRot instance
             String filePath = System.getProperty("user.home") + "/ip/data/brainRot.txt";
             brainRot = new BrainRot(filePath);

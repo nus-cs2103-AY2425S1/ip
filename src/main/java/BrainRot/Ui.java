@@ -28,7 +28,7 @@ public class Ui {
     protected static final String GOODBYE =
             "Bye. Hope to see you again soon!\n";
 
-    private static final String LINE = "____________________________________________________________\n";
+    private static final String LINE = "________________________________________\n";
 
     protected static final String LOADINGERROR =
             "OOPS!!! I'm sorry, your database is not loading properly :-(\n";
@@ -92,7 +92,6 @@ public class Ui {
      * @param taskDetails The details of the task that was marked as done.
      */
     public String showMarkMsg(String taskDetails) {
-        System.out.println("Nice! I've marked this task as done:\n  " + taskDetails + LS);
         return showToUser("Nice! I've marked this task as done:\n  " + taskDetails + LS);
     }
 
@@ -132,7 +131,6 @@ public class Ui {
      */
 
     public String getUserCommand() {
-//        out.print("Enter command: ");
         String fullInputLine = in.nextLine();
 
         // Silently consume all ignored lines

@@ -7,6 +7,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.web.HTMLEditorSkin;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+import java.util.Objects;
+
 /**
  * Controller for the main GUI.
  */
@@ -28,14 +35,18 @@ public class MainWindow extends AnchorPane {
     private BrainRot brainRot;
 
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+
 
 
     @FXML
     public void initialize() {
+
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(GREETING, dukeImage));
+
     }
 
     /** Injects the Duke instance */
@@ -51,7 +62,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = brainRot.run(input);
-        System.out.println(response);
+//        System.out.println(response);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)

@@ -37,6 +37,9 @@ public class Parser {
         } else if (userInput.startsWith("delete")) {
             result[0] = "delete";
             result[1] = userInput.substring(7).trim();  // Get the index
+        } else if (userInput.startsWith("tag")) {
+            result[0] = "tag";
+            result[1] = userInput.substring(3).trim(); //Get the index
         } else {
             result[0] = "add";
             result[1] = userInput;  // Add task with the entire input as details
