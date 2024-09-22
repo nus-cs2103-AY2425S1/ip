@@ -1,6 +1,8 @@
-package ava;
+package ava.tui;
 
 import java.util.Scanner;
+
+import ava.AVA;
 
 
 /**
@@ -51,5 +53,14 @@ public class TextUI {
                                                  Hope to see you again soon.
                               """);
 
+    }
+
+    /**
+     *  Runs AVA.
+     *  <br>
+     *  Main driver method running AVA.
+     */
+    public static void main(String[] args) {
+        run();
     }
 }

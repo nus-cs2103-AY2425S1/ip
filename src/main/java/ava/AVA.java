@@ -155,14 +155,5 @@ public class AVA {
         //TODO: implement
         //stream a response to output
     }
-
-    /**
-     *  Runs AVA.
-     *  <br>
-     *  Main driver method running AVA.
-     */
-    public static void main(String[] args) {
-        TextUI.run();
-    }
 }
 
