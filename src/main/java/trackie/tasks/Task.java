@@ -5,7 +5,7 @@ package trackie.tasks;
  */
 public abstract class Task {
     protected String description;
-    protected boolean completed;
+    protected boolean isCompleted;
 
     /**
      * Creates a task.
@@ -14,7 +14,7 @@ public abstract class Task {
      */
     public Task(String description) {
         this.description = description;
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     /**
@@ -26,9 +26,9 @@ public abstract class Task {
     public Task(String description, int status) {
         this.description = description;
         if (status == 1) {
-            this.completed = true;
+            this.isCompleted = true;
         } else {
-            this.completed = false;
+            this.isCompleted = false;
         }
     }
 
@@ -38,7 +38,7 @@ public abstract class Task {
      * @return "X" if completed, " " if not completed.
      */
     public String getStatusIcon() {
-        return completed ? "X" : " ";
+        return isCompleted ? "X" : " ";
     }
 
     /**
@@ -54,14 +54,14 @@ public abstract class Task {
      * Marks the task as completed.
      */
     public void markDone() {
-        this.completed = true;
+        this.isCompleted = true;
     }
 
     /**
      * Marks the task as not completed.
      */
     public void markUndone() {
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     /**
