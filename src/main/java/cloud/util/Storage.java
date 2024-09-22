@@ -84,7 +84,7 @@ public class Storage {
     public void saveData(TaskList taskList) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (int i = 0; i < taskList.getTaskCount(); i++) {
-                writer.write(taskList.getTask(i).formatSave());
+                writer.write(taskList.getTask(i).formatSave() + "\n");
             }
         } catch (IOException e) {
             System.out.println("Error writing to save file!");
@@ -173,13 +173,14 @@ public class Storage {
             case "T":
                 return new Todo(description);
             case "D":
-                return new Deadline(description, DateTime.of(splits[3]));
+                return new Deadline(description, DateTime.of(splits[3].strip()));
             case "E":
-                return new Event(description, DateTime.of(splits[3]), DateTime.of(splits[4]));
+                return new Event(description, DateTime.of(splits[3].strip()), DateTime.of(splits[4].strip()));
             default:
                 return null;
             }
         } catch (CloudException e) {
+            System.out.println(e.getMessage());
             System.out.println("Error reading from file");
             return null;
         }
