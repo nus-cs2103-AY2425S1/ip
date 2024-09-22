@@ -11,7 +11,7 @@ import java.time.format.DateTimeParseException;
 public class Deadline extends Task {
 
     /** Indicates whether the deadline includes a specific end time or just a date. */
-    private static boolean withTime;
+    private static boolean isTimeIncluded;
 
     /** The end date and time */
     private LocalDateTime end;
@@ -95,7 +95,7 @@ public class Deadline extends Task {
         String time = (parts.length == 2) ? parts[1] : "00:00";
 
         try {
-            withTime = !time.equals("00:00");
+            isTimeIncluded = !time.equals("00:00");
             return LocalDateTime.parse(String.format("%s-%s-%sT%s", year, month, day, time));
         } catch (DateTimeParseException e) {
             throw new BigdogException("Invalid date format: " + str +
@@ -138,7 +138,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        if (withTime) {
+        if (isTimeIncluded) {
             return "[D]" + super.toString() + " (by: "
                     + this.end.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")) + ")";
         } else {

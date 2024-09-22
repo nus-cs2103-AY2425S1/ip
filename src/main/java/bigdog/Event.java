@@ -12,7 +12,7 @@ import java.time.format.DateTimeParseException;
 public class Event extends Task {
 
     /** Indicates whether the event includes specific start and end times or just dates. */
-    private static boolean withTime;
+    private static boolean isTimeIncluded;
 
     /** The start date and time of the event. */
     private LocalDateTime start;
@@ -116,7 +116,7 @@ public class Event extends Task {
         String time = (parts.length == 2) ? parts[1] : "00:00";
 
         try {
-            withTime = !time.equals("00:00");
+            isTimeIncluded = !time.equals("00:00");
             return LocalDateTime.parse(String.format("%s-%s-%sT%s", year, month, day, time));
         } catch (DateTimeParseException e) {
             throw new BigdogException("Invalid date format: " + str +
@@ -161,7 +161,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        if (withTime) {
+        if (isTimeIncluded) {
             return "[E]" + super.toString() + " (from: "
                     + this.start.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")) + " to: "
                     + this.end.format(DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm")) + ")";
