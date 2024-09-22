@@ -23,14 +23,6 @@ public class AddTaskCommand extends Command {
     }
 
     /**
-     * @inheritDoc
-     */
-    @Override
-    public String getCommandType() {
-        return "Add Task";
-    }
-
-    /**
      * Adds the task to the task list, shows a message to the user, and writes the task list to the file.
      *
      * @param tasks The task list to which the task is to be added.

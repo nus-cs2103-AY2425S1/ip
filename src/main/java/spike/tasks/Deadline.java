@@ -42,6 +42,34 @@ public class Deadline extends Task {
     }
 
     /**
+     * Updates the task based on the update type and updated part.
+     *
+     * @param updateType  The type of update to be made.
+     * @param updatedPart The updated part of the task.
+     * @return Task with the updated part.
+     */
+    public Task updateTask(String updateType, String updatedPart) throws IllegalArgumentException {
+        switch (updateType) {
+        case "description":
+            return new Deadline(updatedPart, this.by);
+        case "date time":
+            return new Deadline(this.getDescription(), LocalDateTime.parse(updatedPart));
+        default:
+            throw new IllegalArgumentException("Please enter a valid option");
+        }
+    }
+
+    /**
+     * Returns the task type.
+     *
+     * @return Task type.
+     */
+    @Override
+    public String getTaskType() {
+        return "deadline";
+    }
+
+    /**
      * Converts the Deadline object to a string to be written to a file.
      * The format of the string is "D | 0 | description | deadline".
      *

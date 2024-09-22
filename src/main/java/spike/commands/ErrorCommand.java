@@ -21,16 +21,6 @@ public class ErrorCommand extends Command {
     }
 
     /**
-     * Returns the message of the error command.
-     *
-     * @return The message of the error command.
-     */
-    @Override
-    public String getCommandType() {
-        return this.message;
-    }
-
-    /**
      * Executes the error command by showing the error message to the user.
      *
      * @param tasks The task list.

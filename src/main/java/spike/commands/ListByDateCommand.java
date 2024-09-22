@@ -10,14 +10,6 @@ import spike.ui.Ui;
 public class ListByDateCommand extends Command {
 
     /**
-     * @inheritDoc
-     */
-    @Override
-    public String getCommandType() {
-        return "List By Date";
-    }
-
-    /**
      * Lists all tasks by date.
      *
      * @param tasks   The list of tasks.

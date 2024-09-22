@@ -142,6 +142,50 @@ public class Ui {
         System.out.println(this.response);
     }
 
+    /**
+     * Shows the message to the user to enter what they want to update.
+     *
+     * @param taskType The type of task to be updated.
+     */
+    public void showUpdateTaskRequest(String taskType) {
+        switch (taskType) {
+        case "todo" -> this.response = "     Please enter the new description of the task:";
+        case "deadline" -> this.response = "     What would you like to update? Enter '1' or '2'.\n    "
+                + " 1. Description\n     2. Due date and time";
+        case "event" -> this.response = "     What would you like to update? Enter '1', '2' or '3'.\n     "
+                + "1. Description\n     2. Event start date and time\n    3. Event end date and time";
+        default -> showExceptionMessage("Please enter a valid task type");
+        }
+        System.out.println(this.response);
+    }
+
+    /**
+     * Shows the message to the user to enter the new value.
+     */
+    public void showUpdateTaskNewValueRequest(String input) {
+        switch (input) {
+        case "1" -> this.response = "     Please enter the new description:";
+        case "2", "3" -> this.response = "     Please enter the new date and time in the format 'yyyy-MM-ddTHH:mm':";
+        default -> showExceptionMessage("Please enter a valid number");
+        }
+        System.out.println(this.response);
+    }
+
+    /**
+     * Shows the updated task to the user.
+     *
+     * @param task The task that was updated.
+     */
+    public void showUpdatedTask(Task task) {
+        this.response = "     Got it. I've updated this task:\n" + "      " + task.toString();
+        System.out.println(this.response);
+    }
+
+    /**
+     * Returns the response to be displayed.
+     *
+     * @return The response to be displayed.
+     */
     public String getStringToDisplay() {
         return this.response;
     }

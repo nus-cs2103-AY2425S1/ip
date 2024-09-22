@@ -22,14 +22,6 @@ public class MarkCommand extends Command {
     }
 
     /**
-     * @inheritDoc
-     */
-    @Override
-    public String getCommandType() {
-        return "Mark";
-    }
-
-    /**
      * Marks the task as done and updates the storage file.
      *
      * @param tasks TaskList containing all tasks.

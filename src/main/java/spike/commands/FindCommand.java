@@ -23,14 +23,6 @@ public class FindCommand extends Command {
     }
 
     /**
-     * @inheritDoc
-     */
-    @Override
-    public String getCommandType() {
-        return "find";
-    }
-
-    /**
      * Executes the find command.
      * Finds tasks that contain the keyword and displays them to the user.
      *

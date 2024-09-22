@@ -15,6 +15,32 @@ public class ToDo extends Task {
     }
 
     /**
+     * Updates the task based on the update type and updated part.
+     *
+     * @param updateType  The type of update to be made.
+     * @param updatedPart The updated part of the task.
+     * @return Task with the updated part.
+     */
+    public Task updateTask(String updateType, String updatedPart) throws IllegalArgumentException {
+        switch (updateType) {
+        case "description":
+            return new ToDo(updatedPart);
+        default:
+            throw new IllegalArgumentException("Please enter a valid option");
+        }
+    }
+
+    /**
+     * Returns the task type.
+     *
+     * @return Task type.
+     */
+    @Override
+    public String getTaskType() {
+        return "todo";
+    }
+
+    /**
      * Returns the string representation of the task to be saved in the file.
      * Format: T | 0 | description
      *

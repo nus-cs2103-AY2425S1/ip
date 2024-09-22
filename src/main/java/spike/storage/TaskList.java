@@ -175,4 +175,36 @@ public class TaskList {
                 .sorted(dateComparator)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
+
+    /**
+     * Returns the type of the task at the specified index.
+     *
+     * @param index The index of the task whose type is to be returned.
+     * @return The type of the task at the specified index.
+     * @throws IndexOutOfBoundsException If the index is out of bounds.
+     */
+    public String getTaskType(int index) {
+        assert index >= 0 : "Index cannot be negative";
+        return tasks.get(index).getTaskType();
+    }
+
+    /**
+     * Updates the task at the specified index.
+     *
+     * @param index The index of the task to be updated.
+     * @return The task that was updated.
+     * @throws IndexOutOfBoundsException If the index is out of bounds.
+     */
+    public Task updateTask(int index, String updateType, String updatedPart) throws SpikeException {
+        try {
+            assert index >= 0 : "Index cannot be negative";
+            Task updatedTask = tasks.get(index).updateTask(updateType, updatedPart);
+            tasks.set(index, updatedTask);
+            return updatedTask;
+        } catch (IllegalArgumentException e) {
+            throw new SpikeException("Error updating task: " + e.getMessage());
+        } catch (IndexOutOfBoundsException e) {
+            throw new SpikeException("Please enter a valid task number");
+        }
+    }
 }

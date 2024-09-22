@@ -10,14 +10,6 @@ import spike.ui.Ui;
 public class ByeCommand extends Command {
 
     /**
-     * @inheritDoc
-     */
-    @Override
-    public String getCommandType() {
-        return "Bye";
-    }
-
-    /**
      * Executes the command to exit the program.
      *
      * @param tasks The list of tasks.
