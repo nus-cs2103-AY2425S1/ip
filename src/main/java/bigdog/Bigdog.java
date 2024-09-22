@@ -98,13 +98,4 @@ public class Bigdog {
         return reply;
     }
 
-    /**
-     * The main method that serves as the entry point for the Bigdog application.
-     *
-     * @param args command-line arguments (not used).
-     */
-    public static void main(String[] args) {
-
-    }
-
 }
