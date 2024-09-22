@@ -30,8 +30,8 @@ public class MainWindow extends AnchorPane {
     public void setStream(Streams d) {
         stream = d;
         Ui ui = new Ui();
-        dialogContainer.getChildren().addAll();
-        DialogBox.getStreamsDialog(ui.showWelcome(), streamImage);
+        dialogContainer.getChildren().addAll(
+                DialogBox.getStreamsDialog(ui.showWelcome(), streamImage));
 
     }
     /**
