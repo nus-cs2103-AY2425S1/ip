@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cloud.exception.CloudException;
+import cloud.exception.StorageException;
 import cloud.task.Deadline;
 import cloud.task.Event;
 import cloud.task.Task;
@@ -26,30 +27,53 @@ import cloud.task.Todo;
  */
 public class Storage {
     private final String filePath;
-    private final String DELIMITER = "|||$DELIM|||";
+    private boolean isNewFile;
 
     /**
-     * Constructs a Storage object. Checks if the file exists at the filepath
-     * and creates a new file if it does not exist yet
+     * Constructs a Storage object with a default file path.
+     * Checks if the file exists at the filepath and creates a new file if it does not exist yet
      */
-    public Storage() {
+    public Storage() throws StorageException {
         this.filePath = "./data/Cloud.txt";
         initializeStorage();
     }
 
-    public Storage(String filePath) {
+    /**
+     * Constructs a Storage object with a specified file path.
+     * @param filePath The file path to read and write task data to.
+     * @throws StorageException If an error occurs during initialization.
+     */
+    public Storage(String filePath) throws StorageException {
         this.filePath = filePath;
         initializeStorage();
     }
 
-    private void initializeStorage() {
+    private void initializeStorage() throws StorageException {
+        File file = new File(filePath);
+        checkExistingFile(file);
+        createNewFile(file);
+    }
+
+    private void checkExistingFile(File file) {
+        this.isNewFile = !file.exists();
+    }
+
+    private void createNewFile(File file) throws StorageException {
         try {
-            File file = new File(filePath);
             file.getParentFile().mkdirs();
             file.createNewFile();
         } catch (IOException e) {
-            System.out.println("Error initializing storage!");
+            throw new StorageException("Error initializing storage!");
         }
+    }
+
+    /**
+     * Checks if a new storage file was created during initialization.
+     *
+     * @return true if a new file was created, false if an existing file was used
+     */
+    public boolean isNewFile() {
+        return this.isNewFile;
     }
 
     /**
