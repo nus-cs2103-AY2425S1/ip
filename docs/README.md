@@ -3,7 +3,8 @@
 Welcome to Friday, your personal task management assistant! This chatbot helps you stay organized by keeping track of your tasks, deadlines and events.
 
 
-<img width="398" alt="Ui" src="https://github.com/user-attachments/assets/6c185134-3bc7-4548-8cd0-fcbff9b43a53">
+<img width="398" alt="Ui" src="https://github.com/user-attachments/assets/9844030b-1075-45ce-a993-3f9fb4c8a989">
+
 
 
 ## Adding To-Do Tasks
@@ -40,33 +41,32 @@ Now you have N tasks in the list.
 
 ## Adding Events
 
-The `event` command allows you to add a task for a scheduled event to the task list. You must provide a task description and specify the start and end times of the event. This will create a task that is marked with a specific date and times.
+The `event` command allows you to add a task for a scheduled event to the task list. You must provide a task description and specify the start and end dates and times of the event. This will create a task that is marked with a specific date and times.
 
 Format: `event DESCRIPTION /from START_TIME /to END_TIME`
 
-Example: `event project meeting /from 2024-01-23 2pm /to 2024-01-23 5pm`
+Example: `event project meeting /from 2024-01-23 1400 /to 2024-01-23 1600`
 
 This command will add a task with the description "project meeting" and schedule it from 2 PM to 5 PM on January 23, 2024.
 
 ```
 Got it. I've added this task:
-  [E][ ] project meeting (from: Jan 23 2024 2pm to: Jan 23 2024 5pm)
+  [E][ ] project meeting (from: Jan 23 2024 2pm  to: Jan 23 2024 4pm)
 Now you have N tasks in the list.
 ```
 
 
 ## Commands
-| Command       | Description                                  | Example                             |
-|---------------|----------------------------------------------|-------------------------------------|
-| `todo`        | Adds a todo task with a description.         | `todo read book`                    |
-| `deadline`    | Adds a task with a deadline.                 | `deadline return book /by 2024-12-30` |
-| `event`       | Adds an event with start and end times.      | `event project meeting /from 2pm /to 4pm` |
-| `list`        | Lists all tasks.                             | `list`                              |
-| `mark`        | Marks a task as done.                        | `mark 1`                            |
-| `unmark`      | Marks a task as not done.                    | `unmark 1`                          |
-| `delete`      | Deletes a task from the list.                | `delete 2`                          |
-| `find`        | Finds tasks by keyword(s).                   | `find book`                         |
-| `clear`       | Clears all tasks.                            | `clear`                             |
-| `help`        | Shows a help message.                        | `help`                              |
-| `exit`        | Exits the chatbot.                           | `exit`                              |
+| Command       | Description                                  | Example                                                           |
+|---------------|----------------------------------------------|-------------------------------------------------------------------|
+| `todo`        | Adds a todo task with a description.         | `todo read book`                                                  |
+| `deadline`    | Adds a task with a deadline.                 | `deadline return book /by 2024-12-30`                             |
+| `event`       | Adds an event with date, start and end times.| `event project meeting /from 2024-01-23 1400 /to 2024-01-23 1600` |
+| `list`        | Lists all tasks.                             | `list`                                                            |
+| `mark`        | Marks a task as done.                        | `mark 1`                                                          |
+| `unmark`      | Marks a task as not done.                    | `unmark 1`                                                        |
+| `delete`      | Deletes a task from the list.                | `delete 2`                                                        |
+| `find`        | Finds tasks by keyword(s).                   | `find book`                                                       |
+| `view`        | Lists all [D] tasks scheduled on a date.     | `view 2024-01-23`                                                 |
+| `bye`         | Exits the chatbot.                           | `bye`                                                             |
 
