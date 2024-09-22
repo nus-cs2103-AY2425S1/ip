@@ -8,9 +8,9 @@ import java.time.format.DateTimeFormatter;
  * It extends the Task class and includes a due date and time.
  */
 public class Deadline extends Task {
-    protected LocalDateTime by;
-    DateTimeFormatter dataFormatter;
-    DateTimeFormatter outputFormatter;
+    private LocalDateTime by;
+    private DateTimeFormatter dataFormatter;
+    private DateTimeFormatter outputFormatter;
 
     /**
      * Constructs a Deadline task with the given description and due date.

@@ -8,10 +8,10 @@ import java.time.format.DateTimeFormatter;
  * It extends the Task class and includes a start time and an end time.
  */
 public class Event extends Task {
-    protected LocalDateTime from;
-    protected LocalDateTime to;
-    DateTimeFormatter dataFormatter;
-    DateTimeFormatter outputFormatter;
+    private LocalDateTime from;
+    private LocalDateTime to;
+    private DateTimeFormatter dataFormatter;
+    private DateTimeFormatter outputFormatter;
 
 
     /**

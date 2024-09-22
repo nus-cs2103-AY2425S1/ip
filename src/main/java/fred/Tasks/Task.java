@@ -8,9 +8,9 @@ import java.util.ArrayList;
  * a string representation of the task for both display and data storage purposes.
  */
 public abstract class Task {
-    protected String description;
-    protected boolean isDone;
-    protected ArrayList<String> tags;
+    private String description;
+    private boolean isDone;
+    private ArrayList<String> tags;
 
     /**
      * Constructs a Task with the given description. By default, the task is not done.
@@ -66,13 +66,7 @@ public abstract class Task {
     }
 
     public boolean checkForKeyword(String keyword) {
-        String[] descriptionParts = description.split(" ");
-        for (String descriptionPart : descriptionParts) {
-            if (descriptionPart.equals(keyword)) {
-                return true;
-            }
-        }
-        return false;
+        return description.contains(keyword);
     }
 
     public void addTag(String tag) {
