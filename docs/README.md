@@ -121,13 +121,11 @@ ___
 
 ### Unmark a task: ```unmark```
 
-Unmarks a specified task. Specify task number based on the numbering seen in
-```list```.
+Unmarks a specified task. Specify task number based on the numbering seen in ```list```.
 
 Format: ```unmark [task_index]```
 
-Examples:
-```unmark 3```
+Examples: ```unmark 3```
 
 Example of an umarked task:
 ```
@@ -142,8 +140,7 @@ Lists all tasks whose description contain the given keyword / phrase.
 
 Format: ```find [insert any word or phrase]```
 
-Examples:
-```find dog```
+Examples: ```find dog```
 
 An example of a resultant listing:
 ```
