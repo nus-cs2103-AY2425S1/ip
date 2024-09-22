@@ -10,13 +10,17 @@ import javafx.stage.Stage;
 import ui.gui.MainWindow;
 
 /**
- * A GUI for Duke using FXML.
- * Hallo
+ * A GUI for Bob using FXML.
  */
 public class Main extends Application {
 
-    private Bob bob = new Bob();
+    private final Bob bob = new Bob();
 
+    /**
+     * Starts the JavaFX application and sets up the primary stage.
+     *
+     * @param stage The primary stage for this application.
+     */
     @Override
     public void start(Stage stage) {
         try {
@@ -24,7 +28,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setBob(bob);  // inject the Duke instance
+            fxmlLoader.<MainWindow>getController().setBob(bob);  // inject the Bob instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

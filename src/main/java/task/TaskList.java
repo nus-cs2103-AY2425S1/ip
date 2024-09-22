@@ -23,6 +23,7 @@ public class TaskList {
 
     /**
      * Adds a task to the task list.
+     *
      * @param task The task to add.
      */
     public void addTask(Task task) {
@@ -31,6 +32,7 @@ public class TaskList {
 
     /**
      * Returns the number of tasks in the list.
+     *
      * @return The number of tasks.
      */
     public int getNumTasks() {
@@ -39,28 +41,30 @@ public class TaskList {
 
     /**
      * Prints all tasks in the list with their indices.
+     *
+     * @return A string containing all tasks.
      */
     public String printList() {
-        String msg = "";
+        StringBuilder msg = new StringBuilder();
         int index = 1;
-        System.out.println();
         for (Task task : this.tasks) {
-            msg += String.format("     %d. %s\n", index, task);
+            msg.append(String.format("     %d. %s\n", index, task));
             index++;
         }
-        msg += "\n";
-        return msg;
+        msg.append("\n");
+        return msg.toString();
     }
 
     /**
      * Finds and returns a new TaskList containing all tasks that include the specified term.
+     *
      * @param term The term to search for within task descriptions.
      * @return A TaskList of all tasks containing the term.
      */
     public TaskList tasksContainingTerm(String term) {
         TaskList result = new TaskList();
         for (Task task : this.tasks) {
-            if (task.containsTerm(term)) {
+            if (task.hasTerm(term)) {
                 result.addTask(task);
             }
         }
@@ -69,6 +73,7 @@ public class TaskList {
 
     /**
      * Marks a task as done.
+     *
      * @param index The index of the task to mark as done.
      */
     public void markTask(int index) {
@@ -79,6 +84,7 @@ public class TaskList {
 
     /**
      * Marks a task as not done.
+     *
      * @param index The index of the task to mark as not done.
      */
     public void unmarkTask(int index) {
@@ -89,6 +95,7 @@ public class TaskList {
 
     /**
      * Deletes a task from the list.
+     *
      * @param index The index of the task to be deleted.
      */
     public void deleteTask(int index) {
@@ -99,6 +106,7 @@ public class TaskList {
 
     /**
      * Returns the formatted save string for a task.
+     *
      * @param index The index of the task.
      * @return The formatted save string.
      */
@@ -111,8 +119,10 @@ public class TaskList {
 
     /**
      * Retrieves a task based on its index.
+     *
      * @param index The index of the task.
      * @return The task at the specified index.
+     * @throws BotException If the task does not exist.
      */
     public Task getTask(int index) throws BotException {
         if (index >= 0 && index < tasks.size()) {
@@ -122,7 +132,9 @@ public class TaskList {
     }
 
     /**
+     * Returns a TaskList containing tasks with upcoming deadlines or events within the next two days.
      *
+     * @return A TaskList of upcoming tasks.
      */
     public static TaskList getUpcomingTasks() {
         LocalDateTime now = LocalDateTime.now();
@@ -155,3 +167,4 @@ public class TaskList {
         tasks.clear();
     }
 }
+

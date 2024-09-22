@@ -13,8 +13,7 @@ import java.io.FileNotFoundException;
 
 /**
  * The Storage class handles loading and saving data to a specified file path.
- * It supports operations to clear, save, and load data.
- * Hello!!
+ * It supports operations to clear, save, and load task data.
  */
 public class Storage {
     private String filePath;
@@ -27,6 +26,16 @@ public class Storage {
     public Storage(String filePath) {
         this.filePath = filePath;
         File file = new File(filePath);
+
+        // Ensure file creation if it doesn't exist
+        try {
+            if (!file.exists()) {
+                file.createNewFile(); // Create the file if it doesn't exist
+            }
+        } catch (IOException e) {
+            System.out.println("Error creating file: " + e.getMessage());
+        }
+
         assert file.exists();
         this.loadData();
     }

@@ -21,7 +21,7 @@ public class Deadline extends Task {
         super(description);
         super.setType(TaskType.DEADLINE);
         try {
-            this.deadline = LocalDateTime.parse(deadlineStr, Task.toSelfFormatter);
+            this.deadline = LocalDateTime.parse(deadlineStr, Task.TO_SELF_FORMATTER);
         } catch (DateTimeParseException exception) {
             TaskList.mainTaskList.deleteTask(TaskList.mainTaskList.getNumTasks() - 1);
             System.out.println(exception.getMessage());
@@ -46,31 +46,46 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Gets the deadline of the task.
+     *
+     * @return The LocalDateTime of the deadline.
+     */
     public LocalDateTime getDeadline() {
         return deadline;
     }
 
+    /**
+     * Formats the deadline based on the target reader.
+     *
+     * @param target The intended reader (USER or BOB).
+     * @return A formatted string representation of the deadline.
+     */
     private String getDeadlineFormatted(ReadBy target) {
         if (target == ReadBy.BOB) {
-            return this.deadline.format(Task.toSelfFormatter);
+            return this.deadline.format(Task.TO_SELF_FORMATTER);
         } else {
-            return this.deadline.format(Task.toUserFormatter);
+            return this.deadline.format(Task.TO_USER_FORMATTER);
         }
     }
 
     /**
      * Returns a string representation of the deadline task formatted for saving to a file.
      * The format includes the task type, completion status, task description, and deadline, separated by " | ".
-     * This string is used for persisting the task data in a structured text file, allowing for easy reloading of tasks.
      *
      * @return The formatted string for saving the deadline task to file.
      */
     @Override
     public String saveFileFormat() {
-        String status = this.isCompleted() ? "1 | " : "0 | ";
+        String status = this.isMarkedAsCompleted() ? "1 | " : "0 | ";
         return "D | " + status + this.getDescription() + " | " + getDeadlineFormatted(ReadBy.BOB);
     }
 
+    /**
+     * Returns a string representation of the deadline task.
+     *
+     * @return A string representation of the task with its deadline.
+     */
     @Override
     public String toString() {
         return super.toString() + " (By: " + getDeadlineFormatted(ReadBy.USER) + ")";

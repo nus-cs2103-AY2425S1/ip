@@ -37,7 +37,9 @@ public class ToDo extends Task {
      */
     @Override
     public String saveFileFormat() {
-        String status = this.isCompleted() ? "1 | " : "0 | ";
+        String status = this.isMarkedAsCompleted() ? "1 | " : "0 | ";
         return "T | " + status + this.getDescription();
     }
 }
+
+

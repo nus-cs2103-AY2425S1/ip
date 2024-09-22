@@ -17,7 +17,7 @@ public class Parser {
      *
      * @param input The full command input by the user.
      * @param storage The storage instance to interact with file operations.
-     * @return response if valid user input.
+     * @return The response if valid user input.
      * @throws BotException If an unrecognized command is input.
      */
     public static String parse(String input, Storage storage) {
@@ -29,44 +29,42 @@ public class Parser {
         String response;
 
         try {
-            switch (command) {
-            case "mark":
-            case "unmark":
-                response = handleMarkUnmark(command, arguments);
-                break;
-            case "todo":
-                response = handleToDo(arguments);
-                break;
-            case "deadline":
-                response = handleDeadline(arguments);
-                break;
-            case "event":
-                response = handleEvent(arguments);
-                break;
-            case "list":
-                response = handleList();
-                break;
-            case "delete":
-                response = handleDelete(arguments);
-                break;
-            case "bye":
-                response = handleBye();
-                break;
-            case "find":
-                response = handleFind(arguments);
-                break;
-            case "remind":
-                response = handleRemind();
-                break;
-            default:
-                throw new BotException("I'm sorry, I don't recognize that command.");
-            }
+            response = switch (command) {
+                case "mark", "unmark" -> handleMarkUnmark(command, arguments);
+                case "todo" -> handleToDo(arguments);
+                case "deadline" -> handleDeadline(arguments);
+                case "event" -> handleEvent(arguments);
+                case "list" -> handleList();
+                case "delete" -> handleDelete(arguments);
+                case "bye" -> handleBye();
+                case "find" -> handleFind(arguments);
+                case "remind" -> handleRemind();
+                case "clear" -> handleClear();
+                default -> throw new BotException("I'm sorry, I don't recognize that command.");
+            };
         } catch (BotException e) {
             response = e.getMessage();
         }
         return response;
     }
 
+    /**
+     * Handles the "clear" command by clearing saved tasks.
+     *
+     * @return A message confirming the clearing of saved data.
+     */
+    private static String handleClear() {
+        String msg = "";
+        storage.clearSave();
+        msg += "Your data has been cleared. All tasks have been removed.";
+        return msg;
+    }
+
+    /**
+     * Handles the "remind" command to display tasks within the next two days.
+     *
+     * @return A message listing upcoming tasks.
+     */
     protected static String handleRemind() {
         String msg = "";
         TaskList upcoming = TaskList.getUpcomingTasks();
@@ -75,107 +73,156 @@ public class Parser {
         return msg;
     }
 
-    private static String handleFind(String arguments) throws BotException{
-        String msg = "";
-        if (arguments.isEmpty()) throw new BotException("Please provide a search term");
+    /**
+     * Handles the "find" command to search tasks by a term.
+     *
+     * @param arguments The search term provided by the user.
+     * @return A message listing tasks containing the term.
+     * @throws BotException If no search term is provided.
+     */
+    private static String handleFind(String arguments) throws BotException {
+        if (arguments.isEmpty()) {
+            throw new BotException("Please provide a search term");
+        }
         TaskList searchResultList = TaskList.mainTaskList.tasksContainingTerm(arguments);
-        msg += searchResultList.printList();
+        String msg = searchResultList.printList();
         if (searchResultList.getNumTasks() == 1) {
             msg += String.format("There is 1 task containing the word \"%s\".\n", arguments);
         } else {
             msg += String.format("There are %s tasks containing the word \"%s\".\n", searchResultList.getNumTasks(), arguments);
         }
-
         return msg;
     }
 
+    /**
+     * Handles the "mark" and "unmark" commands to mark or unmark tasks as completed.
+     *
+     * @param command The command ("mark" or "unmark").
+     * @param arguments The task index to mark/unmark.
+     * @return A message confirming the action.
+     * @throws BotException If no task index is provided or the task does not exist.
+     */
     private static String handleMarkUnmark(String command, String arguments) throws BotException {
-        String msg = "";
-        if (arguments.isEmpty()) throw new BotException("Please provide a task number.");
+        if (arguments.isEmpty()) {
+            throw new BotException("Please provide a task number.");
+        }
         int taskIndex = Integer.parseInt(arguments) - 1;
-        if (taskIndex < 0 || taskIndex >= TaskList.mainTaskList.getNumTasks()) throw new BotException("That task does not exist!");
+        if (taskIndex < 0 || taskIndex >= TaskList.mainTaskList.getNumTasks()) {
+            throw new BotException("That task does not exist!");
+        }
 
+        String msg;
         if (command.equals("mark")) {
             TaskList.mainTaskList.markTask(taskIndex);
-            msg += "Nicely done! Keep it up!\n";
+            msg = "Nicely done! Keep it up!\n";
         } else {
             TaskList.mainTaskList.unmarkTask(taskIndex);
-            msg += "Sure, I'll uncheck that task!\n";
+            msg = "Sure, I'll uncheck that task!\n";
         }
         msg += Parser.handleList();
 
         return msg;
     }
 
+    /**
+     * Handles the "todo" command to create a new ToDo task.
+     *
+     * @param arguments The description of the ToDo task.
+     * @return A message confirming the task has been added.
+     * @throws BotException If no description is provided.
+     */
     private static String handleToDo(String arguments) throws BotException {
-        String msg = "";
-        if (arguments.isEmpty()) throw new BotException("Please provide a task description.");
+        if (arguments.isEmpty()) {
+            throw new BotException("Please provide a task description.");
+        }
         new ToDo(arguments);
-        msg += UI.taskAddedMsg();
-        return msg;
+        return UI.taskAddedMsg();
     }
 
+    /**
+     * Handles the "deadline" command to create a new Deadline task.
+     *
+     * @param arguments The description and deadline of the task.
+     * @return A message confirming the task has been added.
+     * @throws BotException If the input is malformed or the deadline cannot be parsed.
+     */
     private static String handleDeadline(String arguments) throws BotException {
-        String msg = "";
         int byIndex = arguments.indexOf(" /by ");
-        if (byIndex == -1) throw new BotException("Please format your instructions correctly. E.g., deadline [task] /by [MMddyyyy HHmm]");
+        if (byIndex == -1) {
+            throw new BotException("Please format your instructions correctly. E.g., deadline [task] /by [MMddyyyy HHmm]");
+        }
         String taskDescription = arguments.substring(0, byIndex);
         String deadline = arguments.substring(byIndex + 5);
         try {
             new Deadline(taskDescription, deadline);
-            msg += UI.taskAddedMsg();
+            return UI.taskAddedMsg();
         } catch (DateTimeParseException e) {
-            throw new BotException("HIHi I'm sorry, I have some trouble understanding the deadline. " +
+            throw new BotException("I'm sorry, I had trouble understanding the deadline. " +
                     "Please ensure you have formatted it correctly. [MMddyyyy HHmm]");
         }
-
-        return msg;
     }
 
+    /**
+     * Handles the "event" command to create a new Event task.
+     *
+     * @param arguments The description, start time, and end time of the event.
+     * @return A message confirming the task has been added.
+     * @throws BotException If the input is malformed or the dates cannot be parsed.
+     */
     private static String handleEvent(String arguments) throws BotException {
-        String msg = "";
         int fromIndex = arguments.indexOf(" /from ");
         int toIndex = arguments.indexOf(" /to ");
-        if (fromIndex == -1 || toIndex == -1) throw new BotException("Please format your instructions correctly. E.g., event [task] /from [MMddyyyy HHmm] /to [MMddyyyy HHmm]");
+        if (fromIndex == -1 || toIndex == -1) {
+            throw new BotException("Please format your instructions correctly. E.g., event [task] /from [MMddyyyy HHmm] /to [MMddyyyy HHmm]");
+        }
         String taskDescription = arguments.substring(0, fromIndex);
         String eventStart = arguments.substring(fromIndex + 7, toIndex);
         String eventEnd = arguments.substring(toIndex + 5);
         try {
             new Event(taskDescription, eventStart, eventEnd);
-            msg += UI.taskAddedMsg();
-        } catch (DateTimeParseException e){
-            throw new BotException("I had some trouble understanding your starting and/or ending time. " +
+            return UI.taskAddedMsg();
+        } catch (DateTimeParseException e) {
+            throw new BotException("I had trouble understanding your starting and/or ending time. " +
                     "Please ensure you have formatted it correctly. [MMddyyyy HHmm]");
         }
-
-        return msg;
     }
 
-    static String handleList() {
-        String msg = "";
-        msg += TaskList.mainTaskList.printList();
-        msg += String.format("You have %s tasks in your list.\n", TaskList.mainTaskList.getNumTasks());
-
-        return msg;
+    /**
+     * Handles the "list" command to list all tasks.
+     *
+     * @return A message listing all tasks in the task list.
+     */
+    private static String handleList() {
+        return TaskList.mainTaskList.printList() +
+                String.format("You have %s tasks in your list.\n", TaskList.mainTaskList.getNumTasks());
     }
 
-    static String handleDelete(String arguments) throws BotException {
-        String msg = "";
-        if (arguments.isEmpty()) throw new BotException("Please provide a task number.");
+    /**
+     * Handles the "delete" command to delete a task from the task list.
+     *
+     * @param arguments The task index to delete.
+     * @return A message confirming the task has been deleted.
+     * @throws BotException If no task index is provided or the task does not exist.
+     */
+    protected static String handleDelete(String arguments) throws BotException {
+        if (arguments.isEmpty()) {
+            throw new BotException("Please provide a task number.");
+        }
         int taskIndex = Integer.parseInt(arguments) - 1;
-        if (taskIndex < 0 || taskIndex >= TaskList.mainTaskList.getNumTasks()) throw new BotException("That task does not exist!");
+        if (taskIndex < 0 || taskIndex >= TaskList.mainTaskList.getNumTasks()) {
+            throw new BotException("That task does not exist!");
+        }
         TaskList.mainTaskList.deleteTask(taskIndex);
-        msg += "Got it! I've removed that task for you.\n";
-        msg += Parser.handleList();
-
-        return msg;
+        return "Got it! I've removed that task for you.\n" + Parser.handleList();
     }
 
-    public static String handleBye() {
-        String msg = "";
-        msg += ("Bye. Hope to see you again soon!\n");
+    /**
+     * Handles the "bye" command, saving data and exiting the application.
+     *
+     * @return A goodbye message and saves the task data.
+     */
+    private static String handleBye() {
         storage.saveData();
-        return msg;
+        return "Bye. Hope to see you again soon!\n";
     }
-
 }

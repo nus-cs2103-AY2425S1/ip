@@ -23,8 +23,8 @@ public class Event extends Task {
         super(description);
         super.setType(TaskType.EVENT);
         try {
-            this.startTime = LocalDateTime.parse(startStr, Task.toSelfFormatter);
-            this.endTime = LocalDateTime.parse(endStr, Task.toSelfFormatter);
+            this.startTime = LocalDateTime.parse(startStr, Task.TO_SELF_FORMATTER);
+            this.endTime = LocalDateTime.parse(endStr, Task.TO_SELF_FORMATTER);
         } catch (DateTimeParseException exception) {
             TaskList.mainTaskList.deleteTask(TaskList.mainTaskList.getNumTasks() - 1);
             throw exception;
@@ -48,6 +48,11 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Gets the start time of the event.
+     *
+     * @return The start time as LocalDateTime.
+     */
     public LocalDateTime getStartTime() {
         return startTime;
     }
@@ -60,28 +65,41 @@ public class Event extends Task {
      */
     @Override
     public String saveFileFormat() {
-        String status = this.isCompleted() ? "1 | " : "0 | ";
-        return "E | " + status + this.getDescription() + " | " + getStartTime(ReadBy.BOB) + " | " + getEndTime(ReadBy.BOB);
+        String status = this.isMarkedAsCompleted() ? "1 | " : "0 | ";
+        return "E | " + status + this.getDescription() + " | " + getStartTimeFormatted(ReadBy.BOB) + " | " + getEndTimeFormatted(ReadBy.BOB);
     }
 
-    private String getStartTime(ReadBy target) {
+    /**
+     * Returns the start time formatted for the target reader (USER or BOB).
+     *
+     * @param target The intended reader.
+     * @return The formatted start time as a string.
+     */
+    private String getStartTimeFormatted(ReadBy target) {
         if (target == ReadBy.BOB) {
-            return this.startTime.format(Task.toSelfFormatter);
+            return this.startTime.format(Task.TO_SELF_FORMATTER);
         } else {
-            return this.startTime.format(Task.toUserFormatter);
+            return this.startTime.format(Task.TO_USER_FORMATTER);
         }
     }
 
-    private String getEndTime(ReadBy target) {
+    /**
+     * Returns the end time formatted for the target reader (USER or BOB).
+     *
+     * @param target The intended reader.
+     * @return The formatted end time as a string.
+     */
+    private String getEndTimeFormatted(ReadBy target) {
         if (target == ReadBy.BOB) {
-            return this.endTime.format(Task.toSelfFormatter);
+            return this.endTime.format(Task.TO_SELF_FORMATTER);
         } else {
-            return this.endTime.format(Task.toUserFormatter);
+            return this.endTime.format(Task.TO_USER_FORMATTER);
         }
     }
 
     @Override
     public String toString() {
-        return super.toString() + " (From: " + getStartTime(ReadBy.USER) + " To: " + getEndTime(ReadBy.USER) + ")";
+        return super.toString() + " (From: " + getStartTimeFormatted(ReadBy.USER) + " To: " + getEndTimeFormatted(ReadBy.USER) + ")";
     }
 }
+
