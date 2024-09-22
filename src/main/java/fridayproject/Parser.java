@@ -2,6 +2,7 @@ package fridayproject;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /*
@@ -62,7 +63,7 @@ public class Parser {
                 return addEvent(inputString); // Add an event task
             } else if (inputString.startsWith("find ")) {
                 return findWord(inputString); // Find tasks with a keyword in the description
-            } else if (inputString.startsWith("viewSchedule ")) {
+            } else if (inputString.startsWith("view ")) {
                 return viewSchedule(inputString); // View the schedule for a specific date
             } else {
                 return ui.displayUnknownCommandError(); // Display an error message for unknown commands
@@ -162,7 +163,7 @@ public class Parser {
             return "Noted. I've removed this task:\n  " + deletedTask.getTypeIcon() + deletedTask.toString() 
                 + "\nNow you have " + taskList.size() + " tasks in the list.";
         }
-        return "false";
+        return "There is no task to delete.";
     }
 
     /*
@@ -226,6 +227,7 @@ public class Parser {
      * @throws IOException If an I/O error occurs.
      * Example: addEvent("event project meeting /at 2021-09-30 14:00 to 16:00");
      */
+
     private String addEvent(String input) throws FridayException, IOException {
         assert input != null : "Input should not be null";
 
@@ -234,15 +236,27 @@ public class Parser {
                 + "Please enter a valid task description.");
         }
         String remainingInput = input.substring(input.indexOf(" ") + 1);
-        String[] eventParts = remainingInput.split(" /at ");
-        String[] startEnd = eventParts[1].split(" to ");
-        Tasks event = new Event(eventParts[0], startEnd[0], startEnd[1]);
-        taskList.addTask(event);
-        storage.saveTasksToFile(taskList.getTasks());
-        return "Got it. I've added this task:\n  " + event.getTypeIcon() 
-            + event.toString() + "\nNow you have " + taskList.size() + " tasks in the list.";
-    }
+        String[] eventParts = remainingInput.split(" /from ");
+        String[] startEnd = eventParts[1].split(" /to ");
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            LocalDateTime startDateTime = LocalDateTime.parse(startEnd[0], formatter);
+            LocalDateTime endDateTime = LocalDateTime.parse(startEnd[1], formatter);
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM d yyyy ha");
+            String formattedStartDateTime = startDateTime.format(outputFormatter);
+            String formattedEndDateTime = endDateTime.format(outputFormatter);
 
+            Tasks event = new Event(eventParts[0], formattedStartDateTime, formattedEndDateTime);
+            taskList.addTask(event);
+            storage.saveTasksToFile(taskList.getTasks());
+            return "Got it. I've added this task:\n  " + event.getTypeIcon() 
+                + event.toString() + "\nNow you have " + taskList.size() + " tasks in the list.";
+            //return "from: " + formattedStartDateTime + " to: " + formattedEndDateTime;
+        } catch (Exception e) {
+            throw new FridayException("Invalid date format! Please enter in yyyy-MM-dd HHmm.");
+        }
+    }
+  
     /*
      * Finds tasks that contain a specific keyword.
      * @param input The user input.
@@ -272,11 +286,13 @@ public class Parser {
     private String viewSchedule(String input) throws FridayException {
         assert input != null : "Input should not be null";
 
-        if (input.length() < 14) {
+        String[] parts = input.split(" ");
+
+        if (parts.length < 2) {
             throw new FridayException("I'm sorry, but I don't know what that means :(((\n" 
                 + "Please enter a valid date in yyyy-MM-dd format.");
         }
-        String date = input.substring(13).trim();
+        String date = parts[1];
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate dateNum;
         try {

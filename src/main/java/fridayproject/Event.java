@@ -1,6 +1,6 @@
 package fridayproject;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /*
@@ -34,18 +34,18 @@ public class Event extends Tasks {
      * Returns the start time of the event task.
      * @return The start time of the event task.
      */
-    public LocalDate getStartDate() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        return LocalDate.parse(this.start, formatter);
+    public LocalDateTime getStartDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd ha");
+        return LocalDateTime.parse(this.start, formatter);
     }
 
     /*
      * Returns the end time of the event task.
      * @return The end time of the event task.
      */
-    public LocalDate getEndDate() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        return LocalDate.parse(this.end, formatter);
+    public LocalDateTime getEndDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd ha");
+        return LocalDateTime.parse(this.end, formatter);
     }
 
     /*
@@ -61,7 +61,7 @@ public class Event extends Tasks {
      */
     @Override
     public String toString() {
-        return super.toString() + " (from: " + start + " to: " + end + ")";
+        return super.toString() + " (from: " + start + "   to: " + end + ")";
     }
 
     /*

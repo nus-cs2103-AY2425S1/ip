@@ -32,6 +32,15 @@ public class Deadline extends Tasks {
         assert this.date != null : "Date should be parsed correctly";
     }
 
+    /*
+     * Returns the date of the deadline task.
+     * @return The date of the deadline task.
+     * Example: Sep 30 2021
+     */
+    public LocalDate getDate() {
+        return this.date;
+    }
+
     /* 
      * Returns the string representation of the task.
      */

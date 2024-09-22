@@ -132,21 +132,24 @@ public class TaskList {
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i) instanceof Deadline) {
                 Deadline deadline = (Deadline) tasks.get(i);
-                if (deadline.date.equals(date)) {
+                if (deadline.getDate().equals(date)) {
                     matchingTasks.add(tasks.get(i));
                 }
-            } else if (tasks.get(i) instanceof Event) {
+            } 
+            /* 
+            if (tasks.get(i) instanceof Event) {
                 Event event = (Event) tasks.get(i);
-                if (event.getStartDate().equals(date) || event.getEndDate().equals(date)) {
+                if (event.getStartDate().toLocalDate().equals(date) || event.getEndDate().toLocalDate().equals(date)) {
                     matchingTasks.add(tasks.get(i));
                 }
             }
+            */
         }
         
         if (matchingTasks.isEmpty()) {
-            return "No tasks found on " + date + ".";
+            return "No [D] tasks found on " + date + ".";
         } else {
-            StringBuilder message = new StringBuilder("Here are the tasks on this date:\n");
+            StringBuilder message = new StringBuilder("Here are the [D] tasks on this date:\n");
             for (int i = 0; i < matchingTasks.size(); i++) {
                 message.append((i + 1)).append(". ").append(matchingTasks.get(i)
                     .getTypeIcon()).append(matchingTasks.get(i).toString()).append("\n");

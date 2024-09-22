@@ -1,5 +1,3 @@
-T | 1 | bbb
 T | 1 | borrow book
-D | 1 | bbb | 2024-09-19
-T | 0 | return book
-T | 0 | meet friends
+D | 0 | return book | 2024-09-20
+E | 0 | meeting | Sep 21 2024 2pm | Sep 21 2024 4pm
