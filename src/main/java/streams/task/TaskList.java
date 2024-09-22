@@ -1,6 +1,5 @@
-package streams.task;
 
-import streams.exception.StreamsException;
+package streams.task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +24,7 @@ public class TaskList {
      * @param tasks The list of tasks to initialize the TaskList with.
      */
     public TaskList(ArrayList<Task> tasks) {
+        assert tasks != null : "Initial task list cannot be null";
         this.tasks = tasks;
     }
 
@@ -34,19 +34,19 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void addTask(Task task) {
+        assert task != null : "Cannot add null task";
         tasks.add(task);
+        assert tasks.contains(task) : "Task should be in the list after adding";
     }
 
     /**
      * Deletes a task from the list.
      *
      * @param index The index of the task to be deleted.
-     * @throws StreamsException If the index is invalid.
      */
-    public void deleteTask(int index) throws StreamsException {
-        if (index < 0 || index >= tasks.size()) {
-            throw new StreamsException("invalid task number");
-        }
+    public void deleteTask(int index) {
+        assert index >= 0 : "Task index cannot be negative";
+        assert index < tasks.size() : "Task index out of bounds";
         tasks.remove(index);
     }
 
@@ -55,12 +55,10 @@ public class TaskList {
      *
      * @param index The index of the task to be retrieved.
      * @return The task at the specified index.
-     * @throws StreamsException If the index is invalid.
      */
-    public Task getTask(int index) throws StreamsException {
-        if (index < 0 || index >= tasks.size()) {
-            throw new StreamsException("invalid task number");
-        }
+    public Task getTask(int index) {
+        assert index >= 0 : "Task index cannot be negative";
+        assert index < tasks.size() : "Task index out of bounds";
         return tasks.get(index);
     }
 
@@ -71,6 +69,7 @@ public class TaskList {
      * @return A list of tasks that contain the keyword.
      */
     public List<Task> findTasks(String keyword) {
+        assert keyword != null : "Search keyword cannot be null";
         return tasks.stream()
                 .filter(task -> task.getDescription().contains(keyword))
                 .collect(Collectors.toList());

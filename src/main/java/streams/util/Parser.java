@@ -1,14 +1,22 @@
 package streams.util;
 
-import streams.command.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import streams.command.AddCommand;
+import streams.command.Command;
+import streams.command.DeleteCommand;
+import streams.command.ExitCommand;
+import streams.command.ListCommand;
+import streams.command.ListDateCommand;
+import streams.command.ListWeekCommand;
+import streams.command.MarkCommand;
+import streams.command.SortDeadlineCommand;
 import streams.exception.StreamsException;
 import streams.task.DeadlineTask;
 import streams.task.EventTask;
 import streams.task.ToDoTask;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * Parses user input into commands.
@@ -24,6 +32,8 @@ public class Parser {
      * @throws StreamsException If the input is invalid or cannot be parsed.
      */
     public static Command parse(String fullCommand) throws StreamsException {
+        assert fullCommand != null : "Full command cannot be null";
+        assert !fullCommand.trim().isEmpty() : "Full command cannot be empty";
         String[] parts = fullCommand.split(" ", 2);
         String commandType = parts[0].toLowerCase();
         String rest = parts.length > 1 ? parts[1].trim() : "";
@@ -63,10 +73,9 @@ public class Parser {
      * @throws StreamsException If the input format is invalid.
      */
     private static Command parseDeadline(String rest) throws StreamsException {
+        assert rest != null : "Deadline details cannot be null";
         String[] parts = rest.split(" /by ");
-        if (parts.length != 2) {
-            throw new StreamsException("the format for deadlines is 'deadline [description] /by yyyy-MM-dd HH:mm'");
-        }
+        assert parts.length == 2 : "Deadline command should have two parts separated by '/by'";
         String description = parts[0].trim();
         String byString = parts[1].trim();
         try {
@@ -85,15 +94,12 @@ public class Parser {
      * @throws StreamsException If the input format is invalid.
      */
     private static Command parseEvent(String rest) throws StreamsException {
+        assert rest != null : "Event details cannot be null";
         String[] parts = rest.split(" /from ");
-        if (parts.length != 2) {
-            throw new StreamsException("the format for events is 'event [description] /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm'");
-        }
+        assert parts.length == 2 : "Event command should have two parts separated by '/from'";
         String description = parts[0].trim();
         String[] timeParts = parts[1].split(" /to ");
-        if (timeParts.length != 2) {
-            throw new StreamsException("the format for events is 'event [description] /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm'");
-        }
+        assert timeParts.length == 2 : "Event time should have two parts separated by '/to'";
         String fromString = timeParts[0].trim();
         String toString = timeParts[1].trim();
         try {

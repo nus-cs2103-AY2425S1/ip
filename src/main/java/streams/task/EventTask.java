@@ -6,20 +6,22 @@ import java.time.LocalDateTime;
  * Represents an event task in the task list.
  */
 public class EventTask extends Task {
-    private LocalDateTime from;
-    private LocalDateTime to;
+    private LocalDateTime startDateTime;
+    private LocalDateTime endDateTime;
 
     /**
      * Constructs an EventTask with the given description, start time, and end time.
      *
      * @param description The description of the event task.
-     * @param from The start time of the event.
-     * @param to The end time of the event.
+     * @param startDateTime The start time of the event.
+     * @param endDateTime The end time of the event.
      */
-    public EventTask(String description, LocalDateTime from, LocalDateTime to) {
+    public EventTask(String description, LocalDateTime startDateTime, LocalDateTime endDateTime) {
         super(description);
-        this.from = from;
-        this.to = to;
+        assert startDateTime != null : "Start time should not be null";
+        assert endDateTime != null : "End time should not be null";
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
     }
 
     /**
@@ -28,7 +30,7 @@ public class EventTask extends Task {
      * @return The start time of the event.
      */
     public LocalDateTime getFrom() {
-        return from;
+        return startDateTime;
     }
 
     /**
@@ -37,7 +39,7 @@ public class EventTask extends Task {
      * @return The end time of the event.
      */
     public LocalDateTime getTo() {
-        return to;
+        return endDateTime;
     }
 
     /**
@@ -47,6 +49,8 @@ public class EventTask extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from.format(Task.OUTPUT_FORMATTER) + " to: " + to.format(Task.OUTPUT_FORMATTER) + ")";
+        return "[E]" + super.toString()
+                + " (from: " + startDateTime.format(Task.OUTPUT_FORMATTER)
+                + " to: " + endDateTime.format(Task.OUTPUT_FORMATTER) + ")";
     }
 }

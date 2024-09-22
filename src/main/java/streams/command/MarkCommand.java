@@ -1,3 +1,4 @@
+
 package streams.command;
 
 import streams.exception.StreamsException;
@@ -20,8 +21,11 @@ public class MarkCommand extends Command {
      * @param isDone True to mark as done, false to mark as undone.
      */
     public MarkCommand(String taskNumberStr, boolean isDone) throws StreamsException {
+        assert taskNumberStr != null : "Task number string cannot be null";
+        assert !taskNumberStr.trim().isEmpty() : "Task number string cannot be empty";
         try {
             this.taskNumber = Integer.parseInt(taskNumberStr.trim()) - 1;
+            assert this.taskNumber >= 0 : "Task number must be positive";
             this.isDone = isDone;
         } catch (NumberFormatException e) {
             throw new StreamsException("error parsing task number");
@@ -38,6 +42,9 @@ public class MarkCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws StreamsException {
+        assert tasks != null : "Tasks should not be null";
+        assert ui != null : "Ui should not be null";
+        assert storage != null : "Storage should not be null";
         Task task = tasks.getTask(taskNumber);
         if (isDone) {
             task.markAsDone();

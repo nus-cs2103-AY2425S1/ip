@@ -14,15 +14,13 @@ public class Streams {
     private TaskList tasks;
     private final Ui ui;
 
-    private Parser parser;
-
-    String SAVE_FILES = "./src/main/data/saveFile.txt";
     /**
      * Constructs the main Duke application.
      *
      * @param filePath The file path for storing tasks.
      */
     public Streams(String filePath) {
+        assert filePath != null && !filePath.isEmpty() : "File path cannot be null or empty";
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -68,6 +66,7 @@ public class Streams {
      * @return The response from executing the command.
      */
     public String getResponse(String input) {
+        assert input != null && !input.isEmpty() : "Input cannot be null or empty";
         StringBuilder response = new StringBuilder();
         try {
             Command c = Parser.parse(input);

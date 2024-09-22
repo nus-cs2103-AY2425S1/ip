@@ -1,14 +1,14 @@
 package streams.command;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 import streams.task.DeadlineTask;
 import streams.task.EventTask;
 import streams.task.Task;
 import streams.task.TaskList;
 import streams.util.Storage;
 import streams.util.Ui;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
 
 /**
  * Represents a command to list tasks for the upcoming week.
@@ -24,6 +24,9 @@ public class ListWeekCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        assert tasks != null : "Tasks should not be null";
+        assert ui != null : "Ui should not be null";
+        assert storage != null : "Storage should not be null";
         LocalDate today = LocalDate.now();
         LocalDate oneWeekLater = today.plusDays(7);
 
@@ -36,6 +39,7 @@ public class ListWeekCommand extends Command {
                 }
             } else if (task instanceof EventTask) {
                 EventTask eventTask = (EventTask) task;
+                assert eventTask.getFrom() != null && eventTask.getTo() != null : "Event dates should not be null";
                 LocalDate eventStartDate = eventTask.getFrom().toLocalDate();
                 LocalDate eventEndDate = eventTask.getTo().toLocalDate();
                 if (!(eventEndDate.isBefore(today) || eventStartDate.isAfter(oneWeekLater))) {

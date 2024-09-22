@@ -26,6 +26,7 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage stage) {
+        assert stage != null : "Stage should not be null";
         try {
             stage.setMinHeight(220);
             stage.setMinWidth(417);
@@ -34,6 +35,7 @@ public class Main extends Application {
 
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
+            assert ap != null : "Root AnchorPane should not be null";
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setStream(stream);

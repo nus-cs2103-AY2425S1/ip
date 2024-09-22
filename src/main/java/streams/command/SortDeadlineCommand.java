@@ -1,14 +1,14 @@
 package streams.command;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.stream.Collectors;
+
 import streams.task.DeadlineTask;
 import streams.task.Task;
 import streams.task.TaskList;
 import streams.util.Storage;
 import streams.util.Ui;
-
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.stream.Collectors;
 
 /**
  * Represents a command to sort and display deadline tasks.
@@ -24,6 +24,9 @@ public class SortDeadlineCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+        assert tasks != null : "Tasks should not be null";
+        assert ui != null : "Ui should not be null";
+        assert storage != null : "Storage should not be null";
         ArrayList<Task> deadlineTasks = tasks.getTasks().stream()
                 .filter(task -> task instanceof DeadlineTask)
                 .sorted(Comparator.comparing(task -> ((DeadlineTask) task).getBy()))
@@ -39,3 +42,4 @@ public class SortDeadlineCommand extends Command {
         }
     }
 }
+
