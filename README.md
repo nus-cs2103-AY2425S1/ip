@@ -18,9 +18,9 @@ And it is **FREE**!
 
 Features:
 
- - [X] Managing tasks
- - [ ] Managing deadlines (coming soon)
- - [ ] Reminders (coming soon)
+- [X] Managing tasks
+- [ ] Managing deadlines (coming soon)
+- [ ] Reminders (coming soon)
 
 
 If you are a Java programmer, you can use it to practice Java too. Here's the main method:
@@ -32,3 +32,12 @@ public class Main {
     }
 }
 ```
+
+## Getting Started
+1. Ensure you have Java 17 or above installed.
+2. Download the latest Dash.jar file [here]().
+3. Place the file into a folder of your choice.
+4. On a command terminal, navigate into the folder with the Dash.jar file and use ```java -jar Dash.jar```
+to run the application.
+
+**You're now ready to use Dash!** Click [here]() for the user guide.
