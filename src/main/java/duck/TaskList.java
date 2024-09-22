@@ -18,13 +18,13 @@ import duck.tasks.Todo;
  */
 public class TaskList {
     // Path relative to project directory
-    private static final String[] DIR_PATH_PARTS = { "store" };
-    private static final String[] FILE_PATH_PARTS = { "store", "tasks.csv" };
-    private static final String SAVE_DIR_PATH = String.join(File.separator, DIR_PATH_PARTS);
-    private static final String SAVE_FILE_PATH = String.join(File.separator, FILE_PATH_PARTS);
-    private static final File SAVE_DIR = new File(SAVE_DIR_PATH);
-    private static final File SAVE_FILE = new File(SAVE_FILE_PATH);
-    private static final Storage CSV_HANDLER = new Storage(SAVE_FILE);
+    private final String[] DIR_PATH_PARTS = { "store" };
+    private final String[] FILE_PATH_PARTS = { "store", "tasks.csv" };
+    private final String SAVE_DIR_PATH = String.join(File.separator, DIR_PATH_PARTS);
+    private final String SAVE_FILE_PATH = String.join(File.separator, FILE_PATH_PARTS);
+    private final File SAVE_DIR = new File(SAVE_DIR_PATH);
+    private final File SAVE_FILE = new File(SAVE_FILE_PATH);
+    private final Storage CSV_HANDLER = new Storage(SAVE_FILE);
 
     private final ArrayList<Task> tasks = new ArrayList<>();
 

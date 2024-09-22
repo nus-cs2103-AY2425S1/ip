@@ -15,9 +15,9 @@ public class Duck {
             + "What can I do for you?";
 
     // List to store user inputs
-    private static final TaskList TASKS = new TaskList();
+    private final TaskList TASKS = new TaskList();
 
-    private static String formatAsResponse(String text) {
+    private String formatAsResponse(String text) {
         return Formatter.indentText(text, 0);
     }
 
