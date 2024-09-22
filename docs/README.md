@@ -261,6 +261,7 @@ BYE!!! *UWAGHhhHH* !!! see Ya *uWahghgh*
 | Add Todo      | `todo <description>` e.g., `todo buy more beer`              |
 | Add Deadline  | `deadline <description> /by <date>` e.g., `deadline pay bar tab /by 12/12/2024 1222` |
 | Add Event     | `event <description> /from <start> /to <end>` e.g., `event poker night /from 24/12/2024 1900 /to 25/12/2024 0100` |
+| Update        | `update <index> /name <new_description>` e.g., `update 1 /name pay the pub tab` |
 | Delete        | `delete <index>` e.g., `delete 1`                            |
 | Mark          | `mark <index>` e.g., `mark 1`                                |
 | Unmark        | `unmark <index>` e.g., `unmark 1`                            |
