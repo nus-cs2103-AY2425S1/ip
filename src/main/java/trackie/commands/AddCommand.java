@@ -53,6 +53,7 @@ public class AddCommand extends Command {
                 Task deadlineTask = new Deadline(super.fetchDescription(), super.fetchDeadline());
                 taskList.addTask(deadlineTask);
                 assert !taskList.isEmpty() : "A task should have been added, but taskList was empty.";
+
                 return "Added: " + deadlineTask.toString();
             case "event":
                 Task eventTask = new Event(super.fetchDescription(), super.fetchStartTime(), super.fetchEndTime());
