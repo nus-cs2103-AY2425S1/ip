@@ -44,8 +44,8 @@ public class AtlasView implements MessageView<Command> {
         return text;
     }
 
-    public void send(String output) {
-        String[] lines = output.split("\n");
+    public void send(String response) {
+        String[] lines = response.split("\n");
         for (String line : lines) {
             System.out.println(BOT_INDENT + line);
         }

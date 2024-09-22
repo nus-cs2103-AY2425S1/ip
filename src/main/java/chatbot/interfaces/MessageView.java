@@ -7,7 +7,7 @@ public interface MessageView<T> {
     String[] splitInput(String input);
     void bind(Scanner scanner);
     String listen();
-    void send(String output);
+    void send(String response);
     void endMessage();
     void introduce();
     void exit();

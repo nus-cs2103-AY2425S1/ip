@@ -30,4 +30,9 @@ public class TaskStorageResultImpl implements TaskStorageResult<Command> {
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        return message;
+    }
 }
