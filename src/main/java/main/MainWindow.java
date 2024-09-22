@@ -1,4 +1,5 @@
 package main;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -6,6 +7,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
+
 /**
  * Controller for the main GUI.
  */
@@ -48,6 +51,12 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDashDialog(response, dashImage)
         );
+        //handling exit case
+        if (input.equals("bye") || input.equals("b")) {
+            PauseTransition delay = new PauseTransition(Duration.seconds(2));
+            delay.setOnFinished(event -> javafx.application.Platform.exit());
+            delay.play();
+        }
         userInput.clear();
     }
 }
