@@ -46,7 +46,7 @@ public class Parser {
             }
 
             return new FindCommand(userInput.substring(5));
-        } else if (userInput.contains("unmark")) {
+        } else if (userInput.startsWith("unmark")) {
             if (userInput.length() < 8) {
                 throw new GrokInvalidUserInputException("Please indicate the index to unmark: e.g. unmark 1");
             }
@@ -63,7 +63,7 @@ public class Parser {
             }
 
             return new UnmarkCommand(taskIndex - 1);
-        } else if (userInput.contains("mark")) {
+        } else if (userInput.startsWith("mark")) {
             if (userInput.length() < 6) {
                 throw new GrokInvalidUserInputException("Please indicate the index to mark: e.g. mark 1");
             }
@@ -79,7 +79,7 @@ public class Parser {
                 throw new GrokInvalidUserInputException("Please enter a valid task index to mark.");
             }
             return new MarkCommand(taskIndex - 1);
-        } else if (userInput.contains("todo")) {
+        } else if (userInput.startsWith("todo")) {
             if (userInput.length() < 6) {
                 throw new GrokInvalidUserInputException("Todo command usage: todo (task description here)");
             }
@@ -87,7 +87,7 @@ public class Parser {
             // potentially throws an invalid user input exception of its own.
             Task newTask = new Todo(userInput.substring(5));
             return new AddCommand(newTask);
-        } else if (userInput.contains("deadline")) {
+        } else if (userInput.startsWith("deadline")) {
             String deadlineUsage = "Deadline command usage: deadline (task description here) "
                     + "/by (due date and time)";
 
@@ -107,7 +107,7 @@ public class Parser {
             // potentially throws an invalid user input exception of its own.
             Task newTask = new Deadline(description, due);
             return new AddCommand(newTask);
-        } else if (userInput.contains("event")) {
+        } else if (userInput.startsWith("event")) {
             String eventUsage = "Event command usage: event (task description here) "
                     + "/from (start date and time) /to (end date and time)";
             if (userInput.length() < 7 || !userInput.contains("/from") || !userInput.contains("/to")) {
@@ -124,7 +124,7 @@ public class Parser {
                 throw new GrokInvalidUserInputException(eventUsage);
             }
 
-            String description = components[0];
+            String description = components[0].substring(6);
             String from = subcomponents[0].substring(1).strip();
             String to = subcomponents[1].substring(1).strip();
 
@@ -147,7 +147,7 @@ public class Parser {
                 throw new GrokInvalidUserInputException("Please enter a valid task index to delete.");
             }
 
-            return new DeleteCommand(taskIndex);
+            return new DeleteCommand(taskIndex - 1);
         } else {
             throw new GrokInvalidUserInputException(
                     "OOPS! Sorry, I don't recognize your input :(\n"
