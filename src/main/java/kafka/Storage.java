@@ -13,10 +13,7 @@ import java.util.Scanner;
  */
 public class Storage {
 
-    /**
-     * The path to the file where tasks are stored.
-     */
-    public final String filePath;
+    private final String filePath;
 
     /**
      * Constructor that takes the file path for storing tasks.
@@ -33,7 +30,7 @@ public class Storage {
      * @throws FileNotFoundException If the file is not found at the specified path.
      * @return An ArrayList containing loaded tasks.
      */
-    public ArrayList<Task> load() throws FileNotFoundException {
+    public ArrayList<Task> load() throws FileNotFoundException, IOException {
         this.getNewFile(filePath);
         ArrayList<Task> tasks = new ArrayList<>();
         this.printFileContents(tasks);
@@ -74,7 +71,7 @@ public class Storage {
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println("File not found");
+            throw new FileNotFoundException("File not found at path: " + filePath);
         }
     }
 
@@ -109,15 +106,17 @@ public class Storage {
      *
      * @param filePath The path to the file to be created.
      */
-    private void getNewFile(String filePath) {
+    private void getNewFile(String filePath) throws IOException{
         File f = new File(filePath);
         try {
-            f.getParentFile().mkdirs();
+            if (!f.getParentFile().exists()) {
+                f.getParentFile().mkdirs();
+            }
             if (!f.exists()) {
                 f.createNewFile();
             }
         } catch (IOException e) {
-            System.out.println("An error occurred while creating the file: " + e.getMessage());
+            throw new IOException("An error occurred while creating the file: " + filePath, e);
         }
     }
 }

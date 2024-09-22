@@ -3,7 +3,6 @@ package kafka;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 
 
 public class Kafka {
@@ -11,24 +10,18 @@ public class Kafka {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
-    private static boolean isExitChat = false;
 
-    public Kafka(String filePath) {
+    public Kafka(String filePath) throws FileNotFoundException{
         ui = new Ui();
         storage = new Storage(filePath);
         try {
             taskList = new TaskList(storage.load());
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
+        } catch (IOException e) {
+            ui.showError(e);
             taskList = new TaskList();
         }
     }
 
-    public static void exitChat() {
-        if (!isExitChat) {
-            isExitChat = true;
-        }
-    }
     public String getResponse(String input) {
         String output;
         try {

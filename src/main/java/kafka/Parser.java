@@ -11,6 +11,9 @@ import java.time.LocalDateTime;
 
 public class Parser {
 
+    private static final String BY_DELIMITER = "/by ";
+    private static final String FROM_TO_DELIMITER = "/from | /to ";
+
     /**
      * Parses the given user input and executes the appropriate command.
      *
@@ -61,8 +64,7 @@ public class Parser {
     }
 
     private static String executeListCommand(TaskList taskList, Ui ui) {
-        ui.getList();
-        return taskList.printList();
+        return ui.getList() + "\n" + taskList.printList();
     }
 
     private static String executeMarkCommand(String arguments, TaskList taskList, Storage storage, Ui ui) throws IOException {
@@ -93,21 +95,16 @@ public class Parser {
     }
 
     private static String executeFindCommand(String arguments, TaskList taskList, Ui ui) throws KafkaException {
-        if (arguments.isEmpty()) {
-            throw new KafkaException("It seems you've left the details blank. Even the simplest tasks need some direction, don't you think?");
-        }
+        checkForEmptyArguments(arguments);
         TaskList temp = taskList.find(arguments.toLowerCase());
         if (temp.isEmpty()) {
             throw new KafkaException("Hmm, it seems that no task aligns with that word... mind trying again?");
         }
-        ui.find();
-        return temp.printList();
+        return ui.find() + "\n" + temp.printList();
     }
 
     private static String executeTodoCommand(String arguments, TaskList taskList, Storage storage, Ui ui) throws IOException, KafkaException {
-        if (arguments.isEmpty()) {
-            throw new KafkaException("It seems you've left the details blank. Even the simplest tasks need some direction, don't you think?");
-        }
+        checkForEmptyArguments(arguments);
         Task todo = new Todo(arguments, false);
         taskList.addTask(todo);
         storage.writeToFile(taskList.tasks);
@@ -115,10 +112,8 @@ public class Parser {
     }
 
     private static String executeDeadlineCommand(String arguments, TaskList taskList, Storage storage, Ui ui) throws IOException, KafkaException {
-        if (arguments.isEmpty()) {
-            throw new KafkaException("It seems you've left the details blank. Even the simplest tasks need some direction, don't you think?");
-        }
-        String[] deadlineParts = arguments.split("/by ");
+        checkForEmptyArguments(arguments);
+        String[] deadlineParts = arguments.split(BY_DELIMITER);
         if (deadlineParts.length < 2) {
             throw new KafkaException("It appears the details for this deadline task are off. Let's give it another go, shall we?");
         }
@@ -130,10 +125,8 @@ public class Parser {
     }
 
     private static String executeEventCommand(String arguments, TaskList taskList, Storage storage, Ui ui) throws IOException, KafkaException {
-        if (arguments.isEmpty()) {
-            throw new KafkaException("It seems you've left the details blank. Even the simplest tasks need some direction, don't you think?");
-        }
-        String[] eventParts = arguments.split("/from | /to ");
+        checkForEmptyArguments(arguments);
+        String[] eventParts = arguments.split(FROM_TO_DELIMITER);
         if (eventParts.length < 3) {
             throw new KafkaException("It appears the details for this event task are off. Let's give it another go, shall we?");
         }
@@ -143,5 +136,11 @@ public class Parser {
         taskList.addTask(event);
         storage.writeToFile(taskList.tasks);
         return ui.addTask(event, taskList);
+    }
+
+    private static void checkForEmptyArguments(String arguments) throws KafkaException {
+        if (arguments.isEmpty()) {
+            throw new KafkaException("It seems you've left the details blank. Even the simplest tasks need some direction, don't you think?");
+        }
     }
 }

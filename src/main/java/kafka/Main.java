@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -13,7 +14,15 @@ import java.io.IOException;
  */
 public class Main extends Application {
 
-    private Kafka kafka = new Kafka("C:/Users/Nicholas/Downloads/Kafka.txt");
+    private Kafka kafka;
+
+    {
+        try {
+            kafka = new Kafka("C:/Users/Nicholas/Downloads/Kafka.txt");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @Override
     public void start(Stage stage) {
