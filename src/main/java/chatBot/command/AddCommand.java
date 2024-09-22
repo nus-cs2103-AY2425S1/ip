@@ -25,86 +25,41 @@ public class AddCommand extends Command {
     /** Adds Tasks to taskList, if fails catch exceptions and print them */
     public String execute(TaskList taskList, Ui ui, Storage storage) {
         String output = "";
-        if (this.desc == "") {
-            try {
-                throw new EmptyDescException();
-            } catch (EmptyDescException e) {
-                System.out.println(e.getMessage());
-                output = e.getMessage();
-                return output;
-            }
-        }
-        assert !this.desc.isEmpty() : "task description is empty, but code still running";
-        if (action.equals("todo")) {
-            try {
-                Task t = new ToDoTask(desc);
-                taskList.addTask(t);
-                output = "added:\n" + t + "\n"
-                        + "You have " + taskList.size() + " tasks in list";
-                System.out.println(output);
-            } catch (Exception e) {
-                System.out.println(e);
-                output = e.getMessage();
-            }
-        } else if (action.equals("deadline")) {
-            try {
-                String[] arr = desc.split("/by");
-                Task t = null;
-                try {
-                    t = new Deadline(arr[0].strip(), arr[1].strip());
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    output = "missing /by";
-                    System.out.println(output);
-                    return output;
-                } catch (DateTimeParseException e) {
-                    output = "Invalid date: please follow this format yyyy-MM-dd, eg. 2019-12-01";
-                    System.out.println(output);
-                    return output;
-                }
-                taskList.addTask(t);
-                output = "added:\n" + t + "\n"
-                        + "You have " + taskList.size() + " tasks in list";
-                System.out.println(output);
-            } catch (EmptyDescException e) {
-                output = e.getMessage();
-                System.out.println(output);
-            }
-        } else if (action.equals("event")) {
-            String[] arr = desc.split("/from");
-            String[] arr2;
-            try {
-                arr2 = arr[1].split("/to");
-            } catch (ArrayIndexOutOfBoundsException e) {
-                output = "missing /from";
-                System.out.println(output);
-                return output;
-            }
-            Task t = null;
-            try {
-                try {
-                    t = new Event(arr[0].strip(), arr2[0].strip(), arr2[1].strip());
-                } catch (ArrayIndexOutOfBoundsException ex) {
-                    output = "missing /to";
-                    System.out.println(output);
-                    return output;
-                } catch (DateTimeParseException e) {
-                    output = "Invalid date: please follow this format yyyy-MM-dd, eg. 2019-12-01";
-                    System.out.println(output);
-                    return output;
-                }
-                taskList.addTask(t);
-                output = "added:\n" + t + "\n"
-                        + "You have " + taskList.size() + " tasks in list";
-                System.out.println(output);
-            } catch (Exception e) {
-                output = e.getMessage();
-                System.out.println(output);
-            }
-        }
-        assert !output.isEmpty() : "output is empty, something went wrong in AddCommand";
-        if (output.isEmpty()) {
-            output = "something went wrong in AddCommand";
+        try {
+            Task t = this.getTask();
+            assert t != null : "Task is null, code is trying to run still";
+            taskList.addTask(t);
+            output = "added:\n" + t + "\n"
+                    + "You have " + taskList.size() + " tasks in list";
+            System.out.println(output);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            output = "missing '/by', '/from', or '/to'";
+            System.out.println(output);
+            return output;
+        } catch (DateTimeParseException e) {
+            output = "Invalid date: please follow this format yyyy-MM-dd, eg. 2019-12-01";
+            System.out.println(output);
+            return output;
+        } catch (Exception e) { // EmptyDescException message is already written nicely
+            System.out.println(e.getMessage());
+            output = e.getMessage();
+            return output;
         }
         return output;
+    }
+
+    private Task getTask() throws EmptyDescException {
+        Task t = null;
+        if (this.action.equals("todo")) {
+            t = new ToDoTask(desc); // throws EmptyDescException
+        } else if (this.action.equals("deadline")) {
+            String[] tokens = desc.split("/by");
+            t = new Deadline(tokens[0].strip(), tokens[1].strip());
+        } else if (this.action.equals("event")) {
+            String[] tokens = desc.split("/from");
+            String[] tokens2 = tokens[1].split("/to");
+            t = new Event(tokens[0].strip(), tokens2[0].strip(), tokens2[1].strip());
+        }
+        return t;
     }
 }
