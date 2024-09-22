@@ -24,8 +24,6 @@ the feature, it will be stated in the respective feature description.
 
 ## 1: Ease of setup, entry, and exit
 
-// Describe the action and its outcome.
-
 Grok is easy to start using as all of the required components are in a single `.jar` file.
 1. Find the latest `.jar` file as a [release](https://github.com/josh1248/ip/releases).
 2. Download that file in a directory, preferably empty.
@@ -52,11 +50,7 @@ You should expect a neatly arranged and enumerated list of tasks.
 
 ## 2A: Adding a Todo
 
-// Describe the action and its outcome.
-
 A Todo is a task which can be added using the following command format:
-
-// Command formats if needed
 
 `todo <description name>`
 
@@ -64,8 +58,6 @@ Example: `todo buy groceries`
 
 - Take note that the description should not be empty (so `todo ` only will not be permitted).
 - Additionally, no tasks are allowed to have the same description.
-
-// A description of the expected outcome goes here
 
 The command will append the todo created to the end of the list of tasks, and a success
 message will be provided (with X denoting how many total tasks are present):
@@ -78,11 +70,7 @@ Now, you have X tasks in the list.
 
 ## 2B: Adding a Deadline
 
-// Describe the action and its outcome.
-
 A Deadline is a task with a deadline which can be added using the following command format:
-
-// Command formats if needed
 
 `deadline <description name> /by <date, in yyyy-mm-dd format>`
 
@@ -91,8 +79,6 @@ Example: `deadline cs2103t ip /by 2024-09-20`
 - Take note that the description should not be empty (so `deadline /by 2024-09-20` only will not be permitted).
 - Additionally, if the date provided is invalid, an error message will be provided to inform you.
 - Additionally, no tasks are allowed to have the same description.
-
-// A description of the expected outcome goes here
 
 The command will append the deadline created to the end of the list of tasks, and a success
 message will be provided (with X denoting how many total tasks are present):
@@ -104,11 +90,7 @@ Now, you have X tasks in the list.
 ```
 ## 2C: Adding an Event
 
-// Describe the action and its outcome.
-
 An Event is a task with a start and end date which can be added using the following command format:
-
-// Command formats if needed
 
 `event <description name> /from <start date> /to <end date>`
 
@@ -117,8 +99,6 @@ Example: `event holidays /from 2024-09-21 /to 2024-09-30`
 - Take note that the description should not be empty.
 - Additionally, if the start or end date provided is invalid, an error message will be provided to inform you.
 - Additionally, no tasks are allowed to have the same description.
-
-// A description of the expected outcome goes here
 
 The command will append the event created to the end of the list of tasks, and a success
 message will be provided (with X denoting how many total tasks are present):
@@ -137,11 +117,7 @@ which will be created under the same directory as your `.jar` file.
 
 ## 4: Deletion of tasks
 
-// Describe the action and its outcome.
-
 You may delete any task by referring to its index (starting from 1) for deletion:
-
-// Command formats if needed
 
 ```
 delete <task index to remove>
@@ -151,7 +127,6 @@ Example: `delete 1` removes the first task from the list.
 
 The index provided should be within the bounds of the list, or else an error message will be provided.
 
-// A description of the expected outcome goes here
 If deletion is successful, a success message will be provided 
 (with X denoting how many total tasks are present):
 
@@ -162,8 +137,6 @@ Now you have X tasks in the list.
 ```
 
 ## 5: Marking/Unmarking of tasks
-
-// Describe the action and its outcome.
 
 You may mark a task as done by referring to its index (starting from 1) for marking:
 ```
@@ -177,26 +150,17 @@ unmark <task index to unmark>
 
 The index provided should be within the bounds of the list, or else an error message will be provided.
 
-
-// Command formats if needed
-
 Example: 
 - `mark 1` marks the first task from the list as done.
 - `mark 3` unmarks the third task from the list.
 
 The index provided should be within the bounds of the list, or else an error message will be provided.
 
-// A description of the expected outcome goes here
-
 If marking / unmarking is successful, a success message will be provided.
 
 ## 6: Finding of tasks
 
-// Describe the action and its outcome.
-
 You may search for task(s) that contain some search query using `find`:
-
-// Command formats if needed
 
 ```
 find <search string>
@@ -205,8 +169,6 @@ find <search string>
 Example: `find ip`
 
 - If the search string is empty, an error message will be provided to inform you.
-
-// A description of the expected outcome goes here
 
 If successful, the tasks that contain the search query will be returned in a list as so:
 
