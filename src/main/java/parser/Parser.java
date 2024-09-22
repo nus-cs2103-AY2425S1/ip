@@ -24,7 +24,7 @@ public class Parser {
     }
 
     /**
-     * Parse a single line of user input into an executable command.
+     * Parses a single line of user input into an executable command.
      * @param userInput - the raw string input by the user
      * @param tasks - the current task list. Required for input validation of index arguments, like mark
      * @return an executable command if the user input is valid

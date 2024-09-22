@@ -21,8 +21,7 @@ public class Grok {
     private final Parser parser;
 
     /**
-     * The main coordinator of this application. Contains the boot-up sequence to start different classes and
-     * initialize the application, and coordinate user inputs from user to relevant classes.
+     * Coordinates the boot-up sequence and communication between different components of the application.
      */
     public Grok() {
         storage = new Storage(TEXT_FILE_DIRECTORY, TEXT_FILE_NAME);

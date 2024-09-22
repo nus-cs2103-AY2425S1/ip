@@ -33,8 +33,7 @@ public class TaskList {
     }
 
     /**
-     * Retrieve and obtain the desired task index
-     * NOTE: No error handling -  It is the caller's responsibility to ensure that an OOB exception is not triggered.
+     * Retrieves and obtains the desired task index.
      * @param idx the zero-indexed task index.
      * @return the task at that index.
      */
