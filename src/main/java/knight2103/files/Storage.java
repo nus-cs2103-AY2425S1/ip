@@ -8,6 +8,7 @@ import knight2103.tasks.EventTask;
 import knight2103.tasks.TaskType;
 import knight2103.Pair;
 
+import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Scanner;
@@ -135,8 +136,8 @@ public class Storage {
         case "T" -> taskType = TaskType.TODO;
         case "D" -> taskType = TaskType.DEADLINE;
         case "E" -> taskType = TaskType.EVENT;
-        default -> throw new InvalidFileContentsException("Only T, E, D accepted but others found in 1st " +
-                "column");
+        default -> throw new InvalidFileContentsException("Only T, E, D accepted but other characters"
+                + "found in first column");
         }
         return taskType;
     }
@@ -202,9 +203,12 @@ public class Storage {
             }
             }
         } catch (DateTimeParseException e) {
-            throw new InvalidFileContentsException("\nDate format is wrong in the file contents."
+            throw new InvalidFileContentsException("Date format is wrong in the file contents."
                     + " For Deadline task, it should be yyyy-MM-dd format."
                     + " For Events task, it should be yyyy-MM-ddThh:mm format");
+        } catch (DateTimeException e) {
+            throw new InvalidFileContentsException(
+                    "Start date & time of the Event Task must be BEFORE end date & time");
         }
         return taskToAdd;
     }

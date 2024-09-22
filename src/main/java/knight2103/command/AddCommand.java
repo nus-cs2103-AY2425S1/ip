@@ -9,6 +9,7 @@ import knight2103.tasks.DeadlineTask;
 import knight2103.tasks.EventTask;
 
 import java.io.IOException;
+import java.time.DateTimeException;
 import java.time.format.DateTimeParseException;
 
 /**
@@ -35,6 +36,7 @@ public class AddCommand extends Command {
      * yyyy-MM-dd format or the start and end time in EventTask instance is not written in
      * yyyy-MM-ddThh:mm format.
      * @throws IOException If the FileWriter in saveToFile() function in Storage class cannot be instantiated.
+     * @throws DateTimeException If the start date and time of the event task is before the end date and time.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task taskToAdd;
@@ -66,7 +68,9 @@ public class AddCommand extends Command {
         } catch (DateTimeParseException e) {
             return "Failed to execute Command:\nInput of Date or time format is wrong."
                     + "\nFor Deadline task, the format should be in yyyy-MM-dd"
-                    + "\nFor Event task, the format should be in" + " yyyy-MM-ddThh:mm";
+                    + "\nFor Event task, the format should be in yyyy-MM-ddThh:mm";
+        } catch (DateTimeException e) {
+            return e.getMessage();
         } catch (IOException e) { // from saveToFile() in Storage class
             return "Failed to execute Command:\nProblems creating an instance of FileWriter";
         }

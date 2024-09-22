@@ -1,5 +1,6 @@
 package knight2103.tasks;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -21,11 +22,18 @@ public class EventTask extends Task {
      * @param description The description of the task.
      * @param startTime The start date & time of the task.
      * @param endTime The end date & time of the task.
+     * @throws DateTimeException If the start date and time of the event task
+     * is before the end date and time.
      */
-    public EventTask(String description, String startTime, String endTime) {
+    public EventTask(String description, String startTime, String endTime) throws DateTimeException {
         super(description);
         this.startTime = LocalDateTime.parse(startTime);
         this.endTime = LocalDateTime.parse(endTime);
+
+        if (this.startTime.isAfter(this.endTime)) {
+            throw new DateTimeException("\nUnable to create Event Task. "
+                    + "Start date & time of the Event Task must be BEFORE end date & time");
+        }
     }
 
     public LocalDateTime getStartTime() {
