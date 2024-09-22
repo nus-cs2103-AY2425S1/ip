@@ -39,10 +39,10 @@ You can have him with just a few easy steps!
 
 ## Derek's Quirks
 
-- [x] Managing your tasks
-- [x] Managing your events
-- [x] Managing your deadlines
-- [x] Just a great guy in general
+- [ ] Managing your tasks
+- [ ] Managing your events
+- [ ] Managing your deadlines
+- [ ] Just a great guy in general
 
 ---
 
