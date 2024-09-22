@@ -69,7 +69,8 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox ofErrorMessage(MittensException e) {
-        var db = new DialogBox(e.getMessage(), ERROR_AVATAR);
+        String message = "%s\n\nError: %s\n%s".formatted(e.getMittensMessage(), e.getMessage(), e.getHelpMessage());
+        var db = new DialogBox(message, ERROR_AVATAR);
         db.flip();
         return db;
     }
