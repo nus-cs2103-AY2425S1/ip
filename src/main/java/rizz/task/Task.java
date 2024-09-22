@@ -72,8 +72,8 @@ public abstract class Task {
 
     /**
      * Returns a string representation of the task.
-     * The format will be: "[<status>] <text>"
-     * where <status> is either "X" for done or " " for not done, and <text> is the task description.
+     * The format will be: "[(status)] (text)"
+     * where (status) is either "X" for done or " " for not done, and (text) is the task description.
      *
      * @return The string representation of the task.
      */

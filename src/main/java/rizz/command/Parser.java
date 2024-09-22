@@ -15,13 +15,13 @@ public class Parser {
      * Supported commands:
      * - "bye": Exit the application.
      * - "list": List all tasks.
-     * - "tod0 <details>": Add a new ToD0 task.
-     * - "event <details> /from <start time> /to <end time>": Add a new Event task.
-     * - "deadline <details> /by <due date>": Add a new Deadline task.
-     * - "mark <index>": Mark a task as done.
-     * - "unmark <index>": Unmark a task.
-     * - "delete <index>": Delete a task.
-     * - "find <details>": Find a task.
+     * - "tod0 (details)": Add a new ToD0 task.
+     * - "event (details) /from (start time) /to (end time)"
+     * - "deadline (details) /by (due date)": Add a new Deadline task.
+     * - "mark (index)": Mark a task as done.
+     * - "unmark (index)": Unmark a task.
+     * - "delete (index)": Delete a task.
+     * - "find (details)": Find a task.
      *
      * @param input The user input string to be parsed.
      * @return The Command object representing the parsed command, or null if the input is invalid.
@@ -39,8 +39,9 @@ public class Parser {
         } catch (IllegalArgumentException e) {
             return null;
         }
-        assert commandType != null: "Command type != null at dis point";
-        assert details != null: "Command type != null at dis point";
+        assert commandType != null: "Command type  null at dis point";
+        assert details != null: "details type  null at dis point";
+
 
         switch (commandType) {
         case BYE:
