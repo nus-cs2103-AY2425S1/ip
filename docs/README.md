@@ -1,6 +1,6 @@
 # Bigdog User Guide
 
-// Product screenshot goes here
+![Bigdog UI](Ui.png)
 
 Bigdog is an app designed to manage three types of tasks: To-Do tasks, 
 Deadline tasks with specific completion dates, and Event tasks scheduled within a defined timeframe. 
