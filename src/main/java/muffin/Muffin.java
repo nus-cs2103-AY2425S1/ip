@@ -1,5 +1,9 @@
 package muffin;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.util.Duration;
+
 /**
  * The Muffin class represents the main application logic for a todo list.
  */
@@ -63,6 +67,10 @@ public class Muffin {
                 return "Hi there! My name is Muffin!!";
 
             case BYE:
+                // Pause for 3 seconds before exiting
+                PauseTransition pause = new PauseTransition(Duration.seconds(3));
+                pause.setOnFinished(event -> Platform.exit());  // Close the app after the delay
+                pause.play();
                 return "Goodbye~ Hope to see you again soon!";
 
             case LIST:
