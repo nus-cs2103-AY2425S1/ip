@@ -97,12 +97,15 @@ public class Ui {
         return response;
     }
 
+    //@@author xGladiate
+    // Utilised her implementation of PauseTransition to delay closing of app
     private String getByeResponse() {
         PauseTransition delay = new PauseTransition(Duration.seconds(2));
         delay.setOnFinished(event -> Platform.exit());
         delay.play();
         return "It was my pleasure, good bye!";
     }
+    //@@author
 
     private String getToggleResponse(List<Task> taskList, List<String> tokens) {
         return "I have toggled the status of this task:\n"
