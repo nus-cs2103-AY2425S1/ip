@@ -1,6 +1,6 @@
 # Donk User Guide
 
-![Screenshot of App UI](./Ui.png)
+![Screenshot of App UI | width=350](./Ui.png)
 
 Donk is an ultra intelligent chatbot that can help you to organize your life. Sort it out now with Donk!
 
