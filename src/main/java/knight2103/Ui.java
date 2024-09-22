@@ -65,7 +65,9 @@ public class Ui {
      * @return The message including the full list of tasks.
      */
     public String showList(String listToShow) {
-        return "Here's the list of tasks:\n" + listToShow;
+        return listToShow.isEmpty()
+                ? "Empty list: No tasks found."
+                : "Here's the list of tasks:\n" + listToShow;
     }
 
     /**
@@ -86,7 +88,9 @@ public class Ui {
      * @return The message including the sorted list of tasks.
      */
     public String showSorted(String listToShow) {
-        return "Here's the sorted list of tasks:\n" + listToShow;
+        return listToShow.isEmpty()
+                ? "Empty list: No tasks found.\n"
+                : "Here's the sorted list of tasks:\n" + listToShow;
     }
 
     /**

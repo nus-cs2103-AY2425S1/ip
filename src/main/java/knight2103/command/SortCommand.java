@@ -44,7 +44,7 @@ public class SortCommand extends Command {
      * @return Comparator class.
      */
     private Comparator<Task> generateComparator() {
-        return new Comparator<Task>() {
+        return new Comparator<Task>() { // Annonymous Inner Class
             private final static int DONE_PRIORITY = 0;
             private final static int NOT_DONE_PRIORITY = 1;
 
@@ -72,31 +72,53 @@ public class SortCommand extends Command {
                 }
             }
 
-            @Override
-            public int compare(Task task1, Task task2) {
-                int task1DoneRank = rankIsDone(task1);
-                int task2DoneRank = rankIsDone(task2);
-                if (task1DoneRank != task2DoneRank) {
-                    return task2DoneRank - task1DoneRank;
-                }
+            private int checkIsDoneOrder(Task task1, Task task2) {
+                return rankIsDone(task2) - rankIsDone(task1);
+            }
 
+            private int checkTaskTypeOrder(Task task1, Task task2) {
                 int task1TaskTypeRank = rankTaskType(task1.showTaskType());
                 int task2TaskTypeRank = rankTaskType(task2.showTaskType());
-                if (task1TaskTypeRank != task2TaskTypeRank) {
-                    return task2TaskTypeRank - task1TaskTypeRank;
+                return task2TaskTypeRank - task1TaskTypeRank;
+            }
+
+            private int checkDeadlineOrder(DeadlineTask task1, DeadlineTask task2) {
+                return task1.getDeadline().compareTo(task2.getDeadline());
+            }
+
+            private int checkEventTimeOrder(EventTask task1, EventTask task2) {
+                return task1.getStartTime().compareTo(task2.getStartTime());
+            }
+
+            private int checkDescriptionOrder(Task task1, Task task2) {
+                return task1.getDescription().compareTo(task2.getDescription());
+            }
+
+            @Override
+            public int compare(Task task1, Task task2) {
+                final int SAME_ORDER = 0;
+
+                int isDoneOrder = checkIsDoneOrder(task1, task2);
+                if (isDoneOrder != SAME_ORDER) {
+                    return isDoneOrder;
                 }
 
-                final int SAME_ORDER = 0;
-                int relativeOrder = 0;
+                int taskTypeOrder = checkTaskTypeOrder(task1, task2);
+                if (taskTypeOrder != SAME_ORDER) {
+                    return taskTypeOrder;
+                }
+
+                int timingOrder = SAME_ORDER;
                 if (task1 instanceof DeadlineTask deadlineTask1 && task2 instanceof DeadlineTask deadlineTask2) {
-                    relativeOrder = deadlineTask1.getDeadline().compareTo(deadlineTask2.getDeadline());
+                    timingOrder = checkDeadlineOrder(deadlineTask1, deadlineTask2);
                 } else if (task1 instanceof EventTask eventTask1 && task2 instanceof EventTask eventTask2) {
-                    relativeOrder = eventTask1.getStartTime().compareTo(eventTask2.getStartTime());
+                    timingOrder = checkEventTimeOrder(eventTask1, eventTask2);
                 }
-                if (relativeOrder != SAME_ORDER) {
-                    return relativeOrder ;
+                if (timingOrder != SAME_ORDER) {
+                    return timingOrder;
                 }
-                return task1.getDescription().compareTo(task2.getDescription());
+
+                return checkDescriptionOrder(task1, task2);
             }
         };
     }

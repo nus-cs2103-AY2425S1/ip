@@ -8,6 +8,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+import javax.swing.event.HyperlinkEvent;
+
 /**
  * Controller for the main GUI.
  */
@@ -23,10 +25,15 @@ public class MainWindow extends AnchorPane {
 
     private Knight2103 knight2103;
 
-    private Image userImage = new Image(
-            this.getClass().getResourceAsStream("/images/Koobit_Jaguar.png"));
-    private Image knight2103Image = new Image(
-            this.getClass().getResourceAsStream("/images/Koobit_Water_Droplet.png"));
+    private Image userImage;
+    private Image knight2103Image;
+
+    public MainWindow() {
+        userImage = new Image(
+                this.getClass().getResourceAsStream("/images/user.png"));
+        knight2103Image = new Image(
+                this.getClass().getResourceAsStream("/images/knight2103.png"));
+    }
 
     @FXML
     public void initialize() {
@@ -69,7 +76,13 @@ public class MainWindow extends AnchorPane {
             // Reused from https://coderanch.com/t/713720 with minor modifications
             userInput.setEditable(false);
             // @@author
+
             userInput.setPromptText("Bot has exited. To start chatting, please close and restart");
+
+            // @@author cth06-Github-reused
+            // Reused from https://stackoverflow.com/questions/17871329/disabling-a-button-in-javafx with minor change
+            sendButton.setDisable(true);
+            // @@author
         }
     }
 }

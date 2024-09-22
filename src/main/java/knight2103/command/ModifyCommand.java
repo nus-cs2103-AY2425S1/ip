@@ -49,10 +49,11 @@ public class ModifyCommand extends Command {
             return stringToReturn;
         } catch (NumberFormatException e) {
             return "Failed to execute Command:\nPlease state the task number in an INTEGER. "
-                    + "Definitely not the task name";
+                    + "Do not use the task name either.";
         } catch (IndexOutOfBoundsException e) {
-            return "Failed to execute Command:\n" + e.getMessage()
-                    + "\nTask number exceeded total numbers of tasks in the list. "
+            return "Failed to execute Command:\n"
+                    + "Task number cannot be negative "
+                    + "& cannot exceed total numbers of tasks in the list. "
                     + "Please check if the task number is correct. "
                     + "\nTo see all tasks, type list";
         } catch (IOException e) { // from saveToFile() in Storage class

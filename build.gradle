@@ -43,6 +43,7 @@ test {
     }
 }
 
+
 application {
     mainClass.set("knight2103.Launcher")
 }

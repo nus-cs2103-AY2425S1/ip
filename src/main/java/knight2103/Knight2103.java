@@ -35,11 +35,14 @@ public class Knight2103 {
         try {
             Pair<ArrayList<Task>, String> tasksWithErrorMsg = storage.loadFileContents();
             this.tasks = new TaskList(tasksWithErrorMsg.getFirstItem());
-            this.errorMessage = tasksWithErrorMsg.getSecondItem();
+            this.errorMessage = tasksWithErrorMsg.getSecondItem().isEmpty()
+                    ? ""
+                    : "\n\nList of errors when loading file:" + tasksWithErrorMsg.getSecondItem()
+                            + "\n\nEnter command \"list\" to see list of valid tasks succesfully loaded.";
         } catch (FileNotFoundException e) { // file be loaded regardless, exception from Storage
-            this.errorMessage += "\nNote: the Storage File to initialise is not found. "
-                    + "Will create new file instead\n. Existing storage file should be"
-                    + "named as \"savedTaskList.txt\" in root directory";
+            this.errorMessage += "\n\nStorage text File to be processed cannot be found. "
+                    + "New file to store tasks will be created instead.\nTo load existing storage file, "
+                    + "it should be named as \"savedTaskList.txt\" in the root directory.";
             this.tasks = new TaskList();
         }
     }
@@ -49,7 +52,7 @@ public class Knight2103 {
      *
      * @return Bot's welcome message which will be shown every time the bot application first starts.
      */
-    public String triggerWelcome() { // or directly return this.welcomeMessage?
+    public String triggerWelcome() {
         return ui.showWelcome(this.welcomeMessage + this.errorMessage);
     }
 

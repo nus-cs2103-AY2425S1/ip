@@ -27,6 +27,8 @@ public class Main extends Application {
             fxmlLoader.<MainWindow>getController().setKnight2103(knight2103);  // inject the bot instance
             fxmlLoader.<MainWindow>getController().startBotConvo();
             stage.show(); // Render the stage.
+            stage.setResizable(false);
+            stage.setTitle("Knight2103 Chatbot");
         } catch (IOException e) {
             e.printStackTrace();
         }
