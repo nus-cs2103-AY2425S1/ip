@@ -3,6 +3,7 @@ package bigdog;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 public class Storage {
 
     /** The file path where the tasks are stored and loaded from. */
-    private final String filePath;
+    private final File filePath;
 
     /** Constants for task status and types */
     private static final String MARKED_STATUS = "X";
@@ -33,7 +34,7 @@ public class Storage {
      * @param filePath the file path to save and load tasks.
      */
     public Storage(String filePath) {
-        this.filePath = filePath;
+        this.filePath = new File(filePath);
     }
 
     /**
@@ -44,11 +45,14 @@ public class Storage {
      * @throws BigdogException if there is an error during the saving process.
      */
     public void save(ArrayList<Task> taskList) throws BigdogException {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.filePath))) {
+        System.out.println("Saving Task to " + filePath.getAbsolutePath());
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.filePath.getAbsolutePath()))) {
             for (Task task: taskList) {
                 String line = getString(task);
                 writer.write(line + "\n");
             }
+            writer.flush();
+            writer.close();
         } catch (FileNotFoundException e) {
             throw new BigdogException("Storage Error: You do not have a .txt file to store my memory! " + e);
         } catch (IOException e) {

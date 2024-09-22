@@ -135,6 +135,7 @@ public class TaskList {
         for (Task task : this.list) {
             if (task.isOnDay(date)) {
                 schedule.append(counter).append(". ").append(task).append("\n");
+                counter++;
             }
         }
 

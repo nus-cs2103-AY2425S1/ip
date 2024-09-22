@@ -12,6 +12,20 @@ public class Parser {
     private static final String[] VALID_COMMANDS = {"bye", "list", "mark", "unmark", "delete", "todo",
         "deadline", "event", "find", "view"};
 
+    /** Error message for unrecognized task types. */
+    private static final String UNRECOGNISED_KEYWORDS_MESSAGE =
+            "The only keywords I recognise are:\n"
+                    + "1. todo\n"
+                    + "2. deadline\n"
+                    + "3. event\n"
+                    + "4. mark\n"
+                    + "5. unmark\n"
+                    + "6. delete\n"
+                    + "7. list\n"
+                    + "8. find\n"
+                    + "9. view\n"
+                    + "10. bye";
+
     /**
      * Constructs a {@code Parser} object.
      */
@@ -41,7 +55,7 @@ public class Parser {
                 return temp;
             }
         }
-        throw new BigdogException("Parse Error: Invalid Argument!");
+        throw new BigdogException("Parse Error: Invalid Argument! " + UNRECOGNISED_KEYWORDS_MESSAGE);
     }
 
 }
