@@ -47,7 +47,8 @@ public class Storage {
         while (scanner.hasNext()) {
             String line = scanner.nextLine();
             String[] args = line.split(" tags: ");
-            assert args.length == 1 || args.length == 2 : "The task should be splitted into non-tag part and optionally tag part";
+            assert args.length == 1 || args.length == 2
+                    : "The task should be splitted into non-tag part and optionally tag part";
             String withoutTags = args[0];
             String tags = args.length == 2 ? args[1] : "";
             args = withoutTags.split("\\[|\\]\\[|\\] ");
