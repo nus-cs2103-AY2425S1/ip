@@ -15,3 +15,4 @@ public class StreamsException extends Exception {
         assert message != null : "Exception message should not be null";
     }
 }
+
