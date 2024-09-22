@@ -36,14 +36,17 @@ public class Task {
     }
 
     /**
-     * Changes the status of the task.
+     * Changes the status of the task to done.
      */
-    public void changeStatus() {
-        if (this.isDone) {
-            this.isDone = false;
-        } else {
-            this.isDone = true;
-        }
+    public void changeStatusToDone() {
+        this.isDone = true;
+    }
+
+    /**
+     * Changes the status of the task to not done.
+     */
+    public void changeStatusToNotDone() {
+        this.isDone = false;
     }
 
     public String getStatusIcon() {
