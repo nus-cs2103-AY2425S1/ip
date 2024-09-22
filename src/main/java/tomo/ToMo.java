@@ -18,9 +18,9 @@ public class ToMo {
      * Constructor for the ToMo bot
      * @param fileName the file to load and store tasks
      */
-    public ToMo(String fileName) {
+    public ToMo(String directoryPath, String fileName) {
         parser = new Parser();
-        storage = new Storage(fileName);
+        storage = new Storage(directoryPath, fileName);
 
         try {
             tasks = storage.load();

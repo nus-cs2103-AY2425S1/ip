@@ -67,8 +67,13 @@ public class Task {
      */
     public String getTagsToString() {
         String str = "tags:";
+        boolean isFirst = true;
         for (String tag : tags) {
-            str += " " + tag;
+            if (!isFirst) {
+                str += " ";
+            }
+            str += tag;
+            isFirst = false;
         }
         return str;
     }

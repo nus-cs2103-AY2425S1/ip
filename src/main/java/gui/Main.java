@@ -10,12 +10,13 @@ import javafx.stage.Stage;
 import tomo.ToMo;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for ToMo using FXML.
  */
 public class Main extends Application {
 
-    private static final String DEFAULT_FILE = "./data/ToMo.txt";
-    private ToMo tomo = new ToMo(DEFAULT_FILE);
+    private static final String DEFAULT_DIRECTORY_PATH = "./data/";
+    private static final String DEFAULT_FILE_NAME = "ToMo.txt";
+    private ToMo tomo = new ToMo(DEFAULT_DIRECTORY_PATH, DEFAULT_FILE_NAME);
 
     @Override
     public void start(Stage stage) {

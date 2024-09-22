@@ -25,8 +25,19 @@ public class Storage {
      * Constructor of the storage
      * @param fileName The to load and store tasks
      */
-    public Storage(String fileName) {
-        this.file = new File(fileName);
+    public Storage(String directoryPath, String fileName) {
+        File directory = new File(directoryPath);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+        file = new File(directory, fileName);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -46,7 +57,7 @@ public class Storage {
 
         while (scanner.hasNext()) {
             String line = scanner.nextLine();
-            String[] args = line.split(" tags: ");
+            String[] args = line.split(" tags:");
             assert args.length == 1 || args.length == 2
                     : "The task should be splitted into non-tag part and optionally tag part";
 
@@ -71,6 +82,7 @@ public class Storage {
                 try {
                     String regex = "\\[|\\]\\[|\\] | \\(by: |\\)";
                     args = withoutTags.split(regex);
+                    System.out.println(args.length);
                     assert args.length == 5 : "Deadline task should have 5 arguments after split";
                     assert args[0].isEmpty() : "The first argument after splitting Deadline should be empty";
 
@@ -105,8 +117,8 @@ public class Storage {
                         task.mark();
                     }
 
-                    for (String tag : tags.split(" ")) {
-                        task.addTag(tag);
+                    for (String tag : tags.split(" | #")) {
+                        task.addTag("#" + tag);
                     }
                     tasks.add(task);
                 } catch (DateTimeParseException e) {
