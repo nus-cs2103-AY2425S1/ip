@@ -160,6 +160,7 @@ The data is loaded from `taskList.txt` every time the program is launched.
 If `taskList.txt` is edited or corrupted, the program will not open and will give an error.
 To fix the error, either edit `taskList.txt` to match the format it is stored as,
 or delete the file altogether and the program will create an empty file when it is next launched.
+This is done to ensure that the user does not lose data on their old tasks.
 
 ## Duplicate tasks
 
