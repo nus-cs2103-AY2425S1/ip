@@ -18,8 +18,10 @@ makes organizing your life simpler and more efficient.
     - [Viewing the task list: `List`](#9-view-all-the-task)
     - [Clean all the tasks: `Clean`](#10-clean-all-the-task)
     - [Open a Help Window: `Help`](#11-open-a-help-window)
-    - [Exit the program: `Bye`](#12-exit-the-progeam)
+    - [Exit the program: `Bye`](#12-exit-the-program)
     - [Other unique interaction](#13-and-other-special-interaction)
+- [FAQ](#faq)
+- [Known Issue](#known-issues)
 - [Command Summary](#command-summary)
 
 # Quick Start
