@@ -36,23 +36,23 @@ public class Parser {
      * @throws DashException If the input command is malformed or invalid.
      */
     public static Command parse(String input) throws DashException {
-        if (input.equals("bye")) {
+        if (input.equals("bye") || input.equals("b")) {
             return new ByeCommand();
-        } else if (input.equals("list")) {
+        } else if (input.equals("list") || input.equals("l")) {
             return new ListCommand();
-        } else if (input.startsWith("mark")) {
+        } else if (input.startsWith("mark") || input.startsWith("m")) {
             return new MarkCommand(input);
-        } else if (input.startsWith("unmark")) {
+        } else if (input.startsWith("unmark") || input.startsWith("um")) {
             return new UnmarkCommand(input);
-        } else if (input.startsWith("todo")) {
+        } else if (input.startsWith("todo") || input.startsWith("t")) {
             return parseTodoCommand(input);
-        } else if (input.startsWith("deadline")) {
-            return parseDeadlineCommand(input);
-        } else if (input.startsWith("event")) {
-            return parseEventCommand(input);
-        } else if (input.startsWith("delete")) {
+        } else if (input.startsWith("delete") || input.startsWith("del")) {
             return new DeleteCommand(input);
-        } else if (input.startsWith("find")) {
+        } else if (input.startsWith("deadline") || input.startsWith("d")) {
+            return parseDeadlineCommand(input);
+        } else if (input.startsWith("event") || input.startsWith("e")) {
+            return parseEventCommand(input);
+        } else if (input.startsWith("find") || input.startsWith("f")) {
             return new FindCommand(input);
         } else {
             return new UnknownCommand();

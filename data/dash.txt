@@ -1,7 +1,4 @@
-D| |aa |Nov 11 1111 11:11 am
-T|X|read book
-T| |read book
-D| |a |Nov 11 1111 11:11 am
-T|X|read book
-E| |a |Nov 11 1111 11:11 am|Nov 11 1111 11:11 am
-T|X|lol
+D| |homework |Nov 11 1111 11:11 am
+T| |asd
+E| |asd |Nov 11 1111 11:11 am|Nov 11 1111 11:11 am
+D| |asd |Nov 11 1111 11:11 am
