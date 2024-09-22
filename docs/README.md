@@ -17,7 +17,7 @@ Derek:
 yay!
 [D][] complete cs2100 assignment (by: 16 Sep 2024 01:00 pm)
 
-## Feature todo tasks
+## Adding todo tasks
 
 Derek allows you to keep track of your todos
 
@@ -32,7 +32,7 @@ great job!
 
 
 
-## Feature events
+## Adding events
 
 Derek allows you to keep track of your events
 
@@ -45,7 +45,7 @@ Derek:
 you're on a roll!
 [E][] RV10 gala (from: 21 Sep 2024 09:00 am to: 21 Sep 2024 01:00 pm)
 
-## Feature display list
+## Display list
 
 Derek stores all your given information and returns it to you as a nice list!
 
@@ -59,7 +59,7 @@ Derek:
 2. [T][] cs2103T iP increments
 3. [E][] RV10 gala (from: 21 Sep 2024 09:00 am to: 21 Sep 2024 01:00 pm)
 
-## Feature complete tasks
+## Complete tasks
 
 Derek even allows you to indicate task completion
 
@@ -75,7 +75,7 @@ I think these are your tasks! Please don't leave me!!!
 3. [E][] RV10 gala (from: 21 Sep 2024 09:00 am to: 21 Sep 2024 01:00 pm)
 
 
-## Feature undo tasks
+## Undo tasks
 
 If you accidentally indicated a task as complete, you can unmark it
 
@@ -89,7 +89,7 @@ Derek:
 2. [T][] cs2103T iP increments
 3. [E][] RV10 gala (from: 21 Sep 2024 09:00 am to: 21 Sep 2024 01:00 pm)
 
-## Feature delete tasks
+## Delete tasks
 
 Allows you to delete tasks
 
@@ -103,7 +103,7 @@ Derek:
 2. [T][] cs2103T iP increments
 
 
-## Feature find tasks
+## Find tasks
 
 Allows you to find tasks from your list using keywords
 
@@ -116,7 +116,7 @@ Derek:
 Here you are! 
 [T][] cs2103T iP increments
 
-## Feature list completed tasks
+## List completed tasks
 
 Derek even tells you the tasks you have conpleted in the past week 
 
