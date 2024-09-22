@@ -6,7 +6,6 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-import screwllum.exception.EmptyDescriptionException;
 import screwllum.exception.InvalidCommandException;
 import screwllum.exception.InvalidDateFormatException;
 
