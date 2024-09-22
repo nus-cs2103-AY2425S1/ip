@@ -35,9 +35,9 @@ public class Main {
 
 ## Getting Started
 1. Ensure you have Java 17 or above installed.
-2. Download the latest Dash.jar file [here]().
+2. Download the latest Dash.jar file [here](https://github.com/lim-jt/ip/releases/tag/A-Release).
 3. Place the file into a folder of your choice.
 4. On a command terminal, navigate into the folder with the Dash.jar file and use ```java -jar Dash.jar```
 to run the application.
 
-**You're now ready to use Dash!** Click [here]() for the user guide.
+**You're now ready to use Dash!** Click [here](https://lim-jt.github.io/ip/) for the user guide.
