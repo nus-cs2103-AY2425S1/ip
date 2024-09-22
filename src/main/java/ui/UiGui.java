@@ -37,7 +37,7 @@ public class UiGui {
      */
     public String showGoodbye() {
         return "___________________________________________________________\n"
-                + " Bye BO$$. Hope to see you again soon!\n"
+                + " Bye BO$$! Hope to see you again soon!\n"
                 + "___________________________________________________________\n";
     }
 

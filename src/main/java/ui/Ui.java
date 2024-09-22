@@ -52,7 +52,7 @@ public class Ui {
      */
     public void showGoodbye() {
         System.out.println("___________________________________________________________");
-        System.out.println(" Bye BO$$. Hope to see you again soon!");
+        System.out.println(" Bye BO$$! Hope to see you again soon!");
         System.out.println("___________________________________________________________");
     }
 
