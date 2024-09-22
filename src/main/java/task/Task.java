@@ -8,6 +8,7 @@ public class Task {
     protected boolean isDone;
 
     protected String type;
+    protected int priority;
 
     /**
      * Initializes a Task with a description. The task is initially marked as not done.
@@ -17,6 +18,7 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.priority = -1; //default priority i.e. no priority set
     }
 
     /**
