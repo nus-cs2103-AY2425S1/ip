@@ -2,19 +2,32 @@ package ipman;
 
 import java.util.ArrayList;
 
+/**
+ * Parses user input and executes commands.
+ * This class interacts with the task list and user interface.
+ * It processes commands to manage tasks and handles input from the user.
+ *
+ * @author miloaisdino
+ */
 public class Commands {
-    TextUi textUi;
-    ArrayList<Task> taskList;
-    String line;
+    private TextUi textUi;
+    private ArrayList<Task> taskList;
+    private String line;
 
-    /* Constructs a Commands instance with the specified user interface and task list. */
+    /**
+     * Constructs a Commands instance with the specified user interface and task list.
+     *
+     * @author miloaisdino
+     */
     public Commands(TextUi textUi, ArrayList<Task> taskList, String line) {
         this.textUi = textUi;
         this.taskList = taskList;
         this.line = line;
     }
 
-    /* Parses the input command and executes the corresponding action. */
+    /**
+     * Parses the input command and executes the corresponding action.
+     */
     public void list() {
         textUi.addToBuffer("Here are the tasks in your list:");
         for (int i = 0; i < taskList.size(); i++) {
@@ -23,6 +36,11 @@ public class Commands {
         // textUi.printBuffer();
     }
 
+    /**
+     * Parses the input command and executes the corresponding action.
+     *
+     * @throws CommandException If the command is invalid or the task number is out of range.
+     */
     public void find() throws CommandException {
         if (!line.contains(" ")) {
             throw new CommandException("The search string must not be empty.");
@@ -37,6 +55,11 @@ public class Commands {
         }
     }
 
+    /**
+     * Parses the input command and executes the corresponding action.
+     *
+     * @throws CommandException If the task number is out of range.
+     */
     public void delete() throws CommandException {
         int idx = Integer.parseInt(line.split(" ")[1]) - 1;
         if (idx < 0 || idx >= taskList.size()) {
@@ -48,6 +71,11 @@ public class Commands {
         textUi.addToBuffer("Now you have " + taskList.size() + " tasks in the list.");
     }
 
+    /**
+     * Parses the input command and executes the corresponding action.
+     *
+     * @throws CommandException If the task number is out of range.
+     */
     public void unmark() throws CommandException {
         int idx = Integer.parseInt(line.split(" ")[1]) - 1;
         if (idx < 0 || idx >= taskList.size()) {
@@ -57,6 +85,11 @@ public class Commands {
         textUi.addToBuffer(taskList.get(idx).unmarkStatus());
     }
 
+    /**
+     * Parses the input command and executes the corresponding action.
+     *
+     * @throws CommandException If the task number is out of range.
+     */
     public void mark() throws CommandException {
         int idx = Integer.parseInt(line.split(" ")[1]) - 1;
         if (idx < 0 || idx >= taskList.size()) {
@@ -66,6 +99,11 @@ public class Commands {
         textUi.addToBuffer(taskList.get(idx).markStatus());
     }
 
+    /**
+     * Parses the input command and executes the corresponding action.
+     *
+     * @throws CommandException If the description of the task is empty.
+     */
     public void todo() throws CommandException {
         if (!line.contains(" ")) {
             throw new CommandException("The description of a todo cannot be empty.");
@@ -77,6 +115,11 @@ public class Commands {
         textUi.addToBuffer("Now you have " + taskList.size() + " tasks in the list.");
     }
 
+    /**
+     * Parses the input command and executes the corresponding action.
+     *
+     * @throws CommandException If the description of the deadline is empty.
+     */
     public void deadline() throws CommandException {
         if (!line.contains(" ") || line.split(" ", 2)[1].isEmpty()) {
             throw new CommandException("The description of the deadline must not be empty.");
@@ -88,6 +131,11 @@ public class Commands {
         textUi.addToBuffer("Now you have " + taskList.size() + " tasks in the list.");
     }
 
+    /**
+     * Parses the input command and executes the corresponding action.
+     *
+     * @throws CommandException If the description of the event is empty.
+     */
     public void event() throws CommandException {
         if (!line.contains(" ") || line.split(" ", 2)[1].isEmpty()) {
             throw new CommandException("The description of the event must not be empty.");
@@ -101,6 +149,11 @@ public class Commands {
         textUi.addToBuffer("Now you have " + taskList.size() + " tasks in the list.");
     }
 
+    /**
+     * Parses the input command and executes the corresponding action.
+     *
+     * @throws CommandException If the task number is out of range or the tag is empty.
+     */
     public void tag() throws CommandException {
         if (line.split(" ").length < 3) {
             throw new CommandException("The tag command must have a task number and a tag.");
@@ -115,6 +168,11 @@ public class Commands {
         textUi.addToBuffer(String.valueOf(taskList.get(idx)));
     }
 
+    /**
+     * Parses the input command and executes the corresponding action.
+     *
+     * @throws CommandException If the task number is out of range or the tag is empty.
+     */
     public void untag() throws CommandException {
         if (line.split(" ").length < 3) {
             throw new CommandException("The untag command must have a task number and a tag.");

@@ -56,10 +56,10 @@ public class Task {
         this.tags.add(tag);
     }
 
-    /* Converts the tags to a string
-    *
-    * @return The string representation of the tags
-    */
+    /**
+     * Returns the tags of the task as a string
+     * @return The tags of the task as a string
+     */
     public String tagsToString() {
         if (tags.isEmpty()) {
             return "";
