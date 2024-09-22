@@ -113,6 +113,37 @@ Now you have 3 tasks in the list ~ !
 *uwaeh*
 ```
 
+### Updating a Task
+
+Change the description or timing of any task easily.
+
+**Usage:**
+
+```
+update <index> /name <new_description> 
+```
+```
+update <index> /by <new_time> 
+```
+```
+update <index> /from <new_start_time> 
+```
+```
+update <index> /to <new_end_time>
+```
+
+**Examples:**
+
+```
+update 1 /name pay the pub tab update 2 /by 15/12/2024 1800 update 3 /from 23/12/2024 2000 /to 24/12/2024 0200
+```
+
+**Expected Outcomes:**
+
+```
+Task updated successfully: [D][X] pay the pub tab (by: Dec 12 2024, 12:22)
+```
+
 ### Deleting a Task
 
 Sometimes, it's necessary to clear out tasks that are no longer relevant.
