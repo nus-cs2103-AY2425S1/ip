@@ -36,36 +36,27 @@ public class Parser {
      * @throws DashException If the input command is malformed or invalid.
      */
     public static Command parse(String input) throws DashException {
-        try {
-            if (input.equals("bye")) {
-                return new ByeCommand();
-            } else if (input.equals("list")) {
-                return new ListCommand();
-            } else if (input.startsWith("mark")) {
-                return new MarkCommand(input);
-            } else if (input.startsWith("unmark")) {
-                return new UnmarkCommand(input);
-            } else if (input.startsWith("todo")) {
-                return parseTodoCommand(input);
-            } else if (input.startsWith("deadline")) {
-                return parseDeadlineCommand(input);
-            } else if (input.startsWith("event")) {
-                return parseEventCommand(input);
-            } else if (input.startsWith("delete")) {
-                return new DeleteCommand(input);
-            } else if (input.startsWith("find")) {
-                return new FindCommand(input);
-            } else {
-                return new UnknownCommand();
-            }
-        } catch (DashException e) {
-            Ui.showError(e.getMessage());
-        } catch (DateTimeParseException e) {
-            Ui.showDateTimeParseError(e.getMessage());
-        } catch (Exception e) {
-            Ui.showUnexpectedError(e.getMessage());
+        if (input.equals("bye")) {
+            return new ByeCommand();
+        } else if (input.equals("list")) {
+            return new ListCommand();
+        } else if (input.startsWith("mark")) {
+            return new MarkCommand(input);
+        } else if (input.startsWith("unmark")) {
+            return new UnmarkCommand(input);
+        } else if (input.startsWith("todo")) {
+            return parseTodoCommand(input);
+        } else if (input.startsWith("deadline")) {
+            return parseDeadlineCommand(input);
+        } else if (input.startsWith("event")) {
+            return parseEventCommand(input);
+        } else if (input.startsWith("delete")) {
+            return new DeleteCommand(input);
+        } else if (input.startsWith("find")) {
+            return new FindCommand(input);
+        } else {
+            return new UnknownCommand();
         }
-        return new UnknownCommand();
     }
 
     /**
