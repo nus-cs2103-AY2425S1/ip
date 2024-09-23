@@ -2,17 +2,24 @@
 
 <img width="1710" alt="Ui" src="https://github.com/user-attachments/assets/01d31738-33f4-4ae6-9c65-f9bed287d5ac">
 
+<br><br>
+Welcome to Prince, your personal task management assistant! Prince helps to keep track of all your tasks, whether they are regular ToDo tasks, tasks with Deadlines or just events, in a simple and efficient way.
 
-Welcome to Prince, your personal task management assistant! Prince helps to keep track of all your tasks, whether they
-are regular ToDo tasks, tasks with Deadlines or just events, in a simple and efficient way.
+## Set-up Instructions
+1. Install java 17 on your computer if you have not already done so.
+2. Download the .jar file of Prince here.
+3. Save it to a folder in your computer.
+4. Open up terminal on your computer.
+5. Type in the command ```cd``` and navigate to the folder the .jar file is located.
+6. Type in the command ```java -jar prince.jar```.
+7. Prince can now be run!
 
-
+## Features
 
 <img width="1710" alt="UiAdd" src="https://github.com/user-attachments/assets/58382ed8-2883-4845-8dbf-cda149753752">
 
 
-
-## Adding ToDo task
+### ***Adding ToDo task***
 
 This action adds a simple to-do task without any date or time constraints.
 
@@ -23,14 +30,18 @@ Format : 'todo Paint flowers'
 The response message prints a message indicating the success of addition of the task and displays the updated
 length of the list.
 
+
 **Expected outcome :**
+
 'Got it. I've added this task:
-[T][ ] Paint flowers
+
+> [T][ ] Paint flowers
+
 Now you have 1 tasks in the list
-How else would you like me to edit your TODO list today?'
 
+How else would you like me to edit your TODO list today?'<br><br>
 
-## Adding tasks with deadlines
+### ***Adding tasks with deadlines***
 
 This action adds a task that has a deadline.
 
@@ -42,13 +53,19 @@ The response message prints a message indicating the success of addition of the 
 length of the list.
 
 **Expected outcome :**
+
 'Got it. I've added this task:
-[D][ ] Submit assignment (by: Sep 30 2024, 6:00 pm)
+
+>[D][ ] Submit assignment (by: Sep 30 2024, 6:00 pm)
+
+
 Now you have 1 tasks in the list
-How else would you like me to edit your TODO list today?'
 
 
-## Adding events with a start and end time
+How else would you like me to edit your TODO list today?'<br><br>
+
+
+### ***Adding events with a start and end time***
 
 This action adds an event that has a start date and time, as well as an end date and time.
 
@@ -60,15 +77,23 @@ The response message prints a message indicating the success of addition of the 
 length of the list.
 
 **Expected outcome :**
+
+
 'Got it. I've added this task:
-[E][ ] award ceremony (from: Dec 31 2024, 6:00 pm to: Dec 31 2024, 7:00 pm)
+
+
+>[E][ ] award ceremony (from: Dec 31 2024, 6:00 pm to: Dec 31 2024, 7:00 pm)
+
+
 Now you have 1 tasks in the list
-How else would you like me to edit your TODO list today?'
+
+
+How else would you like me to edit your TODO list today?'<br><br>
 
 <img width="1710" alt="UiDelete List" src="https://github.com/user-attachments/assets/efc9752a-b83d-4bde-b50b-26ad5cfaad48">
 
 
-## Deleting tasks
+### ***Deleting tasks***
 
 This action deletes a task from the list.
 
@@ -80,13 +105,21 @@ The response message prints a message indicating the success of deletion of the 
 updated length of the list.
 
 **Expected outcome :**
+
+
 'Noted. I've removed this task:
-[T][ ] Buy groceries
+
+
+>[T][ ] Buy groceries
+
+
 Now you have 0 tasks in the list
-How else would you like me to edit your TODO list today?'
 
 
-## Mark task as done
+How else would you like me to edit your TODO list today?'<br><br>
+
+
+### ***Mark task as done***
 
 This action marks a task as done if the task is undone.
 
@@ -97,15 +130,18 @@ Format : 'mark 1'
 The response message prints a message indicating the success of marking the first task in the list if the task is
 undone. If the task is already completed, a message is returned that the task has already been marked as done.
 
-**Expected outcome :**  
+**Expected outcome :**
+
 'Nice! I've marked this task as done:
-[T][ ] Buy groceries'
+
+
+>[T][ ] Buy groceries'
 
 **or**
 
-'This task has already been marked as done!'
+'This task has already been marked as done!'<br><br>
 
-## Unmark a task
+### ***Unmark a task***
 
 This action unmarks a task if the task was previously marked as done.
 
@@ -117,14 +153,18 @@ The response message prints a message indicating the success of unmarking the fi
 done. If the task is not done yet, a message is returned that the task is still incomplete.
 
 **Expected outcome :**
+
+
 'OK! I've marked this task as not done yet:
-[T][ ] Buy groceries'
+
+
+>[T][ ] Buy groceries'
 
 **or**
 
-'This task has not been completed yet!'
+'This task has not been completed yet!'<br><br>
 
-## Find a keyword or phrase
+### ***Find a keyword or phrase***
 
 This action searches for tasks containing a specific keyword or phrase.
 
@@ -135,15 +175,21 @@ Format : 'find groceries'
 The response message returns a list of tasks that contain the specific word or phrase.
 
 **Expected outcome :**
+
+
 'Here are the matching tasks in your list:
-1.[T][ ] Buy groceries'
+
+
+>1.[T][ ] Buy groceries'
 
 **or**
 
 'You have no current tasks containing 'cat'.
-Please try again with another word.'
 
-## Tasks in List View
+
+Please try again with another word.'<br><br>
+
+### ***Tasks in List View***
 
 This action lists all tasks currently saved in the task list.
 
@@ -155,16 +201,20 @@ The response message returns a list of tasks currently saved. If there are no ta
 is printed saying that there are currently zero tasks to be completed.
 
 **Expected outcome :**
+
+
 'Here are the tasks in your list:
-1.[T][ ] Buy groceries'
+
+
+>1.[T][ ] Buy groceries'
 
 **or**
 
-'You do not have any tasks in your list as of now.'
+'You do not have any tasks in your list as of now.'<br><br>
 
 <img width="1710" alt="UiArchive Bye" src="https://github.com/user-attachments/assets/418e2687-fb75-487e-9da7-e4221c2eb9c7">
 
-## Archive a list
+### ***Archive a list***
 
 This action archives the current list of tasks.
 
@@ -175,9 +225,11 @@ Format : 'archive'
 The response message prints a message indicating the success of archiving the tasks in the list.
 
 **Expected outcome :**
-'List archived successfully.'
 
-## Archived tasks in List View
+
+'List archived successfully.'<br><br>
+
+### ***Archived tasks in List View***
 
 This action lists all tasks that have been archived.
 
@@ -188,10 +240,14 @@ Format : 'archivelist'
 The response message returns a list of tasks currently archived.
 
 **Expected outcome :**
-'Here are the tasks in your list:
-1.[T][ ] Buy groceries'
 
-## Exiting the application
+
+'Here are the tasks in your list:
+
+
+>1.[T][ ] Buy groceries'<br><br>
+
+### ***Exiting the application***
 
 This action displays a farewell message.
 
@@ -202,10 +258,12 @@ Format : 'bye'
 The response message returns a farewell message.
 
 **Expected outcome :**
-'Bye! Hope to see you again soon!'
 
 
-## Handling Invalid Commands
+'Bye! Hope to see you again soon!'<br><br>
+
+
+### ***Handling Invalid Commands***
 
 This action prompts an error message to be returned if the command is unknown.
 
@@ -216,5 +274,9 @@ Format : 'bring task'
 The response message is an error message that lets users know about the unknown command used.
 
 **Expected outcome :**
+
+
 'Unknown command detected: 'bring task'. Sorry I do not know what that means :(
+
+
 Please try again with a proper command. Make sure you are not adding any unecessary spaces or characters.'
