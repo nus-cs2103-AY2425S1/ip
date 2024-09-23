@@ -67,13 +67,6 @@ public class Nebula {
         new Nebula("./data/nebulaTaskList.txt").run();
     }
 
-//    /**
-//     * Generates a response for the user's chat message.
-//     */
-//    public String getResponse(String input) {
-//        return "Nebula heard: " + input;
-//    }
-
     /**
      * Starts the application by displaying a greeting.
      * This method can be called once when the application starts in a GUI environment.

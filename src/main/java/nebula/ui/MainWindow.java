@@ -28,25 +28,31 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image nebulaImage = new Image(this.getClass().getResourceAsStream("/images/DaNebula.jpeg"));
 
+    /**
+     * Initializes the Nebula chatbot
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         initializeChatbot();
     }
 
-    /** Injects the Duke instance */
-    public void setDuke(Nebula n) {
+    /** Injects the Nebula instance */
+    public void setNebula(Nebula n) {
         nebula = n;
     }
 
 
+    /**
+     * Initializes the Nebula chatbot with the greeting message
+     */
     private void initializeChatbot() {
         Nebula nebula = new Nebula("./data/nebulaTaskList.txt");
 
         // Display the greeting message at startup
         String greeting = nebula.start();
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(greeting, nebulaImage)
+                DialogBox.getNebulaDialog(greeting, nebulaImage)
         );
     }
 
@@ -61,7 +67,7 @@ public class MainWindow extends AnchorPane {
         String response = nebula.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, nebulaImage)
+                DialogBox.getNebulaDialog(response, nebulaImage)
         );
         userInput.clear();
     }

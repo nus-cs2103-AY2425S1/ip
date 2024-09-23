@@ -24,6 +24,12 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Initializes a DialogBox with the specified text, image, and FXML layout.
+     *
+     * @param text the text to be displayed in the dialog box;
+     * @param img the image to be displayed in the dialog box;
+     */
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -49,11 +55,25 @@ public class DialogBox extends HBox {
         dialog.getStyleClass().add("reply-label");
     }
 
+    /**
+     * Creates a user dialog with the specified text and image.
+     *
+     * @param text the text to be displayed in the user dialog box.
+     * @param img the image to be displayed in the user dialog box.
+     * @return a DialogBox instance representing the user dialog.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
+    /**
+     * Creates a Nebula DialogBox with the specified text and image
+     *
+     * @param text the text to be displayed in the Nebula dialog box.
+     * @param img the image to be displayed in the Nebula dialog box.
+     * @return a DialogBox instance representing the Nebula dialog.
+     */
+    public static DialogBox getNebulaDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;
