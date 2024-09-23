@@ -62,9 +62,9 @@ public class Ui {
      */
     public String showTaskList(TaskList tasks) {
         String taskString = "";
-        taskString += " Here are the tasks in your list:";
+        taskString += " Here are the tasks in your list:\n";
         for (int i = 0; i < tasks.size(); i++) {
-            taskString += i + 1 + "." + tasks.get(i) + "\n";
+            taskString += i + 1 + ". " + tasks.get(i) + "\n";
         }
         return taskString;
     }
@@ -154,6 +154,6 @@ public class Ui {
                 + "6. `delete <task_number>` - Delete a task\n"
                 + "7. `find <keyword>` - Find tasks containing a keyword\n"
                 + "8. `help` - Show this help page\n"
-                + "9. `bye` - Exit the app\n";
+                + "9. `exit` - Exit the app\n";
     }
 }

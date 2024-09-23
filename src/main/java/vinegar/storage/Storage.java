@@ -22,22 +22,8 @@ import java.util.List;
  * loading tasks from the file into memory, and saving tasks back to the file.
  */
 public class Storage {
-    private String filePath;
-    private String directoryPath;
 
-    /**
-     * Constructs a Storage object with the specified file path.
-     *
-     * @param filePath The path to the file where tasks are stored.
-     */
-    public Storage(String filePath) {
-        this.filePath = filePath;
-        // Get the directory from the file path
-        this.directoryPath = new File(filePath).getParent();
-
-        // Assert that the directory path is not null
-        assert this.directoryPath != null : "Directory path should not be null.";
-    }
+    private static final String FILE_PATH = "data/vinegar.txt";
 
     /**
      * Loads tasks from the storage file.
@@ -47,10 +33,9 @@ public class Storage {
      */
     public List<Task> load() throws IOException {
         List<Task> tasks = new ArrayList<>();
-        File file = new File(filePath);
+        File file = new File(FILE_PATH);
 
         if (!file.exists()) {
-            // Load sample data if file doesn't exist
             loadSampleData(tasks);
             return tasks;
         }
@@ -64,12 +49,45 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            throw new IOException("OOPS!!! Unable to load tasks from file.");
+            throw new IOException("OOPS!!! Unable to load tasks from file: " + e.getMessage(), e); // More descriptive error
         }
 
         assert tasks != null : "Tasks list should not be null after loading from file.";
         return tasks;
     }
+
+    /**
+     * Saves the given list of tasks to the storage file.
+     *
+     * @param tasks The list of tasks to save.
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
+    public void save(List<Task> tasks) throws IOException {
+        assert tasks != null : "Tasks list should not be null when saving.";
+
+        File file = new File(FILE_PATH);
+        File directory = file.getParentFile();
+
+        if (directory != null && !directory.exists()) {
+            directory.mkdirs(); // Ensure parent directories exist
+        }
+
+        if (directory != null) {
+            assert directory.exists() : "Directory should exist after trying to create it.";
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
+            for (Task task : tasks) {
+                assert task != null : "Task should not be null when writing to file.";
+                writer.write(task.toFileFormat() + "\n");
+            }
+        } catch (IOException e) {
+            throw new IOException("Failed to save tasks to file: " + e.getMessage(), e); // Better error message
+        }
+    }
+
+    // Other methods remain the same
+
 
     /**
      * Loads sample tasks into the list of tasks.
@@ -78,8 +96,8 @@ public class Storage {
      */
     private void loadSampleData(List<Task> tasks) {
         tasks.add(new Todo("Read documentation"));
-        tasks.add(new Deadline("Submit project proposal", "2023-09-25"));
-        tasks.add(new Event("Team meeting", "2023-09-22", "2023-09-23"));
+        tasks.add(new Deadline("Submit project proposal", "2023-09-25 11:59"));
+        tasks.add(new Event("Team meeting", "2023-09-22 02:00", "2023-09-23 04:00"));
     }
 
     /**
@@ -127,32 +145,4 @@ public class Storage {
         }
     }
 
-    /**
-     * Saves the given list of tasks to the storage file.
-     *
-     * @param tasks The list of tasks to save.
-     * @throws IOException If an I/O error occurs while writing to the file.
-     */
-    public void save(List<Task> tasks) throws IOException {
-        // Assert that tasks list is not null
-        assert tasks != null : "Tasks list should not be null when saving.";
-
-        // Ensure that the directory exists before saving the file
-        File directory = new File(directoryPath);
-        if (!directory.exists()) {
-            directory.mkdirs(); // Create the directory if it doesn't exist
-        }
-
-        // Assert that the directory exists after attempting to create it
-        assert directory.exists() : "Directory should exist after trying to create it.";
-
-        // Now write to the file
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            for (Task task : tasks) {
-                // Assert that task format is valid before writing to file
-                assert task != null : "Task should not be null when writing to file.";
-                writer.write(task.toFileFormat() + "\n");
-            }
-        }
-    }
 }

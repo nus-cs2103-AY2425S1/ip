@@ -1,5 +1,8 @@
 package vinegar;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
+import javafx.util.Duration;
 import vinegar.command.Command;
 import vinegar.storage.Storage;
 import vinegar.task.TaskList;
@@ -24,12 +27,10 @@ public class Vinegar {
      * Constructs a Vinegar object with the specified file path.
      * Initializes the UI, storage, and task list.
      * Loads any existing tasks from the specified file.
-     *
-     * @param filePath The path to the task storage file.
      */
-    public Vinegar(String filePath) {
+    public Vinegar() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage();
         try {
             tasks = new TaskList(storage.load());
             // Assert that the task list is not null after loading
@@ -75,6 +76,7 @@ public class Vinegar {
      *
      * @param args Command-line arguments (not used).
      */
+    /**
     public static void main(String[] args) {
         new Vinegar("./data/vinegar.txt").run();
     }

@@ -21,10 +21,10 @@ public class Parser {
         String[] inputParts = fullCommand.split(" ", 2);
         String instruction = inputParts[0].toLowerCase();
         String errorMessage = "Please use these commands: todo, deadline, event, list, mark, unmark, "
-                + "bye, help";
+                + "exit, help";
 
         switch (instruction) {
-            case "bye":
+            case "exit":
                 return new ExitCommand();
             case "list":
                 return new ListCommand();

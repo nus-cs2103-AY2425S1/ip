@@ -31,7 +31,7 @@ public class AddEventCommandTest {
     public void setUp() {
         taskList = new TaskList();
         ui = new Ui();
-        storage = new Storage("data/test_storage.txt");
+        storage = new Storage();
     }
 
     /**

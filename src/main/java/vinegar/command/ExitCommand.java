@@ -22,6 +22,7 @@ public class ExitCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        System.exit(0);
         return ui.showGoodbye();
     }
 
@@ -33,9 +34,6 @@ public class ExitCommand extends Command {
     @Override
     public boolean isExit() {
         System.out.println("Attempting to exit the application...");
-        Platform.exit();  // Close the JavaFX platform from the main thread
-        System.exit(0);   // Forcefully terminate the program
-
         return true;
     }
 }

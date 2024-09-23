@@ -8,11 +8,12 @@ import javafx.stage.Stage;
 import vinegar.Vinegar;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Vinegar using FXML.
  */
 public class Main extends Application {
 
-    private Vinegar vinegar = new Vinegar("./data/vinegar.txt");
+
+    private Vinegar vinegar = new Vinegar();
 
     @Override
     public void start(Stage stage) {
@@ -23,6 +24,7 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
+            stage.setTitle("Vinegar");
             fxmlLoader.<MainWindow>getController().setVinegar(vinegar);
             stage.show();
         } catch (IOException e) {
@@ -30,12 +32,4 @@ public class Main extends Application {
         }
     }
 
-    @Override
-    public void stop() {
-        // Handle any cleanup code if necessary before the application closes
-        System.out.println("Application is stopping...");
-    }
-    public static void main(String[] args) {
-        launch(args); // This starts the JavaFX application
-    }
 }

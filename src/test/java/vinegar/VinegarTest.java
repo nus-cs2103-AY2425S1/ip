@@ -38,9 +38,9 @@ public class VinegarTest {
     @BeforeEach
     public void setUp() {
         String filePath = tempDir.resolve("vinegar.txt").toString();
-        vinegar = new Vinegar(filePath);
+        vinegar = new Vinegar();
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage();
         tasks = new TaskList();
     }
 
