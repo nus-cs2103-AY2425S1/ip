@@ -65,6 +65,10 @@ public class Controller {
         return taskList.findTask(command.getContent());
     }
 
+    private String tagTask(Command<Integer> command) {
+        return taskList.tagTask(command);
+    }
+
     private String createTask(Command<LocalDate[]> command) {
         return taskList.addTask(command);
     }
@@ -116,6 +120,9 @@ public class Controller {
             case "todo", "event", "deadline" -> {
                 temp = createTask(cast(command));
             }
+            case "tag" -> {
+                temp = tagTask(cast(command));
+            }
             case "bye" -> {
                 // no need to save tasks since it is handled in Maga.closeBot() method
                 return "Yeah I'ma see you in my next RALLY! A vote for me is a vote for America!";
@@ -127,7 +134,7 @@ public class Controller {
         } catch (DateTimeParseException e) {
             return "Error while parsing date - format in yyyy-MM-dd";
         } catch (NumberFormatException e) {
-            return "You can only delete a maga.task number! No one calls amendments by their names!!";
+            return "Invalid task number!";
         } catch (InvalidCommandException e) {
             return "HEY! SLEEPY JOE and CROOKED KAMALA "
                     + "might be demented but you're not! Specify a command!";

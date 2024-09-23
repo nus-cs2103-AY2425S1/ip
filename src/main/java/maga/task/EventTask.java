@@ -33,9 +33,7 @@ public class EventTask extends Task {
     }
 
     /**
-     * Returns a string representation of the event task.
-     * The format is: "E | status | description | date" where
-     * status is 1 if done, 0 otherwise, description is the task's description, and date is the task's date.
+     * Returns a formatted string representation of the event task for storage into the {@code Maga.txt} file.
      *
      * @return A string representation of the event task.
      */
@@ -45,13 +43,11 @@ public class EventTask extends Task {
         if (isDone) {
             isDoneNum = 1;
         }
-        return "E | " + isDoneNum + " | " + description + " | " + localDate.toString();
+        return "E | " + isDoneNum + " | " + description + " | " + localDate.toString() + " | " + getTag();
     }
 
     /**
      * Returns a formatted string representation of the event task for display purposes.
-     * The format is: "[E] status description due on date", where status is "[X]" if done, "[ ]" otherwise,
-     * description is the task's description, and date is the task's date formatted as "yyyy MMM dd".
      *
      * @return A formatted string representation of the event task.
      */
@@ -59,6 +55,6 @@ public class EventTask extends Task {
     public String printTask() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy MMM dd");
         String formattedLocalDate = localDate.format(formatter);
-        return this.getTaskType() + this.getStatusIcon() + this.getDescription() + " due on " + formattedLocalDate;
+        return getTaskType() + getStatusIcon() + getDescription() + " due on " + formattedLocalDate + " " + getTag();
     }
 }
