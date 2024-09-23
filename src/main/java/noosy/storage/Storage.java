@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -20,7 +21,7 @@ public class Storage {
     /**
      * The date-time formatter used for parsing and formatting event times.
      */
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     /**
      * The file path where tasks are stored.
      */
@@ -76,7 +77,6 @@ public class Storage {
                 String taskType = separated[0];
                 boolean status = separated[1].equals("1");
                 String name = separated[2];
-
                 switch (taskType) {
                     case "T":
                         tasks.add(new Todo(name, status));
@@ -88,7 +88,7 @@ public class Storage {
                         break;
 
                     case "E":
-                        String[] startAndEnd = separated[3].split("-");
+                        String[] startAndEnd = separated[3].split("~");
                         LocalDateTime start = LocalDateTime.parse(startAndEnd[0].trim(), FORMATTER);
                         LocalDateTime end = LocalDateTime.parse(startAndEnd[1].trim(), FORMATTER);
                         tasks.add(new Event(name, status, start, end));

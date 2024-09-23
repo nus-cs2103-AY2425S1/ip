@@ -70,7 +70,7 @@ public class Event extends Task {
     public String storeInFileAsString() {
         String startingTime = (this.start != null) ? start.format(INPUT_FORMATTER) : "Invalid start date";
         String endingTime = (this.end != null) ? end.format(INPUT_FORMATTER) : "Invalid end date";
-        return String.format("E | %s | %s | %s - %s", super.storeInFileAsString(), this.name, startingTime, endingTime);
+        return String.format("E | %s | %s | %s ~ %s", super.storeInFileAsString(), this.name, startingTime, endingTime);
     }
 
     /**

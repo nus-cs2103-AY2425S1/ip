@@ -10,6 +10,8 @@ import javafx.scene.layout.VBox;
 import noosy.Noosy;
 import noosy.ui.Gui;
 
+import java.util.Objects;
+
 /**
  * Controller for the main GUI of the Noosy application.
  * This class manages the interaction between the user interface and the Noosy logic.
@@ -28,10 +30,12 @@ public class MainWindow extends AnchorPane {
     private Noosy noosy;
 
     /** Image used to represent the user in the chat interface. */
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/yellow teletubby.jpg"));
+    private Image userImage = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/images/yellow teletubby.jpg")));
 
     /** Image used to represent Noosy in the chat interface. */
-    private Image noosyImage = new Image(this.getClass().getResourceAsStream("/images/red teletubby.jpeg"));
+    private Image noosyImage = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/images/red teletubby.jpeg")));
 
     /**
      * Initializes the controller class. This method is automatically called
