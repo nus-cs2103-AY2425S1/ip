@@ -39,6 +39,7 @@ public class Main extends Application {
             // Create and set the scene
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Noosy");
 
             // Set stage properties
             stage.setMinHeight(220);
