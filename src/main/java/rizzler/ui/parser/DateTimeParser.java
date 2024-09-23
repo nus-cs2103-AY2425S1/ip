@@ -8,6 +8,7 @@ import java.time.format.DateTimeParseException;
  * Represents a parser for any datetime objects input by the user.
  */
 public class DateTimeParser {
+    private static final String OUTPUT_DATE_FORMAT = "dd MMMM, yyyy";
 
     /**
      * Converts a string in <code>YYYY-MM-DD</code> format to a datetime object.
@@ -47,7 +48,7 @@ public class DateTimeParser {
             return inputDate;
         }
         LocalDate inputLocalDate = toDatetime(inputDate);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM, yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(OUTPUT_DATE_FORMAT);
         return inputLocalDate.format(formatter);
     }
 }
