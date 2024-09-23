@@ -64,59 +64,76 @@ public class Parser {
             case "find":
                 return getFindPrompt(prompt);
             case "tag":
-                // Read the rest of the line after "tag"
-                taskDetails = prompt.substring(TAG_COMMAND_LENGTH).trim();
-                details = taskDetails.split(" ");
-
-                if (taskDetails.isEmpty() || details.length < 2 || !details[0].matches("\\d+")) {
-                    throw new ReiException("State the task number and the tag(s)!");
-                }
-
-                for (int i = 1; i < details.length; i++) {
-                    if (!details[i].startsWith("#")) {
-                        throw new ReiException("All tags must start with a '#'!");
-                    } else if (details[i].equals("#")) {
-                        throw new ReiException("Tags cannot be empty!");
-                    } else if (details[i].substring(1).contains("#")) {
-                        throw new ReiException("Invalid tag!");
-                    }
-                }
-
-                return Prompt.TAG;
+                return getTagPrompt(prompt);
             case "untag":
-                // Read the rest of the line after "untag"
-                taskDetails = prompt.substring(UNTAG_COMMAND_LENGTH).trim();
-                details = taskDetails.split(" ");
-
-                if (taskDetails.isEmpty() || details.length != 2 || !details[0].matches("\\d+")) {
-                    throw new ReiException("State the task number and ONE tag!");
-                }
-
-                if (!details[1].startsWith("#")) {
-                    throw new ReiException("The tag must start with a '#'!");
-                } else if (details[1].equals("#")) {
-                    throw new ReiException("The tag cannot be empty!");
-                } else if (details[1].substring(1).contains("#")) {
-                    throw new ReiException("Invalid tag!");
-                }
-
-                return Prompt.UNTAG;
+                return getUntagPrompt(prompt);
             case "viewtags":
-                // Read the rest of the line after "view"
-                taskDetails = prompt.substring(VIEWTAGS_COMMAND_LENGTH).trim();
-
-                // Check if the rest of the line is an integer
-                if (taskDetails.isEmpty() || !taskDetails.matches("\\d+")) {
-                    throw new ReiException("State the task number!");
-                }
-
-                return Prompt.VIEWTAGS;
+                return getViewtagsPrompt(prompt);
             case "annyeong":
                 return Prompt.ANNYEONG;
             default:
                 throw new ReiException("I don't understand what you want me to do. \n" +
                         "Available commands : todo deadline event list delete mark unmark find tag untag viewtags annyeong");
         }
+    }
+
+    private static Prompt getViewtagsPrompt(String prompt) throws ReiException {
+        String taskDetails;
+        // Read the rest of the line after "view"
+        taskDetails = prompt.substring(VIEWTAGS_COMMAND_LENGTH).trim();
+
+        // Check if the rest of the line is an integer
+        if (taskDetails.isEmpty() || !taskDetails.matches("\\d+")) {
+            throw new ReiException("State the task number!");
+        }
+
+        return Prompt.VIEWTAGS;
+    }
+
+    private static Prompt getUntagPrompt(String prompt) throws ReiException {
+        String[] details;
+        String taskDetails;
+        // Read the rest of the line after "untag"
+        taskDetails = prompt.substring(UNTAG_COMMAND_LENGTH).trim();
+        details = taskDetails.split(" ");
+
+        if (taskDetails.isEmpty() || details.length != 2 || !details[0].matches("\\d+")) {
+            throw new ReiException("State the task number and ONE tag!");
+        }
+
+        if (!details[1].startsWith("#")) {
+            throw new ReiException("The tag must start with a '#'!");
+        } else if (details[1].equals("#")) {
+            throw new ReiException("The tag cannot be empty!");
+        } else if (details[1].substring(1).contains("#")) {
+            throw new ReiException("Invalid tag!");
+        }
+
+        return Prompt.UNTAG;
+    }
+
+    private static Prompt getTagPrompt(String prompt) throws ReiException {
+        String taskDetails;
+        String[] details;
+        // Read the rest of the line after "tag"
+        taskDetails = prompt.substring(TAG_COMMAND_LENGTH).trim();
+        details = taskDetails.split(" ");
+
+        if (taskDetails.isEmpty() || details.length < 2 || !details[0].matches("\\d+")) {
+            throw new ReiException("State the task number and the tag(s)!");
+        }
+
+        for (int i = 1; i < details.length; i++) {
+            if (!details[i].startsWith("#")) {
+                throw new ReiException("All tags must start with a '#'!");
+            } else if (details[i].equals("#")) {
+                throw new ReiException("Tags cannot be empty!");
+            } else if (details[i].substring(1).contains("#")) {
+                throw new ReiException("Invalid tag!");
+            }
+        }
+
+        return Prompt.TAG;
     }
 
     private static Prompt getFindPrompt(String prompt) throws ReiException {
