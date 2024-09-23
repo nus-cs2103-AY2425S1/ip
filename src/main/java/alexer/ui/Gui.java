@@ -19,8 +19,8 @@ public class Gui extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             
-            stage.setMinHeight(220);
-            stage.setMinWidth(700);
+            stage.setMinHeight(230);
+            stage.setMinWidth(750);
             stage.setTitle(Alexer.NAME);
 
             stage.show();
