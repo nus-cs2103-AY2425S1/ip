@@ -2,27 +2,68 @@
 
 ![Ui](/Ui.png)
 
-// Product intro goes here
+Jude the chatbot, a personal assistant that will help you manage your tasks. 
 
-## Adding deadlines
+## Adding tasks
 
-// Describe the action and its outcome.
+* You can add three different types of tasks:
 
-// Give examples of usage
 
-Example: `keyword (optional arguments)`
+  - [ ] to-do
+  - [ ] event 
+  - [ ] deadline
 
-// A description of the expected outcome goes here
+
+* Each task type can be added with the formats below:
+
+  - `to-do [description]`
+  - `deadline [description] /by [date_and_time]`
+  - `event [description] /from [date_and_time] /to [date_and_time]`
+
+    where date_and_time = `d/M/yyyy HHmm`
+
+
+* Example input: 
 
 ```
-expected output
+to-do study 
+deadline homework /by 1/10/2024 1600
+event Lecture /from 29/9/2020 1600 /to 29/9/2020 1800
 ```
 
-## Feature ABC
+## Commands
+> [!NOTE]
+> refer to Detailed Explanations section below for more detailed explanation of some commands.
 
-// Feature details
+`list`: shows the current tasklist status.
+
+`sort`: sorts the tasklist by earliest occurring.
+
+`bye`: ends the chat.
+
+`delete [index]`: removes the task with its index of current tasklist.
+
+`mark [index]`: marks a task as done with its index of current tasklist.
+
+`unmark [index]`: undoes marking a task as done with its index of current tasklist.
+
+`find [keyword]`: shows all tasks with descriptions containing the keyword. 
 
 
-## Feature XYZ
+## Detailed Explanations
 
-// Feature details
+`sort`: The priority is such that Deadline task is determined with its deadline, Event task is determined with the beginning timing, and To-do tasks are considered the lowest priority.   
+
+For example,
+```
+1. [T][] take a screenshot
+2. [D][] homework (by: Sep 29 2020 12:00)
+3. [E][] Lecture (from: Sep 29 2020 16:00 to: Sep 29 2020 18:00)
+```
+will be sorted to
+```
+1. [D][] homework (by: Sep 29 2020 12:00)
+2. [E][] Lecture (from: Sep 29 2020 16:00 to: Sep 29 2020 18:00)
+3. [T][] take a screenshot
+```
+this.
