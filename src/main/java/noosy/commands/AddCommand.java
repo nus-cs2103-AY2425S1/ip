@@ -39,6 +39,11 @@ public class AddCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws NoosyException {
+
+        assert tasks != null : "Tasklist cannot be null.";
+        assert ui != null : "Ui cannot be left as null.";
+        assert storage != null : "Storage cannot be null.";
+
         tasks.add(task);
         ui.showTaskAdded(tasks, task);
         storage.addTask(task);

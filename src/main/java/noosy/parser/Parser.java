@@ -25,6 +25,9 @@ public class Parser {
      * @throws NoosyException If the input is invalid or incomplete.
      */
     public static Command parse(String fullCommand) throws NoosyException {
+
+        assert !fullCommand.isBlank() : "Command line cannot be empty.";
+
         String[] separated = fullCommand.split(" ", 2);
         String firstWord = separated[0];
         String input = separated.length > 1 ? separated[1] : null;

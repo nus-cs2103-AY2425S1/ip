@@ -41,6 +41,11 @@ public class OnCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+
+        assert tasks != null : "Tasklist cannot be null.";
+        assert ui != null : "Ui cannot be left as null.";
+        assert storage != null : "Storage cannot be null.";
+
         System.out.println("You needa do this on " + date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + ":");
         boolean found = false;
         for (int i = 0; i < tasks.size(); i++) {
