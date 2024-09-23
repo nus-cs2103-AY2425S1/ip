@@ -104,10 +104,10 @@ public class FileManager {
                     name = lines.get(lineNumber + 1);
                     done = Boolean.parseBoolean(lines.get(lineNumber + 2));
                     switch (lines.get(lineNumber + 3)) {
-                    case "high":
+                    case "HIGH":
                         priorityLevel = Task.PriorityLevel.HIGH;
                         break;
-                    case "low":
+                    case "LOW":
                         priorityLevel = Task.PriorityLevel.LOW;
                         break;
                     default:
@@ -134,10 +134,10 @@ public class FileManager {
                     name = lines.get(lineNumber + 1);
                     done = Boolean.parseBoolean(lines.get(lineNumber + 2));
                     switch (lines.get(lineNumber + 3)) {
-                    case "high":
+                    case "HIGH":
                         priorityLevel = Task.PriorityLevel.HIGH;
                         break;
-                    case "low":
+                    case "LOW":
                         priorityLevel = Task.PriorityLevel.LOW;
                         break;
                     default:
@@ -163,10 +163,10 @@ public class FileManager {
                     name = lines.get(lineNumber + 1);
                     done = Boolean.parseBoolean(lines.get(lineNumber + 2));
                     switch (lines.get(lineNumber + 3)) {
-                    case "high":
+                    case "HIGH":
                         priorityLevel = Task.PriorityLevel.HIGH;
                         break;
-                    case "low":
+                    case "LOW":
                         priorityLevel = Task.PriorityLevel.LOW;
                         break;
                     default:

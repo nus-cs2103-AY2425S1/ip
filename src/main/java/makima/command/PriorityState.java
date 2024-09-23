@@ -12,7 +12,7 @@ public class PriorityState extends State {
         PRIORITY_LEVEL
     };
     private int idx;
-    private State state;
+    private State state = State.TASK;
     @Override
     public String getResponse(String input, Makima makima) {
         switch (state) {
