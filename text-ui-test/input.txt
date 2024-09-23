@@ -1,0 +1,25 @@
+todo borrow book
+deadline return book /by Tuesday
+deadline return book /by 2024-08-25 12:00
+event hang out with da boys /from 26 August 2pm /to 8pm
+event hang out with da boys /from 2024-08-26 14:00 /to 2024-08-26 20:00
+list
+mark 1
+list
+mark 2
+unmark 1
+find book
+find BOYS
+find borrow
+list
+todo
+deadline
+event
+delete 2
+mark 10
+unmark 11
+delete 11
+list
+delete 1
+delete 1
+bye
