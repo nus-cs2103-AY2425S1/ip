@@ -3,10 +3,8 @@ package utilities;
 import java.net.URL;
 
 import commands.Command;
+import java.io.File;
 
-/**
- * The TaskFairy chatbot main class that initiates the program, loads tasks, and handles user input.
- */
 public class TaskFairy {
 
     private Parser parser;
@@ -15,27 +13,26 @@ public class TaskFairy {
     private Ui ui;
 
     public TaskFairy() {
-        this.storage = new Storage(getFileURL());
+        File file = new File(getFilePath());
+        this.storage = new Storage(file.getAbsolutePath());
         storage.loadFromFile();
         this.tasks = (TaskList) storage.getTasks();
         this.ui = new Ui();
         this.parser = new Parser(ui, tasks, storage);
     }
+
     public static void main(String[] args) {
         System.out.println("Hello!");
     }
 
-
     /**
-     * Retrieves the file URL where tasks are stored for loading and saving.
+     * Retrieves the file path where tasks are stored for loading and saving.
      *
-     * @return The path to the tasks file.
+     * @return The file path to the tasks file.
      */
-    public static String getFileURL() {
-        final URL fileURL = TaskFairy.class.getProtectionDomain().getCodeSource().getLocation();
-        String path = fileURL.getPath();
-        String rootPath = path.substring(0, path.indexOf("ip") + 3) + "/data/utilities.TaskFairy.txt";
-        return rootPath;
+    public static String getFilePath() {
+        File file = new File("data/utilities.TaskFairy.txt");
+        return file.getAbsolutePath();
     }
 
     public String greetUser() {
