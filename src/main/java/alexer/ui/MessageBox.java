@@ -43,6 +43,7 @@ public class MessageBox extends HBox {
         FXCollections.reverse(nodes);
         getChildren().setAll(nodes);
         getStyleClass().add("reversed");
+        text.getStyleClass().add("reversed-label");
     }
 
     /**

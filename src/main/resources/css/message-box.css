@@ -1,5 +1,5 @@
 .label {
-    -fx-background-color: linear-gradient(to bottom right, #ffffff, #05A0D1);
+    -fx-background-color: #ffffff;
     -fx-border-size: 3px;
     -fx-border-color: #00ffbf;
     -fx-background-radius: 1em;
@@ -7,6 +7,10 @@
     -fx-padding: 10px;
     -fx-border-insets: 0px 8px;
     -fx-background-insets: 0px 8px;
+}
+
+.reversed-label {
+    -fx-background-color: linear-gradient(to bottom right, #ffffff, #05A0D1);
 }
 
 .reversed {
