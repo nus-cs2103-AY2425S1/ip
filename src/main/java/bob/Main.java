@@ -22,7 +22,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setMinHeight(220);
-            stage.setMinWidth(400);
+            stage.setMinWidth(417);
             fxmlLoader.<MainWindow>getController().setBob(bob);  // inject the Bob instance
             stage.show();
         } catch (IOException e) {
