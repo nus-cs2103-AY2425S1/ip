@@ -55,12 +55,11 @@ public class Lewis {
 
             if (command.isExit()) {
                 Platform.exit(); //Closes the GUI window
+                System.exit(0);
             }
 
             List<String> output = Ui.flush();
             StringBuilder response = new StringBuilder();
-
-
 
             for (String line : output) {
                 response.append(line).append("\n");
@@ -70,8 +69,6 @@ public class Lewis {
 
         } catch (LewisException e) {
             return "Error: " + e.getMessage();
-        } catch (Exception e) {
-            return "Error: An unexpected error occured. Contact the developer with the error log";
         }
     }
 }

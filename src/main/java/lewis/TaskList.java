@@ -55,6 +55,7 @@ public class TaskList {
     static void add(Task task) {
         TASKS.add(task);
         length++;
+        sortChronological();
     }
 
     /**
@@ -78,10 +79,11 @@ public class TaskList {
         }
         if (index > length) {
             throw new LewisException(String.format("Hey, enter a valid index "
-                    + "between 1 and %d!", length));
+                    + "between 1 and %d!"));
         }
-        Task task = TASKS.get(index - 1);
+        Task task = currentTasks.get(index - 1);
         task.updateStatus(status);
+        sortChronological();
     }
 
     /**
@@ -89,8 +91,9 @@ public class TaskList {
      * @param index the 1-indexed task to be removed.
      */
     static void delete(int index) {
-        TASKS.remove(index);
+        currentTasks.remove(index);
         length--;
+        sortChronological();
     }
 
     /**
@@ -99,6 +102,7 @@ public class TaskList {
      * @return An array of strings in csv format.
      */
     public static ArrayList<String> toSaveFile() {
+        sortChronological();
         return TASKS.stream()
                 .map(Task::toCsv)
                 .collect(Collectors.toCollection(ArrayList::new));
@@ -123,6 +127,7 @@ public class TaskList {
                     case "Todo" -> TaskList.add(new Todo(tokens[1], tokens[2]));
                     }
                 });
+        sortChronological();
     }
 
 
@@ -160,6 +165,7 @@ public class TaskList {
      */
     public static void showAllTasks() {
         currentTasks = TASKS;
+        length = TASKS.size();
     }
 
     /**
@@ -173,6 +179,7 @@ public class TaskList {
         currentTasks = currentTasks.stream()
                 .filter(task -> task.toString().contains(keyword))
                 .collect(Collectors.toCollection(ArrayList::new));
+        length = currentTasks.size();
     }
 
     /**
@@ -182,5 +189,18 @@ public class TaskList {
      */
     public static int getLength() {
         return length;
+    }
+
+    /**
+     * Sorts the whole tasklist based on these conditions (in order):
+     * 1. Tasks marked as done have the lowest priority
+     * 2. Todos will have the highest priority
+     * 3. The earlier deadline of a deadline or the earlier
+     *    "from" date and time of an event takes precedence over
+     *    a later one
+     * 4. Tasks will be sorted lexicographically if they fall past condition 3.
+     */
+    private static void sortChronological() {
+        TASKS.sort(Comparable::compareTo);
     }
 }
