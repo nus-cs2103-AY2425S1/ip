@@ -1,9 +1,10 @@
-package yappingbot.ui;
+package yappingbot.ui.cli;
 
 import java.util.Scanner;
 
 import yappingbot.exceptions.YappingBotException;
 import yappingbot.exceptions.YappingBotIoException;
+import yappingbot.ui.Ui;
 
 /**
  * User-interface class for mainly outputting different texts and decorating them to represent

@@ -1,4 +1,4 @@
-package yappingbot.ui;
+package yappingbot.ui.cli;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

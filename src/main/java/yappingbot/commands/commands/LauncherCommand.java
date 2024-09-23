@@ -6,7 +6,7 @@ import yappingbot.exceptions.YappingBotException;
 import yappingbot.exceptions.YappingBotIncorrectCommandException;
 import yappingbot.storage.Storage;
 import yappingbot.stringconstants.ReplyTextMessages;
-import yappingbot.ui.UiCli;
+import yappingbot.ui.cli.UiCli;
 import yappingbot.ui.gui.MainGuiApplication;
 
 /**
