@@ -88,9 +88,8 @@ public class TaskList {
         List<Task> matchingTasks = tasks.stream()
                 .filter(task -> task.getText().contains(keyword))
                 .toList();
-        //Need Casting, TaskList <: List
-        //@@author ChatGPT -> prompted to match type TaskList -> realised this just CS2030S type conversion :0
-        return new TaskList((ArrayList<Task>) matchingTasks);
+
+        return new TaskList(new ArrayList<Task>(matchingTasks));
     }
 
     /**
