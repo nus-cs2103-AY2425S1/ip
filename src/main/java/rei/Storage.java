@@ -47,39 +47,50 @@ public class Storage {
             List<String> tags = Arrays.asList(storedTask.substring(storedTask.lastIndexOf(":") + 1).split(" "));
 
             if (taskPrompt.startsWith("T ")) {
-
-                Task task = Task.createToDo(taskPrompt.substring(8));
-                task.addTags(tags);
-                listOfTasks.add(task);
-
-                if (taskPrompt.charAt(4) == '1') {
-                    listOfTasks.get(i).markAsDone();
-                }
+                loadToDo(taskPrompt, tags, listOfTasks, i);
             } else if (taskPrompt.startsWith("D ")) {
-                Task task = Task.createDeadline(taskPrompt.substring(8, taskPrompt.lastIndexOf('|') - 1),
-                        LocalDateTime.parse(taskPrompt.substring(taskPrompt.lastIndexOf('|') + 2)));
-                task.addTags(tags);
-                listOfTasks.add(task);
-
-                if (taskPrompt.charAt(4) == '1') {
-                    listOfTasks.get(i).markAsDone();
-                }
+                loadDeadline(taskPrompt, tags, listOfTasks, i);
             } else if (taskPrompt.startsWith("E ")) {
-                Task task = Task.createEvent(taskPrompt.substring(8, taskPrompt.lastIndexOf('|') - 1),
-                        LocalDateTime.parse(taskPrompt.substring(taskPrompt.lastIndexOf('|') + 2, taskPrompt.lastIndexOf("to") - 1)),
-                        LocalDateTime.parse(taskPrompt.substring(taskPrompt.lastIndexOf("to") + 3)));
-                task.addTags(tags);
-                listOfTasks.add(task);
-
-                if (taskPrompt.charAt(4) == '1') {
-                    listOfTasks.get(i).markAsDone();
-                }
+                loadEvent(taskPrompt, tags, listOfTasks, i);
             } else {
-                // do nothing
+                assert false : "a Task musk be either a ToDo, a Deadline, or an Event";
             }
         }
 
         return listOfTasks;
+    }
+
+    private static void loadEvent(String taskPrompt, List<String> tags, List<Task> listOfTasks, int i) {
+        Task task = Task.createEvent(taskPrompt.substring(8, taskPrompt.lastIndexOf('|') - 1),
+                LocalDateTime.parse(taskPrompt.substring(taskPrompt.lastIndexOf('|') + 2, taskPrompt.lastIndexOf("to") - 1)),
+                LocalDateTime.parse(taskPrompt.substring(taskPrompt.lastIndexOf("to") + 3)));
+        task.addTags(tags);
+        listOfTasks.add(task);
+
+        if (taskPrompt.charAt(4) == '1') {
+            listOfTasks.get(i).markAsDone();
+        }
+    }
+
+    private static void loadDeadline(String taskPrompt, List<String> tags, List<Task> listOfTasks, int i) {
+        Task task = Task.createDeadline(taskPrompt.substring(8, taskPrompt.lastIndexOf('|') - 1),
+                LocalDateTime.parse(taskPrompt.substring(taskPrompt.lastIndexOf('|') + 2)));
+        task.addTags(tags);
+        listOfTasks.add(task);
+
+        if (taskPrompt.charAt(4) == '1') {
+            listOfTasks.get(i).markAsDone();
+        }
+    }
+
+    private static void loadToDo(String taskPrompt, List<String> tags, List<Task> listOfTasks, int i) {
+        Task task = Task.createToDo(taskPrompt.substring(8));
+        task.addTags(tags);
+        listOfTasks.add(task);
+
+        if (taskPrompt.charAt(4) == '1') {
+            listOfTasks.get(i).markAsDone();
+        }
     }
 
     /**
