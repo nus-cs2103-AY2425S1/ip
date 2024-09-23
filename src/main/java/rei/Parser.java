@@ -51,7 +51,7 @@ public class Parser {
 
                 // Check if the rest of the line is an integer
                 if (taskDetails.isEmpty() || !taskDetails.matches("\\d+")) {
-                    throw new ReiException("State the task number.");
+                    throw new ReiException("State the task number!");
                 }
 
                 return Prompt.MARK;
@@ -61,23 +61,23 @@ public class Parser {
 
                 // Check if the rest of the line is an integer
                 if (taskDetails.isEmpty() || !taskDetails.matches("\\d+")) {
-                    throw new ReiException("State the task number.");
+                    throw new ReiException("State the task number!");
                 }
 
                 return Prompt.UNMARK;
             case "todo":
                 if (isAllWhitespace(prompt.substring(TODO_COMMAND_LENGTH))) {
-                    throw new ReiException("Task is empty. Please state the task name.");
+                    throw new ReiException("Task is empty. Please state the task name!");
                 }
 
                 return Prompt.TODO;
             case "deadline":
                 if (isAllWhitespace(prompt.substring(DEADLINE_COMMAND_LENGTH))) {
-                    throw new ReiException("Task is empty. Please state the task and deadline.");
+                    throw new ReiException("Task is empty. Please state the task and deadline!");
                 } else if (prompt.indexOf("/by") == -1) {
-                    throw new ReiException("When is the deadline? Please state the task with the deadline.");
+                    throw new ReiException("When is the deadline? Please state the task with the deadline!");
                 } else if (isAllWhitespace(prompt.substring(8, prompt.indexOf("/by")))) {
-                    throw new ReiException("Task name is empty. Please state the task and deadline.");
+                    throw new ReiException("Task name is empty. Please state the task and deadline!");
                 }
 
                 try {
@@ -88,11 +88,11 @@ public class Parser {
                 return Prompt.DEADLINE;
             case "event":
                 if (isAllWhitespace(prompt.substring(EVENT_COMMAND_LENGTH))) {
-                    throw new ReiException("Event is empty. Please state the event and time range.");
+                    throw new ReiException("Event is empty. Please state the event and time range!");
                 } else if (prompt.indexOf("/from") == -1 || prompt.indexOf("/to") == -1) {
-                    throw new ReiException("State the START and FINISH time of the event");
+                    throw new ReiException("State the START and FINISH time of the event!");
                 } else if (isAllWhitespace(prompt.substring(5, prompt.indexOf("/from")))) {
-                    throw new ReiException("Task name is empty. Please state the task and event time.");
+                    throw new ReiException("Task name is empty. Please state the task and event time!");
                 }
 
                 try {
@@ -108,44 +108,39 @@ public class Parser {
 
                 // Check if the rest of the line is an integer
                 if (taskDetails.isEmpty() || !taskDetails.matches("\\d+")) {
-                    throw new ReiException("State the task number.");
+                    throw new ReiException("State the task number!");
                 }
 
                 return Prompt.DELETE;
             case "find":
                 // Read the rest of the line after "find"
-                prompt = prompt.substring(FIND_COMMAND_LENGTH).trim();
+                taskDetails = prompt.substring(FIND_COMMAND_LENGTH).trim();
 
-                if (prompt.isEmpty()) {
+                if (taskDetails.isEmpty()) {
                     throw new ReiException("Please state the keyword!");
                 }
 
                 return Prompt.FIND;
             case "tag":
-//                // Read the rest of the line after "tag"
-//                prompt = prompt.substring(TAG_COMMAND_LENGTH).trim();
-//
-//                if (prompt.isEmpty()) {
-//                    throw new ReiException("Please state the tag!");
-//                } else if (!prompt.startsWith("#")) {
-//                    throw new ReiException("Use '#' to find the tag!")
-//                }
-//
-//                prompt = prompt.substring(1).trim(); // remove the #
-//
-//                String[] words = prompt.split(" ");
-//
-//                if (words.length != 1) {
-//                    throw new ReiException("Only include one tag!")
-//                }
-//
-//                if (prompt.isEmpty()) {
-//                    throw new ReiException("Please state the tag!");
-//                } else if (prompt.contains("#")) {
-//                    throw new ReiException("A tag must not contain another '#'!")
-//                }
-//                return Prompt.TAG;
+                // Read the rest of the line after "tag"
+                taskDetails = prompt.substring(TAG_COMMAND_LENGTH).trim();
+                String[] details = taskDetails.split(" ");
 
+                if (taskDetails.isEmpty() || details.length < 2 || !details[0].matches("\\d+")) {
+                    throw new ReiException("State the task number and the tag(s)!");
+                }
+
+                for (int i = 1; i < details.length; i++) {
+                    if (!details[i].startsWith("#")) {
+                        throw new ReiException("All tags must start with a '#'!");
+                    } else if (details[i].equals("#")) {
+                        throw new ReiException("Tags cannot be empty!" + i);
+                    } else if (details[i].substring(1).contains("#")) {
+                        throw new ReiException("Invalid tag!");
+                    }
+                }
+
+                return Prompt.TAG;
             case "annyeong":
                 return Prompt.ANNYEONG;
             default:

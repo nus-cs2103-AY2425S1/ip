@@ -108,13 +108,17 @@ public abstract class Task {
     public abstract String toStoringFormat();
 
     /**
-     * Adds a tag to the Task
+     * Adds a tag to this Task
      * @param tag
      */
     public void addTag(String tag) {
         tags.add(tag);
     }
 
+    /**
+     * Adds a list of tags to this Task
+     * @param tags
+     */
     public void addTags(List<String> tags) {
         this.tags.addAll(tags);
     }
@@ -128,9 +132,13 @@ public abstract class Task {
         return tags.contains(tag);
     }
 
+    /**
+     * String representation of all the tags
+     * @return all the tags
+     */
     public String allTagsToString() {
         String[] allTags = new String[tags.size()];
-        return String.join("", tags.toArray(allTags));
+        return String.join(" ", tags.toArray(allTags));
     }
 
 
@@ -150,7 +158,7 @@ public abstract class Task {
 
         @Override
         public String toStoringFormat() {
-            return String.format("T | %d | %s | tags: %s", this.isDone() ? 1 : 0, super.taskName, super.allTagsToString());
+            return String.format("T | %d | %s | tags:%s", this.isDone() ? 1 : 0, super.taskName, super.allTagsToString());
         }
     }
 
@@ -174,7 +182,7 @@ public abstract class Task {
 
         @Override
         public String toStoringFormat() {
-            return String.format("D | %d | %s | %s | tags: %s", this.isDone() ? 1 : 0, super.taskName, this.deadline, super.allTagsToString());
+            return String.format("D | %d | %s | %s | tags:%s", this.isDone() ? 1 : 0, super.taskName, this.deadline, super.allTagsToString());
         }
     }
 
@@ -201,7 +209,7 @@ public abstract class Task {
 
         @Override
         public String toStoringFormat() {
-            return String.format("E | %d | %s | %s to %s | tags: %s", this.isDone() ? 1 : 0, super.taskName,
+            return String.format("E | %d | %s | %s to %s | tags:%s", this.isDone() ? 1 : 0, super.taskName,
                     this.from, this.to, super.allTagsToString());
         }
     }

@@ -29,11 +29,11 @@ public class TaskList {
 
     /**
      * Returns a Task instance on the list
-     * @param index the Task index
+     * @param taskIndex the Task index
      * @return the Task instance at the index position
      */
-    public Task getTask(int index) {
-        return listOfTasks.get(index);
+    public Task getTask(int taskIndex) {
+        return listOfTasks.get(taskIndex);
     }
 
     /**
@@ -50,46 +50,49 @@ public class TaskList {
 
     /**
      * Marks a Task as completed
-     * @param index the Task index
+     * @param taskIndex the Task index
      * @return the message, whether the process succeeds or fails
      */
-    public String markTask(int index) {
-        if (index <= getNumOfTasks() && index > 0) {
-            listOfTasks.get(index - 1).markAsDone();
-            return "Okay! I've marked this task as done:\n" + "    " + getTask(index - 1);
-        } else {
+    public String markTask(int taskIndex) {
+        if (taskIndex > getNumOfTasks() || taskIndex <= 0) {
             return "No task found. Please retry!";
         }
+
+        listOfTasks.get(taskIndex - 1).markAsDone();
+        return "Okay! I've marked this task as done:\n" + "    " + getTask(taskIndex - 1);
+
     }
 
     /**
      * Unmarks a Task from being completed
-     * @param index the Task index
+     * @param taskIndex the Task index
      * @return the message, differs whether the process succeeds or fails
      */
-    public String unmarkTask(int index) {
-        if (index <= getNumOfTasks() && index > 0) {
-            listOfTasks.get(index - 1).markAsNotDone();
-            return "Okay! I've marked this task as not done yet:\n" + getTask(index - 1);
-        } else {
+    public String unmarkTask(int taskIndex) {
+        if (taskIndex > getNumOfTasks() || taskIndex <= 0) {
             return "No task found. Please retry!";
         }
+
+        listOfTasks.get(taskIndex - 1).markAsNotDone();
+        return "Okay! I've marked this task as not done yet:\n" + getTask(taskIndex - 1);
+
     }
 
     /**
      * Deletes a Task from TaskList
-     * @param index the index of the Task to be deleted
+     * @param taskIndex the index of the Task to be deleted
      * @return the message, differs whether the process succeeds or fails
      */
-    public String deleteTask(int index) {
-        if (index <= getNumOfTasks() && index > 0) {
-            Task removed = listOfTasks.remove(index - 1);
-            return "Okay! I've deleted this task :\n" +
-                    removed + "\n" +
-                    String.format("Now you have %d tasks in the list.", getNumOfTasks());
-        } else {
+    public String deleteTask(int taskIndex) {
+        if (taskIndex > getNumOfTasks() || taskIndex <= 0) {
             return "No task found. Please retry!";
         }
+
+        Task removed = listOfTasks.remove(taskIndex - 1);
+        return "Okay! I've deleted this task :\n" +
+                removed + "\n" +
+                String.format("Now you have %d tasks in the list.", getNumOfTasks());
+
     }
 
 
@@ -99,7 +102,8 @@ public class TaskList {
      * @return the message, differs whether the process succeeds or fails
      */
     public String findTasks(String keyword) {
-        List<Task> filteredList = this.listOfTasks.stream().filter(task -> task.getTaskName().contains(keyword)).toList();
+
+        List<Task> filteredList = this.listOfTasks.stream().filter(task -> task.getTaskName().contains(keyword) || task.hasTag(keyword)).toList();
         String taskList = "";
 
         for (int i = 0; i < filteredList.size(); i++) {
@@ -108,10 +112,30 @@ public class TaskList {
 
         if (taskList.equals("")) {
             return "No matching tasks found on your list";
-        } else {
-            return "Here are the matching tasks in your list: \n" + taskList;
         }
+
+        return "Here are the matching tasks in your list: \n" + taskList;
+
     }
+
+    /**
+     * Add a list of tags into a Task
+     * @param taskIndex the Task index
+     * @param tags the list of tags
+     * @return the message, whether the process succeeds or fails
+     */
+    public String addTags(int taskIndex, List<String> tags) {
+        if (taskIndex > getNumOfTasks() || taskIndex <= 0) {
+            return "No task found. Please retry!";
+        }
+
+        listOfTasks.get(taskIndex - 1).addTags(tags);
+
+        return "Okay! I've added the tags to this task:\n" + "    " + getTask(taskIndex - 1);
+    }
+
+
+
 
     /**
      * Returns the list of Tasks in String
