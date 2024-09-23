@@ -24,8 +24,11 @@ does the thinking for you, and keeps you on track of your **immediate priorities
    For  Windows users:
    - Windows Key
    - Search 'cmd'
+1. Enter `cd [file_path]`. For example, if you put it in a folder on your desktop,<br>
+   type `cd ./Desktop/New\ Folder/`
+1. Enter `java -jar Lewis.jar`. An application window should open up...
 
-1. Type the command into the text box.<br> Hit enter or
+1. Start typing commands into the text box!<br> Hit enter or
    click the 'Send' button whenever you're ready.<br> Here are some commands you can try!
 
     * `help` : Lists all commands. <br>
