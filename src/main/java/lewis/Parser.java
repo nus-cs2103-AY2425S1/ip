@@ -87,6 +87,9 @@ class Parser {
             case "delete" -> {
                 return DeleteCommand.of(input);
             }
+            default -> {
+                //fall through
+            }
         }
         return HelpCommand.of("help");
     }
