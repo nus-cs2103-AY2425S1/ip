@@ -20,7 +20,7 @@ interactive and feels like a real work buddy.
 ## Features
 
 
-### Adding Todos
+### Adding Todos `todo`
 
 Adds a todo task that has no deadline
 
@@ -35,7 +35,7 @@ Now you have 2 tasks in the list.
 ```
 
 
-### Adding Deadlines
+### Adding Deadlines `deadline`
 
 Adds a deadline task that has a deadline
 
@@ -49,7 +49,7 @@ Got it. I've added this task:
 Now you have 3 tasks in the list.
 ```
 
-### Adding Events
+### Adding Events `event`
 
 Adds an event that has a start date and an end date
 
@@ -64,7 +64,7 @@ Now you have 4 tasks in the list.
 ```
 
 
-### list
+### Listing tasks `list`
 
 List all events recorded
 
@@ -79,7 +79,7 @@ Example: `list`
 4. [E] [] reccess week (from: Sep 23 2024 to: Sep 27 2024)|
 ```
 
-### mark
+### mark `mark`
 
 mark a task as done
 
@@ -92,7 +92,7 @@ Nice! I've marked this task as done:
 ［T］［X] homework
 ```
 
-### unmark
+### unmark `unmark`
 
 unmark a task as done
 
@@ -104,7 +104,7 @@ Example: `unmark 2`
 OK, I've marked this task as not done yet:
 [T] [ ] homework
 ```
-### delete
+### delete `delete`
 
 removes a task from the record
 enter: "delete [task number as shown in list]"
@@ -117,7 +117,7 @@ Noted. I've removed this task:
 Now you have 3 tasks in the list.
 ```
 
-### find 
+### find `find`
 
 find a task with the given word
 enter: "find [word that exist in a task]"
@@ -128,7 +128,7 @@ Example: `find week`
 2024)
 ```
 
-### edit
+### edit `edit`
 
 edits a task that already exist in the list
 
