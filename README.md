@@ -15,7 +15,7 @@ All you need to do is:
 3. Add and manage your tasks with ToMo
 4. Let him ~cook~ do his works about your task
 
-Greatly, it's **FREE**
+Greatly, it's **FREE**.
 
 Features:
 
@@ -25,3 +25,5 @@ Features:
 - [x] Tag tasks by hashtags (For example: #fun)
 - [x] A GUI
 - [ ] Remainders for upcoming deadlines and events (coming soon)
+
+The more detail documentation is available [here](https://kienvumrpm.github.io/ip/).
