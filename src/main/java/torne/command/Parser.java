@@ -46,6 +46,8 @@ public class Parser {
      * @throws TorneException When there is an error with the input.
      */
     public Command parse(String input) throws TorneException {
+        assert input != null : "input should not be null";
+
         // empty command - do nothing
         if (input.isBlank()) {
             return EMPTY_COMMAND;
