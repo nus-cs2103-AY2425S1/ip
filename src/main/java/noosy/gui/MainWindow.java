@@ -49,6 +49,8 @@ public class MainWindow extends AnchorPane {
      */
     public void setNoosy(Noosy n) {
         noosy = n;
+        Gui gui = new Gui(dialogContainer);
+        noosy.setUi(gui);
     }
 
     /**
