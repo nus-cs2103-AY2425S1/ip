@@ -91,11 +91,11 @@ It is a desktop app meant to help you manage your tasks efficiently!
 
 ###  Data management
 
-#### Saving the data
+#### Saving task data
 - Edith will automatically save the user's task data after any command that changes the task list.
 - There is no need to save manually.
 
-#### Loading the data file
+#### Loading task data
 - Edith will automatically load the user's task data when the app is first launched, ensuring persistence of task data between sessions of the chatbot app.
 - Edith will automatically create a directory and task data file in the _home folder_ if they don't exist. E.g it is a user's first time launching the app.
 - The task data file can be located in `[home_folder]/data/edith.txt`. 
