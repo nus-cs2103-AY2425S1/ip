@@ -16,11 +16,6 @@ import mittens.ui.Ui;
 public class FindCommand extends Command {
     protected String keyword;
 
-    public FindCommand(String keyword) {
-        super();
-        this.keyword = keyword;
-    }
-
     /**
      * Creates a new FindCommand object with the specified command elements.
      * It assumes the command name corresponds with this class.

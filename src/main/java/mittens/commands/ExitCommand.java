@@ -11,15 +11,6 @@ import mittens.ui.Ui;
  * Represents a command for exiting the program.
  */
 public class ExitCommand extends Command {
-    
-    /**
-     * Creates a new ExitCommand object.
-     */
-    public ExitCommand() {
-        super();
-        this.isExit = true;
-    }
-
     /**
      * Creates a new ExitCommand object with the specified command elements.
      * It assumes the command name corresponds with this class.

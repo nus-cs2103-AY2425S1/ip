@@ -21,16 +21,6 @@ public class AddCommand extends Command {
     protected Task toAdd;
 
     /**
-     * Creates a new AddCommand object with the specified task to add.
-     * 
-     * @param toAdd The task to add
-     */
-    public AddCommand(Task toAdd) {
-        super();
-        this.toAdd = toAdd;
-    }
-
-    /**
      * Creates a new AddCommand object with the specified command elements.
      * It assumes the command name corresponds with this class.
      *

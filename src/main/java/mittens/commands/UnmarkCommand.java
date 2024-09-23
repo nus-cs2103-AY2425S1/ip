@@ -12,18 +12,7 @@ import mittens.ui.Ui;
  * Represents a command for marking a task as not done in the task list.
  */
 public class UnmarkCommand extends Command {
-    
     protected int index;
-
-    /**
-     * Creates a new UnmarkCommand object with the specified index of the task to mark as not done.
-     * 
-     * @param index The index of the task to mark as not done (1-indexed)
-     */
-    public UnmarkCommand(int index) {
-        super();
-        this.index = index;
-    }
 
     /**
      * Creates a new UnmarkCommand object with the specified command elements.
