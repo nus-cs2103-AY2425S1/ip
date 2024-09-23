@@ -25,13 +25,14 @@ AVA has the personality of a helpful young woman.
 ***
 
 ## Quick Start
-1. Ensure you have Java `17` or above installed in your Computer.
+1. Ensure that you have Java `17` or above installed on your Computer.
 2. Download the latest `ava.jar` file from [here](https://github.com/Timenikhil/ip/releases/latest/download/ava.jar)
 3. Copy the file to the folder you want to use as the home folder for AVA.
-4. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar addressbook.jar command to run the application.
+4. Open a command terminal, cd into the folder you put the jar file in, and use the `java -jar ava.jar` command to run the application.
  ```
  A GUI similar to the one above should appear in a few seconds.
  ```
+ > [!NOTE]
  > Alternatively double-click the file to start the app.
 5. Type the command in the command box and press Enter to execute it.
 > e.g. typing `help` and pressing Enter will show a help response.
@@ -44,21 +45,120 @@ AVA has the personality of a helpful young woman.
 
 ### List 
 
+Shows a list of all the tasks AVA remembers.
+
 * ####  Command : `LIST`
-* #### Outcome :  Lists all the tasks in the task list.
-// Describe the action and its outcome.
 
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
+* #### Example: 
 
 ```
-expected output
+list
 ```
 
+### Todo
 
-### Feature XYZ
+Shows a list of all the tasks AVA remembers.
 
-// Feature details
+* ####  Command : `LIST`
+
+* #### Example:
+
+```
+list
+```
+
+### Event
+
+Shows a list of all the tasks AVA remembers.
+
+* ####  Command : `LIST`
+
+* #### Example:
+
+```
+list
+```
+
+### Deadline
+
+Shows a list of all the tasks AVA remembers.
+
+* ####  Command : `LIST`
+
+* #### Example:
+
+```
+list
+```
+
+### Delete
+
+Shows a list of all the tasks AVA remembers.
+
+* ####  Command : `LIST`
+
+* #### Example:
+
+```
+list
+```
+
+### Mark
+
+Shows a list of all the tasks AVA remembers.
+
+* ####  Command : `LIST`
+
+* #### Example:
+
+```
+list
+```
+
+### Unmark
+
+Shows a list of all the tasks AVA remembers.
+
+* ####  Command : `LIST`
+
+* #### Example:
+
+```
+list
+```
+
+### Find
+
+Shows a list of all the tasks AVA remembers.
+
+* ####  Command : `LIST`
+
+* #### Example:
+
+```
+list
+```
+
+### Bye
+
+Ends and closes the program with a farewell.
+
+* ####  Command : `BYE`
+
+* #### Example:
+
+```
+bye
+```
+
+### Help
+
+Shows the help page.
+
+* ####  Command : `HELP`
+
+* #### Example:
+
+```
+help
+```
