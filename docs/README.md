@@ -1,6 +1,6 @@
 # Hien User Guide
 
-![Ui.png](Ui.png)
+![Ui.png](ui.png)
 
 Hien is a chatbot application for task management that tracks your daily tasks on a Graphical User Interface (GUI). The chatbot supports various functions to help you manage your tasks efficiently.
 
