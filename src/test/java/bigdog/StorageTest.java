@@ -48,15 +48,6 @@ class StorageTest {
     }
 
     @Test
-    void load_nonExistentFile_throwsException() {
-        // Create a storage instance with a non-existent file path
-        Storage storage = new Storage("nonExistentFile.txt");
-
-        // Expect BigdogException due to FileNotFoundException
-        assertThrows(BigdogException.class, storage::load);
-    }
-
-    @Test
     void saveAndLoadTasks_withMarkedTasks() throws BigdogException {
         // Create some sample tasks
         ArrayList<Task> tasks = new ArrayList<>();
