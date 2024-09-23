@@ -28,7 +28,7 @@
                 <content>
                     <VBox fx:id="dialogContainer"
                           prefHeight="552.0"
-                          />
+                    />
                 </content>
             </ScrollPane>
             <HBox AnchorPane.topAnchor="0"

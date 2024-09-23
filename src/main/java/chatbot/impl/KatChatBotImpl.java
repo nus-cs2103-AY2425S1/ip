@@ -14,8 +14,6 @@ public class KatChatBotImpl implements ChatBot {
 
     private static final String ENDING_COMMAND = "bye";
 
-    private static final String ENDING_RESPONSE = "See you!";
-
     private final MessageParser messageParser;
 
     /**
