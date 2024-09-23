@@ -1,5 +1,6 @@
 package alexer.ui;
 
+import alexer.Alexer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -17,8 +18,10 @@ public class Gui extends Application {
 
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            
             stage.setMinHeight(220);
             stage.setMinWidth(417);
+            stage.setTitle(Alexer.NAME);
 
             stage.show();
         } catch (IOException e) {
