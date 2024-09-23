@@ -1,7 +1,6 @@
 package ava.task.tasks;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import ava.task.Task;
 
@@ -45,8 +44,8 @@ public class Deadline extends Task {
         StringBuilder sb = new StringBuilder();
         sb.append("Deadline: ");
         sb.append(super.toString());
-        sb.append("[By :");
-        sb.append(time.format(DateTimeFormatter.RFC_1123_DATE_TIME));
+        sb.append(" [By :");
+        sb.append(time.format(DateParser.PARSER));
         sb.append("]");
         return sb.toString();
     }

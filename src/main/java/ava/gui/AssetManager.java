@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 public class AssetManager {
 
     //CHECKSTYLE.OFF: AbbreviationAsWordInName
+    //CHECKSTYLE.OFF: MemberName
     private final String ASSET_PATH;
     private final String IMAGE_PATH;
 
@@ -21,6 +22,7 @@ public class AssetManager {
     private final Image AVAImage;
     private final Image icon;
     //CHECKSTYLE.ON: AbbreviationAsWordInName
+    //CHECKSTYLE.ON: MemberName
 
     /**
      * Creates an AssetManager instance with default path.

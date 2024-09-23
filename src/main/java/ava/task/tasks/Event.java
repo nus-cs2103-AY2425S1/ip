@@ -1,7 +1,6 @@
 package ava.task.tasks;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import ava.task.Task;
 
@@ -55,10 +54,10 @@ public class Event extends Task {
         StringBuilder sb = new StringBuilder();
         sb.append("Event: ");
         sb.append(super.toString());
-        sb.append("[From :");
-        sb.append(startTime.format(DateTimeFormatter.RFC_1123_DATE_TIME));
-        sb.append(" To : ");
-        sb.append(endTime.format(DateTimeFormatter.RFC_1123_DATE_TIME));
+        sb.append(" [From: ");
+        sb.append(startTime.format(DateParser.PARSER));
+        sb.append(" To: ");
+        sb.append(endTime.format(DateParser.PARSER));
         sb.append("]");
         return sb.toString();
     }
