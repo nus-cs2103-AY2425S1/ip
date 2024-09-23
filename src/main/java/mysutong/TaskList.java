@@ -9,7 +9,7 @@ import java.util.List;
  * Represents a list of tasks in the MySutong application. This class provides methods
  * to manage tasks such as adding, removing, and retrieving tasks based on their index.
  * It also supports searching for tasks based on a keyword found in the task's description.
- * Additionally, it now handles commands like add, mark, unmark, and delete.
+ * Additionally, it now handles commands like add, mark, unmark, delete, and set priority.
  */
 public class TaskList {
     private final List<Task> tasks; // The list of tasks, stored as a generic List interface.
@@ -137,6 +137,10 @@ public class TaskList {
             deleteTask(arguments, ui, storage);
             break;
 
+        case "priority":
+            setPriority(arguments, ui, storage);
+            break;
+
         case "find":
             findTasks(arguments, ui);
             break;
@@ -225,6 +229,22 @@ public class TaskList {
         ui.showLine();
         ui.showMessage("Noted. I've removed this task:");
         ui.showMessage(removedTask.toString());
+        ui.showLine();
+        storage.save(this);
+    }
+
+    private void setPriority(String argument, Ui ui, Storage storage) throws Exception {
+        String[] details = argument.split(" ");
+        if (details.length != 2) {
+            throw new IllegalArgumentException("Invalid priority command format. Use: priority <index> <level>");
+        }
+        int index = parseTaskIndex(details[0]);
+        int priority = Integer.parseInt(details[1]);
+        Task task = getTask(index);
+        task.setPriority(priority);
+        ui.showLine();
+        ui.showMessage("Task priority updated:");
+        ui.showMessage(task.toString());
         ui.showLine();
         storage.save(this);
     }

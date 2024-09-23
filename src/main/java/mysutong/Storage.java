@@ -12,6 +12,7 @@ import java.util.Scanner;
 
 /**
  * Handles file-based storage operations for the MySutong application, including loading and saving tasks.
+ * Now supports saving and loading task priority.
  */
 public class Storage {
     private final String filePath;
@@ -52,8 +53,9 @@ public class Storage {
             String taskType = parts[0];
             boolean isDone = parts[1].equals("1");
             String description = parts[2];
+            int priority = Integer.parseInt(parts[parts.length - 1]); // Priority is the last part
 
-            Task task = parseTask(parts, taskType, description, isDone);
+            Task task = parseTask(parts, taskType, description, isDone, priority);
             tasks.add(task);
         }
         scanner.close();
@@ -84,15 +86,17 @@ public class Storage {
 
     /**
      * Helper method to parse task data from loaded strings and create task objects.
+     * Now includes priority when creating task objects.
      *
      * @param parts the array of string parts from a split line of task data.
      * @param taskType the type of the task ('T', 'D', 'E').
      * @param description the description of the task.
      * @param isDone the completion status of the task.
+     * @param priority the priority of the task (1 for high, 2 for medium, 3 for low).
      * @return the constructed Task object.
      * @throws IllegalStateException if the task type is unknown.
      */
-    private Task parseTask(String[] parts, String taskType, String description, boolean isDone) {
+    private Task parseTask(String[] parts, String taskType, String description, boolean isDone, int priority) {
         Task task;
         switch (taskType) {
         case "T":
@@ -113,6 +117,7 @@ public class Storage {
         if (isDone) {
             task.markAsDone();
         }
+        task.setPriority(priority); // Set the priority from file
         return task;
     }
 }
