@@ -4,6 +4,9 @@
 
 ### Notes about the command format:
 - Words in ``UPPER_CASE`` are the parameters to be supplied by the user.
+- For deadline command and event command, the input date will be assumed to be in the current year.
+- For example, "23 Sep" will be interpreted as "23 Sep 2024," since it is currently 2024.
+- Enter the year explicitly if the date is not in the current year, such as "23 Sep 2025."
 
   e.g. in todo TASK, TASK is a parameter which can be used as todo read book.
 
@@ -35,6 +38,9 @@ Adds a deadline to the task list.
 
 Format: ``deadline TASK /by DATE``
 > The month and "by" are case-sensitive.
+> - The input date will be assumed to be in the current year.
+> - For example, "23 Sep" will be interpreted as "23 Sep 2024," since it is currently 2024.
+> - Enter the year explicitly if the date is not in the current year, such as "23 Sep 2025."
 
 Examples:
 - deadline return book /by 23 Sep
@@ -47,6 +53,9 @@ Adds an event to the task list.
 
 Format: ``event TASK /from DATE\TIME /to TIME``
 > "from" and "to" are case-sensitive.
+> - The input date will be assumed to be in the current year.
+> - For example, "23 Sep" will be interpreted as "23 Sep 2024," since it is currently 2024.
+> - Enter the year explicitly if the date is not in the current year, such as "23 Sep 2025."
 
 Examples:
 - event project meeting /from mon\2pm /to 4pm
