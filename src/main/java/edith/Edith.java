@@ -62,9 +62,7 @@ public class Edith {
             response.append(command.execute(tasks, ui, storage));
             if (command.isExit()) {
                 PauseTransition delay = new PauseTransition(Duration.seconds(3));
-                delay.setOnFinished(event -> {
-                    Platform.exit();
-                });
+                delay.setOnFinished(event -> Platform.exit());
                 delay.play();
             }
         } catch (DateTimeParseException e) {
