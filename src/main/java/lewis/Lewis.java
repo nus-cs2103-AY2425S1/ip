@@ -39,9 +39,13 @@ public class Lewis {
             }
         }
     }
+
+    public String getResponse(String input) {
+        return "Lewis heard: " + input;
+    }
+
     public static void main(String[] args) {
-        Lewis lewis = new Lewis();
-        lewis.run();
+        System.out.println("Hello world");
         System.exit(0);
     }
 }
