@@ -35,6 +35,12 @@ public class KatChatBotImpl implements ChatBot {
         this.messageParser = messageParser;
     }
 
+    /**
+     * Processes the user input and generates an appropriate response.
+     *
+     * @param input The user's input string to be processed.
+     * @return A string containing the chatbot's response to the user's input.
+     */
     @Override
     public String getResponse(String input) {
         if (input.equalsIgnoreCase(ENDING_COMMAND)) {

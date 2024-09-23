@@ -47,6 +47,7 @@ public class MessageParserImpl implements MessageParser {
         String command = inputParts[0];
 
         return switch (command) {
+            case "help" -> handleHelp();
             case "list" -> handleList();
             case "mark" -> handleMark(inputParts);
             case "unmark" -> handleUnmark(inputParts);
@@ -57,6 +58,26 @@ public class MessageParserImpl implements MessageParser {
             case "find" -> handleFind(inputParts);
             default -> throw new InvalidMessageException("Sorry, I don't recognize that command. :(");
         };
+    }
+
+    /**
+     * Handles the 'help' command.
+     *
+     * @return A string containing all available commands and their descriptions.
+     */
+    private String handleHelp() {
+        return """
+                Available commands:
+                help - Show this help message
+                list - Show all tasks
+                mark <index> - Mark a task as done
+                unmark <index> - Mark a task as not done
+                todo <description> - Add a todo task
+                deadline <description> /by <deadline> - Add a deadline task
+                event <description> /from <start time> /to <end time> - Add an event task
+                delete <index> - Delete a task
+                find <keyword> - Find tasks containing the keyword
+                """;
     }
 
     /**
