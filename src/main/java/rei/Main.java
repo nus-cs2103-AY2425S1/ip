@@ -23,6 +23,8 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setTitle("Rei");
+            stage.setMinHeight(820);
+            stage.setMinWidth(417);
             fxmlLoader.<MainWindow>getController().setRei(rei);  // inject the REI instance
             stage.show();
         } catch (IOException e) {
