@@ -12,6 +12,7 @@ import killua.util.TaskList;
  * Represents a command to delete a task from the task list.
  */
 public class DeleteCommand extends Command {
+    private static final String INVALID_INDEX_MESSAGE = "What are you trying to do? No such task!";
     private final int taskIndex;
 
     /**
@@ -36,10 +37,14 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws KilluaException, IOException {
-        Task task = tasks.getTasks().get(taskIndex);
-        tasks.deleteTask(taskIndex);
-        storage.save(tasks);
-        return ui.showTaskDeleted(task);
+        try {
+            Task task = tasks.getTasks().get(taskIndex);
+            tasks.deleteTask(taskIndex);
+            storage.save(tasks);
+            return ui.showTaskDeleted(task);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new KilluaException(INVALID_INDEX_MESSAGE);
+        }
     }
 }
 

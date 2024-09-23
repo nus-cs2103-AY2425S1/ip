@@ -14,6 +14,7 @@ import killua.util.TaskList;
  * saves the updated task list to storage.
  */
 public class UnmarkCommand extends Command {
+    private static final String INVALID_INDEX_MESSAGE = "What are you trying to do? No such task!";
     private final int taskIndex;
 
     /**
@@ -39,9 +40,13 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws KilluaException, IOException {
-        tasks.unmarkTask(taskIndex);
-        Task task = tasks.getTasks().get(taskIndex); // validity of task index is checked above
-        storage.save(tasks);
-        return ui.showTaskUnmarked(task);
+        try {
+            Task task = tasks.getTasks().get(taskIndex);
+            tasks.unmarkTask(taskIndex);
+            storage.save(tasks);
+            return ui.showTaskUnmarked(task);
+        } catch (IndexOutOfBoundsException e) {
+            throw new KilluaException(INVALID_INDEX_MESSAGE);
+        }
     }
 }

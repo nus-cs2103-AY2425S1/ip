@@ -2,6 +2,7 @@ package killua.util;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import killua.task.Deadline;
@@ -16,6 +17,8 @@ import killua.task.Task;
  */
 public class TaskList {
     private static final String INVALID_TASK_INDEX_MESSAGE = "You don't have this task!";
+    private static final String ALREADY_MARK_MESSAGE = "You've already marked this task, stop it!";
+    private static final String ALREADY_UNMARK_MESSAGE = "You can't unmark an unmarked task!";
     private final ArrayList<Task> tasks;
 
     /**
@@ -74,7 +77,11 @@ public class TaskList {
      */
     public void markTaskDone(int index) throws KilluaException {
         try {
-            tasks.get(index).markAsDone();
+            Task task = tasks.get(index);
+            if (Objects.equals(task.getStatusIcon(), "X")) {
+                throw new KilluaException(ALREADY_MARK_MESSAGE);
+            }
+            task.markAsDone();
         } catch (IndexOutOfBoundsException e) {
             throw new KilluaException(INVALID_TASK_INDEX_MESSAGE);
         }
@@ -88,7 +95,11 @@ public class TaskList {
      */
     public void unmarkTask(int index) throws KilluaException {
         try {
-            tasks.get(index).unmark();
+            Task task = tasks.get(index);
+            if (Objects.equals(task.getStatusIcon(), " ")) {
+                throw new KilluaException(ALREADY_UNMARK_MESSAGE);
+            }
+            task.unmark();
         } catch (IndexOutOfBoundsException e) {
             throw new KilluaException(INVALID_TASK_INDEX_MESSAGE);
         }

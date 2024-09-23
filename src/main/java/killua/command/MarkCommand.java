@@ -13,6 +13,7 @@ import killua.util.TaskList;
  * This command updates the status of a specified task to done and saves the changes.
  */
 public class MarkCommand extends Command {
+    private static final String INVALID_INDEX_MESSAGE = "What are you trying to do? No such task!";
     private final int taskIndex;
 
     /**
@@ -38,9 +39,13 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws KilluaException, IOException {
-        tasks.markTaskDone(taskIndex);
-        Task task = tasks.getTasks().get(taskIndex); // validity of task index is checked above
-        storage.save(tasks);
-        return ui.showTaskMarked(task);
+        try {
+            Task task = tasks.getTasks().get(taskIndex);
+            tasks.markTaskDone(taskIndex);
+            storage.save(tasks);
+            return ui.showTaskMarked(task);
+        } catch (IndexOutOfBoundsException e) {
+            throw new KilluaException(INVALID_INDEX_MESSAGE);
+        }
     }
 }
