@@ -37,6 +37,8 @@ public class TaskList {
     }
 
     public String markTask(boolean isDone, int taskId) {
+        assert isValid(taskId);
+
         Task task = this.tasks.get(taskId - 1);
         task.changeStatus(isDone);
         this.writeToFile();
@@ -44,6 +46,8 @@ public class TaskList {
     }
 
     public String delete(int taskId) {
+        assert isValid(taskId);
+
         Task task = this.tasks.get(taskId - 1);
         this.tasks.remove(taskId - 1);
         this.writeToFile();
