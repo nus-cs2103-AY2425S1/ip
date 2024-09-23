@@ -56,14 +56,14 @@ public class Deadline extends Task {
 
     /**
      * Returns a string representation of the deadline task for file storage.
-     * The format is "T | status | name | due_date", where status is inherited from the Task class.
+     * The format is "D | status | name | due_date", where status is inherited from the Task class.
      *
      * @return A formatted string containing the task's type, status, name, and due date.
      */
     @Override
     public String storeInFileAsString() {
-        String formattedDate = (due != null) ? due.format(OUTPUT_FORMATTER) : "Date can't be processed by noosy.Noosy";
-        return String.format("T | %s | %s | %s", super.storeInFileAsString(), this.name, this.due);
+        String formattedDate = (due != null) ? due.format(OUTPUT_FORMATTER) : "Date can't be processed by Noosy";
+        return String.format("D | %s | %s | %s", super.storeInFileAsString(), this.name, this.due);
     }
 
     /**
@@ -73,7 +73,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        String formattedDate = (due != null) ? due.format(OUTPUT_FORMATTER) : "Date can't be processed by noosy.Noosy";
+        String formattedDate = (due != null) ? due.format(OUTPUT_FORMATTER) : "Date can't be processed by Noosy";
         String desc = String.format("[D]%s (by: %s)", super.toString(), formattedDate);
         return desc;
     }

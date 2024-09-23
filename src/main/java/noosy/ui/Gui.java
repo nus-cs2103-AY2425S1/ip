@@ -43,6 +43,13 @@ public void showTaskDone(Task done) {
 }
 
 @Override
+public void showUndone(Task undone) {
+    String taskUnmarkedMessage = "Ok don't worry, you can continue working on this: \n" + undone;
+    dialogContainer.getChildren().
+            addAll(DialogBox.getNoosyDialog(taskUnmarkedMessage, new Image("/images/red teletubby.jepg")));
+}
+
+@Override
 public void showDeleted(Task deleted) {
     String deletedMessage = "I've kicked it out for you: \n" + deleted;
     dialogContainer.getChildren().

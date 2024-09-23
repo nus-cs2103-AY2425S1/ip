@@ -85,4 +85,21 @@ public abstract class Task {
         String prepend = this.isDone ? "[X] " : "[ ] ";
         return prepend + this.name;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Task task = (Task) obj;
+        return this.name.equals(task.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return this.name.hashCode();
+    }
 }

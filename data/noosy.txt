@@ -5,4 +5,6 @@ E | 1 | boxing | Sept 04 2024 18:30 - Sept 04 2024 19:30
 T | 0 | laundry
 T | 0 | work
 T | 0 | tutorial
-T | 0 | ip | 2024-09-23
+T | 0 | ip
+E | 0 | town hall | Sept 24 2024 19:00 - Sept 24 2024 20:00
+D | 0 | ip | 2024-09-23
