@@ -129,7 +129,7 @@ Example: `find week`
 
 ### edit
 
-edits a task that already exist
+edits a task that already exist in the list
 
 enter: "edit [task number as shown in list]"
 
