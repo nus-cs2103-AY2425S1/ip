@@ -126,6 +126,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the mark, unmark, and delete commands to ensure they are inputted correctly.
+     *
+     * @param command The command string containing the command and task number.
+     * @throws NebulaException If the command is invalid or the task number is not recognized.
+     */
     private static void parseMarkUnMarkDelete(String command) throws NebulaException {
         String[] parts = command.split(" ", 2);
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
@@ -142,6 +148,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the find command to extract a single keyword for searching tasks.
+     *
+     * @param command The command string containing the find action and keyword.
+     * @throws NebulaException If the command is missing a keyword or contains multiple keywords.
+     */
     private static void parseFind(String command) throws NebulaException {
         String[] parts = command.split(" ", 2);
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
@@ -155,6 +167,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a Deadline task description to ensure it is formatted properly.
+     *
+     * @param description The description string for the deadline task.
+     * @throws NebulaException NebulaException If the description is missing the due date or
+     * formatted incorrectly.
+     */
     private static void parseDeadline(String description) throws NebulaException {
         if (!description.contains("/by")) {
             throw new NebulaException(ui.displayUnknownDeadlineException());
@@ -176,6 +195,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses an Event task description to ensure it is formatted properly.
+     *
+     * @param description The description string for the Event task.
+     * @throws NebulaException NebulaException If the description is missing the start/end date or
+     * formatted incorrectly.
+     */
     private static void parseEvent(String description) throws NebulaException {
         if (!description.contains("/from") || !description.contains("/to")) {
             throw new NebulaException(ui.displayUnknownEventTimingException());
