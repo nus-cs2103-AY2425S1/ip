@@ -8,6 +8,19 @@ If you can type fast, AVA can get your task management done faster than traditio
 
 AVA has the personality of a helpful young woman.  
 
+## Index
+* [Quick Start](#quick-start)
+* [Features](#features)
+  1. [List all tasks - `LIST`](#list)
+  2. [Add a todo task - `TODO`](#todo)
+  3. [Add an event task - `EVENT`](#event)
+  4. [Add a deadline task - `DEADLINE`](#deadline)
+  5. [Delete a task - `DELETE`](#delete)
+  6. [Mark a task as done - `MARK`](#mark)
+  7. [Unmark a task - `UNMARK`](#unmark)
+  8. [Find tasks - `FIND`](#find)
+  9. [Leave - `BYE`](#bye)
+  10. [Get help - `HELP`](#help)
 
 ## Adding deadlines
 
