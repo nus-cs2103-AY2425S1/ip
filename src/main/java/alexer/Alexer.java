@@ -81,7 +81,7 @@ public class Alexer {
             System.exit(0);
             return null;
         } else {
-            return new Response(Prompter.MESSAGE_COMMAND_NOT_FOUND);
+            return new Response(Prompter.MESSAGE_COMMAND_NOT_FOUND, Response.ResponseType.ERROR);
         }
     }
 
