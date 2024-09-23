@@ -258,10 +258,14 @@ public class TaskList {
         if (argument.isEmpty()) {
             throw new InvalidTaskNumberException("No task index provided.");
         }
-        int index = Integer.parseInt(argument) - 1;
-        if (index < 0 || index >= tasks.size()) {
-            throw new InvalidTaskNumberException("Task index out of range.");
+        try {
+            int index = Integer.parseInt(argument) - 1;
+            if (index < 0 || index >= tasks.size()) {
+                throw new InvalidTaskNumberException("Task index out of range.");
+            }
+            return index;
+        } catch (NumberFormatException e) {
+            throw new InvalidTaskNumberException("Please provide a valid task number.");
         }
-        return index;
     }
 }

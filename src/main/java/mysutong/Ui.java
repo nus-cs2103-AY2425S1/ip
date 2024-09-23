@@ -107,7 +107,7 @@ public class Ui {
      * @param message the error message to be added.
      */
     public void showError(String message) {
-        responses.add("Error: " + message);
+        responses.add("Oh no. " + message);
     }
 
     /**
