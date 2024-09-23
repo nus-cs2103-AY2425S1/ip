@@ -1,7 +1,29 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+What's up, it's ToMo here!
+How can I help you?
+A task is added
+[T][ ] borrow book
+How can I help you?
+A task is added
+[D][ ] return book (by: Sunday)
+How can I help you?
+A task is added
+[E][ ] project meeting (from: Mon 2pm to: 4pm)
+How can I help you?
+The tasks list as follow:
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Sunday)
+3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+How can I help you?
+A task is marked
+[T][X] borrow book
+How can I help you?
+A task is marked
+[D][X] return book (by: Sunday)
+How can I help you?
+A task is unmarked
+[T][ ] borrow book
+How can I help you?
+A task is deleted
+[E][ ] project meeting (from: Mon 2pm to: 4pm)
+How can I help you?
+Bye, see you later!
