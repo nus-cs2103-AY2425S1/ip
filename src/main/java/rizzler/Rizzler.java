@@ -9,7 +9,7 @@ import rizzler.ui.parser.Parser;
  * Rizzler helps you to manage your tasks, and is definitely not interested in you.
  */
 public class Rizzler {
-    private boolean userIsDone = false;
+    private boolean isUserDone = false;
     private final Parser parser;
     private final Storage storage;
     private final TaskLog taskLog;
@@ -25,7 +25,7 @@ public class Rizzler {
 
     /**
      * Passes in an input to the Rizzler object, and returns its response.
-     * Also updates <code>userIsDone</code> based on the output of the command.
+     * Also updates <code>isUserDone</code> based on the output of the command.
      * @param userInput Whatever the user has typed in as input.
      * @return Rizzler's output in response to user input.
      */
@@ -37,7 +37,7 @@ public class Rizzler {
         assert userCommand != null : "userCommand is null";
 
         String[] responseLines = userCommand.execute(storage, taskLog);
-        userIsDone = userCommand.shouldEnd();
+        isUserDone = userCommand.shouldEnd();
 
         for (String responseLine : responseLines) {
             assert responseLine != null : "responseLine is null";
@@ -53,6 +53,6 @@ public class Rizzler {
      * @return Whether the user is done or not.
      */
     public boolean shouldEnd() {
-        return userIsDone;
+        return isUserDone;
     }
 }
