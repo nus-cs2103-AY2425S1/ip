@@ -16,6 +16,7 @@ public class Parser {
      */
     public void executeCommand(String fullCommand, TaskList tasks, Ui ui, Storage storage) {
         String[] inputs = fullCommand.split(" ", 2);
+        assert (inputs.length > 0);
         String command = inputs[0];
 
         try {
