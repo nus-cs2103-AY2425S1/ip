@@ -8,14 +8,14 @@ you never have to search anywhere else for your task lists again.
 
 
 ## Features
-- [Adding a todo: `todo`] (#adding-a-todo-todo)
-- [Adding a deadline: `deadline`] (#adding-a-deadline-deadline)
-- [Adding an event: `event`] (#adding-an-event-event)
-- [Listing all tasks : `list`] (#listing-all-tasks-list)
-- [Locating task by name: `find`] (#locating-task-by-name-find)
-- [Deleting a task : `delete`] (#deleting-a-task-delete)
-- [Exiting the program : `bye`] (#exiting-the-program-bye)
-- [Saving the data] (#saving-the-data)
+- [Adding a todo: `todo`](#adding-a-todo-todo)
+- [Adding a deadline: `deadline`](#adding-a-deadline-deadline)
+- [Adding an event: `event`](#adding-an-event-event)
+- [Listing all tasks : `list`](#listing-all-tasks-list)
+- [Locating task by name: `find`](#locating-task-by-name-find)
+- [Deleting a task : `delete`](#deleting-a-task-delete)
+- [Exiting the program : `bye`](#exiting-the-program-bye)
+- [Saving the data](#saving-the-data)
 
 ## Adding a todo: `todo`
 
