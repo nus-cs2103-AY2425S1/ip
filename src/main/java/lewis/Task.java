@@ -83,8 +83,6 @@ public abstract class Task {
      * @return this task as a csv string
      */
     protected String toCsv() {
-        return this.description
-                + ","
-                + this.status;
+        return String.format("%s,%s", this.description, this.status);
     }
 }
