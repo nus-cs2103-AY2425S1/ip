@@ -29,9 +29,10 @@ AVA has the personality of a helpful young woman.
 2. Download the latest `ava.jar` file from [here](https://github.com/Timenikhil/ip/releases/latest/download/ava.jar)
 3. Copy the file to the folder you want to use as the home folder for AVA.
 4. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar addressbook.jar command to run the application.   
-   Alternatively double-click the file to start the app.    
-> A GUI similar to the one above should appear in a few seconds.
-
+> Alternatively double-click the file to start the app.    
+```
+A GUI similar to the one above should appear in a few seconds.
+```
 
 // Describe the action and its outcome.
 
