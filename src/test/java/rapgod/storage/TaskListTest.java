@@ -1,9 +1,5 @@
 package rapgod.storage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +10,9 @@ import rapgod.tasks.Deadline;
 import rapgod.tasks.Event;
 import rapgod.tasks.Task;
 import rapgod.tasks.ToDo;
+import rapgod.utils.Parser;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class TaskListTest {
@@ -44,12 +43,30 @@ class TaskListTest {
     }
 
     @Test
+    void testMarkTaskByIndex_markDone_throwsIndexOutOfBoundException() {
+        Task task = new ToDo("Complete assignment");
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            taskList.getList().add(task);
+            taskList.markTaskByIndex(-1);
+        });
+    }
+
+    @Test
     void testUnmarkTaskByIndex_markFalse_false() {
         Task task = new ToDo("Complete assignment");
         task.setIsDone(true);
         taskList.getList().add(task);
         taskList.unmarkTaskByIndex(1);
         assertFalse(task.isMarkedDone());
+    }
+
+    @Test
+    void testUnmarkTaskByIndex_markDone_throwsIndexOutOfBoundException() {
+        Task task = new ToDo("Complete assignment");
+        assertThrows(IndexOutOfBoundsException.class, () -> {
+            taskList.getList().add(task);
+            taskList.unmarkTaskByIndex(-1);
+        });
     }
 
     @Test

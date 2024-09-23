@@ -81,7 +81,6 @@ public class TaskList {
      *
      * @param index The 1-based index of the task to mark as done.
      * @return A confirmation message that includes the details of the marked task.
-     * @throws IndexOutOfBoundsException If the provided index is out of range.
      */
     public String markTaskByIndex(int index) {
         list.get(index - 1).setIsDone(true);
