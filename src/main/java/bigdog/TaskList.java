@@ -40,9 +40,11 @@ public class TaskList {
      * @return a confirmation message indicating that the task has been removed and showing the updated task count.
      * @throws BigdogException if the index is out of the valid range.
      */
-    public String delete(int i) {
+    public String delete(int i) throws BigdogException {
 
-        assert (i > 0 && i <= this.list.size()) : "TaskList Error: That's out of your list!\n";
+        if (i <= 0 || i > this.list.size()) {
+            throw new BigdogException("TaskList Error: That's out of your list!\n");
+        }
 
         // Conversion from a 1-based index to a 0 based index, hence i -1.
         Task temp = this.list.get(i - 1);
@@ -68,9 +70,11 @@ public class TaskList {
      * @return a confirmation message indicating that the task has been marked as done.
      * @throws BigdogException if the index is out of the valid range.
      */
-    public String mark(int i) {
-      
-        assert (i > 0 && i <= this.list.size()) : "TaskList Error: That's out of your list!\n";
+    public String mark(int i) throws BigdogException {
+
+        if (i <= 0 || i > this.list.size()) {
+            throw new BigdogException("TaskList Error: That's out of your list!\n");
+        }
 
         // Conversion from a 1-based index to a 0 based index, hence i -1.
         this.list.get(i - 1).mark();
@@ -85,9 +89,11 @@ public class TaskList {
      * @return a confirmation message indicating that the task has been marked as not done.
      * @throws BigdogException if the index is out of the valid range.
      */
-    public String unmark(int i) {
+    public String unmark(int i) throws BigdogException {
 
-        assert (i > 0 && i <= this.list.size()) : "TaskList Error: That's out of your list!\n";
+        if (i <= 0 || i > this.list.size()) {
+            throw new BigdogException("TaskList Error: That's out of your list!\n");
+        }
 
         // Conversion from a 1-based index to a 0 based index, hence i -1.
         this.list.get(i - 1).unmark();
@@ -101,7 +107,7 @@ public class TaskList {
      * @param str The string to search for in the task descriptions.
      * @return A string representing the tasks that match the search string with their indices.
      */
-    public String find(String str) {
+    public String find(String str) throws BigdogException {
         StringBuilder result = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < this.list.size(); i++) {
             if (this.list.get(i).toString().contains(str)) {
@@ -109,8 +115,9 @@ public class TaskList {
             }
         }
 
-        assert !result.toString().equals("Here are the tasks in your list:\n")
-                : "There are no similar tasks in your list!\n";
+        if (result.toString().equals("Here are the tasks in your list:\n")) {
+            return "There are no similar tasks in your list!\n";
+        }
 
         return result.toString();
     }
@@ -131,7 +138,8 @@ public class TaskList {
         int counter = 1;
         StringBuilder schedule = new StringBuilder(String.format("Here is your schedule for %s\n", str));
         String[] dateParts = str.split("/");
-        LocalDateTime date = LocalDateTime.parse(String.format("%s-%s-%sT00:00", dateParts[2], dateParts[1], dateParts[0]));
+        LocalDateTime date = LocalDateTime.parse(
+                String.format("%s-%s-%sT00:00", dateParts[2], dateParts[1], dateParts[0]));
         for (Task task : this.list) {
             if (task.isOnDay(date)) {
                 schedule.append(counter).append(". ").append(task).append("\n");

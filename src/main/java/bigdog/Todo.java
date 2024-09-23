@@ -30,7 +30,7 @@ public class Todo extends Task {
      */
     public static Todo of(String s) {
 
-        assert !s.equals("NA"): "todo can't be empty! How can you do nothing!";
+        assert !s.equals("NA") : "todo can't be empty! How can you do nothing!";
         return new Todo(s, false);
 
     }
@@ -48,7 +48,7 @@ public class Todo extends Task {
     public static Todo of(String s, boolean marked) {
 
         assert s.length() > TODO_PREFIX_LENGTH : "todo can't be empty! How can you do nothing!";
-      
+
         return new Todo(s.substring(4), marked);
 
     }

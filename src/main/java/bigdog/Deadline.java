@@ -13,11 +13,11 @@ public class Deadline extends Task {
     /** Indicates whether the deadline includes a specific end time or just a date. */
     private static boolean isTimeIncluded;
 
-    /** The end date and time */
-    private LocalDateTime end;
-
     private static final int TASK_DESC_START_INDEX = 5;
     private static final int MIN_LENGTH_FOR_CORRUPTION_CHECK = 4;
+
+    /** The end date and time */
+    private LocalDateTime end;
 
     /**
      * Private constructor for creating a {@code Deadline} instance.
@@ -43,12 +43,13 @@ public class Deadline extends Task {
 
         assert (!s.isEmpty() && s.charAt(0) != '/') : "deadline can't be empty! Theres nothing to do!\n";
 
-        for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == '/') {
-                return new Deadline(s.substring(0, i - 1), stringToDate(s.substring(i + 4)), false);
-            }
+        String[] deadlineParts = s.split("/by");
+        if (deadlineParts.length != 2 || deadlineParts[1].isEmpty()) {
+            throw new BigdogException("Come on! Set a due by date and get to work!\n");
         }
-        throw new BigdogException("Come on! Set a due by date and get to work!\n");
+
+        return new Deadline(deadlineParts[0].trim(), stringToDate(deadlineParts[1].trim()), false);
+
     }
 
     /**
@@ -98,8 +99,8 @@ public class Deadline extends Task {
             isTimeIncluded = !time.equals("00:00");
             return LocalDateTime.parse(String.format("%s-%s-%sT%s", year, month, day, time));
         } catch (DateTimeParseException e) {
-            throw new BigdogException("Invalid date format: " + str +
-                    "\nExample correct format: deadline return book /by 02/07/2019 18:00");
+            throw new BigdogException("Invalid date format: " + str
+                    + "\nExample correct format: deadline return book /by 02/07/2019 18:00");
         }
 
     }

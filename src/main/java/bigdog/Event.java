@@ -55,7 +55,7 @@ public class Event extends Task {
         }
 
         String[] startAndEndDate = eventParts[1].split("/to");
-        if (startAndEndDate.length < 2) {
+        if (startAndEndDate.length < 2 || startAndEndDate[0].isEmpty() || startAndEndDate[1].isEmpty()) {
             throw new BigdogException("Event has to have a start and end!");
         }
 
