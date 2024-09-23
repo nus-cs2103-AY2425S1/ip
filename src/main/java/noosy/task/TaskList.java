@@ -1,6 +1,8 @@
 package noosy.task;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Represents a list of tasks.
@@ -75,14 +77,17 @@ public class TaskList {
     }
 
     public TaskList find(String keyword) {
-        TaskList tasksWithKeyword = new TaskList();
+        ArrayList<Task> tasksWithKeyword = this.tasks.stream()
+                .filter(task -> task.toString().toLowerCase().contains(keyword.toLowerCase()))
+                .collect(Collectors.toCollection(ArrayList::new));
 
-        for (Task task : this.tasks) {
-            if (task.toString().toLowerCase().contains(keyword.toLowerCase())) {
-                tasksWithKeyword.add(task);
-            }
-        }
+        return new TaskList(tasksWithKeyword);
+    }
 
-        return tasksWithKeyword;
+    /**
+     * Returns the TaskList as a Stream.
+     */
+    public Stream toStream() {
+        return this.tasks.stream();
     }
 }
