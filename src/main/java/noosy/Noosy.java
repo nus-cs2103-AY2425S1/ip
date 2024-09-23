@@ -42,6 +42,9 @@ public class Noosy {
      * @param filePath The file path for storing tasks.
      */
     public Noosy(String filePath) {
+
+        assert !filePath.isBlank() : "File path should not be blank.";
+
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -55,10 +58,12 @@ public class Noosy {
     }
 
     /**
-     * The main entry point for the Noosy application.
-     * Creates a new Noosy instance and starts its execution.
+     * Serves as the main entry point for the Noosy application.
      *
-     * @param args Command line arguments (not used).
+     * This class is responsible for initializing and starting the Noosy application.
+     * It creates a new instance of the Noosy class and begins its execution.
+     *
+     * @param args Command-line arguments passed to the application (not used).
      */
     public static void main(String[] args) {
         new Noosy("data/noosy.txt").run();

@@ -38,6 +38,11 @@ public class DeleteCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws NoosyException {
+
+        assert tasks != null : "Tasklist cannot be null.";
+        assert ui != null : "Ui cannot be left as null.";
+        assert storage != null : "Storage cannot be null.";
+
         try {
             Task toDelete = tasks.get(this.index);
             tasks.remove(toDelete);

@@ -41,23 +41,28 @@ public class DateSearchCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
+
+        assert tasks != null : "Tasklist cannot be null.";
+        assert ui != null : "Ui cannot be left as null.";
+        assert storage != null : "Storage cannot be null.";
+
         System.out.println("You needa do this on " + date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + ":");
-        boolean found = false;
+        boolean isFound = false;
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             if (task instanceof Deadline deadline) {
                 if (deadline.getDate().equals(date)) {
                     System.out.println(deadline);
-                    found = true;
+                    isFound = true;
                 }
             } else if (task instanceof Event event) {
                 if (event.getStart().toLocalDate().equals(date)) {
                     System.out.println(event);
-                    found = true;
+                    isFound = true;
                 }
             }
         }
-        if (!found) {
+        if (!isFound) {
             System.out.println("Hooray! Nothing to do on " + date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         }
     }
