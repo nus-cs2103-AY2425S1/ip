@@ -18,6 +18,7 @@ public class FindCommand extends Command {
             find dinner
             find meeting tonight""";
     private static final String NO_MATCHES_RESPONSE = "our list is empty right now dear, no tasks to search through!";
+    private static final int TASK_LIST_START_INDEX = 1;
     private final String taskListHeader = "here are the tasks that match \"" + getTextInput() + "\".";
 
     /**
@@ -47,15 +48,13 @@ public class FindCommand extends Command {
         }
 
         StringBuilder output = new StringBuilder();
-        int matchId = 1;
         output.append(taskListHeader);
         output.append("\n");
         for (int i = 0; i < tasksMatching.length; i++) {
-            output.append(matchId);
+            output.append(i + TASK_LIST_START_INDEX);
             output.append(". ");
             output.append(tasksMatching[i]);
             output.append("\n");
-            matchId++;
         }
         return output.toString().split("\n");
     }
