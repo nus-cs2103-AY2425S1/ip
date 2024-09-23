@@ -22,6 +22,7 @@ public class FindCommand extends Command {
     public String execute(TaskList taskList, Ui ui, Storage storage) {
         String output = "";
         ArrayList<Task> tasksFound = taskList.findKeyword(this.keywordToFind);
+        // streamify finding tasks soon
         if (tasksFound.size() > 0) {
             output = "Here are the matching tasks in your list:";
             System.out.println(output);
