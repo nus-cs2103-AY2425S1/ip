@@ -46,7 +46,6 @@ public class Event extends Task {
                 dateTime = LocalDateTime.parse(dtString, formatter);
                 break; // Exit the loop once parsing is successful
             } catch (DateTimeParseException e) {
-                System.out.println("error " + e.getMessage());
                 // Ignore the exception and try the next formatter
             }
         }

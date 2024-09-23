@@ -4,17 +4,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import donk.task.Event;
 import donk.task.TaskList;
+import donk.task.ToDo;
 
 
 public class ParserTest {
     @Test
     public void parse_todo_success() throws Exception {
-        StorageStub storageStub = new StorageStub("dummyPath");
-        Ui ui = new Ui();
-        TaskList tasks = new TaskList();
-        Parser.parse("todo new task 1");
-        assertEquals(1, tasks.size());
+        String command = Parser.parse("todo new task 1");
+        assertEquals(command, "todo");
     }
 
     @Test
@@ -34,14 +33,11 @@ public class ParserTest {
 
     @Test
     public void parse_find_success() throws Exception {
-        StorageStub storageStub = new StorageStub("dummyPath");
-        Ui ui = new Ui();
         TaskList tasks = new TaskList();
-        String[] commands = {"todo book task 1", "event bookFair /start 1/1/2024 /end 1/2/2024", "todo something else"};
-        for (String command : commands) {
-            Parser.parse(command);
-        }
-        assertEquals(3, tasks.size());
-        assertEquals(2, tasks.find("book").size());
+        tasks.add(new ToDo("homework"));
+        tasks.add(new Event("midautumn festival", "09/09/2024 0100", "10/09/2024 2359"));
+
+        assertEquals(2, tasks.size());
+        assertEquals(1, tasks.find("homework").size());
     }
 }
