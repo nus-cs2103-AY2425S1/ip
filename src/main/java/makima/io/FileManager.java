@@ -1,6 +1,8 @@
 package makima.io;
 
 import makima.command.Makima;
+import makima.exception.FileCorruptedException;
+import makima.exception.FilePermissionException;
 import makima.task.Deadline;
 import makima.task.Event;
 import makima.task.Task;
@@ -37,8 +39,7 @@ public class FileManager {
             fw.write(makima.convertTaskstoFileString());
             fw.close();
         } catch (IOException e) {
-            System.out.println("Error writing to file");
-            return false;
+            throw new FilePermissionException();
         }
         return true;
     }
@@ -93,7 +94,7 @@ public class FileManager {
      */
     public static boolean loadFile(Makima makima) {
         if (!createFolder() || !createFile()) {
-            return false;
+            throw new FilePermissionException();
         };
 
         File file = new File(DATA_PATH);
@@ -106,8 +107,7 @@ public class FileManager {
             }
             reader.close();
         } catch (FileNotFoundException e) {
-            System.out.println("An error occurred while reading the data file!");
-            return false;
+            throw new FilePermissionException();
         }
 
         int lineNumber = 0;
@@ -117,8 +117,7 @@ public class FileManager {
             switch (lines.get(lineNumber)) {
             case "E":
                 if (lineNumber + Event.SAVE_PARAMETERS > lines.size()) {
-                    System.out.println("The file is corrupted! Delete it before restarting the program!");
-                    return false;
+                    throw new FileCorruptedException(lineNumber);
                 }
 
                 for (int i = lineNumber+1; i < lineNumber + Event.SAVE_PARAMETERS; i++) {
@@ -127,7 +126,7 @@ public class FileManager {
 
                 Event event = Event.loadFromData(data);
                 if (event == null) {
-                    return false;
+                    throw new FileCorruptedException(lineNumber);
                 }
 
                 makima.addTask(event);
@@ -135,8 +134,7 @@ public class FileManager {
                 break;
             case "D":
                 if (lineNumber + Deadline.SAVE_PARAMETERS > lines.size()) {
-                    System.out.println("The file is corrupted! Delete it before restarting the program!");
-                    return false;
+                    throw new FileCorruptedException(lineNumber);
                 }
 
                 for (int i = lineNumber+1; i < lineNumber + Deadline.SAVE_PARAMETERS; i++) {
@@ -145,7 +143,7 @@ public class FileManager {
 
                 Deadline deadline = Deadline.loadFromData(data);
                 if (deadline == null) {
-                    return false;
+                    throw new FileCorruptedException(lineNumber);
                 }
 
                 makima.addTask(deadline);
@@ -153,8 +151,7 @@ public class FileManager {
                 break;
             case "T":
                 if (lineNumber + ToDo.SAVE_PARAMETERS > lines.size()) {
-                    System.out.println("The file is corrupted! Delete it before restarting the program!");
-                    return false;
+                    throw new FileCorruptedException(lineNumber);
                 }
 
                 for (int i = lineNumber+1; i < lineNumber + ToDo.SAVE_PARAMETERS; i++) {
@@ -163,7 +160,7 @@ public class FileManager {
 
                 ToDo toDo = ToDo.loadFromData(data);
                 if (toDo == null) {
-                    return false;
+                    throw new FileCorruptedException(lineNumber);
                 }
 
                 makima.addTask(toDo);
@@ -173,8 +170,7 @@ public class FileManager {
                 lineNumber++;
                 break;
             default:
-                System.out.println("The file is corrupted! Delete it before restarting the program!");
-                return false;
+                throw new FileCorruptedException(lineNumber);
             }
         }
 

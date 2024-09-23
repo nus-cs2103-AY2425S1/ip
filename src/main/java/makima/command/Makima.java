@@ -24,9 +24,7 @@ public class Makima {
      * Initializes a new instance of a chatbot.
      */
     public Makima() {
-        if (!FileManager.loadFile(this)) {
-            exit();
-        }
+        FileManager.loadFile(this);
         state = new WaitingState();
     }
 
@@ -88,6 +86,7 @@ public class Makima {
      */
     public void setPriority(int idx, Task.PriorityLevel priorityState) {
         tasks.get(idx).setPriority(priorityState);
+        FileManager.saveFile(this);
     }
 
     /**
