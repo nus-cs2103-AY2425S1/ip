@@ -1,12 +1,10 @@
 package maga.task;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
 
 import maga.commands.Command;
-import maga.exceptions.LoadTaskException;
 
 
 /**
@@ -166,7 +164,6 @@ public class TaskList {
      * Adds an existing task to the list and returns a message indicating the task was added.
      *
      * @param task The {@code Task} to add to the list.
-     * @return A message indicating the task has been added or an error message if the task list is full.
      */
     public void addTask(Task task) {
         taskList.add(task);

@@ -24,7 +24,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setTitle("Maga");
-            fxmlLoader.<MainWindow>getController().setMaga(maga);  // inject the Maga instance
+            fxmlLoader.<MainWindow>getController().setMaga(maga); // inject the Maga instance
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

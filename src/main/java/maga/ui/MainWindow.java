@@ -29,6 +29,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image trumpImage = new Image(this.getClass().getResourceAsStream("/images/Trump.png"));
 
+    /**
+     * Initialises the scroll pane to automatically scroll to the bottom and triggers an initial greeting
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
