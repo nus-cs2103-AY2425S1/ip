@@ -42,6 +42,10 @@ public class Parser {
         return new Command<>("delete", taskNumber);
     }
 
+    private Command<Integer> exitBot(String input) {
+        return new Command<>("bye", null);
+    }
+
     private Command<String> findTask(String input) {
         String description = input.substring(5).trim();
         return new Command<>("find", description);
@@ -104,6 +108,7 @@ public class Parser {
         case "todo" -> addTodoTask(input);
         case "event" -> addEventTask(input);
         case "deadline" -> addDeadlineTask(input);
+        case "bye" -> exitBot(input);
         default -> throw new InvalidCommandException();
         };
     }

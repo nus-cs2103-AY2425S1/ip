@@ -5,6 +5,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import maga.task.TaskList;
+import maga.task.TaskManager;
 
 
 /**
@@ -14,20 +15,19 @@ import maga.task.TaskList;
  * The controller also manages input validation and handles exceptions such as date parsing and invalid commands.
  */
 public class Controller {
-    private final Scanner scanner;
     private final TaskList taskList;
+    private final TaskManager taskManager;
     private final Parser parser = new Parser();
 
     /**
      * Constructs a {@code Controller} with the specified {@code Scanner} and {@code TaskList}.
      * The {@code Controller} initializes the parser and handles user commands based on input.
      *
-     * @param scanner  The {@code Scanner} object used to read user input.
      * @param taskList The {@code TaskList} that the controller will manage.
      */
-    public Controller(Scanner scanner, TaskList taskList) {
-        this.scanner = scanner;
+    public Controller(TaskList taskList, TaskManager taskManager) {
         this.taskList = taskList;
+        this.taskManager = taskManager;
     }
 
     /**
@@ -69,6 +69,18 @@ public class Controller {
     }
 
     /**
+     * Casts {@code command<?>} into {@code command<T>} to abstract out {@code SuppressWarnings("unchecked)}.
+     * Commands are safe to cast since the Parser class passes in the correct generic type.
+     *
+     * @param command The command to be casted.
+     */
+    private <T> Command<T> cast(Command<?> command) {
+        @SuppressWarnings("unchecked")
+        Command<T> castedCommand = (Command<T>) command;
+        return castedCommand;
+    }
+
+    /**
      * Processes user input and delegates the appropriate action based on the parsed command.
      * This method uses the {@code Parser} to interpret the input and execute corresponding commands
      * such as listing, marking, unmarking, deleting, finding, and creating tasks.
@@ -83,39 +95,34 @@ public class Controller {
     public String handleInput(String input) {
         try {
             Command<?> command = parser.handleInput(input);
+            String temp;
             switch (command.getCommandType()) {
             case "list" -> {
-                @SuppressWarnings("unchecked")
-                String temp = listTasks((Command<Integer>) command);
-                return temp;
+                temp = listTasks(cast(command));
             }
             case "mark" -> {
-                @SuppressWarnings("unchecked")
-                String temp = markTask((Command<Integer>) command);
-                return temp;
+                temp = markTask(cast(command));
             }
             case "unmark" -> {
-                @SuppressWarnings("unchecked")
-                String temp = unmarkTask((Command<Integer>) command);
-                return temp;
+                temp = unmarkTask(cast(command));
             }
             case "delete" -> {
-                @SuppressWarnings("unchecked")
-                String temp = deleteTask((Command<Integer>) command);
-                return temp;
+                temp = deleteTask(cast(command));
             }
             case "find" -> {
-                @SuppressWarnings("unchecked")
-                String temp = findTask((Command<String>) command);
-                return temp;
+                temp = findTask(cast(command));
             }
             case "todo", "event", "deadline" -> {
-                @SuppressWarnings("unchecked")
-                String temp = createTask((Command<LocalDate[]>) command);
-                return temp;
+                temp = createTask(cast(command));
+            }
+            case "bye" -> {
+                // no need to save tasks since it is handled in Maga.closeBot() method
+                return "Yeah I'ma see you in my next RALLY! A vote for me is a vote for America!";
             }
             default -> throw new InvalidCommandException();
             }
+            taskManager.saveTasks(taskList);
+            return temp;
         } catch (DateTimeParseException e) {
             return "Error while parsing date - format in yyyy-MM-dd";
         } catch (NumberFormatException e) {

@@ -10,40 +10,26 @@ import maga.task.TaskManager;
 * {@code TaskList}, and {@code Ui}.
 */
 public class Maga {
-    private Ui ui;
+    private Controller controller;
     private TaskList taskList;
     private TaskManager taskManager;
+
+    public Maga() {
+        initialiseBot();
+    }
 
     private void initialiseBot() {
         taskManager = new TaskManager();
         taskList = taskManager.loadTasks();
-        ui = new Ui(taskList);
-        ui.start();
+        controller = new Controller(taskList, taskManager);
     }
 
-    private void closeBot() {
-        ui.close();
+    public void closeBot() {
         taskManager.saveTasks(taskList);
     }
 
-    private void run() {
-        initialiseBot();
-    }
-
-    /**
-     * The entry point of the application.
-     * This method creates an instance of {@code Maga}, runs it, and closes the bot upon completion.
-     *
-     * @param args command-line arguments (not used)
-     */
-    public static void main(String[] args) {
-        Maga maga = new Maga();
-        maga.run();
-        maga.closeBot();
-    }
-
     public String getResponse(String input) {
-        return "test" + input;
+        return controller.handleInput(input);
     }
 
 }
