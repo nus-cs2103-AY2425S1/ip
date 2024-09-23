@@ -206,6 +206,25 @@ public class Ui {
         return displayList;
     }
 
+    public String displayCommands() {
+        String commands = "";
+        commands += "These are the commands I support!\n\n";
+        commands += "1. List - Lists the tasks in your task list\n";
+        commands += "2. Bye - Ends the conversation with the chatbot\n";
+        commands += "3. Todo - Adds a Todo Task to your task list (Format: Todo <task name>)\n";
+        commands += "4. Deadline - Adds a Deadline Task to your task list "
+                + "(Format: deadline <task name> /by <due date in dd-mm-yyyy hh:mm>)\n";
+        commands += "5. Event - Adds a Event Task to your task list "
+                + "(Format: event <task name> /from <due date in dd-mm-yyyy hh:mm>"
+                + " /to <due date in dd-mm-yyyy hh:mm>)\n";
+        commands += "7. Mark - Marks a task as completed (Format: mark <task number>)\n";
+        commands += "8. Unmark - Marks a task as not completed (Format: unmark <task number>)\n";
+        commands += "9. Delete - Deletes a task from the task list (Format: delete <task number>)\n";
+        commands += "10. Find - Finds tasks that contain a specific keyword (Format: find <keyword>)\n";
+        commands += "11. Help - Shows a list of commands this chatbot supports\n";
+        return commands;
+    }
+
     public String displayOneKeywordException() {
         return ONE_KEYWORD;
     }
