@@ -16,7 +16,9 @@ public class HelpCommand extends Command {
                     + "realise afterwards that it's not quite done yet.",
             "4. if you'd like, you can delete tasks that you no longer want to see with \"delete\".",
             "5. you can even find specific tasks with \"find\"!",
-            "and lastly, if ya' ever get bored of lil' ol' me, you can enter \"bye\" to exit the program.\n",
+            "6. if you want to view this again, you can type \"help\" anytime to read it again!",
+            "for more information about any of the commands, just type the command in as an input!",
+            "lastly, if ya' ever get bored of lil' ol' me, you can enter \"bye\" to exit the program.\n",
             "looking forward to workin' with ya' honey.",
             "love, Rizzler."};
     private final String[] helpMessage;
