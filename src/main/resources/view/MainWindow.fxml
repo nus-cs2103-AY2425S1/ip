@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox minHeight="600.0"
+      minWidth="600.0"
+      stylesheets="@../css/main.css"
+      xmlns="http://javafx.com/javafx/22"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="denim.ui.MainWindow">
+    <children>
+        <ScrollPane fx:id="scrollPane"
+                    fitToHeight="true"
+                    fitToWidth="true"
+                    hbarPolicy="NEVER"
+                    prefHeight="200.0"
+                    prefWidth="400.0"
+                    VBox.vgrow="ALWAYS">
+            <content>
+                <VBox fx:id="dialogContainer"
+                      spacing="10"
+                      VBox.vgrow="ALWAYS" />
+            </content>
+        </ScrollPane>
+        <HBox fx:id="interactiveContainer" alignment="CENTER" spacing="10">
+            <Button fx:id="helpButton" onAction="#openHelpWindow" text="Help" />
+            <HBox fx:id="interactive" HBox.hgrow="ALWAYS">
+                <TextField fx:id="userInput"
+                           prefHeight="100.0"
+                           prefWidth="${interactive.width}"
+                           onAction="#handleUserInput"
+                           promptText="Your wish is my command UwU" />
+            </HBox>
+            <Button fx:id="sendButton" onAction="#handleUserInput" text="Send" />
+        </HBox>
+    </children>
+</VBox>
