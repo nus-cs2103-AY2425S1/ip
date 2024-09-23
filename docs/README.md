@@ -1,6 +1,6 @@
 # Rizzler User Guide
 
-![Ui.png](https://github.com/Andrew22Teoh/ip/blob/master/docs/Ui.png)
+![Ui.png](Ui.png)
 
 Say hello to **Rizzler**! Your best friend(?) who'll help you keep track of everything you have to do!
 Read on below for the User Guide and instructions on how to use it properly!
