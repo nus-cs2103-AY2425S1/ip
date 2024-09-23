@@ -31,6 +31,8 @@ public class DateTime {
      * @throws InvalidDateTimeException if the given string does not follow the format
      */
     public static LocalDateTime parse(String string) {
+        assert string != null : "string should not be null";
+
         switch (string) {
         case "now":
             return LocalDateTime.now();
@@ -54,6 +56,7 @@ public class DateTime {
      * @return the formatted string
      */
     public static String format(LocalDateTime dateTime) {
+        assert dateTime != null : "dateTime should not be null";
         return OUTPUT_FORMATTER.format(dateTime);
     }
 }

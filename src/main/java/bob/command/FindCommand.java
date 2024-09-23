@@ -31,6 +31,7 @@ public class FindCommand extends Command {
         }
 
         List<Task> taskList = tasks.getTasks(); // Create a new List<Integer>
+        assert taskList != null : "TaskList.getTasks() should not return null";
         List<Integer> foundIndices = getIndices(taskList, keyword); // Get the list of indices of matching tasks
 
         String listString = foundIndices.stream()

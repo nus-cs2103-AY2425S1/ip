@@ -16,6 +16,7 @@ public abstract class Command {
     protected final Map<String, String> arguments;
 
     public Command(Map<String, String> arguments) {
+        assert arguments != null : "Arguments should not be null";
         this.arguments = arguments;
     }
 

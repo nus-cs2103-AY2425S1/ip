@@ -43,6 +43,8 @@ public class Ui {
      * @param text the text to output
      */
     public void printWithFormat(String text) {
+        assert text != null : "Text to be printed should not be null";
+
         String t = SEPARATOR + "\n "
                 + text.replace("\n", "\n ")
                 + "\n" + SEPARATOR;
@@ -59,6 +61,9 @@ public class Ui {
      * @param ignoreCase matches occurrences of the keyword ignoring the case if true, and vice versa
      */
     public String highlightKeyword(String text, String keyword, boolean ignoreCase) {
+        assert text != null : "Text to be printed should not be null";
+        assert keyword != null : "keyword should not be null";
+
         if (!ignoreCase) {
             return highlightKeyword(text, keyword);
         }
@@ -73,6 +78,8 @@ public class Ui {
      * @see #highlightKeyword(String, String, boolean)
      */
     public String highlightKeyword(String text, String keyword) {
+        assert text != null : "Text to be printed should not be null";
+        assert keyword != null : "keyword should not be null";
         return text.replace(keyword, ANSI_YELLOW_BACKGROUND + keyword + ANSI_RESET);
     }
 
@@ -99,6 +106,7 @@ public class Ui {
      * @param errorMessage the error message to output
      */
     public void printError(String errorMessage) {
+        assert errorMessage != null : "Error message should not be null";
         printWithFormat(ANSI_RED + errorMessage + ANSI_RESET);
         lastMessage = errorMessage;
     }
