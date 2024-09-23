@@ -39,20 +39,6 @@ public class MainWindow extends AnchorPane {
         nebula = n;
     }
 
-    /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
-     */
-//    @FXML
-//    private void handleUserInput() {
-//        String input = userInput.getText();
-//        String response = nebula.getResponse(input);
-//        dialogContainer.getChildren().addAll(
-//                DialogBox.getUserDialog(input, userImage),
-//                DialogBox.getDukeDialog(response, dukeImage)
-//        );
-//        userInput.clear();
-//    }
 
     private void initializeChatbot() {
         Nebula nebula = new Nebula("./data/nebulaTaskList.txt");
@@ -64,6 +50,10 @@ public class MainWindow extends AnchorPane {
         );
     }
 
+    /**
+     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * the dialog container. Clears the user input after processing.
+     */
     @FXML
     // Then handle user inputs normally with the getResponse method
     private void handleUserInput() throws IOException {
