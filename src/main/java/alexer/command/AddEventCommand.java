@@ -25,11 +25,16 @@ public class AddEventCommand extends Command {
 
     @Override
     public Response run(String... arguments) {
-        int fromIndex = 0;
-        int toIndex = 0;
+        int fromIndex = -1;
+        int toIndex = -1;
         for (int i = 0; i < arguments.length; i++) {
             if (arguments[i].equals("/from")) fromIndex = i;
             if (arguments[i].equals("/to")) toIndex = i;
+        }
+
+        if (fromIndex == -1 || toIndex == -1) {
+            return new Response("Uh-oh, you must specify a start date/time and an end date/time",
+                    Response.ResponseType.ERROR);
         }
 
         String description = Arrays.stream(arguments).limit(fromIndex)

@@ -22,12 +22,20 @@ public class DeleteTaskCommand extends Command {
 
     @Override
     public Response run(String... arguments) {
-        int index = Integer.parseInt(arguments[0]) - 1;
-        TaskManager taskManager = Alexer.getInstance().getTaskManager();
-        Task task = taskManager.removeTask(index);
-        taskManager.saveTasks();
+        try {
+            int index = Integer.parseInt(arguments[0]) - 1;
+            TaskManager taskManager = Alexer.getInstance().getTaskManager();
+            Task task = taskManager.removeTask(index);
+            taskManager.saveTasks();
 
-        return new Response(String.format("%s\n\n\t%s\n\nYou have %d tasks remaining.",
-                MESSAGE_DELETE_TASK, task, taskManager.getTaskCount()));
+            return new Response(String.format("%s\n\n\t%s\n\nYou have %d tasks remaining.",
+                    MESSAGE_DELETE_TASK, task, taskManager.getTaskCount()));
+        } catch (NumberFormatException e) {
+            return new Response("Error: The task to delete must be a number of the task index!",
+                    Response.ResponseType.ERROR);
+        } catch (IndexOutOfBoundsException e) {
+            return new Response("Error: That is not a valid task index!",
+                    Response.ResponseType.ERROR);
+        }
     }
 }

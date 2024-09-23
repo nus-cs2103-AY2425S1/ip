@@ -22,7 +22,8 @@ public class AddTodoCommand extends Command {
         TaskManager taskManager = Alexer.getInstance().getTaskManager();
         String description = String.join(" ", arguments);
         if (description.isEmpty()) {
-            return new Response("Oh-no! You forgot to include a description for your task!");
+            return new Response("Oh-no! You forgot to include a description for your task!",
+                    Response.ResponseType.ERROR);
         }
 
         Task todo = taskManager.createTodo(description);
