@@ -265,7 +265,7 @@ The program will shut down after 1 second
 Try the command format start with `Hi`, `Hello`, `Oke`, `Yo` or `Nah` to explore unique features of this chatbot
 
 > [!HINT]
-> Try `Nah` with a number.
+> Try `Nah` with a number.<br>
 --------------------------------------------------------------------------------------------------------------------
 ## FAQ
 
