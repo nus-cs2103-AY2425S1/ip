@@ -98,7 +98,6 @@ public class TaskList {
         taskList.add(newDeadline);
         storage.saveTasks();
         return newTaskAddedMsg(newDeadline);
-
     }
 
     /**
@@ -229,5 +228,12 @@ public class TaskList {
         Collections.sort(taskList, (t1, t2) -> compareTasks(t1, t2));
         storage.saveTasks();
         return listTasks();
+    }
+    /**
+     * Clears the tasklist (for testing purposes)
+     *
+     */
+    public static void clearTaskList() {
+        taskList.clear();
     }
 }
