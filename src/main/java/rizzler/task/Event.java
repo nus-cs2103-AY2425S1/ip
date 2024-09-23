@@ -2,7 +2,7 @@ package rizzler.task;
 
 import java.time.format.DateTimeParseException;
 
-import rizzler.ui.parser.DateTimeParser;
+import rizzler.parser.DateTimeParser;
 
 /**
  * Represents an Event with the addition of an <code>eventStart</code> and an <code>eventEnd</code>.

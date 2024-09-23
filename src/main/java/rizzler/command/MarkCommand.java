@@ -1,9 +1,9 @@
 package rizzler.command;
 
+import rizzler.RizzlerException;
 import rizzler.Storage;
 import rizzler.task.Task;
 import rizzler.task.TaskLog;
-import rizzler.ui.RizzlerException;
 
 /**
  * Represents the user's command to mark a task as done.

@@ -1,8 +1,8 @@
 package rizzler;
 
 import rizzler.command.Command;
+import rizzler.parser.Parser;
 import rizzler.task.TaskLog;
-import rizzler.ui.parser.Parser;
 
 /**
  * Represents the entire chatbot.

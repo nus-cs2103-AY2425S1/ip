@@ -1,6 +1,6 @@
 package rizzler.task;
 
-import rizzler.ui.parser.DateTimeParser;
+import rizzler.parser.DateTimeParser;
 
 /**
  * Represents a Task with the addition of a <code>deadlineTime</code>

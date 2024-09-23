@@ -13,7 +13,6 @@ import rizzler.task.Event;
 import rizzler.task.Task;
 import rizzler.task.TaskLog;
 import rizzler.task.ToDo;
-import rizzler.ui.RizzlerException;
 
 /**
  * Represents a storage object to handle reading and writing between TaskLogs and files.

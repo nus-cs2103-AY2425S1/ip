@@ -1,9 +1,9 @@
 package rizzler.command;
 
+import rizzler.RizzlerException;
 import rizzler.Storage;
 import rizzler.task.TaskLog;
 import rizzler.task.ToDo;
-import rizzler.ui.RizzlerException;
 
 /**
  * Represents the user's instruction to create a new todo.

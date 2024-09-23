@@ -2,10 +2,10 @@ package rizzler.command;
 
 import java.util.stream.Stream;
 
+import rizzler.RizzlerException;
 import rizzler.Storage;
 import rizzler.task.Task;
 import rizzler.task.TaskLog;
-import rizzler.ui.RizzlerException;
 
 /**
  * Represents the user's command to find a task based on a search term.

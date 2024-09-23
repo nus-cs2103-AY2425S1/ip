@@ -1,9 +1,9 @@
 package rizzler.command;
 
+import rizzler.RizzlerException;
 import rizzler.Storage;
 import rizzler.task.Deadline;
 import rizzler.task.TaskLog;
-import rizzler.ui.RizzlerException;
 
 /**
  * Represents the user's instruction to create a deadline.

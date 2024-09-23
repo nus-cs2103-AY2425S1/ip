@@ -1,6 +1,6 @@
 package rizzler.task;
 
-import rizzler.ui.RizzlerException;
+import rizzler.RizzlerException;
 
 /**
  * Represents a log of all tasks to keep track of the tasks on the user's list.

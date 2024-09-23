@@ -1,9 +1,9 @@
 package rizzler.command;
 
+import rizzler.RizzlerException;
 import rizzler.Storage;
 import rizzler.task.Task;
 import rizzler.task.TaskLog;
-import rizzler.ui.RizzlerException;
 
 /**
  * Represents user's command to unmark a task.

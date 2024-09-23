@@ -1,9 +1,9 @@
 package rizzler.command;
 
+import rizzler.RizzlerException;
 import rizzler.Storage;
 import rizzler.task.Event;
 import rizzler.task.TaskLog;
-import rizzler.ui.RizzlerException;
 
 /**
  * Represents the user's instruction to create an event.
