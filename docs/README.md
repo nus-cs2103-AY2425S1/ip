@@ -33,6 +33,12 @@ AVA has the personality of a helpful young woman.
 ```
 A GUI similar to the one above should appear in a few seconds.
 ```
+5. Type the command in the command box and press Enter to execute it.
+> e.g. typing `help` and pressing Enter will show a help response.
+6. Refer to the [Features](#features) below for details of each command.
+
+
+## Feature ABC
 
 // Describe the action and its outcome.
 
@@ -45,10 +51,6 @@ Example: `keyword (optional arguments)`
 ```
 expected output
 ```
-
-## Feature ABC
-
-// Feature details
 
 
 ## Feature XYZ
