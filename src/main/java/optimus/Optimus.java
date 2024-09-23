@@ -52,7 +52,7 @@ public class Optimus {
     }
 
     /**
-     * Method required for Optimus to run but is not actually needed in actual program
+     * Method for Optimus to run but is not actually needed in actual program since it launches from launcher
      * @param args
      */
     public static void main(String[] args) {}

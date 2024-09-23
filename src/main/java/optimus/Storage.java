@@ -40,8 +40,14 @@ public class Storage {
         List<Task> record = new ArrayList<>();
 
         if (!f.exists()) {
-            System.out.println("No existing data file found in the given directory. A new record will be established.");
-            return record;
+            try {
+                f.getParentFile().mkdirs();
+                f.createNewFile(); // Create a new empty file
+                System.out.println("No existing data file found in the given directory. A new record will be established.");
+                return record;
+            } catch (IOException e) {
+                throw new OptimusException("Failed to create a new data file.");
+            }
         }
 
         Scanner s = new Scanner(f);

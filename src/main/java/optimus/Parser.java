@@ -111,10 +111,11 @@ public class Parser {
     }
 
     private static String handleDeadlineCommand(String text, TaskList record, Ui ui) throws OptimusException {
+        text = text.trim();
         String[] parts = text.split(" /by ");
-        if (parts.length < 2) {
+        if (parts.length < 2 || parts[0].length() <= 9) {
             throw new OptimusException("The deadline format is incorrect. Please provide a description and a deadline " +
-                    "(eg. deadline desc /by date-time).");
+                    "(e.g., deadline desc /by date-time) with no additional spaces.");
         }
         String description = parts[0].substring(9).trim();
         String by = parts[1].trim();
@@ -124,14 +125,17 @@ public class Parser {
     }
 
     private static String handleEventCommand(String text, TaskList record, Ui ui) throws OptimusException {
-        String[] parts = text.split(" /from | /to ");
-        if (parts.length < 3) {
-            throw new OptimusException("The event time format is incorrect. Please provide both 'from' and 'to' times with" +
-                    "the description (eg. event desc /from from /to to).");
+        text = text.trim();
+        String[] parts = text.split("\\s+/from\\s+|\\s+/to\\s+");
+        if (parts.length < 3 || parts[0].length() <= 6) {
+            throw new OptimusException("The event format is incorrect. Please provide a description, " +
+                    "start time, and end time (e.g., event desc /from date-time /to date-time) with " +
+                    "no additional spaces.");
         }
         String description = parts[0].substring(6).trim();
         String from = parts[1].trim();
         String to = parts[2].trim();
+
         Task newTask = new Event(description, from, to);
         record.addTask(newTask);
         return ui.taskAdded(newTask, record.getSizeOfRecord());

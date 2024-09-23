@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    String FILE_PATH = "./data/optimus.txt";
+    String FILE_PATH = "./src/main/java/optimus/optimusfile";
     private Optimus optimus = new Optimus(FILE_PATH);
 
     @Override
