@@ -42,10 +42,7 @@ public class Torne {
 
             // first check if it's an exit (`bye`) command
             if (input.equals("bye")) {
-                output.showExitMessage();
-
-                // save tasks
-                storage.saveTasks(taskHandler.getTaskList());
+                shutdown();
 
                 break;
             }
@@ -61,6 +58,16 @@ public class Torne {
             }
 
         }
+    }
+
+    /**
+     * Tells Torne to shut down. Performs closing checks and one last data save.
+     */
+    public void shutdown() {
+        output.showExitMessage(); // only shows to CLI.
+
+        // save tasks
+        storage.saveTasks(taskHandler.getTaskList());
     }
 
     /**
