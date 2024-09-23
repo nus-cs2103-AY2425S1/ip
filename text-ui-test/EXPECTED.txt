@@ -1,42 +1,42 @@
+ File not found. Creating new file...
 ___________________________________________________________
- Hello! I'm app.Friday
+ Hello BO$$, I'm Friday!
  What can I do for you?
 ___________________________________________________________
     _______________________________________________________
-     Got it. I've added this task:
+     Got it BO$$. I've added this task:
        [T][ ] borrow book
-     Now you have 1 tasks in the list.
+     BO$$, now you have 1 tasks in the list.
     _______________________________________________________
     _______________________________________________________
-     Here are the tasks in your list:
+     BO$$, here are the tasks in your list:
      1.[T][ ] borrow book
     _______________________________________________________
     _______________________________________________________
-     Got it. I've added this task:
-       [D][ ] return book (by: Sunday)
-     Now you have 2 tasks in the list.
+     Got it BO$$. I've added this task:
+       [D][ ] return book (by: Oct 10 2024)
+     BO$$, now you have 2 tasks in the list.
     _______________________________________________________
     _______________________________________________________
-     Here are the tasks in your list:
+     BO$$, here are the tasks in your list:
      1.[T][ ] borrow book
-     2.[D][ ] return book (by: Sunday)
+     2.[D][ ] return book (by: Oct 10 2024)
     _______________________________________________________
     _______________________________________________________
-     Nice! I've marked this task as done:
+     Nice BO$$! I've marked this task as done:
        [T][X] borrow book
     _______________________________________________________
     _______________________________________________________
-     Got it. I've added this task:
-       [E][ ] project meeting (from: Mon 2pm  to: 4pm)
-     Now you have 3 tasks in the list.
+     Got it BO$$. I've added this task:
+       [E][ ] project meeting (from: Oct 10 2024 to: Oct 11 2024)
+     BO$$, now you have 3 tasks in the list.
     _______________________________________________________
     _______________________________________________________
-     Here are the tasks in your list:
+     BO$$, here are the tasks in your list:
      1.[T][X] borrow book
-     2.[D][ ] return book (by: Sunday)
-     3.[E][ ] project meeting (from: Mon 2pm  to: 4pm)
+     2.[D][ ] return book (by: Oct 10 2024)
+     3.[E][ ] project meeting (from: Oct 10 2024 to: Oct 11 2024)
     _______________________________________________________
 ___________________________________________________________
- Bye. Hope to see you again soon!
+ Bye BO$$! Hope to see you again soon!
 ___________________________________________________________
-

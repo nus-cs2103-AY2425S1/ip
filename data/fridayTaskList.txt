@@ -8,12 +8,12 @@ D 0 2100 /by 2024-08-30
 D 1 T7 /by 2024-11-30
 T 1 2103
 T 0 task10
-T 1 task11
+T 0 task11
 T 0 task12
 D 0 task13 /by 2024-10-10
 E 1 task 14 /from 2024-10-10 /to 2025-10-09
 T 1 task15
-T 1 Task16
+T 0 Task16
 D 1 task17 /by 2024-10-20
 T 1 Task18
 T 1 Task19
@@ -24,4 +24,4 @@ E 1 task22 /from 2024-09-20 /to 2024-09-23
 E 1 task27 /from 2025-10-10 /to 2027-10-10
 E 1 task27 /from 2025-10-10 /to 2027-10-10
 E 1 task27 /from 2025-10-10 /to 2029-10-10
-D 1 task29 /by 2026-10-10
+E 1 task28 /from 2024-10-10 /to 2025-10-10
