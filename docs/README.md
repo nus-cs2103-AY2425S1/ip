@@ -14,6 +14,8 @@ you never have to search anywhere else for your task lists again.
 - [Listing all tasks : `list`](#listing-all-tasks-list)
 - [Locating task by name: `find`](#locating-task-by-name-find)
 - [Deleting a task : `delete`](#deleting-a-task-delete)
+- [Marking a task: `mark`](#marking-a-task-mark)
+- [Unmarking a task: `unmark`](#unmarking-a-task-unmark)
 - [Exiting the program : `bye`](#exiting-the-program-bye)
 - [Saving the data](#saving-the-data)
 
@@ -108,6 +110,32 @@ Examples:
 Got it. I've removed this task:
 [D][ ] submit assignment (by: 24/9/2024 2359)
 Now you have 2 tasks in the list.
+```
+
+## Marking a task: `mark`
+Marks the task with the specified task id as done
+
+Format:
+- `mark TASKID`
+
+Examples:
+* `mark 1`
+
+```
+[T][X] drink water
+```
+
+## Unmarking a task: `unmark`
+Marks the task with the specified task id as not done
+
+Format:
+- `unmark TASKID`
+
+Examples:
+* `unmark 1`
+
+```
+[T][ ] drink water
 ```
 
 ## Exiting the program: `bye`
