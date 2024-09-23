@@ -1,17 +1,14 @@
 package alexer.ui;
 
+/**
+ * Represents a response message from the chatbot.
+ *
+ * @author sayomaki
+ */
 public class Response {
-    private String response;
+    public final String response;
 
     public Response(String response) {
-        this.response = response;
-    }
-
-    /**
-     * Updates the response if needed
-     * @param response the new response string
-     */
-    public void setResponse(String response) {
         this.response = response;
     }
 
@@ -22,14 +19,5 @@ public class Response {
         System.out.println("____________________________________________________________");
         System.out.println(response);
         System.out.println("____________________________________________________________");
-    }
-
-    /**
-     * Returns the string form of the response
-     * @return the response string
-     */
-    @Override
-    public String toString() {
-        return response;
     }
 }
