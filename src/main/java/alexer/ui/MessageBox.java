@@ -46,6 +46,10 @@ public class MessageBox extends HBox {
         text.getStyleClass().add("reversed-label");
     }
 
+    private void setColor(Response.ResponseType type) {
+        if (type == Response.ResponseType.ERROR) text.getStyleClass().add("error");
+    }
+
     /**
      * Creates a message box originating from the user (user input).
      * @param s the string to display
@@ -64,6 +68,7 @@ public class MessageBox extends HBox {
      */
     public static MessageBox createBotDialog(Response response, Image i) {
         MessageBox msgBox = new MessageBox(response.response, i);
+        msgBox.setColor(response.type);
         msgBox.flip();
         return msgBox;
     }
