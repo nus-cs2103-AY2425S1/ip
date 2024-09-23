@@ -11,10 +11,12 @@ public class EventCommand extends Command {
     private final Event event;
 
     /**
-     * Constructor for an EventCommand that
+     * Constructs an EventCommand that also creates an Event object during initialisation.
      * @param eventDesc Text description of the event.
      * @param eventStart Date of event start in <code>YYYY-MM-DD</code> format.
+     *                   Can also be in any other date or non-date format.
      * @param eventEnd Date of event end in <code>YYYY-MM-DD</code> format.
+     *                 Can also be in any other date or non-date format.
      */
     public EventCommand(String eventDesc, String eventStart, String eventEnd) {
         super();
@@ -34,9 +36,9 @@ public class EventCommand extends Command {
         return createConfirmationMessage(taskLog.getNumTasks());
     }
 
-    private String[] createConfirmationMessage(int numTasks) {
+    private String[] createConfirmationMessage(int newNumTasks) {
         return new String[] {"certainly, i'll keep track of this event for you ;)",
                 "\t" + event,
-                "now we have " + numTasks + " tasks to work on."};
+                "now we have " + newNumTasks + " tasks to work on."};
     }
 }

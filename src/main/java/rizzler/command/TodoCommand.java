@@ -5,13 +5,13 @@ import rizzler.task.TaskLog;
 import rizzler.task.ToDo;
 
 /**
- * Represents the user's command to create a new ToDo.
+ * Represents the user's instruction to create a new todo.
  */
 public class TodoCommand extends Command {
     private final ToDo newTodo;
 
     /**
-     * Constructor for a TodoCommand. Also initialises a ToDo.
+     * Constructs a TodoCommand. Also initialises a ToDo.
      * @param todoDesc Text description of the task to be done.
      */
     public TodoCommand(String todoDesc) {
@@ -32,9 +32,9 @@ public class TodoCommand extends Command {
         return createConfirmationMessage(taskLog.getNumTasks());
     }
 
-    private String[] createConfirmationMessage(int numTasks) {
+    private String[] createConfirmationMessage(int newNumTasks) {
         return new String[] {"certainly, i'll keep track of this todo for you ;)",
                 "\t" + newTodo,
-                "now we have " + numTasks + " tasks to work on."};
+                "now we have " + newNumTasks + " tasks to work on."};
     }
 }

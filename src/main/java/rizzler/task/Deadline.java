@@ -12,7 +12,7 @@ public class Deadline extends Task {
     private final String deadlineTime;
 
     /**
-     * Constructor for a <code>Deadline</code> object.
+     * Constructs a <code>Deadline</code> object.
      * @param deadlineDesc <code>String</code> describing the deadline task.
      * @param deadlineTime <code>String</code> describing the time/date of the deadline.
      */
@@ -21,18 +21,23 @@ public class Deadline extends Task {
     }
 
     /**
-     * Constructor for a <code>Deadline</code> object.
+     * Constructs a <code>Deadline</code> object.
      * @param deadlineDesc <code>String</code> describing the deadline task.
      * @param deadlineTime <code>String</code> describing the time/date of the deadline.
      * @param isDone Boolean to indicate if the task being created has been marked as done.
      */
     public Deadline(String deadlineDesc, String deadlineTime, boolean isDone) {
         super(deadlineDesc, isDone);
+        this.deadlineTime = deadlineToString(deadlineTime);
+
+    }
+
+    private String deadlineToString(String deadlineTime) {
         if (DateTimeParser.canParse(deadlineTime)) {
             LocalDate deadlineDatetime = LocalDate.parse(deadlineTime);
-            this.deadlineTime = DateTimeParser.toStr(deadlineDatetime);
+            return DateTimeParser.toStr(deadlineDatetime);
         } else {
-            this.deadlineTime = deadlineTime;
+            return deadlineTime;
         }
     }
 
@@ -42,7 +47,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.deadlineTime + ")";
+        return "[D]" + super.toString() + " (by: " + deadlineTime + ")";
     }
 
     /**
