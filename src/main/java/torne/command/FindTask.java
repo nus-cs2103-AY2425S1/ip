@@ -37,7 +37,7 @@ public class FindTask extends Command {
         messageBuilder.append(String.format("Your search for '%s' returned the following tasks:\n", keyword));
         // TODO maybe the index should be one that taskHandler assigns to the tasks...
         for (int i = 0; i < tasksFound.size(); i++) {
-            String itemized = String.format("%d. %s\n", i+1, tasksFound.get(i));
+            String itemized = String.format("%d. %s\n", i + 1, tasksFound.get(i));
             messageBuilder.append(itemized);
         }
 

@@ -1,8 +1,5 @@
 package torne.ui;
 
-import java.io.IOException;
-import java.util.Collections;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,6 +10,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+
+import java.io.IOException;
+import java.util.Collections;
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
@@ -70,7 +70,7 @@ public class DialogBox extends HBox {
      * Creates a standard dialog box for the user. Right-aligned.
      *
      * @param text text content of the dialog box.
-     * @param img image to be shown alongside the dialog box.
+     * @param img  image to be shown alongside the dialog box.
      * @return {@link DialogBox} object.
      */
     public static DialogBox getUserDialog(String text, Image img) {
@@ -81,7 +81,7 @@ public class DialogBox extends HBox {
      * Creates a standard dialog box for Torne (the bot). Left-aligned.
      *
      * @param text text content of the dialog box.
-     * @param img image to be shown alongside the dialog box.
+     * @param img  image to be shown alongside the dialog box.
      * @return {@link DialogBox} object.
      */
     public static DialogBox getTorneDialog(String text, Image img) {
@@ -97,7 +97,7 @@ public class DialogBox extends HBox {
      * Has additional error formatting.
      *
      * @param text error text content of the dialog box.
-     * @param img image to be shown alongside the dialog box.
+     * @param img  image to be shown alongside the dialog box.
      * @return {@link DialogBox} object.
      */
     public static DialogBox getErrorDialog(String text, Image img) {

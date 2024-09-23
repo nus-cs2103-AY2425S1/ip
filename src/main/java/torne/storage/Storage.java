@@ -85,6 +85,7 @@ public class Storage {
 
     /**
      * Saves the list of tasks to the default text file
+     *
      * @param tasks List of tasks to be saved.
      */
     public void saveTasks(ArrayList<Task> tasks) {

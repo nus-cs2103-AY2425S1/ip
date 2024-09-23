@@ -20,8 +20,8 @@ public class Parser {
      * that will be used for all commands called by this Parser.
      *
      * @param taskHandler Default {@link TaskHandler}.
-     * @param output Default {@link ChatOutput}.
-     * @param storage Default {@link Storage}.
+     * @param output      Default {@link ChatOutput}.
+     * @param storage     Default {@link Storage}.
      */
     public Parser(TaskHandler taskHandler, ChatOutput output, Storage storage) {
         commandList = new CommandList();
@@ -83,7 +83,7 @@ public class Parser {
         String argsStr = input.substring(command.length());
 
         // Split string to get arguments + their argument values
-        String[] args = argsStr.split("\s(?=/)|$");
+        String[] args = argsStr.split(" (?=/)|$");
 
         // add a default arg
         if (args.length > 0 && !args[0].isEmpty() && args[0].charAt(0) != '/') {

@@ -15,7 +15,7 @@ public class Task {
      *
      * @return torne.task.Task created from the input string.
      * @throws TorneInvalidCommandException for issues with loading the torne.task.Task via command.
-     * @throws TorneInvalidDataException for issues with loading the torne.task.Task via storage.
+     * @throws TorneInvalidDataException    for issues with loading the torne.task.Task via storage.
      */
     public static Task fromStorageString(String input) throws TorneInvalidCommandException, TorneInvalidDataException {
         assert input != null : "input should not be null";

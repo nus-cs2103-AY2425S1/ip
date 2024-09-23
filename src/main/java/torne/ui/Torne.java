@@ -4,9 +4,9 @@ import torne.command.Command;
 import torne.command.Parser;
 import torne.exception.TorneException;
 import torne.storage.Storage;
-import torne.task.*;
+import torne.task.TaskHandler;
 
-import java.util.*;
+import java.util.Scanner;
 
 /**
  * This is the main class for `torne.ui.Torne`.

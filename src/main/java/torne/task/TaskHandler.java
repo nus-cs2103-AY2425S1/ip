@@ -72,7 +72,7 @@ public class TaskHandler {
         StringBuilder taskListString = new StringBuilder();
 
         for (int i = 0; i < taskList.size(); i++) {
-            String itemized = String.format("%d. %s\n", i+1, taskList.get(i));
+            String itemized = String.format("%d. %s\n", i + 1, taskList.get(i));
             taskListString.append(itemized);
         }
 
@@ -99,7 +99,7 @@ public class TaskHandler {
      * <br>
      * Used for all task-related commands that need use indexing to get the right task.
      *
-     * @param index Index to be checked. 0-indexed.
+     * @param index  Index to be checked. 0-indexed.
      * @param output {@link ChatOutput} instance.
      * @return `True` if index is valid, `False` if index is not.
      */

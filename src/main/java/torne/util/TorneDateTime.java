@@ -139,7 +139,7 @@ public class TorneDateTime {
         boolean isFuture = localDateTime.isAfter(now); // so equal is considered "past"
 
         // make sure that diff is positive
-        Duration diff  = isFuture ? Duration.between(now, localDateTime) : Duration.between(localDateTime, now);
+        Duration diff = isFuture ? Duration.between(now, localDateTime) : Duration.between(localDateTime, now);
         String differenceString;
 
         if (diff.toSeconds() < 60) {

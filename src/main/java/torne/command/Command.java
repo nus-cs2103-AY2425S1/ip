@@ -2,7 +2,6 @@ package torne.command;
 
 import torne.command.argument.CommandArgumentList;
 import torne.exception.TorneException;
-import torne.exception.TorneInvalidCommandException;
 import torne.storage.Storage;
 import torne.task.TaskHandler;
 import torne.ui.ChatOutput;
@@ -47,14 +46,14 @@ public abstract class Command {
      * that the command will use.
      *
      * @param taskHandler Default {@link TaskHandler}.
-     * @param output Default {@link ChatOutput}.
-     * @param storage Default {@link Storage}.
+     * @param output      Default {@link ChatOutput}.
+     * @param storage     Default {@link Storage}.
      */
     public void init(TaskHandler taskHandler, ChatOutput output, Storage storage) {
         this.taskHandler = taskHandler;
         this.output = output;
         this.storage = storage;
-    };
+    }
 
     /**
      * Executes the command. Takes in a map of arguments.
@@ -66,6 +65,7 @@ public abstract class Command {
     /**
      * Returns a list of arguments that this command accepts as a {@link java.util.List} of
      * {@link String}s.
+     *
      * @return List of arguments. Default is the empty list [].
      */
     public List<String> getArgStringList() {

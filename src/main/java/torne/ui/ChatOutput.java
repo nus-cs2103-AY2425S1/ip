@@ -26,9 +26,9 @@ public class ChatOutput {
                     |_|  \\____/|_|  \\_\\_| \\_|______|
                                                    \s
                 short for Torment Nexus™, your F R I E N D L Y neighborhood chatbot :3
-                
+                                
                 How may I help you today?
-                
+                                
                 💡 Pro tip: Use command `help` to view all commands!""";
         writeText(greetingText);
     }
@@ -80,6 +80,7 @@ public class ChatOutput {
 
     /**
      * Gets the current output sent to this {@link ChatOutput}.
+     *
      * @return Output {@link ChatResponse}.
      */
     public ChatResponse getCurrentOut() {

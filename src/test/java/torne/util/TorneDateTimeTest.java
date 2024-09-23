@@ -6,9 +6,9 @@ import torne.exception.TorneInvalidCommandException;
 import torne.exception.TorneInvalidDataException;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TorneDateTimeTest {
 
