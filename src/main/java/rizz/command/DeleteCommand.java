@@ -13,7 +13,7 @@ public class DeleteCommand extends SaveableCommand {
     public String execute(TaskList tasks) {
 
         return "Noted. I've removed these task:\n" + tasks.deleteTask(taskIndex)
-                + "Now you have " + tasks.getLength() + " tasks in the list.\n" + tasks.toString();
+                + "\n\nNow you have " + tasks.getLength() + " tasks in the list.\n" + tasks.toString();
     }
 }
 

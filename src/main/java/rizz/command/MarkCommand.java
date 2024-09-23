@@ -10,6 +10,6 @@ public class MarkCommand extends SaveableCommand {
 
     @Override
     public String execute(TaskList tasks) {
-        return "Nice! I've marked these task as done:\n" + tasks.markTask(taskIndex);
+        return "Nice! I've marked these tasks as done:\n" + tasks.markTask(taskIndex);
     }
 }
