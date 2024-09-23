@@ -1,7 +1,6 @@
 package chatbot;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 import chatbot.impl.KatChatBotImpl;
 import chatbot.impl.MessageParserImpl;
@@ -26,10 +25,9 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage stage) {
-        Scanner scanner = new Scanner(System.in);
         TaskStorage taskStorage = new TaskStorageImpl();
         MessageParser messageParser = new MessageParserImpl(taskStorage);
-        ChatBot chatBot = new KatChatBotImpl(scanner, messageParser);
+        ChatBot chatBot = new KatChatBotImpl(messageParser);
 
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));

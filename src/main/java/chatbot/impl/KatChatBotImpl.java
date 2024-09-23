@@ -1,7 +1,5 @@
 package chatbot.impl;
 
-import java.util.Scanner;
-
 import chatbot.ChatBot;
 import chatbot.MessageParser;
 import chatbot.exceptions.InvalidMessageException;
@@ -26,43 +24,15 @@ public class KatChatBotImpl implements ChatBot {
 
     private static final String ENDING_RESPONSE = "See you!";
 
-    private final Scanner scanner;
-
     private final MessageParser messageParser;
 
     /**
      * Constructs a new KatChatBotImpl with the specified scanner and message parser.
      *
-     * @param scanner       The Scanner object for reading user input
      * @param messageParser The MessageParser object for processing user messages
      */
-    public KatChatBotImpl(Scanner scanner, MessageParser messageParser) {
-        this.scanner = scanner;
+    public KatChatBotImpl(MessageParser messageParser) {
         this.messageParser = messageParser;
-    }
-
-    @Override
-    public void start() {
-        System.out.println("Hello from\n" + LOGO);
-
-        respond(GREETING_RESPONSE);
-        while (true) {
-            System.out.println("> Me");
-            String input = scanner.nextLine().trim();
-
-            if (input.equalsIgnoreCase(ENDING_COMMAND)) {
-                break;
-            }
-
-            try {
-                String response = messageParser.handleMessage(input);
-                respond(response);
-            } catch (InvalidMessageException e) {
-                respond(e.getMessage());
-            }
-        }
-
-        respond(ENDING_RESPONSE);
     }
 
     @Override
@@ -76,18 +46,6 @@ public class KatChatBotImpl implements ChatBot {
         } catch (InvalidMessageException e) {
             return e.getMessage();
         }
-    }
-
-    /**
-     * Displays the chatbot's response with formatting.
-     *
-     * @param responseMsg The message to be displayed as the chatbot's response.
-     */
-    private void respond(String responseMsg) {
-        System.out.println("~".repeat(50));
-        System.out.println("> Kat");
-        System.out.println(responseMsg);
-        System.out.println("~".repeat(50));
     }
 
 }

@@ -6,13 +6,6 @@ package chatbot;
 public interface ChatBot {
 
     /**
-     * Starts the chatbot interaction.
-     * Initiates the conversation, processes user input, and generates responses
-     * until the user decides to end the conversation.
-     */
-    void start();
-
-    /**
      * Generates a response based on the given user input.
      *
      * @param input The user's input message.
