@@ -142,28 +142,20 @@ public class Chappy {
                             break;
 
                         case DEADLINE:
-                            String[] deadlineInput = userInput.trim().split("(?i)" + Command.DEADLINE.getKeyword());
-                            if (deadlineInput.length < 2) {
-                                throw new CreateTaskException("Oh SIR! The description of a Deadline cannot be empty!");
+                            Deadline deadline = Deadline.of(userInput);
+                            if (deadline != null) {
+                                Task.addTask(deadline);
+                                Chappy.saveToDisk();
                             }
-                            Deadline.validateOptions(userInput.trim());
-                            String[] deadlineInput2 = deadlineInput[1].split(Deadline.Option.values()[0].getKeyword());
-                            Deadline deadline = new Deadline(deadlineInput2[0].trim(), deadlineInput2[1].trim());
-                            Task.addTask(deadline);
-                            Chappy.saveToDisk();
                             break;
 
                         case EVENT:
-                            String[] eventInput = userInput.trim().split("(?i)" + Command.EVENT.getKeyword());
-                            if (eventInput.length < 2) {
-                                throw new CreateTaskException("Oh SIR! The description of an Event cannot be empty!");
+                            Event event = Event.of(userInput);
+                            if (event != null) {
+                                Task.addTask(event);
+                                Chappy.saveToDisk();
                             }
-                            Event.validateOptions(userInput.trim());
-                            String[] eventInput2 = eventInput[1].split(Event.Option.values()[0].getKeyword());
-                            String[] eventInput3 = eventInput2[1].split(Event.Option.values()[1].getKeyword());
-                            Event task = new Event(eventInput2[0].trim(), eventInput3[0].trim(), eventInput3[1].trim());
-                            Task.addTask(task);
-                            Chappy.saveToDisk();
+                            
                             break;
 
                         case DELETE:
