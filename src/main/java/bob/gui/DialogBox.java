@@ -52,9 +52,28 @@ public class DialogBox extends HBox {
         return new DialogBox(s, i);
     }
 
-    public static DialogBox getBobDialog(String s, Image i) {
+    public static DialogBox getBobDialog(String s, Image i, String commandType) {
         var db = new DialogBox(s, i);
         db.flip();
+        db.changeDialogStyle(commandType);
         return db;
+    }
+
+    private void changeDialogStyle(String commandType) {
+        switch(commandType) {
+        case "TodoCommand":
+        case "DeadlineCommand":
+        case "EventCommand":
+            dialog.getStyleClass().add("add-label");
+            break;
+        case "MarkCommand":
+            dialog.getStyleClass().add("marked-label");
+            break;
+        case "DeleteCommand":
+            dialog.getStyleClass().add("delete-label");
+            break;
+        default:
+            // Do nothing
+        }
     }
 }

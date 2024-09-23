@@ -99,9 +99,8 @@ public class Ui {
      * @param errorMessage the error message to output
      */
     public void printError(String errorMessage) {
-        String displayedText = ANSI_RED + errorMessage + ANSI_RESET;
-        printWithFormat(displayedText);
-        lastMessage = displayedText;
+        printWithFormat(ANSI_RED + errorMessage + ANSI_RESET);
+        lastMessage = errorMessage;
     }
 
     /**

@@ -14,6 +14,7 @@ public class Bob {
     private final Ui ui;
     private final Parser parser;
     private TaskList tasks;
+    private String commandType = "";
 
     /**
      * Constructs a Bob instance that stores data at the given filePath.
@@ -58,9 +59,20 @@ public class Bob {
         try {
             Command c = parser.parse(input);
             c.execute(tasks, ui, storage);
+            commandType = c.getClass().getSimpleName();
         } catch (BobException e) {
             ui.printError(e.getMessage());
+            commandType = "";
         }
         return ui.getLastMessage();
+    }
+
+    /**
+     * Returns the command type of the last command as a string.
+     *
+     * @return the command type as a String
+     */
+    public String getCommandType() {
+        return commandType;
     }
 }
