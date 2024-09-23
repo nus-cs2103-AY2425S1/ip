@@ -1,8 +1,9 @@
 package knight2103.tasks;
 
-import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.DateTimeException;
 
 /**
  * Models a task to do that contains a start date & time and an end date & time.
@@ -21,10 +22,13 @@ public class EventTask extends Task {
      * @param description The description of the task.
      * @param startTime The start date & time of the task.
      * @param endTime The end date & time of the task.
+     * @throws DateTimeParseException If the start and end date&time in EventTask instance is not written in
+     * yyyy-MM-ddThh:mm format.
      * @throws DateTimeException If the start date and time of the event task
      * is before the end date and time.
      */
-    public EventTask(String description, String startTime, String endTime) throws DateTimeException {
+    public EventTask(String description, String startTime, String endTime)
+            throws DateTimeParseException, DateTimeException {
         super(description);
         this.startTime = LocalDateTime.parse(startTime);
         this.endTime = LocalDateTime.parse(endTime);
@@ -50,13 +54,14 @@ public class EventTask extends Task {
 
     @Override
     public String toStringInFile() {
-        return String.format("%s %s | %s | %s", EVENT_IDENTIFIER, super.toStringInFile(),
-                this.startTime, this.endTime);
+        return String.format("%s %s | %s | %s",
+                EVENT_IDENTIFIER, super.toStringInFile(), this.startTime, this.endTime);
     }
 
     @Override
     public String toString() {
-        return String.format("[%s]%s (from: %s to: %s)", EVENT_IDENTIFIER, super.toString(),
+        return String.format("[%s]%s (from: %s to: %s)",
+                EVENT_IDENTIFIER, super.toString(),
                 this.startTime.format(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT_FOR_LIST)),
                 this.endTime.format(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT_FOR_LIST)));
     }

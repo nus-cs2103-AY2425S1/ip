@@ -5,7 +5,7 @@ import knight2103.files.Storage;
 import knight2103.tasks.TaskList;
 
 /**
- * Models after a command that shows a full list of task.
+ * Models after a command that shows a full list of tasks.
  */
 public class ListCommand extends Command {
     ListCommand() {

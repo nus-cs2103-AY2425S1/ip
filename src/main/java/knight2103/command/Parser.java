@@ -1,7 +1,7 @@
 package knight2103.command;
 
 /**
- * Acts as interpreter of the user Commands to be executed.
+ * Acts as an interpreter of the user inputs to execute bot's Commands.
  */
 public class Parser {
     /**
@@ -12,10 +12,10 @@ public class Parser {
      * @param fullCommand The input command given which must be of String type.
      * @return the relevant Command object that corresponds to the user input, if input is valid.
      * @throws InvalidCommandException If the first word of user input does not match
-     * with expected command verbs. Or in general, if the command format is invalid.
+     * with expected command verbs, and if the command format, in general, is invalid.
      * @throws ArrayIndexOutOfBoundsException If the user input does not match
-     * the expected basic format which for certain commands, requires the description,
-     * apart from the first word (command verb). Such exceptions can be seen as a more specific kind of
+     * the expected basic format which for certain commands, they require the description,
+     * apart from the first word (command verb). Such exception thrown can be seen as a more specific kind of
      * InvalidCommandException.
      */
     public static Command parse(String fullCommand) throws InvalidCommandException {
@@ -38,7 +38,7 @@ public class Parser {
 
         try {
             switch (commandArray[COMMAND_INDEX]) {
-            case COMMAND_LIST_INPUT: // must be final
+            case COMMAND_LIST_INPUT:
                 return new ListCommand();
             case COMMAND_TODO_INPUT:
                 return new AddCommand(CommandVerb.TODO, commandArray[DESCRIPTION_INDEX]);
@@ -59,11 +59,11 @@ public class Parser {
             case COMMAND_BYE_INPUT:
                 return new ByeCommand();
             default:
-                throw new InvalidCommandException("Invalid Commands. Only valid command verbs are "
+                throw new InvalidCommandException("Invalid Command. Only valid command verbs are "
                         + "list, todo, deadline, event, mark, unmark, delete, find, sort, bye");
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new InvalidCommandException("There's an issue in the instruction format."
+            throw new InvalidCommandException("There's an issue in the command format."
                     + "\nPlease check that it is <CommandVerb> <description> format");
         }
     }

@@ -8,7 +8,6 @@ import knight2103.tasks.EventTask;
 import knight2103.tasks.TaskType;
 import knight2103.Pair;
 
-import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Scanner;
@@ -17,6 +16,7 @@ import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
+import java.time.DateTimeException;
 
 /**
  * Enables storing of a text file which indicates a list of tasks.
@@ -28,13 +28,12 @@ public class Storage {
      * Constructs a Storage object which contains a text file that
      * stores the list of tasks on computer hard disk.
      *
-     * @param filePath the relative path of the location of the file that
+     * @param filePath The relative path of the location of the file that
      * stores the list of tasks in the computer hard disk.
      */
     public Storage(String filePath) {
         this.taskFile = new File(filePath);
     }
-
 
     /**
      * Appends the tasks added to the storage text file. When the bot's list of tasks
@@ -45,6 +44,7 @@ public class Storage {
      * @throws IOException If the FileWriter cannot be instantiated.
      */
     public void saveToFile(Task taskToSave) throws IOException {
+        // Solution below adapted from https://www.geeksforgeeks.org/filewriter-class-in-java/
         FileWriter tasksWriter = new FileWriter(this.taskFile, true);
         tasksWriter.write("\n" + taskToSave.toStringInFile());
         tasksWriter.close();
@@ -61,50 +61,52 @@ public class Storage {
      * @throws IOException If the FileWriter cannot be instantiated.
      */
     public void saveToFile(TaskList tasks) throws IOException {
+        // @@author cth06-Github-reused
+        // Reused from https://www.geeksforgeeks.org/java-program-to-write-into-a-file/ with minor changes
         FileWriter tasksWriter = new FileWriter(this.taskFile, false);
         tasksWriter.write(tasks.toStringInFile());
         tasksWriter.close();
+        // @@author
     }
-
 
     /**
      * Returns a pair of values: the list of tasks the function is able to generate and any error messages
      * that came during the generation.
      * Reads the file that stores all the tasks and load them into an ArrayList<Task>. This ArrayList<Task>
-     * instance is needed to be stored in the bot's list of tasks, which is a TaskList instance. If there
-     * are any errors in the line formatting in the storage files, these error messages generated are
-     * accumulated and stored as well. The function will not be terminated prematurely due to an error in
-     * the formatting of file contents, it will fully process the file contents and stores all possible
-     * Task objects so long as the task in the file is formatted correctly. Hence, if all the file contents
-     * are formatted wrongly, an empty ArrayList<Task> object will be instantiated to be used in the bot's
-     * TaskList instance, containing all the error messages regarding each line of file contents. Likewise,
-     * if only some of the file contents are formatted wrongly, error messages regarding those and an
-     * ArrayList<<Task> that is successfully generated are returned. Blank empty lines in the file storage
-     * are not ignored and are not detected as formatting errors.
+     * instance is needed to be stored in the bot's TaskList instance, which contains the list of tasks. If
+     * there are any errors in the line formatting in the storage files, error messages are generated,
+     * accumulated, and stored as well. The function will not be terminated prematurely due to an error in
+     * the formatting of file contents. It will fully process the file contents and stores all possible
+     * valid Task objects so long as the specific task in the file is formatted correctly.
+     * Hence, if all the file contents are formatted wrongly, an empty ArrayList<Task> object will be
+     * instantiated to be used in the bot's TaskList instance, while also containing all the error messages
+     * for each line of file contents. Likewise, if only some of the file contents are formatted
+     * wrongly, error messages regarding those and an ArrayList<<Task> containing successfully generated
+     * tasks are returned. Blank empty lines in the storage text files are ignored and are not detected as
+     * formatting errors.
      *
-     * @return A Pair object containing an ArrayList of valid tasks objects tobe stored in the
-     * bot's list of tasks, and any error messages that came when generating the ArrayList of tasks.
+     * @return A Pair object containing an ArrayList of valid tasks objects to be stored in the
+     * bot's list of tasks, and any error messages that come when generating the ArrayList of tasks.
      * @throws FileNotFoundException If the storage file does not exist or cannot be located based on the
      * location address given.
      */
-    public Pair<ArrayList<Task>, String> loadFileContents() throws FileNotFoundException { // Exception
-        // handling in Knight2103.java
+    public Pair<ArrayList<Task>, String> loadFileContents() throws FileNotFoundException {
         ArrayList<Task> tasks = new ArrayList<Task>();
         String errorMessage = "";
-        int lineInFileCount = 0; // not item count, because .txt file can see line number easily
+        int fileLineNumber = 0; // because .txt file can see line number easily
 
         Scanner scanner = new Scanner(this.taskFile);
         while (scanner.hasNextLine()) {
-            lineInFileCount++;
-            String lineInFocus = scanner.nextLine();
-            if (lineInFocus.isEmpty()) {
+            fileLineNumber++;
+            String currentLine = scanner.nextLine();
+            if (currentLine.isEmpty()) {
                 continue;
             }
 
-            Pair<Optional<Task>, String> taskAndErrorMsgPair = convertLineToTask(lineInFocus);
+            Pair<Optional<Task>, String> taskAndErrorMsgPair = convertLineToTask(currentLine);
             taskAndErrorMsgPair.getFirstItem().ifPresent(item -> tasks.add(item));
             if (!taskAndErrorMsgPair.getSecondItem().isEmpty()) {
-                errorMessage += String.format("\nFile line %d - %s", lineInFileCount,
+                errorMessage += String.format("\nFile line %d - %s", fileLineNumber,
                         taskAndErrorMsgPair.getSecondItem());
             }
         }
@@ -193,11 +195,11 @@ public class Storage {
         try {
             switch (taskType) {
             case TODO -> taskToAdd = new TodoTask(lineArray[TASK_DESCRIPTION_INDEX]);
-            case DEADLINE ->
-                    taskToAdd = new DeadlineTask(lineArray[TASK_DESCRIPTION_INDEX], lineArray[DEADLINE_INDEX]);
-            case EVENT ->
-                    taskToAdd = new EventTask(lineArray[TASK_DESCRIPTION_INDEX],
-                            lineArray[EVENT_START_TIME_INDEX], lineArray[EVENT_END_TIME_INDEX]);
+            case DEADLINE -> taskToAdd = new DeadlineTask(
+                    lineArray[TASK_DESCRIPTION_INDEX], lineArray[DEADLINE_INDEX]);
+            case EVENT -> taskToAdd = new EventTask(
+                    lineArray[TASK_DESCRIPTION_INDEX],
+                    lineArray[EVENT_START_TIME_INDEX], lineArray[EVENT_END_TIME_INDEX]);
             default -> {
                 assert taskToAdd != null;
             }
@@ -223,7 +225,7 @@ public class Storage {
 
         if (lineArray[IS_TASK_MARKED_INDEX].equals(TASK_MARKED_STATUS)) {
             taskToAdd.markDone();
-        } else if (!lineArray[IS_TASK_MARKED_INDEX].equals(TASK_UNMARKED_STATUS)) { // invalid status
+        } else if (!lineArray[IS_TASK_MARKED_INDEX].equals(TASK_UNMARKED_STATUS)) { // invalid Marked status
             throw new InvalidFileContentsException(
                     String.format("the value of the 2nd column should only be %s or %s",
                             TASK_MARKED_STATUS, TASK_UNMARKED_STATUS));

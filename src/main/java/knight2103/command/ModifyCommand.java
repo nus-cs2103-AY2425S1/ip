@@ -16,17 +16,17 @@ public class ModifyCommand extends Command {
     }
 
     /**
-     * Executes the ModifyCommand which comes in three different variations:
-     * mark, unmark, delete to modify the selected task. Depending on the exact
+     * Executes the ModifyCommand, which comes in three different variations:
+     * mark, unmark, delete, to modify the selected task. Depending on the exact
      * command used, the task will be modified accordingly.
      *
      * @param tasks The object storing the list of tasks found in the bot.
      * @param ui The user interface of the bot.
      * @param storage The object containing the file that saves the list of tasks.
      * @return The message to be shown after command execution in the bot's GUI.
-     * @throws NumberFormatException If the predicate part of command is not an Integer.
+     * @throws NumberFormatException If the description part of command is not an Integer.
      * @throws IndexOutOfBoundsException If the integer keyed in the command is
-     * out of range of the length of the list of tasks.
+     * out of range of the length of list of tasks or of negative value.
      * @throws IOException If the FileWriter in saveToFile() function in Storage class cannot be instantiated.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) {

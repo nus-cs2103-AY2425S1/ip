@@ -1,6 +1,11 @@
 package knight2103;
 
-// Solution inspired by CS2030 (AY23/24 Sem 2) course materials
+// Solution below inspired by CS2030 (AY23/24 Sem 2) course materials
+/**
+ * Stores two items of different types within one object.
+ * @param <T> The type of first item to be stored.
+ * @param <V> The type of second item to be stored.
+ */
 public class Pair<T, V> {
     private final T firstItem;
     private final V secondItem;

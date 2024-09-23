@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.Comparator;
 
 /**
- * Models after a command that shows a sorted full list of task.
+ * Models after a command that sorts a full list of task.
  */
 public class SortCommand extends Command {
     SortCommand() {
@@ -20,17 +20,17 @@ public class SortCommand extends Command {
     }
 
     /**
-     * Executes the SortCommand which lists out all the tasks stored in the list of tasks.
+     * Executes the SortCommand which lists out all the tasks stored in the list of tasks, in a sorted manner.
      *
      * @param tasks The object storing the list of tasks found in the bot.
      * @param ui The user interface of the bot.
      * @param storage The object containing the file that saves the list of tasks.
-     * @return The list of tasks stored after command execution in the bot's GUI.
+     * @return The sorted list of tasks stored after command execution in the bot's GUI.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         Comparator<Task> comparator = generateComparator();
         try {
-            tasks.sort(comparator); // mutation side effect
+            tasks.sort(comparator);
             storage.saveToFile(tasks);
             String tasksInString = tasks.toString();
             return ui.showSorted(tasksInString);
@@ -40,8 +40,16 @@ public class SortCommand extends Command {
     }
 
     /**
-     * Anonymous Inner class
-     * @return Comparator class.
+     * Generates a comparator instance via anonymous Inner class, specifying the order at which tasks
+     * should follow. For this comparator, tasks not marked as done are shown first, tasks marked as done
+     * are shown at the bottom. Within the marked or unmarked task category, the tasks are shown in the
+     * order of TodoTask, DeadlineTask then EventTask. Within the TodoTask, tasks are sorted alphabetically
+     * in terms of their task description. Within DeadlineTask, tasks are sorted based on deadlines in
+     * chronological order. Within EventTask, tasks are sorted based on Start date&time in chronological
+     * order. For both deadline and event tasks, within their own category, if the deadline dates and start
+     * date&time are the same between the different tasks respectively, these tasks will be sorted based on
+     * alphabetical order in terms of their task description.
+     * @return Comparator instance.
      */
     private Comparator<Task> generateComparator() {
         return new Comparator<Task>() { // Anonymous Inner Class
@@ -79,6 +87,10 @@ public class SortCommand extends Command {
                 return checkDescriptionOrder(task1, task2);
             }
 
+            private int checkIsDoneOrder(Task task1, Task task2) {
+                return rankIsDone(task2) - rankIsDone(task1);
+            }
+
             private int rankIsDone(Task task) {
                 if (task.isDone()) {
                     return DONE_PRIORITY;
@@ -86,6 +98,12 @@ public class SortCommand extends Command {
                     assert !task.isDone();
                     return NOT_DONE_PRIORITY;
                 }
+            }
+
+            private int checkTaskTypeOrder(Task task1, Task task2) {
+                int task1TaskTypeRank = rankTaskType(task1.showTaskType());
+                int task2TaskTypeRank = rankTaskType(task2.showTaskType());
+                return task2TaskTypeRank - task1TaskTypeRank;
             }
 
             private int rankTaskType(TaskType taskType) {
@@ -97,16 +115,6 @@ public class SortCommand extends Command {
                     assert taskType == TaskType.EVENT;
                     return EVENT_PRIORITY;
                 }
-            }
-
-            private int checkIsDoneOrder(Task task1, Task task2) {
-                return rankIsDone(task2) - rankIsDone(task1);
-            }
-
-            private int checkTaskTypeOrder(Task task1, Task task2) {
-                int task1TaskTypeRank = rankTaskType(task1.showTaskType());
-                int task2TaskTypeRank = rankTaskType(task2.showTaskType());
-                return task2TaskTypeRank - task1TaskTypeRank;
             }
 
             private int checkDeadlineOrder(DeadlineTask task1, DeadlineTask task2) {

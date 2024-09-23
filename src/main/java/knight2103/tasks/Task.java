@@ -54,7 +54,7 @@ public abstract class Task {
     }
 
     /**
-     * Unmarks the task as not done.
+     * Marks the task as not done (unmark).
      */
     public void unmarkDone() {
         this.isDone = false;
@@ -69,7 +69,8 @@ public abstract class Task {
         final String TASK_MARKED_FILE_STATUS = "1";
         final String TASK_UNMARKED_FILE_STATUS = "0";
         return String.format("| %s | %s",
-                this.isDone ? TASK_MARKED_FILE_STATUS : TASK_UNMARKED_FILE_STATUS, this.description);
+                this.isDone ? TASK_MARKED_FILE_STATUS : TASK_UNMARKED_FILE_STATUS,
+                this.description);
     }
 
     @Override
@@ -77,7 +78,8 @@ public abstract class Task {
         final String TASK_MARKED_LIST_STATUS = "X";
         final String TASK_UNMARKED_LIST_STATUS = " ";
         return String.format("[%s] %s",
-                this.isDone ? TASK_MARKED_LIST_STATUS : TASK_UNMARKED_LIST_STATUS, this.description);
+                this.isDone ? TASK_MARKED_LIST_STATUS : TASK_UNMARKED_LIST_STATUS,
+                this.description);
     }
 
     /**

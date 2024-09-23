@@ -36,7 +36,7 @@ public class DialogBox extends HBox {
      *
      * @return DialogBox object containing the text and image.
      * @param text User input into the textfield.
-     * @param img User profile image
+     * @param img User profile image.
      */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
@@ -58,7 +58,8 @@ public class DialogBox extends HBox {
 
     private DialogBox(String text, Image img) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(
+                    MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();

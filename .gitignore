@@ -10,12 +10,6 @@ src/main/resources/docs/
 
 #Text files
 savedTaskList.txt
-testTaskList1.txt
-testTaskList2.txt
-testTaskList3.txt
-11savedTaskList.txt
-12savedTaskList.txt
-13savedTaskList.txt
 
 # MacOS custom attributes files created by Finder
 .DS_Store

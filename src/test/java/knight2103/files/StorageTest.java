@@ -1,4 +1,5 @@
 package knight2103.files;
+
 import knight2103.tasks.Task;
 import knight2103.tasks.TodoTask;
 import knight2103.tasks.DeadlineTask;
@@ -30,6 +31,7 @@ public class StorageTest {
     @Test
     public void loadFileContents_fileInput_correctOutput() throws FileNotFoundException {
         final String TEST_DIRECTORY = "./testTaskList1.txt";
+
         ArrayList<Task> expectedList = new ArrayList<Task>();
         expectedList.add(new TodoTask("read book"));
         expectedList.add(new DeadlineTask("return book", "2020-12-20"));
@@ -40,12 +42,13 @@ public class StorageTest {
         Pair<ArrayList<Task>, String> expectedOutput = new Pair<ArrayList<Task>, String>(expectedList, "");
 
         assertEquals(expectedOutput.toString(),
-                new Storage(TEST_DIRECTORY).loadFileContents().toString()); // toString to prevent reference comparison
+                new Storage(TEST_DIRECTORY).loadFileContents().toString()); // toString() avoid reference comparison
     }
 
     @Test
     public void loadFileContents_fileContentsError_someErrorShown() throws FileNotFoundException {
         final String TEST_DIRECTORY = "./testTaskList2.txt";
+
         ArrayList<Task> expectedList = new ArrayList<Task>();
         expectedList.add(new TodoTask("read book"));
         String expectedMessage =
@@ -58,12 +61,14 @@ public class StorageTest {
         Pair<ArrayList<Task>, String> expectedOutput =
                 new Pair<ArrayList<Task>, String>(expectedList, expectedMessage);
 
-        assertEquals(expectedOutput.toString(), new Storage(TEST_DIRECTORY).loadFileContents().toString());
+        assertEquals(expectedOutput.toString(),
+                new Storage(TEST_DIRECTORY).loadFileContents().toString());
     }
 
     @Test
     public void loadFileContents_fileContentsError_columnMistMatchAndTimeError() throws FileNotFoundException {
         final String TEST_DIRECTORY = "./testTaskList3.txt";
+
         ArrayList<Task> expectedList = new ArrayList<Task>();
         expectedList.add(new TodoTask("read book"));
         String expectedMessage =
@@ -73,6 +78,7 @@ public class StorageTest {
         Pair<ArrayList<Task>, String> expectedOutput =
                 new Pair<ArrayList<Task>, String>(expectedList, expectedMessage);
 
-        assertEquals(expectedOutput.toString(), new Storage(TEST_DIRECTORY).loadFileContents().toString());
+        assertEquals(expectedOutput.toString(),
+                new Storage(TEST_DIRECTORY).loadFileContents().toString());
     }
 }

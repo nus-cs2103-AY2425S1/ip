@@ -21,7 +21,7 @@ public class Knight2103 {
     private TaskList tasks;
 
     /**
-     * Constructs the bot's instance object which helps to manage the list of task.
+     * Constructs the bot's instance which helps to manage the list of task.
      * The bot contains the filepath to the text file in which the list of tasks will be stored.
      *
      * @param filePath The relative location of the text file which contains the list of tasks.
@@ -32,14 +32,16 @@ public class Knight2103 {
         this.errorMessage = "";
         this.ui = new Ui();
         storage = new Storage(filePath);
+
         try {
             Pair<ArrayList<Task>, String> tasksWithErrorMsg = storage.loadFileContents();
+
             this.tasks = new TaskList(tasksWithErrorMsg.getFirstItem());
             this.errorMessage = tasksWithErrorMsg.getSecondItem().isEmpty()
                     ? ""
                     : "\n\nList of errors when loading file:" + tasksWithErrorMsg.getSecondItem()
                             + "\n\nEnter command \"list\" to see list of valid tasks succesfully loaded.";
-        } catch (FileNotFoundException e) { // file be loaded regardless, exception from Storage
+        } catch (FileNotFoundException e) { // exception from Storage.java, text file is loaded regardless
             this.errorMessage += "\n\nStorage text File to be processed cannot be found. "
                     + "New file to store tasks will be created instead.\nTo load existing storage file, "
                     + "it should be named as \"savedTaskList.txt\" in the root directory.";
@@ -68,7 +70,7 @@ public class Knight2103 {
             Command c = Parser.parse(input);
             output = c.execute(tasks, ui, storage);
             return output;
-        } catch (InvalidCommandException e) { // Exceptions from commands
+        } catch (InvalidCommandException e) { // Exceptions from classes in command package
             return "Failed to execute Command:\n" + e.getMessage();
         }
     }

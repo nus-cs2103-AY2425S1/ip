@@ -21,7 +21,7 @@ public abstract class Command {
     }
 
     /**
-     * Executes the Command which process the tasks and returns a message to be shown in the bot GUI.
+     * Executes the Command which processes the tasks and returns a message to be shown in the bot GUI.
      *
      * @param tasks The object storing the list of tasks found in the bot.
      * @param ui The user interface of the bot.

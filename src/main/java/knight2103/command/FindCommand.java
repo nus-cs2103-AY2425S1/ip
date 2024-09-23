@@ -6,7 +6,7 @@ import knight2103.tasks.TaskList;
 
 /**
  * Models after a command that takes in a key word, finds tasks that matches the key word
- * and shows a list of matched task.
+ * and shows a list of matched tasks.
  */
 public class FindCommand extends Command {
     FindCommand(CommandVerb verb, String wordToSearch) {
@@ -14,8 +14,8 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Executes the FindCommand which finds all tasks with the description that matches
-     * with the word to be searched. It returns the list of matched tasks in the bot's GUI.
+     * Executes the FindCommand which finds all tasks with the description that contains the word to be
+     * searched as a substring or string. It returns the list of matched tasks in the bot's GUI.
      *
      * @param tasks The object storing the list of tasks found in the bot.
      * @param ui The user interface of the bot.
@@ -24,7 +24,8 @@ public class FindCommand extends Command {
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         String wordToSearch = this.description;
-        TaskList filteredTasks = tasks.filter(task -> task.getDescription().contains(wordToSearch));
+        TaskList filteredTasks = tasks.filter(
+                task -> task.getDescription().contains(wordToSearch));
         String matchedTaskListInString = filteredTasks.toString();
         return ui.showFind(matchedTaskListInString);
     }

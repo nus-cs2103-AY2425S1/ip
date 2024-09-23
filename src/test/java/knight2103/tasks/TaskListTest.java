@@ -24,6 +24,7 @@ public class TaskListTest {
         testTaskList.add(new TodoTask("read book"));
         testTaskList.add(new DeadlineTask("return book", "2020-12-20"));
         testTaskList.add(new EventTask("book fair", "2020-12-21T09:00", "2020-12-22T22:00"));
+
         try {
             assertEquals(0, testTaskList.mark(5));
             fail(); // the test should not reach this line
@@ -54,6 +55,7 @@ public class TaskListTest {
         taskToAdd.markDone();
         testTaskList.add(taskToAdd);
         testTaskList.add(new EventTask("book fair", "2020-12-21T09:00", "2020-12-22T22:00"));
+
         try {
             assertEquals(0, testTaskList.unmark(5));
             fail(); // the test should not reach this line
@@ -80,6 +82,7 @@ public class TaskListTest {
         testTaskList.add(new TodoTask("read book"));
         testTaskList.add(new DeadlineTask("return book", "2020-12-20"));
         testTaskList.add(new EventTask("book fair", "2020-12-21T09:00", "2020-12-22T22:00"));
+
         try {
             assertEquals(0, testTaskList.delete(5));
             fail(); // the test should not reach this line
@@ -148,6 +151,7 @@ public class TaskListTest {
 
         // filtered list as reference
         TaskList filteredTaskList = new TaskList();
+
         assertEquals(filteredTaskList.toString(),
                 testTaskList.filter(
                                 task -> task.getDescription().contains(WORD_TO_SEARCH))

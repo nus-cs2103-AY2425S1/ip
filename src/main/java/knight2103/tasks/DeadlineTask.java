@@ -2,6 +2,7 @@ package knight2103.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Models a task to do that contains a deadline for completion.
@@ -18,8 +19,10 @@ public class DeadlineTask extends Task {
      *
      * @param description The description of the task.
      * @param deadline The deadline of the task.
+     * @throws DateTimeParseException If the deadline in DeadlineTask instance is not written in
+     * yyyy-MM-dd format
      */
-    public DeadlineTask(String description, String deadline) {
+    public DeadlineTask(String description, String deadline) throws DateTimeParseException {
         super(description);
         this.deadline = LocalDate.parse(deadline);
     }
@@ -39,12 +42,14 @@ public class DeadlineTask extends Task {
 
     @Override
     public String toStringInFile() {
-        return String.format("%s %s | %s", DEADLINE_IDENTIFIER, super.toStringInFile(), this.deadline);
+        return String.format("%s %s | %s",
+                DEADLINE_IDENTIFIER, super.toStringInFile(), this.deadline);
     }
 
     @Override
     public String toString() {
-        return String.format("[%s]%s (by: %s)", DEADLINE_IDENTIFIER, super.toString(),
-                this.deadline.format(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT_FOR_LIST)));
+        return String.format("[%s]%s (by: %s)",
+                DEADLINE_IDENTIFIER, super.toString(), this.deadline.format(
+                        DateTimeFormatter.ofPattern(DATE_TIME_FORMAT_FOR_LIST)));
     }
 }
