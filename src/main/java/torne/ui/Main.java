@@ -19,7 +19,10 @@ public class Main extends Application {
     // that calls the original constructor. (Check tutorial pt 1)
 
     public Main() {
-        Font.loadFont(getClass().getResourceAsStream("/fonts/CaskaydiaCoveNerdFont-SemiBold"), 18);
+        Font.loadFont(getClass().getResourceAsStream("/fonts/CaskaydiaCoveNerdFont-SemiBold.ttf"), 18);
+        Font.loadFont(getClass().getResourceAsStream("/fonts/CaskaydiaCoveNerdFont-Regular.ttf"), 18);
+        Font.loadFont(getClass().getResourceAsStream("/fonts/Inter-Medium.ttf"), 18);
+        Font.loadFont(getClass().getResourceAsStream("/fonts/Montserrat-SemiBold.ttf"), 18);
     }
 
     private final Torne torne = new Torne(); // Init Torne

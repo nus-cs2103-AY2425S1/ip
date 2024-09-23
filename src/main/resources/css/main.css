@@ -12,7 +12,7 @@
 
 .text-field {
     -fx-background-color: #F0DFCF;
-    -fx-font: 20px "Arial";
+    -fx-font: 18px "Inter Medium";
     -fx-border-color: #F0A27F;
     -fx-border-width: 2px;
     -fx-border-radius: 5px;
@@ -20,7 +20,7 @@
 
 .button {
     -fx-background-color: primary-color;
-    -fx-font: bold 16px "Arial";
+    -fx-font: bold 16px "Montserrat SemiBold";
 }
 
 .button:hover {

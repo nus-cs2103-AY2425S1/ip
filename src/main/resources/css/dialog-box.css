@@ -17,6 +17,9 @@
     -fx-border-width: 2px;
     -fx-background-radius: 1em 1em 0 1em;
     -fx-border-radius: 1em 1em 0 1em;
+    -fx-font: 12px "Inter Medium";
+    -fx-text-fill: text-color;
+    -fx-padding: 0.5em;
 }
 
 .error-dialog {
@@ -26,6 +29,12 @@
     -fx-text-fill: white;
     -fx-padding: 1em;
     -fx-border-width: 0px;
+}
+
+.torne-dialog {
+    -fx-font: 12px "CaskaydiaCove NF Regular";
+    -fx-background-color: main-color;
+    -fx-border-color: main-color;
 }
 
 .reply-label {

@@ -60,6 +60,13 @@ public class DialogBox extends HBox {
     }
 
     /**
+     * Formats this dialog box for Torne.
+     */
+    private void formatAsTorne() {
+        dialog.getStyleClass().add("torne-dialog"); // add CSS class with torne formatting
+    }
+
+    /**
      * Creates a standard dialog box for the user. Right-aligned.
      *
      * @param text text content of the dialog box.
@@ -80,6 +87,7 @@ public class DialogBox extends HBox {
     public static DialogBox getTorneDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+        db.formatAsTorne();
         return db;
     }
 
