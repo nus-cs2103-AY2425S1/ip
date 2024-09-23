@@ -147,7 +147,7 @@ The application handles various exceptions, such as:
 - **DateTimeParseException**: Handles errors related to date parsing.
 
 ## Task format stored in file
-Tasks are stored in the `data/fridayTaskList.txt` file in the following format:
+Tasks are stored automatically in the `data/fridayTaskList.txt` file in the following format:
 
 - D 0 Task 20 /by 2025-10-10
 - T 0 task21
