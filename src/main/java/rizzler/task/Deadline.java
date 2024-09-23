@@ -1,7 +1,5 @@
 package rizzler.task;
 
-import java.time.LocalDate;
-
 import rizzler.ui.parser.DateTimeParser;
 
 /**
@@ -28,17 +26,8 @@ public class Deadline extends Task {
      */
     public Deadline(String deadlineDesc, String deadlineTime, boolean isDone) {
         super(deadlineDesc, isDone);
-        this.deadlineTime = deadlineToString(deadlineTime);
+        this.deadlineTime = DateTimeParser.toStr(deadlineTime);
 
-    }
-
-    private String deadlineToString(String deadlineTime) {
-        if (DateTimeParser.canParse(deadlineTime)) {
-            LocalDate deadlineDatetime = LocalDate.parse(deadlineTime);
-            return DateTimeParser.toStr(deadlineDatetime);
-        } else {
-            return deadlineTime;
-        }
     }
 
     /**

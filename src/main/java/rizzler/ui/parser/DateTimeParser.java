@@ -25,7 +25,7 @@ public class DateTimeParser {
      * @param inputStr User's input string.
      * @return Whether this input string can be parsed by <code>toDatetime</code>.
      */
-    public static boolean canParse(String inputStr) {
+    private static boolean canParse(String inputStr) {
         assert inputStr != null : "inputStr is null";
         try {
             toDatetime(inputStr);
@@ -36,13 +36,18 @@ public class DateTimeParser {
     }
 
     /**
-     * Returns a string formatting a particular datetime.
-     * @param inputDate LocalDate object representing the date.
-     * @return Nicely formatted string for a particular date.
+     * Formats <code>inputDate</code> into a different datetime format if possible.
+     * Else, returns <code>inputDate</code> without any formatting operations done.
+     * @param inputDate String representing the date, ideally in <code>YYYY-MM-DD</code> format.
+     * @return Formatted string for a particular date, or just <code>inputDate</code>.
      */
-    public static String toStr(LocalDate inputDate) {
+    public static String toStr(String inputDate) {
         assert inputDate != null : "inputDate is null";
+        if (!canParse(inputDate)) {
+            return inputDate;
+        }
+        LocalDate inputLocalDate = toDatetime(inputDate);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM, yyyy");
-        return inputDate.format(formatter);
+        return inputLocalDate.format(formatter);
     }
 }

@@ -1,6 +1,5 @@
 package rizzler.task;
 
-import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
 import rizzler.ui.parser.DateTimeParser;
@@ -31,17 +30,8 @@ public class Event extends Task {
      */
     public Event(String eventDesc, String eventStart, String eventEnd, boolean isDone) throws DateTimeParseException {
         super(eventDesc, isDone);
-        this.eventStart = eventTimeToString(eventStart);
-        this.eventEnd = eventTimeToString(eventEnd);
-    }
-
-    private String eventTimeToString(String eventTime) {
-        if (DateTimeParser.canParse(eventTime)) {
-            LocalDate eventDatetime = LocalDate.parse(eventTime);
-            return DateTimeParser.toStr(eventDatetime);
-        } else {
-            return eventTime;
-        }
+        this.eventStart = DateTimeParser.toStr(eventStart);
+        this.eventEnd = DateTimeParser.toStr(eventEnd);
     }
 
     /**
