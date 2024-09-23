@@ -58,12 +58,12 @@ public class MessageBox extends HBox {
 
     /**
      * Creates a message box originating from the bot (bot response).
-     * @param s the response text string
+     * @param response the response instance
      * @param i the bot avatar image
      * @return a message box to be displayed
      */
-    public static MessageBox createBotDialog(String s, Image i) {
-        MessageBox msgBox = new MessageBox(s, i);
+    public static MessageBox createBotDialog(Response response, Image i) {
+        MessageBox msgBox = new MessageBox(response.response, i);
         msgBox.flip();
         return msgBox;
     }
