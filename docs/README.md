@@ -11,8 +11,8 @@
 - Enter the year explicitly if the date is not in the current year, such as "23 Sep 2025."
 - Elysia does not allow tasks with deadlines in the past or events that start in the past.
 
-> [!IMPORTANT]
-> Use "23 Sep" as the input date instead of "23Sep" for deadline and event commands.
+**Important**
+> Use ``23 Sep`` as the input date instead of ``23Sep`` for deadline and event commands.
 
 
 ## Features
@@ -52,13 +52,13 @@ Adds a deadline to the task list.
 
 Format: ``deadline TASK /by DATE``
 
-> [!NOTE]
+**Note**
 > The month and "by" are case-sensitive.
 > - The input date will be assumed to be in the current year.
 >   - For example, "23 Sep" will be interpreted as "23 Sep 2024," since it is currently 2024.
 > - Enter the year explicitly if the date is not in the current year, such as "23 Sep 2025."
 
-> [!TIP]
+**Tip**
 > - mon, tue, wed, ... will be interpreted as the next occuring mon, tue, wed, ...
 >   - For example, if today is Monday (23 Sep),
 >   - then mon will be interpreted as 30 Sep.
@@ -79,17 +79,17 @@ Adds an event to the task list.
 
 Format: ``event TASK /from DATE\TIME /to TIME``
 
-> [!NOTE]
+**Note**
 > "from" and "to" are case-sensitive.
 > - The input date will be assumed to be in the current year.
 > - For example, "23 Sep" will be interpreted as "23 Sep 2024," since it is currently 2024.
 > - Enter the year explicitly if the date is not in the current year, such as "23 Sep 2025."
 
-> [!NOTE]
+**Note**
 > The start time and end time are assumed to be within the same day.
 > The end time must not be earlier than the start time.
 
-> [!TIP]
+**Tip**
 > - mon, tue, wed, ... will be interpreted as the next occuring mon, tue, wed, ...
 >   - For example, if today is Monday (23 Sep),
 >   - then mon will be interpreted as 30 Sep.
