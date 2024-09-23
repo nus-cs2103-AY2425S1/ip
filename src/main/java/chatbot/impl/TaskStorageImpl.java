@@ -4,6 +4,7 @@ import chatbot.impl.task.Deadline;
 import chatbot.impl.task.Event;
 import chatbot.impl.task.Task;
 import chatbot.impl.task.ToDo;
+import chatbot.impl.utils.TaskSorter;
 import chatbot.interfaces.TaskStorage;
 import chatbot.interfaces.TaskStorageResult;
 
@@ -15,6 +16,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class TaskStorageImpl implements TaskStorage<Command> {
 
@@ -31,18 +33,23 @@ public class TaskStorageImpl implements TaskStorage<Command> {
      * <p>writes all existing tasks to storage</p>
      * @return a TaskStorageResult containing all the current tasks
      */
-    public TaskStorageResult<Command> getTasks() {
+    public TaskStorageResult<Command> getTasks(boolean sort) {
         assert tasks != null : "Tasks list should not be null";
 
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < tasks.size(); i++) {
-            sb.append((i + 1)).append(".").append(tasks.get(i)).append("\n");
+        if (tasks.isEmpty()) {
+            return new TaskStorageResultImpl("<EMPTY>\n" + "\nThere is nothing for you to do! Yay!");
         }
 
-        if (tasks.isEmpty()) {
-            sb.append("<EMPTY>\n");
-            sb.append("\nThere is nothing for you to do! Yay!");
+        ArrayList<Task> taskToPrint = tasks;
+        if (sort) {
+            taskToPrint = TaskSorter.cloneAndSortByDate(tasks);
         }
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < taskToPrint.size(); i++) {
+            sb.append((i + 1)).append(".").append(taskToPrint.get(i)).append("\n");
+        }
+
         return new TaskStorageResultImpl(sb.toString());
     }
 

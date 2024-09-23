@@ -15,6 +15,10 @@ public class Event extends Task {
         this.to = DateTime.parseDate(to);
     }
 
+    public LocalDate getFrom() {
+        return from;  // LocalDate is immutable
+    }
+
     /**
      * <p>
      *     Returns a string representation of the event

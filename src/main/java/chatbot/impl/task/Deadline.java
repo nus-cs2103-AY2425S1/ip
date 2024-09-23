@@ -13,6 +13,10 @@ public class Deadline extends Task {
         this.by = DateTime.parseDate(by);
     }
 
+    public LocalDate getBy() {
+        return by;  // LocalDate is immutable
+    }
+
     /**
      * <p>
      *     Returns a string representation of the deadline

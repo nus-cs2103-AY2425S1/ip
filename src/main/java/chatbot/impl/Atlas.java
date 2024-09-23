@@ -77,7 +77,7 @@ public class Atlas implements ChatBot {
 
     private void handleList() {
         messageView.send("Here are the items in your list:");
-        taskStorage.getTasks().showResult(messageView);
+        taskStorage.getTasks(false).showResult(messageView);
     }
 
     private void handleMark(String[] inputParts) {

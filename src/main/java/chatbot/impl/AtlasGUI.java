@@ -34,7 +34,7 @@ public class AtlasGUI implements ChatBot {
 
         return switch (command) {
             case Exit -> handleExit();
-            case List -> handleList();
+            case List -> handleList(inputParts);
             case Mark -> handleMark(inputParts);
             case Unmark -> handleUnmark(inputParts);
             case Delete -> handleDelete(inputParts);
@@ -48,10 +48,14 @@ public class AtlasGUI implements ChatBot {
         return GOODBYE_MESSAGE;
     }
 
-    private String handleList() {
+    private String handleList(String[] inputParts) {
+        boolean sorted = false;
+        if (inputParts.length > 1 && inputParts[1].equals("sort")) {
+            sorted = true;
+        }
         try {
             String s = "Here are the items in your list:\n";
-            return s + taskStorage.getTasks().toString();
+            return s + taskStorage.getTasks(sorted).toString();
         } catch (Exception e) {
             return "Error getting tasks: " + e.getMessage();
         }
