@@ -27,7 +27,9 @@ public class ChatOutput {
                                                    \s
                 short for Torment Nexus™, your F R I E N D L Y neighborhood chatbot :3
                 
-                How may I help you today?""";
+                How may I help you today?
+                
+                💡 Pro tip: Use command `help` to view all commands!""";
         writeText(greetingText);
     }
 
