@@ -1,6 +1,7 @@
 package yappingbot.commands.commands;
 
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 
 /**
  * Interface to define how Argument Enums should be defined.
@@ -46,8 +47,10 @@ public interface ArgEnums<T extends Enum<T>> {
      * @param value Name to search
      * @param <T> The Argument Enum itself
      * @return The Argument in the Enum that matches the criteria
+     * @throws NoSuchElementException if the keyword is not found
      */
-    static <T extends Enum<T> & ArgEnums<T>> T findKeyword(Class<T> enums, String value) {
+    static <T extends Enum<T> & ArgEnums<T>> T findKeyword(Class<T> enums, String value)
+    throws NoSuchElementException {
         return Arrays.stream(enums.getEnumConstants())
                      .filter(t -> t.getKeyword().equals(value))
                      .findFirst()
