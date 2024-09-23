@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
  * It extends from a Task, and supports its inherited methods
  */
 public class Deadline extends Task {
-    private final LocalDateTime deadline;
+    protected final LocalDateTime deadline;
     /**
      * Private constructor for a Task
      * @param description A string description of the task
@@ -74,5 +74,32 @@ public class Deadline extends Task {
                 + super.toCsv()
                 + ","
                 + this.deadline;
+    }
+
+    /**
+     * Overrides the default comparable logic of a task.
+     * A deadline has a defined "deadline" and should show the earliest deadline
+     * so that the user doesn't miss it.
+     * @param task the task to be compared.
+     * @return
+     */
+    @Override
+    public int compareTo(Task task) {
+        if (task instanceof Todo) {
+            return 1;
+        } else if (task instanceof Deadline) {
+            Deadline otherDeadline = (Deadline) task;
+            return this.deadline.compareTo(otherDeadline.getDeadline());
+        } else {
+            Event otherEvent = (Event) task;
+            return this.deadline.compareTo(otherEvent.getFrom());
+        }
+    }
+    /**
+     * Returns the deadline of this deadline. This should be used for comparing deadlines
+     * @return A LocalDateTime object
+     */
+    public LocalDateTime getDeadline() {
+        return deadline;
     }
 }

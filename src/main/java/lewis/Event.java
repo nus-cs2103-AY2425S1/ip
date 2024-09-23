@@ -76,4 +76,31 @@ public class Event extends Task {
                 + ","
                 + this.to;
     }
+    /**
+     * Returns the starting date and time of this event for comparison purposes
+     * @return a LocalDateTime object
+     */
+    public LocalDateTime getFrom() {
+        return from;
+    }
+
+    /**
+     * Overrides the default comparable logic of a task.
+     * A todo has an arbitary deadline and should be brought to the highest priority
+     * so that the user doesn't bury it.
+     * @param task the task to be compared.
+     * @return
+     */
+    @Override
+    public int compareTo(Task task) {
+        if (task instanceof Todo) {
+            return 1;
+        } else if (task instanceof Deadline) {
+            Deadline otherDeadline = (Deadline) task;
+            return this.from.compareTo(otherDeadline.getDeadline());
+        } else {
+            Event otherEvent = (Event) task;
+            return this.from.compareTo(otherEvent.getFrom());
+        }
+    }
 }

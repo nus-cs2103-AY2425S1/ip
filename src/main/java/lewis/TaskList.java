@@ -55,6 +55,7 @@ public class TaskList {
     static void add(Task task) {
         TASKS.add(task);
         length++;
+        sortChronological();
     }
 
     /**
@@ -91,6 +92,7 @@ public class TaskList {
     static void delete(int index) {
         TASKS.remove(index);
         length--;
+        sortChronological();
     }
 
     /**
@@ -99,6 +101,7 @@ public class TaskList {
      * @return An array of strings in csv format.
      */
     public static ArrayList<String> toSaveFile() {
+        sortChronological();
         return TASKS.stream()
                 .map(Task::toCsv)
                 .collect(Collectors.toCollection(ArrayList::new));
@@ -123,6 +126,7 @@ public class TaskList {
                     case "Todo" -> TaskList.add(new Todo(tokens[1], tokens[2]));
                     }
                 });
+        sortChronological();
     }
 
 
@@ -182,5 +186,17 @@ public class TaskList {
      */
     public static int getLength() {
         return length;
+    }
+
+    /**
+     * Sorts the whole tasklist based on these conditions (in order):
+     * 1. Todos will have the highest priority
+     * 2. The earlier deadline of a deadline or the earlier
+     *    "from" date and time of an event takes precedence over
+     *    a later one
+     * 3. Tasks will be sorted lexicographically if they fall past condition 2.
+     */
+    private static void sortChronological() {
+        TASKS.sort(Comparable::compareTo);
     }
 }

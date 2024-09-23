@@ -39,7 +39,7 @@ public class DeadlineCommand extends Command {
             String date;
             String time = "23:59"; //Default deadline time
             if (deadlineInfo[1].trim().length() > 10) { //Check if user only entered the date
-                String[] dateAndTime = deadlineInfo[1].split(" ");
+                String[] dateAndTime = deadlineInfo[1].trim().split(" ");
                 date = dateAndTime[0].trim();
                 time = dateAndTime[1].trim();
             } else {

@@ -8,7 +8,7 @@ package lewis;
  * to be instantiated.
  * Currently, the subclasses are: Event, Todo and Deadline
  */
-public abstract class Task {
+public abstract class Task implements Comparable<Task> {
     protected Status status;
     private final String description;
     enum Status {

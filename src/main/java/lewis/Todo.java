@@ -45,4 +45,22 @@ public class Todo extends Task {
         return "Todo,"
                 + super.toCsv();
     }
+
+    /**
+     * Overrides the default comparable logic of a task.
+     * A todo has an arbitary deadline and should be brought to the highest priority
+     * so that the user doesn't bury it.
+     * @param task the task to be compared.
+     * @return
+     */
+    @Override
+    public int compareTo(Task task) {
+        if (task instanceof Todo) {
+            //If both are todos, then they should be sorted lexicographically
+            return this.toString().compareTo(task.toString());
+        } else {
+            //A todo should take precedence over a deadline or an event
+            return -1;
+        }
+    }
 }
