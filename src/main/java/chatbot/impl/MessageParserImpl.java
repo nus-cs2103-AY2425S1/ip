@@ -97,8 +97,6 @@ public class MessageParserImpl implements MessageParser {
      * @throws InvalidMessageException If the task index is invalid.
      */
     private String handleMark(String[] inputParts) throws InvalidMessageException {
-        assert inputParts.length == 2 : "Input command should have 2 parts";
-
         try {
             int taskIdx = Integer.parseInt(inputParts[1]) - 1;
             storage.setTaskAsDone(taskIdx);
@@ -117,8 +115,6 @@ public class MessageParserImpl implements MessageParser {
      * @throws InvalidMessageException If the task index is invalid.
      */
     private String handleUnmark(String[] inputParts) throws InvalidMessageException {
-        assert inputParts.length == 2 : "Input command should have 2 parts";
-
         try {
             int taskIdx = Integer.parseInt(inputParts[1]) - 1;
             storage.setTaskAsNotDone(taskIdx);
@@ -137,8 +133,6 @@ public class MessageParserImpl implements MessageParser {
      * @throws InvalidMessageException If the task description is missing.
      */
     private String handleTodo(String[] inputParts) throws InvalidMessageException {
-        assert inputParts.length == 2 : "Input command should have 2 parts";
-
         try {
             Task task = new TodoTask(inputParts[1]);
             return addTask(task);
@@ -155,8 +149,6 @@ public class MessageParserImpl implements MessageParser {
      * @throws InvalidMessageException If the task description or deadline is missing.
      */
     private String handleDeadline(String[] inputParts) throws InvalidMessageException {
-        assert inputParts.length == 2 : "Input command should have 2 parts";
-
         try {
             String[] deadlineParts = inputParts[1].split("/by");
             Task task = new DeadlineTask(deadlineParts[0].trim(), deadlineParts[1].trim());
@@ -175,8 +167,6 @@ public class MessageParserImpl implements MessageParser {
      * @throws InvalidMessageException If the task description, start time, or end time is missing.
      */
     private String handleEvent(String[] inputParts) throws InvalidMessageException {
-        assert inputParts.length == 2 : "Input command should have 2 parts";
-
         try {
             String[] eventParts = inputParts[1].split("/from|/to");
             Task task = new EventTask(eventParts[0].trim(), eventParts[1].trim(), eventParts[2].trim());
@@ -209,8 +199,6 @@ public class MessageParserImpl implements MessageParser {
      * @throws InvalidMessageException If the task index is invalid.
      */
     private String handleDelete(String[] inputParts) throws InvalidMessageException {
-        assert inputParts.length == 2 : "Input command should have 2 parts";
-
         try {
             int taskIdx = Integer.parseInt(inputParts[1]) - 1;
             Task task = storage.getTask(taskIdx);
@@ -230,8 +218,6 @@ public class MessageParserImpl implements MessageParser {
      * @throws InvalidMessageException If keyword(s) is/are missing.
      */
     private String handleFind(String[] inputParts) throws InvalidMessageException {
-        assert inputParts.length == 2 : "Input command should have 2 parts";
-
         try {
             String keyword = inputParts[1];
             List<Task> matchingTasks = storage.findTasks(keyword);

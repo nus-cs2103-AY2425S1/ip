@@ -50,6 +50,8 @@ public class TaskStorageImpl implements TaskStorage {
      */
     @Override
     public void addTask(Task task) {
+        assert task != null : "Task cannot be null";
+
         tasks.add(task);
         saveTasks();
     }
