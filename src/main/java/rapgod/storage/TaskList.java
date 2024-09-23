@@ -55,7 +55,7 @@ public class TaskList {
      *                 This parameter can be an empty array, in which case no tasks will be displayed.
      */
     public String filteredTask(String ... keywords) {
-        StringBuilder sb = new StringBuilder("Alright, check it out—these tasks match what you're lookin' for:\n");
+        StringBuilder sb = new StringBuilder("Alright, check it out-thesetasks match what you're lookin' for:\n");
 
         String matchingTasks = IntStream.range(0, list.size())
                 .filter(i -> {
@@ -111,9 +111,9 @@ public class TaskList {
     public String deleteTaskByIndex(int index) {
         StringBuilder sb = new StringBuilder();
         sb.append("Done deal. This task's outta here:\n");
+        sb.append(String.format("Now you're rockin' with %d tasks in the list. Keep it rollin'\n", list.size()));
         sb.append(list.get(index - 1));
         list.remove(index - 1);
-        sb.append(String.format("Now you’re rockin’ with %d tasks in the list. Keep it rollin’!\n", list.size()));
         return sb.toString();
     }
 
