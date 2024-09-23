@@ -6,12 +6,16 @@ import jeriel.util.Storage;
 import jeriel.util.TaskList;
 import jeriel.util.Ui;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class FindCommand extends Command {
 
-    private String keyword;
+    private final String keyword;
 
     public FindCommand(String keyword) {
-        this.keyword = keyword;
+        assert keyword != null && !keyword.trim().isEmpty() : "Keyword should not be null or empty";
+        this.keyword = keyword.toLowerCase().trim();  // Convert to lower case for case-insensitive search
     }
 
     /**
@@ -24,15 +28,19 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        StringBuilder result = new StringBuilder();
-        result.append("Here are the matching tasks in your list:\n");
-        int count = 1;
-        for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
-            if (task.getDescription().contains(keyword)) {
-                result.append(String.format(" %d. %s\n", count++, task));
-            }
+        List<Task> matchingTasks = tasks.getTasks().stream()
+            .filter(task -> task.getDescription().toLowerCase().contains(keyword))  // Case-insensitive matching
+            .collect(Collectors.toList());
+
+        if (matchingTasks.isEmpty()) {
+            return "No tasks match your search keyword.";
         }
+
+        StringBuilder result = new StringBuilder("Here are the matching tasks in your list:\n");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            result.append(String.format(" %d. %s\n", i + 1, matchingTasks.get(i)));
+        }
+
         return result.toString();
     }
 
