@@ -72,7 +72,7 @@ public class Parser {
 
             TaskType taskType = parseTaskType(command);
 
-            assert taskType != TaskType.UNKNOWN : "TaskType should not be UNKNOWN"
+            assert taskType != TaskType.UNKNOWN : "TaskType should not be UNKNOWN";
 
             switch (taskType) {
                 case TODO:
