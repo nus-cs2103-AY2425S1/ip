@@ -32,12 +32,12 @@ test {
 }
 
 application {
-    mainClass.set("lewis.Lewis")
+    mainClass.set("Lewis")
 }
 
 shadowJar {
-    archiveFileName = "lewis"
-    archiveVersion = "0.1"
+    archiveBaseName = "lewis"
+    archiveClassifier = null
 }
 
 run{
