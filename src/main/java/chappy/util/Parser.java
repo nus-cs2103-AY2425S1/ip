@@ -1,7 +1,11 @@
+package chappy.util;
+
 import java.util.Objects;
 
+import chappy.exception.CreateTaskException;
+
 public class Parser {
-    protected static enum Command {
+    public static enum Command {
         BYE("bye"), LIST("list"), UNMARK("unmark"), MARK("mark"), TODO("todo"), DEADLINE("deadline"), EVENT("event"),
         DELETE("delete"), DEFAULT("default");
 

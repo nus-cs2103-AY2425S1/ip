@@ -1,11 +1,17 @@
+package chappy.util;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import chappy.task.Deadline;
+import chappy.task.Event;
+import chappy.task.Task;
+import chappy.task.Todo;
+
 import java.io.FileWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
