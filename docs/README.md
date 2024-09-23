@@ -4,7 +4,7 @@ Welcome to the Neubla user guide! Nebula is an intelligent task management chatb
 
 Below is a screenshot of Nebula in action:
 
-![Product Screenshot](ui.png)  <!-- Replace with the actual screenshot path -->
+![Product Screenshot](./ui.png)  <!-- Replace with the actual screenshot path -->
 
 ## Commands Supported
 
