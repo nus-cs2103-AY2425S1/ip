@@ -1,7 +1,9 @@
 package jeriel.util;
-import jeriel.command.*;
-import jeriel.task.*;
+
+import jeriel.task.Task;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -49,6 +51,29 @@ public class TaskList {
      */
     public int size() {
         return tasks.size();
+    }
+
+    /**
+     * Filters tasks based on a condition using Streams.
+     *
+     * @param predicate the condition to filter tasks
+     * @return a list of tasks that match the condition
+     */
+    public List<Task> filterTasks(java.util.function.Predicate<Task> predicate) {
+        return tasks.stream()
+                .filter(predicate)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Converts the list of tasks to a formatted string using Streams.
+     *
+     * @return a formatted string representation of tasks
+     */
+    public String tasksToString() {
+        return tasks.stream()
+                .map(Task::toString)  // Convert each task to a string
+                .collect(Collectors.joining("\n"));  // Join the tasks with a new line
     }
 
     /**
