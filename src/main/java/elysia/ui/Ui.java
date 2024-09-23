@@ -68,6 +68,15 @@ public class Ui {
         return result.toString();
     }
 
+    public String printEmptyList() {
+        return "You've finished all the tasks today.\n"
+                + "Great job!";
+    }
+
+    public String printEmptySearchList() {
+        return "My dear, it looks like there's nothing that fits your description!";
+    }
+
     /**
      * Returns a message indicating that a task has been marked as done.
      *

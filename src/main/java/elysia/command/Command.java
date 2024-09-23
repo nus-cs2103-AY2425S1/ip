@@ -28,4 +28,8 @@ public abstract class Command {
      */
     public abstract String execute(ArrayList<Task> tasks)
             throws EmptyDescriptionException, IOException, InvalidDateTimeInputException;
+
+    public boolean isExit() {
+        return false;
+    }
 }

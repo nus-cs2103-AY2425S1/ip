@@ -20,6 +20,7 @@ import elysia.exception.EmptyDescriptionException;
 import elysia.exception.InvalidDateFormatException;
 import elysia.exception.InvalidDateTimeFormatException;
 import elysia.exception.InvalidInputCommandException;
+import elysia.exception.OutOfValidRangeException;
 import elysia.exception.UnknownCommandException;
 
 /**
@@ -28,9 +29,9 @@ import elysia.exception.UnknownCommandException;
 public class Parser {
     private Command command;
 
-    public Command parseCommand(String input)
+    public Command parseCommand(String input, int size)
             throws EmptyDescriptionException, InvalidDateFormatException, UnknownCommandException,
-            InvalidDateTimeFormatException, InvalidInputCommandException {
+            InvalidDateTimeFormatException, InvalidInputCommandException, OutOfValidRangeException {
         String[] str = input.split(" ");
         String token = str[0].toLowerCase();
 
@@ -51,13 +52,13 @@ public class Parser {
             parseEvent(input);
             break;
         case "mark":
-            parseMarkEvent(input);
+            parseMarkEvent(input, size);
             break;
         case "unmark":
-            parseUnmarkEvent(input);
+            parseUnmarkEvent(input, size);
             break;
         case "delete":
-            parseDeleteCommand(input);
+            parseDeleteCommand(input, size);
             break;
         case "find":
             parseFindCommand(input);
@@ -127,20 +128,20 @@ public class Parser {
 
         checkEmptyDescription("event", trimmed);
 
-        String[] inputArray = trimmed.split("/from | /to ");
+        String[] inputArray = trimmed.split("/from|/to");
         checkValidInputFormat(inputArray, 3);
 
         String description = inputArray[0].trim();
 
-        String[] dateTimeArray = inputArray[1].split("\\\\");
+        String[] dateTimeArray = inputArray[1].trim().split("\\\\");
 
         if (dateTimeArray.length != 2) {
             throw new InvalidDateTimeFormatException("\\\\");
         }
 
-        LocalDate date = DateParser.parseDate(dateTimeArray[0]);
-        LocalTime time1 = TimeParser.parseTime(dateTimeArray[1]);
-        LocalTime time2 = TimeParser.parseTime(inputArray[2].toUpperCase().trim());
+        LocalDate date = DateParser.parseDate(dateTimeArray[0].trim());
+        LocalTime time1 = TimeParser.parseTime(dateTimeArray[1].trim());
+        LocalTime time2 = TimeParser.parseTime(inputArray[2].trim());
 
         LocalDateTime startTime;
         LocalDateTime endTime;
@@ -152,18 +153,23 @@ public class Parser {
 
     }
 
-    private void parseMarkEvent(String input) {
-        int index = Integer.parseInt(String.valueOf(input.charAt(5))) - 1;
+    private void parseMarkEvent(String input, int size) throws OutOfValidRangeException {
+        int index = getValidIndex(input, "mark");
+
+        checkValidIndex(index, size);
+
         command = new MarkCommand(index);
     }
 
-    private void parseUnmarkEvent(String input) {
-        int index = Integer.parseInt(String.valueOf(input.charAt(7))) - 1;
+    private void parseUnmarkEvent(String input, int size) throws OutOfValidRangeException {
+        int index = getValidIndex(input, "unmark");
+        checkValidIndex(index, size);
         command = new UnmarkCommand(index);
     }
 
-    private void parseDeleteCommand(String input) {
-        int index = Integer.parseInt(input.substring(7)) - 1;
+    private void parseDeleteCommand(String input, int size) throws OutOfValidRangeException {
+        int index = getValidIndex(input, "delete");
+        checkValidIndex(index, size);
         command = new DeleteCommand(index);
     }
 
@@ -176,6 +182,33 @@ public class Parser {
     private void checkValidInputFormat(String[] arr, int num) throws InvalidInputCommandException {
         if (arr.length != num) {
             throw new InvalidInputCommandException();
+        }
+    }
+
+    private int getValidIndex(String input, String taskType) {
+        int result = -1;
+        try {
+            switch (taskType) {
+            case "mark":
+                result = Integer.parseInt(input.substring(4).trim()) - 1;
+                break;
+            case "unmark":
+                result = Integer.parseInt(input.substring(6).trim()) - 1;
+                break;
+            case "delete":
+                result = Integer.parseInt(input.substring(6).trim()) - 1;
+                break;
+            }
+        } catch (Exception e) {
+            // leave it blank to throw invalid number error
+        }
+
+        return result;
+    }
+
+    private void checkValidIndex(int num, int size) throws OutOfValidRangeException {
+        if (num < 0 || num >= size) {
+            throw new OutOfValidRangeException();
         }
     }
 }

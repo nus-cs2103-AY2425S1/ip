@@ -32,4 +32,14 @@ public class ExitCommand extends Command {
         }
         return ui.getExitMessage();
     }
+
+    /**
+     * Tells the program to close the application.
+     *
+     * @return
+     */
+    @Override
+    public boolean isExit() {
+        return true;
+    }
 }

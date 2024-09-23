@@ -22,6 +22,10 @@ public class PrintListCommand extends Command {
     @Override
     public String execute(ArrayList<Task> tasks) {
         Ui ui = new Ui();
+
+        if (tasks.isEmpty()) {
+            return ui.printEmptyList();
+        }
         return ui.printList(tasks);
     }
 }

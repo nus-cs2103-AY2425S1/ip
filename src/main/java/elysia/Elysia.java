@@ -21,7 +21,9 @@ public class Elysia {
     private ArrayList<Task> tasks = new ArrayList<>();
     private Storage storage;
 
-    public Elysia() throws IOException, InvalidFileFormatException {
+    private boolean isExit = false;
+
+    public Elysia() {
         storage = new Storage(tasks);
     }
 
@@ -35,10 +37,13 @@ public class Elysia {
      * @throws IOException     If there is an error accessing the storage during command execution.
      */
     public String getResponse(String input) {
+
         try {
             Parser parser = new Parser();
-            Command command = parser.parseCommand(input);
+            Command command = parser.parseCommand(input, this.tasks.size());
             assert command != null : "command is null";
+            this.isExit = command.isExit();
+
             return command.execute(tasks);
         } catch (ElysiaException | IOException e) {
             return e.getMessage();
@@ -54,5 +59,9 @@ public class Elysia {
 
         Ui ui = new Ui();
         return ui.getWelcomeMessage();
+    }
+
+    public boolean IsExit() {
+        return this.isExit;
     }
 }

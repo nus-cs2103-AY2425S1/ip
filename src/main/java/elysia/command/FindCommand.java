@@ -42,6 +42,10 @@ public class FindCommand extends Command {
             }
         }
 
+        if (results.isEmpty()) {
+            return ui.printEmptySearchList();
+        }
+
         return ui.printList(results);
     }
 }

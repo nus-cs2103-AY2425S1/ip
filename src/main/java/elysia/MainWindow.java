@@ -1,6 +1,8 @@
 package elysia;
 
-import elysia.ui.Ui;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 /**
  * Controller for the main GUI.
@@ -33,11 +36,10 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Injects the Duke instance
+     * Injects the Elysia instance
      */
     public void setElysia(Elysia e) {
         elysia = e;
-        Ui ui = new Ui();
         dialogContainer.getChildren().addAll(
                 DialogBox.getElysiaDialog(this.elysia.getFirstMessage(), elysiaImage)
         );
@@ -45,7 +47,7 @@ public class MainWindow extends AnchorPane {
 
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * the dialog container. Clears the user input after processing. Exits the application if user keys in "bye".
      */
     @FXML
     private void handleUserInput() {
@@ -56,6 +58,14 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getElysiaDialog(response, elysiaImage)
         );
         userInput.clear();
+
+        if (elysia.IsExit()) {
+            // Schedule the application to exit after 1.5 seconds
+            Timeline timeline = new Timeline(new KeyFrame(
+                    Duration.millis(1250),
+                    event -> Platform.exit()
+            ));
+            timeline.play();
+        }
     }
 }
-
