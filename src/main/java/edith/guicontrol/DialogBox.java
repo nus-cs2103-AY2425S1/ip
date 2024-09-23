@@ -59,6 +59,15 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+        dialog.getStyleClass().add("reply-label");
+
+        if (isErrorMessage(dialog.getText())) {
+            dialog.getStyleClass().add("error-label");
+        }
+    }
+
+    private boolean isErrorMessage(String message) {
+        return message.toLowerCase().contains("please");
     }
 
     /**
@@ -81,7 +90,7 @@ public class DialogBox extends HBox {
      * @return A DialogBox containing Edith's dialog.
      */
     public static DialogBox getEdithDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img);
         db.flip();
         return db;
     }
