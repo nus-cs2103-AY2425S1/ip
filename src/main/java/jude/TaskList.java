@@ -71,10 +71,11 @@ public class TaskList {
         return sb.toString();
     }
 
+    /** Checks if the index is valid according to the current tasklist size. Otherwise, throws JudeException. */
     private void validateIndex(int index) throws JudeException {
-        if (index < 0 || index >= list.size()) {
+        if (index < 0 || index >= size()) {
             throw new JudeException(
-                    "You are trying to get an element of index out of the list size." + list.size()
+                    "You are trying to get an element of index out of the list size " + list.size() + "."
             );
         }
     }

@@ -32,6 +32,9 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load(); // initialises the default screen and its controller by FXML loader
 
+            // Set window title
+            stage.setTitle("Jude");
+
             // Set the scene from the default screen
             Scene scene = new Scene(ap);
             stage.setScene(scene);

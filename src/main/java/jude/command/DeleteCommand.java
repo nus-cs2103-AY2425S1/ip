@@ -18,7 +18,7 @@ public class DeleteCommand extends Command {
     /**
      * Deletes task from the TaskList. Notifies the user that the task has been deleted.
      * @param list Tasklist that stores the task to be deleted.
-     * @param storage Savefile hander that will save the removed version of task data to the save file.
+     * @param storage Savefile handler that will save the removed version of task data to the save file.
      * @throws JudeException If any one of the method fails.
      */
     @Override
