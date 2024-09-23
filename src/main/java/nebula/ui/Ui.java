@@ -14,7 +14,8 @@ public class Ui {
     private static final String UNMARKED = "Nice! This task has successfully been unmarked:";
     private static final String ALREADY_MARKED = "This task has already been marked!";
     private static final String ALREADY_UNMARKED = "This task has already been unmarked!";
-    private static final String UNKNOWN_COMMAND = "OOPS! Unknown command!";
+    private static final String UNKNOWN_COMMAND = "OOPS! Unknown command! Please enter 'help'"
+            + " for a list of commands I support!";
     private static final String UNKNOWN_TASK_NUMBER = "The mark/unmark/delete command " +
             "requires a task number.";
     private static final String NONEXISTENT_TASK_NUMBER = "The task number provided " +
@@ -209,19 +210,19 @@ public class Ui {
     public String displayCommands() {
         String commands = "";
         commands += "These are the commands I support!\n\n";
-        commands += "1. List - Lists the tasks in your task list\n";
-        commands += "2. Bye - Ends the conversation with the chatbot\n";
-        commands += "3. Todo - Adds a Todo Task to your task list (Format: Todo <task name>)\n";
-        commands += "4. Deadline - Adds a Deadline Task to your task list "
+        commands += "1. list - Lists the tasks in your task list\n";
+        commands += "2. bye - Ends the conversation with the chatbot\n";
+        commands += "3. todo - Adds a Todo Task to your task list (Format: Todo <task name>)\n";
+        commands += "4. deadline - Adds a Deadline Task to your task list "
                 + "(Format: deadline <task name> /by <due date in dd-mm-yyyy hh:mm>)\n";
         commands += "5. Event - Adds a Event Task to your task list "
                 + "(Format: event <task name> /from <due date in dd-mm-yyyy hh:mm>"
                 + " /to <due date in dd-mm-yyyy hh:mm>)\n";
-        commands += "7. Mark - Marks a task as completed (Format: mark <task number>)\n";
-        commands += "8. Unmark - Marks a task as not completed (Format: unmark <task number>)\n";
-        commands += "9. Delete - Deletes a task from the task list (Format: delete <task number>)\n";
-        commands += "10. Find - Finds tasks that contain a specific keyword (Format: find <keyword>)\n";
-        commands += "11. Help - Shows a list of commands this chatbot supports\n";
+        commands += "7. mark - Marks a task as completed (Format: mark <task number>)\n";
+        commands += "8. unmark - Marks a task as not completed (Format: unmark <task number>)\n";
+        commands += "9. delete - Deletes a task from the task list (Format: delete <task number>)\n";
+        commands += "10. find - Finds tasks that contain a specific keyword (Format: find <keyword>)\n";
+        commands += "11. help - Shows a list of commands this chatbot supports\n";
         return commands;
     }
 
