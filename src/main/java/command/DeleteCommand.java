@@ -71,4 +71,8 @@ public class DeleteCommand extends Command {
         }
         return gui.showTaskRemoved(taskToDelete, tasks.size());  // Show the user that the task was removed
     }
+
+    public int getIndex() {
+        return taskIndex;
+    }
 }

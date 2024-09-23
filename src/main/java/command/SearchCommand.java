@@ -49,4 +49,8 @@ public class SearchCommand extends Command {
     public String executeGui(TaskList tasks,UiGui gui, Storage storage) {
         return gui.showSearchList(tasks.getTasks(), searchDate);
     }
+
+    public LocalDate getDate() {
+        return searchDate;
+    }
 }

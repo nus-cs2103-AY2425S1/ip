@@ -47,4 +47,7 @@ public class FindCommand extends Command {
         return gui.showFindList(taskList.getTasks(), keyword);
     }
 
+    public String getKeyword() {
+        return keyword;
+    }
 }

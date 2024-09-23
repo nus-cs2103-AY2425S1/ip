@@ -73,4 +73,8 @@ public class UnmarkCommand extends Command {
         }
         return  gui.showTaskUnmarked(taskToUnmark);  // Show the user that the task was unmarked
     }
+
+    public int getIndex() {
+        return taskIndex;
+    }
 }

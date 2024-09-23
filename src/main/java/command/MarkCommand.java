@@ -73,4 +73,8 @@ public class MarkCommand extends Command {
         }
         return gui.showTaskMarked(taskToMark); // Show the user that the task was marked
     }
+
+    public int getIndex() {
+        return taskIndex;
+    }
 }

@@ -62,4 +62,8 @@ public class AddCommand extends Command {
         }
         return gui.showTaskAdded(task, tasks.size());
     }
+
+    public Task getTask() {
+        return task;
+    }
 }
