@@ -223,6 +223,5 @@ public class Parser {
             break;
         }
         return outputCommand;
-
     }
 }
