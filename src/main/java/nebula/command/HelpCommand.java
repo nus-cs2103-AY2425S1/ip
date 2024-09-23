@@ -17,11 +17,23 @@ public class HelpCommand extends Command{
         super(description);
     }
 
+    /**
+     * Executes the command to display the list of commands.
+     *
+     * @param tasks   The list of tasks (not used in this method).
+     * @param ui      The UI component that handles displaying the task list.
+     * @param storage The storage component (not used in this method).
+     */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         return ui.displayCommands();
     }
 
+    /**
+     * Indicates whether this command will exit the application.
+     *
+     * @return false since the list command does not exit the application.
+     */
     @Override
     public boolean isExit() {
         return false;

@@ -16,7 +16,6 @@ public class ListCommand extends Command {
 
     /**
      * Executes the command to display the list of tasks.
-     * This method prints the task list to the console using the UI component.
      *
      * @param tasks   The list of tasks (not used in this method).
      * @param ui      The UI component that handles displaying the task list.

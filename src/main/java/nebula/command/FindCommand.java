@@ -15,6 +15,13 @@ public class FindCommand extends Command {
         super(description);
     }
 
+    /**
+     * Executes the command to display the list of tasks that match the keyword.
+     *
+     * @param tasks   The list of tasks.
+     * @param ui      The UI component that handles displaying the task list.
+     * @param storage The storage component (not used in this method).
+     */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         String command = getDescription();
@@ -36,6 +43,11 @@ public class FindCommand extends Command {
         }
     }
 
+    /**
+     * Indicates whether this command will exit the application.
+     *
+     * @return false since the list command does not exit the application.
+     */
     @Override
     public boolean isExit() {
         return false;
