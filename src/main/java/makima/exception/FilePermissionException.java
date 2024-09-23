@@ -1,5 +1,8 @@
 package makima.exception;
 
+/**
+ * Security / IOException
+ */
 public class FilePermissionException extends RuntimeException {
 
     public FilePermissionException() {

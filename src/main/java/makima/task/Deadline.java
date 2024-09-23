@@ -60,6 +60,12 @@ public class Deadline extends Task {
         return super.load(data);
     }
 
+    /**
+     * Factory method to load Deadline from data. Returns null if data is corrupted.
+     *
+     * @param data List of strings representing the Event.
+     * @return Deadline
+     */
     public static Deadline loadFromData(ArrayList<String> data) {
         Deadline deadline = new Deadline();
         if (deadline.load(data)) {

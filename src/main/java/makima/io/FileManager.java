@@ -5,15 +5,12 @@ import makima.exception.FileCorruptedException;
 import makima.exception.FilePermissionException;
 import makima.task.Deadline;
 import makima.task.Event;
-import makima.task.Task;
 import makima.task.ToDo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -38,7 +35,7 @@ public class FileManager {
             FileWriter fw = new FileWriter(file);
             fw.write(makima.convertTaskstoFileString());
             fw.close();
-        } catch (IOException e) {
+        } catch (IOException | SecurityException e) {
             throw new FilePermissionException();
         }
         return true;
@@ -78,9 +75,8 @@ public class FileManager {
                 System.out.println("An unexpected error occurred.");
                 return false;
             }
-        } catch (IOException e) {
-            System.out.println("An error occurred while creating a new data file!");
-            return false;
+        } catch (IOException | SecurityException e) {
+            throw new FilePermissionException();
         }
         return true;
     }
@@ -95,7 +91,7 @@ public class FileManager {
     public static boolean loadFile(Makima makima) {
         if (!createFolder() || !createFile()) {
             throw new FilePermissionException();
-        };
+        }
 
         File file = new File(DATA_PATH);
         ArrayList<String> lines = new ArrayList<>();
@@ -120,7 +116,7 @@ public class FileManager {
                     throw new FileCorruptedException(lineNumber);
                 }
 
-                for (int i = lineNumber+1; i < lineNumber + Event.SAVE_PARAMETERS; i++) {
+                for (int i = lineNumber + 1; i < lineNumber + Event.SAVE_PARAMETERS; i++) {
                     data.add(lines.get(i));
                 }
 
@@ -137,7 +133,7 @@ public class FileManager {
                     throw new FileCorruptedException(lineNumber);
                 }
 
-                for (int i = lineNumber+1; i < lineNumber + Deadline.SAVE_PARAMETERS; i++) {
+                for (int i = lineNumber + 1; i < lineNumber + Deadline.SAVE_PARAMETERS; i++) {
                     data.add(lines.get(i));
                 }
 
@@ -154,7 +150,7 @@ public class FileManager {
                     throw new FileCorruptedException(lineNumber);
                 }
 
-                for (int i = lineNumber+1; i < lineNumber + ToDo.SAVE_PARAMETERS; i++) {
+                for (int i = lineNumber + 1; i < lineNumber + ToDo.SAVE_PARAMETERS; i++) {
                     data.add(lines.get(i));
                 }
 

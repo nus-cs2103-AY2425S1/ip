@@ -70,7 +70,7 @@ public class Event extends Task {
     /**
      * Factory method to load Event from data. Returns null if data is corrupted.
      *
-     * @param data List of strings representing the ToDo.
+     * @param data List of strings representing the Event.
      * @return Event
      */
     public static Event loadFromData(ArrayList<String> data) {
