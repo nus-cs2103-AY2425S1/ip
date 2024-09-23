@@ -48,68 +48,7 @@ public class Storage {
             String textLine;
 
             while ((textLine = br.readLine()) != null) {
-                // Split the line by the '|' character
-                String[] parts = textLine.split("\\|");
-
-                // Trim whitespace from each part
-                for (int i = 0; i < parts.length; i++) {
-                    parts[i] = parts[i].trim();
-                }
-                if (parts.length < 3) {
-                    continue; // Skip invalid lines
-                }
-                // Get done status and task type
-                boolean isDone = "1".equals(parts[0]);
-                char taskSymbol = parts[1].charAt(1);
-
-                Task task = null;
-                switch (taskSymbol) {
-                    case 'T':
-                        if (parts.length >= 3) {
-                            task = new Todo(parts[2]);
-                            task.setDone(isDone);
-                        }
-                        break;
-
-                    case 'D':
-                        if (parts.length >= 4) {
-                            String deadlineDescription = parts[2];
-                            String dueDate = parts[3];
-
-                            String formattedDueDate = convertDate(dueDate);
-                            task = new Deadline(deadlineDescription, formattedDueDate);
-                            task.setDone(isDone);
-                        }
-                        break;
-
-                    case 'E':
-                        if (parts.length >= 4) {
-                            String eventDescription = parts[2];
-                            String startEndDate = parts[3];
-                            // Split start and end dates
-                            String[] dates = startEndDate.split("-");
-                            if (dates.length == 2) {
-                                String startDate = dates[0].trim();
-                                String endDate = dates[1].trim();
-
-                                String formattedStartDate = convertDate(startDate);
-                                String formattedEndDate = convertDate(endDate);
-
-                                task = new Event(eventDescription,
-                                        formattedStartDate, formattedEndDate);
-                                task.setDone(isDone);
-                            }
-                        }
-                        break;
-
-                    default:
-                        System.out.println("Unknown task type: " + taskSymbol);
-                        break;
-                }
-
-                if (task != null) {
-                    listOfTasks.add(task);
-                }
+                writeTaskToArrayList(listOfTasks, textLine);
             }
             br.close();
             fr.close();
@@ -117,6 +56,87 @@ public class Storage {
             throw new RuntimeException(e);
         }
         return listOfTasks;
+    }
+
+    public void writeTaskToArrayList(ArrayList<Task> listOfTasks, String textLine) {
+        String[] parts = textLine.split("\\|");
+
+        for (int i = 0; i < parts.length; i++) {
+            parts[i] = parts[i].trim();
+        }
+        if (parts.length < 3) {
+            return;
+        }
+
+        boolean isDone = "1".equals(parts[0]);
+        char taskSymbol = parts[1].charAt(1);
+        Task task = createTask(taskSymbol, parts, isDone);
+
+        if (task != null) {
+            listOfTasks.add(task);
+        }
+    }
+
+    public Task createTask(char taskSymbol, String[] parts, boolean isDone) {
+        switch (taskSymbol) {
+            case 'T':
+                return createTodoTask(parts, isDone);
+
+            case 'D':
+                return createDeadlineTask(parts, isDone);
+
+            case 'E':
+                return createEventTask(parts, isDone);
+
+            default:
+                System.out.println("Unknown task type: " + taskSymbol);
+                break;
+        }
+        return null;
+    }
+
+    public Task createTodoTask(String[] parts, boolean isDone) {
+        if (parts.length >= 3) {
+            Task task = new Todo(parts[2]);
+            task.setDone(isDone);
+            return task;
+        }
+        return null;
+    }
+
+    public Task createDeadlineTask(String[] parts, boolean isDone) {
+        if (parts.length >= 4) {
+            String deadlineDescription = parts[2];
+            String dueDate = parts[3];
+
+            String formattedDueDate = convertDate(dueDate);
+            Task task = new Deadline(deadlineDescription, formattedDueDate);
+            task.setDone(isDone);
+            return task;
+        }
+        return null;
+    }
+
+    public Task createEventTask(String[] parts, boolean isDone) {
+        if (parts.length >= 4) {
+            String eventDescription = parts[2];
+            String startEndDate = parts[3];
+            // Split start and end dates
+            String[] dates = startEndDate.split("-");
+            if (dates.length == 2) {
+                String startDate = dates[0].trim();
+                String endDate = dates[1].trim();
+
+                String formattedStartDate = convertDate(startDate);
+                String formattedEndDate = convertDate(endDate);
+
+                Task task = new Event(eventDescription,
+                        formattedStartDate, formattedEndDate);
+                task.setDone(isDone);
+                return task;
+            }
+        }
+        return null;
     }
 
 
@@ -169,36 +189,33 @@ public class Storage {
      * @throws IOException If an I/O error occurs while writing to the file.
      */
     public void saveTaskListToTextFile(ArrayList<Task> listOfTasks) throws IOException {
-
-        // Create a folder called "data" if it doesn't exist
         File dataDirectory = new File("./data");
         if (!dataDirectory.exists()) {
-            dataDirectory.mkdirs();  // Create the "data" directory
+            dataDirectory.mkdirs();
         }
 
-        // Define the file path within the "data" directory
         File taskFile = new File(dataDirectory, "nebulaTaskList.txt");
-
-        // Create FileWriter for the file
         FileWriter fw = new FileWriter(taskFile);
 
         for (Task task : listOfTasks) {
+            writeTask(task, fw);
+        }
+        fw.close();
+    }
 
-            String isMarked = task.isDone() ? "1" : "0";
-            String taskSymbol = task.getTaskSymbol();
-            String taskDescription = task.getDescription();
+    public void writeTask(Task task, FileWriter fw) throws IOException {
+        String isMarked = task.isDone() ? "1" : "0";
+        String taskSymbol = task.getTaskSymbol();
+        String taskDescription = task.getDescription();
 
-            String taskData = isMarked + " | " + taskSymbol + " | " + taskDescription;
+        String taskData = isMarked + " | " + taskSymbol + " | " + taskDescription;
 
-            if(task instanceof Deadline) {
-                taskData += " | " + ((Deadline) task).getDeadline();
-            } else if (task instanceof Event) {
-                taskData += " | " + ((Event) task).getStart() + "-" + ((Event) task).getEnd();
-            }
-
-            fw.write(taskData + "\n");
+        if(task instanceof Deadline) {
+            taskData += " | " + ((Deadline) task).getDeadline();
+        } else if (task instanceof Event) {
+            taskData += " | " + ((Event) task).getStart() + "-" + ((Event) task).getEnd();
         }
 
-        fw.close();
+        fw.write(taskData + "\n");
     }
 }
