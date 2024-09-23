@@ -20,8 +20,8 @@ public abstract class CreateTaskCommandBase<A extends Enum<A> & ArgEnums<A>>
      * Constructs Command object with arguments to prepare for execution.
      *
      * @param argSlices ordered array of strings with argument flags followed by argument values.
-     * @throws YappingBotIncorrectCommandException Exception thrown when there is an unknown argument
-     *                                             flag given.
+     * @throws YappingBotIncorrectCommandException Exception thrown when there is an unknown
+     *                                             argument flag given.
      */
     public CreateTaskCommandBase(String[] argSlices) throws YappingBotIncorrectCommandException {
         super(argSlices);

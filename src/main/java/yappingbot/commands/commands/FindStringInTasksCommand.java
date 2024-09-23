@@ -19,7 +19,9 @@ public class FindStringInTasksCommand
     private Ui ui;
 
     /**
-     * Possible Args for this command.
+     * Defines Argument Enum for this class.
+     *
+     * @see ArgEnums for more info.
      */
     protected enum Args implements ArgEnums<Args> {
         SEARCH_STRING("", true);

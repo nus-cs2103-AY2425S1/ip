@@ -11,6 +11,11 @@ import yappingbot.tasks.Todo;
  */
 public class CreateTodoCommand extends CreateTaskCommandBase<CreateTodoCommand.Args> {
 
+    /**
+     * Defines Argument Enum for this class.
+     *
+     * @see ArgEnums for more info.
+     */
     protected enum Args implements ArgEnums<Args> {
         TASK_NAME("", true);
 
@@ -21,10 +26,12 @@ public class CreateTodoCommand extends CreateTaskCommandBase<CreateTodoCommand.A
             this.keyword = keyword;
             this.isRequired = isRequired;
         }
+
         @Override
         public String getKeyword() {
             return keyword;
         }
+
         @Override
         public boolean isRequired() {
             return isRequired;
@@ -57,8 +64,8 @@ public class CreateTodoCommand extends CreateTaskCommandBase<CreateTodoCommand.A
      * Constructs Command object with arguments to prepare for execution.
      *
      * @param argSlices ordered array of strings with argument flags followed by argument values.
-     * @throws YappingBotIncorrectCommandException Exception thrown when there is an unknown argument
-     *                                             flag given.
+     * @throws YappingBotIncorrectCommandException Exception thrown when there is an unknown
+     *                                             argument flag given.
      */
     public CreateTodoCommand(String[] argSlices) throws YappingBotIncorrectCommandException {
         super(argSlices);

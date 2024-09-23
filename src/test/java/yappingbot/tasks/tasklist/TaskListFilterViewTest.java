@@ -26,11 +26,11 @@ class TaskListFilterViewTest {
      */
     static class DummyTask extends Task {
         private static final String[] testNames = {
-                "abc",
-                "123",
-                "doremi",
-                "abc 123",
-                "123 doremi"
+            "abc",
+            "123",
+            "doremi",
+            "abc 123",
+            "123 doremi"
         };
         private final int id;
 
@@ -70,10 +70,10 @@ class TaskListFilterViewTest {
                 throw new YappingBotInvalidSaveFileException("THROW!!1!");
             }
             String[] expected = {
-                    "DUMMY",
-                    "VALUE",
-                    "DUMMY",
-                    "VALUE"
+                "DUMMY",
+                "VALUE",
+                "DUMMY",
+                "VALUE"
             };
             assertArrayEquals(expected, stringDataSlices);
         }

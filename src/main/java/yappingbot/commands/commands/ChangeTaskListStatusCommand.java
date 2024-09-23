@@ -11,13 +11,17 @@ import yappingbot.ui.Ui;
 /**
  * Marks or Unmarks a task in a task list.
  */
-public class ChangeTaskListStatusCommand extends CommandBase<ChangeTaskListStatusCommand.Args, ChangeTaskListStatusCommand> {
+public class ChangeTaskListStatusCommand extends CommandBase<ChangeTaskListStatusCommand.Args,
+        ChangeTaskListStatusCommand> {
     private TaskList userList;
     private Ui ui;
     private boolean isTaskDone = false;
 
     /**
+     * Defines Argument Enum for this class.
      * Argument Enums - this class excepts no Arguments.
+     *
+     * @see ArgEnums for more info.
      */
     protected enum Args implements ArgEnums<Args> {
         INDEX("", true),
@@ -48,7 +52,8 @@ public class ChangeTaskListStatusCommand extends CommandBase<ChangeTaskListStatu
      * @throws YappingBotIncorrectCommandException Exception thrown when there is an unknown
      *                                             argument flag given.
      */
-    public ChangeTaskListStatusCommand(String[] userInputSlices) throws YappingBotIncorrectCommandException {
+    public ChangeTaskListStatusCommand(String[] userInputSlices)
+    throws YappingBotIncorrectCommandException {
         super(userInputSlices);
     }
 

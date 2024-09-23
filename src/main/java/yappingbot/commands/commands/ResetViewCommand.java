@@ -16,7 +16,10 @@ public class ResetViewCommand extends CommandBase<ResetViewCommand.Args, ResetVi
     private Ui ui;
 
     /**
-     * Argument Enums - this class excepts no Arguments.
+     * Defines Argument Enum for this class.
+     * This class accepts no argument.
+     *
+     * @see ArgEnums for more info.
      */
     protected enum Args implements ArgEnums<Args> {
         ;

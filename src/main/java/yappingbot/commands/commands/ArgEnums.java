@@ -4,8 +4,9 @@ import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 /**
- * Interface to define how Argument Enums should be defined.
- *  Example implementation:
+ * Defines the contract of how each Command class should establish their Arguements.
+ * Argument Enums are to be defined as {@code ARG_FLAG("keyword", isRequired)}.
+ * Example implementation:
  *  {@code
  *    private final String keyword;
  *    private final boolean isRequired;

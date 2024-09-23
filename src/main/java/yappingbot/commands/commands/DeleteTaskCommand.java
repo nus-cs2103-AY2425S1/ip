@@ -16,7 +16,10 @@ public class DeleteTaskCommand extends CommandBase<DeleteTaskCommand.Args, Delet
     private Ui ui;
 
     /**
-     * Argument Enums - this class excepts no Arguments.
+     * Defines Argument Enum for this class.
+     * This class accepts no arguments.
+     *
+     * @see ArgEnums for more info.
      */
     protected enum Args implements ArgEnums<Args> {
         INDEX("", true);
