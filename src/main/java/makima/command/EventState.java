@@ -32,7 +32,7 @@ public class EventState extends State {
                 return "What is the end time?\n";
             } catch (DateTimeParseException e) {
                 return "Invalid date format! Please input the date as follows: YYYY-MM-DD HH:MM"
-                        + "replacing the space with a T\n";
+                        + " replacing the space with a T\n";
             }
         case END_TIME:
             assert startTime != null;
@@ -40,10 +40,10 @@ public class EventState extends State {
                 LocalDateTime endTime = LocalDateTime.parse(input);
                 makima.addTask(new Event(name, startTime, endTime));
                 makima.setState(new WaitingState());
-                return "Task addedd successfully!\n";
+                return "Task added successfully!\n";
             } catch (DateTimeParseException e) {
                 return "Invalid date format! Please input the date as follows: YYYY-MM-DD HH:MM"
-                        + "replacing the space with a T\n";
+                        + " replacing the space with a T\n";
             }
         default:
             return null;

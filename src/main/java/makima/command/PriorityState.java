@@ -17,7 +17,7 @@ public class PriorityState extends State {
     public String getResponse(String input, Makima makima) {
         switch (state) {
         case TASK:
-            idx = Integer.parseInt(input);
+            idx = Integer.parseInt(input) - 1;
             if (makima.isValidTaskListIndex(idx)) {
                 state = State.PRIORITY_LEVEL;
                 return "What priority level would you like to set it to? High / Low?\n";

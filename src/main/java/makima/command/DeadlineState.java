@@ -32,7 +32,7 @@ public class DeadlineState extends State {
                 return "Task added successfully!\n";
             } catch (DateTimeParseException e) {
                 return "Invalid date format! Please input the date as follows: YYYY-MM-DD HH:MM"
-                        + "replacing the space with a T\n";
+                        + " replacing the space with a T\n";
             }
         default:
             return null;
