@@ -4,7 +4,7 @@ import trackie.storage.Storage;
 import trackie.storage.TaskList;
 
 /**
- * Represents an invalid command.
+ * Represents an invalid command. This is usually due to spelling errors during user input.
  */
 public class InvalidCommand extends Command {
     /**
@@ -18,5 +18,4 @@ public class InvalidCommand extends Command {
     public String execute(TaskList tasklist, Storage storage) {
         return "Invalid command m8. Maybe try typing \"help\" to see the list of available commands...";
     }
-
 }

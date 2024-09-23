@@ -19,9 +19,6 @@ public class Deadline extends Task {
             FormatStyle.MEDIUM
     );
 
-
-
-
     /**
      * Creates a deadline task.
      *

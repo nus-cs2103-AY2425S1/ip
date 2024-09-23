@@ -7,6 +7,9 @@ import trackie.storage.TaskList;
 import trackie.tasks.Task;
 import trackie.ui.TrackieException;
 
+/**
+ * Represents a command to find relevant tasks based on a query String.
+ */
 public class FindCommand extends Command {
     private String[] arguments;
     private int ptr = 1;
@@ -16,6 +19,13 @@ public class FindCommand extends Command {
         this.arguments = arguments;
     }
 
+    /**
+     * Executes the Find Command.
+     *
+     * @param tasklist the TaskList to operate on
+     * @param storage the storage system to interact with
+     * @return a String representation of all the commands that match the query.
+     */
     @Override
     public String execute(TaskList tasklist, Storage storage) {
         try {

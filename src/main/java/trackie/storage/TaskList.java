@@ -1,13 +1,8 @@
 package trackie.storage;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
-import trackie.tasks.Deadline;
-import trackie.tasks.Event;
 import trackie.tasks.Task;
-import trackie.tasks.Todo;
 import trackie.ui.TrackieException;
 
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 /**
@@ -62,7 +57,6 @@ public class TaskList {
         tasks.get(index).markUndone();
     }
 
-
     /**
      * Deletes a task from the task list.
      */
@@ -70,6 +64,16 @@ public class TaskList {
         tasks.remove(index);
     }
 
+    /**
+     * Searches for task(s) whose descriptions contain the specified query string.
+     *
+     * Note that the query string just has to be a substring of the task's description
+     * for the task to fulfil the query.
+     *
+     * @param query The search string to match against task descriptions.
+     * @return An ArrayList of Task objects whose descriptions contain the query string.
+     * @throws TrackieException If an error occurs during the search process.
+     */
     public ArrayList<Task> findTasks(String query) throws TrackieException {
         ArrayList<Task> tasksMatchingQuery = new ArrayList<>();
         int noOfTasksFound = 0;
@@ -79,8 +83,6 @@ public class TaskList {
                 noOfTasksFound++;
             }
         }
-
         return tasksMatchingQuery;
-
     }
 }

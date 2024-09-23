@@ -5,6 +5,11 @@ import trackie.storage.TaskList;
 import trackie.ui.TrackieException;
 
 public class UnmarkCommand extends Command {
+    /**
+     * Constructs an Unmark Command.
+     *
+     * @param arguments the array containing the arguments input by the user.
+     */
     public UnmarkCommand(String[] arguments) {
         super.arguments = arguments;
     }
