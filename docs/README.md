@@ -1,18 +1,16 @@
-# Vinegar Chatbot
+# Vinegar
 
-Welcome to **Vinegar Chatbot**, your personal task manager! Vinegar helps you manage tasks such as todos, deadlines, and events directly from the command line interface. It also includes additional features such as help documentation and sample data loading.
+Welcome to **Vinegar**, your personal task manager! Vinegar helps you manage tasks such as todos, deadlines, and events directly from the command line interface. It also includes additional features such as help documentation and sample data loading.
 
 ## Getting Started
 
-To get started with Vinegar Chatbot, follow these steps:
+To get started with Vinegar, follow these steps:
 
 1. **Install Java (JDK 11 or later)**.
-2. **Clone the repository**:  
-   git clone https://github.com/yourusername/vinegar-chatbot.git
-3. **Navigate to the project directory**:  
-   cd vinegar-chatbot
-4. **Run the application** using Gradle:  
-   gradle run
+2. **Download the JAR File**:  
+3. **Open a Command Window in the folder containing the JAR file**:  
+4. **Execute the JAR File** using the command: 
+   java -jar vinegar.jar
 
 ## Features
 
