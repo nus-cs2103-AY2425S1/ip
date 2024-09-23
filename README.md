@@ -14,7 +14,7 @@ Make sure you have Java installed and accessible from your CLI.
 2. Find the newest release and download the `torne.jar` file.
 3. In your terminal, navigate to the location of the `torne.jar` file and run `java -jar torne.jar`.
 
-## User Guide
+## How to Use
 
 For a quick-reference of the available commands, use the `help` command.
 
