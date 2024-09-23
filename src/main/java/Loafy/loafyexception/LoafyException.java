@@ -56,7 +56,18 @@ public class LoafyException extends Exception {
     public static LoafyException ofNoEventDates() {
         return new LoafyException(
                 "It seems you did not specify the name, start date, or end date for your event\n" +
-                "eg. CS2103 lecture /from 30/8/2024 4pm /to 30/8/2024 6pm");
+                "eg. CS2103 lecture /from 30/8/2024 1600 /to 30/8/2024 1800");
+    }
+
+    /**
+     * Returns a Loafy Exception for wrong order of '/from' and '/to' command.
+     *
+     * @return A new Loafy Exception.
+     */
+    public static LoafyException ofWrongOrder() {
+        return new LoafyException(
+                "It seems you specified the start date and end date for your event in the wrong order\n" +
+                        "eg. CS2103 lecture /from 30/8/2024 1600 /to 30/8/2024 1800");
     }
 
     /**
@@ -83,8 +94,10 @@ public class LoafyException extends Exception {
      */
     public static LoafyException ofWrongDateFormat() {
         return new LoafyException(
-                "Date format should be written as D/M/YYYY HHMM\n" +
-                "eg. 1/9/2024 2359");
+                "Date format should be written as D/M/YYYY or day of week.\n" +
+                "Time in 24HR clock format is optional.\n" +
+                "eg. 1/9/2024 2359\n" +
+                "eg. wednesday");
     }
 
     /**

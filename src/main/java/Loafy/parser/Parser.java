@@ -250,6 +250,10 @@ public class Parser {
             throw LoafyException.ofNoEventDates();
         }
 
+        if (fromIndex > toIndex) {
+            throw LoafyException.ofWrongOrder();
+        }
+
         String name = joinRange(inputArr, 1, fromIndex);
         String startDateString = joinRange(inputArr, fromIndex + 1, toIndex);
         String endDateString = joinRange(inputArr, toIndex + 1, inputArr.length);
