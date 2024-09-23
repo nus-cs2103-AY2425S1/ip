@@ -97,7 +97,6 @@ public class Parser {
      */
     public static void validateCommand(String command) throws NebulaException {
         assert command != null && !command.isEmpty() : "Command should not be null or empty";
-
         Ui ui = new Ui();
 
         if (command.isEmpty()) {
@@ -161,16 +160,24 @@ public class Parser {
     private static void parseDeadline(String description) throws NebulaException {
         if (!description.contains("/by")) {
             throw new NebulaException(ui.displayUnknownDeadlineException());
-        } else {
+        }
+        else {
             // Extract the date after "/by"s
             String[] parts2 = description.split("/by");
+
+            String taskDescription = parts2[0].trim();
+            if (taskDescription.isEmpty()) {
+                throw new NebulaException("The deadline task description cannot be empty!");
+            }
+
+
             String dueDate = parts2[1].trim();
             assert dueDate != null : "Deadline date should not be null";
 
             // Validate the due date format
             if (!isValidDate(dueDate)) {
                 throw new NebulaException("Warning: Deadline date "
-                        + "is not in the correct format (M/d/yyyy HHmm).");
+                        + "is not in the correct format (yyyy-mm-dd HH:mm).");
             }
         }
     }
@@ -181,6 +188,12 @@ public class Parser {
         } else {
             // Extract dates from the description
             String[] parts2 = description.split("/from");
+
+            String eventDescription = parts2[0].trim();
+            if (eventDescription.isEmpty()) {
+                throw new NebulaException("The event description cannot be empty!");
+            }
+
             String timingPart = parts2[1].trim();
             String[] dates = timingPart.split("/to");
 
@@ -193,7 +206,7 @@ public class Parser {
             // Validate the start and end dates
             if (!isValidDate(startDate) || !isValidDate(endDate)) {
                 throw new NebulaException("Warning: Event dates"
-                        + " must be in yyyy-mm-dd format.");
+                        + " are not in the correct format (yyyy-mm-dd HH:mm).");
             }
         }
     }

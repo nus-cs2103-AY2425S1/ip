@@ -17,10 +17,10 @@ public class Ui {
     private static final String UNKNOWN_COMMAND = "OOPS! Unknown command! Please enter 'help'"
             + " for a list of commands I support!";
     private static final String UNKNOWN_TASK_NUMBER = "The mark/unmark/delete command " +
-            "requires a task number.";
+            "requires a task number!";
     private static final String NONEXISTENT_TASK_NUMBER = "The task number provided " +
             "does not exist.";
-    private static final String UNKNOWN_DESCRIPTION = "The command requires a description.";
+    private static final String UNKNOWN_DESCRIPTION = "The command requires a description!";
     private static final String UNKNOWN_DEADLINE = "The deadline task description " +
             "must contain '/by' followed by the deadline date.";
     private static final String UNKNOWN_EVENT_TIMING = "The event task description " +
