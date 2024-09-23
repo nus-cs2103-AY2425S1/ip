@@ -32,9 +32,6 @@ public class Event extends Task {
      * Parse datetime string using various strategies
      */
     private LocalDateTime parseDatetimeString(String dtString) throws IllegalArgumentException {
-        if (dtString.split(" ").length == 1) {
-            dtString = dtString + " 2359";
-        }
         List<DateTimeFormatter> formatters = List.of(
                 DateTimeFormatter.ofPattern("d/M/yyyy HHmm"),
                 DateTimeFormatter.ISO_LOCAL_DATE_TIME,
@@ -56,7 +53,9 @@ public class Event extends Task {
 
         // Check if parsing was successful
         if (dateTime == null) {
-            throw new IllegalArgumentException("invalid datetime input");
+            throw new IllegalArgumentException("Invalid input."
+                    + "\nFormat: event <DESCRIPTION>"
+                    + "\n/start <dd-mm-yyyy> /end <dd-mm-yyyy>");
         } else {
             return dateTime;
         }
