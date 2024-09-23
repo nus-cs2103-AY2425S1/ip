@@ -147,7 +147,7 @@ The bot will then display your full archive list including description, deadline
 
 Bot wishes you goodbye allowing you to have a pleasant farewell.
 
-Example: `archivelist`
+Example: `bye`
 
 The bot will then wish you goodbye, and you can exit the bot using the x button at the top of the window.
 
